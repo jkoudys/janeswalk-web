@@ -1,0 +1,300 @@
+/* HTML Tag Redefinition */
+html, body {height: 100%; position:static !important; }
+body {/* customize_background */ background-color: #f9f9f9; /* customize_background */
+  padding: 0px; margin: -11px 0 0 0; }
+img {border: 0px}
+a { cursor:pointer}
+
+fieldset { border:1px solid #ccc;}
+
+/* error text class optionally provided by theme */
+div.ccm-error-response {color: #f00; margin-bottom: 12px}
+
+/* Page Structure / Navigation */
+#page{ width:100%; margin:auto; text-align:left;
+  background-repeat:repeat-x;
+}
+#page.iframe { background-image:none; }
+#page > * { width:940px; margin:0 auto; text-align:left }
+#page.iframe > * { width:100%; }
+#page header{ position:relative; vertical-align:middle; min-height:71px; margin-top:35px; margin-bottom:1em; border-bottom: 2px solid #ff9933; text-align:center; } 
+#page header #logo{ color:#999; font-size:32px; 
+	line-height: inherit; 
+padding: 0px; cursor:pointer;z-index:1;float:left;margin: 0 0 0 0;
+position:absolute; top:0;left:80px;
+height:71px; width:229px;
+background-image: url('images/logo_lines.png');
+}
+#page header div.logo { position:absolute; top:15px; }
+#page header div.logo > a {
+height:70px; width:156px; display:block;
+background-image:url(images/jwlogo.png);
+background-image:none,url(images/jwlogo.svg);
+}
+
+#page header #logo a span {
+    padding-right:6px;
+    font-size:34px;
+    color:#333; 
+    text-transform:lowercase;
+    font-style:italic;
+    font-size:44px;
+}
+#page header #logo a span:first-child { color:#fff; letter-spacing:normal; }
+#page header #logo p{ display:inline; line-height:inherit; font-size:inherit; padding:inherit; margin:inherit; color:inherit }
+
+#headerNav{ position: absolute; right: 0px; z-index:2; overflow:visible; top:6px; }
+#page header #headerNav .nav {
+  list-style-type:none;
+}
+#page header #headerNav .nav a {
+text-decoration:none;
+white-space:nowrap;
+/* customize_nav_header */ color:#333; /* customize_nav_header */
+padding: 10px 5px;
+display: block;
+}
+#page header #headerNav .nav a:hover {
+  opacity:0.6;
+}
+#page header #headerNav .nav li {
+float:left;
+padding: 0px 10px 0px 5px;
+}
+#page header #headerNav .nav { 
+list-style-type:none;
+}
+
+#page header ul.nav-header{ list-style:none; margin:0px; padding:0px; width:auto; z-index:2; overflow:visible; float: right}
+#page header ul.nav-header li{float:left; padding:2px 0px; margin-left:16px; margin-bottom: 0px; color:#999; font-size:13px; margin-top:0px }
+#page header ul.nav-header li a,#page header ul.nav-header li a:hover{ text-decoration:none; }
+#page header ul.nav-header li.nav-selected{ border:1px solid #bbb; padding:2px 8px; }
+#page header #header-area{margin-top: 10px; padding-top:107px; margin-bottom: 10px }
+#page header #header-area #header-area-inside{margin-bottom: 12px;}
+#page header #header-area img { display: block}
+#page .divider{padding-top: 12px; background: url(images/nav_horizontal_divider.gif) no-repeat top; overflow:hidden; height:1px; clear:both; width:100%; }
+
+#page #central{ clear:both; margin: 0 auto; }
+#page .no-sidebar { background-image: none !important}
+#page #central.central-left div#sidebar {float: left !important; }
+#page #central.central-left #body {float:right}
+ 
+#page #central #body{ float:left; width:67%; padding-right:28px; padding-left: 0px !important; padding-right: 0px !important; margin-left:25px; padding-bottom:2em; }
+#page .no-sidebar #body{ float: none !important; width: auto !important; }
+#page #central #sidebar{ float:right; width:29%; overflow:hidden }
+#page #central #sidebar p{ line-height:24px}
+#page #central #sidebar ul.nav{ list-style:none; margin-left:0px; padding:0px; font-size:11px;}
+#page #central #sidebar ul.nav li{ font-family: FreightLight,Georgia,serif; font-weight:normal; font-size:24px; text-align:center; border:1px dotted #fff;  }
+#page #central #sidebar ul.nav a{ text-decoration:none; color:#fff; height:46px;line-height:51px; width:100%; /* customize_button */ background-color:#67d4f5; /* customize_button */ display:block; overflow:hidden; white-space:nowrap;  }
+#page #central #sidebar ul.nav a.nav-selected {font-weight: bold}
+#page #central #sidebar ul.nav a:hover{ /* customize_button_hover */ background-color:#50c2ee; /* customize_button_hover */ }
+#page #central #sidebar ul.nav a:active{ opacity:0.6;}
+#page #central #sidebar ul.nav ul{ list-style:none; margin-left:0px; padding:0px; padding-left:16px; margin-top:16px; }
+#page #central #sidebar ul.nav ul li{ margin-bottom:16px; }
+
+#page #central.navLeft{ background:url(images/nav_sidebar_left_bg.gif) repeat-y center; }
+#page #central.navLeft  #sidebar{float:left}
+#page #central.navLeft  #body{float:right; padding-right:0px; width:68%; }
+
+#page #central.noSideNav{ background: none; }
+#page #central.noSideNav  #sidebar{ display:none }
+#page #central.noSideNav  #body{float: none; padding-left:0px; padding-right:0px; width:100%; }
+
+#page footer{ margin-top: 14px; padding:24px 0 16px 25px; clear:both;  color:#efefef; font-size:10px; background:#222; width:916px; }
+#page footer a{ text-decoration:none }
+#page footer span.sign-in {margin-left: 20px}
+#page footer span.powered-by { float:right; }
+#page footer p, #page footer address { font-size:12px; color:#efefef; }
+
+/* Page Elements */
+
+.pagingNav{ margin:16px 0px 8px 0px}
+.pagination{ text-align:center; color:#bbb; padding-top:4px}
+.pagination .pageRight{width:20%; float:right; text-align:right}
+.pagination .pageLeft{width:20%; float:left; text-align:left}
+
+/* MISC STYLES & SHORTCUTS */
+div.code {border: 1px solid #ddd; background: #eee; padding: 10px}
+div.spacer,div.ccm-spacer{ clear:both; font-size:1px; line-height:1px }
+.noTopSpace{margin-top:0px; padding-top:0px}
+div.pageSection { margin-bottom: 10px; }
+
+/* customize_miscellaneous */ /* customize_miscellaneous */
+/* Special formatting for 'walk' blocks - I've learned a bit more about blocks, and realize now this should go in the block's view.css directly. TODO.*/
+ul.eventtime {
+width: 100%;
+border-bottom: 1px dashed #DDD;
+list-style-type:none;
+margin:0 0 8px 0; padding: 0;
+}
+ul.eventtime li {
+display:inline-block;
+padding:0 14px;
+border-left: 1px dashed #ddd;
+}
+ul.eventtime h2 {
+font-size:12px;
+line-height: normal;
+font-weight:bold;
+color:#999;
+}
+ul.eventtime p {
+font-weight:bold;
+font-size:16px;
+color:#000;
+}
+ul.eventtime li:first-child { border-left:none; }
+#walkdescription {
+padding: 12px 0;
+}
+#walkdescription p > img.thumbnail {
+float:left;
+margin: 0 14px 14px 14px;
+}
+
+/* Form element stylings */
+label.checkboxPair { display: block; transition-duration:0.2s; -webkit-transition-duration:0.2s; }
+label.checkboxPair:hover { /* customize_checkbox_hover_background */ background-color:#efefef; /* customize_checkbox_hover_background */ }
+
+#datebanner p {
+  color:#fff;
+  line-height:66px;
+  font-size:25px;
+}
+#finderheader p {
+  background: url(images/flag_big.png);
+  background-repeat:no-repeat;
+  background-position:0 0;
+  color:#111;
+  line-height:52px;
+  font-size:24px;
+  position:relative;
+}
+#finderheader .option { position:absolute; top:-8px; left:50%; }
+#finderheader .option, .pagegroup { height:69px; width:51px; color:#fff; line-height:76px; text-align:left; font-size:28px; padding: 0 0 0 18px;
+  background: url(images/circles.png);
+}
+.pagegroup {
+  background: url(images/circles.png), url(images/greybar.png);
+  font-size:14px; width:63px; text-align:center; padding:0 877px 0 0; margin-top:15px; 
+  background-repeat:no-repeat;
+  background-position: 0 0, 20px 10px;
+}
+.tophead .pagegroup {
+  padding: 0 410px 0 0;
+}
+.tophead .pagenote.time { top:5px; right:322px; }
+
+#finderheader .menu { position:absolute; left:643px; }
+
+#ccm-profile-body .control-label { clear:both; float:left; min-width:80px; }
+#ccm-profile-body .controls { float:left; }
+img.u-avatar { border-radius:999px; }
+
+/* Form formatters */
+input[type=submit], .button {
+/* customize_button */ background-color:#67d4f5; /* customize_button */
+/* customize_button */ color:#fff; /* customize_button */
+        border:none;
+        font-family:FreightLight, Georgia, serif;
+        padding: 6px 6px 2px 6px;
+        font-size:21px;
+        margin-top: 5px;
+	text-decoration:none;
+}
+
+.tophead {
+	width:48%;
+	display:inline-block;
+	vertical-align:top;
+}
+.tophead h2 {
+	background:url(images/circles.png);
+	padding-left:75px;
+	background-repeat:no-repeat;
+	line-height:60px;
+	min-height:66px;
+}
+
+/* Social Login - this should be in the block template, but there's a C5 bug preventing that. */
+#headerNav .socialLogin {
+  position:absolute;
+  top:66px;right:0;
+  width:372px;
+  color:#fff;
+  padding-bottom:10px;
+  background:url(images/flag.png);
+  background-position:bottom left;
+  background-repeat:no-repeat;
+}
+#headerNav .socialLogin a {
+  display:inline;
+  text-decoration:underline;
+  color:#fff;
+}
+#headerNav .socialLogin .login {
+  background:url(images/blue.jpg) #1ea8ff; position:relative; padding: 6px 0 0 0;
+}
+#headerNav .socialLogin p { 
+  color:#fff; margin:0;
+}
+#headerNav .socialLogin span { padding-left:0.3em; }
+#headerNav div.socialProvider { display:inline-block; }
+#headerNav .socialProvider img { vertical-align:text-top; margin-top:-5px; height:21px;width:21px;padding:3px 0;  }
+
+.city-organizer {
+}
+.city-organizer p { padding:0; margin:0; }
+.city-organizer p:first-child { padding:17px 0 0 0;}
+.city-organizer h3 { }
+.city-organizer .organizer-bio {
+  min-height:80px;
+  position:relative;
+  padding: 0 0 25px 95px;
+}
+.city-organizer .organizer-bio img.u-avatar { position:absolute;left:0;top:0; }
+.obfuscated {
+  position: relative;
+  font-family: "Courier New",courier,monospace;
+  height: 1.3em;
+  width: 16em;
+}
+.obfuscated div { position:absolute; }
+
+#slideover {
+  position:fixed;
+  top:15%;
+  left:-140px;
+  width: 100px;
+  transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  padding: 30px 30px 30px 10px;
+  border-radius: 0 10px 10px 0;
+  background: #67d4f5;
+  text-align:left;
+  animation: popinout 10s;
+  -webkit-animation: popinout 10s;
+}
+#slideover:hover { left:0; animation-play-state:paused; -webkit-animation-play-state:paused; }
+#slideover p, #slideover a { color:#fff; }
+#slideover a > img { margin-top:18px; }
+
+#central.walk .pageSection img {
+	height:auto;
+	max-width:635px;
+}
+
+@keyframes popinout {   0% { left: -120px; }  5% { left: 0; }  95% { left: 0; }  100% { left: -120px; } }
+@-webkit-keyframes popinout {   0% { left: -140px; }  5% { left: 0; }  95% { left: 0; }  100% { left: -140px; } }
+
+
+footer{ padding: 45px 0 0 0; margin-top:12px; clear:both;  color:#efefef; font-size:10px; background:#333; width:100%; min-height:210px; font-family: Helvetica, Arial; }
+footer > div { width:916px; margin:0 auto; }
+footer a{ text-decoration:none }
+footer span.sign-in {margin-left: 20px}
+footer span.powered-by { float:right; }
+footer p, #page footer address { font-size:10px; color:#efefef; font-family:Helvetica, Arial; font-style:none; }
+
+
+/* Hard overrides for google translate layout */
+.goog-te-menu2-item:hover div { }
