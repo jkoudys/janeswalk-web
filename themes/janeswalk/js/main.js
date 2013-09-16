@@ -4587,14 +4587,14 @@ window.Janeswalk = {
 
     // WYSIWYG
     
-/*    $('#longdescription').wysihtml5('bypassDefaults', {
+    $('#longdescription').wysihtml5('bypassDefaults', {
       'image': false,
       parserRules: {
         tags: {
           p: {}
         }
       }
-    }); */
+    });
 
     // Date Picker
 
@@ -4889,12 +4889,6 @@ window.Janeswalk = {
       .fail(function(){
         console.log("server error");
       })
-      .success(function(){
-          $('#longdescription').wysihtml5('bypassDefaults', {
-            'image': false,
-            parserRules: {tags: {p: {}} } 
-            });
-      })
       .always(function(){
         $('.progress-spinner').spin(false);
       });
@@ -5073,13 +5067,16 @@ var JaneswalkData = {
     $.each(data, function(key, val){
       var obj = $('[name="'+key+'"]');
       if (obj.length > 0){
-        if( obj.is("textarea") ) {
-          obj.text(val);
+        if (obj.is('textarea')){
+          obj.html(val);
+          if (key == 'longdescription'){
+            $('#longdescription').data("wysihtml5").editor.setValue(val);
+          }
+        } else {
+          obj.val(val);
         }
-        else { obj.val(val); }
       }
     });
-
     // Long Description (wsyihtml5)
     // self.editor.composer.commands.exec("insertHTML", data.longdescription);
 

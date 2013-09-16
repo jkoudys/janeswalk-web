@@ -60,6 +60,24 @@
         $c->setAttribute("accessible_transit",$postArray->accessible-transit);
         $c->setAttribute("accessible_parking",$postArray->accessible-parking);
         $c->setAttribute("accessible_find", $postArray->accessible-find);
+
+        /* Go through checkboxes */
+        $checkboxes = array();
+        foreach(['theme', 'accessible'] as $akHandle) {
+          $checkboxes[$akHandle] = array();
+        }
+        foreach($postArray->checkboxes as $key => $checked) {
+          $selectAttribute = strtok($key, "-");
+          $selectValue = strtok("");
+          if($checked) {
+            array_push($checkboxes[$selectAttribute], $selectValue);
+//          $checkboxes[$selectAttribute][$selectValue] = $checked ? true : false;
+          }
+        }
+        foreach(['theme', 'accessible'] as $akHandle) {
+          $c->setAttribute($akHandle, $checkboxes[$akHandle]);
+          var_dump($checkboxes[$akHandle]);
+        }
       }
     }
     public function isPut() {

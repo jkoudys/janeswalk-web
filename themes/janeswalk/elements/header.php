@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link href="<?php echo $this->getStyleSheet('/css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
-    <link href="<?php echo $this->getStyleSheet('/css/lib/font-awesome/css/font-awesome.min.css')?>" media="screen" rel="stylesheet" type="text/css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
 
     <script src="<?php echo $this->getThemePath();?>/js/vendor/modernizr-2.6.1.min.js" type="text/javascript"></script>
 </head>
