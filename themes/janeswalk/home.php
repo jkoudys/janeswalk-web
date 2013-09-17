@@ -1,14 +1,20 @@
+<?php 
+defined('C5_EXECUTE') or die(_("Access Denied."));
+
+$c = Page::getCurrentPage();
+$u = new User();
+?>
+
 <!DOCTYPE html>
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
+<!-- saved from url=(0021)http://janeswalk.tv/# -->
+<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-active" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="utf-8">
   <title>Jane's Walk, May 4th and 5th</title>
   <meta name="description" content="Jane’s Walk celebrates the ideas and legacy of urbanist Jane Jacobs by getting people out exploring their neighbourhoods through local-led walking tours.">
   <meta name="viewport" content="width=1024">
-  <link rel="stylesheet" href="/stylesheets/screen.css">
-  <script src="/js/lib/modernizr-2.6.2.min.js"></script>
-</head>
+  <link rel="stylesheet" href="<?php echo $this->getThemePath()?>/index_files/screen.css">
+  <script src="./index_files/analytics.js" style=""></script><script src="./index_files/modernizr-2.6.2.min.js"></script>
+<style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-myriad-pro{font-family:"myriad-pro",sans-serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/e25cc9/museo-slab:i3:i7:n1:n3:n7,myriad-pro:i4:i7:n4:n7.SLT:J:2,QL2:J:2,QL7:J:2,SKB:J:2,VnC:J:2,Xc8:J:2,Xc3:J:2,XcH:J:2,Xc0:J:2/d?3bb2a6e53c9684ffdc9a9bf3135b2a620dfa8c0796a4cb9faa266ad1c0aab20e8bd43258915e59d2ad385a7b4162e36eb54c0d909a598fa08f2d3d3d1a391528d61fd3179dd48fbe794dcc4afe76d9855091c8f205aa4413776649aeab1bc9eb8bc4416261aa7d2fa5fa19c73c148653947ce732994d478fdb019b5033083526c0a1700aa8a527ff8da82a33f587cde3251a4153b15394ae9cb839001c947a"><style type="text/css"></style><script type="text/javascript" charset="UTF-8" src="./index_files/{common,util,stats}.js"></script></head>
 <body class="home">
   <header class="navbar navbar-fixed-top tk-museo-slab">
     <div class="navbar-inner">
@@ -19,21 +25,27 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/">
+        <a href="http://janeswalk.tv/">
           <div class="brand hide-text box-sizing">
             Jane's Walk
           </div>
         </a>
         <nav class="nav-collapse collapse" role="navigation">
           <ul class="nav">
-            <li><a href="#" class="notify">About</a></li>
-            <li><a href="#" class="notify">Walkability</a></li>
-            <li><a href="#" class="notify">Walk Blog</a></li>
-            <li><a href="#" class="notify">Team</a></li>
+            <li><a href="./index_files/index.html" class="notify">About</a></li>
+            <li><a href="./index_files/index.html" class="notify">Walkability</a></li>
+            <li><a href="./index_files/index.html" class="notify">Walk Blog</a></li>
+            <li><a href="./index_files/index.html" class="notify">Team</a></li>
           </ul>
         </nav>
         <ul class="nav pull-right visible-desktop">
-          <li><a href="#" class="notify">Login</a></li>
+          <?php if($u->isRegistered()) { ?>
+            <li><a href="<?php echo $this->url('/profile') ?>" class="notify"><?php echo $u->getUserName(); ?></a></li>
+            <li><a href="<?php echo $this->url('/login', 'logout') ?>" class="notify">Logout</a></li>
+          <?php } else { ?>
+            <li><a href="<?php echo $this->url('/login') ?>" class="notify">Login</a></li>
+          <?php } ?>
+
           <li class="divider-vertical"></li>
           <li>
             <a id="donate" class="btn btn-primary btn-large donate notify">Donate</a>
@@ -79,7 +91,7 @@
     </blockquote> 
 
     <div class="navbar_home">
-      <form class="input-append" action="/toronto.html" method="get" autocomplete="off">
+      <form class="input-append" action="http://janeswalk.tv/toronto.html" method="get" autocomplete="off">
         <select class="span3 large" name="URL" onchange="window.location.href=this.form.URL.options[this.form.URL.selectedIndex].value">
           <option value="/toronto.html" selected="selected">Select a City</option>
           <option value="/toronto.html">Toronto</option>
@@ -96,9 +108,9 @@
 <div class="row-fluid row1">
 
   <ul class="nav nav-tabs types tk-museo-slab box-sizing">
-    <li><a href="#festival" data-toggle="tab">Festival Weekend</a></li>
-    <li class="active"><a href="#YearRoundWalks" data-toggle="tab">YearRound Walks</a></li>
-    <li><a href="#place-based-storytelling" data-toggle="tab">Walk Stories</a></li>
+    <li class=""><a href="http://janeswalk.tv/#festival" data-toggle="tab">Festival Weekend</a></li>
+    <li class="active"><a href="http://janeswalk.tv/#YearRoundWalks" data-toggle="tab">YearRound Walks</a></li>
+    <li class=""><a href="http://janeswalk.tv/#place-based-storytelling" data-toggle="tab">Walk Stories</a></li>
   </ul>
 
 
@@ -111,14 +123,14 @@
           <p>Every year we hold a festival where people from all walks of life, in every corner of the world, offer free and open tours of where they live, inviting friends and the wider community to join them in a discussion of what works and what doesn't about the city around them. The walks celebrate the life and legacy of Jane Jacobs, a woman whose writing changed the way our cities are planned by making a case for all of us to "get out and walk"-- seeing lofty city plans from the perspective of our sidewalks. Today, the walks happen in over 100 cities, from Calgary to Calcutta, Sydney to Saskatoon.</p>
         </div>
         <div class="festivalimg span6 pull-right">
-          <img src="/images/holder_feat.png" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/index_files/holder_feat.png" alt="">
         </div>
 
         </div>
       </div>
     </div>
 
-    <div id="YearRoundWalks" class="tab-pane active thumbnail">
+    <div id="YearRoundWalks" class="tab-pane thumbnail active">
       <div class="festivalblock clearfix">
         <div class="row-fluid">
           <div class="festivalcontent span6 pull-left">
@@ -126,7 +138,7 @@
           <p>Jane’s Walk can now be enjoyed outside of the festival weekend in May at anytime throughout the year.  If you savour the Jane’s Walk format of a walking conversation, community voices, and the opportunity to learn about new and often overlooked places within a city, the Jane’s Walk YearRound program is for you.  The online booking system can be used to register for select Jane’s Walks or request walks of specific subject or place within the city.  Enjoy the special experience of Jane’s Walk with visitors, your conference, group, or simply your own desire to learn more about your city.</p>
         </div>
         <div class="festivalimg span6 pull-right">
-          <img src="/images/holder_YR.png" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/index_files/holder_YR.png" alt="">
         </div>
         </div>
       </div>
@@ -140,7 +152,7 @@
           <p>Do you have a walk that you would like to share with friends, family or would like to organize a walk for others? The Jane’s Walk – “Walk Stories” online tool allows you to easily create and share a walk story.  Build your own map with places of interest, a route through a neighbourhood or area of the city, and stories about these places.  Encourage others to “get out and walk” to enjoy and learn about the city.  Share through a web browser on your desktop or smartphone or publish for others to view.</p>
         </div>
         <div class="festivalimg span6 pull-right">
-          <img src="/images/holder.png" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/index_files/holder.png" alt="">
         </div>
         </div>
       </div>
@@ -161,26 +173,26 @@
 <div class="row-fluid row2">
       <div class="span3">
         <div class="thumbnail">
-          <img src="/images/blogpost1.jpg" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/index_files/blogpost1.jpg" alt="">
           <div class="caption">
-            <h5><a href="#" class="notify">Weekend Retrospective: Hear one Jane’s Walker’s reflections on a walk well talked</a></h5> 
+            <h5><a href="./index_files/index.html" class="notify">Weekend Retrospective: Hear one Jane’s Walker’s reflections on a walk well talked</a></h5> 
             <h6>Posted by Annie Webber on May 10, 2013</h6>
             <p>
-               Carmen Lazarus fills us in on David Teitel’s walk through the Toronto, Ontario neighbourhood where he spent his childhood, shunning the area as a young adult and returning to in 2004<a href="#" class="notify">[...]</a>
+               Carmen Lazarus fills us in on David Teitel’s walk through the Toronto, Ontario neighbourhood where he spent his childhood, shunning the area as a young adult and returning to in 2004<a href="./index_files/index.html" class="notify">[...]</a>
             </p>
           </div>
         </div>
       </div>
       <div class="span3">
         <div class="thumbnail">
-          <img src="/images/blogpost2.jpg" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/index_files/blogpost2.jpg" alt="">
           <div class="caption">
-            <h5><a href="#" class="notify">Usha Uthup sets Jane's Walk Calcutta off to a rollicking start!</a></h5>
+            <h5><a href="./index_files/index.html" class="notify">Usha Uthup sets Jane's Walk Calcutta off to a rollicking start!</a></h5>
             <h6>Posted by Iftekhar Ahsan on May 03, 2013</h6>
             <p>
               Fellow Calcutta Lovers,</p>  
 
-            <p>Thanks to Usha Uthup and all the others who joined in to romance Park Street with us this morning on the occasion of the beginning of the first Jane's Walk in India. Calcutta has always shown the way and we hope that this walking festival is taken up in other cities of India as well.<a href="#" class="notify">[...]</a>
+            <p>Thanks to Usha Uthup and all the others who joined in to romance Park Street with us this morning on the occasion of the beginning of the first Jane's Walk in India. Calcutta has always shown the way and we hope that this walking festival is taken up in other cities of India as well.<a href="./index_files/index.html" class="notify">[...]</a>
             </p>
           </div>
         </div>
@@ -188,14 +200,14 @@
 
       <div class="span3">
         <div class="thumbnail">
-          <img src="/images/blogpost3.jpg" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/index_files/blogpost3.jpg" alt="">
           <div class="caption">
-            <h5><a href="#" class="notify">Jane's Walks... Dark Age Delayed?</a></h5>
+            <h5><a href="./index_files/index.html" class="notify">Jane's Walks... Dark Age Delayed?</a></h5>
             <h6>Posted by HiMYSYeD on May 01, 2013</h6>
             <p>
              This was a puzzling realization which haunted me after I completed leading the final of several Jane's Walks last year:</p>
 
-              <p>Dark Age Ahead - The Wizard of Ossington Jane's Walk<a href="#" class="notify">[...]</a>
+              <p>Dark Age Ahead - The Wizard of Ossington Jane's Walk<a href="./index_files/index.html" class="notify">[...]</a>
             </p>
           </div>
         </div>
@@ -218,9 +230,9 @@
     </div>
   </div>
   
-<div id="prototype" class="modal hide fade">
+<div id="prototype" class="modal hide fade" style="display: none;" aria-hidden="true">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3>Jane's Walk YearRound</h3>
   </div>
   <div class="modal-body">
@@ -230,7 +242,7 @@
         <p>Thanks for coming along for the ride!</p>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn btn-primary btn-large" data-dismiss="modal">Poke Around</a>
+    <a href="./index_files/index.html" class="btn btn-primary btn-large" data-dismiss="modal">Poke Around</a>
   </div>
 
 </div>
@@ -243,33 +255,33 @@
           <address><p>CSI Annex Building<br> 720 Bathurst Street, 2nd floor<br> Toronto, ON M5S 2R4<br> 416-642-5779<br><a href="mailto:info@janeswalk.net"> Comments or Questions?&nbsp;</a></p></address>
         </div>
         <div class="span8">
-          © 2013 <a href="http://janeswalk.net">Jane's Walk</a>. All rights reserved. <a href="http://janeswalk.net/index.php/privacy-policy/">Privacy Policy</a><br>
+          © 2013 <a href="http://janeswalk.net/">Jane's Walk</a>. All rights reserved. <a href="http://janeswalk.net/index.php/privacy-policy/">Privacy Policy</a><br>
           <p>Jane's Walk is a project of <a href="http://tidescanada.org/" target="_blank">Tides Canada</a> Initiatives Society.</p>
         </div>
       </div>
     </div>
   </footer>
-  <div id="progress"></div>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCAN9glhycnT_BKO557Zm2ncVDFPImMxdY&sensor=false"></script>
-  <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-  <script src="/js/lib/js-url.min.js"></script>
-  <script src="/js/lib/jquery.cookie.js"></script>
-  <script src="/js/lib/jquery.flexslider-min.js"></script>
-  <script src="/js/lib/bootstrap.min.js"></script>
-  <script src="/js/lib/wysihtml5-0.3.0.min.js"></script>
-  <script src="/js/lib/bootstrap-datepicker.js"></script>
-  <script src="/js/lib/spin.min.js"></script>
-  <script src="/js/lib/bootstrap-wysihtml5.js"></script>
-  <script src="/js/lib/jquery.calendar.js"></script>
-  <script src="/js/lib/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="/js/lib/Eventbrite.jquery.js"></script>  
-  <script src="/js/app.js"></script>
+  <div id="progress" style="z-index: -1;"></div>
+  <script src="./index_files/jquery.min.js"></script>
+  <script type="text/javascript" src="./index_files/jquery-ui.min.js"></script>
+  <script src="./index_files/js"></script><script src="./index_files/main.js" type="text/javascript"></script>
+  <script src="./index_files/infobox.js"></script>
+  <script src="./index_files/js-url.min.js"></script>
+  <script src="./index_files/jquery.cookie.js"></script>
+  <script src="./index_files/jquery.flexslider-min.js"></script>
+  <script src="./index_files/bootstrap.min.js"></script>
+  <script src="./index_files/wysihtml5-0.3.0.min.js"></script>
+  <script src="./index_files/bootstrap-datepicker.js"></script>
+  <script src="./index_files/spin.min.js"></script>
+  <script src="./index_files/bootstrap-wysihtml5.js"></script>
+  <script src="./index_files/jquery.calendar.js"></script>
+  <script src="./index_files/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="./index_files/Eventbrite.jquery.js"></script>  
+  <script src="./index_files/app.js"></script>
   
   
   
-  <script type="text/javascript" src="//use.typekit.net/lxq4ddc.js"></script>
+  <script type="text/javascript" src="./index_files/lxq4ddc.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
   <script>
@@ -281,5 +293,6 @@
     ga('create','UA-41631408-1');ga('send','pageview');
   </script>
 
-</body>
-</html>
+
+
+</body></html>

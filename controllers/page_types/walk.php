@@ -8,6 +8,7 @@
 
       switch ($method) {
         case 'PUT':
+          $this->newEvent();
           break;
         case 'POST':
           $this->setJson($_POST['json']);
@@ -24,6 +25,17 @@
     public function rest() {
     }
     public function save() {
+    }
+
+    public function newEvent() {
+      $curl = curl_init();
+      curl_setopt($curl, CURLOPT_POST, 1);
+      $data = "https://www.eventbrite.com/xml/event_new?...&title={$c->getCollectionName()}&description={$c->getAttribute("shortdescription")}&start_date=2007-12-31+10:00:00&end_date=2008-01-01+02:00:00&timezone=GMT+01";
+
+      if ($data)
+        $url = sprintf("%s?%s", $url, http_build_query($data));
+      }
+
     }
 
     public function getJson() {

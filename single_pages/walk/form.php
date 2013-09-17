@@ -1,3 +1,10 @@
+<?php 
+defined('C5_EXECUTE') or die(_("Access Denied."));
+
+$c = Page::getCurrentPage();
+$u = new User(); 
+?>
+
 <body class="form">
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
@@ -5,7 +12,7 @@
       <a class="brand" href="#"><i class="icon-map-marker"></i> Toronto, Ontario, Canada</a>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
-          Logged in as <a href="/" class="navbar-link">Username</a>
+          Logged in as <a href="<?php echo $this->url('/profile') ?>" class="navbar-link"><?php echo $u->getUserName(); ?></a>
         </p>
       </div><!--/.nav-collapse -->
     </div>
