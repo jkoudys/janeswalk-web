@@ -60,6 +60,7 @@
         $c->setAttribute("accessible_transit",$postArray->accessible-transit);
         $c->setAttribute("accessible_parking",$postArray->accessible-parking);
         $c->setAttribute("accessible_find", $postArray->accessible-find);
+        $c->setAttribute("scheduled", $postArray->time);
 
         /* Go through checkboxes */
         $checkboxes = array();
@@ -78,6 +79,7 @@
           $c->setAttribute($akHandle, $checkboxes[$akHandle]);
           var_dump($checkboxes[$akHandle]);
         }
+
       }
     }
     public function isPut() {

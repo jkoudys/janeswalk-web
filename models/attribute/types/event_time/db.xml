@@ -15,11 +15,15 @@
  	<table name="atEventTime">
 		<field name="avID" type="I">
 			<key />
+      <autoincrement />
 			<unsigned />
 		</field>
     <field name="atScheduleID" type="I" size="10">
       <key />
       <unsigned />
+        <constraint>
+        , foreign key (atScheduleID) references atSchedule(avID)
+        </constraint>
     </field>
 		<field name="start" type="T">
 		</field>
