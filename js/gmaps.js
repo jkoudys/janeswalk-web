@@ -90,7 +90,7 @@ function gMapinitialize() {
 
 
   var stopMarker = {
-    url: '/img/marker.png',
+    url: '../img/marker.png',
     // This marker is 20 pixels wide by 32 pixels tall.
     size: new google.maps.Size(30, 46),
     // The origin for this image is 0,0.
@@ -453,7 +453,7 @@ $('.disable-alert').on('click', function(){
 // Add marker for stops
 //
 
-var pathMarker = new google.maps.MarkerImage('/img/path.marker.png',
+var pathMarker = new google.maps.MarkerImage('../img/path.marker.png',
         // This marker is 20 pixels wide by 32 pixels tall.
         null, 
         // The origin for this image is 0,0.

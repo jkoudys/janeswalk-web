@@ -672,13 +672,11 @@
     <div class="team-set">
       <div class="team-row">
           <section class="new-member" id="new-walkleader" title="Add New Walk Leader" data-new="walk-leader-new">
-            <img src="<?php echo $this->getThemePath();?>/img/walk-leader.png" data-type="walk-leader" />
             <div class="icon"></div>
             <h4 class="title text-center">Walk Leader</h4>
             <p>A person presenting information, telling stories, and fostering discussion during the Jane's Walk.</p>
           </section>
           <section class="new-member" id="new-walkorganizer" title="Add New Walk Organizer" data-new="walk-organizer-new">
-            <img src="<?php echo $this->getThemePath();?>/img/walk-organizer.png" data-type="walk-organizer" />
             <div class="icon"></div>
             <h4 class="title text-center">Walk Organizer</h4>
             <p>A person responsible for outreach to new and returning Walk Leaders and Community Voices.</p>
@@ -686,13 +684,11 @@
       </div>
       <div class="team-row">
           <section class="new-member" id="new-communityvoice" title="Add A Community Voice" data-new="community-voice-new">
-            <img src="<?php echo $this->getThemePath();?>/img/community-voice.png" data-type="community-voice" />
             <div class="icon"></div>
             <h4 class="title text-center">Community Voice</h4>
             <p>A community member with stories and/or personal experiences to share.</p>
           </section>
           <section class="new-member" id="new-othermember" title="Add another helper to your walk" data-new="othermember-new">
-            <img src="<?php echo $this->getThemePath();?>/img/volunteers.png" data-type="volunteers" />
             <div class="icon"></div>
             <h4 class="title text-center">Volunteers</h4>
             <p>Other people who are helping to make your walk happen.</p>

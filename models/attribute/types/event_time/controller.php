@@ -54,7 +54,11 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
         END,
         CASE
           WHEN MOD(TIMESTAMPDIFF(MINUTE,start,end),60) > 0 THEN
-            CONCAT(', ', MOD(TIMESTAMPDIFF(MINUTE,start,end),60), ' Minutes')
+            CONCAT(
+            CASE
+              WHEN FLOOR(TIMESTAMPDIFF(HOUR,start,end)) > 0 THEN ', ' ELSE ''
+            END
+            , MOD(TIMESTAMPDIFF(MINUTE,start,end),60), ' Minutes')
           ELSE
             ''
         END

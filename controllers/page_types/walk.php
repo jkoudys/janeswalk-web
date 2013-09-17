@@ -35,7 +35,10 @@
         "accessible-info" => $c->getAttribute("accessible_info"),
         "accessible-transit" => $c->getAttribute("accessible_transit"),
         "accessible-parking" => $c->getAttribute("accessible_parking"),
-        "accessible-find" => $c->getAttribute("accessible_find"));
+        "accessible-find" => $c->getAttribute("accessible_find"),
+        "map" => json_decode($c->getAttribute("gmap")),
+        "team" => json_decode($c->getAttribute("team")),
+        "time" => $c->getAttribute("scheduled"));
 
         /* Checkboxes */
         $walkData['checkboxes'] = array();
@@ -56,11 +59,13 @@
         $data = array("cName" => $postArray->title); $c->update($data);
         $c->setAttribute("shortdescription", $postArray->shortdescription);
         $c->setAttribute("longdescription", $postArray->longdescription);
-        $c->setAttribute("accessible_info",$postArray->accessible-info);
-        $c->setAttribute("accessible_transit",$postArray->accessible-transit);
-        $c->setAttribute("accessible_parking",$postArray->accessible-parking);
-        $c->setAttribute("accessible_find", $postArray->accessible-find);
+        $c->setAttribute("accessible_info",$postArray->{'accessible-info'});
+        $c->setAttribute("accessible_transit",$postArray->{'accessible-transit'});
+        $c->setAttribute("accessible_parking",$postArray->{'accessible-parking'});
+        $c->setAttribute("accessible_find", $postArray->{'accessible-find'});
         $c->setAttribute("scheduled", $postArray->time);
+        $c->setAttribute("gmap", json_encode($postArray->map));
+        $c->setAttribute("team", json_encode($postArray->team));
 
         /* Go through checkboxes */
         $checkboxes = array();

@@ -4741,14 +4741,6 @@ window.Janeswalk = {
       tipLoader();
     });
 
-    $('.new-member').hover(function(){
-      var imgAttr = $(this).find('img').data('type');
-      $(this).find('img').attr('src','/img/'+imgAttr+'-hover.png');
-    },function(){
-      var imgAttr = $(this).find('img').data('type');
-      $(this).find('img').attr('src','/img/'+imgAttr+'.png');
-    });
-
     // Primary Walk Leader expose
 
     $('#role').change(function(){
