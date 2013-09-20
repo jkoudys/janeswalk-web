@@ -34,7 +34,6 @@
 
       if ($data)
         $url = sprintf("%s?%s", $url, http_build_query($data));
-      }
 
     }
 

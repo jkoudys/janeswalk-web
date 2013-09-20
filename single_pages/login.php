@@ -149,9 +149,8 @@ $(function() {
     <label class="checkbox">
       <input type="checkbox"> Keep me signed in.
     </label>
-    <a href="#">Request a new password</a>
-
-      
+    <a href="#">Request a new password</a>  
+</div>
     <div class="modal-footer">
       <?php echo $form->submit('submit', t('Sign In'), null, "btn btn-primary walkthrough" )?>
       <?php  if (isset($error) && $error != '') { ?>
@@ -174,8 +173,6 @@ $(function() {
 
     </div>
    </form>
-  
-</div>
 
 
 <?php  if (ENABLE_REGISTRATION == 1) { ?>

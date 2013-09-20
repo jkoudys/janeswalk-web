@@ -5,8 +5,8 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
 	public function form() {
 		$f = Loader::helper('form');
 		$dtt = Loader::helper('form/date_time');
-		echo $dtt->datetime('walkdate', $this->getStart() ? $this->getStart() : "2013-05-05 12:00:00");
-		echo $f->select('walkduration', array('60 minutes' => '1 hour', '90 minutes' => '1.5 hours', '120 minutes' => '2 hours', '150 minutes' => '2.5 hours', '180 minutes' => '3 hours', '210 minutes' => '3.5 hours'), $this->getDuration() ? $this->getDuration() : "60 minutes" );
+/*		echo $dtt->datetime('walkdate', $this->getStart() ? $this->getStart() : "2013-05-05 12:00:00");
+		echo $f->select('walkduration', array('60 minutes' => '1 hour', '90 minutes' => '1.5 hours', '120 minutes' => '2 hours', '150 minutes' => '2.5 hours', '180 minutes' => '3 hours', '210 minutes' => '3.5 hours'), $this->getDuration() ? $this->getDuration() : "60 minutes" ); */
 	}
 	public function saveForm($data) {
 		$values = array();
