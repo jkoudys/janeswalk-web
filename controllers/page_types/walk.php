@@ -15,8 +15,8 @@
           exit;
           break;
         case 'GET':
-          $this->getJson();
-          exit;
+/*          $this->getJson();
+          exit; */
           break;
         case 'DELETE':
           break;

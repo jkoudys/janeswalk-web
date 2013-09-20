@@ -37,7 +37,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
     $db = Loader::db();
     $reArr = $db->GetRow("select open, type from atSchedule where avID = ?", array($this->getAttributeValueID()));
     if (sizeof($reArr) > 0) {
-      /* Searched but couldn't find a prebuilt function - spent WAY too much time writing this. Should be much faster than PHP. */
+      /* Searched but couldn't find a prebuilt function - spent WAY too much time writing this. Bonus is, it runs much faster than PHP. */
       $reArr["slots"] = (object) $db->GetAll("select DATE_FORMAT(start, '%M %e, %Y') as date, DATE_FORMAT(start, '%h:%i %p') as time, 
         CONCAT( 
         CASE WHEN FLOOR(TIMESTAMPDIFF(HOUR,start,end)) > 0 THEN

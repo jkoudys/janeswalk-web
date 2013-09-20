@@ -1,73 +1,11 @@
+<?php 
+defined('C5_EXECUTE') or die(_("Access Denied."));
+?>
 <!DOCTYPE html>
-<!-- saved from url=(0033)http://janeswalk.tv/toronto.html# -->
-<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-active" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>Jane's Walk Toronto</title>
-  <meta name="description" content="Jane’s Walk celebrates the ideas and legacy of urbanist Jane Jacobs by getting people out exploring their neighbourhoods through local-led walking tours.">
-  <meta name="viewport" content="width=1024">
-  <link rel="stylesheet" href="http://janeswalk.tv/stylesheets/screen.css">
-  <script src="./city_files/analytics.js" style=""></script><script src="./city_files/modernizr-2.6.2.min.js"></script>
-<style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-myriad-pro{font-family:"myriad-pro",sans-serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/e25cc9/museo-slab:i3:i7:n1:n3:n7,myriad-pro:i4:i7:n4:n7.SLT:J:2,QL2:J:2,QL7:J:2,SKB:J:2,VnC:J:2,Xc8:J:2,Xc3:J:2,XcH:J:2,Xc0:J:2/d?3bb2a6e53c9684ffdc9a9bf3135b2a620dfa8c0796a4cb9faa266ad1c0aab20e8bd43258915e59d2ad385a7b4162e36eb54c0d909a598fa08f2d3d3d1a391528d61fd3179dd48fbe794dcc4afe76d9855091c8f205aa4413776649aeab1bc9eb8bc4416261aa7d2fa5fa19c73c148653947ce732994d478fdb019b5033083526c0a1700aa8a527ff8da82a33f587cde3251a4153b15394ae9cb839001c947a"><style type="text/css"></style><script type="text/javascript" charset="UTF-8" src="./city_files/{common,util,stats}.js"></script></head>
+<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-active" style=""><!--<![endif]-->
+<?php $this->inc('elements/header.php');  ?>
 <body class="city-page">
-  <header class="navbar navbar-fixed-top tk-museo-slab">
-    <div class="navbar-inner">
-      <div class="container">
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a href="http://janeswalk.tv/">
-          <div class="brand hide-text box-sizing">
-            Jane's Walk
-          </div>
-        </a>
-        <nav class="nav-collapse collapse" role="navigation">
-          <ul class="nav">
-            <li><a href="./city_files/city.html" class="notify">About</a></li>
-            <li><a href="./city_files/city.html" class="notify">Walkability</a></li>
-            <li><a href="./city_files/city.html" class="notify">Walk Blog</a></li>
-            <li><a href="./city_files/city.html" class="notify">Team</a></li>
-          </ul>
-        </nav>
-        <ul class="nav pull-right visible-desktop">
-          <li><a href="./city_files/city.html" class="notify">Login</a></li>
-          <li class="divider-vertical"></li>
-          <li>
-            <a id="donate" class="btn btn-primary btn-large donate notify">Donate</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!--Blog Message!-->
-<div class="notification coming-soon">
-  <div class="container">
-    <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close icon-remove icon-large"></i>
-  </div>
-</div>
-
-<!--General Notification!-->
-<div class="notification walk-beta">
-  <div class="container">
-    <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close icon-remove icon-large"></i>
-  </div>
-</div>
-
-
-
-<!--General Notification!-->
-<div class="notification custom-form">
-  <div class="container">
-    <h2 class="title-sub">This feature isn't live yet, but we're thrilled that you're interested in custom walks.</h2>
-    <i class="close icon-remove icon-large"></i>
-  </div>
-</div>
-
-
-  </header>
+  <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
     
 <div class="intro-city tk-museo-slab">

@@ -211,7 +211,7 @@ $u = new User();
           <fieldset>
             <legend>Urban Planning</legend>
             <label class="checkbox"><input type="checkbox" name="theme-urban-suburbanexplorer">  The Suburban Explorer</label>
-            <label class="checkbox"><input type="checkbox" name="theme-urban-archietecturalenthusiast">  The Architectural Enthusiast</label>
+            <label class="checkbox"><input type="checkbox" name="theme-urban-architecturalenthusiast">  The Architectural Enthusiast</label>
             <label class="checkbox"><input type="checkbox" name="theme-urban-moversandshakers">  The Movers & Shakers (Transportation)</label>
           </fieldset>
         </div>
