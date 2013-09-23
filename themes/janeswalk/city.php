@@ -17,61 +17,6 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 
         </p><p>Toronto is a city of neighbourhoods and areas with a diverse cultural mix.  There were over <strong>150 walks</strong> during the past festival weekend, and a select set of walks are now available throughout the year.</p>
 
-      <!-- <div class="row-fluid">
-        <div class="clearfix city-organizer">
-          <div class="pane">
-            <div class="span3">
-              <img src="/images/profile.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span8 bio">
-              <h3>Your City Organizer</h3>
-              <p><a href="mailto:jasmine@janeswalk.net"><i class="icon-envelope-alt"></i> Jasmine Frolick </a><p>
-
-            </div>
-          </div>
-
-
-
-          <!-- 
-          <div class="pane">
-            <div class="span3">
-              <img src="/images/city-gary.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span8 bio">
-              <h3>Walk with us!</h3>
-            </div>
-          </div>
-
-          
-          <div class="pane">
-            <div class="span3">
-              <img src="/images/city-jason.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span8 bio">
-              <h3>Walk with us!</h3>
-            </div>
-          </div>
-
-          
-          <div class="pane">
-            <div class="span3">
-              <img src="/images/city-janet.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span8 bio">
-              <h3>Walk with us!</h3>
-            </div>
-          </div>
-
-         
-          <div class="pane">
-            <div class="span3">
-              <img src="/images/city-lori.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span8 bio">
-              <h3>Walk with us!</h3>
-            </div>
-          </div>
-          -->
         </div>
 
 
@@ -109,111 +54,35 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
     <h3>Featured Walks</h3>
     <a href="./city_files/city.html" class="btn btn-primary btn-large see-all notify"><i class="icon-th"></i> See All Walks</a>
     <div class="row-fluid">
-      <div class="span4 walk">
-        <a href="http://janeswalk.tv/be-there-be-square.html">
-        <div class="thumbnail">
-          <img src="./city_files/be-square-sm.jpg" alt="">
-          <div class="caption">
-            <h4>Be There and Be Square - transforming public space in civic squares</h4>
-            <h6>Walk led by Jason Kucherawy, Janet Langdon, and Howard Tam</h6>
-            <p>
-              Three squares, Nathan Phillips, Trinity, and Dundas, located in the centre of Toronto, each have very distinct histories and impact on public space in Toronto. Join us for a walk and talk about squares and public space.
-            </p> 
+    <?php
+        Loader::model('page_list');
+        $nh = Loader::helper('navigation');
+        $u = new User();
+        $pl = new PageList();
+        $pl->filterByCollectionTypeHandle("walk");
+        foreach($pl->get(3) as $page) {  ?>
+        <div class="span4 walk">
+          <a href="<?php echo $nh->getCollectionURL($page) ?>">
+          <div class="thumbnail">
+            <?php if(false) { // placeholder for thumbnail - show if one exists ?>
+              <img src="./city_files/be-square-sm.jpg" alt="">
+            <?php } ?>
+            <div class="caption">
+              <h4><?php echo $page->getCollectionName() ?></h4>
+              <h6><?php if(false) { echo "Walk led by Jason Kucherawy, Janet Langdon, and Howard Tam"; } // formatted walk leaders name ?></h6>
+              <p>
+                <?php echo $page->getAttribute('shortdescription') ?>
+              </p>
+            </div>
+            <ul class="inline tags">
+              <?php foreach($page->getAttribute("theme") as $theme) { ?>
+                <li class="tag" data-toggle="tooltip" title="" data-original-title="The History Buff"><img src="./city_files/icons-historian.png"></li>
+              <?php } ?>
+            </ul>
           </div>
-          <ul class="inline tags">
-            <li class="tag audio" data-toggle="tooltip" title="" data-original-title="Audio Walk"><i class="icon-headphones"></i></li>
-            <li class="tag" data-toggle="tooltip" title="" data-original-title="The History Buff"><img src="./city_files/icons-historian.png"></li>
-            <li class="tag" data-toggle="tooltip" title="" data-original-title="The Architectural Enthusiast"><img src="./city_files/icons-architect.png"></li>
-            <li class="tag" data-toggle="tooltip" title="" data-original-title="The True Citizen"><img src="./city_files/icon-citizen.png"></li>
-
-
-
-          </ul>
+          </a>
         </div>
-        </a>
-      </div>
-
-     
-      <div class="span4 walk">
-        <a href="http://janeswalk.tv/riverside-historical-walk.html">
-        <div class="thumbnail">
-          <img src="./city_files/riverside-feature-image.sm.jpg" alt="Riverside History Walk Featured Image">
-          <div class="caption">
-            <h4>Riverside Historical Walk</h4>
-            <h6>Walk led by Ron Fletcher</h6>
-            <p>
-              Join us in exploring Historic Queen Street East between the DVP and just past Degrassi. Riverside has a rich history dating back to the late 1700s! Get the details on some of the oldest buildings in Toronto to insider info on local anecdotes that make the Riverside a district steeped in stories.
-            </p> 
-          </div>
-          <ul class="tags inline">
-             <li class="tag" data-toggle="tooltip" title="" data-original-title="The History Buff"><img src="./city_files/icons-historian.png"></li>
-            <li class="tag" data-toggle="tooltip" title="" data-original-title="The Architectural Enthusiast"><img src="./city_files/icons-architect.png"></li>
-          </ul>
-        </div>
-        </a>
-      </div>
-
-<!--       <div class="span4 walk">
-        <a href="/stairs-lake-iroquois.html">
-        <div class="thumbnail">
-          <img src="/images/jw.s.jpg" alt="">
-          <div class="caption">
-            <h4>The Stairs of Lake Iroquois</h4>
-            <h6>Walk led by Gary Shaul & Heather Robertson</h6>
-            <p>
-              9 staircases - 356 stairs - amazing views of the city plus Casa Loma, Tollkeeper's Cottage, Wychwood Park, Artscape Wychwood Barns and more!
-            </p> 
-          </div>
-          <ul class="tags inline">
-            <li class="tag audio" data-toggle="tooltip" title="Audio Walk"><i class="icon-headphones"></i></li>
-             <li class="tag" data-toggle="tooltip" title="The History Buff"><img src="/images/icons-historian.png"></li>
-            <li class="tag" data-toggle="tooltip" title="The Fun and The Furious"><img src="/images/icons-funandfurious.png"></li>
-            <li class="tag" data-toggle="tooltip" title="The Foodie"><img src="/images/icons-foodie.png"></li>
-          </ul>
-        </div>
-        </a>
-      </div> -->
-      
-      
-      <div class="span4 walk">
-        <a href="http://janeswalk.tv/feeling-congested.html">
-        <div class="thumbnail">
-          <img src="./city_files/feeling-congested-sm.jpg" alt="">
-          <div class="caption">
-            <h4>Feeling Congested? A Walk 'n' Talk About Transportation in Toronto</h4>
-            <h6>Walk led by Tim Laspa</h6>
-            <p>
-              The City of Toronto is inviting you to participate in a walking conversation about transportation and walkability. With the help of Jane's Walk and Walk Toronto, the City has decided to deliver the first of its kind “meeting-on-the-move” as part of Feeling Congested? – the City’s public consultation focused on updating the transportation policies in the Official Plan. On this walk you will explore a distinct area of Toronto, learn about Complete Streets, and help the City make sound decisions about transportation planning.
-            </p>
-          </div>
-          <ul class="tags inline">
-            <li class="tag" data-toggle="tooltip" title="" data-original-title="The Activist"><img src="./city_files/icons-activist.png"></li>
-            <li class="tag" data-toggle="tooltip" title="" data-original-title="The Suburban Explorer"><img src="./city_files/icons-explorer.png"></li>
-            <li class="tag" data-toggle="tooltip" title="" data-original-title="The True Citizen"><img src="./city_files/icon-citizen.png"></li>
-          </ul>
-        </div>
-        </a>
-      </div>
-      <!-- <div class="span4 walk">
-        <a href="/not-the-history-of-liberty-village">
-        <div class="thumbnail">
-          <img src="/images/liberty-village-sm.jpg" alt="">
-          <div class="caption">
-            <h4>NOT the history of Liberty Village - digging under the skin and behind the curtain</h4>
-            <h6>Walk led by Lori Hoinkes</h6>
-            <p>
-              This Jane's Walk will explore the contrast between Big Data - the things we know, see and experience about a place vs. the Small Data - the questions, insight and yes, history that we don't know, can't see, never stop to question or couldn't readily find out about our community.
-            </p>
-          </div>
-          <ul class="tags inline">
-            <li class="tag" data-toggle="tooltip" title="Kid Friendly"><img src="/images/icon-kids.png"></li>
-            <li class="tag" data-toggle="tooltip" title="The True Citizen"><img src="/images/icon-citizen.png"></li>
-            <li class="tag" data-toggle="tooltip" title="The Good Neighbour"><img src="/images/icon-goodneighbour.png"></li>
-            <li class="tag" data-toggle="tooltip" title="The History Buff"><img src="/images/icons-historian.png"></li>
-          </ul>
-        </div>
-        </a>
-      </div> -->
+        <?php } ?>
     </div>
   </div>
 </div>
@@ -321,16 +190,5 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
   
   <script type="text/javascript" src="./city_files/lxq4ddc.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-
-  <script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    e.src='//www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-41631408-1');ga('send','pageview');
-  </script>
-
-
 
 </body></html>
