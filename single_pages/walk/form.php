@@ -1134,7 +1134,7 @@ $u = new User();
     <h3>Your Walk Has Been Published!</h3>
   </div>
   <div class="modal-body">
-    <p>Congratulations! Registration for your walk will be open within the next 24hrs. We'll email you when it's ready.</p>
+    <p>Congratulations! Your walk is now available for all to peruse.</p>
     <h2 class="lead"> Don't forget to share your walk!</h2>
 
     <label>Your Walk Web Address:</label>
