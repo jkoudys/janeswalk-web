@@ -1,10 +1,12 @@
 <?php 
 defined('C5_EXECUTE') or die(_("Access Denied."));
+$im = Loader::helper('image');
+$fullbg = $c->getAttribute("full_bg");
 ?>
 <!DOCTYPE html>
 <html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-active" style=""><!--<![endif]-->
 <?php $this->inc('elements/header.php');  ?>
-<body class="city-page">
+<body class="city-page" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
     

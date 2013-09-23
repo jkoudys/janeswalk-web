@@ -2,6 +2,7 @@
 <?php  Loader::library('authentication/open_id');?>
 <?php  $form = Loader::helper('form'); ?>
 <body class="index">
+<link href="<?php echo $this->getStyleSheet('/css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 $(document).ready(function() {

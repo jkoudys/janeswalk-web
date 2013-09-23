@@ -32,22 +32,22 @@ $this->inc('elements/header.php');  ?>
           echo "<li>";
           switch($theme) {
             case 'nature-naturelover':
-              echo "<div class='icon'><img src='/images/icons-naturelover.png'></div> The Nature Lover";
+              echo "<div class='icon'><img src='" . $this->getThemePath() . "/images/icons-naturelover.png'></div> The Nature Lover";
               break;
             case 'culture-historybuff':
-              echo '<div class="icon"><img src="/images/icons-historian.png"></div> The History Buff';
+              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icons-historian.png"></div> The History Buff';
               break;
             case 'urban-architecturalenthusiast':
-              echo '<div class="icon"><img src="/images/icons-architect.png"></div> The Architectural Enthusiast';
+              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icons-architect.png"></div> The Architectural Enthusiast';
               break;
             case 'civic-truecitizen':
-              echo '<div class="icon"><img src="/images/icon-citizen.png"></div> The True Citizen';
+              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icon-citizen.png"></div> The True Citizen';
               break;
             case 'urban-moversandshakers':
-              echo '<div class="icon"><img src="/images/icon-moversandshakers.png"></div> Movers and Shakers';
+              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icon-moversandshakers.png"></div> Movers and Shakers';
               break;
             case 'culture-aesthete':
-              echo '<div class="icon"><img src="/images/icon-aesthete.png"></div> The Aesthete';
+              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icon-aesthete.png"></div> The Aesthete';
               break;
             default:
               echo $theme;
