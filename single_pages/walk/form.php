@@ -1077,23 +1077,6 @@ $u = new User();
   </div>
 </div>
 
-<div id="prototype" class="modal hide fade">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Jane's Walk YearRound</h3>
-  </div>
-  <div class="modal-body">
-        <p>It's your lucky day! Here at Jane's Walk, we've been cooking up plans to expand our walks to all months of the year and this is our very first pilot for creating a walk! What does that mean for you? It means that we want to hear what you think of the new Submit a Walk features and the spiffy new website in general. (Hopefully you can handle the glare of shiny newness.)</p>
-
-        <p>You'll find that some things don't work, but fear not: you'll still be able to create and publish your walk, and you can always come back and edit the walk at any point. We're so excited that you're here.</p>
-        <p>Thanks for coming along for the ride!</p>
-  </div>
-  <div class="modal-footer">
-    <a href="#" class="btn btn-primary btn-large" data-dismiss="modal">Continue to my Walk</a>
-  </div>
-
-</div>
-
     <div class="progress-spinner"></div>
 
     <script type="text/javascript" src="//use.typekit.net/vet3xxc.js"></script>
