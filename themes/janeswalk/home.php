@@ -48,9 +48,9 @@ $nh = Loader::helper('navigation');
 <div class="row-fluid row1">
 
   <ul class="nav nav-tabs types tk-museo-slab box-sizing">
-    <li class=""><a href="http://janeswalk.tv/#festival" data-toggle="tab">Festival Weekend</a></li>
-    <li class="active"><a href="http://janeswalk.tv/#YearRoundWalks" data-toggle="tab">YearRound Walks</a></li>
-    <li class=""><a href="http://janeswalk.tv/#place-based-storytelling" data-toggle="tab">Walk Stories</a></li>
+    <li class=""><a href="#festival" data-toggle="tab">Festival Weekend</a></li>
+    <li class="active"><a href="#YearRoundWalks" data-toggle="tab">YearRound Walks</a></li>
+    <li class=""><a href="#place-based-storytelling" data-toggle="tab">Walk Stories</a></li>
   </ul>
 
 
@@ -170,22 +170,6 @@ $nh = Loader::helper('navigation');
     </div>
   </div>
   
-<div id="prototype" class="modal hide fade" style="display: none;" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3>Jane's Walk YearRound</h3>
-  </div>
-  <div class="modal-body">
-        <p>It's your lucky day! Here at Jane's Walk, we've been cooking up plans to expand our walks to all months of the year and this is our very first pilot! What does that mean for you? It means that we want to hear what you think of the new booking features and the spiffy new website in general. (Hopefully you can handle the glare of shiny newness.)</p>
-
-        <p>You'll find that some things don't work, but fear not: you'll still be able to find the walk you want to book. We're so excited that you're here.</p>
-        <p>Thanks for coming along for the ride!</p>
-  </div>
-  <div class="modal-footer">
-    <a href="./index_files/index.html" class="btn btn-primary btn-large" data-dismiss="modal">Poke Around</a>
-  </div>
-
-</div>
   </div>
   <footer class="full" role="contentinfo">
     <div class="container">

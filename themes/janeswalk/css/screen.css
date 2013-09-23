@@ -9890,7 +9890,7 @@ ul.icons li [class*=" icon-"] {
 }
 
 .intro .logo, .intro-city .logo {
-  background-image: url("/images/jwlogos-3.png");
+  background-image: url("../images/jwlogos-3.png");
   display: block;
   width: 172px;
   height: 120px;
@@ -11384,7 +11384,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .brand, .logo {
-  background: url('../images/../images/jwlogo.svg?1366668992');
+  background: url('../images/jwlogo.svg');
   -webkit-background-size: 70%;
   -moz-background-size: 70%;
   -o-background-size: 70%;
