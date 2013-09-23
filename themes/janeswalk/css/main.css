@@ -5512,11 +5512,6 @@ body {
   body.form i[class^=icon-] {
     margin: 0 auto; }
 
-/* hack to clean up camera */
-i.icon-camera-retro.icon-4x {
-  width: auto;
-  zoom: 1.8; }
-
 a {
   color: #f16725; }
   a:hover {
@@ -5531,6 +5526,15 @@ p {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
+
+/*  Resets */
+i.icon-camera-retro.icon-4x {
+  width: auto;
+  zoom: 1.8; }
+
+i[class^=icon-] {
+  height: auto;
+  width: auto; }
 
 /* ==========================================================================
    Forms

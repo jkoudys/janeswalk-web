@@ -193,4 +193,4 @@ $fullbg = $c->getAttribute("full_bg");
   <script type="text/javascript" src="./city_files/lxq4ddc.js"></script>
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-</body></html>
+<?php $this->inc('elements/footer.php');  ?>
