@@ -17,7 +17,7 @@ $this->inc('elements/header.php');  ?>
     <?php
     if( $crumb->getCollectionID() == 1 ) { ?>
       <li><a href="<?php echo $nh->getLinkToCollection($crumb) ?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-    <?php } else { ?>
+    <?php } else if ($crumb->getCollectionTypeHandle() != 'country' ) { ?>
       <li><a href="<?php echo $nh->getLinkToCollection($crumb) ?>"><?php echo $crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
     <?php }
   } ?>

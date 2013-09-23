@@ -5509,6 +5509,13 @@ body {
   margin-top: 60px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; }
+  body.form i[class^=icon-] {
+    margin: 0 auto; }
+
+/* hack to clean up camera */
+i.icon-camera-retro.icon-4x {
+  width: auto;
+  zoom: 1.8; }
 
 a {
   color: #f16725; }
