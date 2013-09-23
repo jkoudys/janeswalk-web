@@ -268,9 +268,9 @@ $u = new User();
 </div>
 
 <div id="route-help-panel">
-  <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 class="lead">Need help building your route?</h2></a>
+  <a class="accordion-toggle" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 class="lead">Need help building your route?</h2></a>
 
-  <div id="route-menu" class="collapse in" style="height:0">
+  <div id="route-menu" class="collapse in">
     <div class="row-fluid">
       <div class="span4">
         <h4>1. Set a Meeting Place</h4>
