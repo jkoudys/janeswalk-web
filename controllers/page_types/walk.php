@@ -15,8 +15,10 @@
           exit;
           break;
         case 'GET':
-/*          $this->getJson();
-          exit; */
+          if($_GET['format'] == 'json') {
+            $this->getJson();
+            exit;
+          }
           break;
         case 'DELETE':
           break;

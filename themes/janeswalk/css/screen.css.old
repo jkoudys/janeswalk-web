@@ -9821,7 +9821,7 @@ ul.icons li [class*=" icon-"] {
 .home {
   padding-top: 0;
   background-attachment: fixed;
-  background-image: url("homepage.jpg");
+  background-image: url("../images/homepage.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
@@ -10393,7 +10393,7 @@ p.lead {
   text-align: right;
 }
 .tags .tag.icon-kids {
-  background: url("kids-friendly.svg") no-repeat center center #0675fc;
+  background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   -webkit-box-shadow: 0 2px 0 0 #035ecc;
   -moz-box-shadow: 0 2px 0 0 #035ecc;
@@ -10401,14 +10401,14 @@ p.lead {
 }
 
 .icon-accessible {
-  background: url("accessibility-wheelchair.svg") no-repeat center center;
+  background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
   width: 20px;
   height: 20px;
 }
 
 .icon-transit {
-  background: url("transit.svg") no-repeat center center;
+  background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
   width: 20px;
   height: 20px;
@@ -10423,7 +10423,7 @@ p.lead {
   top: 0;
   min-height: 100px;
   background-attachment: fixed;
-  background-image: url("city-bg.jpg");
+  background-image: url("../images/city-bg.jpg");
   background-repeat: no-repeat;
   background-position: 0 -157px;
   -webkit-background-size: cover;
@@ -10835,14 +10835,14 @@ p.lead {
   display: inline-block;
 }
 .walk-page .nav-pills a i.icon-accessible {
-  background: url("accessibility-wheelchair.svg") no-repeat center center #555555;
+  background: url("/images/accessibility-wheelchair.svg") no-repeat center center #555555;
   background-size: 60%;
   -webkit-box-shadow: 0 2px 0 0 #3b3b3b;
   -moz-box-shadow: 0 2px 0 0 #3b3b3b;
   box-shadow: 0 2px 0 0 #3b3b3b;
 }
 .walk-page .nav-pills a i.icon-kids {
-  background: url("kids-friendly.svg") no-repeat center center #555555;
+  background: url("/images/kids-friendly.svg") no-repeat center center #555555;
   background-size: 60%;
   -webkit-box-shadow: 0 2px 0 0 #3b3b3b;
   -moz-box-shadow: 0 2px 0 0 #3b3b3b;
@@ -10953,7 +10953,7 @@ p.lead {
   top: 10px;
   width: 16px;
   height: 16px;
-  background: url('speech-bubble.w.svg') no-repeat;
+  background: url('../images/../images/speech-bubble.w.svg?1369798205') no-repeat;
   -webkit-background-size: contain;
   -moz-background-size: contain;
   -o-background-size: contain;
