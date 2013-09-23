@@ -17,4 +17,5 @@ $v = View::getInstance();
 $v->setThemeByPath('/login', "janeswalk");
 $v->setThemeByPath('/page_forbidden', "janeswalk");
 $v->setThemeByPath('/register', "janeswalk");
+$v->setThemeByPath('/profile', "janeswalk");
 
