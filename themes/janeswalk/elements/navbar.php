@@ -12,9 +12,9 @@ $u = new User();
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="http://janeswalk.tv/">
+        <a href="<?php echo DIR_REL ?>">
           <div class="brand hide-text box-sizing">
-            Jane's Walk
+            <?php echo $SITE ?>
           </div>
         </a>
         <nav class="nav-collapse collapse" role="navigation">

@@ -171,21 +171,6 @@ $nh = Loader::helper('navigation');
   </div>
   
   </div>
-  <footer class="full" role="contentinfo">
-    <div class="container">
-      <div class="row-fluid">
-        <div class="span4">  
-          <h4>Connect with us:</h4>
-          <address><p>CSI Annex Building<br> 720 Bathurst Street, 2nd floor<br> Toronto, ON M5S 2R4<br> 416-642-5779<br><a href="mailto:info@janeswalk.net"> Comments or Questions?&nbsp;</a></p></address>
-        </div>
-        <div class="span8">
-          © 2013 <a href="http://janeswalk.net/">Jane's Walk</a>. All rights reserved. <a href="http://janeswalk.net/index.php/privacy-policy/">Privacy Policy</a><br>
-          <p>Jane's Walk is a project of <a href="http://tidescanada.org/" target="_blank">Tides Canada</a> Initiatives Society.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <div id="progress" style="z-index: -1;"></div>
   <script src="./index_files/jquery.min.js"></script>
   <script type="text/javascript" src="./index_files/jquery-ui.min.js"></script>
   <script src="./index_files/js"></script><script src="./index_files/main.js" type="text/javascript"></script>
@@ -202,21 +187,5 @@ $nh = Loader::helper('navigation');
   <script src="./index_files/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="./index_files/Eventbrite.jquery.js"></script>  
   <script src="./index_files/app.js"></script>
-  
-  
-  
-  <script type="text/javascript" src="./index_files/lxq4ddc.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-  <script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    e.src='//www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-41631408-1');ga('send','pageview');
-  </script>
-
-
-
-</body></html>
+<?php $this->inc('elements/footer.php');  ?>

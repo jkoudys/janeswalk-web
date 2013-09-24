@@ -6217,3 +6217,7 @@ label {
   cursor: text; }
 #publish-confirmation .modal-body hr {
   margin-top: 0; }
+
+/* Navbar */
+header.navbar .brand {
+  background: url(img/jwlogo.svg); }
