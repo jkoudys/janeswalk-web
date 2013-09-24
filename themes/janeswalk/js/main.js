@@ -5245,6 +5245,10 @@ $(function() {
 $(window).load(function() {
   tipLoader();
   $('.progress-spinner').spin(false);
+  $('.tag').tooltip({
+    trigger: 'hover',
+    placement: 'bottom'
+  });
 });
 
 // $(document).on('pjax:send', function() {

@@ -321,3 +321,10 @@ footer {
     display: none;
   }
 }
+
+.inline.tags .tag i[class^=icon-] {
+  width:100%;
+  display:block;
+  text-align:center;
+  line-height:20px;
+}

@@ -1,9 +1,17 @@
 <?php
 
-$c = Page::getByID(138);
-//$c->setAttribute("scheduled", array("type" => "all", "open" => true, "slots" => array(array("date" => "September 19, 2013", "duration" => "30 Minutes"), array("date" => "September 30, 2013", "time" => "01:30 AM", "duration" => "1 Hour, 30 Minutes"))));
-$arr = $c->getAttribute("scheduled");
-echo json_encode($arr);
-
-//echo date("Y-m-d H:i:s", strtotime("September 30, 2013 01:30 AM"));
+Loader::model('attribute/type');
+Loader::model('attribute/categories/collection');
+$th = Loader::helper('theme');
+$ak = CollectionAttributeKey::getByHandle('theme');
+$satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
+$satc->setAttributeKey($ak);
+$values = $satc->getOptions(); ?>
+<div style="background-color:#00f;color:#fff;"> 
+<?php
+foreach ($values as $v) {
+    echo 'handle: "' . $v->value .'" friendly: "' . $th->getIcon($v->value) . '"<br />';
+}
+?>
+</div>
 

@@ -2,6 +2,7 @@
 defined('C5_EXECUTE') or die(_("Access Denied."));
 $im = Loader::helper('image');
 $fullbg = $c->getAttribute("full_bg");
+$th = Loader::helper('theme');
 ?>
 <!DOCTYPE html>
 <html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-active" style=""><!--<![endif]-->
@@ -15,13 +16,8 @@ $fullbg = $c->getAttribute("full_bg");
     <div class="city-header">
       <h1>Toronto Walks</h1>
       <p>
-
-
         </p><p>Toronto is a city of neighbourhoods and areas with a diverse cultural mix.  There were over <strong>150 walks</strong> during the past festival weekend, and a select set of walks are now available throughout the year.</p>
-
         </div>
-
-
       </div>
     </div>
   </div>
@@ -78,7 +74,7 @@ $fullbg = $c->getAttribute("full_bg");
             </div>
             <ul class="inline tags">
               <?php foreach($page->getAttribute("theme") as $theme) { ?>
-                <li class="tag" data-toggle="tooltip" title="" data-original-title="The History Buff"><img src="./city_files/icons-historian.png"></li>
+                <li class="tag" data-toggle="tooltip" title="<?php echo $th->getName($theme); ?>"><?php echo $th->getIcon($theme); ?></li>
               <?php } ?>
             </ul>
           </div>
@@ -101,11 +97,11 @@ $fullbg = $c->getAttribute("full_bg");
         <div class="thumbnail">
           <div class="row-fluid">
           <div class="span5">
-              <img src="./city_files/blogpost4.jpg" alt="">
+              <img src="<?php echo $this->getThemePath() ?>/city_files/blogpost4.jpg" alt="">
           </div>
           <div class="span7">
             <div class="caption">
-              <a href="./city_files/city.html"><h4>Share your Jane’s Walk Photos with the World!</h4> </a>
+              <a href="<?php echo $this->getThemePath() ?>/city_files/city.html"><h4>Share your Jane’s Walk Photos with the World!</h4> </a>
               <h6>Posted by msfrolick on May 03, 2013</h6>
                 <p>
                 Would you be interested in sharing your photos taken during Jane’s Walk with the world?</p>
@@ -122,7 +118,7 @@ $fullbg = $c->getAttribute("full_bg");
         <div class="thumbnail">
           <div class="row-fluid">
           <div class="span5">
-              <img src="./city_files/blogpost5.jpg" alt="">
+              <img src="<?php echo $this->getThemePath() ?>/city_files/blogpost5.jpg" alt="">
           </div>
           <div class="span7">
             <div class="caption">
@@ -171,26 +167,19 @@ $fullbg = $c->getAttribute("full_bg");
     </div>
   </footer>
   <div id="progress" style="z-index: -1;"></div>
-  <script src="./city_files/jquery.min.js"></script>
-  <script type="text/javascript" src="./city_files/jquery-ui.min.js"></script>
-  <script src="./city_files/js"></script><script src="./city_files/main.js" type="text/javascript"></script>
-  <script src="./city_files/infobox.js"></script>
-  <script src="./city_files/js-url.min.js"></script>
-  <script src="./city_files/jquery.cookie.js"></script>
-  <script src="./city_files/jquery.flexslider-min.js"></script>
-  <script src="./city_files/bootstrap.min.js"></script>
-  <script src="./city_files/wysihtml5-0.3.0.min.js"></script>
-  <script src="./city_files/bootstrap-datepicker.js"></script>
-  <script src="./city_files/spin.min.js"></script>
-  <script src="./city_files/bootstrap-wysihtml5.js"></script>
-  <script src="./city_files/jquery.calendar.js"></script>
-  <script src="./city_files/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="./city_files/Eventbrite.jquery.js"></script>  
-  <script src="./city_files/app.js"></script>
-  
-  
-  
-  <script type="text/javascript" src="./city_files/lxq4ddc.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/infobox.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/js-url.min.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.cookie.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.flexslider-min.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/wysihtml5-0.3.0.min.js"></script>
+
+
+  <script src="<?php echo $this->getThemePath() ?>/city_files/bootstrap-datepicker.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/spin.min.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/bootstrap-wysihtml5.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.calendar.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="<?php echo $this->getThemePath() ?>/city_files/Eventbrite.jquery.js"></script>  
 
 <?php $this->inc('elements/footer.php');  ?>
