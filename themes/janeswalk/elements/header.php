@@ -18,5 +18,6 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="<?php echo $this->getThemePath();?>/js/vendor/modernizr-2.6.1.min.js" type="text/javascript"></script>
     <script src="<?php echo $this->getThemePath()?>/js/main.js" type="text/javascript"></script>
+    <script src="<?php echo $this->getThemePath()?>/js/app.js" type="text/javascript"></script>
 </head>
 

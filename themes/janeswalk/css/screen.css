@@ -10804,6 +10804,7 @@ p.lead {
   color: #fff;
   width: 16px;
   height: 16px;
+  line-height: 16px;
   text-align: right;
 }
 .walk-page .nav-pills li .icon img {

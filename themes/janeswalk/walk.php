@@ -28,32 +28,12 @@ $this->inc('elements/header.php');  ?>
 
     <div class="tag-list">
       <ul class="nav nav-pills">
-        <?php foreach($c->getAttribute("theme") as $theme) {
-          echo "<li>";
-          switch($theme) {
-            case 'nature-naturelover':
-              echo "<div class='icon'><img src='" . $this->getThemePath() . "/images/icons-naturelover.png'></div> The Nature Lover";
-              break;
-            case 'culture-historybuff':
-              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icons-historian.png"></div> The History Buff';
-              break;
-            case 'urban-architecturalenthusiast':
-              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icons-architect.png"></div> The Architectural Enthusiast';
-              break;
-            case 'civic-truecitizen':
-              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icon-citizen.png"></div> The True Citizen';
-              break;
-            case 'urban-moversandshakers':
-              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icon-moversandshakers.png"></div> Movers and Shakers';
-              break;
-            case 'culture-aesthete':
-              echo '<div class="icon"><img src="' . $this->getThemePath() . '/images/icon-aesthete.png"></div> The Aesthete';
-              break;
-            default:
-              echo $theme;
-              break;
+        <?php 
+          $th = Loader::helper('theme');
+          foreach($c->getAttribute("theme") as $theme) {
+            echo "<li><div class='icon'>".$th->getIcon($theme).'</div> '.$th->getName($theme)."</li>";
           }
-        } ?>
+         ?>
               
       </ul>
     </div>
@@ -112,7 +92,7 @@ $this->inc('elements/header.php');  ?>
         <header id="header" class="walk-stops-meta-inner">
           <h4><i class="icon-time"></i> Duration:</h4>
           <h5>
-            Approximately 1.5 hours
+            Approximately <?php var_dump($scheduled) ?>
           </h5>
 
           <hr>
@@ -431,7 +411,6 @@ $this->inc('elements/header.php');  ?>
   <script src="/js/lib/js-url.min.js"></script>
   <script src="/js/lib/jquery.cookie.js"></script>
   <script src="/js/lib/jquery.flexslider-min.js"></script>
-  <script src="/js/lib/bootstrap.min.js"></script>
   <script src="/js/lib/wysihtml5-0.3.0.min.js"></script>
   <script src="/js/lib/bootstrap-datepicker.js"></script>
   <script src="/js/lib/spin.min.js"></script>
@@ -439,7 +418,6 @@ $this->inc('elements/header.php');  ?>
   <script src="/js/lib/jquery.calendar.js"></script>
   <script src="/js/lib/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="/js/lib/Eventbrite.jquery.js"></script>  
-  <script src="/js/app.js"></script>
   
   
   <script>
