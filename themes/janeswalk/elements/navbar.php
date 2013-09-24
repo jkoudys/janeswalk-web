@@ -18,11 +18,15 @@ $u = new User();
           </div>
         </a>
         <nav class="nav-collapse collapse" role="navigation">
+          <?                  
+          $ah = new GlobalArea('Header');
+          $ah->display($c);                   
+          ?>  
           <ul class="nav">
-            <li><a href="./index_files/index.html" class="notify">About</a></li>
-            <li><a href="./index_files/index.html" class="notify">Walkability</a></li>
-            <li><a href="./index_files/index.html" class="notify">Walk Blog</a></li>
-            <li><a href="./index_files/index.html" class="notify">Team</a></li>
+            <li><a href="#" class="notify">About</a></li>
+            <li><a href="#" class="notify">Walkability</a></li>
+            <li><a href="#" class="notify">Walk Blog</a></li>
+            <li><a href="#" class="notify">Team</a></li>
           </ul>
         </nav>
         <ul class="nav pull-right visible-desktop">

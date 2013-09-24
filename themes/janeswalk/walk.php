@@ -65,11 +65,11 @@ $this->inc('elements/header.php');  ?>
       <a class="bottom-bar" href="#walk-leader-bio">More about the Walk Team <i class="icon-chevron-down"></i></a>
     </div> -->
     <div id="reg-group">
-      <?php $scheduled = $c->getAttribute('scheduled');
+      <?php $scheduled = $c->getAttribute('scheduled');$slots = (Array)$scheduled['slots']; 
       if($scheduled['open']) { ?>
         <h4 class="available-time"><i class="icon-calendar"></i> Open schedule</h4>
-      <?php } else {  ?>
-        <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?php $slots = (Array)$scheduled['slots']; echo $slots[0]['date']; ?></span></h4>
+      <?php } else if(isset($slots[0]['date'])) {  ?>
+        <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?php echo $slots[0]['date']; ?></span></h4>
       <?php } ?>
       <a href="#register" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
     </div>
@@ -210,7 +210,7 @@ $this->inc('elements/header.php');  ?>
         <div class="span6">
           <div class="row-fluid">
             <div class="span2">
-              <img src="/images/peter.jpg" alt="" class="img-circle">
+              <img src="<?php echo $this->getThemePath() ?>/images/wo_avatar_peter.jpg" alt="" class="img-circle">
             </div>
             <div class="span6">
               <h4>Peter Foley</h4>
@@ -221,7 +221,7 @@ $this->inc('elements/header.php');  ?>
         <div class="span6">
           <div class="row-fluid">
             <div class="span2">
-              <img src="/images/denise.jpg" alt="" class="img-circle">
+              <img src="<?php echo $this->getThemePath() ?>/images/wo_avatar_denise.jpg" alt="" class="img-circle">
             </div>
             <div class="span6">
               <h4>Denise Pinto</h4>
@@ -235,7 +235,7 @@ $this->inc('elements/header.php');  ?>
         <div class="span6">
           <div class="row-fluid">
             <div class="span2">
-              <img src="/images/ruthie.jpg" alt="" class="img-circle">
+              <img src="<?php echo $this->getThemePath() ?>/images/wo_avatar_ruthie.jpg" alt="" class="img-circle">
             </div>
             <div class="span6">
               <h4>Ruthie Wellen</h4>
@@ -296,14 +296,15 @@ $this->inc('elements/header.php');  ?>
     <div class="thumbnail" id="register">
       <div class="caption">
         <h3><i class="icon-calendar"></i> Register For This Walk</h3>
-        <p class="select-day">Select a day</p>
+        <p class="select-day"><? #Select a day ?>Not yet open</p>
       </div>
       <div class="calendar-wrap box-sizing">
       
         <div class="calendar-header">
-          <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="icon-caret-left"></i></button>      
-          <span id="custom-month">April</span>, <span id="custom-year">2013</span>
-          <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="icon-caret-right"></i></button>
+          <? # <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="icon-caret-left"></i></button>      
+            # <span id="custom-month">April</span>, <span id="custom-year">2013</span> 
+             #<button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="icon-caret-right"></i></button> ?>
+          <p>Registration will be opening soon for walks in October 2013.<p>
         </div>
           
         <div id="calendar" class="fc-calendar-container"></div>
@@ -342,26 +343,35 @@ $this->inc('elements/header.php');  ?>
       <div class="caption">
       <h4><i class="icon-accessible"></i> Accessibility</h4>
         <ul>
-          <li>Curbs or steps</li>
-          <li>Busy sidewalks</li>
-          <li>Strollers welcome</li>
+          <?php foreach($c->getAttribute("accessible") as $accessible) {
+            echo "<li>".$th->getName($accessible)."</li>";
+          } ?>
         </ul>
         <p id="accessibility notes">
         
         </p>
-        <h4><i class="icon-transit"></i> Taking Public Transit</h4>
-          <p id="public tranit directions">
-            Take the Yonge-University-Spadian Subway to the Dundas Station. Exit the station and walk west to Bay Street and south on the east side of Bay to the Marriott Eaton Centre Hotel
+        <?php $public_transit = trim($c->getAttribute("accessible_transit"));
+        $accessible_parking = trim($c->getAttribute("accessible_parking"));
+        $accessible_find = trim($c->getAttribute("accessible_find"));
+        if(!empty($public_transit)) { ?>
+          <h4><i class="icon-transit"></i> Taking Public Transit</h4>
+            <p id="public transit directions">
+              <?php echo $public_transit ?>
+            </p>
+         <? }
+          if(!empty($accessible_parking)) {
+         ?>
+          <h4><i class="icon-road"></i> Parking Availability</h4>
+            <p id="parking availability">
+              <?php echo $accessible_parking ?>
+            </p>
+        <? }
+          if(!empty($accessible_find)) { ?>
+          <h4><i class="icon-flag"></i> How to find us</h4>
+          <p>
+              <?php echo $accessible_find ?>
           </p>
-        <h4><i class="icon-road"></i> Parking Availability</h4>
-          <p id="parking availability">
-            There is parking available underground below City Hall. Enter driving south on Bay south of Dundas on the west side of Bay
-          </p>
-
-        <h4><i class="icon-flag"></i> How to find us</h4>
-        <p>
-          The Walk Leaders will be carrying orange flags
-        </p>
+        <? } ?>
       </div>
     </div><!-- accessibility -->
 

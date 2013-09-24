@@ -171,21 +171,4 @@ $nh = Loader::helper('navigation');
   </div>
   
   </div>
-  <script src="./index_files/jquery.min.js"></script>
-  <script type="text/javascript" src="./index_files/jquery-ui.min.js"></script>
-  <script src="./index_files/js"></script><script src="./index_files/main.js" type="text/javascript"></script>
-  <script src="./index_files/infobox.js"></script>
-  <script src="./index_files/js-url.min.js"></script>
-  <script src="./index_files/jquery.cookie.js"></script>
-  <script src="./index_files/jquery.flexslider-min.js"></script>
-  <script src="./index_files/bootstrap.min.js"></script>
-  <script src="./index_files/wysihtml5-0.3.0.min.js"></script>
-  <script src="./index_files/bootstrap-datepicker.js"></script>
-  <script src="./index_files/spin.min.js"></script>
-  <script src="./index_files/bootstrap-wysihtml5.js"></script>
-  <script src="./index_files/jquery.calendar.js"></script>
-  <script src="./index_files/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="./index_files/Eventbrite.jquery.js"></script>  
-  <script src="./index_files/app.js"></script>
-
 <?php $this->inc('elements/footer.php');  ?>

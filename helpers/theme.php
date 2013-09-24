@@ -4,6 +4,7 @@
  * @author Joshua Koudys <jkoudys@gmail.com>
  * @copyright  Copyright (c) 2013
  * @license    http://www.concrete5.org/license/     MIT License
+ * Not quite true to its name, this helper is for modelling 'select' type attribute options, including theme and accessible
  */
 
 
@@ -63,6 +64,34 @@ class ThemeHelper {
       case "civic-goodneighbour":
         return "The Good Neighbour";
           break;
+      // Accessibility
+      case "familyfriendly":
+        return "Family friendly";
+        break;
+      case "wheelchair":
+        return "Wheelchair accessible";
+        break;
+      case "dogs":
+        return "Dogs welcome";
+        break;
+      case "strollers":
+        return "Strollers welcome";
+        break;
+      case "bicycles":
+        return "Bicycles welcome";
+        break;
+      case "steephills":
+        return "Steep hills";
+        break;
+      case "uneven":
+        return "Wear sensible shoes (uneven terrain)";
+        break;
+      case "busy":
+        return "Busy sidewalks";
+        break;
+      case "bicyclesonly":
+        return "Bicycles only";
+        break;
       default:
         break;
     }
