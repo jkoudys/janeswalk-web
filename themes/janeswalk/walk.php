@@ -92,7 +92,7 @@ $this->inc('elements/header.php');  ?>
         <header id="header" class="walk-stops-meta-inner">
           <h4><i class="icon-time"></i> Duration:</h4>
           <h5>
-            Approximately <?php var_dump($scheduled) ?>
+            Approximately <?php echo $slots[0]['duration'] ?>
           </h5>
 
           <hr>
