@@ -263,7 +263,7 @@ var styles = [{
           border: "1px solid #eee",
       },
       closeBoxMargin: "-22px -22px 2px -8px",
-      closeBoxURL: "../../../../images/map-close.png",
+      closeBoxURL: "../../../../img/map-close.png",
       infoBoxClearance: new google.maps.Size(20, 20)
     });
     
@@ -283,8 +283,8 @@ var styles = [{
         var markerContent = "<button class='btn pull-right' id='delete-marker'><i class='icon-trash'><i></button>";
       }
 
-      var activeMarker = new google.maps.MarkerImage('../../../../images/marker-active.png');
-      var defaultMarker = new google.maps.MarkerImage('../../../../images/marker.png');
+      var activeMarker = new google.maps.MarkerImage('../../../../img/marker-active.png');
+      var defaultMarker = new google.maps.MarkerImage('../../../../img/marker.png');
 
 
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
