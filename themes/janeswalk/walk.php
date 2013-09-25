@@ -382,7 +382,7 @@ $this->inc('elements/header.php');  ?>
     var walkPathCoordinates = [
     <?php
     foreach($gmap->route as $key=>$rp) {
-      echo ($key > 0 ? "," : "") . "new google.maps.LatLng(" . $rp->lat . "," . $rp->lng . ")";
+      if(isset($rp->lat) && isset($rp->lng)) echo ($key > 0 ? "," : "") . "new google.maps.LatLng(" . $rp->lat . "," . $rp->lng . ")";
     } ?>
     ];
 
