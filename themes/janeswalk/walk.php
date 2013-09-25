@@ -149,6 +149,15 @@ $this->inc('elements/header.php');  ?>
               case "leader":
                 echo '<img src="' . $this->getThemePath() . '/img/walk-leader.png" alt="Walk Leader" class="pull-left">';
                 break;
+              case "organizer":
+                echo '<img src="' . $this->getThemePath() . '/img/walk-organizer.png" alt="Walk Organizer" class="pull-left">';
+                break;
+              case "community":
+                echo '<img src="' . $this->getThemePath() . '/img/community-voice.png" alt="Community Voice" class="pull-left">';
+                break;
+              case "volunteer":
+                echo '<img src="' . $this->getThemePath() . '/img/volunteers.png" alt="Volunteer" class="pull-left">';
+                break;
               default:
                 break;
             }
