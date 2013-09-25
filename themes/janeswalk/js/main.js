@@ -5206,6 +5206,7 @@ var walkSetImage = function( fileId ) {
   alert(fileId);
 }
 
+
 // Scroll top on tab change 
 
 $('a[data-toggle="tab"]').on('shown', function(e){
@@ -5246,6 +5247,11 @@ $(window).load(function() {
   $('.tag').tooltip({
     trigger: 'hover',
     placement: 'bottom'
+  });
+  // select the file input
+  $('.fileupload input[type=file]').change(function() { 
+    // select the form and submit
+    $(this).parents("form").first().submit(); 
   });
 });
 

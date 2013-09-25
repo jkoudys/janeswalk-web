@@ -143,6 +143,16 @@ $this->inc('elements/header.php');  ?>
       <div class="walk-leader clearfix"> 
         <div class="row-fluid">
           <div class="span3">
+            <?php
+            switch($mem->type) {
+              case "you":
+              case "leader":
+                echo '<img src="' . $this->getThemePath() . '/img/walk-leader.png" alt="Walk Leader" class="pull-left">';
+                break;
+              default:
+                break;
+            }
+            ?>
           <?php # Show walk member avatar, once user accts enabled   <img src="/images/jason-lg.jpg" class="pull-left img-circle"> ?>
           </div>
           <div class="span9">
