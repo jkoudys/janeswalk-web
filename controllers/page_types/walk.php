@@ -95,7 +95,6 @@
         }
         foreach(['theme', 'accessible'] as $akHandle) {
           $c->setAttribute($akHandle, $checkboxes[$akHandle]);
-          var_dump($checkboxes[$akHandle]);
         }
 
       }

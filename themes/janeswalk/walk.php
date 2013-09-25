@@ -1,5 +1,7 @@
 <?php 
 $nh = Loader::helper('navigation');
+$gmap = json_decode($c->getAttribute("gmap"));
+$team = json_decode($c->getAttribute('team'));
 $this->inc('elements/header.php');  ?>
 
 <body class="walk-page active-walk">
@@ -48,22 +50,6 @@ $this->inc('elements/header.php');  ?>
   </div>
 
   <div class="span3 profiles box-sizing">
-    <!-- <div class="row-fluid profile-inner clearfix">
-      <div class="span3">
-        <img src="/images/jason-sm.jpg" alt="" class="img-circle">
-      </div>
-      <div class="span9 bio">
-        <h4>Walk Leader: Jason Kucherawy</h4>
-        <div class="btn-toolbar">
-          <a href="#" class="btn notify"><i class="icon-envelope-alt"></i></a>
-        <a class="btn" href=""><i class="icon-facebook"></i></a>
-        <a class="btn notify" href="#"><i class="icon-twitter"></i></a>
-        </div>
-      <small>It can take a village to put together a Jane's Walk. Learn more about the people that make this walk happen.</small>
-        
-      </div>
-      <a class="bottom-bar" href="#walk-leader-bio">More about the Walk Team <i class="icon-chevron-down"></i></a>
-    </div> -->
     <div id="reg-group">
       <?php $scheduled = $c->getAttribute('scheduled');$slots = (Array)$scheduled['slots']; 
       if($scheduled['open']) { ?>
@@ -79,7 +65,22 @@ $this->inc('elements/header.php');  ?>
 
 <div class="row-fluid walk-leaders clearfix">
   <div class="span7">
-    <h4>Walk Leaders: Jason Kucherawy, Janet Langdon, and Howard Tam</h4>
+  <?php 
+  $teamCount = 0;
+  foreach($team as $mem) {
+    if(!empty($mem->{'name-first'})) { $teamCount++; }
+  }
+  if($teamCount > 0) {
+    if($teamCount == 1) {
+      echo "<h4>Walk Leader: ";
+    }
+    else {
+      echo "<h4>Walk Leaders: ";
+    }
+    foreach($team as $key=>$mem) {
+      echo (empty($mem->{'name-first'}) ? "" : ($key > 0 ? ", " : "") . $mem->{'name-first'} . " " . $mem->{'name-last'});
+    }
+  } ?>
   </div>
 </div>
 
@@ -101,16 +102,13 @@ $this->inc('elements/header.php');  ?>
 
 
           <hr>
-          <h4><img src="/images/marker.w.png" alt=""> Walk Route</h4>
+          <h4><i class="icon-map-marker"></i> Walk Route</h4>
           <h5 class="clickdetails">Click locations to see details</h5>
           <ol>
-            <li class="walk-stop" id="0"><h5>Meeting Place:<br> Lobby of the Marriott Downtown Eaton Centre Hotel (525 Bay Street)</h5></li>
-            <li class="walk-stop" id="1"><h5>Old City Hall</h5></li>
-            <li class="walk-stop" id="2"><h5>Nathan Phillips Square</h5></li>
-            <li class="walk-stop" id="3"><h5>Old Chinatown</h5></li>
-            <li class="walk-stop" id="4"><h5>Trinity Square</h5></li>
-            <li class="walk-stop" id="5"><h5>Eaton Centre</h5></li>
-            <li class="walk-stop" id="6"><h5>Dundas Square</h5></li>
+          <?php
+            foreach($gmap->markers as $key=>$marker) {
+            echo "<li class='walk-stop' id='".$key."'><h4>".$marker->title . "</h4></li>";
+            } ?>
           </ol>
         </header>
       </div>
@@ -138,64 +136,29 @@ $this->inc('elements/header.php');  ?>
       <hr>
       <h3 id="walk-leader-bio">About The Walk Team</h3>
 
-
+      <?php
+      foreach($team as $mem) { 
+        if(!empty($mem->{'name-first'})) {
+        ?>
       <div class="walk-leader clearfix"> 
         <div class="row-fluid">
           <div class="span3">
-            <img src="/images/jason-lg.jpg" class="pull-left img-circle">
+          <?php # Show walk member avatar, once user accts enabled   <img src="/images/jason-lg.jpg" class="pull-left img-circle"> ?>
           </div>
           <div class="span9">
 
-            <h4><span class="title">Walk Leader:</span><br> Jason Kucherawy</h4>
+            <h4><span class="title">Walk Leader:</span><br> <?php echo $mem->{'name-first'} . " " . $mem->{'name-last'}; ?></h4>
             <div class="btn-toolbar">
               <a class="btn notify">Request a Custom Walk</a>
-              <a href="mailto:jason@tourguys.ca" class="btn"><i class="icon-envelope-alt"></i></a>
+              <a href="mailto:<?php echo $mem->email ?>" class="btn"><i class="icon-envelope-alt"></i></a>
               <a class="btn notify"><i class="icon-facebook"></i></a>
               <a class="btn notify"><i class="icon-twitter notify"></i></a>
              </div>
-            <p>As a professional tour guide and downtown resident for more than 15 years, Jason knows what makes Toronto tick and loves to share what he knows.</p>
-            <p>Jason's educational background in cultural anthropology, tour guide training, stage experience as a comedian, and his vast and varied interests (including history, culture, politics, craft beer, graffiti art, music, city-building, education, and games) make him a versatile and entertaining walk leader.</p>
+           <?php echo $mem->bio ?>
           </div>
         </div>
       </div>
-
-      <div class="walk-leader clearfix">
-        <div class="row-fluid">
-          <div class="span3">
-            <img src="/images/janet-lg.jpg" class="pull-left img-circle">
-          </div>
-          <div class="span9">
-            <h4><span class="title">Walk Leader:</span><br> Janet Langdon</h4>
-            <div class="btn-toolbar">
-              <a class="btn notify">Request a Custom Walk</a>
-              <a href="mailto:janetlangdon@gmail.com" class="btn"><i class="icon-envelope-alt"></i></a>
-              <a class="btn notify"><i class="icon-facebook"></i></a>
-              <a class="btn notify"><i class="icon-twitter"></i></a>
-            </div>
-            <p>Janet is a third generation Torontonian with a passion for its history and architecture. A graduate of the Local Tour Guide course at George Brown College, she often dons the cloak of an intrepid tour guide for Heritage Toronto, the Toronto Field Naturalists and the Toronto Society of Architects. With her extensive knowledge of Toronto, Janet enjoys sharing insightful and informative commentary.</p>
-          </div>   
-        </div>
-      </div>
-      
-      <div class="walk-leader clearfix"> 
-        <div class="row-fluid">
-          <div class="span3">
-            <img src="/images/howard-lg.jpg" class="pull-left img-circle">
-          </div>
-          <div class="span9">
-            <h4><span class="title">Walk Leader:</span><br> Howard Tam</h4>
-            <div class="btn-toolbar">
-              <a class="btn notify">Request a Custom Walk</a>
-              <a href="mailto:howard.t.tam@gmail.com" class="btn"><i class="icon-envelope-alt"></i></a>
-              <a class="btn notify"><i class="icon-facebook"></i></a>
-              <a class="btn notify"><i class="icon-twitter notify"></i></a>
-            </div>
-            <p>An urban planner and computer engineer by training, Howard has previously spent time studying and travelling in East Asia, worked with the Ontario Ministries of Finance and Infrastructure and has been a student leader as well as an environment and health activist.</p>
-
-            <p>Raised in Toronto, Howard loves his home town and aspires to make it a better place to live. As Urban Innovator and Strategist at the ThinkFresh Group, Howard’s work focuses on seeing social enterprise come to life in urban infrastructure and community projects.</p>
-          </div>
-        </div>
-      </div> 
+    <?php } } ?>
     </div><!-- About The Walk Leader Section -->
 
     <hr>
@@ -404,45 +367,23 @@ $this->inc('elements/header.php');  ?>
 
 
   </div> 
- <?php $gmap = json_decode($c->getAttribute("gmap"));
- var_dump($gmap);
- var_dump($gmap->markers);
- ?>
   <script>
+    <?php 
+    echo "var locations=[";
+    foreach($gmap->markers as $key=>$marker) {
+    echo ($key > 0 ? "," : "") . "['" . $marker->title . "','" . $marker->description . "'," . $marker->lng . "," . $marker->lat . "," . $key . "]";
+    }
+    echo "];";
+    ?>
 
-    // Location Information
-
-    var locations = [
-      ['Lobby of the Marriott Downtown Eaton Centre Hotel', '525 Bay Street', 43.65461478342304,-79.38297986984259, 0],
-      ['Old City Hall', 'Discuss the history of Toronto\'s feelings about Old City Hall, its multiple uses and limits as a public gathering point.', 43.652169557153265,-79.38223958015448, 1],
-       ['Nathan Phillips Square', 'Learn about the history of plans to replace of Old City Hall and eventual plans for New City Hall and Nathan Phillips Square', 43.6523170498133,-79.38289403915405, 2],
-      ['Old Chinatown', 'Explore how redevelopment changes neighbourhoods and the displacement of old Chinatown due to new City Hall and Nathan Phillips Square.', 43.65480108229511,-79.38586592674255, 3],
-      ['Trinity Square', 'Examine the poverty and living conditions of residents of "The Ward", how the church came to be built and how the area has always been a retail hub.', 43.654226658916606,-79.38191771507263, 4],
-      ['Eaton Centre', 'Engage in the history of this building and discuss interior public space.', 43.65472345783528,-79.3807482719422, 5],
-      ['Dundas Square', 'Discuss urban renewal as it relates to this square and how public gathering spaces can be both designed and impromptu. Also consider the use of private land for public use.', 43.65615173183301,-79.38010454177856, 6],   
-    ];
 
     // Drawing Polyline
 
     var walkPathCoordinates = [
-      new google.maps.LatLng(43.65461478342304,-79.38297986984259),
-      new google.maps.LatLng(43.65457597108526,-79.38315153121948),
-      new google.maps.LatLng(43.652169557153265,-79.38223958015448),
-      new google.maps.LatLng(43.65210745487224,-79.3826043605805),
-      new google.maps.LatLng(43.65240244013514,-79.3827760219574),
-      new google.maps.LatLng(43.652371389123076,-79.38414931297308),
-      new google.maps.LatLng(43.652852678006106,-79.38498616218573),
-      new google.maps.LatLng(43.6538618195933,-79.38549041748053),
-      new google.maps.LatLng(43.655165915912036,-79.38606977462774),
-      new google.maps.LatLng(43.655375500179005,-79.38509345054632),
-      new google.maps.LatLng(43.65408693348021,-79.3845677375794),
-      new google.maps.LatLng(43.6543663840279,-79.38328027725225),
-      new google.maps.LatLng(43.65439743400848,-79.38303351402288),
-      new google.maps.LatLng(43.65458373355482,-79.38214302062994),
-      new google.maps.LatLng(43.65442072148336,-79.38198208808905),
-      new google.maps.LatLng(43.654762270077725,-79.38030838966375),
-      new google.maps.LatLng(43.65569375637074,-79.38071608543402),
-      new google.maps.LatLng(43.65603529772455,-79.3802976608277)
+    <?php
+    foreach($gmap->route as $key=>$rp) {
+      echo ($key > 0 ? "," : "") . "new google.maps.LatLng(" . $rp->lat . "," . $rp->lng . ")";
+    } ?>
     ];
 
     // Map Centering

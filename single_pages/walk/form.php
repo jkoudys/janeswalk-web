@@ -1079,21 +1079,8 @@ $u = new User();
 
     <div class="progress-spinner"></div>
 
-    <script type="text/javascript" src="//use.typekit.net/vet3xxc.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    
-    <script src="https://maps.googleapis.com/maps/api/js??key=AIzaSyCTbyfMAcZsWHj-oM3bg2FUrQTIDaVoi_A&v=3.exp&sensor=false"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<?php echo $this->getThemePath();?>/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
     <script src="<?php echo $this->getThemePath();?>/js/gmaps.js" type="text/javascript"></script>
-    <script src="<?php echo $this->getThemePath();?>/js/main.js" type="text/javascript"></script>
 
-    <script>
-      var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-      g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-      s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
   </body>
 
 <!-- Publish Model 1 -->

@@ -21,13 +21,13 @@
 
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="//cdn.jsdelivr.net/bootstrap.wysihtml5/0.0.2/bootstrap-wysihtml5-0.0.2.min.js"></script>
-    <script src="//cdn.jsdelivr.net/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
 
     <script src="//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js"></script>
     <script src="//cdn.jsdelivr.net/spinjs/1.3.0/spin.min.js"></script>
     <script src="<?=$this->getThemePath()?>/js/jquery.calendar.js"></script>
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/2.8.1/jquery.mCustomScrollbar.min.js"></script>
     <script src="<?=$this->getThemePath()?>/js/Eventbrite.jquery.js"></script>  
+    <script src="//cdn.jsdelivr.net/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
  
     <script src="<?php echo $this->getThemePath()?>/js/main.js" type="text/javascript"></script>
     <script src="<?php echo $this->getThemePath()?>/js/app.js" type="text/javascript"></script>
