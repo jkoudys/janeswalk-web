@@ -5201,6 +5201,11 @@ var tipLoader = function() {
   },1000);
 }
 
+// File uploader
+var walkSetImage = function( fileId ) {
+  alert(fileId);
+}
+
 // Scroll top on tab change 
 
 $('a[data-toggle="tab"]').on('shown', function(e){

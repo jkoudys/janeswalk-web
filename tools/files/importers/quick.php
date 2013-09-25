@@ -61,7 +61,8 @@ if ($errorCode > -1 && $error == '') {
 		window.parent.ccmAlert.notice("<?=t('Upload Error')?>", "<?=str_replace("\n", '', nl2br($error))?>");
 		window.parent.ccm_alResetSingle();
 	<? } else { ?>
-    window.parent.ccm_alSelectFile(<?=$resp->getFileID()?>);
+    window.parent.walkSetImage(<?=$resp->getFileID()?>);
+//    window.parent.alert(<?=$resp->getFileID()?>);
 	<? } ?>
 </script>
 </head>
