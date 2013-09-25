@@ -9492,8 +9492,8 @@ p.lead {
   color: #fff;
   width: 16px;
   height: 16px;
-  line-height: 16px;
-  text-align: right;
+  line-height: 23px;
+  text-align: center;
 }
 .walk-page .nav-pills li .icon img {
   max-width: 100%;
