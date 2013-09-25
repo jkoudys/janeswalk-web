@@ -4855,7 +4855,7 @@ window.Janeswalk = {
     var dataUrl = $.paramsURL('load');
     if(null != dataUrl) { var previewUrl = dataUrl.replace("format=json","format=html"); }
 
-    $('.save').on('click', function(e){
+    $('.save, .btn-preview, .btn-submit').on('click', function(e){
       // Run validation first?
       $.ajax({
         type: "POST",
