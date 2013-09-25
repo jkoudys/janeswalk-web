@@ -5068,8 +5068,11 @@ var JaneswalkData = {
         }
       }
       else if(key == 'thumbnail_id') {
+        var thumbLoad = $("iframe.walkphotos");
+        var ifUrl = thumbLoad.attr('src');
+        ifUrl = ifUrl.substring(0, ifUrl.indexOf("tools")) + "tools/files/importers/quick?fID=" + val;
         globalThumbId = val;
-        console.log(val);
+        thumbLoad.attr('src',ifUrl);
       }
     });
     // Long Description (wsyihtml5)

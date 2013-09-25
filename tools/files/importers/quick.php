@@ -14,13 +14,11 @@ if (!$fp->canAddFiles()) {
 $error = "";
 $errorCode = -1;
 
-if (isset($_POST['fID'])) {
+if (isset($_GET['fID'])) {
 	// we are replacing a file
 	$fr = File::getByID($_REQUEST['fID']);
 } else {
 	$fr = false;
-}
-
 $searchInstance = $_POST['searchInstance'];
 
 if ($valt->validate('upload')) {
@@ -53,6 +51,7 @@ if ($valt->validate('upload')) {
 if ($errorCode > -1 && $error == '') {
 	$error = FileImporter::getErrorMessage($errorCode);
 }
+}
 ?>
 <html>
 <head>
@@ -63,7 +62,7 @@ if ($errorCode > -1 && $error == '') {
 		window.parent.ccm_alResetSingle();
 	<? } else { 
   $im = Loader::helper('image');
-  $f = File::getByID($resp->getFileID());
+  $f = File::getByID(isset($resp) ? $resp->getFileID() : $_REQUEST['fID']);
   $im->outputThumbnail($f,260,300);
   ?>
   <a href="<?php echo REL_DIR_FILES_TOOLS?>/files/image_upload" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
