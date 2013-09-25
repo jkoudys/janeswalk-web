@@ -1079,7 +1079,11 @@ $u = new User();
 
     <div class="progress-spinner"></div>
 
+    <script type="text/javascript" src="//use.typekit.net/vet3xxc.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
     <script src="<?php echo $this->getThemePath();?>/js/gmaps.js" type="text/javascript"></script>
+    <script src="<?php echo $this->getThemePath();?>/js/main.js" type="text/javascript"></script>
 
   </body>
 
@@ -1093,6 +1097,13 @@ $u = new User();
   <div class="modal-body">
     <p>Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes.</p>
     
+    <p><strong>Sections waiting for content are:</strong></p>  
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+
   </div>
 
   <div class="modal-footer">
