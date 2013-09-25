@@ -1083,7 +1083,6 @@ $u = new User();
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     
     <script src="<?php echo $this->getThemePath();?>/js/gmaps.js" type="text/javascript"></script>
-    <script src="<?php echo $this->getThemePath();?>/js/main.js" type="text/javascript"></script>
 
   </body>
 

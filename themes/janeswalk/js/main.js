@@ -4518,13 +4518,6 @@ function timeConvert (time) {
 
 
 
-
-
-
-
-
-
-
 var dateSelected = [];
 
 window.Janeswalk = {
@@ -4540,7 +4533,7 @@ window.Janeswalk = {
 
     // Sign up and Typeahead for City Select
 
-    $('.city-select').typeahead({
+/*    $('.city-select').typeahead({
       source: ['Toronto', 'Vancouver', 'Edmonton', 'Calgary', 'Ottawa', 'Montreal', 'St. John’s', 'Winnipeg', 'Victoria', 'Regina']
     });
 
@@ -4584,7 +4577,7 @@ window.Janeswalk = {
       }
       $('#user-city').prop('value',citySelected);
     });
-
+*/
     // WYSIWYG
     
     $('#longdescription').wysihtml5('bypassDefaults', {

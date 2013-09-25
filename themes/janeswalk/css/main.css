@@ -6228,3 +6228,6 @@ label {
 /* Navbar */
 header.navbar .brand {
   background: url(img/jwlogo.svg); }
+
+body.form .navbar-inner div.container {
+  display: none; }
