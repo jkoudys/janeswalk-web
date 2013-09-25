@@ -4598,7 +4598,7 @@ window.Janeswalk = {
 
     $('.date-picker').datepicker({
       format: 'mm/dd/yyyy',
-      beforeShowDay: function (date) {
+/*      beforeShowDay: function (date) {
         var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
         
         var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
@@ -4609,7 +4609,7 @@ window.Janeswalk = {
             classes : 'selected'
           };
         }
-      }
+      } */
     }).on('changeDate', function(e){
       dateObject = moment(e.date).format('MMMM D, YYYY');
       dateObjectFormatted = moment(e.date).format('YYYY-MM-DD');
