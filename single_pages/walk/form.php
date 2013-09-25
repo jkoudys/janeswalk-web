@@ -1055,7 +1055,8 @@ $valt = Loader::helper('validation/token');
     <div class="pull-left">
      <a href="" class="walkthrough" class="close" data-dismiss="modal"> Bring me back to edit</a>
     </div>
-    <button class="btn btn-primary walkthrough" data-step="publish-confirmation">Publish</button>
+    <a href="<?php echo $this->url('/profile') ?>">
+    <button class="btn btn-primary walkthrough" data-step="publish-confirmation">Publish</button></a>
   </div>
 
 </div>
