@@ -153,7 +153,7 @@ $(function() {
     <a href="#">Request a new password</a>  
 </div>
     <div class="modal-footer">
-      <?php echo $form->submit('submit', t('Sign In'), null, "btn btn-primary walkthrough" )?>
+      <?php echo $form->submit('submit', t('Sign In'), null, "" )?>
       <?php  if (isset($error) && $error != '') { ?>
          <?php  
          if ($error instanceof Exception) {
