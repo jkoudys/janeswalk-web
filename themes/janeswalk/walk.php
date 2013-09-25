@@ -404,7 +404,10 @@ $this->inc('elements/header.php');  ?>
 
 
   </div> 
-  
+ <?php $gmap = json_decode($c->getAttribute("gmap"));
+ var_dump($gmap);
+ var_dump($gmap->markers);
+ ?>
   <script>
 
     // Location Information

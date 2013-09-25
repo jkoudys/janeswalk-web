@@ -152,15 +152,10 @@ $th = Loader::helper('theme');
   </div>
 </div>
   
-  <script src="<?php echo $this->getThemePath() ?>/city_files/js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/infobox.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/js-url.min.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.cookie.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.flexslider-min.js"></script>
 
-  <script src="<?php echo $this->getThemePath() ?>/city_files/bootstrap-datepicker.js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/spin.min.js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/bootstrap-wysihtml5.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.calendar.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/Eventbrite.jquery.js"></script>  
