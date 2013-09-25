@@ -62,9 +62,11 @@ $th = Loader::helper('theme');
         <div class="span4 walk">
           <a href="<?php echo $nh->getCollectionURL($page) ?>">
           <div class="thumbnail">
-            <?php if(false) { // placeholder for thumbnail - show if one exists ?>
-              <img src="./city_files/be-square-sm.jpg" alt="">
-            <?php } ?>
+            <?php 
+            $thumb = $page->getAttribute("thumbnail"); 
+            if( $thumb ) {
+              echo "<img src='" . $im->getThumbnail($thumb,340,720)->src . "' />";
+            }  ?>
             <div class="caption">
               <h4><?php echo $page->getCollectionName() ?></h4>
               <h6><?php if(false) { echo "Walk led by Jason Kucherawy, Janet Langdon, and Howard Tam"; } // formatted walk leaders name ?></h6>

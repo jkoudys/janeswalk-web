@@ -153,25 +153,30 @@ $this->inc('elements/header.php');  ?>
               case "you":
               case "leader":
                 echo '<img src="' . $this->getThemePath() . '/img/walk-leader.png" alt="Walk Leader" class="pull-left">';
+                echo '</div><div class="span9">';
+                echo '<h4><span class="title">Walk Leader:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
                 break;
               case "organizer":
                 echo '<img src="' . $this->getThemePath() . '/img/walk-organizer.png" alt="Walk Organizer" class="pull-left">';
+                echo '</div><div class="span9">';
+                echo '<h4><span class="title">Walk Organizer:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
                 break;
               case "community":
                 echo '<img src="' . $this->getThemePath() . '/img/community-voice.png" alt="Community Voice" class="pull-left">';
+                echo '</div><div class="span9">';
+                echo '<h4><span class="title">Community Voice:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
                 break;
               case "volunteer":
                 echo '<img src="' . $this->getThemePath() . '/img/volunteers.png" alt="Volunteer" class="pull-left">';
+                echo '</div><div class="span9">';
+                echo '<h4><span class="title">Volunteer:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
                 break;
               default:
+                echo '</div><div class="span9">';
                 break;
             }
             ?>
-          <?php # Show walk member avatar, once user accts enabled   <img src="/images/jason-lg.jpg" class="pull-left img-circle"> ?>
-          </div>
-          <div class="span9">
 
-            <h4><span class="title">Walk Leader:</span><br> <?php echo $mem->{'name-first'} . " " . $mem->{'name-last'}; ?></h4>
             <div class="btn-toolbar">
               <a class="btn notify">Request a Custom Walk</a>
               <a href="mailto:<?php echo $mem->email ?>" class="btn"><i class="icon-envelope-alt"></i></a>
