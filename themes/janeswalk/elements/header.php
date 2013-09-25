@@ -14,6 +14,8 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyCAN9glhycnT_BKO557Zm2ncVDFPImMxdY&sensor=false"></script>
     <script src="//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+    <script type="text/javascript" src="//use.typekit.net/lxq4ddc.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
     <script src="<?=$this->getThemePath()?>/js/js-url.min.js"></script>
     <script src="<?=$this->getThemePath()?>/js/jquery.cookie.js"></script>

@@ -5703,6 +5703,10 @@ label {
   .modal .alert {
     margin-bottom: 0; }
 
+/* Hide footers on modal window pages */
+#signup-panel footer.full, body.form footer.full {
+  display: none; }
+
 .btn {
   font-family: "freight-sans-pro", sans-serif;
   font-size: 1em;

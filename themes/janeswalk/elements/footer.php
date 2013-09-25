@@ -15,9 +15,6 @@
     </div>
   </footer>
   <div id="progress" style="z-index: -1;"></div>
-
-  <script type="text/javascript" src="//use.typekit.net/lxq4ddc.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </body>
 </html>
 
