@@ -5142,7 +5142,7 @@ var JaneswalkData = {
             if (marker.style == 'meeting'){
               addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
             } else {
-              addmarker(null, marker.title, marker.description, marker.lat, marker.lng);
+              addmarker(null, marker.title, marker.description, '', marker.lat, marker.lng);
             }
           });
         }
