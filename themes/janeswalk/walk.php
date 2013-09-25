@@ -131,8 +131,10 @@ $this->inc('elements/header.php');  ?>
     <div class="clearfix">
       <h3>About This Walk</h3>
       <?php $thumb = $c->getAttribute("thumbnail"); 
-      echo "<img src='" . $im->getThumbnail($thumb,340,720)->src . "' class='pull-right img-polaroid' />"; ?>
-      <?php echo $c->getAttribute('longdescription'); ?>
+      if( $thumb ) {
+        echo "<img src='" . $im->getThumbnail($thumb,340,720)->src . "' class='pull-right img-polaroid' />";
+      } 
+      echo $c->getAttribute('longdescription'); ?>
     </div>
 
     <div class="clearfix walk-team">
