@@ -4860,7 +4860,7 @@ window.Janeswalk = {
     // Populate data if available
     // This data could be in the dom, or the url to the data could be in the dom as a js var, this example (/form.html?load=/js/sample.json) loads it from a url param
     var dataUrl = $.paramsURL('load');
-    var previewUrl = dataUrl.replace("format=json","format=html");
+    if(null != dataUrl) { var previewUrl = dataUrl.replace("format=json","format=html"); }
 
     $('.save').on('click', function(e){
       // Run validation first?

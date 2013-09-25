@@ -157,8 +157,6 @@ $th = Loader::helper('theme');
   <script src="<?php echo $this->getThemePath() ?>/city_files/js-url.min.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.cookie.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.flexslider-min.js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/wysihtml5-0.3.0.min.js"></script>
-
 
   <script src="<?php echo $this->getThemePath() ?>/city_files/bootstrap-datepicker.js"></script>
   <script src="<?php echo $this->getThemePath() ?>/city_files/spin.min.js"></script>

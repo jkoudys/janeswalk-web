@@ -403,22 +403,7 @@ $this->inc('elements/header.php');  ?>
 
 
 
-  </div>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCAN9glhycnT_BKO557Zm2ncVDFPImMxdY&sensor=false"></script>
-  <script src="http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-  <script src="/js/lib/js-url.min.js"></script>
-  <script src="/js/lib/jquery.cookie.js"></script>
-  <script src="/js/lib/jquery.flexslider-min.js"></script>
-  <script src="/js/lib/wysihtml5-0.3.0.min.js"></script>
-  <script src="/js/lib/bootstrap-datepicker.js"></script>
-  <script src="/js/lib/spin.min.js"></script>
-  <script src="/js/lib/bootstrap-wysihtml5.js"></script>
-  <script src="/js/lib/jquery.calendar.js"></script>
-  <script src="/js/lib/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="/js/lib/Eventbrite.jquery.js"></script>  
-  
+  </div> 
   
   <script>
 
