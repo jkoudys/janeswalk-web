@@ -5067,6 +5067,10 @@ var JaneswalkData = {
           obj.val(val);
         }
       }
+      else if(key == 'thumbnail_id') {
+        globalThumbId = val;
+        console.log(val);
+      }
     });
     // Long Description (wsyihtml5)
     // self.editor.composer.commands.exec("insertHTML", data.longdescription);
@@ -5090,7 +5094,7 @@ var JaneswalkData = {
           if (key != 'file'){
             newObj.find('[name="resource-'+key+'[]"]').val(val);
           } else {
-            // format file box if file already exists
+            // form  at file box if file already exists
           }
         });
       });

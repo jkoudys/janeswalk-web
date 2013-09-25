@@ -560,15 +560,7 @@ $valt = Loader::helper('validation/token');
       <legend>You</legend>
 
     <div class="row-fluid" id="walkleader">
-        <div class="span3">
 
-            <img src="<?php echo $this->getThemePath();?>/img/portrait-placeholder.png" class="thumbnail">
-            <div class="form-group">
-                  <label for="upload-image">Upload Profile Photo</label>
-                  <input type="file" id="upload-image" name="profile-photo[]">
-              </div>
-
-        </div>
 
       <div class="span9">
         <div class="item required">
@@ -701,13 +693,7 @@ $valt = Loader::helper('validation/token');
       <legend>Walk Leader</legend>
 
       <div class="row-fluid" id="walkleader">
-        <div class="span3">
-          <img class="thumbnail" src="<?php echo $this->getThemePath();?>/img/portrait-placeholder.png" />
-          <div class="form-group">
-            <label for="upload-image">Upload Profile Photo</label>
-            <input type="file" id="upload-image" name="profile-photo[]">
-          </div>
-        </div>
+
 
         <div class="span9">
           <div class="item required">
@@ -786,14 +772,6 @@ $valt = Loader::helper('validation/token');
       <legend>Walk Organizer</legend>
       <input type="hidden" name="type[]" value="organizer">
       <div class="row-fluid" id="walkleader">
-        <div class="span3">          
-          <img class="thumbnail" src="<?php echo $this->getThemePath();?>/img/portrait-placeholder.png" />
-          <div class="form-group">
-            <label for="upload-image">Upload Profile Photo</label>
-            <input type="file" id="upload-image" name="profile-photo[]">
-          </div>
-        </div>
-
         <div class="span9">
           <div class="item required">
             <label for="name">Name</label>
@@ -826,13 +804,7 @@ $valt = Loader::helper('validation/token');
       <input type="hidden" name="type[]" value="community">
       <legend id="community-voice">Community Voice</legend>
       <div class="row-fluid" id="walkleader">
-        <div class="span3">
-          <img class="thumbnail" src="<?php echo $this->getThemePath();?>/img/portrait-placeholder.png" />
-          <div class="form-group">
-            <label for="upload-image">Upload Profile Photo</label>
-            <input type="file" id="upload-image" name="profile-photo[]">
-          </div>
-        </div>
+
 
         <div class="span9">
           <div class="item required">
@@ -892,13 +864,7 @@ $valt = Loader::helper('validation/token');
       <legend id="othermember">Volunteers</legend>
       <input type="hidden" name="type[]" value="volunteer">
       <div class="row-fluid" id="walkleader">
-        <div class="span3">
-          <img class="thumbnail" src="<?php echo $this->getThemePath();?>/img/portrait-placeholder.png" />
-          <div class="form-group">
-            <label for="upload-image">Upload Profile Photo</label>
-            <input type="file" id="upload-image" name="profile-photo[]">
-          </div>
-        </div>
+
 
         <div class="span9">
           <div class="item required">
