@@ -248,7 +248,7 @@ var styles = [{
     map.mapTypes.set('map_style', styledMap);
     map.setMapTypeId('map_style');
 
-    var mapMarker = '/images/marker.png';
+    var mapMarker = '/images/markerxxx.png';
     var infowindow = new google.maps.InfoWindow({maxWidth: 300});
 
     var infobox = new InfoBox({
