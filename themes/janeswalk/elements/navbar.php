@@ -31,10 +31,10 @@ $u = new User();
         </nav>
         <ul class="nav pull-right visible-desktop">
           <?php if($u->isRegistered()) { ?>
-            <li><a href="<?php echo $this->url('/profile') ?>" class="notify"><?php echo $u->getUserName(); ?></a></li>
-            <li><a href="<?php echo $this->url('/login', 'logout') ?>" class="notify">Logout</a></li>
+            <li><a href="<?php echo $this->url('/profile') ?>" class=""><?php echo $u->getUserName(); ?></a></li>
+            <li><a href="<?php echo $this->url('/login', 'logout') ?>" class="">Logout</a></li>
           <?php } else { ?>
-            <li><a href="<?php echo $this->url('/login') ?>" class="notify">Login</a></li>
+            <li><a href="<?php echo $this->url('/login') ?>" class="">Login</a></li>
           <?php } ?>
 
           <li class="divider-vertical"></li>
