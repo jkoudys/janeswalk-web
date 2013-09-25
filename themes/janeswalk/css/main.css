@@ -5532,8 +5532,7 @@ p {
 
 /*  Resets */
 i.icon-camera-retro.icon-4x {
-  width: auto;
-  zoom: 1.8; }
+  width: auto; }
 
 i[class^=icon-] {
   height: auto;

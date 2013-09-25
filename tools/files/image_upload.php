@@ -1,62 +1,29 @@
-<?
-defined('C5_EXECUTE') or die("Access Denied.");
-
-$cp = FilePermissions::getGlobal();
-if ((!$cp->canAddFile()) && (!$cp->canSearchFiles())) {
-	die(t("Unable to access the file manager."));
-}
-Loader::model('file_list');
-
-if (isset($_REQUEST['searchInstance'])) {
-	$searchInstance = Loader::helper('text')->entities($_REQUEST['searchInstance']);
-} else {
-	$searchInstance = $page . time();
-}
-$ocID = Loader::helper('text')->entities($_REQUEST['ocID']);
-
-$cnt = Loader::controller('/dashboard/files/search');
-$fileList = $cnt->getRequestedSearchResults();
-$files = $fileList->getPage();
-$pagination = $fileList->getPagination();
-$searchRequest = $cnt->get('searchRequest');
-$columns = $cnt->get('columns');
-
-$alType = 'false';
-if (isset($_REQUEST['disable_choose']) && $_REQUEST['disable_choose'] == 1) { 
-	$alType = 'BROWSE';
-}
-
-ob_start();
-Loader::element('files/image_results', array('ocID' => $ocID, 'searchInstance' => $searchInstance, 'searchRequest' => $searchRequest, 'columns' => $columns, 'searchType' => 'DIALOG', 'files' => $files, 'fileList' => $fileList)); $searchForm = ob_get_contents();
-ob_end_clean();
-
-$v = View::getInstance();
-$v->outputHeaderItems();
-
-
+<?php
+$valt = Loader::helper('validation/token');
+$theme = PageTheme::getByHandle("janeswalk");
+$turl = $theme->getThemeUrl();
 ?>
+<html>
 
-<? if (!isset($_REQUEST['refreshDialog'])) { ?> 
-	<div id="ccm-<?=$searchInstance?>-overlay-wrapper">
-<? } ?>
-<div id="ccm-<?=$searchInstance?>-search-overlay" class="ccm-ui">
-	<input type="hidden" name="dialogAction" value="<?=REL_DIR_FILES_TOOLS_REQUIRED?>/files/search_dialog?ocID=<?=$_REQUEST['ocID']?>&searchInstance=<?=$searchInstance?>&disable_choose=<?=$_REQUEST['disable_choose']?>" />
-
-<div class="ccm-pane-options" id="ccm-<?=$searchInstance?>-pane-options">
-
-</div>
-
-<?=$searchForm?>
-
-</div>
-
-<? if (!isset($_REQUEST['refreshDialog'])) { ?> 
-	</div>
-<? } ?>
-<?
-print '<script type="text/javascript">
-$(function() {
-	ccm_activateFileManager(\'' . $alType . '\', \'' . $searchInstance . '\');
-});
-</script>';
-?>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" href="<?php echo $turl . '/css/screen.css'?>">
+<link rel="stylesheet" href="<?php echo $turl . '/css/main.css'?>">
+<body style="margin:0;padding:0;">
+<form method="post" enctype="multipart/form-data" action="<?=REL_DIR_FILES_TOOLS_REQUIRED?>/files/importers/quick" class="ccm-file-manager-submit-single">
+      <div class="fileupload fileupload-new" data-provides="fileupload">
+        <div class="upload-image">
+          <div class="upload-item text-center">
+            <span class="btn-file">
+            <div class="fileupload-preview thumbnail" style="width: 200px; height: 170px;"><br><br><i class="icon-camera-retro icon-4x"></i></div>
+            <br>
+            <span class="fileupload-new">Click to upload an image</span><span class="fileupload-exists">Change</span><input name="Filedata" class="ccm-al-upload-single-file" type="file" />
+            <input style="display:none;" class="ccm-al-upload-single-submit btn" type="submit" value="<?=t('Upload File')?>" />    
+            <?=$valt->output('upload');?>
+            <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+            </span>
+          </div>
+        </div>
+      </div>
+</form>
+</body>
+</html>
