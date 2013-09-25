@@ -40,8 +40,10 @@
     }
 
     public function getJson() {
+      $fh = Loader::helper('file');
       $c = Page::getCurrentPage();
       $checkboxes = array();
+      $thumbnail = $c->getAttribute("thumbnail");
       $walkData = array("title" => $c->getCollectionName(), 
         "shortdescription" => $c->getAttribute("shortdescription"),
         "longdescription" => $c->getAttribute("longdescription"),
@@ -51,7 +53,8 @@
         "accessible-find" => $c->getAttribute("accessible_find"),
         "map" => json_decode($c->getAttribute("gmap")),
         "team" => json_decode($c->getAttribute("team")),
-        "time" => $c->getAttribute("scheduled"));
+        "time" => $c->getAttribute("scheduled"),
+        "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null) );
 
         /* Checkboxes */
         $walkData['checkboxes'] = array();
@@ -79,6 +82,9 @@
         $c->setAttribute("scheduled", $postArray->time);
         $c->setAttribute("gmap", json_encode($postArray->map));
         $c->setAttribute("team", json_encode($postArray->team));
+        if(File::getByID($postArray->thumbnail_id)) {
+          $c->setAttribute("thumbnail", File::getByID($postArray->thumbnail_id));
+        }
 
         /* Go through checkboxes */
         $checkboxes = array();

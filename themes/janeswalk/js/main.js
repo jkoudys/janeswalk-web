@@ -4913,6 +4913,8 @@ function addResource(){
   return obj;
 }
 
+var globalThumbId;
+
 // Data
 var JaneswalkData = {
   description: ['title','shortdescription', 'longdescription'],
@@ -5042,6 +5044,9 @@ var JaneswalkData = {
         self.dataSet.team[key] = member;
       });
     }
+
+    self.dataSet.thumbnail_id = globalThumbId;
+
     console.log(this.dataSet);
     console.log(JSON.stringify(this.dataSet));
     return this.dataSet;
@@ -5203,7 +5208,7 @@ var tipLoader = function() {
 
 // File uploader
 var walkSetImage = function( fileId ) {
-  alert(fileId);
+  globalThumbId = fileId;
 }
 
 

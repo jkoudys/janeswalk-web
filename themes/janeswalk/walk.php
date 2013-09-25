@@ -1,5 +1,6 @@
 <?php 
 $nh = Loader::helper('navigation');
+$im = Loader::helper('image');
 $gmap = json_decode($c->getAttribute("gmap"));
 $team = json_decode($c->getAttribute('team'));
 $this->inc('elements/header.php');  ?>
@@ -129,6 +130,8 @@ $this->inc('elements/header.php');  ?>
     
     <div class="clearfix">
       <h3>About This Walk</h3>
+      <?php $thumb = $c->getAttribute("thumbnail"); 
+      echo "<img src='" . $im->getThumbnail($thumb,340,720)->src . "' class='pull-right img-polaroid' />"; ?>
       <?php echo $c->getAttribute('longdescription'); ?>
     </div>
 
