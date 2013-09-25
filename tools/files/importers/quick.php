@@ -56,16 +56,21 @@ if ($errorCode > -1 && $error == '') {
 ?>
 <html>
 <head>
-<script language="javascript">
+</head>
+<body style="text-align:center">
 	<? if(strlen($error)) { ?>
 		window.parent.ccmAlert.notice("<?=t('Upload Error')?>", "<?=str_replace("\n", '', nl2br($error))?>");
 		window.parent.ccm_alResetSingle();
-	<? } else { ?>
+	<? } else { 
+  $im = Loader::helper('image');
+  $f = File::getByID($resp->getFileID());
+  $im->outputThumbnail($f,260,300);
+  ?>
+  <a href="<?php echo REL_DIR_FILES_TOOLS?>/files/image_upload" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+    
+<script language="javascript">
     window.parent.walkSetImage(<?=$resp->getFileID()?>);
-//    window.parent.alert(<?=$resp->getFileID()?>);
 	<? } ?>
 </script>
-</head>
-<body>
 </body>
 </html>

@@ -5567,7 +5567,7 @@ textarea, .wysihtml5-sandbox {
 
 .upload-image {
   min-height: 250px;
-  padding: 1em;
+  padding: 0;
   position: relative; }
   .upload-image .upload-item {
     color: #999;
@@ -5575,6 +5575,11 @@ textarea, .wysihtml5-sandbox {
     position: relative;
     background: #f2f2f2;
     border: 3px dashed #dddddd; }
+
+iframe.walkphotos {
+  border: 0;
+  width: 100%;
+  height: 270px; }
 
 .resource-item, .resource-item-new {
   margin-bottom: 1em; }

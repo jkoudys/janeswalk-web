@@ -77,24 +77,7 @@ $valt = Loader::helper('validation/token');
     <hr>
     <div class="item required">
       <label for="walkphotos" id="photo-tip">Upload Photos to display on your walk page</label>
-      
-
-      <div class="fileupload fileupload-new" data-provides="fileupload">
-
-        <div class="upload-image">
-          <div class="upload-item text-center">
-            <span class="btn-file">
-            <div class="fileupload-preview thumbnail" style="width: 200px; height: 170px;"><br><i class="icon-camera-retro icon-4x"></i></div>
-            <br>
-            <span class="fileupload-new">Click to upload an image</span><span class="fileupload-exists">Change</span><input name="Filedata" class="ccm-al-upload-single-file" type="file" />
-            <input style="display:none;" class="ccm-al-upload-single-submit btn" type="submit" value="<?=t('Upload File')?>" />    
-            <?=$valt->output('upload');?>
-            <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
-            </span>
-          </div>
-        </div>
-
-      </div>
+      <iframe class="walkphotos" src="<?php echo REL_DIR_FILES_TOOLS?>/files/image_upload"></iframe> 
     </div>
 </form>
 <form>

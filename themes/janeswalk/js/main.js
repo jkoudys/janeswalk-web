@@ -5248,11 +5248,6 @@ $(window).load(function() {
     trigger: 'hover',
     placement: 'bottom'
   });
-  // select the file input
-  $('.fileupload input[type=file]').change(function() { 
-    // select the form and submit
-    $(this).parents("form").first().submit(); 
-  });
 });
 
 // $(document).on('pjax:send', function() {

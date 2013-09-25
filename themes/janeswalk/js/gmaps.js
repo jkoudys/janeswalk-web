@@ -516,6 +516,7 @@ window.addlines = function(event, title, lat, lng) {
 
 function clearRoute(event) {
   poly.setMap(null);
+  point.length = 0;
   for(i=0; i < point.length; i++) {
     point[i].setMap(null);
   }

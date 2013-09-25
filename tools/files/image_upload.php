@@ -8,6 +8,7 @@ $turl = $theme->getThemeUrl();
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="<?php echo $turl . '/css/screen.css'?>">
 <link rel="stylesheet" href="<?php echo $turl . '/css/main.css'?>">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <body style="margin:0;padding:0;">
 <form method="post" enctype="multipart/form-data" action="<?=REL_DIR_FILES_TOOLS_REQUIRED?>/files/importers/quick" class="ccm-file-manager-submit-single">
       <div class="fileupload fileupload-new" data-provides="fileupload">
@@ -25,5 +26,13 @@ $turl = $theme->getThemeUrl();
         </div>
       </div>
 </form>
+<script>
+  // select the file input
+  $('.fileupload input[type=file]').change(function() { 
+    // select the form and submit
+    $(this).parents("form").first().submit(); 
+  });
+</script>
+
 </body>
 </html>
