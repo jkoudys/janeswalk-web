@@ -5509,8 +5509,11 @@ body {
   margin-top: 60px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased; }
-  body.form i[class^=icon-] {
-    margin: 0 auto; }
+  body.form {
+    margin-top: 20px;
+    padding-top: 0; }
+    body.form i[class^=icon-] {
+      margin: 0 auto; }
 
 a {
   color: #f16725; }
