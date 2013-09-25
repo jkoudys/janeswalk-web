@@ -62,6 +62,9 @@ h1,h2,h3,h4,h5,h6 {
   @extend .brand;
   @include background-size(contain);
 }
+body.form .brand {
+  width:auto;height:auto;background:transparent;
+}
 
 // Helpers
 
