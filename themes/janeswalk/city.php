@@ -152,12 +152,4 @@ $th = Loader::helper('theme');
   </div>
 </div>
   
-  <script src="<?php echo $this->getThemePath() ?>/city_files/js-url.min.js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.cookie.js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.flexslider-min.js"></script>
-
-  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.calendar.js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/jquery.mCustomScrollbar.concat.min.js"></script>
-  <script src="<?php echo $this->getThemePath() ?>/city_files/Eventbrite.jquery.js"></script>  
-
 <?php $this->inc('elements/footer.php');  ?>
