@@ -4962,15 +4962,15 @@ var JaneswalkData = {
           title: val.title,
           description: val.description,
           style: val.style,
-          lat: val.position.ob,
-          lng: val.position.nb
+          lat: val.position.nb,
+          lng: val.position.ob
         };
       });
       self.dataSet.map.route = {};
       $.each(point, function(key, val){
         self.dataSet.map.route[key] = {
-          lat: val.position.ob,
-          lng: val.position.nb,
+          lat: val.position.nb,
+          lng: val.position.ob,
           title: val.title
         };
       });

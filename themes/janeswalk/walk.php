@@ -371,7 +371,7 @@ $this->inc('elements/header.php');  ?>
     <?php 
     echo "var locations=[";
     foreach($gmap->markers as $key=>$marker) {
-    echo ($key > 0 ? "," : "") . "['" . htmlspecialchars($marker->title,ENT_QUOTES) . "','" . htmlspecialchars($marker->description,ENT_QUOTES) . "'," . $marker->lng . "," . $marker->lat . "," . $key . "]";
+    echo ($key > 0 ? "," : "") . "['" . htmlspecialchars($marker->title,ENT_QUOTES) . "','" . htmlspecialchars($marker->description,ENT_QUOTES) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
     }
     echo "];";
     ?>
