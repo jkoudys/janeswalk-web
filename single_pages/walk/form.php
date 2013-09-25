@@ -1093,13 +1093,6 @@ $u = new User();
   <div class="modal-body">
     <p>Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes.</p>
     
-    <p><strong>Sections waiting for content are:</strong></p>  
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-
   </div>
 
   <div class="modal-footer">
