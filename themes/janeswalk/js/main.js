@@ -5070,7 +5070,7 @@ var JaneswalkData = {
       else if(key == 'thumbnail_id') {
         var thumbLoad = $("iframe.walkphotos");
         var ifUrl = thumbLoad.attr('src');
-        ifUrl = ifUrl.substring(0, ifUrl.indexOf("tools")) + "tools/files/importers/quick?fID=" + val;
+        ifUrl = ifUrl.substring(0, ifUrl.indexOf("tools")) + "tools/files/importers/quick?" + (val != 'null' ? "fID=" . val : "");
         globalThumbId = val;
         thumbLoad.attr('src',ifUrl);
       }
