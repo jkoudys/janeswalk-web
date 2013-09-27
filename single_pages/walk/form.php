@@ -105,7 +105,7 @@ $valt = Loader::helper('validation/token');
    </fieldset>
 
 
-  <fieldset>
+<?php /*  <fieldset>
     <legend>Additional Resources (Optional)</legend>
      <div class="alert alert-info">Upload a file such as a PDF, or provide a link to a relevant website or video. Please include no more than 3 additional references.</div>
 
@@ -177,7 +177,7 @@ $valt = Loader::helper('validation/token');
     <a href="#" class="btn btn-info" id="add-resource">Add Another Resource</a>
 
   </fieldset>
-
+*/ ?>
 
   <fieldset id="theme-select">
     <legend class="required-legend">Themes</legend>
