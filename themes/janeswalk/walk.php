@@ -192,56 +192,7 @@ $this->inc('elements/header.php');  ?>
 
     <hr>
 
-    <div class="walk-supporters">
-
-
-      <h3>Walk Organizers</h3>
-      <h4 class="caption">The team that helped organize and support this walk.</h4>
-
-      <div class="row-fluid individual">
-        <div class="span6">
-          <div class="row-fluid">
-            <div class="span2">
-              <img src="<?php echo $this->getThemePath() ?>/images/wo_avatar_peter.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span6">
-              <h4>Peter Foley</h4>
-              <h5 class="title">Jane's Walk</h5>
-            </div>
-          </div>          
-        </div>
-        <div class="span6">
-          <div class="row-fluid">
-            <div class="span2">
-              <img src="<?php echo $this->getThemePath() ?>/images/wo_avatar_denise.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span6">
-              <h4>Denise Pinto</h4>
-              <h5 class="title">Jane's Walk</h5>
-            </div>
-          </div>          
-        </div>
-      </div>
-
-      <div class="row-fluid individual">
-        <div class="span6">
-          <div class="row-fluid">
-            <div class="span2">
-              <img src="<?php echo $this->getThemePath() ?>/images/wo_avatar_ruthie.jpg" alt="" class="img-circle">
-            </div>
-            <div class="span6">
-              <h4>Ruthie Wellen</h4>
-              <h5 class="title">Jane's Walk</h5>
-            </div>
-          </div>          
-        </div>
-      </div>
-  
-    </div><!-- Walk Supporters -->
-
-    <hr>
-
-    <h3>Additional Resources</h3>
+<?php /*    <h3>Additional Resources</h3>
 
     <div class="resources-list">
       <ul>
@@ -260,7 +211,7 @@ $this->inc('elements/header.php');  ?>
           <p>Article in the Toronto Star about Yonge-Dundas Square from June 7, 2013.</p>
         </li>
       </ul>
-    </div> <!-- Resources -->
+    </div> <!-- Resources --> */ ?>
 
     <h3>Download This Walk</h3>
 
