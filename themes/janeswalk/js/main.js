@@ -5067,10 +5067,10 @@ var JaneswalkData = {
           obj.val(val);
         }
       }
-      else if(key == 'thumbnail_id') {
+      else if(key == 'thumbnail_id' && val != "null") {
         var thumbLoad = $("iframe.walkphotos");
         var ifUrl = thumbLoad.attr('src');
-        ifUrl = ifUrl.substring(0, ifUrl.indexOf("tools")) + "tools/files/importers/quick?" + (val != 'null' ? "fID=" . val : "");
+        ifUrl = ifUrl.substring(0, ifUrl.indexOf("tools")) + "tools/files/importers/quick?fID=" + val;
         globalThumbId = val;
         thumbLoad.attr('src',ifUrl);
       }
