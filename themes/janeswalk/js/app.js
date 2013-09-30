@@ -314,6 +314,15 @@ var styles = [{
       })(marker, i));
 
     }
+    // Map Centering
+    var bounds = new google.maps.LatLngBounds();
+    for (var index in markers) {
+      var lat = locations[index].lat;
+      var lng = locations[index].lng;
+      var latlng = new google.maps.LatLng(lat, lng);
+      bounds.extend(latlng);
+    }
+    map.fitBounds(bounds);
 
     google.maps.event.addDomListener(window, 'resize', function() {
       map.setCenter(mapCenter);
@@ -422,7 +431,6 @@ var styles = [{
       $(this).addClass('active');
       google.maps.event.trigger(marker, 'click');
     });
-
   }
 
   if ($('body').hasClass('walk-page') || $('body').hasClass('create-page')) {

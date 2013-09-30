@@ -351,22 +351,18 @@ $this->inc('elements/header.php');  ?>
     <?php 
     echo "var locations=[";
     foreach($gmap->markers as $key=>$marker) {
-    echo ($key > 0 ? "," : "") . "['" . htmlspecialchars($marker->title,ENT_QUOTES) . "','" . htmlspecialchars($marker->description,ENT_QUOTES) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
+      echo ($key > 0 ? "," : "") . "['" . htmlspecialchars($marker->title,ENT_QUOTES) . "','" . htmlspecialchars($marker->description,ENT_QUOTES) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
     }
     echo "];";
     ?>
 
-
     // Drawing Polyline
-
     var walkPathCoordinates = [
     <?php
     foreach($gmap->route as $key=>$rp) {
       if(isset($rp->lat) && isset($rp->lng)) echo ($key > 0 ? "," : "") . "new google.maps.LatLng(" . $rp->lat . "," . $rp->lng . ")";
     } ?>
     ];
-
-    // Map Centering
 
     var mapCenter = new google.maps.LatLng(43.654335, -79.386263);
     
