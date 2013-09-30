@@ -9,7 +9,6 @@ $nh = Loader::helper('navigation');
   <title>Jane's Walk, May 4th and 5th</title>
   <meta name="description" content="Jane’s Walk celebrates the ideas and legacy of urbanist Jane Jacobs by getting people out exploring their neighbourhoods through local-led walking tours.">
   <meta name="viewport" content="width=1024">
-  <link rel="stylesheet" href="<?php echo $this->getThemePath()?>/index_files/screen.css">
 <style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-myriad-pro{font-family:"myriad-pro",sans-serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/e25cc9/museo-slab:i3:i7:n1:n3:n7,myriad-pro:i4:i7:n4:n7.SLT:J:2,QL2:J:2,QL7:J:2,SKB:J:2,VnC:J:2,Xc8:J:2,Xc3:J:2,XcH:J:2,Xc0:J:2/d?3bb2a6e53c9684ffdc9a9bf3135b2a620dfa8c0796a4cb9faa266ad1c0aab20e8bd43258915e59d2ad385a7b4162e36eb54c0d909a598fa08f2d3d3d1a391528d61fd3179dd48fbe794dcc4afe76d9855091c8f205aa4413776649aeab1bc9eb8bc4416261aa7d2fa5fa19c73c148653947ce732994d478fdb019b5033083526c0a1700aa8a527ff8da82a33f587cde3251a4153b15394ae9cb839001c947a"><style type="text/css"></style></head>
 
 <body class="home">
@@ -62,7 +61,7 @@ $nh = Loader::helper('navigation');
           <p>Every year we hold a festival where people from all walks of life, in every corner of the world, offer free and open tours of where they live, inviting friends and the wider community to join them in a discussion of what works and what doesn't about the city around them. The walks celebrate the life and legacy of Jane Jacobs, a woman whose writing changed the way our cities are planned by making a case for all of us to "get out and walk"-- seeing lofty city plans from the perspective of our sidewalks. Today, the walks happen in over 100 cities, from Calgary to Calcutta, Sydney to Saskatoon.</p>
         </div>
         <div class="festivalimg span6 pull-right">
-          <img src="<?php echo $this->getThemePath() ?>/index_files/holder_feat.png" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/images/holder_feat.png" alt="">
         </div>
 
         </div>
@@ -77,7 +76,7 @@ $nh = Loader::helper('navigation');
           <p>Jane’s Walk can now be enjoyed outside of the festival weekend in May at anytime throughout the year.  If you savour the Jane’s Walk format of a walking conversation, community voices, and the opportunity to learn about new and often overlooked places within a city, the Jane’s Walk YearRound program is for you.  The online booking system can be used to register for select Jane’s Walks or request walks of specific subject or place within the city.  Enjoy the special experience of Jane’s Walk with visitors, your conference, group, or simply your own desire to learn more about your city.</p>
         </div>
         <div class="festivalimg span6 pull-right">
-          <img src="<?php echo $this->getThemePath() ?>/index_files/holder_YR.png" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/images/holder_YR.png" alt="">
         </div>
         </div>
       </div>
@@ -91,7 +90,7 @@ $nh = Loader::helper('navigation');
           <p>Do you have a walk that you would like to share with friends, family or would like to organize a walk for others? The Jane’s Walk – “Walk Stories” online tool allows you to easily create and share a walk story.  Build your own map with places of interest, a route through a neighbourhood or area of the city, and stories about these places.  Encourage others to “get out and walk” to enjoy and learn about the city.  Share through a web browser on your desktop or smartphone or publish for others to view.</p>
         </div>
         <div class="festivalimg span6 pull-right">
-          <img src="<?php echo $this->getThemePath() ?>/index_files/holder.png" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/images/holder.png" alt="">
         </div>
         </div>
       </div>
@@ -112,26 +111,26 @@ $nh = Loader::helper('navigation');
 <div class="row-fluid row2">
       <div class="span3">
         <div class="thumbnail">
-          <img src="<?php echo $this->getThemePath() ?>/index_files/blogpost1.jpg" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/images/blogpost1.jpg" alt="">
           <div class="caption">
-            <h5><a href="./index_files/index.html" class="notify">Weekend Retrospective: Hear one Jane’s Walker’s reflections on a walk well talked</a></h5> 
+            <h5><a href="./images/index.html" class="notify">Weekend Retrospective: Hear one Jane’s Walker’s reflections on a walk well talked</a></h5> 
             <h6>Posted by Annie Webber on May 10, 2013</h6>
             <p>
-               Carmen Lazarus fills us in on David Teitel’s walk through the Toronto, Ontario neighbourhood where he spent his childhood, shunning the area as a young adult and returning to in 2004<a href="./index_files/index.html" class="notify">[...]</a>
+               Carmen Lazarus fills us in on David Teitel’s walk through the Toronto, Ontario neighbourhood where he spent his childhood, shunning the area as a young adult and returning to in 2004<a href="./images/index.html" class="notify">[...]</a>
             </p>
           </div>
         </div>
       </div>
       <div class="span3">
         <div class="thumbnail">
-          <img src="<?php echo $this->getThemePath() ?>/index_files/blogpost2.jpg" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/images/blogpost2.jpg" alt="">
           <div class="caption">
-            <h5><a href="./index_files/index.html" class="notify">Usha Uthup sets Jane's Walk Calcutta off to a rollicking start!</a></h5>
+            <h5><a href="./images/index.html" class="notify">Usha Uthup sets Jane's Walk Calcutta off to a rollicking start!</a></h5>
             <h6>Posted by Iftekhar Ahsan on May 03, 2013</h6>
             <p>
               Fellow Calcutta Lovers,</p>  
 
-            <p>Thanks to Usha Uthup and all the others who joined in to romance Park Street with us this morning on the occasion of the beginning of the first Jane's Walk in India. Calcutta has always shown the way and we hope that this walking festival is taken up in other cities of India as well.<a href="./index_files/index.html" class="notify">[...]</a>
+            <p>Thanks to Usha Uthup and all the others who joined in to romance Park Street with us this morning on the occasion of the beginning of the first Jane's Walk in India. Calcutta has always shown the way and we hope that this walking festival is taken up in other cities of India as well.<a href="./images/index.html" class="notify">[...]</a>
             </p>
           </div>
         </div>
@@ -139,14 +138,14 @@ $nh = Loader::helper('navigation');
 
       <div class="span3">
         <div class="thumbnail">
-          <img src="<?php echo $this->getThemePath() ?>/index_files/blogpost3.jpg" alt="">
+          <img src="<?php echo $this->getThemePath() ?>/images/blogpost3.jpg" alt="">
           <div class="caption">
-            <h5><a href="./index_files/index.html" class="notify">Jane's Walks... Dark Age Delayed?</a></h5>
+            <h5><a href="./images/index.html" class="notify">Jane's Walks... Dark Age Delayed?</a></h5>
             <h6>Posted by HiMYSYeD on May 01, 2013</h6>
             <p>
              This was a puzzling realization which haunted me after I completed leading the final of several Jane's Walks last year:</p>
 
-              <p>Dark Age Ahead - The Wizard of Ossington Jane's Walk<a href="./index_files/index.html" class="notify">[...]</a>
+              <p>Dark Age Ahead - The Wizard of Ossington Jane's Walk<a href="./images/index.html" class="notify">[...]</a>
             </p>
           </div>
         </div>
