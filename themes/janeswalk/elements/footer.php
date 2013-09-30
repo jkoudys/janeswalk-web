@@ -1,5 +1,4 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?php   Loader::element('footer_required'); ?>
   <footer class="full" role="contentinfo">
     <div class="container">
       <div class="row-fluid">
