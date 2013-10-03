@@ -153,6 +153,12 @@ $(function() {
     <a href="#">Request a new password</a>  
 </div>
     <div class="modal-footer">
+    <div class="pull-left">
+      <?php  if (ENABLE_REGISTRATION == 1) { ?>
+        <a href="<?php echo $this->url('/register')?>"><?php echo t('Sign up using your email')?></a>
+      <?php  } ?>
+    </div>
+
       <?php echo $form->submit('submit', t('Sign In'), null, "" )?>
       <?php  if (isset($error) && $error != '') { ?>
          <?php  
@@ -174,21 +180,6 @@ $(function() {
 
     </div>
    </form>
-
-
-<?php  if (ENABLE_REGISTRATION == 1) { ?>
-<div class="row">
-<div class="span10 offset1">
-<div class="control-group">
-<h3><?php echo t('Not a Member')?></h3>
-<p><?php echo t('Create a user account for use on this website.')?></p>
-<div class="actions">
-<a class="btn" href="<?php echo $this->url('/register')?>"><?php echo t('Register here!')?></a>
-</div>
-</div>
-</div>
-</div>
-<?php  } ?>
 
 <?php  } ?>
 
