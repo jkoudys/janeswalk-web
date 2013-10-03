@@ -317,8 +317,8 @@ var styles = [{
     // Map Centering
     var bounds = new google.maps.LatLngBounds();
     for (var index in markers) {
-      var lat = locations[index].lat;
-      var lng = locations[index].lng;
+      var lat = markers[index].getPosition().lat();
+      var lng = markers[index].getPosition().lng();
       var latlng = new google.maps.LatLng(lat, lng);
       bounds.extend(latlng);
     }
