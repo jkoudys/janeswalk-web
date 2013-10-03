@@ -320,7 +320,9 @@ var styles = [{
       var lat = markers[index].getPosition().lat();
       var lng = markers[index].getPosition().lng();
       var latlng = new google.maps.LatLng(lat, lng);
-      bounds.extend(latlng);
+      if(lat && lng) {
+        bounds.extend(latlng);
+      }
     }
     map.fitBounds(bounds);
 
