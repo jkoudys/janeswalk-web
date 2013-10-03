@@ -316,14 +316,8 @@ var styles = [{
     }
     // Map Centering
     var bounds = new google.maps.LatLngBounds();
-    for (var index in markers) {
-      var lat = markers[index].getPosition().lat();
-      var lng = markers[index].getPosition().lng();
-      var latlng = new google.maps.LatLng(lat, lng);
-      if(lat && lng) {
-        bounds.extend(latlng);
-      }
-    }
+    for (var index in markers) { bounds.extend( markers[index].getPosition() ); }
+    for (var index in walkPath.getPath().getArray()) { bounds.extend(walkPath.getPath().getAt(index)); }
     map.fitBounds(bounds);
 
     google.maps.event.addDomListener(window, 'resize', function() {

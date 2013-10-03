@@ -363,7 +363,6 @@ $this->inc('elements/header.php');  ?>
       if(isset($rp->lat) && isset($rp->lng)) echo ($key > 0 ? "," : "") . "new google.maps.LatLng(" . $rp->lat . "," . $rp->lng . ")";
     } ?>
     ];
-
     var mapCenter = new google.maps.LatLng(43.654335, -79.386263);
     
     var EventBriteEmail = "jasmine.frolick@janeswalk.net";
