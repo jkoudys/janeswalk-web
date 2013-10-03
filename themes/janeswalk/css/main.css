@@ -5515,9 +5515,9 @@ body {
     body.form i[class^=icon-] {
       margin: 0 auto; }
 
-a {
+a, input[type=submit].plaintext {
   color: #f16725; }
-  a:hover {
+  a:hover, input[type=submit].plaintext:hover {
     color: #d54e0e; }
 
 p {
@@ -5545,6 +5545,13 @@ i[class^=icon-] {
   margin: 0 0 3em 0;
   padding: 60px 20px;
   background: rgba(255, 184, 0, 0.67); }
+
+.plaintext {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  display: inline; }
 
 #title {
   width: 100%;

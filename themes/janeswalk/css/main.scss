@@ -29,7 +29,7 @@ body {
   }
 }
 
-a {
+a, input[type=submit].plaintext {
   color: $orange;
   &:hover {
     color: darken($orange,10%);
@@ -63,6 +63,9 @@ i[class^=icon-] {
   margin: 0 0 3em 0;
   padding: 60px 20px;
   background: rgba(#FFB800,0.67);
+}
+.plaintext {
+  margin:0; padding:0; border:0; background:transparent; display:inline;
 }
 
 #title {

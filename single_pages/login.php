@@ -14,15 +14,7 @@ $(function() {
 </script>
 
 <div class="modal-backdrop fade in"></div>
-<?php  if (isset($intro_msg)) { ?>
-<div class="alert-message block-message success"><p><?php echo $intro_msg?></p></div>
-<?php  } ?>
-
-<?php  if( $passwordChanged ){ ?>
-
-	<div class="block-message info alert-message"><p><?php echo t('Password changed.  Please login to continue. ') ?></p></div>
-
-<?php  } ?> 
+<div class="modal hide fade in" id="signup-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
 
 <?php  if($changePasswordForm){ ?>
 
@@ -63,11 +55,8 @@ $(function() {
 <div class="alert-actions"><a class="btn small" href="<?php echo $this->url('/')?>"><?php echo t('Continue to Site')?></a></div>
 </div>
 
-
 <?php  } else if (isset($_SESSION['uOpenIDError']) && isset($_SESSION['uOpenIDRequested'])) { ?>
-
 <div class="ccm-form">
-
 <?php  switch($_SESSION['uOpenIDError']) {
 	case OpenIDAuth::E_REGISTRATION_EMAIL_INCOMPLETE: ?>
 
@@ -129,14 +118,21 @@ $(function() {
 </form>
 </div>	
 
-<?php  } else { ?>
-
-<div class="modal hide fade in" id="signup-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
+<?php } else { ?>
   <div class="modal-header">
     <h3 class="form-lead"><?php echo t('Sign into %s', SITE)?></h3>
   </div>
   <form method="post" action="<?php echo $this->url('/login', 'do_login')?>">
   <div class="modal-body">
+      <?php  if (isset($intro_msg)) { ?>
+      <div class="alert-message block-message success"><p><?php echo $intro_msg?></p></div>
+      <?php  } ?>
+      <?php  if( $passwordChanged ){ ?>
+
+        <div class="block-message info alert-message"><p><?php echo t('Password changed.  Please login to continue. ') ?></p></div>
+
+      <?php  } ?> 
+
     <label for="uName"><?php  if (USER_REGISTRATION_WITH_EMAIL_ADDRESS == true) { ?>
       <?php echo t('Email')?>
     <?php  } else { ?>
@@ -150,7 +146,8 @@ $(function() {
     <label class="checkbox">
       <input type="checkbox"> Keep me signed in.
     </label>
-    <a href="#">Request a new password</a>  
+    <input type="hidden" name="uEmail" id="uEmail" />
+    <input class="plaintext" type="submit" onclick="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?php echo $this->url('/login','forgot_password') ?>')" value="Request a new password"></input>
 </div>
     <div class="modal-footer">
     <div class="pull-left">
