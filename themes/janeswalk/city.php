@@ -3,6 +3,7 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 $im = Loader::helper('image');
 $fullbg = $c->getAttribute("full_bg");
 $th = Loader::helper('theme');
+$show = $_GET['show'];
 ?>
 <!DOCTYPE html>
 <html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-active" style=""><!--<![endif]-->
@@ -27,6 +28,7 @@ $th = Loader::helper('theme');
   <div class="container">
   
 <div class="row-fluid walk-select">
+<?php if($show != "all") { ?>
   <div class="span4 action-items">
     <div class="item active">
       
@@ -48,9 +50,14 @@ $th = Loader::helper('theme');
       </div>
     </div>
   </div>
-  <div class="span8 walks-list">
-    <h3>Featured Walks</h3>
-    <a href="./city_files/city.html" class="btn btn-primary btn-large see-all notify"><i class="icon-th"></i> See All Walks</a>
+<?php } ?>
+  <div class="walks-list <?php echo ($show == "all") ? "showall" : "span8" ?>">
+    <?php if($show == "all") { ?>
+      <h3>All Walks</h3>
+    <?php } else { ?>
+      <h3>Featured Walks</h3>
+      <a href="?show=all" class="btn btn-primary btn-large see-all notify"><i class="icon-th"></i> See All Walks</a>
+    <?php } ?>
     <div class="row-fluid">
     <?php
         Loader::model('page_list');
@@ -58,8 +65,9 @@ $th = Loader::helper('theme');
         $u = new User();
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle("walk");
-        foreach($pl->get(3) as $page) {  ?>
-        <div class="span4 walk">
+        $pagecount = ($show == "all") ? 100 : 3;
+        foreach($pl->get($pagecount) as $page) {  ?>
+        <div class="span<?php echo($show == "all") ? "3" : "4" ?> walk">
           <a href="<?php echo $nh->getCollectionURL($page) ?>">
           <div class="thumbnail">
             <?php 

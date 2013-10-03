@@ -246,6 +246,7 @@
   }
   .walk {
     position: relative;
+    margin-bottom:25px;
     @include transition(margin 120ms ease-in-out);
     .thumbnail {
       min-height: 520px;

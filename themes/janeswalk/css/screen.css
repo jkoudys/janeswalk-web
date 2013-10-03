@@ -9712,54 +9712,55 @@ p.lead {
 /* line 247, ../sass/city.scss */
 .walk-select .walk {
   position: relative;
+  margin-bottom: 25px;
   -webkit-transition: margin 120ms ease-in-out;
   -moz-transition: margin 120ms ease-in-out;
   -o-transition: margin 120ms ease-in-out;
   transition: margin 120ms ease-in-out;
 }
-/* line 250, ../sass/city.scss */
+/* line 251, ../sass/city.scss */
 .walk-select .walk .thumbnail {
   min-height: 520px;
 }
-/* line 252, ../sass/city.scss */
+/* line 253, ../sass/city.scss */
 .walk-select .walk .thumbnail img {
   margin: 0;
 }
-/* line 256, ../sass/city.scss */
+/* line 257, ../sass/city.scss */
 .walk-select .walk h4 {
   color: #f16725;
 }
-/* line 259, ../sass/city.scss */
+/* line 260, ../sass/city.scss */
 .walk-select .walk h6 {
   color: #222;
 }
-/* line 262, ../sass/city.scss */
+/* line 263, ../sass/city.scss */
 .walk-select .walk a {
   color: #666;
 }
-/* line 265, ../sass/city.scss */
+/* line 266, ../sass/city.scss */
 .walk-select .walk:hover {
   margin-top: -5px;
 }
-/* line 267, ../sass/city.scss */
+/* line 268, ../sass/city.scss */
 .walk-select .walk:hover .thumbnail {
   background: #6badfd;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
 }
-/* line 271, ../sass/city.scss */
+/* line 272, ../sass/city.scss */
 .walk-select .walk:hover .thumbnail h4, .walk-select .walk:hover .thumbnail h6 {
   color: #FFF;
 }
-/* line 276, ../sass/city.scss */
+/* line 277, ../sass/city.scss */
 .walk-select .walk:active {
   margin-top: 0;
 }
-/* line 278, ../sass/city.scss */
+/* line 279, ../sass/city.scss */
 .walk-select .walk:active .thumbnail {
   background: #3991fc;
 }
-/* line 283, ../sass/city.scss */
+/* line 284, ../sass/city.scss */
 .walk-select .see-all {
   position: absolute;
   top: 20px;
@@ -9769,12 +9770,12 @@ p.lead {
   box-shadow: none;
 }
 @media (max-width: 768px) {
-  /* line 283, ../sass/city.scss */
+  /* line 284, ../sass/city.scss */
   .walk-select .see-all {
     right: -20px;
   }
 }
-/* line 293, ../sass/city.scss */
+/* line 294, ../sass/city.scss */
 .walk-select .see-all:after {
   content: "";
   position: absolute;
@@ -9787,21 +9788,21 @@ p.lead {
   border-color: #d54e0e transparent transparent transparent;
 }
 @media (max-width: 768px) {
-  /* line 293, ../sass/city.scss */
+  /* line 294, ../sass/city.scss */
   .walk-select .see-all:after {
     display: none;
   }
 }
-/* line 308, ../sass/city.scss */
+/* line 309, ../sass/city.scss */
 .walk-select a:hover {
   text-decoration: none;
 }
-/* line 311, ../sass/city.scss */
+/* line 312, ../sass/city.scss */
 .walk-select .action-items {
   padding-right: 40px;
 }
 
-/* line 319, ../sass/city.scss */
+/* line 320, ../sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -9809,7 +9810,7 @@ p.lead {
   width: 100%;
   text-align: center;
 }
-/* line 325, ../sass/city.scss */
+/* line 326, ../sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -9821,14 +9822,14 @@ p.lead {
   height: 20px;
   text-align: right;
 }
-/* line 335, ../sass/city.scss */
+/* line 336, ../sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 343, ../sass/city.scss */
+/* line 344, ../sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -9836,7 +9837,7 @@ p.lead {
   height: 20px;
 }
 
-/* line 350, ../sass/city.scss */
+/* line 351, ../sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
