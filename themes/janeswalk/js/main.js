@@ -4510,14 +4510,6 @@ function timeConvert (time) {
 }
 ;
 
-
-
-
-
-
-
-
-
 var dateSelected = [];
 
 window.Janeswalk = {
@@ -4598,7 +4590,7 @@ window.Janeswalk = {
 
     $('.date-picker').datepicker({
       format: 'mm/dd/yyyy',
-/*      beforeShowDay: function (date) {
+      beforeShowDay: function (date) {
         var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
         
         var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
@@ -4609,7 +4601,7 @@ window.Janeswalk = {
             classes : 'selected'
           };
         }
-      } */
+      }
     }).on('changeDate', function(e){
       dateObject = moment(e.date).format('MMMM D, YYYY');
       dateObjectFormatted = moment(e.date).format('YYYY-MM-DD');
@@ -4619,7 +4611,8 @@ window.Janeswalk = {
     $('#save-date-set').on('click', function(){
       var selectedDate = $('.date-indicate-set').text();
       var selectedTime = timeConvert($('#walk-time').val());
-      addDateSet(selectedDate, selectedTime);
+      var selectedDuration = $('#time-and-date-set #walk-duration').val();
+      addDateSet(selectedDate, selectedDuration, selectedTime);
     });
 
     $('#save-date-all').on('click', function(){
@@ -4892,10 +4885,10 @@ function addMember(newTarget, callback){
   return obj;
 }
 
-function addDateSet(selectedDate, selectedTime){
+function addDateSet(selectedDate, selectedDuration, selectedTime){
   var inputs = '<input type="hidden" name="date-date[]" value="'+selectedDate+'">'+
   '     <input type="hidden" name="date-time[]" value="'+selectedTime+'">'+
-  '     <input type="hidden" name="date-duration[]" value="'+$('#time-and-date-set [name="duration"]').val()+'">';
+  '     <input type="hidden" name="date-duration[]" value="'+selectedDuration+'">';
   var dateRow = '<tr><td>'+inputs+'<strong>'+selectedDate+'</strong></td><td>'+selectedTime+'</td><td><a href="#" id="remove-date"><i class="icon-remove"></i> Remove</a></td></tr>';
   $('#date-list-set tbody').append(dateRow);
 }
@@ -4964,15 +4957,15 @@ var JaneswalkData = {
           title: val.title,
           description: val.description,
           style: val.style,
-          lat: val.position.nb,
-          lng: val.position.ob
+          lat: val.getPosition().lat(),
+          lng: val.getPosition().lng()
         };
       });
       self.dataSet.map.route = {};
       $.each(point, function(key, val){
         self.dataSet.map.route[key] = {
-          lat: val.position.nb,
-          lng: val.position.ob,
+          lat: val.getPosition().lat(),
+          lng: val.getPosition().lng(),
           title: val.title
         };
       });
@@ -5075,9 +5068,6 @@ var JaneswalkData = {
         thumbLoad.attr('src',ifUrl);
       }
     });
-    // Long Description (wsyihtml5)
-    // self.editor.composer.commands.exec("insertHTML", data.longdescription);
-
 
     // Checkboxes
     if (typeof(data.checkboxes) != "undefined"){
@@ -5097,7 +5087,7 @@ var JaneswalkData = {
           if (key != 'file'){
             newObj.find('[name="resource-'+key+'[]"]').val(val);
           } else {
-            // form  at file box if file already exists
+            // format file box if file already exists
           }
         });
       });
@@ -5116,7 +5106,7 @@ var JaneswalkData = {
         if (data.time.type == 'all'){
           addDateAll(val.date, val.duration, val.time);
         } else {
-          addDateSet(val.date, val.time);
+          addDateSet(val.date, val.duration, val.time);
         }
       });
     }
@@ -5154,7 +5144,7 @@ var JaneswalkData = {
             if (marker.style == 'meeting'){
               addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
             } else {
-              addmarker(null, marker.title, marker.description, '', marker.lat, marker.lng);
+              addmarker(null, marker.title, marker.description, marker.question, marker.lat, marker.lng);
             }
           });
         }

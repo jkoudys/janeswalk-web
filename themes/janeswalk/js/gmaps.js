@@ -138,16 +138,14 @@ function gMapinitialize() {
 
     var markerForm = "<div class='stop-form'><input type='text' value='"+marker.title+"' placeholder='Title of this stop' class='marker-title'><br><textarea class='marker-description box-sizing' placeholder='Description of this stop'>"+marker.description+"</textarea><br><button class='btn btn-primary' id='save-marker'>Save Stop</button> <button class='btn' id='delete-marker'>Delete</button></div>";
 
-    infowindow.setContent(markerForm);
     if (!lat){
+      infowindow.setContent(markerForm);
       infowindow.open(map, marker);
     } else {
       markers.push(marker);
     }
 
     addmarkerListener(marker);
-    saveMarkerButton(marker);
-    deleteMarkerButton(marker);
     updateChart();
 
   }
@@ -171,7 +169,6 @@ function gMapinitialize() {
   function saveMarkerButton (marker) {
     google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
       google.maps.event.addDomListener(document.getElementById('save-marker'), 'click', function () {
-
         for (var i = 0; i < markers.length; i++) {
           if (markers[i] === marker) {
             markers.splice(i, 1);
@@ -234,24 +231,6 @@ function gMapinitialize() {
 
     var markerForm = "<div class='stop-form'><input type='text' value='"+marker.title+"' placeholder='Name of your meeting place' class='marker-title'><br><textarea class='marker-description box-sizing' placeholder='Describe where you are meeting'>"+marker.description+"</textarea><br><button class='btn btn-primary' id='save-marker'>Save Meeting Place</button> <button class='btn' id='delete-marker'>Delete</button></div>";
 
-    infowindow.setContent(markerForm);
-    if (!lat){
-      infowindow.open(map, marker);
-    } else {
-      markers.push(marker);
-      $('#addmeetingplace').prop('disabled', true);
-    }
-
-
-    google.maps.event.addListener(marker, 'click', function() {    
-      var markerForm = "<div class='stop-form'><input type='text' value='"+marker.title+"' class='marker-title' placeholder='Name of your meeting place'><br><textarea class='marker-description box-sizing' placeholder='Describe where you are meeting'>"+marker.description+"</textarea><br><button class='btn btn-primary' id='save-marker'>Save Meeting Place</button> <button class='btn' id='delete-marker'>Delete</button></div>";
-      infowindow.setContent(markerForm);
-      map.panTo(marker.getPosition());
-      infowindow.open(map,marker);
-      deleteMarkerButton(marker);
-      saveMarkerButton(marker);
-    });
-
     var deleteMarkerButton = function() {
       google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
         google.maps.event.addDomListener(document.getElementById('delete-marker'), 'click', function () {
@@ -274,7 +253,6 @@ function gMapinitialize() {
     var saveMarkerButton = function(marker) {
       google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
         google.maps.event.addDomListener(document.getElementById('save-marker'), 'click', function () {
-          
           for (var i = 0; i < markers.length; i++) {
             if (markers[i] === marker) {
               markers.splice(i, 1);
@@ -297,9 +275,22 @@ function gMapinitialize() {
       });
     };
 
-    saveMarkerButton(marker);
-    deleteMarkerButton(marker);
+    if (!lat){
+      infowindow.setContent(markerForm);
+      infowindow.open(map, marker);
+    } else {
+      markers.push(marker);
+      $('#addmeetingplace').prop('disabled', true);
+    }
 
+    google.maps.event.addListener(marker, 'click', function() {    
+        var markerForm = "<div class='stop-form'><input type='text' value='"+marker.title+"' class='marker-title' placeholder='Name of your meeting place'><br><textarea class='marker-description box-sizing' placeholder='Describe where you are meeting'>"+marker.description+"</textarea><br><button class='btn btn-primary' id='save-marker'>Save Meeting Place</button> <button class='btn' id='delete-marker'>Delete</button></div>";
+        infowindow.setContent(markerForm);
+        map.panTo(marker.getPosition());
+        infowindow.open(map,marker);
+        deleteMarkerButton(marker);
+        saveMarkerButton(marker);
+      });
   }
 
 
@@ -516,7 +507,6 @@ window.addlines = function(event, title, lat, lng) {
 
 function clearRoute(event) {
   poly.setMap(null);
-  point.length = 0;
   for(i=0; i < point.length; i++) {
     point[i].setMap(null);
   }
