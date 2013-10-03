@@ -11715,33 +11715,38 @@ body {
   }
 }
 
-/* line 27, ../sass/screen.scss */
+/* line 26, ../sass/screen.scss */
+html.index-bg body {
+  padding: 0;
+}
+
+/* line 30, ../sass/screen.scss */
 .box-sizing, .create-page .wysihtml5-sandbox {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 28, ../sass/screen.scss */
+/* line 31, ../sass/screen.scss */
 .box-sizing *, .create-page .wysihtml5-sandbox * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 32, ../sass/screen.scss */
+/* line 35, ../sass/screen.scss */
 .box-sizing *:after, .create-page .wysihtml5-sandbox *:after, .box-sizing *:before, .create-page .wysihtml5-sandbox *:before {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 43, ../sass/screen.scss */
+/* line 46, ../sass/screen.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "museo-slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 51, ../sass/screen.scss */
+/* line 54, ../sass/screen.scss */
 .brand, .logo {
   background: url('/images/jwlogo.svg');
   -webkit-background-size: 70%;
@@ -11755,7 +11760,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
-/* line 61, ../sass/screen.scss */
+/* line 64, ../sass/screen.scss */
 .logo {
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -11763,83 +11768,83 @@ h1, h2, h3, h4, h5, h6 {
   background-size: contain;
 }
 
-/* line 65, ../sass/screen.scss */
+/* line 68, ../sass/screen.scss */
 body.form .brand, body.form .logo {
   width: auto;
   height: auto;
   background: transparent;
 }
 
-/* line 71, ../sass/screen.scss */
+/* line 74, ../sass/screen.scss */
 .hide-text, .profiles .flex-control-nav a {
   text-indent: 130%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 77, ../sass/screen.scss */
+/* line 80, ../sass/screen.scss */
 .no-margin {
   margin: 0;
 }
 
-/* line 81, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 .no-margin-top {
   margin-top: 0;
 }
 
-/* line 87, ../sass/screen.scss */
+/* line 90, ../sass/screen.scss */
 .breadcrumb {
   background: none;
   border: 1px solid #f5f5f5;
   border-radius: 0;
   border-width: 0 0 1px 0;
 }
-/* line 88, ../sass/screen.scss */
+/* line 91, ../sass/screen.scss */
 .breadcrumb > li {
   text-shadow: none;
 }
-/* line 91, ../sass/screen.scss */
+/* line 94, ../sass/screen.scss */
 .breadcrumb a:hover {
   text-decoration: none;
 }
 
-/* line 102, ../sass/screen.scss */
+/* line 105, ../sass/screen.scss */
 .calendar-wrap {
   padding: 0 10px;
   position: relative;
 }
-/* line 105, ../sass/screen.scss */
+/* line 108, ../sass/screen.scss */
 .calendar-wrap .calendar-header {
   font-size: 1.10em;
   margin: 0 0 1em 0;
   width: 100%;
   text-align: center;
 }
-/* line 110, ../sass/screen.scss */
+/* line 113, ../sass/screen.scss */
 .calendar-wrap .calendar-header span {
   font-family: "museo-slab", serif;
   font-weight: 800;
 }
-/* line 115, ../sass/screen.scss */
+/* line 118, ../sass/screen.scss */
 .calendar-wrap .custom-month {
   text-align: center;
   border-radius: 50%;
   width: 22px;
   height: 22px;
 }
-/* line 121, ../sass/screen.scss */
+/* line 124, ../sass/screen.scss */
 .calendar-wrap .custom-year {
   position: absolute;
   top: 0;
   right: 10px;
 }
 
-/* line 130, ../sass/screen.scss */
+/* line 133, ../sass/screen.scss */
 .btn {
   font-family: "museo-slab", serif;
 }
 
-/* line 136, ../sass/screen.scss */
+/* line 139, ../sass/screen.scss */
 footer {
   color: #50616D;
   padding: 40px 0;
@@ -11849,16 +11854,16 @@ footer {
   -webkit-font-smoothing: antialiased;
   box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.05);
 }
-/* line 144, ../sass/screen.scss */
+/* line 147, ../sass/screen.scss */
 footer h4 {
   margin-top: 0;
 }
-/* line 147, ../sass/screen.scss */
+/* line 150, ../sass/screen.scss */
 footer a {
   color: #df520e;
 }
 
-/* line 157, ../sass/screen.scss */
+/* line 160, ../sass/screen.scss */
 #progress {
   position: fixed;
   height: 100px;
@@ -11867,12 +11872,12 @@ footer a {
   top: 40%;
 }
 
-/* line 168, ../sass/screen.scss */
+/* line 171, ../sass/screen.scss */
 .form-actions .btn {
   margin-right: 15px;
 }
 
-/* line 175, ../sass/screen.scss */
+/* line 178, ../sass/screen.scss */
 #donate {
   padding: 10px 15px 10px;
   margin-top: 0;
@@ -11881,18 +11886,18 @@ footer a {
   text-shadow: none;
 }
 
-/* line 183, ../sass/screen.scss */
+/* line 186, ../sass/screen.scss */
 #donate:hover {
   color: #ffffff;
   background-color: #df520e;
 }
 
-/* line 190, ../sass/screen.scss */
+/* line 193, ../sass/screen.scss */
 .infoBox {
   box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
   color: #555;
 }
-/* line 193, ../sass/screen.scss */
+/* line 196, ../sass/screen.scss */
 .infoBox:after {
   content: "";
   width: 9px;
@@ -11907,7 +11912,7 @@ footer a {
   border-bottom-right-radius: 5px;
 }
 
-/* line 210, ../sass/screen.scss */
+/* line 213, ../sass/screen.scss */
 .notification {
   background: url("images/festival-bg.png") bottom right no-repeat #35b0d7;
   color: #fff;
@@ -11922,34 +11927,34 @@ footer a {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 220, ../sass/screen.scss */
+/* line 223, ../sass/screen.scss */
 .notification .close {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-/* line 225, ../sass/screen.scss */
+/* line 228, ../sass/screen.scss */
 .notification.expanded {
   height: 180px;
 }
-/* line 228, ../sass/screen.scss */
+/* line 231, ../sass/screen.scss */
 .notification h4 {
   margin-bottom: 0;
   font-size: 18px;
 }
-/* line 232, ../sass/screen.scss */
+/* line 235, ../sass/screen.scss */
 .notification .title {
   font-size: 33px;
   margin: 0;
   line-height: 1em;
   font-weight: 400;
 }
-/* line 238, ../sass/screen.scss */
+/* line 241, ../sass/screen.scss */
 .notification .container {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-/* line 242, ../sass/screen.scss */
+/* line 245, ../sass/screen.scss */
 .notification.walk-beta {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
@@ -11960,17 +11965,17 @@ footer a {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 248, ../sass/screen.scss */
+/* line 251, ../sass/screen.scss */
 .notification.walk-beta.expanded {
   height: 64px;
 }
-/* line 251, ../sass/screen.scss */
+/* line 254, ../sass/screen.scss */
 .notification.walk-beta .title-sub {
   font-size: 20px;
   margin: 0;
 }
 
-/* line 259, ../sass/screen.scss */
+/* line 262, ../sass/screen.scss */
 .navbar .notification {
   position: absolute;
   overflow: hidden;
@@ -11979,22 +11984,22 @@ footer a {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-/* line 266, ../sass/screen.scss */
+/* line 269, ../sass/screen.scss */
 .navbar .notification .container {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-/* line 270, ../sass/screen.scss */
+/* line 273, ../sass/screen.scss */
 .navbar .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-/* line 274, ../sass/screen.scss */
+/* line 277, ../sass/screen.scss */
 .navbar .notification.expanded {
   height: 50px;
 }
 
-/* line 282, ../sass/screen.scss */
+/* line 285, ../sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", serif;
   padding: 5px 8px;
@@ -12007,38 +12012,38 @@ footer a {
   font-size: 14px;
 }
 
-/* line 296, ../sass/screen.scss */
+/* line 299, ../sass/screen.scss */
 .blog {
   color: #666;
 }
 
-/* line 302, ../sass/screen.scss */
+/* line 305, ../sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 305, ../sass/screen.scss */
+/* line 308, ../sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 312, ../sass/screen.scss */
+/* line 315, ../sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 320, ../sass/screen.scss */
+/* line 323, ../sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 323, ../sass/screen.scss */
+/* line 326, ../sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 328, ../sass/screen.scss */
+/* line 331, ../sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;

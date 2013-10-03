@@ -23,6 +23,9 @@ body {
   line-height: 22px;
   text-rendering: optimizeLegibility;
 }
+html.index-bg body {
+  padding:0;
+}
 
 .box-sizing { 
   * {

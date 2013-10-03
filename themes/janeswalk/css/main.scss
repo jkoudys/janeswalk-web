@@ -908,6 +908,9 @@ header.navbar {
     background: url(img/jwlogo.svg);
   }
 }
+html.index-bg {
+  header.navbar { display:none; }
+}
 body.form {
   .navbar-inner div.container { display:none; }
 }
