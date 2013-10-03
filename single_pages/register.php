@@ -9,6 +9,23 @@
 </div>
 
 <div class="ccm-form">
+<?php  if (isset($error) && $error != '') { ?>
+<?php  
+  if ($error instanceof Exception) {
+    $_error[] = $error->getMessage();
+  } else if ($error instanceof ValidationErrorHelper) { 
+    $_error = $error->getList();
+  } else if (is_array($error)) {
+    $_error = $error;
+  } else if (is_string($error)) {
+    $_error[] = $error;
+  }
+?>
+<div class="ccm-error">
+  <?php  foreach($_error as $e) { ?><?php echo $e?><br /><?php  } ?>
+</div>
+<?php  
+} ?>
 
 <?php  
 $attribs = UserAttributeKey::getRegistrationList();
