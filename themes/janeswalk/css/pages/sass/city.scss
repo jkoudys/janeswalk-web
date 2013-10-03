@@ -326,7 +326,7 @@
     padding: 5px;
     cursor: default;
     background: darken($blue,20%);
-    @include box-shadow(0 2px 0 0 darken($blue,30%));
+  /*  @include box-shadow(0 2px 0 0 darken($blue,30%)); */
     border-radius: 50%;
     color: #fff;
     width: 20px;
@@ -335,7 +335,7 @@
     &.icon-kids {
       background: url('/images/kids-friendly.svg') no-repeat center center darken($blue,20%);
       background-size: 60%;
-      @include box-shadow(0 2px 0 0 darken($blue,30%));
+/*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
     }
   }
 }
