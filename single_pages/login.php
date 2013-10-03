@@ -20,7 +20,7 @@ $(function() {
 
 	<p><?php echo t('Enter your new password below.') ?></p>
 
-	<div class="ccm-form">	
+	<div class="ccm-form modal-body">	
 
 	<form method="post" action="<?php echo $this->url( '/login', 'change_password', $uHash )?>"> 
 
@@ -48,7 +48,7 @@ $(function() {
 
 <h3><?php echo t('Email Address Verified')?></h3>
 
-<div class="success alert-message block-message">
+<div class="success alert-message block-message modal-body">
 <p>
 <?php echo t('The email address <b>%s</b> has been verified and you are now a fully validated member of this website.', $uEmail)?>
 </p>
@@ -56,7 +56,7 @@ $(function() {
 </div>
 
 <?php  } else if (isset($_SESSION['uOpenIDError']) && isset($_SESSION['uOpenIDRequested'])) { ?>
-<div class="ccm-form">
+<div class="ccm-form modal-body">
 <?php  switch($_SESSION['uOpenIDError']) {
 	case OpenIDAuth::E_REGISTRATION_EMAIL_INCOMPLETE: ?>
 
