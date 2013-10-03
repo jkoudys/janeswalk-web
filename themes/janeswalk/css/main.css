@@ -5551,7 +5551,9 @@ i[class^=icon-] {
   padding: 0;
   border: 0;
   background: transparent;
-  display: inline; }
+  display: inline;
+  font-family: inherit;
+  font-size: 17px; }
 
 #title {
   width: 100%;
