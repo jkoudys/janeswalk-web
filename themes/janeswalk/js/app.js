@@ -28,6 +28,9 @@ function toStandardTime(timeString) {
   return timeOutput;
 }
 
+/* Used to blur everything but the one element we don't want blurred */
+function blurPage() { $("body > section, body > header").addClass("blur"); }
+function unblurPage() { $("body > section, body > header").removeClass("blur"); }
 
 $(document).ready(function(){
 

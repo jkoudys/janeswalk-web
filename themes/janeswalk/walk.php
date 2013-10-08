@@ -132,7 +132,7 @@ $this->inc('elements/header.php');  ?>
       <h3>About This Walk</h3>
       <?php $thumb = $c->getAttribute("thumbnail"); 
       if( $thumb ) {
-        echo "<img src='" . $im->getThumbnail($thumb,340,720)->src . "' class='pull-right img-polaroid' />";
+        echo "<a class='thumb' href='" . $im->getThumbnail($thumb,1024,1024)->src . "' ><img src='" . $im->getThumbnail($thumb,340,720)->src . "' class='pull-right img-polaroid' /></a>";
       } 
       echo $c->getAttribute('longdescription'); ?>
     </div>
@@ -366,6 +366,7 @@ $this->inc('elements/header.php');  ?>
     var mapCenter = new google.maps.LatLng(43.654335, -79.386263);
     
     var EventBriteEmail = "jasmine.frolick@janeswalk.net";
+    $('a.thumb').colorbox({ rel:'group1', onOpen: blurPage, onCleanup: unblurPage, current: "Picture {current} of {total}", previous: "&lt;", next: "&gt;", close:"x", maxHeight:"80%", maxWidth:"80%" });
     
   </script>
 
