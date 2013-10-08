@@ -4956,6 +4956,7 @@ var JaneswalkData = {
         self.dataSet.map.markers[key] = {
           title: val.title,
           description: val.description,
+          questions: val.questions,
           style: val.style,
           lat: val.getPosition().lat(),
           lng: val.getPosition().lng()
@@ -5144,7 +5145,7 @@ var JaneswalkData = {
             if (marker.style == 'meeting'){
               addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
             } else {
-              addmarker(null, marker.title, marker.description, marker.question, marker.lat, marker.lng);
+              addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
             }
           });
         }

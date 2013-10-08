@@ -288,8 +288,9 @@ label {
   text-shadow: none;
   background-image: none;
   padding: 10px 12px;
-  &.btn-primary {
+  &.ccm-input-submit {
     background-color: $orange;
+    color:#fff;
     &:hover {
       background-color: darken($orange,10%);
     }
