@@ -42,11 +42,11 @@ $show = $_GET['show'];
     </div>
     <div class="item get-involved box-sizing">
       <div class="top clearfix">
-        <a href="./city_files/city.html" class="btn btn-primary btn-large notify">Get Involved</a>
-        <a href="http://janeswalk.tv/new.html" class="btn btn-primary btn-large">Submit a Walk</a>
+        <a href="#" class="btn btn-primary btn-large notify">Get Involved</a>
+        <a href="#" class="btn btn-primary btn-large notify">Submit a Walk</a>
       </div>
       <div class="below">
-        <a href="http://janeswalk.tv/custom.html" class="btn btn-primary btn-large">Request a Custom Walk</a>
+        <a href="#" class="btn btn-primary btn-large notify">Request a Custom Walk</a>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@ $show = $_GET['show'];
       <h3>All Walks</h3>
     <?php } else { ?>
       <h3>Featured Walks</h3>
-      <a href="?show=all" class="btn btn-primary btn-large see-all notify"><i class="icon-th"></i> See All Walks</a>
+      <a href="?show=all" class="btn btn-primary btn-large see-all"><i class="icon-th"></i> See All Walks</a>
     <?php } ?>
     <div class="row-fluid">
     <?php
