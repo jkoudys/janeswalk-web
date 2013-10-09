@@ -38,8 +38,8 @@
       $event_params = array(
           'title' => $c->getCollectionName(),
           'description' => $c->getAttribute("longdescription"),
-          'start_date' => date('Y-m-d H:i:s', time() + (7 * 24 * 60 * 60)),
-          'end_date' => date('Y-m-d H:i:s', time() + (7 * 24 * 60 * 60) + (2 * 60 * 60) )
+          'start_date' => date('Y-m-d H:i:s', time()),
+          'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) )
       );
       if( empty($eid) ) {
         try{
@@ -53,6 +53,7 @@
       }
       else {
         try{
+          $event_params['id'] = $eid;
           $response = $eb_client->event_update($event_params);
         }catch( Exception $e ){
           $response = $e->error;
@@ -105,7 +106,7 @@
         $c->setAttribute("scheduled", $postArray->time);
         $c->setAttribute("gmap", json_encode($postArray->map));
         $c->setAttribute("team", json_encode($postArray->team));
-        if(File::getByID($postArray->thumbnail_id)) {
+        if($postArray->thumbnail_id && File::getByID($postArray->thumbnail_id)) {
           $c->setAttribute("thumbnail", File::getByID($postArray->thumbnail_id));
         }
 
