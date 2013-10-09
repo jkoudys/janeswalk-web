@@ -117,6 +117,7 @@
             );
         try{
           $response = $eb_client->event_new($new_event_params);
+          $c->setAttribute("eventbrite", $response->id);
           var_dump($response);
         }catch( Exception $e ){
           // application-specific error handling goes here
