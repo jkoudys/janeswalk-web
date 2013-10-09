@@ -63,7 +63,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
             ''
         END
         ) as duration
-        from atSchedule, atEventTime where atSchedule.avID = atEventTime.atScheduleID and atSchedule.avID = ?", array($this->getAttributeValueID()));
+        from atSchedule, atEventTime where atSchedule.avID = atEventTime.atScheduleID and atSchedule.avID = ? ORDER BY start < CURRENT_DATE, start", array($this->getAttributeValueID()));
       return array_filter($reArr);
     }
   }
@@ -88,5 +88,8 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
     else $db->RollbackTrans();
   }
 
+}
+
+class EventTimeAttributeTypeValue extends Object {
 }
 
