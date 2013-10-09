@@ -109,7 +109,8 @@
 
       $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
       /* Check if we're making a new event or not */
-      if( empty($c->getAttribute("eventbrite")) ) {
+      $eid = $c->getAttribute("eventbrite");
+      if( empty($eid) ) {
         $new_event_params = array(
             'title' => $postArray->title,
             'description' => $postArray->longdescription
