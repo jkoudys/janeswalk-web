@@ -48,7 +48,7 @@
         }catch( Exception $e ){
           // application-specific error handling goes here
           $response = $e->error;
-          Log::addEntry('EventBrite Error creating new event for cID='.$c->getCollectionID().': ' . $e->error);
+          Log::addEntry('EventBrite Error creating new event for cID='.$c->getCollectionID().': ' . $e->getMessage());
         }
       }
       else {
@@ -57,7 +57,7 @@
           $response = $eb_client->event_update($event_params);
         }catch( Exception $e ){
           $response = $e->error;
-          Log::addEntry('EventBrite Error updating event ' . $eid . ' for cID='.$c->getCollectionID().': ' . $e->error);
+          Log::addEntry('EventBrite Error updating event ' . $eid . ' for cID='.$c->getCollectionID().': ' . $e->getMessage());
         }
       }
     }
