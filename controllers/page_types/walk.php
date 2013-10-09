@@ -1,5 +1,6 @@
 <?php 
 	defined('C5_EXECUTE') or die("Access Denied.");
+  Loader::library('Eventbrite');
   class WalkPageTypeController extends Controller {
 
     public function on_start() {
@@ -54,7 +55,8 @@
         "map" => json_decode($c->getAttribute("gmap")),
         "team" => json_decode($c->getAttribute("team")),
         "time" => $c->getAttribute("scheduled"),
-        "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null) );
+        "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null),
+        "ticket" => $resp );
 
         /* Checkboxes */
         $walkData['checkboxes'] = array();
@@ -104,6 +106,23 @@
         }
 
       }
+
+      $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
+      /* Check if we're making a new event or not */
+      if( empty($c->getAttribute("eventbrite")) ) {
+        $new_event_params = array(
+            'title' => $postArray->title,
+            'description' => $postArray->longdescription
+            );
+        try{
+          $response = $eb_client->event_new($new_event_params);
+          var_dump($response);
+        }catch( Exception $e ){
+          // application-specific error handling goes here
+          $response = $e->error;
+        }
+      }
+
     }
     public function isPut() {
       return $_SERVER['REQUEST_METHOD'] == 'PUT';
