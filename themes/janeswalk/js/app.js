@@ -321,7 +321,9 @@ var styles = [{
     var bounds = new google.maps.LatLngBounds();
     for (var index in markers) { bounds.extend( markers[index].getPosition() ); }
     for (var index in walkPath.getPath().getArray()) { bounds.extend(walkPath.getPath().getAt(index)); }
-    map.fitBounds(bounds);
+    if(markers.length > 0) {
+      map.fitBounds(bounds);
+    }
 
     google.maps.event.addDomListener(window, 'resize', function() {
       map.setCenter(mapCenter);
