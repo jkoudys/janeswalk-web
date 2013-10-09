@@ -13,6 +13,7 @@
           break;
         case 'POST':
           $this->setJson($_POST['json']);
+          $this->setEventBrite();
           exit;
           break;
         case 'GET':
@@ -30,14 +31,34 @@
     public function save() {
     }
 
-    public function newEvent() {
-      $curl = curl_init();
-      curl_setopt($curl, CURLOPT_POST, 1);
-      $data = "https://www.eventbrite.com/xml/event_new?...&title={$c->getCollectionName()}&description={$c->getAttribute("shortdescription")}&start_date=2007-12-31+10:00:00&end_date=2008-01-01+02:00:00&timezone=GMT+01";
-
-      if ($data)
-        $url = sprintf("%s?%s", $url, http_build_query($data));
-
+    public function setEventBrite() {
+      $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
+      /* Check if we're making a new event or not */
+      $eid = $c->getAttribute("eventbrite");
+      $event_params = array(
+          'title' => $c->getCollectionName(),
+          'description' => $c->getAttribute("longdescription"),
+          'start_date' => date('Y-m-d H:i:s', time() + (7 * 24 * 60 * 60)),
+          'end_date' => date('Y-m-d H:i:s', time() + (7 * 24 * 60 * 60) + (2 * 60 * 60) )
+      );
+      if( empty($eid) ) {
+        try{
+          $response = $eb_client->event_new($event_params);
+          $c->setAttribute("eventbrite", $response->process->id);
+        }catch( Exception $e ){
+          // application-specific error handling goes here
+          $response = $e->error;
+          Log::addEntry('EventBrite Error creating new event for cID='.$c->getCollectionID().': ' . $e->error);
+        }
+      }
+      else {
+        try{
+          $response = $eb_client->event_update($event_params);
+        }catch( Exception $e ){
+          $response = $e->error;
+          Log::addEntry('EventBrite Error updating event ' . $eid . ' for cID='.$c->getCollectionID().': ' . $e->error);
+        }
+      }
     }
 
     public function getJson() {
@@ -66,23 +87,6 @@
           }
         }
         $walkData['checkboxes'] = $checkboxes;
-      $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
-      /* Check if we're making a new event or not */
-      $eid = $c->getAttribute("eventbrite");
-      if( empty($eid) ) {
-        $new_event_params = array(
-            'title' => $c->getCollectionName(),
-            'description' => $c->getAttribute("longdescription")
-            );
-        try{
-          $response = $eb_client->event_new($new_event_params);
-          $c->setAttribute("eventbrite", $response->id);
-        }catch( Exception $e ){
-          // application-specific error handling goes here
-          $response = $e->error;
-        }
-      }
-      var_dump($response);
 
         echo json_encode($walkData);
     }
