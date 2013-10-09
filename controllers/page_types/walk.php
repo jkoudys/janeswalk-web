@@ -66,6 +66,23 @@
           }
         }
         $walkData['checkboxes'] = $checkboxes;
+      $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
+      /* Check if we're making a new event or not */
+      $eid = $c->getAttribute("eventbrite");
+      if( empty($eid) ) {
+        $new_event_params = array(
+            'title' => $c->getCollectionName(),
+            'description' => $c->getAttribute("longdescription")
+            );
+        try{
+          $response = $eb_client->event_new($new_event_params);
+          $c->setAttribute("eventbrite", $response->id);
+          var_dump($response);
+        }catch( Exception $e ){
+          // application-specific error handling goes here
+          $response = $e->error;
+        }
+      }
 
         echo json_encode($walkData);
     }
