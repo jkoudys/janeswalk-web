@@ -51,8 +51,8 @@
         $event_params['repeats'] = 'yes';
       // Until 'repeats' is working by eb, just assume the next available date is the one that's open to book
       } else if(isset($slots[0]['date'])) { 
-        $event_params['start_date'] = $scheduled['eb_start'];
-        $event_params['end_date'] = $scheduled['eb_end'];
+        $event_params['start_date'] = $slots[0]['eb_start'];
+        $event_params['end_date'] = $slots[0]['eb_end'];
       }
 
       Log::addEntry('EventBrite event_params: ' . $event_params);
