@@ -7,6 +7,7 @@
       $method = $_SERVER['REQUEST_METHOD'];
       $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
       $c = Page::getCurrentPage();
+      $walkName = $c->getCollectionName()
 
       switch ($method) {
         case 'PUT':
@@ -14,7 +15,7 @@
           break;
         case 'POST':
           $this->setJson($_POST['json']);
-          if(!empty($c->getCollectionName())) { $this->setEventBrite(); }
+          if(!empty($walkName)) { $this->setEventBrite(); }
           exit;
           break;
         case 'GET':
