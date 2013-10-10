@@ -5150,6 +5150,7 @@ var JaneswalkData = {
               addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
             }
             bounds.extend( marker );
+            map.fitBounds(bounds);
           });
         }
         if (typeof(data.map.route) != "undefined"){
@@ -5158,7 +5159,6 @@ var JaneswalkData = {
             bounds.extend( point );
           });
         }
-        map.fitBounds(bounds);
 
         $(document).off('gmapinit');
       });
