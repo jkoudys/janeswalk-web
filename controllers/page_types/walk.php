@@ -6,6 +6,7 @@
     public function on_start() {
       $method = $_SERVER['REQUEST_METHOD'];
       $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
+      $c = Page::getCurrentPage();
 
       switch ($method) {
         case 'PUT':
@@ -13,7 +14,7 @@
           break;
         case 'POST':
           $this->setJson($_POST['json']);
-          $this->setEventBrite();
+          if(!empty($c->getCollectionName())) { $this->setEventBrite(); }
           exit;
           break;
         case 'GET':
