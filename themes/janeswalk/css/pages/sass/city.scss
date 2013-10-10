@@ -317,6 +317,10 @@
   }
 }
 
+.span3.walk:nth-child(4n+1) {
+  margin-left:0;
+}
+
 .tags {
   margin-bottom: 0;
   position: absolute;

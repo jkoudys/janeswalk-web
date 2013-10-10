@@ -9803,6 +9803,11 @@ p.lead {
 }
 
 /* line 320, ../sass/city.scss */
+.span3.walk:nth-child(4n+1) {
+  margin-left: 0;
+}
+
+/* line 324, ../sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -9810,7 +9815,7 @@ p.lead {
   width: 100%;
   text-align: center;
 }
-/* line 326, ../sass/city.scss */
+/* line 330, ../sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -9822,14 +9827,14 @@ p.lead {
   height: 20px;
   text-align: right;
 }
-/* line 336, ../sass/city.scss */
+/* line 340, ../sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 344, ../sass/city.scss */
+/* line 348, ../sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -9837,7 +9842,7 @@ p.lead {
   height: 20px;
 }
 
-/* line 351, ../sass/city.scss */
+/* line 355, ../sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
