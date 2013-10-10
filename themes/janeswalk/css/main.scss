@@ -14,7 +14,9 @@
 /* ==========================================================================
    Base styles
    ========================================================================== */
-
+html { 
+  margin-top:0 !important;
+}
 body {
   font-family: "freight-sans-pro", sans-serif;
   font-size: 1.05em;
@@ -22,7 +24,6 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   &.form {
-    margin-top:20px;padding-top:0;
     i[class^=icon-] {
       margin: 0 auto;
     }
