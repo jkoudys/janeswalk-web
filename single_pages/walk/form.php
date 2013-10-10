@@ -3,6 +3,18 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 
 $c = Page::getCurrentPage();
 $u = new User(); 
+$nh = Loader::helper('navigation');
+
+/* If no page is passed to edit, create a new page.
+   TODO: change this to either redirect, or detect if you have one in-progress so ctrl-r doesn't make new walks. */
+$loadJson = $_GET['load'];
+if(empty($loadJson)) {
+  $cityPage = Page::getByPath("/canada/toronto");
+  $data = array(
+      );
+  $newPage = $cityPage->add(CollectionType::getByHandle("walk"),$data);  
+  echo "<div style='display:none' class='newpage' data-url='".$nh->getCollectionURL($newPage)."'></div>";
+}
 ?>
 
 <body class="form">

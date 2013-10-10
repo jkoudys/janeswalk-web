@@ -3,6 +3,7 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 $im = Loader::helper('image');
 $fullbg = $c->getAttribute("full_bg");
 $th = Loader::helper('theme');
+$nh = Loader::helper('navigation');
 $show = $_GET['show'];
 ?>
 <!DOCTYPE html>
@@ -43,7 +44,8 @@ $show = $_GET['show'];
     <div class="item get-involved box-sizing">
       <div class="top clearfix">
         <a href="#" class="btn btn-primary btn-large notify">Get Involved</a>
-        <a href="#" class="btn btn-primary btn-large notify">Submit a Walk</a>
+        <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
+        <a href="<?= $nh->getCollectionURL($newWalkForm) ?>" class="btn btn-primary btn-large">Submit a Walk</a>
       </div>
       <div class="below">
         <a href="#" class="btn btn-primary btn-large notify">Request a Custom Walk</a>
@@ -61,10 +63,10 @@ $show = $_GET['show'];
     <div class="row-fluid">
     <?php
         Loader::model('page_list');
-        $nh = Loader::helper('navigation');
         $u = new User();
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle("walk");
+        $pl->filterByPath($c->getCollectionPath());
         $pagecount = ($show == "all") ? 100 : 3;
         foreach($pl->get($pagecount) as $page) {  ?>
         <div class="span<?php echo($show == "all") ? "3" : "4" ?> walk">

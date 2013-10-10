@@ -55,7 +55,7 @@
         $event_params['end_date'] = $slots[0]['eb_end'];
       }
 
-      Log::addEntry('EventBrite event_params: ' . $event_params);
+      Log::addEntry('EventBrite event_params: ' . print_r($event_params,true));
       if( empty($eid) ) {
         try{
           $response = $eb_client->event_new($event_params);
