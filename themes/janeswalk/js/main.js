@@ -5144,12 +5144,14 @@ var JaneswalkData = {
       $(document).on('gmapinit', function(){
         if (typeof(data.map.markers) != "undefined"){
           $.each(data.map.markers, function(key, marker){
-            if (marker.style == 'meeting'){
-              addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
-            } else {
-              addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
+            if(marker.lat && marker.lng) {
+              if (marker.style == 'meeting'){
+                addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
+              } else {
+                addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
+              }
+              bounds.extend( marker );
             }
-            bounds.extend( marker );
           });
         }
         if (typeof(data.map.route) != "undefined"){
