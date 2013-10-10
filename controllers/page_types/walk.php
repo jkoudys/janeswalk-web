@@ -7,7 +7,7 @@
       $method = $_SERVER['REQUEST_METHOD'];
       $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
       $c = Page::getCurrentPage();
-      $walkName = $c->getCollectionName()
+      $walkName = $c->getCollectionName();
 
       switch ($method) {
         case 'PUT':
