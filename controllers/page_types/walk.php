@@ -54,10 +54,10 @@
         $event_params['end_date'] = $scheduled['eb_end'];
       }
 
+      Log::addEntry('EventBrite event_params: ' . $event_params);
       if( empty($eid) ) {
         try{
           $response = $eb_client->event_new($event_params);
-          Log::addEntry('EventBrite event_params: ' . $event_params);
           $c->setAttribute("eventbrite", $response->process->id);
         }catch( Exception $e ){
           // application-specific error handling goes here
