@@ -32,6 +32,7 @@
     }
 
     public function setEventBrite() {
+      $c = Page::getCurrentPage();
       $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
       /* Check if we're making a new event or not */
       $eid = $c->getAttribute("eventbrite");
