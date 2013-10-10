@@ -41,9 +41,23 @@
           'start_date' => date('Y-m-d H:i:s', time()),
           'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) )
       );
+      /* If it's an 'open' booking, then it's a daily repeating event for the next year */
+      $scheduled = $c->getAttribute('scheduled');
+      $slots = (Array)$scheduled['slots']; 
+      if($scheduled['open']) {
+        $event_params['start_date'] = date('Y-m-d', time());
+        $event_params['end_date'] = date('Y-m-d', time());
+        $event_params['repeats'] = 'yes';
+      // Until 'repeats' is working by eb, just assume the next available date is the one that's open to book
+      } else if(isset($slots[0]['date'])) { 
+        $event_params['start_date'] = $scheduled['eb_start'];
+        $event_params['end_date'] = $scheduled['eb_end'];
+      }
+
       if( empty($eid) ) {
         try{
           $response = $eb_client->event_new($event_params);
+          Log::addEntry('EventBrite event_params: ' . $event_params);
           $c->setAttribute("eventbrite", $response->process->id);
         }catch( Exception $e ){
           // application-specific error handling goes here
@@ -128,25 +142,6 @@
         }
 
       }
-
-      $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
-      /* Check if we're making a new event or not */
-      $eid = $c->getAttribute("eventbrite");
-      if( empty($eid) ) {
-        $new_event_params = array(
-            'title' => $postArray->title,
-            'description' => $postArray->longdescription
-            );
-        try{
-          $response = $eb_client->event_new($new_event_params);
-          $c->setAttribute("eventbrite", $response->id);
-          var_dump($response);
-        }catch( Exception $e ){
-          // application-specific error handling goes here
-          $response = $e->error;
-        }
-      }
-
     }
     public function isPut() {
       return $_SERVER['REQUEST_METHOD'] == 'PUT';

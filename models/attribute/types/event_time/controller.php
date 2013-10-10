@@ -62,7 +62,9 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
           ELSE
             ''
         END
-        ) as duration
+        ) as duration,
+        DATE_FORMAT(start, '%Y-%m-%d %H:%i:%S') as eb_start,
+        DATE_FORMAT(end, '%Y-%m-%d %H:%i:%S') as eb_end
         from atSchedule, atEventTime where atSchedule.avID = atEventTime.atScheduleID and atSchedule.avID = ? ORDER BY start < CURRENT_DATE, start", array($this->getAttributeValueID()));
       return array_filter($reArr);
     }
