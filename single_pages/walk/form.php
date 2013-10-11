@@ -7,9 +7,9 @@ $nh = Loader::helper('navigation');
 
 /* If no page is passed to edit, create a new page.
    TODO: change this to either redirect, or detect if you have one in-progress so ctrl-r doesn't make new walks. */
-$loadJson = $_GET['load'];
+$loadJson = $_REQUEST['load'];
 if(empty($loadJson)) {
-  $parentCID = $_GET['parentCID'];
+  $parentCID = $_REQUEST['parentCID'];
   if(empty($parentCID)) {
     $cityPage = Page::getByPath("/canada/toronto");
   }
@@ -926,13 +926,13 @@ $valt = Loader::helper('validation/token');
     <div class="span3" id="tips-column">
       <aside id="tips-panel" role="complementary">
         <div class="popover right" id="city-organizer" style="display:block;">
-  <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> Contact Jasmine for help</h3>
+  <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> Contact Jane's Walk for help</h3>
   <div class="popover-content collapse in" id="popover-content">
     <div class="text-center">
           <img src="<?php echo $this->getThemePath();?>/img/jasmine.jpg" class="img-circle" alt="">
     </div>
     <p>
-      Hi! I'm Jasmine, the City Organizer for Toronto. I'm here to help so if you have any questions email me at <strong>jasmine.frolick@janeswalk.net </strong></p>
+      Hi! I'm Denise, the Director of Jane's Walk. I'm here to help, so if you have any questions email me at <strong><a href="mailto:info@janeswalk.net">info@janeswalk.net</a></strong></p>
   </div>
 </div>
 <!-- Profile of City organizer -->
