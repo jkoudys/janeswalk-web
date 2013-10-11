@@ -19,10 +19,7 @@ $show = $_GET['show'];
       <h1><?=$c->getCollectionName()?> Walks</h1>
       <p>
         </p>
-        <?php 
-          $a = new Area('City Summary');
-          $a->display($c);
-        ?>
+        <?php echo $c->getAttribute('shortdescription'); ?>
         </div>
       </div>
     </div>
@@ -39,6 +36,7 @@ $show = $_GET['show'];
       
       <h2>Jane’s Walks</h2>
       <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
+        <?php echo $c->getAttribute('longdescription'); ?>
         <?php 
           $a = new Area('City Description');
           $a->display($c);
