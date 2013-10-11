@@ -106,7 +106,7 @@ $show = $_GET['show'];
 
 </div>
 
-<div class="intro-city lower blog">
+<div class="intro-city lower blog" style="display:none">
 	<div class="container">
       <h2 class="title"><a href="./city_files/city.html" class="notify">City Blog</a></h2>
 		  <div class="row-fluid">
