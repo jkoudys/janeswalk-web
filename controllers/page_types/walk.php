@@ -41,6 +41,7 @@
       $event_params = array(
           'title' => $c->getCollectionName(),
           'description' => $c->getAttribute("longdescription"),
+          'privacy' => '1',
           'start_date' => date('Y-m-d H:i:s', time()),
           'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) )
       );
