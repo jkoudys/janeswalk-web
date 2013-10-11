@@ -36,7 +36,7 @@ $show = $_GET['show'];
       
       <h2>Jane’s Walks</h2>
       <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
-        <?php echo htmlentities($c->getAttribute('longdescription')); ?>
+        <?php echo nl2br($c->getAttribute('longdescription')); ?>
         <?php 
           $a = new Area('City Description');
           $a->display($c);
