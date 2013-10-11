@@ -1,4 +1,18 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<script>
+$(document).ready(function() {
+  $("a.delete").click(function(event) {
+    event.preventDefault();
+    var cid = $(this).data("cid");
+    var url = $(this).attr("href");
+    $.ajax({
+      type: "DELETE",
+      url: url,
+      success: function() { location.reload(); }
+      });
+    });
+  });
+</script>
 <div id="ccm-profile-wrapper">
     <?php  Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
     <div id="ccm-profile-body">	
@@ -15,7 +29,7 @@
         <?php  } ?>		
         </div>
 		</div>
-    <h3>Your Walks</h3>
+    <h3>Your Public Walks</h3>
     <ul class="walks">
       <?php
         Loader::model('page_list');
@@ -25,16 +39,34 @@
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle("walk");
         $pl->filterByUserID($u->getUserID());
+        $pl->filterByAttribute('exclude_page_list',false);
         foreach($pl->get() as $page) {
           echo "<li><a href='" . $nh->getCollectionURL($page) . "'>" . $page->getCollectionName() . "</a>
-          [ <a href='" . $nh->getCollectionURL($pageEdit) ."?load=" . $nh->getCollectionURL($page) . "?format=json" . "'>edit</a> ]" .
+          [ <a href='" . $nh->getCollectionURL($pageEdit) ."?load=" . $nh->getCollectionURL($page) . "?format=json" . "'>edit</a> | " .
+          "<a href='".$nh->getCollectionURL($page) . "' class='delete' data-cid='" . $page->getCollectionID() . "'>unpublish</a> ]" .
           "</li>";
         }
       ?>
     </ul>
-		
-		<?php  
-			$a = new Area('Main'); 
+      <?php
+        $pl = new PageList();
+        $pl->filterByCollectionTypeHandle("walk");
+        $pl->filterByUserID($u->getUserID());
+        $pl->filterByAttribute('exclude_page_list',true);
+        $inprogressPages = $pl->get();
+        if(count($inprogressPages) > 0) {
+      ?>
+      <h3>In-Progress Walks</h3>
+      <?php
+        foreach($inprogressPages as $page) {
+          $latest = Page::getByID($page->getCollectionID());
+            echo "<li>" . $latest->getCollectionName() . " 
+            [ <a href='" . $nh->getCollectionURL($pageEdit) ."?load=" . $nh->getCollectionURL($page) . "?format=json" . "'>edit</a> ]" .
+            "</li>";
+        }
+      }
+      
+      $a = new Area('Main'); 
 			$a->setAttribute('profile', $profile); 
 			$a->setBlockWrapperStart('<div class="ccm-profile-body-item">');
 			$a->setBlockWrapperEnd('</div>');

@@ -31,6 +31,7 @@
         case 'DELETE':
           $c = Page::getCurrentPage();
           $c->setAttribute('exclude_page_list',true);
+          $this->setEventBriteStatus('draft');
           break;
       }
     }
@@ -38,7 +39,21 @@
     }
     public function save() {
     }
-
+    public function setEventBriteStatus($status='draft') {
+      $c = Page::getCurrentPage();
+      $eid = $c->getAttribute("eventbrite");
+      if($eid) {
+        $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
+        $event_params = array( 'status' => $status, 'id' => $eid );
+        try{
+          $response = $eb_client->event_update($event_params);
+        }catch( Exception $e ){
+          // application-specific error handling goes here
+          $response = $e->error;
+          Log::addEntry('EventBrite Error updating status for cID='.$c->getCollectionID().': ' . $e->getMessage());
+        }
+      }
+    }
     public function setEventBrite($status = null) {
       $c = Page::getCurrentPage();
       $c = Page::getByID($c->getCollectionID()); // Refresh

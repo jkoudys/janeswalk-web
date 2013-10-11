@@ -67,6 +67,7 @@ $show = $_GET['show'];
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle("walk");
         $pl->filterByPath($c->getCollectionPath());
+        $pl->filterByAttribute('exclude_page_list',false);
         $pagecount = ($show == "all") ? 100 : 3;
         foreach($pl->get($pagecount) as $page) {  ?>
         <div class="span<?php echo($show == "all") ? "3" : "4" ?> walk">

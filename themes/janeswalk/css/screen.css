@@ -11312,3 +11312,8 @@ footer a {
   text-align: center;
   line-height: 20px;
 }
+
+/* line 338, ../sass/screen.scss */
+#ccm-profile-wrapper {
+  padding-bottom: 25px;
+}
