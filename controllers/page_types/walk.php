@@ -6,24 +6,28 @@
     public function on_start() {
       $method = $_SERVER['REQUEST_METHOD'];
       $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
-      $c = Page::getCurrentPage();
-      $walkName = $c->getCollectionName();
 
       switch ($method) {
-        case 'PUT':
-          $this->newEvent();
-          break;
+        // The 'publish' for an event
         case 'POST':
-          $this->setJson($_POST['json']);
-          if(!empty($walkName)) { $this->setEventBrite(); }
+          $this->setJson($_POST['json'], true);
+          $this->setEventBrite('live');
+          break;
+        // 'save'
+        case 'PUT':
+          parse_str(file_get_contents("php://input"),$put_vars);
+          $this->setJson($put_vars['json']);
+          $this->setEventBrite();
           exit;
           break;
+        // Retrieve the page's json
         case 'GET':
           if($_GET['format'] == 'json') {
             $this->getJson();
             exit;
           }
           break;
+        // 'unpublish' the event (true deletes done through dashboard controller, not walk)
         case 'DELETE':
           break;
       }
@@ -33,8 +37,9 @@
     public function save() {
     }
 
-    public function setEventBrite() {
+    public function setEventBrite($status = null) {
       $c = Page::getCurrentPage();
+      $c = Page::getByID($c->getCollectionID()); // Refresh
       $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
       /* Check if we're making a new event or not */
       $eid = $c->getAttribute("eventbrite");
@@ -45,6 +50,9 @@
           'start_date' => date('Y-m-d H:i:s', time()),
           'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) )
       );
+      if(isset($status)) {
+        $event_params['status'] = $status;
+      }
       /* Jane's Walks are always free */
       $ticket_params = array(
         'price' => '0.00',
@@ -129,10 +137,14 @@
         echo json_encode($walkData);
     }
 
-    public function setJson($json) {
+    public function setJson($json, $publish = false) {
       $postArray = json_decode($json);
       $c = Page::getCurrentPage();
       if( isset($c) ) {
+        $currentCollectionVersion = $c->getVersionObject();
+        $newCollectionVersion = $currentCollectionVersion->createNew('Updated via walk form');
+        $c->loadVersionObject($newCollectionVersion->getVersionID());
+
         $data = array("cName" => $postArray->title); $c->update($data);
         $c->setAttribute("shortdescription", $postArray->shortdescription);
         $c->setAttribute("longdescription", $postArray->longdescription);
@@ -163,7 +175,7 @@
         foreach(['theme', 'accessible'] as $akHandle) {
           $c->setAttribute($akHandle, $checkboxes[$akHandle]);
         }
-
+        if($publish) { $newCollectionVersion->approve(); }
       }
     }
     public function isPut() {

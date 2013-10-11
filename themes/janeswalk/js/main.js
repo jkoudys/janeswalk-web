@@ -4849,10 +4849,10 @@ window.Janeswalk = {
     if(null != dataUrl) { var previewUrl = dataUrl.replace("format=json","format=html"); }
     else { dataUrl = $(".newpage").data("url"); }
 
-    $('.save, .btn-preview, .btn-submit').on('click', function(e){
+    $('.save, .btn-preview').on('click', function(e){
       // Run validation first?
       $.ajax({
-        type: "POST",
+        type: "PUT",
         url: dataUrl,
         dataType: "json",
         data: {json: JSON.stringify( JaneswalkData.build() )},
@@ -4860,6 +4860,15 @@ window.Janeswalk = {
         });
 //      $.post(dataUrl, JSON.stringify(JaneswalkData.build()), function(){ console.log("success") }, "json");
     });
+    $('.btn-submit').click(function(e){
+      $.ajax({
+        type: "POST",
+        url: dataUrl,
+        dataType: "json",
+        data: {json: JSON.stringify( JaneswalkData.build() )},
+        success: function() { console.log("Published Walk"); }
+        });
+      });
 
     if (dataUrl != null){
       $('.progress-spinner').spin(spinProperties);
