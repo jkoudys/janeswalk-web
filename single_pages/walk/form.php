@@ -4,6 +4,7 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 $c = Page::getCurrentPage();
 $u = new User(); 
 $nh = Loader::helper('navigation');
+$imgHelper = Loader::helper('image'); 
 
 /* If no page is passed to edit, create a new page.
    TODO: change this to either redirect, or detect if you have one in-progress so ctrl-r doesn't make new walks. */
@@ -929,7 +930,10 @@ $valt = Loader::helper('validation/token');
   <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> Contact Jane's Walk for help</h3>
   <div class="popover-content collapse in" id="popover-content">
     <div class="text-center">
-          <img src="<?php echo $this->getThemePath();?>/img/jasmine.jpg" class="img-circle" alt="">
+    <?php
+      $fObj = File::getByID(35);
+      $image = $imgHelper->getThumbnail($fObj,140,140); ?>
+          <img src="<?php echo $image->src ?>" class="img-circle" alt="">
     </div>
     <p>
       Hi! I'm Denise, the Director of Jane's Walk. I'm here to help, so if you have any questions email me at <strong><a href="mailto:info@janeswalk.net">info@janeswalk.net</a></strong></p>
