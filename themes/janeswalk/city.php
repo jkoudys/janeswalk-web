@@ -16,9 +16,13 @@ $show = $_GET['show'];
 <div class="intro-city tk-museo-slab">
   <div class="container">
     <div class="city-header">
-      <h1>Toronto Walks</h1>
+      <h1><?=$c->getCollectionName()?> Walks</h1>
       <p>
-        </p><p>Toronto is a city of neighbourhoods and areas with a diverse cultural mix.  There were over <strong>150 walks</strong> during the past festival weekend, and a select set of walks are now available throughout the year.</p>
+        </p>
+        <?php 
+          $a = new Area('City Summary');
+          $a->display($c);
+        ?>
         </div>
       </div>
     </div>
@@ -34,12 +38,11 @@ $show = $_GET['show'];
     <div class="item active">
       
       <h2>Jane’s Walks</h2>
-      <h4>Get out and walk! Explore, learn <br>and share through a Jane’s Walk <br>in Toronto</h4>
-      <p>
-        Jane’s Walk is a walking conversation that includes community voices and the opportunity to learn about new and often overlooked places within a city.</p>
-
-        <p>Select a walk and make an booking online.   While available dates are displayed for each walk, you can also request a specific date and time. We can even organize a walk specific to your group, for a particular area of the city, or subject of interest.</p>
-
+      <h4>Get out and walk! Explore, learn <br>and share through a Jane’s Walk <br>in <?=$c->getCollectionName()?></h4>
+        <?php 
+          $a = new Area('City Description');
+          $a->display($c);
+        ?>
     </div>
     <div class="item get-involved box-sizing">
       <div class="top clearfix">
