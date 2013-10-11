@@ -154,8 +154,9 @@ $this->inc('elements/header.php');  ?>
         <div class="row-fluid">
           <div class="span3">
             <?php
-            switch($mem->type) {
-              case "you":
+            $memberType = $mem->type;
+            if($memberType == 'you') { $memberType = ($mem->role == 'walk-organizer') ? 'organizer' : 'leader'; } 
+            switch($memberType) {
               case "leader":
                 echo '<img src="' . $this->getThemePath() . '/img/walk-leader.png" alt="Walk Leader" class="pull-left">';
                 echo '</div><div class="span9">';
