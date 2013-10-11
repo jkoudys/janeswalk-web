@@ -41,6 +41,7 @@ $(document).ready(function() {
           <?php
           $cities = new PageList();
           $cities->filterByCollectionTypeHandle('city');
+          $cities->sortByName();
           foreach($cities->get() as $city) {
           ?>
             <option value="<?php echo $city->getCollectionID() ?>"><?php echo $city->getCollectionName() ?></option>
