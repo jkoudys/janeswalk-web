@@ -13,6 +13,7 @@ if(empty($loadJson)) {
   $data = array(
       );
   $newPage = $cityPage->add(CollectionType::getByHandle("walk"),$data);  
+  $newPage->setAttribute('exclude_page_list',true);
   echo "<div style='display:none' class='newpage' data-url='".$nh->getCollectionURL($newPage)."'></div>";
 }
 ?>

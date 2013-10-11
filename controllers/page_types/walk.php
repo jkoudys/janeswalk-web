@@ -29,6 +29,8 @@
           break;
         // 'unpublish' the event (true deletes done through dashboard controller, not walk)
         case 'DELETE':
+          $c = Page::getCurrentPage();
+          $c->setAttribute('exclude_page_list',true);
           break;
       }
     }
@@ -175,7 +177,7 @@
         foreach(['theme', 'accessible'] as $akHandle) {
           $c->setAttribute($akHandle, $checkboxes[$akHandle]);
         }
-        if($publish) { $newCollectionVersion->approve(); }
+        if($publish) { $c->setAttribute('exclude_page_list',false); $newCollectionVersion->approve(); }
       }
     }
     public function isPut() {
