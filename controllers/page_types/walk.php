@@ -50,8 +50,7 @@
         'min' => '1',
         'max' => '20',
         'quantity_available' => '250',
-        'start_date' => date('Y-m-d H:i:s', time()),
-        'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) ) );
+        'start_date' => date('Y-m-d H:i:s', time()) );
       /* If it's an 'open' booking, then it's a daily repeating event for the next year */
       $scheduled = $c->getAttribute('scheduled');
       $slots = (Array)$scheduled['slots']; 
@@ -87,6 +86,7 @@
           Log::addEntry('EventBrite Error updating event ' . $eid . ' for cID='.$c->getCollectionID().': ' . $e->getMessage());
         }
       }
+      $ticket_params['end_date'] = $event_params['end_date'];
       foreach($slots as $walkDate) {
         $ticket_params['name'] = $walkDate['date'] . ' Walk';
         try {
