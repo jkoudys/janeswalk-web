@@ -9,7 +9,13 @@ $nh = Loader::helper('navigation');
    TODO: change this to either redirect, or detect if you have one in-progress so ctrl-r doesn't make new walks. */
 $loadJson = $_GET['load'];
 if(empty($loadJson)) {
-  $cityPage = Page::getByPath("/canada/toronto");
+  $parentCID = $_GET['parentCID'];
+  if(empty($parentCID)) {
+    $cityPage = Page::getByPath("/canada/toronto");
+  }
+  else {
+    $cityPage = Page::getByID($parentCID);
+  }
   $data = array(
       );
   $newPage = $cityPage->add(CollectionType::getByHandle("walk"),$data);  
@@ -23,7 +29,7 @@ if(empty($loadJson)) {
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
-      <a class="brand" href="#"><i class="icon-map-marker"></i> Toronto, Ontario, Canada</a>
+      <a class="brand" href="#"><i class="icon-map-marker"></i><?php # Toronto, Ontario, Canada ?></a>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
           Logged in as <a href="<?php echo $this->url('/profile') ?>" class="navbar-link"><?php echo $u->getUserName(); ?></a>

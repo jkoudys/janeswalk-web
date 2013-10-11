@@ -46,7 +46,7 @@ $show = $_GET['show'];
       <div class="top clearfix">
         <a href="#" class="btn btn-primary btn-large notify">Get Involved</a>
         <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
-        <a href="<?= $nh->getCollectionURL($newWalkForm) ?>" class="btn btn-primary btn-large">Submit a Walk</a>
+        <a href="<?= $nh->getCollectionURL($newWalkForm) ?>?parentCID=<?php echo $c->getCollectionID()?>" class="btn btn-primary btn-large">Submit a Walk</a>
       </div>
       <div class="below">
         <a href="#" class="btn btn-primary btn-large notify">Request a Custom Walk</a>
