@@ -38,7 +38,7 @@ $show = $_GET['show'];
     <div class="item active">
       
       <h2>Jane’s Walks</h2>
-      <h4>Get out and walk! Explore, learn <br>and share through a Jane’s Walk <br>in <?=$c->getCollectionName()?></h4>
+      <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
         <?php 
           $a = new Area('City Description');
           $a->display($c);
