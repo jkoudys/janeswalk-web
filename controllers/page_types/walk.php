@@ -44,6 +44,14 @@
           'start_date' => date('Y-m-d H:i:s', time()),
           'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) )
       );
+      /* Jane's Walks are always free */
+      $ticket_params = array(
+        'price' => '0.00',
+        'min' => '1',
+        'max' => '20',
+        'quantity_available' => '250',
+        'start_date' => date('Y-m-d H:i:s', time()),
+        'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) ) );
       /* If it's an 'open' booking, then it's a daily repeating event for the next year */
       $scheduled = $c->getAttribute('scheduled');
       $slots = (Array)$scheduled['slots']; 
@@ -61,6 +69,7 @@
       if( empty($eid) ) {
         try{
           $response = $eb_client->event_new($event_params);
+          $ticket_params['event_id'] = $response->process->id;
           $c->setAttribute("eventbrite", $response->process->id);
         }catch( Exception $e ){
           // application-specific error handling goes here
@@ -71,10 +80,20 @@
       else {
         try{
           $event_params['id'] = $eid;
+          $ticket_params['event_id'] = $eid;
           $response = $eb_client->event_update($event_params);
         }catch( Exception $e ){
           $response = $e->error;
           Log::addEntry('EventBrite Error updating event ' . $eid . ' for cID='.$c->getCollectionID().': ' . $e->getMessage());
+        }
+      }
+      foreach($slots as $walkDate) {
+        $ticket_params['name'] = $walkDate['date'] . ' Walk';
+        try {
+          $response = $eb_client->ticket_new($ticket_params);
+        }catch( Exception $e ){
+          $response = $e->error;
+          Log::addEntry('EventBrite Error updating ticket for cID='.$c->getCollectionID().': ' . $e->getMessage());
         }
       }
     }
