@@ -1,4 +1,6 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php  defined('C5_EXECUTE') or die("Access Denied."); 
+$nh = Loader::helper('navigation');
+?>
 <script>
 $(document).ready(function() {
   $("a.delete").click(function(event) {
@@ -29,11 +31,14 @@ $(document).ready(function() {
         <?php  } ?>		
         </div>
 		</div>
+    <p>
+      <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
+      <a href="<?= $nh->getCollectionURL($newWalkForm) ?>" class="btn btn-primary btn-large">[+] Submit a Walk</a>
+    </p>
     <h3>Your Public Walks</h3>
     <ul class="walks">
       <?php
         Loader::model('page_list');
-        $nh = Loader::helper('navigation');
         $u = new User();
         $pageEdit = Page::getByID(125);
         $pl = new PageList();
