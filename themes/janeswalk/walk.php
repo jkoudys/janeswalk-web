@@ -242,16 +242,17 @@ $this->inc('elements/header.php');  ?>
   <aside class="span4">
     <div class="thumbnail" id="register">
       <div class="caption">
-        <h3><i class="icon-calendar"></i> Register For This Walk</h3>
-        <p class="select-day"><? #Select a day ?>Not yet open</p>
+        <h3><i class="icon-calendar"></i> 
+          <?php if(!empty($eid)) { ?> <a href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" >Register For This Walk</a> <?php } ?>
+        </h3>
+        <p class="select-day"></p>
       </div>
       <div class="calendar-wrap box-sizing">
-      
+ 
         <div class="calendar-header">
-          <? # <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="icon-caret-left"></i></button>      
-            # <span id="custom-month">April</span>, <span id="custom-year">2013</span> 
-             #<button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="icon-caret-right"></i></button> ?>
-          <p>Registration will be opening soon for walks in October 2013.<p>
+          <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="icon-caret-left"></i></button>      
+          <span id="custom-month">April</span>, <span id="custom-year">2013</span> 
+          <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="icon-caret-right"></i></button>
         </div>
           
         <div id="calendar" class="fc-calendar-container"></div>
