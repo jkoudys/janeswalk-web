@@ -56,6 +56,7 @@ $show = $_GET['show'];
   <div class="walks-list <?php echo ($show == "all") ? "showall" : "span8" ?>">
     <?php if($show == "all") { ?>
       <h3>All Walks</h3>
+      <a href="?" class="btn btn-primary btn-large see-all"><i class="icon-th"></i> See Featured Walks</a>
     <?php } else { ?>
       <h3>Featured Walks</h3>
       <a href="?show=all" class="btn btn-primary btn-large see-all"><i class="icon-th"></i> See All Walks</a>
