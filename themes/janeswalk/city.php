@@ -168,5 +168,6 @@ $show = $_GET['show'];
     <i class="close icon-remove icon-large"></i>
   </div>
 </div>
-  
+
+<? Loader::element('footer_required'); ?>  
 <?php $this->inc('elements/footer.php');  ?>
