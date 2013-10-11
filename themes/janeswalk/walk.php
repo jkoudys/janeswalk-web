@@ -62,7 +62,8 @@ $this->inc('elements/header.php');  ?>
       if(!empty($eid)) {
       ?>
       <a href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
-      <?php } ?>
+      <?php } else { ?>
+      Registration Not Yet Open <?php } ?>
     </div>
   </div>
 </div>
@@ -243,7 +244,8 @@ $this->inc('elements/header.php');  ?>
     <div class="thumbnail" id="register">
       <div class="caption">
         <h3><i class="icon-calendar"></i> 
-          <?php if(!empty($eid)) { ?> <a href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" >Register For This Walk</a> <?php } ?>
+          <?php if(!empty($eid)) { ?> <a href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" >Register For This Walk</a> <?php } 
+          else {?>Registration Not Open <?php } ?>
         </h3>
         <p class="select-day"></p>
       </div>
