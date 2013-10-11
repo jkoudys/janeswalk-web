@@ -57,8 +57,12 @@ $this->inc('elements/header.php');  ?>
         <h4 class="available-time"><i class="icon-calendar"></i> Open schedule</h4>
       <?php } else if(isset($slots[0]['date'])) {  ?>
         <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?php echo $slots[0]['date']; ?></span></h4>
+      <?php } 
+      $eid = $c->getAttribute('eventbrite');
+      if(!empty($eid)) {
+      ?>
+      <a href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
       <?php } ?>
-      <a href="#register" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
     </div>
   </div>
 </div>
