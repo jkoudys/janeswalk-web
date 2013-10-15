@@ -60,7 +60,7 @@ var cal = $('#calendar').calendario({
 
 // Populate Calendar with Eventbrite event dates
 
-if ($('#calendar').length > 0 && $('body').hasClass('active-walk')) {
+if (0 && $('#calendar').length > 0 && $('body').hasClass('active-walk')) {
 
   Eventbrite({'app_key':"4GLVHQYNUSSUONY3QN"}, function(eb_client){
 

@@ -61,7 +61,7 @@ $this->inc('elements/header.php');  ?>
       $eid = $c->getAttribute('eventbrite');
       if(!empty($eid)) {
       ?>
-      <a href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
+      <a data-eid="<?=$eid?>" href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
       <?php } else { ?>
       Registration Not Yet Open <?php } ?>
     </div>
@@ -250,44 +250,7 @@ $this->inc('elements/header.php');  ?>
         </h3>
         <p class="select-day"></p>
       </div>
-      <div class="calendar-wrap box-sizing">
- 
-        <div class="calendar-header">
-          <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="icon-caret-left"></i></button>      
-          <span id="custom-month">April</span>, <span id="custom-year">2013</span> 
-          <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="icon-caret-right"></i></button>
-        </div>
-          
-        <div id="calendar" class="fc-calendar-container"></div>
-      </div>
-      <div class="caption">
-        <div class="date-caption">
-          <div class="request-nowalks"><small>There is no scheduled walk for this day</small></div>
-          <a href="#" class="btn btn-primary request-btn">Request this day</a>
-        </div>
-      </div>
-      <div class="request">
-        <div class="row-fluid">
-          <div class="span">
-            <label for="date-picker">Date</label>
-            <input type="text" value="12-02-2012" id="date-picker">
-          </div>
-        </div> 
-        <div class="row-fluid">
-          <div class="span6">
-            <label for="request-number">Number of people</label>
-            <input type="text" id="request-number" />
-          </div>
-        </div>
-        <label for="request-body">Add a Note:</label>
-        <textarea name="" id="request-body" cols="30" rows="5"></textarea>
-         <label for="request-email">Your email</label> 
-         <input type="text" id="request-email" />
-         <button class="btn btn-primary notify">
-           Request Date
-         </button>
-      </div>
-      <div class="alert alert-info"><p>While Walks are free and volunteer led, support for Jane's Walk can be recognized through a donation as part of a Walk booking.</p></div>
+            <div class="alert alert-info"><p>While Walks are free and volunteer led, support for Jane's Walk can be recognized through a donation as part of a Walk booking.</p></div>
     </div>
 
     <div class="thumbnail accessibility">
