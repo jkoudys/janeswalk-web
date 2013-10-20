@@ -39,7 +39,7 @@ $u = new User();
 
           <li class="divider-vertical"></li>
           <li>
-            <a id="donate" class="btn btn-primary btn-large donate notify">Donate</a>
+            <a href="https://www.gifttool.com/donations/Donate?ID=1830&AID=1994" id="donate" class="btn btn-primary btn-large donate">Donate</a>
           </li>
         </ul>
       </div>
