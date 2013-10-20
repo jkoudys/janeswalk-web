@@ -57,6 +57,8 @@
     public function setEventBrite($status = null) {
       $c = Page::getCurrentPage();
       $c = Page::getByID($c->getCollectionID()); // Refresh
+      $parent = Page::getByID($c->getCollectionParentID());
+      $timezone = $parent->getAttribute("timezone");
       $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
       /* Check if we're making a new event or not */
       $eid = $c->getAttribute("eventbrite");
@@ -70,6 +72,10 @@
       if(isset($status)) {
         $event_params['status'] = $status;
       }
+      if(isset($timezone)) {
+        $event_params['timezone'] = $timezone;
+      }
+      
       /* Jane's Walks are always free */
       $ticket_params = array(
         'price' => '0.00',
