@@ -82,7 +82,19 @@ $show = $_GET['show'];
             }  ?>
             <div class="caption">
               <h4><?php echo $page->getCollectionName() ?></h4>
-              <h6><?php if(false) { echo "Walk led by Jason Kucherawy, Janet Langdon, and Howard Tam"; } // formatted walk leaders name ?></h6>
+             <?php $scheduled = $page->getAttribute('scheduled');$slots = (Array)$scheduled['slots']; 
+              if($scheduled['open']) { ?>
+                <h6><i class="icon-calendar"></i> Open schedule</h6>
+              <?php } else if(isset($slots[0]['date'])) {  ?>
+                <h6><i class="icon-calendar"></i> <?php echo $slots[0]['date']; ?></h6>
+              <?php } ?>
+              <h6>
+                <?php 
+                  $team = json_decode($page->getAttribute('team'));
+                  foreach($team as $key=>$mem) {
+                    echo ($key == 0 ? "Walk led by " : ($key > 0 ? ", " : "")) . $mem->{'name-first'} . " " . $mem->{'name-last'};
+                  } ?>
+              </h6>
               <p>
                 <?php echo $page->getAttribute('shortdescription') ?>
               </p>
