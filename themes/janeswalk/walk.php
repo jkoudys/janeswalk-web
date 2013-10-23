@@ -355,11 +355,11 @@ $this->inc('elements/header.php');  ?>
 
 
   </div> 
-  <script>
+  <script type="text/javascript">
     <?php 
     echo "var locations=[";
     foreach($gmap->markers as $key=>$marker) {
-      echo ($key > 0 ? "," : "") . "['" . htmlspecialchars($marker->title,ENT_QUOTES) . "','" . htmlspecialchars($marker->description,ENT_QUOTES) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
+      echo ($key > 0 ? "," : "") . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
     }
     echo "];";
     ?>
