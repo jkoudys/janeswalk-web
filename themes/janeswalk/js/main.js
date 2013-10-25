@@ -4747,16 +4747,6 @@ window.Janeswalk = {
     $('.tel :input').autotab_magic();
 
     // Notifications
-
-    $('#btn-save').on('click', function(){
-      $('body').append('<div class="alert alert-success" id="save-notify">Walk Saved</div>');
-      setTimeout( function() {
-        $('#save-notify').fadeOut('slow', function(){
-          $(this).remove();
-        });
-      },2000);
-    });
-
     // Previewing Button
 
     $('#preview-walk').on('click', function(){
@@ -4849,16 +4839,33 @@ window.Janeswalk = {
     if(null != dataUrl) { var previewUrl = dataUrl.replace("format=json","format=html"); }
     else { dataUrl = $(".newpage").data("url"); }
 
-    $('.save, .btn-preview').on('click', function(e){
+    var notify_success = function() {
+      $('body').append('<div class="alert alert-success" id="save-notify">Walk Saved</div>');
+      setTimeout( function() {
+        $('#save-notify').fadeOut('slow', function(){
+          $(this).remove();
+          });
+        },2000);
+    }
+    var notify_error = function(error) {
+      $('body').append('<div class="alert alert-error" id="save-notify">' + error.responseText + '</div>');
+      setTimeout( function() {
+        $('#save-notify').fadeOut('slow', function(){
+          $(this).remove();
+          });
+        },2000);
+    }
+
+    $('.save, .btn-preview .section-save').on('click', function(e){
       // Run validation first?
       $.ajax({
         type: "PUT",
         url: dataUrl,
         dataType: "json",
         data: {json: JSON.stringify( JaneswalkData.build() )},
-        success: function() { console.log("Successfully saved."); }
+        success: notify_success,
+        error: notify_error
         });
-//      $.post(dataUrl, JSON.stringify(JaneswalkData.build()), function(){ console.log("success") }, "json");
     });
     $('.btn-submit').click(function(e){
       $.ajax({

@@ -10,14 +10,27 @@
       switch ($method) {
         // The 'publish' for an event
         case 'POST':
-          $this->setJson($_POST['json'], true);
-          $this->setEventBrite('live');
+          try {
+            $this->setJson($_POST['json'], true);
+            $this->setEventBrite('live');
+          } catch(Exception $e) {
+            Log::addEntry('Walk error on POST: '  . $e->getMessage());
+            echo "Error publishing walk: " . $e->getMessage();
+            http_response_code(500);
+          }
+          exit;
           break;
         // 'save'
         case 'PUT':
-          parse_str(file_get_contents("php://input"),$put_vars);
-          $this->setJson($put_vars['json']);
-          $this->setEventBrite();
+          try {
+            parse_str(file_get_contents("php://input"),$put_vars);
+            $this->setJson($put_vars['json']);
+            $this->setEventBrite();
+          } catch(Exception $e) {
+            Log::addEntry('Walk error on PUT: '  . $e->getMessage());
+            echo "Error saving walk: " . $e->getMessage();
+            http_response_code(500);
+          }
           exit;
           break;
         // Retrieve the page's json
@@ -67,7 +80,8 @@
           'description' => $c->getAttribute("longdescription"),
           'privacy' => '1',
           'start_date' => date('Y-m-d H:i:s', time()),
-          'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) )
+          'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) ),
+          'confirmation_page' => 'http://janeswalk.tv/confirmation.html?eid=$event_id&amp;attid=$attendee_id&amp;oid=$order_id'
       );
       if(isset($status)) {
         $event_params['status'] = $status;
@@ -164,6 +178,10 @@
       $postArray = json_decode($json);
       $c = Page::getCurrentPage();
       if( isset($c) ) {
+        if( empty($postArray->title) ) {
+          throw new Exception("Walk title cannot be empty.");
+          return;
+        }
         $currentCollectionVersion = $c->getVersionObject();
         $newCollectionVersion = $currentCollectionVersion->createNew('Updated via walk form');
         $c->loadVersionObject($newCollectionVersion->getVersionID());
@@ -192,7 +210,6 @@
           $selectValue = strtok("");
           if($checked) {
             array_push($checkboxes[$selectAttribute], $selectValue);
-//          $checkboxes[$selectAttribute][$selectValue] = $checked ? true : false;
           }
         }
         foreach(['theme', 'accessible'] as $akHandle) {
