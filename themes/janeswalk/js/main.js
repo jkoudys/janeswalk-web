@@ -4856,7 +4856,7 @@ window.Janeswalk = {
         },2000);
     }
 
-    $('.save, .btn-preview .section-save').on('click', function(e){
+    $('.save, .btn-preview, .section-save').on('click', function(e){
       // Run validation first?
       $.ajax({
         type: "PUT",
