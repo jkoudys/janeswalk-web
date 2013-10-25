@@ -4861,7 +4861,6 @@ window.Janeswalk = {
       $.ajax({
         type: "PUT",
         url: dataUrl,
-        dataType: "json",
         data: {json: JSON.stringify( JaneswalkData.build() )},
         success: notify_success,
         error: notify_error
@@ -4871,7 +4870,6 @@ window.Janeswalk = {
       $.ajax({
         type: "POST",
         url: dataUrl,
-        dataType: "json",
         data: {json: JSON.stringify( JaneswalkData.build() )},
         success: function() { console.log("Published Walk"); }
         });
