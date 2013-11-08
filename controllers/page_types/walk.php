@@ -160,6 +160,7 @@
         "team" => json_decode($c->getAttribute("team")),
         "time" => $c->getAttribute("scheduled"),
         "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null),
+        "eventbrite_id" => $c->getAttribute("eventbrite"),
         "ticket" => $resp );
 
         /* Checkboxes */
