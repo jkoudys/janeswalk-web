@@ -263,7 +263,7 @@
         $placeNode->appendChild($pointNode);
 
         // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
-        $coorStr = $marker->lat . "," . $marker->lng;
+        $coorStr = $marker->lng . "," . $marker->lat;
         $coorNode = $dom->createElement('coordinates', $coorStr);
         $pointNode->appendChild($coorNode);
       }
