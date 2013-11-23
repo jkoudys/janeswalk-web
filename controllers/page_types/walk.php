@@ -238,9 +238,20 @@
       // Creates a KML Document element and append it to the KML element.
       $dnode = $dom->createElement('Document');
       $docNode = $parNode->appendChild($dnode);
-      $nameNode = $dom->createElement('name',$c->getCollectionName() . " : Jane's Walk");
+      $nameNode = $dom->createElement('name',htmlspecialchars($c->getCollectionName()) . " : Jane's Walk");
       $docNode->appendChild($nameNode);
 
+      $defaultStyleNode = $dom->createElement('Style');
+      $defaultStyleNode->setAttribute('id', 'jwstyle');
+      $defaultIconstyleNode = $dom->createElement('IconStyle');
+      $defaultIconstyleNode->setAttribute('id', 'jwIcon');
+      $defaultIconNode = $dom->createElement('Icon');
+      $defaultHref = $dom->createElement('href', 'http://janeswalk.net/images/orange-dot.png');
+      $defaultIconNode->appendChild($defaultHref);
+      $defaultIconstyleNode->appendChild($defaultIconNode);
+      $defaultStyleNode->appendChild($defaultIconstyleNode);
+      $docNode->appendChild($defaultStyleNode);
+      
       foreach($walkMap->markers as $marker) {
 
         // Creates a Placemark and append it to the Document.
@@ -249,12 +260,12 @@
 
         // Create name, and description elements and assigns them the values of the name and address columns from the results.
         $nameNode = $dom->createElement('name');
-        $cdata = $nameNode->ownerDocument->createCDATASection($marker->title);
+        $cdata = $nameNode->ownerDocument->createCDATASection(htmlspecialchars($marker->title));
         $nameNode->appendChild($cdata);
         $placeNode->appendChild($nameNode);
         $descNode = $dom->createElement('description');
 
-        $cdata = $descNode->ownerDocument->createCDATASection($marker->description);
+        $cdata = $descNode->ownerDocument->createCDATASection(htmlspecialchars($marker->description));
         $descNode->appendChild($cdata);
         $placeNode->appendChild($descNode);
 
