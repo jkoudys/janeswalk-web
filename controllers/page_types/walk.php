@@ -39,6 +39,10 @@
             $this->getJson();
             exit;
           }
+          if($_GET['format'] == 'kml') {
+            $this->getKml();
+            exit;
+          }
           break;
         // 'unpublish' the event (true deletes done through dashboard controller, not walk)
         case 'DELETE':
@@ -219,6 +223,55 @@
         if($publish) { $c->setAttribute('exclude_page_list',false); $newCollectionVersion->approve(); }
       }
     }
+
+    public function getKml() {
+      $fh = Loader::helper('file');
+      $c = Page::getCurrentPage();
+      $walkMap = json_decode($c->getAttribute("gmap"));
+      // Creates the Document.
+      $dom = new DOMDocument('1.0', 'UTF-8');
+
+      // Creates the root KML element and appends it to the root document.
+      $node = $dom->createElementNS('http://earth.google.com/kml/2.2', 'kml');
+      $parNode = $dom->appendChild($node);
+
+      // Creates a KML Document element and append it to the KML element.
+      $dnode = $dom->createElement('Document');
+      $docNode = $parNode->appendChild($dnode);
+      $nameNode = $dom->createElement('name',$c->getCollectionName() . " : Jane's Walk");
+      $docNode->appendChild($nameNode);
+
+      foreach($walkMap->markers as $marker) {
+
+        // Creates a Placemark and append it to the Document.
+        $node = $dom->createElement('Placemark');
+        $placeNode = $docNode->appendChild($node);
+
+        // Create name, and description elements and assigns them the values of the name and address columns from the results.
+        $nameNode = $dom->createElement('name');
+        $cdata = $nameNode->ownerDocument->createCDATASection($marker->title);
+        $nameNode->appendChild($cdata);
+        $placeNode->appendChild($nameNode);
+        $descNode = $dom->createElement('description');
+
+        $cdata = $descNode->ownerDocument->createCDATASection($marker->description);
+        $descNode->appendChild($cdata);
+        $placeNode->appendChild($descNode);
+
+        // Creates a Point element.
+        $pointNode = $dom->createElement('Point');
+        $placeNode->appendChild($pointNode);
+
+        // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
+        $coorStr = $marker->lat . "," . $marker->lng;
+        $coorNode = $dom->createElement('coordinates', $coorStr);
+        $pointNode->appendChild($coorNode);
+      }
+      $kmlOutput = $dom->saveXML();
+      header('Content-type: application/vnd.google-earth.kml+xml');
+      echo $kmlOutput;
+    }
+    
     public function isPut() {
       return $_SERVER['REQUEST_METHOD'] == 'PUT';
     }
