@@ -3,6 +3,7 @@ $this->inc('elements/header.php');
 global $u;
 ?>
 <body class="index <?php echo ($u->isLoggedIn() || $c->isEditMode()) ? "logged_in" : ""; ?>">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <link href="<?php echo $this->getStyleSheet('css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
