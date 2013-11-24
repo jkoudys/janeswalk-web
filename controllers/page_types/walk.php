@@ -251,6 +251,8 @@
       $defaultIconstyleNode->appendChild($defaultIconNode);
       $defaultStyleNode->appendChild($defaultIconstyleNode);
       $docNode->appendChild($defaultStyleNode);
+
+      $lineStr = "";
       
       foreach($walkMap->markers as $marker) {
 
@@ -277,7 +279,14 @@
         $coorStr = $marker->lng . "," . $marker->lat;
         $coorNode = $dom->createElement('coordinates', $coorStr);
         $pointNode->appendChild($coorNode);
+        $lineStr .= $coorStr . ", 0. ";
       }
+
+      $node = $dom->createElement('LineString');
+      $lineNode = $docNode->appendChild($node);
+      $node = $dom->createElement('coordinates',$lineStr);
+      $lineNode->appendChild($node);
+
       $kmlOutput = $dom->saveXML();
       header('Content-type: application/vnd.google-earth.kml+xml');
       echo $kmlOutput;
