@@ -16,7 +16,7 @@ $(function() {
 </script>
 
 <div class="modal-backdrop fade in"></div>
-<div class="modal hide fade in" id="signup-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
+<div class="modal hide fade in" id="survey-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
   <div class="modal-header">
     <?php
       $a = new Area('Header');

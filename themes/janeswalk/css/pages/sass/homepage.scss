@@ -49,6 +49,18 @@
   .nav-tabs > li.active > a{
     background: #fff;
   }
+  .intro {
+    .linkbox {
+      margin:10px auto;
+      display:block;
+      width:270px;
+      font-size:1.4em;
+    }
+    a {
+      font-family: "museo-slab", serif;
+      color:white;
+    }
+  }
 }
 
 /*

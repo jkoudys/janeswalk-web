@@ -18,7 +18,7 @@ $nh = Loader::helper('navigation');
 
   <div class="callouts">
     <blockquote class="homepage-callout2 tk-museo-slab">
-      <p>Jane’s Walk celebrates the ideas and legacy of urbanist Jane Jacobs by getting people out exploring their neighbourhoods through locally led walking tours.</p>
+      <p>Jane’s Walk celebrates the ideas and legacy of urbanist Jane Jacobs by getting people out exploring their neighbourhoods through free walking tours led by locals.</p>
     </blockquote> 
 
     <div class="navbar_home">
@@ -35,6 +35,9 @@ $nh = Loader::helper('navigation');
           <? } ?>
         </select> 
       </form>
+      <div class="linkbox">
+        <a href="<?php echo $this->url('/city-organizer-onboarding') ?>">[+] Add Your City</a>
+      </div>
     </div>
   </div>
 
