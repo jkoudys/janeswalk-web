@@ -26,6 +26,7 @@ if(empty($loadJson)) {
 ?>
 
 <body class="form">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <link href="<?php echo $this->getStyleSheet('/css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">

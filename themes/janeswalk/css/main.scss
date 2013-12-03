@@ -30,16 +30,6 @@ body {
     }
   }
 }
-body.logged_in {
-  $dashmenu_height: 50px;
-  .modal-backdrop {
-    margin-top:$dashmenu_height;
-    z-index:1;
-  }
-  .modal {
-    z-index:2;
-  }
-}
 
 a, input[type=submit].plaintext {
   color: $orange;

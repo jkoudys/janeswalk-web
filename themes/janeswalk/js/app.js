@@ -225,7 +225,6 @@ var styles = [{
       scrollwheel: false,
       zoomControl: true,
       disableDefaultUI: true,
-      center: mapCenter,
       zoomControlOptions: {
         position: google.maps.ControlPosition.RIGHT_TOP
       },

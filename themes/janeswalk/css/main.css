@@ -5516,12 +5516,6 @@ body {
     body.form i[class^=icon-] {
       margin: 0 auto; }
 
-body.logged_in .modal-backdrop {
-  margin-top: 50px;
-  z-index: 1; }
-body.logged_in .modal {
-  z-index: 2; }
-
 a, input[type=submit].plaintext {
   color: #f16725; }
   a:hover, input[type=submit].plaintext:hover {

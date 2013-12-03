@@ -32,23 +32,21 @@ $(document).ready(function() {
         <?php  } ?>		
         </div>
 		</div>
-    <div class="btn btn-primary btn-large">
-      <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
-      Submit a Walk in: 
-      <form class="input-append" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
-        <select class="span3 large" name="parentCID" onchange="this.form.submit()">
-          <option selected="selected">Select a City</option>
-          <?php
-          $cities = new PageList();
-          $cities->filterByCollectionTypeHandle('city');
-          $cities->sortByName();
-          foreach($cities->get() as $city) {
-          ?>
-            <option value="<?php echo $city->getCollectionID() ?>"><?php echo $city->getCollectionName() ?></option>
-          <? } ?>
-        </select> 
-      </form>
-    </div>
+    <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
+    <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
+      <select name="parentCID" onchange="this.form.submit()">
+        <option selected="selected">Submit a Walk to a City</option>
+        <?php
+        $cities = new PageList();
+        $cities->filterByCollectionTypeHandle('city');
+        $cities->sortByName();
+        foreach($cities->get() as $city) {
+        ?>
+          <option value="<?php echo $city->getCollectionID() ?>"><?php echo $city->getCollectionName() ?></option>
+        <? } ?>
+      </select> 
+      <input type="submit" value="Go!">
+    </form>
     <h3>Your Public Walks</h3>
     <ul class="walks">
       <?php
@@ -75,6 +73,7 @@ $(document).ready(function() {
         if(count($inprogressPages) > 0) {
       ?>
       <h3>In-Progress Walks</h3>
+      <ul>
       <?php
         foreach($inprogressPages as $page) {
           $latest = Page::getByID($page->getCollectionID());
@@ -82,8 +81,9 @@ $(document).ready(function() {
             [ <a href='" . $nh->getCollectionURL($pageEdit) ."?load=" . $nh->getCollectionURL($page) . "?format=json" . "'>edit</a> ]" .
             "</li>";
         }
-      }
-      
+      } ?>
+      </ul>
+      <?php
       $a = new Area('Main'); 
 			$a->setAttribute('profile', $profile); 
 			$a->setBlockWrapperStart('<div class="ccm-profile-body-item">');

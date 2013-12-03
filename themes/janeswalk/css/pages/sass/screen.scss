@@ -5,12 +5,6 @@ $orange: #F16725;
 $blue: #6BADFD;
 
 @import "partials/base";
-@import "homepage";
-@import "city";
-@import "create-walk";
-@import "walk";
-@import "custom-walk";
-
 // General
 
 body {
@@ -19,9 +13,94 @@ body {
     padding-top: 0;
   }
   overflow-x: hidden;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 15px;
-  line-height: 22px;
+  line-height: 20px;
+  font-weight:300;
+  color:#222;
   text-rendering: optimizeLegibility;
+}
+
+strong, b {
+  font-weight:700;
+//  color:#39c1f1;
+}
+em, i {
+  color:#222;
+}
+blockquote {
+  text-transform:uppercase;
+  font-weight:100;
+  font-size:25px;
+  line-height:30px;
+  color:$orange;
+  width:35%;
+  float:left;
+  padding:1.5em;
+  margin-left:-150px;
+}
+#ccm-profile-body, #body > .pageSection {
+  form {
+    font-family: "museo-slab", serif;
+    font-weight:100;
+    font-size:22px;
+    color:#222;
+    select {
+      margin:0;
+      height:40px;
+      border:1px solid #b4b4b4;
+      border-radius:5px 0 0 5px;
+      width:460px;
+      font-size:22px;
+      color:#888;
+      font-family: "museo-slab", serif;
+    }
+    input[type=submit] {
+      margin-left:-59px;
+      height:40px;
+      width:60px;
+      background-color:#efefef;
+      border:1px solid #b4b4b4;
+      border-radius:0 5px 5px 0;
+      font-family: "museo-slab", serif;
+      font-weight:100;
+      font-size:22px;
+      color:#222;
+    }
+  }
+  ul {
+    margin-left:50px;
+    li {
+      list-style-type:none;
+      line-height:25px;
+      margin-bottom:3px;
+    }
+    li:before {
+      display:inline-block;
+      content:"» ";
+      padding-right:10px;
+      font-weight:700;
+      color:$orange;
+    }
+  }
+}
+
+// Hokey pokey to get things to display right in edit mode
+body.logged_in {
+  $dashmenu_height: 50px;
+  padding-top:$dashmenu_height;
+  header.navbar {
+    top:$dashmenu_height;
+    z-index:6;
+  }
+  #ccm-highlighter { z-index:7; }
+  .modal-backdrop {
+    margin-top:$dashmenu_height;
+    z-index:1;
+  }
+  .modal {
+    z-index:2;
+  }
 }
 html.index-bg body {
   padding:0;
@@ -47,7 +126,13 @@ h1,h2,h3,h4,h5,h6 {
   font-family: "museo-slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  margin: 1.5em 0 0.6em 0;
 }
+h1 { font-weight:100; font-size:40px; }
+h2 { font-weight:100; font-size:40px; }
+h3 { font-weight:100; font-size:25px; }
+h4 { font-weight:700; font-size:17px; }
+h5 { font-weight:700; font-size:14; }
 
 // Logo
 
@@ -338,3 +423,11 @@ footer {
 #ccm-profile-wrapper {
   padding-bottom:25px;
 }
+
+@import "homepage";
+@import "city";
+@import "create-walk";
+@import "walk";
+@import "custom-walk";
+
+

@@ -50,6 +50,9 @@
     background: #fff;
   }
   .intro {
+    blockquote {
+      font-size:inherit; float:none; text-transform:none; color:#fff; width:100%; font-size:15px; line-height:22px; margin:0;
+    }
     .linkbox {
       margin:10px auto;
       display:block;

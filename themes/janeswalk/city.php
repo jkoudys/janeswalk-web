@@ -5,11 +5,10 @@ $fullbg = $c->getAttribute("full_bg");
 $th = Loader::helper('theme');
 $nh = Loader::helper('navigation');
 $show = $_GET['show'];
+global $u;
 ?>
-<!DOCTYPE html>
-<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-active" style=""><!--<![endif]-->
 <?php $this->inc('elements/header.php');  ?>
-<body class="city-page" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
+<body class="city-page <?php echo ($u->isLoggedIn() || $c->isEditMode()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
     
@@ -179,5 +178,4 @@ $show = $_GET['show'];
   </div>
 </div>
 
-<? Loader::element('footer_required'); ?>  
 <?php $this->inc('elements/footer.php');  ?>

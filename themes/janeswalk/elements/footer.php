@@ -14,6 +14,7 @@
     </div>
   </footer>
   <div id="progress" style="z-index: -1;"></div>
+  <?php Loader::element('footer_required'); ?>
 </body>
 </html>
 

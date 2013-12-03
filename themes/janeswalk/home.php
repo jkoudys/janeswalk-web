@@ -1,24 +1,18 @@
 <?php 
 defined('C5_EXECUTE') or die(_("Access Denied."));
 $nh = Loader::helper('navigation');
+global $u;
 ?>
-<!DOCTYPE html>
 <?php $this->inc('elements/header.php');  ?>
-<html class="js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths wf-myriadpro-i4-active wf-myriadpro-i7-active wf-myriadpro-n4-active wf-myriadpro-n7-active wf-museoslab-i3-active wf-museoslab-i7-active wf-museoslab-n1-active wf-museoslab-n3-active wf-museoslab-n7-active wf-active" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>Jane's Walk, May 4th and 5th</title>
-  <meta name="description" content="Jane’s Walk celebrates the ideas and legacy of urbanist Jane Jacobs by getting people out exploring their neighbourhoods through local-led walking tours.">
-  <meta name="viewport" content="width=1024">
-<style type="text/css">.tk-museo-slab{font-family:"museo-slab",serif;}.tk-myriad-pro{font-family:"myriad-pro",sans-serif;}</style><link rel="stylesheet" href="http://use.typekit.net/c/e25cc9/museo-slab:i3:i7:n1:n3:n7,myriad-pro:i4:i7:n4:n7.SLT:J:2,QL2:J:2,QL7:J:2,SKB:J:2,VnC:J:2,Xc8:J:2,Xc3:J:2,XcH:J:2,Xc0:J:2/d?3bb2a6e53c9684ffdc9a9bf3135b2a620dfa8c0796a4cb9faa266ad1c0aab20e8bd43258915e59d2ad385a7b4162e36eb54c0d909a598fa08f2d3d3d1a391528d61fd3179dd48fbe794dcc4afe76d9855091c8f205aa4413776649aeab1bc9eb8bc4416261aa7d2fa5fa19c73c148653947ce732994d478fdb019b5033083526c0a1700aa8a527ff8da82a33f587cde3251a4153b15394ae9cb839001c947a"><style type="text/css"></style></head>
 
-<body class="home">
+<body class="home <?php echo ($u->isLoggedIn() || $c->isEditMode()) ? "logged_in" : ""; ?>">
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
   <div class="intro full">
 
   <div class="callouts">
     <blockquote class="homepage-callout2 tk-museo-slab">
-      <p>Jane’s Walk celebrates the ideas and legacy of urbanist Jane Jacobs by getting people out exploring their neighbourhoods through free walking tours led by locals.</p>
+      <?php $a = new Area('Intro'); $a->display($c); ?>
     </blockquote> 
 
     <div class="navbar_home">
@@ -112,64 +106,11 @@ $nh = Loader::helper('navigation');
 
 
 <div class="row-fluid row2">
-      <div class="span3">
-        <div class="thumbnail">
-          <img src="<?php echo $this->getThemePath() ?>/images/blogpost1.jpg" alt="">
-          <div class="caption">
-            <h5><a href="./images/index.html" class="notify">Weekend Retrospective: Hear one Jane’s Walker’s reflections on a walk well talked</a></h5> 
-            <h6>Posted by Annie Webber on May 10, 2013</h6>
-            <p>
-               Carmen Lazarus fills us in on David Teitel’s walk through the Toronto, Ontario neighbourhood where he spent his childhood, shunning the area as a young adult and returning to in 2004<a href="./images/index.html" class="notify">[...]</a>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="span3">
-        <div class="thumbnail">
-          <img src="<?php echo $this->getThemePath() ?>/images/blogpost2.jpg" alt="">
-          <div class="caption">
-            <h5><a href="./images/index.html" class="notify">Usha Uthup sets Jane's Walk Calcutta off to a rollicking start!</a></h5>
-            <h6>Posted by Iftekhar Ahsan on May 03, 2013</h6>
-            <p>
-              Fellow Calcutta Lovers,</p>  
+  <?php $a = new Area('Blog'); $a->display($c); ?>
+</div>
 
-            <p>Thanks to Usha Uthup and all the others who joined in to romance Park Street with us this morning on the occasion of the beginning of the first Jane's Walk in India. Calcutta has always shown the way and we hope that this walking festival is taken up in other cities of India as well.<a href="./images/index.html" class="notify">[...]</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="span3">
-        <div class="thumbnail">
-          <img src="<?php echo $this->getThemePath() ?>/images/blogpost3.jpg" alt="">
-          <div class="caption">
-            <h5><a href="./images/index.html" class="notify">Jane's Walks... Dark Age Delayed?</a></h5>
-            <h6>Posted by HiMYSYeD on May 01, 2013</h6>
-            <p>
-             This was a puzzling realization which haunted me after I completed leading the final of several Jane's Walks last year:</p>
-
-              <p>Dark Age Ahead - The Wizard of Ossington Jane's Walk<a href="./images/index.html" class="notify">[...]</a>
-            </p>
-          </div>
-        </div>
-      </div>
-
-        <div class="span3">
-          <div class="thumbnail">
-            <div class="caption">
-              <h3>Get Involved</h3>
-              <p>
-                You are an insatiable explorer with loads of heart, and we really want to talk to you! Jane's Walk is looking for volunteers to join what's been called an "extravaganza of pedestrian urban love." Get involved and find out first-hand what all the fuss is about.
-              </p>
-              <button class="btn btn-primary notify">
-                Get Involved
-              </button>
-            </div>
-          </div>
-        </div>
-    </div>
-    </div>
-  </div>
+</div>
+</div>
   
-  </div>
+</div>
 <?php $this->inc('elements/footer.php');  ?>
