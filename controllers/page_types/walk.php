@@ -39,7 +39,7 @@
             $this->getJson();
             exit;
           }
-          if($_GET['format'] == 'kml' || 0 == strpos($_SERVER['HTTP_USER_AGENT'],"Kml-Google")) {
+          if($_GET['format'] == 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],"Kml-Google")) {
             $this->getKml();
             exit;
           }
