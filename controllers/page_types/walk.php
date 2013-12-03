@@ -39,7 +39,7 @@
             $this->getJson();
             exit;
           }
-          if($_GET['format'] == 'kml') {
+          if($_GET['format'] == 'kml' || 0 == strpos($_SERVER['HTTP_USER_AGENT'],"Kml-Google")) {
             $this->getKml();
             exit;
           }
@@ -254,7 +254,6 @@
 
       $lineStr = "";
       
-      Log::addEntry('Agent requesting KML: '. $_SERVER['HTTP_USER_AGENT']);
       foreach($walkMap->markers as $marker) {
 
         // Creates a Placemark and append it to the Document.
