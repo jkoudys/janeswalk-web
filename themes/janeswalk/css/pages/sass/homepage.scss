@@ -1,6 +1,7 @@
 //HOMEPAGE
 
 .home {
+  &.logged_in { padding-top:0; }
   padding-top: 0;
   background-attachment: fixed;
   background-image: url("images/homepage.jpg");

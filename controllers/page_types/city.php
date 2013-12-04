@@ -42,34 +42,30 @@
       $im = Loader::helper('image');
       $u = new User();
       $c = Page::getCurrentPage();
-      $cityData = array("title" => $c->getCollectionName(), "url" => $nh->getCollectionURL($c)); 
+      $cityData = ["title" => $c->getCollectionName(), "url" => $nh->getCollectionURL($c)]; 
       $pl->filterByCollectionTypeHandle("walk");
       $pl->filterByPath($c->getCollectionPath());
       $pl->filterByAttribute('exclude_page_list',false);
       $pagecount = 100;
       $cityData["walks"] = array();
-      foreach($pl->get($pagecount) as $page) {
-        $walk = array("url" => $nh->getCollectionURL($page));
-        $thumb = $page->getAttribute("thumbnail"); 
-        if( $thumb ) {
-          $walk["thumb"] = $im->getThumbnail($thumb,340,720)->src;
-        }
-        $walk["title"] = $page->getCollectionName();
+      foreach($pl->get($pagecount) as $key => $page) {
         $scheduled = $page->getAttribute('scheduled');
         $slots = (Array)$scheduled['slots']; 
-        if($scheduled['open']) {
-          $walk["schedule"] = "Open schedule";
-        } else if(isset($slots[0]['date'])) {
-          $walk["schedule"] = $slots[0]['date'];
+        $cityData["walks"][$key] = ["url" => $nh->getCollectionURL($page),
+          "title" => $page->getCollectionName(),
+          "team" => "",
+          "thumb" => "",
+          "schedule" => isset($scheduled["open"]) ? "Open Schedule" : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
+          "shortdescription" => $page->getAttribute('shortdescription')];
+        
+        $thumb = $page->getAttribute("thumbnail"); 
+        if( $thumb ) {
+          $cityData["walks"][$key]["thumb"] = $im->getThumbnail($thumb,340,720)->src;
         }
         $team = json_decode($page->getAttribute('team'));
-        $walk["team"] = "";
-        foreach($team as $key=>$mem) {
-          $walk["team"] .= ($key == 0 ? "Walk led by " : ($key > 0 ? ", " : "")) . $mem->{'name-first'} . " " . $mem->{'name-last'};
+        foreach($team as $memkey=>$mem) {
+          $cityData["walks"][$key]["team"] .= ($memkey == 0 ? "Walk led by " : ($memkey > 0 ? ", " : "")) . $mem->{'name-first'} . " " . $mem->{'name-last'};
         }
-        $walk["shortdescription"] = $page->getAttribute('shortdescription');
-
-        $cityData["walks"][] = $walk;
       }
       echo json_encode($cityData);
     }

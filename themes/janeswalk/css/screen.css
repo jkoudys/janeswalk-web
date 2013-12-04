@@ -9646,11 +9646,15 @@ footer a {
   -o-background-size: cover;
   background-size: cover;
 }
-/* line 10, ../sass/homepage.scss */
+/* line 4, ../sass/homepage.scss */
+.home.logged_in {
+  padding-top: 0;
+}
+/* line 11, ../sass/homepage.scss */
 .home .intro .nav li, .home .intro-city .nav li {
   padding-right: 20px;
 }
-/* line 12, ../sass/homepage.scss */
+/* line 13, ../sass/homepage.scss */
 .home .intro .nav li.divider-vertical, .home .intro-city .nav li.divider-vertical {
   height: 40px;
   margin: 0 20px 0 0;
@@ -9658,7 +9662,7 @@ footer a {
   border-left: none;
   padding: 0;
 }
-/* line 20, ../sass/homepage.scss */
+/* line 21, ../sass/homepage.scss */
 .home .intro .nav li a, .home .intro-city .nav li a {
   color: #303030;
   font-size: 16px;
@@ -9668,37 +9672,37 @@ footer a {
   border: 1px solid #a53d0b;
   background: rgba(194, 83, 14, 0.9);
 }
-/* line 29, ../sass/homepage.scss */
+/* line 30, ../sass/homepage.scss */
 .home .intro .nav li a:hover, .home .intro-city .nav li a:hover {
   color: #fff;
   background: #d54e0e;
 }
-/* line 32, ../sass/homepage.scss */
+/* line 33, ../sass/homepage.scss */
 .home .intro .nav li.active a, .home .intro-city .nav li.active a {
   text-decoration: none;
   background-color: rgba(255, 250, 250, 0.5);
 }
-/* line 36, ../sass/homepage.scss */
+/* line 37, ../sass/homepage.scss */
 .home .intro ul.nav, .home .intro-city ul.nav {
   float: right;
   padding: 50px 0 0 0;
 }
-/* line 40, ../sass/homepage.scss */
+/* line 41, ../sass/homepage.scss */
 .home .nav-tabs > li > a {
   background: #DBDBDB;
   padding: 20px;
   border: none;
   font-size: 1.5em;
 }
-/* line 45, ../sass/homepage.scss */
+/* line 46, ../sass/homepage.scss */
 .home .nav-tabs > li > a:hover {
   border: none;
 }
-/* line 49, ../sass/homepage.scss */
+/* line 50, ../sass/homepage.scss */
 .home .nav-tabs > li.active > a {
   background: #fff;
 }
-/* line 53, ../sass/homepage.scss */
+/* line 54, ../sass/homepage.scss */
 .home .intro blockquote, .home .intro-city blockquote {
   font-size: inherit;
   float: none;
@@ -9709,14 +9713,14 @@ footer a {
   line-height: 22px;
   margin: 0;
 }
-/* line 56, ../sass/homepage.scss */
+/* line 57, ../sass/homepage.scss */
 .home .intro .linkbox, .home .intro-city .linkbox {
   margin: 10px auto;
   display: block;
   width: 270px;
   font-size: 1.4em;
 }
-/* line 62, ../sass/homepage.scss */
+/* line 63, ../sass/homepage.scss */
 .home .intro a, .home .intro-city a {
   font-family: "museo-slab", serif;
   color: white;
@@ -9733,13 +9737,13 @@ footer a {
     width: 1px;
   }
 */
-/* line 81, ../sass/homepage.scss */
+/* line 82, ../sass/homepage.scss */
 .intro, .intro-city {
   width: 100%;
   background-position: center center;
 }
 
-/* line 86, ../sass/homepage.scss */
+/* line 87, ../sass/homepage.scss */
 .intro .logo, .intro-city .logo {
   background-image: url("images/jwlogos-3.png");
   display: block;
@@ -9748,12 +9752,12 @@ footer a {
   float: left;
 }
 
-/* line 95, ../sass/homepage.scss */
+/* line 96, ../sass/homepage.scss */
 p.lead {
   margin-top: 6%;
 }
 
-/* line 99, ../sass/homepage.scss */
+/* line 100, ../sass/homepage.scss */
 .callouts {
   margin: 60px auto 0 auto;
   top: 0;
@@ -9768,13 +9772,13 @@ p.lead {
   background: linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
 }
 
-/* line 109, ../sass/homepage.scss */
+/* line 110, ../sass/homepage.scss */
 .homepage-callout2 {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
 }
-/* line 113, ../sass/homepage.scss */
+/* line 114, ../sass/homepage.scss */
 .homepage-callout2 p {
   font-size: 3em;
   line-height: 123%;
@@ -9782,19 +9786,19 @@ p.lead {
   letter-spacing: 1px;
 }
 @media (max-width: 1024px) {
-  /* line 113, ../sass/homepage.scss */
+  /* line 114, ../sass/homepage.scss */
   .homepage-callout2 p {
     font-size: 2.7em;
   }
 }
 
-/* line 124, ../sass/homepage.scss */
+/* line 125, ../sass/homepage.scss */
 .navbar_home {
   font-size: 1em;
   text-align: center;
   margin: 0 auto;
 }
-/* line 128, ../sass/homepage.scss */
+/* line 129, ../sass/homepage.scss */
 .navbar_home .large {
   font-size: 18px;
   height: 34px;
@@ -9802,17 +9806,17 @@ p.lead {
   font-family: "museo-slab", serif;
 }
 
-/* line 136, ../sass/homepage.scss */
+/* line 137, ../sass/homepage.scss */
 .test {
   margin-top: 0%;
 }
 
-/* line 140, ../sass/homepage.scss */
+/* line 141, ../sass/homepage.scss */
 .little {
   width: 22%;
 }
 
-/* line 144, ../sass/homepage.scss */
+/* line 145, ../sass/homepage.scss */
 .section2 {
   position: relative;
   padding-bottom: 20px;
@@ -9821,7 +9825,7 @@ p.lead {
   background-position: center center;
 }
 
-/* line 152, ../sass/homepage.scss */
+/* line 153, ../sass/homepage.scss */
 .property-ul {
   background: #fff;
   border: 1px solid #ddd;
@@ -9832,29 +9836,29 @@ p.lead {
   width: 30%;
 }
 
-/* line 162, ../sass/homepage.scss */
+/* line 163, ../sass/homepage.scss */
 .fest {
   margin-left: 2%;
 }
 
-/* line 166, ../sass/homepage.scss */
+/* line 167, ../sass/homepage.scss */
 .row1 {
   margin-top: 0%;
 }
 
-/* line 170, ../sass/homepage.scss */
+/* line 171, ../sass/homepage.scss */
 .section3 {
   background: rgba(211, 211, 211, 0.84);
   min-height: 525px;
   padding-bottom: 20px;
 }
 
-/* line 176, ../sass/homepage.scss */
+/* line 177, ../sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 180, ../sass/homepage.scss */
+/* line 181, ../sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9863,17 +9867,17 @@ p.lead {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 187, ../sass/homepage.scss */
+/* line 188, ../sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 192, ../sass/homepage.scss */
+/* line 193, ../sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 196, ../sass/homepage.scss */
+/* line 197, ../sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9881,7 +9885,7 @@ p.lead {
   width: 400px;
 }
 
-/* line 203, ../sass/homepage.scss */
+/* line 204, ../sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9889,26 +9893,26 @@ p.lead {
   width: 75%;
 }
 
-/* line 210, ../sass/homepage.scss */
+/* line 211, ../sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
-/* line 212, ../sass/homepage.scss */
+/* line 213, ../sass/homepage.scss */
 .caption h5 p {
   color: #555;
 }
 
-/* line 217, ../sass/homepage.scss */
+/* line 218, ../sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 219, ../sass/homepage.scss */
+/* line 220, ../sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 767px) {
-  /* line 225, ../sass/homepage.scss */
+  /* line 226, ../sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;
