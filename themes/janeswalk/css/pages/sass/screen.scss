@@ -39,7 +39,9 @@ blockquote {
   padding:1.5em;
   margin-left:-150px;
 }
-#ccm-profile-body, #body > .pageSection {
+#ccm-profile-body, #body > .pageSection, #central > #body {
+  width:1170px;
+  margin: 0 auto;
   form {
     font-family: "museo-slab", serif;
     font-weight:100;
