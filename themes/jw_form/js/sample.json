@@ -1,0 +1,171 @@
+{
+   "accessible-find":"Lorem",
+   "accessible-info":"Lorem",
+   "accessible-parking":"Lorem",
+   "accessible-transit":"Lorem",
+   "checkboxes":{
+      "accessible-bicycles":true,
+      "accessible-bicyclesonly":false,
+      "accessible-busy":false,
+      "accessible-dogs":false,
+      "accessible-familyfriendly":false,
+      "accessible-steephills":false,
+      "accessible-strollers":false,
+      "accessible-uneven":false,
+      "accessible-wheelchair":false,
+      "theme-civic-activist":false,
+      "theme-civic-goodneighbour":false,
+      "theme-civic-truecitizen":false,
+      "theme-culture-aesthete":false,
+      "theme-culture-artist":false,
+      "theme-culture-bookworm":false,
+      "theme-culture-foodie":false,
+      "theme-culture-historybuff":false,
+      "theme-culture-nightowl":false,
+      "theme-culture-techie":false,
+      "theme-culture-writer":false,
+      "theme-nature-greenthumb":false,
+      "theme-nature-naturelover":true,
+      "theme-nature-petlover":false,
+      "theme-urban-archietecturalenthusiast":true,
+      "theme-urban-moversandshakers":false,
+      "theme-urban-suburbanexplorer":false
+   },
+   "longdescription":"long desc",
+   "map":{
+      "markers":{
+         "0":{
+            "description":"place",
+            "lat":43.656012010875806,
+            "lng":-79.40145492553711,
+            "style":"meeting",
+            "title":"meeting"
+         },
+         "1":{
+            "description":"lorem ipsum",
+            "lat":43.65495633091365,
+            "lng":-79.38892364501953,
+            "style":"stop",
+            "title":"first stop"
+         }
+      },
+      "route":{
+         "0":{
+            "lat":43.664083361050302,
+            "lng":-79.39066488586832,
+            "title": "#1"
+         },
+         "1":{
+            "lat":43.66159971255495,
+            "lng":-79.39023573242594,
+            "title": "#2"
+         },
+         "2":{
+            "lat":43.660854597970236,
+            "lng":-79.39083654724527,
+            "title": "#3"
+         },
+         "3":{
+            "lat":43.66128924926848,
+            "lng":-79.38319761597086,
+            "title": "#4"
+         }
+      }
+   },
+   "resources":{
+      "0":{
+         "description":"",
+         "file":"",
+         "title":""
+      },
+      "1":{
+         "description":"",
+         "file":"",
+         "title":""
+      },
+      "2":{
+         "description":"",
+         "file":"",
+         "title":""
+      },
+      "3":{
+         "description":"test",
+         "file":"",
+         "title":"test"
+      },
+      "4":{
+         "description":"test2d",
+         "file":"",
+         "title":"test2"
+      }
+   },
+   "shortdescription":"test short desc",
+   "team":{
+      "0":{
+         "bio":"bio test",
+         "email":"e@e.com",
+         "facebook":"fb",
+         "name-first":"me",
+         "name-last":"me-last",
+         "phone":"828-282-2822",
+         "primary":"on",
+         "profile-photo":"",
+         "role":"co-walk-leader",
+         "twitter":"tw",
+         "type":"you",
+         "website":"ws"
+      },
+      "1":{
+         "bio":"bio ipsum",
+         "email":"test@test.com",
+         "facebook":"",
+         "name-first":"their-first",
+         "name-last":"their-last",
+         "phone":false,
+         "primary":"on",
+         "profile-photo":"",
+         "twitter":"",
+         "type":"leader",
+         "website":""
+      },
+      "2":{
+         "institution":"U of T",
+         "name-first":"organizer",
+         "name-last":"last",
+         "phone":false,
+         "profile-photo":"",
+         "type":"organizer"
+      },
+      "3":{
+         "bio":"",
+         "facebook":"",
+         "name-first":"community",
+         "name-last":"person",
+         "phone":false,
+         "profile-photo":"",
+         "twitter":"",
+         "type":"community",
+         "website":""
+      },
+      "4":{
+         "name-first":"volunteer",
+         "name-last":"last",
+         "phone":false,
+         "profile-photo":"",
+         "role":"lorem ipsum",
+         "type":"volunteer",
+         "website":""
+      }
+   },
+   "time":{
+      "slots":{
+         "0":{
+            "date":"August 28, 2013",
+            "duration":"30 Minutes",
+            "time":"01:00 AM"
+         }
+      },
+      "type":"set"
+   },
+   "title":"test title"
+}
