@@ -3,6 +3,8 @@ $nh = Loader::helper('navigation');
 $im = Loader::helper('image');
 $gmap = json_decode($c->getAttribute("gmap"));
 $team = json_decode($c->getAttribute('team'));
+$dh = Loader::helper('concrete/dashboard');
+global $u; global $cp;
 $this->inc('elements/header.php');  ?>
 
 <body class="walk-page active-walk">

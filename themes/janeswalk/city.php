@@ -4,11 +4,12 @@ $im = Loader::helper('image');
 $fullbg = $c->getAttribute("full_bg");
 $th = Loader::helper('theme');
 $nh = Loader::helper('navigation');
+$dh = Loader::helper('concrete/dashboard');
 $show = $_GET['show'];
-global $u;
+global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
-<body class="city-page <?php echo ($u->isLoggedIn() || $c->isEditMode()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
+<body class="city-page <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
     

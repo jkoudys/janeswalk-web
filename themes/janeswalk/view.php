@@ -2,9 +2,10 @@
 defined('C5_EXECUTE') or die("Access Denied.");
 
 $this->inc('elements/header.php'); 
-global $u;
+$dh = Loader::helper('concrete/dashboard');
+global $u; global $cp;
 ?>
-<body class="site-page <?php echo ($u->isLoggedIn() || $c->isEditMode()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
+<body class="site-page <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
   <?php $this->inc('elements/navbar.php');  ?>
 			<?php 
 

@@ -1,11 +1,12 @@
 <?php 
 defined('C5_EXECUTE') or die(_("Access Denied."));
 $nh = Loader::helper('navigation');
-global $u;
+$dh = Loader::helper('concrete/dashboard');
+global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
 
-<body class="home <?php echo ($u->isLoggedIn() || $c->isEditMode()) ? "logged_in" : ""; ?>">
+<body class="home <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>">
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
   <div class="intro full">
