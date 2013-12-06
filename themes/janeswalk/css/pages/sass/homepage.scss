@@ -1,6 +1,7 @@
 //HOMEPAGE
 
 .home {
+  .intro, .navbar_home .large, .section2 ul.nav { font-family:"museo-slab","Roboto Slab",serif; }
   &.logged_in { padding-top:0; }
   padding-top: 0;
   background-attachment: fixed;
@@ -61,7 +62,6 @@
       font-size:1.4em;
     }
     a {
-      font-family: "museo-slab", serif;
       color:white;
     }
   }
@@ -130,7 +130,6 @@ p.lead {
     font-size: 18px;
     height: 34px;;
     margin:0;
-    font-family: "museo-slab", serif;
   }
 }
 

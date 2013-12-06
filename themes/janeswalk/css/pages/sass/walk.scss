@@ -65,7 +65,7 @@
         text-align: center;
         margin-top: 20px;
         margin-bottom: 10px;
-        font-family: "museo-slab", serif;
+        font-family: "museo-slab", "Roboto Slab", serif;
         font-weight: 800;
         font-size: 1.5em;
         @include box-shadow(0 2px 0 rgba(0, 0, 0, 0.1));
@@ -378,7 +378,7 @@
         box-shadow: none;
         border: none;
         color: #fff;
-        font-family: "museo-slab", serif;
+        font-family: "museo-slab", "Roboto Slab", serif;
         &:after {
           content: "";
           position: absolute;
@@ -426,7 +426,7 @@
     box-shadow: none;
     border: none;
     color: #fff;
-    font-family: "museo-slab", serif;
+    font-family: "museo-slab", "Roboto Slab", serif;
     @media (max-width: 480px) {
       bottom: -6px;
       top: inherit;
@@ -526,7 +526,7 @@
     }
     .bottom-bar {
       position: absolute;
-      font-family: "museo-slab", serif;
+      font-family: "museo-slab", "Roboto Slab", serif;
       bottom: -18px;
       right: -15px;
       padding: 5px 0;

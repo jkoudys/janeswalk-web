@@ -4,6 +4,8 @@
 $orange: #F16725;
 $blue: #6BADFD;
 
+@import url("http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700");
+
 @import "partials/base";
 // General
 
@@ -43,7 +45,7 @@ blockquote {
   width:1170px;
   margin: 0 auto;
   form {
-    font-family: "museo-slab", serif;
+    font-family: "museo-slab", "Roboto Slab", serif;
     font-weight:100;
     font-size:22px;
     color:#222;
@@ -55,7 +57,7 @@ blockquote {
       width:460px;
       font-size:22px;
       color:#888;
-      font-family: "museo-slab", serif;
+      font-family: "museo-slab", "Roboto Slab", serif;
     }
     input[type=submit] {
       margin-left:-59px;
@@ -64,7 +66,7 @@ blockquote {
       background-color:#efefef;
       border:1px solid #b4b4b4;
       border-radius:0 5px 5px 0;
-      font-family: "museo-slab", serif;
+      font-family: "museo-slab", "Roboto Slab", serif;
       font-weight:100;
       font-size:22px;
       color:#222;
@@ -128,7 +130,7 @@ html.index-bg body {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: "museo-slab", serif;
+  font-family: "museo-slab", "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   margin: 1.5em 0 0.6em 0;
@@ -142,7 +144,7 @@ h5 { font-weight:700; font-size:14; }
 // Logo
 
 .brand {
-  @include background(image-url("jwlogo.svg"));
+  background: url("../images/jwlogo.svg");
   @include background-size(70%);
   background-position: center center;
   background-repeat: no-repeat;
@@ -201,7 +203,7 @@ body.form .brand {
     width: 100%;
     text-align: center;
     span {
-      font-family: "museo-slab", serif;
+      font-family: "museo-slab", "Roboto Slab", serif;
       font-weight: 800;
     }
   }
@@ -221,7 +223,7 @@ body.form .brand {
 // Bootstrap Button Overrides
 
 .btn {
-  font-family: "museo-slab", serif;
+  font-family: "museo-slab", "Roboto Slab", serif;
 }
 
 // Footer
@@ -377,7 +379,7 @@ footer {
 // Walk Label
 
 .walk-label {
-  font-family: "museo-slab", serif;
+  font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
   color: #fff;
   background: #F2C50F;
@@ -440,5 +442,4 @@ footer {
 @import "custom-walk";
 @import "view";
 @import "mailchimp";
-
 

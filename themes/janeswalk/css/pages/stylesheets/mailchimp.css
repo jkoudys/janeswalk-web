@@ -1,0 +1,9 @@
+/* line 3, ../sass/mailchimp.scss */
+#mc_embed_signup li:before {
+  content: "";
+}
+/* line 4, ../sass/mailchimp.scss */
+#mc_embed_signup input[type=submit] {
+  margin: 0;
+  width: auto;
+}

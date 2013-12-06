@@ -1,11 +1,11 @@
 /*
 Syntax error: Undefined mixin 'background-size'.
-        on line 10 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'
-        from line 10 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss
+        on line 11 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'
+        from line 11 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss
 
 Backtrace:
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss:10:in `background-size'
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss:10
+/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss:11:in `background-size'
+/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss:11
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
@@ -60,4 +60,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'background-size'.\A         on line 10 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'\A         from line 10 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss"; }
+  content: "Syntax error: Undefined mixin 'background-size'.\A         on line 11 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'\A         from line 11 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/homepage.scss"; }
