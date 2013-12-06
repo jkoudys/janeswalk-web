@@ -9658,7 +9658,7 @@ footer a {
 .home {
   padding-top: 0;
   background-attachment: fixed;
-  background-image: url("images/homepage.jpg");
+  background-image: url("../images/homepage.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
@@ -9768,7 +9768,7 @@ footer a {
 
 /* line 87, ../sass/homepage.scss */
 .intro .logo, .intro-city .logo {
-  background-image: url("images/jwlogos-3.png");
+  background-image: url("../images/jwlogos-3.png");
   display: block;
   width: 172px;
   height: 120px;
