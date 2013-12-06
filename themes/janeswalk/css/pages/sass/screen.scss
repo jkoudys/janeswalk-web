@@ -6,6 +6,7 @@ $blue: #6BADFD;
 
 @import "partials/base";
 // General
+@import "mailchimp";
 
 body {
   padding-top: 80px;
@@ -439,6 +440,5 @@ footer {
 @import "walk";
 @import "custom-walk";
 @import "view";
-@import "mailchimp";
 
 
