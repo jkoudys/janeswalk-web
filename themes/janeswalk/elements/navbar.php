@@ -19,7 +19,7 @@ $u = new User();
         </a>
         <nav class="nav-collapse collapse" role="navigation">
           <?                  
-          $ah = new GlobalArea('Header');
+          $ah = new GlobalArea('Left Header');
           $ah->display($c);                   
           ?>  
           <ul class="nav">

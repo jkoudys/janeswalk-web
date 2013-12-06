@@ -9582,8 +9582,12 @@ footer a {
 .navbar .notification.expanded {
   height: 50px;
 }
+/* line 369, ../sass/screen.scss */
+.navbar .nav-collapse {
+  max-width: 60%;
+}
 
-/* line 373, ../sass/screen.scss */
+/* line 376, ../sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", serif;
   padding: 5px 8px;
@@ -9596,38 +9600,38 @@ footer a {
   font-size: 14px;
 }
 
-/* line 387, ../sass/screen.scss */
+/* line 390, ../sass/screen.scss */
 .blog {
   color: #666;
 }
 
-/* line 393, ../sass/screen.scss */
+/* line 396, ../sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 396, ../sass/screen.scss */
+/* line 399, ../sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 403, ../sass/screen.scss */
+/* line 406, ../sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 411, ../sass/screen.scss */
+/* line 414, ../sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 414, ../sass/screen.scss */
+/* line 417, ../sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 419, ../sass/screen.scss */
+/* line 422, ../sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -9635,7 +9639,7 @@ footer a {
   line-height: 20px;
 }
 
-/* line 426, ../sass/screen.scss */
+/* line 429, ../sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }
