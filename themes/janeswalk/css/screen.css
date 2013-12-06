@@ -1,5 +1,6 @@
 @charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700");
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic,500,500italic,700italic,700);
 /*!
  * Bootstrap v2.3.1
  *
@@ -9149,7 +9150,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   background-position: -80px -56px;
 }
 
-/* line 12, ../sass/screen.scss */
+/* line 13, ../sass/screen.scss */
 body {
   padding-top: 80px;
   overflow-x: hidden;
@@ -9158,26 +9159,27 @@ body {
   line-height: 20px;
   font-weight: 300;
   color: #222;
+  font-family: "museo", "Roboto", sans-serif;
   text-rendering: optimizeLegibility;
 }
 @media (max-width: 979px) {
-  /* line 12, ../sass/screen.scss */
+  /* line 13, ../sass/screen.scss */
   body {
     padding-top: 0;
   }
 }
 
-/* line 26, ../sass/screen.scss */
+/* line 28, ../sass/screen.scss */
 strong, b {
   font-weight: 700;
 }
 
-/* line 30, ../sass/screen.scss */
+/* line 32, ../sass/screen.scss */
 em, i {
   color: #222;
 }
 
-/* line 33, ../sass/screen.scss */
+/* line 35, ../sass/screen.scss */
 blockquote {
   text-transform: uppercase;
   font-weight: 100;
@@ -9190,19 +9192,19 @@ blockquote {
   margin-left: -150px;
 }
 
-/* line 44, ../sass/screen.scss */
+/* line 46, ../sass/screen.scss */
 #ccm-profile-body, #body > .pageSection, #central > #body {
   width: 1170px;
   margin: 0 auto;
 }
-/* line 47, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 #ccm-profile-body form, #body > .pageSection form, #central > #body form {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-weight: 100;
   font-size: 22px;
   color: #222;
 }
-/* line 52, ../sass/screen.scss */
+/* line 54, ../sass/screen.scss */
 #ccm-profile-body form select, #body > .pageSection form select, #central > #body form select {
   margin: 0;
   height: 40px;
@@ -9213,7 +9215,7 @@ blockquote {
   color: #888;
   font-family: "museo-slab", "Roboto Slab", serif;
 }
-/* line 62, ../sass/screen.scss */
+/* line 64, ../sass/screen.scss */
 #ccm-profile-body form input[type=submit], #body > .pageSection form input[type=submit], #central > #body form input[type=submit] {
   margin-left: -59px;
   height: 40px;
@@ -9226,17 +9228,17 @@ blockquote {
   font-size: 22px;
   color: #222;
 }
-/* line 75, ../sass/screen.scss */
+/* line 77, ../sass/screen.scss */
 #ccm-profile-body ul, #body > .pageSection ul, #central > #body ul {
   margin-left: 50px;
 }
-/* line 77, ../sass/screen.scss */
+/* line 79, ../sass/screen.scss */
 #ccm-profile-body ul li, #body > .pageSection ul li, #central > #body ul li {
   list-style-type: none;
   line-height: 25px;
   margin-bottom: 3px;
 }
-/* line 82, ../sass/screen.scss */
+/* line 84, ../sass/screen.scss */
 #ccm-profile-body ul li:before, #body > .pageSection ul li:before, #central > #body ul li:before {
   display: inline-block;
   content: "» ";
@@ -9245,59 +9247,59 @@ blockquote {
   color: #f16725;
 }
 
-/* line 93, ../sass/screen.scss */
+/* line 95, ../sass/screen.scss */
 body.logged_in {
   padding-top: 50px;
 }
-/* line 96, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 body.logged_in header.navbar {
   top: 50px;
   z-index: 6;
 }
-/* line 100, ../sass/screen.scss */
+/* line 102, ../sass/screen.scss */
 body.logged_in #ccm-highlighter {
   z-index: 7;
 }
-/* line 101, ../sass/screen.scss */
+/* line 103, ../sass/screen.scss */
 body.logged_in .modal-backdrop {
   margin-top: 50px;
   z-index: 1;
 }
-/* line 105, ../sass/screen.scss */
+/* line 107, ../sass/screen.scss */
 body.logged_in .modal {
   z-index: 2;
 }
 
-/* line 109, ../sass/screen.scss */
+/* line 111, ../sass/screen.scss */
 body.c5-edit {
   padding-top: 180px;
 }
 
-/* line 112, ../sass/screen.scss */
+/* line 114, ../sass/screen.scss */
 html.index-bg body {
   padding: 0;
 }
 
-/* line 116, ../sass/screen.scss */
+/* line 118, ../sass/screen.scss */
 .box-sizing, .create-page .wysihtml5-sandbox {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 117, ../sass/screen.scss */
+/* line 119, ../sass/screen.scss */
 .box-sizing *, .create-page .wysihtml5-sandbox * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 121, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 .box-sizing *:after, .create-page .wysihtml5-sandbox *:after, .box-sizing *:before, .create-page .wysihtml5-sandbox *:before {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 132, ../sass/screen.scss */
+/* line 134, ../sass/screen.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "museo-slab", "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
@@ -9305,37 +9307,37 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1.5em 0 0.6em 0;
 }
 
-/* line 138, ../sass/screen.scss */
+/* line 140, ../sass/screen.scss */
 h1 {
   font-weight: 100;
   font-size: 40px;
 }
 
-/* line 139, ../sass/screen.scss */
+/* line 141, ../sass/screen.scss */
 h2 {
   font-weight: 100;
   font-size: 40px;
 }
 
-/* line 140, ../sass/screen.scss */
+/* line 142, ../sass/screen.scss */
 h3 {
   font-weight: 100;
   font-size: 25px;
 }
 
-/* line 141, ../sass/screen.scss */
+/* line 143, ../sass/screen.scss */
 h4 {
   font-weight: 700;
   font-size: 17px;
 }
 
-/* line 142, ../sass/screen.scss */
+/* line 144, ../sass/screen.scss */
 h5 {
   font-weight: 700;
   font-size: 14;
 }
 
-/* line 146, ../sass/screen.scss */
+/* line 148, ../sass/screen.scss */
 .brand, .logo {
   background: url("../images/jwlogo.svg");
   -webkit-background-size: 70%;
@@ -9349,7 +9351,7 @@ h5 {
   padding: 0;
 }
 
-/* line 156, ../sass/screen.scss */
+/* line 158, ../sass/screen.scss */
 .logo {
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -9357,83 +9359,83 @@ h5 {
   background-size: contain;
 }
 
-/* line 160, ../sass/screen.scss */
+/* line 162, ../sass/screen.scss */
 body.form .brand, body.form .logo {
   width: auto;
   height: auto;
   background: transparent;
 }
 
-/* line 166, ../sass/screen.scss */
+/* line 168, ../sass/screen.scss */
 .hide-text, .profiles .flex-control-nav a {
   text-indent: 130%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 172, ../sass/screen.scss */
+/* line 174, ../sass/screen.scss */
 .no-margin {
   margin: 0;
 }
 
-/* line 176, ../sass/screen.scss */
+/* line 178, ../sass/screen.scss */
 .no-margin-top {
   margin-top: 0;
 }
 
-/* line 182, ../sass/screen.scss */
+/* line 184, ../sass/screen.scss */
 .breadcrumb {
   background: none;
   border: 1px solid #f5f5f5;
   border-radius: 0;
   border-width: 0 0 1px 0;
 }
-/* line 183, ../sass/screen.scss */
+/* line 185, ../sass/screen.scss */
 .breadcrumb > li {
   text-shadow: none;
 }
-/* line 186, ../sass/screen.scss */
+/* line 188, ../sass/screen.scss */
 .breadcrumb a:hover {
   text-decoration: none;
 }
 
-/* line 197, ../sass/screen.scss */
+/* line 199, ../sass/screen.scss */
 .calendar-wrap {
   padding: 0 10px;
   position: relative;
 }
-/* line 200, ../sass/screen.scss */
+/* line 202, ../sass/screen.scss */
 .calendar-wrap .calendar-header {
   font-size: 1.10em;
   margin: 0 0 1em 0;
   width: 100%;
   text-align: center;
 }
-/* line 205, ../sass/screen.scss */
+/* line 207, ../sass/screen.scss */
 .calendar-wrap .calendar-header span {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-weight: 800;
 }
-/* line 210, ../sass/screen.scss */
+/* line 212, ../sass/screen.scss */
 .calendar-wrap .custom-month {
   text-align: center;
   border-radius: 50%;
   width: 22px;
   height: 22px;
 }
-/* line 216, ../sass/screen.scss */
+/* line 218, ../sass/screen.scss */
 .calendar-wrap .custom-year {
   position: absolute;
   top: 0;
   right: 10px;
 }
 
-/* line 225, ../sass/screen.scss */
+/* line 227, ../sass/screen.scss */
 .btn {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
 
-/* line 231, ../sass/screen.scss */
+/* line 233, ../sass/screen.scss */
 footer {
   clear: both;
   color: #50616D;
@@ -9444,16 +9446,16 @@ footer {
   -webkit-font-smoothing: antialiased;
   box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.05);
 }
-/* line 240, ../sass/screen.scss */
+/* line 242, ../sass/screen.scss */
 footer h4 {
   margin-top: 0;
 }
-/* line 243, ../sass/screen.scss */
+/* line 245, ../sass/screen.scss */
 footer a {
   color: #df520e;
 }
 
-/* line 253, ../sass/screen.scss */
+/* line 255, ../sass/screen.scss */
 #progress {
   position: fixed;
   height: 100px;
@@ -9462,12 +9464,12 @@ footer a {
   top: 40%;
 }
 
-/* line 264, ../sass/screen.scss */
+/* line 266, ../sass/screen.scss */
 .form-actions .btn {
   margin-right: 15px;
 }
 
-/* line 271, ../sass/screen.scss */
+/* line 273, ../sass/screen.scss */
 #donate {
   padding: 10px 15px 10px;
   margin-top: 0;
@@ -9476,18 +9478,18 @@ footer a {
   text-shadow: none;
 }
 
-/* line 279, ../sass/screen.scss */
+/* line 281, ../sass/screen.scss */
 #donate:hover {
   color: #ffffff;
   background-color: #df520e;
 }
 
-/* line 286, ../sass/screen.scss */
+/* line 288, ../sass/screen.scss */
 .infoBox {
   box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
   color: #555;
 }
-/* line 289, ../sass/screen.scss */
+/* line 291, ../sass/screen.scss */
 .infoBox:after {
   content: "";
   width: 9px;
@@ -9502,7 +9504,7 @@ footer a {
   border-bottom-right-radius: 5px;
 }
 
-/* line 306, ../sass/screen.scss */
+/* line 308, ../sass/screen.scss */
 .notification {
   background: url("images/festival-bg.png") bottom right no-repeat #35b0d7;
   color: #fff;
@@ -9517,34 +9519,34 @@ footer a {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 316, ../sass/screen.scss */
+/* line 318, ../sass/screen.scss */
 .notification .close {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-/* line 321, ../sass/screen.scss */
+/* line 323, ../sass/screen.scss */
 .notification.expanded {
   height: 180px;
 }
-/* line 324, ../sass/screen.scss */
+/* line 326, ../sass/screen.scss */
 .notification h4 {
   margin-bottom: 0;
   font-size: 18px;
 }
-/* line 328, ../sass/screen.scss */
+/* line 330, ../sass/screen.scss */
 .notification .title {
   font-size: 33px;
   margin: 0;
   line-height: 1em;
   font-weight: 400;
 }
-/* line 334, ../sass/screen.scss */
+/* line 336, ../sass/screen.scss */
 .notification .container {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-/* line 338, ../sass/screen.scss */
+/* line 340, ../sass/screen.scss */
 .notification.walk-beta {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
@@ -9555,21 +9557,21 @@ footer a {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 344, ../sass/screen.scss */
+/* line 346, ../sass/screen.scss */
 .notification.walk-beta.expanded {
   height: 64px;
 }
-/* line 347, ../sass/screen.scss */
+/* line 349, ../sass/screen.scss */
 .notification.walk-beta .title-sub {
   font-size: 20px;
   margin: 0;
 }
 
-/* line 354, ../sass/screen.scss */
+/* line 356, ../sass/screen.scss */
 .navbar {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
-/* line 356, ../sass/screen.scss */
+/* line 358, ../sass/screen.scss */
 .navbar .notification {
   position: absolute;
   overflow: hidden;
@@ -9578,26 +9580,26 @@ footer a {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-/* line 363, ../sass/screen.scss */
+/* line 365, ../sass/screen.scss */
 .navbar .notification .container {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-/* line 367, ../sass/screen.scss */
+/* line 369, ../sass/screen.scss */
 .navbar .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-/* line 371, ../sass/screen.scss */
+/* line 373, ../sass/screen.scss */
 .navbar .notification.expanded {
   height: 50px;
 }
-/* line 375, ../sass/screen.scss */
+/* line 377, ../sass/screen.scss */
 .navbar .nav-collapse {
   max-width: 60%;
 }
 
-/* line 382, ../sass/screen.scss */
+/* line 384, ../sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -9610,38 +9612,38 @@ footer a {
   font-size: 14px;
 }
 
-/* line 396, ../sass/screen.scss */
+/* line 398, ../sass/screen.scss */
 .blog {
   color: #666;
 }
 
-/* line 402, ../sass/screen.scss */
+/* line 404, ../sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 405, ../sass/screen.scss */
+/* line 407, ../sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 412, ../sass/screen.scss */
+/* line 414, ../sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 420, ../sass/screen.scss */
+/* line 422, ../sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 423, ../sass/screen.scss */
+/* line 425, ../sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 428, ../sass/screen.scss */
+/* line 430, ../sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -9649,7 +9651,7 @@ footer a {
   line-height: 20px;
 }
 
-/* line 435, ../sass/screen.scss */
+/* line 437, ../sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }
