@@ -1,6 +1,9 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied.");
+$dh = Loader::helper('concrete/dashboard');
 $this->inc('elements/header.php'); ?>
-
+	
+<body class="blog <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>">
+<?php $this->inc('elements/navbar.php'); ?>
 	<div id="central">
 		<div id="sidebar">
 			<?php 
