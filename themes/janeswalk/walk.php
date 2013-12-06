@@ -94,7 +94,7 @@ $this->inc('elements/header.php');  ?>
 
 
 
-<div class="hero-unit walk-stops">
+<div class="hero-unit walk-stops" style="display:none">
   <div class="row-fluid">
     <div class="span12">
       <div class="walk-stops-meta box-sizing">
@@ -361,6 +361,7 @@ $this->inc('elements/header.php');  ?>
     <?php 
     echo "var locations=[";
     foreach($gmap->markers as $key=>$marker) {
+      echo "$('.walk-stops').show()";
       echo ($key > 0 ? "," : "") . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
     }
     echo "];";
