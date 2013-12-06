@@ -22,12 +22,6 @@ $u = new User();
           $ah = new GlobalArea('Left Header');
           $ah->display($c);                   
           ?>  
-          <ul class="nav">
-            <li><a href="#" class="notify">About</a></li>
-            <li><a href="#" class="notify">Walkability</a></li>
-            <li><a href="#" class="notify">Walk Blog</a></li>
-            <li><a href="#" class="notify">Team</a></li>
-          </ul>
         </nav>
         <ul class="nav pull-right visible-desktop">
           <?php if($u->isRegistered()) { ?>
