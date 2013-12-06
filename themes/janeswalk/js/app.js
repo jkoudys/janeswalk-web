@@ -324,10 +324,6 @@ var styles = [{
       map.fitBounds(bounds);
     }
 
-    google.maps.event.addDomListener(window, 'resize', function() {
-      map.setCenter(mapCenter);
-    });
-
     google.maps.event.addDomListener(document.getElementById('map-canvas'), 'touchstart', function(e){
       map.setOptions({panControl: false, draggable: false});
     });
