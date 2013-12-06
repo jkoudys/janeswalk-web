@@ -523,11 +523,6 @@ var styles = [{
     },2000);
   };
 
-  $('.blog a').on('click', function(event){
-    event.preventDefault();
-    $('.notification.coming-soon').toggleClass('expanded');
-  });
-
   $('.custom-walk-page .container-outter .notify').on('click', function(event){
     event.preventDefault();
     $('.notification.custom-form').toggleClass('expanded');
