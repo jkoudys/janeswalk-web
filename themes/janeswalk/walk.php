@@ -361,10 +361,10 @@ $this->inc('elements/header.php');  ?>
     <?php 
     echo "var locations=[";
     foreach($gmap->markers as $key=>$marker) {
-      echo "$('.walk-stops').show()";
       echo ($key > 0 ? "," : "") . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
     }
     echo "];";
+    if(sizeof($gmap->markers) > 0) { echo "$('.walk-stops').show()"; };
     ?>
 
     // Drawing Polyline
