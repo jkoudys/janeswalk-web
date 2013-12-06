@@ -1,11 +1,11 @@
 /*
 Syntax error: Undefined mixin 'box-shadow'.
-        on line 36 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss, in `box-shadow'
-        from line 36 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss
+        on line 37 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss, in `box-shadow'
+        from line 37 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss
 
 Backtrace:
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss:36:in `box-shadow'
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss:36
+/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss:37:in `box-shadow'
+/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss:37
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
@@ -70,4 +70,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'box-shadow'.\A         on line 36 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss, in `box-shadow'\A         from line 36 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss"; }
+  content: "Syntax error: Undefined mixin 'box-shadow'.\A         on line 37 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss, in `box-shadow'\A         from line 37 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/walk.scss"; }

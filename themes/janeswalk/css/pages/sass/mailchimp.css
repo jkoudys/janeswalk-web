@@ -1,0 +1,5 @@
+#mc_embed_signup li:before {
+  content: ""; }
+#mc_embed_signup input[type=submit] {
+  margin: 0;
+  width: 100%; }
