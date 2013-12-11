@@ -17,7 +17,7 @@ global $u; global $cp;
     </blockquote> 
 
     <div class="navbar_home">
-      <form class="input-append" action="http://janeswalk.tv/toronto.html" method="get" autocomplete="off">
+      <form class="input-append" action="" method="get" autocomplete="off">
         <select class="span3 large" name="URL" onchange="window.location.href=this.form.URL.options[this.form.URL.selectedIndex].value">
           <option selected="selected">Select a City</option>
           <?php
