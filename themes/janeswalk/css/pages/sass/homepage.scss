@@ -111,6 +111,7 @@
     .controls {
       $controlHeight:60px;
       position:absolute;
+      margin:0;
       top:-$controlHeight*3/4; width:100%; text-align:center;
       li {
         display:block; height: $controlHeight;
