@@ -11737,7 +11737,7 @@ body.blog #central > header em {
 }
 /* line 16, ../sass/view.scss */
 body.blog #body {
-  max-width: 620px !important;
+  max-width: 520px !important;
 }
 /* line 18, ../sass/view.scss */
 body.blog #body img {
