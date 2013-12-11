@@ -11716,6 +11716,7 @@ body.blog #central > header h1 {
   margin-bottom: 5px;
   font-size: 68px;
   line-height: 74px;
+  text-shadow: -1px 1px #444444;
 }
 /* line 12, ../sass/view.scss */
 body.blog #central > header p.description {

@@ -8,7 +8,7 @@ body.blog {
     padding: 200px 0 40px 0;
     margin-bottom:20px;
     h1,p { margin:0 auto; }
-    h1 { max-width:$mainWidth*0.8; font-weight:500; margin-bottom:5px; font-size:68px; line-height:74px; }
+    h1 { max-width:$mainWidth*0.8; font-weight:500; margin-bottom:5px; font-size:68px; line-height:74px; text-shadow: -1px 1px #444 }
     p.description { font-style:italic; font-size:26px; line-height:1.4; margin-bottom:25px; }
     em { color:#fff; }
   }
