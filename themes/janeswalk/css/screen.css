@@ -11724,6 +11724,7 @@ body.blog #central > header p.description {
   font-size: 26px;
   line-height: 1.4;
   margin-bottom: 25px;
+  text-shadow: -1px 1px #444444;
 }
 /* line 13, ../sass/view.scss */
 body.blog #central > header em {
@@ -11731,15 +11732,21 @@ body.blog #central > header em {
 }
 /* line 15, ../sass/view.scss */
 body.blog #body {
-  width: 820px !important;
+  max-width: 820px !important;
+}
+
+/* line 21, ../sass/view.scss */
+body.full #body, .error404 body.container-outter #body {
+  max-width: 870px;
+  padding-right: 300px;
 }
 
 /* line 3, ../sass/mailchimp.scss */
 #mc_embed_signup li:before {
-  content: "";
+  content: "" !important;
 }
 /* line 4, ../sass/mailchimp.scss */
 #mc_embed_signup input[type=submit] {
-  margin: 0;
-  width: auto;
+  margin: 0 !important;
+  width: auto !important;
 }

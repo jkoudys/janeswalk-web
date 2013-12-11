@@ -1,8 +1,8 @@
 // Generic layouts - profile page, blogs, etc.
 #mc_embed_signup {
-  li:before { content:""; }
+  li:before { content:"" !important; }
   input[type=submit] {
-    margin:0;
-    width:auto;
+    margin:0 !important;
+    width:auto !important;
   }
 }
