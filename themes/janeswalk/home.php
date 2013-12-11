@@ -35,7 +35,7 @@ global $u; global $cp;
 
 </div>
 <!-- end of .intro -->
-<div class="overlap">
+<div class="overlap" id="getinvolved">
   <ul class="controls">
     <li>
       <a class="showButton">Show Map <br /><i class="icon-chevron-down"></i></a>
