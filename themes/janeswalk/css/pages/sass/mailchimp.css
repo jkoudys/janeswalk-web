@@ -1,5 +1,10 @@
 #mc_embed_signup li:before {
   content: "" !important; }
+#mc_embed_signup .asterisk {
+  top: 26px;
+  right: 0; }
+#mc_embed_signup label {
+  margin-left: 6px; }
 #mc_embed_signup input[type=submit] {
   margin: 0 !important;
   width: auto !important; }
