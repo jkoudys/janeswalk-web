@@ -63,4 +63,13 @@ global $u; global $cp;
 </section>
   
 </div>
+<script>
+$(document).ready(function() { 
+  $('a[href="http://www.janeswalk.net/early#getinvolved"]').click(function(event) {
+    event.preventDefault();
+    $('html, body').animate({scrollTop: $("#getinvolved").offset().top})
+    return false;
+    });
+  });
+</script>
 <?php $this->inc('elements/footer.php');  ?>
