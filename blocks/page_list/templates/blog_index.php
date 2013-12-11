@@ -61,7 +61,7 @@ $dh = Loader::helper('date'); //<--uncomment this line if displaying dates (see 
                 <div class="caption">
                   <h5><a href="<?php echo $url ?>" target="<?php  echo $target ?>"><?php echo $title ?></a></h5>
                   <h6>Posted by <?php echo $original_author ?> on <?php echo $date ?></h6>
-                  <p><a href="<?php echo $url ?>" target="<?php  echo $target ?>">[...]</a>
+                  <p><?php echo $page->getCollectionDescription() ?>&nbsp;<a href="<?php echo $url ?>" target="<?php  echo $target ?>">[...]</a>
                   </p>
                 </div>
               </div>
