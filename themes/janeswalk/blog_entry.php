@@ -1,41 +1,28 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied.");
 $dh = Loader::helper('concrete/dashboard');
-$this->inc('elements/header.php'); ?>
+$im = Loader::helper('image');
+$this->inc('elements/header.php'); 
+$headImage = $c->getAttribute("main_image");
+?>
 	
 <body class="blog <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>">
 <?php $this->inc('elements/navbar.php'); ?>
 	<div id="central">
-		<div id="sidebar">
-			<?php 
-			$as = new Area('Sidebar');
-			$as->display($c);
-			?>		
-		</div>
-		
+    <header style="background-image:url(<?php echo $headImage->getURL(); ?>)">
+      <?php  $ai = new Area('Blog Post Header'); $ai->display($c); ?>
+      <h1><?php  echo $c->getCollectionName(); ?></h1>
+      <p class="description"><?php echo $c->getCollectionDescription(); ?></p>
+      <p class="meta"><?php 
+        echo t('%s <em>on</em> <strong>%s</strong>',
+          $c->getVersionObject()->getVersionAuthorUserName(),
+          $c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL));
+      ?></p>	
+    </header>
 		<div id="body">
-			<div class="pageSection">
-				<?php  $ai = new Area('Blog Post Header'); $ai->display($c); ?>
-			</div>
-			<div class="pageSection">
-				<h1><?php  echo $c->getCollectionName(); ?></h1>
-				<p class="meta"><?php 
-					echo t('Posted by %s on %s',
-						$c->getVersionObject()->getVersionAuthorUserName(),
-						$c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL));
-				?></p>		
-			</div>
-			<div class="pageSection">
+      <article>
 				<?php  $as = new Area('Main'); $as->display($c); ?>
-			</div>
-			<div class="pageSection">
-				<?php  $a = new Area('Blog Post More'); $a->display($c); ?>
-			</div>
-			<div class="pageSection">
-				<?php  $ai = new Area('Blog Post Footer'); $ai->display($c); ?>
-			</div>
+      </article>
 		</div>
-		
-		<div class="spacer">&nbsp;</div>		
 	</div>
 
 <?php  $this->inc('elements/footer.php'); ?>
