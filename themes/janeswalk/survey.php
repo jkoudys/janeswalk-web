@@ -1,5 +1,6 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); 
 $this->inc('elements/header.php'); 
+$dh = Loader::helper('concrete/dashboard');
 global $u;
 ?>
 <body class="index <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>">
