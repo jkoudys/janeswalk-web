@@ -2,7 +2,7 @@
   content: "" !important; }
 #mc_embed_signup .asterisk {
   top: 26px;
-  right: 0; }
+  right: 0 !important; }
 #mc_embed_signup label {
   margin-left: 6px; }
 #mc_embed_signup input[type=submit] {

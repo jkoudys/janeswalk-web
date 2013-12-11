@@ -5,7 +5,7 @@
 /* line 4, ../sass/mailchimp.scss */
 #mc_embed_signup .asterisk {
   top: 26px;
-  right: 0;
+  right: 0 !important;
 }
 /* line 5, ../sass/mailchimp.scss */
 #mc_embed_signup label {

@@ -1,7 +1,7 @@
 // Generic layouts - profile page, blogs, etc.
 #mc_embed_signup {
   li:before { content:"" !important; }
-  .asterisk { top: 26px; right:0; }
+  .asterisk { top: 26px; right:0 !important; }
   label { margin-left:6px; }
   input[type=submit] {
     margin:0 !important;
