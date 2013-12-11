@@ -1,11 +1,11 @@
 /*
 Syntax error: Undefined variable: "$orange".
-        on line 4 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss
+        on line 5 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss
 
 1: /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss
 
 Backtrace:
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss:4
+/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss:5
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/script/variable.rb:49:in `_perform'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/script/node.rb:40:in `perform'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
@@ -72,4 +72,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$orange\".\A         on line 4 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss\A \A 1: /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss"; }
+  content: "Syntax error: Undefined variable: \"$orange\".\A         on line 5 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss\A \A 1: /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss"; }
