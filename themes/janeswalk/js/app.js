@@ -524,24 +524,12 @@ var styles = [{
     $('.notification.custom-form').toggleClass('expanded');
   });
 
-  $('.notify').on('mouseup', function(event){
-    event.preventDefault();
-    $('.notification.walk-beta').toggleClass('expanded');
-  });
-
   $('body').on('mousedown', function(){
     if ($('.notification').hasClass('expanded')) {
       $('.notification').removeClass('expanded');
     }
   });
   
-  if (!$('body').hasClass('active-walk')) {
-    $('.caption').delegate('a','click', function(event){
-      event.preventDefault();
-      $('.notification.walk-beta').toggleClass('expanded');
-    });
-  }
-
   // Smooth Scroll
 
   $('.bottom-bar').on('click', function(event){
