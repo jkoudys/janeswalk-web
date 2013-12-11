@@ -7,6 +7,7 @@
   i {
     color:#fff;
   }
+
   @media (max-width: 768px) {
     padding-top: 0;
   }
@@ -59,7 +60,7 @@
         top: 0;
         position: absolute;
         z-index: -1;
-        background: rgba(#92CDF5,0.75);
+        background: rgba($blogblues,0.75);
       }
     }
   }

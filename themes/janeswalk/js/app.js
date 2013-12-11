@@ -590,4 +590,11 @@ var styles = [{
     document.getElementById("button-regdonate").href='http://janeswalk.tv/confirm-congested?event_id=' + eventId + '&order_id=' + orderId +'';
   }
 
+  var showButton = $('.home .overlap .controls a.showButton');
+  var closeButton = $('.home .overlap .controls a.closeButton');
+  var overlapHeight = $('.overlap').height();
+  showButton.click(function() {$(".overlap").addClass("fullmap"); $(this).fadeOut(400, function() { closeButton.fadeIn()}) } );
+  closeButton.click(function() {$(".overlap").removeClass("fullmap"); $(this).fadeOut(400, function() { showButton.fadeIn()}) } );
+  //$('.home .overlap .controls a.close').click(fucntion() { $(this).parents('.controls').first() });
+
 });
