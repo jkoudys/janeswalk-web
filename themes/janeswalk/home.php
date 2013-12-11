@@ -52,7 +52,7 @@ global $u; global $cp;
 <section class="blog full">
   <div>
     <section class="walkblog">
-      <h3>Walk Blog</h3>
+      <?php $a = new Area('Blog Header'); $a->display($c); ?>
       <?php $a = new Area('Blog'); $a->display($c); ?>
     </section>
     <section class="twitter">
