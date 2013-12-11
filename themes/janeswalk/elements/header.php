@@ -33,8 +33,6 @@
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/2.8.1/jquery.mCustomScrollbar.min.js"></script>
     <script src="<?=$this->getThemePath()?>/js/Eventbrite.jquery.js"></script>  
     <script src="//cdn.jsdelivr.net/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
- 
-    <script src="<?php echo $this->getThemePath()?>/js/main.js" type="text/javascript"></script>
     <script src="<?php echo $this->getThemePath()?>/js/app.js" type="text/javascript"></script>
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
