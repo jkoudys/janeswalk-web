@@ -8,7 +8,7 @@ $headImage = $c->getAttribute("main_image");
 <body class="blog <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>">
 <?php $this->inc('elements/navbar.php'); ?>
 	<div id="central">
-    <header <?php echo isset($headImage) ? 'style="background-image:url('.$headImage->getURL() .')"' : "" ?>>
+    <header <?php echo is_object($headImage) ? 'style="background-image:url('.$headImage->getURL() .')"' : "" ?>>
       <?php  $ai = new Area('Blog Post Header'); $ai->display($c); ?>
       <h1><?php  echo $c->getCollectionName(); ?></h1>
       <p class="description"><?php echo $c->getCollectionDescription(); ?></p>
