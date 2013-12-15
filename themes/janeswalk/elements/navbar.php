@@ -12,9 +12,9 @@ $u = new User();
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="<?php echo DIR_REL ?>">
+        <a href="<?=DIR_REL?>">
           <div class="brand hide-text box-sizing">
-            <?php echo $SITE ?>
+            <?=$SITE?>
           </div>
         </a>
         <nav class="nav-collapse collapse" role="navigation">
@@ -25,10 +25,10 @@ $u = new User();
         </nav>
         <ul class="nav pull-right visible-desktop">
           <?php if($u->isRegistered()) { ?>
-            <li><a href="<?php echo $this->url('/profile') ?>" class=""><?php echo $u->getUserName(); ?></a></li>
-            <li><a href="<?php echo $this->url('/login', 'logout') ?>" class="">Logout</a></li>
+            <li><a href="<?=$this->url('/profile') ?>" class=""><?=$u->getUserName(); ?></a></li>
+            <li><a href="<?=$this->url('/login', 'logout') ?>" class="">Logout</a></li>
           <?php } else { ?>
-            <li><a href="<?php echo $this->url('/login') ?>" class="">Login</a></li>
+            <li><a href="<?=$this->url('/login') ?>" class="">Login</a></li>
           <?php } ?>
 
           <li class="divider-vertical"></li>

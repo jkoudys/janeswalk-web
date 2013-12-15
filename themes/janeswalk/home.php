@@ -6,7 +6,7 @@ global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
 
-<body class="home <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>">
+<body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>">
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
   <div class="intro full">
@@ -15,22 +15,6 @@ global $u; global $cp;
     <blockquote class="homepage-callout2">
       <?php $a = new Area('Intro'); $a->display($c); ?>
     </blockquote> 
-
-    <div class="navbar_home">
-      <form class="input-append" action="" method="get" autocomplete="off">
-        <select class="span3 large" name="URL" onchange="window.location.href=this.form.URL.options[this.form.URL.selectedIndex].value">
-          <option selected="selected">Select a City</option>
-          <?php
-          Loader::model('page_list'); 
-          $cities = new PageList();
-          $cities->filterByCollectionTypeHandle('city');
-          foreach($cities->get() as $city) {
-          ?>
-            <option value="<?php echo $nh->getCollectionURL($city)?>"><?php echo $city->getCollectionName() ?></option>
-          <? } ?>
-        </select> 
-      </form>
-    </div>
   </div>
 
 </div>

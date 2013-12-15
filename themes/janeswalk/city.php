@@ -9,7 +9,7 @@ $show = $_GET['show'];
 global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
-<body class="city-page <?php echo ($dh->canRead()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
+<body class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>" <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
     
@@ -19,7 +19,7 @@ global $u; global $cp;
       <h1><?=$c->getCollectionName()?> Walks</h1>
       <p>
         </p>
-        <p><?php echo t($c->getAttribute('shortdescription')); ?></p>
+        <p><?=t($c->getAttribute('shortdescription')); ?></p>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@ global $u; global $cp;
       
       <h2>Jane’s Walks</h2>
       <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
-        <?php echo nl2br($c->getAttribute('longdescription')); ?>
+        <?=nl2br($c->getAttribute('longdescription')); ?>
         <?php 
           $a = new Area('City Description');
           $a->display($c);
@@ -46,7 +46,7 @@ global $u; global $cp;
       <div class="top clearfix">
         <a href="#" class="btn btn-primary btn-large notify">Get Involved</a>
         <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
-        <a href="<?= $nh->getCollectionURL($newWalkForm) ?>?parentCID=<?php echo $c->getCollectionID()?>" class="btn btn-primary btn-large">Submit a Walk</a>
+        <a href="<?= $nh->getCollectionURL($newWalkForm) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary btn-large">Submit a Walk</a>
       </div>
       <div class="below">
         <a href="#" class="btn btn-primary btn-large notify">Request a Custom Walk</a>
@@ -54,7 +54,7 @@ global $u; global $cp;
     </div>
   </div>
 <?php } ?>
-  <div class="walks-list <?php echo ($show == "all") ? "showall" : "span8" ?>">
+  <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
     <?php if($show == "all") { ?>
       <h3>All Walks</h3>
       <a href="?" class="btn btn-primary btn-large see-all"><i class="icon-th"></i> See Featured Walks</a>
@@ -71,9 +71,9 @@ global $u; global $cp;
         $pl->filterByPath($c->getCollectionPath());
         $pl->filterByAttribute('exclude_page_list',false);
         $pagecount = ($show == "all") ? 100 : 3;
-        foreach($pl->get($pagecount) as $page) {  ?>
-        <div class="span<?php echo($show == "all") ? "3" : "4" ?> walk">
-          <a href="<?php echo $nh->getCollectionURL($page) ?>">
+        foreach($pl->get($pagecount) as $page) { ?>
+        <div class="span<?=($show == "all") ? "3" : "4" ?> walk">
+          <a href="<?=$nh->getCollectionURL($page) ?>">
           <div class="thumbnail">
             <?php 
             $thumb = $page->getAttribute("thumbnail"); 
@@ -96,12 +96,12 @@ global $u; global $cp;
                   } ?>
               </h6>
               <p>
-                <?php echo $page->getAttribute('shortdescription') ?>
+                <?=$page->getAttribute('shortdescription') ?>
               </p>
             </div>
             <ul class="inline tags">
               <?php foreach($page->getAttribute("theme") as $theme) { ?>
-                <li class="tag" data-toggle="tooltip" title="<?php echo $th->getName($theme); ?>"><?php echo $th->getIcon($theme); ?></li>
+                <li class="tag" data-toggle="tooltip" title="<?=$th->getName($theme); ?>"><?=$th->getIcon($theme); ?></li>
               <?php } ?>
             </ul>
           </div>
@@ -124,11 +124,11 @@ global $u; global $cp;
         <div class="thumbnail">
           <div class="row-fluid">
           <div class="span5">
-              <img src="<?php echo $this->getThemePath() ?>/city_files/blogpost4.jpg" alt="">
+              <img src="<?=$this->getThemePath() ?>/city_files/blogpost4.jpg" alt="">
           </div>
           <div class="span7">
             <div class="caption">
-              <a href="<?php echo $this->getThemePath() ?>/city_files/city.html"><h4>Share your Jane’s Walk Photos with the World!</h4> </a>
+              <a href="<?=$this->getThemePath() ?>/city_files/city.html"><h4>Share your Jane’s Walk Photos with the World!</h4> </a>
               <h6>Posted by msfrolick on May 03, 2013</h6>
                 <p>
                 Would you be interested in sharing your photos taken during Jane’s Walk with the world?</p>
@@ -145,7 +145,7 @@ global $u; global $cp;
         <div class="thumbnail">
           <div class="row-fluid">
           <div class="span5">
-              <img src="<?php echo $this->getThemePath() ?>/city_files/blogpost5.jpg" alt="">
+              <img src="<?=$this->getThemePath() ?>/city_files/blogpost5.jpg" alt="">
           </div>
           <div class="span7">
             <div class="caption">

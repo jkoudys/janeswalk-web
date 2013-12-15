@@ -4836,8 +4836,9 @@ window.Janeswalk = {
     // Populate data if available
     // This data could be in the dom, or the url to the data could be in the dom as a js var, this example (/form.html?load=/js/sample.json) loads it from a url param
     var dataUrl = $.paramsURL('load');
+    var newPage = false;
     if(null != dataUrl) { var previewUrl = dataUrl.replace("format=json","format=html"); }
-    else { dataUrl = $(".newpage").data("url"); }
+    else { dataUrl = $(".newpage").data("url"); newPage = true; }
 
     var notify_success = function() {
       $('body').append('<div class="alert alert-success" id="save-notify">Walk Saved</div>');
@@ -4875,7 +4876,7 @@ window.Janeswalk = {
         });
       });
 
-    if (dataUrl != null){
+    if (dataUrl != null && !newPage){
       $('.progress-spinner').spin(spinProperties);
       $.getJSON(dataUrl, function(data){
         JaneswalkData.fill(data);
@@ -5192,10 +5193,7 @@ var JaneswalkData = {
       }
 
       if (key == 'phone' && val !== false){
-        var phone = val.split('-');
-        $(target).find('[name="phone-1[]"]').val(phone[0]);
-        $(target).find('[name="phone-2[]"]').val(phone[1]);
-        $(target).find('[name="phone-3[]"]').val(phone[2]);
+        $(target).find('[name="phone[]"]').val(val);
       }
     });
   }

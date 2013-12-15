@@ -3,6 +3,7 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 
 $c = Page::getCurrentPage();
 $u = new User(); 
+$ui = UserInfo::getByID($u->getUserID());
 $nh = Loader::helper('navigation');
 $imgHelper = Loader::helper('image'); 
 
@@ -585,8 +586,8 @@ $valt = Loader::helper('validation/token');
       <div class="span9">
         <div class="item required">
           <label for="name">Name</label>
-            <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="">
-            <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="">
+            <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?= $ui->getAttribute("first_name") ?>">
+            <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?= $ui->getAttribute("last_name") ?>">
           </div>
 
            <div class="item required">
@@ -610,7 +611,7 @@ $valt = Loader::helper('validation/token');
               </div>
 
             
-            <textarea class="span12" id="bio" rows="6" name="bio[]"></textarea>
+            <textarea class="span12" id="bio" rows="6" name="bio[]"><?=$ui->getAttribute("bio")?></textarea>
           </div>
 
 
@@ -620,13 +621,13 @@ $valt = Loader::helper('validation/token');
         <label for="leader-twitter"><i class="icon-twitter"></i> Twitter</label>
             <div class="input-prepend">
             <span class="add-on">@</span>
-            <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]">
+            <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?=$ui->getAttribute("twitter")?>">
           </div>
       </div>
 
       <div class="span6">
           <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
-          <input type="text" class="input-large" id="facebook" placeholder="" value="" name="facebook[]">
+          <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=$ui->getAttribute("facebook")?>">
       </div>
 
     </div>
@@ -634,7 +635,7 @@ $valt = Loader::helper('validation/token');
       <div class="row-fluid" id="newwalkleader">
         <div class="span6">
                 <label for="website"><i class="icon-link"></i> Website</label>
-                <input type="text" class="input-large" id="website" placeholder="" value="" name="website[]">
+                <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=$ui->getAttribute("website")?>">
         </div>
       </div>
 
@@ -650,14 +651,12 @@ $valt = Loader::helper('validation/token');
       <div class="row-fluid" id="newwalkleader">
         <div class="span6 required"> 
           <label for="you-email"><i class="icon-envelope"></i> Email</label>
-          <input type="email" class="input-large" id="you-email" placeholder="" value="" name="email[]">
+          <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$ui->getUserEmail()?>">
         </div>
 
         <div class="span6 tel required">
             <label for="phone"><i class="icon-phone-sign"></i> Phone Number</label>
-            <input type="tel" maxlength="3" class="input-mini" id="phone" placeholder="" name="phone-1[]">
-            <input type="tel" maxlength="3" class="input-mini" id="phone" placeholder="" name="phone-2[]">
-            <input type="tel" maxlength="4" class="input-small" id="phone" placeholder="" name="phone-3[]">
+            <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=$ui->getAttribute("phone")?>">
         </div>
       </div>
     </div>  
@@ -719,8 +718,8 @@ $valt = Loader::helper('validation/token');
           <div class="item required">
           <label for="name">Name</label>
           <div class="item">
-            <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]">
-              <input type="text" class="input-small"id="name" placeholder="Last" name="name-last[]">
+            <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]" />
+            <input type="text" class="input-small"id="name" placeholder="Last" name="name-last[]" />
             </form>
           </div>
         </div>
@@ -772,9 +771,7 @@ $valt = Loader::helper('validation/token');
             </div>
             <div class="span6 tel">
               <label for="phone"><i class="icon-phone-sign"></i> Phone Number</label>
-              <input type="tel" maxlength="3" class="input-mini" id="phone" placeholder="" name="email-1[]">
-              <input type="tel" maxlength="3" class="input-mini" id="phone" placeholder="" name="email-2[]">
-              <input type="tel" maxlength="4" class="input-small" id="phone" placeholder="" name="email-3[]">
+              <input type="tel" maxlength="16" class="input-large" id="phone" placeholder="" name="phone[]">
             </div>
           </div>  
         </div>
