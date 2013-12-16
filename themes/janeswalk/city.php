@@ -63,51 +63,7 @@ global $u; global $cp;
       <a href="?show=all" class="btn btn-primary btn-large see-all"><i class="icon-th"></i> See All Walks</a>
     <?php } ?>
     <div class="row-fluid">
-    <?php
-        Loader::model('page_list');
-        $u = new User();
-        $pl = new PageList();
-        $pl->filterByCollectionTypeHandle("walk");
-        $pl->filterByPath($c->getCollectionPath());
-        $pl->filterByAttribute('exclude_page_list',false);
-        $pagecount = ($show == "all") ? 100 : 3;
-        foreach($pl->get($pagecount) as $page) { ?>
-        <div class="span<?=($show == "all") ? "3" : "4" ?> walk">
-          <a href="<?=$nh->getCollectionURL($page) ?>">
-          <div class="thumbnail">
-            <?php 
-            $thumb = $page->getAttribute("thumbnail"); 
-            if( $thumb ) {
-              echo "<img src='" . $im->getThumbnail($thumb,340,720)->src . "' />";
-            }  ?>
-            <div class="caption">
-              <h4><?php echo $page->getCollectionName() ?></h4>
-             <?php $scheduled = $page->getAttribute('scheduled');$slots = (Array)$scheduled['slots']; 
-              if($scheduled['open']) { ?>
-                <h6><i class="icon-calendar"></i> Open schedule</h6>
-              <?php } else if(isset($slots[0]['date'])) {  ?>
-                <h6><i class="icon-calendar"></i> <?php echo $slots[0]['date']; ?></h6>
-              <?php } ?>
-              <h6>
-                <?php 
-                  $team = json_decode($page->getAttribute('team'));
-                  foreach($team as $key=>$mem) {
-                    echo ($key == 0 ? "Walk led by " : ($key > 0 ? ", " : "")) . $mem->{'name-first'} . " " . $mem->{'name-last'};
-                  } ?>
-              </h6>
-              <p>
-                <?=$page->getAttribute('shortdescription') ?>
-              </p>
-            </div>
-            <ul class="inline tags">
-              <?php foreach($page->getAttribute("theme") as $theme) { ?>
-                <li class="tag" data-toggle="tooltip" title="<?=$th->getName($theme); ?>"><?=$th->getIcon($theme); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-          </a>
-        </div>
-        <?php } ?>
+    <?php $a = new Area('Walk List'); $a->display($c); ?>
     </div>
   </div>
 </div>
