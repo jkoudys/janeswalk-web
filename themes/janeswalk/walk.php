@@ -4,13 +4,13 @@ $im = Loader::helper('image');
 $gmap = json_decode($c->getAttribute("gmap"));
 $team = json_decode($c->getAttribute('team'));
 $dh = Loader::helper('concrete/dashboard');
+$th = Loader::helper('theme');
 global $u; global $cp;
 $this->inc('elements/header.php');  ?>
 
 <body class="walk-page active-walk">
-  <?php $this->inc('elements/navbar.php');  ?>
-  <div class="container-outter" role="main">
-    
+<?php $this->inc('elements/navbar.php'); ?>
+<div class="container-outter" role="main">
 <div class="container">
 
 <ul class="breadcrumb visible-desktop visible-tablet">
@@ -21,35 +21,29 @@ $this->inc('elements/header.php');  ?>
   ?>
     <?php
     if( $crumb->getCollectionID() == 1 ) { ?>
-      <li><a href="<?php echo $nh->getLinkToCollection($crumb) ?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+      <li><a href="<?=$nh->getLinkToCollection($crumb) ?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
     <?php } else if ($crumb->getCollectionTypeHandle() != 'country' ) { ?>
-      <li><a href="<?php echo $nh->getLinkToCollection($crumb) ?>"><?php echo $crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
+      <li><a href="<?=$nh->getLinkToCollection($crumb) ?>"><?=$crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
     <?php }
   } ?>
-  <li class="active"><?php echo $c->getCollectionName() ?></li>
+  <li class="active"><?=$c->getCollectionName() ?></li>
 </ul>
 
-    <div class="walk-label">YearRound Walk</div>
+<div class="walk-label">YearRound Walk</div>
 
-    <div class="tag-list">
-      <ul class="nav nav-pills">
-        <?php 
-          $th = Loader::helper('theme');
-          foreach($c->getAttribute("theme") as $theme) {
-            echo "<li><div class='icon'>".$th->getIcon($theme).'</div> '.$th->getName($theme)."</li>";
-          }
-         ?>
-              
-      </ul>
-    </div>
+<div class="tag-list">
+  <ul class="nav nav-pills">
+    <?php 
+      foreach($c->getAttribute("theme") as $theme) {
+        echo "<li><div class='icon'>{$th->getIcon($theme)}</div> {$th->getName($theme)}</li>";
+      }
+     ?>
+  </ul>
+</div>
 
 <div class="row-fluid walk-header">
   <div class="span9">
-    
-    <h1 class="walk-title"><?php echo $c->getCollectionName() ?></h1>
-
-
-
+    <h1 class="walk-title"><?=$c->getCollectionName()?></h1>
   </div>
 
   <div class="span3 profiles box-sizing">
@@ -58,18 +52,17 @@ $this->inc('elements/header.php');  ?>
       if($scheduled['open']) { ?>
         <h4 class="available-time"><i class="icon-calendar"></i> Open schedule</h4>
       <?php } else if(isset($slots[0]['date'])) {  ?>
-        <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?php echo $slots[0]['date']; ?></span></h4>
+        <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']; ?></span></h4>
       <?php } 
       $eid = $c->getAttribute('eventbrite');
       if(!empty($eid)) {
       ?>
-      <a data-eid="<?=$eid?>" href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
+      <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
       <?php } else { ?>
       Registration Not Yet Open <?php } ?>
     </div>
   </div>
 </div>
-
 
 <div class="row-fluid walk-leaders clearfix">
   <div class="span7">
@@ -80,19 +73,17 @@ $this->inc('elements/header.php');  ?>
   }
   if($teamCount > 0) {
     if($teamCount == 1) {
-      echo "<h4>Walk Leader: ";
+      echo '<h4>Walk Leader: ';
     }
     else {
-      echo "<h4>Walk Leaders: ";
+      echo '<h4>Walk Leaders: ';
     }
     foreach($team as $key=>$mem) {
-      echo (empty($mem->{'name-first'}) ? "" : ($key > 0 ? ", " : "") . $mem->{'name-first'} . " " . $mem->{'name-last'});
+      echo empty($mem->{'name-first'}) ? "" : ($key > 0 ? ", " : "") . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
     }
   } ?>
   </div>
 </div>
-
-
 
 <div class="hero-unit walk-stops" style="display:none">
   <div class="row-fluid">
@@ -102,20 +93,18 @@ $this->inc('elements/header.php');  ?>
           <?php if (isset($slots[0]['duration'])) { ?>
             <h4><i class="icon-time"></i> Duration:</h4>
             <h5>
-              Approximately <?php echo $slots[0]['duration'] ?>
+              Approximately <?=$slots[0]['duration'] ?>
             </h5>
           <?php } else { ?>
             <h4><i class="icon-time"></i> Open Schedule</h4>
           <?php } ?>
-
-
           <hr>
           <h4><i class="icon-map-marker"></i> Walk Route</h4>
           <h5 class="clickdetails">Click locations to see details</h5>
           <ol>
           <?php
             foreach($gmap->markers as $key=>$marker) {
-            echo "<li class='walk-stop' id='".$key."'><h4>".$marker->title . "</h4></li>";
+            echo "<li class='walk-stop' id='$key'><h4>$marker->title</h4></li>";
             } ?>
           </ol>
         </header>
@@ -139,7 +128,7 @@ $this->inc('elements/header.php');  ?>
       <h3>About This Walk</h3>
       <?php $thumb = $c->getAttribute("thumbnail"); 
       if( $thumb ) {
-        echo "<a class='thumb' href='" . $im->getThumbnail($thumb,1024,1024)->src . "' ><img src='" . $im->getThumbnail($thumb,340,720)->src . "' class='pull-right img-polaroid' /></a>";
+        echo "<a class='thumb' href='{$im->getThumbnail($thumb,1024,1024)->src}' ><img src='{$im->getThumbnail($thumb,340,720)->src}' class='pull-right img-polaroid' /></a>";
       } 
       echo $c->getAttribute('longdescription'); ?>
     </div>
@@ -160,38 +149,30 @@ $this->inc('elements/header.php');  ?>
             if($memberType == 'you') { $memberType = ($mem->role == 'walk-organizer') ? 'organizer' : 'leader'; } 
             switch($memberType) {
               case "leader":
-                echo '<img src="' . $this->getThemePath() . '/img/walk-leader.png" alt="Walk Leader" class="pull-left">';
-                echo '</div><div class="span9">';
-                echo '<h4><span class="title">Walk Leader:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
+                echo "<img src='{$this->getThemePath()}/img/walk-leader.png' alt='Walk Leader' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Leader:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
                 break;
               case "organizer":
-                echo '<img src="' . $this->getThemePath() . '/img/walk-organizer.png" alt="Walk Organizer" class="pull-left">';
-                echo '</div><div class="span9">';
-                echo '<h4><span class="title">Walk Organizer:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
+                echo "<img src='{$this->getThemePath()}/img/walk-organizer.png' alt='Walk Organizer' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Organizer:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
                 break;
-              case "community":
-                echo '<img src="' . $this->getThemePath() . '/img/community-voice.png" alt="Community Voice" class="pull-left">';
-                echo '</div><div class="span9">';
-                echo '<h4><span class="title">Community Voice:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
+              case 'community':
+                echo "<img src='{$this->getThemePath()}/img/community-voice.png' alt='Community Voice' class='pull-left'></div><div class='span9'><h4><span class='title'>Community Voice:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
                 break;
-              case "volunteer":
-                echo '<img src="' . $this->getThemePath() . '/img/volunteers.png" alt="Volunteer" class="pull-left">';
-                echo '</div><div class="span9">';
-                echo '<h4><span class="title">Volunteer:</span><br>' .$mem->{'name-first'} . " " . $mem->{'name-last'} . '</h4>';
+              case 'volunteer':
+                echo "<img src='{$this->getThemePath()}/img/volunteers.png' alt='Volunteer' class='pull-left'></div><div class='span9'><h4><span class='title'>Volunteer:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
                 break;
               default:
-                echo '</div><div class="span9">';
+                echo '</div><div class=\'span9\'>';
                 break;
             }
             ?>
 
             <div class="btn-toolbar">
               <a class="btn notify">Request a Custom Walk</a>
-              <a href="mailto:<?php echo $mem->email ?>" class="btn"><i class="icon-envelope-alt"></i></a>
+              <a href="mailto:<?=$mem->email?>" class="btn"><i class="icon-envelope-alt"></i></a>
               <a class="btn notify"><i class="icon-facebook"></i></a>
               <a class="btn notify"><i class="icon-twitter notify"></i></a>
              </div>
-           <?php echo $mem->bio ?>
+           <?=$mem->bio?>
           </div>
         </div>
       </div>
@@ -199,27 +180,6 @@ $this->inc('elements/header.php');  ?>
     </div><!-- About The Walk Leader Section -->
 
     <hr>
-
-<?php /*    <h3>Additional Resources</h3>
-
-    <div class="resources-list">
-      <ul>
-        <li>
-          <h4><a href="/files/dundas_square.pdf" target="_blank"><i class="icon-file"></i> Dundas Square : Consumption and Intimacy</a></h4> 
-          <p> Author: Thomas-Bernard Kenniff. <br>Published in On Site, no.18, 2007.</p>
-        </li>
-
-        <li>
-          <h4><a href="http://en.wikipedia.org/wiki/Yonge-Dundas_Square" target="_blank"><i class="icon-link"></i> Yonge-Dundas Square on Wikipedia</a></h4> 
-          <p>Read about one of the squares we will visit, Yonge-Dundas Square, on Wikipedia.</p>
-        </li>
-
-        <li>
-          <h4><a href="http://www.thestar.com/business/2013/06/06/ten_years_on_yongedundas_square_a_marketing_hub.html" target="_blank"><i class="icon-link"></i> Ten years on, Yonge-Dundas Square a marketing hub</a></h4>
-          <p>Article in the Toronto Star about Yonge-Dundas Square from June 7, 2013.</p>
-        </li>
-      </ul>
-    </div> <!-- Resources --> */ ?>
 
     <h3>Download This Walk</h3>
 
@@ -247,7 +207,7 @@ $this->inc('elements/header.php');  ?>
     <div class="thumbnail" id="register">
       <div class="caption">
         <h3><i class="icon-calendar"></i> 
-          <?php if(!empty($eid)) { ?> <a href="<?php echo "http://eventbrite.ca/event/" . $eid ?>" >Register For This Walk</a> <?php } 
+          <?php if(!empty($eid)) { ?> <a href="<?="http://eventbrite.ca/event/$eid"?>" >Register For This Walk</a> <?php } 
           else {?>Registration Not Open <?php } ?>
         </h3>
         <p class="select-day"></p>
@@ -296,9 +256,7 @@ $this->inc('elements/header.php');  ?>
       <div class="caption">
       <h4><i class="icon-accessible"></i> Accessibility</h4>
         <ul>
-          <?php foreach($c->getAttribute("accessible") as $accessible) {
-            echo "<li>".$th->getName($accessible)."</li>";
-          } ?>
+          <?php foreach($c->getAttribute("accessible") as $accessible) { echo "<li>{$th->getName($accessible)}</li>"; } ?>
         </ul>
         <p id="accessibility notes">
         
@@ -309,20 +267,20 @@ $this->inc('elements/header.php');  ?>
         if(!empty($public_transit)) { ?>
           <h4><i class="icon-transit"></i> Taking Public Transit</h4>
             <p id="public transit directions">
-              <?php echo $public_transit ?>
+              <?=$public_transit ?>
             </p>
          <? }
           if(!empty($accessible_parking)) {
          ?>
           <h4><i class="icon-road"></i> Parking Availability</h4>
             <p id="parking availability">
-              <?php echo $accessible_parking ?>
+              <?=$accessible_parking ?>
             </p>
         <? }
           if(!empty($accessible_find)) { ?>
           <h4><i class="icon-flag"></i> How to find us</h4>
           <p>
-              <?php echo $accessible_find ?>
+              <?=$accessible_find ?>
           </p>
         <? } ?>
       </div>
@@ -354,24 +312,22 @@ $this->inc('elements/header.php');  ?>
   </div>  
 </div></div>
 
-
-
   </div> 
   <script type="text/javascript">
     <?php 
-    echo "var locations=[";
+    echo 'var locations=[';
     foreach($gmap->markers as $key=>$marker) {
       echo ($key > 0 ? "," : "") . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
     }
-    echo "];";
-    if(sizeof($gmap->markers) > 0) { echo "$('.walk-stops').show()"; };
+    echo '];';
+    if(sizeof($gmap->markers) > 0) { echo '$(\'.walk-stops\').show();'; };
     ?>
 
     // Drawing Polyline
     var walkPathCoordinates = [
     <?php
     foreach($gmap->route as $key=>$rp) {
-      if(isset($rp->lat) && isset($rp->lng)) echo ($key > 0 ? "," : "") . "new google.maps.LatLng(" . $rp->lat . "," . $rp->lng . ")";
+      if(isset($rp->lat) && isset($rp->lng)) echo ($key > 0 ? "," : "") . "new google.maps.LatLng({$rp->lat},{$rp->lng})";
     } ?>
     ];
     
