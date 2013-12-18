@@ -9,149 +9,66 @@
 
 defined('C5_EXECUTE') or die("Access Denied.");
 class ThemeHelper { 
-  public function getName($handle) {
-    switch($handle) {
-      case 'nature-naturelover':
-        return 'The Nature Lover';
-          break;
-      case 'nature-greenthumb':
-        return 'The Green Thumb';
-          break;
-      case 'nature-petlover':
-        return 'The Pet Lover';
-          break;
-      case 'urban-suburbanexplorer':
-        return 'The Suburban Explorer';
-          break;
-      case 'urban-architecturalenthusiast':
-        return 'The Architectural Enthusiast';
-          break;
-      case 'urban-moversandshakers':
-        return 'The Movers & Shakers (Transportation)';
-          break;
-      case 'culture-historybuff':
-        return 'The History Buff';
-          break;
-      case 'culture-artist':
-        return 'The Artist';
-          break;
-      case 'culture-aesthete':
-        return 'The Aesthete';
-          break;
-      case 'culture-bookworm':
-        return 'The Bookworm';
-          break;
-      case 'culture-foodie':
-        return 'The Foodie';
-          break;
-      case 'culture-nightowl':
-        return 'The Night Owl';
-          break;
-      case 'culture-techie':
-        return 'The Techie';
-          break;
-      case 'culture-writer':
-        return 'The Writer';
-          break;
-      case 'civic-activist':
-        return 'The Activist';
-          break;
-      case 'civic-truecitizen':
-        return 'The True Citizen';
-          break;
-      case 'civic-goodneighbour':
-        return 'The Good Neighbour';
-          break;
+  private $attributeNameMap;
+  private $attributeIconMap;
+
+  public function __construct() {
+    $themePath = View::getInstance()->getThemePath();
+    $this->attributeIconMap = [
+      'nature-naturelover' => "<i class='icon-bug'></i>",
+      'nature-greenthumb' => "<i class='icon-leaf'></i>",
+      'nature-petlover' => "<i class='icon-heart'></i>",
+      'urban-suburbanexplorer' => "<img src='{$themePath}/images/icons-explorer.png' />",
+      'urban-architecturalenthusiast' => "<i class='icon-building'></i>",
+      'urban-moversandshakers' => "<i class='icon-rocket'></i>",
+      'culture-historybuff' => "<img src='{$themePath}/images/icons-historian.png' />",
+      'culture-artist' => "<img src='{$themePath}/images/icons-artist.png' />",
+      'culture-aesthete' => "<i class='icon-picture'></i>",
+      'culture-bookworm' => "<i class='icon-book'></i>",
+      'culture-foodie' => "<img src='{$themePath}/images/icons-foodie.png' />",
+      'culture-nightowl' => "<i class='icon-moon'></i>",
+      'culture-techie' => "<i class='icon-gears'></i>",
+      'culture-writer' => "<i class='icon-edit'></i>",
+      'civic-activist' => "<img src='{$themePath}/images/icons-activist.png' />",
+      'civic-truecitizen' => "<i class='icon-flag-alt'></i>",
+      'civic-goodneighbour' => "<img src='{$themePath}/images/icon-goodneighbour.png' />",
+      ];
+    $this->attributeNameMap = [
+      'nature-naturelover' => 'The Nature Lover',
+      'nature-greenthumb' => 'The Green Thumb',
+      'nature-petlover' => 'The Pet Lover',
+      'urban-suburbanexplorer' => 'The Suburban Explorer',
+      'urban-architecturalenthusiast' => 'The Architectural Enthusiast',
+      'urban-moversandshakers' => 'The Movers & Shakers (Transportation)',
+      'culture-historybuff' => 'The History Buff',
+      'culture-artist' => 'The Artist',
+      'culture-aesthete' => 'The Aesthete',
+      'culture-bookworm' => 'The Bookworm',
+      'culture-foodie' => 'The Foodie',
+      'culture-nightowl' => 'The Night Owl',
+      'culture-techie' => 'The Techie',
+      'culture-writer' => 'The Writer',
+      'civic-activist' => 'The Activist',
+      'civic-truecitizen' => 'The True Citizen',
+      'civic-goodneighbour' => 'The Good Neighbour',
       // Accessibility
-      case 'familyfriendly':
-        return 'Family friendly';
-        break;
-      case 'wheelchair':
-        return 'Wheelchair accessible';
-        break;
-      case 'dogs':
-        return 'Dogs welcome';
-        break;
-      case 'strollers':
-        return 'Strollers welcome';
-        break;
-      case 'bicycles':
-        return 'Bicycles welcome';
-        break;
-      case 'steephills':
-        return 'Steep hills';
-        break;
-      case 'uneven':
-        return 'Wear sensible shoes (uneven terrain)';
-        break;
-      case 'busy':
-        return 'Busy sidewalks';
-        break;
-      case 'bicyclesonly':
-        return 'Bicycles only';
-        break;
-      default:
-        break;
-    }
+      'familyfriendly' => 'Family friendly',
+      'wheelchair' => 'Wheelchair accessible',
+      'dogs' => 'Dogs welcome',
+      'strollers' => 'Strollers welcome',
+      'bicycles' => 'Bicycles welcome',
+      'steephills' => 'Steep hills',
+      'uneven' => 'Wear sensible shoes (uneven terrain)',
+      'busy' => 'Busy sidewalks',
+      'bicyclesonly' => 'Bicycles only',
+    ];
   }
-  
+
+  public function getName($handle) {
+    return $this->attributeNameMap[(string)$handle];
+  }
   public function getIcon($handle) {
-    $v = View::getInstance();
-    switch($handle) {
-      case "nature-naturelover":
-        return "<i class='icon-bug'></i>";
-          break;
-      case "nature-greenthumb":
-        return "<i class='icon-leaf'></i>";
-          break;
-      case "nature-petlover":
-        return "<i class='icon-heart'></i>";
-          break;
-      case "urban-suburbanexplorer":
-        return "<img src='{$v->getThemePath()}/images/icons-explorer.png' />";
-          break;
-      case "urban-architecturalenthusiast":
-        return "<i class='icon-building'></i>";
-          break;
-      case "urban-moversandshakers":
-        return "<i class='icon-rocket'></i>";
-          break;
-      case "culture-historybuff":
-        return "<img src='{$v->getThemePath()}/images/icons-historian.png' />";
-          break;
-      case "culture-artist":
-        return "<img src='{$v->getThemePath()}/images/icons-artist.png' />";
-          break;
-      case "culture-aesthete":
-        return "<i class='icon-picture'></i>";
-          break;
-      case "culture-bookworm":
-        return "<i class='icon-book'></i>";
-          break;
-      case "culture-foodie":
-        return "<img src='{$v->getThemePath()}/images/icons-foodie.png' />";
-          break;
-      case "culture-nightowl":
-        return "<i class='icon-moon'></i>";
-          break;
-      case "culture-techie":
-        return "<i class='icon-gears'></i>";
-          break;
-      case "culture-writer":
-        return "<i class='icon-edit'></i>";
-          break;
-      case "civic-activist":
-        return "<img src='{$v->getThemePath()}/images/icons-activist.png' />";
-          break;
-      case "civic-truecitizen":
-        return "<i class='icon-flag-alt'></i>";
-          break;
-      case "civic-goodneighbour":
-        return "<img src='{$v->getThemePath()}/images/icon-goodneighbour.png' />";
-          break;
-      default:
-        break;
-    }
+    return $this->attributeIconMap[(string)$handle];
   }
 }
 
