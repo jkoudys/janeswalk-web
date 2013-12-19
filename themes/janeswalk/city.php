@@ -37,15 +37,14 @@ global $u; global $cp;
       <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
         <?=nl2br($c->getAttribute('longdescription')); ?>
         <?php 
-          $a = new Area('City Description');
-          $a->display($c);
+          $a = new Area('City Description'); $a->display($c);
         ?>
     </div>
     <div class="item get-involved box-sizing">
-      <div class="top clearfix">
-        <a href="#" class="btn btn-primary btn-large notify">Get Involved</a>
-        <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
-        <a href="<?= $nh->getCollectionURL($newWalkForm) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary btn-large">Submit a Walk</a>
+      <div class="below top clearfix">
+        <?php  $a = new Area('City Description'); $a->display($c); ?>
+        <a href="<?= $nh->getCollectionURL(Page::getByPath("/walk/form")) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary btn-large">Create a Walk</a>
+        <a href="<?= $nh->getCollectionURL(Page::getByPath("/walk/form")) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary btn-large">Create a Walk</a>
       </div>
       <div class="below">
         <a href="#" class="btn btn-primary btn-large notify">Request a Custom Walk</a>
