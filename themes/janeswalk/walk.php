@@ -48,12 +48,13 @@ $this->inc('elements/header.php');  ?>
 
   <div class="span3 profiles box-sizing">
     <div id="reg-group">
-      <?php $scheduled = $c->getAttribute('scheduled');$slots = (Array)$scheduled['slots']; 
+      <?php $scheduled = $c->getAttribute('scheduled'); 
+      $slots = (Array)$scheduled['slots']; 
       if($scheduled['open']) { ?>
         <h4 class="available-time"><i class="icon-calendar"></i> Open schedule</h4>
       <?php } else if(isset($slots[0]['date'])) {  ?>
         <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']; ?></span></h4>
-      <?php } 
+      <?php }
       $eid = $c->getAttribute('eventbrite');
       if(!empty($eid)) {
       ?>
@@ -126,8 +127,8 @@ $this->inc('elements/header.php');  ?>
     
     <div class="clearfix">
       <h3>About This Walk</h3>
-      <?php $thumb = $c->getAttribute("thumbnail"); 
-      if( $thumb ) {
+      <?php 
+      if( $thumb = $c->getAttribute("thumbnail") ) {
         echo "<a class='thumb' href='{$im->getThumbnail($thumb,1024,1024)->src}' ><img src='{$im->getThumbnail($thumb,340,720)->src}' class='pull-right img-polaroid' /></a>";
       } 
       echo $c->getAttribute('longdescription'); ?>
