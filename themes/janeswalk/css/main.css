@@ -5711,6 +5711,10 @@ label {
     margin: 20px 0; }
   .modal form {
     margin-bottom: 0; }
+    .modal form .control-group {
+      position: relative; }
+      .modal form .control-group .ccm-required {
+        display: none; }
   .modal .modal-footer {
     color: #ddd;
     background: #fff;

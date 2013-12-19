@@ -262,6 +262,9 @@ label {
   }
   form {
     margin-bottom: 0;
+    .control-group { position:relative;
+      .ccm-required { display:none; }
+    }
   }
   .modal-footer {
     color: #ddd;
