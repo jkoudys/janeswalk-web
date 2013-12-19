@@ -1,7 +1,7 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
-<?php  Loader::library('authentication/open_id');?>
-<?php  $form = Loader::helper('form'); ?>
-<body class="index">
+<?php  defined('C5_EXECUTE') or die("Access Denied.");
+Loader::library('authentication/open_id');
+$form = Loader::helper('form'); ?>
+
 <link href="<?php echo $this->getStyleSheet('/css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
@@ -186,4 +186,3 @@ $(function() {
 
 <?php  } ?>
 
-</body>

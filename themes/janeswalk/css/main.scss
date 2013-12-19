@@ -23,6 +23,7 @@ body {
   margin-top: 60px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  background-color:inherit;
   &.form {
     padding-top:0;
     i[class^=icon-] {

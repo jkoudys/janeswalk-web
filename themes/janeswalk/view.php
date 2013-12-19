@@ -1,6 +1,6 @@
-<?php 
-defined('C5_EXECUTE') or die("Access Denied.");
-$this->inc('elements/header.php'); 
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<html>
+<?php $this->inc('elements/header.php'); 
 $dh = Loader::helper('concrete/dashboard');
 global $u; global $cp;
 ?>
@@ -10,4 +10,3 @@ global $u; global $cp;
 			print $innerContent;
 			?>
 <?php $this->inc('elements/footer.php'); ?>
-</html>
