@@ -153,12 +153,12 @@ $(function() {
       <input type="checkbox"> Keep me signed in.
     </label>
     <input type="hidden" name="uEmail" id="uEmail" />
-    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?php echo $this->url('/login','forgot_password') ?>')" value="Request a new password"></input>
+    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/login','forgot_password') ?>')" value="Request a new password"></input>
 </div>
     <div class="modal-footer">
     <div class="pull-left">
       <?php  if (ENABLE_REGISTRATION == 1) { ?>
-        <a href="<?php echo $this->url('/register')?>"><?php echo t('Sign up using your email')?></a>
+        <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/register') ?>')" value="Sign up using your email"></input>
       <?php  } ?>
     </div>
 
