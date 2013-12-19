@@ -74,7 +74,7 @@ echo "<div style='display:none' class='pagejson' data-url='{$nh->getCollectionUR
       <img id="convo-marker" src="<?php echo $this->getThemePath();?>/img/jw-intro-graphic.svg" alt="Jane's Walk are walking conversations.">
 
     </div>
-    <div class="span8"><h1>Hey there<!--users name-->!</h1>
+    <div class="span8"><h1><?="Hey there {$ui->getAttribute('first_name')}!"?></h1>
       <p>Jane’s  Walks  are   walking  conversation  about  neighbourhoods .  You can return to this form at any time, so there's no need to finish everything at once.</p></div>
   </div>
 </div>
@@ -89,7 +89,7 @@ echo "<div style='display:none' class='pagejson' data-url='{$nh->getCollectionUR
       <label for="title">Walk Title</label>
       <div class="alert alert-info">Something short and memorable.</div>
      
-      <input type="text" id="title" name="title" placeholder="" value="" required>
+      <input type="text" id="title" name="title" placeholder="" value="<?=htmlspecialchars($c->getCollectionname())?>" required>
     </div>
    </fieldset>
 </form>
@@ -109,7 +109,7 @@ $valt = Loader::helper('validation/token');
         <div class="item required">
           <label for="shortdescription">Your Walk in a Nutshell</label>
           <div class="alert alert-info">Build intrigue! This is what people see when browsing our walk listings.</div>
-          <textarea class="span12 limit" id="shortdescription" name="shortdescription" rows="2" maxlength="140" required></textarea>
+          <textarea class="span12 limit" id="shortdescription" name="shortdescription" rows="2" maxlength="140" required><?=htmlspecialchars($c->getAttribute('shortdescription'))?></textarea>
           <div class="text-right">
             <p></p>Characters left: <span class="counter">140</span></p>
           </div>
