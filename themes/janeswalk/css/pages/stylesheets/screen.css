@@ -10133,7 +10133,7 @@ section.calltoaction ul:after {
 }
 /* line 7, ../sass/city.scss */
 .city-page i {
-  color: #fff;
+  color: inherit;
 }
 @media (max-width: 768px) {
   /* line 3, ../sass/city.scss */
