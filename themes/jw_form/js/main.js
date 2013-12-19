@@ -4750,10 +4750,8 @@ window.Janeswalk = {
     // Previewing Button
 
     $('#preview-walk').on('click', function(){
-      var previewURL = $(this).data('previewurl');
-      $('#preview-modal').find('iframe').prop('src', previewURL);
+      $('#preview-modal').find('iframe').prop('src', previewUrl);
       $('#preview-modal').modal('show');
-      console.log(previewURL);
     });
 
    $('#preview-modal').on('show', function () {
@@ -4835,10 +4833,9 @@ window.Janeswalk = {
     // Save Handler
     // Populate data if available
     // This data could be in the dom, or the url to the data could be in the dom as a js var, this example (/form.html?load=/js/sample.json) loads it from a url param
-    var dataUrl = $.paramsURL('load');
     var newPage = false;
-    if(null != dataUrl) { var previewUrl = dataUrl.replace("format=json","format=html"); }
-    else { dataUrl = $(".newpage").data("url"); newPage = true; }
+    var dataUrl = $(".pagejson").data("url") + "?format=json";
+    var previewUrl = $(".pagejson").data("url");
 
     var notify_success = function() {
       $('body').append('<div class="alert alert-success" id="save-notify">Walk Saved</div>');
@@ -4876,7 +4873,7 @@ window.Janeswalk = {
         });
       });
 
-    if (dataUrl != null && !newPage){
+    if (dataUrl != null){
       $('.progress-spinner').spin(spinProperties);
       $.getJSON(dataUrl, function(data){
         JaneswalkData.fill(data);

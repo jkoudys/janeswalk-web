@@ -1,7 +1,6 @@
 <?php 
 defined('C5_EXECUTE') or die(_("Access Denied."));
 
-$c = Page::getCurrentPage();
 $u = new User(); 
 $ui = UserInfo::getByID($u->getUserID());
 $nh = Loader::helper('navigation');
@@ -9,29 +8,32 @@ $imgHelper = Loader::helper('image');
 
 /* If no page is passed to edit, create a new page.
    TODO: change this to either redirect, or detect if you have one in-progress so ctrl-r doesn't make new walks. */
-$loadJson = $_REQUEST['load'];
-if(empty($loadJson)) {
+$load = $_REQUEST['load'];
+$c = Page::getByPath($load);
+if(empty($load)) {
   $parentCID = $_REQUEST['parentCID'];
   if(empty($parentCID)) {
-    $cityPage = Page::getByPath("/canada/toronto");
+    $cityPage = (null !== $ui->getAttribute('home_city')) ? $ui->getAttribute('home_city') : Page::getByPath("/canada/toronto");
   }
   else {
     $cityPage = Page::getByID($parentCID);
   }
-  $data = array(
-      );
+  $data = [];
   $newPage = $cityPage->add(CollectionType::getByHandle("walk"),$data);  
   $newPage->setAttribute('exclude_page_list',true);
-  echo "<div style='display:none' class='newpage' data-url='".$nh->getCollectionURL($newPage)."'></div>";
+  $c = $newPage;
 }
+$city = Page::getByID($c->getCollectionParentID());
+$country = Page::getByID($city->getCollectionParentID());
+echo "<div style='display:none' class='pagejson' data-url='{$nh->getCollectionURL($c)}'></div>";
 ?>
 
 <body class="form">
-<link href="<?php echo $this->getStyleSheet('/css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?= $this->getStyleSheet('/css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
-      <a class="brand" href="#"><i class="icon-map-marker"></i><?php # Toronto, Ontario, Canada ?></a>
+      <span class="brand"><i class="icon-map-marker"><?="{$city->getCollectionName()}, {$country->getCollectionName()}" ?></i></span>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
           Logged in as <a href="<?php echo $this->url('/profile') ?>" class="navbar-link"><?php echo $u->getUserName(); ?></a>
@@ -586,8 +588,8 @@ $valt = Loader::helper('validation/token');
       <div class="span9">
         <div class="item required">
           <label for="name">Name</label>
-            <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?= $ui->getAttribute("first_name") ?>">
-            <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?= $ui->getAttribute("last_name") ?>">
+            <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?=htmlspecialchars($ui->getAttribute("first_name"))?>">
+            <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?=htmlspecialchars($ui->getAttribute("last_name"))?>">
           </div>
 
            <div class="item required">
@@ -611,7 +613,7 @@ $valt = Loader::helper('validation/token');
               </div>
 
             
-            <textarea class="span12" id="bio" rows="6" name="bio[]"><?=$ui->getAttribute("bio")?></textarea>
+            <textarea class="span12" id="bio" rows="6" name="bio[]"><?=htmlspecialchars($ui->getAttribute("bio"))?></textarea>
           </div>
 
 
@@ -621,13 +623,13 @@ $valt = Loader::helper('validation/token');
         <label for="leader-twitter"><i class="icon-twitter"></i> Twitter</label>
             <div class="input-prepend">
             <span class="add-on">@</span>
-            <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?=$ui->getAttribute("twitter")?>">
+            <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?=htmlspecialchars($ui->getAttribute("twitter"))?>">
           </div>
       </div>
 
       <div class="span6">
           <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
-          <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=$ui->getAttribute("facebook")?>">
+          <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($ui->getAttribute("facebook"))?>">
       </div>
 
     </div>
@@ -635,7 +637,7 @@ $valt = Loader::helper('validation/token');
       <div class="row-fluid" id="newwalkleader">
         <div class="span6">
                 <label for="website"><i class="icon-link"></i> Website</label>
-                <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=$ui->getAttribute("website")?>">
+                <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($ui->getAttribute("website"))?>">
         </div>
       </div>
 
@@ -656,7 +658,7 @@ $valt = Loader::helper('validation/token');
 
         <div class="span6 tel required">
             <label for="phone"><i class="icon-phone-sign"></i> Phone Number</label>
-            <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=$ui->getAttribute("phone")?>">
+            <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($ui->getAttribute("phone"))?>">
         </div>
       </div>
     </div>  

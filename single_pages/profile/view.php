@@ -57,10 +57,7 @@ $(document).ready(function() {
         $pl->filterByUserID($u->getUserID());
         $pl->filterByAttribute('exclude_page_list',false);
         foreach($pl->get() as $page) {
-          echo "<li><a href='" . $nh->getCollectionURL($page) . "'>" . $page->getCollectionName() . "</a>
-          [ <a href='" . $nh->getCollectionURL($pageEdit) ."?load=" . $nh->getCollectionURL($page) . "?format=json" . "'>edit</a> | " .
-          "<a href='".$nh->getCollectionURL($page) . "' class='delete' data-cid='" . $page->getCollectionID() . "'>unpublish</a> ]" .
-          "</li>";
+          echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a> [ <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'>edit</a> | <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'>unpublish</a> ]</li>";
         }
       ?>
     </ul>

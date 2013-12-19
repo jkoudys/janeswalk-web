@@ -2,7 +2,6 @@
 defined('C5_EXECUTE') or die(_("Access Denied."));
 $im = Loader::helper('image');
 $fullbg = $c->getAttribute("full_bg");
-$th = Loader::helper('theme');
 $nh = Loader::helper('navigation');
 $dh = Loader::helper('concrete/dashboard');
 $show = $_GET['show'];

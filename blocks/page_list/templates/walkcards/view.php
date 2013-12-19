@@ -8,7 +8,7 @@ $show = $_GET['show'];
 //Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
 
 foreach($pages as $key => $page) {
- if($key == 3 && $show!="all") { break; }
+ if($key == 9 && $show!="all") { break; }
 ?>
 <div class="span<?=($show == "all") ? "3" : "4" ?> walk">
   <a href="<?=$nh->getCollectionURL($page) ?>">
@@ -16,21 +16,21 @@ foreach($pages as $key => $page) {
     <?php 
     $thumb = $page->getAttribute("thumbnail"); 
     if( $thumb ) {
-      echo "<img src='" . $im->getThumbnail($thumb,340,720)->src . "' />";
+      echo "<img src='{$im->getThumbnail($thumb,340,720)->src}' />";
     }  ?>
     <div class="caption">
-      <h4><?php echo $key . $page->getCollectionName() ?></h4>
+      <h4><?=$page->getCollectionName() ?></h4>
      <?php $scheduled = $page->getAttribute('scheduled');$slots = (Array)$scheduled['slots']; 
       if($scheduled['open']) { ?>
         <h6><i class="icon-calendar"></i> Open schedule</h6>
       <?php } else if(isset($slots[0]['date'])) {  ?>
-        <h6><i class="icon-calendar"></i> <?php echo $slots[0]['date']; ?></h6>
+        <h6><i class="icon-calendar"></i> <?=$slots[0]['date']; ?></h6>
       <?php } ?>
       <h6>
         <?php 
           $team = json_decode($page->getAttribute('team'));
           foreach($team as $key=>$mem) {
-            echo ($key == 0 ? "Walk led by " : ($key > 0 ? ", " : "")) . $mem->{'name-first'} . " " . $mem->{'name-last'};
+            echo ($key == 0 ? "Walk led by " : ($key > 0 ? ", " : "")) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
           } ?>
       </h6>
       <p>
@@ -50,8 +50,8 @@ foreach($pages as $key => $page) {
 
 <?php  if ($showRss): ?>
   <div class="ccm-page-list-rss-icon">
-    <a href="<?php  echo $rssUrl ?>" target="_blank"><i class="icon-rss-sign"></i></a>
+    <a href="<?=$rssUrl ?>" target="_blank"><i class="icon-rss-sign"></i></a>
   </div>
-  <link href="<?php  echo BASE_URL.$rssUrl ?>" rel="alternate" type="application/rss+xml" title="<?php  echo $rssTitle; ?>" />
+  <link href="<?=BASE_URL.$rssUrl ?>" rel="alternate" type="application/rss+xml" title="<?=$rssTitle; ?>" />
 <?php  endif; ?>
 

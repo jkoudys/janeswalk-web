@@ -123,7 +123,7 @@
         }catch( Exception $e ){
           // application-specific error handling goes here
           $response = $e->error;
-          Log::addEntry('EventBrite Error creating new event for cID='.$c->getCollectionID().': ' . $e->getMessage());
+          Log::addEntry("EventBrite Error creating new event for cID={$c->getCollectionID()}: {$e->getMessage()}");
         }
       }
       else {
@@ -133,7 +133,7 @@
           $response = $eb_client->event_update($event_params);
         }catch( Exception $e ){
           $response = $e->error;
-          Log::addEntry('EventBrite Error updating event ' . $eid . ' for cID='.$c->getCollectionID().': ' . $e->getMessage());
+          Log::addEntry("EventBrite Error updating event for cID={$c->getCollectionID()}: {$e->getMessage()}");
         }
       }
       $ticket_params['end_date'] = $event_params['end_date'];
@@ -143,7 +143,7 @@
           $response = $eb_client->ticket_new($ticket_params);
         }catch( Exception $e ){
           $response = $e->error;
-          Log::addEntry('EventBrite Error updating ticket for cID='.$c->getCollectionID().': ' . $e->getMessage());
+          Log::addEntry("EventBrite Error updating ticket for cID={$c->getCollectionID()}: {$e->getMessage()}");
         }
       }
     }
@@ -151,7 +151,6 @@
     public function getJson() {
       $fh = Loader::helper('file');
       $c = Page::getCurrentPage();
-      $checkboxes = array();
       $thumbnail = $c->getAttribute("thumbnail");
       $walkData = array("title" => $c->getCollectionName(), 
         "shortdescription" => $c->getAttribute("shortdescription"),
@@ -168,13 +167,11 @@
         "ticket" => $resp );
 
         /* Checkboxes */
-        $walkData['checkboxes'] = array();
         foreach(['theme', 'accessible'] as $akHandle) {
           foreach( $c->getAttribute($akHandle) as $av ) {
-            $checkboxes[$akHandle . "-" . $av] = true;
+            $walkData['checkboxes'][$akHandle . "-" . $av] = true;
           }
         }
-        $walkData['checkboxes'] = $checkboxes;
 
         echo json_encode($walkData);
     }
@@ -279,7 +276,7 @@
         $coorStr = $marker->lng . "," . $marker->lat;
         $coorNode = $dom->createElement('coordinates', $coorStr);
         $pointNode->appendChild($coorNode);
-        $lineStr .= $coorStr . ", 0. ";
+        $lineStr .= "$coorStr, 0. ";
       }
 
       $node = $dom->createElement('LineString');
