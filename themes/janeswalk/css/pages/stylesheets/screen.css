@@ -10350,7 +10350,7 @@ section.calltoaction ul:after {
 }
 /* line 161, ../sass/city.scss */
 .intro-city .city-header {
-  width: 40%;
+  width: 63%;
   position: relative;
   color: #fff;
   top: 0;
@@ -10358,7 +10358,7 @@ section.calltoaction ul:after {
   line-height: 1.5em;
   padding: 20px;
   font-weight: 100;
-  position: absolute;
+  margin: 35px 0;
 }
 @media (max-width: 768px) {
   /* line 161, ../sass/city.scss */
@@ -10367,23 +10367,15 @@ section.calltoaction ul:after {
   }
 }
 /* line 174, ../sass/city.scss */
-.intro-city .city-header:hover {
-  color: #FFF;
-}
-/* line 176, ../sass/city.scss */
-.intro-city .city-header:hover a {
-  color: #FFF;
-}
-/* line 180, ../sass/city.scss */
 .intro-city .city-header * {
   position: relative;
   z-index: 2;
 }
-/* line 184, ../sass/city.scss */
+/* line 178, ../sass/city.scss */
 .intro-city .city-header form {
   margin-top: 10px;
 }
-/* line 187, ../sass/city.scss */
+/* line 181, ../sass/city.scss */
 .intro-city .city-header:before {
   content: "";
   width: 100%;
@@ -10402,73 +10394,73 @@ section.calltoaction ul:after {
   background: linear-gradient(rgba(241, 103, 37, 0.7), #f16725 80%, #f16725 80%);
 }
 
-/* line 200, ../sass/city.scss */
+/* line 194, ../sass/city.scss */
 .city-organizer {
   position: relative;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 10px;
   display: none;
 }
-/* line 205, ../sass/city.scss */
+/* line 199, ../sass/city.scss */
 .city-organizer .pane {
   display: none;
 }
-/* line 208, ../sass/city.scss */
+/* line 202, ../sass/city.scss */
 .city-organizer .profile-inner {
   position: relative;
   z-index: 999;
   background: white;
 }
-/* line 213, ../sass/city.scss */
+/* line 207, ../sass/city.scss */
 .city-organizer .img-circle {
   margin-left: 0px;
   box-shadow: 0 3px rgba(0, 0, 0, 0.25);
 }
-/* line 217, ../sass/city.scss */
+/* line 211, ../sass/city.scss */
 .city-organizer .submit {
   position: absolute;
   bottom: 47px;
   left: 0;
   z-index: 999;
 }
-/* line 223, ../sass/city.scss */
+/* line 217, ../sass/city.scss */
 .city-organizer .bio {
   margin-left: 3%;
   line-height: 1.25em;
 }
-/* line 227, ../sass/city.scss */
+/* line 221, ../sass/city.scss */
 .city-organizer a {
   color: #FFF;
 }
-/* line 229, ../sass/city.scss */
+/* line 223, ../sass/city.scss */
 .city-organizer a:hover {
   text-decoration: none;
 }
 
-/* line 235, ../sass/city.scss */
+/* line 229, ../sass/city.scss */
 .newest-walks {
   color: #666;
 }
 
-/* line 240, ../sass/city.scss */
+/* line 234, ../sass/city.scss */
 .walk-select {
   top: -66px;
   padding: 20px 0 56px 0;
   position: relative;
 }
-/* line 244, ../sass/city.scss */
+/* line 238, ../sass/city.scss */
 .walk-select hr {
   border-top: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin: 0;
 }
-/* line 249, ../sass/city.scss */
+/* line 243, ../sass/city.scss */
 .walk-select h3 {
   line-height: 1em;
   margin-bottom: 1em;
   display: inline-block;
 }
-/* line 254, ../sass/city.scss */
+/* line 248, ../sass/city.scss */
 .walk-select .walk {
   position: relative;
   margin-bottom: 25px;
@@ -10478,11 +10470,11 @@ section.calltoaction ul:after {
   transition: margin 120ms ease-in-out;
   vertical-align: bottom;
 }
-/* line 258, ../sass/city.scss */
+/* line 252, ../sass/city.scss */
 .walk-select .walk .thumbnail {
   min-height: 520px;
 }
-/* line 260, ../sass/city.scss */
+/* line 254, ../sass/city.scss */
 .walk-select .walk .thumbnail .walkimage {
   margin: 0;
   background-size: cover;
@@ -10490,52 +10482,52 @@ section.calltoaction ul:after {
   width: 100%;
   min-height: 240px;
 }
-/* line 268, ../sass/city.scss */
+/* line 262, ../sass/city.scss */
 .walk-select .walk h4 {
   color: #f16725;
 }
-/* line 271, ../sass/city.scss */
+/* line 265, ../sass/city.scss */
 .walk-select .walk h6 {
   color: #222;
 }
-/* line 274, ../sass/city.scss */
+/* line 268, ../sass/city.scss */
 .walk-select .walk a {
   color: #666;
 }
-/* line 278, ../sass/city.scss */
+/* line 272, ../sass/city.scss */
 .walk-select .walk:hover {
   margin-top: -5px;
   padding-bottom: 5px;
 }
-/* line 281, ../sass/city.scss */
+/* line 275, ../sass/city.scss */
 .walk-select .walk:hover .thumbnail {
   background: #6badfd;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
 }
-/* line 285, ../sass/city.scss */
+/* line 279, ../sass/city.scss */
 .walk-select .walk:hover .thumbnail h4, .walk-select .walk:hover .thumbnail h6 {
   color: #FFF;
 }
-/* line 290, ../sass/city.scss */
+/* line 284, ../sass/city.scss */
 .walk-select .walk:active {
   margin-top: 0;
 }
-/* line 292, ../sass/city.scss */
+/* line 286, ../sass/city.scss */
 .walk-select .walk:active .thumbnail {
   background: #3991fc;
 }
-/* line 297, ../sass/city.scss */
+/* line 291, ../sass/city.scss */
 .walk-select .see-all {
   font-size: 13px;
   color: #222;
   margin-left: 10px;
 }
-/* line 301, ../sass/city.scss */
+/* line 295, ../sass/city.scss */
 .walk-select .see-all:after {
   content: " >>";
 }
-/* line 305, ../sass/city.scss */
+/* line 299, ../sass/city.scss */
 .walk-select .create-walk {
   position: absolute;
   top: 20px;
@@ -10545,12 +10537,12 @@ section.calltoaction ul:after {
   box-shadow: none;
 }
 @media (max-width: 768px) {
-  /* line 305, ../sass/city.scss */
+  /* line 299, ../sass/city.scss */
   .walk-select .create-walk {
     right: -20px;
   }
 }
-/* line 315, ../sass/city.scss */
+/* line 309, ../sass/city.scss */
 .walk-select .create-walk:after {
   content: "";
   position: absolute;
@@ -10563,20 +10555,20 @@ section.calltoaction ul:after {
   border-color: #d54e0e transparent transparent transparent;
 }
 @media (max-width: 768px) {
-  /* line 315, ../sass/city.scss */
+  /* line 309, ../sass/city.scss */
   .walk-select .create-walk:after {
     display: none;
   }
 }
-/* line 330, ../sass/city.scss */
+/* line 324, ../sass/city.scss */
 .walk-select a:hover {
   text-decoration: none;
 }
-/* line 333, ../sass/city.scss */
+/* line 327, ../sass/city.scss */
 .walk-select .action-items {
   padding-right: 40px;
 }
-/* line 336, ../sass/city.scss */
+/* line 330, ../sass/city.scss */
 .walk-select .action-items .menu-flags a {
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
@@ -10592,11 +10584,11 @@ section.calltoaction ul:after {
   font-size: 18px;
   margin: 15px 0 0 -32px;
 }
-/* line 350, ../sass/city.scss */
+/* line 344, ../sass/city.scss */
 .walk-select .action-items .menu-flags a:hover {
   background-color: #df520e;
 }
-/* line 351, ../sass/city.scss */
+/* line 345, ../sass/city.scss */
 .walk-select .action-items .menu-flags a:after {
   content: "";
   position: absolute;
@@ -10609,17 +10601,17 @@ section.calltoaction ul:after {
   border-color: transparent #d54e0e transparent transparent;
 }
 
-/* line 370, ../sass/city.scss */
+/* line 364, ../sass/city.scss */
 .span3.walk:nth-child(4n+1) {
   margin-left: 0;
 }
 
-/* line 373, ../sass/city.scss */
+/* line 367, ../sass/city.scss */
 .span4.walk:nth-child(3n+1) {
   margin-left: 0;
 }
 
-/* line 375, ../sass/city.scss */
+/* line 369, ../sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10627,7 +10619,7 @@ section.calltoaction ul:after {
   width: 100%;
   text-align: center;
 }
-/* line 381, ../sass/city.scss */
+/* line 375, ../sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10639,14 +10631,14 @@ section.calltoaction ul:after {
   height: 20px;
   text-align: right;
 }
-/* line 391, ../sass/city.scss */
+/* line 385, ../sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 399, ../sass/city.scss */
+/* line 393, ../sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10654,12 +10646,35 @@ section.calltoaction ul:after {
   height: 20px;
 }
 
-/* line 406, ../sass/city.scss */
+/* line 400, ../sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
   width: 20px;
   height: 20px;
+}
+
+/* line 408, ../sass/city.scss */
+.city-organizer, .city-organizer a, .city-organizer a i, .city-organizer a:hover {
+  color: #333;
+}
+/* line 409, ../sass/city.scss */
+.city-organizer h3, .city-organizer h4 {
+  color: #fff;
+}
+/* line 410, ../sass/city.scss */
+.city-organizer .u-avatar, .city-organizer .city-organizer-details {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+}
+/* line 411, ../sass/city.scss */
+.city-organizer .u-avatar {
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 99999px;
+  width: 169px;
+  height: 169px;
 }
 
 /* line 1, ../sass/create-walk.scss */

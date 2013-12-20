@@ -4,6 +4,8 @@ $im = Loader::helper('image');
 $fullbg = $c->getAttribute("full_bg");
 $nh = Loader::helper('navigation');
 $dh = Loader::helper('concrete/dashboard');
+$page_owner = UserInfo::getByID($c->getCollectionUserID());
+$av = Loader::helper('concrete/avatar');
 $show = $_GET['show'];
 global $u; global $cp;
 ?>
@@ -17,9 +19,23 @@ global $u; global $cp;
     <div class="city-header">
       <h1><?=$c->getCollectionName()?></h1>
       <p>
-        </p>
-        <p><?=t($c->getAttribute('shortdescription')); ?></p>
-        <?php $a = new Area('City Header'); $a->display($c); ?>
+      </p>
+      <p><?=t($c->getAttribute('shortdescription')); ?></p>
+      <?php $a = new Area('City Header'); $a->display($c); ?>
+      <?php if ($c->getCollectionUserID() > 1): ?>
+        <section class="city-organizer">
+          <?php if($avatar = $av->getImagePath($page_owner)) { echo "<div class='u-avatar' style='background-image:url({$avatar})'></div>"; } ?>
+          <div class="city-organizer-details">
+            <?="<h3>{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}</h3><h4>City Organizer</h4>" ?>
+            <div class="btn-toolbar">
+              <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn">Request a Custom Walk</a>
+              <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
+              <a href="http://facebook.com/<?=$page_owner->getAttribute('facebook')?>" class="btn"><i class="icon-facebook"></i></a>
+              <a href="http://twitter.com/<?=$page_owner->getAttribute('twitter')?>" class="btn"><i class="icon-twitter"></i></a>
+            </div>
+          </div>
+        </section>
+      <?php endif;  ?>
         </div>
       </div>
     </div>

@@ -159,7 +159,7 @@
     background: #fff;
   }
   .city-header {
-    width: 40%;
+    width: 63%;
     @media (max-width: 768px) {
       width: 60%;
     }
@@ -170,13 +170,7 @@
     line-height: 1.5em;
     padding: 20px;
     font-weight: 100;
-    position: absolute;
-    &:hover {
-      color: #FFF;
-      a {
-        color: #FFF;
-      }
-    }
+    margin: 35px 0;
     * {
       position: relative;
       z-index: 2;
@@ -408,4 +402,16 @@
   background-size: 70%;
   width: 20px;
   height: 20px;
+}
+
+.city-organizer {
+  &, a, a i, a:hover { color:#333; }
+  h3,h4 { color:#fff; }
+  .u-avatar, .city-organizer-details { display:inline-block; vertical-align:top; margin-left:10px; }
+  .u-avatar {
+    background-size:cover;
+    background-position:50%;
+    border-radius:99999px;
+    width:169px; height:169px;
+  }
 }
