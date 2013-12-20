@@ -16,7 +16,7 @@ foreach($pages as $key => $page) {
     <?php 
     $thumb = $page->getAttribute("thumbnail"); 
     if( $thumb ) {
-      echo "<img src='{$im->getThumbnail($thumb,340,720)->src}' />";
+      echo "<div class='walkimage' style='background-image:url({$im->getThumbnail($thumb,380,720)->src})' ></div>";
     }  ?>
     <div class="caption">
       <h4><?=$page->getCollectionName() ?></h4>

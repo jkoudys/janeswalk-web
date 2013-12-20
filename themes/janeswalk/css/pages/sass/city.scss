@@ -257,8 +257,12 @@
     @include transition(margin 120ms ease-in-out);
     .thumbnail {
       min-height: 520px;
-      img {
+      .walkimage {
         margin: 0;
+        background-size:cover;
+        background-position: 50% 50%;
+        width:100%;
+        min-height:240px;
       }
     }
     h4 {
