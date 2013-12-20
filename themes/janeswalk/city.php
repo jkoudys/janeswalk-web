@@ -15,10 +15,11 @@ global $u; global $cp;
 <div class="intro-city tk-museo-slab">
   <div class="container">
     <div class="city-header">
-      <h1><?=$c->getCollectionName()?> Walks</h1>
+      <h1><?=$c->getCollectionName()?></h1>
       <p>
         </p>
         <p><?=t($c->getAttribute('shortdescription')); ?></p>
+        <?php $a = new Area('City Header'); $a->display($c); ?>
         </div>
       </div>
     </div>
@@ -32,7 +33,6 @@ global $u; global $cp;
 <?php if($show != "all") { ?>
   <div class="span4 action-items">
     <div class="item active">
-      
       <h2>Jane’s Walks</h2>
       <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
         <?=nl2br($c->getAttribute('longdescription')); ?>
@@ -40,25 +40,19 @@ global $u; global $cp;
           $a = new Area('City Description'); $a->display($c);
         ?>
     </div>
-    <div class="item get-involved box-sizing">
-      <div class="below top clearfix">
-        <?php  $a = new Area('City Description'); $a->display($c); ?>
-        <a href="<?= $nh->getCollectionURL(Page::getByPath("/walk/form")) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary btn-large">Create a Walk</a>
-        <a href="<?= $nh->getCollectionURL(Page::getByPath("/walk/form")) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary btn-large">Create a Walk</a>
-      </div>
-      <div class="below">
-        <a href="#" class="btn btn-primary btn-large notify">Request a Custom Walk</a>
-      </div>
+    <div class="menu-flags box-sizing">
+      <?php  $a = new Area('City Nav'); $a->display($c); ?>
     </div>
   </div>
 <?php } ?>
   <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
     <?php if($show == "all") { ?>
       <h3>All Walks</h3>
-      <a href="?" class="btn btn-primary btn-large see-all"><i class="icon-th"></i> See Featured Walks</a>
+      <a href="?" class="see-all">See Featured Walks</a>
     <?php } else { ?>
       <h3>Featured Walks</h3>
-      <a href="?show=all" class="btn btn-primary btn-large see-all"><i class="icon-th"></i> See All Walks</a>
+      <a href="?show=all" class="see-all">see all walks</a>
+      <a href="<?= $nh->getCollectionURL(Page::getByPath("/walk/form")) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
     <?php } ?>
     <div class="row-fluid">
     <?php $a = new Area('Walk List'); $a->display($c); ?>
