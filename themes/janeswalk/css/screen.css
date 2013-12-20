@@ -9443,23 +9443,63 @@ body.form .brand, body.form .logo {
 footer {
   clear: both;
   color: #50616D;
-  padding: 40px 0;
+  padding: 12px 0;
   margin-top: 0;
-  background: #fff;
+  background: #dcdcdc;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  box-shadow: inset 0 3px 0 rgba(0, 0, 0, 0.05);
+  font-family: "museo-slab", "Roboto Slab", serif;
+  font-weight: 500;
+  line-height: 1.6;
 }
-/* line 245, ../sass/screen.scss */
+/* line 247, ../sass/screen.scss */
 footer h4 {
   margin-top: 0;
 }
-/* line 248, ../sass/screen.scss */
+/* line 250, ../sass/screen.scss */
 footer a {
   color: #df520e;
 }
+/* line 253, ../sass/screen.scss */
+footer ul, footer li {
+  list-style-type: none;
+}
+/* line 254, ../sass/screen.scss */
+footer ul {
+  margin: 0 0 0 5px;
+}
+/* line 255, ../sass/screen.scss */
+footer li {
+  display: inline-block;
+}
+/* line 257, ../sass/screen.scss */
+footer li:before {
+  content: "| ";
+  margin-right: 3px;
+}
+/* line 259, ../sass/screen.scss */
+footer .social-icons {
+  font-size: 18px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 263, ../sass/screen.scss */
+footer .social-icons a {
+  text-decoration: none;
+}
+/* line 265, ../sass/screen.scss */
+footer .social-icons a i {
+  color: #6badfd;
+  font-size: 24px;
+  margin-right: 4px;
+}
+/* line 267, ../sass/screen.scss */
+footer .social-icons + div {
+  width: 80%;
+  display: inline-block;
+}
 
-/* line 258, ../sass/screen.scss */
+/* line 276, ../sass/screen.scss */
 #progress {
   position: fixed;
   height: 100px;
@@ -9468,12 +9508,12 @@ footer a {
   top: 40%;
 }
 
-/* line 269, ../sass/screen.scss */
+/* line 287, ../sass/screen.scss */
 .form-actions .btn {
   margin-right: 15px;
 }
 
-/* line 276, ../sass/screen.scss */
+/* line 294, ../sass/screen.scss */
 #donate {
   padding: 10px 15px 10px;
   margin-top: 0;
@@ -9482,18 +9522,18 @@ footer a {
   text-shadow: none;
 }
 
-/* line 284, ../sass/screen.scss */
+/* line 302, ../sass/screen.scss */
 #donate:hover {
   color: #ffffff;
   background-color: #df520e;
 }
 
-/* line 291, ../sass/screen.scss */
+/* line 309, ../sass/screen.scss */
 .infoBox {
   box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
   color: #555;
 }
-/* line 294, ../sass/screen.scss */
+/* line 312, ../sass/screen.scss */
 .infoBox:after {
   content: "";
   width: 9px;
@@ -9508,7 +9548,7 @@ footer a {
   border-bottom-right-radius: 5px;
 }
 
-/* line 311, ../sass/screen.scss */
+/* line 329, ../sass/screen.scss */
 .notification {
   background: url("images/festival-bg.png") bottom right no-repeat #35b0d7;
   color: #fff;
@@ -9523,34 +9563,34 @@ footer a {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 321, ../sass/screen.scss */
+/* line 339, ../sass/screen.scss */
 .notification .close {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-/* line 326, ../sass/screen.scss */
+/* line 344, ../sass/screen.scss */
 .notification.expanded {
   height: 180px;
 }
-/* line 329, ../sass/screen.scss */
+/* line 347, ../sass/screen.scss */
 .notification h4 {
   margin-bottom: 0;
   font-size: 18px;
 }
-/* line 333, ../sass/screen.scss */
+/* line 351, ../sass/screen.scss */
 .notification .title {
   font-size: 33px;
   margin: 0;
   line-height: 1em;
   font-weight: 400;
 }
-/* line 339, ../sass/screen.scss */
+/* line 357, ../sass/screen.scss */
 .notification .container {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-/* line 343, ../sass/screen.scss */
+/* line 361, ../sass/screen.scss */
 .notification.walk-beta {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
@@ -9561,21 +9601,21 @@ footer a {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 349, ../sass/screen.scss */
+/* line 367, ../sass/screen.scss */
 .notification.walk-beta.expanded {
   height: 64px;
 }
-/* line 352, ../sass/screen.scss */
+/* line 370, ../sass/screen.scss */
 .notification.walk-beta .title-sub {
   font-size: 20px;
   margin: 0;
 }
 
-/* line 359, ../sass/screen.scss */
+/* line 377, ../sass/screen.scss */
 .navbar {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
-/* line 361, ../sass/screen.scss */
+/* line 379, ../sass/screen.scss */
 .navbar .notification {
   position: absolute;
   overflow: hidden;
@@ -9584,34 +9624,34 @@ footer a {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-/* line 368, ../sass/screen.scss */
+/* line 386, ../sass/screen.scss */
 .navbar .notification .container {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-/* line 372, ../sass/screen.scss */
+/* line 390, ../sass/screen.scss */
 .navbar .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-/* line 376, ../sass/screen.scss */
+/* line 394, ../sass/screen.scss */
 .navbar .notification.expanded {
   height: 50px;
 }
-/* line 380, ../sass/screen.scss */
+/* line 398, ../sass/screen.scss */
 .navbar .nav-collapse {
   max-width: 60%;
 }
-/* line 383, ../sass/screen.scss */
+/* line 401, ../sass/screen.scss */
 .navbar nav {
   float: left;
 }
-/* line 386, ../sass/screen.scss */
+/* line 404, ../sass/screen.scss */
 .navbar ul.nav.pull-right {
   float: right;
 }
 
-/* line 393, ../sass/screen.scss */
+/* line 411, ../sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -9624,38 +9664,38 @@ footer a {
   font-size: 14px;
 }
 
-/* line 407, ../sass/screen.scss */
+/* line 425, ../sass/screen.scss */
 .blog {
   color: #666;
 }
 
-/* line 413, ../sass/screen.scss */
+/* line 431, ../sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 416, ../sass/screen.scss */
+/* line 434, ../sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 423, ../sass/screen.scss */
+/* line 441, ../sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 431, ../sass/screen.scss */
+/* line 449, ../sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 434, ../sass/screen.scss */
+/* line 452, ../sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 439, ../sass/screen.scss */
+/* line 457, ../sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -9663,7 +9703,7 @@ footer a {
   line-height: 20px;
 }
 
-/* line 446, ../sass/screen.scss */
+/* line 464, ../sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }
@@ -10487,7 +10527,7 @@ section.calltoaction ul:after {
 }
 /* line 297, ../sass/city.scss */
 .walk-select .see-all {
-  font-size: 16px;
+  font-size: 13px;
   color: #222;
   margin-left: 10px;
 }

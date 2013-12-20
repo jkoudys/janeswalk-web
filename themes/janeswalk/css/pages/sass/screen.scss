@@ -236,20 +236,38 @@ body.form .brand {
 footer {
   clear:both;
   color: #50616D;
-  padding: 40px 0;
+  padding: 12px 0;
   margin-top: 0;
-  background: #fff;
+  background: #dcdcdc;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  box-shadow: inset 0 3px 0 rgba(0,0,0,0.05);
+  font-family: "museo-slab", "Roboto Slab", serif;
+  font-weight:500;
+  line-height:1.6;
   h4 {
     margin-top: 0;
   }
   a {
     color: #df520e;
   }
-  .container {
-
+  ul, li { list-style-type: none; }
+  ul { margin:0 0 0 5px; }
+  li { 
+    display: inline-block;
+    &:before { content: "| "; margin-right:3px; }
+  }
+  .social-icons {
+    font-size:18px;
+    display:inline-block;
+    vertical-align:top;
+    a {
+      text-decoration:none;
+      i { color:$blue; font-size:24px; margin-right:4px; }
+    }
+    & + div {
+      width:80%;
+      display:inline-block;
+    }
   }
 }
 
