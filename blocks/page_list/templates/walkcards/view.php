@@ -24,7 +24,7 @@ foreach($pages as $key => $page) {
       if($scheduled['open']) { ?>
         <h6><i class="icon-calendar"></i> Open schedule</h6>
       <?php } else if(isset($slots[0]['date'])) {  ?>
-        <h6><i class="icon-calendar"></i> <?=$slots[0]['date']; ?></h6>
+        <h6><i class="icon-calendar"></i> <?="{$slots[0]['time']}, {$slots[0]['date']}"; ?></h6>
       <?php } ?>
       <h6>
         <?php 
