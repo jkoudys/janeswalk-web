@@ -10676,6 +10676,10 @@ section.calltoaction ul:after {
   width: 169px;
   height: 169px;
 }
+/* line 417, ../sass/city.scss */
+.city-organizer .btn {
+  background-color: #fff;
+}
 
 /* line 1, ../sass/create-walk.scss */
 .create-page {
