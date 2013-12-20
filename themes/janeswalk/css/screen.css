@@ -10574,7 +10574,12 @@ section.calltoaction ul:after {
   margin-left: 0;
 }
 
-/* line 374, ../sass/city.scss */
+/* line 373, ../sass/city.scss */
+.span4.walk:nth-child(3n+1) {
+  margin-left: 0;
+}
+
+/* line 375, ../sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10582,7 +10587,7 @@ section.calltoaction ul:after {
   width: 100%;
   text-align: center;
 }
-/* line 380, ../sass/city.scss */
+/* line 381, ../sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10594,14 +10599,14 @@ section.calltoaction ul:after {
   height: 20px;
   text-align: right;
 }
-/* line 390, ../sass/city.scss */
+/* line 391, ../sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 398, ../sass/city.scss */
+/* line 399, ../sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10609,7 +10614,7 @@ section.calltoaction ul:after {
   height: 20px;
 }
 
-/* line 405, ../sass/city.scss */
+/* line 406, ../sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
