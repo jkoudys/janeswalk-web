@@ -32,5 +32,12 @@ body.full {
   #body { 
     max-width:$mainWidth - 300px; padding-right:300px;
   }
+  .ccm-page-list {
+    width:900px;
+    margin-top:30px;
+    .thumbnail {
+      height:450px; margin-bottom:10px;
+    }
+  }
 }
 

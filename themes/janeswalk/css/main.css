@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* normalize.css v1.0.1 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
@@ -5726,6 +5727,10 @@ label {
       padding: 10px 0; }
   .modal .alert {
     margin-bottom: 0; }
+
+.site-page .modal-body .ccm-input-text {
+  height: 26px;
+  line-height: 26px; }
 
 /* Hide footers on modal window pages */
 #signup-panel footer.full, body.form footer.full {

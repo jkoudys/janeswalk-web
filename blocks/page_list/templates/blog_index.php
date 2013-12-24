@@ -1,8 +1,5 @@
 <?php 
 defined('C5_EXECUTE') or die("Access Denied.");
-?>
-<?php 
-defined('C5_EXECUTE') or die("Access Denied.");
 $rssUrl = $showRss ? $controller->getRssUrl($b) : '';
 $th = Loader::helper('text');
 $ih = Loader::helper('image');
@@ -25,9 +22,8 @@ $dh = Loader::helper('date');
           
     <div class="span3">
       <div class="thumbnail">
-        <?php if(isset($mainImage)) {
-          $thumb = $ih->getThumbnail($mainImage, 270, 800, false); ?>
-          <img src="<?=$thumb->src ?>" alt="">
+        <?php if(isset($mainImage)) { ?>
+          <img src='<?= $ih->getThumbnail($mainImage->getPath(), 270, 800, false)->src; ?>' alt=''>
         <?php } ?>
         <div class="caption">
           <h5><a href="<?=$url?>" target="<?=$target?>"><?=$title?></a></h5>
@@ -40,7 +36,7 @@ $dh = Loader::helper('date');
             $article->export($sxml);
             echo $sxml;
             ?>
-          <?=$page->getCollectionDescription()?>&nbsp;<a href="<?=$url?>" target="<?=$target?>">[...]</a>
+          <?=$description?>&nbsp;<a href="<?=$url?>" target="<?=$target?>">[...]</a>
           </p>
         </div>
       </div>
