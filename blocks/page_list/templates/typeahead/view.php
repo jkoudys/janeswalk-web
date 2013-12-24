@@ -31,6 +31,7 @@ $th = Loader::helper('text');
     </li>	
 	<?php  endforeach; ?>
   </ul>
+  </ul>
   </form>
 </div><!-- end .ccm-page-list -->
 

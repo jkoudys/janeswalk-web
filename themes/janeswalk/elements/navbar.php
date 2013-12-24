@@ -18,7 +18,7 @@ $u = new User();
           </div>
         </a>
         <nav class="nav-collapse collapse" role="navigation">
-          <?                  
+          <?php
           $ah = new GlobalArea('Left Header');
           $ah->display($c);                   
           ?>  

@@ -43,7 +43,7 @@ $(document).ready(function() {
         foreach($cities->get() as $city) {
         ?>
           <option value="<?php echo $city->getCollectionID() ?>"><?php echo $city->getCollectionName() ?></option>
-        <? } ?>
+        <?php } ?>
       </select> 
       <input type="submit" value="Go!">
     </form>
