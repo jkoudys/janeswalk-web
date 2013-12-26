@@ -22,7 +22,7 @@ $dh = Loader::helper('date');
           
     <div class="span3">
       <div class="thumbnail">
-        <?php if(isset($mainImage)) { ?>
+        <?php if(is_object($mainImage)) { ?>
           <img src='<?= $ih->getThumbnail($mainImage->getPath(), 270, 800, false)->src; ?>' alt=''>
         <?php } ?>
         <div class="caption">
