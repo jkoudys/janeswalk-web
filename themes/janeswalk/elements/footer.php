@@ -2,8 +2,8 @@
   <footer class="full" role="contentinfo">
     <div class="container">
       <div class="social-icons">
-        <a href="http://twitter.com/janeswalk"><i class="icon-twitter"></i></a>
-        <a href="http://facebook.com/janeswalk"><i class="icon-facebook-sign"></i></a>
+        <a href="http://twitter.com/janeswalk" target="_blank"><i class="icon-twitter"></i></a>
+        <a href="http://facebook.com/janeswalk" target="_blank"><i class="icon-facebook-sign"></i></a>
       </div>
       <div>
         <?php $ah = new GlobalArea('Footer'); $ah->display($c); ?>
