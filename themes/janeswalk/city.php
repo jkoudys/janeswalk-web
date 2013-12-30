@@ -83,51 +83,7 @@ global $u; global $cp;
 <div class="intro-city lower blog">
 	<div class="container">
       <h2 class="title"><a href="./city_files/city.html" class="notify">City Blog</a></h2>
-		  <div class="row-fluid" style="display:none">
-      <div class="span6">
-        <div class="thumbnail">
-          <div class="row-fluid">
-          <div class="span5">
-              <img src="<?=$this->getThemePath() ?>/city_files/blogpost4.jpg" alt="">
-          </div>
-          <div class="span7">
-            <div class="caption">
-              <a href="<?=$this->getThemePath() ?>/city_files/city.html"><h4>Share your Jane’s Walk Photos with the World!</h4> </a>
-              <h6>Posted by msfrolick on May 03, 2013</h6>
-                <p>
-                Would you be interested in sharing your photos taken during Jane’s Walk with the world?</p>
-                <p>If so, we’d love to feature them on our website, blog, Facebook page, Twitter, or Flickr page seen by people in over 80 international cities<a href="./city_files/city.html" class="notify">[...]</a> 
-              </p> 
-            </div>
-          </div>
-        </div>
-         
-        </div>
-
-      </div>
-      <div class="span6">
-        <div class="thumbnail">
-          <div class="row-fluid">
-          <div class="span5">
-              <img src="<?=$this->getThemePath() ?>/city_files/blogpost5.jpg" alt="">
-          </div>
-          <div class="span7">
-            <div class="caption">
-              <a href="./city_files/city.html"><h4>Getting Crafty</h4></a>
-              <h6>Posted by Laura Hache on April 25, 2013</h6>
-              <p>
-                Jane's Walk weekend is less than two weeks away and our interns and volunteers are hard at work prepping to make this years walks the best yet. Here’s an inside look at our DIY button and flag making session!<a href="./city_files/city.html" class="notify">[...]</a>
-              </p>
-            </div>
-          </div>
-        </div>
-         
-        </div>
-        
-      </div>
-
-   </div>
-
+      <?php $a = new Area('City Blog'); $a->display($c); ?>
 	</div>
 </div>
 
