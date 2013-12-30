@@ -47,7 +47,7 @@ foreach($pages as $page) {
   $nameNode->appendChild($cdata);
   $placeNode->appendChild($nameNode);
   $descNode = $dom->createElement('description');
-  $cdata = $descNode->ownerDocument->createCDATASection("<a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()} Walks</a>".(($page_owner->getUserID() > 1 && !empty($page_owner->getAttribute('first_name'))) ? "<br/>{$page_owner->getAttribute('first_name')}, City Organizer" : "" ));
+  $cdata = $descNode->ownerDocument->createCDATASection("<a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()} Walks</a>".(($page_owner->getUserID() > 1 && !$page_owner->getAttribute('first_name')) ? "<br/>{$page_owner->getAttribute('first_name')}, City Organizer" : "" ));
   $descNode->appendChild($cdata);
   $placeNode->appendChild($descNode);
 //    $styleUrl = $dom->createElement('styleUrl', '#jwstyle');
