@@ -1,0 +1,49 @@
+div.ccm-page-list-rss-icon {
+  margin-top: 10px; }
+
+ul.ccm-page-list-owners {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 0 !important; }
+  ul.ccm-page-list-owners li {
+    padding-bottom: 1em;
+    position: relative; }
+  ul.ccm-page-list-owners h3, ul.ccm-page-list-owners h4, ul.ccm-page-list-owners h5 {
+    color: #333; }
+  ul.ccm-page-list-owners h3 {
+    margin-bottom: 2px; }
+  ul.ccm-page-list-owners h4 {
+    margin-top: 2px; }
+  ul.ccm-page-list-owners p {
+    margin: 0; }
+  ul.ccm-page-list-owners img.u-avatar {
+    margin: 0;
+    position: absolute;
+    border-radius: 99999px;
+    -webkit-border-radius: 99999px;
+    left: -140px;
+    top: 0; }
+  ul.ccm-page-list-owners .city-organizer {
+    border: none;
+    width: 420px;
+    display: inline-block; }
+    ul.ccm-page-list-owners .city-organizer .city-organizer-details {
+      width: 220px; }
+
+.obfuscated {
+  position: relative;
+  font-family: "Courier New",courier,monospace;
+  height: 1.3em;
+  width: 16em; }
+
+.obfuscated div {
+  position: absolute; }
+
+h2.ccm-page-list-header {
+  position: relative;
+  width: 100%; }
+
+h2.ccm-page-list-header a {
+  font-family: "Courier New",courier,monospace;
+  right: 0; }

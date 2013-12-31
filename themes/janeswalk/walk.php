@@ -168,10 +168,9 @@ $this->inc('elements/header.php');  ?>
             ?>
 
             <div class="btn-toolbar">
-              <a class="btn notify">Request a Custom Walk</a>
               <a href="mailto:<?=$mem->email?>" class="btn"><i class="icon-envelope-alt"></i></a>
-              <a class="btn notify"><i class="icon-facebook"></i></a>
-              <a class="btn notify"><i class="icon-twitter notify"></i></a>
+              <a href="http://facebook.com/<?=$mem->facebook?>"><i class="icon-facebook"></i></a>
+              <a href="http://twitter.com/<?=$mem->twitter?>"><i class="icon-twitter"></i></a>
              </div>
            <?=$mem->bio?>
           </div>
