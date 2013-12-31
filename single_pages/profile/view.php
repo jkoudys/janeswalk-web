@@ -90,6 +90,4 @@ $(document).ready(function() {
 		
     </div>
 	
-	<div class="ccm-spacer"></div>
-	
 </div>

@@ -40,4 +40,15 @@ body.full {
     }
   }
 }
-
+body.site-page {
+  .ccm-profile-body-item {
+    div {
+      line-height:1.7;
+      label {
+        min-width:145px;
+        display:inline-block;
+      }
+    }
+  }
+}
+     
