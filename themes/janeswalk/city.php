@@ -87,16 +87,4 @@ global $u; global $cp;
 	</div>
 </div>
 
-
-<div class="notification festival-weekend">
-  <div class="container">
-    <div class="row-fluid">
-      <h2 class="title">Festival Weekend will take place May 2-4th, 2014.</h2>
-      <h4>Start thinking now about leading a walk and check back in 2014 for updates!</h4>
-      <i class="close icon-remove icon-large"></i>
-    </div>
-    <i class="close icon-remove icon-large"></i>
-  </div>
-</div>
-
 <?php $this->inc('elements/footer.php');  ?>
