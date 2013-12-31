@@ -12,7 +12,7 @@ $u = new User();
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="<?=DIR_REL?>">
+        <a href="<?= $this->url('') ?>">
           <div class="brand hide-text box-sizing">
             <?=$SITE?>
           </div>
@@ -38,28 +38,5 @@ $u = new User();
         </ul>
       </div>
     </div>
-    <!--Blog Message!-->
-<div class="notification coming-soon">
-  <div class="container">
-    <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close icon-remove icon-large"></i>
-  </div>
-</div>
-
-<!--General Notification!-->
-<div class="notification walk-beta">
-  <div class="container">
-    <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close icon-remove icon-large"></i>
-  </div>
-</div>
-
-<!--General Notification!-->
-<div class="notification custom-form">
-  <div class="container">
-    <h2 class="title-sub">This feature isn't live yet, but we're thrilled that you're interested in custom walks.</h2>
-    <i class="close icon-remove icon-large"></i>
-  </div>
-</div>
   </header>
 
