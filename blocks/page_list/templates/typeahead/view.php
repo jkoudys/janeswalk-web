@@ -10,7 +10,7 @@ $th = Loader::helper('text');
     <input type="submit" value="Go" />
   <ul>
 	<?php 
-	 uasort($pages, function($a,$b) {$ap = $a->getCollectionParentID();$bp = $b->getCollectionParentID();return ($ap == $bp) ? 0 : strcmp(Page::getByID($ap)->getCollectionName(), Page::getByID($bp)->getCollectionName());});
+	 uasort($pages, function($a,$b) {$ap = $a->getCollectionParentID();$bp = $b->getCollectionParentID();return ($ap == $bp) ? strcmp($a->getCollectionName(), $b->getCollectionName()) : strcmp(Page::getByID($ap)->getCollectionName(), Page::getByID($bp)->getCollectionName());});
    $lastParent = "";
 	 foreach ($pages as $page):
     $parent = Page::getByID($page->getCollectionParentID())->getCollectionName();
