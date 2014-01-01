@@ -9809,14 +9809,10 @@ footer .social-icons + div {
 /* line 69, ../sass/homepage.scss */
 .home section.blog {
   padding: 20px 0;
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, rgba(107, 173, 253, 0.7)), color-stop(20%, rgba(107, 173, 253, 0.7)), color-stop(80%, #6badfd));
-  background: -webkit-linear-gradient(rgba(107, 173, 253, 0.7) 20%, rgba(107, 173, 253, 0.7) 20%, #6badfd 80%);
-  background: -moz-linear-gradient(rgba(107, 173, 253, 0.7) 20%, rgba(107, 173, 253, 0.7) 20%, #6badfd 80%);
-  background: -o-linear-gradient(rgba(107, 173, 253, 0.7) 20%, rgba(107, 173, 253, 0.7) 20%, #6badfd 80%);
-  background: linear-gradient(rgba(107, 173, 253, 0.7) 20%, rgba(107, 173, 253, 0.7) 20%, #6badfd 80%);
+  background: rgba(255, 255, 255, 0.84);
   min-height: 525px;
   padding: 30px 0;
-  margin: 120px 0;
+  margin: 0 0 120px 0;
 }
 /* line 75, ../sass/homepage.scss */
 .home section.blog h1, .home section.blog h2, .home section.blog h3, .home section.blog h4, .home section.blog h5 {
@@ -9839,12 +9835,12 @@ footer .social-icons + div {
 }
 /* line 89, ../sass/homepage.scss */
 .home section.blog section > h3 {
-  color: #fff;
+  color: #666;
   font-weight: 700;
 }
 /* line 92, ../sass/homepage.scss */
 .home section.blog section > h3 a {
-  color: #fff;
+  color: #666;
   font-size: 0.6em;
 }
 /* line 95, ../sass/homepage.scss */
@@ -10027,7 +10023,7 @@ p.lead {
 
 /* line 228, ../sass/homepage.scss */
 section.calltoaction {
-  background: rgba(255, 255, 255, 0.84);
+  background: #fff;
   padding: 40px 0;
   margin-top: -200px;
 }
@@ -10059,17 +10055,20 @@ section.calltoaction a {
   padding: 10px 0;
   text-align: center;
   font-size: 16px;
+  background: #666;
+  box-shadow: inset 0 -2px 0 #222;
 }
-/* line 255, ../sass/homepage.scss */
+/* line 257, ../sass/homepage.scss */
 section.calltoaction a:hover {
   text-decoration: none;
+  background: #333;
 }
-/* line 259, ../sass/homepage.scss */
+/* line 262, ../sass/homepage.scss */
 section.calltoaction ul {
   text-align: justify;
   margin-top: 20px;
 }
-/* line 262, ../sass/homepage.scss */
+/* line 265, ../sass/homepage.scss */
 section.calltoaction ul li {
   list-style-type: none;
   margin: 0;
@@ -10077,9 +10076,9 @@ section.calltoaction ul li {
   display: inline-block;
   width: 310px;
   font-size: 1.4em;
-  background: #f16725;
+  background: #333;
 }
-/* line 269, ../sass/homepage.scss */
+/* line 272, ../sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -10088,12 +10087,12 @@ section.calltoaction ul:after {
   height: 0;
 }
 
-/* line 280, ../sass/homepage.scss */
+/* line 283, ../sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 284, ../sass/homepage.scss */
+/* line 287, ../sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -10102,17 +10101,17 @@ section.calltoaction ul:after {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 291, ../sass/homepage.scss */
+/* line 294, ../sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 296, ../sass/homepage.scss */
+/* line 299, ../sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 300, ../sass/homepage.scss */
+/* line 303, ../sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -10120,7 +10119,7 @@ section.calltoaction ul:after {
   width: 400px;
 }
 
-/* line 307, ../sass/homepage.scss */
+/* line 310, ../sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -10128,26 +10127,26 @@ section.calltoaction ul:after {
   width: 75%;
 }
 
-/* line 314, ../sass/homepage.scss */
+/* line 317, ../sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
-/* line 316, ../sass/homepage.scss */
+/* line 319, ../sass/homepage.scss */
 .caption h5 p {
   color: #555;
 }
 
-/* line 321, ../sass/homepage.scss */
+/* line 324, ../sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 323, ../sass/homepage.scss */
+/* line 326, ../sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 767px) {
-  /* line 329, ../sass/homepage.scss */
+  /* line 332, ../sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;

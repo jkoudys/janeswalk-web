@@ -68,10 +68,10 @@
   }
   section.blog {
     padding: 20px 0;
-    @include background(linear-gradient(rgba($blue,0.7) 20%, rgba($blue,0.7) 20%, $blue 80%));
+    background: rgba(255, 255, 255, 0.84);
     min-height: 525px;
     padding: 30px 0;
-    margin:120px 0;
+    margin:0 0 120px 0;
     h1,h2,h3,h4,h5 {
       font-family:"museo-slab","Roboto Slab",serif;
       margin:0; 
@@ -87,9 +87,9 @@
         margin-left:25px;
       }
       > h3 {
-      color:#fff;
+      color:#666;
       font-weight:700;
-      a { color:#fff; font-size:0.6em; }
+      a { color:#666; font-size:0.6em; }
       }
     }
     > div {
@@ -226,7 +226,7 @@ p.lead {
   margin-top: 0%;
 }
 section.calltoaction {
-  background: rgba(white, 0.84);
+  background: #fff;
   padding:40px 0;
   margin-top:-200px;
   h1,h2,h3,h4,h5,p,ul,ol {
@@ -252,8 +252,11 @@ section.calltoaction {
     padding: 10px 0;
     text-align:center;
     font-size:16px;
+    background:#666;
+    box-shadow: inset 0 -2px 0 #222;
     &:hover {
       text-decoration:none;
+      background:#333;
     }
   }
   ul {
@@ -264,7 +267,7 @@ section.calltoaction {
       display: inline-block;
       width:$mainWidth/3 - 80px;
       font-size:1.4em;
-      background: $orange;
+      background: #333;
     }
     &:after {
       content:"";
