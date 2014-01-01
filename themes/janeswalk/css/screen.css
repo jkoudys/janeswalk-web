@@ -11894,7 +11894,7 @@ body.full .ccm-page-list, .error404 body.container-outter .ccm-page-list {
 }
 /* line 52, ../sass/view.scss */
 body.full .ccm-page-list .thumbnail, .error404 body.container-outter .ccm-page-list .thumbnail {
-  height: 450px;
+  min-height: 450px;
   margin-bottom: 10px;
 }
 
