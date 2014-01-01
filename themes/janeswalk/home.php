@@ -2,11 +2,14 @@
 defined('C5_EXECUTE') or die(_("Access Denied."));
 $nh = Loader::helper('navigation');
 $dh = Loader::helper('concrete/dashboard');
+$im = Loader::helper('image');
+$headImage = $c->getAttribute("full_bg");
+
 global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
 
-<body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>">
+<body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?= is_object($headImage) ? "style='background-image:url({$headImage->getURL()})'" : "" ?>>
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
   <div class="intro full">
