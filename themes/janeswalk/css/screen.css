@@ -11813,20 +11813,24 @@ body.blog {
 /* line 4, ../sass/view.scss */
 body.blog #central > header {
   background: #f16725;
+  position: relative;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-position: 50%;
   color: #fff;
   text-align: center;
   padding: 200px 0 40px 0;
   margin-bottom: 20px;
 }
-/* line 11, ../sass/view.scss */
+/* line 13, ../sass/view.scss */
 body.blog #central > header h1, body.blog #central > header p {
   margin: 0 auto;
+  z-index: 2;
+  position: relative;
 }
-/* line 12, ../sass/view.scss */
+/* line 14, ../sass/view.scss */
 body.blog #central > header h1 {
   max-width: 936px;
   font-weight: 500;
@@ -11835,7 +11839,7 @@ body.blog #central > header h1 {
   line-height: 74px;
   text-shadow: -1px 1px #444444;
 }
-/* line 13, ../sass/view.scss */
+/* line 15, ../sass/view.scss */
 body.blog #central > header p.description {
   font-style: italic;
   font-size: 26px;
@@ -11843,15 +11847,26 @@ body.blog #central > header p.description {
   margin-bottom: 25px;
   text-shadow: -1px 1px #444444;
 }
-/* line 14, ../sass/view.scss */
+/* line 16, ../sass/view.scss */
 body.blog #central > header em {
   color: #fff;
 }
-/* line 16, ../sass/view.scss */
+/* line 17, ../sass/view.scss */
+body.blog #central > header i.backfade {
+  z-index: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: #000;
+  opacity: 0.2;
+}
+/* line 27, ../sass/view.scss */
 body.blog #body {
   max-width: 520px !important;
 }
-/* line 18, ../sass/view.scss */
+/* line 29, ../sass/view.scss */
 body.blog #body img {
   padding: 4px;
   background-color: #fff;
@@ -11862,31 +11877,31 @@ body.blog #body img {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-/* line 32, ../sass/view.scss */
+/* line 43, ../sass/view.scss */
 body.full #body, .error404 body.container-outter #body {
   max-width: 870px;
   padding-right: 300px;
 }
-/* line 35, ../sass/view.scss */
+/* line 46, ../sass/view.scss */
 body.full #full, .error404 body.container-outter #full {
   max-width: 1170px;
 }
-/* line 38, ../sass/view.scss */
+/* line 49, ../sass/view.scss */
 body.full .ccm-page-list, .error404 body.container-outter .ccm-page-list {
   width: 900px;
   margin-top: 30px;
 }
-/* line 41, ../sass/view.scss */
+/* line 52, ../sass/view.scss */
 body.full .ccm-page-list .thumbnail, .error404 body.container-outter .ccm-page-list .thumbnail {
   height: 450px;
   margin-bottom: 10px;
 }
 
-/* line 48, ../sass/view.scss */
+/* line 59, ../sass/view.scss */
 body.site-page .ccm-profile-body-item div {
   line-height: 1.7;
 }
-/* line 50, ../sass/view.scss */
+/* line 61, ../sass/view.scss */
 body.site-page .ccm-profile-body-item div label {
   min-width: 145px;
   display: inline-block;

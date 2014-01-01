@@ -9,6 +9,7 @@ $headImage = $c->getAttribute("main_image");
 <?php $this->inc('elements/navbar.php'); ?>
 	<div id="central">
     <header <?= is_object($headImage) ? "style='background-image:url({$headImage->getURL()})'" : "" ?>>
+      <i class="backfade"></i>
       <?php $ai = new Area('Blog Post Header'); $ai->display($c); ?>
       <h1><?=$c->getCollectionName(); ?></h1>
       <p class="description"><?=$c->getCollectionDescription(); ?></p>
