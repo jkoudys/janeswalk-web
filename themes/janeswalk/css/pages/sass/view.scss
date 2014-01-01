@@ -44,7 +44,7 @@ body.full {
     max-width:$mainWidth - 300px; padding-right:300px;
   }
   #full { 
-    max-width:$mainWidth;
+    max-width:$mainWidth; margin:0 auto;
   }
   .ccm-page-list {
     width:900px;

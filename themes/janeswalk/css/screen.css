@@ -11885,6 +11885,7 @@ body.full #body, .error404 body.container-outter #body {
 /* line 46, ../sass/view.scss */
 body.full #full, .error404 body.container-outter #full {
   max-width: 1170px;
+  margin: 0 auto;
 }
 /* line 49, ../sass/view.scss */
 body.full .ccm-page-list, .error404 body.container-outter .ccm-page-list {
