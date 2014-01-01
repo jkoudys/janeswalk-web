@@ -9,12 +9,17 @@ $this->inc('elements/header.php'); ?>
 		
 		<div id="body">	
 			<?php 
-			
 			$a = new Area('Main');
 			$a->display($c);
-			
 			?>
 		</div>
+		<div id="full">	
+			<?php 
+			$a = new Area('Full');
+			$a->display($c);
+			?>
+		</div>
+
 	</div>
 <?php  $this->inc('elements/footer.php'); ?>
 

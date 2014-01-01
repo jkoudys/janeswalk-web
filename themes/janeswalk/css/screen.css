@@ -11868,21 +11868,25 @@ body.full #body, .error404 body.container-outter #body {
   padding-right: 300px;
 }
 /* line 35, ../sass/view.scss */
+body.full #full, .error404 body.container-outter #full {
+  max-width: 1170px;
+}
+/* line 38, ../sass/view.scss */
 body.full .ccm-page-list, .error404 body.container-outter .ccm-page-list {
   width: 900px;
   margin-top: 30px;
 }
-/* line 38, ../sass/view.scss */
+/* line 41, ../sass/view.scss */
 body.full .ccm-page-list .thumbnail, .error404 body.container-outter .ccm-page-list .thumbnail {
   height: 450px;
   margin-bottom: 10px;
 }
 
-/* line 45, ../sass/view.scss */
+/* line 48, ../sass/view.scss */
 body.site-page .ccm-profile-body-item div {
   line-height: 1.7;
 }
-/* line 47, ../sass/view.scss */
+/* line 50, ../sass/view.scss */
 body.site-page .ccm-profile-body-item div label {
   min-width: 145px;
   display: inline-block;

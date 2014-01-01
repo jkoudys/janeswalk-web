@@ -32,6 +32,9 @@ body.full {
   #body { 
     max-width:$mainWidth - 300px; padding-right:300px;
   }
+  #full { 
+    max-width:$mainWidth;
+  }
   .ccm-page-list {
     width:900px;
     margin-top:30px;

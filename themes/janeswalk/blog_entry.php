@@ -16,7 +16,9 @@ $headImage = $c->getAttribute("main_image");
     </header>
 		<div id="body">
       <article>
-				<?php $as = new Area('Main'); $as->display($c); ?>
+				<?php 
+        if (is_object(ComposerPage::getByID($c->getCollectionID()))) { echo "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'<i class='icon-edit-sign'></i> edit</a>"; }
+        $as = new Area('Main'); $as->display($c); ?>
       </article>
 		</div>
 	</div>
