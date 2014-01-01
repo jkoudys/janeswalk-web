@@ -1,6 +1,7 @@
 <?php
 $c = Page::getCurrentPage();
 $u = new User();
+$ui = UserInfo::getByID($u->getUserID());
 ?>
 
 <header class="navbar navbar-fixed-top tk-museo-slab">
@@ -25,7 +26,7 @@ $u = new User();
         </nav>
         <ul class="nav pull-right visible-desktop">
           <?php if($u->isRegistered()) { ?>
-            <li><a href="<?=$this->url('/profile') ?>" class=""><?=$u->getUserName(); ?></a></li>
+            <li><a href="<?=$this->url('/profile') ?>" class=""><?=$ui->getAttribute('first_name') ? $ui->getAttribute('first_name') : $u->getUserName(); ?></a></li>
             <li><a href="<?=$this->url('/login', 'logout') ?>" class="">Logout</a></li>
           <?php } else { ?>
             <li><a href="<?=$this->url('/login') ?>" class="">Login</a></li>
