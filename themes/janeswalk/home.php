@@ -9,7 +9,7 @@ global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
 
-<body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?= is_object($headImage) ? "style='background-image:url({$headImage->getURL()})'" : "" ?>>
+<body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?= is_object($headImage) ? "style='background-image:url({$headImage->getURL()});background-size:cover;background-position:50%;'" : "" ?>>
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="container-outter" role="main">
   <div class="intro full">

@@ -83,10 +83,10 @@ global $u; global $cp;
   $blog->filterByCollectionTypeHandle('city_blog');
   $blog->filterByParentID($c->getCollectionID());
   $blog = $blog->get(1)[0];
-  if($blog) { ?>
+  if($c->isEditMode() || $blog) { ?>
 <div class="intro-city lower blog">
 	<div class="container">
-      <h2 class="title"><a href="<?=$nh->getCollectionURL($blog)?>">City Blog</a></h2>
+      <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>">City Blog</a></h2>
       <?php $a = new Area('City Blog'); $a->display($c); ?>
 	</div>
 </div>

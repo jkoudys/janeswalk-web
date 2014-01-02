@@ -3,6 +3,7 @@ $dh = Loader::helper('concrete/dashboard');
 $im = Loader::helper('image');
 $this->inc('elements/header.php'); 
 $headImage = $c->getAttribute("main_image");
+$ui = UserInfo::getByID($c->getCollectionUserID());
 ?>
 	
 <body class="blog <?=($dh->canRead()) ? "logged_in" : ""; ?>">
@@ -13,7 +14,7 @@ $headImage = $c->getAttribute("main_image");
       <?php $ai = new Area('Blog Post Header'); $ai->display($c); ?>
       <h1><?=$c->getCollectionName(); ?></h1>
       <p class="description"><?=$c->getCollectionDescription(); ?></p>
-      <p class="meta"><?="{$c->getVersionObject()->getVersionAuthorUserName()} <em>on</em> <strong>{$c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL)}</strong>"?></p>	
+      <p class="meta"><?= $ui->getAttribute('first_name') ? ("{$ui->getAttribute('first_name')} {$ui->getAttribute('last_name')}") : $ui->getUserObject()->getUserName()?> <em>on</em> <strong><?= $c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL)?></strong></p>	
     </header>
 		<div id="body">
       <article>
