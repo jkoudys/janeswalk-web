@@ -32,9 +32,11 @@ $dh = Loader::helper('date');
           <?php 
             $sxml = new SimpleXMLElement("<html></html>");
             $blocks = $page->getBlocks("Main");
-            $article = $blocks[0]->getInstance();
-            $article->export($sxml);
-            echo $sxml;
+            if($blocks) {
+              $article = $blocks[0]->getInstance();
+              $article->export($sxml);
+              echo $sxml;
+            }
             ?>
           <?=$description?>&nbsp;<a href="<?=$url?>" target="<?=$target?>">[...]</a>
           </p>
