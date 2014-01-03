@@ -923,7 +923,7 @@ $valt = Loader::helper('validation/token');
         <div class="popover right" id="city-organizer" style="display:block;">
   <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> Contact City Organizer for help</h3>
   <div class="popover-content collapse in" id="popover-content">
-    <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='text-center'><img src='$avatar' class='img-circle'></div>" : null ?>
+    <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='text-center'><img style='height:169px;width:169px;' src='$avatar' class='img-circle'></div>" : null ?>
     <p>
       <?="Hi! I'm ".($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName())." the City Organizer for Jane's Walk {$city->getCollectionName()}. I'm here to help, so if you have any questions, please <strong><a href='{$ui_cityorganizer->getUserEmail()}'>email me!</a></strong></p>"?>
   </div>
