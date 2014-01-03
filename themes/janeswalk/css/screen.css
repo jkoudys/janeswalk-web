@@ -9150,9 +9150,11 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   background-position: -80px -56px;
 }
 
-/* line 21, ../sass/screen.scss */
-html {
-  padding-bottom: 72px;
+@media (max-width: 500px) {
+  /* line 21, ../sass/screen.scss */
+  html {
+    padding-bottom: 72px;
+  }
 }
 
 /* line 24, ../sass/screen.scss */
