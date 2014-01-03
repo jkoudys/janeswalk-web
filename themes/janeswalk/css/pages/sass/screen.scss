@@ -19,7 +19,7 @@ $media_mobile: 500px;
 $mainWidth: 1170px;
 
 html {
-  padding-bottom:72px;
+  @media (max-width: $media_mobile) { padding-bottom:72px; }
 }
 body {
   padding-top: 80px;
