@@ -1,5 +1,6 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); 
 $nh = Loader::helper('navigation');
+global $u;
 Loader::model('page_list'); 
 ?>
 <script>
@@ -32,6 +33,25 @@ $(document).ready(function() {
         <?php  } ?>		
         </div>
 		</div>
+    <div>
+      <h3>Blogs</h3>
+      <ul>
+      <?php
+      $blogs = new PageList();
+      $blogs->filterByCollectionTypeHandle('city_blog');
+      $blogs->filterByUserID($u->getUserID());
+      $blogs->sortByName();
+      foreach($blogs->get() as $blog) { ?>
+        <li>
+        <form action="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() )?>" method="post">
+        <label><?=$blog->getCollectionName()?></label>
+        <input type="hidden" name="cPublishParentID" value="<?=$blog->getCollectionID()?>">
+        <input type="submit"><i class="icon-file-alt"></i> New Article</input>
+        </form>
+        </li>
+      <?php } ?>
+      </ul>
+    </div>
     <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
     <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
       <select name="parentCID" onchange="this.form.submit()">
@@ -50,14 +70,13 @@ $(document).ready(function() {
     <h3>Your Public Walks</h3>
     <ul class="walks">
       <?php
-        $u = new User();
         $pageEdit = Page::getByID(125);
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle("walk");
         $pl->filterByUserID($u->getUserID());
         $pl->filterByAttribute('exclude_page_list',false);
         foreach($pl->get() as $page) {
-          echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a> [ <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'>edit</a> | <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'>unpublish</a> ]</li>";
+          echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a> <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'><i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
         }
       ?>
     </ul>

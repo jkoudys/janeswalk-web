@@ -19,7 +19,7 @@ $ui = UserInfo::getByID($c->getCollectionUserID());
 		<div id="body">
       <article>
 				<?php 
-        if (is_object(ComposerPage::getByID($c->getCollectionID()))) { echo "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'<i class='icon-edit-sign'></i> edit</a>"; }
+        if (is_object(ComposerPage::getByID($c->getCollectionID()))) { echo "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}' style='margin-bottom:1em;display:block'><i class='icon-edit-sign'></i> edit</a>"; }
         $as = new Area('Main'); $as->display($c); ?>
       </article>
 		</div>
