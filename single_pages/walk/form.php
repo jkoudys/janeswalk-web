@@ -4,6 +4,7 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 $u = new User(); 
 $ui = UserInfo::getByID($u->getUserID());
 $nh = Loader::helper('navigation');
+$av = Loader::helper('concrete/avatar');
 $imgHelper = Loader::helper('image'); 
 
 /* If no page is passed to edit, create a new page.
@@ -11,20 +12,14 @@ $imgHelper = Loader::helper('image');
 $load = $_REQUEST['load'];
 $c = Page::getByPath($load);
 if(empty($load)) {
-  $parentCID = $_REQUEST['parentCID'];
-  if(empty($parentCID)) {
-    $cityPage = (null !== $ui->getAttribute('home_city')) ? $ui->getAttribute('home_city') : Page::getByPath("/canada/toronto");
-  }
-  else {
-    $cityPage = Page::getByID($parentCID);
-  }
-  $data = [];
-  $newPage = $cityPage->add(CollectionType::getByHandle("walk"),$data);  
+  $city = ($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : (null !== $ui->getAttribute('home_city')) ? $ui->getAttribute('home_city') : Page::getByPath("/canada/toronto");
+  $newPage = $city->add(CollectionType::getByHandle("walk"),[]);  
   $newPage->setAttribute('exclude_page_list',true);
   $c = $newPage;
 }
-$city = Page::getByID($c->getCollectionParentID());
+$city && $city = Page::getByID($c->getCollectionParentID());
 $country = Page::getByID($city->getCollectionParentID());
+$ui_cityorganizer = UserInfo::getByID($c->getCollectionUserID());
 echo "<div style='display:none' class='pagejson' data-url='{$nh->getCollectionURL($c)}'></div>";
 ?>
 
@@ -36,7 +31,7 @@ echo "<div style='display:none' class='pagejson' data-url='{$nh->getCollectionUR
       <span class="brand"><i class="icon-map-marker"><?="{$city->getCollectionName()}, {$country->getCollectionName()}" ?></i></span>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
-          Logged in as <a href="<?php echo $this->url('/profile') ?>" class="navbar-link"><?php echo $u->getUserName(); ?></a>
+          Logged in as <a href="<?=$this->url('/profile')?>" class="navbar-link"><?php echo $u->getUserName(); ?></a>
         </p>
       </div><!--/.nav-collapse -->
     </div>
@@ -928,14 +923,9 @@ $valt = Loader::helper('validation/token');
         <div class="popover right" id="city-organizer" style="display:block;">
   <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> Contact Jane's Walk for help</h3>
   <div class="popover-content collapse in" id="popover-content">
-    <div class="text-center">
-    <?php
-      $fObj = File::getByID(35);
-      $image = $imgHelper->getThumbnail($fObj,140,140); ?>
-          <img src="<?php echo $image->src ?>" class="img-circle" alt="">
-    </div>
+    <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='text-center'><img src='$avatar' class='img-circle'></div>" : null ?>
     <p>
-      Hi! I'm Denise, the Director of Jane's Walk. I'm here to help, so if you have any questions email me at <strong><a href="mailto:info@janeswalk.net">info@janeswalk.net</a></strong></p>
+      <?="Hi! I'm ".($ui->getAttribute('first_name') ?: $ui->getUserName())." the City Organizer for Jane's Walk {$city->getCollectionName()}. I'm here to help, so if you have any questions email me at <strong><a href='{$ui->getUserEmail()}'>{$ui->getUserEmail()}</a></strong></p>"?>
   </div>
 </div>
 <!-- Profile of City organizer -->
@@ -950,7 +940,7 @@ $valt = Loader::helper('validation/token');
   <div class="popover-content">
     <p>Have your walk start and finish near a transit stop to make it more accessible</p>
   </div>
-</div>
+</div
 
 <!-- Tip Title Here -->
 <div class="popover right tip fade" data-tipfor="question-one">
