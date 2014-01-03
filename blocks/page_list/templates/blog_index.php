@@ -17,7 +17,7 @@ $dh = Loader::helper('date');
     $description = $controller->truncateSummaries ? $th->shorten($description, $controller->truncateChars) : $description;
     $description = $th->entities($description);     
     $date = $dh->date(DATE_APP_GENERIC_MDY_FULL, strtotime($page->getCollectionDatePublic()));
-    $original_author = Page::getByID($page->getCollectionID(), 1)->getVersionObject()->getVersionAuthorUserName();
+    $original_author = UserInfo::getByID($page->getCollectionUserID())->getAttribute('first_name');
     $mainImage = $page->getAttribute("main_image"); ?>
           
     <div class="span3">
@@ -27,7 +27,7 @@ $dh = Loader::helper('date');
         <?php } ?>
         <div class="caption">
           <h5><a href="<?=$url?>" target="<?=$target?>"><?=$title?></a></h5>
-          <h6>Posted by <?=$original_author?> on <?=$date?></h6>
+          <?php if($original_author) { ?><h6>Posted by <?=$original_author?> on <?=$date?></h6><?php } ?>
           <p>
           <?php 
             $sxml = new SimpleXMLElement("<html></html>");
