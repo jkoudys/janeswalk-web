@@ -34,7 +34,7 @@ $ui = UserInfo::getByID($u->getUserID());
 
           <li class="divider-vertical"></li>
           <li>
-            <a href="https://www.gifttool.com/donations/Donate?ID=1830&AID=2738" id="donate" class="btn btn-primary btn-large donate">Donate</a>
+            <a href="<?=Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate'))?>" id="donate" class="btn btn-primary btn-large donate">Donate</a>
           </li>
         </ul>
       </div>
