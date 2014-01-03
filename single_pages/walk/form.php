@@ -12,7 +12,7 @@ $imgHelper = Loader::helper('image');
 $load = $_REQUEST['load'];
 $c = Page::getByPath($load);
 if(empty($load)) {
-  $city = ($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : (null !== $ui->getAttribute('home_city')) ? $ui->getAttribute('home_city') : Page::getByPath("/canada/toronto");
+  $city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath("/canada/toronto")));
   $newPage = $city->add(CollectionType::getByHandle("walk"),[]);  
   $newPage->setAttribute('exclude_page_list',true);
   $c = $newPage;
