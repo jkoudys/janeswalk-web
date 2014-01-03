@@ -29,8 +29,8 @@ global $u; global $cp;
             <?="<h3>{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}</h3><h4>City Organizer</h4>" ?>
             <div class="btn-toolbar">
               <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
-              <a href="http://facebook.com/<?=$page_owner->getAttribute('facebook')?>" target="_blank" class="btn"><i class="icon-facebook"></i></a>
-              <a href="http://twitter.com/<?=$page_owner->getAttribute('twitter')?>" target="_blank" class="btn"><i class="icon-twitter"></i></a>
+              <?php if($page_owner->getAttribute('facebook')) { ?><a href="http://facebook.com/<?=$page_owner->getAttribute('facebook')?>" target="_blank" class="btn"><i class="icon-facebook"></i></a>
+              <?php } if($page_owner->getAttribute('twitter')) { ?><a href="http://twitter.com/<?=$page_owner->getAttribute('twitter')?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
             </div>
           </div>
         </section>
