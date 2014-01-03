@@ -8,7 +8,7 @@
     color:inherit;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: $media_thin) {
     padding-top: 0;
   }
   background-attachment: fixed;
@@ -161,7 +161,7 @@
   }
   .city-header {
     width: 63%;
-    @media (max-width: 768px) {
+    @media (max-width: $media_thin) {
       width: 60%;
     }
     position: relative;
@@ -304,11 +304,11 @@
     padding-right: 43px;
     border: none;
     box-shadow: none;
-    @media (max-width: 768px) {
+    @media (max-width: $media_thin) {
       right: -20px;
     }
     &:after {
-      @media (max-width: 768px) {
+      @media (max-width: $media_thin) {
         display: none;
       }
       content: "";

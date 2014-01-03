@@ -5,6 +5,11 @@ $orange: #F16725;
 $blue: #6BADFD;
 $blogblues: #92CDF5;
 
+// Constants for media queries
+$media_full: 979px;
+$media_thin: 768px;
+$media_mobile: 500px;
+
 @import url("http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700");
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic,500,500italic,700italic,700);
 
@@ -13,9 +18,12 @@ $blogblues: #92CDF5;
 
 $mainWidth: 1170px;
 
+html {
+  padding-bottom:72px;
+}
 body {
   padding-top: 80px;
-  @media (max-width: 979px) {
+  @media (max-width: $media_full) {
     padding-top: 0;
   }
   overflow-x: hidden;
@@ -31,7 +39,7 @@ strong, b {
   font-weight:700;
 //  color:#39c1f1;
 }
-em, i {
+em {
   color:#222;
 }
 blockquote {
@@ -236,13 +244,16 @@ footer {
   clear:both;
   color: #50616D;
   padding: 12px 0;
-  margin-top: 0;
   background: #dcdcdc;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-family: "museo-slab", "Roboto Slab", serif;
   font-weight:500;
   line-height:1.6;
+  position:fixed; z-index:1; width:100%; bottom:0;
+  @media (max-width: $media_mobile) {
+    position:static;
+  }
   h4 {
     margin-top: 0;
   }

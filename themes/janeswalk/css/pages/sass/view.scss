@@ -35,8 +35,22 @@ body.blog {
       -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
+    ul.nav {
+      margin-left:0 !important;
+      ul {
+        margin-left:0 !important;
+        display:inline-block;
+      }
+      li{
+        &:before {
+          content: ">" !important; margin-left:0; padding-left:10px !important;
+        }
+        padding-right:10px;
+      }
+      > li:before { content: "" !important; margin:0 !important; padding:0 !important;}
 
-//    padding-right:350px;
+      a { display:inline; }
+    }
   }
 }
 body.full {
@@ -61,6 +75,13 @@ body.site-page {
       label {
         min-width:145px;
         display:inline-block;
+      }
+    }
+  }
+  #ccm-profile-body {
+    ul.walks {
+      li { 
+        i { font-size:12px; }
       }
     }
   }

@@ -1,12 +1,16 @@
 /*
-Syntax error: Undefined mixin 'background-size'.
-        on line 17 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss, in `background-size'
-        from line 17 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss
+Syntax error: Undefined variable: "$media_thin".
+        on line 11 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss
 
 Backtrace:
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss:17:in `background-size'
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss:17
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:253:in `visit_mixin'
+/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss:11
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/script/variable.rb:49:in `_perform'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/script/node.rb:40:in `perform'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:398:in `block in run_interp_no_strip'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:396:in `map'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:396:in `run_interp_no_strip'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:406:in `run_interp'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:360:in `visit_media'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
@@ -60,4 +64,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'background-size'.\A         on line 17 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss, in `background-size'\A         from line 17 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss"; }
+  content: "Syntax error: Undefined variable: \"$media_thin\".\A         on line 11 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/city.scss"; }
