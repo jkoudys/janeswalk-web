@@ -19,7 +19,7 @@ if(empty($load)) {
 }
 $city && $city = Page::getByID($c->getCollectionParentID());
 $country = Page::getByID($city->getCollectionParentID());
-$ui_cityorganizer = UserInfo::getByID($c->getCollectionUserID());
+$ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
 echo "<div style='display:none' class='pagejson' data-url='{$nh->getCollectionURL($c)}'></div>";
 ?>
 
