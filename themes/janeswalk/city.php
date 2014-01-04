@@ -24,13 +24,14 @@ global $u; global $cp;
       <?php $a = new Area('City Header'); $a->display($c); ?>
       <?php if ($c->getCollectionUserID() > 1): ?>
         <section class="city-organizer">
-          <?php if($avatar = $av->getImagePath($page_owner)) { echo "<div class='u-avatar' style='background-image:url({$avatar})'></div>"; } ?>
+          <?= ($avatar = $av->getImagePath($page_owner)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
           <div class="city-organizer-details">
             <?="<h3>{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}</h3><h4>City Organizer</h4>" ?>
             <div class="btn-toolbar">
               <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
-              <?php if($page_owner->getAttribute('facebook')) { ?><a href="http://facebook.com/<?=$page_owner->getAttribute('facebook')?>" target="_blank" class="btn"><i class="icon-facebook"></i></a>
-              <?php } if($page_owner->getAttribute('twitter')) { ?><a href="http://twitter.com/<?=$page_owner->getAttribute('twitter')?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
+              <?= ($facebook = $page_owner->getAttribute('facebook')) ? "<a href='http://facebook.com/$facebook' target='_blank' class='btn'><i class='icon-facebook'></i></a>" : null ?>
+              <?= ($twitter = $page_owner->getAttribute('twitter')) ? "<a href='http://facebook.com/$twitter' target='_blank' class='btn'><i class='icon-twitter'></i></a>" : null ?>
+              <?= ($website = $page_owner->getAttribute('website')) ? ("<a href='" . (0 === strpos($website,'http') ? $website : "http://$website") . '\' target="_blank" class="btn"><i class="icon-globe"></i></a>') : null ?>
             </div>
           </div>
         </section>
