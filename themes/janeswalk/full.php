@@ -6,20 +6,12 @@ $this->inc('elements/header.php'); ?>
 <body class="full <?php echo ($dh->canRead()) ? "logged_in" : ""; ?> <?php echo $c->isEditMode() ? "c5-edit" : "" ?>">
   <?php $this->inc('elements/navbar.php'); ?>
 	<div id="central" class="no-sidebar">
-		
 		<div id="body">	
-			<?php 
-			$a = new Area('Main');
-			$a->display($c);
-			?>
+			<?php (new Area('Main'))->display($c); ?>
 		</div>
 		<div id="full">	
-			<?php 
-			$a = new Area('Full');
-			$a->display($c);
-			?>
+			<?php (new Area('Full'))->display($c); ?>
 		</div>
-
 	</div>
 <?php  $this->inc('elements/footer.php'); ?>
 

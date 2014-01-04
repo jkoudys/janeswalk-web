@@ -20,13 +20,12 @@ $ui = UserInfo::getByID($u->getUserID());
         </a>
         <nav class="nav-collapse collapse" role="navigation">
           <?php
-          $ah = new GlobalArea('Left Header');
-          $ah->display($c);                   
+          (new GlobalArea('Left Header'))->display($c);                   
           ?>  
         </nav>
         <ul class="nav pull-right visible-desktop">
           <?php if($u->isRegistered()) { ?>
-            <li><a href="<?=$this->url('/profile') ?>" class=""><?=$ui->getAttribute('first_name') ? $ui->getAttribute('first_name') : $u->getUserName(); ?></a></li>
+            <li><a href="<?=$this->url('/profile') ?>" class=""><?=$ui->getAttribute('first_name') ?: $u->getUserName(); ?></a></li>
             <li><a href="<?=$this->url('/login', 'logout') ?>" class="">Logout</a></li>
           <?php } else { ?>
             <li><a href="<?=$this->url('/login') ?>" class="">Login</a></li>

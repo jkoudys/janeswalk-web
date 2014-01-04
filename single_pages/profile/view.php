@@ -93,9 +93,7 @@ $(document).ready(function() {
       <?php
         foreach($inprogressPages as $page) {
           $latest = Page::getByID($page->getCollectionID());
-            echo "<li>" . $latest->getCollectionName() . " 
-            [ <a href='" . $nh->getCollectionURL($pageEdit) ."?load=" . $nh->getCollectionURL($page) . "?format=json" . "'>edit</a> ]" .
-            "</li>";
+            echo "<li>{$latest->getCollectionName()} [ <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'>edit</a> ]</li>";
         }
       } ?>
       </ul>

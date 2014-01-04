@@ -16,7 +16,7 @@ global $u; global $cp;
 
   <div class="callouts">
     <blockquote class="homepage-callout2">
-      <?php $a = new Area('Intro'); $a->display($c); ?>
+      <?php (new Area('Intro'))->display($c); ?>
     </blockquote> 
   </div>
 
@@ -30,21 +30,21 @@ global $u; global $cp;
     </li>
   </ul>
   <section class="map full">
-    <?php $a = new Area('Map'); $a->display($c); ?>
+    <?php (new Area('Map'))->display($c); ?>
   </section>
   <section class="calltoaction full">
-    <?php $a = new Area('Call to Action'); $a->display($c); ?>
+    <?php (new Area('Call to Action'))->display($c); ?>
   </section>
 </div>
 <section class="blog full">
   <div>
     <section class="walkblog">
-      <?php $a = new Area('Blog Header'); $a->display($c); ?>
-      <?php $a = new Area('Blog'); $a->display($c); ?>
+      <?php (new Area('Blog Header'))->display($c); ?>
+      <?php (new Area('Blog'))->display($c); ?>
     </section>
     <section class="twitter">
       <h3>Twitter</h3>
-      <?php $a = new Area('Twitter'); $a->display($c); ?>
+      <?php (new Area('Twitter'))->display($c); ?>
     </section>
   </div>
 </section>
