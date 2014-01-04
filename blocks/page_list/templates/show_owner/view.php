@@ -6,7 +6,7 @@ $av = Loader::helper('concrete/avatar');
 //Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
 ?>
 <?php foreach ($pages as $page): ?>
-<h2 class="ccm-page-list-header"><?php echo $page->getCollectionName(); ?></h2>
+<h2 class="ccm-page-list-header"><?=$page->getCollectionName();?></h2>
 <ul class="ccm-page-list-owners">
 <?php
   $cities = new PageList();
@@ -24,9 +24,9 @@ $av = Loader::helper('concrete/avatar');
           <?="<h3>{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}</h3><h4>City Organizer</h4>" ?>
           <div class="btn-toolbar">
             <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
-            <?php if($page_owner->getAttribute('website')) { ?><a href="<?=$page_owner->getAttribute('website')?>" target="_blank" class="btn"><i class="icon-external-link"></i></a><?php } ?>
-            <?php if($page_owner->getAttribute('facebook')) { ?><a href="http://facebook.com/<?=$page_owner->getAttribute('facebook')?>" target="_blank" class="btn"><i class="icon-facebook"></i></a><?php } ?>
-            <?php if($page_owner->getAttribute('twitter')) { ?><a href="http://twitter.com/<?=$page_owner->getAttribute('twitter')?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
+            <?php if($website = $page_owner->getAttribute('website')) { ?><a href="<?=$website?>" target="_blank" class="btn"><i class="icon-external-link"></i></a><?php } ?>
+            <?php if($facebook = $page_owner->getAttribute('facebook')) { ?><a href="http://facebook.com/<?=$facebook?>" target="_blank" class="btn"><i class="icon-facebook"></i></a><?php } ?>
+            <?php if($twitter = $page_owner->getAttribute('twitter')) { ?><a href="http://twitter.com/<?=$twitter?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
           </div>
         </div>
       </section>

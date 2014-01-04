@@ -95,12 +95,12 @@
       }
       
       /* Jane's Walks are always free */
-      $ticket_params = array(
+      $ticket_params = [
         'price' => '0.00',
         'min' => '1',
         'max' => '20',
         'quantity_available' => '250',
-        'start_date' => date('Y-m-d H:i:s', time()) );
+        'start_date' => date('Y-m-d H:i:s', time()) ];
       /* If it's an 'open' booking, then it's a daily repeating event for the next year */
       $scheduled = $c->getAttribute('scheduled');
       $slots = (Array)$scheduled['slots']; 
@@ -152,7 +152,7 @@
       $fh = Loader::helper('file');
       $c = Page::getCurrentPage();
       $thumbnail = $c->getAttribute("thumbnail");
-      $walkData = array("title" => $c->getCollectionName(), 
+      $walkData = ["title" => $c->getCollectionName(), 
         "shortdescription" => $c->getAttribute("shortdescription"),
         "longdescription" => $c->getAttribute("longdescription"),
         "accessible-info" => $c->getAttribute("accessible_info"),
@@ -164,7 +164,7 @@
         "time" => $c->getAttribute("scheduled"),
         "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null),
         "eventbrite_id" => $c->getAttribute("eventbrite"),
-        "ticket" => $resp );
+        "ticket" => $resp ];
 
         /* Checkboxes */
         foreach(['theme', 'accessible'] as $akHandle) {
@@ -172,7 +172,6 @@
             $walkData['checkboxes'][$akHandle . "-" . $av] = true;
           }
         }
-
         echo json_encode($walkData);
     }
 

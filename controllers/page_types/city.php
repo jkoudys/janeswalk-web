@@ -58,13 +58,11 @@
           "schedule" => isset($scheduled["open"]) ? "Open Schedule" : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
           "shortdescription" => $page->getAttribute('shortdescription')];
         
-        $thumb = $page->getAttribute("thumbnail"); 
-        if( $thumb ) {
+        if( $thumb = $page->getAttribute("thumbnail") ) {
           $cityData["walks"][$key]["thumb"] = $im->getThumbnail($thumb,340,720)->src;
         }
-        $team = json_decode($page->getAttribute('team'));
-        foreach($team as $memkey=>$mem) {
-          $cityData["walks"][$key]["team"] .= ($memkey == 0 ? "Walk led by " : ($memkey > 0 ? ", " : "")) . $mem->{'name-first'} . " " . $mem->{'name-last'};
+        foreach(json_decode($page->getAttribute('team')) as $memkey=>$mem) {
+          $cityData["walks"][$key]["team"] .= ($memkey == 0 ? "Walk led by " : ($memkey > 0 ? ", " : "")) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
         }
       }
       echo json_encode($cityData);

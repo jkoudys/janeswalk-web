@@ -13,13 +13,9 @@ foreach($pages as $key => $page) {
 <div class="span<?=($show == "all") ? "3" : "4" ?> walk">
   <a href="<?=$nh->getCollectionURL($page) ?>">
   <div class="thumbnail">
-    <?php 
-    $thumb = $page->getAttribute("thumbnail"); 
-    if( $thumb ) {
-      echo "<div class='walkimage' style='background-image:url({$im->getThumbnail($thumb,380,720)->src})' ></div>";
-    }  ?>
+    <?=($thumb = $page->getAttribute("thumbnail")) ? "<div class='walkimage' style='background-image:url({$im->getThumbnail($thumb,380,720)->src})' ></div>":'';?>
     <div class="caption">
-      <h4><?=$page->getCollectionName() ?></h4>
+      <h4><?=$page->getCollectionName()?></h4>
      <?php $scheduled = $page->getAttribute('scheduled');$slots = (Array)$scheduled['slots']; 
       if($scheduled['open']) { ?>
         <h6><i class="icon-calendar"></i> Open schedule</h6>
@@ -28,18 +24,17 @@ foreach($pages as $key => $page) {
       <?php } ?>
       <h6>
         <?php 
-          $team = json_decode($page->getAttribute('team'));
-          foreach($team as $key=>$mem) {
+          foreach(json_decode($page->getAttribute('team')) as $key=>$mem) {
             echo ($key == 0 ? "Walk led by " : ($key > 0 ? ", " : "")) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
           } ?>
       </h6>
       <p>
-        <?=$page->getAttribute('shortdescription') ?>
+        <?=$page->getAttribute('shortdescription')?>
       </p>
     </div>
     <ul class="inline tags">
-      <?php foreach($page->getAttribute("theme") as $theme) { ?>
-        <li class="tag" data-toggle="tooltip" title="<?=$th->getName($theme); ?>"><?=$th->getIcon($theme); ?></li>
+      <?php foreach($page->getAttribute('theme') as $theme) { ?>
+        <li class="tag" data-toggle="tooltip" title="<?=$th->getName($theme);?>"><?=$th->getIcon($theme);?></li>
       <?php } ?>
     </ul>
   </div>
@@ -47,7 +42,6 @@ foreach($pages as $key => $page) {
 </div>
 <?php 
 } ?>
-
 <?php  if ($showRss): ?>
   <div class="ccm-page-list-rss-icon">
     <a href="<?=$rssUrl ?>" target="_blank"><i class="icon-rss-sign"></i></a>

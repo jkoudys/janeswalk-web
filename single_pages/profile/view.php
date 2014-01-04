@@ -18,17 +18,16 @@ $(document).ready(function() {
   });
 </script>
 <div id="ccm-profile-wrapper">
-    <?php  Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
+    <?php Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
     <div id="ccm-profile-body">	
     	<div id="ccm-profile-body-attributes">
     	<div class="ccm-profile-body-item">
-        <h1><?php echo $profile->getUserName()?></h1>
+        <h1><?=$profile->getUserName()?></h1>
         <?php 
-        $uaks = UserAttributeKey::getPublicProfileList();
-        foreach($uaks as $ua) { ?>
+        foreach(UserAttributeKey::getPublicProfileList() as $ua) { ?>
             <div>
-                <label><?php echo tc('AttributeKeyName', $ua->getAttributeKeyName())?></label>
-                <?php echo $profile->getAttribute($ua, 'displaySanitized', 'display'); ?>
+                <label><?=tc('AttributeKeyName', $ua->getAttributeKeyName())?></label>
+                <?=$profile->getAttribute($ua, 'displaySanitized', 'display');?>
             </div>
         <?php  } ?>		
         </div>
@@ -62,7 +61,7 @@ $(document).ready(function() {
         $cities->sortByName();
         foreach($cities->get() as $city) {
         ?>
-          <option value="<?php echo $city->getCollectionID() ?>"><?php echo $city->getCollectionName() ?></option>
+          <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
         <?php } ?>
       </select> 
       <input type="submit" value="Go!">
