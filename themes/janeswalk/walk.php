@@ -261,23 +261,21 @@ $this->inc('elements/header.php');  ?>
         <p id="accessibility notes">
         
         </p>
-        <?php $public_transit = trim($c->getAttribute("accessible_transit"));
-        $accessible_parking = trim($c->getAttribute("accessible_parking"));
-        $accessible_find = trim($c->getAttribute("accessible_find"));
-        if(!empty($public_transit)) { ?>
+        <?php
+        if(!empty($public_transit = trim($c->getAttribute("accessible_transit")))) { ?>
           <h4><i class="icon-transit"></i> Taking Public Transit</h4>
             <p id="public transit directions">
               <?=$public_transit ?>
             </p>
          <? }
-          if(!empty($accessible_parking)) {
+          if(!empty(trim($c->getAttribute("accessible_parking")))) {
          ?>
           <h4><i class="icon-road"></i> Parking Availability</h4>
             <p id="parking availability">
               <?=$accessible_parking ?>
             </p>
         <? }
-          if(!empty($accessible_find)) { ?>
+          if(!empty(trim($c->getAttribute("accessible_find")))) { ?>
           <h4><i class="icon-flag"></i> How to find us</h4>
           <p>
               <?=$accessible_find ?>
@@ -317,7 +315,7 @@ $this->inc('elements/header.php');  ?>
     <?php 
     echo 'var locations=[';
     foreach($gmap->markers as $key=>$marker) {
-      echo ($key > 0 ? "," : "") . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "'," . $marker->lat . "," . $marker->lng . "," . $key . "]";
+      echo ($key > 0 ? ',' : '') . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "',{$marker->lat},{$marker->lng},$key]";
     }
     echo '];';
     if(sizeof($gmap->markers) > 0) { echo '$(\'.walk-stops\').show();'; };
@@ -327,7 +325,7 @@ $this->inc('elements/header.php');  ?>
     var walkPathCoordinates = [
     <?php
     foreach($gmap->route as $key=>$rp) {
-      if(isset($rp->lat) && isset($rp->lng)) echo ($key > 0 ? "," : "") . "new google.maps.LatLng({$rp->lat},{$rp->lng})";
+      echo ($rp->lat && $rp->lng) ? (($key > 0 ? "," : "") . "new google.maps.LatLng({$rp->lat},{$rp->lng})") : null;
     } ?>
     ];
     
