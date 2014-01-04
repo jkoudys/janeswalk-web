@@ -267,15 +267,15 @@ $this->inc('elements/header.php');  ?>
             <p id="public transit directions">
               <?=$public_transit ?>
             </p>
-         <? }
-          if(!empty($accessible_parking = trim($c->getAttribute("accessible_parking")))) {
+         <?php }
+          if($accessible_parking = trim($c->getAttribute("accessible_parking"))) {
          ?>
           <h4><i class="icon-road"></i> Parking Availability</h4>
             <p id="parking availability">
               <?=$accessible_parking ?>
             </p>
-        <? }
-          if(!empty($accessible_find = trim($c->getAttribute("accessible_find")))) { ?>
+        <?php }
+          if($accessible_find = trim($c->getAttribute("accessible_find"))) { ?>
           <h4><i class="icon-flag"></i> How to find us</h4>
           <p>
               <?=$accessible_find ?>
