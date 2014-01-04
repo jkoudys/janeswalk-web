@@ -30,7 +30,7 @@ global $u; global $cp;
             <div class="btn-toolbar">
               <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
               <?= ($facebook = $page_owner->getAttribute('facebook')) ? "<a href='http://facebook.com/$facebook' target='_blank' class='btn'><i class='icon-facebook'></i></a>" : null ?>
-              <?= ($twitter = $page_owner->getAttribute('twitter')) ? "<a href='http://facebook.com/$twitter' target='_blank' class='btn'><i class='icon-twitter'></i></a>" : null ?>
+              <?= ($twitter = $page_owner->getAttribute('twitter')) ? "<a href='http://twitter.com/" . ltrim($twitter,'@') . ' target='_blank' class='btn'><i class='icon-twitter'></i></a>" : null ?>
               <?= ($website = $page_owner->getAttribute('website')) ? ("<a href='" . (0 === strpos($website,'http') ? $website : "http://$website") . '\' target="_blank" class="btn"><i class="icon-globe"></i></a>') : null ?>
             </div>
           </div>

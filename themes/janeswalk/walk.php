@@ -334,4 +334,4 @@ $this->inc('elements/header.php');  ?>
     
   </script>
 
-<?php $this->inc('elements/footer.php');  ?>
+<?php $this->inc('elements/footer.php');?>
