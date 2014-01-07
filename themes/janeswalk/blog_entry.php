@@ -14,7 +14,7 @@ $ui = UserInfo::getByID($c->getCollectionUserID());
       <?php $ai = new Area('Blog Post Header'); $ai->display($c); ?>
       <h1><?=$c->getCollectionName(); ?></h1>
       <p class="description"><?=$c->getCollectionDescription(); ?></p>
-      <p class="meta"><?= ($first_name = $ui->getAttribute('first_name')) ? ("$first_name {$ui->getAttribute('last_name')}") : $ui->getUserObject()->getUserName()?> <em>on</em> <strong><?= $c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL)?></strong></p>	
+      <p class="meta"><?= ($first_name = $ui->getAttribute('first_name')) ? ("$first_name {$ui->getAttribute('last_name')}") : $ui->getUserObject()->getUserName()?>, <strong><?= $c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL)?></strong></p>	
     </header>
 		<div id="body">
       <article>
