@@ -189,6 +189,10 @@
       @include transition(opacity 1s ease-in-out);
       @include background(linear-gradient(rgba($orange,0.7), $orange 80%, $orange 80%));
     }
+    a {
+      color:#fff;
+      &:hover { text-decoration:underline; }
+    }
   }
 }
 
