@@ -10095,7 +10095,7 @@ section.calltoaction ul li {
   font-size: 1.4em;
   background: #333;
 }
-@media (min-width: 940px) {
+@media (max-width: 940px) {
   /* line 266, ../sass/homepage.scss */
   section.calltoaction ul li {
     display: block;
