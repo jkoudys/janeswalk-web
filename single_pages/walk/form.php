@@ -350,6 +350,7 @@ $valt = Loader::helper('validation/token');
 
     <div class="row-fluid">
       <ul class="thumbnails" id="block-select">
+        <?php if($city->getCollectionID() != 235) { ?>
         <li class="span6">
           <a href="#time-and-date-all" data-toggle="tab">
             <div class="thumbnail">
@@ -363,6 +364,7 @@ $valt = Loader::helper('validation/token');
             </div>
           </a>
         </li>
+        <?php } ?>
         <li class="span6">
           <a href="#time-and-date-set" data-toggle="tab">
             <div class="thumbnail">
