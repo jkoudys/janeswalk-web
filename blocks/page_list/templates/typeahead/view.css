@@ -54,6 +54,7 @@ div.ccm-page-list-typeahead {
     font-size: 18px;
     height: 42px;
     border: 1px solid #b4b4b4;
+    border-left: none;
     background: #efefef;
     font-weight: 300;
     color: #555;
