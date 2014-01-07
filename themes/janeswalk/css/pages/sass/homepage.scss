@@ -269,7 +269,7 @@ section.calltoaction {
       width:$mainWidth/3 - 80px;
       font-size:1.4em;
       background: #333;
-      @media(max-width: ($mainWidth/3 - 80) * 3 + 10) {
+      @media(min-width: ($mainWidth/3 - 80) * 3 + 10) {
         display:block;
         margin-bottom:5px;
       }

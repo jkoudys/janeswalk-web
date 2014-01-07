@@ -581,7 +581,9 @@ var styles = [{
   var showButton = $('.home .overlap .controls a.showButton');
   var closeButton = $('.home .overlap .controls a.closeButton');
   var overlapHeight = $('.overlap').height();
-  showButton.click(function() {$(".overlap").addClass("fullmap"); $(this).fadeOut(400, function() { closeButton.fadeIn()}) } );
+  showButton.click(function() {$(".overlap").addClass("fullmap"); $(this).fadeOut(400, function() { closeButton.fadeIn()}) 
+    $('html, body').animate({scrollTop: $(this).offset().top-100},800)
+  } );
   closeButton.click(function() {$(".overlap").removeClass("fullmap"); $(this).fadeOut(400, function() { showButton.fadeIn()}) } );
   //$('.home .overlap .controls a.close').click(fucntion() { $(this).parents('.controls').first() });
 
