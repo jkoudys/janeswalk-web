@@ -353,7 +353,7 @@ $valt = Loader::helper('validation/token');
         <li class="span6">
           <a href="#time-and-date-all" data-toggle="tab">
             <div class="thumbnail">
-            <img src="<?php echo $this->getThemePath();?>/img/time-and-date-full.png" />
+            <img src="<?=$this->getThemePath();?>/img/time-and-date-full.png" />
               <div class="caption">
                 <div class="text-center">
                   <h4>By Request</h4>
@@ -366,7 +366,7 @@ $valt = Loader::helper('validation/token');
         <li class="span6">
           <a href="#time-and-date-set" data-toggle="tab">
             <div class="thumbnail">
-            <img src="<?php echo $this->getThemePath();?>/img/time-and-date-some.png" />
+            <img src="<?=$this->getThemePath();?>/img/time-and-date-some.png" />
               <div class="caption">
                 <div class="text-center">
                   <h4>Scheduled</h4>
@@ -462,7 +462,7 @@ $valt = Loader::helper('validation/token');
         <select name="duration" id="walk-duration">
           <option value="30 Minutes">30 Minutes</option>
           <option value="1 Hour">1 Hour</option>
-          <option value="1 Hour, 30 Minutes">1 Hour, 30 Minutes</option>
+          <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
           <option value="2 Hours">2 Hours</option>
           <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
           <option value="3 Hours">3 Hours</option>
