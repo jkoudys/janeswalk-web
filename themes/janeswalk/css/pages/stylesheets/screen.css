@@ -9225,7 +9225,7 @@ blockquote {
 #ccm-profile-body form input[type=submit], #body > .pageSection form input[type=submit], #central > #body form input[type=submit] {
   margin-left: -59px;
   height: 40px;
-  width: 60px;
+  min-width: 60px;
   background-color: #efefef;
   border: 1px solid #b4b4b4;
   border-radius: 0 5px 5px 0;
@@ -10060,7 +10060,7 @@ section.calltoaction h3 {
 section.calltoaction p {
   color: #333;
   font-size: 1.3em;
-  line-height: 1.4;
+  line-height: 1.6;
   font-weight: 300;
 }
 /* line 249, ../sass/homepage.scss */
