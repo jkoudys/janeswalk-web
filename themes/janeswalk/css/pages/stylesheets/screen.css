@@ -10420,74 +10420,78 @@ section.calltoaction ul:after {
   color: #fff;
   text-decoration: underline;
 }
+/* line 195, ../sass/city.scss */
+.intro-city .city-header a i {
+  text-decoration: none;
+}
 
-/* line 199, ../sass/city.scss */
+/* line 200, ../sass/city.scss */
 .city-organizer {
   position: relative;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding-top: 10px;
   display: none;
 }
-/* line 204, ../sass/city.scss */
+/* line 205, ../sass/city.scss */
 .city-organizer .pane {
   display: none;
 }
-/* line 207, ../sass/city.scss */
+/* line 208, ../sass/city.scss */
 .city-organizer .profile-inner {
   position: relative;
   z-index: 999;
   background: white;
 }
-/* line 212, ../sass/city.scss */
+/* line 213, ../sass/city.scss */
 .city-organizer .img-circle {
   margin-left: 0px;
   box-shadow: 0 3px rgba(0, 0, 0, 0.25);
 }
-/* line 216, ../sass/city.scss */
+/* line 217, ../sass/city.scss */
 .city-organizer .submit {
   position: absolute;
   bottom: 47px;
   left: 0;
   z-index: 999;
 }
-/* line 222, ../sass/city.scss */
+/* line 223, ../sass/city.scss */
 .city-organizer .bio {
   margin-left: 3%;
   line-height: 1.25em;
 }
-/* line 226, ../sass/city.scss */
+/* line 227, ../sass/city.scss */
 .city-organizer a {
   color: #FFF;
 }
-/* line 228, ../sass/city.scss */
+/* line 229, ../sass/city.scss */
 .city-organizer a:hover {
   text-decoration: none;
 }
 
-/* line 234, ../sass/city.scss */
+/* line 235, ../sass/city.scss */
 .newest-walks {
   color: #666;
 }
 
-/* line 239, ../sass/city.scss */
+/* line 240, ../sass/city.scss */
 .walk-select {
   top: -66px;
   padding: 20px 0 56px 0;
   position: relative;
 }
-/* line 243, ../sass/city.scss */
+/* line 244, ../sass/city.scss */
 .walk-select hr {
   border-top: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin: 0;
 }
-/* line 248, ../sass/city.scss */
+/* line 249, ../sass/city.scss */
 .walk-select h3 {
   line-height: 1em;
   margin-bottom: 1em;
   display: inline-block;
 }
-/* line 253, ../sass/city.scss */
+/* line 254, ../sass/city.scss */
 .walk-select .walk {
   position: relative;
   margin-bottom: 25px;
@@ -10497,11 +10501,11 @@ section.calltoaction ul:after {
   transition: margin 120ms ease-in-out;
   vertical-align: bottom;
 }
-/* line 257, ../sass/city.scss */
+/* line 258, ../sass/city.scss */
 .walk-select .walk .thumbnail {
   min-height: 520px;
 }
-/* line 259, ../sass/city.scss */
+/* line 260, ../sass/city.scss */
 .walk-select .walk .thumbnail .walkimage {
   margin: 0;
   background-size: cover;
@@ -10509,52 +10513,52 @@ section.calltoaction ul:after {
   width: 100%;
   min-height: 240px;
 }
-/* line 267, ../sass/city.scss */
+/* line 268, ../sass/city.scss */
 .walk-select .walk h4 {
   color: #f16725;
 }
-/* line 270, ../sass/city.scss */
+/* line 271, ../sass/city.scss */
 .walk-select .walk h6 {
   color: #222;
 }
-/* line 273, ../sass/city.scss */
+/* line 274, ../sass/city.scss */
 .walk-select .walk a {
   color: #666;
 }
-/* line 277, ../sass/city.scss */
+/* line 278, ../sass/city.scss */
 .walk-select .walk:hover {
   margin-top: -5px;
   padding-bottom: 5px;
 }
-/* line 280, ../sass/city.scss */
+/* line 281, ../sass/city.scss */
 .walk-select .walk:hover .thumbnail {
   background: #6badfd;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
 }
-/* line 284, ../sass/city.scss */
+/* line 285, ../sass/city.scss */
 .walk-select .walk:hover .thumbnail h4, .walk-select .walk:hover .thumbnail h6 {
   color: #FFF;
 }
-/* line 289, ../sass/city.scss */
+/* line 290, ../sass/city.scss */
 .walk-select .walk:active {
   margin-top: 0;
 }
-/* line 291, ../sass/city.scss */
+/* line 292, ../sass/city.scss */
 .walk-select .walk:active .thumbnail {
   background: #3991fc;
 }
-/* line 296, ../sass/city.scss */
+/* line 297, ../sass/city.scss */
 .walk-select .see-all {
   font-size: 13px;
   color: #222;
   margin-left: 10px;
 }
-/* line 300, ../sass/city.scss */
+/* line 301, ../sass/city.scss */
 .walk-select .see-all:after {
   content: " >>";
 }
-/* line 304, ../sass/city.scss */
+/* line 305, ../sass/city.scss */
 .walk-select .create-walk {
   position: absolute;
   top: 20px;
@@ -10564,12 +10568,12 @@ section.calltoaction ul:after {
   box-shadow: none;
 }
 @media (max-width: 768px) {
-  /* line 304, ../sass/city.scss */
+  /* line 305, ../sass/city.scss */
   .walk-select .create-walk {
     right: -20px;
   }
 }
-/* line 314, ../sass/city.scss */
+/* line 315, ../sass/city.scss */
 .walk-select .create-walk:after {
   content: "";
   position: absolute;
@@ -10582,20 +10586,20 @@ section.calltoaction ul:after {
   border-color: #d54e0e transparent transparent transparent;
 }
 @media (max-width: 768px) {
-  /* line 314, ../sass/city.scss */
+  /* line 315, ../sass/city.scss */
   .walk-select .create-walk:after {
     display: none;
   }
 }
-/* line 329, ../sass/city.scss */
+/* line 330, ../sass/city.scss */
 .walk-select a:hover {
   text-decoration: none;
 }
-/* line 332, ../sass/city.scss */
+/* line 333, ../sass/city.scss */
 .walk-select .action-items {
   padding-right: 40px;
 }
-/* line 335, ../sass/city.scss */
+/* line 336, ../sass/city.scss */
 .walk-select .action-items .menu-flags a {
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
@@ -10612,11 +10616,11 @@ section.calltoaction ul:after {
   font-weight: 100;
   margin: 15px 0 0 -32px;
 }
-/* line 350, ../sass/city.scss */
+/* line 351, ../sass/city.scss */
 .walk-select .action-items .menu-flags a:hover {
   background-color: #df520e;
 }
-/* line 351, ../sass/city.scss */
+/* line 352, ../sass/city.scss */
 .walk-select .action-items .menu-flags a:after {
   content: "";
   position: absolute;
@@ -10629,17 +10633,17 @@ section.calltoaction ul:after {
   border-color: transparent #d54e0e transparent transparent;
 }
 
-/* line 370, ../sass/city.scss */
+/* line 371, ../sass/city.scss */
 .span3.walk:nth-child(4n+1) {
   margin-left: 0;
 }
 
-/* line 373, ../sass/city.scss */
+/* line 374, ../sass/city.scss */
 .span4.walk:nth-child(3n+1) {
   margin-left: 0;
 }
 
-/* line 375, ../sass/city.scss */
+/* line 376, ../sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10647,7 +10651,7 @@ section.calltoaction ul:after {
   width: 100%;
   text-align: center;
 }
-/* line 381, ../sass/city.scss */
+/* line 382, ../sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10659,14 +10663,14 @@ section.calltoaction ul:after {
   height: 20px;
   text-align: right;
 }
-/* line 391, ../sass/city.scss */
+/* line 392, ../sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 399, ../sass/city.scss */
+/* line 400, ../sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10674,7 +10678,7 @@ section.calltoaction ul:after {
   height: 20px;
 }
 
-/* line 406, ../sass/city.scss */
+/* line 407, ../sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
@@ -10682,21 +10686,21 @@ section.calltoaction ul:after {
   height: 20px;
 }
 
-/* line 414, ../sass/city.scss */
+/* line 415, ../sass/city.scss */
 .city-organizer, .city-organizer a, .city-organizer a i, .city-organizer a:hover {
   color: #333;
 }
-/* line 415, ../sass/city.scss */
+/* line 416, ../sass/city.scss */
 .city-organizer h3, .city-organizer h4 {
   color: #fff;
 }
-/* line 416, ../sass/city.scss */
+/* line 417, ../sass/city.scss */
 .city-organizer .u-avatar, .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
-/* line 417, ../sass/city.scss */
+/* line 418, ../sass/city.scss */
 .city-organizer .u-avatar {
   background-size: cover;
   background-position: 50%;
@@ -10704,7 +10708,7 @@ section.calltoaction ul:after {
   width: 169px;
   height: 169px;
 }
-/* line 423, ../sass/city.scss */
+/* line 424, ../sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }
