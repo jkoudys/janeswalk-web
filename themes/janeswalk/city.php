@@ -21,7 +21,7 @@ global $u; global $cp;
       <p>
       </p>
       <p><?=t($c->getAttribute('shortdescription')); ?></p>
-      <?php $a = new Area('City Header'); $a->display($c); ?>
+      <?php (new Area('City Header'))->display($c); ?>
       <?php if ($c->getCollectionUserID() > 1): ?>
         <section class="city-organizer">
           <?= ($avatar = $av->getImagePath($page_owner)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
@@ -57,8 +57,9 @@ global $u; global $cp;
         ?>
     </div>
     <div class="menu-flags box-sizing">
-      <?php  $a = new Area('City Nav'); $a->display($c); ?>
+      <?php (new Area('City Nav'))->display($c); ?>
     </div>
+    <?php (new Area('Sponsors'))->display($c); ?>
   </div>
 <?php } ?>
   <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
@@ -71,7 +72,7 @@ global $u; global $cp;
       <a href="<?= $nh->getCollectionURL(Page::getByPath("/walk/form")) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
     <?php } ?>
     <div class="row-fluid">
-    <?php $a = new Area('Walk List'); $a->display($c); ?>
+    <?php (new Area('Walk List'))->display($c); ?>
     </div>
   </div>
 </div>
