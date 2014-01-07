@@ -21,7 +21,7 @@ $dh = Loader::helper('date');
     <div class="span3">
       <div class="thumbnail">
         <?php if(is_object($mainImage)) { ?>
-          <img src='<?= $ih->getThumbnail($mainImage->getPath(), 270, 800, false)->src; ?>' alt=''>
+          <a href="<?=$url?>"><img src='<?= $ih->getThumbnail($mainImage->getPath(), 270, 800, false)->src; ?>' alt='' /></a>
         <?php } ?>
         <div class="caption">
           <h5><a href="<?=$url?>" target="<?=$target?>"><?=$title?></a></h5>
