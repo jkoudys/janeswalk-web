@@ -10418,9 +10418,6 @@ section.calltoaction ul:after {
 /* line 192, ../sass/city.scss */
 .intro-city .city-header a {
   color: #fff;
-}
-/* line 194, ../sass/city.scss */
-.intro-city .city-header a:hover {
   text-decoration: underline;
 }
 
