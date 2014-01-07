@@ -35,7 +35,7 @@ div.ccm-page-list-typeahead {
   input[type=text] { width:$defaultWidth; font-size:18px; padding: 10px; margin:0; line-height:1.5; font-family:"museo-slab", "Roboto Slab", serif;  border: 1px solid $darkgrey; border-radius: 8px 0 0 8px; height:21px; line-height:24px;
     &:focus + input[type=submit] + ul { display:block; }  
   }
-  input[type=submit] { font-family:"museo-slab", "Roboto Slab", serif; font-size:18px; height:42px; border: 1px solid $darkgrey; border-left:none; background:$lightgrey; font-weight:300; color:#555; margin-left:-$buttonoffset; border-radius: 0 8px 8px 0; padding: 0 15px; line-height:24px; vertical-align:top; }
+  input[type=submit] { font-family:"museo-slab", "Roboto Slab", serif; font-size:18px; height:43px; border: 1px solid $darkgrey; border-left:none; background:$lightgrey; font-weight:300; color:#555; margin-left:-$buttonoffset; border-radius: 0 8px 8px 0; padding: 0 15px; line-height:24px; vertical-align:top; }
   input[type=checkbox] { display:none; }
 }
 
