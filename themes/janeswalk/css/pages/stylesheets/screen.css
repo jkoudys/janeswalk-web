@@ -9978,7 +9978,7 @@ p.lead {
   font-weight: 300;
   letter-spacing: 1px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 979px) {
   /* line 174, ../sass/homepage.scss */
   .homepage-callout2 p {
     font-size: 2.7em;
@@ -10095,7 +10095,14 @@ section.calltoaction ul li {
   font-size: 1.4em;
   background: #333;
 }
-/* line 273, ../sass/homepage.scss */
+@media (max-width: 940px) {
+  /* line 266, ../sass/homepage.scss */
+  section.calltoaction ul li {
+    display: block;
+    margin-bottom: 5px;
+  }
+}
+/* line 277, ../sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -10104,12 +10111,12 @@ section.calltoaction ul:after {
   height: 0;
 }
 
-/* line 284, ../sass/homepage.scss */
+/* line 288, ../sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 288, ../sass/homepage.scss */
+/* line 292, ../sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -10118,17 +10125,17 @@ section.calltoaction ul:after {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 295, ../sass/homepage.scss */
+/* line 299, ../sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 300, ../sass/homepage.scss */
+/* line 304, ../sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 304, ../sass/homepage.scss */
+/* line 308, ../sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -10136,7 +10143,7 @@ section.calltoaction ul:after {
   width: 400px;
 }
 
-/* line 311, ../sass/homepage.scss */
+/* line 315, ../sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -10144,26 +10151,26 @@ section.calltoaction ul:after {
   width: 75%;
 }
 
-/* line 318, ../sass/homepage.scss */
+/* line 322, ../sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
-/* line 320, ../sass/homepage.scss */
+/* line 324, ../sass/homepage.scss */
 .caption h5 p {
   color: #555;
 }
 
-/* line 325, ../sass/homepage.scss */
+/* line 329, ../sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 327, ../sass/homepage.scss */
+/* line 331, ../sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
-@media (max-width: 767px) {
-  /* line 333, ../sass/homepage.scss */
+@media (max-width: 768px) {
+  /* line 337, ../sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;

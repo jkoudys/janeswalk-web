@@ -174,7 +174,7 @@ p.lead {
   p {
     font-size: 3em;
     line-height: 123%;
-    @media (max-width: 1024px) {
+    @media (max-width: $media_full) {
       font-size: 2.7em;
     }
     font-weight: 300;
@@ -269,6 +269,10 @@ section.calltoaction {
       width:$mainWidth/3 - 80px;
       font-size:1.4em;
       background: #333;
+      @media(max-width: ($mainWidth/3 - 80) * 3 + 10) {
+        display:block;
+        margin-bottom:5px;
+      }
     }
     &:after {
       content:"";
@@ -329,7 +333,7 @@ section.calltoaction {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: $media_thin) {
   .full {
     margin-left: -20px;
     margin-right: -20px;
