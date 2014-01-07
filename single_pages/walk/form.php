@@ -404,7 +404,7 @@ $valt = Loader::helper('validation/token');
         <select name="duration" id="walk-duration">
           <option value="30 Minutes">30 Minutes</option>
           <option value="1 Hour">1 Hour</option>
-          <option value="1 Hour, 30 Minutes">1 Hour, 30 Minutes</option>
+          <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
           <option value="2 Hours">2 Hours</option>
           <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
           <option value="3 Hours">3 Hours</option>
