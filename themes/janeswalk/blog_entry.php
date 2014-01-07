@@ -24,5 +24,4 @@ $ui = UserInfo::getByID($c->getCollectionUserID());
       </article>
 		</div>
 	</div>
-
 <?php  $this->inc('elements/footer.php'); ?>
