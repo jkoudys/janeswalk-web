@@ -42,11 +42,9 @@ $(document).ready(function() {
       $blogs->sortByName();
       foreach($blogs->get() as $blog) { ?>
         <li>
-        <form action="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() )?>" method="post">
-        <label><?=$blog->getCollectionName()?></label>
-        <input type="hidden" name="cPublishParentID" value="<?=$blog->getCollectionID()?>">
-        <input type="submit"><i class="icon-file-alt"></i> New Article</input>
-        </form>
+        <?=$blog->getCollectionName()?><a href="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() . '/' . $blog->getCollectionID() )?>">
+        <i class="icon-file-alt"></i> New Article</input>
+        </a>
         </li>
       <?php } ?>
       </ul>

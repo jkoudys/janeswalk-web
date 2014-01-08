@@ -88,7 +88,13 @@ global $u; global $cp;
   if($c->isEditMode() || $blog) { ?>
 <div class="intro-city lower blog">
 	<div class="container">
-      <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>">City Blog</a></h2>
+      <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>">City Blog</a>
+      <?php
+        if ((new Permissions($blog))->canAddSubpage()) { ?>
+      <a href="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() . '/' . $blog->getCollectionID() )?>" >
+      >> post new article</a>
+      <?php } ?>
+      </h2>
       <?php $a = new Area('City Blog'); $a->display($c); ?>
 	</div>
 </div>
