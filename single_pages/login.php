@@ -92,7 +92,7 @@ $(function() {
   </div>
   <div class="modal-body">
 
-	<p><?php echo t('You must provide the following information before you may login.')?></p>
+	<p><?php echo t('Welcome back! We\'ve updated the website, as you can see. We need just a few more things from you to get started.')?></p>
     
   <form method="post" action="<?php echo $this->url('/login', 'do_login')?>">
     <?php  
@@ -101,9 +101,6 @@ $(function() {
     
     $i = 0;
     foreach($unfilledAttributes as $ak) { 
-      if ($i > 0) { 
-        print '<br/><br/>';
-      }
       print $af->display($ak, $ak->isAttributeKeyRequiredOnRegister());	
       $i++;
     }
