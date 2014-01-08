@@ -155,11 +155,11 @@ $(function() {
     <div class="modal-footer">
     <div class="pull-left">
       <?php  if (ENABLE_REGISTRATION == 1) { ?>
-        <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/register') ?>')" value="Sign up using your email"></input>
+        <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/register') ?>')" value="Register for a new account"></input>
       <?php  } ?>
     </div>
 
-      <?php echo $form->submit('submit', t('Sign In'), null, "" )?>
+      <?php echo $form->submit('submit', t('Go!'), null, "" )?>
       <?php  if (isset($error) && $error != '') { ?>
          <?php  
          if ($error instanceof Exception) {
