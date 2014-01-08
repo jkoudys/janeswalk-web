@@ -6038,6 +6038,13 @@ label {
   #tips-panel #city-organizer {
     margin-top: 60px;
     margin-bottom: 40px; }
+    #tips-panel #city-organizer .u-avatar {
+      height: 169px;
+      width: 169px;
+      border-radius: 500px;
+      background-size: cover;
+      background-position: 50%;
+      display: inline-block; }
     #tips-panel #city-organizer p {
       margin-top: 10px; }
     #tips-panel #city-organizer .popover-title {

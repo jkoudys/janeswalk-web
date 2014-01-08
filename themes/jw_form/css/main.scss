@@ -650,8 +650,16 @@ label {
     border: none;
   }
   #city-organizer {
-  margin-top: 60px;
-  margin-bottom: 40px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    .u-avatar {
+      height:169px; width:169px;
+      border-radius: 500px;
+      background-size:cover;
+      background-position:50%;
+      display:inline-block;
+    }
+
     p {
       margin-top: 10px;
     }
