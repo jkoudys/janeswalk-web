@@ -3,6 +3,8 @@
 //
 $orange: #F16725;
 $blue: #6BADFD;
+$darkgrey:#666;
+$lightgrey: #efefef;
 $blogblues: #92CDF5;
 
 // Constants for media queries
@@ -22,7 +24,6 @@ html {
   @media (min-width: $media_mobile) { padding-bottom:72px; }
 }
 body {
-  padding-top: 80px;
   @media (max-width: $media_full) {
     padding-top: 0;
   }
@@ -53,54 +54,6 @@ blockquote {
   padding:1.5em;
   margin-left:-150px;
 }
-#ccm-profile-body, #body > .pageSection, #central > #body {
-  width:$mainWidth;
-  margin: 0 auto;
-  form {
-    font-family: "museo-slab", "Roboto Slab", serif;
-    font-weight:100;
-    font-size:22px;
-    color:#222;
-    select {
-      margin:0;
-      height:40px;
-      border:1px solid #b4b4b4;
-      border-radius:5px 0 0 5px;
-      width:460px;
-      font-size:22px;
-      color:#888;
-      font-family: "museo-slab", "Roboto Slab", serif;
-    }
-    input[type=submit] {
-      margin-left:-59px;
-      height:40px;
-      min-width:60px;
-      background-color:#efefef;
-      border:1px solid #b4b4b4;
-      border-radius:0 5px 5px 0;
-      font-family: "museo-slab", "Roboto Slab", serif;
-      font-weight:100;
-      font-size:22px;
-      color:#222;
-    }
-  }
-  ul {
-    margin-left:50px;
-    li {
-      list-style-type:none;
-      line-height:25px;
-      margin-bottom:3px;
-    }
-    li:before {
-      display:inline-block;
-      content:"» ";
-      padding-right:10px;
-      font-weight:700;
-      color:$orange;
-    }
-  }
-}
-#central { margin-bottom:30px; }
 
 // Hokey pokey to get things to display right in edit mode
 body.logged_in {
@@ -385,6 +338,17 @@ footer {
 }
 
 .navbar {
+  &+* {
+    padding-top: 60px;
+  }
+  &.dropped, &.edit {
+    position:static;
+    margin: 0 0 -60px 0;
+    top:0;
+    .navbar-outer {
+      max-height:900px;
+    }
+  }
   font-family: "museo-slab", "Roboto Slab", serif;
   .notification {
     position: absolute;
@@ -414,10 +378,86 @@ footer {
   ul.nav.pull-right {
     float:right;
   }
+  a { 
+    cursor:pointer;
+  }
+  .search-close,.search-open {
+    /* todo: get rid of all these importants */
+    padding:10px 12px !important;
+    border-radius:999px;
+  }
+  .search-close {
+    background:$orange;
+    text-shadow:none !important;
+    display:none;
+    &:hover { 
+      background:$orange !important;
+    }
+  }
+  &.dropped {
+    .search-close { display:block; }
+    .search-open { display:none; }
+  }
 }
 
-// Walk Label
+.navbar-outer {
+  background-color:$darkgrey;
+  max-height:0;
+  overflow:hidden;
+  @include transition-duration(0.6s);
+  form {
+    max-width:$mainWidth;
+    margin:0 auto;
+    padding: 25px 0;
+    fieldset.search {
+      display:inline-block;
+      margin-right:50px;
+      vertical-align:top;
+    }
+    div#searchResults {
+      display:inline-block;
+      max-width:600px;
+      margin-top:-10px;
+      mark {
+        color:inherit;
+        background-color:inherit;
+        border-bottom: 1px dotted;
+      }
+      h4, p { 
+        margin:0;
+        padding: 0 0 8px 0;
+      }
+      .searchResult {
+        margin:0;
+        padding: 8px 8px 0 8px;
+        @include transition-duration(0.3s);
+        &:hover {
+          background:#333;
+        }
+      }
+      a {
+        color:$lightgrey;
+        &:hover {
+          text-decoration:none;
+        }
+      }
+    }
+  }
+}
 
+// input:submit style for little forms
+fieldset.search {
+  $buttonoffset:4px;
+  $defaultWidth: 280px;
+  input[type=text] { width:$defaultWidth; font-size:18px; padding: 10px; margin:0; line-height:1.5; font-family:"museo-slab", "Roboto Slab", serif;  border: 1px solid #b4b4b4; border-radius: 8px 0 0 8px; height:21px; line-height:24px;
+    &:focus + input[type=submit] + ul { display:block; }  
+  }
+  input[type=submit] { font-family:"museo-slab", "Roboto Slab", serif; font-size:18px; height:43px; border: 1px solid #b4b4b4; border-left:none; background:$lightgrey; font-weight:300; color:#555; margin-left:-$buttonoffset; border-radius: 0 8px 8px 0; padding: 0 15px; line-height:24px; vertical-align:top; }
+  input[type=checkbox] { display:none; }
+}
+
+
+// Walk Label
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -431,13 +471,11 @@ footer {
 }
 
 // Blog Cards
-
 .blog {
-  color: #666;
+  color: $darkgrey;
 }
 
 // Error 404
-
 .error404 {
   padding-top: 0;
   background: #ebeef1;
@@ -454,7 +492,6 @@ footer {
 }
 
 // Reg Confirm 
-
 .reg-confirmation, .reg-confirmation-congested {
   .modal-footer {
     text-align: center;

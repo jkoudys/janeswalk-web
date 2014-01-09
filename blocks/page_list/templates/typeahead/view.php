@@ -6,8 +6,10 @@ $th = Loader::helper('text');
 
 <div class="ccm-page-list-typeahead">
   <form>
-    <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk" autocomplete="off" />
-    <input type="submit" value="Go" />
+    <fieldset class="search">
+      <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk" autocomplete="off" />
+      <input type="submit" value="Go" />
+    </fieldset>
   <ul>
 	<?php 
 	 uasort($pages, function($a,$b) {return (($ap = $a->getCollectionParentID()) == ($bp = $b->getCollectionParentID())) ? strcmp($a->getCollectionName(),$b->getCollectionName()) : strcmp(Page::getByID($ap)->getCollectionName(),Page::getByID($bp)->getCollectionName());});

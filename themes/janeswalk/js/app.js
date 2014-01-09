@@ -585,6 +585,7 @@ var styles = [{
     $('html, body').animate({scrollTop: $(this).offset().top-100},800)
   } );
   closeButton.click(function() {$(".overlap").removeClass("fullmap"); $(this).fadeOut(400, function() { showButton.fadeIn()}) } );
-  //$('.home .overlap .controls a.close').click(fucntion() { $(this).parents('.controls').first() });
 
+  $('a.search-open').click(function(){ $('header.navbar').addClass('dropped') });
+  $('a.search-close').click(function(){ $('header.navbar').removeClass('dropped') });
 });

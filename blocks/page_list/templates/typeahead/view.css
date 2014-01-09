@@ -36,32 +36,3 @@ div.ccm-page-list-typeahead {
         display: none; }
   div.ccm-page-list-typeahead a {
     color: #f16725 !important; }
-  div.ccm-page-list-typeahead input[type=text] {
-    width: 280px;
-    font-size: 18px;
-    padding: 10px;
-    margin: 0;
-    line-height: 1.5;
-    font-family: "museo-slab", "Roboto Slab", serif;
-    border: 1px solid #b4b4b4;
-    border-radius: 8px 0 0 8px;
-    height: 21px;
-    line-height: 24px; }
-    div.ccm-page-list-typeahead input[type=text]:focus + input[type=submit] + ul {
-      display: block; }
-  div.ccm-page-list-typeahead input[type=submit] {
-    font-family: "museo-slab", "Roboto Slab", serif;
-    font-size: 18px;
-    height: 43px;
-    border: 1px solid #b4b4b4;
-    border-left: none;
-    background: #efefef;
-    font-weight: 300;
-    color: #555;
-    margin-left: -4px;
-    border-radius: 0 8px 8px 0;
-    padding: 0 15px;
-    line-height: 24px;
-    vertical-align: top; }
-  div.ccm-page-list-typeahead input[type=checkbox] {
-    display: none; }
