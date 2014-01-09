@@ -586,6 +586,8 @@ var styles = [{
   } );
   closeButton.click(function() {$(".overlap").removeClass("fullmap"); $(this).fadeOut(400, function() { showButton.fadeIn()}) } );
 
-  $('a.search-open').click(function(){ $('header.navbar').addClass('dropped') });
+  $('a.search-open').click(function(){ 
+    $('html, body').animate({scrollTop: 0},300, function(){ $('header.navbar').addClass('dropped') });
+    });
   $('a.search-close').click(function(){ $('header.navbar').removeClass('dropped') });
 });
