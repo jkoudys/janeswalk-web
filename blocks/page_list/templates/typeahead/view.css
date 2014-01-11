@@ -9,6 +9,8 @@ div.ccm-page-list-typeahead {
   font-family: "museo-slab", "Roboto Slab", serif; }
   div.ccm-page-list-typeahead ul, div.ccm-page-list-typeahead li {
     list-style-type: none; }
+  div.ccm-page-list-typeahead fieldset.search > input[type=text]:focus + input[type=submit] + ul {
+    display: block; }
   div.ccm-page-list-typeahead fieldset.search > ul {
     display: none;
     position: absolute;
@@ -18,10 +20,12 @@ div.ccm-page-list-typeahead {
     border: 1px solid #999;
     background: #fff;
     padding: 5px;
-    z-index: 1;
+    z-index: 2;
     width: 291px;
     max-height: 14em;
     overflow-y: scroll; }
+    div.ccm-page-list-typeahead fieldset.search > ul:hover {
+      display: block; }
     div.ccm-page-list-typeahead fieldset.search > ul li.parent {
       padding-left: 5px;
       color: #888;
