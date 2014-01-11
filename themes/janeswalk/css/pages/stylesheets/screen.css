@@ -9723,11 +9723,7 @@ fieldset.search input[type=text] {
   height: 21px;
   line-height: 24px;
 }
-/* line 455, ../sass/screen.scss */
-fieldset.search input[type=text]:focus + input[type=submit] + ul {
-  display: block;
-}
-/* line 457, ../sass/screen.scss */
+/* line 456, ../sass/screen.scss */
 fieldset.search input[type=submit] {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-size: 18px;
@@ -9743,12 +9739,12 @@ fieldset.search input[type=submit] {
   line-height: 24px;
   vertical-align: top;
 }
-/* line 458, ../sass/screen.scss */
+/* line 457, ../sass/screen.scss */
 fieldset.search input[type=checkbox] {
   display: none;
 }
 
-/* line 463, ../sass/screen.scss */
+/* line 462, ../sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -9761,38 +9757,38 @@ fieldset.search input[type=checkbox] {
   font-size: 14px;
 }
 
-/* line 476, ../sass/screen.scss */
+/* line 475, ../sass/screen.scss */
 .blog {
   color: #666666;
 }
 
-/* line 481, ../sass/screen.scss */
+/* line 480, ../sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 484, ../sass/screen.scss */
+/* line 483, ../sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 491, ../sass/screen.scss */
+/* line 490, ../sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 498, ../sass/screen.scss */
+/* line 497, ../sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 501, ../sass/screen.scss */
+/* line 500, ../sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 506, ../sass/screen.scss */
+/* line 505, ../sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -9800,7 +9796,7 @@ fieldset.search input[type=checkbox] {
   line-height: 20px;
 }
 
-/* line 513, ../sass/screen.scss */
+/* line 512, ../sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }
@@ -10321,7 +10317,7 @@ section.calltoaction ul:after {
 .city-page .intro-city.lower {
   margin-top: 0;
   position: relative;
-  z-index: 5;
+  z-index: 1;
 }
 /* line 50, ../sass/city.scss */
 .city-page .intro-city.lower .container {
