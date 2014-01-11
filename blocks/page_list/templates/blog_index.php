@@ -17,7 +17,7 @@ $dh = Loader::helper('date');
     $date = $dh->date(DATE_APP_GENERIC_MDY_FULL, strtotime($page->getCollectionDatePublic()));
     $original_author = UserInfo::getByID($page->getCollectionUserID())->getAttribute('first_name');
     $mainImage = $page->getAttribute("main_image"); ?>
-          
+
     <div class="span3">
       <div class="thumbnail">
         <?php if(is_object($mainImage)) { ?>
@@ -28,14 +28,14 @@ $dh = Loader::helper('date');
           <?= $original_author ? "<h6>Posted by $original_author on $date</h6>" : null ?>
           <p>
           <?php 
-            $sxml = new SimpleXMLElement("<html></html>");
-            $blocks = $page->getBlocks("Main");
-            if($blocks) {
-              $article = $blocks[0]->getInstance();
-              $article->export($sxml);
-              echo $sxml;
-            }
-            ?>
+          $sxml = new SimpleXMLElement("<html></html>");
+          $blocks = $page->getBlocks("Main");
+          if($blocks) {
+          $article = $blocks[0]->getInstance();
+          $article->export($sxml);
+          echo $sxml;
+          }
+          ?>
           <?=$description?>&nbsp;<a href="<?=$url?>" target="<?=$target?>">[...]</a>
           </p>
         </div>
