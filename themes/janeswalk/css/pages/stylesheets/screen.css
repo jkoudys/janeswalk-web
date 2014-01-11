@@ -9631,23 +9631,25 @@ footer .social-icons + div {
 /* line 389, ../sass/screen.scss */
 .navbar .search-close {
   background: #f16725;
+  color: #000;
   text-shadow: none !important;
   display: none;
 }
-/* line 393, ../sass/screen.scss */
+/* line 394, ../sass/screen.scss */
 .navbar .search-close:hover {
+  color: inherit;
   background: #f16725 !important;
 }
-/* line 398, ../sass/screen.scss */
+/* line 400, ../sass/screen.scss */
 .navbar.dropped .search-close {
   display: block;
 }
-/* line 399, ../sass/screen.scss */
+/* line 401, ../sass/screen.scss */
 .navbar.dropped .search-open {
   display: none;
 }
 
-/* line 403, ../sass/screen.scss */
+/* line 405, ../sass/screen.scss */
 .navbar-outer {
   background-color: #666666;
   max-height: 0;
@@ -9657,36 +9659,36 @@ footer .social-icons + div {
   -o-transition-duration: 0.6s;
   transition-duration: 0.6s;
 }
-/* line 408, ../sass/screen.scss */
+/* line 410, ../sass/screen.scss */
 .navbar-outer form {
   max-width: 1170px;
   margin: 0 auto;
   padding: 25px 0;
 }
-/* line 412, ../sass/screen.scss */
+/* line 414, ../sass/screen.scss */
 .navbar-outer form fieldset.search {
   display: inline-block;
   margin-right: 50px;
   vertical-align: top;
 }
-/* line 417, ../sass/screen.scss */
+/* line 419, ../sass/screen.scss */
 .navbar-outer form div#searchResults {
   display: inline-block;
   max-width: 600px;
   margin-top: -10px;
 }
-/* line 421, ../sass/screen.scss */
+/* line 423, ../sass/screen.scss */
 .navbar-outer form div#searchResults mark {
   color: inherit;
   background-color: inherit;
   border-bottom: 1px dotted;
 }
-/* line 426, ../sass/screen.scss */
+/* line 428, ../sass/screen.scss */
 .navbar-outer form div#searchResults h4, .navbar-outer form div#searchResults p {
   margin: 0;
   padding: 0 0 8px 0;
 }
-/* line 430, ../sass/screen.scss */
+/* line 432, ../sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult {
   margin: 0;
   padding: 8px 8px 0 8px;
@@ -9695,20 +9697,20 @@ footer .social-icons + div {
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-/* line 434, ../sass/screen.scss */
+/* line 436, ../sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult:hover {
   background: #333;
 }
-/* line 438, ../sass/screen.scss */
+/* line 440, ../sass/screen.scss */
 .navbar-outer form div#searchResults a {
   color: #efefef;
 }
-/* line 440, ../sass/screen.scss */
+/* line 442, ../sass/screen.scss */
 .navbar-outer form div#searchResults a:hover {
   text-decoration: none;
 }
 
-/* line 452, ../sass/screen.scss */
+/* line 454, ../sass/screen.scss */
 fieldset.search input[type=text] {
   width: 280px;
   font-size: 18px;
@@ -9721,11 +9723,11 @@ fieldset.search input[type=text] {
   height: 21px;
   line-height: 24px;
 }
-/* line 453, ../sass/screen.scss */
+/* line 455, ../sass/screen.scss */
 fieldset.search input[type=text]:focus + input[type=submit] + ul {
   display: block;
 }
-/* line 455, ../sass/screen.scss */
+/* line 457, ../sass/screen.scss */
 fieldset.search input[type=submit] {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-size: 18px;
@@ -9741,12 +9743,12 @@ fieldset.search input[type=submit] {
   line-height: 24px;
   vertical-align: top;
 }
-/* line 456, ../sass/screen.scss */
+/* line 458, ../sass/screen.scss */
 fieldset.search input[type=checkbox] {
   display: none;
 }
 
-/* line 461, ../sass/screen.scss */
+/* line 463, ../sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -9759,38 +9761,38 @@ fieldset.search input[type=checkbox] {
   font-size: 14px;
 }
 
-/* line 474, ../sass/screen.scss */
+/* line 476, ../sass/screen.scss */
 .blog {
   color: #666666;
 }
 
-/* line 479, ../sass/screen.scss */
+/* line 481, ../sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 482, ../sass/screen.scss */
+/* line 484, ../sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 489, ../sass/screen.scss */
+/* line 491, ../sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 496, ../sass/screen.scss */
+/* line 498, ../sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 499, ../sass/screen.scss */
+/* line 501, ../sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 504, ../sass/screen.scss */
+/* line 506, ../sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -9798,7 +9800,7 @@ fieldset.search input[type=checkbox] {
   line-height: 20px;
 }
 
-/* line 511, ../sass/screen.scss */
+/* line 513, ../sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }

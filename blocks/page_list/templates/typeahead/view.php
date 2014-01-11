@@ -9,7 +9,6 @@ $th = Loader::helper('text');
     <fieldset class="search">
       <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk" autocomplete="off" />
       <input type="submit" value="Go" />
-    </fieldset>
   <ul>
 	<?php 
 	 uasort($pages, function($a,$b) {return (($ap = $a->getCollectionParentID()) == ($bp = $b->getCollectionParentID())) ? strcmp($a->getCollectionName(),$b->getCollectionName()) : strcmp(Page::getByID($ap)->getCollectionName(),Page::getByID($bp)->getCollectionName());});
@@ -32,8 +31,9 @@ $th = Loader::helper('text');
       <a href="<?=$url?>" target="<?=$target?>"><?=$title?></a>
     </li>	
 	<?php endforeach; ?>
+    </ul>
   </ul>
-  </ul>
+  </fieldset>
   </form>
 </div><!-- end .ccm-page-list -->
 

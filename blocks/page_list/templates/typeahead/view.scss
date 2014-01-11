@@ -8,7 +8,7 @@ div.ccm-page-list-typeahead {
   position:relative;
   font-family:"museo-slab", "Roboto Slab", serif;
   ul, li { list-style-type:none; }
-  form > ul {
+  fieldset.search > ul {
     display:none;
     position:absolute;
     top:3em;

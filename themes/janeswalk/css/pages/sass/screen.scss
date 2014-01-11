@@ -388,9 +388,11 @@ footer {
   }
   .search-close {
     background:$orange;
+    color:#000;
     text-shadow:none !important;
     display:none;
     &:hover { 
+      color:inherit;
       background:$orange !important;
     }
   }
