@@ -4,50 +4,33 @@ global $u;
 Loader::model('page_list'); 
 ?>
 <script>
-$(document).ready(function() {
-  $("a.delete").click(function(event) {
-    event.preventDefault();
-    var cid = $(this).data("cid");
-    var url = $(this).attr("href");
-    $.ajax({
-      type: "DELETE",
-      url: url,
-      success: function() { location.reload(); }
+  $(document).ready(function() {
+    $("a.delete").click(function(event) {
+      event.preventDefault();
+      var cid = $(this).data("cid");
+      var url = $(this).attr("href");
+      $.ajax({
+        type: "DELETE",
+        url: url,
+        success: function() { location.reload(); }
       });
     });
   });
 </script>
 <div id="ccm-profile-wrapper">
-    <?php Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
-    <div id="ccm-profile-body">	
-    	<div id="ccm-profile-body-attributes">
-    	<div class="ccm-profile-body-item">
+  <?php Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
+  <div id="ccm-profile-body">	
+    <div id="ccm-profile-body-attributes">
+      <div class="ccm-profile-body-item">
         <h1><?=$profile->getUserName()?></h1>
         <?php 
         foreach(UserAttributeKey::getPublicProfileList() as $ua) { ?>
-            <div>
-                <label><?=tc('AttributeKeyName', $ua->getAttributeKeyName())?></label>
-                <?=$profile->getAttribute($ua, 'displaySanitized', 'display');?>
-            </div>
-        <?php  } ?>		
+        <div>
+          <label><?=tc('AttributeKeyName', $ua->getAttributeKeyName())?></label>
+          <?=$profile->getAttribute($ua, 'displaySanitized', 'display');?>
         </div>
-		</div>
-    <div>
-      <h3>Blogs</h3>
-      <ul>
-      <?php
-      $blogs = new PageList();
-      $blogs->filterByCollectionTypeHandle('city_blog');
-      $blogs->filterByUserID($u->getUserID());
-      $blogs->sortByName();
-      foreach($blogs->get() as $blog) { ?>
-        <li>
-        <?=$blog->getCollectionName()?><a href="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() . '/' . $blog->getCollectionID() )?>">
-        <i class="icon-file-alt"></i> New Article</input>
-        </a>
-        </li>
-      <?php } ?>
-      </ul>
+        <?php  } ?>		
+      </div>
     </div>
     <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
     <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
@@ -67,41 +50,38 @@ $(document).ready(function() {
     <h3>Your Public Walks</h3>
     <ul class="walks">
       <?php
-        $pageEdit = Page::getByID(125);
-        $pl = new PageList();
-        $pl->filterByCollectionTypeHandle("walk");
-        $pl->filterByUserID($u->getUserID());
-        $pl->filterByAttribute('exclude_page_list',false);
-        foreach($pl->get() as $page) {
-          echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a> <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'><i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
-        }
+      $pageEdit = Page::getByID(125); // cID of the walk form
+      $pl = new PageList();
+      $pl->filterByCollectionTypeHandle("walk");
+      $pl->filterByUserID($u->getUserID());
+      $pl->filterByAttribute('exclude_page_list',false);
+      foreach($pl->get() as $page) {
+        echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a><a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'><i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
+      }
       ?>
     </ul>
+    <?php
+    $pl = new PageList();
+    $pl->filterByCollectionTypeHandle("walk");
+    $pl->filterByUserID($u->getUserID());
+    $pl->filterByAttribute('exclude_page_list',true);
+    $inprogressPages = $pl->get();
+    if(count($inprogressPages) > 0) {
+    ?>
+    <h3>In-Progress Walks</h3>
+    <ul>
       <?php
-        $pl = new PageList();
-        $pl->filterByCollectionTypeHandle("walk");
-        $pl->filterByUserID($u->getUserID());
-        $pl->filterByAttribute('exclude_page_list',true);
-        $inprogressPages = $pl->get();
-        if(count($inprogressPages) > 0) {
-      ?>
-      <h3>In-Progress Walks</h3>
-      <ul>
-      <?php
-        foreach($inprogressPages as $page) {
-          $latest = Page::getByID($page->getCollectionID());
-            echo "<li>{$latest->getCollectionName()} [ <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'>edit</a> ]</li>";
-        }
+      foreach($inprogressPages as $page) {
+        $latest = Page::getByID($page->getCollectionID());
+        echo "<li>{$latest->getCollectionName()} [ <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'>edit</a> ]</li>";
       } ?>
-      </ul>
-      <?php
-      $a = new Area('Main'); 
-			$a->setAttribute('profile', $profile); 
-			$a->setBlockWrapperStart('<div class="ccm-profile-body-item">');
-			$a->setBlockWrapperEnd('</div>');
-			$a->display($c); 
-		?>
-		
-    </div>
-	
+    </ul>
+    <?php }
+    $a = new Area('Main'); 
+    $a->setAttribute('profile', $profile); 
+    $a->setBlockWrapperStart('<div class="ccm-profile-body-item">');
+      $a->setBlockWrapperEnd('</div>');
+    $a->display($c); 
+    ?>
+  </div>
 </div>
