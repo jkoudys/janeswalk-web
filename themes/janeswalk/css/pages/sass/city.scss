@@ -147,12 +147,13 @@
         background: darken($orange,10%);
       }
       a {
-        display: block;
+        display: inline-block;
         padding: 5px 15px;
         color: #fff;
         &:hover {
           text-decoration: none;
         }
+        &.add { font-size:20px; }
       }
     }
   }

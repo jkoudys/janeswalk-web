@@ -83,7 +83,7 @@ global $u; global $cp;
       <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>">City Blog</a>
         <?php
         if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
-        <a href="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() . '/' . $blog->getCollectionID() )?>" >
+        <a class="add" href="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() . '/' . $blog->getCollectionID() )?>" >
           <i class="icon-double-angle-right"></i> post new article</a>
         <?php } ?>
       </h2>

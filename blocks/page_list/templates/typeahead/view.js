@@ -3,12 +3,12 @@ function accentFold(inStr) {
 }
 
 filterTypeahead = function( typeInput ) {
-    $inputString = $(typeInput).val().replace(/\s+/g,' ');
-    if($inputString.length > 0 ) {
-      $("li>ul,li",$(typeInput).parents(".ccm-page-list-typeahead").first() ).removeClass("filtered").not(":icontains(" + $inputString + ")").addClass("filtered");
-    } else { 
-      $("li>ul,li",$(typeInput).parents(".ccm-page-list-typeahead").first()).removeClass("filtered");
-    }
+  $inputString = $(typeInput).val().replace(/\s+/g,' ');
+  if($inputString.length > 0 ) {
+    $("li>ul,li",$(typeInput).parents(".ccm-page-list-typeahead").first() ).removeClass("filtered").not(":icontains(" + $inputString + ")").addClass("filtered");
+  } else { 
+    $("li>ul,li",$(typeInput).parents(".ccm-page-list-typeahead").first()).removeClass("filtered");
+  }
 }
 
 $(document).ready(function() {
@@ -26,5 +26,4 @@ $(document).ready(function() {
     }
   });
 });
-
 

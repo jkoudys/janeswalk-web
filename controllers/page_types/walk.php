@@ -11,7 +11,7 @@
         // The 'publish' for an event
         case 'POST':
           try {
-            $this->setJson($_POST['json'], true);
+            $this->setJson($_REQUEST['json'], true);
             $this->setEventBrite('live');
           } catch(Exception $e) {
             Log::addEntry('Walk error on POST: '  . $e->getMessage());
@@ -35,11 +35,11 @@
           break;
         // Retrieve the page's json
         case 'GET':
-          if($_GET['format'] == 'json') {
+          if($_REQUEST['format'] == 'json') {
             $this->getJson();
             exit;
           }
-          if($_GET['format'] == 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],"Kml-Google")) {
+          if($_REQUEST['format'] == 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],"Kml-Google")) {
             $this->getKml();
             exit;
           }
@@ -51,10 +51,6 @@
           $this->setEventBriteStatus('draft');
           break;
       }
-    }
-    public function rest() {
-    }
-    public function save() {
     }
     public function setEventBriteStatus($status='draft') {
       $c = Page::getCurrentPage();
@@ -73,7 +69,7 @@
     }
     public function setEventBrite($status = null) {
       $c = Page::getCurrentPage();
-      $c = Page::getByID($c->getCollectionID()); // Refresh
+      $c = Page::getByID($c->getCollectionID()); // Refresh to fix a c5 quirk; todo: try deleting this after c5.7 update
       $parent = Page::getByID($c->getCollectionParentID());
       $timezone = $parent->getAttribute("timezone");
       $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
