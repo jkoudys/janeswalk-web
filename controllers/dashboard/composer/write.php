@@ -17,7 +17,6 @@ class DashboardComposerWriteController extends Concrete5_Controller_Dashboard_Co
       // create a new page of this type
       $entry = ComposerPage::createDraft($ct);
       if(is_object($cPublishParent)) { $entry->setComposerDraftPublishParentID($cPublishParentID); }
-      var_dump($entry);
       if (is_object($entry)) {
         $this->redirect('/dashboard/composer/write', 'edit', $entry->getCollectionID());
       } else {
