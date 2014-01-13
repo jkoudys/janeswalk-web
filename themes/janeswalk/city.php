@@ -17,11 +17,8 @@ global $u; global $cp;
       <div class="container">
         <div class="city-header">
           <h1><?=$c->getCollectionName()?></h1>
-          <p>
-          </p>
-          <p><?=t($c->getAttribute('shortdescription')); ?></p>
-          <?php (new Area('City Header'))->display($c); ?>
-          <?php if ($c->getCollectionUserID() > 1): ?>
+          <?php (new Area('City Header'))->display($c);
+          if ($c->getCollectionUserID() > 1): ?>
           <section class="city-organizer">
           <?= ($avatar = $av->getImagePath($page_owner)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
           <div class="city-organizer-details">
@@ -47,7 +44,6 @@ global $u; global $cp;
           <div class="item active">
             <h2>Jane’s Walks</h2>
             <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
-            <?=nl2br($c->getAttribute('longdescription')); ?>
             <?php (new Area('City Description'))->display($c);?>
           </div>
           <div class="menu-flags box-sizing">
