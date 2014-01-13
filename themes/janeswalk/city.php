@@ -16,7 +16,10 @@ global $u; global $cp;
     <div class="intro-city tk-museo-slab">
       <div class="container">
         <div class="city-header">
-          <h1><?=$c->getCollectionName()?></h1>
+          <h1>
+            <?=$c->getCollectionName()?>
+            <?= is_object(ComposerPage::getByID($c->getCollectionID())) ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='icon-edit-sign'></i></a>" : null; ?>
+          </h1>
           <?php (new Area('City Header'))->display($c);
           if ($c->getCollectionUserID() > 1): ?>
           <section class="city-organizer">
