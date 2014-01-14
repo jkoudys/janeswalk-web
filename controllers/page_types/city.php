@@ -70,7 +70,7 @@
           'title' => $page->getCollectionName(),
           'thumb' => ($thumb = $page->getAttribute('thumbnail')) ? $im->getThumbnail($thumb, 340,720)->src : null,
           'schedule' => isset($scheduled['open']) ? 'Open Schedule' : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
-          'shortdescription' => $page->getAttribute('shortdescription')];
+          'short_description' => $page->getAttribute('shortdescription')];
 
         foreach(json_decode($page->getAttribute('team')) as $memkey=>$mem) {
           $cityData['walks'][$key]['team'] .= ($memkey == 0 ? 'Walk led by ' : ($memkey > 0 ? ', ' : '')) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
