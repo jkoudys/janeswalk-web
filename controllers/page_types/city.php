@@ -46,7 +46,7 @@
       $pagecount = 100;
       $cityData = ['title' => $c->getCollectionName(), 
         'url' => $nh->getCollectionURL($c),
-        'background' => $c->getAttribute('full_bg')->getURL(),
+        'background' => $bg = $c->getAttribute('full_bg') ? $bg->getURL() : null,
         /* We'll assume each area's first block is the one with the descriptions */
         'short_description' => $c->getBlocks('City Header')[0]->getController()->getContent(),
         'long_description' => $c->getBlocks('City Description')[0]->getController()->getContent(),
