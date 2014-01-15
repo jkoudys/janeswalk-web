@@ -182,15 +182,10 @@ $this->inc('elements/header.php');  ?>
 
           <hr>
 
-          <h3>Download This Walk</h3>
+          <h3>Downloads</h3>
 
           <div class="download-list">
             <ul>
-              <li>
-              <h4>Audio</h4> 
-              <p>Not available for this walk. Audio downloads will be available for select walks in Jane's Walk YearRound. </p>
-              <a href="#" class="btn btn-primary notify download"><i class="icon-headphones"></i> Download Audio</a>
-              </li>
             </ul>
           </div> <!-- Download -->
 
