@@ -32,50 +32,53 @@ $(document).ready(function() {
         <?php  } ?>		
       </div>
     </div>
-    <?php $newWalkForm = Page::getByPath("/walk/form"); ?>
-    <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
-      <select name="parentCID" onchange="this.form.submit()">
-        <option selected="selected">Submit a Walk to a City</option>
+    <?php if($u->getUserID() == $profile->getUserID()) {
+      $newWalkForm = Page::getByPath("/walk/form"); ?>
+      <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
+        <fieldset class="dropsubmit">
+          <select name="parentCID" onchange="this.form.submit()">
+            <option selected="selected">Submit a Walk to a City</option>
+            <?php
+            $cities = new PageList();
+            $cities->filterByCollectionTypeHandle('city');
+            $cities->sortByName();
+            foreach($cities->get() as $city) {
+            ?>
+            <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
+            <?php } ?>
+          </select> 
+          <input type="submit" value="Go!">
+        </fieldset>
+      </form>
+      <h3>Your Public Walks</h3>
+      <ul class="walks">
         <?php
-        $cities = new PageList();
-        $cities->filterByCollectionTypeHandle('city');
-        $cities->sortByName();
-        foreach($cities->get() as $city) {
+        $pl = new PageList();
+        $pl->filterByCollectionTypeHandle("walk");
+        $pl->filterByUserID($u->getUserID());
+        $pl->filterByAttribute('exclude_page_list',false);
+        foreach($pl->get() as $page) {
+          echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a><a href='{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}'> <i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
+        }
         ?>
-        <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
-        <?php } ?>
-      </select> 
-      <input type="submit" value="Go!">
-    </form>
-    <h3>Your Public Walks</h3>
-    <ul class="walks">
+      </ul>
       <?php
-      $pageEdit = Page::getByID(125); // cID of the walk form
       $pl = new PageList();
       $pl->filterByCollectionTypeHandle("walk");
       $pl->filterByUserID($u->getUserID());
-      $pl->filterByAttribute('exclude_page_list',false);
-      foreach($pl->get() as $page) {
-        echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a><a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'> <i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
-      }
+      $pl->filterByAttribute('exclude_page_list',true);
+      $inprogressPages = $pl->get();
+      if(count($inprogressPages) > 0) {
       ?>
-    </ul>
-    <?php
-    $pl = new PageList();
-    $pl->filterByCollectionTypeHandle("walk");
-    $pl->filterByUserID($u->getUserID());
-    $pl->filterByAttribute('exclude_page_list',true);
-    $inprogressPages = $pl->get();
-    if(count($inprogressPages) > 0) {
-    ?>
-    <h3>In-Progress Walks</h3>
-    <ul>
-      <?php
-      foreach($inprogressPages as $page) {
-        $latest = Page::getByID($page->getCollectionID());
-        echo "<li>{$latest->getCollectionName()} <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'><i class='icon-edit'></i></a></li>";
-      } ?>
-    </ul>
+      <h3>In-Progress Walks</h3>
+      <ul>
+        <?php
+        foreach($inprogressPages as $page) {
+          $latest = Page::getByID($page->getCollectionID());
+          echo "<li>{$latest->getCollectionName()} <a href='{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}'><i class='icon-edit'></i></a></li>";
+        } ?>
+      </ul>
+    <?php } ?>
     <?php }
     $a = new Area('Main'); 
     $a->setAttribute('profile', $profile); 

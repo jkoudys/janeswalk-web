@@ -106,8 +106,12 @@ body.site-page {
       color:#888;
       font-family: "museo-slab", "Roboto Slab", serif;
     }
+    fieldset.dropsubmit {
+      input[type=submit] {
+        margin-left:-59px;
+      }
+    }
     input[type=submit] {
-      margin-left:-59px;
       height:40px;
       min-width:60px;
       background-color:#efefef;

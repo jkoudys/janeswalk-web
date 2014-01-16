@@ -11428,9 +11428,12 @@ body.site-page #ccm-profile-body ul.walks li i {
   color: #888;
   font-family: "museo-slab", "Roboto Slab", serif;
 }
-/* line 109, ../sass/view.scss */
-#ccm-profile-body form input[type=submit], #body > .pageSection form input[type=submit], #central > #body form input[type=submit] {
+/* line 110, ../sass/view.scss */
+#ccm-profile-body form fieldset.dropsubmit input[type=submit], #body > .pageSection form fieldset.dropsubmit input[type=submit], #central > #body form fieldset.dropsubmit input[type=submit] {
   margin-left: -59px;
+}
+/* line 114, ../sass/view.scss */
+#ccm-profile-body form input[type=submit], #body > .pageSection form input[type=submit], #central > #body form input[type=submit] {
   height: 40px;
   min-width: 60px;
   background-color: #efefef;
@@ -11441,17 +11444,17 @@ body.site-page #ccm-profile-body ul.walks li i {
   font-size: 22px;
   color: #222;
 }
-/* line 122, ../sass/view.scss */
+/* line 126, ../sass/view.scss */
 #ccm-profile-body ul, #body > .pageSection ul, #central > #body ul {
   margin-left: 50px;
 }
-/* line 124, ../sass/view.scss */
+/* line 128, ../sass/view.scss */
 #ccm-profile-body ul li, #body > .pageSection ul li, #central > #body ul li {
   list-style-type: none;
   line-height: 25px;
   margin-bottom: 3px;
 }
-/* line 129, ../sass/view.scss */
+/* line 133, ../sass/view.scss */
 #ccm-profile-body ul li:before, #body > .pageSection ul li:before, #central > #body ul li:before {
   display: inline-block;
   content: "» ";
@@ -11460,7 +11463,7 @@ body.site-page #ccm-profile-body ul.walks li i {
   color: #f16725;
 }
 
-/* line 138, ../sass/view.scss */
+/* line 142, ../sass/view.scss */
 #central {
   margin-bottom: 30px;
 }

@@ -25,7 +25,9 @@ global $u; global $cp;
           <section class="city-organizer">
           <?= ($avatar = $av->getImagePath($page_owner)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
           <div class="city-organizer-details">
-            <?="<h3>{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}</h3><h4>City Organizer</h4>" ?>
+            <h3><?="{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" .
+                    ($u->getUserID() == $page_owner->getUserID() ? " <a href={$this->url('/profile/edit')}><i class='icon-edit-sign'></i></a>":null)?></h3>
+            <h4>City Organizer</h4>
             <div class="btn-toolbar">
               <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
               <?= ($facebook = $page_owner->getAttribute('facebook')) ? "<a href='http://facebook.com/$facebook' target='_blank' class='btn'><i class='icon-facebook'></i></a>" : null ?>
@@ -62,7 +64,7 @@ global $u; global $cp;
           <?php } else { ?>
           <h3>Featured Walks</h3>
           <a href="?show=all" class="see-all">see all walks</a>
-          <a href="<?= $nh->getCollectionURL(Page::getByPath("/walk/form")) ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
+          <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
           <?php } ?>
           <div class="row-fluid">
             <?php (new Area('Walk List'))->display($c); ?>
