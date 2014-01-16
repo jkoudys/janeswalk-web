@@ -210,6 +210,7 @@ footer {
   -webkit-font-smoothing: antialiased;
   font-family: "museo-slab", "Roboto Slab", serif;
   font-weight:500;
+  font-size:11px;
   line-height:1.6;
   position:fixed; z-index:1; width:100%; bottom:0;
   @media (max-width: $media_mobile) {
