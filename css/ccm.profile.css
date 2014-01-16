@@ -1,8 +1,8 @@
 div.ccm-profile-attribute {padding-bottom: 8px}
 div#ccm-profile-body div.message { border: 1px solid #ccc; padding: 8px}
-img.u-avatar {margin-bottom: 8px}
+img.u-avatar {margin-bottom: 8px; border-radius:999px;}
 div.ccm-profile-member {margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #ccc}
-div.ccm-profile-member-avatar {width: 100px; float: left}
+div.ccm-profile-member-avatar {width: 100px; float: left; margin-right:18px;}
 
 div#ccm-profile-sidebar {float:left; width:250px; }
 div#ccm-profile-body {float:left; width:70%;}
