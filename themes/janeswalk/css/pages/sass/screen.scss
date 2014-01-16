@@ -15,10 +15,18 @@ $media_mobile: 480px;
 @import url("http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700");
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic,500,500italic,700italic,700);
 
-@import "partials/base";
 // General
 
 $mainWidth: 1170px;
+
+@import "partials/base";
+@import "homepage";
+@import "city";
+@import "create-walk";
+@import "walk";
+@import "custom-walk";
+@import "view";
+@import "mailchimp";
 
 html {
   @media (min-width: $media_mobile) { padding-bottom:72px; }
@@ -260,6 +268,7 @@ footer {
   color: #ffffff;
   background-color: #f16725;
   text-shadow: none;
+  font-size:1em;
 }
 
 #donate:hover {
@@ -391,12 +400,14 @@ footer {
   }
   .search-close {
     background:$orange;
-    color:#000;
     text-shadow:none !important;
     display:none;
     &:hover { 
       color:inherit;
       background:$orange !important;
+    }
+    i {
+      color:#fff;
     }
   }
   &.dropped {
@@ -516,11 +527,4 @@ fieldset.search {
   padding-bottom:25px;
 }
 
-@import "homepage";
-@import "city";
-@import "create-walk";
-@import "walk";
-@import "custom-walk";
-@import "view";
-@import "mailchimp";
 

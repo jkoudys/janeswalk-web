@@ -9150,661 +9150,6 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   background-position: -80px -56px;
 }
 
-@media (min-width: 480px) {
-  /* line 23, ../sass/screen.scss */
-  html {
-    padding-bottom: 72px;
-  }
-}
-
-/* line 26, ../sass/screen.scss */
-body {
-  overflow-x: hidden;
-  font-size: 15px;
-  line-height: 20px;
-  font-weight: 300;
-  color: #222;
-  font-family: "museo", "Roboto", sans-serif;
-  text-rendering: optimizeLegibility;
-}
-@media (max-width: 979px) {
-  /* line 26, ../sass/screen.scss */
-  body {
-    padding-top: 0;
-  }
-}
-
-/* line 39, ../sass/screen.scss */
-strong, b {
-  font-weight: 700;
-}
-
-/* line 43, ../sass/screen.scss */
-em {
-  color: #222;
-}
-
-/* line 46, ../sass/screen.scss */
-blockquote {
-  text-transform: uppercase;
-  font-weight: 100;
-  font-size: 25px;
-  line-height: 30px;
-  color: #f16725;
-  width: 35%;
-  float: left;
-  padding: 1.5em;
-  margin-left: -150px;
-}
-
-/* line 59, ../sass/screen.scss */
-body.logged_in {
-  padding-top: 50px;
-}
-/* line 62, ../sass/screen.scss */
-body.logged_in header.navbar {
-  top: 50px;
-  z-index: 6;
-}
-/* line 66, ../sass/screen.scss */
-body.logged_in #ccm-highlighter {
-  z-index: 7;
-}
-/* line 67, ../sass/screen.scss */
-body.logged_in .modal-backdrop {
-  z-index: 1;
-}
-/* line 70, ../sass/screen.scss */
-body.logged_in .modal {
-  z-index: 2;
-}
-
-/* line 74, ../sass/screen.scss */
-body.c5-edit {
-  padding-top: 180px;
-}
-
-/* line 77, ../sass/screen.scss */
-html.index-bg body {
-  padding: 0;
-}
-
-/* line 81, ../sass/screen.scss */
-.box-sizing, .create-page .wysihtml5-sandbox {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-/* line 82, ../sass/screen.scss */
-.box-sizing *, .create-page .wysihtml5-sandbox * {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-/* line 86, ../sass/screen.scss */
-.box-sizing *:after, .create-page .wysihtml5-sandbox *:after, .box-sizing *:before, .create-page .wysihtml5-sandbox *:before {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-/* line 97, ../sass/screen.scss */
-h1, h2, h3, h4, h5, h6 {
-  font-family: "museo-slab", "Roboto Slab", serif;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  margin: 1.5em 0 0.6em 0;
-}
-
-/* line 103, ../sass/screen.scss */
-h1 {
-  font-weight: 100;
-  font-size: 40px;
-}
-
-/* line 104, ../sass/screen.scss */
-h2 {
-  font-weight: 100;
-  font-size: 40px;
-}
-
-/* line 105, ../sass/screen.scss */
-h3 {
-  font-weight: 100;
-  font-size: 25px;
-}
-
-/* line 106, ../sass/screen.scss */
-h4 {
-  font-weight: 700;
-  font-size: 17px;
-}
-
-/* line 107, ../sass/screen.scss */
-h5 {
-  font-weight: 700;
-  font-size: 14;
-}
-
-/* line 111, ../sass/screen.scss */
-.brand, .logo {
-  background: url("../images/jwlogo.svg");
-  -webkit-background-size: 70%;
-  -moz-background-size: 70%;
-  -o-background-size: 70%;
-  background-size: 70%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  width: 144px;
-  height: 60px;
-  padding: 0;
-}
-
-/* line 121, ../sass/screen.scss */
-.logo {
-  -webkit-background-size: contain;
-  -moz-background-size: contain;
-  -o-background-size: contain;
-  background-size: contain;
-}
-
-/* line 125, ../sass/screen.scss */
-body.form .brand, body.form .logo {
-  width: auto;
-  height: auto;
-  background: transparent;
-}
-
-/* line 131, ../sass/screen.scss */
-.hide-text, .profiles .flex-control-nav a {
-  text-indent: 130%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-/* line 137, ../sass/screen.scss */
-.no-margin {
-  margin: 0;
-}
-
-/* line 141, ../sass/screen.scss */
-.no-margin-top {
-  margin-top: 0;
-}
-
-/* line 147, ../sass/screen.scss */
-.breadcrumb {
-  background: none;
-  border: 1px solid #f5f5f5;
-  border-radius: 0;
-  border-width: 0 0 1px 0;
-}
-/* line 148, ../sass/screen.scss */
-.breadcrumb > li {
-  text-shadow: none;
-}
-/* line 151, ../sass/screen.scss */
-.breadcrumb a:hover {
-  text-decoration: none;
-}
-
-/* line 162, ../sass/screen.scss */
-.calendar-wrap {
-  padding: 0 10px;
-  position: relative;
-}
-/* line 165, ../sass/screen.scss */
-.calendar-wrap .calendar-header {
-  font-size: 1.10em;
-  margin: 0 0 1em 0;
-  width: 100%;
-  text-align: center;
-}
-/* line 170, ../sass/screen.scss */
-.calendar-wrap .calendar-header span {
-  font-family: "museo-slab", "Roboto Slab", serif;
-  font-weight: 800;
-}
-/* line 175, ../sass/screen.scss */
-.calendar-wrap .custom-month {
-  text-align: center;
-  border-radius: 50%;
-  width: 22px;
-  height: 22px;
-}
-/* line 181, ../sass/screen.scss */
-.calendar-wrap .custom-year {
-  position: absolute;
-  top: 0;
-  right: 10px;
-}
-
-/* line 190, ../sass/screen.scss */
-.btn {
-  font-family: "museo-slab", "Roboto Slab", serif;
-}
-
-/* line 196, ../sass/screen.scss */
-footer {
-  clear: both;
-  color: #50616D;
-  padding: 12px 0;
-  background: #dcdcdc;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  font-family: "museo-slab", "Roboto Slab", serif;
-  font-weight: 500;
-  line-height: 1.6;
-  position: fixed;
-  z-index: 1;
-  width: 100%;
-  bottom: 0;
-}
-@media (max-width: 480px) {
-  /* line 196, ../sass/screen.scss */
-  footer {
-    position: static;
-  }
-}
-/* line 210, ../sass/screen.scss */
-footer h4 {
-  margin-top: 0;
-}
-/* line 213, ../sass/screen.scss */
-footer a {
-  color: #df520e;
-}
-/* line 216, ../sass/screen.scss */
-footer ul, footer li {
-  list-style-type: none;
-}
-/* line 217, ../sass/screen.scss */
-footer ul {
-  margin: 0 0 0 5px;
-}
-/* line 218, ../sass/screen.scss */
-footer li {
-  display: inline-block;
-}
-/* line 220, ../sass/screen.scss */
-footer li:before {
-  content: "| ";
-  margin-right: 3px;
-}
-/* line 222, ../sass/screen.scss */
-footer .social-icons {
-  font-size: 18px;
-  display: inline-block;
-  vertical-align: top;
-}
-/* line 226, ../sass/screen.scss */
-footer .social-icons a {
-  text-decoration: none;
-}
-/* line 228, ../sass/screen.scss */
-footer .social-icons a i {
-  color: #6badfd;
-  font-size: 24px;
-  margin-right: 4px;
-}
-/* line 230, ../sass/screen.scss */
-footer .social-icons + div {
-  width: 80%;
-  display: inline-block;
-}
-
-/* line 239, ../sass/screen.scss */
-#progress {
-  position: fixed;
-  height: 100px;
-  z-index: 1;
-  width: 100%;
-  top: 40%;
-}
-
-/* line 250, ../sass/screen.scss */
-.form-actions .btn {
-  margin-right: 15px;
-}
-
-/* line 257, ../sass/screen.scss */
-#donate {
-  padding: 10px 15px 10px;
-  margin-top: 0;
-  color: #ffffff;
-  background-color: #f16725;
-  text-shadow: none;
-}
-
-/* line 265, ../sass/screen.scss */
-#donate:hover {
-  color: #ffffff;
-  background-color: #df520e;
-}
-
-/* line 272, ../sass/screen.scss */
-.infoBox {
-  box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
-  color: #555;
-}
-/* line 275, ../sass/screen.scss */
-.infoBox:after {
-  content: "";
-  width: 9px;
-  height: 17px;
-  background: #009AE6;
-  border-top: 1px solid #0084C5;
-  border-right: 1px solid #0084C5;
-  position: absolute;
-  bottom: -4px;
-  left: -1px;
-  border-top-right-radius: 11px;
-  border-bottom-right-radius: 5px;
-}
-
-/* line 292, ../sass/screen.scss */
-.notification {
-  background: url("images/festival-bg.png") bottom right no-repeat #35b0d7;
-  color: #fff;
-  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.1);
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  z-index: 100;
-  height: 0;
-  -webkit-transition: height 0.7s ease-in-out;
-  -moz-transition: height 0.7s ease-in-out;
-  -o-transition: height 0.7s ease-in-out;
-  transition: height 0.7s ease-in-out;
-}
-/* line 302, ../sass/screen.scss */
-.notification .close {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
-/* line 307, ../sass/screen.scss */
-.notification.expanded {
-  height: 180px;
-}
-/* line 310, ../sass/screen.scss */
-.notification h4 {
-  margin-bottom: 0;
-  font-size: 18px;
-}
-/* line 314, ../sass/screen.scss */
-.notification .title {
-  font-size: 33px;
-  margin: 0;
-  line-height: 1em;
-  font-weight: 400;
-}
-/* line 320, ../sass/screen.scss */
-.notification .container {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-/* line 324, ../sass/screen.scss */
-.notification.walk-beta {
-  box-shadow: 0 2px 0 #7e29d7;
-  background: #9854df;
-  overflow: hidden;
-  top: 0;
-  -webkit-transition: height 0.7s ease-in-out;
-  -moz-transition: height 0.7s ease-in-out;
-  -o-transition: height 0.7s ease-in-out;
-  transition: height 0.7s ease-in-out;
-}
-/* line 330, ../sass/screen.scss */
-.notification.walk-beta.expanded {
-  height: 64px;
-}
-/* line 333, ../sass/screen.scss */
-.notification.walk-beta .title-sub {
-  font-size: 20px;
-  margin: 0;
-}
-
-/* line 340, ../sass/screen.scss */
-.navbar {
-  font-family: "museo-slab", "Roboto Slab", serif;
-}
-/* line 341, ../sass/screen.scss */
-.navbar + * {
-  padding-top: 60px;
-}
-/* line 344, ../sass/screen.scss */
-.navbar.dropped, .navbar.edit {
-  position: static;
-  margin: 0 0 -60px 0;
-  top: 0;
-}
-/* line 348, ../sass/screen.scss */
-.navbar.dropped .navbar-outer, .navbar.edit .navbar-outer {
-  max-height: 900px;
-}
-/* line 353, ../sass/screen.scss */
-.navbar .nav {
-  font-size: 1em;
-}
-/* line 356, ../sass/screen.scss */
-.navbar .notification {
-  position: absolute;
-  overflow: hidden;
-  background-image: none;
-  top: 61px;
-  box-shadow: 0 2px 0 #7e29d7;
-  background: #9854df;
-}
-/* line 363, ../sass/screen.scss */
-.navbar .notification .container {
-  margin-top: 0.3em;
-  margin-bottom: 0.5em;
-}
-/* line 367, ../sass/screen.scss */
-.navbar .notification .title-sub {
-  font-size: 20px;
-  margin: 0;
-}
-/* line 371, ../sass/screen.scss */
-.navbar .notification.expanded {
-  height: 50px;
-}
-/* line 375, ../sass/screen.scss */
-.navbar .nav-collapse {
-  max-width: 60%;
-}
-/* line 378, ../sass/screen.scss */
-.navbar nav {
-  float: left;
-}
-/* line 381, ../sass/screen.scss */
-.navbar ul.nav.pull-right {
-  float: right;
-}
-/* line 384, ../sass/screen.scss */
-.navbar a {
-  cursor: pointer;
-}
-/* line 387, ../sass/screen.scss */
-.navbar .search-close, .navbar .search-open {
-  /* todo: get rid of all these importants */
-  padding: 10px 12px !important;
-  border-radius: 999px;
-}
-/* line 392, ../sass/screen.scss */
-.navbar .search-close {
-  background: #f16725;
-  color: #000;
-  text-shadow: none !important;
-  display: none;
-}
-/* line 397, ../sass/screen.scss */
-.navbar .search-close:hover {
-  color: inherit;
-  background: #f16725 !important;
-}
-/* line 403, ../sass/screen.scss */
-.navbar.dropped .search-close {
-  display: block;
-}
-/* line 404, ../sass/screen.scss */
-.navbar.dropped .search-open {
-  display: none;
-}
-
-/* line 408, ../sass/screen.scss */
-.navbar-outer {
-  background-color: #666666;
-  max-height: 0;
-  overflow: hidden;
-  -webkit-transition-duration: 0.6s;
-  -moz-transition-duration: 0.6s;
-  -o-transition-duration: 0.6s;
-  transition-duration: 0.6s;
-}
-/* line 413, ../sass/screen.scss */
-.navbar-outer form {
-  max-width: 1170px;
-  margin: 0 auto;
-  padding: 25px 0;
-}
-/* line 417, ../sass/screen.scss */
-.navbar-outer form fieldset.search {
-  display: inline-block;
-  margin-right: 50px;
-  vertical-align: top;
-}
-/* line 422, ../sass/screen.scss */
-.navbar-outer form div#searchResults {
-  display: inline-block;
-  max-width: 600px;
-  margin-top: -10px;
-}
-/* line 426, ../sass/screen.scss */
-.navbar-outer form div#searchResults mark {
-  color: inherit;
-  background-color: inherit;
-  border-bottom: 1px dotted;
-}
-/* line 431, ../sass/screen.scss */
-.navbar-outer form div#searchResults h4, .navbar-outer form div#searchResults p {
-  margin: 0;
-  padding: 0 0 8px 0;
-}
-/* line 435, ../sass/screen.scss */
-.navbar-outer form div#searchResults .searchResult {
-  margin: 0;
-  padding: 8px 8px 0 8px;
-  -webkit-transition-duration: 0.3s;
-  -moz-transition-duration: 0.3s;
-  -o-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-}
-/* line 439, ../sass/screen.scss */
-.navbar-outer form div#searchResults .searchResult:hover {
-  background: #333;
-}
-/* line 443, ../sass/screen.scss */
-.navbar-outer form div#searchResults a {
-  color: #efefef;
-}
-/* line 445, ../sass/screen.scss */
-.navbar-outer form div#searchResults a:hover {
-  text-decoration: none;
-}
-
-/* line 457, ../sass/screen.scss */
-fieldset.search input[type=text] {
-  width: 280px;
-  font-size: 18px;
-  padding: 10px;
-  margin: 0;
-  line-height: 1.5;
-  font-family: "museo-slab", "Roboto Slab", serif;
-  border: 1px solid #b4b4b4;
-  border-radius: 8px 0 0 8px;
-  height: 21px;
-  line-height: 24px;
-}
-/* line 459, ../sass/screen.scss */
-fieldset.search input[type=submit] {
-  font-family: "museo-slab", "Roboto Slab", serif;
-  font-size: 18px;
-  height: 43px;
-  border: 1px solid #b4b4b4;
-  border-left: none;
-  background: #efefef;
-  font-weight: 300;
-  color: #555;
-  margin-left: -4px;
-  border-radius: 0 8px 8px 0;
-  padding: 0 15px;
-  line-height: 24px;
-  vertical-align: top;
-}
-/* line 460, ../sass/screen.scss */
-fieldset.search input[type=checkbox] {
-  display: none;
-}
-
-/* line 465, ../sass/screen.scss */
-.walk-label {
-  font-family: "museo-slab", "Roboto Slab", serif;
-  padding: 5px 8px;
-  color: #fff;
-  background: #F2C50F;
-  display: inline-block;
-  float: left;
-  margin-right: 30px;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-/* line 478, ../sass/screen.scss */
-.blog {
-  color: #666666;
-}
-
-/* line 483, ../sass/screen.scss */
-.error404 {
-  padding-top: 0;
-  background: #ebeef1;
-}
-/* line 486, ../sass/screen.scss */
-.error404 .container-outter {
-  padding: 150px 0;
-  color: #50616D;
-  text-align: center;
-  background: #fff;
-}
-/* line 493, ../sass/screen.scss */
-.error404 .navbar_home {
-  margin-top: 2em;
-}
-
-/* line 500, ../sass/screen.scss */
-.reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
-  text-align: center;
-}
-/* line 503, ../sass/screen.scss */
-.reg-confirmation footer, .reg-confirmation-congested footer {
-  display: none;
-}
-
-/* line 508, ../sass/screen.scss */
-.inline.tags .tag i[class^=icon-] {
-  width: 100%;
-  display: block;
-  text-align: center;
-  line-height: 20px;
-}
-
-/* line 515, ../sass/screen.scss */
-#ccm-profile-wrapper {
-  padding-bottom: 25px;
-}
-
 /* line 3, ../sass/homepage.scss */
 .home {
   padding-top: 0;
@@ -9906,35 +9251,35 @@ fieldset.search input[type=checkbox] {
 }
 /* line 69, ../sass/homepage.scss */
 .home section.blog {
-  padding: 20px 0;
-  background: rgba(255, 255, 255, 0.84);
+  background: #fff;
   min-height: 525px;
-  padding: 30px 0;
-  margin: 0 0 120px 0;
+  padding: 30px 0 60px 0;
+  margin: 0 0 240px 0;
 }
-/* line 75, ../sass/homepage.scss */
+/* line 74, ../sass/homepage.scss */
 .home section.blog h1, .home section.blog h2, .home section.blog h3, .home section.blog h4, .home section.blog h5 {
   font-family: "museo-slab","Roboto Slab",serif;
   margin: 0;
 }
-/* line 79, ../sass/homepage.scss */
+/* line 78, ../sass/homepage.scss */
 .home section.blog section {
   display: inline-block;
   vertical-align: top;
 }
-/* line 82, ../sass/homepage.scss */
+/* line 81, ../sass/homepage.scss */
 .home section.blog section.walkblog {
   max-width: 870px;
 }
-/* line 85, ../sass/homepage.scss */
+/* line 84, ../sass/homepage.scss */
 .home section.blog section.twitter {
   width: 270px;
   margin-left: 25px;
 }
-/* line 89, ../sass/homepage.scss */
+/* line 88, ../sass/homepage.scss */
 .home section.blog section > h3 {
   color: #666666;
   font-weight: 700;
+  margin-bottom: 15px;
 }
 /* line 92, ../sass/homepage.scss */
 .home section.blog section > h3 a {
@@ -12137,4 +11482,663 @@ body.site-page #ccm-profile-body ul.walks li i {
 #mc_embed_signup input[type=submit] {
   margin: 0 !important;
   width: auto !important;
+}
+
+@media (min-width: 480px) {
+  /* line 31, ../sass/screen.scss */
+  html {
+    padding-bottom: 72px;
+  }
+}
+
+/* line 34, ../sass/screen.scss */
+body {
+  overflow-x: hidden;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 300;
+  color: #222;
+  font-family: "museo", "Roboto", sans-serif;
+  text-rendering: optimizeLegibility;
+}
+@media (max-width: 979px) {
+  /* line 34, ../sass/screen.scss */
+  body {
+    padding-top: 0;
+  }
+}
+
+/* line 47, ../sass/screen.scss */
+strong, b {
+  font-weight: 700;
+}
+
+/* line 51, ../sass/screen.scss */
+em {
+  color: #222;
+}
+
+/* line 54, ../sass/screen.scss */
+blockquote {
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 25px;
+  line-height: 30px;
+  color: #f16725;
+  width: 35%;
+  float: left;
+  padding: 1.5em;
+  margin-left: -150px;
+}
+
+/* line 67, ../sass/screen.scss */
+body.logged_in {
+  padding-top: 50px;
+}
+/* line 70, ../sass/screen.scss */
+body.logged_in header.navbar {
+  top: 50px;
+  z-index: 6;
+}
+/* line 74, ../sass/screen.scss */
+body.logged_in #ccm-highlighter {
+  z-index: 7;
+}
+/* line 75, ../sass/screen.scss */
+body.logged_in .modal-backdrop {
+  z-index: 1;
+}
+/* line 78, ../sass/screen.scss */
+body.logged_in .modal {
+  z-index: 2;
+}
+
+/* line 82, ../sass/screen.scss */
+body.c5-edit {
+  padding-top: 180px;
+}
+
+/* line 85, ../sass/screen.scss */
+html.index-bg body {
+  padding: 0;
+}
+
+/* line 89, ../sass/screen.scss */
+.box-sizing, .create-page .wysihtml5-sandbox {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 90, ../sass/screen.scss */
+.box-sizing *, .create-page .wysihtml5-sandbox * {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+/* line 94, ../sass/screen.scss */
+.box-sizing *:after, .create-page .wysihtml5-sandbox *:after, .box-sizing *:before, .create-page .wysihtml5-sandbox *:before {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 105, ../sass/screen.scss */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "museo-slab", "Roboto Slab", serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  margin: 1.5em 0 0.6em 0;
+}
+
+/* line 111, ../sass/screen.scss */
+h1 {
+  font-weight: 100;
+  font-size: 40px;
+}
+
+/* line 112, ../sass/screen.scss */
+h2 {
+  font-weight: 100;
+  font-size: 40px;
+}
+
+/* line 113, ../sass/screen.scss */
+h3 {
+  font-weight: 100;
+  font-size: 25px;
+}
+
+/* line 114, ../sass/screen.scss */
+h4 {
+  font-weight: 700;
+  font-size: 17px;
+}
+
+/* line 115, ../sass/screen.scss */
+h5 {
+  font-weight: 700;
+  font-size: 14;
+}
+
+/* line 119, ../sass/screen.scss */
+.brand, .logo {
+  background: url("../images/jwlogo.svg");
+  -webkit-background-size: 70%;
+  -moz-background-size: 70%;
+  -o-background-size: 70%;
+  background-size: 70%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 144px;
+  height: 60px;
+  padding: 0;
+}
+
+/* line 129, ../sass/screen.scss */
+.logo {
+  -webkit-background-size: contain;
+  -moz-background-size: contain;
+  -o-background-size: contain;
+  background-size: contain;
+}
+
+/* line 133, ../sass/screen.scss */
+body.form .brand, body.form .logo {
+  width: auto;
+  height: auto;
+  background: transparent;
+}
+
+/* line 139, ../sass/screen.scss */
+.hide-text, .profiles .flex-control-nav a {
+  text-indent: 130%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* line 145, ../sass/screen.scss */
+.no-margin {
+  margin: 0;
+}
+
+/* line 149, ../sass/screen.scss */
+.no-margin-top {
+  margin-top: 0;
+}
+
+/* line 155, ../sass/screen.scss */
+.breadcrumb {
+  background: none;
+  border: 1px solid #f5f5f5;
+  border-radius: 0;
+  border-width: 0 0 1px 0;
+}
+/* line 156, ../sass/screen.scss */
+.breadcrumb > li {
+  text-shadow: none;
+}
+/* line 159, ../sass/screen.scss */
+.breadcrumb a:hover {
+  text-decoration: none;
+}
+
+/* line 170, ../sass/screen.scss */
+.calendar-wrap {
+  padding: 0 10px;
+  position: relative;
+}
+/* line 173, ../sass/screen.scss */
+.calendar-wrap .calendar-header {
+  font-size: 1.10em;
+  margin: 0 0 1em 0;
+  width: 100%;
+  text-align: center;
+}
+/* line 178, ../sass/screen.scss */
+.calendar-wrap .calendar-header span {
+  font-family: "museo-slab", "Roboto Slab", serif;
+  font-weight: 800;
+}
+/* line 183, ../sass/screen.scss */
+.calendar-wrap .custom-month {
+  text-align: center;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+}
+/* line 189, ../sass/screen.scss */
+.calendar-wrap .custom-year {
+  position: absolute;
+  top: 0;
+  right: 10px;
+}
+
+/* line 198, ../sass/screen.scss */
+.btn {
+  font-family: "museo-slab", "Roboto Slab", serif;
+}
+
+/* line 204, ../sass/screen.scss */
+footer {
+  clear: both;
+  color: #50616D;
+  padding: 12px 0;
+  background: #dcdcdc;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-family: "museo-slab", "Roboto Slab", serif;
+  font-weight: 500;
+  line-height: 1.6;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  bottom: 0;
+}
+@media (max-width: 480px) {
+  /* line 204, ../sass/screen.scss */
+  footer {
+    position: static;
+  }
+}
+/* line 218, ../sass/screen.scss */
+footer h4 {
+  margin-top: 0;
+}
+/* line 221, ../sass/screen.scss */
+footer a {
+  color: #df520e;
+}
+/* line 224, ../sass/screen.scss */
+footer ul, footer li {
+  list-style-type: none;
+}
+/* line 225, ../sass/screen.scss */
+footer ul {
+  margin: 0 0 0 5px;
+}
+/* line 226, ../sass/screen.scss */
+footer li {
+  display: inline-block;
+}
+/* line 228, ../sass/screen.scss */
+footer li:before {
+  content: "| ";
+  margin-right: 3px;
+}
+/* line 230, ../sass/screen.scss */
+footer .social-icons {
+  font-size: 18px;
+  display: inline-block;
+  vertical-align: top;
+}
+/* line 234, ../sass/screen.scss */
+footer .social-icons a {
+  text-decoration: none;
+}
+/* line 236, ../sass/screen.scss */
+footer .social-icons a i {
+  color: #6badfd;
+  font-size: 24px;
+  margin-right: 4px;
+}
+/* line 238, ../sass/screen.scss */
+footer .social-icons + div {
+  width: 80%;
+  display: inline-block;
+}
+
+/* line 247, ../sass/screen.scss */
+#progress {
+  position: fixed;
+  height: 100px;
+  z-index: 1;
+  width: 100%;
+  top: 40%;
+}
+
+/* line 258, ../sass/screen.scss */
+.form-actions .btn {
+  margin-right: 15px;
+}
+
+/* line 265, ../sass/screen.scss */
+#donate {
+  padding: 10px 15px 10px;
+  margin-top: 0;
+  color: #ffffff;
+  background-color: #f16725;
+  text-shadow: none;
+  font-size: 1em;
+}
+
+/* line 274, ../sass/screen.scss */
+#donate:hover {
+  color: #ffffff;
+  background-color: #df520e;
+}
+
+/* line 281, ../sass/screen.scss */
+.infoBox {
+  box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
+  color: #555;
+}
+/* line 284, ../sass/screen.scss */
+.infoBox:after {
+  content: "";
+  width: 9px;
+  height: 17px;
+  background: #009AE6;
+  border-top: 1px solid #0084C5;
+  border-right: 1px solid #0084C5;
+  position: absolute;
+  bottom: -4px;
+  left: -1px;
+  border-top-right-radius: 11px;
+  border-bottom-right-radius: 5px;
+}
+
+/* line 301, ../sass/screen.scss */
+.notification {
+  background: url("images/festival-bg.png") bottom right no-repeat #35b0d7;
+  color: #fff;
+  box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  z-index: 100;
+  height: 0;
+  -webkit-transition: height 0.7s ease-in-out;
+  -moz-transition: height 0.7s ease-in-out;
+  -o-transition: height 0.7s ease-in-out;
+  transition: height 0.7s ease-in-out;
+}
+/* line 311, ../sass/screen.scss */
+.notification .close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+/* line 316, ../sass/screen.scss */
+.notification.expanded {
+  height: 180px;
+}
+/* line 319, ../sass/screen.scss */
+.notification h4 {
+  margin-bottom: 0;
+  font-size: 18px;
+}
+/* line 323, ../sass/screen.scss */
+.notification .title {
+  font-size: 33px;
+  margin: 0;
+  line-height: 1em;
+  font-weight: 400;
+}
+/* line 329, ../sass/screen.scss */
+.notification .container {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+/* line 333, ../sass/screen.scss */
+.notification.walk-beta {
+  box-shadow: 0 2px 0 #7e29d7;
+  background: #9854df;
+  overflow: hidden;
+  top: 0;
+  -webkit-transition: height 0.7s ease-in-out;
+  -moz-transition: height 0.7s ease-in-out;
+  -o-transition: height 0.7s ease-in-out;
+  transition: height 0.7s ease-in-out;
+}
+/* line 339, ../sass/screen.scss */
+.notification.walk-beta.expanded {
+  height: 64px;
+}
+/* line 342, ../sass/screen.scss */
+.notification.walk-beta .title-sub {
+  font-size: 20px;
+  margin: 0;
+}
+
+/* line 349, ../sass/screen.scss */
+.navbar {
+  font-family: "museo-slab", "Roboto Slab", serif;
+}
+/* line 350, ../sass/screen.scss */
+.navbar + * {
+  padding-top: 60px;
+}
+/* line 353, ../sass/screen.scss */
+.navbar.dropped, .navbar.edit {
+  position: static;
+  margin: 0 0 -60px 0;
+  top: 0;
+}
+/* line 357, ../sass/screen.scss */
+.navbar.dropped .navbar-outer, .navbar.edit .navbar-outer {
+  max-height: 900px;
+}
+/* line 362, ../sass/screen.scss */
+.navbar .nav {
+  font-size: 1em;
+}
+/* line 365, ../sass/screen.scss */
+.navbar .notification {
+  position: absolute;
+  overflow: hidden;
+  background-image: none;
+  top: 61px;
+  box-shadow: 0 2px 0 #7e29d7;
+  background: #9854df;
+}
+/* line 372, ../sass/screen.scss */
+.navbar .notification .container {
+  margin-top: 0.3em;
+  margin-bottom: 0.5em;
+}
+/* line 376, ../sass/screen.scss */
+.navbar .notification .title-sub {
+  font-size: 20px;
+  margin: 0;
+}
+/* line 380, ../sass/screen.scss */
+.navbar .notification.expanded {
+  height: 50px;
+}
+/* line 384, ../sass/screen.scss */
+.navbar .nav-collapse {
+  max-width: 60%;
+}
+/* line 387, ../sass/screen.scss */
+.navbar nav {
+  float: left;
+}
+/* line 390, ../sass/screen.scss */
+.navbar ul.nav.pull-right {
+  float: right;
+}
+/* line 393, ../sass/screen.scss */
+.navbar a {
+  cursor: pointer;
+}
+/* line 396, ../sass/screen.scss */
+.navbar .search-close, .navbar .search-open {
+  /* todo: get rid of all these importants */
+  padding: 10px 12px !important;
+  border-radius: 999px;
+}
+/* line 401, ../sass/screen.scss */
+.navbar .search-close {
+  background: #f16725;
+  text-shadow: none !important;
+  display: none;
+}
+/* line 405, ../sass/screen.scss */
+.navbar .search-close:hover {
+  color: inherit;
+  background: #f16725 !important;
+}
+/* line 409, ../sass/screen.scss */
+.navbar .search-close i {
+  color: #fff;
+}
+/* line 414, ../sass/screen.scss */
+.navbar.dropped .search-close {
+  display: block;
+}
+/* line 415, ../sass/screen.scss */
+.navbar.dropped .search-open {
+  display: none;
+}
+
+/* line 419, ../sass/screen.scss */
+.navbar-outer {
+  background-color: #666666;
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition-duration: 0.6s;
+  -moz-transition-duration: 0.6s;
+  -o-transition-duration: 0.6s;
+  transition-duration: 0.6s;
+}
+/* line 424, ../sass/screen.scss */
+.navbar-outer form {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 25px 0;
+}
+/* line 428, ../sass/screen.scss */
+.navbar-outer form fieldset.search {
+  display: inline-block;
+  margin-right: 50px;
+  vertical-align: top;
+}
+/* line 433, ../sass/screen.scss */
+.navbar-outer form div#searchResults {
+  display: inline-block;
+  max-width: 600px;
+  margin-top: -10px;
+}
+/* line 437, ../sass/screen.scss */
+.navbar-outer form div#searchResults mark {
+  color: inherit;
+  background-color: inherit;
+  border-bottom: 1px dotted;
+}
+/* line 442, ../sass/screen.scss */
+.navbar-outer form div#searchResults h4, .navbar-outer form div#searchResults p {
+  margin: 0;
+  padding: 0 0 8px 0;
+}
+/* line 446, ../sass/screen.scss */
+.navbar-outer form div#searchResults .searchResult {
+  margin: 0;
+  padding: 8px 8px 0 8px;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+/* line 450, ../sass/screen.scss */
+.navbar-outer form div#searchResults .searchResult:hover {
+  background: #333;
+}
+/* line 454, ../sass/screen.scss */
+.navbar-outer form div#searchResults a {
+  color: #efefef;
+}
+/* line 456, ../sass/screen.scss */
+.navbar-outer form div#searchResults a:hover {
+  text-decoration: none;
+}
+
+/* line 468, ../sass/screen.scss */
+fieldset.search input[type=text] {
+  width: 280px;
+  font-size: 14px;
+  padding: 10px;
+  margin: 0;
+  line-height: 1.5;
+  font-family: "museo-slab", "Roboto Slab", serif;
+  border: 1px solid #b4b4b4;
+  border-radius: 8px 0 0 8px;
+  height: 21px;
+  line-height: 24px;
+}
+/* line 470, ../sass/screen.scss */
+fieldset.search input[type=submit] {
+  font-family: "museo-slab", "Roboto Slab", serif;
+  font-size: 18px;
+  height: 43px;
+  border: 1px solid #b4b4b4;
+  border-left: none;
+  background: #efefef;
+  font-weight: 300;
+  color: #555;
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+  padding: 0 15px;
+  line-height: 24px;
+  vertical-align: top;
+}
+/* line 471, ../sass/screen.scss */
+fieldset.search input[type=checkbox] {
+  display: none;
+}
+
+/* line 476, ../sass/screen.scss */
+.walk-label {
+  font-family: "museo-slab", "Roboto Slab", serif;
+  padding: 5px 8px;
+  color: #fff;
+  background: #F2C50F;
+  display: inline-block;
+  float: left;
+  margin-right: 30px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* line 489, ../sass/screen.scss */
+.blog {
+  color: #666666;
+}
+
+/* line 494, ../sass/screen.scss */
+.error404 {
+  padding-top: 0;
+  background: #ebeef1;
+}
+/* line 497, ../sass/screen.scss */
+.error404 .container-outter {
+  padding: 150px 0;
+  color: #50616D;
+  text-align: center;
+  background: #fff;
+}
+/* line 504, ../sass/screen.scss */
+.error404 .navbar_home {
+  margin-top: 2em;
+}
+
+/* line 511, ../sass/screen.scss */
+.reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
+  text-align: center;
+}
+/* line 514, ../sass/screen.scss */
+.reg-confirmation footer, .reg-confirmation-congested footer {
+  display: none;
+}
+
+/* line 519, ../sass/screen.scss */
+.inline.tags .tag i[class^=icon-] {
+  width: 100%;
+  display: block;
+  text-align: center;
+  line-height: 20px;
+}
+
+/* line 526, ../sass/screen.scss */
+#ccm-profile-wrapper {
+  padding-bottom: 25px;
 }
