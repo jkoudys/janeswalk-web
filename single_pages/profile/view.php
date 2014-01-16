@@ -4,18 +4,18 @@ global $u;
 Loader::model('page_list'); 
 ?>
 <script>
-  $(document).ready(function() {
-    $("a.delete").click(function(event) {
-      event.preventDefault();
-      var cid = $(this).data("cid");
-      var url = $(this).attr("href");
-      $.ajax({
-        type: "DELETE",
+$(document).ready(function() {
+  $("a.delete").click(function(event) {
+    event.preventDefault();
+    var cid = $(this).data("cid");
+    var url = $(this).attr("href");
+    $.ajax({
+      type: "DELETE",
         url: url,
         success: function() { location.reload(); }
-      });
     });
   });
+});
 </script>
 <div id="ccm-profile-wrapper">
   <?php Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
@@ -42,7 +42,7 @@ Loader::model('page_list');
         $cities->sortByName();
         foreach($cities->get() as $city) {
         ?>
-          <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
+        <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
         <?php } ?>
       </select> 
       <input type="submit" value="Go!">
@@ -56,7 +56,7 @@ Loader::model('page_list');
       $pl->filterByUserID($u->getUserID());
       $pl->filterByAttribute('exclude_page_list',false);
       foreach($pl->get() as $page) {
-        echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a><a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'><i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
+        echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a><a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'> <i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
       }
       ?>
     </ul>
@@ -73,14 +73,14 @@ Loader::model('page_list');
       <?php
       foreach($inprogressPages as $page) {
         $latest = Page::getByID($page->getCollectionID());
-        echo "<li>{$latest->getCollectionName()} [ <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'>edit</a> ]</li>";
+        echo "<li>{$latest->getCollectionName()} <a href='{$nh->getCollectionURL($pageEdit)}?load={$page->getCollectionPath()}'><i class='icon-edit'></i></a></li>";
       } ?>
     </ul>
     <?php }
     $a = new Area('Main'); 
     $a->setAttribute('profile', $profile); 
     $a->setBlockWrapperStart('<div class="ccm-profile-body-item">');
-      $a->setBlockWrapperEnd('</div>');
+    $a->setBlockWrapperEnd('</div>');
     $a->display($c); 
     ?>
   </div>

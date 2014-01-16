@@ -9584,6 +9584,10 @@ footer .social-icons + div {
   max-height: 900px;
 }
 /* line 353, ../sass/screen.scss */
+.navbar .nav {
+  font-size: 1em;
+}
+/* line 356, ../sass/screen.scss */
 .navbar .notification {
   position: absolute;
   overflow: hidden;
@@ -9592,64 +9596,64 @@ footer .social-icons + div {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-/* line 360, ../sass/screen.scss */
+/* line 363, ../sass/screen.scss */
 .navbar .notification .container {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-/* line 364, ../sass/screen.scss */
+/* line 367, ../sass/screen.scss */
 .navbar .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-/* line 368, ../sass/screen.scss */
+/* line 371, ../sass/screen.scss */
 .navbar .notification.expanded {
   height: 50px;
 }
-/* line 372, ../sass/screen.scss */
+/* line 375, ../sass/screen.scss */
 .navbar .nav-collapse {
   max-width: 60%;
 }
-/* line 375, ../sass/screen.scss */
+/* line 378, ../sass/screen.scss */
 .navbar nav {
   float: left;
 }
-/* line 378, ../sass/screen.scss */
+/* line 381, ../sass/screen.scss */
 .navbar ul.nav.pull-right {
   float: right;
 }
-/* line 381, ../sass/screen.scss */
+/* line 384, ../sass/screen.scss */
 .navbar a {
   cursor: pointer;
 }
-/* line 384, ../sass/screen.scss */
+/* line 387, ../sass/screen.scss */
 .navbar .search-close, .navbar .search-open {
   /* todo: get rid of all these importants */
   padding: 10px 12px !important;
   border-radius: 999px;
 }
-/* line 389, ../sass/screen.scss */
+/* line 392, ../sass/screen.scss */
 .navbar .search-close {
   background: #f16725;
   color: #000;
   text-shadow: none !important;
   display: none;
 }
-/* line 394, ../sass/screen.scss */
+/* line 397, ../sass/screen.scss */
 .navbar .search-close:hover {
   color: inherit;
   background: #f16725 !important;
 }
-/* line 400, ../sass/screen.scss */
+/* line 403, ../sass/screen.scss */
 .navbar.dropped .search-close {
   display: block;
 }
-/* line 401, ../sass/screen.scss */
+/* line 404, ../sass/screen.scss */
 .navbar.dropped .search-open {
   display: none;
 }
 
-/* line 405, ../sass/screen.scss */
+/* line 408, ../sass/screen.scss */
 .navbar-outer {
   background-color: #666666;
   max-height: 0;
@@ -9659,36 +9663,36 @@ footer .social-icons + div {
   -o-transition-duration: 0.6s;
   transition-duration: 0.6s;
 }
-/* line 410, ../sass/screen.scss */
+/* line 413, ../sass/screen.scss */
 .navbar-outer form {
   max-width: 1170px;
   margin: 0 auto;
   padding: 25px 0;
 }
-/* line 414, ../sass/screen.scss */
+/* line 417, ../sass/screen.scss */
 .navbar-outer form fieldset.search {
   display: inline-block;
   margin-right: 50px;
   vertical-align: top;
 }
-/* line 419, ../sass/screen.scss */
+/* line 422, ../sass/screen.scss */
 .navbar-outer form div#searchResults {
   display: inline-block;
   max-width: 600px;
   margin-top: -10px;
 }
-/* line 423, ../sass/screen.scss */
+/* line 426, ../sass/screen.scss */
 .navbar-outer form div#searchResults mark {
   color: inherit;
   background-color: inherit;
   border-bottom: 1px dotted;
 }
-/* line 428, ../sass/screen.scss */
+/* line 431, ../sass/screen.scss */
 .navbar-outer form div#searchResults h4, .navbar-outer form div#searchResults p {
   margin: 0;
   padding: 0 0 8px 0;
 }
-/* line 432, ../sass/screen.scss */
+/* line 435, ../sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult {
   margin: 0;
   padding: 8px 8px 0 8px;
@@ -9697,20 +9701,20 @@ footer .social-icons + div {
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-/* line 436, ../sass/screen.scss */
+/* line 439, ../sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult:hover {
   background: #333;
 }
-/* line 440, ../sass/screen.scss */
+/* line 443, ../sass/screen.scss */
 .navbar-outer form div#searchResults a {
   color: #efefef;
 }
-/* line 442, ../sass/screen.scss */
+/* line 445, ../sass/screen.scss */
 .navbar-outer form div#searchResults a:hover {
   text-decoration: none;
 }
 
-/* line 454, ../sass/screen.scss */
+/* line 457, ../sass/screen.scss */
 fieldset.search input[type=text] {
   width: 280px;
   font-size: 18px;
@@ -9723,7 +9727,7 @@ fieldset.search input[type=text] {
   height: 21px;
   line-height: 24px;
 }
-/* line 456, ../sass/screen.scss */
+/* line 459, ../sass/screen.scss */
 fieldset.search input[type=submit] {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-size: 18px;
@@ -9739,12 +9743,12 @@ fieldset.search input[type=submit] {
   line-height: 24px;
   vertical-align: top;
 }
-/* line 457, ../sass/screen.scss */
+/* line 460, ../sass/screen.scss */
 fieldset.search input[type=checkbox] {
   display: none;
 }
 
-/* line 462, ../sass/screen.scss */
+/* line 465, ../sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -9757,38 +9761,38 @@ fieldset.search input[type=checkbox] {
   font-size: 14px;
 }
 
-/* line 475, ../sass/screen.scss */
+/* line 478, ../sass/screen.scss */
 .blog {
   color: #666666;
 }
 
-/* line 480, ../sass/screen.scss */
+/* line 483, ../sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 483, ../sass/screen.scss */
+/* line 486, ../sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 490, ../sass/screen.scss */
+/* line 493, ../sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 497, ../sass/screen.scss */
+/* line 500, ../sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 500, ../sass/screen.scss */
+/* line 503, ../sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 505, ../sass/screen.scss */
+/* line 508, ../sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -9796,7 +9800,7 @@ fieldset.search input[type=checkbox] {
   line-height: 20px;
 }
 
-/* line 512, ../sass/screen.scss */
+/* line 515, ../sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }

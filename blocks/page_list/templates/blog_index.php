@@ -31,9 +31,9 @@ $dh = Loader::helper('date');
           $sxml = new SimpleXMLElement("<html></html>");
           $blocks = $page->getBlocks("Main");
           if($blocks) {
-          $article = $blocks[0]->getInstance();
-          $article->export($sxml);
-          echo $sxml;
+            $article = $blocks[0]->getInstance();
+            $article->export($sxml);
+            echo $sxml;
           }
           ?>
           <?=$description?>&nbsp;<a href="<?=$url?>" target="<?=$target?>">[...]</a>
