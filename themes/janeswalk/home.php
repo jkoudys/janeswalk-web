@@ -14,6 +14,9 @@ global $u; global $cp;
   <div class="intro full">
     <div class="callouts">
       <blockquote class="homepage-callout2">
+        <!--
+          Oliver
+        -->
         <?php (new Area('Intro'))->display($c); ?>
       </blockquote> 
     </div>
