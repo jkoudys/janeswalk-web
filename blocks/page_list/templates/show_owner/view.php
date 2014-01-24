@@ -18,8 +18,8 @@ $ih = Loader::helper('image'); //<--uncomment this line if displaying image attr
     if($page_owner->getUserID() > 1 && $page_owner->getUserID() != 103 && $page_owner->getAttribute('first_name')) {
     ?>
       <section class="city-organizer">
-        <h3><a href="<?=$nh->getLinkToCollection($page)?>"><?=$city->getCollectionName()?></a></h3>
-        <a href="<?=$nh->getLinkToCollection($page)?>">
+        <h3><a href="<?=$nh->getLinkToCollection($city)?>"><?=$city->getCollectionName()?></a></h3>
+        <a href="<?=$nh->getLinkToCollection($city)?>">
           <?php if($avatar = $av->getImagePath($page_owner)) { ?>
             <div class='u-avatar' style='background-image:url(<?=$avatar?>)'></div> 
           <?php } else { ?>
