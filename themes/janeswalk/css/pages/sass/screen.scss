@@ -28,7 +28,7 @@ $mainWidth: 1170px;
 @import "mailchimp";
 
 html {
-  @media (min-width: $media_mobile) { padding-bottom:72px; }
+  @media (min-width: $media_mobile) { padding-bottom:111px; } /* Pad for the fixed-footer */
 }
 body {
   @media (max-width: $media_full) {
