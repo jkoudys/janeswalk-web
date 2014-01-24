@@ -117,7 +117,8 @@ h5 { font-weight:700; font-size:14; }
 // Logo
 
 .brand {
-  background: url("../images/jwlogo.svg");
+  background: url("../../../images/jwlogo.svg");
+  
   @include background-size(70%);
   background-position: center center;
   background-repeat: no-repeat;
@@ -528,4 +529,25 @@ fieldset.search {
   padding-bottom:25px;
 }
 
+
+
+/* onassar */
+.navbar {
+  &+* {
+    padding-top: 72px;
+
+    @media (max-width: 979px) {
+      padding-top: 0;
+    }
+  }
+}
+
+header.navbar {
+  div.navbar-inner {
+    div.container {
+      height: 60px;
+      overflow: hidden;
+    }
+  }
+}
 
