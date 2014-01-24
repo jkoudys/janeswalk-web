@@ -330,7 +330,7 @@
         top: 10px;
         width: 16px;
         height: 16px;
-        @include background(image-url("speech-bubble.w.svg") no-repeat);
+        // @include background(image-url("speech-bubble.w.svg") no-repeat);
         @include background-size(contain);
       }
     }
@@ -679,3 +679,4 @@
     margin-bottom: 2em;
   }
 }
+
