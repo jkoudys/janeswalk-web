@@ -545,10 +545,10 @@ textarea {
 
 @media print {
   * {
-    color: black !important;
-    text-shadow: none !important;
-    background: transparent !important;
-    box-shadow: none !important; }
+    color: #000!important;
+    text-shadow: none!important;
+    background: transparent!important;
+    box-shadow: none!important; }
 
   a, a:visited {
     text-decoration: underline; }
@@ -573,7 +573,7 @@ textarea {
     page-break-inside: avoid; }
 
   img {
-    max-width: 100% !important; }
+    max-width: 100%!important; }
 
   @page {
     margin: .5cm; }
@@ -5526,7 +5526,7 @@ p {
   line-height: 1.4em; }
 
 .index-bg {
-  background: url("img/intro-bg.jpg") center center fixed;
+  background: url("../img/intro-bg.jpg") center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -5686,12 +5686,14 @@ h2, h3, h4, h5, h6 {
     background: #0675fc; }
 .navbar-inverse .navbar-link {
   color: #fff; }
+.navbar-inverse .icon-map-marker {
+  background-image: none; }
 .navbar-inverse .icon-map-marker:before {
   content: '';
   display: inline-block;
   width: 25px;
   height: 25px;
-  background: url("img/convo-marker.svg") no-repeat center center;
+  background: url("../img/convo-marker.svg") no-repeat center center;
   background-size: contain; }
 
 label {
@@ -5838,28 +5840,28 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     box-shadow: inset 0 0 0 2px rgba(241, 103, 37, 0.5); }
 
 #new-walkleader.new-member {
-  background: url("img/walk-leader.png") 50% 15% no-repeat; }
+  background: url("../img/walk-leader.png") 50% 15% no-repeat; }
 
 #new-walkorganizer.new-member {
-  background: url("img/walk-organizer.png") 50% 15% no-repeat; }
+  background: url("../img/walk-organizer.png") 50% 15% no-repeat; }
 
 #new-communityvoice.new-member {
-  background: url("img/community-voice.png") 50% 15% no-repeat; }
+  background: url("../img/community-voice.png") 50% 15% no-repeat; }
 
 #new-othermember.new-member {
-  background: url("img/volunteers.png") 50% 15% no-repeat; }
+  background: url("../img/volunteers.png") 50% 15% no-repeat; }
 
 #new-walkleader.new-member:hover {
-  background: url("img/walk-leader-hover.png") 50% 15% no-repeat; }
+  background: url("../img/walk-leader-hover.png") 50% 15% no-repeat; }
 
 #new-walkorganizer.new-member:hover {
-  background: url("img/walk-organizer-hover.png") 50% 15% no-repeat; }
+  background: url("../img/walk-organizer-hover.png") 50% 15% no-repeat; }
 
 #new-communityvoice.new-member:hover {
-  background: url("img/community-voice-hover.png") 50% 15% no-repeat; }
+  background: url("../img/community-voice-hover.png") 50% 15% no-repeat; }
 
 #new-othermember.new-member:hover {
-  background: url("img/volunteers-hover.png") 50% 15% no-repeat; }
+  background: url("../img/volunteers-hover.png") 50% 15% no-repeat; }
 
 .team-set {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -5934,20 +5936,21 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
         margin-right: 10px;
         width: 18px;
         color: #FF820F;
-        display: inline-block; }
+        display: inline-block;
+        background-image: none; }
         #progress-panel .nav-tabs a > i.icon-map-marker:before {
           content: '';
-          background: url("img/marker.svg") no-repeat;
+          background: url("../img/marker.svg") no-repeat;
           width: 18px;
           height: 18px; }
         #progress-panel .nav-tabs a > i.icon-list-ol:before {
           content: '';
-          background: url("img/clipboard.svg") no-repeat;
+          background: url("../img/clipboard.svg") no-repeat;
           width: 18px;
           height: 18px; }
         #progress-panel .nav-tabs a > i.icon-flag:before {
           content: '';
-          background: url("img/flag.svg") no-repeat;
+          background: url("../img/flag.svg") no-repeat;
           width: 18px;
           height: 18px; }
   #progress-panel #button-group {
@@ -5979,7 +5982,7 @@ label {
   content: '';
   height: 100%;
   width: 22.404255%;
-  background: url("img/intro-bg-tips.jpg") no-repeat;
+  background: url("../img/intro-bg-tips.jpg") no-repeat;
   z-index: 1;
   display: block;
   top: 0;
@@ -6040,7 +6043,8 @@ label {
       color: #fff;
       position: relative; }
       #tips-panel .popover .popover-title i {
-        margin-right: 4px; }
+        margin-right: 4px;
+        background-image: none; }
     #tips-panel .popover.right .arrow {
       display: none;
       border-right-color: rgba(0, 0, 0, 0.1); }
@@ -6210,21 +6214,21 @@ label {
   content: '';
   width: 18px;
   height: 18px;
-  background: url("img/route.svg") no-repeat center center;
+  background: url("../img/route.svg") no-repeat center center;
   background-size: contain; }
 
 .icon-map-marker-jw:before {
   content: '';
   width: 18px;
   height: 18px;
-  background: url("img/marker-jw.svg") no-repeat center center;
+  background: url("../img/marker-jw.svg") no-repeat center center;
   background-size: contain; }
 
 .icon-flag-jw:before {
   content: '';
   width: 18px;
   height: 18px;
-  background: url("img/flag-jw.svg") no-repeat center center;
+  background: url("../img/flag-jw.svg") no-repeat center center;
   background-size: contain; }
 
 /* ==========================================================================
@@ -6253,10 +6257,16 @@ label {
 
 /* Navbar */
 header.navbar .brand {
-  background: url(img/jwlogo.svg); }
+  background: url(../img/jwlogo.svg); }
 
 html.index-bg header.navbar {
   display: none; }
 
 body.form .navbar-inner div.container {
   display: none; }
+
+/* onassar: January 24 */
+.wysihtml5-toolbar i[class^=icon-],
+#map-control-bar i[class^=icon-],
+#remove-date i[class^=icon-] {
+  background-image: none; }
