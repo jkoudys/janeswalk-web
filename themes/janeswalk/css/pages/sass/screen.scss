@@ -533,8 +533,7 @@ fieldset.search {
 /* onassar */
 .navbar {
   &+* {
-    padding-top: 72px;
-
+    padding-top: 60px;
     @media (max-width: 979px) {
       padding-top: 0;
     }

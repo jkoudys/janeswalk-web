@@ -11910,7 +11910,7 @@ fieldset.search input[type=checkbox] {
 /* onassar */
 /* line 535, ../sass/screen.scss */
 .navbar + * {
-  padding-top: 72px;
+  padding-top: 60px;
 }
 @media (max-width: 979px) {
   /* line 535, ../sass/screen.scss */
@@ -11919,7 +11919,7 @@ fieldset.search input[type=checkbox] {
   }
 }
 
-/* line 546, ../sass/screen.scss */
+/* line 545, ../sass/screen.scss */
 header.navbar div.navbar-inner div.container {
   height: 60px;
   overflow: hidden;
