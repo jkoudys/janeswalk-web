@@ -11239,10 +11239,14 @@ ul.ccm-staff-list:before, ul.ccm-staff-list li:before {
   content: "" !important;
 }
 /* line 146, ../sass/view.scss */
+ul.ccm-staff-list li {
+  margin-bottom: 20px;
+}
+/* line 147, ../sass/view.scss */
 ul.ccm-staff-list h3 {
   margin: 0;
 }
-/* line 149, ../sass/view.scss */
+/* line 150, ../sass/view.scss */
 ul.ccm-staff-list .u-avatar {
   height: 80px;
   width: 80px;
@@ -11250,24 +11254,24 @@ ul.ccm-staff-list .u-avatar {
   margin-right: 15px;
   background-size: cover;
 }
-/* line 151, ../sass/view.scss */
+/* line 152, ../sass/view.scss */
 ul.ccm-staff-list .u-avatar.placeholder0 {
   background-color: #f16725;
 }
-/* line 152, ../sass/view.scss */
+/* line 153, ../sass/view.scss */
 ul.ccm-staff-list .u-avatar.placeholder1 {
   background-color: #6badfd;
 }
-/* line 153, ../sass/view.scss */
+/* line 154, ../sass/view.scss */
 ul.ccm-staff-list .u-avatar.placeholder2 {
   background-color: #666666;
 }
-/* line 155, ../sass/view.scss */
+/* line 156, ../sass/view.scss */
 ul.ccm-staff-list .u-avatar, ul.ccm-staff-list .ccm-staff-list-details {
   display: inline-block;
   vertical-align: top;
 }
-/* line 159, ../sass/view.scss */
+/* line 160, ../sass/view.scss */
 ul.ccm-staff-list .ccm-staff-list-details {
   width: 85%;
 }

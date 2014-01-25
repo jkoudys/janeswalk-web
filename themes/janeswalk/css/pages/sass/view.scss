@@ -143,6 +143,7 @@ body.site-page {
 ul.ccm-staff-list {
   margin-left:0 !important; /*todo: get rid of this important*/
   &,li { list-style-type:none; &:before{content:"" !important;} }
+  li { margin-bottom:20px; }
   h3 {
     margin:0;
   }
