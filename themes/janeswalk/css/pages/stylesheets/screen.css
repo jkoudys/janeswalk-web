@@ -11225,6 +11225,35 @@ body.site-page #ccm-profile-body ul.walks li i {
   margin-bottom: 30px;
 }
 
+/* line 143, ../sass/view.scss */
+ul.ccm-staff-list {
+  margin-left: 0 !important;
+  /*todo: get rid of this important*/
+}
+/* line 145, ../sass/view.scss */
+ul.ccm-staff-list, ul.ccm-staff-list li {
+  list-style-type: none;
+}
+/* line 145, ../sass/view.scss */
+ul.ccm-staff-list:before, ul.ccm-staff-list li:before {
+  content: "" !important;
+}
+/* line 146, ../sass/view.scss */
+ul.ccm-staff-list h3 {
+  margin: 0;
+}
+/* line 149, ../sass/view.scss */
+ul.ccm-staff-list .u-avatar {
+  height: 80px;
+  width: 80px;
+  border-radius: 999px;
+  margin-right: 10px;
+}
+/* line 152, ../sass/view.scss */
+ul.ccm-staff-list .u-avatar, ul.ccm-staff-list .ccm-staff-list-details {
+  display: inline-block;
+}
+
 /* line 3, ../sass/mailchimp.scss */
 #mc_embed_signup li:before {
   content: "" !important;
