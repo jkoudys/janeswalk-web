@@ -11248,6 +11248,7 @@ ul.ccm-staff-list .u-avatar {
   width: 80px;
   border-radius: 999px;
   margin-right: 10px;
+  background-size: cover;
 }
 /* line 151, ../sass/view.scss */
 ul.ccm-staff-list .u-avatar.placeholder0 {
