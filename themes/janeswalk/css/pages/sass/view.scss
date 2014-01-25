@@ -148,9 +148,13 @@ ul.ccm-staff-list {
   }
   .u-avatar {
     height:80px;width:80px;border-radius:999px; margin-right:10px;
+    &.placeholder0 { background-color:$orange; }
+    &.placeholder1 { background-color:$blue; }
+    &.placeholder2 { background-color:$darkgrey; }
   }
   .u-avatar, .ccm-staff-list-details {
     display:inline-block;
+    vertical-align:top;
   }
 }
 

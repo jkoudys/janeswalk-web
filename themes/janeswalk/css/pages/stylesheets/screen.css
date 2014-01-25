@@ -11249,9 +11249,22 @@ ul.ccm-staff-list .u-avatar {
   border-radius: 999px;
   margin-right: 10px;
 }
+/* line 151, ../sass/view.scss */
+ul.ccm-staff-list .u-avatar.placeholder0 {
+  background-color: #f16725;
+}
 /* line 152, ../sass/view.scss */
+ul.ccm-staff-list .u-avatar.placeholder1 {
+  background-color: #6badfd;
+}
+/* line 153, ../sass/view.scss */
+ul.ccm-staff-list .u-avatar.placeholder2 {
+  background-color: #666666;
+}
+/* line 155, ../sass/view.scss */
 ul.ccm-staff-list .u-avatar, ul.ccm-staff-list .ccm-staff-list-details {
   display: inline-block;
+  vertical-align: top;
 }
 
 /* line 3, ../sass/mailchimp.scss */
