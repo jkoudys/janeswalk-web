@@ -11229,7 +11229,6 @@ body.site-page #ccm-profile-body ul.walks li i {
 ul.ccm-staff-list {
   margin-left: 0 !important;
   /*todo: get rid of this important*/
-  .ccm-staff-list-details: 85%;
 }
 /* line 145, ../sass/view.scss */
 ul.ccm-staff-list, ul.ccm-staff-list li {
@@ -11267,6 +11266,10 @@ ul.ccm-staff-list .u-avatar.placeholder2 {
 ul.ccm-staff-list .u-avatar, ul.ccm-staff-list .ccm-staff-list-details {
   display: inline-block;
   vertical-align: top;
+}
+/* line 159, ../sass/view.scss */
+ul.ccm-staff-list .ccm-staff-list-details {
+  width: 85%;
 }
 
 /* line 3, ../sass/mailchimp.scss */
