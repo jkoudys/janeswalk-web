@@ -1,27 +1,48 @@
 /*
-Syntax error: Invalid CSS after "...n-bottom:20px; ": expected "}", was "!important }"
-        on line 146 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss
+Syntax error: Undefined variable: "$orange".
+        on line 4 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss
+
+1: /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss
 
 Backtrace:
-/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss:146
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:1146:in `expected'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:1084:in `expected'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:1079:in `tok!'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:535:in `block'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:528:in `ruleset'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:590:in `block in declaration_or_ruleset'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:1122:in `call'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:1122:in `rethrow'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:591:in `declaration_or_ruleset'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:553:in `block_child'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:545:in `block_contents'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:534:in `block'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:528:in `ruleset'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:552:in `block_child'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:545:in `block_contents'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:82:in `stylesheet'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/scss/parser.rb:27:in `parse'
-/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/engine.rb:342:in `_to_tree'
+/home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss:4
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/script/variable.rb:49:in `_perform'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/script/node.rb:40:in `perform'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:298:in `visit_prop'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:320:in `visit_rule'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `map'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:109:in `block in visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:121:in `with_environment'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:108:in `visit_children'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:128:in `visit_root'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/base.rb:37:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:100:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/tree/root_node.rb:20:in `render'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/engine.rb:315:in `_render'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/sass-3.2.12/lib/sass/engine.rb:262:in `render'
 /home/jkoudys/.rvm/gems/ruby-2.0.0-p353@janeswalk/gems/compass-0.12.2/lib/compass/compiler.rb:140:in `block (2 levels) in compile'
@@ -51,4 +72,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Invalid CSS after \"...n-bottom:20px; \": expected \"}\", was \"!important }\"\A         on line 146 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss"; }
+  content: "Syntax error: Undefined variable: \"$orange\".\A         on line 4 of /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss\A \A 1: /home/jkoudys/Work/janeswalk_yearround/themes/janeswalk/css/pages/sass/view.scss"; }
