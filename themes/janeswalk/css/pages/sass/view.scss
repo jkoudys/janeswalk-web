@@ -141,9 +141,9 @@ body.site-page {
 #central { margin-bottom:30px; }
 
 ul.ccm-staff-list {
-  margin-left:0 !important; /*todo: get rid of this important*/
+  margin-left:0 !important; /*todo: get rid of these importants */
   &,li { list-style-type:none; &:before{content:"" !important;} }
-  li { margin-bottom:20px; }
+  li { margin-bottom:20px; !important }
   h3 {
     margin:0;
   }
