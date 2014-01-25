@@ -11229,6 +11229,7 @@ body.site-page #ccm-profile-body ul.walks li i {
 ul.ccm-staff-list {
   margin-left: 0 !important;
   /*todo: get rid of this important*/
+  .ccm-staff-list-details: 85%;
 }
 /* line 145, ../sass/view.scss */
 ul.ccm-staff-list, ul.ccm-staff-list li {
@@ -11247,7 +11248,7 @@ ul.ccm-staff-list .u-avatar {
   height: 80px;
   width: 80px;
   border-radius: 999px;
-  margin-right: 10px;
+  margin-right: 15px;
   background-size: cover;
 }
 /* line 151, ../sass/view.scss */
