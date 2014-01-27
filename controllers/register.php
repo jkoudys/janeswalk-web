@@ -248,4 +248,10 @@ class RegisterController extends Concrete5_Controller_Register {
       die;
     }		
   }	
+  public function getRegisterSuccessValidateMsgs(){
+    $msgs=array();
+    $msgs[]= t('Awesome! Welcome to Jane\'s Walk. We\'re looking forward to seeing what kind of conversation you plan to stir up with your walk.');
+    $msgs[]= t('Check your email for a little note from us, and then you\'re all set to sign in.');
+    return $msgs;
+  }
 }

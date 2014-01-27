@@ -36,20 +36,20 @@
         case "registered": 
         ?>
         <p><strong><?php echo $successMsg ?></strong><br/><br/>
-        <a href="<?php echo $this->url('/')?>"><?php echo t('Return to Home')?></a></p>
+        <a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
         <?php  
         break;
         case "validate": 
         ?>
         <p><?php echo $successMsg[0] ?></p>
         <p><?php echo $successMsg[1] ?></p>
-        <p><a href="<?php echo $this->url('/')?>"><?php echo t('Return to Home')?></a></p>
+        <p><a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
         <?php 
         break;
         case "pending":
         ?>
         <p><?php echo $successMsg ?></p>
-        <p><a href="<?php echo $this->url('/')?>"><?php echo t('Return to Home')?></a></p>
+        <p><a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
         <?php 
         break;
         } ?>
