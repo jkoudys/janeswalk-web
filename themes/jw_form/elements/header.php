@@ -1,11 +1,14 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php  defined('C5_EXECUTE') or die("Access Denied."); 
+global $u;
+?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
-  
+<!--[if gt IE 8]><!--> 
+<html class="no-js"> <!--<![endif]-->
+  <head>
+
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +19,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="<?php echo $this->getThemePath();?>/js/main.js" type="text/javascript"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
- 
+
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" media="screen" type="text/css" href="<?=$this->getStyleSheet('colorbox/colorbox.css')?>" />
@@ -25,4 +28,6 @@
 
     <!--<link rel="stylesheet" href="<?=$this->getThemePath()?>/css/screen.css">-->
     <link href="<?=$this->getThemePath()?>/css/main.css" media="screen" rel="stylesheet" type="text/css" />
-</head>
+  </head>
+
+  <body class="site-page form <?=($u->isLoggedIn() || $c->isEditMode()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) {  echo "style='background-image:url(" . $fullbg->getURL() . ")'"; } ?>>
