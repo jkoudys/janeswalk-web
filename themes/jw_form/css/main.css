@@ -1,5 +1,4 @@
-@charset "UTF-8";
-/*! normalize.css v1.0.1 | MIT License | git.io/normalize */
+/* normalize.css v1.0.1 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -428,7 +427,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/*!
+/*
  * Bootstrap v2.3.2
  *
  * Copyright 2012 Twitter, Inc
@@ -545,10 +544,10 @@ textarea {
 
 @media print {
   * {
-    color: #000!important;
-    text-shadow: none!important;
-    background: transparent!important;
-    box-shadow: none!important; }
+    color: black !important;
+    text-shadow: none !important;
+    background: transparent !important;
+    box-shadow: none !important; }
 
   a, a:visited {
     text-decoration: underline; }
@@ -573,7 +572,7 @@ textarea {
     page-break-inside: avoid; }
 
   img {
-    max-width: 100%!important; }
+    max-width: 100% !important; }
 
   @page {
     margin: .5cm; }
@@ -5024,7 +5023,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="blue"] {
 ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   background: orange !important; }
 
-/*!
+/*
  * Datepicker for Bootstrap
  *
  * Copyright 2012 Stefan Petre
@@ -5307,7 +5306,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   width: 16px;
   height: 16px; }
 
-/*!
+/*
  * Bootstrap v2.3.1-j6
  *
  * Copyright 2012 Twitter, Inc

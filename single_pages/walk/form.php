@@ -14,10 +14,10 @@ Also, this would probably make more sense inside a controller class than in this
 $load = $_REQUEST['load'];
 $c = Page::getByPath($load);
 if(empty($load)) {
-$city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath("/canada/toronto")));
-$newPage = $city->add(CollectionType::getByHandle("walk"),[]);  
-$newPage->setAttribute('exclude_page_list',true);
-$c = $newPage;
+  $city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath("/canada/toronto")));
+  $newPage = $city->add(CollectionType::getByHandle("walk"),[]);  
+  $newPage->setAttribute('exclude_page_list',true);
+  $c = $newPage;
 }
 !$city && $city = Page::getByID($c->getCollectionParentID());
 $country = Page::getByID($city->getCollectionParentID());
@@ -42,7 +42,7 @@ $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
       <div id="progress-panel">
         <div class="tabbable tabs-left">
           <ul class="nav nav-tabs">
-            <li  class="active"><a data-toggle="tab" class="description" href="#description"><i class="icon-list-ol"></i> Describe Your Walk</a></li>
+            <li class="active"><a data-toggle="tab" class="description" href="#description"><i class="icon-list-ol"></i> Describe Your Walk</a></li>
             <li ><a data-toggle="tab" class="route" href="#route"><i class="icon-map-marker"></i> Share Your Route</a></li>
             <li ><a data-toggle="tab" class="time-and-date" href="#time-and-date"><i class="icon-calendar"></i> Set the Time & Date</a></li>
             <li ><a data-toggle="tab" class="accessibility" href="#accessibility"><i class="icon-flag"></i> Make it Accessible</a></li>
