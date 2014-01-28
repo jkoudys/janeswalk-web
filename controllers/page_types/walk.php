@@ -76,14 +76,14 @@
       $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
       /* Check if we're making a new event or not */
       $eid = $c->getAttribute("eventbrite");
-      $event_params = array(
+      $event_params = [ 
           'title' => $c->getCollectionName(),
           'description' => $c->getAttribute("longdescription"),
           'privacy' => '1',
           'start_date' => date('Y-m-d H:i:s', time()),
           'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) ),
-          'confirmation_page' => 'http://janeswalk.tv/confirmation.html?eid=$event_id&amp;attid=$attendee_id&amp;oid=$order_id'
-      );
+          'confirmation_page' => 'http://janeswalk.org/donate'
+      ];
       if(isset($status)) {
         $event_params['status'] = $status;
       }
