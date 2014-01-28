@@ -36,7 +36,8 @@
         // Retrieve the page's json
         case 'GET':
           if($_REQUEST['format'] == 'json') {
-            $this->getJson();
+            header('Content-Type: application/json');
+            echo $this->getJson();
             exit;
           }
           if($_REQUEST['format'] == 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],"Kml-Google")) {
@@ -168,7 +169,7 @@
             $walkData['checkboxes'][$akHandle . "-" . $av] = true;
           }
         }
-        echo json_encode($walkData);
+        return json_encode($walkData);
     }
 
     public function setJson($json, $publish = false) {

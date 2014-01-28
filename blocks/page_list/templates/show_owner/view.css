@@ -12,18 +12,24 @@ ul.ccm-page-list-owners {
   ul.ccm-page-list-owners h3, ul.ccm-page-list-owners h4, ul.ccm-page-list-owners h5 {
     color: #333; }
   ul.ccm-page-list-owners h3 {
-    margin-bottom: 2px; }
+    margin: 0 0 2px 0; }
   ul.ccm-page-list-owners h4 {
     margin-top: 2px; }
   ul.ccm-page-list-owners p {
     margin: 0; }
-  ul.ccm-page-list-owners img.u-avatar {
+  ul.ccm-page-list-owners .u-avatar {
     margin: 0;
-    position: absolute;
-    border-radius: 99999px;
-    -webkit-border-radius: 99999px;
-    left: -140px;
-    top: 0; }
+    border-radius: 999px;
+    -webkit-border-radius: 999px;
+    top: 0;
+    width: 80px;
+    height: 80px; }
+    ul.ccm-page-list-owners .u-avatar.placeholder0 {
+      background-color: #f16725; }
+    ul.ccm-page-list-owners .u-avatar.placeholder1 {
+      background-color: #6badfd; }
+    ul.ccm-page-list-owners .u-avatar.placeholder2 {
+      background-color: #666666; }
   ul.ccm-page-list-owners .city-organizer {
     border: none;
     width: 420px;

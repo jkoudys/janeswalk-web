@@ -22,11 +22,9 @@
     <script src="<?=$this->getThemePath()?>/js/jquery.cookie.js"></script>
     <script src="//cdn.jsdelivr.net/flexslider/2.1/jquery.flexslider-min.js"></script>
     <script src="//cdn.jsdelivr.net/colorbox/1.4.4/jquery.colorbox-min.js"></script>
-
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="//cdn.jsdelivr.net/bootstrap.wysihtml5/0.0.2/bootstrap-wysihtml5-0.0.2.min.js"></script>
-
-    <script src="//cdn.jsdelivr.net/bootstrap.datepicker/0.1/js/bootstrap-datepicker.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <script src="//cdn.jsdelivr.net/spinjs/1.3.0/spin.min.js"></script>
     <script src="<?=$this->getThemePath()?>/js/jquery.calendar.js"></script>
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/2.8.1/jquery.mCustomScrollbar.min.js"></script>

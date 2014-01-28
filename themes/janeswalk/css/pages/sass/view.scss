@@ -140,3 +140,23 @@ body.site-page {
 }
 #central { margin-bottom:30px; }
 
+ul.ccm-staff-list {
+  margin-left:0 !important; /*todo: get rid of these importants */
+  &,li { list-style-type:none; &:before{content:"" !important;} }
+  li { margin-bottom:20px !important; }
+  h3 {
+    margin:0;
+  }
+  .u-avatar {
+    height:80px;width:80px;border-radius:999px; margin-right:15px;background-size:cover;
+    &.placeholder0 { background-color:$orange; }
+    &.placeholder1 { background-color:$blue; }
+    &.placeholder2 { background-color:$darkgrey; }
+  }
+  .u-avatar, .ccm-staff-list-details {
+    display:inline-block;
+    vertical-align:top;
+  }
+  .ccm-staff-list-details { width:85%; }
+}
+
