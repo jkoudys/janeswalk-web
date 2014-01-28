@@ -41,8 +41,8 @@
         break;
         case "validate": 
         ?>
-        <p><?php echo $successMsg[0] ?></p>
-        <p><?php echo $successMsg[1] ?></p>
+        <p><?=$successMsg[0]?></p>
+        <p><?=$successMsg[1]?></p>
         <p><a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
         <?php 
         break;

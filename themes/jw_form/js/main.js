@@ -3276,6 +3276,7 @@ var JaneswalkData = {
       var member;
       $('.team-member.useredited').each(function(key, val){
         member = {
+          'user_id': $(this).find('[name="user_id[]"]').val(),
           'type': $(this).find('[name="type[]"]').val(),
           'profile-photo': $(this).find('[name="profile-photo[]"]').val(),
           'name-first': $(this).find('[name="name-first[]"]').val(),

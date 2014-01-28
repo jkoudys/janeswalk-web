@@ -548,6 +548,7 @@ $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
       <div class="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
           <input type="hidden" name="type[]" value="you">
+          <input type="hidden" name="user_id[]" value="<?=$u->getUserID()?>">
           <legend>You</legend>
           <div class="row-fluid" id="walkleader">
             <div class="span9">
@@ -665,6 +666,7 @@ $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
       <div class="thumbnail team-member hide walk-leader clearfix" id="walk-leader-new">
         <fieldset>
           <input type="hidden" name="type[]" value="leader">
+          <input type="hidden" name="user_id[]" value="-1">
           <legend>Walk Leader</legend>
 
           <div class="row-fluid" id="walkleader">
@@ -742,6 +744,7 @@ $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
         <fieldset>
           <legend>Walk Organizer</legend>
           <input type="hidden" name="type[]" value="organizer">
+          <input type="hidden" name="user_id[]" value="-1">
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
@@ -772,6 +775,7 @@ $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
       <div class="thumbnail team-member hide community-voice" id="community-voice-new">
         <fieldset>
           <input type="hidden" name="type[]" value="community">
+          <input type="hidden" name="user_id[]" value="-1">
           <legend id="community-voice">Community Voice</legend>
           <div class="row-fluid" id="walkleader">
             <div class="span9">
@@ -821,6 +825,7 @@ $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
         <fieldset>
           <legend id="othermember">Volunteers</legend>
           <input type="hidden" name="type[]" value="volunteer">
+          <input type="hidden" name="user_id[]" value="-1">
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
