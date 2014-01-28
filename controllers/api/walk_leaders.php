@@ -1,6 +1,6 @@
 <?php 
 	defined('C5_EXECUTE') or die("Access Denied.");
-  class WalkLeadersController extends Controller {
+  class ApiWalkLeadersController extends Controller {
 
     public function on_start() {
       $method = $_SERVER['REQUEST_METHOD'];
