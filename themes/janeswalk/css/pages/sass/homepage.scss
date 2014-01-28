@@ -70,7 +70,7 @@
     background: #fff;
     min-height: 525px;
     padding: 30px 0 60px 0;
-    margin:0 0 240px 0;
+    margin:0 0 0 0;
     h1,h2,h3,h4,h5 {
       font-family:"museo-slab","Roboto Slab",serif;
       margin:0; 
@@ -284,6 +284,10 @@ section.calltoaction {
   }
 }
 
+section.sponsors {
+    margin:0 auto 240px;
+    width: $mainWidth;
+}
 
 .thumbnail {
   background: #fff;

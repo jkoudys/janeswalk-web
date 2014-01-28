@@ -45,6 +45,9 @@ global $u; global $cp;
       </section>
     </div>
   </section>
+  <section class="sponsors full">
+      <?php (new Area('Sponsors'))->display($c); ?>
+  </section>
   <script>
   $(document).ready(function() { 
     $('a[href="http://www.janeswalk.net/early#getinvolved"]').click(function(event) {
