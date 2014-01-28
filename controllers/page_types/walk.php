@@ -36,6 +36,7 @@
         // Retrieve the page's json
         case 'GET':
           if($_REQUEST['format'] == 'json') {
+            header('Content-Type: application/json');
             echo $this->getJson();
             exit;
           }
