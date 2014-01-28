@@ -277,11 +277,11 @@
         $placeNode = $docNode->appendChild($node);
 
         // Creates a Point element.
-        $pointNode = $dom->createElement('Point');
+        $pointNode = $dom->createElement('LineString');
         $placeNode->appendChild($pointNode);
 
         // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
-        $coorStr .= "\n{$marker->lng}, {$marker->lat}, 0";
+        $coorStr .= "\n{$route->lng}, {$route->lat}, 0";
       }
       if($coorStr) {
         $coorNode = $dom->createElement('coordinates', $coorStr);
