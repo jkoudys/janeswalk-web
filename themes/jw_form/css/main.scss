@@ -454,6 +454,28 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
       width: 66px;
     }
   }
+  .tt-dropdown-menu {
+    min-width:300px;
+    border:1px solid #eee;
+    border-radius:2px;
+    margin-top:2px;
+    background:#fff;
+    &, li {
+      list-style-type:none;
+      font-weight:500;
+    }
+    .u-avatar {
+      width:80px; height:80px;
+      border-radius:255px;
+      background-size:cover;
+    }
+    li {
+      transition-duration:0.2s;
+      &:hover {
+        background:#efefef;
+      }
+    }
+  }
 }
 
 .thumbnail footer {

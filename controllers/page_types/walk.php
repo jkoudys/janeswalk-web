@@ -244,11 +244,8 @@
       $defaultIconstyleNode->appendChild($defaultIconNode);
       $defaultStyleNode->appendChild($defaultIconstyleNode);
       $docNode->appendChild($defaultStyleNode);
-
-      $lineStr = "";
-      
+ 
       foreach($walkMap->markers as $marker) {
-
         // Creates a Placemark and append it to the Document.
         $node = $dom->createElement('Placemark');
         $placeNode = $docNode->appendChild($node);
@@ -272,13 +269,24 @@
         $coorStr = $marker->lng . "," . $marker->lat;
         $coorNode = $dom->createElement('coordinates', $coorStr);
         $pointNode->appendChild($coorNode);
-        $lineStr .= "$coorStr, 0. ";
       }
+      $coorStr = '';
+      foreach($walkMap->route as $route) {
+        // Creates a Placemark and append it to the Document.
+        $node = $dom->createElement('Placemark');
+        $placeNode = $docNode->appendChild($node);
 
-      $node = $dom->createElement('LineString');
-      $lineNode = $docNode->appendChild($node);
-      $node = $dom->createElement('coordinates',$lineStr);
-      $lineNode->appendChild($node);
+        // Creates a Point element.
+        $pointNode = $dom->createElement('LineString');
+        $placeNode->appendChild($pointNode);
+
+        // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
+        $coorStr .= "\n{$route->lng}, {$route->lat}, 0";
+      }
+      if($coorStr) {
+        $coorNode = $dom->createElement('coordinates', $coorStr);
+        $pointNode->appendChild($coorNode);
+      }
 
       $kmlOutput = $dom->saveXML();
       header('Content-type: application/vnd.google-earth.kml+xml');

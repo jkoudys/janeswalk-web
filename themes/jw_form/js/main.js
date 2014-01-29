@@ -3501,6 +3501,33 @@ $(window).load(function() {
     trigger: 'hover',
     placement: 'bottom'
   });
+  $('.team-member #name').typeahead({
+    name: 'team-member',
+    remote: { url: '../../api/walk_leaders?q=%QUERY', rateLimitWait: 100 },
+    valueKey: 'first_name',
+    template: function(datum) {
+      return "<div class='datum'>" + (datum.avatar ? "<div style='background:url(" + datum.avatar + ")'></div>  " : "") + datum.first_name + " " + datum.last_name + (datum.city_name ? ", " + datum.city_name : "") + "</div>";
+      },
+    }).on('typeahead:selected', function (object, datum) {
+      var teamMember = $(this).parents(".team-member").first();
+      $('input[name=user_id\\[\\]]', teamMember).val(datum.user_id);
+      if(!datum.last_name) {
+        var twoNames = teamMember.first_name.split(' ');
+        $('input[name=name-first\\[\\]]', teamMember).val(twoNames[0]);
+        $('input[name=name-last\\[\\]]', teamMember).val(twoNames[1]);
+      } else {
+        $('input[name=name-first\\[\\]]', teamMember).val(datum.first_name);
+        $('input[name=name-last\\[\\]]', teamMember).val(datum.last_name);
+      }
+      if(datum.facebook)
+        $('#facebook', teamMember).val(datum.facebook);
+      if(datum.twitter)
+        $('input[name=twitter\\[\\]]', teamMember).val(datum.twitter);
+      if(datum.website)
+        $('input[name=website\\[\\]]', teamMember).val(datum.website);
+      if(datum.bio)
+        $('textarea[name=bio\\[\\]]', teamMember).text(datum.bio);
+    });
 });
 
 // $(document).on('pjax:send', function() {

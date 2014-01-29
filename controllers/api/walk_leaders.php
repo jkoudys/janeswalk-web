@@ -15,6 +15,7 @@
           exit;
           break;
         case 'GET':
+          header('Content-Type: application/json');
           echo $this->getLeaders($_REQUEST['q'], $_REQUEST['cityId'], $_REQUEST['limit']);
           exit;
           break;
@@ -38,6 +39,7 @@
       foreach($ul->get($limit ?: 5) as $user) {
         $home_city = $user->getAttribute('home_city');
         $userSet[$user->getUserID()] = [
+          'user_id' => $user->getUserID(),
           'first_name' => $user->getAttribute('first_name'),
           'last_name' => $user->getAttribute('last_name'),
           'city_name' => $home_city ? $home_city->getCollectionName() : null,
