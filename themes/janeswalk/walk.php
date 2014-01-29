@@ -18,8 +18,6 @@ $this->inc('elements/header.php');  ?>
         $crumbs = $nh->getTrailToCollection($c);
         krsort($crumbs);
         foreach($crumbs as $crumb) {
-        ?>
-        <?php
         if( $crumb->getCollectionID() == 1 ) { ?>
         <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
         <?php } else if ($crumb->getCollectionTypeHandle() != 'country' ) { ?>

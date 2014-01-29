@@ -5877,6 +5877,24 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     width: 35px; }
   .team-member .tel .input-small {
     width: 66px; }
+  .team-member .tt-dropdown-menu {
+    min-width: 300px;
+    border: 1px solid #eee;
+    border-radius: 2px;
+    margin-top: 2px;
+    background: #fff; }
+    .team-member .tt-dropdown-menu, .team-member .tt-dropdown-menu li {
+      list-style-type: none;
+      font-weight: 500; }
+    .team-member .tt-dropdown-menu .u-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 255px;
+      background-size: cover; }
+    .team-member .tt-dropdown-menu li {
+      transition-duration: 0.2s; }
+      .team-member .tt-dropdown-menu li:hover {
+        background: #efefef; }
 
 .thumbnail footer, .new-member footer {
   border-top: 1px solid #eee;
