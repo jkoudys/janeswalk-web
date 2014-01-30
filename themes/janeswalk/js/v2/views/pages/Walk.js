@@ -51,10 +51,10 @@ var WalkPageView = PageView.extend({
      */
     _getWalkDetailsObject: function() {
         return {
-            url: 'http://janeswalk.org',
-            pictureUrl: 'http://placekitten.com/500/500',
-            title: 'Janes Walk title',
-            description: 'Janes Walk description'
+            url: JanesWalk.page.url,
+            pictureUrl: JanesWalk.page.pictureUrl,
+            title: JanesWalk.page.title,
+            description: JanesWalk.page.description
         };
     },
 

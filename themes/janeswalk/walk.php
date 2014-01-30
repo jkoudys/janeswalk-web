@@ -10,13 +10,6 @@ $this->inc('elements/header.php');  ?>
 
 <body class="walk-page active-walk"
         data-pageViewName="WalkPageView">
-  <script>
-    JanesWalk = {
-      page: {
-        url: location.pathname,
-      }
-    };
-  </script>
   <div id="fb-root"></div>
   <script>
     window.fbAsyncInit = function() {
@@ -33,6 +26,16 @@ $this->inc('elements/header.php');  ?>
        js.src = "//connect.facebook.net/en_US/all.js";
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <script type="text/javascript">
+    JanesWalk = {
+      page: {
+        url: location.pathname,
+        pictureUrl: 'http://placekitten.com/500/500',
+        title: '<?= rawurlencode($c->getCollectionName()) ?>',
+        description: '<?= rawurlencode(strip_tags($c->getAttribute('longdescription'))) ?>'
+      }
+    };
   </script>
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
