@@ -592,3 +592,23 @@ var styles = [{
     });
   $('a.search-close').click(function(){ $('header.navbar').removeClass('dropped') });
 });
+
+
+/**
+ * Views
+ * 
+ */
+var _pageView;
+$(document).ready(function() {
+
+  // Setup the page view
+  var bodyElement = $('body').first(),
+    pageViewName = bodyElement.attr('data-pageViewName');
+
+  // Not page view found
+  if (typeof pageViewName === 'undefined') {
+    console && console.log('No page view defined.');
+  } else {
+    _pageView = (new window[pageViewName](bodyElement));
+  }
+});

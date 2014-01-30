@@ -8,7 +8,32 @@ $th = Loader::helper('theme');
 global $u; global $cp;
 $this->inc('elements/header.php');  ?>
 
-<body class="walk-page active-walk">
+<body class="walk-page active-walk"
+        data-pageViewName="WalkPageView">
+  <script>
+    JanesWalk = {
+      page: {
+        url: location.pathname,
+      }
+    };
+  </script>
+  <div id="fb-root"></div>
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '206886749509400',
+        status: true,
+        xfbml: true
+      });
+    };
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "//connect.facebook.net/en_US/all.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
@@ -190,8 +215,8 @@ $this->inc('elements/header.php');  ?>
           <hr>
 
           <div class="share-print">
-            <a href="#" class="share notify"><i class="icon-print"></i> Print this walk</a>
-            <a href="#" class="share notify"><i class="icon-share"></i> Share this walk</a>
+            <a href="#" class="share notify printLink"><i class="icon-print"></i> Print this walk</a>
+            <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> Share this walk</a>
           </div>
 
         </div>
