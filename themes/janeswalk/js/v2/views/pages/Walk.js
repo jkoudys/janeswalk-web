@@ -7,14 +7,6 @@
 var WalkPageView = PageView.extend({
 
     /**
-     * _facebookAppId
-     * 
-     * @protected
-     * @var       jQuery (default: null)
-     */
-    _facebookAppId: null,
-
-    /**
      * init
      * 
      * @public
@@ -38,73 +30,53 @@ var WalkPageView = PageView.extend({
             function(event) {
                 event.preventDefault();
                 _this.trackEvent('Walk', 'share.attempted', 'facebook');
-                _this.showFacebookShareDialog();
+                var shareObj = _this._getFacebookDialogObj();
+                (new FacebookShareDialog(shareObj)).show(
+                    _this._facebookShareFailed,
+                    _this._facebookShareSuccessful
+                );
             }
         );
     },
 
     /**
-     * _getWalkDetailsObject
+     * _facebookShareFailed
      * 
      * @protected
-     * @return    Object
+     * @return    void
      */
-    _getWalkDetailsObject: function() {
-        return {
-            url: JanesWalk.page.url,
-            pictureUrl: JanesWalk.page.pictureUrl,
-            title: JanesWalk.page.title,
-            description: JanesWalk.page.description
-        };
+    _facebookShareFailed: function() {
+        this.trackEvent('Walk', 'share.failed', 'facebook');
     },
 
     /**
-     * _getShareObject
+     * _facebookShareSuccessful
+     * 
+     * @protected
+     * @return    void
+     */
+    _facebookShareSuccessful: function() {
+        this.trackEvent('Walk', 'share.successful', 'facebook');
+    },
+
+    /**
+     * _getFacebookDialogObj
      * 
      * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
      * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
      * @protected
      * @return    Object
      */
-    _getShareObject: function() {
-        var walkdetailsObject = this._getWalkDetailsObject();
+    _getFacebookDialogObj: function() {
         return {
-            method: 'feed',
-            name: walkdetailsObject.title,
-            description: walkdetailsObject.description,
-            link: walkdetailsObject.url,
-            picture: walkdetailsObject.pictureUrl,
+            link: JanesWalk.page.url,
+            picture: JanesWalk.page.pictureUrl,
+            name: JanesWalk.page.title,
+            description: JanesWalk.page.description,
             actions: {
-                name: 'More about Jane\'s Walk',
-                link: 'http://janeswalk.org/'
+                name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
+                link: JanesWalk.page.city.url
             }
         };
-    },
-
-    /**
-     * showFacebookShareDialog
-     * 
-     * @see    https://developers.facebook.com/docs/reference/dialogs/feed/
-     * @public
-     * @return void
-     */
-    showFacebookShareDialog: function() {
-        var _this = this;
-        FB.ui(
-            this._getShareObject(),
-            function(response) {
-                if (typeof response !== 'undefined') {
-                    if (response === null) {
-                        _this.trackEvent('Walk', 'share.failed', 'facebook');
-                    } else {
-                        _this.trackEvent(
-                            'Walk',
-                            'share.successful',
-                            'facebook'
-                        );
-                    }
-                }
-            }
-        );
-    },
+    }
 });

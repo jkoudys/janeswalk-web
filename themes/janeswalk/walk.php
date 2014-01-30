@@ -33,7 +33,11 @@ $this->inc('elements/header.php');  ?>
         url: 'http://' + (location.host) + (location.pathname),
         pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
         title: '<?= addslashes($c->getCollectionName()) ?>',
-        description: '<?= addslashes(strip_tags($c->getAttribute('longdescription'))) ?>'
+        description: '<?= addslashes(strip_tags($c->getAttribute('longdescription'))) ?>',
+        city: {
+          name: 'Toronto',
+          url: 'http://google.com'
+        }
       }
     };
   </script>
@@ -55,7 +59,7 @@ $this->inc('elements/header.php');  ?>
         <li class="active"><?=$c->getCollectionName() ?></li>
       </ul>
 
-      <div class="walk-label">YearRound Walk</div>
+      <div class="walk-label">Festival Walk</div>
 
       <div class="tag-list">
         <ul class="nav nav-pills">
