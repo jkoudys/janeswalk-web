@@ -92,7 +92,7 @@ $this->inc('elements/header.php');  ?>
               }
 
               $eid = $c->getAttribute('eventbrite');
-              if ((string) $c->getAttribute('show_registration_button') !== 'No') {
+              if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {
             ?>
               <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
@@ -244,7 +244,7 @@ $this->inc('elements/header.php');  ?>
         <aside class="span4">
         <div class="thumbnail" id="register">
           <?php
-            if ((string) $c->getAttribute('show_registration_button') !== 'No') {
+            if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
               if(!empty($eid)) {
           ?>
             <div class="caption">
