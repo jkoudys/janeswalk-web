@@ -69,7 +69,6 @@ var WalkPageView = PageView.extend({
     _getShareObject: function() {
         var walkdetailsObject = this._getWalkDetailsObject();
         return {
-            app_id: 206886749509400,
             method: 'feed',
             name: walkdetailsObject.title,
             description: walkdetailsObject.description,

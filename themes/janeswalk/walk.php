@@ -14,7 +14,7 @@ $this->inc('elements/header.php');  ?>
   <script>
     window.fbAsyncInit = function() {
       FB.init({
-        appId: '206886749509400',
+        appId: '544710848887303',
         status: true,
         xfbml: true
       });
@@ -30,10 +30,10 @@ $this->inc('elements/header.php');  ?>
   <script type="text/javascript">
     JanesWalk = {
       page: {
-        url: location.pathname,
+        url: 'http://' + (location.host) + (location.pathname),
         pictureUrl: 'http://placekitten.com/500/500',
-        title: '<?= rawurlencode($c->getCollectionName()) ?>',
-        description: '<?= rawurlencode(strip_tags($c->getAttribute('longdescription'))) ?>'
+        title: '<?= addslashes($c->getCollectionName()) ?>',
+        description: '<?= addslashes(strip_tags($c->getAttribute('longdescription'))) ?>'
       }
     };
   </script>
