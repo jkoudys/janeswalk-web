@@ -167,9 +167,9 @@ $this->inc('elements/header.php');  ?>
                   ?>
 
                   <div class="btn-toolbar">
-                    <a href="mailto:<?=$mem->email?>" class="btn"><i class="icon-envelope-alt"></i></a>
-                    <a href="http://facebook.com/<?=$mem->facebook?>"><i class="icon-facebook"></i></a>
-                    <a href="http://twitter.com/<?=$mem->twitter?>"><i class="icon-twitter"></i></a>
+                    <?php if($mem->email) { ?><a href="mailto:<?=$mem->email?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
+                    <?php if($mem->facebook) { ?><a href="http://facebook.com/<?=$mem->facebook?>"><i class="icon-facebook"></i></a><?php } ?>
+                    <?php if($mem->twitter) { ?><a href="http://twitter.com/<?=$mem->twitter?>"><i class="icon-twitter"></i></a><?php } ?>
                   </div>
                   <?=$mem->bio?>
                 </div>
