@@ -532,11 +532,15 @@ fieldset.search {
 
 
 /* onassar */
-.navbar {
-  &+* {
-    padding-top: $navbar_height;
-    @media (max-width: 979px) {
-      padding-top: 0;
+@media (max-width: 979px) {
+  .navbar {
+    &+* {
+      padding-top: 0 !important;
+    }
+  }
+  div.container-outter {
+      div.container {
+      padding: 20px 0 0;
     }
   }
 }
@@ -549,3 +553,14 @@ header.navbar {
     }
   }
 }
+
+
+
+
+/*html.index-bg {
+  header.navbar { display:none; }
+}
+body.form {
+  .navbar-inner div.container { display:none; }
+}
+*/

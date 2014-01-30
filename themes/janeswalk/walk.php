@@ -31,7 +31,7 @@ $this->inc('elements/header.php');  ?>
     JanesWalk = {
       page: {
         url: 'http://' + (location.host) + (location.pathname),
-        pictureUrl: 'http://placekitten.com/500/500',
+        pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
         title: '<?= addslashes($c->getCollectionName()) ?>',
         description: '<?= addslashes(strip_tags($c->getAttribute('longdescription'))) ?>'
       }

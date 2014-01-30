@@ -1,0 +1,18 @@
+/* line 3, pages/sass/mailchimp.scss */
+#mc_embed_signup li:before {
+  content: "" !important;
+}
+/* line 4, pages/sass/mailchimp.scss */
+#mc_embed_signup .asterisk {
+  top: 26px;
+  right: 0 !important;
+}
+/* line 5, pages/sass/mailchimp.scss */
+#mc_embed_signup label {
+  margin-left: 6px;
+}
+/* line 6, pages/sass/mailchimp.scss */
+#mc_embed_signup input[type=submit] {
+  margin: 0 !important;
+  width: auto !important;
+}
