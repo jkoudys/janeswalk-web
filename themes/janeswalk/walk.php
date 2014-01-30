@@ -78,19 +78,32 @@ $this->inc('elements/header.php');  ?>
 
         <div class="span3 profiles box-sizing">
           <div id="reg-group">
-            <?php $scheduled = $c->getAttribute('scheduled'); 
-            $slots = (Array)$scheduled['slots']; 
-            if($scheduled['open']) { ?>
-            <h4 class="available-time"><i class="icon-calendar"></i> Open schedule</h4>
-            <?php } else if(isset($slots[0]['date'])) {  ?>
-            <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']; ?></span></h4>
-            <?php }
-            $eid = $c->getAttribute('eventbrite');
-            if(!empty($eid)) {
+            <?php
+              $scheduled = $c->getAttribute('scheduled'); 
+              $slots = (Array)$scheduled['slots']; 
+              if($scheduled['open']) {
             ?>
-            <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
-            <?php } else { ?>
-            Registration Not Yet Open <?php } ?>
+              <h4 class="available-time"><i class="icon-calendar"></i> Open schedule</h4>
+            <?php
+              } else if(isset($slots[0]['date'])) {
+            ?>
+              <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']; ?></span></h4>
+            <?php
+              }
+
+              $eid = $c->getAttribute('eventbrite');
+              if ((string) $c->getAttribute('show_registration_button') !== 'No') {
+                if(!empty($eid)) {
+            ?>
+              <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
+            <?php
+                } else {
+            ?>
+              Registration Not Yet Open
+            <?php
+                }
+              }
+            ?>
           </div>
         </div>
       </div>
@@ -230,13 +243,31 @@ $this->inc('elements/header.php');  ?>
 
         <aside class="span4">
         <div class="thumbnail" id="register">
-          <div class="caption">
-            <h3><i class="icon-calendar"></i> 
-              <?php if(!empty($eid)) { ?> <a href="<?="http://eventbrite.ca/event/$eid"?>" >Register For This Walk</a> <?php } 
-              else {?>Registration Not Open <?php } ?>
-            </h3>
-            <p class="select-day"></p>
-          </div>
+          <?php
+            if ((string) $c->getAttribute('show_registration_button') !== 'No') {
+              if(!empty($eid)) {
+          ?>
+            <div class="caption">
+              <h3>
+                <i class="icon-calendar"></i> 
+                <a href="<?="http://eventbrite.ca/event/$eid"?>" >Register For This Walk</a>
+                <p class="select-day"></p>
+              </h3>
+            </div>
+          <?php
+              } else {
+          ?>
+            <div class="caption">
+              <h3>
+                <i class="icon-calendar"></i> 
+                Registration Not Open
+                <p class="select-day"></p>
+              </h3>
+            </div>
+          <?php
+              }
+            }
+          ?>
           <div class="calendar-wrap box-sizing" style="display:none">
 
             <div class="calendar-header">

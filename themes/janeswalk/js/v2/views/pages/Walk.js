@@ -15,16 +15,16 @@ var WalkPageView = PageView.extend({
      */
     init: function(element) {
         this._super(element);
-        this._addShareLinkEvents();
+        this._addFacebookDialogEvents();
     },
 
     /**
-     * _addShareLinkEvents
+     * _addFacebookDialogEvents
      * 
      * @protected
      * @return    void
      */
-    _addShareLinkEvents: function() {
+    _addFacebookDialogEvents: function() {
         var _this = this;
         this._element.find('.facebookShareLink').click(
             function(event) {
