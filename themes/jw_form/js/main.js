@@ -3405,7 +3405,7 @@ var JaneswalkData = {
     if (typeof(data.map) != "undefined"){
       var bounds = new google.maps.LatLngBounds();
       // Would probably be better not to have this setTimeout, not sure how to call this once gmaps is initialized
-      $(document).on('gmapinit', function(){
+      $(document).on('gmapinit', function() {
         if (typeof(data.map.markers) != "undefined"){
           $.each(data.map.markers, function(key, marker){
             if(marker.lat && marker.lng) {

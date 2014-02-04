@@ -23,7 +23,7 @@ $(document).ready(function() {
     <div id="ccm-profile-body-attributes">
       <div class="ccm-profile-body-item">
         <h1><?=$profile->getUserName()?></h1>
-        <a href="/profile/edit/" target="_self" class="btn btn-primary btn-large" style="margin-bottom: 10px;">Fill our your profile</a>
+        <a href="/profile/edit/" target="_self" class="btn btn-primary btn-large" style="margin-bottom: 10px;">Fill out your profile</a>
         <?php 
         foreach(UserAttributeKey::getPublicProfileList() as $ua) { ?>
         <div>

@@ -518,6 +518,9 @@ function clearRoute(event) {
 //
 
 if ($('#map-canvas').length > 0) {
+  // $(document).ready(function() {
+  //   gMapinitialize();
+  // });
   google.maps.event.addDomListener(window, 'load', gMapinitialize);
 }
 

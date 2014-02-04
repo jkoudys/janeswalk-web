@@ -70,7 +70,11 @@ class PageAttributeTypeController extends AttributeTypeController  {
         $selectString .= "<optgroup label='$parent'>";
         $lastParent = $parent;
       }
-      $selectString .= "<option value='{$page->getCollectionID()}'>{$page->getCollectionName()}</option>";
+      $selectedAttributeVal = '';
+      if ($this->getValue()->cID === $page->cID) {
+          $selectedAttributeVal = ' selected="selected"';
+      }
+      $selectString .= "<option value=\"{$page->getCollectionID()}\"" . ($selectedAttributeVal) . ">{$page->getCollectionName()}</option>";
     }
     $selectString .= '</select>';
     print $selectString;
