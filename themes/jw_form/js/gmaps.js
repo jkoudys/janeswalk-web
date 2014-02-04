@@ -404,7 +404,6 @@ function gMapinitialize() {
     }
 
     if (markers.length === 0) {
-      alert('Please add your Meeting Place Stops before making the route.');
       return false;
     }
 
