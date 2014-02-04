@@ -4,11 +4,29 @@
   .intro, .navbar_home .large, .section2 ul.nav { font-family:"museo-slab","Roboto Slab",serif; }
   &.logged_in { padding-top:0; }
   padding-top: 0;
-  background-attachment: fixed;
-  background-image: url("../images/homepage.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  @include background-size(cover);
+
+  .backgroundImageBanner {
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
+    @include background-size(cover);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 2s ease-in-out;
+    -moz-transition: opacity 2s ease-in-out;
+    -webkit-transition: opacity 2s ease-in-out;
+
+
+    &.faded {
+      opacity: 0;
+    }
+  }
+
   .intro .nav li {
     padding-right: 20px;
     &.divider-vertical {

@@ -16,6 +16,26 @@ var HomePageView = PageView.extend({
     init: function(element) {
         this._super(element);
         this._addMapToggleEvents();
+        this._addBgImage();
+    },
+
+    /**
+     * _addBgImage
+     * 
+     * @protected
+     * @return    void
+     */
+    _addBgImage: function() {
+        var backgroundImageUrl = this._element.attr('data-backgroundImageUrl'),
+            $backgroundImageBanner = this._element.find('.backgroundImageBanner'),
+            image = (new Image());
+        image.onload = function() {
+            $backgroundImageBanner.css({
+                backgroundImage: 'url(' + (backgroundImageUrl) + ')'
+            });
+            $backgroundImageBanner.removeClass('faded');
+        };
+        image.src = backgroundImageUrl;
     },
 
     /**

@@ -9153,14 +9153,6 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
 /* line 3, pages/sass/homepage.scss */
 .home {
   padding-top: 0;
-  background-attachment: fixed;
-  background-image: url("../images/homepage.jpg");
-  background-position: center center;
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
 }
 /* line 4, pages/sass/homepage.scss */
 .home .intro, .home .intro-city, .home .navbar_home .large, .home .section2 ul.nav {
@@ -9170,11 +9162,35 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
 .home.logged_in {
   padding-top: 0;
 }
-/* line 12, pages/sass/homepage.scss */
+/* line 8, pages/sass/homepage.scss */
+.home .backgroundImageBanner {
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  opacity: 1;
+  transition: opacity 2s ease-in-out;
+  -moz-transition: opacity 2s ease-in-out;
+  -webkit-transition: opacity 2s ease-in-out;
+}
+/* line 25, pages/sass/homepage.scss */
+.home .backgroundImageBanner.faded {
+  opacity: 0;
+}
+/* line 30, pages/sass/homepage.scss */
 .home .intro .nav li, .home .intro-city .nav li {
   padding-right: 20px;
 }
-/* line 14, pages/sass/homepage.scss */
+/* line 32, pages/sass/homepage.scss */
 .home .intro .nav li.divider-vertical, .home .intro-city .nav li.divider-vertical {
   height: 40px;
   margin: 0 20px 0 0;
@@ -9182,11 +9198,11 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border-left: none;
   padding: 0;
 }
-/* line 22, pages/sass/homepage.scss */
+/* line 40, pages/sass/homepage.scss */
 .home .input-append {
   margin: 10px 0 0 0;
 }
-/* line 23, pages/sass/homepage.scss */
+/* line 41, pages/sass/homepage.scss */
 .home .intro .nav li a, .home .intro-city .nav li a {
   color: #303030;
   font-size: 16px;
@@ -9196,37 +9212,37 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border: 1px solid #a53d0b;
   background: rgba(194, 83, 14, 0.9);
 }
-/* line 32, pages/sass/homepage.scss */
+/* line 50, pages/sass/homepage.scss */
 .home .intro .nav li a:hover, .home .intro-city .nav li a:hover {
   color: #fff;
   background: #d54e0e;
 }
-/* line 35, pages/sass/homepage.scss */
+/* line 53, pages/sass/homepage.scss */
 .home .intro .nav li.active a, .home .intro-city .nav li.active a {
   text-decoration: none;
   background-color: rgba(255, 250, 250, 0.5);
 }
-/* line 39, pages/sass/homepage.scss */
+/* line 57, pages/sass/homepage.scss */
 .home .intro ul.nav, .home .intro-city ul.nav {
   float: right;
   padding: 50px 0 0 0;
 }
-/* line 43, pages/sass/homepage.scss */
+/* line 61, pages/sass/homepage.scss */
 .home .nav-tabs > li > a {
   background: #DBDBDB;
   padding: 20px;
   border: none;
   font-size: 1.5em;
 }
-/* line 48, pages/sass/homepage.scss */
+/* line 66, pages/sass/homepage.scss */
 .home .nav-tabs > li > a:hover {
   border: none;
 }
-/* line 52, pages/sass/homepage.scss */
+/* line 70, pages/sass/homepage.scss */
 .home .nav-tabs > li.active > a {
   background: #fff;
 }
-/* line 56, pages/sass/homepage.scss */
+/* line 74, pages/sass/homepage.scss */
 .home .intro blockquote, .home .intro-city blockquote {
   font-size: inherit;
   float: none;
@@ -9238,86 +9254,86 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   line-height: 22px;
   margin: 0 auto;
 }
-/* line 59, pages/sass/homepage.scss */
+/* line 77, pages/sass/homepage.scss */
 .home .intro .linkbox, .home .intro-city .linkbox {
   margin: 10px auto;
   display: block;
   width: 270px;
   font-size: 1.4em;
 }
-/* line 65, pages/sass/homepage.scss */
+/* line 83, pages/sass/homepage.scss */
 .home .intro a, .home .intro-city a {
   color: white;
 }
-/* line 69, pages/sass/homepage.scss */
+/* line 87, pages/sass/homepage.scss */
 .home section.blog {
   background: #fff;
   min-height: 525px;
   padding: 30px 0 60px 0;
   margin: 0 0 0 0;
 }
-/* line 74, pages/sass/homepage.scss */
+/* line 92, pages/sass/homepage.scss */
 .home section.blog h1, .home section.blog h2, .home section.blog h3, .home section.blog h4, .home section.blog h5 {
   font-family: "museo-slab","Roboto Slab",serif;
   margin: 0;
 }
-/* line 78, pages/sass/homepage.scss */
+/* line 96, pages/sass/homepage.scss */
 .home section.blog section {
   display: inline-block;
   vertical-align: top;
 }
-/* line 81, pages/sass/homepage.scss */
+/* line 99, pages/sass/homepage.scss */
 .home section.blog section.walkblog {
   max-width: 870px;
 }
-/* line 84, pages/sass/homepage.scss */
+/* line 102, pages/sass/homepage.scss */
 .home section.blog section.twitter {
   width: 270px;
   margin-left: 25px;
 }
-/* line 88, pages/sass/homepage.scss */
+/* line 106, pages/sass/homepage.scss */
 .home section.blog section > h3 {
   color: #666666;
   font-weight: 700;
   margin-bottom: 15px;
 }
-/* line 92, pages/sass/homepage.scss */
+/* line 110, pages/sass/homepage.scss */
 .home section.blog section > h3 a {
   color: #666666;
   font-size: 0.6em;
 }
-/* line 95, pages/sass/homepage.scss */
+/* line 113, pages/sass/homepage.scss */
 .home section.blog > div {
   max-width: 1170px;
   margin: 0 auto;
 }
-/* line 99, pages/sass/homepage.scss */
+/* line 117, pages/sass/homepage.scss */
 .home section.blog .span3:first-child {
   margin-left: 0;
 }
-/* line 100, pages/sass/homepage.scss */
+/* line 118, pages/sass/homepage.scss */
 .home section.blog:after {
   clear: both;
   content: "";
   display: table;
 }
-/* line 102, pages/sass/homepage.scss */
+/* line 120, pages/sass/homepage.scss */
 .home section.map {
   margin-bottom: -5px;
 }
-/* line 103, pages/sass/homepage.scss */
+/* line 121, pages/sass/homepage.scss */
 .home .overlap {
   -webkit-transition-duration: 0.5s;
   position: relative;
   height: 460px;
 }
-/* line 108, pages/sass/homepage.scss */
+/* line 126, pages/sass/homepage.scss */
 .home .overlap section.calltoaction {
   width: 100%;
   position: absolute;
   bottom: 0;
 }
-/* line 113, pages/sass/homepage.scss */
+/* line 131, pages/sass/homepage.scss */
 .home .overlap .controls {
   position: absolute;
   margin: 0;
@@ -9326,19 +9342,19 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   text-align: center;
   z-index: 1;
 }
-/* line 119, pages/sass/homepage.scss */
+/* line 137, pages/sass/homepage.scss */
 .home .overlap .controls li {
   display: block;
   height: 60px;
   text-transform: uppercase;
   line-height: 30px;
 }
-/* line 124, pages/sass/homepage.scss */
+/* line 142, pages/sass/homepage.scss */
 .home .overlap .controls a {
   color: #fff;
   font-size: 11px;
 }
-/* line 127, pages/sass/homepage.scss */
+/* line 145, pages/sass/homepage.scss */
 .home .overlap .controls a i {
   font-size: 15px;
   color: #fff;
@@ -9348,23 +9364,23 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border: 2px solid #fff;
   border-radius: 999px;
 }
-/* line 136, pages/sass/homepage.scss */
+/* line 154, pages/sass/homepage.scss */
 .home .overlap .controls a:hover {
   text-decoration: none;
   cursor: pointer;
 }
-/* line 139, pages/sass/homepage.scss */
+/* line 157, pages/sass/homepage.scss */
 .home .overlap.fullmap {
   height: 760px;
 }
 
-/* line 143, pages/sass/homepage.scss */
+/* line 161, pages/sass/homepage.scss */
 .intro, .intro-city {
   width: 100%;
   background-position: center center;
 }
 
-/* line 148, pages/sass/homepage.scss */
+/* line 166, pages/sass/homepage.scss */
 .intro .logo, .intro-city .logo {
   background-image: url("../images/jwlogos-3.png");
   display: block;
@@ -9373,12 +9389,12 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   float: left;
 }
 
-/* line 157, pages/sass/homepage.scss */
+/* line 175, pages/sass/homepage.scss */
 p.lead {
   margin-top: 6%;
 }
 
-/* line 161, pages/sass/homepage.scss */
+/* line 179, pages/sass/homepage.scss */
 .callouts {
   margin: 0;
   top: 60px;
@@ -9392,13 +9408,13 @@ p.lead {
   background: linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
 }
 
-/* line 170, pages/sass/homepage.scss */
+/* line 188, pages/sass/homepage.scss */
 .homepage-callout2 {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
 }
-/* line 174, pages/sass/homepage.scss */
+/* line 192, pages/sass/homepage.scss */
 .homepage-callout2 p {
   font-size: 3em;
   line-height: 123%;
@@ -9406,36 +9422,36 @@ p.lead {
   letter-spacing: 1px;
 }
 @media (max-width: 979px) {
-  /* line 174, pages/sass/homepage.scss */
+  /* line 192, pages/sass/homepage.scss */
   .homepage-callout2 p {
     font-size: 2.7em;
   }
 }
 
-/* line 185, pages/sass/homepage.scss */
+/* line 203, pages/sass/homepage.scss */
 .navbar_home {
   font-size: 1em;
   text-align: center;
   margin: 0 auto;
 }
-/* line 189, pages/sass/homepage.scss */
+/* line 207, pages/sass/homepage.scss */
 .navbar_home .large {
   font-size: 18px;
   height: 34px;
   margin: 0;
 }
 
-/* line 196, pages/sass/homepage.scss */
+/* line 214, pages/sass/homepage.scss */
 .test {
   margin-top: 0%;
 }
 
-/* line 200, pages/sass/homepage.scss */
+/* line 218, pages/sass/homepage.scss */
 .little {
   width: 22%;
 }
 
-/* line 204, pages/sass/homepage.scss */
+/* line 222, pages/sass/homepage.scss */
 .section2 {
   position: relative;
   padding-bottom: 20px;
@@ -9444,7 +9460,7 @@ p.lead {
   background-position: center center;
 }
 
-/* line 212, pages/sass/homepage.scss */
+/* line 230, pages/sass/homepage.scss */
 .property-ul {
   background: #fff;
   border: 1px solid #ddd;
@@ -9455,42 +9471,42 @@ p.lead {
   width: 30%;
 }
 
-/* line 222, pages/sass/homepage.scss */
+/* line 240, pages/sass/homepage.scss */
 .fest {
   margin-left: 2%;
 }
 
-/* line 226, pages/sass/homepage.scss */
+/* line 244, pages/sass/homepage.scss */
 .row1 {
   margin-top: 0%;
 }
 
-/* line 229, pages/sass/homepage.scss */
+/* line 247, pages/sass/homepage.scss */
 section.calltoaction {
   background: #fff;
   padding: 40px 0;
   margin-top: -200px;
 }
-/* line 233, pages/sass/homepage.scss */
+/* line 251, pages/sass/homepage.scss */
 section.calltoaction h1, section.calltoaction h2, section.calltoaction h3, section.calltoaction h4, section.calltoaction h5, section.calltoaction p, section.calltoaction ul, section.calltoaction ol {
   margin: 0 auto;
   max-width: 1170px;
   font-family: "museo-slab","Roboto Slab",serif;
 }
-/* line 238, pages/sass/homepage.scss */
+/* line 256, pages/sass/homepage.scss */
 section.calltoaction h3 {
   font-weight: 700;
   margin-bottom: 15px;
   color: #666666;
 }
-/* line 243, pages/sass/homepage.scss */
+/* line 261, pages/sass/homepage.scss */
 section.calltoaction p {
   color: #333;
   font-size: 1.3em;
   line-height: 1.6;
   font-weight: 300;
 }
-/* line 249, pages/sass/homepage.scss */
+/* line 267, pages/sass/homepage.scss */
 section.calltoaction a {
   color: #fff;
   width: 100%;
@@ -9502,17 +9518,17 @@ section.calltoaction a {
   background: #666666;
   box-shadow: inset 0 -2px 0 #222222;
 }
-/* line 258, pages/sass/homepage.scss */
+/* line 276, pages/sass/homepage.scss */
 section.calltoaction a:hover {
   text-decoration: none;
   background: #333;
 }
-/* line 263, pages/sass/homepage.scss */
+/* line 281, pages/sass/homepage.scss */
 section.calltoaction ul {
   text-align: justify;
   margin-top: 20px;
 }
-/* line 266, pages/sass/homepage.scss */
+/* line 284, pages/sass/homepage.scss */
 section.calltoaction ul li {
   list-style-type: none;
   margin: 0;
@@ -9523,13 +9539,13 @@ section.calltoaction ul li {
   background: #333;
 }
 @media (max-width: 940px) {
-  /* line 266, pages/sass/homepage.scss */
+  /* line 284, pages/sass/homepage.scss */
   section.calltoaction ul li {
     display: block;
     margin-bottom: 5px;
   }
 }
-/* line 277, pages/sass/homepage.scss */
+/* line 295, pages/sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -9538,18 +9554,18 @@ section.calltoaction ul:after {
   height: 0;
 }
 
-/* line 287, pages/sass/homepage.scss */
+/* line 305, pages/sass/homepage.scss */
 section.sponsors {
   margin: 0 auto 240px;
   width: 1170px;
 }
 
-/* line 292, pages/sass/homepage.scss */
+/* line 310, pages/sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 296, pages/sass/homepage.scss */
+/* line 314, pages/sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9558,17 +9574,17 @@ section.sponsors {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 303, pages/sass/homepage.scss */
+/* line 321, pages/sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 308, pages/sass/homepage.scss */
+/* line 326, pages/sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 312, pages/sass/homepage.scss */
+/* line 330, pages/sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9576,7 +9592,7 @@ section.sponsors {
   width: 400px;
 }
 
-/* line 319, pages/sass/homepage.scss */
+/* line 337, pages/sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9584,26 +9600,26 @@ section.sponsors {
   width: 75%;
 }
 
-/* line 326, pages/sass/homepage.scss */
+/* line 344, pages/sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
-/* line 328, pages/sass/homepage.scss */
+/* line 346, pages/sass/homepage.scss */
 .caption h5 p {
   color: #555;
 }
 
-/* line 333, pages/sass/homepage.scss */
+/* line 351, pages/sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 335, pages/sass/homepage.scss */
+/* line 353, pages/sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 768px) {
-  /* line 341, pages/sass/homepage.scss */
+  /* line 359, pages/sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;
