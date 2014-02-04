@@ -11,7 +11,9 @@ global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
 <body class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>" <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
-  <?php $this->inc('elements/navbar.php');  ?>
+  <?php
+    $this->inc('elements/navbar.php');
+  ?>
   <div class="container-outter" role="main">
     <div class="intro-city tk-museo-slab">
       <div class="container">
@@ -20,22 +22,38 @@ global $u; global $cp;
             <?=$c->getCollectionName()?>
             <?= is_object(ComposerPage::getByID($c->getCollectionID())) ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='icon-edit-sign'></i></a>" : null; ?>
           </h1>
-          <?php (new Area('City Header'))->display($c);
-          if ($c->getCollectionUserID() > 1): ?>
-          <section class="city-organizer">
-          <?= ($avatar = $av->getImagePath($page_owner)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
-          <div class="city-organizer-details">
-            <h3><?="{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" .
-                    ($u->getUserID() == $page_owner->getUserID() ? " <a href={$this->url('/profile/edit')}><i class='icon-edit-sign'></i></a>":null)?></h3>
-            <h4>City Organizer</h4>
-            <div class="btn-toolbar">
-              <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
-              <?= ($facebook = $page_owner->getAttribute('facebook')) ? "<a href='http://facebook.com/$facebook' target='_blank' class='btn'><i class='icon-facebook'></i></a>" : null ?>
-              <?= ($twitter = $page_owner->getAttribute('twitter')) ? "<a href='http://twitter.com/" . ltrim($twitter,'@') . "' target='_blank' class='btn'><i class='icon-twitter'></i></a>" : null ?>
-              <?= ($website = $page_owner->getAttribute('website')) ? ("<a href='" . (0 === strpos($website,'http') ? $website : "http://$website") . '\' target="_blank" class="btn"><i class="icon-globe"></i></a>') : null ?>
-            </div>
-          </div>
-          </section>
+          <?php
+            (new Area('City Header'))->display($c);
+            $bgPhotoCreditName = $c->getAttribute('background_photo_credit_name');
+            $bgPhotoCreditLink = $c->getAttribute('background_photo_credit_link');
+            if ($bgPhotoCreditName !== '') {
+              ?>
+                <p style="font-size: x-small; color: #fff;">
+                  Background photo credit:
+                  <a href="<?= ($bgPhotoCreditLink) ?>" target="_blank"><?= ($bgPhotoCreditName) ?></a>
+                </p>
+              <?php
+            }
+            if ($c->getCollectionUserID() > 1):
+          ?>
+            <section class="city-organizer">
+              <?= ($avatar = $av->getImagePath($page_owner)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
+              <div class="city-organizer-details">
+                <h3>
+                  <?=
+                    "{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" .
+                    ($u->getUserID() == $page_owner->getUserID() ? " <a href={$this->url('/profile/edit')}><i class='icon-edit-sign'></i></a>":null)
+                  ?>
+                </h3>
+                <h4>City Organizer</h4>
+                <div class="btn-toolbar">
+                  <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
+                  <?= ($facebook = $page_owner->getAttribute('facebook')) ? "<a href='http://facebook.com/$facebook' target='_blank' class='btn'><i class='icon-facebook'></i></a>" : null ?>
+                  <?= ($twitter = $page_owner->getAttribute('twitter')) ? "<a href='http://twitter.com/" . ltrim($twitter,'@') . "' target='_blank' class='btn'><i class='icon-twitter'></i></a>" : null ?>
+                  <?= ($website = $page_owner->getAttribute('website')) ? ("<a href='" . (0 === strpos($website,'http') ? $website : "http://$website") . '\' target="_blank" class="btn"><i class="icon-globe"></i></a>') : null ?>
+                </div>
+              </div>
+            </section>
           <?php endif; ?>
         </div>
       </div>
