@@ -518,15 +518,18 @@ function clearRoute(event) {
 //
 
 if ($('#map-canvas').length > 0) {
-  // $(document).ready(function() {
-  //   gMapinitialize();
-  // });
-  google.maps.event.addDomListener(window, 'load', gMapinitialize);
+  var initCallback = function() {
+    gMapinitialize();
+    $(this).unbind('click', initCallback);
+  };
+  $('.route').bind('click', initCallback);
 }
+
 
 $('a[href="#route"][data-toggle="tab"]').on('shown', function(e) {
   lastCenter=map.getCenter(); 
   google.maps.event.trigger(map, 'resize');
   map.setCenter(lastCenter);
   tipLoader();
+  // google.maps.event.addDomListener(window, 'load', gMapinitialize);
 });
