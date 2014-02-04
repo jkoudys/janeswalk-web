@@ -9,7 +9,7 @@ global $u; global $cp;
 $this->inc('elements/header.php');  ?>
 
 <body class="walk-page active-walk"
-        data-pageViewName="WalkPageView">
+  data-pageViewName="WalkPageView">
   <div id="fb-root"></div>
   <script>
     window.fbAsyncInit = function() {

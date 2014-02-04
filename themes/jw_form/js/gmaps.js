@@ -366,7 +366,7 @@ function gMapinitialize() {
   $('#addroute').on('click', function(){
 
     if ($(this).hasClass('active')) {
-      $(this).html('<i class="icon-map-route"></i> Add Route').removeClass('btn-primary active');
+      $(this).html('<i class="icon-map-route"></i> Edit Route').removeClass('btn-primary active');
       $('.map-notifications').html('');
       $('#addpoint').prop('disabled', false);
       $('.disable-alert').css({'zIndex':'-1'});
@@ -518,12 +518,18 @@ function clearRoute(event) {
 //
 
 if ($('#map-canvas').length > 0) {
-  google.maps.event.addDomListener(window, 'load', gMapinitialize);
+  var initCallback = function() {
+    gMapinitialize();
+    $(this).unbind('click', initCallback);
+  };
+  $('.route').bind('click', initCallback);
 }
+
 
 $('a[href="#route"][data-toggle="tab"]').on('shown', function(e) {
   lastCenter=map.getCenter(); 
   google.maps.event.trigger(map, 'resize');
   map.setCenter(lastCenter);
   tipLoader();
+  // google.maps.event.addDomListener(window, 'load', gMapinitialize);
 });

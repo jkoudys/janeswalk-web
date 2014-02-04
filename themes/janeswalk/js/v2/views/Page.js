@@ -15,6 +15,32 @@ var PageView = View.extend({
      */
     init: function(element) {
         this._super(element);
+        this._addNavEvents();
+    },
+
+    /**
+     * _addNavEvents
+     * 
+     * @protected
+     * @return    void
+     */
+    _addNavEvents: function() {
+        this._element.find('a.search-open').click(
+            function() {
+                $('html, body').animate(
+                    {
+                        scrollTop: 0
+                    },
+                    300
+                );
+                $('header.navbar').addClass('dropped');
+            }
+        );
+        this._element.find('a.search-close').click(
+            function() {
+                $('header.navbar').removeClass('dropped');
+            }
+        );
     },
 
     /**
