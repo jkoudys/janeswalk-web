@@ -1,23 +1,12 @@
 /*
 Syntax error: Undefined mixin 'background-size'.
-        on line 12 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'
-        from line 12 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss
+        on line 10 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'
+        from line 10 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss
 
 Backtrace:
-/Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss:12:in `background-size'
-/Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss:12
+/Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss:10:in `background-size'
+/Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss:10
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:251:in `visit_mixin'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:98:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:107:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:119:in `with_environment'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:106:in `visit_children'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
-/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:318:in `visit_rule'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:98:in `visit'
@@ -90,4 +79,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined mixin 'background-size'.\A         on line 12 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'\A         from line 12 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss"; }
+  content: "Syntax error: Undefined mixin 'background-size'.\A         on line 10 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss, in `background-size'\A         from line 10 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/homepage.scss"; }

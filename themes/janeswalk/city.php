@@ -1,15 +1,15 @@
 <?php 
-defined('C5_EXECUTE') or die(_("Access Denied."));
-$im = Loader::helper('image');
-$fullbg = $c->getAttribute("full_bg");
-$nh = Loader::helper('navigation');
-$dh = Loader::helper('concrete/dashboard');
-$page_owner = UserInfo::getByID($c->getCollectionUserID());
-$av = Loader::helper('concrete/avatar');
-$show = $_REQUEST['show'];
-global $u; global $cp;
+  defined('C5_EXECUTE') or die(_("Access Denied."));
+  $im = Loader::helper('image');
+  $fullbg = $c->getAttribute("full_bg");
+  $nh = Loader::helper('navigation');
+  $dh = Loader::helper('concrete/dashboard');
+  $page_owner = UserInfo::getByID($c->getCollectionUserID());
+  $av = Loader::helper('concrete/avatar');
+  $show = $_REQUEST['show'];
+  global $u; global $cp;
 ?>
-<?php $this->inc('elements/header.php');  ?>
+<?php $this->inc('elements/header.php'); ?>
 <body class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>" <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
   <?php
     $this->inc('elements/navbar.php');
