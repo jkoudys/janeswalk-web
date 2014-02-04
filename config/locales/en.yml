@@ -1,0 +1,98 @@
+en:
+  janes_walk: Jane's Walk
+  walk: Walk
+  donate: Donate
+  next: Next
+  save: Save
+  previous: Back
+  pick_one: Pick one of the following
+  optional: Optional
+  you: You
+  name: Name
+  role: Role
+  username: Username
+  twitter: Twitter
+  facebook: Facebook
+  website: Website
+  email: Email
+  phone_number: Phone Number
+  blog: Blog
+
+  walk_leader: Walk Leader
+  walk_leader_desc: A person presenting information, telling stories, and fostering discussion during the Jane's Walk.
+  walk_organizer: Walk Organizer
+  walk_organizer_desc: A person responsible for outreach to new and returning Walk Leaders and Community Voices.
+  community_voice: Community Voice
+  community_voice_desc: A community member with stories and/or personal experiences to share.
+  volunteers: Volunteers
+  volunteers_desc: Other people who are helping to make your walk happen.
+
+  themes:
+    nature_lover: The Nature Lover
+    green_thumb: The Green Thumb
+  form:
+    hey_there: Hey there!
+    intro_message: Jane’s  Walks  are   walking  conversation  about  neighbourhoods .  You can return to this form at any time, so there's no need to finish everything at once.
+    describe_your_walk: Describe Your Walk
+    share_your_route: Share Your Route
+    set_the_time_and_date: Set the Time & Date
+    make_it_accessible: Make it Accessible
+    build_your_team: Build Your Team
+    preview_walk: Preview Walk
+    publish_walk: Publish Walk
+    save_and_return_later: Save and return later
+    walk_title: Walk Title
+    walk_title_help: Something short and memorable.
+    upload_photos: Upload Photos to display on your walk page
+    short_description: Your Walk in a Nutshell
+    short_description_help: Build intrigue! This is what people see when browsing our walk listings.
+    long_description: Walk Description
+    long_description_help: Help jump start the conversation on your walk by giving readers an idea of the discussions you'll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.
+    themes: Themes
+    themes_help: Pick between 1 and 3 boxes.
+
+    route_help: Need help building your route?
+    route:
+      set_a_meeting_place: Set a Meeting Place
+      add_stop: Add Stop
+      add_route: Add Route
+      clear_route: Clear Route
+      walk_stops: Walk Stops
+      title: Title
+      description: Description
+    by_request: By Request
+    by_request_desc: Highlight times that you're available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.
+    scheduled: Scheduled
+    scheduled_desc: Set specific dates and times that this walk is happening.
+    save_date: Save Date
+    date_selected: Date Selected
+    time_and_date:
+      help: Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.
+      open: Leave my availability open. Allow people to contact you to set up a walk. 
+      date_selected: Date selected
+      approximate_duration_of_walk: Approximate Duration of Walk
+      my_available_dates: My Available Dates
+      approximate_duration: Approximate Duration
+      clear_and_return: Clear schedule and return to main Time and Date page
+    how_accessible_is_it: How accessible is this walk?
+    extra_accessibility_info: What else do people need to know about the accessibility of this walk?
+    how_to_transit: How can someone get to the meeting spot by public transit?
+    how_to_transit_help: Nearest subway stop, closest bus or streetcar lines, etc. 
+    nearest_parking: Where are the nearest places to park?
+    how_to_find_you: How will people find you?
+    how_to_find_you_help: Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you. 
+
+    introduce_yourself: Introduce Yourself
+    introduce_yourself_help: We recommend keeping your bio under 60 words 
+    private_section: We'll keep this part private
+    private_section_help: We'll use this information to contact you about your walk submission. We wont share this information with 3rd parties. 
+    who_else_is_involved: Who else is involved with this walk?
+    who_else_is_involved_help: Click to add team members to your walk
+
+  city:
+    get_involved: Get Involved
+    submit_a_walk: Submit a Walk
+    request_custom_walk: Request a Custom Walk
+    see_all_walks: See All Walks
+    city_blog: City Blog
+

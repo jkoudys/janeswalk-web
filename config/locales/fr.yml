@@ -1,0 +1,518 @@
+fr:
+fr:
+ number:
+  currency:
+  format:
+   unit: '$'
+   delimiter: ','
+   separator: '.'
+   precision: 2
+   format: '%u%n'
+
+ campus_vacations: Vacances Campus
+ cv_trips: Voyages VC
+ store_text: Boutique
+ media_text: "Médias"
+ join_the_team: "Vous joindre à l'équipe"
+ about_us: "À notre sujet"
+ faq: "F.A.Q."
+ logged_in_as: Session ouverte sous
+ my_account: Mon compte
+ login: Ouverture de session
+ logout: Fermeture de session
+ email: Courriel
+ password: Mot de passe
+ remember_me: "Mémoriser mon identité"
+ no_account: "Vous n'avez pas de compte?"
+ forgot_your_password: "Oublié votre mot de passe?"
+ forgot_password: "Oublié le mot de passe"
+ change_password: Modifier le mot de passe
+ reset_password: "Réinitialiser le mot de passe"
+ new_password: Nouveau mot de passe
+ confirm_password: Confirmer le mot de passe
+ forgot_password_message: "Quelle adresse courriel a été utilisée pour créer votre compte?"
+ sign_up: Inscritpion
+ click_here: Cliquez ici
+ contact_us: Nous joindre
+ back: Retour
+ terms_and_conditions: Conditions
+ rbc_insurance: Assurance RBC
+ travel_guard_insurance: Assurance Travel Guard
+ advertise_with_us: Vous annnoncer avec nous
+ ski_trips: "Voyages - Ski"
+ beach_trips: "Voyages - Plage"
+ summer_trips: "Voyages - Été"
+ clubs_and_assoc_trips: "Voyages - Clubs et Associations"
+ sports_tournaments: Tournois sportifs
+ custom_trips: Voyages sur mesure
+ no_string: "Non"
+ yes_string: "Oui"
+ or: ou
+ in: dans
+ for: pour
+ to: à
+ day: jour
+ submit: Soumettre
+ submitting: En traitement...
+ confirm: Confirmer
+ cancel: Annuler
+ pay: Payer
+ keep: Garder
+ save: Sauvegarder
+ saving: En cours de sauvegarde...
+ update: Mettre à jour
+ updating: En cours de mise à jour...
+ change: Modifier
+ invite: Inviter
+ inviting: "En cours d'invitation..."
+ tremblant_deals: Aubaines de Tremblant
+
+ january: Janvier
+ february: Février
+ march: Mars
+ april: Avril
+ may: Mai
+ june: Juin
+ july: Juillet
+ august: Août
+ september: Septembre
+ october: Octobre
+ november: Novembre
+ december: Décembre
+
+ users:
+  name: Nom
+  first_name: Prénom
+  last_name: Nom de famille
+  address: Adresse
+  extra_address: Adresse (supplémentaire)
+  email: Courriel
+  city: Ville
+  province: Province/État
+  postal_code: Code postal
+  cell_number: Numéro de cellulaire
+  gender: Genre
+  password: Mot de passe
+  university: Université
+  password_confirmation: Retaper le mot de passe
+  date_of_birth: Date de naissance
+  male: Homme
+  female: Femme
+
+ rental_stats:
+  personal_stats: Données personnelles
+  height: Grandeur
+  weight: Poids
+  foot_size: Pointure de chaussure
+  skill_level: Niveau d'habileté
+  goofy: Goofy
+  beginner: Débutant
+  intermediate: Intermédiaire
+  advanced: Avancé
+
+ trips:
+  all_trip_types: Tous les types de voyages
+  all_departure_points: Tous les points de départs
+  all_destinations: Toutes les destinations
+  all_dates: Toutes les dates
+  price_low_to_high: Prix (ascendants)
+  price_high_to_low: Prix (descendants)
+  date_sooner_first: "Date (la plus rapprochée d'abord)"
+  date_later_first: "Date (la plus éloignée d'abord)"
+  no_matching_trips: "Désolé, aucun voyage ne correspond à vos critères de recherche."
+  find_perfect_trip: "Trouvez le voyage parfait pour vous : Utilisez l'outil de recheche de voyages CV"
+  ski_trips_copy:
+    "Nos voyages de ski sont incomparables : faites la fête, skiez et surfez avec des milliers d'étudiants, dans les meilleurs centres de ski
+    du Nord-Est. Profitez d'hébergement luxueux, célébrez jusqu'aux petites heures du matin dans le village légendaire et
+    accédez aux événements exclusifs de Vacances Campus. Réservez maintenant et profitez d'un voyage de ski qui sera sans contredit le point culminant
+    de votre année... Garanti!"
+  beach_trips_copy:
+    "Du soleil, des plages, bikinis... Quittez le campus et la ville, et mettez le cap sur le Sud!!
+    Ces voyages sortent véritablement de l'ordinaire pour la relâche scolaire, et Voyages Campus vous offre les destinations les plus hot... Et les plus cool!
+    Profitez de centres de villégiature tout-inclus à la mesure de votre budget. Place aux partys non-stop et aux événements organisés par le personnel légendaire
+    d'animation de Vacances Campus."
+  summer_trips_copy:
+    "Bye bye, bureau... Faites vos valises, et n'oubliez pas votre passeport! C'est l'aventure à l'échelle du globe qui vous attend. Découvrez l'un de nos
+    voyages internationaux organisés par GAP Adventures, réputé pour les voyages de groupe. Que vous optiez pour les magnifiques îles grecques,
+    les plages interminables du Costa Rica ou le dépaysement de l'Asie du Sud-Est,
+    cet été promet de rester à jamais gravé dans votre mémoire."
+  clubs_and_assoc_trips_copy:
+    "Si vous êtes impliqué avec un club de campus, de faculté ou d'association, vous êtes au bon endroit. Vacances Campus
+    organise des voyages pour étudiants partout au Canada et dans le Nord-Est des États-Unis. Nous nous occupons de tout : transport,
+    hébergement, salles de réunion et partys! Confiez-nous votre projet de voyage, rien de plus simple!"
+  sports_tournaments_copy:
+    "Le hockey collégial vous passionne et vous voulez jouer davantage? Votre équipe de basket-ball a soif de nouveaux défis?
+    Rassemblez votre équipe et tentez de remporter la très convoitée Coupe Campus dans le cadre de l'un de nos légendaires tournois sportifs.
+    Découvrez nos nombreux tournois intercollégiaux et prouvez aux autres campus que votre équipe
+    sait se distinguer."
+  more_info: "Plus d'information"
+  book_now: Réservez maintenant
+  available: Opens
+  trip_details: Détails du voyage
+  departing: Départ
+  returning: Retour
+  departing_from: Au départ de
+  all_regions: Toutes les régions
+  destination: Destination
+  package_includes: Le forfait inclut
+  price_per_person: / personne
+  trip_info: Détails du voyage
+  pricing: Prix
+  pricing_from: Prix à partir de
+  departure_date: Date de départ
+  return_date: Date de retour
+  travel_itinerary: Itinéraire
+  package_information: Information sur le forfait
+  additional_options: Options additionnelles
+
+ products:
+  item_name: "Nom de l'article"
+  price: Prix
+  description: Description
+  colour: Couleur
+  size: Taille
+  quantity: Quantité
+  style: Style
+  code: Code
+
+ booking:
+  book_trip: Réserver
+  new_user_sign_up: Inscription nouvel utilisateur
+  user_login: Ouverture de session utilisateur
+  create_a_group: Créer un groupe
+  join_a_group: Vous joindre à un groupe
+  new_to_our_site: Nouveau sur le site?
+  click_here: Cliquez ici
+  learn_about_booking: Comment fonctionne le processus de réservation?
+  explain_step_1:
+    "Une personne (le responsable du groupe) créera le groupe. Ceci se fait en cliquant 'Réserver maintenant' sur le voyage désiré.
+    Trouver votre voyage en utilisant l'outil de recherche de voyages VC."
+  explain_step_2:
+    "Au moment de créer le groupe, le responsable du groupe entrera tous les détails concernant le groupe, choisira toute option pour le groupe (ces options s'appliquent
+    à tous les membres du groupe, p. ex., une nuit additionnelle), puis paiera pour son propre voyage seulement."
+  explain_step_3:
+    "Le groupe est confirmé une fois que le responsable du groupe a payé."
+  explain_step_4:
+    "Tous les membres du groupe recevront un courriel incluant un hyperlien leur permettant de se joindre au groupe. Un membre d'un groupe peut aussi cliquer sur
+    'Réserver maintenant' sur un voyage donné, puis choisir 'Vous joindre à un groupe', où on leur demandera leur adresse courriel (veuillez
+    vous assurer qu'il s'agit de la même adresse courriel que celle entrée pour vous par le responsable du groupe)."
+  explain_step_5:
+    "Chaque membre du groupe devra ensuite procéder à sa réservation, choisir ses options individuelles et payer pour
+    son voyage."
+  received_an_invitation: Utiliser cette page si vous avez reçu une invitation de votre responsable de groupe.
+  join_different_group: Vous joindre à un autre groupe
+  who_is_your_group_leader: Qui est votre responsable de groupe?
+  email: Courriel
+  please_enter_email:
+    "Veuillez entrer l'adresse courriel à laquelle votre responsable de groupe a envoyé l'invitation.
+    Si vous êtes incertain, veuillez demander à votre responsable de groupe de vous retourner l'invitation."
+  found_one_invitation: Nous avons trouvé une invitation pour vous de
+  found_many_invitations: Nous avons trouvé plus d'une invitation pour vous. Souhaitez-vous vous joindre à l'un de ces groupes?
+  hold_on: Un moment!
+  create_a_new_group: Créer un nouveau groupe
+  do_not_join_many: si vous ne souhaitez pas vous joindre à l'un de ces groupes.
+  do_not_join_one: si vous ne souhaitez pas vous joindre à ce groupe.
+  group_information: Information sur le groupe
+  choosing_accommodations: Choisir l'hébergement
+  inviting_group_members: Inviter les membres du groupe
+  adding_group_options: Ajouter des options pour le groupe
+  group_information: Information sur le groupe
+  group_summary: Sommaire du groupe
+  individual_options: Options individuelles
+  trip_options: Options du voyage
+  store_add_ons: Store Add-Ons
+  payment: Paiement
+  terms: Conditions
+  receipt: Reçu
+  size_of_group: "# de personnes dans votre groupe"
+  were_you_referred: Avez-vous été référé par l'un de nos représentants?
+  please_specify: Veuillez préciser
+  person: personne
+  person_room: "chambre de {{num}} personnes"
+  sold_out: Complet
+  description: description
+  price: prix
+  night: nuit
+  base_cost: prix de base
+  equipment_rental: Location d'équipement
+  rental_options_available: "{{num}} options de location disponibles"
+  equipment_options: Options d'équipement
+  days_required: Jours requis
+  more_info: "+ more info"
+  out_of_stock_notice: En rupture de stock pour les options et quantités choisies.
+  trip_sold_out: "{{name}} est complet"
+  trip_sold_out_copy:
+    "Ce voyage est complet. À l'occasion, il arrive que des chambres se libèrent suite à des annulations de groupes.
+    Si des chambres devaient se libérer, nous en informerons les gens sur la liste d'attente selon l'ordre d'inscription
+    de chacune des demandes reçues."
+  put_group_on_waiting_list: "Si vous souhaitez ajouter votre groupe à la liste d'attente, veuillez remplir les champs suivants :"
+  your_name: Votre nom
+  your_email: Votre courriel
+  your_phone: "Votre # de téléphone"
+  departing_from: Au départ de
+  desired_suite: Type de suite désirée
+  coupon: Coupon
+  update_order: Actualiser la commande
+  updating: En cours d'actualisation...
+  payment_options: Options de paiement
+  pay_full_value: Payer le plein tarif
+  pay_deposit_only: "Ne payer qu'un acompte de {{amount}}"
+  shipping_disclaimer: "You will receive these items upon check-in on your trip."
+  transportation: Transport
+  select_point_of_departure: SVP Selectionner votre point de départ
+  buses_sold_out: Les autobus pour votre région sont tous épuisés. Vous devrions fournir votre propre transportation.
+  bus_opt_in: Je vais prendre l’autobus (inclut dans le prix)
+  bus_opt_out: Je vais fournir mon propre transportation (un partie du prix pour l’autobus sera déduit du prix total de votre forfait)
+
+ payments:
+  payment_information: Information - Paiement
+  paypal_express_description: "Veuillez passer en revue votre commande. Quand vous êtes prêt, cliquez sur 'Payer maintenant'. Vous serez facturés conformément à la méthode de paiement choisie sur le site de Paypal."
+  pay_now: Payer maintenant
+  processing: En traitement...
+  shipping_address: Adresse d'expédition
+  billing_address: Adresse de facturation
+  refund_description: "Veuillez passer en revue votre remboursement. Quand vous êtes prêt, cliquez sur 'Remboursement' et un remboursement sera émis sur la carte utilisée pour l'achat du voyage."
+  full_name: Nom complet
+  street_address: Adresse
+  street_address_cont: Adresse (suite)
+  city: Ville
+  please_select: Veuillez choisir...
+  province: Province/État
+  postal_code: Code postal
+  country: Pays
+  canada: Canada
+  phone_number: Numéro de téléphone
+  united_states: États-Unis
+  refund: Remboursement
+  payment: Paiement
+  receipt: Reçu
+  order_summary: Sommaire de votre commande
+  same_as_billing: Même que l'adresse de facturation
+  credit_card_refunded: Un remboursement sera émis sur la carte de crédit
+  credit_card_charged: Le montant de l'achat sera porté à votre carte de crédit
+  trip_purchase_is_free: "Félicitations! Votre achat de voyage est gratuit. Veuillez remplir les détails de l'adresse de facturation, puis cliquer sur 'Confirmer' pour réserver votre voyage."
+  type_of_payment: Mode de paiement
+  name_on_card: Nom sur la carte
+  credit_card_num: "# de carte de crédit"
+  cvv_code: Code CVV
+  expiry_date: Date d'échéance
+  paypal_information:
+    "Si vous avez un compte PayPal, vous pouvez payer votre commande en utilisant l'information
+    enregistrée sur PayPal. Vous n'avez qu'à cliquer sur 'Régler avec PayPal' ci-dessous,
+    et vous serez redirigé vers le site de PayPal. Vous pourrez y choisir les détails de votre paiement et
+    PayPal vous redirigera ensuite ici pour confirmer votre commande."
+  interac_information:
+    "Pay with INTERAC<sup>&reg;</sup> Online - the easiest and safest way to pay online! If you bank with BMO, RBC, Scotiabank or TD
+     and can access your account online, you're eligible. Once you press 'Pay Now', you'll be redirected to an external website, where
+     you'll choose your financial institution, and fill in your payment details on your financial institution's website."
+  remaining_balance: Solde à payer sur le voyage
+  subtotal: Sous-total
+  gst: TPS
+  qst: TVQ
+  pst: TVP
+  hst: TVH
+  group_options: Options du groupe
+  individual_options: Options individuelles
+  store_purchases: Achats à la boutique
+  discounts: Rabais
+  other: Autre
+  misc_taxes: Taxes diverses
+  total: Total
+  credits: Crédits
+  credit: Crédit
+  deposit_due_today: Acompte dû aujourd'hui
+  deposit_paid_on: "Acompte payé le {{date}}"
+  balance_due: "Solde dû le {{date}}"
+  balance_paid: "Solde payé le {{date}}"
+
+ account:
+  view_receipt: "voir le reçu / historique de paiement"
+  view_insurance: "voir l'information concernant l'assurance"
+  pay_balance_now: Payer le solde maintenant
+  pending_balance_message: "Votre solde total pour ce voyage est de {{total}}, dû le {{due_date}}."
+  pending_refund_message: "Un remboursement total de {{total}} vous est dû pour ce voyage!"
+  pending_payment_message: "You have a pending payment of {{total}} for this trip!"
+  pay_now: Payer maintenant
+  to_confirm_changes: pour confirmer vos changements
+  travel_itinerary: Itinéraire
+  accommodations: Hébergement
+  group_options: Options du groupe
+  individual_options: Options individuelles
+  options: Options
+  equipment_rental: Location d'équipement
+  chosen_driving_self: "Vous avez choisi de vous y rendre par vos propres moyens"
+  departing_from_region: "Au départ de {{region}}"
+  requested_region_change: "Vous avez demandé de partir de {{region}}."
+  requested_buses: Vous avez demandé une modification pour y aller en autocar.
+  requested_driving_self: Vous avez demandé d'y aller par vos propre moyens.
+  change_link: "[ modifier ]"
+  resend_receipt: envoyer de nouveau le reçu
+  send_reminder: envoyer un rappel
+  resend_invitation: envoyer de nouveau l'invitation
+  sending: en cours d'envoi...
+  sent: envoyé!
+  departing_from: Au départ de
+  buses_sold_out: Les autocars pour cette région sont complets.
+  taking_bus: Je prends l'autocar
+  providing_own_transportation: Je fournis mon propre moyen de transport
+  no_options_chosen: Aucune option choisie
+  no_insurance_refund: L'assurance est non-remboursable une fois achetée.
+  option_sold_out: Cette option n'est plus disponible.
+  option_frozen: "Cette option est gelée. Elle ne peut être ajoutée à votre commande, ni supprimée."
+  option_cancellation_approved: Votre demande d'annulation de cette option a été approuvée.
+  option_cancellation_pending_approval: Votre demande d'annulation de cette option est en cours d'approbation.
+  to_change_your_mind: Pour changer d'idée
+  cancel_your_request: annuler votre demande
+  to_remove_option: "Pour supprimer une option, décochez la boîte correspondante puis cliquez sur actualiser et une demande sera envoyée."
+  account_details: Détails <span>du compte</span>
+  pending_trips: Voyages <span>en suspens</span>
+  cancelled_trips: Voyages <span>annulé</span>
+  active_trips: Voyages <span>actifs</span>
+  past_trips: Voyages <span>passés</span>
+  manager_dashboard: Tableau de bord <span>- Gestionnaire</span>
+  promoter_stats: Statistiques <span>- Promoteur</span>
+  admin_dashboard: Tableau de bord <span>- Administrateur</span>
+  you_requested_option: "Vous avez demandé '{{option}}'"
+  requested_option_awaiting_approval: "Votre demande de '{{option}}' est en cours d'approbation"
+  to_book_the_option: pour réserver l'option
+  cancel_your_request: Annuler votre demande
+  no_longer_want_option: si vous ne désirez plus cette option
+  no_rental_option_chosen: Vous n'avez choisi aucune option de location
+  rental_option_cancellation_approved: Votre demande de changement de vos options de location a été approuvée.
+  rental_option_cancellation_pending_approval: Votre demande de changement de vos options de location est en cours d'approbation.
+  rental_days: "Loué pour {{days}}"
+  rental_errors: "Vos choix n'étaient pas valides. Veuillez choisir au moins une journée, et remplir tous les champs de renseignements personnels."
+  no_equipment_rental: Aucune location d'équipement
+  days_required: Jours requis
+  no_group_options_chosen: Vous n'avez choisi aucune option pour le groupe
+  region_departure_location: "{{reegion}} departure location"
+  origin_to_destination: "{{origin}} à {{destination}}"
+  bus_selection_available: "Le choix de l'autocar sera disponible le {{date}}"
+  bus_choices_viewable: "Vox choix d'autocars pourront être vus le {{date}}"
+  choose_a_bus: Choisir un autocar...
+  view_bus_choices: "D'ici là, vous pouvez voir vos choix d'autocars ci-dessous"
+  bus_deadline_passed: "La date limite pour le choix des autocars est passée, mais vous n'avez toujours pas choisi vos autocars."
+  accom_switch_approved: "Votre demande de changement pour un-e {{accom}} a été approuvée"
+  accom_switch_pending_approval: "Votre demande de changement pour un-e {{accom}} est en cours d'approbation"
+  to_book_your_room: pour réserver votre chambre
+  add_members_for_accom_switch: "Le type d'hébergement pour lequel pour changez est plus grand que votre choix initial. Veuillez inviter davantage de membres dans votre groupe."
+  missing_person_disclaimer: "Si vous n'ajoutez pas de membres à votre groupe, des frais vous seront chargés pour chaque personne manquante."
+  arrive_in_destination: "Arrivée à {{destination}}"
+  depart_from_destination: "Départ de {{destination}}"
+  accept_group_invitation: "Acceptez-vous l'invitation du groupe de {{name}}?"
+  welcome: "Bienvenue sur votre page de compte avec Vacances Campus. Veuillez cliquer sur les hyperliens à gauche pour passer en revue, mettre à jour et confirmer les détails de votre-vos voyage-s."
+  please_update: veuillez mettre à jour les détails du compte
+  change_account_details_link: "[ modifier les détails du compte ]"
+  receive_mailings: "Oui, j'aimerais recevoir de l'information sur les futurs voyages de Vacances Campus au départ de mon campus."
+  change_settings: Modifier les paramètres
+  details_disclaimer: Votre compte est privé et ne peut être vu que par le personnel et la direction de Vacances Campus.
+  change_account_details: Modifier les détails <span>du compte</span>
+  red: Rouge
+  green: Vert
+  unpaid: impayé
+  paid: payé
+  group_members: Membres du groupe
+  resend: Envoyer de nouveau
+  invite_new_members: Inviter de nouveaux membres
+  edit_members: Modifier les membres
+  remove: supprimer
+  remove_group_member_confirmation: "Êtes-vous certain de vouloir supprimer {{name}} de votre groupe?"
+  pending_approval: en attente d'approbation
+  pending_removal: en attente de suppression
+  you_are_booked_for: Vous avez réservé pour
+  thanks_for_choosing_cv: "Merci d'avoir choisi Vacances Campus! Nous vous faisons parvenir cette information par courriel, mais vous pouvez également ouvrir une session et accéder à votre compte Vacances Campus pour passer les détails en revue. N'hésitez pas à communiquer avec nous pour toute question concernant votre réservation."
+  important_information: Information importante
+  travel_insurance_accepted: "L'Assurance voyage a été offerte, et acceptée"
+  travel_insurance_rejected: "L'Assurance voyage a été offerte, et refusée"
+  price_increase_disclaimer: Ce contrat ne permet pas les hausses de prix.
+
+ custom_trips:
+  custom_group_trips: Voyages de groupe sur mesure
+  custom_trips_copy:
+    "Vacances Campus s'engage à offrir aux groupes collégiaux et universitaires
+    des forfaits voyages au rabais. Planifiez votre prochain voyage de groupe avec Vacances Campus et
+    profitez de rabais étudiants exclusifs!"
+  fill_out_form: "Remplissez le formulaire ci-dessous, et un membre de notre équipe communiquera avec vous sous peu."
+  full_name: Nom complet
+  email: Adresse courriel
+  school: École
+  club: Club/Organisation
+  num_people: Nombre de personnes
+  destination: Destination souhaitée
+  departure: Lieu de départ
+  transportation: Transport
+  accommodations: Hébergement
+  travel_insurance: Assurance voyage
+  other: Autre (veuillez spécifier ci-dessous)
+  notes: Notes spéciales
+  send_your_trip_idea: Envoyez-nous vos idées de voyages!
+  which_are_required: "Parmi les services suivants, desquels auriez-vous besoin?"
+  all_trip_ideas: Toutes les idées de voyages
+  no_trips_in_category: "Désolé, il n'y a encore aucun voyage dans cette catégorie. N'hésitez pas à faire une suggestion!"
+  build_a_trip_from_scratch: Aucun voyage ne vous convient parfaitement? Dressez votre liste et 'bâtissez' un voyage à votre goût.
+  get_a_quote: Obtenez un devis
+  see_all_trip_ideas: Voir toutes les idées de voyages
+  search_by_group_type: Rechercher par type de groupe
+  search_by_trip_kind: Rechercher par type de voyage
+  build_from_scratch: Bâtissez un voyage à partir de zéro
+
+ job_applications:
+  promoter_application_form: Formulaire d'inscription de promoteur
+  copy: "Merci de votre intérêt pour Vacances Campus. Si vous souhaitez obtenir plus d'information pour devenir l'un de nos organisateurs de voyages, veuillez remplir le formulaire suivant."
+  name: Nom
+  email: Courriel
+  phone: Téléphone
+  school_type: Do you attend
+  school: École
+  school_year: Année scolaire
+  comments: Commentaires
+
+ media:
+  galleries: Galeries
+  videos: Vidéos
+  survey_link: "Lorsque vous aurez terminé sur {{survey_link}}, revenez ici pour revivre les meilleurs moments du voyage."
+  the_survey: le sondage
+
+ surveys:
+  no_surveys: "Désolé, il n'y a aucun sondage à remplir pour le moment."
+  survey_intro_copy: "Merci de prendre le temps de répondre à notre sondage; cela nous aidera à offrir des voyages encore meilleurs l'an prochain! Veuillez être aussi honnête que possible lorsque vous répondez. Les résultats du sondage sont <em>tout à fait anonymes</em>, et nous ne sauvegardons aucune information qui pourrait lier votre compte aux renseignements que vous soumettez."
+  additional_comments: Commentaires additionnels
+  unavailable: "Désolé, ce sondage est offert seulement aux personnes ayant pris part au voyage à {{trip}} du {{start_date}} au {{end_date}}."
+  other_survey: "Veuillez répondre au {{other_survey}} pour le voyage à {{trip}} du {{start_date}} au {{end_date}}."
+
+ store:
+  gear_home: Gear Home
+  items_in_cart:
+   zero: Aucun article dans le panier
+   one: 1 article dans le panier
+   other: "{{count}} articles dans le panier"
+  click_to_view: Cliquez pour visualiser
+  add_to_cart: Ajouter au panier
+  back_to_cart: Retour au panier
+  plus_tax: "+ taxes"
+  shipping_disclaimer: "Les frais d'expédition sont de {{canadian_price}} au Canada et de {{usa_price}} aux États-Unis, par commande."
+  step_1: Étape 1
+  step_2: Étape 2
+  step_3: Étape 3
+  shopping_cart: Panier
+  shipping_and_payment: "Expédition et paiement"
+  confirmation: Confirmation
+  empty_cart: Votre panier est vide
+  remove_from_cart: Retirer du panier
+  subtotal: Sous-total
+  service_charges: Frais de service
+  shipping: Expédition
+  select_region: Choisir la région
+  tax: Taxes
+  total: Total
+  same_as_shipping: Même que l'expédition
+  select_card: Choisir le type de carte
+  enter_card_info: Entrer les détails de la carte
+  enter_card_number: Entrer le numéro de la carte
+  expiration_date: Date d'expiration
+  security_number: Numéro de sécurité (3 chiffres derrière la carte)
+  your_receipt: Votre reçu
+  payment_summary: Sommaire du paiement
+  order_number: Numéro de commande
+  thank_you: Merci d'avoir commandé des articles chez Vacances Campus
+  thank_you_copy: "Merci de votre commande! Un courriel de confirmation vous a été envoyé. Si vous avez commandé des articles qui requièrent d'être expédiés, vous devriez les recevoir d'ici 3 à 5 jours ouvrables. Si vous n'avez toujours pas reçu votre commande après 7 jours ouvrables, veuillez communiquer avec nous. Si vous avez commandé un billet électronique, veuillez imprimer cette page comme preuve d'achat."
