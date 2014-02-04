@@ -31,12 +31,13 @@
     <script src="<?=$this->getThemePath()?>/js/Eventbrite.jquery.js"></script>  
     <script src="//cdn.jsdelivr.net/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
 
-    <!-- new (onassar) -->
+    <!-- v2 (onassar) -->
     <script src="<?=$this->getThemePath()?>/js/app.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/extend.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/FacebookShareDialog.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/View.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js" type="text/javascript"></script>
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />

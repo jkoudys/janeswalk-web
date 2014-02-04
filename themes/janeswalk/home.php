@@ -9,7 +9,8 @@ global $u; global $cp;
 ?>
 <?php $this->inc('elements/header.php');  ?>
 
-<body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?= is_object($headImage) ? "style='background-image:url({$headImage->getURL()});background-size:cover;background-position:50%;'" : "" ?>>
+<body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?= is_object($headImage) ? "style='background-image:url({$headImage->getURL()});background-size:cover;background-position:50%;'" : "" ?>
+  data-pageViewName="HomePageView">
   <?php $this->inc('elements/navbar.php');  ?>
   <div class="intro full">
     <div class="callouts">

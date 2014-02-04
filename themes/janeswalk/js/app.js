@@ -577,20 +577,6 @@ var styles = [{
     var orderId = url('?oid');
     document.getElementById("button-regdonate").href='http://janeswalk.tv/confirm-congested?event_id=' + eventId + '&order_id=' + orderId +'';
   }
-
-  var showButton = $('.home .overlap .controls a.showButton');
-  var closeButton = $('.home .overlap .controls a.closeButton');
-  var overlapHeight = $('.overlap').height();
-  showButton.click(function() {$(".overlap").addClass("fullmap"); $(this).fadeOut(400, function() { closeButton.fadeIn()}) 
-    $('html, body').animate({scrollTop: $(this).offset().top-100},800)
-  } );
-  closeButton.click(function() {$(".overlap").removeClass("fullmap"); $(this).fadeOut(400, function() { showButton.fadeIn()}) } );
-
-  $('a.search-open').click(function(){ 
-    $('html, body').animate({scrollTop: 0},300);
-    $('header.navbar').addClass('dropped')
-    });
-  $('a.search-close').click(function(){ $('header.navbar').removeClass('dropped') });
 });
 
 
