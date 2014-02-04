@@ -366,7 +366,7 @@ function gMapinitialize() {
   $('#addroute').on('click', function(){
 
     if ($(this).hasClass('active')) {
-      $(this).html('<i class="icon-map-route"></i> Add Route').removeClass('btn-primary active');
+      $(this).html('<i class="icon-map-route"></i> Edit Route').removeClass('btn-primary active');
       $('.map-notifications').html('');
       $('#addpoint').prop('disabled', false);
       $('.disable-alert').css({'zIndex':'-1'});
