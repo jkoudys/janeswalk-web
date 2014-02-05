@@ -1,16 +1,16 @@
 <?php 
-$nh = Loader::helper('navigation');
-$im = Loader::helper('image');
-$dh = Loader::helper('concrete/dashboard');
-$th = Loader::helper('theme');
-$av = Loader::helper('concrete/avatar');
-global $u; global $cp;
-$this->inc('elements/header.php');  ?>
-
+  $nh = Loader::helper('navigation');
+  $im = Loader::helper('image');
+  $dh = Loader::helper('concrete/dashboard');
+  $th = Loader::helper('theme');
+  $av = Loader::helper('concrete/avatar');
+  global $u; global $cp;
+  $this->inc('elements/header.php');
+?>
 <body class="walk-page active-walk"
   data-pageViewName="WalkPageView">
   <div id="fb-root"></div>
-  <script>
+  <script type="text/javascript">
     window.fbAsyncInit = function() {
       FB.init({
         appId: '544710848887303',
@@ -22,7 +22,7 @@ $this->inc('elements/header.php');  ?>
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) {return;}
        js = d.createElement(s); js.id = id;
-       js.src = "//connect.facebook.net/en_US/all.js";
+       js.src = '//connect.facebook.net/en_US/all.js';
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
