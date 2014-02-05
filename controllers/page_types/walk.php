@@ -312,8 +312,8 @@
       krsort($crumbs);
 
       $team = json_decode($c->getAttribute('team'), true);
-      $team = array_map(function($mem) { 
-        $theme = PageTheme::getByHandle('janeswalk');
+      $theme = PageTheme::getByHandle('janeswalk');
+      $team = array_map(function($mem) use ($theme) { 
         if($mem['type'] === 'you') {
           $mem['type'] = ($mem['role'] === 'walk-organizer') ? 'organizer' : 'leader';
         }
