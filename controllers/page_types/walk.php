@@ -194,7 +194,8 @@
         $newCollectionVersion = $currentCollectionVersion->createNew('Updated via walk form');
         $c->loadVersionObject($newCollectionVersion->getVersionID());
 
-        $data = array("cName" => $postArray->title); $c->update($data);
+        $data = array("cName" => $postArray->title);
+        $c->update($data);
         $c->setAttribute("shortdescription", $postArray->shortdescription);
         $c->setAttribute("longdescription", $postArray->longdescription);
         $c->setAttribute("accessible_info",$postArray->{'accessible-info'});
@@ -313,7 +314,6 @@
       $team = json_decode($c->getAttribute('team'), true);
       $team = array_map(function($mem) { 
         $theme = PageTheme::getByHandle('janeswalk');
-        $av = Loader::helper('concrete/avatar');
         if($mem['type'] === 'you') {
           $mem['type'] = ($mem['role'] === 'walk-organizer') ? 'organizer' : 'leader';
         }
@@ -337,8 +337,11 @@
         default:
           break;
         }
-        if($mem['user_id'] > 0 && $avatar = $av->getImagePath(UserInfo::getByID($mem['user_id']))) {
-          $mem['avatar'] = $avatar;
+        if($mem['user_id'] > 0) {
+          $av = Loader::helper('concrete/avatar');
+          if($avatar = $av->getImagePath(UserInfo::getByID($mem['user_id']))) {
+            $mem['avatar'] = $avatar;
+          }
         }
         return $mem;
       }, $team);

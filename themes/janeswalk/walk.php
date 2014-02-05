@@ -93,7 +93,7 @@ $this->inc('elements/header.php');  ?>
           </h4>
         </div>
       </div>
-
+      <?php if(sizeof((array)$gmap->markers) + sizeof((array)$gmap->path) > 0) { ?>
       <div class="hero-unit walk-stops" style="display:none">
         <div class="row-fluid">
           <div class="span12">
@@ -128,6 +128,7 @@ $this->inc('elements/header.php');  ?>
           </div>
         </div>
       </div>
+      <?php } ?>
 
       <div class="row-fluid walk-body">
         <div class="span8">
