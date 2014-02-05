@@ -312,8 +312,8 @@
       krsort($crumbs);
 
       $team = json_decode($c->getAttribute('team'), true);
-      $team = array_map(function($mem) { 
-        $theme = PageTheme::getByHandle('janeswalk');
+      $theme = PageTheme::getByHandle('janeswalk');
+      $team = array_map(function($mem) use ($theme) { 
         if($mem['type'] === 'you') {
           $mem['type'] = ($mem['role'] === 'walk-organizer') ? 'organizer' : 'leader';
         }
@@ -350,7 +350,7 @@
       $this->set('scheduled', $c->getAttribute('scheduled'));
       $this->set('gmap', json_decode($c->getAttribute('gmap')));
       $this->set('team', $team);
-      $this->set('walk_leaders', array_filter($team, function($mem) { return true || (bool) strpos($mem['role'] . $mem['type'], 'leader'); }));
+      $this->set('walk_leaders', array_filter($team, function($mem) { return strpos($mem['type'], 'leader') !== false; }));
     }
     
     public function isPut() {

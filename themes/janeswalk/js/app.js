@@ -233,7 +233,7 @@ var styles = [{
       }
     };
 
-    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    var map = new google.maps.Map($("#map-canvas").get(0), mapOptions);
     
     var walkPath = new google.maps.Polyline({
       path: walkPathCoordinates,
