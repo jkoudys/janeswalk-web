@@ -55,94 +55,103 @@
       }
     }
     public function setEventBriteStatus($status='draft') {
-      $c = Page::getCurrentPage();
-      $eid = $c->getAttribute("eventbrite");
-      if($eid) {
-        $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
-        $event_params = array( 'status' => $status, 'id' => $eid );
-        try{
-          $response = $eb_client->event_update($event_params);
-        }catch( Exception $e ){
-          // application-specific error handling goes here
-          $response = $e->error;
-          Log::addEntry('EventBrite Error updating status for cID='.$c->getCollectionID().': ' . $e->getMessage());
-        }
-      }
-    }
-    public function setEventBrite($status = null) {
-      $c = Page::getCurrentPage();
-      $c = Page::getByID($c->getCollectionID()); // Refresh to fix a c5 quirk; todo: try deleting this after c5.7 update
-      $parent = Page::getByID($c->getCollectionParentID());
-      $timezone = $parent->getAttribute("timezone");
-      $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
-      /* Check if we're making a new event or not */
-      $eid = $c->getAttribute("eventbrite");
-      $event_params = [ 
-          'title' => $c->getCollectionName(),
-          'description' => $c->getAttribute("longdescription"),
-          'privacy' => '1',
-          'start_date' => date('Y-m-d H:i:s', time()),
-          'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) ),
-          'confirmation_page' => 'http://janeswalk.org/donate'
-      ];
-      if(isset($status)) {
-        $event_params['status'] = $status;
-      }
-      if(isset($timezone)) {
-        $event_params['timezone'] = $timezone;
-      }
-      
-      /* Jane's Walks are always free */
-      $ticket_params = [
-        'price' => '0.00',
-        'min' => '1',
-        'max' => '20',
-        'quantity_available' => '250',
-        'start_date' => date('Y-m-d H:i:s', time()) ];
-      /* If it's an 'open' booking, then it's a daily repeating event for the next year */
-      $scheduled = $c->getAttribute('scheduled');
-      $slots = (Array)$scheduled['slots']; 
-      if($scheduled['open']) {
-        $event_params['start_date'] = date('Y-m-d', time());
-        $event_params['end_date'] = date('Y-m-d', time());
-        $event_params['repeats'] = 'yes';
-      // Until 'repeats' is working by eb, just assume the next available date is the one that's open to book
-      } else if(isset($slots[0]['date'])) { 
-        $event_params['start_date'] = $slots[0]['eb_start'];
-        $event_params['end_date'] = $slots[0]['eb_end'];
-      }
-
-      Log::addEntry('EventBrite event_params: ' . print_r($event_params,true));
-      if( empty($eid) ) {
-        try{
-          $response = $eb_client->event_new($event_params);
-          $ticket_params['event_id'] = $response->process->id;
-          $c->setAttribute("eventbrite", $response->process->id);
-        }catch( Exception $e ){
-          // application-specific error handling goes here
-          $response = $e->error;
-          Log::addEntry("EventBrite Error creating new event for cID={$c->getCollectionID()}: {$e->getMessage()}");
+      if(CONCRETE5_ENV === 'prod') {
+        $c = Page::getCurrentPage();
+        $eid = $c->getAttribute("eventbrite");
+        if($eid) {
+          $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
+          $event_params = array( 'status' => $status, 'id' => $eid );
+          try{
+            $response = $eb_client->event_update($event_params);
+          }catch( Exception $e ){
+            // application-specific error handling goes here
+            $response = $e->error;
+            Log::addEntry('EventBrite Error updating status for cID='.$c->getCollectionID().': ' . $e->getMessage());
+          }
         }
       }
       else {
-        try{
-          $event_params['id'] = $eid;
-          $ticket_params['event_id'] = $eid;
-          $response = $eb_client->event_update($event_params);
-        }catch( Exception $e ){
-          $response = $e->error;
-          Log::addEntry("EventBrite Error updating event for cID={$c->getCollectionID()}: {$e->getMessage()}");
-        }
+        return true;
       }
-      $ticket_params['end_date'] = $event_params['end_date'];
-      foreach($slots as $walkDate) {
-        $ticket_params['name'] = $walkDate['date'] . ' Walk';
-        try {
-          $response = $eb_client->ticket_new($ticket_params);
-        }catch( Exception $e ){
-          $response = $e->error;
-          Log::addEntry("EventBrite Error updating ticket for cID={$c->getCollectionID()}: {$e->getMessage()}");
+    }
+    public function setEventBrite($status = null) {
+      if(CONCRETE5_ENV === 'prod') {
+        $c = Page::getCurrentPage();
+        $c = Page::getByID($c->getCollectionID()); // Refresh to fix a c5 quirk; todo: try deleting this after c5.7 update
+        $parent = Page::getByID($c->getCollectionParentID());
+        $timezone = $parent->getAttribute("timezone");
+        $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
+        /* Check if we're making a new event or not */
+        $eid = $c->getAttribute("eventbrite");
+        $event_params = [ 
+            'title' => $c->getCollectionName(),
+            'description' => $c->getAttribute("longdescription"),
+            'privacy' => '1',
+            'start_date' => date('Y-m-d H:i:s', time()),
+            'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) ),
+            'confirmation_page' => 'http://janeswalk.org/donate'
+        ];
+        if(isset($status)) {
+          $event_params['status'] = $status;
         }
+        if(isset($timezone)) {
+          $event_params['timezone'] = $timezone;
+        }
+        
+        /* Jane's Walks are always free */
+        $ticket_params = [
+          'price' => '0.00',
+          'min' => '1',
+          'max' => '20',
+          'quantity_available' => '250',
+          'start_date' => date('Y-m-d H:i:s', time()) ];
+        /* If it's an 'open' booking, then it's a daily repeating event for the next year */
+        $scheduled = $c->getAttribute('scheduled');
+        $slots = (Array)$scheduled['slots']; 
+        if($scheduled['open']) {
+          $event_params['start_date'] = date('Y-m-d', time());
+          $event_params['end_date'] = date('Y-m-d', time());
+          $event_params['repeats'] = 'yes';
+        // Until 'repeats' is working by eb, just assume the next available date is the one that's open to book
+        } else if(isset($slots[0]['date'])) { 
+          $event_params['start_date'] = $slots[0]['eb_start'];
+          $event_params['end_date'] = $slots[0]['eb_end'];
+        }
+
+        Log::addEntry('EventBrite event_params: ' . print_r($event_params,true));
+        if( empty($eid) ) {
+          try{
+            $response = $eb_client->event_new($event_params);
+            $ticket_params['event_id'] = $response->process->id;
+            $c->setAttribute("eventbrite", $response->process->id);
+          }catch( Exception $e ){
+            // application-specific error handling goes here
+            $response = $e->error;
+            Log::addEntry("EventBrite Error creating new event for cID={$c->getCollectionID()}: {$e->getMessage()}");
+          }
+        }
+        else {
+          try{
+            $event_params['id'] = $eid;
+            $ticket_params['event_id'] = $eid;
+            $response = $eb_client->event_update($event_params);
+          }catch( Exception $e ){
+            $response = $e->error;
+            Log::addEntry("EventBrite Error updating event for cID={$c->getCollectionID()}: {$e->getMessage()}");
+          }
+        }
+        $ticket_params['end_date'] = $event_params['end_date'];
+        foreach($slots as $walkDate) {
+          $ticket_params['name'] = $walkDate['date'] . ' Walk';
+          try {
+            $response = $eb_client->ticket_new($ticket_params);
+          }catch( Exception $e ){
+            $response = $e->error;
+            Log::addEntry("EventBrite Error updating ticket for cID={$c->getCollectionID()}: {$e->getMessage()}");
+          }
+        }
+      } else {
+        return true;
       }
     }
 
