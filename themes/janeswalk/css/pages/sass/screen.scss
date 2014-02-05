@@ -487,6 +487,15 @@ fieldset.search {
   font-size: 14px;
 }
 
+// Generic Avatar
+.u-avatar {
+  background-size:cover;
+  background-position:50%;
+  border-radius:99999px;
+  width:169px; height:169px;
+}
+
+
 // Blog Cards
 .blog {
   color: $darkgrey;
@@ -553,9 +562,6 @@ header.navbar {
     }
   }
 }
-
-
-
 
 /*html.index-bg {
   header.navbar { display:none; }

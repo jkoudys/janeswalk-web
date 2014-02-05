@@ -10162,14 +10162,6 @@ section.sponsors {
   margin-left: 10px;
 }
 /* line 419, pages/sass/city.scss */
-.city-organizer .u-avatar {
-  background-size: cover;
-  background-position: 50%;
-  border-radius: 99999px;
-  width: 169px;
-  height: 169px;
-}
-/* line 425, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }
@@ -11951,37 +11943,46 @@ fieldset.search input[type=checkbox] {
 }
 
 /* line 491, pages/sass/screen.scss */
+.u-avatar {
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 99999px;
+  width: 169px;
+  height: 169px;
+}
+
+/* line 500, pages/sass/screen.scss */
 .blog {
   color: #666666;
 }
 
-/* line 496, pages/sass/screen.scss */
+/* line 505, pages/sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 499, pages/sass/screen.scss */
+/* line 508, pages/sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 506, pages/sass/screen.scss */
+/* line 515, pages/sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 513, pages/sass/screen.scss */
+/* line 522, pages/sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 516, pages/sass/screen.scss */
+/* line 525, pages/sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 521, pages/sass/screen.scss */
+/* line 530, pages/sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -11989,24 +11990,24 @@ fieldset.search input[type=checkbox] {
   line-height: 20px;
 }
 
-/* line 528, pages/sass/screen.scss */
+/* line 537, pages/sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }
 
 /* onassar */
 @media (max-width: 979px) {
-  /* line 537, pages/sass/screen.scss */
+  /* line 546, pages/sass/screen.scss */
   .navbar + * {
     padding-top: 0 !important;
   }
 
-  /* line 542, pages/sass/screen.scss */
+  /* line 551, pages/sass/screen.scss */
   div.container-outter div.container {
     padding: 20px 0 0;
   }
 }
-/* line 550, pages/sass/screen.scss */
+/* line 559, pages/sass/screen.scss */
 header.navbar div.navbar-inner div.container {
   height: 60px;
   overflow: hidden;

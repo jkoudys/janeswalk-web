@@ -147,7 +147,11 @@ $this->inc('elements/header.php');  ?>
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
-                  <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
+                  <?php if($mem['avatar']) { ?>
+                    <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
+                  <? } else { ?>
+                    <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
+                  <? } ?>
                 </div>
                 <div class='span9'>
                   <h4>

@@ -304,6 +304,7 @@
       $team = json_decode($c->getAttribute('team'), true);
       $team = array_map(function($mem) { 
         $theme = PageTheme::getByHandle('janeswalk');
+        $av = Loader::helper('concrete/avatar');
         if($mem['type'] === 'you') {
           $mem['type'] = ($mem['role'] === 'walk-organizer') ? 'organizer' : 'leader';
         }
@@ -326,6 +327,9 @@
           break;
         default:
           break;
+        }
+        if($mem['user_id'] > 0 && $avatar = $av->getImagePath(UserInfo::getByID($mem['user_id']))) {
+          $mem['avatar'] = $avatar;
         }
         return $mem;
       }, $team);
