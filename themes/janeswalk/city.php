@@ -24,15 +24,17 @@
           </h1>
           <?php
             (new Area('City Header'))->display($c);
-            $bgPhotoCreditName = $c->getAttribute('background_photo_credit_name');
-            $bgPhotoCreditLink = $c->getAttribute('background_photo_credit_link');
-            if ($bgPhotoCreditName !== '') {
-              ?>
-                <p style="font-size: x-small; color: #fff;">
-                  Background photo credit:
-                  <a href="<?= ($bgPhotoCreditLink) ?>" target="_blank"><?= ($bgPhotoCreditName) ?></a>
-                </p>
-              <?php
+            if (is_object($fullbg)) {
+              $bgPhotoCreditName = $fullbg->getAttribute('background_photo_credit_name');
+              $bgPhotoCreditLink = $fullbg->getAttribute('background_photo_credit_link');
+              if ($bgPhotoCreditName !== false && $bgPhotoCreditName !== '') {
+                ?>
+                  <p style="font-size: x-small; color: #fff;">
+                    Background photo credit:-
+                    <a href="<?= ($bgPhotoCreditLink) ?>" target="_blank"><?= ($bgPhotoCreditName) ?></a>
+                  </p>
+                <?php
+              }
             }
             if ($c->getCollectionUserID() > 1):
           ?>
