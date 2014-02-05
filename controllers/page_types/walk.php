@@ -350,7 +350,7 @@
       $this->set('scheduled', $c->getAttribute('scheduled'));
       $this->set('gmap', json_decode($c->getAttribute('gmap')));
       $this->set('team', $team);
-      $this->set('walk_leaders', array_filter($team, function($mem) { return true || (bool) strpos($mem['role'] . $mem['type'], 'leader'); }));
+      $this->set('walk_leaders', array_filter($team, function($mem) { return strpos($mem['type'], 'leader') !== false; }));
     }
     
     public function isPut() {
