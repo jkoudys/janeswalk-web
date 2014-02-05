@@ -1,10 +1,9 @@
 <?php 
 $nh = Loader::helper('navigation');
 $im = Loader::helper('image');
-$gmap = json_decode($c->getAttribute("gmap"));
-$team = json_decode($c->getAttribute('team'));
 $dh = Loader::helper('concrete/dashboard');
 $th = Loader::helper('theme');
+$av = Loader::helper('concrete/avatar');
 global $u; global $cp;
 $this->inc('elements/header.php');  ?>
 
@@ -27,33 +26,17 @@ $this->inc('elements/header.php');  ?>
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
-  <script type="text/javascript">
-    JanesWalk = {
-      page: {
-        url: 'http://' + (location.host) + (location.pathname),
-        pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
-        title: '<?= addslashes($c->getCollectionName()) ?>',
-        description: '<?= addslashes(strip_tags($c->getAttribute('longdescription'))) ?>',
-        city: {
-          name: 'Toronto',
-          url: 'http://google.com'
-        }
-      }
-    };
-  </script>
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
 
       <ul class="breadcrumb visible-desktop visible-tablet">
         <?php
-        $crumbs = $nh->getTrailToCollection($c);
-        krsort($crumbs);
         foreach($crumbs as $crumb) {
-        if( $crumb->getCollectionID() == 1 ) { ?>
-        <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-        <?php } else if ($crumb->getCollectionTypeHandle() != 'country' ) { ?>
-        <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?=$crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
+          if( $crumb->getCollectionID() == 1 ) { ?>
+          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+          <?php } else if ($crumb->getCollectionTypeHandle() != 'country' ) { ?>
+          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?=$crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
         <?php }
         } ?>
         <li class="active"><?=$c->getCollectionName() ?></li>
@@ -63,11 +46,9 @@ $this->inc('elements/header.php');  ?>
 
       <div class="tag-list">
         <ul class="nav nav-pills">
-          <?php 
-          foreach($c->getAttribute("theme") as $theme) {
-            echo "<li><div class='icon'>{$th->getIcon($theme)}</div> {$th->getName($theme)}</li>";
-          }
-          ?>
+          <?php foreach($c->getAttribute("theme") as $theme) { ?>
+            <li><div class='icon'><?=$th->getIcon($theme)?></div> <?=$th->getName($theme)?></li>
+          <?php } ?>
         </ul>
       </div>
 
@@ -111,22 +92,8 @@ $this->inc('elements/header.php');  ?>
       <div class="row-fluid walk-leaders clearfix">
         <div class="span7">
           <h4>
-            <?php 
-            $teamCount = 0;
-            foreach($team as $mem) {
-              if(!empty($mem->{'name-first'})) { $teamCount++; }
-            }
-            if($teamCount > 0) {
-              if($teamCount == 1) {
-                echo 'Walk Leader: ';
-              }
-              else {
-                echo 'Walk Leaders: ';
-              }
-              foreach($team as $key=>$mem) {
-                echo empty($mem->{'name-first'}) ? "" : ($key > 0 ? ", " : "") . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
-              }
-            } ?>
+            <?='Walk Leader' . (sizeof($walk_leaders) === 1 ? ': ' : 's: ') .
+              implode(', ', array_map(function($mem){ return "{$mem['name-first']} {$mem['name-last']}"; }, $walk_leaders)); ?>
           </h4>
         </div>
       </div>
@@ -148,10 +115,9 @@ $this->inc('elements/header.php');  ?>
               <h4><i class="icon-map-marker"></i> Walk Route</h4>
               <h5 class="clickdetails">Click locations to see details</h5>
               <ol>
-                <?php
-                foreach($gmap->markers as $key=>$marker) {
-                  echo "<li class='walk-stop' id='$key'><h4>$marker->title</h4></li>";
-                } ?>
+                <?php foreach($gmap->markers as $key=>$marker) { ?>
+                  <li class='walk-stop' id='<?=$key?>'><h4><?=$marker->title?></h4></li>
+                <?php } ?>
               </ol>
               </header>
             </div>
@@ -171,10 +137,9 @@ $this->inc('elements/header.php');  ?>
         <div class="span8">
           <div class="clearfix">
             <h3>About This Walk</h3>
-            <?php 
-            if( $thumb = $c->getAttribute("thumbnail") ) {
-              echo "<a class='thumb' href='{$im->getThumbnail($thumb,1024,1024)->src}' ><img src='{$im->getThumbnail($thumb,340,720)->src}' class='pull-right img-polaroid' /></a>";
-            } 
+            <?php if( $thumb = $c->getAttribute("thumbnail") ) { ?>
+              <a class='thumb' href='<?=$im->getThumbnail($thumb,1024,1024)->src?>'><img src='<?=$im->getThumbnail($thumb,340,720)->src?>' class='pull-right img-polaroid' /></a>
+            <?php } 
             echo $c->getAttribute('longdescription'); ?>
           </div>
 
@@ -182,28 +147,28 @@ $this->inc('elements/header.php');  ?>
             <hr>
             <h3 id="walk-leader-bio">About The Walk Team</h3>
 
-            <?php
-            foreach($team as $mem) { 
-            if(!empty($mem->{'name-first'})) {
-            ?>
+            <?php foreach($team as $mem) { ?>
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
                   <?php
-                  $memberType = $mem->type;
-                  if($memberType == 'you') { $memberType = ($mem->role == 'walk-organizer') ? 'organizer' : 'leader'; } 
+                  $memberType = $mem['type'];
+                  if($memberType == 'you') { $memberType = ($mem['role'] == 'walk-organizer') ? 'organizer' : 'leader'; }
+                  if($mem['user_id'] > 0) {
+                    
+                  }
                   switch($memberType) {
                   case "leader":
-                    echo "<img src='{$this->getThemePath()}/img/walk-leader.png' alt='Walk Leader' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Leader:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
+                    echo "<img src='{$this->getThemePath()}/img/walk-leader.png' alt='Walk Leader' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Leader:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
                     break;
                   case "organizer":
-                    echo "<img src='{$this->getThemePath()}/img/walk-organizer.png' alt='Walk Organizer' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Organizer:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
+                    echo "<img src='{$this->getThemePath()}/img/walk-organizer.png' alt='Walk Organizer' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Organizer:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
                     break;
                   case 'community':
-                    echo "<img src='{$this->getThemePath()}/img/community-voice.png' alt='Community Voice' class='pull-left'></div><div class='span9'><h4><span class='title'>Community Voice:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
+                    echo "<img src='{$this->getThemePath()}/img/community-voice.png' alt='Community Voice' class='pull-left'></div><div class='span9'><h4><span class='title'>Community Voice:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
                     break;
                   case 'volunteer':
-                    echo "<img src='{$this->getThemePath()}/img/volunteers.png' alt='Volunteer' class='pull-left'></div><div class='span9'><h4><span class='title'>Volunteer:</span><br>{$mem->{'name-first'}} {$mem->{'name-last'}}</h4>";
+                    echo "<img src='{$this->getThemePath()}/img/volunteers.png' alt='Volunteer' class='pull-left'></div><div class='span9'><h4><span class='title'>Volunteer:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
                     break;
                   default:
                     echo '</div><div class=\'span9\'>';
@@ -212,15 +177,15 @@ $this->inc('elements/header.php');  ?>
                   ?>
 
                   <div class="btn-toolbar">
-                    <?php if($mem->email) { ?><a href="mailto:<?=$mem->email?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
-                    <?php if($mem->facebook) { ?><a href="http://facebook.com/<?=$mem->facebook?>"><i class="icon-facebook"></i></a><?php } ?>
-                    <?php if($mem->twitter) { ?><a href="http://twitter.com/<?=$mem->twitter?>"><i class="icon-twitter"></i></a><?php } ?>
+                    <?php if($mem['email']) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
+                    <?php if($mem['facebook']) { ?><a href="http://facebook.com/<?=$mem['facebook']?>"><i class="icon-facebook"></i></a><?php } ?>
+                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>"><i class="icon-twitter"></i></a><?php } ?>
                   </div>
-                  <?=$mem->bio?>
+                  <?=$mem['bio']?>
                 </div>
               </div>
             </div>
-            <?php } } ?>
+            <?php } ?>
           </div><!-- About The Walk Leader Section -->
 
           <hr>
@@ -312,7 +277,7 @@ $this->inc('elements/header.php');  ?>
           <div class="caption">
             <h4><i class="icon-accessible"></i> Accessibility</h4>
             <ul>
-              <?php foreach($c->getAttribute("accessible") as $accessible) { echo "<li>{$th->getName($accessible)}</li>"; } ?>
+              <?php foreach($c->getAttribute("accessible") as $accessible) { ?><li><?=$th->getName($accessible)?></li><?php } ?>
             </ul>
             <p id="accessibility notes">
 

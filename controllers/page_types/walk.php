@@ -50,6 +50,7 @@
           $c = Page::getCurrentPage();
           $c->setAttribute('exclude_page_list',true);
           $this->setEventBriteStatus('draft');
+          exit;
           break;
       }
     }
@@ -291,6 +292,17 @@
       $kmlOutput = $dom->saveXML();
       header('Content-type: application/vnd.google-earth.kml+xml');
       echo $kmlOutput;
+    }
+
+    public function view() {
+      $nh = Loader::helper('navigation');
+      $c = $this->getCollectionObject();
+      $crumbs = $nh->getTrailToCollection($c);
+      krsort($crumbs);
+      $this->set('crumbs', $crumbs);
+      $this->set('gmap', json_decode($c->getAttribute('gmap')));
+      $this->set('team', $team = json_decode($c->getAttribute('team'), true));
+      $this->set('walk_leaders', array_filter($team, function($mem) { return true || (bool) strpos($mem['role'] . $mem['type'], 'leader'); }));
     }
     
     public function isPut() {
