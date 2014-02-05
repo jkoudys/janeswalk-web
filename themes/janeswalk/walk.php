@@ -60,7 +60,6 @@ $this->inc('elements/header.php');  ?>
         <div class="span3 profiles box-sizing">
           <div id="reg-group">
             <?php
-              $scheduled = $c->getAttribute('scheduled'); 
               $slots = (Array)$scheduled['slots']; 
               if($scheduled['open']) {
             ?>
@@ -68,22 +67,19 @@ $this->inc('elements/header.php');  ?>
             <?php
               } else if(isset($slots[0]['date'])) {
             ?>
-              <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']; ?></span></h4>
-            <?php
-              }
-
-              $eid = $c->getAttribute('eventbrite');
+              <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']?></span></h4>
+            <?php }
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {
             ?>
               <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
             <?php
-                } else {
+              } else {
             ?>
               Registration Not Yet Open
             <?php
-                }
               }
+            }
             ?>
           </div>
         </div>
@@ -151,31 +147,12 @@ $this->inc('elements/header.php');  ?>
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
-                  <?php
-                  $memberType = $mem['type'];
-                  if($memberType == 'you') { $memberType = ($mem['role'] == 'walk-organizer') ? 'organizer' : 'leader'; }
-                  if($mem['user_id'] > 0) {
-                    
-                  }
-                  switch($memberType) {
-                  case "leader":
-                    echo "<img src='{$this->getThemePath()}/img/walk-leader.png' alt='Walk Leader' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Leader:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
-                    break;
-                  case "organizer":
-                    echo "<img src='{$this->getThemePath()}/img/walk-organizer.png' alt='Walk Organizer' class='pull-left'></div><div class='span9'><h4><span class='title'>Walk Organizer:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
-                    break;
-                  case 'community':
-                    echo "<img src='{$this->getThemePath()}/img/community-voice.png' alt='Community Voice' class='pull-left'></div><div class='span9'><h4><span class='title'>Community Voice:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
-                    break;
-                  case 'volunteer':
-                    echo "<img src='{$this->getThemePath()}/img/volunteers.png' alt='Volunteer' class='pull-left'></div><div class='span9'><h4><span class='title'>Volunteer:</span><br>{$mem['name-first']} {$mem['name-last']}</h4>";
-                    break;
-                  default:
-                    echo '</div><div class=\'span9\'>';
-                    break;
-                  }
-                  ?>
-
+                  <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
+                </div>
+                <div class='span9'>
+                  <h4>
+                    <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
+                  </h4>
                   <div class="btn-toolbar">
                     <?php if($mem['email']) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
                     <?php if($mem['facebook']) { ?><a href="http://facebook.com/<?=$mem['facebook']?>"><i class="icon-facebook"></i></a><?php } ?>

@@ -297,11 +297,43 @@
     public function view() {
       $nh = Loader::helper('navigation');
       $c = $this->getCollectionObject();
+
       $crumbs = $nh->getTrailToCollection($c);
       krsort($crumbs);
+
+      $team = json_decode($c->getAttribute('team'), true);
+      $team = array_map(function($mem) { 
+        $theme = PageTheme::getByHandle('janeswalk');
+        if($mem['type'] === 'you') {
+          $mem['type'] = ($mem['role'] === 'walk-organizer') ? 'organizer' : 'leader';
+        }
+        switch($mem['type']) {
+        case 'leader':
+          $mem['image'] = "{$theme->getThemeURL()}/img/walk-leader.png";
+          $mem['title'] = 'Walk Leader';
+          break;
+        case 'organizer':
+          $mem['image'] = "{$theme->getThemeURL()}/img/walk-organizer.png";
+          $mem['title'] = 'Walk Organizer';
+          break;
+        case 'community':
+          $mem['image'] = "{$theme->getThemeURL()}/img/community-voice.png";
+          $mem['title'] = 'Community Voice';
+          break;
+        case 'volunteer':
+          $mem['image'] = "{$theme->getThemeURL()}/img/volunteers.png";
+          $mem['title'] = 'Volunteer';
+          break;
+        default:
+          break;
+        }
+        return $mem;
+      }, $team);
+      $this->set('eid', $c->getAttribute('eventbrite'));
       $this->set('crumbs', $crumbs);
+      $this->set('scheduled', $c->getAttribute('scheduled'));
       $this->set('gmap', json_decode($c->getAttribute('gmap')));
-      $this->set('team', $team = json_decode($c->getAttribute('team'), true));
+      $this->set('team', $team);
       $this->set('walk_leaders', array_filter($team, function($mem) { return true || (bool) strpos($mem['role'] . $mem['type'], 'leader'); }));
     }
     
