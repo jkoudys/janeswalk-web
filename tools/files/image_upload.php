@@ -3,8 +3,7 @@ $valt = Loader::helper('validation/token');
 $theme = PageTheme::getByHandle("janeswalk");
 $turl = $theme->getThemeUrl();
 ?>
-<html>
-
+<html id="tool">
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
 <link rel="stylesheet" href="<?php echo $turl . '/css/screen.css'?>">
 <link rel="stylesheet" href="<?php echo $turl . '/css/main.css'?>">
