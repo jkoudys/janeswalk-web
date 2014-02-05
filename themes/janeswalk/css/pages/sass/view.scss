@@ -138,6 +138,12 @@ body.site-page {
     }
   }
 }
+#ccm-profile-sidebar {
+  .ccm-profile-header {
+    text-overflow: ellipsis;
+    overflow:hidden;
+  }
+}
 #central { margin-bottom:30px; }
 
 ul.ccm-staff-list {

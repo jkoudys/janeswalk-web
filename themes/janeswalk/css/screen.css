@@ -11241,33 +11241,39 @@ body.site-page #ccm-profile-body ul.walks li i {
   color: #f16725;
 }
 
-/* line 141, pages/sass/view.scss */
+/* line 142, pages/sass/view.scss */
+#ccm-profile-sidebar .ccm-profile-header {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/* line 147, pages/sass/view.scss */
 #central {
   margin-bottom: 30px;
 }
 
-/* line 143, pages/sass/view.scss */
+/* line 149, pages/sass/view.scss */
 ul.ccm-staff-list {
   margin-left: 0 !important;
   /*todo: get rid of these importants */
 }
-/* line 145, pages/sass/view.scss */
+/* line 151, pages/sass/view.scss */
 ul.ccm-staff-list, ul.ccm-staff-list li {
   list-style-type: none;
 }
-/* line 145, pages/sass/view.scss */
+/* line 151, pages/sass/view.scss */
 ul.ccm-staff-list:before, ul.ccm-staff-list li:before {
   content: "" !important;
 }
-/* line 146, pages/sass/view.scss */
+/* line 152, pages/sass/view.scss */
 ul.ccm-staff-list li {
   margin-bottom: 20px !important;
 }
-/* line 147, pages/sass/view.scss */
+/* line 153, pages/sass/view.scss */
 ul.ccm-staff-list h3 {
   margin: 0;
 }
-/* line 150, pages/sass/view.scss */
+/* line 156, pages/sass/view.scss */
 ul.ccm-staff-list .u-avatar {
   height: 80px;
   width: 80px;
@@ -11275,29 +11281,29 @@ ul.ccm-staff-list .u-avatar {
   margin-right: 15px;
   background-size: cover;
 }
-/* line 152, pages/sass/view.scss */
+/* line 158, pages/sass/view.scss */
 ul.ccm-staff-list .u-avatar.placeholder0 {
   background-color: #f16725;
 }
-/* line 153, pages/sass/view.scss */
+/* line 159, pages/sass/view.scss */
 ul.ccm-staff-list .u-avatar.placeholder1 {
   background-color: #6badfd;
 }
-/* line 154, pages/sass/view.scss */
+/* line 160, pages/sass/view.scss */
 ul.ccm-staff-list .u-avatar.placeholder2 {
   background-color: #666666;
 }
-/* line 156, pages/sass/view.scss */
+/* line 162, pages/sass/view.scss */
 ul.ccm-staff-list .u-avatar, ul.ccm-staff-list .ccm-staff-list-details {
   display: inline-block;
   vertical-align: top;
 }
-/* line 160, pages/sass/view.scss */
+/* line 166, pages/sass/view.scss */
 ul.ccm-staff-list .ccm-staff-list-details {
   width: 85%;
 }
 
-/* line 163, pages/sass/view.scss */
+/* line 169, pages/sass/view.scss */
 html#tool {
   padding: 0;
   margin: 0;
