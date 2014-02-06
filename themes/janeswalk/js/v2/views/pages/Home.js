@@ -16,6 +16,7 @@ var HomePageView = PageView.extend({
     init: function(element) {
         this._super(element);
         this._addMapToggleEvents();
+        this._addCityLookup();
         this._addBgImage();
     },
 
@@ -36,6 +37,52 @@ var HomePageView = PageView.extend({
             $backgroundImageBanner.removeClass('faded');
         };
         image.src = backgroundImageUrl;
+    },
+
+    /**
+     * _addCityCta
+     * 
+     * @protected
+     * @param     String cityName
+     * @param     String cityPath
+     * @return    void
+     */
+    _addCityCta: function(cityName, cityPath) {
+        var $parent = this._element.find('.homepage-callout2').first(),
+            $wrapper = $('<div class="cityCtaWrapper" />'),
+            $button = $('<a />');
+        $button.attr({
+            href: cityPath,
+            class: 'btn btn-large'
+        });
+        $button.text('View walks in ' + (cityName));
+        $wrapper.append($button);
+        $parent.append($wrapper);
+    },
+
+    /**
+     * _addCityLookup
+     * 
+     * @protected
+     * @return    void
+     */
+    _addCityLookup: function() {
+        var _this = this;
+        window.freeGeoIpCallback = function(obj) {
+            if (typeof obj !== 'undefined') {
+                var $cities = _this._element.find('div.ccm-page-list-typeahead ul li a'),
+                    $city;
+                $cities.each(function(index, cityEl) {
+                    if ($(cityEl).text() === obj.city) {
+                        _this._addCityCta(
+                            obj.city,
+                            $(cityEl).attr('href')
+                        );
+                    }
+                });
+            }
+        };
+        $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
     },
 
     /**

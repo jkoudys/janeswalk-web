@@ -192,6 +192,7 @@ p.lead {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
+  position: relative;
   p {
     font-size: 3em;
     line-height: 123%;
@@ -200,6 +201,16 @@ p.lead {
     }
     font-weight: 300;
     letter-spacing: 1px;
+  }
+
+  div.cityCtaWrapper {
+    position: absolute;
+    left: 430px;
+    bottom: 0;
+
+    a.btn {
+      color: #333;
+    }
   }
 }
 
