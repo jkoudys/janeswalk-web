@@ -3447,14 +3447,14 @@ var JaneswalkData = {
               } else {
                 addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
               }
-              bounds.extend( marker );
+              //bounds.extend( google.maps.LatLng(marker.lat, marker.lng) );
             }
           });
         }
         if (typeof(data.map.route) != "undefined"){
           $.each(data.map.route, function(key, point){
             addlines(null, point.title, point.lat, point.lng);
-            bounds.extend( point );
+            //bounds.extend( google.maps.LatLng(point.lat, point.lng) );
           });
         }
         if(data.map.markers.length > 0) { map.fitBounds(bounds); }
