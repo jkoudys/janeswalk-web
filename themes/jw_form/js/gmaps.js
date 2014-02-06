@@ -77,6 +77,10 @@ function gMapinitialize() {
 
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
+  /* Geocode based on IP and center map */
+  $.getJSON("http://freegeoip.net/json", function(geocode) {
+    map.setCenter(new google.maps.LatLng(geocode.latitude, geocode.longitude));
+  });
 
   //
   // Set Map style.

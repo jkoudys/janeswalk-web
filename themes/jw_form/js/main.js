@@ -3454,12 +3454,6 @@ var JaneswalkData = {
             addlines(null, point.title, point.lat, point.lng);
           });
         }
-        if(data.map.markers.length > 0) { map.fitBounds(bounds); }
-        /* Geocode based on IP and center map */
-        $.getJSON("http://freegeoip.net/json/", function(geocode) {
-          map.setCenter(google.maps.LatLng(geocode.latitude, geocode.longitude));
-        });
-
         $(document).off('gmapinit');
       });
     }
