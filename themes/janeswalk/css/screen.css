@@ -9420,8 +9420,9 @@ p.lead {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
+  position: relative;
 }
-/* line 195, pages/sass/homepage.scss */
+/* line 196, pages/sass/homepage.scss */
 .homepage-callout2 p {
   font-size: 3em;
   line-height: 123%;
@@ -9429,36 +9430,46 @@ p.lead {
   letter-spacing: 1px;
 }
 @media (max-width: 979px) {
-  /* line 195, pages/sass/homepage.scss */
+  /* line 196, pages/sass/homepage.scss */
   .homepage-callout2 p {
     font-size: 2.7em;
   }
 }
-
 /* line 206, pages/sass/homepage.scss */
+.homepage-callout2 div.cityCtaWrapper {
+  position: absolute;
+  left: 430px;
+  bottom: 0;
+}
+/* line 211, pages/sass/homepage.scss */
+.homepage-callout2 div.cityCtaWrapper a.btn {
+  color: #333;
+}
+
+/* line 217, pages/sass/homepage.scss */
 .navbar_home {
   font-size: 1em;
   text-align: center;
   margin: 0 auto;
 }
-/* line 210, pages/sass/homepage.scss */
+/* line 221, pages/sass/homepage.scss */
 .navbar_home .large {
   font-size: 18px;
   height: 34px;
   margin: 0;
 }
 
-/* line 217, pages/sass/homepage.scss */
+/* line 228, pages/sass/homepage.scss */
 .test {
   margin-top: 0%;
 }
 
-/* line 221, pages/sass/homepage.scss */
+/* line 232, pages/sass/homepage.scss */
 .little {
   width: 22%;
 }
 
-/* line 225, pages/sass/homepage.scss */
+/* line 236, pages/sass/homepage.scss */
 .section2 {
   position: relative;
   padding-bottom: 20px;
@@ -9467,7 +9478,7 @@ p.lead {
   background-position: center center;
 }
 
-/* line 233, pages/sass/homepage.scss */
+/* line 244, pages/sass/homepage.scss */
 .property-ul {
   background: #fff;
   border: 1px solid #ddd;
@@ -9478,42 +9489,42 @@ p.lead {
   width: 30%;
 }
 
-/* line 243, pages/sass/homepage.scss */
+/* line 254, pages/sass/homepage.scss */
 .fest {
   margin-left: 2%;
 }
 
-/* line 247, pages/sass/homepage.scss */
+/* line 258, pages/sass/homepage.scss */
 .row1 {
   margin-top: 0%;
 }
 
-/* line 250, pages/sass/homepage.scss */
+/* line 261, pages/sass/homepage.scss */
 section.calltoaction {
   background: #fff;
   padding: 40px 0;
   margin-top: -200px;
 }
-/* line 254, pages/sass/homepage.scss */
+/* line 265, pages/sass/homepage.scss */
 section.calltoaction h1, section.calltoaction h2, section.calltoaction h3, section.calltoaction h4, section.calltoaction h5, section.calltoaction p, section.calltoaction ul, section.calltoaction ol {
   margin: 0 auto;
   max-width: 1170px;
   font-family: "museo-slab","Roboto Slab",serif;
 }
-/* line 259, pages/sass/homepage.scss */
+/* line 270, pages/sass/homepage.scss */
 section.calltoaction h3 {
   font-weight: 700;
   margin-bottom: 15px;
   color: #666666;
 }
-/* line 264, pages/sass/homepage.scss */
+/* line 275, pages/sass/homepage.scss */
 section.calltoaction p {
   color: #333;
   font-size: 1.3em;
   line-height: 1.6;
   font-weight: 300;
 }
-/* line 270, pages/sass/homepage.scss */
+/* line 281, pages/sass/homepage.scss */
 section.calltoaction a {
   color: #fff;
   width: 100%;
@@ -9525,17 +9536,17 @@ section.calltoaction a {
   background: #666666;
   box-shadow: inset 0 -2px 0 #222222;
 }
-/* line 279, pages/sass/homepage.scss */
+/* line 290, pages/sass/homepage.scss */
 section.calltoaction a:hover {
   text-decoration: none;
   background: #333;
 }
-/* line 284, pages/sass/homepage.scss */
+/* line 295, pages/sass/homepage.scss */
 section.calltoaction ul {
   text-align: justify;
   margin-top: 20px;
 }
-/* line 287, pages/sass/homepage.scss */
+/* line 298, pages/sass/homepage.scss */
 section.calltoaction ul li {
   list-style-type: none;
   margin: 0;
@@ -9546,13 +9557,13 @@ section.calltoaction ul li {
   background: #333;
 }
 @media (max-width: 940px) {
-  /* line 287, pages/sass/homepage.scss */
+  /* line 298, pages/sass/homepage.scss */
   section.calltoaction ul li {
     display: block;
     margin-bottom: 5px;
   }
 }
-/* line 298, pages/sass/homepage.scss */
+/* line 309, pages/sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -9561,18 +9572,18 @@ section.calltoaction ul:after {
   height: 0;
 }
 
-/* line 308, pages/sass/homepage.scss */
+/* line 319, pages/sass/homepage.scss */
 section.sponsors {
   margin: 0 auto 240px;
   width: 1170px;
 }
 
-/* line 313, pages/sass/homepage.scss */
+/* line 324, pages/sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 317, pages/sass/homepage.scss */
+/* line 328, pages/sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9581,17 +9592,17 @@ section.sponsors {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 324, pages/sass/homepage.scss */
+/* line 335, pages/sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 329, pages/sass/homepage.scss */
+/* line 340, pages/sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 333, pages/sass/homepage.scss */
+/* line 344, pages/sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9599,7 +9610,7 @@ section.sponsors {
   width: 400px;
 }
 
-/* line 340, pages/sass/homepage.scss */
+/* line 351, pages/sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9607,26 +9618,26 @@ section.sponsors {
   width: 75%;
 }
 
-/* line 347, pages/sass/homepage.scss */
+/* line 358, pages/sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
-/* line 349, pages/sass/homepage.scss */
+/* line 360, pages/sass/homepage.scss */
 .caption h5 p {
   color: #555;
 }
 
-/* line 354, pages/sass/homepage.scss */
+/* line 365, pages/sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 356, pages/sass/homepage.scss */
+/* line 367, pages/sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 768px) {
-  /* line 362, pages/sass/homepage.scss */
+  /* line 373, pages/sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;

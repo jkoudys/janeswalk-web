@@ -26,6 +26,20 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
+  <script type="text/javascript">
+    JanesWalk = {
+      page: {
+        url: 'http://' + (location.host) + (location.pathname),
+        pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
+        title: '<?= addslashes($c->getCollectionName()) ?>',
+        description: '<?= addslashes(strip_tags($c->getAttribute('longdescription'))) ?>',
+        city: {
+          name: 'Toronto',
+          url: 'http://janeswalk.org/toronto'
+        }
+      }
+    };
+  </script>
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
@@ -315,26 +329,39 @@
     </div>
   </div> 
   <script type="text/javascript">
-<?php 
-    echo 'var locations=[';
+    <?php
+      echo 'var locations=[';
       foreach($gmap->markers as $key=>$marker) {
         echo ($key > 0 ? ',' : '') . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "',{$marker->lat},{$marker->lng},$key]";
       }
       echo '];';
-      if(sizeof($gmap->markers) > 0) { echo '$(\'.walk-stops\').show();'; };
-      ?>
+      if(sizeof($gmap->markers) > 0) {
+        echo '$(\'.walk-stops\').show();';
+      };
+    ?>
 
-      // Drawing Polyline
-      var walkPathCoordinates = [
-        <?php
+    // Drawing Polyline
+    var walkPathCoordinates = [
+      <?php
         foreach($gmap->route as $key=>$rp) {
           echo ($rp->lat && $rp->lng) ? (($key > 0 ? "," : "") . "new google.maps.LatLng({$rp->lat},{$rp->lng})") : null;
-        } ?>
-      ];
+        }
+      ?>
+    ];
 
-      var EventBriteEmail = "jasmine.frolick@janeswalk.net";
-      $('a.thumb').colorbox({ rel:'group1', onOpen: blurPage, onCleanup: unblurPage, current: "Picture {current} of {total}", previous: "&lt;", next: "&gt;", close:"x", maxHeight:"80%", maxWidth:"80%" });
-
+    // EventBrite
+    var EventBriteEmail = 'jasmine.frolick@janeswalk.net';
+    $('a.thumb').colorbox({
+      rel: 'group1',
+      onOpen: blurPage,
+      onCleanup: unblurPage,
+      current: 'Picture {current} of {total}',
+      previous: '&lt;',
+      next: '&gt;',
+      close: 'x',
+      maxHeight: '80%',
+      maxWidth: '80%'
+    });
   </script>
 
   <?php $this->inc('elements/footer.php');?>

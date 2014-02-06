@@ -7,7 +7,8 @@
   $page_owner = UserInfo::getByID($c->getCollectionUserID());
   $av = Loader::helper('concrete/avatar');
   $show = $_REQUEST['show'];
-  global $u; global $cp;
+  global $u;
+  global $cp;
 ?>
 <?php $this->inc('elements/header.php'); ?>
 <body class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>" <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
@@ -94,11 +95,12 @@
     </div>
   </div>
   <?php
-  $blog = new PageList();
-  $blog->filterByCollectionTypeHandle('city_blog');
-  $blog->filterByParentID($c->getCollectionID());
-  $blog = $blog->get(1)[0];
-  if($c->isEditMode() || $blog) { ?>
+    $blog = new PageList();
+    $blog->filterByCollectionTypeHandle('city_blog');
+    $blog->filterByParentID($c->getCollectionID());
+    $blog = $blog->get(1)[0];
+    if($c->isEditMode() || $blog) {
+  ?>
   <div class="intro-city lower blog">
     <div class="container">
       <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>">City Blog</a>
