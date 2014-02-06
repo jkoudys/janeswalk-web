@@ -203,7 +203,11 @@
         $c->setAttribute("accessible_parking",$postArray->{'accessible-parking'});
         $c->setAttribute("accessible_find", $postArray->{'accessible-find'});
         $c->setAttribute("scheduled", $postArray->time);
-        $c->setAttribute("gmap", json_encode($postArray->map));
+
+        // Don't bother saving completely empty maps, since it's usually done in error
+        if(sizeof((array)$postArray->map->markers) + sizeof((array)$postArray->map->route)) {
+          $c->setAttribute("gmap", json_encode($postArray->map));
+        }
         $c->setAttribute("team", json_encode($postArray->team));
         if($postArray->thumbnail_id && File::getByID($postArray->thumbnail_id)) {
           $c->setAttribute("thumbnail", File::getByID($postArray->thumbnail_id));
