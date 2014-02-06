@@ -3436,7 +3436,6 @@ var JaneswalkData = {
     }
 
     if (typeof(data.map) != "undefined"){
-      var bounds = new google.maps.LatLngBounds();
       // Would probably be better not to have this setTimeout, not sure how to call this once gmaps is initialized
       $(document).on('gmapinit', function() {
         if (typeof(data.map.markers) != "undefined"){
@@ -3447,17 +3446,19 @@ var JaneswalkData = {
               } else {
                 addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
               }
-              //bounds.extend( google.maps.LatLng(marker.lat, marker.lng) );
             }
           });
         }
         if (typeof(data.map.route) != "undefined"){
           $.each(data.map.route, function(key, point){
             addlines(null, point.title, point.lat, point.lng);
-            //bounds.extend( google.maps.LatLng(point.lat, point.lng) );
           });
         }
         if(data.map.markers.length > 0) { map.fitBounds(bounds); }
+        /* Geocode based on IP and center map */
+        $.getJSON("http://freegeoip.net/json/", function(geocode) {
+          map.setCenter(google.maps.LatLng(geocode.latitude, geocode.longitude));
+        });
 
         $(document).off('gmapinit');
       });
