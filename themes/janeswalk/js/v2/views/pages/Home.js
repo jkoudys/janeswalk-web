@@ -70,14 +70,13 @@ var HomePageView = PageView.extend({
         var _this = this;
         window.freeGeoIpCallback = function(obj) {
             if (typeof obj !== 'undefined') {
-                var $cities = _this._element.find('div.ccm-page-list-typeahead ul li a'),
+                var $cities = _this._element.find(
+                        'div.ccm-page-list-typeahead ul li a'
+                    ),
                     $city;
                 $cities.each(function(index, cityEl) {
                     if ($(cityEl).text() === obj.city) {
-                        _this._addCityCta(
-                            obj.city,
-                            $(cityEl).attr('href')
-                        );
+                        _this._addCityCta(obj.city, $(cityEl).attr('href'));
                     }
                 });
             }
