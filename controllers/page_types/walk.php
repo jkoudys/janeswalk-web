@@ -157,6 +157,7 @@
 
     public function getJson() {
       $fh = Loader::helper('file');
+      $im = Loader::helper('image');
       $c = Page::getCurrentPage();
       $thumbnail = $c->getAttribute("thumbnail");
       $walkData = ["title" => $c->getCollectionName(), 
@@ -170,6 +171,7 @@
         "team" => json_decode($c->getAttribute("team")),
         "time" => $c->getAttribute("scheduled"),
         "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null),
+        "thumbnail_url" => $thumbnail ? $im->getThumbnail($thumbnail, 340,720)->src : null,
         "eventbrite_id" => $c->getAttribute("eventbrite"),
         "ticket" => $resp ];
 
