@@ -314,8 +314,7 @@
       $nh = Loader::helper('navigation');
       $c = $this->getCollectionObject();
 
-      $crumbs = $nh->getTrailToCollection($c);
-      krsort($crumbs);
+      $crumbs = krsort($nh->getTrailToCollection($c));
 
       $team = json_decode($c->getAttribute('team'), true);
       $theme = PageTheme::getByHandle('janeswalk');
@@ -357,6 +356,7 @@
       $this->set('gmap', json_decode($c->getAttribute('gmap')));
       $this->set('team', $team);
       $this->set('walk_leaders', array_filter($team, function($mem) { return strpos($mem['type'], 'leader') !== false; }));
+      $this->set('city', Page::getByID($c->getCollectionParentID()));
     }
     
     public function isPut() {

@@ -48,16 +48,15 @@ var HomePageView = PageView.extend({
      * @return    void
      */
     _addCityCta: function(cityName, cityPath) {
-        var $parent = this._element.find('.homepage-callout2').first(),
-            $wrapper = $('<div class="cityCtaWrapper" />'),
+        var $parent = this._element.find('.ccm-page-list-typeahead').first(),
+            $wrapper = $('<h3 />'),
             $button = $('<a />');
         $button.attr({
             href: cityPath,
-            class: 'btn btn-large'
         });
-        $button.text('View walks in ' + (cityName));
-        $wrapper.append($button);
-        $parent.append($wrapper);
+        $button.text(cityName);
+        $wrapper.append('See walks in ').append($button).append(', or:');
+        $parent.prepend($wrapper);
     },
 
     /**

@@ -14,7 +14,6 @@ div.ccm-page-list-typeahead {
   div.ccm-page-list-typeahead fieldset.search > ul {
     display: none;
     position: absolute;
-    top: 3em;
     left: 0;
     margin: 0;
     border: 1px solid #999;
@@ -36,7 +35,13 @@ div.ccm-page-list-typeahead {
       line-height: 24px;
       font-size: 15px;
       font-weight: 300; }
+      div.ccm-page-list-typeahead fieldset.search > ul li a {
+        color: #f16725 !important; }
       div.ccm-page-list-typeahead fieldset.search > ul li.filtered {
         display: none; }
-  div.ccm-page-list-typeahead a {
-    color: #f16725 !important; }
+  div.ccm-page-list-typeahead h3 {
+    margin: 5px 0 0 0; }
+    div.ccm-page-list-typeahead h3 a {
+      font-weight: 500;
+      text-decoration: underline;
+      color: inherit; }
