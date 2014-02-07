@@ -181,7 +181,6 @@
             $walkData['checkboxes'][$akHandle . "-" . $av] = true;
           }
         }
-        header('Access-Control-Allow-Origin: *');
         return json_encode($walkData);
     }
 

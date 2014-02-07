@@ -234,7 +234,11 @@ var styles = [{
     };
 
     var map = new google.maps.Map($("#map-canvas").get(0), mapOptions);
-    
+    var walkPathCoordinates = [];
+    for(var rp in JanesWalk.page.gmap.route) { 
+      walkPathCoordinates.push( new google.maps.LatLng( JanesWalk.page.gmap.route[rp].lat, JanesWalk.page.gmap.route[rp].lng));
+    }
+
     var walkPath = new google.maps.Polyline({
       path: walkPathCoordinates,
       strokeColor: '#F16725',
@@ -243,7 +247,6 @@ var styles = [{
     });
 
     walkPath.setMap(map);
-
 
     // Style Map
 
@@ -268,13 +271,13 @@ var styles = [{
       closeBoxURL: "../../../../img/map-close.png",
       infoBoxClearance: new google.maps.Size(20, 20)
     });
-    
-    for (i = 0; i < locations.length; i++) {  
+
+    for (var i in JanesWalk.page.gmap.markers) {  
       marker = new google.maps.Marker({
-        position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+        position: new google.maps.LatLng(JanesWalk.page.gmap.markers[i].lat, JanesWalk.page.gmap.markers[i].lng),
         map: map,
         icon: mapMarker,
-        id: locations[i][4]
+        id: i
       });
 
       markers.push(marker);
@@ -301,8 +304,8 @@ var styles = [{
 
           this.setIcon(activeMarker);
 
-          infowindow.setContent("<h4>"+ locations[i][0] +"</h4><p>"+ locations[i][1] +"</p>"+ markerContent);
-          infobox.setContent("<h4>"+ locations[i][0] +"</h4><p>"+ locations[i][1] +"</p>"+ markerContent);
+          infowindow.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
+          infobox.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
           infobox.open(map, marker);
 
           $('.walk-stop').removeClass('active');
@@ -316,6 +319,8 @@ var styles = [{
       })(marker, i));
 
     }
+    $('.walk-stops').show();
+
     // Map Centering
     var bounds = new google.maps.LatLngBounds();
     for (var index in markers) { bounds.extend( markers[index].getPosition() ); }

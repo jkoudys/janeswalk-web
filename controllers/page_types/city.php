@@ -77,7 +77,6 @@
           $cityData['walks'][$key]['team'] .= ($memkey == 0 ? 'Walk led by ' : ($memkey > 0 ? ', ' : '')) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
         }
       }
-      header('Access-Control-Allow-Origin: *');
       echo json_encode($cityData);
     }
     

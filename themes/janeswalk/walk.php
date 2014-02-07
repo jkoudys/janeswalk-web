@@ -36,7 +36,8 @@
         city: {
           name: 'Toronto',
           url: 'http://janeswalk.org/toronto'
-        }
+        },
+        gmap: <?=json_encode($gmap)?>
       }
     };
   </script>
@@ -329,26 +330,6 @@
     </div>
   </div> 
   <script type="text/javascript">
-    <?php
-      echo 'var locations=[';
-      foreach($gmap->markers as $key=>$marker) {
-        echo ($key > 0 ? ',' : '') . "['" . nl2br(htmlspecialchars($marker->title,ENT_QUOTES)) . "','" . preg_replace('/^\s+|\n|\r|\s+$/m', '', nl2br(htmlspecialchars($marker->description,ENT_QUOTES))) . "',{$marker->lat},{$marker->lng},$key]";
-      }
-      echo '];';
-      if(sizeof($gmap->markers) > 0) {
-        echo '$(\'.walk-stops\').show();';
-      };
-    ?>
-
-    // Drawing Polyline
-    var walkPathCoordinates = [
-      <?php
-        foreach($gmap->route as $key=>$rp) {
-          echo ($rp->lat && $rp->lng) ? (($key > 0 ? "," : "") . "new google.maps.LatLng({$rp->lat},{$rp->lng})") : null;
-        }
-      ?>
-    ];
-
     // EventBrite
     var EventBriteEmail = 'jasmine.frolick@janeswalk.net';
     $('a.thumb').colorbox({
