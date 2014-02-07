@@ -326,7 +326,7 @@ $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
           <legend >Pick one of the following:</legend>
           <div class="row-fluid">
             <ul class="thumbnails" id="block-select">
-              <?php if($city->getCollectionID() != 235) { ?>
+              <?php if($city->getCollectionID() !== 235 && $city->getCollectionID() !== 276) { ?>
               <li class="span6">
                 <a href="#time-and-date-all" data-toggle="tab">
                   <div class="thumbnail">
