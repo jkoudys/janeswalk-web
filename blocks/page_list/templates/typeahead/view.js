@@ -1,6 +1,3 @@
-function accentFold(inStr) {
-  return inStr.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g, function(str,a,c,e,i,n,o,s,u,y,ae) { if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae'; });
-}
 
 $(document).ready(function() {
 
@@ -11,83 +8,139 @@ $(document).ready(function() {
    */
   var PageListTypeaheadView = View.extend({
 
-      /**
-       * init
-       * 
-       * @public
-       * @param  jQuery element
-       * @return void
-       */
-      init: function(element) {
-        this._element = element;
-        this._extendJQueryPseudoSelectors();
-        this._filterTypeahead();
-        this._addEvents();
-      },
+    /**
+     * $_input
+     * 
+     * @protected
+     * @var       jQuery (default: null)
+     */
+    $_input: null,
 
-      /**
-       * _addEvents
-       * 
-       * @protected
-       * @return    void
-       */
-      _addEvents: function() {
-        var _this = this;
-        this._element.keyup(function() {
-          _this._filterTypeahead(this);
-        });
+    /**
+     * $_form
+     * 
+     * @protected
+     * @var       jQuery (default: null)
+     */
+    $_form: null,
 
-        //
-        $('.ccm-page-list-typeahead > form').submit(
-          function(event) {
-            event.preventDefault();
-            var $firstchosen = $(
-              'ul>li>ul>li:not(.filtered):first > a',
-              $(this).parent()
-            );
+    /**
+     * $_list
+     * 
+     * @protected
+     * @var       jQuery (default: null)
+     */
+    $_list: null,
 
-            // 
-            if ($firstchosen.length) {
-              var $name = $firstchosen.text(),
-                $link = $firstchosen.attr('href');
-              $('input.typeahead', $(this).parent()).val($name);
-              window.location.href = $link;
-            }
+    /**
+     * $_searchable
+     * 
+     * @protected
+     * @var       jQuery (default: null)
+     */
+    $_searchable: null,
+
+    /**
+     * init
+     * 
+     * @public
+     * @param  jQuery element
+     * @return void
+     */
+    init: function(element) {
+
+      // Element references
+      this.$_element = element;
+      this.$_input = this.$_element.find('input.typeahead').first();
+      this.$_form = this.$_element.find('form').first();
+      this.$_list = this.$_element.find('ul').first();
+      this.$_searchable = this.$_list.find('li > ul, li');
+
+      // Constructor calls
+      this._extendJQueryPseudoSelectors();
+      this._filterTypeahead();
+      this._addEvents();
+    },
+
+    /**
+     * _addEvents
+     * 
+     * @protected
+     * @return    void
+     */
+    _addEvents: function() {
+
+      // Scope
+      var _this = this;
+
+      // Filter when text is being typed
+      this.$_input.keyup(function() {
+        _this._filterTypeahead();
+      });
+
+      // Enter key pressed or go button clicked
+      this.$_form.submit(
+        function(event) {
+          event.preventDefault();
+          var $chosen = _this.$_element.find('ul>li>ul>li:not(.filtered):first > a');
+
+          // Link found
+          if ($chosen.length) {
+            var $name = $chosen.text(),
+              $link = $chosen.attr('href');
+            _this.$_input.val($name);
+            window.location.href = $link;
           }
-        );
-      },
-
-      /**
-       * _filterTypeahead
-       * 
-       * @protected
-       * @return    void
-       */
-      _filterTypeahead: function() {
-        var $inputString = this._element.val().replace(/\s+/g,' '),
-          $typeahead = $(
-            'li>ul,li',
-            this._element.parents('.ccm-page-list-typeahead').first()
-          );
-        $typeahead.removeClass('filtered');
-        if($inputString.length > 0 ) {
-          $typeahead.not(':icontains(' + $inputString + ')').addClass('filtered');
         }
-      },
+      );
+    },
 
-      /**
-       * _extendJQueryPseudoSelectors
-       * 
-       * @protected
-       * @return    void
-       */
-      _extendJQueryPseudoSelectors: function() {
-        jQuery.expr[':'].icontains = function(obj, index, meta, stack) {
-          return accentFold((obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase()).indexOf(accentFold(meta[3].toLowerCase())) >= 0;
-        };
+    /**
+     * _convertAccents
+     * 
+     * @protected
+     * @param     String str
+     * @return    String
+     */
+    _convertAccents: function(str) {
+      return str.replace(
+        /([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g,
+        function(str,a,c,e,i,n,o,s,u,y,ae) {
+          if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae';
+        }
+      );
+    },
+
+    /**
+     * _extendJQueryPseudoSelectors
+     * 
+     * @protected
+     * @return    void
+     */
+    _extendJQueryPseudoSelectors: function() {
+      var _this = this;
+      jQuery.expr[':'].icontains = function(obj, index, meta, stack) {
+        return _this._convertAccents((obj.textContent || obj.innerText || jQuery(obj).text() || '').toLowerCase()).indexOf(_this._convertAccents(meta[3].toLowerCase())) >= 0;
+      };
+    },
+
+    /**
+     * _filterTypeahead
+     * 
+     * @protected
+     * @return    void
+     */
+    _filterTypeahead: function() {
+      var _this = this,
+        inputVal = this.$_input.val().replace(/\s+/g,' ');
+      this.$_searchable.removeClass('filtered');
+      if(inputVal.length > 0) {
+        _this.$_searchable.not(':icontains(' + inputVal + ')').addClass('filtered');
       }
+    }
   });
 
   // Create view
-  new PageListTypeaheadView($('input.typeahead'));
+  var $typeahead = $('div.ccm-page-list-typeahead').first();
+  (new PageListTypeaheadView($typeahead));
 });

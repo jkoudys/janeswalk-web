@@ -38,6 +38,7 @@
     <script src="<?=$this->getThemePath()?>/js/v2/View.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/City.js" type="text/javascript"></script>
     <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js" type="text/javascript"></script>
 
 
