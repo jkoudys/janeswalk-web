@@ -7,7 +7,7 @@ $th = Loader::helper('text');
 <div class="ccm-page-list-typeahead">
   <form>
     <fieldset class="search">
-      <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk" autocomplete="off" />
+      <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk in which city?" autocomplete="off" />
       <input type="submit" value="Go" />
       <ul>
         <?php 

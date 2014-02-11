@@ -12,7 +12,6 @@ div.ccm-page-list-typeahead {
   fieldset.search > ul {
     display:none;
     position:absolute;
-    top:3em;
     left:0;
     margin:0;
     border:1px solid #999;
@@ -31,10 +30,12 @@ div.ccm-page-list-typeahead {
       font-size:0.7em;
       font-weight:700;
     }
-    li { padding-left:0; line-height:24px; font-size:15px; font-weight:300; 
+    li { padding-left:0; line-height:24px; font-size:15px; font-weight:300;
+
+      a { color: #f16725 !important; }
       &.filtered { display:none; }
     }
   }
-  a { color: #f16725 !important; }
+  h3 { margin: 5px 0 0 0; a { font-weight:500; text-decoration:underline; color:inherit; } }
 }
 
