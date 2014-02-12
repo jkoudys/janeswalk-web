@@ -1,7 +1,8 @@
+@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700");
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,300,300italic,500,500italic,700italic,700);
 /* to position for various media settings */
-/*
+/*!
  * Bootstrap v2.3.1
  *
  * Copyright 2012 Twitter, Inc
@@ -6353,7 +6354,7 @@ a.badge:focus {
   position: fixed;
 }
 
-/*
+/*!
  * Bootstrap Responsive v2.3.1
  *
  * Copyright 2012 Twitter, Inc
@@ -8225,7 +8226,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   display: none;
 }
 
-/*
+/*!
  * Datepicker for Bootstrap
  *
  * Copyright 2012 Stefan Petre
@@ -9271,76 +9272,91 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
 /* line 86, pages/sass/homepage.scss */
 .home .intro a, .home .intro-city a {
   color: white;
+  transition-duration: 0.2s;
 }
-/* line 90, pages/sass/homepage.scss */
+/* line 89, pages/sass/homepage.scss */
+.home .intro a:hover, .home .intro-city a:hover {
+  opacity: 0.8;
+}
+/* line 92, pages/sass/homepage.scss */
+.home .intro .ccm-page-list-typeahead h3, .home .intro-city .ccm-page-list-typeahead h3 {
+  margin: 5px 0 0 0;
+}
+/* line 94, pages/sass/homepage.scss */
+.home .intro .ccm-page-list-typeahead h3 a, .home .intro-city .ccm-page-list-typeahead h3 a {
+  font-weight: 500;
+  text-decoration: underline;
+  color: inherit;
+}
+/* line 102, pages/sass/homepage.scss */
 .home section.blog {
   background: #fff;
   min-height: 525px;
   padding: 30px 0 60px 0;
   margin: 0 0 0 0;
 }
-/* line 95, pages/sass/homepage.scss */
+/* line 107, pages/sass/homepage.scss */
 .home section.blog h1, .home section.blog h2, .home section.blog h3, .home section.blog h4, .home section.blog h5 {
   font-family: "museo-slab","Roboto Slab",serif;
   margin: 0;
 }
-/* line 99, pages/sass/homepage.scss */
+/* line 111, pages/sass/homepage.scss */
 .home section.blog section {
   display: inline-block;
   vertical-align: top;
 }
-/* line 102, pages/sass/homepage.scss */
+/* line 114, pages/sass/homepage.scss */
 .home section.blog section.walkblog {
   max-width: 870px;
 }
-/* line 105, pages/sass/homepage.scss */
+/* line 117, pages/sass/homepage.scss */
 .home section.blog section.twitter {
   width: 270px;
   margin-left: 25px;
 }
-/* line 109, pages/sass/homepage.scss */
+/* line 121, pages/sass/homepage.scss */
 .home section.blog section > h3 {
   color: #666666;
   font-weight: 700;
   margin-bottom: 15px;
 }
-/* line 113, pages/sass/homepage.scss */
+/* line 125, pages/sass/homepage.scss */
 .home section.blog section > h3 a {
   color: #666666;
   font-size: 0.6em;
 }
-/* line 116, pages/sass/homepage.scss */
+/* line 128, pages/sass/homepage.scss */
 .home section.blog > div {
   max-width: 1170px;
   margin: 0 auto;
 }
-/* line 120, pages/sass/homepage.scss */
+/* line 132, pages/sass/homepage.scss */
 .home section.blog .span3:first-child {
   margin-left: 0;
 }
-/* line 121, pages/sass/homepage.scss */
+/* line 133, pages/sass/homepage.scss */
 .home section.blog:after {
   clear: both;
   content: "";
   display: table;
 }
-/* line 123, pages/sass/homepage.scss */
+/* line 135, pages/sass/homepage.scss */
 .home section.map {
   margin-bottom: -5px;
 }
-/* line 124, pages/sass/homepage.scss */
+/* line 136, pages/sass/homepage.scss */
 .home .overlap {
   -webkit-transition-duration: 0.5s;
   position: relative;
   height: 460px;
 }
-/* line 129, pages/sass/homepage.scss */
+/* line 141, pages/sass/homepage.scss */
 .home .overlap section.calltoaction {
   width: 100%;
   position: absolute;
   bottom: 0;
 }
-/* line 134, pages/sass/homepage.scss */
+/* line 146, pages/sass/homepage.scss */
 .home .overlap .controls {
   position: absolute;
   margin: 0;
@@ -9349,19 +9365,19 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   text-align: center;
   z-index: 1;
 }
-/* line 140, pages/sass/homepage.scss */
+/* line 152, pages/sass/homepage.scss */
 .home .overlap .controls li {
   display: block;
   height: 60px;
   text-transform: uppercase;
   line-height: 30px;
 }
-/* line 145, pages/sass/homepage.scss */
+/* line 157, pages/sass/homepage.scss */
 .home .overlap .controls a {
   color: #fff;
   font-size: 11px;
 }
-/* line 148, pages/sass/homepage.scss */
+/* line 160, pages/sass/homepage.scss */
 .home .overlap .controls a i {
   font-size: 15px;
   color: #fff;
@@ -9371,23 +9387,23 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border: 2px solid #fff;
   border-radius: 999px;
 }
-/* line 157, pages/sass/homepage.scss */
+/* line 169, pages/sass/homepage.scss */
 .home .overlap .controls a:hover {
   text-decoration: none;
   cursor: pointer;
 }
-/* line 160, pages/sass/homepage.scss */
+/* line 172, pages/sass/homepage.scss */
 .home .overlap.fullmap {
   height: 760px;
 }
 
-/* line 164, pages/sass/homepage.scss */
+/* line 176, pages/sass/homepage.scss */
 .intro, .intro-city {
   width: 100%;
   background-position: center center;
 }
 
-/* line 169, pages/sass/homepage.scss */
+/* line 181, pages/sass/homepage.scss */
 .intro .logo, .intro-city .logo {
   background-image: url("../images/jwlogos-3.png");
   display: block;
@@ -9396,12 +9412,12 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   float: left;
 }
 
-/* line 178, pages/sass/homepage.scss */
+/* line 190, pages/sass/homepage.scss */
 p.lead {
   margin-top: 6%;
 }
 
-/* line 182, pages/sass/homepage.scss */
+/* line 194, pages/sass/homepage.scss */
 .callouts {
   margin: 0;
   top: 60px;
@@ -9415,14 +9431,14 @@ p.lead {
   background: linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
 }
 
-/* line 191, pages/sass/homepage.scss */
+/* line 203, pages/sass/homepage.scss */
 .homepage-callout2 {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
   position: relative;
 }
-/* line 196, pages/sass/homepage.scss */
+/* line 208, pages/sass/homepage.scss */
 .homepage-callout2 p {
   font-size: 3em;
   line-height: 123%;
@@ -9430,46 +9446,46 @@ p.lead {
   letter-spacing: 1px;
 }
 @media (max-width: 979px) {
-  /* line 196, pages/sass/homepage.scss */
+  /* line 208, pages/sass/homepage.scss */
   .homepage-callout2 p {
     font-size: 2.7em;
   }
 }
-/* line 206, pages/sass/homepage.scss */
+/* line 218, pages/sass/homepage.scss */
 .homepage-callout2 div.cityCtaWrapper {
   position: absolute;
   left: 430px;
   bottom: 0;
 }
-/* line 211, pages/sass/homepage.scss */
+/* line 223, pages/sass/homepage.scss */
 .homepage-callout2 div.cityCtaWrapper a.btn {
   color: #333;
 }
 
-/* line 217, pages/sass/homepage.scss */
+/* line 229, pages/sass/homepage.scss */
 .navbar_home {
   font-size: 1em;
   text-align: center;
   margin: 0 auto;
 }
-/* line 221, pages/sass/homepage.scss */
+/* line 233, pages/sass/homepage.scss */
 .navbar_home .large {
   font-size: 18px;
   height: 34px;
   margin: 0;
 }
 
-/* line 228, pages/sass/homepage.scss */
+/* line 240, pages/sass/homepage.scss */
 .test {
   margin-top: 0%;
 }
 
-/* line 232, pages/sass/homepage.scss */
+/* line 244, pages/sass/homepage.scss */
 .little {
   width: 22%;
 }
 
-/* line 236, pages/sass/homepage.scss */
+/* line 248, pages/sass/homepage.scss */
 .section2 {
   position: relative;
   padding-bottom: 20px;
@@ -9478,7 +9494,7 @@ p.lead {
   background-position: center center;
 }
 
-/* line 244, pages/sass/homepage.scss */
+/* line 256, pages/sass/homepage.scss */
 .property-ul {
   background: #fff;
   border: 1px solid #ddd;
@@ -9489,42 +9505,42 @@ p.lead {
   width: 30%;
 }
 
-/* line 254, pages/sass/homepage.scss */
+/* line 266, pages/sass/homepage.scss */
 .fest {
   margin-left: 2%;
 }
 
-/* line 258, pages/sass/homepage.scss */
+/* line 270, pages/sass/homepage.scss */
 .row1 {
   margin-top: 0%;
 }
 
-/* line 261, pages/sass/homepage.scss */
+/* line 273, pages/sass/homepage.scss */
 section.calltoaction {
   background: #fff;
   padding: 40px 0;
   margin-top: -200px;
 }
-/* line 265, pages/sass/homepage.scss */
+/* line 277, pages/sass/homepage.scss */
 section.calltoaction h1, section.calltoaction h2, section.calltoaction h3, section.calltoaction h4, section.calltoaction h5, section.calltoaction p, section.calltoaction ul, section.calltoaction ol {
   margin: 0 auto;
   max-width: 1170px;
   font-family: "museo-slab","Roboto Slab",serif;
 }
-/* line 270, pages/sass/homepage.scss */
+/* line 282, pages/sass/homepage.scss */
 section.calltoaction h3 {
   font-weight: 700;
   margin-bottom: 15px;
   color: #666666;
 }
-/* line 275, pages/sass/homepage.scss */
+/* line 287, pages/sass/homepage.scss */
 section.calltoaction p {
   color: #333;
   font-size: 1.3em;
   line-height: 1.6;
   font-weight: 300;
 }
-/* line 281, pages/sass/homepage.scss */
+/* line 293, pages/sass/homepage.scss */
 section.calltoaction a {
   color: #fff;
   width: 100%;
@@ -9534,19 +9550,19 @@ section.calltoaction a {
   text-align: center;
   font-size: 16px;
   background: #666666;
-  box-shadow: inset 0 -2px 0 #222222;
+  box-shadow: inset 0 -2px 0 #222;
 }
-/* line 290, pages/sass/homepage.scss */
+/* line 302, pages/sass/homepage.scss */
 section.calltoaction a:hover {
   text-decoration: none;
   background: #333;
 }
-/* line 295, pages/sass/homepage.scss */
+/* line 307, pages/sass/homepage.scss */
 section.calltoaction ul {
   text-align: justify;
   margin-top: 20px;
 }
-/* line 298, pages/sass/homepage.scss */
+/* line 310, pages/sass/homepage.scss */
 section.calltoaction ul li {
   list-style-type: none;
   margin: 0;
@@ -9557,13 +9573,13 @@ section.calltoaction ul li {
   background: #333;
 }
 @media (max-width: 940px) {
-  /* line 298, pages/sass/homepage.scss */
+  /* line 310, pages/sass/homepage.scss */
   section.calltoaction ul li {
     display: block;
     margin-bottom: 5px;
   }
 }
-/* line 309, pages/sass/homepage.scss */
+/* line 321, pages/sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -9572,18 +9588,18 @@ section.calltoaction ul:after {
   height: 0;
 }
 
-/* line 319, pages/sass/homepage.scss */
+/* line 331, pages/sass/homepage.scss */
 section.sponsors {
   margin: 0 auto 240px;
   width: 1170px;
 }
 
-/* line 324, pages/sass/homepage.scss */
+/* line 336, pages/sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 328, pages/sass/homepage.scss */
+/* line 340, pages/sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9592,17 +9608,17 @@ section.sponsors {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 335, pages/sass/homepage.scss */
+/* line 347, pages/sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 340, pages/sass/homepage.scss */
+/* line 352, pages/sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 344, pages/sass/homepage.scss */
+/* line 356, pages/sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9610,7 +9626,7 @@ section.sponsors {
   width: 400px;
 }
 
-/* line 351, pages/sass/homepage.scss */
+/* line 363, pages/sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9618,26 +9634,26 @@ section.sponsors {
   width: 75%;
 }
 
-/* line 358, pages/sass/homepage.scss */
+/* line 370, pages/sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
-/* line 360, pages/sass/homepage.scss */
+/* line 372, pages/sass/homepage.scss */
 .caption h5 p {
   color: #555;
 }
 
-/* line 365, pages/sass/homepage.scss */
+/* line 377, pages/sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 367, pages/sass/homepage.scss */
+/* line 379, pages/sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 768px) {
-  /* line 373, pages/sass/homepage.scss */
+  /* line 385, pages/sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;
