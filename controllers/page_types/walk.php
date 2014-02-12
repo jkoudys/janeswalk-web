@@ -314,7 +314,8 @@
       $nh = Loader::helper('navigation');
       $c = $this->getCollectionObject();
 
-      $crumbs = krsort($nh->getTrailToCollection($c));
+      $crumbs = $nh->getTrailToCollection($c);
+      krsort($crumbs);
 
       $team = json_decode($c->getAttribute('team'), true);
       $theme = PageTheme::getByHandle('janeswalk');

@@ -1,41 +1,74 @@
-div.ccm-page-list-rss-icon {margin-top: 10px}
-div.ccm-page-list-tags { display:none; }
-div.ccm-page-list-typeahead {
-  $lightgrey: #efefef;
-  $darkgrey:#b4b4b4;
-  $buttonoffset:4px;
-  $defaultWidth: 280px;
-  position:relative;
-  font-family:"museo-slab", "Roboto Slab", serif;
-  ul, li { list-style-type:none; }
-  fieldset.search > input[type=text]:focus + input[type=submit] + ul { display:block; }
-  fieldset.search > ul {
-    display:none;
-    position:absolute;
-    left:0;
-    margin:0;
-    border:1px solid #999;
-    background:#fff;
-    padding:5px;
-    z-index:2;
-    width:$defaultWidth + 15px - $buttonoffset;
-    max-height:14em;
-    overflow-y:scroll;
-    &:hover {
-      display:block;
-    }
-    li.parent {
-      padding-left:5px;
-      color:#888;
-      font-size:0.7em;
-      font-weight:700;
-    }
-    li { padding-left:0; line-height:24px; font-size:15px; font-weight:300;
-
-      a { color: #f16725 !important; }
-      &.filtered { display:none; }
-    }
-  }
-  h3 { margin: 5px 0 0 0; a { font-weight:500; text-decoration:underline; color:inherit; } }
+div.ccm-page-list-rss-icon {
+  margin-top: 10px;
 }
 
+div.ccm-page-list-tags {
+  display: none;
+}
+
+div.ccm-page-list-typeahead {
+  $buttonOffset: 4px;
+  $defaultWidth: 280px;
+  position: relative;
+  font-family: "museo-slab", "Roboto Slab", serif;
+
+  ul, li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  fieldset.search {
+
+    > ul {
+      display: none;
+      position: absolute;
+      left: 0;
+      border: 1px solid #999;
+      background: #fff;
+      padding: 5px;
+      z-index: 2;
+      width: $defaultWidth + 15px - $buttonOffset;
+      max-height: 14em;
+      overflow-y: scroll;
+
+      li.country {
+        padding-left: 5px;
+
+        div.name {
+          color: #888;
+          font-size: 0.7em;
+          font-weight: 700;
+        }
+
+        ul.cities {
+          padding: 0 0 0 10px;
+
+          li {
+            line-height: 24px;
+            font-size: 15px;
+            font-weight: 300;
+
+            a {
+              color: #f16725 !important;
+            }
+          }
+        }
+      }
+    }
+
+    li.aux {
+        padding-left: 5px;
+
+        a {
+          padding: 4px 0 4px 10px;
+          color: #f16725 !important;
+          display: block;
+        }
+    }
+
+    input[type=text]:focus + input[type=submit] + ul {
+      display: block;
+    }
+  }
+}

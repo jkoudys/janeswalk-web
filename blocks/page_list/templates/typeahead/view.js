@@ -9,12 +9,12 @@ $(document).ready(function() {
   var PageListTypeaheadView = View.extend({
 
     /**
-     * $_input
+     * $_aux
      * 
      * @protected
      * @var       jQuery (default: null)
      */
-    $_input: null,
+    $_aux: null,
 
     /**
      * $_form
@@ -23,6 +23,14 @@ $(document).ready(function() {
      * @var       jQuery (default: null)
      */
     $_form: null,
+
+    /**
+     * $_input
+     * 
+     * @protected
+     * @var       jQuery (default: null)
+     */
+    $_input: null,
 
     /**
      * $_list
@@ -51,14 +59,14 @@ $(document).ready(function() {
 
       // Element references
       this.$_element = element;
-      this.$_input = this.$_element.find('input.typeahead').first();
+      this.$_aux = this.$_element.find('.aux').first();
       this.$_form = this.$_element.find('form').first();
+      this.$_input = this.$_element.find('input.typeahead').first();
       this.$_list = this.$_element.find('ul').first();
       this.$_searchable = this.$_list.find('li > ul, li');
 
       // Constructor calls
       this._extendJQueryPseudoSelectors();
-      this._filterTypeahead();
       this._addEvents();
     },
 
@@ -73,19 +81,17 @@ $(document).ready(function() {
       // Scope
       var _this = this;
 
-      // Filter when text is being typed
-      this.$_input.keyup(function() {
-        _this._filterTypeahead();
-      });
-
       // Enter key pressed or go button clicked
       this.$_form.submit(
         function(event) {
           event.preventDefault();
-          var $chosen = _this.$_element.find('ul>li>ul>li:not(.filtered):first > a');
+          var $chosen = _this.$_element.find(
+            'ul > li > ul > li:not(.hidden):first > a,' +
+            'ul > li.aux:not(.hidden) > a'
+          );
 
           // Link found
-          if ($chosen.length) {
+          if ($chosen.length > 0) {
             var $name = $chosen.text(),
               $link = $chosen.attr('href');
             _this.$_input.val($name);
@@ -93,6 +99,11 @@ $(document).ready(function() {
           }
         }
       );
+
+      // Filter when text is being typed
+      this.$_input.keyup(function() {
+        _this._filterTypeahead();
+      });
     },
 
     /**
@@ -106,7 +117,16 @@ $(document).ready(function() {
       return str.replace(
         /([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g,
         function(str,a,c,e,i,n,o,s,u,y,ae) {
-          if(a) return 'a'; else if(c) return 'c'; else if(e) return 'e'; else if(i) return 'i'; else if(n) return 'n'; else if(o) return 'o'; else if(s) return 's'; else if(u) return 'u'; else if(y) return 'y'; else if(ae) return 'ae';
+          if(a) return 'a';
+          else if(c) return 'c';
+          else if(e) return 'e';
+          else if(i) return 'i';
+          else if(n) return 'n';
+          else if(o) return 'o';
+          else if(s) return 's';
+          else if(u) return 'u';
+          else if(y) return 'y';
+          else if(ae) return 'ae';
         }
       );
     },
@@ -133,9 +153,17 @@ $(document).ready(function() {
     _filterTypeahead: function() {
       var _this = this,
         inputVal = this.$_input.val().replace(/\s+/g,' ');
-      this.$_searchable.removeClass('filtered');
+      this.$_searchable.removeClass('hidden');
       if(inputVal.length > 0) {
-        _this.$_searchable.not(':icontains(' + inputVal + ')').addClass('filtered');
+        _this.$_searchable.not(':icontains(' + (inputVal) + ')').addClass(
+          'hidden'
+        );
+      }
+
+      // No matching cities found
+      if (_this.$_searchable.not('.hidden').length === 0) {
+        this.$_aux.removeClass('hidden');
+        this.$_aux.find('[rel="city.name"]').text(this.$_input.val());
       }
     }
   });
