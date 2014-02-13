@@ -1,9 +1,9 @@
 <?php 
-  defined('C5_EXECUTE') or die(_("Access Denied."));
+  defined('C5_EXECUTE') or die(_('Access Denied.'));
   $nh = Loader::helper('navigation');
   $dh = Loader::helper('concrete/dashboard');
   $im = Loader::helper('image');
-  $headImage = $c->getAttribute("full_bg");
+  $headImage = $c->getAttribute('full_bg');
   global $u;
   global $cp;
 /*
