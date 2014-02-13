@@ -40,14 +40,14 @@ var HomePageView = PageView.extend({
     },
 
     /**
-     * _addCityCta
+     * _addCityCalloutCta
      * 
      * @protected
      * @param     String cityName
      * @param     String cityPath
      * @return    void
      */
-    _addCityCta: function(cityName, cityPath) {
+    _addCityCalloutCta: function(cityName, cityPath) {
         var $parent = this._element.find('.ccm-page-list-typeahead').first(),
             $wrapper = $('<h3 />'),
             $button = $('<a />');
@@ -56,6 +56,30 @@ var HomePageView = PageView.extend({
         });
         $button.text(cityName);
         $wrapper.append('See walks in ').append($button).append(', or:');
+        $parent.prepend($wrapper);
+    },
+
+    /**
+     * _addCityButtonCta
+     * 
+     * @protected
+     * @param     String cityName
+     * @param     String cityPath
+     * @return    void
+     */
+    _addCityButtonCta: function(cityName, cityPath) {
+        var $parent = this._element.find('.calltoaction ul').first(),
+            $wrapper = $('<li />'),
+            $button = $('<a />');
+        $wrapper.attr({
+            class: 'cityButtonCta'
+        });
+        $button.attr({
+            class: 'btn btn-primary',
+            href: cityPath,
+        });
+        $wrapper.append($button);
+        $button.text('View walks in ' + (cityName));
         $parent.prepend($wrapper);
     },
 
@@ -75,7 +99,8 @@ var HomePageView = PageView.extend({
                     $city;
                 $cities.each(function(index, cityEl) {
                     if ($(cityEl).text() === obj.city) {
-                        _this._addCityCta(obj.city, $(cityEl).attr('href'));
+                        _this._addCityCalloutCta(obj.city, $(cityEl).attr('href'));
+                        _this._addCityButtonCta(obj.city, $(cityEl).attr('href'));
                     }
                 });
             }

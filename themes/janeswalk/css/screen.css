@@ -9167,11 +9167,11 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
     margin: 0;
   }
 }
-/* line 17, pages/sass/homepage.scss */
+/* line 16, pages/sass/homepage.scss */
 .home .intro, .home .intro-city, .home .navbar_home .large, .home .section2 ul.nav {
   font-family: "museo-slab","Roboto Slab",serif;
 }
-/* line 21, pages/sass/homepage.scss */
+/* line 20, pages/sass/homepage.scss */
 .home.logged_in {
   padding-top: 0;
 }
@@ -9181,7 +9181,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
     padding: 0;
   }
 }
-/* line 29, pages/sass/homepage.scss */
+/* line 28, pages/sass/homepage.scss */
 .home .backgroundImageBanner {
   background-attachment: fixed;
   background-position: center center;
@@ -9201,21 +9201,15 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   -moz-transition: opacity 2s ease-in-out;
   -webkit-transition: opacity 2s ease-in-out;
 }
-/* line 45, pages/sass/homepage.scss */
+/* line 44, pages/sass/homepage.scss */
 .home .backgroundImageBanner.faded {
   opacity: 0;
 }
-@media (max-width: 768px) {
-  /* line 29, pages/sass/homepage.scss */
-  .home .backgroundImageBanner {
-    display: none;
-  }
-}
-/* line 54, pages/sass/homepage.scss */
+/* line 53, pages/sass/homepage.scss */
 .home .intro .nav li, .home .intro-city .nav li {
   padding-right: 20px;
 }
-/* line 56, pages/sass/homepage.scss */
+/* line 55, pages/sass/homepage.scss */
 .home .intro .nav li.divider-vertical, .home .intro-city .nav li.divider-vertical {
   height: 40px;
   margin: 0 20px 0 0;
@@ -9223,11 +9217,11 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border-left: none;
   padding: 0;
 }
-/* line 64, pages/sass/homepage.scss */
+/* line 63, pages/sass/homepage.scss */
 .home .input-append {
   margin: 10px 0 0 0;
 }
-/* line 65, pages/sass/homepage.scss */
+/* line 64, pages/sass/homepage.scss */
 .home .intro .nav li a, .home .intro-city .nav li a {
   color: #303030;
   font-size: 16px;
@@ -9237,37 +9231,37 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border: 1px solid #a53d0b;
   background: rgba(194, 83, 14, 0.9);
 }
-/* line 74, pages/sass/homepage.scss */
+/* line 73, pages/sass/homepage.scss */
 .home .intro .nav li a:hover, .home .intro-city .nav li a:hover {
   color: #fff;
   background: #d54e0e;
 }
-/* line 77, pages/sass/homepage.scss */
+/* line 76, pages/sass/homepage.scss */
 .home .intro .nav li.active a, .home .intro-city .nav li.active a {
   text-decoration: none;
   background-color: rgba(255, 250, 250, 0.5);
 }
-/* line 81, pages/sass/homepage.scss */
+/* line 80, pages/sass/homepage.scss */
 .home .intro ul.nav, .home .intro-city ul.nav {
   float: right;
   padding: 50px 0 0 0;
 }
-/* line 85, pages/sass/homepage.scss */
+/* line 84, pages/sass/homepage.scss */
 .home .nav-tabs > li > a {
   background: #DBDBDB;
   padding: 20px;
   border: none;
   font-size: 1.5em;
 }
-/* line 90, pages/sass/homepage.scss */
+/* line 89, pages/sass/homepage.scss */
 .home .nav-tabs > li > a:hover {
   border: none;
 }
-/* line 94, pages/sass/homepage.scss */
+/* line 93, pages/sass/homepage.scss */
 .home .nav-tabs > li.active > a {
   background: #fff;
 }
-/* line 98, pages/sass/homepage.scss */
+/* line 97, pages/sass/homepage.scss */
 .home .intro blockquote, .home .intro-city blockquote {
   font-size: inherit;
   float: none;
@@ -9279,18 +9273,18 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   line-height: 22px;
   margin: 0 auto;
 }
-/* line 101, pages/sass/homepage.scss */
+/* line 100, pages/sass/homepage.scss */
 .home .intro .linkbox, .home .intro-city .linkbox {
   margin: 10px auto;
   display: block;
   width: 270px;
   font-size: 1.4em;
 }
-/* line 107, pages/sass/homepage.scss */
+/* line 106, pages/sass/homepage.scss */
 .home .intro a, .home .intro-city a {
   color: white;
 }
-/* line 112, pages/sass/homepage.scss */
+/* line 111, pages/sass/homepage.scss */
 .home section.blog {
   background: #fff;
   min-height: 525px;
@@ -9298,118 +9292,117 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   margin: 0 0 0 0;
 }
 @media (max-width: 768px) {
-  /* line 112, pages/sass/homepage.scss */
+  /* line 111, pages/sass/homepage.scss */
   .home section.blog {
-    padding: 10px;
-    margin: 15px 0 0;
+    padding: 25px 10px 10px;
   }
 }
-/* line 123, pages/sass/homepage.scss */
+/* line 121, pages/sass/homepage.scss */
 .home section.blog h1, .home section.blog h2, .home section.blog h3, .home section.blog h4, .home section.blog h5 {
   font-family: "museo-slab","Roboto Slab",serif;
   margin: 0;
 }
-/* line 127, pages/sass/homepage.scss */
+/* line 125, pages/sass/homepage.scss */
 .home section.blog section {
   display: inline-block;
   vertical-align: top;
 }
-/* line 130, pages/sass/homepage.scss */
+/* line 128, pages/sass/homepage.scss */
 .home section.blog section.walkblog {
   max-width: 870px;
 }
-/* line 133, pages/sass/homepage.scss */
+/* line 131, pages/sass/homepage.scss */
 .home section.blog section.twitter {
   width: 270px;
   margin-left: 25px;
 }
 @media (max-width: 768px) {
-  /* line 133, pages/sass/homepage.scss */
+  /* line 131, pages/sass/homepage.scss */
   .home section.blog section.twitter {
-    padding: 30px 10px 10px;
+    padding: 30px 0 0;
     width: 100%;
     margin: 0;
   }
 }
-/* line 144, pages/sass/homepage.scss */
+/* line 142, pages/sass/homepage.scss */
 .home section.blog section > h3 {
   color: #666666;
   font-weight: 700;
   margin-bottom: 15px;
 }
 @media (max-width: 768px) {
-  /* line 144, pages/sass/homepage.scss */
+  /* line 142, pages/sass/homepage.scss */
   .home section.blog section > h3 {
     margin-bottom: 10px;
   }
 }
-/* line 153, pages/sass/homepage.scss */
+/* line 151, pages/sass/homepage.scss */
 .home section.blog section > h3 a {
   color: #666666;
   font-size: 0.6em;
 }
 @media (max-width: 768px) {
-  /* line 153, pages/sass/homepage.scss */
+  /* line 151, pages/sass/homepage.scss */
   .home section.blog section > h3 a {
     display: none;
   }
 }
-/* line 164, pages/sass/homepage.scss */
+/* line 162, pages/sass/homepage.scss */
 .home section.blog > div {
   max-width: 1170px;
   margin: 0 auto;
 }
-/* line 168, pages/sass/homepage.scss */
+/* line 166, pages/sass/homepage.scss */
 .home section.blog .span3:first-child {
   margin-left: 0;
 }
-/* line 169, pages/sass/homepage.scss */
+/* line 167, pages/sass/homepage.scss */
 .home section.blog:after {
   clear: both;
   content: "";
   display: table;
 }
-/* line 171, pages/sass/homepage.scss */
+/* line 169, pages/sass/homepage.scss */
 .home section.map {
   margin-bottom: -5px;
 }
 @media (max-width: 768px) {
-  /* line 171, pages/sass/homepage.scss */
+  /* line 169, pages/sass/homepage.scss */
   .home section.map {
     display: none;
   }
 }
-/* line 179, pages/sass/homepage.scss */
+/* line 177, pages/sass/homepage.scss */
 .home .overlap {
   -webkit-transition-duration: 0.5s;
   position: relative;
   height: 460px;
 }
 @media (max-width: 768px) {
-  /* line 179, pages/sass/homepage.scss */
+  /* line 177, pages/sass/homepage.scss */
   .home .overlap {
     height: auto;
   }
 }
-/* line 189, pages/sass/homepage.scss */
+/* line 187, pages/sass/homepage.scss */
 .home .overlap section.calltoaction {
   width: 100%;
   position: absolute;
   bottom: 0;
 }
 @media (max-width: 768px) {
-  /* line 189, pages/sass/homepage.scss */
+  /* line 187, pages/sass/homepage.scss */
   .home .overlap section.calltoaction {
     width: auto;
     position: static;
     padding: 30px 10px 10px 10px;
   }
-  /* line 199, pages/sass/homepage.scss */
+  /* line 197, pages/sass/homepage.scss */
   .home .overlap section.calltoaction > p {
     display: none;
   }
 }
-/* line 204, pages/sass/homepage.scss */
+/* line 202, pages/sass/homepage.scss */
 .home .overlap .controls {
   position: absolute;
   margin: 0;
@@ -9418,19 +9411,19 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   text-align: center;
   z-index: 1;
 }
-/* line 210, pages/sass/homepage.scss */
+/* line 208, pages/sass/homepage.scss */
 .home .overlap .controls li {
   display: block;
   height: 60px;
   text-transform: uppercase;
   line-height: 30px;
 }
-/* line 215, pages/sass/homepage.scss */
+/* line 213, pages/sass/homepage.scss */
 .home .overlap .controls a {
   color: #fff;
   font-size: 11px;
 }
-/* line 218, pages/sass/homepage.scss */
+/* line 216, pages/sass/homepage.scss */
 .home .overlap .controls a i {
   font-size: 15px;
   color: #fff;
@@ -9440,29 +9433,29 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border: 2px solid #fff;
   border-radius: 999px;
 }
-/* line 227, pages/sass/homepage.scss */
+/* line 225, pages/sass/homepage.scss */
 .home .overlap .controls a:hover {
   text-decoration: none;
   cursor: pointer;
 }
 @media (max-width: 768px) {
-  /* line 204, pages/sass/homepage.scss */
+  /* line 202, pages/sass/homepage.scss */
   .home .overlap .controls {
     display: none;
   }
 }
-/* line 234, pages/sass/homepage.scss */
+/* line 232, pages/sass/homepage.scss */
 .home .overlap.fullmap {
   height: 760px;
 }
 
-/* line 238, pages/sass/homepage.scss */
+/* line 236, pages/sass/homepage.scss */
 .intro, .intro-city {
   width: 100%;
   background-position: center center;
 }
 
-/* line 243, pages/sass/homepage.scss */
+/* line 241, pages/sass/homepage.scss */
 .intro .logo, .intro-city .logo {
   background-image: url("../images/jwlogos-3.png");
   display: block;
@@ -9471,12 +9464,12 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   float: left;
 }
 
-/* line 252, pages/sass/homepage.scss */
+/* line 250, pages/sass/homepage.scss */
 p.lead {
   margin-top: 6%;
 }
 
-/* line 256, pages/sass/homepage.scss */
+/* line 254, pages/sass/homepage.scss */
 .callouts {
   margin: 0;
   top: 60px;
@@ -9490,21 +9483,21 @@ p.lead {
   background: linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
 }
 @media (max-width: 768px) {
-  /* line 256, pages/sass/homepage.scss */
+  /* line 254, pages/sass/homepage.scss */
   .callouts {
     padding: 10px;
     width: auto;
   }
 }
 
-/* line 270, pages/sass/homepage.scss */
+/* line 268, pages/sass/homepage.scss */
 .homepage-callout2 {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
   position: relative;
 }
-/* line 276, pages/sass/homepage.scss */
+/* line 274, pages/sass/homepage.scss */
 .homepage-callout2 p {
   font-size: 3em;
   line-height: 123%;
@@ -9512,53 +9505,53 @@ p.lead {
   letter-spacing: 1px;
 }
 @media (max-width: 979px) {
-  /* line 276, pages/sass/homepage.scss */
+  /* line 274, pages/sass/homepage.scss */
   .homepage-callout2 p {
     font-size: 1em;
     line-height: 1.5em;
   }
 }
-/* line 288, pages/sass/homepage.scss */
+/* line 286, pages/sass/homepage.scss */
 .homepage-callout2 div.cityCtaWrapper {
   position: absolute;
   left: 430px;
   bottom: 0;
 }
-/* line 293, pages/sass/homepage.scss */
+/* line 291, pages/sass/homepage.scss */
 .homepage-callout2 div.cityCtaWrapper a.btn {
   color: #333;
 }
 @media (max-width: 768px) {
-  /* line 298, pages/sass/homepage.scss */
+  /* line 296, pages/sass/homepage.scss */
   .homepage-callout2 div.ccm-block-styles {
     display: none;
   }
 }
 
-/* line 305, pages/sass/homepage.scss */
+/* line 303, pages/sass/homepage.scss */
 .navbar_home {
   font-size: 1em;
   text-align: center;
   margin: 0 auto;
 }
-/* line 309, pages/sass/homepage.scss */
+/* line 307, pages/sass/homepage.scss */
 .navbar_home .large {
   font-size: 18px;
   height: 34px;
   margin: 0;
 }
 
-/* line 316, pages/sass/homepage.scss */
+/* line 314, pages/sass/homepage.scss */
 .test {
   margin-top: 0%;
 }
 
-/* line 320, pages/sass/homepage.scss */
+/* line 318, pages/sass/homepage.scss */
 .little {
   width: 22%;
 }
 
-/* line 324, pages/sass/homepage.scss */
+/* line 322, pages/sass/homepage.scss */
 .section2 {
   position: relative;
   padding-bottom: 20px;
@@ -9567,7 +9560,7 @@ p.lead {
   background-position: center center;
 }
 
-/* line 332, pages/sass/homepage.scss */
+/* line 330, pages/sass/homepage.scss */
 .property-ul {
   background: #fff;
   border: 1px solid #ddd;
@@ -9578,49 +9571,49 @@ p.lead {
   width: 30%;
 }
 
-/* line 342, pages/sass/homepage.scss */
+/* line 340, pages/sass/homepage.scss */
 .fest {
   margin-left: 2%;
 }
 
-/* line 346, pages/sass/homepage.scss */
+/* line 344, pages/sass/homepage.scss */
 .row1 {
   margin-top: 0%;
 }
 
-/* line 349, pages/sass/homepage.scss */
+/* line 347, pages/sass/homepage.scss */
 section.calltoaction {
   background: #fff;
   padding: 40px 0;
   margin-top: -200px;
 }
 @media (max-width: 768px) {
-  /* line 349, pages/sass/homepage.scss */
+  /* line 347, pages/sass/homepage.scss */
   section.calltoaction {
     margin: 0;
     padding: 0;
   }
 }
-/* line 359, pages/sass/homepage.scss */
+/* line 357, pages/sass/homepage.scss */
 section.calltoaction h1, section.calltoaction h2, section.calltoaction h3, section.calltoaction h4, section.calltoaction h5, section.calltoaction p, section.calltoaction ul, section.calltoaction ol {
   margin: 0 auto;
   max-width: 1170px;
   font-family: "museo-slab","Roboto Slab",serif;
 }
-/* line 364, pages/sass/homepage.scss */
+/* line 362, pages/sass/homepage.scss */
 section.calltoaction h3 {
   font-weight: 700;
   margin-bottom: 15px;
   color: #666666;
 }
-/* line 369, pages/sass/homepage.scss */
+/* line 367, pages/sass/homepage.scss */
 section.calltoaction p {
   color: #333;
   font-size: 1.3em;
   line-height: 1.6;
   font-weight: 300;
 }
-/* line 375, pages/sass/homepage.scss */
+/* line 373, pages/sass/homepage.scss */
 section.calltoaction a {
   color: #fff;
   width: 100%;
@@ -9632,23 +9625,23 @@ section.calltoaction a {
   background: #666666;
   box-shadow: inset 0 -2px 0 #222222;
 }
-/* line 384, pages/sass/homepage.scss */
+/* line 382, pages/sass/homepage.scss */
 section.calltoaction a:hover {
   text-decoration: none;
   background: #333;
 }
-/* line 389, pages/sass/homepage.scss */
+/* line 387, pages/sass/homepage.scss */
 section.calltoaction ul {
   text-align: justify;
   margin-top: 20px;
 }
 @media (max-width: 768px) {
-  /* line 389, pages/sass/homepage.scss */
+  /* line 387, pages/sass/homepage.scss */
   section.calltoaction ul {
     margin-top: 10px;
   }
 }
-/* line 397, pages/sass/homepage.scss */
+/* line 395, pages/sass/homepage.scss */
 section.calltoaction ul li {
   list-style-type: none;
   margin: 0;
@@ -9659,19 +9652,35 @@ section.calltoaction ul li {
   background: #333;
 }
 @media (max-width: 940px) {
-  /* line 397, pages/sass/homepage.scss */
+  /* line 395, pages/sass/homepage.scss */
   section.calltoaction ul li {
     display: block;
     margin-bottom: 5px;
   }
 }
 @media (max-width: 768px) {
-  /* line 397, pages/sass/homepage.scss */
+  /* line 395, pages/sass/homepage.scss */
   section.calltoaction ul li {
     width: 100%;
   }
 }
-/* line 413, pages/sass/homepage.scss */
+/* line 411, pages/sass/homepage.scss */
+section.calltoaction ul li.cityButtonCta {
+  display: none;
+}
+@media (max-width: 768px) {
+  /* line 411, pages/sass/homepage.scss */
+  section.calltoaction ul li.cityButtonCta {
+    display: inline-block;
+  }
+}
+@media (max-width: 768px) {
+  /* line 421, pages/sass/homepage.scss */
+  section.calltoaction ul li a[href="/walk/form/"] {
+    display: none;
+  }
+}
+/* line 426, pages/sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -9680,24 +9689,30 @@ section.calltoaction ul:after {
   height: 0;
 }
 @media (max-width: 768px) {
-  /* line 413, pages/sass/homepage.scss */
+  /* line 426, pages/sass/homepage.scss */
   section.calltoaction ul:after {
     display: none;
   }
 }
 
-/* line 427, pages/sass/homepage.scss */
+/* line 440, pages/sass/homepage.scss */
 section.sponsors {
   margin: 0 auto 240px;
   width: 1170px;
 }
+@media (max-width: 768px) {
+  /* line 440, pages/sass/homepage.scss */
+  section.sponsors {
+    display: none;
+  }
+}
 
-/* line 432, pages/sass/homepage.scss */
+/* line 449, pages/sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 436, pages/sass/homepage.scss */
+/* line 453, pages/sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9706,17 +9721,17 @@ section.sponsors {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 443, pages/sass/homepage.scss */
+/* line 460, pages/sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 448, pages/sass/homepage.scss */
+/* line 465, pages/sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 452, pages/sass/homepage.scss */
+/* line 469, pages/sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9724,7 +9739,7 @@ section.sponsors {
   width: 400px;
 }
 
-/* line 459, pages/sass/homepage.scss */
+/* line 476, pages/sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9732,45 +9747,45 @@ section.sponsors {
   width: 75%;
 }
 
-/* line 468, pages/sass/homepage.scss */
+/* line 485, pages/sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
 @media (max-width: 768px) {
-  /* line 473, pages/sass/homepage.scss */
+  /* line 490, pages/sass/homepage.scss */
   .caption h5 a {
     font-size: 16px;
     display: block;
   }
 }
 @media (max-width: 768px) {
-  /* line 480, pages/sass/homepage.scss */
+  /* line 497, pages/sass/homepage.scss */
   .caption h6 {
     margin: 5px 0 0;
   }
 }
-/* line 487, pages/sass/homepage.scss */
+/* line 504, pages/sass/homepage.scss */
 .caption p {
   color: #555;
 }
 @media (max-width: 768px) {
-  /* line 487, pages/sass/homepage.scss */
+  /* line 504, pages/sass/homepage.scss */
   .caption p {
     display: none;
   }
 }
 
-/* line 496, pages/sass/homepage.scss */
+/* line 513, pages/sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 498, pages/sass/homepage.scss */
+/* line 515, pages/sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 768px) {
-  /* line 504, pages/sass/homepage.scss */
+  /* line 521, pages/sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;
@@ -9779,7 +9794,7 @@ section.sponsors {
   }
 }
 @media (max-width: 979px) {
-  /* line 514, pages/sass/homepage.scss */
+  /* line 531, pages/sass/homepage.scss */
   .homepage-callout2 {
     border-left: 0;
     padding: 0;
