@@ -8,7 +8,7 @@
   @include background-size(cover);
 
   header.navbar {
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       margin: 0;
     }
   }
@@ -21,7 +21,7 @@
     padding-top:0;
   }
 
-  @media (max-width: $media_thin) {
+  @media (max-width: $media_mobile) {
     padding: 0;
   }
 
@@ -45,7 +45,7 @@
       opacity: 0;
     }
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       display: none;
     }
   }
@@ -126,8 +126,13 @@
     padding: 30px 0 60px 0;
     margin:0 0 0 0;
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       padding: 25px 10px 10px;
+    }
+
+    @media (max-width: $media_full) {
+      padding-left: 20px;
+      padding-right: 20px;
     }
 
     h1,h2,h3,h4,h5 {
@@ -144,7 +149,7 @@
         width:270px;
         margin-left:25px;
 
-        @media (max-width: $media_thin) {
+        @media (max-width: $media_mobile) {
           display: none;
           // padding: 30px 0 0;
           // width: 100%;
@@ -157,7 +162,7 @@
         font-weight:700;
         margin-bottom:15px;
 
-        @media (max-width: $media_thin) {
+        @media (max-width: $media_mobile) {
           margin-bottom: 10px;
         }
 
@@ -165,7 +170,7 @@
           color:$darkgrey;
           font-size:0.6em;
 
-          @media (max-width: $media_thin) {
+          @media (max-width: $media_mobile) {
             display: none;
           }
         }
@@ -182,7 +187,7 @@
   section.map {
     margin-bottom: -5px;
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       display: none;
 
     }
@@ -193,7 +198,7 @@
     position:relative;
     height:460px;
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       height: auto;
     }
 
@@ -202,7 +207,7 @@
       position:absolute;
       bottom:0;
 
-      @media (max-width: $media_thin) {
+      @media (max-width: $media_mobile) {
         width: auto;
         position: static;
         padding: 30px 10px 10px 10px;
@@ -242,7 +247,7 @@
         &:hover { text-decoration:none; cursor:pointer; }
       }
 
-      @media (max-width: $media_thin) {
+      @media (max-width: $media_mobile) {
         display: none;
       }
     }
@@ -254,7 +259,7 @@
   width: 100%;
   background-position: center center;
 
-  @media (max-width: $media_thin) {
+  @media (max-width: $media_mobile) {
     padding: 0 !important;
     margin: 0 !important;
   }
@@ -281,9 +286,14 @@ p.lead {
   color: white;
   @include background(linear-gradient(rgba($orange,0.7) 20%, rgba($orange,0.7) 20%, $orange 80%));
 
-  @media (max-width: $media_thin) {
+  @media (max-width: $media_mobile) {
     padding: 10px;
     width: auto;
+  }
+
+  @media (max-width: $media_full) {
+    padding: 20px;
+    box-sizing: border-box;
   }
 }
 
@@ -316,7 +326,7 @@ p.lead {
   }
 
   div.ccm-block-styles {
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       display: none;
     }
   }
@@ -366,14 +376,20 @@ p.lead {
 .row1 {
   margin-top: 0%;
 }
+
 section.calltoaction {
   background: #fff;
   padding:40px 0;
   margin-top:-200px;
 
-  @media (max-width: $media_thin) {
+  @media (max-width: $media_mobile) {
     margin: 0;
     padding: 0;
+  }
+
+  @media (max-width: $media_full) {
+    padding: 20px;
+    box-sizing: border-box;
   }
 
   h1,h2,h3,h4,h5,p,ul,ol {
@@ -410,7 +426,7 @@ section.calltoaction {
     text-align:justify;
     margin-top:20px;
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       margin-top: 10px;
     }
 
@@ -421,25 +437,27 @@ section.calltoaction {
       font-size:1.4em;
       background: #333;
 
-      @media(max-width: ($mainWidth/3 - 80) * 3 + 10) {
-        display:block;
-        margin-bottom:5px;
-      }
-
-      @media (max-width: $media_thin) {
-        width: 100%;
-      }
+      // @media(max-width: ($mainWidth/3 - 80) * 3 + 10) {
+      //   display:block;
+      // }
 
       &.cityButtonCta {
         display: none;
         // margin-bottom: 0;
 
-        @media (max-width: $media_thin) {
+        @media (max-width: $media_mobile) {
           display: inline-block;
         }
       }
 
-      @media (max-width: $media_thin) {
+      @media (max-width: $media_full) {
+        display: inline-block;
+        width: 30%;
+        margin-bottom:5px;
+      }
+
+      @media (max-width: $media_mobile) {
+        width: 100%;
         display: none;
       }
 
@@ -450,7 +468,7 @@ section.calltoaction {
       &:first-child,
       &:last-child {
 
-        @media (max-width: $media_thin) {
+        @media (max-width: $media_mobile) {
           display: inline-block;
         }
       }
@@ -462,7 +480,7 @@ section.calltoaction {
       width: 100%;
       height: 0;
 
-      @media (max-width: $media_thin) {
+      @media (max-width: $media_mobile) {
         display: none;
       }
     }
@@ -473,7 +491,7 @@ section.sponsors {
     margin:0 auto 240px;
     width: $mainWidth;
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       display: none;
     }
 }
@@ -487,7 +505,7 @@ section.sponsors {
     img {
       display: block;
 
-      @media (max-width: $media_thin) {
+      @media (max-width: $media_mobile) {
         width: 100%;
       }
     }
@@ -529,7 +547,7 @@ section.sponsors {
   h5 {
     color: $orange;
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
 
       a {
         font-size: 16px;
@@ -540,7 +558,7 @@ section.sponsors {
 
   h6 {
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       margin: 5px 0 0;
     }
   }
@@ -548,7 +566,7 @@ section.sponsors {
   p {
     color: #555;
 
-    @media (max-width: $media_thin) {
+    @media (max-width: $media_mobile) {
       display: none;
     }
   }
@@ -561,7 +579,7 @@ section.sponsors {
   }
 }
 
-@media (max-width: $media_thin) {
+@media (max-width: $media_mobile) {
   .full {
     margin-left: -20px;
     margin-right: -20px;
@@ -585,7 +603,7 @@ section.sponsors {
 
 footer {
 
-  @media (max-width: $media_thin) {
+  @media (max-width: $media_mobile) {
     padding: 0 !important;
     margin: 0 !important;
   }

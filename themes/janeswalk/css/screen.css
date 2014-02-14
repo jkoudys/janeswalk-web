@@ -9161,7 +9161,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   -o-background-size: cover;
   background-size: cover;
 }
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   /* line 10, pages/sass/homepage.scss */
   .home header.navbar {
     margin: 0;
@@ -9175,7 +9175,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
 .home.logged_in {
   padding-top: 0;
 }
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   /* line 3, pages/sass/homepage.scss */
   .home {
     padding: 0;
@@ -9205,7 +9205,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
 .home .backgroundImageBanner.faded {
   opacity: 0;
 }
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   /* line 28, pages/sass/homepage.scss */
   .home .backgroundImageBanner {
     display: none;
@@ -9312,120 +9312,127 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   padding: 30px 0 60px 0;
   margin: 0 0 0 0;
 }
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   /* line 123, pages/sass/homepage.scss */
   .home section.blog {
     padding: 25px 10px 10px;
   }
 }
-/* line 133, pages/sass/homepage.scss */
+@media (max-width: 979px) {
+  /* line 123, pages/sass/homepage.scss */
+  .home section.blog {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+/* line 138, pages/sass/homepage.scss */
 .home section.blog h1, .home section.blog h2, .home section.blog h3, .home section.blog h4, .home section.blog h5 {
   font-family: "museo-slab","Roboto Slab",serif;
   margin: 0;
 }
-/* line 137, pages/sass/homepage.scss */
+/* line 142, pages/sass/homepage.scss */
 .home section.blog section {
   display: inline-block;
   vertical-align: top;
 }
-/* line 140, pages/sass/homepage.scss */
+/* line 145, pages/sass/homepage.scss */
 .home section.blog section.walkblog {
   max-width: 870px;
 }
-/* line 143, pages/sass/homepage.scss */
+/* line 148, pages/sass/homepage.scss */
 .home section.blog section.twitter {
   width: 270px;
   margin-left: 25px;
 }
-@media (max-width: 768px) {
-  /* line 143, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 148, pages/sass/homepage.scss */
   .home section.blog section.twitter {
     display: none;
   }
 }
-/* line 155, pages/sass/homepage.scss */
+/* line 160, pages/sass/homepage.scss */
 .home section.blog section > h3 {
   color: #666666;
   font-weight: 700;
   margin-bottom: 15px;
 }
-@media (max-width: 768px) {
-  /* line 155, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 160, pages/sass/homepage.scss */
   .home section.blog section > h3 {
     margin-bottom: 10px;
   }
 }
-/* line 164, pages/sass/homepage.scss */
+/* line 169, pages/sass/homepage.scss */
 .home section.blog section > h3 a {
   color: #666666;
   font-size: 0.6em;
 }
-@media (max-width: 768px) {
-  /* line 164, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 169, pages/sass/homepage.scss */
   .home section.blog section > h3 a {
     display: none;
   }
 }
-/* line 175, pages/sass/homepage.scss */
+/* line 180, pages/sass/homepage.scss */
 .home section.blog > div {
   max-width: 1170px;
   margin: 0 auto;
 }
-/* line 179, pages/sass/homepage.scss */
+/* line 184, pages/sass/homepage.scss */
 .home section.blog .span3:first-child {
   margin-left: 0;
 }
-/* line 180, pages/sass/homepage.scss */
+/* line 185, pages/sass/homepage.scss */
 .home section.blog:after {
   clear: both;
   content: "";
   display: table;
 }
-/* line 182, pages/sass/homepage.scss */
+/* line 187, pages/sass/homepage.scss */
 .home section.map {
   margin-bottom: -5px;
 }
-@media (max-width: 768px) {
-  /* line 182, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 187, pages/sass/homepage.scss */
   .home section.map {
     display: none;
   }
 }
-/* line 190, pages/sass/homepage.scss */
+/* line 195, pages/sass/homepage.scss */
 .home .overlap {
   -webkit-transition-duration: 0.5s;
   position: relative;
   height: 460px;
 }
-@media (max-width: 768px) {
-  /* line 190, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 195, pages/sass/homepage.scss */
   .home .overlap {
     height: auto;
   }
 }
-/* line 200, pages/sass/homepage.scss */
+/* line 205, pages/sass/homepage.scss */
 .home .overlap section.calltoaction {
   width: 100%;
   position: absolute;
   bottom: 0;
 }
-@media (max-width: 768px) {
-  /* line 200, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 205, pages/sass/homepage.scss */
   .home .overlap section.calltoaction {
     width: auto;
     position: static;
     padding: 30px 10px 10px 10px;
   }
-  /* line 210, pages/sass/homepage.scss */
+  /* line 215, pages/sass/homepage.scss */
   .home .overlap section.calltoaction > p {
     display: none;
   }
-  /* line 214, pages/sass/homepage.scss */
+  /* line 219, pages/sass/homepage.scss */
   .home .overlap section.calltoaction > p:first-child {
     display: block;
   }
 }
-/* line 219, pages/sass/homepage.scss */
+/* line 224, pages/sass/homepage.scss */
 .home .overlap .controls {
   position: absolute;
   margin: 0;
@@ -9434,19 +9441,19 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   text-align: center;
   z-index: 1;
 }
-/* line 225, pages/sass/homepage.scss */
+/* line 230, pages/sass/homepage.scss */
 .home .overlap .controls li {
   display: block;
   height: 60px;
   text-transform: uppercase;
   line-height: 30px;
 }
-/* line 230, pages/sass/homepage.scss */
+/* line 235, pages/sass/homepage.scss */
 .home .overlap .controls a {
   color: #fff;
   font-size: 11px;
 }
-/* line 233, pages/sass/homepage.scss */
+/* line 238, pages/sass/homepage.scss */
 .home .overlap .controls a i {
   font-size: 15px;
   color: #fff;
@@ -9456,36 +9463,36 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   border: 2px solid #fff;
   border-radius: 999px;
 }
-/* line 242, pages/sass/homepage.scss */
+/* line 247, pages/sass/homepage.scss */
 .home .overlap .controls a:hover {
   text-decoration: none;
   cursor: pointer;
 }
-@media (max-width: 768px) {
-  /* line 219, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 224, pages/sass/homepage.scss */
   .home .overlap .controls {
     display: none;
   }
 }
-/* line 249, pages/sass/homepage.scss */
+/* line 254, pages/sass/homepage.scss */
 .home .overlap.fullmap {
   height: 760px;
 }
 
-/* line 253, pages/sass/homepage.scss */
+/* line 258, pages/sass/homepage.scss */
 .intro, .intro-city {
   width: 100%;
   background-position: center center;
 }
-@media (max-width: 768px) {
-  /* line 253, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 258, pages/sass/homepage.scss */
   .intro, .intro-city {
     padding: 0 !important;
     margin: 0 !important;
   }
 }
 
-/* line 263, pages/sass/homepage.scss */
+/* line 268, pages/sass/homepage.scss */
 .intro .logo, .intro-city .logo {
   background-image: url("../images/jwlogos-3.png");
   display: block;
@@ -9494,12 +9501,12 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   float: left;
 }
 
-/* line 272, pages/sass/homepage.scss */
+/* line 277, pages/sass/homepage.scss */
 p.lead {
   margin-top: 6%;
 }
 
-/* line 276, pages/sass/homepage.scss */
+/* line 281, pages/sass/homepage.scss */
 .callouts {
   margin: 0;
   top: 60px;
@@ -9512,22 +9519,29 @@ p.lead {
   background: -o-linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
   background: linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
 }
-@media (max-width: 768px) {
-  /* line 276, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 281, pages/sass/homepage.scss */
   .callouts {
     padding: 10px;
     width: auto;
   }
 }
+@media (max-width: 979px) {
+  /* line 281, pages/sass/homepage.scss */
+  .callouts {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+}
 
-/* line 290, pages/sass/homepage.scss */
+/* line 300, pages/sass/homepage.scss */
 .homepage-callout2 {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
   position: relative;
 }
-/* line 296, pages/sass/homepage.scss */
+/* line 306, pages/sass/homepage.scss */
 .homepage-callout2 p {
   font-size: 3em;
   line-height: 123%;
@@ -9535,53 +9549,53 @@ p.lead {
   letter-spacing: 1px;
 }
 @media (max-width: 979px) {
-  /* line 296, pages/sass/homepage.scss */
+  /* line 306, pages/sass/homepage.scss */
   .homepage-callout2 p {
     font-size: 24px;
     line-height: 1.5em;
   }
 }
-/* line 308, pages/sass/homepage.scss */
+/* line 318, pages/sass/homepage.scss */
 .homepage-callout2 div.cityCtaWrapper {
   position: absolute;
   left: 430px;
   bottom: 0;
 }
-/* line 313, pages/sass/homepage.scss */
+/* line 323, pages/sass/homepage.scss */
 .homepage-callout2 div.cityCtaWrapper a.btn {
   color: #333;
 }
-@media (max-width: 768px) {
-  /* line 318, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 328, pages/sass/homepage.scss */
   .homepage-callout2 div.ccm-block-styles {
     display: none;
   }
 }
 
-/* line 325, pages/sass/homepage.scss */
+/* line 335, pages/sass/homepage.scss */
 .navbar_home {
   font-size: 1em;
   text-align: center;
   margin: 0 auto;
 }
-/* line 329, pages/sass/homepage.scss */
+/* line 339, pages/sass/homepage.scss */
 .navbar_home .large {
   font-size: 18px;
   height: 34px;
   margin: 0;
 }
 
-/* line 336, pages/sass/homepage.scss */
+/* line 346, pages/sass/homepage.scss */
 .test {
   margin-top: 0%;
 }
 
-/* line 340, pages/sass/homepage.scss */
+/* line 350, pages/sass/homepage.scss */
 .little {
   width: 22%;
 }
 
-/* line 344, pages/sass/homepage.scss */
+/* line 354, pages/sass/homepage.scss */
 .section2 {
   position: relative;
   padding-bottom: 20px;
@@ -9590,7 +9604,7 @@ p.lead {
   background-position: center center;
 }
 
-/* line 352, pages/sass/homepage.scss */
+/* line 362, pages/sass/homepage.scss */
 .property-ul {
   background: #fff;
   border: 1px solid #ddd;
@@ -9601,49 +9615,56 @@ p.lead {
   width: 30%;
 }
 
-/* line 362, pages/sass/homepage.scss */
+/* line 372, pages/sass/homepage.scss */
 .fest {
   margin-left: 2%;
 }
 
-/* line 366, pages/sass/homepage.scss */
+/* line 376, pages/sass/homepage.scss */
 .row1 {
   margin-top: 0%;
 }
 
-/* line 369, pages/sass/homepage.scss */
+/* line 380, pages/sass/homepage.scss */
 section.calltoaction {
   background: #fff;
   padding: 40px 0;
   margin-top: -200px;
 }
-@media (max-width: 768px) {
-  /* line 369, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 380, pages/sass/homepage.scss */
   section.calltoaction {
     margin: 0;
     padding: 0;
   }
 }
-/* line 379, pages/sass/homepage.scss */
+@media (max-width: 979px) {
+  /* line 380, pages/sass/homepage.scss */
+  section.calltoaction {
+    padding: 20px;
+    box-sizing: border-box;
+  }
+}
+/* line 395, pages/sass/homepage.scss */
 section.calltoaction h1, section.calltoaction h2, section.calltoaction h3, section.calltoaction h4, section.calltoaction h5, section.calltoaction p, section.calltoaction ul, section.calltoaction ol {
   margin: 0 auto;
   max-width: 1170px;
   font-family: "museo-slab","Roboto Slab",serif;
 }
-/* line 384, pages/sass/homepage.scss */
+/* line 400, pages/sass/homepage.scss */
 section.calltoaction h3 {
   font-weight: 700;
   margin-bottom: 15px;
   color: #666666;
 }
-/* line 389, pages/sass/homepage.scss */
+/* line 405, pages/sass/homepage.scss */
 section.calltoaction p {
   color: #333;
   font-size: 1.3em;
   line-height: 1.6;
   font-weight: 300;
 }
-/* line 395, pages/sass/homepage.scss */
+/* line 411, pages/sass/homepage.scss */
 section.calltoaction a {
   color: #fff;
   width: 100%;
@@ -9655,23 +9676,23 @@ section.calltoaction a {
   background: #666666;
   box-shadow: inset 0 -2px 0 #222222;
 }
-/* line 404, pages/sass/homepage.scss */
+/* line 420, pages/sass/homepage.scss */
 section.calltoaction a:hover {
   text-decoration: none;
   background: #333;
 }
-/* line 409, pages/sass/homepage.scss */
+/* line 425, pages/sass/homepage.scss */
 section.calltoaction ul {
   text-align: justify;
   margin-top: 20px;
 }
-@media (max-width: 768px) {
-  /* line 409, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 425, pages/sass/homepage.scss */
   section.calltoaction ul {
     margin-top: 10px;
   }
 }
-/* line 417, pages/sass/homepage.scss */
+/* line 433, pages/sass/homepage.scss */
 section.calltoaction ul li {
   list-style-type: none;
   margin: 0;
@@ -9681,46 +9702,42 @@ section.calltoaction ul li {
   font-size: 1.4em;
   background: #333;
 }
-@media (max-width: 940px) {
-  /* line 417, pages/sass/homepage.scss */
-  section.calltoaction ul li {
-    display: block;
-    margin-bottom: 5px;
-  }
-}
-@media (max-width: 768px) {
-  /* line 417, pages/sass/homepage.scss */
-  section.calltoaction ul li {
-    width: 100%;
-  }
-}
-/* line 433, pages/sass/homepage.scss */
+/* line 444, pages/sass/homepage.scss */
 section.calltoaction ul li.cityButtonCta {
   display: none;
 }
-@media (max-width: 768px) {
-  /* line 433, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 444, pages/sass/homepage.scss */
   section.calltoaction ul li.cityButtonCta {
     display: inline-block;
   }
 }
-@media (max-width: 768px) {
-  /* line 417, pages/sass/homepage.scss */
+@media (max-width: 979px) {
+  /* line 433, pages/sass/homepage.scss */
   section.calltoaction ul li {
+    display: inline-block;
+    width: 30%;
+    margin-bottom: 5px;
+  }
+}
+@media (max-width: 480px) {
+  /* line 433, pages/sass/homepage.scss */
+  section.calltoaction ul li {
+    width: 100%;
     display: none;
   }
 }
-/* line 446, pages/sass/homepage.scss */
+/* line 464, pages/sass/homepage.scss */
 section.calltoaction ul li:last-child {
   display: none;
 }
-@media (max-width: 768px) {
-  /* line 451, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 469, pages/sass/homepage.scss */
   section.calltoaction ul li:first-child, section.calltoaction ul li:last-child {
     display: inline-block;
   }
 }
-/* line 458, pages/sass/homepage.scss */
+/* line 476, pages/sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -9728,45 +9745,45 @@ section.calltoaction ul:after {
   width: 100%;
   height: 0;
 }
-@media (max-width: 768px) {
-  /* line 458, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 476, pages/sass/homepage.scss */
   section.calltoaction ul:after {
     display: none;
   }
 }
 
-/* line 472, pages/sass/homepage.scss */
+/* line 490, pages/sass/homepage.scss */
 section.sponsors {
   margin: 0 auto 240px;
   width: 1170px;
 }
-@media (max-width: 768px) {
-  /* line 472, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 490, pages/sass/homepage.scss */
   section.sponsors {
     display: none;
   }
 }
 
-/* line 481, pages/sass/homepage.scss */
+/* line 499, pages/sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
-/* line 484, pages/sass/homepage.scss */
+/* line 502, pages/sass/homepage.scss */
 .thumbnail a {
   display: block;
 }
-/* line 487, pages/sass/homepage.scss */
+/* line 505, pages/sass/homepage.scss */
 .thumbnail a img {
   display: block;
 }
-@media (max-width: 768px) {
-  /* line 487, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 505, pages/sass/homepage.scss */
   .thumbnail a img {
     width: 100%;
   }
 }
 
-/* line 497, pages/sass/homepage.scss */
+/* line 515, pages/sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9775,17 +9792,17 @@ section.sponsors {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 504, pages/sass/homepage.scss */
+/* line 522, pages/sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 509, pages/sass/homepage.scss */
+/* line 527, pages/sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 513, pages/sass/homepage.scss */
+/* line 531, pages/sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9793,7 +9810,7 @@ section.sponsors {
   width: 400px;
 }
 
-/* line 520, pages/sass/homepage.scss */
+/* line 538, pages/sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9801,45 +9818,45 @@ section.sponsors {
   width: 75%;
 }
 
-/* line 529, pages/sass/homepage.scss */
+/* line 547, pages/sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
-@media (max-width: 768px) {
-  /* line 534, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 552, pages/sass/homepage.scss */
   .caption h5 a {
     font-size: 16px;
     display: block;
   }
 }
-@media (max-width: 768px) {
-  /* line 541, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 559, pages/sass/homepage.scss */
   .caption h6 {
     margin: 5px 0 0;
   }
 }
-/* line 548, pages/sass/homepage.scss */
+/* line 566, pages/sass/homepage.scss */
 .caption p {
   color: #555;
 }
-@media (max-width: 768px) {
-  /* line 548, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 566, pages/sass/homepage.scss */
   .caption p {
     display: none;
   }
 }
 
-/* line 557, pages/sass/homepage.scss */
+/* line 575, pages/sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 559, pages/sass/homepage.scss */
+/* line 577, pages/sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
-@media (max-width: 768px) {
-  /* line 565, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 583, pages/sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;
@@ -9848,7 +9865,7 @@ section.sponsors {
   }
 }
 @media (max-width: 979px) {
-  /* line 575, pages/sass/homepage.scss */
+  /* line 593, pages/sass/homepage.scss */
   .homepage-callout2 {
     border-left: 0;
     padding: 0;
@@ -9858,8 +9875,8 @@ section.sponsors {
 
   font-size: 2.7em;
 }
-@media (max-width: 768px) {
-  /* line 586, pages/sass/homepage.scss */
+@media (max-width: 480px) {
+  /* line 604, pages/sass/homepage.scss */
   footer {
     padding: 0 !important;
     margin: 0 !important;
