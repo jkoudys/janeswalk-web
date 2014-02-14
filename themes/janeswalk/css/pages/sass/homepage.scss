@@ -145,9 +145,10 @@
         margin-left:25px;
 
         @media (max-width: $media_thin) {
-          padding: 30px 0 0;
-          width: 100%;
-          margin: 0;
+          display: none;
+          // padding: 30px 0 0;
+          // width: 100%;
+          // margin: 0;
         }
       }
 
@@ -209,6 +210,10 @@
         > p {
           display: none;
         }
+
+        > p:first-child {
+          display: block;
+        }
       }
     }
     .controls {
@@ -248,6 +253,11 @@
 .intro {
   width: 100%;
   background-position: center center;
+
+  @media (max-width: $media_thin) {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
 
 .intro .logo {
@@ -422,7 +432,7 @@ section.calltoaction {
 
       &.cityButtonCta {
         display: none;
-        margin-bottom: 0;
+        // margin-bottom: 0;
 
         @media (max-width: $media_thin) {
           display: inline-block;
@@ -430,9 +440,18 @@ section.calltoaction {
       }
 
       @media (max-width: $media_thin) {
+        display: none;
+      }
 
-        a[href="/walk/form/"] {
-          display: none;
+      &:last-child {
+        display: none;
+      }
+
+      &:first-child,
+      &:last-child {
+
+        @media (max-width: $media_thin) {
+          display: inline-block;
         }
       }
     }
@@ -552,3 +571,10 @@ section.sponsors {
     font-size: 2.7em;
   }
 
+footer {
+
+  @media (max-width: $media_thin) {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
