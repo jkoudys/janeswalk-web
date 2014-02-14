@@ -9205,6 +9205,12 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
 .home .backgroundImageBanner.faded {
   opacity: 0;
 }
+@media (max-width: 768px) {
+  /* line 28, pages/sass/homepage.scss */
+  .home .backgroundImageBanner {
+    display: none;
+  }
+}
 /* line 53, pages/sass/homepage.scss */
 .home .intro .nav li, .home .intro-city .nav li {
   padding-right: 20px;
@@ -9522,7 +9528,7 @@ p.lead {
 @media (max-width: 979px) {
   /* line 286, pages/sass/homepage.scss */
   .homepage-callout2 p {
-    font-size: 1em;
+    font-size: 24px;
     line-height: 1.5em;
   }
 }
