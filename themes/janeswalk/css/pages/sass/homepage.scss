@@ -422,6 +422,7 @@ section.calltoaction {
 
       &.cityButtonCta {
         display: none;
+        margin-bottom: 0;
 
         @media (max-width: $media_thin) {
           display: inline-block;

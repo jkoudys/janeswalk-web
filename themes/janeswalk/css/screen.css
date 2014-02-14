@@ -9682,6 +9682,7 @@ section.calltoaction ul li {
 /* line 423, pages/sass/homepage.scss */
 section.calltoaction ul li.cityButtonCta {
   display: none;
+  margin-bottom: 0;
 }
 @media (max-width: 768px) {
   /* line 423, pages/sass/homepage.scss */
@@ -9690,12 +9691,12 @@ section.calltoaction ul li.cityButtonCta {
   }
 }
 @media (max-width: 768px) {
-  /* line 433, pages/sass/homepage.scss */
+  /* line 434, pages/sass/homepage.scss */
   section.calltoaction ul li a[href="/walk/form/"] {
     display: none;
   }
 }
-/* line 438, pages/sass/homepage.scss */
+/* line 439, pages/sass/homepage.scss */
 section.calltoaction ul:after {
   content: "";
   display: inline-block;
@@ -9704,30 +9705,30 @@ section.calltoaction ul:after {
   height: 0;
 }
 @media (max-width: 768px) {
-  /* line 438, pages/sass/homepage.scss */
+  /* line 439, pages/sass/homepage.scss */
   section.calltoaction ul:after {
     display: none;
   }
 }
 
-/* line 452, pages/sass/homepage.scss */
+/* line 453, pages/sass/homepage.scss */
 section.sponsors {
   margin: 0 auto 240px;
   width: 1170px;
 }
 @media (max-width: 768px) {
-  /* line 452, pages/sass/homepage.scss */
+  /* line 453, pages/sass/homepage.scss */
   section.sponsors {
     display: none;
   }
 }
 
-/* line 461, pages/sass/homepage.scss */
+/* line 462, pages/sass/homepage.scss */
 .thumbnail {
   background: #fff;
 }
 
-/* line 465, pages/sass/homepage.scss */
+/* line 466, pages/sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9736,17 +9737,17 @@ section.sponsors {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 472, pages/sass/homepage.scss */
+/* line 473, pages/sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 477, pages/sass/homepage.scss */
+/* line 478, pages/sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 481, pages/sass/homepage.scss */
+/* line 482, pages/sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9754,7 +9755,7 @@ section.sponsors {
   width: 400px;
 }
 
-/* line 488, pages/sass/homepage.scss */
+/* line 489, pages/sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9762,45 +9763,45 @@ section.sponsors {
   width: 75%;
 }
 
-/* line 497, pages/sass/homepage.scss */
+/* line 498, pages/sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
 @media (max-width: 768px) {
-  /* line 502, pages/sass/homepage.scss */
+  /* line 503, pages/sass/homepage.scss */
   .caption h5 a {
     font-size: 16px;
     display: block;
   }
 }
 @media (max-width: 768px) {
-  /* line 509, pages/sass/homepage.scss */
+  /* line 510, pages/sass/homepage.scss */
   .caption h6 {
     margin: 5px 0 0;
   }
 }
-/* line 516, pages/sass/homepage.scss */
+/* line 517, pages/sass/homepage.scss */
 .caption p {
   color: #555;
 }
 @media (max-width: 768px) {
-  /* line 516, pages/sass/homepage.scss */
+  /* line 517, pages/sass/homepage.scss */
   .caption p {
     display: none;
   }
 }
 
-/* line 525, pages/sass/homepage.scss */
+/* line 526, pages/sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 527, pages/sass/homepage.scss */
+/* line 528, pages/sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 768px) {
-  /* line 533, pages/sass/homepage.scss */
+  /* line 534, pages/sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;
@@ -9809,7 +9810,7 @@ section.sponsors {
   }
 }
 @media (max-width: 979px) {
-  /* line 543, pages/sass/homepage.scss */
+  /* line 544, pages/sass/homepage.scss */
   .homepage-callout2 {
     border-left: 0;
     padding: 0;
