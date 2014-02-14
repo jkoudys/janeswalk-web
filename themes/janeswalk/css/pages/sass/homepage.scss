@@ -480,6 +480,18 @@ section.sponsors {
 
 .thumbnail {
   background: #fff;
+
+  a {
+    display: block;
+
+    img {
+      display: block;
+
+      @media (max-width: $media_thin) {
+        width: 100%;
+      }
+    }
+  }
 }
 
 .nav-tabs.types {

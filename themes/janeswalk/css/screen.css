@@ -9751,8 +9751,22 @@ section.sponsors {
 .thumbnail {
   background: #fff;
 }
+/* line 484, pages/sass/homepage.scss */
+.thumbnail a {
+  display: block;
+}
+/* line 487, pages/sass/homepage.scss */
+.thumbnail a img {
+  display: block;
+}
+@media (max-width: 768px) {
+  /* line 487, pages/sass/homepage.scss */
+  .thumbnail a img {
+    width: 100%;
+  }
+}
 
-/* line 485, pages/sass/homepage.scss */
+/* line 497, pages/sass/homepage.scss */
 .nav-tabs.types {
   border-bottom: none;
   text-align: center;
@@ -9761,17 +9775,17 @@ section.sponsors {
   background: #DBDBDB;
   padding: 0;
 }
-/* line 492, pages/sass/homepage.scss */
+/* line 504, pages/sass/homepage.scss */
 .nav-tabs.types li {
   width: 33.333%;
 }
 
-/* line 497, pages/sass/homepage.scss */
+/* line 509, pages/sass/homepage.scss */
 .festivalcontent {
   width: 50%;
 }
 
-/* line 501, pages/sass/homepage.scss */
+/* line 513, pages/sass/homepage.scss */
 .festivalimg {
   display: block;
   position: relative;
@@ -9779,7 +9793,7 @@ section.sponsors {
   width: 400px;
 }
 
-/* line 508, pages/sass/homepage.scss */
+/* line 520, pages/sass/homepage.scss */
 #festival, #YearRoundWalks, #place-based-storytelling {
   background: #fff;
   padding: 20px;
@@ -9787,45 +9801,45 @@ section.sponsors {
   width: 75%;
 }
 
-/* line 517, pages/sass/homepage.scss */
+/* line 529, pages/sass/homepage.scss */
 .caption h5 {
   color: #f16725;
 }
 @media (max-width: 768px) {
-  /* line 522, pages/sass/homepage.scss */
+  /* line 534, pages/sass/homepage.scss */
   .caption h5 a {
     font-size: 16px;
     display: block;
   }
 }
 @media (max-width: 768px) {
-  /* line 529, pages/sass/homepage.scss */
+  /* line 541, pages/sass/homepage.scss */
   .caption h6 {
     margin: 5px 0 0;
   }
 }
-/* line 536, pages/sass/homepage.scss */
+/* line 548, pages/sass/homepage.scss */
 .caption p {
   color: #555;
 }
 @media (max-width: 768px) {
-  /* line 536, pages/sass/homepage.scss */
+  /* line 548, pages/sass/homepage.scss */
   .caption p {
     display: none;
   }
 }
 
-/* line 545, pages/sass/homepage.scss */
+/* line 557, pages/sass/homepage.scss */
 .tab-content {
   padding-bottom: 20px;
 }
-/* line 547, pages/sass/homepage.scss */
+/* line 559, pages/sass/homepage.scss */
 .tab-content h3 {
   line-height: 1em;
 }
 
 @media (max-width: 768px) {
-  /* line 553, pages/sass/homepage.scss */
+  /* line 565, pages/sass/homepage.scss */
   .full, .error404 .container-outter {
     margin-left: -20px;
     margin-right: -20px;
@@ -9834,7 +9848,7 @@ section.sponsors {
   }
 }
 @media (max-width: 979px) {
-  /* line 563, pages/sass/homepage.scss */
+  /* line 575, pages/sass/homepage.scss */
   .homepage-callout2 {
     border-left: 0;
     padding: 0;
@@ -9845,7 +9859,7 @@ section.sponsors {
   font-size: 2.7em;
 }
 @media (max-width: 768px) {
-  /* line 574, pages/sass/homepage.scss */
+  /* line 586, pages/sass/homepage.scss */
   footer {
     padding: 0 !important;
     margin: 0 !important;
