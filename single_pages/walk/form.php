@@ -1,28 +1,4 @@
-<?php 
-defined('C5_EXECUTE') or die(_("Access Denied."));
-
-$u = new User(); 
-$ui = UserInfo::getByID($u->getUserID());
-$nh = Loader::helper('navigation');
-$av = Loader::helper('concrete/avatar');
-$imgHelper = Loader::helper('image'); 
-
-/* If no page is passed to edit, create a new page.
-TODO: change this to either redirect, or detect if you have one in-progress so browser reloads don't make new walks.
-Also, this would probably make more sense inside a controller class than in this view logic.
-*/
-$load = $_REQUEST['load'];
-$c = Page::getByPath($load);
-if(empty($load)) {
-  $city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath("/canada/toronto")));
-  $newPage = $city->add(CollectionType::getByHandle("walk"),[]);  
-  $newPage->setAttribute('exclude_page_list',true);
-  $c = $newPage;
-}
-!$city && $city = Page::getByID($c->getCollectionParentID());
-$country = Page::getByID($city->getCollectionParentID());
-$ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
-?>
+<?php defined('C5_EXECUTE') or die(_("Access Denied.")); ?>
 <div style='display:none' class='pagejson' data-url='<?=$nh->getCollectionURL($c)?>'></div>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">

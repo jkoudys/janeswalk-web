@@ -525,6 +525,7 @@ if ($('#map-canvas').length > 0) {
     gMapinitialize();
     $(this).unbind('click', initCallback);
   };
+  /* XXX TODO: Completely rearchitect the map loading. This sucks. */
   $('.route').bind('click', initCallback);
 }
 
