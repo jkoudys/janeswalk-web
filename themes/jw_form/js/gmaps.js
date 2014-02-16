@@ -432,8 +432,6 @@ function gMapinitialize() {
 
   });
 
-  $(document).trigger('gmapinit');
-
   window.gMapInit = true;
 }
 
@@ -521,12 +519,7 @@ function clearRoute(event) {
 //
 
 if ($('#map-canvas').length > 0) {
-  var initCallback = function() {
-    gMapinitialize();
-    $(this).unbind('click', initCallback);
-  };
-  /* XXX TODO: Completely rearchitect the map loading. This sucks. */
-  $('.route').bind('click', initCallback);
+  gMapinitialize();
 }
 
 
@@ -535,5 +528,4 @@ $('a[href="#route"][data-toggle="tab"]').on('shown', function(e) {
   google.maps.event.trigger(map, 'resize');
   map.setCenter(lastCenter);
   tipLoader();
-  // google.maps.event.addDomListener(window, 'load', gMapinitialize);
 });

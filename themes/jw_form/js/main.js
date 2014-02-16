@@ -3436,26 +3436,25 @@ var JaneswalkData = {
     }
 
     if (typeof(data.map) != "undefined"){
+      // Let's be rid of this gmapinit malarkey
+      gMapinitialize();
       // Would probably be better not to have this setTimeout, not sure how to call this once gmaps is initialized
-      $(document).on('gmapinit', function() {
-        if (typeof(data.map.markers) != "undefined"){
-          $.each(data.map.markers, function(key, marker){
-            if(marker.lat && marker.lng) {
-              if (marker.style == 'meeting'){
-                addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
-              } else {
-                addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
-              }
+      if (typeof(data.map.markers) != "undefined"){
+        $.each(data.map.markers, function(key, marker){
+          if(marker.lat && marker.lng) {
+            if (marker.style == 'meeting'){
+              addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
+            } else {
+              addmarker(null, marker.title, marker.description, marker.questions, marker.lat, marker.lng);
             }
-          });
-        }
-        if (typeof(data.map.route) != "undefined"){
-          $.each(data.map.route, function(key, point){
-            addlines(null, point.title, point.lat, point.lng);
-          });
-        }
-        $(document).off('gmapinit');
-      });
+          }
+        });
+      }
+      if (typeof(data.map.route) != "undefined"){
+        $.each(data.map.route, function(key, point){
+          addlines(null, point.title, point.lat, point.lng);
+        });
+      }
     }
   },
 
@@ -3505,13 +3504,6 @@ var walkSetImage = function( fileId ) {
   globalThumbId = fileId;
 }
 
-// Scroll top on tab change 
-$('a[data-toggle="tab"]').on('shown', function(e){
-  tipLoader();
-  $('body').scrollTop(0);
-  $('.walk-submit').addClass('hide');
-});
-
 // Spinner Props
 var spinProperties = {lines:10,length:15,width:5,radius:30};
 
@@ -3528,6 +3520,15 @@ $(window).load(function() {
   $('.tag').tooltip({
     trigger: 'hover',
     placement: 'bottom'
+  });
+  // Scroll top on tab change 
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+    tipLoader();
+    $('body').scrollTop(0);
+    $('.walk-submit').addClass('hide');
+  });
+  $('a.route[data-toggle="tab"]').on('shown.bs.tab', function(e){
+    google.maps.event.trigger(map, 'resize');
   });
 });
 
