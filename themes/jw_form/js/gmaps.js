@@ -143,10 +143,12 @@ var JaneswalkMapEditor = Class.extend({
 
     this.initPoly();
 
-    google.maps.event.addListener(this.poly, "dragend", this.pathSet);
+/*  These are to log the map as it's built - it's a convenience, so no hurry to put back in
+ *  google.maps.event.addListener(this.poly, "dragend", this.pathSet);
     google.maps.event.addListener(this.poly.getPath(), "insert_at", this.pathSet);
     google.maps.event.addListener(this.poly.getPath(), "remove_at", this.pathSet);
     google.maps.event.addListener(this.poly.getPath(), "set_at", this.pathSet);
+*/
 
     // Click event to add stops
     $('#addpoint').on('click', function() {
@@ -155,19 +157,16 @@ var JaneswalkMapEditor = Class.extend({
     });
 
     // Click event to add meeting place
-
     $('#addmeetingplace').on('click', function() {
       addmeetingplace();
       google.maps.event.trigger(this.markers[this.markers.length-1], 'click');
     });
 
     // Click event to add polylines
-
     var addLinesListener = google.maps.event.addListener(this.map, 'click', this.addlines);
     google.maps.event.clearListeners(this.map, 'click');
 
     // Click event to add stops
-
     $('.clear-route').on('click', function(event) {
       var x = window.confirm('Do you want to remove your walk route? Your Stops will not be deleted.');
       if (x) {
@@ -179,9 +178,7 @@ var JaneswalkMapEditor = Class.extend({
     });
 
     // Hook up click controls for map
-
     $('#addroute').on('click', function(){
-
       if ($(this).hasClass('active')) {
         $(this).html('<i class="icon-map-route"></i> Edit Route').removeClass('btn-primary active');
         $('.map-notifications').html('');
@@ -271,6 +268,53 @@ var JaneswalkMapEditor = Class.extend({
     $('#route-stops tbody').empty();
     for (var i = 0; i < this.markers.length; i++) {
       $('#route-stops tbody').append('<tr><td>'+this.markers[i].title+'</td><td>'+this.markers[i].description+'</td><td><a class="delete-stop" href="#map-canvas" data-stop='+i+'>Edit</a></td></tr>');
+    }
+  },
+
+  /* Add content functions
+   * Functions here create content: add lines, points, etc.
+   */
+  addlines: function(event, title, lat, lng) {
+    var position;
+    var visible;
+    if (!lat){
+      position = event.latLng;
+      visible = true;
+    } else {
+      position = new google.maps.LatLng(lat, lng);
+      visible = false;
+    }
+    if (!title){
+      title = '#' + len;
+    }
+    if ($('#addroute').hasClass('active') || title) {
+      var path = this.poly.getPath();
+      path.push(position);
+      var len = path.getLength();
+      var marker = new google.maps.Marker({
+        position: position,
+        title: title,
+        map: this.map,
+        draggable : true,
+        icon: this.pathMarker,
+        zIndex: 100,
+        visible: visible
+      });
+      marker.bindTo('position', this.poly.binder, (len-1).toString());
+
+      this.point.push(marker);
+
+      // Right Click to remove Poly Point (Only works in sequence)
+
+      google.maps.event.addListener(marker, 'rightclick', function(event) {
+        for (var i = 0; i < this.point.length; i++) {
+          if (this.point[i] === this) {
+            this.point.splice(i, 1);
+          }
+        }
+        marker.setMap(null);
+        path.removeAt(len-1);
+      });
     }
   },
 
@@ -410,6 +454,9 @@ var JaneswalkMapEditor = Class.extend({
 
   },
 
+  /* Clear / Reset functions
+   * Functions here remove lines, reset maps, etc.
+   */
   // Set the basic style of the polylines
   initPoly: function() {
     var polyOptions = {
@@ -435,50 +482,6 @@ var JaneswalkMapEditor = Class.extend({
       this.point[i].setMap(null);
     }
     initPoly();
-  },
-
-  addlines: function(event, title, lat, lng) {
-    var position;
-    var visible;
-    if (!lat){
-      position = event.latLng;
-      visible = true;
-    } else {
-      position = new google.maps.LatLng(lat, lng);
-      visible = false;
-    }
-    if (!title){
-      title = '#' + len;
-    }
-    if ($('#addroute').hasClass('active') || title) {
-      var path = this.poly.getPath();
-      path.push(position);
-      var len = path.getLength();
-      var marker = new google.maps.Marker({
-        position: position,
-        title: title,
-        map: this.map,
-        draggable : true,
-        icon: this.pathMarker,
-        zIndex: 100,
-        visible: visible
-      });
-      marker.bindTo('position', this.poly.binder, (len-1).toString());
-
-      this.point.push(marker);
-
-      // Right Click to remove Poly Point (Only works in sequence)
-
-      google.maps.event.addListener(marker, 'rightclick', function(event) {
-        for (var i = 0; i < this.point.length; i++) {
-          if (this.point[i] === this) {
-            this.point.splice(i, 1);
-          }
-        }
-        marker.setMap(null);
-        path.removeAt(len-1);
-      });
-    }
   }
 });
 

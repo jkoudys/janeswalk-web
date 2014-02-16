@@ -390,12 +390,11 @@ function addResource(){
 
 var globalThumbId;
 
-// Let's be rid of this gmapinit malarkey
-var jwMap = new JaneswalkMapEditor('#map-canvas');
 // Data
 var JaneswalkData = {
   description: ['title','shortdescription', 'longdescription'],
   accessible: ['accessible-info', 'accessible-transit', 'accessible-parking', 'accessible-find'],
+  data: {},
   build: function(step) {
     this.dataSet= {};
     if (step == null){
@@ -532,7 +531,7 @@ var JaneswalkData = {
   },
 
   fill: function(data){
-
+    this.data = data;
     // Standard fields
     $.each(data, function(key, val){
       var obj = $('[name="'+key+'"]');
@@ -621,11 +620,13 @@ var JaneswalkData = {
         JaneswalkData.teamPopulate(member, obj);
       });
     }
+  },
 
-    if (typeof(data.map) != "undefined"){
+  mapPopulate: function(jwMap) {
+    if (typeof(this.data.map) != "undefined"){
       // Would probably be better not to have this setTimeout, not sure how to call this once gmaps is initialized
-      if (typeof(data.map.markers) != "undefined"){
-        $.each(data.map.markers, function(key, marker){
+      if (typeof(this.data.map.markers) != "undefined"){
+        $.each(this.data.map.markers, function(key, marker){
           if(marker.lat && marker.lng) {
             if (marker.style == 'meeting'){
               jwMap.addmeetingplace(null, marker.title, marker.description, marker.lat, marker.lng);
@@ -635,8 +636,8 @@ var JaneswalkData = {
           }
         });
       }
-      if (typeof(data.map.route) != "undefined"){
-        $.each(data.map.route, function(key, point){
+      if (typeof(this.data.map.route) != "undefined"){
+        $.each(this.data.map.route, function(key, point){
           jwMap.addlines(null, point.title, point.lat, point.lng);
         });
       }
@@ -701,6 +702,7 @@ $(function() {
 
 $(window).load(function() {
   tipLoader();
+  jwMap = {};
   $('.progress-spinner').spin(false);
   $('.tag').tooltip({
     trigger: 'hover',
@@ -716,15 +718,15 @@ $(window).load(function() {
 
   // Set DOM listener on page load.
   if ($('#map-canvas').length > 0) {
-      // Let's be rid of this gmapinit malarkey
-      var jwMap = new JaneswalkMapEditor('#map-canvas');
-    gMapinitialize();
+    // Let's be rid of this gmapinit malarkey
+    jwMap = new JaneswalkMapEditor('#map-canvas');
+    JaneswalkData.mapPopulate(jwMap);
   }
 
   $('a[href="#route"][data-toggle="tab"]').on('shown.bs.tab', function(e) {
-    lastCenter=map.getCenter(); 
-    google.maps.event.trigger(map, 'resize');
-    map.setCenter(lastCenter);
+    lastCenter=jwMap.map.getCenter(); 
+    google.maps.event.trigger(jwMap.map, 'resize');
+    jwMap.map.setCenter(lastCenter);
     tipLoader();
   });
 });
@@ -756,3 +758,4 @@ $(window).load(function() {
 setTimeout( function() {
   $('#prototype').modal();
 },2000);
+
