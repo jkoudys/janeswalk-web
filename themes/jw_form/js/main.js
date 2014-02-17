@@ -435,7 +435,7 @@ var JaneswalkData = {
       // Map
       self.dataSet.map = {};
       self.dataSet.map.markers = {};
-      $.each(markers, function(key, val){
+      $.each(jwMap.markers, function(key, val){
         self.dataSet.map.markers[key] = {
           title: val.title,
           description: val.description,
@@ -446,7 +446,7 @@ var JaneswalkData = {
         };
       });
       self.dataSet.map.route = {};
-      $.each(point, function(key, val){
+      $.each(jwMap.point, function(key, val){
         self.dataSet.map.route[key] = {
           lat: val.getPosition().lat(),
           lng: val.getPosition().lng(),
@@ -624,7 +624,6 @@ var JaneswalkData = {
 
   mapPopulate: function(jwMap) {
     if (typeof(this.data.map) != "undefined"){
-      // Would probably be better not to have this setTimeout, not sure how to call this once gmaps is initialized
       if (typeof(this.data.map.markers) != "undefined"){
         $.each(this.data.map.markers, function(key, marker){
           if(marker.lat && marker.lng) {
@@ -641,12 +640,12 @@ var JaneswalkData = {
           jwMap.addlines(null, point.title, point.lat, point.lng);
         });
       }
+      jwMap.centerRoute();
     }
   },
 
   teamPopulate: function(data, target){
     $.each(data, function(key, val){
-      // var obj = $(target).find('input[type="text"][name="'+key+'[]"], textarea[name="'+key+'[]"]');
       var obj = $(target).find('[name="'+key+'[]"]');
       if (obj.length > 0 && (obj.is('input') && (obj.attr('type') == 'text' || obj.attr('type') == 'email')) || obj.is('textarea') || obj.is('select')){
         obj.val(val).change();
@@ -724,37 +723,13 @@ $(window).load(function() {
   }
 
   $('a[href="#route"][data-toggle="tab"]').on('shown.bs.tab', function(e) {
-    lastCenter=jwMap.map.getCenter(); 
     google.maps.event.trigger(jwMap.map, 'resize');
-    jwMap.map.setCenter(lastCenter);
+    jwMap.centerRoute();
     tipLoader();
   });
 });
 
-// $(document).on('pjax:send', function() {
-//   $('.tip').removeClass('in').removeAttr('style');
-//   $('.progress-spinner').spin(spinProperties);
-// });
-
-// $(document).on('pjax:end', function() {
-//   $('.tip').removeClass('in').removeAttr('style');
-//   $('.progress-spinner').spin(false);
-//   tipLoader();
-//   if ($('#map-canvas').length > 0) {
-//     gMapinitialize();
-//   }
-//   Janeswalk.initialize();
-
-//   // Check and apply current panel
-
-//   var currentPanel = $('.page-header').data('section');
-//   $('#progress-panel li').removeClass('active');
-//   $('#progress-panel .'+currentPanel).parent().addClass('active');
-
-// });
-
 // Prototype Modal
-
 setTimeout( function() {
   $('#prototype').modal();
 },2000);

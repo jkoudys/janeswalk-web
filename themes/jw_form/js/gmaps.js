@@ -26,6 +26,10 @@ var JaneswalkMapEditor = Class.extend({
   markers: [],
   poly: {},
   point: [],
+  userLocation: false,
+
+  infowindow: new google.maps.InfoWindow(),
+
   pathMarker: new google.maps.MarkerImage('/img/path.marker.png',
     // This marker is 20 pixels wide by 32 pixels tall.
     null, 
@@ -34,6 +38,7 @@ var JaneswalkMapEditor = Class.extend({
     // The anchor for this image is the base of the flagpole at 0,32.
     new google.maps.Point(8, 10)
   ),
+
   stopMarker: {
     url: '../../../img/marker.png',
     // This marker is 20 pixels wide by 32 pixels tall.
@@ -44,12 +49,11 @@ var JaneswalkMapEditor = Class.extend({
     anchor: new google.maps.Point(11, 44)
   },
 
-  init: function(map_selector) {
+  init: function(element) {
+    var _this = this; // Set to the editor class, for use in functions
+    this._element = element;
 
-    //
     // Map Style array for styling.
-    //
-
     var styles = [
       {
         "featureType": "poi.business",
@@ -58,6 +62,13 @@ var JaneswalkMapEditor = Class.extend({
         ]
       }
     ];
+
+    // Geocode early, so we don't have to wait for it later
+    window.freeGeoIpCallback = function(obj) {
+      _this.userLocation = new google.maps.LatLng(obj.latitude, obj.longitude);
+    };
+    /* Geocode based on IP and center map */
+    $.getScript("http://freegeoip.net/json/?callback=freeGeoIpCallback");
 
     var styledMap = new google.maps.StyledMapType(styles, {
       name: 'Styled Map'
@@ -75,91 +86,38 @@ var JaneswalkMapEditor = Class.extend({
     };
 
     // Create new map in the DOM.
-    this.map = new google.maps.Map(document.querySelector(map_selector), mapOptions);
+    _this.map = new google.maps.Map(document.querySelector(element), mapOptions);
 
-    /* Geocode based on IP and center map */
-    $.getJSON("http://freegeoip.net/json", function(geocode) {
-      this.map.setCenter(new google.maps.LatLng(geocode.latitude, geocode.longitude));
-    });
-
-    //
     // Set Map style.
-    //
-
-    this.map.setOptions({styles: styles});
-
-    //
-    // Add marker for stops
-    //
-    var infowindow = new google.maps.InfoWindow();
-
-    function deleteMarkerButton(marker) {
-      google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
-        google.maps.event.addDomListener(document.getElementById('delete-marker'), 'click', function () {
-          marker.setMap(null);
-
-          for (var i = 0; i < this.markers.length; i++) {
-            if (this.markers[i] === marker) {
-              this.markers.splice(i, 1);
-            }
-          }
-          this.updateChart();
-
-        });
-      });
-    }
-
-    function saveMarkerButton (marker) {
-      google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
-        google.maps.event.addDomListener(document.getElementById('save-marker'), 'click', function () {
-          for (var i = 0; i < this.markers.length; i++) {
-            if (this.markers[i] === marker) {
-              this.markers.splice(i, 1);
-            }
-          }
-
-          marker.title = $('.marker-title').val();
-          marker.description = $('.marker-description').val();
-          marker.questions = $('.marker-questions').val();
-          this.markers.push(marker);
-          this.updateChart();
-
-          setTimeout(function(){
-            infowindow.close(this.map,marker);
-          },500);
-
-        });
-      });
-    }
+    _this.map.setOptions({styles: styles});
 
     $('#route-stops').on('click','a',function(event){
-      marker = this.markers[$(this).data('stop')];
+      marker = _this.markers[$(this).data('stop')];
       google.maps.event.trigger(marker, 'click');
     });
 
-    //
     // Polylines
-    //
+    _this.initPoly();
 
-    this.initPoly();
-
-/*  These are to log the map as it's built - it's a convenience, so no hurry to put back in
- *  google.maps.event.addListener(this.poly, "dragend", this.pathSet);
+    /*  These are to log the map as it's built - it's a convenience, so no hurry to put back in
+    *  When google inits an event-triggered function, the 'this' sets to the passed-in object,
+    *  so we can't get 'this' as the JaneswalkMapEditor.
+    *  google.maps.event.addListener(this.poly, "dragend", this.pathSet);
     google.maps.event.addListener(this.poly.getPath(), "insert_at", this.pathSet);
     google.maps.event.addListener(this.poly.getPath(), "remove_at", this.pathSet);
     google.maps.event.addListener(this.poly.getPath(), "set_at", this.pathSet);
-*/
+    */
 
     // Click event to add stops
     $('#addpoint').on('click', function() {
-      this.addmarker();
-      google.maps.event.trigger(this.markers[this.markers.length-1], 'click');
+      _this.addmarker();
+      google.maps.event.trigger(_this.markers[_this.markers.length-1], 'click');
     });
 
     // Click event to add meeting place
     $('#addmeetingplace').on('click', function() {
-      addmeetingplace();
-      google.maps.event.trigger(this.markers[this.markers.length-1], 'click');
+      _this.addmeetingplace();
+      google.maps.event.trigger(_this.markers[_this.markers.length-1], 'click');
     });
 
     // Click event to add polylines
@@ -170,7 +128,7 @@ var JaneswalkMapEditor = Class.extend({
     $('.clear-route').on('click', function(event) {
       var x = window.confirm('Do you want to remove your walk route? Your Stops will not be deleted.');
       if (x) {
-        clearRoute();
+        _this.clearRoute();
         event.preventDefault();
       } else {
         event.preventDefault();
@@ -185,17 +143,17 @@ var JaneswalkMapEditor = Class.extend({
         $('#addpoint').prop('disabled', false);
         $('.disable-alert').css({'zIndex':'-1'});
 
-        google.maps.event.clearListeners(map, 'click');
+        google.maps.event.clearListeners(_this.map, 'click');
 
-        for(i=0; i < this.point.length; i++) {
-          this.point[i].setVisible(false);
-          this.point[i].setDraggable(false);
+        for(i=0; i < _this.point.length; i++) {
+          _this.point[i].setVisible(false);
+          _this.point[i].setDraggable(false);
         }
-        for(i=0; i < this.markers.length; i++) {
-          this.addmarkerListener(this.markers[i]);
-          this.markers[i].setDraggable(true);
+        for(i=0; i < _this.markers.length; i++) {
+          _this.addmarkerListener(_this.markers[i]);
+          _this.markers[i].setDraggable(true);
         }
-        this.poly.setEditable(false);
+        _this.poly.setEditable(false);
       } else {
         $(this).html('<i class="icon-thumbs-up"></i> Save Route').addClass('btn-primary active');
         $('.map-notifications').html('<div class="alert alert-info">Click on the map to draw your route. Right click to undo a route marker.</div>');
@@ -203,46 +161,46 @@ var JaneswalkMapEditor = Class.extend({
 
         $('.disable-alert').css({'zIndex':'5'});
 
-        google.maps.event.addListener(this.map, 'click', this.addlines)
+        google.maps.event.addListener(_this.map, 'click', this.addlines)
 
-        for(i=0; i < this.point.length; i++) {
-          this.point[i].setVisible(true);
-          this.point[i].setDraggable(true);
+        for(i=0; i < _this.point.length; i++) {
+          _this.point[i].setVisible(true);
+          _this.point[i].setDraggable(true);
         }
-        for(i=0; i < this.markers.length; i++) {
-          google.maps.event.removeListener(this.markers[i].listener);
-          this.markers[i].setDraggable(false);
-          this.markers[i].setClickable(false);
+        for(i=0; i < _this.markers.length; i++) {
+          google.maps.event.removeListener(_this.markers[i].listener);
+          _this.markers[i].setDraggable(false);
+          _this.markers[i].setClickable(false);
         }
-        this.poly.setEditable(true);
+        _this.poly.setEditable(true);
       }
 
-      if (this.markers.length === 0) {
+      if (_this.markers.length === 0) {
         return false;
       }
 
-      if (this.point.length <= 0 ) {
+      if (_this.point.length <= 0 ) {
 
-        lat = this.map.getCenter().lat();
-        lng = this.map.getCenter().lng();
+        lat = _this.map.getCenter().lat();
+        lng = _this.map.getCenter().lng();
         var latlng = new google.maps.LatLng(lat, lng);
 
-        var markerInfo = this.markers[0];
+        var markerInfo = _this.markers[0];
 
         var infowindow = new google.maps.InfoWindow({
           content: 'Click here to start your Route'
         });
 
-        infowindow.open(this.map, markerInfo);
-        google.maps.event.addListenerOnce(this.map, 'click', function(){
+        infowindow.open(_this.map, markerInfo);
+        google.maps.event.addListenerOnce(_this.map, 'click', function(){
           infowindow.close();
         });
       }
     });
+    google.maps.event.addListener(_this.map, 'resize', function(){ _this.centerRoute(); });
   },
 
   pathSet: function() {
-  debugger;
     var path = this.poly.getPath();
     var len = path.getLength();
     var coordStr = "";
@@ -253,13 +211,14 @@ var JaneswalkMapEditor = Class.extend({
   },
 
   addmarkerListener: function(marker) {
-    this.map.panBy(0,-20);
+    var _this = this;
+    _this.map.panBy(0,-20);
     marker.listener = google.maps.event.addListener(marker, 'click', function() { 
       var markerForm = "<div class='stop-form'><input type='text' value='"+marker.title+"' class='marker-title' placeholder='Title of this stop'><br><textarea class='marker-description box-sizing' placeholder='Description of this stop'>"+marker.description+"</textarea><br><textarea class='marker-questions box-sizing' placeholder='A few questions for participants'>"+marker.questions+"</textarea><br><button class='btn btn-primary' id='save-marker'>Save Stop</button> <button class='btn' id='delete-marker'>Delete</button></div>";
-      infowindow.setContent(markerForm);
-      infowindow.open(this.map,marker);
-      deleteMarkerButton(marker);
-      saveMarkerButton(marker);
+      _this.infowindow.setContent(markerForm);
+      _this.infowindow.open(_this.map,marker);
+      _this.deleteMarkerButton(marker);
+      _this.saveMarkerButton(marker);
     });
   },
 
@@ -272,11 +231,12 @@ var JaneswalkMapEditor = Class.extend({
   },
 
   /* Add content functions
-   * Functions here create content: add lines, points, etc.
-   */
+  * Functions here create content: add lines, points, etc.
+  */
   addlines: function(event, title, lat, lng) {
     var position;
     var visible;
+    var _this = this;
     if (!lat){
       position = event.latLng;
       visible = true;
@@ -288,28 +248,28 @@ var JaneswalkMapEditor = Class.extend({
       title = '#' + len;
     }
     if ($('#addroute').hasClass('active') || title) {
-      var path = this.poly.getPath();
+      var path = _this.poly.getPath();
       path.push(position);
       var len = path.getLength();
       var marker = new google.maps.Marker({
         position: position,
         title: title,
-        map: this.map,
+        map: _this.map,
         draggable : true,
-        icon: this.pathMarker,
+        icon: _this.pathMarker,
         zIndex: 100,
         visible: visible
       });
-      marker.bindTo('position', this.poly.binder, (len-1).toString());
+      marker.bindTo('position', _this.poly.binder, (len-1).toString());
 
-      this.point.push(marker);
+      _this.point.push(marker);
 
       // Right Click to remove Poly Point (Only works in sequence)
 
       google.maps.event.addListener(marker, 'rightclick', function(event) {
-        for (var i = 0; i < this.point.length; i++) {
-          if (this.point[i] === this) {
-            this.point.splice(i, 1);
+        for (var i = 0; i < _this.point.length; i++) {
+          if (_this.point[i] === _this) {
+            _this.point.splice(i, 1);
           }
         }
         marker.setMap(null);
@@ -319,11 +279,12 @@ var JaneswalkMapEditor = Class.extend({
   },
 
   addmeetingplace: function(latilongi, title, description, lat, lng) {
+    var _this = this; // Set to the editor class, for use in functions
     if (!lat){
-      lat = this.map.getCenter().lat();
+      lat = _this.map.getCenter().lat();
     }
     if (!lng){
-      lng = this.map.getCenter().lng();
+      lng = _this.map.getCenter().lng();
     }
     if (!title){
       title = '';
@@ -342,69 +303,27 @@ var JaneswalkMapEditor = Class.extend({
       title: title,
       description: description,
       style: 'meeting',
-      icon: this.stopMarker,
-      map: this.map
+      icon: _this.stopMarker,
+      map: _this.map
     });
 
     var markerForm = "<div class='stop-form'><input type='text' value='"+marker.title+"' placeholder='Name of your meeting place' class='marker-title'><br><textarea class='marker-description box-sizing' placeholder='Describe where you are meeting'>"+marker.description+"</textarea><br><button class='btn btn-primary' id='save-marker'>Save Meeting Place</button> <button class='btn' id='delete-marker'>Delete</button></div>";
 
-    var deleteMarkerButton = function() {
-      google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
-        google.maps.event.addDomListener(document.getElementById('delete-marker'), 'click', function () {
-          marker.setMap(null);
-
-          for (var i = 0; i < this.markers.length; i++) {
-            if (this.markers[i] === marker) {
-              this.markers.splice(i, 1);
-            }
-          }
-
-          $('#addmeetingplace').prop('disabled', false);
-          this.updateChart();
-        });
-      });
-    };
-
-    var saveMarkerButton = function(marker) {
-      google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
-        google.maps.event.addDomListener(document.getElementById('save-marker'), 'click', function () {
-          for (var i = 0; i < this.markers.length; i++) {
-            if (this.markers[i] === marker) {
-              this.markers.splice(i, 1);
-            }
-          }
-
-          marker.title = $('.marker-title').val();
-          marker.description = $('.marker-description').val();
-
-          this.markers.push(marker);
-
-          $('#addmeetingplace').prop('disabled', true);
-          this.updateChart();
-
-          setTimeout(function(){
-            infowindow.close(this.map,marker);
-          },500);
-
-        });
-      });
-    };
-
     if (!lat){
-      infowindow.setContent(markerForm);
-      infowindow.open(this.map, marker);
+      _this.infowindow.setContent(markerForm);
+      _this.infowindow.open(_this.map, marker);
     } else {
-      this.markers.push(marker);
+      _this.markers.push(marker);
       $('#addmeetingplace').prop('disabled', true);
     }
 
     google.maps.event.addListener(marker, 'click', function() {    
       var markerForm = "<div class='stop-form'><input type='text' value='"+marker.title+"' class='marker-title' placeholder='Name of your meeting place'><br><textarea class='marker-description box-sizing' placeholder='Describe where you are meeting'>"+marker.description+"</textarea><br><button class='btn btn-primary' id='save-marker'>Save Meeting Place</button> <button class='btn' id='delete-marker'>Delete</button></div>";
-      infowindow.setContent(markerForm);
-      this.map.panTo(marker.getPosition());
-      infowindow.open(this.map,marker);
-      deleteMarkerButton(marker);
-      saveMarkerButton(marker);
+      _this.infowindow.setContent(markerForm);
+      _this.map.panTo(marker.getPosition());
+      _this.infowindow.open(_this.map,marker);
+      _this.deleteMarkerButton(marker);
+      _this.saveMarkerButton(marker);
     });
   },
 
@@ -454,9 +373,37 @@ var JaneswalkMapEditor = Class.extend({
 
   },
 
+  // Save the marker button
+  saveMarkerButton: function(marker) {
+    var _this = this;
+    google.maps.event.addListenerOnce(_this.infowindow, 'domready', function(){ 
+      google.maps.event.addDomListener(document.getElementById('save-marker'), 'click', function () {
+        for (var i = 0; i < _this.markers.length; i++) {
+          if (_this.markers[i] === marker) {
+            _this.markers.splice(i, 1);
+          }
+        }
+
+        marker.title = $('.marker-title').val();
+        marker.description = $('.marker-description').val();
+
+        _this.markers.push(marker);
+
+        $('#addmeetingplace').prop('disabled', true);
+        _this.updateChart();
+
+        setTimeout(function(){
+          _this.infowindow.close(_this.map,marker);
+        },500);
+
+      });
+    });
+  },
+
+
   /* Clear / Reset functions
-   * Functions here remove lines, reset maps, etc.
-   */
+  * Functions here remove lines, reset maps, etc.
+  */
   // Set the basic style of the polylines
   initPoly: function() {
     var polyOptions = {
@@ -470,6 +417,24 @@ var JaneswalkMapEditor = Class.extend({
     this.poly.binder = new MVCArrayBinder(this.poly.getPath());
   },
 
+  deleteMarkerButton: function() {
+    var _this = this;
+    google.maps.event.addListenerOnce(_this.infowindow, 'domready', function(){ 
+      google.maps.event.addDomListener(document.getElementById('delete-marker'), 'click', function () {
+        marker.setMap(null);
+
+        for (var i = 0; i < _this.markers.length; i++) {
+          if (_this.markers[i] === marker) {
+            _this.markers.splice(i, 1);
+          }
+        }
+
+        $('#addmeetingplace').prop('disabled', false);
+        _this.updateChart();
+      });
+    });
+  },
+
   // Clear out the polylines
   removeLines: function() {
     this.poly.binder.getAt(marker);
@@ -481,8 +446,24 @@ var JaneswalkMapEditor = Class.extend({
     for(i=0; i < this.point.length; i++) {
       this.point[i].setMap(null);
     }
-    initPoly();
+    this.initPoly();
+  },
+
+  // Center the map on the points that are loaded
+  centerRoute: function() {
+    var _this = this;
+    if(_this.point.length) {
+      var bounds = new google.maps.LatLngBounds();
+      for(i=0; i < _this.point.length; i++) {
+        bounds.extend(_this.point[i].position);
+      }
+      _this.map.setCenter(bounds.getCenter());
+    }
+    else if(_this.userLocation !== false) {
+      _this.map.setCenter(_this.userLocation);
+    }
   }
+
 });
 
 /* TODO: move jQuery events in to form-specific js or init function. This file should just be for the map editor. */
