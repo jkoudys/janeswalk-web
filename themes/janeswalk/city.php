@@ -81,7 +81,7 @@
         <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
           <?php if($show == "all") { ?>
           <h3>All Walks</h3>
-          <a href="?" class="see-all">See Featured Walks</a>
+          <a href="?" class="see-all">See All Walks</a>
           <?php } else { ?>
           <h3>Featured Walks</h3>
           <a href="?show=all" class="see-all">see all walks</a>
