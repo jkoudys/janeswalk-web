@@ -120,10 +120,6 @@ var JaneswalkMapEditor = Class.extend({
       google.maps.event.trigger(_this.markers[_this.markers.length-1], 'click');
     });
 
-    // Click event to add polylines
-    var addLinesListener = google.maps.event.addListener(this.map, 'click', this.addlines);
-    google.maps.event.clearListeners(this.map, 'click');
-
     // Click event to add stops
     $('.clear-route').on('click', function(event) {
       var x = window.confirm('Do you want to remove your walk route? Your Stops will not be deleted.');
@@ -161,7 +157,8 @@ var JaneswalkMapEditor = Class.extend({
 
         $('.disable-alert').css({'zIndex':'5'});
 
-        google.maps.event.addListener(_this.map, 'click', this.addlines)
+        google.maps.event.addListener(_this.map, 'click', 
+          function(event, title, lat, lng) { _this.addlines(event,title,lat,lng); });
 
         for(i=0; i < _this.point.length; i++) {
           _this.point[i].setVisible(true);
