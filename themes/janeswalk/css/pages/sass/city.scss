@@ -1,20 +1,30 @@
 // City Page
 
 .city-page {
+
   h1,h2,h3,h4,h5 {
     margin:10px 0;
   }
+
   i {
     color:inherit;
   }
 
-  @media (max-width: $media_thin) {
-    padding-top: 0;
+  header.navbar {
+    @media (max-width: $media_mobile) {
+      margin: 0;
+    }
   }
+
+  @media (max-width: $media_mobile) {
+    padding: 0;
+  }
+
   background-attachment: fixed;
   background-image: url("../images/city-bg.jpg");
   background-repeat: no-repeat;
   @include background-size(cover);
+
   .section3 {
     padding: 0;
     margin: 0;
@@ -37,6 +47,11 @@
         background: #fff;
         z-index: -1;
         box-shadow: 0 3px 0 rgba(0, 0, 0, 0.055);
+
+
+        @media (max-width: $media_mobile) {
+          display: none;
+        }
       }
     }
   }
@@ -50,6 +65,10 @@
       .container {
         position: relative;
         margin-top: -5.7em;
+
+        @media (max-width: $media_mobile) {
+          margin-top: 0;
+        }
       }
       .see-all {
         margin: 2em 0 0 0;
@@ -62,6 +81,10 @@
         position: absolute;
         z-index: -1;
         background: rgba($blogblues,0.75);
+
+        @media (max-width: $media_mobile) {
+          background-color: #fff;
+        }
       }
     }
   }
@@ -130,6 +153,7 @@
   z-index: 5;
   margin-bottom: 1em;
   background: transparent;
+
   &.lower {
     padding-top: 3em;
     padding-bottom: 4em;
@@ -137,34 +161,64 @@
     background-position: bottom;
     margin-top: 1em;
     margin-bottom: 0;
+
     .title {
       color: #fff;
       margin-bottom: 1em;
       background: $orange;
       display: inline-block;
       box-shadow: 0 2px 0 darken($orange,10%);
+
       &:hover {
         background: darken($orange,10%);
       }
+
       a {
         display: inline-block;
         padding: 5px 15px;
         color: #fff;
+
         &:hover {
           text-decoration: none;
         }
-        &.add { font-size:20px; }
+
+        &.add {
+          font-size: 20px;
+        }
       }
     }
+
+    .ccm-page-list {
+
+      @media (max-width: $media_mobile) {
+        padding: 0 20px 20px;
+      }
+    }
+
+    @media (max-width: $media_mobile) {
+      padding: 0 0 20px !important;
+    }
   }
+
   .thumbnail {
     background: #fff;
   }
+
+  .container {
+
+    @media (max-width: $media_thin) {
+      padding: 0 !important;
+    }
+  }
+
   .city-header {
     width: 63%;
+
     @media (max-width: $media_thin) {
-      width: 60%;
+      width: auto;
+      margin: 0;
     }
+
     position: relative;
     color: #fff;
     top: 0;
@@ -242,6 +296,11 @@
   top:-66px;
   padding: 20px 0 56px 0;
   position: relative;
+
+  @media (max-width: $media_thin) {
+    top: 0;
+  }
+
   hr {
     border-top: none;
     border-bottom: 1px solid rgba(#000,0.1); 
@@ -264,6 +323,10 @@
         background-position: 50% 50%;
         width:100%;
         min-height:240px;
+      }
+
+      @media (max-width: $media_thin) {
+        min-height: 0;
       }
     }
     h4 {
@@ -312,6 +375,7 @@
     box-shadow: none;
     @media (max-width: $media_thin) {
       right: -20px;
+      display: none;
     }
     &:after {
       @media (max-width: $media_thin) {
@@ -333,6 +397,11 @@
   }
   .action-items {
     padding-right: 40px;
+
+    @media (max-width: $media_thin) {
+      display: none;
+    }
+
     .menu-flags {
       a {
         -webkit-transition-duration:0.2s;
@@ -364,8 +433,11 @@
       }
     }
   }
-  .walk-list {
 
+  .walks-list {
+    @media (max-width: $media_thin) {
+      padding: 20px;
+    }
   }
 }
 
