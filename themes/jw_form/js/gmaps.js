@@ -99,15 +99,6 @@ var JaneswalkMapEditor = Class.extend({
     // Polylines
     _this.initPoly();
 
-    /*  These are to log the map as it's built - it's a convenience, so no hurry to put back in
-    *  When google inits an event-triggered function, the 'this' sets to the passed-in object,
-    *  so we can't get 'this' as the JaneswalkMapEditor.
-    *  google.maps.event.addListener(this.poly, "dragend", this.pathSet);
-    google.maps.event.addListener(this.poly.getPath(), "insert_at", this.pathSet);
-    google.maps.event.addListener(this.poly.getPath(), "remove_at", this.pathSet);
-    google.maps.event.addListener(this.poly.getPath(), "set_at", this.pathSet);
-    */
-
     // Click event to add stops
     $('#addpoint').on('click', function() {
       _this.addmarker();

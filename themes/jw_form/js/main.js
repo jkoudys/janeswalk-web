@@ -701,7 +701,7 @@ $(function() {
 
 $(window).load(function() {
   tipLoader();
-  jwMap = {};
+  var jwMap = {};
   $('.progress-spinner').spin(false);
   $('.tag').tooltip({
     trigger: 'hover',
