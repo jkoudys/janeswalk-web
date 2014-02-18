@@ -1,20 +1,30 @@
 // City Page
 
 .city-page {
+
   h1,h2,h3,h4,h5 {
     margin:10px 0;
   }
+
   i {
     color:inherit;
   }
 
-  @media (max-width: $media_thin) {
-    padding-top: 0;
+  header.navbar {
+    @media (max-width: $media_mobile) {
+      margin: 0;
+    }
   }
+
+  @media (max-width: $media_mobile) {
+    padding: 0;
+  }
+
   background-attachment: fixed;
   background-image: url("../images/city-bg.jpg");
   background-repeat: no-repeat;
   @include background-size(cover);
+
   .section3 {
     padding: 0;
     margin: 0;
@@ -160,11 +170,22 @@
   .thumbnail {
     background: #fff;
   }
+
+  .container {
+
+    @media (max-width: $media_thin) {
+      padding: 0 !important;
+    }
+  }
+
   .city-header {
     width: 63%;
+
     @media (max-width: $media_thin) {
-      width: 60%;
+      width: auto;
+      margin: 0;
     }
+
     position: relative;
     color: #fff;
     top: 0;
@@ -242,6 +263,11 @@
   top:-66px;
   padding: 20px 0 56px 0;
   position: relative;
+
+  @media (max-width: $media_thin) {
+    top: 0;
+  }
+
   hr {
     border-top: none;
     border-bottom: 1px solid rgba(#000,0.1); 
@@ -264,6 +290,10 @@
         background-position: 50% 50%;
         width:100%;
         min-height:240px;
+      }
+
+      @media (max-width: $media_thin) {
+        min-height: 0;
       }
     }
     h4 {
@@ -312,6 +342,7 @@
     box-shadow: none;
     @media (max-width: $media_thin) {
       right: -20px;
+      display: none;
     }
     &:after {
       @media (max-width: $media_thin) {
@@ -333,6 +364,11 @@
   }
   .action-items {
     padding-right: 40px;
+
+    @media (max-width: $media_thin) {
+      display: none;
+    }
+
     .menu-flags {
       a {
         -webkit-transition-duration:0.2s;
@@ -364,8 +400,11 @@
       }
     }
   }
-  .walk-list {
 
+  .walks-list {
+    @media (max-width: $media_thin) {
+      padding: 20px;
+    }
   }
 }
 
