@@ -88,10 +88,6 @@
     </div>
   </div>
   <?php
-    $blog = new PageList();
-    $blog->filterByCollectionTypeHandle('city_blog');
-    $blog->filterByParentID($c->getCollectionID());
-    $blog = $blog->get(1)[0];
     if($c->isEditMode() || $blog) {
   ?>
   <div class="intro-city lower blog">

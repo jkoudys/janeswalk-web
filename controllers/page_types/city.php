@@ -100,11 +100,16 @@
       $twitter = trim((string) $page_owner->getAttribute('twitter'));
       $website = trim((string) $page_owner->getAttribute('website'));
 
+      $blog = new PageList();
+      $blog->filterByCollectionTypeHandle('city_blog');
+      $blog->filterByParentID($c->getCollectionID());
+
       // Set our calculated values
       $this->set('fullbg', $c->getAttribute("full_bg"));
       $this->set('show', $_REQUEST['show']);
       $this->set('avatar', $avatar);
       $this->set('page_owner', $page_owner);
+      $this->set('blog', $blog->get(1)[0]);
 
       // Put characters to only show contents to the right of
       $this->set('facebook_url', $facebook ? 'http://facebook.com/' . end(preg_split('/\//', $facebook)) : false );
