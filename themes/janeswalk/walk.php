@@ -61,7 +61,7 @@
 
       <div class="tag-list">
         <ul class="nav nav-pills">
-          <?php foreach($c->getAttribute("theme") as $theme) { ?>
+          <?php foreach((object)$c->getAttribute("theme") as $theme) { ?>
             <li><div class='icon'><?=$th->getIcon($theme)?></div> <?=$th->getName($theme)?></li>
           <?php } ?>
         </ul>
@@ -274,7 +274,7 @@
           <div class="caption">
             <h4><i class="icon-accessible"></i> Accessibility</h4>
             <ul>
-              <?php foreach($c->getAttribute("accessible") as $accessible) { ?><li><?=$th->getName($accessible)?></li><?php } ?>
+              <?php foreach((object)$c->getAttribute("accessible") as $accessible) { ?><li><?=$th->getName($accessible)?></li><?php } ?>
             </ul>
             <p id="accessibility notes">
 

@@ -350,7 +350,7 @@
           }
         }
         return $mem;
-      }, $team);
+      }, (array) $team);
       $this->set('eid', $c->getAttribute('eventbrite'));
       $this->set('crumbs', $crumbs);
       $this->set('scheduled', $c->getAttribute('scheduled'));
