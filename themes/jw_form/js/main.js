@@ -23,6 +23,7 @@ function timeConvert (time) {
 ;
 
 var dateSelected = [];
+var jwMap = {}; // Not ideal, but keep for now until I can localize this.
 
 // Typeahead team members
 $.fn.teamTypeahead = function() {
@@ -683,7 +684,6 @@ $(function() {
 
 $(window).load(function() {
   tipLoader();
-  var jwMap = {};
   $('.progress-spinner').spin(false);
   $('.tag').tooltip({
     trigger: 'hover',
