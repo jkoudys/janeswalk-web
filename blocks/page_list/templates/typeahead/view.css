@@ -38,12 +38,9 @@ div.ccm-page-list-typeahead {
             color: #f16725 !important; }
   div.ccm-page-list-typeahead fieldset.search li.aux {
     padding-left: 5px; }
-    div.ccm-page-list-typeahead fieldset.search li.aux div.headline {
-      color: #888;
-      font-size: 0.7em;
-      font-weight: 700; }
     div.ccm-page-list-typeahead fieldset.search li.aux a {
-      padding: 0 0 0 10px;
-      color: #f16725 !important; }
-  div.ccm-page-list-typeahead fieldset.search input[type=text]:focus + input[type=submit] + ul {
+      padding: 4px 0 4px 10px;
+      color: #f16725 !important;
+      display: block; }
+  div.ccm-page-list-typeahead fieldset.search input[type=text]:focus + input[type=submit] + ul, div.ccm-page-list-typeahead fieldset.search ul:hover {
     display: block; }

@@ -67,7 +67,7 @@ div.ccm-page-list-typeahead {
         }
     }
 
-    input[type=text]:focus + input[type=submit] + ul {
+    input[type=text]:focus + input[type=submit] + ul, ul:hover {
       display: block;
     }
   }
