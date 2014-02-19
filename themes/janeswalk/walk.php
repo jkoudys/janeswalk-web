@@ -276,27 +276,28 @@
             <ul>
               <?php foreach((object)$c->getAttribute("accessible") as $accessible) { ?><li><?=$th->getName($accessible)?></li><?php } ?>
             </ul>
+            <?php if($accessible_info = trim($c->getAttribute('accessible_info'))) {?>
             <p id="accessibility notes">
-
+              <?=$accessible_info?>
             </p>
-            <?php
+            <?php }
             if($public_transit = trim($c->getAttribute('accessible_transit'))) { ?>
             <h4><i class="icon-transit"></i> Taking Public Transit</h4>
             <p id="public transit directions">
-            <?=$public_transit ?>
+              <?=$public_transit ?>
             </p>
             <?php }
             if($accessible_parking = trim($c->getAttribute("accessible_parking"))) {
             ?>
             <h4><i class="icon-road"></i> Parking Availability</h4>
             <p id="parking availability">
-            <?=$accessible_parking ?>
+              <?=$accessible_parking ?>
             </p>
             <?php }
             if($accessible_find = trim($c->getAttribute("accessible_find"))) { ?>
             <h4><i class="icon-flag"></i> How to find us</h4>
             <p>
-            <?=$accessible_find ?>
+              <?=$accessible_find ?>
             </p>
             <? } ?>
           </div>
