@@ -76,7 +76,7 @@ echo $f->select('walkduration', array('60 minutes' => '1 hour', '90 minutes' => 
     // $ok = $db->Execute("delete from atEventTime where atScheduleID = ?", [$this->getAttributeValueID()]);
     $ok = true;
     foreach( $scheduledTimes as $time ) {
-      if ($ok) $ok = $db->AutoExecute("atEventTime", ["atScheduleID" => $this->getAttributeValueID(), "start" => date("Y-m-d H:i:s", strtotime($time->date . " " . $time->time)), "end" => date("Y-m-d H:i:s", strtotime($time->date . " " . $time->time . " + " . $time->duration))], "INSERT" );
+      if ($ok) $ok = $db->AutoExecute("atEventTime", ["atScheduleID" => $this->getAttributeValueID(), "start" => date("Y-m-d H:i:s", strtotime("{$time->date} {$time->time}")), "end" => date("Y-m-d H:i:s", strtotime("{$time->date} {$time->time} + {$time->duration}"))], "INSERT" );
     }
     if ($ok) $db->CommitTrans();
     else $db->RollbackTrans();
@@ -84,19 +84,13 @@ echo $f->select('walkduration', array('60 minutes' => '1 hour', '90 minutes' => 
 
   public function form() {
     $this->load();
-    $data = $this->getValue();
-    $dt = Loader::helper('form/date_time');
-    $form = Loader::helper('form');
     $html = Loader::helper('html');
     $this->addHeaderItem($html->css('jquery.ui.css'));
     $this->addHeaderItem($html->javascript('jquery.ui.js'));
-    /* TODO: look into putting this in a view php */
-    print '<label class="checkbox">' . $form->checkbox('Open Booking', 'open', $data['open']) . ' Open Booking</label>'
-      . '<label class="select">Booking Type' . $form->select('type', ['' => 'No Booking', 'set' => 'Scheduled', 'all' => 'By Request'], $data['type'] ) . '</label>';
-    if($data['slots']) foreach($data['slots'] as $key=>$slot) {
-      print "<label class='datetime'>Date #$key Start" . $dt->datetime("eventtime[$key][start]", str_replace('-','/',$slot['eb_start']))
-        . "<label class='datetime'>Date #$key End" . $dt->datetime("eventtime[$key][end]", str_replace('-','/',$slot['eb_end']));
-    }
+
+    $this->set('dt',Loader::helper('form/date_time'));
+    $this->set('fh',Loader::helper('form'));
+    $this->set('data',$this->getValue());
   }
 
   public function saveForm($data) {
