@@ -913,11 +913,40 @@ label {
    ========================================================================== */
 
 #preview-modal {
+  $inset: 15px;
   width: 80%;
   margin-left: -40%;
   top: 5%;
+  margin-bottom:5%;
+  height:90%;
+  .modal-header {
+    position:absolute;
+    width:100%;
+    padding:9px 0;
+    h1,h2,h3 {
+      padding: 0 $inset;
+    }
+    button.close {
+      margin-right:$inset;
+    }
+  }
   .modal-body {
-    max-height: none;
+    position:absolute;
+    height:auto;
+    display:block;
+    bottom:0;top:0;left:0;right:0;
+    width:auto;
+    max-height:100%;
+    margin:49px 15px 72px 15px;
+  }
+  .modal-footer {
+    position: absolute;
+    bottom:0;
+    width:100%;
+    padding:$inset 0;
+    .btn {
+      margin-right:$inset;
+    }
   }
   iframe {
     height: 100%;

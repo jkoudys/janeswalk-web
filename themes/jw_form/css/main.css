@@ -6254,9 +6254,35 @@ label {
 #preview-modal {
   width: 80%;
   margin-left: -40%;
-  top: 5%; }
+  top: 5%;
+  margin-bottom: 5%;
+  height: 90%; }
+  #preview-modal .modal-header {
+    position: absolute;
+    width: 100%;
+    padding: 9px 0; }
+    #preview-modal .modal-header h1, #preview-modal .modal-header h2, #preview-modal .modal-header h3 {
+      padding: 0 15px; }
+    #preview-modal .modal-header button.close {
+      margin-right: 15px; }
   #preview-modal .modal-body {
-    max-height: none; }
+    position: absolute;
+    height: auto;
+    display: block;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    max-height: 100%;
+    margin: 49px 15px 72px 15px; }
+  #preview-modal .modal-footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 15px 0; }
+    #preview-modal .modal-footer .btn {
+      margin-right: 15px; }
   #preview-modal iframe {
     height: 100%;
     width: 100%; }

@@ -234,24 +234,6 @@ window.Janeswalk = {
       $('#preview-modal').modal('show');
     });
 
-   $('#preview-modal').on('show', function () {
-
-    windowHeight = $(window).height()-220;
-
-    $(this).find('.modal-body').css({width:'auto',
-                     height:windowHeight, 
-                    'max-height':'100%'});
-
-   });
-
-   $(window).resize(function() {
-
-    windowHeight = $(window).height()-220;
-    $('#preview-modal').find('.modal-body').css({width:'auto',
-                     height:windowHeight, 
-                    'max-height':'100%'});
-   });
-
     // Publish Walk Button
     $('#btn-submit').on('click', function(){
       $('#publish-warning').modal();
