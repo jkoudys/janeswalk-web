@@ -79,6 +79,38 @@
       }
       echo json_encode($cityData);
     }
+
+    public function view() {
+      // Set our helpers
+      $im = Loader::helper('image');
+      $nh = Loader::helper('navigation');
+      $dh = Loader::helper('concrete/dashboard');
+      $av = Loader::helper('concrete/avatar');
+      $this->set('im', $im);
+      $this->set('nh', $nh);
+      $this->set('dh', $dh);
+      $this->set('av', $av);
+
+      // Load + format data
+      $c = Page::getCurrentPage();
+      $page_owner = UserInfo::getByID($c->getCollectionUserID());
+      $avatar = $av->getImagePath($page_owner) ?: false;
+
+      $facebook = trim((string) $page_owner->getAttribute('facebook'));
+      $twitter = trim((string) $page_owner->getAttribute('twitter'));
+      $website = trim((string) $page_owner->getAttribute('website'));
+
+      // Set our calculated values
+      $this->set('fullbg', $c->getAttribute("full_bg"));
+      $this->set('show', $_REQUEST['show']);
+      $this->set('avatar', $avatar);
+      $this->set('page_owner', $page_owner);
+
+      // Put characters to only show contents to the right of
+      $this->set('facebook_url', $facebook ? 'http://facebook.com/' . end(preg_split('/\//', $facebook)) : false );
+      $this->set('twitter_url', $twitter ? 'http://twitter.com/' . end(preg_split('/[@\/]/', $twitter)) : false );
+      $this->set('website_url', $website ? (0 === strpos($website, 'http')) ? $website : ('http://' . $website) : false);
+    }
     
     public function isPut() {
       return $_SERVER['REQUEST_METHOD'] == 'PUT';

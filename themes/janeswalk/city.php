@@ -1,12 +1,5 @@
 <?php 
   defined('C5_EXECUTE') or die(_("Access Denied."));
-  $im = Loader::helper('image');
-  $fullbg = $c->getAttribute("full_bg");
-  $nh = Loader::helper('navigation');
-  $dh = Loader::helper('concrete/dashboard');
-  $page_owner = UserInfo::getByID($c->getCollectionUserID());
-  $av = Loader::helper('concrete/avatar');
-  $show = $_REQUEST['show'];
   global $u;
   global $cp;
 ?>
@@ -40,7 +33,7 @@
             if ($c->getCollectionUserID() > 1):
           ?>
             <section class="city-organizer">
-              <?= ($avatar = $av->getImagePath($page_owner)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
+              <?php if($avatar) { ?><div class='u-avatar' style='background-image:url(<?=$avatar?>)'></div><?php } ?>
               <div class="city-organizer-details">
                 <h3>
                   <?=
@@ -51,9 +44,9 @@
                 <h4>City Organizer</h4>
                 <div class="btn-toolbar">
                   <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
-                  <?= ($facebook = $page_owner->getAttribute('facebook')) ? "<a href='http://facebook.com/$facebook' target='_blank' class='btn'><i class='icon-facebook'></i></a>" : null ?>
-                  <?= ($twitter = $page_owner->getAttribute('twitter')) ? "<a href='http://twitter.com/" . ltrim($twitter,'@') . "' target='_blank' class='btn'><i class='icon-twitter'></i></a>" : null ?>
-                  <?= ($website = $page_owner->getAttribute('website')) ? ("<a href='" . (0 === strpos($website,'http') ? $website : "http://$website") . '\' target="_blank" class="btn"><i class="icon-globe"></i></a>') : null ?>
+                  <?php if($facebook_url) { ?><a href='<?=$facebook_url?>' target='_blank' class='btn'><i class='icon-facebook'></i></a><?php } ?>
+                  <?php if($twitter_url) { ?><a href='<?=$twitter_url?>' target='_blank' class='btn'><i class='icon-twitter'></i></a><?php } ?>
+                  <?php if($website_url) { ?><a href='<?=$website_url?>' target='_blank' class='btn'><i class='icon-globe'></i></a><?php } ?>
                 </div>
               </div>
             </section>
