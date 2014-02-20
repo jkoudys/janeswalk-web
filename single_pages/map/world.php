@@ -15,7 +15,7 @@ $pages = $pl->get();
   </head>
   <body>
     <div id="map_canvas"></div>
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCAN9glhycnT_BKO557Zm2ncVDFPImMxdY&sensor=false"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM&sensor=false"></script>
 <script>
 <?php
 
