@@ -26,15 +26,15 @@ foreach($pages as $page) {
   $parent = Page::getByID($page->getCollectionParentID());
   $page_owner = UserInfo::getByID($page->getCollectionUserID());
   $city = t($page->getCollectionName().", ".$parent->getCollectionName());
-  $latlng = array_map( function($e) { return (float)trim($e); }, explode(",", $page->getAttribute('latlng')));
+  $latlng = array_map( function($e) { return (float)trim($e); }, explode(',', $page->getAttribute('latlng')));
   $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$page->getCollectionName()} Walks</a>".(($page_owner->getUserID() > 1 && $page_owner->getAttribute('first_name')) ? "<br/>{$page_owner->getAttribute('first_name')}, City Organizer" : false);
   $cities[] = ['country' => $parent->getCollectionName(),
     'city_organizer' => $page_owner->getAttribute('first_name') . ' ' . $page_owner->getAttribute('last_name'),
     'name' => $city,
     'color' => $colors[ord($city) % 3],
     'info' => $info,
-    'lat' => $latlng[1],
-    'lng' => $latlng[0]];
+    'lat' => $latlng[0],
+    'lng' => $latlng[1]];
 }
 ?>
 

@@ -4,21 +4,21 @@ $js = Loader::helper('json');
 $pl = new PageList();
 $pl->filterByCollectionTypeHandle('city');
 $pages = $pl->get();
-echo "Loading city coordinates.. ";
+echo "Loading city coordinates.. \n";
 foreach($pages as $page) {
-if(strcmp(trim($page->getAttribute('coordinates')),"") == 0 || strcmp($page->getAttribute('coordinates'),",") == 0 ) {
-  $parent = Page::getByID($page->getCollectionParentID());
-  $city = t($page->getCollectionName().", ".$parent->getCollectionName());
-  $cityLocation = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=".urlencode($city)."&sensor=false");
-  $responseObj = $js->decode($cityLocation);
-  if( $responseObj->status != 'ZERO_RESULTS' ) {
-    echo $city.": ".$responseObj->results[0]->geometry->location->lat . "," . $responseObj->results[0]->geometry->location->lng;
-    $page->setAttribute('latlng', $responseObj->results[0]->geometry->location->lng . "," . $responseObj->results[0]->geometry->location->lat );
+  if(strcmp(trim($page->getAttribute('coordinates')),"") == 0 || strcmp($page->getAttribute('coordinates'),",") == 0 ) {
+    $parent = Page::getByID($page->getCollectionParentID());
+    $city = "{$page->getCollectionName()}, {$parent->getCollectionName()}";
+    $cityLocation = file_get_contents("http://maps.google.com/maps/api/geocode/json?address=".urlencode($city)."&sensor=false");
+    $responseObj = $js->decode($cityLocation);
+    if( $responseObj->status != 'ZERO_RESULTS' ) {
+      echo "$city: {$responseObj->results[0]->geometry->location->lat},{$responseObj->results[0]->geometry->location->lng}\n";
+      $page->setAttribute('latlng', $responseObj->results[0]->geometry->location->lat . "," . $responseObj->results[0]->geometry->location->lng );
+    }
+    else {
+      echo "Could not lookup coordinates for: $city\n";
+    } 
   }
-  else {
-    echo "Could not lookup coordinates for: " . $city;
-  } 
-}
 }
 
 exit;

@@ -59,7 +59,7 @@ foreach($pages as $page) {
 
   // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
   $coorStr = $page->getAttribute('latlng');
-  $coorNode = $dom->createElement('coordinates', $coorStr);
+  $coorNode = $dom->createElement('coordinates', implode(',',array_reverse(explode(',',$coorStr)))); // Google maps takes lng,lat for some reason
   $pointNode->appendChild($coorNode);
 }
 
