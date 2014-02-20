@@ -92,7 +92,8 @@ var mapOptions = {
     zoomControlOptions: {
     },
     scrollwheel: true,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    backgroundColor:"#90c2ff"
 }
 var map = new google.maps.Map(document.querySelector('#map_canvas'), mapOptions);
 map.mapTypes.set("map_style", style);
