@@ -18,6 +18,22 @@ var HomePageView = PageView.extend({
         this._addMapToggleEvents();
         this._addCityLookup();
         this._addBgImage();
+        this._addCityDropdownEvent();
+    },
+
+    /**
+     * _addCityDropdownEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addCityDropdownEvent: function() {
+        var $select = this._element.find('select.pageListSelect');
+        $select.change(
+            function(event) {
+                location.href = $select.val();
+            }
+        );
     },
 
     /**

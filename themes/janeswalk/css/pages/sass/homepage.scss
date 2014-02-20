@@ -156,13 +156,13 @@
     padding: 30px 0 60px 0;
     margin:0 0 0 0;
 
-    @media (max-width: $media_mobile) {
-      padding: 25px 10px 10px;
-    }
-
     @media (max-width: $media_full) {
       padding-left: 20px;
       padding-right: 20px;
+    }
+
+    @media (max-width: $media_mobile) {
+      padding: 25px 10px 10px;
     }
 
     h1,h2,h3,h4,h5 {
@@ -541,6 +541,23 @@ section.calltoaction {
       @media (max-width: $media_mobile) {
         display: none;
       }
+    }
+  }
+
+  div#city-choice-label {
+    padding: 20px 0 0;
+    display: none;
+
+    @media (max-width: $media_mobile) {
+      display: block;
+    }
+  }
+
+  div#city-choice-select {
+    display: none;
+
+    @media (max-width: $media_mobile) {
+      display: block;
     }
   }
 }

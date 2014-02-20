@@ -185,20 +185,22 @@
             <?php } ?>
           </div><!-- About The Walk Leader Section -->
 
-          <hr>
 
-          <h3>Downloads</h3>
+          <div class="walk-downloads">
+            <hr>
+            <h3>Downloads</h3>
+            <div class="download-list">
+              <ul>
+              </ul>
+            </div>
+          </div>
 
-          <div class="download-list">
-            <ul>
-            </ul>
-          </div> <!-- Download -->
-
-          <hr>
-
-          <div class="share-print">
-            <a href="#" class="share notify printLink"><i class="icon-print"></i> Print this walk</a>
-            <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> Share this walk</a>
+          <div class="walk-aux">
+            <hr>
+            <div class="share-print">
+              <a href="#" class="share notify printLink"><i class="icon-print"></i> Print this walk</a>
+              <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> Share this walk</a>
+            </div>
           </div>
 
         </div>
@@ -305,28 +307,30 @@
 
         </aside>
       </div>
-      <hr>
-      <h3><i class="icon-comments-alt"></i> Feedback</h3>
-      <div class="row-fluid">
-        <div class="span8">
-          <div class="well">
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-              /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-              var disqus_shortname = 'janeswalk'; // required: replace example with your forum shortname
+      <div class="walk-feedback">
+        <hr>
+        <h3><i class="icon-comments-alt"></i> Feedback</h3>
+        <div class="row-fluid">
+          <div class="span8">
+            <div class="well">
+              <div id="disqus_thread"></div>
+              <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'janeswalk'; // required: replace example with your forum shortname
 
-              /* * * DON'T EDIT BELOW THIS LINE * * */
-              (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-              })();
-            </script>
-            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+              </script>
+              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
-          </div>
-        </div>  
+            </div>
+          </div>  
+        </div>
       </div>
     </div>
   </div> 

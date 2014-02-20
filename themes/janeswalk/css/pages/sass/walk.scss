@@ -1,26 +1,51 @@
 // Walk Page
 
 .walk-page {
+
+  @media (max-width: $media_mobile) {
+    padding: 0;
+  }
+
+  .container-outter {
+
+    .container {
+
+      @media (max-width: $media_mobile) {
+        padding: 10px;
+      }
+    }
+  }
+
   h3 {
     color: #555;
     margin: 0 0 0.6em 0;
   }
+
   .walk-header {
+
     h1 {
       color: #555;
       margin-top: 1em;
       margin-bottom: 0;
+
+      @media (max-width: $media_mobile) {
+        font-size: 16px;
+      }
     }
+
     h2 {
       color: #555;
       font-size: 1.25em;
       margin-bottom: 0;
     }
+
     position: relative;
+
     #register-btn {
       width: 100%;
     }
   }
+
   .hero-unit {
     padding: 0;
     min-height: 300px;
@@ -40,22 +65,27 @@
     color:inherit;
   }
   .caption {
+
     h3 {
       margin: 1em 0 0 0;
       line-height: 1em;
+
       &:first-child {
         margin-top: 0;
         margin-bottom: 0.5em;
       }
+
       .icon-calendar {
         font-size: 22px;
         width: 27px;
         color: #999;
       }
     }
+
     p {
       margin-top: 10px;
       margin-left: 25px;
+
       &.select-day {
         margin: 0 auto;
         display: block;
@@ -71,16 +101,20 @@
         @include box-shadow(0 2px 0 rgba(0, 0, 0, 0.1));
       }
     }
+
     i {
       width: 20px;
       display: inline-block;
     }
+
     ul {
       margin-top: 10px;
       list-style: none;
+
       li {
         position: relative;
         margin-bottom: 0.5em;
+
         &:after {       
           content: "\f046"; 
           font-family: "FontAwesome";
@@ -97,10 +131,13 @@
     }
     margin-bottom: 1em;
   }
+
   .thumbnail {
+
     &.accessibility, &.donation {
       margin: 1em 0;
     }
+
     &.accessibility {
       h4 {
         margin-top: 1.5em;
@@ -109,13 +146,17 @@
         }
       }
     }
+
     hr {
       margin: 10px 0;
     }
+
     .alert {
       margin: 0;
     }
+
     &.focus {
+
       h3 {
         color: #222;
       }
@@ -123,36 +164,46 @@
       @include box-shadow(inset 0 0 0 1px #eee, 0 0 10px rgba($orange, 0.7));
     }
   }
+
   .date-caption {
     text-align: center;
     margin-bottom: 10px;
+
     .request-btn-book {
       margin-top: 10px;
     }
+
     .request-btn, .request-nowalks {
       display: none;
       margin-bottom: 10px;
     }
+
     .request-nowalks {
       color: #555;
     }
   }
+
   .request {
     overflow: hidden;
     display: none;
+
     input, textarea {
       width: 90%;
     }
+
     padding: 10px;
   }
+
   .img-polaroid {
     max-width: 40%;
     margin: 10px;
+
     &.pull-left {
       margin-left: 0;
       margin-top: 0;
     }
   }
+
   .themes-title {
     margin: 0 20px 0 0;
   }
@@ -503,6 +554,26 @@
   }
 }
 
+.walk-downloads {
+
+  @media (max-width: $media_mobile) {
+    display: none;
+  }
+}
+
+.walk-aux {
+
+  @media (max-width: $media_mobile) {
+    display: none;
+  }
+}
+
+.walk-feedback {
+
+  @media (max-width: $media_mobile) {
+    display: none;
+  }
+}
 
 .profiles {
   position: absolute;
