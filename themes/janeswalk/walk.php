@@ -34,8 +34,8 @@
         title: '<?= addslashes($c->getCollectionName()) ?>',
         description: '<?= addslashes(strip_tags($c->getAttribute('longdescription'))) ?>',
         city: {
-          name: 'Toronto',
-          url: 'http://janeswalk.org/toronto'
+          name: '<?=addslashes($city->getCollectionName())?>',
+          url: '<?=$nh->getCollectionURL($city)?>'
         },
         gmap: <?=json_encode($gmap)?>
       }
