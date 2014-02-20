@@ -9,8 +9,8 @@ $pages = $pl->get();
   <head>
     <title>Jane's Walk City Map</title>
     <style>
-      html,body { height:100%; width:100%; }
-      #map_canvas { height:100%; width:100%; }
+      html,body { height:100%; width:100%;background:#90c2ff }
+      #map_canvas { height:100%; width:100%; background:#90c2ff }
     </style>
   </head>
   <body>
@@ -91,7 +91,7 @@ var mapOptions = {
     zoomControl: true,
     zoomControlOptions: {
     },
-    scrollwheel: false,
+    scrollwheel: true,
     mapTypeId: google.maps.MapTypeId.ROADMAP
 }
 var map = new google.maps.Map(document.querySelector('#map_canvas'), mapOptions);

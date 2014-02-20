@@ -271,6 +271,7 @@
       margin:0;
       top:-$controlHeight*3/4; width:100%; text-align:center;
       z-index:1;
+      padding-bottom:160px; /* Cover below with a pad so mousewheel scroll doesn't work on the map. */
 
       li {
         display:block; height: $controlHeight;
@@ -305,6 +306,9 @@
 
     &.fullmap {
       height: 760px;
+      .controls {
+        padding-bottom:0;
+      }
     }
   }
 }
