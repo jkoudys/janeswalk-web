@@ -26,7 +26,7 @@
           </ul>
           <br>
           <section id="button-group">
-            <button class="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." data-previewurl="<?php echo str_replace("format=json","format=html",$_REQUEST['load']); ?>">Preview Walk</button>
+            <button class="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." data-previewurl="<?=str_replace("format=json","format=html",$_REQUEST['load']); ?>">Preview Walk</button>
             <button class="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all.">Publish Walk</button>
             <button class="btn btn-info save" title="Save and return later" id="btn-save">Save and return later</button>
           </section>
