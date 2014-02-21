@@ -1,11 +1,9 @@
 /*
 Syntax error: Undefined variable: "$media_mobile".
-        on line 5 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss
-
-1: /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss
+        on line 7 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss
 
 Backtrace:
-/Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss:5
+/Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss:7
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/script/variable.rb:49:in `_perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/script/node.rb:40:in `perform'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:396:in `run_interp_no_strip'
@@ -13,6 +11,17 @@ Backtrace:
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:394:in `run_interp_no_strip'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:404:in `run_interp'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:358:in `visit_media'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:98:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:53:in `map'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:53:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:107:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:119:in `with_environment'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:106:in `visit_children'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
+/Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:318:in `visit_rule'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `send'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/base.rb:37:in `visit'
 /Library/Ruby/Gems/1.8/gems/sass-3.2.3/lib/sass/../sass/tree/visitors/perform.rb:98:in `visit'
@@ -85,4 +94,4 @@ Backtrace:
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Syntax error: Undefined variable: \"$media_mobile\".\A         on line 5 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss\A \A 1: /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss"; }
+  content: "Syntax error: Undefined variable: \"$media_mobile\".\A         on line 7 of /Users/onassar/Sites/janeswalk.org/themes/janeswalk/css/pages/sass/walk.scss"; }

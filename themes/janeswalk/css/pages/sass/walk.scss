@@ -2,6 +2,13 @@
 
 .walk-page {
 
+
+  header.navbar {
+    @media (max-width: $media_mobile) {
+      margin: 0;
+    }
+  }
+
   @media (max-width: $media_mobile) {
     padding: 0;
   }
@@ -348,7 +355,6 @@
     margin: 20px;
     overflow: hidden;
     box-shadow: inset 0 -3px 0 darken($blue,10%);
-
 
     @media (max-width: $media_mobile) {
       display: none;
