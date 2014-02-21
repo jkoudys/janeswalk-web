@@ -67,6 +67,12 @@
           <form>
             <hr>
             <fieldset>
+              <div class="item">
+                <label>Where will your walk take place?
+                  <div class="alert alert-info">Choose where you'll be walking - feel free to pick all the options that best describe your walk.</div>
+                  <input type="text" class="span12 limit" id="wards" name="wards" rows="1" maxlength="140" />
+                </label>
+              </div>
               <div class="item required">
                 <label for="shortdescription">Your Walk in a Nutshell</label>
                 <div class="alert alert-info">Build intrigue! This is what people see when browsing our walk listings.</div>
