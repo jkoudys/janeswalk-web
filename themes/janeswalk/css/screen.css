@@ -10456,18 +10456,31 @@ section.sponsors {
     display: none;
   }
 }
+/* line 481, pages/sass/city.scss */
+.walk-select .walks-list .filters {
+  margin: 0 0 12px;
+}
+/* line 484, pages/sass/city.scss */
+.walk-select .walks-list .filters a {
+  display: inline-block;
+  background: #fff;
+  padding: 2px 5px;
+  margin: 5px 10px 0 0;
+  color: #111;
+  border: 1px dotted #ccc;
+}
 
-/* line 483, pages/sass/city.scss */
+/* line 496, pages/sass/city.scss */
 .span3.walk:nth-child(4n+1) {
   margin-left: 0;
 }
 
-/* line 486, pages/sass/city.scss */
+/* line 500, pages/sass/city.scss */
 .span4.walk:nth-child(3n+1) {
   margin-left: 0;
 }
 
-/* line 488, pages/sass/city.scss */
+/* line 504, pages/sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10475,7 +10488,7 @@ section.sponsors {
   width: 100%;
   text-align: center;
 }
-/* line 494, pages/sass/city.scss */
+/* line 511, pages/sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10487,14 +10500,14 @@ section.sponsors {
   height: 20px;
   text-align: right;
 }
-/* line 504, pages/sass/city.scss */
+/* line 522, pages/sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 512, pages/sass/city.scss */
+/* line 530, pages/sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10502,7 +10515,7 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 519, pages/sass/city.scss */
+/* line 537, pages/sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
@@ -10510,21 +10523,21 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 527, pages/sass/city.scss */
+/* line 545, pages/sass/city.scss */
 .city-organizer, .city-organizer a, .city-organizer a i, .city-organizer a:hover {
   color: #333;
 }
-/* line 528, pages/sass/city.scss */
+/* line 549, pages/sass/city.scss */
 .city-organizer h3, .city-organizer h4 {
   color: #fff;
 }
-/* line 529, pages/sass/city.scss */
+/* line 553, pages/sass/city.scss */
 .city-organizer .u-avatar, .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
-/* line 530, pages/sass/city.scss */
+/* line 559, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }

@@ -4,7 +4,10 @@
   global $cp;
 ?>
 <?php $this->inc('elements/header.php'); ?>
-<body class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>" <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
+<body
+  class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>"
+  data-pageViewName="CityPageView"
+  <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
   <?php
     $this->inc('elements/navbar.php');
   ?>
@@ -72,14 +75,26 @@
         </div>
         <?php } ?>
         <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
-          <?php if($show == "all") { ?>
-          <h3>All Walks</h3>
-          <a href="?" class="see-all">See All Walks</a>
-          <?php } else { ?>
-          <h3>Featured Walks</h3>
-          <a href="?show=all" class="see-all">see all walks</a>
-          <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
-          <?php } ?>
+          <?php
+            if($show === 'all') {
+          ?>
+            <h3>All Walks</h3>
+            <a href="?" class="see-all">See All Walks</a>
+            <div class="filters">
+              <a href="#" data-filter="tag" data-tag="love">Love</a>
+              <a href="#" data-filter="tag" data-tag="wisdom">Wisdom</a>
+              <a href="#" data-filter="region" data-region="annex">Annex</a>
+              <a href="#" data-filter="region" data-region="little-italy">Little Italy</a>
+            </div>
+          <?php
+            } else {
+          ?>
+            <h3>Featured Walks</h3>
+            <a href="?show=all" class="see-all">see all walks</a>
+            <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
+          <?php
+            }
+          ?>
           <div class="row-fluid">
             <?php (new Area('Walk List'))->display($c); ?>
           </div>
