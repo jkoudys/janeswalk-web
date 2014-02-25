@@ -7,20 +7,12 @@
 var CityPageView = PageView.extend({
 
     /**
-     * _cards
-     * 
-     * @protected
-     * @var       jQuery (default: null)
-     */
-    _cards: null,
-
-    /**
      * _filters
      * 
      * @protected
-     * @var       Object (default: {})
+     * @var       jQuery|null (default: null)
      */
-    _filters: {},
+    _filters: null,
 
     /**
      * init
@@ -31,32 +23,8 @@ var CityPageView = PageView.extend({
      */
     init: function(element) {
         this._super(element);
-        this._cards = this._element.find('div.walk');
-        this._filters.regions = this._element.find('a[data-filter="region"]');
-        this._filters.tags = this._element.find('a[data-filter="tag"]');
-        this._addRegionClickEvents();
+        this._filters = this._element.find('div.filters a');
         this._addTagClickEvents();
-    },
-
-    /**
-     * _addRegionClickEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _addRegionClickEvents: function() {
-        var _this = this;
-        this._filters.regions.click(
-            function(event) {
-                event.preventDefault();
-                _this._filters.regions.removeClass('active');
-                _this._filters.tags.removeClass('active');
-                $(event.target).addClass('active');
-                var region = $(event.target).attr('data-region');
-                _this._cards.addClass('hidden');
-                _this._element.find('div.walk[data-regions*="' + (region) + '"]').removeClass('hidden');
-            }
-        );
     },
 
     /**
@@ -67,15 +35,23 @@ var CityPageView = PageView.extend({
      */
     _addTagClickEvents: function() {
         var _this = this;
-        this._filters.tags.click(
+        this._filters.click(
             function(event) {
                 event.preventDefault();
-                _this._filters.regions.removeClass('active');
-                _this._filters.tags.removeClass('active');
-                $(event.target).addClass('active');
-                var tag = $(event.target).attr('data-tag');
-                _this._cards.addClass('hidden');
-                _this._element.find('div.walk[data-tags*="' + (tag) + '"]').removeClass('hidden');
+                $(event.target).toggleClass('active');
+
+                // Start filtering if any filters are on
+                if (_this._element.find('div.filters a.active').length > 0) {
+                    _this._element.find('div.walk').addClass('hidden');
+                    _this._element.find('div.filters a.active').each(
+                        function(index, anchor) {
+                            var tag = $(anchor).attr('data-tag');
+                            _this._element.find('div.walk[data-tags*="' + (tag) + '"]').removeClass('hidden');
+                        }
+                    );
+                } else {
+                    _this._element.find('div.walk').removeClass('hidden');
+                }
             }
         );
     }

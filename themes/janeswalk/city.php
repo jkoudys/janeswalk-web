@@ -16,7 +16,7 @@
       <div class="container">
         <div class="city-header">
           <h1>
-            <?=$c->getCollectionName()?>
+            <?= ($c->getCollectionName()) ?>
             <?= is_object(ComposerPage::getByID($c->getCollectionID())) ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='icon-edit-sign'></i></a>" : null; ?>
           </h1>
           <?php
@@ -66,7 +66,7 @@
           <div class="item active">
             <h2>Jane’s Walks</h2>
             <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
-            <?php (new Area('City Description'))->display($c);?>
+            <?php (new Area('City Description'))->display($c); ?>
           </div>
           <div class="menu-flags box-sizing">
             <?php (new Area('City Nav'))->display($c); ?>
@@ -81,10 +81,14 @@
             <h3>All Walks</h3>
             <a href="?" class="see-all">See All Walks</a>
             <div class="filters">
-              <a href="#" data-filter="tag" data-tag="love">Love</a>
-              <a href="#" data-filter="tag" data-tag="wisdom">Wisdom</a>
-              <a href="#" data-filter="region" data-region="annex">Annex</a>
-              <a href="#" data-filter="region" data-region="little-italy">Little Italy</a>
+              <a href="#" data-tag="love">Love</a>
+              <a href="#" data-tag="wisdom">Wisdom</a>
+              <a href="#" data-tag="annex">Annex</a>
+              <a href="#" data-tag="little-italy">Little Italy</a>
+            </div>
+            <div class="empty hidden">
+              No walks found<br />
+              Try another filter
             </div>
           <?php
             } else {

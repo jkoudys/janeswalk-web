@@ -13,20 +13,21 @@
     }
 
     // Tags
-    $tags = '';
-    $tagAttribute = array('love');
-    if (!empty($tagAttribute)) {
+    $tags = array('love');
+    if (false) {
       $tags = implode(',', $tagAttribute);
     }
 
     // Regions
-    $regions = '';
-    $regionAttribute = array('annex');
-    if (!empty($regionAttribute)) {
+    $regions = array('annex');
+    if (false) {
       $regions = implode(',', $regionAttribute);
     }
+
+    // Combine them
+    $tags = array_merge($tags, $regions);
 ?>
-  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-tags="<?= ($tags) ?>" data-regions="<?= ($regions) ?>">
+  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-tags="<?= implode(',', $tags) ?>">
     <a href="<?= ($nh->getCollectionURL($page)) ?>">
       <div class="thumbnail">
         <?=
