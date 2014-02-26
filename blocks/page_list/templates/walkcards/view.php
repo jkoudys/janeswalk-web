@@ -1,5 +1,5 @@
 <?php 
-  defined('C5_EXECUTE') or die("Access Denied.");
+  defined('C5_EXECUTE') or die('Access Denied.');
   $th = Loader::helper('theme');
   $im = Loader::helper('image');
   $u = new User();
@@ -8,7 +8,7 @@
   //Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
 
   foreach($pages as $key => $page) {
-    if($key == 9 && $show!="all") {
+    if($key == 9 && $show !== 'all') {
       break;
     }
 
