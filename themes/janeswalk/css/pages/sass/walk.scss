@@ -331,12 +331,19 @@
   position: relative;
   background: #fff;
   font-size: 1em;
+
+  @media (max-width: $media_mobile) {
+    display: none;
+  }
+
   h1,h2,h3,h4,h5,i {
     color: #fff;
   }
+
   p {
     line-height: 1.25em;
   }
+
   .walk-stops-meta {
     position: absolute;
     left: 0;
@@ -371,9 +378,11 @@
       width: 20px;
     }
   }
+
   ol {
     margin: 0;
   }
+
   li {
     list-style-position: inside;
     border: 1px solid rgba(black,0.10);
@@ -575,6 +584,21 @@
   .img-circle {
     box-shadow: 0 2px 0 rgba(0,0,0,0.1);
     max-width: 95%;
+  }
+}
+
+.walk-stops-list {
+  position: relative;
+  display: none;
+
+  @media (max-width: $media_mobile) {
+    display: block;
+  }
+
+  a.btn {
+    position: absolute;
+    left: 140px;
+    top: 44px;
   }
 }
 

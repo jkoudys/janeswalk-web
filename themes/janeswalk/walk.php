@@ -155,6 +155,36 @@
             echo $c->getAttribute('longdescription'); ?>
           </div>
 
+          <?php
+            if (count($gmap->markers) > 0):
+          ?>
+            <div class="clearfix walk-stops-list">
+              <hr />
+              <h3>Walk Stops</h3>
+              <?php
+                $path = $_SERVER['REQUEST_URI'];
+                $url = 'http://janeswalk.org' . ($path);
+              ?>
+              <a href="https://maps.google.com/maps?q=<?= rawurlencode($url) ?>" target="_blank" class="btn btn-primary">
+                View in Google Maps
+              </a>
+              <ol>
+                <?php
+                  foreach($gmap->markers as $key => $marker):
+                ?>
+                  <li class="walk-stop" id="<?= ($key) ?>">
+                    <h4><?= ($marker->title) ?></h4>
+                    <p>
+                      <?= ($marker->description) ?>
+                    </p>
+                  </li>
+                <?php
+                  endforeach;
+                ?>
+              </ol>
+            </div>
+          <?php endif; ?>
+
           <div class="clearfix walk-team">
             <hr>
             <h3 id="walk-leader-bio">About The Walk Team</h3>
