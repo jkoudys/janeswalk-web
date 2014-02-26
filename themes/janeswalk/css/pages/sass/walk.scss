@@ -333,9 +333,8 @@
   font-size: 1em;
 
   @media (max-width: $media_mobile) {
-    display: none;
+    display: none !important;
   }
-
 
   h1,h2,h3,h4,h5,i {
     color: #fff;
