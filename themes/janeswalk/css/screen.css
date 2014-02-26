@@ -10336,11 +10336,6 @@ section.sponsors {
 .walk-select .walk a {
   color: #666;
 }
-/* line 367, pages/sass/city.scss */
-.walk-select .walk:hover {
-  margin-top: -5px;
-  padding-bottom: 5px;
-}
 /* line 371, pages/sass/city.scss */
 .walk-select .walk:hover .thumbnail {
   background: #6badfd;
