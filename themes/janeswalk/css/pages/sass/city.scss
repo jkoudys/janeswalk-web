@@ -323,6 +323,7 @@
 
     .thumbnail {
       min-height: 520px;
+      transition: none;
 
       .walkimage {
         margin: 0;
@@ -473,10 +474,34 @@
 
     .ccm-page-list-rss-icon {
 
-
       @media (max-width: $media_mobile) {
         display: none;
       }
+    }
+
+    .filters {
+      margin: 0 0 12px;
+
+      a {
+        display: inline-block;
+        background: #fff;
+        padding: 2px 5px;
+        margin: 5px 10px 0 0;
+        color: #111;
+        border: 1px dotted #ccc;
+
+        &.active {
+          color: #fff;
+          border-color: transparent;
+          background-color: #ff6600;
+        }
+      }
+    }
+
+    div.empty {
+      font-size: 24px;
+      line-height: 32px;
+      margin: 16px 0 0;
     }
   }
 }
@@ -484,7 +509,10 @@
 .span3.walk:nth-child(4n+1) {
   margin-left:0;
 }
-.span4.walk:nth-child(3n+1) { margin-left: 0; }
+
+.span4.walk:nth-child(3n+1) {
+  margin-left: 0;
+}
 
 .tags {
   margin-bottom: 0;
@@ -492,6 +520,7 @@
   bottom: -15px;
   width: 100%;
   text-align: center;
+
   .tag {
     padding: 5px;
     cursor: default;
@@ -502,6 +531,7 @@
     width: 20px;
     height: 20px;
     text-align: right;
+
     &.icon-kids {
       background: url('/images/kids-friendly.svg') no-repeat center center darken($blue,20%);
       background-size: 60%;
@@ -525,9 +555,23 @@
 }
 
 .city-organizer {
-  &, a, a i, a:hover { color:#333; }
-  h3,h4 { color:#fff; }
-  .u-avatar, .city-organizer-details { display:inline-block; vertical-align:top; margin-left:10px; }
-  .btn { background-color:#fff; }
+
+  &, a, a i, a:hover {
+    color:#333;
+  }
+
+  h3,h4 {
+    color:#fff;
+  }
+
+  .u-avatar, .city-organizer-details {
+    display:inline-block;
+    vertical-align:top;
+    margin-left:10px;
+  }
+
+  .btn {
+    background-color:#fff;
+  }
 }
 

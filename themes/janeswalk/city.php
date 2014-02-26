@@ -4,7 +4,10 @@
   global $cp;
 ?>
 <?php $this->inc('elements/header.php'); ?>
-<body class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>" <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
+<body
+  class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>"
+  data-pageViewName="CityPageView"
+  <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
   <?php
     $this->inc('elements/navbar.php');
   ?>
@@ -13,7 +16,7 @@
       <div class="container">
         <div class="city-header">
           <h1>
-            <?=$c->getCollectionName()?>
+            <?= ($c->getCollectionName()) ?>
             <?= is_object(ComposerPage::getByID($c->getCollectionID())) ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='icon-edit-sign'></i></a>" : null; ?>
           </h1>
           <?php
@@ -63,7 +66,7 @@
           <div class="item active">
             <h2>Jane’s Walks</h2>
             <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
-            <?php (new Area('City Description'))->display($c);?>
+            <?php (new Area('City Description'))->display($c); ?>
           </div>
           <div class="menu-flags box-sizing">
             <?php (new Area('City Nav'))->display($c); ?>
@@ -72,14 +75,30 @@
         </div>
         <?php } ?>
         <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
-          <?php if($show == "all") { ?>
-          <h3>All Walks</h3>
-          <a href="?" class="see-all">See All Walks</a>
-          <?php } else { ?>
-          <h3>Featured Walks</h3>
-          <a href="?show=all" class="see-all">see all walks</a>
-          <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
-          <?php } ?>
+          <?php
+            if($show === 'all') {
+          ?>
+            <h3>All Walks</h3>
+            <a href="?" class="see-all">See All Walks</a>
+            <div class="filters">
+              <a href="#" data-tag="love">Love</a>
+              <a href="#" data-tag="wisdom">Wisdom</a>
+              <a href="#" data-tag="annex">Annex</a>
+              <a href="#" data-tag="little-italy">Little Italy</a>
+            </div>
+            <div class="empty hidden">
+              No walks found<br />
+              Try another filter
+            </div>
+          <?php
+            } else {
+          ?>
+            <h3>Featured Walks</h3>
+            <a href="?show=all" class="see-all">see all walks</a>
+            <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
+          <?php
+            }
+          ?>
           <div class="row-fluid">
             <?php (new Area('Walk List'))->display($c); ?>
           </div>
