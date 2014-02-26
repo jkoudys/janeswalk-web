@@ -10524,13 +10524,21 @@ section.sponsors {
 .city-organizer h3, .city-organizer h4 {
   color: #fff;
 }
-/* line 536, pages/sass/city.scss */
+/* line 537, pages/sass/city.scss */
 .city-organizer .u-avatar, .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
-/* line 537, pages/sass/city.scss */
+@media (max-width: 480px) {
+  /* line 543, pages/sass/city.scss */
+  .city-organizer .u-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 10px 0 0;
+  }
+}
+/* line 552, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }
