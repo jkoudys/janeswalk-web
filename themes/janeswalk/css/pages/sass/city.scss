@@ -333,6 +333,13 @@
       }
 
       .caption {
+
+        p {
+          height: 90px;
+          overflow: hidden;
+          display: block;
+        }
+
         @media (max-width: $media_mobile) {
           padding-bottom: 20px;
         }
