@@ -538,13 +538,19 @@
     color: #777;
   }
 
-  a.thumb {
-    display: block;
+  @media (max-width: $media_mobile) {
 
-    img {
+    a.thumb {
       display: block;
-      max-width: none;
-      width: 100%;
+
+      img {
+        display: block;
+        max-width: none;
+        width: 100%;
+        margin: 0;
+        float: none;
+        box-sizing: border-box;
+      }
     }
   }
 
