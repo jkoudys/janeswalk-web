@@ -150,7 +150,9 @@
           <div class="clearfix">
             <h3>About This Walk</h3>
             <?php if( $thumb = $c->getAttribute("thumbnail") ) { ?>
-              <a class='thumb' href='<?=$im->getThumbnail($thumb,1024,1024)->src?>'><img src='<?=$im->getThumbnail($thumb,340,720)->src?>' class='pull-right img-polaroid' /></a>
+              <a class="thumb" href="<?= ($im->getThumbnail($thumb,1024,1024)->src) ?>">
+                <img src="<?=$im->getThumbnail($thumb,340,720)->src?>" class="pull-right img-polaroid" />
+              </a>
             <?php } 
             echo $c->getAttribute('longdescription'); ?>
           </div>

@@ -538,6 +538,15 @@
     color: #777;
   }
 
+  a.thumb {
+    display: block;
+
+    img {
+      display: block;
+      max-width: none;
+      width: 100%;
+    }
+  }
 
 
   .walk-leader {
