@@ -49,11 +49,9 @@
             }
           ?>
           <h6>
-            <?php 
-              foreach(json_decode($page->getAttribute('team')) as $key=>$mem) {
-                echo ($key == 0 ? "Walk led by " : ($key > 0 ? ", " : "")) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
-              }
-            ?>
+            <?= 'Walk led by ' .
+              implode(', ', array_map(function($mem) { return "{$mem['name-first']} {$mem['name-last']}"; },
+                json_decode($page->getAttribute('team'),true) )) ?>
           </h6>
           <p><?= ($page->getAttribute('shortdescription')) ?></p>
         </div>
