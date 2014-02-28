@@ -7,6 +7,14 @@
 var CityPageView = PageView.extend({
 
     /**
+     * _filters
+     * 
+     * @protected
+     * @var       jQuery|null (default: null)
+     */
+    _filters: null,
+
+    /**
      * init
      * 
      * @public
@@ -15,5 +23,36 @@ var CityPageView = PageView.extend({
      */
     init: function(element) {
         this._super(element);
+        this._filters = this._element.find('div.filters a');
+        this._addTagClickEvents();
+    },
+
+    /**
+     * _addTagClickEvents
+     * 
+     * @protected
+     * @return    void
+     */
+    _addTagClickEvents: function() {
+        var _this = this;
+        this._filters.click(
+            function(event) {
+                event.preventDefault();
+                $(event.target).toggleClass('active');
+
+                // Start filtering if any filters are on
+                if (_this._element.find('div.filters a.active').length > 0) {
+                    _this._element.find('div.walk').addClass('hidden');
+                    _this._element.find('div.filters a.active').each(
+                        function(index, anchor) {
+                            var tag = $(anchor).attr('data-tag');
+                            _this._element.find('div.walk[data-tags*="' + (tag) + '"]').removeClass('hidden');
+                        }
+                    );
+                } else {
+                    _this._element.find('div.walk').removeClass('hidden');
+                }
+            }
+        );
     }
 });
