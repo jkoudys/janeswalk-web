@@ -301,7 +301,9 @@
               Request Date
             </button>
           </div>
+<?php if(false) { ?>
           <div class="alert alert-info"><p>While Walks are free and volunteer led, support for Jane's Walk can be recognized through a donation as part of a Walk booking.</p></div>
+<?php } ?>
         </div>
 
         <div class="thumbnail accessibility">
