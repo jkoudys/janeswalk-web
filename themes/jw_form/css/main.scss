@@ -327,6 +327,11 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
   box-shadow: 0 2px 0 0 rgba(0,0,0,0.1);
 }
 
+/* Hide disabled timepicker dropdowns */
+ul.ui-timepicker-list > li.ui-timepicker-disabled {
+  display:none;
+}
+
 .input-prepend .add-on:first-child, .input-prepend .btn:first-child {
   border-top-left: 4px;
   border-bottom-left: 4px;

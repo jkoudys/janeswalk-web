@@ -12,7 +12,10 @@ JanesWalk = {
   form: {
     timepicker_cfg: { 
       defaultTime: '9:00 AM',
-      minuteStep: 180,
+      <?php if(in_array($city->getCollectionID(), [276])) { /* NYC */ ?>
+        step: 180,
+        disableTimeRanges: [ ['12am','8:59am'], ['6:01pm','11:59pm'] ],
+      <?php } ?>
       timeFormat: 'h:i A' 
     },
     datepicker_cfg: {
@@ -28,7 +31,7 @@ JanesWalk = {
         }
       },
       startDate: new Date("May 2, 2014"),
-      endDate: new Date("May 5, 2014")
+      endDate: new Date("May 4, 2014")
     }
   }
 };
