@@ -1,4 +1,39 @@
 <?php defined('C5_EXECUTE') or die(_("Access Denied.")); ?>
+<script type="text/javascript">
+JanesWalk = {
+  page: {
+    url: 'http://' + (location.host) + (location.pathname),
+    title: '<?= addslashes($c->getCollectionName()) ?>',
+  },
+  city: {
+    name: '<?=addslashes($city->getCollectionName())?>',
+    url: '<?=$nh->getCollectionURL($city)?>'
+  },
+  form: {
+    timepicker_cfg: { 
+      defaultTime: '9:00 AM',
+      minuteStep: 180,
+      timeFormat: 'h:i A' 
+    },
+    datepicker_cfg: {
+      format: 'dd/mm/yyyy',
+      beforeShowDay: function (date) {
+        var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+        var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
+        if ($.inArray(dateFormatted, dateSelected) != -1) {
+          return {
+            enabled : false,
+            classes : 'selected'
+          };
+        }
+      },
+      startDate: new Date("May 2, 2014"),
+      endDate: new Date("May 5, 2014")
+    }
+  }
+};
+</script>
+
 <div style='display:none' class='pagejson' data-url='<?=$nh->getCollectionURL($c)?>'></div>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
@@ -352,7 +387,7 @@
                   <hr>
                   <label for="walk-time">Start Time:</label>
 
-                  <input id="walk-time" type="text" class="time ui-timepicker-input input-small" autocomplete="off">
+                  <input id="walk-time" type="text" class="time ui-timepicker-input input-small" data-minute-step:"180" autocomplete="off">
 
                   <label for="walk-time">Approximate Duration of Walk:</label>
                   <select name="duration" id="walk-duration">
