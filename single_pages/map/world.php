@@ -20,7 +20,7 @@ $pages = $pl->get();
 <?php
 
 // Hexcodes to pseudorandomly assign to each city
-$colors = ['#f16725', '#6badfd', '#666666'];
+$colors = ['#f16725'];
 $cities = [];
 foreach($pages as $page) {
   $parent = Page::getByID($page->getCollectionParentID());
@@ -31,7 +31,7 @@ foreach($pages as $page) {
   $cities[] = ['country' => $parent->getCollectionName(),
     'city_organizer' => $page_owner->getAttribute('first_name') . ' ' . $page_owner->getAttribute('last_name'),
     'name' => $city,
-    'color' => $colors[ord($city) % 3],
+    'color' => $colors[ord($city) % sizeof($city)],
     'info' => $info,
     'lat' => $latlng[0],
     'lng' => $latlng[1]];
@@ -108,10 +108,8 @@ function WorldMap() {
         path: google.maps.SymbolPath.CIRCLE,
           fillOpacity: 0.6,
           fillColor: cities[i].color,
-          scale: 10,
-          strokeColor: cities[i].color,
-          strokeOpacity: 1,
-          strokeWeight:1,
+          scale: 6,
+          strokeWeight:0,
           zIndex: 10 
       }
     });
