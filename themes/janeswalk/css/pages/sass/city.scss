@@ -486,7 +486,7 @@
       }
     }
 
-    .filters {
+    .wards {
       margin: 0 0 12px;
 
       a {
@@ -497,6 +497,7 @@
         color: #111;
         border: 1px dotted #ccc;
 
+        &:hover,
         &.active {
           color: #fff;
           border-color: transparent;
@@ -509,6 +510,10 @@
       font-size: 24px;
       line-height: 32px;
       margin: 16px 0 0;
+    }
+
+    div.walk.hidden {
+      display: none;
     }
   }
 }
@@ -582,4 +587,5 @@
 
   .btn { background-color:#fff; }
 }
+
 

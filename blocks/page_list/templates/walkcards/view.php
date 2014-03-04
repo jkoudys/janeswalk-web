@@ -12,22 +12,16 @@
       break;
     }
 
-    // Tags
-    $tags = array('love');
-    if (false) {
-      $tags = implode(',', $tagAttribute);
+    // Test data
+    $wardNames = array();
+    $wardDataStr = '[{"name":"Annex"}]';
+    $wardDataObj = json_decode($wardDataStr, true);
+    foreach ($wardDataObj as $obj) {
+      array_push($wardNames, $obj['name']);
     }
 
-    // Regions
-    $regions = array('annex');
-    if (false) {
-      $regions = implode(',', $regionAttribute);
-    }
-
-    // Combine them
-    $tags = array_merge($tags, $regions);
 ?>
-  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-tags="<?= implode(',', $tags) ?>">
+  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-jw-wards="<?= implode(',', $wardNames) ?>">
     <a href="<?= ($nh->getCollectionURL($page)) ?>">
       <div class="thumbnail">
         <?=
