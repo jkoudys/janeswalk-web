@@ -82,7 +82,11 @@
             <?php
               } else if(isset($slots[0]['date'])) {
             ?>
-              <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']?></span></h4>
+              <h4 class="available-time">
+                <i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']?></span>
+                <span class="divider">|</span>
+                <span class="time"><?= ($slots[0]['time']) ?></span>
+              </h4>
             <?php }
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {
