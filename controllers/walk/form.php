@@ -25,6 +25,10 @@ class WalkFormController extends Controller {
     $is_nyc = in_array($city->getCollectionID(), [276]);
 
     $latlng = explode(',', $city->getAttribute('latlng') );
+    // If you don't have a lat and a lng, final resort is Toronto. It's at least better than being 400km off the coast of Nigeria.
+    if(sizeof((array)$latlng) != 2) {
+      $latlng = [43.653226,-79.3831843]
+    }
 
     $this->set('u', $u);
     $this->set('ui', $ui);

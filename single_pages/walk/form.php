@@ -400,7 +400,7 @@ JanesWalk = {
                   <hr>
                   <label for="walk-time">Start Time:</label>
 
-                  <input id="walk-time" type="text" class="time ui-timepicker-input input-small" data-minute-step:"180" autocomplete="off">
+                  <input id="walk-time" type="text" class="time ui-timepicker-input input-small" autocomplete="off">
 
                   <label for="walk-time">Approximate Duration of Walk:</label>
                   <select name="duration" id="walk-duration">
