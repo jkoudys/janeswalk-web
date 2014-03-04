@@ -32,7 +32,7 @@
         url: 'http://' + (location.host) + (location.pathname),
         pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
         title: '<?= addslashes($c->getCollectionName()) ?>',
-        description: '<?= json_encode(strip_tags($c->getAttribute('longdescription'))) ?>',
+        description: <?= json_encode(strip_tags($c->getAttribute('longdescription'))) ?>,
         city: {
           name: '<?=addslashes($city->getCollectionName())?>',
           url: '<?=$nh->getCollectionURL($city)?>'
