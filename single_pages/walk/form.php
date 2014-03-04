@@ -7,12 +7,14 @@ JanesWalk = {
   },
   city: {
     name: '<?=addslashes($city->getCollectionName())?>',
-    url: '<?=$nh->getCollectionURL($city)?>'
+    url: '<?=$nh->getCollectionURL($city)?>',
+    lat: <?= $lat ?>,
+    lng: <?= $lng ?>
   },
   form: {
     timepicker_cfg: { 
       defaultTime: '9:00 AM',
-      <?php if(in_array($city->getCollectionID(), [276])) { /* NYC */ ?>
+      <?php if($is_nyc) { ?>
         step: 180,
         disableTimeRanges: [ ['12am','8:59am'], ['6:01pm','11:59pm'] ],
       <?php } ?>
@@ -30,8 +32,13 @@ JanesWalk = {
           };
         }
       },
-      startDate: new Date("May 2, 2014"),
-      endDate: new Date("May 4, 2014")
+      <?php if($is_nyc) { ?>
+        startDate: new Date("May 3, 2014"),
+        endDate: new Date("May 4, 2014")
+      <?php } else { ?>
+        startDate: new Date("May 2, 2014"),
+          endDate: new Date("May 4, 2014")
+      <?php } ?> 
     }
   }
 };
@@ -196,7 +203,8 @@ JanesWalk = {
 
         </fieldset>
         */ ?>
-
+<?php
+        if(!$is_nyc) { ?>
         <fieldset id="theme-select">
           <legend class="required-legend">Themes</legend>
           <div class="alert alert-info">
@@ -253,6 +261,8 @@ JanesWalk = {
             </div>
           </div>
         </fieldset>
+<?php
+        } // end NYC check ?>
         <hr>
         <input class="btn btn-primary btn-large section-save" type="submit" value="Next" data-next="route" href="#route"><br><br>
       </form>

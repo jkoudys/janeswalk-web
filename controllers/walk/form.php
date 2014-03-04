@@ -22,6 +22,9 @@ class WalkFormController extends Controller {
     !$city && $city = Page::getByID($c->getCollectionParentID());
     $country = Page::getByID($city->getCollectionParentID());
     $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
+    $is_nyc = in_array($city->getCollectionID(), [276]);
+
+    $latlng = explode(',', $city->getAttribute('latlng') );
 
     $this->set('u', $u);
     $this->set('ui', $ui);
@@ -33,5 +36,8 @@ class WalkFormController extends Controller {
     $this->set('country', $country);
     $this->set('ui_cityorganizer', $ui_cityorganizer);
     $this->set('imgHelper', $imgHelper);
+    $this->set('is_nyc', $is_nyc);
+    $this->set('lat', $latlng[0]);
+    $this->set('lng', $latlng[1]);
   }
 }
