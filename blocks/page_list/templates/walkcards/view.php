@@ -11,6 +11,14 @@
     if($key == 9 && $show !== 'all') {
       break;
     }
+    
+    $leaders = [];
+    foreach(json_decode($page->getAttribute('team'),true) as $mem) {
+      if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
+        array_push($leaders, $mem);
+      }
+    }
+
 
     // Test data
     $wardNames = array();
@@ -43,9 +51,10 @@
             }
           ?>
           <h6>
-            <?= 'Walk led by ' .
-              implode(', ', array_map(function($mem) { return "{$mem['name-first']} {$mem['name-last']}"; },
-                json_decode($page->getAttribute('team'),true) )) ?>
+          <?php if($leaders) { ?>
+            Walk led by <?= implode(', ', array_map(function($mem) { return "{$mem['name-first']} {$mem['name-last']}"; },
+              $leaders )) ?>
+          <?php } ?>
           </h6>
           <p><?= ($page->getAttribute('shortdescription')) ?></p>
         </div>
