@@ -364,8 +364,9 @@
                     <option value="3 Hours">3 Hours</option>
                     <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
                   </select><hr>
-                  <button class="btn btn-primary" id="save-date-set">Save Date</button>
+                  <button class="btn btn-primary" id="save-date-set">Add Date</button>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -424,7 +425,7 @@
                   </select>
                   <div class="date-select-group">
                     <hr>
-                    <button class="btn btn-primary" id="save-date-all">Save Date</button>
+                    <button class="btn btn-primary" id="save-date-all">Add Date</button>
                   </div>
                 </div>
               </div>
