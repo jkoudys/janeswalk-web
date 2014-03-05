@@ -80,12 +80,6 @@
           ?>
             <h3>All Walks</h3>
             <a href="?" class="see-all">See All Walks</a>
-            <div class="filters">
-              <a href="#" data-tag="love">Love</a>
-              <a href="#" data-tag="wisdom">Wisdom</a>
-              <a href="#" data-tag="annex">Annex</a>
-              <a href="#" data-tag="little-italy">Little Italy</a>
-            </div>
             <div class="empty hidden">
               No walks found<br />
               Try another filter
