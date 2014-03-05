@@ -33,5 +33,6 @@ class WalkFormController extends Controller {
     $this->set('country', $country);
     $this->set('ui_cityorganizer', $ui_cityorganizer);
     $this->set('imgHelper', $imgHelper);
+    $this->set('wards', $city->getAttribute('city_wards')->getOptions());
   }
 }

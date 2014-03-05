@@ -19,7 +19,6 @@
       }
     }
 
-
     // Test data
     $wardNames = array();
     $wardDataStr = '[{"name":"Annex"}]';
