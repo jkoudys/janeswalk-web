@@ -777,10 +777,20 @@
       padding-left: 30px;
       text-indent: -14px;
       border-bottom: 1px solid #eee;
+
       i {
         margin-right:5px;
       }
+
+      span.divider {
+        font-size: 14px;
+      }
+
+      span.time {
+        font-size: 14px;
+      }
     }
+
     .highlight {
       color: $orange;
     }

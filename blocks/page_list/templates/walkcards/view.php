@@ -26,7 +26,6 @@
     foreach ($wardDataObj as $obj) {
       array_push($wardNames, $obj['name']);
     }
-
 ?>
   <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-jw-wards="<?= implode(',', $wardNames) ?>">
     <a href="<?= ($nh->getCollectionURL($page)) ?>">

@@ -23,19 +23,25 @@ $ui = UserInfo::getByID($u->getUserID());
       </nav>
       <ul class="nav pull-right visible-desktop">
         <li>
-        <a class="search-open"><i class="icon-search"></i></a>
-        <a class="search-close"><i class="icon-search"></i></a>
+          <a class="search-open"><i class="icon-search"></i></a>
+          <a class="search-close"><i class="icon-search"></i></a>
         </li>
-        <?php if($u->isRegistered()) { ?>
-        <li><a href="<?=$this->url('/profile') ?>" class=""><?=$ui->getAttribute('first_name') ?: $u->getUserName(); ?></a></li>
-        <li><a href="<?=$this->url('/login', 'logout') ?>" class="">Logout</a></li>
-        <?php } else { ?>
-        <li><a href="<?=$this->url('/login') ?>" class="">Login</a></li>
-        <?php } ?>
-
+        <?php
+          if($u->isRegistered()) {
+        ?>
+          <li><a href="<?= ($this->url('/profile')) ?>" class=""><?= ($ui->getAttribute('first_name') ? : $u->getUserName()) ?></a></li>
+          <li><a href="<?= ($this->url('/login', 'logout')) ?>" class="">Logout</a></li>
+        <?php
+          } else {
+        ?>
+          <li><a href="<?= ($this->url('/register')) ?>" class="">Join</a></li>
+          <li><a href="<?= ($this->url('/login')) ?>" class="">Login</a></li>
+        <?php
+          }
+        ?>
         <li class="divider-vertical"></li>
         <li>
-        <a href="<?=Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate'))?>" id="donate" class="btn btn-primary btn-large donate">Donate</a>
+          <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate" class="btn btn-primary btn-large donate">Donate</a>
         </li>
       </ul>
     </div>

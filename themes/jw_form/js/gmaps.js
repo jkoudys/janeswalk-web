@@ -79,7 +79,7 @@ var JaneswalkMapEditor = Class.extend({
       zoom: 15,
       scrollwheel: false,
       rotateControl: true,
-      center: new google.maps.LatLng(43.65495633091365, -79.38892364501953),
+      center: new google.maps.LatLng(JanesWalk.city.lat, JanesWalk.city.lng ),
       mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
       }

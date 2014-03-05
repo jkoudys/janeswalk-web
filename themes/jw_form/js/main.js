@@ -84,21 +84,7 @@ window.Janeswalk = {
 
     $('.date-indicate-all, .date-indicate-set').html(now).attr('data-dateselected',nowFormatted);
 
-    $('.date-picker').datepicker({
-      format: 'mm/dd/yyyy',
-      beforeShowDay: function (date) {
-        var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-        
-        var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
-        
-        if ($.inArray(dateFormatted, dateSelected) != -1) {
-          return {
-            enabled : false,
-            classes : 'selected'
-          };
-        }
-      }
-    }).on('changeDate', function(e){
+    $('.date-picker').datepicker(JanesWalk.form.datepicker_cfg).on('changeDate', function(e){
       dateObject = moment(e.date).format('MMMM D, YYYY');
       dateObjectFormatted = moment(e.date).format('YYYY-MM-DD');
       $('.date-indicate-all, .date-indicate-set').html(dateObject).attr('data-dateselected',dateObjectFormatted);
@@ -279,7 +265,8 @@ window.Janeswalk = {
     }
 
     // Time Picker
-    $('#walk-time').timepicker({ 'timeFormat': 'h:i A' });
+    $('#walk-time').timepicker(JanesWalk.form.timepicker_cfg);
+    $('#walk-time').timepicker('setTime', JanesWalk.form.timepicker_cfg.defaultTime); // workaround for timepicker bug
 
     // Save Handler
     // Populate data if available

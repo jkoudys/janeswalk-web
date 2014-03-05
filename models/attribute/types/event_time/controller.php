@@ -100,7 +100,6 @@ echo $f->select('walkduration', array('60 minutes' => '1 hour', '90 minutes' => 
     $values['open'] = $data->open
     $values['duration'] = $_POST['walkduration'];
     $this->saveValue($values); */
-    var_dump($this->getValue());
   }
 }
 

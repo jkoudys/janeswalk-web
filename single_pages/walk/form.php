@@ -1,4 +1,49 @@
 <?php defined('C5_EXECUTE') or die(_("Access Denied.")); ?>
+<script type="text/javascript">
+JanesWalk = {
+  page: {
+    url: 'http://' + (location.host) + (location.pathname),
+    title: '<?= addslashes($c->getCollectionName()) ?>',
+  },
+  city: {
+    name: '<?=addslashes($city->getCollectionName())?>',
+    url: '<?=$nh->getCollectionURL($city)?>',
+    lat: <?= $lat ?>,
+    lng: <?= $lng ?>
+  },
+  form: {
+    timepicker_cfg: { 
+      defaultTime: '9:00 AM',
+      <?php if($is_nyc) { ?>
+        step: 180,
+        disableTimeRanges: [ ['12am','8:59am'], ['6:01pm','11:59pm'] ],
+      <?php } ?>
+      timeFormat: 'h:i A' 
+    },
+    datepicker_cfg: {
+      format: 'dd/mm/yyyy',
+      beforeShowDay: function (date) {
+        var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+        var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
+        if ($.inArray(dateFormatted, dateSelected) != -1) {
+          return {
+            enabled : false,
+            classes : 'selected'
+          };
+        }
+      },
+      <?php if($is_nyc) { ?>
+        startDate: new Date("May 3, 2014"),
+        endDate: new Date("May 4, 2014")
+      <?php } else { ?>
+        startDate: new Date("May 2, 2014"),
+        endDate: new Date("May 4, 2014")
+      <?php } ?> 
+    }
+  }
+};
+</script>
+
 <div style='display:none' class='pagejson' data-url='<?=$nh->getCollectionURL($c)?>'></div>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
@@ -171,9 +216,8 @@
 
           <a href="#" class="btn btn-info" id="add-resource">Add Another Resource</a>
 
-        </fieldset>
-             */ ?>
-
+          </fieldset> */ ?>
+        <?php if(!$is_nyc) { ?>
         <fieldset id="theme-select">
           <legend class="required-legend">Themes</legend>
           <div class="alert alert-info">
@@ -230,6 +274,8 @@
             </div>
           </div>
         </fieldset>
+<?php
+        } // end NYC check ?>
         <hr>
         <input class="btn btn-primary btn-large section-save" type="submit" value="Next" data-next="route" href="#route"><br><br>
       </form>

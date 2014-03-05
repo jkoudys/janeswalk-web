@@ -93,7 +93,7 @@
 
       // Load + format data
       $c = Page::getCurrentPage();
-      $page_owner = UserInfo::getByID($c->getCollectionUserID());
+      $page_owner = UserInfo::getByID($c->getCollectionUserID()) ?: UserInfo::getByID(1); // System page, e.g. page defaults editor
       $avatar = $av->getImagePath($page_owner) ?: false;
 
       $facebook = trim((string) $page_owner->getAttribute('facebook'));

@@ -32,7 +32,7 @@
         url: 'http://' + (location.host) + (location.pathname),
         pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
         title: '<?= addslashes($c->getCollectionName()) ?>',
-        description: '<?= json_encode(strip_tags($c->getAttribute('longdescription'))) ?>',
+        description: <?= json_encode(strip_tags($c->getAttribute('longdescription'))) ?>,
         city: {
           name: '<?=addslashes($city->getCollectionName())?>',
           url: '<?=$nh->getCollectionURL($city)?>'
@@ -82,7 +82,11 @@
             <?php
               } else if(isset($slots[0]['date'])) {
             ?>
-              <h4 class="available-time"><i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']?></span></h4>
+              <h4 class="available-time">
+                <i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']?></span>
+                <span class="divider">|</span>
+                <span class="time"><?= ($slots[0]['time']) ?></span>
+              </h4>
             <?php }
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {

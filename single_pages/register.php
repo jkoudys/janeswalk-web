@@ -3,7 +3,7 @@
   <div class="row">
     <div class="span10">
       <div class="page-header">
-        <h1><?php echo t('Site Registration')?></h1>
+        <h1><?php echo t('Join Jane\'s Walk')?></h1>
       </div>
     </div>
   </div>
