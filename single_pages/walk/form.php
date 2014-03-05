@@ -139,7 +139,7 @@ JanesWalk = {
                 <label for="wards">Sub-locality</label>
                 <div class="alert alert-info">Choose a borough, ward, neighbourhood, region, or other more specific place where your walk will take place.</div>
                 <?php foreach($wards as $ward) { ?>
-                  <label class="ward"><input type="radio" name="ward" value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></input></label>
+                  <label class="ward"><input type="radio" name="ward" <?= $ward->selected ? 'checked' : '' ?> value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></input></label>
                 <?php } ?>
               </div>
             </fieldset>

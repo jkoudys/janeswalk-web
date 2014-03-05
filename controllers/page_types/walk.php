@@ -172,7 +172,7 @@
         "time" => $c->getAttribute("scheduled"),
         "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null),
         "thumbnail_url" => $thumbnail ? $im->getThumbnail($thumbnail, 340,720)->src : null,
-        "eventbrite_id" => $c->getAttribute("eventbrite"),
+        "wards" => $c->getAttribute("walk_wards"),
         "ticket" => $resp ];
 
         /* Checkboxes */
@@ -204,6 +204,7 @@
         $c->setAttribute("accessible_transit",$postArray->{'accessible-transit'});
         $c->setAttribute("accessible_parking",$postArray->{'accessible-parking'});
         $c->setAttribute("accessible_find", $postArray->{'accessible-find'});
+        $c->setAttribute("walk_wards", $postArray->{'wards'});
         $c->setAttribute("scheduled", $postArray->time);
 
         // Don't bother saving completely empty maps, since it's usually done in error

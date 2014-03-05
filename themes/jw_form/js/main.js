@@ -399,6 +399,11 @@ var JaneswalkData = {
         desc = $(this).find('[name="resource-description[]"]').val();
         self.dataSet.resources[key] = {file: file, title: title, description: desc};
       });
+
+      // Wards
+      $('#wards .ward > input:checked').each(function(k,v) {
+        self.dataSet.wards = $(this).attr('value');
+      });
     }
 
     if (step === 2 || step === false){
