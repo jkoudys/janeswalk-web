@@ -37,7 +37,7 @@ JanesWalk = {
         endDate: new Date("May 4, 2014")
       <?php } else { ?>
         startDate: new Date("May 2, 2014"),
-          endDate: new Date("May 4, 2014")
+        endDate: new Date("May 4, 2014")
       <?php } ?> 
     }
   }
