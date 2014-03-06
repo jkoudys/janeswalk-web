@@ -29,9 +29,15 @@ class WalkFormController extends Controller {
     if(sizeof((array)$latlng) != 2) {
       $latlng = [43.653226,-79.3831843];
     }
+
     $walk_ward = trim((String)$c->getAttribute('walk_wards'));
-    $wards = array_map(function($ward) use ($walk_ward) { if($ward->value == $walk_ward) { $ward->selected = true; } return $ward; },
-      $city->getAttribute('city_wards')->getOptions() );
+    $city_wards = $city->getAttribute('city_wards');
+    if( $city_wards ) {
+      $wards = array_map(function($ward) use ($walk_ward) { if($ward->value == $walk_ward) { $ward->selected = true; } return $ward; },
+        $city_wards->getOptions() );
+    } else {
+      $wards = false; 
+    }
 
     $this->set('u', $u);
     $this->set('ui', $ui);
