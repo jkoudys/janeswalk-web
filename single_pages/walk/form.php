@@ -16,7 +16,7 @@ JanesWalk = {
       defaultTime: '9:00 AM',
       <?php if($is_nyc) { ?>
         step: 180,
-        disableTimeRanges: [ ['12am','8:59am'], ['6:01pm','11:59pm'] ],
+        disableTimeRanges: [ ['12am','8:59am'], ['9:01pm','11:59pm'] ],
       <?php } ?>
       timeFormat: 'h:i A' 
     },
@@ -137,7 +137,7 @@ JanesWalk = {
             <fieldset id="wards">
               <div class="item">
                 <label for="wards">Sub-locality</label>
-                <div class="alert alert-info">Choose a borough, ward, neighbourhood, region, or other more specific place where your walk will take place.</div>
+                <div class="alert alert-info">Choose a borough, neighbourhood, region, or other more specific place where your walk will take place.</div>
                 <?php foreach($wards as $ward) { ?>
                   <label class="ward"><input type="radio" name="ward" <?= $ward->selected ? 'checked' : '' ?> value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></input></label>
                 <?php } ?>
