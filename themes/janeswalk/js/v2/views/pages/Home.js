@@ -19,6 +19,28 @@ var HomePageView = PageView.extend({
         this._addCityLookup();
         this._addBgImage();
         this._addCityDropdownEvent();
+        this._addCreateWalkEvent();
+    },
+
+    /**
+     * _addCreateWalkEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addCreateWalkEvent: function() {
+        var _this = this,
+            $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
+        $btn.click(
+            function(event) {
+                event.preventDefault();
+                if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
+                    _this._element.find('.overlay').show();
+                } else {
+                    location.href = $(this).attr('href');
+                }
+            }
+        );
     },
 
     /**
