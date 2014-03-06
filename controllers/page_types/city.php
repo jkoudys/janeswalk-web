@@ -70,6 +70,7 @@
           'title' => $page->getCollectionName(),
           'thumb' => ($thumb = $page->getAttribute('thumbnail')) ? $im->getThumbnail($thumb, 340,720)->src : null,
           'schedule' => isset($scheduled['open']) ? 'Open Schedule' : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
+          'wards' => $page->getAttribute('walk_wards'),
           'time' => isset($slots[0]['time']) ? $slots[0]['time'] : 'multiple',
           'short_description' => $page->getAttribute('shortdescription')];
 
