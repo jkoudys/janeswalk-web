@@ -72,6 +72,7 @@
           'schedule' => isset($scheduled['open']) ? 'Open Schedule' : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
           'wards' => $page->getAttribute('walk_wards'),
           'time' => isset($slots[0]['time']) ? $slots[0]['time'] : 'multiple',
+          'map' => json_decode($page->getAttribute('gmap')),
           'short_description' => $page->getAttribute('shortdescription')];
 
         foreach(json_decode($page->getAttribute('team')) as $memkey=>$mem) {
