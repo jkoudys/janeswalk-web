@@ -27,58 +27,6 @@
     padding: 0;
   }
 
-  .overlay {
-    margin: 0 auto;
-    position: absolute;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    display: none;
-
-    .o-background {
-      opacity: 0.5;
-      background-color: #000;
-      position: fixed;
-      z-index: 10000;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
-    }
-
-    .o-content {
-      height: 320px;
-      z-index: 10001;
-      width: 40%;
-      position: fixed;
-      left: 50%;
-      margin: 40px 0 0 -20%;
-      background-color: #fff;
-      border-radius: 5px;
-      color: #000;
-      padding: 10px;
-      border: 10px solid #5E5E5E;
-    }
-
-    &.o-connect {
-
-      .o-content {
-        width: 25%;
-        margin-left: -12.5%;
-        padding: 20px;
-        height: 132px;
-
-        h1 {
-          margin: 0 0 20px;
-          padding: 0;
-          font-size: 28px;
-        }
-      }
-    }
-  }
-
   .backgroundImageBanner {
     background-attachment: fixed;
     background-position: center center;
