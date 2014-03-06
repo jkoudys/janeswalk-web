@@ -11,23 +11,25 @@
     if($key == 9 && $show !== 'all') {
       break;
     }
-
-    // Tags
-    $tags = array('love');
-    if (false) {
-      $tags = implode(',', $tagAttribute);
+    
+    $leaders = [];
+    foreach(json_decode($page->getAttribute('team'),true) as $mem) {
+      if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
+        array_push($leaders, $mem);
+      }
     }
 
-    // Regions
-    $regions = array('annex');
-    if (false) {
-      $regions = implode(',', $regionAttribute);
+
+    // Test data
+    $wardNames = array();
+    $wardDataStr = '[{"name":"Annex"}]';
+    $wardDataObj = json_decode($wardDataStr, true);
+    foreach ($wardDataObj as $obj) {
+      array_push($wardNames, $obj['name']);
     }
 
-    // Combine them
-    $tags = array_merge($tags, $regions);
 ?>
-  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-tags="<?= implode(',', $tags) ?>">
+  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-jw-wards="<?= implode(',', $wardNames) ?>">
     <a href="<?= ($nh->getCollectionURL($page)) ?>">
       <div class="thumbnail">
         <?=
@@ -49,9 +51,10 @@
             }
           ?>
           <h6>
-            <?= 'Walk led by ' .
-              implode(', ', array_map(function($mem) { return "{$mem['name-first']} {$mem['name-last']}"; },
-                json_decode($page->getAttribute('team'),true) )) ?>
+          <?php if($leaders) { ?>
+            Walk led by <?= implode(', ', array_map(function($mem) { return "{$mem['name-first']} {$mem['name-last']}"; },
+              $leaders )) ?>
+          <?php } ?>
           </h6>
           <p><?= ($page->getAttribute('shortdescription')) ?></p>
         </div>
