@@ -7,12 +7,12 @@
 var CityPageView = PageView.extend({
 
     /**
-     * _filters
+     * _cards
      * 
      * @protected
-     * @var       jQuery|null (default: null)
+     * @var       Array|null (default: null)
      */
-    _filters: null,
+    _cards: null,
 
     /**
      * init
@@ -23,7 +23,6 @@ var CityPageView = PageView.extend({
      */
     init: function(element) {
         this._super(element);
-        this._filters = this._element.find('div.filters a');
         this._addTagClickEvents();
         this._addCreateWalkEvent();
     },
@@ -57,18 +56,19 @@ var CityPageView = PageView.extend({
      */
     _addTagClickEvents: function() {
         var _this = this;
-        this._filters.click(
+        this._element.find('div.wards a').click(
             function(event) {
                 event.preventDefault();
                 $(event.target).toggleClass('active');
 
                 // Start filtering if any filters are on
-                if (_this._element.find('div.filters a.active').length > 0) {
+                if (_this._element.find('div.wards a.active').length > 0) {
                     _this._element.find('div.walk').addClass('hidden');
-                    _this._element.find('div.filters a.active').each(
+                    _this._element.find('div.wards a.active').each(
                         function(index, anchor) {
-                            var tag = $(anchor).attr('data-tag');
-                            _this._element.find('div.walk[data-tags*="' + (tag) + '"]').removeClass('hidden');
+                            var ward = $(anchor).attr('data-jw-ward');
+console.log(ward);
+                            _this._element.find('div.walk[data-jw-wards*="' + (ward) + '"]').removeClass('hidden');
                         }
                     );
                 } else {

@@ -169,6 +169,39 @@ input:focus:invalid:focus, textarea:focus:invalid:focus {
   margin-bottom: 0;
 }
 
+#wards {
+  .ward {
+    position:relative;
+    display:inline-block;
+    padding:10px 15px;
+    margin:0 8px 8px 0;
+    border:2px dashed #ddd;
+    input[type=radio] {
+      display:none;
+      margin:0;
+      position:absolute;
+      top:0;
+      left:0;
+      z-index:-1;
+      &:after {
+        height:100%;
+        width:100%;
+        display:table;
+        content:"";
+      }
+      &:checked {
+        display:table;
+        height:100%;
+        width:100%;
+        color:#fff;
+        &:after {
+          background-color: #ddd;
+        }
+      }
+    }
+  }
+}
+
 
 /* ==========================================================================
    Bootstrap overrides
@@ -200,6 +233,9 @@ h2, h3, h4, h5, h6 {
       -ms-transform: translate(0,-50px);
       -o-transform: translate(0,-50px);
       transform: translate(0,-50px);
+    }
+    a {
+      color:inherit;
     }
   }
   .navbar-inner {

@@ -5636,6 +5636,32 @@ input:focus:invalid:focus, textarea:focus:invalid:focus {
 #counter-text {
   margin-bottom: 0; }
 
+#wards .ward {
+  position: relative;
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 0 8px 8px 0;
+  border: 2px dashed #ddd; }
+  #wards .ward input[type=radio] {
+    display: none;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1; }
+    #wards .ward input[type=radio]:after {
+      height: 100%;
+      width: 100%;
+      display: table;
+      content: ""; }
+    #wards .ward input[type=radio]:checked {
+      display: table;
+      height: 100%;
+      width: 100%;
+      color: #fff; }
+      #wards .ward input[type=radio]:checked:after {
+        background-color: #ddd; }
+
 /* ==========================================================================
    Bootstrap overrides
    ========================================================================== */
@@ -5661,6 +5687,8 @@ h2, h3, h4, h5, h6 {
     -ms-transform: translate(0, -50px);
     -o-transform: translate(0, -50px);
     transform: translate(0, -50px); }
+  .navbar-inverse .brand a {
+    color: inherit; }
 .navbar-inverse .navbar-inner {
   background-image: none;
   background-color: #129ECA;

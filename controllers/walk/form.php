@@ -30,6 +30,15 @@ class WalkFormController extends Controller {
       $latlng = [43.653226,-79.3831843];
     }
 
+    $walk_ward = trim((String)$c->getAttribute('walk_wards'));
+    $city_wards = $city->getAttribute('city_wards');
+    if( $city_wards ) {
+      $wards = array_map(function($ward) use ($walk_ward) { if($ward->value == $walk_ward) { $ward->selected = true; } return $ward; },
+        $city_wards->getOptions() );
+    } else {
+      $wards = false; 
+    }
+
     $this->set('u', $u);
     $this->set('ui', $ui);
     $this->set('nh', $nh);
@@ -40,6 +49,7 @@ class WalkFormController extends Controller {
     $this->set('country', $country);
     $this->set('ui_cityorganizer', $ui_cityorganizer);
     $this->set('imgHelper', $imgHelper);
+    $this->set('wards', $wards);
     $this->set('is_nyc', $is_nyc);
     $this->set('lat', $latlng[0]);
     $this->set('lng', $latlng[1]);

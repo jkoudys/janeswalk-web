@@ -16,7 +16,7 @@ JanesWalk = {
       defaultTime: '9:00 AM',
       <?php if($is_nyc) { ?>
         step: 180,
-        disableTimeRanges: [ ['12am','8:59am'], ['6:01pm','11:59pm'] ],
+        disableTimeRanges: [ ['12am','8:59am'], ['9:01pm','11:59pm'] ],
       <?php } ?>
       timeFormat: 'h:i A' 
     },
@@ -48,10 +48,14 @@ JanesWalk = {
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
-      <span class="brand"><i class="icon-map-marker"><?="{$city->getCollectionName()}, {$country->getCollectionName()}" ?></i></span>
+      <span class="brand">
+        <a href="<?= $nh->getCollectionURL($city) ?>" target="_blank">
+          <i class="icon-map-marker"><?="{$city->getCollectionName()}, {$country->getCollectionName()}" ?></i>
+        </a>
+      </span>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
-          Logged in as <a href="<?=$this->url('/profile')?>" class="navbar-link"><?php echo $u->getUserName(); ?></a>
+          Logged in as <a href="<?=$this->url('/profile')?>" class="navbar-link" target="_blank"><?= $u->getUserName(); ?></a>
         </p>
       </div><!--/.nav-collapse -->
     </div>
@@ -105,7 +109,7 @@ JanesWalk = {
           <form method="post" enctype="multipart/form-data" action="<?=REL_DIR_FILES_TOOLS_REQUIRED?>/files/importers/quick" class="ccm-file-manager-submit-single">
             <hr>
             <div class="item required">
-              <label for="walkphotos" id="photo-tip">Upload Photos to display on your walk page</label>
+              <label for="walkphotos" id="photo-tip">Upload a photo that best represents your walk.</label>
               <iframe class="walkphotos" src="<?=REL_DIR_FILES_TOOLS?>/files/image_upload"></iframe> 
             </div>
           </form>
@@ -129,6 +133,17 @@ JanesWalk = {
                 <textarea class="textarea-wysiwyg span12" id="longdescription" name="longdescription" rows="14"></textarea>
               </div>
             </fieldset>
+            <?php if($wards) { ?>
+            <fieldset id="wards">
+              <div class="item">
+                <label for="wards">Sub-locality</label>
+                <div class="alert alert-info">Choose a borough, neighbourhood, region, or other more specific place where your walk will take place.</div>
+                <?php foreach($wards as $ward) { ?>
+                  <label class="ward"><input type="radio" name="ward" <?= $ward->selected ? 'checked' : '' ?> value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></input></label>
+                <?php } ?>
+              </div>
+            </fieldset>
+            <?php } ?>
 
             <?php /*  <fieldset>
               <legend>Additional Resources (Optional)</legend>
@@ -201,10 +216,8 @@ JanesWalk = {
 
           <a href="#" class="btn btn-info" id="add-resource">Add Another Resource</a>
 
-        </fieldset>
-        */ ?>
-<?php
-        if(!$is_nyc) { ?>
+          </fieldset> */ ?>
+        <?php if(!$is_nyc) { ?>
         <fieldset id="theme-select">
           <legend class="required-legend">Themes</legend>
           <div class="alert alert-info">
@@ -412,8 +425,9 @@ JanesWalk = {
                     <option value="3 Hours">3 Hours</option>
                     <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
                   </select><hr>
-                  <button class="btn btn-primary" id="save-date-set">Save Date</button>
+                  <button class="btn btn-primary" id="save-date-set">Add Date</button>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -472,7 +486,7 @@ JanesWalk = {
                   </select>
                   <div class="date-select-group">
                     <hr>
-                    <button class="btn btn-primary" id="save-date-all">Save Date</button>
+                    <button class="btn btn-primary" id="save-date-all">Add Date</button>
                   </div>
                 </div>
               </div>

@@ -92,9 +92,19 @@
           ?>
             <h3>All Walks</h3>
             <a href="?" class="see-all">See All Walks</a>
+            <div class="wards">
+              <?php
+                $wards = $c->getAttribute('city_wards');
+                foreach ($wards->getOptions() as $ward):
+              ?>
+                <a href="#" data-jw-ward="<?= addslashes($ward->value) ?>"><?= ($ward->value) ?></a>
+              <?php
+                endforeach;
+              ?>
+            </div>
             <div class="empty hidden">
               No walks found<br />
-              Try another filter
+              Try another region
             </div>
           <?php
             } else {
