@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<concrete5-cif version="1.0">
+  <permissionaccessentitytypes>
+    <permissionaccessentitytype handle="parent_page_owner" name="Parent Page Owner" package="parent_page_owner">
+      <categories>
+        <category handle="page"/>
+      </categories>
+    </permissionaccessentitytype>
+  </permissionaccessentitytypes>
+</concrete5-cif>
