@@ -92,7 +92,7 @@
           ?>
             <h3>All Walks</h3>
             <a href="?" class="see-all">See All Walks</a>
-            <div class="wards">
+            <div class="wards" style="display: none;">
               <?php
                 $wards = $c->getAttribute('city_wards');
                 foreach ($wards->getOptions() as $ward):
