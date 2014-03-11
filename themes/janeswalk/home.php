@@ -16,6 +16,31 @@
   <body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>"
     data-pageViewName="HomePageView"
     data-backgroundImageUrl="<?= ($headImage->getURL()) ?>">
+    <script type="text/javascript">
+      JanesWalk = {
+        page: {
+          url: 'http://' + (location.host) + (location.pathname),
+          title: '<?= addslashes($c->getCollectionName()) ?>'
+        },
+<?php
+  if($u->isLoggedIn()) {
+    $ui = UserInfo::getByID( $u->getUserID() );
+    $city = $ui->getAttribute('home_city');
+?>
+        user: {
+          firstName: '<?= $ui->getAttribute('first_name') ?>',
+          lastName: '<?= $ui->getAttribute('last_name') ?>',
+          city: {
+            name: '<?= addslashes($city->getCollectionName()) ?>',
+            url: '<?= $nh->getCollectionURL($city) ?>'
+          },
+        },
+<?php
+  }
+?>
+      };
+    </script>
+
 
     <div class="overlay o-connect">
       <div class="o-background">
