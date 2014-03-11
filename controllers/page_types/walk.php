@@ -352,6 +352,12 @@
         }
         return $mem;
       }, (array) $team);
+
+      $this->set('nh', $nh);
+      $this->set('im', Loader::helper('image'));
+      $this->set('dh', Loader::helper('concrete/dashboard'));
+      $this->set('th', Loader::helper('theme'));
+      $this->set('av', Loader::helper('concrete/avatar'));
       $this->set('eid', $c->getAttribute('eventbrite'));
       $this->set('crumbs', $crumbs);
       $this->set('scheduled', $c->getAttribute('scheduled'));

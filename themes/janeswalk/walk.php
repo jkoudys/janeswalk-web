@@ -1,9 +1,4 @@
 <?php 
-  $nh = Loader::helper('navigation');
-  $im = Loader::helper('image');
-  $dh = Loader::helper('concrete/dashboard');
-  $th = Loader::helper('theme');
-  $av = Loader::helper('concrete/avatar');
   global $u; global $cp;
   $this->inc('elements/header.php');
 ?>
@@ -107,7 +102,7 @@
       <div class="row-fluid walk-leaders clearfix">
         <div class="span7">
           <h4>
-            <?='Walk Leader' . (sizeof($walk_leaders) === 1 ? ': ' : 's: ') .
+            <?= t2('Walk Leader', 'Walk Leaders', sizeof($walk_leaders)) .
               implode(', ', array_map(function($mem){ return "{$mem['name-first']} {$mem['name-last']}"; }, $walk_leaders)); ?>
           </h4>
         </div>
