@@ -4,7 +4,7 @@
 $dh = Loader::helper('concrete/dashboard');
 global $u; global $cp;
 ?>
-<body class="site-page <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) { echo "style='background-image:url({$fullbg->getURL()})'"; } ?>>
+<body class="site-page <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) { echo "style='background-image:url({$fullbg->getURL()})'"; } ?> data-pageViewName='PageView'>
   <?php $this->inc('elements/navbar.php'); ?>
 			<?php 
 			print $innerContent;
