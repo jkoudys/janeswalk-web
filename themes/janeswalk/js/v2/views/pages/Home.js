@@ -19,6 +19,28 @@ var HomePageView = PageView.extend({
         this._addCityLookup();
         this._addBgImage();
         this._addCityDropdownEvent();
+        this._addCreateWalkEvent();
+    },
+
+    /**
+     * _addCreateWalkEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addCreateWalkEvent: function() {
+        var _this = this,
+            $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
+        $btn.click(
+            function(event) {
+                event.preventDefault();
+                if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
+                    _this._element.find('.overlay').show();
+                } else {
+                    location.href = $(this).attr('href');
+                }
+            }
+        );
     },
 
     /**
@@ -121,7 +143,12 @@ var HomePageView = PageView.extend({
                 });
             }
         };
-        $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
+        if (typeof JanesWalk.user === 'undefined') {
+            $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
+        } else {
+            _this._addCityCalloutCta(JanesWalk.user.city.name, JanesWalk.user.city.url);
+            _this._addCityButtonCta(JanesWalk.user.city.name, JanesWalk.user.city.url);
+        }
     },
 
     /**

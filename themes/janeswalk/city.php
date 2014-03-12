@@ -11,6 +11,18 @@
   <?php
     $this->inc('elements/navbar.php');
   ?>
+
+    <div class="overlay o-connect">
+      <div class="o-background">
+      </div>
+      <div class="o-content">
+        <h1>Create a walk</h1>
+        <a href="<?= ($this->url('/login')) ?>" class="btn btn-primary">Login</a> or
+        <a href="<?= ($this->url('/register')) ?>" class="btn btn-primary">Join</a>
+        to create a walk
+      </div>
+    </div>
+    
   <div class="container-outter" role="main">
     <div class="intro-city tk-museo-slab">
       <div class="container">
@@ -77,17 +89,26 @@
         <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
           <?php
             if($show === 'all') {
-              $wards = array(
-                'Annex',
-                'Little Italy'
-              );
-              $themes = array(
-                'Nature',
-                'Art'
-              );
+
+              // Wards
+              $wards = array();
+              $wardObjects = $c->getAttribute('city_wards');
+              foreach ($wardObjects->getOptions() as $ward) {
+                $wards[] = $ward->value;
+              }
+              sort($wards);
+
+              // Themes
+              $themeHelper = Loader::helper('theme');
+              $themes = $themeHelper->getAll();
+              sort($themes);
+
+              // Intiatives
               $initiatives = array(
-                'BlogTO',
-                'Open Streets TO'
+                'Open Streets TO',
+                'Walk Toronto',
+                '100 in a day',
+                'ROM Walks'
               );
           ?>
             <h3>All Walks</h3>
@@ -138,16 +159,6 @@
                 </div>
               <?php endif; ?>
 
-            </div>
-            <div class="wards">
-              <?php
-                $wards = $c->getAttribute('city_wards');
-                foreach ($wards->getOptions() as $ward):
-              ?>
-                <a href="#" data-jw-ward="<?= addslashes($ward->value) ?>"><?= ($ward->value) ?></a>
-              <?php
-                endforeach;
-              ?>
             </div>
             <div class="empty hidden">
               No walks found<br />

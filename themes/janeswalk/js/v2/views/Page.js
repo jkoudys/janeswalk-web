@@ -16,6 +16,22 @@ var PageView = View.extend({
     init: function(element) {
         this._super(element);
         this._addNavEvents();
+        this._addOverlayCloseEvent();
+    },
+
+    /**
+     * _addOverlayCloseEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addOverlayCloseEvent: function() {
+        var _this = this;
+        this._element.find('.o-background').click(
+            function(event) {
+                _this._element.find('.overlay').hide();
+            }
+        );
     },
 
     /**

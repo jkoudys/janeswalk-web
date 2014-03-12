@@ -44,7 +44,7 @@ if (isset($entry)) {
 	<?php  } ?>
 
 	<?php  if ($asl->allowEditDescription()) { ?>
-	<div class="control-group">
+	<div class="control-group" style="display: none;">
 		<?php echo $form->label('cDescription', t('Short Description'))?>
 		<div class="controls"><?php echo $form->textarea('cDescription', Loader::helper("text")->entities($description), array('class' => 'input-xlarge', 'rows' => 5))?></div>		
 	</div>

@@ -7,6 +7,14 @@
 var CityPageView = PageView.extend({
 
     /**
+     * _cards
+     * 
+     * @protected
+     * @var       jQuery|null (default: null)
+     */
+    _cards: null,
+
+    /**
      * _data
      * 
      * @protected
@@ -39,14 +47,6 @@ var CityPageView = PageView.extend({
     _ward: null,
 
     /**
-     * _cards
-     * 
-     * @protected
-     * @var       Array|null (default: null)
-     */
-    _cards: null,
-
-    /**
      * init
      * 
      * @public
@@ -55,12 +55,44 @@ var CityPageView = PageView.extend({
      */
     init: function(element) {
         this._super(element);
-        this._data = JanesWalkData.walks;
         this._cards = this._element.find('.walk');
+        this._data = JanesWalkData.walks;
+        this._resetSelectElements();
         this._addFilterEvents();
+        this._addCreateWalkEvent();
+    },
+
+    /**
+     * _resetSelectElements
+     * 
+     * @protected
+     * @return    void
+     */
+    _resetSelectElements: function() {
         this._element.find('div.filters select').each(
             function(index, element) {
                 $(element).val('*');
+            }
+        );
+    },
+
+    /**
+     * _addCreateWalkEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addCreateWalkEvent: function() {
+        var _this = this,
+            $btn = this._element.find('.create-walk');
+        $btn.click(
+            function(event) {
+                event.preventDefault();
+                if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
+                    _this._element.find('.overlay').show();
+                } else {
+                    location.href = $(this).attr('href');
+                }
             }
         );
     },
