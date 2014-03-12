@@ -342,6 +342,7 @@ p.lead {
   width: 100%;
   padding: 20px 0 50px 0;
   color: white;
+  background:$orange;
   @include background(linear-gradient(rgba($orange,0.7) 20%, rgba($orange,0.7) 20%, $orange 80%));
 
   @media (max-width: $media_mobile) {

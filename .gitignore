@@ -3,7 +3,6 @@ config/site.php
 themes/janeswalk/css/pages/.sass-cache/
 themes/janeswalk/css/pages/.sass-cache*
 concrete/themes/jw_form
-packages/
 files/
 .sass-cache
 *.swp
