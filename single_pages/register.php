@@ -60,7 +60,9 @@
 
     <form method="post" action="<?php echo $this->url('/register', 'do_register')?>" class="form-horizontal">
       <div class="row">
-        <div class="<?php  if (count($attribs) > 0) {?>span5<?php  } else {?>span10<?php  } ?> ">
+ 
+        <?php  if (count($attribs) > 0) { ?>
+        <div class="span10">
           <fieldset>
             <legend><?php echo t('Your Details')?></legend>
             <?php  if ($displayUserName) { ?>
@@ -92,9 +94,7 @@
             </div>
 
           </fieldset>
-        </div>
-        <?php  if (count($attribs) > 0) { ?>
-        <div class="span5">
+          <Br/>
           <fieldset>
             <legend><?php echo t('Options')?></legend>
             <?php 
