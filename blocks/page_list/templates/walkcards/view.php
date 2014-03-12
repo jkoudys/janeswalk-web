@@ -7,6 +7,14 @@
   $show = $_REQUEST['show'];
   //Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
 
+?>
+  <script type="text/javascript">
+    var JanesWalkData = {
+      walks: []
+    };
+  </script>
+<?php
+
   foreach($pages as $key => $page) {
     if($key == 9 && $show !== 'all') {
       break;
@@ -19,15 +27,24 @@
       }
     }
 
-    // Test data
-    $wardNames = array();
-    $wardDataStr = '[{"name":"Annex"}]';
-    $wardDataObj = json_decode($wardDataStr, true);
-    foreach ($wardDataObj as $obj) {
-      array_push($wardNames, $obj['name']);
-    }
+    // Wards
+    $wards = '[{"name":"Annex"}]';
+    $wards = '["Annex"]';
+
+    // Themes
+    $themes = '["Nature", "Art"]';
+
+    // Themes
+    $initiatives = '[]';
 ?>
-  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-jw-wards="<?= implode(',', $wardNames) ?>">
+  <script type="text/javascript">
+    JanesWalkData.walks.push({
+      wards: <?= ($wards) ?>,
+      themes: <?= ($themes) ?>,
+      initiatives: <?= ($initiatives) ?>
+    });
+  </script>
+  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk">
     <a href="<?= ($nh->getCollectionURL($page)) ?>">
       <div class="thumbnail">
         <?=

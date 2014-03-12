@@ -474,6 +474,7 @@
   }
 
   .walks-list {
+    // position: relative;
 
     @media (max-width: $media_thin) {
       padding: 20px;
@@ -486,8 +487,29 @@
       }
     }
 
+    .filters {
+      // background-color: #F59364;
+      // border-radius: 4px;
+      // padding: 10px;
+      // position: absolute;
+      // left: 0;
+      // top: 0;
+      // width: 570px;
+      margin: 0 0 20px;
+
+      div.filter {
+        float: left;
+        width: 260px;
+
+        label {
+          display: block;
+        }
+      }
+    }
+
     .wards {
       margin: 0 0 12px;
+      display: none;
 
       a {
         display: inline-block;

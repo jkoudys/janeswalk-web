@@ -77,9 +77,68 @@
         <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
           <?php
             if($show === 'all') {
+              $wards = array(
+                'Annex',
+                'Little Italy'
+              );
+              $themes = array(
+                'Nature',
+                'Art'
+              );
+              $initiatives = array(
+                'BlogTO',
+                'Open Streets TO'
+              );
           ?>
             <h3>All Walks</h3>
             <a href="?" class="see-all">See All Walks</a>
+            <div class="filters clearfix">
+
+              <?php if (!empty($wards)): ?>
+                <div class="filter clearfix">
+                  <label for="ward">Ward</label>
+                  <div class="options">
+                    <select name="ward" id="ward">
+                      <option value="*">All</option>
+                      <?php foreach ($wards as $ward): ?>
+                        <option value="<?= ($ward) ?>"><?= ($ward) ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+
+              <?php if (!empty($themes)): ?>
+                <div class="filter clearfix">
+                  <label for="theme">Theme</label>
+                  <div class="options">
+                    <select name="theme" id="theme">
+                      <option value="*">All</option>
+                      <?php foreach ($themes as $theme): ?>
+                        <option value="<?= ($theme) ?>"><?= ($theme) ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+
+              <?php if (!empty($initiatives)): ?>
+                <div class="filter clearfix">
+                  <label for="initiative">Initiative</label>
+                  <div class="options">
+                    <select name="initiative" id="initiative">
+                      <option value="*">All</option>
+                      <?php foreach ($initiatives as $initiative): ?>
+                        <option value="<?= ($initiative) ?>"><?= ($initiative) ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+            </div>
             <div class="wards">
               <?php
                 $wards = $c->getAttribute('city_wards');
@@ -92,7 +151,7 @@
             </div>
             <div class="empty hidden">
               No walks found<br />
-              Try another region
+              Try another ward or theme
             </div>
           <?php
             } else {

@@ -64,6 +64,9 @@ class ThemeHelper {
     ];
   }
 
+  public function getAll() {
+    return $this->attributeIconMap;
+  }
   public function getName($handle) {
     return $this->attributeNameMap[(string)$handle];
   }
