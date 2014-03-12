@@ -15,6 +15,8 @@
 
 <!--[if lt IE 9]>
      <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script>
+     <script src="http://cdnjs.cloudflare.com/ajax/libs/css3pie/1.0.0/PIE.min.js"></script>
+     <script type="text/javascript" src="<?=$this->getThemePath();?>/js/ie_sux.js"></script>
 <![endif]-->
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" media="screen" type="text/css" href="<?=$this->getStyleSheet('colorbox/colorbox.css')?>" />

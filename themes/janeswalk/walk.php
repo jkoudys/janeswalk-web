@@ -45,8 +45,8 @@
         foreach($crumbs as $crumb) {
           if( $crumb->getCollectionID() == 1 ) { ?>
           <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-          <?php } else if ($crumb->getCollectionTypeHandle() != 'country' ) { ?>
-          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?=$crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
+          <?php } else if ($crumb->getCollectionTypeHandle() !== 'country' ) { ?>
+          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?= $crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
         <?php }
         } ?>
         <li class="active"><?=$c->getCollectionName() ?></li>
@@ -102,7 +102,7 @@
       <div class="row-fluid walk-leaders clearfix">
         <div class="span7">
           <h4>
-            <?= t2('Walk Leader', 'Walk Leaders', sizeof($walk_leaders)) .
+            <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($walk_leaders)) .
               implode(', ', array_map(function($mem){ return "{$mem['name-first']} {$mem['name-last']}"; }, $walk_leaders)); ?>
           </h4>
         </div>
@@ -313,26 +313,26 @@
             </ul>
             <?php if($accessible_info = trim($c->getAttribute('accessible_info'))) {?>
             <p id="accessibility notes">
-              <?=$accessible_info?>
+              <?= $accessible_info ?>
             </p>
             <?php }
             if($public_transit = trim($c->getAttribute('accessible_transit'))) { ?>
             <h4><i class="icon-transit"></i> Taking Public Transit</h4>
             <p id="public transit directions">
-              <?=$public_transit ?>
+              <?= $public_transit ?>
             </p>
             <?php }
             if($accessible_parking = trim($c->getAttribute("accessible_parking"))) {
             ?>
             <h4><i class="icon-road"></i> Parking Availability</h4>
             <p id="parking availability">
-              <?=$accessible_parking ?>
+              <?= $accessible_parking ?>
             </p>
             <?php }
             if($accessible_find = trim($c->getAttribute("accessible_find"))) { ?>
             <h4><i class="icon-flag"></i> How to find us</h4>
             <p>
-              <?=$accessible_find ?>
+              <?= $accessible_find ?>
             </p>
             <? } ?>
           </div>

@@ -20,7 +20,7 @@ class ParentPageOwnerPermissionAccessEntity extends PermissionAccessEntity {
 		if (count($users) == 0) {
 			return false;
 		} else if (is_object($users[0])) {
-			$u = new User();
+      $u = new User();
 			return $users[0]->getUserID() == $u->getUserID();
 		}
 	}
