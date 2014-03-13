@@ -47,7 +47,7 @@ JanesWalk.form['2014-05-04'] = {
   timepicker_cfg: {
     defaultTime: '9:00 AM',
     step: 180,
-    disableTimeRanges: [ ['12am','8:59am'], ['3:01pm','11:59pm'] ],
+    disableTimeRanges: [ ['12am','8:59am'], ['2:59pm','3:01pm'], ['9:01pm','11:59pm'] ],
     timeFormat: 'h:i A' 
   }
 }
