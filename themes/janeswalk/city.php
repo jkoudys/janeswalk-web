@@ -93,8 +93,13 @@
               // Wards
               $wards = array();
               $wardObjects = $c->getAttribute('city_wards');
-              foreach ($wardObjects->getOptions() as $ward) {
-                $wards[] = $ward->value;
+              if ($wardObjects !== false) {
+                foreach ($wardObjects->getOptions() as $ward) {
+                  $val = $ward->value;
+                  // $pieces = preg_split('/Ward\ [0-9]+\ /', $val);
+                  // $val = array_pop($pieces);
+                  $wards[] = $val;
+                }
               }
               sort($wards);
 
@@ -104,15 +109,18 @@
               sort($themes);
 
               // Intiatives
-              $initiatives = array(
-                'Open Streets TO',
-                'Walk Toronto',
-                '100 in a day',
-                'ROM Walks'
-              );
+              $initiatives = array();
+              if (true) {
+                $initiatives = array(
+                  'Open Streets TO',
+                  'Walk Toronto',
+                  '100 in a day',
+                  'ROM Walks'
+                );
+              }
           ?>
             <h3>All Walks</h3>
-            <a href="?" class="see-all">See All Walks</a>
+            <!-- <a href="?" class="see-all">See All Walks</a> -->
             <div class="filters clearfix">
 
               <?php if (!empty($wards)): ?>
@@ -162,7 +170,7 @@
             </div>
             <div class="empty hidden">
               No walks found<br />
-              Try another ward or theme
+              Try another region or theme
             </div>
           <?php
             } else {
