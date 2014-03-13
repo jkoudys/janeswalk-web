@@ -5,9 +5,9 @@
 ?>
 <?php $this->inc('elements/header.php'); ?>
 <body
-  class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>"
+  class="city-page<?php $dh->canRead() and print " logged_in" ?>"
   data-pageViewName="CityPageView"
-  <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
+  <?php $fullbg and print "style='background-image:url({$fullbg->getURL()})'" ?>>
   <?php
     $this->inc('elements/navbar.php');
   ?>

@@ -97,6 +97,7 @@
       $c = Page::getCurrentPage();
       $page_owner = UserInfo::getByID($c->getCollectionUserID()) ?: UserInfo::getByID(1); // System page, e.g. page defaults editor
       $avatar = $av->getImagePath($page_owner) ?: false;
+      $this->set('pageType', 'city-page');
 
       $facebook = trim((string) $page_owner->getAttribute('facebook'));
       $twitter = trim((string) $page_owner->getAttribute('twitter'));
