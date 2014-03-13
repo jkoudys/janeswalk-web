@@ -21,6 +21,8 @@ class GeocodeCities extends Job {
     $pl = new PageList();
     $pl->filterByCollectionTypeHandle('city');
     $pages = $pl->get();
+    $updated = 0;
+    $not = 0;
     echo "Loading city coordinates.. \n";
     foreach($pages as $page) {
       if(!(trim($page->getAttribute('coordinates'))) || trim($page->getAttribute('coordinates')) === ',' ) {
@@ -29,14 +31,14 @@ class GeocodeCities extends Job {
         $cityLocation = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=".urlencode($city)."&sensor=false&key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM");
         $responseObj = $js->decode($cityLocation);
         if( $responseObj->status != 'ZERO_RESULTS' ) {
-          echo "$city: {$responseObj->results[0]->geometry->location->lat},{$responseObj->results[0]->geometry->location->lng}\n";
           $page->setAttribute('latlng', $responseObj->results[0]->geometry->location->lat . "," . $responseObj->results[0]->geometry->location->lng );
+          $updated++;
         }
         else {
-          echo "Could not lookup coordinates for: $city\n";
+          $not++;
         } 
       }
     }
-    return t('Lat/lng for all cities geocoded.');
+    return t("$updated cities geocoded, $not cities not updated");
   }
 }
