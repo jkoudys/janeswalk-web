@@ -51,7 +51,7 @@
           ($thumb = $page->getAttribute('thumbnail')) ? "<div class='walkimage' style='background-image:url({$im->getThumbnail($thumb,380,720)->src})' ></div>":'';
         ?>
         <div class="caption">
-          <h4><?= ($page->getCollectionName()) ?></h4>
+          <h4><?= truncate($page->getCollectionName(), 50) ?></h4>
           <?php
             $scheduled = $page->getAttribute('scheduled');
             $slots = (array) $scheduled['slots']; 
@@ -66,12 +66,23 @@
             }
           ?>
           <h6>
-          <?php if($leaders) { ?>
-            Walk led by <?= implode(', ', array_map(function($mem) { return "{$mem['name-first']} {$mem['name-last']}"; },
-              $leaders )) ?>
+          <?php
+            if($leaders) {
+              $names = implode(
+                ', ',
+                array_map(
+                  function($mem) {
+                    return "{$mem['name-first']} {$mem['name-last']}";
+                  },
+                  $leaders
+                )
+              );
+              $names = truncate($names, 75);
+          ?>
+            Walk led by <?= ($names) ?>
           <?php } ?>
           </h6>
-          <p><?= ($page->getAttribute('shortdescription')) ?></p>
+          <p><?= truncate($page->getAttribute('shortdescription'), 120) ?></p>
         </div>
         <ul class="inline tags">
           <?php
