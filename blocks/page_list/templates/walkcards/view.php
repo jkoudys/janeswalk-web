@@ -7,9 +7,7 @@
   $show = $_REQUEST['show'];
   //Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
 
-?>
-<?php
-
+  // Loop over the walks
   foreach($pages as $key => $page) {
     if($key == 9 && $show !== 'all') {
       break;
@@ -25,14 +23,27 @@
     // Wards
     $wards = '[{"name":"Annex"}]';
     $wards = '["Annex"]';
+    $wards = (array) $page->getAttribute('walk_wards');
+    $wards = json_encode($wards);
 
     // Themes
-    $themes = '["Nature", "Art"]';
+    $themes = array();
+    foreach($page->getAttribute('theme') as $theme) {
+      array_push($themes, $th->getName($theme));
+    }
+    $themes = json_encode($themes);
 
     // Themes
     $initiatives = '[]';
 ?>
   <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk">
+    <script type="text/javascript">
+      JanesWalkData.walks.push({
+        wards: <?= ($wards) ?>,
+        themes: <?= ($themes) ?>,
+        initiatives: <?= ($initiatives) ?>
+      });
+    </script>
     <a href="<?= ($nh->getCollectionURL($page)) ?>">
       <div class="thumbnail">
         <?=

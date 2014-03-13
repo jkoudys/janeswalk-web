@@ -109,16 +109,12 @@
               sort($themes);
 
               // Intiatives
-              $initiatives = array();
-              // if (true) {
-              if (false) {
-                $initiatives = array(
-                  'Open Streets TO',
-                  'Walk Toronto',
-                  '100 in a day',
-                  'ROM Walks'
-                );
-              }
+              $initiatives = array(
+                'Open Streets TO',
+                'Walk Toronto',
+                '100 in a day',
+                'ROM Walks'
+              );
           ?>
             <h3>All Walks</h3>
             <!-- <a href="?" class="see-all">See All Walks</a> -->
@@ -155,7 +151,7 @@
 
 
               <?php if (!empty($initiatives)): ?>
-                <div class="filter clearfix">
+                <div class="filter clearfix" style="display: none;">
                   <label for="initiative">Initiative</label>
                   <div class="options">
                     <select name="initiative" id="initiative">
@@ -182,6 +178,11 @@
           <?php
             }
           ?>
+          <script type="text/javascript">
+            var JanesWalkData = {
+              walks: []
+            };
+          </script>
           <div class="row-fluid">
             <?php (new Area('Walk List'))->display($c); ?>
           </div>
