@@ -46,12 +46,12 @@
   <!-- v2 (onassar) -->
   <script src="<?=$this->getThemePath()?>/js/app.js" type="text/javascript"></script>
   <script src="<?=$this->getThemePath()?>/js/v2/extend.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/FacebookShareDialog.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/View.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/City.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js" type="text/javascript"></script>
+  <script src="<?=$this->getThemePath()?>/js/v2/FacebookShareDialog.js?1" type="text/javascript"></script>
+  <script src="<?=$this->getThemePath()?>/js/v2/View.js?1" type="text/javascript"></script>
+  <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js?1" type="text/javascript"></script>
+  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js?1" type="text/javascript"></script>
+  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/City.js?1" type="text/javascript"></script>
+  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js?1" type="text/javascript"></script>
 
   <?php Loader::element('footer_required'); ?>
 </body>
