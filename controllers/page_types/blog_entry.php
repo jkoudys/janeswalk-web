@@ -12,5 +12,6 @@
       $this->set('canEdit', is_object(ComposerPage::getByID($c->getCollectionID())));
       $this->set('authorName', ($first_name = $ui->getAttribute('first_name')) ? ("$first_name {$ui->getAttribute('last_name')}") : $ui->getUserObject()->getUserName());
       $this->set('publishDate', $c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL));
+      $this->set('pageType', 'blog');
     }
   }
