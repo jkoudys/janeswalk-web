@@ -175,7 +175,7 @@ window.Janeswalk = {
           $('#progress-panel').find('.active a .status').remove();
           $('#progress-panel .active a i.complete').remove();
           $('#progress-panel').find('.active a').removeClass('complete');
-          $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
+         // $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
           $('#theme-select .alert').removeClass('alert-info').addClass('alert-error');
           $('#progress-panel a[href='+$(this).attr('href')+']').tab('show');
           event.preventDefault();
@@ -183,7 +183,7 @@ window.Janeswalk = {
           $('#progress-panel').find('.active a .status').remove();
           $('#progress-panel .active a i.complete').remove();
           $('#progress-panel').find('.active a').removeClass('complete');
-          $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
+         // $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
           $('#progress-panel a[href='+$(this).attr('href')+']').tab('show');
         }
       }
