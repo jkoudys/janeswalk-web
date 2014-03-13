@@ -8,11 +8,6 @@
   //Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
 
 ?>
-  <script type="text/javascript">
-    var JanesWalkData = {
-      walks: []
-    };
-  </script>
 <?php
 
   foreach($pages as $key => $page) {
@@ -37,13 +32,6 @@
     // Themes
     $initiatives = '[]';
 ?>
-  <script type="text/javascript">
-    JanesWalkData.walks.push({
-      wards: <?= ($wards) ?>,
-      themes: <?= ($themes) ?>,
-      initiatives: <?= ($initiatives) ?>
-    });
-  </script>
   <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk">
     <a href="<?= ($nh->getCollectionURL($page)) ?>">
       <div class="thumbnail">

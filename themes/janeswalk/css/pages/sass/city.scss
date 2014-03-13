@@ -317,6 +317,8 @@
     position: relative;
     margin-bottom: 25px;
     @include transition(margin 120ms ease-in-out);
+    margin-left: 0;
+    margin-right: 19px;
 
     @media (max-width: $media_mobile) {
       margin-bottom: 40px;
@@ -541,13 +543,13 @@
   }
 }
 
-.span3.walk:nth-child(4n+1) {
-  margin-left:0;
+.span4.walk:nth-child(3n) {
+  margin-right: 0;
+}
+.span3.walk:nth-child(4n) {
+  margin-right: 0;
 }
 
-.span4.walk:nth-child(3n+1) {
-  margin-left: 0;
-}
 
 .tags {
   margin-bottom: 0;
