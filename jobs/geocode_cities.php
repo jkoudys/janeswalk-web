@@ -25,7 +25,7 @@ class GeocodeCities extends Job {
     $not = 0;
     echo "Loading city coordinates.. \n";
     foreach($pages as $page) {
-      if(!(trim($page->getAttribute('coordinates'))) || trim($page->getAttribute('coordinates')) === ',' ) {
+      if(!(trim($page->getAttribute('latlng'))) || trim($page->getAttribute('latlng')) === ',' ) {
         $parent = Page::getByID($page->getCollectionParentID());
         $city = "{$page->getCollectionName()}, {$parent->getCollectionName()}";
         $cityLocation = file_get_contents("https://maps.google.com/maps/api/geocode/json?address=".urlencode($city)."&sensor=false&key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM");
@@ -39,6 +39,6 @@ class GeocodeCities extends Job {
         } 
       }
     }
-    return t("$updated cities geocoded, $not cities not updated");
+    return t("$updated cities geocoded, $not cities failed lookup.");
   }
 }
