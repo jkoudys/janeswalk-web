@@ -58,8 +58,8 @@ var CityPageView = PageView.extend({
         this._cards = this._element.find('.walk');
         this._data = JanesWalkData.walks;
         this._resetSelectElements();
-        this._addFilterEvents();
         this._addCreateWalkEvent();
+        this._addFilterEvents();
     },
 
     /**

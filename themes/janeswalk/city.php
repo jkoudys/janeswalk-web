@@ -17,7 +17,7 @@
       </div>
       <div class="o-content">
         <h1>Create a walk</h1>
-        <a href="<?= ($this->url('/login')) ?>" class="btn btn-primary">Login</a> or
+        <a href="<?= ($this->url('/login')) ?>" class="btn btn-primary">Log in</a> or
         <a href="<?= ($this->url('/register')) ?>" class="btn btn-primary">Join</a>
         to create a walk
       </div>
@@ -117,7 +117,7 @@
 
               <?php if (!empty($wards)): ?>
                 <div class="filter clearfix">
-                  <label for="ward">Ward</label>
+                  <label for="ward">Region</label>
                   <div class="options">
                     <select name="ward" id="ward">
                       <option value="*">All</option>
