@@ -110,7 +110,8 @@
 
               // Intiatives
               $initiatives = array();
-              if (true) {
+              // if (true) {
+              if (false) {
                 $initiatives = array(
                   'Open Streets TO',
                   'Walk Toronto',

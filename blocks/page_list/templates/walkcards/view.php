@@ -39,7 +39,7 @@
           ($thumb = $page->getAttribute('thumbnail')) ? "<div class='walkimage' style='background-image:url({$im->getThumbnail($thumb,380,720)->src})' ></div>":'';
         ?>
         <div class="caption">
-          <h4><?= truncate($page->getCollectionName(), 50) ?></h4>
+          <h4><?= Loader::helper('text')->shortText($page->getCollectionName(), 45) ?></h4>
           <?php
             $scheduled = $page->getAttribute('scheduled');
             $slots = (array) $scheduled['slots']; 
@@ -65,12 +65,12 @@
                   $leaders
                 )
               );
-              $names = truncate($names, 75);
+              $names = Loader::helper('text')->shortText($names, 70);
           ?>
             Walk led by <?= ($names) ?>
           <?php } ?>
           </h6>
-          <p><?= truncate($page->getAttribute('shortdescription'), 120) ?></p>
+          <p><?= Loader::helper('text')->shortText($page->getAttribute('shortdescription'), 115) ?></p>
         </div>
         <ul class="inline tags">
           <?php

@@ -105,15 +105,3 @@ class ThemeHelper {
     return $this->attributeIconMap[(string)$handle];
   }
 }
-
-function truncate($str, $len, $stopanywhere = false) {
-  if (strlen($str) > $len) {
-    $str = substr($str, 0, ($len - 3));
-    if ($stopanywhere) {
-      $str .= '...';
-    } else{
-      $str = substr($str, 0, strrpos($str, ' ')) . '...';
-    }
-  }
-  return $str;
-}
