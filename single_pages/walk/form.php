@@ -42,6 +42,16 @@ JanesWalk = {
     }
   }
 };
+<?php if($is_nyc) { ?>
+JanesWalk.form['2014-05-04'] = {
+  timepicker_cfg: {
+    defaultTime: '9:00 AM',
+    step: 180,
+    disableTimeRanges: [ ['12am','8:59am'], ['3:01pm','11:59pm'] ],
+    timeFormat: 'h:i A' 
+  }
+}
+<?php } ?>
 </script>
 
 <div style='display:none' class='pagejson' data-url='<?=$nh->getCollectionURL($c)?>'></div>

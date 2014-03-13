@@ -85,9 +85,18 @@ window.Janeswalk = {
     $('.date-indicate-all, .date-indicate-set').html(now).attr('data-dateselected',nowFormatted);
 
     $('.date-picker').datepicker(JanesWalk.form.datepicker_cfg).on('changeDate', function(e){
+      $('#walk-time').timepicker('remove');
       dateObject = moment(e.date).format('MMMM D, YYYY');
       dateObjectFormatted = moment(e.date).format('YYYY-MM-DD');
       $('.date-indicate-all, .date-indicate-set').html(dateObject).attr('data-dateselected',dateObjectFormatted);
+      debugger;
+      // Special-case any dates that are set
+      // TODO: move to a consisten datetimepicker, or at least not bootstrap datepicker + jquery timepicker
+      if (typeof JanesWalk.form[dateObjectFormatted] !== 'undefined') {
+        $('#walk-time').timepicker(JanesWalk.form[dateObjectFormatted].timepicker_cfg);
+      } else if (typeof JanesWalk.form.timepicker_cfg !== 'undefined') {
+        $('#walk-time').timepicker(JanesWalk.form.timepicker_cfg);
+      }
     });
 
     $('#save-date-set').on('click', function(){
