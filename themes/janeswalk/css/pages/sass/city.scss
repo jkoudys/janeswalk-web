@@ -492,6 +492,7 @@
 
     .filters {
       background-color: #ffe0d1;
+      background-color: #fff;
       border-radius: 6px;
       padding: 10px;
       width: 520px;
@@ -504,6 +505,7 @@
       // width: 570px;
       margin: 0 0 20px;
       border-bottom: 1px solid #D88B66;
+      border: 1px solid #ddd;
 
       div.filter {
         float: left;
@@ -514,6 +516,7 @@
           font-size: 16px;
           line-height: 24px;
           color: #B36038;
+          color: #333;
         }
       }
     }
