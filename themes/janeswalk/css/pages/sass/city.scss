@@ -491,6 +491,10 @@
     }
 
     .filters {
+      background-color: #ffe0d1;
+      border-radius: 6px;
+      padding: 10px;
+      width: 520px;
       // background-color: #F59364;
       // border-radius: 4px;
       // padding: 10px;
@@ -506,6 +510,9 @@
 
         label {
           display: block;
+          font-size: 16px;
+          line-height: 24px;
+          color: #555;
         }
       }
     }
