@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+<table name="atSocialOauth">
+    <field name="avID" type="I" size="10">
+      <KEY></KEY>
+      <DEFAULT value="0"></DEFAULT>
+      <UNSIGNED></UNSIGNED>
+    </field>
+</table>	
+<table name="atSocialOauthValues">
+    <field name="avID" type="I" size="10">
+      <KEY></KEY>
+      <DEFAULT value="0"></DEFAULT>
+      <UNSIGNED></UNSIGNED>
+    </field>			
+    <field name="providerID" type="C" size="25">
+      <KEY></KEY>
+	</field>
+    <field name="identifier" type="C" size="255">
+	  <KEY></KEY>
+	</field>
+    <field name="profileUrl" type="X2"></field>
+    <field name="displayName" type="C" size="255"></field>
+	<field name="sessionData" type="X2"></field>
+	<field name="mixedData" type="X2"></field>
+</table>
+</schema>
