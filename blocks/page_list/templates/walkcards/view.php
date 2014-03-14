@@ -7,6 +7,7 @@
   $show = $_REQUEST['show'];
   //Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
 
+  // Loop over the walks
   foreach($pages as $key => $page) {
     if($key == 9 && $show !== 'all') {
       break;
@@ -19,22 +20,37 @@
       }
     }
 
-    // Test data
-    $wardNames = array();
-    $wardDataStr = '[{"name":"Annex"}]';
-    $wardDataObj = json_decode($wardDataStr, true);
-    foreach ($wardDataObj as $obj) {
-      array_push($wardNames, $obj['name']);
+    // Wards
+    $wards = '[{"name":"Annex"}]';
+    $wards = '["Annex"]';
+    $wards = (array) $page->getAttribute('walk_wards');
+    $wards = json_encode($wards);
+
+    // Themes
+    $themes = array();
+    foreach($page->getAttribute('theme') as $theme) {
+      array_push($themes, $th->getName($theme));
     }
+    $themes = json_encode($themes);
+
+    // Themes
+    $initiatives = '[]';
 ?>
-  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk" data-jw-wards="<?= implode(',', $wardNames) ?>">
+  <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk">
+    <script type="text/javascript">
+      JanesWalkData.walks.push({
+        wards: <?= ($wards) ?>,
+        themes: <?= ($themes) ?>,
+        initiatives: <?= ($initiatives) ?>
+      });
+    </script>
     <a href="<?= ($nh->getCollectionURL($page)) ?>">
       <div class="thumbnail">
         <?=
           ($thumb = $page->getAttribute('thumbnail')) ? "<div class='walkimage' style='background-image:url({$im->getThumbnail($thumb,380,720)->src})' ></div>":'';
         ?>
         <div class="caption">
-          <h4><?= ($page->getCollectionName()) ?></h4>
+          <h4><?= Loader::helper('text')->shortText($page->getCollectionName(), 45) ?></h4>
           <?php
             $scheduled = $page->getAttribute('scheduled');
             $slots = (array) $scheduled['slots']; 
@@ -49,12 +65,23 @@
             }
           ?>
           <h6>
-          <?php if($leaders) { ?>
-            Walk led by <?= implode(', ', array_map(function($mem) { return "{$mem['name-first']} {$mem['name-last']}"; },
-              $leaders )) ?>
+          <?php
+            if($leaders) {
+              $names = implode(
+                ', ',
+                array_map(
+                  function($mem) {
+                    return "{$mem['name-first']} {$mem['name-last']}";
+                  },
+                  $leaders
+                )
+              );
+              $names = Loader::helper('text')->shortText($names, 70);
+          ?>
+            Walk led by <?= ($names) ?>
           <?php } ?>
           </h6>
-          <p><?= ($page->getAttribute('shortdescription')) ?></p>
+          <p><?= Loader::helper('text')->shortText($page->getAttribute('shortdescription'), 115) ?></p>
         </div>
         <ul class="inline tags">
           <?php
