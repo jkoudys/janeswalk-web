@@ -105,7 +105,7 @@
 
               // Themes
               $themeHelper = Loader::helper('theme');
-              $themes = $themeHelper->getAll();
+              $themes = $themeHelper->getAll(true);
               sort($themes);
 
               // Intiatives
@@ -115,6 +115,7 @@
                 '100 in a day',
                 'ROM Walks'
               );
+              $initiatives = array();
           ?>
             <h3>All Walks</h3>
             <!-- <a href="?" class="see-all">See All Walks</a> -->
@@ -151,7 +152,7 @@
 
 
               <?php if (!empty($initiatives)): ?>
-                <div class="filter clearfix" style="display: none;">
+                <div class="filter clearfix">
                   <label for="initiative">Initiative</label>
                   <div class="options">
                     <select name="initiative" id="initiative">

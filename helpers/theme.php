@@ -95,8 +95,17 @@ class ThemeHelper {
     ];
   }
 
-  public function getAll() {
-    return $this->attributeNameMap;
+  public function getAll($tagsOnly = false) {
+    if ($tagsOnly === false) {
+      return $this->attributeNameMap;
+    }
+    $tags = array();
+    foreach ($this->attributeNameMap as $key => $tag) {
+      if (preg_match('/\-/', $key)) {
+        array_push($tags, $tag);
+      }
+    }
+    return $tags;
   }
   public function getName($handle) {
     return $this->attributeNameMap[(string)$handle];

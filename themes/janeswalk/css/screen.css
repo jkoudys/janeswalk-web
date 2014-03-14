@@ -10468,25 +10468,26 @@ section.sponsors {
   padding: 10px;
   width: 520px;
   margin: 0 0 20px;
+  border-bottom: 1px solid #D88B66;
 }
-/* line 507, pages/sass/city.scss */
+/* line 508, pages/sass/city.scss */
 .walk-select .walks-list .filters div.filter {
   float: left;
   width: 260px;
 }
-/* line 511, pages/sass/city.scss */
+/* line 512, pages/sass/city.scss */
 .walk-select .walks-list .filters div.filter label {
   display: block;
   font-size: 16px;
   line-height: 24px;
-  color: #555;
+  color: #B36038;
 }
-/* line 520, pages/sass/city.scss */
+/* line 521, pages/sass/city.scss */
 .walk-select .walks-list .wards {
   margin: 0 0 12px;
   display: none;
 }
-/* line 524, pages/sass/city.scss */
+/* line 525, pages/sass/city.scss */
 .walk-select .walks-list .wards a {
   display: inline-block;
   background: #fff;
@@ -10495,34 +10496,34 @@ section.sponsors {
   color: #111;
   border: 1px dotted #ccc;
 }
-/* line 533, pages/sass/city.scss */
+/* line 534, pages/sass/city.scss */
 .walk-select .walks-list .wards a:hover, .walk-select .walks-list .wards a.active {
   color: #fff;
   border-color: transparent;
   background-color: #ff6600;
 }
-/* line 541, pages/sass/city.scss */
+/* line 542, pages/sass/city.scss */
 .walk-select .walks-list div.empty {
   font-size: 24px;
   line-height: 32px;
   margin: 16px 0 0;
 }
-/* line 547, pages/sass/city.scss */
+/* line 548, pages/sass/city.scss */
 .walk-select .walks-list div.walk.hidden {
   display: none;
 }
 
-/* line 553, pages/sass/city.scss */
+/* line 554, pages/sass/city.scss */
 .span4.walk:nth-child(3n) {
   margin-right: 0;
 }
 
-/* line 556, pages/sass/city.scss */
+/* line 557, pages/sass/city.scss */
 .span3.walk:nth-child(4n) {
   margin-right: 0;
 }
 
-/* line 561, pages/sass/city.scss */
+/* line 562, pages/sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10530,7 +10531,7 @@ section.sponsors {
   width: 100%;
   text-align: center;
 }
-/* line 568, pages/sass/city.scss */
+/* line 569, pages/sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10542,14 +10543,14 @@ section.sponsors {
   height: 20px;
   text-align: right;
 }
-/* line 579, pages/sass/city.scss */
+/* line 580, pages/sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 587, pages/sass/city.scss */
+/* line 588, pages/sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10557,7 +10558,7 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 594, pages/sass/city.scss */
+/* line 595, pages/sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
@@ -10565,29 +10566,29 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 602, pages/sass/city.scss */
+/* line 603, pages/sass/city.scss */
 .city-organizer, .city-organizer a, .city-organizer a i, .city-organizer a:hover {
   color: #333;
 }
-/* line 603, pages/sass/city.scss */
+/* line 604, pages/sass/city.scss */
 .city-organizer h3, .city-organizer h4 {
   color: #fff;
 }
-/* line 605, pages/sass/city.scss */
+/* line 606, pages/sass/city.scss */
 .city-organizer .u-avatar, .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
 @media (max-width: 480px) {
-  /* line 611, pages/sass/city.scss */
+  /* line 612, pages/sass/city.scss */
   .city-organizer .u-avatar {
     width: 76px;
     height: 76px;
     margin: 10px 0 0;
   }
 }
-/* line 620, pages/sass/city.scss */
+/* line 621, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }

@@ -60,6 +60,54 @@ var CityPageView = PageView.extend({
         this._resetSelectElements();
         this._addCreateWalkEvent();
         this._addFilterEvents();
+        this._setThemeCounts();
+    },
+
+    /**
+     * _setThemeCounts
+     * 
+     * @protected
+     * @return    void
+     */
+    _setThemeCounts: function() {
+        var _this = this,
+            count;
+        this._element.find('div.filters select[name="theme"] option').each(
+            function(index, option) {
+                if ($(option).attr('value') !== '*') {
+                    count = 0;
+                    $(_this._data).each(
+                        function(index, data) {
+                            if (jQuery.inArray($(option).attr('value'), data.themes) !== -1) {
+                                ++count;
+                            }
+                        }
+                    );
+                    $(option).text($(option).text() + ' (' + (count) + ')');
+                    if (count === 0) {
+                        $(option).remove();
+                    }
+                }
+            }
+        );
+        this._element.find('div.filters select[name="ward"] option').each(
+            function(index, option) {
+                if ($(option).attr('value') !== '*') {
+                    count = 0;
+                    $(_this._data).each(
+                        function(index, data) {
+                            if (jQuery.inArray($(option).attr('value'), data.wards) !== -1) {
+                                ++count;
+                            }
+                        }
+                    );
+                    $(option).text($(option).text() + ' (' + (count) + ')');
+                    if (count === 0) {
+                        $(option).remove();
+                    }
+                }
+            }
+        );
     },
 
     /**
@@ -162,9 +210,18 @@ var CityPageView = PageView.extend({
         this._element.find('div.filters select').change(
             function(event) {
                 event.preventDefault();
-                _this._ward = _this._element.find('select[name="ward"]').val();
-                _this._theme = _this._element.find('select[name="theme"]').val();
-                _this._initiative = _this._element.find('select[name="initiative"]').val();
+                _this._ward = '*'
+                if (_this._element.find('select[name="ward"]').length > 0) {
+                    _this._ward = _this._element.find('select[name="ward"]').val();
+                }
+                _this._theme = '*'
+                if (_this._element.find('select[name="theme"]').length > 0) {
+                    _this._theme = _this._element.find('select[name="theme"]').val();
+                }
+                _this._initiative = '*'
+                if (_this._element.find('select[name="initiative"]').length > 0) {
+                    _this._initiative = _this._element.find('select[name="initiative"]').val();
+                }
                 _this._filterCards();
             }
         );
