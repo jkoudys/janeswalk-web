@@ -1,21 +1,18 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); 
-$nh = Loader::helper('navigation');
-global $u;
-Loader::model('page_list'); 
 ?>
 <script>
-$(document).ready(function() {
-  $("a.delete").click(function(event) {
-    event.preventDefault();
-    var cid = $(this).data("cid");
-    var url = $(this).attr("href");
-    $.ajax({
-      type: "DELETE",
+  $(document).ready(function() {
+    $("a.delete").click(function(event) {
+      event.preventDefault();
+      var cid = $(this).data("cid");
+      var url = $(this).attr("href");
+      $.ajax({
+        type: "DELETE",
         url: url,
         success: function() { location.reload(); }
+      });
     });
   });
-});
 </script>
 <div id="ccm-profile-wrapper">
   <?php Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
@@ -33,58 +30,82 @@ $(document).ready(function() {
         <?php  } ?>		
       </div>
     </div>
-    <?php if($u->getUserID() == $profile->getUserID()) {
-      $newWalkForm = Page::getByPath("/walk/form"); ?>
-      <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
-        <fieldset class="dropsubmit">
-          <select name="parentCID" onchange="this.form.submit()">
-            <option selected="selected">Submit a Walk to a City</option>
-            <?php
-            $cities = new PageList();
-            $cities->filterByCollectionTypeHandle('city');
-            $cities->sortByName();
-            foreach($cities->get() as $city) {
-            ?>
-            <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
-            <?php } ?>
-          </select> 
-          <input type="submit" value="Go!">
-        </fieldset>
-      </form>
-      <h3>Your Public Walks</h3>
+    <?php if($isProfileOwner) {
+    $newWalkForm = Page::getByPath("/walk/form"); ?>
+    <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
+      <fieldset class="dropsubmit">
+        <select name="parentCID" onchange="this.form.submit()">
+          <option selected="selected">Submit a Walk to a City</option>
+          <?php
+          foreach($cities as $city) {
+          ?>
+          <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
+          <?php } ?>
+        </select> 
+        <input type="submit" value="Go!">
+      </fieldset>
+    </form>
+    <?php
+    if($isCityOrganizer) {
+    ?>
+    <h3>Your <?= t2('City', 'Cities', sizeof($cityWalks)) ?></h3>
+    <?php
+      foreach($cityWalks as $cityWalk) { ?>
+      <h4><a href="<?= $nh->getCollectionURL($cityWalk['city']) ?>"><?= $cityWalk['city']->getCollectionName() ?></a></h4>
       <ul class="walks">
-        <?php
-        $pl = new PageList();
-        $pl->filterByCollectionTypeHandle("walk");
-        $pl->filterByUserID($u->getUserID());
-        $pl->filterByAttribute('exclude_page_list',false);
-        foreach($pl->get() as $page) {
-          echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a><a href='{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}'> <i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
-        }
-        ?>
-      </ul>
-      <?php
-      $pl = new PageList();
-      $pl->filterByCollectionTypeHandle("walk");
-      $pl->filterByUserID($u->getUserID());
-      $pl->filterByAttribute('exclude_page_list',true);
-      $inprogressPages = $pl->get();
-      if(count($inprogressPages) > 0) {
-      ?>
-      <h3>In-Progress Walks</h3>
-      <ul>
-        <?php
-        foreach($inprogressPages as $page) {
-          $latest = Page::getByID($page->getCollectionID());
-          echo "<li>{$latest->getCollectionName()} <a href='{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}'><i class='icon-edit'></i></a></li>";
+<?php
+        foreach($cityWalk['walks'] as $page) { ?>
+        <li>
+          <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
+            <i class='icon-edit' alt='edit'></i>
+          </a>
+          <a href='<?= $nh->getCollectionURL($page) ?>' class='delete' data-cid='<?= $page->getCollectionID() ?>'>
+            <i class='icon-remove' alt='unpublish'></i>
+          </a>
+        </li>
+<?php
         } ?>
       </ul>
-    <?php } ?>
-    <?php }
+<?php
+      }
+    } ?>
+    <h3>Your Public Walks</h3>
+    <ul class="walks">
+      <?php
+      foreach($publicWalks as $page) {
+      ?>
+      <li>
+        <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
+          <i class='icon-edit' alt='edit'></i>
+        </a>
+        <a href='<?= $nh->getCollectionURL($page) ?>' class='delete' data-cid='<?= $page->getCollectionID() ?>'>
+          <i class='icon-remove' alt='unpublish'></i>
+        </a>
+      </li>
+      <?php
+      }
+      ?>
+    </ul>
+    <?php
+    if(count($inProgressWalks) > 0) {
+    ?>
+    <h3>In-Progress Walks</h3>
+    <ul>
+      <?php
+      foreach($inProgressWalks as $page) {
+      $latest = Page::getByID($page->getCollectionID());
+      ?>
+      <li><?= $latest->getCollectionName() ?> <a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'><i class='icon-edit'></i></a></li>
+      <?php
+      } ?>
+    </ul>
+    <?php
+    }
+    }
     $a = new Area('Main'); 
     $a->setAttribute('profile', $profile); 
     $a->setBlockWrapperStart('<div class="ccm-profile-body-item">');
-    $a->setBlockWrapperEnd('</div>');
+      $a->setBlockWrapperEnd('</div>');
     $a->display($c); 
     ?>
   </div>
