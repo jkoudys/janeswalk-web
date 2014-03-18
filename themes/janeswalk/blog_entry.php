@@ -10,7 +10,7 @@ $this->inc('elements/header.php');
       <?php (new Area('Blog Post Header'))->display($c); ?>
       <h1><?= $c->getCollectionName(); ?></h1>
       <p class="description"><?= $c->getCollectionDescription(); ?></p>
-      <?php if($ui) { ?><p class="meta"><?= $authorName ?>, <strong><?= $publishDate ?></strong></p><?php } ?>
+      <p class="meta"><?= $authorName ?>, <strong><?= $publishDate ?></strong></p>
     </header>
 		<div id="body">
       <article>
