@@ -34,14 +34,25 @@ JanesWalk = {
       },
       <?php if($is_nyc) { ?>
         startDate: new Date("May 3, 2014"),
-        endDate: new Date("May 4, 2014")
+        endDate: new Date("May 4, 2014"),
       <?php } else { ?>
         startDate: new Date("May 2, 2014"),
-        endDate: new Date("May 4, 2014")
+        endDate: new Date("May 4, 2014"),
       <?php } ?> 
+      defaultDate: new Date("May 3, 2014")
     }
   }
 };
+<?php if($is_nyc) { ?>
+JanesWalk.form['2014-05-04'] = {
+  timepicker_cfg: {
+    defaultTime: '9:00 AM',
+    step: 180,
+    disableTimeRanges: [ ['12am','8:59am'], ['2:59pm','3:01pm'], ['9:01pm','11:59pm'] ],
+    timeFormat: 'h:i A' 
+  }
+}
+<?php } ?>
 </script>
 
 <div style='display:none' class='pagejson' data-url='<?=$nh->getCollectionURL($c)?>'></div>
@@ -228,19 +239,21 @@ JanesWalk = {
             <div class="row-fluid">
               <div class="span6">
                 <fieldset>
-                  <legend>Nature</legend>
-                  <label class="checkbox"><input type="checkbox" name="theme-nature-naturelover">  The Nature Lover</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-nature-greenthumb">  The Green Thumb</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-nature-petlover">  The Pet Lover</label>
+                  <legend>Community</legend>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-activist">  Activism</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-truecitizen">  Citizenry</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-goodneighbour">  Community</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-writer">  Storytelling</label>
                 </fieldset>
               </div>
 
               <div class="span6">
                 <fieldset>
-                  <legend>Urban Planning</legend>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-suburbanexplorer">  The Suburban Explorer</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-architecturalenthusiast">  The Architectural Enthusiast</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-moversandshakers">  The Movers &amp; Shakers (Transportation)</label>
+                  <legend>City-building</legend>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-architecturalenthusiast">  Architecture</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-aesthete">  Design</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-suburbanexplorer">  Suburbs</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-moversandshakers">  Transportation</label>
                 </fieldset>
               </div>
             </div>
@@ -251,24 +264,53 @@ JanesWalk = {
               <div class="span6">
 
                 <fieldset>
-                  <legend>Culture</legend>
+                  <legend>Society</legend>
 
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-historybuff">  The History Buff</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  The Artist</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-aesthete">  The Aesthete</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-bookworm">  The Bookworm</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-foodie">  The Foodie</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-nightowl">  The Night Owl</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-techie">  The Techie</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-writer">  The Writer</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-gender">  Gender</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-health">  Health</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-historybuff">  Heritage</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-nativeissues">  Native Issues</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-religion">  Religion</label>
                 </fieldset>
               </div>
               <div class="span6">
                 <fieldset>
-                  <legend>Civic Engagement</legend>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-activist">  The Activist</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-truecitizen">  The True Citizen</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-goodneighbour">  The Good Neighbour</label>
+                  <legend>Expression</legend>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  Art</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-film">  Film</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-bookworm">   Literature</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-music">   Music</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-play">   Play</label>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="row-fluid">
+              <div class="span6">
+
+                <fieldset>
+                  <legend>The Natural World</legend>
+
+                  <label class="checkbox"><input type="checkbox" name="theme-nature-petlover">  Animals</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-nature-greenthumb">  Gardening</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-nature-naturelover">   Nature</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-water">   Water</label>
+                </fieldset>
+              </div>
+              <div class="span6">
+
+                <fieldset>
+                  <legend>Modernity</legend>
+
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-international">  International Issues</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-military">  Military</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-commerce">  Commerce</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-nightowl">  Night Life</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-techie">  Technology</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-sports">  Sports</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-foodie">  Food</label>
                 </fieldset>
               </div>
             </div>

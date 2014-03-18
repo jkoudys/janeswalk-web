@@ -1,26 +1,26 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied.");
-$dh = Loader::helper('concrete/dashboard');
-$im = Loader::helper('image');
 $this->inc('elements/header.php'); 
-$headImage = $c->getAttribute("main_image");
-$ui = UserInfo::getByID($c->getCollectionUserID());
 ?>
 	
-<body class="blog <?=($dh->canRead()) ? "logged_in" : ""; ?>">
+<body class="<?= $pageType ?><?php $isLoggedIn and print " logged_in" ?>">
 <?php $this->inc('elements/navbar.php'); ?>
 	<div id="central">
-    <header <?= is_object($headImage) ? "style='background-image:url({$headImage->getURL()})'" : "" ?>>
+    <header <?php $headImage and print "style='background-image:url({$headImage->src})'" ?>>
       <i class="backfade"></i>
       <?php (new Area('Blog Post Header'))->display($c); ?>
-      <h1><?=$c->getCollectionName(); ?></h1>
-      <p class="description"><?=$c->getCollectionDescription(); ?></p>
-      <?php if($ui) { ?><p class="meta"><?= ($first_name = $ui->getAttribute('first_name')) ? ("$first_name {$ui->getAttribute('last_name')}") : $ui->getUserObject()->getUserName()?>, <strong><?= $c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL)?></strong></p>	<?php } ?>
+      <h1><?= $c->getCollectionName(); ?></h1>
+      <p class="description"><?= $c->getCollectionDescription(); ?></p>
+      <?php if($ui) { ?><p class="meta"><?= $authorName ?>, <strong><?= $publishDate ?></strong></p><?php } ?>
     </header>
 		<div id="body">
       <article>
-				<?php 
-        if (is_object(ComposerPage::getByID($c->getCollectionID()))) { echo "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}' style='margin-bottom:1em;display:block'><i class='icon-edit-sign'></i> edit</a>"; }
-        (new Area('Main'))->display($c); ?>
+<?php
+if ($canEdit) { ?>
+        <a href='<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>' style='margin-bottom:1em;display:block'><i class='icon-edit-sign'></i> edit</a>
+<?php
+}
+(new Area('Main'))->display($c);
+?>
       </article>
       <div class="well" style="clear: both;">
         <div id="disqus_thread"></div>

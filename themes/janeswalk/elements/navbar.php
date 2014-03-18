@@ -35,7 +35,7 @@ $ui = UserInfo::getByID($u->getUserID());
           } else {
         ?>
           <li><a href="<?= ($this->url('/register')) ?>" class="">Join</a></li>
-          <li><a href="<?= ($this->url('/login')) ?>" class="">Login</a></li>
+          <li><a href="<?= ($this->url('/login')) ?>" class="">Log in</a></li>
         <?php
           }
         ?>

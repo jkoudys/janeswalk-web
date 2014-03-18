@@ -3,7 +3,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
 $dh = Loader::helper('concrete/dashboard');
 $this->inc('elements/header.php'); ?>
 
-<body class="full <?php echo ($dh->canRead()) ? "logged_in" : ""; ?> <?php echo $c->isEditMode() ? "c5-edit" : "" ?>">
+<body class="full<?php $dh->canRead() and print ' logged_in'; $c->isEditMode() and print ' c5-edit' ?>" data-pageViewName='PageView'>
   <?php $this->inc('elements/navbar.php'); ?>
   <div id="central" class="no-sidebar">
     <div id="body">	

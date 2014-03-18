@@ -79,15 +79,22 @@ window.Janeswalk = {
 
     // Date Picker
 
-    var now = moment().format('MMMM D, YYYY');
-    var nowFormatted = moment().format('YYYY-MM-DD');
+    var defaultDate = moment(JanesWalk.form.datepicker_cfg.defaultDate).format('MMMM D, YYYY');
 
-    $('.date-indicate-all, .date-indicate-set').html(now).attr('data-dateselected',nowFormatted);
+    $('.date-indicate-all, .date-indicate-set').html(defaultDate).attr('data-dateselected',JanesWalk.form.datepicker_cfg.defaultDate);
 
     $('.date-picker').datepicker(JanesWalk.form.datepicker_cfg).on('changeDate', function(e){
+      $('#walk-time').timepicker('remove');
       dateObject = moment(e.date).format('MMMM D, YYYY');
       dateObjectFormatted = moment(e.date).format('YYYY-MM-DD');
       $('.date-indicate-all, .date-indicate-set').html(dateObject).attr('data-dateselected',dateObjectFormatted);
+      // Special-case any dates that are set
+      // TODO: move to a consisten datetimepicker, or at least not bootstrap datepicker + jquery timepicker
+      if (typeof JanesWalk.form[dateObjectFormatted] !== 'undefined') {
+        $('#walk-time').timepicker(JanesWalk.form[dateObjectFormatted].timepicker_cfg);
+      } else if (typeof JanesWalk.form.timepicker_cfg !== 'undefined') {
+        $('#walk-time').timepicker(JanesWalk.form.timepicker_cfg);
+      }
     });
 
     $('#save-date-set').on('click', function(){
@@ -175,7 +182,7 @@ window.Janeswalk = {
           $('#progress-panel').find('.active a .status').remove();
           $('#progress-panel .active a i.complete').remove();
           $('#progress-panel').find('.active a').removeClass('complete');
-          $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
+         // $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
           $('#theme-select .alert').removeClass('alert-info').addClass('alert-error');
           $('#progress-panel a[href='+$(this).attr('href')+']').tab('show');
           event.preventDefault();
@@ -183,7 +190,7 @@ window.Janeswalk = {
           $('#progress-panel').find('.active a .status').remove();
           $('#progress-panel .active a i.complete').remove();
           $('#progress-panel').find('.active a').removeClass('complete');
-          $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
+         // $('#progress-panel').find('.active a').append(' <i class="icon-warning-sign warning status"></i>').addClass('error');
           $('#progress-panel a[href='+$(this).attr('href')+']').tab('show');
         }
       }

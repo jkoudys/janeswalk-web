@@ -5,9 +5,9 @@
 ?>
 <?php $this->inc('elements/header.php'); ?>
 <body
-  class="city-page <?=($dh->canRead()) ? "logged_in" : ""?>"
+  class="city-page<?php $dh->canRead() and print " logged_in" ?>"
   data-pageViewName="CityPageView"
-  <?= is_object($fullbg) ? "style='background-image:url(" . $fullbg->getURL() . ")'" : "" ?>>
+  <?php $fullbg and print "style='background-image:url({$fullbg->getURL()})'" ?>>
   <?php
     $this->inc('elements/navbar.php');
   ?>
@@ -17,7 +17,7 @@
       </div>
       <div class="o-content">
         <h1>Create a walk</h1>
-        <a href="<?= ($this->url('/login')) ?>" class="btn btn-primary">Login</a> or
+        <a href="<?= ($this->url('/login')) ?>" class="btn btn-primary">Log in</a> or
         <a href="<?= ($this->url('/register')) ?>" class="btn btn-primary">Join</a>
         to create a walk
       </div>
@@ -89,22 +89,86 @@
         <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
           <?php
             if($show === 'all') {
+
+              // Wards
+              $wards = array();
+              $wardObjects = $c->getAttribute('city_wards');
+              if ($wardObjects !== false) {
+                foreach ($wardObjects->getOptions() as $ward) {
+                  $val = $ward->value;
+                  // $pieces = preg_split('/Ward\ [0-9]+\ /', $val);
+                  // $val = array_pop($pieces);
+                  $wards[] = $val;
+                }
+              }
+              sort($wards);
+
+              // Themes
+              $themeHelper = Loader::helper('theme');
+              $themes = $themeHelper->getAll(true);
+              sort($themes);
+
+              // Intiatives
+              $initiatives = array(
+                'Open Streets TO',
+                'Walk Toronto',
+                '100 in a day',
+                'ROM Walks'
+              );
+              $initiatives = array();
           ?>
             <h3>All Walks</h3>
-            <a href="?" class="see-all">See All Walks</a>
-            <div class="wards" style="display: none;">
-              <?php
-                $wards = $c->getAttribute('city_wards');
-                foreach ($wards->getOptions() as $ward):
-              ?>
-                <a href="#" data-jw-ward="<?= addslashes($ward->value) ?>"><?= ($ward->value) ?></a>
-              <?php
-                endforeach;
-              ?>
+            <!-- <a href="?" class="see-all">See All Walks</a> -->
+            <div class="filters clearfix">
+
+              <?php if (!empty($wards)): ?>
+                <div class="filter clearfix">
+                  <label for="ward">Region</label>
+                  <div class="options">
+                    <select name="ward" id="ward">
+                      <option value="*">All</option>
+                      <?php foreach ($wards as $ward): ?>
+                        <option value="<?= ($ward) ?>"><?= ($ward) ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+
+              <?php if (!empty($themes)): ?>
+                <div class="filter clearfix">
+                  <label for="theme">Theme</label>
+                  <div class="options">
+                    <select name="theme" id="theme">
+                      <option value="*">All</option>
+                      <?php foreach ($themes as $theme): ?>
+                        <option value="<?= ($theme) ?>"><?= ($theme) ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+
+              <?php if (!empty($initiatives)): ?>
+                <div class="filter clearfix">
+                  <label for="initiative">Initiative</label>
+                  <div class="options">
+                    <select name="initiative" id="initiative">
+                      <option value="*">All</option>
+                      <?php foreach ($initiatives as $initiative): ?>
+                        <option value="<?= ($initiative) ?>"><?= ($initiative) ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              <?php endif; ?>
+
             </div>
             <div class="empty hidden">
               No walks found<br />
-              Try another region
+              Try another region or theme
             </div>
           <?php
             } else {
@@ -115,6 +179,11 @@
           <?php
             }
           ?>
+          <script type="text/javascript">
+            var JanesWalkData = {
+              walks: []
+            };
+          </script>
           <div class="row-fluid">
             <?php (new Area('Walk List'))->display($c); ?>
           </div>
