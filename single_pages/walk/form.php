@@ -363,7 +363,7 @@ JanesWalk = {
           <legend >Pick one of the following:</legend>
           <div class="row-fluid">
             <ul class="thumbnails" id="block-select">
-              <?php if(!in_array($city->getCollectionID(), [235, 276])) { ?>
+              <?php if(false && !in_array($city->getCollectionID(), [235, 276])) { ?>
               <li class="span6">
                 <a href="#time-and-date-all" data-toggle="tab">
                   <div class="thumbnail">
@@ -384,7 +384,7 @@ JanesWalk = {
                     <img src="<?=$this->getThemePath();?>/img/time-and-date-some.png" />
                     <div class="caption">
                       <div class="text-center">
-                        <h4>Scheduled</h4>
+                        <h4>Pick Your Date</h4>
                       </div>
                       <p>Set specific dates and times that this walk is happening.</p>
                     </div>
