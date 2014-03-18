@@ -94,7 +94,7 @@ var mapOptions = {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     backgroundColor:"#90c2ff"
 }
-var map = new google.maps.Map(document.getElementById('#map_canvas'), mapOptions);
+var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 map.mapTypes.set("map_style", style);
 map.setMapTypeId("map_style");
 function WorldMap() {
