@@ -20,18 +20,17 @@ $pages = $pl->get();
 <?php
 
 // Hexcodes to pseudorandomly assign to each city
-$colors = ['#f16725'];
 $cities = [];
 foreach($pages as $page) {
   $parent = Page::getByID($page->getCollectionParentID());
   $page_owner = UserInfo::getByID($page->getCollectionUserID());
-  $city = t($page->getCollectionName().", ".$parent->getCollectionName());
+  $city = t($city_name = $page->getCollectionName().", ". $country_name = $parent->getCollectionName());
   $latlng = array_map( function($e) { return (float)trim($e); }, explode(',', $page->getAttribute('latlng')));
-  $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$page->getCollectionName()} Walks</a>".(($page_owner->getUserID() > 1 && $page_owner->getAttribute('first_name')) ? "<br/>{$page_owner->getAttribute('first_name')}, City Organizer" : false);
-  $cities[] = ['country' => $parent->getCollectionName(),
-    'city_organizer' => $page_owner->getAttribute('first_name') . ' ' . $page_owner->getAttribute('last_name'),
+  $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$city_name} Walks</a>".(($page_owner->getUserID() > 1 && $first_name = $page_owner->getAttribute('first_name')) ? "<br/>{$first_name}, City Organizer" : false);
+  $cities[] = ['country' => $country_name,
+    'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
     'name' => $city,
-    'color' => $colors[ord($city) % sizeof($city)],
+    'color' => '#f16725',
     'info' => $info,
     'lat' => $latlng[0],
     'lng' => $latlng[1]];
@@ -95,22 +94,22 @@ var mapOptions = {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     backgroundColor:"#90c2ff"
 }
-var map = new google.maps.Map(document.querySelector('#map_canvas'), mapOptions);
+var map = new google.maps.Map(document.getElementById('#map_canvas'), mapOptions);
 map.mapTypes.set("map_style", style);
 map.setMapTypeId("map_style");
 function WorldMap() {
   var _this = this;
-  for(i in cities) {
+  for(var i = 0; i < cities.length; i++) {
     var marker = new google.maps.Marker({
       map: map,
-        position: new google.maps.LatLng( cities[i].lat, cities[i].lng ),
+      position: new google.maps.LatLng( cities[i].lat, cities[i].lng ),
       icon: {
         path: google.maps.SymbolPath.CIRCLE,
-          fillOpacity: 0.6,
-          fillColor: cities[i].color,
-          scale: 6,
-          strokeWeight:0,
-          zIndex: 10 
+        fillOpacity: 0.6,
+        fillColor: cities[i].color,
+        scale: 6,
+        strokeWeight:0,
+        zIndex: 10 
       }
     });
     marker.infowindow = new google.maps.InfoWindow({
