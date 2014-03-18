@@ -6,11 +6,14 @@
     public function on_start() {
       $method = $_SERVER['REQUEST_METHOD'];
       $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
+      $c = Page::getCurrentPage();
+      $cp = new Permissions($c);
 
       switch ($method) {
         // The 'publish' for an event
         case 'POST':
           try {
+            $cp->canWrite() or die("Cannot update walk.");
             $this->setJson($_REQUEST['json'], true);
             $this->setEventBrite('live');
           } catch(Exception $e) {
@@ -23,6 +26,7 @@
         // 'save'
         case 'PUT':
           try {
+            $cp->canWrite() or die("Cannot update walk.");
             parse_str(file_get_contents("php://input"),$put_vars);
             $this->setJson($put_vars['json']);
             $this->setEventBrite();
@@ -35,6 +39,7 @@
           break;
         // Retrieve the page's json
         case 'GET':
+          $cp->canRead() or die("Cannot read walk.");
           if($_REQUEST['format'] == 'json') {
             header('Content-Type: application/json');
             echo $this->getJson();
@@ -47,7 +52,7 @@
           break;
         // 'unpublish' the event (true deletes done through dashboard controller, not walk)
         case 'DELETE':
-          $c = Page::getCurrentPage();
+          $cp->canWrite() or die("Cannot unpublish walk.");
           $c->setAttribute('exclude_page_list',true);
           $this->setEventBriteStatus('draft');
           exit;
