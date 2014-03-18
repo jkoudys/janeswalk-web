@@ -1,4 +1,4 @@
-<?php 
+<?php  defined('C5_EXECUTE') or die(_("Access Denied."));
   global $u; global $cp;
   $this->inc('elements/header.php');
 ?>
