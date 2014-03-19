@@ -95,17 +95,28 @@ class ThemeHelper {
     ];
   }
 
-  public function getAll($tagsOnly = false) {
-    if ($tagsOnly === false) {
+  public function getAll($type = 'all') {
+    if ($type === 'all') {
       return $this->attributeNameMap;
     }
-    $tags = array();
-    foreach ($this->attributeNameMap as $key => $tag) {
-      if (preg_match('/\-/', $key)) {
-        array_push($tags, $tag);
+    if ($type === 'tags') {
+      $tags = array();
+      foreach ($this->attributeNameMap as $key => $tag) {
+        if (preg_match('/\-/', $key)) {
+          array_push($tags, $tag);
+        }
       }
+      return $tags;
     }
-    return $tags;
+    if ($type === 'accessibilities') {
+      $accessibilities = array();
+      foreach ($this->attributeNameMap as $key => $accessibility) {
+        if (!preg_match('/\-/', $key)) {
+          array_push($accessibilities, $accessibility);
+        }
+      }
+      return $accessibilities;
+    }
   }
   public function getName($handle) {
     return $this->attributeNameMap[(string)$handle];
