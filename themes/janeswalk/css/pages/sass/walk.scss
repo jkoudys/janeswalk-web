@@ -2,6 +2,12 @@
 
 .walk-page {
 
+  blockquote { 
+    width:auto;
+    float:none;
+    margin-left:0;
+}
+
 
   header.navbar {
     @media (max-width: $media_mobile) {
