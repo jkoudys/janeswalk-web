@@ -166,7 +166,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     // Thumbnail
     $thumb = $page->getAttribute('thumbnail');
     $cardData['cardBg'] = $thumb ? $im->getThumbnail($thumb,380,720)->src : null;
-    $cardData['placeholder'] = 'placeholder' . ord($page->getCollectionName()) % 3;
+    $cardData['placeholder'] = 'placeholder' . $page->getCollectionID() % 3;
     return $cardData;
   }
 

@@ -11831,26 +11831,29 @@ ul.ccm-staff-list .u-avatar {
   margin-right: 15px;
   background-size: cover;
 }
-/* line 158, pages/sass/view.scss */
-ul.ccm-staff-list .u-avatar.placeholder0 {
-  background-color: #f16725;
-}
 /* line 159, pages/sass/view.scss */
-ul.ccm-staff-list .u-avatar.placeholder1 {
-  background-color: #6badfd;
-}
-/* line 160, pages/sass/view.scss */
-ul.ccm-staff-list .u-avatar.placeholder2 {
-  background-color: #666666;
-}
-/* line 162, pages/sass/view.scss */
 ul.ccm-staff-list .u-avatar, ul.ccm-staff-list .ccm-staff-list-details {
   display: inline-block;
   vertical-align: top;
 }
-/* line 166, pages/sass/view.scss */
+/* line 163, pages/sass/view.scss */
 ul.ccm-staff-list .ccm-staff-list-details {
   width: 85%;
+}
+
+/* line 165, pages/sass/view.scss */
+.placeholder0 {
+  background-color: #f16725;
+}
+
+/* line 166, pages/sass/view.scss */
+.placeholder1 {
+  background-color: #6badfd;
+}
+
+/* line 167, pages/sass/view.scss */
+.placeholder2 {
+  background-color: #666666;
 }
 
 /* line 169, pages/sass/view.scss */
