@@ -605,8 +605,8 @@ var JaneswalkData = {
   },
 
   mapPopulate: function(jwMap) {
-    if (typeof(this.data.map) != "undefined"){
-      if (typeof(this.data.map.markers) != "undefined"){
+    if (this.data.map && typeof(this.data.map) != "undefined"){
+      if (this.data.map.markers && typeof(this.data.map.markers) != "undefined"){
         $.each(this.data.map.markers, function(key, marker){
           if(marker.lat && marker.lng) {
             if (marker.style == 'meeting'){
@@ -617,7 +617,7 @@ var JaneswalkData = {
           }
         });
       }
-      if (typeof(this.data.map.route) != "undefined"){
+      if (this.data.map && typeof(this.data.map.route) != "undefined"){
         $.each(this.data.map.route, function(key, point){
           jwMap.addlines(null, point.title, point.lat, point.lng);
         });

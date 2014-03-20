@@ -405,7 +405,7 @@ var JaneswalkMapEditor = Class.extend({
     this.poly.binder = new MVCArrayBinder(this.poly.getPath());
   },
 
-  deleteMarkerButton: function() {
+  deleteMarkerButton: function(marker) {
     var _this = this;
     google.maps.event.addListenerOnce(_this.infowindow, 'domready', function(){ 
       google.maps.event.addDomListener(document.getElementById('delete-marker'), 'click', function () {
