@@ -121,6 +121,12 @@
                 );
               }
 
+              // Ward semantics
+              $wardName = 'Region';
+              if ($c->getCollectionName() === 'Toronto') {
+                $wardName = 'Ward';
+              }
+
               // Dates
               $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
           ?>
@@ -130,7 +136,7 @@
 
               <?php if (!empty($wards)): ?>
                 <div class="filter clearfix">
-                  <label for="ward">Region</label>
+                  <label for="ward"><?= ($wardName) ?></label>
                   <div class="options">
                     <select name="ward" id="ward">
                       <option value="*">All</option>

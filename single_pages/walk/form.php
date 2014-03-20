@@ -571,12 +571,14 @@ JanesWalk.form['2014-05-04'] = {
               <label class="checkbox"><input type="checkbox" name="accessible-dogs">  Dogs welcome</label>
               <label class="checkbox"><input type="checkbox" name="accessible-strollers">  Strollers welcome</label>
               <label class="checkbox"><input type="checkbox" name="accessible-bicycles">  Bicycles welcome</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-steephills">  Steep hills</label>
             </div>
             <div class="span6">
-              <label class="checkbox"><input type="checkbox" name="accessible-steephills">  Steep hills</label>
               <label class="checkbox"><input type="checkbox" name="accessible-uneven">  Wear sensible shoes (uneven terrain)</label>
               <label class="checkbox"><input type="checkbox" name="accessible-busy">  Busy sidewalks</label> 
               <label class="checkbox"><input type="checkbox" name="accessible-bicyclesonly">  Bicycles only</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-lowlight">  Low light or nighttime</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-seniors">  Senior Friendly</label>
             </div>
           </div>
         </fieldset>
