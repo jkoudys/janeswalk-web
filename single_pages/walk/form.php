@@ -701,6 +701,17 @@ JanesWalk.form['2014-05-04'] = {
                   </div>
                 </div>
               </div>  
+
+              <div class="prompt">
+                <hr />
+                <label>In need of volunteers?</label>
+                From helping you carry props to answering
+                questions about the festival and more, there are loads of
+                enthusiastic volunteers hoping to lend you a helping hand!<br /><br />
+                <a href="https://jfrolick.typeform.com/to/n5H8nL" target="_blank">Follow this link</a>
+                and the Project Office will match you up with volunteers as per
+                your request!
+              </div>
             </div>
           </div>
         </fieldset>
