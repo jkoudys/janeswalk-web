@@ -1,5 +1,5 @@
 <?php
-$importArray = json_decode(file_get_contents('/home/jkoudys/Work/janeswalk_yearround/tools/walkexport.json'), true);
+$importArray = json_decode(file_get_contents(__DIR__ . '/walkexport.json'), true);
 foreach($importArray as $walk) {
   $pl = new PageList();
   $pl->filterByCollectionTypeHandle('country');
@@ -18,7 +18,7 @@ foreach($importArray as $walk) {
   }
   $ui = UserInfo::getByEmail($walk['owner']);
   if(!$ui) {
-    $ui = UserInfo::add(['uName' => $walk['owner'], 'uEmail' => $walk['owner']);
+    $ui = UserInfo::add(['uName' => $walk['owner'], 'uEmail' => $walk['owner']]);
   }
 
   $walkPage = $city->add(CollectionType::getByHandle('walk'), ['cName' => $walk['title'], 'uID' => $ui->getUserID()]);
