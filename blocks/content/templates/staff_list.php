@@ -4,7 +4,7 @@ Loader::model('user_list');
 $av = Loader::helper('concrete/avatar');
 $ul = new UserList();
 $ul->filterByGroup('Staff');
-$ul->sortBy('uName');
+$ul->sortBy('ak_order','asc');
 $content = $controller->getContent();
 print $content;
 ?>
