@@ -495,7 +495,7 @@
       background-color: #fff;
       border-radius: 6px;
       padding: 10px;
-      width: 520px;
+      width: 780px;
       // background-color: #F59364;
       // border-radius: 4px;
       // padding: 10px;
@@ -506,6 +506,11 @@
       margin: 0 0 20px;
       border-bottom: 1px solid #D88B66;
       border: 1px solid #ddd;
+
+      @media (max-width: $media_mobile) {
+        margin: 0;
+        display: none;
+      }
 
       div.filter {
         float: left;

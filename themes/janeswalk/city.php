@@ -105,17 +105,24 @@
 
               // Themes
               $themeHelper = Loader::helper('theme');
-              $themes = $themeHelper->getAll(true);
+              $themes = $themeHelper->getAll('tags');
               sort($themes);
 
+              // Accessibility
+              $themeHelper = Loader::helper('theme');
+              $accessibilities = $themeHelper->getAll('accessibilities');
+              sort($accessibilities);
+
               // Intiatives
-              $initiatives = array(
-                'Open Streets TO',
-                'Walk Toronto',
-                '100 in a day',
-                'ROM Walks'
-              );
-              $initiatives = array();
+              if ($c->getCollectionName() === 'Toronto') {
+                $initiatives = array(
+                  'Open Streets TO',
+                  '100 In 1 Day'
+                );
+              }
+
+              // Dates
+              $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
           ?>
             <h3>All Walks</h3>
             <!-- <a href="?" class="see-all">See All Walks</a> -->
@@ -151,6 +158,21 @@
               <?php endif; ?>
 
 
+              <?php if (!empty($accessibilities)): ?>
+                <div class="filter clearfix">
+                  <label for="accessibility">Accessibility</label>
+                  <div class="options">
+                    <select name="accessibility" id="accessibility">
+                      <option value="*">All</option>
+                      <?php foreach ($accessibilities as $accessibility): ?>
+                        <option value="<?= ($accessibility) ?>"><?= ($accessibility) ?></option>
+                      <?php endforeach; ?>
+                    </select>
+                  </div>
+                </div>
+              <?php endif; ?>
+
+
               <?php if (!empty($initiatives)): ?>
                 <div class="filter clearfix">
                   <label for="initiative">Initiative</label>
@@ -165,6 +187,20 @@
                 </div>
               <?php endif; ?>
 
+
+              <div class="filter clearfix">
+                <label for="date">Day</label>
+                <div class="options">
+                  <select name="date" id="date">
+                    <option value="*">All</option>
+                    <?php foreach ($dates as $date): ?>
+                      <option value="<?= ($date) ?>"><?= ($date) ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+              </div>
+
+
             </div>
             <div class="empty hidden">
               No walks found<br />
@@ -173,7 +209,7 @@
           <?php
             } else {
           ?>
-            <h3>Featured Walks</h3>
+            <h3>Shuffled Walks</h3>
             <a href="?show=all" class="see-all">see all walks</a>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
           <?php

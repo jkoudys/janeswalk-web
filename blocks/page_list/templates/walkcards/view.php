@@ -21,8 +21,6 @@
     }
 
     // Wards
-    $wards = '[{"name":"Annex"}]';
-    $wards = '["Annex"]';
     $wards = (array) $page->getAttribute('walk_wards');
     $wards = json_encode($wards);
 
@@ -33,15 +31,43 @@
     }
     $themes = json_encode($themes);
 
-    // Themes
-    $initiatives = '[]';
+    // Accessibilities
+    $accessibilities = array();
+    foreach($page->getAttribute('accessible') as $accessibility) {
+      array_push($accessibilities, $th->getName($accessibility));
+    }
+    $accessibilities = json_encode($accessibilities);
+
+    // Initiatives
+    $initiatives = array();
+    $initiativeObjects = $page->getAttribute('walk_initiatives');
+    if ($initiativeObjects !== false) {
+      foreach ($initiativeObjects->getOptions() as $initiative) {
+        $val = $initiative->value;
+        $initiatives[] = $val;
+      }
+    }
+    sort($initiatives);
+    $initiatives = json_encode($initiatives);
+
+    // Dates
+    $dates = array();
+    $scheduled = $page->getAttribute('scheduled');
+    $slots = (array) $scheduled['slots']; 
+    if(isset($slots[0]['date'])) {
+      $dates = array($slots[0]['date']);
+    }
+    $dates = json_encode($dates);
+
 ?>
   <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk">
     <script type="text/javascript">
       JanesWalkData.walks.push({
         wards: <?= ($wards) ?>,
         themes: <?= ($themes) ?>,
-        initiatives: <?= ($initiatives) ?>
+        accessibilities: <?= ($accessibilities) ?>,
+        initiatives: <?= ($initiatives) ?>,
+        dates: <?= ($dates) ?>
       });
     </script>
     <a href="<?= ($nh->getCollectionURL($page)) ?>">

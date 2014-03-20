@@ -7,6 +7,14 @@
 var CityPageView = PageView.extend({
 
     /**
+     * _accessibility
+     * 
+     * @protected
+     * @var       String|null (default: null)
+     */
+    _accessibility: null,
+
+    /**
      * _cards
      * 
      * @protected
@@ -21,6 +29,14 @@ var CityPageView = PageView.extend({
      * @var       Array|null (default: null)
      */
     _data: null,
+
+    /**
+     * _date
+     * 
+     * @protected
+     * @var       Array|null (default: null)
+     */
+    _date: null,
 
     /**
      * _initiative
@@ -90,6 +106,24 @@ var CityPageView = PageView.extend({
                 }
             }
         );
+        this._element.find('div.filters select[name="accessibility"] option').each(
+            function(index, option) {
+                if ($(option).attr('value') !== '*') {
+                    count = 0;
+                    $(_this._data).each(
+                        function(index, data) {
+                            if (jQuery.inArray($(option).attr('value'), data.accessibilities) !== -1) {
+                                ++count;
+                            }
+                        }
+                    );
+                    $(option).text($(option).text() + ' (' + (count) + ')');
+                    if (count === 0) {
+                        $(option).remove();
+                    }
+                }
+            }
+        );
         this._element.find('div.filters select[name="ward"] option').each(
             function(index, option) {
                 if ($(option).attr('value') !== '*') {
@@ -97,6 +131,42 @@ var CityPageView = PageView.extend({
                     $(_this._data).each(
                         function(index, data) {
                             if (jQuery.inArray($(option).attr('value'), data.wards) !== -1) {
+                                ++count;
+                            }
+                        }
+                    );
+                    $(option).text($(option).text() + ' (' + (count) + ')');
+                    if (count === 0) {
+                        $(option).remove();
+                    }
+                }
+            }
+        );
+        this._element.find('div.filters select[name="initiative"] option').each(
+            function(index, option) {
+                if ($(option).attr('value') !== '*') {
+                    count = 0;
+                    $(_this._data).each(
+                        function(index, data) {
+                            if (jQuery.inArray($(option).attr('value'), data.initiatives) !== -1) {
+                                ++count;
+                            }
+                        }
+                    );
+                    $(option).text($(option).text() + ' (' + (count) + ')');
+                    if (count === 0) {
+                        $(option).remove();
+                    }
+                }
+            }
+        );
+        this._element.find('div.filters select[name="date"] option').each(
+            function(index, option) {
+                if ($(option).attr('value') !== '*') {
+                    count = 0;
+                    $(_this._data).each(
+                        function(index, data) {
+                            if (jQuery.inArray($(option).attr('value'), data.dates) !== -1) {
                                 ++count;
                             }
                         }
@@ -176,10 +246,26 @@ var CityPageView = PageView.extend({
                     show = false
                 }
 
+                // accessibilities
+                if (
+                    jQuery.inArray(_this._accessibility, data.accessibilities) === -1
+                    && _this._accessibility !== '*'
+                ) {
+                    show = false
+                }
+
                 // initiatives
                 if (
                     jQuery.inArray(_this._initiative, data.initiatives) === -1
                     && _this._initiative !== '*'
+                ) {
+                    show = false
+                }
+
+                // dates
+                if (
+                    jQuery.inArray(_this._date, data.dates) === -1
+                    && _this._date !== '*'
                 ) {
                     show = false
                 }
@@ -210,17 +296,25 @@ var CityPageView = PageView.extend({
         this._element.find('div.filters select').change(
             function(event) {
                 event.preventDefault();
-                _this._ward = '*'
+                _this._ward = '*';
                 if (_this._element.find('select[name="ward"]').length > 0) {
                     _this._ward = _this._element.find('select[name="ward"]').val();
                 }
-                _this._theme = '*'
+                _this._theme = '*';
                 if (_this._element.find('select[name="theme"]').length > 0) {
                     _this._theme = _this._element.find('select[name="theme"]').val();
                 }
-                _this._initiative = '*'
+                _this._accessibility = '*';
+                if (_this._element.find('select[name="accessibility"]').length > 0) {
+                    _this._accessibility = _this._element.find('select[name="accessibility"]').val();
+                }
+                _this._initiative = '*';
                 if (_this._element.find('select[name="initiative"]').length > 0) {
                     _this._initiative = _this._element.find('select[name="initiative"]').val();
+                }
+                _this._date = '*';
+                if (_this._element.find('select[name="date"]').length > 0) {
+                    _this._date = _this._element.find('select[name="date"]').val();
                 }
                 _this._filterCards();
             }
