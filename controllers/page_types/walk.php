@@ -6,8 +6,7 @@
     public function on_start() {
       $method = $_SERVER['REQUEST_METHOD'];
       $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
-      $c = Page::getCurrentPage();
-      $cp = new Permissions($c);
+      $cp = new Permissions($this->c);
 
       switch ($method) {
         // The 'publish' for an event
@@ -53,7 +52,7 @@
         // 'unpublish' the event (true deletes done through dashboard controller, not walk)
         case 'DELETE':
           $cp->canWrite() or die("Cannot unpublish walk.");
-          $c->setAttribute('exclude_page_list',true);
+          $this->c->setAttribute('exclude_page_list',true);
           $this->setEventBriteStatus('draft');
           exit;
           break;
@@ -61,8 +60,7 @@
     }
     public function setEventBriteStatus($status='draft') {
       if(CONCRETE5_ENV === 'prod') {
-        $c = Page::getCurrentPage();
-        $eid = $c->getAttribute("eventbrite");
+        $eid = $this->c->getAttribute("eventbrite");
         if($eid) {
           $eb_client = new Eventbrite( array('app_key'=>'2ECDDYBC2I72R376TV', 'user_key'=>'136300279154938082283'));
           $event_params = array( 'status' => $status, 'id' => $eid );
@@ -71,7 +69,7 @@
           }catch( Exception $e ){
             // application-specific error handling goes here
             $response = $e->error;
-            Log::addEntry('EventBrite Error updating status for cID='.$c->getCollectionID().': ' . $e->getMessage());
+            Log::addEntry('EventBrite Error updating status for cID='.$this->c->getCollectionID().': ' . $e->getMessage());
           }
         }
       }
@@ -81,7 +79,7 @@
     }
     public function setEventBrite($status = null) {
       if(CONCRETE5_ENV === 'prod') {
-        $c = Page::getCurrentPage();
+        $c = $this->c;
         $c = Page::getByID($c->getCollectionID()); // Refresh to fix a c5 quirk; todo: try deleting this after c5.7 update
         $parent = Page::getByID($c->getCollectionParentID());
         $timezone = $parent->getAttribute("timezone");
@@ -163,7 +161,7 @@
     public function getJson() {
       $fh = Loader::helper('file');
       $im = Loader::helper('image');
-      $c = Page::getCurrentPage();
+      $c = $this->c;
       $thumbnail = $c->getAttribute("thumbnail");
       $walkData = ["title" => $c->getCollectionName(), 
         "shortdescription" => $c->getAttribute("shortdescription"),
@@ -182,7 +180,7 @@
 
         /* Checkboxes */
         foreach(['theme', 'accessible'] as $akHandle) {
-          foreach( $c->getAttribute($akHandle) as $av ) {
+          foreach( (array) $c->getAttribute($akHandle) as $av ) {
             $walkData['checkboxes'][$akHandle . "-" . $av] = true;
           }
         }
@@ -191,7 +189,7 @@
 
     public function setJson($json, $publish = false) {
       $postArray = json_decode($json);
-      $c = Page::getCurrentPage();
+      $c = $this->c;
       if( isset($c) ) {
         if( empty($postArray->title) ) {
           throw new Exception("Walk title cannot be empty.");
@@ -242,7 +240,7 @@
 
     public function getKml() {
       $fh = Loader::helper('file');
-      $c = Page::getCurrentPage();
+      $c = $this->c;
       $walkMap = json_decode($c->getAttribute("gmap"));
       // Creates the Document.
       $dom = new DOMDocument('1.0', 'UTF-8');
@@ -370,6 +368,7 @@
       $this->set('team', $team);
       $this->set('walk_leaders', array_filter($team, function($mem) { return strpos($mem['type'], 'leader') !== false; }));
       $this->set('city', Page::getByID($c->getCollectionParentID()));
+      $this->set('thumb)', $c->getAttribute("thumbnail") );
     }
     
     public function isPut() {
