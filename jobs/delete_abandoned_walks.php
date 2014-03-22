@@ -20,11 +20,10 @@ class DeleteAbandonedWalks extends Job {
     $pl = new PageList();
     $pl->filterByCollectionTypeHandle('walk');
     $pl->filterByName('', true);
-    $trash = Page::getByPath(TRASH_PAGE_PATH);
     $pages = $pl->get();
     $pagecount = sizeof($pages);
     foreach($pages as $page) {
-      $page->move($trash);
+      $page->moveToTrash();
     }
     return "$pagecount " . t2('page','pages',$pagecount) . ' moved to the trash';
   }
