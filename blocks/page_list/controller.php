@@ -119,7 +119,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       )
     );
     // Wards
-    $cardData['wards'] = (array) $page->getAttribute('walk_wards');
+    if ($page->getAttribute('walk_wards') === false) {
+      $cardData['wards'] = json_encode(array());
+    } else {
+      $cardData['wards'] = (array) $page->getAttribute('walk_wards');
+      $cardData['wards'] = json_encode($cardData['wards']);
+    }
 
     // Themes
     $themes = array();
