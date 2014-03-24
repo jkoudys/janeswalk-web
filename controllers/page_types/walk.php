@@ -5,19 +5,19 @@
 
     public function on_start() {
       $method = $_SERVER['REQUEST_METHOD'];
-      $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
+      $request = split('/', substr(@$_SERVER['PATH_INFO'], 1));
       $cp = new Permissions($this->c);
 
       switch ($method) {
         // The 'publish' for an event
         case 'POST':
           try {
-            $cp->canWrite() or die("Cannot update walk.");
+            $cp->canWrite() or die('Cannot update walk.');
             $this->setJson($_REQUEST['json'], true);
             $this->setEventBrite('live');
           } catch(Exception $e) {
-            Log::addEntry('Walk error on POST: '  . $e->getMessage());
-            echo "Error publishing walk: " . $e->getMessage();
+            Log::addEntry('Walk error on POST: ', $e->getMessage());
+            echo 'Error publishing walk: ', $e->getMessage();
             http_response_code(500);
           }
           exit;
@@ -25,20 +25,20 @@
         // 'save'
         case 'PUT':
           try {
-            $cp->canWrite() or die("Cannot update walk.");
-            parse_str(file_get_contents("php://input"),$put_vars);
+            $cp->canWrite() or die('Cannot update walk.');
+            parse_str(file_get_contents('php://input'),$put_vars);
             $this->setJson($put_vars['json']);
             $this->setEventBrite();
           } catch(Exception $e) {
-            Log::addEntry('Walk error on PUT: '  . $e->getMessage());
-            echo "Error saving walk: " . $e->getMessage();
+            Log::addEntry('Walk error on PUT: ', $e->getMessage());
+            echo "Error saving walk: ", $e->getMessage();
             http_response_code(500);
           }
           exit;
           break;
         // Retrieve the page's json
         case 'GET':
-          $cp->canRead() or die("Cannot read walk.");
+          $cp->canRead() or die('Cannot read walk.');
           if($_REQUEST['format'] == 'json') {
             header('Content-Type: application/json');
             echo $this->getJson();
@@ -51,7 +51,7 @@
           break;
         // 'unpublish' the event (true deletes done through dashboard controller, not walk)
         case 'DELETE':
-          $cp->canWrite() or die("Cannot unpublish walk.");
+          $cp->canWrite() or die('Cannot unpublish walk.');
           $this->c->setAttribute('exclude_page_list',true);
           $this->setEventBriteStatus('draft');
           exit;
@@ -162,26 +162,26 @@
       $fh = Loader::helper('file');
       $im = Loader::helper('image');
       $c = $this->c;
-      $thumbnail = $c->getAttribute("thumbnail");
-      $walkData = ["title" => $c->getCollectionName(), 
-        "shortdescription" => $c->getAttribute("shortdescription"),
-        "longdescription" => $c->getAttribute("longdescription"),
-        "accessible-info" => $c->getAttribute("accessible_info"),
-        "accessible-transit" => $c->getAttribute("accessible_transit"),
-        "accessible-parking" => $c->getAttribute("accessible_parking"),
-        "accessible-find" => $c->getAttribute("accessible_find"),
-        "map" => json_decode($c->getAttribute("gmap")),
-        "team" => json_decode($c->getAttribute("team")),
-        "time" => $c->getAttribute("scheduled"),
-        "thumbnail_id" => ($thumbnail ? $thumbnail->getFileID() : null),
-        "thumbnail_url" => $thumbnail ? $im->getThumbnail($thumbnail, 340,720)->src : null,
-        "wards" => $c->getAttribute("walk_wards"),
-        "ticket" => $resp ];
+      $thumbnail = $c->getAttribute('thumbnail');
+      $walkData = ['title' => $c->getCollectionName(), 
+        'shortdescription' => $c->getAttribute('shortdescription'),
+        'longdescription' => $c->getAttribute('longdescription'),
+        'accessible-info' => $c->getAttribute('accessible_info'),
+        'accessible-transit' => $c->getAttribute('accessible_transit'),
+        'accessible-parking' => $c->getAttribute('accessible_parking'),
+        'accessible-find' => $c->getAttribute('accessible_find'),
+        'map' => json_decode($c->getAttribute('gmap')),
+        'team' => json_decode($c->getAttribute('team')),
+        'time' => $c->getAttribute('scheduled'),
+        'thumbnail_id' => ($thumbnail ? $thumbnail->getFileID() : null),
+        'thumbnail_url' => $thumbnail ? $im->getThumbnail($thumbnail, 340,720)->src : null,
+        'wards' => $c->getAttribute('walk_wards'),
+        'ticket' => $resp ];
 
         /* Checkboxes */
         foreach(['theme', 'accessible'] as $akHandle) {
           foreach( (array) $c->getAttribute($akHandle) as $av ) {
-            $walkData['checkboxes'][$akHandle . "-" . $av] = true;
+            $walkData['checkboxes']["{$akHandle}-{$av}"] = true;
           }
         }
         return json_encode($walkData);
@@ -192,41 +192,38 @@
       $c = $this->c;
       if( isset($c) ) {
         if( empty($postArray->title) ) {
-          throw new Exception("Walk title cannot be empty.");
+          throw new Exception('Walk title cannot be empty.');
           return;
         }
         $currentCollectionVersion = $c->getVersionObject();
         $newCollectionVersion = $currentCollectionVersion->createNew('Updated via walk form');
         $c->loadVersionObject($newCollectionVersion->getVersionID());
 
-        $data = array("cName" => $postArray->title);
+        $data = array('cName' => $postArray->title);
         $c->update($data);
-        $c->setAttribute("shortdescription", $postArray->shortdescription);
-        $c->setAttribute("longdescription", $postArray->longdescription);
-        $c->setAttribute("accessible_info",$postArray->{'accessible-info'});
-        $c->setAttribute("accessible_transit",$postArray->{'accessible-transit'});
-        $c->setAttribute("accessible_parking",$postArray->{'accessible-parking'});
-        $c->setAttribute("accessible_find", $postArray->{'accessible-find'});
-        $c->setAttribute("walk_wards", $postArray->{'wards'});
-        $c->setAttribute("scheduled", $postArray->time);
+        $c->setAttribute('shortdescription', $postArray->shortdescription);
+        $c->setAttribute('longdescription', $postArray->longdescription);
+        $c->setAttribute('accessible_info',$postArray->{'accessible-info'});
+        $c->setAttribute('accessible_transit',$postArray->{'accessible-transit'});
+        $c->setAttribute('accessible_parking',$postArray->{'accessible-parking'});
+        $c->setAttribute('accessible_find', $postArray->{'accessible-find'});
+        $c->setAttribute('walk_wards', $postArray->{'wards'});
+        $c->setAttribute('scheduled', $postArray->time);
 
         // Don't bother saving completely empty maps, since it's usually done in error
         if(sizeof((array)$postArray->map->markers) + sizeof((array)$postArray->map->route)) {
-          $c->setAttribute("gmap", json_encode($postArray->map));
+          $c->setAttribute('gmap', json_encode($postArray->map));
         }
-        $c->setAttribute("team", json_encode($postArray->team));
+        $c->setAttribute('team', json_encode($postArray->team));
         if($postArray->thumbnail_id && File::getByID($postArray->thumbnail_id)) {
-          $c->setAttribute("thumbnail", File::getByID($postArray->thumbnail_id));
+          $c->setAttribute('thumbnail', File::getByID($postArray->thumbnail_id));
         }
 
         /* Go through checkboxes */
-        $checkboxes = array();
-        foreach(['theme', 'accessible'] as $akHandle) {
-          $checkboxes[$akHandle] = array();
-        }
+        $checkboxes = ['theme' => [], 'accessible' => []];
         foreach($postArray->checkboxes as $key => $checked) {
-          $selectAttribute = strtok($key, "-");
-          $selectValue = strtok("");
+          $selectAttribute = strtok($key, '-');
+          $selectValue = strtok('');
           if($checked) {
             array_push($checkboxes[$selectAttribute], $selectValue);
           }
@@ -370,7 +367,7 @@
       $this->set('city', Page::getByID($c->getCollectionParentID()));
       $this->set('thumb)', $c->getAttribute("thumbnail") );
     }
-    
+   
     public function isPut() {
       return $_SERVER['REQUEST_METHOD'] == 'PUT';
     }
