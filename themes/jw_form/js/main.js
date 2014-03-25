@@ -408,9 +408,7 @@ var JaneswalkData = {
       });
 
       // Wards
-      $('#wards .ward > input:checked').each(function(k,v) {
-        self.dataSet.wards = $(this).attr('value');
-      });
+        self.dataSet.wards = $("#ward").val();
     }
 
     if (step === 2 || step === false){
