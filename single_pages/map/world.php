@@ -26,7 +26,7 @@ foreach($pages as $page) {
   $page_owner = UserInfo::getByID($page->getCollectionUserID());
   $city = t($city_name = $page->getCollectionName().", ". $country_name = $parent->getCollectionName());
   $latlng = array_map( function($e) { return (float)trim($e); }, explode(',', $page->getAttribute('latlng')));
-  $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$city_name} Walks</a>".(($page_owner->getUserID() > 1 && $first_name = $page_owner->getAttribute('first_name')) ? "<br/>{$first_name}, City Organizer" : false);
+  $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$city_name} Walks</a>".(($page_owner->getUserID() > 1 && $page_owner->getAttribute('first_name') !== 'There\'s no City Organizer here' && $first_name = $page_owner->getAttribute('first_name')) ? "<br/>{$first_name}, City Organizer" : false);
   $cities[] = ['country' => $country_name,
     'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
     'name' => $city,
