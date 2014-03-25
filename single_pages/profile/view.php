@@ -30,50 +30,26 @@
         <?php  } ?>		
       </div>
     </div>
-    <?php if($isProfileOwner) {
-    $newWalkForm = Page::getByPath("/walk/form"); ?>
-    <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
-      <fieldset class="dropsubmit">
-        <select name="parentCID" onchange="this.form.submit()">
-          <option selected="selected">Submit a Walk to a City</option>
-          <?php
-          foreach($cities as $city) {
-          ?>
-          <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
-          <?php } ?>
-        </select> 
-        <input type="submit" value="Go!">
-      </fieldset>
-    </form>
-    <?php
-    if($isCityOrganizer) {
-    ?>
+<?php 
+          if($isProfileOwner) {
+            if($home_city) {
+              $newWalkForm = Page::getByPath("/walk/form"); ?>
+    <h3>
+      <a href="<?= $nh->getCollectionURL($newWalkForm) ?>?parentCID=<?= $home_city->getCollectionID() ?>">
+        Create a new walk in <?= $home_city->getCollectionName() ?>
+      </a>
+    </h3>
+<?php
+            }
+            if($isCityOrganizer) {
+?>
     <h3>Your <?= t2('City', 'Cities', sizeof($cityWalks)) ?></h3>
-    <?php
-      foreach($cityWalks as $cityWalk) { ?>
-      <h4><a href="<?= $nh->getCollectionURL($cityWalk['city']) ?>"><?= $cityWalk['city']->getCollectionName() ?></a></h4>
-      <ul class="walks">
 <?php
-        foreach($cityWalk['walks'] as $page) { ?>
-        <li>
-          <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
-            <i class='icon-edit' alt='edit'></i>
-          </a>
-          <a href='<?= $nh->getCollectionURL($page) ?>' class='delete' data-cid='<?= $page->getCollectionID() ?>'>
-            <i class='icon-remove' alt='unpublish'></i>
-          </a>
-        </li>
-<?php
-        } ?>
-      </ul>
-<?php
-      }
-    } ?>
-    <h3>Your Public Walks</h3>
+              foreach($cityWalks as $cityWalk) { ?>
+    <h4><a href="<?= $nh->getCollectionURL($cityWalk['city']) ?>"><?= $cityWalk['city']->getCollectionName() ?></a></h4>
     <ul class="walks">
-      <?php
-      foreach($publicWalks as $page) {
-      ?>
+<?php
+                foreach($cityWalk['walks'] as $page) { ?>
       <li>
         <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
           <i class='icon-edit' alt='edit'></i>
@@ -82,26 +58,45 @@
           <i class='icon-remove' alt='unpublish'></i>
         </a>
       </li>
-      <?php
-      }
-      ?>
+<?php
+                } ?>
     </ul>
-    <?php
-    if(count($inProgressWalks) > 0) {
-    ?>
+<?php
+              }
+            } ?>
+    <h3>Your Public Walks</h3>
+    <ul class="walks">
+<?php
+              foreach($publicWalks as $page) {
+?>
+      <li>
+        <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
+          <i class='icon-edit' alt='edit'></i>
+        </a>
+        <a href='<?= $nh->getCollectionURL($page) ?>' class='delete' data-cid='<?= $page->getCollectionID() ?>'>
+          <i class='icon-remove' alt='unpublish'></i>
+        </a>
+      </li>
+<?php
+              }
+?>
+    </ul>
+<?php
+            if(count($inProgressWalks) > 0) {
+?>
     <h3>In-Progress Walks</h3>
     <ul>
-      <?php
-      foreach($inProgressWalks as $page) {
-      $latest = Page::getByID($page->getCollectionID());
-      ?>
+<?php
+              foreach($inProgressWalks as $page) {
+                $latest = Page::getByID($page->getCollectionID());
+?>
       <li><?= $latest->getCollectionName() ?> <a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'><i class='icon-edit'></i></a></li>
-      <?php
-      } ?>
+<?php
+              } ?>
     </ul>
-    <?php
-    }
-    }
+<?php
+            }
+          }
     $a = new Area('Main'); 
     $a->setAttribute('profile', $profile); 
     $a->setBlockWrapperStart('<div class="ccm-profile-body-item">');
