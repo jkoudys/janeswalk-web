@@ -149,9 +149,11 @@ JanesWalk.form['2014-05-04'] = {
               <div class="item">
                 <label for="wards">Sub-locality</label>
                 <div class="alert alert-info">Choose a specific neighbourhood or area where your walk will take place.</div>
-                <?php foreach($wards as $ward) { ?>
-                  <label class="ward"><input type="radio" name="ward" <?= $ward->selected ? 'checked' : '' ?> value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></input></label>
+                <select id="ward" name="ward">
+                  <?php foreach($wards as $ward) { ?>
+                  <option <?= $ward->selected ? 'selected' : '' ?> value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></option>
                 <?php } ?>
+                </select>
               </div>
             </fieldset>
             <?php } ?>
