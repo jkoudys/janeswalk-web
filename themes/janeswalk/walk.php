@@ -113,22 +113,22 @@
           <div class="span12">
             <div class="walk-stops-meta box-sizing">
               <header id="header" class="walk-stops-meta-inner">
-              <?php if (isset($slots[0]['duration'])) { ?>
-              <h4><i class="icon-time"></i> Duration:</h4>
-              <h5>
-                Approximately <?=$slots[0]['duration'] ?>
-              </h5>
-              <?php } else { ?>
-              <h4><i class="icon-time"></i> Open Schedule</h4>
-              <?php } ?>
-              <hr>
-              <h4><i class="icon-map-marker"></i> Walk Route</h4>
-              <h5 class="clickdetails">Click locations to see details</h5>
-              <ol>
-                <?php foreach($gmap->markers as $key=>$marker) { ?>
-                  <li class='walk-stop' id='<?=$key?>'><h4><?=$marker->title?></h4></li>
+                <?php if (isset($slots[0]['duration'])) { ?>
+                <h4><i class="icon-time"></i> Duration:</h4>
+                <h5>
+                  Approximately <?= $slots[0]['duration'] ?>
+                </h5>
+                <?php } else { ?>
+                <h4><i class="icon-time"></i> Open Schedule</h4>
                 <?php } ?>
-              </ol>
+                <hr>
+                <h4><i class="icon-map-marker"></i> Walk Route</h4>
+                <h5 class="clickdetails">Click locations to see details</h5>
+                <ol>
+                  <?php foreach($gmap->markers as $key=>$marker) { ?>
+                  <li class='walk-stop' id='<?=$key?>'><h4><?=$marker->title?></h4></li>
+                  <?php } ?>
+                </ol>
               </header>
             </div>
             <div id="map-canvas-wrapper">
@@ -148,7 +148,7 @@
         <div class="span8">
           <div class="clearfix">
             <h3>About This Walk</h3>
-            <?php if( $thumb = $c->getAttribute("thumbnail") ) { ?>
+            <?php if( $thumb ) { ?>
               <a class="thumb" href="<?= ($im->getThumbnail($thumb,1024,1024)->src) ?>">
                 <img src="<?=$im->getThumbnail($thumb,340,720)->src?>" class="pull-right img-polaroid" />
               </a>
@@ -194,7 +194,9 @@
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
-                  <?php if($mem['avatar']) { ?>
+<?php 
+                // TODO: get calgary leaders to show (hidden since Julie updates all walks manually, thus setting herself as the picture
+                if($mem['avatar'] && $city->getCollectionName() !== 'Calgary' ) { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
                   <? } else { ?>
                     <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>

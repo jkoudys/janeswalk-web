@@ -10473,12 +10473,19 @@ section.sponsors {
   border-bottom: 1px solid #D88B66;
   border: 1px solid #ddd;
 }
-/* line 510, pages/sass/city.scss */
+@media (max-width: 480px) {
+  /* line 493, pages/sass/city.scss */
+  .walk-select .walks-list .filters {
+    margin: 0;
+    display: none;
+  }
+}
+/* line 515, pages/sass/city.scss */
 .walk-select .walks-list .filters div.filter {
   float: left;
   width: 260px;
 }
-/* line 514, pages/sass/city.scss */
+/* line 519, pages/sass/city.scss */
 .walk-select .walks-list .filters div.filter label {
   display: block;
   font-size: 16px;
@@ -10486,12 +10493,12 @@ section.sponsors {
   color: #B36038;
   color: #333;
 }
-/* line 524, pages/sass/city.scss */
+/* line 529, pages/sass/city.scss */
 .walk-select .walks-list .wards {
   margin: 0 0 12px;
   display: none;
 }
-/* line 528, pages/sass/city.scss */
+/* line 533, pages/sass/city.scss */
 .walk-select .walks-list .wards a {
   display: inline-block;
   background: #fff;
@@ -10500,34 +10507,34 @@ section.sponsors {
   color: #111;
   border: 1px dotted #ccc;
 }
-/* line 537, pages/sass/city.scss */
+/* line 542, pages/sass/city.scss */
 .walk-select .walks-list .wards a:hover, .walk-select .walks-list .wards a.active {
   color: #fff;
   border-color: transparent;
   background-color: #ff6600;
 }
-/* line 545, pages/sass/city.scss */
+/* line 550, pages/sass/city.scss */
 .walk-select .walks-list div.empty {
   font-size: 24px;
   line-height: 32px;
   margin: 16px 0 0;
 }
-/* line 551, pages/sass/city.scss */
+/* line 556, pages/sass/city.scss */
 .walk-select .walks-list div.walk.hidden {
   display: none;
 }
 
-/* line 557, pages/sass/city.scss */
+/* line 562, pages/sass/city.scss */
 .span4.walk:nth-child(3n) {
   margin-right: 0;
 }
 
-/* line 560, pages/sass/city.scss */
+/* line 565, pages/sass/city.scss */
 .span3.walk:nth-child(4n) {
   margin-right: 0;
 }
 
-/* line 565, pages/sass/city.scss */
+/* line 570, pages/sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10535,7 +10542,7 @@ section.sponsors {
   width: 100%;
   text-align: center;
 }
-/* line 572, pages/sass/city.scss */
+/* line 577, pages/sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10547,14 +10554,14 @@ section.sponsors {
   height: 20px;
   text-align: right;
 }
-/* line 583, pages/sass/city.scss */
+/* line 588, pages/sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 591, pages/sass/city.scss */
+/* line 596, pages/sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10562,7 +10569,7 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 598, pages/sass/city.scss */
+/* line 603, pages/sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
@@ -10570,29 +10577,29 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 606, pages/sass/city.scss */
+/* line 611, pages/sass/city.scss */
 .city-organizer, .city-organizer a, .city-organizer a i, .city-organizer a:hover {
   color: #333;
 }
-/* line 607, pages/sass/city.scss */
+/* line 612, pages/sass/city.scss */
 .city-organizer h3, .city-organizer h4 {
   color: #fff;
 }
-/* line 609, pages/sass/city.scss */
+/* line 614, pages/sass/city.scss */
 .city-organizer .u-avatar, .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
 @media (max-width: 480px) {
-  /* line 615, pages/sass/city.scss */
+  /* line 620, pages/sass/city.scss */
   .city-organizer .u-avatar {
     width: 76px;
     height: 76px;
     margin: 10px 0 0;
   }
 }
-/* line 624, pages/sass/city.scss */
+/* line 629, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }
@@ -11824,26 +11831,29 @@ ul.ccm-staff-list .u-avatar {
   margin-right: 15px;
   background-size: cover;
 }
-/* line 158, pages/sass/view.scss */
-ul.ccm-staff-list .u-avatar.placeholder0 {
-  background-color: #f16725;
-}
 /* line 159, pages/sass/view.scss */
-ul.ccm-staff-list .u-avatar.placeholder1 {
-  background-color: #6badfd;
-}
-/* line 160, pages/sass/view.scss */
-ul.ccm-staff-list .u-avatar.placeholder2 {
-  background-color: #666666;
-}
-/* line 162, pages/sass/view.scss */
 ul.ccm-staff-list .u-avatar, ul.ccm-staff-list .ccm-staff-list-details {
   display: inline-block;
   vertical-align: top;
 }
-/* line 166, pages/sass/view.scss */
+/* line 163, pages/sass/view.scss */
 ul.ccm-staff-list .ccm-staff-list-details {
   width: 85%;
+}
+
+/* line 165, pages/sass/view.scss */
+.placeholder0 {
+  background-color: #f16725;
+}
+
+/* line 166, pages/sass/view.scss */
+.placeholder1 {
+  background-color: #6badfd;
+}
+
+/* line 167, pages/sass/view.scss */
+.placeholder2 {
+  background-color: #666666;
 }
 
 /* line 169, pages/sass/view.scss */

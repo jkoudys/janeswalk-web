@@ -8,43 +8,10 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
     }
     $this->hText = $fulltext;
     $this->hHighlight  = str_replace(array('"',"'","&quot;"),'',$highlight); // strip the quotes as they mess the regex
-    $this->hText = @preg_replace( "#$this->hHighlight#ui", '<mark>$0</span>', $this->hText );
+    $this->hText = @preg_replace( "#$this->hHighlight#ui", '<mark>$0</mark>', $this->hText );
     return $this->hText;
   }
-  public function highlightedExtendedMarkup($fulltext, $highlight) {
-    $text = @preg_replace("#\n|\r#", ' ', $fulltext);
 
-    $matches = array();
-    $highlight = str_replace(array('"',"'","&quot;"),'',$highlight); // strip the quotes as they mess the regex
-
-    if (!$highlight) {
-      $text = Loader::helper('text')->shorten($fulltext, 180);
-      if (strlen($fulltext) > 180) {
-        $text . '&hellip;<wbr>';
-      }
-      return $text;
-    }
-
-    $regex = '([[:alnum:]|\'|\.|_|\s]{0,45})'. preg_quote($highlight, '#') .'([[:alnum:]|\.|_|\s]{0,45})';
-    preg_match_all("#$regex#ui", $text, $matches);
-
-    if(!empty($matches[0])) {
-      $body_length = 0;
-      $body_string = array();
-      foreach($matches[0] as $line) {
-        $body_length += strlen($line);
-
-        $r = $this->highlightedMarkup($line, $highlight);
-        if ($r) {
-          $body_string[] = $r;
-        }
-        if($body_length > 150)
-          break;
-      }
-      if(!empty($body_string))
-        return @implode("&hellip;<wbr>", $body_string);
-    }
-  }
   function do_search() {
     $q = $_REQUEST['query'];
     $_q = $q;
@@ -104,5 +71,27 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
     $this->set('results', $results);
     $this->set('do_search', true);
     $this->set('searchList', $ipl);
+  }
+
+  public function action_resultsJson() {
+    $tt = Loader::helper('text');
+    $this->do_search();
+    $query = $this->get('query');
+    $results = $this->get('results');
+    $return['results'] = array_map(function($r) use($tt, $query) {
+      $ret = [
+        'url' => $r->getPath(),
+        'name' => $r->getName()
+        ];
+      if ($r->getDescription()) {
+        $ret['description'] = $this->highlightedMarkup($tt->shortText($r->getDescription()),$query);
+      }
+      return $ret;
+    }, (array) $results);
+
+    $return['query'] = $this->get('query');
+    $return['paginator'] = $this->get('paginator');
+    echo json_encode($return);
+    exit;
   }
 }

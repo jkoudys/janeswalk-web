@@ -425,7 +425,7 @@ JanesWalk.form['2014-05-04'] = {
               <li class="span6">
                 <a href="#time-and-date-set" data-toggle="tab">
                   <div class="thumbnail">
-                    <img src="<?=$this->getThemePath();?>/img/time-and-date-some.png" />
+                    <img src="<?= ($this->getThemePath()) ?>/img/time-and-date-some.png" />
                     <div class="caption">
                       <div class="text-center">
                         <h4>Pick Your Date</h4>
@@ -573,12 +573,14 @@ JanesWalk.form['2014-05-04'] = {
               <label class="checkbox"><input type="checkbox" name="accessible-dogs">  Dogs welcome</label>
               <label class="checkbox"><input type="checkbox" name="accessible-strollers">  Strollers welcome</label>
               <label class="checkbox"><input type="checkbox" name="accessible-bicycles">  Bicycles welcome</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-steephills">  Steep hills</label>
             </div>
             <div class="span6">
-              <label class="checkbox"><input type="checkbox" name="accessible-steephills">  Steep hills</label>
               <label class="checkbox"><input type="checkbox" name="accessible-uneven">  Wear sensible shoes (uneven terrain)</label>
               <label class="checkbox"><input type="checkbox" name="accessible-busy">  Busy sidewalks</label> 
               <label class="checkbox"><input type="checkbox" name="accessible-bicyclesonly">  Bicycles only</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-lowlight">  Low light or nighttime</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-seniors">  Senior Friendly</label>
             </div>
           </div>
         </fieldset>
@@ -700,7 +702,23 @@ JanesWalk.form['2014-05-04'] = {
                     <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($ui->getAttribute("phone"))?>">
                   </div>
                 </div>
-              </div>  
+              </div>
+              <?php
+                if ($city->getCollectionName() === 'Toronto') {
+              ?>
+                <div class="prompt">
+                  <hr />
+                  <label>In need of volunteers?</label>
+                  From helping you carry props to answering
+                  questions about the festival and more, there are loads of
+                  enthusiastic volunteers hoping to lend you a helping hand!<br /><br />
+                  <a href="https://jfrolick.typeform.com/to/n5H8nL" target="_blank">Follow this link</a>
+                  and the Project Office will match you up with volunteers as per
+                  your request!
+                </div>
+              <?php
+                }
+              ?>
             </div>
           </div>
         </fieldset>

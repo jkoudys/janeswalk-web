@@ -105,6 +105,56 @@ var JaneswalkMapEditor = Class.extend({
       google.maps.event.trigger(_this.markers[_this.markers.length-1], 'click');
     });
 
+    // 
+    function HomeControl(controlDiv, map) {
+
+      // Set CSS styles for the DIV containing the control
+      // Setting padding to 5 px will offset the control
+      // from the edge of the map
+      controlDiv.style.padding = '5px';
+
+      // Set CSS for the control border
+      var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = 'white';
+      controlUI.style.borderStyle = 'solid';
+      controlUI.style.borderWidth = '2px';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Click to set the map to Home';
+      controlDiv.appendChild(controlUI);
+
+      // Set CSS for the control interior
+      var controlText = document.createElement('div');
+      controlText.style.fontFamily = 'Arial,sans-serif';
+      controlText.style.fontSize = '12px';
+      controlText.style.paddingLeft = '4px';
+      controlText.style.paddingRight = '4px';
+      controlText.innerHTML = '<b>Home</b>';
+      controlUI.appendChild(controlText);
+
+      // Setup the click event listeners: simply set the map to
+      // Chicago
+      google.maps.event.addDomListener(controlUI, 'click', function() {
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            var current = (new google.maps.LatLng(
+              position.coords.latitude,
+              position.coords.longitude
+            ));
+            _this.map.setCenter(current);
+          },
+          function(error) {
+          }
+        );
+      });
+    }
+
+    // Create button
+    var homeControlDiv = document.createElement('div'),
+      homeControl = (new HomeControl(homeControlDiv, _this.map));
+    homeControlDiv.index = 1;
+    _this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+
     // Click event to add meeting place
     $('#addmeetingplace').on('click', function() {
       _this.addmeetingplace();
@@ -405,7 +455,7 @@ var JaneswalkMapEditor = Class.extend({
     this.poly.binder = new MVCArrayBinder(this.poly.getPath());
   },
 
-  deleteMarkerButton: function() {
+  deleteMarkerButton: function(marker) {
     var _this = this;
     google.maps.event.addListenerOnce(_this.infowindow, 'domready', function(){ 
       google.maps.event.addDomListener(document.getElementById('delete-marker'), 'click', function () {

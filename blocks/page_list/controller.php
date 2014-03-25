@@ -92,5 +92,87 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     return $pl;
   }
 
+  public function view() {
+    parent::view();
+    $this->set('th', Loader::helper('theme'));
+    $this->set('im', Loader::helper('image'));
+    $this->set('u', new User());
+    $this->set('rssUrl', $showRss ? $controller->getRssUrl($b) : '');
+    $this->set('show', $_REQUEST['show']);
+  }
+
+  /* getCardData()
+   * Loads models needed for a walk card in the view
+   * @returns: array
+   * ex. from view: extract($controller->getCardData());
+   */
+  public function getCardData($page) {
+    $cardData['leaders'] = implode(
+      ', ',
+      array_map(
+        function($mem) {
+          if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
+            return "{$mem['name-first']} {$mem['name-last']}";
+          }
+        },
+        json_decode($page->getAttribute('team'),true)
+      )
+    );
+    // Wards
+    if ($page->getAttribute('walk_wards') === false) {
+      $cardData['wards'] = json_encode(array());
+    } else {
+      $cardData['wards'] = (array) $page->getAttribute('walk_wards');
+      $cardData['wards'] = json_encode($cardData['wards']);
+    }
+
+    // Themes
+    $themes = array();
+    foreach($page->getAttribute('theme') as $theme) {
+      array_push($themes, $this->get('th')->getName($theme));
+    }
+    $cardData['themes'] = json_encode($themes);
+
+    // Accessibilities
+    $accessibilities = array();
+    foreach($page->getAttribute('accessible') as $accessibility) {
+      array_push($accessibilities, $this->get('th')->getName($accessibility));
+    }
+    $cardData['accessibilities'] = json_encode($accessibilities);
+
+    // Initiatives
+    $initiatives = array();
+    $initiativeObjects = $page->getAttribute('walk_initiatives');
+    if ($initiativeObjects !== false) {
+      foreach ($initiativeObjects->getOptions() as $initiative) {
+        $val = $initiative->value;
+        $initiatives[] = $val;
+      }
+    }
+    sort($initiatives);
+    $cardData['initiatives'] = json_encode($initiatives);
+
+    // Dates
+    $dates = array();
+    $scheduled = $page->getAttribute('scheduled');
+    $slots = (array) $scheduled['slots']; 
+    if(isset($slots[0]['date'])) {
+      $dates = array($slots[0]['date']);
+    }
+    $cardData['dates'] = json_encode($dates);
+    if($scheduled['open']) {
+      $cardData['when'] = 'Open schedule';
+    } else if(isset($slots[0]['date'])) {
+      $cardData['when'] = "{$slots[0]['time']}, {$slots[0]['date']}";
+    } else {
+      $cardData['when'] = null;
+    }
+
+    // Thumbnail
+    $thumb = $page->getAttribute('thumbnail');
+    $cardData['cardBg'] = $thumb ? $this->get('im')->getThumbnail($thumb,380,720)->src : null;
+    $cardData['placeholder'] = 'placeholder' . $page->getCollectionID() % 3;
+    return $cardData;
+  }
 
 }

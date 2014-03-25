@@ -507,6 +507,11 @@
       border-bottom: 1px solid #D88B66;
       border: 1px solid #ddd;
 
+      @media (max-width: $media_mobile) {
+        margin: 0;
+        display: none;
+      }
+
       div.filter {
         float: left;
         width: 260px;
