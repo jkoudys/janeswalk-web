@@ -149,6 +149,12 @@ var JaneswalkMapEditor = Class.extend({
       });
     }
 
+    // Create button
+    var homeControlDiv = document.createElement('div'),
+      homeControl = (new HomeControl(homeControlDiv, _this.map));
+    homeControlDiv.index = 1;
+    _this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+
     // Click event to add meeting place
     $('#addmeetingplace').on('click', function() {
       _this.addmeetingplace();
