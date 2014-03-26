@@ -67,6 +67,9 @@
 <?php
                 }
               foreach((array)$cityWalk['inprogress'] as $page) { 
+                // Need to show the latest version
+                $page = Page::getByID( $page->getCollectionID() );
+
                 if($page->getCollectionName()) {?>
       <li>
         <?= $page->getCollectionName() ?>
