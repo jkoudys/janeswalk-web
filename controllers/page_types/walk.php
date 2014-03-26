@@ -315,11 +315,13 @@
 
     public function view() {
       $nh = Loader::helper('navigation');
+      $im = Loader::helper('image');
       $c = $this->getCollectionObject();
 
       $crumbs = $nh->getTrailToCollection($c);
       krsort($crumbs);
 
+      $thumb = $c->getAttribute("thumbnail");
       $team = json_decode($c->getAttribute('team'), true);
       $theme = PageTheme::getByHandle('janeswalk');
       $team = array_map(function($mem) use ($theme) { 
@@ -355,8 +357,11 @@
         return $mem;
       }, (array) $team);
 
+      // Put the preview image for Facebook/Twitter to pick up
+      $this->addHeaderItem("<meta property='og:image' content='{$im->getThumbnail($thumb,340,720)->src}' />");
+
       $this->set('nh', $nh);
-      $this->set('im', Loader::helper('image'));
+      $this->set('im', $im);
       $this->set('dh', Loader::helper('concrete/dashboard'));
       $this->set('th', Loader::helper('theme'));
       $this->set('av', Loader::helper('concrete/avatar'));
@@ -367,7 +372,7 @@
       $this->set('team', $team);
       $this->set('walk_leaders', array_filter($team, function($mem) { return strpos($mem['type'], 'leader') !== false; }));
       $this->set('city', Page::getByID($c->getCollectionParentID()));
-      $this->set('thumb', $c->getAttribute("thumbnail") );
+      $this->set('thumb', $thumb );
     }
    
     public function isPut() {
