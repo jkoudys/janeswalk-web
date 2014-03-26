@@ -6,6 +6,7 @@ class ProfileController extends Concrete5_Controller_Profile {
     Loader::model('page_list'); 
     $nh = Loader::helper('navigation');
     $u = new User();
+    $ui = UserInfo::getByID($u->getUserID());
     $profile = $this->get('profile');
 
     $pl = new PageList();
@@ -47,5 +48,7 @@ class ProfileController extends Concrete5_Controller_Profile {
     $this->set('isCityOrganizer', $isCityOrganizer);
     $this->set('nh',$nh);
     $this->set('u',$u);
+    $this->set('home_city', $ui->getAttribute('home_city'));
+    $this->set('newWalkForm', Page::getByPath('/walk/form'));
   }
 }

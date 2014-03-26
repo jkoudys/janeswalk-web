@@ -32,8 +32,7 @@
     </div>
 <?php 
           if($isProfileOwner) {
-            if($home_city) {
-              $newWalkForm = Page::getByPath("/walk/form"); ?>
+            if($home_city) { ?>
     <h3>
       <a href="<?= $nh->getCollectionURL($newWalkForm) ?>?parentCID=<?= $home_city->getCollectionID() ?>">
         Create a new walk in <?= $home_city->getCollectionName() ?>

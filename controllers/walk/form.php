@@ -12,12 +12,14 @@ class WalkFormController extends Controller {
      * TODO: change this to either redirect, or detect if you have one in-progress so browser reloads don't make new walks.
      */
     $load = $_REQUEST['load'];
-    $c = Page::getByPath($load);
     if(empty($load)) {
-      $city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath("/canada/toronto")));
-      $newPage = $city->add(CollectionType::getByHandle("walk"),[]);  
+      $city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto')));
+      $newPage = $city->add(CollectionType::getByHandle('walk'),[]);  
       $newPage->setAttribute('exclude_page_list',true);
       $c = $newPage;
+    }
+    else {
+      $c = Page::getByPath($load);
     }
     !$city && $city = Page::getByID($c->getCollectionParentID());
     $country = Page::getByID($city->getCollectionParentID());
