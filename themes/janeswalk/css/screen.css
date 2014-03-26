@@ -1,7 +1,6 @@
-@charset "UTF-8";
 @import url("http://fonts.googleapis.com/css?family=Roboto+Slab:400,300,700|Roboto:400,400italic,300,300italic,500,500italic,700italic,700");
 /* to position for various media settings */
-/*!
+/*
  * Bootstrap v2.3.1
  *
  * Copyright 2012 Twitter, Inc
@@ -6353,7 +6352,7 @@ a.badge:focus {
   position: fixed;
 }
 
-/*!
+/*
  * Bootstrap Responsive v2.3.1
  *
  * Copyright 2012 Twitter, Inc
@@ -8225,7 +8224,7 @@ ul.wysihtml5-toolbar div[data-wysihtml5-command-value="orange"] {
   display: none;
 }
 
-/*!
+/*
  * Datepicker for Bootstrap
  *
  * Copyright 2012 Stefan Petre
@@ -9683,7 +9682,7 @@ section.calltoaction a {
   text-align: center;
   font-size: 16px;
   background: #666666;
-  box-shadow: inset 0 -2px 0 #222;
+  box-shadow: inset 0 -2px 0 #222222;
 }
 /* line 479, pages/sass/homepage.scss */
 section.calltoaction a:hover {
@@ -10493,12 +10492,33 @@ section.sponsors {
   color: #B36038;
   color: #333;
 }
-/* line 529, pages/sass/city.scss */
+/* line 531, pages/sass/city.scss */
+.walk-select .walks-list div.initiatives div.initiative {
+  padding: 0 24px 12px 12px;
+  margin: 0 0 12px 12px;
+  border-left: 2px dashed #eee;
+}
+/* line 536, pages/sass/city.scss */
+.walk-select .walks-list div.initiatives div.initiative div.headline {
+  font-size: 16px;
+  font-weight: bold;
+}
+/* line 541, pages/sass/city.scss */
+.walk-select .walks-list div.initiatives div.initiative p {
+  margin: 0;
+}
+/* line 546, pages/sass/city.scss */
+.walk-select .walks-list div.initiatives div.initiative div.subheadline {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 12px 0 0;
+}
+/* line 558, pages/sass/city.scss */
 .walk-select .walks-list .wards {
   margin: 0 0 12px;
   display: none;
 }
-/* line 533, pages/sass/city.scss */
+/* line 562, pages/sass/city.scss */
 .walk-select .walks-list .wards a {
   display: inline-block;
   background: #fff;
@@ -10507,34 +10527,34 @@ section.sponsors {
   color: #111;
   border: 1px dotted #ccc;
 }
-/* line 542, pages/sass/city.scss */
+/* line 571, pages/sass/city.scss */
 .walk-select .walks-list .wards a:hover, .walk-select .walks-list .wards a.active {
   color: #fff;
   border-color: transparent;
   background-color: #ff6600;
 }
-/* line 550, pages/sass/city.scss */
+/* line 579, pages/sass/city.scss */
 .walk-select .walks-list div.empty {
   font-size: 24px;
   line-height: 32px;
   margin: 16px 0 0;
 }
-/* line 556, pages/sass/city.scss */
+/* line 585, pages/sass/city.scss */
 .walk-select .walks-list div.walk.hidden {
   display: none;
 }
 
-/* line 562, pages/sass/city.scss */
+/* line 591, pages/sass/city.scss */
 .span4.walk:nth-child(3n) {
   margin-right: 0;
 }
 
-/* line 565, pages/sass/city.scss */
+/* line 594, pages/sass/city.scss */
 .span3.walk:nth-child(4n) {
   margin-right: 0;
 }
 
-/* line 570, pages/sass/city.scss */
+/* line 599, pages/sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10542,7 +10562,7 @@ section.sponsors {
   width: 100%;
   text-align: center;
 }
-/* line 577, pages/sass/city.scss */
+/* line 606, pages/sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10554,14 +10574,14 @@ section.sponsors {
   height: 20px;
   text-align: right;
 }
-/* line 588, pages/sass/city.scss */
+/* line 617, pages/sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 596, pages/sass/city.scss */
+/* line 625, pages/sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10569,7 +10589,7 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 603, pages/sass/city.scss */
+/* line 632, pages/sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
@@ -10577,29 +10597,29 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 611, pages/sass/city.scss */
+/* line 640, pages/sass/city.scss */
 .city-organizer, .city-organizer a, .city-organizer a i, .city-organizer a:hover {
   color: #333;
 }
-/* line 612, pages/sass/city.scss */
+/* line 641, pages/sass/city.scss */
 .city-organizer h3, .city-organizer h4 {
   color: #fff;
 }
-/* line 614, pages/sass/city.scss */
+/* line 643, pages/sass/city.scss */
 .city-organizer .u-avatar, .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
 @media (max-width: 480px) {
-  /* line 620, pages/sass/city.scss */
+  /* line 649, pages/sass/city.scss */
   .city-organizer .u-avatar {
     width: 76px;
     height: 76px;
     margin: 10px 0 0;
   }
 }
-/* line 629, pages/sass/city.scss */
+/* line 658, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }

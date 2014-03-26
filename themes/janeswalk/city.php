@@ -208,6 +208,43 @@
 
 
             </div>
+
+            <div class="initiatives hidden">
+              <div class="initiative hidden" data-jw-initiative="Open Streets TO">
+                <div class="headline">What is Open Streets TO?</div>
+                <p>
+                  Open Streets TO involves briefly closing Bloor St to vehicle
+                  traffic, and opening it to everyone else for fun, safe, and
+                  free recreational activities. Open Streets programs take place
+                  in cities around the world, usually on Sunday mornings and
+                  typically last for about 6 hours. Participants can bike, run,
+                  rollerblade, hopscotch, do yoga, skateboard, unicycle... you
+                  get the picture.
+                </p>
+                <div class="subheadline">Event dates:</div>
+                <div class="dates">
+                  July 27, 2014<br />
+                  August 3, 2014<br />
+                  August 17, 2014
+                </div>
+              </div>
+              <div class="initiative hidden" data-jw-initiative="100 In 1 Day">
+                <div class="headline">What is 100 In 1 Day?</div>
+                <p>
+                  100 in 1 Day is a citizen-driven festival will unite people
+                  across the city to make Toronto a better place by creating
+                  acts of urban change. These acts, or interventions, have the
+                  potential to raise awareness of urban and social issues,
+                  inspire ideas, and motivate leaders to consider new approaches
+                  to old problems.
+                </p>
+                <div class="subheadline">Event dates:</div>
+                <div class="dates">
+                  June 7, 2014
+                </div>
+              </div>
+            </div>
+
             <div class="empty hidden">
               No walks found<br />
               Try another region or theme
@@ -215,7 +252,7 @@
           <?php
             } else {
           ?>
-            <h3>Shuffled Walks</h3>
+            <h3>Walks</h3>
             <a href="?show=all" class="see-all">see all walks</a>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
           <?php
