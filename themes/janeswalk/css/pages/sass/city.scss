@@ -526,6 +526,35 @@
       }
     }
 
+    div.initiatives {
+
+      div.initiative {
+        padding: 0 24px 12px 12px;
+        margin: 0 0 12px 12px;
+        border-left: 2px dashed #eee;
+
+        div.headline {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        p {
+          // font-size: 12px;
+          margin: 0;
+        }
+
+        div.subheadline {
+          font-size: 14px;
+          font-weight: bold;
+          padding: 12px 0 0;
+        }
+
+        div.dates {
+
+        }
+      }
+    }
+
     .wards {
       margin: 0 0 12px;
       display: none;
