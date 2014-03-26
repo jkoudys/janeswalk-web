@@ -46,7 +46,7 @@
           if( $crumb->getCollectionID() == 1 ) { ?>
           <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
           <?php } else if ($crumb->getCollectionTypeHandle() !== 'country' ) { ?>
-          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?= $crumb->getCollectionName() ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
+          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?= t($crumb->getCollectionName()) ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
         <?php }
         } ?>
         <li class="active"><?=$c->getCollectionName() ?></li>
@@ -57,14 +57,14 @@
       <div class="tag-list">
         <ul class="nav nav-pills">
           <?php foreach((object)$c->getAttribute("theme") as $theme) { ?>
-            <li><div class='icon'><?=$th->getIcon($theme)?></div> <?=$th->getName($theme)?></li>
+            <li><div class='icon'><?=$th->getIcon($theme)?></div> <?= t($th->getName($theme)) ?></li>
           <?php } ?>
         </ul>
       </div>
 
       <div class="row-fluid walk-header">
         <div class="span9">
-          <h1 class="walk-title"><?=$c->getCollectionName()?></h1>
+          <h1 class="walk-title"><?= $c->getCollectionName() ?></h1>
         </div>
 
         <div class="span3 profiles box-sizing">
@@ -73,12 +73,12 @@
               $slots = (Array)$scheduled['slots']; 
               if($scheduled['open']) {
             ?>
-              <h4 class="available-time"><i class="icon-calendar"></i> Open schedule</h4>
+              <h4 class="available-time"><i class="icon-calendar"></i> <?= t('Open schedule') ?></h4>
             <?php
               } else if(isset($slots[0]['date'])) {
             ?>
               <h4 class="available-time">
-                <i class="icon-calendar"></i> Next available day:<br /><span class="highlight"><?=$slots[0]['date']?></span>
+                <i class="icon-calendar"></i> <?= t('Next available day') ?>:<br /><span class="highlight"><?=$slots[0]['date']?></span>
                 <span class="divider">|</span>
                 <span class="time"><?= ($slots[0]['time']) ?></span>
               </h4>
@@ -86,11 +86,11 @@
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {
             ?>
-              <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large">Register For This Walk</a>
+              <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
             <?php
               } else {
             ?>
-              Registration Not Yet Open
+              <?= t('Registration Not Yet Open') ?>
             <?php
               }
             }
@@ -114,16 +114,16 @@
             <div class="walk-stops-meta box-sizing">
               <header id="header" class="walk-stops-meta-inner">
                 <?php if (isset($slots[0]['duration'])) { ?>
-                <h4><i class="icon-time"></i> Duration:</h4>
+                <h4><i class="icon-time"></i> <?= t('Duration') ?>:</h4>
                 <h5>
-                  Approximately <?= $slots[0]['duration'] ?>
+                  <?= t('Approximately') . "  {$slots[0]['duration']}" ?>
                 </h5>
                 <?php } else { ?>
-                <h4><i class="icon-time"></i> Open Schedule</h4>
+                <h4><i class="icon-time"></i> <?= t('Open Schedule') ?></h4>
                 <?php } ?>
                 <hr>
-                <h4><i class="icon-map-marker"></i> Walk Route</h4>
-                <h5 class="clickdetails">Click locations to see details</h5>
+                <h4><i class="icon-map-marker"></i> <?= t('Walk Route') ?></h4>
+                <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
                 <ol>
                   <?php foreach($gmap->markers as $key=>$marker) { ?>
                   <li class='walk-stop' id='<?=$key?>'><h4><?=$marker->title?></h4></li>
@@ -147,7 +147,7 @@
       <div class="row-fluid walk-body">
         <div class="span8">
           <div class="clearfix">
-            <h3>About This Walk</h3>
+            <h3><?= t('About This Walk') ?></h3>
             <?php if( $thumb ) { ?>
               <a class="thumb" href="<?= ($im->getThumbnail($thumb,1024,1024)->src) ?>">
                 <img src="<?=$im->getThumbnail($thumb,340,720)->src?>" class="pull-right img-polaroid" />
@@ -161,7 +161,7 @@
           ?>
             <div class="clearfix walk-stops-list">
               <hr />
-              <h3>Walk Stops</h3>
+              <h3><?= t('Walk Stops') ?></h3>
               <?php
                 $path = $_SERVER['REQUEST_URI'];
                 $url = 'http://janeswalk.org' . ($path);
@@ -188,7 +188,7 @@
 
           <div class="clearfix walk-team">
             <hr>
-            <h3 id="walk-leader-bio">About The Walk Team</h3>
+            <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
 
             <?php foreach($team as $mem) { ?>
             <div class="walk-leader clearfix"> 
@@ -221,7 +221,7 @@
 
           <div class="walk-downloads">
             <hr>
-            <h3>Downloads</h3>
+            <h3><?= t('Downloads') ?></h3>
             <div class="download-list">
               <ul>
               </ul>
@@ -231,8 +231,8 @@
           <div class="walk-aux">
             <hr>
             <div class="share-print">
-              <a href="#" class="share notify printLink"><i class="icon-print"></i> Print this walk</a>
-              <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> Share this walk</a>
+              <a href="#" class="share notify printLink"><i class="icon-print"></i> <?= t('Print this walk') ?></a>
+              <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> <?= t('Share this walk') ?></a>
             </div>
           </div>
 
@@ -247,7 +247,7 @@
             <div class="caption">
               <h3>
                 <i class="icon-calendar"></i> 
-                <a href="<?="http://eventbrite.ca/event/$eid"?>" >Register For This Walk</a>
+                <a href="<?="http://eventbrite.ca/event/$eid"?>" ><?= t('Register For This Walk') ?></a>
                 <p class="select-day"></p>
               </h3>
             </div>
@@ -257,7 +257,7 @@
             <div class="caption">
               <h3>
                 <i class="icon-calendar"></i> 
-                Registration Not Open
+                <?= t('Registration Not Open') ?>
                 <p class="select-day"></p>
               </h3>
             </div>
@@ -309,32 +309,34 @@
 
         <div class="thumbnail accessibility">
           <div class="caption">
-            <h4><i class="icon-accessible"></i> Accessibility</h4>
+            <h4><i class="icon-accessible"></i> <?= t('Accessibility') ?></h4>
             <ul>
-              <?php foreach((object)$c->getAttribute("accessible") as $accessible) { ?><li><?=$th->getName($accessible)?></li><?php } ?>
+              <?php foreach((object)$c->getAttribute("accessible") as $accessible) { ?>
+              <li><?= t($th->getName($accessible)) ?></li>
+              <?php } ?>
             </ul>
             <?php if($accessible_info = trim($c->getAttribute('accessible_info'))) {?>
             <p id="accessibility notes">
-              <?= $accessible_info ?>
+              <?= t($accessible_info) ?>
             </p>
             <?php }
             if($public_transit = trim($c->getAttribute('accessible_transit'))) { ?>
-            <h4><i class="icon-transit"></i> Taking Public Transit</h4>
+            <h4><i class="icon-transit"></i> <?= t('Taking Public Transit') ?></h4>
             <p id="public transit directions">
-              <?= $public_transit ?>
+              <?= t($public_transit) ?>
             </p>
             <?php }
             if($accessible_parking = trim($c->getAttribute("accessible_parking"))) {
             ?>
-            <h4><i class="icon-road"></i> Parking Availability</h4>
+            <h4><i class="icon-road"></i> <?= t('Parking Availability') ?></h4>
             <p id="parking availability">
-              <?= $accessible_parking ?>
+              <?= t($accessible_parking) ?>
             </p>
             <?php }
             if($accessible_find = trim($c->getAttribute("accessible_find"))) { ?>
-            <h4><i class="icon-flag"></i> How to find us</h4>
+            <h4><i class="icon-flag"></i> <?= t('How to find us') ?></h4>
             <p>
-              <?= $accessible_find ?>
+              <?= t($accessible_find) ?>
             </p>
             <? } ?>
           </div>
@@ -344,7 +346,7 @@
       </div>
       <div class="walk-feedback">
         <hr>
-        <h3><i class="icon-comments-alt"></i> Feedback</h3>
+        <h3><i class="icon-comments-alt"></i> <?= t('Feedback') ?></h3>
         <div class="row-fluid">
           <div class="span8">
             <div class="well">
