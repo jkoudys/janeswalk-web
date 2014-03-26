@@ -358,7 +358,7 @@
       }, (array) $team);
 
       // Put the preview image for Facebook/Twitter to pick up
-      $this->addHeaderItem("<meta property='og:image' content='{$im->getThumbnail($thumb,340,720)->src}' />");
+      $this->addHeaderItem('<meta property="og:image" content="' . BASE_URL . $im->getThumbnail($thumb,340,720)->src . '" />');
 
       $this->set('nh', $nh);
       $this->set('im', $im);
