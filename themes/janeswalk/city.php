@@ -215,7 +215,7 @@
           <?php
             } else {
           ?>
-            <h3>Shuffled Walks</h3>
+            <h3>Walks</h3>
             <a href="?show=all" class="see-all">see all walks</a>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
           <?php
