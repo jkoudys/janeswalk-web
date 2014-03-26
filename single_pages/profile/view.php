@@ -61,8 +61,24 @@
                 } ?>
     </ul>
 <?php
+                if($cityWalk['inprogress']) { ?>
+      <h4>In-Progress Walks</h4>
+<ul>
+<?php
+                }
+              foreach($cityWalk['inprogress'] as $page) { ?>
+      <li>
+        <?= $page->getCollectionName() ?>
+        <a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
+          <i class='icon-edit' alt='edit'></i>
+        </a>
+      </li>
+<?php
               }
             } ?>
+    </ul>
+<?php
+          } ?>
     <h3>Your Public Walks</h3>
     <ul class="walks">
 <?php
