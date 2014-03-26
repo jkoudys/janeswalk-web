@@ -40,6 +40,9 @@ class ProfileController extends Concrete5_Controller_Profile {
         $pl->filterByParentID($city->getCollectionID());
         $pl->filterByAttribute('exclude_page_list',false);
         $walks = $pl->get();
+        $pl = new PageList();
+        $pl->filterByCollectionTypeHandle('walk');
+        $pl->filterByParentID($city->getCollectionID());
         $pl->filterByAttribute('exclude_page_list',true);
         $cityWalks[] = ['city' => $city, 'walks' => $walks, 'inprogress' => $pl->get()];
       }
