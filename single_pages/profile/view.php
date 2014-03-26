@@ -44,11 +44,11 @@
 ?>
     <h3>Your <?= t2('City', 'Cities', sizeof($cityWalks)) ?></h3>
 <?php
-              foreach($cityWalks as $cityWalk) { ?>
+              foreach((array) $cityWalks as $cityWalk) { ?>
     <h4><a href="<?= $nh->getCollectionURL($cityWalk['city']) ?>"><?= $cityWalk['city']->getCollectionName() ?></a></h4>
     <ul class="walks">
 <?php
-                foreach($cityWalk['walks'] as $page) { ?>
+                foreach((array) $cityWalk['walks'] as $page) { ?>
       <li>
         <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
           <i class='icon-edit' alt='edit'></i>
@@ -66,7 +66,7 @@
 <ul>
 <?php
                 }
-              foreach($cityWalk['inprogress'] as $page) { ?>
+              foreach((array)$cityWalk['inprogress'] as $page) { ?>
       <li>
         <?= $page->getCollectionName() ?>
         <a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
