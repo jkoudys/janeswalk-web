@@ -66,7 +66,8 @@
 <ul>
 <?php
                 }
-              foreach((array)$cityWalk['inprogress'] as $page) { ?>
+              foreach((array)$cityWalk['inprogress'] as $page) { 
+                if($page->getCollectionName()) {?>
       <li>
         <?= $page->getCollectionName() ?>
         <a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
@@ -74,6 +75,7 @@
         </a>
       </li>
 <?php
+                }
               }
             } ?>
     </ul>
