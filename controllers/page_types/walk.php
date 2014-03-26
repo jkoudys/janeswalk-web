@@ -367,7 +367,7 @@
       $this->set('team', $team);
       $this->set('walk_leaders', array_filter($team, function($mem) { return strpos($mem['type'], 'leader') !== false; }));
       $this->set('city', Page::getByID($c->getCollectionParentID()));
-      $this->set('thumb)', $c->getAttribute("thumbnail") );
+      $this->set('thumb', $c->getAttribute("thumbnail") );
     }
    
     public function isPut() {

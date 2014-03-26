@@ -57,7 +57,7 @@
       <div class="tag-list">
         <ul class="nav nav-pills">
           <?php foreach((object)$c->getAttribute("theme") as $theme) { ?>
-            <li><div class='icon'><?=$th->getIcon($theme)?></div> <?= t($th->getName($theme)) ?></li>
+            <li><div class='icon'><?= $th->getIcon($theme) ?></div> <?= t($th->getName($theme)) ?></li>
           <?php } ?>
         </ul>
       </div>
