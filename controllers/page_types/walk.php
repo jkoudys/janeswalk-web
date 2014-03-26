@@ -181,7 +181,9 @@
         /* Checkboxes */
         foreach(['theme', 'accessible'] as $akHandle) {
           foreach( (array) $c->getAttribute($akHandle) as $av ) {
-            $walkData['checkboxes']["{$akHandle}-{$av}"] = true;
+            foreach((array) $av as $selectAttribute) {
+              if($selectAttribute) { $walkData['checkboxes']["{$akHandle}-{$selectAttribute}"] = true; }
+            }
           }
         }
         return json_encode($walkData);
