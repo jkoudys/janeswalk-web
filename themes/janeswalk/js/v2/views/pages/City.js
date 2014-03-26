@@ -192,6 +192,19 @@ var CityPageView = PageView.extend({
                 $(element).val('*');
             }
         );
+        var _this = this;
+        this._element.find('.initiatives').addClass('hidden');
+        this._element.find('.initiative').addClass('hidden');
+        this._element.find('#initiative').change(
+            function(event) {
+                if ($(this).val() !== '#') {
+                    _this._element.find('.initiatives').removeClass('hidden');
+                    _this._element.find(
+                        '[data-jw-initiative="' + ($(this).val()) + '"]'
+                    ).removeClass('hidden');
+                }
+            }
+        );
     },
 
     /**
