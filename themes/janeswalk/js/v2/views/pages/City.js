@@ -291,7 +291,7 @@ var CityPageView = PageView.extend({
                     jQuery.inArray(_this._ward, data.wards) === -1
                     && _this._ward !== '*'
                 ) {
-                    show = false
+                    show = false;
                 }
 
                 // themes
@@ -299,7 +299,7 @@ var CityPageView = PageView.extend({
                     jQuery.inArray(_this._theme, data.themes) === -1
                     && _this._theme !== '*'
                 ) {
-                    show = false
+                    show = false;
                 }
 
                 // accessibilities
@@ -307,7 +307,7 @@ var CityPageView = PageView.extend({
                     jQuery.inArray(_this._accessibility, data.accessibilities) === -1
                     && _this._accessibility !== '*'
                 ) {
-                    show = false
+                    show = false;
                 }
 
                 // initiatives
@@ -315,7 +315,7 @@ var CityPageView = PageView.extend({
                     jQuery.inArray(_this._initiative, data.initiatives) === -1
                     && _this._initiative !== '*'
                 ) {
-                    show = false
+                    show = false;
                 }
 
                 // dates
@@ -323,7 +323,7 @@ var CityPageView = PageView.extend({
                     jQuery.inArray(_this._date, data.dates) === -1
                     && _this._date !== '*'
                 ) {
-                    show = false
+                    show = false;
                 }
 
                 // toggle
