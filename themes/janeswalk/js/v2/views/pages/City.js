@@ -77,6 +77,7 @@ var CityPageView = PageView.extend({
         this._addCreateWalkEvent();
         this._addFilterEvents();
         this._setThemeCounts();
+        this._captureHash();
     },
 
     /**
@@ -229,6 +230,48 @@ var CityPageView = PageView.extend({
     },
 
     /**
+     * _captureHash
+     * 
+     * @protected
+     * @return    void
+     */
+    _captureHash: function() {
+        if (location.hash !== '') {
+            var _this = this,
+                pieces = location.hash.replace('#', '').split('&'),
+                key = '';
+            $(pieces).each(
+                function(index, piece) {
+                    key = '_' + (piece.split('=')[0]);
+                    _this[key] = piece.split('=')[1];
+                }
+            );
+            this._filterCards();
+            this._element.find('select[name="ward"]').val(this._ward);
+            this._element.find('select[name="theme"]').val(this._theme);
+            this._element.find('select[name="accessibility"]').val(this._accessibility);
+            this._element.find('select[name="initiative"]').val(this._initiative);
+            this._element.find('select[name="date"]').val(this._date);
+        }
+    },
+
+    /**
+     * _setHash
+     * 
+     * @protected
+     * @return    void
+     */
+    _setHash: function() {
+        var hash = '';
+        hash += 'ward=' + (this._ward);
+        hash += '&theme=' + (this._theme);
+        hash += '&accessibility=' + (this._accessibility);
+        hash += '&initiative=' + (this._initiative);
+        hash += '&date=' + (this._date);
+        location.hash = hash;
+    },
+
+    /**
      * _filterCards
      * 
      * @protected
@@ -329,6 +372,7 @@ var CityPageView = PageView.extend({
                 if (_this._element.find('select[name="date"]').length > 0) {
                     _this._date = _this._element.find('select[name="date"]').val();
                 }
+                _this._setHash();
                 _this._filterCards();
             }
         );
