@@ -166,10 +166,8 @@ var JaneswalkMapEditor = Class.extend({
       var x = window.confirm('Do you want to remove your walk route? Your Stops will not be deleted.');
       if (x) {
         _this.clearRoute();
-        event.preventDefault();
-      } else {
-        event.preventDefault();
       }
+      event.preventDefault();
     });
 
     // Hook up click controls for map
@@ -484,6 +482,7 @@ var JaneswalkMapEditor = Class.extend({
     for(i=0; i < this.point.length; i++) {
       this.point[i].setMap(null);
     }
+    this.point = [];
     this.initPoly();
   },
 
