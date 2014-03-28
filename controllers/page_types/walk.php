@@ -358,7 +358,7 @@
       }, (array) $team);
 
       // Put the preview image for Facebook/Twitter to pick up
-      $this->addHeaderItem('<meta property="og:image" content="' . BASE_URL . $im->getThumbnail($thumb,340,720)->src . '" />');
+      $thumb and $this->addHeaderItem('<meta property="og:image" content="' . BASE_URL . $im->getThumbnail($thumb,340,720)->src . '" />');
       $this->addHeaderItem('<meta property="og:url" content="' . $nh->getCollectionURL($c)  . '" />');
       $this->addHeaderItem('<meta property="og:title" content="' . addslashes($c->getCollectionName()) . '" />');
       $this->addHeaderItem('<meta property="og:description" content="' . addslashes($c->getAttribute('shortdescription')) . '" />');
