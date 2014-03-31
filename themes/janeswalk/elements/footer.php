@@ -50,6 +50,7 @@
   <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js?1" type="text/javascript"></script>
   <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js?1" type="text/javascript"></script>
   <script src="<?=$this->getThemePath()?>/js/v2/views/pages/City.js?1" type="text/javascript"></script>
+  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Profile.js?1" type="text/javascript"></script>
   <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js?1" type="text/javascript"></script>
 
   <?php Loader::element('footer_required'); ?>

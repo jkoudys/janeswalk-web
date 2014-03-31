@@ -1,12 +1,33 @@
-<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
-<html>
-<?php $this->inc('elements/header.php'); 
-$dh = Loader::helper('concrete/dashboard');
-global $u; global $cp;
+<?php
+    defined('C5_EXECUTE') or die("Access Denied.");
 ?>
-<body class="site-page <?=($dh->canRead()) ? "logged_in" : ""; ?>" <?php if(is_object($fullbg)) { echo "style='background-image:url({$fullbg->getURL()})'"; } ?> data-pageViewName='PageView'>
-  <?php $this->inc('elements/navbar.php'); ?>
-			<?php 
-			print $innerContent;
-			?>
-<?php $this->inc('elements/footer.php'); ?>
+<html>
+<?php
+    $this->inc('elements/header.php'); 
+    $dh = Loader::helper('concrete/dashboard');
+    global $u;
+    global $cp;
+    $pageViewName = 'PageView';
+    if (defined('C5_EXECUTE')) {
+        $pageViewName = 'ProfilePageView';
+    }
+
+    // Classes
+    $classes = array('site-page');
+    if ($dh->canRead()) {
+        array_push($classes, 'logged_in');
+    }
+
+    // Background image
+    $backgroundImageUrl = '';
+    if (is_object($fullbg)) {
+        $backgroundImageUrl = $fullbg->getURL();
+    }
+?>
+    <body class="<?= implode(' ', $classes) ?>"
+        style="background-image: url('<?= ($backgroundImageUrl) ?>');"
+        data-pageViewName="<?= ($pageViewName) ?>">
+<?php
+    $this->inc('elements/navbar.php');
+    print $innerContent;
+    $this->inc('elements/footer.php');
