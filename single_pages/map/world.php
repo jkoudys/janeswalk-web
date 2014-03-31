@@ -1,8 +1,4 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); 
-$pl = new PageList();
-$nh = Loader::helper('navigation');
-$pl->filterByCollectionTypeHandle('City');
-$pages = $pl->get();
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,22 +14,27 @@ $pages = $pl->get();
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM&sensor=false"></script>
 <script>
 <?php
-
-// Hexcodes to pseudorandomly assign to each city
-$cities = [];
-foreach($pages as $page) {
-  $parent = Page::getByID($page->getCollectionParentID());
-  $page_owner = UserInfo::getByID($page->getCollectionUserID());
-  $city = t($city_name = $page->getCollectionName().", ". $country_name = $parent->getCollectionName());
-  $latlng = array_map( function($e) { return (float)trim($e); }, explode(',', $page->getAttribute('latlng')));
-  $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$city_name} Walks</a>".(($page_owner->getUserID() > 1 && $page_owner->getAttribute('first_name') !== 'There\'s no City Organizer here' && $first_name = $page_owner->getAttribute('first_name')) ? "<br/>{$first_name}, City Organizer" : false);
-  $cities[] = ['country' => $country_name,
-    'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
-    'name' => $city,
-    'color' => '#f16725',
-    'info' => $info,
-    'lat' => $latlng[0],
-    'lng' => $latlng[1]];
+$cities = Cache::get('map','world') ?: [];
+if(!$cities) {
+  $pl = new PageList();
+  $nh = Loader::helper('navigation');
+  $pl->filterByCollectionTypeHandle('City');
+  $pages = $pl->get();
+  foreach($pages as $page) {
+    $parent = Page::getByID($page->getCollectionParentID());
+    $page_owner = UserInfo::getByID($page->getCollectionUserID());
+    $city = t($city_name = $page->getCollectionName().", ". $country_name = $parent->getCollectionName());
+    $latlng = array_map( function($e) { return (float)trim($e); }, explode(',', $page->getAttribute('latlng')));
+    $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$city_name} Walks</a>".(($page_owner->getUserID() > 1 && $page_owner->getAttribute('first_name') !== 'There\'s no City Organizer here' && $first_name = $page_owner->getAttribute('first_name')) ? "<br/>{$first_name}, City Organizer" : false);
+    $cities[] = ['country' => $country_name,
+      'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
+      'name' => $city,
+      'color' => '#f16725',
+      'info' => $info,
+      'lat' => $latlng[0],
+      'lng' => $latlng[1]];
+  }
+  Cache::set('map','world',$cities, 21600); // Refresh the world map every 6 hours
 }
 ?>
 
