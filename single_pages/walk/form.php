@@ -6,8 +6,8 @@ JanesWalk = {
     title: '<?= addslashes($c->getCollectionName()) ?>',
   },
   city: {
-    name: '<?=addslashes($city->getCollectionName())?>',
-    url: '<?=$nh->getCollectionURL($city)?>',
+    name: '<?= addslashes($city->getCollectionName()) ?>',
+    url: '<?= $nh->getCollectionURL($city) ?>',
     lat: <?= $lat ?>,
     lng: <?= $lng ?>
   },
@@ -36,7 +36,7 @@ JanesWalk = {
         startDate: new Date("May 3, 2014"),
         endDate: new Date("May 4, 2014"),
       <?php } else { ?>
-        startDate: new Date("May 2, 2014"),
+        startDate: new Date("May 1, 2014"),
         endDate: new Date("May 4, 2014"),
       <?php } ?> 
       defaultDate: new Date("May 3, 2014")
@@ -61,12 +61,12 @@ JanesWalk.form['2014-05-04'] = {
     <div class="container-fluid">
       <span class="brand">
         <a href="<?= $nh->getCollectionURL($city) ?>" target="_blank">
-          <i class="icon-map-marker"><?="{$city->getCollectionName()}, {$country->getCollectionName()}" ?></i>
+          <i class="icon-map-marker"><?=t($city->getCollectionName()) . ', ' . t($country->getCollectionName()) ?></i>
         </a>
       </span>
       <div class="nav-collapse collapse">
         <p class="navbar-text pull-right">
-          Logged in as <a href="<?=$this->url('/profile')?>" class="navbar-link" target="_blank"><?= $u->getUserName(); ?></a>
+          <?= t('Logged in as') ?> <a href="<?=$this->url('/profile')?>" class="navbar-link" target="_blank"><?= $u->getUserName(); ?></a>
         </p>
       </div><!--/.nav-collapse -->
     </div>
@@ -78,17 +78,17 @@ JanesWalk.form['2014-05-04'] = {
       <div id="progress-panel">
         <div class="tabbable tabs-left">
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" class="description" href="#description"><i class="icon-list-ol"></i> Describe Your Walk</a></li>
-            <li ><a data-toggle="tab" class="route" href="#route"><i class="icon-map-marker"></i> Share Your Route</a></li>
-            <li ><a data-toggle="tab" class="time-and-date" href="#time-and-date"><i class="icon-calendar"></i> Set the Time & Date</a></li>
-            <li ><a data-toggle="tab" class="accessibility" href="#accessibility"><i class="icon-flag"></i> Make it Accessible</a></li>
-            <li ><a data-toggle="tab" class="team" href="#team"><i class="icon-group"></i> Build Your Team</a></li>
+            <li class="active"><a data-toggle="tab" class="description" href="#description"><i class="icon-list-ol"></i> <?= t('Describe Your Walk') ?></a></li>
+            <li ><a data-toggle="tab" class="route" href="#route"><i class="icon-map-marker"></i> <?= t('Share Your Route') ?></a></li>
+            <li ><a data-toggle="tab" class="time-and-date" href="#time-and-date"><i class="icon-calendar"></i> <?= t('Set the Time & Date') ?></a></li>
+            <li ><a data-toggle="tab" class="accessibility" href="#accessibility"><i class="icon-flag"></i> <?= t('Make it Accessible') ?></a></li>
+            <li ><a data-toggle="tab" class="team" href="#team"><i class="icon-group"></i> <?= t('Build Your Team') ?></a></li>
           </ul>
           <br>
           <section id="button-group">
-            <button class="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." data-previewurl="<?=str_replace("format=json","format=html",$_REQUEST['load']); ?>">Preview Walk</button>
-            <button class="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all.">Publish Walk</button>
-            <button class="btn btn-info save" title="Save and return later" id="btn-save">Save and return later</button>
+            <button class="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." data-previewurl="<?=str_replace("format=json","format=html",$_REQUEST['load']); ?>"><?= t('Preview Walk') ?></button>
+            <button class="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all."><?= t('Publish Walk') ?></button>
+            <button class="btn btn-info save" title="Save and return later" id="btn-save"><?= t('Save and return later') ?></button>
           </section>
         </div>
       </div>
@@ -99,20 +99,20 @@ JanesWalk.form['2014-05-04'] = {
           <div class="walk-submit lead">
             <div class="row-fluid">
               <div class="span4">
-                <img id="convo-marker" src="<?=$this->getThemePath();?>/img/jw-intro-graphic.svg" alt="Jane's Walk are walking conversations.">
+                <img id="convo-marker" src="<?= $this->getThemePath() ?>/img/jw-intro-graphic.svg" alt="Jane's Walks are walking conversations.">
               </div>
-              <div class="span8"><h1>Hey there <?=$ui->getAttribute('first_name')?>!</h1>
-                <p>Jane’s  Walks  are   walking  conversation  about  neighbourhoods .  You can return to this form at any time, so there's no need to finish everything at once.</p></div>
+              <div class="span8"><h1><?= t('Hey there ') ?><?=$ui->getAttribute('first_name')?>!</h1>
+                <p><?= t('Jane’s  Walks  are   walking  conversation  about  neighbourhoods .  You can return to this form at any time, so there\'s no need to finish everything at once.') ?></p></div>
             </div>
           </div>
           <div class="page-header" data-section='description'>
-            <h1>Describe Your Walk</h1>
+          <h1><?= t('Describe Your Walk') ?></h1>
           </div>
           <form>
             <fieldset>
               <div class="item required">
-                <label for="title">Walk Title</label>
-                <div class="alert alert-info">Something short and memorable.</div>
+                <label for="title"><?= t('Walk Title') ?></label>
+                <div class="alert alert-info"><?= t('Something short and memorable.') ?></div>
                 <input type="text" id="title" name="title" placeholder="" value="<?=htmlspecialchars($c->getCollectionname())?>" required>
               </div>
             </fieldset>
@@ -120,7 +120,7 @@ JanesWalk.form['2014-05-04'] = {
           <form method="post" enctype="multipart/form-data" action="<?=REL_DIR_FILES_TOOLS_REQUIRED?>/files/importers/quick" class="ccm-file-manager-submit-single">
             <hr>
             <div class="item required">
-              <label for="walkphotos" id="photo-tip">Upload a photo that best represents your walk.</label>
+              <label for="walkphotos" id="photo-tip"><?= t('Upload a photo that best represents your walk.') ?></label>
               <iframe class="walkphotos" src="<?=REL_DIR_FILES_TOOLS?>/files/image_upload"></iframe> 
             </div>
           </form>
@@ -128,18 +128,18 @@ JanesWalk.form['2014-05-04'] = {
             <hr>
             <fieldset>
               <div class="item required">
-                <label for="shortdescription">Your Walk in a Nutshell</label>
-                <div class="alert alert-info">Build intrigue! This is what people see when browsing our walk listings.</div>
+                <label for="shortdescription"><?= t('Your Walk in a Nutshell') ?></label>
+                <div class="alert alert-info"><?= t('Build intrigue! This is what people see when browsing our walk listings.') ?></div>
                 <textarea class="span12 limit" id="shortdescription" name="shortdescription" rows="2" maxlength="140" required><?=htmlspecialchars($c->getAttribute('shortdescription'))?></textarea>
                 <div class="text-right">
-                  <p>Characters left: <span class="counter">140</span></p>
+                 <p><?= t('Characters left') ?>: <span class="counter">140</span></p>
                 </div>
               </div>
               <hr>
               <div class="item required">
-                <label for="longdescription" id="longwalkdescription">Walk Description</label>
+                <label for="longdescription" id="longwalkdescription"><?= t('Walk Description') ?></label>
                 <div class="alert alert-info">
-                  Help jump start the conversation on your walk by giving readers an idea of the discussions you'll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words. 
+                  <?= t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.') ?> 
                 </div>
                 <textarea class="textarea-wysiwyg span12" id="longdescription" name="longdescription" rows="14"></textarea>
               </div>
@@ -147,8 +147,8 @@ JanesWalk.form['2014-05-04'] = {
             <?php if($wards) { ?>
             <fieldset id="wards">
               <div class="item">
-                <label for="wards">Sub-locality</label>
-                <div class="alert alert-info">Choose a specific neighbourhood or area where your walk will take place.</div>
+                <label for="wards"><?= t('Sub-locality') ?></label>
+                <div class="alert alert-info"><?= t('Choose a specific neighbourhood or area where your walk will take place.') ?></div>
                 <select id="ward" name="ward">
                   <?php foreach($wards as $ward) { ?>
                   <option <?= $ward->selected ? 'selected' : '' ?> value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></option>
@@ -232,30 +232,30 @@ JanesWalk.form['2014-05-04'] = {
           </fieldset> */ ?>
         <?php if(!$is_nyc) { ?>
         <fieldset id="theme-select">
-          <legend class="required-legend">Themes</legend>
+          <legend class="required-legend"><?= t('Themes') ?></legend>
           <div class="alert alert-info">
-            Pick between 1 and 3 boxes.
+            <?= t('Pick between 1 and 3 boxes.') ?>
           </div>
 
           <div class="item">
             <div class="row-fluid">
               <div class="span6">
                 <fieldset>
-                  <legend>Community</legend>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-activist">  Activism</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-truecitizen">  Citizenry</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-goodneighbour">  Community</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-writer">  Storytelling</label>
+                  <legend><?= t('Community') ?></legend>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-activist">  <?= t('Activism') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-truecitizen">  <?= t('Citizenry') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-goodneighbour">  <?= t('Community') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-writer">  <?= t('Storytelling') ?></label>
                 </fieldset>
               </div>
 
               <div class="span6">
                 <fieldset>
-                  <legend>City-building</legend>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-architecturalenthusiast">  Architecture</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-aesthete">  Design</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-suburbanexplorer">  Suburbs</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-moversandshakers">  Transportation</label>
+                  <legend><?= t('City-building') ?></legend>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-architecturalenthusiast">  <?= t('Architecture') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-aesthete">  <?= t('Design') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-suburbanexplorer">  <?= t('Suburbs') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-moversandshakers">  <?= t('Transportation') ?></label>
                 </fieldset>
               </div>
             </div>
@@ -266,23 +266,23 @@ JanesWalk.form['2014-05-04'] = {
               <div class="span6">
 
                 <fieldset>
-                  <legend>Society</legend>
+                  <legend><?= t('Society') ?></legend>
 
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-gender">  Gender</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-health">  Health</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-historybuff">  Heritage</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-nativeissues">  Native Issues</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-religion">  Religion</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-gender">  <?= t('Gender') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-health">  <?= t('Health') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-historybuff">  <?= t('Heritage') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-nativeissues">  <?= t('Native Issues') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-religion">  <?= t('Religion') ?></label>
                 </fieldset>
               </div>
               <div class="span6">
                 <fieldset>
-                  <legend>Expression</legend>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  Art</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-film">  Film</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-bookworm">   Literature</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-music">   Music</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-play">   Play</label>
+                  <legend><?= t('Expression') ?></legend>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  <?= t('Art') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-film">  <?= t('Film') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-bookworm">   <?= t('Literature') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-music">   <?= t('Music') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-play">   <?= t('Play') ?></label>
                 </fieldset>
               </div>
             </div>
@@ -293,26 +293,26 @@ JanesWalk.form['2014-05-04'] = {
               <div class="span6">
 
                 <fieldset>
-                  <legend>The Natural World</legend>
+                  <legend><?= t('The Natural World') ?></legend>
 
-                  <label class="checkbox"><input type="checkbox" name="theme-nature-petlover">  Animals</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-nature-greenthumb">  Gardening</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-nature-naturelover">   Nature</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-water">   Water</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-nature-petlover">  <?= t('Animals') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-nature-greenthumb">  <?= t('Gardening') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-nature-naturelover">   <?= t('Nature') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-water">   <?= t('Water') ?></label>
                 </fieldset>
               </div>
               <div class="span6">
 
                 <fieldset>
-                  <legend>Modernity</legend>
+                  <legend><?= t('Modernity') ?></legend>
 
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-international">  International Issues</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-military">  Military</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-civic-commerce">  Commerce</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-nightowl">  Night Life</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-techie">  Technology</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-sports">  Sports</label>
-                  <label class="checkbox"><input type="checkbox" name="theme-culture-foodie">  Food</label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-international">  <?= t('International Issues') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-military">  <?= t('Military') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-civic-commerce">  <?= t('Commerce') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-nightowl">  <?= t('Night Life') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-techie">  <?= t('Technology') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-urban-sports">  <?= t('Sports') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-foodie">  <?= t('Food') ?></label>
                 </fieldset>
               </div>
             </div>
@@ -327,40 +327,40 @@ JanesWalk.form['2014-05-04'] = {
 
     <div class="tab-pane" id="route">
       <div class="page-header" data-section="route">
-        <h1>Share Your Route</h1>
+        <h1><?= t('Share Your Route') ?></h1>
       </div>
 
       <div id="route-help-panel">
-        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 class="lead">Need help building your route?</h2></a>
+        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 class="lead"><?= t('Need help building your route?') ?></h2></a>
 
         <div id="route-menu" class="collapse" style="height:0;">
           <div class="row-fluid">
             <div class="span4">
-              <h4>1. Set a Meeting Place</h4>
+              <h4>1. <?= t('Set a Meeting Place') ?></h4>
               <ol>
-                <li>Click "Meeting Place" to add a pinpoint on the map</li>
-                <li>Click and drag it into position</li> 
-                <li>Fill out the form fields and press Save Meeting Place</li> 
+                <li><?= t('Click "Meeting Place" to add a pinpoint on the map') ?></li>
+                <li><?= t('Click and drag it into position') ?></li> 
+                <li><?= t('Fill out the form fields and press Save Meeting Place') ?></li> 
               </ol>
             </div>
             <div class="span4">
-              <h4>2. Add Stops</h4>
+              <h4>2. <?= t('Add Stops') ?></h4>
               <ol>
-                <li>Click "Add Stop" to add a stop on the map</li>
-                <li>Click and drag it into position</li> 
-                <li>Fill out the form fields and press Save Stop</li> 
-                <li>Repeat to add more stops</li>
+                <li><?= t('Click "Add Stop" to add a stop on the map') ?></li>
+                <li><?= t('Click and drag it into position') ?></li> 
+                <li><?= t('Fill out the form fields and press Save Stop') ?></li> 
+                <li><?= t('Repeat to add more stops') ?></li>
               </ol>
             </div>
             <div class="span4"> 
-              <h4>3. Add Route</h4>
+              <h4>3. <?= t('Add Route') ?></h4>
               <ol>
-                <li>Click Add Route</li>
-                <li>A point will appear on your meeting place, now click on each of the stops that flow to connect them.</li>
-                <li>Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.</li>
-                <li>Click Save Route</li></ol>
+                <li><?= t('Click Add Route') ?></li>
+                <li><?= t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') ?></li>
+                <li><?= t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') ?></li>
+                <li><?= t('Click Save Route') ?></li></ol>
               <ul>
-                <li>If you want to delete your route to start over, click <a href="" class="clear-route">Clear Route</a>. Your Stops will not be deleted</li>
+                <li><?= t('If you want to delete your route to start over, click ') ?><a href="" class="clear-route"><?= t('Clear Route') ?></a>. <?= t('Your Stops will not be deleted') ?></li>
               </ul>
             </div>
           </div>
@@ -368,43 +368,43 @@ JanesWalk.form['2014-05-04'] = {
       </div>
 
       <div class="row-fluid" id="map-control-bar">
-        <button id="addmeetingplace" class="btn span1"><i class="icon-flag-jw"></i> Set a Meeting Place</button>
-        <div class="addroute-wrapper span1"><button id="addpoint" class="btn"><i class="icon-map-marker-jw"></i> Add Stop</button><div class="disable-alert"></div></div>
-        <button id="addroute" class="btn span1"><i class="icon-map-route"></i> Add Route</button>
-        <button class="btn clear-route span1"><i class="icon-eraser"></i> Clear Route</button>
+        <button id="addmeetingplace" class="btn span1"><i class="icon-flag-jw"></i> <?= t('Set a Meeting Place') ?></button>
+        <div class="addroute-wrapper span1"><button id="addpoint" class="btn"><i class="icon-map-marker-jw"></i> <?= t('Add Stop') ?></button><div class="disable-alert"></div></div>
+        <button id="addroute" class="btn span1"><i class="icon-map-route"></i> <?= t('Add Route') ?></button>
+        <button class="btn clear-route span1"><i class="icon-eraser"></i> <?= t('Clear Route') ?></button>
 
       </div>
       <div class="map-notifications"></div>
       <div id="map-canvas"></div>
 
-      <h3>Walk Stops</h3>
+      <h3><?= t('Walk Stops') ?></h3>
 
       <table id="route-stops" class="table table-bordered table-hover">
         <thead>
           <tr>
-            <th>Title</th>
-            <th>Description</th>
+          <th><?= t('Title') ?></th>
+          <th><?= t('Description') ?></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colspan="3"><p>You haven't set any stops yet.</p></td>
+          <td colspan="3"><p><?= t('You haven\'t set any stops yet.') ?></p></td>
           </tr>
         </tbody>
       </table>
 
       <hr>
-      <a href="#time-and-date" class="btn btn-primary btn-large section-save" data-toggle="tab">Next</a><br><br>
+      <a href="#time-and-date" class="btn btn-primary btn-large section-save" data-toggle="tab"><?= t('Next') ?></a><br><br>
     </div>
 
     <div class="tab-pane" id="time-and-date">
       <div class="tab-content" id="walkduration">
         <div class="tab-pane active" id="time-and-date-select">
           <div class="page-header" data-section='time-and-date'>
-            <h1>Set the Time and Date</h1>
+            <h1><?= t('Set the Time and Date') ?></h1>
           </div>
-          <legend >Pick one of the following:</legend>
+          <legend ><?= t('Pick one of the following:') ?></legend>
           <div class="row-fluid">
             <ul class="thumbnails" id="block-select">
               <?php if(false && !in_array($city->getCollectionID(), [235, 276])) { ?>
@@ -414,9 +414,9 @@ JanesWalk.form['2014-05-04'] = {
                     <img src="<?=$this->getThemePath();?>/img/time-and-date-full.png" />
                     <div class="caption">
                       <div class="text-center">
-                        <h4>By Request</h4>
+                        <h4><?= t('By Request') ?></h4>
                       </div>
-                      <p>Highlight times that you're available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.</p>
+                      <p><?= t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.') ?></p>
                     </div>
                   </div>
                 </a>
@@ -428,9 +428,9 @@ JanesWalk.form['2014-05-04'] = {
                     <img src="<?= ($this->getThemePath()) ?>/img/time-and-date-some.png" />
                     <div class="caption">
                       <div class="text-center">
-                        <h4>Pick Your Date</h4>
+                        <h4><?= t('Pick Your Date') ?></h4>
                       </div>
-                      <p>Set specific dates and times that this walk is happening.</p>
+                      <p><?= t('Set specific dates and times that this walk is happening.') ?></p>
                     </div>
                   </div>
                 </a>
@@ -441,8 +441,8 @@ JanesWalk.form['2014-05-04'] = {
 
         <div class="tab-pane hide" id="time-and-date-set">
           <div class="page-header" data-section='time-and-date'>
-            <h1>Time and Date</h1>
-            <p class="lead">Select the date and time your walk is happening.</p>
+            <h1><?= t('Time and Date') ?></h1>
+            <p class="lead"><?= t('Select the date and time your walk is happening.') ?></p>
           </div>
 
           <div class="row-fluid">
@@ -452,14 +452,14 @@ JanesWalk.form['2014-05-04'] = {
             <div class="span6">
               <div class="thumbnail">
                 <div class="caption">
-                  <small>Date selected:</small>
+                  <small><?= t('Date selected') ?>:</small>
                   <h4 class="date-indicate-set" data-dateselected=""></h4>
                   <hr>
-                  <label for="walk-time">Start Time:</label>
+                  <label for="walk-time"><?= t('Start Time') ?>:</label>
 
                   <input id="walk-time" type="text" class="time ui-timepicker-input input-small" autocomplete="off">
 
-                  <label for="walk-time">Approximate Duration of Walk:</label>
+                  <label for="walk-time"><?= t('Approximate Duration of Walk') ?>:</label>
                   <select name="duration" id="walk-duration">
                     <option value="30 Minutes">30 Minutes</option>
                     <option value="1 Hour">1 Hour</option>
@@ -469,7 +469,7 @@ JanesWalk.form['2014-05-04'] = {
                     <option value="3 Hours">3 Hours</option>
                     <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
                   </select><hr>
-                  <button class="btn btn-primary" id="save-date-set">Add Date</button>
+                  <button class="btn btn-primary" id="save-date-set"><?= t('Add Date') ?></button>
                 </div>
                 
               </div>
@@ -491,18 +491,18 @@ JanesWalk.form['2014-05-04'] = {
 
 
           <hr>
-          <a href="#time-and-date-select" data-toggle="tab" class="clear-date">Clear schedule and return to main Time and Date page</a>
+          <a href="#time-and-date-select" data-toggle="tab" class="clear-date"><?= t('Clear schedule and return to main Time and Date page') ?></a>
 
           <hr>
-          <a href="#accessibility" class="btn btn-primary btn-large section-save" data-toggle="tab">Next</a><br><br>
+          <a href="#accessibility" class="btn btn-primary btn-large section-save" data-toggle="tab"><?= t('Next') ?></a><br><br>
         </div>
         <div class="tab-pane hide" id="time-and-date-all">
           <div class="page-header" data-section='time-and-date'>
-            <h1>Time and Date</h1>
-            <p class="lead">Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.</p>
+            <h1><?= t('Time and Date') ?></h1>
+            <p class="lead"><?= t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') ?></p>
           </div>
           <label class="checkbox">
-            <input type="checkbox" name="open"> Leave my availability open. Allow people to contact you to set up a walk.
+            <input type="checkbox" name="open"> <?= t('Leave my availability open. Allow people to contact you to set up a walk.') ?>
           </label>
           <br>
 
@@ -514,11 +514,11 @@ JanesWalk.form['2014-05-04'] = {
               <div class="thumbnail">
                 <div class="caption">
                   <div class="date-select-group">
-                    <small>Date selected:</small>
+                    <small><?= t('Date selected') ?>:</small>
                     <h4 class="date-indicate-all"></h4>
                     <hr>
                   </div>
-                  <label for="walk-duration">Approximate Duration of Walk:</label>
+                  <label for="walk-duration"><?= t('Approximate Duration of Walk') ?>:</label>
                   <select name="duration" id="walk-duration">
                     <option value="30 Minutes">30 Minutes</option>
                     <option value="1 Hour">1 Hour</option>
@@ -530,7 +530,7 @@ JanesWalk.form['2014-05-04'] = {
                   </select>
                   <div class="date-select-group">
                     <hr>
-                    <button class="btn btn-primary" id="save-date-all">Add Date</button>
+                    <button class="btn btn-primary" id="save-date-all"><?= t('Add Date') ?></button>
                   </div>
                 </div>
               </div>
@@ -541,8 +541,8 @@ JanesWalk.form['2014-05-04'] = {
           <table class="table table-bordered table-hover" id="date-list-all">
             <thead>
               <tr>
-                <th>My Available Dates</th>
-                <th>Approximate Duration</th>
+                <th><?= t('My Available Dates') ?></th>
+                <th><?= t('Approximate Duration') ?></th>
                 <th></th>
               </tr>
             </thead>
@@ -551,36 +551,36 @@ JanesWalk.form['2014-05-04'] = {
           </table>
 
           <hr>
-          <a href="#time-and-date-select" data-toggle="tab" class="clear-date">Clear schedule and return to main Time and Date page</a>
+          <a href="#time-and-date-select" data-toggle="tab" class="clear-date"><?= t('Clear schedule and return to main Time and Date page') ?></a>
 
           <hr>
-          <a href="#accessibility" class="btn btn-primary btn-large section-save" data-toggle="tab">Next</a><br><br>
+          <a href="#accessibility" class="btn btn-primary btn-large section-save" data-toggle="tab"><?= t('Next') ?></a><br><br>
         </div>
       </div>
     </div>
 
     <div class="tab-pane" id="accessibility">
       <div class="page-header" data-section='accessibility'>
-        <h1>Make it Accessible</h1>
+        <h1><?= t('Make it Accessible') ?></h1>
       </div>
       <div class="item">
         <fieldset>
-          <legend class="required-legend">How accessible is this walk?</legend>
+          <legend class="required-legend"><?= t('How accessible is this walk?') ?></legend>
           <div class="row-fluid">
             <div class="span6">
-              <label class="checkbox"><input type="checkbox" name="accessible-familyfriendly">  Family friendly</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-wheelchair">  Wheelchair accessible</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-dogs">  Dogs welcome</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-strollers">  Strollers welcome</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-bicycles">  Bicycles welcome</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-steephills">  Steep hills</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-familyfriendly">  <?= t('Family friendly') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-wheelchair">  <?= t('Wheelchair accessible') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-dogs">  <?= t('Dogs welcome') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-strollers">  <?= t('Strollers welcome') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-bicycles">  <?= t('Bicycles welcome') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-steephills">  <?= t('Steep hills') ?></label>
             </div>
             <div class="span6">
-              <label class="checkbox"><input type="checkbox" name="accessible-uneven">  Wear sensible shoes (uneven terrain)</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-busy">  Busy sidewalks</label> 
-              <label class="checkbox"><input type="checkbox" name="accessible-bicyclesonly">  Bicycles only</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-lowlight">  Low light or nighttime</label>
-              <label class="checkbox"><input type="checkbox" name="accessible-seniors">  Senior Friendly</label>
+              <label class="checkbox"><input type="checkbox" name="accessible-uneven">  <?= t('Wear sensible shoes (uneven terrain)') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-busy">  <?= t('Busy sidewalks') ?></label> 
+              <label class="checkbox"><input type="checkbox" name="accessible-bicyclesonly">  <?= t('Bicycles only') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-lowlight">  <?= t('Low light or nighttime') ?></label>
+              <label class="checkbox"><input type="checkbox" name="accessible-seniors">  <?= t('Senior Friendly') ?></label>
             </div>
           </div>
         </fieldset>
@@ -588,16 +588,16 @@ JanesWalk.form['2014-05-04'] = {
 
       <div class="item">
         <fieldset>
-          <legend>What else do people need to know about the accessibility of this walk? (Optional)</legend>
+          <legend><?= t('What else do people need to know about the accessibility of this walk?') ?> (<?= t('Optional') ?>)</legend>
           <textarea rows="3" name="accessible-info"></textarea>
         </fieldset>
       </div>
 
       <div class="item">
         <fieldset>
-          <legend id="transit">How can someone get to the meeting spot by public transit? (Optional)</legend>
+          <legend id="transit"><?= t('How can someone get to the meeting spot by public transit?') ?> (<?= t('Optional') ?>)</legend>
           <div class="alert alert-info">
-            Nearest subway stop, closest bus or streetcar lines, etc.
+            <?= t('Nearest subway stop, closest bus or streetcar lines, etc.') ?>
           </div>
           <textarea rows="3" name="accessible-transit"></textarea>
         </fieldset>
@@ -605,16 +605,16 @@ JanesWalk.form['2014-05-04'] = {
 
       <div class="item">
         <fieldset>
-          <legend>Where are the nearest places to park? (Optional)</legend>
+          <legend><?= t('Where are the nearest places to park?') ?> (<?= t('Optional') ?>)</legend>
           <textarea rows="3" name="accessible-parking"></textarea>
         </fieldset>
       </div>
 
       <div class="item">
         <fieldset>
-          <legend class="required-legend" >How will people find you?</legend>
+          <legend class="required-legend" ><?= t('How will people find you?') ?></legend>
           <div class="alert alert-info">
-            Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.
+            <?= t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.') ?>
           </div>
           <textarea rows="3" name="accessible-find"></textarea>
         </fieldset>
@@ -626,14 +626,14 @@ JanesWalk.form['2014-05-04'] = {
 
     <div class="tab-pane" id="team">
       <div class="page-header" data-section="team">
-        <h1>Build Your Team</h1>
+        <h1><?= t('Build Your Team') ?></h1>
       </div>
 
       <div class="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
           <input type="hidden" name="type[]" value="you">
           <input type="hidden" name="user_id[]" value="<?=$u->getUserID()?>">
-          <legend>You</legend>
+          <legend><?= t('You') ?></legend>
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
@@ -643,20 +643,20 @@ JanesWalk.form['2014-05-04'] = {
               </div>
 
               <div class="item required">
-                <label for="role">Role</label>
+                <label for="role"><?= t('Role') ?></label>
                 <select id="role" name="role[]">
-                  <option value="walk-leader" selected>Walk Leader</option>
-                  <option value="co-walk-leader">Co-Walk Leader</option>
-                  <option value="walk-organizer">Walk Organizer</option>
+                  <option value="walk-leader" selected><?= t('Walk Leader') ?></option>
+                  <option value="co-walk-leader"><?= t('Co-Walk Leader') ?></option>
+                  <option value="walk-organizer"><?= t('Walk Organizer') ?></option>
                 </select>
               </div>
               <div class="item hide" id="primary-walkleader-select">
-                <label class="checkbox"><input type="checkbox" name="primary[]" class="role-check" checked>  Primary Walk Leader</label>
+                <label class="checkbox"><input type="checkbox" name="primary[]" class="role-check" checked>  <?= t('Primary Walk Leader') ?></label>
               </div>
               <div class="item required">
-                <label for="bio">Introduce yourself</label>
+                <label for="bio"><?= t('Introduce yourself') ?></label>
                 <div class="alert alert-info">
-                  We recommend keeping your bio under 60 words
+                  <?= t('We recommend keeping your bio under 60 words') ?>
                 </div>
                 <textarea class="span12" id="bio" rows="6" name="bio[]"><?=htmlspecialchars($ui->getAttribute("bio"))?></textarea>
               </div>
@@ -679,26 +679,26 @@ JanesWalk.form['2014-05-04'] = {
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> Website</label>
+                <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($ui->getAttribute("website"))?>">
                 </div>
               </div>
 
               <hr>
               <div class="private">
-                <h4>We'll keep this part private</h4>
+                <h4><?= t('We\'ll keep this part private') ?></h4>
                 <div class="alert alert-info">
-                  We'll use this information to contact you about your walk submission. We wont share this information with 3rd parties.
+                  <?= t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') ?>
                 </div>
 
                 <div class="row-fluid" id="newwalkleader">
                   <div class="span6 required"> 
-                    <label for="you-email"><i class="icon-envelope"></i> Email</label>
+                    <label for="you-email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
                     <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$ui->getUserEmail()?>">
                   </div>
 
                   <div class="span6 tel required">
-                    <label for="phone"><i class="icon-phone-sign"></i> Phone Number</label>
+                    <label for="phone"><i class="icon-phone-sign"></i> <?= t('Phone Number') ?></label>
                     <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($ui->getAttribute("phone"))?>">
                   </div>
                 </div>
@@ -731,31 +731,31 @@ JanesWalk.form['2014-05-04'] = {
       </div>
 
       <div class="thumbnail team-member" id="add-member">
-        <h2>Who else is involved with this walk?</h2>
-        <h3 class="lead">Click to add team members to your walk (Optional)</h3>
+        <h2><?= t('Who else is involved with this walk?') ?></h2>
+        <h3 class="lead"><?= t('Click to add team members to your walk') ?> (<?= t('Optional') ?>)</h3>
         <div class="team-set">
           <div class="team-row">
             <section class="new-member" id="new-walkleader" title="Add New Walk Leader" data-new="walk-leader-new">
               <div class="icon"></div>
-              <h4 class="title text-center">Walk Leader</h4>
-              <p>A person presenting information, telling stories, and fostering discussion during the Jane's Walk.</p>
+              <h4 class="title text-center"><?= t('Walk Leader') ?></h4>
+              <p><?= t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') ?></p>
             </section>
             <section class="new-member" id="new-walkorganizer" title="Add New Walk Organizer" data-new="walk-organizer-new">
               <div class="icon"></div>
-              <h4 class="title text-center">Walk Organizer</h4>
-              <p>A person responsible for outreach to new and returning Walk Leaders and Community Voices.</p>
+              <h4 class="title text-center"><?= t('Walk Organizer') ?></h4>
+              <p><?= t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') ?></p>
             </section>
           </div>
           <div class="team-row">
             <section class="new-member" id="new-communityvoice" title="Add A Community Voice" data-new="community-voice-new">
               <div class="icon"></div>
-              <h4 class="title text-center">Community Voice</h4>
-              <p>A community member with stories and/or personal experiences to share.</p>
+              <h4 class="title text-center"><?= t('Community Voice') ?></h4>
+              <p><?= t('A community member with stories and/or personal experiences to share.') ?></p>
             </section>
             <section class="new-member" id="new-othermember" title="Add another helper to your walk" data-new="othermember-new">
               <div class="icon"></div>
-              <h4 class="title text-center">Volunteers</h4>
-              <p>Other people who are helping to make your walk happen.</p>
+              <h4 class="title text-center"><?= t('Volunteers') ?></h4>
+              <p><?= t('Other people who are helping to make your walk happen.') ?></p>
             </section>
           </div>
         </div>
@@ -767,12 +767,12 @@ JanesWalk.form['2014-05-04'] = {
         <fieldset>
           <input type="hidden" name="type[]" value="leader">
           <input type="hidden" name="user_id[]" value="-1">
-          <legend>Walk Leader</legend>
+          <legend><?= t('Walk Leader') ?></legend>
 
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
-                <label for="name">Name</label>
+                <label for="name"><?= t('Name') ?></label>
                 <div class="item">
                   <form class="form-inline">
                     <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]" />
@@ -781,13 +781,13 @@ JanesWalk.form['2014-05-04'] = {
                 </div>
               </div>
               <div class="item" id="primary-walkleader-select">
-                <label class="checkbox"><input type="checkbox" class="role-check" name="primary[]">  Primary Walk Leader</label>
+                <label class="checkbox"><input type="checkbox" class="role-check" name="primary[]">  <?= t('Primary Walk Leader') ?></label>
               </div>
 
               <div class="item required">
-                <label for="bio">Introduce the walk leader</label>
+                <label for="bio"><?= t('Introduce the walk leader') ?></label>
                 <div class="alert alert-info">
-                  We recommend keeping the bio under 60 words
+                  <?= t('We recommend keeping the bio under 60 words') ?>
                 </div>
                 <textarea class="span12" id="bio" rows="6" name="bio[]"></textarea>
               </div>
@@ -809,24 +809,24 @@ JanesWalk.form['2014-05-04'] = {
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> Website</label>
+                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large" id="website" placeholder="" value="" name="website[]">
                 </div>
               </div>
 
               <hr>
 
-              <h4>Private</h4>
+              <h4><?= t('Private') ?></h4>
               <div class="alert alert-info">
-                We'll use this information to contact you about your walk submission. We wont share this information with 3rd parties.</div>
+                <?= t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') ?></div>
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6 required"> 
-                  <label for="email"><i class="icon-envelope"></i> Email</label>
+                  <label for="email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
                   <input type="email" class="input-large" id="email" placeholder="Email" name="email[]">
                 </div>
                 <div class="span6 tel">
-                  <label for="phone"><i class="icon-phone-sign"></i> Phone Number</label>
+                  <label for="phone"><i class="icon-phone-sign"></i> <?= t('Phone Number') ?></label>
                   <input type="tel" maxlength="16" class="input-large" id="phone" placeholder="" name="phone[]">
                 </div>
               </div>  
@@ -834,7 +834,7 @@ JanesWalk.form['2014-05-04'] = {
           </div>
         </fieldset>
         <footer>
-          <button class="btn remove-team-member">Remove Team Member</button>
+          <button class="btn remove-team-member"><?= t('Remove Team Member') ?></button>
         </footer>  
       </div>
 
@@ -842,19 +842,19 @@ JanesWalk.form['2014-05-04'] = {
 
       <div class="thumbnail team-member walk-organizer hide" id="walk-organizer-new">
         <fieldset>
-          <legend>Walk Organizer</legend>
+          <legend><?= t('Walk Organizer') ?></legend>
           <input type="hidden" name="type[]" value="organizer">
           <input type="hidden" name="user_id[]" value="-1">
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
-                <label for="name">Name</label>
+                <label for="name"><?= t('Name') ?></label>
                 <form class="form-inline">
                   <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]">
                   <input type="text" class="input-small" id="name" placeholder="Last" name="name-last[]">
                 </form>
               </div>
-              <label for="affiliation">Affilated Institution (Optional)</label>
+              <label for="affiliation"><?= t('Affilated Institution') ?> (<?= t('Optional') ?>)</label>
               <input type="text" class="input-large" id="name" placeholder="e.g. City of Toronto" name="institution[]">
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
@@ -866,7 +866,7 @@ JanesWalk.form['2014-05-04'] = {
           </div>
         </fieldset>
         <footer>
-          <button class="btn remove-team-member">Remove Team Member</button>
+          <button class="btn remove-team-member"><?= t('Remove Team Member') ?></button>
         </footer> 
       </div>
 
@@ -876,20 +876,20 @@ JanesWalk.form['2014-05-04'] = {
         <fieldset>
           <input type="hidden" name="type[]" value="community">
           <input type="hidden" name="user_id[]" value="-1">
-          <legend id="community-voice">Community Voice</legend>
+          <legend id="community-voice"><?= t('Community Voice') ?></legend>
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
-                <label for="name">Name</label>
+                <label for="name"><?= t('Name') ?></label>
                 <form class="form-inline">
                   <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]">
                   <input type="text" class="input-small" id="name" placeholder="Last" name="name-last[]">
                 </form>
               </div>
               <div class="item">
-                <label for="bio">Tell everyone about this person</label>
+                <label for="bio"><?= t('Tell everyone about this person') ?></label>
                 <div class="alert alert-info">
-                  We recommend keeping the bio under 60 words
+                  <?= t('We recommend keeping the bio under 60 words') ?>
                 </div>
                 <textarea class="span12" id="bio" rows="6" name="bio[]"></textarea>
               </div>
@@ -908,7 +908,7 @@ JanesWalk.form['2014-05-04'] = {
               </div>
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> Website</label>
+                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large span12" id="website" placeholder="" value="" name="website[]">
                 </div>
               </div>
@@ -916,20 +916,20 @@ JanesWalk.form['2014-05-04'] = {
           </div>
         </fieldset>
         <footer>
-          <button class="btn remove-team-member">Remove Team Member</button>
+          <button class="btn remove-team-member"><?= t('Remove Team Member') ?></button>
         </footer> 
       </div>
 
       <!-- Other -->
       <div class="thumbnail team-member hide othermember" id="othermember-new">
         <fieldset>
-          <legend id="othermember">Volunteers</legend>
+          <legend id="othermember"><?= t('Volunteers') ?></legend>
           <input type="hidden" name="type[]" value="volunteer">
           <input type="hidden" name="user_id[]" value="-1">
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
-                <label for="name">Name</label>
+                <label for="name"><?= t('Name') ?></label>
                 <form class="form-inline">
                   <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]">
                   <input type="text" class="input-small" id="name" placeholder="Last" name="name-last[]">
@@ -937,13 +937,13 @@ JanesWalk.form['2014-05-04'] = {
               </div>
 
               <div class="item required">
-                <label for="role">Role</label>
+                <label for="role"><?= t('Role') ?></label>
                 <input type="text" id="role" name="role[]">
               </div>
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> Website</label>
+                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large span12" id="website" placeholder="" value="" name="website[]">
                 </div>
               </div>
@@ -952,11 +952,11 @@ JanesWalk.form['2014-05-04'] = {
           </div>
         </fieldset>
         <footer>
-          <button class="btn remove-othermember">Remove Team Member</button>
+          <button class="btn remove-othermember"><?= t('Remove Team Member') ?></button>
         </footer> 
       </div>
       <hr>
-      <button class="btn btn-primary btn-large section-save" id="section-save">Save</button><br><br>
+      <button class="btn btn-primary btn-large section-save" id="section-save"><?= t('Save') ?></button><br><br>
     </div>
   </div>
 </div>
@@ -964,71 +964,71 @@ JanesWalk.form['2014-05-04'] = {
 <div class="span3" id="tips-column">
   <aside id="tips-panel" role="complementary">
     <div class="popover right" id="city-organizer" style="display:block;">
-      <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> Contact City Organizer for help</h3>
+      <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> <?= t('Contact City Organizer for help') ?></h3>
       <div class="popover-content collapse in" id="popover-content">
         <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
         <p>
-          <?="Hi! I'm ".($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName())." the City Organizer for Jane's Walk {$city->getCollectionName()}. I'm here to help, so if you have any questions, please <strong><a href='mailto:{$ui_cityorganizer->getUserEmail()}'>email me!</a></strong></p>"?>
+          <?= t('Hi! I\'m') . ' ' . ($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName()).' ' . t('the City Organizer for Jane\'s Walk') . " {$city->getCollectionName()}. " . t('I\'m here to help, so if you have any questions, please') ?><strong><a href='mailto:<?= $ui_cityorganizer->getUserEmail() ?>'><?= t('email me') ?>!</a></strong></p>
       </div>
     </div>
     <!-- Profile of City organizer -->
 
     <!-- Tip Title Here -->
     <div class="popover right tip fade" data-tipfor="transit">
-      <h3 class="popover-title">Make it easy to get there by transit</h3>
+      <h3 class="popover-title"><?= t('Make it easy to get there by transit') ?></h3>
       <div class="popover-content">
-        <p>Have your walk start and finish near a transit stop to make it more accessible</p>
+        <p><?= t('Have your walk start and finish near a transit stop to make it more accessible') ?></p>
       </div>
     </div>
 
     <!-- Tip Title Here -->
     <div class="popover right tip fade" data-tipfor="question-one">
-      <h3 class="popover-title">Creating Great Walks</h3>
+      <h3 class="popover-title"><?= t('Creating Great Walks') ?></h3>
       <div class="popover-content">
         <a href="#video-tip" data-toggle="modal"></a>
-        <a href="#video-tip" data-toggle="modal" class="text-center">Watch the video</a>
+        <a href="#video-tip" data-toggle="modal" class="text-center"><?= t('Watch the video') ?></a>
       </div>
     </div>
 
     <!-- Tip Title Here -->
     <div class="popover right tip fade" data-tipfor="map-canvas">
-      <h3 class="popover-title">Learn something new</h3>
+    <h3 class="popover-title"><?= t('Learn something new') ?></h3>
       <div class="popover-content">
-        <p>Think of a question you can ask at each stop to engage the group and create some AHA! moment, for both them and you too.</p>
+        <p><?= t('Think of a question you can ask at each stop to engage the group and create some AHA! moment, for both them and you too.') ?></p>
       </div>
     </div>
 
     <!-- Tip Title Here -->
     <div class="popover right tip fade" data-tipfor="add-member">
-      <h3 class="popover-title">Take a load off</h3>
+      <h3 class="popover-title"><?= t('Take a load off') ?></h3>
       <div class="popover-content">
-        <p>Sharing  the  hosting  duties  with  some  co‐guides  is  often  a  good  idea  and  lightens  the  load.</p>
+        <p><?= t('Sharing  the  hosting  duties  with  some  co‐guides  is  often  a  good  idea  and  lightens  the  load.') ?></p>
       </div>
     </div>
 
     <!-- Tip Title Here -->
     <div class="popover right tip fade" data-tipfor="longwalkdescription">
-      <h3 class="popover-title">Make your description shine</h3>
+      <h3 class="popover-title"><?= t('Make your description shine') ?></h3>
       <div class="popover-content">
-        <p>Ask some rhetorical questions that have to do with what you’ll talk about. In your description, give people an idea of whether on your walk they'll be stopping and talking with local shop owners or residents. </p>
+        <p><?= t('Ask some rhetorical questions that have to do with what you’ll talk about. In your description, give people an idea of whether on your walk they\'ll be stopping and talking with local shop owners or residents. ') ?></p>
       </div>
     </div>
 
     <!-- Tip Title Here -->
     <div class="popover right tip fade" data-tipfor="walkduration">
 
-      <h3 class="popover-title">Calculating your Walk Length</h3>
+      <h3 class="popover-title"><?= t('Calculating your Walk Length') ?></h3>
       <div class="popover-content">
-        <p>Make your walk duration twice as long as your rehearsal walk.</p>
+        <p><?= t('Make your walk duration twice as long as your rehearsal walk.') ?></p>
       </div>
     </div>
 
     <!-- Tip Title Here -->
     <div class="popover right tip fade" data-tipfor="new-communityvoice">
-      <h3 class="popover-title">Give your walk more character!</h3>
+      <h3 class="popover-title"><?= t('Give your walk more character!') ?></h3>
       <div class="popover-content">
-        <p>Consider  involving  some  local  residents  or  business  people  on  the  stroll.  Talk  to  a  hot‐dog  vendor  who  is  thoroughly  familiar  with  the  characters,  habituees,  the  patterns  and  rhythms  of  the  street  (Jane  Jacobs  idea  of  the  sidewalk  ballet).  You  might  want  to  drop  into  a store,  feature  an  older  neighbour  with  interesting  stories,  or  even  meet up  with  a  local  politician  to get  their  perspective  on  the  neighbourhood.
-        </p>
+      <p><?= t('Consider  involving  some  local  residents  or  business  people  on  the  stroll.  Talk  to  a  hot‐dog  vendor  who  is  thoroughly  familiar  with  the  characters,  habituees,  the  patterns  and  rhythms  of  the  street  (Jane  Jacobs  idea  of  the  sidewalk  ballet).  You  might  want  to  drop  into  a store,  feature  an  older  neighbour  with  interesting  stories,  or  even  meet up  with  a  local  politician  to get  their  perspective  on  the  neighbourhood.') ?>
+      </p>
       </div>
     </div>
 
