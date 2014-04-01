@@ -8,3 +8,4 @@ files/
 *.swp
 *.swo
 .rvmrc
+concrete/*
