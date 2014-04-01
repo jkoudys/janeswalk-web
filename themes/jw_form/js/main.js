@@ -317,8 +317,12 @@ window.Janeswalk = {
         success: function() { console.log("Published Walk"); }
         });
       });
-
-    if (dataUrl != null){
+    if(JanesWalk.form.data) {
+      JaneswalkData.fill(JanesWalk.form.data);
+      console.log("Loaded data locally");
+    }
+    else if (dataUrl != null){
+      console.log("Remote fetching data");
       $('.progress-spinner').spin(spinProperties);
       $.getJSON(dataUrl, function(data){
         JaneswalkData.fill(data);
@@ -673,7 +677,7 @@ var walkSetImage = function( fileId ) {
 var spinProperties = {lines:10,length:15,width:5,radius:30};
 
 // On page load
-$(function() {
+$(document).ready(function(){
   // Loader
   $('.progress-spinner').spin(spinProperties);
   Janeswalk.initialize();

@@ -40,7 +40,8 @@ JanesWalk = {
         endDate: new Date("May 4, 2014"),
       <?php } ?> 
       defaultDate: new Date("May 3, 2014")
-    }
+    },
+    data: <?= $walkController->getJson() ?>
   }
 };
 <?php if($is_nyc) { ?>
@@ -55,7 +56,7 @@ JanesWalk.form['2014-05-04'] = {
 <?php } ?>
 </script>
 
-<div style='display:none' class='pagejson' data-url='<?=$nh->getCollectionURL($c)?>'></div>
+<div style='display:none' class='pagejson' data-url='<?= $nh->getCollectionURL($c) ?>'></div>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
