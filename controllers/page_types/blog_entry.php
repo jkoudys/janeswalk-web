@@ -7,7 +7,9 @@
       $c = Page::getCurrentPage();
       $ui = UserInfo::getByID($c->getCollectionUserID());
 
-      $this->set('headImage', $im->getThumbnail($c->getAttribute("main_image"), 800, 800));
+      if($imAtt = $c->getAttribute('main_image')) {
+        $this->set('headImage', $im->getThumbnail($imAtt, 800, 800));
+      }
       $this->set('isLoggedIn', $dh->canRead());
       $this->set('canEdit', is_object(ComposerPage::getByID($c->getCollectionID())));
       $this->set('authorName', ($first_name = $ui->getAttribute('first_name')) ? ("$first_name {$ui->getAttribute('last_name')}") : $ui->getUserObject()->getUserName());
