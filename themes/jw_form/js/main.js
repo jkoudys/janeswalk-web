@@ -204,7 +204,7 @@ window.Janeswalk = {
       });
     });
 
-    $('footer').on('click', '.remove-team-member', function() {
+    $('footer').on('click', '.remove-team-member, .remove-othermember', function() {
       $(this).parentsUntil('#walk-members').remove();
       tipLoader();
     });
