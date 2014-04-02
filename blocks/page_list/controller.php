@@ -109,13 +109,15 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
   public function getCardData($page) {
     $cardData['leaders'] = implode(
       ', ',
-      array_map(
-        function($mem) {
-          if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
-            return "{$mem['name-first']} {$mem['name-last']}";
-          }
-        },
-        json_decode($page->getAttribute('team'),true)
+      array_filter(
+        array_map(
+         function($mem) {
+           if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
+             return trim("{$mem['name-first']} {$mem['name-last']}") ?: null;
+           }
+         },
+         json_decode($page->getAttribute('team'),true)
+        )
       )
     );
     // Wards
