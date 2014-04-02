@@ -1,2 +1,6 @@
-body > header, body > footer {
-  display: non; }
+body > header, body > footer, body #ccm-page-controls-wrapper {
+  display: none; }
+
+* {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact; }
