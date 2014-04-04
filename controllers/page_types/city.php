@@ -43,7 +43,7 @@
       $pl->filterByPath($c->getCollectionPath());
       $pl->filterByAttribute('exclude_page_list',false);
       $city_organizer = UserInfo::getByID($c->getCollectionUserID());
-      $pagecount = 100;
+      $pagecount = 500;
       $cityData = ['title' => $c->getCollectionName(), 
         'url' => $nh->getCollectionURL($c),
         'background' => ($bg = $c->getAttribute('full_bg')) ? $bg->getURL() : null,
@@ -74,7 +74,9 @@
           'time' => isset($slots[0]['time']) ? $slots[0]['time'] : 'multiple',
           'map' => json_decode($page->getAttribute('gmap')),
           'short_description' => $page->getAttribute('shortdescription')];
-
+        foreach($slots as $slot) {
+          $cityData['walks'][$key]['slots'][] = ['date' => $slot['date'], 'time' => $slot['time'] ?: 'multiple'];
+        } 
         foreach(json_decode($page->getAttribute('team')) as $memkey=>$mem) {
           $cityData['walks'][$key]['team'] .= ($memkey == 0 ? 'Walk led by ' : ($memkey > 0 ? ', ' : '')) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
         }
