@@ -30,10 +30,14 @@
         user: {
           firstName: '<?= $ui->getAttribute('first_name') ?>',
           lastName: '<?= $ui->getAttribute('last_name') ?>',
+<?php
+    if($city) { ?>
           city: {
             name: '<?= addslashes($city->getCollectionName()) ?>',
             url: '<?= $nh->getCollectionURL($city) ?>'
           },
+<?php 
+    } ?>
         },
 <?php
   }
