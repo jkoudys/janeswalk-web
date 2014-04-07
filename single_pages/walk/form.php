@@ -56,7 +56,7 @@ JanesWalk.form['2014-05-04'] = {
 <?php } ?>
 </script>
 
-<div style='display:none' class='pagejson' data-url='<?= $nh->getCollectionURL($c) ?>'></div>
+<div style='display:none' class='pagejson' data-url='<?= DIR_REL . '/' . DISPATCHER_FILENAME  . '?cID=' . $c->getCollectionID() ?>'></div>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
@@ -102,8 +102,8 @@ JanesWalk.form['2014-05-04'] = {
               <div class="span4">
                 <img id="convo-marker" src="<?= $this->getThemePath() ?>/img/jw-intro-graphic.svg" alt="Jane's Walks are walking conversations.">
               </div>
-              <div class="span8"><h1><?= t('Hey there ') ?><?=$ui->getAttribute('first_name')?>!</h1>
-                <p><?= t('Jane’s  Walks  are   walking  conversation  about  neighbourhoods .  You can return to this form at any time, so there\'s no need to finish everything at once.') ?></p></div>
+              <div class="span8"><h1><?= t('Hey there, %s!', $ui->getAttribute('first_name')) ?></h1>
+                <p><?= t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') ?></p></div>
             </div>
           </div>
           <div class="page-header" data-section='description'>
@@ -122,7 +122,7 @@ JanesWalk.form['2014-05-04'] = {
             <hr>
             <div class="item required">
               <label for="walkphotos" id="photo-tip"><?= t('Upload a photo that best represents your walk.') ?></label>
-              <iframe class="walkphotos" src="<?=REL_DIR_FILES_TOOLS?>/files/image_upload"></iframe> 
+              <iframe class="walkphotos" src="<?= REL_DIR_FILES_TOOLS ?>/files/image_upload"></iframe> 
             </div>
           </form>
           <form>
@@ -322,7 +322,7 @@ JanesWalk.form['2014-05-04'] = {
 <?php
         } // end NYC check ?>
         <hr>
-        <input class="btn btn-primary btn-large section-save" type="submit" value="Next" data-next="route" href="#route"><br><br>
+        <input class="btn btn-primary btn-large section-save" type="submit" value="<?= t('Next') ?>" data-next="route" href="#route"><br><br>
       </form>
     </div>
 
@@ -622,7 +622,7 @@ JanesWalk.form['2014-05-04'] = {
       </div>
 
       <hr>
-      <a href="#team" class="btn btn-primary btn-large section-save" data-toggle="tab">Next</a><br><br>
+      <a href="#team" class="btn btn-primary btn-large section-save" data-toggle="tab"><?= t('Next') ?></a><br><br>
     </div>
 
     <div class="tab-pane" id="team">
@@ -638,7 +638,7 @@ JanesWalk.form['2014-05-04'] = {
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
-                <label for="name">Name</label>
+                <label for="name"><?= t('Name') ?></label>
                 <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?=htmlspecialchars($ui->getAttribute("first_name"))?>">
                 <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?=htmlspecialchars($ui->getAttribute("last_name"))?>">
               </div>
@@ -859,7 +859,7 @@ JanesWalk.form['2014-05-04'] = {
               <input type="text" class="input-large" id="name" placeholder="e.g. City of Toronto" name="institution[]">
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> Website</label>
+                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large span12" id="website" placeholder="" value="" name="name-website[]">
                 </div>
               </div>
@@ -969,7 +969,7 @@ JanesWalk.form['2014-05-04'] = {
       <div class="popover-content collapse in" id="popover-content">
         <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
         <p>
-          <?= t('Hi! I\'m') . ' ' . ($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName()).' ' . t('the City Organizer for Jane\'s Walk') . " {$city->getCollectionName()}. " . t('I\'m here to help, so if you have any questions, please') ?><strong><a href='mailto:<?= $ui_cityorganizer->getUserEmail() ?>'><?= t('email me') ?>!</a></strong></p>
+          <?= t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', ($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName()), $city->getCollectionName()) ?> <strong><a href='mailto:<?= $ui_cityorganizer->getUserEmail() ?>'><?= t('email me') ?>!</a></strong></p>
       </div>
     </div>
     <!-- Profile of City organizer -->
@@ -1003,7 +1003,7 @@ JanesWalk.form['2014-05-04'] = {
     <div class="popover right tip fade" data-tipfor="add-member">
       <h3 class="popover-title"><?= t('Take a load off') ?></h3>
       <div class="popover-content">
-        <p><?= t('Sharing  the  hosting  duties  with  some  co‐guides  is  often  a  good  idea  and  lightens  the  load.') ?></p>
+        <p><?= t('Sharing the hosting duties with some co‐guides is often a good idea and lightens the load.') ?></p>
       </div>
     </div>
 
@@ -1028,7 +1028,7 @@ JanesWalk.form['2014-05-04'] = {
     <div class="popover right tip fade" data-tipfor="new-communityvoice">
       <h3 class="popover-title"><?= t('Give your walk more character!') ?></h3>
       <div class="popover-content">
-      <p><?= t('Consider  involving  some  local  residents  or  business  people  on  the  stroll.  Talk  to  a  hot‐dog  vendor  who  is  thoroughly  familiar  with  the  characters,  habituees,  the  patterns  and  rhythms  of  the  street  (Jane  Jacobs  idea  of  the  sidewalk  ballet).  You  might  want  to  drop  into  a store,  feature  an  older  neighbour  with  interesting  stories,  or  even  meet up  with  a  local  politician  to get  their  perspective  on  the  neighbourhood.') ?>
+      <p><?= t('Consider involving some local residents or business people on the stroll. Talk to a hot‐dog vendor who is thoroughly familiar with the characters, habituees, the patterns and rhythms of the street (Jane Jacobs idea of the sidewalk ballet). You might want to drop into a store, feature an older neighbour with interesting stories, or even meet up with a local politician to get their perspective on the neighbourhood.') ?>
       </p>
       </div>
     </div>

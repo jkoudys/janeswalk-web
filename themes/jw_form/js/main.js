@@ -279,8 +279,10 @@ window.Janeswalk = {
     // Populate data if available
     // This data could be in the dom, or the url to the data could be in the dom as a js var, this example (/form.html?load=/js/sample.json) loads it from a url param
     var newPage = false;
-    var dataUrl = $(".pagejson").data("url") + "?format=json";
+    var dataUrl = $(".pagejson").data("url");
     var previewUrl = $(".pagejson").data("url");
+    dataUrl += (dataUrl.indexOf("?") >= 0 ? "&" : "?") + "format=json";
+    debugger;
 
     var notify_success = function() {
       $('body').append('<div class="alert alert-success" id="save-notify">Walk Saved</div>');
