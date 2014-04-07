@@ -481,8 +481,8 @@ JanesWalk.form['2014-05-04'] = {
           <table class="table table-bordered table-hover" id="date-list-set">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Start Time</th>
+                <th><?= t('Date') ?></th>
+                <th><?= t('Start Time') ?></th>
                 <th></th>
               </tr>
             </thead>
@@ -1077,18 +1077,18 @@ JanesWalk.form['2014-05-04'] = {
 <div id="publish-warning" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Okay, You're Ready to Publish</h3>
+    <h3><?= t('Okay, You\'re Ready to Publish') ?></h3>
   </div>
   <div class="modal-body">
-    <p>Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes.</p>
+    <p><?= t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') ?></p>
   </div>
 
   <div class="modal-footer">
     <div class="pull-left">
-      <a href="" class="walkthrough close" data-dismiss="modal"> Bring me back to edit</a>
+      <a href="" class="walkthrough close" data-dismiss="modal"> <?= t('Bring me back to edit') ?></a>
     </div>
     <a href="<?php echo $this->url('/profile') ?>">
-      <button class="btn btn-primary walkthrough" data-step="publish-confirmation">Publish</button></a>
+      <button class="btn btn-primary walkthrough" data-step="publish-confirmation"><?= t('Publish') ?></button></a>
   </div>
 
 </div>
@@ -1117,14 +1117,14 @@ JanesWalk.form['2014-05-04'] = {
 <div id="preview-modal" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Preview of your Walk</h3>
+    <h3><?= t('Preview of your Walk') ?></h3>
   </div>
   <div class="modal-body">
     <iframe src="" frameborder="0">
     </iframe>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn close" data-dismiss="modal">Close Preview</a>
+    <a href="#" class="btn close" data-dismiss="modal"><?= t('Close Preview') ?></a>
   </div>
 </div>
 
