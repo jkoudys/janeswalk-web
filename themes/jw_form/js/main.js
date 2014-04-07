@@ -653,6 +653,7 @@ function parseUrl( url ) {
 
 // Handling tips
 var tipLoader = function() {
+/* TODO: re-activate these tips, once the vids are done and we can link them
   $('.tip').transition({ y: '0px',opacity:0 }).each(function(index) {
     $(this).animate({'opacity':0}, 'fast', function(){
       $(this).removeClass('in');
@@ -666,6 +667,7 @@ var tipLoader = function() {
   setTimeout(function(){
     $('.tip.in').transition({ y: '20px',opacity:1 });
   },1000);
+  */
 }
 
 // File uploader
