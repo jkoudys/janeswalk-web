@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 18:41-0400\n"
-"PO-Revision-Date: 2014-04-06 18:41-0400\n"
+"POT-Creation-Date: 2014-04-06 20:33-0400\n"
+"PO-Revision-Date: 2014-04-06 20:35-0400\n"
 "Last-Translator: Joshua Koudys <josh@qaribou.com>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -54,12 +54,13 @@ msgid "Save and return later"
 msgstr "Save and return later"
 
 #: ../single_pages/walk/form.php:105
-msgid "Hey there "
-msgstr "Hey there "
+#, php-format
+msgid "Hey there, %s!"
+msgstr "Hey there, %s!"
 
 #: ../single_pages/walk/form.php:106
-msgid "Jane’s Walks are walking conversation about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
-msgstr "Jane’s Walks are walking conversation about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
+msgid "Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
+msgstr "Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
 
 #: ../single_pages/walk/form.php:115
 msgid "Walk Title"
@@ -611,16 +612,9 @@ msgid "Contact City Organizer for help"
 msgstr "Contact City Organizer for help"
 
 #: ../single_pages/walk/form.php:972
-msgid "Hi! I'm"
-msgstr "Hi! I'm"
-
-#: ../single_pages/walk/form.php:972
-msgid "the City Organizer for Jane's Walk"
-msgstr "the City Organizer for Jane's Walk"
-
-#: ../single_pages/walk/form.php:972
-msgid "I'm here to help, so if you have any questions, please"
-msgstr "I'm here to help, so if you have any questions, please"
+#, php-format
+msgid "Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if you have any questions, please"
+msgstr "Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if you have any questions, please"
 
 #: ../single_pages/walk/form.php:972
 msgid "email me"
@@ -949,7 +943,7 @@ msgstr "User name"
 msgid "Go!"
 msgstr "Go!"
 
-#: ../single_pages/map/world.php:27
+#: ../single_pages/map/world.php:26
 msgid ", "
 msgstr ", "
 

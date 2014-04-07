@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 18:41-0400\n"
+"POT-Creation-Date: 2014-04-06 20:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,11 +55,12 @@ msgid "Save and return later"
 msgstr ""
 
 #: ../single_pages/walk/form.php:105
-msgid "Hey there "
+#, php-format
+msgid "Hey there, %s!"
 msgstr ""
 
 #: ../single_pages/walk/form.php:106
-msgid "Jane’s Walks are walking conversation about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
+msgid "Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
 msgstr ""
 
 #: ../single_pages/walk/form.php:115
@@ -612,15 +613,8 @@ msgid "Contact City Organizer for help"
 msgstr ""
 
 #: ../single_pages/walk/form.php:972
-msgid "Hi! I'm"
-msgstr ""
-
-#: ../single_pages/walk/form.php:972
-msgid "the City Organizer for Jane's Walk"
-msgstr ""
-
-#: ../single_pages/walk/form.php:972
-msgid "I'm here to help, so if you have any questions, please"
+#, php-format
+msgid "Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if you have any questions, please"
 msgstr ""
 
 #: ../single_pages/walk/form.php:972
@@ -947,7 +941,7 @@ msgstr ""
 msgid "Go!"
 msgstr ""
 
-#: ../single_pages/map/world.php:27
+#: ../single_pages/map/world.php:26
 msgid ", "
 msgstr ""
 
