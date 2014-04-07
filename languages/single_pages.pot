@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 20:33-0400\n"
+"POT-Creation-Date: 2014-04-07 00:21-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -247,6 +247,12 @@ msgstr ""
 msgid "Food"
 msgstr ""
 
+#: ../single_pages/walk/form.php:325 ../single_pages/walk/form.php:399
+#: ../single_pages/walk/form.php:498 ../single_pages/walk/form.php:558
+#: ../single_pages/walk/form.php:625
+msgid "Next"
+msgstr ""
+
 #: ../single_pages/walk/form.php:335
 msgid "Need help building your route?"
 msgstr ""
@@ -333,11 +339,6 @@ msgstr ""
 
 #: ../single_pages/walk/form.php:393
 msgid "You haven't set any stops yet."
-msgstr ""
-
-#: ../single_pages/walk/form.php:399 ../single_pages/walk/form.php:498
-#: ../single_pages/walk/form.php:558
-msgid "Next"
 msgstr ""
 
 #: ../single_pages/walk/form.php:406
@@ -490,6 +491,12 @@ msgstr ""
 msgid "You"
 msgstr ""
 
+#: ../single_pages/walk/form.php:641 ../single_pages/walk/form.php:776
+#: ../single_pages/walk/form.php:852 ../single_pages/walk/form.php:884
+#: ../single_pages/walk/form.php:933
+msgid "Name"
+msgstr ""
+
 #: ../single_pages/walk/form.php:647 ../single_pages/walk/form.php:941
 msgid "Role"
 msgstr ""
@@ -521,7 +528,8 @@ msgid "We recommend keeping your bio under 60 words"
 msgstr ""
 
 #: ../single_pages/walk/form.php:683 ../single_pages/walk/form.php:813
-#: ../single_pages/walk/form.php:912 ../single_pages/walk/form.php:947
+#: ../single_pages/walk/form.php:862 ../single_pages/walk/form.php:912
+#: ../single_pages/walk/form.php:947
 msgid "Website"
 msgstr ""
 
@@ -572,11 +580,6 @@ msgstr ""
 
 #: ../single_pages/walk/form.php:759
 msgid "Other people who are helping to make your walk happen."
-msgstr ""
-
-#: ../single_pages/walk/form.php:776 ../single_pages/walk/form.php:852
-#: ../single_pages/walk/form.php:884 ../single_pages/walk/form.php:933
-msgid "Name"
 msgstr ""
 
 #: ../single_pages/walk/form.php:789
@@ -675,6 +678,30 @@ msgstr ""
 
 #: ../single_pages/walk/form.php:1031
 msgid "Consider involving some local residents or business people on the stroll. Talk to a hot‐dog vendor who is thoroughly familiar with the characters, habituees, the patterns and rhythms of the street (Jane Jacobs idea of the sidewalk ballet). You might want to drop into a store, feature an older neighbour with interesting stories, or even meet up with a local politician to get their perspective on the neighbourhood."
+msgstr ""
+
+#: ../single_pages/walk/form.php:1080
+msgid "Okay, You're Ready to Publish"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1083
+msgid "Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes."
+msgstr ""
+
+#: ../single_pages/walk/form.php:1088
+msgid "Bring me back to edit"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1091
+msgid "Publish"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1120
+msgid "Preview of your Walk"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1127
+msgid "Close Preview"
 msgstr ""
 
 #: ../single_pages/register.php:6

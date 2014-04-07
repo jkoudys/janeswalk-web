@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-06 20:33-0400\n"
-"PO-Revision-Date: 2014-04-06 20:35-0400\n"
+"POT-Creation-Date: 2014-04-07 00:21-0400\n"
+"PO-Revision-Date: 2014-04-07 00:22-0400\n"
 "Last-Translator: Joshua Koudys <josh@qaribou.com>\n"
 "Language-Team: English\n"
 "Language: en_CA\n"
@@ -59,8 +59,12 @@ msgid "Hey there, %s!"
 msgstr "Hey there, %s!"
 
 #: ../single_pages/walk/form.php:106
-msgid "Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
-msgstr "Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
+msgid ""
+"Jane’s Walks are walking conversations about neighbourhoods. You can return "
+"to this form at any time, so there's no need to finish everything at once."
+msgstr ""
+"Jane’s Walks are walking conversations about neighbourhoods. You can return "
+"to this form at any time, so there's no need to finish everything at once."
 
 #: ../single_pages/walk/form.php:115
 msgid "Walk Title"
@@ -79,8 +83,10 @@ msgid "Your Walk in a Nutshell"
 msgstr "Your Walk in a Nutshell"
 
 #: ../single_pages/walk/form.php:133
-msgid "Build intrigue! This is what people see when browsing our walk listings."
-msgstr "Build intrigue! This is what people see when browsing our walk listings."
+msgid ""
+"Build intrigue! This is what people see when browsing our walk listings."
+msgstr ""
+"Build intrigue! This is what people see when browsing our walk listings."
 
 #: ../single_pages/walk/form.php:136
 msgid "Characters left"
@@ -91,16 +97,28 @@ msgid "Walk Description"
 msgstr "Walk Description"
 
 #: ../single_pages/walk/form.php:143
-msgid "Help jump start the conversation on your walk by giving readers an idea of the discussions you'll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words."
-msgstr "Help jump start the conversation on your walk by giving readers an idea of the discussions you'll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words."
+msgid ""
+"Help jump start the conversation on your walk by giving readers an idea of "
+"the discussions you'll be having on the walk together. We suggest including "
+"a couple of questions to get people thinking about how they can contribute "
+"to the dialog on the walk. To keep this engaging, we recommend keeping your "
+"description to 200 words."
+msgstr ""
+"Help jump start the conversation on your walk by giving readers an idea of "
+"the discussions you'll be having on the walk together. We suggest including "
+"a couple of questions to get people thinking about how they can contribute "
+"to the dialog on the walk. To keep this engaging, we recommend keeping your "
+"description to 200 words."
 
 #: ../single_pages/walk/form.php:151
 msgid "Sub-locality"
 msgstr "Sub-locality"
 
 #: ../single_pages/walk/form.php:152
-msgid "Choose a specific neighbourhood or area where your walk will take place."
-msgstr "Choose a specific neighbourhood or area where your walk will take place."
+msgid ""
+"Choose a specific neighbourhood or area where your walk will take place."
+msgstr ""
+"Choose a specific neighbourhood or area where your walk will take place."
 
 #: ../single_pages/walk/form.php:236
 msgid "Themes"
@@ -246,6 +264,12 @@ msgstr "Sports"
 msgid "Food"
 msgstr "Food"
 
+#: ../single_pages/walk/form.php:325 ../single_pages/walk/form.php:399
+#: ../single_pages/walk/form.php:498 ../single_pages/walk/form.php:558
+#: ../single_pages/walk/form.php:625
+msgid "Next"
+msgstr "Next"
+
 #: ../single_pages/walk/form.php:335
 msgid "Need help building your route?"
 msgstr "Need help building your route?"
@@ -291,12 +315,20 @@ msgid "Click Add Route"
 msgstr "Click Add Route"
 
 #: ../single_pages/walk/form.php:360
-msgid "A point will appear on your meeting place, now click on each of the stops that flow to connect them."
-msgstr "A point will appear on your meeting place, now click on each of the stops that flow to connect them."
+msgid ""
+"A point will appear on your meeting place, now click on each of the stops "
+"that flow to connect them."
+msgstr ""
+"A point will appear on your meeting place, now click on each of the stops "
+"that flow to connect them."
 
 #: ../single_pages/walk/form.php:361
-msgid "Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it."
-msgstr "Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it."
+msgid ""
+"Click and drag the circles on the orange lines to make the path between each "
+"stop. Right click on a point to delete it."
+msgstr ""
+"Click and drag the circles on the orange lines to make the path between each "
+"stop. Right click on a point to delete it."
 
 #: ../single_pages/walk/form.php:362
 msgid "Click Save Route"
@@ -334,11 +366,6 @@ msgstr "Description"
 msgid "You haven't set any stops yet."
 msgstr "You haven't set any stops yet."
 
-#: ../single_pages/walk/form.php:399 ../single_pages/walk/form.php:498
-#: ../single_pages/walk/form.php:558
-msgid "Next"
-msgstr "Next"
-
 #: ../single_pages/walk/form.php:406
 msgid "Set the Time and Date"
 msgstr "Set the Time and Date"
@@ -352,8 +379,12 @@ msgid "By Request"
 msgstr "By Request"
 
 #: ../single_pages/walk/form.php:420
-msgid "Highlight times that you're available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk."
-msgstr "Highlight times that you're available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk."
+msgid ""
+"Highlight times that you're available to lead the walk, or leave your "
+"availability open. People will be asked to contact you to set up a walk."
+msgstr ""
+"Highlight times that you're available to lead the walk, or leave your "
+"availability open. People will be asked to contact you to set up a walk."
 
 #: ../single_pages/walk/form.php:432
 msgid "Pick Your Date"
@@ -392,12 +423,18 @@ msgid "Clear schedule and return to main Time and Date page"
 msgstr "Clear schedule and return to main Time and Date page"
 
 #: ../single_pages/walk/form.php:503
-msgid "Your availability will be visible to people on your walk page and they’ll be able to send you a walk request."
-msgstr "Your availability will be visible to people on your walk page and they’ll be able to send you a walk request."
+msgid ""
+"Your availability will be visible to people on your walk page and they’ll be "
+"able to send you a walk request."
+msgstr ""
+"Your availability will be visible to people on your walk page and they’ll be "
+"able to send you a walk request."
 
 #: ../single_pages/walk/form.php:506
-msgid "Leave my availability open. Allow people to contact you to set up a walk."
-msgstr "Leave my availability open. Allow people to contact you to set up a walk."
+msgid ""
+"Leave my availability open. Allow people to contact you to set up a walk."
+msgstr ""
+"Leave my availability open. Allow people to contact you to set up a walk."
 
 #: ../single_pages/walk/form.php:545
 msgid "My Available Dates"
@@ -482,12 +519,24 @@ msgid "How will people find you?"
 msgstr "How will people find you?"
 
 #: ../single_pages/walk/form.php:618
-msgid "Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you."
-msgstr "Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you."
+msgid ""
+"Perhaps you will be holding a sign, wearing a special t-shirt or holding up "
+"an object that relates to the theme of your walk. Whatever it is, let people "
+"know how to identify you."
+msgstr ""
+"Perhaps you will be holding a sign, wearing a special t-shirt or holding up "
+"an object that relates to the theme of your walk. Whatever it is, let people "
+"know how to identify you."
 
 #: ../single_pages/walk/form.php:637
 msgid "You"
 msgstr "You"
+
+#: ../single_pages/walk/form.php:641 ../single_pages/walk/form.php:776
+#: ../single_pages/walk/form.php:852 ../single_pages/walk/form.php:884
+#: ../single_pages/walk/form.php:933
+msgid "Name"
+msgstr "Name"
 
 #: ../single_pages/walk/form.php:647 ../single_pages/walk/form.php:941
 msgid "Role"
@@ -520,7 +569,8 @@ msgid "We recommend keeping your bio under 60 words"
 msgstr "We recommend keeping your bio under 60 words"
 
 #: ../single_pages/walk/form.php:683 ../single_pages/walk/form.php:813
-#: ../single_pages/walk/form.php:912 ../single_pages/walk/form.php:947
+#: ../single_pages/walk/form.php:862 ../single_pages/walk/form.php:912
+#: ../single_pages/walk/form.php:947
 msgid "Website"
 msgstr "Website"
 
@@ -529,8 +579,12 @@ msgid "We'll keep this part private"
 msgstr "We'll keep this part private"
 
 #: ../single_pages/walk/form.php:692 ../single_pages/walk/form.php:822
-msgid "We'll use this information to contact you about your walk submission. We wont share this information with 3rd parties."
-msgstr "We'll use this information to contact you about your walk submission. We wont share this information with 3rd parties."
+msgid ""
+"We'll use this information to contact you about your walk submission. We "
+"wont share this information with 3rd parties."
+msgstr ""
+"We'll use this information to contact you about your walk submission. We "
+"wont share this information with 3rd parties."
 
 #: ../single_pages/walk/form.php:697 ../single_pages/walk/form.php:826
 #: ../single_pages/login.php:115
@@ -550,12 +604,20 @@ msgid "Click to add team members to your walk"
 msgstr "Click to add team members to your walk"
 
 #: ../single_pages/walk/form.php:742
-msgid "A person presenting information, telling stories, and fostering discussion during the Jane's Walk."
-msgstr "A person presenting information, telling stories, and fostering discussion during the Jane's Walk."
+msgid ""
+"A person presenting information, telling stories, and fostering discussion "
+"during the Jane's Walk."
+msgstr ""
+"A person presenting information, telling stories, and fostering discussion "
+"during the Jane's Walk."
 
 #: ../single_pages/walk/form.php:747
-msgid "A person responsible for outreach to new and returning Walk Leaders and Community Voices."
-msgstr "A person responsible for outreach to new and returning Walk Leaders and Community Voices."
+msgid ""
+"A person responsible for outreach to new and returning Walk Leaders and "
+"Community Voices."
+msgstr ""
+"A person responsible for outreach to new and returning Walk Leaders and "
+"Community Voices."
 
 #: ../single_pages/walk/form.php:753 ../single_pages/walk/form.php:880
 msgid "Community Voice"
@@ -572,11 +634,6 @@ msgstr "Volunteers"
 #: ../single_pages/walk/form.php:759
 msgid "Other people who are helping to make your walk happen."
 msgstr "Other people who are helping to make your walk happen."
-
-#: ../single_pages/walk/form.php:776 ../single_pages/walk/form.php:852
-#: ../single_pages/walk/form.php:884 ../single_pages/walk/form.php:933
-msgid "Name"
-msgstr "Name"
 
 #: ../single_pages/walk/form.php:789
 msgid "Introduce the walk leader"
@@ -613,8 +670,12 @@ msgstr "Contact City Organizer for help"
 
 #: ../single_pages/walk/form.php:972
 #, php-format
-msgid "Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if you have any questions, please"
-msgstr "Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if you have any questions, please"
+msgid ""
+"Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if "
+"you have any questions, please"
+msgstr ""
+"Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if "
+"you have any questions, please"
 
 #: ../single_pages/walk/form.php:972
 msgid "email me"
@@ -625,8 +686,12 @@ msgid "Make it easy to get there by transit"
 msgstr "Make it easy to get there by transit"
 
 #: ../single_pages/walk/form.php:981
-msgid "Have your walk start and finish near a transit stop to make it more accessible"
-msgstr "Have your walk start and finish near a transit stop to make it more accessible"
+msgid ""
+"Have your walk start and finish near a transit stop to make it more "
+"accessible"
+msgstr ""
+"Have your walk start and finish near a transit stop to make it more "
+"accessible"
 
 #: ../single_pages/walk/form.php:987
 msgid "Creating Great Walks"
@@ -641,24 +706,38 @@ msgid "Learn something new"
 msgstr "Learn something new"
 
 #: ../single_pages/walk/form.php:998
-msgid "Think of a question you can ask at each stop to engage the group and create some AHA! moment, for both them and you too."
-msgstr "Think of a question you can ask at each stop to engage the group and create some AHA! moment, for both them and you too."
+msgid ""
+"Think of a question you can ask at each stop to engage the group and create "
+"some AHA! moment, for both them and you too."
+msgstr ""
+"Think of a question you can ask at each stop to engage the group and create "
+"some AHA! moment, for both them and you too."
 
 #: ../single_pages/walk/form.php:1004
 msgid "Take a load off"
 msgstr "Take a load off"
 
 #: ../single_pages/walk/form.php:1006
-msgid "Sharing the hosting duties with some co‐guides is often a good idea and lightens the load."
-msgstr "Sharing the hosting duties with some co‐guides is often a good idea and lightens the load."
+msgid ""
+"Sharing the hosting duties with some co‐guides is often a good idea and "
+"lightens the load."
+msgstr ""
+"Sharing the hosting duties with some co‐guides is often a good idea and "
+"lightens the load."
 
 #: ../single_pages/walk/form.php:1012
 msgid "Make your description shine"
 msgstr "Make your description shine"
 
 #: ../single_pages/walk/form.php:1014
-msgid "Ask some rhetorical questions that have to do with what you’ll talk about. In your description, give people an idea of whether on your walk they'll be stopping and talking with local shop owners or residents. "
-msgstr "Ask some rhetorical questions that have to do with what you’ll talk about. In your description, give people an idea of whether on your walk they'll be stopping and talking with local shop owners or residents. "
+msgid ""
+"Ask some rhetorical questions that have to do with what you’ll talk about. "
+"In your description, give people an idea of whether on your walk they'll be "
+"stopping and talking with local shop owners or residents. "
+msgstr ""
+"Ask some rhetorical questions that have to do with what you’ll talk about. "
+"In your description, give people an idea of whether on your walk they'll be "
+"stopping and talking with local shop owners or residents. "
 
 #: ../single_pages/walk/form.php:1021
 msgid "Calculating your Walk Length"
@@ -673,8 +752,48 @@ msgid "Give your walk more character!"
 msgstr "Give your walk more character!"
 
 #: ../single_pages/walk/form.php:1031
-msgid "Consider involving some local residents or business people on the stroll. Talk to a hot‐dog vendor who is thoroughly familiar with the characters, habituees, the patterns and rhythms of the street (Jane Jacobs idea of the sidewalk ballet). You might want to drop into a store, feature an older neighbour with interesting stories, or even meet up with a local politician to get their perspective on the neighbourhood."
-msgstr "Consider involving some local residents or business people on the stroll. Talk to a hot‐dog vendor who is thoroughly familiar with the characters, habituees, the patterns and rhythms of the street (Jane Jacobs idea of the sidewalk ballet). You might want to drop into a store, feature an older neighbour with interesting stories, or even meet up with a local politician to get their perspective on the neighbourhood."
+msgid ""
+"Consider involving some local residents or business people on the stroll. "
+"Talk to a hot‐dog vendor who is thoroughly familiar with the characters, "
+"habituees, the patterns and rhythms of the street (Jane Jacobs idea of the "
+"sidewalk ballet). You might want to drop into a store, feature an older "
+"neighbour with interesting stories, or even meet up with a local politician "
+"to get their perspective on the neighbourhood."
+msgstr ""
+"Consider involving some local residents or business people on the stroll. "
+"Talk to a hot‐dog vendor who is thoroughly familiar with the characters, "
+"habituees, the patterns and rhythms of the street (Jane Jacobs idea of the "
+"sidewalk ballet). You might want to drop into a store, feature an older "
+"neighbour with interesting stories, or even meet up with a local politician "
+"to get their perspective on the neighbourhood."
+
+#: ../single_pages/walk/form.php:1080
+msgid "Okay, You're Ready to Publish"
+msgstr "Okay, You're Ready to Publish"
+
+#: ../single_pages/walk/form.php:1083
+msgid ""
+"Just one more thing! Once you hit publish your walk will be live on Jane's "
+"Walk right away. You can return at any time to make changes."
+msgstr ""
+"Just one more thing! Once you hit publish your walk will be live on Jane's "
+"Walk right away. You can return at any time to make changes."
+
+#: ../single_pages/walk/form.php:1088
+msgid "Bring me back to edit"
+msgstr "Bring me back to edit"
+
+#: ../single_pages/walk/form.php:1091
+msgid "Publish"
+msgstr "Publish"
+
+#: ../single_pages/walk/form.php:1120
+msgid "Preview of your Walk"
+msgstr "Preview of your Walk"
+
+#: ../single_pages/walk/form.php:1127
+msgid "Close Preview"
+msgstr "Close Preview"
 
 #: ../single_pages/register.php:6
 msgid "Join Jane's Walk"
@@ -728,8 +847,12 @@ msgid "Change the picture attached to my posts."
 msgstr "Change the picture attached to my posts."
 
 #: ../single_pages/profile/avatar.php:12
-msgid "You need the Adobe Flash plugin installed on your computer to upload and crop your user profile picture."
-msgstr "You need the Adobe Flash plugin installed on your computer to upload and crop your user profile picture."
+msgid ""
+"You need the Adobe Flash plugin installed on your computer to upload and "
+"crop your user profile picture."
+msgstr ""
+"You need the Adobe Flash plugin installed on your computer to upload and "
+"crop your user profile picture."
 
 #: ../single_pages/profile/avatar.php:18
 msgid "Remove your user avatar &gt;"
@@ -837,11 +960,13 @@ msgstr "Woops!"
 
 #: ../single_pages/profile/messages.php:110
 msgid ""
-"You've sent more messages than we can handle just now, that last one didn't go out. \n"
+"You've sent more messages than we can handle just now, that last one didn't "
+"go out. \n"
 "\t\t\t\tWe've notified an administrator to check into this. \n"
 "\t\t\t\tPlease wait a few minutes before sending a new message."
 msgstr ""
-"You've sent more messages than we can handle just now, that last one didn't go out. \n"
+"You've sent more messages than we can handle just now, that last one didn't "
+"go out. \n"
 "\t\t\t\tWe've notified an administrator to check into this. \n"
 "\t\t\t\tPlease wait a few minutes before sending a new message."
 
@@ -911,8 +1036,12 @@ msgstr "Email Address Verified"
 
 #: ../single_pages/login.php:40
 #, php-format
-msgid "The email address <b>%s</b> has been verified and you are now a fully validated member of this website."
-msgstr "The email address <b>%s</b> has been verified and you are now a fully validated member of this website."
+msgid ""
+"The email address <b>%s</b> has been verified and you are now a fully "
+"validated member of this website."
+msgstr ""
+"The email address <b>%s</b> has been verified and you are now a fully "
+"validated member of this website."
 
 #: ../single_pages/login.php:42
 msgid "Continue to Site"
@@ -920,7 +1049,8 @@ msgstr "Continue to Site"
 
 #: ../single_pages/login.php:51
 msgid "To complete the signup process, you must provide a valid email address."
-msgstr "To complete the signup process, you must provide a valid email address."
+msgstr ""
+"To complete the signup process, you must provide a valid email address."
 
 #: ../single_pages/login.php:69 ../single_pages/login.php:101
 #, php-format
@@ -928,8 +1058,12 @@ msgid "Sign into %s"
 msgstr "Sign into %s"
 
 #: ../single_pages/login.php:72
-msgid "Welcome back! We've updated the website, as you can see. We need just a few more things from you to get started."
-msgstr "Welcome back! We've updated the website, as you can see. We need just a few more things from you to get started."
+msgid ""
+"Welcome back! We've updated the website, as you can see. We need just a few "
+"more things from you to get started."
+msgstr ""
+"Welcome back! We've updated the website, as you can see. We need just a few "
+"more things from you to get started."
 
 #: ../single_pages/login.php:110
 msgid "Password changed.  Please login to continue. "
