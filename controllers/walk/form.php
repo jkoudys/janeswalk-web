@@ -53,6 +53,9 @@ class WalkFormController extends Controller {
     case 'Sevilla':
       Localization::changeLocale('es_ES');
       break;
+    case 'Vienna':
+      Localization::changeLocale('de');
+      break;
     default:
       break;
     }
