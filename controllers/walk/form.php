@@ -46,6 +46,16 @@ class WalkFormController extends Controller {
       $wards = false; 
     }
 
+    // Set the language. Hard-code for certain pilot cities for now.
+    // TODO: build a 'language' hierarchy', that checks the user's preferences, then the walk, the city, the country, then picks the first matching language. May need a 'language helper' here
+    switch($city->getCollectionName()) {
+    case 'Córdoba':
+    case 'Sevilla':
+      Localization::changeLocale('es_ES');
+      break;
+    default:
+      break;
+    }
     $this->set('u', $u);
     $this->set('ui', $ui);
     $this->set('nh', $nh);
