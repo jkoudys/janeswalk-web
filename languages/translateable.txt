@@ -1,0 +1,10 @@
+../single_pages/api/walk_leaders.php
+../single_pages/walk/form.php
+../single_pages/register.php
+../single_pages/profile/view.php
+../single_pages/profile/avatar.php
+../single_pages/profile/friends.php
+../single_pages/profile/messages.php
+../single_pages/login.php
+../single_pages/map/world.php
+../single_pages/page_forbidden.php
