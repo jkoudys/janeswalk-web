@@ -54,13 +54,14 @@ class WalkFormController extends Controller {
       Localization::changeLocale('es_ES');
       break;
     case 'Vienna':
-      Localization::changeLocale('de');
+      Localization::changeLocale('de_DE');
       break;
     default:
       break;
     }
     $this->set('u', $u);
     $this->set('ui', $ui);
+    $this->set('owner', UserInfo::getByID($c->getCollectionUserID()));
     $this->set('nh', $nh);
     $this->set('av', $av);
     $this->set('load', $load);
