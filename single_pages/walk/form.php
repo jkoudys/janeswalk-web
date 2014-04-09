@@ -56,7 +56,7 @@ JanesWalk.form['2014-05-04'] = {
 <?php } ?>
 </script>
 
-<div style='display:none' class='pagejson' data-url='<?= $nh->getCollectionURL($c) ?>'></div>
+<div style='display:none' class='pagejson' data-url='<?= DIR_REL . '/' . DISPATCHER_FILENAME  . '?cID=' . $c->getCollectionID() ?>'></div>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
@@ -102,8 +102,8 @@ JanesWalk.form['2014-05-04'] = {
               <div class="span4">
                 <img id="convo-marker" src="<?= $this->getThemePath() ?>/img/jw-intro-graphic.svg" alt="Jane's Walks are walking conversations.">
               </div>
-              <div class="span8"><h1><?= t('Hey there ') ?><?=$ui->getAttribute('first_name')?>!</h1>
-                <p><?= t('Jane’s  Walks  are   walking  conversation  about  neighbourhoods .  You can return to this form at any time, so there\'s no need to finish everything at once.') ?></p></div>
+              <div class="span8"><h1><?= t('Hey there, %s!', $ui->getAttribute('first_name')) ?></h1>
+                <p><?= t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') ?></p></div>
             </div>
           </div>
           <div class="page-header" data-section='description'>
@@ -122,7 +122,7 @@ JanesWalk.form['2014-05-04'] = {
             <hr>
             <div class="item required">
               <label for="walkphotos" id="photo-tip"><?= t('Upload a photo that best represents your walk.') ?></label>
-              <iframe class="walkphotos" src="<?=REL_DIR_FILES_TOOLS?>/files/image_upload"></iframe> 
+              <iframe class="walkphotos" src="<?= REL_DIR_FILES_TOOLS ?>/files/image_upload"></iframe> 
             </div>
           </form>
           <form>
@@ -322,7 +322,7 @@ JanesWalk.form['2014-05-04'] = {
 <?php
         } // end NYC check ?>
         <hr>
-        <input class="btn btn-primary btn-large section-save" type="submit" value="Next" data-next="route" href="#route"><br><br>
+        <input class="btn btn-primary btn-large section-save" type="submit" value="<?= t('Next') ?>" data-next="route" href="#route"><br><br>
       </form>
     </div>
 
@@ -481,8 +481,8 @@ JanesWalk.form['2014-05-04'] = {
           <table class="table table-bordered table-hover" id="date-list-set">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Start Time</th>
+                <th><?= t('Date') ?></th>
+                <th><?= t('Start Time') ?></th>
                 <th></th>
               </tr>
             </thead>
@@ -622,7 +622,7 @@ JanesWalk.form['2014-05-04'] = {
       </div>
 
       <hr>
-      <a href="#team" class="btn btn-primary btn-large section-save" data-toggle="tab">Next</a><br><br>
+      <a href="#team" class="btn btn-primary btn-large section-save" data-toggle="tab"><?= t('Next') ?></a><br><br>
     </div>
 
     <div class="tab-pane" id="team">
@@ -633,14 +633,14 @@ JanesWalk.form['2014-05-04'] = {
       <div class="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
           <input type="hidden" name="type[]" value="you">
-          <input type="hidden" name="user_id[]" value="<?=$u->getUserID()?>">
+          <input type="hidden" name="user_id[]" value="<?= $owner->getUserID() ?>">
           <legend><?= t('You') ?></legend>
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
-                <label for="name">Name</label>
-                <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?=htmlspecialchars($ui->getAttribute("first_name"))?>">
-                <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?=htmlspecialchars($ui->getAttribute("last_name"))?>">
+                <label for="name"><?= t('Name') ?></label>
+                <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?= htmlspecialchars($owner->getAttribute("first_name")) ?>">
+                <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?= htmlspecialchars($owner->getAttribute("last_name")) ?>">
               </div>
 
               <div class="item required">
@@ -659,29 +659,34 @@ JanesWalk.form['2014-05-04'] = {
                 <div class="alert alert-info">
                   <?= t('We recommend keeping your bio under 60 words') ?>
                 </div>
-                <textarea class="span12" id="bio" rows="6" name="bio[]"><?=htmlspecialchars($ui->getAttribute("bio"))?></textarea>
+                <textarea class="span12" id="bio" rows="6" name="bio[]"><?= htmlspecialchars($owner->getAttribute("bio")) ?></textarea>
               </div>
 
               <div class="row-fluid" id="newwalkleader">
+                <div class="span6 required"> 
+                  <label for="you-email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
+                  <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
+                </div>
+
+
                 <div class="span6"> 
                   <label for="leader-twitter"><i class="icon-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
-                    <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?=htmlspecialchars($ui->getAttribute("twitter"))?>">
+                    <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?= htmlspecialchars($owner->getAttribute("twitter")) ?>">
                   </div>
-                </div>
-
-                <div class="span6">
-                  <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
-                  <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($ui->getAttribute("facebook"))?>">
                 </div>
 
               </div>
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
+                  <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
+                  <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($owner->getAttribute("facebook"))?>">
+                </div>
+                <div class="span6">
                 <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
-                  <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($ui->getAttribute("website"))?>">
+                  <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($owner->getAttribute("website"))?>">
                 </div>
               </div>
 
@@ -693,11 +698,6 @@ JanesWalk.form['2014-05-04'] = {
                 </div>
 
                 <div class="row-fluid" id="newwalkleader">
-                  <div class="span6 required"> 
-                    <label for="you-email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
-                    <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$ui->getUserEmail()?>">
-                  </div>
-
                   <div class="span6 tel required">
                     <label for="phone"><i class="icon-phone-sign"></i> <?= t('Phone Number') ?></label>
                     <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($ui->getAttribute("phone"))?>">
@@ -859,7 +859,7 @@ JanesWalk.form['2014-05-04'] = {
               <input type="text" class="input-large" id="name" placeholder="e.g. City of Toronto" name="institution[]">
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> Website</label>
+                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large span12" id="website" placeholder="" value="" name="name-website[]">
                 </div>
               </div>
@@ -969,7 +969,7 @@ JanesWalk.form['2014-05-04'] = {
       <div class="popover-content collapse in" id="popover-content">
         <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
         <p>
-          <?= t('Hi! I\'m') . ' ' . ($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName()).' ' . t('the City Organizer for Jane\'s Walk') . " {$city->getCollectionName()}. " . t('I\'m here to help, so if you have any questions, please') ?><strong><a href='mailto:<?= $ui_cityorganizer->getUserEmail() ?>'><?= t('email me') ?>!</a></strong></p>
+          <?= t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', ($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName()), $city->getCollectionName()) ?> <strong><a href='mailto:<?= $ui_cityorganizer->getUserEmail() ?>'><?= t('email me') ?>!</a></strong></p>
       </div>
     </div>
     <!-- Profile of City organizer -->
@@ -1003,7 +1003,7 @@ JanesWalk.form['2014-05-04'] = {
     <div class="popover right tip fade" data-tipfor="add-member">
       <h3 class="popover-title"><?= t('Take a load off') ?></h3>
       <div class="popover-content">
-        <p><?= t('Sharing  the  hosting  duties  with  some  co‐guides  is  often  a  good  idea  and  lightens  the  load.') ?></p>
+        <p><?= t('Sharing the hosting duties with some co‐guides is often a good idea and lightens the load.') ?></p>
       </div>
     </div>
 
@@ -1028,7 +1028,7 @@ JanesWalk.form['2014-05-04'] = {
     <div class="popover right tip fade" data-tipfor="new-communityvoice">
       <h3 class="popover-title"><?= t('Give your walk more character!') ?></h3>
       <div class="popover-content">
-      <p><?= t('Consider  involving  some  local  residents  or  business  people  on  the  stroll.  Talk  to  a  hot‐dog  vendor  who  is  thoroughly  familiar  with  the  characters,  habituees,  the  patterns  and  rhythms  of  the  street  (Jane  Jacobs  idea  of  the  sidewalk  ballet).  You  might  want  to  drop  into  a store,  feature  an  older  neighbour  with  interesting  stories,  or  even  meet up  with  a  local  politician  to get  their  perspective  on  the  neighbourhood.') ?>
+      <p><?= t('Consider involving some local residents or business people on the stroll. Talk to a hot‐dog vendor who is thoroughly familiar with the characters, habituees, the patterns and rhythms of the street (Jane Jacobs idea of the sidewalk ballet). You might want to drop into a store, feature an older neighbour with interesting stories, or even meet up with a local politician to get their perspective on the neighbourhood.') ?>
       </p>
       </div>
     </div>
@@ -1077,18 +1077,18 @@ JanesWalk.form['2014-05-04'] = {
 <div id="publish-warning" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Okay, You're Ready to Publish</h3>
+    <h3><?= t('Okay, You\'re Ready to Publish') ?></h3>
   </div>
   <div class="modal-body">
-    <p>Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes.</p>
+    <p><?= t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') ?></p>
   </div>
 
   <div class="modal-footer">
     <div class="pull-left">
-      <a href="" class="walkthrough close" data-dismiss="modal"> Bring me back to edit</a>
+      <a href="" class="walkthrough close" data-dismiss="modal"> <?= t('Bring me back to edit') ?></a>
     </div>
     <a href="<?php echo $this->url('/profile') ?>">
-      <button class="btn btn-primary walkthrough" data-step="publish-confirmation">Publish</button></a>
+      <button class="btn btn-primary walkthrough" data-step="publish-confirmation"><?= t('Publish') ?></button></a>
   </div>
 
 </div>
@@ -1117,14 +1117,14 @@ JanesWalk.form['2014-05-04'] = {
 <div id="preview-modal" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Preview of your Walk</h3>
+    <h3><?= t('Preview of your Walk') ?></h3>
   </div>
   <div class="modal-body">
     <iframe src="" frameborder="0">
     </iframe>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn close" data-dismiss="modal">Close Preview</a>
+    <a href="#" class="btn close" data-dismiss="modal"><?= t('Close Preview') ?></a>
   </div>
 </div>
 

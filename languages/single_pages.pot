@@ -1,0 +1,985 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-07 00:21-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ../single_pages/walk/form.php:70
+msgid "Logged in as"
+msgstr ""
+
+#: ../single_pages/walk/form.php:82 ../single_pages/walk/form.php:110
+msgid "Describe Your Walk"
+msgstr ""
+
+#: ../single_pages/walk/form.php:83 ../single_pages/walk/form.php:331
+msgid "Share Your Route"
+msgstr ""
+
+#: ../single_pages/walk/form.php:84
+msgid "Set the Time & Date"
+msgstr ""
+
+#: ../single_pages/walk/form.php:85 ../single_pages/walk/form.php:565
+msgid "Make it Accessible"
+msgstr ""
+
+#: ../single_pages/walk/form.php:86 ../single_pages/walk/form.php:630
+msgid "Build Your Team"
+msgstr ""
+
+#: ../single_pages/walk/form.php:90
+msgid "Preview Walk"
+msgstr ""
+
+#: ../single_pages/walk/form.php:91
+msgid "Publish Walk"
+msgstr ""
+
+#: ../single_pages/walk/form.php:92
+msgid "Save and return later"
+msgstr ""
+
+#: ../single_pages/walk/form.php:105
+#, php-format
+msgid "Hey there, %s!"
+msgstr ""
+
+#: ../single_pages/walk/form.php:106
+msgid "Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once."
+msgstr ""
+
+#: ../single_pages/walk/form.php:115
+msgid "Walk Title"
+msgstr ""
+
+#: ../single_pages/walk/form.php:116
+msgid "Something short and memorable."
+msgstr ""
+
+#: ../single_pages/walk/form.php:124
+msgid "Upload a photo that best represents your walk."
+msgstr ""
+
+#: ../single_pages/walk/form.php:132
+msgid "Your Walk in a Nutshell"
+msgstr ""
+
+#: ../single_pages/walk/form.php:133
+msgid "Build intrigue! This is what people see when browsing our walk listings."
+msgstr ""
+
+#: ../single_pages/walk/form.php:136
+msgid "Characters left"
+msgstr ""
+
+#: ../single_pages/walk/form.php:141
+msgid "Walk Description"
+msgstr ""
+
+#: ../single_pages/walk/form.php:143
+msgid "Help jump start the conversation on your walk by giving readers an idea of the discussions you'll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words."
+msgstr ""
+
+#: ../single_pages/walk/form.php:151
+msgid "Sub-locality"
+msgstr ""
+
+#: ../single_pages/walk/form.php:152
+msgid "Choose a specific neighbourhood or area where your walk will take place."
+msgstr ""
+
+#: ../single_pages/walk/form.php:236
+msgid "Themes"
+msgstr ""
+
+#: ../single_pages/walk/form.php:238
+msgid "Pick between 1 and 3 boxes."
+msgstr ""
+
+#: ../single_pages/walk/form.php:245 ../single_pages/walk/form.php:248
+msgid "Community"
+msgstr ""
+
+#: ../single_pages/walk/form.php:246
+msgid "Activism"
+msgstr ""
+
+#: ../single_pages/walk/form.php:247
+msgid "Citizenry"
+msgstr ""
+
+#: ../single_pages/walk/form.php:249
+msgid "Storytelling"
+msgstr ""
+
+#: ../single_pages/walk/form.php:255
+msgid "City-building"
+msgstr ""
+
+#: ../single_pages/walk/form.php:256
+msgid "Architecture"
+msgstr ""
+
+#: ../single_pages/walk/form.php:257
+msgid "Design"
+msgstr ""
+
+#: ../single_pages/walk/form.php:258
+msgid "Suburbs"
+msgstr ""
+
+#: ../single_pages/walk/form.php:259
+msgid "Transportation"
+msgstr ""
+
+#: ../single_pages/walk/form.php:270
+msgid "Society"
+msgstr ""
+
+#: ../single_pages/walk/form.php:272
+msgid "Gender"
+msgstr ""
+
+#: ../single_pages/walk/form.php:273
+msgid "Health"
+msgstr ""
+
+#: ../single_pages/walk/form.php:274
+msgid "Heritage"
+msgstr ""
+
+#: ../single_pages/walk/form.php:275
+msgid "Native Issues"
+msgstr ""
+
+#: ../single_pages/walk/form.php:276
+msgid "Religion"
+msgstr ""
+
+#: ../single_pages/walk/form.php:281
+msgid "Expression"
+msgstr ""
+
+#: ../single_pages/walk/form.php:282
+msgid "Art"
+msgstr ""
+
+#: ../single_pages/walk/form.php:283
+msgid "Film"
+msgstr ""
+
+#: ../single_pages/walk/form.php:284
+msgid "Literature"
+msgstr ""
+
+#: ../single_pages/walk/form.php:285
+msgid "Music"
+msgstr ""
+
+#: ../single_pages/walk/form.php:286
+msgid "Play"
+msgstr ""
+
+#: ../single_pages/walk/form.php:297
+msgid "The Natural World"
+msgstr ""
+
+#: ../single_pages/walk/form.php:299
+msgid "Animals"
+msgstr ""
+
+#: ../single_pages/walk/form.php:300
+msgid "Gardening"
+msgstr ""
+
+#: ../single_pages/walk/form.php:301
+msgid "Nature"
+msgstr ""
+
+#: ../single_pages/walk/form.php:302
+msgid "Water"
+msgstr ""
+
+#: ../single_pages/walk/form.php:308
+msgid "Modernity"
+msgstr ""
+
+#: ../single_pages/walk/form.php:310
+msgid "International Issues"
+msgstr ""
+
+#: ../single_pages/walk/form.php:311
+msgid "Military"
+msgstr ""
+
+#: ../single_pages/walk/form.php:312
+msgid "Commerce"
+msgstr ""
+
+#: ../single_pages/walk/form.php:313
+msgid "Night Life"
+msgstr ""
+
+#: ../single_pages/walk/form.php:314
+msgid "Technology"
+msgstr ""
+
+#: ../single_pages/walk/form.php:315
+msgid "Sports"
+msgstr ""
+
+#: ../single_pages/walk/form.php:316
+msgid "Food"
+msgstr ""
+
+#: ../single_pages/walk/form.php:325 ../single_pages/walk/form.php:399
+#: ../single_pages/walk/form.php:498 ../single_pages/walk/form.php:558
+#: ../single_pages/walk/form.php:625
+msgid "Next"
+msgstr ""
+
+#: ../single_pages/walk/form.php:335
+msgid "Need help building your route?"
+msgstr ""
+
+#: ../single_pages/walk/form.php:340 ../single_pages/walk/form.php:372
+msgid "Set a Meeting Place"
+msgstr ""
+
+#: ../single_pages/walk/form.php:342
+msgid "Click \"Meeting Place\" to add a pinpoint on the map"
+msgstr ""
+
+#: ../single_pages/walk/form.php:343 ../single_pages/walk/form.php:351
+msgid "Click and drag it into position"
+msgstr ""
+
+#: ../single_pages/walk/form.php:344
+msgid "Fill out the form fields and press Save Meeting Place"
+msgstr ""
+
+#: ../single_pages/walk/form.php:348
+msgid "Add Stops"
+msgstr ""
+
+#: ../single_pages/walk/form.php:350
+msgid "Click \"Add Stop\" to add a stop on the map"
+msgstr ""
+
+#: ../single_pages/walk/form.php:352
+msgid "Fill out the form fields and press Save Stop"
+msgstr ""
+
+#: ../single_pages/walk/form.php:353
+msgid "Repeat to add more stops"
+msgstr ""
+
+#: ../single_pages/walk/form.php:357 ../single_pages/walk/form.php:374
+msgid "Add Route"
+msgstr ""
+
+#: ../single_pages/walk/form.php:359
+msgid "Click Add Route"
+msgstr ""
+
+#: ../single_pages/walk/form.php:360
+msgid "A point will appear on your meeting place, now click on each of the stops that flow to connect them."
+msgstr ""
+
+#: ../single_pages/walk/form.php:361
+msgid "Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it."
+msgstr ""
+
+#: ../single_pages/walk/form.php:362
+msgid "Click Save Route"
+msgstr ""
+
+#: ../single_pages/walk/form.php:364
+msgid "If you want to delete your route to start over, click "
+msgstr ""
+
+#: ../single_pages/walk/form.php:364 ../single_pages/walk/form.php:375
+msgid "Clear Route"
+msgstr ""
+
+#: ../single_pages/walk/form.php:364
+msgid "Your Stops will not be deleted"
+msgstr ""
+
+#: ../single_pages/walk/form.php:373
+msgid "Add Stop"
+msgstr ""
+
+#: ../single_pages/walk/form.php:381
+msgid "Walk Stops"
+msgstr ""
+
+#: ../single_pages/walk/form.php:386
+msgid "Title"
+msgstr ""
+
+#: ../single_pages/walk/form.php:387
+msgid "Description"
+msgstr ""
+
+#: ../single_pages/walk/form.php:393
+msgid "You haven't set any stops yet."
+msgstr ""
+
+#: ../single_pages/walk/form.php:406
+msgid "Set the Time and Date"
+msgstr ""
+
+#: ../single_pages/walk/form.php:408
+msgid "Pick one of the following:"
+msgstr ""
+
+#: ../single_pages/walk/form.php:418
+msgid "By Request"
+msgstr ""
+
+#: ../single_pages/walk/form.php:420
+msgid "Highlight times that you're available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk."
+msgstr ""
+
+#: ../single_pages/walk/form.php:432
+msgid "Pick Your Date"
+msgstr ""
+
+#: ../single_pages/walk/form.php:434
+msgid "Set specific dates and times that this walk is happening."
+msgstr ""
+
+#: ../single_pages/walk/form.php:445 ../single_pages/walk/form.php:502
+msgid "Time and Date"
+msgstr ""
+
+#: ../single_pages/walk/form.php:446
+msgid "Select the date and time your walk is happening."
+msgstr ""
+
+#: ../single_pages/walk/form.php:456 ../single_pages/walk/form.php:518
+msgid "Date selected"
+msgstr ""
+
+#: ../single_pages/walk/form.php:459
+msgid "Start Time"
+msgstr ""
+
+#: ../single_pages/walk/form.php:463 ../single_pages/walk/form.php:522
+msgid "Approximate Duration of Walk"
+msgstr ""
+
+#: ../single_pages/walk/form.php:473 ../single_pages/walk/form.php:534
+msgid "Add Date"
+msgstr ""
+
+#: ../single_pages/walk/form.php:495 ../single_pages/walk/form.php:555
+msgid "Clear schedule and return to main Time and Date page"
+msgstr ""
+
+#: ../single_pages/walk/form.php:503
+msgid "Your availability will be visible to people on your walk page and they’ll be able to send you a walk request."
+msgstr ""
+
+#: ../single_pages/walk/form.php:506
+msgid "Leave my availability open. Allow people to contact you to set up a walk."
+msgstr ""
+
+#: ../single_pages/walk/form.php:545
+msgid "My Available Dates"
+msgstr ""
+
+#: ../single_pages/walk/form.php:546
+msgid "Approximate Duration"
+msgstr ""
+
+#: ../single_pages/walk/form.php:569
+msgid "How accessible is this walk?"
+msgstr ""
+
+#: ../single_pages/walk/form.php:572
+msgid "Family friendly"
+msgstr ""
+
+#: ../single_pages/walk/form.php:573
+msgid "Wheelchair accessible"
+msgstr ""
+
+#: ../single_pages/walk/form.php:574
+msgid "Dogs welcome"
+msgstr ""
+
+#: ../single_pages/walk/form.php:575
+msgid "Strollers welcome"
+msgstr ""
+
+#: ../single_pages/walk/form.php:576
+msgid "Bicycles welcome"
+msgstr ""
+
+#: ../single_pages/walk/form.php:577
+msgid "Steep hills"
+msgstr ""
+
+#: ../single_pages/walk/form.php:580
+msgid "Wear sensible shoes (uneven terrain)"
+msgstr ""
+
+#: ../single_pages/walk/form.php:581
+msgid "Busy sidewalks"
+msgstr ""
+
+#: ../single_pages/walk/form.php:582
+msgid "Bicycles only"
+msgstr ""
+
+#: ../single_pages/walk/form.php:583
+msgid "Low light or nighttime"
+msgstr ""
+
+#: ../single_pages/walk/form.php:584
+msgid "Senior Friendly"
+msgstr ""
+
+#: ../single_pages/walk/form.php:592
+msgid "What else do people need to know about the accessibility of this walk?"
+msgstr ""
+
+#: ../single_pages/walk/form.php:592 ../single_pages/walk/form.php:599
+#: ../single_pages/walk/form.php:609 ../single_pages/walk/form.php:736
+#: ../single_pages/walk/form.php:858
+msgid "Optional"
+msgstr ""
+
+#: ../single_pages/walk/form.php:599
+msgid "How can someone get to the meeting spot by public transit?"
+msgstr ""
+
+#: ../single_pages/walk/form.php:601
+msgid "Nearest subway stop, closest bus or streetcar lines, etc."
+msgstr ""
+
+#: ../single_pages/walk/form.php:609
+msgid "Where are the nearest places to park?"
+msgstr ""
+
+#: ../single_pages/walk/form.php:616
+msgid "How will people find you?"
+msgstr ""
+
+#: ../single_pages/walk/form.php:618
+msgid "Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you."
+msgstr ""
+
+#: ../single_pages/walk/form.php:637
+msgid "You"
+msgstr ""
+
+#: ../single_pages/walk/form.php:641 ../single_pages/walk/form.php:776
+#: ../single_pages/walk/form.php:852 ../single_pages/walk/form.php:884
+#: ../single_pages/walk/form.php:933
+msgid "Name"
+msgstr ""
+
+#: ../single_pages/walk/form.php:647 ../single_pages/walk/form.php:941
+msgid "Role"
+msgstr ""
+
+#: ../single_pages/walk/form.php:649 ../single_pages/walk/form.php:741
+#: ../single_pages/walk/form.php:771
+msgid "Walk Leader"
+msgstr ""
+
+#: ../single_pages/walk/form.php:650
+msgid "Co-Walk Leader"
+msgstr ""
+
+#: ../single_pages/walk/form.php:651 ../single_pages/walk/form.php:746
+#: ../single_pages/walk/form.php:846
+msgid "Walk Organizer"
+msgstr ""
+
+#: ../single_pages/walk/form.php:655 ../single_pages/walk/form.php:785
+msgid "Primary Walk Leader"
+msgstr ""
+
+#: ../single_pages/walk/form.php:658
+msgid "Introduce yourself"
+msgstr ""
+
+#: ../single_pages/walk/form.php:660
+msgid "We recommend keeping your bio under 60 words"
+msgstr ""
+
+#: ../single_pages/walk/form.php:683 ../single_pages/walk/form.php:813
+#: ../single_pages/walk/form.php:862 ../single_pages/walk/form.php:912
+#: ../single_pages/walk/form.php:947
+msgid "Website"
+msgstr ""
+
+#: ../single_pages/walk/form.php:690
+msgid "We'll keep this part private"
+msgstr ""
+
+#: ../single_pages/walk/form.php:692 ../single_pages/walk/form.php:822
+msgid "We'll use this information to contact you about your walk submission. We wont share this information with 3rd parties."
+msgstr ""
+
+#: ../single_pages/walk/form.php:697 ../single_pages/walk/form.php:826
+#: ../single_pages/login.php:115
+msgid "Email"
+msgstr ""
+
+#: ../single_pages/walk/form.php:702 ../single_pages/walk/form.php:830
+msgid "Phone Number"
+msgstr ""
+
+#: ../single_pages/walk/form.php:735
+msgid "Who else is involved with this walk?"
+msgstr ""
+
+#: ../single_pages/walk/form.php:736
+msgid "Click to add team members to your walk"
+msgstr ""
+
+#: ../single_pages/walk/form.php:742
+msgid "A person presenting information, telling stories, and fostering discussion during the Jane's Walk."
+msgstr ""
+
+#: ../single_pages/walk/form.php:747
+msgid "A person responsible for outreach to new and returning Walk Leaders and Community Voices."
+msgstr ""
+
+#: ../single_pages/walk/form.php:753 ../single_pages/walk/form.php:880
+msgid "Community Voice"
+msgstr ""
+
+#: ../single_pages/walk/form.php:754
+msgid "A community member with stories and/or personal experiences to share."
+msgstr ""
+
+#: ../single_pages/walk/form.php:758 ../single_pages/walk/form.php:927
+msgid "Volunteers"
+msgstr ""
+
+#: ../single_pages/walk/form.php:759
+msgid "Other people who are helping to make your walk happen."
+msgstr ""
+
+#: ../single_pages/walk/form.php:789
+msgid "Introduce the walk leader"
+msgstr ""
+
+#: ../single_pages/walk/form.php:791 ../single_pages/walk/form.php:893
+msgid "We recommend keeping the bio under 60 words"
+msgstr ""
+
+#: ../single_pages/walk/form.php:820
+msgid "Private"
+msgstr ""
+
+#: ../single_pages/walk/form.php:838 ../single_pages/walk/form.php:870
+#: ../single_pages/walk/form.php:920 ../single_pages/walk/form.php:956
+msgid "Remove Team Member"
+msgstr ""
+
+#: ../single_pages/walk/form.php:858
+msgid "Affilated Institution"
+msgstr ""
+
+#: ../single_pages/walk/form.php:891
+msgid "Tell everyone about this person"
+msgstr ""
+
+#: ../single_pages/walk/form.php:960
+msgid "Save"
+msgstr ""
+
+#: ../single_pages/walk/form.php:968
+msgid "Contact City Organizer for help"
+msgstr ""
+
+#: ../single_pages/walk/form.php:972
+#, php-format
+msgid "Hi! I'm %s, the City Organizer for Jane's Walk %s. I'm here to help, so if you have any questions, please"
+msgstr ""
+
+#: ../single_pages/walk/form.php:972
+msgid "email me"
+msgstr ""
+
+#: ../single_pages/walk/form.php:979
+msgid "Make it easy to get there by transit"
+msgstr ""
+
+#: ../single_pages/walk/form.php:981
+msgid "Have your walk start and finish near a transit stop to make it more accessible"
+msgstr ""
+
+#: ../single_pages/walk/form.php:987
+msgid "Creating Great Walks"
+msgstr ""
+
+#: ../single_pages/walk/form.php:990
+msgid "Watch the video"
+msgstr ""
+
+#: ../single_pages/walk/form.php:996
+msgid "Learn something new"
+msgstr ""
+
+#: ../single_pages/walk/form.php:998
+msgid "Think of a question you can ask at each stop to engage the group and create some AHA! moment, for both them and you too."
+msgstr ""
+
+#: ../single_pages/walk/form.php:1004
+msgid "Take a load off"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1006
+msgid "Sharing the hosting duties with some co‐guides is often a good idea and lightens the load."
+msgstr ""
+
+#: ../single_pages/walk/form.php:1012
+msgid "Make your description shine"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1014
+msgid "Ask some rhetorical questions that have to do with what you’ll talk about. In your description, give people an idea of whether on your walk they'll be stopping and talking with local shop owners or residents. "
+msgstr ""
+
+#: ../single_pages/walk/form.php:1021
+msgid "Calculating your Walk Length"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1023
+msgid "Make your walk duration twice as long as your rehearsal walk."
+msgstr ""
+
+#: ../single_pages/walk/form.php:1029
+msgid "Give your walk more character!"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1031
+msgid "Consider involving some local residents or business people on the stroll. Talk to a hot‐dog vendor who is thoroughly familiar with the characters, habituees, the patterns and rhythms of the street (Jane Jacobs idea of the sidewalk ballet). You might want to drop into a store, feature an older neighbour with interesting stories, or even meet up with a local politician to get their perspective on the neighbourhood."
+msgstr ""
+
+#: ../single_pages/walk/form.php:1080
+msgid "Okay, You're Ready to Publish"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1083
+msgid "Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes."
+msgstr ""
+
+#: ../single_pages/walk/form.php:1088
+msgid "Bring me back to edit"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1091
+msgid "Publish"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1120
+msgid "Preview of your Walk"
+msgstr ""
+
+#: ../single_pages/walk/form.php:1127
+msgid "Close Preview"
+msgstr ""
+
+#: ../single_pages/register.php:6
+msgid "Join Jane's Walk"
+msgstr ""
+
+#: ../single_pages/register.php:39 ../single_pages/register.php:46
+#: ../single_pages/register.php:52
+msgid "Take me back to the home page!"
+msgstr ""
+
+#: ../single_pages/register.php:67
+msgid "Your Details"
+msgstr ""
+
+#: ../single_pages/register.php:70
+msgid "Username"
+msgstr ""
+
+#: ../single_pages/register.php:78 ../single_pages/login.php:52
+msgid "Email Address"
+msgstr ""
+
+#: ../single_pages/register.php:84 ../single_pages/login.php:120
+msgid "Password"
+msgstr ""
+
+#: ../single_pages/register.php:90 ../single_pages/login.php:26
+msgid "Confirm Password"
+msgstr ""
+
+#: ../single_pages/register.php:99
+msgid "Options"
+msgstr ""
+
+#: ../single_pages/register.php:131
+msgid "Register"
+msgstr ""
+
+#: ../single_pages/profile/view.php:45
+msgid "City"
+msgid_plural "Cities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../single_pages/profile/avatar.php:6
+msgid "User Avatar"
+msgstr ""
+
+#: ../single_pages/profile/avatar.php:7
+msgid "Change the picture attached to my posts."
+msgstr ""
+
+#: ../single_pages/profile/avatar.php:12
+msgid "You need the Adobe Flash plugin installed on your computer to upload and crop your user profile picture."
+msgstr ""
+
+#: ../single_pages/profile/avatar.php:18
+msgid "Remove your user avatar &gt;"
+msgstr ""
+
+#: ../single_pages/profile/avatar.php:26
+msgid "User Profile picture saved."
+msgstr ""
+
+#: ../single_pages/profile/friends.php:5
+msgid "My Friends"
+msgstr ""
+
+#: ../single_pages/profile/friends.php:10
+msgid "No results found."
+msgstr ""
+
+#: ../single_pages/profile/friends.php:23
+msgid "Unknown User"
+msgstr ""
+
+#: ../single_pages/profile/friends.php:36
+msgid "Member Since"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:9
+msgid "Back to Mailbox"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:11
+msgid "Message Details"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:38
+msgid "Reply"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:43
+msgid "Delete"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:43
+msgid "Delete this message?"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:44
+msgid "Back"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:53
+msgid "Back to Mailbox List"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:57
+#: ../single_pages/profile/messages.php:135
+msgid "To"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:57
+msgid "From"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:58
+#: ../single_pages/profile/messages.php:141
+msgid "Subject"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:59
+msgid "Sent At"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:60
+msgid "Status"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:75
+#: ../single_pages/profile/messages.php:180
+#: ../single_pages/profile/messages.php:190
+msgid "F d, Y \\a\\t g:i A"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:84
+msgid "No messages found."
+msgstr ""
+
+#: ../single_pages/profile/messages.php:96
+msgid "Reply Sent."
+msgstr ""
+
+#: ../single_pages/profile/messages.php:97
+msgid "Return to Message."
+msgstr ""
+
+#: ../single_pages/profile/messages.php:103
+msgid "Message Sent."
+msgstr ""
+
+#: ../single_pages/profile/messages.php:104
+msgid "Return to Profile."
+msgstr ""
+
+#: ../single_pages/profile/messages.php:109
+msgid "Woops!"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:110
+msgid ""
+"You've sent more messages than we can handle just now, that last one didn't go out. \n"
+"\t\t\t\tWe've notified an administrator to check into this. \n"
+"\t\t\t\tPlease wait a few minutes before sending a new message."
+msgstr ""
+
+#: ../single_pages/profile/messages.php:126
+#, php-format
+msgid "Re: %s"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:132
+msgid "Send a Private Message"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:146
+msgid "Message"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:152
+msgid "Send Message"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:153
+msgid "Cancel"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:170
+msgid "Mailbox"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:171
+msgid "Messages"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:172
+msgid "Latest Message"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:175
+msgid "Inbox"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:180
+#: ../single_pages/profile/messages.php:190
+#, php-format
+msgid "<strong>%s</strong>, sent by %s on %s"
+msgstr ""
+
+#: ../single_pages/profile/messages.php:185
+msgid "Sent Messages"
+msgstr ""
+
+#: ../single_pages/login.php:16
+msgid "Enter your new password below."
+msgstr ""
+
+#: ../single_pages/login.php:20
+msgid "New Password"
+msgstr ""
+
+#: ../single_pages/login.php:32 ../single_pages/login.php:56
+#: ../single_pages/login.php:91
+msgid "Sign In"
+msgstr ""
+
+#: ../single_pages/login.php:37
+msgid "Email Address Verified"
+msgstr ""
+
+#: ../single_pages/login.php:40
+#, php-format
+msgid "The email address <b>%s</b> has been verified and you are now a fully validated member of this website."
+msgstr ""
+
+#: ../single_pages/login.php:42
+msgid "Continue to Site"
+msgstr ""
+
+#: ../single_pages/login.php:51
+msgid "To complete the signup process, you must provide a valid email address."
+msgstr ""
+
+#: ../single_pages/login.php:69 ../single_pages/login.php:101
+#, php-format
+msgid "Sign into %s"
+msgstr ""
+
+#: ../single_pages/login.php:72
+msgid "Welcome back! We've updated the website, as you can see. We need just a few more things from you to get started."
+msgstr ""
+
+#: ../single_pages/login.php:110
+msgid "Password changed.  Please login to continue. "
+msgstr ""
+
+#: ../single_pages/login.php:117
+msgid "User name"
+msgstr ""
+
+#: ../single_pages/login.php:134
+msgid "Go!"
+msgstr ""
+
+#: ../single_pages/map/world.php:26
+msgid ", "
+msgstr ""
+
+#: ../single_pages/page_forbidden.php:3
+msgid "Hmm, we need to give you permission to do that."
+msgstr ""
+
+#: ../single_pages/page_forbidden.php:5
+msgid "Write to us and let us know!"
+msgstr ""
+
+#: ../single_pages/page_forbidden.php:9
+msgid "Back to Home"
+msgstr ""
