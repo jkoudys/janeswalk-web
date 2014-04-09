@@ -94,7 +94,7 @@
       $this->set('av', $av);
 
       // Load + format data
-      $c = Page::getCurrentPage();
+      $c = $this->getCollectionObject();
       $page_owner = UserInfo::getByID($c->getCollectionUserID()) ?: UserInfo::getByID(1); // System page, e.g. page defaults editor
       $avatar = $av->getImagePath($page_owner) ?: false;
       $this->set('pageType', 'city-page');
@@ -106,6 +106,12 @@
       $blog = new PageList();
       $blog->filterByCollectionTypeHandle('city_blog');
       $blog->filterByParentID($c->getCollectionID());
+
+      $walks = new PageList();
+      $walks->filterByParentID($c->getCollectionID());
+      $walks->filterByAttribute('exclude_page_list', false);
+      $walks->filterByCollectionTypeHandle('walk');
+      $this->set('totalWalks',$walks->getTotal());
 
       // Set our calculated values
       $this->set('fullbg', $c->getAttribute("full_bg"));
