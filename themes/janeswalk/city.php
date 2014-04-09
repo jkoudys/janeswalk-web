@@ -48,7 +48,8 @@
             if ($c->getCollectionUserID() > 1):
           ?>
             <section class="city-organizer">
-              <?php if($avatar) { ?><div class='u-avatar' style='background-image:url(<?=$avatar?>)'></div><?php } ?>
+              <?php if($avatar) { ?><a href="<?= $this->url("/profile/{$page_owner->getUserId()}") ?>">
+              <div class='u-avatar' style='background-image:url(<?=$avatar?>)'></div><?php } ?></a>
               <div class="city-organizer-details">
                 <h3>
                   <?=
@@ -253,7 +254,9 @@
             } else {
           ?>
             <h3>Walks in <?= ($c->getCollectionName()) ?></h3>
-            <a href="?show=all" class="see-all">see all walks</a>
+            <?php if($totalWalks > 1) { ?>
+            <a href="?show=all" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
+            <?php }?>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
           <?php
             }
