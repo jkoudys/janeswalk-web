@@ -633,14 +633,14 @@ JanesWalk.form['2014-05-04'] = {
       <div class="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
           <input type="hidden" name="type[]" value="you">
-          <input type="hidden" name="user_id[]" value="<?=$u->getUserID()?>">
+          <input type="hidden" name="user_id[]" value="<?= $owner->getUserID() ?>">
           <legend><?= t('You') ?></legend>
           <div class="row-fluid" id="walkleader">
             <div class="span9">
               <div class="item required">
                 <label for="name"><?= t('Name') ?></label>
-                <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?=htmlspecialchars($ui->getAttribute("first_name"))?>">
-                <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?=htmlspecialchars($ui->getAttribute("last_name"))?>">
+                <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?= htmlspecialchars($owner->getAttribute("first_name")) ?>">
+                <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?= htmlspecialchars($owner->getAttribute("last_name")) ?>">
               </div>
 
               <div class="item required">
@@ -659,29 +659,34 @@ JanesWalk.form['2014-05-04'] = {
                 <div class="alert alert-info">
                   <?= t('We recommend keeping your bio under 60 words') ?>
                 </div>
-                <textarea class="span12" id="bio" rows="6" name="bio[]"><?=htmlspecialchars($ui->getAttribute("bio"))?></textarea>
+                <textarea class="span12" id="bio" rows="6" name="bio[]"><?= htmlspecialchars($owner->getAttribute("bio")) ?></textarea>
               </div>
 
               <div class="row-fluid" id="newwalkleader">
+                <div class="span6 required"> 
+                  <label for="you-email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
+                  <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
+                </div>
+
+
                 <div class="span6"> 
                   <label for="leader-twitter"><i class="icon-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
-                    <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?=htmlspecialchars($ui->getAttribute("twitter"))?>">
+                    <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?= htmlspecialchars($owner->getAttribute("twitter")) ?>">
                   </div>
-                </div>
-
-                <div class="span6">
-                  <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
-                  <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($ui->getAttribute("facebook"))?>">
                 </div>
 
               </div>
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
+                  <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
+                  <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($owner->getAttribute("facebook"))?>">
+                </div>
+                <div class="span6">
                 <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
-                  <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($ui->getAttribute("website"))?>">
+                  <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($owner->getAttribute("website"))?>">
                 </div>
               </div>
 
@@ -693,11 +698,6 @@ JanesWalk.form['2014-05-04'] = {
                 </div>
 
                 <div class="row-fluid" id="newwalkleader">
-                  <div class="span6 required"> 
-                    <label for="you-email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
-                    <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$ui->getUserEmail()?>">
-                  </div>
-
                   <div class="span6 tel required">
                     <label for="phone"><i class="icon-phone-sign"></i> <?= t('Phone Number') ?></label>
                     <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($ui->getAttribute("phone"))?>">
