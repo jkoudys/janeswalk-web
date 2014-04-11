@@ -281,7 +281,7 @@ JanesWalk.form['2014-05-04'] = {
                   <legend><?= t('Expression') ?></legend>
                   <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  <?= t('Art') ?></label>
                   <label class="checkbox"><input type="checkbox" name="theme-urban-film">  <?= t('Film') ?></label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-bookworm">   <?= t('Literature') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-bookworm">   <?= t('Literature') ?></label>
                   <label class="checkbox"><input type="checkbox" name="theme-urban-music">   <?= t('Music') ?></label>
                   <label class="checkbox"><input type="checkbox" name="theme-urban-play">   <?= t('Play') ?></label>
                 </fieldset>
