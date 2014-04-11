@@ -277,7 +277,7 @@
         $placeNode->appendChild($nameNode);
         $descNode = $dom->createElement('description');
 
-        $cdata = $descNode->ownerDocument->createCDATASection(htmlspecialchars($marker->description));
+        $cdata = $descNode->ownerDocument->createCDATASection(htmlspecialchars($k + 1 . '. ' .$marker->description));
         $descNode->appendChild($cdata);
         $placeNode->appendChild($descNode);
 
