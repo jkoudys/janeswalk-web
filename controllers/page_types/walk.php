@@ -255,17 +255,17 @@
       $docNode->appendChild($nameNode);
 
       $defaultStyleNode = $dom->createElement('Style');
-      $defaultStyleNode->setAttribute('id', 'jwstyle');
+      $defaultStyleNode->setAttribute('id', 'jwhome');
       $defaultIconstyleNode = $dom->createElement('IconStyle');
       $defaultIconstyleNode->setAttribute('id', 'jwIcon');
       $defaultIconNode = $dom->createElement('Icon');
-      $defaultHref = $dom->createElement('href', 'http://janeswalk.net/images/orange-dot.png');
+      $defaultHref = $dom->createElement('href', 'http://maps.google.com/mapfiles/kml/paddle/red-stars.png');
       $defaultIconNode->appendChild($defaultHref);
       $defaultIconstyleNode->appendChild($defaultIconNode);
       $defaultStyleNode->appendChild($defaultIconstyleNode);
       $docNode->appendChild($defaultStyleNode);
  
-      foreach($walkMap->markers as $marker) {
+      foreach($walkMap->markers as $k=>$marker) {
         // Creates a Placemark and append it to the Document.
         $node = $dom->createElement('Placemark');
         $placeNode = $docNode->appendChild($node);
@@ -280,6 +280,9 @@
         $cdata = $descNode->ownerDocument->createCDATASection(htmlspecialchars($marker->description));
         $descNode->appendChild($cdata);
         $placeNode->appendChild($descNode);
+
+        // Set the style to a special marker, if this is the meeting place (key 0)
+        $k or $placeNode->appendChild( $dom->createElement('styleUrl','#jwhome') );
 
         // Creates a Point element.
         $pointNode = $dom->createElement('Point');
