@@ -330,7 +330,7 @@ JanesWalk.form['2014-05-04'] = {
       <div class="page-header" data-section="route">
         <h1><?= t('Share Your Route') ?></h1>
       </div>
-
+      <div class="alert alert-info"><?= t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') ?></div>
       <div id="route-help-panel">
         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 class="lead"><?= t('Need help building your route?') ?></h2></a>
 
