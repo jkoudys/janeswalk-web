@@ -15,7 +15,7 @@ foreach($pages as $key => $page) {
     themes: <?= ($themes) ?>,
     accessibilities: <?= ($accessibilities) ?>,
     initiatives: <?= ($initiatives) ?>,
-    dates: <?= ($dates) ?>
+    datetimes: <?= $datetimes ?>
   });
   </script>
   <a href="<?= ($nh->getCollectionURL($page)) ?>">
@@ -23,12 +23,15 @@ foreach($pages as $key => $page) {
       <div class='walkimage <?= $placeholder ?>' <?= $cardBg ? "style='background-image:url($cardBg)'" : '' ?>></div>
       <div class="caption">
         <h4><?= Loader::helper('text')->shortText($page->getCollectionName(), 45) ?></h4>
+        <ul class="when">
 <?php
-if($when) { ?>
-        <h6>
-          <i class="icon-calendar"></i> <?= $when ?>
-        </h6>
-<?php }
+  foreach($when as $slot) { ?>
+          <li><i class="icon-calendar"></i> <?= $slot ?></li>
+<?php 
+  }
+?>
+        </ul>
+<?php
 if($leaders) { ?>
         <h6>
           Walk led by <?= Loader::helper('text')->shortText($leaders) ?>

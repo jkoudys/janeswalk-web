@@ -167,7 +167,7 @@ var CityPageView = PageView.extend({
                     count = 0;
                     $(_this._data).each(
                         function(index, data) {
-                            if (jQuery.inArray($(option).attr('value'), data.dates) !== -1) {
+                            if ($.grep(data.datetimes, function(e){ return $(option).attr('value') === e.date; }).length > 0) {
                                 ++count;
                             }
                         }
@@ -320,7 +320,7 @@ var CityPageView = PageView.extend({
 
                 // dates
                 if (
-                    jQuery.inArray(_this._date, data.dates) === -1
+                    $.grep(data.datetimes, function(e){ return _this._date === e.date; }).length === 0
                     && _this._date !== '*'
                 ) {
                     show = false;

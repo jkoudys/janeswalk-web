@@ -155,19 +155,17 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     $cardData['initiatives'] = json_encode($initiatives);
 
     // Dates
-    $dates = array();
     $scheduled = $page->getAttribute('scheduled');
-    $slots = (array) $scheduled['slots']; 
-    if(isset($slots[0]['date'])) {
-      $dates = array($slots[0]['date']);
-    }
-    $cardData['dates'] = json_encode($dates);
+    $datetimes = array_map(
+      function($s){
+        return ['date' => $s['date'], 'time' => $s['time']];
+      }, (array) $scheduled['slots']);
+    $cardData['datetimes'] = json_encode($datetimes);
+    $cardData['when'] = array();
     if($scheduled['open']) {
-      $cardData['when'] = 'Open schedule';
-    } else if(isset($slots[0]['date'])) {
-      $cardData['when'] = "{$slots[0]['time']}, {$slots[0]['date']}";
-    } else {
-      $cardData['when'] = null;
+      $cardData['when'][] = 'Open schedule';
+    } else if($datetimes) {
+      $cardData['when'] = array_map(function($s){ return "{$s['time']}, {$s['date']}"; }, $datetimes);
     }
 
     // Thumbnail
