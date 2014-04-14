@@ -78,15 +78,22 @@
               } else if(isset($slots[0]['date'])) {
             ?>
               <h4 class="available-time">
-                <i class="icon-calendar"></i> <?= t('Next available day') ?>:<br /><span class="highlight"><?=$slots[0]['date']?></span>
+                <i class="icon-calendar"></i> <?= t2('Next available day', 'Available dates', sizeof($slots)) ?>:<br />
+<?php
+                foreach($slots as $slot) { ?>
+                <span class="highlight"><?=$slot['date']?></span>
                 <span class="divider">|</span>
-                <span class="time"><?= ($slots[0]['time']) ?></span>
+                <span class="time"><?= ($slot['time']) ?></span>
+                <br />
+<?php
+                }
+?>
               </h4>
             <?php }
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {
             ?>
-              <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
+              <a data-eid="<?= $eid ?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
             <?php
               } else {
             ?>
