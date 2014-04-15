@@ -32,7 +32,6 @@
     )
   );
   $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
-  print_r($donateCopy);
 ?>
     <div class="overlay o-donate">
       <div class="o-background">

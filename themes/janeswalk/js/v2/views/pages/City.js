@@ -88,7 +88,7 @@ var CityPageView = PageView.extend({
      * @return    void
      */
     _setupText2DonateInterstitials: function() {
-
+return;
         // Catfish events
         this._element.find('a.closeCatfishCta').click(
             function(event) {
