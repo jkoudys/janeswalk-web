@@ -22,6 +22,41 @@
         <?= tc('Log in or join..', 'to create a walk') ?>
       </div>
     </div>
+
+<?php
+  $donateCopyOptions = array(
+    array(
+      'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
+      'main' => 'Help Jane\'s Walk run more than 200 walks this year',
+      'cta' => 'Text 91784 to donate $10 now'
+    )
+  );
+  $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
+?>
+    <div class="overlay o-donate">
+      <div class="o-background">
+      </div>
+      <div class="o-content">
+        <a href="#" class="closeModalCta icon-remove"></a>
+        <div class="top" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');">
+        </div>
+        <div class="bottom">
+          <?= ($donateCopy['main']) ?><br />
+          <span class="cta"><?= ($donateCopy['cta']) ?></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="catfish c-donate hidden">
+      <div class="c-content">
+        <a href="#" class="closeCatfishCta icon-remove"></a>
+        <div class="portrait" style="background-image: url('http://i.imgur.com/tsxDZKo.png');"></div>
+        <div class="block">
+          <?= ($donateCopy['main']) ?><br />
+          <span class="cta"><?= ($donateCopy['cta']) ?></span>
+        </div>
+      </div>
+    </div>
     
   <div class="container-outter" role="main">
     <div class="intro-city tk-museo-slab">
@@ -48,13 +83,12 @@
             if ($c->getCollectionUserID() > 1):
           ?>
             <section class="city-organizer">
-              <?php if($avatar) { ?><a href="<?= $this->url("/profile/{$page_owner->getUserId()}") ?>">
+              <?php if($avatar) { ?><a href="<?= $profile_path ?>">
               <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div><?php } ?></a>
               <div class="city-organizer-details">
                 <h3>
-                  <?=
-                    "{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" .
-                    ($u->getUserID() == $page_owner->getUserID() ? " <a href={$this->url('/profile/edit')}><i class='icon-edit-sign'></i></a>":null)
+                 <a href="<?= $profile_path ?>"><?= "{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" ?></a>
+                    <?php if($u->getUserID() == $page_owner->getUserID()) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='icon-edit-sign'></i></a><?php } 
                   ?>
                 </h3>
                 <h4><?= t('City Organizer') ?></h4>
@@ -253,7 +287,7 @@
             } else {
           ?>
             <h3>Walks in <?= ($c->getCollectionName()) ?></h3>
-            <?php if($totalWalks > 1) { ?>
+            <?php if($totalWalks > 9) { ?>
             <a href="?show=all" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
             <?php }?>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?= $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>

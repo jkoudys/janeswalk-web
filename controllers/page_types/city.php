@@ -120,6 +120,7 @@
       $this->set('show', $_REQUEST['show']);
       $this->set('avatar', $avatar);
       $this->set('page_owner', $page_owner);
+      $this->set('profile_path', DIR_REL . '/' . DISPATCHER_FILENAME . "/profile/{$page_owner->getUserId()}");
       $this->set('blog', $blog->get(1)[0]);
 
       // Put characters to only show contents to the right of
