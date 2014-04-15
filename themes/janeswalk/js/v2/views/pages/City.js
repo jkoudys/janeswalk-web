@@ -78,6 +78,76 @@ var CityPageView = PageView.extend({
         this._addFilterEvents();
         this._setThemeCounts();
         this._captureHash();
+        this._setupText2DonateInterstitials();
+    },
+
+    /**
+     * _setupText2DonateInterstitials
+     * 
+     * @protected
+     * @return    void
+     */
+    _setupText2DonateInterstitials: function() {
+
+        // Catfish events
+        this._element.find('a.closeCatfishCta').click(
+            function(event) {
+                event.preventDefault();
+                _this._element.find('.catfish').hide();
+
+                // Track the closure
+                jQuery.cookie(
+                    'hasSeenDonateCatfish',
+                    {
+                        path: '/',
+                        domain: location.host
+                    }
+                );
+            }
+        );
+
+        // Canadian city check
+        var isCanadianCity = (location.pathname.match(/\/canada\/[^/]+/) !== null),
+            _this = this;
+        if (isCanadianCity === true) {
+
+            // Modal
+            var hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null
+                && typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
+
+            // Hasn't yet been seen
+            if (hasSeenDonateInterstitial === false) {
+                var closeCallback = function() {
+
+                    // Track the closure
+                    jQuery.cookie(
+                        'hasSeenDonateInterstitial',
+                        {
+                            path: '/',
+                            domain: location.host
+                        }
+                    );
+
+                    // Open the catfish
+                    _this._element.find('.catfish.c-donate').removeClass(
+                        'hidden'
+                    );
+                };
+                this._element.find('.overlay.o-donate').show();
+                this._element.find('.o-background').click(closeCallback);
+                this._element.find('a.closeModalCta').click(closeCallback);
+            } else {
+
+                // Catfish
+                var hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null
+                    && typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
+
+                // Hasn't yet been seen
+                if (hasSeenDonateCatfish === false) {
+                    this._element.find('.catfish').removeClass('hidden');
+                }
+            }
+        }
     },
 
     /**
@@ -221,7 +291,7 @@ var CityPageView = PageView.extend({
             function(event) {
                 event.preventDefault();
                 if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
-                    _this._element.find('.overlay').show();
+                    _this._element.find('.overlay.o-connect').show();
                 } else {
                     location.href = $(this).attr('href');
                 }

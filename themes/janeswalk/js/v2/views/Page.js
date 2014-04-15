@@ -32,6 +32,12 @@ var PageView = View.extend({
                 _this._element.find('.overlay').hide();
             }
         );
+        this._element.find('a.closeModalCta').click(
+            function(event) {
+                event.preventDefault();
+                _this._element.find('.overlay').hide();
+            }
+        );
     },
 
     /**
