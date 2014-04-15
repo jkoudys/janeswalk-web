@@ -57,7 +57,7 @@ class PageAttributeTypeController extends AttributeTypeController  {
     $lastParent = '';
     $selected = $_REQUEST['akID'][$this->getAttributeKey()->getAttributeKeyID()]['value'];
     if (!$selected && $this->getAttributeValueID() > 0) {
-      $selected = $this->getValue();
+      $selected = $this->getValue()->cID;
     }
     $selectString = "<select id='{$this->field('value')}' name='{$this->field('value')}' ><option value=''>--</option>";
     $pl->filterByCollectionTypeHandle('city');
