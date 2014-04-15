@@ -95,6 +95,8 @@ class Concrete5_Controller_Profile_Edit extends Controller {
 			foreach($aks as $uak) {
 				$uak->saveAttributeForm($ui);				
 			}
+			// header('Location: /index.php/profile/#tab=details&success=1');
+			// exit(0);
 			$this->redirect("/profile/edit", "save_complete");
 		} else {
 			$this->set('error', $e);

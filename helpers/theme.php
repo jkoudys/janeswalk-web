@@ -25,7 +25,7 @@ class ThemeHelper {
       'culture-artist' => "<i class='icon-picture'></i>",
       'culture-aesthete' => "<i class='icon-pencil'></i>",
       'culture-bookworm' => "<i class='icon-book'></i>",
-      'culture-foodie' => "<i class='icon-good'></i>",
+      'culture-foodie' => "<i class='icon-food'></i>",
       'culture-nightowl' => "<i class='icon-glass'></i>",
       'culture-techie' => "<i class='icon-gears'></i>",
       'culture-writer' => "<i class='icon-edit'></i>",

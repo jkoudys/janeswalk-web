@@ -9912,6 +9912,635 @@ section.sponsors {
   }
 }
 
+/* line 1, pages/sass/profile.scss */
+div#profileWrapper {
+  width: 960px;
+  margin: 60px auto 60px;
+}
+/* line 5, pages/sass/profile.scss */
+div#profileWrapper .nav {
+  margin: 0;
+}
+/* line 9, pages/sass/profile.scss */
+div#profileWrapper div.progressb {
+  position: relative;
+  background-color: #564940;
+  height: 50px;
+  border-radius: 4px;
+}
+/* line 15, pages/sass/profile.scss */
+div#profileWrapper div.progressb div.bar {
+  background-color: #fff;
+  height: 4px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+}
+/* line 25, pages/sass/profile.scss */
+div#profileWrapper div.progressb div.step {
+  float: left;
+  position: relative;
+  width: 20%;
+  height: 1%;
+}
+/* line 31, pages/sass/profile.scss */
+div#profileWrapper div.progressb div.step div.number {
+  background-color: #fff;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 4px;
+  position: absolute;
+  top: 10px;
+}
+/* line 42, pages/sass/profile.scss */
+div#profileWrapper div.progressb div.step div.copy {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  color: #fff;
+  font-size: 14px;
+}
+/* line 52, pages/sass/profile.scss */
+div#profileWrapper div.steps {
+  margin: 0 0 20px;
+  padding: 20px;
+  border-left: 3px solid #eee;
+  background-color: #f4f8fa;
+  border-color: #5bc0de;
+}
+/* line 66, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content {
+  width: 45%;
+  margin-left: -22.5%;
+  box-sizing: border-box;
+  padding: 20px;
+  height: auto;
+}
+/* line 73, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content h1 {
+  font-size: 32px;
+  font-weight: normal;
+  margin: 0 0 10px;
+}
+/* line 79, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content p {
+  margin: 0;
+}
+/* line 83, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options {
+  border-top: 1px dashed #ddd;
+  padding: 12px 0 0 0;
+  margin: 24px 0 0 0;
+}
+/* line 88, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option {
+  margin: 0 12px 8px 0;
+}
+/* line 91, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.copy {
+  line-height: 32px;
+  font-size: 24px;
+  text-align: center;
+}
+/* line 103, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks {
+  width: 124px;
+  margin: 18px auto 0;
+}
+/* line 108, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a {
+  font-size: 18px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  width: 36px;
+  display: block;
+  float: left;
+  border-radius: 100px;
+  color: #fff;
+  margin: 0 8px 0 0;
+}
+/* line 120, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a:last-child {
+  margin: 0;
+}
+/* line 124, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a:hover {
+  text-decoration: none;
+}
+/* line 128, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.icon-twitter {
+  background-color: #00A9F2;
+}
+/* line 131, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.icon-twitter:hover {
+  background-color: #80D4F9;
+}
+/* line 136, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.icon-facebook {
+  background-color: #3D529D;
+}
+/* line 139, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.icon-facebook:hover {
+  background-color: #9EA9CE;
+}
+/* line 144, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.icon-envelope {
+  background-color: #F01F00;
+}
+/* line 147, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.icon-envelope:hover {
+  background-color: #F88F80;
+}
+/* line 156, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.nav {
+  position: relative;
+  height: 24px;
+  margin: 12px 0 0;
+  padding: 12px 0 0;
+  border-top: 1px dashed #ddd;
+}
+/* line 163, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.nav a {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  color: #fff;
+  background-color: #373942;
+  border-radius: 4px;
+}
+/* line 176, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.nav a:hover {
+  text-decoration: none;
+  background-color: #fff;
+  color: #373942;
+}
+/* line 182, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.nav a.left {
+  left: 0;
+}
+/* line 186, pages/sass/profile.scss */
+div#profileWrapper div.overlay div.o-content div.nav a.right {
+  right: 0;
+}
+/* line 194, pages/sass/profile.scss */
+div#profileWrapper div.content {
+  border: solid #ddd;
+  border-width: 0 1px 1px;
+}
+/* line 198, pages/sass/profile.scss */
+div#profileWrapper div.content div.block {
+  padding: 32px;
+}
+/* line 201, pages/sass/profile.scss */
+div#profileWrapper div.content div.block div.success {
+  margin: 0 0 20px;
+  padding: 20px;
+  border-left: 3px solid #eee;
+  background-color: #F5FAF4;
+  border-color: #5BDE8F;
+  font-size: 18px;
+  display: none;
+}
+/* line 210, pages/sass/profile.scss */
+div#profileWrapper div.content div.block div.success span {
+  padding: 0 8px 0 0;
+}
+/* line 217, pages/sass/profile.scss */
+div#profileWrapper div.content div.block.success div.success {
+  display: block;
+}
+/* line 237, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column {
+  float: left;
+  width: 439px;
+  box-sizing: border-box;
+  padding: 0 32px 0 0;
+  position: relative;
+}
+/* line 244, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column div.headline {
+  font-size: 24px;
+  height: 36px;
+  line-height: 36px;
+  margin: 0 0 16px 0;
+}
+/* line 253, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks > a.btn {
+  position: absolute;
+  right: 32px;
+  top: 5px;
+}
+/* line 261, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.copy {
+  font-size: 16px;
+}
+/* line 265, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.btnWrapper {
+  padding: 8px 0 0;
+}
+/* line 270, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+/* line 275, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks ul li {
+  margin: 0;
+  list-style-type: none;
+  padding: 0 0 24px;
+}
+/* line 282, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks ul li div.title a {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 90%;
+}
+/* line 293, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks ul li div.subactions a {
+  display: block;
+  float: left;
+  color: #777;
+  text-decoration: underline;
+  margin: 0 8px 0 0;
+  font-size: 12px;
+}
+/* line 301, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.walks ul li div.subactions a:hover {
+  text-decoration: none;
+}
+/* line 312, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city > a.btn {
+  position: absolute;
+  right: 32px;
+  top: 5px;
+}
+/* line 321, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.walks,
+div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.posts {
+  margin: 0 0 6px;
+}
+/* line 324, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.walks div.count,
+div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.posts div.count {
+  float: left;
+  height: 32px;
+  width: 32px;
+  border-radius: 100px;
+  line-height: 32px;
+  background-color: #FFD9C7;
+  text-align: center;
+  color: #000;
+  margin: 0 4px 0 0;
+}
+/* line 336, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.walks div.name,
+div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.posts div.name {
+  float: left;
+  height: 32px;
+  line-height: 32px;
+}
+/* line 344, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+/* line 349, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city ul li {
+  margin: 0;
+  list-style-type: none;
+  padding: 0 0 24px;
+}
+/* line 356, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.title a {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 90%;
+}
+/* line 367, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.subactions a {
+  display: block;
+  float: left;
+  color: #777;
+  text-decoration: underline;
+  margin: 0 8px 0 0;
+  font-size: 12px;
+}
+/* line 375, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.subactions a:hover {
+  text-decoration: none;
+}
+/* line 388, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.posts div.nullcase div.copy {
+  font-size: 16px;
+}
+/* line 392, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.posts div.nullcase div.btnWrapper {
+  padding: 8px 0 0;
+}
+/* line 401, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock.threeColumnLayout div.column {
+  width: 298px;
+}
+/* line 407, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock {
+  padding: 32px 0 0;
+}
+/* line 410, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main {
+  padding: 0 32px 32px;
+}
+/* line 413, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.headline {
+  font-size: 24px;
+  height: 36px;
+  line-height: 36px;
+}
+/* line 420, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main > p {
+  margin: 0;
+  padding: 0;
+}
+/* line 425, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables {
+  margin: 24px 0 0;
+}
+/* line 428, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column {
+  float: left;
+  width: 298px;
+  box-sizing: border-box;
+  padding: 0 32px 0 0;
+}
+/* line 434, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.name {
+  font-weight: bold;
+}
+/* line 438, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val {
+  padding: 8px 0 0;
+}
+/* line 441, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p {
+  position: relative;
+  display: block;
+  margin: 0;
+  padding: 0 0 0 32px;
+}
+/* line 447, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.icon {
+  position: absolute;
+  font-size: 24px;
+  left: 2px;
+  top: 6px;
+}
+/* line 454, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.bgPhoto {
+  background-image: url("http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg");
+  display: block;
+  height: 50px;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+/* line 464, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p a {
+  font-size: 12px;
+  padding: 0 0 0 8px;
+}
+/* line 470, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn {
+  margin: 10px 0 0;
+}
+/* line 478, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.footer {
+  padding: 32px;
+  text-align: center;
+  background-color: #FCF6F4;
+  border-top: 1px solid #ddd;
+}
+/* line 484, pages/sass/profile.scss */
+div#profileWrapper div.content div#cityBlock div.footer p {
+  font-size: 22px;
+  margin: 0 0 20px;
+}
+/* line 495, pages/sass/profile.scss */
+div#profileWrapper div.content div#accountBlock form div.column {
+  float: left;
+  width: 439px;
+  box-sizing: border-box;
+  padding: 0 32px 0 0;
+}
+/* line 501, pages/sass/profile.scss */
+div#profileWrapper div.content div#accountBlock form div.column div.headline {
+  font-size: 24px;
+  height: 36px;
+  line-height: 36px;
+  margin: 0 0 16px 0;
+}
+/* line 510, pages/sass/profile.scss */
+div#profileWrapper div.content div#accountBlock form div.column span.required {
+  color: red;
+  padding: 0 4px 0 0;
+}
+/* line 515, pages/sass/profile.scss */
+div#profileWrapper div.content div#accountBlock form div.column label {
+  display: inline;
+}
+/* line 518, pages/sass/profile.scss */
+div#profileWrapper div.content div#accountBlock form div.column label.checkbox {
+  display: block;
+  padding-left: 10px;
+}
+/* line 525, pages/sass/profile.scss */
+div#profileWrapper div.content div#accountBlock form div.column input[type="text"],
+div#profileWrapper div.content div#accountBlock form div.column input[type="password"] {
+  width: 50%;
+  height: 36px;
+}
+/* line 531, pages/sass/profile.scss */
+div#profileWrapper div.content div#accountBlock form div.column div.btnWrapper {
+  text-align: right;
+}
+/* line 538, pages/sass/profile.scss */
+div#profileWrapper div.content div#pictureBlock {
+  position: relative;
+}
+/* line 541, pages/sass/profile.scss */
+div#profileWrapper div.content div#pictureBlock div.headline {
+  font-size: 24px;
+  height: 36px;
+  line-height: 36px;
+  margin: 0 0 16px 0;
+}
+/* line 548, pages/sass/profile.scss */
+div#profileWrapper div.content div#pictureBlock div.column {
+  float: left;
+  box-sizing: border-box;
+  padding: 0 32px 0 0;
+}
+/* line 554, pages/sass/profile.scss */
+div#profileWrapper div.content div#pictureBlock div.column.widget {
+  width: 520px;
+}
+/* line 558, pages/sass/profile.scss */
+div#profileWrapper div.content div#pictureBlock div.column.tips {
+  width: 358px;
+}
+/* line 561, pages/sass/profile.scss */
+div#profileWrapper div.content div#pictureBlock div.column.tips a {
+  display: block;
+  text-align: right;
+  margin: 20px 0 0 0;
+}
+/* line 572, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.headline {
+  font-size: 24px;
+  height: 36px;
+  line-height: 36px;
+}
+/* line 579, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.resourceBlock {
+  margin: 0 0 48px;
+}
+/* line 585, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.vimeos ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+/* line 590, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.vimeos ul li {
+  position: relative;
+  width: 250px;
+  float: left;
+  margin: 0 42px 0 0;
+}
+/* line 601, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.ideas ul {
+  list-style-type: none;
+  padding: 6px 0 0;
+  margin: 0;
+}
+/* line 606, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.ideas ul li {
+  position: relative;
+  width: 250px;
+  float: left;
+  margin: 0 42px 0 0;
+}
+/* line 612, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.banner {
+  border-radius: 4px 4px 0 0;
+  width: 250px;
+  height: 150px;
+  background-size: cover;
+}
+/* line 619, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.ideas ul li img.flag {
+  border-radius: 4px;
+  border: 2px solid #fff;
+  width: 50px;
+  position: absolute;
+  left: 100px;
+  top: 135px;
+}
+/* line 629, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta {
+  border: 1px solid #ddd;
+  border-bottom-width: 2px;
+  font-size: 16px;
+  padding: 12px 0 12px 8px;
+  border-radius: 0 0 4px 4px;
+}
+/* line 638, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.city a {
+  font-size: 16px;
+}
+/* line 645, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.title a {
+  font-size: 16px;
+}
+/* line 656, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.cos ul {
+  list-style-type: none;
+  padding: 6px 0 0;
+  margin: 0;
+}
+/* line 661, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.cos ul li {
+  position: relative;
+  width: 250px;
+  float: left;
+  margin: 0 42px 0 0;
+}
+/* line 667, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.cos ul li img.map {
+  border-radius: 4px 4px 0 0;
+}
+/* line 671, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.cos ul li img.display {
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  left: 98px;
+  top: 85px;
+  border: 2px solid #fff;
+}
+/* line 681, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta {
+  border: 1px solid #ddd;
+  border-bottom-width: 2px;
+  font-size: 16px;
+  padding: 12px 0 12px 8px;
+  border-radius: 0 0 4px 4px;
+}
+/* line 690, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta div.email a {
+  font-size: 14px;
+}
+/* line 701, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.press ul {
+  list-style-type: none;
+  padding: 6px 0 0;
+  margin: 0;
+}
+/* line 706, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.press ul li {
+  position: relative;
+  width: 250px;
+  float: left;
+  margin: 0 42px 10px 0;
+}
+/* line 712, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.press ul li a {
+  display: block;
+  height: 50px;
+  padding: 0 0 0 50px;
+}
+/* line 717, pages/sass/profile.scss */
+div#profileWrapper div.content div#resourcesBlock div.press ul li a img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 44px;
+}
+
 /* line 3, pages/sass/city.scss */
 .city-page {
   background-attachment: fixed;
@@ -11901,18 +12530,18 @@ html#tool {
   width: auto !important;
 }
 
-/* line 30, pages/sass/screen.scss */
+/* line 31, pages/sass/screen.scss */
 html {
   /* Pad for the fixed-footer */
 }
 @media (min-width: 480px) {
-  /* line 30, pages/sass/screen.scss */
+  /* line 31, pages/sass/screen.scss */
   html {
     padding-bottom: 111px;
   }
 }
 
-/* line 33, pages/sass/screen.scss */
+/* line 34, pages/sass/screen.scss */
 body {
   overflow-x: hidden;
   font-size: 15px;
@@ -11923,7 +12552,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 @media (max-width: 979px) {
-  /* line 33, pages/sass/screen.scss */
+  /* line 34, pages/sass/screen.scss */
   body {
     padding-top: 0;
   }
@@ -11933,7 +12562,7 @@ body {
  * Overlays
  * 
  */
-/* line 52, pages/sass/screen.scss */
+/* line 53, pages/sass/screen.scss */
 .overlay {
   margin: 0 auto;
   position: absolute;
@@ -11944,7 +12573,7 @@ body {
   bottom: 0;
   display: none;
 }
-/* line 62, pages/sass/screen.scss */
+/* line 63, pages/sass/screen.scss */
 .overlay .o-background {
   opacity: 0.5;
   background-color: #000;
@@ -11955,7 +12584,7 @@ body {
   right: 0;
   bottom: 0;
 }
-/* line 73, pages/sass/screen.scss */
+/* line 74, pages/sass/screen.scss */
 .overlay .o-content {
   height: 320px;
   z-index: 10001;
@@ -11969,31 +12598,31 @@ body {
   padding: 10px;
   border: 10px solid #5E5E5E;
 }
-/* line 89, pages/sass/screen.scss */
+/* line 90, pages/sass/screen.scss */
 .overlay.o-connect .o-content {
   width: 25%;
   margin-left: -12.5%;
   padding: 20px;
   height: 132px;
 }
-/* line 95, pages/sass/screen.scss */
+/* line 96, pages/sass/screen.scss */
 .overlay.o-connect .o-content h1 {
   margin: 0 0 20px;
   padding: 0;
   font-size: 28px;
 }
 
-/* line 105, pages/sass/screen.scss */
+/* line 106, pages/sass/screen.scss */
 strong, b {
   font-weight: 700;
 }
 
-/* line 109, pages/sass/screen.scss */
+/* line 110, pages/sass/screen.scss */
 em {
   color: #222;
 }
 
-/* line 112, pages/sass/screen.scss */
+/* line 113, pages/sass/screen.scss */
 blockquote {
   text-transform: uppercase;
   font-weight: 100;
@@ -12006,58 +12635,58 @@ blockquote {
   margin-left: -150px;
 }
 
-/* line 125, pages/sass/screen.scss */
+/* line 126, pages/sass/screen.scss */
 body.logged_in {
   padding-top: 50px;
 }
-/* line 128, pages/sass/screen.scss */
+/* line 129, pages/sass/screen.scss */
 body.logged_in header.navbar {
   top: 50px;
   z-index: 6;
 }
-/* line 132, pages/sass/screen.scss */
+/* line 133, pages/sass/screen.scss */
 body.logged_in #ccm-highlighter {
   z-index: 7;
 }
-/* line 133, pages/sass/screen.scss */
+/* line 134, pages/sass/screen.scss */
 body.logged_in .modal-backdrop {
   z-index: 1;
 }
-/* line 136, pages/sass/screen.scss */
+/* line 137, pages/sass/screen.scss */
 body.logged_in .modal {
   z-index: 2;
 }
 
-/* line 140, pages/sass/screen.scss */
+/* line 141, pages/sass/screen.scss */
 body.c5-edit {
   padding-top: 180px;
 }
 
-/* line 143, pages/sass/screen.scss */
+/* line 144, pages/sass/screen.scss */
 html.index-bg body {
   padding: 0;
 }
 
-/* line 147, pages/sass/screen.scss */
+/* line 148, pages/sass/screen.scss */
 .box-sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 148, pages/sass/screen.scss */
+/* line 149, pages/sass/screen.scss */
 .box-sizing * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 152, pages/sass/screen.scss */
+/* line 153, pages/sass/screen.scss */
 .box-sizing *:after, .box-sizing *:before {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 163, pages/sass/screen.scss */
+/* line 164, pages/sass/screen.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "museo-slab", "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
@@ -12065,37 +12694,37 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1.5em 0 0.6em 0;
 }
 
-/* line 169, pages/sass/screen.scss */
+/* line 170, pages/sass/screen.scss */
 h1 {
   font-weight: 100;
   font-size: 40px;
 }
 
-/* line 170, pages/sass/screen.scss */
+/* line 171, pages/sass/screen.scss */
 h2 {
   font-weight: 100;
   font-size: 40px;
 }
 
-/* line 171, pages/sass/screen.scss */
+/* line 172, pages/sass/screen.scss */
 h3 {
   font-weight: 100;
   font-size: 25px;
 }
 
-/* line 172, pages/sass/screen.scss */
+/* line 173, pages/sass/screen.scss */
 h4 {
   font-weight: 700;
   font-size: 17px;
 }
 
-/* line 173, pages/sass/screen.scss */
+/* line 174, pages/sass/screen.scss */
 h5 {
   font-weight: 700;
   font-size: 14;
 }
 
-/* line 177, pages/sass/screen.scss */
+/* line 178, pages/sass/screen.scss */
 .brand, .logo {
   background: url("../images/jwlogo.svg");
   -webkit-background-size: 70%;
@@ -12109,7 +12738,7 @@ h5 {
   padding: 0;
 }
 
-/* line 188, pages/sass/screen.scss */
+/* line 189, pages/sass/screen.scss */
 .logo {
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -12117,83 +12746,83 @@ h5 {
   background-size: contain;
 }
 
-/* line 192, pages/sass/screen.scss */
+/* line 193, pages/sass/screen.scss */
 body.form .brand, body.form .logo {
   width: auto;
   height: auto;
   background: transparent;
 }
 
-/* line 198, pages/sass/screen.scss */
+/* line 199, pages/sass/screen.scss */
 .hide-text, .profiles .flex-control-nav a {
   text-indent: 130%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 204, pages/sass/screen.scss */
+/* line 205, pages/sass/screen.scss */
 .no-margin {
   margin: 0;
 }
 
-/* line 208, pages/sass/screen.scss */
+/* line 209, pages/sass/screen.scss */
 .no-margin-top {
   margin-top: 0;
 }
 
-/* line 214, pages/sass/screen.scss */
+/* line 215, pages/sass/screen.scss */
 .breadcrumb {
   background: none;
   border: 1px solid #f5f5f5;
   border-radius: 0;
   border-width: 0 0 1px 0;
 }
-/* line 215, pages/sass/screen.scss */
+/* line 216, pages/sass/screen.scss */
 .breadcrumb > li {
   text-shadow: none;
 }
-/* line 218, pages/sass/screen.scss */
+/* line 219, pages/sass/screen.scss */
 .breadcrumb a:hover {
   text-decoration: none;
 }
 
-/* line 229, pages/sass/screen.scss */
+/* line 230, pages/sass/screen.scss */
 .calendar-wrap {
   padding: 0 10px;
   position: relative;
 }
-/* line 232, pages/sass/screen.scss */
+/* line 233, pages/sass/screen.scss */
 .calendar-wrap .calendar-header {
   font-size: 1.10em;
   margin: 0 0 1em 0;
   width: 100%;
   text-align: center;
 }
-/* line 237, pages/sass/screen.scss */
+/* line 238, pages/sass/screen.scss */
 .calendar-wrap .calendar-header span {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-weight: 800;
 }
-/* line 242, pages/sass/screen.scss */
+/* line 243, pages/sass/screen.scss */
 .calendar-wrap .custom-month {
   text-align: center;
   border-radius: 50%;
   width: 22px;
   height: 22px;
 }
-/* line 248, pages/sass/screen.scss */
+/* line 249, pages/sass/screen.scss */
 .calendar-wrap .custom-year {
   position: absolute;
   top: 0;
   right: 10px;
 }
 
-/* line 257, pages/sass/screen.scss */
+/* line 258, pages/sass/screen.scss */
 .btn {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
 
-/* line 263, pages/sass/screen.scss */
+/* line 264, pages/sass/screen.scss */
 footer {
   clear: both;
   color: #50616D;
@@ -12211,59 +12840,59 @@ footer {
   bottom: 0;
 }
 @media (max-width: 480px) {
-  /* line 263, pages/sass/screen.scss */
+  /* line 264, pages/sass/screen.scss */
   footer {
     position: static;
   }
 }
-/* line 278, pages/sass/screen.scss */
+/* line 279, pages/sass/screen.scss */
 footer h4 {
   margin-top: 0;
 }
-/* line 281, pages/sass/screen.scss */
+/* line 282, pages/sass/screen.scss */
 footer a {
   color: #df520e;
 }
-/* line 284, pages/sass/screen.scss */
+/* line 285, pages/sass/screen.scss */
 footer ul, footer li {
   list-style-type: none;
 }
-/* line 285, pages/sass/screen.scss */
+/* line 286, pages/sass/screen.scss */
 footer ul {
   margin: 0 0 0 5px;
 }
-/* line 286, pages/sass/screen.scss */
+/* line 287, pages/sass/screen.scss */
 footer li {
   display: inline-block;
 }
-/* line 288, pages/sass/screen.scss */
+/* line 289, pages/sass/screen.scss */
 footer li:before {
   content: "| ";
   margin-right: 3px;
 }
-/* line 290, pages/sass/screen.scss */
+/* line 291, pages/sass/screen.scss */
 footer .social-icons {
   font-size: 18px;
   display: inline-block;
   vertical-align: top;
 }
-/* line 294, pages/sass/screen.scss */
+/* line 295, pages/sass/screen.scss */
 footer .social-icons a {
   text-decoration: none;
 }
-/* line 296, pages/sass/screen.scss */
+/* line 297, pages/sass/screen.scss */
 footer .social-icons a i {
   color: #6badfd;
   font-size: 24px;
   margin-right: 4px;
 }
-/* line 298, pages/sass/screen.scss */
+/* line 299, pages/sass/screen.scss */
 footer .social-icons + div {
   width: 80%;
   display: inline-block;
 }
 
-/* line 307, pages/sass/screen.scss */
+/* line 308, pages/sass/screen.scss */
 #progress {
   position: fixed;
   height: 100px;
@@ -12272,12 +12901,12 @@ footer .social-icons + div {
   top: 40%;
 }
 
-/* line 318, pages/sass/screen.scss */
+/* line 319, pages/sass/screen.scss */
 .form-actions .btn {
   margin-right: 15px;
 }
 
-/* line 325, pages/sass/screen.scss */
+/* line 326, pages/sass/screen.scss */
 #donate {
   padding: 10px 15px 10px;
   margin-top: 0;
@@ -12287,18 +12916,18 @@ footer .social-icons + div {
   font-size: 1em;
 }
 
-/* line 334, pages/sass/screen.scss */
+/* line 335, pages/sass/screen.scss */
 #donate:hover {
   color: #ffffff;
   background-color: #df520e;
 }
 
-/* line 341, pages/sass/screen.scss */
+/* line 342, pages/sass/screen.scss */
 .infoBox {
   box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
   color: #555;
 }
-/* line 344, pages/sass/screen.scss */
+/* line 345, pages/sass/screen.scss */
 .infoBox:after {
   content: "";
   width: 9px;
@@ -12313,7 +12942,7 @@ footer .social-icons + div {
   border-bottom-right-radius: 5px;
 }
 
-/* line 361, pages/sass/screen.scss */
+/* line 362, pages/sass/screen.scss */
 .notification {
   background: url("images/festival-bg.png") bottom right no-repeat #35b0d7;
   color: #fff;
@@ -12328,34 +12957,34 @@ footer .social-icons + div {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 371, pages/sass/screen.scss */
+/* line 372, pages/sass/screen.scss */
 .notification .close {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-/* line 376, pages/sass/screen.scss */
+/* line 377, pages/sass/screen.scss */
 .notification.expanded {
   height: 180px;
 }
-/* line 379, pages/sass/screen.scss */
+/* line 380, pages/sass/screen.scss */
 .notification h4 {
   margin-bottom: 0;
   font-size: 18px;
 }
-/* line 383, pages/sass/screen.scss */
+/* line 384, pages/sass/screen.scss */
 .notification .title {
   font-size: 33px;
   margin: 0;
   line-height: 1em;
   font-weight: 400;
 }
-/* line 389, pages/sass/screen.scss */
+/* line 390, pages/sass/screen.scss */
 .notification .container {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-/* line 393, pages/sass/screen.scss */
+/* line 394, pages/sass/screen.scss */
 .notification.walk-beta {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
@@ -12366,39 +12995,39 @@ footer .social-icons + div {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 399, pages/sass/screen.scss */
+/* line 400, pages/sass/screen.scss */
 .notification.walk-beta.expanded {
   height: 64px;
 }
-/* line 402, pages/sass/screen.scss */
+/* line 403, pages/sass/screen.scss */
 .notification.walk-beta .title-sub {
   font-size: 20px;
   margin: 0;
 }
 
-/* line 409, pages/sass/screen.scss */
+/* line 410, pages/sass/screen.scss */
 .navbar {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
-/* line 410, pages/sass/screen.scss */
+/* line 411, pages/sass/screen.scss */
 .navbar + * {
   padding-top: 60px;
 }
-/* line 413, pages/sass/screen.scss */
+/* line 414, pages/sass/screen.scss */
 .navbar.dropped, .navbar.edit {
   position: static;
   margin: 0 -60px 0;
   top: 0;
 }
-/* line 417, pages/sass/screen.scss */
+/* line 418, pages/sass/screen.scss */
 .navbar.dropped .navbar-outer, .navbar.edit .navbar-outer {
   max-height: 900px;
 }
-/* line 422, pages/sass/screen.scss */
+/* line 423, pages/sass/screen.scss */
 .navbar .nav {
   font-size: 1em;
 }
-/* line 425, pages/sass/screen.scss */
+/* line 426, pages/sass/screen.scss */
 .navbar .notification {
   position: absolute;
   overflow: hidden;
@@ -12407,67 +13036,67 @@ footer .social-icons + div {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-/* line 432, pages/sass/screen.scss */
+/* line 433, pages/sass/screen.scss */
 .navbar .notification .container {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-/* line 436, pages/sass/screen.scss */
+/* line 437, pages/sass/screen.scss */
 .navbar .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-/* line 440, pages/sass/screen.scss */
+/* line 441, pages/sass/screen.scss */
 .navbar .notification.expanded {
   height: 50px;
 }
-/* line 444, pages/sass/screen.scss */
+/* line 445, pages/sass/screen.scss */
 .navbar .nav-collapse {
   max-width: 60%;
 }
-/* line 447, pages/sass/screen.scss */
+/* line 448, pages/sass/screen.scss */
 .navbar nav {
   float: left;
 }
-/* line 450, pages/sass/screen.scss */
+/* line 451, pages/sass/screen.scss */
 .navbar ul.nav.pull-right {
   float: right;
 }
-/* line 453, pages/sass/screen.scss */
+/* line 454, pages/sass/screen.scss */
 .navbar a {
   cursor: pointer;
 }
-/* line 456, pages/sass/screen.scss */
+/* line 457, pages/sass/screen.scss */
 .navbar .search-close, .navbar .search-open {
   /* todo: get rid of all these importants */
   padding: 10px 12px !important;
   border-radius: 999px;
 }
-/* line 461, pages/sass/screen.scss */
+/* line 462, pages/sass/screen.scss */
 .navbar .search-close {
   background: #f16725;
   text-shadow: none !important;
   display: none;
 }
-/* line 465, pages/sass/screen.scss */
+/* line 466, pages/sass/screen.scss */
 .navbar .search-close:hover {
   color: inherit;
   background: #f16725 !important;
 }
-/* line 469, pages/sass/screen.scss */
+/* line 470, pages/sass/screen.scss */
 .navbar .search-close i {
   color: #fff;
 }
-/* line 474, pages/sass/screen.scss */
+/* line 475, pages/sass/screen.scss */
 .navbar.dropped .search-close {
   display: block;
 }
-/* line 475, pages/sass/screen.scss */
+/* line 476, pages/sass/screen.scss */
 .navbar.dropped .search-open {
   display: none;
 }
 
-/* line 479, pages/sass/screen.scss */
+/* line 480, pages/sass/screen.scss */
 .navbar-outer {
   background-color: #666666;
   max-height: 0;
@@ -12477,36 +13106,36 @@ footer .social-icons + div {
   -o-transition-duration: 0.6s;
   transition-duration: 0.6s;
 }
-/* line 484, pages/sass/screen.scss */
+/* line 485, pages/sass/screen.scss */
 .navbar-outer form {
   max-width: 1170px;
   margin: 0 auto;
   padding: 25px 0;
 }
-/* line 488, pages/sass/screen.scss */
+/* line 489, pages/sass/screen.scss */
 .navbar-outer form fieldset.search {
   display: inline-block;
   margin-right: 50px;
   vertical-align: top;
 }
-/* line 493, pages/sass/screen.scss */
+/* line 494, pages/sass/screen.scss */
 .navbar-outer form div#searchResults {
   display: inline-block;
   max-width: 600px;
   margin-top: -10px;
 }
-/* line 497, pages/sass/screen.scss */
+/* line 498, pages/sass/screen.scss */
 .navbar-outer form div#searchResults mark {
   color: inherit;
   background-color: inherit;
   border-bottom: 1px dotted;
 }
-/* line 502, pages/sass/screen.scss */
+/* line 503, pages/sass/screen.scss */
 .navbar-outer form div#searchResults h4, .navbar-outer form div#searchResults p {
   margin: 0;
   padding: 0 0 8px 0;
 }
-/* line 506, pages/sass/screen.scss */
+/* line 507, pages/sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult {
   margin: 0;
   padding: 8px 8px 0 8px;
@@ -12515,20 +13144,20 @@ footer .social-icons + div {
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-/* line 510, pages/sass/screen.scss */
+/* line 511, pages/sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult:hover {
   background: #333;
 }
-/* line 514, pages/sass/screen.scss */
+/* line 515, pages/sass/screen.scss */
 .navbar-outer form div#searchResults a {
   color: #efefef;
 }
-/* line 516, pages/sass/screen.scss */
+/* line 517, pages/sass/screen.scss */
 .navbar-outer form div#searchResults a:hover {
   text-decoration: none;
 }
 
-/* line 528, pages/sass/screen.scss */
+/* line 529, pages/sass/screen.scss */
 fieldset.search input[type=text] {
   width: 280px;
   font-size: 14px;
@@ -12541,7 +13170,7 @@ fieldset.search input[type=text] {
   height: 21px;
   line-height: 24px;
 }
-/* line 530, pages/sass/screen.scss */
+/* line 531, pages/sass/screen.scss */
 fieldset.search input[type=submit] {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-size: 18px;
@@ -12557,12 +13186,12 @@ fieldset.search input[type=submit] {
   line-height: 24px;
   vertical-align: top;
 }
-/* line 531, pages/sass/screen.scss */
+/* line 532, pages/sass/screen.scss */
 fieldset.search input[type=checkbox] {
   display: none;
 }
 
-/* line 536, pages/sass/screen.scss */
+/* line 537, pages/sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -12575,7 +13204,7 @@ fieldset.search input[type=checkbox] {
   font-size: 14px;
 }
 
-/* line 549, pages/sass/screen.scss */
+/* line 550, pages/sass/screen.scss */
 .u-avatar {
   background-size: cover;
   background-position: 50%;
@@ -12584,38 +13213,38 @@ fieldset.search input[type=checkbox] {
   height: 140px;
 }
 
-/* line 558, pages/sass/screen.scss */
+/* line 559, pages/sass/screen.scss */
 .blog {
   color: #666666;
 }
 
-/* line 563, pages/sass/screen.scss */
+/* line 564, pages/sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 566, pages/sass/screen.scss */
+/* line 567, pages/sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 573, pages/sass/screen.scss */
+/* line 574, pages/sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 580, pages/sass/screen.scss */
+/* line 581, pages/sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 583, pages/sass/screen.scss */
+/* line 584, pages/sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 588, pages/sass/screen.scss */
+/* line 589, pages/sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -12623,24 +13252,24 @@ fieldset.search input[type=checkbox] {
   line-height: 20px;
 }
 
-/* line 595, pages/sass/screen.scss */
+/* line 596, pages/sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }
 
 /* onassar */
 @media (max-width: 979px) {
-  /* line 604, pages/sass/screen.scss */
+  /* line 605, pages/sass/screen.scss */
   .navbar + * {
     padding-top: 0 !important;
   }
 
-  /* line 609, pages/sass/screen.scss */
+  /* line 610, pages/sass/screen.scss */
   div.container-outter div.container {
     padding: 20px 0 0;
   }
 }
-/* line 617, pages/sass/screen.scss */
+/* line 618, pages/sass/screen.scss */
 header.navbar div.navbar-inner div.container {
   height: 60px;
   overflow: hidden;
