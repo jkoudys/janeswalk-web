@@ -48,13 +48,12 @@
             if ($c->getCollectionUserID() > 1):
           ?>
             <section class="city-organizer">
-              <?php if($avatar) { ?><a href="<?= $this->url("/profile/{$page_owner->getUserId()}") ?>">
+              <?php if($avatar) { ?><a href="<?= $profile_path ?>">
               <div class='u-avatar' style='background-image:url(<?=$avatar?>)'></div><?php } ?></a>
               <div class="city-organizer-details">
                 <h3>
-                  <?=
-                    "{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" .
-                    ($u->getUserID() == $page_owner->getUserID() ? " <a href={$this->url('/profile/edit')}><i class='icon-edit-sign'></i></a>":null)
+                 <a href="<?= $profile_path ?>"><?="{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" ?></a>
+                    <?php if($u->getUserID() == $page_owner->getUserID()) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='icon-edit-sign'></i></a><?php } 
                   ?>
                 </h3>
                 <h4>City Organizer</h4>
@@ -254,7 +253,7 @@
             } else {
           ?>
             <h3>Walks in <?= ($c->getCollectionName()) ?></h3>
-            <?php if($totalWalks > 1) { ?>
+            <?php if($totalWalks > 9) { ?>
             <a href="?show=all" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
             <?php }?>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
