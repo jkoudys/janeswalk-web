@@ -59,10 +59,15 @@ class PageAttributeTypeController extends AttributeTypeController  {
     if ($this->getAttributeValueID() > 0) {
       $selected = $this->getValue();
     }
-    $selectString = "<select id='{$this->field('value')}' name='{$this->field('value')}' >";
+    $selectString = "<select id='{$this->field('value')}' name='{$this->field('value')}' ><option value=''>--</option>";
     $pl->filterByCollectionTypeHandle('city');
     $pages = $pl->get();
-    uasort($pages, function($a,$b) {$ap = $a->getCollectionParentID();$bp = $b->getCollectionParentID();return ($ap == $bp) ? 0 : strcmp(Page::getByID($ap)->getCollectionName(), Page::getByID($bp)->getCollectionName());});
+    uasort($pages,
+      function($a,$b) {
+        $ap = $a->getCollectionParentID();
+        $bp = $b->getCollectionParentID();
+        return ($ap === $bp) ? 0 : strcmp(Page::getByID($ap)->getCollectionName(), Page::getByID($bp)->getCollectionName());
+      });
     foreach($pages as $page) {
       $parent = Page::getByID($page->getCollectionParentID())->getCollectionName();
       if($lastParent != $parent) {

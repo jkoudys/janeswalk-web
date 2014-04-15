@@ -281,7 +281,7 @@ JanesWalk.form['2014-05-04'] = {
                   <legend><?= t('Expression') ?></legend>
                   <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  <?= t('Art') ?></label>
                   <label class="checkbox"><input type="checkbox" name="theme-urban-film">  <?= t('Film') ?></label>
-                  <label class="checkbox"><input type="checkbox" name="theme-urban-bookworm">   <?= t('Literature') ?></label>
+                  <label class="checkbox"><input type="checkbox" name="theme-culture-bookworm">   <?= t('Literature') ?></label>
                   <label class="checkbox"><input type="checkbox" name="theme-urban-music">   <?= t('Music') ?></label>
                   <label class="checkbox"><input type="checkbox" name="theme-urban-play">   <?= t('Play') ?></label>
                 </fieldset>
@@ -330,7 +330,7 @@ JanesWalk.form['2014-05-04'] = {
       <div class="page-header" data-section="route">
         <h1><?= t('Share Your Route') ?></h1>
       </div>
-
+      <div class="alert alert-info"><?= t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') ?></div>
       <div id="route-help-panel">
         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 class="lead"><?= t('Need help building your route?') ?></h2></a>
 

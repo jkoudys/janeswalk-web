@@ -51,10 +51,11 @@ class WalkFormController extends Controller {
     switch($city->getCollectionName()) {
     case 'Córdoba':
     case 'Sevilla':
+    case 'Cádiz':
       Localization::changeLocale('es_ES');
       break;
     case 'Vienna':
-      Localization::changeLocale('de_DE');
+      Localization::changeLocale('de');
       break;
     default:
       break;
