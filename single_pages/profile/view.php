@@ -65,7 +65,6 @@
       <h4>In-Progress Walks</h4>
 <ul>
 <?php
-                }
               foreach((array)$cityWalk['inprogress'] as $page) { 
                 // Need to show the latest version
                 $page = Page::getByID( $page->getCollectionID() );
@@ -79,12 +78,13 @@
       </li>
 <?php
                 }
-              }
-            } ?>
-    </ul>
+              } ?>
+              </ul>
 <?php
-          } ?>
-    <h3>Your Public Walks</h3>
+            }
+          }
+        } ?>
+    <h3><?= t('Your Public Walks') ?></h3>
     <ul class="walks">
 <?php
               foreach($publicWalks as $page) {
