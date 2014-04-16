@@ -10620,15 +10620,19 @@ section.sponsors {
   vertical-align: top;
   margin-left: 10px;
 }
+/* line 658, pages/sass/city.scss */
+.city-organizer .city-organizer-details a {
+  text-decoration: none;
+}
 @media (max-width: 480px) {
-  /* line 658, pages/sass/city.scss */
+  /* line 662, pages/sass/city.scss */
   .city-organizer .u-avatar {
     width: 76px;
     height: 76px;
     margin: 10px 0 0;
   }
 }
-/* line 667, pages/sass/city.scss */
+/* line 671, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }

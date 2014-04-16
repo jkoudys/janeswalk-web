@@ -655,6 +655,10 @@
     margin-left: 10px;
   }
 
+  .city-organizer-details a {
+    text-decoration:none;
+  }
+
   .u-avatar {
 
     @media (max-width: $media_mobile) {

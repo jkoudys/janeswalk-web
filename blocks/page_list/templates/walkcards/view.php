@@ -2,22 +2,13 @@
 defined('C5_EXECUTE') or die('Access Denied.');
 
 // Loop over the walks
-foreach($pages as $key => $page) {
+foreach($cards as $key => $card) {
   if($key == 9 && $show !== 'all') { // TODO: this sucks.
     break;
   }
-  extract($controller->getCardData($page));
+  extract($card);
 ?>
 <div class="span<?= ($show === 'all' ? '3' : '4') ?> walk">
-  <script type="text/javascript">
-  JanesWalkData.walks.push({
-    wards: <?= ($wards) ?>,
-    themes: <?= ($themes) ?>,
-    accessibilities: <?= ($accessibilities) ?>,
-    initiatives: <?= ($initiatives) ?>,
-    datetimes: <?= $datetimes ?>
-  });
-  </script>
   <a href="<?= ($nh->getCollectionURL($page)) ?>">
     <div class="thumbnail">
       <div class='walkimage <?= $placeholder ?>' <?= $cardBg ? "style='background-image:url($cardBg)'" : '' ?>></div>
