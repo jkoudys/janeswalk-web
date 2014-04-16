@@ -35,7 +35,7 @@
             if($home_city) { ?>
     <h3>
       <a href="<?= $nh->getCollectionURL($newWalkForm) ?>?parentCID=<?= $home_city->getCollectionID() ?>">
-        Create a new walk in <?= $home_city->getCollectionName() ?>
+        <?= t('Create a new walk in %s', t($home_city->getCollectionName())) ?>
       </a>
     </h3>
 <?php
@@ -62,7 +62,7 @@
     </ul>
 <?php
                 if($cityWalk['inprogress']) { ?>
-      <h4>In-Progress Walks</h4>
+      <h4><?= t('In-Progress Walks') ?></h4>
 <ul>
 <?php
               foreach((array)$cityWalk['inprogress'] as $page) { 
@@ -104,7 +104,7 @@
 <?php
             if(count($inProgressWalks) > 0) {
 ?>
-    <h3>In-Progress Walks</h3>
+    <h3><?= t('In-Progress Walks') ?></h3>
     <ul>
 <?php
               foreach($inProgressWalks as $page) {
