@@ -27,8 +27,8 @@
   $donateCopyOptions = array(
     array(
       'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
-      'main' => 'Help Jane\'s Walk run more than 200 walks this year',
-      'cta' => 'Text 91784 to donate $10 now'
+      'main' => 'Help Jane\'s Walk run more than 1,000 walks this year',
+      'cta' => 'Text JANE to 45678 to donate $10'
     )
   );
   $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
@@ -50,11 +50,12 @@
     <div class="catfish c-donate hidden">
       <div class="c-content">
         <a href="#" class="closeCatfishCta icon-remove"></a>
-        <div class="portrait" style="background-image: url('http://i.imgur.com/tsxDZKo.png');"></div>
+        <!-- <div class="portrait" style="background-image: url('http://i.imgur.com/tsxDZKo.png');"></div> -->
         <div class="block">
           <?= ($donateCopy['main']) ?><br />
           <span class="cta"><?= ($donateCopy['cta']) ?></span>
         </div>
+        <!-- <div class="portrait" style="background-image: url('http://i.imgur.com/cMwIR6M.png');"></div> -->
       </div>
     </div>
     

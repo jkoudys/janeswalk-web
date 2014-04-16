@@ -191,6 +191,7 @@ body {
   border: 1px solid #C7BEBA;
   background-color: #fff;
   padding: 12px 32px 12px 12px;
+  padding: 0;
 
   @media (max-width: $media_mobile) {
     display: none;
@@ -213,19 +214,22 @@ body {
     line-height: 24px;
     text-align: center;
     border-radius: 0 0 5px 5px;
+    background: url('http://i.imgur.com/o7stFgX.png') no-repeat bottom center;
+    padding: 0 0 70px 0;
+    background-size: 120px;
 
-    div.portrait {
-      position: absolute;
-      border-radius: 1000px;
-      left: 20px;
-      top: 12px;
-      width: 54px;
-      height: 54px;
-      background-size: cover;
-    }
+    // div.portrait {
+    //   position: absolute;
+    //   border-radius: 1000px;
+    //   left: 20px;
+    //   top: 12px;
+    //   width: 54px;
+    //   height: 54px;
+    //   background-size: cover;
+    // }
 
     div.block {
-      padding: 0 0 0 80px;
+      padding: 24px 32px 32px;
 
       span.cta {
         font-weight: bold;
