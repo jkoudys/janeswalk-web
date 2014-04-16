@@ -129,26 +129,21 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       )
     );
     // Wards
-    if ($page->getAttribute('walk_wards') === false) {
-      $cardData['wards'] = json_encode(array());
-    } else {
-      $cardData['wards'] = (array) $page->getAttribute('walk_wards');
-      $cardData['wards'] = json_encode($cardData['wards']);
-    }
+    $cardData['wards'] = (array) $page->getAttribute('walk_wards');
 
     // Themes
     $themes = array();
     foreach($page->getAttribute('theme') as $theme) {
       array_push($themes, $this->get('th')->getName($theme));
     }
-    $cardData['themes'] = json_encode($themes);
+    $cardData['themes'] = $themes;
 
     // Accessibilities
     $accessibilities = array();
     foreach($page->getAttribute('accessible') as $accessibility) {
       array_push($accessibilities, $this->get('th')->getName($accessibility));
     }
-    $cardData['accessibilities'] = json_encode($accessibilities);
+    $cardData['accessibilities'] = $accessibilities;
 
     // Initiatives
     $initiatives = array();
@@ -160,7 +155,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       }
     }
     sort($initiatives);
-    $cardData['initiatives'] = json_encode($initiatives);
+    $cardData['initiatives'] = $initiatives;
 
     // Dates
     $scheduled = $page->getAttribute('scheduled');
@@ -168,7 +163,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       function($s){
         return ['date' => $s['date'], 'time' => $s['time']];
       }, (array) $scheduled['slots']);
-    $cardData['datetimes'] = json_encode($datetimes);
+    $cardData['datetimes'] = $datetimes;
     $cardData['when'] = array();
     if($scheduled['open']) {
       $cardData['when'][] = 'Open schedule';

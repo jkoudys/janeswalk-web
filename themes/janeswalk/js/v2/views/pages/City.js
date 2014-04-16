@@ -70,9 +70,10 @@ var CityPageView = PageView.extend({
      * @return void
      */
     init: function(element) {
+    debugger;
         this._super(element);
         this._cards = this._element.find('.walk');
-        this._data = JanesWalkData.walks;
+        this._data = JanesWalk.walks;
         this._resetSelectElements();
         this._addCreateWalkEvent();
         this._addFilterEvents();
