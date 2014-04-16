@@ -55,9 +55,9 @@ class PageAttributeTypeController extends AttributeTypeController  {
     Loader::model('page_list');
     $pl = new PageList();
     $lastParent = '';
-    $selected=false;
-    if ($this->getAttributeValueID() > 0) {
-      $selected = $this->getValue();
+    $selected = $_REQUEST['akID'][$this->getAttributeKey()->getAttributeKeyID()]['value'];
+    if (!$selected && $this->getAttributeValueID() > 0) {
+      $selected = $this->getValue()->cID;
     }
     $selectString = "<select id='{$this->field('value')}' name='{$this->field('value')}' ><option value=''>--</option>";
     $pl->filterByCollectionTypeHandle('city');
@@ -71,18 +71,18 @@ class PageAttributeTypeController extends AttributeTypeController  {
     foreach($pages as $page) {
       $parent = Page::getByID($page->getCollectionParentID())->getCollectionName();
       if($lastParent != $parent) {
-        if($lastParent != "") { $selectString .= '</optgroup>'; }
+        if($lastParent !== '') { $selectString .= '</optgroup>'; }
       $selectString .= "<optgroup label='$parent'>";
       $lastParent = $parent;
       }
       $selectedAttributeVal = '';
-      if ($this->getValue()->cID === $page->cID) {
+      if ($selected === $page->cID) {
         $selectedAttributeVal = ' selected="selected"';
       }
       $selectString .= "<option value=\"{$page->getCollectionID()}\"" . ($selectedAttributeVal) . ">{$page->getCollectionName()}</option>";
     }
     $selectString .= '</select>';
-    print $selectString;
+    echo $selectString;
   }
 
   // run when we call setAttribute(), instead of saving through the UI

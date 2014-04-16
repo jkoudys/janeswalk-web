@@ -700,7 +700,7 @@ JanesWalk.form['2014-05-04'] = {
                 <div class="row-fluid" id="newwalkleader">
                   <div class="span6 tel required">
                     <label for="phone"><i class="icon-phone-sign"></i> <?= t('Phone Number') ?></label>
-                    <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($ui->getAttribute("phone"))?>">
+                    <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($owner->getAttribute("phone"))?>">
                   </div>
                 </div>
               </div>

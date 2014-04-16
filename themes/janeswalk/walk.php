@@ -21,21 +21,6 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
-  <script type="text/javascript">
-    JanesWalk = {
-      page: {
-        url: 'http://' + (location.host) + (location.pathname),
-        pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
-        title: '<?= addslashes($c->getCollectionName()) ?>',
-        description: <?= json_encode(strip_tags($c->getAttribute('longdescription'))) ?>,
-        city: {
-          name: '<?=addslashes($city->getCollectionName())?>',
-          url: '<?=$nh->getCollectionURL($city)?>'
-        },
-        gmap: <?=json_encode($gmap)?>
-      }
-    };
-  </script>
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
@@ -44,19 +29,19 @@
         <?php
         foreach($crumbs as $crumb) {
           if( $crumb->getCollectionID() == 1 ) { ?>
-          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
+          <li><a href="<?= $nh->getLinkToCollection($crumb) ?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
           <?php } else if ($crumb->getCollectionTypeHandle() !== 'country' ) { ?>
-          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?= t($crumb->getCollectionName()) ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
+          <li><a href="<?= $nh->getLinkToCollection($crumb) ?>"><?= t($crumb->getCollectionName()) ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
         <?php }
         } ?>
-        <li class="active"><?=$c->getCollectionName() ?></li>
+        <li class="active"><?= $c->getCollectionName() ?></li>
       </ul>
 
-      <div class="walk-label">Festival Walk</div>
+      <div class="walk-label"><?= t('Festival Walk') ?></div>
 
       <div class="tag-list">
         <ul class="nav nav-pills">
-          <?php foreach((object)$c->getAttribute("theme") as $theme) { ?>
+          <?php foreach((object)$c->getAttribute('theme') as $theme) { ?>
             <li><div class='icon'><?= $th->getIcon($theme) ?></div> <?= t($th->getName($theme)) ?></li>
           <?php } ?>
         </ul>
@@ -157,7 +142,7 @@
             <h3><?= t('About This Walk') ?></h3>
             <?php if( $thumb ) { ?>
               <a class="thumb" href="<?= ($im->getThumbnail($thumb,1024,1024)->src) ?>">
-                <img src="<?=$im->getThumbnail($thumb,340,720)->src?>" class="pull-right img-polaroid" />
+                <img src="<?= $im->getThumbnail($thumb,340,720)->src ?>" class="pull-right img-polaroid" />
               </a>
             <?php } 
             echo $c->getAttribute('longdescription'); ?>

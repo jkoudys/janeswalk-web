@@ -16,10 +16,45 @@
       <div class="o-background">
       </div>
       <div class="o-content">
-        <h1>Create a walk</h1>
-        <a href="<?= ($this->url('/login')) ?>" class="btn btn-primary">Log in</a> or
-        <a href="<?= ($this->url('/register')) ?>" class="btn btn-primary">Join</a>
-        to create a walk
+        <h1><?= t('Create a walk') ?></h1>
+        <a href="<?= ($this->url('/login')) ?>" class="btn btn-primary"><?= t('Log in') ?></a> <?= t('or') ?>
+        <a href="<?= ($this->url('/register')) ?>" class="btn btn-primary"><?= t('Join') ?></a>
+        <?= tc('Log in or join..', 'to create a walk') ?>
+      </div>
+    </div>
+
+<?php
+  $donateCopyOptions = array(
+    array(
+      'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
+      'main' => 'Help Jane\'s Walk run more than 200 walks this year',
+      'cta' => 'Text 91784 to donate $10 now'
+    )
+  );
+  $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
+?>
+    <div class="overlay o-donate">
+      <div class="o-background">
+      </div>
+      <div class="o-content">
+        <a href="#" class="closeModalCta icon-remove"></a>
+        <div class="top" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');">
+        </div>
+        <div class="bottom">
+          <?= ($donateCopy['main']) ?><br />
+          <span class="cta"><?= ($donateCopy['cta']) ?></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="catfish c-donate hidden">
+      <div class="c-content">
+        <a href="#" class="closeCatfishCta icon-remove"></a>
+        <div class="portrait" style="background-image: url('http://i.imgur.com/tsxDZKo.png');"></div>
+        <div class="block">
+          <?= ($donateCopy['main']) ?><br />
+          <span class="cta"><?= ($donateCopy['cta']) ?></span>
+        </div>
       </div>
     </div>
     
@@ -39,7 +74,7 @@
               if ($bgPhotoCreditName !== false && $bgPhotoCreditName !== '') {
                 ?>
                   <p style="font-size: x-small; color: #fff;">
-                    Background photo credit:-
+                    <?= t('Background photo credit') ?>:
                     <a href="<?= ($bgPhotoCreditLink) ?>" target="_blank"><?= ($bgPhotoCreditName) ?></a>
                   </p>
                 <?php
@@ -49,16 +84,16 @@
           ?>
             <section class="city-organizer">
               <?php if($avatar) { ?><a href="<?= $profile_path ?>">
-              <div class='u-avatar' style='background-image:url(<?=$avatar?>)'></div><?php } ?></a>
+              <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div><?php } ?></a>
               <div class="city-organizer-details">
                 <h3>
-                 <a href="<?= $profile_path ?>"><?="{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" ?></a>
+                 <a href="<?= $profile_path ?>"><?= "{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}" ?></a>
                     <?php if($u->getUserID() == $page_owner->getUserID()) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='icon-edit-sign'></i></a><?php } 
                   ?>
                 </h3>
-                <h4>City Organizer</h4>
+                <h4><?= t('City Organizer') ?></h4>
                 <div class="btn-toolbar">
-                  <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
+                  <a href="mailto:<?= $page_owner->getUserEmail() ?>" class="btn"><i class="icon-envelope-alt"></i></a>
                   <?php if($facebook_url) { ?><a href='<?=$facebook_url?>' target='_blank' class='btn'><i class='icon-facebook'></i></a><?php } ?>
                   <?php if($twitter_url) { ?><a href='<?=$twitter_url?>' target='_blank' class='btn'><i class='icon-twitter'></i></a><?php } ?>
                   <?php if($website_url) { ?><a href='<?=$website_url?>' target='_blank' class='btn'><i class='icon-globe'></i></a><?php } ?>
@@ -76,8 +111,8 @@
         <?php if($show != "all") { ?>
         <div class="span4 action-items">
           <div class="item active">
-            <h2>Jane’s Walks</h2>
-            <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <?=$c->getCollectionName()?></h4>
+            <h2><?= t('Jane’s Walks') ?></h2>
+            <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $c->getCollectionName()) ?></h4>
             <?php (new Area('City Description'))->display($c); ?>
           </div>
           <div class="menu-flags box-sizing">
@@ -86,7 +121,7 @@
           <?php (new Area('Sponsors'))->display($c); ?>
         </div>
         <?php } ?>
-        <div class="walks-list <?=($show == "all") ? "showall" : "span8" ?>">
+        <div class="walks-list <?=($show === 'all') ? 'showall' : 'span8' ?>">
           <?php
             if($show === 'all') {
 
@@ -109,7 +144,6 @@
               sort($themes);
 
               // Accessibility
-              $themeHelper = Loader::helper('theme');
               $accessibilities = $themeHelper->getAll('accessibilities');
               sort($accessibilities);
 
@@ -256,15 +290,10 @@
             <?php if($totalWalks > 9) { ?>
             <a href="?show=all" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
             <?php }?>
-            <a href="<?= $this->url("/walk/form") ?>?parentCID=<?=$c->getCollectionID()?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> Create a Walk</a>
+            <a href="<?= $this->url("/walk/form") ?>?parentCID=<?= $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>
           <?php
             }
           ?>
-          <script type="text/javascript">
-            var JanesWalkData = {
-              walks: []
-            };
-          </script>
           <div class="row-fluid">
             <?php (new Area('Walk List'))->display($c); ?>
           </div>
@@ -272,20 +301,22 @@
       </div>
     </div>
   </div>
-  <?php
-    if($c->isEditMode() || $blog) {
-  ?>
+<?php
+            if($c->isEditMode() || $blog) {
+?>
   <div class="intro-city lower blog">
     <div class="container">
-      <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>">City Blog</a>
-        <?php
-        if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
-        <a class="add" href="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle("city_blog_entry")->getCollectionTypeID() . '/' . $blog->getCollectionID() )?>" >
-          <i class="icon-double-angle-right"></i> post new article</a>
+      <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>"><?= t('City Blog') ?></a>
+<?php
+              if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
+        <a class="add" href="<?=$this->url('/dashboard/composer/write/' . CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID() . '/' . $blog->getCollectionID() )?>" >
+        <i class="icon-double-angle-right"></i> <?= t('post new article') ?></a>
         <?php } ?>
       </h2>
       <?php (new Area('City Blog'))->display($c); ?>
     </div>
   </div>
-  <?php } ?>
-  <?php $this->inc('elements/footer.php');  ?>
+<?php
+            }
+            $this->inc('elements/footer.php'); 
+
