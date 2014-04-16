@@ -294,11 +294,6 @@
           <?php
             }
           ?>
-          <script type="text/javascript">
-            var JanesWalkData = {
-              walks: []
-            };
-          </script>
           <div class="row-fluid">
             <?php (new Area('Walk List'))->display($c); ?>
           </div>

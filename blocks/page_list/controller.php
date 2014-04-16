@@ -1,6 +1,9 @@
 <?php 
 defined('C5_EXECUTE') or die("Access Denied.");
 class PageListBlockController extends Concrete5_Controller_Block_PageList {
+  // Data for returning in JSON
+  protected $pageData = array();
+
   public function getPageList() {
     Loader::model('page_list');
     $db = Loader::db();
@@ -99,14 +102,19 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     $this->set('u', new User());
     $this->set('rssUrl', $showRss ? $controller->getRssUrl($b) : '');
     $this->set('show', $_REQUEST['show']);
+    if($this->block->getBlockFilename() === 'walkcards') {
+      $this->set('cards', $this->loadCards());
+    }
   }
 
   /* getCardData()
    * Loads models needed for a walk card in the view
+   * @input Page $page Extracts the walk data from this
    * @returns: array
    * ex. from view: extract($controller->getCardData());
    */
   public function getCardData($page) {
+    $cardData['page'] = $page;
     $cardData['leaders'] = implode(
       ', ',
       array_filter(
@@ -172,7 +180,35 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     $thumb = $page->getAttribute('thumbnail');
     $cardData['cardBg'] = $thumb ? $this->get('im')->getThumbnail($thumb,380,720)->src : null;
     $cardData['placeholder'] = 'placeholder' . $page->getCollectionID() % 3;
+
     return $cardData;
   }
 
+  /*
+   * loadCards
+   * Loop through and load all the cards
+   */
+  private function loadCards() {
+    $jwdata = array();
+    $cards = array();
+    foreach($this->get('pages') as $page) {
+      $cards[] = $cd = $this->getCardData($page);
+      $jwdata[] = [
+        'wards' => $cd['wards'],
+        'themes' => $cd['themes'],
+        'accessibilities' => $cd['accessibilities'],
+        'initiatives' => $cd['initiatives'],
+        'datetimes' => $cd['datetimes']
+      ];
+    }
+    $this->pageData = $jwdata;
+    return $cards;
+  }
+
+  // The 'on_before_render' will set up our JanesWalk json in the page
+  public function on_before_render() {
+    if($this->block->getBlockFilename() === 'walkcards') {
+      $this->addFooterItem('<script type="text/javascript">JanesWalk = JanesWalk || {}; JanesWalk.walks = ' . json_encode($this->pageData) . '</script>');
+    }
+  }
 }
