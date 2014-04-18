@@ -365,7 +365,7 @@
   </div> 
   <script type="text/javascript">
     // EventBrite
-    var EventBriteEmail = 'jasmine.frolick@janeswalk.net';
+/*    var EventBriteEmail = 'jasmine.frolick@janeswalk.net';
     $('a.thumb').colorbox({
       rel: 'group1',
       onOpen: blurPage,
@@ -376,7 +376,7 @@
       close: 'x',
       maxHeight: '80%',
       maxWidth: '80%'
-    });
+    }); */
   </script>
 
   <?php $this->inc('elements/footer.php');?>
