@@ -228,6 +228,112 @@ body {
       // }
     }
   }
+
+  &.o-shout {
+    width: 45%;
+    margin-left: -22.5%;
+    box-sizing: border-box;
+    padding: 20px;
+    height: auto;
+
+    .o-background {
+      opacity: initial;
+      background-color: transparent;
+      background:#000;
+      background:rgba(0,0,0,0.8);
+      background:-webkit-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      background:-moz-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      background:-ms-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      background:radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      filter:alpha(opacity=80);
+    }
+
+    .o-content {
+      height: 240px;
+
+      h1 {
+          font-size: 32px;
+          font-weight: normal;
+          margin: 0 0 10px;
+          padding-top: 20px;
+          text-align: center;
+      }
+
+      div.options {
+          border-top: 1px dashed #ddd;
+          padding: 12px 0 0 0;
+          margin: 24px 0 0 0;
+
+          div.option {
+              margin: 0 12px 8px 0;
+
+              div.copy {
+                  // float: left;
+                  line-height: 32px;
+                  // text-overflow: ellipsis;
+                  // white-space: nowrap;
+                  // overflow: hidden;
+                  // width: 420px;
+                  // margin: 0 12px 0 0;
+                  font-size: 24px;
+                  text-align: center;
+                  padding: 0 20px;
+              }
+
+              div.networks {
+                  width: 80px;
+                  margin: 18px auto 0;
+                  // float: left;
+
+                  a {
+                      font-size: 18px;
+                      height: 36px;
+                      line-height: 36px;
+                      text-align: center;
+                      width: 36px;
+                      display: block;
+                      float: left;
+                      border-radius: 100px;
+                      color: #fff;
+                      margin: 0 8px 0 0;
+
+                      &:last-child {
+                          margin: 0;
+                      }
+
+                      &:hover {
+                          text-decoration: none;
+                      }
+
+                      &.icon-twitter {
+                          background-color: #00A9F2;
+
+                          &:hover {
+                              background-color: #80D4F9;
+                          }
+                      }
+
+                      &.icon-facebook {
+                          background-color: #3D529D;
+
+                          &:hover {
+                              background-color: #9EA9CE;
+                          }
+                      }
+
+                      &.icon-envelope {
+                          background-color: #F01F00;
+
+                          &:hover {
+                              background-color: #F88F80;
+                          }
+                      }
+                  }
+              }
+          }
+        }
+    }
+  }
 }
 
 .catfish {

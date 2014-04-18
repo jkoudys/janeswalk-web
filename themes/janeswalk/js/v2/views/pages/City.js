@@ -140,8 +140,20 @@ var CityPageView = PageView.extend({
                 // Already donated flow
                 this._element.find('div.btnWrapper a').click(
                     function(event) {
+
+                        // Track the closure
+                        jQuery.cookie(
+                            'hasSeenDonateCatfish',
+                            {
+                                path: '/',
+                                domain: location.host
+                            }
+                        );
+
+                        // Shout modal
                         event.preventDefault();
-                        console.log(event);
+                        _this._element.find('.o-donate').hide();
+                        _this._element.find('.o-shout').show();
                     }
                 );
             } else {

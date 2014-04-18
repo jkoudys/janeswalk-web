@@ -1,4 +1,4 @@
-<?php 
+<?php
   defined('C5_EXECUTE') or die(_("Access Denied."));
   global $u;
   global $cp;
@@ -66,6 +66,27 @@
           </div>
         </div>
         <div class="social hidden">
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay o-shout">
+      <div class="o-background">
+      </div>
+      <div class="o-content">
+        <a href="#" class="closeModalCta icon-remove"></a>
+          <h1>Spread the word!</h1>
+          <div class="options">
+            <div class="option">
+              <div class="copy">
+                "I just donated to Jane's Walk. Text JANE to 45678 to donate $10 now #JanesWalk"
+              </div>
+              <div class="networks clearfix">
+                <a href="#" class="icon-facebook"></a>
+                <a href="#" class="icon-twitter"></a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
