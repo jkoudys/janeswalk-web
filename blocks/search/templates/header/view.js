@@ -2,7 +2,6 @@ var _jws = {
   currentPage: 0,
   numberOfPages: 0,
   init: function(a,b,c) {
-    debugger;
     _jws.results = document.getElementById("searchResults");
     _jws.resultTemplate = _jws.results.querySelector("a").cloneNode(true);
     _jws.paginatorTemplate = _jws.results.querySelector(".ccm-pagination").cloneNode(true);
