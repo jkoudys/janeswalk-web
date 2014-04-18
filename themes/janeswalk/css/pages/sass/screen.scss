@@ -139,31 +139,18 @@ body {
         margin-left: -45%;
       }
 
-      div.top {
-        padding: 40px;
-        background-position: top center;
-        height: 248px;
-        background-repeat: no-repeat;
-        margin: 40px;
-        background-size: contain;
-
-        @media (max-width: $media_mobile) {
-          height: 118px;
-        }
-      }
-
-      div.bottom {
+      div.messaging {
         font-size: 22px;
-        border-top: 1px solid #C7BEBA;
+        border-bottom: 1px solid #C7BEBA;
         line-height: 32px;
         text-align: center;
         padding: 32px;
         background-color: #FCF6F4;
-        border-radius: 0 0 5px 5px;
+        border-radius: 5px 5px 0 0;
 
         span.cta {
           font-weight: bold;
-          color: #DB4E0B;
+          color: #ff3300;
           font-size: 28px;
           text-shadow: 1px 1px #fff;
         }
@@ -178,6 +165,67 @@ body {
           }
         }
       }
+
+      div.btnWrapper {
+        position: absolute;
+        left: 0;
+        top: 115px;
+        text-align: center;
+        width: 100%;
+
+        a.btn {
+
+        }
+      }
+
+      div.quote {
+        padding: 40px;
+        background-position: top center;
+        height: 248px;
+        background-repeat: no-repeat;
+        margin: 20px;
+        background-size: contain;
+
+        @media (max-width: $media_mobile) {
+          height: 118px;
+        }
+      }
+
+      div.secondary {
+        padding: 10px 20px;
+
+        p {
+          color: #999;
+          font-size: 12px;
+          display: block;
+          margin: 0;
+        }
+      }
+
+      // div.prompt {
+
+      //   p {
+      //     display: block;
+      //     font-size: 14px;
+      //     float: right;
+      //     margin-right: 10px;
+      //   }
+
+      //   div.social {
+      //     float: right;
+      //     margin-right: 10px;
+
+      //     a {
+      //       display: block;
+      //       float: left;
+      //       color: #00B6F1;
+
+      //       &:hover {
+      //         text-decoration: none;
+      //       }
+      //     }
+      //   }
+      // }
     }
   }
 }

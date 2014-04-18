@@ -88,7 +88,7 @@ var CityPageView = PageView.extend({
      * @return    void
      */
     _setupText2DonateInterstitials: function() {
-return;
+
         // Catfish events
         this._element.find('a.closeCatfishCta').click(
             function(event) {
@@ -136,6 +136,14 @@ return;
                 this._element.find('.overlay.o-donate').show();
                 this._element.find('.o-background').click(closeCallback);
                 this._element.find('a.closeModalCta').click(closeCallback);
+
+                // Already donated flow
+                this._element.find('div.btnWrapper a').click(
+                    function(event) {
+                        event.preventDefault();
+                        console.log(event);
+                    }
+                );
             } else {
 
                 // Catfish

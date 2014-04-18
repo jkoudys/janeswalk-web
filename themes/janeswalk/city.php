@@ -27,7 +27,7 @@
   $donateCopyOptions = array(
     array(
       'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
-      'main' => 'Help Jane\'s Walk run more than 1,000 walks this year',
+      'main' => 'Love Jane\'s Walk?',
       'cta' => 'Text JANE to 45678 to donate $10'
     )
   );
@@ -38,11 +38,34 @@
       </div>
       <div class="o-content">
         <a href="#" class="closeModalCta icon-remove"></a>
-        <div class="top" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');">
+        <div class="prompt">
+          <div class="messaging">
+            <?= ($donateCopy['main']) ?><br />
+            <span class="cta"><?= ($donateCopy['cta']) ?></span>
+          </div>
+          <div class="btnWrapper">
+            <a href="#" class="btn btn-primary">I've Already Donated!</a>
+          </div>
+          <div class="quote" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');"></div>
+          <div class="secondary">
+            <p>
+              We're raising money for The Jane's Walk School Edition. This program
+              encourages young people to take an active role in shaping the places
+              and cities where they live.
+            </p>
+            <p>Message and data rates may apply. Only available in Canada.</p>
+          </div>
+          <div class="prompt clearfix" style="display: none;">
+            <div class="social clearfix">
+              <a href="#" class="icon-twitter"></a>
+              <!-- <a href="#" class="icon-facebook"></a> -->
+            </div>
+            <p>
+              Already donated? Spread the word:
+            </p>
+          </div>
         </div>
-        <div class="bottom">
-          <?= ($donateCopy['main']) ?><br />
-          <span class="cta"><?= ($donateCopy['cta']) ?></span>
+        <div class="social hidden">
         </div>
       </div>
     </div>
