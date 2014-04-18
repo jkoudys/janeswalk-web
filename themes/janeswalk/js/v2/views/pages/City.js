@@ -150,12 +150,21 @@ var CityPageView = PageView.extend({
                     );
                 };
                 this._element.find('.overlay.o-donate').show();
-                this._element.find('.o-background').click(closeCallback);
+                this._element.find('.overlay.o-donate .o-background').click(closeCallback);
                 this._element.find('a.closeModalCta').click(closeCallback);
 
                 // Already donated flow
                 this._element.find('div.btnWrapper a').click(
                     function(event) {
+
+                        // Track the closure
+                        jQuery.cookie(
+                            'hasSeenDonateInterstitial',
+                            {
+                                path: '/',
+                                domain: location.host
+                            }
+                        );
 
                         // Track the closure
                         jQuery.cookie(
