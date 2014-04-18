@@ -8,6 +8,24 @@
   class="city-page<?php $dh->canRead() and print " logged_in" ?>"
   data-pageViewName="CityPageView"
   <?php $fullbg and print "style='background-image:url({$fullbg->getURL()})'" ?>>
+
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '544710848887303',
+          status: true,
+          xfbml: true
+        });
+      };
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = '//connect.facebook.net/en_US/all.js';
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
   <?php
     $this->inc('elements/navbar.php');
   ?>
