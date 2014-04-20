@@ -78,7 +78,7 @@ var CityPageView = PageView.extend({
         this._addFilterEvents();
         this._setThemeCounts();
         this._captureHash();
-        this._setupText2DonateInterstitials();
+// Disabled until compaign starts        this._setupText2DonateInterstitials();
     },
 
     /**
