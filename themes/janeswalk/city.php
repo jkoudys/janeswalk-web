@@ -5,9 +5,9 @@
 ?>
 <?php $this->inc('elements/header.php'); ?>
 <body
-  class="city-page<?php $dh->canRead() and print " logged_in" ?>"
+  class="city-page<?= $dh->canRead() ? ' logged_in' : '' ?>"
   data-pageViewName="CityPageView"
-  <?php $fullbg and print "style='background-image:url({$fullbg->getURL()})'" ?>>
+  <?= $fullbg ? "style='background-image:url({$fullbg->getURL()})'" : '' ?>>
 
     <div id="fb-root"></div>
     <script type="text/javascript">
@@ -51,7 +51,7 @@
   );
   $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
 ?>
-    <div class="overlay o-donate">
+    <div class="overlay o-donate" style="<?= false ? '' : display:none ?>">
       <div class="o-background">
       </div>
       <div class="o-content">
@@ -62,16 +62,17 @@
             <span class="cta"><?= ($donateCopy['cta']) ?></span>
           </div>
           <div class="btnWrapper">
-            <a href="#" class="btn btn-primary">I've Already Donated!</a>
+            <a href="#" class="btn btn-primary"><?= t('I\'ve Already Donated!') ?></a>
           </div>
           <div class="quote" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');"></div>
           <div class="secondary">
             <p>
-              We're raising money for The Jane's Walk School Edition. This program
-              encourages young people to take an active role in shaping the places
-              and cities where they live.
+              <?= t( /* Canadian cities only */
+              'We\'re raising money for The Jane\'s Walk School Edition. This program' .
+              'encourages young people to take an active role in shaping the places' .
+              'and cities where they live.') ?>
             </p>
-            <p>Message and data rates may apply. Only available in Canada.</p>
+            <p><?= t(/* Canadian cities only */ 'Message and data rates may apply. Only available in Canada.') ?></p>
           </div>
           <div class="prompt clearfix" style="display: none;">
             <div class="social clearfix">
@@ -79,7 +80,7 @@
               <!-- <a href="#" class="icon-facebook"></a> -->
             </div>
             <p>
-              Already donated? Spread the word:
+              <?= t('Already donated? Spread the word') ?>:
             </p>
           </div>
         </div>
@@ -93,7 +94,7 @@
       </div>
       <div class="o-content">
         <a href="#" class="closeModalCta icon-remove"></a>
-          <h1>Spread the word!</h1>
+          <h1><?= t('Spread the word!') ?></h1>
           <div class="options">
             <div class="option">
               <div class="copy">
@@ -126,8 +127,8 @@
       <div class="container">
         <div class="city-header">
           <h1>
-            <?= ($c->getCollectionName()) ?>
-            <?= is_object(ComposerPage::getByID($c->getCollectionID())) ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='icon-edit-sign'></i></a>" : null; ?>
+            <?= t($c->getCollectionName()) ?>
+            <?= is_object(ComposerPage::getByID($c->getCollectionID())) ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='icon-edit-sign'></i></a>" : null ?>
           </h1>
           <?php
             (new Area('City Header'))->display($c);
@@ -227,7 +228,7 @@
               // Dates
               $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
           ?>
-            <h3>All Walks</h3>
+            <h3><?= t('All Walks') ?></h3>
             <!-- <a href="?" class="see-all">See All Walks</a> -->
             <div class="filters clearfix">
 
@@ -248,7 +249,7 @@
 
               <?php if (!empty($themes)): ?>
                 <div class="filter clearfix">
-                  <label for="theme">Theme</label>
+                  <label for="theme"><?= t('Theme') ?></label>
                   <div class="options">
                     <select name="theme" id="theme">
                       <option value="*">All</option>
@@ -263,7 +264,7 @@
 
               <?php if (!empty($accessibilities)): ?>
                 <div class="filter clearfix">
-                  <label for="accessibility">Accessibility</label>
+                  <label for="accessibility"><?= t('Accessibility') ?></label>
                   <div class="options">
                     <select name="accessibility" id="accessibility">
                       <option value="*">All</option>
@@ -278,7 +279,7 @@
 
               <?php if (!empty($initiatives)): ?>
                 <div class="filter clearfix">
-                  <label for="initiative">Initiative</label>
+                  <label for="initiative"><?= t('Initiative') ?></label>
                   <div class="options">
                     <select name="initiative" id="initiative">
                       <option value="*">All</option>
@@ -292,7 +293,7 @@
 
 
               <div class="filter clearfix">
-                <label for="date">Day</label>
+                <label for="date"><?= t('Day') ?></label>
                 <div class="options">
                   <select name="date" id="date">
                     <option value="*">All</option>
@@ -343,13 +344,13 @@
             </div>
 
             <div class="empty hidden">
-              No walks found<br />
-              Try another region or theme
+              <?= t('No walks found') ?><br />
+              <?= t('Try another region or theme') ?>
             </div>
           <?php
             } else {
           ?>
-            <h3>Walks in <?= ($c->getCollectionName()) ?></h3>
+            <h3><?= t('Walks in %s', t($c->getCollectionName()) ) ?></h3>
             <?php if($totalWalks > 9) { ?>
             <a href="?show=all" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
             <?php }?>
