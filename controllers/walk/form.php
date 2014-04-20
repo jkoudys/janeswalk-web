@@ -57,6 +57,17 @@ class WalkFormController extends Controller {
     case 'Vienna':
       Localization::changeLocale('de');
       break;
+    case 'Tel Aviv':
+    case 'Jerusalem':
+    case 'Beer-sheva':
+    case 'Haifa':
+    case 'Ashdod':
+    case 'Beit Shemesh':
+    case 'Kfar Saba':
+    case 'Rishon LeZion':
+    case 'Arad':
+      Localization::changeLocale('he');
+      break;
     default:
       break;
     }
