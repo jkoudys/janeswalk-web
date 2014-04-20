@@ -51,7 +51,7 @@
   );
   $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
 ?>
-    <div class="overlay o-donate" style="<?= false ? '' : 'display:none' ?>">
+    <div class="overlay o-donate <?= false ? '' : 'disabled' ?>">
       <div class="o-background">
       </div>
       <div class="o-content">
@@ -89,7 +89,7 @@
       </div>
     </div>
 
-    <div class="overlay o-shout">
+    <div class="overlay o-shout <?= false ? '' : 'disabled' ?>">
       <div class="o-background">
       </div>
       <div class="o-content">
