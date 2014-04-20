@@ -82,13 +82,29 @@ var CityPageView = PageView.extend({
     },
 
     /**
+     * _getFacebookDialogDonateObj
+     * 
+     * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
+     * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
+     * @protected
+     * @return    Object
+     */
+    _getFacebookDialogDonateObj: function() {
+        return {
+            link: 'http://janeswalk.org',
+            // picture: 'http://janeswalk.org',
+            name: 'Jane\'s Walk'
+        };
+    },
+
+    /**
      * _setupText2DonateInterstitials
      * 
      * @protected
      * @return    void
      */
     _setupText2DonateInterstitials: function() {
-return;
+
         // Catfish events
         this._element.find('a.closeCatfishCta').click(
             function(event) {
@@ -134,8 +150,69 @@ return;
                     );
                 };
                 this._element.find('.overlay.o-donate').show();
-                this._element.find('.o-background').click(closeCallback);
+                this._element.find('.overlay.o-donate .o-background').click(closeCallback);
                 this._element.find('a.closeModalCta').click(closeCallback);
+
+                // Already donated flow
+                this._element.find('div.btnWrapper a').click(
+                    function(event) {
+
+                        // Track the closure
+                        jQuery.cookie(
+                            'hasSeenDonateInterstitial',
+                            {
+                                path: '/',
+                                domain: location.host
+                            }
+                        );
+
+                        // Track the closure
+                        jQuery.cookie(
+                            'hasSeenDonateCatfish',
+                            {
+                                path: '/',
+                                domain: location.host
+                            }
+                        );
+
+                        // Shout modal
+                        event.preventDefault();
+                        _this._element.find('.o-donate').hide();
+                        _this._element.find('.o-shout').show();
+
+                        // Twitter button
+                        _this._element.find('.o-shout .icon-twitter').click(
+                            function(event) {
+                                event.preventDefault();
+                                var url = encodeURIComponent(
+                                        'http://janeswalk.org/'
+                                    ),
+                                    text = encodeURIComponent(
+                                        $(this).closest('.option').find('.copy').text().trim()
+                                    );
+                                var link = 'https://twitter.com/intent/tweet' +
+                                    '?url=' + (url) +
+                                    '&via=janeswalk' +
+                                    '&text=' + (text);
+                                window.open(
+                                    link,
+                                    'Twitter Share',
+                                    'width=640, height=320'
+                                );
+                            }
+                        );
+
+                        // Twitter button
+                        _this._element.find('.o-shout .icon-facebook').click(
+                            function(event) {
+                                event.preventDefault();
+                                var shareObj = _this._getFacebookDialogDonateObj();
+                                shareObj.description = $(this).closest('.option').find('.copy').text().trim();
+                                (new FacebookShareDialog(shareObj)).show();
+                            }
+                        );
+                    }
+                );
             } else {
 
                 // Catfish

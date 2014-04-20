@@ -139,31 +139,18 @@ body {
         margin-left: -45%;
       }
 
-      div.top {
-        padding: 40px;
-        background-position: top center;
-        height: 248px;
-        background-repeat: no-repeat;
-        margin: 40px;
-        background-size: contain;
-
-        @media (max-width: $media_mobile) {
-          height: 118px;
-        }
-      }
-
-      div.bottom {
+      div.messaging {
         font-size: 22px;
-        border-top: 1px solid #C7BEBA;
+        border-bottom: 1px solid #C7BEBA;
         line-height: 32px;
         text-align: center;
         padding: 32px;
         background-color: #FCF6F4;
-        border-radius: 0 0 5px 5px;
+        border-radius: 5px 5px 0 0;
 
         span.cta {
           font-weight: bold;
-          color: #DB4E0B;
+          color: #ff3300;
           font-size: 28px;
           text-shadow: 1px 1px #fff;
         }
@@ -178,6 +165,173 @@ body {
           }
         }
       }
+
+      div.btnWrapper {
+        position: absolute;
+        left: 0;
+        top: 115px;
+        text-align: center;
+        width: 100%;
+
+        a.btn {
+
+        }
+      }
+
+      div.quote {
+        padding: 40px;
+        background-position: top center;
+        height: 248px;
+        background-repeat: no-repeat;
+        margin: 20px;
+        background-size: contain;
+
+        @media (max-width: $media_mobile) {
+          height: 118px;
+        }
+      }
+
+      div.secondary {
+        padding: 10px 20px;
+
+        p {
+          color: #999;
+          font-size: 12px;
+          display: block;
+          margin: 0;
+        }
+      }
+
+      // div.prompt {
+
+      //   p {
+      //     display: block;
+      //     font-size: 14px;
+      //     float: right;
+      //     margin-right: 10px;
+      //   }
+
+      //   div.social {
+      //     float: right;
+      //     margin-right: 10px;
+
+      //     a {
+      //       display: block;
+      //       float: left;
+      //       color: #00B6F1;
+
+      //       &:hover {
+      //         text-decoration: none;
+      //       }
+      //     }
+      //   }
+      // }
+    }
+  }
+
+  &.o-shout {
+    width: 45%;
+    margin-left: -22.5%;
+    box-sizing: border-box;
+    padding: 20px;
+    height: auto;
+
+    .o-background {
+      opacity: initial;
+      background-color: transparent;
+      background:#000;
+      background:rgba(0,0,0,0.8);
+      background:-webkit-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      background:-moz-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      background:-ms-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      background:radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
+      filter:alpha(opacity=80);
+    }
+
+    .o-content {
+      height: 240px;
+
+      h1 {
+          font-size: 32px;
+          font-weight: normal;
+          margin: 0 0 10px;
+          padding-top: 20px;
+          text-align: center;
+      }
+
+      div.options {
+          border-top: 1px dashed #ddd;
+          padding: 12px 0 0 0;
+          margin: 24px 0 0 0;
+
+          div.option {
+              margin: 0 12px 8px 0;
+
+              div.copy {
+                  // float: left;
+                  line-height: 32px;
+                  // text-overflow: ellipsis;
+                  // white-space: nowrap;
+                  // overflow: hidden;
+                  // width: 420px;
+                  // margin: 0 12px 0 0;
+                  font-size: 24px;
+                  text-align: center;
+                  padding: 0 20px;
+              }
+
+              div.networks {
+                  width: 80px;
+                  margin: 18px auto 0;
+                  // float: left;
+
+                  a {
+                      font-size: 18px;
+                      height: 36px;
+                      line-height: 36px;
+                      text-align: center;
+                      width: 36px;
+                      display: block;
+                      float: left;
+                      border-radius: 100px;
+                      color: #fff;
+                      margin: 0 8px 0 0;
+
+                      &:last-child {
+                          margin: 0;
+                      }
+
+                      &:hover {
+                          text-decoration: none;
+                      }
+
+                      &.icon-twitter {
+                          background-color: #00A9F2;
+
+                          &:hover {
+                              background-color: #80D4F9;
+                          }
+                      }
+
+                      &.icon-facebook {
+                          background-color: #3D529D;
+
+                          &:hover {
+                              background-color: #9EA9CE;
+                          }
+                      }
+
+                      &.icon-envelope {
+                          background-color: #F01F00;
+
+                          &:hover {
+                              background-color: #F88F80;
+                          }
+                      }
+                  }
+              }
+          }
+        }
     }
   }
 }
@@ -191,6 +345,7 @@ body {
   border: 1px solid #C7BEBA;
   background-color: #fff;
   padding: 12px 32px 12px 12px;
+  padding: 0;
 
   @media (max-width: $media_mobile) {
     display: none;
@@ -213,19 +368,22 @@ body {
     line-height: 24px;
     text-align: center;
     border-radius: 0 0 5px 5px;
+    background: url('http://i.imgur.com/o7stFgX.png') no-repeat bottom center;
+    padding: 0 0 70px 0;
+    background-size: 120px;
 
-    div.portrait {
-      position: absolute;
-      border-radius: 1000px;
-      left: 20px;
-      top: 12px;
-      width: 54px;
-      height: 54px;
-      background-size: cover;
-    }
+    // div.portrait {
+    //   position: absolute;
+    //   border-radius: 1000px;
+    //   left: 20px;
+    //   top: 12px;
+    //   width: 54px;
+    //   height: 54px;
+    //   background-size: cover;
+    // }
 
     div.block {
-      padding: 0 0 0 80px;
+      padding: 24px 32px 32px;
 
       span.cta {
         font-weight: bold;

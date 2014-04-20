@@ -1,4 +1,4 @@
-<?php 
+<?php
   defined('C5_EXECUTE') or die(_("Access Denied."));
   global $u;
   global $cp;
@@ -8,6 +8,24 @@
   class="city-page<?php $dh->canRead() and print " logged_in" ?>"
   data-pageViewName="CityPageView"
   <?php $fullbg and print "style='background-image:url({$fullbg->getURL()})'" ?>>
+
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: '544710848887303',
+          status: true,
+          xfbml: true
+        });
+      };
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = '//connect.facebook.net/en_US/all.js';
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
   <?php
     $this->inc('elements/navbar.php');
   ?>
@@ -27,8 +45,8 @@
   $donateCopyOptions = array(
     array(
       'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
-      'main' => 'Help Jane\'s Walk run more than 200 walks this year',
-      'cta' => 'Text 91784 to donate $10 now'
+      'main' => 'Love Jane\'s Walk?',
+      'cta' => 'Text JANE to 45678 to donate $10'
     )
   );
   $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
@@ -38,11 +56,55 @@
       </div>
       <div class="o-content">
         <a href="#" class="closeModalCta icon-remove"></a>
-        <div class="top" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');">
+        <div class="prompt">
+          <div class="messaging">
+            <?= ($donateCopy['main']) ?><br />
+            <span class="cta"><?= ($donateCopy['cta']) ?></span>
+          </div>
+          <div class="btnWrapper">
+            <a href="#" class="btn btn-primary">I've Already Donated!</a>
+          </div>
+          <div class="quote" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');"></div>
+          <div class="secondary">
+            <p>
+              We're raising money for The Jane's Walk School Edition. This program
+              encourages young people to take an active role in shaping the places
+              and cities where they live.
+            </p>
+            <p>Message and data rates may apply. Only available in Canada.</p>
+          </div>
+          <div class="prompt clearfix" style="display: none;">
+            <div class="social clearfix">
+              <a href="#" class="icon-twitter"></a>
+              <!-- <a href="#" class="icon-facebook"></a> -->
+            </div>
+            <p>
+              Already donated? Spread the word:
+            </p>
+          </div>
         </div>
-        <div class="bottom">
-          <?= ($donateCopy['main']) ?><br />
-          <span class="cta"><?= ($donateCopy['cta']) ?></span>
+        <div class="social hidden">
+        </div>
+      </div>
+    </div>
+
+    <div class="overlay o-shout">
+      <div class="o-background">
+      </div>
+      <div class="o-content">
+        <a href="#" class="closeModalCta icon-remove"></a>
+          <h1>Spread the word!</h1>
+          <div class="options">
+            <div class="option">
+              <div class="copy">
+                "I just donated to Jane's Walk. Text JANE to 45678 to donate $10 now #JanesWalk"
+              </div>
+              <div class="networks clearfix">
+                <a href="#" class="icon-facebook"></a>
+                <a href="#" class="icon-twitter"></a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -50,11 +112,12 @@
     <div class="catfish c-donate hidden">
       <div class="c-content">
         <a href="#" class="closeCatfishCta icon-remove"></a>
-        <div class="portrait" style="background-image: url('http://i.imgur.com/tsxDZKo.png');"></div>
+        <!-- <div class="portrait" style="background-image: url('http://i.imgur.com/tsxDZKo.png');"></div> -->
         <div class="block">
           <?= ($donateCopy['main']) ?><br />
           <span class="cta"><?= ($donateCopy['cta']) ?></span>
         </div>
+        <!-- <div class="portrait" style="background-image: url('http://i.imgur.com/cMwIR6M.png');"></div> -->
       </div>
     </div>
     
