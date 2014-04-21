@@ -8,7 +8,6 @@
   class="city-page<?= $dh->canRead() ? ' logged_in' : '' ?>"
   data-pageViewName="CityPageView"
   <?= $fullbg ? "style='background-image:url({$fullbg->getURL()})'" : '' ?>>
-
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
@@ -41,16 +40,6 @@
       </div>
     </div>
 
-<?php
-  $donateCopyOptions = array(
-    array(
-      'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
-      'main' => 'Love Jane\'s Walk?',
-      'cta' => 'Text JANE to 45678 to donate $10'
-    )
-  );
-  $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
-?>
     <div class="overlay o-donate">
       <div class="o-background">
       </div>
@@ -186,48 +175,9 @@
         </div>
         <?php } ?>
         <div class="walks-list <?=($show === 'all') ? 'showall' : 'span8' ?>">
-          <?php
-            if($show === 'all') {
-
-              // Wards
-              $wards = array();
-              $wardObjects = $c->getAttribute('city_wards');
-              if ($wardObjects !== false) {
-                foreach ($wardObjects->getOptions() as $ward) {
-                  $val = $ward->value;
-                  // $pieces = preg_split('/Ward\ [0-9]+\ /', $val);
-                  // $val = array_pop($pieces);
-                  $wards[] = $val;
-                }
-              }
-              sort($wards);
-
-              // Themes
-              $themeHelper = Loader::helper('theme');
-              $themes = $themeHelper->getAll('tags');
-              sort($themes);
-
-              // Accessibility
-              $accessibilities = $themeHelper->getAll('accessibilities');
-              sort($accessibilities);
-
-              // Intiatives
-              if ($c->getCollectionName() === 'Toronto') {
-                $initiatives = array(
-                  'Open Streets TO',
-                  '100 In 1 Day'
-                );
-              }
-
-              // Ward semantics
-              $wardName = 'Region';
-              if ($c->getCollectionName() === 'Toronto') {
-                $wardName = 'Ward';
-              }
-
-              // Dates
-              $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
-          ?>
+<?php
+           if($show === 'all' || $c->isEditMode()) {
+?>
             <h3><?= t('All Walks') ?></h3>
             <!-- <a href="?" class="see-all">See All Walks</a> -->
             <div class="filters clearfix">
@@ -347,20 +297,25 @@
               <?= t('No walks found') ?><br />
               <?= t('Try another region or theme') ?>
             </div>
-          <?php
-            } else {
-          ?>
+
+            <div class="row-fluid">
+              <?php (new Area('All Walks List'))->display($c); ?>
+            </div>
+<?php
+           }
+           if($show !== 'all' || $c->isEditMode()) {
+?>
             <h3><?= t('Walks in %s', t($c->getCollectionName()) ) ?></h3>
             <?php if($totalWalks > 9) { ?>
-            <a href="?show=all" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
+            <a href="<?= $nh->getLinkToCollection($c) . 'walks' ?>" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
             <?php }?>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?= $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>
-          <?php
+            <div class="row-fluid">
+              <?php (new Area('Walk List'))->display($c); ?>
+            </div>
+<?php
             }
-          ?>
-          <div class="row-fluid">
-            <?php (new Area('Walk List'))->display($c); ?>
-          </div>
+?>
         </div>
       </div>
     </div>

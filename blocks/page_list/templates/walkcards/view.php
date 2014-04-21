@@ -1,14 +1,16 @@
 <?php 
 defined('C5_EXECUTE') or die('Access Denied.');
 
+// A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
+// The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
+// be showing all walks.
+$cardSize = 'span' . (sizeof($cards) > 9 ? 3 : 4);
+
 // Loop over the walks
 foreach($cards as $key => $card) {
-  if($key == 9 && $show !== 'all') { // TODO: this sucks.
-    break;
-  }
   extract($card);
 ?>
-<div class="span<?= ($show === 'all' ? '3' : '4') ?> walk">
+<div class="<?= $cardSize ?> walk">
   <a href="<?= ($nh->getCollectionURL($page)) ?>">
     <div class="thumbnail">
       <div class='walkimage <?= $placeholder ?>' <?= $cardBg ? "style='background-image:url($cardBg)'" : '' ?>></div>
