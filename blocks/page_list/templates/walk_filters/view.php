@@ -141,34 +141,13 @@ defined('C5_EXECUTE') or die('Access Denied.'); ?>
       </thead>
       <tbody>
 <?php
-foreach($cards as $walk) {
-  foreach(array_slice($walk['datetimes'], 1) as $dt) {
-    $walk['datetimes'][0] = $dt;
-    array_push($cards, $walk);
-  }
-}
-usort($cards, function($b,$a) {
-  if($a['datetimes'][0] && $b['datetimes'][0]) {
-    return $b['datetimes'][0]['timestamp'] - $a['datetimes'][0]['timestamp'];
-      strcmp($b['title'],$a['title']);
-  } else {
-    if($a['datetimes'][0]) {
-      return 1;
-    } else if($b['datetimes'][0]) {
-      return -1;
-    }
-    return 0;
-  }
-} );
-
-
-foreach($cards as $k => $card) {
+foreach($walksByDate as $k => $walk) {
 ?>
     <tr data-janeswalk-sort="<?= $k ?>">
-      <td><?= $card['datetimes'][0]['date'] ?: '--' ?></td>
-      <td><?= $card['datetimes'][0]['time'] ?: '--' ?></td>
-      <td><a href="<?= $nh->getLinkToCollection($card['page']) ?>" ><?=$card['title']?></a></td>
-      <td><?= implode(', ', array_filter((array)$card['meeting_place'])) ?></td>
+      <td><?= $walk['datetimes'][0]['date'] ?: '--' ?></td>
+      <td><?= $walk['datetimes'][0]['time'] ?: '--' ?></td>
+      <td><a href="<?= $nh->getLinkToCollection($walk['page']) ?>" target="_blank" ><?=$walk['title']?></a></td>
+      <td><?= implode(', ', array_filter((array)$walk['meeting_place'])) ?></td>
     </tr>
     <?php
     }

@@ -104,10 +104,33 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     $this->set('show', $_REQUEST['show']);
     /* Set the page lists which are walk related, as they have json we need */
     switch($this->block->getBlockFilename()) {
-    case 'walk_filters':
     case 'walkcards':
       $this->set('cards', $this->loadCards());
       break;
+    case 'walk_filters':
+      $cards = $this->loadCards();
+      $this->set('cards', $cards);
+
+      foreach($cards as $walk) {
+        foreach(array_slice($walk['datetimes'], 1) as $dt) {
+          $walk['datetimes'][0] = $dt;
+          array_push($cards, $walk);
+        }
+      }
+      usort($cards, function($b,$a) {
+        if($a['datetimes'][0] && $b['datetimes'][0]) {
+          return $b['datetimes'][0]['timestamp'] - $a['datetimes'][0]['timestamp'];
+          strcmp($b['title'],$a['title']);
+        } else {
+          if($a['datetimes'][0]) {
+            return 1;
+          } else if($b['datetimes'][0]) {
+            return -1;
+          }
+          return 0;
+        }
+      } );
+      $this->set('walksByDate', $cards);
     default:
       break;
     }
@@ -183,12 +206,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     $cardSize = 'span' . (sizeof($cards) > 9 ? 3 : 4);
 
     // Loop over the walks
-    foreach($cards as $key => $card) {
+    foreach((array) $cards as $key => $card) {
       extract($card);
       $buf .= '<div class="'.$cardSize.' walk">' .
         '<a href="'.($nh->getLinkToCollection($page)).'">' .
         '<div class="thumbnail">' .
-        '<div class="walkimage '.$placeholder .' '. ($cardBg ? "style='background-image:url($cardBg)'" : '') .'" ></div>' .
+        '<div class="walkimage '.$placeholder .'" '. ($cardBg ? "style=\"background-image:url($cardBg)\"" : '') .' ></div>' .
         '<div class="caption">' .
         '<h4>' . Loader::helper('text')->shortText($page->getCollectionName(), 45) . '</h4>' .
         '<ul class="when">';
