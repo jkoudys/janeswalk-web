@@ -102,9 +102,121 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     $this->set('u', new User());
     $this->set('rssUrl', $showRss ? $controller->getRssUrl($b) : '');
     $this->set('show', $_REQUEST['show']);
-    if($this->block->getBlockFilename() === 'walkcards') {
+    /* Set the page lists which are walk related, as they have json we need */
+    switch($this->block->getBlockFilename()) {
+    case 'walk_filters':
+    case 'walkcards':
       $this->set('cards', $this->loadCards());
+      break;
+    default:
+      break;
     }
+
+    // Set walk-filter specific filtering data
+    if($this->block->getBlockFilename() === 'walk_filters') {
+      // Set up walk filters
+      // Wards
+      $wards = array();
+      $wardObjects = $this->c->getAttribute('city_wards');
+      if ($wardObjects !== false) {
+        foreach ($wardObjects->getOptions() as $ward) {
+          $val = $ward->value;
+          // $pieces = preg_split('/Ward\ [0-9]+\ /', $val);
+          // $val = array_pop($pieces);
+          $wards[] = $val;
+        }
+      }
+      sort($wards);
+
+      // Themes
+      $themeHelper = Loader::helper('theme');
+      $themes = $themeHelper->getAll('tags');
+      sort($themes);
+
+      // Accessibility
+      $accessibilities = $themeHelper->getAll('accessibilities');
+      sort($accessibilities);
+
+      // Intiatives
+      if ($this->c->getCollectionName() === 'Toronto') {
+        $initiatives = array(
+          'Open Streets TO',
+          '100 In 1 Day'
+        );
+      }
+
+      // Ward semantics
+      $wardName = 'Region';
+      if ($this->c->getCollectionName() === 'Toronto') {
+        $wardName = 'Ward';
+      }
+
+      // Dates
+      $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
+
+      /* Set variables needed for rendering show all walks */
+      $this->set('dates', $dates);
+      $this->set('wardName', $wardName);
+      $this->set('initiatives', $initiatives);
+      $this->set('accessibilities', $accessibilities);
+      $this->set('themes', $themes);
+      $this->set('wards', $wards);
+    }
+  }
+
+  /* renderCards()
+   *
+   * Renders an HTML string of a walk card. site5 isn't making installing xhp easy,
+   * so post-festival, update this to return an XHP and move to rackspace/amazon
+   *
+   * array $cards - Contents formatted by loadCards.
+   * return: string
+   */
+  public function renderCards($cards = array()) {
+    $nh = Loader::helper('navigation');
+    $th = Loader::helper('theme');
+    
+    $buf = '';
+    // A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
+    // The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
+    // be showing all walks.
+    $cardSize = 'span' . (sizeof($cards) > 9 ? 3 : 4);
+
+    // Loop over the walks
+    foreach($cards as $key => $card) {
+      extract($card);
+      $buf .= '<div class="'.$cardSize.' walk">' .
+        '<a href="'.($nh->getLinkToCollection($page)).'">' .
+        '<div class="thumbnail">' .
+        '<div class="walkimage '.$placeholder .' '. ($cardBg ? "style='background-image:url($cardBg)'" : '') .'" ></div>' .
+        '<div class="caption">' .
+        '<h4>' . Loader::helper('text')->shortText($page->getCollectionName(), 45) . '</h4>' .
+        '<ul class="when">';
+
+      foreach($when as $slot) {
+        $buf .= '<li><i class="icon-calendar"></i> ' . $slot . '</li>';
+      }
+      if($meeting_place) {
+        $buf .= '<li>Meet at: ' . Loader::helper('text')->shortText($meeting_place['title']) . '</li>';
+      }
+      $buf .= '</ul>';
+      if($leaders) {
+        $buf .= '<h6>Walk led by ' . Loader::helper('text')->shortText($leaders) . '</h6>';
+      }
+      $buf .=
+        '<p>' . Loader::helper('text')->shortText($page->getAttribute('shortdescription'), 115) . '</p>' .
+        '</div>' .
+        '<ul class="inline tags">';
+      foreach($page->getAttribute('theme') as $theme) {
+        $buf .= '<li class="tag" data-toggle="tooltip" title="' . $th->getName($theme) . '">' . $th->getIcon($theme) . '</li>';
+      }
+      $buf .=
+        '</ul>' .
+        '</div>' .
+        '</a>' .
+        '</div>';
+    }
+    return $buf;
   }
 
   /* getCardData()
@@ -115,19 +227,22 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
    */
   public function getCardData($page) {
     $cardData['page'] = $page;
+
+    $cardData['title'] = $page->getCollectionName();
+
     $cardData['leaders'] = implode(
       ', ',
       array_filter(
         array_map(
-         function($mem) {
-           if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
-             return trim("{$mem['name-first']} {$mem['name-last']}") ?: null;
-           }
-         },
-         json_decode($page->getAttribute('team'),true)
+          function($mem) {
+            if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
+              return trim("{$mem['name-first']} {$mem['name-last']}") ?: null;
+            }
+          },
+            json_decode($page->getAttribute('team'),true)
+          )
         )
-      )
-    );
+      );
     // Wards
     $cardData['wards'] = (array) $page->getAttribute('walk_wards');
 
@@ -159,22 +274,29 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
     // Dates
     $scheduled = $page->getAttribute('scheduled');
-    $datetimes = array_map(
+    $cardData['datetimes'] = array_map(
       function($s){
-        return ['date' => $s['date'], 'time' => $s['time']];
+        return array('date' => $s['date'], 'time' => $s['time'], 'timestamp' => strtotime("{$s['date']} {$s['time']}"));
       }, (array) $scheduled['slots']);
-    $cardData['datetimes'] = $datetimes;
     $cardData['when'] = array();
     if($scheduled['open']) {
       $cardData['when'][] = 'Open schedule';
-    } else if($datetimes) {
-      $cardData['when'] = array_map(function($s){ return "{$s['time']}, {$s['date']}"; }, $datetimes);
+    } else if($cardData['datetimes']) {
+      $cardData['when'] = array_map(function($s){ return "{$s['time']}, {$s['date']}"; }, $cardData['datetimes']);
     }
 
     // Thumbnail
     $thumb = $page->getAttribute('thumbnail');
     $cardData['cardBg'] = $thumb ? $this->get('im')->getThumbnail($thumb,380,720)->src : null;
     $cardData['placeholder'] = 'placeholder' . $page->getCollectionID() % 3;
+
+    // Meeting place
+    $gmap = json_decode($page->getAttribute('gmap'),true);
+    $cardData['meeting_place'] = null;
+    foreach( (array) $gmap['markers'] as $marker) { // To avoid errors on empty/malformed maps
+      $cardData['meeting_place'] = array('title' => $marker['title'], 'description' => $marker['description']);
+      break; 
+    }
 
     return $cardData;
   }
@@ -183,7 +305,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
    * loadCards
    * Loop through and load all the cards
    */
-  private function loadCards() {
+  public function loadCards() {
     $jwdata = array();
     $cards = array();
     foreach($this->get('pages') as $page) {

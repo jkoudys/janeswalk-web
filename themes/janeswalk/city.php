@@ -161,7 +161,7 @@
   <div class="section3 city-city">
     <div class="container">
       <div class="row-fluid walk-select">
-        <?php if($show != "all") { ?>
+        <?php if($show !== 'all') { ?>
         <div class="span4 action-items">
           <div class="item active">
             <h2><?= t('Jane’s Walks') ?></h2>
@@ -178,126 +178,6 @@
 <?php
            if($show === 'all' || $c->isEditMode()) {
 ?>
-            <h3><?= t('All Walks') ?></h3>
-            <!-- <a href="?" class="see-all">See All Walks</a> -->
-            <div class="filters clearfix">
-
-              <?php if (!empty($wards)): ?>
-                <div class="filter clearfix">
-                  <label for="ward"><?= ($wardName) ?></label>
-                  <div class="options">
-                    <select name="ward" id="ward">
-                      <option value="*">All</option>
-                      <?php foreach ($wards as $ward): ?>
-                        <option value="<?= ($ward) ?>"><?= ($ward) ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-                </div>
-              <?php endif; ?>
-
-
-              <?php if (!empty($themes)): ?>
-                <div class="filter clearfix">
-                  <label for="theme"><?= t('Theme') ?></label>
-                  <div class="options">
-                    <select name="theme" id="theme">
-                      <option value="*">All</option>
-                      <?php foreach ($themes as $theme): ?>
-                        <option value="<?= ($theme) ?>"><?= ($theme) ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-                </div>
-              <?php endif; ?>
-
-
-              <?php if (!empty($accessibilities)): ?>
-                <div class="filter clearfix">
-                  <label for="accessibility"><?= t('Accessibility') ?></label>
-                  <div class="options">
-                    <select name="accessibility" id="accessibility">
-                      <option value="*">All</option>
-                      <?php foreach ($accessibilities as $accessibility): ?>
-                        <option value="<?= ($accessibility) ?>"><?= ($accessibility) ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-                </div>
-              <?php endif; ?>
-
-
-              <?php if (!empty($initiatives)): ?>
-                <div class="filter clearfix">
-                  <label for="initiative"><?= t('Initiative') ?></label>
-                  <div class="options">
-                    <select name="initiative" id="initiative">
-                      <option value="*">All</option>
-                      <?php foreach ($initiatives as $initiative): ?>
-                        <option value="<?= ($initiative) ?>"><?= ($initiative) ?></option>
-                      <?php endforeach; ?>
-                    </select>
-                  </div>
-                </div>
-              <?php endif; ?>
-
-
-              <div class="filter clearfix">
-                <label for="date"><?= t('Day') ?></label>
-                <div class="options">
-                  <select name="date" id="date">
-                    <option value="*">All</option>
-                    <?php foreach ($dates as $date): ?>
-                      <option value="<?= ($date) ?>"><?= ($date) ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-              </div>
-
-
-            </div>
-
-            <div class="initiatives hidden">
-              <div class="initiative hidden" data-jw-initiative="Open Streets TO">
-                <div class="headline">What is Open Streets TO?</div>
-                <p>
-                  Open Streets TO involves briefly closing Bloor St to vehicle
-                  traffic, and opening it to everyone else for fun, safe, and
-                  free recreational activities. Open Streets programs take place
-                  in cities around the world, usually on Sunday mornings and
-                  typically last for about 6 hours. Participants can bike, run,
-                  rollerblade, hopscotch, do yoga, skateboard, unicycle... you
-                  get the picture.
-                </p>
-                <div class="subheadline">Event dates:</div>
-                <div class="dates">
-                  July 27, 2014<br />
-                  August 3, 2014<br />
-                  August 17, 2014
-                </div>
-              </div>
-              <div class="initiative hidden" data-jw-initiative="100 In 1 Day">
-                <div class="headline">What is 100 In 1 Day?</div>
-                <p>
-                  100 in 1 Day is a citizen-driven festival will unite people
-                  across the city to make Toronto a better place by creating
-                  acts of urban change. These acts, or interventions, have the
-                  potential to raise awareness of urban and social issues,
-                  inspire ideas, and motivate leaders to consider new approaches
-                  to old problems.
-                </p>
-                <div class="subheadline">Event dates:</div>
-                <div class="dates">
-                  June 7, 2014
-                </div>
-              </div>
-            </div>
-
-            <div class="empty hidden">
-              <?= t('No walks found') ?><br />
-              <?= t('Try another region or theme') ?>
-            </div>
-
             <div class="row-fluid">
               <?php (new Area('All Walks List'))->display($c); ?>
             </div>

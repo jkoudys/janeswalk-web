@@ -169,54 +169,6 @@ class CityPageTypeController extends JanesWalkController {
     parent::view();
     $this->setCityData();
     $this->set('show', 'all');
-
-    // Set up walk filters
-    // Wards
-    $wards = array();
-    $wardObjects = $this->c->getAttribute('city_wards');
-    if ($wardObjects !== false) {
-      foreach ($wardObjects->getOptions() as $ward) {
-        $val = $ward->value;
-        // $pieces = preg_split('/Ward\ [0-9]+\ /', $val);
-        // $val = array_pop($pieces);
-        $wards[] = $val;
-      }
-    }
-    sort($wards);
-
-    // Themes
-    $themeHelper = Loader::helper('theme');
-    $themes = $themeHelper->getAll('tags');
-    sort($themes);
-
-    // Accessibility
-    $accessibilities = $themeHelper->getAll('accessibilities');
-    sort($accessibilities);
-
-    // Intiatives
-    if ($this->c->getCollectionName() === 'Toronto') {
-      $initiatives = array(
-        'Open Streets TO',
-        '100 In 1 Day'
-      );
-    }
-
-    // Ward semantics
-    $wardName = 'Region';
-    if ($this->c->getCollectionName() === 'Toronto') {
-      $wardName = 'Ward';
-    }
-
-    // Dates
-    $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
-
-    /* Set variables needed for rendering show all walks */
-    $this->set('dates', $dates);
-    $this->set('wardName', $wardName);
-    $this->set('initiatives', $initiatives);
-    $this->set('accessibilities', $accessibilities);
-    $this->set('themes', $themes);
-    $this->set('wards', $wards);
   }
 
   public function isPut() {
