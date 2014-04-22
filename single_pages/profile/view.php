@@ -57,7 +57,7 @@
   $pl->filterByAttribute('exclude_page_list', false);
   $walks = $pl->get();
   $hasCreatedWalks = count($walks) !== 0;
-  $hasCreatedWalks = true;
+  $hasCreatedWalks = false;
 
   // City organizer
   $cityOrganizerEmailAddress = 'onassar@gmail.com';
@@ -69,14 +69,22 @@
   $hasUpdatedDetails = true;
   $hasChosenPicture = true;
   $cityTabViewable = true;
+  $cityHasWalks = true;
   $hasChosenHomeCity = isset($home_city);
   $homeCity = false;
   $numberOfWalksInCity = 42;
-  $numberOfBlogPostsInCity = 3;
   if (isset($home_city)) {
     $homeCity = $home_city->getCollectionName();
   }
   $this->addHeaderItem($html->javascript('swfobject.js'));
+
+  // Resources
+  $resources = array(
+    'showCityOrganizers' => true,
+    'showGlobalWalks' => true,
+    'showTips' => true,
+    'showFiles' => true
+  );
 ?>
   <script type="text/javascript">
     window.fbAsyncInit = function() {
@@ -279,7 +287,7 @@
         </div>
         <div class="column walks">
           <div class="headline">My Walks</div>
-            <a href="/walk/form/" class="btn btn-primary btn-small">Add a Walk</a>
+          <a href="/walk/form/" class="btn btn-primary btn-small">Add a Walk</a>
           <?php
             $nullcaseClasses = array('nullcase');
             if ($hasCreatedWalks === true) {
@@ -288,10 +296,8 @@
           ?>
           <div class="<?= implode(' ', $nullcaseClasses) ?>">
             <div class="copy">
-              You haven't created a Jane's Walk for 2014 yet
-            </div>
-            <div class="btnWrapper">
-              <a href="/walk/form/" class="btn btn-primary">Add a Walk</a>
+              Create your first walk for Jane's Walk 2014. Just click the button
+              above
             </div>
           </div>
           <?php
@@ -337,7 +343,7 @@
               </div>
               <div class="details">
                 <div class="title">
-                  <a href="#" title="">
+                  <a href="#">
                     <span class="label">DRAFT</span>
                     Celluloid and Popcorn: The history of Cinema on Roncesvalles
                   </a>
@@ -355,42 +361,52 @@
         ?>
           <div class="column city">
             <div class="headline">My City's Walks</div>
-            <!--
-              <a href="#" class="btn btn-primary promoteBtn btn-small" data-cityname="<?= ($homeCity) ?>">Promote</a>
-            -->
-            <div class="stats" style="display: none;">
-              <div class="walks clearfix">
-                <div class="count"><?= ($numberOfWalksInCity) ?></div>
-                <div class="name">walks posted</div>
-              </div>
-              <div class="posts clearfix">
-                <div class="count"><?= ($numberOfBlogPostsInCity) ?></div>
-                <div class="name">blog posts</div>
+            <?php
+              $nullcaseClasses = array('nullcase');
+              if ($cityHasWalks === true) {
+                array_push($nullcaseClasses, 'hidden');
+              }
+            ?>
+            <div class="<?= implode(' ', $nullcaseClasses) ?>">
+              <div class="copy">
+                Toronto doesn't have any walks yet. Create the first one now.
               </div>
             </div>
-            <ul>
-              <li class="odd">
-                <div class="image">
-                  <img src="" />
-                </div>
-                <div class="title">
-                  <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
-                    Celluloid and Popcorn: The history of Cinema on Roncesvalles
-                  </a>
-                </div>
-                <div class="subactions clearfix">
-                  <a href="#" class="promote">Promote</a>
-                  <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
-                  <a href="#" class="delete">Unpublish</a>
-                </div>
-              </li>
+            <?php
+              $cityWalkListClasses = array();
+              if ($cityHasWalks === false) {
+                array_push($cityWalkListClasses, 'hidden');
+              }
+            ?>
+            <ul class="<?= implode(' ', $cityWalkListClasses) ?>">
+              <?php
+              // foreach ($walks as $walk):
+              ?>
+                <li class="odd">
+                  <div class="image">
+                    <img src="" />
+                  </div>
+                  <div class="title">
+                    <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
+                      Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                    </a>
+                  </div>
+                  <div class="subactions clearfix">
+                    <a href="#" class="promote">Promote</a>
+                    <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
+                    <a href="#" class="delete">Unpublish</a>
+                  </div>
+                </li>
+              <?php
+              // endforeach;
+              ?>
               <li class="even">
                 <div class="image">
                   <img src="" />
                 </div>
                 <div class="details">
                   <div class="title">
-                    <a href="#" title="">
+                    <a href="#">
                       <span class="label">DRAFT</span>
                       Celluloid and Popcorn: The history of Cinema on Roncesvalles
                     </a>
@@ -401,13 +417,22 @@
                   </div>
                 </div>
               </li>
-            </u>
+            </ul>
           </div>
         <?php
           }
         ?>
         <div class="column posts">
           <div class="headline">My Blog Posts</div>
+          <?php
+            $subject = rawurlencode(
+              'I would like to submit a story to the ' . ($homeCity) . ' blog'
+            );
+            $body = rawurlencode(
+              "Please begin writing your story below: \n\n\n"
+            );
+          ?>
+          <a href="mailto:<?= ($cityOrganizerEmailAddress) ?>?subject=<?= ($subject) ?>&amp;body=<?= ($body) ?>" target="_blank" class="btn btn-primary btn-small">Share your story</a>
           <?php
             $nullcaseClasses = array('nullcase');
             if ($hasPostedBlogPost === true) {
@@ -417,19 +442,6 @@
           <div class="<?= implode(' ', $nullcaseClasses) ?>">
             <div class="copy">
               You haven't shared a story on the <?= ($homeCity) ?> blog yet
-            </div>
-            <div class="actions">
-              <div class="btnWrapper">
-                <?php
-                  $subject = rawurlencode(
-                    'I would like to submit a story to the ' . ($homeCity) . ' blog'
-                  );
-                  $body = rawurlencode(
-                    "Please begin writing your story below: \n\n\n"
-                  );
-                ?>
-                <a href="mailto:<?= ($cityOrganizerEmailAddress) ?>?subject=<?= ($subject) ?>&amp;body=<?= ($body) ?>" target="_blank" class="btn btn-primary btn-small">Share your story</a>
-              </div>
             </div>
           </div>
           <?php
@@ -448,6 +460,11 @@
             $headerInfoIsEmpty = true;
             $shortDescriptionIsEmpty = false;
             $backgroundPhotoIsEmpty = false;
+            $headerInfo = 'lambda lambda lambda lambda lambda lambda lambda';
+            $shortDescription = 'Jane’s Walk is a walking conversation led ' .
+              'by volunteers thatcreates a space for citizens to discuss what '.
+              'matters to them while learning more about their city and ...';
+            $backgroundPhoto = 'http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg';
           ?>
           <div class="main">
             <div class="headline"><?= ($homeCity) ?> Details</div>
@@ -468,7 +485,7 @@
                   <?php else: ?>
                     <p>
                       <span class="icon icon-check"></span>
-                      lambda lambda lambda lambda lambda lambda lambda
+                      <?= ($headerInfo) ?>
                       <a href="/index.php/dashboard/composer/write/-/edit/144/">Edit</a>
                     </p>
                   <?php endif; ?>
@@ -486,9 +503,7 @@
                   <?php else: ?>
                     <p>
                       <span class="icon icon-check"></span>
-                      Jane’s Walk is a walking conversation led by volunteers that
-                      creates a space for citizens to discuss what matters to them
-                      while learning more about their city and ...
+                      <?= ($shortDescription) ?>
                       <a href="/index.php/dashboard/composer/write/-/edit/144/">Edit</a>
                     </p>
                   <?php endif; ?>
@@ -506,7 +521,7 @@
                   <?php else: ?>
                     <p>
                       <span class="icon icon-check"></span>
-                      <span class="bgPhoto" style="background-image: url('http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg');"></span>
+                      <span class="bgPhoto" style="background-image: url('<?= ($backgroundPhoto) ?>');"></span>
                       <a href="/index.php/dashboard/composer/write/-/edit/144/">Change</a>
                     </p>
                   <?php endif; ?>
@@ -628,117 +643,101 @@
         </div>
       </div>
       <div id="resourcesBlock" class="block hidden" data-tab="resources">
-        <div class="cos resourceBlock">
-          <div class="headline">Connect with fellow city organizers</div>
-          <p>
-            Got a question?<br />
-            Reach out to a fellow City Organizer for help
-          </p>
-          <ul class="clearfix">
-            <?php foreach ($cityOrganizers as $organizer): ?>
-              <li>
-                <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizer['cityName']) ?>,Canada&amp;zoom=12&amp;size=250x125&amp;sensor=false" class="map" />
-                <img src="<?= ($organizer['organizerImagePath']) ?>" class="display" />
-                <div class="meta">
-                  <div class="name"><?= ($organizer['organizerName']) ?></div>
-                  <div class="email">
-                    <a href="mailto:<?= ($organizer['organizerEmail']) ?>"><?= ($organizer['organizerEmail']) ?></a>
+        <?php if ($resources['showCityOrganizers'] === true): ?>
+          <div class="cos resourceBlock">
+            <div class="headline">Connect with fellow city organizers</div>
+            <p>
+              Got a question?<br />
+              Reach out to a fellow City Organizer for help
+            </p>
+            <ul class="clearfix">
+              <?php foreach ($cityOrganizers as $organizer): ?>
+                <li>
+                  <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizer['cityName']) ?>,Canada&amp;zoom=12&amp;size=250x125&amp;sensor=false" class="map" />
+                  <img src="<?= ($organizer['organizerImagePath']) ?>" class="display" />
+                  <div class="meta">
+                    <div class="name"><?= ($organizer['organizerName']) ?></div>
+                    <div class="email">
+                      <a href="mailto:<?= ($organizer['organizerEmail']) ?>"><?= ($organizer['organizerEmail']) ?></a>
+                    </div>
                   </div>
-                </div>
-              </li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-        <div class="ideas resourceBlock">
-          <div class="headline">Walks from around the world</div>
-          <p>
-            Don't know what kind of walk to lead?<br />
-            Here are some fun ones from around the world
-          </p>
-          <ul class="clearfix">
-            <?php foreach ($featuredWalks as $featuredWalk): ?>
-              <li>
-                <div class="banner" style="background-image: url('<?= ($featuredWalk['walkImagePath']) ?>');"></div>
-                <img src="/themes/janeswalk/images/countryFlags/<?= ($featuredWalk['countryName']) ?>.png" class="flag" />
-                <div class="meta">
-                  <div class="city"><?= ($featuredWalk['cityName']) ?></div>
-                  <div class="title">
-                    <a href="<?= ($featuredWalk['walkPath']) ?>"><?= ($featuredWalk['walkTitle']) ?></a>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endif; ?>
+        <?php if ($resources['showGlobalWalks'] === true): ?>
+          <div class="ideas resourceBlock">
+            <div class="headline">Walks from around the world</div>
+            <p>
+              Don't know what kind of walk to lead?<br />
+              Here are some fun ones from around the world
+            </p>
+            <ul class="clearfix">
+              <?php foreach ($featuredWalks as $featuredWalk): ?>
+                <li>
+                  <div class="banner" style="background-image: url('<?= ($featuredWalk['walkImagePath']) ?>');"></div>
+                  <img src="/themes/janeswalk/images/countryFlags/<?= ($featuredWalk['countryName']) ?>.png" class="flag" />
+                  <div class="meta">
+                    <div class="city"><?= ($featuredWalk['cityName']) ?></div>
+                    <div class="title">
+                      <a href="<?= ($featuredWalk['walkPath']) ?>"><?= ($featuredWalk['walkTitle']) ?></a>
+                    </div>
                   </div>
-                </div>
+                </li>
+              <?php endforeach; ?>
+            </ul>
+          </div>
+        <?php endif; ?>
+        <?php if ($resources['showTips'] === true): ?>
+          <div class="vimeos resourceBlock">
+            <div class="headline">Tips on leading a walk</div>
+            <p>
+              Leading your first or fith walk?<br />
+              Here are some tips from the Jane's Walk crew
+            </p>
+            <ul class="clearfix">
+              <li>
+                <iframe src="//player.vimeo.com/video/91185841" width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
               </li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-        <div class="vimeos resourceBlock">
-          <div class="headline">Tips on leading a walk</div>
-          <p>
-            Leading your first or fith walk?<br />
-            Here are some tips from the Jane's Walk crew
-          </p>
-          <ul class="clearfix">
-            <li>
-              <iframe src="//player.vimeo.com/video/91185841" width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            </li>
-            <li>
-              <iframe src="//player.vimeo.com/video/91188859" width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            </li>
-            <li>
-              <iframe src="//player.vimeo.com/video/91190408" width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-            </li>
-          </ul>
-        </div>
-        <div class="press resourceBlock">
-          <div class="headline">Press Releases</div>
-          <p>
-            Want help promoting Jane's Walk in your city?<br />
-            Use one of these Press Releases
-          </p>
-          <ul class="clearfix">
-            <li>
-              <a href="#">
-                <img src="/themes/janeswalk/images/pdf.png" />
-                Announce the Jane's Walk Festival
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="/themes/janeswalk/images/pdf.png" />
-                Press Release #1
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="/themes/janeswalk/images/pdf.png" />
-                Press Release #2
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="/themes/janeswalk/images/pdf.png" />
-                Press Release #3
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="/themes/janeswalk/images/pdf.png" />
-                Press Release #4
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="/themes/janeswalk/images/pdf.png" />
-                Press Release #5
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <img src="/themes/janeswalk/images/pdf.png" />
-                Press Release #6
-              </a>
-            </li>
-          </ul>
-        </div>
+              <li>
+                <iframe src="//player.vimeo.com/video/91188859" width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </li>
+              <li>
+                <iframe src="//player.vimeo.com/video/91190408" width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </li>
+            </ul>
+          </div>
+        <?php endif; ?>
+        <?php if ($resources['showFiles'] === true): ?>
+          <div class="files resourceBlock">
+            <div class="headline">Files</div>
+            <p>
+              Want help promoting Jane's Walk in your city?<br />
+              Use one of these Press Releases
+            </p>
+            <ul class="clearfix">
+              <li>
+                <a href="#">
+                  <img src="/themes/janeswalk/images/pdf.png" />
+                  Announce the Jane's Walk Festival
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img src="/themes/janeswalk/images/pdf.png" />
+                  Press Release #1
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img src="/themes/janeswalk/images/pdf.png" />
+                  Press Release #2
+                </a>
+              </li>
+            </ul>
+          </div>
+        <?php endif; ?>
       </div>
     </div>
   </div>

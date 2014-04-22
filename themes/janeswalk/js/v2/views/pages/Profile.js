@@ -123,7 +123,7 @@ var ProfilePageView = PageView.extend({
             function(event) {
                 event.preventDefault();
                 var url = encodeURIComponent(
-                        'http://local.janeswalk.org/index.php/profile/'
+                        'http://janeswalk.org/canada/toronto/'
                     ),
                     text = encodeURIComponent(
                         $(this).closest('.option').find('.copy').text().trim()

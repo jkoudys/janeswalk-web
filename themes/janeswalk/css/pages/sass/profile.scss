@@ -221,6 +221,7 @@ div#profileWrapper {
         }
 
         div#dashboardBlock {
+            min-height: 220px;
 
             div.actions {
                 // background-color: #FCF6F4;
@@ -260,6 +261,7 @@ div#profileWrapper {
 
                         div.copy {
                             font-size: 16px;
+                            line-height: 24px;
                         }
 
                         div.btnWrapper {
@@ -271,6 +273,8 @@ div#profileWrapper {
                         padding: 0;
                         margin: 0;
                         list-style-type: none;
+                        max-height: 320px;
+                        overflow-x: auto;
 
                         li {
                             margin: 0;
@@ -345,6 +349,8 @@ div#profileWrapper {
                         padding: 0;
                         margin: 0;
                         list-style-type: none;
+                        max-height: 320px;
+                        overflow-x: auto;
 
                         li {
                             margin: 0;
@@ -383,10 +389,17 @@ div#profileWrapper {
 
                 &.posts {
 
+                    > a.btn {
+                        position: absolute;
+                        right: 0;
+                        top: 5px;
+                    }
+
                     div.nullcase {
 
                         div.copy {
                             font-size: 16px;
+                            line-height: 24px;
                         }
 
                         div.btnWrapper {
@@ -505,31 +518,24 @@ div#profileWrapper {
                         margin: 0 0 16px 0;
                     }
 
-                    // div.field {
+                    span.required {
+                        color: red;
+                        padding: 0 4px 0 0;
+                    }
 
-                        span.required {
-                            color: red;
-                            padding: 0 4px 0 0;
+                    label {
+                        display: inline;
+
+                        &.checkbox {
+                            display: block;
+                            padding-left: 10px;
                         }
+                    }
 
-                        label {
-                            display: inline;
-
-                            &.checkbox {
-                                display: block;
-                                padding-left: 10px;
-                            }
-                        }
-
-                        input[type="text"],
-                        input[type="password"] {
-                            width: 50%;
-                            height: 36px;
-                        }
-                    // }
-
-                    div.btnWrapper {
-                        text-align: right;
+                    input[type="text"],
+                    input[type="password"] {
+                        width: 50%;
+                        height: 36px;
                     }
                 }
             }
@@ -696,7 +702,8 @@ div#profileWrapper {
                 }
             }
 
-            div.press {
+            div.files {
+
 
                 ul {
                     list-style-type: none;
