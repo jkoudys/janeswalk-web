@@ -62,7 +62,7 @@
             <span class="cta"><?= ($donateCopy['cta']) ?></span>
           </div>
           <div class="btnWrapper">
-            <a href="#" class="btn btn-primary"><?= t('I\'ve Already Donated!') ?></a>
+            <a href="#" class="btn btn-primary"><?= t('I\'ve already donated!') ?></a>
           </div>
           <div class="quote" style="background-image: url('<?= ($donateCopy['imagePath']) ?>');"></div>
           <div class="secondary">
@@ -94,7 +94,7 @@
       </div>
       <div class="o-content">
         <a href="#" class="closeModalCta icon-remove"></a>
-          <h1><?= t('Spread the word!') ?></h1>
+          <h1><?= t('Thank you! We couldn\'t do this without you. Spread the word?') ?></h1>
           <div class="options">
             <div class="option">
               <div class="copy">

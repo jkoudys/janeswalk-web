@@ -252,7 +252,8 @@ body {
       height: 240px;
 
       h1 {
-          font-size: 32px;
+          font-size: 24px;
+          line-height: 30px;
           font-weight: normal;
           margin: 0 0 10px;
           padding-top: 20px;
@@ -383,7 +384,7 @@ body {
     // }
 
     div.block {
-      padding: 24px 32px 32px;
+      padding: 34px 72px 32px;
 
       span.cta {
         font-weight: bold;
