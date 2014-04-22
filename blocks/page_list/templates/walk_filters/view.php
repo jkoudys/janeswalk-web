@@ -130,7 +130,7 @@ defined('C5_EXECUTE') or die('Access Denied.'); ?>
     <?= $this->controller->renderCards($cards) ?>
   </section>
   <section class="tab-pane fade" id="jw-list">
-    <table class="walklist">
+    <table class="walklist table">
       <thead>
         <tr>
           <th><?= t('Date') ?></th>
