@@ -24,31 +24,39 @@ XML;
 /* Set up the KML XML */
 // Creates the Document.
 $doc = new SimpleXMLElement($xmlstr);
+$doc->preserveWhiteSpace = false;
 
 foreach($pages as $page) {
+  // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
+  $gmap = json_decode($page->getAttribute('gmap'),true);
+  $coordinates = false;
+  foreach( (array) $gmap['markers'] as $marker) { // To avoid errors on empty/malformed maps
+    $coordinates = "{$marker['lng']}, {$marker['lat']}";
+    break; 
+  }
+  $name = $page->getCollectionName();
+  if(!$name || !$coordinates) { continue; }
+
   $city = Page::getByID($page->getCollectionParentID());
   $country = Page::getByID($city->getCollectionParentID());
   
   // Creates a Placemark and append it to the Document.
-  $placemark = $doc->appendChild('Placemark');
+  $placemark = $doc->Document->addChild('Placemark');
 
   // Create name, and description elements and assigns them the values of the name and address columns from the results.
-  $placemark->appendChild('name', "<a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a>");
-  $placemark->appendChild('description', $page->getAttribute('shortdescription'));
+  $placemark->addChild('name', htmlspecialchars($name) );
+  $placemark->addChild('description', htmlspecialchars($page->getAttribute('shortdescription') . '<br />' . "<a target=\"__blank\" href='{$nh->getCollectionURL($page)}'>Go to walk &gt;</a>" ));
 
-  $point = $doc->appendChild('Point');
-
-  // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
-  $gmap = json_decode($page->getAttribute('gmap'),true);
-  foreach( (array) $gmap['markers'] as $marker) { // To avoid errors on empty/malformed maps
-    $point->appendChild('coordinates', "{$marker['lng']}, {$marker['lat']}");
-    break; 
-  }
+  $point = $placemark->addChild('Point');
+  $point->addChild('coordinates', $coordinates);
 
 }
 
-$kmlOutput = $dom->saveXML();
 header('Content-type: application/vnd.google-earth.kml+xml');
-echo $kmlOutput;
+
+$dom = new DOMDocument("1.0");
+$dom->preserveWhiteSpace = false;
+$dom->loadXML($doc->asXML());
+echo $dom->saveXML();
+
 exit;
-?>
