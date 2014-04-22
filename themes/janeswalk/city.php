@@ -40,6 +40,16 @@
       </div>
     </div>
 
+<?php
+  $donateCopyOptions = array(
+    array(
+      'imagePath' => 'http://i.imgur.com/Rdxtnxa.jpg',
+      'main' => 'Help Jane\'s Walk run more than 1,000 walks this year',
+      'cta' => 'Text JANE to 45678 to donate $10'
+    )
+  );
+  $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
+?>
     <div class="overlay o-donate">
       <div class="o-background">
       </div>
