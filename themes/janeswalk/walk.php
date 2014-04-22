@@ -27,7 +27,7 @@
 
       <ul class="breadcrumb visible-desktop visible-tablet">
         <?php
-        foreach($crumbs as $crumb) {
+        foreach((array)$crumbs as $crumb) {
           if( $crumb->getCollectionID() == 1 ) { ?>
           <li><a href="<?= $nh->getLinkToCollection($crumb) ?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
           <?php } else if ($crumb->getCollectionTypeHandle() !== 'country' ) { ?>
@@ -97,6 +97,12 @@
             <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($walk_leaders)) .
               implode(', ', array_map(function($mem){ return "{$mem['name-first']} {$mem['name-last']}"; }, $walk_leaders)); ?>
           </h4>
+          <?php if($meeting_place) { ?>
+          <h4>
+          <?= t('Meeting Place') ?>: <?= $meeting_place['title'] ?>
+          </h4>
+           <p><?= $meeting_place['description'] ?></p>
+          <?php } ?>
         </div>
       </div>
       <?php if(sizeof((array)$gmap->markers) + sizeof((array)$gmap->path) > 0) { ?>

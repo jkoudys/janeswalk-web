@@ -86,9 +86,14 @@ class CityPageTypeController extends JanesWalkController {
     echo json_encode($cityData);
   }
 
-  public function view() {
-    parent::view();
-
+  /*
+   * setCityData()
+   * 
+   * As we're using separate rendering logic for the main city, vs city walks view,
+   * use this function for setting all the variables needed by anything showing a
+   * city, e.g. city organizer details, page background, etc.
+   */
+  private function setCityData() {
     // Set our helpers
     $im = Loader::helper('image');
     $nh = Loader::helper('navigation');
@@ -119,9 +124,18 @@ class CityPageTypeController extends JanesWalkController {
     $walks->filterByCollectionTypeHandle('walk');
     $this->set('totalWalks',$walks->getTotal());
 
+    /* Text to donate campaign */
+    $donateCopyOptions = array(
+      array(
+        'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
+        'main' => 'Love Jane\'s Walk?',
+        'cta' => 'Text JANE to 45678 to donate $10'
+      )
+    );
+    $this->set('donateCopy', $donateCopyOptions[array_rand($donateCopyOptions)]);
+
     // Set our calculated values
     $this->set('fullbg', $c->getAttribute("full_bg"));
-    $this->set('show', $_REQUEST['show']);
     $this->set('avatar', $avatar);
     $this->set('page_owner', $page_owner);
     $this->set('profile_path', DIR_REL . '/' . DISPATCHER_FILENAME . "/profile/{$page_owner->getUserId()}");
@@ -131,6 +145,78 @@ class CityPageTypeController extends JanesWalkController {
     $this->set('facebook_url', $facebook ? 'http://facebook.com/' . end(preg_split('/\//', $facebook)) : false );
     $this->set('twitter_url', $twitter ? 'http://twitter.com/' . end(preg_split('/[@\/]/', $twitter)) : false );
     $this->set('website_url', $website ? (0 === strpos($website, 'http')) ? $website : ('http://' . $website) : false);
+
+  }
+
+  /* 
+   * view()
+   * Main controller for all city pages
+   * Set up variables you'll need in the view here.
+   */
+  public function view() {
+    parent::view();
+    $this->setCityData();
+  }
+
+  /* 
+   * walks()
+   * Called when you hit city/path/walks
+   * Used for the 'show all walks', as this is very separate from the main city
+   * logic. 'Edit' mode will expand both city areas and the areas shown in here, 
+   * so you can edit either mode at the same time. 
+   */
+  public function walks() {
+    parent::view();
+    $this->setCityData();
+    $this->set('show', 'all');
+
+    // Set up walk filters
+    // Wards
+    $wards = array();
+    $wardObjects = $this->c->getAttribute('city_wards');
+    if ($wardObjects !== false) {
+      foreach ($wardObjects->getOptions() as $ward) {
+        $val = $ward->value;
+        // $pieces = preg_split('/Ward\ [0-9]+\ /', $val);
+        // $val = array_pop($pieces);
+        $wards[] = $val;
+      }
+    }
+    sort($wards);
+
+    // Themes
+    $themeHelper = Loader::helper('theme');
+    $themes = $themeHelper->getAll('tags');
+    sort($themes);
+
+    // Accessibility
+    $accessibilities = $themeHelper->getAll('accessibilities');
+    sort($accessibilities);
+
+    // Intiatives
+    if ($this->c->getCollectionName() === 'Toronto') {
+      $initiatives = array(
+        'Open Streets TO',
+        '100 In 1 Day'
+      );
+    }
+
+    // Ward semantics
+    $wardName = 'Region';
+    if ($this->c->getCollectionName() === 'Toronto') {
+      $wardName = 'Ward';
+    }
+
+    // Dates
+    $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
+
+    /* Set variables needed for rendering show all walks */
+    $this->set('dates', $dates);
+    $this->set('wardName', $wardName);
+    $this->set('initiatives', $initiatives);
+    $this->set('accessibilities', $accessibilities);
+    $this->set('themes', $themes);
+    $this->set('wards', $wards);
   }
 
   public function isPut() {

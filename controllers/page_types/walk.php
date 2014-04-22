@@ -367,10 +367,15 @@ class WalkPageTypeController extends JanesWalkController {
     $city = Page::getByID($c->getCollectionParentID());
     $gmap = json_decode($c->getAttribute('gmap'));
     // Put the preview image for Facebook/Twitter to pick up
-    $thumb and $this->addHeaderItem('<meta property="og:image" content="' . BASE_URL . $im->getThumbnail($thumb,340,720)->src . '" />');
+    $thumb && $this->addHeaderItem('<meta property="og:image" content="' . BASE_URL . $im->getThumbnail($thumb,340,720)->src . '" />');
     $this->addHeaderItem('<meta property="og:url" content="' . $nh->getCollectionURL($c)  . '" />');
     $this->addHeaderItem('<meta property="og:title" content="' . addslashes($c->getCollectionName()) . '" />');
     $this->addHeaderItem('<meta property="og:description" content="' . addslashes($c->getAttribute('shortdescription')) . '" />');
+
+    foreach((array) $gmap->markers as $marker) { // To avoid errors on empty/malformed maps
+      $this->set('meeting_place', array('title' => $marker->title, 'description' => $marker->description));
+      break; 
+    }
 
     $this->set('nh', $nh);
     $this->set('im', $im);

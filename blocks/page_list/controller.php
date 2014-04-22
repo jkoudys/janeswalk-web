@@ -202,7 +202,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
   // The 'on_before_render' will set up our JanesWalk json in the page
   public function on_before_render() {
-    if($this->block->getBlockFilename() === 'walkcards') {
+    if($this->block && $this->block->getBlockFilename() === 'walkcards') {
       $this->addFooterItem('<script type="text/javascript">JanesWalk = JanesWalk || {}; JanesWalk.walks = ' . json_encode($this->pageData) . '</script>');
     }
   }
