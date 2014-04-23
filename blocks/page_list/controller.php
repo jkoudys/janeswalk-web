@@ -175,7 +175,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       }
 
       // Dates
-      $dates = array('May 2, 2014', 'May 3, 2014', 'May 4, 2014');
+      $dates = array('May 1, 2014', 'May 2, 2014', 'May 3, 2014', 'May 4, 2014');
 
       /* Set variables needed for rendering show all walks */
       $this->set('dates', $dates);
