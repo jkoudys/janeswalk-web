@@ -29,6 +29,7 @@ var ProfilePageView = PageView.extend({
         this._addPictureDeleteEvent();
         this._addPromoteWalkClickEvent();
         this._addPromoteCityClickEvent();
+        this._addPromoteBlogPostClickEvent();
         this._setupCityPromoteModalEvents();
         this._setupWalkPromoteModalEvents();
     },
@@ -189,6 +190,23 @@ var ProfilePageView = PageView.extend({
             function(event) {
                 event.preventDefault();
                 _this._element.find('.cityPromoteOverlay').show();
+            }
+        );
+    },
+
+    /**
+     * _addPromoteBlogPostClickEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addPromoteBlogPostClickEvent: function() {
+        var _this = this,
+            $btn = this._element.find('.promoteBtn');
+        $btn.click(
+            function(event) {
+                event.preventDefault();
+                _this._element.find('.blogPostPromoteOverlay').show();
             }
         );
     },
