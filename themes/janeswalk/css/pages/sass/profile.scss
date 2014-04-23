@@ -319,29 +319,15 @@ div#profileWrapper {
                         top: 5px;
                     }
 
-                    div.stats {
+                    div.nullcase {
 
-                        div.walks,
-                        div.posts {
-                            margin: 0 0 6px;
+                        div.copy {
+                            font-size: 16px;
+                            line-height: 24px;
+                        }
 
-                            div.count {
-                                float: left;
-                                height: 32px;
-                                width: 32px;
-                                border-radius: 100px;
-                                line-height: 32px;
-                                background-color: #FFD9C7;
-                                text-align: center;
-                                color: #000;
-                                margin: 0 4px 0 0;
-                            }
-
-                            div.name {
-                                float: left;
-                                height: 32px;
-                                line-height: 32px;
-                            }
+                        div.btnWrapper {
+                            padding: 8px 0 0;
                         }
                     }
 
@@ -404,6 +390,47 @@ div#profileWrapper {
 
                         div.btnWrapper {
                             padding: 8px 0 0;
+                        }
+                    }
+
+                    ul {
+                        padding: 0;
+                        margin: 0;
+                        list-style-type: none;
+                        max-height: 320px;
+                        overflow-x: auto;
+
+                        li {
+                            margin: 0;
+                            list-style-type: none;
+                            padding: 0 0 24px;
+
+                            div.title {
+
+                                a {
+                                    display: block;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    width: 90%;
+                                }
+                            }
+
+                            div.subactions {
+
+                                a {
+                                    display: block;
+                                    float: left;
+                                    color: #777;
+                                    text-decoration: underline;
+                                    margin: 0 8px 0 0;
+                                    font-size: 12px;
+
+                                    &:hover {
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

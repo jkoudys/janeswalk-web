@@ -10192,32 +10192,16 @@ div#profileWrapper div.content div#dashboardBlock div.column.city > a.btn {
   right: 32px;
   top: 5px;
 }
-/* line 325, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.walks,
-div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.posts {
-  margin: 0 0 6px;
+/* line 324, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.copy {
+  font-size: 16px;
+  line-height: 24px;
 }
-/* line 328, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.walks div.count,
-div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.posts div.count {
-  float: left;
-  height: 32px;
-  width: 32px;
-  border-radius: 100px;
-  line-height: 32px;
-  background-color: #FFD9C7;
-  text-align: center;
-  color: #000;
-  margin: 0 4px 0 0;
+/* line 329, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.btnWrapper {
+  padding: 8px 0 0;
 }
-/* line 340, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.walks div.name,
-div#profileWrapper div.content div#dashboardBlock div.column.city div.stats div.posts div.name {
-  float: left;
-  height: 32px;
-  line-height: 32px;
-}
-/* line 348, pages/sass/profile.scss */
+/* line 334, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.city ul {
   padding: 0;
   margin: 0;
@@ -10225,13 +10209,13 @@ div#profileWrapper div.content div#dashboardBlock div.column.city ul {
   max-height: 320px;
   overflow-x: auto;
 }
-/* line 355, pages/sass/profile.scss */
+/* line 341, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.city ul li {
   margin: 0;
   list-style-type: none;
   padding: 0 0 24px;
 }
-/* line 362, pages/sass/profile.scss */
+/* line 348, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.title a {
   display: block;
   text-overflow: ellipsis;
@@ -10239,7 +10223,7 @@ div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.titl
   overflow: hidden;
   width: 90%;
 }
-/* line 373, pages/sass/profile.scss */
+/* line 359, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.subactions a {
   display: block;
   float: left;
@@ -10248,82 +10232,117 @@ div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.suba
   margin: 0 8px 0 0;
   font-size: 12px;
 }
-/* line 381, pages/sass/profile.scss */
+/* line 367, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.subactions a:hover {
   text-decoration: none;
 }
-/* line 392, pages/sass/profile.scss */
+/* line 378, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.posts > a.btn {
   position: absolute;
   right: 0;
   top: 5px;
 }
-/* line 400, pages/sass/profile.scss */
+/* line 386, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.posts div.nullcase div.copy {
   font-size: 16px;
   line-height: 24px;
 }
-/* line 405, pages/sass/profile.scss */
+/* line 391, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock div.column.posts div.nullcase div.btnWrapper {
   padding: 8px 0 0;
 }
-/* line 414, pages/sass/profile.scss */
+/* line 396, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.posts ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  max-height: 320px;
+  overflow-x: auto;
+}
+/* line 403, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.posts ul li {
+  margin: 0;
+  list-style-type: none;
+  padding: 0 0 24px;
+}
+/* line 410, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.title a {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 90%;
+}
+/* line 421, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.subactions a {
+  display: block;
+  float: left;
+  color: #777;
+  text-decoration: underline;
+  margin: 0 8px 0 0;
+  font-size: 12px;
+}
+/* line 429, pages/sass/profile.scss */
+div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.subactions a:hover {
+  text-decoration: none;
+}
+/* line 441, pages/sass/profile.scss */
 div#profileWrapper div.content div#dashboardBlock.threeColumnLayout div.column {
   width: 298px;
 }
-/* line 420, pages/sass/profile.scss */
+/* line 447, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock {
   padding: 32px 0 0;
 }
-/* line 423, pages/sass/profile.scss */
+/* line 450, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main {
   padding: 0 32px 32px;
 }
-/* line 426, pages/sass/profile.scss */
+/* line 453, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.headline {
   font-size: 24px;
   height: 36px;
   line-height: 36px;
 }
-/* line 433, pages/sass/profile.scss */
+/* line 460, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main > p {
   margin: 0;
   padding: 0;
 }
-/* line 438, pages/sass/profile.scss */
+/* line 465, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables {
   margin: 24px 0 0;
 }
-/* line 441, pages/sass/profile.scss */
+/* line 468, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column {
   float: left;
   width: 298px;
   box-sizing: border-box;
   padding: 0 32px 0 0;
 }
-/* line 447, pages/sass/profile.scss */
+/* line 474, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.name {
   font-weight: bold;
 }
-/* line 451, pages/sass/profile.scss */
+/* line 478, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val {
   padding: 8px 0 0;
 }
-/* line 454, pages/sass/profile.scss */
+/* line 481, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p {
   position: relative;
   display: block;
   margin: 0;
   padding: 0 0 0 32px;
 }
-/* line 460, pages/sass/profile.scss */
+/* line 487, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.icon {
   position: absolute;
   font-size: 24px;
   left: 2px;
   top: 6px;
 }
-/* line 467, pages/sass/profile.scss */
+/* line 494, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.bgPhoto {
   background-image: url("http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg");
   display: block;
@@ -10333,136 +10352,136 @@ div#profileWrapper div.content div#cityBlock div.main div.editables div.column d
   background-repeat: no-repeat;
   background-position: center;
 }
-/* line 477, pages/sass/profile.scss */
+/* line 504, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p a {
   font-size: 12px;
   padding: 0 0 0 8px;
 }
-/* line 483, pages/sass/profile.scss */
+/* line 510, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn {
   margin: 10px 0 0;
 }
-/* line 491, pages/sass/profile.scss */
+/* line 518, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.footer {
   padding: 32px;
   text-align: center;
   background-color: #FCF6F4;
   border-top: 1px solid #ddd;
 }
-/* line 497, pages/sass/profile.scss */
+/* line 524, pages/sass/profile.scss */
 div#profileWrapper div.content div#cityBlock div.footer p {
   font-size: 22px;
   margin: 0 0 20px;
 }
-/* line 508, pages/sass/profile.scss */
+/* line 535, pages/sass/profile.scss */
 div#profileWrapper div.content div#accountBlock form div.column {
   float: left;
   width: 439px;
   box-sizing: border-box;
   padding: 0 32px 0 0;
 }
-/* line 514, pages/sass/profile.scss */
+/* line 541, pages/sass/profile.scss */
 div#profileWrapper div.content div#accountBlock form div.column div.headline {
   font-size: 24px;
   height: 36px;
   line-height: 36px;
   margin: 0 0 16px 0;
 }
-/* line 521, pages/sass/profile.scss */
+/* line 548, pages/sass/profile.scss */
 div#profileWrapper div.content div#accountBlock form div.column span.required {
   color: red;
   padding: 0 4px 0 0;
 }
-/* line 526, pages/sass/profile.scss */
+/* line 553, pages/sass/profile.scss */
 div#profileWrapper div.content div#accountBlock form div.column label {
   display: inline;
 }
-/* line 529, pages/sass/profile.scss */
+/* line 556, pages/sass/profile.scss */
 div#profileWrapper div.content div#accountBlock form div.column label.checkbox {
   display: block;
   padding-left: 10px;
 }
-/* line 536, pages/sass/profile.scss */
+/* line 563, pages/sass/profile.scss */
 div#profileWrapper div.content div#accountBlock form div.column input[type="text"],
 div#profileWrapper div.content div#accountBlock form div.column input[type="password"] {
   width: 50%;
   height: 36px;
 }
-/* line 544, pages/sass/profile.scss */
+/* line 571, pages/sass/profile.scss */
 div#profileWrapper div.content div#pictureBlock {
   position: relative;
 }
-/* line 547, pages/sass/profile.scss */
+/* line 574, pages/sass/profile.scss */
 div#profileWrapper div.content div#pictureBlock div.headline {
   font-size: 24px;
   height: 36px;
   line-height: 36px;
   margin: 0 0 16px 0;
 }
-/* line 554, pages/sass/profile.scss */
+/* line 581, pages/sass/profile.scss */
 div#profileWrapper div.content div#pictureBlock div.column {
   float: left;
   box-sizing: border-box;
   padding: 0 32px 0 0;
 }
-/* line 560, pages/sass/profile.scss */
+/* line 587, pages/sass/profile.scss */
 div#profileWrapper div.content div#pictureBlock div.column.widget {
   width: 520px;
 }
-/* line 564, pages/sass/profile.scss */
+/* line 591, pages/sass/profile.scss */
 div#profileWrapper div.content div#pictureBlock div.column.tips {
   width: 358px;
 }
-/* line 567, pages/sass/profile.scss */
+/* line 594, pages/sass/profile.scss */
 div#profileWrapper div.content div#pictureBlock div.column.tips a {
   display: block;
   text-align: right;
   margin: 20px 0 0 0;
 }
-/* line 578, pages/sass/profile.scss */
+/* line 605, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.headline {
   font-size: 24px;
   height: 36px;
   line-height: 36px;
 }
-/* line 585, pages/sass/profile.scss */
+/* line 612, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.resourceBlock {
   margin: 0 0 48px;
 }
-/* line 591, pages/sass/profile.scss */
+/* line 618, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.vimeos ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-/* line 596, pages/sass/profile.scss */
+/* line 623, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.vimeos ul li {
   position: relative;
   width: 250px;
   float: left;
   margin: 0 42px 0 0;
 }
-/* line 607, pages/sass/profile.scss */
+/* line 634, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.ideas ul {
   list-style-type: none;
   padding: 6px 0 0;
   margin: 0;
 }
-/* line 612, pages/sass/profile.scss */
+/* line 639, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.ideas ul li {
   position: relative;
   width: 250px;
   float: left;
   margin: 0 42px 0 0;
 }
-/* line 618, pages/sass/profile.scss */
+/* line 645, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.banner {
   border-radius: 4px 4px 0 0;
   width: 250px;
   height: 150px;
   background-size: cover;
 }
-/* line 625, pages/sass/profile.scss */
+/* line 652, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.ideas ul li img.flag {
   border-radius: 4px;
   border: 2px solid #fff;
@@ -10471,7 +10490,7 @@ div#profileWrapper div.content div#resourcesBlock div.ideas ul li img.flag {
   left: 100px;
   top: 135px;
 }
-/* line 635, pages/sass/profile.scss */
+/* line 662, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta {
   border: 1px solid #ddd;
   border-bottom-width: 2px;
@@ -10479,32 +10498,32 @@ div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta {
   padding: 12px 0 12px 8px;
   border-radius: 0 0 4px 4px;
 }
-/* line 644, pages/sass/profile.scss */
+/* line 671, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.city a {
   font-size: 16px;
 }
-/* line 651, pages/sass/profile.scss */
+/* line 678, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.title a {
   font-size: 16px;
 }
-/* line 662, pages/sass/profile.scss */
+/* line 689, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.cos ul {
   list-style-type: none;
   padding: 6px 0 0;
   margin: 0;
 }
-/* line 667, pages/sass/profile.scss */
+/* line 694, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.cos ul li {
   position: relative;
   width: 250px;
   float: left;
   margin: 0 42px 0 0;
 }
-/* line 673, pages/sass/profile.scss */
+/* line 700, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.cos ul li img.map {
   border-radius: 4px 4px 0 0;
 }
-/* line 677, pages/sass/profile.scss */
+/* line 704, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.cos ul li img.display {
   border-radius: 100px;
   width: 50px;
@@ -10514,7 +10533,7 @@ div#profileWrapper div.content div#resourcesBlock div.cos ul li img.display {
   top: 85px;
   border: 2px solid #fff;
 }
-/* line 687, pages/sass/profile.scss */
+/* line 714, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta {
   border: 1px solid #ddd;
   border-bottom-width: 2px;
@@ -10522,30 +10541,30 @@ div#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta {
   padding: 12px 0 12px 8px;
   border-radius: 0 0 4px 4px;
 }
-/* line 696, pages/sass/profile.scss */
+/* line 723, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta div.email a {
   font-size: 14px;
 }
-/* line 708, pages/sass/profile.scss */
+/* line 735, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.files ul {
   list-style-type: none;
   padding: 6px 0 0;
   margin: 0;
 }
-/* line 713, pages/sass/profile.scss */
+/* line 740, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.files ul li {
   position: relative;
   width: 250px;
   float: left;
   margin: 0 42px 10px 0;
 }
-/* line 719, pages/sass/profile.scss */
+/* line 746, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.files ul li a {
   display: block;
   height: 50px;
   padding: 0 0 0 50px;
 }
-/* line 724, pages/sass/profile.scss */
+/* line 751, pages/sass/profile.scss */
 div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
   position: absolute;
   left: 0;

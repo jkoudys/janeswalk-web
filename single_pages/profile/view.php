@@ -63,7 +63,7 @@
   $cityOrganizerEmailAddress = 'onassar@gmail.com';
 
   // Blog posts
-  $hasPostedBlogPost = false;
+  $hasPostedBlogPost = true;
   $cityHasBlogSetup = false;
   $hasUpdatedCityPage = false;
   $hasUpdatedDetails = true;
@@ -77,6 +77,18 @@
     $homeCity = $home_city->getCollectionName();
   }
   $this->addHeaderItem($html->javascript('swfobject.js'));
+
+  // City details
+  if ($cityTabViewable === true) {
+    $headerInfoIsEmpty = true;
+    $shortDescriptionIsEmpty = false;
+    $backgroundPhotoIsEmpty = false;
+    $headerInfo = 'lambda lambda lambda lambda lambda lambda lambda';
+    $shortDescription = 'Jane’s Walk is a walking conversation led ' .
+      'by volunteers thatcreates a space for citizens to discuss what '.
+      'matters to them while learning more about their city and ...';
+    $backgroundPhoto = 'http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg';
+  }
 
   // Resources
   $resources = array(
@@ -199,7 +211,7 @@
           <?php elseif($hasPostedBlogPost === false): ?>
             Next Step: <a href="#" class="tabLink" data-tab="dashboard">Share a story about walking in <?= ($homeCity) ?></a>
           <?php else: ?>
-            You're ready for Jane's Walk 2014!
+            You're ready for Jane's Walk <?= date('Y') ?>!
           <?php endif; ?>
         </div>
       </div>
@@ -287,7 +299,7 @@
         </div>
         <div class="column walks">
           <div class="headline">My Walks</div>
-          <a href="/walk/form/" class="btn btn-primary btn-small">Add a Walk</a>
+          <a href="/walk/form/" class="btn btn-primary btn-small">Add a walk</a>
           <?php
             $nullcaseClasses = array('nullcase');
             if ($hasCreatedWalks === true) {
@@ -296,7 +308,7 @@
           ?>
           <div class="<?= implode(' ', $nullcaseClasses) ?>">
             <div class="copy">
-              Create your first walk for Jane's Walk 2014. Just click the button
+              Create your first walk for Jane's Walk <?= date('Y') ?>. Just click the button
               above
             </div>
           </div>
@@ -320,25 +332,27 @@
             // foreach ($walks as $walk):
             ?>
               <li class="odd">
-                <div class="image">
+                <div class="image" style="display: none;">
                   <img src="" />
                 </div>
-                <div class="title">
-                  <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
-                    Celluloid and Popcorn: The history of Cinema on Roncesvalles
-                  </a>
-                </div>
-                <div class="subactions clearfix">
-                  <a href="#" class="promote">Promote</a>
-                  <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
-                  <a href="#" class="delete">Unpublish</a>
+                <div class="details">
+                  <div class="title">
+                    <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
+                      Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                    </a>
+                  </div>
+                  <div class="subactions clearfix">
+                    <a href="#" class="promote">Promote</a>
+                    <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
+                    <a href="#" class="delete">Unpublish</a>
+                  </div>
                 </div>
               </li>
             <?php
             // endforeach;
             ?>
             <li class="even">
-              <div class="image">
+              <div class="image" style="display: none;">
                 <img src="" />
               </div>
               <div class="details">
@@ -369,7 +383,7 @@
             ?>
             <div class="<?= implode(' ', $nullcaseClasses) ?>">
               <div class="copy">
-                Toronto doesn't have any walks yet. Create the first one now.
+                <?= ($homeCity) ?> doesn't have any walks yet. Create the first one now.
               </div>
             </div>
             <?php
@@ -383,25 +397,27 @@
               // foreach ($walks as $walk):
               ?>
                 <li class="odd">
-                  <div class="image">
+                  <div class="image" style="display: none;">
                     <img src="" />
                   </div>
-                  <div class="title">
-                    <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
-                      Celluloid and Popcorn: The history of Cinema on Roncesvalles
-                    </a>
-                  </div>
-                  <div class="subactions clearfix">
-                    <a href="#" class="promote">Promote</a>
-                    <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
-                    <a href="#" class="delete">Unpublish</a>
+                  <div class="details">
+                    <div class="title">
+                      <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
+                        Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                      </a>
+                    </div>
+                    <div class="subactions clearfix">
+                      <a href="#" class="promote">Promote</a>
+                      <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
+                      <a href="#" class="delete">Unpublish</a>
+                    </div>
                   </div>
                 </li>
               <?php
               // endforeach;
               ?>
               <li class="even">
-                <div class="image">
+                <div class="image" style="display: none;">
                   <img src="" />
                 </div>
                 <div class="details">
@@ -432,7 +448,10 @@
               "Please begin writing your story below: \n\n\n"
             );
           ?>
-          <a href="mailto:<?= ($cityOrganizerEmailAddress) ?>?subject=<?= ($subject) ?>&amp;body=<?= ($body) ?>" target="_blank" class="btn btn-primary btn-small">Share your story</a>
+          <a
+            href="mailto:<?= ($cityOrganizerEmailAddress) ?>?subject=<?= ($subject) ?>&amp;body=<?= ($body) ?>"
+            target="_blank"
+            class="btn btn-primary btn-small">Share your story</a>
           <?php
             $nullcaseClasses = array('nullcase');
             if ($hasPostedBlogPost === true) {
@@ -451,21 +470,47 @@
             }
           ?>
           <ul class="<?= implode(' ', $postListClasses) ?>">
-            <li>
+              <?php
+              // foreach ($walks as $walk):
+              ?>
+                <li class="odd">
+                  <div class="image" style="display: none;">
+                    <img src="" />
+                  </div>
+                  <div class="details">
+                    <div class="title">
+                      <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
+                        Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                      </a>
+                    </div>
+                    <div class="subactions clearfix">
+                      <a href="#" class="promote">Promote</a>
+                    </div>
+                  </div>
+                </li>
+              <?php
+              // endforeach;
+              ?>
+              <li class="even">
+                <div class="image" style="display: none;">
+                  <img src="" />
+                </div>
+                <div class="details">
+                  <div class="title">
+                    <a href="#">
+                      Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                    </a>
+                  </div>
+                    <div class="subactions clearfix">
+                      <a href="#" class="promote">Promote</a>
+                    </div>
+                </div>
+              </li>
+          </ul>
         </div>
       </div>
       <?php if ($cityTabViewable === true): ?>
         <div id="cityBlock" class="block hidden" data-tab="city">
-          <?php
-            $headerInfoIsEmpty = true;
-            $shortDescriptionIsEmpty = false;
-            $backgroundPhotoIsEmpty = false;
-            $headerInfo = 'lambda lambda lambda lambda lambda lambda lambda';
-            $shortDescription = 'Jane’s Walk is a walking conversation led ' .
-              'by volunteers thatcreates a space for citizens to discuss what '.
-              'matters to them while learning more about their city and ...';
-            $backgroundPhoto = 'http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg';
-          ?>
           <div class="main">
             <div class="headline"><?= ($homeCity) ?> Details</div>
             <p>
@@ -481,7 +526,7 @@
                       <span class="icon icon-frown"></span>
                       You haven't filled in <?= ($homeCity) ?>'s header info
                     </p>
-                    <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set Header Info</a>
+                    <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set header info</a>
                   <?php else: ?>
                     <p>
                       <span class="icon icon-check"></span>
@@ -499,7 +544,7 @@
                       <span class="icon icon-frown"></span>
                       You haven't filled in <?= ($homeCity) ?>'s short description
                     </p>
-                    <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set Short Description</a>
+                    <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set short description</a>
                   <?php else: ?>
                     <p>
                       <span class="icon icon-check"></span>
@@ -517,7 +562,7 @@
                       <span class="icon icon-frown"></span>
                       You haven't set <?= ($homeCity) ?>'s background photo yet
                     </p>
-                    <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set Background Photo</a>
+                    <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set background photo</a>
                   <?php else: ?>
                     <p>
                       <span class="icon icon-check"></span>
@@ -713,8 +758,8 @@
           <div class="files resourceBlock">
             <div class="headline">Files</div>
             <p>
-              Want help promoting Jane's Walk in your city?<br />
-              Use one of these Press Releases
+              Want help promoting Jane's Walk?<br />
+              Use these files to promote Jane's Walk in your city
             </p>
             <ul class="clearfix">
               <li>
