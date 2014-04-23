@@ -10237,22 +10237,22 @@ div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.suba
   text-decoration: none;
 }
 /* line 378, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts > a.btn {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.btn {
   position: absolute;
   right: 0;
   top: 5px;
 }
 /* line 386, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts div.nullcase div.copy {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.copy {
   font-size: 16px;
   line-height: 24px;
 }
 /* line 391, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts div.nullcase div.btnWrapper {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.btnWrapper {
   padding: 8px 0 0;
 }
 /* line 396, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts ul {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
@@ -10260,13 +10260,13 @@ div#profileWrapper div.content div#dashboardBlock div.column.posts ul {
   overflow-x: auto;
 }
 /* line 403, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts ul li {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li {
   margin: 0;
   list-style-type: none;
   padding: 0 0 24px;
 }
 /* line 410, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.title a {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li div.title a {
   display: block;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -10274,7 +10274,7 @@ div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.tit
   width: 90%;
 }
 /* line 421, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.subactions a {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li div.subactions a {
   display: block;
   float: left;
   color: #777;
@@ -10283,7 +10283,7 @@ div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.sub
   font-size: 12px;
 }
 /* line 429, pages/sass/profile.scss */
-div#profileWrapper div.content div#dashboardBlock div.column.posts ul li div.subactions a:hover {
+div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li div.subactions a:hover {
   text-decoration: none;
 }
 /* line 441, pages/sass/profile.scss */

@@ -2,101 +2,6 @@
   defined('C5_EXECUTE') or die('Access Denied.'); 
   define('IS_PROFILE', 1);
   $ui = UserInfo::getByID($u->getUserID());
-
-  // City organizers
-  $cityOrganizers = array(
-    array(
-      'cityName' => 'Toronto',
-      'organizerImagePath' => 'https://graph.facebook.com/oliver.nassar/picture',
-      'organizerName' => 'Oliver Nassar',
-      'organizerEmail' => 'onassar@gmail.com'
-    ),
-    array(
-      'cityName' => 'Montreal',
-      'organizerImagePath' => 'https://graph.facebook.com/denisepinto/picture',
-      'organizerName' => 'Denise Pinto',
-      'organizerEmail' => 'denise.pinto@janeswalk.net'
-    ),
-    array(
-      'cityName' => 'Ottawa',
-      'organizerImagePath' => 'https://graph.facebook.com/nadia.halim/picture',
-      'organizerName' => 'Nadia Halim',
-      'organizerEmail' => 'nadia.halim@janeswalk.net'
-    )
-  );
-
-  // Featured walks
-  $featuredWalks = array(
-    array(
-      'walkImagePath' => 'http://janeswalk.org/files/cache/a6b8790016aa8ddec5cb764732491c1e_f149.JPG',
-      'countryName' => 'Germany',
-      'cityName' => 'Berlin',
-      'walkTitle' => 'Walking With Titans',
-      'walkPath' => '#'
-    ),
-    array(
-      'walkImagePath' => 'http://janeswalk.org/files/cache/1a291ea4c80b712b5a9aed2a1b33534e_f377.jpg',
-      'countryName' => 'Canada',
-      'cityName' => 'Toronto',
-      'walkTitle' => 'Walking With Titans',
-      'walkPath' => '#'
-    ),
-    array(
-      'walkImagePath' => 'http://janeswalk.org/files/cache/8aee4e3b283250e0935d1553c7c3ac5a_f663.jpg',
-      'countryName' => 'United_States_of_America',
-      'cityName' => 'New York',
-      'walkTitle' => 'Walking With Titans',
-      'walkPath' => '#'
-    )
-  );
-
-  // Walks
-  $pl = new PageList();
-  $pl->filterByCollectionTypeHandle('walk');
-  $pl->filterByUserID($u->getUserID());
-  $pl->filterByAttribute('exclude_page_list', false);
-  $walks = $pl->get();
-  $hasCreatedWalks = count($walks) !== 0;
-  $hasCreatedWalks = false;
-
-  // City organizer
-  $cityOrganizerEmailAddress = 'onassar@gmail.com';
-
-  // Blog posts
-  $hasPostedBlogPost = true;
-  $cityHasBlogSetup = false;
-  $hasUpdatedCityPage = false;
-  $hasUpdatedDetails = true;
-  $hasChosenPicture = true;
-  $cityTabViewable = true;
-  $cityHasWalks = true;
-  $hasChosenHomeCity = isset($home_city);
-  $homeCity = false;
-  $numberOfWalksInCity = 42;
-  if (isset($home_city)) {
-    $homeCity = $home_city->getCollectionName();
-  }
-  $this->addHeaderItem($html->javascript('swfobject.js'));
-
-  // City details
-  if ($cityTabViewable === true) {
-    $headerInfoIsEmpty = true;
-    $shortDescriptionIsEmpty = false;
-    $backgroundPhotoIsEmpty = false;
-    $headerInfo = 'lambda lambda lambda lambda lambda lambda lambda';
-    $shortDescription = 'Jane’s Walk is a walking conversation led ' .
-      'by volunteers thatcreates a space for citizens to discuss what '.
-      'matters to them while learning more about their city and ...';
-    $backgroundPhoto = 'http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg';
-  }
-
-  // Resources
-  $resources = array(
-    'showCityOrganizers' => true,
-    'showGlobalWalks' => true,
-    'showTips' => true,
-    'showFiles' => true
-  );
 ?>
   <script type="text/javascript">
     window.fbAsyncInit = function() {
@@ -115,18 +20,18 @@
      }(document, 'script', 'facebook-jssdk'));
   </script>
   <div class="wrapper" id="profileWrapper">
-    <?php if (true): ?>
-      <?php if ($hasChosenHomeCity === true): ?>
+    <?php if ($userIsViewingSelf === true): ?>
+      <?php if ($userHasSetHomeCity === true): ?>
         <div class="overlay cityPromoteOverlay">
           <div class="o-background">
           </div>
           <div class="o-content">
-            <h1>Promote <?= ($homeCity) ?></h1>
-            <p>Use these pre-made messages to spread the word Jane's Walk in <?= ($homeCity) ?></p>
+            <h1>Promote <?= ($userHomeCity) ?></h1>
+            <p>Use these pre-made messages to spread the word about Jane's Walk in <?= ($userHomeCity) ?></p>
             <div class="options">
               <div class="option">
                 <div class="copy">
-                  "<?= ($homeCity) ?> has <?= ($numberOfWalksInCity) ?> walks happening this year. Why not make it <?= ($numberOfWalksInCity + 1) ?>? Lead a Jane's Walk in <?= ($homeCity) ?> this year!"
+                  "<?= ($userHomeCity) ?> has <?= (count($cityWalkData)) ?> walks happening this year. Why not make it <?= (count($cityWalkData) + 1) ?>? Lead a Jane's Walk in <?= ($userHomeCity) ?> this year!"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -136,7 +41,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "Calling all volunteers in <?= ($homeCity) ?>! We need some help at this year's Jane's Walk!"
+                  "Calling all volunteers in <?= ($userHomeCity) ?>! We need some help at this year's Jane's Walk!"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -172,13 +77,13 @@
           </div>
         </div>
       <?php endif; ?>
-      <?php if ($hasPostedBlogPost === true): ?>
+      <?php if ($userHasPostedBlogPost === true): ?>
         <div class="overlay blogPostPromoteOverlay">
           <div class="o-background">
           </div>
           <div class="o-content">
             <h1>Promote Blog Post</h1>
-            <p>Use these pre-made messages to spread the word Jane's Walk in <?= ($homeCity) ?></p>
+            <p>Use these pre-made messages to spread the word about Jane's Walk in <?= ($userHomeCity) ?></p>
             <div class="options">
               <div class="option">
                 <div class="copy">
@@ -259,14 +164,16 @@
         </div>
         <div class="copy">
           <div class="step">
-            <?php if($hasUpdatedDetails === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="account">Update your account details</a>
-            <?php elseif($hasChosenPicture === false): ?>
+            <?php if($userHasSetName === false): ?>
+              Next Step: <a href="#" class="tabLink" data-tab="account">Set your first and last name</a>
+            <?php elseif($userHasSetHomeCity === false): ?>
+              Next Step: <a href="#" class="tabLink" data-tab="account">Set your home city</a>
+            <?php elseif($userHasSetPicture === false): ?>
               Next Step: <a href="#" class="tabLink" data-tab="picture">Update your display picture</a>
-            <?php elseif($cityTabViewable === true && $hasUpdatedCityPage === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="city">Update your city details</a>
-            <?php elseif($hasPostedBlogPost === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="dashboard">Share a story about walking in <?= ($homeCity) ?></a>
+            <?php elseif($userHasSetHomeCity === true && $userIsCityOrganizer === true && $cityHasFullDetails === false): ?>
+              Next Step: <a href="#" class="tabLink" data-tab="city">Update your city header, description and photo</a>
+            <?php elseif($userHasPostedBlogPost === false): ?>
+              Next Step: <a href="#" class="tabLink" data-tab="dashboard">Share a story about walking in <?= ($userHomeCity) ?></a>
             <?php else: ?>
               You're ready for Jane's Walk <?= date('Y') ?>!
             <?php endif; ?>
@@ -279,7 +186,7 @@
         </li>
         <?php if ($cityTabViewable === true): ?>
           <li>
-            <a href="/index.php/profile/#tab=city" data-tab="city"><?= ($homeCity) ?></a>
+            <a href="/index.php/profile/#tab=city" data-tab="city"><?= ($userHomeCity) ?></a>
           </li>
         <?php endif; ?>
         <li>
@@ -359,7 +266,7 @@
             <a href="/walk/form/" class="btn btn-primary btn-small">Add a walk</a>
             <?php
               $nullcaseClasses = array('nullcase');
-              if ($hasCreatedWalks === true) {
+              if ($userHasCreatedWalks === true) {
                 array_push($nullcaseClasses, 'hidden');
               }
             ?>
@@ -380,7 +287,7 @@
               */
               // }
               $walkListClasses = array();
-              if ($hasCreatedWalks === false) {
+              if ($userHasCreatedWalks === false) {
                 array_push($walkListClasses, 'hidden');
               }
             ?>
@@ -440,7 +347,7 @@
               ?>
               <div class="<?= implode(' ', $nullcaseClasses) ?>">
                 <div class="copy">
-                  <?= ($homeCity) ?> doesn't have any walks yet. Create the first one now.
+                  <?= ($userHomeCity) ?> doesn't have any walks yet. Create the first one now.
                 </div>
               </div>
               <?php
@@ -495,11 +402,11 @@
           <?php
             }
           ?>
-          <div class="column posts">
+          <div class="column blogPosts">
             <div class="headline">My Blog Posts</div>
             <?php
               $subject = rawurlencode(
-                'I would like to submit a story to the ' . ($homeCity) . ' blog'
+                'I would like to submit a story to the ' . ($userHomeCity) . ' blog'
               );
               $body = rawurlencode(
                 "Please begin writing your story below: \n\n\n"
@@ -511,18 +418,18 @@
               class="btn btn-primary btn-small">Share your story</a>
             <?php
               $nullcaseClasses = array('nullcase');
-              if ($hasPostedBlogPost === true) {
+              if ($userHasPostedBlogPost === true) {
                 array_push($nullcaseClasses, 'hidden');
               }
             ?>
             <div class="<?= implode(' ', $nullcaseClasses) ?>">
               <div class="copy">
-                You haven't shared a story on the <?= ($homeCity) ?> blog yet
+                You haven't shared a story on the <?= ($userHomeCity) ?> blog yet
               </div>
             </div>
             <?php
               $postListClasses = array();
-              if ($hasPostedBlogPost === false) {
+              if ($userHasPostedBlogPost === false) {
                 array_push($postListClasses, 'hidden');
               }
             ?>
@@ -569,25 +476,25 @@
         <?php if ($cityTabViewable === true): ?>
           <div id="cityBlock" class="block hidden" data-tab="city">
             <div class="main">
-              <div class="headline"><?= ($homeCity) ?> Details</div>
+              <div class="headline"><?= ($userHomeCity) ?> Details</div>
               <p>
-                Use this page to update the details for the <?= ($homeCity) ?>
+                Use this page to update the details for the <?= ($userHomeCity) ?>
                 Jane's Walk page
               </p>
               <div class="editables clearfix">
                 <div class="column headerInfo">
                   <div class="name">Header Info</div>
                   <div class="val">
-                    <?php if ($headerInfoIsEmpty === true): ?>
+                    <?php if ($cityHeaderInfoIsEmpty === true): ?>
                       <p>
                         <span class="icon icon-frown"></span>
-                        You haven't filled in <?= ($homeCity) ?>'s header info
+                        You haven't filled in <?= ($userHomeCity) ?>'s header info
                       </p>
                       <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set header info</a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
-                        <?= ($headerInfo) ?>
+                        <?= ($cityHeaderInfo) ?>
                         <a href="/index.php/dashboard/composer/write/-/edit/144/">Edit</a>
                       </p>
                     <?php endif; ?>
@@ -596,16 +503,16 @@
                 <div class="column shortDescription">
                   <div class="name">Short Description</div>
                   <div class="val">
-                    <?php if ($shortDescriptionIsEmpty === true): ?>
+                    <?php if ($cityShortDescriptionIsEmpty === true): ?>
                       <p>
                         <span class="icon icon-frown"></span>
-                        You haven't filled in <?= ($homeCity) ?>'s short description
+                        You haven't filled in <?= ($userHomeCity) ?>'s short description
                       </p>
                       <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set short description</a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
-                        <?= ($shortDescription) ?>
+                        <?= ($cityShortDescription) ?>
                         <a href="/index.php/dashboard/composer/write/-/edit/144/">Edit</a>
                       </p>
                     <?php endif; ?>
@@ -614,16 +521,16 @@
                 <div class="column backgroundPhoto">
                   <div class="name">Background Photo</div>
                   <div class="val">
-                    <?php if ($backgroundPhotoIsEmpty === true): ?>
+                    <?php if ($cityBackgroundPhotoIsEmpty === true): ?>
                       <p>
                         <span class="icon icon-frown"></span>
-                        You haven't set <?= ($homeCity) ?>'s background photo yet
+                        You haven't set <?= ($userHomeCity) ?>'s background photo yet
                       </p>
                       <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set background photo</a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
-                        <span class="bgPhoto" style="background-image: url('<?= ($backgroundPhoto) ?>');"></span>
+                        <span class="bgPhoto" style="background-image: url('<?= ($cityBackgroundPhoto) ?>');"></span>
                         <a href="/index.php/dashboard/composer/write/-/edit/144/">Change</a>
                       </p>
                     <?php endif; ?>
@@ -632,8 +539,8 @@
               </div>
             </div>
             <div class="footer">
-              <p>Want more people at this year's Jane's Walk in <?= ($homeCity) ?>?</p>
-              <a href="#" class="btn btn-primary btn-large promoteBtn" data-cityname="<?= ($homeCity) ?>">Promote Jane's Walk in <?= ($homeCity) ?></a>
+              <p>Want more people at this year's Jane's Walk in <?= ($userHomeCity) ?>?</p>
+              <a href="#" class="btn btn-primary btn-large promoteBtn" data-cityname="<?= ($userHomeCity) ?>">Promote Jane's Walk in <?= ($userHomeCity) ?></a>
             </div>
           </div>
         <?php endif; ?>
@@ -753,14 +660,14 @@
                 Reach out to a fellow City Organizer for help
               </p>
               <ul class="clearfix">
-                <?php foreach ($cityOrganizers as $organizer): ?>
+                <?php foreach ($cityOrganizerData as $organizerData): ?>
                   <li>
-                    <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizer['cityName']) ?>,Canada&amp;zoom=12&amp;size=250x125&amp;sensor=false" class="map" />
-                    <img src="<?= ($organizer['organizerImagePath']) ?>" class="display" />
+                    <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizerData['cityName']) ?>,Canada&amp;zoom=12&amp;size=250x125&amp;sensor=false" class="map" />
+                    <img src="<?= ($organizerData['organizerImagePath']) ?>" class="display" />
                     <div class="meta">
-                      <div class="name"><?= ($organizer['organizerName']) ?></div>
+                      <div class="name"><?= ($organizerData['organizerName']) ?></div>
                       <div class="email">
-                        <a href="mailto:<?= ($organizer['organizerEmail']) ?>"><?= ($organizer['organizerEmail']) ?></a>
+                        <a href="mailto:<?= ($organizerData['organizerEmail']) ?>"><?= ($organizerData['organizerEmail']) ?></a>
                       </div>
                     </div>
                   </li>
@@ -776,7 +683,7 @@
                 Here are some fun ones from around the world
               </p>
               <ul class="clearfix">
-                <?php foreach ($featuredWalks as $featuredWalk): ?>
+                <?php foreach ($featuredWalkData as $featuredWalk): ?>
                   <li>
                     <div class="banner" style="background-image: url('<?= ($featuredWalk['walkImagePath']) ?>');"></div>
                     <img src="/themes/janeswalk/images/countryFlags/<?= ($featuredWalk['countryName']) ?>.png" class="flag" />
@@ -843,79 +750,24 @@
         </div>
       </div>
     <?php else: ?>
-      <!--
       <div id="ccm-profile-wrapper">
-        <?php Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
-        <div id="ccm-profile-body">   
+        <div id="ccm-profile-body">
           <div id="ccm-profile-body-attributes">
             <div class="ccm-profile-body-item">
-              <h1><?=$profile->getUserName()?></h1>
-              <a href="<?= ($this->url('/profile/edit')) ?>" target="_self" class="btn btn-primary btn-large" style="margin-bottom: 10px;">Fill out your profile</a>
-              <?php 
-              foreach(UserAttributeKey::getPublicProfileList() as $ua) { ?>
+              <h1><?= ($profile->getUserName()) ?></h1>
+              <?php foreach(UserAttributeKey::getPublicProfileList() as $ua) { ?>
+                <div>
+                  <label><?= tc('AttributeKeyName', $ua->getAttributeKeyName()) ?></label>
+                  <?= ($profile->getAttribute($ua, 'displaySanitized', 'display')) ?>
+                </div>
+              <?php } ?>
               <div>
-                <label><?=tc('AttributeKeyName', $ua->getAttributeKeyName())?></label>
-                <?=$profile->getAttribute($ua, 'displaySanitized', 'display');?>
+                <label><?= t('Member Since')?></label>
+                <?= date(DATE_APP_GENERIC_MDY_FULL, strtotime($profile->getUserDateAdded('user'))) ?>
               </div>
-              <?php  } ?>     
             </div>
           </div>
-          <?php if($u->getUserID() == $profile->getUserID()) {
-            $newWalkForm = Page::getByPath("/walk/form"); ?>
-            <form class="simple" action="<?= $nh->getCollectionURL($newWalkForm) ?>" method="get" autocomplete="off" style="margin:0">
-              <fieldset class="dropsubmit">
-                <select name="parentCID" onchange="this.form.submit()">
-                  <option selected="selected">Submit a Walk to a City</option>
-                  <?php
-                  $cities = new PageList();
-                  $cities->filterByCollectionTypeHandle('city');
-                  $cities->sortByName();
-                  foreach($cities->get() as $city) {
-                  ?>
-                  <option value="<?=$city->getCollectionID()?>"><?=$city->getCollectionName()?></option>
-                  <?php } ?>
-                </select> 
-                <input type="submit" value="Go!">
-              </fieldset>
-            </form>
-            <h3>Your Public Walks</h3>
-            <ul class="walks">
-              <?php
-              $pl = new PageList();
-              $pl->filterByCollectionTypeHandle("walk");
-              $pl->filterByUserID($u->getUserID());
-              $pl->filterByAttribute('exclude_page_list',false);
-              foreach($pl->get() as $page) {
-                echo "<li><a href='{$nh->getCollectionURL($page)}'>{$page->getCollectionName()}</a><a href='{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}'> <i class='icon-edit' alt='edit'></i></a> <a href='{$nh->getCollectionURL($page)}' class='delete' data-cid='{$page->getCollectionID()}'><i class='icon-remove' alt='unpublish'></i></a></li>";
-              }
-              ?>
-            </ul>
-            <?php
-            $pl = new PageList();
-            $pl->filterByCollectionTypeHandle("walk");
-            $pl->filterByUserID($u->getUserID());
-            $pl->filterByAttribute('exclude_page_list',true);
-            $inprogressPages = $pl->get();
-            if(count($inprogressPages) > 0) {
-            ?>
-            <h3>In-Progress Walks</h3>
-            <ul>
-              <?php
-              foreach($inprogressPages as $page) {
-                $latest = Page::getByID($page->getCollectionID());
-                echo "<li>{$latest->getCollectionName()} <a href='{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}'><i class='icon-edit'></i></a></li>";
-              } ?>
-            </ul>
-          <?php } ?>
-          <?php }
-          $a = new Area('Main'); 
-          $a->setAttribute('profile', $profile); 
-          $a->setBlockWrapperStart('<div class="ccm-profile-body-item">');
-          $a->setBlockWrapperEnd('</div>');
-          $a->display($c); 
-          ?>
         </div>
       </div>
-      -->
-
     <?php endif; ?>
+  </div>

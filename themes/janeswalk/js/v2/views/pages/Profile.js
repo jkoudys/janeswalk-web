@@ -32,183 +32,8 @@ var ProfilePageView = PageView.extend({
         this._addPromoteBlogPostClickEvent();
         this._setupCityPromoteModalEvents();
         this._setupWalkPromoteModalEvents();
-    },
-
-    /**
-     * _getFacebookDialogCityObj
-     * 
-     * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-     * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-     * @protected
-     * @return    Object
-     */
-    _getFacebookDialogCityObj: function() {
-        return {
-            link: 'http://janeswalk.org',
-            name: 'Jane\'s Walk',
-            description: 'Jane\s Walk 2014 Festival is fast approaching. Come join us'/*,
-            actions: {
-                name: 'View Jane\'s Walks in Toronto',
-                link: 'http://google.com'
-            }*/
-        };
-        return {
-            link: JanesWalk.page.url,
-            picture: JanesWalk.page.pictureUrl,
-            name: JanesWalk.page.title,
-            description: JanesWalk.page.description,
-            actions: {
-                name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
-                link: JanesWalk.page.city.url
-            }
-        };
-    },
-
-    /**
-     * _setupWalkPromoteModalEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _setupWalkPromoteModalEvents: function() {
-        var _this = this;
-        this._element.find('.walkPromoteOverlay').find('.icon-twitter').click(
-            function(event) {
-                event.preventDefault();
-                var url = encodeURIComponent(
-                        'http://local.janeswalk.org/index.php/profile/'
-                    ),
-                    text = encodeURIComponent(
-                        $(this).closest('.option').find('.copy').text().trim()
-                    );
-                var link = 'https://twitter.com/intent/tweet' +
-                    '?url=' + (url) +
-                    '&via=janeswalk' +
-                    '&text=' + (text);
-                window.open(
-                    link,
-                    'Twitter Share',
-                    'width=640, height=320'
-                );
-            }
-        );
-        this._element.find('.walkPromoteOverlay').find('.icon-facebook').click(
-            function(event) {
-                event.preventDefault();
-                var shareObj = _this._getFacebookDialogCityObj();
-                (new FacebookShareDialog(shareObj)).show();
-            }
-        );
-        this._element.find('.walkPromoteOverlay').find('.icon-envelope').click(
-            function(event) {
-                event.preventDefault();
-                var subject = 'Jane\'s Walk in Toronto',
-                    body = $(this).closest('.option').find('.copy').text().trim();
-                subject = encodeURIComponent(subject);
-                body = encodeURIComponent(body);
-                var link = 'mailto:?subject=' + (subject) + '&body=' + (body);
-                window.open(link);
-            }
-        );
-    },
-
-    /**
-     * _setupCityPromoteModalEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _setupCityPromoteModalEvents: function() {
-        var _this = this;
-        this._element.find('.cityPromoteOverlay').find('.icon-twitter').click(
-            function(event) {
-                event.preventDefault();
-                var url = encodeURIComponent(
-                        'http://janeswalk.org/canada/toronto/'
-                    ),
-                    text = encodeURIComponent(
-                        $(this).closest('.option').find('.copy').text().trim()
-                    );
-                var link = 'https://twitter.com/intent/tweet' +
-                    '?url=' + (url) +
-                    '&via=janeswalk' +
-                    '&text=' + (text);
-                window.open(
-                    link,
-                    'Twitter Share',
-                    'width=640, height=320'
-                );
-            }
-        );
-        this._element.find('.cityPromoteOverlay').find('.icon-facebook').click(
-            function(event) {
-                event.preventDefault();
-                var shareObj = _this._getFacebookDialogCityObj();
-                (new FacebookShareDialog(shareObj)).show();
-            }
-        );
-        this._element.find('.cityPromoteOverlay').find('.icon-envelope').click(
-            function(event) {
-                event.preventDefault();
-                var subject = 'Jane\'s Walk in Toronto',
-                    body = $(this).closest('.option').find('.copy').text().trim();
-                subject = encodeURIComponent(subject);
-                body = encodeURIComponent(body);
-                var link = 'mailto:?subject=' + (subject) + '&body=' + (body);
-                window.open(link);
-            }
-        );
-    },
-
-    /**
-     * _addPromoteWalkClickEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addPromoteWalkClickEvent: function() {
-        var _this = this,
-            $btn = this._element.find('.subactions .promote');
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                _this._element.find('.walkPromoteOverlay').show();
-            }
-        );
-    },
-
-    /**
-     * _addPromoteCityClickEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addPromoteCityClickEvent: function() {
-        var _this = this,
-            $btn = this._element.find('.promoteBtn');
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                _this._element.find('.cityPromoteOverlay').show();
-            }
-        );
-    },
-
-    /**
-     * _addPromoteBlogPostClickEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addPromoteBlogPostClickEvent: function() {
-        var _this = this,
-            $btn = this._element.find('.promoteBtn');
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                _this._element.find('.blogPostPromoteOverlay').show();
-            }
-        );
+        this._setupBlogPostPromoteModalEvents();
+        this._setupPromoteSlideshows();
     },
 
     /**
@@ -228,6 +53,161 @@ var ProfilePageView = PageView.extend({
                         location.href = '/index.php/profile/#tab=picture&success=1';
                     }
                 });
+            }
+        );
+    },
+
+    /**
+     * _addPromoteBlogPostClickEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addPromoteBlogPostClickEvent: function() {
+        var _this = this,
+            $btn = this._element.find('.column.blogPosts .subactions .promote');
+        $btn.click(
+            function(event) {
+                event.preventDefault();
+                _this._element.find('.blogPostPromoteOverlay').show();
+            }
+        );
+    },
+
+    /**
+     * _addPromoteCityClickEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addPromoteCityClickEvent: function() {
+        var _this = this,
+            $btn = this._element.find('#cityBlock .promoteBtn');
+        $btn.click(
+            function(event) {
+                event.preventDefault();
+                _this._element.find('.cityPromoteOverlay').show();
+            }
+        );
+    },
+
+    /**
+     * _addPromoteWalkClickEvent
+     * 
+     * @protected
+     * @return    void
+     */
+    _addPromoteWalkClickEvent: function() {
+        var _this = this,
+            $btn = this._element.find('.column.city .subactions .promote');
+        $btn.click(
+            function(event) {
+                event.preventDefault();
+                _this._element.find('.walkPromoteOverlay').show();
+            }
+        );
+    },
+
+    /**
+     * _addTabClickEvents
+     * 
+     * @protected
+     * @return    void
+     */
+    _addTabClickEvents: function() {
+
+        // Nav tabs
+        var _this = this;
+        this._element.find('ul.nav-tabs li a').click(
+            function(event) {
+                event.preventDefault();
+                _this._currentTab = $(this).attr('data-tab');
+                _this._showCurrentTab();
+            }
+        );
+
+        // Stand alone links
+        this._element.find('.tabLink').click(
+            function(event) {
+                event.preventDefault();
+                _this._currentTab = $(this).attr('data-tab');
+                _this._showCurrentTab();
+            }
+        );
+    },
+
+    /**
+     * _setupBlogPostPromoteModalEvents
+     * 
+     * @protected
+     * @return    void
+     */
+    _setupBlogPostPromoteModalEvents: function() {
+        var _this = this;
+        this._element.find('.blogPostPromoteOverlay').find('.icon-twitter').click(
+            function(event) {
+                event.preventDefault();
+                _this._showTwitterShareWindow(
+                    'http://janeswalk.org/canada/toronto/',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
+            }
+        );
+        this._element.find('.blogPostPromoteOverlay').find('.icon-facebook').click(
+            function(event) {
+                event.preventDefault();
+                _this._showFacebookShareWindow(
+                    'http://janeswalk.org/canada/toronto/',
+                    'Jane\'s Walk',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
+            }
+        );
+        this._element.find('.blogPostPromoteOverlay').find('.icon-envelope').click(
+            function(event) {
+                event.preventDefault();
+                _this._showEmailShareWindow(
+                    'Jane\'s Walk in Toronto',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
+            }
+        );
+    },
+
+    /**
+     * _setupCityPromoteModalEvents
+     * 
+     * @protected
+     * @return    void
+     */
+    _setupCityPromoteModalEvents: function() {
+        var _this = this;
+        this._element.find('.cityPromoteOverlay').find('.icon-twitter').click(
+            function(event) {
+                event.preventDefault();
+                _this._showTwitterShareWindow(
+                    'http://janeswalk.org/canada/toronto/',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
+            }
+        );
+        this._element.find('.cityPromoteOverlay').find('.icon-facebook').click(
+            function(event) {
+                event.preventDefault();
+                _this._showFacebookShareWindow(
+                    'http://janeswalk.org/canada/toronto/',
+                    'Jane\'s Walk',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
+            }
+        );
+        this._element.find('.cityPromoteOverlay').find('.icon-envelope').click(
+            function(event) {
+                event.preventDefault();
+                _this._showEmailShareWindow(
+                    'Jane\'s Walk in Toronto',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
             }
         );
     },
@@ -266,29 +246,49 @@ var ProfilePageView = PageView.extend({
     },
 
     /**
-     * _addTabClickEvents
+     * _setupPromoteSlideshows
      * 
      * @protected
      * @return    void
      */
-    _addTabClickEvents: function() {
+    _setupPromoteSlideshows: function() {
+        this._element.find('#dashboardBlock .overlay, ')
+    },
 
-        // Nav tabs
+    /**
+     * _setupWalkPromoteModalEvents
+     * 
+     * @protected
+     * @return    void
+     */
+    _setupWalkPromoteModalEvents: function() {
         var _this = this;
-        this._element.find('ul.nav-tabs li a').click(
+        this._element.find('.walkPromoteOverlay').find('.icon-twitter').click(
             function(event) {
                 event.preventDefault();
-                _this._currentTab = $(this).attr('data-tab');
-                _this._showCurrentTab();
+                _this._showTwitterShareWindow(
+                    'http://janeswalk.org/canada/toronto/',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
             }
         );
-
-        // Stand alone links
-        this._element.find('.tabLink').click(
+        this._element.find('.walkPromoteOverlay').find('.icon-facebook').click(
             function(event) {
                 event.preventDefault();
-                _this._currentTab = $(this).attr('data-tab');
-                _this._showCurrentTab();
+                _this._showFacebookShareWindow(
+                    'http://janeswalk.org/canada/toronto/',
+                    'Jane\'s Walk',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
+            }
+        );
+        this._element.find('.walkPromoteOverlay').find('.icon-envelope').click(
+            function(event) {
+                event.preventDefault();
+                _this._showEmailShareWindow(
+                    'Jane\'s Walk in Toronto',
+                    $(this).closest('.option').find('.copy').text().trim()
+                );
             }
         );
     },
@@ -305,6 +305,38 @@ var ProfilePageView = PageView.extend({
         this._element.find('div.content div.block').addClass('hidden');
         this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').removeClass('hidden');
         location.hash = 'tab=' + (this._currentTab);
+    },
+
+    /**
+     * _showEmailShareWindow
+     * 
+     * @protected
+     * @param     String subject
+     * @param     String body
+     * @return    void
+     */
+    _showEmailShareWindow: function(subject, body) {
+        subject = encodeURIComponent(subject);
+        body = encodeURIComponent(body);
+        var link = 'mailto:?subject=' + (subject) + '&body=' + (body);
+        window.open(link);
+    },
+
+    /**
+     * _showFacebookShareWindow
+     * 
+     * @protected
+     * @param     String link
+     * @param     String title
+     * @param     String text
+     * @return    void
+     */
+    _showFacebookShareWindow: function(link, title, text) {
+        (new FacebookShareDialog({
+            link: link,
+            name: title,
+            description: text
+        })).show();
     },
 
     /**
@@ -333,5 +365,27 @@ var ProfilePageView = PageView.extend({
                 this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').addClass('success');
             }
         }
+    },
+
+    /**
+     * _showTwitterShareWindow
+     * 
+     * @protected
+     * @param     String link
+     * @param     String text
+     * @return    void
+     */
+    _showTwitterShareWindow: function(link, text) {
+        link = encodeURIComponent(link);
+        text = encodeURIComponent(text);
+        var link = 'https://twitter.com/intent/tweet' +
+            '?url=' + (link) +
+            '&via=janeswalk' +
+            '&text=' + (text);
+        window.open(
+            link,
+            'Twitter Share',
+            'width=640, height=320'
+        );
     }
 });
