@@ -177,28 +177,31 @@ $(document).ready(function(){
   $progress = $('#progress');
 
   $.fn.spin = function (opts) {
-    this.each(function () {
-      var $this = $(this),
-      data = $this.data();
-      if (data.spinner) {
-        data.spinner.stop();
-        delete data.spinner;
-      }
-      if (opts !== false) {
-        data.spinner = new Spinner($.extend({
-          color: '#F16725',
-          lines: 11,
-          length: 20,
-          width: 2,
-          radius: 16,
-          corners: 1.0,
-          rotate: 0,
-          trail: 47,
-          speed: 1.3,
-        }, opts)).spin(this);
-      }
-    });
-    return this;
+    try {
+      this.each(function () {
+        var $this = $(this),
+        data = $this.data();
+        if (data.spinner) {
+          data.spinner.stop();
+          delete data.spinner;
+        }
+        if (opts !== false) {
+          data.spinner = new Spinner($.extend({
+            color: '#F16725',
+            lines: 11,
+            length: 20,
+            width: 2,
+            radius: 16,
+            corners: 1.0,
+            rotate: 0,
+            trail: 47,
+            speed: 1.3,
+          }, opts)).spin(this);
+        }
+      });
+      return this;
+    }
+    catch(e) { console.log(e); }
   };
 
   $progress.spin();
