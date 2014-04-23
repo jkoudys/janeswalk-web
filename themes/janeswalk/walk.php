@@ -192,13 +192,19 @@
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
+<?php 
+                // TODO: get calgary leaders to show (hidden since Julie updates all walks manually, thus setting herself as the picture
+                if($mem['avatar'] && $city->getCollectionName() !== 'Calgary' ) { ?>
+                    <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
+                  <? } else { ?>
+                    <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
+                  <? } ?>
                 </div>
                 <div class='span9'>
                   <h4>
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
                   <div class="btn-toolbar">
-<?php var_dump($mem) ?>
                     <?php if($mem['email']) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
                     <?php if($mem['facebook']) { ?><a href="http://facebook.com/<?=$mem['facebook']?>" class="btn"><i class="icon-facebook"></i></a><?php } ?>
                     <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" class="btn"><i class="icon-twitter"></i></a><?php } ?>

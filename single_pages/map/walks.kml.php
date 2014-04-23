@@ -35,7 +35,7 @@ foreach($pages as $page) {
     break; 
   }
   $name = $page->getCollectionName();
-  if(!$name || !$coordinates) { continue; }
+  if(!($name && $coordinates)) { continue; }
 
   $city = Page::getByID($page->getCollectionParentID());
   $country = Page::getByID($city->getCollectionParentID());
