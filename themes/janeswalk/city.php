@@ -43,7 +43,7 @@
 <?php
   $donateCopyOptions = array(
     array(
-      'imagePath' => 'http://i.imgur.com/Rdxtnxa.jpg',
+      'imagePath' => 'http://i.imgur.com/nEBJJQq.jpg',
       'main' => 'Help Jane\'s Walk run more than 1,000 walks this year',
       'cta' => 'Text JANE to 45678 to donate $10'
     )
