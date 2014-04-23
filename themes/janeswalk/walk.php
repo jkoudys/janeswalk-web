@@ -205,7 +205,7 @@
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
                   <div class="btn-toolbar">
-                    <?php if($mem['email'] && $mem['type'] == 'you') { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
+                    <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
                     <?php if($mem['facebook']) { ?><a href="http://facebook.com/<?=$mem['facebook']?>" class="btn"><i class="icon-facebook"></i></a><?php } ?>
                     <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" class="btn"><i class="icon-twitter"></i></a><?php } ?>
                   </div>
