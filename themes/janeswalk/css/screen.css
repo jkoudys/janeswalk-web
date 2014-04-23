@@ -10289,6 +10289,7 @@ section.sponsors {
   transition: margin 120ms ease-in-out;
   margin-left: 0;
   margin-right: 19px;
+  min-height: 560px;
   vertical-align: bottom;
 }
 @media (max-width: 480px) {
@@ -10297,12 +10298,13 @@ section.sponsors {
     margin-bottom: 40px;
   }
 }
-/* line 326, pages/sass/city.scss */
+/* line 327, pages/sass/city.scss */
 .walk-select .walk .thumbnail {
   min-height: 535px;
   transition: none;
+  position: relative;
 }
-/* line 330, pages/sass/city.scss */
+/* line 332, pages/sass/city.scss */
 .walk-select .walk .thumbnail .walkimage {
   margin: 0;
   background-size: cover;
@@ -10310,19 +10312,19 @@ section.sponsors {
   width: 100%;
   min-height: 240px;
 }
-/* line 340, pages/sass/city.scss */
+/* line 342, pages/sass/city.scss */
 .walk-select .walk .thumbnail .caption p {
   height: 90px;
   overflow: hidden;
   display: block;
 }
 @media (max-width: 480px) {
-  /* line 338, pages/sass/city.scss */
+  /* line 340, pages/sass/city.scss */
   .walk-select .walk .thumbnail .caption {
     padding-bottom: 20px;
   }
 }
-/* line 351, pages/sass/city.scss */
+/* line 353, pages/sass/city.scss */
 .walk-select .walk .thumbnail .when {
   list-style-type: none;
   font-weight: 700;
@@ -10333,52 +10335,52 @@ section.sponsors {
   margin: 1.5em 0 0.6em 0;
 }
 @media (max-width: 768px) {
-  /* line 326, pages/sass/city.scss */
+  /* line 327, pages/sass/city.scss */
   .walk-select .walk .thumbnail {
     min-height: 0;
   }
 }
-/* line 366, pages/sass/city.scss */
+/* line 368, pages/sass/city.scss */
 .walk-select .walk h4 {
   color: #f16725;
 }
-/* line 370, pages/sass/city.scss */
+/* line 372, pages/sass/city.scss */
 .walk-select .walk h6 {
   color: #222;
 }
-/* line 374, pages/sass/city.scss */
+/* line 376, pages/sass/city.scss */
 .walk-select .walk a {
   color: #666;
 }
-/* line 384, pages/sass/city.scss */
+/* line 386, pages/sass/city.scss */
 .walk-select .walk:hover .thumbnail {
   background: #6badfd;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
 }
-/* line 389, pages/sass/city.scss */
+/* line 391, pages/sass/city.scss */
 .walk-select .walk:hover .thumbnail h4, .walk-select .walk:hover .thumbnail h6 {
   color: #FFF;
 }
-/* line 395, pages/sass/city.scss */
+/* line 397, pages/sass/city.scss */
 .walk-select .walk:active {
   margin-top: 0;
 }
-/* line 398, pages/sass/city.scss */
+/* line 400, pages/sass/city.scss */
 .walk-select .walk:active .thumbnail {
   background: #3991fc;
 }
-/* line 404, pages/sass/city.scss */
+/* line 406, pages/sass/city.scss */
 .walk-select .see-all {
   font-size: 13px;
   color: #222;
   margin-left: 10px;
 }
-/* line 409, pages/sass/city.scss */
+/* line 411, pages/sass/city.scss */
 .walk-select .see-all:after {
   content: " >>";
 }
-/* line 414, pages/sass/city.scss */
+/* line 416, pages/sass/city.scss */
 .walk-select .create-walk {
   position: absolute;
   top: 20px;
@@ -10388,13 +10390,13 @@ section.sponsors {
   box-shadow: none;
 }
 @media (max-width: 768px) {
-  /* line 414, pages/sass/city.scss */
+  /* line 416, pages/sass/city.scss */
   .walk-select .create-walk {
     right: -20px;
     display: none;
   }
 }
-/* line 427, pages/sass/city.scss */
+/* line 429, pages/sass/city.scss */
 .walk-select .create-walk:after {
   content: "";
   position: absolute;
@@ -10407,26 +10409,26 @@ section.sponsors {
   border-color: #d54e0e transparent transparent transparent;
 }
 @media (max-width: 768px) {
-  /* line 427, pages/sass/city.scss */
+  /* line 429, pages/sass/city.scss */
   .walk-select .create-walk:after {
     display: none;
   }
 }
-/* line 445, pages/sass/city.scss */
+/* line 447, pages/sass/city.scss */
 .walk-select a:hover {
   text-decoration: none;
 }
-/* line 449, pages/sass/city.scss */
+/* line 451, pages/sass/city.scss */
 .walk-select .action-items {
   padding-right: 40px;
 }
 @media (max-width: 768px) {
-  /* line 449, pages/sass/city.scss */
+  /* line 451, pages/sass/city.scss */
   .walk-select .action-items {
     display: none;
   }
 }
-/* line 457, pages/sass/city.scss */
+/* line 459, pages/sass/city.scss */
 .walk-select .action-items .menu-flags a {
   -webkit-transition-duration: 0.2s;
   -moz-transition-duration: 0.2s;
@@ -10443,11 +10445,11 @@ section.sponsors {
   font-weight: 100;
   margin: 15px 0 0 -32px;
 }
-/* line 472, pages/sass/city.scss */
+/* line 474, pages/sass/city.scss */
 .walk-select .action-items .menu-flags a:hover {
   background-color: #df520e;
 }
-/* line 473, pages/sass/city.scss */
+/* line 475, pages/sass/city.scss */
 .walk-select .action-items .menu-flags a:after {
   content: "";
   position: absolute;
@@ -10460,18 +10462,18 @@ section.sponsors {
   border-color: transparent #d54e0e transparent transparent;
 }
 @media (max-width: 768px) {
-  /* line 488, pages/sass/city.scss */
+  /* line 490, pages/sass/city.scss */
   .walk-select .walks-list {
     padding: 20px;
   }
 }
 @media (max-width: 480px) {
-  /* line 495, pages/sass/city.scss */
+  /* line 497, pages/sass/city.scss */
   .walk-select .walks-list .ccm-page-list-rss-icon {
     display: none;
   }
 }
-/* line 502, pages/sass/city.scss */
+/* line 504, pages/sass/city.scss */
 .walk-select .walks-list .filters {
   background-color: #ffe0d1;
   background-color: #fff;
@@ -10483,18 +10485,18 @@ section.sponsors {
   border: 1px solid #ddd;
 }
 @media (max-width: 480px) {
-  /* line 502, pages/sass/city.scss */
+  /* line 504, pages/sass/city.scss */
   .walk-select .walks-list .filters {
     margin: 0;
     display: none;
   }
 }
-/* line 524, pages/sass/city.scss */
+/* line 526, pages/sass/city.scss */
 .walk-select .walks-list .filters div.filter {
   float: left;
   width: 260px;
 }
-/* line 528, pages/sass/city.scss */
+/* line 530, pages/sass/city.scss */
 .walk-select .walks-list .filters div.filter label {
   display: block;
   font-size: 16px;
@@ -10502,33 +10504,33 @@ section.sponsors {
   color: #B36038;
   color: #333;
 }
-/* line 540, pages/sass/city.scss */
+/* line 542, pages/sass/city.scss */
 .walk-select .walks-list div.initiatives div.initiative {
   padding: 0 24px 12px 12px;
   margin: 0 0 12px 12px;
   border-left: 2px dashed #eee;
 }
-/* line 545, pages/sass/city.scss */
+/* line 547, pages/sass/city.scss */
 .walk-select .walks-list div.initiatives div.initiative div.headline {
   font-size: 16px;
   font-weight: bold;
 }
-/* line 550, pages/sass/city.scss */
+/* line 552, pages/sass/city.scss */
 .walk-select .walks-list div.initiatives div.initiative p {
   margin: 0;
 }
-/* line 555, pages/sass/city.scss */
+/* line 557, pages/sass/city.scss */
 .walk-select .walks-list div.initiatives div.initiative div.subheadline {
   font-size: 14px;
   font-weight: bold;
   padding: 12px 0 0;
 }
-/* line 567, pages/sass/city.scss */
+/* line 569, pages/sass/city.scss */
 .walk-select .walks-list .wards {
   margin: 0 0 12px;
   display: none;
 }
-/* line 571, pages/sass/city.scss */
+/* line 573, pages/sass/city.scss */
 .walk-select .walks-list .wards a {
   display: inline-block;
   background: #fff;
@@ -10537,34 +10539,29 @@ section.sponsors {
   color: #111;
   border: 1px dotted #ccc;
 }
-/* line 580, pages/sass/city.scss */
+/* line 582, pages/sass/city.scss */
 .walk-select .walks-list .wards a:hover, .walk-select .walks-list .wards a.active {
   color: #fff;
   border-color: transparent;
   background-color: #ff6600;
 }
-/* line 588, pages/sass/city.scss */
+/* line 590, pages/sass/city.scss */
 .walk-select .walks-list div.empty {
   font-size: 24px;
   line-height: 32px;
   margin: 16px 0 0;
 }
-/* line 594, pages/sass/city.scss */
+/* line 596, pages/sass/city.scss */
 .walk-select .walks-list div.walk.hidden {
   display: none;
 }
 
-/* line 600, pages/sass/city.scss */
+/* line 602, pages/sass/city.scss */
 .span4.walk:nth-child(3n) {
   margin-right: 0;
 }
 
-/* line 603, pages/sass/city.scss */
-.span3.walk:nth-child(4n) {
-  margin-right: 0;
-}
-
-/* line 608, pages/sass/city.scss */
+/* line 607, pages/sass/city.scss */
 .tags {
   margin-bottom: 0;
   position: absolute;
@@ -10572,7 +10569,7 @@ section.sponsors {
   width: 100%;
   text-align: center;
 }
-/* line 615, pages/sass/city.scss */
+/* line 614, pages/sass/city.scss */
 .tags .tag {
   padding: 5px;
   cursor: default;
@@ -10584,14 +10581,14 @@ section.sponsors {
   height: 20px;
   text-align: right;
 }
-/* line 626, pages/sass/city.scss */
+/* line 625, pages/sass/city.scss */
 .tags .tag.icon-kids {
   background: url("/images/kids-friendly.svg") no-repeat center center #0675fc;
   background-size: 60%;
   /*      @include box-shadow(0 2px 0 0 darken($blue,30%)); */
 }
 
-/* line 634, pages/sass/city.scss */
+/* line 633, pages/sass/city.scss */
 .icon-accessible {
   background: url("/images/accessibility-wheelchair.svg") no-repeat center center;
   background-size: 100%;
@@ -10599,7 +10596,7 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 641, pages/sass/city.scss */
+/* line 640, pages/sass/city.scss */
 .icon-transit {
   background: url("/images/transit.svg") no-repeat center center;
   background-size: 70%;
@@ -10607,33 +10604,33 @@ section.sponsors {
   height: 20px;
 }
 
-/* line 649, pages/sass/city.scss */
+/* line 648, pages/sass/city.scss */
 .city-organizer, .city-organizer a, .city-organizer a i, .city-organizer a:hover {
   color: #333;
 }
-/* line 650, pages/sass/city.scss */
+/* line 649, pages/sass/city.scss */
 .city-organizer h3, .city-organizer h4 {
   color: #fff;
 }
-/* line 652, pages/sass/city.scss */
+/* line 651, pages/sass/city.scss */
 .city-organizer .u-avatar, .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
-/* line 658, pages/sass/city.scss */
+/* line 657, pages/sass/city.scss */
 .city-organizer .city-organizer-details a {
   text-decoration: none;
 }
 @media (max-width: 480px) {
-  /* line 662, pages/sass/city.scss */
+  /* line 661, pages/sass/city.scss */
   .city-organizer .u-avatar {
     width: 76px;
     height: 76px;
     margin: 10px 0 0;
   }
 }
-/* line 671, pages/sass/city.scss */
+/* line 670, pages/sass/city.scss */
 .city-organizer .btn {
   background-color: #fff;
 }
