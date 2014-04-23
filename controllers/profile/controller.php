@@ -5,6 +5,8 @@ class ProfileController extends Concrete5_Controller_Profile {
     parent::view($userID);
     Loader::model('page_list'); 
     $nh = Loader::helper('navigation');
+    $ah = Loader::helper('concrete/avatar');
+    $ih = Loader::helper('image');
     $u = new User();
     $ui = UserInfo::getByID($u->getUserID());
     $profile = $this->get('profile');
@@ -91,7 +93,7 @@ class ProfileController extends Concrete5_Controller_Profile {
         $this->set('userHasSetHomeCity', $userHasSetHomeCity);
 
         // Whether the logged in user has chosen an avatar/display picture
-        $userPicture = Loader::helper('concrete/avatar')->getImagePath($u); // relative path to avatar image
+        $userPicture = $ah->getImagePath($u); // relative path to avatar image
         $userHasSetPicture = (bool) $userPicture;
         $this->set('userHasSetPicture', $userHasSetPicture);
 
@@ -213,12 +215,12 @@ class ProfileController extends Concrete5_Controller_Profile {
             $recommendedCities = $pl->get(3);
 
             $cityOrganizerData = array_map(
-                function($page) {
+                function($page) use ($ah) {
                     $_co = UserInfo::getByID($page->getCollectionUserID());
                     return array(
                         'cityName' => $page->getCollectionName(),
-                        'organizerImagePath' => Loader::helper('concrete/avatar')->getImagePath($_co),
-                        'organizerName' => trim("{$_co->getAttribute('first_name') {$_co->getAttribute('last_name')}"),
+                        'organizerImagePath' => $ah->getImagePath($_co),
+                        'organizerName' => trim("{$_co->getAttribute('first_name')} {$_co->getAttribute('last_name')}"),
                         'organizerEmail' => $_co->getUserEmail()
                     );
                 }, $pl->get(3));
@@ -234,12 +236,12 @@ class ProfileController extends Concrete5_Controller_Profile {
             $pl->sortBy('RAND()');
 
             $featuredWalkData = array_map(
-                function($page) {
+                function($page) use ($nh, $ih){
                     $_city = Page::getByID($page->getCollectionParentID());
                     $_country = Page::getByID($_city->getCollectionParentID());
                     $_thumb = $page->getAttribute('thumbnail');
                     return array(
-                        'walkImagePath' => Loader::helper('image')->getThumbnail($_thumb,800,800)->src, // XXX Set to reasonable res
+                        'walkImagePath' => $ih->getThumbnail($_thumb,800,800)->src,
                         'countryName' => $_country->getCollectionName(),
                         'cityName' => $_city->getCollectionName(),
                         'walkTitle' => $page->getCollectionName(),
