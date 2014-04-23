@@ -188,13 +188,13 @@
             <hr>
             <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
 
-            <?php foreach($team as $mem) { ?>
+            <?php foreach($team as $k => $mem) { ?>
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
 <?php 
                 // TODO: get calgary leaders to show (hidden since Julie updates all walks manually, thus setting herself as the picture
-                if($mem['avatar'] && $city->getCollectionName() !== 'Calgary' ) { ?>
+                if($mem['avatar']) { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
                   <? } else { ?>
                     <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
@@ -205,7 +205,7 @@
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
                   <div class="btn-toolbar">
-                    <?php if($mem['email']) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
+                    <?php if($mem['email'] && $mem['type'] == 'you') { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
                     <?php if($mem['facebook']) { ?><a href="http://facebook.com/<?=$mem['facebook']?>" class="btn"><i class="icon-facebook"></i></a><?php } ?>
                     <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" class="btn"><i class="icon-twitter"></i></a><?php } ?>
                   </div>
