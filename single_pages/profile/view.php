@@ -2,6 +2,7 @@
   defined('C5_EXECUTE') or die('Access Denied.'); 
   define('IS_PROFILE', 1);
   $ui = UserInfo::getByID($u->getUserID());
+  $nh = Loader::helper('navigation');
 ?>
   <script type="text/javascript">
     window.fbAsyncInit = function() {
@@ -31,7 +32,7 @@
             <div class="options">
               <div class="option">
                 <div class="copy">
-                  "<?= ($userHomeCity) ?> has <?= (count($cityWalkData)) ?> walks happening this year. Why not make it <?= (count($cityWalkData) + 1) ?>? Lead a Jane's Walk in <?= ($userHomeCity) ?> this year!"
+                  "<?= ($userHomeCity) ?> has <?= (count($cityWalks)) ?> walks happening this year. Why not make it <?= (count($cityWalks) + 1) ?>? Lead a Jane's Walk in <?= ($userHomeCity) ?> this year!"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -184,7 +185,7 @@
         <li class="active">
           <a href="/index.php/profile/#tab=dashboard" data-tab="dashboard">Dashboard</a>
         </li>
-        <?php if ($cityTabViewable === true): ?>
+        <?php if ($userHasSetHomeCity === true && $userIsCityOrganizer === true): ?>
           <li>
             <a href="/index.php/profile/#tab=city" data-tab="city"><?= ($userHomeCity) ?></a>
           </li>
@@ -202,7 +203,7 @@
       <div class="content">
         <?php
           $dashboardClasses = array('block', 'dashboard', 'clearfix');
-          if ($cityTabViewable === true) {
+          if ($userHasSetHomeCity === true && $userIsCityOrganizer === true) {
             array_push($dashboardClasses, 'threeColumnLayout');
           }
         ?>
@@ -292,17 +293,15 @@
               }
             ?>
             <ul class="<?= implode(' ', $walkListClasses) ?>">
-              <?php
-              // foreach ($walks as $walk):
-              ?>
-                <li class="odd">
+              <?php foreach ($userWalks as $index => $walk): ?>
+                <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
                   <div class="image" style="display: none;">
                     <img src="" />
                   </div>
                   <div class="details">
                     <div class="title">
-                      <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
-                        Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                      <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
+                        <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>
                       </a>
                     </div>
                     <div class="subactions clearfix">
@@ -312,30 +311,11 @@
                     </div>
                   </div>
                 </li>
-              <?php
-              // endforeach;
-              ?>
-              <li class="even">
-                <div class="image" style="display: none;">
-                  <img src="" />
-                </div>
-                <div class="details">
-                  <div class="title">
-                    <a href="#">
-                      <span class="label">DRAFT</span>
-                      Celluloid and Popcorn: The history of Cinema on Roncesvalles
-                    </a>
-                  </div>
-                  <div class="subactions clearfix">
-                    <a href="#" class="edit">Edit</a>
-                    <!-- <a href="#" class="delete">Delete</a> -->
-                  </div>
-                </div>
-              </li>
+              <?php endforeach; ?>
             </ul>
           </div>
           <?php
-            if ($cityTabViewable === true) {
+            if ($userHasSetHomeCity === true && $userIsCityOrganizer === true) {
           ?>
             <div class="column city">
               <div class="headline">My City's Walks</div>
@@ -357,17 +337,15 @@
                 }
               ?>
               <ul class="<?= implode(' ', $cityWalkListClasses) ?>">
-                <?php
-                // foreach ($walks as $walk):
-                ?>
-                  <li class="odd">
+                <?php foreach ($cityWalks as $index => $walk): ?>
+                  <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
                     <div class="image" style="display: none;">
                       <img src="" />
                     </div>
                     <div class="details">
                       <div class="title">
-                        <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
-                          Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                        <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
+                          <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>-
                         </a>
                       </div>
                       <div class="subactions clearfix">
@@ -377,26 +355,7 @@
                       </div>
                     </div>
                   </li>
-                <?php
-                // endforeach;
-                ?>
-                <li class="even">
-                  <div class="image" style="display: none;">
-                    <img src="" />
-                  </div>
-                  <div class="details">
-                    <div class="title">
-                      <a href="#">
-                        <span class="label">DRAFT</span>
-                        Celluloid and Popcorn: The history of Cinema on Roncesvalles
-                      </a>
-                    </div>
-                    <div class="subactions clearfix">
-                      <a href="#" class="edit">Edit</a>
-                      <!-- <a href="#" class="delete">Delete</a> -->
-                    </div>
-                  </div>
-                </li>
+                <?php endforeach; ?>
               </ul>
             </div>
           <?php
@@ -434,16 +393,14 @@
               }
             ?>
             <ul class="<?= implode(' ', $postListClasses) ?>">
-                <?php
-                // foreach ($walks as $walk):
-                ?>
-                  <li class="odd">
+                <?php foreach ($userBlogPosts as $index => $blogPost): ?>
+                  <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
                     <div class="image" style="display: none;">
                       <img src="" />
                     </div>
                     <div class="details">
                       <div class="title">
-                        <a href="http://janeswalk.org/canada/toronto/celluloid-and-popcorn-history-cinema-roncesvalles/" title="">
+                        <a href="<?= ($nh->getLinkToCollection($blogPost)) ?>" title="">
                           Celluloid and Popcorn: The history of Cinema on Roncesvalles
                         </a>
                       </div>
@@ -452,28 +409,11 @@
                       </div>
                     </div>
                   </li>
-                <?php
-                // endforeach;
-                ?>
-                <li class="even">
-                  <div class="image" style="display: none;">
-                    <img src="" />
-                  </div>
-                  <div class="details">
-                    <div class="title">
-                      <a href="#">
-                        Celluloid and Popcorn: The history of Cinema on Roncesvalles
-                      </a>
-                    </div>
-                      <div class="subactions clearfix">
-                        <a href="#" class="promote">Promote</a>
-                      </div>
-                  </div>
-                </li>
+                <?php endforeach; ?>
             </ul>
           </div>
         </div>
-        <?php if ($cityTabViewable === true): ?>
+        <?php if ($userHasSetHomeCity === true && $userIsCityOrganizer === true): ?>
           <div id="cityBlock" class="block hidden" data-tab="city">
             <div class="main">
               <div class="headline"><?= ($userHomeCity) ?> Details</div>
@@ -512,7 +452,7 @@
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
-                        <?= ($cityShortDescription) ?>
+                        <?= ($cityDescription) ?>
                         <a href="/index.php/dashboard/composer/write/-/edit/144/">Edit</a>
                       </p>
                     <?php endif; ?>

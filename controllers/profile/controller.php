@@ -105,6 +105,8 @@ class ProfileController extends Concrete5_Controller_Profile {
         $userHasCreatedWalks = count($walks) > 0;
         $this->set('userHasCreatedWalks', $userHasCreatedWalks);
         $this->set('userWalks', $walks);
+// print_r($walks);
+// exit(0);
 
         // Walk data for walks created by the logged in user; empty array if the
         // user hasn't yet created any
@@ -123,6 +125,9 @@ class ProfileController extends Concrete5_Controller_Profile {
         $userHasPostedBlogPost = count($blogs) > 0;
         $this->set('userHasPostedBlogPost', $userHasPostedBlogPost);
         $this->set('userBlogPosts', $blogs);
+
+        // Helper
+        $th = Loader::helper('text');
 
         /**
          * User city data
@@ -155,13 +160,16 @@ class ProfileController extends Concrete5_Controller_Profile {
                 $pl->filterByAttribute('exclude_page_list', false);
 
                 $cityWalks = $pl->get();
-                $this->set('cityWalkData', $cityWalks);
+                $this->set('cityWalks', $cityWalks);
                 $cityHasWalks = count($cityWalks) > 0;
                 $this->set('cityHasWalks', $cityHasWalks);
 
                 // Whether the city organizer's city has it's header info set
                 $cityHeaderInfo = $userHomeCity->getBlocks('City Header')[0]->getController()->getContent();
                 $cityHeaderInfoIsEmpty = !trim($cityHeaderInfo);
+                if ($cityHeaderInfoIsEmpty === false) {
+                    $cityHeaderInfo = $th->shorten($cityHeaderInfo, 150);
+                }
                 $this->set('cityHeaderInfoIsEmpty', $cityHeaderInfoIsEmpty);
                 $this->set('cityHeaderInfo', $cityHeaderInfo);
 
@@ -169,8 +177,11 @@ class ProfileController extends Concrete5_Controller_Profile {
                 // set
                 $cityDescription = $userHomeCity->getBlocks('City Description')[0]->getController()->getContent();
                 $cityDescriptionIsEmpty = !trim($cityDescription);
-                $this->set('cityDescriptionIsEmpty', $cityShortDescriptionIsEmpty);
-                $this->set('cityDescription', $cityShortDescription);
+                if ($cityDescriptionIsEmpty === false) {
+                    $cityDescription = $th->shorten($cityDescription, 150);
+                }
+                $this->set('cityDescriptionIsEmpty', $cityDescriptionIsEmpty);
+                $this->set('cityDescription', $cityDescription);
 
                 // Whether the city organizer's city has it's background photo
                 // set
@@ -240,15 +251,19 @@ class ProfileController extends Concrete5_Controller_Profile {
                     $_city = Page::getByID($page->getCollectionParentID());
                     $_country = Page::getByID($_city->getCollectionParentID());
                     $_thumb = $page->getAttribute('thumbnail');
+                    $countryName = $_country->getCollectionName();
+                    if ($countryName === 'United States') {
+                        $countryName = 'United States of America';
+                    }
+                    $countryName = str_replace(' ', '_', $countryName);
                     return array(
                         'walkImagePath' => $ih->getThumbnail($_thumb,800,800)->src,
-                        'countryName' => $_country->getCollectionName(),
+                        'countryName' => $countryName,
                         'cityName' => $_city->getCollectionName(),
                         'walkTitle' => $page->getCollectionName(),
                         'walkPath' => $nh->getLinkToCollection($page)
                     );
                 }, $pl->get(3));
-
             $this->set('featuredWalkData', $featuredWalkData);
         }
         $this->set('resources', $resources);
