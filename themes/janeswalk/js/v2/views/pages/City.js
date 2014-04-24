@@ -113,6 +113,7 @@ var CityPageView = PageView.extend({
                 // Track the closure
                 jQuery.cookie(
                     'hasSeenDonateCatfish',
+                    '1',
                     {
                         path: '/',
                         domain: location.host
@@ -137,6 +138,7 @@ var CityPageView = PageView.extend({
                     // Track the closure
                     jQuery.cookie(
                         'hasSeenDonateInterstitial',
+                        '1',
                         {
                             path: '/',
                             domain: location.host
@@ -159,6 +161,7 @@ var CityPageView = PageView.extend({
                         // Track the closure
                         jQuery.cookie(
                             'hasSeenDonateInterstitial',
+                            '1',
                             {
                                 path: '/',
                                 domain: location.host
@@ -168,6 +171,7 @@ var CityPageView = PageView.extend({
                         // Track the closure
                         jQuery.cookie(
                             'hasSeenDonateCatfish',
+                            '1',
                             {
                                 path: '/',
                                 domain: location.host
