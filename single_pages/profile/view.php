@@ -27,12 +27,13 @@
           <div class="o-background">
           </div>
           <div class="o-content">
-            <h1>Promote <?= ($userHomeCity) ?></h1>
-            <p>Use these pre-made messages to spread the word about Jane's Walk in <?= ($userHomeCity) ?></p>
+            <h1><?= tc('Promote CITY_NAME', 'Promote %s', $userHomeCity) ?></h1>
+            <p><?= t('Use these pre-made messages to spread the word about Jane\'s Walk in %s', $userHomeCity) ?></p>
             <div class="options">
               <div class="option">
                 <div class="copy">
-                  "<?= ($userHomeCity) ?> has <?= (count($cityWalks)) ?> walks happening this year. Why not make it <?= (count($cityWalks) + 1) ?>? Lead a Jane's Walk in <?= ($userHomeCity) ?> this year!"
+                  <?= t('%1$s has %2$s happening this year. Why not make it %3$s? Lead a Jane\'s Walk in %1$s this year!',
+                        $userHomeCity, t2('%d walk', '%d walks', count($cityWalks)), count($cityWalks) + 1) ?>
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -42,7 +43,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "Calling all volunteers in <?= ($userHomeCity) ?>! We need some help at this year's Jane's Walk!"
+                  "<?= t('Calling all volunteers in %s! We need some help at this year\'s Jane\'s Walk!', $userHomeCity) ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -83,8 +84,8 @@
           <div class="o-background">
           </div>
           <div class="o-content">
-            <h1>Promote Blog Post</h1>
-            <p>Use these pre-made messages to spread the word about Jane's Walk in <?= ($userHomeCity) ?></p>
+            <h1><?= t('Promote Blog Post') ?></h1>
+            <p><?= t('Use these pre-made messages to spread the word about Jane\'s Walk in %s!', $userHomeCity) ?></p>
             <div class="options">
               <div class="option">
                 <div class="copy">
@@ -141,23 +142,23 @@
         <div class="bar"></div>
         <div class="step step1">
           <div class="number">1</div>
-          <div class="copy">Update details</div>
+          <div class="copy"><?= t('Update details') ?></div>
         </div>
         <div class="step step2">
           <div class="number">2</div>
-          <div class="copy">Choose display picture</div>
+          <div class="copy"><?= t('Choose display picture') ?></div>
         </div>
         <div class="step step3">
           <div class="number">3</div>
-          <div class="copy">Create a walk</div>
+          <div class="copy"><?= t('Create a walk') ?></div>
         </div>
         <div class="step step4">
           <div class="number">4</div>
-          <div class="copy">Update city details</div>
+          <div class="copy"><?= t('Update city details') ?></div>
         </div>
         <div class="step step5">
           <div class="number">5</div>
-          <div class="copy">Share a story</div>
+          <div class="copy"><?= t('Share a story') ?></div>
         </div>
       </div>
       <div class="steps">
@@ -166,24 +167,24 @@
         <div class="copy">
           <div class="step">
             <?php if($userHasSetName === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="account">Set your name</a>
+              <?= t('Next Step') ?>: <a href="#" class="tabLink" data-tab="account"><?= t('Set your name') ?></a>
             <?php elseif($userHasSetHomeCity === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="account">Set your home city</a>
+              <?= t('Next Step') ?>: <a href="#" class="tabLink" data-tab="account"><?= t('Set your home city') ?></a>
             <?php elseif($userHasSetPicture === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="picture">Update your display picture</a>
+              <?= t('Next Step') ?>: <a href="#" class="tabLink" data-tab="picture"><?= t('Update your display picture') ?></a>
             <?php elseif($userHasSetHomeCity === true && $userIsCityOrganizer === true && $cityHasFullDetails === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="city">Update your city header, description and photo</a>
+              <?= t('Next Step') ?>: <a href="#" class="tabLink" data-tab="city"><?= t('Update your city header, description and photo') ?></a>
             <?php elseif($userHasPostedBlogPost === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="dashboard">Share a story about walking in <?= ($userHomeCity) ?></a>
+              <?= t('Next Step') ?>: <a href="#" class="tabLink" data-tab="dashboard"><?= t('Share a story about walking in %s', $userHomeCity) ?></a>
             <?php else: ?>
-              You're ready for Jane's Walk <?= date('Y') ?>!
+              <?= t('You\'re ready for Jane\'s Walk %s!', date('Y')) ?>
             <?php endif; ?>
           </div>
         </div>
       </div>
       <ul class="nav nav-tabs">
         <li class="active">
-          <a href="/index.php/profile/#tab=dashboard" data-tab="dashboard">Dashboard</a>
+          <a href="/index.php/profile/#tab=dashboard" data-tab="dashboard"><?= t('Dashboard') ?></a>
         </li>
         <?php if ($userHasSetHomeCity === true && $userIsCityOrganizer === true): ?>
           <li>
@@ -191,13 +192,13 @@
           </li>
         <?php endif; ?>
         <li>
-          <a href="/index.php/profile/#tab=account" data-tab="account">Account</a>
+          <a href="/index.php/profile/#tab=account" data-tab="account"><?= t('Account') ?></a>
         </li>
         <li>
-          <a href="/index.php/profile/#tab=picture" data-tab="picture">My Picture</a>
+          <a href="/index.php/profile/#tab=picture" data-tab="picture"><?= t('My Picture') ?></a>
         </li>
         <li>
-          <a href="/index.php/profile/#tab=resources" data-tab="resources">Resources</a>
+          <a href="/index.php/profile/#tab=resources" data-tab="resources"><?= t('Resources') ?></a>
         </li>
       </ul>
       <div class="content">
@@ -212,8 +213,8 @@
             <div class="o-background">
             </div>
             <div class="o-content">
-              <h1>Promote Your Walk</h1>
-              <p>Use these pre-made messages to spread the word about your walk:</p>
+              <h1><?= t('Promote Your Walk') ?></h1>
+              <p><?= t('Use these pre-made messages to spread the word about your walk') ?>:</p>
               <div class="options">
                 <div class="option">
                   <div class="copy">
@@ -264,7 +265,7 @@
           </div>
           <div class="column walks">
             <div class="headline">My Walks</div>
-            <a href="/walk/form/" class="btn btn-primary btn-small">Add a walk</a>
+            <a href="/walk/form/" class="btn btn-primary btn-small"><?= t('Add a walk') ?></a>
             <?php
               $nullcaseClasses = array('nullcase');
               if ($userHasCreatedWalks === true) {
@@ -273,8 +274,7 @@
             ?>
             <div class="<?= implode(' ', $nullcaseClasses) ?>">
               <div class="copy">
-                Create your first walk for Jane's Walk <?= date('Y') ?>. Just click the button
-                above
+                <?= t('Create your first walk for Jane\'s Walk %s. Just click the button above', date('Y')) ?>
               </div>
             </div>
             <?php
@@ -318,7 +318,7 @@
             if ($userHasSetHomeCity === true && $userIsCityOrganizer === true) {
           ?>
             <div class="column city">
-              <div class="headline">My City's Walks</div>
+              <div class="headline"><?= t('My City\'s Walks') ?></div>
               <?php
                 $nullcaseClasses = array('nullcase');
                 if ($cityHasWalks === true) {
@@ -327,7 +327,7 @@
               ?>
               <div class="<?= implode(' ', $nullcaseClasses) ?>">
                 <div class="copy">
-                  <?= ($userHomeCity) ?> doesn't have any walks yet. Create the first one now.
+                  <?= t('%s doesn\'t have any walks yet. Create the first one now.', $userHomeCity) ?>
                 </div>
               </div>
               <?php
@@ -362,19 +362,19 @@
             }
           ?>
           <div class="column blogPosts">
-            <div class="headline">My Blog Posts</div>
+            <div class="headline"><?= t('My Blog Posts') ?></div>
             <?php
               $subject = rawurlencode(
-                'I would like to submit a story to the ' . ($userHomeCity) . ' blog'
+                t('I would like to submit a story to the %s blog', $userHomeCity)
               );
               $body = rawurlencode(
-                "Please begin writing your story below: \n\n\n"
+                t('Please begin writing your story below') . ":\n\n\n"
               );
             ?>
             <a
               href="mailto:<?= ($cityOrganizerEmailAddress) ?>?subject=<?= ($subject) ?>&amp;body=<?= ($body) ?>"
               target="_blank"
-              class="btn btn-primary btn-small">Share your story</a>
+              class="btn btn-primary btn-small"><?= t('Share your story') ?></a>
             <?php
               $nullcaseClasses = array('nullcase');
               if ($userHasPostedBlogPost === true) {
@@ -383,7 +383,7 @@
             ?>
             <div class="<?= implode(' ', $nullcaseClasses) ?>">
               <div class="copy">
-                You haven't shared a story on the <?= ($userHomeCity) ?> blog yet
+                <?= t('You haven\'t shared a story on the %s blog yet', $userHomeCity) ?>
               </div>
             </div>
             <?php
@@ -416,32 +416,31 @@
         <?php if ($userHasSetHomeCity === true && $userIsCityOrganizer === true): ?>
           <div id="cityBlock" class="block hidden" data-tab="city">
             <div class="main">
-              <div class="headline"><?= ($userHomeCity) ?> Details</div>
+              <div class="headline"><?= tc('City details', '%s Details', $userHomeCity) ?></div>
               <p>
-                Use this page to update the details for the <?= ($userHomeCity) ?>
-                Jane's Walk page
+                <?= t('Use this page to update the details for the %s Jane\'s Walk page', $userHomeCity) ?>
               </p>
               <div class="editables clearfix">
                 <div class="column headerInfo">
-                  <div class="name">Header Info</div>
+                  <div class="name"><?= t('Header Info') ?></div>
                   <div class="val">
                     <?php if ($cityHeaderInfoIsEmpty === true): ?>
                       <p>
                         <span class="icon icon-frown"></span>
-                        You haven't filled in <?= ($userHomeCity) ?>'s header info
+                        <?= t('You haven\'t filled in %s\'s header info', $userHomeCity) ?>
                       </p>
-                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set header info</a>
+                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary"><?= t('Set header info') ?></a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
                         <?= ($cityHeaderInfo) ?>
-                        <a href="/index.php/dashboard/composer/write/-/edit/144/">Edit</a>
+                        <a href="/index.php/dashboard/composer/write/-/edit/144/"><?= t('Edit') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
                 </div>
                 <div class="column shortDescription">
-                  <div class="name">Short Description</div>
+                  <div class="name"><?= t('Short Description') ?></div>
                   <div class="val">
                     <?php if ($cityDescriptionIsEmpty === true): ?>
                       <p>
@@ -479,15 +478,15 @@
               </div>
             </div>
             <div class="footer">
-              <p>Want more people at this year's Jane's Walk in <?= ($userHomeCity) ?>?</p>
-              <a href="#" class="btn btn-primary btn-large promoteBtn" data-cityname="<?= ($userHomeCity) ?>">Promote Jane's Walk in <?= ($userHomeCity) ?></a>
+              <p><?= t('Want more people at this year\'s Jane\'s Walk in %s?', $userHomeCity) ?></p>
+              <a href="#" class="btn btn-primary btn-large promoteBtn" data-cityname="<?= ($userHomeCity) ?>"><?= t('Promote Jane\'s Walk in %s', $userHomeCity) ?></a>
             </div>
           </div>
         <?php endif; ?>
         <div id="accountBlock" class="block hidden" data-tab="account">
           <div class="success">
             <span class="icon-check"></span>
-            Changes Saved
+            <?= t('Changes Saved') ?>
           </div>
           <form method="post" action="<?= ($this->action('save')) ?>" enctype="multipart/form-data" class="clearfix">
             <?php
@@ -568,7 +567,7 @@
         <div id="pictureBlock" class="block hidden clearfix" data-tab="picture">
           <div class="success">
             <span class="icon-check"></span>
-            Changes Saved
+            <?= t('Changes Saved') ?>
           </div>
           <div class="headline">Display Picture</div>
           <div class="column widget">
@@ -582,9 +581,9 @@
           </div>
           <div class="column tips">
             <p>
-              Having a display picture is important for your walks, so people
-              know who you are.<br /><br />
-              Use the app on the left to upload your display picture.
+              <?= t('Having a display picture is important for your walks, so people know who you are.') ?>
+              <br /><br />
+              <?= t('Use the app on the left to upload your display picture.') ?>
             </p>
             <?php if ($ui->hasAvatar()) { ?>
               <a href="<?= ($this->action('delete')) ?>"><?= t('Remove your display picture') ?></a>
@@ -594,10 +593,10 @@
         <div id="resourcesBlock" class="block hidden" data-tab="resources">
           <?php if ($resources['showCityOrganizers'] === true): ?>
             <div class="cos resourceBlock">
-              <div class="headline">Connect with fellow city organizers</div>
+              <div class="headline"><?= t('Connect with fellow city organizers') ?></div>
               <p>
-                Got a question?<br />
-                Reach out to a fellow City Organizer for help
+                <?= t('Got a question?') ?><br />
+                <?= t('Reach out to a fellow City Organizer for help') ?>
               </p>
               <ul class="clearfix">
                 <?php foreach ($cityOrganizerData as $organizerData): ?>
@@ -617,10 +616,10 @@
           <?php endif; ?>
           <?php if ($resources['showGlobalWalks'] === true): ?>
             <div class="ideas resourceBlock">
-              <div class="headline">Walks from around the world</div>
+              <div class="headline"><?= t('Walks from around the world') ?></div>
               <p>
-                Don't know what kind of walk to lead?<br />
-                Here are some fun ones from around the world
+                <?= t('Don\'t know what kind of walk to lead?') ?><br />
+                <?= t('Here are some fun ones from around the world') ?>
               </p>
               <ul class="clearfix">
                 <?php foreach ($featuredWalkData as $featuredWalk): ?>
@@ -640,10 +639,10 @@
           <?php endif; ?>
           <?php if ($resources['showTips'] === true): ?>
             <div class="vimeos resourceBlock">
-              <div class="headline">Tips on leading a walk</div>
+              <div class="headline"><?= t('Tips on leading a walk') ?></div>
               <p>
-                Leading your first or fith walk?<br />
-                Here are some tips from the Jane's Walk crew
+                <?= t('Leading your first or fith walk?') ?><br />
+                <?= t('Here are some tips from the Jane\'s Walk crew') ?>
               </p>
               <ul class="clearfix">
                 <li>
@@ -662,8 +661,8 @@
             <div class="files resourceBlock">
               <div class="headline">Files</div>
               <p>
-                Want help promoting Jane's Walk?<br />
-                Use these files to promote Jane's Walk in your city
+                <?= t('Want help promoting Jane\'s Walk?') ?><br />
+                <?= t('Use these files to promote Jane\'s Walk in your city') ?>
               </p>
               <ul class="clearfix">
                 <li>
