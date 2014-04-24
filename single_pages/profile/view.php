@@ -655,7 +655,7 @@
             <div class="cos resourceBlock">
               <div class="headline"><?= t('Connect with fellow city organizers') ?></div>
               <p>
-                <?= t('Got a question?' ?><br />
+                <?= t('Got a question?') ?><br />
                 <?= t('Reach out to a fellow City Organizer for help') ?>
               </p>
               <ul class="clearfix">
