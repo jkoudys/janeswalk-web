@@ -44,7 +44,7 @@
   $donateCopyOptions = array(
     array(
       'imagePath' => 'http://i.imgur.com/H478xwO.jpg',
-      'main' => t('Help Jane\'s Walk run more than 1,000 walks this year'),
+      'main' => t('Help Jane\'s Walk support more than 1,000 walks'),
       'cta' => t('Text %1$s to %2$s to donate %3$s', 'JANE', '45678', '$10')
     )
   );
@@ -67,9 +67,12 @@
           <div class="secondary">
             <p>
               <?= t( /* Canadian cities only */
-              'We\'re raising money for The Jane\'s Walk School Edition. This program ' .
-              'encourages young people to take an active role in shaping the places ' .
-              'and cities where they live.') ?>
+                'Jane\'s Walk is a charitable project that relies on ' .
+                'donations from people like you to operate. Our small but ' .
+                'dedicated team ensures even the smallest contributions go a ' .
+                'long way to helping neighbours connect to build strong ' .
+                'communities. Donate today.'
+              ) ?>
             </p>
             <p><?= t(/* Canadian cities only */ 'Message and data rates may apply. Only available in Canada.') ?></p>
           </div>
