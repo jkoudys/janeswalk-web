@@ -81,7 +81,7 @@ class ProfileController extends Concrete5_Controller_Profile {
          */
 
         // Whether the logged in user has set their first and last name
-        $userHasSetName = (bool) trim("{$u->getAttribute('first_name')} {$u->getAttribute('last_name')}");
+        $userHasSetName = (bool) trim("{$ui->getAttribute('first_name')} {$ui->getAttribute('last_name')}");
         $this->set('userHasSetName', $userHasSetName);
 
         // The home city for the logged in user (false otherwise)
@@ -93,7 +93,7 @@ class ProfileController extends Concrete5_Controller_Profile {
         $this->set('userHasSetHomeCity', $userHasSetHomeCity);
 
         // Whether the logged in user has chosen an avatar/display picture
-        $userPicture = $ah->getImagePath($u); // relative path to avatar image
+        $userPicture = $ah->getImagePath($ui); // relative path to avatar image
         $userHasSetPicture = (bool) $userPicture;
         $this->set('userHasSetPicture', $userHasSetPicture);
 
@@ -160,14 +160,14 @@ class ProfileController extends Concrete5_Controller_Profile {
                 $this->set('cityHasWalks', $cityHasWalks);
 
                 // Whether the city organizer's city has it's header info set
-                $cityHeaderInfo = $homeCity->getBlocks('City Header')[0]->getController()->getContent();
+                $cityHeaderInfo = $userHomeCity->getBlocks('City Header')[0]->getController()->getContent();
                 $cityHeaderInfoIsEmpty = !trim($cityHeaderInfo);
                 $this->set('cityHeaderInfoIsEmpty', $cityHeaderInfoIsEmpty);
                 $this->set('cityHeaderInfo', $cityHeaderInfo);
 
                 // Whether the city organizer's city has it's short description
                 // set
-                $cityDescription = $c->getBlocks('City Description')[0]->getController()->getContent();
+                $cityDescription = $userHomeCity->getBlocks('City Description')[0]->getController()->getContent();
                 $cityDescriptionIsEmpty = !trim($cityDescription);
                 $this->set('cityDescriptionIsEmpty', $cityShortDescriptionIsEmpty);
                 $this->set('cityDescription', $cityShortDescription);
