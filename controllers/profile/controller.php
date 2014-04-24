@@ -208,7 +208,7 @@ class ProfileController extends Concrete5_Controller_Profile {
             // smart way to recommend other cities.
             $pl = new PageList();
             $pl->filterByCollectionTypeHandle('city');
-            $pl->filterByUserID(array('!=', $u->getUserID())); // Don't recommend your own city to you
+			$pl->filter(false,'p1.uID !=' . $u->getUserID());
             $pl->filterByAttribute('exclude_page_list', false);
             $pl->sortBy('RAND()');
 
@@ -231,7 +231,7 @@ class ProfileController extends Concrete5_Controller_Profile {
             // organizers/walk leaders that showcase creative/unique walks
             $pl = new PageList();
             $pl->filterByCollectionTypeHandle('walk');
-            $pl->filterByUserID(array('!=', $u->getUserID())); // Don't recommend your own city to you
+			$pl->filter(false,'p1.uID !=' . $u->getUserID());
             $pl->filterByAttribute('exclude_page_list', false);
             $pl->sortBy('RAND()');
 
@@ -245,7 +245,7 @@ class ProfileController extends Concrete5_Controller_Profile {
                         'countryName' => $_country->getCollectionName(),
                         'cityName' => $_city->getCollectionName(),
                         'walkTitle' => $page->getCollectionName(),
-                        'walkPath' => $nh->getLinkToColection($page)
+                        'walkPath' => $nh->getLinkToCollection($page)
                     );
                 }, $pl->get(3));
 
