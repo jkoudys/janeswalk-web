@@ -206,7 +206,13 @@
                   </h4>
                   <div class="btn-toolbar">
                     <?php if($mem['email']) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
-                    <?php if($mem['facebook']) { ?><a href="http://facebook.com/<?=$mem['facebook']?>"><i class="icon-facebook"></i></a><?php } ?>
+                    <?php
+                      if($mem['facebook']) {
+                        $submittedFacebookPiece = $mem['facebook'];
+                        if (!preg_match('/^http/', $submittedFacebookPiece)) {
+                          $submittedFacebookPiece = 'https://facebook.com/' . ($submittedFacebookPiece);
+                        }
+                    ?><a href="<?= ($submittedFacebookPiece) ?>"><i class="icon-facebook"></i></a><?php } ?>
                     <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>"><i class="icon-twitter"></i></a><?php } ?>
                   </div>
                   <?=$mem['bio']?>
