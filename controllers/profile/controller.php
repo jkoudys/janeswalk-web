@@ -28,9 +28,9 @@ class ProfileController extends Concrete5_Controller_Profile {
     $cities->sortByName();
     $this->set('cities', $cities->get());
 
-    $isProfileOwner = $u->getUserID() == $profile->getUserID();
+    $userIsViewingSelf = $u->getUserID() == $profile->getUserID();
     $userIsCityOrganizer = in_array('City Organizers', $profile->getUserObject()->getUserGroups());
-    if($userIsCityOrganizer && $isProfileOwner) {
+    if($userIsCityOrganizer && $userIsViewingSelf) {
       $pl = new PageList();
       $pl->filterByCollectionTypeHandle('city');
       $pl->ignoreAliases();
@@ -62,7 +62,7 @@ class ProfileController extends Concrete5_Controller_Profile {
      */
 
     // Whether or not the logged in user is viewing their own "profile"
-    $this->set('userIsViewingSelf', $isProfileOwner);
+    $this->set('userIsViewingSelf', $userIsViewingSelf);
 
     // Remaining variables/logic only needed for "self viewing"
     if ($userIsViewingSelf === true) {
@@ -111,7 +111,7 @@ class ProfileController extends Concrete5_Controller_Profile {
         /* The basics from a page:
          * title: $page->getCollectionName();
          * link: $nh->getLinkToCollection($page);
-         * published?: $page->getAttribute('exclude_page_list');
+         * !published: $page->getAttribute('exclude_page_list');
          */
       
         // Whether the logged in user has created any blog posts
