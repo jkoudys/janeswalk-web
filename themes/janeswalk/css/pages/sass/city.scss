@@ -318,6 +318,7 @@
     @include transition(margin 120ms ease-in-out);
     margin-left: 0;
     margin-right: 19px;
+    min-height:560px;
 
     @media (max-width: $media_mobile) {
       margin-bottom: 40px;
@@ -326,13 +327,14 @@
     .thumbnail {
       min-height: 535px;
       transition: none;
+      position: relative;
 
       .walkimage {
         margin: 0;
         background-size:cover;
         background-position: 50% 50%;
         width:100%;
-        min-height:240px;
+        min-height: 240px;
       }
 
       .caption {
@@ -598,9 +600,6 @@
 }
 
 .span4.walk:nth-child(3n) {
-  margin-right: 0;
-}
-.span3.walk:nth-child(4n) {
   margin-right: 0;
 }
 

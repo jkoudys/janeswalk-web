@@ -30,12 +30,12 @@ $ui = UserInfo::getByID($u->getUserID());
           if($u->isRegistered()) {
         ?>
           <li><a href="<?= ($this->url('/profile')) ?>" class=""><?= ($ui->getAttribute('first_name') ? : $u->getUserName()) ?></a></li>
-          <li><a href="<?= ($this->url('/login', 'logout')) ?>" class="">Logout</a></li>
+          <li><a href="<?= ($this->url('/login', 'logout')) ?>" class=""><?= t('Logout') ?></a></li>
         <?php
           } else {
         ?>
-          <li><a href="<?= ($this->url('/register')) ?>" class="">Join</a></li>
-          <li><a href="<?= ($this->url('/login')) ?>" class="">Log in</a></li>
+          <li><a href="<?= ($this->url('/register')) ?>" class=""><?= tc('Register on a website', 'Join') ?></a></li>
+          <li><a href="<?= ($this->url('/login')) ?>" class=""><?= t('Log in') ?></a></li>
         <?php
           }
         ?>

@@ -10,7 +10,7 @@ class JanesWalkController extends Controller {
    * @param array $properties Array containing one or more, possibly multi-level properties
    */
   public function addToJanesWalk($properties) {
-    $this->pageData = array_merge($this->pageData, $properties);
+    $this->pageData = array_merge_recursive($this->pageData, $properties);
   }
 
   /*

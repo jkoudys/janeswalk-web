@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-07 00:21-0400\n"
+"POT-Creation-Date: 2014-04-23 16:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -253,6 +253,10 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
+#: ../single_pages/walk/form.php:333
+msgid "Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk."
+msgstr ""
+
 #: ../single_pages/walk/form.php:335
 msgid "Need help building your route?"
 msgstr ""
@@ -325,11 +329,12 @@ msgstr ""
 msgid "Add Stop"
 msgstr ""
 
-#: ../single_pages/walk/form.php:381
+#: ../single_pages/walk/form.php:381 ../themes/janeswalk/walk.php:162
 msgid "Walk Stops"
 msgstr ""
 
 #: ../single_pages/walk/form.php:386
+#: ../blocks/page_list/templates/walk_filters/view.php:138
 msgid "Title"
 msgstr ""
 
@@ -377,7 +382,7 @@ msgstr ""
 msgid "Date selected"
 msgstr ""
 
-#: ../single_pages/walk/form.php:459
+#: ../single_pages/walk/form.php:459 ../single_pages/walk/form.php:485
 msgid "Start Time"
 msgstr ""
 
@@ -387,6 +392,11 @@ msgstr ""
 
 #: ../single_pages/walk/form.php:473 ../single_pages/walk/form.php:534
 msgid "Add Date"
+msgstr ""
+
+#: ../single_pages/walk/form.php:484
+#: ../blocks/page_list/templates/walk_filters/view.php:136
+msgid "Date"
 msgstr ""
 
 #: ../single_pages/walk/form.php:495 ../single_pages/walk/form.php:555
@@ -527,23 +537,23 @@ msgstr ""
 msgid "We recommend keeping your bio under 60 words"
 msgstr ""
 
-#: ../single_pages/walk/form.php:683 ../single_pages/walk/form.php:813
+#: ../single_pages/walk/form.php:667 ../single_pages/walk/form.php:826
+#: ../single_pages/login.php:115
+msgid "Email"
+msgstr ""
+
+#: ../single_pages/walk/form.php:688 ../single_pages/walk/form.php:813
 #: ../single_pages/walk/form.php:862 ../single_pages/walk/form.php:912
 #: ../single_pages/walk/form.php:947
 msgid "Website"
 msgstr ""
 
-#: ../single_pages/walk/form.php:690
+#: ../single_pages/walk/form.php:695
 msgid "We'll keep this part private"
 msgstr ""
 
-#: ../single_pages/walk/form.php:692 ../single_pages/walk/form.php:822
+#: ../single_pages/walk/form.php:697 ../single_pages/walk/form.php:822
 msgid "We'll use this information to contact you about your walk submission. We wont share this information with 3rd parties."
-msgstr ""
-
-#: ../single_pages/walk/form.php:697 ../single_pages/walk/form.php:826
-#: ../single_pages/login.php:115
-msgid "Email"
 msgstr ""
 
 #: ../single_pages/walk/form.php:702 ../single_pages/walk/form.php:830
@@ -737,8 +747,13 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: ../single_pages/register.php:131
+#: ../single_pages/register.php:130
 msgid "Register"
+msgstr ""
+
+#: ../single_pages/profile/view.php:38
+#, php-format
+msgid "Create a new walk in %s"
 msgstr ""
 
 #: ../single_pages/profile/view.php:45
@@ -746,6 +761,14 @@ msgid "City"
 msgid_plural "Cities"
 msgstr[0] ""
 msgstr[1] ""
+
+#: ../single_pages/profile/view.php:65 ../single_pages/profile/view.php:107
+msgid "In-Progress Walks"
+msgstr ""
+
+#: ../single_pages/profile/view.php:87
+msgid "Your Public Walks"
+msgstr ""
 
 #: ../single_pages/profile/avatar.php:6
 msgid "User Avatar"
@@ -968,10 +991,6 @@ msgstr ""
 msgid "Go!"
 msgstr ""
 
-#: ../single_pages/map/world.php:26
-msgid ", "
-msgstr ""
-
 #: ../single_pages/page_forbidden.php:3
 msgid "Hmm, we need to give you permission to do that."
 msgstr ""
@@ -982,4 +1001,395 @@ msgstr ""
 
 #: ../single_pages/page_forbidden.php:9
 msgid "Back to Home"
+msgstr ""
+
+#: ../themes/janeswalk/elements/navbar.php:33
+msgid "Logout"
+msgstr ""
+
+#: ../themes/janeswalk/elements/navbar.php:37
+msgctxt "Register on a website"
+msgid "Join"
+msgstr ""
+
+#: ../themes/janeswalk/elements/navbar.php:38 ../themes/janeswalk/city.php:37
+msgid "Log in"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:36
+msgid "Create a walk"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:37
+msgid "or"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:38
+msgid "Join"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:39
+msgctxt "Log in or join.."
+msgid "to create a walk"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:47
+msgid "Help Jane's Walk run more than 1,000 walks this year"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:48
+#, php-format
+msgid "Text %1$s to %2$s to donate %3$s"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:64
+msgid "I've already donated!"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:70
+msgid "We're raising money for The Jane's Walk School Edition. This program encourages young people to take an active role in shaping the places and cities where they live."
+msgstr ""
+
+#: ../themes/janeswalk/city.php:74
+msgid "Message and data rates may apply. Only available in Canada."
+msgstr ""
+
+#: ../themes/janeswalk/city.php:82
+msgid "Already donated? Spread the word"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:96
+msgid "Thank you! We couldn't do this without you. Spread the word?"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:100
+#, php-format
+msgid "\"I just donated to Jane's Walk. Text %1$s to %2$s to donate %3$s now #JanesWalk\""
+msgstr ""
+
+#: ../themes/janeswalk/city.php:140
+msgid "Background photo credit"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:157
+msgid "City Organizer"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:177
+msgid "Jane’s Walks"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:178
+#, php-format
+msgid "Get out and walk! Explore, learn and share through a Jane’s Walk in %s"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:198
+#, php-format
+msgid "Walks in %s"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:200
+#, php-format
+msgid "show only this walk"
+msgid_plural "see all %d walks"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../themes/janeswalk/city.php:202
+msgid "Create a Walk"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:218
+msgid "City Blog"
+msgstr ""
+
+#: ../themes/janeswalk/city.php:222
+msgid "post new article"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:40
+msgid "Festival Walk"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:61
+msgid "Open schedule"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:66
+msgid "Next available day"
+msgid_plural "Available dates"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../themes/janeswalk/walk.php:81 ../themes/janeswalk/walk.php:247
+msgid "Register For This Walk"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:85
+msgid "Registration Not Yet Open"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:97
+msgid "Walk Leader: "
+msgid_plural "Walk Leaders: "
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../themes/janeswalk/walk.php:102
+#: ../blocks/page_list/templates/walk_filters/view.php:139
+msgid "Meeting Place"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:115
+msgid "Duration"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:117
+msgid "Approximately"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:120
+msgid "Open Schedule"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:123
+msgid "Walk Route"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:124
+msgid "Click locations to see details"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:148
+msgid "About This Walk"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:189
+msgid "About The Walk Team"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:222
+msgid "Downloads"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:231
+msgid "Print this walk"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:232
+msgid "Share this walk"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:257
+msgid "Registration Not Open"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:309
+#: ../blocks/page_list/templates/walk_filters/view.php:47
+msgid "Accessibility"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:321
+msgid "Taking Public Transit"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:328
+msgid "Parking Availability"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:334
+msgid "How to find us"
+msgstr ""
+
+#: ../themes/janeswalk/walk.php:347
+msgid "Feedback"
+msgstr ""
+
+#: ../blocks/page_list/templates/walk_filters/view.php:32
+msgid "Theme"
+msgstr ""
+
+#: ../blocks/page_list/templates/walk_filters/view.php:62
+msgid "Initiative"
+msgstr ""
+
+#: ../blocks/page_list/templates/walk_filters/view.php:76
+msgid "Day"
+msgstr ""
+
+#: ../blocks/page_list/templates/walk_filters/view.php:127
+msgid "No walks found"
+msgstr ""
+
+#: ../blocks/page_list/templates/walk_filters/view.php:128
+msgid "Try another region or theme"
+msgstr ""
+
+#: ../blocks/page_list/templates/walk_filters/view.php:137
+msgid "Time"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:7
+msgid "Edit"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:7
+msgid "Add"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:8
+msgid "Preview"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:14
+msgid "Number and Type of Pages"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:15
+msgid "Display"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:17
+msgid "pages of type"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:23
+msgid "All"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:33
+msgid "Filter"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:41
+msgid "Featured pages only."
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:43
+msgid "(<strong>Note</strong>: You must create the \"is_featured\" page attribute first.)"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:48
+msgid "Display page aliases."
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:53
+msgid "Pagination"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:56
+msgid "Display pagination interface if more items are available than are displayed."
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:60
+msgid "Location in Website"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:61
+msgid "Display pages that are located"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:65
+msgid "everywhere"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:70
+msgid "beneath this page"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:75
+msgid "beneath another page"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:93
+msgid "Include all child pages"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:98
+msgid "Sort Pages"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:99
+msgid "Pages should appear"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:101
+msgid "in their sitemap order"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:102
+msgid "with the most recent first"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:103
+msgid "with the earliest first"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:104
+msgid "in alphabetical order"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:105
+msgid "in reverse alphabetical order"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:106
+msgid "in random order"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:111
+msgid "Provide RSS Feed"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:113
+msgid "Yes"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:116
+msgid "No"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:119
+msgid "RSS Feed Title"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:121
+msgid "RSS Feed Description"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:131
+msgid "Truncate Summaries"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:134
+msgid "Truncate descriptions after"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:136
+msgid "characters"
+msgstr ""
+
+#: ../blocks/page_list/page_list_form.php:143
+msgid "Preview Pane"
+msgstr ""
+
+#: ../tools/files/image_upload.php:19
+msgid "Click to upload an image"
+msgstr ""
+
+#: ../tools/files/image_upload.php:19
+msgid "Choose a different image"
+msgstr ""
+
+#: ../tools/files/image_upload.php:20
+msgid "Upload File"
+msgstr ""
+
+#: ../tools/files/importers/quick.php:11
+msgid "Unable to add files."
+msgstr ""
+
+#: ../tools/files/importers/quick.php:61
+msgid "Upload Error"
 msgstr ""

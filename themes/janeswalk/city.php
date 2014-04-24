@@ -44,8 +44,8 @@
   $donateCopyOptions = array(
     array(
       'imagePath' => 'http://i.imgur.com/nEBJJQq.jpg',
-      'main' => 'Help Jane\'s Walk run more than 1,000 walks this year',
-      'cta' => 'Text JANE to 45678 to donate $10'
+      'main' => t('Help Jane\'s Walk run more than 1,000 walks this year'),
+      'cta' => t('Text %1$s to %2$s to donate %3$s', 'JANE', '45678', '$10')
     )
   );
   $donateCopy = $donateCopyOptions[rand(0, count($donateCopyOptions) - 1)];
@@ -67,8 +67,8 @@
           <div class="secondary">
             <p>
               <?= t( /* Canadian cities only */
-              'We\'re raising money for The Jane\'s Walk School Edition. This program' .
-              'encourages young people to take an active role in shaping the places' .
+              'We\'re raising money for The Jane\'s Walk School Edition. This program ' .
+              'encourages young people to take an active role in shaping the places ' .
               'and cities where they live.') ?>
             </p>
             <p><?= t(/* Canadian cities only */ 'Message and data rates may apply. Only available in Canada.') ?></p>
@@ -97,7 +97,7 @@
           <div class="options">
             <div class="option">
               <div class="copy">
-                "I just donated to Jane's Walk. Text JANE to 45678 to donate $10 now #JanesWalk"
+                <?= t('"I just donated to Jane\'s Walk. Text %1$s to %2$s to donate %3$s now #JanesWalk"', 'JANE', '45678', '$10') ?>
               </div>
               <div class="networks clearfix">
                 <a href="#" class="icon-facebook"></a>
