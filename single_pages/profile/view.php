@@ -503,7 +503,7 @@
                 <div class="column shortDescription">
                   <div class="name">Short Description</div>
                   <div class="val">
-                    <?php if ($cityShortDescriptionIsEmpty === true): ?>
+                    <?php if ($cityDescriptionIsEmpty === true): ?>
                       <p>
                         <span class="icon icon-frown"></span>
                         You haven't filled in <?= ($userHomeCity) ?>'s short description
