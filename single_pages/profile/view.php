@@ -165,7 +165,7 @@
         <div class="copy">
           <div class="step">
             <?php if($userHasSetName === false): ?>
-              Next Step: <a href="#" class="tabLink" data-tab="account">Set your first and last name</a>
+              Next Step: <a href="#" class="tabLink" data-tab="account">Set your name</a>
             <?php elseif($userHasSetHomeCity === false): ?>
               Next Step: <a href="#" class="tabLink" data-tab="account">Set your home city</a>
             <?php elseif($userHasSetPicture === false): ?>
