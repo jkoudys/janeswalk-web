@@ -299,15 +299,22 @@
                     <img src="" />
                   </div>
                   <div class="details">
-                    <div class="title">
+                    <div class="title clearfix">
+                      <?php if ($walk->getAttribute('exclude_page_list') === '1'): ?>
+                        <span class="label">DRAFT</span>
+                      <?php endif; ?>
                       <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
                         <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>
                       </a>
                     </div>
                     <div class="subactions clearfix">
-                      <a href="#" class="promote">Promote</a>
+                      <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
+                        <a href="#" class="promote">Promote</a>
+                      <?php endif; ?>
                       <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
-                      <a href="#" class="delete">Unpublish</a>
+                      <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
+                        <a href="#" class="delete">Unpublish</a>
+                      <?php endif; ?>
                     </div>
                   </div>
                 </li>
@@ -343,15 +350,22 @@
                       <img src="" />
                     </div>
                     <div class="details">
-                      <div class="title">
+                      <div class="title clearfix">
+                        <?php if ($walk->getAttribute('exclude_page_list') === '1'): ?>
+                          <span class="label">DRAFT</span>
+                        <?php endif; ?>
                         <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
                           <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>-
                         </a>
                       </div>
                       <div class="subactions clearfix">
-                        <a href="#" class="promote">Promote</a>
+                        <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
+                          <a href="#" class="promote">Promote</a>
+                        <?php endif; ?>
                         <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
-                        <a href="#" class="delete">Unpublish</a>
+                        <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
+                          <a href="#" class="delete">Unpublish</a>
+                        <?php endif; ?>
                       </div>
                     </div>
                   </li>

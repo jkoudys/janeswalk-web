@@ -283,12 +283,19 @@ div#profileWrapper {
 
                             div.title {
 
+                                span.label {
+                                    float: left;
+                                    margin: 0 5px 0 0;
+                                }
+
                                 a {
                                     display: block;
                                     text-overflow: ellipsis;
                                     white-space: nowrap;
                                     overflow: hidden;
                                     width: 90%;
+                                    float: left;
+                                    width: 200px;
                                 }
                             }
 
