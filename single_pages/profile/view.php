@@ -321,6 +321,16 @@
               <?php endforeach; ?>
             </ul>
           </div>
+
+<!--
+  <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
+    <i class='icon-edit' alt='edit'></i>
+  </a>
+  <a href='<?= $nh->getCollectionURL($page) ?>' class='delete' data-cid='<?= $page->getCollectionID() ?>'>
+    <i class='icon-remove' alt='unpublish'></i>
+  </a>
+-->
+
           <?php
             if ($userHasSetHomeCity === true && $userIsCityOrganizer === true) {
           ?>
