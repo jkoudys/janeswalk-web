@@ -313,7 +313,7 @@
                       <?php endif; ?>
                       <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit">Edit</a>
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                        <a href="#" class="delete">Unpublish</a>
+                        <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>">Unpublish</a>
                       <?php endif; ?>
                     </div>
                   </div>
@@ -371,7 +371,7 @@
                         <?php endif; ?>
                         <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit">Edit</a>
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="#" class="delete">Unpublish</a>
+                          <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>">Unpublish</a>
                         <?php endif; ?>
                       </div>
                     </div>
