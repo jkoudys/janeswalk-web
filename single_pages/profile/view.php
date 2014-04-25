@@ -311,7 +311,7 @@
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
                         <a href="#" class="promote">Promote</a>
                       <?php endif; ?>
-                      <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
+                      <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit">Edit</a>
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
                         <a href="#" class="delete">Unpublish</a>
                       <?php endif; ?>
@@ -321,16 +321,13 @@
               <?php endforeach; ?>
             </ul>
           </div>
-
-<!--
-  <a href='<?= $nh->getCollectionURL($page) ?>'><?= $page->getCollectionName() ?></a><a href='<?= $nh->getCollectionURL($newWalkForm) ?>?load=<?= $page->getCollectionPath() ?>'>
-    <i class='icon-edit' alt='edit'></i>
-  </a>
+<?php
+/*
   <a href='<?= $nh->getCollectionURL($page) ?>' class='delete' data-cid='<?= $page->getCollectionID() ?>'>
     <i class='icon-remove' alt='unpublish'></i>
   </a>
--->
-
+*/
+?>
           <?php
             if ($userHasSetHomeCity === true && $userIsCityOrganizer === true) {
           ?>
@@ -372,7 +369,7 @@
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
                           <a href="#" class="promote">Promote</a>
                         <?php endif; ?>
-                        <a href="http://janeswalk.org/walk/form/?load=/canada/toronto/curb-cuts-and-desire-lines-super-sidewalk-audit" class="edit">Edit</a>
+                        <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit">Edit</a>
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
                           <a href="#" class="delete">Unpublish</a>
                         <?php endif; ?>
