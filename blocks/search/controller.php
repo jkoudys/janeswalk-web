@@ -58,6 +58,7 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
       $ipl->filterByPath($this->baseSearchPath);
     }
 
+    $ipl->filter(false, '(ak_exclude_page_list = 0 or ak_exclude_page_list is null)');
     $ipl->filter(false, '(ak_exclude_search_index = 0 or ak_exclude_search_index is null)');
     $ipl->setItemsPerPage(5);
 
