@@ -39,7 +39,7 @@
     </div>
     <!-- end of .intro -->
     <div class="overlap" id="getinvolved">
-      <?php if (isset($_SERVER['HTTP_USER_AGENT']) && (bool) strpos($_SERVER['HTTP_USER_AGENT'], 'iPad') === false): ?>
+      <?php if (!$isMobile) { ?>
         <ul class="controls">
           <li>
             <a class="showButton">Show Map <br /><i class="icon-chevron-down"></i></a>
@@ -49,7 +49,7 @@
         <section class="map full">
           <?php (new Area('Map'))->display($c); ?>
         </section>
-      <?php endif; ?>
+      <?php } ?>
       <section class="calltoaction full">
         <?php (new Area('Call to Action'))->display($c); ?>
       </section>

@@ -41,7 +41,8 @@ class JanesWalkController extends Controller {
           'url' => $nh->getCollectionUrl($city) ];
       }
     }
-    
+
+    $this->set('isMobile', isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/iPhone|Android|iPad|iPod|webOS|CFNetwork/", $_SERVER['HTTP_USER_AGENT']));
     $this->addToJanesWalk($jwData);
   }
   

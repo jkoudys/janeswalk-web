@@ -649,6 +649,11 @@
   right: 0;
   bottom: -40px;
   min-height: 155px !important;
+
+  @media (max-width: $media_thin) {
+    position:static;
+  }
+
   .profile-inner {
     color: #50616D;
     border: 1px solid darken(#F4F7FA,5%);
@@ -771,9 +776,11 @@
     width: 100%;
     padding-left: 0;
     padding-right: 0;
-    @media (max-width: 767px) {
-      bottom: -80px;
+    @media (max-width: $media_thin) {
+      bottom: 0;
+      position: relative;
     }
+      
     .available-time {
       display: block;
       margin-bottom: 1em;

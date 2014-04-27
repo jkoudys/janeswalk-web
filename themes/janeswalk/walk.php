@@ -193,7 +193,6 @@
               <div class="row-fluid">
                 <div class="span3">
 <?php 
-                // TODO: get calgary leaders to show (hidden since Julie updates all walks manually, thus setting herself as the picture
                 if($mem['avatar']) { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
                   <? } else { ?>
@@ -206,7 +205,6 @@
                   </h4>
                   <div class="btn-toolbar">
                     <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
-                    <?php if($mem['email']) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
                     <?php
                       if($mem['facebook']) {
                         $submittedFacebookPiece = $mem['facebook'];
