@@ -66,6 +66,7 @@ class WalkFormController extends Controller {
     case 'Kfar Saba':
     case 'Rishon LeZion':
     case 'Arad':
+    case 'Rehovot':
       Localization::changeLocale('he');
       break;
     default:
