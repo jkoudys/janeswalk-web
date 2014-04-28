@@ -27,7 +27,6 @@ var jwMap = {}; // Not ideal, but keep for now until I can localize this.
 
 // Typeahead team members
 $.fn.teamTypeahead = function() {
-  //$('.team-member #name').typeahead({
   this.typeahead({
     name: 'team-member',
     remote: { url: '../../api/walk_leaders?q=%QUERY', rateLimitWait: 100 },
