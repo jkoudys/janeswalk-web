@@ -204,15 +204,23 @@
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
                   <div class="btn-toolbar">
-                    <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
+                    <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" target="_blank" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
                     <?php
                       if($mem['facebook']) {
                         $submittedFacebookPiece = $mem['facebook'];
                         if (!preg_match('/^http/', $submittedFacebookPiece)) {
                           $submittedFacebookPiece = 'https://facebook.com/' . ($submittedFacebookPiece);
                         }
-                    ?><a href="<?= ($submittedFacebookPiece) ?>"><i class="icon-facebook"></i></a><?php } ?>
-                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" class="btn"><i class="icon-twitter"></i></a><?php } ?>
+                    ?><a href="<?= ($submittedFacebookPiece) ?>" target="_blank" class="btn"><i class="icon-facebook"></i></a><?php } ?>
+                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
+                    <?php
+                      if($mem['website']) {
+                        $submittedWebsitePiece = $mem['website'];
+                        if (!preg_match('/^http/', $submittedWebsitePiece)) {
+                          $submittedWebsitePiece = 'http://' . ($submittedWebsitePiece);
+                        }
+                    ?><a href="<?=$submittedWebsitePiece?>" target="_blank" class="btn"><i class="icon-globe"></i></a>
+                    <?php } ?>
                   </div>
                   <?=$mem['bio']?>
                 </div>
