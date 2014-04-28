@@ -43,7 +43,7 @@
 <?php
   $donateCopyOptions = array(
     array(
-      'imagePath' => 'http://i.imgur.com/GgGBEey.jpg',
+      'imagePath' => 'http://i.imgur.com/N0G3KWo.jpg',
       'main' => t('Help Jane\'s Walk support more than 1,000 walks'),
       'cta' => t('Text %1$s to %2$s to donate %3$s', 'JANE', '45678', '$10')
     )
@@ -199,7 +199,7 @@
            if($show !== 'all' || $c->isEditMode()) {
 ?>
             <h3><?= t('Walks in %s', t($c->getCollectionName()) ) ?></h3>
-            <?php if($totalWalks > 9) { ?>
+            <?php if($totalWalks > 1) { ?>
             <a href="<?= $nh->getLinkToCollection($c) . 'walks' ?>" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
             <?php }?>
             <a href="<?= $this->url("/walk/form") ?>?parentCID=<?= $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>
