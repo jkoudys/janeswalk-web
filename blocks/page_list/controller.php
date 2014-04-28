@@ -149,7 +149,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
           $wards[] = $val;
         }
       }
-      sort($wards);
+      natcasesort($wards);
 
       // Themes
       $themeHelper = Loader::helper('theme');
