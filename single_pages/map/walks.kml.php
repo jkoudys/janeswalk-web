@@ -3,6 +3,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
 $pl = new PageList();
 $nh = Loader::helper('navigation');
 $pl->filterByCollectionTypeHandle('walk');
+$pl->filter(false, '(ak_exclude_page_list = 0 or ak_exclude_page_list is null)');
 $pages = $pl->get();
 
 $xmlstr = <<<XML
@@ -45,7 +46,7 @@ foreach($pages as $page) {
 
   // Create name, and description elements and assigns them the values of the name and address columns from the results.
   $placemark->addChild('name', htmlspecialchars($name) );
-  $placemark->addChild('description', htmlspecialchars($page->getAttribute('shortdescription') . '<br />' . "<a target=\"__blank\" href='{$nh->getCollectionURL($page)}'>Go to walk &gt;</a>" ));
+  $placemark->addChild('description', htmlspecialchars($page->getAttribute('shortdescription') . '<br />' . "<a target=\"_blank\" href='{$nh->getCollectionURL($page)}'>Go to walk &gt;</a>" ));
 
   $point = $placemark->addChild('Point');
   $point->addChild('coordinates', $coordinates);

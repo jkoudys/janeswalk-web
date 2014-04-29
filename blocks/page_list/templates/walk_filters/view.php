@@ -4,7 +4,11 @@ defined('C5_EXECUTE') or die('Access Denied.'); ?>
 <ul class="nav nav-tabs">
   <li class="active"><a href="#jw-cards" data-toggle="tab">All Walks</a></li>
   <li><a href="#jw-list" data-toggle="tab">List</a></li>
-<?php /*  <li><a href="#map" data-toggle="tab">Map</a></li> */ ?>
+<?php
+if($lat && $lng) { ?>
+  <li><a href="#jw-map" data-toggle="tab">Map</a></li>
+<?php
+} ?>
 </ul>
 
 <!-- Tab panes -->
@@ -155,9 +159,13 @@ foreach($walksByDate as $k => $walk) {
       </tbody>
     </table>
   </section>
+<?php
+if($lat && $lng) { ?>
   <section class="tab-pane fade" id="jw-map">
-    Maph
+    <iframe width="100%" height="600px" scrolling="no" frameborder="no" src="https://www.google.com/fusiontables/embedviz?q=select+col2+from+1Yy3SCGdCfmIVjgJLdqthaBlgKmkmIEJDZ3BEmR0p&amp;viz=MAP&amp;h=false&amp;lat=<?= $lat + 0.2 ?>&amp;lng=<?= $lng - 0.6 ?>&amp;t=1&amp;z=10&amp;l=col2&amp;y=3&amp;tmplt=3&amp;hml=GEOCODABLE"></iframe>
   </section>
+<?php
+} ?>
 </div>
 
 <?php

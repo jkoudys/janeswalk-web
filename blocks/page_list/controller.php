@@ -130,6 +130,15 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
           return 0;
         }
       } );
+
+      /* Load the lat/lng for the city we're displaying */ 
+      /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
+      $latlng = explode(',',Page::getCurrentPage()->getAttribute('latlng'));
+      if(count($latlng) == 2) {
+        $this->set('lat', $latlng[0]);
+        $this->set('lng', $latlng[1]);
+      }
+
       $this->set('walksByDate', $cards);
     default:
       break;
