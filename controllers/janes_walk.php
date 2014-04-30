@@ -42,6 +42,16 @@ class JanesWalkController extends Controller {
       }
     }
 
+    /* Set the city language to the first one matched, recursing from where we are */
+    $crumbs = $nh->getTrailToCollection($c);
+    $crumbs[] = $c; // Must check the current page first
+    foreach($crumbs as $crumb) {
+      if($lang = (string) $crumb->getAttribute('lang')) { 
+        Localization::changeLocale($lang);
+        break;
+      }
+    }
+
     $this->set('isMobile', isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/iPhone|Android|iPad|iPod|webOS|CFNetwork/", $_SERVER['HTTP_USER_AGENT']));
     $this->addToJanesWalk($jwData);
   }

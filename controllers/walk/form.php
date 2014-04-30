@@ -46,32 +46,17 @@ class WalkFormController extends Controller {
       $wards = false; 
     }
 
-    // Set the language. Hard-code for certain pilot cities for now.
-    // TODO: build a 'language' hierarchy', that checks the user's preferences, then the walk, the city, the country, then picks the first matching language. May need a 'language helper' here
-    switch($city->getCollectionName()) {
-    case 'Córdoba':
-    case 'Sevilla':
-    case 'Cádiz':
-      Localization::changeLocale('es_ES');
-      break;
-    case 'Vienna':
-      Localization::changeLocale('de');
-      break;
-    case 'Tel Aviv':
-    case 'Jerusalem':
-    case 'Beer-sheva':
-    case 'Haifa':
-    case 'Ashdod':
-    case 'Beit Shemesh':
-    case 'Kfar Saba':
-    case 'Rishon LeZion':
-    case 'Arad':
-    case 'Rehovot':
-      Localization::changeLocale('he');
-      break;
-    default:
-      break;
+    // Set the language based on a trail to the city
+    /* Set the city language to the first one matched, recursing from where we are */
+    $crumbs = $nh->getTrailToCollection($c);
+    $crumbs[] = $c; // Must check the current page first
+    foreach($crumbs as $crumb) {
+      if($lang = (string) $crumb->getAttribute('lang')) { 
+        Localization::changeLocale($lang);
+        break;
+      }
     }
+
     $this->set('u', $u);
     $this->set('ui', $ui);
     $this->set('owner', UserInfo::getByID($c->getCollectionUserID()));
