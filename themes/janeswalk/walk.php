@@ -229,7 +229,7 @@
           <div class="walk-aux">
             <hr>
             <div class="share-print">
-              <a href="#" class="share notify printLink"><i class="icon-print"></i> <?= t('Print this walk') ?></a>
+              <a href="javascript:window.print();" class="share notify printLink"><i class="icon-print"></i> <?= t('Print this walk') ?></a>
               <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> <?= t('Share this walk') ?></a>
             </div>
           </div>
