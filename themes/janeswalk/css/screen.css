@@ -10634,6 +10634,44 @@ section.sponsors {
   background-color: #fff;
 }
 
+@media print {
+  /* line 675, pages/sass/city.scss */
+  html {
+    margin-top: 0;
+  }
+
+  /* line 680, pages/sass/city.scss */
+  .city-page {
+    padding-top: 0 !important;
+  }
+  /* line 689, pages/sass/city.scss */
+  .city-page footer,
+  .city-page div#ccm-page-controls-wrapper,
+  .city-page header {
+    display: none !important;
+  }
+  /* line 697, pages/sass/city.scss */
+  .city-page section#jw-cards {
+    display: none !important;
+  }
+  /* line 701, pages/sass/city.scss */
+  .city-page section#jw-list {
+    display: block !important;
+    opacity: 1 !important;
+  }
+  /* line 708, pages/sass/city.scss */
+  .city-page div.walks-list ul.nav {
+    display: none !important;
+  }
+  /* line 713, pages/sass/city.scss */
+  .city-page a[href]:after {
+    display: none;
+  }
+  /* line 717, pages/sass/city.scss */
+  .city-page div.city-header {
+    margin-top: 0;
+  }
+}
 /* line 5, pages/sass/walk.scss */
 .walk-page blockquote {
   width: auto;
