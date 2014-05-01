@@ -377,6 +377,28 @@ class WalkPageTypeController extends JanesWalkController {
       break; 
     }
 
+    $breadcrumb = '<ul class="breadcrumb visible-desktop visible-tablet">';
+    foreach((array)$crumbs as $crumb) {
+      if ($crumb->getCollectionTypeHandle() !== 'country' ) {
+        $breadcrumb .= '<li>';
+        $link = $nh->getLinkToCollection($crumb);
+        if($crumb->getCollectionID() == 1) {
+          $name = '<i class="icon-home"></i>';
+        }
+        else {
+          $name = t($crumb->getCollectionName());
+        }
+        if($crumb->getCollectionTypeHandle() === 'city') {
+          $link .= '/walks';
+        }
+        $breadcrumb .= '<a href="' . $link . '">' . $name . '</a>';
+        $breadcrumb .= '<span class="divider"><i class="icon-angle-right"></i></span></li>';
+      }
+    }
+    $breadcrumb .= '<li class="active">' . $c->getCollectionName() . '</li></ul>';
+    $this->set('breadcrumb', $breadcrumb);
+
+
     $this->set('nh', $nh);
     $this->set('im', $im);
     $this->set('dh', Loader::helper('concrete/dashboard'));

@@ -24,19 +24,7 @@
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
-
-      <ul class="breadcrumb visible-desktop visible-tablet">
-        <?php
-        foreach((array)$crumbs as $crumb) {
-          if( $crumb->getCollectionID() == 1 ) { ?>
-          <li><a href="<?= $nh->getLinkToCollection($crumb) ?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-          <?php } else if ($crumb->getCollectionTypeHandle() !== 'country' ) { ?>
-          <li><a href="<?= $nh->getLinkToCollection($crumb) ?>"><?= t($crumb->getCollectionName()) ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
-        <?php }
-        } ?>
-        <li class="active"><?= $c->getCollectionName() ?></li>
-      </ul>
-
+        <?= $breadcrumb ?>
       <div class="walk-label"><?= t('Festival Walk') ?></div>
 
       <div class="tag-list">
