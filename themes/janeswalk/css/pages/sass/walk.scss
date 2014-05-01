@@ -6,7 +6,8 @@
     width:auto;
     float:none;
     margin-left:0;
-}
+  }
+
 
 
   header.navbar {
@@ -837,3 +838,35 @@
   }
 }
 
+@media print {
+
+  html {
+    margin-top: 0;
+  }
+
+
+  .walk-page {
+
+    div.walk-label,
+    footer,
+    div#ccm-page-controls-wrapper,
+    div.tag-list,
+    ul.breadcrumb,
+    header,
+    div.walk-stops,
+    div.walk-feedback,
+    div.walk-aux,
+    div.walk-downloads {
+      display: none;
+    }
+
+    div.walk-leader img {
+      width: 80px !important;
+    }
+
+    div.container-outter,
+    div.walk-title {
+      margin-top: 0 !important;
+    }
+  }
+}
