@@ -229,7 +229,8 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
         $buf .= '<li><i class="icon-calendar"></i> ' . $slot . '</li>';
       }
       if($meeting_place) {
-        $buf .= '<li>' . tc('The location you will meet at', 'Meet at') . ': ' . Loader::helper('text')->shortText($meeting_place['title']) . '</li>';
+        $meetingText = Loader::helper('text')->shortText($meeting_place['title'] ?: $meeting_place['description']);
+        $buf .= '<li>' . tc('The location you will meet at', 'Meet at') . ': ' . $meetingText . '</li>';
       }
       $buf .= '</ul>';
       if($leaders) {
