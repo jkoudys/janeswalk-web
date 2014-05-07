@@ -140,6 +140,7 @@ body {
       }
 
       div.messaging {
+        display: none;
         font-size: 22px;
         border-bottom: 1px solid #C7BEBA;
         line-height: 32px;
@@ -173,6 +174,8 @@ body {
         text-align: center;
         width: 100%;
 
+        top: 15px;
+
         a.btn {
 
         }
@@ -186,13 +189,18 @@ body {
         margin: 20px;
         background-size: contain;
 
+        height: 560px;
+        padding: 0;
+        margin: 30px 0 0;
+
         @media (max-width: $media_mobile) {
-          height: 118px;
+          // height: 118px;
         }
       }
 
       div.secondary {
         padding: 10px 20px;
+        display: none;
 
         p {
           color: #999;
