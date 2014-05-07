@@ -23,7 +23,7 @@
   <div class="wrapper" id="profileWrapper">
     <?php if ($userIsViewingSelf === true): ?>
       <?php if ($userHasSetHomeCity === true): ?>
-        <div class="overlay cityPromoteOverlay">
+        <div class="overlay promoteOverlay cityPromoteOverlay" data-slideshow="city">
           <div class="o-background">
           </div>
           <div class="o-content">
@@ -53,7 +53,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  Option #3 ...
+                  "<?= t('Option #3 ...', $userHomeCity) ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -63,7 +63,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  Option #4 ...
+                  "<?= t('Option #4 ...', $userHomeCity) ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -72,24 +72,24 @@
                 </div>
               </div>
               <div class="nav">
-                <a href="#" class="left icon-arrow-left"></a>
-                <a href="#" class="right icon-arrow-right"></a>
+                <a href="#" class="left icon-arrow-left" data-slideshow="city"></a>
+                <a href="#" class="right icon-arrow-right" data-slideshow="city"></a>
               </div>
             </div>
           </div>
         </div>
       <?php endif; ?>
       <?php if ($userHasPostedBlogPost === true): ?>
-        <div class="overlay blogPostPromoteOverlay">
+        <div class="overlay promoteOverlay blogPostPromoteOverlay" data-slideshow="blogPost">
           <div class="o-background">
           </div>
           <div class="o-content">
             <h1><?= t('Promote Blog Post') ?></h1>
-            <p><?= t('Use these pre-made messages to spread the word about Jane\'s Walk in %s!', $userHomeCity) ?></p>
+            <p><?= t('Use these pre-made messages to spread the word about this blog post') ?></p>
             <div class="options">
               <div class="option">
                 <div class="copy">
-                  "Sample tweet"
+                  "<?= t('Sample tweet: {title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -99,7 +99,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "Sample tweet #2"
+                  "<?= t('Sample tweet #2: {title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -109,7 +109,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "Sample tweet #3"
+                  "<?= t('Sample tweet #3: {title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -119,7 +119,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "Sample tweet #4"
+                  "<?= t('Sample tweet #4: {title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -128,8 +128,8 @@
                 </div>
               </div>
               <div class="nav">
-                <a href="#" class="left icon-arrow-left"></a>
-                <a href="#" class="right icon-arrow-right"></a>
+                <a href="#" class="left icon-arrow-left" data-slideshow="blogPost"></a>
+                <a href="#" class="right icon-arrow-right" data-slideshow="blogPost"></a>
               </div>
             </div>
           </div>
@@ -209,7 +209,7 @@
           }
         ?>
         <div id="dashboardBlock" class="<?= implode(' ', $dashboardClasses) ?>" data-tab="dashboard">
-          <div class="overlay walkPromoteOverlay">
+          <div class="overlay promoteOverlay walkPromoteOverlay" data-slideshow="walk">
             <div class="o-background">
             </div>
             <div class="o-content">
@@ -218,7 +218,7 @@
               <div class="options">
                 <div class="option">
                   <div class="copy">
-                    "Join me on my walk Celluloid and Popcorn: The history of Cinema on Roncesvalles at this year's Jane's Walk!"
+                    "<?= t('Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -228,7 +228,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    "As churches are being converted into lofts, and the cinemas into stores/coffee shops, our streetscape is ..."
+                    "<?= t('#2: Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -238,7 +238,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    Option #3 ...
+                    "<?= t('#3: Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -248,7 +248,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    Option #4 ...
+                    "<?= t('#4: Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -258,13 +258,13 @@
                 </div>
               </div>
               <div class="nav">
-                <a href="#" class="left icon-arrow-left"></a>
-                <a href="#" class="right icon-arrow-right"></a>
+                <a href="#" class="left icon-arrow-left" data-slideshow="walk"></a>
+                <a href="#" class="right icon-arrow-right" data-slideshow="walk"></a>
               </div>
             </div>
           </div>
           <div class="column walks">
-            <div class="headline">My Walks</div>
+            <div class="headline"><?= t('My Walks') ?></div>
             <a href="/walk/form/" class="btn btn-primary btn-small"><?= t('Add a walk') ?></a>
             <?php
               $nullcaseClasses = array('nullcase');
@@ -301,7 +301,7 @@
                   <div class="details">
                     <div class="title clearfix">
                       <?php if ($walk->getAttribute('exclude_page_list') === '1'): ?>
-                        <span class="label">DRAFT</span>
+                        <span class="label"><?= t('DRAFT') ?></span>
                       <?php endif; ?>
                       <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
                         <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>
@@ -309,11 +309,11 @@
                     </div>
                     <div class="subactions clearfix">
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                        <a href="#" class="promote">Promote</a>
+                        <a href="#" class="promote"><?= t('Promote') ?></a>
                       <?php endif; ?>
-                      <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit">Edit</a>
+                      <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                        <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>">Unpublish</a>
+                        <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>"><?= t('Unpublish') ?></a>
                       <?php endif; ?>
                     </div>
                   </div>
@@ -359,7 +359,7 @@
                     <div class="details">
                       <div class="title clearfix">
                         <?php if ($walk->getAttribute('exclude_page_list') === '1'): ?>
-                          <span class="label">DRAFT</span>
+                          <span class="label"><?= t('DRAFT') ?></span>
                         <?php endif; ?>
                         <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
                           <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>-
@@ -367,11 +367,11 @@
                       </div>
                       <div class="subactions clearfix">
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="#" class="promote">Promote</a>
+                          <a href="#" class="promote"><?= t('Promote') ?></a>
                         <?php endif; ?>
-                        <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit">Edit</a>
+                        <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>">Unpublish</a>
+                          <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>"><?= t('Unpublish') ?></a>
                         <?php endif; ?>
                       </div>
                     </div>
@@ -422,11 +422,11 @@
                     <div class="details">
                       <div class="title">
                         <a href="<?= ($nh->getLinkToCollection($blogPost)) ?>" title="">
-                          Celluloid and Popcorn: The history of Cinema on Roncesvalles
+                          <?= ($blogPost->getCollectionName() === '' ? '(untitled)' : $blogPost->getCollectionName()) ?>
                         </a>
                       </div>
                       <div class="subactions clearfix">
-                        <a href="#" class="promote">Promote</a>
+                        <a href="#" class="promote"><?= t('Promote') ?></a>
                       </div>
                     </div>
                   </li>
@@ -466,32 +466,32 @@
                     <?php if ($cityDescriptionIsEmpty === true): ?>
                       <p>
                         <span class="icon icon-frown"></span>
-                        You haven't filled in <?= ($userHomeCity) ?>'s short description
+                        <?= t('You haven\'t filled in %s\'s short description', $userHomeCity) ?>
                       </p>
-                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set short description</a>
+                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary"><?= t('Set short description') ?></a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
                         <?= ($cityDescription) ?>
-                        <a href="/index.php/dashboard/composer/write/-/edit/144/">Edit</a>
+                        <a href="/index.php/dashboard/composer/write/-/edit/144/"><?= t('Edit') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
                 </div>
                 <div class="column backgroundPhoto">
-                  <div class="name">Background Photo</div>
+                  <div class="name"><?= t('Background Photo') ?></div>
                   <div class="val">
                     <?php if ($cityBackgroundPhotoIsEmpty === true): ?>
                       <p>
                         <span class="icon icon-frown"></span>
-                        You haven't set <?= ($userHomeCity) ?>'s background photo yet
+                        <?= t('You haven\'t set %s\'s background photo yet', $userHomeCity) ?>
                       </p>
-                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary">Set background photo</a>
+                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary"><?= t('Set background photo') ?></a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
                         <span class="bgPhoto" style="background-image: url('<?= ($cityBackgroundPhoto) ?>');"></span>
-                        <a href="/index.php/dashboard/composer/write/-/edit/144/">Change</a>
+                        <a href="/index.php/dashboard/composer/write/-/edit/144/"><?= t('Change') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
@@ -515,7 +515,7 @@
               if(is_array($attribs) && count($attribs)) {
             ?>
               <div class="column details">
-                <div class="headline">Details</div>
+                <div class="headline"><?= t('Details') ?></div>
                 <div class="field clearfix">
                   <div class="">
                     <span class="required">*</span><?= ($form->label('uEmail', t('Email'))) ?>
@@ -558,7 +558,7 @@
                 </div>
               </div>
               <div class="column password">
-                <div class="headline">Password</div>
+                <div class="headline"><?= t('Password') ?></div>
                 <div class="field clearfix">
                   <div class="">
                     <?= ($form->label('uPasswordNew', t('New Password'))) ?>
@@ -590,7 +590,7 @@
             <span class="icon-check"></span>
             <?= t('Changes Saved') ?>
           </div>
-          <div class="headline">Display Picture</div>
+          <div class="headline"><?= t('Display Picture') ?></div>
           <div class="column widget">
             <div
               id="flashContainer"
@@ -680,7 +680,7 @@
           <?php endif; ?>
           <?php if ($resources['showFiles'] === true): ?>
             <div class="files resourceBlock">
-              <div class="headline">Files</div>
+              <div class="headline"><?= t('Files') ?></div>
               <p>
                 <?= t('Want help promoting Jane\'s Walk?') ?><br />
                 <?= t('Use these files to promote Jane\'s Walk in your city') ?>
@@ -689,19 +689,19 @@
                 <li>
                   <a href="#">
                     <img src="/themes/janeswalk/images/pdf.png" />
-                    Announce the Jane's Walk Festival
+                    <?= t('Announce the Jane\'s Walk Festival') ?>
                   </a>
                 </li>
                 <li>
                   <a href="#">
                     <img src="/themes/janeswalk/images/pdf.png" />
-                    Press Release #1
+                    <?= T('Press Release #1') ?>
                   </a>
                 </li>
                 <li>
                   <a href="#">
                     <img src="/themes/janeswalk/images/pdf.png" />
-                    Press Release #2
+                    <?= T('Press Release #2') ?>
                   </a>
                 </li>
               </ul>

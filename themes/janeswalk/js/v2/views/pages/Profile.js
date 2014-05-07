@@ -7,6 +7,18 @@
 var ProfilePageView = PageView.extend({
 
     /**
+     * _slideIndexes
+     * 
+     * @protected
+     * @var       Object
+     */
+    _slideIndexes: {
+        blogPost: 0,
+        city: 0,
+        walk: 0
+    },
+
+    /**
      * _currentTab
      * 
      * @protected
@@ -246,13 +258,61 @@ var ProfilePageView = PageView.extend({
     },
 
     /**
+     * _showSlide
+     * 
+     * @protected
+     * @param     String slideshowName
+     * @return    void
+     */
+    _showSlide: function(slideshowName) {
+        var index = this._slideIndexes[slideshowName],
+            $overlay = this._element.find('[data-slideshow="' + (slideshowName) + '"]'),
+            $options = $overlay.find('.options .option');
+        $options.addClass('hidden');
+        $($options[index]).removeClass('hidden');
+    },
+
+    /**
      * _setupPromoteSlideshows
      * 
      * @protected
      * @return    void
      */
     _setupPromoteSlideshows: function() {
-        this._element.find('#dashboardBlock .overlay, ')
+        var _this = this;
+        this._element.find('.promoteOverlay .nav > a.left').click(
+            function(event) {
+                event.preventDefault();
+                var $anchor = $(this),
+                    slideshow = $anchor.data('slideshow'),
+                    $overlay = $anchor.closest('.promoteOverlay'),
+                    numOptions = $overlay.find('.options .option').length,
+                    $options = $overlay.find('.options .option');
+                if (_this._slideIndexes[slideshow] === 0) {
+                    _this._slideIndexes[slideshow] = numOptions - 1;
+                } else {
+                    --_this._slideIndexes[slideshow];
+                }
+                _this._showSlide(slideshow);
+            }
+        );
+        this._element.find('.promoteOverlay .nav > a.right').click(
+            function(event) {
+                event.preventDefault();
+                var $anchor = $(this),
+                    slideshow = $anchor.data('slideshow'),
+                    $overlay = $anchor.closest('.promoteOverlay'),
+                    numOptions = $overlay.find('.options .option').length,
+                    $options = $overlay.find('.options .option');
+                if (_this._slideIndexes[slideshow] === (numOptions - 1)) {
+                    _this._slideIndexes[slideshow] = 0;
+                } else {
+                    ++_this._slideIndexes[slideshow];
+                }
+                _this._showSlide(slideshow);
+                
+            }
+        );
     },
 
     /**
