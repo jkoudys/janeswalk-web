@@ -133,6 +133,7 @@ body {
       box-sizing: border-box;
       height: auto;
       border-width: 0;
+      padding-top: 20px;
 
       @media (max-width: $media_mobile) {
         width: 90%;
@@ -377,9 +378,13 @@ body {
     line-height: 24px;
     text-align: center;
     border-radius: 0 0 5px 5px;
-    background: url('http://i.imgur.com/o7stFgX.png') no-repeat bottom center;
-    padding: 0 0 70px 0;
-    background-size: 120px;
+    // background: url('http://i.imgur.com/o7stFgX.png') no-repeat bottom center;
+    // padding: 0 0 70px 0;
+    // background-size: 120px;
+
+    background-image: url('http://i.imgur.com/xfrC8yR.png');
+    height: 194px;
+    width: 526px;
 
     // div.portrait {
     //   position: absolute;
@@ -393,6 +398,7 @@ body {
 
     div.block {
       padding: 34px 72px 32px;
+      display: none;
 
       span.cta {
         font-weight: bold;

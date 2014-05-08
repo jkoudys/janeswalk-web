@@ -12098,6 +12098,7 @@ body {
   box-sizing: border-box;
   height: auto;
   border-width: 0;
+  padding-top: 20px;
 }
 @media (max-width: 480px) {
   /* line 129, pages/sass/screen.scss */
@@ -12106,7 +12107,7 @@ body {
     margin-left: -45%;
   }
 }
-/* line 142, pages/sass/screen.scss */
+/* line 143, pages/sass/screen.scss */
 .overlay.o-donate .o-content div.messaging {
   display: none;
   font-size: 22px;
@@ -12117,7 +12118,7 @@ body {
   background-color: #FCF6F4;
   border-radius: 5px 5px 0 0;
 }
-/* line 152, pages/sass/screen.scss */
+/* line 153, pages/sass/screen.scss */
 .overlay.o-donate .o-content div.messaging span.cta {
   font-weight: bold;
   color: #ff3300;
@@ -12125,18 +12126,18 @@ body {
   text-shadow: 1px 1px #fff;
 }
 @media (max-width: 480px) {
-  /* line 142, pages/sass/screen.scss */
+  /* line 143, pages/sass/screen.scss */
   .overlay.o-donate .o-content div.messaging {
     padding: 16px;
     font-size: 16px;
     line-height: 24px;
   }
-  /* line 164, pages/sass/screen.scss */
+  /* line 165, pages/sass/screen.scss */
   .overlay.o-donate .o-content div.messaging span.cta {
     font-size: 16px;
   }
 }
-/* line 170, pages/sass/screen.scss */
+/* line 171, pages/sass/screen.scss */
 .overlay.o-donate .o-content div.btnWrapper {
   position: absolute;
   left: 0;
@@ -12145,7 +12146,7 @@ body {
   width: 100%;
   top: 15px;
 }
-/* line 184, pages/sass/screen.scss */
+/* line 185, pages/sass/screen.scss */
 .overlay.o-donate .o-content div.quote {
   padding: 40px;
   background-position: top center;
@@ -12157,19 +12158,19 @@ body {
   padding: 0;
   margin: 30px 0 0;
 }
-/* line 201, pages/sass/screen.scss */
+/* line 202, pages/sass/screen.scss */
 .overlay.o-donate .o-content div.secondary {
   padding: 10px 20px;
   display: none;
 }
-/* line 205, pages/sass/screen.scss */
+/* line 206, pages/sass/screen.scss */
 .overlay.o-donate .o-content div.secondary p {
   color: #999;
   font-size: 12px;
   display: block;
   margin: 0;
 }
-/* line 240, pages/sass/screen.scss */
+/* line 241, pages/sass/screen.scss */
 .overlay.o-shout {
   width: 45%;
   margin-left: -22.5%;
@@ -12177,7 +12178,7 @@ body {
   padding: 20px;
   height: auto;
 }
-/* line 247, pages/sass/screen.scss */
+/* line 248, pages/sass/screen.scss */
 .overlay.o-shout .o-background {
   opacity: initial;
   background-color: transparent;
@@ -12189,11 +12190,11 @@ body {
   background: radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.45) 1%, rgba(0, 0, 0, 0.8) 100%);
   filter: alpha(opacity=80);
 }
-/* line 259, pages/sass/screen.scss */
+/* line 260, pages/sass/screen.scss */
 .overlay.o-shout .o-content {
   height: 240px;
 }
-/* line 262, pages/sass/screen.scss */
+/* line 263, pages/sass/screen.scss */
 .overlay.o-shout .o-content h1 {
   font-size: 24px;
   line-height: 30px;
@@ -12202,29 +12203,29 @@ body {
   padding-top: 20px;
   text-align: center;
 }
-/* line 271, pages/sass/screen.scss */
+/* line 272, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options {
   border-top: 1px dashed #ddd;
   padding: 12px 0 0 0;
   margin: 24px 0 0 0;
 }
-/* line 276, pages/sass/screen.scss */
+/* line 277, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option {
   margin: 0 12px 8px 0;
 }
-/* line 279, pages/sass/screen.scss */
+/* line 280, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.copy {
   line-height: 32px;
   font-size: 24px;
   text-align: center;
   padding: 0 20px;
 }
-/* line 292, pages/sass/screen.scss */
+/* line 293, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks {
   width: 80px;
   margin: 18px auto 0;
 }
-/* line 297, pages/sass/screen.scss */
+/* line 298, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a {
   font-size: 18px;
   height: 36px;
@@ -12237,40 +12238,40 @@ body {
   color: #fff;
   margin: 0 8px 0 0;
 }
-/* line 309, pages/sass/screen.scss */
+/* line 310, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a:last-child {
   margin: 0;
 }
-/* line 313, pages/sass/screen.scss */
+/* line 314, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a:hover {
   text-decoration: none;
 }
-/* line 317, pages/sass/screen.scss */
+/* line 318, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a.icon-twitter {
   background-color: #00A9F2;
 }
-/* line 320, pages/sass/screen.scss */
+/* line 321, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a.icon-twitter:hover {
   background-color: #80D4F9;
 }
-/* line 325, pages/sass/screen.scss */
+/* line 326, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a.icon-facebook {
   background-color: #3D529D;
 }
-/* line 328, pages/sass/screen.scss */
+/* line 329, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a.icon-facebook:hover {
   background-color: #9EA9CE;
 }
-/* line 333, pages/sass/screen.scss */
+/* line 334, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a.icon-envelope {
   background-color: #F01F00;
 }
-/* line 336, pages/sass/screen.scss */
+/* line 337, pages/sass/screen.scss */
 .overlay.o-shout .o-content div.options div.option div.networks a.icon-envelope:hover {
   background-color: #F88F80;
 }
 
-/* line 348, pages/sass/screen.scss */
+/* line 349, pages/sass/screen.scss */
 .catfish {
   position: fixed;
   right: 0;
@@ -12283,55 +12284,56 @@ body {
   padding: 0;
 }
 @media (max-width: 480px) {
-  /* line 348, pages/sass/screen.scss */
+  /* line 349, pages/sass/screen.scss */
   .catfish {
     display: none;
   }
 }
-/* line 363, pages/sass/screen.scss */
+/* line 364, pages/sass/screen.scss */
 .catfish a.closeCatfishCta {
   position: absolute;
   right: 4px;
   top: 4px;
   color: #5E5E5E;
 }
-/* line 369, pages/sass/screen.scss */
+/* line 370, pages/sass/screen.scss */
 .catfish a.closeCatfishCta:hover {
   text-decoration: none;
   color: #333;
 }
-/* line 375, pages/sass/screen.scss */
+/* line 376, pages/sass/screen.scss */
 .catfish .c-content {
   font-size: 18px;
   line-height: 24px;
   text-align: center;
   border-radius: 0 0 5px 5px;
-  background: url("http://i.imgur.com/o7stFgX.png") no-repeat bottom center;
-  padding: 0 0 70px 0;
-  background-size: 120px;
+  background-image: url("http://i.imgur.com/xfrC8yR.png");
+  height: 194px;
+  width: 526px;
 }
-/* line 394, pages/sass/screen.scss */
+/* line 399, pages/sass/screen.scss */
 .catfish .c-content div.block {
   padding: 34px 72px 32px;
+  display: none;
 }
-/* line 397, pages/sass/screen.scss */
+/* line 403, pages/sass/screen.scss */
 .catfish .c-content div.block span.cta {
   font-weight: bold;
   color: #DB4E0B;
   font-size: 20px;
 }
 
-/* line 408, pages/sass/screen.scss */
+/* line 414, pages/sass/screen.scss */
 strong, b {
   font-weight: 700;
 }
 
-/* line 412, pages/sass/screen.scss */
+/* line 418, pages/sass/screen.scss */
 em {
   color: #222;
 }
 
-/* line 415, pages/sass/screen.scss */
+/* line 421, pages/sass/screen.scss */
 blockquote {
   text-transform: uppercase;
   font-weight: 100;
@@ -12344,58 +12346,58 @@ blockquote {
   margin-left: -150px;
 }
 
-/* line 428, pages/sass/screen.scss */
+/* line 434, pages/sass/screen.scss */
 body.logged_in {
   padding-top: 50px;
 }
-/* line 431, pages/sass/screen.scss */
+/* line 437, pages/sass/screen.scss */
 body.logged_in header.navbar {
   top: 50px;
   z-index: 6;
 }
-/* line 435, pages/sass/screen.scss */
+/* line 441, pages/sass/screen.scss */
 body.logged_in #ccm-highlighter {
   z-index: 7;
 }
-/* line 436, pages/sass/screen.scss */
+/* line 442, pages/sass/screen.scss */
 body.logged_in .modal-backdrop {
   z-index: 1;
 }
-/* line 439, pages/sass/screen.scss */
+/* line 445, pages/sass/screen.scss */
 body.logged_in .modal {
   z-index: 2;
 }
 
-/* line 443, pages/sass/screen.scss */
+/* line 449, pages/sass/screen.scss */
 body.c5-edit {
   padding-top: 180px;
 }
 
-/* line 446, pages/sass/screen.scss */
+/* line 452, pages/sass/screen.scss */
 html.index-bg body {
   padding: 0;
 }
 
-/* line 450, pages/sass/screen.scss */
+/* line 456, pages/sass/screen.scss */
 .box-sizing {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 451, pages/sass/screen.scss */
+/* line 457, pages/sass/screen.scss */
 .box-sizing * {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-/* line 455, pages/sass/screen.scss */
+/* line 461, pages/sass/screen.scss */
 .box-sizing *:after, .box-sizing *:before {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 466, pages/sass/screen.scss */
+/* line 472, pages/sass/screen.scss */
 h1, h2, h3, h4, h5, h6 {
   font-family: "museo-slab", "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
@@ -12403,37 +12405,37 @@ h1, h2, h3, h4, h5, h6 {
   margin: 1.5em 0 0.6em 0;
 }
 
-/* line 472, pages/sass/screen.scss */
+/* line 478, pages/sass/screen.scss */
 h1 {
   font-weight: 100;
   font-size: 40px;
 }
 
-/* line 473, pages/sass/screen.scss */
+/* line 479, pages/sass/screen.scss */
 h2 {
   font-weight: 100;
   font-size: 40px;
 }
 
-/* line 474, pages/sass/screen.scss */
+/* line 480, pages/sass/screen.scss */
 h3 {
   font-weight: 100;
   font-size: 25px;
 }
 
-/* line 475, pages/sass/screen.scss */
+/* line 481, pages/sass/screen.scss */
 h4 {
   font-weight: 700;
   font-size: 17px;
 }
 
-/* line 476, pages/sass/screen.scss */
+/* line 482, pages/sass/screen.scss */
 h5 {
   font-weight: 700;
   font-size: 14;
 }
 
-/* line 480, pages/sass/screen.scss */
+/* line 486, pages/sass/screen.scss */
 .brand, .logo {
   background: url("../images/jwlogo.svg");
   -webkit-background-size: 70%;
@@ -12447,7 +12449,7 @@ h5 {
   padding: 0;
 }
 
-/* line 491, pages/sass/screen.scss */
+/* line 497, pages/sass/screen.scss */
 .logo {
   -webkit-background-size: contain;
   -moz-background-size: contain;
@@ -12455,83 +12457,83 @@ h5 {
   background-size: contain;
 }
 
-/* line 495, pages/sass/screen.scss */
+/* line 501, pages/sass/screen.scss */
 body.form .brand, body.form .logo {
   width: auto;
   height: auto;
   background: transparent;
 }
 
-/* line 501, pages/sass/screen.scss */
+/* line 507, pages/sass/screen.scss */
 .hide-text, .profiles .flex-control-nav a {
   text-indent: 130%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-/* line 507, pages/sass/screen.scss */
+/* line 513, pages/sass/screen.scss */
 .no-margin {
   margin: 0;
 }
 
-/* line 511, pages/sass/screen.scss */
+/* line 517, pages/sass/screen.scss */
 .no-margin-top {
   margin-top: 0;
 }
 
-/* line 517, pages/sass/screen.scss */
+/* line 523, pages/sass/screen.scss */
 .breadcrumb {
   background: none;
   border: 1px solid #f5f5f5;
   border-radius: 0;
   border-width: 0 0 1px 0;
 }
-/* line 518, pages/sass/screen.scss */
+/* line 524, pages/sass/screen.scss */
 .breadcrumb > li {
   text-shadow: none;
 }
-/* line 521, pages/sass/screen.scss */
+/* line 527, pages/sass/screen.scss */
 .breadcrumb a:hover {
   text-decoration: none;
 }
 
-/* line 532, pages/sass/screen.scss */
+/* line 538, pages/sass/screen.scss */
 .calendar-wrap {
   padding: 0 10px;
   position: relative;
 }
-/* line 535, pages/sass/screen.scss */
+/* line 541, pages/sass/screen.scss */
 .calendar-wrap .calendar-header {
   font-size: 1.10em;
   margin: 0 0 1em 0;
   width: 100%;
   text-align: center;
 }
-/* line 540, pages/sass/screen.scss */
+/* line 546, pages/sass/screen.scss */
 .calendar-wrap .calendar-header span {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-weight: 800;
 }
-/* line 545, pages/sass/screen.scss */
+/* line 551, pages/sass/screen.scss */
 .calendar-wrap .custom-month {
   text-align: center;
   border-radius: 50%;
   width: 22px;
   height: 22px;
 }
-/* line 551, pages/sass/screen.scss */
+/* line 557, pages/sass/screen.scss */
 .calendar-wrap .custom-year {
   position: absolute;
   top: 0;
   right: 10px;
 }
 
-/* line 560, pages/sass/screen.scss */
+/* line 566, pages/sass/screen.scss */
 .btn {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
 
-/* line 566, pages/sass/screen.scss */
+/* line 572, pages/sass/screen.scss */
 footer {
   clear: both;
   color: #50616D;
@@ -12549,59 +12551,59 @@ footer {
   bottom: 0;
 }
 @media (max-width: 480px) {
-  /* line 566, pages/sass/screen.scss */
+  /* line 572, pages/sass/screen.scss */
   footer {
     position: static;
   }
 }
-/* line 581, pages/sass/screen.scss */
+/* line 587, pages/sass/screen.scss */
 footer h4 {
   margin-top: 0;
 }
-/* line 584, pages/sass/screen.scss */
+/* line 590, pages/sass/screen.scss */
 footer a {
   color: #df520e;
 }
-/* line 587, pages/sass/screen.scss */
+/* line 593, pages/sass/screen.scss */
 footer ul, footer li {
   list-style-type: none;
 }
-/* line 588, pages/sass/screen.scss */
+/* line 594, pages/sass/screen.scss */
 footer ul {
   margin: 0 0 0 5px;
 }
-/* line 589, pages/sass/screen.scss */
+/* line 595, pages/sass/screen.scss */
 footer li {
   display: inline-block;
 }
-/* line 591, pages/sass/screen.scss */
+/* line 597, pages/sass/screen.scss */
 footer li:before {
   content: "| ";
   margin-right: 3px;
 }
-/* line 593, pages/sass/screen.scss */
+/* line 599, pages/sass/screen.scss */
 footer .social-icons {
   font-size: 18px;
   display: inline-block;
   vertical-align: top;
 }
-/* line 597, pages/sass/screen.scss */
+/* line 603, pages/sass/screen.scss */
 footer .social-icons a {
   text-decoration: none;
 }
-/* line 599, pages/sass/screen.scss */
+/* line 605, pages/sass/screen.scss */
 footer .social-icons a i {
   color: #6badfd;
   font-size: 24px;
   margin-right: 4px;
 }
-/* line 601, pages/sass/screen.scss */
+/* line 607, pages/sass/screen.scss */
 footer .social-icons + div {
   width: 80%;
   display: inline-block;
 }
 
-/* line 610, pages/sass/screen.scss */
+/* line 616, pages/sass/screen.scss */
 #progress {
   position: fixed;
   height: 100px;
@@ -12610,12 +12612,12 @@ footer .social-icons + div {
   top: 40%;
 }
 
-/* line 621, pages/sass/screen.scss */
+/* line 627, pages/sass/screen.scss */
 .form-actions .btn {
   margin-right: 15px;
 }
 
-/* line 628, pages/sass/screen.scss */
+/* line 634, pages/sass/screen.scss */
 #donate {
   padding: 10px 15px 10px;
   margin-top: 0;
@@ -12625,18 +12627,18 @@ footer .social-icons + div {
   font-size: 1em;
 }
 
-/* line 637, pages/sass/screen.scss */
+/* line 643, pages/sass/screen.scss */
 #donate:hover {
   color: #ffffff;
   background-color: #df520e;
 }
 
-/* line 644, pages/sass/screen.scss */
+/* line 650, pages/sass/screen.scss */
 .infoBox {
   box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
   color: #555;
 }
-/* line 647, pages/sass/screen.scss */
+/* line 653, pages/sass/screen.scss */
 .infoBox:after {
   content: "";
   width: 9px;
@@ -12650,12 +12652,12 @@ footer .social-icons + div {
   border-top-right-radius: 11px;
   border-bottom-right-radius: 5px;
 }
-/* line 660, pages/sass/screen.scss */
+/* line 666, pages/sass/screen.scss */
 .infoBox h1, .infoBox h2, .infoBox h3, .infoBox h4 {
   color: inherit;
 }
 
-/* line 667, pages/sass/screen.scss */
+/* line 673, pages/sass/screen.scss */
 .notification {
   background: url("images/festival-bg.png") bottom right no-repeat #35b0d7;
   color: #fff;
@@ -12670,34 +12672,34 @@ footer .social-icons + div {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 677, pages/sass/screen.scss */
+/* line 683, pages/sass/screen.scss */
 .notification .close {
   position: absolute;
   right: 10px;
   top: 10px;
 }
-/* line 682, pages/sass/screen.scss */
+/* line 688, pages/sass/screen.scss */
 .notification.expanded {
   height: 180px;
 }
-/* line 685, pages/sass/screen.scss */
+/* line 691, pages/sass/screen.scss */
 .notification h4 {
   margin-bottom: 0;
   font-size: 18px;
 }
-/* line 689, pages/sass/screen.scss */
+/* line 695, pages/sass/screen.scss */
 .notification .title {
   font-size: 33px;
   margin: 0;
   line-height: 1em;
   font-weight: 400;
 }
-/* line 695, pages/sass/screen.scss */
+/* line 701, pages/sass/screen.scss */
 .notification .container {
   margin-top: 1em;
   margin-bottom: 1em;
 }
-/* line 699, pages/sass/screen.scss */
+/* line 705, pages/sass/screen.scss */
 .notification.walk-beta {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
@@ -12708,39 +12710,39 @@ footer .social-icons + div {
   -o-transition: height 0.7s ease-in-out;
   transition: height 0.7s ease-in-out;
 }
-/* line 705, pages/sass/screen.scss */
+/* line 711, pages/sass/screen.scss */
 .notification.walk-beta.expanded {
   height: 64px;
 }
-/* line 708, pages/sass/screen.scss */
+/* line 714, pages/sass/screen.scss */
 .notification.walk-beta .title-sub {
   font-size: 20px;
   margin: 0;
 }
 
-/* line 715, pages/sass/screen.scss */
+/* line 721, pages/sass/screen.scss */
 .navbar {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
-/* line 716, pages/sass/screen.scss */
+/* line 722, pages/sass/screen.scss */
 .navbar + * {
   padding-top: 60px;
 }
-/* line 719, pages/sass/screen.scss */
+/* line 725, pages/sass/screen.scss */
 .navbar.dropped, .navbar.edit {
   position: static;
   margin: 0 -60px 0;
   top: 0;
 }
-/* line 723, pages/sass/screen.scss */
+/* line 729, pages/sass/screen.scss */
 .navbar.dropped .navbar-outer, .navbar.edit .navbar-outer {
   max-height: 900px;
 }
-/* line 728, pages/sass/screen.scss */
+/* line 734, pages/sass/screen.scss */
 .navbar .nav {
   font-size: 1em;
 }
-/* line 731, pages/sass/screen.scss */
+/* line 737, pages/sass/screen.scss */
 .navbar .notification {
   position: absolute;
   overflow: hidden;
@@ -12749,67 +12751,67 @@ footer .social-icons + div {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-/* line 738, pages/sass/screen.scss */
+/* line 744, pages/sass/screen.scss */
 .navbar .notification .container {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-/* line 742, pages/sass/screen.scss */
+/* line 748, pages/sass/screen.scss */
 .navbar .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-/* line 746, pages/sass/screen.scss */
+/* line 752, pages/sass/screen.scss */
 .navbar .notification.expanded {
   height: 50px;
 }
-/* line 750, pages/sass/screen.scss */
+/* line 756, pages/sass/screen.scss */
 .navbar .nav-collapse {
   max-width: 60%;
 }
-/* line 753, pages/sass/screen.scss */
+/* line 759, pages/sass/screen.scss */
 .navbar nav {
   float: left;
 }
-/* line 756, pages/sass/screen.scss */
+/* line 762, pages/sass/screen.scss */
 .navbar ul.nav.pull-right {
   float: right;
 }
-/* line 759, pages/sass/screen.scss */
+/* line 765, pages/sass/screen.scss */
 .navbar a {
   cursor: pointer;
 }
-/* line 762, pages/sass/screen.scss */
+/* line 768, pages/sass/screen.scss */
 .navbar .search-close, .navbar .search-open {
   /* todo: get rid of all these importants */
   padding: 10px 12px !important;
   border-radius: 999px;
 }
-/* line 767, pages/sass/screen.scss */
+/* line 773, pages/sass/screen.scss */
 .navbar .search-close {
   background: #f16725;
   text-shadow: none !important;
   display: none;
 }
-/* line 771, pages/sass/screen.scss */
+/* line 777, pages/sass/screen.scss */
 .navbar .search-close:hover {
   color: inherit;
   background: #f16725 !important;
 }
-/* line 775, pages/sass/screen.scss */
+/* line 781, pages/sass/screen.scss */
 .navbar .search-close i {
   color: #fff;
 }
-/* line 780, pages/sass/screen.scss */
+/* line 786, pages/sass/screen.scss */
 .navbar.dropped .search-close {
   display: block;
 }
-/* line 781, pages/sass/screen.scss */
+/* line 787, pages/sass/screen.scss */
 .navbar.dropped .search-open {
   display: none;
 }
 
-/* line 785, pages/sass/screen.scss */
+/* line 791, pages/sass/screen.scss */
 .navbar-outer {
   background-color: #666666;
   max-height: 0;
@@ -12819,36 +12821,36 @@ footer .social-icons + div {
   -o-transition-duration: 0.6s;
   transition-duration: 0.6s;
 }
-/* line 790, pages/sass/screen.scss */
+/* line 796, pages/sass/screen.scss */
 .navbar-outer form {
   max-width: 1170px;
   margin: 0 auto;
   padding: 25px 0;
 }
-/* line 794, pages/sass/screen.scss */
+/* line 800, pages/sass/screen.scss */
 .navbar-outer form fieldset.search {
   display: inline-block;
   margin-right: 50px;
   vertical-align: top;
 }
-/* line 799, pages/sass/screen.scss */
+/* line 805, pages/sass/screen.scss */
 .navbar-outer form div#searchResults {
   display: inline-block;
   max-width: 600px;
   margin-top: -10px;
 }
-/* line 803, pages/sass/screen.scss */
+/* line 809, pages/sass/screen.scss */
 .navbar-outer form div#searchResults mark {
   color: inherit;
   background-color: inherit;
   border-bottom: 1px dotted;
 }
-/* line 808, pages/sass/screen.scss */
+/* line 814, pages/sass/screen.scss */
 .navbar-outer form div#searchResults h4, .navbar-outer form div#searchResults p {
   margin: 0;
   padding: 0 0 8px 0;
 }
-/* line 812, pages/sass/screen.scss */
+/* line 818, pages/sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult {
   margin: 0;
   padding: 8px 8px 0 8px;
@@ -12857,20 +12859,20 @@ footer .social-icons + div {
   -o-transition-duration: 0.3s;
   transition-duration: 0.3s;
 }
-/* line 816, pages/sass/screen.scss */
+/* line 822, pages/sass/screen.scss */
 .navbar-outer form div#searchResults .searchResult:hover {
   background: #333;
 }
-/* line 820, pages/sass/screen.scss */
+/* line 826, pages/sass/screen.scss */
 .navbar-outer form div#searchResults a {
   color: #efefef;
 }
-/* line 822, pages/sass/screen.scss */
+/* line 828, pages/sass/screen.scss */
 .navbar-outer form div#searchResults a:hover {
   text-decoration: none;
 }
 
-/* line 834, pages/sass/screen.scss */
+/* line 840, pages/sass/screen.scss */
 fieldset.search input[type=text] {
   width: 280px;
   font-size: 14px;
@@ -12883,7 +12885,7 @@ fieldset.search input[type=text] {
   height: 21px;
   line-height: 24px;
 }
-/* line 836, pages/sass/screen.scss */
+/* line 842, pages/sass/screen.scss */
 fieldset.search input[type=submit] {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-size: 18px;
@@ -12899,12 +12901,12 @@ fieldset.search input[type=submit] {
   line-height: 24px;
   vertical-align: top;
 }
-/* line 837, pages/sass/screen.scss */
+/* line 843, pages/sass/screen.scss */
 fieldset.search input[type=checkbox] {
   display: none;
 }
 
-/* line 842, pages/sass/screen.scss */
+/* line 848, pages/sass/screen.scss */
 .walk-label {
   font-family: "museo-slab", "Roboto Slab", serif;
   padding: 5px 8px;
@@ -12917,7 +12919,7 @@ fieldset.search input[type=checkbox] {
   font-size: 14px;
 }
 
-/* line 855, pages/sass/screen.scss */
+/* line 861, pages/sass/screen.scss */
 .u-avatar {
   background-size: cover;
   background-position: 50%;
@@ -12926,38 +12928,38 @@ fieldset.search input[type=checkbox] {
   height: 140px;
 }
 
-/* line 864, pages/sass/screen.scss */
+/* line 870, pages/sass/screen.scss */
 .blog {
   color: #666666;
 }
 
-/* line 869, pages/sass/screen.scss */
+/* line 875, pages/sass/screen.scss */
 .error404 {
   padding-top: 0;
   background: #ebeef1;
 }
-/* line 872, pages/sass/screen.scss */
+/* line 878, pages/sass/screen.scss */
 .error404 .container-outter {
   padding: 150px 0;
   color: #50616D;
   text-align: center;
   background: #fff;
 }
-/* line 879, pages/sass/screen.scss */
+/* line 885, pages/sass/screen.scss */
 .error404 .navbar_home {
   margin-top: 2em;
 }
 
-/* line 886, pages/sass/screen.scss */
+/* line 892, pages/sass/screen.scss */
 .reg-confirmation .modal-footer, .reg-confirmation-congested .modal-footer {
   text-align: center;
 }
-/* line 889, pages/sass/screen.scss */
+/* line 895, pages/sass/screen.scss */
 .reg-confirmation footer, .reg-confirmation-congested footer {
   display: none;
 }
 
-/* line 894, pages/sass/screen.scss */
+/* line 900, pages/sass/screen.scss */
 .inline.tags .tag i[class^=icon-] {
   width: 100%;
   display: block;
@@ -12965,24 +12967,24 @@ fieldset.search input[type=checkbox] {
   line-height: 20px;
 }
 
-/* line 901, pages/sass/screen.scss */
+/* line 907, pages/sass/screen.scss */
 #ccm-profile-wrapper {
   padding-bottom: 25px;
 }
 
 /* onassar */
 @media (max-width: 979px) {
-  /* line 910, pages/sass/screen.scss */
+  /* line 916, pages/sass/screen.scss */
   .navbar + * {
     padding-top: 0 !important;
   }
 
-  /* line 915, pages/sass/screen.scss */
+  /* line 921, pages/sass/screen.scss */
   div.container-outter div.container {
     padding: 20px 0 0;
   }
 }
-/* line 923, pages/sass/screen.scss */
+/* line 929, pages/sass/screen.scss */
 header.navbar div.navbar-inner div.container {
   height: 60px;
   overflow: hidden;
