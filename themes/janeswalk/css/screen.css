@@ -12146,6 +12146,10 @@ body {
   width: 100%;
   top: 15px;
 }
+/* line 180, pages/sass/screen.scss */
+.overlay.o-donate .o-content div.btnWrapper a.btn {
+  background-color: #f1592a;
+}
 /* line 185, pages/sass/screen.scss */
 .overlay.o-donate .o-content div.quote {
   padding: 40px;
