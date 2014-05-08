@@ -455,7 +455,7 @@
                       <p>
                         <span class="icon icon-check"></span>
                         <?= ($cityHeaderInfo) ?>
-                        <a href="/index.php/dashboard/composer/write/-/edit/144/"><?= t('Edit') ?></a>
+                        <a href="<?= ($this->url('/dashboard/composer/write/-/edit/' . $city->getCollectionID())) ?>"><?= t('Edit') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
@@ -473,7 +473,7 @@
                       <p>
                         <span class="icon icon-check"></span>
                         <?= ($cityDescription) ?>
-                        <a href="/index.php/dashboard/composer/write/-/edit/144/"><?= t('Edit') ?></a>
+                        <a href="<?= ($this->url('/dashboard/composer/write/-/edit/' . $city->getCollectionID())) ?>"><?= t('Edit') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
@@ -491,7 +491,7 @@
                       <p>
                         <span class="icon icon-check"></span>
                         <span class="bgPhoto" style="background-image: url('<?= ($cityBackgroundPhoto) ?>');"></span>
-                        <a href="/index.php/dashboard/composer/write/-/edit/144/"><?= t('Change') ?></a>
+                        <a href="<?= ($this->url('/dashboard/composer/write/-/edit/' . $city->getCollectionID())) ?>"><?= t('Change') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>

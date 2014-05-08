@@ -48,6 +48,7 @@ class ProfileController extends Concrete5_Controller_Profile {
         $pl->filterByAttribute('exclude_page_list',true);
         $cityWalks[] = ['city' => $city, 'walks' => $walks, 'inprogress' => $pl->get()];
       }
+      $this->set('city', $city);
       $this->set('cityWalks', $cityWalks);
     }
 
