@@ -389,7 +389,7 @@ class WalkPageTypeController extends JanesWalkController {
           $name = t($crumb->getCollectionName());
         }
         if($crumb->getCollectionTypeHandle() === 'city') {
-          $link .= '/walks';
+          $link .= 'walks';
         }
         $breadcrumb .= '<a href="' . $link . '">' . $name . '</a>';
         $breadcrumb .= '<span class="divider"><i class="icon-angle-right"></i></span></li>';
