@@ -81,9 +81,9 @@ var ProfilePageView = PageView.extend({
         $btn.click(
             function(event) {
                 event.preventDefault();
-                var blogPostObj = {
-                    title: '{replaced}'
-                };
+                var blogPostObj = _this._getBlogPostObjById(
+                    $(this).data('blogpostid')
+                );
                 _this._element.find('.blogPostPromoteOverlay .copy').each(
                     function(index, copy) {
                         var $copy = $(copy);
@@ -113,6 +113,34 @@ var ProfilePageView = PageView.extend({
     },
 
     /**
+     * _getBlogPostObjById
+     * 
+     * @protected
+     * @param     Number blogPostId
+     * @return    void
+     */
+    _getBlogPostObjById: function(blogPostId) {
+        console.log(blogPostId);
+        return {
+            title: '{replaced}'
+        };
+    },
+
+    /**
+     * _getWalkObjById
+     * 
+     * @protected
+     * @param     Number walkId
+     * @return    void
+     */
+    _getWalkObjById: function(walkId) {
+        console.log(walkId);
+        return {
+            title: '{replaced}'
+        };
+    },
+
+    /**
      * _addPromoteWalkClickEvent
      * 
      * @protected
@@ -127,9 +155,7 @@ var ProfilePageView = PageView.extend({
         $btn.click(
             function(event) {
                 event.preventDefault();
-                var walkObj = {
-                    title: '{replaced}'
-                };
+                var walkObj = _this._getWalkObjById($(this).data('walkid'));
                 _this._element.find('.walkPromoteOverlay .copy').each(
                     function(index, copy) {
                         var $copy = $(copy);
