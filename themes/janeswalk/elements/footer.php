@@ -1,59 +1,51 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
-  <footer class="full" role="contentinfo">
-    <div class="container">
-      <div class="social-icons">
-        <a href="http://twitter.com/janeswalk" target="_blank"><i class="icon-twitter"></i></a>
-        <a href="http://facebook.com/janeswalk" target="_blank"><i class="icon-facebook-sign"></i></a>
+    <footer class="full" role="contentinfo">
+      <div class="container">
+        <div class="social-icons">
+          <a href="http://twitter.com/janeswalk" target="_blank"><i class="icon-twitter"></i></a>
+          <a href="http://facebook.com/janeswalk" target="_blank"><i class="icon-facebook-sign"></i></a>
+        </div>
+        <div>
+          <?php $ah = new GlobalArea('Footer'); $ah->display($c); ?>
+        </div>
       </div>
-      <div>
-        <?php $ah = new GlobalArea('Footer'); $ah->display($c); ?>
-      </div>
-    </div>
-  </footer>
-  <script type="text/javascript">
+    </footer>
+    <div id="progress" style="z-index: -1;"></div>
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-29278390-1']);
+    _gaq.push(['_trackPageview']);
 
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-29278390-1']);
-  _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script type="text/javascript" src="//use.typekit.net/lxq4ddc.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    <script src="<?=$this->getThemePath()?>/js/js-url.min.js"></script>
+    <script src="<?=$this->getThemePath()?>/js/jquery.cookie.js"></script>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM&sensor=false"></script>
+    <script src="//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.3/spin.min.js"></script>
+    <script src="<?=$this->getThemePath()?>/js/jquery.calendar.js"></script>
+    <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/2.8.1/jquery.mCustomScrollbar.min.js"></script>
+    <script src="<?=$this->getThemePath()?>/js/Eventbrite.jquery.js"></script>  
 
-  </script>
-  <div id="progress" style="z-index: -1;"></div>
+    <?php /* v2 (onassar) */ ?>
+    <script src="<?=$this->getThemePath()?>/js/app.js" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/extend.js" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/FacebookShareDialog.js?1" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/View.js?1" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js?1" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js?1" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/City.js?1" type="text/javascript"></script>
+    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js?1" type="text/javascript"></script>
 
-  <script type="text/javascript" src="//use.typekit.net/lxq4ddc.js"></script>
-  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-  <script src="<?=$this->getThemePath()?>/js/js-url.min.js"></script>
-  <script src="<?=$this->getThemePath()?>/js/jquery.cookie.js"></script>
-
-  <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM&sensor=false"></script>
-  <script src="//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js" type="text/javascript"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-  <script src="//cdn.jsdelivr.net/bootstrap.wysihtml5/0.0.2/bootstrap-wysihtml5-0.0.2.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/flexslider/2.1/jquery.flexslider-min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.3/spin.min.js"></script>
-  <script src="<?=$this->getThemePath()?>/js/jquery.calendar.js"></script>
-  <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/2.8.1/jquery.mCustomScrollbar.min.js"></script>
-  <script src="<?=$this->getThemePath()?>/js/Eventbrite.jquery.js"></script>  
-
-  <!-- v2 (onassar) -->
-  <script src="<?=$this->getThemePath()?>/js/app.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/extend.js" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/FacebookShareDialog.js?1" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/View.js?1" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js?1" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js?1" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/City.js?1" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Profile.js?1" type="text/javascript"></script>
-  <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js?1" type="text/javascript"></script>
-
-  <?php Loader::element('footer_required'); ?>
-</body>
+    <?php Loader::element('footer_required'); ?>
+  </body>
 </html>
 

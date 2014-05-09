@@ -35,7 +35,7 @@ $docNode->appendChild($restStyleNode);
 foreach($pages as $page) {
   $parent = Page::getByID($page->getCollectionParentID());
   $page_owner = UserInfo::getByID($page->getCollectionUserID());
-  $city = t($page->getCollectionName().", ".$parent->getCollectionName());
+  $city = $page->getCollectionName().", ".$parent->getCollectionName();
   // Creates a Placemark and append it to the Document.
 
   $node = $dom->createElement('Placemark');

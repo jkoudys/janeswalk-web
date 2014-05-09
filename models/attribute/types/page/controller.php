@@ -55,29 +55,34 @@ class PageAttributeTypeController extends AttributeTypeController  {
     Loader::model('page_list');
     $pl = new PageList();
     $lastParent = '';
-    $selected=false;
-    if ($this->getAttributeValueID() > 0) {
-      $selected = $this->getValue();
+    $selected = $_REQUEST['akID'][$this->getAttributeKey()->getAttributeKeyID()]['value'];
+    if (!$selected && $this->getAttributeValueID() > 0) {
+      $selected = $this->getValue()->cID;
     }
-    $selectString = "<select id='{$this->field('value')}' name='{$this->field('value')}' >";
+    $selectString = "<select id='{$this->field('value')}' name='{$this->field('value')}' ><option value=''>--</option>";
     $pl->filterByCollectionTypeHandle('city');
     $pages = $pl->get();
-    uasort($pages, function($a,$b) {$ap = $a->getCollectionParentID();$bp = $b->getCollectionParentID();return ($ap == $bp) ? 0 : strcmp(Page::getByID($ap)->getCollectionName(), Page::getByID($bp)->getCollectionName());});
+    uasort($pages,
+      function($a,$b) {
+        $ap = $a->getCollectionParentID();
+        $bp = $b->getCollectionParentID();
+        return ($ap === $bp) ? 0 : strcmp(Page::getByID($ap)->getCollectionName(), Page::getByID($bp)->getCollectionName());
+      });
     foreach($pages as $page) {
       $parent = Page::getByID($page->getCollectionParentID())->getCollectionName();
       if($lastParent != $parent) {
-        if($lastParent != "") { $selectString .= '</optgroup>'; }
+        if($lastParent !== '') { $selectString .= '</optgroup>'; }
       $selectString .= "<optgroup label='$parent'>";
       $lastParent = $parent;
       }
       $selectedAttributeVal = '';
-      if ($this->getValue()->cID === $page->cID) {
+      if ($selected === $page->cID) {
         $selectedAttributeVal = ' selected="selected"';
       }
       $selectString .= "<option value=\"{$page->getCollectionID()}\"" . ($selectedAttributeVal) . ">{$page->getCollectionName()}</option>";
     }
     $selectString .= '</select>';
-    print $selectString;
+    echo $selectString;
   }
 
   // run when we call setAttribute(), instead of saving through the UI

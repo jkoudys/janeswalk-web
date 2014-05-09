@@ -1,2 +1,2 @@
-Jane's Walk Form
+Create a Walk
 Alternate theme for walk submission form

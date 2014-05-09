@@ -16,31 +16,6 @@
   <body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>"
     data-pageViewName="HomePageView"
     data-backgroundImageUrl="<?= ($headImage->getURL()) ?>">
-    <script type="text/javascript">
-      JanesWalk = {
-        page: {
-          url: 'http://' + (location.host) + (location.pathname),
-          title: '<?= addslashes($c->getCollectionName()) ?>'
-        },
-<?php
-  if($u->isLoggedIn()) {
-    $ui = UserInfo::getByID( $u->getUserID() );
-    $city = $ui->getAttribute('home_city');
-?>
-        user: {
-          firstName: '<?= $ui->getAttribute('first_name') ?>',
-          lastName: '<?= $ui->getAttribute('last_name') ?>',
-          city: {
-            name: '<?= addslashes($city->getCollectionName()) ?>',
-            url: '<?= $nh->getCollectionURL($city) ?>'
-          },
-        },
-<?php
-  }
-?>
-      };
-    </script>
-
 
     <div class="overlay o-connect">
       <div class="o-background">
@@ -64,15 +39,17 @@
     </div>
     <!-- end of .intro -->
     <div class="overlap" id="getinvolved">
-      <ul class="controls">
-        <li>
-          <a class="showButton">Show Map <br /><i class="icon-chevron-down"></i></a>
-          <a class="closeButton" style="display:none">Close Map <br /><i class="icon-chevron-up"></i></a>
-        </li>
-      </ul>
-      <section class="map full">
-        <?php (new Area('Map'))->display($c); ?>
-      </section>
+      <?php if (!$isMobile) { ?>
+        <ul class="controls">
+          <li>
+            <a class="showButton">Show Map <br /><i class="icon-chevron-down"></i></a>
+            <a class="closeButton" style="display:none">Close Map <br /><i class="icon-chevron-up"></i></a>
+          </li>
+        </ul>
+        <section class="map full">
+          <?php (new Area('Map'))->display($c); ?>
+        </section>
+      <?php } ?>
       <section class="calltoaction full">
         <?php (new Area('Call to Action'))->display($c); ?>
       </section>

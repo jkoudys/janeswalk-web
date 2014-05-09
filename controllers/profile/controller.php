@@ -220,7 +220,7 @@ class ProfileController extends Concrete5_Controller_Profile {
             // smart way to recommend other cities.
             $pl = new PageList();
             $pl->filterByCollectionTypeHandle('city');
-			$pl->filter(false,'p1.uID !=' . $u->getUserID());
+            $pl->filter(false,'p1.uID !=' . $u->getUserID());
             $pl->filterByAttribute('exclude_page_list', false);
             $pl->sortBy('RAND()');
 
@@ -243,7 +243,7 @@ class ProfileController extends Concrete5_Controller_Profile {
             // organizers/walk leaders that showcase creative/unique walks
             $pl = new PageList();
             $pl->filterByCollectionTypeHandle('walk');
-			$pl->filter(false,'p1.uID !=' . $u->getUserID());
+            $pl->filter(false,'p1.uID !=' . $u->getUserID());
             $pl->filterByAttribute('exclude_page_list', false);
             $pl->sortBy('RAND()');
 

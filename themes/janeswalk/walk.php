@@ -21,42 +21,15 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
-  <script type="text/javascript">
-    JanesWalk = {
-      page: {
-        url: 'http://' + (location.host) + (location.pathname),
-        pictureUrl: 'http://i.imgur.com/JgaVx8G.png',
-        title: '<?= addslashes($c->getCollectionName()) ?>',
-        description: <?= json_encode(strip_tags($c->getAttribute('longdescription'))) ?>,
-        city: {
-          name: '<?=addslashes($city->getCollectionName())?>',
-          url: '<?=$nh->getCollectionURL($city)?>'
-        },
-        gmap: <?=json_encode($gmap)?>
-      }
-    };
-  </script>
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
-
-      <ul class="breadcrumb visible-desktop visible-tablet">
-        <?php
-        foreach($crumbs as $crumb) {
-          if( $crumb->getCollectionID() == 1 ) { ?>
-          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><i class="icon-home"></i></a> <span class="divider"><i class="icon-angle-right"></i></span></li>
-          <?php } else if ($crumb->getCollectionTypeHandle() !== 'country' ) { ?>
-          <li><a href="<?=$nh->getLinkToCollection($crumb)?>"><?= t($crumb->getCollectionName()) ?></a><span class="divider"><i class="icon-angle-right"></i></span></li>
-        <?php }
-        } ?>
-        <li class="active"><?=$c->getCollectionName() ?></li>
-      </ul>
-
-      <div class="walk-label">Festival Walk</div>
+        <?= $breadcrumb ?>
+      <div class="walk-label"><?= t('Festival Walk') ?></div>
 
       <div class="tag-list">
         <ul class="nav nav-pills">
-          <?php foreach((object)$c->getAttribute("theme") as $theme) { ?>
+          <?php foreach((object)$c->getAttribute('theme') as $theme) { ?>
             <li><div class='icon'><?= $th->getIcon($theme) ?></div> <?= t($th->getName($theme)) ?></li>
           <?php } ?>
         </ul>
@@ -78,15 +51,22 @@
               } else if(isset($slots[0]['date'])) {
             ?>
               <h4 class="available-time">
-                <i class="icon-calendar"></i> <?= t('Next available day') ?>:<br /><span class="highlight"><?=$slots[0]['date']?></span>
+                <i class="icon-calendar"></i> <?= t2('Next available day', 'Available dates', sizeof($slots)) ?>:<br />
+<?php
+                foreach($slots as $slot) { ?>
+                <span class="highlight"><?=$slot['date']?></span>
                 <span class="divider">|</span>
-                <span class="time"><?= ($slots[0]['time']) ?></span>
+                <span class="time"><?= ($slot['time']) ?></span>
+                <br />
+<?php
+                }
+?>
               </h4>
             <?php }
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {
             ?>
-              <a data-eid="<?=$eid?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
+              <a data-eid="<?= $eid ?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
             <?php
               } else {
             ?>
@@ -105,6 +85,12 @@
             <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($walk_leaders)) .
               implode(', ', array_map(function($mem){ return "{$mem['name-first']} {$mem['name-last']}"; }, $walk_leaders)); ?>
           </h4>
+          <?php if($meeting_place) { ?>
+          <h4>
+          <?= t('Meeting Place') ?>: <?= $meeting_place['title'] ?>
+          </h4>
+           <p><?= $meeting_place['description'] ?></p>
+          <?php } ?>
         </div>
       </div>
       <?php if(sizeof((array)$gmap->markers) + sizeof((array)$gmap->path) > 0) { ?>
@@ -150,7 +136,7 @@
             <h3><?= t('About This Walk') ?></h3>
             <?php if( $thumb ) { ?>
               <a class="thumb" href="<?= ($im->getThumbnail($thumb,1024,1024)->src) ?>">
-                <img src="<?=$im->getThumbnail($thumb,340,720)->src?>" class="pull-right img-polaroid" />
+                <img src="<?= $im->getThumbnail($thumb,340,720)->src ?>" class="pull-right img-polaroid" />
               </a>
             <?php } 
             echo $c->getAttribute('longdescription'); ?>
@@ -190,13 +176,12 @@
             <hr>
             <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
 
-            <?php foreach($team as $mem) { ?>
+            <?php foreach($team as $k => $mem) { ?>
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
 <?php 
-                // TODO: get calgary leaders to show (hidden since Julie updates all walks manually, thus setting herself as the picture
-                if($mem['avatar'] && $city->getCollectionName() !== 'Calgary' ) { ?>
+                if($mem['avatar'] && $city->getCollectionName() !== 'Calgary') { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
                   <? } else { ?>
                     <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
@@ -207,9 +192,23 @@
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
                   <div class="btn-toolbar">
-                    <?php if($mem['email']) { ?><a href="mailto:<?=$mem['email']?>" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
-                    <?php if($mem['facebook']) { ?><a href="http://facebook.com/<?=$mem['facebook']?>"><i class="icon-facebook"></i></a><?php } ?>
-                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>"><i class="icon-twitter"></i></a><?php } ?>
+                    <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" target="_blank" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
+                    <?php
+                      if($mem['facebook']) {
+                        $submittedFacebookPiece = $mem['facebook'];
+                        if (!preg_match('/^http/', $submittedFacebookPiece)) {
+                          $submittedFacebookPiece = 'https://facebook.com/' . ($submittedFacebookPiece);
+                        }
+                    ?><a href="<?= ($submittedFacebookPiece) ?>" target="_blank" class="btn"><i class="icon-facebook"></i></a><?php } ?>
+                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
+                    <?php
+                      if($mem['website']) {
+                        $submittedWebsitePiece = $mem['website'];
+                        if (!preg_match('/^http/', $submittedWebsitePiece)) {
+                          $submittedWebsitePiece = 'http://' . ($submittedWebsitePiece);
+                        }
+                    ?><a href="<?=$submittedWebsitePiece?>" target="_blank" class="btn"><i class="icon-globe"></i></a>
+                    <?php } ?>
                   </div>
                   <?=$mem['bio']?>
                 </div>
@@ -223,15 +222,14 @@
             <hr>
             <h3><?= t('Downloads') ?></h3>
             <div class="download-list">
-              <ul>
-              </ul>
+              <?php (new Area('Downloads'))->display($c) ?>
             </div>
           </div>
 
           <div class="walk-aux">
             <hr>
             <div class="share-print">
-              <a href="#" class="share notify printLink"><i class="icon-print"></i> <?= t('Print this walk') ?></a>
+              <a href="javascript:window.print();" class="share notify printLink"><i class="icon-print"></i> <?= t('Print this walk') ?></a>
               <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> <?= t('Share this walk') ?></a>
             </div>
           </div>
@@ -338,7 +336,8 @@
             <p>
               <?= t($accessible_find) ?>
             </p>
-            <? } ?>
+<?php
+            } ?>
           </div>
         </div><!-- accessibility -->
 
@@ -373,7 +372,7 @@
   </div> 
   <script type="text/javascript">
     // EventBrite
-    var EventBriteEmail = 'jasmine.frolick@janeswalk.net';
+/*    var EventBriteEmail = 'jasmine.frolick@janeswalk.net';
     $('a.thumb').colorbox({
       rel: 'group1',
       onOpen: blurPage,
@@ -384,7 +383,7 @@
       close: 'x',
       maxHeight: '80%',
       maxWidth: '80%'
-    });
+    }); */
   </script>
 
   <?php $this->inc('elements/footer.php');?>

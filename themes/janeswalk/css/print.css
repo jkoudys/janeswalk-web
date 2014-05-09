@@ -1,3 +1,6 @@
-/* Welcome to Compass. Use this file to define print styles.
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
+body > header, body > footer, body #ccm-page-controls-wrapper {
+  display: none; }
+
+* {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact; }

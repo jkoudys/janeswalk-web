@@ -21,6 +21,11 @@ class WalkFormController extends Controller {
     else {
       $c = Page::getByPath($load);
     }
+    // Let's load the controller for the walk, so we can access its json methods
+    Loader::controller($c);
+    $walkController = new WalkPageTypeController();
+    $walkController->setCollectionObject($c);
+
     !$city && $city = Page::getByID($c->getCollectionParentID());
     $country = Page::getByID($city->getCollectionParentID());
     $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
@@ -41,12 +46,25 @@ class WalkFormController extends Controller {
       $wards = false; 
     }
 
+    // Set the language based on a trail to the city
+    /* Set the city language to the first one matched, recursing from where we are */
+    $crumbs = $nh->getTrailToCollection($c);
+    $crumbs[] = $c; // Must check the current page first
+    foreach($crumbs as $crumb) {
+      if($lang = (string) $crumb->getAttribute('lang')) { 
+        Localization::changeLocale($lang);
+        break;
+      }
+    }
+
     $this->set('u', $u);
     $this->set('ui', $ui);
+    $this->set('owner', UserInfo::getByID($c->getCollectionUserID()));
     $this->set('nh', $nh);
     $this->set('av', $av);
     $this->set('load', $load);
     $this->set('c', $c);
+    $this->set('walkController', $walkController);
     $this->set('city', $city);
     $this->set('country', $country);
     $this->set('ui_cityorganizer', $ui_cityorganizer);

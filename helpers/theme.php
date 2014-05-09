@@ -33,10 +33,9 @@ class ThemeHelper {
       'civic-truecitizen' => "<i class='icon-flag-alt'></i>",
       'civic-goodneighbour' => "<i class='icon-group'></i>",
 
-
       'urban-sports' => "<i class='icon-trophy'></i>",
       'urban-play' => "<i class='icon-puzzle-piece'></i>",
-      'urban-water' => "<i class='icon-puzzle-tint'></i>",
+      'urban-water' => "<i class='icon-tint'></i>",
       'urban-film' => "<i class='icon-facetime-video'></i>",
       'urban-music' => "<i class='icon-music'></i>",
       'civic-international' => "<i class='icon-globe'></i>",
@@ -56,7 +55,7 @@ class ThemeHelper {
       'urban-moversandshakers' => 'Transportation',
       'culture-historybuff' => 'Heritage',
       'culture-artist' => 'Art',
-      'culture-aesthete' => 'Design',/////
+      'culture-aesthete' => 'Design',
       'culture-bookworm' => 'Literature',
       'culture-foodie' => 'Food',
       'culture-nightowl' => 'Night Life',
@@ -118,10 +117,45 @@ class ThemeHelper {
       return $accessibilities;
     }
   }
+
+  /**
+   * Looks up the list of options from the DB
+   * This is the only place where themes are 'categorized', which is purely for presentation in the walk create form
+   *
+   * @param string $type Which type of tag to return (e.g. theme, accessible)
+   * @return array
+   */ 
+  public function getSelectOptions($type = 'all') {
+    $options = [];
+    $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
+
+    if($type === 'all' || $type === 'theme') {
+      $satc->setAttributeKey(CollectionAttributeKey::getByHandle('theme'));
+      $themeAK = CollectionAttributeKey::getByHandle('theme');
+      foreach ($satc->getOptions() as $v) {
+        $category = $this->getCategory($v->value);
+        $options['theme'][$category][] = [
+          'handle' => $v->value,
+          'name' => $this->getName($v->value),
+        ];
+      }
+    }
+    if($type === 'all' || $type === 'accessibile') {
+      $satc->setAttributeKey(CollectionAttributeKey::getByHandle('accessible'));
+      foreach ($satc->getOptions() as $v) {
+        $options['accessible'][] = ['handle' => $v->value, 'name' => $this->getName($v->value)];
+      }
+    }
+    return $options;
+  }
+
   public function getName($handle) {
-    return $this->attributeNameMap[(string)$handle];
+    return $this->attributeNameMap[(string)$handle] ?: (string)$handle;
   }
   public function getIcon($handle) {
     return $this->attributeIconMap[(string)$handle];
   }
 }
+
+
+

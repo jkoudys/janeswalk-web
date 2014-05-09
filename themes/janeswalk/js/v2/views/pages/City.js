@@ -72,12 +72,162 @@ var CityPageView = PageView.extend({
     init: function(element) {
         this._super(element);
         this._cards = this._element.find('.walk');
-        this._data = JanesWalkData.walks;
+        this._data = JanesWalk.walks;
         this._resetSelectElements();
         this._addCreateWalkEvent();
         this._addFilterEvents();
         this._setThemeCounts();
         this._captureHash();
+        this._setupText2DonateInterstitials();
+    },
+
+    /**
+     * _getFacebookDialogDonateObj
+     * 
+     * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
+     * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
+     * @protected
+     * @return    Object
+     */
+    _getFacebookDialogDonateObj: function() {
+        return {
+            link: 'http://janeswalk.org',
+            // picture: 'http://janeswalk.org',
+            name: 'Jane\'s Walk'
+        };
+    },
+
+    /**
+     * _setupText2DonateInterstitials
+     * 
+     * @protected
+     * @return    void
+     */
+    _setupText2DonateInterstitials: function() {
+        // Catfish events
+        this._element.find('a.closeCatfishCta').click(
+            function(event) {
+                event.preventDefault();
+                _this._element.find('.catfish').hide();
+
+                // Track the closure
+                jQuery.cookie(
+                    'hasSeenDonateCatfish',
+                    '1',
+                    {
+                        path: '/',
+                        domain: location.host
+                    }
+                );
+            }
+        );
+
+        // Canadian city check
+        var isCanadianCity = (location.pathname.match(/\/canada\/[^/]+/) !== null),
+            _this = this;
+        if (isCanadianCity === true) {
+
+            // Modal
+            var hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null
+                && typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
+
+            // Hasn't yet been seen
+            if (hasSeenDonateInterstitial === false) {
+                var closeCallback = function() {
+
+                    // Track the closure
+                    jQuery.cookie(
+                        'hasSeenDonateInterstitial',
+                        '1',
+                        {
+                            path: '/',
+                            domain: location.host
+                        }
+                    );
+
+                    // Open the catfish
+                    _this._element.find('.catfish.c-donate').removeClass(
+                        'hidden'
+                    );
+                };
+                this._element.find('.overlay.o-donate').show();
+                this._element.find('.overlay.o-donate .o-background').click(closeCallback);
+                this._element.find('a.closeModalCta').click(closeCallback);
+
+                // Already donated flow
+                this._element.find('div.btnWrapper a').click(
+                    function(event) {
+
+                        // Track the closure
+                        jQuery.cookie(
+                            'hasSeenDonateInterstitial',
+                            '1',
+                            {
+                                path: '/',
+                                domain: location.host
+                            }
+                        );
+
+                        // Track the closure
+                        jQuery.cookie(
+                            'hasSeenDonateCatfish',
+                            '1',
+                            {
+                                path: '/',
+                                domain: location.host
+                            }
+                        );
+
+                        // Shout modal
+                        event.preventDefault();
+                        _this._element.find('.o-donate').hide();
+                        _this._element.find('.o-shout').show();
+
+                        // Twitter button
+                        _this._element.find('.o-shout .icon-twitter').click(
+                            function(event) {
+                                event.preventDefault();
+                                var url = encodeURIComponent(
+                                        'http://janeswalk.org/'
+                                    ),
+                                    text = encodeURIComponent(
+                                        $(this).closest('.option').find('.copy').text().trim()
+                                    );
+                                var link = 'https://twitter.com/intent/tweet' +
+                                    '?url=' + (url) +
+                                    '&via=janeswalk' +
+                                    '&text=' + (text);
+                                window.open(
+                                    link,
+                                    'Twitter Share',
+                                    'width=640, height=320'
+                                );
+                            }
+                        );
+
+                        // Twitter button
+                        _this._element.find('.o-shout .icon-facebook').click(
+                            function(event) {
+                                event.preventDefault();
+                                var shareObj = _this._getFacebookDialogDonateObj();
+                                shareObj.description = $(this).closest('.option').find('.copy').text().trim();
+                                (new FacebookShareDialog(shareObj)).show();
+                            }
+                        );
+                    }
+                );
+            } else {
+
+                // Catfish
+                var hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null
+                    && typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
+
+                // Hasn't yet been seen
+                if (hasSeenDonateCatfish === false) {
+                    this._element.find('.catfish').removeClass('hidden');
+                }
+            }
+        }
     },
 
     /**
@@ -167,7 +317,7 @@ var CityPageView = PageView.extend({
                     count = 0;
                     $(_this._data).each(
                         function(index, data) {
-                            if (jQuery.inArray($(option).attr('value'), data.dates) !== -1) {
+                            if ($.grep(data.datetimes, function(e){ return $(option).attr('value') === e.date; }).length > 0) {
                                 ++count;
                             }
                         }
@@ -221,7 +371,7 @@ var CityPageView = PageView.extend({
             function(event) {
                 event.preventDefault();
                 if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
-                    _this._element.find('.overlay').show();
+                    _this._element.find('.overlay.o-connect').show();
                 } else {
                     location.href = $(this).attr('href');
                 }
@@ -320,7 +470,7 @@ var CityPageView = PageView.extend({
 
                 // dates
                 if (
-                    jQuery.inArray(_this._date, data.dates) === -1
+                    $.grep(data.datetimes, function(e){ return _this._date === e.date; }).length === 0
                     && _this._date !== '*'
                 ) {
                     show = false;

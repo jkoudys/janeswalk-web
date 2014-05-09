@@ -149,7 +149,6 @@
   @extend .intro;
   min-height: 247px;
   position: relative;
-  z-index: 5;
   margin-bottom: 1em;
   background: transparent;
 
@@ -319,6 +318,7 @@
     @include transition(margin 120ms ease-in-out);
     margin-left: 0;
     margin-right: 19px;
+    min-height:560px;
 
     @media (max-width: $media_mobile) {
       margin-bottom: 40px;
@@ -327,13 +327,14 @@
     .thumbnail {
       min-height: 535px;
       transition: none;
+      position: relative;
 
       .walkimage {
         margin: 0;
         background-size:cover;
         background-position: 50% 50%;
         width:100%;
-        min-height:240px;
+        min-height: 240px;
       }
 
       .caption {
@@ -347,6 +348,16 @@
         @media (max-width: $media_mobile) {
           padding-bottom: 20px;
         }
+      }
+
+      .when {
+        list-style-type:none;
+        font-weight:700;
+        color:#222;
+        margin:0;
+        font-family: "museo-slab", "Roboto Slab", serif;
+        font-size:12px;
+        margin: 1.5em 0 0.6em 0;
       }
 
       @media (max-width: $media_thin) {
@@ -393,7 +404,7 @@
   }
 
   .see-all {
-    font-size:13px;
+    font-size:18px;
     color:#222;
     margin-left:10px;
 
@@ -591,9 +602,6 @@
 .span4.walk:nth-child(3n) {
   margin-right: 0;
 }
-.span3.walk:nth-child(4n) {
-  margin-right: 0;
-}
 
 
 .tags {
@@ -646,6 +654,10 @@
     margin-left: 10px;
   }
 
+  .city-organizer-details a {
+    text-decoration:none;
+  }
+
   .u-avatar {
 
     @media (max-width: $media_mobile) {
@@ -657,3 +669,63 @@
 
   .btn { background-color:#fff; }
 }
+
+@media print {
+
+  html {
+    margin-top: 0;
+  }
+
+
+  .city-page {
+
+    padding-top: 0 !important;
+
+    // div.walk-label,
+    footer,
+    div#ccm-page-controls-wrapper,
+    // div.tag-list,
+    // ul.breadcrumb,
+    header {
+    // div.walk-stops,
+    // div.walk-feedback,
+    // div.walk-aux,
+    // div.walk-downloads {
+      display: none !important;
+    }
+
+    section#jw-cards {
+      display: none !important;
+    }
+
+    section#jw-list {
+      display: block !important;
+      opacity: 1 !important;
+    }
+
+    div.walks-list {
+
+      ul.nav {
+        display: none !important;
+      }
+    }
+
+    a[href]:after {
+      display: none;
+    }
+
+    div.city-header {
+      margin-top: 0;
+    }
+
+    // div.walk-leader img {
+    //   width: 80px !important;
+    // }
+
+    // div.container-outter,
+    // div.walk-title {
+    //   margin-top: 0 !important;
+    // }
+  }
+}
+

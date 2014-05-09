@@ -147,11 +147,6 @@ $(document).ready(function(){
     $('.date-caption').append($contentEl.html());
   }
 
-  // Date Picker
-  $('#date-picker, #date-picker2').datepicker({
-    format: 'mm-dd-yyyy'
-  });
-
   // Hover to Show Time
   $('.fc-content').tooltip({
     trigger: 'hover',
@@ -170,15 +165,6 @@ $(document).ready(function(){
     $('.request').slideToggle();
   });
 
-  // Walk Leader Select
-  $('.profiles').flexslider({
-    selector: '.profile-inner',
-    directionNav: false,
-  });
-
-  // Editor helper
-  $('.editor').wysihtml5();
-
   // Slimscroll
   $('.walk-stops-meta').mCustomScrollbar({theme:'dark'});
 
@@ -191,28 +177,31 @@ $(document).ready(function(){
   $progress = $('#progress');
 
   $.fn.spin = function (opts) {
-    this.each(function () {
-      var $this = $(this),
-      data = $this.data();
-      if (data.spinner) {
-        data.spinner.stop();
-        delete data.spinner;
-      }
-      if (opts !== false) {
-        data.spinner = new Spinner($.extend({
-          color: '#F16725',
-          lines: 11,
-          length: 20,
-          width: 2,
-          radius: 16,
-          corners: 1.0,
-          rotate: 0,
-          trail: 47,
-          speed: 1.3,
-        }, opts)).spin(this);
-      }
-    });
-    return this;
+    try {
+      this.each(function () {
+        var $this = $(this),
+        data = $this.data();
+        if (data.spinner) {
+          data.spinner.stop();
+          delete data.spinner;
+        }
+        if (opts !== false) {
+          data.spinner = new Spinner($.extend({
+            color: '#F16725',
+            lines: 11,
+            length: 20,
+            width: 2,
+            radius: 16,
+            corners: 1.0,
+            rotate: 0,
+            trail: 47,
+            speed: 1.3,
+          }, opts)).spin(this);
+        }
+      });
+      return this;
+    }
+    catch(e) { console.log(e); }
   };
 
   $progress.spin();
@@ -274,21 +263,6 @@ $(document).ready(function(){
         $('#register').addClass('focus');
       }, 100);
     });
-  });
-
-  // Flexslide for city page carousel
-  $('.city-organizer').flexslider({
-    startAt: 0,
-    selector: '.pane',
-    controlNav: false, 
-    directionNav: false,
-    slideshowSpeed: 4000,
-    pauseOnHover: true,
-    start: function(slider){
-      $('.city-organizer').hover(function(){
-        slider.flexAnimate(0);
-      });
-    }
   });
 
   // Construct button to continue reg with Eventbrite reg

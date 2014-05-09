@@ -27,7 +27,6 @@ var jwMap = {}; // Not ideal, but keep for now until I can localize this.
 
 // Typeahead team members
 $.fn.teamTypeahead = function() {
-  //$('.team-member #name').typeahead({
   this.typeahead({
     name: 'team-member',
     remote: { url: '../../api/walk_leaders?q=%QUERY', rateLimitWait: 100 },
@@ -204,7 +203,7 @@ window.Janeswalk = {
       });
     });
 
-    $('footer').on('click', '.remove-team-member', function() {
+    $('footer').on('click', '.remove-team-member, .remove-othermember', function() {
       $(this).parentsUntil('#walk-members').remove();
       tipLoader();
     });
@@ -279,8 +278,10 @@ window.Janeswalk = {
     // Populate data if available
     // This data could be in the dom, or the url to the data could be in the dom as a js var, this example (/form.html?load=/js/sample.json) loads it from a url param
     var newPage = false;
-    var dataUrl = $(".pagejson").data("url") + "?format=json";
+    var dataUrl = $(".pagejson").data("url");
     var previewUrl = $(".pagejson").data("url");
+    dataUrl += (dataUrl.indexOf("?") >= 0 ? "&" : "?") + "format=json";
+    debugger;
 
     var notify_success = function() {
       $('body').append('<div class="alert alert-success" id="save-notify">Walk Saved</div>');
@@ -317,8 +318,12 @@ window.Janeswalk = {
         success: function() { console.log("Published Walk"); }
         });
       });
-
-    if (dataUrl != null){
+    if(JanesWalk.form.data) {
+      JaneswalkData.fill(JanesWalk.form.data);
+      console.log("Loaded data locally");
+    }
+    else if (dataUrl != null){
+      console.log("Remote fetching data");
       $('.progress-spinner').spin(spinProperties);
       $.getJSON(dataUrl, function(data){
         JaneswalkData.fill(data);
@@ -649,6 +654,7 @@ function parseUrl( url ) {
 
 // Handling tips
 var tipLoader = function() {
+/* TODO: re-activate these tips, once the vids are done and we can link them
   $('.tip').transition({ y: '0px',opacity:0 }).each(function(index) {
     $(this).animate({'opacity':0}, 'fast', function(){
       $(this).removeClass('in');
@@ -662,6 +668,7 @@ var tipLoader = function() {
   setTimeout(function(){
     $('.tip.in').transition({ y: '20px',opacity:1 });
   },1000);
+  */
 }
 
 // File uploader
@@ -673,7 +680,7 @@ var walkSetImage = function( fileId ) {
 var spinProperties = {lines:10,length:15,width:5,radius:30};
 
 // On page load
-$(function() {
+$(document).ready(function(){
   // Loader
   $('.progress-spinner').spin(spinProperties);
   Janeswalk.initialize();
