@@ -81,6 +81,15 @@ var ProfilePageView = PageView.extend({
         $btn.click(
             function(event) {
                 event.preventDefault();
+                var blogPostObj = {
+                    title: '{replaced}'
+                };
+                _this._element.find('.blogPostPromoteOverlay .copy').each(
+                    function(index, copy) {
+                        var $copy = $(copy);
+                        $copy.html($copy.html().replace('{obj.title}', blogPostObj.title));
+                    }
+                );
                 _this._element.find('.blogPostPromoteOverlay').show();
             }
         );
@@ -111,10 +120,22 @@ var ProfilePageView = PageView.extend({
      */
     _addPromoteWalkClickEvent: function() {
         var _this = this,
-            $btn = this._element.find('.column.city .subactions .promote');
+            $btn = this._element.find(
+                '.column.city .subactions .promote,' +
+                '.column.walks .subactions .promote'
+            );
         $btn.click(
             function(event) {
                 event.preventDefault();
+                var walkObj = {
+                    title: '{replaced}'
+                };
+                _this._element.find('.walkPromoteOverlay .copy').each(
+                    function(index, copy) {
+                        var $copy = $(copy);
+                        $copy.html($copy.html().replace('{obj.title}', walkObj.title));
+                    }
+                );
                 _this._element.find('.walkPromoteOverlay').show();
             }
         );

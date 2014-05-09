@@ -89,7 +89,7 @@
             <div class="options">
               <div class="option">
                 <div class="copy">
-                  "<?= t('Sample tweet: {title}') ?>"
+                  "<?= t('Sample tweet: {obj.title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -99,7 +99,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "<?= t('Sample tweet #2: {title}') ?>"
+                  "<?= t('Sample tweet #2: {obj.title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -109,7 +109,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "<?= t('Sample tweet #3: {title}') ?>"
+                  "<?= t('Sample tweet #3: {obj.title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -119,7 +119,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "<?= t('Sample tweet #4: {title}') ?>"
+                  "<?= t('Sample tweet #4: {obj.title}') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -218,7 +218,7 @@
               <div class="options">
                 <div class="option">
                   <div class="copy">
-                    "<?= t('Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -228,7 +228,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    "<?= t('#2: Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('#2: Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -238,7 +238,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    "<?= t('#3: Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('#3: Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -248,7 +248,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    "<?= t('#4: Join me on my walk {title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('#4: Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -309,7 +309,7 @@
                     </div>
                     <div class="subactions clearfix">
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                        <a href="#" class="promote"><?= t('Promote') ?></a>
+                        <a href="#" class="promote" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       <?php endif; ?>
                       <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
@@ -367,7 +367,7 @@
                       </div>
                       <div class="subactions clearfix">
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="#" class="promote"><?= t('Promote') ?></a>
+                          <a href="#" class="promote" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                         <?php endif; ?>
                         <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
@@ -426,7 +426,7 @@
                         </a>
                       </div>
                       <div class="subactions clearfix">
-                        <a href="#" class="promote"><?= t('Promote') ?></a>
+                        <a href="#" class="promote" data-blogpostid="<?= ($blogPost->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       </div>
                     </div>
                   </li>
