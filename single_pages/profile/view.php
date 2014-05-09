@@ -362,7 +362,7 @@
                           <span class="label"><?= t('DRAFT') ?></span>
                         <?php endif; ?>
                         <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
-                          <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>-
+                          <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>
                         </a>
                       </div>
                       <div class="subactions clearfix">
