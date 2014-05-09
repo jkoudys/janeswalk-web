@@ -1,9 +1,9 @@
 concrete/
+concrete
 config/site.php
 .htaccess
 themes/janeswalk/css/pages/.sass-cache/
 themes/janeswalk/css/pages/.sass-cache*
-concrete/themes/jw_form
 files/
 .sass-cache
 *.swp
