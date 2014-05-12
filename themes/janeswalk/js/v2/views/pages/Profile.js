@@ -120,9 +120,9 @@ var ProfilePageView = PageView.extend({
      * @return    void
      */
     _getBlogPostObjById: function(blogPostId) {
-        console.log(blogPostId);
+        var $link = this._element.find('[data-blogpostid="' + (blogPostId) + '"]');
         return {
-            title: '{replaced}'
+            title: $link.first().data('blogposttitle')
         };
     },
 
@@ -134,9 +134,9 @@ var ProfilePageView = PageView.extend({
      * @return    void
      */
     _getWalkObjById: function(walkId) {
-        console.log(walkId);
+        var $link = this._element.find('[data-walkid="' + (walkId) + '"]');
         return {
-            title: '{replaced}'
+            title: $link.first().data('walktitle')
         };
     },
 

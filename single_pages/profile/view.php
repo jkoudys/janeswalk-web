@@ -294,6 +294,9 @@
             ?>
             <ul class="<?= implode(' ', $walkListClasses) ?>">
               <?php foreach ($userWalks as $index => $walk): ?>
+                <?php
+                  $title = ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName());
+                ?>
                 <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
                   <div class="image" style="display: none;">
                     <img src="" />
@@ -304,12 +307,12 @@
                         <span class="label"><?= t('DRAFT') ?></span>
                       <?php endif; ?>
                       <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
-                        <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>
+                        <?= ($title) ?>
                       </a>
                     </div>
                     <div class="subactions clearfix">
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                        <a href="#" class="promote" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
+                        <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       <?php endif; ?>
                       <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
@@ -352,6 +355,9 @@
               ?>
               <ul class="<?= implode(' ', $cityWalkListClasses) ?>">
                 <?php foreach ($cityWalks as $index => $walk): ?>
+                  <?php
+                    $title = ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName());
+                  ?>
                   <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
                     <div class="image" style="display: none;">
                       <img src="" />
@@ -362,12 +368,12 @@
                           <span class="label"><?= t('DRAFT') ?></span>
                         <?php endif; ?>
                         <a href="<?= ($nh->getLinkToCollection($walk)) ?>" title="">
-                          <?= ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName()) ?>
+                          <?= ($title) ?>
                         </a>
                       </div>
                       <div class="subactions clearfix">
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="#" class="promote" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
+                          <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                         <?php endif; ?>
                         <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
@@ -415,6 +421,9 @@
             ?>
             <ul class="<?= implode(' ', $postListClasses) ?>">
                 <?php foreach ($userBlogPosts as $index => $blogPost): ?>
+                  <?php
+                    $title = ($blogPost->getCollectionName() === '' ? '(untitled)' : $blogPost->getCollectionName());
+                  ?>
                   <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
                     <div class="image" style="display: none;">
                       <img src="" />
@@ -422,11 +431,11 @@
                     <div class="details">
                       <div class="title">
                         <a href="<?= ($nh->getLinkToCollection($blogPost)) ?>" title="">
-                          <?= ($blogPost->getCollectionName() === '' ? '(untitled)' : $blogPost->getCollectionName()) ?>
+                          <?= ($title) ?>
                         </a>
                       </div>
                       <div class="subactions clearfix">
-                        <a href="#" class="promote" data-blogpostid="<?= ($blogPost->getCollectionID()) ?>"><?= t('Promote') ?></a>
+                        <a href="#" class="promote" data-blogposttitle="<?= addslashes($title) ?>" data-blogpostid="<?= ($blogPost->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       </div>
                     </div>
                   </li>
