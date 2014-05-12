@@ -48,7 +48,9 @@ class ProfileController extends Concrete5_Controller_Profile {
         $pl->filterByAttribute('exclude_page_list',true);
         $cityWalks[] = ['city' => $city, 'walks' => $walks, 'inprogress' => $pl->get()];
       }
-      $this->set('city', $ui->getAttribute('home_city'));
+      $city = $ui->getAttribute('home_city');
+      $this->set('city', $city);
+      $this->set('cityComposerURL', View::url('/dashboard/composer/write/-/edit/' . $city->getCollectionID()));
       $this->set('cityWalks', $cityWalks);
     }
 
