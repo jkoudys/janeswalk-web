@@ -518,8 +518,9 @@
             <span class="icon-check"></span>
             <?= t('Changes Saved') ?>
           </div>
-          <form method="post" action="<?= ($this->action('save')) ?>" enctype="multipart/form-data" class="clearfix">
-            <?php
+          <form method="post" action="<?= ($this->action('edit/save')) ?>" enctype="multipart/form-data" class="clearfix">
+          <?php
+              $valt->output('profile_edit');
               $attribs = UserAttributeKey::getEditableInProfileList();
               if(is_array($attribs) && count($attribs)) {
             ?>
@@ -563,7 +564,7 @@
                   }
                 ?>
                 <div class="btnWrapper">
-                  <?= ($form->submit('save', t('Save'), array(), 'btn-primary btn-large')) ?>
+                  <?= ($form->submit('edit/save', t('Save'), array(), 'btn-primary btn-large')) ?>
                 </div>
               </div>
               <div class="column password">

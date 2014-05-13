@@ -28,6 +28,9 @@ class ProfileController extends Concrete5_Controller_Profile {
     $cities->sortByName();
     $this->set('cities', $cities->get());
 
+    // Validation helper for form tokens
+    $this->set('valt', Loader::helper('validation/token'));
+
     $userIsViewingSelf = $u->getUserID() == $profile->getUserID();
     $userIsCityOrganizer = in_array('City Organizers', $profile->getUserObject()->getUserGroups());
     if($userIsCityOrganizer && $userIsViewingSelf) {
