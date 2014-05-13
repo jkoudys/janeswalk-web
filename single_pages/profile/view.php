@@ -696,21 +696,27 @@
               </p>
               <ul class="clearfix">
                 <li>
-                  <a href="#">
+                  <a href="/files/5413/9706/2037/2014_CustomPoster_Park.pdf" target="_blank">
                     <img src="/themes/janeswalk/images/pdf.png" />
-                    <?= t('Announce the Jane\'s Walk Festival') ?>
+                    <?= t('Customizable Poster') ?>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="/files/2613/9713/8802/JanesWalk_Postcard_ChaseGhosts.pdf" target="_blank">
                     <img src="/themes/janeswalk/images/pdf.png" />
-                    <?= T('Press Release #1') ?>
+                    <?= T('Postcard') ?>
                   </a>
                 </li>
                 <li>
-                  <a href="#">
+                  <a href="/old/index.php/download_file/view/253/299/" target="_blank">
                     <img src="/themes/janeswalk/images/pdf.png" />
-                    <?= T('Press Release #2') ?>
+                    <?= T('Vector Logo') ?>
+                  </a>
+                </li>
+                <li>
+                  <a href="http://www.janeswalk.org/files/2513/9999/2114/PressRelease-Generic.pdf" target="_blank">
+                    <img src="/themes/janeswalk/images/pdf.png" />
+                    <?= T('Generic Press Release') ?>
                   </a>
                 </li>
               </ul>
