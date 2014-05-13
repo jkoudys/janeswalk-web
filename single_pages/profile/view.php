@@ -697,19 +697,19 @@
               </p>
               <ul class="clearfix">
                 <li>
-                  <a href="/files/5413/9706/2037/2014_CustomPoster_Park.pdf" target="_blank">
+                  <a href="http://www.janeswalk.org/files/5413/9706/2037/2014_CustomPoster_Park.pdf" target="_blank">
                     <img src="/themes/janeswalk/images/pdf.png" />
                     <?= t('Customizable Poster') ?>
                   </a>
                 </li>
                 <li>
-                  <a href="/files/2613/9713/8802/JanesWalk_Postcard_ChaseGhosts.pdf" target="_blank">
+                  <a href="http://www.janeswalk.org/files/2613/9713/8802/JanesWalk_Postcard_ChaseGhosts.pdf" target="_blank">
                     <img src="/themes/janeswalk/images/pdf.png" />
                     <?= T('Postcard') ?>
                   </a>
                 </li>
                 <li>
-                  <a href="/old/index.php/download_file/view/253/299/" target="_blank">
+                  <a href="http://www.janeswalk.org/old/index.php/download_file/view/253/299/" target="_blank">
                     <img src="/themes/janeswalk/images/pdf.png" />
                     <?= T('Vector Logo') ?>
                   </a>
