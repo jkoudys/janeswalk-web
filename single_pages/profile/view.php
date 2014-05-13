@@ -23,7 +23,7 @@
   <div class="wrapper" id="profileWrapper">
     <?php if ($userIsViewingSelf === true): ?>
       <?php if ($userHasSetHomeCity === true): ?>
-        <div class="overlay promoteOverlay cityPromoteOverlay" data-slideshow="city">
+        <div class="overlay promoteOverlay cityPromoteOverlay" data-slideshow="city" data-citypath="<?= ($userHomeCityObj->getCollectionPath()) ?>" data-cityname="<?= ($userHomeCityObj->getCollectionName()) ?>">
           <div class="o-background">
           </div>
           <div class="o-content">
@@ -89,7 +89,7 @@
             <div class="options">
               <div class="option">
                 <div class="copy">
-                  "<?= t('Sample tweet: {obj.title}') ?>"
+                  "<?= t('Sample tweet: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -99,7 +99,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "<?= t('Sample tweet #2: {obj.title}') ?>"
+                  "<?= t('Sample tweet #2: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -109,7 +109,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "<?= t('Sample tweet #3: {obj.title}') ?>"
+                  "<?= t('Sample tweet #3: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -119,7 +119,7 @@
               </div>
               <div class="option hidden">
                 <div class="copy">
-                  "<?= t('Sample tweet #4: {obj.title}') ?>"
+                  "<?= t('Sample tweet #4: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
                   <a href="#" class="icon-facebook"></a>
@@ -218,7 +218,7 @@
               <div class="options">
                 <div class="option">
                   <div class="copy">
-                    "<?= t('Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -228,7 +228,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    "<?= t('#2: Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('#2: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -238,7 +238,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    "<?= t('#3: Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('#3: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>
@@ -248,7 +248,7 @@
                 </div>
                 <div class="option hidden">
                   <div class="copy">
-                    "<?= t('#4: Join me on my walk {obj.title} at this year\'s Jane\'s Walk!') ?>"
+                    "<?= t('#4: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
                     <a href="#" class="icon-facebook"></a>

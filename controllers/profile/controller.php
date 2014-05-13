@@ -93,6 +93,9 @@ class ProfileController extends Concrete5_Controller_Profile {
         // The home city for the logged in user (false otherwise)
         $userHomeCity = $ui->getAttribute('home_city');
         $this->set('userHomeCity', $userHomeCity ? $userHomeCity->getCollectionName() : false );
+        if ($userHomeCity) {
+            $this->set('userHomeCityObj', $userHomeCity);
+        }
 
         // Whether the logged in user has selected their home city
         $userHasSetHomeCity = (bool) $userHomeCity;
