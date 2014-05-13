@@ -28,6 +28,9 @@ class ProfileController extends Concrete5_Controller_Profile {
     $cities->sortByName();
     $this->set('cities', $cities->get());
 
+    // Validation helper for form tokens
+    $this->set('valt', Loader::helper('validation/token'));
+
     $userIsViewingSelf = $u->getUserID() == $profile->getUserID();
     $userIsCityOrganizer = in_array('City Organizers', $profile->getUserObject()->getUserGroups());
     if($userIsCityOrganizer && $userIsViewingSelf) {
@@ -48,7 +51,9 @@ class ProfileController extends Concrete5_Controller_Profile {
         $pl->filterByAttribute('exclude_page_list',true);
         $cityWalks[] = ['city' => $city, 'walks' => $walks, 'inprogress' => $pl->get()];
       }
+      $city = $ui->getAttribute('home_city');
       $this->set('city', $city);
+      $this->set('cityComposerURL', View::url('/dashboard/composer/write/-/edit/' . $city->getCollectionID()));
       $this->set('cityWalks', $cityWalks);
     }
 

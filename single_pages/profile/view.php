@@ -459,12 +459,12 @@
                         <span class="icon icon-frown"></span>
                         <?= t('You haven\'t filled in %s\'s header info', $userHomeCity) ?>
                       </p>
-                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary"><?= t('Set header info') ?></a>
+                      <a href="<?= $cityComposerURL ?>" class="btn btn-primary"><?= t('Set header info') ?></a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
                         <?= ($cityHeaderInfo) ?>
-                        <a href="<?= ($this->url('/dashboard/composer/write/-/edit/' . $city->getCollectionID())) ?>"><?= t('Edit') ?></a>
+                        <a href="<?= $cityComposerURL ?>"><?= t('Edit') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
@@ -477,12 +477,12 @@
                         <span class="icon icon-frown"></span>
                         <?= t('You haven\'t filled in %s\'s short description', $userHomeCity) ?>
                       </p>
-                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary"><?= t('Set short description') ?></a>
+                      <a href="<?= $cityComposerURL ?>" class="btn btn-primary"><?= t('Set short description') ?></a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
                         <?= ($cityDescription) ?>
-                        <a href="<?= ($this->url('/dashboard/composer/write/-/edit/' . $city->getCollectionID())) ?>"><?= t('Edit') ?></a>
+                        <a href="<?= $cityComposerURL ?>"><?= t('Edit') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
@@ -495,12 +495,12 @@
                         <span class="icon icon-frown"></span>
                         <?= t('You haven\'t set %s\'s background photo yet', $userHomeCity) ?>
                       </p>
-                      <a href="/index.php/dashboard/composer/write/-/edit/144/" class="btn btn-primary"><?= t('Set background photo') ?></a>
+                      <a href="<?= $cityComposerURL ?>" class="btn btn-primary"><?= t('Set background photo') ?></a>
                     <?php else: ?>
                       <p>
                         <span class="icon icon-check"></span>
                         <span class="bgPhoto" style="background-image: url('<?= ($cityBackgroundPhoto) ?>');"></span>
-                        <a href="<?= ($this->url('/dashboard/composer/write/-/edit/' . $city->getCollectionID())) ?>"><?= t('Change') ?></a>
+                        <a href="<?= $cityComposerURL ?>"><?= t('Change') ?></a>
                       </p>
                     <?php endif; ?>
                   </div>
@@ -518,8 +518,9 @@
             <span class="icon-check"></span>
             <?= t('Changes Saved') ?>
           </div>
-          <form method="post" action="<?= ($this->action('save')) ?>" enctype="multipart/form-data" class="clearfix">
-            <?php
+          <form method="post" action="<?= ($this->action('edit/save')) ?>" enctype="multipart/form-data" class="clearfix">
+          <?php
+              $valt->output('profile_edit');
               $attribs = UserAttributeKey::getEditableInProfileList();
               if(is_array($attribs) && count($attribs)) {
             ?>
@@ -563,7 +564,7 @@
                   }
                 ?>
                 <div class="btnWrapper">
-                  <?= ($form->submit('save', t('Save'), array(), 'btn-primary btn-large')) ?>
+                  <?= ($form->submit('edit/save', t('Save'), array(), 'btn-primary btn-large')) ?>
                 </div>
               </div>
               <div class="column password">
