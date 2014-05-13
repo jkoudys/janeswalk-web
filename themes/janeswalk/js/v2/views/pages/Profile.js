@@ -485,6 +485,9 @@ var ProfilePageView = PageView.extend({
     _showTwitterShareWindow: function(link, text) {
         link = encodeURIComponent(link);
         text = encodeURIComponent(text);
+        if (text.length > 130) {
+            text = text.substring(0,130) + '...';
+        }
         var link = 'https://twitter.com/intent/tweet' +
             '?url=' + (link) +
             '&via=janeswalk' +
