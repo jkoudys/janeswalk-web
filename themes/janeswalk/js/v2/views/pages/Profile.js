@@ -87,6 +87,7 @@ var ProfilePageView = PageView.extend({
                 _this._element.find('.blogPostPromoteOverlay .copy').each(
                     function(index, copy) {
                         var $copy = $(copy);
+                        $copy.data('blogpostpath', blogPostObj.path);
                         $copy.find('.objTitle').text(blogPostObj.title);
                     }
                 );
@@ -122,7 +123,8 @@ var ProfilePageView = PageView.extend({
     _getBlogPostObjById: function(blogPostId) {
         var $link = this._element.find('[data-blogpostid="' + (blogPostId) + '"]');
         return {
-            title: $link.first().data('blogposttitle')
+            title: $link.first().data('blogposttitle'),
+            path: $link.first().data('blogpostpath')
         };
     },
 
@@ -135,10 +137,9 @@ var ProfilePageView = PageView.extend({
      */
     _getWalkObjById: function(walkId) {
         var $link = this._element.find('[data-walkid="' + (walkId) + '"]');
-console.log(walkId);
-console.log($link.first().data('walktitle'));
         return {
-            title: $link.first().data('walktitle')
+            title: $link.first().data('walktitle'),
+            path: $link.first().data('walkpath')
         };
     },
 
@@ -161,6 +162,7 @@ console.log($link.first().data('walktitle'));
                 _this._element.find('.walkPromoteOverlay .copy').each(
                     function(index, copy) {
                         var $copy = $(copy);
+                        $copy.data('walkpath', walkObj.path);
                         $copy.find('.objTitle').text(walkObj.title);
                     }
                 );
@@ -208,28 +210,31 @@ console.log($link.first().data('walktitle'));
         this._element.find('.blogPostPromoteOverlay').find('.icon-twitter').click(
             function(event) {
                 event.preventDefault();
+                var $copy = $(this).closest('.option').find('.copy');
                 _this._showTwitterShareWindow(
-                    'http://janeswalk.org/canada/toronto/',
-                    $(this).closest('.option').find('.copy').text().trim()
+                    'http://janeswalk.org' + ($copy.data('blogpostpath')),
+                    $copy.text().trim()
                 );
             }
         );
         this._element.find('.blogPostPromoteOverlay').find('.icon-facebook').click(
             function(event) {
                 event.preventDefault();
+                var $copy = $(this).closest('.option').find('.copy');
                 _this._showFacebookShareWindow(
-                    'http://janeswalk.org/canada/toronto/',
+                    'http://janeswalk.org' + ($copy.data('blogpostpath')),
                     'Jane\'s Walk',
-                    $(this).closest('.option').find('.copy').text().trim()
+                    $copy.text().trim()
                 );
             }
         );
         this._element.find('.blogPostPromoteOverlay').find('.icon-envelope').click(
             function(event) {
                 event.preventDefault();
+                var $copy = $(this).closest('.option').find('.copy');
                 _this._showEmailShareWindow(
                     'Jane\'s Walk in Toronto',
-                    $(this).closest('.option').find('.copy').text().trim()
+                    $copy.text().trim()
                 );
             }
         );
@@ -377,28 +382,31 @@ console.log($link.first().data('walktitle'));
         this._element.find('.walkPromoteOverlay').find('.icon-twitter').click(
             function(event) {
                 event.preventDefault();
+                var $copy = $(this).closest('.option').find('.copy');
                 _this._showTwitterShareWindow(
-                    'http://janeswalk.org/canada/toronto/',
-                    $(this).closest('.option').find('.copy').text().trim()
+                    'http://janeswalk.org' + ($copy.data('walkpath')),
+                    $copy.text().trim()
                 );
             }
         );
         this._element.find('.walkPromoteOverlay').find('.icon-facebook').click(
             function(event) {
                 event.preventDefault();
+                var $copy = $(this).closest('.option').find('.copy');
                 _this._showFacebookShareWindow(
-                    'http://janeswalk.org/canada/toronto/',
+                    'http://janeswalk.org' + ($copy.data('walkpath')),
                     'Jane\'s Walk',
-                    $(this).closest('.option').find('.copy').text().trim()
+                    $copy.text().trim()
                 );
             }
         );
         this._element.find('.walkPromoteOverlay').find('.icon-envelope').click(
             function(event) {
                 event.preventDefault();
+                var $copy = $(this).closest('.option').find('.copy');
                 _this._showEmailShareWindow(
                     'Jane\'s Walk in Toronto',
-                    $(this).closest('.option').find('.copy').text().trim()
+                    $copy.text().trim()
                 );
             }
         );

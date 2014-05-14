@@ -312,7 +312,7 @@
                     </div>
                     <div class="subactions clearfix">
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                        <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
+                        <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkpath="<?= ($walk->getCollectionPath()) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       <?php endif; ?>
                       <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
@@ -373,7 +373,7 @@
                       </div>
                       <div class="subactions clearfix">
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
+                          <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkpath="<?= ($walk->getCollectionPath()) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                         <?php endif; ?>
                         <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
@@ -435,7 +435,7 @@
                         </a>
                       </div>
                       <div class="subactions clearfix">
-                        <a href="#" class="promote" data-blogposttitle="<?= addslashes($title) ?>" data-blogpostid="<?= ($blogPost->getCollectionID()) ?>"><?= t('Promote') ?></a>
+                        <a href="#" class="promote" data-blogposttitle="<?= addslashes($title) ?>" data-blogpostpath="<?= ($blogPost->getCollectionPath()) ?>" data-blogpostid="<?= ($blogPost->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       </div>
                     </div>
                   </li>
