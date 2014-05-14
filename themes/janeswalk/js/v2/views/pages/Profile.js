@@ -233,7 +233,7 @@ var ProfilePageView = PageView.extend({
                 event.preventDefault();
                 var $copy = $(this).closest('.option').find('.copy');
                 _this._showEmailShareWindow(
-                    'Jane\'s Walk in Toronto',
+                    'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
                     $copy.text().trim()
                 );
             }
@@ -405,7 +405,7 @@ var ProfilePageView = PageView.extend({
                 event.preventDefault();
                 var $copy = $(this).closest('.option').find('.copy');
                 _this._showEmailShareWindow(
-                    'Jane\'s Walk in Toronto',
+                    'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
                     $copy.text().trim()
                 );
             }

@@ -20,7 +20,13 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
   </script>
-  <div class="wrapper" id="profileWrapper">
+  <?php
+    $dataCity = '{unset}';
+    if ($userHasSetHomeCity === true) {
+        $dataCity = $userHomeCity;
+    }
+  ?>
+  <div class="wrapper" id="profileWrapper" data-city="<?= ($dataCity) ?>">
     <?php if ($userIsViewingSelf === true): ?>
       <?php if ($userHasSetHomeCity === true): ?>
         <div class="overlay promoteOverlay cityPromoteOverlay" data-slideshow="city" data-citypath="<?= ($userHomeCityObj->getCollectionPath()) ?>" data-cityname="<?= ($userHomeCityObj->getCollectionName()) ?>">
