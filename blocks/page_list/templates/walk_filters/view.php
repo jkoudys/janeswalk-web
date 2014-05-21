@@ -110,7 +110,7 @@ if($lat && $lng) { ?>
           August 17, 2014
         </div>
       </div>
-      <div class="initiative hidden" data-jw-initiative="100 In 1 Day">
+      <div class="initiative hidden" data-jw-initiative="100 in 1 Day">
         <div class="headline">What is 100 In 1 Day?</div>
         <p>
           100 in 1 Day is a citizen-driven festival will unite people
