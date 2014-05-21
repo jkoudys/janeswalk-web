@@ -268,14 +268,15 @@ class ProfileController extends Concrete5_Controller_Profile {
                     $countryName = 'United States of America';
                 }
                 $countryName = str_replace(' ', '_', $countryName);
+                $walkImage = $_thumb ? $ih->getThumbnail($_thumb,800,800)->src : '';
                 return array(
-                    'walkImagePath' => $ih->getThumbnail($_thumb,800,800)->src,
+                    'walkImagePath' => $walkImage,
                     'countryName' => $countryName,
                     'cityName' => $_city->getCollectionName(),
                     'walkTitle' => $page->getCollectionName(),
                     'walkPath' => $nh->getLinkToCollection($page)
                 );
-            }, $pl->get(3));
+            }, (array) $pl->get(3));
         $this->set('featuredWalkData', $featuredWalkData);
 
 
