@@ -171,10 +171,15 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
       // Intiatives
       if ($this->c->getCollectionName() === 'Toronto') {
-        $initiatives = array(
-          'Open Streets TO',
-          '100 In 1 Day'
-        );
+        $initiatives = array();
+        $ak = CollectionAttributeKey::getByHandle('walk_initiatives');
+        $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
+        if($ak) {
+          $satc->setAttributeKey($ak);
+          foreach($satc->getOptions() as $option) {
+            $initiatives[] = $option->value;
+          }
+        }
       }
 
       // Ward semantics
