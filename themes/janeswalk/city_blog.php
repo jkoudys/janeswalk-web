@@ -6,7 +6,9 @@ $this->inc('elements/header.php'); ?>
 	<div id="central" class="no-sidebar">
 		
 		<div id="body">	
-      <a href='<?=$nh->getCollectionURL($parentPage)?>'>Back to <?=$parentPage->getCollectionName()?> Walks</a><h2><?=$parentPage->getCollectionName()?> Walk Blog</h2>
+      <a href='<?=$nh->getCollectionURL($parentPage)?>'>Back to <?=$parentPage->getCollectionName()?> Walks</a>
+      <h2>City Blog</h2>
+      <h3><?=$parentPage->getCollectionName()?></h3>
       <?php (new Area('Main'))->display($c); ?>
 		</div>
 	</div>
