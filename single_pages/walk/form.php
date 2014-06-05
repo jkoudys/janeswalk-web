@@ -1,59 +1,21 @@
 <?php defined('C5_EXECUTE') or die(_("Access Denied.")); ?>
 <script type="text/javascript">
-JanesWalk = {
-  page: {
-    url: 'http://' + (location.host) + (location.pathname),
-    title: '<?= addslashes($c->getCollectionName()) ?>',
-  },
-  city: {
-    name: '<?= addslashes($city->getCollectionName()) ?>',
-    url: '<?= $nh->getCollectionURL($city) ?>',
-    lat: <?= $lat ?>,
-    lng: <?= $lng ?>
-  },
-  form: {
-    timepicker_cfg: { 
-      defaultTime: '9:00 AM',
-      <?php if($is_nyc) { ?>
-        step: 180,
-        disableTimeRanges: [ ['12am','8:59am'], ['9:01pm','11:59pm'] ],
-      <?php } ?>
-      timeFormat: 'h:i A' 
-    },
-    datepicker_cfg: {
-      format: 'dd/mm/yyyy',
-      beforeShowDay: function (date) {
-        var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-        var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
-        if ($.inArray(dateFormatted, dateSelected) != -1) {
-          return {
-            enabled : false,
-            classes : 'selected'
-          };
-        }
-      },
-      <?php if($is_nyc) { ?>
-        startDate: new Date("May 3, 2014"),
-        endDate: new Date("May 4, 2014"),
-      <?php } else { ?>
-        startDate: new Date("May 1, 2014"),
-        endDate: new Date("May 4, 2014"),
-      <?php } ?> 
-      defaultDate: new Date("May 3, 2014")
-    },
-    data: <?= $walkController->getJson() ?>
-  }
-};
-<?php if($is_nyc) { ?>
-JanesWalk.form['2014-05-04'] = {
-  timepicker_cfg: {
-    defaultTime: '9:00 AM',
-    step: 180,
-    disableTimeRanges: [ ['12am','8:59am'], ['2:59pm','3:01pm'], ['9:01pm','11:59pm'] ],
-    timeFormat: 'h:i A' 
-  }
-}
-<?php } ?>
+JanesWalk = <?= json_encode($front) ?>;
+JanesWalk.form.datepicker_cfg.beforeShowDay =
+  function (date) {
+    var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
+    if ($.inArray(dateFormatted, dateSelected) != -1) {
+      return {
+        enabled : false,
+        classes : 'selected'
+      };
+    }
+  };
+JanesWalk.form.datepicker_cfg.startDate = new Date();
+JanesWalk.form.datepicker_cfg.endDate = new Date("May 23, 2020");
+JanesWalk.form.datepicker_cfg.defaultDate = new Date();
+
 </script>
 
 <div style='display:none' class='pagejson' data-url='<?= DIR_REL . '/' . DISPATCHER_FILENAME  . '?cID=' . $c->getCollectionID() ?>'></div>

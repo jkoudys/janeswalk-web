@@ -281,7 +281,6 @@ window.Janeswalk = {
     var dataUrl = $(".pagejson").data("url");
     var previewUrl = $(".pagejson").data("url");
     dataUrl += (dataUrl.indexOf("?") >= 0 ? "&" : "?") + "format=json";
-    debugger;
 
     var notify_success = function() {
       $('body').append('<div class="alert alert-success" id="save-notify">Walk Saved</div>');
