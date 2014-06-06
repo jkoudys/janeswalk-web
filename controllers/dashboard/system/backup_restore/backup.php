@@ -14,6 +14,7 @@ class DashboardSystemBackupRestoreBackupController extends Concrete5_Controller_
             $arr_backupfileinfo[] = Array("file" => $bkupfile,  "date" =>  date("Y-m-d H:i:s",$timestamp[1]));
           }
         }
+        // The whole reason this file's overriden - sort these backups chronologically
         uasort($arr_backupfileinfo, function($a, $b) { return strcmp($b['date'],$a['date']); });
         $this->set('backups',$arr_backupfileinfo);
       }
