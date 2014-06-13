@@ -119,13 +119,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       }
       usort($cards, function($b,$a) {
         if($a['datetimes'][0] && $b['datetimes'][0]) {
-          return $b['datetimes'][0]['timestamp'] - $a['datetimes'][0]['timestamp'];
-          strcmp($b['title'],$a['title']);
+          return $a['datetimes'][0]['timestamp'] - $b['datetimes'][0]['timestamp'];
         } else {
           if($a['datetimes'][0]) {
-            return 1;
-          } else if($b['datetimes'][0]) {
             return -1;
+          } else if($b['datetimes'][0]) {
+            return 1;
           }
           return 0;
         }
