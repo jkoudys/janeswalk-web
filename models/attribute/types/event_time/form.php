@@ -11,7 +11,6 @@ ul.dateList fieldset .ccm-search-remove-option:hover { cursor:pointer; }
 var closeField = function() {
   var eventdate = this.parentNode;
   eventdate.parentNode.removeChild(eventdate);
-  alert("foo");
 };
 
 function EventDate(akID) {
