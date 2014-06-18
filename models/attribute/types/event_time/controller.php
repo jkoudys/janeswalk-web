@@ -89,10 +89,10 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
   public function setScheduledEventTimes($scheduledTimes) {
     $db = Loader::db();
     $db->BeginTrans();
-    // $ok = $db->Execute("delete from atEventTime where atScheduleID = ?", [$this->getAttributeValueID()]);
+    $ok = $db->Execute("delete from atEventTime where atScheduleID = ?", array($this->getAttributeValueID()) );
     $ok = true;
     foreach( $scheduledTimes as $time ) {
-      if ($ok) $ok = $db->AutoExecute('atEventTime', ['atScheduleID' => $this->getAttributeValueID(), 'start' => $time['start'], 'end' => $time['end']], 'INSERT' );
+      if ($ok) $ok = $db->AutoExecute('atEventTime', array('atScheduleID' => $this->getAttributeValueID(), 'start' => $time['start'], 'end' => $time['end']), 'INSERT' );
     }
     if ($ok) $db->CommitTrans();
     else $db->RollbackTrans();
