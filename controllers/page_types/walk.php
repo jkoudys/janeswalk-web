@@ -64,7 +64,7 @@ class WalkPageTypeController extends JanesWalkController {
     if(CONCRETE5_ENV === 'prod') {
       $eid = $this->c->getAttribute("eventbrite");
       if($eid) {
-        $eb_client = new Eventbrite( EVENTBRITE_KEYS );
+        $eb_client = new Eventbrite( array('app_key'=>EVENTBRITE_APP_KEY, 'user_key'=>EVENTBRITE_USER_KEY) );
         $event_params = array( 'status' => $status, 'id' => $eid );
         try{
           $response = $eb_client->event_update($event_params);
@@ -85,7 +85,7 @@ class WalkPageTypeController extends JanesWalkController {
       $c = Page::getByID($c->getCollectionID()); // Refresh to fix a c5 quirk; todo: try deleting this after c5.7 update
       $parent = Page::getByID($c->getCollectionParentID());
       $timezone = $parent->getAttribute("timezone");
-      $eb_client = new Eventbrite( EVENTBRITE_KEYS );
+      $eb_client = new Eventbrite( array('app_key'=>EVENTBRITE_APP_KEY, 'user_key'=>EVENTBRITE_USER_KEY) );
       /* Check if we're making a new event or not */
       $eid = $c->getAttribute("eventbrite");
       $event_params = [ 
