@@ -104,6 +104,7 @@ var CityPageView = PageView.extend({
      * @return    void
      */
     _setupText2DonateInterstitials: function() {
+        var enabled = false;
         // Catfish events
         this._element.find('a.closeCatfishCta').click(
             function(event) {
@@ -125,7 +126,7 @@ var CityPageView = PageView.extend({
         // Canadian city check
         var isCanadianCity = (location.pathname.match(/\/canada\/[^/]+/) !== null),
             _this = this;
-        if (isCanadianCity === true) {
+        if (enabled && isCanadianCity === true) {
 
             // Modal
             var hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null
