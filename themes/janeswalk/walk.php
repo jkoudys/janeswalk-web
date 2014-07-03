@@ -1,5 +1,5 @@
-<?php  defined('C5_EXECUTE') or die(_("Access Denied."));
-  global $u; global $cp;
+<?php
+defined('C5_EXECUTE') || die(_('Access Denied.'));
 $this->inc('elements/header.php');
 ?>
 <body class="walk-page active-walk"
@@ -265,13 +265,11 @@ $this->inc('elements/header.php');
             }
           ?>
           <div class="calendar-wrap box-sizing" style="display:none">
-
             <div class="calendar-header">
               <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="icon-caret-left"></i></button>      
               <span id="custom-month">April</span>, <span id="custom-year">2013</span> 
               <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="icon-caret-right"></i></button>
             </div>
-
             <div id="calendar" class="fc-calendar-container"></div>
           </div>
           <div class="caption" style="display:none">
@@ -301,11 +299,7 @@ $this->inc('elements/header.php');
               Request Date
             </button>
           </div>
-<?php if(false) { ?>
-          <div class="alert alert-info"><p>While Walks are free and volunteer led, support for Jane's Walk can be recognized through a donation as part of a Walk booking.</p></div>
-<?php } ?>
         </div>
-
         <div class="thumbnail accessibility">
           <div class="caption">
             <h4><i class="icon-accessible"></i> <?= t('Accessibility') ?></h4>
@@ -341,7 +335,6 @@ $this->inc('elements/header.php');
             } ?>
           </div>
         </div><!-- accessibility -->
-
         </aside>
       </div>
       <div class="walk-feedback">
@@ -364,27 +357,10 @@ $this->inc('elements/header.php');
               </script>
               <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
               <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-
             </div>
           </div>  
         </div>
       </div>
     </div>
   </div> 
-  <script type="text/javascript">
-    // EventBrite
-/*    var EventBriteEmail = 'jasmine.frolick@janeswalk.net';
-    $('a.thumb').colorbox({
-      rel: 'group1',
-      onOpen: blurPage,
-      onCleanup: unblurPage,
-      current: 'Picture {current} of {total}',
-      previous: '&lt;',
-      next: '&gt;',
-      close: 'x',
-      maxHeight: '80%',
-      maxWidth: '80%'
-    }); */
-  </script>
-
-  <?php $this->inc('elements/footer.php');?>
+  <?php $this->inc('elements/footer.php');

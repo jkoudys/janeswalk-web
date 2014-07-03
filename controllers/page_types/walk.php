@@ -15,7 +15,7 @@ class WalkPageTypeController extends Controller {
     $method = $_SERVER['REQUEST_METHOD'];
     $request = split('/', substr(@$_SERVER['PATH_INFO'], 1));
     $cp = new Permissions($this->c);
-    $walk = new Walk($this->c);
+    $this->walk = new Walk($this->c);
 
     switch ($method) {
     case 'POST':
@@ -199,33 +199,40 @@ class WalkPageTypeController extends Controller {
     $this->addHeaderItem('<meta property="og:title" content="' . addslashes($c->getCollectionName()) . '" />');
     $this->addHeaderItem('<meta property="og:description" content="' . addslashes($c->getAttribute('shortdescription')) . '" />');
 
-    $breadcrumb = '<ul class="breadcrumb visible-desktop visible-tablet">';
+    // Breadcrumb trail to walk
+    $doc = new DOMDocument;
+    $bc = $doc->appendChild($doc->createElement('ul'));
+    $bc->setAttribute('class', 'breadcrumb visible-desktop visible-tablet');
     foreach((array)$this->walk->crumbs as $crumb) {
       if ($crumb->getCollectionTypeHandle() !== 'country' ) {
-        $breadcrumb .= '<li>';
-        $link = $nh->getLinkToCollection($crumb);
-        if($crumb->getCollectionID() === 1) {
-          $name = '<i class="icon-home"></i>';
+        $li = $bc->appendChild($doc->createElement('li'));
+        $a = $li->appendChild($doc->createElement('a'));
+        $a->setAttribute('href', $nh->getLinkToCollection($crumb));
+        if($crumb->getCollectionID() === '1') {
+          $a->appendChild($doc->createElement('i'))->setAttribute('class','icon-home');
         }
         else {
-          $name = t($crumb->getCollectionName());
+          $linkText = $crumb->getCollectionName();
+          if($crumb->getCollectionTypeHandle() === 'city') {
+            $linkText .= ' walks';
+          }
+          $a->appendChild($doc->createTextNode(t($linkText)));
         }
-        if($crumb->getCollectionTypeHandle() === 'city') {
-          $link .= 'walks';
+        if($k !== count($this->walk->crumbs)) {
+          $span = $li->appendChild($doc->createElement('span'));
+          $span->setAttribute('class','divider');
+          $span->appendChild($doc->createElement('i'))->setAttribute('class','icon-angle-right');
         }
-        $breadcrumb .= '<a href="' . $link . '">' . $name . '</a>';
-        $breadcrumb .= '<span class="divider"><i class="icon-angle-right"></i></span></li>';
       }
     }
-    $breadcrumb .= '<li class="active">' . $c->getCollectionName() . '</li></ul>';
-    $this->set('breadcrumb', $breadcrumb);
+    $li = $bc->appendChild($doc->createElement('li'));
+    $li->setAttribute('class','active');
+    $li->appendChild($doc->createTextNode($c->getCollectionName()));
+    $this->set('breadcrumb', $doc->saveHTML());
 
     /* Helpers to use in the view */
-    $this->set('nh', $nh);
     $this->set('im', $im);
-    $this->set('dh', Loader::helper('concrete/dashboard'));
     $this->set('th', Loader::helper('theme'));
-    $this->set('av', Loader::helper('concrete/avatar'));
     $this->set('eid', $c->getAttribute('eventbrite'));
     $this->set('w', $this->walk);
 
