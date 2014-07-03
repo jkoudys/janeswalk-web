@@ -1,7 +1,9 @@
 <?php
+namespace JanesWalk\Controller;
+use \Loader;
+use \User;
 
-defined('C5_EXECUTE') or die("Access Denied.");
-class JanesWalkController extends Controller {
+class Controller extends \Controller {
   protected $pageData = array();
 
   /*

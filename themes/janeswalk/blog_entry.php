@@ -2,7 +2,7 @@
 $this->inc('elements/header.php'); 
 ?>
 	
-<body class="<?= $pageType ?><?php $isLoggedIn and print " logged_in" ?>">
+<body class="<?= $pageType . $isLoggedIn ? ' logged_in' : '' ?>">
 <?php $this->inc('elements/navbar.php'); ?>
 	<div id="central">
     <header <?php $headImage and print "style='background-image:url({$headImage->src})'" ?>>

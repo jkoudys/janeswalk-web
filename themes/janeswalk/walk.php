@@ -1,6 +1,6 @@
 <?php  defined('C5_EXECUTE') or die(_("Access Denied."));
   global $u; global $cp;
-  $this->inc('elements/header.php');
+$this->inc('elements/header.php');
 ?>
 <body class="walk-page active-walk"
   data-pageViewName="WalkPageView">
@@ -29,7 +29,7 @@
 
       <div class="tag-list">
         <ul class="nav nav-pills">
-          <?php foreach((object)$c->getAttribute('theme') as $theme) { ?>
+          <?php foreach($w->themes as $theme => $status) { ?>
             <li><div class='icon'><?= $th->getIcon($theme) ?></div> <?= t($th->getName($theme)) ?></li>
           <?php } ?>
         </ul>
@@ -37,14 +37,14 @@
 
       <div class="row-fluid walk-header">
         <div class="span9">
-          <h1 class="walk-title"><?= $c->getCollectionName() ?></h1>
+          <h1 class="walk-title"><?= $w ?></h1>
         </div>
 
         <div class="span3 profiles box-sizing">
           <div id="reg-group">
             <?php
-              $slots = (Array)$scheduled['slots']; 
-              if($scheduled['open']) {
+              $slots = (array) $w->time['slots']; 
+              if($w->time['open']) {
             ?>
               <h4 class="available-time"><i class="icon-calendar"></i> <?= t('Open schedule') ?></h4>
             <?php
@@ -82,8 +82,10 @@
       <div class="row-fluid walk-leaders clearfix">
         <div class="span7">
           <h4>
-            <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($walk_leaders)) .
-              implode(', ', array_map(function($mem){ return "{$mem['name-first']} {$mem['name-last']}"; }, $walk_leaders)); ?>
+            <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($w->walkLeaders)) .
+                implode(', ', array_map(function($mem){
+                  return "{$mem['name-first']} {$mem['name-last']}"; },
+                $w->walkLeaders)); ?>
           </h4>
           <?php if($meeting_place) { ?>
           <h4>
@@ -93,7 +95,7 @@
           <?php } ?>
         </div>
       </div>
-      <?php if(sizeof((array)$gmap->markers) + sizeof((array)$gmap->path) > 0) { ?>
+      <?php if(sizeof((array)$w->map->markers) + sizeof((array)$w->map->path) > 0) { ?>
       <div class="hero-unit walk-stops" style="display:none">
         <div class="row-fluid">
           <div class="span12">
@@ -111,7 +113,7 @@
                 <h4><i class="icon-map-marker"></i> <?= t('Walk Route') ?></h4>
                 <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
                 <ol>
-                  <?php foreach($gmap->markers as $key=>$marker) { ?>
+                  <?php foreach($w->map->markers as $key=>$marker) { ?>
                   <li class='walk-stop' id='<?=$key?>'><h4><?=$marker->title?></h4></li>
                   <?php } ?>
                 </ol>
@@ -135,15 +137,15 @@
           <div class="clearfix">
             <h3><?= t('About This Walk') ?></h3>
             <?php if( $thumb ) { ?>
-              <a class="thumb" href="<?= ($im->getThumbnail($thumb,1024,1024)->src) ?>">
-                <img src="<?= $im->getThumbnail($thumb,340,720)->src ?>" class="pull-right img-polaroid" />
+              <a class="thumb" href="<?= ($im->getThumbnail($w->thumbnail,1024,1024)->src) ?>">
+                <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
               </a>
             <?php } 
-            echo $c->getAttribute('longdescription'); ?>
+            echo $w->longdescription; ?>
           </div>
 
           <?php
-            if (count($gmap->markers) > 0):
+            if (count($w->map->markers) > 0):
           ?>
             <div class="clearfix walk-stops-list">
               <hr />
@@ -157,7 +159,7 @@
               </a>
               <ol>
                 <?php
-                  foreach($gmap->markers as $key => $marker):
+                  foreach($w->map->markers as $key => $marker):
                 ?>
                   <li class="walk-stop" id="<?= ($key) ?>">
                     <h4><?= ($marker->title) ?></h4>
@@ -176,7 +178,7 @@
             <hr>
             <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
 
-            <?php foreach($team as $k => $mem) { ?>
+            <?php foreach($w->teamPictures as $k => $mem) { ?>
             <div class="walk-leader clearfix"> 
               <div class="row-fluid">
                 <div class="span3">
@@ -216,7 +218,6 @@
             </div>
             <?php } ?>
           </div><!-- About The Walk Leader Section -->
-
 
           <div class="walk-downloads">
             <hr>
@@ -309,29 +310,29 @@
           <div class="caption">
             <h4><i class="icon-accessible"></i> <?= t('Accessibility') ?></h4>
             <ul>
-              <?php foreach((object)$c->getAttribute("accessible") as $accessible) { ?>
+              <?php foreach($w->accessible as $accessible => $value) { ?>
               <li><?= t($th->getName($accessible)) ?></li>
               <?php } ?>
             </ul>
-            <?php if($accessible_info = trim($c->getAttribute('accessible_info'))) {?>
+            <?php if($accessible_info = trim($w->accessibleInfo)) {?>
             <p id="accessibility notes">
               <?= t($accessible_info) ?>
             </p>
             <?php }
-            if($public_transit = trim($c->getAttribute('accessible_transit'))) { ?>
+            if($public_transit = trim($w->accessibleTransit)) { ?>
             <h4><i class="icon-transit"></i> <?= t('Taking Public Transit') ?></h4>
             <p id="public transit directions">
               <?= t($public_transit) ?>
             </p>
             <?php }
-            if($accessible_parking = trim($c->getAttribute("accessible_parking"))) {
+            if($accessible_parking = trim($w->accessibleParking)) {
             ?>
             <h4><i class="icon-road"></i> <?= t('Parking Availability') ?></h4>
             <p id="parking availability">
               <?= t($accessible_parking) ?>
             </p>
             <?php }
-            if($accessible_find = trim($c->getAttribute("accessible_find"))) { ?>
+            if($accessible_find = trim($w->accessibleFind)) { ?>
             <h4><i class="icon-flag"></i> <?= t('How to find us') ?></h4>
             <p>
               <?= t($accessible_find) ?>
