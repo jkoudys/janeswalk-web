@@ -206,9 +206,9 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
    * so post-festival, update this to return an XHP and move to rackspace/amazon
    *
    * array $cards - Contents formatted by loadCards.
-   * return: string
+   * return: DOMDocument 
    */
-  public function renderCards($cards = array()) {
+  public function renderCards(Array $cards = array()) {
     $nh = Loader::helper('navigation');
     $th = Loader::helper('theme');
     
@@ -218,42 +218,60 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     // be showing all walks.
     $cardSize = 'span' . (sizeof($cards) > 9 ? 3 : 4);
 
+    // Using DOMDocument, mostly for sanity of HTML and security
+    $doc = new DOMDocument;
     // Loop over the walks
     foreach((array) $cards as $key => $card) {
       extract($card);
-      $buf .= '<div class="'.$cardSize.' walk">' .
-        '<a href="'.($nh->getLinkToCollection($page)).'">' .
-        '<div class="thumbnail">' .
-        '<div class="walkimage '.$placeholder .'" '. ($cardBg ? "style=\"background-image:url($cardBg)\"" : '') .' ></div>' .
-        '<div class="caption">' .
-        '<h4>' . Loader::helper('text')->shortText($page->getCollectionName(), 45) . '</h4>' .
-        '<ul class="when">';
+      $div = $doc->appendChild($doc->createElement('div'));
+      $div->setAttribute('class', $cardSize . ' walk');
+
+      $a = $div->appendChild($doc->createElement('a'));
+      $a->setAttribute('href', $nh->getLinkToCollection($page));
+
+      $thumbnail = $a->appendChild($doc->createElement('div'));
+      $thumbnail->setAttribute('class', 'thubmnail');
+
+      $image = $thumbnail->appendChild($doc->createElement('div'));
+      $image->setAttribute('class', 'walkimage ' . $placeholder);
+      if($cardBg)
+        $image->setAttribute('style', 'background-image:url(' . $cardBg . ')');
+
+      $caption = $thumbnail->appendChild($doc->createElement('div'));
+      $caption->setAttribute('class', 'caption');
+
+      $caption->appendChild($doc->createElement('h4'))->appendChild($doc->createTextNode( Loader::helper('text')->shortText($page->getCollectionName(), 45)));
+
+      $ul = $caption->appendChild($doc->createElement('ul'));
+      $ul->setAttribute('class', 'when');
 
       foreach($when as $slot) {
-        $buf .= '<li><i class="icon-calendar"></i> ' . $slot . '</li>';
+        $li = $ul->appendChild($doc->createElement('li'));
+        $li->appendChild($doc->createElement('i'))->setAttribute('class', 'icon-calendar');
+        $li->appendChild($doc->createTextNode($slot));
       }
+
       if($meeting_place) {
         $meetingText = Loader::helper('text')->shortText($meeting_place['title'] ?: $meeting_place['description']);
-        $buf .= '<li>' . tc('The location you will meet at', 'Meet at') . ': ' . $meetingText . '</li>';
+        $ul->appendChild($doc->createElement('li'))->appendChild($doc->createTextNode($meetingText));
       }
-      $buf .= '</ul>';
       if($leaders) {
-        $buf .= '<h6>' . t('Walk led by') . ' ' . Loader::helper('text')->shortText($leaders) . '</h6>';
+        $caption->appendChild($doc->createElement('h6', t('Walk led by') . ' ' . Loader::helper('text')->shortText($leaders)));
       }
-      $buf .=
-        '<p>' . Loader::helper('text')->shortText($page->getAttribute('shortdescription'), 115) . '</p>' .
-        '</div>' .
-        '<ul class="inline tags">';
+      $caption->appendChild($doc->createElement('p'))->appendChild($doc->createTextNode(Loader::helper('text')->shortText($page->getAttribute('shortdescription'), 115)));
+
+      $tags = $thumbnail->appendChild($doc->createElement('ul'));
+      $tags->setAttribute('class', 'inline tags');
+      
       foreach($page->getAttribute('theme') as $theme) {
-        $buf .= '<li class="tag" data-toggle="tooltip" title="' . $th->getName($theme) . '">' . $th->getIcon($theme) . '</li>';
+        $li = $tags->appendChild($doc->createElement('li'));
+        $li->appendChild($doc->createElement('i'))->setAttribute('class', 'icon-' . ThemeHelper::getIconName($theme));
+        $li->setAttribute('class', 'tag');
+        $li->setAttribute('data-toggle', 'tooltip');
+        $li->setAttribute('title', $th->getName($theme));
       }
-      $buf .=
-        '</ul>' .
-        '</div>' .
-        '</a>' .
-        '</div>';
     }
-    return $buf;
+    return $doc;
   }
 
   /* getCardData()

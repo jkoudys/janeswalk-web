@@ -1,7 +1,7 @@
 <?php 
 defined('C5_EXECUTE') or die('Access Denied.');
 
-echo $this->controller->renderCards($cards);
+$this->controller->renderCards($cards)->saveHTMLFile('php://output');
 
 if ($showRss) {
 ?>
