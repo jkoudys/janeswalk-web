@@ -9,109 +9,104 @@
 
 defined('C5_EXECUTE') or die("Access Denied.");
 class ThemeHelper { 
-  private $attributeNameMap;
-  private $attributeIconMap;
+  private static $attributeIconMap = array(
+    'nature-naturelover' => "bug",
+    'nature-greenthumb' => "leaf",
+    'nature-petlover' => "heart",
+    'urban-suburbanexplorer' => "home",
+    'urban-architecturalenthusiast' => "building",
+    'urban-moversandshakers' => "truck",
+    'culture-historybuff' => "archive",
+    'culture-artist' => "picture",
+    'culture-aesthete' => "pencil",
+    'culture-bookworm' => "book",
+    'culture-foodie' => "food",
+    'culture-nightowl' => "glass",
+    'culture-techie' => "gears",
+    'culture-writer' => "edit",
+    'civic-activist' => "bullhorn",
+    'civic-truecitizen' => "flag-alt",
+    'civic-goodneighbour' => "group",
 
-  public function __construct() {
-    $themePath = View::getInstance()->getThemePath();
-    $this->attributeIconMap = [
-      'nature-naturelover' => "<i class='icon-bug'></i>",
-      'nature-greenthumb' => "<i class='icon-leaf'></i>",
-      'nature-petlover' => "<i class='icon-heart'></i>",
-      'urban-suburbanexplorer' => "<i class='icon-home'></i>",
-      'urban-architecturalenthusiast' => "<i class='icon-building'></i>",
-      'urban-moversandshakers' => "<i class='icon-truck'></i>",
-      'culture-historybuff' => "<i class='icon-archive'></i>",
-      'culture-artist' => "<i class='icon-picture'></i>",
-      'culture-aesthete' => "<i class='icon-pencil'></i>",
-      'culture-bookworm' => "<i class='icon-book'></i>",
-      'culture-foodie' => "<i class='icon-food'></i>",
-      'culture-nightowl' => "<i class='icon-glass'></i>",
-      'culture-techie' => "<i class='icon-gears'></i>",
-      'culture-writer' => "<i class='icon-edit'></i>",
-      'civic-activist' => "<i class='icon-bullhorn'></i>",
-      'civic-truecitizen' => "<i class='icon-flag-alt'></i>",
-      'civic-goodneighbour' => "<i class='icon-group'></i>",
+    'urban-sports' => "trophy",
+    'urban-play' => "puzzle-piece",
+    'urban-water' => "tint",
+    'urban-film' => "facetime-video",
+    'urban-music' => "music",
+    'civic-international' => "globe",
+    'civic-military' => "fighter-jet",
+    'civic-commerce' => "shopping-cart",
+    'civic-religion' => "bell",
+    'civic-health' => "medkit",
+    'civic-nativeissues' => "sun",
+    'civic-gender' => "unlock-alt"
+  );
 
-      'urban-sports' => "<i class='icon-trophy'></i>",
-      'urban-play' => "<i class='icon-puzzle-piece'></i>",
-      'urban-water' => "<i class='icon-tint'></i>",
-      'urban-film' => "<i class='icon-facetime-video'></i>",
-      'urban-music' => "<i class='icon-music'></i>",
-      'civic-international' => "<i class='icon-globe'></i>",
-      'civic-military' => "<i class='icon-fighter-jet'></i>",
-      'civic-commerce' => "<i class='icon-shopping-cart'></i>",
-      'civic-religion' => "<i class='icon-bell'></i>",
-      'civic-health' => "<i class='icon-medkit'></i>",
-      'civic-nativeissues' => "<i class='icon-sun'></i>",
-      'civic-gender' => "<i class='icon-unlock-alt'></i>",
-    ];
-    $this->attributeNameMap = [
-      'nature-naturelover' => 'Nature',
-      'nature-greenthumb' => 'Gardening',
-      'nature-petlover' => 'Animals',
-      'urban-suburbanexplorer' => 'Suburbs',
-      'urban-architecturalenthusiast' => 'Architecture',
-      'urban-moversandshakers' => 'Transportation',
-      'culture-historybuff' => 'Heritage',
-      'culture-artist' => 'Art',
-      'culture-aesthete' => 'Design',
-      'culture-bookworm' => 'Literature',
-      'culture-foodie' => 'Food',
-      'culture-nightowl' => 'Night Life',
-      'culture-techie' => 'Technology',
-      'culture-writer' => 'Storytelling',
-      'civic-activist' => 'Activism',
-      'civic-truecitizen' => 'Citizenry',
-      'civic-goodneighbour' => 'Community',
+  private static $attributeNameMap = array(
+    'nature-naturelover' => 'Nature',
+    'nature-greenthumb' => 'Gardening',
+    'nature-petlover' => 'Animals',
+    'urban-suburbanexplorer' => 'Suburbs',
+    'urban-architecturalenthusiast' => 'Architecture',
+    'urban-moversandshakers' => 'Transportation',
+    'culture-historybuff' => 'Heritage',
+    'culture-artist' => 'Art',
+    'culture-aesthete' => 'Design',
+    'culture-bookworm' => 'Literature',
+    'culture-foodie' => 'Food',
+    'culture-nightowl' => 'Night Life',
+    'culture-techie' => 'Technology',
+    'culture-writer' => 'Storytelling',
+    'civic-activist' => 'Activism',
+    'civic-truecitizen' => 'Citizenry',
+    'civic-goodneighbour' => 'Community',
 
-      // 
-      'urban-sports' => 'Sports',
-      'urban-play' => 'Play',
-      'urban-film' => 'Film',
-      'urban-water' => 'Water',
-      'urban-music' => 'Music',
-      'civic-international' => 'International Issues',
-      'civic-military' => 'Military',
-      'civic-commerce' => 'Commerce',
-      'civic-religion' => 'Religion',
-      'civic-health' => 'Health',
-      'civic-nativeissues' => 'Native Issues',
-      'civic-gender' => 'Gender',
+    // 
+    'urban-sports' => 'Sports',
+    'urban-play' => 'Play',
+    'urban-film' => 'Film',
+    'urban-water' => 'Water',
+    'urban-music' => 'Music',
+    'civic-international' => 'International Issues',
+    'civic-military' => 'Military',
+    'civic-commerce' => 'Commerce',
+    'civic-religion' => 'Religion',
+    'civic-health' => 'Health',
+    'civic-nativeissues' => 'Native Issues',
+    'civic-gender' => 'Gender',
 
-      // Accessibility
-      'familyfriendly' => 'Family friendly',
-      'wheelchair' => 'Wheelchair accessible',
-      'dogs' => 'Dogs welcome',
-      'strollers' => 'Strollers welcome',
-      'bicycles' => 'Bicycles welcome',
-      'steephills' => 'Steep hills',
-      'uneven' => 'Uneven terrain',
-      'busy' => 'Busy sidewalks',
-      'bicyclesonly' => 'Bicycles only',
-      'lowlight' => 'Low light or nighttime',// Does this work?
-      'seniors' => 'Senior Friendly',
-    ];
-  }
+    // Accessibility
+    'familyfriendly' => 'Family friendly',
+    'wheelchair' => 'Wheelchair accessible',
+    'dogs' => 'Dogs welcome',
+    'strollers' => 'Strollers welcome',
+    'bicycles' => 'Bicycles welcome',
+    'steephills' => 'Steep hills',
+    'uneven' => 'Uneven terrain',
+    'busy' => 'Busy sidewalks',
+    'bicyclesonly' => 'Bicycles only',
+    'lowlight' => 'Low light or nighttime',// Does this work?
+    'seniors' => 'Senior Friendly'
+  );
 
-  public function getAll($type = 'all') {
+  public static function getAll($type = 'all') {
     if ($type === 'all') {
-      return $this->attributeNameMap;
+      return self::$attributeNameMap;
     }
     if ($type === 'tags') {
       $tags = array();
-      foreach ($this->attributeNameMap as $key => $tag) {
+      foreach (self::$attributeNameMap as $key => $tag) {
         if (preg_match('/\-/', $key)) {
-          array_push($tags, $tag);
+          $tag[] = $tag;
         }
       }
       return $tags;
     }
     if ($type === 'accessibilities') {
       $accessibilities = array();
-      foreach ($this->attributeNameMap as $key => $accessibility) {
+      foreach (self::$attributeNameMap as $key => $accessibility) {
         if (!preg_match('/\-/', $key)) {
-          array_push($accessibilities, $accessibility);
+          $accessibilities[] = $accessibility;
         }
       }
       return $accessibilities;
@@ -136,24 +131,27 @@ class ThemeHelper {
         $category = $this->getCategory($v->value);
         $options['theme'][$category][] = [
           'handle' => $v->value,
-          'name' => $this->getName($v->value),
+          'name' => self::getName($v->value),
         ];
       }
     }
     if($type === 'all' || $type === 'accessibile') {
       $satc->setAttributeKey(CollectionAttributeKey::getByHandle('accessible'));
       foreach ($satc->getOptions() as $v) {
-        $options['accessible'][] = ['handle' => $v->value, 'name' => $this->getName($v->value)];
+        $options['accessible'][] = ['handle' => $v->value, 'name' => self::getName($v->value)];
       }
     }
     return $options;
   }
 
-  public function getName($handle) {
-    return $this->attributeNameMap[(string)$handle] ?: (string)$handle;
+  public static function getName($handle) {
+    return self::$attributeNameMap[(string)$handle] ?: (string)$handle;
   }
-  public function getIcon($handle) {
-    return $this->attributeIconMap[(string)$handle];
+  public static function getIcon($handle) {
+    return '<i class="icon-' . self::getIconName($handle) . '"></i>';
+  }
+  public static function getIconName($handle) {
+    return self::$attributeIconMap[(string)$handle];
   }
 }
 
