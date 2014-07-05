@@ -256,7 +256,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
         $ul->appendChild($doc->createElement('li'))->appendChild($doc->createTextNode($meetingText));
       }
       if($leaders) {
-        $caption->appendChild($doc->createElement('h6', t('Walk led by') . ' ' . Loader::helper('text')->shortText($leaders)));
+        $caption->appendChild($doc->createElement('h6'))->appendChild($doc->createTextNode(t('Walk led by') . ' ' . Loader::helper('text')->shortText($leaders)));
       }
       $caption->appendChild($doc->createElement('p'))->appendChild($doc->createTextNode(Loader::helper('text')->shortText($page->getAttribute('shortdescription'), 115)));
 

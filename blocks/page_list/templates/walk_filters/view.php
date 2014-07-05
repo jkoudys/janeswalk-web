@@ -131,7 +131,7 @@ if($lat && $lng) { ?>
       <?= t('No walks found') ?><br />
       <?= t('Try another region or theme') ?>
     </div>
-    <?= $this->controller->renderCards($cards) ?>
+    <?php $this->controller->renderCards($cards)->saveHTMLFile('php://output') ?>
   </section>
   <section class="tab-pane fade" id="jw-list">
     <table class="walklist table">
