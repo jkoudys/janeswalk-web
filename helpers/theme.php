@@ -97,7 +97,7 @@ class ThemeHelper {
       $tags = array();
       foreach (self::$attributeNameMap as $key => $tag) {
         if (preg_match('/\-/', $key)) {
-          $tag[] = $tag;
+          $tags[] = $tag;
         }
       }
       return $tags;
@@ -121,7 +121,7 @@ class ThemeHelper {
    * @return array
    */ 
   public function getSelectOptions($type = 'all') {
-    $options = [];
+    $options = array(); 
     $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
 
     if($type === 'all' || $type === 'theme') {
@@ -150,6 +150,21 @@ class ThemeHelper {
   public static function getIcon($handle) {
     return '<i class="icon-' . self::getIconName($handle) . '"></i>';
   }
+
+  /*
+   * getIconElement
+   * Returns a DOM element of the icon
+   *
+   * @param DOMDocument $doc the document this element will be used in
+   * @return DOMNode
+   *
+   */
+  public static function getIconElement($handle, DOMDocument $doc) {
+    $i = $doc->createElement('i');
+    $i->setAttribute('class', 'icon-' . self::getIconName($handle));
+    return $i;
+  }
+
   public static function getIconName($handle) {
     return self::$attributeIconMap[(string)$handle];
   }

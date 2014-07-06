@@ -66,7 +66,7 @@ $this->inc('elements/header.php');
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 if(!empty($eid)) {
             ?>
-              <a data-eid="<?= $eid ?>" href="<?="http://eventbrite.ca/event/$eid" ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
+              <a data-eid="<?= $eid ?>" href="<?= 'http://eventbrite.ca/event/', $eid ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
             <?php
               } else {
             ?>
@@ -104,7 +104,7 @@ $this->inc('elements/header.php');
                 <?php if (isset($slots[0]['duration'])) { ?>
                 <h4><i class="icon-time"></i> <?= t('Duration') ?>:</h4>
                 <h5>
-                  <?= t('Approximately') . "  {$slots[0]['duration']}" ?>
+                  <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
                 </h5>
                 <?php } else { ?>
                 <h4><i class="icon-time"></i> <?= t('Open Schedule') ?></h4>
@@ -246,7 +246,7 @@ $this->inc('elements/header.php');
             <div class="caption">
               <h3>
                 <i class="icon-calendar"></i> 
-                <a href="<?="http://eventbrite.ca/event/$eid"?>" ><?= t('Register For This Walk') ?></a>
+                <a href="<?= 'http://eventbrite.ca/event/', $eid ?>"><?= t('Register For This Walk') ?></a>
                 <p class="select-day"></p>
               </h3>
             </div>

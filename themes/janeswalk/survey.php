@@ -1,7 +1,6 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); 
 $this->inc('elements/header.php'); 
 $dh = Loader::helper('concrete/dashboard');
-global $u;
 ?>
 <body class="index <?=($dh->canRead()) ? "logged_in" : ""; ?>">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>

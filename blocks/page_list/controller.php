@@ -1,5 +1,7 @@
 <?php 
 defined('C5_EXECUTE') or die("Access Denied.");
+
+Loader::helper('theme');
 class PageListBlockController extends Concrete5_Controller_Block_PageList {
   // Data for returning in JSON
   protected $pageData = array();
@@ -24,8 +26,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       $row['displayAliases'] = $this->displayAliases;
     }
 
-
-    $pl = new PageList();
+    $pl = new PageList;
     $pl->setNameSpace('b' . $this->bID);
 
     $cArray = array();
@@ -64,7 +65,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     }
 
     Loader::model('attribute/categories/collection');
-    if ($this->displayFeaturedOnly == 1) {
+    if ((int) $this->displayFeaturedOnly === 1) {
       $cak = CollectionAttributeKey::getByHandle('is_featured');
       if (is_object($cak)) {
         $pl->filterByIsFeatured(1);
@@ -97,7 +98,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
   public function view() {
     parent::view();
-    $this->set('th', Loader::helper('theme'));
     $this->set('im', Loader::helper('image'));
     $this->set('u', new User());
     $this->set('rssUrl', $showRss ? $controller->getRssUrl($b) : '');
@@ -114,7 +114,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       foreach($cards as $walk) {
         foreach(array_slice($walk['datetimes'], 1) as $dt) {
           $walk['datetimes'][0] = $dt;
-          array_push($cards, $walk);
+          $cards[] = $walk;
         }
       }
       usort($cards, function($b,$a) {
@@ -133,7 +133,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       /* Load the lat/lng for the city we're displaying */ 
       /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
       $latlng = explode(',',Page::getCurrentPage()->getAttribute('latlng'));
-      if(count($latlng) == 2) {
+      if(count($latlng) === 2) {
         $this->set('lat', $latlng[0]);
         $this->set('lng', $latlng[1]);
       }
@@ -152,8 +152,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       if ($wardObjects !== false) {
         foreach ($wardObjects->getOptions() as $ward) {
           $val = $ward->value;
-          // $pieces = preg_split('/Ward\ [0-9]+\ /', $val);
-          // $val = array_pop($pieces);
           $wards[] = $val;
         }
       }
@@ -210,9 +208,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
    */
   public function renderCards(Array $cards = array()) {
     $nh = Loader::helper('navigation');
-    $th = Loader::helper('theme');
     
-    $buf = '';
     // A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
     // The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
     // be showing all walks.
@@ -230,7 +226,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       $a->setAttribute('href', $nh->getLinkToCollection($page));
 
       $thumbnail = $a->appendChild($doc->createElement('div'));
-      $thumbnail->setAttribute('class', 'thubmnail');
+      $thumbnail->setAttribute('class', 'thumbnail');
 
       $image = $thumbnail->appendChild($doc->createElement('div'));
       $image->setAttribute('class', 'walkimage ' . $placeholder);
@@ -248,12 +244,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       foreach($when as $slot) {
         $li = $ul->appendChild($doc->createElement('li'));
         $li->appendChild($doc->createElement('i'))->setAttribute('class', 'icon-calendar');
-        $li->appendChild($doc->createTextNode($slot));
+        $li->appendChild($doc->createTextNode(' ' . $slot));
       }
 
       if($meeting_place) {
         $meetingText = Loader::helper('text')->shortText($meeting_place['title'] ?: $meeting_place['description']);
-        $ul->appendChild($doc->createElement('li'))->appendChild($doc->createTextNode($meetingText));
+        $ul->appendChild($doc->createElement('li'))->appendChild($doc->createTextNode(t('Meet at') . ': ' . $meetingText));
       }
       if($leaders) {
         $caption->appendChild($doc->createElement('h6'))->appendChild($doc->createTextNode(t('Walk led by') . ' ' . Loader::helper('text')->shortText($leaders)));
@@ -265,10 +261,10 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       
       foreach($page->getAttribute('theme') as $theme) {
         $li = $tags->appendChild($doc->createElement('li'));
-        $li->appendChild($doc->createElement('i'))->setAttribute('class', 'icon-' . ThemeHelper::getIconName($theme));
+        $li->appendChild(ThemeHelper::getIconElement($theme, $doc));
         $li->setAttribute('class', 'tag');
         $li->setAttribute('data-toggle', 'tooltip');
-        $li->setAttribute('title', $th->getName($theme));
+        $li->setAttribute('title', ThemeHelper::getName($theme));
       }
     }
     return $doc;
@@ -285,33 +281,29 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
     $cardData['title'] = $page->getCollectionName();
 
-    $cardData['leaders'] = implode(
-      ', ',
-      array_filter(
-        array_map(
-          function($mem) {
-            if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
-              return trim("{$mem['name-first']} {$mem['name-last']}") ?: null;
-            }
-          },
-            json_decode($page->getAttribute('team'),true)
-          )
-        )
-      );
+    foreach(json_decode($page->getAttribute('team'),true) as $mem) {
+      if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
+        $fullName = trim($mem['name-first'] . ' ' . $mem['name-last']);
+        if($fullName) {
+          $cardData['leaders'] .= ($cardData['leaders'] ? ', ' : '') . $fullName;
+        }
+      }
+    }
+      
     // Wards
     $cardData['wards'] = (array) $page->getAttribute('walk_wards');
 
     // Themes
     $themes = array();
     foreach($page->getAttribute('theme') as $theme) {
-      array_push($themes, $this->get('th')->getName($theme));
+      $themes[] = ThemeHelper::getName($theme);
     }
     $cardData['themes'] = $themes;
 
     // Accessibilities
     $accessibilities = array();
     foreach($page->getAttribute('accessible') as $accessibility) {
-      array_push($accessibilities, $this->get('th')->getName($accessibility));
+      $accessibilities[] = ThemeHelper::getName($accessibility);
     }
     $cardData['accessibilities'] = $accessibilities;
 
@@ -329,15 +321,18 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
     // Dates
     $scheduled = $page->getAttribute('scheduled');
-    $cardData['datetimes'] = array_map(
-      function($s){
-        return array('date' => $s['date'], 'time' => $s['time'], 'timestamp' => strtotime("{$s['date']} {$s['time']}"));
-      }, (array) $scheduled['slots']);
+
+    foreach((array) $scheduled['slots'] as $s) {
+      $cardData['datetimes'][] = array('date' => $s['date'], 'time' => $s['time'], 'timestamp' => strtotime("{$s['date']} {$s['time']}"));
+    }
+
     $cardData['when'] = array();
     if($scheduled['open']) {
       $cardData['when'][] = 'Open schedule';
-    } else if($cardData['datetimes']) {
-      $cardData['when'] = array_map(function($s){ return "{$s['time']}, {$s['date']}"; }, $cardData['datetimes']);
+    } else {
+      foreach((array) $cardData['datetimes'] as $s) {
+        $cardData['when'][] = "{$s['time']}, {$s['date']}";
+      }
     }
 
     // Thumbnail
@@ -361,19 +356,18 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
    * Loop through and load all the cards
    */
   public function loadCards() {
-    $jwdata = array();
     $cards = array();
-    foreach($this->get('pages') as $page) {
-      $cards[] = $cd = $this->getCardData($page);
-      $jwdata[] = [
+    foreach((array) $this->get('pages') as $page) {
+      $cards[] = $this->getCardData($page);
+      $this->pageData[] = array(
         'wards' => $cd['wards'],
         'themes' => $cd['themes'],
         'accessibilities' => $cd['accessibilities'],
         'initiatives' => $cd['initiatives'],
         'datetimes' => $cd['datetimes']
-      ];
+      );
     }
-    $this->pageData = $jwdata;
+
     return $cards;
   }
 

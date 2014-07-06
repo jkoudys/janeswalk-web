@@ -1,16 +1,8 @@
 <?php 
   defined('C5_EXECUTE') or die(_('Access Denied.'));
-  $nh = Loader::helper('navigation');
   $dh = Loader::helper('concrete/dashboard');
-  $im = Loader::helper('image');
   $headImage = $c->getAttribute('full_bg');
-  global $u;
-  global $cp;
-/*
-    data-backgroundImageUrl="http://janeswalk.org/files/9013/8872/1506/1756edc0b5758011890bc979c01463cf.jpg">
-*/
-?>
-<?php
+  
   $this->inc('elements/header.php');
 ?>
   <body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>"

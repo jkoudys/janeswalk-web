@@ -2,6 +2,7 @@
 namespace JanesWalk\Controller;
 use \Loader;
 use \User;
+use \UserInfo;
 
 class Controller extends \Controller {
   protected $pageData = array();
