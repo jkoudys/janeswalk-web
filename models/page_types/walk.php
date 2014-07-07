@@ -204,11 +204,13 @@ class Walk extends \Model implements \JsonSerializable {
    * Used for create a walk form, services that update walks, etc.
    *
    * @param String $json : json of walk details
+   * @return boolean Success message for save
    */
   public function setJson($json) {
     $postArray = json_decode($json, true);
     $db = Loader::db(); // XXX on 5.7, no more adodb, so rewrite transactions here
     $db->StartTrans();
+    $ok = true;
     try {
       if( empty($postArray['title']) ) {
         throw new Exception('Walk title cannot be empty.');
@@ -237,7 +239,7 @@ class Walk extends \Model implements \JsonSerializable {
       }
 
       /* Go through checkboxes */
-      $checkboxes = ['theme' => [], 'accessible' => []];
+      $checkboxes = array('theme' => [], 'accessible' => []);
       foreach($postArray->checkboxes as $key => $checked) {
         $selectAttribute = strtok($key, '-');
         $selectValue = strtok('');
@@ -251,9 +253,11 @@ class Walk extends \Model implements \JsonSerializable {
     } catch(Exception $e) {
       $db->FailTrans(); // Set transaction to rollback
       (new \Log('error', false))->write(__CLASS__ . '::' . __FUNCTION__ . " failed on page {$this->page->title}: $e");
+      $ok = false;
     } finally {
       $db->CompleteTrans();
     }
+    return $ok;
   }
 
   /*

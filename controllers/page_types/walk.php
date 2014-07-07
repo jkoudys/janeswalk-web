@@ -12,16 +12,54 @@ class WalkPageTypeController extends Controller {
   protected $walk; // Walk model object
 
   public function on_start() {
-    $method = $_SERVER['REQUEST_METHOD'];
-    $request = split('/', substr(@$_SERVER['PATH_INFO'], 1));
+    $request = split('/', substr($_SERVER['PATH_INFO'], 1));
     $cp = new Permissions($this->c);
     $this->walk = new Walk($this->c);
 
-    switch ($method) {
+    /* Ideally this should be in a router, not the individual on_start.
+     * c5.7 uses symfony2 for routing; TODO: either use the c5.6 'Request' class, 
+     * or wait for 5.7.
+     */
+    switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
-      // The 'publish' for an event
-      try {
-        //            $cp->canWrite() or throw new Exception('Cannot update walk.');
+      $this->create();
+      break;
+    case 'PUT':
+      $this->update();
+      break;
+    case 'GET':
+      $this->show();
+      break;
+    case 'DELETE':
+      $this->destroy();
+      break;
+    }
+  }
+
+  /*
+   * show
+   * Render view contents. Fall-through behaviour renders theme as HTML via view(). If 'format' is set, render in requested format
+   */
+  public function show() {
+    if($_GET['format'] === 'json') {
+      // Render JSON
+      header('Content-Type: application/json');
+      echo $this->getJson();
+      exit;
+    } else if($_GET['format'] === 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],'Kml-Google')) {
+      // Render KML of map only
+      header('Content-Type: application/vnd.google-earth.kml+xml');
+      $this->getKml();
+      exit;
+    }
+  }
+
+  /*
+   * create
+   * Saves a version of Walk collection, and makes it live
+   */
+  public function create() {
+    try {
         $this->setJson($_REQUEST['json'], true);
         $this->setEventBrite('live');
       } catch(Exception $e) {
@@ -29,45 +67,36 @@ class WalkPageTypeController extends Controller {
         echo 'Error publishing walk: ', $e->getMessage();
         http_response_code(500);
       }
-      exit;
-      break;
-    case 'PUT':
-      // 'save'
-      try {
-        //            $cp->canWrite() or die('Cannot update walk.');
-        parse_str(file_get_contents('php://input'),$put_vars);
-        $this->setJson($put_vars['json']);
-        $this->setEventBrite();
-      } catch(Exception $e) {
-        Log::addEntry('Walk error on PUT: ', $e->getMessage());
-        echo "Error saving walk: ", $e->getMessage();
-        http_response_code(500);
-      }
-      exit;
-      break;
-    case 'GET':
-      // Retrieve the page's json
-      //          $cp->canRead() or die('Cannot read walk.');
-      if($_REQUEST['format'] == 'json') {
-        header('Content-Type: application/json');
-        echo $this->getJson();
-        exit;
-      }
-      if($_REQUEST['format'] == 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],"Kml-Google")) {
-        $this->getKml();
-        exit;
-      }
-      break;
-    case 'DELETE':
-      // 'unpublish' the event (true deletes done through dashboard controller, not walk)
-      //          $cp->canWrite() or die('Cannot unpublish walk.');
-      $this->c->setAttribute('exclude_page_list',true);
-      $this->setEventBriteStatus('draft');
-      exit;
-      break;
+  }
+
+  /*
+   * update
+   * Saves a version of the walk collection, but doesn't approve version
+   */
+  public function update() {
+    try {
+      parse_str(file_get_contents('php://input'),$put_vars);
+      $this->setJson($put_vars['json']);
+      $this->setEventBrite();
+    } catch(Exception $e) {
+      Log::addEntry('Walk error on PUT: ', $e->getMessage());
+      echo "Error saving walk: ", $e->getMessage();
+      http_response_code(500);
     }
   }
-  public function setEventBriteStatus($status='draft') {
+
+  /*
+   * destroy
+   * Simply unpublishes the walk
+   */
+  public function destroy() {
+    $this->c->setAttribute('exclude_page_list',true);
+    $this->setEventBriteStatus('draft');
+    exit;
+  }
+
+
+  protected function setEventBriteStatus($status='draft') {
     if(CONCRETE5_ENV === 'prod') {
       $eid = $this->c->getAttribute("eventbrite");
       if($eid) {
@@ -86,7 +115,7 @@ class WalkPageTypeController extends Controller {
       return true;
     }
   }
-  public function setEventBrite($status = null) {
+  protected function setEventBrite($status = null) {
     if(CONCRETE5_ENV === 'prod') {
       $c = $this->c;
       $c = Page::getByID($c->getCollectionID()); // Refresh to fix a c5 quirk; todo: try deleting this after c5.7 update
@@ -167,11 +196,11 @@ class WalkPageTypeController extends Controller {
     }
   }
 
-  public function getJson() {
+  protected function getJson() {
     return json_encode($this->walk);
   }
 
-  public function setJson($json, $publish = false) {
+  protected function setJson($json, $publish = false) {
     /* Set the model by the json envelope */
     $this->walk->setJson($json);
 
@@ -182,7 +211,7 @@ class WalkPageTypeController extends Controller {
     }
   }
 
-  public function getKml() {
+  protected function getKml() {
     header('Content-type: application/vnd.google-earth.kml+xml');
     $this->walk->kmlSerialize()->save('php://output');
   }
@@ -194,13 +223,24 @@ class WalkPageTypeController extends Controller {
     $c = $this->getCollectionObject();
 
     // Put the preview image for Facebook/Twitter to pick up
-    $thumb && $this->addHeaderItem('<meta property="og:image" content="' . BASE_URL . $im->getThumbnail($thumb,340,720)->src . '" />');
-    $this->addHeaderItem('<meta property="og:url" content="' . $nh->getCollectionURL($c)  . '" />');
-    $this->addHeaderItem('<meta property="og:title" content="' . addslashes($c->getCollectionName()) . '" />');
-    $this->addHeaderItem('<meta property="og:description" content="' . addslashes($c->getAttribute('shortdescription')) . '" />');
+    $doc = new DOMDocument;
+    if($thumb) {
+      $meta = $doc->appendChild($doc->createElement('meta'));
+      $meta->setAttribute('property','og:image');
+      $meta->setAttribute('content', BASE_URL . $im->getThumbnail($thumb,340,720)->src);
+    }
+    $meta = $doc->appendChild($doc->createElement('meta'));
+    $meta->setAttribute('property','og:url');
+    $meta->setAttribute('content', $nh->getCollectionURL($c));
+    $meta = $doc->appendChild($doc->createElement('meta'));
+    $meta->setAttribute('property','og:title');
+    $meta->setAttribute('content', $c->getCollectionName());
+    $meta = $doc->appendChild($doc->createElement('meta'));
+    $meta->setAttribute('property','og:description');
+    $meta->setAttribute('content', $c->getAttribute('shortdescription'));
+    $this->addHeaderItem($doc->saveHTML());
 
     // Breadcrumb trail to walk
-    $doc = new DOMDocument;
     $bc = $doc->appendChild($doc->createElement('ul'));
     $bc->setAttribute('class', 'breadcrumb visible-desktop visible-tablet');
     foreach((array)$this->walk->crumbs as $crumb) {
@@ -228,7 +268,7 @@ class WalkPageTypeController extends Controller {
     $li = $bc->appendChild($doc->createElement('li'));
     $li->setAttribute('class','active');
     $li->appendChild($doc->createTextNode($c->getCollectionName()));
-    $this->set('breadcrumb', $doc->saveHTML());
+    $this->set('breadcrumb', $doc->saveHTML($bc));
 
     /* Helpers to use in the view */
     $this->set('im', $im);
@@ -247,15 +287,5 @@ class WalkPageTypeController extends Controller {
         'gmap' => $this->walk->map,
       ]
     ]);
-  }
-
-  public function isPut() {
-    return $_SERVER['REQUEST_METHOD'] == 'PUT';
-  }
-  public function isGet() {
-    return $_SERVER['REQUEST_METHOD'] == 'GET';
-  }
-  public function isDelete() {
-    return $_SERVER['REQUEST_METHOD'] == 'DELETE';
   }
 }
