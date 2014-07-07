@@ -113,20 +113,19 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     case 'walk_filters':
       $cards = $this->loadCards();
       $this->set('cards', $cards);
-
       foreach($cards as $walk) {
-        foreach(array_slice($walk['datetimes'], 1) as $dt) {
-          $walk['datetimes'][0] = $dt;
+        foreach(array_slice($walk->datetimes, 1) as $dt) {
+          $walk->datetimes[0] = $dt;
           $cards[] = $walk;
         }
       }
       usort($cards, function($b,$a) {
-        if($a['datetimes'][0] && $b['datetimes'][0]) {
-          return $a['datetimes'][0]['timestamp'] - $b['datetimes'][0]['timestamp'];
+        if($a->datetimes[0] && $b->datetimes[0]) {
+          return $a->datetimes[0]['timestamp'] - $b->datetimes[0]['timestamp'];
         } else {
-          if($a['datetimes'][0]) {
+          if($a->datetimes[0]) {
             return -1;
-          } else if($b['datetimes'][0]) {
+          } else if($b->datetimes[0]) {
             return 1;
           }
           return 0;
