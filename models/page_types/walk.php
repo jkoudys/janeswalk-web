@@ -143,6 +143,29 @@ class Walk extends \Model implements \JsonSerializable {
         return $this->meetingPlace;
       }
       break;
+    case 'initiatives':
+      // Initiatives
+      $this->initiatives = array();
+      $initiativeObjects = $this->page->getAttribute('walk_initiatives');
+      if ($initiativeObjects !== false) {
+        foreach ($initiativeObjects->getOptions() as $initiative) {
+          $val = $initiative->value;
+          $this->initiatives[] = $val;
+        }
+      }
+      sort($this->initiatives);
+      return $this->initiatives;
+      break;
+    case 'datetimes':
+      // Date + time pairings
+      $scheduled = $this->page->getAttribute('scheduled');
+      $this->datetimes = array();
+
+      foreach((array) $scheduled['slots'] as $s) {
+        $this->datetimes[] = array('date' => $s['date'], 'time' => $s['time'], 'timestamp' => strtotime("{$s['date']} {$s['time']}"));
+      }
+      return $this->datetimes;
+      break;
     }
   }
 
@@ -335,4 +358,14 @@ class Walk extends \Model implements \JsonSerializable {
     }
     return $dom;
   }
+
+  /*
+   * getPage()
+   * Returns a page object for this walk. Keeping $page protected as we may want some logic around this later
+   * @return Page
+   */
+  public function getPage() {
+    return $this->page;
+  }
+
 }

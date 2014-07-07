@@ -1,7 +1,10 @@
 <?php 
 defined('C5_EXECUTE') or die("Access Denied.");
 
+use \JanesWalk\Model\PageType\Walk;
+
 Loader::helper('theme');
+Loader::model('page_types/walk');
 class PageListBlockController extends Concrete5_Controller_Block_PageList {
   // Data for returning in JSON
   protected $pageData = array();
@@ -200,14 +203,14 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
   /* renderCards()
    *
-   * Renders an HTML string of a walk card. site5 isn't making installing xhp easy,
-   * so post-festival, update this to return an XHP and move to rackspace/amazon
+   * Renders a DOMDocument containing the walk cards HTML tree.
    *
    * array $cards - Contents formatted by loadCards.
    * return: DOMDocument 
    */
   public function renderCards(Array $cards = array()) {
     $nh = Loader::helper('navigation');
+    $im = Loader::helper('image');
     
     // A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
     // The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
@@ -217,49 +220,53 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     // Using DOMDocument, mostly for sanity of HTML and security
     $doc = new DOMDocument;
     // Loop over the walks
-    foreach((array) $cards as $key => $card) {
-      extract($card);
+    foreach((array) $cards as $key => $walk) {
       $div = $doc->appendChild($doc->createElement('div'));
       $div->setAttribute('class', $cardSize . ' walk');
 
       $a = $div->appendChild($doc->createElement('a'));
-      $a->setAttribute('href', $nh->getLinkToCollection($page));
+      $a->setAttribute('href', $nh->getLinkToCollection($walk->getPage()));
 
       $thumbnail = $a->appendChild($doc->createElement('div'));
       $thumbnail->setAttribute('class', 'thumbnail');
 
+      // We set the image placeholder to a pseudo-random number, to get those orange, blue, grey placeholders
       $image = $thumbnail->appendChild($doc->createElement('div'));
-      $image->setAttribute('class', 'walkimage ' . $placeholder);
-      if($cardBg)
-        $image->setAttribute('style', 'background-image:url(' . $cardBg . ')');
+      $image->setAttribute('class', 'walkimage placeholder' . $walk->getPage()->getCollectionID() % 3);
+      if($walk->thumbnail)
+        $image->setAttribute('style', 'background-image:url(' . $im->getThumbnail($this->thumbnail, 340,720)->src . ')');
 
       $caption = $thumbnail->appendChild($doc->createElement('div'));
       $caption->setAttribute('class', 'caption');
 
-      $caption->appendChild($doc->createElement('h4'))->appendChild($doc->createTextNode( Loader::helper('text')->shortText($page->getCollectionName(), 45)));
+      $caption->appendChild($doc->createElement('h4'))->appendChild($doc->createTextNode( Loader::helper('text')->shortText((string)$walk, 45)));
 
       $ul = $caption->appendChild($doc->createElement('ul'));
       $ul->setAttribute('class', 'when');
 
-      foreach($when as $slot) {
+      foreach($walk->datetimes as $slot) {
         $li = $ul->appendChild($doc->createElement('li'));
         $li->appendChild($doc->createElement('i'))->setAttribute('class', 'icon-calendar');
-        $li->appendChild($doc->createTextNode(' ' . $slot));
+        $li->appendChild($doc->createTextNode(' ' . $slot['time'] . ', ' . $slot['date']));
       }
 
-      if($meeting_place) {
-        $meetingText = Loader::helper('text')->shortText($meeting_place['title'] ?: $meeting_place['description']);
+      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
+      if($walk->meetingPlace) {
+        $meetingText = Loader::helper('text')->shortText($walk->meetingPlace['title'] ?: $walk->meetingPlace['description']);
         $ul->appendChild($doc->createElement('li'))->appendChild($doc->createTextNode(t('Meet at') . ': ' . $meetingText));
       }
-      if($leaders) {
-        $caption->appendChild($doc->createElement('h6'))->appendChild($doc->createTextNode(t('Walk led by') . ' ' . Loader::helper('text')->shortText($leaders)));
+      if($walk->walkLeaders) {
+        $caption->appendChild($doc->createElement('h6'))->appendChild($doc->createTextNode(
+          t('Walk led by') . ' ' . Loader::helper('text')->shortText(
+            implode(', ', array_map(function($leader) { return trim($leader['name-first'] . ' ' . $leader['name-last']); }, $walk->walkLeaders))
+        )));
       }
-      $caption->appendChild($doc->createElement('p'))->appendChild($doc->createTextNode(Loader::helper('text')->shortText($page->getAttribute('shortdescription'), 115)));
+      $caption->appendChild($doc->createElement('p'))->appendChild($doc->createTextNode(Loader::helper('text')->shortText($walk->shortdescription, 115)));
 
       $tags = $thumbnail->appendChild($doc->createElement('ul'));
       $tags->setAttribute('class', 'inline tags');
       
-      foreach($page->getAttribute('theme') as $theme) {
+      foreach($walk->themes as $theme=>$set) {
         $li = $tags->appendChild($doc->createElement('li'));
         $li->appendChild(ThemeHelper::getIconElement($theme, $doc));
         $li->setAttribute('class', 'tag');
@@ -270,102 +277,24 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     return $doc;
   }
 
-  /* getCardData()
-   * Loads models needed for a walk card in the view
-   * @input Page $page Extracts the walk data from this
-   * @returns: array
-   * ex. from view: extract($controller->getCardData());
-   */
-  public function getCardData($page) {
-    $cardData['page'] = $page;
-
-    $cardData['title'] = $page->getCollectionName();
-
-    foreach(json_decode($page->getAttribute('team'),true) as $mem) {
-      if($mem['role'] === 'walk-leader' || $mem['type'] === 'leader') {
-        $fullName = trim($mem['name-first'] . ' ' . $mem['name-last']);
-        if($fullName) {
-          $cardData['leaders'] .= ($cardData['leaders'] ? ', ' : '') . $fullName;
-        }
-      }
-    }
-      
-    // Wards
-    $cardData['wards'] = (array) $page->getAttribute('walk_wards');
-
-    // Themes
-    $themes = array();
-    foreach($page->getAttribute('theme') as $theme) {
-      $themes[] = ThemeHelper::getName($theme);
-    }
-    $cardData['themes'] = $themes;
-
-    // Accessibilities
-    $accessibilities = array();
-    foreach($page->getAttribute('accessible') as $accessibility) {
-      $accessibilities[] = ThemeHelper::getName($accessibility);
-    }
-    $cardData['accessibilities'] = $accessibilities;
-
-    // Initiatives
-    $initiatives = array();
-    $initiativeObjects = $page->getAttribute('walk_initiatives');
-    if ($initiativeObjects !== false) {
-      foreach ($initiativeObjects->getOptions() as $initiative) {
-        $val = $initiative->value;
-        $initiatives[] = $val;
-      }
-    }
-    sort($initiatives);
-    $cardData['initiatives'] = $initiatives;
-
-    // Dates
-    $scheduled = $page->getAttribute('scheduled');
-
-    foreach((array) $scheduled['slots'] as $s) {
-      $cardData['datetimes'][] = array('date' => $s['date'], 'time' => $s['time'], 'timestamp' => strtotime("{$s['date']} {$s['time']}"));
-    }
-
-    $cardData['when'] = array();
-    if($scheduled['open']) {
-      $cardData['when'][] = 'Open schedule';
-    } else {
-      foreach((array) $cardData['datetimes'] as $s) {
-        $cardData['when'][] = "{$s['time']}, {$s['date']}";
-      }
-    }
-
-    // Thumbnail
-    $thumb = $page->getAttribute('thumbnail');
-    $cardData['cardBg'] = $thumb ? $this->get('im')->getThumbnail($thumb,380,720)->src : null;
-    $cardData['placeholder'] = 'placeholder' . $page->getCollectionID() % 3;
-
-    // Meeting place
-    $gmap = json_decode($page->getAttribute('gmap'),true);
-    $cardData['meeting_place'] = null;
-    foreach( (array) $gmap['markers'] as $marker) { // To avoid errors on empty/malformed maps
-      $cardData['meeting_place'] = array('title' => $marker['title'], 'description' => $marker['description']);
-      break; 
-    }
-
-    return $cardData;
-  }
-
   /*
    * loadCards
    * Loop through and load all the cards
+   *
+   * @return Array<Page> card data for each card
    */
   public function loadCards() {
     $cards = array();
     foreach((array) $this->get('pages') as $page) {
-      $cards[] = $this->getCardData($page);
+      $walk = new Walk($page);
       $this->pageData[] = array(
-        'wards' => $cd['wards'],
-        'themes' => $cd['themes'],
-        'accessibilities' => $cd['accessibilities'],
-        'initiatives' => $cd['initiatives'],
-        'datetimes' => $cd['datetimes']
+        'wards' => $walk->wards,
+        'themes' => $walk->themes,
+        'accessibilities' => $walk->accessible,
+        'initiatives' => $walk->initiatives,
+        'datetimes' => $walk->datetimes
       );
+      $cards[] = $walk;
     }
 
     return $cards;
