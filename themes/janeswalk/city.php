@@ -191,8 +191,8 @@
            if($show !== 'all' || $c->isEditMode()) {
 ?>
             <h3><?= t('Walks in %s', t((string) $city) ) ?></h3>
-            <?php if($totalWalks > 1) { ?>
-            <a href="<?= $city->url, 'walks' ?>" class="see-all"><?= t2('show only this walk', 'see all %d walks', $totalWalks)?></a>
+            <?php if($city->totalWalks > 1) { ?>
+            <a href="<?= $city->url, 'walks' ?>" class="see-all"><?= t2('show only this walk', 'see all %d walks', $city->totalWalks)?></a>
             <?php }?>
             <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>
             <div class="row-fluid">
@@ -206,13 +206,13 @@
     </div>
   </div>
 <?php
-            if($c->isEditMode() || $blog) {
+           if($c->isEditMode() || $blog) {
 ?>
   <div class="intro-city lower blog">
     <div class="container">
       <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>"><?= t('City Blog') ?></a>
 <?php
-              if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
+             if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
         <a class="add" href="<?=$this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), '/', $blog->getCollectionID() )?>" >
         <i class="icon-double-angle-right"></i> <?= t('post new article') ?></a>
         <?php } ?>
@@ -221,6 +221,6 @@
     </div>
   </div>
 <?php
-            }
-            $this->inc('elements/footer.php'); 
+           }
+           $this->inc('elements/footer.php');
 

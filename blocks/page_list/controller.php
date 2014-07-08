@@ -111,11 +111,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       $this->set('cards', $this->loadCards());
       break;
     case 'walk_filters':
+      Loader::helper('theme');
       $cards = $this->loadCards();
       $this->set('cards', $cards);
       foreach($cards as $walk) {
         foreach(array_slice($walk->datetimes, 1) as $dt) {
-          $walk->datetimes[0] = $dt;
+          $walk->datetimes = array($dt);
           $cards[] = $walk;
         }
       }
@@ -160,13 +161,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       natcasesort($wards);
 
       // Themes
-      $themeHelper = Loader::helper('theme');
-      $themes = $themeHelper->getAll('tags');
-      sort($themes);
+      $themes = ThemeHelper::getAll('themes');
+      asort($themes);
 
       // Accessibility
-      $accessibilities = $themeHelper->getAll('accessibilities');
-      sort($accessibilities);
+      $accessibilities = ThemeHelper::getAll('accessibilities');
+      asort($accessibilities);
 
       // Intiatives
       if ($this->c->getCollectionName() === 'Toronto') {

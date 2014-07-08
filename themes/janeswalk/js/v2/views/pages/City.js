@@ -240,96 +240,32 @@ var CityPageView = PageView.extend({
     _setThemeCounts: function() {
         var _this = this,
             count;
-        this._element.find('div.filters select[name="theme"] option').each(
-            function(index, option) {
-                if ($(option).attr('value') !== '*') {
-                    count = 0;
-                    $(_this._data).each(
-                        function(index, data) {
-                            if (jQuery.inArray($(option).attr('value'), data.themes) !== -1) {
-                                ++count;
-                            }
-                        }
-                    );
-                    $(option).text($(option).text() + ' (' + (count) + ')');
-                    if (count === 0) {
-                        $(option).remove();
-                    }
-                }
+        var countFilterMatches = function (option, index) {
+          var filterCheck = option.getAttribute("value");
+          var compare_fn = this.compare_fn || function(f,o) { return f[o]; };
+          if (filterCheck !== "*") {
+            count = 0;
+            for(var i in _this._data) {
+              if(compare_fn(_this._data[i][this.filter], filterCheck)) {
+                ++count;
+              }
             }
-        );
-        this._element.find('div.filters select[name="accessibility"] option').each(
-            function(index, option) {
-                if ($(option).attr('value') !== '*') {
-                    count = 0;
-                    $(_this._data).each(
-                        function(index, data) {
-                            if (jQuery.inArray($(option).attr('value'), data.accessibilities) !== -1) {
-                                ++count;
-                            }
-                        }
-                    );
-                    $(option).text($(option).text() + ' (' + (count) + ')');
-                    if (count === 0) {
-                        $(option).remove();
-                    }
-                }
+            option.textContent += " (" + count + ")";
+            if (count === 0) {
+              option.parentElement.removeChild(option);
             }
-        );
-        this._element.find('div.filters select[name="ward"] option').each(
-            function(index, option) {
-                if ($(option).attr('value') !== '*') {
-                    count = 0;
-                    $(_this._data).each(
-                        function(index, data) {
-                            if (jQuery.inArray($(option).attr('value'), data.wards) !== -1) {
-                                ++count;
-                            }
-                        }
-                    );
-                    $(option).text($(option).text() + ' (' + (count) + ')');
-                    if (count === 0) {
-                        $(option).remove();
-                    }
-                }
-            }
-        );
-        this._element.find('div.filters select[name="initiative"] option').each(
-            function(index, option) {
-                if ($(option).attr('value') !== '*') {
-                    count = 0;
-                    $(_this._data).each(
-                        function(index, data) {
-                            if (jQuery.inArray($(option).attr('value'), data.initiatives) !== -1) {
-                                ++count;
-                            }
-                        }
-                    );
-                    $(option).text($(option).text() + ' (' + (count) + ')');
-                    if (count === 0) {
-                        $(option).remove();
-                    }
-                }
-            }
-        );
-        this._element.find('div.filters select[name="date"] option').each(
-            function(index, option) {
-                if ($(option).attr('value') !== '*') {
-                    count = 0;
-                    $(_this._data).each(
-                        function(index, data) {
-                            if ($.grep(data.datetimes, function(e){ return $(option).attr('value') === e.date; }).length > 0) {
-                                ++count;
-                            }
-                        }
-                    );
-                    $(option).text($(option).text() + ' (' + (count) + ')');
-                    if (count === 0) {
-                        $(option).remove();
-                    }
-                }
-            }
-        );
+          }
+        };
+
+        NodeList.prototype.forEach = Array.prototype.forEach; //XXX verify on IE
+
+        this._element[0].querySelectorAll('div.filters select[name="theme"] option').forEach(countFilterMatches, {"filter":"themes"});
+        this._element[0].querySelectorAll('div.filters select[name="accessibility"] option').forEach(countFilterMatches, {"filter":"accessibilities"});
+        this._element[0].querySelectorAll('div.filters select[name="ward"] option').forEach(countFilterMatches, {"filter":"wards"});
+        this._element[0].querySelectorAll('div.filters select[name="initiative"] option').forEach(countFilterMatches, {"filter":"initiatives"});
+        this._element[0].querySelectorAll('div.filters select[name="date"] option').forEach(countFilterMatches, {"filter":"datetimes",
+          "compare_fn": function(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) >= 0;} } 
+        });
     },
 
     /**

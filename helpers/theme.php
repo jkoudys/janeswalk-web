@@ -93,20 +93,20 @@ class ThemeHelper {
     if ($type === 'all') {
       return self::$attributeNameMap;
     }
-    if ($type === 'tags') {
-      $tags = array();
-      foreach (self::$attributeNameMap as $key => $tag) {
+    if ($type === 'themes') {
+      $themes = array();
+      foreach (self::$attributeNameMap as $key => $theme) {
         if (preg_match('/\-/', $key)) {
-          $tags[] = $tag;
+          $themes[$key] = $theme;
         }
       }
-      return $tags;
+      return $themes;
     }
     if ($type === 'accessibilities') {
       $accessibilities = array();
       foreach (self::$attributeNameMap as $key => $accessibility) {
         if (!preg_match('/\-/', $key)) {
-          $accessibilities[] = $accessibility;
+          $accessibilities[$key] = $accessibility;
         }
       }
       return $accessibilities;

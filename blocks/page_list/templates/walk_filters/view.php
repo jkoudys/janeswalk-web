@@ -31,19 +31,19 @@ if($lat && $lng) { ?>
       <?php endif; ?>
 
 
-      <?php if (!empty($themes)): ?>
+      <?php if (!empty($themes)) { ?>
       <div class="filter clearfix">
         <label for="theme"><?= t('Theme') ?></label>
         <div class="options">
           <select name="theme" id="theme">
             <option value="*">All</option>
-            <?php foreach ($themes as $theme): ?>
-            <option value="<?= ($theme) ?>"><?= ($theme) ?></option>
-            <?php endforeach; ?>
+            <?php foreach ($themes as $key => $theme) { ?>
+            <option value="<?= $key ?>"><?= ($theme) ?></option>
+            <?php } ?>
           </select>
         </div>
       </div>
-      <?php endif; ?>
+      <?php } ?>
 
 
       <?php if (!empty($accessibilities)): ?>
@@ -52,9 +52,9 @@ if($lat && $lng) { ?>
         <div class="options">
           <select name="accessibility" id="accessibility">
             <option value="*">All</option>
-            <?php foreach ($accessibilities as $accessibility): ?>
-            <option value="<?= ($accessibility) ?>"><?= ($accessibility) ?></option>
-            <?php endforeach; ?>
+            <?php foreach ($accessibilities as $key=>$accessibility) { ?>
+            <option value="<?= $key ?>"><?= ($accessibility) ?></option>
+            <?php } ?>
           </select>
         </div>
       </div>
@@ -148,10 +148,10 @@ if($lat && $lng) { ?>
 foreach($walksByDate as $k => $walk) {
 ?>
     <tr data-janeswalk-sort="<?= $k ?>">
-      <td><?= $walk['datetimes'][0]['date'] ?: '--' ?></td>
-      <td><?= $walk['datetimes'][0]['time'] ?: '--' ?></td>
-      <td><a href="<?= $nh->getLinkToCollection($walk['page']) ?>" target="_blank" ><?=$walk['title']?></a></td>
-      <td><?= implode(', ', array_filter((array)$walk['meeting_place'])) ?></td>
+      <td><?= $walk->datetimes[0]['date'] ?: '--' ?></td>
+      <td><?= $walk->datetimes[0]['time'] ?: '--' ?></td>
+      <td><a href="<?= $nh->getLinkToCollection($walk->getPage()) ?>" target="_blank" ><?= $walk ?></a></td>
+      <td><?= implode(', ', array_filter((array)$walk->meetingPlace)) ?></td>
     </tr>
     <?php
     }
