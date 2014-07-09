@@ -1,4 +1,6 @@
 <?php 
+use \JanesWalk\Model\PageType\Walk;
+
 defined('C5_EXECUTE') or die("Access Denied.");
 class WalkFormController extends Controller {
   public function view() {
@@ -22,9 +24,8 @@ class WalkFormController extends Controller {
       $c = Page::getByPath($load);
     }
     // Let's load the controller for the walk, so we can access its json methods
-    Loader::controller($c);
-    $walkController = new WalkPageTypeController();
-    $walkController->setCollectionObject($c);
+    Loader::model('page_types/walk');
+    $walk = new Walk($c);
 
     $city || $city = Page::getByID($c->getCollectionParentID());
     $country = Page::getByID($city->getCollectionParentID());
@@ -77,7 +78,7 @@ class WalkFormController extends Controller {
       'datepicker_cfg' => [
         'format' => 'dd/mm/yyyy'
       ],
-      'data' => $walkController->getJson()
+      'data' => json_encode($walk)
     ];
 
     // Special case for cities with walk-formatting requirements
