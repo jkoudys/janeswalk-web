@@ -12,7 +12,6 @@ class WalkPageTypeController extends Controller {
   protected $walk; // Walk model object
 
   public function on_start() {
-    $request = split('/', substr($_SERVER['PATH_INFO'], 1));
     $cp = new Permissions($this->c);
     $this->walk = new Walk($this->c);
 
@@ -22,10 +21,11 @@ class WalkPageTypeController extends Controller {
      */
     switch ($_SERVER['REQUEST_METHOD']) {
     case 'POST':
-      $this->create();
+      $this->create($_POST['json']);
       break;
     case 'PUT':
-      $this->update();
+      parse_str(file_get_contents('php://input'),$put_vars);
+      $this->update($put_vars['json']);
       break;
     case 'GET':
       $this->show();
@@ -58,12 +58,12 @@ class WalkPageTypeController extends Controller {
    * create
    * Saves a version of Walk collection, and makes it live
    */
-  public function create() {
+  public function create($json) {
     try {
-        $this->setJson($_REQUEST['json'], true);
+        $this->setJson($json, true);
         $this->setEventBrite('live');
       } catch(Exception $e) {
-        Log::addEntry('Walk error on POST: ', $e->getMessage());
+        Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
         echo 'Error publishing walk: ', $e->getMessage();
         http_response_code(500);
       }
@@ -73,13 +73,12 @@ class WalkPageTypeController extends Controller {
    * update
    * Saves a version of the walk collection, but doesn't approve version
    */
-  public function update() {
+  public function update($json) {
     try {
-      parse_str(file_get_contents('php://input'),$put_vars);
-      $this->setJson($put_vars['json']);
+      $this->setJson($json);
       $this->setEventBrite();
     } catch(Exception $e) {
-      Log::addEntry('Walk error on PUT: ', $e->getMessage());
+      Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
       echo "Error saving walk: ", $e->getMessage();
       http_response_code(500);
     }

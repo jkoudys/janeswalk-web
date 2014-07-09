@@ -1,5 +1,6 @@
 <?php
-  defined('C5_EXECUTE') || die(_("Access Denied."));
+defined('C5_EXECUTE') || die(_("Access Denied."));
+var_dump(Loader::db());
   $this->inc('elements/header.php'); ?>
 <body
   class="city-page<?= $isLoggedIn ? ' logged_in' : '' ?>"
@@ -166,8 +167,7 @@
   <div class="section3 city-city">
     <div class="container">
       <div class="row-fluid walk-select">
-        <?php if($show !== 'all') { ?>
-        <div class="span4 action-items">
+        <div class="span4 action-items walk-preview">
           <div class="item active">
             <h2><?= t('Jane’s Walks') ?></h2>
             <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', (string) $city) ?></h4>
@@ -178,7 +178,6 @@
           </div>
           <?php (new Area('Sponsors'))->display($c); ?>
         </div>
-        <?php } ?>
         <div class="walks-list <?=($show === 'all') ? 'showall' : 'span8' ?>">
 <?php
            if($show === 'all' || $c->isEditMode()) {

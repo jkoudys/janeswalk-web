@@ -100,6 +100,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
   }
 
   public function view() {
+    $c = Page::getCurrentPage();
     parent::view();
     $this->set('im', Loader::helper('image'));
     $this->set('u', new User());
@@ -135,7 +136,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
       /* Load the lat/lng for the city we're displaying */ 
       /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
-      $latlng = explode(',',Page::getCurrentPage()->getAttribute('latlng'));
+      $latlng = explode(',',$c->getAttribute('latlng'));
       if(count($latlng) === 2) {
         $this->set('lat', $latlng[0]);
         $this->set('lng', $latlng[1]);
@@ -151,7 +152,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       // Set up walk filters
       // Wards
       $wards = array();
-      $wardObjects = $this->c->getAttribute('city_wards');
+      $wardObjects = $c->getAttribute('city_wards');
       if ($wardObjects !== false) {
         foreach ($wardObjects->getOptions() as $ward) {
           $val = $ward->value;
@@ -169,7 +170,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       asort($accessibilities);
 
       // Intiatives
-      if ($this->c->getCollectionName() === 'Toronto') {
+      if ($c->getCollectionName() === 'Toronto') {
         $initiatives = array();
         $ak = CollectionAttributeKey::getByHandle('walk_initiatives');
         $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
@@ -183,7 +184,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
       // Ward semantics
       $wardName = 'Region';
-      if ($this->c->getCollectionName() === 'Toronto') {
+      if ($c->getCollectionName() === 'Toronto') {
         $wardName = 'Ward';
       }
 

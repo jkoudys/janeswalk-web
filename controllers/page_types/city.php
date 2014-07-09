@@ -66,14 +66,4 @@ class CityPageTypeController extends Controller {
     $this->view();
     $this->set('show', 'all');
   }
-
-  public function isPut() {
-    return $_SERVER['REQUEST_METHOD'] == 'PUT';
-  }
-  public function isGet() {
-    return $_SERVER['REQUEST_METHOD'] == 'GET';
-  }
-  public function isDelete() {
-    return $_SERVER['REQUEST_METHOD'] == 'DELETE';
-  }
 }
