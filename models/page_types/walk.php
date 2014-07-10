@@ -128,7 +128,7 @@ class Walk extends \Model implements \JsonSerializable {
       break;
     case 'walkLeaders':
       // @return Array of team members who are walk leaders
-      return array_filter($this->team, function($mem) {
+      return array_filter((array)$this->team, function($mem) {
         return strpos($mem['type'], 'leader') !== false;
       });
       break;

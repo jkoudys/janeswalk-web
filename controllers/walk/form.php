@@ -23,7 +23,7 @@ class WalkFormController extends Controller {
     else {
       $c = Page::getByPath($load);
     }
-    // Let's load the controller for the walk, so we can access its json methods
+    // Let's load the model for the walk, so we can access its json methods
     Loader::model('page_types/walk');
     $walk = new Walk($c);
 
@@ -94,7 +94,6 @@ class WalkFormController extends Controller {
     $this->set('av', $av);
     $this->set('load', $load);
     $this->set('c', $c);
-    $this->set('walkController', $walkController);
     $this->set('city', $city);
     $this->set('country', $country);
     $this->set('ui_cityorganizer', $ui_cityorganizer);
