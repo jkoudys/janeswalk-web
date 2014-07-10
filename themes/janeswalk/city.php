@@ -1,7 +1,6 @@
 <?php
 defined('C5_EXECUTE') || die(_("Access Denied."));
-var_dump(Loader::db());
-  $this->inc('elements/header.php'); ?>
+$this->inc('elements/header.php'); ?>
 <body
   class="city-page<?= $isLoggedIn ? ' logged_in' : '' ?>"
   data-pageViewName="CityPageView"
@@ -167,8 +166,8 @@ var_dump(Loader::db());
   <div class="section3 city-city">
     <div class="container">
       <div class="row-fluid walk-select">
-        <div class="span4 action-items walk-preview">
-          <div class="item active">
+        <div class="span4 action-items walk-preview fade in">
+          <div class="item">
             <h2><?= t('Jane’s Walks') ?></h2>
             <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', (string) $city) ?></h4>
             <?php (new Area('City Description'))->display($c); ?>
@@ -178,28 +177,19 @@ var_dump(Loader::db());
           </div>
           <?php (new Area('Sponsors'))->display($c); ?>
         </div>
-        <div class="walks-list <?=($show === 'all') ? 'showall' : 'span8' ?>">
-<?php
-           if($show === 'all' || $c->isEditMode()) {
-?>
-            <div class="row-fluid">
-              <?php (new Area('All Walks List'))->display($c); ?>
-            </div>
-<?php
-           }
-           if($show !== 'all' || $c->isEditMode()) {
-?>
-            <h3><?= t('Walks in %s', t((string) $city) ) ?></h3>
-            <?php if($city->totalWalks > 1) { ?>
-            <a href="<?= $city->url, 'walks' ?>" class="see-all"><?= t2('show only this walk', 'see all %d walks', $city->totalWalks)?></a>
-            <?php }?>
-            <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>
-            <div class="row-fluid">
-              <?php (new Area('Walk List'))->display($c); ?>
-            </div>
-<?php
-            }
-?>
+        <div class="walks-list preview span8 fade in">
+          <h3><?= t('Walks in %s', t((string) $city) ) ?></h3>
+          <?php if($city->totalWalks > 1) { ?>
+          <a class="see-all"><?= t2('show only this walk', 'see all %d walks', $city->totalWalks)?></a>
+          <?php }?>
+          <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>
+          <div class="row-fluid">
+          </div>
+        </div>
+        <div class="walks-list showall hide fade">
+          <div class="row-fluid">
+            <?php (new Area('All Walks List'))->display($c); ?>
+          </div>
         </div>
       </div>
     </div>
@@ -209,7 +199,7 @@ var_dump(Loader::db());
 ?>
   <div class="intro-city lower blog">
     <div class="container">
-      <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : "" ?>"><?= t('City Blog') ?></a>
+      <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : '' ?>"><?= t('City Blog') ?></a>
 <?php
              if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
         <a class="add" href="<?=$this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), '/', $blog->getCollectionID() )?>" >
