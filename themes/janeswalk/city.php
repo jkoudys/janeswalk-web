@@ -4,7 +4,7 @@ $this->inc('elements/header.php'); ?>
 <body
   class="city-page<?= $isLoggedIn ? ' logged_in' : '' ?>"
   data-pageViewName="CityPageView"
-  <?= $city->fullbg ? "style='background-image:url({$city->fullbg})'" : '' ?>>
+  <?= $city->fullbg ? "style='background-image:url({$city->fullbg->getURL()})'" : '' ?>>
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function() {
@@ -120,28 +120,26 @@ $this->inc('elements/header.php'); ?>
             <?= $canEdit ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='fa fa-pencil-square'></i></a>" : null ?>
           </h1>
           <?php
-              (new Area('City Header'))->display($c);
-  /*
-  if ($city->fullbg) {
-    // XXX make a new model for credited photos
-    // XXX new model for users? full_name getter
-              $bgPhotoCreditName = $fullbg->getAttribute('background_photo_credit_name');
-              $bgPhotoCreditLink = $fullbg->getAttribute('background_photo_credit_link');
-              if ($bgPhotoCreditName !== false && $bgPhotoCreditName !== '') {
-                ?>
+(new Area('City Header'))->display($c);
+if ($city->fullbg) {
+  // XXX make a new model for credited photos
+  // XXX new model for users? full_name getter
+  $bgPhotoCreditName = $city->fullbg->getAttribute('background_photo_credit_name');
+  $bgPhotoCreditLink = $city->fullbg->getAttribute('background_photo_credit_link');
+  if ($bgPhotoCreditName !== false && $bgPhotoCreditName !== '') {
+?>
                   <p style="font-size: x-small; color: #fff;">
                     <?= t('Background photo credit') ?>:
                     <a href="<?= ($bgPhotoCreditLink) ?>" target="_blank"><?= ($bgPhotoCreditName) ?></a>
                   </p>
-                <?php
-              }
+<?php
   }
- */
-            if ($c->getCollectionUserID() > 1):
+}
+if ($c->getCollectionUserID() > 1) {
           ?>
             <section class="city-organizer">
               <?php if($avatar) { ?><a href="<?= $profile_path ?>">
-              <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div><?php } ?></a>
+              <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div></a><?php } ?>
               <div class="city-organizer-details">
                 <h3>
                  <a href="<?= $city->profile_path ?>"><?= "{$city->city_organizer->getAttribute('first_name')} {$city->city_organizer->getAttribute('last_name')}" ?></a>
@@ -157,7 +155,7 @@ $this->inc('elements/header.php'); ?>
                 </div>
               </div>
             </section>
-          <?php endif; ?>
+<?php } ?>
         </div>
       </div>
     </div>

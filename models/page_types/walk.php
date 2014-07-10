@@ -14,7 +14,7 @@ defined('C5_EXECUTE') || die('Access Denied.');
  *
  * Model containing attribute accessors and logic for Jane's Walk walks
  */
-Loader::model('page_type/city');
+Loader::model('page_types/city');
 class Walk extends \Model implements \JsonSerializable {
 
   /* Page collection object */
