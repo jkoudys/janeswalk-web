@@ -1,6 +1,6 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
 <?= $error ?: null ?>
-<form action="<?= str_replace('&amp;','&',$this->action('resultsJson')) ?>" method="get" class="ccm-search-block-form" id="ccm-search-header">
+<form action="<?= $this->action('resultsJson') ?>" method="get" class="ccm-search-block-form" id="ccm-search-header">
 	<?php if(strlen($query)==0){ ?>
 	<input name="search_paths[]" type="hidden" value="<?=htmlentities($baseSearchPath, ENT_COMPAT, APP_CHARSET) ?>" />
 	<?php  } else if (is_array($_REQUEST['search_paths'])) { 

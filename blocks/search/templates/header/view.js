@@ -1,7 +1,7 @@
 var _jws = {
   currentPage: 0,
   numberOfPages: 0,
-  init: function(a,b,c) {
+  init: function() {
     _jws.results = document.getElementById("searchResults");
     _jws.resultTemplate = _jws.results.querySelector("a").cloneNode(true);
     _jws.paginatorTemplate = _jws.results.querySelector(".ccm-pagination").cloneNode(true);
@@ -47,11 +47,11 @@ var _jws = {
       pagination.insertBefore(page, pagination.querySelector(".next"));
     }
     pagination.querySelector(".prev").onclick = function() {
-      (_jws.currentPage == 0) ||
+      (_jws.currentPage === 0) ||
         $.getJSON(_jws.action, {"query": _jws.query, "ccm_paging_p": _jws.currentPage}, _jws.updateResults);
     }
     pagination.querySelector(".next").onclick = function() {
-      (_jws.currentPage == _jws.numberOfPages - 1) ||
+      (_jws.currentPage === _jws.numberOfPages - 1) ||
         $.getJSON(_jws.action, {"query": _jws.query, "ccm_paging_p": _jws.currentPage + 2}, _jws.updateResults);
     }
 
