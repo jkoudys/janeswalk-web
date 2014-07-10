@@ -17,15 +17,15 @@ class ThemeHelper {
     'urban-architecturalenthusiast' => "building",
     'urban-moversandshakers' => "truck",
     'culture-historybuff' => "archive",
-    'culture-artist' => "picture",
+    'culture-artist' => "picture-o",
     'culture-aesthete' => "pencil",
     'culture-bookworm' => "book",
-    'culture-foodie' => "food",
+    'culture-foodie' => "cutlery",
     'culture-nightowl' => "glass",
     'culture-techie' => "gears",
     'culture-writer' => "edit",
     'civic-activist' => "bullhorn",
-    'civic-truecitizen' => "flag-alt",
+    'civic-truecitizen' => "flag-o",
     'civic-goodneighbour' => "group",
 
     'urban-sports' => "trophy",
@@ -38,7 +38,7 @@ class ThemeHelper {
     'civic-commerce' => "shopping-cart",
     'civic-religion' => "bell",
     'civic-health' => "medkit",
-    'civic-nativeissues' => "sun",
+    'civic-nativeissues' => "sun-o",
     'civic-gender' => "unlock-alt"
   );
 
@@ -148,7 +148,7 @@ class ThemeHelper {
     return self::$attributeNameMap[(string)$handle] ?: (string)$handle;
   }
   public static function getIcon($handle) {
-    return '<i class="icon-' . self::getIconName($handle) . '"></i>';
+    return '<i class="fa fa-' . self::getIconName($handle) . '"></i>';
   }
 
   /*
@@ -161,7 +161,7 @@ class ThemeHelper {
    */
   public static function getIconElement($handle, DOMDocument $doc) {
     $i = $doc->createElement('i');
-    $i->setAttribute('class', 'icon-' . self::getIconName($handle));
+    $i->setAttribute('class', 'fa fa-' . self::getIconName($handle));
     return $i;
   }
 

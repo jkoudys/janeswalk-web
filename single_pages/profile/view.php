@@ -42,9 +42,9 @@
                         $userHomeCity, t2('%d walk', '%d walks', count($cityWalks)), count($cityWalks) + 1) ?>
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="option hidden">
@@ -52,9 +52,9 @@
                   "<?= t('Calling all volunteers in %s! We need some help at this year\'s Jane\'s Walk!', $userHomeCity) ?>"
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="option hidden">
@@ -62,9 +62,9 @@
                   "<?= t('Option #3 ...', $userHomeCity) ?>"
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="option hidden">
@@ -72,14 +72,14 @@
                   "<?= t('Option #4 ...', $userHomeCity) ?>"
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="nav">
-                <a href="#" class="left icon-arrow-left" data-slideshow="city"></a>
-                <a href="#" class="right icon-arrow-right" data-slideshow="city"></a>
+                <a href="#" class="left fa fa-arrow-left" data-slideshow="city"></a>
+                <a href="#" class="right fa fa-arrow-right" data-slideshow="city"></a>
               </div>
             </div>
           </div>
@@ -98,9 +98,9 @@
                   "<?= t('Sample tweet: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="option hidden">
@@ -108,9 +108,9 @@
                   "<?= t('Sample tweet #2: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="option hidden">
@@ -118,9 +118,9 @@
                   "<?= t('Sample tweet #3: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="option hidden">
@@ -128,14 +128,14 @@
                   "<?= t('Sample tweet #4: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
                 <div class="networks clearfix">
-                  <a href="#" class="icon-facebook"></a>
-                  <a href="#" class="icon-twitter"></a>
-                  <a href="#" class="icon-envelope"></a>
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-envelope"></a>
                 </div>
               </div>
               <div class="nav">
-                <a href="#" class="left icon-arrow-left" data-slideshow="blogPost"></a>
-                <a href="#" class="right icon-arrow-right" data-slideshow="blogPost"></a>
+                <a href="#" class="left fa fa-arrow-left" data-slideshow="blogPost"></a>
+                <a href="#" class="right fa fa-arrow-right" data-slideshow="blogPost"></a>
               </div>
             </div>
           </div>
@@ -227,9 +227,9 @@
                     "<?= t('Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
-                    <a href="#" class="icon-facebook"></a>
-                    <a href="#" class="icon-twitter"></a>
-                    <a href="#" class="icon-envelope"></a>
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-envelope"></a>
                   </div>
                 </div>
                 <div class="option hidden">
@@ -237,9 +237,9 @@
                     "<?= t('#2: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
-                    <a href="#" class="icon-facebook"></a>
-                    <a href="#" class="icon-twitter"></a>
-                    <a href="#" class="icon-envelope"></a>
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-envelope"></a>
                   </div>
                 </div>
                 <div class="option hidden">
@@ -247,9 +247,9 @@
                     "<?= t('#3: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
-                    <a href="#" class="icon-facebook"></a>
-                    <a href="#" class="icon-twitter"></a>
-                    <a href="#" class="icon-envelope"></a>
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-envelope"></a>
                   </div>
                 </div>
                 <div class="option hidden">
@@ -257,15 +257,15 @@
                     "<?= t('#4: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
                   <div class="networks clearfix">
-                    <a href="#" class="icon-facebook"></a>
-                    <a href="#" class="icon-twitter"></a>
-                    <a href="#" class="icon-envelope"></a>
+                    <a href="#" class="fa fa-facebook"></a>
+                    <a href="#" class="fa fa-twitter"></a>
+                    <a href="#" class="fa fa-envelope"></a>
                   </div>
                 </div>
               </div>
               <div class="nav">
-                <a href="#" class="left icon-arrow-left" data-slideshow="walk"></a>
-                <a href="#" class="right icon-arrow-right" data-slideshow="walk"></a>
+                <a href="#" class="left fa fa-arrow-left" data-slideshow="walk"></a>
+                <a href="#" class="right fa fa-arrow-right" data-slideshow="walk"></a>
               </div>
             </div>
           </div>
@@ -288,8 +288,8 @@
               /*
                 <li>
                   <a href="{$nh->getCollectionURL($page)}">{$page->getCollectionName()}</a>
-                  <a href="{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}"> <i class="icon-edit" alt="edit"></i></a>
-                  <a href="{$nh->getCollectionURL($page)}" class="delete" data-cid="{$page->getCollectionID()}"><i class="icon-remove" alt="unpublish"></i></a>
+                  <a href="{$nh->getCollectionURL($newWalkForm)}?load={$page->getCollectionPath()}"> <i class="fa fa-pencil-square-o" alt="edit"></i></a>
+                  <a href="{$nh->getCollectionURL($page)}" class="delete" data-cid="{$page->getCollectionID()}"><i class="fa fa-times" alt="unpublish"></i></a>
                 </li>";
               */
               // }
@@ -333,7 +333,7 @@
 <?php
 /*
   <a href='<?= $nh->getCollectionURL($page) ?>' class='delete' data-cid='<?= $page->getCollectionID() ?>'>
-    <i class='icon-remove' alt='unpublish'></i>
+    <i class='fa fa-times' alt='unpublish'></i>
   </a>
 */
 ?>
@@ -462,13 +462,13 @@
                   <div class="val">
                     <?php if ($cityHeaderInfoIsEmpty === true): ?>
                       <p>
-                        <span class="icon icon-frown"></span>
+                        <span class="icon fa fa-frown-o"></span>
                         <?= t('You haven\'t filled in %s\'s header info', $userHomeCity) ?>
                       </p>
                       <a href="<?= $cityComposerURL ?>" class="btn btn-primary"><?= t('Set header info') ?></a>
                     <?php else: ?>
                       <p>
-                        <span class="icon icon-check"></span>
+                        <span class="icon fa fa-check"></span>
                         <?= ($cityHeaderInfo) ?>
                         <a href="<?= $cityComposerURL ?>"><?= t('Edit') ?></a>
                       </p>
@@ -480,13 +480,13 @@
                   <div class="val">
                     <?php if ($cityDescriptionIsEmpty === true): ?>
                       <p>
-                        <span class="icon icon-frown"></span>
+                        <span class="icon fa fa-frown-o"></span>
                         <?= t('You haven\'t filled in %s\'s short description', $userHomeCity) ?>
                       </p>
                       <a href="<?= $cityComposerURL ?>" class="btn btn-primary"><?= t('Set short description') ?></a>
                     <?php else: ?>
                       <p>
-                        <span class="icon icon-check"></span>
+                        <span class="icon fa fa-check"></span>
                         <?= ($cityDescription) ?>
                         <a href="<?= $cityComposerURL ?>"><?= t('Edit') ?></a>
                       </p>
@@ -498,13 +498,13 @@
                   <div class="val">
                     <?php if ($cityBackgroundPhotoIsEmpty === true): ?>
                       <p>
-                        <span class="icon icon-frown"></span>
+                        <span class="icon fa fa-frown-o"></span>
                         <?= t('You haven\'t set %s\'s background photo yet', $userHomeCity) ?>
                       </p>
                       <a href="<?= $cityComposerURL ?>" class="btn btn-primary"><?= t('Set background photo') ?></a>
                     <?php else: ?>
                       <p>
-                        <span class="icon icon-check"></span>
+                        <span class="icon fa fa-check"></span>
                         <span class="bgPhoto" style="background-image: url('<?= ($cityBackgroundPhoto) ?>');"></span>
                         <a href="<?= $cityComposerURL ?>"><?= t('Change') ?></a>
                       </p>
@@ -521,7 +521,7 @@
         <?php endif; ?>
         <div id="accountBlock" class="block hidden" data-tab="account">
           <div class="success">
-            <span class="icon-check"></span>
+            <span class="fa fa-check"></span>
             <?= t('Changes Saved') ?>
           </div>
           <form method="post" action="<?= ($this->action('edit/save')) ?>" enctype="multipart/form-data" class="clearfix">
@@ -603,7 +603,7 @@
         </div>
         <div id="pictureBlock" class="block hidden clearfix" data-tab="picture">
           <div class="success">
-            <span class="icon-check"></span>
+            <span class="fa fa-check"></span>
             <?= t('Changes Saved') ?>
           </div>
           <div class="headline"><?= t('Display Picture') ?></div>

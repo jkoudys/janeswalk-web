@@ -16,7 +16,7 @@ $this->inc('elements/header.php');
       <article>
 <?php
 if ($canEdit) { ?>
-        <a href='<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>' style='margin-bottom:1em;display:block'><i class='icon-edit-sign'></i> edit</a>
+        <a href='<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>' style='margin-bottom:1em;display:block'><i class='fa fa-pencil-square'></i> edit</a>
 <?php
 }
 (new Area('Main'))->display($c);

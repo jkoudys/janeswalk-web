@@ -29,10 +29,10 @@ $ih = Loader::helper('image'); //<--uncomment this line if displaying image attr
         <div class="city-organizer-details">
           <?="<h3>{$page_owner->getAttribute('first_name')} {$page_owner->getAttribute('last_name')}</h3><h4>City Organizer</h4>" ?>
           <div class="btn-toolbar">
-            <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="icon-envelope-alt"></i></a>
-            <?php if($website = $page_owner->getAttribute('website')) { ?><a href="<?=$website?>" target="_blank" class="btn"><i class="icon-external-link"></i></a><?php } ?>
-            <?php if($facebook = $page_owner->getAttribute('facebook')) { ?><a href="http://facebook.com/<?=$facebook?>" target="_blank" class="btn"><i class="icon-facebook"></i></a><?php } ?>
-            <?php if($twitter = $page_owner->getAttribute('twitter')) { ?><a href="http://twitter.com/<?=$twitter?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
+            <a href="mailto:<?=$page_owner->getUserEmail()?>" class="btn"><i class="fa fa-envelope-square"></i></a>
+            <?php if($website = $page_owner->getAttribute('website')) { ?><a href="<?=$website?>" target="_blank" class="btn"><i class="fa fa-external-link"></i></a><?php } ?>
+            <?php if($facebook = $page_owner->getAttribute('facebook')) { ?><a href="http://facebook.com/<?=$facebook?>" target="_blank" class="btn"><i class="fa fa-facebook"></i></a><?php } ?>
+            <?php if($twitter = $page_owner->getAttribute('twitter')) { ?><a href="http://twitter.com/<?=$twitter?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
           </div>
         </div>
       </section>

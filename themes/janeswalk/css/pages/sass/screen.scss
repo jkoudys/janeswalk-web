@@ -316,7 +316,7 @@ body {
                           text-decoration: none;
                       }
 
-                      &.icon-twitter {
+                      &.fa-twitter {
                           background-color: #00A9F2;
 
                           &:hover {
@@ -324,7 +324,7 @@ body {
                           }
                       }
 
-                      &.icon-facebook {
+                      &.fa-facebook {
                           background-color: #3D529D;
 
                           &:hover {
@@ -332,7 +332,7 @@ body {
                           }
                       }
 
-                      &.icon-envelope {
+                      &.fa-envelope {
                           background-color: #F01F00;
 
                           &:hover {
@@ -898,7 +898,7 @@ fieldset.search {
   }
 }
 
-.inline.tags .tag i[class^=icon-] {
+.inline.tags .tag i.fa {
   width:100%;
   display:block;
   text-align:center;

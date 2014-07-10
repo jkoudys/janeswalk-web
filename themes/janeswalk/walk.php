@@ -46,12 +46,12 @@ $this->inc('elements/header.php');
               $slots = (array) $w->time['slots']; 
               if($w->time['open']) {
             ?>
-              <h4 class="available-time"><i class="icon-calendar"></i> <?= t('Open schedule') ?></h4>
+              <h4 class="available-time"><i class="fa fa-calendar"></i> <?= t('Open schedule') ?></h4>
             <?php
               } else if(isset($slots[0]['date'])) {
             ?>
               <h4 class="available-time">
-                <i class="icon-calendar"></i> <?= t2('Next available day', 'Available dates', sizeof($slots)) ?>:<br />
+                <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', sizeof($slots)) ?>:<br />
 <?php
                 foreach($slots as $slot) { ?>
                 <span class="highlight"><?=$slot['date']?></span>
@@ -102,15 +102,15 @@ $this->inc('elements/header.php');
             <div class="walk-stops-meta box-sizing">
               <header id="header" class="walk-stops-meta-inner">
                 <?php if (isset($slots[0]['duration'])) { ?>
-                <h4><i class="icon-time"></i> <?= t('Duration') ?>:</h4>
+                <h4><i class="fa fa-clock"></i> <?= t('Duration') ?>:</h4>
                 <h5>
                   <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
                 </h5>
                 <?php } else { ?>
-                <h4><i class="icon-time"></i> <?= t('Open Schedule') ?></h4>
+                <h4><i class="fa fa-clock"></i> <?= t('Open Schedule') ?></h4>
                 <?php } ?>
                 <hr>
-                <h4><i class="icon-map-marker"></i> <?= t('Walk Route') ?></h4>
+                <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
                 <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
                 <ol>
                   <?php foreach($w->map->markers as $key=>$marker) { ?>
@@ -194,22 +194,22 @@ $this->inc('elements/header.php');
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
                   <div class="btn-toolbar">
-                    <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" target="_blank" class="btn"><i class="icon-envelope-alt"></i></a><?php } ?>
+                    <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" target="_blank" class="btn"><i class="fa fa-envelope-o"></i></a><?php } ?>
                     <?php
                       if($mem['facebook']) {
                         $submittedFacebookPiece = $mem['facebook'];
                         if (!preg_match('/^http/', $submittedFacebookPiece)) {
                           $submittedFacebookPiece = 'https://facebook.com/' . ($submittedFacebookPiece);
                         }
-                    ?><a href="<?= ($submittedFacebookPiece) ?>" target="_blank" class="btn"><i class="icon-facebook"></i></a><?php } ?>
-                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" target="_blank" class="btn"><i class="icon-twitter"></i></a><?php } ?>
+                    ?><a href="<?= ($submittedFacebookPiece) ?>" target="_blank" class="btn"><i class="fa fa-facebook"></i></a><?php } ?>
+                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
                     <?php
                       if($mem['website']) {
                         $submittedWebsitePiece = $mem['website'];
                         if (!preg_match('/^http/', $submittedWebsitePiece)) {
                           $submittedWebsitePiece = 'http://' . ($submittedWebsitePiece);
                         }
-                    ?><a href="<?=$submittedWebsitePiece?>" target="_blank" class="btn"><i class="icon-globe"></i></a>
+                    ?><a href="<?=$submittedWebsitePiece?>" target="_blank" class="btn"><i class="fa fa-globe"></i></a>
                     <?php } ?>
                   </div>
                   <?=$mem['bio']?>
@@ -230,8 +230,8 @@ $this->inc('elements/header.php');
           <div class="walk-aux">
             <hr>
             <div class="share-print">
-              <a href="javascript:window.print();" class="share notify printLink"><i class="icon-print"></i> <?= t('Print this walk') ?></a>
-              <a href="#" class="share notify facebookShareLink"><i class="icon-share"></i> <?= t('Share this walk') ?></a>
+              <a href="javascript:window.print();" class="share notify printLink"><i class="fa fa-print"></i> <?= t('Print this walk') ?></a>
+              <a href="#" class="share notify facebookShareLink"><i class="fa fa-share"></i> <?= t('Share this walk') ?></a>
             </div>
           </div>
 
@@ -245,7 +245,7 @@ $this->inc('elements/header.php');
           ?>
             <div class="caption">
               <h3>
-                <i class="icon-calendar"></i> 
+                <i class="fa fa-calendar"></i> 
                 <a href="<?= 'http://eventbrite.ca/event/', $eid ?>"><?= t('Register For This Walk') ?></a>
                 <p class="select-day"></p>
               </h3>
@@ -255,7 +255,7 @@ $this->inc('elements/header.php');
           ?>
             <div class="caption">
               <h3>
-                <i class="icon-calendar"></i> 
+                <i class="fa fa-calendar"></i> 
                 <?= t('Registration Not Open') ?>
                 <p class="select-day"></p>
               </h3>
@@ -266,9 +266,9 @@ $this->inc('elements/header.php');
           ?>
           <div class="calendar-wrap box-sizing" style="display:none">
             <div class="calendar-header">
-              <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="icon-caret-left"></i></button>      
+              <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="fa fa-caret-left"></i></button>      
               <span id="custom-month">April</span>, <span id="custom-year">2013</span> 
-              <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="icon-caret-right"></i></button>
+              <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="fa fa-caret-right"></i></button>
             </div>
             <div id="calendar" class="fc-calendar-container"></div>
           </div>
@@ -302,7 +302,7 @@ $this->inc('elements/header.php');
         </div>
         <div class="thumbnail accessibility">
           <div class="caption">
-            <h4><i class="icon-accessible"></i> <?= t('Accessibility') ?></h4>
+            <h4><i class="fa"></i> <?= t('Accessibility') ?></h4>
             <ul>
               <?php foreach($w->accessible as $accessible => $value) { ?>
               <li><?= t($th->getName($accessible)) ?></li>
@@ -314,20 +314,20 @@ $this->inc('elements/header.php');
             </p>
             <?php }
             if($public_transit = trim($w->accessibleTransit)) { ?>
-            <h4><i class="icon-transit"></i> <?= t('Taking Public Transit') ?></h4>
+            <h4><i class="fa"></i> <?= t('Taking Public Transit') ?></h4>
             <p id="public transit directions">
               <?= t($public_transit) ?>
             </p>
             <?php }
             if($accessible_parking = trim($w->accessibleParking)) {
             ?>
-            <h4><i class="icon-road"></i> <?= t('Parking Availability') ?></h4>
+            <h4><i class="fa fa-road"></i> <?= t('Parking Availability') ?></h4>
             <p id="parking availability">
               <?= t($accessible_parking) ?>
             </p>
             <?php }
             if($accessible_find = trim($w->accessibleFind)) { ?>
-            <h4><i class="icon-flag"></i> <?= t('How to find us') ?></h4>
+            <h4><i class="fa fa-flag"></i> <?= t('How to find us') ?></h4>
             <p>
               <?= t($accessible_find) ?>
             </p>
@@ -339,7 +339,7 @@ $this->inc('elements/header.php');
       </div>
       <div class="walk-feedback">
         <hr>
-        <h3><i class="icon-comments-alt"></i> <?= t('Feedback') ?></h3>
+        <h3><i class="fa fa-comments-o"></i> <?= t('Feedback') ?></h3>
         <div class="row-fluid">
           <div class="span8">
             <div class="well">

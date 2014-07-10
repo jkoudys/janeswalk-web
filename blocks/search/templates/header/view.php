@@ -21,8 +21,8 @@
       </div>
     </a>
     <div class="ccm-pagination">	
-       <span class="prev"><a><i class="icon-angle-left"></i></a></span>
-       <span class="next"><a><i class="icon-angle-right"></i></a></span>
+       <span class="prev"><a><i class="fa fa-angle-left"></i></a></span>
+       <span class="next"><a><i class="fa fa-angle-right"></i></a></span>
     </div>
   </div>
 </form>

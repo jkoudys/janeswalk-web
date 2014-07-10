@@ -34,8 +34,8 @@
       <?php if (!$isMobile) { ?>
         <ul class="controls">
           <li>
-            <a class="showButton">Show Map <br /><i class="icon-chevron-down"></i></a>
-            <a class="closeButton" style="display:none">Close Map <br /><i class="icon-chevron-up"></i></a>
+            <a class="showButton">Show Map <br /><i class="fa fa-chevron-down"></i></a>
+            <a class="closeButton" style="display:none">Close Map <br /><i class="fa fa-chevron-up"></i></a>
           </li>
         </ul>
         <section class="map full">

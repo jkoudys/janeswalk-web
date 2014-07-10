@@ -23,8 +23,8 @@ $ui = UserInfo::getByID($u->getUserID());
       </nav>
       <ul class="nav pull-right visible-desktop">
         <li>
-          <a class="search-open"><i class="icon-search"></i></a>
-          <a class="search-close"><i class="icon-search"></i></a>
+          <a class="search-open"><i class="fa fa-search"></i></a>
+          <a class="search-close"><i class="fa fa-search"></i></a>
         </li>
         <?php
           if($u->isRegistered()) {

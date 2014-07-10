@@ -41,7 +41,7 @@ $this->inc('elements/header.php'); ?>
       <div class="o-background">
       </div>
       <div class="o-content">
-        <a href="#" class="closeModalCta icon-remove"></a>
+        <a href="#" class="closeModalCta fa fa-times"></a>
         <div class="prompt">
           <div class="messaging">
             <?= ($city->donateCopy['main']) ?><br />
@@ -65,8 +65,7 @@ $this->inc('elements/header.php'); ?>
           </div>
           <div class="prompt clearfix" style="display: none;">
             <div class="social clearfix">
-              <a href="#" class="icon-twitter"></a>
-              <!-- <a href="#" class="icon-facebook"></a> -->
+              <a href="#" class="fa fa-twitter"></a>
             </div>
             <p>
               <?= t('Already donated? Spread the word') ?>:
@@ -82,7 +81,7 @@ $this->inc('elements/header.php'); ?>
       <div class="o-background">
       </div>
       <div class="o-content">
-        <a href="#" class="closeModalCta icon-remove"></a>
+        <a href="#" class="closeModalCta fa fa-times"></a>
           <h1><?= t('Thank you! We couldn\'t do this without you. Spread the word?') ?></h1>
           <div class="options">
             <div class="option">
@@ -90,8 +89,8 @@ $this->inc('elements/header.php'); ?>
                 <?= t('"I just donated to Jane\'s Walk. Text %1$s to %2$s to donate %3$s now #JanesWalk"', 'JANE', '45678', '$10') ?>
               </div>
               <div class="networks clearfix">
-                <a href="#" class="icon-facebook"></a>
-                <a href="#" class="icon-twitter"></a>
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
               </div>
             </div>
           </div>
@@ -101,7 +100,7 @@ $this->inc('elements/header.php'); ?>
 
     <div class="catfish c-donate hidden">
       <div class="c-content">
-        <a href="#" class="closeCatfishCta icon-remove"></a>
+        <a href="#" class="closeCatfishCta fa fa-times"></a>
         <!-- <div class="portrait" style="background-image: url('http://i.imgur.com/tsxDZKo.png');"></div> -->
         <div class="block">
           <?= ($city->donateCopy['main']) ?><br />
@@ -118,7 +117,7 @@ $this->inc('elements/header.php'); ?>
         <div class="city-header">
           <h1>
             <?= t((string) $city) ?>
-            <?= $canEdit ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='icon-edit-sign'></i></a>" : null ?>
+            <?= $canEdit ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='fa fa-pencil-square'></i></a>" : null ?>
           </h1>
           <?php
               (new Area('City Header'))->display($c);
@@ -146,15 +145,15 @@ $this->inc('elements/header.php'); ?>
               <div class="city-organizer-details">
                 <h3>
                  <a href="<?= $city->profile_path ?>"><?= "{$city->city_organizer->getAttribute('first_name')} {$city->city_organizer->getAttribute('last_name')}" ?></a>
-                    <?php if($isCityOrganizer) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='icon-edit-sign'></i></a><?php } 
+                    <?php if($isCityOrganizer) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='fa fa-pencil-square'></i></a><?php } 
                   ?>
                 </h3>
                 <h4><?= t('City Organizer') ?></h4>
                 <div class="btn-toolbar">
-                  <a href="mailto:<?= $city->city_organizer->getUserEmail() ?>" class="btn"><i class="icon-envelope-alt"></i></a>
-                  <?php if($city->facebook) { ?><a href='<?=$city->facebook_url?>' target='_blank' class='btn'><i class='icon-facebook'></i></a><?php } ?>
-                  <?php if($city->twitter) { ?><a href='<?=$city->twitter_url?>' target='_blank' class='btn'><i class='icon-twitter'></i></a><?php } ?>
-                  <?php if($city->website) { ?><a href='<?=$city->website_url?>' target='_blank' class='btn'><i class='icon-globe'></i></a><?php } ?>
+                  <a href="mailto:<?= $city->city_organizer->getUserEmail() ?>" class="btn"><i class="fa fa-envelope-o"></i></a>
+                  <?php if($city->facebook) { ?><a href='<?=$city->facebook_url?>' target='_blank' class='btn'><i class='fa fa-facebook'></i></a><?php } ?>
+                  <?php if($city->twitter) { ?><a href='<?=$city->twitter_url?>' target='_blank' class='btn'><i class='fa fa-twitter'></i></a><?php } ?>
+                  <?php if($city->website) { ?><a href='<?=$city->website_url?>' target='_blank' class='btn'><i class='fa fa-globe'></i></a><?php } ?>
                 </div>
               </div>
             </section>
@@ -182,7 +181,7 @@ $this->inc('elements/header.php'); ?>
           <?php if($city->totalWalks > 1) { ?>
           <a class="see-all"><?= t2('show only this walk', 'see all %d walks', $city->totalWalks)?></a>
           <?php }?>
-          <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="icon-star"></i> <?= t('Create a Walk') ?></a>
+          <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="fa fa-star"></i> <?= t('Create a Walk') ?></a>
           <div class="row-fluid">
           </div>
         </div>
@@ -203,7 +202,7 @@ $this->inc('elements/header.php'); ?>
 <?php
              if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
         <a class="add" href="<?=$this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), '/', $blog->getCollectionID() )?>" >
-        <i class="icon-double-angle-right"></i> <?= t('post new article') ?></a>
+        <i class="fa fa-angle-double-right"></i> <?= t('post new article') ?></a>
         <?php } ?>
       </h2>
       <?php (new Area('City Blog'))->display($c); ?>

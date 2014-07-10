@@ -246,7 +246,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
       foreach($walk->datetimes as $slot) {
         $li = $ul->appendChild($doc->createElement('li'));
-        $li->appendChild($doc->createElement('i'))->setAttribute('class', 'icon-calendar');
+        $li->appendChild($doc->createElement('i'))->setAttribute('class', 'fa fa-calendar');
         $li->appendChild($doc->createTextNode(' ' . $slot['time'] . ', ' . $slot['date']));
       }
 

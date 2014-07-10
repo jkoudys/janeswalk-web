@@ -248,7 +248,7 @@ class WalkPageTypeController extends Controller {
         $a = $li->appendChild($doc->createElement('a'));
         $a->setAttribute('href', $nh->getLinkToCollection($crumb));
         if($crumb->getCollectionID() === '1') {
-          $a->appendChild($doc->createElement('i'))->setAttribute('class','icon-home');
+          $a->appendChild($doc->createElement('i'))->setAttribute('class','fa fa-home');
         }
         else {
           $linkText = $crumb->getCollectionName();
@@ -260,7 +260,7 @@ class WalkPageTypeController extends Controller {
         if($k !== count($this->walk->crumbs)) {
           $span = $li->appendChild($doc->createElement('span'));
           $span->setAttribute('class','divider');
-          $span->appendChild($doc->createElement('i'))->setAttribute('class','icon-angle-right');
+          $span->appendChild($doc->createElement('i'))->setAttribute('class','fa fa-angle-right');
         }
       }
     }

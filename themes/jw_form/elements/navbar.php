@@ -48,7 +48,7 @@ $u = new User();
 <div class="notification coming-soon">
   <div class="container">
     <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close icon-remove icon-large"></i>
+    <i class="close fa fa-times fa-lg"></i>
   </div>
 </div>
 
@@ -56,7 +56,7 @@ $u = new User();
 <div class="notification walk-beta">
   <div class="container">
     <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close icon-remove icon-large"></i>
+    <i class="close fa fa-times fa-lg"></i>
   </div>
 </div>
 
@@ -64,7 +64,7 @@ $u = new User();
 <div class="notification custom-form">
   <div class="container">
     <h2 class="title-sub">This feature isn't live yet, but we're thrilled that you're interested in custom walks.</h2>
-    <i class="close icon-remove icon-large"></i>
+    <i class="close fa fa-times fa-lg"></i>
   </div>
 </div>
   </header>

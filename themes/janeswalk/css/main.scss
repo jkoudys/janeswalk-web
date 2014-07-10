@@ -1,9 +1,5 @@
 @import 'lib/normalize';
-@import 'lib/bootstrap.min';
-@import 'lib/bootstrap-wysihtml5';
 @import 'lib/datepicker';
-@import 'lib/bootstrap-fileupload.min';
-// @import 'lib/bootstrap-responsive.min';
 @import 'lib/jquery.timepicker';
 @import 'variables';
 
@@ -26,7 +22,7 @@ body {
   background-color:inherit;
   &.form {
     padding-top:0;
-    i[class^=icon-] {
+    i.fa {
       margin: 0 auto;
     }
   }
@@ -51,10 +47,7 @@ p {
   background-size: cover;
 }
 /*  Resets */
-i.icon-camera-retro.icon-4x {
-  width:auto;
-}
-i[class^=icon-] {
+i.fa {
   height:auto;width:auto;
 }
 
@@ -232,7 +225,7 @@ h2, h3, h4, h5, h6 {
   .navbar-link {
     color: #fff;
   }
-  .icon-map-marker:before {
+  .fa.fa-map-marker:before {
     content: '';
     display: inline-block;
     width: 25px;
@@ -531,19 +524,19 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
         width: 18px;
         color: #FF820F;
         display: inline-block;
-        &.icon-map-marker:before {
+        &.fa.fa-map-marker:before {
           content: '';
           background: url('img/marker.svg') no-repeat;
           width: 18px;
           height: 18px;
         }
-        &.icon-list-ol:before {
+        &.fa.fa-list-ol:before {
           content: '';
           background: url('img/clipboard.svg') no-repeat;
           width: 18px;
           height: 18px;
         }
-         &.icon-flag:before {
+         &.fa.fa-flag:before {
           content: '';
           background: url('img/flag.svg') no-repeat;
           width: 18px;

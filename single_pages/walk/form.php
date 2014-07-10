@@ -24,7 +24,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
     <div class="container-fluid">
       <span class="brand">
         <a href="<?= $nh->getCollectionURL($city) ?>" target="_blank">
-          <i class="icon-map-marker"><?=t($city->getCollectionName()) . ', ' . t($country->getCollectionName()) ?></i>
+          <i class="fa fa-map-marker"><?=t($city->getCollectionName()) . ', ' . t($country->getCollectionName()) ?></i>
         </a>
       </span>
       <div class="nav-collapse collapse">
@@ -41,11 +41,11 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
       <div id="progress-panel">
         <div class="tabbable tabs-left">
           <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" class="description" href="#description"><i class="icon-list-ol"></i> <?= t('Describe Your Walk') ?></a></li>
-            <li ><a data-toggle="tab" class="route" href="#route"><i class="icon-map-marker"></i> <?= t('Share Your Route') ?></a></li>
-            <li ><a data-toggle="tab" class="time-and-date" href="#time-and-date"><i class="icon-calendar"></i> <?= t('Set the Time & Date') ?></a></li>
-            <li ><a data-toggle="tab" class="accessibility" href="#accessibility"><i class="icon-flag"></i> <?= t('Make it Accessible') ?></a></li>
-            <li ><a data-toggle="tab" class="team" href="#team"><i class="icon-group"></i> <?= t('Build Your Team') ?></a></li>
+            <li class="active"><a data-toggle="tab" class="description" href="#description"><i class="fa fa-list-ol"></i> <?= t('Describe Your Walk') ?></a></li>
+            <li ><a data-toggle="tab" class="route" href="#route"><i class="fa fa-map-marker"></i> <?= t('Share Your Route') ?></a></li>
+            <li ><a data-toggle="tab" class="time-and-date" href="#time-and-date"><i class="fa fa-calendar"></i> <?= t('Set the Time & Date') ?></a></li>
+            <li ><a data-toggle="tab" class="accessibility" href="#accessibility"><i class="fa fa-flag"></i> <?= t('Make it Accessible') ?></a></li>
+            <li ><a data-toggle="tab" class="team" href="#team"><i class="fa fa-users"></i> <?= t('Build Your Team') ?></a></li>
           </ul>
           <br>
           <section id="button-group">
@@ -331,10 +331,10 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
       </div>
 
       <div class="row-fluid" id="map-control-bar">
-        <button id="addmeetingplace" class="btn span1"><i class="icon-flag-jw"></i> <?= t('Set a Meeting Place') ?></button>
-        <div class="addroute-wrapper span1"><button id="addpoint" class="btn"><i class="icon-map-marker-jw"></i> <?= t('Add Stop') ?></button><div class="disable-alert"></div></div>
+        <button id="addmeetingplace" class="btn span1"><i class="fa icon-flag-jw"></i> <?= t('Set a Meeting Place') ?></button>
+        <div class="addroute-wrapper span1"><button id="addpoint" class="btn"><i class="fa icon-map-marker-jw"></i> <?= t('Add Stop') ?></button><div class="disable-alert"></div></div>
         <button id="addroute" class="btn span1"><i class="icon-map-route"></i> <?= t('Add Route') ?></button>
-        <button class="btn clear-route span1"><i class="icon-eraser"></i> <?= t('Clear Route') ?></button>
+        <button class="btn clear-route span1"><i class="fa fa-eraser"></i> <?= t('Clear Route') ?></button>
 
       </div>
       <div class="map-notifications"></div>
@@ -626,13 +626,13 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6 required"> 
-                  <label for="you-email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
+                  <label for="you-email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
                   <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
                 </div>
 
 
                 <div class="span6"> 
-                  <label for="leader-twitter"><i class="icon-twitter"></i> Twitter</label>
+                  <label for="leader-twitter"><i class="fa fa-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
                     <input class="span12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?= htmlspecialchars($owner->getAttribute("twitter")) ?>">
@@ -643,11 +643,11 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
+                  <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
                   <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($owner->getAttribute("facebook"))?>">
                 </div>
                 <div class="span6">
-                <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
+                <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($owner->getAttribute("website"))?>">
                 </div>
               </div>
@@ -661,7 +661,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
                 <div class="row-fluid" id="newwalkleader">
                   <div class="span6 tel required">
-                    <label for="phone"><i class="icon-phone-sign"></i> <?= t('Phone Number') ?></label>
+                    <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
                     <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($owner->getAttribute("phone"))?>">
                   </div>
                 </div>
@@ -757,7 +757,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6"> 
-                  <label for="prependedInput"><i class="icon-twitter"></i> Twitter</label>
+                  <label for="prependedInput"><i class="fa fa-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
                     <input id="prependedInput" class="span12" type="text" placeholder="Username" name="twitter[]">
@@ -765,14 +765,14 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                 </div>
 
                 <div class="span6">
-                  <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
+                  <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
                   <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]">
                 </div>
               </div>
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
+                  <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large" id="website" placeholder="" value="" name="website[]">
                 </div>
               </div>
@@ -785,11 +785,11 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6 required"> 
-                  <label for="email"><i class="icon-envelope"></i> <?= t('Email') ?></label>
+                  <label for="email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
                   <input type="email" class="input-large" id="email" placeholder="Email" name="email[]">
                 </div>
                 <div class="span6 tel">
-                  <label for="phone"><i class="icon-phone-sign"></i> <?= t('Phone Number') ?></label>
+                  <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
                   <input type="tel" maxlength="16" class="input-large" id="phone" placeholder="" name="phone[]">
                 </div>
               </div>  
@@ -821,7 +821,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
               <input type="text" class="input-large" id="name" placeholder="e.g. City of Toronto" name="institution[]">
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
+                  <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large span12" id="website" placeholder="" value="" name="name-website[]">
                 </div>
               </div>
@@ -858,20 +858,20 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
               </div>
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6"> 
-                  <label for="prependedInput"><i class="icon-twitter"></i> Twitter</label>
+                  <label for="prependedInput"><i class="fa fa-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
                     <input class="span12" id="prependedInput" type="text" placeholder="Username" name="twitter[]">
                   </div>
                 </div>
                 <div class="span6">
-                  <label for="facebook"><i class="icon-facebook-sign"></i> Facebook</label>
+                  <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
                   <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]">
                 </div>
               </div>
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
+                  <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large span12" id="website" placeholder="" value="" name="website[]">
                 </div>
               </div>
@@ -906,7 +906,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
               <div class="row-fluid" id="newwalkleader">
                 <div class="span6">
-                  <label for="website"><i class="icon-link"></i> <?= t('Website') ?></label>
+                  <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
                   <input type="text" class="input-large span12" id="website" placeholder="" value="" name="website[]">
                 </div>
               </div>
@@ -927,7 +927,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 <div class="span3" id="tips-column">
   <aside id="tips-panel" role="complementary">
     <div class="popover right" id="city-organizer" style="display:block;">
-      <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="icon-envelope"></i> <?= t('Contact City Organizer for help') ?></h3>
+      <h3 class="popover-title" data-toggle="collapse" data-target="#popover-content"><i class="fa fa-envelope"></i> <?= t('Contact City Organizer for help') ?></h3>
       <div class="popover-content collapse in" id="popover-content">
         <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
         <p>
@@ -1067,8 +1067,8 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
     <label>Your Walk Web Address:</label>
     <input type="text" class="clone js-url-field" value="http://janeswalk.tv/be-there-be-square.html" readonly="readonly">
     <hr>
-    <button class="btn facebook"><i class="icon-facebook-sign"></i> Share on Facebook</button>
-    <button class="btn twitter"><i class="icon-twitter-sign"></i> Share on Twitter</button>
+    <button class="btn facebook"><i class="fa fa-facebook-sign"></i> Share on Facebook</button>
+    <button class="btn twitter"><i class="fa fa-twitter-sign"></i> Share on Twitter</button>
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary walkthrough">Close</button>

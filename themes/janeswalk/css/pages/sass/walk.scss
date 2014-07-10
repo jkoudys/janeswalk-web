@@ -569,7 +569,6 @@
       margin-bottom: 20px;
     }
     .span3 {
-      @extend .clearfix;
       @media (max-width: 480px) {
         padding: 0 20%;
       }
