@@ -14,6 +14,7 @@ defined('C5_EXECUTE') || die('Access Denied.');
  *
  * Model containing attribute accessors and logic for Jane's Walk walks
  */
+Loader::model('page_type/city');
 class Walk extends \Model implements \JsonSerializable {
 
   /* Page collection object */
@@ -133,8 +134,8 @@ class Walk extends \Model implements \JsonSerializable {
       });
       break;
     case 'city':
-      // @return Page of walk's city
-      return $this->getCache['city'] ?: ($this->getCache['city'] = Page::getByID($this->page->getCollectionParentID()));
+      // @return City of walk's city
+      return $this->getCache['city'] ?: ($this->getCache['city'] = new City(Page::getByID($this->page->getCollectionParentID())));
       break;
     case 'meetingPlace':
       // @return Array<title, description> for first stop on walking route

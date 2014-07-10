@@ -34,6 +34,7 @@ class City extends \Model implements \JsonSerializable {
   public $facebook;
   public $twitter;
   public $website;
+  public $country;
 
   /*
    * __construct
@@ -75,6 +76,9 @@ class City extends \Model implements \JsonSerializable {
     $walks->filterByCollectionTypeHandle('walk');
     $this->totalWalks = $walks->getTotal();
 
+    // Set the country Page as parent
+    $this->country = Page::getByID($page->getCollectionParentID());
+
     /* Text to donate campaign */
     $donateCopyOptions = array(
       array(
@@ -86,7 +90,7 @@ class City extends \Model implements \JsonSerializable {
     $this->donateCopy = array_rand($donateCopyOptions);
 
     // Set our calculated values
-    $this->fullbg = ($full_bg_attr = $page->getAttribute('full_bg')) ? $full_bg_attr->getURL() : null;
+    $this->fullbg = ($full_bg_attr = $page->getAttribute('full_bg')) ?: null;
     $this->avatar = $av->getImagePath($page_owner) ?: null;
     $this->city_organizer = $page_owner;
     $this->profile_path = DIR_REL . '/' . DISPATCHER_FILENAME . "/profile/{$page_owner->getUserId()}";
