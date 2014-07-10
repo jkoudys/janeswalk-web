@@ -12,7 +12,7 @@ class WalkPageTypeController extends Controller {
   protected $walk; // Walk model object
 
   public function on_start() {
-    $cp = new Permissions($this->c);
+    $cp = new \Permissions($this->c);
     $this->walk = new Walk($this->c);
 
     /* Ideally this should be in a router, not the individual on_start.
@@ -44,7 +44,7 @@ class WalkPageTypeController extends Controller {
     if($_GET['format'] === 'json') {
       // Render JSON
       header('Content-Type: application/json');
-      echo $this->getJson();
+      echo $this->get_json();
       exit;
     } else if($_GET['format'] === 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],'Kml-Google')) {
       // Render KML of map only
