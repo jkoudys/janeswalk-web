@@ -18,7 +18,7 @@ var CityPageView = PageView.extend({
      * _cards
      * 
      * @protected
-     * @var       jQuery|null (default: null)
+     * @var       NodeList|null (default: null)
      */
     _cards: null,
 
@@ -71,14 +71,16 @@ var CityPageView = PageView.extend({
      */
     init: function(element) {
         this._super(element);
-        this._cards = this._element.find('.walk');
+        this._cards = this._element[0].querySelectorAll(".walk");
+        this._previewCards();
         this._data = JanesWalk.walks;
         this._resetSelectElements();
         this._addCreateWalkEvent();
         this._addFilterEvents();
         this._setThemeCounts();
         this._captureHash();
-        this._setupText2DonateInterstitials();
+//        this._setupText2DonateInterstitials();
+        this._addLinkListeners();
     },
 
     /**
@@ -95,6 +97,58 @@ var CityPageView = PageView.extend({
             // picture: 'http://janeswalk.org',
             name: 'Jane\'s Walk'
         };
+    },
+
+    /**
+     * _previewCards
+     * Copy a random set of the full walk list into the preview area.
+     * Currently hard-codes a maximum preview size of 9 cards.
+     *
+     * @protected
+     * @return void
+     */
+    _previewCards: function() {
+      var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function(){ return 0.5 - Math.random() } ),
+          previewNode = document.querySelector(".walks-list.preview div");
+      
+      for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
+        var card = shuffledDeck[i].cloneNode(true);
+        // Egads, bootstrap can suck sometimes..
+        card.classList.add("span4");
+        card.classList.remove("span3");
+        previewNode.appendChild(card);
+      }
+    },
+
+    /**
+     * _addLinkListeners
+     * Listen on 'show all' walks
+     *
+     * @protected
+     * @return void
+     */
+    _addLinkListeners: function() {
+      var showAll = document.querySelector("a.see-all");
+      if(showAll) {
+        showAll.addEventListener("click", function() {
+            var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview div.row-fluid")];
+            var fullEl = document.querySelector(".walks-list.showall");
+            // Hide this link, the preview walks, and the sidebar
+            previewEls.forEach(function(e, i) {
+              try { // We don't want some missing selector to break the whole execution
+                e.classList.remove("in");
+              } catch(e) {
+                console.log("Error fading out menu: " + e);
+              }
+            });
+            previewEls.forEach(function(e, i) { e.style.width = 0; e.style.padding = 0; e.style.margin = 0; });
+            setTimeout(function() {
+              previewEls.forEach(function(e, i) { e.style.display = "none" });
+              fullEl.classList.remove("hide");
+              fullEl.classList.add("in");
+            }, 300);
+        });
+      }
     },
 
     /**
@@ -264,7 +318,7 @@ var CityPageView = PageView.extend({
         this._element[0].querySelectorAll('div.filters select[name="ward"] option').forEach(countFilterMatches, {"filter":"wards"});
         this._element[0].querySelectorAll('div.filters select[name="initiative"] option').forEach(countFilterMatches, {"filter":"initiatives"});
         this._element[0].querySelectorAll('div.filters select[name="date"] option').forEach(countFilterMatches, {"filter":"datetimes",
-          "compare_fn": function(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) >= 0;} } 
+          "compare_fn": function(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) !== -1;} } 
         });
     },
 
@@ -349,13 +403,12 @@ var CityPageView = PageView.extend({
      * @return    void
      */
     _setHash: function() {
-        var hash = '';
-        hash += 'ward=' + (this._ward);
-        hash += '&theme=' + (this._theme);
-        hash += '&accessibility=' + (this._accessibility);
-        hash += '&initiative=' + (this._initiative);
-        hash += '&date=' + (this._date);
-        location.hash = hash;
+        location.hash =
+            "ward=" + (this._ward)
+            + "&theme=" + (this._theme)
+            + "&accessibility=" + (this._accessibility)
+            + "&initiative=" + (this._initiative)
+            + "&date=" + (this._date);
     },
 
     /**
@@ -366,59 +419,36 @@ var CityPageView = PageView.extend({
      */
     _filterCards: function() {
         var _this = this,
-            show,
             showing = 0;
-        this._cards.hide();
-        $(this._data).each(
-            function(index, data) {
-                show = true;
 
-                // wards
-                if (
-                    jQuery.inArray(_this._ward, data.wards) === -1
-                    && _this._ward !== '*'
-                ) {
-                    show = false;
-                }
+        // Returns 'true' if this thing passes through the filter
+        var filterMatch = function(filter, dataset) {
+          return (filter === "*") || (dataset && dataset[filter]);
+        }
 
-                // themes
-                if (
-                    jQuery.inArray(_this._theme, data.themes) === -1
-                    && _this._theme !== '*'
-                ) {
-                    show = false;
-                }
-
-                // accessibilities
-                if (
-                    jQuery.inArray(_this._accessibility, data.accessibilities) === -1
-                    && _this._accessibility !== '*'
-                ) {
-                    show = false;
-                }
-
-                // initiatives
-                if (
-                    jQuery.inArray(_this._initiative, data.initiatives) === -1
-                    && _this._initiative !== '*'
-                ) {
-                    show = false;
-                }
-
-                // dates
-                if (
-                    $.grep(data.datetimes, function(e){ return _this._date === e.date; }).length === 0
-                    && _this._date !== '*'
-                ) {
-                    show = false;
-                }
-
-                // toggle
-                if (show === true) {
-                    ++showing;
-                    $(_this._cards[index]).show();
-                }
+        // Hide the cards first
+        for(var i = 0, len = this._cards.length; i < len; i++) {
+          this._cards[i].classList.add("hidden");
+        }
+        this._data.forEach(
+          function(data, index) {
+            // Check if we should show this card
+            if(
+              filterMatch(_this._ward, data.wards)
+              && filterMatch(_this._theme, data.themes)
+              && filterMatch(_this._accessibility, data.accessibilities)
+              && filterMatch(_this._initiative, data.initiatives)
+              // See if date in filter dropdown is inside the array of dates
+              && (function(f, o) {
+                if(o === "*") return true;
+                for(var i = 0; i < f.length; i++) { return f[i].date.indexOf(o) !== -1;} 
+              })(data.datetimes, _this._date)
+            ) {
+              ++showing;
+              _this._cards[index].classList.remove("hidden");
             }
+
+          }
         );
 
         // Empty state

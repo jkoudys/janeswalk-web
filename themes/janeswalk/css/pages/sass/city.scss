@@ -6,6 +6,10 @@
     margin:10px 0;
   }
 
+  a {
+    cursor:pointer;
+  }
+
   i {
     color:inherit;
   }
@@ -488,7 +492,7 @@
   }
 
   .walks-list {
-    // position: relative;
+    &.showall { clear:both; margin-left:2.5%; }
 
     @media (max-width: $media_thin) {
       padding: 20px;
@@ -704,7 +708,6 @@
     }
 
     div.walks-list {
-
       ul.nav {
         display: none !important;
       }
