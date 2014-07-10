@@ -186,4 +186,13 @@ class City extends \Model implements \JsonSerializable {
     return $cityData;
   }
 
+  /*
+   * getPage()
+   * Returns a page object for this city. Keeping $page protected as we may want some logic around this later
+   * @return Page
+   */
+  public function getPage() {
+    return $this->page;
+  }
+
 }

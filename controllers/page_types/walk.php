@@ -280,8 +280,8 @@ class WalkPageTypeController extends Controller {
       'page' => [
         'description' => strip_tags($c->getAttribute('longdescription')),
         'city' => [
-          'name' => $this->walk->city->getCollectionName(),
-          'url' => $nh->getCollectionURL($this->walk->city),
+          'name' => (string) $this->walk->city,
+          'url' => $nh->getCollectionURL($this->walk->city->getPage()),
         ],
         'gmap' => $this->walk->map,
       ]

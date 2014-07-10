@@ -563,9 +563,14 @@ body.form .brand {
 }
 
 // Bootstrap Button Overrides
-
-.btn {
+.btn, .btn-primary {
   font-family: "museo-slab", "Roboto Slab", serif;
+  background-image:none;
+  background-color:$orange;
+  border-radius:0;
+}
+a {
+  color:$orange;
 }
 
 // Footer
