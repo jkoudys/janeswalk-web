@@ -206,14 +206,8 @@ $(document).ready(function(){
   };
 
   // Notifications
-  var festivalWeekendCheck = $.cookie('festival-visible');
-
   $('.notification').on('click', function(){
     $(this).removeClass('expanded');
-  });
-
-  $('.festival-weekend').on('click', function(){
-    $.cookie('festival-visible', false, { expires: 7, path: '/' });
   });
 
   if ($('body').hasClass('city-page') && festivalWeekendCheck === undefined) {
@@ -222,7 +216,6 @@ $(document).ready(function(){
     },2000);
 
     $('.city-page').on('click', function(){
-      $.cookie('festival-visible', false, { expires: 7, path: '/' });
       $('.notification.festival-weekend').removeClass('expanded');
     });
   };
