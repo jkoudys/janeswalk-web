@@ -34,6 +34,7 @@ var ProfilePageView = PageView.extend({
      * @return void
      */
     init: function(element) {
+      try { 
         this._super(element);
         this._showProperStep();
         this._addTabClickEvents();
@@ -46,6 +47,9 @@ var ProfilePageView = PageView.extend({
         this._setupWalkPromoteModalEvents();
         this._setupBlogPostPromoteModalEvents();
         this._setupPromoteSlideshows();
+      } catch(e) {
+        console.log("Error initializing profile: " + e);
+      }
     },
 
     /**

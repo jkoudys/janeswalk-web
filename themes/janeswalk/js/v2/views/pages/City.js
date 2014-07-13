@@ -292,34 +292,33 @@ var CityPageView = PageView.extend({
      * @return    void
      */
     _setThemeCounts: function() {
-        var _this = this,
-            count;
-        var countFilterMatches = function (option, index) {
-          var filterCheck = option.getAttribute("value");
-          var compare_fn = this.compare_fn || function(f,o) { return f[o]; };
-          if (filterCheck !== "*") {
-            count = 0;
-            for(var i in _this._data) {
-              if(compare_fn(_this._data[i][this.filter], filterCheck)) {
-                ++count;
-              }
-            }
-            option.textContent += " (" + count + ")";
-            if (count === 0) {
-              option.parentElement.removeChild(option);
+      var _this = this,
+      count,
+      el = this._element[0];
+      var  countFilterMatches = function (option, index) {
+        var filterCheck = option.getAttribute("value");
+        var compare_fn = this.compare_fn || function(f,o) { return f[o]; };
+        if (filterCheck !== "*") {
+          count = 0;
+          for(var i in _this._data) {
+            if(compare_fn(_this._data[i][this.filter], filterCheck)) {
+              ++count;
             }
           }
-        };
+          option.textContent += " (" + count + ")";
+          if (count === 0) {
+            option.parentElement.removeChild(option);
+          }
+        }
+      };
 
-        NodeList.prototype.forEach = Array.prototype.forEach; //XXX verify on IE
-
-        this._element[0].querySelectorAll('div.filters select[name="theme"] option').forEach(countFilterMatches, {"filter":"themes"});
-        this._element[0].querySelectorAll('div.filters select[name="accessibility"] option').forEach(countFilterMatches, {"filter":"accessibilities"});
-        this._element[0].querySelectorAll('div.filters select[name="ward"] option').forEach(countFilterMatches, {"filter":"wards"});
-        this._element[0].querySelectorAll('div.filters select[name="initiative"] option').forEach(countFilterMatches, {"filter":"initiatives"});
-        this._element[0].querySelectorAll('div.filters select[name="date"] option').forEach(countFilterMatches, {"filter":"datetimes",
-          "compare_fn": function(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) !== -1;} } 
-        });
+      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="theme"] option'), countFilterMatches, {"filter":"themes"});
+      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="accessibility"] option'), countFilterMatches, {"filter":"accessibilities"});
+      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="ward"] option'), countFilterMatches, {"filter":"wards"} );
+      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="initiative"] option'), countFilterMatches, {"filter":"initiatives"});
+      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="date"] option'), countFilterMatches, {"filter":"datetimes",
+        "compare_fn": function compareDate(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) !== -1;} } 
+      });
     },
 
     /**
