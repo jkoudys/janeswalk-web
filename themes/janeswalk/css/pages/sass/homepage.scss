@@ -5,7 +5,7 @@
   background-attachment: fixed;
   background-position: center center;
   background-repeat: no-repeat;
-  @include background-size(cover);
+  background-size: cover;
 
   header.navbar {
     @media (max-width: $media_mobile) {
@@ -31,7 +31,7 @@
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
-    @include background-size(cover);
+    background-size: cover;
     position: fixed;
     left: 0;
     right: 0;
@@ -343,8 +343,7 @@ p.lead {
   padding: 20px 0 50px 0;
   color: white;
   background:$orange;
-  @include background(linear-gradient(rgba($orange,0.7) 20%, rgba($orange,0.7) 20%, $orange 80%));
-
+  background-image: linear-gradient(rgba($orange, 0.7) 20%, rgba($orange, 0.7) 20%, $orange 80%);
   @media (max-width: $media_mobile) {
     padding: 10px;
     width: auto;

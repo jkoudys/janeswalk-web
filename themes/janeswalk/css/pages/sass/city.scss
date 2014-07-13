@@ -27,7 +27,7 @@
   background-attachment: fixed;
   background-image: url("../images/city-bg.jpg");
   background-repeat: no-repeat;
-  @include background-size(cover);
+  background-size: cover;
 
   .section3 {
     padding: 0;
@@ -243,9 +243,9 @@
       top: 0;
       left: 0;
       position: absolute;
-      @include transition(opacity 1s ease-in-out);
+      transition: opacity 1s ease-in-out;
       background:$orange;
-      @include background(linear-gradient(rgba($orange,0.7), $orange 80%, $orange 80%));
+      background-image: linear-gradient(rgba($orange,0.7), rgba($orange, 0.8), rgba($orange,0.8));
     }
     a {
       color:#fff;
@@ -319,7 +319,7 @@
   .walk {
     position: relative;
     margin-bottom: 25px;
-    @include transition(margin 120ms ease-in-out);
+    transition: margin 120ms ease-in-out;
     margin-left: 0;
     margin-right: 19px;
     min-height:560px;

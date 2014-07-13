@@ -82,7 +82,7 @@
   }
   #map-canvas-wrapper {
     border: 1px solid rgba(0, 0, 0, 0.1);
-    @include box-shadow(0 2px 0 rgba(0, 0, 0, 0.1));
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
   }
   i {
     color:inherit;
@@ -121,7 +121,7 @@
         font-family: "museo-slab", "Roboto Slab", serif;
         font-weight: 800;
         font-size: 1.5em;
-        @include box-shadow(0 2px 0 rgba(0, 0, 0, 0.1));
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
       }
     }
 
@@ -183,8 +183,8 @@
       h3 {
         color: #222;
       }
-      @include transition(box-shadow 1s ease-in-out);
-      @include box-shadow(inset 0 0 0 1px #eee, 0 0 10px rgba($orange, 0.7));
+      transition: box-shadow 1s ease-in-out;
+      box-shadow: inset 0 0 0 1px #eee, 0 0 10px rgba($orange, 0.7);
     }
   }
 
@@ -243,7 +243,7 @@
         margin-bottom: 10px;
       }
       color: #555;
-      @include transition(margin 150ms ease-in-out);
+      transition: margin 150ms ease-in-out;
       &:hover {
         color: darken($blue,20%);
         margin-top: -5px;
@@ -253,7 +253,7 @@
         cursor: default;
         display: inline-block;
         background: darken($blue,20%);
-        @include box-shadow(0 2px 0 0 darken($blue,30%));
+        box-shadow: 0 2px 0 0 darken($blue,30%);
         border-radius: 50%;
         color: #fff;
         width: 16px;
@@ -275,7 +275,7 @@
       }
       i {
         background: darken($blue,20%);
-        @include box-shadow(0 2px 0 0 darken($blue,30%));
+        box-shadow: 0 2px 0 0 darken($blue,30%);
         color: #fff;
         border-radius: 50%;
         width: 20px;
@@ -289,12 +289,12 @@
         &.icon-accessible {
           background: url('/images/accessibility-wheelchair.svg') no-repeat center center #555;
           background-size: 60%;
-          @include box-shadow(0 2px 0 0 darken(#555,10%));
+          box-shadow: 0 2px 0 0 darken(#555,10%);
         }
         &.icon-kids {
           background: url('/images/kids-friendly.svg') no-repeat center center #555;
           background-size: 60%;
-          @include box-shadow(0 2px 0 0 darken(#555,10%));
+          box-shadow: 0 2px 0 0 darken(#555,10%);
         }
       }
     }
@@ -398,7 +398,7 @@
     position: relative;
     padding: 8px 20px 8px 5px;
     box-shadow: inset 0 -2px 0 rgba(black,0.10);
-    @include transition (background 150ms ease-in-out);
+    transition: background 150ms ease-in-out;
     > :first-child {
       display: inline;
     }
@@ -422,7 +422,7 @@
         width: 16px;
         height: 16px;
         // @include background(image-url("speech-bubble.w.svg") no-repeat);
-        @include background-size(contain);
+        background-size: contain;
       }
     }
   }

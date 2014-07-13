@@ -3,7 +3,7 @@ body.blog {
   #central > header {
     background: $orange;
     position:relative;
-    @include background-size(cover);
+    background-size: cover;
     background-position:50%;
     color:#fff;
     text-align:center;

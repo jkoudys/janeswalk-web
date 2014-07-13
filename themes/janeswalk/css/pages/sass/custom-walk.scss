@@ -9,7 +9,7 @@
     background-image: url("../images/custom-walk.jpg");
     background-repeat: no-repeat;
     background-position: 0 -46px;
-    @include background-size(contain);
+    background-size: contain;
   }
   .alert-info {
     width: 100%;

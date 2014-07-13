@@ -13,8 +13,8 @@
 	line-height: 30px;
 	background: $orange;
 	color: #fff;
-	@include border-top-left-radius(5px);
-	@include border-top-right-radius(5px);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .fc-calendar .fc-body {
