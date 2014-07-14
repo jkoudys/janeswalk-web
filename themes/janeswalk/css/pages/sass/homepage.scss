@@ -40,8 +40,6 @@
     z-index: -1;
     opacity: 1;
     transition: opacity 2s ease-in-out;
-    -moz-transition: opacity 2s ease-in-out;
-    -webkit-transition: opacity 2s ease-in-out;
 
     &.faded {
       opacity: 0;
@@ -236,8 +234,7 @@
   }
 
   .overlap {
-    // $mapOffset:310px;
-    -webkit-transition-duration:0.5s;
+    transition-duration:0.5s;
     position:relative;
     height:460px;
 
@@ -343,7 +340,7 @@ p.lead {
   padding: 20px 0 50px 0;
   color: white;
   background:$orange;
-  background-image: linear-gradient(rgba($orange, 0.7) 20%, rgba($orange, 0.7) 20%, $orange 80%);
+  background: linear-gradient(rgba($orange, 0.7) 20%, rgba($orange, 0.7) 20%, $orange 80%);
   @media (max-width: $media_mobile) {
     padding: 10px;
     width: auto;
@@ -665,16 +662,14 @@ section.sponsors {
 
 
 @media (max-width: $media_full) {
+  font-size: 2.7em;
   .homepage-callout2 {
     border-left: 0;
     padding: 0;
     margin-bottom: 1.85em;
     position: relative;
-    p {
-    }
   }
-    font-size: 2.7em;
-  }
+}
 
 footer {
 

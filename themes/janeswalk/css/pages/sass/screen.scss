@@ -119,9 +119,6 @@ body {
       background-color: transparent;
       background:#000;
       background:rgba(0,0,0,0.8);
-      background:-webkit-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
-      background:-moz-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
-      background:-ms-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
       background:radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
       filter:alpha(opacity=80);
     }
@@ -250,9 +247,6 @@ body {
       background-color: transparent;
       background:#000;
       background:rgba(0,0,0,0.8);
-      background:-webkit-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
-      background:-moz-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
-      background:-ms-radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
       background:radial-gradient(50% 50%,ellipse closest-corner,rgba(0,0,0,0.45) 1%,rgba(0,0,0,0.8) 100%);
       filter:alpha(opacity=80);
     }
@@ -455,17 +449,11 @@ html.index-bg body {
 
 .box-sizing { 
   * {
-    -moz-box-sizing: border-box; 
-    -webkit-box-sizing: border-box; 
     box-sizing: border-box;
     &:after,&:before {
-      -moz-box-sizing: border-box; 
-      -webkit-box-sizing: border-box; 
       box-sizing: border-box;
     }
   }
-  -moz-box-sizing: border-box; 
-  -webkit-box-sizing: border-box; 
   box-sizing: border-box;
 }
 
