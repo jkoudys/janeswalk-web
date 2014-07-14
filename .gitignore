@@ -10,3 +10,4 @@ files/
 *.swo
 .rvmrc
 concrete/*
+node_modules

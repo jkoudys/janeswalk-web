@@ -3,9 +3,12 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
+    // JS
     themes: {
       janeswalk: {
-        js: "themes/janeswalk/js/"
+        js: "themes/janeswalk/js/",
+        css: "themes/janeswalk/css/"
       }
     },
     uglify: {
@@ -28,14 +31,39 @@ module.exports = function(grunt) {
         // the location of the resulting JS file
         dest: '<%= themes.janeswalk.js + pkg.name %>.js'
       }
+    },
+
+    // CSS
+    sass: {
+      dev: {
+        options: {
+          style: 'compressed',
+        },
+        files: {
+          '<%= themes.janeswalk.css %>pages/sass/screen.css': '<%= themes.janeswalk.css %>pages/sass/screen.scss'
+        }
+      }
+    },
+    // Add vendor prefixed styles
+    autoprefixer: {
+      options: {
+        browsers: ['last 3 version', 'ie 8', 'ie 9']
+      },
+      single_file: {
+        src: "<%= themes.janeswalk.css %>pages/sass/screen.css",
+        dest: "<%= themes.janeswalk.css %>screen.css"
+      }
     }
   });
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).
-  grunt.registerTask('js', ['concat', 'uglify']);
+  grunt.registerTask('js', ["concat", "uglify"]);
+  grunt.registerTask('css', ["sass", "autoprefixer"]);
 
 };
