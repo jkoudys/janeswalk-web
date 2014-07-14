@@ -24,8 +24,6 @@
     </script>
     <script type="text/javascript" src="//use.typekit.net/lxq4ddc.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    <script src="<?=$this->getThemePath()?>/js/js-url.min.js"></script>
-    <script src="<?=$this->getThemePath()?>/js/jquery.cookie.js"></script>
 
     <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM&sensor=false"></script>
     <script src="//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
@@ -35,16 +33,7 @@
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/2.8.1/jquery.mCustomScrollbar.min.js"></script>
     <script src="<?=$this->getThemePath()?>/js/Eventbrite.jquery.js"></script>  
 
-    <?php /* v2 (onassar) */ ?>
-    <script src="<?=$this->getThemePath()?>/js/app.js" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/extend.js" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/FacebookShareDialog.js?1" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/View.js?1" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/views/Page.js?1" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Home.js?1" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/City.js?1" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Walk.js?1" type="text/javascript"></script>
-    <script src="<?=$this->getThemePath()?>/js/v2/views/pages/Profile.js?1" type="text/javascript"></script>
+    <script src="<?= $this->getThemePath() . (CONCRETE5_ENV === 'dev' ? '/js/janeswalk.js' : '/js/janeswalk.min.js') ?>"></script>
 
     <?php Loader::element('footer_required'); ?>
   </body>
