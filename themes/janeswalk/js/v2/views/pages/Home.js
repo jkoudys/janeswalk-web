@@ -67,7 +67,7 @@ var HomePageView = PageView.extend({
     _addBgImage: function() {
         var backgroundImageUrl = this._element.attr('data-backgroundImageUrl'),
             $backgroundImageBanner = this._element.find('.backgroundImageBanner'),
-            image = (new Image());
+            image = document.createElement("img");
         image.onload = function() {
             $backgroundImageBanner.css({
                 backgroundImage: 'url(' + (backgroundImageUrl) + ')'

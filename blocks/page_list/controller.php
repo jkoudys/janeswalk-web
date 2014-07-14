@@ -215,7 +215,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     // A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
     // The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
     // be showing all walks.
-    $cardSize = 'span' . (sizeof($cards) > 9 ? 3 : 4);
+    $cardSize = 'col-md-' . (sizeof($cards) > 9 ? 3 : 4);
 
     // Using DOMDocument, mostly for sanity of HTML and security
     $doc = new DOMDocument;
@@ -264,7 +264,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       $caption->appendChild($doc->createElement('p'))->appendChild($doc->createTextNode(Loader::helper('text')->shortText($walk->shortdescription, 115)));
 
       $tags = $thumbnail->appendChild($doc->createElement('ul'));
-      $tags->setAttribute('class', 'inline tags');
+      $tags->setAttribute('class', 'list-inline tags');
       
       foreach($walk->themes as $theme=>$set) {
         $li = $tags->appendChild($doc->createElement('li'));

@@ -358,7 +358,7 @@
         list-style-type:none;
         font-weight:700;
         color:#222;
-        margin:0;
+        padding:0;
         font-family: "museo-slab", "Roboto Slab", serif;
         font-size:12px;
         margin: 1.5em 0 0.6em 0;
@@ -472,7 +472,7 @@
         font-family: "museo-slab", "Roboto Slab", serif;
         font-size:16px;
         font-weight:100;
-        margin: 15px 0 0 -32px;
+        margin: 15px 0 0 -47px;
         &:hover { background-color: #df520e; }
         &:after {
           content: "";
@@ -620,8 +620,8 @@
   /*  @include box-shadow(0 2px 0 0 darken($blue,30%)); */
     border-radius: 50%;
     color: #fff;
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     text-align: right;
 
     &.icon-kids {

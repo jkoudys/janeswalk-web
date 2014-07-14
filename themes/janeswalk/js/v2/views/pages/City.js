@@ -114,8 +114,8 @@ var CityPageView = PageView.extend({
       for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
         var card = shuffledDeck[i].cloneNode(true);
         // Egads, bootstrap can suck sometimes..
-        card.classList.add("span4");
-        card.classList.remove("span3");
+        card.classList.add("col-md-4");
+        card.classList.remove("col-md-3");
         previewNode.appendChild(card);
       }
     },
@@ -131,7 +131,7 @@ var CityPageView = PageView.extend({
       var showAll = document.querySelector("a.see-all");
       if(showAll) {
         showAll.addEventListener("click", function() {
-            var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview div.row-fluid")];
+            var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview")];
             var fullEl = document.querySelector(".walks-list.showall");
             // Hide this link, the preview walks, and the sidebar
             previewEls.forEach(function(e, i) {

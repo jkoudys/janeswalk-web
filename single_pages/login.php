@@ -11,7 +11,7 @@ $form = Loader::helper('form'); ?>
   });
 </script>
 <div class="modal-backdrop fade in"></div>
-<div class="modal hide fade in" id="signup-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
+<div class="modal fade in" id="signup-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
   <?php  if($changePasswordForm){ ?>
   <p><?php echo t('Enter your new password below.') ?></p>
   <div class="ccm-form modal-body">	

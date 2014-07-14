@@ -295,26 +295,28 @@ var ProfilePageView = PageView.extend({
         location.href = '/index.php/profile/#tab=picture&success=1';
       };
       var params = {
-          bgcolor: '#ffffff',
-          wmode: 'transparent',
-          quality: 'high' 
-        },
-        flashvars = {
-          width: this._element.find('#flashContainer').attr('data-width'),
-          height: this._element.find('#flashContainer').attr('data-height'),
-          image: this._element.find('#flashContainer').attr('data-imagepath'),
-          save: this._element.find('#flashContainer').attr('data-savepath')
-        };
-      swfobject.embedSWF(
-        this._element.find('#flashContainer').attr('data-flashpath'),
-        'flashContainer',
-        '500',
-        '400',
-        '10,0,0,0',
-        'includes/expressInstall.swf',
-        flashvars,
-        params
-      );
+        bgcolor: '#ffffff',
+        wmode: 'transparent',
+        quality: 'high' 
+      },
+      flashvars = {
+        width: this._element.find('#flashContainer').attr('data-width'),
+        height: this._element.find('#flashContainer').attr('data-height'),
+        image: this._element.find('#flashContainer').attr('data-imagepath'),
+        save: this._element.find('#flashContainer').attr('data-savepath')
+      };
+      if(typeof swfobject !== "undefined") {
+        swfobject.embedSWF(
+          this._element.find('#flashContainer').attr('data-flashpath'),
+          'flashContainer',
+          '500',
+          '400',
+          '10,0,0,0',
+          'includes/expressInstall.swf',
+          flashvars,
+          params
+        );
+      }
     },
 
     /**

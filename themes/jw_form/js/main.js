@@ -66,16 +66,6 @@ window.Janeswalk = {
       $('html').addClass('index-bg');
     }
 
-    // WYSIWYG
-    $('#longdescription').wysihtml5('bypassDefaults', {
-      'image': false,
-      parserRules: {
-        tags: {
-          p: {}
-        }
-      }
-    });
-
     // Date Picker
 
     var defaultDate = moment(JanesWalk.form.datepicker_cfg.defaultDate).format('MMMM D, YYYY');
@@ -376,136 +366,122 @@ var JaneswalkData = {
   description: ['title','shortdescription', 'longdescription'],
   accessible: ['accessible-info', 'accessible-transit', 'accessible-parking', 'accessible-find'],
   data: {},
-  build: function(step) {
+  build: function() {
     this.dataSet= {};
-    if (step == null){
-      step = false;
-    }
-
     var self = this,
       name,
       value,
       file,
       desc;
 
-    if (step === 1 || step === false){
-      // Description
-      $.each(this.description, function(key, value){
-        self.dataSet[value] = $('[name="'+value+'"]').val();
-      });
+    // Description
+    $.each(this.description, function(key, value){
+      self.dataSet[value] = $('[name="'+value+'"]').val();
+    });
 
-      // Theme checkboxes
-      self.dataSet.checkboxes = {};
-      $('[type="checkbox"][name^="theme-"]').each(function(){
-        name = $(this).attr('name');
-        value = $(this).prop('checked');
-        self.dataSet.checkboxes[name] = value;
-      });
+    // Theme checkboxes
+    self.dataSet.checkboxes = {};
+    $('[type="checkbox"][name^="theme-"]').each(function(){
+      name = $(this).attr('name');
+      value = $(this).prop('checked');
+      self.dataSet.checkboxes[name] = value;
+    });
 
-      // Resources
-      self.dataSet.resources = {};
-      $('.resource-item, .resource-item-new').not('.hide').each(function(key, value){
-        file = $(this).find('[name="resource-file[]"]').val();
-        title = $(this).find('[name="resource-title[]"]').val();
-        desc = $(this).find('[name="resource-description[]"]').val();
-        self.dataSet.resources[key] = {file: file, title: title, description: desc};
-      });
+    // Resources
+    self.dataSet.resources = {};
+    $('.resource-item, .resource-item-new').not('.hide').each(function(key, value){
+      file = $(this).find('[name="resource-file[]"]').val();
+      title = $(this).find('[name="resource-title[]"]').val();
+      desc = $(this).find('[name="resource-description[]"]').val();
+      self.dataSet.resources[key] = {file: file, title: title, description: desc};
+    });
 
-      // Wards
-        self.dataSet.wards = $("#ward").val();
+    // Wards
+    self.dataSet.wards = $("#ward").val();
+
+    // Map
+    self.dataSet.map = {};
+    self.dataSet.map.markers = {};
+    $.each(jwMap.markers, function(key, val){
+      self.dataSet.map.markers[key] = {
+        title: val.title,
+        description: val.description,
+        questions: val.questions,
+        style: val.style,
+        lat: val.getPosition().lat(),
+        lng: val.getPosition().lng()
+      };
+    });
+    self.dataSet.map.route = {};
+    $.each(jwMap.point, function(key, val){
+      self.dataSet.map.route[key] = {
+        lat: val.getPosition().lat(),
+        lng: val.getPosition().lng(),
+        title: val.title
+      };
+    });
+
+    // Time - get type, and then get list of slots
+    self.dataSet.time = {};
+    self.dataSet.time.slots = {};
+    if ($('#time-and-date-all').hasClass('active')){
+      self.dataSet.time.type = 'all';
+      self.dataSet.time.open = $('[type="checkbox"][name="open"]').prop('checked');
+      $('#date-list-all tbody tr').each(function(key, value){
+        self.dataSet.time.slots[key] = {date: $(this).find('[name="date-date[]"]').val(), duration: $(this).find('[name="date-duration[]"]').val()};
+      });
+    } else if ($('#time-and-date-set').hasClass('active')){
+      self.dataSet.time.type = 'set';
+      $('#date-list-set tbody tr').each(function(key, value){
+        self.dataSet.time.slots[key] = {date: $(this).find('[name="date-date[]"]').val(), time: $(this).find('[name="date-time[]"]').val(), duration: $(this).find('[name="date-duration[]"]').val()};
+      });
+    } else {
+      self.dataSet.time.type = false;
     }
 
-    if (step === 2 || step === false){
-      // Map
-      self.dataSet.map = {};
-      self.dataSet.map.markers = {};
-      $.each(jwMap.markers, function(key, val){
-        self.dataSet.map.markers[key] = {
-          title: val.title,
-          description: val.description,
-          questions: val.questions,
-          style: val.style,
-          lat: val.getPosition().lat(),
-          lng: val.getPosition().lng()
-        };
-      });
-      self.dataSet.map.route = {};
-      $.each(jwMap.point, function(key, val){
-        self.dataSet.map.route[key] = {
-          lat: val.getPosition().lat(),
-          lng: val.getPosition().lng(),
-          title: val.title
-        };
-      });
-    }
+    // Accessible
+    $.each(this.accessible, function(key, value){
+      self.dataSet[value] = $('[name="'+value+'"]').val();
+    });
 
-    if (step === 3 || step === false){
-      // Time - get type, and then get list of slots
-      self.dataSet.time = {};
-      self.dataSet.time.slots = {};
-      if ($('#time-and-date-all').hasClass('active')){
-        self.dataSet.time.type = 'all';
-        self.dataSet.time.open = $('[type="checkbox"][name="open"]').prop('checked');
-        $('#date-list-all tbody tr').each(function(key, value){
-          self.dataSet.time.slots[key] = {date: $(this).find('[name="date-date[]"]').val(), duration: $(this).find('[name="date-duration[]"]').val()};
-        });
-      } else if ($('#time-and-date-set').hasClass('active')){
-        self.dataSet.time.type = 'set';
-        $('#date-list-set tbody tr').each(function(key, value){
-          self.dataSet.time.slots[key] = {date: $(this).find('[name="date-date[]"]').val(), time: $(this).find('[name="date-time[]"]').val(), duration: $(this).find('[name="date-duration[]"]').val()};
-        });
+    // Accessible checkboxes
+    $('[type="checkbox"][name^="accessible-"]').each(function(){
+      name = $(this).attr('name');
+      value = $(this).prop('checked');
+      self.dataSet.checkboxes[name] = value;
+    });
+
+    // Team
+    self.dataSet.team = {};
+    var member;
+    $('.team-member.useredited').each(function(key, val){
+      member = {
+        'user_id': $(this).find('[name="user_id[]"]').val(),
+        'type': $(this).find('[name="type[]"]').val(),
+        'profile-photo': $(this).find('[name="profile-photo[]"]').val(),
+        'name-first': $(this).find('[name="name-first[]"]').val(),
+        'name-last': $(this).find('[name="name-last[]"]').val(),
+        'role': $(this).find('[name="role[]"]').val(),
+        'primary': $(this).find('[name="primary[]"]').val(),
+        'bio': $(this).find('[name="bio[]"]').val(),
+        'twitter': $(this).find('[name="twitter[]"]').val(),
+        'facebook': $(this).find('[name="facebook[]"]').val(),
+        'website': $(this).find('[name="website[]"]').val(),
+        'email': $(this).find('[name="email[]"]').val(),
+        'institution': $(this).find('[name="institution[]"]').val()
+      };
+
+      var phone1 = $(this).find('[name="phone-1[]"]').val();
+      var phone2 = $(this).find('[name="phone-2[]"]').val();
+      var phone3 = $(this).find('[name="phone-2[]"]').val();
+      if (phone1 != undefined && phone2 != undefined && phone3 != undefined){
+        member.phone = $(this).find('[name="phone-1[]"]').val()+'-'+$(this).find('[name="phone-2[]"]').val()+'-'+$(this).find('[name="phone-3[]"]').val()
       } else {
-        self.dataSet.time.type = false;
+        member.phone = false;
       }
-    }
 
-    if (step === 4 || step === false){
-      // Accessible
-      $.each(this.accessible, function(key, value){
-        self.dataSet[value] = $('[name="'+value+'"]').val();
-      });
-
-      // Accessible checkboxes
-      $('[type="checkbox"][name^="accessible-"]').each(function(){
-        name = $(this).attr('name');
-        value = $(this).prop('checked');
-        self.dataSet.checkboxes[name] = value;
-      });
-    }
-
-    if (step === 5 || step === false){
-      // Team
-      self.dataSet.team = {};
-      var member;
-      $('.team-member.useredited').each(function(key, val){
-        member = {
-          'user_id': $(this).find('[name="user_id[]"]').val(),
-          'type': $(this).find('[name="type[]"]').val(),
-          'profile-photo': $(this).find('[name="profile-photo[]"]').val(),
-          'name-first': $(this).find('[name="name-first[]"]').val(),
-          'name-last': $(this).find('[name="name-last[]"]').val(),
-          'role': $(this).find('[name="role[]"]').val(),
-          'primary': $(this).find('[name="primary[]"]').val(),
-          'bio': $(this).find('[name="bio[]"]').val(),
-          'twitter': $(this).find('[name="twitter[]"]').val(),
-          'facebook': $(this).find('[name="facebook[]"]').val(),
-          'website': $(this).find('[name="website[]"]').val(),
-          'email': $(this).find('[name="email[]"]').val(),
-          'institution': $(this).find('[name="institution[]"]').val()
-        };
-
-        var phone1 = $(this).find('[name="phone-1[]"]').val();
-        var phone2 = $(this).find('[name="phone-2[]"]').val();
-        var phone3 = $(this).find('[name="phone-2[]"]').val();
-        if (phone1 != undefined && phone2 != undefined && phone3 != undefined){
-          member.phone = $(this).find('[name="phone-1[]"]').val()+'-'+$(this).find('[name="phone-2[]"]').val()+'-'+$(this).find('[name="phone-3[]"]').val()
-        } else {
-          member.phone = false;
-        }
-
-        self.dataSet.team[key] = member;
-      });
-    }
+      self.dataSet.team[key] = member;
+    });
 
     self.dataSet.thumbnail_id = globalThumbId;
 
@@ -517,29 +493,29 @@ var JaneswalkData = {
   fill: function(data){
     this.data = data;
     // Standard fields
-    $.each(data, function(key, val){
+    for(var key in data) {
       var obj = $('[name="'+key+'"]');
       if (obj.length > 0){
         if (obj.is('textarea')){
-          obj.html(val);
-          if (key == 'longdescription'){
-            $('#longdescription').data("wysihtml5").editor.setValue(val);
+          obj.html(data[key]);
+          if (key === 'longdescription'){
+            $('#longdescription').data("wysihtml5").editor.setValue(data[key]);
           }
         } else {
-          obj.val(val);
+          obj.val(data[key]);
         }
       }
-      else if(key == 'thumbnail_id' && val) {
+      else if(key === 'thumbnail_id' && data[key]) {
         var thumbLoad = $("iframe.walkphotos");
         var ifUrl = thumbLoad.attr('src');
-        ifUrl = ifUrl.substring(0, ifUrl.indexOf("tools")) + "tools/files/importers/quick?fID=" + val;
-        globalThumbId = val;
+        ifUrl = ifUrl.substring(0, ifUrl.indexOf("tools")) + "tools/files/importers/quick?fID=" + data[key];
+        globalThumbId = data[key];
         thumbLoad.attr('src',ifUrl);
       }
-    });
+    }
 
     // Checkboxes
-    if (typeof(data.checkboxes) != "undefined"){
+    if (typeof(data.checkboxes) !== "undefined"){
       $.each(data.checkboxes, function(key, val){
         var obj = $('[name="'+key+'"]');
         if (obj.length > 0){
@@ -549,7 +525,7 @@ var JaneswalkData = {
     }
 
     // Resources
-    if (typeof(data.resources) != "undefined"){
+    if (typeof(data.resources) !== "undefined"){
       $.each(data.resources, function(key, val){
         var newObj = addResource();
         $.each(val, function(key, val){
@@ -581,23 +557,23 @@ var JaneswalkData = {
     }
 
     // Team
-    if (typeof(data.team) != "undefined"){
+    if (typeof(data.team) !== "undefined"){
       $.each(data.team, function(key, member){
         var newTarget,
         obj;
         // you, leader, organizer, community, volunteer
-        if (member.type == 'you'){
+        if (member.type === 'you'){
           obj = $('#walk-leader-me');
-        } else if (member.type == 'leader'){
+        } else if (member.type === 'leader'){
           newTarget = 'walk-leader-new';
           obj = addMember(newTarget);
-        } else if (member.type == 'organizer'){
+        } else if (member.type === 'organizer'){
           newTarget = 'walk-organizer-new';
           obj = addMember(newTarget);
-        } else if (member.type == 'community'){
+        } else if (member.type === 'community'){
           newTarget = 'community-voice-new';
           obj = addMember(newTarget);
-        } else if (member.type == 'volunteer'){
+        } else if (member.type === 'volunteer'){
           newTarget = 'othermember-new';
           obj = addMember(newTarget);
         }
@@ -607,8 +583,8 @@ var JaneswalkData = {
   },
 
   mapPopulate: function(jwMap) {
-    if (this.data.map && typeof(this.data.map) != "undefined"){
-      if (this.data.map.markers && typeof(this.data.map.markers) != "undefined"){
+    if (this.data.map && typeof(this.data.map) !== "undefined"){
+      if (this.data.map.markers && typeof(this.data.map.markers) !== "undefined"){
         $.each(this.data.map.markers, function(key, marker){
           if(marker.lat && marker.lng) {
             if (marker.style == 'meeting'){
@@ -619,7 +595,7 @@ var JaneswalkData = {
           }
         });
       }
-      if (this.data.map && typeof(this.data.map.route) != "undefined"){
+      if (this.data.map && typeof(this.data.map.route) !== "undefined"){
         $.each(this.data.map.route, function(key, point){
           jwMap.addlines(null, point.title, point.lat, point.lng);
         });
@@ -631,67 +607,33 @@ var JaneswalkData = {
   teamPopulate: function(data, target){
     $.each(data, function(key, val){
       var obj = $(target).find('[name="'+key+'[]"]');
-      if (obj.length > 0 && (obj.is('input') && (obj.attr('type') == 'text' || obj.attr('type') == 'email')) || obj.is('textarea') || obj.is('select')){
+      if (obj.length > 0 && (obj.is("input") && (obj.attr("type") === "text" || obj.attr("type") == "email")) || obj.is("textarea") || obj.is("select")){
         obj.val(val).change();
-      } else if (obj.length > 0 && obj.is('input') && obj.attr('type') == 'checkbox'){
-        obj.prop('checked', val);
+      } else if (obj.length > 0 && obj.is("input") && obj.attr("type") == "checkbox"){
+        obj.prop("checked", val);
       }
 
-      if (key == 'phone' && val !== false){
+      if (key == "phone" && val !== false){
         $(target).find('[name="phone[]"]').val(val);
       }
     });
   }
 };
 
-// Pull params from URLs
-function parseUrl( url ) {
-    var fakelink = document.createElement('a');
-    fakelink.href = url;
-    return fakelink;
-}
-
-// Handling tips
-var tipLoader = function() {
-/* TODO: re-activate these tips, once the vids are done and we can link them
-  $('.tip').transition({ y: '0px',opacity:0 }).each(function(index) {
-    $(this).animate({'opacity':0}, 'fast', function(){
-      $(this).removeClass('in');
-      var formTip = $('.tip').eq(index).data('tipfor');
-      var itemTarget = $('#main-panel .active #'+formTip);
-      if (itemTarget.length > 0) {
-        $('.tip').eq(index).addClass('in');
-      }
-    });
-  });
-  setTimeout(function(){
-    $('.tip.in').transition({ y: '20px',opacity:1 });
-  },1000);
-  */
-}
-
-// File uploader
-var walkSetImage = function( fileId ) {
-  globalThumbId = fileId;
-}
-
 // Spinner Props
 var spinProperties = {lines:10,length:15,width:5,radius:30};
 
 // On page load
-$(document).ready(function(){
+document.addEventListener("DOMContentLoaded", function() {
   // Loader
   $('.progress-spinner').spin(spinProperties);
   Janeswalk.initialize();
-});
 
-$(window).load(function() {
-  tipLoader();
-  $('.progress-spinner').spin(false);
-  $('.tag').tooltip({
-    trigger: 'hover',
-    placement: 'bottom'
-  });
+  // Set DOM listener on page load.
+  if ($('#map-canvas').length > 0) {
+    jwMap = new JaneswalkMapEditor('#map-canvas');
+    JaneswalkData.mapPopulate(jwMap);
+  }
 
   // Scroll top on tab change 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
@@ -700,22 +642,16 @@ $(window).load(function() {
     $('.walk-submit').addClass('hide');
   });
 
-  // Set DOM listener on page load.
-  if ($('#map-canvas').length > 0) {
-    // Let's be rid of this gmapinit malarkey
-    jwMap = new JaneswalkMapEditor('#map-canvas');
-    JaneswalkData.mapPopulate(jwMap);
-  }
-
   $('a[href="#route"][data-toggle="tab"]').on('shown.bs.tab', function(e) {
     google.maps.event.trigger(jwMap.map, 'resize');
     jwMap.centerRoute();
     tipLoader();
   });
+
 });
 
-// Prototype Modal
-setTimeout( function() {
-  $('#prototype').modal();
-},2000);
+// Clean up spinners and such once content's loaded
+window.addEventListener("load", function() {
+  $('.progress-spinner').spin(false);
+});
 

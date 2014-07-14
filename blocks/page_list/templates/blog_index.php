@@ -18,7 +18,7 @@ $dh = Loader::helper('date');
     $original_author = UserInfo::getByID($page->getCollectionUserID())->getAttribute('first_name');
     $mainImage = $page->getAttribute("main_image"); ?>
 
-    <div class="span3">
+    <div class="col-md-3">
       <div class="thumbnail">
         <?php if(is_object($mainImage)) { ?>
           <a href="<?=$url?>"><img src='<?= $ih->getThumbnail($mainImage->getPath(), 270, 800, false)->src; ?>' alt='' /></a>

@@ -3,21 +3,21 @@ $c = Page::getCurrentPage();
 $u = new User();
 ?>
 
-<header class="navbar navbar-fixed-top tk-museo-slab">
+<header class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
+        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="glyphicon-bar"></span>
+          <span class="glyphicon-bar"></span>
+          <span class="glyphicon-bar"></span>
+          <span class="glyphicon-bar"></span>
         </button>
         <a href="<?php echo DIR_REL ?>">
           <div class="brand hide-text box-sizing">
             <?php echo $SITE ?>
           </div>
         </a>
-        <nav class="nav-collapse collapse" role="navigation">
+        <nav class="navbar-collapse collapse" role="navigation">
           <?                  
           $ah = new GlobalArea('Header');
           $ah->display($c);                   
@@ -29,7 +29,7 @@ $u = new User();
             <li><a href="#" class="notify">Team</a></li>
           </ul>
         </nav>
-        <ul class="nav pull-right visible-desktop">
+        <ul class="nav pull-right visible-md visible-lg">
           <?php if($u->isRegistered()) { ?>
             <li><a href="<?php echo $this->url('/profile') ?>" class=""><?php echo $u->getUserName(); ?></a></li>
             <li><a href="<?php echo $this->url('/login', 'logout') ?>" class="">Logout</a></li>

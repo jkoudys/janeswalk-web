@@ -14,7 +14,7 @@ $turl = $theme->getThemeUrl();
         <div class="upload-image">
           <div class="upload-item text-center">
             <span class="btn-file">
-            <div class="fileupload-preview thumbnail" style="width: 200px; height: 170px;"><br><br><i class="fa fa-camera-retro fa-4"></i></div>
+            <div class="fileupload-preview thumbnail" style="width: 200px; height: 170px;"><br><br><i class="fa fa-camera-retro fa-5x"></i></div>
             <br>
             <span class="fileupload-new"><?= t('Click to upload an image') ?></span><span class="fileupload-exists"><?= t('Choose a different image') ?></span><input name="Filedata" class="ccm-al-upload-single-file" type="file" />
             <input style="display:none;" class="ccm-al-upload-single-submit btn" type="submit" value="<?=t('Upload File')?>" />    

@@ -4,6 +4,7 @@
 $orange: #F16725;
 $blue: #6BADFD;
 $darkgrey:#666;
+$charcoal:#333;
 $lightgrey: #efefef;
 $blogblues: #92CDF5;
 
@@ -19,6 +20,7 @@ $media_mobile: 480px;
 $mainWidth: 1170px;
 $navbar_height: 60px; /* to position for various media settings */
 
+@import "bootstrap_reset";
 @import "homepage";
 @import "profile";
 @import "city";
@@ -471,14 +473,15 @@ h5 { font-weight:700; font-size:14; }
 
 // Logo
 
-.brand {
+.navbar-brand {
   background: url("../images/jwlogo.svg");
   background-size: 70%;
   background-position: center center;
   background-repeat: no-repeat;
-  width: 144px;
+  width: 102px;
   height: $navbar_height;
-  padding: 0;
+  padding: 10px 20px;
+  margin-left:-20px;
 }
 
 .logo {
@@ -628,7 +631,6 @@ footer {
 
 #donate {
   padding: 10px 15px 10px;
-  margin-top: 0;
   color: #ffffff;
   background-color: #f16725;
   text-shadow: none;
@@ -713,7 +715,9 @@ footer {
   }
 }
 
-.navbar {
+// The main menu bar at the top
+header.navbar {
+  background:#fff;
   &+* {
     padding-top: $navbar_height;
   }
@@ -764,6 +768,9 @@ footer {
     /* todo: get rid of all these importants */
     padding:10px 12px !important;
     border-radius:999px;
+  }
+  #donate, .search-close, .search-open {
+    margin: 10px 0;
   }
   .search-close {
     background:$orange;
@@ -832,7 +839,7 @@ footer {
 fieldset.search {
   $buttonoffset:4px;
   $defaultWidth: 280px;
-  input[type=text] { width:$defaultWidth; font-size:14px; padding: 10px; margin:0; line-height:1.5; font-family:"museo-slab", "Roboto Slab", serif;  border: 1px solid #b4b4b4; border-radius: 8px 0 0 8px; height:21px; line-height:24px;
+  input[type=text] { width:$defaultWidth; font-size:14px; padding: 10px; margin:0; font-family:"museo-slab", "Roboto Slab", serif;  border: 1px solid #b4b4b4; border-radius: 8px 0 0 8px; height:43px; line-height:24px; color:#333;
   }
   input[type=submit] { font-family:"museo-slab", "Roboto Slab", serif; font-size:18px; height:43px; border: 1px solid #b4b4b4; border-left:none; background:$lightgrey; font-weight:300; color:#555; margin-left:-$buttonoffset; border-radius: 0 8px 8px 0; padding: 0 15px; line-height:24px; vertical-align:top; }
   input[type=checkbox] { display:none; }
@@ -892,7 +899,7 @@ fieldset.search {
   }
 }
 
-.inline.tags .tag i.fa {
+.list-inline.tags .tag i.fa {
   width:100%;
   display:block;
   text-align:center;

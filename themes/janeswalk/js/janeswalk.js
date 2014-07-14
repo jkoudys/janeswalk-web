@@ -440,8 +440,8 @@ var CityPageView = PageView.extend({
       for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
         var card = shuffledDeck[i].cloneNode(true);
         // Egads, bootstrap can suck sometimes..
-        card.classList.add("span4");
-        card.classList.remove("span3");
+        card.classList.add("col-md-4");
+        card.classList.remove("col-md-3");
         previewNode.appendChild(card);
       }
     },
@@ -457,7 +457,7 @@ var CityPageView = PageView.extend({
       var showAll = document.querySelector("a.see-all");
       if(showAll) {
         showAll.addEventListener("click", function() {
-            var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview div.row-fluid")];
+            var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview")];
             var fullEl = document.querySelector(".walks-list.showall");
             // Hide this link, the preview walks, and the sidebar
             previewEls.forEach(function(e, i) {
@@ -889,7 +889,7 @@ var HomePageView = PageView.extend({
     _addBgImage: function() {
         var backgroundImageUrl = this._element.attr('data-backgroundImageUrl'),
             $backgroundImageBanner = this._element.find('.backgroundImageBanner'),
-            image = (new Image());
+            image = document.createElement("img");
         image.onload = function() {
             $backgroundImageBanner.css({
                 backgroundImage: 'url(' + (backgroundImageUrl) + ')'
@@ -1309,26 +1309,28 @@ var ProfilePageView = PageView.extend({
         location.href = '/index.php/profile/#tab=picture&success=1';
       };
       var params = {
-          bgcolor: '#ffffff',
-          wmode: 'transparent',
-          quality: 'high' 
-        },
-        flashvars = {
-          width: this._element.find('#flashContainer').attr('data-width'),
-          height: this._element.find('#flashContainer').attr('data-height'),
-          image: this._element.find('#flashContainer').attr('data-imagepath'),
-          save: this._element.find('#flashContainer').attr('data-savepath')
-        };
-      swfobject.embedSWF(
-        this._element.find('#flashContainer').attr('data-flashpath'),
-        'flashContainer',
-        '500',
-        '400',
-        '10,0,0,0',
-        'includes/expressInstall.swf',
-        flashvars,
-        params
-      );
+        bgcolor: '#ffffff',
+        wmode: 'transparent',
+        quality: 'high' 
+      },
+      flashvars = {
+        width: this._element.find('#flashContainer').attr('data-width'),
+        height: this._element.find('#flashContainer').attr('data-height'),
+        image: this._element.find('#flashContainer').attr('data-imagepath'),
+        save: this._element.find('#flashContainer').attr('data-savepath')
+      };
+      if(typeof swfobject !== "undefined") {
+        swfobject.embedSWF(
+          this._element.find('#flashContainer').attr('data-flashpath'),
+          'flashContainer',
+          '500',
+          '400',
+          '10,0,0,0',
+          'includes/expressInstall.swf',
+          flashvars,
+          params
+        );
+      }
     },
 
     /**
@@ -2064,50 +2066,12 @@ $(document).ready(function(){
     $('#step-add-button').animate({'opacity':'1'});
   });
 
-  // Spin.js Spinner
-  $progress = $('#progress');
-
-  $.fn.spin = function (opts) {
-    try {
-      this.each(function () {
-        var $this = $(this),
-        data = $this.data();
-        if (data.spinner) {
-          data.spinner.stop();
-          delete data.spinner;
-        }
-        if (opts !== false) {
-          data.spinner = new Spinner($.extend({
-            color: '#F16725',
-            lines: 11,
-            length: 20,
-            width: 2,
-            radius: 16,
-            corners: 1.0,
-            rotate: 0,
-            trail: 47,
-            speed: 1.3,
-          }, opts)).spin(this);
-        }
-      });
-      return this;
-    }
-    catch(e) { console.log(e); }
-  };
-
-  $progress.spin();
-
-  window.onload = function() {
-    $progress.spin(false).css({'z-index':'-1'});
-    $('.city-organizer').slideDown();
-  };
-
   // Notifications
   $('.notification').on('click', function(){
     $(this).removeClass('expanded');
   });
 
-  if ($('body').hasClass('city-page') && festivalWeekendCheck === undefined) {
+  if ($('body').hasClass('city-page') && typeof festivalWeekendCheck === "undefined") {
     setTimeout( function() {
       $('.notification.festival-weekend').addClass('expanded');
     },2000);

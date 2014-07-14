@@ -172,7 +172,7 @@ $(document).ready(function(){
     $(this).removeClass('expanded');
   });
 
-  if ($('body').hasClass('city-page') && festivalWeekendCheck === undefined) {
+  if ($('body').hasClass('city-page') && typeof festivalWeekendCheck === "undefined") {
     setTimeout( function() {
       $('.notification.festival-weekend').addClass('expanded');
     },2000);

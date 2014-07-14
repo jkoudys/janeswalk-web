@@ -1,3 +1,8 @@
+/*
+ * Gruntfile.js
+ * Use grunt for all the main build and testing tasks in Jane's Walk.
+ */
+
 module.exports = function(grunt) {
 
   // Project configuration.
@@ -59,7 +64,7 @@ module.exports = function(grunt) {
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-sass'); // Using instead of grunt-contrib-css, as it shaves 50% of the running time off
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).

@@ -35,12 +35,12 @@ $this->inc('elements/header.php');
         </ul>
       </div>
 
-      <div class="row-fluid walk-header">
-        <div class="span9">
+      <div class="row walk-header">
+        <div class="col-md-9">
           <h1 class="walk-title"><?= $w ?></h1>
         </div>
 
-        <div class="span3 profiles box-sizing">
+        <div class="col-md-3 profiles box-sizing">
           <div id="reg-group">
             <?php
               $slots = (array) $w->time['slots']; 
@@ -79,8 +79,8 @@ $this->inc('elements/header.php');
         </div>
       </div>
 
-      <div class="row-fluid walk-leaders clearfix">
-        <div class="span7">
+      <div class="row walk-leaders clearfix">
+        <div class="col-md-7">
           <h4>
             <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($w->walkLeaders)) .
                 implode(', ', array_map(function($mem){
@@ -96,9 +96,9 @@ $this->inc('elements/header.php');
         </div>
       </div>
       <?php if(sizeof((array)$w->map->markers) + sizeof((array)$w->map->path) > 0) { ?>
-      <div class="hero-unit walk-stops" style="display:none">
-        <div class="row-fluid">
-          <div class="span12">
+      <div class="jumbotron walk-stops" style="display:none">
+        <div class="row">
+          <div class="col-md-12">
             <div class="walk-stops-meta box-sizing">
               <header id="header" class="walk-stops-meta-inner">
                 <?php if (isset($slots[0]['duration'])) { ?>
@@ -132,8 +132,8 @@ $this->inc('elements/header.php');
       </div>
       <?php } ?>
 
-      <div class="row-fluid walk-body">
-        <div class="span8">
+      <div class="row walk-body">
+        <div class="col-md-8">
           <div class="clearfix">
             <h3><?= t('About This Walk') ?></h3>
             <?php if( $thumb ) { ?>
@@ -180,8 +180,8 @@ $this->inc('elements/header.php');
 
             <?php foreach($w->teamPictures as $k => $mem) { ?>
             <div class="walk-leader clearfix"> 
-              <div class="row-fluid">
-                <div class="span3">
+              <div class="row">
+                <div class="col-md-3">
 <?php 
                 if($mem['avatar'] && $city->getCollectionName() !== 'Calgary') { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
@@ -189,7 +189,7 @@ $this->inc('elements/header.php');
                     <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
                   <? } ?>
                 </div>
-                <div class='span9'>
+                <div class='col-md-9'>
                   <h4>
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
@@ -237,7 +237,7 @@ $this->inc('elements/header.php');
 
         </div>
 
-        <aside class="span4">
+        <aside class="col-md-4">
         <div class="thumbnail" id="register">
           <?php
             if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
@@ -279,14 +279,14 @@ $this->inc('elements/header.php');
             </div>
           </div>
           <div class="request" style="display:none">
-            <div class="row-fluid">
-              <div class="span">
+            <div class="row">
+              <div class="col-md-6">
                 <label for="date-picker">Date</label>
                 <input type="text" value="12-02-2012" id="date-picker">
               </div>
             </div> 
-            <div class="row-fluid">
-              <div class="span6">
+            <div class="row">
+              <div class="col-md-6">
                 <label for="request-number">Number of people</label>
                 <input type="text" id="request-number" />
               </div>
@@ -340,8 +340,8 @@ $this->inc('elements/header.php');
       <div class="walk-feedback">
         <hr>
         <h3><i class="fa fa-comments-o"></i> <?= t('Feedback') ?></h3>
-        <div class="row-fluid">
-          <div class="span8">
+        <div class="row">
+          <div class="col-md-8">
             <div class="well">
               <div id="disqus_thread"></div>
               <script type="text/javascript">

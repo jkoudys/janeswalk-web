@@ -1,7 +1,7 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
 <div id="ccm-profile-wrapper">
   <div class="row">
-    <div class="span10">
+    <div class="col-md-10">
       <div class="page-header">
         <h1><?php echo t('Join Jane\'s Walk')?></h1>
       </div>
@@ -31,7 +31,7 @@
 
     if($success) { ?>
     <div class="row">
-      <div class="span10">
+      <div class="col-md-10">
         <?php 	switch($success) { 
         case "registered": 
         ?>
@@ -62,7 +62,7 @@
       <div class="row">
  
         <?php  if (count($attribs) > 0) { ?>
-        <div class="span10">
+        <div class="col-md-10">
           <fieldset>
             <legend><?php echo t('Your Details')?></legend>
             <?php  if ($displayUserName) { ?>
@@ -107,7 +107,7 @@
           </fieldset>
         </div>
         <?php  } ?>
-        <div class="span10  ">
+        <div class="col-md-10  ">
           <?php  if (ENABLE_REGISTRATION_CAPTCHA) { ?>
 
           <div class="control-group">
@@ -124,7 +124,7 @@
           <?php  } ?>
 
         </div>
-        <div class="span10 ">
+        <div class="col-md-10 ">
           <div class="actions">
             <?php echo $form->hidden('rcID', $rcID); ?>
             <?php echo $form->submit('register', t('Register') . ' &gt;', array('class' => 'primary'))?>
