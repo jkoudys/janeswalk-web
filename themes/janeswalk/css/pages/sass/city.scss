@@ -245,7 +245,7 @@
       position: absolute;
       transition: opacity 1s ease-in-out;
       background:$orange;
-      background-image: linear-gradient(rgba($orange,0.7), rgba($orange, 0.8), rgba($orange,0.8));
+      background: linear-gradient(rgba($orange,0.7), rgba($orange, 0.8), rgba($orange,0.9));
     }
     a {
       color:#fff;
