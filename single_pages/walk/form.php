@@ -104,6 +104,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                 <div class="alert alert-info">
                   <?= t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.') ?> 
                 </div>
+                <?= $c->getAttribute('longdescription') ?>
                 <textarea class="textarea-wysiwyg span12" id="longdescription" name="longdescription" rows="14"></textarea>
               </div>
             </fieldset>
@@ -932,102 +933,6 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
         <?= ($avatar = $av->getImagePath($ui_cityorganizer)) ? "<div class='u-avatar' style='background-image:url({$avatar})'></div>" : null; ?>
         <p>
           <?= t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', ($ui_cityorganizer->getAttribute('first_name') ?: $ui_cityorganizer->getUserName()), $city->getCollectionName()) ?> <strong><a href='mailto:<?= $ui_cityorganizer->getUserEmail() ?>'><?= t('email me') ?>!</a></strong></p>
-      </div>
-    </div>
-    <!-- Profile of City organizer -->
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="transit">
-      <h3 class="popover-title"><?= t('Make it easy to get there by transit') ?></h3>
-      <div class="popover-content">
-        <p><?= t('Have your walk start and finish near a transit stop to make it more accessible') ?></p>
-      </div>
-    </div>
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="question-one">
-      <h3 class="popover-title"><?= t('Creating Great Walks') ?></h3>
-      <div class="popover-content">
-        <a href="#video-tip" data-toggle="modal"></a>
-        <a href="#video-tip" data-toggle="modal" class="text-center"><?= t('Watch the video') ?></a>
-      </div>
-    </div>
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="map-canvas">
-    <h3 class="popover-title"><?= t('Learn something new') ?></h3>
-      <div class="popover-content">
-        <p><?= t('Think of a question you can ask at each stop to engage the group and create some AHA! moment, for both them and you too.') ?></p>
-      </div>
-    </div>
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="add-member">
-      <h3 class="popover-title"><?= t('Take a load off') ?></h3>
-      <div class="popover-content">
-        <p><?= t('Sharing the hosting duties with some co‐guides is often a good idea and lightens the load.') ?></p>
-      </div>
-    </div>
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="longwalkdescription">
-      <h3 class="popover-title"><?= t('Make your description shine') ?></h3>
-      <div class="popover-content">
-        <p><?= t('Ask some rhetorical questions that have to do with what you’ll talk about. In your description, give people an idea of whether on your walk they\'ll be stopping and talking with local shop owners or residents. ') ?></p>
-      </div>
-    </div>
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="walkduration">
-
-      <h3 class="popover-title"><?= t('Calculating your Walk Length') ?></h3>
-      <div class="popover-content">
-        <p><?= t('Make your walk duration twice as long as your rehearsal walk.') ?></p>
-      </div>
-    </div>
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="new-communityvoice">
-      <h3 class="popover-title"><?= t('Give your walk more character!') ?></h3>
-      <div class="popover-content">
-      <p><?= t('Consider involving some local residents or business people on the stroll. Talk to a hot‐dog vendor who is thoroughly familiar with the characters, habituees, the patterns and rhythms of the street (Jane Jacobs idea of the sidewalk ballet). You might want to drop into a store, feature an older neighbour with interesting stories, or even meet up with a local politician to get their perspective on the neighbourhood.') ?>
-      </p>
-      </div>
-    </div>
-
-    <!-- Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="addpoint">
-
-      <h3 class="popover-title">Find the sweet spot</h3>
-      <div class="popover-content">
-        <p>We recomend having between 6 and 10 stops on a walk.</p>
-      </div>
-    </div>
-
-    <!-- New #1 Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="longwalkdescription">
-
-      <h3 class="popover-title">Keep the conversation 50/50</h3>
-      <div class="popover-content">
-        <p>Look for opportunities to engage your participants with questions and conversation that lead to a 50/50 split between walk leaders presenting and participants</p>
-      </div>
-    </div>
-
-    <!-- New #2 Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="longwalkdescription">
-
-      <h3 class="popover-title">Include Multiple Views</h3>
-      <div class="popover-content">
-        <p>If your presenting a subject that could be viewed from different perspectives, include them in the walk. Better yet, have people on the walk share alternative views</p>
-      </div>
-    </div>
-
-    <!-- New #3 Tip Title Here -->
-    <div class="popover right tip fade" data-tipfor="longwalkdescription">
-      <h3 class="popover-title">Taking the Next Step</h3>
-      <div class="popover-content">
-        <p>Places are always changing. Discuss how your topics will evolve and change over time. Whats the future view, and could participants get more engaged in this place.
-        </p>
       </div>
     </div>
   </aside>
