@@ -28,6 +28,7 @@ $navbar_height: 60px; /* to position for various media settings */
 @import "custom-walk";
 @import "view";
 @import "mailchimp";
+/*@import "modal";*/
 
 html {
   @media (min-width: $media_mobile) { padding-bottom:111px; } /* Pad for the fixed-footer */
