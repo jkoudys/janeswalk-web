@@ -45,13 +45,12 @@ class WalkPageTypeController extends Controller {
       // Render JSON
       header('Content-Type: application/json');
       echo $this->get_json();
-      exit;
     } else if($_GET['format'] === 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],'Kml-Google')) {
       // Render KML of map only
       header('Content-Type: application/vnd.google-earth.kml+xml');
-      $this->getKml();
-      exit;
+      $this->gettKml()->save('php://output');
     }
+    exit;
   }
 
   /*
@@ -59,14 +58,21 @@ class WalkPageTypeController extends Controller {
    * Saves a version of Walk collection, and makes it live
    */
   public function create($json) {
+    header('Content-Type: application/json');
     try {
-        $this->setJson($json, true);
-        $this->setEventBrite('live');
-      } catch(Exception $e) {
-        Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
-        echo 'Error publishing walk: ', $e->getMessage();
-        http_response_code(500);
-      }
+      $cvID = $this->setJson($json, true);
+      $this->setEventBrite('live');
+      echo json_encode([
+        'cID' => $this->walk->getPage()->getCollectionID(),
+        'cvID' => $cvID
+      ]);
+    } catch(Exception $e) {
+      Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
+      echo 'Error publishing walk: ', $e->getMessage();
+      http_response_code(500);
+    } finally {
+      exit;
+    }
   }
 
   /*
@@ -74,13 +80,20 @@ class WalkPageTypeController extends Controller {
    * Saves a version of the walk collection, but doesn't approve version
    */
   public function update($json) {
+    header('Content-Type: application/json');
     try {
-      $this->setJson($json);
+      $cvID = $this->setJson($json);
       $this->setEventBrite();
+      echo json_encode([
+        'cID' => $this->walk->getPage()->getCollectionID(),
+        'cvID' => $cvID
+      ]);
     } catch(Exception $e) {
       Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
       echo "Error saving walk: ", $e->getMessage();
       http_response_code(500);
+    } finally {
+      exit;
     }
   }
 
@@ -89,8 +102,12 @@ class WalkPageTypeController extends Controller {
    * Simply unpublishes the walk
    */
   public function destroy() {
+    header('Content-Type: application/json');
     $this->c->setAttribute('exclude_page_list',true);
     $this->setEventBriteStatus('draft');
+    echo json_encode([
+      'cID' => $this->walk->getPage()->getCollectionID(),
+    ]);
     exit;
   }
 
@@ -195,11 +212,27 @@ class WalkPageTypeController extends Controller {
     }
   }
 
+  /**
+   * getJson
+   * @return string of walk's json
+   */
   protected function getJson() {
     return json_encode($this->walk);
   }
 
+  /**
+   * setJson
+   * Creates a new walk page version based on a json string
+   *
+   * @param $json String 
+   * @param $public bool
+   * @return int cvID of new collection version
+   */
   protected function setJson($json, $publish = false) {
+    $currentCollectionVersion = $this->walk->getPage()->getVersionObject();
+    $newCollectionVersion = $currentCollectionVersion->createNew('Updated via walk form');
+    $this->walk->getPage()->loadVersionObject($newCollectionVersion->getVersionID());
+
     /* Set the model by the json envelope */
     $this->walk->setJson($json);
 
@@ -208,11 +241,17 @@ class WalkPageTypeController extends Controller {
       $c->setAttribute('exclude_page_list',false);
       $newCollectionVersion->approve();
     }
+
+    return (int) $newCollectionVersion;
   }
 
+  /**
+   * getKml()
+   * @return DOMDocument of KML map for walk
+   */
   protected function getKml() {
     header('Content-type: application/vnd.google-earth.kml+xml');
-    $this->walk->kmlSerialize()->save('php://output');
+    return $this->walk->kmlSerialize();
   }
 
   public function view() {
