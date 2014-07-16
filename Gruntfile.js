@@ -12,8 +12,8 @@ module.exports = function(grunt) {
     // JS
     themes: {
       janeswalk: {
-        js: "themes/janeswalk/js/",
-        css: "themes/janeswalk/css/"
+        js: 'themes/janeswalk/js/',
+        css: 'themes/janeswalk/css/'
       }
     },
     uglify: {
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       },
       dist: {
         // the files to concatenate
-        src: ["<%= themes.janeswalk.js %>/extend.js", '<%= themes.janeswalk.js %>/v2/**/*.js', "<%= themes.janeswalk.js %>/app.js"],
+        src: ['<%= themes.janeswalk.js %>/extend.js', '<%= themes.janeswalk.js %>/v2/**/*.js', '<%= themes.janeswalk.js %>/app.js'],
         // the location of the resulting JS file
         dest: '<%= themes.janeswalk.js + pkg.name %>.js'
       }
@@ -44,9 +44,9 @@ module.exports = function(grunt) {
         options: {
           style: 'compressed',
         },
-        files: {
+        files: [{
           '<%= themes.janeswalk.css %>pages/sass/screen.css': '<%= themes.janeswalk.css %>pages/sass/screen.scss'
-        }
+        }]
       }
     },
     // Add vendor prefixed styles
@@ -55,20 +55,94 @@ module.exports = function(grunt) {
         browsers: ['last 3 version', 'ie 8', 'ie 9']
       },
       single_file: {
-        src: "<%= themes.janeswalk.css %>pages/sass/screen.css",
-        dest: "<%= themes.janeswalk.css %>screen.css"
+        src: '<%= themes.janeswalk.css %>pages/sass/screen.css',
+        dest: '<%= themes.janeswalk.css %>screen.css'
       }
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
+  // Load the plugin that provides the 'uglify' task.
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-sass'); // Using instead of grunt-contrib-css, as it shaves 50% of the running time off
   grunt.loadNpmTasks('grunt-autoprefixer');
 
   // Default task(s).
-  grunt.registerTask('js', ["concat", "uglify"]);
-  grunt.registerTask('css', ["sass", "autoprefixer"]);
+  grunt.registerTask('js', ['concat', 'uglify']);
+  grunt.registerTask('css', ['sass', 'autoprefixer']);
 
+  grunt.registerTask('default', ['js','css']);
+
+  // Let's do some callbacks for the css + js, so no unnecessary temp file
+  // This async runs at the same speed as the blocking code for Jane's Walk, but
+  // if we added a whole mess of files it would probably be more efficient.
+  // TODO: revisit on grunt 0.5 and look at new piping methods.
+  grunt.registerTask('webassets', function() {
+    var done = this.async(),
+    sass = require('node-sass'),
+    autoprefixer = require('autoprefixer'),
+    UglifyJS = require('uglify-js'),
+    themedir = 'themes/janeswalk/',
+    uglyFiles = [themedir + 'js/extend.js', themedir + 'js/app.js'], // Need these files to go in first
+    tasks = 2, // Total number of tasks to run before done()
+    fs = require('fs');
+
+    // Setup libsass calls first
+    sass.render({
+      file: themedir + 'css/pages/sass/screen.scss',
+      outputStyle: 'compressed',
+      success: function(css) {
+        grunt.log.ok('Sass rendering complete.');
+        fs.writeFile(themedir + 'css/screen.css', autoprefixer.process(css), function() {
+          grunt.log.ok('Autoprefix complete.');
+          if(!--tasks) done();
+        })
+      },
+      error: function(err) {
+        grunt.log.error(err);
+      }
+    });
+
+    // JS which must be in sync goes here
+    // Define file-tree walker to async check all files
+    var walk = function(dir, donefile) {
+      var results = [];
+      fs.readdir(dir, function(err, list) {
+        if (err) return donefile(err);
+        var pending = list.length;
+        if (!pending) return donefile(null, results);
+        list.forEach(function(file) {
+          file = dir + '/' + file;
+          fs.stat(file, function(err, stat) {
+            if (stat && stat.isDirectory()) {
+              walk(file, function(err, res) {
+                //                uglyFile(res);
+                results = results.concat(res);
+                if (!--pending) donefile(null, results);
+              });
+            } else {
+              results.push(file);
+              if (!--pending) donefile(null, results);
+            }
+          });
+        });
+      });
+    };
+
+    // Call our file-tree walker for the js dir
+    walk(themedir + 'js/v2/', function(err, res) {
+      if(err) {
+        grunt.log.err(err);
+      } else {
+        fs.writeFile(themedir + 'js/janeswalk.min.js', UglifyJS.minify(uglyFiles.concat(res)).code, function(err) {
+          if(err) {
+            grunt.log.err(err);
+          } else {
+            grunt.log.ok('Created ' + themedir + '/js/janeswalk.min.js');
+            if (!--tasks) done();
+          }
+        });
+      }
+    });
+  });
 };
