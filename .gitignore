@@ -11,3 +11,4 @@ files/
 .rvmrc
 concrete/*
 node_modules
+vendor
