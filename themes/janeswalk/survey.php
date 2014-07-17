@@ -3,8 +3,6 @@ $this->inc('elements/header.php');
 $dh = Loader::helper('concrete/dashboard');
 ?>
 <body class="index <?=($dh->canRead()) ? "logged_in" : ""; ?>">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-<link href="<?=$this->getStyleSheet('css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
 $(document).ready(function() {

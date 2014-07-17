@@ -216,9 +216,6 @@ class Walk extends \Model implements \JsonSerializable {
       if( empty($postArray['title']) ) {
         throw new Exception('Walk title cannot be empty.');
       }
-      $currentCollectionVersion = $this->page->getVersionObject();
-      $newCollectionVersion = $currentCollectionVersion->createNew('Updated via walk form');
-      $this->page->loadVersionObject($newCollectionVersion->getVersionID());
 
       $this->page->update(array('cName' => $postArray['title']));
       $this->page->setAttribute('shortdescription', $postArray['shortdescription']);

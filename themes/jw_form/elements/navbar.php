@@ -1,71 +1,43 @@
 <?php
 $c = Page::getCurrentPage();
 $u = new User();
+$ui = UserInfo::getByID($u->getUserID());
+
+/* Build menu options depending if currently logged in or not */
+if($u->isRegistered()) {
+  $profileMenu = '<li><a href="' . ($this->url('/profile')) . '" class="">' . ($ui->getAttribute('first_name') ? : $u->getUserName()) . '</a></li>'
+    . '<li><a href="' . ($this->url('/login', 'logout')) . '" class="">' . t('Logout') . '</a></li>';
+} else {
+  $profileMenu = '<li><a href="' . ($this->url('/register')) . '" class="">' . tc('Register on a website', 'Join') . '</a></li>'
+    . '<li><a href="' . ($this->url('/login')) . '" class="">' . t('Log in') . '</a></li>';
+}
+
 ?>
-
-<header class="navbar navbar-default navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="glyphicon-bar"></span>
-          <span class="glyphicon-bar"></span>
-          <span class="glyphicon-bar"></span>
-          <span class="glyphicon-bar"></span>
-        </button>
-        <a href="<?php echo DIR_REL ?>">
-          <div class="brand hide-text box-sizing">
-            <?php echo $SITE ?>
-          </div>
-        </a>
-        <nav class="navbar-collapse collapse" role="navigation">
-          <?                  
-          $ah = new GlobalArea('Header');
-          $ah->display($c);                   
-          ?>  
-          <ul class="nav">
-            <li><a href="#" class="notify">About</a></li>
-            <li><a href="#" class="notify">Walkability</a></li>
-            <li><a href="#" class="notify">Walk Blog</a></li>
-            <li><a href="#" class="notify">Team</a></li>
-          </ul>
-        </nav>
-        <ul class="nav pull-right visible-md visible-lg">
-          <?php if($u->isRegistered()) { ?>
-            <li><a href="<?php echo $this->url('/profile') ?>" class=""><?php echo $u->getUserName(); ?></a></li>
-            <li><a href="<?php echo $this->url('/login', 'logout') ?>" class="">Logout</a></li>
-          <?php } else { ?>
-            <li><a href="<?php echo $this->url('/login') ?>" class="">Log in</a></li>
-          <?php } ?>
-
-          <li class="divider-vertical"></li>
-          <li>
-            <a href="https://www.gifttool.com/donations/Donate?ID=1830&AID=1994" id="donate" class="btn btn-primary btn-large donate">Donate</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-    <!--Blog Message!-->
-<div class="notification coming-soon">
+<header class="navbar navbar-fixed-top <?= $c->isEditMode() ? 'edit' : '' ?> <?= $_REQUEST['query'] ? 'dropped' : ''?>">
   <div class="container">
-    <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close fa fa-times fa-lg"></i>
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <i class="fa fa-bars"></i>
+    </button>
+    <a href="<?= $this->url('') ?>">
+      <span class="navbar-brand hide-text logo">
+        <?=$SITE?>
+      </span>
+    </a>
+    <nav class="navbar-collapse collapse" role="navigation">
+      <?php (new GlobalArea('Left Header'))->display($c); ?>  
+      <ul class="nav navbar-nav col-md-pull-12">
+        <li>
+          <a class="search-open"><i class="fa fa-search"></i></a>
+          <a class="search-close"><i class="fa fa-search"></i></a>
+        </li>
+        <?= $profileMenu ?>
+        <li>
+          <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate" class="btn btn-primary btn-large donate">Donate</a>
+        </li>
+      </ul>
+    </nav>
   </div>
-</div>
-
-<!--General Notification!-->
-<div class="notification walk-beta">
-  <div class="container">
-    <h2 class="title-sub">Glad you're poking around! We're still working on this section.</h2>
-    <i class="close fa fa-times fa-lg"></i>
+  <div class="navbar-outer">
+    <?php (new GlobalArea('Dropdown'))->display($c); ?>  
   </div>
-</div>
-
-<!--General Notification!-->
-<div class="notification custom-form">
-  <div class="container">
-    <h2 class="title-sub">This feature isn't live yet, but we're thrilled that you're interested in custom walks.</h2>
-    <i class="close fa fa-times fa-lg"></i>
-  </div>
-</div>
-  </header>
-
+</header>

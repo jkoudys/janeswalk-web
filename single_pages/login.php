@@ -1,7 +1,6 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied.");
 Loader::library('authentication/open_id');
 $form = Loader::helper('form'); ?>
-<link href="<?php echo $this->getStyleSheet('/css/main.css')?>" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
   $(document).ready(function() {
     $("html").addClass("index-bg");
@@ -12,6 +11,8 @@ $form = Loader::helper('form'); ?>
 </script>
 <div class="modal-backdrop fade in"></div>
 <div class="modal fade in" id="signup-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
+  <div class="modal-dialog">
+<div class="modal-content">
   <?php  if($changePasswordForm){ ?>
   <p><?php echo t('Enter your new password below.') ?></p>
   <div class="ccm-form modal-body">	

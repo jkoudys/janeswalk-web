@@ -5,8 +5,6 @@
 <?php
     $this->inc('elements/header.php'); 
     $dh = Loader::helper('concrete/dashboard');
-    global $u;
-    global $cp;
     $pageViewName = 'PageView';
     if (defined('C5_EXECUTE')) {
         $pageViewName = 'ProfilePageView';
