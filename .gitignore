@@ -12,3 +12,4 @@ files/
 concrete/*
 node_modules
 vendor
+composer.lock
