@@ -19,6 +19,7 @@
     "gulp-autoprefixer": "0.0.8",
     "gulp-sass": "^0.7.2",
     "node-sass": "^0.9.3",
-    "uglify-js": "^2.4.15"
+    "uglify-js": "^2.4.15",
+    "grunt-jslint": "~1.1.12"
   }
 }

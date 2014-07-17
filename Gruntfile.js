@@ -4,25 +4,25 @@
  */
 
 module.exports = function(grunt) {
+  var janeswalk = {
+    js: 'themes/janeswalk/js/',
+    jslib: ['themes/janeswalk/js/extend.js', 'themes/janeswalk/js/v2/**/*.js', 'themes/janeswalk/js/app.js'],
+    css: 'themes/janeswalk/css/'
+  }
 
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    janeswalk: janeswalk,
 
     // JS
-    themes: {
-      janeswalk: {
-        js: 'themes/janeswalk/js/',
-        css: 'themes/janeswalk/css/'
-      }
-    },
     uglify: {
       options: {
         banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
       },
       build: {
-        src: '<%= themes.janeswalk.js + pkg.name %>.js',
-        dest: '<%= themes.janeswalk.js + pkg.name %>.min.js',
+        src: janeswalk.js + '<%= pkg.name %>.js',
+        dest: janeswalk.js + '<%= pkg.name %>.min.js',
       }
     },
     concat: {
@@ -32,9 +32,9 @@ module.exports = function(grunt) {
       },
       dist: {
         // the files to concatenate
-        src: ['<%= themes.janeswalk.js %>/extend.js', '<%= themes.janeswalk.js %>/v2/**/*.js', '<%= themes.janeswalk.js %>/app.js'],
+        src: janeswalk.jslib,
         // the location of the resulting JS file
-        dest: '<%= themes.janeswalk.js + pkg.name %>.js'
+        dest: janeswalk.js + '<%= pkg.name %>.js'
       }
     },
 
@@ -45,7 +45,7 @@ module.exports = function(grunt) {
           style: 'compressed',
         },
         files: [{
-          '<%= themes.janeswalk.css %>pages/sass/screen.css': '<%= themes.janeswalk.css %>pages/sass/screen.scss'
+          '<%= janeswalk.css %>pages/sass/screen.css': janeswalk.css + 'pages/sass/screen.scss'
         }]
       }
     },
@@ -55,8 +55,22 @@ module.exports = function(grunt) {
         browsers: ['last 3 version', 'ie 8', 'ie 9']
       },
       single_file: {
-        src: '<%= themes.janeswalk.css %>pages/sass/screen.css',
-        dest: '<%= themes.janeswalk.css %>screen.css'
+        src: janeswalk.css + 'pages/sass/screen.css',
+        dest: janeswalk.css + 'screen.css'
+      }
+    },
+    jslint: { // configure the task
+      client: {
+        src: janeswalk.jslib,
+        directives: {
+          browser: true,
+          predef: [
+            'jQuery'
+          ]
+        },
+        options: {
+          junit: 'out/client-junit.xml'
+        }
       }
     }
   });
@@ -66,6 +80,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-sass'); // Using instead of grunt-contrib-css, as it shaves 50% of the running time off
   grunt.loadNpmTasks('grunt-autoprefixer');
+  grunt.loadNpmTasks('grunt-jslint');
 
   // Default task(s).
   grunt.registerTask('js', ['concat', 'uglify']);
