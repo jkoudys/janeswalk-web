@@ -59,6 +59,7 @@ module.exports = function(grunt) {
         dest: janeswalk.css + 'screen.css'
       }
     },
+
     jslint: { // configure the task
       client: {
         src: janeswalk.jslib,
@@ -72,6 +73,9 @@ module.exports = function(grunt) {
           junit: 'out/client-junit.xml'
         }
       }
+    },
+    jshint: {
+      all: janeswalk.jslib,
     }
   });
 
@@ -81,6 +85,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-sass'); // Using instead of grunt-contrib-css, as it shaves 50% of the running time off
   grunt.loadNpmTasks('grunt-autoprefixer');
   grunt.loadNpmTasks('grunt-jslint');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   // Default task(s).
   grunt.registerTask('js', ['concat', 'uglify']);
