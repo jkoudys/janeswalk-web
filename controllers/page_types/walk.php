@@ -5,7 +5,7 @@ use \JanesWalk\Controller\Controller;
 defined('C5_EXECUTE') or die("Access Denied.");
 Loader::library('Eventbrite');
 Loader::controller('/janes_walk');
-Loader::model('page_types/walk');
+Loader::model('page_types/Walk');
 
 class WalkPageTypeController extends Controller
 {
