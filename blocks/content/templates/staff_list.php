@@ -1,18 +1,18 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 Loader::model('user_list');
 $av = Loader::helper('concrete/avatar');
 $ul = new UserList();
-$ul->filterByGroup((string)$this->getBlockObject()->getBlockName() ?: 'Staff');
+$ul->filterByGroup((string) $this->getBlockObject()->getBlockName() ?: 'Staff');
 $ul->sortBy('ak_order','asc');
 $content = $controller->getContent();
 print $content;
 ?>
 <ul class="ccm-staff-list">
-  <?php foreach($ul->get(100) as $staffMember) { ?>  
+  <?php foreach ($ul->get(100) as $staffMember) { ?>
     <li>
-      <?php if($avatar = $av->getImagePath($staffMember)) { ?>
-        <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div> 
+      <?php if ($avatar = $av->getImagePath($staffMember)) { ?>
+        <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div>
       <?php } else { ?>
         <div class='u-avatar placeholder<?= ord($staffMember->getUserID()) % 3 ?>'></div>
       <?php } ?>

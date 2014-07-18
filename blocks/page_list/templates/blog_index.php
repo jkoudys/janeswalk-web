@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $rssUrl = $showRss ? $controller->getRssUrl($b) : '';
 $th = Loader::helper('text');
@@ -20,17 +20,17 @@ $dh = Loader::helper('date');
 
     <div class="col-md-3">
       <div class="thumbnail">
-        <?php if(is_object($mainImage)) { ?>
+        <?php if (is_object($mainImage)) { ?>
           <a href="<?=$url?>"><img src='<?= $ih->getThumbnail($mainImage->getPath(), 270, 800, false)->src; ?>' alt='' /></a>
         <?php } ?>
         <div class="caption">
           <h5><a href="<?=$url?>" target="<?=$target?>"><?=$title?></a></h5>
           <?= $original_author ? "<h6>Posted by $original_author on $date</h6>" : null ?>
           <p>
-          <?php 
+          <?php
           $sxml = new SimpleXMLElement("<html></html>");
           $blocks = $page->getBlocks("Main");
-          if($blocks) {
+          if ($blocks) {
             $article = $blocks[0]->getInstance();
             $article->export($sxml);
             echo $sxml;
@@ -43,4 +43,3 @@ $dh = Loader::helper('date');
     </div>
   <?php endforeach; ?>
 </div><!-- end .ccm-page-list -->
-

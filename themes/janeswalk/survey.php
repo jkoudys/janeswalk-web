@@ -1,14 +1,14 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); 
-$this->inc('elements/header.php'); 
+<?php  defined('C5_EXECUTE') or die("Access Denied.");
+$this->inc('elements/header.php');
 $dh = Loader::helper('concrete/dashboard');
 ?>
 <body class="index <?=($dh->canRead()) ? "logged_in" : ""; ?>">
 
 <script type="text/javascript">
-$(document).ready(function() {
+$(document).ready(function () {
   $("html").addClass("index-bg");
   });
-$(function() {
+$(function () {
 	$("input[name=uName]").focus();
 });
 </script>
@@ -35,19 +35,19 @@ $(function() {
       ?>
     </div>
 
-    <?php  if (isset($error) && $error != '') { 
+    <?php  if (isset($error) && $error != '') {
       echo '<div class="ccm-error">';
       if ($error instanceof Exception) {
          $_error[] = $error->getMessage();
-      } else if ($error instanceof ValidationErrorHelper) { 
+      } elseif ($error instanceof ValidationErrorHelper) {
          $_error = $error->getList();
-      } else if (is_array($error)) {
+      } elseif (is_array($error)) {
          $_error = $error;
-      } else if (is_string($error)) {
+      } elseif (is_string($error)) {
          $_error[] = $error;
       }
-      foreach($_error as $e) { 
-        echo $e . "<br />";  
+      foreach ($_error as $e) {
+        echo $e . "<br />";
       }
       echo '</div>';
     }

@@ -1,15 +1,16 @@
-<?php 
+<?php
 use \JanesWalk\Controller\Controller;
 use \JanesWalk\Model\PageType\City;
 defined('C5_EXECUTE') || die("Access Denied.");
 
 Loader::model('page_types/city');
 Loader::controller('/janes_walk');
-class CityPageTypeController extends Controller {
-
+class CityPageTypeController extends Controller
+{
   protected $city;
 
-  public function on_start() {
+  public function on_start()
+  {
     $method = $_SERVER['REQUEST_METHOD'];
     $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
 
@@ -23,7 +24,7 @@ class CityPageTypeController extends Controller {
       break;
       // Retrieve the page's json
     case 'GET':
-      if($_GET['format'] === 'json') {
+      if ($_GET['format'] === 'json') {
         $this->getJson();
         exit;
       }
@@ -36,16 +37,18 @@ class CityPageTypeController extends Controller {
     }
   }
 
-  public function getJson() {
+  public function getJson()
+  {
     echo json_encode($this->city);
   }
 
-  /* 
+  /*
    * view()
    * Main controller for all city pages
    * Set up variables you'll need in the view here.
    */
-  public function view() {
+  public function view()
+  {
     parent::view();
     $this->set('pageType', 'city-page');
     $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
@@ -55,14 +58,15 @@ class CityPageTypeController extends Controller {
     $this->set('city', $this->city);
   }
 
-  /* 
+  /*
    * walks()
    * Called when you hit city/path/walks
    * Used for the 'show all walks', as this is very separate from the main city
-   * logic. 'Edit' mode will expand both city areas and the areas shown in here, 
-   * so you can edit either mode at the same time. 
+   * logic. 'Edit' mode will expand both city areas and the areas shown in here,
+   * so you can edit either mode at the same time.
    */
-  public function walks() {
+  public function walks()
+  {
     $this->view();
     $this->set('show', 'all');
   }

@@ -1,8 +1,8 @@
-<?php 
+<?php
   defined('C5_EXECUTE') or die(_('Access Denied.'));
   $dh = Loader::helper('concrete/dashboard');
   $headImage = $c->getAttribute('full_bg');
-  
+
   $this->inc('elements/header.php');
 ?>
   <body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>"
@@ -26,7 +26,7 @@
       <div class="callouts">
         <blockquote class="homepage-callout2">
           <?php (new Area('Intro'))->display($c); ?>
-        </blockquote> 
+        </blockquote>
       </div>
     </div>
     <!-- end of .intro -->
@@ -62,10 +62,11 @@
         <?php (new Area('Sponsors'))->display($c); ?>
     </section>
     <script type="text/javascript">
-      $(document).ready(function() { 
-        $('a[href="http://www.janeswalk.net/early#getinvolved"]').click(function(event) {
+      $(document).ready(function () {
+        $('a[href="http://www.janeswalk.net/early#getinvolved"]').click(function (event) {
           event.preventDefault();
           $('html, body').animate({scrollTop: $("#getinvolved").offset().top})
+
             return false;
         });
       });

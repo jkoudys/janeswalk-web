@@ -1,4 +1,4 @@
-<?php 
+<?php
   defined('C5_EXECUTE') or die("Access Denied.");
   $th = Loader::helper('text');
 
@@ -8,7 +8,7 @@
   // Sort the city pages by the country they're in
   uasort(
     $pages,
-    function($a,$b) {
+    function ($a,$b) {
       return (($ap = $a->getCollectionParentID()) == ($bp = $b->getCollectionParentID()))
         ? strcmp($a->getCollectionName(),$b->getCollectionName())
         : strcmp(Page::getByID($ap)->getCollectionName(),Page::getByID($bp)->getCollectionName());
@@ -19,8 +19,8 @@
   $lastCountryPage = null;
   foreach ($pages as $cityPage):
     $countryPage = Page::getByID($cityPage->getCollectionParentID())->getCollectionName();
-    if($countryPage !== $lastCountryPage) {
-      if($lastCountryPage !== null) {
+    if ($countryPage !== $lastCountryPage) {
+      if ($lastCountryPage !== null) {
         echo '</optgroup>';
       }
       echo '<optgroup label="' . ($countryPage) . '">';

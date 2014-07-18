@@ -1,9 +1,11 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
-class ProfileController extends Concrete5_Controller_Profile {
-  public function view($userID = 0) {
+class ProfileController extends Concrete5_Controller_Profile
+{
+  public function view($userID = 0)
+  {
     parent::view($userID);
-    Loader::model('page_list'); 
+    Loader::model('page_list');
     $nh = Loader::helper('navigation');
     $ah = Loader::helper('concrete/avatar');
     $ih = Loader::helper('image');
@@ -33,13 +35,13 @@ class ProfileController extends Concrete5_Controller_Profile {
 
     $userIsViewingSelf = $u->getUserID() == $profile->getUserID();
     $userIsCityOrganizer = in_array('City Organizers', $profile->getUserObject()->getUserGroups());
-    if($userIsCityOrganizer && $userIsViewingSelf) {
+    if ($userIsCityOrganizer && $userIsViewingSelf) {
       $pl = new PageList();
       $pl->filterByCollectionTypeHandle('city');
       $pl->ignoreAliases();
       $pl->filterByUserID($u->getUserID());
       $cityWalks = [];
-      foreach($pl->get() as $city) {
+      foreach ($pl->get() as $city) {
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle('walk');
         $pl->filterByParentID($city->getCollectionID());
@@ -64,7 +66,7 @@ class ProfileController extends Concrete5_Controller_Profile {
 
     /**
      * New dashboard variables
-     * 
+     *
      */
 
     // Whether or not the logged in user is viewing their own "profile"
@@ -75,7 +77,7 @@ class ProfileController extends Concrete5_Controller_Profile {
 
         /**
          * Helper
-         * 
+         *
          */
 
         $html = Loader::helper('html');
@@ -124,7 +126,7 @@ class ProfileController extends Concrete5_Controller_Profile {
          * link: $nh->getLinkToCollection($page);
          * !published: $page->getAttribute('exclude_page_list');
          */
-      
+
         // Whether the logged in user has created any blog posts
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle(array('walk_blog_entry', 'city_blog_entry'));
@@ -140,14 +142,14 @@ class ProfileController extends Concrete5_Controller_Profile {
 
         /**
          * User city data
-         * 
+         *
          */
         if ($userHasSetHomeCity === true) {
             $cityOrganizer = UserInfo::getByID($userHomeCity->getCollectionUserID());
-      
+
             // The email address of the city organizer for the logged in user's
             // home city
-            $cityOrganizerEmailAddress = $cityOrganizer->getUserEmail(); 
+            $cityOrganizerEmailAddress = $cityOrganizer->getUserEmail();
             $this->set('cityOrganizerEmailAddress', $cityOrganizerEmailAddress);
 
             // Whether the city has a blog page set up for it
@@ -197,19 +199,19 @@ class ProfileController extends Concrete5_Controller_Profile {
                 $cityBackgroundPhotoAttribute = $userHomeCity->getAttribute('full_bg');
                 $cityBackgroundPhotoIsEmpty = !($cityBackgroundPhotoAttribute);
                 $this->set('cityBackgroundPhotoIsEmpty', $cityBackgroundPhotoIsEmpty);
-                if(!$cityBackgroundPhotoIsEmpty) {
+                if (!$cityBackgroundPhotoIsEmpty) {
                     $this->set('cityBackgroundPhoto', $cityBackgroundPhotoAttribute->getURL());
                 }
 
                 // Whether the header, description and photo are set for the
                 // city organizer's home city
-                $cityHasFullDetails = !($cityHeaderInfoIsEmpty || 
+                $cityHasFullDetails = !($cityHeaderInfoIsEmpty ||
                                         $cityDescriptionIsEmpty ||
                                         $cityBackgroundPhotoIsEmpty );
                 $this->set('cityHasFullDetails', $cityHasFullDetails);
             }
         }
-      
+
         // Resources
         $resources = array(
             'showCityOrganizers' => false,
@@ -224,7 +226,7 @@ class ProfileController extends Concrete5_Controller_Profile {
             // List of basic details for three city organizers that can be
             // recommended to other city organizers
             // TODO add an attribute to select 'featured' cities, so we
-            // don't simply grab all cities. Expand this out into a 
+            // don't simply grab all cities. Expand this out into a
             // smart way to recommend other cities.
             $pl = new PageList();
             $pl->filterByCollectionTypeHandle('city');
@@ -235,8 +237,9 @@ class ProfileController extends Concrete5_Controller_Profile {
             $recommendedCities = $pl->get(3);
 
             $cityOrganizerData = array_map(
-                function($page) use ($ah) {
+                function ($page) use ($ah) {
                     $_co = UserInfo::getByID($page->getCollectionUserID());
+
                     return array(
                         'cityName' => $page->getCollectionName(),
                         'organizerImagePath' => $ah->getImagePath($_co),
@@ -259,7 +262,7 @@ class ProfileController extends Concrete5_Controller_Profile {
         $pl->sortBy('RAND()');
 
         $featuredWalkData = array_map(
-            function($page) use ($nh, $ih){
+            function ($page) use ($nh, $ih) {
                 $_city = Page::getByID($page->getCollectionParentID());
                 $_country = Page::getByID($_city->getCollectionParentID());
                 $_thumb = $page->getAttribute('thumbnail');
@@ -269,6 +272,7 @@ class ProfileController extends Concrete5_Controller_Profile {
                 }
                 $countryName = str_replace(' ', '_', $countryName);
                 $walkImage = $_thumb ? $ih->getThumbnail($_thumb,800,800)->src : '';
+
                 return array(
                     'walkImagePath' => $walkImage,
                     'countryName' => $countryName,
@@ -278,8 +282,6 @@ class ProfileController extends Concrete5_Controller_Profile {
                 );
             }, (array) $pl->get(3));
         $this->set('featuredWalkData', $featuredWalkData);
-
-
 
         $this->set('resources', $resources);
     }

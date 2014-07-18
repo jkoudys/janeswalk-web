@@ -1,40 +1,47 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 
-class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
-  public function getScheduledEventTimes() {
+class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
+{
+  public function getScheduledEventTimes()
+  {
     $db = Loader::db();
     $events = $db->GetAll("select start, end from atEventTime ev where ev.atScheduledId = ? order by ev.start", array($this->getAttributeValueID()));
   }
 
-  public function getDurationsMinutes() {
+  public function getDurationsMinutes()
+  {
     $db = Loader::db();
+
     return $db->GetAll("select TIMESTAMPDIFF(MINUTE,start,end) from atEventTime where atScheduleID = ?", array($this->getAttributeValueID()));
   }
 
-  public function getDurationsHours() {
+  public function getDurationsHours()
+  {
     $db = Loader::db();
+
     return $db->GetAll("select TIMESTAMPDIFF(HOUR,start,end) from atEventTime where atScheduleID = ?", array($this->getAttributeValueID()));
   }
 
   /* Will human-format here to simplify transfer to JSON response */
-  public function getValue() {
+  public function getValue()
+  {
     $db = Loader::db();
     $reArr = $db->GetRow("select open, type from atSchedule where avID = ?", array($this->getAttributeValueID()));
     if (sizeof($reArr) > 0) {
       /* Searched but couldn't find a prebuilt function - spent WAY too much time writing this. Bonus is, it runs much faster than PHP. */
-      $reArr["slots"] = (object) $db->GetAll("select DATE_FORMAT(start, '%M %e, %Y') as date, DATE_FORMAT(start, '%h:%i %p') as time, 
-        CONCAT( 
+      $reArr["slots"] = (object) $db->GetAll("select DATE_FORMAT(start, '%M %e, %Y') as date, DATE_FORMAT(start, '%h:%i %p') as time,
+        CONCAT(
           CASE WHEN FLOOR(TIMESTAMPDIFF(HOUR,start,end)) > 0 THEN
-          CONCAT((TIMESTAMPDIFF(HOUR,start,end)), 
-      CASE 
+          CONCAT((TIMESTAMPDIFF(HOUR,start,end)),
+      CASE
       WHEN FLOOR(TIMESTAMPDIFF(HOUR,start,end)) = 1 THEN
       ' Hour'
-      ELSE 
+      ELSE
       ' Hours'
       END
     )
-    ELSE 
+    ELSE
     ''
     END,
     CASE
@@ -51,11 +58,13 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
     DATE_FORMAT(start, '%Y-%m-%d %H:%i:%S') as eb_start,
     DATE_FORMAT(end, '%Y-%m-%d %H:%i:%S') as eb_end
     from atSchedule, atEventTime where atSchedule.avID = atEventTime.atScheduleID and atSchedule.avID = ? ORDER BY start < CURRENT_DATE, start", array($this->getAttributeValueID()));
+
       return array_filter($reArr);
     }
   }
 
-  public function saveValue($data) {
+  public function saveValue($data)
+  {
     $db = Loader::db();
     $db->Replace('atSchedule', array('avID' => $this->getAttributeValueID(), 'open' => $data->open, 'type' => $data->type), 'avID', true);
 
@@ -63,15 +72,15 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
      * times are set by the c5 forms, and are start time array, end time array
      */
     $sanitizedTimes = [];
-    foreach((array)$data->slots as $time) {
+    foreach ((array) $data->slots as $time) {
       $sanitizedTimes[] = [
         'start' => date('Y-m-d H:i:s', strtotime("{$time->date} {$time->time}")),
         'end' => date('Y-m-d H:i:s', strtotime("{$time->date} {$time->time} + {$time->duration}"))
       ];
     }
-    foreach((array)$data->times as $key=>$time) {
+    foreach ((array) $data->times as $key=>$time) {
       // Timestamp is in ms - so "/ 1000" is needed
-      foreach(['start','end'] as $field) {
+      foreach (['start','end'] as $field) {
         $dt = date('Y-m-d', floor( $time[$field . '_dt'] / 1000) );
         $str = $dt . ' ' . $time[$field . '_h'] . ':' . $time[$field . '_m'] . ' ' . $time[$field . '_a'];
         if (DATE_FORM_HELPER_FORMAT_HOUR == '12') {
@@ -86,19 +95,21 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController {
   }
 
   /* $scheduledTimes = array of 'start' and 'duration' */
-  public function setScheduledEventTimes($scheduledTimes) {
+  public function setScheduledEventTimes($scheduledTimes)
+  {
     $db = Loader::db();
     $db->BeginTrans();
     $ok = $db->Execute("delete from atEventTime where atScheduleID = ?", array($this->getAttributeValueID()) );
     $ok = true;
-    foreach( $scheduledTimes as $time ) {
+    foreach ($scheduledTimes as $time) {
       if ($ok) $ok = $db->AutoExecute('atEventTime', array('atScheduleID' => $this->getAttributeValueID(), 'start' => $time['start'], 'end' => $time['end']), 'INSERT' );
     }
     if ($ok) $db->CommitTrans();
     else $db->RollbackTrans();
   }
 
-  public function form() {
+  public function form()
+  {
     $this->load();
     $html = Loader::helper('html');
     $this->addHeaderItem($html->css('jquery.ui.css'));
@@ -140,17 +151,18 @@ array(3) {
   }
 }
    */
-  public function saveForm($data) {
-		$this->load();
-		$dt = Loader::helper('form/date_time');
+  public function saveForm($data)
+  {
+        $this->load();
+        $dt = Loader::helper('form/date_time');
     $values = [
       'open' => !!$data['open'],
       'type' => $data['type'],
       'times' => $data['times'] ];
-    $this->saveValue((object)$values);
+    $this->saveValue((object) $values);
   }
 }
 
-class EventTimeAttributeTypeValue extends Object {
+class EventTimeAttributeTypeValue extends Object
+{
 }
-

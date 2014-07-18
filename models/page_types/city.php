@@ -15,10 +15,10 @@ defined('C5_EXECUTE') || die('Access Denied.');
 /*
  * City
  *
- * Model containing attribute accessors and logic for Jane's Walk cities 
+ * Model containing attribute accessors and logic for Jane's Walk cities
  */
-class City extends \Model implements \JsonSerializable {
-
+class city extends \Model implements \JsonSerializable
+{
   /* Page collection object */
   protected $page;
   protected $title;
@@ -43,13 +43,14 @@ class City extends \Model implements \JsonSerializable {
    *
    * @param Page $page : a Page (Collection) object for a City
    */
-  public function __construct(Page $page) {
+  public function __construct(Page $page)
+  {
     // Set our helpers
     $im = Loader::helper('image');
     $nh = Loader::helper('navigation');
     $av = Loader::helper('concrete/avatar');
 
-    if($page->getCollectionTypeHandle() !== 'city') {
+    if ($page->getCollectionTypeHandle() !== 'city') {
       throw new Exception(t('Attempted to instantiate City model on a non-city page type.'));
     }
 
@@ -97,9 +98,10 @@ class City extends \Model implements \JsonSerializable {
     $this->blog = $blog->get(1)[0];
   }
 
-  public function __get($name) {
+  public function __get($name)
+  {
     /* One big switch for all the get names */
-    switch($name) {
+    switch ($name) {
     case 'facebook_url':
       return $this->facebook ? 'http://facebook.com/' . end(preg_split('/\//', $this->facebook)) : null;
       break;
@@ -122,7 +124,8 @@ class City extends \Model implements \JsonSerializable {
    *
    * @return String
    */
-  public function __toString() {
+  public function __toString()
+  {
     return $this->title;
   }
 
@@ -133,7 +136,8 @@ class City extends \Model implements \JsonSerializable {
    *
    * @return Array
    */
-  public function jsonSerialize() {
+  public function jsonSerialize()
+  {
     Loader::model('page_list');
     $nh = Loader::helper('navigation');
     $im = Loader::helper('image');
@@ -152,7 +156,7 @@ class City extends \Model implements \JsonSerializable {
       'long_description' => strip_tags($this->page->getBlocks('City Description')[0]->getController()->getContent()),
       'sponsors' => $this->page->getBlocks('Sponsors')[0]->getController()->getContent()
     );
-    if((int) $this->city_organizer->getUserID() > 1) {
+    if ((int) $this->city_organizer->getUserID() > 1) {
       $cityData['city_organizer'] = array(
         'photo' => $this->avatar,
         'first_name' => $this->city_organizer->getAttribute('first_name'),
@@ -163,9 +167,9 @@ class City extends \Model implements \JsonSerializable {
         'website' => $this->website
       );
     }
-    foreach($pl->get($pagecount) as $key => $page) {
+    foreach ($pl->get($pagecount) as $key => $page) {
       $scheduled = $page->getAttribute('scheduled');
-      $slots = (Array)$scheduled['slots']; 
+      $slots = (Array) $scheduled['slots'];
       $cityData['walks'][$key] = array(
         'url' => $nh->getCollectionURL($page),
         'title' => $page->getCollectionName(),
@@ -176,13 +180,14 @@ class City extends \Model implements \JsonSerializable {
         'map' => json_decode($page->getAttribute('gmap')),
         'short_description' => $page->getAttribute('shortdescription')
       );
-      foreach($slots as $slot) {
+      foreach ($slots as $slot) {
         $cityData['walks'][$key]['slots'][] = ['date' => $slot['date'], 'time' => $slot['time'] ?: 'multiple'];
-      } 
-      foreach(json_decode($page->getAttribute('team')) as $memkey=>$mem) {
+      }
+      foreach (json_decode($page->getAttribute('team')) as $memkey=>$mem) {
         $cityData['walks'][$key]['team'] .= ($memkey == 0 ? 'Walk led by ' : ($memkey > 0 ? ', ' : '')) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
       }
     }
+
     return $cityData;
   }
 
@@ -191,7 +196,8 @@ class City extends \Model implements \JsonSerializable {
    * Returns a page object for this city. Keeping $page protected as we may want some logic around this later
    * @return Page
    */
-  public function getPage() {
+  public function getPage()
+  {
     return $this->page;
   }
 

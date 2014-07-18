@@ -4,7 +4,7 @@ $u = new User();
 $ui = UserInfo::getByID($u->getUserID());
 
 /* Build menu options depending if currently logged in or not */
-if($u->isRegistered()) {
+if ($u->isRegistered()) {
   $profileMenu = '<li><a href="' . ($this->url('/profile')) . '" class="">' . ($ui->getAttribute('first_name') ? : $u->getUserName()) . '</a></li>'
     . '<li><a href="' . ($this->url('/login', 'logout')) . '" class="">' . t('Logout') . '</a></li>';
 } else {
@@ -24,7 +24,7 @@ if($u->isRegistered()) {
       </span>
     </a>
     <nav class="navbar-collapse collapse" role="navigation">
-      <?php (new GlobalArea('Left Header'))->display($c); ?>  
+      <?php (new GlobalArea('Left Header'))->display($c); ?>
       <ul class="nav navbar-nav col-md-pull-12">
         <li>
           <a class="search-open"><i class="fa fa-search"></i></a>
@@ -38,6 +38,6 @@ if($u->isRegistered()) {
     </nav>
   </div>
   <div class="navbar-outer">
-    <?php (new GlobalArea('Dropdown'))->display($c); ?>  
+    <?php (new GlobalArea('Dropdown'))->display($c); ?>
   </div>
 </header>

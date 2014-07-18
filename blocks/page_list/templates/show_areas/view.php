@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 $th = Loader::helper('text');
 $av = Loader::helper('concrete/avatar');
@@ -11,4 +11,3 @@ $blocks = $page->getBlocks("Main");
 var_dump($blocks);
 echo '</div>';
 endforeach; ?>
-

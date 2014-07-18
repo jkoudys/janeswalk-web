@@ -1,15 +1,17 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 
 use \JanesWalk\Model\PageType\Walk;
 
 Loader::helper('theme');
 Loader::model('page_types/walk');
-class PageListBlockController extends Concrete5_Controller_Block_PageList {
+class PageListBlockController extends Concrete5_Controller_Block_PageList
+{
   // Data for returning in JSON
   protected $pageData = array();
 
-  public function getPageList() {
+  public function getPageList()
+  {
     Loader::model('page_list');
     $db = Loader::db();
     $bID = $this->bID;
@@ -34,7 +36,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
     $cArray = array();
 
-    switch($row['orderBy']) {
+    switch ($row['orderBy']) {
     case 'display_asc':
       $pl->sortByDisplayOrder();
       break;
@@ -60,7 +62,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
 
     $num = (int) $row['num'];
 
-    $pl->setItemsPerPage($num);			
+    $pl->setItemsPerPage($num);
 
     $c = Page::getCurrentPage();
     if (is_object($c)) {
@@ -77,7 +79,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     if (!$row['displayAliases']) {
       $pl->filterByIsAlias(0);
     }
-    $pl->filter('cvName', '', '!=');			
+    $pl->filter('cvName', '', '!=');
 
     if ($row['ctID']) {
       $pl->filterByCollectionTypeID($row['ctID']);
@@ -96,10 +98,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
         $pl->filterByParentID($cParentID);
       }
     }
+
     return $pl;
   }
 
-  public function view() {
+  public function view()
+  {
     $c = Page::getCurrentPage();
     parent::view();
     $this->set('im', Loader::helper('image'));
@@ -107,7 +111,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     $this->set('rssUrl', $showRss ? $controller->getRssUrl($b) : '');
     $this->set('show', $_REQUEST['show']);
     /* Set the page lists which are walk related, as they have json we need */
-    switch($this->block->getBlockFilename()) {
+    switch ($this->block->getBlockFilename()) {
     case 'walkcards':
       $this->set('cards', $this->loadCards());
       break;
@@ -115,29 +119,30 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       Loader::helper('theme');
       $cards = $this->loadCards();
       $this->set('cards', $cards);
-      foreach($cards as $walk) {
-        foreach(array_slice($walk->datetimes, 1) as $dt) {
+      foreach ($cards as $walk) {
+        foreach (array_slice($walk->datetimes, 1) as $dt) {
           $walk->datetimes = array($dt);
           $cards[] = $walk;
         }
       }
-      usort($cards, function($b,$a) {
-        if($a->datetimes[0] && $b->datetimes[0]) {
+      usort($cards, function ($b,$a) {
+        if ($a->datetimes[0] && $b->datetimes[0]) {
           return $a->datetimes[0]['timestamp'] - $b->datetimes[0]['timestamp'];
         } else {
-          if($a->datetimes[0]) {
+          if ($a->datetimes[0]) {
             return -1;
-          } else if($b->datetimes[0]) {
+          } elseif ($b->datetimes[0]) {
             return 1;
           }
+
           return 0;
         }
       } );
 
-      /* Load the lat/lng for the city we're displaying */ 
+      /* Load the lat/lng for the city we're displaying */
       /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
       $latlng = explode(',',$c->getAttribute('latlng'));
-      if(count($latlng) === 2) {
+      if (count($latlng) === 2) {
         $this->set('lat', $latlng[0]);
         $this->set('lng', $latlng[1]);
       }
@@ -148,7 +153,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     }
 
     // Set walk-filter specific filtering data
-    if($this->block->getBlockFilename() === 'walk_filters') {
+    if ($this->block->getBlockFilename() === 'walk_filters') {
       // Set up walk filters
       // Wards
       $wards = array();
@@ -174,9 +179,9 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
         $initiatives = array();
         $ak = CollectionAttributeKey::getByHandle('walk_initiatives');
         $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
-        if($ak) {
+        if ($ak) {
           $satc->setAttributeKey($ak);
-          foreach($satc->getOptions() as $option) {
+          foreach ($satc->getOptions() as $option) {
             $initiatives[] = $option->value;
           }
         }
@@ -206,12 +211,13 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
    * Renders a DOMDocument containing the walk cards HTML tree.
    *
    * array $cards - Contents formatted by loadCards.
-   * return: DOMDocument 
+   * return: DOMDocument
    */
-  public function renderCards(Array $cards = array()) {
+  public function renderCards(array $cards = array())
+  {
     $nh = Loader::helper('navigation');
     $im = Loader::helper('image');
-    
+
     // A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
     // The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
     // be showing all walks.
@@ -220,7 +226,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
     // Using DOMDocument, mostly for sanity of HTML and security
     $doc = new DOMDocument;
     // Loop over the walks
-    foreach((array) $cards as $key => $walk) {
+    foreach ((array) $cards as $key => $walk) {
       $div = $doc->appendChild($doc->createElement('div'));
       $div->setAttribute('class', $cardSize . ' walk');
 
@@ -239,34 +245,34 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
       $caption = $thumbnail->appendChild($doc->createElement('div'));
       $caption->setAttribute('class', 'caption');
 
-      $caption->appendChild($doc->createElement('h4'))->appendChild($doc->createTextNode( Loader::helper('text')->shortText((string)$walk, 45)));
+      $caption->appendChild($doc->createElement('h4'))->appendChild($doc->createTextNode( Loader::helper('text')->shortText((string) $walk, 45)));
 
       $ul = $caption->appendChild($doc->createElement('ul'));
       $ul->setAttribute('class', 'when');
 
-      foreach($walk->datetimes as $slot) {
+      foreach ($walk->datetimes as $slot) {
         $li = $ul->appendChild($doc->createElement('li'));
         $li->appendChild($doc->createElement('i'))->setAttribute('class', 'fa fa-calendar');
         $li->appendChild($doc->createTextNode(' ' . $slot['time'] . ', ' . $slot['date']));
       }
 
       /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-      if($walk->meetingPlace) {
+      if ($walk->meetingPlace) {
         $meetingText = Loader::helper('text')->shortText($walk->meetingPlace['title'] ?: $walk->meetingPlace['description']);
         $ul->appendChild($doc->createElement('li'))->appendChild($doc->createTextNode(t('Meet at') . ': ' . $meetingText));
       }
-      if($walk->walkLeaders) {
+      if ($walk->walkLeaders) {
         $caption->appendChild($doc->createElement('h6'))->appendChild($doc->createTextNode(
           t('Walk led by') . ' ' . Loader::helper('text')->shortText(
-            implode(', ', array_map(function($leader) { return trim($leader['name-first'] . ' ' . $leader['name-last']); }, $walk->walkLeaders))
+            implode(', ', array_map(function ($leader) { return trim($leader['name-first'] . ' ' . $leader['name-last']); }, $walk->walkLeaders))
         )));
       }
       $caption->appendChild($doc->createElement('p'))->appendChild($doc->createTextNode(Loader::helper('text')->shortText($walk->shortdescription, 115)));
 
       $tags = $thumbnail->appendChild($doc->createElement('ul'));
       $tags->setAttribute('class', 'list-inline tags');
-      
-      foreach($walk->themes as $theme=>$set) {
+
+      foreach ($walk->themes as $theme=>$set) {
         $li = $tags->appendChild($doc->createElement('li'));
         $li->appendChild(ThemeHelper::getIconElement($theme, $doc));
         $li->setAttribute('class', 'tag');
@@ -274,6 +280,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
         $li->setAttribute('title', ThemeHelper::getName($theme));
       }
     }
+
     return $doc;
   }
 
@@ -283,9 +290,10 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
    *
    * @return Array<Page> card data for each card
    */
-  public function loadCards() {
+  public function loadCards()
+  {
     $cards = array();
-    foreach((array) $this->get('pages') as $page) {
+    foreach ((array) $this->get('pages') as $page) {
       $walk = new Walk($page);
       $this->pageData[] = array(
         'wards' => $walk->wards,
@@ -301,9 +309,10 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList {
   }
 
   // The 'on_before_render' will set up our JanesWalk json in the page
-  public function on_before_render() {
-    if($this->block) {
-      switch($this->block->getBlockFilename()) {
+  public function on_before_render()
+  {
+    if ($this->block) {
+      switch ($this->block->getBlockFilename()) {
       case 'walkcards':
       case 'walk_filters':
         $this->addFooterItem('<script type="text/javascript">JanesWalk = JanesWalk || {}; JanesWalk.walks = ' . json_encode($this->pageData) . '</script>');

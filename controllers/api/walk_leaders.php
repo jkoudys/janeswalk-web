@@ -1,8 +1,9 @@
-<?php 
-	defined('C5_EXECUTE') or die("Access Denied.");
-  class ApiWalkLeadersController extends Controller {
-
-    public function on_start() {
+<?php
+    defined('C5_EXECUTE') or die("Access Denied.");
+  class ApiWalkLeadersController extends Controller
+  {
+    public function on_start()
+    {
       $method = $_SERVER['REQUEST_METHOD'];
       $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
 
@@ -24,7 +25,8 @@
           break;
       }
     }
-    public function getLeaders($searchString, $city, $limit) {
+    public function getLeaders($searchString, $city, $limit)
+    {
       Loader::model('user_list');
       $av = Loader::helper('concrete/avatar');
       $ul = new UserList();
@@ -36,7 +38,7 @@
       $ul->filter('uLastLogin', 0, '!=');
       $ul->sortBy('uLastLogin');
       $userSet = [];
-      foreach($ul->get($limit ?: 5) as $user) {
+      foreach ($ul->get($limit ?: 5) as $user) {
         $home_city = $user->getAttribute('home_city');
         $userSet[$user->getUserID()] = [
           'user_id' => $user->getUserID(),
@@ -51,16 +53,20 @@
           'avatar' => $av->getImagePath($user)
         ];
       }
+
       return json_encode($userSet);
     }
 
-    public function isPut() {
+    public function isPut()
+    {
       return $_SERVER['REQUEST_METHOD'] == 'PUT';
     }
-    public function isGet() {
+    public function isGet()
+    {
       return $_SERVER['REQUEST_METHOD'] == 'GET';
     }
-    public function isDelete() {
+    public function isDelete()
+    {
       return $_SERVER['REQUEST_METHOD'] == 'DELETE';
     }
   }

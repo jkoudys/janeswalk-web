@@ -15,8 +15,8 @@ defined('C5_EXECUTE') || die('Access Denied.');
  * Model containing attribute accessors and logic for Jane's Walk walks
  */
 Loader::model('page_types/city');
-class Walk extends \Model implements \JsonSerializable {
-
+class walk extends \Model implements \JsonSerializable
+{
   /* Page collection object */
   protected $page;
   protected $title;
@@ -45,8 +45,9 @@ class Walk extends \Model implements \JsonSerializable {
    *
    * @param Page $page : a Page (Collection) object for a Walk
    */
-  public function __construct(Page $page) {
-    if($page->getCollectionTypeHandle() !== 'walk') {
+  public function __construct(Page $page)
+  {
+    if ($page->getCollectionTypeHandle() !== 'walk') {
       throw new Exception(t('Attempted to instantiate Walk model on a non-walk page type.'));
     }
     $this->getCache = array();
@@ -66,15 +67,16 @@ class Walk extends \Model implements \JsonSerializable {
     $this->wards = $page->getAttribute('walk_wards');
 
     /* Themes and Accessibility are sets of checkboxes, so a bit more involved to load */
-    $loadChecks = function($akHandle) use ($page) {
+    $loadChecks = function ($akHandle) use ($page) {
       $checkboxes = array();
-      foreach((array) $page->getAttribute($akHandle) as $av) {
-        foreach((array) $av as $selectAttribute) {
-          if($selectAttribute) { 
+      foreach ((array) $page->getAttribute($akHandle) as $av) {
+        foreach ((array) $av as $selectAttribute) {
+          if ($selectAttribute) {
             $checkboxes[(string) $selectAttribute] = true;
           }
         }
       }
+
       return $checkboxes;
     };
 
@@ -82,23 +84,25 @@ class Walk extends \Model implements \JsonSerializable {
     $this->accessible = $loadChecks('accessible');
   }
 
-  public function __get($name) {
+  public function __get($name)
+  {
     /* One big switch for all the get names */
-    switch($name) {
+    switch ($name) {
     case 'crumbs':
       // @return Array of Page objects, from highest level parent to walk page
       $this->crumbs = Loader::helper('navigation')->getTrailToCollection($this->page);
       krsort($this->crumbs);
+
       return $this->crumbs;
       break;
     case 'teamPictures':
       // @return Array<Array> of members
       $theme = \PageTheme::getByHandle('janeswalk');
-      $this->teamPictures = array_map(function($mem) use ($theme) {
-        if($mem['type'] === 'you') {
+      $this->teamPictures = array_map(function ($mem) use ($theme) {
+        if ($mem['type'] === 'you') {
           $mem['type'] = ($mem['role'] === 'walk-organizer') ? 'organizer' : 'leader';
         }
-        switch($mem['type']) {
+        switch ($mem['type']) {
         case 'leader':
           $mem['image'] = "{$theme->getThemeURL()}/img/walk-leader.png";
           $mem['title'] = 'Walk Leader';
@@ -118,18 +122,20 @@ class Walk extends \Model implements \JsonSerializable {
         default:
           break;
         }
-        if($mem['user_id'] > 0) {
-          if($avatar = Loader::helper('concrete/avatar')->getImagePath(\UserInfo::getByID($mem['user_id']))) {
+        if ($mem['user_id'] > 0) {
+          if ($avatar = Loader::helper('concrete/avatar')->getImagePath(\UserInfo::getByID($mem['user_id']))) {
             $mem['avatar'] = $avatar;
           }
         }
+
         return $mem;
       }, (array) $this->team);
+
       return $this->teamPictures;
       break;
     case 'walkLeaders':
       // @return Array of team members who are walk leaders
-      return array_filter((array)$this->team, function($mem) {
+      return array_filter((array) $this->team, function ($mem) {
         return strpos($mem['type'], 'leader') !== false;
       });
       break;
@@ -139,8 +145,9 @@ class Walk extends \Model implements \JsonSerializable {
       break;
     case 'meetingPlace':
       // @return Array<title, description> for first stop on walking route
-      foreach((array) $this->map->markers as $marker) {
+      foreach ((array) $this->map->markers as $marker) {
         $this->meetingPlace = array('title' => $marker->title, 'description' => $marker->description);
+
         return $this->meetingPlace;
       }
       break;
@@ -155,6 +162,7 @@ class Walk extends \Model implements \JsonSerializable {
         }
       }
       sort($this->initiatives);
+
       return $this->initiatives;
       break;
     case 'datetimes':
@@ -162,22 +170,23 @@ class Walk extends \Model implements \JsonSerializable {
       $scheduled = $this->page->getAttribute('scheduled');
       $this->datetimes = array();
 
-      foreach((array) $scheduled['slots'] as $s) {
+      foreach ((array) $scheduled['slots'] as $s) {
         $this->datetimes[] = array('date' => $s['date'], 'time' => $s['time'], 'timestamp' => strtotime("{$s['date']} {$s['time']}"));
       }
+
       return $this->datetimes;
       break;
     }
   }
 
-  public function __set($name, $value) {
-    switch($name) {
+  public function __set($name, $value)
+  {
+    switch ($name) {
     case 'city':
       // When setting a walk's city, this implies moving that walk Page to a new parent
-      if($value instanceof Page && $value->getCollectionTypeHandle() === 'city') {
+      if ($value instanceof Page && $value->getCollectionTypeHandle() === 'city') {
         return $this->page->move($value);
-      }
-      else {
+      } else {
         throw new Exception(t('Attempted to move a page of type Walk to a non-City page'));
       }
       break;
@@ -194,7 +203,8 @@ class Walk extends \Model implements \JsonSerializable {
    *
    * @return String
    */
-  public function __toString() {
+  public function __toString()
+  {
     return $this->title;
   }
 
@@ -207,13 +217,14 @@ class Walk extends \Model implements \JsonSerializable {
    * @param String $json : json of walk details
    * @return boolean Success message for save
    */
-  public function setJson($json) {
+  public function setJson($json)
+  {
     $postArray = json_decode($json, true);
     $db = Loader::db(); // XXX on 5.7, no more adodb, so rewrite transactions here
     $db->StartTrans();
     $ok = true;
     try {
-      if( empty($postArray['title']) ) {
+      if ( empty($postArray['title']) ) {
         throw new Exception('Walk title cannot be empty.');
       }
 
@@ -228,33 +239,34 @@ class Walk extends \Model implements \JsonSerializable {
       $this->page->setAttribute('scheduled', $postArray['time']);
 
       // Don't bother saving completely empty maps, since it's usually done in error
-      if(sizeof((array)$postArray->map->markers) + sizeof((array)$postArray->map->route)) {
+      if (sizeof((array) $postArray->map->markers) + sizeof((array) $postArray->map->route)) {
         $this->page->setAttribute('gmap', json_encode($postArray->map));
       }
       $this->page->setAttribute('team', json_encode($postArray->team));
-      if($postArray->thumbnail_id && File::getByID($postArray->thumbnail_id)) {
+      if ($postArray->thumbnail_id && File::getByID($postArray->thumbnail_id)) {
         $this->page->setAttribute('thumbnail', File::getByID($postArray->thumbnail_id));
       }
 
       /* Go through checkboxes */
       $checkboxes = array('theme' => [], 'accessible' => []);
-      foreach($postArray->checkboxes as $key => $checked) {
+      foreach ($postArray->checkboxes as $key => $checked) {
         $selectAttribute = strtok($key, '-');
         $selectValue = strtok('');
-        if($checked) {
+        if ($checked) {
           $checkboxes[$selectAttribute][] = $selectValue;
         }
       }
-      foreach(['theme', 'accessible'] as $akHandle) {
+      foreach (['theme', 'accessible'] as $akHandle) {
         $this->page->setAttribute($akHandle, $checkboxes[$akHandle]);
       }
-    } catch(Exception $e) {
+    } catch (Exception $e) {
       $db->FailTrans(); // Set transaction to rollback
       (new \Log('error', false))->write(__CLASS__ . '::' . __FUNCTION__ . " failed on page {$this->page->title}: $e");
       $ok = false;
     } finally {
       $db->CompleteTrans();
     }
+
     return $ok;
   }
 
@@ -265,10 +277,11 @@ class Walk extends \Model implements \JsonSerializable {
    *
    * @return Array
    */
-  public function jsonSerialize() {
+  public function jsonSerialize()
+  {
     $im = Loader::helper('image');
-    $walkData = array( 
-      'title' => $this->title, 
+    $walkData = array(
+      'title' => $this->title,
       'shortdescription' => $this->shortdescription,
       'longdescription' => $this->longdescription,
       'accessible-info' => $this->accessibleInfo,
@@ -284,7 +297,7 @@ class Walk extends \Model implements \JsonSerializable {
     // Callback, in case we define more checkbox groups
     // Map their key names here to ones the service-consumers understand
     $checkboxes = array();
-    $mapKeyNames = function($v, $k, $akHandle) use (&$checkboxes) {
+    $mapKeyNames = function ($v, $k, $akHandle) use (&$checkboxes) {
       $checkboxes["{$akHandle}-{$k}"] = $v;
     };
     array_walk($this->themes, $mapKeyNames, 'theme');
@@ -301,7 +314,8 @@ class Walk extends \Model implements \JsonSerializable {
    *
    * @return DOMDocument
    */
-  public function kmlSerialize() {
+  public function kmlSerialize()
+  {
     $fh = Loader::helper('file');
     // Creates the Document.
     $dom = new \DOMDocument('1.0', 'UTF-8');
@@ -323,7 +337,7 @@ class Walk extends \Model implements \JsonSerializable {
     $defaultIconNode->appendChild($defaultIconNode->appendChild($dom->createElement('href', 'http://maps.google.com/mapfiles/kml/paddle/red-stars.png')));
 
     // Set the map markers -- "meeting place" and "stop"s
-    foreach($this->map->markers as $k=>$marker) {
+    foreach ($this->map->markers as $k=>$marker) {
       // <Placemark> of map marker
       $placeNode = $docNode->appendChild($dom->createElement('Placemark'));
 
@@ -351,13 +365,14 @@ class Walk extends \Model implements \JsonSerializable {
     $pointNode = $placeNode->appendChild($dom->createElement('LineString'));
 
     $coorStr = '';
-    foreach($this->map->route as $route) {
+    foreach ($this->map->route as $route) {
       // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
       $coorStr .= "\n{$route->lng}, {$route->lat}, 0";
     }
-    if($coorStr) {
+    if ($coorStr) {
       $pointNode->appendChild($dom->createElement('coordinates', $coorStr));
     }
+
     return $dom;
   }
 
@@ -366,7 +381,8 @@ class Walk extends \Model implements \JsonSerializable {
    * Returns a page object for this walk. Keeping $page protected as we may want some logic around this later
    * @return Page
    */
-  public function getPage() {
+  public function getPage()
+  {
     return $this->page;
   }
 

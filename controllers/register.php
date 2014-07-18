@@ -1,9 +1,10 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
-class RegisterController extends Concrete5_Controller_Register {
-
-  public function __construct() {
-    if(!ENABLE_REGISTRATION) {
+class RegisterController extends Concrete5_Controller_Register
+{
+  public function __construct()
+  {
+    if (!ENABLE_REGISTRATION) {
       $cont = Loader::controller('/page_not_found');
       $cont->view();
       $this->render("/page_not_found");
@@ -20,21 +21,20 @@ class RegisterController extends Concrete5_Controller_Register {
       $this->set('displayUserName', true);
     }
   }
-  public function do_register() {
-
+  public function do_register()
+  {
     $registerData['success']=0;
 
     $userHelper = Loader::helper('concrete/user');
     $e = Loader::helper('validation/error');
-    $ip = Loader::helper('validation/ip');		
+    $ip = Loader::helper('validation/ip');
     $txt = Loader::helper('text');
     $vals = Loader::helper('validation/strings');
     $valc = Loader::helper('concrete/validation');
 
     if (USER_REGISTRATION_WITH_EMAIL_ADDRESS == true) {
       $username = $_POST['uEmail'];
-    }
-    else {
+    } else {
       $username = $_POST['uName'];
     }
     $password = $_POST['uPassword'];
@@ -44,12 +44,11 @@ class RegisterController extends Concrete5_Controller_Register {
     $username = trim($username);
     $username = preg_replace("/ +/", " ", $username);
 
-
     if (!$ip->check()) {
       $e->add($ip->getErrorMessage());
-    }		
+    }
 
-    if (ENABLE_REGISTRATION_CAPTCHA) { 
+    if (ENABLE_REGISTRATION_CAPTCHA) {
       $captcha = Loader::helper('validation/captcha');
       if (!$captcha->check()) {
         $e->add(t("Incorrect image validation code. Please check the image and re-enter the letters or numbers as necessary."));
@@ -58,7 +57,7 @@ class RegisterController extends Concrete5_Controller_Register {
 
     if (!$vals->email($_POST['uEmail'])) {
       $e->add(t('Invalid email address provided.'));
-    } else if (!$valc->isUniqueEmail($_POST['uEmail'])) {
+    } elseif (!$valc->isUniqueEmail($_POST['uEmail'])) {
       $e->add(t("The email address %s is already in use. Please choose another.", $_POST['uEmail']));
     }
 
@@ -72,9 +71,8 @@ class RegisterController extends Concrete5_Controller_Register {
         $e->add(t('A username cannot be more than %s characters long.', USER_USERNAME_MAXIMUM));
       }
 
-
       if (strlen($username) >= USER_USERNAME_MINIMUM && !$valc->username($username)) {
-        if(USER_USERNAME_ALLOW_SPACES) {
+        if (USER_USERNAME_ALLOW_SPACES) {
           $e->add(t('A username may only contain letters, numbers and spaces.'));
         } else {
           $e->add(t('A username may only contain letters or numbers.'));
@@ -83,7 +81,7 @@ class RegisterController extends Concrete5_Controller_Register {
       }
       if (!$valc->isUniqueUsername($username)) {
         $e->add(t("The username %s already exists. Please choose another", $username));
-      }		
+      }
     }
 
     if ($username == USER_SUPER) {
@@ -110,12 +108,12 @@ class RegisterController extends Concrete5_Controller_Register {
 
     $aks = UserAttributeKey::getRegistrationList();
 
-    foreach($aks as $uak) {
+    foreach ($aks as $uak) {
       if ($uak->isAttributeKeyRequiredOnRegister()) {
         $e1 = $uak->validateAttributeForm();
         if ($e1 == false) {
           $e->add(t('The field "%s" is required', tc('AttributeKeyName', $uak->getAttributeKeyName())));
-        } else if ($e1 instanceof ValidationErrorHelper) {
+        } elseif ($e1 instanceof ValidationErrorHelper) {
           $e->add($e1);
         }
       }
@@ -132,13 +130,13 @@ class RegisterController extends Concrete5_Controller_Register {
       $process = UserInfo::register($data);
       if (is_object($process)) {
 
-        foreach($aks as $uak) {
-          $uak->saveAttributeForm($process);				
+        foreach ($aks as $uak) {
+          $uak->saveAttributeForm($process);
         }
 
         if (REGISTER_NOTIFICATION) { //do we notify someone if a new user is added?
           $mh = Loader::helper('mail');
-          if(EMAIL_ADDRESS_REGISTER_NOTIFICATION) {
+          if (EMAIL_ADDRESS_REGISTER_NOTIFICATION) {
             $mh->to(EMAIL_ADDRESS_REGISTER_NOTIFICATION);
           } else {
             $adminUser = UserInfo::getByID(USER_SUPER_ID);
@@ -153,9 +151,9 @@ class RegisterController extends Concrete5_Controller_Register {
           $mh->addParameter('uEmail', $process->getUserEmail());
           $attribs = UserAttributeKey::getRegistrationList();
           $attribValues = array();
-          foreach($attribs as $ak) {
-            $attribValues[] = tc('AttributeKeyName', $ak->getAttributeKeyName()) . ': ' . $process->getAttribute($ak->getAttributeKeyHandle(), 'display');		
-          }						
+          foreach ($attribs as $ak) {
+            $attribValues[] = tc('AttributeKeyName', $ak->getAttributeKeyName()) . ': ' . $process->getAttribute($ak->getAttributeKeyHandle(), 'display');
+          }
           $mh->addParameter('attribs', $attribValues);
 
           if (defined('EMAIL_ADDRESS_REGISTER_NOTIFICATION_FROM')) {
@@ -166,7 +164,7 @@ class RegisterController extends Concrete5_Controller_Register {
               $mh->from($adminUser->getUserEmail(),  t('Website Registration Notification'));
             }
           }
-          if(REGISTRATION_TYPE == 'manual_approve') {
+          if (REGISTRATION_TYPE == 'manual_approve') {
             $mh->load('user_register_approval_required');
           } else {
             $mh->load('user_register');
@@ -210,7 +208,7 @@ class RegisterController extends Concrete5_Controller_Register {
             $u->logout();
 
           }
-        } else if(defined('USER_REGISTRATION_APPROVAL_REQUIRED') && USER_REGISTRATION_APPROVAL_REQUIRED) {
+        } elseif (defined('USER_REGISTRATION_APPROVAL_REQUIRED') && USER_REGISTRATION_APPROVAL_REQUIRED) {
           $ui = UserInfo::getByID($u->getUserID());
           $ui->deactivate();
           //$this->redirect('/register', 'register_pending', $rcID);
@@ -221,37 +219,39 @@ class RegisterController extends Concrete5_Controller_Register {
 
         if (!$u->isError()) {
           //$this->redirect('/register', 'register_success', $rcID);
-          if(!$redirectMethod){
-            $redirectMethod='register_success';	
+          if (!$redirectMethod) {
+            $redirectMethod='register_success';
             $registerData['msg']=$this->getRegisterSuccessMsg();
           }
-          $registerData['uID']=intval($u->uID);		
+          $registerData['uID']=intval($u->uID);
         }
 
         $registerData['success']=1;
 
         if($_REQUEST['format']!='JSON')
-          $this->redirect('/register', $redirectMethod, $rcID);				
+          $this->redirect('/register', $redirectMethod, $rcID);
       }
     } else {
       $ip->logSignupRequest();
       if ($ip->signupRequestThreshholdReached()) {
         $ip->createIPBan();
-      }		
+      }
       $this->set('error', $e);
       $registerData['errors'] = $e->getList();
     }
 
-    if( $_REQUEST['format']=='JSON' ){
-      $jsonHelper=Loader::helper('json'); 
+    if ($_REQUEST['format']=='JSON') {
+      $jsonHelper=Loader::helper('json');
       echo $jsonHelper->encode($registerData);
       die;
-    }		
-  }	
-  public function getRegisterSuccessValidateMsgs(){
+    }
+  }
+  public function getRegisterSuccessValidateMsgs()
+  {
     $msgs=array();
     $msgs[]= t('Awesome! Welcome to Jane\'s Walk. We\'re looking forward to seeing what kind of conversation you plan to stir up with your walk.');
     $msgs[]= t('Check your email for a little note from us, and then you\'re all set to sign in.');
+
     return $msgs;
   }
 }

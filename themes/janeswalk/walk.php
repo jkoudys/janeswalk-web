@@ -6,14 +6,14 @@ $this->inc('elements/header.php');
   data-pageViewName="WalkPageView">
   <div id="fb-root"></div>
   <script type="text/javascript">
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       FB.init({
         appId: '544710848887303',
         status: true,
         xfbml: true
       });
     };
-    (function(d, s, id){
+    (function (d, s, id) {
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) {return;}
        js = d.createElement(s); js.id = id;
@@ -29,7 +29,7 @@ $this->inc('elements/header.php');
 
       <div class="tag-list">
         <ul class="nav nav-pills">
-          <?php foreach($w->themes as $theme => $status) { ?>
+          <?php foreach ($w->themes as $theme => $status) { ?>
             <li><div class='icon'><?= $th->getIcon($theme) ?></div> <?= t($th->getName($theme)) ?></li>
           <?php } ?>
         </ul>
@@ -43,17 +43,17 @@ $this->inc('elements/header.php');
         <div class="col-md-3 profiles box-sizing">
           <div id="reg-group">
             <?php
-              $slots = (array) $w->time['slots']; 
-              if($w->time['open']) {
+              $slots = (array) $w->time['slots'];
+              if ($w->time['open']) {
             ?>
               <h4 class="available-time"><i class="fa fa-calendar"></i> <?= t('Open schedule') ?></h4>
             <?php
-              } else if(isset($slots[0]['date'])) {
+              } elseif (isset($slots[0]['date'])) {
             ?>
               <h4 class="available-time">
                 <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', sizeof($slots)) ?>:<br />
 <?php
-                foreach($slots as $slot) { ?>
+                foreach ($slots as $slot) { ?>
                 <span class="highlight"><?=$slot['date']?></span>
                 <span class="divider">|</span>
                 <span class="time"><?= ($slot['time']) ?></span>
@@ -64,7 +64,7 @@ $this->inc('elements/header.php');
               </h4>
             <?php }
               if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
-                if(!empty($eid)) {
+                if (!empty($eid)) {
             ?>
               <a data-eid="<?= $eid ?>" href="<?= 'http://eventbrite.ca/event/', $eid ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
             <?php
@@ -83,11 +83,11 @@ $this->inc('elements/header.php');
         <div class="col-md-7">
           <h4>
             <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($w->walkLeaders)) .
-                implode(', ', array_map(function($mem){
+                implode(', ', array_map(function ($mem) {
                   return "{$mem['name-first']} {$mem['name-last']}"; },
                 $w->walkLeaders)); ?>
           </h4>
-          <?php if($meeting_place) { ?>
+          <?php if ($meeting_place) { ?>
           <h4>
           <?= t('Meeting Place') ?>: <?= $meeting_place['title'] ?>
           </h4>
@@ -95,7 +95,7 @@ $this->inc('elements/header.php');
           <?php } ?>
         </div>
       </div>
-      <?php if(sizeof((array)$w->map->markers) + sizeof((array)$w->map->path) > 0) { ?>
+      <?php if (sizeof((array) $w->map->markers) + sizeof((array) $w->map->path) > 0) { ?>
       <div class="jumbotron walk-stops" style="display:none">
         <div class="row">
           <div class="col-md-12">
@@ -113,7 +113,7 @@ $this->inc('elements/header.php');
                 <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
                 <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
                 <ol>
-                  <?php foreach($w->map->markers as $key=>$marker) { ?>
+                  <?php foreach ($w->map->markers as $key=>$marker) { ?>
                   <li class='walk-stop' id='<?=$key?>'><h4><?=$marker->title?></h4></li>
                   <?php } ?>
                 </ol>
@@ -136,11 +136,11 @@ $this->inc('elements/header.php');
         <div class="col-md-8">
           <div class="clearfix">
             <h3><?= t('About This Walk') ?></h3>
-            <?php if( $thumb ) { ?>
+            <?php if ($thumb) { ?>
               <a class="thumb" href="<?= ($im->getThumbnail($w->thumbnail,1024,1024)->src) ?>">
                 <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
               </a>
-            <?php } 
+            <?php }
             echo $w->longdescription; ?>
           </div>
 
@@ -178,33 +178,33 @@ $this->inc('elements/header.php');
             <hr>
             <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
 
-            <?php foreach($w->teamPictures as $k => $mem) { ?>
-            <div class="walk-leader clearfix"> 
+            <?php foreach ($w->teamPictures as $k => $mem) { ?>
+            <div class="walk-leader clearfix">
               <div class="row">
                 <div class="col-md-3">
-<?php 
-                if($mem['avatar'] && $city->getCollectionName() !== 'Calgary') { ?>
+<?php
+                if ($mem['avatar'] && $city->getCollectionName() !== 'Calgary') { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
-                  <? } else { ?>
+                  <?php } else { ?>
                     <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
-                  <? } ?>
+                  <?php } ?>
                 </div>
                 <div class='col-md-9'>
                   <h4>
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>
                   <div class="btn-toolbar">
-                    <?php if($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" target="_blank" class="btn"><i class="fa fa-envelope-o"></i></a><?php } ?>
+                    <?php if ($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" target="_blank" class="btn"><i class="fa fa-envelope-o"></i></a><?php } ?>
                     <?php
-                      if($mem['facebook']) {
+                      if ($mem['facebook']) {
                         $submittedFacebookPiece = $mem['facebook'];
                         if (!preg_match('/^http/', $submittedFacebookPiece)) {
                           $submittedFacebookPiece = 'https://facebook.com/' . ($submittedFacebookPiece);
                         }
                     ?><a href="<?= ($submittedFacebookPiece) ?>" target="_blank" class="btn"><i class="fa fa-facebook"></i></a><?php } ?>
-                    <?php if($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
+                    <?php if ($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
                     <?php
-                      if($mem['website']) {
+                      if ($mem['website']) {
                         $submittedWebsitePiece = $mem['website'];
                         if (!preg_match('/^http/', $submittedWebsitePiece)) {
                           $submittedWebsitePiece = 'http://' . ($submittedWebsitePiece);
@@ -241,11 +241,11 @@ $this->inc('elements/header.php');
         <div class="thumbnail" id="register">
           <?php
             if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
-              if(!empty($eid)) {
+              if (!empty($eid)) {
           ?>
             <div class="caption">
               <h3>
-                <i class="fa fa-calendar"></i> 
+                <i class="fa fa-calendar"></i>
                 <a href="<?= 'http://eventbrite.ca/event/', $eid ?>"><?= t('Register For This Walk') ?></a>
                 <p class="select-day"></p>
               </h3>
@@ -255,7 +255,7 @@ $this->inc('elements/header.php');
           ?>
             <div class="caption">
               <h3>
-                <i class="fa fa-calendar"></i> 
+                <i class="fa fa-calendar"></i>
                 <?= t('Registration Not Open') ?>
                 <p class="select-day"></p>
               </h3>
@@ -266,8 +266,8 @@ $this->inc('elements/header.php');
           ?>
           <div class="calendar-wrap box-sizing" style="display:none">
             <div class="calendar-header">
-              <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="fa fa-caret-left"></i></button>      
-              <span id="custom-month">April</span>, <span id="custom-year">2013</span> 
+              <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="fa fa-caret-left"></i></button>
+              <span id="custom-month">April</span>, <span id="custom-year">2013</span>
               <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="fa fa-caret-right"></i></button>
             </div>
             <div id="calendar" class="fc-calendar-container"></div>
@@ -284,7 +284,7 @@ $this->inc('elements/header.php');
                 <label for="date-picker">Date</label>
                 <input type="text" value="12-02-2012" id="date-picker">
               </div>
-            </div> 
+            </div>
             <div class="row">
               <div class="col-md-6">
                 <label for="request-number">Number of people</label>
@@ -293,7 +293,7 @@ $this->inc('elements/header.php');
             </div>
             <label for="request-body">Add a Note:</label>
             <textarea name="" id="request-body" cols="30" rows="5"></textarea>
-            <label for="request-email">Your email</label> 
+            <label for="request-email">Your email</label>
             <input type="text" id="request-email" />
             <button class="btn btn-primary notify">
               Request Date
@@ -304,29 +304,29 @@ $this->inc('elements/header.php');
           <div class="caption">
             <h4><i class="fa"></i> <?= t('Accessibility') ?></h4>
             <ul>
-              <?php foreach($w->accessible as $accessible => $value) { ?>
+              <?php foreach ($w->accessible as $accessible => $value) { ?>
               <li><?= t($th->getName($accessible)) ?></li>
               <?php } ?>
             </ul>
-            <?php if($accessible_info = trim($w->accessibleInfo)) {?>
+            <?php if ($accessible_info = trim($w->accessibleInfo)) {?>
             <p id="accessibility notes">
               <?= t($accessible_info) ?>
             </p>
             <?php }
-            if($public_transit = trim($w->accessibleTransit)) { ?>
+            if ($public_transit = trim($w->accessibleTransit)) { ?>
             <h4><i class="fa"></i> <?= t('Taking Public Transit') ?></h4>
             <p id="public transit directions">
               <?= t($public_transit) ?>
             </p>
             <?php }
-            if($accessible_parking = trim($w->accessibleParking)) {
+            if ($accessible_parking = trim($w->accessibleParking)) {
             ?>
             <h4><i class="fa fa-road"></i> <?= t('Parking Availability') ?></h4>
             <p id="parking availability">
               <?= t($accessible_parking) ?>
             </p>
             <?php }
-            if($accessible_find = trim($w->accessibleFind)) { ?>
+            if ($accessible_find = trim($w->accessibleFind)) { ?>
             <h4><i class="fa fa-flag"></i> <?= t('How to find us') ?></h4>
             <p>
               <?= t($accessible_find) ?>
@@ -349,7 +349,7 @@ $this->inc('elements/header.php');
                 var disqus_shortname = 'janeswalk'; // required: replace example with your forum shortname
 
                 /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function() {
+                (function () {
                   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                   dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
                   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
@@ -358,9 +358,9 @@ $this->inc('elements/header.php');
               <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
               <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
             </div>
-          </div>  
+          </div>
         </div>
       </div>
     </div>
-  </div> 
+  </div>
   <?php $this->inc('elements/footer.php');

@@ -8,15 +8,16 @@ ul.dateList fieldset .ccm-search-remove-option { position:absolute; top:0; right
 ul.dateList fieldset .ccm-search-remove-option:hover { cursor:pointer; }
 </style>
 <script>
-var closeField = function() {
+var closeField = function () {
   var eventdate = this.parentNode;
   eventdate.parentNode.removeChild(eventdate);
 };
 
-function EventDate(akID) {
+function EventDate(akID)
+{
   var dateList = document.getElementById("ak" + akID);
   var dates = dateList.querySelectorAll("fieldset .ccm-search-remove-option");
-  for(var i = 0, e = dates[i]; e; i++, e = dates[i]) {
+  for (var i = 0, e = dates[i]; e; i++, e = dates[i]) {
     e.addEventListener("click", closeField);
   }
 }
@@ -33,7 +34,7 @@ function EventDate(akID) {
 <ul class="dateList" id="ak<?= $akID ?>_eventTimeList">
   <a class="ccm-add-option"><img src="<?= ASSETS_URL_IMAGES ?>/icons/add.png" /></a>
 <?php
-if($data['slots']) foreach($data['slots'] as $key=>$slot) { ?>
+if ($data['slots']) foreach ($data['slots'] as $key=>$slot) { ?>
   <script>new EventDate(<?= $akID ?>);</script>
   <fieldset>
     <a class="ccm-search-remove-option"><img src="<?= ASSETS_URL_IMAGES ?>/icons/remove_minus.png" /></a>

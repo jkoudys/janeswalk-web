@@ -7,14 +7,14 @@ $this->inc('elements/header.php'); ?>
   <?= $city->fullbg ? "style='background-image:url({$city->fullbg->getURL()})'" : '' ?>>
     <div id="fb-root"></div>
     <script type="text/javascript">
-      window.fbAsyncInit = function() {
+      window.fbAsyncInit = function () {
         FB.init({
           appId: '544710848887303',
           status: true,
           xfbml: true
         });
       };
-      (function(d, s, id){
+      (function (d, s, id) {
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
          js = d.createElement(s); js.id = id;
@@ -36,7 +36,7 @@ $this->inc('elements/header.php'); ?>
       </div>
     </div>
 <?php
-  if($isCampaignActive) { ?>
+  if ($isCampaignActive) { ?>
     <div class="overlay o-donate">
       <div class="o-background">
       </div>
@@ -110,7 +110,7 @@ $this->inc('elements/header.php'); ?>
       </div>
     </div>
 <?php } // end campaigns ?>
-    
+
   <div class="container-outter" role="main">
     <div class="intro-city tk-museo-slab">
       <div class="container">
@@ -138,20 +138,20 @@ if ($city->fullbg) {
 if ($c->getCollectionUserID() > 1) {
           ?>
             <section class="city-organizer">
-              <?php if($avatar) { ?><a href="<?= $profile_path ?>">
+              <?php if ($avatar) { ?><a href="<?= $profile_path ?>">
               <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div></a><?php } ?>
               <div class="city-organizer-details">
                 <h3>
                  <a href="<?= $city->profile_path ?>"><?= "{$city->city_organizer->getAttribute('first_name')} {$city->city_organizer->getAttribute('last_name')}" ?></a>
-                    <?php if($isCityOrganizer) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='fa fa-pencil-square'></i></a><?php } 
+                    <?php if ($isCityOrganizer) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='fa fa-pencil-square'></i></a><?php }
                   ?>
                 </h3>
                 <h4><?= t('City Organizer') ?></h4>
                 <div class="btn-toolbar">
                   <a href="mailto:<?= $city->city_organizer->getUserEmail() ?>" class="btn"><i class="fa fa-envelope-o"></i></a>
-                  <?php if($city->facebook) { ?><a href='<?=$city->facebook_url?>' target='_blank' class='btn'><i class='fa fa-facebook'></i></a><?php } ?>
-                  <?php if($city->twitter) { ?><a href='<?=$city->twitter_url?>' target='_blank' class='btn'><i class='fa fa-twitter'></i></a><?php } ?>
-                  <?php if($city->website) { ?><a href='<?=$city->website_url?>' target='_blank' class='btn'><i class='fa fa-globe'></i></a><?php } ?>
+                  <?php if ($city->facebook) { ?><a href='<?=$city->facebook_url?>' target='_blank' class='btn'><i class='fa fa-facebook'></i></a><?php } ?>
+                  <?php if ($city->twitter) { ?><a href='<?=$city->twitter_url?>' target='_blank' class='btn'><i class='fa fa-twitter'></i></a><?php } ?>
+                  <?php if ($city->website) { ?><a href='<?=$city->website_url?>' target='_blank' class='btn'><i class='fa fa-globe'></i></a><?php } ?>
                 </div>
               </div>
             </section>
@@ -176,7 +176,7 @@ if ($c->getCollectionUserID() > 1) {
         </div>
         <div class="walks-list preview col-md-8 fade in">
           <h3><?= t('Walks in %s', t((string) $city) ) ?></h3>
-          <?php if($city->totalWalks > 1) { ?>
+          <?php if ($city->totalWalks > 1) { ?>
           <a class="see-all"><?= t2('show only this walk', 'see all %d walks', $city->totalWalks)?></a>
           <?php }?>
           <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="fa fa-star"></i> <?= t('Create a Walk') ?></a>
@@ -192,7 +192,7 @@ if ($c->getCollectionUserID() > 1) {
     </div>
   </div>
 <?php
-           if($c->isEditMode() || $blog) {
+           if ($c->isEditMode() || $blog) {
 ?>
   <div class="intro-city lower blog">
     <div class="container">
@@ -209,4 +209,3 @@ if ($c->getCollectionUserID() > 1) {
 <?php
            }
            $this->inc('elements/footer.php');
-

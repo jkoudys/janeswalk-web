@@ -1,18 +1,22 @@
-<?php 
+<?php
 defined('C5_EXECUTE') or die("Access Denied.");
 
-class SearchBlockController extends Concrete5_Controller_Block_Search {
-  public function highlightedMarkup($fulltext, $highlight) {
+class SearchBlockController extends Concrete5_Controller_Block_Search
+{
+  public function highlightedMarkup($fulltext, $highlight)
+  {
     if (!$highlight) {
       return $fulltext;
     }
     $this->hText = $fulltext;
     $this->hHighlight  = str_replace(array('"',"'","&quot;"),'',$highlight); // strip the quotes as they mess the regex
     $this->hText = @preg_replace( "#$this->hHighlight#ui", '<mark>$0</mark>', $this->hText );
+
     return $this->hText;
   }
 
-  function do_search() {
+  public function do_search()
+  {
     $q = $_REQUEST['query'];
     $_q = $q;
     Loader::library('database_indexed_search');
@@ -21,7 +25,7 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
     $ipl->ignoreAliases();
     if (is_array($_REQUEST['akID'])) {
       Loader::model('attribute/categories/collection');
-      foreach($_REQUEST['akID'] as $akID => $req) {
+      foreach ($_REQUEST['akID'] as $akID => $req) {
         $fak = CollectionAttributeKey::getByID($akID);
         if (is_object($fak)) {
           $type = $fak->getAttributeType();
@@ -49,12 +53,12 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
       $ipl->filterByKeywords($_q);
     }
 
-    if( is_array($_REQUEST['search_paths']) ){
-      foreach($_REQUEST['search_paths'] as $path) {
+    if ( is_array($_REQUEST['search_paths']) ) {
+      foreach ($_REQUEST['search_paths'] as $path) {
         if(!strlen($path)) continue;
         $ipl->filterByPath($path);
       }
-    } else if ($this->baseSearchPath != '') {
+    } elseif ($this->baseSearchPath != '') {
       $ipl->filterByPath($this->baseSearchPath);
     }
 
@@ -63,7 +67,7 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
     $ipl->setItemsPerPage(5);
 
     $res = $ipl->getPage();
-    foreach($res as $r) {
+    foreach ($res as $r) {
       $results[] = new IndexedSearchResult($r['cID'], $r['cName'], $r['cDescription'], $r['score'], $r['cPath'], $r['content']);
     }
 
@@ -74,12 +78,13 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
     $this->set('searchList', $ipl);
   }
 
-  public function action_resultsJson() {
+  public function action_resultsJson()
+  {
     $tt = Loader::helper('text');
     $this->do_search();
     $query = $this->get('query');
     $results = $this->get('results');
-    $return['results'] = array_map(function($r) use($tt, $query) {
+    $return['results'] = array_map(function ($r) use ($tt, $query) {
       $ret = [
         'url' => $r->getPath(),
         'name' => $r->getName()
@@ -87,6 +92,7 @@ class SearchBlockController extends Concrete5_Controller_Block_Search {
       if ($r->getDescription()) {
         $ret['description'] = $this->highlightedMarkup($tt->shortText($r->getDescription()),$query);
       }
+
       return $ret;
     }, (array) $results);
 
