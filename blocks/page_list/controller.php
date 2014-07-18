@@ -4,7 +4,7 @@ defined('C5_EXECUTE') or die("Access Denied.");
 use \JanesWalk\Model\PageType\Walk;
 
 Loader::helper('theme');
-Loader::model('page_types/walk');
+Loader::model('page_types/Walk');
 class PageListBlockController extends Concrete5_Controller_Block_PageList
 {
     // Data for returning in JSON
