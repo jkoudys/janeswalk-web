@@ -1,5 +1,5 @@
 <?php
-use \JanesWalk\Controller\Controller;
+use \JanesWalk\Controllers\Controller;
 defined('C5_EXECUTE') || die("Access Denied.");
 
 Loader::controller('/janes_walk');

@@ -1,7 +1,7 @@
 <?php
 defined('C5_EXECUTE') or die("Access Denied.");
 
-use \JanesWalk\Model\PageType\Walk;
+use \JanesWalk\Models\PageTypes\Walk;
 
 Loader::helper('theme');
 Loader::model('page_types/Walk');

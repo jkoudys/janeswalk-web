@@ -1,5 +1,5 @@
 <?php
-namespace JanesWalk\Controller;
+namespace JanesWalk\Controllers;
 use \Loader;
 use \User;
 use \UserInfo;
