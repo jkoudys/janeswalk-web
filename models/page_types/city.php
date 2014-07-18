@@ -19,39 +19,39 @@ defined('C5_EXECUTE') || die('Access Denied.');
  */
 class city extends \Model implements \JsonSerializable
 {
-  /* Page collection object */
-  protected $page;
-  protected $title;
+    /* Page collection object */
+    protected $page;
+    protected $title;
 
-  /* Basic attributes of a city */
-  public $totalWalks;
-  public $donateCopy;
-  public $fullbg;
-  public $avatar;
-  public $city_organizer;
-  public $profile_path;
-  public $blog;
-  public $facebook;
-  public $twitter;
-  public $website;
-  public $country;
+    /* Basic attributes of a city */
+    public $totalWalks;
+    public $donateCopy;
+    public $fullbg;
+    public $avatar;
+    public $city_organizer;
+    public $profile_path;
+    public $blog;
+    public $facebook;
+    public $twitter;
+    public $website;
+    public $country;
 
-  /*
-   * __construct
-   *
-   * Initialize City object, building values based on Page attributes
-   *
-   * @param Page $page : a Page (Collection) object for a City
-   */
-  public function __construct(Page $page)
-  {
-    // Set our helpers
-    $im = Loader::helper('image');
-    $nh = Loader::helper('navigation');
-    $av = Loader::helper('concrete/avatar');
+    /*
+     * __construct
+     *
+     * Initialize City object, building values based on Page attributes
+     *
+     * @param Page $page : a Page (Collection) object for a City
+     */
+    public function __construct(Page $page)
+    {
+        // Set our helpers
+        $im = Loader::helper('image');
+        $nh = Loader::helper('navigation');
+        $av = Loader::helper('concrete/avatar');
 
-    if ($page->getCollectionTypeHandle() !== 'city') {
-      throw new Exception(t('Attempted to instantiate City model on a non-city page type.'));
+        if ($page->getCollectionTypeHandle() !== 'city') {
+            throw new Exception(t('Attempted to instantiate City model on a non-city page type.'));
     }
 
     // Always store the $page object to refer to later
@@ -82,11 +82,11 @@ class city extends \Model implements \JsonSerializable
 
     /* Text to donate campaign */
     $donateCopyOptions = array(
-      array(
-        'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
-        'main' => 'Love Jane\'s Walk?',
-        'cta' => 'Text JANE to 45678 to donate $10'
-      )
+        array(
+            'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
+            'main' => 'Love Jane\'s Walk?',
+            'cta' => 'Text JANE to 45678 to donate $10'
+        )
     );
     $this->donateCopy = array_rand($donateCopyOptions);
 
@@ -100,20 +100,20 @@ class city extends \Model implements \JsonSerializable
 
   public function __get($name)
   {
-    /* One big switch for all the get names */
-    switch ($name) {
-    case 'facebook_url':
-      return $this->facebook ? 'http://facebook.com/' . end(preg_split('/\//', $this->facebook)) : null;
-      break;
-    case 'twitter_url':
-      return $this->twitter ? 'http://twitter.com/' . end(preg_split('/[@\/]/', $this->twitter)) : null;
-      break;
-    case 'website_url':
-      return $this->website ? (0 === strpos($website, 'http')) ? $website : ('http://' . $this->website) : null;
-      break;
-    case 'url':
-      return Loader::helper('navigation')->getCollectionURL($this->page);
-      break;
+      /* One big switch for all the get names */
+      switch ($name) {
+      case 'facebook_url':
+          return $this->facebook ? 'http://facebook.com/' . end(preg_split('/\//', $this->facebook)) : null;
+          break;
+      case 'twitter_url':
+          return $this->twitter ? 'http://twitter.com/' . end(preg_split('/[@\/]/', $this->twitter)) : null;
+          break;
+      case 'website_url':
+          return $this->website ? (0 === strpos($website, 'http')) ? $website : ('http://' . $this->website) : null;
+          break;
+      case 'url':
+          return Loader::helper('navigation')->getCollectionURL($this->page);
+          break;
     }
   }
 
@@ -126,7 +126,7 @@ class city extends \Model implements \JsonSerializable
    */
   public function __toString()
   {
-    return $this->title;
+      return $this->title;
   }
 
   /*
@@ -138,40 +138,40 @@ class city extends \Model implements \JsonSerializable
    */
   public function jsonSerialize()
   {
-    Loader::model('page_list');
-    $nh = Loader::helper('navigation');
-    $im = Loader::helper('image');
-    $u = new User;
-    $pl = new PageList;
-    $pl->filterByCollectionTypeHandle('walk');
-    $pl->filterByPath($this->page->getCollectionPath());
-    $pl->filterByAttribute('exclude_page_list',false);
-    $pagecount = 500;
-    $cityData = array(
-      'title' => $this->title,
-      'url' => $this->url,
-      'background' => $this->full_bg ? $this->full_bg->getURL() : null,
-      /* We'll assume each area's first block is the one with the descriptions */
-      'short_description' => strip_tags($this->page->getBlocks('City Header')[0]->getController()->getContent()),
+      Loader::model('page_list');
+      $nh = Loader::helper('navigation');
+      $im = Loader::helper('image');
+      $u = new User;
+      $pl = new PageList;
+      $pl->filterByCollectionTypeHandle('walk');
+      $pl->filterByPath($this->page->getCollectionPath());
+      $pl->filterByAttribute('exclude_page_list',false);
+      $pagecount = 500;
+      $cityData = array(
+          'title' => $this->title,
+          'url' => $this->url,
+          'background' => $this->full_bg ? $this->full_bg->getURL() : null,
+          /* We'll assume each area's first block is the one with the descriptions */
+          'short_description' => strip_tags($this->page->getBlocks('City Header')[0]->getController()->getContent()),
       'long_description' => strip_tags($this->page->getBlocks('City Description')[0]->getController()->getContent()),
       'sponsors' => $this->page->getBlocks('Sponsors')[0]->getController()->getContent()
-    );
-    if ((int) $this->city_organizer->getUserID() > 1) {
-      $cityData['city_organizer'] = array(
-        'photo' => $this->avatar,
-        'first_name' => $this->city_organizer->getAttribute('first_name'),
+  );
+      if ((int) $this->city_organizer->getUserID() > 1) {
+          $cityData['city_organizer'] = array(
+              'photo' => $this->avatar,
+              'first_name' => $this->city_organizer->getAttribute('first_name'),
         'last_name' => $this->city_organizer->getAttribute('last_name'),
         'email' => $this->city_organizer->getUserEmail(),
         'facebook' => $this->facebook,
         'twitter' => $this->twitter,
         'website' => $this->website
-      );
+    );
     }
     foreach ($pl->get($pagecount) as $key => $page) {
-      $scheduled = $page->getAttribute('scheduled');
-      $slots = (Array) $scheduled['slots'];
-      $cityData['walks'][$key] = array(
-        'url' => $nh->getCollectionURL($page),
+        $scheduled = $page->getAttribute('scheduled');
+        $slots = (Array) $scheduled['slots'];
+        $cityData['walks'][$key] = array(
+            'url' => $nh->getCollectionURL($page),
         'title' => $page->getCollectionName(),
         'thumb' => ($thumb = $page->getAttribute('thumbnail')) ? $im->getThumbnail($thumb, 340,720)->src : null,
         'schedule' => isset($scheduled['open']) ? 'Open Schedule' : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
@@ -179,12 +179,12 @@ class city extends \Model implements \JsonSerializable
         'time' => isset($slots[0]['time']) ? $slots[0]['time'] : 'multiple',
         'map' => json_decode($page->getAttribute('gmap')),
         'short_description' => $page->getAttribute('shortdescription')
-      );
-      foreach ($slots as $slot) {
-        $cityData['walks'][$key]['slots'][] = ['date' => $slot['date'], 'time' => $slot['time'] ?: 'multiple'];
+    );
+        foreach ($slots as $slot) {
+            $cityData['walks'][$key]['slots'][] = ['date' => $slot['date'], 'time' => $slot['time'] ?: 'multiple'];
       }
       foreach (json_decode($page->getAttribute('team')) as $memkey=>$mem) {
-        $cityData['walks'][$key]['team'] .= ($memkey == 0 ? 'Walk led by ' : ($memkey > 0 ? ', ' : '')) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
+          $cityData['walks'][$key]['team'] .= ($memkey == 0 ? 'Walk led by ' : ($memkey > 0 ? ', ' : '')) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
       }
     }
 
@@ -198,7 +198,7 @@ class city extends \Model implements \JsonSerializable
    */
   public function getPage()
   {
-    return $this->page;
+      return $this->page;
   }
 
 }

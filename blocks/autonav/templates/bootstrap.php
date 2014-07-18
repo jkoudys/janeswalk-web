@@ -17,44 +17,44 @@ foreach ($navItems as $ni) {
     }
 
     /*
-	if ($ni->isFirst) {
-		//class for the first item in each menu section (first top-level item, and first item of each dropdown sub-menu)
-		$classes[] = 'nav-first';
-	}
-	*/
+    if ($ni->isFirst) {
+        //class for the first item in each menu section (first top-level item, and first item of each dropdown sub-menu)
+        $classes[] = 'nav-first';
+    }
+     */
 
     /*
-	if ($ni->isLast) {
-		//class for the last item in each menu section (last top-level item, and last item of each dropdown sub-menu)
-		$classes[] = 'nav-last';
-	}
-	*/
+    if ($ni->isLast) {
+        //class for the last item in each menu section (last top-level item, and last item of each dropdown sub-menu)
+        $classes[] = 'nav-last';
+    }
+     */
 
     /*
-	if ($ni->hasSubmenu) {
-		//class for items that have dropdown sub-menus
-		$classes[] = 'nav-dropdown';
-	}
-	*/
+    if ($ni->hasSubmenu) {
+        //class for items that have dropdown sub-menus
+        $classes[] = 'nav-dropdown';
+    }
+     */
 
     /*
-	if (!empty($ni->attrClass)) {
-		//class that can be set by end-user via the 'nav_item_class' custom page attribute
-		$classes[] = $ni->attrClass;
-	}
-	*/
+    if (!empty($ni->attrClass)) {
+        //class that can be set by end-user via the 'nav_item_class' custom page attribute
+        $classes[] = $ni->attrClass;
+    }
+     */
 
     /*
-	if ($ni->isHome) {
-		//home page
-		$classes[] = 'nav-home';
-	}
-	*/
+    if ($ni->isHome) {
+        //home page
+        $classes[] = 'nav-home';
+    }
+     */
 
     /*
-	//unique class for every single menu item
-	$classes[] = 'nav-item-' . $ni->cID;
-	*/
+    //unique class for every single menu item
+    $classes[] = 'nav-item-' . $ni->cID;
+     */
 
     //Put all classes together into one space-separated string
     $ni->classes = implode(" ", $classes);

@@ -1,4 +1,4 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); 
+<?php  defined('C5_EXECUTE') or die("Access Denied.");
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,16 +15,16 @@
 <script>
 <?php
 $cities = Cache::get('map','world') ?: [];
-if(!$cities) {
+if (!$cities) {
   $pl = new PageList();
   $nh = Loader::helper('navigation');
   $pl->filterByCollectionTypeHandle('City');
   $pages = $pl->get();
-  foreach($pages as $page) {
+  foreach ($pages as $page) {
     $parent = Page::getByID($page->getCollectionParentID());
     $page_owner = UserInfo::getByID($page->getCollectionUserID());
     $city = t($city_name = $page->getCollectionName()) . ', ' . t($country_name = $parent->getCollectionName());
-    $latlng = array_map( function($e) { return (float)trim($e); }, explode(',', $page->getAttribute('latlng')));
+    $latlng = array_map( function ($e) { return (float) trim($e); }, explode(',', $page->getAttribute('latlng')));
     $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$city_name} Walks</a>".(($page_owner->getUserID() > 1 && $page_owner->getAttribute('first_name') !== 'There\'s no City Organizer here' && $first_name = $page_owner->getAttribute('first_name')) ? "<br/>{$first_name}, City Organizer" : false);
     $cities[] = ['country' => $country_name,
       'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
@@ -98,9 +98,10 @@ var mapOptions = {
 var map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
 map.mapTypes.set("map_style", style);
 map.setMapTypeId("map_style");
-function WorldMap() {
+function WorldMap()
+{
   var _this = this;
-  for(var i = 0; i < cities.length; i++) {
+  for (var i = 0; i < cities.length; i++) {
     var marker = new google.maps.Marker({
       map: map,
       position: new google.maps.LatLng( cities[i].lat, cities[i].lng ),
@@ -110,15 +111,15 @@ function WorldMap() {
         fillColor: cities[i].color,
         scale: 6,
         strokeWeight:0,
-        zIndex: 10 
+        zIndex: 10
       }
     });
     marker.infowindow = new google.maps.InfoWindow({
       content: cities[i].info
     });
 
-    google.maps.event.addListener(marker, 'click', function() {
-      if(_this.infoOpen ) { _this.infoOpen.close(); }
+    google.maps.event.addListener(marker, 'click', function () {
+      if (_this.infoOpen) { _this.infoOpen.close(); }
       _this.infoOpen = this.infowindow;
       this.infowindow.open(map,this);
     });

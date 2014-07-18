@@ -84,7 +84,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
             <hr>
             <div class="item required">
               <label for="walkphotos" id="photo-tip"><?= t('Upload a photo that best represents your walk.') ?></label>
-              <iframe class="walkphotos" src="<?= REL_DIR_FILES_TOOLS ?>/files/image_upload"></iframe> 
+              <iframe class="walkphotos" src="<?= REL_DIR_FILES_TOOLS ?>/files/image_upload"></iframe>
             </div>
           </form>
           <form>
@@ -102,19 +102,19 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
               <div class="item required">
                 <label for="longdescription" id="longwalkdescription"><?= t('Walk Description') ?></label>
                 <div class="alert alert-info">
-                  <?= t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.') ?> 
+                  <?= t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.') ?>
                 </div>
                 <?= $c->getAttribute('longdescription') ?>
                 <textarea class="textarea-wysiwyg col-md-12" id="longdescription" name="longdescription" rows="14"></textarea>
               </div>
             </fieldset>
-            <?php if($wards) { ?>
+            <?php if ($wards) { ?>
             <fieldset id="wards">
               <div class="item">
                 <label for="wards"><?= t('Sub-locality') ?></label>
                 <div class="alert alert-info"><?= t('Choose a specific neighbourhood or area where your walk will take place.') ?></div>
                 <select id="ward" name="ward">
-                  <?php foreach($wards as $ward) { ?>
+                  <?php foreach ($wards as $ward) { ?>
                   <option <?= $ward->selected ? 'selected' : '' ?> value="<?= addslashes($ward->value) ?>"><?= $ward->value ?></option>
                 <?php } ?>
                 </select>
@@ -125,7 +125,6 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
             <?php /*  <fieldset>
               <legend>Additional Resources (Optional)</legend>
               <div class="alert alert-info">Upload a file such as a PDF, or provide a link to a relevant website or video. Please include no more than 3 additional references.</div>
-
 
               <ul class="unstyled" id="resource-list">
                 <li class="resource-item">
@@ -157,7 +156,6 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                   </div>
                 </div>
               </li>
-
 
               <li class="resource-item-new hide">
                 <div class="thumbnail">
@@ -194,7 +192,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
           <a href="#" class="btn btn-info" id="add-resource">Add Another Resource</a>
 
           </fieldset> */ ?>
-        <?php if(!$is_nyc) { ?>
+        <?php if (!$is_nyc) { ?>
         <fieldset id="theme-select">
           <legend class="required-legend"><?= t('Themes') ?></legend>
           <div class="alert alert-info">
@@ -303,20 +301,20 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
               <h4>1. <?= t('Set a Meeting Place') ?></h4>
               <ol>
                 <li><?= t('Click "Meeting Place" to add a pinpoint on the map') ?></li>
-                <li><?= t('Click and drag it into position') ?></li> 
-                <li><?= t('Fill out the form fields and press Save Meeting Place') ?></li> 
+                <li><?= t('Click and drag it into position') ?></li>
+                <li><?= t('Fill out the form fields and press Save Meeting Place') ?></li>
               </ol>
             </div>
             <div class="col-md-4">
               <h4>2. <?= t('Add Stops') ?></h4>
               <ol>
                 <li><?= t('Click "Add Stop" to add a stop on the map') ?></li>
-                <li><?= t('Click and drag it into position') ?></li> 
-                <li><?= t('Fill out the form fields and press Save Stop') ?></li> 
+                <li><?= t('Click and drag it into position') ?></li>
+                <li><?= t('Fill out the form fields and press Save Stop') ?></li>
                 <li><?= t('Repeat to add more stops') ?></li>
               </ol>
             </div>
-            <div class="col-md-4"> 
+            <div class="col-md-4">
               <h4>3. <?= t('Add Route') ?></h4>
               <ol>
                 <li><?= t('Click Add Route') ?></li>
@@ -371,7 +369,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
           <legend ><?= t('Pick one of the following:') ?></legend>
           <div class="row">
             <ul class="thumbnails" id="block-select">
-              <?php if(false && !in_array($city->getCollectionID(), [235, 276])) { ?>
+              <?php if (false && !in_array($city->getCollectionID(), [235, 276])) { ?>
               <li class="col-md-6">
                 <a href="#time-and-date-all" data-toggle="tab">
                   <div class="thumbnail">
@@ -435,7 +433,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                   </select><hr>
                   <button class="btn btn-primary" id="save-date-set"><?= t('Add Date') ?></button>
                 </div>
-                
+
               </div>
             </div>
           </div>
@@ -452,7 +450,6 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
             <tbody>
             </tbody>
           </table>
-
 
           <hr>
           <a href="#time-and-date-select" data-toggle="tab" class="clear-date"><?= t('Clear schedule and return to main Time and Date page') ?></a>
@@ -541,7 +538,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
             </div>
             <div class="col-md-6">
               <label class="checkbox"><input type="checkbox" name="accessible-uneven">  <?= t('Wear sensible shoes (uneven terrain)') ?></label>
-              <label class="checkbox"><input type="checkbox" name="accessible-busy">  <?= t('Busy sidewalks') ?></label> 
+              <label class="checkbox"><input type="checkbox" name="accessible-busy">  <?= t('Busy sidewalks') ?></label>
               <label class="checkbox"><input type="checkbox" name="accessible-bicyclesonly">  <?= t('Bicycles only') ?></label>
               <label class="checkbox"><input type="checkbox" name="accessible-lowlight">  <?= t('Low light or nighttime') ?></label>
               <label class="checkbox"><input type="checkbox" name="accessible-seniors">  <?= t('Senior Friendly') ?></label>
@@ -626,13 +623,12 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
               </div>
 
               <div class="row" id="newwalkleader">
-                <div class="col-md-6 required"> 
+                <div class="col-md-6 required">
                   <label for="you-email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
                   <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
                 </div>
 
-
-                <div class="col-md-6"> 
+                <div class="col-md-6">
                   <label for="leader-twitter"><i class="fa fa-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
@@ -757,7 +753,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
               </div>
 
               <div class="row" id="newwalkleader">
-                <div class="col-md-6"> 
+                <div class="col-md-6">
                   <label for="prependedInput"><i class="fa fa-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
@@ -785,7 +781,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                 <?= t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') ?></div>
 
               <div class="row" id="newwalkleader">
-                <div class="col-md-6 required"> 
+                <div class="col-md-6 required">
                   <label for="email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
                   <input type="email" class="input-large" id="email" placeholder="Email" name="email[]">
                 </div>
@@ -793,13 +789,13 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                   <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
                   <input type="tel" maxlength="16" class="input-large" id="phone" placeholder="" name="phone[]">
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
         </fieldset>
         <footer>
           <button class="btn remove-team-member"><?= t('Remove Team Member') ?></button>
-        </footer>  
+        </footer>
       </div>
 
       <!-- Start Walk Organizer -->
@@ -831,7 +827,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
         </fieldset>
         <footer>
           <button class="btn remove-team-member"><?= t('Remove Team Member') ?></button>
-        </footer> 
+        </footer>
       </div>
 
       <!-- Start Community Voice -->
@@ -858,7 +854,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                 <textarea class="col-md-12" id="bio" rows="6" name="bio[]"></textarea>
               </div>
               <div class="row" id="newwalkleader">
-                <div class="col-md-6"> 
+                <div class="col-md-6">
                   <label for="prependedInput"><i class="fa fa-twitter"></i> Twitter</label>
                   <div class="input-prepend">
                     <span class="add-on">@</span>
@@ -881,7 +877,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
         </fieldset>
         <footer>
           <button class="btn remove-team-member"><?= t('Remove Team Member') ?></button>
-        </footer> 
+        </footer>
       </div>
 
       <!-- Other -->
@@ -917,7 +913,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
         </fieldset>
         <footer>
           <button class="btn remove-othermember"><?= t('Remove Team Member') ?></button>
-        </footer> 
+        </footer>
       </div>
       <hr>
       <button class="btn btn-primary btn-large section-save" id="section-save"><?= t('Save') ?></button><br><br>
@@ -994,4 +990,3 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
     <a href="#" class="btn close" data-dismiss="modal"><?= t('Close Preview') ?></a>
   </div>
 </div>
-

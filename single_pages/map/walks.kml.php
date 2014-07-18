@@ -27,20 +27,20 @@ XML;
 $doc = new SimpleXMLElement($xmlstr);
 $doc->preserveWhiteSpace = false;
 
-foreach($pages as $page) {
+foreach ($pages as $page) {
   // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
   $gmap = json_decode($page->getAttribute('gmap'),true);
   $coordinates = false;
-  foreach( (array) $gmap['markers'] as $marker) { // To avoid errors on empty/malformed maps
+  foreach ( (array) $gmap['markers'] as $marker) { // To avoid errors on empty/malformed maps
     $coordinates = "{$marker['lng']}, {$marker['lat']}";
-    break; 
+    break;
   }
   $name = $page->getCollectionName();
-  if(!($name && $coordinates)) { continue; }
+  if (!($name && $coordinates)) { continue; }
 
   $city = Page::getByID($page->getCollectionParentID());
   $country = Page::getByID($city->getCollectionParentID());
-  
+
   // Creates a Placemark and append it to the Document.
   $placemark = $doc->Document->addChild('Placemark');
 

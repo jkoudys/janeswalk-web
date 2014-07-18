@@ -2,10 +2,10 @@
 Loader::library('authentication/open_id');
 $form = Loader::helper('form'); ?>
 <script type="text/javascript">
-  $(document).ready(function() {
+  $(document).ready(function () {
     $("html").addClass("index-bg");
   });
-  $(function() {
+  $(function () {
     $("input[name=uName]").focus();
   });
 </script>
@@ -13,10 +13,10 @@ $form = Loader::helper('form'); ?>
 <div class="modal fade in" id="signup-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
   <div class="modal-dialog">
 <div class="modal-content">
-  <?php  if($changePasswordForm){ ?>
+  <?php  if ($changePasswordForm) { ?>
   <p><?php echo t('Enter your new password below.') ?></p>
-  <div class="ccm-form modal-body">	
-    <form method="post" action="<?php echo $this->url( '/login', 'change_password', $uHash )?>"> 
+  <div class="ccm-form modal-body">
+    <form method="post" action="<?php echo $this->url( '/login', 'change_password', $uHash )?>">
       <div class="control-group">
         <label for="uPassword" class="control-label"><?php echo t('New Password')?></label>
         <div class="controls">
@@ -34,7 +34,7 @@ $form = Loader::helper('form'); ?>
       </div>
     </form>
   </div>
-  <?php  }elseif($validated) { ?>
+  <?php  } elseif ($validated) { ?>
   <h3><?=t('Email Address Verified')?></h3>
   <div class="success alert-message block-message modal-body">
     <p>
@@ -45,7 +45,7 @@ $form = Loader::helper('form'); ?>
 
   <?php  } else if (isset($_SESSION['uOpenIDError']) && isset($_SESSION['uOpenIDRequested'])) { ?>
   <div class="ccm-form modal-body">
-<?php  switch($_SESSION['uOpenIDError']) {
+<?php  switch ($_SESSION['uOpenIDError']) {
 case OpenIDAuth::E_REGISTRATION_EMAIL_INCOMPLETE: ?>
 
     <form method="post" action="<?php echo $this->url('/login', 'complete_openid_email')?>">
@@ -72,13 +72,13 @@ case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
     <div class="modal-body">
       <p><?php echo t('Welcome back! We\'ve updated the website, as you can see. We need just a few more things from you to get started.')?></p>
       <form method="post" action="<?php echo $this->url('/login', 'do_login')?>">
-        <?php  
+        <?php
         $attribs = UserAttributeKey::getRegistrationList();
         $af = Loader::helper('form/attribute');
 
         $i = 0;
-        foreach($unfilledAttributes as $ak) { 
-        print $af->display($ak, $ak->isAttributeKeyRequiredOnRegister());	
+        foreach ($unfilledAttributes as $ak) {
+        print $af->display($ak, $ak->isAttributeKeyRequiredOnRegister());
         $i++;
         }
         ?>
@@ -86,7 +86,7 @@ case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
         <?php echo $form->hidden('uPassword', Loader::helper('text')->entities($_POST['uPassword']))?>
         <?php echo $form->hidden('uOpenID', $uOpenID)?>
         <?php echo $form->hidden('completePartialProfile', true)?>
-      </div>	
+      </div>
       <div class="modal-footer">
         <div class="ccm-button">
           <?php echo $form->submit('submit', t('Sign In'))?>
@@ -106,11 +106,11 @@ case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
       <?php  if (isset($intro_msg)) { ?>
       <div class="alert-message block-message success"><p><?php echo $intro_msg?></p></div>
       <?php  } ?>
-      <?php  if( $passwordChanged ){ ?>
+      <?php  if ($passwordChanged) { ?>
 
       <div class="block-message info alert-message"><p><?php echo t('Password changed.  Please login to continue. ') ?></p></div>
 
-      <?php  } ?> 
+      <?php  } ?>
 
       <label for="uName"><?php  if (USER_REGISTRATION_WITH_EMAIL_ADDRESS == true) { ?>
         <?php echo t('Email')?>
@@ -134,10 +134,10 @@ case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
       </div>
       <?php echo $form->submit('submit', t('Go!'), null, "" )?>
       <?php  if (isset($error) && $error != '') { ?>
-      <?php  
+      <?php
         if ($error instanceof Exception) {
           $_error[] = $error->getMessage();
-        } else if ($error instanceof ValidationErrorHelper) { 
+        } else if ($error instanceof ValidationErrorHelper) {
           $_error = $error->getList();
         } else if (is_array($error)) {
           $_error = $error;
@@ -146,9 +146,9 @@ case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
         }
       ?>
       <div class="ccm-error">
-        <?php  foreach($_error as $e) { ?><?php echo $e?><br /><?php  } ?>
+        <?php  foreach ($_error as $e) { ?><?php echo $e?><br /><?php  } ?>
       </div>
-      <?php  
+      <?php
       } ?>
     </div>
   </form>

@@ -1,18 +1,18 @@
 <?php
-  defined('C5_EXECUTE') or die('Access Denied.'); 
+  defined('C5_EXECUTE') or die('Access Denied.');
   define('IS_PROFILE', 1);
   $ui = UserInfo::getByID($u->getUserID());
   $nh = Loader::helper('navigation');
 ?>
   <script type="text/javascript">
-    window.fbAsyncInit = function() {
+    window.fbAsyncInit = function () {
       FB.init({
         appId: '544710848887303',
         status: true,
         xfbml: true
       });
     };
-    (function(d, s, id){
+    (function (d, s, id) {
        var js, fjs = d.getElementsByTagName(s)[0];
        if (d.getElementById(id)) {return;}
        js = d.createElement(s); js.id = id;
@@ -284,7 +284,7 @@
               </div>
             </div>
             <?php
-              // foreach( as $page) {
+              // foreach (as $page) {
               /*
                 <li>
                   <a href="{$nh->getCollectionURL($page)}">{$page->getCollectionName()}</a>
@@ -528,7 +528,7 @@
           <?php
               $valt->output('profile_edit');
               $attribs = UserAttributeKey::getEditableInProfileList();
-              if(is_array($attribs) && count($attribs)) {
+              if (is_array($attribs) && count($attribs)) {
             ?>
               <div class="column details">
                 <div class="headline"><?= t('Details') ?></div>
@@ -540,7 +540,7 @@
                     <?= ($form->text('uEmail', $ui->getUserEmail())) ?>
                   </div>
                 </div>
-                <?php if(ENABLE_USER_TIMEZONES) { ?>
+                <?php if (ENABLE_USER_TIMEZONES) { ?>
                   <div class="field clearfix">
                     <div class="">
                       <span class="required">*</span><?= ($form->label('uTimezone', t('Time Zone'))) ?>
@@ -549,7 +549,7 @@
                       <?= (
                         $form->select(
                           'uTimezone',
-                          $date->getTimezones(), 
+                          $date->getTimezones(),
                           (
                             $ui->getUserTimezone() ? $ui->getUserTimezone() : date_default_timezone_get()
                           )
@@ -563,7 +563,7 @@
                   // Loop through all the fields
                   $af = Loader::helper('form/attribute');
                   $af->setAttributeObject($ui);
-                  foreach($attribs as $ak) {
+                  foreach ($attribs as $ak) {
                     print '<div class="field clearfix">';
                     print ($af->display($ak, $ak->isAttributeKeyRequiredOnProfile()));
                     print '</div>';
@@ -737,7 +737,7 @@
           <div id="ccm-profile-body-attributes">
             <div class="ccm-profile-body-item">
               <h1><?= ($profile->getUserName()) ?></h1>
-              <?php foreach(UserAttributeKey::getPublicProfileList() as $ua) { ?>
+              <?php foreach (UserAttributeKey::getPublicProfileList() as $ua) { ?>
                 <div>
                   <label><?= tc('AttributeKeyName', $ua->getAttributeKeyName()) ?></label>
                   <?= ($profile->getAttribute($ua, 'displaySanitized', 'display')) ?>

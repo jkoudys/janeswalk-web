@@ -7,39 +7,39 @@ Loader::model('page_types/city');
 Loader::controller('/janes_walk');
 class CityPageTypeController extends Controller
 {
-  protected $city;
+    protected $city;
 
-  public function on_start()
-  {
-    $method = $_SERVER['REQUEST_METHOD'];
-    $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
+    public function on_start()
+    {
+        $method = $_SERVER['REQUEST_METHOD'];
+        $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
 
-    $this->city = new City($this->c);
+        $this->city = new City($this->c);
 
-    switch ($method) {
-      // Publish
-    case 'POST':
-      // Save
-    case 'PUT':
-      break;
-      // Retrieve the page's json
-    case 'GET':
-      if ($_GET['format'] === 'json') {
-        $this->getJson();
-        exit;
+        switch ($method) {
+            // Publish
+        case 'POST':
+            // Save
+        case 'PUT':
+            break;
+            // Retrieve the page's json
+        case 'GET':
+            if ($_GET['format'] === 'json') {
+                $this->getJson();
+                exit;
       }
       break;
       // 'unpublish' the event (true deletes done through dashboard controller, not city)
-    case 'DELETE':
-      $c = Page::getCurrentPage();
-      $c->setAttribute('exclude_page_list',true);
-      break;
+case 'DELETE':
+    $c = Page::getCurrentPage();
+    $c->setAttribute('exclude_page_list',true);
+    break;
     }
   }
 
   public function getJson()
   {
-    echo json_encode($this->city);
+      echo json_encode($this->city);
   }
 
   /*
@@ -49,13 +49,13 @@ class CityPageTypeController extends Controller
    */
   public function view()
   {
-    parent::view();
-    $this->set('pageType', 'city-page');
-    $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
-    $this->set('isLoggedIn', (bool) Loader::helper('concrete/dashboard')->canRead());
-    $this->set('isCampaignActive', false); // Is the donations campaign running?
-    $this->set('canEdit', is_object(ComposerPage::getByID($this->c->getCollectionID())));
-    $this->set('city', $this->city);
+      parent::view();
+      $this->set('pageType', 'city-page');
+      $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
+      $this->set('isLoggedIn', (bool) Loader::helper('concrete/dashboard')->canRead());
+      $this->set('isCampaignActive', false); // Is the donations campaign running?
+      $this->set('canEdit', is_object(ComposerPage::getByID($this->c->getCollectionID())));
+      $this->set('city', $this->city);
   }
 
   /*
@@ -67,7 +67,7 @@ class CityPageTypeController extends Controller
    */
   public function walks()
   {
-    $this->view();
-    $this->set('show', 'all');
+      $this->view();
+      $this->set('show', 'all');
   }
 }

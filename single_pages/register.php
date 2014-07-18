@@ -12,7 +12,7 @@
 <?php  if (isset($error) && $error != '') {
   if ($error instanceof Exception) {
     $_error[] = $error->getMessage();
-  } else if ($error instanceof ValidationErrorHelper) { 
+  } else if ($error instanceof ValidationErrorHelper) {
     $_error = $error->getList();
   } else if (is_array($error)) {
     $_error = $error;
@@ -21,46 +21,46 @@
   }
 ?>
     <div class="ccm-error">
-      <?php  foreach($_error as $e) { ?><?php echo $e?><br /><?php  } ?>
+      <?php  foreach ($_error as $e) { ?><?php echo $e?><br /><?php  } ?>
     </div>
-<?php  
+<?php
 } ?>
 
-    <?php  
+    <?php
     $attribs = UserAttributeKey::getRegistrationList();
 
-    if($success) { ?>
+    if ($success) { ?>
     <div class="row">
       <div class="col-md-10">
-        <?php 	switch($success) { 
-        case "registered": 
+        <?php     switch ($success) {
+        case "registered":
         ?>
         <p><strong><?php echo $successMsg ?></strong><br/><br/>
         <a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
-        <?php  
+        <?php
         break;
-        case "validate": 
+        case "validate":
         ?>
         <p><?=$successMsg[0]?></p>
         <p><?=$successMsg[1]?></p>
         <p><a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
-        <?php 
+        <?php
         break;
         case "pending":
         ?>
         <p><?php echo $successMsg ?></p>
         <p><a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
-        <?php 
+        <?php
         break;
         } ?>
       </div>
     </div>
-    <?php  
+    <?php
     } else { ?>
 
     <form method="post" action="<?php echo $this->url('/register', 'do_register')?>" class="form-horizontal">
       <div class="row">
- 
+
         <?php  if (count($attribs) > 0) { ?>
         <div class="col-md-10">
           <fieldset>
@@ -97,12 +97,12 @@
           <Br/>
           <fieldset>
             <legend><?php echo t('Options')?></legend>
-            <?php 
+            <?php
 
             $af = Loader::helper('form/attribute');
 
-            foreach($attribs as $ak) { ?> 
-            <?php echo  $af->display($ak, $ak->isAttributeKeyRequiredOnRegister());	?>
+            foreach ($attribs as $ak) { ?>
+            <?php echo  $af->display($ak, $ak->isAttributeKeyRequiredOnRegister());    ?>
             <?php  }?>
           </fieldset>
         </div>
@@ -111,16 +111,16 @@
           <?php  if (ENABLE_REGISTRATION_CAPTCHA) { ?>
 
           <div class="control-group">
-            <?php  $captcha = Loader::helper('validation/captcha'); ?>			
+            <?php  $captcha = Loader::helper('validation/captcha'); ?>
             <?php echo $captcha->label()?>
             <div class="controls">
-              <?php 
-              $captcha->showInput(); 
+              <?php
+              $captcha->showInput();
               $captcha->display();
               ?>
             </div>
           </div>
-          
+
           <?php  } ?>
 
         </div>

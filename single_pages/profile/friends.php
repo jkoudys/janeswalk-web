@@ -1,19 +1,19 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
 <div id="ccm-profile-wrapper">
-   <?php  Loader::element('profile/sidebar', array('profile'=> $profile)); ?>    
-    <div id="ccm-profile-body">	
+   <?php  Loader::element('profile/sidebar', array('profile'=> $profile)); ?>
+    <div id="ccm-profile-body">
         <h1><?php echo t('My Friends') ?></h1>
-        <?php 
-		$friendsData = UsersFriends::getUsersFriendsData( $profile->getUserID() );
-		if( !$friendsData ){ ?>
+        <?php
+        $friendsData = UsersFriends::getUsersFriendsData( $profile->getUserID() );
+        if (!$friendsData) { ?>
 			<div style="padding:16px 0px;">
 				<?php echo t('No results found.')?>
 			</div>
-		<?php  
-		}else foreach($friendsData as $friendsData){ 
-			$friendUID=$friendsData['friendUID'];
-			$friendUI = UserInfo::getById( $friendUID );
-			if (!is_object($friendUI)) { ?>
+		<?php
+        }else foreach ($friendsData as $friendsData) {
+            $friendUID=$friendsData['friendUID'];
+            $friendUI = UserInfo::getById( $friendUID );
+            if (!is_object($friendUI)) { ?>
 
 			<div class="ccm-users-friend" style="margin-bottom:16px;">
 				<div style="float:left; width:100px;">
@@ -23,8 +23,8 @@
 					<?php echo t('Unknown User')?>
 				</div>
 				<div class="ccm-spacer"></div>
-			</div>			
-			
+			</div>
+
 			<?php  } else { ?>
 			<div class="ccm-users-friend" style="margin-bottom:16px;">
 				<div style="float:left; width:100px;">
@@ -37,10 +37,10 @@
 					</div>
 				</div>
 				<div class="ccm-spacer"></div>
-			</div>			
+			</div>
 			<?php  } ?>
-		<?php  } ?>	
+		<?php  } ?>
     </div>
-	
+
 	<div class="ccm-spacer"></div>
 </div>
