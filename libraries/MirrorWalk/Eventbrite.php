@@ -2,8 +2,16 @@
 namespace JanesWalk\Libraries\MirrorWalk;
 
 use \Exception;
-use \JanesWalk\Libraries\WalkSync\EventInterface;
+use \Log;
+use \JanesWalk\Libraries\MirrorWalk\EventInterface;
 use \JanesWalk\Models\PageTypes\Walk;
+
+/**
+ * Loaders
+ * FIXME: on c5.7 upgrade, move to consistent autoloader approach
+ */
+require_once 'EventInterface.php';
+\Loader::model('page_types/Walk');
 
 class Eventbrite implements EventInterface {
     /**
@@ -11,18 +19,17 @@ class Eventbrite implements EventInterface {
      *  @type string[] $eventParams The various parameters taken by the EB API
      *  @type string[] $ticketParams Parameters taken by the EB ticket endpoint
      */
-    protected $eid;
+    protected $eid,
               $eventParams,
               $ticketParams;
 
+    /**
+     * @type string $apiEndpoint The endpoint we're connecting to EB on
+     */
+    private static $apiEndpoint = 'https://www.eventbrite.com/json/';
+
     public function __construct(Walk $walk = null)
     {
-        // EB Constants set in config/site.php
-        $this->ebHandle = new Eventbrite([
-            'app_key' => EVENTBRITE_APP_KEY,
-            'user_key' => EVENTBRITE_USER_KEY 
-        ]);
-
         // Set EB ticket defaults upfront
         $ticketParams = [
             // Jane's Walks are always free
@@ -50,8 +57,11 @@ class Eventbrite implements EventInterface {
             'title' => (string) $walk,
             'description' => $walk->longdescription,
             'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60)),
+            // Default status to draft, so only explicit calls publish an event
             'status' => 'draft',
-            'timezone' => $walk->timezone
+            'timezone' => $walk->timezone,
+            'app_key' => EVENTBRITE_APP_KEY,
+            'user_key' => EVENTBRITE_USER_KEY 
         ];
 
         // Load the available time slots
@@ -67,39 +77,77 @@ class Eventbrite implements EventInterface {
         }
     }
 
-    public function createEvent()
+    public function requestCreateEvent()
     {
-        try {
-            $response = $eb_client->event_new($this->eventParams);
-            $this->ticketParams['event_id'] = $response->process->id;
-            $c->setAttribute("eventbrite", $response->process->id);
-        } catch (Exception $e) {
-            // application-specific error handling goes here
-            $response = $e->error;
-            Log::addEntry("EventBrite Error creating new event for cID={$c->getCollectionID()}: {$e->getMessage()}");
-        }
-        $this->ticketParams['end_date'] = $this->eventParams['end_date'];
-        foreach ($slots as $walkDate) {
-            $this->ticketParams['name'] = $walkDate['date'] . ' Walk';
-            try {
-                $response = $eb_client->ticket_new($this->ticketParams);
-            } catch (Exception $e) {
-                $response = $e->error;
-                Log::addEntry("EventBrite Error updating ticket for cID={$c->getCollectionID()}: {$e->getMessage()}");
-            }
-        }
+        $ch = self::curlIni();
+        curl_setopt($ch, CURLOPT_URL, self::$apiEndpoint . 'event_new');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->eventParams);
+
+        return $ch;
     }
 
-    public function updateEvent()
+    public function requestUpdateEvent()
     {
-        try {
-            $this->eventParams['id'] = $eid;
-            $this->ticketParams['event_id'] = $eid;
-            $response = $eb_client->event_update($this->eventParams);
-        } catch (Exception $e) {
-            $response = $e->error;
-            Log::addEntry("EventBrite Error updating event for cID={$c->getCollectionID()}: {$e->getMessage()}");
+        $ch = self::curlIni();
+        curl_setopt($ch, CURLOPT_URL, self::$apiEndpoint . 'event_new');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->eventParams);
+
+        return $ch;
+    }
+
+    /**
+     * Receive response from creating/updating event
+     * Unforunately ticket_new needs a separate request, so we'll just blast
+     * out a bunch of creates for new tickets
+     * FIXME: either delete all old unused tickets, or disable them so we don't
+     * get duplicate ticket entries.
+     *
+     * @return void
+     */
+    public function receiveEvent(array $reply)
+    {
+        // Get the eid from response, if needed
+        if ($this->isCreated()) {
+            $this->ticketParams['event_id'] = $reply['id'];
         }
+
+        // Setup our multi-handler
+        $mh = curl_multi_init();
+
+        // FIXME: Loop through each date
+
+        $ch = self::curlIni();
+        curl_setopt($ch, CURLOPT_URL, self::$apiEndpoint . 'ticket_update');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->ticketParams);
+
+        curl_multi_add_handle($mh, $ch);
+
+        $active = null;
+        // execute the handles
+        do {
+            $mrc = curl_multi_exec($mh, $active);
+        } while ($mrc == CURLM_CALL_MULTI_PERFORM);
+    }
+
+    /**
+     * requestAuth
+     * We're using an API key, so do not authenticate via username
+     *
+     * @return null This tells the caller not to attempt any auth connection
+     */
+    public function requestAuth()
+    {
+        return null;
+    }
+
+    /**
+     * receiveAuth
+     * No need to receive auth, as we do not request it.
+     *
+     * @return void
+     */
+    public function receiveAuth(array $authReply)
+    {
     }
 
     public function setStatus($status = 'draft')
@@ -108,16 +156,35 @@ class Eventbrite implements EventInterface {
     }
 
     public function setStatusPublic() {
-        $this->setStatus('public');
+        $this->setStatus('live');
     }
 
     public function setStatusPrivate() {
         $this->setStatus('draft');
     }
 
+    /**
+     * isCreated
+     * Use the eid - if its value is set and non-zero, this event has been made.
+     *
+     * return bool Has this event been created
+     */
     public function isCreated()
     {
-        return isset($this->eid);
+        return (bool) $this->eid;
+    }
+
+    /**
+     * Build the basic curl handle. All common config goes here.
+     *
+     * @return resource<curl>
+     */
+    private static function curlIni()
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        return $ch;
     }
 }
 

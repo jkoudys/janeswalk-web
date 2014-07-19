@@ -24,18 +24,18 @@ class Walk extends \Model implements \JsonSerializable
     protected $page, $title;
 
     /* Basic attributes of a walk */
-    public $shortdescription;
-    public $longdescription;
-    public $accessibleInfo;
-    public $accessibleTransit;
-    public $accessibleParking;
-    public $accessibleFind;
-    public $map;
-    public $team;
-    public $time;
-    public $thumbnail;
-    public $wards;
-    public $themes;
+    public $shortdescription,
+           $longdescription,
+           $accessibleInfo,
+           $accessibleTransit,
+           $accessibleParking,
+           $accessibleFind,
+           $map,
+           $team,
+           $time,
+           $thumbnail,
+           $wards,
+           $themes;
 
     /* Value store for getters */
     private $getCache;

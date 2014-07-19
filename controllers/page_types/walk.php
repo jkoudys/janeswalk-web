@@ -9,16 +9,18 @@ Loader::model('page_types/Walk');
 
 class WalkPageTypeController extends Controller
 {
-    protected $walk; // Walk model object
+    /**
+     * @type Walk $walk The Walk model
+     */
+    protected $walk;
 
     public function on_start()
     {
-        $cp = new \Permissions($this->c);
         $this->walk = new Walk($this->c);
 
         /* Ideally this should be in a router, not the individual on_start.
-         * c5.7 uses symfony2 for routing; TODO: either use the c5.6 'Request' class,
-         * or wait for 5.7.
+         * c5.7 uses symfony2 for routing
+         * TODO: either use the c5.6 'Request' class, or wait for 5.7.
          */
         switch ($_SERVER['REQUEST_METHOD']) {
         case 'POST':
@@ -37,7 +39,7 @@ class WalkPageTypeController extends Controller
         }
     }
 
-    /*
+    /**
      * show
      * Render view contents. Fall-through behaviour renders theme as HTML via view(). If 'format' is set, render in requested format
      */
@@ -56,9 +58,11 @@ class WalkPageTypeController extends Controller
         }
     }
 
-    /*
+    /**
      * create
      * Saves a version of Walk collection, and makes it live
+     *
+     * @param string $json String-encoded JSON of walk
      */
     public function create($json)
     {
@@ -84,9 +88,11 @@ class WalkPageTypeController extends Controller
         }
     }
 
-    /*
+    /**
      * update
      * Saves a version of the walk collection, but doesn't approve version
+     *
+     * @param string $json String-encoded JSON of walk
      */
     public function update($json)
     {
@@ -129,6 +135,7 @@ class WalkPageTypeController extends Controller
 
     /**
      * getJson
+     *
      * @return string of walk's json
      */
     protected function getJson()
@@ -164,6 +171,7 @@ class WalkPageTypeController extends Controller
 
     /**
      * getKml()
+     *
      * @return DOMDocument of KML map for walk
      */
     protected function getKml()

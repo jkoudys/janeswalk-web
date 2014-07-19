@@ -1,9 +1,9 @@
 <?php
-use \JanesWalk\Controller\Controller;
-use \JanesWalk\Model\PageType\City;
+use \JanesWalk\Controllers\Controller;
+use \JanesWalk\Models\PageTypes\City;
 defined('C5_EXECUTE') || die("Access Denied.");
 
-Loader::model('page_types/city');
+Loader::model('page_types/City');
 Loader::controller('/janes_walk');
 class CityPageTypeController extends Controller
 {

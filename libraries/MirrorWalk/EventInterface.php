@@ -1,6 +1,8 @@
 <?php
 namespace JanesWalk\Libraries\MirrorWalk;
 
+use \JanesWalk\Models\PageTypes\Walk;
+
 /**
  * EventInterface
  * Defines the basic methods required for mirroring walk events created on
@@ -29,14 +31,41 @@ interface EventInterface
      *
      * @return resource<curl> Connection handle for call
      */
-    public function createEvent();
+    public function requestCreateEvent();
 
     /**
      * Call service to update an existing event.
      *
      * @return resource<curl> Connection handle for call
      */
-    public function updateEvent();
+    public function requestUpdateEvent();
+
+    /**
+     * Processes the response from a create/update. Not always necessary to
+     * call, and requires waiting for a response, so typically it's only
+     * needed on requestCreateEvent()'s responses in order to load the ID
+     * of whatever event we've made.
+     *
+     * @param array $reply Response object, usually build from json/xml
+     * @return void
+     */
+    public function receiveEvent(array $reply);
+
+    /**
+     * Authorizes site to make updates on service. Only needed for services
+     * where auth (e.g. Oauth) must happen in a separate call.
+     *
+     * @return null|resource<curl> Null if auth can happen on create/update
+     */
+    public function requestAuth();
+
+    /**
+     * Load the authorization token(s) returned by the service
+     *
+     * @param array $authReply Auth tokens (e.g. Oauth)
+     * @return void
+     */
+    public function receiveAuth(array $authReply);
 
     /**
      * Set the event's status.
