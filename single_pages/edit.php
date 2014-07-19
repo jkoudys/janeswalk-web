@@ -5,7 +5,7 @@
 
 		<?php  if (isset($error) && $error->has()) {
             $error->output();
-        } else if (isset($message)) { ?>
+        } elseif (isset($message)) { ?>
             <div class="message"><?php echo $message?></div>
             <script type="text/javascript">
             $(function () {

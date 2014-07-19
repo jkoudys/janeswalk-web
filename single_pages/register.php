@@ -12,11 +12,11 @@
 <?php  if (isset($error) && $error != '') {
   if ($error instanceof Exception) {
     $_error[] = $error->getMessage();
-  } else if ($error instanceof ValidationErrorHelper) {
+  } elseif ($error instanceof ValidationErrorHelper) {
     $_error = $error->getList();
-  } else if (is_array($error)) {
+  } elseif (is_array($error)) {
     $_error = $error;
-  } else if (is_string($error)) {
+  } elseif (is_string($error)) {
     $_error[] = $error;
   }
 ?>

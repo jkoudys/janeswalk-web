@@ -43,7 +43,7 @@ $form = Loader::helper('form'); ?>
     <div class="alert-actions"><a class="btn small" href="<?php echo $this->url('/')?>"><?php echo t('Continue to Site')?></a></div>
   </div>
 
-  <?php  } else if (isset($_SESSION['uOpenIDError']) && isset($_SESSION['uOpenIDRequested'])) { ?>
+  <?php  } elseif (isset($_SESSION['uOpenIDError']) && isset($_SESSION['uOpenIDRequested'])) { ?>
   <div class="ccm-form modal-body">
 <?php  switch ($_SESSION['uOpenIDError']) {
 case OpenIDAuth::E_REGISTRATION_EMAIL_INCOMPLETE: ?>
@@ -64,7 +64,7 @@ case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
   break;
 }?>
   </div>
-  <?php  } else if ($invalidRegistrationFields == true) { ?>
+  <?php  } elseif ($invalidRegistrationFields == true) { ?>
   <div class="ccm-form modal fade in">
     <div class="modal-header">
       <h3 class="form-lead"><?php echo t('Sign into %s', SITE)?></h3>
@@ -137,11 +137,11 @@ case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
       <?php
         if ($error instanceof Exception) {
           $_error[] = $error->getMessage();
-        } else if ($error instanceof ValidationErrorHelper) {
+        } elseif ($error instanceof ValidationErrorHelper) {
           $_error = $error->getList();
-        } else if (is_array($error)) {
+        } elseif (is_array($error)) {
           $_error = $error;
-        } else if (is_string($error)) {
+        } elseif (is_string($error)) {
           $_error[] = $error;
         }
       ?>

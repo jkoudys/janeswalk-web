@@ -4,7 +4,7 @@ use \Loader;
 use \User;
 use \UserInfo;
 
-class Controller extends \Controller
+class janes_walk extends \Controller
 {
     protected $pageData = array();
 

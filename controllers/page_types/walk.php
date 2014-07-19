@@ -73,7 +73,7 @@ class WalkPageTypeController extends Controller
             // Save the walk
             $cvID = $this->setJson($json, true);
             $this->syncEvents(true);
-            
+
             echo json_encode([
                 'cID' => $this->walk->getPage()->getCollectionID(),
                 'cvID' => $cvID

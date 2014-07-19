@@ -219,6 +219,9 @@ class Walk extends \Model implements \JsonSerializable
      *
      * @param  String  $json : json of walk details
      * @return boolean Success message for save
+     *
+     * TODO: this should update its properties first, then implement a save()
+     * method to persist the changes (eg pattern of Models in Rails)
      */
     public function setJson($json)
     {
