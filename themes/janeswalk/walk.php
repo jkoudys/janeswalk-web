@@ -51,7 +51,7 @@ $this->inc('elements/header.php');
               } elseif (isset($slots[0]['date'])) {
             ?>
               <h4 class="available-time">
-                <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', sizeof($slots)) ?>:<br />
+                <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($slots)) ?>:<br />
 <?php
                 foreach ($slots as $slot) { ?>
                 <span class="highlight"><?=$slot['date']?></span>
@@ -82,7 +82,7 @@ $this->inc('elements/header.php');
       <div class="row walk-leaders clearfix">
         <div class="col-md-7">
           <h4>
-            <?= t2('Walk Leader: ', 'Walk Leaders: ', sizeof($w->walkLeaders)) .
+            <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)) .
                 implode(', ', array_map(function ($mem) {
                   return "{$mem['name-first']} {$mem['name-last']}"; },
                 $w->walkLeaders)); ?>
@@ -95,7 +95,7 @@ $this->inc('elements/header.php');
           <?php } ?>
         </div>
       </div>
-      <?php if (sizeof((array) $w->map->markers) + sizeof((array) $w->map->path) > 0) { ?>
+      <?php if (count((array) $w->map->markers) + count((array) $w->map->path) > 0) { ?>
       <div class="jumbotron walk-stops" style="display:none">
         <div class="row">
           <div class="col-md-12">

@@ -46,13 +46,14 @@ class WalkPageTypeController extends Controller
         if ($_GET['format'] === 'json') {
             // Render JSON
             header('Content-Type: application/json');
-            echo $this->get_json();
+            echo $this->getJson();
+            exit;
         } elseif ($_GET['format'] === 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],'Kml-Google')) {
             // Render KML of map only
             header('Content-Type: application/vnd.google-earth.kml+xml');
-            $this->gettKml()->save('php://output');
+            $this->getKml()->save('php://output');
+            exit;
         }
-        exit;
     }
 
     /*
@@ -67,11 +68,16 @@ class WalkPageTypeController extends Controller
             $this->setEventBrite('live');
             echo json_encode([
                 'cID' => $this->walk->getPage()->getCollectionID(),
-                    'cvID' => $cvID
-                ]);
+                'cvID' => $cvID
+            ]);
         } catch (Exception $e) {
             Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
-            echo 'Error publishing walk: ', $e->getMessage();
+            echo json_encode([
+                'cID' => $this->walk->getPage()->getCollectionID(),
+                'error' => true,
+                'action' => __FUNCTION__,
+                'msg' => (string) $e->getMessage()
+            ]);
             http_response_code(500);
         } finally {
             exit;
@@ -90,11 +96,16 @@ class WalkPageTypeController extends Controller
             $this->setEventBrite();
             echo json_encode([
                 'cID' => $this->walk->getPage()->getCollectionID(),
-                    'cvID' => $cvID
-                ]);
+                'cvID' => $cvID
+            ]);
         } catch (Exception $e) {
             Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
-            echo "Error saving walk: ", $e->getMessage();
+            echo json_encode([
+                'cID' => $this->walk->getPage()->getCollectionID(),
+                'error' => true,
+                'action' => __FUNCTION__,
+                'msg' => (string) $e->getMessage()
+            ]);
             http_response_code(500);
         } finally {
             exit;
@@ -112,109 +123,8 @@ class WalkPageTypeController extends Controller
         $this->setEventBriteStatus('draft');
         echo json_encode([
             'cID' => $this->walk->getPage()->getCollectionID(),
-            ]);
+        ]);
         exit;
-    }
-
-
-    protected function setEventBriteStatus($status='draft')
-    {
-        if (CONCRETE5_ENV === 'prod') {
-            $eid = $this->c->getAttribute("eventbrite");
-            if ($eid) {
-                $eb_client = new Eventbrite( array('app_key'=>EVENTBRITE_APP_KEY, 'user_key'=>EVENTBRITE_USER_KEY) );
-                $event_params = array( 'status' => $status, 'id' => $eid );
-                try {
-                    $response = $eb_client->event_update($event_params);
-                } catch ( Exception $e ) {
-                    // application-specific error handling goes here
-                    $response = $e->error;
-                    Log::addEntry('EventBrite Error updating status for cID='.$this->c->getCollectionID().': ' . $e->getMessage());
-                }
-            }
-        } else {
-            return true;
-        }
-    }
-    protected function setEventBrite($status = null)
-    {
-        if (CONCRETE5_ENV === 'prod') {
-            $c = $this->c;
-            $c = Page::getByID($c->getCollectionID()); // Refresh to fix a c5 quirk; todo: try deleting this after c5.7 update
-            $parent = Page::getByID($c->getCollectionParentID());
-            $timezone = $parent->getAttribute("timezone");
-            $eb_client = new Eventbrite( array('app_key'=>EVENTBRITE_APP_KEY, 'user_key'=>EVENTBRITE_USER_KEY) );
-            /* Check if we're making a new event or not */
-            $eid = $c->getAttribute("eventbrite");
-            $event_params = [
-                'title' => $c->getCollectionName(),
-                    'description' => $c->getAttribute("longdescription"),
-                    'privacy' => '1',
-                    'start_date' => date('Y-m-d H:i:s', time()),
-                    'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60) ),
-                    'confirmation_page' => 'http://janeswalk.org/donate'
-                ];
-            if (isset($status)) {
-                $event_params['status'] = $status;
-            }
-            if (isset($timezone)) {
-                $event_params['timezone'] = $timezone;
-            }
-
-            /* Jane's Walks are always free */
-            $ticket_params = [
-                'price' => '0.00',
-                'min' => '1',
-                'max' => '20',
-                'quantity_available' => '250',
-                'start_date' => date('Y-m-d H:i:s', time()) ];
-            /* If it's an 'open' booking, then it's a daily repeating event for the next year */
-            $scheduled = $c->getAttribute('scheduled');
-            $slots = (Array) $scheduled['slots'];
-            if ($scheduled['open']) {
-                $event_params['start_date'] = date('Y-m-d', time());
-                $event_params['end_date'] = date('Y-m-d', time());
-                $event_params['repeats'] = 'yes';
-                // Until 'repeats' is working by eb, just assume the next available date is the one that's open to book
-            } elseif (isset($slots[0]['date'])) {
-                $event_params['start_date'] = $slots[0]['eb_start'];
-                $event_params['end_date'] = $slots[0]['eb_end'];
-            }
-
-            Log::addEntry('EventBrite event_params: ' . print_r($event_params,true));
-            if ( empty($eid) ) {
-                try {
-                    $response = $eb_client->event_new($event_params);
-                    $ticket_params['event_id'] = $response->process->id;
-                    $c->setAttribute("eventbrite", $response->process->id);
-                } catch ( Exception $e ) {
-                    // application-specific error handling goes here
-                    $response = $e->error;
-                    Log::addEntry("EventBrite Error creating new event for cID={$c->getCollectionID()}: {$e->getMessage()}");
-                }
-            } else {
-                try {
-                    $event_params['id'] = $eid;
-                    $ticket_params['event_id'] = $eid;
-                    $response = $eb_client->event_update($event_params);
-                } catch ( Exception $e ) {
-                    $response = $e->error;
-                    Log::addEntry("EventBrite Error updating event for cID={$c->getCollectionID()}: {$e->getMessage()}");
-                }
-            }
-            $ticket_params['end_date'] = $event_params['end_date'];
-            foreach ($slots as $walkDate) {
-                $ticket_params['name'] = $walkDate['date'] . ' Walk';
-                try {
-                    $response = $eb_client->ticket_new($ticket_params);
-                } catch ( Exception $e ) {
-                    $response = $e->error;
-                    Log::addEntry("EventBrite Error updating ticket for cID={$c->getCollectionID()}: {$e->getMessage()}");
-                }
-            }
-        } else {
-            return true;
-        }
     }
 
     /**
@@ -249,7 +159,7 @@ class WalkPageTypeController extends Controller
             $newCollectionVersion->approve();
         }
 
-        return (int) $newCollectionVersion;
+        return (int) $newCollectionVersion->getVersionID();
     }
 
     /**
@@ -258,8 +168,6 @@ class WalkPageTypeController extends Controller
      */
     protected function getKml()
     {
-        header('Content-type: application/vnd.google-earth.kml+xml');
-
         return $this->walk->kmlSerialize();
     }
 
@@ -327,12 +235,12 @@ class WalkPageTypeController extends Controller
         $this->addToJanesWalk([
             'page' => [
                 'description' => strip_tags($c->getAttribute('longdescription')),
-                    'city' => [
-                        'name' => (string) $this->walk->city,
-                        'url' => $nh->getCollectionURL($this->walk->city->getPage()),
-                    ],
-                    'gmap' => $this->walk->map,
-                ]
-            ]);
+                'city' => [
+                    'name' => (string) $this->walk->city,
+                    'url' => $nh->getCollectionURL($this->walk->city->getPage()),
+                ],
+                'gmap' => $this->walk->map,
+            ]
+        ]);
     }
 }
