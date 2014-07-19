@@ -21,7 +21,7 @@ interface EventInterface
      * Must be run before an event may be created/updated. This is a good one
      * to run from __construct()
      *
-     * @param Walk $walk    A loaded Jane's Walk
+     * @param  Walk $walk A loaded Jane's Walk
      * @return void
      */
     public function loadWalk(Walk $walk);
@@ -46,7 +46,7 @@ interface EventInterface
      * needed on requestCreateEvent()'s responses in order to load the ID
      * of whatever event we've made.
      *
-     * @param array $reply Response object, usually build from json/xml
+     * @param  array $reply Response object, usually build from json/xml
      * @return void
      */
     public function receiveEvent(array $reply);
@@ -62,15 +62,15 @@ interface EventInterface
     /**
      * Load the authorization token(s) returned by the service
      *
-     * @param array $authReply Auth tokens (e.g. Oauth)
+     * @param  array $authReply Auth tokens (e.g. Oauth)
      * @return void
      */
     public function receiveAuth(array $authReply);
 
     /**
      * Set the event's status.
-     * 
-     * @param string $status  The status of the event. Should default to a 
+     *
+     * @param  string $status The status of the event. Should default to a
      *                        non-public status, so events are only public when
      *                        explicitly defined.
      * @return void
@@ -99,4 +99,3 @@ interface EventInterface
      */
     public function isCreated();
 }
-

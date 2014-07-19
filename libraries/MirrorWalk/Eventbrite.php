@@ -1,9 +1,6 @@
 <?php
 namespace JanesWalk\Libraries\MirrorWalk;
 
-use \Exception;
-use \Log;
-use \JanesWalk\Libraries\MirrorWalk\EventInterface;
 use \JanesWalk\Models\PageTypes\Walk;
 
 /**
@@ -13,7 +10,8 @@ use \JanesWalk\Models\PageTypes\Walk;
 require_once 'EventInterface.php';
 \Loader::model('page_types/Walk');
 
-class Eventbrite implements EventInterface {
+class Eventbrite implements EventInterface
+{
     /**
      *  @type int $eid The EventBrite ID, used to identify event + build URLs
      *  @type string[] $eventParams The various parameters taken by the EB API
@@ -25,8 +23,10 @@ class Eventbrite implements EventInterface {
 
     /**
      * @type string $apiEndpoint The endpoint we're connecting to EB on
+     * @type Page $page concrete5 Collection for this walk
      */
     private static $apiEndpoint = 'https://www.eventbrite.com/json/';
+    private $page;
 
     public function __construct(Walk $walk = null)
     {
@@ -49,7 +49,8 @@ class Eventbrite implements EventInterface {
 
     public function loadWalk(Walk $walk)
     {
-        $this->eid = $walk->getPage()->getAttribute('eventbrite');
+        $this->page = $walk->getPage();
+        $this->eid = $this->page->getAttribute('eventbrite');
         $this->eventParams = [
             'id' => $this->eid,
             'privacy' => '1',
@@ -61,7 +62,7 @@ class Eventbrite implements EventInterface {
             'status' => 'draft',
             'timezone' => $walk->timezone,
             'app_key' => EVENTBRITE_APP_KEY,
-            'user_key' => EVENTBRITE_USER_KEY 
+            'user_key' => EVENTBRITE_USER_KEY
         ];
 
         // Load the available time slots
@@ -79,18 +80,14 @@ class Eventbrite implements EventInterface {
 
     public function requestCreateEvent()
     {
-        $ch = self::curlIni();
-        curl_setopt($ch, CURLOPT_URL, self::$apiEndpoint . 'event_new');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->eventParams);
+        $ch = self::curlIni('event_new', $this->eventParams);
 
         return $ch;
     }
 
     public function requestUpdateEvent()
     {
-        $ch = self::curlIni();
-        curl_setopt($ch, CURLOPT_URL, self::$apiEndpoint . 'event_new');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->eventParams);
+        $ch = self::curlIni('event_update', $this->eventParams);
 
         return $ch;
     }
@@ -107,8 +104,9 @@ class Eventbrite implements EventInterface {
     public function receiveEvent(array $reply)
     {
         // Get the eid from response, if needed
-        if ($this->isCreated()) {
+        if (!$this->isCreated()) {
             $this->ticketParams['event_id'] = $reply['id'];
+            $this->page->setAttribute('eventbrite', $reply['id']);
         }
 
         // Setup our multi-handler
@@ -116,9 +114,7 @@ class Eventbrite implements EventInterface {
 
         // FIXME: Loop through each date
 
-        $ch = self::curlIni();
-        curl_setopt($ch, CURLOPT_URL, self::$apiEndpoint . 'ticket_update');
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $this->ticketParams);
+        $ch = self::curlIni('ticket_update', $this->ticketParams);
 
         curl_multi_add_handle($mh, $ch);
 
@@ -155,11 +151,13 @@ class Eventbrite implements EventInterface {
         $this->eventParams['status'] = $status;
     }
 
-    public function setStatusPublic() {
+    public function setStatusPublic()
+    {
         $this->setStatus('live');
     }
 
-    public function setStatusPrivate() {
+    public function setStatusPrivate()
+    {
         $this->setStatus('draft');
     }
 
@@ -179,12 +177,17 @@ class Eventbrite implements EventInterface {
      *
      * @return resource<curl>
      */
-    private static function curlIni()
+    private static function curlIni($method, array $params)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, [
+            'CURLOPT_RETURNTRANSFER' => true,
+            'CURLOPT_URL' => self::$apiEndpoint . $method,
+            'CURLOPT_POSTFIELDS' => $params,
+            'CURLOPT_VERBOSE' => true,
+            'CURLOPT_POST' => 1
+        ]);
+
         return $ch;
     }
 }
-
