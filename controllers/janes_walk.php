@@ -8,21 +8,22 @@ class janes_walk extends \Controller
 {
     protected $pageData = array();
 
-    /*
+    /**
      * addToJanesWalk
+     * Adds array properties to the JSON we make available on the rendered page
      *
      * @param array $properties Array containing one or more, possibly multi-level properties
      */
-    public function addToJanesWalk($properties)
+    public function addToJanesWalk(array $properties)
     {
         $this->pageData = array_merge_recursive($this->pageData, $properties);
     }
 
-    /*
+    /**
      * view
      * Sets up the basic info we'll need from json
      *
-     * void
+     * @return void
      */
     public function view()
     {

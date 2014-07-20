@@ -28,6 +28,9 @@ class Eventbrite implements EventInterface
     private static $apiEndpoint = 'https://www.eventbrite.com/json/';
     private $page;
 
+    /**
+     * Load default parameters for EB events, and optionally load Walk data
+     */
     public function __construct(Walk $walk = null)
     {
         // Set EB ticket defaults upfront
@@ -47,6 +50,9 @@ class Eventbrite implements EventInterface
         }
     }
 
+    /**
+     * Set EB API params based on Walk model data
+     */
     public function loadWalk(Walk $walk)
     {
         $this->page = $walk->getPage();
@@ -78,6 +84,9 @@ class Eventbrite implements EventInterface
         }
     }
 
+    /**
+     * Set up a new event
+     */
     public function requestCreateEvent()
     {
         $ch = self::curlIni('event_new', $this->eventParams);
@@ -85,6 +94,9 @@ class Eventbrite implements EventInterface
         return $ch;
     }
 
+    /**
+     * Update an existing event - eid MUST be set in order for this to be called
+     */
     public function requestUpdateEvent()
     {
         $ch = self::curlIni('event_update', $this->eventParams);
@@ -118,8 +130,11 @@ class Eventbrite implements EventInterface
 
         curl_multi_add_handle($mh, $ch);
 
-        $active = null;
-        // execute the handles
+        /**
+         * Execute the handles.
+         * We're not interested enough in the results of creating tickets
+         * to bother blocking the rest of the application for the results.
+         */
         do {
             $mrc = curl_multi_exec($mh, $active);
         } while ($mrc == CURLM_CALL_MULTI_PERFORM);
@@ -180,12 +195,12 @@ class Eventbrite implements EventInterface
     private static function curlIni($method, array $params)
     {
         $ch = curl_init();
-        curl_setopt($ch, [
-            'CURLOPT_RETURNTRANSFER' => true,
-            'CURLOPT_URL' => self::$apiEndpoint . $method,
-            'CURLOPT_POSTFIELDS' => $params,
-            'CURLOPT_VERBOSE' => true,
-            'CURLOPT_POST' => 1
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_URL => self::$apiEndpoint . $method,
+            CURLOPT_POSTFIELDS => $params,
+            CURLOPT_VERBOSE => true,
+            CURLOPT_POST => 1
         ]);
 
         return $ch;

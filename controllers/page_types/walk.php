@@ -1,13 +1,13 @@
 <?php
 use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Controllers\Controller;
-use \JanesWalk\Libraries\MirrorWalk\Eventbrite;
+use \JanesWalk\Libraries\MirrorWalk\MirrorWalk;
 
 defined('C5_EXECUTE') or die("Access Denied.");
 Loader::library('Eventbrite');
 Loader::controller('/janes_walk');
 Loader::model('page_types/Walk');
-Loader::library('MirrorWalk/Eventbrite');
+Loader::library('MirrorWalk/MirrorWalk');
 
 class WalkPageTypeController extends Controller
 {
@@ -72,12 +72,17 @@ class WalkPageTypeController extends Controller
         try {
             // Save the walk
             $cvID = $this->setJson($json, true);
-            $this->syncEvents(true);
+             // Send requests to all walk-mirroring services
+            $mw = new MirrorWalk($this->walk);
+            $mw->mirrorStart();
 
             echo json_encode([
                 'cID' => $this->walk->getPage()->getCollectionID(),
                 'cvID' => $cvID
             ]);
+
+            // Wait until walk-mirrroring blocking code completes
+            $mw->mirrorEnd();
         } catch (Exception $e) {
             Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
             echo json_encode([
@@ -103,13 +108,17 @@ class WalkPageTypeController extends Controller
         header('Content-Type: application/json');
         try {
             $cvID = $this->setJson($json);
-
-            $this->syncEvents();
+    
+            // Set the eventbrite
+            $mw = new MirrorWalk($this->walk);
+            $mw->mirrorStart();
 
             echo json_encode([
                 'cID' => $this->walk->getPage()->getCollectionID(),
                 'cvID' => $cvID
             ]);
+
+            $mw->mirrorEnd();
         } catch (Exception $e) {
             Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
             echo json_encode([
@@ -183,25 +192,6 @@ class WalkPageTypeController extends Controller
     protected function getKml()
     {
         return $this->walk->kmlSerialize();
-    }
-
-    /**
-     * syncEvents()
-     * Syncs this walk up with 3rd-party event hosting services
-     *
-     * @return void
-     */
-    protected function syncEvents($publish = false)
-    {
-        // Set the eventbrite
-        $eb = new Eventbrite($this->walk);
-        if ($publish) $eb->setStatusPublic();
-        // TODO: make this take an array of EventInterface objects, and exec async
-        if ($eb->isCreated()) {
-            curl_exec($eb->requestCreateEvent());
-        } else {
-            curl_exec($eb->requestUpdateEvent());
-        }
     }
 
     public function view()
