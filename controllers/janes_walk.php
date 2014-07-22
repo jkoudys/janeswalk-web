@@ -1,10 +1,11 @@
 <?php
 namespace JanesWalk\Controllers;
+
 use \Loader;
 use \User;
 use \UserInfo;
 
-class janes_walk extends \Controller
+class Controller extends \Controller
 {
     protected $pageData = array();
 
@@ -33,19 +34,22 @@ class janes_walk extends \Controller
         $jwData = [
             'page' => [
                 'url' => 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
-                'title' => $c->getCollectionName() ]
-            ];
+                'title' => $c->getCollectionName()
+            ]
+        ];
 
         if ($u->isLoggedIn()) {
             $ui = UserInfo::getByID( $u->getUserID() );
             $city = $ui->getAttribute('home_city');
             $jwData['user'] = [
                 'firstName' => $ui->getAttribute('first_name'),
-                    'lastName' => $ui->getAttribute('last_name') ];
+                'lastName' => $ui->getAttribute('last_name')
+            ];
             if ($city) {
                 $jwData['user']['city'] = [
                     'name' => $city->getCollectionName(),
-                        'url' => $nh->getCollectionUrl($city) ];
+                    'url' => $nh->getCollectionUrl($city)
+                ];
             }
         }
 
@@ -66,6 +70,6 @@ class janes_walk extends \Controller
     // The 'on_before_render' will set up our JanesWalk json in the page
     public function on_before_render()
     {
-        $this->addFooterItem('<script type="text/javascript">JanesWalk = ' . json_encode($this->pageData) . '</script>');
+        $this->addFooterItem('<script type="text/javascript">var JanesWalk = ' . json_encode($this->pageData) . '</script>');
     }
 }
