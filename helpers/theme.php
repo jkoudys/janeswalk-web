@@ -11,36 +11,36 @@ defined('C5_EXECUTE') or die("Access Denied.");
 class ThemeHelper
 { 
     private static $attributeIconMap = array(
-        'nature-naturelover' => "bug",
-        'nature-greenthumb' => "leaf",
-        'nature-petlover' => "heart",
-        'urban-suburbanexplorer' => "home",
-        'urban-architecturalenthusiast' => "building",
-        'urban-moversandshakers' => "truck",
-        'culture-historybuff' => "archive",
-        'culture-artist' => "picture-o",
-        'culture-aesthete' => "pencil",
-        'culture-bookworm' => "book",
-        'culture-foodie' => "cutlery",
-        'culture-nightowl' => "glass",
-        'culture-techie' => "gears",
-        'culture-writer' => "edit",
-        'civic-activist' => "bullhorn",
-        'civic-truecitizen' => "flag-o",
-        'civic-goodneighbour' => "group",
+        'nature-naturelover' => 'bug',
+        'nature-greenthumb' => 'leaf',
+        'nature-petlover' => 'heart',
+        'urban-suburbanexplorer' => 'home',
+        'urban-architecturalenthusiast' => 'building',
+        'urban-moversandshakers' => 'truck',
+        'culture-historybuff' => 'archive',
+        'culture-artist' => 'picture-o',
+        'culture-aesthete' => 'pencil',
+        'culture-bookworm' => 'book',
+        'culture-foodie' => 'cutlery',
+        'culture-nightowl' => 'glass',
+        'culture-techie' => 'gears',
+        'culture-writer' => 'edit',
+        'civic-activist' => 'bullhorn',
+        'civic-truecitizen' => 'flag-o',
+        'civic-goodneighbour' => 'group',
 
-        'urban-sports' => "trophy",
-        'urban-play' => "puzzle-piece",
-        'urban-water' => "tint",
-        'urban-film' => "facetime-video",
-        'urban-music' => "music",
-        'civic-international' => "globe",
-        'civic-military' => "fighter-jet",
-        'civic-commerce' => "shopping-cart",
-        'civic-religion' => "bell",
-        'civic-health' => "medkit",
-        'civic-nativeissues' => "sun-o",
-        'civic-gender' => "unlock-alt"
+        'urban-sports' => 'trophy',
+        'urban-play' => 'puzzle-piece',
+        'urban-water' => 'tint',
+        'urban-film' => 'facetime-video',
+        'urban-music' => 'music',
+        'civic-international' => 'globe',
+        'civic-military' => 'fighter-jet',
+        'civic-commerce' => 'shopping-cart',
+        'civic-religion' => 'bell',
+        'civic-health' => 'medkit',
+        'civic-nativeissues' => 'sun-o',
+        'civic-gender' => 'unlock-alt'
     );
 
     private static $attributeNameMap = array(
@@ -122,7 +122,7 @@ class ThemeHelper
      * @param string $type Which type of tag to return (e.g. theme, accessible)
      * @return array
      */ 
-    public function getSelectOptions($type = 'all')
+    public static function getSelectOptions($type = 'all')
     {
         $options = array(); 
         $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
@@ -175,11 +175,14 @@ class ThemeHelper
         return $i;
     }
 
+    /**
+     * Get the name of the icon based on the c5 handle (same as in page property
+     *
+     * @param string $handle The short, hyphen-separated lowercase handle
+     */
     public static function getIconName($handle)
     {
         return self::$attributeIconMap[(string)$handle];
     }
 }
-
-
 
