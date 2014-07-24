@@ -1,9 +1,8 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
+defined('C5_EXECUTE') || die('Access Denied.');
 $th = Loader::helper('text');
 $av = Loader::helper('concrete/avatar');
-$ih = Loader::helper('image'); //<--uncomment this line if displaying image attributes (see below)
-//Note that $nh (navigation helper) is already loaded for us by the controller (for legacy reasons)
+$ih = Loader::helper('image');
 ?>
 <?php foreach ($pages as $page): ?>
 <h2 class="ccm-page-list-header"><?=$page->getCollectionName();?></h2>

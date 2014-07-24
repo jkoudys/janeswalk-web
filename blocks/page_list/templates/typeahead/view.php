@@ -29,8 +29,6 @@ foreach ($pages as $city) {
 $xsl = new XSLTProcessor;
 $xsl->importStyleSheet(DOMDocument::load(__DIR__ . '/view.xsl'));
 
-echo $doc->saveXML();
-
 // Apply stylesheet and echo it out.
 $xsl->transformToDoc($doc)->saveHTMLFile('php://output');
 
