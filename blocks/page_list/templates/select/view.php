@@ -1,35 +1,34 @@
 <?php
-  defined('C5_EXECUTE') or die("Access Denied.");
-  $th = Loader::helper('text');
+defined('C5_EXECUTE') or die("Access Denied.");
+$th = Loader::helper('text');
 
-?>
-  <select class="pageListSelect">
-<?php
-  // Sort the city pages by the country they're in
-  uasort(
-    $pages,
-    function ($a,$b) {
-      return (($ap = $a->getCollectionParentID()) == ($bp = $b->getCollectionParentID()))
-        ? strcmp($a->getCollectionName(),$b->getCollectionName())
-        : strcmp(Page::getByID($ap)->getCollectionName(),Page::getByID($bp)->getCollectionName());
-    }
-  );
+/**
+ * The original pagelist has some funny mixing of echo w/ inline HTML, as well
+ * as mixing logic to put out end-tags. This has been very error-prone, so let's
+ * just build a DOMDocument instead, to manage the control logic nicely
+ */
+$doc = new DOMDocument;
 
-  // Show the country parent list and city pages
-  $lastCountryPage = null;
-  foreach ($pages as $cityPage):
-    $countryPage = Page::getByID($cityPage->getCollectionParentID())->getCollectionName();
-    if ($countryPage !== $lastCountryPage) {
-      if ($lastCountryPage !== null) {
-        echo '</optgroup>';
-      }
-      echo '<optgroup label="' . ($countryPage) . '">';
-      $lastCountryPage = $countryPage;
+$countryList = array();
+$countries = $doc->appendChild($doc->createElement('countries'));
+foreach ($pages as $city) {
+    $pcID = (int) $city->getCollectionParentID();
+    if (!isset($countryList[$pcID])) {
+        $countryList[$pcID] = $countries->appendChild(
+            $doc->createElement(
+                'country',
+                Page::getByID($pcID)->getCollectionName()
+            )
+        );
     }
-?>
-      <option value="<?= ($nh->getLinkToCollection($cityPage)) ?>"><?= ($th->entities($cityPage->getCollectionName())) ?></option>
-<?php
-  endforeach;
-?>
-  </optgroup>
-</select>
+    $cityEl = $countryList[$pcID]->appendChild($doc->createElement('city', $city->getCollectionName()));
+    $cityEl->setAttribute('href', $nh->getLinkToCollection($city));
+}
+
+// Load the XSL
+$xsl = new XSLTProcessor;
+$xsl->importStyleSheet(DOMDocument::load(__DIR__ . '/view.xsl'));
+
+// Apply stylesheet and echo it out.
+$xsl->transformToDoc($doc)->saveHTMLFile('php://output');
+
