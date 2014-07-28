@@ -24,13 +24,24 @@ $profile = $view->appendChild($doc->createElement('profile'));
 $profile->setAttribute('login', $this->url('/login'));
 $profile->setAttribute('register', $this->url('/register'));
 
-foreach (['Intro', 'Map', 'Call to Action', 'Blog Header', 'Blog', 'Twitter'] as $areaName) {
-    DomHelper::addArea($areaName, $view, $c);
-}
+DomHelper::addAreas(
+    array(
+        'Intro',
+        'Map',
+        'Call to Action',
+        'Blog Header',
+        'Blog',
+        'Twitter'
+    ),
+    $view,
+    $c
+);
 
 $xsl = new XSLTProcessor;
 $xsl->setParameter('', 'isMobile', $isMobile);
 $xsl->setParameter('', 'themePath', $this->getThemePath());
 $xsl->importStyleSheet(DOMDocument::load(substr(__FILE__, 0, -3) . 'xsl'));
 
+echo '<!doctype html><html>';
 $xsl->transformToDoc($doc)->saveHTMLFile('php://output');
+echo '</html>';
