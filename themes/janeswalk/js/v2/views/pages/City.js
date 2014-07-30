@@ -108,7 +108,7 @@ var CityPageView = PageView.extend({
     * @return void
     */
     _previewCards: function() {
-        var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function() { return 0.5 - Math.random() } ),
+        var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function() { return 0.5 - Math.random(); } ),
         previewNode = document.querySelector(".walks-list.preview div");
 
         for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
@@ -137,13 +137,13 @@ var CityPageView = PageView.extend({
                 previewEls.forEach(function(e, i) {
                     try { // We don't want some missing selector to break the whole execution
                         e.classList.remove("in");
-                    } catch(e) {
-                        console.log("Error fading out menu: " + e);
+                    } catch(ex) {
+                        console.log("Error fading out menu: " + ex);
                     }
                 });
                 previewEls.forEach(function(e, i) { e.style.width = 0; e.style.padding = 0; e.style.margin = 0; });
                 setTimeout(function() {
-                    previewEls.forEach(function(e, i) { e.style.display = "none" });
+                    previewEls.forEach(function(e, i) { e.style.display = "none"; });
                     fullEl.classList.remove("hide");
                     fullEl.classList.add("in");
                 }, 300);
@@ -187,8 +187,8 @@ var CityPageView = PageView.extend({
         if (enabled && isCanadianCity === true) {
 
             // Modal
-            hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null
-            && typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
+            hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null &&
+              typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
 
             // Hasn't yet been seen
             if (hasSeenDonateInterstitial === false) {
@@ -248,7 +248,7 @@ var CityPageView = PageView.extend({
                                 event.preventDefault();
                                 url = encodeURIComponent(
                                     'http://janeswalk.org/'
-                                ),
+                                );
                                 text = encodeURIComponent(
                                     $(this).closest('.option').find('.copy').text().trim()
                                 );
@@ -278,8 +278,8 @@ var CityPageView = PageView.extend({
             } else {
 
                 // Catfish
-                hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null
-                    && typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
+                hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null &&
+                  typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
 
                 // Hasn't yet been seen
                 if (hasSeenDonateCatfish === false) {
@@ -303,7 +303,7 @@ var CityPageView = PageView.extend({
             countFilterMatches = function (option, index) {
                 var filterCheck = option.getAttribute('value'),
                     // Default to checking option property in filter
-                    compare_fn = this.compare_fn || function(f,o) { return f[o]; };
+                    compare_fn = this.compare_fn || function compareProperty(f,o) { return f[o]; };
                 if (filterCheck !== '*') {
                     count = 0;
                     for(var i in _this._data) {
@@ -382,9 +382,9 @@ var CityPageView = PageView.extend({
     * @return    void
     */
     _captureHash: function() {
-        var _this = this,
+        var _this = this;
         if (location.hash !== '') {
-            pieces = location.hash.replace('#', '').split('&'),
+            pieces = location.hash.replace('#', '').split('&');
             key = '';
             $(pieces).each(
                 function(index, piece) {
@@ -439,12 +439,12 @@ var CityPageView = PageView.extend({
             function(data, index) {
                 // Check if we should show this card
                 if(
-                    filterMatch(_this._ward, data.wards)
-                    && filterMatch(_this._theme, data.themes)
-                    && filterMatch(_this._accessibility, data.accessibilities)
-                    && filterMatch(_this._initiative, data.initiatives)
+                    filterMatch(_this._ward, data.wards) &&
+                    filterMatch(_this._theme, data.themes) &&
+                    filterMatch(_this._accessibility, data.accessibilities) &&
+                    filterMatch(_this._initiative, data.initiatives) &&
                     // See if date in filter dropdown is inside the array of dates
-                    && (function(f, o) {
+                    (function(f, o) {
                         if(o === "*") return true;
                         for(i = 0; i < f.length; i++) { return f[i].date.indexOf(o) !== -1;} 
                     })(data.datetimes, _this._date)

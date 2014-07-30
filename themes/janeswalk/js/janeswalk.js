@@ -5,14 +5,31 @@
  */
 // Inspired by base2 and Prototype
 (function(){
-  var initializing = false, fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/;
+  var initializing = false,
+    fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/; // jshint ignore:line 
  
   // The base Class implementation (does nothing)
   this.Class = function(){};
  
   // Create a new Class that inherits from this class
   Class.extend = function(prop) {
-    var _super = this.prototype;
+    var _super = this.prototype,
+      addPropertyToParent = function(name, fn){
+        return function() {
+          var tmp = this._super;
+
+          // Add a new ._super() method that is the same method
+          // but on the super-class
+          this._super = _super[name];
+
+          // The method only need to be bound temporarily, so we
+          // remove it when we're done executing
+          var ret = fn.apply(this, arguments);        
+          this._super = tmp;
+
+          return ret;
+        };
+      };
    
     // Instantiate a base class (but only create the instance,
     // don't run the init constructor)
@@ -25,22 +42,7 @@
       // Check if we're overwriting an existing function
       prototype[name] = typeof prop[name] == "function" &&
         typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-        (function(name, fn){
-          return function() {
-            var tmp = this._super;
-           
-            // Add a new ._super() method that is the same method
-            // but on the super-class
-            this._super = _super[name];
-           
-            // The method only need to be bound temporarily, so we
-            // remove it when we're done executing
-            var ret = fn.apply(this, arguments);        
-            this._super = tmp;
-           
-            return ret;
-          };
-        })(name, prop[name]) :
+        addPropertyToParent(name, prop[name]) :
         prop[name];
     }
    
@@ -106,9 +108,9 @@ var FacebookShareDialog = Class.extend({
             function(response) {
                 if (typeof response !== 'undefined') {
                     if (response === null) {
-                        failed && failed();
+                        if (failed) failed();
                     } else {
-                        successful && successful();
+                        if (successful) successful();
                     }
                 }
             }
@@ -333,68 +335,68 @@ var PageView = View.extend({
 var CityPageView = PageView.extend({
 
     /**
-     * _accessibility
-     * 
-     * @protected
-     * @var       String|null (default: null)
-     */
+    * _accessibility
+    * 
+    * @protected
+    * @var       String|null (default: null)
+    */
     _accessibility: null,
 
     /**
-     * _cards
-     * 
-     * @protected
-     * @var       NodeList|null (default: null)
-     */
+    * _cards
+    * 
+    * @protected
+    * @var       NodeList|null (default: null)
+    */
     _cards: null,
 
     /**
-     * _data
-     * 
-     * @protected
-     * @var       Array|null (default: null)
-     */
+    * _data
+    * 
+    * @protected
+    * @var       Array|null (default: null)
+    */
     _data: null,
 
     /**
-     * _date
-     * 
-     * @protected
-     * @var       Array|null (default: null)
-     */
+    * _date
+    * 
+    * @protected
+    * @var       Array|null (default: null)
+    */
     _date: null,
 
     /**
-     * _initiative
-     * 
-     * @protected
-     * @var       String|null (default: null)
-     */
+    * _initiative
+    * 
+    * @protected
+    * @var       String|null (default: null)
+    */
     _initiative: null,
 
     /**
-     * _theme
-     * 
-     * @protected
-     * @var       String|null (default: null)
-     */
+    * _theme
+    * 
+    * @protected
+    * @var       String|null (default: null)
+    */
     _theme: null,
 
     /**
-     * _ward
-     * 
-     * @protected
-     * @var       String|null (default: null)
-     */
+    * _ward
+    * 
+    * @protected
+    * @var       String|null (default: null)
+    */
     _ward: null,
 
     /**
-     * init
-     * 
-     * @public
-     * @param  jQuery element
-     * @return void
-     */
+    * init
+    * 
+    * @public
+    * @param  jQuery element
+    * @return void
+    */
     init: function(element) {
         this._super(element);
         this._cards = this._element[0].querySelectorAll(".walk");
@@ -405,18 +407,18 @@ var CityPageView = PageView.extend({
         this._addFilterEvents();
         this._setThemeCounts();
         this._captureHash();
-//        this._setupText2DonateInterstitials();
+        //        this._setupText2DonateInterstitials();
         this._addLinkListeners();
     },
 
     /**
-     * _getFacebookDialogDonateObj
-     * 
-     * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-     * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-     * @protected
-     * @return    Object
-     */
+    * _getFacebookDialogDonateObj
+    * 
+    * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
+    * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
+    * @protected
+    * @return    Object
+    */
     _getFacebookDialogDonateObj: function() {
         return {
             link: 'http://janeswalk.org',
@@ -426,65 +428,71 @@ var CityPageView = PageView.extend({
     },
 
     /**
-     * _previewCards
-     * Copy a random set of the full walk list into the preview area.
-     * Currently hard-codes a maximum preview size of 9 cards.
-     *
-     * @protected
-     * @return void
-     */
+    * _previewCards
+    * Copy a random set of the full walk list into the preview area.
+    * Currently hard-codes a maximum preview size of 9 cards.
+    *
+    * @protected
+    * @return void
+    */
     _previewCards: function() {
-      var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function(){ return 0.5 - Math.random() } ),
-          previewNode = document.querySelector(".walks-list.preview div");
-      
-      for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
-        var card = shuffledDeck[i].cloneNode(true);
-        // Egads, bootstrap can suck sometimes..
-        card.classList.add("col-md-4");
-        card.classList.remove("col-md-3");
-        previewNode.appendChild(card);
-      }
+        var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function() { return 0.5 - Math.random(); } ),
+        previewNode = document.querySelector(".walks-list.preview div");
+
+        for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
+            var card = shuffledDeck[i].cloneNode(true);
+            // Egads, bootstrap can suck sometimes..
+            card.classList.add("col-md-4");
+            card.classList.remove("col-md-3");
+            previewNode.appendChild(card);
+        }
     },
 
     /**
-     * _addLinkListeners
-     * Listen on 'show all' walks
-     *
-     * @protected
-     * @return void
-     */
+    * _addLinkListeners
+    * Listen on 'show all' walks
+    *
+    * @protected
+    * @return void
+    */
     _addLinkListeners: function() {
-      var showAll = document.querySelector("a.see-all");
-      if(showAll) {
-        showAll.addEventListener("click", function() {
-            var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview")];
-            var fullEl = document.querySelector(".walks-list.showall");
-            // Hide this link, the preview walks, and the sidebar
-            previewEls.forEach(function(e, i) {
-              try { // We don't want some missing selector to break the whole execution
-                e.classList.remove("in");
-              } catch(e) {
-                console.log("Error fading out menu: " + e);
-              }
+        var showAll = document.querySelector("a.see-all");
+        if(showAll) {
+            showAll.addEventListener("click", function() {
+                var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview")];
+                var fullEl = document.querySelector(".walks-list.showall");
+                // Hide this link, the preview walks, and the sidebar
+                previewEls.forEach(function(e, i) {
+                    try { // We don't want some missing selector to break the whole execution
+                        e.classList.remove("in");
+                    } catch(ex) {
+                        console.log("Error fading out menu: " + ex);
+                    }
+                });
+                previewEls.forEach(function(e, i) { e.style.width = 0; e.style.padding = 0; e.style.margin = 0; });
+                setTimeout(function() {
+                    previewEls.forEach(function(e, i) { e.style.display = "none"; });
+                    fullEl.classList.remove("hide");
+                    fullEl.classList.add("in");
+                }, 300);
             });
-            previewEls.forEach(function(e, i) { e.style.width = 0; e.style.padding = 0; e.style.margin = 0; });
-            setTimeout(function() {
-              previewEls.forEach(function(e, i) { e.style.display = "none" });
-              fullEl.classList.remove("hide");
-              fullEl.classList.add("in");
-            }, 300);
-        });
-      }
+        }
     },
 
     /**
-     * _setupText2DonateInterstitials
-     * 
-     * @protected
-     * @return    void
-     */
+    * _setupText2DonateInterstitials
+    * 
+    * @protected
+    * @return    void
+    */
     _setupText2DonateInterstitials: function() {
-        var enabled = false;
+        var enabled = false,
+            _this = this,
+            isCanadianCity = (location.pathname.match(/\/canada\/[^/]+/) !== null),
+            hasSeenDonateInterstitial,
+            closeCallback,
+            url,
+            link;
         // Catfish events
         this._element.find('a.closeCatfishCta').click(
             function(event) {
@@ -504,17 +512,15 @@ var CityPageView = PageView.extend({
         );
 
         // Canadian city check
-        var isCanadianCity = (location.pathname.match(/\/canada\/[^/]+/) !== null),
-            _this = this;
         if (enabled && isCanadianCity === true) {
 
             // Modal
-            var hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null
-                && typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
+            hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null &&
+              typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
 
             // Hasn't yet been seen
             if (hasSeenDonateInterstitial === false) {
-                var closeCallback = function() {
+                closeCallback = function() {
 
                     // Track the closure
                     jQuery.cookie(
@@ -568,13 +574,13 @@ var CityPageView = PageView.extend({
                         _this._element.find('.o-shout .icon-twitter').click(
                             function(event) {
                                 event.preventDefault();
-                                var url = encodeURIComponent(
-                                        'http://janeswalk.org/'
-                                    ),
-                                    text = encodeURIComponent(
-                                        $(this).closest('.option').find('.copy').text().trim()
-                                    );
-                                var link = 'https://twitter.com/intent/tweet' +
+                                url = encodeURIComponent(
+                                    'http://janeswalk.org/'
+                                );
+                                text = encodeURIComponent(
+                                    $(this).closest('.option').find('.copy').text().trim()
+                                );
+                                link = 'https://twitter.com/intent/tweet' +
                                     '?url=' + (url) +
                                     '&via=janeswalk' +
                                     '&text=' + (text);
@@ -600,8 +606,8 @@ var CityPageView = PageView.extend({
             } else {
 
                 // Catfish
-                var hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null
-                    && typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
+                hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null &&
+                  typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
 
                 // Hasn't yet been seen
                 if (hasSeenDonateCatfish === false) {
@@ -612,54 +618,56 @@ var CityPageView = PageView.extend({
     },
 
     /**
-     * _setThemeCounts
-     * 
-     * @protected
-     * @return    void
-     */
+    * _setThemeCounts
+    * 
+    * @protected
+    * @return    void
+    */
     _setThemeCounts: function() {
-      var _this = this,
-      count,
-      el = this._element[0];
-      var  countFilterMatches = function (option, index) {
-        var filterCheck = option.getAttribute("value");
-        var compare_fn = this.compare_fn || function(f,o) { return f[o]; };
-        if (filterCheck !== "*") {
-          count = 0;
-          for(var i in _this._data) {
-            if(compare_fn(_this._data[i][this.filter], filterCheck)) {
-              ++count;
-            }
-          }
-          option.textContent += " (" + count + ")";
-          if (count === 0) {
-            option.parentElement.removeChild(option);
-          }
-        }
-      };
+        var _this = this,
+            count,
+            fe = Array.prototype.forEach,
+            el = this._element[0],
+            countFilterMatches = function (option, index) {
+                var filterCheck = option.getAttribute('value'),
+                    // Default to checking option property in filter
+                    compare_fn = this.compare_fn || function compareProperty(f,o) { return f[o]; };
+                if (filterCheck !== '*') {
+                    count = 0;
+                    for(var i in _this._data) {
+                        if(compare_fn(_this._data[i][this.filter], filterCheck)) {
+                            ++count;
+                        }
+                    }
+                    option.textContent += ' (' + count + ')';
+                    if (count === 0) {
+                        option.parentElement.removeChild(option);
+                    }
+                }
+            };
 
-      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="theme"] option'), countFilterMatches, {"filter":"themes"});
-      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="accessibility"] option'), countFilterMatches, {"filter":"accessibilities"});
-      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="ward"] option'), countFilterMatches, {"filter":"wards"} );
-      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="initiative"] option'), countFilterMatches, {"filter":"initiatives"});
-      Array.prototype.forEach.call(el.querySelectorAll('div.filters select[name="date"] option'), countFilterMatches, {"filter":"datetimes",
-        "compare_fn": function compareDate(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) !== -1;} } 
-      });
+        fe.call(el.querySelectorAll('div.filters select[name="theme"] option'), countFilterMatches, {filter:'themes'});
+        fe.call(el.querySelectorAll('div.filters select[name="accessibility"] option'), countFilterMatches, {filter:'accessibilities'});
+        fe.call(el.querySelectorAll('div.filters select[name="ward"] option'), countFilterMatches, {filter:'wards'});
+        fe.call(el.querySelectorAll('div.filters select[name="initiative"] option'), countFilterMatches, {filter:'initiatives'});
+        fe.call(el.querySelectorAll('div.filters select[name="date"] option'), countFilterMatches, {filter:'datetimes',
+            compare_fn: function compareDate(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) !== -1;} } 
+        });
     },
 
     /**
-     * _resetSelectElements
-     * 
-     * @protected
-     * @return    void
-     */
+    * _resetSelectElements
+    * 
+    * @protected
+    * @return    void
+    */
     _resetSelectElements: function() {
+        var _this = this;
         this._element.find('div.filters select').each(
             function(index, element) {
                 $(element).val('*');
             }
         );
-        var _this = this;
         this._element.find('.initiatives').addClass('hidden');
         this._element.find('.initiative').addClass('hidden');
         this._element.find('#initiative').change(
@@ -675,14 +683,14 @@ var CityPageView = PageView.extend({
     },
 
     /**
-     * _addCreateWalkEvent
-     * 
-     * @protected
-     * @return    void
-     */
+    * _addCreateWalkEvent
+    * 
+    * @protected
+    * @return    void
+    */
     _addCreateWalkEvent: function() {
         var _this = this,
-            $btn = this._element.find('.create-walk');
+        $btn = this._element.find('.create-walk');
         $btn.click(
             function(event) {
                 event.preventDefault();
@@ -696,16 +704,16 @@ var CityPageView = PageView.extend({
     },
 
     /**
-     * _captureHash
-     * 
-     * @protected
-     * @return    void
-     */
+    * _captureHash
+    * 
+    * @protected
+    * @return    void
+    */
     _captureHash: function() {
+        var _this = this;
         if (location.hash !== '') {
-            var _this = this,
-                pieces = location.hash.replace('#', '').split('&'),
-                key = '';
+            pieces = location.hash.replace('#', '').split('&');
+            key = '';
             $(pieces).each(
                 function(index, piece) {
                     key = '_' + (piece.split('=')[0]);
@@ -722,58 +730,58 @@ var CityPageView = PageView.extend({
     },
 
     /**
-     * _setHash
-     * 
-     * @protected
-     * @return    void
-     */
+    * _setHash
+    * 
+    * @protected
+    * @return    void
+    */
     _setHash: function() {
-        location.hash =
-            "ward=" + (this._ward)
-            + "&theme=" + (this._theme)
-            + "&accessibility=" + (this._accessibility)
-            + "&initiative=" + (this._initiative)
-            + "&date=" + (this._date);
+        location.hash = 'ward=' + (this._ward) +
+            '&theme=' + (this._theme) +
+            '&accessibility=' + (this._accessibility) +
+            '&initiative=' + (this._initiative) +
+            '&date=' + (this._date);
     },
 
     /**
-     * _filterCards
-     * 
-     * @protected
-     * @return    void
-     */
+    * _filterCards
+    * 
+    * @protected
+    * @return    void
+    */
     _filterCards: function() {
         var _this = this,
-            showing = 0;
-
-        // Returns 'true' if this thing passes through the filter
-        var filterMatch = function(filter, dataset) {
-          return (filter === "*") || (dataset && dataset[filter]);
-        }
+            showing = 0,
+            // Returns 'true' if this thing passes through the filter
+            filterMatch = function(filter, dataset) {
+                return (filter === "*") || (dataset && dataset[filter]);
+            },
+            i,
+            len;
 
         // Hide the cards first
-        for(var i = 0, len = this._cards.length; i < len; i++) {
-          this._cards[i].classList.add("hidden");
+        for(i = 0, len = this._cards.length; i < len; i++) {
+            this._cards[i].classList.add("hidden");
         }
         this._data.forEach(
-          function(data, index) {
-            // Check if we should show this card
-            if(
-              filterMatch(_this._ward, data.wards)
-              && filterMatch(_this._theme, data.themes)
-              && filterMatch(_this._accessibility, data.accessibilities)
-              && filterMatch(_this._initiative, data.initiatives)
-              // See if date in filter dropdown is inside the array of dates
-              && (function(f, o) {
-                if(o === "*") return true;
-                for(var i = 0; i < f.length; i++) { return f[i].date.indexOf(o) !== -1;} 
-              })(data.datetimes, _this._date)
-            ) {
-              ++showing;
-              _this._cards[index].classList.remove("hidden");
-            }
+            function(data, index) {
+                // Check if we should show this card
+                if(
+                    filterMatch(_this._ward, data.wards) &&
+                    filterMatch(_this._theme, data.themes) &&
+                    filterMatch(_this._accessibility, data.accessibilities) &&
+                    filterMatch(_this._initiative, data.initiatives) &&
+                    // See if date in filter dropdown is inside the array of dates
+                    (function(f, o) {
+                        if(o === "*") return true;
+                        for(i = 0; i < f.length; i++) { return f[i].date.indexOf(o) !== -1;} 
+                    })(data.datetimes, _this._date)
+                ) {
+                    ++showing;
+                    _this._cards[index].classList.remove("hidden");
+                }
 
-          }
+            }
         );
 
         // Empty state
@@ -784,11 +792,11 @@ var CityPageView = PageView.extend({
     },
 
     /**
-     * _addFilterEvents
-     * 
-     * @protected
-     * @return    void
-     */
+    * _addFilterEvents
+    * 
+    * @protected
+    * @return    void
+    */
     _addFilterEvents: function() {
         var _this = this;
         this._element.find('div.filters select').change(
@@ -856,10 +864,10 @@ var HomePageView = PageView.extend({
         $btn.click(
             function(event) {
                 event.preventDefault();
-                if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
-                    _this._element.find('.overlay').show();
-                } else {
+                if (_this._element.find('a[href="/index.php/login/logout/"]').length) {
                     location.href = $(this).attr('href');
+                } else {
+                    _this._element.find('.overlay').show();
                 }
             }
         );
@@ -1498,8 +1506,8 @@ var ProfilePageView = PageView.extend({
             this._currentTab = hash.tab;
             this._showCurrentTab();
             if (
-                typeof hash.success !== 'undefined'
-                && parseInt(hash.success) === 1
+                typeof hash.success !== 'undefined' &&
+                parseInt(hash.success) === 1
             ) {
                 this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').addClass('success');
             }
@@ -1520,7 +1528,7 @@ var ProfilePageView = PageView.extend({
         if (text.length > 130) {
             text = text.substring(0,130) + '...';
         }
-        var link = 'https://twitter.com/intent/tweet' +
+        link = 'https://twitter.com/intent/tweet' +
             '?url=' + (link) +
             '&via=janeswalk' +
             '&text=' + (text);
@@ -1677,86 +1685,48 @@ var WalkPageView = PageView.extend({
      */
     _initializeMap: function() {
 
-      markers = new Array();
+      var markers = [],
+        // FIXME: This searching for a global zoomLevelset is terrible. Replace with proper
+        // parameter passing.
+        zoomLevel = (typeof zoomLevelset === 'undefined') ? 16 : zoomLevelset,
 
-      if (typeof zoomLevelset != 'undefined') {
-        var zoomLevel = zoomLevelset;
-      } else {
-        var zoomLevel = 16;
-      }
-
-      var mapOptions = {
-        zoom: zoomLevel,
-        scrollwheel: false,
-        zoomControl: true,
-        disableDefaultUI: true,
-        zoomControlOptions: {
-          position: google.maps.ControlPosition.RIGHT_TOP
+        // Setup map display options
+        mapOptions =  {
+          zoom: zoomLevel,
+          scrollwheel: false,
+          zoomControl: true,
+          disableDefaultUI: true,
+          zoomControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_TOP
+          },
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+          }
         },
-        mapTypeControlOptions: {
-          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-        }
-      };
 
-      var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-      var walkPathCoordinates = [];
-      for(var rp in JanesWalk.page.gmap.route) { 
-        walkPathCoordinates.push( new google.maps.LatLng( JanesWalk.page.gmap.route[rp].lat, JanesWalk.page.gmap.route[rp].lng));
-      }
+        // Load the google map canvas
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions),
+        walkPathCoordinates = [],
+        mapMarker = '../../../../img/marker.png',
 
-      var walkPath = new google.maps.Polyline({
-        path: walkPathCoordinates,
-        strokeColor: '#F16725',
-        strokeOpacity: 0.8,
-        strokeWeight: 4 
-      });
-
-      walkPath.setMap(map);
-
-      // Style Map
-
-      map.mapTypes.set('map_style', this._styledMap);
-      map.setMapTypeId('map_style');
-
-      var mapMarker = '../../../../img/marker.png';
-      var infowindow = new google.maps.InfoWindow({maxWidth: 300});
-
-      var infobox = new InfoBox({
-        content: document.getElementById("infobox"),
-        maxWidth: 150,
-        pixelOffset: new google.maps.Size(-3, -25),
-        alignBottom: true,
-        boxStyle: {
-          background: "#fff",
-          width: "280px",
-          padding: "10px",
-          border: "1px solid #eee",
-        },
-        closeBoxMargin: "-22px -22px 2px -8px",
-        closeBoxURL: "../../../../img/map-close.png",
-        infoBoxClearance: new google.maps.Size(20, 20)
-      });
-
-      for (var i in JanesWalk.page.gmap.markers) {  
-        marker = new google.maps.Marker({
-          position: new google.maps.LatLng(JanesWalk.page.gmap.markers[i].lat, JanesWalk.page.gmap.markers[i].lng),
-          map: map,
-          icon: mapMarker,
-          id: i
-        });
-
-        markers.push(marker);
-
-        var markerContent = '';
-
-        if ($('body').hasClass('create-page')) {
-          var markerContent = "<button class='btn pull-right' id='delete-marker'><i class='icon-trash'><i></button>";
-        }
-
-        var activeMarker = new google.maps.MarkerImage('../../../../img/marker-active.png');
-        var defaultMarker = new google.maps.MarkerImage('../../../../img/marker.png');
-
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        // Setup basic infobox layout + display functions
+        infowindow = new google.maps.InfoWindow({maxWidth: 300}),
+        infobox = new InfoBox({
+          content: document.getElementById("infobox"),
+          maxWidth: 150,
+          pixelOffset: new google.maps.Size(-3, -25),
+          alignBottom: true,
+          boxStyle: {
+            background: "#fff",
+            width: "280px",
+            padding: "10px",
+            border: "1px solid #eee",
+          },
+          closeBoxMargin: "-22px -22px 2px -8px",
+          closeBoxURL: "../../../../img/map-close.png",
+          infoBoxClearance: new google.maps.Size(20, 20)
+        }),
+        showInfoBox = function(marker, i, markerContent) {
 
           return function() {
 
@@ -1779,16 +1749,67 @@ var WalkPageView = PageView.extend({
             var activePos = $('.active');
             $('.walk-stops-meta').mCustomScrollbar("scrollTo",'.active');
 
-          }
-        })(marker, i));
+          };
+        },
 
+        // Static image objects 
+        activeMarker = new google.maps.MarkerImage('../../../../img/marker-active.png'),
+        defaultMarker = new google.maps.MarkerImage('../../../../img/marker.png'),
+
+        // Counter/indeces declarations
+        walkPath,
+        rp,
+        index,
+        markerContent;
+
+      // Go through each point in the route and build coordinates from that
+      for(rp in JanesWalk.page.gmap.route) { 
+        walkPathCoordinates.push( new google.maps.LatLng( JanesWalk.page.gmap.route[rp].lat, JanesWalk.page.gmap.route[rp].lng));
+      }
+
+      // Draw a line through each of the points
+      walkPath = new google.maps.Polyline({
+        path: walkPathCoordinates,
+        strokeColor: '#F16725',
+        strokeOpacity: 0.8,
+        strokeWeight: 4 
+      });
+
+      walkPath.setMap(map);
+
+      // Style Map
+      map.mapTypes.set('map_style', this._styledMap);
+      map.setMapTypeId('map_style');
+
+      // Place each marker on the map
+      for (var i in JanesWalk.page.gmap.markers) {  
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(JanesWalk.page.gmap.markers[i].lat, JanesWalk.page.gmap.markers[i].lng),
+          map: map,
+          icon: mapMarker,
+          id: i
+        });
+
+        markers.push(marker);
+
+        markerContent = '';
+
+        if ($('body').hasClass('create-page')) {
+          markerContent = "<button class='btn pull-right' id='delete-marker'><i class='icon-trash'><i></button>";
+        }
+
+        google.maps.event.addListener(marker, 'click', showInfoBox(marker, i, markerContent));
       }
       $('.walk-stops').show();
 
       // Map Centering
       var bounds = new google.maps.LatLngBounds();
-      for (var index in markers) { bounds.extend( markers[index].getPosition() ); }
-      for (var index in walkPath.getPath().getArray()) { bounds.extend(walkPath.getPath().getAt(index)); }
+      for (index in markers) {
+        bounds.extend( markers[index].getPosition() );
+      }
+      for (index in walkPath.getPath().getArray()) {
+        bounds.extend(walkPath.getPath().getAt(index));
+      }
       if(markers.length > 0) {
         map.fitBounds(bounds);
       }
@@ -1817,34 +1838,30 @@ var WalkPageView = PageView.extend({
 
       function addmarker(latilongi) {
 
-        var markers = {};
-
-        var lat = map.getCenter().lat();
-        var lng = map.getCenter().lng();
-        var latlng = new google.maps.LatLng(lat, lng);
-
-        var newMarker = '/images/marker.new.png';
-
-        var marker = new google.maps.Marker({
-          position: latlng,
-          animation: google.maps.Animation.DROP,
-          draggable: true,
-          map: map,
-          icon: newMarker
-        });
+        var markers = {},
+          lat = map.getCenter().lat(),
+          lng = map.getCenter().lng(),
+          latlng = new google.maps.LatLng(lat, lng),
+          newMarker = '/images/marker.new.png',
+          marker = new google.maps.Marker({
+            position: latlng,
+            animation: google.maps.Animation.DROP,
+            draggable: true,
+            map: map,
+            icon: newMarker
+          }),
+          delMarker = function (id) {
+            marker = markers[id]; 
+            marker.setMap(null);
+            marker = null;
+          };
 
         // Events to trigger point deletion
 
         id = marker.__gm_id;
         markers[id] = marker; 
 
-        google.maps.event.addListener(marker, "rightclick", function (point) { id = this.__gm_id; delMarker(id) });
-
-        var delMarker = function (id) {
-          marker = markers[id]; 
-          marker.setMap(null);
-          marker = null;
-        }
+        google.maps.event.addListener(marker, "rightclick", function (point) { id = this.__gm_id; delMarker(id); });
 
         var deleteMarkerButton = function() {
           google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
@@ -1879,7 +1896,7 @@ var WalkPageView = PageView.extend({
 
         });
 
-      };
+      }
 
       // Walk map
       google.maps.event.addListenerOnce(infowindow, 'domready', function(){ 
@@ -1897,9 +1914,13 @@ var WalkPageView = PageView.extend({
     }
 
 });
-;// Shims, polyfills, etc.
+;/* jshint ignore:start */
+
+// Shims, polyfills, etc.
 // dataset
 Function.prototype.bind||(Function.prototype.bind=function(e){"use strict";if(typeof this!="function")throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");var t=Array.prototype.slice.call(arguments,1),n=this,r=function(){},i=function(){return n.apply(this instanceof r&&e?this:e,t.concat(Array.prototype.slice.call(arguments)))};return r.prototype=this.prototype,i.prototype=new r,i}),function(){"use strict";var e=Object.prototype,t=e.__defineGetter__,n=e.__defineSetter__,r=e.__lookupGetter__,i=e.__lookupSetter__,s=e.hasOwnProperty;t&&n&&r&&i&&(Object.defineProperty||(Object.defineProperty=function(e,o,u){if(arguments.length<3)throw new TypeError("Arguments not optional");o+="";if(s.call(u,"value")){!r.call(e,o)&&!i.call(e,o)&&(e[o]=u.value);if(s.call(u,"get")||s.call(u,"set"))throw new TypeError("Cannot specify an accessor and a value")}if(!(u.writable&&u.enumerable&&u.configurable))throw new TypeError("This implementation of Object.defineProperty does not support false for configurable, enumerable, or writable.");return u.get&&t.call(e,o,u.get),u.set&&n.call(e,o,u.set),e}),Object.getOwnPropertyDescriptor||(Object.getOwnPropertyDescriptor=function(e,t){if(arguments.length<2)throw new TypeError("Arguments not optional.");t+="";var n={configurable:!0,enumerable:!0,writable:!0},o=r.call(e,t),u=i.call(e,t);return s.call(e,t)?!o&&!u?(n.value=e[t],n):(delete n.writable,n.get=n.set=undefined,o&&(n.get=o),u&&(n.set=u),n):n}),Object.defineProperties||(Object.defineProperties=function(e,t){var n;for(n in t)s.call(t,n)&&Object.defineProperty(e,n,t[n])}))}();if(!document.documentElement.dataset&&(!Object.getOwnPropertyDescriptor(Element.prototype,"dataset")||!Object.getOwnPropertyDescriptor(Element.prototype,"dataset").get)){var propDescriptor={enumerable:!0,get:function(){"use strict";var e,t=this,n,r,i,s,o,u=this.attributes,a=u.length,f=function(e){return e.charAt(1).toUpperCase()},l=function(){return this},c=function(e,t){return typeof t!="undefined"?this.setAttribute(e,t):this.removeAttribute(e)};try{(({})).__defineGetter__("test",function(){}),n={}}catch(h){n=document.createElement("div")}for(e=0;e<a;e++){o=u[e];if(o&&o.name&&/^data-\w[\w\-]*$/.test(o.name)){r=o.value,i=o.name,s=i.substr(5).replace(/-./g,f);try{Object.defineProperty(n,s,{enumerable:this.enumerable,get:l.bind(r||""),set:c.bind(t,i)})}catch(p){n[s]=r}}}return n}};try{Object.defineProperty(Element.prototype,"dataset",propDescriptor)}catch(e){propDescriptor.enumerable=!1,Object.defineProperty(Element.prototype,"dataset",propDescriptor)}};
+
+/* jshint ignore:end */
 
 // Converts military to standard time (to convert times returned by Eventbrite API)
 function toStandardTime(timeString) {
@@ -1926,6 +1947,8 @@ function blurPage() { $("body > section, body > header").addClass("blur"); }
 function unblurPage() { $("body > section, body > header").removeClass("blur"); }
 var _pageView;
 $(document).ready(function(){
+  var eventId,
+    orderId;
   /**
   * Views
   * 
@@ -1935,7 +1958,7 @@ $(document).ready(function(){
 
   // Not page view found
   if (typeof pageViewName === 'undefined') {
-    console && console.log('No page view defined.');
+    if (console) console.log('No page view defined.');
   } else {
     _pageView = (new window[pageViewName](bodyElement));
   }
@@ -1965,14 +1988,15 @@ $(document).ready(function(){
 
 
   // Populate Calendar with Eventbrite event dates
-
+  // FIXME: the variable hoisting in this block is confusing as heck - cleanup.
+  // Minimal work done to please jshint, but most of this file needs refactoring
   if (0 && $('#calendar').length > 0 && $('body').hasClass('active-walk')) {
 
     Eventbrite({'app_key':"4GLVHQYNUSSUONY3QN"}, function(eb_client){
 
       var params = {user: EventBriteEmail, event_statuses: "live"};
 
-      eb_client.user_list_events(params,function(response) {
+      eb_client.user_list_events(params, function(response) {
 
         // var eventsCount = response.events.length;
         // Only display one event for now.
@@ -1982,22 +2006,22 @@ $(document).ready(function(){
         for (var eventsCounter=0; eventsCounter < eventsCount; eventsCounter++) {
 
           var eventDateTime = response.events[eventsCounter].event.start_date.split(" ");
-          var eventId = response.events[eventsCounter].event.id;
+          eventId = response.events[eventsCounter].event.id;
           var eventName = response.events[eventsCounter].event.title;
           var eventDateObject = new Date(eventDateTime[0]);
           var eventTime = eventDateTime[1];
+          var eventDate;
+          var param = {};
 
           if (!$.support.transition) {
-            var eventDateObject = eventDateTime[0].split(/\s*\-\s*/g);
+            eventDateObject = eventDateTime[0].split(/\s*\-\s*/g);
             var eventMonth = eventDateObject[1];
-            var eventDate = eventMonth+"-"+eventDateObject[2]+"-"+eventDateObject[0];
-            var param = {};
+            eventDate = eventMonth+"-"+eventDateObject[2]+"-"+eventDateObject[0];
             eventTime = '<a href="http://www.eventbrite.ca/event/' + eventId + '?ref=ebtn#" class="btn btn-primary btn-large book">Register for the ' + '<span class="time">' + toStandardTime(eventTime) + ' walk</span></a><a href="#" class="btn request-btn-book">Request another time</a>';
           } else {
             //construct datestring that is palatable to calendario (convert single-digit days/months to two-digits)
-            var eventDate = ("0" + (eventDateObject.getMonth()+1)).slice(-2) + "-" + ("0" + (eventDateObject.getDate()+1)).slice(-2) + "-" + eventDateObject.getFullYear();
+            eventDate = ("0" + (eventDateObject.getMonth()+1)).slice(-2) + "-" + ("0" + (eventDateObject.getDate()+1)).slice(-2) + "-" + eventDateObject.getFullYear();
             eventTime = '<a href="http://www.eventbrite.ca/event/' + eventId + '?ref=ebtn#" class="btn btn-primary btn-large book">Register for the ' + '<span class="time">' + toStandardTime(eventTime) + ' walk</span></a><a href="#" class="btn request-btn-book">Request another time</a>';
-            var param = {};
           }
           param[eventDate] = eventTime;
           cal.setData(param);
@@ -2012,8 +2036,8 @@ $(document).ready(function(){
 
 
   if ($('body').hasClass('walk-page') || $('body').hasClass('create-page')) {
-    $month = $( '#custom-month' ).html( cal.getMonthName() ),
-    $year = $( '#custom-year' ).html( cal.getYear() );
+    $month = $('#custom-month').html(cal.getMonthName());
+    $year = $('#custom-year').html(cal.getYear());
   }
 
   $('#custom-next').on('click', function() {
@@ -2079,13 +2103,13 @@ $(document).ready(function(){
     $('.city-page').on('click', function(){
       $('.notification.festival-weekend').removeClass('expanded');
     });
-  };
+  }
 
   if ($('body').hasClass('home')) {
     setTimeout( function() {
-      $('#prototype').modal('show')
+      $('#prototype').modal('show');
     },2000);
-  };
+  }
 
   $('.custom-walk-page .container-outter .notify').on('click', function(event){
     event.preventDefault();
@@ -2115,16 +2139,16 @@ $(document).ready(function(){
 
   // Construct button to continue reg with Eventbrite reg
   if ($('body').hasClass('reg-confirmation')){
-    var eventId = url('?eid');
-    var orderId = url('?oid');
+    eventId = url('?eid');
+    orderId = url('?oid');
     document.getElementById("button-regdonate").href='http://janeswalk.tv/confirm?event_id=' + eventId + '&order_id=' + orderId +'';
   } else if ($('body').hasClass('reg-confirmation-riverside-walk')) {
-    var eventId = url('?eid');
-    var orderId = url('?oid');
+    eventId = url('?eid');
+    orderId = url('?oid');
     document.getElementById("button-regdonate").href='http://janeswalk.tv/confirm-riverside?event_id=' + eventId + '&order_id=' + orderId +'';
   } else if ($('body').hasClass('reg-confirmation-congested')) {
-    var eventId = url('?eid');
-    var orderId = url('?oid');
+    eventId = url('?eid');
+    orderId = url('?oid');
     document.getElementById("button-regdonate").href='http://janeswalk.tv/confirm-congested?event_id=' + eventId + '&order_id=' + orderId +'';
   }
 });

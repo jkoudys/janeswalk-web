@@ -12,83 +12,92 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        janeswalk: janeswalk,
+      pkg: grunt.file.readJSON('package.json'),
+      janeswalk: janeswalk,
 
-        // JS
-        uglify: {
-            options: {
-                banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-            },
-            build: {
-                src: janeswalk.js + '<%= pkg.name %>.js',
-                dest: janeswalk.js + '<%= pkg.name %>.min.js',
-            }
+      // JS
+      uglify: {
+        options: {
+          banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
-        concat: {
-            options: {
-                // define a string to put between each file in the concatenated output
-                separator: ';'
-            },
-            dist: {
-                // the files to concatenate
-                src: janeswalk.jslib,
-                // the location of the resulting JS file
-                dest: janeswalk.js + '<%= pkg.name %>.js'
-            }
-        },
-
-        // CSS
-        sass: {
-            dev: {
-                options: {
-                    style: 'compressed',
-                },
-                files: [{
-                    '<%= janeswalk.css %>pages/sass/screen.css': janeswalk.css + 'pages/sass/screen.scss'
-                }]
-            }
-        },
-        // Add vendor prefixed styles
-        autoprefixer: {
-            options: {
-                browsers: ['last 3 version', 'ie 8', 'ie 9']
-            },
-            single_file: {
-                src: janeswalk.css + 'pages/sass/screen.css',
-                dest: janeswalk.css + 'screen.css'
-            }
-        },
-
-        jslint: { // configure the task
-            client: {
-                src: janeswalk.jslib,
-                directives: {
-                    browser: true,
-                    predef: [
-                        'jQuery'
-                    ]
-                },
-                options: {
-                    junit: 'out/client-junit.xml'
-                }
-            }
-        },
-        jshint: {
-            all: janeswalk.jslib,
-        },
-        phpcsfixer: {
-            app: {
-                dir: 'models',
-            },
-            options: {
-                bin: 'vendor/bin/php-cs-fixer',
-                ignoreExitCode: true,
-                level: 'all',
-                fixers: ['indentation','linefeed','trailing_spaces','unused_use','return','phpdoc_params','braces','short_tag','one_class_per_file','spaces_cast','extra_empty_lines','php_closing_tag','object_operator','visibility','encoding','function_declaration','lowercase_constants','include','lowercase_keywords','controls_spaces','eof_ending'], // This is everything but the 'elseif' requirement; 'else if' is present in many languages, but elseif isn't in javascript, and some langs have elsif. Let's just avoid that.
-                quiet: false
-            }
+        build: {
+          src: janeswalk.js + '<%= pkg.name %>.js',
+          dest: janeswalk.js + '<%= pkg.name %>.min.js',
         }
+      },
+      concat: {
+        options: {
+          // define a string to put between each file in the concatenated output
+          separator: ';'
+        },
+        dist: {
+          // the files to concatenate
+          src: janeswalk.jslib,
+          // the location of the resulting JS file
+          dest: janeswalk.js + '<%= pkg.name %>.js'
+        }
+      },
+
+      // CSS
+      sass: {
+        dev: {
+          options: {
+            style: 'compressed',
+          },
+          files: [{
+            '<%= janeswalk.css %>pages/sass/screen.css': janeswalk.css + 'pages/sass/screen.scss'
+          }]
+        }
+      },
+      // Add vendor prefixed styles
+      autoprefixer: {
+        options: {
+          browsers: ['last 3 version', 'ie 8', 'ie 9']
+        },
+        single_file: {
+          src: janeswalk.css + 'pages/sass/screen.css',
+          dest: janeswalk.css + 'screen.css'
+        }
+      },
+
+      jslint: { // configure the task
+        client: {
+          src: janeswalk.jslib,
+          directives: {
+            browser: true,
+            predef: [
+              'jQuery'
+            ]
+          },
+          options: {
+            junit: 'out/client-junit.xml'
+          }
+        }
+      },
+      jshint: {
+        all: janeswalk.jslib,
+      },
+      phpcsfixer: {
+        app: {
+          dir: 'models',
+        },
+        options: {
+          bin: 'vendor/bin/php-cs-fixer',
+          ignoreExitCode: true,
+          level: 'all',
+          fixers: ['indentation','linefeed','trailing_spaces','unused_use','return','phpdoc_params','braces','short_tag','one_class_per_file','spaces_cast','extra_empty_lines','php_closing_tag','object_operator','visibility','encoding','function_declaration','lowercase_constants','include','lowercase_keywords','controls_spaces','eof_ending'], // This is everything but the 'elseif' requirement; 'else if' is present in many languages, but elseif isn't in javascript, and some langs have elsif. Let's just avoid that.
+          quiet: false
+        }
+      },
+      watch: {
+        scripts: {
+          files: janeswalk.jslib,
+          tasks: ['jshint', 'js'],
+          options: {
+            spawn: false
+          }
+        }
+      }
     });
 
     // Load the plugin that provides the 'uglify' task.
@@ -99,6 +108,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-php-cs-fixer');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('js', ['concat', 'uglify']);
