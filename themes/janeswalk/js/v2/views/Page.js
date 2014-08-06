@@ -107,16 +107,16 @@ var PageView = View.extend({
      */
     trackEvent: function(category, action, optLabel, optValue, override) {
         var call = ['_trackEvent'];
-        if (typeof category !== 'undefined') {
+        if (category !== undefined) {
             call.push(category);
         }
-        if (typeof action !== 'undefined') {
+        if (action !== undefined) {
             call.push(action);
         }
-        if (typeof optLabel !== 'undefined') {
+        if (optLabel !== undefined) {
             call.push(optLabel);
         }
-        if (typeof optValue !== 'undefined') {
+        if (optValue !== undefined) {
             call.push(optValue);
         }
         this._makeGaCall(call, override);

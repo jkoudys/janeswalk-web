@@ -6,9 +6,9 @@
 module.exports = function(grunt) {
     var janeswalk = {
         js: 'themes/janeswalk/js/',
-        jslib: ['themes/janeswalk/js/extend.js', 'themes/janeswalk/js/v2/**/*.js', 'themes/janeswalk/js/app.js'],
+        jslib: ['themes/janeswalk/js/shims.js', 'themes/janeswalk/js/extend.js', 'themes/janeswalk/js/v2/**/*.js', 'themes/janeswalk/js/app.js',],
         css: 'themes/janeswalk/css/'
-    }
+    };
 
     // Project configuration.
     grunt.initConfig({
@@ -61,6 +61,15 @@ module.exports = function(grunt) {
       },
 
       jslint: { // configure the task
+        form: {
+          src: ['themes/jw_form/js/main.js', 'themes/jw_form/js/gmaps.js'],
+          directives: {
+            browser: true,
+            predef: [
+              'jQuery'
+            ]
+          }
+        },
         client: {
           src: janeswalk.jslib,
           directives: {
@@ -76,6 +85,7 @@ module.exports = function(grunt) {
       },
       jshint: {
         all: janeswalk.jslib,
+        form: ['themes/jw_form/js/main.js', 'themes/jw_form/js/gmaps.js']
       },
       phpcsfixer: {
         app: {

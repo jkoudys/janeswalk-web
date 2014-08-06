@@ -1,6 +1,11 @@
 <?php
 use \JanesWalk\Model\PageType\Walk;
 
+// FIXME: Don't know why the Loader::model won't find this, but this
+// stuff will all change with improved PSR-standard autoloading in
+// c5.7.
+require_once(DIR_BASE . '/models/page_types/Walk.php');
+
 defined('C5_EXECUTE') or die("Access Denied.");
 class WalkFormController extends Controller
 {

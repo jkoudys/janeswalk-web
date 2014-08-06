@@ -143,7 +143,7 @@ var HomePageView = PageView.extend({
                 });
             }
         };
-        if (typeof JanesWalk.user === 'undefined' || typeof JanesWalk.user.city === 'undefined') {
+        if (JanesWalk.user === undefined || JanesWalk.user.city === undefined) {
             $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
         } else {
             _this._addCityCalloutCta(JanesWalk.user.city.name, JanesWalk.user.city.url);

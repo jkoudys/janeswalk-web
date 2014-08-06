@@ -1,225 +1,225 @@
 
 /**
- * WalkPageView
- * 
- * @extends PageView
- */
+* WalkPageView
+* 
+* @extends PageView
+*/
 var WalkPageView = PageView.extend({
 
-    /**
-     * init
-     * 
-     * @public
-     * @param  jQuery element
-     * @return void
-     */
-    init: function(element) {
-        this._super(element);
-        this._addFacebookDialogEvents();
-        this._initializeMap();
-    },
+  /**
+  * init
+  * 
+  * @public
+  * @param  jQuery element
+  * @return void
+  */
+  init: function(element) {
+    this._super(element);
+    this._addFacebookDialogEvents();
+    this._initializeMap();
+  },
 
-    /**
-     * _addFacebookDialogEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _addFacebookDialogEvents: function() {
-        var _this = this;
-        this._element.find('.facebookShareLink').click(
-            function(event) {
-                event.preventDefault();
-                _this.trackEvent('Walk', 'share.attempted', 'facebook');
-                var shareObj = _this._getFacebookDialogObj();
-                (new FacebookShareDialog(shareObj)).show(
-                    _this._facebookShareFailed,
-                    _this._facebookShareSuccessful
-                );
-            }
+  /**
+  * _addFacebookDialogEvents
+  * 
+  * @protected
+  * @return    void
+  */
+  _addFacebookDialogEvents: function() {
+    var _this = this;
+    this._element.find('.facebookShareLink').click(
+      function(event) {
+        event.preventDefault();
+        _this.trackEvent('Walk', 'share.attempted', 'facebook');
+        var shareObj = _this._getFacebookDialogObj();
+        (new FacebookShareDialog(shareObj)).show(
+          _this._facebookShareFailed,
+          _this._facebookShareSuccessful
         );
-    },
+      }
+    );
+  },
+
+  /**
+  * _facebookShareFailed
+  * 
+  * @protected
+  * @return    void
+  */
+  _facebookShareFailed: function() {
+    this.trackEvent('Walk', 'share.failed', 'facebook');
+  },
+
+  /**
+  * _facebookShareSuccessful
+  * 
+  * @protected
+  * @return    void
+  */
+  _facebookShareSuccessful: function() {
+    this.trackEvent('Walk', 'share.successful', 'facebook');
+  },
+
+  /**
+  * _getFacebookDialogObj
+  * 
+  * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
+  * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
+  * @protected
+  * @return    Object
+  */
+  _getFacebookDialogObj: function() {
+    return {
+      link: JanesWalk.page.url,
+      picture: JanesWalk.page.pictureUrl,
+      name: JanesWalk.page.title,
+      description: JanesWalk.page.description,
+      actions: {
+        name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
+        link: JanesWalk.page.city.url
+      }
+    };
+  },
+
+  /**
+  * _styledMap
+  * 
+  * @type      StyledMapType
+  * @protected
+  */
+  _styledMap: new google.maps.StyledMapType(
+    [{
+      "featureType": "road.arterial",
+      "elementType": "geometry.fill",
+      "stylers": [
+        { "color": "#ffffff" }
+      ]
+    },{
+      "featureType": "road.arterial",
+      "elementType": "labels.text.stroke",
+      "stylers": [
+        { "visibility": "off" }
+      ]
+    },{
+      "featureType": "road.arterial",
+      "elementType": "geometry.stroke",
+      "stylers": [
+        { "visibility": "on" },
+        { "saturation": -100 }
+      ]
+    },{
+      "featureType": "road.local",
+      "elementType": "geometry.stroke",
+      "stylers": [
+        { "saturation": -100 }
+      ]
+    },{
+      "featureType": "landscape.natural",
+      "stylers": [
+        { "saturation": -100 },
+        { "lightness": 36 }
+      ]
+    },{
+      "featureType": "poi.park",
+      "elementType": "geometry.fill",
+      "stylers": [
+        { "visibility": "on" },
+        { "saturation": 37 }
+      ]
+    },{
+      "featureType": "landscape.man_made",
+      "stylers": [
+        { "saturation": -100 }
+      ]
+    }],
+    {
+      name: "Styled Map"
+    }),
 
     /**
-     * _facebookShareFailed
-     * 
-     * @protected
-     * @return    void
-     */
-    _facebookShareFailed: function() {
-        this.trackEvent('Walk', 'share.failed', 'facebook');
-    },
-
-    /**
-     * _facebookShareSuccessful
-     * 
-     * @protected
-     * @return    void
-     */
-    _facebookShareSuccessful: function() {
-        this.trackEvent('Walk', 'share.successful', 'facebook');
-    },
-
-    /**
-     * _getFacebookDialogObj
-     * 
-     * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-     * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-     * @protected
-     * @return    Object
-     */
-    _getFacebookDialogObj: function() {
-        return {
-            link: JanesWalk.page.url,
-            picture: JanesWalk.page.pictureUrl,
-            name: JanesWalk.page.title,
-            description: JanesWalk.page.description,
-            actions: {
-                name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
-                link: JanesWalk.page.city.url
-            }
-        };
-    },
-
-    /**
-     * _styledMap
-     * 
-     * @type      StyledMapType
-     * @protected
-     */
-    _styledMap: new google.maps.StyledMapType(
-      [{
-        "featureType": "road.arterial",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "color": "#ffffff" }
-        ]
-      },{
-        "featureType": "road.arterial",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-          { "visibility": "off" }
-        ]
-      },{
-        "featureType": "road.arterial",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "visibility": "on" },
-          { "saturation": -100 }
-        ]
-      },{
-        "featureType": "road.local",
-        "elementType": "geometry.stroke",
-        "stylers": [
-          { "saturation": -100 }
-        ]
-      },{
-        "featureType": "landscape.natural",
-        "stylers": [
-          { "saturation": -100 },
-          { "lightness": 36 }
-        ]
-      },{
-        "featureType": "poi.park",
-        "elementType": "geometry.fill",
-        "stylers": [
-          { "visibility": "on" },
-          { "saturation": 37 }
-        ]
-      },{
-        "featureType": "landscape.man_made",
-        "stylers": [
-          { "saturation": -100 }
-        ]
-      }],
-      {
-        name: "Styled Map"
-      }),
-
-    /**
-     * _initializeMap
-     * 
-     * @protected
-     * @return    void
-     */
+    * _initializeMap
+    * 
+    * @protected
+    * @return    void
+    */
     _initializeMap: function() {
 
       var markers = [],
-        // FIXME: This searching for a global zoomLevelset is terrible. Replace with proper
-        // parameter passing.
-        zoomLevel = (typeof zoomLevelset === 'undefined') ? 16 : zoomLevelset,
+      // FIXME: This searching for a global zoomLevelset is terrible. Replace with proper
+      // parameter passing.
+      zoomLevel = (typeof zoomLevelset === 'undefined') ? 16 : zoomLevelset,
 
-        // Setup map display options
-        mapOptions =  {
-          zoom: zoomLevel,
-          scrollwheel: false,
-          zoomControl: true,
-          disableDefaultUI: true,
-          zoomControlOptions: {
-            position: google.maps.ControlPosition.RIGHT_TOP
-          },
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+      // Setup map display options
+      mapOptions =  {
+        zoom: zoomLevel,
+        scrollwheel: false,
+        zoomControl: true,
+        disableDefaultUI: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_TOP
+        },
+        mapTypeControlOptions: {
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+        }
+      },
+
+      // Load the google map canvas
+      map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions),
+      walkPathCoordinates = [],
+      mapMarker = '../../../../img/marker.png',
+
+      // Setup basic infobox layout + display functions
+      infowindow = new google.maps.InfoWindow({maxWidth: 300}),
+      infobox = new InfoBox({
+        content: document.getElementById("infobox"),
+        maxWidth: 150,
+        pixelOffset: new google.maps.Size(-3, -25),
+        alignBottom: true,
+        boxStyle: {
+          background: "#fff",
+          width: "280px",
+          padding: "10px",
+          border: "1px solid #eee",
+        },
+        closeBoxMargin: "-22px -22px 2px -8px",
+        closeBoxURL: "../../../../img/map-close.png",
+        infoBoxClearance: new google.maps.Size(20, 20)
+      }),
+      showInfoBox = function(marker, i, markerContent) {
+
+        return function() {
+
+          for (var e=0; e<markers.length; e++) {
+            markers[e].setIcon(defaultMarker);
           }
-        },
 
-        // Load the google map canvas
-        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions),
-        walkPathCoordinates = [],
-        mapMarker = '../../../../img/marker.png',
+          map.panTo(marker.getPosition());
 
-        // Setup basic infobox layout + display functions
-        infowindow = new google.maps.InfoWindow({maxWidth: 300}),
-        infobox = new InfoBox({
-          content: document.getElementById("infobox"),
-          maxWidth: 150,
-          pixelOffset: new google.maps.Size(-3, -25),
-          alignBottom: true,
-          boxStyle: {
-            background: "#fff",
-            width: "280px",
-            padding: "10px",
-            border: "1px solid #eee",
-          },
-          closeBoxMargin: "-22px -22px 2px -8px",
-          closeBoxURL: "../../../../img/map-close.png",
-          infoBoxClearance: new google.maps.Size(20, 20)
-        }),
-        showInfoBox = function(marker, i, markerContent) {
+          this.setIcon(activeMarker);
 
-          return function() {
+          infowindow.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
+          infobox.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
+          infobox.open(map, marker);
 
-            for (var e=0; e<markers.length; e++) {
-              markers[e].setIcon(defaultMarker);
-            }
+          $('.walk-stop').removeClass('active');
+          $('.walk-stops-meta #'+ i ).addClass('active');
 
-            map.panTo(marker.getPosition());
+          // Scroll to view item in list
+          var activePos = $('.active');
+          $('.walk-stops-meta').mCustomScrollbar("scrollTo",'.active');
 
-            this.setIcon(activeMarker);
+        };
+      },
 
-            infowindow.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
-            infobox.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
-            infobox.open(map, marker);
+      // Static image objects 
+      activeMarker = new google.maps.MarkerImage('../../../../img/marker-active.png'),
+      defaultMarker = new google.maps.MarkerImage('../../../../img/marker.png'),
 
-            $('.walk-stop').removeClass('active');
-            $('.walk-stops-meta #'+ i ).addClass('active');
-
-            // Scroll to view item in list
-            var activePos = $('.active');
-            $('.walk-stops-meta').mCustomScrollbar("scrollTo",'.active');
-
-          };
-        },
-
-        // Static image objects 
-        activeMarker = new google.maps.MarkerImage('../../../../img/marker-active.png'),
-        defaultMarker = new google.maps.MarkerImage('../../../../img/marker.png'),
-
-        // Counter/indeces declarations
-        walkPath,
-        rp,
-        index,
-        markerContent;
+      // Counter/indeces declarations
+      walkPath,
+      rp,
+      index,
+      markerContent;
 
       // Go through each point in the route and build coordinates from that
       for(rp in JanesWalk.page.gmap.route) { 
@@ -298,22 +298,22 @@ var WalkPageView = PageView.extend({
       function addmarker(latilongi) {
 
         var markers = {},
-          lat = map.getCenter().lat(),
-          lng = map.getCenter().lng(),
-          latlng = new google.maps.LatLng(lat, lng),
-          newMarker = '/images/marker.new.png',
-          marker = new google.maps.Marker({
-            position: latlng,
-            animation: google.maps.Animation.DROP,
-            draggable: true,
-            map: map,
-            icon: newMarker
-          }),
-          delMarker = function (id) {
-            marker = markers[id]; 
-            marker.setMap(null);
-            marker = null;
-          };
+        lat = map.getCenter().lat(),
+        lng = map.getCenter().lng(),
+        latlng = new google.maps.LatLng(lat, lng),
+        newMarker = '/images/marker.new.png',
+        marker = new google.maps.Marker({
+          position: latlng,
+          animation: google.maps.Animation.DROP,
+          draggable: true,
+          map: map,
+          icon: newMarker
+        }),
+        delMarker = function (id) {
+          marker = markers[id]; 
+          marker.setMap(null);
+          marker = null;
+        };
 
         // Events to trigger point deletion
 
@@ -341,7 +341,6 @@ var WalkPageView = PageView.extend({
             infowindow.close(map, marker);
           });
         });
-
 
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map, marker);
@@ -371,5 +370,4 @@ var WalkPageView = PageView.extend({
         google.maps.event.trigger(marker, 'click');
       });
     }
-
 });

@@ -1,5 +1,5 @@
 <?php
-namespace \JanesWalk\Libraries\MirrorWalk;
+namespace JanesWalk\Libraries\MirrorWalk;
 
 use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Libraries\MirrorWalk\Eventbrite;

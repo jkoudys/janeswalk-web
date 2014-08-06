@@ -5,10 +5,9 @@ $.paramsURL = function(param_name){
   if (value !== null) {
     return value[1];
   }
-}
+};
 
 // Time Convert
-
 function timeConvert (time) {
   // Check correct time format and split into components
   time = time.toString ().match (/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [time];
@@ -20,7 +19,6 @@ function timeConvert (time) {
   }
   return time.join (''); // return adjusted time or original string
 }
-;
 
 var dateSelected = [];
 var jwMap = {}; // Not ideal, but keep for now until I can localize this.
@@ -29,7 +27,7 @@ var jwMap = {}; // Not ideal, but keep for now until I can localize this.
 $.fn.teamTypeahead = function() {
   this.typeahead({
     name: 'team-member',
-    remote: { url: '../../api/walk_leaders?q=%QUERY', rateLimitWait: 100 },
+    remote: { url: '/api/walk_leaders?q=%QUERY', rateLimitWait: 100 },
     valueKey: 'first_name',
     template: function(datum) {
       return "<div class='datum'>" + (datum.avatar ? "<div style='background:url(" + datum.avatar + ")'></div>  " : "") + datum.first_name + " " + datum.last_name + (datum.city_name ? ", " + datum.city_name : "") + "</div>";
@@ -54,7 +52,7 @@ $.fn.teamTypeahead = function() {
     if(datum.bio)
       $('textarea[name=bio\\[\\]]', teamMember).text(datum.bio);
   });
-}
+};
 
 window.Janeswalk = {
   initialize: function() {
@@ -79,7 +77,7 @@ window.Janeswalk = {
       $('.date-indicate-all, .date-indicate-set').html(dateObject).attr('data-dateselected',dateObjectFormatted);
       // Special-case any dates that are set
       // TODO: move to a consistent datetimepicker, or at least not bootstrap datepicker + jquery timepicker
-      if (typeof JanesWalk.form[dateObjectFormatted] !== 'undefined') {
+      if (JanesWalk.form[dateObjectFormatted] !== undefined) {
         $('#walk-time').timepicker(JanesWalk.form[dateObjectFormatted].timepicker_cfg);
       } else if (typeof JanesWalk.form.timepicker_cfg !== 'undefined') {
         $('#walk-time').timepicker(JanesWalk.form.timepicker_cfg);
@@ -145,29 +143,29 @@ window.Janeswalk = {
     $('.section-save').on('click', function(event){
 
       var invalidFields = $(this).parentsUntil('.main-panel').find('*:invalid').length;
-      var themeSelect = $(this).parentsUntil('.main-panel').find('#theme-select input:checked').length 
+      var themeSelect = $(this).parentsUntil('.main-panel').find('#theme-select input:checked').length;
 
       // Validation is limited to Description for now.
 
       if ($('.page-header').data('section') === 'description') { 
 
-          if (invalidFields == 0 && themeSelect != 0) {
+        if (invalidFields === 0 && themeSelect !== 0) {
           // When the form validates
           $('#progress-panel').find('.active a .status').remove();
           $('#theme-select .alert').removeClass('alert-error').addClass('alert-info');
           $('#progress-panel .active a i.warning').remove();
           $('#progress-panel').find('.active a').removeClass('error');
           $('#progress-panel').find('.active a').append(' <i class="icon-check-sign complete status"></i>').addClass('complete');
-        
+
           // $('#progress-panel li.active').next().addClass('active');
-          
+
           // var url = $(this).data('next')+'.html';
           // $.pjax({url:url,container:'#main-panel',fragment:'#main-panel'});
 
           $('#progress-panel a[href='+$(this).attr('href')+']').tab('show');
-        
+
           event.preventDefault();
-        } else if (themeSelect == 0) {
+        } else if (themeSelect === 0) {
           $('#progress-panel').find('.active a .status').remove();
           $('#progress-panel .active a i.complete').remove();
           $('#progress-panel').find('.active a').removeClass('complete');
@@ -220,7 +218,7 @@ window.Janeswalk = {
     // Publish Walk Button
     $('#btn-submit').on('click', function(){
       $('#publish-warning').modal();
-    })
+    });
 
     // Nutshell Limiting
     $('.limit').limit({
@@ -253,10 +251,10 @@ window.Janeswalk = {
     // New Session Populate
     var walkTitle = $.paramsURL('title');
     var walkDescription = $.paramsURL('description');
-    if (walkTitle != null) {
+    if (walkTitle) {
       $('#title').val(unescape(walkTitle));      
     }
-    if (walkDescription != null) {
+    if (walkDescription) {
       $('#shortdescription').html(unescape(walkDescription));
     }
 
@@ -279,7 +277,7 @@ window.Janeswalk = {
           $(this).remove();
           });
         },2000);
-    }
+    };
     var notify_error = function(error) {
       $('body').append('<div class="alert alert-error" id="save-notify">' + error.responseText + '</div>');
       setTimeout( function() {
@@ -287,7 +285,7 @@ window.Janeswalk = {
           $(this).remove();
           });
         },2000);
-    }
+    };
 
     $('.save, .btn-preview, .section-save').on('click', function(e){
       // Run validation first?
@@ -310,8 +308,7 @@ window.Janeswalk = {
     if(JanesWalk.form.data) {
       JaneswalkData.fill(JanesWalk.form.data);
       console.log("Loaded data locally");
-    }
-    else if (dataUrl != null){
+    } else if (dataUrl){
       console.log("Remote fetching data");
       $('.progress-spinner').spin(spinProperties);
       $.getJSON(dataUrl, function(data){
@@ -455,6 +452,10 @@ var JaneswalkData = {
     self.dataSet.team = {};
     var member;
     $('.team-member.useredited').each(function(key, val){
+      var phone1 = $(this).find('[name="phone-1[]"]').val(),
+        phone2 = $(this).find('[name="phone-2[]"]').val(),
+        phone3 = $(this).find('[name="phone-2[]"]').val();
+
       member = {
         'user_id': $(this).find('[name="user_id[]"]').val(),
         'type': $(this).find('[name="type[]"]').val(),
@@ -471,11 +472,8 @@ var JaneswalkData = {
         'institution': $(this).find('[name="institution[]"]').val()
       };
 
-      var phone1 = $(this).find('[name="phone-1[]"]').val();
-      var phone2 = $(this).find('[name="phone-2[]"]').val();
-      var phone3 = $(this).find('[name="phone-2[]"]').val();
-      if (phone1 != undefined && phone2 != undefined && phone3 != undefined){
-        member.phone = $(this).find('[name="phone-1[]"]').val()+'-'+$(this).find('[name="phone-2[]"]').val()+'-'+$(this).find('[name="phone-3[]"]').val()
+      if (phone1 !== undefined && phone2 !== undefined && phone3 !== undefined){
+        member.phone = $(this).find('[name="phone-1[]"]').val()+'-'+$(this).find('[name="phone-2[]"]').val()+'-'+$(this).find('[name="phone-3[]"]').val();
       } else {
         member.phone = false;
       }
