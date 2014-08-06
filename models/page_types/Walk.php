@@ -3,10 +3,11 @@ namespace JanesWalk\Models\PageTypes;
 
 // Default lib classes
 use \Exception;
+use \DOMDocument;
+use \XSLTProcessor;
 // c5 classes
 use \Loader;
 use \Page;
-// Custom libs
 
 defined('C5_EXECUTE') || die('Access Denied.');
 
@@ -325,65 +326,32 @@ class Walk extends \Model implements \JsonSerializable
     {
         $fh = Loader::helper('file');
         // Creates the Document.
-        $dom = new \DOMDocument('1.0', 'UTF-8');
+        $doc = new DOMDocument;
 
-        // Root <kml> namespace
-        $parNode = $dom->appendChild($dom->createElementNS('http://earth.google.com/kml/2.2', 'kml'));
-
-        // <Document> containing full map
-        $docNode = $parNode->appendChild($dom->createElement('Document'));
-        $docNode->appendChild($dom->createElement('name'))->appendChild(
-            $dom->createTextNode($this . ' : Jane\'s Walk')
-        );
-
-        // <Style> with red-star icon for map marker, used for meeting place
-        $defaultStyleNode = $docNode->appendChild($dom->createElement('Style'));
-        $defaultStyleNode->setAttribute('id', 'jwhome');
-        $defaultIconstyleNode = $defaultStyleNode->appendChild($dom->createElement('IconStyle'));
-        $defaultIconstyleNode->setAttribute('id', 'jwIcon');
-        $defaultIconNode = $defaultIconstyleNode->appendChild($dom->createElement('Icon'));
-        $defaultIconNode->appendChild($defaultIconNode->appendChild(
-            $dom->createElement('href', 'http://maps.google.com/mapfiles/kml/paddle/red-stars.png'))
-        );
+        $map = $doc->appendChild($doc->createElement('map'));
+        $map->appendChild($doc->createElement('name', (string) $this));
 
         // Set the map markers -- "meeting place" and "stop"s
-        foreach ($this->map->markers as $k=>$marker) {
-            // <Placemark> of map marker
-            $placeNode = $docNode->appendChild($dom->createElement('Placemark'));
-
-            // Text of name and description for <Placemark>
-            $nameNode = $placeNode->appendChild($dom->createElement('name'))->appendChild($dom->createCDATASection($marker->title));
-
-            // <description> of this <Placemark>
-            $placeNode->appendChild($dom->createElement('description'))->appendChild($dom->createCDATASection($k + 1 . '. ' . $marker->description));
-
-            // <Placemark styleUrl> has different marker image if this is meeting place ($k === 0)
-            $k || $placeNode->appendChild($dom->createElement('styleUrl','#jwhome'));
-
-            // <Point> which contains the <coordinates>
-            $pointNode = $placeNode->appendChild($dom->createElement('Point'));
-
-            // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
-            $pointNode->appendChild($dom->createElement('coordinates', $marker->lng . ',' . $marker->lat));
+        foreach ($this->map->markers as $k => $marker) {
+            $m = $map->appendChild($doc->createElement('marker'));
+            $m->setAttribute('name', $marker->title);
+            $m->setAttribute('description', $marker->description);
+            $m->setAttribute('lat', $marker->lat);
+            $m->setAttribute('lng', $marker->lng);
         }
-
-        // Set the route
-        // <Placemark> of map route
-        $placeNode = $docNode->appendChild($dom->createElement('Placemark'));
-
-        // <LineString> where map route represented in multiple coordinates
-        $pointNode = $placeNode->appendChild($dom->createElement('LineString'));
-
+        
         $coorStr = '';
         foreach ($this->map->route as $route) {
             // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
-            $coorStr .= "\n{$route->lng}, {$route->lat}, 0";
+            $coorStr .= PHP_EOL . $route->lng . ', ' . $route->lat . ', 0';
         }
-        if ($coorStr) {
-            $pointNode->appendChild($dom->createElement('coordinates', $coorStr));
-        }
+        if ($coorStr) $map->appendChild($doc->createElement('route', $coorStr));
 
-        return $dom;
+        $xsltp = new XSLTProcessor;
+        $xsltp->importStyleSheet(DOMDocument::load(DIR_BASE . '/elements/templates/kmlmap.xsl'));
+
+        // Apply stylesheet and return
+        return $xsltp->transformToDoc($doc);
     }
 
     /**

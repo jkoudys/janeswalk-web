@@ -484,8 +484,8 @@ var ProfilePageView = PageView.extend({
             this._currentTab = hash.tab;
             this._showCurrentTab();
             if (
-                typeof hash.success !== 'undefined'
-                && parseInt(hash.success) === 1
+                typeof hash.success !== 'undefined' &&
+                parseInt(hash.success) === 1
             ) {
                 this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').addClass('success');
             }
@@ -506,7 +506,7 @@ var ProfilePageView = PageView.extend({
         if (text.length > 130) {
             text = text.substring(0,130) + '...';
         }
-        var link = 'https://twitter.com/intent/tweet' +
+        link = 'https://twitter.com/intent/tweet' +
             '?url=' + (link) +
             '&via=janeswalk' +
             '&text=' + (text);

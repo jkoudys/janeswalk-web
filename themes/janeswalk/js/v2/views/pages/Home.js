@@ -34,10 +34,10 @@ var HomePageView = PageView.extend({
         $btn.click(
             function(event) {
                 event.preventDefault();
-                if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
-                    _this._element.find('.overlay').show();
-                } else {
+                if (_this._element.find('a[href="/index.php/login/logout/"]').length) {
                     location.href = $(this).attr('href');
+                } else {
+                    _this._element.find('.overlay').show();
                 }
             }
         );
@@ -143,7 +143,7 @@ var HomePageView = PageView.extend({
                 });
             }
         };
-        if (typeof JanesWalk.user === 'undefined' || typeof JanesWalk.user.city === 'undefined') {
+        if (JanesWalk.user === undefined || JanesWalk.user.city === undefined) {
             $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
         } else {
             _this._addCityCalloutCta(JanesWalk.user.city.name, JanesWalk.user.city.url);

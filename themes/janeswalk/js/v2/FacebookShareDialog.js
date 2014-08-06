@@ -39,11 +39,11 @@ var FacebookShareDialog = Class.extend({
         FB.ui(
             this._shareObj,
             function(response) {
-                if (typeof response !== 'undefined') {
+                if (response !== undefined) {
                     if (response === null) {
-                        failed && failed();
+                        if (failed) failed();
                     } else {
-                        successful && successful();
+                        if (successful) successful();
                     }
                 }
             }
