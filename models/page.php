@@ -22,17 +22,6 @@ class Page extends Concrete5_Model_Page
 
         $this->doc->preserveWhiteSpace = false;
 
-        // Load sitewide links
-        $donate = $this->doc->appendChild(
-            $this->doc->createElement(
-                'donate',
-                t('Donate')
-            )
-        );
-        $donate->setAttribute(
-            'href',
-            Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate'))
-        );
         // Load profile menu options
         $u = new User();
         $ui = UserInfo::getByID($u->getUserID());
@@ -61,6 +50,18 @@ class Page extends Concrete5_Model_Page
         );
         $te->setAttribute('match', 'page');
         $te->appendChild($this->xsl->createElementNS(self::XSLT, 'xsl:apply-imports'));
+
+        // Load sitewide links
+        $donate = $this->pageEl->appendChild(
+            $this->doc->createElement(
+                'donate',
+                t('Donate')
+            )
+        );
+        $donate->setAttribute(
+            'href',
+            Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate'))
+        );
 
         // Basic info on profile
         $profile = $this->pageEl->appendChild($this->doc->createElement('profile'));
@@ -105,6 +106,27 @@ class Page extends Concrete5_Model_Page
         return true;
     }
 
+    // TODO: this is very similar to domLoadAreas - see what can be a new function
+    public function domLoadFragments(array $fragmentNames)
+    {
+        try {
+            foreach ($fragmentNames as $name) {
+                ob_start();
+                Loader::element($name);
+                $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
+                ob_end_clean();
+                $element = $this->pageEl->appendChild($this->doc->createElement('element'));
+                $element->setAttribute('name', $name);
+
+                $this->domAddHtml($html, $element);
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function domIncludeXsl($filename)
     {
         $im = $this->xsl->documentElement->insertBefore(
@@ -126,8 +148,13 @@ class Page extends Concrete5_Model_Page
             true
         );
 
-//        echo $this->doc->saveXML();
+        // Load the basic header + footer
+        $this->domLoadFragments(['header_required', 'footer_required']);
+
+//        echo $this->xsl->saveXML();
         $xsl = new XSLTProcessor;
+        // Allow translation functions to be used in xsl
+        $xsl->registerPHPFunctions(['t','t2','tc']);
         $xsl->setParameter('', 'isEditMode', (bool) $this->isEditMode());
         $xsl->setParameter('', 'isSearching', (bool) $_REQUEST['query']);
         $xsl->setParameter('', 'isMobile', false); // FIXME
@@ -146,6 +173,7 @@ class Page extends Concrete5_Model_Page
 
         // Build a temporary doc to parse the HTML as a DOMDocument
         $tdoc = new DOMDocument('1.0', 'UTF-8');
+        $tdoc->preserveWhiteSpace = false;
 
         // It's a silly limit on DOMDocument that we need to do this, 
         // but necessary for proper UTF-8 encoding

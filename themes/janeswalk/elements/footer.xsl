@@ -16,5 +16,6 @@
         </div>
       </div>
     </footer>
+    <xsl:apply-templates select="element[@name='footer_required']"/>
   </xsl:template>
 </xsl:stylesheet>

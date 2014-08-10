@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
   <xsl:template name="jw-header">
     <head prefix="og: http://ogp.me/ns#">
-      <xsl:apply-templates select="header_required"/>
+      <xsl:apply-templates select="element[@name='header_required']"/>
       <meta charset="utf-8"/>
       <meta name="description" content=""/>
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
