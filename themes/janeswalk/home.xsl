@@ -44,16 +44,16 @@
         <div>
           <section class="walkblog">
             <xsl:apply-templates select="area[@name=string('Blog Header')]"/>
-            <xsl:apply-templates select="area[@name=Blog]"/>
+            <xsl:apply-templates select="area[@name='Blog']"/>
           </section>
           <section class="twitter">
             <h3>Twitter</h3>
-            <xsl:apply-templates select="area[@name=Twitter]"/>
+            <xsl:apply-templates select="area[@name='Twitter']"/>
           </section>
         </div>
       </section>
       <section class="sponsors full">
-        <xsl:apply-templates select="area[@name=Sponsors]"/>
+        <xsl:apply-templates select="area[@name='Sponsors']"/>
       </section>
       <xsl:call-template name="jw-footer"/>
     </body>

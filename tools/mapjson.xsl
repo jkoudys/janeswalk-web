@@ -14,10 +14,10 @@
   <!-- Format json-encoded sets of markers + route as arrays -->
   <xsl:template match="kml:Folder">{"markers":[<xsl:apply-templates select="kml:Placemark[not(.//kml:LineString)]"/>],"route":[<xsl:apply-templates select=".//kml:LineString"/>]}</xsl:template>
   <!-- Output a placemark with title, description, lat, and lng. Comma separated except the last one -->
-  <xsl:template match="kml:Placemark">{"title":"<xsl:value-of select="normalize-space(kml:name)"/>","description":"<xsl:call-template name="escapeQuote"><xsl:with-param name="pText" select="kml:description"/></xsl:call-template>",<xsl:call-template name="lnglat"><xsl:with-param name="coordinates" select="str:tokenize(kml:Point/kml:coordinates, ',')"/></xsl:call-template>}<xsl:if test="count(following-sibling::*) &gt; 0">,</xsl:if></xsl:template>
+  <xsl:template match="kml:Placemark">{"title":"<xsl:value-of select="normalize-space(kml:name)"/>","description":"<xsl:call-template name="escapeQuote"><xsl:with-param name="pText" select="kml:description"/></xsl:call-template>",<xsl:call-template name="lnglat"><xsl:with-param name="coordinates" select="str:tokenize(kml:Point/kml:coordinates, ',')"/></xsl:call-template>}<xsl:if test="following-sibling::*">,</xsl:if></xsl:template>
   <!-- Break apart the LineString, which is just a big string, to make lat + lng properties in the route -->
   <xsl:template match="kml:LineString">
-    <xsl:for-each select="str:tokenize(kml:coordinates, ' ')">{<xsl:call-template name="lnglat"><xsl:with-param name="coordinates" select="str:tokenize(., ',')"/></xsl:call-template>}<xsl:if test="count(following-sibling::*) &gt; 0">,</xsl:if></xsl:for-each>
+    <xsl:for-each select="str:tokenize(kml:coordinates, ' ')">{<xsl:call-template name="lnglat"><xsl:with-param name="coordinates" select="str:tokenize(., ',')"/></xsl:call-template>}<xsl:if test="following-sibling::*">,</xsl:if></xsl:for-each>
   </xsl:template>
   <!-- Converts a <coordinates>123,456,0</coordinates> into "lat":123,"lng":456 -->
   <xsl:template name="lnglat"><xsl:param name="coordinates"/>"lng":<xsl:value-of select="$coordinates[1]"/>,"lat":<xsl:value-of select="$coordinates[2]"/></xsl:template>

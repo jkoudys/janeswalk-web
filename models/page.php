@@ -96,7 +96,7 @@ class Page extends Concrete5_Model_Page
                 // Create an <area>
                 $area = $this->pageEl->appendChild($this->doc->createElement('area'));
                 $area->setAttribute('name', $name);
-
+                
                 $this->domAddHtml($html, $area);
             }
         } catch (\Exception $e) {
@@ -115,7 +115,7 @@ class Page extends Concrete5_Model_Page
                 Loader::element($name);
                 $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
                 ob_end_clean();
-                $element = $this->pageEl->appendChild($this->doc->createElement('element'));
+                $element = $this->pageEl->appendChild($this->doc->createElement('fragment'));
                 $element->setAttribute('name', $name);
 
                 $this->domAddHtml($html, $element);
@@ -151,7 +151,7 @@ class Page extends Concrete5_Model_Page
         // Load the basic header + footer
         $this->domLoadFragments(['header_required', 'footer_required']);
 
-//        echo $this->xsl->saveXML();
+//        echo $this->doc->saveXML();
         $xsl = new XSLTProcessor;
         // Allow translation functions to be used in xsl
         $xsl->registerPHPFunctions(['t','t2','tc']);
