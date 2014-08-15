@@ -1,20 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" extension-element-prefixes="t" version="1.0">
   <xsl:include href="elements/header.xsl"/>
   <xsl:include href="elements/footer.xsl"/>
   <xsl:include href="elements/navbar.xsl"/>
   <xsl:template match="page">
     <xsl:call-template name="jw-header"/>
-    <xsl:call-template name="jw-navbar"/>
     <body class="home {@logged-in}" data-pageViewName="HomePageView" data-backgroundImageUrl="{@background-url}">
-      <div class="overlay o-connect">
-        <div class="o-background">
-      </div>
-        <div class="o-content"><h1>Create a walk</h1><a href="{profile/@login}" class="btn btn-primary">Log in</a> or
-        <a href="{profile/@register}" class="btn btn-primary">Join</a>
-        to create a walk
-      </div>
-      </div>
+      <xsl:call-template name="jw-navbar"/>
       <div class="backgroundImageBanner faded"/>
       <div class="intro full">
         <div class="callouts">

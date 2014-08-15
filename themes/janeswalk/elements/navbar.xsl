@@ -33,6 +33,13 @@
         <xsl:apply-templates select="area[@name='Dropdown']"/>
       </div>
     </header>
+    <div class="overlay o-connect">
+      <div class="o-background"/>
+      <div class="o-content"><h1>Create a walk</h1><a href="{profile/@login}" class="btn btn-primary">Log in</a> or
+        <a href="{profile/@register}" class="btn btn-primary">Join</a>
+        to create a walk
+      </div>
+    </div>
   </xsl:template>
   <xsl:template match="menuitem">
     <li>

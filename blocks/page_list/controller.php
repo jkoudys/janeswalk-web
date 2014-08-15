@@ -123,34 +123,34 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
               foreach (array_slice($walk->datetimes, 1) as $dt) {
                   $walk->datetimes = array($dt);
                   $cards[] = $walk;
-        }
-      }
-      usort($cards, function ($b,$a) {
-          if ($a->datetimes[0] && $b->datetimes[0]) {
-              return $a->datetimes[0]['timestamp'] - $b->datetimes[0]['timestamp'];
-        } else {
-            if ($a->datetimes[0]) {
-                return -1;
-          } elseif ($b->datetimes[0]) {
-              return 1;
+              }
+          }
+          usort($cards, function ($b, $a) {
+              if ($a->datetimes[0] && $b->datetimes[0]) {
+                  return $a->datetimes[0]['timestamp'] - $b->datetimes[0]['timestamp'];
+              } else {
+                  if ($a->datetimes[0]) {
+                      return -1;
+                  } elseif ($b->datetimes[0]) {
+                      return 1;
+                  }
+
+                  return 0;
+              }
+          } );
+
+          /* Load the lat/lng for the city we're displaying */
+          /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
+          $latlng = explode(',',$c->getAttribute('latlng'));
+          if (count($latlng) === 2) {
+              $this->set('lat', $latlng[0]);
+              $this->set('lng', $latlng[1]);
           }
 
-          return 0;
-        }
-      } );
-
-      /* Load the lat/lng for the city we're displaying */
-      /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
-      $latlng = explode(',',$c->getAttribute('latlng'));
-      if (count($latlng) === 2) {
-          $this->set('lat', $latlng[0]);
-          $this->set('lng', $latlng[1]);
+          $this->set('walksByDate', $cards);
+      default:
+          break;
       }
-
-      $this->set('walksByDate', $cards);
-default:
-    break;
-    }
 
     // Set walk-filter specific filtering data
     if ($this->block->getBlockFilename() === 'walk_filters') {
@@ -208,7 +208,7 @@ default:
 
   /* renderCards()
    *
-   * Renders a DOMDocument containing the walk cards HTML tree.
+   * Renders a DOMDocument containing the walk cards XML tree.
    *
    * array $cards - Contents formatted by loadCards.
    * return: DOMDocument
@@ -218,70 +218,55 @@ default:
       $nh = Loader::helper('navigation');
       $im = Loader::helper('image');
 
-      // A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
-      // The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
-      // be showing all walks.
-      $cardSize = 'col-md-' . (sizeof($cards) > 9 ? 3 : 4);
-
-      // Using DOMDocument, mostly for sanity of HTML and security
+      // Build a new doc
       $doc = new DOMDocument;
+      $block = $doc->appendChild($doc->createElement('Block'));
       // Loop over the walks
-      foreach ((array) $cards as $key => $walk) {
-          $div = $doc->appendChild($doc->createElement('div'));
-          $div->setAttribute('class', $cardSize . ' walk');
+      foreach ($cards as $key => $walk) {
+          $w = $block->appendChild($doc->createElement('Walk'));
+          $w->setAttribute('href', $nh->getLinkToCollection($walk->getPage()));
 
-          $a = $div->appendChild($doc->createElement('a'));
-          $a->setAttribute('href', $nh->getLinkToCollection($walk->getPage()));
+          if($walk->thumbnail) {
+              $w->setAttribute('src', $im->getThumbnail($this->thumbnail, 340,720)->src);
+          }
 
-          $thumbnail = $a->appendChild($doc->createElement('div'));
-          $thumbnail->setAttribute('class', 'thumbnail');
+          $w->appendChild(
+              $doc->createElement('Title')->appendChild(
+                  $doc->createTextNode((string) $walk)
+              )
+          );
 
-          // We set the image placeholder to a pseudo-random number, to get those orange, blue, grey placeholders
-          $image = $thumbnail->appendChild($doc->createElement('div'));
-          $image->setAttribute('class', 'walkimage placeholder' . $walk->getPage()->getCollectionID() % 3);
-          if($walk->thumbnail)
-              $image->setAttribute('style', 'background-image:url(' . $im->getThumbnail($this->thumbnail, 340,720)->src . ')');
-
-          $caption = $thumbnail->appendChild($doc->createElement('div'));
-          $caption->setAttribute('class', 'caption');
-
-          $caption->appendChild($doc->createElement('h4'))->appendChild($doc->createTextNode( Loader::helper('text')->shortText((string) $walk, 45)));
-
-          $ul = $caption->appendChild($doc->createElement('ul'));
-          $ul->setAttribute('class', 'when');
+          $w->appendChild(
+              $doc->createElement('ShortDescription')->appendChild(
+                  $doc->createTextNode($walk->shortdescription)
+              )
+          );
 
           foreach ($walk->datetimes as $slot) {
-              $li = $ul->appendChild($doc->createElement('li'));
-              $li->appendChild($doc->createElement('i'))->setAttribute('class', 'fa fa-calendar');
-              $li->appendChild($doc->createTextNode(' ' . $slot['time'] . ', ' . $slot['date']));
+              $dt = $doc->createElement('dateTime');
+              $dt->setAttribute('date', $slot['date']);
+              $dt->setAttribute('time', $slot['time']);
+          }
+
+          /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
+          if ($walk->meetingPlace) {
+              $w->appendChild($doc->createElement(
+                  'MeetingPlace',
+                  Loader::helper('text')->shortText($walk->meetingPlace['title'] ?: $walk->meetingPlace['description'])
+              ));
+          }
+
+          foreach ((array) $walk->walkLeaders as $walkLeader) {
+              $w->appendChild($doc->createElement('Leader'))->
+                  appendChild($doc->createTextNode(trim($walkLeader['name-first'] . ' ' . $walkLeader['name-last'])));
+          }
+
+          foreach ($walk->themes as $theme => $set) {
+              $w->appendChild($doc->createElement('Theme'))->setAttribute('name', $theme);
+          }
       }
 
-      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-      if ($walk->meetingPlace) {
-          $meetingText = Loader::helper('text')->shortText($walk->meetingPlace['title'] ?: $walk->meetingPlace['description']);
-          $ul->appendChild($doc->createElement('li'))->appendChild($doc->createTextNode(t('Meet at') . ': ' . $meetingText));
-      }
-      if ($walk->walkLeaders) {
-          $caption->appendChild($doc->createElement('h6'))->appendChild($doc->createTextNode(
-              t('Walk led by') . ' ' . Loader::helper('text')->shortText(
-                  implode(', ', array_map(function ($leader) { return trim($leader['name-first'] . ' ' . $leader['name-last']); }, $walk->walkLeaders))
-              )));
-      }
-      $caption->appendChild($doc->createElement('p'))->appendChild($doc->createTextNode(Loader::helper('text')->shortText($walk->shortdescription, 115)));
-
-      $tags = $thumbnail->appendChild($doc->createElement('ul'));
-      $tags->setAttribute('class', 'list-inline tags');
-
-      foreach ($walk->themes as $theme=>$set) {
-          $li = $tags->appendChild($doc->createElement('li'));
-          $li->appendChild(ThemeHelper::getIconElement($theme, $doc));
-          $li->setAttribute('class', 'tag');
-          $li->setAttribute('data-toggle', 'tooltip');
-          $li->setAttribute('title', ThemeHelper::getName($theme));
-      }
-    }
-
-    return $doc;
+      return $doc;
   }
 
   /*

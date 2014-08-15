@@ -40,9 +40,24 @@ class Page extends Concrete5_Model_Page
         $this->pageEl = $this->doc->appendChild($this->doc->createElement('page'));
         if ($dh->canRead) {
             $this->pageEl->setAttribute('logged-in', 'logged_in');
-        } 
+        }
+
+        // Background photo
         $headImage = $this->getAttribute('full_bg');
-        if ($headImage) $this->pageEl->setAttribute('background-url', $headImage->getURL());
+        if ($headImage) {
+            $this->pageEl->setAttribute('background-url', $headImage->getURL());
+            $bgPhotoCreditName = $headImage->getAttribute('background_photo_credit_name');
+            $bgPhotoCreditLink = $headImage->getAttribute('background_photo_credit_link');
+            if ($bgPhotoCreditName) {
+                $pc = $this->pageEl->appendChild(
+                    $this->doc->createElement(
+                        'PhotoCredit',
+                        $bgPhotoCreditName
+                    )
+                );
+                $pc->setAttribute('href', $bgPhotoCreditLink);
+            }
+        }
 
         $te = $this->xsl->documentElement->insertBefore(
             $this->xsl->createElementNS(self::XSLT, 'xsl:template'),
@@ -66,11 +81,20 @@ class Page extends Concrete5_Model_Page
         // Basic info on profile
         $profile = $this->pageEl->appendChild($this->doc->createElement('profile'));
 //        $profile->setAttribute('login', $this->url('/login'));
-//        $profile->setAttribute('register', $this->url('/register'));
+        //        $profile->setAttribute('register', $this->url('/register'));
+        //
+
+        // Return the DOMDocument we've made
+        return $this->doc;
     }
 
     public function domAddToBody(DOMElement $el)
     {
+    }
+
+    public function domCreateElement($elName)
+    {
+        return $this->pageEl->appendChild($this->doc->createElement($elName));
     }
 
     /**
@@ -96,7 +120,8 @@ class Page extends Concrete5_Model_Page
                 // Create an <area>
                 $area = $this->pageEl->appendChild($this->doc->createElement('area'));
                 $area->setAttribute('name', $name);
-                
+
+               echo 'XXXXHTML{', $html, '}YYYYY'; 
                 $this->domAddHtml($html, $area);
             }
         } catch (\Exception $e) {
@@ -164,6 +189,11 @@ class Page extends Concrete5_Model_Page
         echo '<!doctype html><html>';
         $xsl->transformToDoc($this->doc)->saveHTMLFile('php://output');
         echo '</html>';
+    }
+
+    public function getDomDoc()
+    {
+        return $this->doc;
     }
 
     protected function domAddHtml($html, DOMElement $parent)
