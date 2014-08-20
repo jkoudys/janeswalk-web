@@ -98,58 +98,44 @@ class Page extends Concrete5_Model_Page
     }
 
     /**
-     * Load list of areas into the body
+     * Load Area into the body. Typically run from XSL
      *
-     * @param array $areaNames The list of areas to load
+     * @param string $areaName The list of areas to load
      * @param bool $global Indicates if we're loading global areas or local
-     * @return bool Success
+     * @return DOMNode Area element
      */ 
-    public function domLoadAreas(array $areaNames, $global = false)
+    public static function domLoadArea($areaName, $global = false)
     {
         try {
-            foreach ($areaNames as $name) {
-                // Render and capture the HTML for this area
-                ob_start();
-                if ($global) {
-                    (new GlobalArea($name))->display($this);
-                } else {
-                    (new Area($name))->display($this);
-                }
-                $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
-                ob_end_clean();
-                // Create an <area>
-                $area = $this->pageEl->appendChild($this->doc->createElement('area'));
-                $area->setAttribute('name', $name);
-
-               echo 'XXXXHTML{', $html, '}YYYYY'; 
-                $this->domAddHtml($html, $area);
+            // Render and capture the HTML for this area
+            ob_start();
+            if ($global) {
+                (new GlobalArea($areaName))->display(Page::getCurrentPage());
+            } else {
+                (new Area($areaName))->display(Page::getCurrentPage());
             }
+            $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
+            ob_end_clean();
+            
+            return self::domAddHtml($html);
         } catch (\Exception $e) {
             return false;
         }
-
-        return true;
     }
 
     // TODO: this is very similar to domLoadAreas - see what can be a new function
-    public function domLoadFragments(array $fragmentNames)
+    public static function domLoadFragment($name)
     {
         try {
-            foreach ($fragmentNames as $name) {
-                ob_start();
-                Loader::element($name);
-                $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
-                ob_end_clean();
-                $element = $this->pageEl->appendChild($this->doc->createElement('fragment'));
-                $element->setAttribute('name', $name);
+            ob_start();
+            Loader::element($name);
+            $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
+            ob_end_clean();
 
-                $this->domAddHtml($html, $element);
-            }
+            return self::domAddHtml($html, 'fragment');
         } catch (\Exception $e) {
             return false;
         }
-
-        return true;
     }
 
     public function domIncludeXsl($filename)
@@ -165,21 +151,9 @@ class Page extends Concrete5_Model_Page
     {
         $view = View::getInstance();
 
-        // FIXME: This has side-effects, but theoretically you should be able to call
-        // domRenderTemplate() multiple times with the same result.
-        // Load global areas
-        $this->domLoadAreas(
-            ['Left Header', 'Dropdown', 'Footer'],
-            true
-        );
-
-        // Load the basic header + footer
-        $this->domLoadFragments(['header_required', 'footer_required']);
-
-//        echo $this->doc->saveXML();
         $xsl = new XSLTProcessor;
         // Allow translation functions to be used in xsl
-        $xsl->registerPHPFunctions(['t','t2','tc']);
+        $xsl->registerPHPFunctions(['t','t2','tc','test', 'Page::domLoadArea', 'Page::domLoadFragment']);
         $xsl->setParameter('', 'isEditMode', (bool) $this->isEditMode());
         $xsl->setParameter('', 'isSearching', (bool) $_REQUEST['query']);
         $xsl->setParameter('', 'isMobile', false); // FIXME
@@ -196,15 +170,19 @@ class Page extends Concrete5_Model_Page
         return $this->doc;
     }
 
-    protected function domAddHtml($html, DOMElement $parent)
+    /**
+     * Create a DOMNode from parsing the contents of an html string
+     *
+     * @param string $html The raw HTML
+     * @param string $parent The name of the node to create
+     * @return DOMNode
+     */
+    protected static function domAddHtml($html, $parent = 'area')
     {
-        // If no $parent explicity set, add to the main body
-        if (!$parent) $parent = &$this->pageEl;
-
         // Build a temporary doc to parse the HTML as a DOMDocument
         $tdoc = new DOMDocument('1.0', 'UTF-8');
         $tdoc->preserveWhiteSpace = false;
-
+        
         // It's a silly limit on DOMDocument that we need to do this, 
         // but necessary for proper UTF-8 encoding
         $tdoc->loadHTML(
@@ -213,12 +191,14 @@ class Page extends Concrete5_Model_Page
             '</html>',
             LIBXML_HTML_NOIMPLIED
         );
-
+        $retEl = $tdoc->createElement($parent);
         // Go through each created element and move to main doc
-        for ($el = $tdoc->getElementById('head')->nextSibling; $el; $el = $el->nextSibling) {
-            $parent->appendChild($this->doc->importNode($el, true));
+        for ($el = $tdoc->getElementById('head')->nextSibling; $el; $el = $next) {
+            $next = $el->nextSibling;
+            $retEl->appendChild($el);
         }
-
+        
+        return $retEl;
     }
 }
 

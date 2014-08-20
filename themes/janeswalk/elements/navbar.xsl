@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" xmlns:php="http://php.net/xsl" extension-element-prefixes="t" version="1.0">
   <xsl:template name="jw-navbar">
     <header class="navbar navbar-fixed-top {$isEditMode} {$isSearching}">
       <div class="container">
@@ -10,7 +10,7 @@
           <span class="navbar-brand hide-text logo">Jane's Walk</span>
         </a>
         <nav class="navbar-collapse collapse" role="navigation">
-          <xsl:apply-templates select="area[@name='Left Header']"/>
+          <xsl:apply-templates select="php:function('Page::domLoadArea', 'Left Header', 1)"/>
           <ul class="nav navbar-nav col-md-pull-12">
             <li>
               <a class="search-open">
@@ -30,7 +30,7 @@
         </nav>
       </div>
       <div class="navbar-outer">
-        <xsl:apply-templates select="area[@name='Dropdown']"/>
+        <xsl:apply-templates select="php:function('Page::domLoadArea', 'Dropdown', 1)"/>
       </div>
     </header>
     <div class="overlay o-connect">

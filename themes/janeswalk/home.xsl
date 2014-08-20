@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" extension-element-prefixes="t" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" xmlns:php="http://php.net/xsl" extension-element-prefixes="t" version="1.0">
   <xsl:include href="elements/header.xsl"/>
   <xsl:include href="elements/footer.xsl"/>
   <xsl:include href="elements/navbar.xsl"/>
@@ -11,7 +11,7 @@
       <div class="intro full">
         <div class="callouts">
           <blockquote class="homepage-callout2">
-            <xsl:apply-templates select="area[@name='Intro']"/>
+            <xsl:apply-templates select="php:function('Page::domLoadArea', 'Intro')"/>
           </blockquote>
         </div>
       </div>
@@ -25,27 +25,27 @@
             </li>
           </ul>
           <section class="map full">
-            <xsl:apply-templates select="area[@name='Map']"/>
+            <xsl:apply-templates select="php:function('Page::domLoadArea', 'Map')"/>
           </section>
         </xsl:if>
         <section class="calltoaction full">
-          <xsl:apply-templates select="area[@name=string('Call to Action')]"/>
+          <xsl:apply-templates select="php:function('Page::domLoadArea', 'Call to Action')"/>
         </section>
       </div>
       <section class="blog full">
         <div>
           <section class="walkblog">
-            <xsl:apply-templates select="area[@name=string('Blog Header')]"/>
-            <xsl:apply-templates select="area[@name='Blog']"/>
+            <xsl:apply-templates select="php:function('Page::domLoadArea', 'Blog Header')"/>
+            <xsl:apply-templates select="php:function('Page::domLoadArea', 'Blog')"/>
           </section>
           <section class="twitter">
             <h3>Twitter</h3>
-            <xsl:apply-templates select="area[@name='Twitter']"/>
+            <xsl:apply-templates select="php:function('Page::domLoadArea', 'Twitter')"/>
           </section>
         </div>
       </section>
       <section class="sponsors full">
-        <xsl:apply-templates select="area[@name='Sponsors']"/>
+        <xsl:apply-templates select="php:function('Page::domLoadArea', 'Sponsors')"/>
       </section>
       <xsl:call-template name="jw-footer"/>
     </body>

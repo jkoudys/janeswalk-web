@@ -27,35 +27,73 @@ class CityPageTypeController extends Controller
             if ($_GET['format'] === 'json') {
                 $this->getJson();
                 exit;
-      }
-      break;
-      // 'unpublish' the event (true deletes done through dashboard controller, not city)
-case 'DELETE':
-    $c = Page::getCurrentPage();
-    $c->setAttribute('exclude_page_list',true);
-    break;
+            }
+            break;
+            // 'unpublish' the event (true deletes done through dashboard controller, not city)
+        case 'DELETE':
+            $c = Page::getCurrentPage();
+            $c->setAttribute('exclude_page_list',true);
+            break;
+        }
     }
-  }
 
   public function getJson()
   {
       echo json_encode($this->city);
   }
 
-  /*
+  /**
    * view()
    * Main controller for all city pages
    * Set up variables you'll need in the view here.
    */
   public function view()
   {
+      $c = $this->c;
+      $city = $this->city;
+
       parent::view();
-      $this->set('pageType', 'city-page');
-      $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
-      $this->set('isLoggedIn', (bool) Loader::helper('concrete/dashboard')->canRead());
-      $this->set('isCampaignActive', false); // Is the donations campaign running?
-      $this->set('canEdit', is_object(ComposerPage::getByID($this->c->getCollectionID())));
-      $this->set('city', $this->city);
+
+      // Setup flags for saying what access the viewer has
+      $isCityOrganizer = (new User)->getUserID() === $this->city->city_organizer->getUserID();
+      $canEdit = is_object(ComposerPage::getByID($this->c->getCollectionID()));
+
+      $doc = $c->domInit();
+      
+      // City name
+      $c->domCreateElement('City', (string) $city);
+
+      // Build our city organizer info
+      $co = $c->domCreateElement('CityOrganizer');
+      $co->setAttribute('href', $city->profile_path);
+      $co->setAttribute(
+          'name',
+          $city->city_organizer->getAttribute('first_name') .
+          ' ' .
+          $city->city_organizer->getAttribute('last_name')
+      );
+
+      $co->setAttribute('email', $city->city_organizer->getUserEmail());
+      $e = $co->appendChild($doc->createElement('Edit'));
+      $e->setAttribute('href', View::url('/profile/edit'));
+
+      $contactMethods = [];
+      if ($city->facebook) $contactMethods[] = ['facebook', $city->facebook_url];
+      if ($city->twitter) $contactMethods[] = ['twitter', $city->twitter_url];
+      if ($city->website) $contactMethods[] = ['website', $city->website_url];
+      
+      foreach ($contactMethods as $cm) {
+          $e = $co->appendChild($doc->createElement('ContactMethod'));
+          $e->setAttribute('name', $cm[0]);
+          $e->setAttribute('href', $cm[1]);
+      }
+
+      // Edit in composer
+      if ($canEdit) {
+          $e = $c->domCreateElement('Edit');
+          $e->setAttribute('href', View::url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()));
+      }
+
   }
 
   /*

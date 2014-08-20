@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" xmlns:php="http://php.net/xsl" extension-element-prefixes="t" version="1.0">
   <xsl:template name="jw-header">
     <head prefix="og: http://ogp.me/ns#">
-      <xsl:apply-templates select="fragment[@name='header_required']"/>
+      <xsl:apply-templates select="php:function('Page::domLoadFragment', 'header_required')"/>
       <meta charset="utf-8"/>
       <meta name="description" content=""/>
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>

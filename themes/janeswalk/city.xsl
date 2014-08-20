@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" extension-element-prefixes="t" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" xmlns:php="http://php.net/xsl" extension-element-prefixes="t" version="1.0">
   <xsl:include href="elements/header.xsl"/>
   <xsl:include href="elements/footer.xsl"/>
   <xsl:include href="elements/navbar.xsl"/>
@@ -32,7 +32,7 @@
                 <xsl:value-of select="city"/>
                 <xsl:apply-templates select="Edit"/>
               </h1>
-              <xsl:apply-templates select="area[@name=string('City Header')]"/>
+              <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Header')"/>
               <xsl:apply-templates select="PhotoCredit"/>
               <xsl:apply-templates select="CityOrganizer"/>
             </div>
@@ -46,20 +46,20 @@
               <div class="item">
                 <h2>Jane’s Walks</h2>
                 <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <xsl:value-of select="City"/></h4>
-                <xsl:apply-templates select="area[@name=string('City Description')]"/>
+                <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Description')"/>
               </div>
               <div class="menu-flags box-sizing">
-                <xsl:apply-templates select="area[@name=string('City Nav')]"/>
+                <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Nav')"/>
               </div>
-              <xsl:apply-templates select="area[@name=string('Sponsors')]"/>
+              <xsl:apply-templates select="php:function('Page::domLoadArea', 'Sponsors')"/>
             </div>
             <div class="walks-list preview col-md-8 fade in">
               <h3>
-                <t:_>Walks in %s<t:param select="city"/></t:_>
+                <xsl:value-of select="php:function('t','Walks in %s',city)"/>
               </h3>
               <!-- XXX only show if total walks > 1 -->
               <a class="see-all">
-                <t:_>see all %d walks<t:param select="count(walk)"/></t:_>
+                <xsl:value-of select="php:function('t','see all %d walks',count(walk))"/>
               </a>
               <a href="{WalkForm/@href}" class="btn btn-primary create-walk btn-large"><i class="fa fa-star"/> Create a Walk</a>
               <div class="row">
@@ -67,7 +67,7 @@
             </div>
             <div class="walks-list showall hide fade">
               <div class="row">
-                <xsl:apply-templates select="area[@name=string('All Walks List')]"/>
+                <xsl:apply-templates select="php:function('Page::domLoadArea', 'All Walks List')"/>
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@
           <a href="{@href}">City Blog</a>
           <xsl:apply-templates select="PostArticle"/>
         </h2>
-        <xsl:apply-templates select="area[@name=string('City Blog')]"/>
+        <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Blog')"/>
       </div>
     </div>
   </xsl:template>
