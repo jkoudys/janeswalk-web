@@ -1,11 +1,17 @@
 <?php
 defined('C5_EXECUTE') || die('Access Denied.');
 
+// TODO: on 5.7 migration, replace with autoloader
+require_once('DOMInterface.php');
+require_once('XSLInterface.php');
+
 use \DOMDocument;
 use \GlobalArea;
 use \Area;
+use \JanesWalk\Models\DOMInterface;
+use \JanesWalk\Models\XSLInterface;
 
-class Page extends Concrete5_Model_Page
+class Page extends Concrete5_Model_Page implements DOMInterface, XSLInterface
 {
     protected $doc;
     protected $xsl;
@@ -13,12 +19,16 @@ class Page extends Concrete5_Model_Page
 
     const XSLT = 'http://www.w3.org/1999/XSL/Transform';
 
-    public function domInit()
+    public function initDOM(DOMInterface &$parent = null)
     {
-        $dh = Loader::helper('concrete/dashboard');
+        // Create a new doc, unless initialized on an existing doc
+        if ($node) {
+            $this->doc = $parent->getDOMDocument();
+        } else {
+            $this->doc = new DOMDocument('1.0', 'UTF-8');
+        }
 
-        $this->doc = new DOMDocument('1.0', 'UTF-8');
-        $this->xsl =  DOMDocument::load(DIR_BASE . '/elements/templates/base.xsl');
+        $dh = Loader::helper('concrete/dashboard');
 
         $this->doc->preserveWhiteSpace = false;
 
@@ -26,18 +36,8 @@ class Page extends Concrete5_Model_Page
         $u = new User();
         $ui = UserInfo::getByID($u->getUserID());
 
-        /* Build menu options depending if currently logged in or not */
-        if ($u->isRegistered()) {
-            $profileMenu = '<li><a href="' . (View::url('/profile')) . '" class="">' . ($ui->getAttribute('first_name') ? : $u->getUserName()) . '</a></li>'
-                . '<li><a href="' . (View::url('/login', 'logout')) . '" class="">' . t('Logout') . '</a></li>';
-        } else {
-            $profileMenu = '<li><a href="' . (View::url('/register')) . '" class="">' . tc('Register on a website', 'Join') . '</a></li>'
-                . '<li><a href="' . (View::url('/login')) . '" class="">' . t('Log in') . '</a></li>';
-        }
-
-
         // Site-wide flag for if you're logged in or not
-        $this->pageEl = $this->doc->appendChild($this->doc->createElement('page'));
+        $this->pageEl = $this->doc->appendChild($this->doc->createElement('Page'));
         if ($dh->canRead) {
             $this->pageEl->setAttribute('logged-in', 'logged_in');
         }
@@ -59,12 +59,31 @@ class Page extends Concrete5_Model_Page
             }
         }
 
-        $te = $this->xsl->documentElement->insertBefore(
-            $this->xsl->createElementNS(self::XSLT, 'xsl:template'),
-            $this->xsl->documentElement->firstChild
-        );
-        $te->setAttribute('match', 'page');
-        $te->appendChild($this->xsl->createElementNS(self::XSLT, 'xsl:apply-imports'));
+        // Check for edit mode
+        $this->pageEl->setAttribute('isEditMode', $this->isEditMode());
+
+        // Setup a fresh XSL
+        $this->setXSLDocument();
+
+        /* Build menu options depending if currently logged in or not */
+        $profile = $this->pageEl->appendChild($this->doc->createElement('profile'));
+        if ($u->isRegistered()) {
+            $mi = $profile->appendChild($this->doc->createElement('menuitem'));
+            $mi->setAttribute('href', View::url('/profile'));
+            $mi->setAttribute('name', $ui->getAttribute('first_name') ?: $u->getUserName());
+
+            $mi = $profile->appendChild($this->doc->createElement('menuitem'));
+            $mi->setAttribute('href', View::url('/login', 'logout'));
+            $mi->setAttribute('name', t('Logout'));
+        } else {
+            $mi = $profile->appendChild($this->doc->createElement('menuitem'));
+            $mi->setAttribute('href', View::url('/register'));
+            $mi->setAttribute('name', tc('Register on a website', 'Join'));
+
+            $mi = $profile->appendChild($this->doc->createElement('menuitem'));
+            $mi->setAttribute('href', View::url('/login'));
+            $mi->setAttribute('name', t('Log in'));
+        }
 
         // Load sitewide links
         $donate = $this->pageEl->appendChild(
@@ -78,127 +97,36 @@ class Page extends Concrete5_Model_Page
             Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate'))
         );
 
-        // Basic info on profile
-        $profile = $this->pageEl->appendChild($this->doc->createElement('profile'));
-//        $profile->setAttribute('login', $this->url('/login'));
-        //        $profile->setAttribute('register', $this->url('/register'));
-        //
-
         // Return the DOMDocument we've made
         return $this->doc;
     }
 
-    public function domAddToBody(DOMElement $el)
-    {
-    }
-
-    public function domCreateElement($elName)
-    {
-        return $this->pageEl->appendChild($this->doc->createElement($elName));
-    }
-
-    /**
-     * Load Area into the body. Typically run from XSL
-     *
-     * @param string $areaName The list of areas to load
-     * @param bool $global Indicates if we're loading global areas or local
-     * @return DOMNode Area element
-     */ 
-    public static function domLoadArea($areaName, $global = false)
-    {
-        try {
-            // Render and capture the HTML for this area
-            ob_start();
-            if ($global) {
-                (new GlobalArea($areaName))->display(Page::getCurrentPage());
-            } else {
-                (new Area($areaName))->display(Page::getCurrentPage());
-            }
-            $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
-            ob_end_clean();
-            
-            return self::domAddHtml($html);
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
-    // TODO: this is very similar to domLoadAreas - see what can be a new function
-    public static function domLoadFragment($name)
-    {
-        try {
-            ob_start();
-            Loader::element($name);
-            $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
-            ob_end_clean();
-
-            return self::domAddHtml($html, 'fragment');
-        } catch (\Exception $e) {
-            return false;
-        }
-    }
-
-    public function domIncludeXsl($filename)
-    {
-        $im = $this->xsl->documentElement->insertBefore(
-            $this->xsl->createElementNS(self::XSLT, 'xsl:import'),
-            $this->xsl->documentElement->firstChild
-        );
-        $im->setAttribute('href', $filename);
-    }
-
-    public function domRenderTemplate()
-    {
-        $view = View::getInstance();
-
-        $xsl = new XSLTProcessor;
-        // Allow translation functions to be used in xsl
-        $xsl->registerPHPFunctions(['t','t2','tc','test', 'Page::domLoadArea', 'Page::domLoadFragment']);
-        $xsl->setParameter('', 'isEditMode', (bool) $this->isEditMode());
-        $xsl->setParameter('', 'isSearching', (bool) $_REQUEST['query']);
-        $xsl->setParameter('', 'isMobile', false); // FIXME
-        $xsl->setParameter('', 'themePath', $view->getThemePath());
-        $xsl->importStyleSheet($this->xsl);
-
-        echo '<!doctype html><html>';
-        $xsl->transformToDoc($this->doc)->saveHTMLFile('php://output');
-        echo '</html>';
-    }
-
-    public function getDomDoc()
+    public function getDOMDocument()
     {
         return $this->doc;
     }
 
-    /**
-     * Create a DOMNode from parsing the contents of an html string
-     *
-     * @param string $html The raw HTML
-     * @param string $parent The name of the node to create
-     * @return DOMNode
-     */
-    protected static function domAddHtml($html, $parent = 'area')
+    public function getDOMNode(DOMDocument &$doc = null)
     {
-        // Build a temporary doc to parse the HTML as a DOMDocument
-        $tdoc = new DOMDocument('1.0', 'UTF-8');
-        $tdoc->preserveWhiteSpace = false;
-        
-        // It's a silly limit on DOMDocument that we need to do this, 
-        // but necessary for proper UTF-8 encoding
-        $tdoc->loadHTML(
-            '<html><head id="head"><meta http-equiv="content-type" content="text/html; charset=utf-8"></head>' .
-                $html .
-            '</html>',
-            LIBXML_HTML_NOIMPLIED
-        );
-        $retEl = $tdoc->createElement($parent);
-        // Go through each created element and move to main doc
-        for ($el = $tdoc->getElementById('head')->nextSibling; $el; $el = $next) {
-            $next = $el->nextSibling;
-            $retEl->appendChild($el);
+        if ($doc) {
+            return $doc->importNode($this->pageEl);
+        } else {
+            return $this->pageEl;
         }
-        
-        return $retEl;
+    }
+
+    public function getXSLDocument()
+    {
+        return $this->xsl;
+    }
+
+    public function setXSLDocument(DOMDocument &$doc = null)
+    {
+        if ($doc) {
+            $this->xsl = $doc;
+        } else {
+            $this->xsl = DOMDocument::load(DIR_BASE . '/elements/templates/base.xsl', LIBXML_NOBLANKS);
+        }
     }
 }
 

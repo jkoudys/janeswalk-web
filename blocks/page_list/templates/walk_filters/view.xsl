@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-  <xsl:template match="Block">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" xmlns:php="http://php.net/xsl" version="1.0">
+  <xsl:include href="../walkcards/view.xsl"/>
+  <xsl:template match="Block[@name='page_list'][@template='walk_filters']">
     <ul class="nav nav-tabs">
       <li class="active">
         <a href="#jw-cards" data-toggle="tab">All Walks</a>
@@ -8,9 +9,11 @@
       <li>
         <a href="#jw-list" data-toggle="tab">List</a>
       </li>
-      <li>
-        <a href="#jw-map" data-toggle="tab">Map</a>
-      </li>
+      <xsl:if test="Map">
+        <li>
+          <a href="#jw-map" data-toggle="tab">Map</a>
+        </li>
+      </xsl:if>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">

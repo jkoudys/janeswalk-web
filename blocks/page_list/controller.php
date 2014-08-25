@@ -106,154 +106,140 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
   {
       $c = Page::getCurrentPage();
       parent::view();
-      $this->set('im', Loader::helper('image'));
-      $this->set('u', new User());
-      $this->set('rssUrl', $showRss ? $controller->getRssUrl($b) : '');
-      $this->set('show', $_REQUEST['show']);
+      
       /* Set the page lists which are walk related, as they have json we need */
-      switch ($this->block->getBlockFilename()) {
+      // TODO: when xsl available, we should return the domdoc, not the rendered html
+      $doc = new DOMDocument;
+      $area = $this->block->getBlockAreaObject();
+
+      var_dump($area->getDOMDocument());
+      // Set the DOM of the block under its area
+      $this->block->initDOM($area); 
+      $blockName = $this->block->getBlockFilename();
+      switch ($blockName) {
       case 'walkcards':
-          $this->set('cards', $this->loadCards());
+          $xsl = DOMDocument::load(__DIR__ . '/templates/' . $blockName . '/view.xsl');
+          $this->renderCards($block);
           break;
       case 'walk_filters':
-          Loader::helper('theme');
-          $cards = $this->loadCards();
-          $this->set('cards', $cards);
-          foreach ($cards as $walk) {
-              foreach (array_slice($walk->datetimes, 1) as $dt) {
-                  $walk->datetimes = array($dt);
-                  $cards[] = $walk;
-              }
-          }
-          usort($cards, function ($b, $a) {
-              if ($a->datetimes[0] && $b->datetimes[0]) {
-                  return $a->datetimes[0]['timestamp'] - $b->datetimes[0]['timestamp'];
-              } else {
-                  if ($a->datetimes[0]) {
-                      return -1;
-                  } elseif ($b->datetimes[0]) {
-                      return 1;
-                  }
-
-                  return 0;
-              }
-          } );
+          // Load our stylesheet
+          $xsl = DOMDocument::load(__DIR__ . '/templates/' . $blockName . '/view.xsl');
+          // Add all our walk cards below this block
+          $this->renderCards($block);
 
           /* Load the lat/lng for the city we're displaying */
           /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
-          $latlng = explode(',',$c->getAttribute('latlng'));
+          $latlng = explode(',', $c->getAttribute('latlng'));
           if (count($latlng) === 2) {
-              $this->set('lat', $latlng[0]);
-              $this->set('lng', $latlng[1]);
+              $map = $block->appendChild($doc->createElement('Map'));
+              $map->setAttribute('lat', $latlng[0]);
+              $map->setAttribute('lng', $latlng[1]);
           }
 
-          $this->set('walksByDate', $cards);
+          // Render out the HTML for the walk filters
+          $xslt->importStylesheet($xsl);
+          $xslt->transformToDoc($doc)->saveHTMLFile('php://output');
       default:
           break;
       }
 
-    // Set walk-filter specific filtering data
-    if ($this->block->getBlockFilename() === 'walk_filters') {
-        // Set up walk filters
-        // Wards
-        $wards = array();
-        $wardObjects = $c->getAttribute('city_wards');
-        if ($wardObjects !== false) {
-            foreach ($wardObjects->getOptions() as $ward) {
-                $val = $ward->value;
-                $wards[] = $val;
-        }
-      }
-      natcasesort($wards);
-
-      // Themes
-      $themes = ThemeHelper::getAll('themes');
-      asort($themes);
-
-      // Accessibility
-      $accessibilities = ThemeHelper::getAll('accessibilities');
-      asort($accessibilities);
-
-      // Intiatives
-      if ($c->getCollectionName() === 'Toronto') {
-          $initiatives = array();
-          $ak = CollectionAttributeKey::getByHandle('walk_initiatives');
-          $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
-          if ($ak) {
-              $satc->setAttributeKey($ak);
-              foreach ($satc->getOptions() as $option) {
-                  $initiatives[] = $option->value;
+      // Set walk-filter specific filtering data
+      if ($this->block->getBlockFilename() === 'walk_filters') {
+          // Set up walk filters
+          // Wards
+          $wards = array();
+          $wardObjects = $c->getAttribute('city_wards');
+          if ($wardObjects !== false) {
+              foreach ($wardObjects->getOptions() as $ward) {
+                  $val = $ward->value;
+                  $wards[] = $val;
+              }
           }
-        }
+          natcasesort($wards);
+
+          // Themes
+          $themes = ThemeHelper::getAll('themes');
+          asort($themes);
+
+          // Accessibility
+          $accessibilities = ThemeHelper::getAll('accessibilities');
+          asort($accessibilities);
+
+          // Intiatives
+          if ($c->getCollectionName() === 'Toronto') {
+              $initiatives = array();
+              $ak = CollectionAttributeKey::getByHandle('walk_initiatives');
+              $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
+              if ($ak) {
+                  $satc->setAttributeKey($ak);
+                  foreach ($satc->getOptions() as $option) {
+                      $initiatives[] = $option->value;
+                  }
+              }
+          }
+
+          // Ward semantics
+          $wardName = 'Region';
+          if ($c->getCollectionName() === 'Toronto') {
+              $wardName = 'Ward';
+          }
+
+          // Dates
+          $dates = array('May 1, 2014', 'May 2, 2014', 'May 3, 2014', 'May 4, 2014');
+
+          /* Set variables needed for rendering show all walks */
+          $this->set('wardName', $wardName);
+          $this->set('initiatives', $initiatives);
+          $this->set('accessibilities', $accessibilities);
+          $this->set('wards', $wards);
       }
-
-      // Ward semantics
-      $wardName = 'Region';
-      if ($c->getCollectionName() === 'Toronto') {
-          $wardName = 'Ward';
-      }
-
-      // Dates
-      $dates = array('May 1, 2014', 'May 2, 2014', 'May 3, 2014', 'May 4, 2014');
-
-      /* Set variables needed for rendering show all walks */
-      $this->set('dates', $dates);
-      $this->set('wardName', $wardName);
-      $this->set('initiatives', $initiatives);
-      $this->set('accessibilities', $accessibilities);
-      $this->set('themes', $themes);
-      $this->set('wards', $wards);
-    }
   }
 
   /* renderCards()
    *
    * Renders a DOMDocument containing the walk cards XML tree.
    *
-   * array $cards - Contents formatted by loadCards.
+   * DOMNode $parent the node to add our <Walk> elements under
    * return: DOMDocument
    */
-  public function renderCards(array $cards = array())
+  public function renderCards(DOMNode &$parent)
   {
       $nh = Loader::helper('navigation');
       $im = Loader::helper('image');
 
-      // Build a new doc
-      $doc = new DOMDocument;
-      $block = $doc->appendChild($doc->createElement('Block'));
+      // Grab the doc we're inserting into
+      $doc = $parent->ownerDocument;
+
       // Loop over the walks
-      foreach ($cards as $key => $walk) {
-          $w = $block->appendChild($doc->createElement('Walk'));
-          $w->setAttribute('href', $nh->getLinkToCollection($walk->getPage()));
+      foreach ((array) $this->get('pages') as $page) {
+          $walk = new Walk($page);
+
+          $w = $parent->appendChild($doc->createElement('Walk'));
+          $w->setAttribute('href', $nh->getLinkToCollection($page));
+          $w->setAttribute('cid', $page->getCollectionID());
 
           if($walk->thumbnail) {
-              $w->setAttribute('src', $im->getThumbnail($this->thumbnail, 340,720)->src);
+              $w->setAttribute('src', $im->getThumbnail($walk->thumbnail, 340,720)->src);
           }
 
-          $w->appendChild(
-              $doc->createElement('Title')->appendChild(
-                  $doc->createTextNode((string) $walk)
-              )
-          );
+          $w->appendChild($doc->createElement('Title'))->
+              appendChild($doc->createTextNode((string) $walk));
 
-          $w->appendChild(
-              $doc->createElement('ShortDescription')->appendChild(
-                  $doc->createTextNode($walk->shortdescription)
-              )
-          );
+          $w->appendChild($doc->createElement('ShortDescription'))->
+              appendChild($doc->createTextNode($walk->shortdescription));
 
           foreach ($walk->datetimes as $slot) {
-              $dt = $doc->createElement('dateTime');
+              $dt = $w->appendChild($doc->createElement('dateTime'));
               $dt->setAttribute('date', $slot['date']);
               $dt->setAttribute('time', $slot['time']);
           }
 
           /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
           if ($walk->meetingPlace) {
-              $w->appendChild($doc->createElement(
-                  'MeetingPlace',
-                  Loader::helper('text')->shortText($walk->meetingPlace['title'] ?: $walk->meetingPlace['description'])
-              ));
+              $w->appendChild($doc->createElement('MeetingPlace'))->
+                  appendChild($doc->createTextNode(
+                      Loader::helper('text')->shortText($walk->meetingPlace['title'] ?: $walk->meetingPlace['description'])
+                  ));
           }
 
           foreach ((array) $walk->walkLeaders as $walkLeader) {
@@ -267,30 +253,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
       }
 
       return $doc;
-  }
-
-  /*
-   * loadCards
-   * Loop through and load all the cards
-   *
-   * @return Array<Page> card data for each card
-   */
-  public function loadCards()
-  {
-      $cards = array();
-      foreach ((array) $this->get('pages') as $page) {
-          $walk = new Walk($page);
-          $this->pageData[] = array(
-              'wards' => $walk->wards,
-              'themes' => $walk->themes,
-              'accessibilities' => $walk->accessible,
-              'initiatives' => $walk->initiatives,
-              'datetimes' => $walk->datetimes
-          );
-          $cards[] = $walk;
-    }
-
-    return $cards;
   }
 
   // The 'on_before_render' will set up our JanesWalk json in the page

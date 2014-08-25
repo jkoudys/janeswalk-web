@@ -1,5 +1,5 @@
 <?php
 defined('C5_EXECUTE') || die(_("Access Denied."));
-$c->domIncludeXsl(substr(__FILE__, 0, -3) . 'xsl');
 
-$c->domRenderTemplate();
+DOMHelper::includeXSL($c, substr(__FILE__, 0, -3) . 'xsl');
+DOMHelper::outputTemplate($c);

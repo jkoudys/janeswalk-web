@@ -1,8 +1,11 @@
 <?php
 use \JanesWalk\Controllers\Controller;
 use \JanesWalk\Models\PageTypes\City;
+use \JanesWalk\Models\DOMInterface;
+use \JanesWalk\Models\XSLInterface;
 defined('C5_EXECUTE') || die("Access Denied.");
 
+require_once(DIR_BASE . '/helpers/DOMHelper.php');
 Loader::model('page_types/City');
 Loader::controller('/janes_walk');
 class CityPageTypeController extends Controller
@@ -58,13 +61,14 @@ class CityPageTypeController extends Controller
       $isCityOrganizer = (new User)->getUserID() === $this->city->city_organizer->getUserID();
       $canEdit = is_object(ComposerPage::getByID($this->c->getCollectionID()));
 
-      $doc = $c->domInit();
-      
+      $doc = $c->initDOM();
+      $root = $c->getDOMNode();
+
       // City name
-      $c->domCreateElement('City', (string) $city);
+      DOMHelper::createElement($root, 'City', (string) $city);
 
       // Build our city organizer info
-      $co = $c->domCreateElement('CityOrganizer');
+      $co = DOMHelper::createElement($root, 'CityOrganizer');
       $co->setAttribute('href', $city->profile_path);
       $co->setAttribute(
           'name',
@@ -81,7 +85,7 @@ class CityPageTypeController extends Controller
       if ($city->facebook) $contactMethods[] = ['facebook', $city->facebook_url];
       if ($city->twitter) $contactMethods[] = ['twitter', $city->twitter_url];
       if ($city->website) $contactMethods[] = ['website', $city->website_url];
-      
+
       foreach ($contactMethods as $cm) {
           $e = $co->appendChild($doc->createElement('ContactMethod'));
           $e->setAttribute('name', $cm[0]);
@@ -90,10 +94,9 @@ class CityPageTypeController extends Controller
 
       // Edit in composer
       if ($canEdit) {
-          $e = $c->domCreateElement('Edit');
+          $e = $root->appendChild($doc->createElement('Edit'));
           $e->setAttribute('href', View::url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()));
       }
-
   }
 
   /*

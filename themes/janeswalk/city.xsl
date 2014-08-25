@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" xmlns:php="http://php.net/xsl" extension-element-prefixes="t" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:t="http://concrete5.org/i18n" xmlns:php="http://php.net/xsl" version="1.0">
   <xsl:include href="elements/header.xsl"/>
   <xsl:include href="elements/footer.xsl"/>
   <xsl:include href="elements/navbar.xsl"/>
-  <xsl:template match="page">
+  <xsl:template match="Page">
     <xsl:call-template name="jw-header"/>
     <body class="home {@logged-in}" data-pageViewName="CityPageView" data-backgroundImageUrl="{@background-url}">
       <div id="fb-root"/>
@@ -29,10 +29,10 @@
           <div class="container">
             <div class="city-header">
               <h1>
-                <xsl:value-of select="city"/>
+                <xsl:value-of select="City"/>
                 <xsl:apply-templates select="Edit"/>
               </h1>
-              <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Header')"/>
+              <xsl:apply-templates select="php:function('DOMHelper::includeArea', 'City Header')"/>
               <xsl:apply-templates select="PhotoCredit"/>
               <xsl:apply-templates select="CityOrganizer"/>
             </div>
@@ -46,28 +46,27 @@
               <div class="item">
                 <h2>Jane’s Walks</h2>
                 <h4>Get out and walk! Explore, learn and share through a Jane’s Walk in <xsl:value-of select="City"/></h4>
-                <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Description')"/>
+                <xsl:apply-templates select="php:function('DOMHelper::includeArea', 'City Description')"/>
               </div>
               <div class="menu-flags box-sizing">
-                <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Nav')"/>
+                <xsl:apply-templates select="php:function('DOMHelper::includeArea', 'City Nav')"/>
               </div>
-              <xsl:apply-templates select="php:function('Page::domLoadArea', 'Sponsors')"/>
+              <xsl:apply-templates select="php:function('DOMHelper::includeArea', 'Sponsors')"/>
             </div>
             <div class="walks-list preview col-md-8 fade in">
               <h3>
-                <xsl:value-of select="php:function('t','Walks in %s',city)"/>
+                <xsl:value-of select="php:function('t','Walks in %s', City)"/>
               </h3>
               <!-- XXX only show if total walks > 1 -->
               <a class="see-all">
-                <xsl:value-of select="php:function('t','see all %d walks',count(walk))"/>
+                <xsl:value-of select="php:function('t','see all %d walks', City/@walkCount)"/>
               </a>
               <a href="{WalkForm/@href}" class="btn btn-primary create-walk btn-large"><i class="fa fa-star"/> Create a Walk</a>
-              <div class="row">
-          </div>
+              <div class="row"/>
             </div>
             <div class="walks-list showall hide fade">
               <div class="row">
-                <xsl:apply-templates select="php:function('Page::domLoadArea', 'All Walks List')"/>
+                <xsl:apply-templates select="php:function('DOMHelper::includeArea', 'All Walks List')"/>
               </div>
             </div>
           </div>
@@ -91,7 +90,7 @@
           <a href="{@href}">City Blog</a>
           <xsl:apply-templates select="PostArticle"/>
         </h2>
-        <xsl:apply-templates select="php:function('Page::domLoadArea', 'City Blog')"/>
+        <xsl:apply-templates select="php:function('DOMHelper::includeArea', 'City Blog')"/>
       </div>
     </div>
   </xsl:template>
@@ -106,7 +105,7 @@
           <a href="{@href}">
             <xsl:value-of select="name"/>
           </a>
-          <!-- TODO: make an edit element <?php if ($isCityOrganizer) { ?><a href="<?= $this->url('/profile/edit')?>"><i class='fa fa-pencil-square'></i></a> -->
+          <xsl:apply-templates select="Edit"/>
         </h3>
         <h4>City Organizer</h4>
         <div class="btn-toolbar">
@@ -136,6 +135,11 @@
   <xsl:template match="Avatar">
     <a href="{@href}">
       <div class="u-avatar" style="background-image:url({@src})"/>
+    </a>
+  </xsl:template>
+  <xsl:template match="Edit">
+    <a href="{@href}">
+      <i class="fa fa-pencil-square"/>
     </a>
   </xsl:template>
 </xsl:stylesheet>
