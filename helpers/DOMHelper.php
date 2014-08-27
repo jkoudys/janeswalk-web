@@ -56,17 +56,11 @@ class DOMHelper
      */ 
     public static function includeArea($areaName, $global = false)
     {
-        try {
-            // Render and capture the HTML for this area
-            if ($global) {
-                return (new GlobalArea($areaName))->buildXML(Page::getCurrentPage());
-            } else {
-                return (new Area($areaName))->buildXML(Page::getCurrentPage());
-            }
-
-        } catch (Exception $e) {
-            return false;
-        }
+        // Render and capture the HTML for this area
+        $area = new Area($areaName);
+        $area->buildXML(Page::getCurrentPage(), null, $global);
+        $node = $area->getDOMNode();
+        return $node;
     }
 
     /**
@@ -84,7 +78,10 @@ class DOMHelper
             $html = mb_convert_encoding(ob_get_contents(), 'UTF-8');
             ob_end_clean();
 
-            return self::includeHtml($html, 'fragment');
+            $tdoc = new DOMDocument;
+            $fragment = $tdoc->appendChild($tdoc->createElement('Fragment'));
+            self::includeHtml($html, $fragment);
+            return $fragment;
         } catch (\Exception $e) {
             return false;
         }
@@ -157,10 +154,10 @@ class DOMHelper
      * Create a DOMNode from parsing the contents of an html string
      *
      * @param string $html The raw HTML
-     * @param string $parent The name of the node to create
+     * @param DOMNode $parent The name of the node to create
      * @return DOMNode
      */
-    protected static function includeHtml($html, $parent)
+    public static function includeHtml($html, DOMNode $parent)
     {
         // Build a temporary doc to parse the HTML as a DOMDocument
         $tdoc = new DOMDocument('1.0', 'UTF-8');
@@ -168,6 +165,7 @@ class DOMHelper
 
         // PHP DOM devs suck, and still throw warnings on html5 elements. Turn all XML parsing errors off
         $libxmlErrors = libxml_use_internal_errors(true);
+       
         // It's a silly limit on DOMDocument that we need to do this, 
         // but necessary for proper UTF-8 encoding
         $tdoc->loadHTML(
@@ -176,11 +174,13 @@ class DOMHelper
             '</html>',
             LIBXML_HTML_NOIMPLIED
         );
+        
         // Then turn the XML error reporting to the previous setting
         libxml_use_internal_errors($libxmlErrors);
         // Go through each created element and move to main doc
         for ($el = $tdoc->getElementById('head')->nextSibling; $el; $el = $next) {
             $next = $el->nextSibling;
+            $el = $parent->ownerDocument->importNode($el, true);
             $parent->appendChild($el);
         }
 

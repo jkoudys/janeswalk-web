@@ -22,10 +22,15 @@ class Block extends Concrete5_Model_Block implements DOMInterface, XSLInterface
     public function initDOM(DOMInterface &$parent = null)
     {
         if ($parent) {
-            $this->doc = $parent->getDOMDocument();
-            $this->blockEl = $this->doc->appendChild($this->doc->createElement('Block'));
-            $this->blockEl->setAttribute('name', 'page_list');
-            $this->blockEl->setAttribute('template', $this->getBlockFilename());
+            try {
+                $this->doc = $parent->getDOMDocument();
+                $this->xsl = $parent->getXSLDocument();
+                $this->blockEl = $parent->getDOMNode()->appendChild($this->doc->createElement('Block'));
+                $this->blockEl->setAttribute('name', 'page_list');
+                $this->blockEl->setAttribute('template', $this->getBlockFilename());
+            } catch (Exception $e) {
+                echo 'Error rendering ' . __FILE__ . '::' . __FUNCTION__ . ' ', $e;
+            }
         } else {
             throw new Exception('DOM Blocks must be contained in a parent doc');
         }
