@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
-  <xsl:template match="countries">
+  <xsl:template match="Block[@name='page_list'][@template='typeahead']">
     <div class="ccm-page-list-typeahead">
       <form>
         <fieldset class="search">
           <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk in which city?" autocomplete="off"/>
           <input type="submit" value="Go"/>
           <ul>
-            <xsl:apply-templates select="country">
+            <xsl:apply-templates select="Country" mode="Typeahead">
               <xsl:sort/>
             </xsl:apply-templates>
             <li class="hidden aux">
@@ -18,15 +18,15 @@
       </form>
     </div>
   </xsl:template>
-  <xsl:template match="country">
+  <xsl:template match="Country" mode="Typeahead">
     <li class="country">
       <xsl:value-of select="text()"/>
       <ul class="cities">
-        <xsl:apply-templates select="city"/>
+        <xsl:apply-templates select="City" mode="Typeahead"/>
       </ul>
     </li>
   </xsl:template>
-  <xsl:template match="city">
+  <xsl:template match="City" mode="Typeahead">
     <li>
       <a href="{@href}">
         <xsl:value-of select="text()"/>

@@ -108,6 +108,8 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList implem
 
     public function buildXML($template = '')
     {
+        $c = Page::getCurrentPage();
+
         $doc = $this->block->getDOMDocument();
         if (!$doc) {
             $doc = new DOMDocument;
@@ -116,46 +118,16 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList implem
         }
 
         $template = $template ?: $this->block->getBlockFilename();
+
         switch ($template) {
         case 'walkcards':
             $this->renderCards($this->block);
             DOMHelper::includeXSL($this->block, __DIR__ . '/templates/' . $template . '/view.xsl');
+
             break;
         case 'walk_filters':
             $this->renderCards($this->block);
             DOMHelper::includeXSL($this->block, __DIR__ . '/templates/' . $template . '/view.xsl');
-            break;
-        default:
-            return null;
-        }
-
-        return $this->block;
-    }
-
-    public function view()
-    {
-        $c = Page::getCurrentPage();
-        parent::view();
-
-        /* Set the page lists which are walk related, as they have json we need */
-        // TODO: when xsl available, we should return the domdoc, not the rendered html
-        $doc = new DOMDocument;
-        $area = $this->block->getBlockAreaObject();
-
-        //      echo 'XXX' . __CLASS__ . '::' . __FUNCTION__ .  spl_object_hash(Page::getCurrentPage());
-        // Set the DOM of the block under its area
-        $this->block->initDOM($area); 
-        $blockName = $this->block->getBlockFilename();
-        switch ($blockName) {
-        case 'walkcards':
-            $xsl = DOMDocument::load(__DIR__ . '/templates/' . $blockName . '/view.xsl');
-            $this->renderCards($block);
-            break;
-        case 'walk_filters':
-            // Load our stylesheet
-            $xsl = DOMDocument::load(__DIR__ . '/templates/' . $blockName . '/view.xsl');
-            // Add all our walk cards below this block
-            $this->renderCards($block);
 
             /* Load the lat/lng for the city we're displaying */
             /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
@@ -166,15 +138,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList implem
                 $map->setAttribute('lng', $latlng[1]);
             }
 
-            // Render out the HTML for the walk filters
-            $xslt->importStylesheet($xsl);
-            $xslt->transformToDoc($doc)->saveHTMLFile('php://output');
-        default:
-            break;
-        }
-
-        // Set walk-filter specific filtering data
-        if ($this->block->getBlockFilename() === 'walk_filters') {
             // Set up walk filters
             // Wards
             $wards = array();
@@ -218,11 +181,36 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList implem
             $dates = array('May 1, 2014', 'May 2, 2014', 'May 3, 2014', 'May 4, 2014');
 
             /* Set variables needed for rendering show all walks */
+            // TODO: switch these to build a <Filter> element instead
             $this->set('wardName', $wardName);
             $this->set('initiatives', $initiatives);
             $this->set('accessibilities', $accessibilities);
             $this->set('wards', $wards);
+
+            break;
+        case 'typeahead':
+            DOMHelper::includeXSL($this->block, __DIR__ . '/templates/' . $template . '/view.xsl');
+
+            $countryList = array();
+            foreach ($pages as $city) {
+                $pcID = (int) $city->getCollectionParentID();
+                if (!isset($countryList[$pcID])) {
+                    $countryList[$pcID] = $this->block->appendChild(
+                        $doc->createElement(
+                            'Country',
+                            Page::getByID($pcID)->getCollectionName()
+                        )
+                    );
+                }
+                $cityEl = $countryList[$pcID]->appendChild($doc->createElement('City', $city->getCollectionName()));
+                $cityEl->setAttribute('href', $nh->getLinkToCollection($city));
+            }
+            break;
+        default:
+            return null;
         }
+
+        return $this->block;
     }
 
     /* renderCards()
