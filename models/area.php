@@ -132,12 +132,12 @@ class Area extends Concrete5_Model_Area implements DOMInterface, XSLInterface
 
             // Init block's DOM as a child of this Area
             $b->initDOM($this);
-            $controller = $b->controller;
+            $controller = $b->getController();
 
             // Check if the block we're rendering can return DOM elements
             if ($controller instanceof \JanesWalk\Controllers\DOMableInterface) {
                 // Add the XML for this block to the DOM
-                $renderedEl = $controller->renderXML();
+                $renderedEl = $controller->buildXML();
             }
             // If this evaluates false, then we either didn't have a DOMable, or
             // it didn't have an XSL template defined
