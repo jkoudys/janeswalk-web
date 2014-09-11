@@ -979,7 +979,7 @@ var HomePageView = PageView.extend({
                 });
             }
         };
-        if (typeof JanesWalk.user === 'undefined' || typeof JanesWalk.user.city === 'undefined') {
+        if (JanesWalk.user === undefined || JanesWalk.user.city === undefined) {
             $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
         } else {
             _this._addCityCalloutCta(JanesWalk.user.city.name, JanesWalk.user.city.url);
@@ -1075,6 +1075,7 @@ var ProfilePageView = PageView.extend({
         this._setupWalkPromoteModalEvents();
         this._setupBlogPostPromoteModalEvents();
         this._setupPromoteSlideshows();
+        this._setupTransferWalkEvents();
       } catch(e) {
         console.log("Error initializing profile: " + e);
       }
@@ -1311,6 +1312,49 @@ var ProfilePageView = PageView.extend({
             }
         );
     },
+
+    /**
+     * _setupTransferWalkEvents
+     *
+     * @protected
+     * @return  void
+     */
+    _setupTransferWalkEvents: function() {
+      var _this = this;
+      // Set the requests when clicking the modal links
+      this._element.find('#walk-transfer .users a').click(
+        function(event) {
+          event.preventDefault();
+          $.get(
+            this.getAttribute('href'),
+            function(data) {
+              if (data.error) {
+                // TODO: alerts are lame. Find a proper area for messaging
+                alert(data.error);
+              } else {
+                // Just refresh the page for now
+                window.location = window.location;
+              }
+            }
+          );
+        }
+      );
+
+      // Set the 'transfer' buttons in the walks columns
+      this._element.find('a.transfer').removeClass('hidden').click(
+        function(event) {
+          event.preventDefault();
+          var modal = _this._element.find('#walk-transfer'),
+            href = this.getAttribute('href'),
+            links = modal.find('.users a');
+          for (var i = 0, len = links.length; i < len; i++) {
+            links[i].setAttribute('href', href + 'transfer/' + links[i].getAttribute('data-uid'));
+          }
+          modal.modal();
+        }
+      );
+    },
+            
 
     /**
      * _setupDisplayPictureFlashWidget

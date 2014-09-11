@@ -266,4 +266,30 @@ class WalkPageTypeController extends Controller
             ]
         ]);
     }
+
+    /**
+     * Controller only action to transfer a walk to a different uid
+     *
+     * TODO: on 5.7, we have good routing with symfony. Get rid of these c5
+     * convention endpoints, e.g. 'transfer', and use all restful routes as above
+     */
+    public function transfer($uid)
+    {
+        $c = $this->getCollectionObject();
+        $p = new Permissions($c);
+        if ($p->canWrite()) {
+            $c->update(['uID' => $uid]);
+            echo json_encode([
+                'error' => null,
+                'cID' => $c->getCollectionID(),
+                'uID' => $uid
+            ]);
+        } else {
+            echo json_encode([
+                'error' => 'Cannot transfer walk: insufficient permissions'
+            ]);
+        }
+        // Lazy way to make this a service endpoint
+        exit;
+    }
 }

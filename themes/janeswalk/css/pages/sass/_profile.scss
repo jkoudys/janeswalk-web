@@ -769,3 +769,9 @@ div#profileWrapper {
     }
 }
 
+.modal {
+    width: auto;
+    .modal-dialog {
+        margin: 120px auto;
+    }
+}
