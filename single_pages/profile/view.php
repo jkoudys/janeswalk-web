@@ -18,8 +18,29 @@
        js = d.createElement(s); js.id = id;
        js.src = '//connect.facebook.net/en_US/all.js';
        fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
+    }(document, 'script', 'facebook-jssdk'));
+
+    if (!window.JanesWalk) window.JanesWalk = {};
+    window.JanesWalk.cityUsers = <?= json_encode($cityUsers) ?>;
   </script>
+  <?php /* walk transfer modal */ ?>
+  <div id="walk-transfer" class="modal fade">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                  <h4 class="modal-title">Assign walk to user</h4>
+              </div>
+              <div class="modal-body">
+                  <table class="users table">
+                  <?php foreach ($cityUsers as $user) { ?>
+                      <tr><td><a data-uid="<?= $user['id'] ?>"><?= trim($user['first-name'] . ' ' . $user['last-name']) ?></a></td></tr>
+                  <?php } ?>
+                  </table>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
   <?php
     $dataCity = '{unset}';
     if ($userHasSetHomeCity === true) {
@@ -323,6 +344,11 @@
                       <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
                         <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>"><?= t('Unpublish') ?></a>
+                      <?php
+                      endif;
+                      if ($userIsCityOrganizer):
+                      ?>
+                        <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="transfer hidden" data-cid="<?= ($walk->getCollectionID()) ?>"><?= t('Transfer') ?></a>
                       <?php endif; ?>
                     </div>
                   </div>
@@ -338,7 +364,7 @@
 */
 ?>
           <?php
-            if ($userHasSetHomeCity === true && $userIsCityOrganizer === true) {
+            if ($userHasSetHomeCity && $userIsCityOrganizer) {
           ?>
             <div class="column city">
               <div class="headline"><?= t('My City\'s Walks') ?></div>

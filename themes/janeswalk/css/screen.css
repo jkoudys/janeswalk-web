@@ -1003,6 +1003,11 @@ div#profileWrapper {
             top: 0;
             height: 44px; }
 
+.modal {
+  width: auto; }
+  .modal .modal-dialog {
+    margin: 120px auto; }
+
 .city-page {
   background-attachment: fixed;
   background-image: url("../images/city-bg.jpg");

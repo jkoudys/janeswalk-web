@@ -84,7 +84,7 @@ class WalkFormController extends Controller
         'datepicker_cfg' => [
             'format' => 'dd/mm/yyyy'
         ],
-        'data' => json_encode($walk)
+        'data' => json_decode(json_encode($walk), true) // FIXME: this is a silly way to do it
     ];
 
     // Special case for cities with walk-formatting requirements

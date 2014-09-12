@@ -33,257 +33,283 @@ class ProfileController extends Concrete5_Controller_Profile
         // Validation helper for form tokens
         $this->set('valt', Loader::helper('validation/token'));
 
-        $userIsViewingSelf = $u->getUserID() == $profile->getUserID();
+        $userIsViewingSelf = ($u->getUserID() === $profile->getUserID());
         $userIsCityOrganizer = in_array('City Organizers', $profile->getUserObject()->getUserGroups());
         if ($userIsCityOrganizer && $userIsViewingSelf) {
+            // Load the cities this CO organizes
             $pl = new PageList();
             $pl->filterByCollectionTypeHandle('city');
             $pl->ignoreAliases();
             $pl->filterByUserID($u->getUserID());
             $cityWalks = [];
+            $cityUsers = [];
             foreach ($pl->get() as $city) {
-                $pl = new PageList();
+                $pl = new PageList;
                 $pl->filterByCollectionTypeHandle('walk');
                 $pl->filterByParentID($city->getCollectionID());
-                $pl->filterByAttribute('exclude_page_list',false);
+                $pl->filterByAttribute('exclude_page_list', false);
+
+                // Load all the walks for this city
                 $walks = $pl->get();
                 $pl = new PageList();
                 $pl->filterByCollectionTypeHandle('walk');
                 $pl->filterByParentID($city->getCollectionID());
-                $pl->filterByAttribute('exclude_page_list',true);
+                $pl->filterByAttribute('exclude_page_list', true);
                 $cityWalks[] = ['city' => $city, 'walks' => $walks, 'inprogress' => $pl->get()];
-      }
-      $city = $ui->getAttribute('home_city');
-      $this->set('city', $city);
-      $this->set('cityComposerURL', View::url('/dashboard/composer/write/-/edit/' . $city->getCollectionID()));
-      $this->set('cityWalks', $cityWalks);
-    }
 
-    $this->set('nh',$nh);
-    $this->set('u',$u);
-    $this->set('newWalkForm', Page::getByPath('/walk/form'));
-    $this->set('userIsCityOrganizer', $userIsCityOrganizer);
-
-    /**
-     * New dashboard variables
-     *
-     */
-
-    // Whether or not the logged in user is viewing their own "profile"
-    $this->set('userIsViewingSelf', $userIsViewingSelf);
-
-    // Remaining variables/logic only needed for "self viewing"
-    if ($userIsViewingSelf === true) {
-
-        /**
-         * Helper
-         *
-         */
-
-        $html = Loader::helper('html');
-        $this->addHeaderItem($html->javascript('swfobject.js'));
-
-        /**
-         * User data
-         *
-         */
-
-        // Whether the logged in user has set their first and last name
-        $userHasSetName = (bool) trim("{$ui->getAttribute('first_name')} {$ui->getAttribute('last_name')}");
-        $this->set('userHasSetName', $userHasSetName);
-
-        // The home city for the logged in user (false otherwise)
-        $userHomeCity = $ui->getAttribute('home_city');
-        $this->set('userHomeCity', $userHomeCity ? $userHomeCity->getCollectionName() : false );
-        if ($userHomeCity) {
-            $this->set('userHomeCityObj', $userHomeCity);
+                // Load the user list for this city
+                $ul = new UserList;
+                $ul->filterByHomeCity($city->getCollectionID());
+                foreach ($ul->get(65535) as $user) {
+                    $cityUsers[] = [
+                        'first-name' => $user->getAttribute('first_name'),
+                        'last-name' => $user->getAttribute('last_name'),
+                        'id' => $user->getUserID()
+                    ];
+                }
+            }
+            // Sort the users -- needed here for multi-city COs
+            usort(
+                $cityUsers,
+                function ($a, $b) {
+                    return strcmp(
+                        strtoupper($a['first-name']),
+                        strtoupper($b['first-name'])
+                    );
+                }
+            );
+            $city = $ui->getAttribute('home_city');
+            $this->set('city', $city);
+            $this->set('cityComposerURL', View::url('/dashboard/composer/write/-/edit/' . $city->getCollectionID()));
+            $this->set('cityWalks', $cityWalks);
+            $this->set('cityUsers', $cityUsers);
         }
 
-        // Whether the logged in user has selected their home city
-        $userHasSetHomeCity = (bool) $userHomeCity;
-        $this->set('userHasSetHomeCity', $userHasSetHomeCity);
-
-        // Whether the logged in user has chosen an avatar/display picture
-        $userPicture = $ah->getImagePath($ui); // relative path to avatar image
-        $userHasSetPicture = (bool) $userPicture;
-        $this->set('userHasSetPicture', $userHasSetPicture);
-
-        // Whether or not the logged in user has created any walks
-        $pl = new PageList();
-        $pl->filterByCollectionTypeHandle('walk');
-        $pl->filterByUserID($u->getUserID());
-        $walks = $pl->get();
-        $userHasCreatedWalks = count($walks) > 0;
-        $this->set('userHasCreatedWalks', $userHasCreatedWalks);
-        $this->set('userWalks', $walks);
-        // print_r($walks);
-        // exit(0);
-
-        // Walk data for walks created by the logged in user; empty array if the
-        // user hasn't yet created any
-        /* The basics from a page:
-         * title: $page->getCollectionName();
-         * link: $nh->getLinkToCollection($page);
-         * !published: $page->getAttribute('exclude_page_list');
-         */
-
-        // Whether the logged in user has created any blog posts
-        $pl = new PageList();
-        $pl->filterByCollectionTypeHandle(array('walk_blog_entry', 'city_blog_entry'));
-        $pl->filterByUserID($u->getUserID());
-        $blogs = $pl->get();
-
-        $userHasPostedBlogPost = count($blogs) > 0;
-        $this->set('userHasPostedBlogPost', $userHasPostedBlogPost);
-        $this->set('userBlogPosts', $blogs);
-
-        // Helper
-        $th = Loader::helper('text');
+        $this->set('nh', $nh);
+        $this->set('u', $u);
+        $this->set('newWalkForm', Page::getByPath('/walk/form'));
+        $this->set('userIsCityOrganizer', $userIsCityOrganizer);
 
         /**
-         * User city data
+         * New dashboard variables
          *
          */
-        if ($userHasSetHomeCity === true) {
-            $cityOrganizer = UserInfo::getByID($userHomeCity->getCollectionUserID());
 
-            // The email address of the city organizer for the logged in user's
-            // home city
-            $cityOrganizerEmailAddress = $cityOrganizer->getUserEmail();
-            $this->set('cityOrganizerEmailAddress', $cityOrganizerEmailAddress);
+        // Whether or not the logged in user is viewing their own "profile"
+        $this->set('userIsViewingSelf', $userIsViewingSelf);
 
-            // Whether the city has a blog page set up for it
+        // Remaining variables/logic only needed for "self viewing"
+        if ($userIsViewingSelf === true) {
+
+            /**
+             * Helper
+             *
+             */
+
+            $html = Loader::helper('html');
+            $this->addHeaderItem($html->javascript('swfobject.js'));
+
+            /**
+             * User data
+             *
+             */
+
+            // Whether the logged in user has set their first and last name
+            $userHasSetName = (bool) trim("{$ui->getAttribute('first_name')} {$ui->getAttribute('last_name')}");
+            $this->set('userHasSetName', $userHasSetName);
+
+            // The home city for the logged in user (false otherwise)
+            $userHomeCity = $ui->getAttribute('home_city');
+            $this->set('userHomeCity', $userHomeCity ? $userHomeCity->getCollectionName() : false );
+            if ($userHomeCity) {
+                $this->set('userHomeCityObj', $userHomeCity);
+            }
+
+            // Whether the logged in user has selected their home city
+            $userHasSetHomeCity = (bool) $userHomeCity;
+            $this->set('userHasSetHomeCity', $userHasSetHomeCity);
+
+            // Whether the logged in user has chosen an avatar/display picture
+            $userPicture = $ah->getImagePath($ui); // relative path to avatar image
+            $userHasSetPicture = (bool) $userPicture;
+            $this->set('userHasSetPicture', $userHasSetPicture);
+
+            // Whether or not the logged in user has created any walks
             $pl = new PageList();
-            $pl->filterByCollectionTypeHandle('blog');
-            $pl->filterByParentID($userHomeCity->getCollectionID());
+            $pl->filterByCollectionTypeHandle('walk');
+            $pl->filterByUserID($u->getUserID());
+            $walks = $pl->get();
+            $userHasCreatedWalks = count($walks) > 0;
+            $this->set('userHasCreatedWalks', $userHasCreatedWalks);
+            $this->set('userWalks', $walks);
 
-            $cityHasBlogSetup = $pl->getTotal();
-            $this->set('cityHasBlogSetup', $cityHasBlogSetup);
+            // Walk data for walks created by the logged in user; empty array if the
+            // user hasn't yet created any
+            /* The basics from a page:
+             * title: $page->getCollectionName();
+             * link: $nh->getLinkToCollection($page);
+             * !published: $page->getAttribute('exclude_page_list');
+             */
 
-            // If the user is a city organizer
-            if ($userIsCityOrganizer === true) {
+            // Whether the logged in user has created any blog posts
+            $pl = new PageList();
+            $pl->filterByCollectionTypeHandle(array('walk_blog_entry', 'city_blog_entry'));
+            $pl->filterByUserID($u->getUserID());
+            $blogs = $pl->get();
 
-                // Whether the city has any walks posted to it
+            $userHasPostedBlogPost = count($blogs) > 0;
+            $this->set('userHasPostedBlogPost', $userHasPostedBlogPost);
+            $this->set('userBlogPosts', $blogs);
+
+            // Helper
+            $th = Loader::helper('text');
+
+            /**
+             * User city data
+             *
+             */
+            if ($userHasSetHomeCity === true) {
+                $cityOrganizer = UserInfo::getByID($userHomeCity->getCollectionUserID());
+
+                // The email address of the city organizer for the logged in user's
+                // home city
+                $cityOrganizerEmailAddress = $cityOrganizer->getUserEmail();
+                $this->set('cityOrganizerEmailAddress', $cityOrganizerEmailAddress);
+
                 // Whether the city has a blog page set up for it
                 $pl = new PageList();
-                $pl->filterByCollectionTypeHandle('walk');
+                $pl->filterByCollectionTypeHandle('blog');
                 $pl->filterByParentID($userHomeCity->getCollectionID());
-                $pl->filterByAttribute('exclude_page_list', false);
 
-                $cityWalks = $pl->get();
-                $this->set('cityWalks', $cityWalks);
-                $cityHasWalks = count($cityWalks) > 0;
-                $this->set('cityHasWalks', $cityHasWalks);
+                $cityHasBlogSetup = $pl->getTotal();
+                $this->set('cityHasBlogSetup', $cityHasBlogSetup);
 
-                // Whether the city organizer's city has it's header info set
-                $cityHeaderInfo = $userHomeCity->getBlocks('City Header')[0]->getController()->getContent();
-                $cityHeaderInfoIsEmpty = !trim($cityHeaderInfo);
-                if ($cityHeaderInfoIsEmpty === false) {
-                    $cityHeaderInfo = $th->shorten($cityHeaderInfo, 150);
+                // If the user is a city organizer
+                if ($userIsCityOrganizer === true) {
+
+                    // Whether the city has any walks posted to it
+                    // Whether the city has a blog page set up for it
+                    $pl = new PageList();
+                    $pl->filterByCollectionTypeHandle('walk');
+                    $pl->filterByParentID($userHomeCity->getCollectionID());
+                    $pl->filterByAttribute('exclude_page_list', false);
+
+                    $cityWalks = $pl->get();
+                    $this->set('cityWalks', $cityWalks);
+                    $cityHasWalks = count($cityWalks) > 0;
+                    $this->set('cityHasWalks', $cityHasWalks);
+
+                    // Whether the city organizer's city has it's header info set
+                    $cityHeaderInfo = $userHomeCity->getBlocks('City Header')[0]->getController()->getContent();
+                    $cityHeaderInfoIsEmpty = !trim($cityHeaderInfo);
+                    if ($cityHeaderInfoIsEmpty === false) {
+                        $cityHeaderInfo = $th->shorten($cityHeaderInfo, 150);
+                    }
+                    $this->set('cityHeaderInfoIsEmpty', $cityHeaderInfoIsEmpty);
+                    $this->set('cityHeaderInfo', $cityHeaderInfo);
+
+                    // Whether the city organizer's city has it's short description
+                    // set
+                    $cityDescription = $userHomeCity->getBlocks('City Description')[0]->getController()->getContent();
+                    $cityDescriptionIsEmpty = !trim($cityDescription);
+                    if ($cityDescriptionIsEmpty === false) {
+                        $cityDescription = $th->shorten($cityDescription, 150);
+                    }
+                    $this->set('cityDescriptionIsEmpty', $cityDescriptionIsEmpty);
+                    $this->set('cityDescription', $cityDescription);
+
+                    // Whether the city organizer's city has it's background photo
+                    // set
+                    $cityBackgroundPhotoAttribute = $userHomeCity->getAttribute('full_bg');
+                    $cityBackgroundPhotoIsEmpty = !($cityBackgroundPhotoAttribute);
+                    $this->set('cityBackgroundPhotoIsEmpty', $cityBackgroundPhotoIsEmpty);
+                    if (!$cityBackgroundPhotoIsEmpty) {
+                        $this->set('cityBackgroundPhoto', $cityBackgroundPhotoAttribute->getURL());
+                    }
+
+                    // Whether the header, description and photo are set for the
+                    // city organizer's home city
+                    $cityHasFullDetails = !($cityHeaderInfoIsEmpty ||
+                        $cityDescriptionIsEmpty ||
+                        $cityBackgroundPhotoIsEmpty );
+                    $this->set('cityHasFullDetails', $cityHasFullDetails);
                 }
-                $this->set('cityHeaderInfoIsEmpty', $cityHeaderInfoIsEmpty);
-                $this->set('cityHeaderInfo', $cityHeaderInfo);
-
-                // Whether the city organizer's city has it's short description
-                // set
-                $cityDescription = $userHomeCity->getBlocks('City Description')[0]->getController()->getContent();
-                $cityDescriptionIsEmpty = !trim($cityDescription);
-                if ($cityDescriptionIsEmpty === false) {
-                    $cityDescription = $th->shorten($cityDescription, 150);
-                }
-                $this->set('cityDescriptionIsEmpty', $cityDescriptionIsEmpty);
-                $this->set('cityDescription', $cityDescription);
-
-                // Whether the city organizer's city has it's background photo
-                // set
-                $cityBackgroundPhotoAttribute = $userHomeCity->getAttribute('full_bg');
-                $cityBackgroundPhotoIsEmpty = !($cityBackgroundPhotoAttribute);
-                $this->set('cityBackgroundPhotoIsEmpty', $cityBackgroundPhotoIsEmpty);
-                if (!$cityBackgroundPhotoIsEmpty) {
-                    $this->set('cityBackgroundPhoto', $cityBackgroundPhotoAttribute->getURL());
-                }
-
-                // Whether the header, description and photo are set for the
-                // city organizer's home city
-                $cityHasFullDetails = !($cityHeaderInfoIsEmpty ||
-                    $cityDescriptionIsEmpty ||
-                    $cityBackgroundPhotoIsEmpty );
-                $this->set('cityHasFullDetails', $cityHasFullDetails);
             }
-        }
 
-        // Resources
-        $resources = array(
-            'showCityOrganizers' => false,
-            'showGlobalWalks' => true,
-            'showTips' => true,
-            'showFiles' => false
-        );
-        if ($userIsCityOrganizer === true) {
-            $resources['showCityOrganizers'] = true;
-            $resources['showFiles'] = true;
+            // Resources
+            $resources = array(
+                'showCityOrganizers' => false,
+                'showGlobalWalks' => true,
+                'showTips' => true,
+                'showFiles' => false
+            );
+            if ($userIsCityOrganizer === true) {
+                $resources['showCityOrganizers'] = true;
+                $resources['showFiles'] = true;
 
-            // List of basic details for three city organizers that can be
-            // recommended to other city organizers
-            // TODO add an attribute to select 'featured' cities, so we
-            // don't simply grab all cities. Expand this out into a
-            // smart way to recommend other cities.
+                // List of basic details for three city organizers that can be
+                // recommended to other city organizers
+                // TODO add an attribute to select 'featured' cities, so we
+                // don't simply grab all cities. Expand this out into a
+                // smart way to recommend other cities.
+                $pl = new PageList();
+                $pl->filterByCollectionTypeHandle('city');
+                $pl->filter(false,'p1.uID !=' . $u->getUserID());
+                $pl->filterByAttribute('exclude_page_list', false);
+                $pl->sortBy('RAND()');
+
+                $recommendedCities = $pl->get(3);
+
+                $cityOrganizerData = array_map(
+                    function ($page) use ($ah) {
+                        $_co = UserInfo::getByID($page->getCollectionUserID());
+
+                        return array(
+                            'cityName' => $page->getCollectionName(),
+                            'organizerImagePath' => $ah->getImagePath($_co),
+                            'organizerName' => trim("{$_co->getAttribute('first_name')} {$_co->getAttribute('last_name')}"),
+                            'organizerEmail' => $_co->getUserEmail()
+                        );
+                    },
+                    $pl->get(3)
+                );
+
+                $this->set('cityOrganizerData', $cityOrganizerData);
+            }
+
+            // Walks
+
+            // List of basic data for three walks we want to highlight to city
+            // organizers/walk leaders that showcase creative/unique walks
             $pl = new PageList();
-            $pl->filterByCollectionTypeHandle('city');
+            $pl->filterByCollectionTypeHandle('walk');
             $pl->filter(false,'p1.uID !=' . $u->getUserID());
             $pl->filterByAttribute('exclude_page_list', false);
             $pl->sortBy('RAND()');
 
-            $recommendedCities = $pl->get(3);
-
-            $cityOrganizerData = array_map(
-                function ($page) use ($ah) {
-                    $_co = UserInfo::getByID($page->getCollectionUserID());
+            $featuredWalkData = array_map(
+                function ($page) use ($nh, $ih) {
+                    $_city = Page::getByID($page->getCollectionParentID());
+                    $_country = Page::getByID($_city->getCollectionParentID());
+                    $_thumb = $page->getAttribute('thumbnail');
+                    $countryName = $_country->getCollectionName();
+                    if ($countryName === 'United States') {
+                        $countryName = 'United States of America';
+                    }
+                    $countryName = str_replace(' ', '_', $countryName);
+                    $walkImage = $_thumb ? $ih->getThumbnail($_thumb,800,800)->src : '';
 
                     return array(
-                        'cityName' => $page->getCollectionName(),
-                        'organizerImagePath' => $ah->getImagePath($_co),
-                        'organizerName' => trim("{$_co->getAttribute('first_name')} {$_co->getAttribute('last_name')}"),
-                        'organizerEmail' => $_co->getUserEmail()
+                        'walkImagePath' => $walkImage,
+                        'countryName' => $countryName,
+                        'cityName' => $_city->getCollectionName(),
+                        'walkTitle' => $page->getCollectionName(),
+                        'walkPath' => $nh->getLinkToCollection($page)
                     );
-                }, $pl->get(3));
+                }, (array) $pl->get(3));
+            $this->set('featuredWalkData', $featuredWalkData);
 
-            $this->set('cityOrganizerData', $cityOrganizerData);
+            $this->set('resources', $resources);
         }
-
-        // Walks
-
-        // List of basic data for three walks we want to highlight to city
-        // organizers/walk leaders that showcase creative/unique walks
-        $pl = new PageList();
-        $pl->filterByCollectionTypeHandle('walk');
-        $pl->filter(false,'p1.uID !=' . $u->getUserID());
-        $pl->filterByAttribute('exclude_page_list', false);
-        $pl->sortBy('RAND()');
-
-        $featuredWalkData = array_map(
-            function ($page) use ($nh, $ih) {
-                $_city = Page::getByID($page->getCollectionParentID());
-                $_country = Page::getByID($_city->getCollectionParentID());
-                $_thumb = $page->getAttribute('thumbnail');
-                $countryName = $_country->getCollectionName();
-                if ($countryName === 'United States') {
-                    $countryName = 'United States of America';
-                }
-                $countryName = str_replace(' ', '_', $countryName);
-                $walkImage = $_thumb ? $ih->getThumbnail($_thumb,800,800)->src : '';
-
-                return array(
-                    'walkImagePath' => $walkImage,
-                    'countryName' => $countryName,
-                    'cityName' => $_city->getCollectionName(),
-                    'walkTitle' => $page->getCollectionName(),
-                    'walkPath' => $nh->getLinkToCollection($page)
-                );
-            }, (array) $pl->get(3));
-        $this->set('featuredWalkData', $featuredWalkData);
-
-        $this->set('resources', $resources);
     }
-  }
 }
