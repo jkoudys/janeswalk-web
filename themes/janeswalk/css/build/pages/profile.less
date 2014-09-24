@@ -3,7 +3,7 @@ div#profileWrapper {
     margin: 60px auto 60px;
 
     .nav {
-      margin: 0;
+        margin: 0;
     }
 
     div.progressb {
@@ -769,9 +769,61 @@ div#profileWrapper {
     }
 }
 
-.modal {
-    width: auto;
-    .modal-dialog {
-        margin: 120px auto;
+// TODO: find a home for these; taken from old screen.scss
+#ccm-profile-body, #body > .pageSection, #central > #body {
+  width: @media-screen;
+  margin: 0 auto;
+  form {
+    font-family: @font-slab;
+    font-weight:100;
+    font-size:22px;
+    color:#222;
+    select {
+      margin:0;
+      height:40px;
+      border:1px solid #b4b4b4;
+      border-radius:5px 0 0 5px;
+      width:460px;
+      font-size:22px;
+      color:#888;
+      font-family: @font-slab;
     }
+    fieldset.dropsubmit {
+      input[type=submit] {
+        margin-left:-59px;
+      }
+    }
+    input[type=submit] {
+      height:40px;
+      min-width:60px;
+      background-color:#efefef;
+      border:1px solid #b4b4b4;
+      border-radius:0 5px 5px 0;
+      font-family: @font-slab;
+      font-weight:100;
+      font-size:22px;
+      color:#222;
+    }
+  }
+  ul {
+    margin-left:50px;
+    li {
+      list-style-type:none;
+      line-height:25px;
+      margin-bottom:3px;
+    }
+    li:before {
+      display:inline-block;
+      content:"» ";
+      padding-right:10px;
+      font-weight:700;
+      color:@color-orange;
+    }
+  }
+}
+#ccm-profile-sidebar {
+  .ccm-profile-header {
+    text-overflow: ellipsis;
+    overflow:hidden;
+  }
 }

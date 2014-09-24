@@ -1,0 +1,132 @@
+// The main menu bar at the top
+> header:extend(.navbar all, .navbar-fixed-top all, .navbar-default all) {
+    background:#fff;
+    font-family: @font-slab;
+    
+    // Logo
+    .logo:extend(.navbar-header all) {
+        span:extend(.hide-text, .navbar-brand all) {
+            background: url("../images/jwlogo.svg");
+            display: inline-block;
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 102px;
+            height: @height-navbar;
+            padding: 0 20px;
+            margin-left:-20px;
+            background-size: contain;
+        }
+    }
+    nav:extend(.navbar-collapse all) {
+        // FIXME: see if .navbar-nav can be removed
+        ul.navbar-nav {
+            > li {
+                > a {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                    line-height: @height-navbar;
+                }
+            }
+        }
+    }
+
+    // Use this area for user-friendly notes, either from js or server-side
+    .notification {
+        position: absolute;
+        overflow: hidden;
+        background-image: none;
+        top: 61px;
+        box-shadow: 0 2px 0 darken(#9854df, 10%);
+        background: #9854df;
+        .container {
+            margin-top: 0.3em;
+            margin-bottom: 0.5em;
+        }
+        .title-sub {
+            font-size: 20px;
+            margin: 0;
+        }
+        &.expanded {
+            height: 50px;
+        }
+    }
+
+    .search-close {
+        background:@color-orange;
+        display:none;
+        &:hover { 
+            color: inherit;
+        }
+        i {
+            color: #fff;
+        }
+    }
+   
+    &.dropped {
+        .search-close { display:block; }
+        .search-open { display:none; }
+    }
+
+    #donate:extend(.btn, .btn-primary, .btn-large) {
+        @padding-top-button: 6px; // The pad on a button
+        // Align the button to the line-height set on the navbar
+        margin: ((@height-navbar - (2 * @padding-top-button)) / 4) 0;
+    }
+}
+
+// A dropdown area, for including widgets in the header, e.g. search results
+.navbar-outer {
+    background-color: @color-darkgrey;
+    max-height: 0;
+    overflow: hidden;
+    transition-duration: 0.6s;
+    form {
+        max-width: @media-screen;
+        margin: 0 auto;
+        padding: 25px 0;
+        fieldset.search {
+            display: inline-block;
+            margin-right: 50px;
+            vertical-align: top;
+        }
+        div#searchResults {
+            display:inline-block;
+            max-width:600px;
+            margin-top:-10px;
+            mark {
+                color:inherit;
+                background-color:inherit;
+                border-bottom: 1px dotted;
+            }
+            h4, p { 
+                margin:0;
+                padding: 0 0 8px 0;
+            }
+            .searchResult {
+                margin:0;
+                padding: 8px 8px 0 8px;
+                transition-duration: 0.3s;
+                &:hover {
+                    background:#333;
+                }
+            }
+            a {
+                color:@color-lightgrey;
+                &:hover {
+                    text-decoration:none;
+                }
+            }
+        }
+    }
+}
+
+// input:submit style for little forms
+fieldset.search {
+  @buttonoffset:4px;
+  @defaultWidth: 280px;
+  input[type=text] { width:@defaultWidth; font-size:14px; padding: 10px; margin:0; font-family:"museo-slab", "Roboto Slab", serif;  border: 1px solid #b4b4b4; border-radius: 8px 0 0 8px; height:43px; line-height:24px; color:#333;
+  }
+  input[type=submit] { font-family:"museo-slab", "Roboto Slab", serif; font-size:18px; height:43px; border: 1px solid #b4b4b4; border-left:none; background:@color-lightgrey; font-weight:300; color:#555; margin-left:-@buttonoffset; border-radius: 0 8px 8px 0; padding: 0 15px; line-height:24px; vertical-align:top; }
+  input[type=checkbox] { display:none; }
+}
+

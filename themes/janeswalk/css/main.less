@@ -1,34 +1,37 @@
-/* Import bootstrap 3 mixins and variables so we can use them */
-@import "build/bootstrap-3.2.0/variables.less";
-@import "build/bootstrap-3.2.0/mixins.less";
+// Import bootstrap 3 mixins and variables so we can use them */
+@import "build/bootstrap-3.2.0/bootstrap.less";
 
-/* Import our theme variables. */
+// Import our theme variables. */
 @import "presets/defaults.less";
 
-/* Import our theme mixins */
+// Import our theme mixins */
 @import "./build/mixins.less";
 
-/* Import our theme fonts */
+// Import our theme fonts */
 @import "build/fonts.less";
 
-/* Our style rules - namespace so as not to collide with the core app styles */
+// Our style rules - namespace so as not to collide with the core app styles */
 @import "build/body.less";
 @import "build/content.less";
-@import "build/header.less";
+body {
+  @import "build/header.less";
+  @import "build/footer.less";
+}
 @import "build/pagination.less";
-@import "build/blocks/search.less";
 @import "build/buttons.less";
-@import "build/footer.less";
+@import "build/modals.less";
 
-/**
- * Style overrides for page types
- * rule of thumb: try to keep these to a minimum, and include
- * generalized styles when possible
- */
+// Block imports
+@import "build/blocks/page_list/blog_index.less";
+
+// Style overrides for page types
+// rule of thumb: try to keep these to a minimum, and include
+// generalized styles when possible
 @import "build/pages/home";
 @import "build/pages/profile";
 @import "build/pages/city";
 @import "build/pages/walk";
 @import "build/pages/custom-walk";
 @import "build/pages/mailchimp";
+@import "build/pages/blog";
 

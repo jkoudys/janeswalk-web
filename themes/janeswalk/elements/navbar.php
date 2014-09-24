@@ -3,36 +3,39 @@ $c = Page::getCurrentPage();
 $u = new User();
 $ui = UserInfo::getByID($u->getUserID());
 
+// Array of various states the page can be in
+$pageState = [];
+if ($c->isEditMode()) $pageState[] = 'edit';
+if ($_REQUEST['query']) $pageState[] = 'dropped';
+
 /* Build menu options depending if currently logged in or not */
 if ($u->isRegistered()) {
-  $profileMenu = '<li><a href="' . ($this->url('/profile')) . '" class="">' . ($ui->getAttribute('first_name') ? : $u->getUserName()) . '</a></li>'
-    . '<li><a href="' . ($this->url('/login', 'logout')) . '" class="">' . t('Logout') . '</a></li>';
+  $profileMenu = '<li><a href="' . ($this->url('/profile')) . '">' . ($ui->getAttribute('first_name') ? : $u->getUserName()) . '</a></li>'
+    . '<li><a href="' . ($this->url('/login', 'logout')) . '">' . t('Logout') . '</a></li>';
 } else {
-  $profileMenu = '<li><a href="' . ($this->url('/register')) . '" class="">' . tc('Register on a website', 'Join') . '</a></li>'
-    . '<li><a href="' . ($this->url('/login')) . '" class="">' . t('Log in') . '</a></li>';
+  $profileMenu = '<li><a href="' . ($this->url('/register')) . '">' . tc('Register on a website', 'Join') . '</a></li>'
+    . '<li><a onclick="$(\'#login\').modal()">' . t('Log in') . '</a></li>';
 }
 
 ?>
-<header class="navbar navbar-fixed-top <?= $c->isEditMode() ? 'edit' : '' ?> <?= $_REQUEST['query'] ? 'dropped' : ''?>">
+<header class="<?= join($pageState, ' ') ?>">
   <div class="container">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="nav[role=navigation]">
       <i class="fa fa-bars"></i>
     </button>
-    <a href="<?= $this->url('') ?>">
-      <span class="navbar-brand hide-text logo">
-        <?=$SITE?>
-      </span>
+    <a href="<?= $this->url('') ?>" class="logo">
+      <span><?= $SITE ?></span>
     </a>
-    <nav class="navbar-collapse collapse" role="navigation">
+    <nav role="navigation">
       <?php (new GlobalArea('Left Header'))->display($c); ?>
-      <ul class="nav navbar-nav col-md-pull-12">
+      <ul class="nav navbar-nav navbar-right">
         <li>
           <a class="search-open"><i class="fa fa-search"></i></a>
           <a class="search-close"><i class="fa fa-search"></i></a>
         </li>
         <?= $profileMenu ?>
         <li>
-          <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate" class="btn btn-primary btn-large donate">Donate</a>
+          <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate">Donate</a>
         </li>
       </ul>
     </nav>

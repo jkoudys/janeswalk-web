@@ -49,6 +49,20 @@ module.exports = function(grunt) {
           }]
         }
       },
+
+      less: {
+        dev: {
+          options: {
+//            style: 'compress',
+//            cleancss: true,
+            dumpLineNumbers: true
+          },
+          files: [{
+            '<%= janeswalk.css %>/main.css': janeswalk.css + '/main.less'
+          }]
+        }
+      },
+          
       // Add vendor prefixed styles
       autoprefixer: {
         options: {
@@ -114,6 +128,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-sass'); // Using instead of grunt-contrib-css, as it shaves 50% of the running time off
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-jslint');
     grunt.loadNpmTasks('grunt-contrib-jshint');

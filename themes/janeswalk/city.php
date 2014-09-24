@@ -4,7 +4,7 @@ $this->inc('elements/header.php'); ?>
 <body
   class="city-page<?= $isLoggedIn ? ' logged_in' : '' ?>"
   data-pageViewName="CityPageView"
-  <?= $city->fullbg ? "style='background-image:url({$city->fullbg->getURL()})'" : '' ?>>
+  <?= $city->fullbg ? 'style="background-image:url(' . $city->fullbg->getURL() . ')"' : '' ?>>
     <div id="fb-root"></div>
     <script type="text/javascript">
       window.fbAsyncInit = function () {
@@ -22,9 +22,7 @@ $this->inc('elements/header.php'); ?>
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
-  <?php
-    $this->inc('elements/navbar.php');
-  ?>
+  <?php $this->inc('elements/navbar.php') ?>
     <div class="overlay o-connect">
       <div class="o-background">
       </div>
@@ -44,8 +42,8 @@ $this->inc('elements/header.php'); ?>
         <a href="#" class="closeModalCta fa fa-times"></a>
         <div class="prompt">
           <div class="messaging">
-            <?= ($city->donateCopy['main']) ?><br />
-            <span class="cta"><?= ($city->donateCopy['cta']) ?></span>
+            <?= $city->donateCopy['main'] ?><br />
+            <span class="cta"><?= $city->donateCopy['cta'] ?></span>
           </div>
           <div class="btnWrapper">
             <a href="#" class="btn btn-primary"><?= t('I\'ve already donated!') ?></a>
@@ -112,12 +110,12 @@ $this->inc('elements/header.php'); ?>
 <?php } // end campaigns ?>
 
   <div class="container-outter" role="main">
-    <div class="intro-city tk-museo-slab">
+    <div class="intro-city">
       <div class="container">
         <div class="city-header">
           <h1>
             <?= t((string) $city) ?>
-            <?= $canEdit ? "<a href='{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}'><i class='fa fa-pencil-square'></i></a>" : null ?>
+            <?php if ($canEdit) { ?><a href="<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>"><i class='fa fa-pencil-square'></i></a><?php } ?>
           </h1>
           <?php
 (new Area('City Header'))->display($c);
@@ -131,15 +129,15 @@ if ($city->fullbg) {
                   <p style="font-size: x-small; color: #fff;">
                     <?= t('Background photo credit') ?>:
                     <a href="<?= ($bgPhotoCreditLink) ?>" target="_blank"><?= ($bgPhotoCreditName) ?></a>
-                  </p>
-<?php
+                  </p><?php
   }
 }
 if ($c->getCollectionUserID() > 1) {
-          ?>
-            <section class="city-organizer">
-              <?php if ($avatar) { ?><a href="<?= $profile_path ?>">
-              <div class='u-avatar' style='background-image:url(<?= $avatar ?>)'></div></a><?php } ?>
+          ?><section class="city-organizer">
+              <?php if ($avatar) { ?>
+              <a href="<?= $profile_path ?>">
+              <div class="u-avatar" style='background-image:url(<?= $avatar ?>)'></div></a>
+              <?php } ?>
               <div class="city-organizer-details">
                 <h3>
                  <a href="<?= $city->profile_path ?>"><?= "{$city->city_organizer->getAttribute('first_name')} {$city->city_organizer->getAttribute('last_name')}" ?></a>
@@ -163,27 +161,27 @@ if ($c->getCollectionUserID() > 1) {
   <div class="section3 city-city">
     <div class="container">
       <div class="row walk-select">
-        <div class="col-md-4 action-items walk-preview fade in">
+        <div class="action-items walk-preview">
           <div class="item">
             <h2><?= t('Jane’s Walks') ?></h2>
             <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', (string) $city) ?></h4>
             <?php (new Area('City Description'))->display($c); ?>
           </div>
-          <div class="menu-flags box-sizing">
+          <div class="menu-flags">
             <?php (new Area('City Nav'))->display($c); ?>
           </div>
           <?php (new Area('Sponsors'))->display($c); ?>
         </div>
-        <div class="walks-list preview col-md-8 fade in">
+        <div class="walks-list preview">
           <h3><?= t('Walks in %s', t((string) $city) ) ?></h3>
           <?php if ($city->totalWalks > 1) { ?>
           <a class="see-all"><?= t2('show only this walk', 'see all %d walks', $city->totalWalks)?></a>
           <?php }?>
-          <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="btn btn-primary create-walk btn-large"><i class="fa fa-star"></i> <?= t('Create a Walk') ?></a>
+          <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="create-walk"><i class="fa fa-star"></i> <?= t('Create a Walk') ?></a>
           <div class="row">
           </div>
         </div>
-        <div class="walks-list showall hide fade">
+        <div class="walks-list showall">
           <div class="row">
             <?php (new Area('All Walks List'))->display($c); ?>
           </div>
@@ -199,7 +197,7 @@ if ($c->getCollectionUserID() > 1) {
       <h2 class="title"><a href="<?=$blog ? $nh->getCollectionURL($blog) : '' ?>"><?= t('City Blog') ?></a>
 <?php
              if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
-        <a class="add" href="<?=$this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), '/', $blog->getCollectionID() )?>" >
+        <a class="add" href="<?= $this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), '/', $blog->getCollectionID() ) ?>" >
         <i class="fa fa-angle-double-right"></i> <?= t('post new article') ?></a>
         <?php } ?>
       </h2>

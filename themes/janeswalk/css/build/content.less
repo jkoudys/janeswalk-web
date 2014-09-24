@@ -86,7 +86,7 @@
       border-width: 0;
       padding-top: 20px;
 
-      @media (max-width: @media_mobile) {
+      @media (max-width: @media-mobile) {
         width: 90%;
         margin-left: -45%;
       }
@@ -108,7 +108,7 @@
           text-shadow: 1px 1px #fff;
         }
 
-        @media (max-width: @media_mobile) {
+        @media (max-width: @media-mobile) {
           padding: 16px;
           font-size: 16px;
           line-height: 24px;
@@ -145,7 +145,7 @@
         padding: 0;
         margin: 30px 0 0;
 
-        @media (max-width: @media_mobile) {
+        @media (max-width: @media-mobile) {
           // height: 118px;
         }
       }
@@ -305,7 +305,7 @@
   padding: 12px 32px 12px 12px;
   padding: 0;
 
-  @media (max-width: @media_mobile) {
+  @media (max-width: @media-mobile) {
     display: none;
   }
 
@@ -371,7 +371,7 @@ blockquote {
   font-weight:100;
   font-size:25px;
   line-height:30px;
-  color:@orange;
+  color:@color-orange;
   width:35%;
   float:left;
   padding:1.5em;
@@ -412,7 +412,7 @@ html.index-bg body {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: @font-slab;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   margin: 1.5em 0 0.6em 0;
@@ -422,27 +422,6 @@ h2 { font-weight:100; font-size:40px; }
 h3 { font-weight:100; font-size:25px; }
 h4 { font-weight:700; font-size:17px; }
 h5 { font-weight:700; font-size:14; }
-
-// Logo
-
-.navbar-brand {
-  background: url("../images/jwlogo.svg");
-  background-size: 70%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  width: 102px;
-  height: @navbar_height;
-  padding: 10px 20px;
-  margin-left:-20px;
-}
-
-.logo {
-  &:extend(.brand);
-  background-size: contain;
-}
-body.form .brand {
-  width:auto;height:auto;background:transparent;
-}
 
 // Helpers
 
@@ -486,7 +465,7 @@ body.form .brand {
     width: 100%;
     text-align: center;
     span {
-      font-family: "museo-slab", "Roboto Slab", serif;
+      font-family: @font-slab;
       font-weight: 800;
     }
   }
@@ -505,60 +484,13 @@ body.form .brand {
 
 // Bootstrap Button Overrides
 .btn, .btn-primary {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: @font-slab;
   background-image:none;
-  background-color:@orange;
+  background-color:@color-orange;
   border-radius:0;
 }
 a {
-  color:@orange;
-}
-.thumbnail {
-  padding:0;
-}
-
-// Footer
-
-footer {
-  clear:both;
-  color: #50616D;
-  padding: 12px 0;
-  background: #dcdcdc;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  font-family: "museo-slab", "Roboto Slab", serif;
-  font-weight:500;
-  font-size:11px;
-  line-height:1.6;
-  position:fixed; z-index:2; width:100%; bottom:0;
-  @media (max-width: @media_mobile) {
-    position:static;
-  }
-  h4 {
-    margin-top: 0;
-  }
-  a {
-    color: #df520e;
-  }
-  ul, li { list-style-type: none; }
-  ul { margin:0 0 0 5px; }
-  li { 
-    display: inline-block;
-    &:before { content: "| "; margin-right:3px; }
-  }
-  .social-icons {
-    font-size:18px;
-    display:inline-block;
-    vertical-align:top;
-    a {
-      text-decoration:none;
-      i { color:@blue; font-size:24px; margin-right:4px; }
-    }
-    & + div {
-      width:80%;
-      display:inline-block;
-    }
-  }
+  color:@color-orange;
 }
 
 // Spinner
@@ -667,140 +599,9 @@ footer {
   }
 }
 
-// The main menu bar at the top
-header.navbar {
-  background:#fff;
-  &+* {
-    padding-top: @navbar_height;
-  }
-  &.dropped, &.edit {
-    position:static;
-    margin: 0 0 -@navbar_height 0;
-    top:0;
-    .navbar-outer {
-      max-height:900px;
-    }
-  }
-  font-family: "museo-slab", "Roboto Slab", serif;
-  .nav { 
-    font-size:1em;
-  }
-  .notification {
-    position: absolute;
-    overflow: hidden;
-    background-image: none;
-    top: 61px;
-    box-shadow: 0 2px 0 darken(#9854df,10%);
-    background: #9854df;
-    .container {
-      margin-top: 0.3em;
-      margin-bottom: 0.5em;
-    }
-    .title-sub {
-      font-size: 20px;
-      margin: 0;
-    }
-    &.expanded {
-      height: 50px;
-    }
-  }
-  .nav-collapse {
-    max-width:60%;
-  }
-  nav {
-    float:left;
-  }
-  ul.nav.pull-right {
-    float:right;
-  }
-  a { 
-    cursor:pointer;
-  }
-  .search-close,.search-open {
-    /* todo: get rid of all these importants */
-    padding:10px 12px !important;
-    border-radius:999px;
-  }
-  #donate, .search-close, .search-open {
-    margin: 10px 0;
-  }
-  .search-close {
-    background:@orange;
-    text-shadow:none !important;
-    display:none;
-    &:hover { 
-      color:inherit;
-      background:@orange !important;
-    }
-    i {
-      color:#fff;
-    }
-  }
-  &.dropped {
-    .search-close { display:block; }
-    .search-open { display:none; }
-  }
-}
-
-.navbar-outer {
-  background-color:@darkgrey;
-  max-height:0;
-  overflow:hidden;
-  transition-duration: 0.6s;
-  form {
-    max-width:@mainWidth;
-    margin:0 auto;
-    padding: 25px 0;
-    fieldset.search {
-      display:inline-block;
-      margin-right:50px;
-      vertical-align:top;
-    }
-    div#searchResults {
-      display:inline-block;
-      max-width:600px;
-      margin-top:-10px;
-      mark {
-        color:inherit;
-        background-color:inherit;
-        border-bottom: 1px dotted;
-      }
-      h4, p { 
-        margin:0;
-        padding: 0 0 8px 0;
-      }
-      .searchResult {
-        margin:0;
-        padding: 8px 8px 0 8px;
-        transition-duration: 0.3s;
-        &:hover {
-          background:#333;
-        }
-      }
-      a {
-        color:@lightgrey;
-        &:hover {
-          text-decoration:none;
-        }
-      }
-    }
-  }
-}
-
-// input:submit style for little forms
-fieldset.search {
-  @buttonoffset:4px;
-  @defaultWidth: 280px;
-  input[type=text] { width:@defaultWidth; font-size:14px; padding: 10px; margin:0; font-family:"museo-slab", "Roboto Slab", serif;  border: 1px solid #b4b4b4; border-radius: 8px 0 0 8px; height:43px; line-height:24px; color:#333;
-  }
-  input[type=submit] { font-family:"museo-slab", "Roboto Slab", serif; font-size:18px; height:43px; border: 1px solid #b4b4b4; border-left:none; background:@lightgrey; font-weight:300; color:#555; margin-left:-@buttonoffset; border-radius: 0 8px 8px 0; padding: 0 15px; line-height:24px; vertical-align:top; }
-  input[type=checkbox] { display:none; }
-}
-
-
 // Walk Label
 .walk-label {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: @font-slab;
   padding: 5px 8px;
   color: #fff;
   background: #F2C50F;
@@ -822,7 +623,7 @@ fieldset.search {
 
 // Blog Cards
 .blog {
-  color: @darkgrey;
+  color: @color-darkgrey;
 }
 
 // Error 404
@@ -881,7 +682,7 @@ fieldset.search {
 header.navbar {
   div.navbar-inner {
     div.container {
-      height: @navbar_height;
+      height: @height-navbar;
       overflow: hidden;
     }
   }

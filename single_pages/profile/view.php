@@ -24,23 +24,21 @@
     window.JanesWalk.cityUsers = <?= json_encode($cityUsers) ?>;
   </script>
   <?php /* walk transfer modal */ ?>
-  <div id="walk-transfer" class="modal fade">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                  <h4 class="modal-title">Assign walk to user</h4>
-              </div>
-              <div class="modal-body">
-                  <table class="users table">
+  <dialog id="walk-transfer">
+      <article>
+          <header>
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title">Assign walk to user</h4>
+          </header>
+          <section>
+              <table class="users">
                   <?php foreach ($cityUsers as $user) { ?>
-                      <tr><td><a data-uid="<?= $user['id'] ?>"><?= trim($user['first-name'] . ' ' . $user['last-name']) ?></a></td></tr>
+                  <tr><td><a data-uid="<?= $user['id'] ?>"><?= trim($user['first-name'] . ' ' . $user['last-name']) ?></a></td></tr>
                   <?php } ?>
-                  </table>
-              </div>
-          </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
+              </table>
+          </section>
+      </article>
+  </dialog>
   <?php
     $dataCity = '{unset}';
     if ($userHasSetHomeCity === true) {
