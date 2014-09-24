@@ -218,17 +218,12 @@ default:
       $nh = Loader::helper('navigation');
       $im = Loader::helper('image');
 
-      // A bit of a hack, but way cleaner than the URL parameter passing that was happening before.
-      // The 'show all walks' only appears if you have more than 9 walks, so this tells us we must
-      // be showing all walks.
-      $cardSize = 'col-md-' . (sizeof($cards) > 9 ? 3 : 4);
-
       // Using DOMDocument, mostly for sanity of HTML and security
       $doc = new DOMDocument;
       // Loop over the walks
       foreach ((array) $cards as $key => $walk) {
           $div = $doc->appendChild($doc->createElement('div'));
-          $div->setAttribute('class', $cardSize . ' walk');
+          $div->setAttribute('class', 'walk');
 
           $a = $div->appendChild($doc->createElement('a'));
           $a->setAttribute('href', $nh->getLinkToCollection($walk->getPage()));

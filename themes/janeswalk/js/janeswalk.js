@@ -253,12 +253,12 @@ var PageView = View.extend({
                     },
                     300
                 );
-                $('header.navbar').addClass('dropped');
+                $('body > header').addClass('dropped');
             }
         );
         this._element.find('a.search-close').click(
             function() {
-                $('header.navbar').removeClass('dropped');
+                $('body > header').removeClass('dropped');
             }
         );
     },

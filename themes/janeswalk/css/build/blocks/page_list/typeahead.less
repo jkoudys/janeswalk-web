@@ -7,10 +7,10 @@ div.ccm-page-list-tags {
 }
 
 div.ccm-page-list-typeahead {
-  $buttonOffset: 4px;
-  $defaultWidth: 280px;
+  @buttonOffset: 4px;
+  @defaultWidth: 280px;
   position: relative;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: @font-slab;
 
   ul, li {
     list-style-type: none;
@@ -28,12 +28,13 @@ div.ccm-page-list-typeahead {
       background: #fff;
       padding: 5px;
       z-index: 2;
-      width: $defaultWidth + 15px - $buttonOffset;
+      width: @defaultWidth + 15px - @buttonOffset;
       max-height: 14em;
       overflow-y: scroll;
 
       li.country {
         padding-left: 5px;
+        color: @color-darkgrey;
 
         div.name {
           color: #888;

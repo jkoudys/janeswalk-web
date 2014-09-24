@@ -1,0 +1,57 @@
+// All types used as modals
+aside, dialog {
+    &:extend(.modal, .fade all);
+    &.in:extend(.fade.in all) {
+        display: block; // TODO: Check if this is necessary
+        // Blur everything not our modal
+        & ~ * {
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            filter: blur(5px);
+        }
+    }
+
+    overflow: auto;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+
+    > article:extend(.modal-content, .modal-dialog) {
+        margin-top: @height-navbar * 2;
+        header:extend(.modal-header) {
+            padding: 40px 65px;
+            h1, h2, h3, h4, h5, h6 {
+                // Stick to the modal spacing, don't use header settings
+                padding: 0;
+                margin: 0;
+                font-weight:700;
+            }
+        }
+        section:extend(.modal-body) {
+            padding: 35px 65px;
+        }
+        footer:extend(.modal-footer) {
+            padding: 30px 65px;
+        }
+    }
+    // General form styling
+    label:extend(.form-group all) {
+        display: block;
+    }
+    input[type=text], input[type=password] {
+        &:extend(.form-control all);
+        font-weight: 500;
+        width: 65%;
+    }
+}
+
+// Modal with a purely informational purpose, e.g. "Welcome to Jane's Walk!"
+aside {
+}
+
+// Modal with a purpose to retrieve information, e.g. "Check walks in which city?"
+dialog {
+    table:extend(.table all) {
+    }
+}
+

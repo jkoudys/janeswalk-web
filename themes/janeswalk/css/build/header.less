@@ -13,7 +13,6 @@
             width: 102px;
             height: @height-navbar;
             padding: 0 20px;
-            margin-left:-20px;
             background-size: contain;
         }
     }
@@ -25,6 +24,9 @@
                     padding-top: 0;
                     padding-bottom: 0;
                     line-height: @height-navbar;
+                    @media (max-width: @media-thin) {
+                        line-height: 1.1em;
+                    }
                 }
             }
         }
@@ -63,8 +65,14 @@
     }
    
     &.dropped {
-        .search-close { display:block; }
+        .search-close {
+            display:block;
+            &:hover i { color: @color-darkgrey; }
+        }
         .search-open { display:none; }
+        .navbar-outer {
+            max-height: 900px;
+        }
     }
 
     #donate:extend(.btn, .btn-primary, .btn-large) {

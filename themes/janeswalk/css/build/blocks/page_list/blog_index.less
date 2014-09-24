@@ -1,0 +1,17 @@
+.ccm-page-list.ccm-blog-index {
+    list-style-type: none;
+    padding: 0;
+    li {
+        .make-md-column(4);
+        &:first-child {
+            margin-left: 0;
+            padding-left: 0;
+        }
+        figure:extend(.thumbnail all) {
+            padding: 0;
+            figcaption:extend(.caption all) {
+                padding: 10px;
+            }
+        }
+    }
+}
