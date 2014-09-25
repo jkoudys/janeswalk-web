@@ -1,5 +1,5 @@
 html {
-  @media (min-width: @media-mobile) { padding-bottom:111px; } /* Pad for the fixed-footer */
+  @media (min-width: @screen-sm-min) { padding-bottom:111px; } /* Pad for the fixed-footer */
 }
 
 body {
@@ -16,11 +16,11 @@ body {
 // Generic layouts - profile page, blogs, etc.
 body.full {
   #body { 
-    max-width: @media-screen - 300px;
+    max-width: @screen-lg-min - 300px;
     padding-right: 300px;
   }
   #full { 
-    max-width: @media-screen;
+    max-width: @screen-lg-min;
     margin:0 auto;
   }
 }

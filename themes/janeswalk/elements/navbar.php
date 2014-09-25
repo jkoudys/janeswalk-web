@@ -19,27 +19,22 @@ if ($u->isRegistered()) {
 
 ?>
 <header class="<?= join($pageState, ' ') ?>">
-  <div class="container">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="nav[role=navigation]">
-      <i class="fa fa-bars"></i>
-    </button>
+  <nav role="navigation">
     <a href="<?= $this->url('') ?>" class="logo">
       <span><?= $SITE ?></span>
     </a>
-    <nav role="navigation">
-      <?php (new GlobalArea('Left Header'))->display($c); ?>
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a class="search-open"><i class="fa fa-search"></i></a>
-          <a class="search-close"><i class="fa fa-search"></i></a>
-        </li>
-        <?= $profileMenu ?>
-        <li>
-          <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate">Donate</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+    <?php (new GlobalArea('Left Header'))->display($c); ?>
+    <ul class="nav navbar-nav navbar-right">
+      <li>
+        <a class="search-open"><i class="fa fa-search"></i></a>
+        <a class="search-close"><i class="fa fa-search"></i></a>
+      </li>
+      <?= $profileMenu ?>
+      <li>
+        <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate">Donate</a>
+      </li>
+    </ul>
+  </nav>
   <div class="navbar-outer">
     <?php (new GlobalArea('Dropdown'))->display($c); ?>
   </div>

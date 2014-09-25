@@ -1,85 +1,98 @@
 // The main menu bar at the top
 > header:extend(.navbar all, .navbar-fixed-top all, .navbar-default all) {
-    background:#fff;
-    font-family: @font-slab;
-    
-    // Logo
-    .logo:extend(.navbar-header all) {
-        span:extend(.hide-text, .navbar-brand all) {
-            background: url("../images/jwlogo.svg");
-            display: inline-block;
-            background-position: center center;
-            background-repeat: no-repeat;
-            width: 102px;
-            height: @height-navbar;
-            padding: 0 20px;
-            background-size: contain;
-        }
-    }
-    nav:extend(.navbar-collapse all) {
-        // FIXME: see if .navbar-nav can be removed
-        ul.navbar-nav {
-            > li {
-                > a {
-                    padding-top: 0;
-                    padding-bottom: 0;
-                    line-height: @height-navbar;
-                    @media (max-width: @media-thin) {
-                        line-height: 1.1em;
-                    }
-                }
-            }
-        }
-    }
+	background:#fff;
+	font-family: @font-slab;
 
-    // Use this area for user-friendly notes, either from js or server-side
-    .notification {
-        position: absolute;
-        overflow: hidden;
-        background-image: none;
-        top: 61px;
-        box-shadow: 0 2px 0 darken(#9854df, 10%);
-        background: #9854df;
-        .container {
-            margin-top: 0.3em;
-            margin-bottom: 0.5em;
-        }
-        .title-sub {
-            font-size: 20px;
-            margin: 0;
-        }
-        &.expanded {
-            height: 50px;
-        }
-    }
+	// Logo
+	.logo:extend(.navbar-header all) {
+		span:extend(.hide-text, .navbar-brand all) {
+			background: url("../images/jwlogo.svg");
+			display: inline-block;
+			background-position: center center;
+			background-repeat: no-repeat;
+			width: 102px;
+			height: @height-navbar;
+			padding: 0 20px;
+			background-size: contain;
+		}
+	}
+	nav:extend(.container all) {
+		@width-navbar: 270px;
+		position: relative;
+		// Assume the nav after the logo is the site nav
+		.logo + ul.nav {
+			@media (max-width: @screen-md-min) {
+				> li {
+					> a {
+						line-height: 1.1;
+					}
+				}
+			}
+		}
+		ul.navbar-nav {
+			> li {
+				> a {
+					padding-top: 0;
+					padding-bottom: 0;
+					line-height: @height-navbar;
+				}
+			}
+			&.navbar-right {
+				float: none;
+				position: absolute;
+				right: 0;
+			}
+		}
+	}
 
-    .search-close {
-        background:@color-orange;
-        display:none;
-        &:hover { 
-            color: inherit;
-        }
-        i {
-            color: #fff;
-        }
-    }
-   
-    &.dropped {
-        .search-close {
-            display:block;
-            &:hover i { color: @color-darkgrey; }
-        }
-        .search-open { display:none; }
-        .navbar-outer {
-            max-height: 900px;
-        }
-    }
+	// Use this area for user-friendly notes, either from js or server-side
+	.notification {
+		position: absolute;
+		overflow: hidden;
+		background-image: none;
+		top: 61px;
+		box-shadow: 0 2px 0 darken(#9854df, 10%);
+		background: #9854df;
+		.container {
+			margin-top: 0.3em;
+			margin-bottom: 0.5em;
+		}
+		.title-sub {
+			font-size: 20px;
+			margin: 0;
+		}
+		&.expanded {
+			height: 50px;
+		}
+	}
 
-    #donate:extend(.btn, .btn-primary, .btn-large) {
-        @padding-top-button: 6px; // The pad on a button
-        // Align the button to the line-height set on the navbar
-        margin: ((@height-navbar - (2 * @padding-top-button)) / 4) 0;
-    }
+	.search-close {
+		background:@color-orange;
+		display:none;
+		&:hover { 
+			color: inherit;
+		}
+		i {
+			color: #fff;
+		}
+	}
+
+	&.dropped {
+		.search-close {
+			display:block;
+			&:hover i { color: @color-darkgrey; }
+		}
+		.search-open { display:none; }
+		.navbar-outer {
+			max-height: 900px;
+		}
+	}
+
+	#donate:extend(.btn, .btn-primary, .btn-large, .navbar-btn) {
+		@padding-top-button: 6px; // The pad on a button
+		// Align the button to the line-height set on the navbar
+		margin: ((@height-navbar - (2 * @padding-top-button)) / 4) 0;
+	}
 }
 
 // A dropdown area, for including widgets in the header, e.g. search results
@@ -89,7 +102,7 @@
     overflow: hidden;
     transition-duration: 0.6s;
     form {
-        max-width: @media-screen;
+        max-width: @screen-lg-min;
         margin: 0 auto;
         padding: 25px 0;
         fieldset.search {
