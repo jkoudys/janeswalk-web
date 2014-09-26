@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+  <table name="atSchedule">
+    <field name="avID" type="I">
+      <key/>
+      <unsigned/>
+    </field>
+    <field name="open" type="I1" size="1">
+      <DEFAULT VALUE="0"/>
+    </field>
+    <field name="type" type="C" size="255">
+      <DEFAULT VALUE="set"/>
+    </field>
+  </table>
+  <table name="atEventTime">
+    <field name="avID" type="I">
+      <key/>
+      <autoincrement/>
+      <unsigned/>
+    </field>
+    <field name="atScheduleID" type="I" size="10">
+      <key/>
+      <unsigned/>
+      <constraint>
+        , foreign key (atScheduleID) references atSchedule(avID)
+        </constraint>
+    </field>
+    <field name="start" type="T">
+		</field>
+    <field name="end" type="T">
+		</field>
+  </table>
+</schema>
