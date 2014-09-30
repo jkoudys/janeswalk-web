@@ -1,0 +1,19 @@
+.social-login-providers {
+    @navbarCollapseWidth: 0;
+    &.template-fontawesome:extend(.nav all, .nav-pills all, .nav-justified all) {
+        list-style-type: none;
+        font-size: 90px;
+        li {
+            a {
+                transition-duration: 0.2s;
+                &:hover {
+                    color: darken(@color-orange, 20%);
+                }
+            }
+            @media (max-width: @screen-sm-min) {
+                font-size: 45px;
+                float: left;
+            } 
+        }
+    }
+}

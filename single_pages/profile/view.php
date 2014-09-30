@@ -25,6 +25,7 @@
   </script>
   <?php /* walk transfer modal */ ?>
   <dialog id="walk-transfer">
+    <div>
       <article>
           <header>
               <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
@@ -38,6 +39,7 @@
               </table>
           </section>
       </article>
+    </div>
   </dialog>
   <?php
     $dataCity = '{unset}';
