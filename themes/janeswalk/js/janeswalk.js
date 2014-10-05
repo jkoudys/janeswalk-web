@@ -447,9 +447,6 @@ var CityPageView = PageView.extend({
 
         for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
             var card = shuffledDeck[i].cloneNode(true);
-            // Egads, bootstrap can suck sometimes..
-            card.classList.add("col-md-4");
-            card.classList.remove("col-md-3");
             previewNode.appendChild(card);
         }
     },

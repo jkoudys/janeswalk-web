@@ -1,6 +1,7 @@
 <?php
-defined('C5_EXECUTE') or die('Access Denied.'); ?>
-<?php /* tabs to choose between walk display options */ ?>
+defined('C5_EXECUTE') || die('Access Denied.');
+
+/* tabs to choose between walk display options */ ?>
 <ul class="nav nav-tabs">
   <li class="active"><a href="#jw-cards" data-toggle="tab">All Walks</a></li>
   <li><a href="#jw-list" data-toggle="tab">List</a></li>
@@ -126,7 +127,7 @@ if ($lat && $lng) { ?>
       <?= t('No walks found') ?><br />
       <?= t('Try another region or theme') ?>
     </div>
-    <?php $this->controller->renderCards($cards)->saveHTMLFile('php://output') ?>
+    <?php include(__DIR__ . '/../walkcards/view.php'); /* TODO: use a c5 function for loading this */ ?>
   </section>
   <section class="tab-pane fade" id="jw-list">
     <table class="walklist table">
