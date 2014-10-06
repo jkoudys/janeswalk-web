@@ -37,11 +37,11 @@ foreach ($cards as $walk) {
                     <?php } ?>
                     <li><?= t('Meet at %s', $meetingText) ?></li>
                 </ul>
+                <?php if ($walkLeaders) { ?>
+                    <h6><?= t('Walk led by %s', $walkLeaders) ?></h6>
+                <?php } ?>
                 <p><?= Loader::helper('text')->shortText($walk->shortdescription, 115) ?></p>
             </div>
-            <?php if ($walkLeaders) { ?>
-                <h6><?= t('Walk led by %s', $walkLeaders) ?></h6>
-            <?php } ?>
             <ul class="list-inline tags">
                 <?php foreach ($walk->themes as $theme => $set) { ?>
                     <li class="tag" data-toggle="tooltip" title="<?= ThemeHelper::getName($theme) ?>">

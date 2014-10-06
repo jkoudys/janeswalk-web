@@ -443,7 +443,7 @@ var CityPageView = PageView.extend({
     */
     _previewCards: function() {
         var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function() { return 0.5 - Math.random(); } ),
-        previewNode = document.querySelector(".walks-list.preview div");
+        previewNode = document.querySelector(".ccm-block-page-list-walk-filters .walk-preview");
 
         for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
             var card = shuffledDeck[i].cloneNode(true);
@@ -462,22 +462,8 @@ var CityPageView = PageView.extend({
         var showAll = document.querySelector("a.see-all");
         if(showAll) {
             showAll.addEventListener("click", function() {
-                var previewEls = [this, document.querySelector(".walk-preview.action-items"), document.querySelector(".walks-list.preview")];
-                var fullEl = document.querySelector(".walks-list.showall");
-                // Hide this link, the preview walks, and the sidebar
-                previewEls.forEach(function(e, i) {
-                    try { // We don't want some missing selector to break the whole execution
-                        e.classList.remove("in");
-                    } catch(ex) {
-                        console.log("Error fading out menu: " + ex);
-                    }
-                });
-                previewEls.forEach(function(e, i) { e.style.width = 0; e.style.padding = 0; e.style.margin = 0; });
-                setTimeout(function() {
-                    previewEls.forEach(function(e, i) { e.style.display = "none"; });
-                    fullEl.classList.remove("hide");
-                    fullEl.classList.add("in");
-                }, 300);
+                document.querySelector('.ccm-block-page-list-walk-filters').classList.add('filtering');
+                showAll.parentNode.removeChild(showAll);
             });
         }
     },

@@ -151,6 +151,7 @@ class ThemeHelper
     {
         return self::$attributeNameMap[(string)$handle] ?: (string)$handle;
     }
+
     public static function getIcon($handle)
     {
         return '<i class="fa fa-' . self::getIconName($handle) . '"></i>';

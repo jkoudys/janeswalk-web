@@ -172,19 +172,10 @@ if ($c->getCollectionUserID() > 1) {
           </div>
           <?php (new Area('Sponsors'))->display($c); ?>
         </div>
-        <div class="walks-list preview">
-          <h3><?= t('Walks in %s', t((string) $city) ) ?></h3>
-          <?php if ($city->totalWalks > 1) { ?>
-          <a class="see-all"><?= t2('show only this walk', 'see all %d walks', $city->totalWalks)?></a>
-          <?php }?>
+        <div class="walks-list">
           <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="create-walk"><i class="fa fa-star"></i> <?= t('Create a Walk') ?></a>
-          <div class="row">
-          </div>
-        </div>
-        <div class="walks-list showall">
-          <div class="row">
-            <?php (new Area('All Walks List'))->display($c); ?>
-          </div>
+          <h3><?= t('Walks in %s', (string) $city) ?></h3>
+          <?php (new Area('All Walks List'))->display($c); ?>
         </div>
       </div>
     </div>

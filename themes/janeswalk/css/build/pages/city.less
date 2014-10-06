@@ -317,21 +317,17 @@
   }
 
   .walk {
-    position: relative;
-    margin-bottom: 25px;
-    transition: margin 120ms ease-in-out;
-    margin-left: 0;
-    margin-right: 19px;
-    min-height:560px;
+    .make-md-column(4, 10px);
 
-    @media (max-width: @screen-sm-min) {
-      margin-bottom: 40px;
-    }
+    transition-duration: 0.1s;
+    padding-top: 15px;
+    padding-bottom: 0px;
 
     .thumbnail {
-      min-height: 535px;
+      height: 580px;
       transition: none;
       position: relative;
+      padding: 0;
 
       .walkimage {
         margin: 0;
@@ -342,11 +338,14 @@
       }
 
       .caption {
-
         p {
-          height: 90px;
+          min-height: 90px;
           overflow: hidden;
           display: block;
+        }
+
+        h6 {
+            font-weight: 700;
         }
 
         @media (max-width: @screen-sm-min) {
@@ -384,15 +383,15 @@
     vertical-align:bottom;
 
     &:hover {
-      // margin-top:-5px;
-      // padding-bottom:5px;
-
+      // Slide the walk card up
+      padding-top: 5px;
+      padding-bottom: 10px;
       .thumbnail {
         background: @color-blue;
         box-shadow: inset 0 0 0 1px darken(@color-blue,10%), 0 3px 0 darken(@color-blue,10%);
         color: #FFF;
 
-        h4, h6 {
+        h4, h6, p, li {
           color: #FFF;
         }
       }
@@ -495,6 +494,8 @@
 
   .walks-list:extend(.fade all, .fade.in all) {
     .make-md-column(8);
+    padding-right: 30px;
+
     &.showall:extend(.fade all) {
       clear:both;
       margin-left:2.5%;
@@ -512,26 +513,11 @@
     }
 
     .filters {
-      background-color: #ffe0d1;
-      background-color: #fff;
-      border-radius: 6px;
+      border-radius: 0 0 6px 6px;
       padding: 10px;
-      width: 780px;
-      // background-color: #F59364;
-      // border-radius: 4px;
-      // padding: 10px;
-      // position: absolute;
-      // left: 0;
-      // top: 0;
-      // width: 570px;
       margin: 0 0 20px;
-      border-bottom: 1px solid #D88B66;
       border: 1px solid #ddd;
-
-      @media (max-width: @screen-sm-min) {
-        margin: 0;
-        display: none;
-      }
+      border-top: none;
 
       div.filter {
         float: left;
@@ -608,11 +594,6 @@
     }
   }
 }
-
-.span4.walk:nth-child(3n) {
-  margin-right: 0;
-}
-
 
 .tags {
   margin-bottom: 0;
