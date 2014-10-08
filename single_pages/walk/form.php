@@ -77,7 +77,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                             <div class="item required">
                                 <label for="shortdescription"><?= t('Your Walk in a Nutshell') ?></label>
                                 <div class="alert alert-info"><?= t('Build intrigue! This is what people see when browsing our walk listings.') ?></div>
-                                <textarea class="col-md-12 limit" id="shortdescription" name="shortdescription" rows="2" maxlength="140" required><?= htmlspecialchars($c->getAttribute('shortdescription')) ?></textarea>
+                                <textarea id="shortdescription" name="shortdescription" rows="6" maxlength="140" required><?= htmlspecialchars($c->getAttribute('shortdescription')) ?></textarea>
                                 <div class="text-right">
                                     <p><?= t('Characters left') ?>: <span class="counter">140</span></p>
                                 </div>
@@ -243,12 +243,11 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                         </div>
                     </div>
 
-                    <div class="row" id="map-control-bar">
-                        <button id="addmeetingplace" class="btn col-md-1"><i class="fa icon-flag-jw"></i> <?= t('Set a Meeting Place') ?></button>
-                        <div class="addroute-wrapper col-md-1"><button id="addpoint" class="btn"><i class="fa icon-map-marker-jw"></i> <?= t('Add Stop') ?></button><div class="disable-alert"></div></div>
-                        <button id="addroute" class="btn col-md-1"><i class="icon-map-route"></i> <?= t('Add Route') ?></button>
-                        <button class="btn clear-route col-md-1"><i class="fa fa-eraser"></i> <?= t('Clear Route') ?></button>
-
+                    <div id="map-control-bar">
+                        <button id="addmeetingplace"><i class="fa fa-flag"></i> <?= t('Set a Meeting Place') ?></button>
+                        <button id="addpoint"><i class="fa fa-map-marker"></i> <?= t('Add Stop') ?></button>
+                        <button id="addroute"><i class="fa fa-arrows"></i> <?= t('Add Route') ?></button>
+                        <button class="clear-route"><i class="fa fa-eraser"></i> <?= t('Clear Route') ?></button>
                     </div>
                     <div class="map-notifications"></div>
                     <div id="map-canvas"></div>
@@ -333,7 +332,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                             <hr>
                                             <label for="walk-time"><?= t('Start Time') ?>:</label>
 
-                                            <input id="walk-time" type="text" class="time ui-timepicker-input input-small" autocomplete="off">
+                                            <input id="walk-time" type="text" class="time ui-timepicker-input input-sm" autocomplete="off">
 
                                             <label for="walk-time"><?= t('Approximate Duration of Walk') ?>:</label>
                                             <select name="duration" id="walk-duration">
@@ -513,8 +512,8 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                 <div class="col-md-9">
                                     <div class="item required">
                                         <label for="name"><?= t('Name') ?></label>
-                                        <input type="text" class="input-small" name="name-first[]" id="name" placeholder="First" value="<?= htmlspecialchars($owner->getAttribute("first_name")) ?>">
-                                        <input type="text" class="input-small" name="name-last[]" id="name" placeholder="Last" value="<?= htmlspecialchars($owner->getAttribute("last_name")) ?>">
+                                        <input type="text" class="input-sm" name="name-first[]" id="name" placeholder="First" value="<?= htmlspecialchars($owner->getAttribute("first_name")) ?>">
+                                        <input type="text" class="input-sm" name="name-last[]" id="name" placeholder="Last" value="<?= htmlspecialchars($owner->getAttribute("last_name")) ?>">
                                     </div>
 
                                     <div class="item required">
@@ -539,13 +538,13 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                     <div class="row" id="newwalkleader">
                                         <div class="col-md-6 required">
                                             <label for="you-email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
-                                            <input type="email" class="input-large" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
+                                            <input type="email" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
                                         </div>
 
                                         <div class="col-md-6">
                                             <label for="leader-twitter"><i class="fa fa-twitter"></i> Twitter</label>
-                                            <div class="input-prepend">
-                                                <span class="add-on">@</span>
+                                            <div class="input-group">
+                                                <span class="input-group-addon">@</span>
                                                 <input class="col-md-12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?= htmlspecialchars($owner->getAttribute("twitter")) ?>">
                                             </div>
                                         </div>
@@ -555,11 +554,11 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                     <div class="row" id="newwalkleader">
                                         <div class="col-md-6">
                                             <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
-                                            <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($owner->getAttribute("facebook"))?>">
+                                            <input type="text" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($owner->getAttribute("facebook"))?>">
                                         </div>
                                         <div class="col-md-6">
                                             <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
-                                            <input type="text" class="input-large" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($owner->getAttribute("website"))?>">
+                                            <input type="text" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($owner->getAttribute("website"))?>">
                                         </div>
                                     </div>
 
@@ -573,7 +572,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                         <div class="row" id="newwalkleader">
                                             <div class="col-md-6 tel required">
                                                 <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
-                                                <input type="tel" maxlength="18" class="input-large" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($owner->getAttribute("phone"))?>">
+                                                <input type="tel" maxlength="18" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($owner->getAttribute("phone"))?>">
                                             </div>
                                         </div>
                                     </div>
@@ -649,8 +648,8 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                         <label for="name"><?= t('Name') ?></label>
                                         <div class="item">
                                             <form class="form-inline">
-                                                <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]" />
-                                                <input type="text" class="input-small" id="name" placeholder="Last" name="name-last[]" />
+                                                <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]" />
+                                                <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]" />
                                             </form>
                                         </div>
                                     </div>
@@ -677,14 +676,14 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
                                         <div class="col-md-6">
                                             <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
-                                            <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]">
+                                            <input type="text" id="facebook" placeholder="" name="facebook[]">
                                         </div>
                                     </div>
 
                                     <div class="row" id="newwalkleader">
                                         <div class="col-md-6">
                                             <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
-                                            <input type="text" class="input-large" id="website" placeholder="" value="" name="website[]">
+                                            <input type="text" id="website" placeholder="" value="" name="website[]">
                                         </div>
                                     </div>
 
@@ -697,11 +696,11 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                     <div class="row" id="newwalkleader">
                                         <div class="col-md-6 required">
                                             <label for="email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
-                                            <input type="email" class="input-large" id="email" placeholder="Email" name="email[]">
+                                            <input type="email" id="email" placeholder="Email" name="email[]">
                                         </div>
                                         <div class="col-md-6 tel">
                                             <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
-                                            <input type="tel" maxlength="16" class="input-large" id="phone" placeholder="" name="phone[]">
+                                            <input type="tel" maxlength="16" id="phone" placeholder="" name="phone[]">
                                         </div>
                                     </div>
                                 </div>
@@ -724,16 +723,16 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                     <div class="item required">
                                         <label for="name"><?= t('Name') ?></label>
                                         <form class="form-inline">
-                                            <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]">
-                                            <input type="text" class="input-small" id="name" placeholder="Last" name="name-last[]">
+                                            <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]">
+                                            <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]">
                                         </form>
                                     </div>
                                     <label for="affiliation"><?= t('Affilated Institution') ?> (<?= t('Optional') ?>)</label>
-                                    <input type="text" class="input-large" id="name" placeholder="e.g. City of Toronto" name="institution[]">
+                                    <input type="text" id="name" placeholder="e.g. City of Toronto" name="institution[]">
                                     <div class="row" id="newwalkleader">
                                         <div class="col-md-6">
                                             <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
-                                            <input type="text" class="input-large col-md-12" id="website" placeholder="" value="" name="name-website[]">
+                                            <input type="text" class="col-md-12" id="website" placeholder="" value="" name="name-website[]">
                                         </div>
                                     </div>
                                 </div>
@@ -756,8 +755,8 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                     <div class="item required">
                                         <label for="name"><?= t('Name') ?></label>
                                         <form class="form-inline">
-                                            <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]">
-                                            <input type="text" class="input-small" id="name" placeholder="Last" name="name-last[]">
+                                            <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]">
+                                            <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]">
                                         </form>
                                     </div>
                                     <div class="item">
@@ -777,13 +776,13 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                         </div>
                                         <div class="col-md-6">
                                             <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
-                                            <input type="text" class="input-large" id="facebook" placeholder="" name="facebook[]">
+                                            <input type="text" id="facebook" placeholder="" name="facebook[]">
                                         </div>
                                     </div>
                                     <div class="row" id="newwalkleader">
                                         <div class="col-md-6">
                                             <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
-                                            <input type="text" class="input-large col-md-12" id="website" placeholder="" value="" name="website[]">
+                                            <input type="text" class="col-md-12" id="website" placeholder="" value="" name="website[]">
                                         </div>
                                     </div>
                                 </div>
@@ -805,8 +804,8 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                     <div class="item required">
                                         <label for="name"><?= t('Name') ?></label>
                                         <form class="form-inline">
-                                            <input type="text" class="input-small" id="name" placeholder="First" name="name-first[]">
-                                            <input type="text" class="input-small" id="name" placeholder="Last" name="name-last[]">
+                                            <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]">
+                                            <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]">
                                         </form>
                                     </div>
 
@@ -818,7 +817,7 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                     <div class="row" id="newwalkleader">
                                         <div class="col-md-6">
                                             <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
-                                            <input type="text" class="input-large col-md-12" id="website" placeholder="" value="" name="website[]">
+                                            <input type="text" class="col-md-12" id="website" placeholder="" value="" name="website[]">
                                         </div>
                                     </div>
 

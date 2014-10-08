@@ -11,10 +11,30 @@ body[data-pageviewname=CreateWalkView] {
     h1 {
         margin-top: 0;
     }
+    textarea {
+        height: auto;
+    }
+    textarea, input {
+        font-weight: 500;
+    }
+    input[type=checkbox] {
+        margin-left: 0;
+        position: relative;
+    }
+
     > section:extend(.row) {
         > nav {
             .make-md-column(2);
         }
+    }
+
+    // Make these things bootstrap by default
+    select, input[type=text], input[type=email], input[type=password], textarea {
+        &:extend(.form-control all);
+    }
+
+    .row {
+        margin-left: 0;
     }
 
     #main-panel {
@@ -26,6 +46,20 @@ body[data-pageviewname=CreateWalkView] {
         .make-md-column(3);
         .clearfix();
         padding-top: 50px;
+    }
+
+    // Share Your Route
+    #map-control-bar:extend(.btn-group all) {
+        text-align: justify;
+        button:extend(.btn all, .btn-lg) {
+            i {
+                display: block;
+            }
+        }
+        &:after {
+            content: "";
+            display: block;
+        }
     }
 
     // Migrated from SASS + separate theme. TODO: move all this into less + common theme
@@ -432,9 +466,8 @@ ul.ui-timepicker-list > li.ui-timepicker-disabled {
 New Member Additions
 ========================================================================== */
 
-.new-member:extend(.thumbnail) {
-    width: 50%;
-    display: table-cell;
+.new-member {
+    .make-md-column(6);
     padding: 293px 20px 20px 20px;
     cursor: pointer;
     border-color: rgba(0, 0, 0, 0.1);
@@ -456,6 +489,7 @@ New Member Additions
 #new-othermember.new-member:hover { background: url('../img/volunteers-hover.png') 50% 15% no-repeat; }
 
 .team-set {
+    .clearfix();
     border-left: 1px solid rgba(0, 0, 0, 0.1);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -550,6 +584,8 @@ Progress Navigation
     // Adjust from vertical alignment so we don't lose the 'save' button
     @media (max-height: 730px) {
         position: relative;
+        padding-top: 10px;
+        min-height:800px;
         width: 100%;
     }
 
