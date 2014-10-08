@@ -1,5 +1,5 @@
 // All types used as modals
-aside, dialog {
+dialog {
     &:extend(.modal all, .fade all);
     &.in:extend(.fade.in all) {
         display: block !important; // TODO: Check if this is necessary
@@ -57,14 +57,8 @@ aside, dialog {
             width: 90%;
         }
     }
-}
 
-// Modal with a purely informational purpose, e.g. "Welcome to Jane's Walk!"
-aside {
-}
-
-// Modal with a purpose to retrieve information, e.g. "Check walks in which city?"
-dialog {
+    // Any table in a modal should be formatted
     table:extend(.table all) {
     }
 }

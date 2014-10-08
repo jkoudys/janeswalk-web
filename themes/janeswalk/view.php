@@ -5,13 +5,10 @@
 <?php
     $this->inc('elements/header.php');
     $dh = Loader::helper('concrete/dashboard');
-    $pageViewName = 'PageView';
-    if (defined('C5_EXECUTE')) {
-        $pageViewName = 'ProfilePageView';
-    }
-
+    $pageViewName = $pageViewName ?: 'PageView';
+    
     // Classes
-    $classes = array('site-page');
+    $classes = ['site-page'];
     if ($dh->canRead()) {
         array_push($classes, 'logged_in');
     }
