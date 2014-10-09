@@ -92,9 +92,8 @@ class WalkPageTypeController extends Controller
                 'msg' => (string) $e->getMessage()
             ]);
             http_response_code(500);
-        } finally {
-            exit;
         }
+        exit;
     }
 
     /**
