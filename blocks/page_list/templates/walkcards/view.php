@@ -6,8 +6,8 @@ defined('C5_EXECUTE') or die('Access Denied.');
 foreach ($cards as $walk) {
     $link = $nh->getLinkToCollection($walk->getPage());
     $placeholder = 'placeholder' . $walk->getPage()->getCollectionID() % 3;
-    if( $walk->thumbnail) {
-        $thumbnail = $im->getThumbnail($walk->thumbnail, 340,720)->src;
+    if ($walk->thumbnail) {
+        $thumbnail = $im->getThumbnail($walk->thumbnail, 340, 720)->src;
     }
     /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
     if ($walk->meetingPlace) {
@@ -28,7 +28,7 @@ foreach ($cards as $walk) {
 <div class="walk">
     <a href="<?= $link ?>">
         <div class="thumbnail">
-            <div class="walkimage <?= $placeholder ?>" style="background-image:url(<?= $thumbnail ?>))"></div>
+            <div class="walkimage <?= $placeholder ?>" style="background-image:url(<?= $thumbnail ?>)"></div>
             <div class="caption">
                 <h4><?= Loader::helper('text')->shortText((string) $walk, 45) ?></h4>
                 <ul class="when">
