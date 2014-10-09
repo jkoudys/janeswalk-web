@@ -270,9 +270,9 @@ class Walk extends \Model implements \JsonSerializable
             $db->FailTrans(); // Set transaction to rollback
             (new \Log('error', false))->write(__CLASS__ . '::' . __FUNCTION__ . " failed on page {$this->page->title}: $e");
             $ok = false;
-        } finally {
-            $db->CompleteTrans();
-        }
+        } 
+        
+        $db->CompleteTrans();
 
         return $ok;
     }
