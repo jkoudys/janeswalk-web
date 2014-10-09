@@ -27,7 +27,7 @@ $loginMethod = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? t('Email') : t('User name'
             </header>
             <form method="post" action="<?= $this->url('/login', 'do_login') ?>">
                 <section>
-                    <?php Stack::getByName('Social Logins')->display() ?>
+                    <?php $sl = Stack::getByName('Social Logins'); if ($sl) $sl->display() ?>
                 </section>
                 <section>
                     <h4><?= t('or, log-in using your email & password') ?></h4>
