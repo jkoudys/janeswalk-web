@@ -7204,6 +7204,7 @@ body.form {
 body > header {
   background: #fff;
   font-family: "museo-slab", "Roboto Slab", serif;
+  z-index: 2;
 }
 body > header .logo span {
   background: url("../images/jwlogo.svg");
