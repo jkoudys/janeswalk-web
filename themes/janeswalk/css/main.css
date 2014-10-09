@@ -7594,6 +7594,9 @@ body fieldset.search input[type=submit] {
 body fieldset.search input[type=checkbox] {
   display: none;
 }
+body #ccm-toolbar {
+  z-index: -1;
+}
 body > footer {
   clear: both;
   color: #50616D;
