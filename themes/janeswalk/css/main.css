@@ -7490,6 +7490,10 @@ body > header .notification .title-sub {
 body > header .notification.expanded {
   height: 50px;
 }
+body > header .search-open,
+body > header .search-close {
+  padding: 0 15px !important;
+}
 body > header .search-open i,
 body > header .search-close i {
   line-height: 60px;

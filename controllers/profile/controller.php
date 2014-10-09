@@ -4,6 +4,9 @@ class ProfileController extends Concrete5_Controller_Profile
 {
     public function view($userID = 0)
     {
+        // Set the page view first
+        $this->set('pageViewName', 'ProfilePageView');
+
         parent::view($userID);
         Loader::model('page_list');
         $nh = Loader::helper('navigation');
@@ -306,7 +309,9 @@ class ProfileController extends Concrete5_Controller_Profile
                         'walkTitle' => $page->getCollectionName(),
                         'walkPath' => $nh->getLinkToCollection($page)
                     );
-                }, (array) $pl->get(3));
+                },
+                (array) $pl->get(3)
+            );
             $this->set('featuredWalkData', $featuredWalkData);
 
             $this->set('resources', $resources);
