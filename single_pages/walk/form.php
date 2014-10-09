@@ -4,16 +4,17 @@ JanesWalk = <?= json_encode($front) ?>;
 JanesWalk.form.datepicker_cfg.beforeShowDay =
   function (date) {
     var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-    var dateFormatted = moment(date_utc).format('YYYY-MM-DD');
+    var dateFormatted = date.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
     if ($.inArray(dateFormatted, dateSelected) != -1) {
-      return {
-        enabled : false,
-        classes : 'selected'
-      };
+      return [
+        true, // disabled
+        'selected' // classes
+      ];
     }
+    return [true, ''];
   };
-JanesWalk.form.datepicker_cfg.startDate = new Date();
-JanesWalk.form.datepicker_cfg.endDate = new Date("May 23, 2020");
+JanesWalk.form.datepicker_cfg.minDate = new Date();
+JanesWalk.form.datepicker_cfg.maxDate = new Date("May 23, 2020");
 JanesWalk.form.datepicker_cfg.defaultDate = new Date();
 
 </script>
@@ -78,9 +79,6 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                 <label for="shortdescription"><?= t('Your Walk in a Nutshell') ?></label>
                                 <div class="alert alert-info"><?= t('Build intrigue! This is what people see when browsing our walk listings.') ?></div>
                                 <textarea id="shortdescription" name="shortdescription" rows="6" maxlength="140" required><?= htmlspecialchars($c->getAttribute('shortdescription')) ?></textarea>
-                                <div class="text-right">
-                                    <p><?= t('Characters left') ?>: <span class="counter">140</span></p>
-                                </div>
                             </div>
                             <hr>
                             <div class="item required">
@@ -88,14 +86,13 @@ JanesWalk.form.datepicker_cfg.defaultDate = new Date();
                                 <div class="alert alert-info">
                                     <?= t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.') ?>
                                 </div>
-                                <?= $c->getAttribute('longdescription') ?>
-                                <textarea class="textarea-wysiwyg col-md-12" id="longdescription" name="longdescription" rows="14"></textarea>
+                                <textarea class="col-md-12" id="longdescription" name="longdescription" rows="14"><?= $c->getAttribute('longdescription') ?></textarea>
                             </div>
                         </fieldset>
                         <?php if ($wards) { ?>
                         <fieldset id="wards">
+                            <legend><?= t('Sub-locality') ?></legend>
                             <div class="item">
-                                <label for="wards"><?= t('Sub-locality') ?></label>
                                 <div class="alert alert-info"><?= t('Choose a specific neighbourhood or area where your walk will take place.') ?></div>
                                 <select id="ward" name="ward">
                                     <?php foreach ($wards as $ward) { ?>

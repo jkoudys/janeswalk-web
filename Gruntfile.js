@@ -6,7 +6,7 @@
 module.exports = function(grunt) {
     var janeswalk = {
         js: 'themes/janeswalk/js/',
-        jslib: ['themes/janeswalk/js/shims.js', 'themes/janeswalk/js/extend.js', 'themes/janeswalk/js/v2/**/*.js', 'themes/janeswalk/js/app.js',],
+        jslib: ['themes/janeswalk/js/shims.js', 'themes/janeswalk/js/extend.js', 'themes/janeswalk/js/v2/**/*.js', 'themes/janeswalk/js/app.js', 'themes/janeswalk/js/v2/MapEditor.js'],
         css: 'themes/janeswalk/css/'
     };
 

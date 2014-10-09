@@ -83,7 +83,7 @@ class WalkFormController extends Controller
             'datepicker_cfg' => [
                 'format' => 'dd/mm/yyyy'
             ],
-            'data' => json_decode(json_encode($walk), true) // FIXME: this is a silly way to do it
+            'data' => $walk
         ];
 
         // Special case for cities with walk-formatting requirements
@@ -109,5 +109,9 @@ class WalkFormController extends Controller
         $this->set('lng', $latlng[1]);
         $this->set('front', $front);
         $this->set('pageViewName', 'CreateWalkView');
+
+        // Load JS we need in the form
+        $html = Loader::helper('html');
+        $this->addHeaderItem($html->javascript('jquery.timepicker.min.js'));
     }
 }

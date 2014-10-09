@@ -25,7 +25,7 @@ var jwMap = {}; // Not ideal, but keep for now until I can localize this.
 
 // Typeahead team members
 $.fn.teamTypeahead = function() {
-  this.typeahead({
+  this.autocomplete({
     name: 'team-member',
     remote: { url: '/api/walk_leaders?q=%QUERY', rateLimitWait: 100 },
     valueKey: 'first_name',
@@ -56,9 +56,6 @@ $.fn.teamTypeahead = function() {
 
 window.Janeswalk = {
   initialize: function() {
-
-    $('.brand i').transition({ y: 0 });
-
     // Append html
     if ($('body').hasClass('index')) {
       $('html').addClass('index-bg');
@@ -66,9 +63,13 @@ window.Janeswalk = {
 
     // Date Picker
 
-    var defaultDate = moment(JanesWalk.form.datepicker_cfg.defaultDate).format('MMMM D, YYYY');
+    var defaultDate = JanesWalk.form.datepicker_cfg.defaultDate;
 
-    $('.date-indicate-all, .date-indicate-set').html(defaultDate).attr('data-dateselected',JanesWalk.form.datepicker_cfg.defaultDate);
+    // Note: $.datepicker.formatDate( "MM d, yy", defaultDate); also works.
+    // Avoid including whole libs for one-offs, e.g. moment()
+    $('.date-indicate-all, .date-indicate-set').
+      html(defaultDate.toLocaleString('en-US', {year: "numeric", month: "long", day: "numeric"})).
+      attr('data-dateselected', defaultDate);
 
     $('.date-picker').datepicker(JanesWalk.form.datepicker_cfg).on('changeDate', function(e){
       $('#walk-time').timepicker('remove');
@@ -193,7 +194,6 @@ window.Janeswalk = {
 
     $('footer').on('click', '.remove-team-member, .remove-othermember', function() {
       $(this).parentsUntil('#walk-members').remove();
-      tipLoader();
     });
 
     // Primary Walk Leader expose
@@ -205,9 +205,6 @@ window.Janeswalk = {
       }
     });
 
-    // Autotabbing for telephone numbers
-    $('.tel :input').autotab_magic();
-
     // Notifications
     // Previewing Button
     $('#preview-walk').on('click', function(){
@@ -218,11 +215,6 @@ window.Janeswalk = {
     // Publish Walk Button
     $('#btn-submit').on('click', function(){
       $('#publish-warning').modal();
-    });
-
-    // Nutshell Limiting
-    $('.limit').limit({
-      'counter':'.counter'
     });
 
     // Theme selection limiting
@@ -243,7 +235,6 @@ window.Janeswalk = {
 
     $('footer').on('click', '.remove-resourceitem', function() {
       $(this).parentsUntil('#resource-list').remove();
-      tipLoader();
       return false;
     });
 
@@ -310,7 +301,7 @@ window.Janeswalk = {
       console.log("Loaded data locally");
     } else if (dataUrl){
       console.log("Remote fetching data");
-      $('.progress-spinner').spin(spinProperties);
+      // $('.progress-spinner').spin(spinProperties); TODO: replace with standard fontawesome spinner
       $.getJSON(dataUrl, function(data){
         JaneswalkData.fill(data);
       })
@@ -318,7 +309,7 @@ window.Janeswalk = {
         console.log("server error");
       })
       .always(function(){
-        $('.progress-spinner').spin(false);
+        // $('.progress-spinner').spin(false);
       });
     }
   }
@@ -327,8 +318,6 @@ window.Janeswalk = {
 function addMember(newTarget, callback){
   var obj = $('#'+newTarget).clone(true,true).appendTo('#walk-members').addClass('new useredited').show();
   $("#name",obj).teamTypeahead();
-  tipLoader();
-  $('.tel :input').autotab_magic();
   if (callback){
     callback();
   }
@@ -352,7 +341,6 @@ function addDateAll(selectedDate, selectedDuration, selectedDateFormatted){
 
 function addResource(){
   var obj = $('.resource-item-new.hide').clone(true,true).appendTo('#resource-list').addClass('new').removeClass('hide');
-  tipLoader();
   return obj;
 }
 
@@ -497,7 +485,7 @@ var JaneswalkData = {
         if (obj.is('textarea')){
           obj.html(data[key]);
           if (key === 'longdescription'){
-            $('#longdescription').data("wysihtml5").editor.setValue(data[key]);
+            // $('#longdescription').data("wysihtml5").editor.setValue(data[key]);
           }
         } else {
           obj.val(data[key]);
@@ -623,19 +611,28 @@ var spinProperties = {lines:10,length:15,width:5,radius:30};
 
 // On page load
 document.addEventListener("DOMContentLoaded", function() {
+  tinyMCE.init({
+    mode : "textareas",
+    theme : "advanced",
+    theme_advanced_toolbar_location : "top",
+    theme_advanced_toolbar_align : "left",
+    theme_advanced_buttons1 : "bold,italic,underline,separator,bullist,numlist",
+    theme_advanced_buttons2 : "",
+    theme_advanced_buttons3 : ""
+  });
+
   // Loader
-  $('.progress-spinner').spin(spinProperties);
+  // $('.progress-spinner').spin(spinProperties);
   Janeswalk.initialize();
 
   // Set DOM listener on page load.
-  if ($('#map-canvas').length > 0) {
-    jwMap = new JaneswalkMapEditor('#map-canvas');
+/*  if ($('#map-canvas').length > 0) {
+    jwMap = new MapEditor(JanesWalk);
     JaneswalkData.mapPopulate(jwMap);
-  }
+  } FIXME */
 
   // Scroll top on tab change 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-    tipLoader();
     $('body').scrollTop(0);
     $('.walk-submit').addClass('hide');
   });
@@ -643,13 +640,7 @@ document.addEventListener("DOMContentLoaded", function() {
   $('a[href="#route"][data-toggle="tab"]').on('shown.bs.tab', function(e) {
     google.maps.event.trigger(jwMap.map, 'resize');
     jwMap.centerRoute();
-    tipLoader();
   });
 
-});
-
-// Clean up spinners and such once content's loaded
-window.addEventListener("load", function() {
-  $('.progress-spinner').spin(false);
 });
 
