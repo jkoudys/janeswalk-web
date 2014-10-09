@@ -24,8 +24,8 @@ $this->inc('elements/header.php');
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
-        <?= $breadcrumb ?>
-      <div class="walk-label"><?= t('Festival Walk') ?></div>
+      <?= $breadcrumb ?>
+      <div class="walk-label"><?= trim((string) $c->getAttribute('walk_initiatives')) ?: t('Festival Walk') ?></div>
 
       <div class="tag-list">
         <ul class="nav nav-pills">
