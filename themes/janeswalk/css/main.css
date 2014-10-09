@@ -4099,16 +4099,28 @@ body > header .logo span:focus {
     display: none;
   }
 }
-.navbar-nav {
+.navbar-nav,
+body > header nav ul.nav,
+body > header nav ul.nav.navbar-right,
+body > header nav ul.social-login-providers.template-fontawesome,
+body > header nav ul.social-login-providers.template-fontawesome.navbar-right {
   margin: 7.5px -15px;
 }
-.navbar-nav > li > a {
+.navbar-nav > li > a,
+body > header nav ul.nav > li > a,
+body > header nav ul.nav.navbar-right > li > a,
+body > header nav ul.social-login-providers.template-fontawesome > li > a,
+body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
 }
 @media (max-width: 767px) {
-  .navbar-nav .open .dropdown-menu {
+  .navbar-nav .open .dropdown-menu,
+  body > header nav ul.nav .open .dropdown-menu,
+  body > header nav ul.nav.navbar-right .open .dropdown-menu,
+  body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu {
     position: static;
     float: none;
     width: auto;
@@ -4118,30 +4130,66 @@ body > header .logo span:focus {
     box-shadow: none;
   }
   .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-nav .open .dropdown-menu .dropdown-header {
+  .navbar-nav .open .dropdown-menu .dropdown-header,
+  body > header nav ul.nav .open .dropdown-menu > li > a,
+  body > header nav ul.nav .open .dropdown-menu .dropdown-header,
+  body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a,
+  body > header nav ul.nav.navbar-right .open .dropdown-menu .dropdown-header,
+  body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu .dropdown-header {
     padding: 5px 15px 5px 25px;
   }
-  .navbar-nav .open .dropdown-menu > li > a {
+  .navbar-nav .open .dropdown-menu > li > a,
+  body > header nav ul.nav .open .dropdown-menu > li > a,
+  body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a,
+  body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a {
     line-height: 20px;
   }
   .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-nav .open .dropdown-menu > li > a:focus {
+  .navbar-nav .open .dropdown-menu > li > a:focus,
+  body > header nav ul.nav .open .dropdown-menu > li > a:hover,
+  body > header nav ul.nav .open .dropdown-menu > li > a:focus,
+  body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a:hover,
+  body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a:focus,
+  body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a:hover,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a:focus {
     background-image: none;
   }
 }
 @media (min-width: 768px) {
-  .navbar-nav {
+  .navbar-nav,
+  body > header nav ul.nav,
+  body > header nav ul.nav.navbar-right,
+  body > header nav ul.social-login-providers.template-fontawesome,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right {
     float: left;
     margin: 0;
   }
-  .navbar-nav > li {
+  .navbar-nav > li,
+  body > header nav ul.nav > li,
+  body > header nav ul.nav.navbar-right > li,
+  body > header nav ul.social-login-providers.template-fontawesome > li,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li {
     float: left;
   }
-  .navbar-nav > li > a {
+  .navbar-nav > li > a,
+  body > header nav ul.nav > li > a,
+  body > header nav ul.nav.navbar-right > li > a,
+  body > header nav ul.social-login-providers.template-fontawesome > li > a,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a {
     padding-top: 15px;
     padding-bottom: 15px;
   }
-  .navbar-nav.navbar-right:last-child {
+  .navbar-nav.navbar-right:last-child,
+  body > header nav ul.nav.navbar-right:last-child,
+  body > header nav ul.nav.navbar-right.navbar-right:last-child,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right:last-child,
+  body > header nav ul.social-login-providers.template-fontawesome.navbar-right.navbar-right:last-child {
     margin-right: -15px;
   }
 }
@@ -4254,12 +4302,20 @@ body > header .logo span:focus {
     margin-right: -15px;
   }
 }
-.navbar-nav > li > .dropdown-menu {
+.navbar-nav > li > .dropdown-menu,
+body > header nav ul.nav > li > .dropdown-menu,
+body > header nav ul.nav.navbar-right > li > .dropdown-menu,
+body > header nav ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
+body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > .dropdown-menu {
   margin-top: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
-.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu {
+.navbar-fixed-bottom .navbar-nav > li > .dropdown-menu,
+.navbar-fixed-bottom body > header nav ul.nav > li > .dropdown-menu,
+.navbar-fixed-bottom body > header nav ul.nav.navbar-right > li > .dropdown-menu,
+.navbar-fixed-bottom body > header nav ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
+.navbar-fixed-bottom body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > .dropdown-menu {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -4320,15 +4376,27 @@ body > header.dropped .navbar-text {
 }
 .navbar-default .navbar-nav > li > a,
 body > header .navbar-nav > li > a,
-body > header.dropped .navbar-nav > li > a {
+.navbar-default body > header nav ul.nav > li > a,
+.navbar-default body > header nav ul.nav.navbar-right > li > a,
+body > header.dropped .navbar-nav > li > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > li > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a {
   color: #777777;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus,
 body > header .navbar-nav > li > a:hover,
 body > header .navbar-nav > li > a:focus,
+.navbar-default body > header nav ul.nav > li > a:hover,
+.navbar-default body > header nav ul.nav > li > a:focus,
+.navbar-default body > header nav ul.nav.navbar-right > li > a:hover,
+.navbar-default body > header nav ul.nav.navbar-right > li > a:focus,
 body > header.dropped .navbar-nav > li > a:hover,
-body > header.dropped .navbar-nav > li > a:focus {
+body > header.dropped .navbar-nav > li > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > li > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a:focus {
   color: #333333;
   background-color: transparent;
 }
@@ -4338,9 +4406,21 @@ body > header.dropped .navbar-nav > li > a:focus {
 body > header .navbar-nav > .active > a,
 body > header .navbar-nav > .active > a:hover,
 body > header .navbar-nav > .active > a:focus,
+.navbar-default body > header nav ul.nav > .active > a,
+.navbar-default body > header nav ul.nav > .active > a:hover,
+.navbar-default body > header nav ul.nav > .active > a:focus,
+.navbar-default body > header nav ul.nav.navbar-right > .active > a,
+.navbar-default body > header nav ul.nav.navbar-right > .active > a:hover,
+.navbar-default body > header nav ul.nav.navbar-right > .active > a:focus,
 body > header.dropped .navbar-nav > .active > a,
 body > header.dropped .navbar-nav > .active > a:hover,
-body > header.dropped .navbar-nav > .active > a:focus {
+body > header.dropped .navbar-nav > .active > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .active > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .active > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .active > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .active > a:focus {
   color: #555555;
   background-color: #e7e7e7;
 }
@@ -4350,9 +4430,21 @@ body > header.dropped .navbar-nav > .active > a:focus {
 body > header .navbar-nav > .disabled > a,
 body > header .navbar-nav > .disabled > a:hover,
 body > header .navbar-nav > .disabled > a:focus,
+.navbar-default body > header nav ul.nav > .disabled > a,
+.navbar-default body > header nav ul.nav > .disabled > a:hover,
+.navbar-default body > header nav ul.nav > .disabled > a:focus,
+.navbar-default body > header nav ul.nav.navbar-right > .disabled > a,
+.navbar-default body > header nav ul.nav.navbar-right > .disabled > a:hover,
+.navbar-default body > header nav ul.nav.navbar-right > .disabled > a:focus,
 body > header.dropped .navbar-nav > .disabled > a,
 body > header.dropped .navbar-nav > .disabled > a:hover,
-body > header.dropped .navbar-nav > .disabled > a:focus {
+body > header.dropped .navbar-nav > .disabled > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .disabled > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .disabled > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .disabled > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .disabled > a:focus {
   color: #cccccc;
   background-color: transparent;
 }
@@ -4388,24 +4480,48 @@ body > header.dropped .navbar-form {
 body > header .navbar-nav > .open > a,
 body > header .navbar-nav > .open > a:hover,
 body > header .navbar-nav > .open > a:focus,
+.navbar-default body > header nav ul.nav > .open > a,
+.navbar-default body > header nav ul.nav > .open > a:hover,
+.navbar-default body > header nav ul.nav > .open > a:focus,
+.navbar-default body > header nav ul.nav.navbar-right > .open > a,
+.navbar-default body > header nav ul.nav.navbar-right > .open > a:hover,
+.navbar-default body > header nav ul.nav.navbar-right > .open > a:focus,
 body > header.dropped .navbar-nav > .open > a,
 body > header.dropped .navbar-nav > .open > a:hover,
-body > header.dropped .navbar-nav > .open > a:focus {
+body > header.dropped .navbar-nav > .open > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome > .open > a:focus,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .open > a,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .open > a:hover,
+.navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .open > a:focus {
   background-color: #e7e7e7;
   color: #555555;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a,
   body > header .navbar-nav .open .dropdown-menu > li > a,
-  body > header.dropped .navbar-nav .open .dropdown-menu > li > a {
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > li > a,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a,
+  body > header.dropped .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a {
     color: #777777;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
   body > header .navbar-nav .open .dropdown-menu > li > a:hover,
   body > header .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a:hover,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a:focus,
   body > header.dropped .navbar-nav .open .dropdown-menu > li > a:hover,
-  body > header.dropped .navbar-nav .open .dropdown-menu > li > a:focus {
+  body > header.dropped .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a:hover,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a:focus {
     color: #333333;
     background-color: transparent;
   }
@@ -4415,9 +4531,21 @@ body > header.dropped .navbar-nav > .open > a:focus {
   body > header .navbar-nav .open .dropdown-menu > .active > a,
   body > header .navbar-nav .open .dropdown-menu > .active > a:hover,
   body > header .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > .active > a,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > .active > a,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > .active > a:hover,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > .active > a:focus,
   body > header.dropped .navbar-nav .open .dropdown-menu > .active > a,
   body > header.dropped .navbar-nav .open .dropdown-menu > .active > a:hover,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .active > a:focus {
+  body > header.dropped .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .active > a,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .active > a:hover,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .active > a:focus {
     color: #555555;
     background-color: #e7e7e7;
   }
@@ -4427,9 +4555,21 @@ body > header.dropped .navbar-nav > .open > a:focus {
   body > header .navbar-nav .open .dropdown-menu > .disabled > a,
   body > header .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   body > header .navbar-nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body > header nav ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > .disabled > a,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body > header nav ul.nav.navbar-right .open .dropdown-menu > .disabled > a:focus,
   body > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a,
   body > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  body > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .disabled > a,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .disabled > a:focus {
     color: #cccccc;
     background-color: transparent;
   }
@@ -4489,23 +4629,59 @@ fieldset[disabled] body > header.dropped .btn-link:focus {
 .navbar-inverse .navbar-text {
   color: #777777;
 }
-.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse body > header nav ul.nav > li > a,
+.navbar-inverse body > header nav ul.nav.navbar-right > li > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > li > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a {
   color: #777777;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
+.navbar-inverse .navbar-nav > li > a:focus,
+.navbar-inverse body > header nav ul.nav > li > a:hover,
+.navbar-inverse body > header nav ul.nav > li > a:focus,
+.navbar-inverse body > header nav ul.nav.navbar-right > li > a:hover,
+.navbar-inverse body > header nav ul.nav.navbar-right > li > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > li > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > li > a:focus {
   color: #ffffff;
   background-color: transparent;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
-.navbar-inverse .navbar-nav > .active > a:focus {
+.navbar-inverse .navbar-nav > .active > a:focus,
+.navbar-inverse body > header nav ul.nav > .active > a,
+.navbar-inverse body > header nav ul.nav > .active > a:hover,
+.navbar-inverse body > header nav ul.nav > .active > a:focus,
+.navbar-inverse body > header nav ul.nav.navbar-right > .active > a,
+.navbar-inverse body > header nav ul.nav.navbar-right > .active > a:hover,
+.navbar-inverse body > header nav ul.nav.navbar-right > .active > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .active > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .active > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .active > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .active > a:focus {
   color: #ffffff;
   background-color: #080808;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
-.navbar-inverse .navbar-nav > .disabled > a:focus {
+.navbar-inverse .navbar-nav > .disabled > a:focus,
+.navbar-inverse body > header nav ul.nav > .disabled > a,
+.navbar-inverse body > header nav ul.nav > .disabled > a:hover,
+.navbar-inverse body > header nav ul.nav > .disabled > a:focus,
+.navbar-inverse body > header nav ul.nav.navbar-right > .disabled > a,
+.navbar-inverse body > header nav ul.nav.navbar-right > .disabled > a:hover,
+.navbar-inverse body > header nav ul.nav.navbar-right > .disabled > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .disabled > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .disabled > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .disabled > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .disabled > a:focus {
   color: #444444;
   background-color: transparent;
 }
@@ -4525,34 +4701,90 @@ fieldset[disabled] body > header.dropped .btn-link:focus {
 }
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
-.navbar-inverse .navbar-nav > .open > a:focus {
+.navbar-inverse .navbar-nav > .open > a:focus,
+.navbar-inverse body > header nav ul.nav > .open > a,
+.navbar-inverse body > header nav ul.nav > .open > a:hover,
+.navbar-inverse body > header nav ul.nav > .open > a:focus,
+.navbar-inverse body > header nav ul.nav.navbar-right > .open > a,
+.navbar-inverse body > header nav ul.nav.navbar-right > .open > a:hover,
+.navbar-inverse body > header nav ul.nav.navbar-right > .open > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome > .open > a:focus,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .open > a,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .open > a:hover,
+.navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right > .open > a:focus {
   background-color: #080808;
   color: #ffffff;
 }
 @media (max-width: 767px) {
-  .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
-  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+  .navbar-inverse .navbar-nav .open .dropdown-menu .divider,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu .divider,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu .divider,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu .divider {
     background-color: #080808;
   }
-  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > li > a,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a {
     color: #777777;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
-  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > li > a:focus {
     color: #ffffff;
     background-color: transparent;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > .active > a,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > .active > a,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .active > a,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body > header nav ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body > header nav ul.nav.navbar-right .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body > header nav ul.social-login-providers.template-fontawesome.navbar-right .open .dropdown-menu > .disabled > a:focus {
     color: #444444;
     background-color: transparent;
   }
@@ -7225,12 +7457,14 @@ body > header nav {
     line-height: 1.1;
   }
 }
-body > header nav ul.navbar-nav > li > a {
+body > header nav ul.nav > li > a,
+body > header nav ul.social-login-providers.template-fontawesome > li > a {
   padding-top: 0;
   padding-bottom: 0;
   line-height: 60px;
 }
-body > header nav ul.navbar-nav.navbar-right {
+body > header nav ul.nav.navbar-right,
+body > header nav ul.social-login-providers.template-fontawesome.navbar-right {
   float: none;
   position: absolute;
   right: 0;
