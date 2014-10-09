@@ -34,8 +34,9 @@
       <div class="col-md-10">
         <?php     switch ($success) {
         case "registered":
-        ?>
+?>
         <p><strong><?php echo $successMsg ?></strong><br/><br/>
+        <p>Welcome to our global community! We're so glad you joined the constellation of incredible citizen urbanists that make their cities better every day, by walking and prompting open discussion with their neighbours. <?= $this->url('/') ?>Let's get started.</p>
         <a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
         <?php
         break;
