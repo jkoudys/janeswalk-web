@@ -217,12 +217,14 @@ th {
   }
   p,
   h2,
-  h3 {
+  h3,
+  #profileWrapper div.headline {
     orphans: 3;
     widows: 3;
   }
   h2,
-  h3 {
+  h3,
+  #profileWrapper div.headline {
     page-break-after: avoid;
   }
   select {
@@ -382,7 +384,8 @@ h6,
 .h3,
 .h4,
 .h5,
-.h6 {
+.h6,
+#profileWrapper div.headline {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
@@ -421,7 +424,8 @@ h1,
 h2,
 .h2,
 h3,
-.h3 {
+.h3,
+#profileWrapper div.headline {
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -471,7 +475,8 @@ h2,
   font-size: 30px;
 }
 h3,
-.h3 {
+.h3,
+#profileWrapper div.headline {
   font-size: 24px;
 }
 h4,
@@ -776,7 +781,14 @@ pre code {
   overflow-y: scroll;
 }
 .container,
-body > header nav {
+body > header nav,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
@@ -784,19 +796,40 @@ body > header nav {
 }
 @media (min-width: 768px) {
   .container,
-  body > header nav {
+  body > header nav,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
   .container,
-  body > header nav {
+  body > header nav,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
   .container,
-  body > header nav {
+  body > header nav,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
     width: 1170px;
   }
 }
@@ -1824,13 +1857,13 @@ output {
   color: #555555;
 }
 .form-control,
+select,
+input[type=text],
+input[type=email],
+input[type=password],
+textarea,
 dialog input[type=text],
-dialog input[type=password],
-#create-walk select,
-#create-walk input[type=text],
-#create-walk input[type=email],
-#create-walk input[type=password],
-#create-walk textarea {
+dialog input[type=password] {
   display: block;
   width: 100%;
   height: 34px;
@@ -1849,85 +1882,85 @@ dialog input[type=password],
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus,
+select:focus,
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus,
+textarea:focus,
 dialog input[type=text]:focus,
-dialog input[type=password]:focus,
-#create-walk select:focus,
-#create-walk input[type=text]:focus,
-#create-walk input[type=email]:focus,
-#create-walk input[type=password]:focus,
-#create-walk textarea:focus {
+dialog input[type=password]:focus {
   border-color: #66afe9;
   outline: 0;
   -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 .form-control::-moz-placeholder,
+select::-moz-placeholder,
+input[type=text]::-moz-placeholder,
+input[type=email]::-moz-placeholder,
+input[type=password]::-moz-placeholder,
+textarea::-moz-placeholder,
 dialog input[type=text]::-moz-placeholder,
-dialog input[type=password]::-moz-placeholder,
-#create-walk select::-moz-placeholder,
-#create-walk input[type=text]::-moz-placeholder,
-#create-walk input[type=email]::-moz-placeholder,
-#create-walk input[type=password]::-moz-placeholder,
-#create-walk textarea::-moz-placeholder {
+dialog input[type=password]::-moz-placeholder {
   color: #777777;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder,
+select:-ms-input-placeholder,
+input[type=text]:-ms-input-placeholder,
+input[type=email]:-ms-input-placeholder,
+input[type=password]:-ms-input-placeholder,
+textarea:-ms-input-placeholder,
 dialog input[type=text]:-ms-input-placeholder,
-dialog input[type=password]:-ms-input-placeholder,
-#create-walk select:-ms-input-placeholder,
-#create-walk input[type=text]:-ms-input-placeholder,
-#create-walk input[type=email]:-ms-input-placeholder,
-#create-walk input[type=password]:-ms-input-placeholder,
-#create-walk textarea:-ms-input-placeholder {
+dialog input[type=password]:-ms-input-placeholder {
   color: #777777;
 }
 .form-control::-webkit-input-placeholder,
+select::-webkit-input-placeholder,
+input[type=text]::-webkit-input-placeholder,
+input[type=email]::-webkit-input-placeholder,
+input[type=password]::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder,
 dialog input[type=text]::-webkit-input-placeholder,
-dialog input[type=password]::-webkit-input-placeholder,
-#create-walk select::-webkit-input-placeholder,
-#create-walk input[type=text]::-webkit-input-placeholder,
-#create-walk input[type=email]::-webkit-input-placeholder,
-#create-walk input[type=password]::-webkit-input-placeholder,
-#create-walk textarea::-webkit-input-placeholder {
+dialog input[type=password]::-webkit-input-placeholder {
   color: #777777;
 }
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control,
+select[disabled],
+select[readonly],
+fieldset[disabled] select,
+input[type=text][disabled],
+input[type=text][readonly],
+fieldset[disabled] input[type=text],
+input[type=email][disabled],
+input[type=email][readonly],
+fieldset[disabled] input[type=email],
+input[type=password][disabled],
+input[type=password][readonly],
+fieldset[disabled] input[type=password],
+textarea[disabled],
+textarea[readonly],
+fieldset[disabled] textarea,
 dialog input[type=text][disabled],
 dialog input[type=text][readonly],
 fieldset[disabled] dialog input[type=text],
 dialog input[type=password][disabled],
 dialog input[type=password][readonly],
-fieldset[disabled] dialog input[type=password],
-#create-walk select[disabled],
-#create-walk select[readonly],
-fieldset[disabled] #create-walk select,
-#create-walk input[type=text][disabled],
-#create-walk input[type=text][readonly],
-fieldset[disabled] #create-walk input[type=text],
-#create-walk input[type=email][disabled],
-#create-walk input[type=email][readonly],
-fieldset[disabled] #create-walk input[type=email],
-#create-walk input[type=password][disabled],
-#create-walk input[type=password][readonly],
-fieldset[disabled] #create-walk input[type=password],
-#create-walk textarea[disabled],
-#create-walk textarea[readonly],
-fieldset[disabled] #create-walk textarea {
+fieldset[disabled] dialog input[type=password] {
   cursor: not-allowed;
   background-color: #eeeeee;
   opacity: 1;
 }
 textarea.form-control,
+textareaselect,
+textareainput[type=text],
+textareainput[type=email],
+textareainput[type=password],
+textareatextarea,
 textareadialog input[type=text],
-textareadialog input[type=password],
-textarea#create-walk select,
-textarea#create-walk input[type=text],
-textarea#create-walk input[type=email],
-textarea#create-walk input[type=password],
-textarea#create-walk textarea {
+textareadialog input[type=password] {
   height: auto;
 }
 input[type="search"] {
@@ -2029,13 +2062,13 @@ fieldset[disabled] .checkbox label {
 }
 .input-sm,
 .form-horizontal .form-group-sm .form-control,
+.form-horizontal .form-group-sm select,
+.form-horizontal .form-group-sm input[type=text],
+.form-horizontal .form-group-sm input[type=email],
+.form-horizontal .form-group-sm input[type=password],
+.form-horizontal .form-group-sm textarea,
 .form-horizontal .form-group-sm dialog input[type=text],
-.form-horizontal .form-group-sm dialog input[type=password],
-.form-horizontal .form-group-sm #create-walk select,
-.form-horizontal .form-group-sm #create-walk input[type=text],
-.form-horizontal .form-group-sm #create-walk input[type=email],
-.form-horizontal .form-group-sm #create-walk input[type=password],
-.form-horizontal .form-group-sm #create-walk textarea {
+.form-horizontal .form-group-sm dialog input[type=password] {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -2052,13 +2085,13 @@ select[multiple].input-sm {
 }
 .input-lg,
 .form-horizontal .form-group-lg .form-control,
+.form-horizontal .form-group-lg select,
+.form-horizontal .form-group-lg input[type=text],
+.form-horizontal .form-group-lg input[type=email],
+.form-horizontal .form-group-lg input[type=password],
+.form-horizontal .form-group-lg textarea,
 .form-horizontal .form-group-lg dialog input[type=text],
-.form-horizontal .form-group-lg dialog input[type=password],
-.form-horizontal .form-group-lg #create-walk select,
-.form-horizontal .form-group-lg #create-walk input[type=text],
-.form-horizontal .form-group-lg #create-walk input[type=email],
-.form-horizontal .form-group-lg #create-walk input[type=password],
-.form-horizontal .form-group-lg #create-walk textarea {
+.form-horizontal .form-group-lg dialog input[type=password] {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -2077,13 +2110,13 @@ select[multiple].input-lg {
   position: relative;
 }
 .has-feedback .form-control,
+.has-feedback select,
+.has-feedback input[type=text],
+.has-feedback input[type=email],
+.has-feedback input[type=password],
+.has-feedback textarea,
 .has-feedback dialog input[type=text],
-.has-feedback dialog input[type=password],
-.has-feedback #create-walk select,
-.has-feedback #create-walk input[type=text],
-.has-feedback #create-walk input[type=email],
-.has-feedback #create-walk input[type=password],
-.has-feedback #create-walk textarea {
+.has-feedback dialog input[type=password] {
   padding-right: 42.5px;
 }
 .form-control-feedback {
@@ -2116,25 +2149,25 @@ select[multiple].input-lg {
   color: #3c763d;
 }
 .has-success .form-control,
+.has-success select,
+.has-success input[type=text],
+.has-success input[type=email],
+.has-success input[type=password],
+.has-success textarea,
 .has-success dialog input[type=text],
-.has-success dialog input[type=password],
-.has-success #create-walk select,
-.has-success #create-walk input[type=text],
-.has-success #create-walk input[type=email],
-.has-success #create-walk input[type=password],
-.has-success #create-walk textarea {
+.has-success dialog input[type=password] {
   border-color: #3c763d;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-success .form-control:focus,
+.has-success select:focus,
+.has-success input[type=text]:focus,
+.has-success input[type=email]:focus,
+.has-success input[type=password]:focus,
+.has-success textarea:focus,
 .has-success dialog input[type=text]:focus,
-.has-success dialog input[type=password]:focus,
-.has-success #create-walk select:focus,
-.has-success #create-walk input[type=text]:focus,
-.has-success #create-walk input[type=email]:focus,
-.has-success #create-walk input[type=password]:focus,
-.has-success #create-walk textarea:focus {
+.has-success dialog input[type=password]:focus {
   border-color: #2b542c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
@@ -2156,25 +2189,25 @@ select[multiple].input-lg {
   color: #8a6d3b;
 }
 .has-warning .form-control,
+.has-warning select,
+.has-warning input[type=text],
+.has-warning input[type=email],
+.has-warning input[type=password],
+.has-warning textarea,
 .has-warning dialog input[type=text],
-.has-warning dialog input[type=password],
-.has-warning #create-walk select,
-.has-warning #create-walk input[type=text],
-.has-warning #create-walk input[type=email],
-.has-warning #create-walk input[type=password],
-.has-warning #create-walk textarea {
+.has-warning dialog input[type=password] {
   border-color: #8a6d3b;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-warning .form-control:focus,
+.has-warning select:focus,
+.has-warning input[type=text]:focus,
+.has-warning input[type=email]:focus,
+.has-warning input[type=password]:focus,
+.has-warning textarea:focus,
 .has-warning dialog input[type=text]:focus,
-.has-warning dialog input[type=password]:focus,
-.has-warning #create-walk select:focus,
-.has-warning #create-walk input[type=text]:focus,
-.has-warning #create-walk input[type=email]:focus,
-.has-warning #create-walk input[type=password]:focus,
-.has-warning #create-walk textarea:focus {
+.has-warning dialog input[type=password]:focus {
   border-color: #66512c;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
@@ -2196,25 +2229,25 @@ select[multiple].input-lg {
   color: #a94442;
 }
 .has-error .form-control,
+.has-error select,
+.has-error input[type=text],
+.has-error input[type=email],
+.has-error input[type=password],
+.has-error textarea,
 .has-error dialog input[type=text],
-.has-error dialog input[type=password],
-.has-error #create-walk select,
-.has-error #create-walk input[type=text],
-.has-error #create-walk input[type=email],
-.has-error #create-walk input[type=password],
-.has-error #create-walk textarea {
+.has-error dialog input[type=password] {
   border-color: #a94442;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
 .has-error .form-control:focus,
+.has-error select:focus,
+.has-error input[type=text]:focus,
+.has-error input[type=email]:focus,
+.has-error input[type=password]:focus,
+.has-error textarea:focus,
 .has-error dialog input[type=text]:focus,
-.has-error dialog input[type=password]:focus,
-.has-error #create-walk select:focus,
-.has-error #create-walk input[type=text]:focus,
-.has-error #create-walk input[type=email]:focus,
-.has-error #create-walk input[type=password]:focus,
-.has-error #create-walk textarea:focus {
+.has-error dialog input[type=password]:focus {
   border-color: #843534;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
@@ -2244,13 +2277,13 @@ select[multiple].input-lg {
     vertical-align: middle;
   }
   .form-inline .form-control,
+  .form-inline select,
+  .form-inline input[type=text],
+  .form-inline input[type=email],
+  .form-inline input[type=password],
+  .form-inline textarea,
   .form-inline dialog input[type=text],
-  .form-inline dialog input[type=password],
-  .form-inline #create-walk select,
-  .form-inline #create-walk input[type=text],
-  .form-inline #create-walk input[type=email],
-  .form-inline #create-walk input[type=password],
-  .form-inline #create-walk textarea {
+  .form-inline dialog input[type=password] {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -2262,23 +2295,23 @@ select[multiple].input-lg {
   .form-inline .input-group .input-group-addon,
   .form-inline .input-group .input-group-btn,
   .form-inline .input-group .form-control,
+  .form-inline .input-group select,
+  .form-inline .input-group input[type=text],
+  .form-inline .input-group input[type=email],
+  .form-inline .input-group input[type=password],
+  .form-inline .input-group textarea,
   .form-inline .input-group dialog input[type=text],
-  .form-inline .input-group dialog input[type=password],
-  .form-inline .input-group #create-walk select,
-  .form-inline .input-group #create-walk input[type=text],
-  .form-inline .input-group #create-walk input[type=email],
-  .form-inline .input-group #create-walk input[type=password],
-  .form-inline .input-group #create-walk textarea {
+  .form-inline .input-group dialog input[type=password] {
     width: auto;
   }
   .form-inline .input-group > .form-control,
+  .form-inline .input-group > select,
+  .form-inline .input-group > input[type=text],
+  .form-inline .input-group > input[type=email],
+  .form-inline .input-group > input[type=password],
+  .form-inline .input-group > textarea,
   .form-inline .input-group > dialog input[type=text],
-  .form-inline .input-group > dialog input[type=password],
-  .form-inline .input-group > #create-walk select,
-  .form-inline .input-group > #create-walk input[type=text],
-  .form-inline .input-group > #create-walk input[type=email],
-  .form-inline .input-group > #create-walk input[type=password],
-  .form-inline .input-group > #create-walk textarea {
+  .form-inline .input-group > dialog input[type=password] {
     width: 100%;
   }
   .form-inline .control-label {
@@ -3364,13 +3397,13 @@ tbody.collapse.in {
   padding-right: 0;
 }
 .input-group .form-control,
+.input-group select,
+.input-group input[type=text],
+.input-group input[type=email],
+.input-group input[type=password],
+.input-group textarea,
 .input-group dialog input[type=text],
-.input-group dialog input[type=password],
-.input-group #create-walk select,
-.input-group #create-walk input[type=text],
-.input-group #create-walk input[type=email],
-.input-group #create-walk input[type=password],
-.input-group #create-walk textarea {
+.input-group dialog input[type=password] {
   position: relative;
   z-index: 2;
   float: left;
@@ -3380,15 +3413,15 @@ tbody.collapse.in {
 .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
+.input-group-lg > select,
+.input-group-lg > input[type=text],
+.input-group-lg > input[type=email],
+.input-group-lg > input[type=password],
+.input-group-lg > textarea,
 .input-group-lg > dialog input[type=text],
 .input-group-lg > dialog input[type=password],
 .input-group-lg > .input-group-btn > .walk-select .create-walk,
 .input-group-lg > .input-group-btn > .walk-select .create-walk:after,
-.input-group-lg > #create-walk select,
-.input-group-lg > #create-walk input[type=text],
-.input-group-lg > #create-walk input[type=email],
-.input-group-lg > #create-walk input[type=password],
-.input-group-lg > #create-walk textarea,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar button {
   height: 46px;
   padding: 10px 16px;
@@ -3399,15 +3432,15 @@ tbody.collapse.in {
 select.input-group-lg > .form-control,
 select.input-group-lg > .input-group-addon,
 select.input-group-lg > .input-group-btn > .btn,
+select.input-group-lg > select,
+select.input-group-lg > input[type=text],
+select.input-group-lg > input[type=email],
+select.input-group-lg > input[type=password],
+select.input-group-lg > textarea,
 select.input-group-lg > dialog input[type=text],
 select.input-group-lg > dialog input[type=password],
 select.input-group-lg > .input-group-btn > .walk-select .create-walk,
 select.input-group-lg > .input-group-btn > .walk-select .create-walk:after,
-select.input-group-lg > #create-walk select,
-select.input-group-lg > #create-walk input[type=text],
-select.input-group-lg > #create-walk input[type=email],
-select.input-group-lg > #create-walk input[type=password],
-select.input-group-lg > #create-walk textarea,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button {
   height: 46px;
   line-height: 46px;
@@ -3418,6 +3451,16 @@ textarea.input-group-lg > .input-group-btn > .btn,
 select[multiple].input-group-lg > .form-control,
 select[multiple].input-group-lg > .input-group-addon,
 select[multiple].input-group-lg > .input-group-btn > .btn,
+textarea.input-group-lg > select,
+select[multiple].input-group-lg > select,
+textarea.input-group-lg > input[type=text],
+select[multiple].input-group-lg > input[type=text],
+textarea.input-group-lg > input[type=email],
+select[multiple].input-group-lg > input[type=email],
+textarea.input-group-lg > input[type=password],
+select[multiple].input-group-lg > input[type=password],
+textarea.input-group-lg > textarea,
+select[multiple].input-group-lg > textarea,
 textarea.input-group-lg > dialog input[type=text],
 select[multiple].input-group-lg > dialog input[type=text],
 textarea.input-group-lg > dialog input[type=password],
@@ -3426,16 +3469,6 @@ textarea.input-group-lg > .input-group-btn > .walk-select .create-walk,
 select[multiple].input-group-lg > .input-group-btn > .walk-select .create-walk,
 textarea.input-group-lg > .input-group-btn > .walk-select .create-walk:after,
 select[multiple].input-group-lg > .input-group-btn > .walk-select .create-walk:after,
-textarea.input-group-lg > #create-walk select,
-select[multiple].input-group-lg > #create-walk select,
-textarea.input-group-lg > #create-walk input[type=text],
-select[multiple].input-group-lg > #create-walk input[type=text],
-textarea.input-group-lg > #create-walk input[type=email],
-select[multiple].input-group-lg > #create-walk input[type=email],
-textarea.input-group-lg > #create-walk input[type=password],
-select[multiple].input-group-lg > #create-walk input[type=password],
-textarea.input-group-lg > #create-walk textarea,
-select[multiple].input-group-lg > #create-walk textarea,
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button {
   height: auto;
@@ -3443,15 +3476,15 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-b
 .input-group-sm > .form-control,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
+.input-group-sm > select,
+.input-group-sm > input[type=text],
+.input-group-sm > input[type=email],
+.input-group-sm > input[type=password],
+.input-group-sm > textarea,
 .input-group-sm > dialog input[type=text],
 .input-group-sm > dialog input[type=password],
 .input-group-sm > .input-group-btn > .walk-select .create-walk,
 .input-group-sm > .input-group-btn > .walk-select .create-walk:after,
-.input-group-sm > #create-walk select,
-.input-group-sm > #create-walk input[type=text],
-.input-group-sm > #create-walk input[type=email],
-.input-group-sm > #create-walk input[type=password],
-.input-group-sm > #create-walk textarea,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar button {
   height: 30px;
   padding: 5px 10px;
@@ -3462,15 +3495,15 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-b
 select.input-group-sm > .form-control,
 select.input-group-sm > .input-group-addon,
 select.input-group-sm > .input-group-btn > .btn,
+select.input-group-sm > select,
+select.input-group-sm > input[type=text],
+select.input-group-sm > input[type=email],
+select.input-group-sm > input[type=password],
+select.input-group-sm > textarea,
 select.input-group-sm > dialog input[type=text],
 select.input-group-sm > dialog input[type=password],
 select.input-group-sm > .input-group-btn > .walk-select .create-walk,
 select.input-group-sm > .input-group-btn > .walk-select .create-walk:after,
-select.input-group-sm > #create-walk select,
-select.input-group-sm > #create-walk input[type=text],
-select.input-group-sm > #create-walk input[type=email],
-select.input-group-sm > #create-walk input[type=password],
-select.input-group-sm > #create-walk textarea,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button {
   height: 30px;
   line-height: 30px;
@@ -3481,6 +3514,16 @@ textarea.input-group-sm > .input-group-btn > .btn,
 select[multiple].input-group-sm > .form-control,
 select[multiple].input-group-sm > .input-group-addon,
 select[multiple].input-group-sm > .input-group-btn > .btn,
+textarea.input-group-sm > select,
+select[multiple].input-group-sm > select,
+textarea.input-group-sm > input[type=text],
+select[multiple].input-group-sm > input[type=text],
+textarea.input-group-sm > input[type=email],
+select[multiple].input-group-sm > input[type=email],
+textarea.input-group-sm > input[type=password],
+select[multiple].input-group-sm > input[type=password],
+textarea.input-group-sm > textarea,
+select[multiple].input-group-sm > textarea,
 textarea.input-group-sm > dialog input[type=text],
 select[multiple].input-group-sm > dialog input[type=text],
 textarea.input-group-sm > dialog input[type=password],
@@ -3489,16 +3532,6 @@ textarea.input-group-sm > .input-group-btn > .walk-select .create-walk,
 select[multiple].input-group-sm > .input-group-btn > .walk-select .create-walk,
 textarea.input-group-sm > .input-group-btn > .walk-select .create-walk:after,
 select[multiple].input-group-sm > .input-group-btn > .walk-select .create-walk:after,
-textarea.input-group-sm > #create-walk select,
-select[multiple].input-group-sm > #create-walk select,
-textarea.input-group-sm > #create-walk input[type=text],
-select[multiple].input-group-sm > #create-walk input[type=text],
-textarea.input-group-sm > #create-walk input[type=email],
-select[multiple].input-group-sm > #create-walk input[type=email],
-textarea.input-group-sm > #create-walk input[type=password],
-select[multiple].input-group-sm > #create-walk input[type=password],
-textarea.input-group-sm > #create-walk textarea,
-select[multiple].input-group-sm > #create-walk textarea,
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button {
   height: auto;
@@ -3506,25 +3539,25 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group-addon,
 .input-group-btn,
 .input-group .form-control,
+.input-group select,
+.input-group input[type=text],
+.input-group input[type=email],
+.input-group input[type=password],
+.input-group textarea,
 .input-group dialog input[type=text],
-.input-group dialog input[type=password],
-.input-group #create-walk select,
-.input-group #create-walk input[type=text],
-.input-group #create-walk input[type=email],
-.input-group #create-walk input[type=password],
-.input-group #create-walk textarea {
+.input-group dialog input[type=password] {
   display: table-cell;
 }
 .input-group-addon:not(:first-child):not(:last-child),
 .input-group-btn:not(:first-child):not(:last-child),
 .input-group .form-control:not(:first-child):not(:last-child),
+.input-group select:not(:first-child):not(:last-child),
+.input-group input[type=text]:not(:first-child):not(:last-child),
+.input-group input[type=email]:not(:first-child):not(:last-child),
+.input-group input[type=password]:not(:first-child):not(:last-child),
+.input-group textarea:not(:first-child):not(:last-child),
 .input-group dialog input[type=text]:not(:first-child):not(:last-child),
-.input-group dialog input[type=password]:not(:first-child):not(:last-child),
-.input-group #create-walk select:not(:first-child):not(:last-child),
-.input-group #create-walk input[type=text]:not(:first-child):not(:last-child),
-.input-group #create-walk input[type=email]:not(:first-child):not(:last-child),
-.input-group #create-walk input[type=password]:not(:first-child):not(:last-child),
-.input-group #create-walk textarea:not(:first-child):not(:last-child) {
+.input-group dialog input[type=password]:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 .input-group-addon,
@@ -3565,6 +3598,11 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > .btn,
+.input-group select:first-child,
+.input-group input[type=text]:first-child,
+.input-group input[type=email]:first-child,
+.input-group input[type=password]:first-child,
+.input-group textarea:first-child,
 .input-group dialog input[type=text]:first-child,
 .input-group dialog input[type=password]:first-child,
 .input-group-btn:first-child > .walk-select .create-walk,
@@ -3575,11 +3613,6 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group-btn:first-child > .btn-group > .walk-select .create-walk:after,
 .input-group-btn:last-child > .walk-select .create-walk:after:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > .walk-select .create-walk:after,
-.input-group #create-walk select:first-child,
-.input-group #create-walk input[type=text]:first-child,
-.input-group #create-walk input[type=email]:first-child,
-.input-group #create-walk input[type=password]:first-child,
-.input-group #create-walk textarea:first-child,
 .input-group-btn:first-child > #create-walk #map-control-bar > .btn,
 .input-group-btn:last-child > #create-walk #map-control-bar:not(:last-child) > .btn,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
@@ -3601,6 +3634,11 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > .btn,
+.input-group select:last-child,
+.input-group input[type=text]:last-child,
+.input-group input[type=email]:last-child,
+.input-group input[type=password]:last-child,
+.input-group textarea:last-child,
 .input-group dialog input[type=text]:last-child,
 .input-group dialog input[type=password]:last-child,
 .input-group-btn:last-child > .walk-select .create-walk,
@@ -3611,11 +3649,6 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group-btn:last-child > .btn-group > .walk-select .create-walk:after,
 .input-group-btn:first-child > .walk-select .create-walk:after:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > .walk-select .create-walk:after,
-.input-group #create-walk select:last-child,
-.input-group #create-walk input[type=text]:last-child,
-.input-group #create-walk input[type=email]:last-child,
-.input-group #create-walk input[type=password]:last-child,
-.input-group #create-walk textarea:last-child,
 .input-group-btn:last-child > #create-walk #map-control-bar > .btn,
 .input-group-btn:first-child > #create-walk #map-control-bar:not(:first-child) > .btn,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
@@ -3987,7 +4020,21 @@ body > header.dropped .navbar-collapse {
 .container > body > header .logo,
 .container-fluid > body > header .logo,
 body > header nav > .navbar-header,
-body > header nav > .navbar-collapse {
+body > header nav > .navbar-collapse,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -3999,7 +4046,21 @@ body > header nav > .navbar-collapse {
   .container > body > header .logo,
   .container-fluid > body > header .logo,
   body > header nav > .navbar-header,
-  body > header nav > .navbar-collapse {
+  body > header nav > .navbar-collapse,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
   }
@@ -4066,7 +4127,14 @@ body > header .logo span:focus {
   .navbar > .container-fluid body > header .logo span,
   .navbar > body > header nav .navbar-brand,
   body > header.dropped > .container .navbar-brand,
-  body > header.dropped > .container-fluid .navbar-brand {
+  body > header.dropped > .container-fluid .navbar-brand,
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .navbar-brand,
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .navbar-brand,
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .navbar-brand,
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand {
     margin-left: -15px;
   }
 }
@@ -4220,13 +4288,13 @@ body > header nav ul.social-login-providers.template-fontawesome.navbar-right > 
     vertical-align: middle;
   }
   .navbar-form .form-control,
+  .navbar-form select,
+  .navbar-form input[type=text],
+  .navbar-form input[type=email],
+  .navbar-form input[type=password],
+  .navbar-form textarea,
   .navbar-form dialog input[type=text],
-  .navbar-form dialog input[type=password],
-  .navbar-form #create-walk select,
-  .navbar-form #create-walk input[type=text],
-  .navbar-form #create-walk input[type=email],
-  .navbar-form #create-walk input[type=password],
-  .navbar-form #create-walk textarea {
+  .navbar-form dialog input[type=password] {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -4238,23 +4306,23 @@ body > header nav ul.social-login-providers.template-fontawesome.navbar-right > 
   .navbar-form .input-group .input-group-addon,
   .navbar-form .input-group .input-group-btn,
   .navbar-form .input-group .form-control,
+  .navbar-form .input-group select,
+  .navbar-form .input-group input[type=text],
+  .navbar-form .input-group input[type=email],
+  .navbar-form .input-group input[type=password],
+  .navbar-form .input-group textarea,
   .navbar-form .input-group dialog input[type=text],
-  .navbar-form .input-group dialog input[type=password],
-  .navbar-form .input-group #create-walk select,
-  .navbar-form .input-group #create-walk input[type=text],
-  .navbar-form .input-group #create-walk input[type=email],
-  .navbar-form .input-group #create-walk input[type=password],
-  .navbar-form .input-group #create-walk textarea {
+  .navbar-form .input-group dialog input[type=password] {
     width: auto;
   }
   .navbar-form .input-group > .form-control,
+  .navbar-form .input-group > select,
+  .navbar-form .input-group > input[type=text],
+  .navbar-form .input-group > input[type=email],
+  .navbar-form .input-group > input[type=password],
+  .navbar-form .input-group > textarea,
   .navbar-form .input-group > dialog input[type=text],
-  .navbar-form .input-group > dialog input[type=password],
-  .navbar-form .input-group > #create-walk select,
-  .navbar-form .input-group > #create-walk input[type=text],
-  .navbar-form .input-group > #create-walk input[type=email],
-  .navbar-form .input-group > #create-walk input[type=password],
-  .navbar-form .input-group > #create-walk textarea {
+  .navbar-form .input-group > dialog input[type=password] {
     width: 100%;
   }
   .navbar-form .control-label {
@@ -5089,24 +5157,30 @@ a.ccm-page-list.ccm-blog-index li figure.active {
   padding: 9px;
   color: #333333;
 }
-.alert {
+.alert,
+#profileWrapper .steps {
   padding: 15px;
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
-.alert h4 {
+.alert h4,
+#profileWrapper .steps h4 {
   margin-top: 0;
   color: inherit;
 }
-.alert .alert-link {
+.alert .alert-link,
+#profileWrapper .steps .alert-link {
   font-weight: bold;
 }
 .alert > p,
-.alert > ul {
+.alert > ul,
+#profileWrapper .steps > p,
+#profileWrapper .steps > ul {
   margin-bottom: 0;
 }
-.alert > p + p {
+.alert > p + p,
+#profileWrapper .steps > p + p {
   margin-top: 5px;
 }
 .alert-dismissable,
@@ -5131,7 +5205,8 @@ a.ccm-page-list.ccm-blog-index li figure.active {
 .alert-success .alert-link {
   color: #2b542c;
 }
-.alert-info {
+.alert-info,
+#profileWrapper .steps {
   background-color: #d9edf7;
   border-color: #bce8f1;
   color: #31708f;
@@ -6490,6 +6565,20 @@ dialog > div > article footer:after,
 .form-horizontal dialog label:after,
 .social-login-providers.template-fontawesome:before,
 .social-login-providers.template-fontawesome:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
 #create-walk > section:before,
 #create-walk > section:after,
 .btn-group-vertical > #create-walk #map-control-bar:before,
@@ -6521,6 +6610,13 @@ body > header.dropped:after,
 dialog > div > article footer:after,
 .form-horizontal dialog label:after,
 .social-login-providers.template-fontawesome:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
 #create-walk > section:after,
 .btn-group-vertical > #create-walk #map-control-bar:after,
 .btn-group-vertical > #create-walk #map-control-bar:after:after {
@@ -6774,6 +6870,28 @@ dialog > div > article footer:after,
   .hidden-print {
     display: none !important;
   }
+}
+textarea {
+  height: auto;
+}
+textarea,
+input {
+  font-weight: 500;
+}
+.radio input[type=checkbox],
+.radio-inline input[type=checkbox],
+.checkbox input[type=checkbox],
+.checkbox-inline input[type=checkbox],
+.radio input[type=radio],
+.radio-inline input[type=radio],
+.checkbox input[type=radio],
+.checkbox-inline input[type=radio] {
+  margin-left: 0;
+  position: relative;
+  font-weight: 500;
+}
+div.field {
+  padding-bottom: 1.5em;
 }
 html {
   /* Pad for the fixed-footer */
@@ -7176,7 +7294,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+#profileWrapper div.headline {
   font-family: "museo-slab", "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -7190,7 +7309,8 @@ h2 {
   font-weight: 100;
   font-size: 40px;
 }
-h3 {
+h3,
+#profileWrapper div.headline {
   font-weight: 100;
   font-size: 25px;
 }
@@ -7346,7 +7466,14 @@ a {
   font-weight: 400;
 }
 .notification .container,
-.notification body > header nav {
+.notification body > header nav,
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -7415,14 +7542,28 @@ a {
     padding-top: 0 !important;
   }
   div.container-outter div.container,
-  div.container-outter divbody > header nav {
+  div.container-outter divbody > header nav,
+  div.container-outter div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+  div.container-outter div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  div.container-outter div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  div.container-outter div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  div.container-outter div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  div.container-outter div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  div.container-outter div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
     padding: 20px 0 0;
   }
 }
 header.navbar div.navbar-inner div.container,
 headerbody > header div.navbar-inner div.container,
 header.navbar div.navbar-inner divbody > header nav,
-headerbody > header.dropped div.navbar-inner div.container {
+headerbody > header.dropped div.navbar-inner div.container,
+header.navbar div.navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+header.navbar div.navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+header.navbar div.navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+header.navbar div.navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+header.navbar div.navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+header.navbar div.navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+header.navbar div.navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   height: 60px;
   overflow: hidden;
 }
@@ -7479,7 +7620,14 @@ body > header .notification {
   background: #9854df;
 }
 body > header .notification .container,
-body > header .notification body > header nav {
+body > header .notification body > header nav,
+body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
@@ -7743,6 +7891,23 @@ dialog input[type=password] {
 .ccm-page-list.ccm-blog-index {
   list-style-type: none;
   padding: 0;
+  margin: 0 !important;
+}
+.ccm-page-list.ccm-blog-index:before,
+.ccm-page-list.ccm-blog-index:after {
+  content: " ";
+  display: table;
+}
+.ccm-page-list.ccm-blog-index:after {
+  clear: both;
+}
+.ccm-page-list.ccm-blog-index:before,
+.ccm-page-list.ccm-blog-index:after {
+  content: " ";
+  display: table;
+}
+.ccm-page-list.ccm-blog-index:after {
+  clear: both;
 }
 .ccm-page-list.ccm-blog-index li {
   position: relative;
@@ -7753,8 +7918,12 @@ dialog input[type=password] {
 @media (min-width: 992px) {
   .ccm-page-list.ccm-blog-index li {
     float: left;
-    width: 33.33333333%;
+    width: 25%;
   }
+}
+.ccm-page-list.ccm-blog-index li:before {
+  content: '' !important;
+  padding: 0 !important;
 }
 .ccm-page-list.ccm-blog-index li:first-child {
   margin-left: 0;
@@ -8468,21 +8637,113 @@ section.sponsors {
     margin: 0 !important;
   }
 }
-div#profileWrapper {
-  width: 960px;
-  margin: 60px auto 60px;
+#profileWrapper {
+  max-width: 992px;
+  margin: 0 auto;
+  padding-top: 20px;
 }
-div#profileWrapper .nav,
-div#profileWrapper .social-login-providers.template-fontawesome {
+#profileWrapper .nav,
+#profileWrapper .social-login-providers.template-fontawesome {
   margin: 0;
 }
-div#profileWrapper div.progressb {
+#profileWrapper div.headline {
+  margin-top: 0;
+}
+#profileWrapper .field:before,
+#profileWrapper .field:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper .field:after {
+  clear: both;
+}
+#profileWrapper .field:before,
+#profileWrapper .field:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper .field:after {
+  clear: both;
+}
+#profileWrapper div.title:before,
+#profileWrapper div.title:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.title:after {
+  clear: both;
+}
+#profileWrapper div.title:before,
+#profileWrapper div.title:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.title:after {
+  clear: both;
+}
+#profileWrapper div.title span.label {
+  float: left;
+  margin: 0 5px 0 0;
+}
+#profileWrapper div.title a {
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 90%;
+  float: left;
+  width: 200px;
+}
+#profileWrapper div.subactions:before,
+#profileWrapper div.subactions:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.subactions:after {
+  clear: both;
+}
+#profileWrapper div.subactions:before,
+#profileWrapper div.subactions:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.subactions:after {
+  clear: both;
+}
+#profileWrapper div.subactions a {
+  display: block;
+  float: left;
+  color: #777;
+  text-decoration: underline;
+  margin: 0 8px 0 0;
+  font-size: 12px;
+}
+#profileWrapper div.subactions a:hover {
+  text-decoration: none;
+}
+#profileWrapper div.progressb {
   position: relative;
   background-color: #564940;
   height: 50px;
   border-radius: 4px;
 }
-div#profileWrapper div.progressb div.bar {
+#profileWrapper div.progressb:before,
+#profileWrapper div.progressb:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.progressb:after {
+  clear: both;
+}
+#profileWrapper div.progressb:before,
+#profileWrapper div.progressb:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.progressb:after {
+  clear: both;
+}
+#profileWrapper div.progressb div.bar {
   background-color: #fff;
   height: 4px;
   position: absolute;
@@ -8490,13 +8751,13 @@ div#profileWrapper div.progressb div.bar {
   left: 20px;
   right: 20px;
 }
-div#profileWrapper div.progressb div.step {
+#profileWrapper div.progressb div.step {
   float: left;
   position: relative;
   width: 20%;
   height: 1%;
 }
-div#profileWrapper div.progressb div.step div.number {
+#profileWrapper div.progressb div.step div.number {
   background-color: #fff;
   width: 24px;
   height: 24px;
@@ -8506,53 +8767,62 @@ div#profileWrapper div.progressb div.step div.number {
   position: absolute;
   top: 10px;
 }
-div#profileWrapper div.progressb div.step div.copy {
+#profileWrapper div.progressb div.step div.copy {
   position: absolute;
   top: 35px;
   left: 0;
   color: #fff;
   font-size: 14px;
 }
-div#profileWrapper div.steps {
-  margin: 0 0 20px;
-  padding: 20px;
-  border-left: 3px solid #eee;
-  background-color: #f4f8fa;
-  border-color: #5bc0de;
-}
-div#profileWrapper div.overlay div.o-content {
+#profileWrapper div.overlay div.o-content {
   width: 45%;
   margin-left: -22.5%;
   box-sizing: border-box;
   padding: 20px;
   height: auto;
 }
-div#profileWrapper div.overlay div.o-content h1 {
+#profileWrapper div.overlay div.o-content h1 {
   font-size: 32px;
   font-weight: normal;
   margin: 0 0 10px;
 }
-div#profileWrapper div.overlay div.o-content p {
+#profileWrapper div.overlay div.o-content p {
   margin: 0;
 }
-div#profileWrapper div.overlay div.o-content div.options {
+#profileWrapper div.overlay div.o-content div.options {
   border-top: 1px dashed #ddd;
   padding: 12px 0 0 0;
   margin: 24px 0 0 0;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option {
+#profileWrapper div.overlay div.o-content div.options div.option {
   margin: 0 12px 8px 0;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.copy {
+#profileWrapper div.overlay div.o-content div.options div.option div.copy {
   line-height: 32px;
   font-size: 24px;
   text-align: center;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks {
   width: 124px;
   margin: 18px auto 0;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks:before,
+#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
+  clear: both;
+}
+#profileWrapper div.overlay div.o-content div.options div.option div.networks:before,
+#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.overlay div.o-content div.options div.option div.networks:after {
+  clear: both;
+}
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a {
   font-size: 18px;
   height: 36px;
   line-height: 36px;
@@ -8564,40 +8834,40 @@ div#profileWrapper div.overlay div.o-content div.options div.option div.networks
   color: #fff;
   margin: 0 8px 0 0;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a:last-child {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a:last-child {
   margin: 0;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a:hover {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a:hover {
   text-decoration: none;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-twitter {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-twitter {
   background-color: #00A9F2;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-twitter:hover {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-twitter:hover {
   background-color: #80D4F9;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-facebook {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-facebook {
   background-color: #3D529D;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-facebook:hover {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-facebook:hover {
   background-color: #9EA9CE;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-envelope {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-envelope {
   background-color: #F01F00;
 }
-div#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-envelope:hover {
+#profileWrapper div.overlay div.o-content div.options div.option div.networks a.fa-envelope:hover {
   background-color: #F88F80;
 }
-div#profileWrapper div.overlay div.o-content div.nav,
-div#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome {
+#profileWrapper div.overlay div.o-content div.nav,
+#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome {
   position: relative;
   height: 24px;
   margin: 12px 0 0;
   padding: 12px 0 0;
   border-top: 1px dashed #ddd;
 }
-div#profileWrapper div.overlay div.o-content div.nav a,
-div#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a {
+#profileWrapper div.overlay div.o-content div.nav a,
+#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a {
   display: block;
   position: absolute;
   bottom: 0;
@@ -8609,28 +8879,28 @@ div#profileWrapper div.overlay div.o-content div.social-login-providers.template
   background-color: #373942;
   border-radius: 4px;
 }
-div#profileWrapper div.overlay div.o-content div.nav a:hover,
-div#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a:hover {
+#profileWrapper div.overlay div.o-content div.nav a:hover,
+#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a:hover {
   text-decoration: none;
   background-color: #fff;
   color: #373942;
 }
-div#profileWrapper div.overlay div.o-content div.nav a.left,
-div#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a.left {
+#profileWrapper div.overlay div.o-content div.nav a.left,
+#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a.left {
   left: 0;
 }
-div#profileWrapper div.overlay div.o-content div.nav a.right,
-div#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a.right {
+#profileWrapper div.overlay div.o-content div.nav a.right,
+#profileWrapper div.overlay div.o-content div.social-login-providers.template-fontawesome a.right {
   right: 0;
 }
-div#profileWrapper div.content {
+#profileWrapper div.content {
   border: solid #ddd;
   border-width: 0 1px 1px;
 }
-div#profileWrapper div.content div.block {
+#profileWrapper div.content div.block {
   padding: 32px;
 }
-div#profileWrapper div.content div.block div.success {
+#profileWrapper div.content div.block div.success {
   margin: 0 0 20px;
   padding: 20px;
   border-left: 3px solid #eee;
@@ -8639,215 +8909,196 @@ div#profileWrapper div.content div.block div.success {
   font-size: 18px;
   display: none;
 }
-div#profileWrapper div.content div.block div.success span {
+#profileWrapper div.content div.block div.success span {
   padding: 0 8px 0 0;
 }
-div#profileWrapper div.content div.block.success div.success {
+#profileWrapper div.content div.block.success div.success {
   display: block;
 }
-div#profileWrapper div.content div#dashboardBlock {
+#profileWrapper div.content div#dashboardBlock {
   min-height: 220px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column {
-  float: left;
-  width: 439px;
-  box-sizing: border-box;
-  padding: 0 32px 0 0;
+#profileWrapper div.content div#dashboardBlock:before,
+#profileWrapper div.content div#dashboardBlock:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#dashboardBlock:after {
+  clear: both;
+}
+#profileWrapper div.content div#dashboardBlock:before,
+#profileWrapper div.content div#dashboardBlock:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#dashboardBlock:after {
+  clear: both;
+}
+#profileWrapper div.content div#dashboardBlock div.column {
   position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column div.headline {
-  font-size: 24px;
-  height: 36px;
-  line-height: 36px;
-  margin: 0 0 16px 0;
+@media (min-width: 992px) {
+  #profileWrapper div.content div#dashboardBlock div.column {
+    float: left;
+    width: 50%;
+  }
 }
-div#profileWrapper div.content div#dashboardBlock div.column.walks > a.btn,
-div#profileWrapper div.content div#dashboardBlock div.column.walks > a.walk-select .create-walk,
-div#profileWrapper div.content div#dashboardBlock div.column.walks > a.walk-select .create-walk:after,
-div#profileWrapper div.content div#dashboardBlock div.column.walks > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#dashboardBlock div.column.walks > a.btn,
+#profileWrapper div.content div#dashboardBlock div.column.walks > a.walk-select .create-walk,
+#profileWrapper div.content div#dashboardBlock div.column.walks > a.walk-select .create-walk:after,
+#profileWrapper div.content div#dashboardBlock div.column.walks > a#create-walk #map-control-bar button {
   position: absolute;
   right: 32px;
   top: 5px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.copy {
+#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.copy {
   font-size: 16px;
   line-height: 24px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.btnWrapper {
+#profileWrapper div.content div#dashboardBlock div.column.walks div.nullcase div.btnWrapper {
   padding: 8px 0 0;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.walks ul {
+#profileWrapper div.content div#dashboardBlock div.column.walks ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
   max-height: 320px;
   overflow-x: auto;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.walks ul li {
+#profileWrapper div.content div#dashboardBlock div.column.walks ul li {
   margin: 0;
   list-style-type: none;
   padding: 0 0 24px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.walks ul li div.title span.label {
-  float: left;
-  margin: 0 5px 0 0;
-}
-div#profileWrapper div.content div#dashboardBlock div.column.walks ul li div.title a {
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 90%;
-  float: left;
-  width: 200px;
-}
-div#profileWrapper div.content div#dashboardBlock div.column.walks ul li div.subactions a {
-  display: block;
-  float: left;
-  color: #777;
-  text-decoration: underline;
-  margin: 0 8px 0 0;
-  font-size: 12px;
-}
-div#profileWrapper div.content div#dashboardBlock div.column.walks ul li div.subactions a:hover {
-  text-decoration: none;
-}
-div#profileWrapper div.content div#dashboardBlock div.column.city > a.btn,
-div#profileWrapper div.content div#dashboardBlock div.column.city > a.walk-select .create-walk,
-div#profileWrapper div.content div#dashboardBlock div.column.city > a.walk-select .create-walk:after,
-div#profileWrapper div.content div#dashboardBlock div.column.city > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#dashboardBlock div.column.city > a.btn,
+#profileWrapper div.content div#dashboardBlock div.column.city > a.walk-select .create-walk,
+#profileWrapper div.content div#dashboardBlock div.column.city > a.walk-select .create-walk:after,
+#profileWrapper div.content div#dashboardBlock div.column.city > a#create-walk #map-control-bar button {
   position: absolute;
   right: 32px;
   top: 5px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.copy {
+#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.copy {
   font-size: 16px;
   line-height: 24px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.btnWrapper {
+#profileWrapper div.content div#dashboardBlock div.column.city div.nullcase div.btnWrapper {
   padding: 8px 0 0;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.city ul {
+#profileWrapper div.content div#dashboardBlock div.column.city ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
   max-height: 320px;
   overflow-x: auto;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.city ul li {
+#profileWrapper div.content div#dashboardBlock div.column.city ul li {
   margin: 0;
   list-style-type: none;
   padding: 0 0 24px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.title a {
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 90%;
-}
-div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.subactions a {
-  display: block;
-  float: left;
-  color: #777;
-  text-decoration: underline;
-  margin: 0 8px 0 0;
-  font-size: 12px;
-}
-div#profileWrapper div.content div#dashboardBlock div.column.city ul li div.subactions a:hover {
-  text-decoration: none;
-}
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.btn,
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.walk-select .create-walk,
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.walk-select .create-walk:after,
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.btn,
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.walk-select .create-walk,
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.walk-select .create-walk:after,
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a#create-walk #map-control-bar button {
   position: absolute;
   right: 0;
   top: 5px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.copy {
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.copy {
   font-size: 16px;
   line-height: 24px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.btnWrapper {
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts div.nullcase div.btnWrapper {
   padding: 8px 0 0;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul {
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
   max-height: 320px;
   overflow-x: auto;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li {
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li {
   margin: 0;
   list-style-type: none;
   padding: 0 0 24px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li div.title a {
-  display: block;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 90%;
+#profileWrapper div.content div#dashboardBlock.threeColumnLayout div.column {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li div.subactions a {
-  display: block;
-  float: left;
-  color: #777;
-  text-decoration: underline;
-  margin: 0 8px 0 0;
-  font-size: 12px;
+@media (min-width: 992px) {
+  #profileWrapper div.content div#dashboardBlock.threeColumnLayout div.column {
+    float: left;
+    width: 33.33333333%;
+  }
 }
-div#profileWrapper div.content div#dashboardBlock div.column.blogPosts ul li div.subactions a:hover {
-  text-decoration: none;
-}
-div#profileWrapper div.content div#dashboardBlock.threeColumnLayout div.column {
-  width: 297px;
-}
-div#profileWrapper div.content div#cityBlock {
+#profileWrapper div.content div#cityBlock {
   padding: 32px 0 0;
 }
-div#profileWrapper div.content div#cityBlock div.main {
+#profileWrapper div.content div#cityBlock div.main {
   padding: 0 32px 32px;
 }
-div#profileWrapper div.content div#cityBlock div.main div.headline {
-  font-size: 24px;
-  height: 36px;
-  line-height: 36px;
-}
-div#profileWrapper div.content div#cityBlock div.main > p {
+#profileWrapper div.content div#cityBlock div.main > p {
   margin: 0;
   padding: 0;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables {
+#profileWrapper div.content div#cityBlock div.main div.editables {
   margin: 24px 0 0;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column {
-  float: left;
-  width: 297px;
-  box-sizing: border-box;
-  padding: 0 32px 0 0;
+#profileWrapper div.content div#cityBlock div.main div.editables:before,
+#profileWrapper div.content div#cityBlock div.main div.editables:after {
+  content: " ";
+  display: table;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.name {
+#profileWrapper div.content div#cityBlock div.main div.editables:after {
+  clear: both;
+}
+#profileWrapper div.content div#cityBlock div.main div.editables:before,
+#profileWrapper div.content div#cityBlock div.main div.editables:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#cityBlock div.main div.editables:after {
+  clear: both;
+}
+#profileWrapper div.content div#cityBlock div.main div.editables div.column {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #profileWrapper div.content div#cityBlock div.main div.editables div.column {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.name {
   font-weight: bold;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val {
   padding: 8px 0 0;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p {
   position: relative;
   display: block;
   margin: 0;
   padding: 0 0 0 32px;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.icon {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.icon {
   position: absolute;
   font-size: 24px;
   left: 2px;
   top: 6px;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.bgPhoto {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p span.bgPhoto {
   background-image: url('http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg');
   display: block;
   height: 50px;
@@ -8856,116 +9107,164 @@ div#profileWrapper div.content div#cityBlock div.main div.editables div.column d
   background-repeat: no-repeat;
   background-position: center;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p a {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val p a {
   font-size: 12px;
   padding: 0 0 0 8px;
 }
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn,
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.walk-select .create-walk,
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.walk-select .create-walk:after,
-div#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn,
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.walk-select .create-walk,
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.walk-select .create-walk:after,
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button {
   margin: 10px 0 0;
 }
-div#profileWrapper div.content div#cityBlock div.footer {
+#profileWrapper div.content div#cityBlock div.footer {
   padding: 32px;
   text-align: center;
   background-color: #FCF6F4;
   border-top: 1px solid #ddd;
 }
-div#profileWrapper div.content div#cityBlock div.footer p {
+#profileWrapper div.content div#cityBlock div.footer p {
   font-size: 22px;
   margin: 0 0 20px;
 }
-div#profileWrapper div.content div#accountBlock form div.column {
-  float: left;
-  width: 439px;
-  box-sizing: border-box;
-  padding: 0 32px 0 0;
+#profileWrapper div.content div#accountBlock form:before,
+#profileWrapper div.content div#accountBlock form:after {
+  content: " ";
+  display: table;
 }
-div#profileWrapper div.content div#accountBlock form div.column div.headline {
-  font-size: 24px;
-  height: 36px;
-  line-height: 36px;
-  margin: 0 0 16px 0;
+#profileWrapper div.content div#accountBlock form:after {
+  clear: both;
 }
-div#profileWrapper div.content div#accountBlock form div.column span.required {
+#profileWrapper div.content div#accountBlock form:before,
+#profileWrapper div.content div#accountBlock form:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#accountBlock form:after {
+  clear: both;
+}
+#profileWrapper div.content div#accountBlock form div.column {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #profileWrapper div.content div#accountBlock form div.column {
+    float: left;
+    width: 50%;
+  }
+}
+#profileWrapper div.content div#accountBlock form div.column span.required {
   color: red;
   padding: 0 4px 0 0;
 }
-div#profileWrapper div.content div#accountBlock form div.column label {
-  display: inline;
-}
-div#profileWrapper div.content div#accountBlock form div.column label.checkbox {
-  display: block;
-  padding-left: 10px;
-}
-div#profileWrapper div.content div#accountBlock form div.column input[type="text"],
-div#profileWrapper div.content div#accountBlock form div.column input[type="password"] {
-  width: 50%;
-  height: 36px;
-}
-div#profileWrapper div.content div#pictureBlock {
+#profileWrapper div.content div#pictureBlock {
   position: relative;
 }
-div#profileWrapper div.content div#pictureBlock div.headline {
-  font-size: 24px;
-  height: 36px;
-  line-height: 36px;
-  margin: 0 0 16px 0;
+#profileWrapper div.content div#pictureBlock:before,
+#profileWrapper div.content div#pictureBlock:after {
+  content: " ";
+  display: table;
 }
-div#profileWrapper div.content div#pictureBlock div.column {
+#profileWrapper div.content div#pictureBlock:after {
+  clear: both;
+}
+#profileWrapper div.content div#pictureBlock:before,
+#profileWrapper div.content div#pictureBlock:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#pictureBlock:after {
+  clear: both;
+}
+#profileWrapper div.content div#pictureBlock div.column {
   float: left;
   box-sizing: border-box;
   padding: 0 32px 0 0;
 }
-div#profileWrapper div.content div#pictureBlock div.column.widget {
+#profileWrapper div.content div#pictureBlock div.column.widget {
   width: 520px;
 }
-div#profileWrapper div.content div#pictureBlock div.column.tips {
+#profileWrapper div.content div#pictureBlock div.column.tips {
   width: 358px;
 }
-div#profileWrapper div.content div#pictureBlock div.column.tips a {
+#profileWrapper div.content div#pictureBlock div.column.tips a {
   display: block;
   text-align: right;
   margin: 20px 0 0 0;
 }
-div#profileWrapper div.content div#resourcesBlock div.headline {
-  font-size: 24px;
-  height: 36px;
-  line-height: 36px;
-}
-div#profileWrapper div.content div#resourcesBlock div.resourceBlock {
+#profileWrapper div.content div#resourcesBlock div.resourceBlock {
   margin: 0 0 48px;
 }
-div#profileWrapper div.content div#resourcesBlock div.vimeos ul {
-  list-style-type: none;
+#profileWrapper div.content div#resourcesBlock div.resourceBlock:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
+  clear: both;
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock:after {
+  clear: both;
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   padding: 0;
-  margin: 0;
-}
-div#profileWrapper div.content div#resourcesBlock div.vimeos ul li {
-  position: relative;
-  width: 250px;
-  float: left;
-  margin: 0 42px 0 0;
-}
-div#profileWrapper div.content div#resourcesBlock div.ideas ul {
   list-style-type: none;
-  padding: 6px 0 0;
-  margin: 0;
 }
-div#profileWrapper div.content div#resourcesBlock div.ideas ul li {
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  clear: both;
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  content: " ";
+  display: table;
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  clear: both;
+}
+@media (min-width: 992px) {
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
+    float: left;
+    width: 100%;
+  }
+}
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul li {
   position: relative;
-  width: 250px;
-  float: left;
-  margin: 0 42px 0 0;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.banner {
+@media (min-width: 992px) {
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul li {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+#profileWrapper div.content div#resourcesBlock div.ideas ul {
+  padding: 6px 0 0;
+}
+#profileWrapper div.content div#resourcesBlock div.ideas ul li div.banner {
   border-radius: 4px 4px 0 0;
   width: 250px;
   height: 150px;
   background-size: cover;
 }
-div#profileWrapper div.content div#resourcesBlock div.ideas ul li img.flag {
+#profileWrapper div.content div#resourcesBlock div.ideas ul li img.flag {
   border-radius: 4px;
   border: 2px solid #fff;
   width: 50px;
@@ -8973,34 +9272,26 @@ div#profileWrapper div.content div#resourcesBlock div.ideas ul li img.flag {
   left: 100px;
   top: 135px;
 }
-div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta {
+#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta {
   border: 1px solid #ddd;
   border-bottom-width: 2px;
   font-size: 16px;
   padding: 12px 0 12px 8px;
   border-radius: 0 0 4px 4px;
 }
-div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.city a {
+#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.city a {
   font-size: 16px;
 }
-div#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.title a {
+#profileWrapper div.content div#resourcesBlock div.ideas ul li div.meta div.title a {
   font-size: 16px;
 }
-div#profileWrapper div.content div#resourcesBlock div.cos ul {
-  list-style-type: none;
+#profileWrapper div.content div#resourcesBlock div.cos ul {
   padding: 6px 0 0;
-  margin: 0;
 }
-div#profileWrapper div.content div#resourcesBlock div.cos ul li {
-  position: relative;
-  width: 250px;
-  float: left;
-  margin: 0 42px 0 0;
-}
-div#profileWrapper div.content div#resourcesBlock div.cos ul li img.map {
+#profileWrapper div.content div#resourcesBlock div.cos ul li img.map {
   border-radius: 4px 4px 0 0;
 }
-div#profileWrapper div.content div#resourcesBlock div.cos ul li img.display {
+#profileWrapper div.content div#resourcesBlock div.cos ul li img.display {
   border-radius: 100px;
   width: 50px;
   height: 50px;
@@ -9009,33 +9300,27 @@ div#profileWrapper div.content div#resourcesBlock div.cos ul li img.display {
   top: 85px;
   border: 2px solid #fff;
 }
-div#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta {
+#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta {
   border: 1px solid #ddd;
   border-bottom-width: 2px;
   font-size: 16px;
   padding: 12px 0 12px 8px;
   border-radius: 0 0 4px 4px;
 }
-div#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta div.email a {
+#profileWrapper div.content div#resourcesBlock div.cos ul li div.meta div.email a {
   font-size: 14px;
 }
-div#profileWrapper div.content div#resourcesBlock div.files ul {
+#profileWrapper div.content div#resourcesBlock div.files ul {
   list-style-type: none;
   padding: 6px 0 0;
   margin: 0;
 }
-div#profileWrapper div.content div#resourcesBlock div.files ul li {
-  position: relative;
-  width: 250px;
-  float: left;
-  margin: 0 42px 10px 0;
-}
-div#profileWrapper div.content div#resourcesBlock div.files ul li a {
+#profileWrapper div.content div#resourcesBlock div.files ul li a {
   display: block;
   height: 50px;
   padding: 0 0 0 50px;
 }
-div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
+#profileWrapper div.content div#resourcesBlock div.files ul li a img {
   position: absolute;
   left: 0;
   top: 0;
@@ -9151,11 +9436,25 @@ div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
   z-index: 1;
 }
 .city-page .section3 .container,
-.city-page .section3 body > header nav {
+.city-page .section3 body > header nav,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   position: relative;
 }
 .city-page .section3 .container:after,
-.city-page .section3 body > header nav:after {
+.city-page .section3 body > header nav:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+.city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after {
   content: "";
   position: absolute;
   height: 100%;
@@ -9170,7 +9469,14 @@ div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
 }
 @media (max-width: 768px) {
   .city-page .section3 .container:after,
-  .city-page .section3 body > header nav:after {
+  .city-page .section3 body > header nav:after,
+  .city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+  .city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+  .city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+  .city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
+  .city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
+  .city-page .section3 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after {
     display: none;
   }
 }
@@ -9184,13 +9490,27 @@ div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
   z-index: 1;
 }
 .city-page .intro-city.lower .container,
-.city-page .intro-city.lower body > header nav {
+.city-page .intro-city.lower body > header nav,
+.city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+.city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+.city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+.city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+.city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   position: relative;
   margin-top: -5.7em;
 }
 @media (max-width: 768px) {
   .city-page .intro-city.lower .container,
-  .city-page .intro-city.lower body > header nav {
+  .city-page .intro-city.lower body > header nav,
+  .city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+  .city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  .city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  .city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .city-page .intro-city.lower #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
     margin-top: 0;
   }
 }
@@ -9339,7 +9659,14 @@ div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
 }
 @media (max-width: 992px) {
   .intro-city .container,
-  .intro-city body > header nav {
+  .intro-city body > header nav,
+  .intro-city #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+  .intro-city #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  .intro-city #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .intro-city #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .intro-city #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  .intro-city #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .intro-city #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
     padding: 0 !important;
   }
 }
@@ -9838,7 +10165,14 @@ div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
 }
 @media (max-width: 768px) {
   .walk-page .container-outter .container,
-  .walk-page .container-outter body > header nav {
+  .walk-page .container-outter body > header nav,
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
     padding: 10px;
   }
 }
@@ -9979,7 +10313,8 @@ div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
   margin: 10px 0;
 }
 .walk-page .thumbnail .alert,
-.walk-page .ccm-page-list.ccm-blog-index li figure .alert {
+.walk-page .ccm-page-list.ccm-blog-index li figure .alert,
+.walk-page .thumbnail #profileWrapper .steps {
   margin: 0;
 }
 .walk-page .thumbnail.focus,
@@ -10121,10 +10456,12 @@ div#profileWrapper div.content div#resourcesBlock div.files ul li a img {
 .walk-page aside .ccm-page-list.ccm-blog-index li figure figcaption {
   margin-bottom: 0;
 }
-.walk-page aside .alert {
+.walk-page aside .alert,
+.walk-page aside #profileWrapper .steps {
   border-radius: 0;
 }
-.walk-page aside .alert p {
+.walk-page aside .alert p,
+.walk-page aside #profileWrapper .steps p {
   margin: 0;
 }
 .walk-page .walk-leaders {
@@ -10839,17 +11176,6 @@ Preview Modal
 #create-walk h1 {
   margin-top: 0;
 }
-#create-walk textarea {
-  height: auto;
-}
-#create-walk textarea,
-#create-walk input {
-  font-weight: 500;
-}
-#create-walk input[type=checkbox] {
-  margin-left: 0;
-  position: relative;
-}
 #create-walk > section > nav {
   position: relative;
   min-height: 1px;
@@ -11186,7 +11512,8 @@ Preview Modal
   padding: 10px 0;
 }
 #create-walk .modal .alert,
-#create-walk dialog .alert {
+#create-walk dialog .alert,
+#create-walk .modal #profileWrapper .steps {
   margin-bottom: 0;
 }
 #create-walk #signup-panel footer.full,
@@ -11306,18 +11633,21 @@ Preview Modal
 #create-walk .ccm-page-list.ccm-blog-index li figure {
   border-radius: 0;
 }
-#create-walk .alert {
+#create-walk .alert,
+#create-walk #profileWrapper .steps {
   border-radius: 0;
   background: #FFF7DC;
   color: #B95221;
   border-color: transparent;
 }
-#create-walk .alert.alert-error {
+#create-walk .alert.alert-error,
+#create-walk #profileWrapper .steps.alert-error {
   color: #b94a48;
   background-color: #f2dede;
   border-color: #eed3d7;
 }
-#create-walk .alert.alert-success {
+#create-walk .alert.alert-success,
+#create-walk #profileWrapper .steps.alert-success {
   color: #468847;
   background-color: #dff0d8;
   border-color: #d6e9c6;
@@ -11802,7 +12132,8 @@ Preview Modal
   font-weight: bold;
 }
 #create-walk .required .alert,
-#create-walk .required .text-right {
+#create-walk .required .text-right,
+#create-walk .required #profileWrapper .steps {
   font-weight: normal;
 }
 #create-walk .required label:after,
@@ -11927,7 +12258,14 @@ Preview Modal
   display: none;
 }
 #create-walk body.form .navbar-inner div.container,
-#create-walk body.form .navbar-inner divbody > header nav {
+#create-walk body.form .navbar-inner divbody > header nav,
+#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   display: none;
 }
 #create-walk .wysihtml5-toolbar i[class^=icon-],

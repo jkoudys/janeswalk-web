@@ -47,7 +47,7 @@
         $dataCity = $userHomeCity;
     }
   ?>
-  <div class="wrapper" id="profileWrapper" data-city="<?= ($dataCity) ?>">
+  <main id="profileWrapper" data-city="<?= ($dataCity) ?>">
     <?php if ($userIsViewingSelf === true): ?>
       <?php if ($userHasSetHomeCity === true): ?>
         <div class="overlay promoteOverlay cityPromoteOverlay" data-slideshow="city" data-citypath="<?= ($userHomeCityObj->getCollectionPath()) ?>" data-cityname="<?= ($userHomeCityObj->getCollectionName()) ?>">
@@ -62,7 +62,7 @@
                   <?= t('%1$s has %2$s happening this year. Why not make it %3$s? Lead a Jane\'s Walk in %1$s this year!',
                         $userHomeCity, t2('%d walk', '%d walks', count($cityWalks)), count($cityWalks) + 1) ?>
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -72,7 +72,7 @@
                 <div class="copy">
                   "<?= t('Calling all volunteers in %s! We need some help at this year\'s Jane\'s Walk!', $userHomeCity) ?>"
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -82,7 +82,7 @@
                 <div class="copy">
                   "<?= t('Option #3 ...', $userHomeCity) ?>"
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -92,7 +92,7 @@
                 <div class="copy">
                   "<?= t('Option #4 ...', $userHomeCity) ?>"
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -118,7 +118,7 @@
                 <div class="copy">
                   "<?= t('Sample tweet: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -128,7 +128,7 @@
                 <div class="copy">
                   "<?= t('Sample tweet #2: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -138,7 +138,7 @@
                 <div class="copy">
                   "<?= t('Sample tweet #3: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -148,7 +148,7 @@
                 <div class="copy">
                   "<?= t('Sample tweet #4: <span class="objTitle">{obj.title}</span>') ?>"
                 </div>
-                <div class="networks clearfix">
+                <div class="networks">
                   <a href="#" class="fa fa-facebook"></a>
                   <a href="#" class="fa fa-twitter"></a>
                   <a href="#" class="fa fa-envelope"></a>
@@ -165,7 +165,7 @@
       <!--
         http://thecodeplayer.com/walkthrough/jquery-multi-step-form-with-progress-bar
       -->
-      <div class="progressb clearfix" style="display: none;">
+      <div class="progressb" style="display: none;">
         <div class="bar"></div>
         <div class="step step1">
           <div class="number">1</div>
@@ -230,7 +230,7 @@
       </ul>
       <div class="content">
         <?php
-          $dashboardClasses = array('block', 'dashboard', 'clearfix');
+          $dashboardClasses = ['block', 'dashboard'];
           if ($userHasSetHomeCity === true && $userIsCityOrganizer === true) {
             array_push($dashboardClasses, 'threeColumnLayout');
           }
@@ -247,7 +247,7 @@
                   <div class="copy">
                     "<?= t('Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
-                  <div class="networks clearfix">
+                  <div class="networks">
                     <a href="#" class="fa fa-facebook"></a>
                     <a href="#" class="fa fa-twitter"></a>
                     <a href="#" class="fa fa-envelope"></a>
@@ -257,7 +257,7 @@
                   <div class="copy">
                     "<?= t('#2: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
-                  <div class="networks clearfix">
+                  <div class="networks">
                     <a href="#" class="fa fa-facebook"></a>
                     <a href="#" class="fa fa-twitter"></a>
                     <a href="#" class="fa fa-envelope"></a>
@@ -267,7 +267,7 @@
                   <div class="copy">
                     "<?= t('#3: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
-                  <div class="networks clearfix">
+                  <div class="networks">
                     <a href="#" class="fa fa-facebook"></a>
                     <a href="#" class="fa fa-twitter"></a>
                     <a href="#" class="fa fa-envelope"></a>
@@ -277,7 +277,7 @@
                   <div class="copy">
                     "<?= t('#4: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
                   </div>
-                  <div class="networks clearfix">
+                  <div class="networks">
                     <a href="#" class="fa fa-facebook"></a>
                     <a href="#" class="fa fa-twitter"></a>
                     <a href="#" class="fa fa-envelope"></a>
@@ -329,7 +329,7 @@
                     <img src="" />
                   </div>
                   <div class="details">
-                    <div class="title clearfix">
+                    <div class="title">
                       <?php if ($walk->getAttribute('exclude_page_list') === '1'): ?>
                         <span class="label"><?= t('DRAFT') ?></span>
                       <?php endif; ?>
@@ -337,7 +337,7 @@
                         <?= ($title) ?>
                       </a>
                     </div>
-                    <div class="subactions clearfix">
+                    <div class="subactions">
                       <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
                         <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkpath="<?= ($walk->getCollectionPath()) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       <?php endif; ?>
@@ -395,7 +395,7 @@
                       <img src="" />
                     </div>
                     <div class="details">
-                      <div class="title clearfix">
+                      <div class="title">
                         <?php if ($walk->getAttribute('exclude_page_list') === '1'): ?>
                           <span class="label"><?= t('DRAFT') ?></span>
                         <?php endif; ?>
@@ -403,7 +403,7 @@
                           <?= ($title) ?>
                         </a>
                       </div>
-                      <div class="subactions clearfix">
+                      <div class="subactions">
                         <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
                           <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkpath="<?= ($walk->getCollectionPath()) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
                         <?php endif; ?>
@@ -466,7 +466,7 @@
                           <?= ($title) ?>
                         </a>
                       </div>
-                      <div class="subactions clearfix">
+                      <div class="subactions">
                         <a href="#" class="promote" data-blogposttitle="<?= addslashes($title) ?>" data-blogpostpath="<?= ($blogPost->getCollectionPath()) ?>" data-blogpostid="<?= ($blogPost->getCollectionID()) ?>"><?= t('Promote') ?></a>
                       </div>
                     </div>
@@ -482,7 +482,7 @@
               <p>
                 <?= t('Use this page to update the details for the %s Jane\'s Walk page', $userHomeCity) ?>
               </p>
-              <div class="editables clearfix">
+              <div class="editables">
                 <div class="column headerInfo">
                   <div class="name"><?= t('Header Info') ?></div>
                   <div class="val">
@@ -550,7 +550,7 @@
             <span class="fa fa-check"></span>
             <?= t('Changes Saved') ?>
           </div>
-          <form method="post" action="<?= ($this->action('edit/save')) ?>" enctype="multipart/form-data" class="clearfix">
+          <form method="post" action="<?= ($this->action('edit/save')) ?>" enctype="multipart/form-data">
           <?php
               $valt->output('profile_edit');
               $attribs = UserAttributeKey::getEditableInProfileList();
@@ -558,7 +558,7 @@
             ?>
               <div class="column details">
                 <div class="headline"><?= t('Details') ?></div>
-                <div class="field clearfix">
+                <div class="field">
                   <div class="">
                     <span class="required">*</span><?= ($form->label('uEmail', t('Email'))) ?>
                   </div>
@@ -567,7 +567,7 @@
                   </div>
                 </div>
                 <?php if (ENABLE_USER_TIMEZONES) { ?>
-                  <div class="field clearfix">
+                  <div class="field">
                     <div class="">
                       <span class="required">*</span><?= ($form->label('uTimezone', t('Time Zone'))) ?>
                     </div>
@@ -590,7 +590,7 @@
                   $af = Loader::helper('form/attribute');
                   $af->setAttributeObject($ui);
                   foreach ($attribs as $ak) {
-                    print '<div class="field clearfix">';
+                    print '<div class="field">';
                     print ($af->display($ak, $ak->isAttributeKeyRequiredOnProfile()));
                     print '</div>';
                   }
@@ -601,7 +601,7 @@
               </div>
               <div class="column password">
                 <div class="headline"><?= t('Password') ?></div>
-                <div class="field clearfix">
+                <div class="field">
                   <div class="">
                     <?= ($form->label('uPasswordNew', t('New Password'))) ?>
                   </div>
@@ -609,7 +609,7 @@
                     <?= ($form->password('uPasswordNew')) ?>
                   </div>
                 </div>
-                <div class="field clearfix">
+                <div class="field">
                   <div class="">
                     <?= ($form->label('uPasswordNewConfirm', t('Confirm New Password'))) ?>
                   </div>
@@ -627,7 +627,7 @@
           </form>
 
         </div>
-        <div id="pictureBlock" class="block hidden clearfix" data-tab="picture">
+        <div id="pictureBlock" class="block hidden" data-tab="picture">
           <div class="success">
             <span class="fa fa-check"></span>
             <?= t('Changes Saved') ?>
@@ -661,7 +661,7 @@
                 <?= t('Got a question?') ?><br />
                 <?= t('Reach out to a fellow City Organizer for help') ?>
               </p>
-              <ul class="clearfix">
+              <ul>
                 <?php foreach ($cityOrganizerData as $organizerData): ?>
                   <li>
                     <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizerData['cityName']) ?>,Canada&amp;zoom=12&amp;size=250x125&amp;sensor=false" class="map" />
@@ -684,7 +684,7 @@
                 <?= t('Don\'t know what kind of walk to lead?') ?><br />
                 <?= t('Here are some fun ones from around the world') ?>
               </p>
-              <ul class="clearfix">
+              <ul>
                 <?php foreach ($featuredWalkData as $featuredWalk): ?>
                   <li>
                     <div class="banner" style="background-image: url('<?= ($featuredWalk['walkImagePath']) ?>');"></div>
@@ -707,7 +707,7 @@
                 <?= t('Leading your first or fith walk?') ?><br />
                 <?= t('Here are some tips from the Jane\'s Walk crew') ?>
               </p>
-              <ul class="clearfix">
+              <ul>
                 <li>
                   <iframe src="//player.vimeo.com/video/91185841" width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 </li>
@@ -727,7 +727,7 @@
                 <?= t('Want help promoting Jane\'s Walk?') ?><br />
                 <?= t('Use these files to promote Jane\'s Walk in your city') ?>
               </p>
-              <ul class="clearfix">
+              <ul>
                 <li>
                   <a href="http://www.janeswalk.org/files/5413/9706/2037/2014_CustomPoster_Park.pdf" target="_blank">
                     <img src="/themes/janeswalk/images/pdf.png" />
@@ -778,4 +778,4 @@
         </div>
       </div>
     <?php endif; ?>
-  </div>
+  </main>

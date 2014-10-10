@@ -11,26 +11,11 @@ body[data-pageviewname=CreateWalkView] {
     h1 {
         margin-top: 0;
     }
-    textarea {
-        height: auto;
-    }
-    textarea, input {
-        font-weight: 500;
-    }
-    input[type=checkbox] {
-        margin-left: 0;
-        position: relative;
-    }
 
     > section:extend(.row) {
         > nav {
             .make-md-column(2);
         }
-    }
-
-    // Make these things bootstrap by default
-    select, input[type=text], input[type=email], input[type=password], textarea {
-        &:extend(.form-control all);
     }
 
     .row {

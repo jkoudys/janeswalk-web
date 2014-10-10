@@ -1,8 +1,14 @@
 .ccm-page-list.ccm-blog-index {
+    .clearfix();
     list-style-type: none;
     padding: 0;
+    margin: 0 !important;
     li {
-        .make-md-column(4);
+        .make-md-column(3);
+        &:before {
+            content: '' !important;
+            padding: 0 !important;
+        }
         &:first-child {
             margin-left: 0;
             padding-left: 0;
