@@ -4,6 +4,7 @@ namespace JanesWalk\Controllers;
 use \Loader;
 use \User;
 use \UserInfo;
+use \Localization;
 
 class Controller extends \Controller
 {
