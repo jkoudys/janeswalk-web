@@ -1,13 +1,13 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php  defined('C5_EXECUTE') || die('Access Denied.') ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head prefix="og: http://ogp.me/ns#">
-<?php  Loader::element('header_required');
+<?php
+Loader::element('header_required');
 ?>
-
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -24,4 +24,8 @@
     <link rel="stylesheet" href="<?=$this->getThemePath()?>/css/main.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
 </head>
-<?php $this->inc('elements/modals.php'); ?>
+<body
+  class="<?= join($bodyData['classes'], ' ') ?>"
+  data-pageViewName="<?= $bodyData['pageViewName'] ?>"
+  style="background-image:url(<?= $bodyData['bg'] ?>)">
+  <?php $this->inc('elements/modals.php'); ?>

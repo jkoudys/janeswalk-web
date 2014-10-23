@@ -1,36 +1,43 @@
 <?php
 defined('C5_EXECUTE') || die(_('Access Denied.'));
 $this->inc('elements/header.php');
+
+$walkLeaders = implode(
+    ', ',
+    array_map(
+        function ($mem) {
+            return $mem['name-first'] . ' ' . $mem['name-last'];
+        },
+        $w->walkLeaders
+    )
+);
 ?>
-<body class="walk-page active-walk"
-  data-pageViewName="WalkPageView">
   <div id="fb-root"></div>
-  <script type="text/javascript">
-    window.fbAsyncInit = function () {
-      FB.init({
+<script type="text/javascript">
+window.fbAsyncInit = function () {
+    FB.init({
         appId: '544710848887303',
-        status: true,
-        xfbml: true
-      });
-    };
-    (function (d, s, id) {
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = '//connect.facebook.net/en_US/all.js';
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>
+            status: true,
+            xfbml: true
+    });
+};
+(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = '//connect.facebook.net/en_US/all.js';
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
   <?php $this->inc('elements/navbar.php'); ?>
   <div class="container-outter" role="main">
     <div class="container">
       <?= $breadcrumb ?>
       <div class="walk-label"><?= trim((string) $c->getAttribute('walk_initiatives')) ?: t('Festival Walk') ?></div>
-
       <div class="tag-list">
         <ul class="nav nav-pills">
           <?php foreach ($w->themes as $theme => $status) { ?>
-            <li><div class='icon'><?= $th->getIcon($theme) ?></div> <?= t($th->getName($theme)) ?></li>
+            <li><?= $th->getIcon($theme) ?> <?= t($th->getName($theme)) ?></li>
           <?php } ?>
         </ul>
       </div>
@@ -42,39 +49,39 @@ $this->inc('elements/header.php');
 
         <div class="col-md-3 profiles box-sizing">
           <div id="reg-group">
-            <?php
-              $slots = (array) $w->time['slots'];
-              if ($w->time['open']) {
-            ?>
+<?php
+$slots = (array) $w->time['slots'];
+if ($w->time['open']) {
+?>
               <h4 class="available-time"><i class="fa fa-calendar"></i> <?= t('Open schedule') ?></h4>
-            <?php
-              } elseif (isset($slots[0]['date'])) {
-            ?>
+<?php
+} elseif (isset($slots[0]['date'])) {
+?>
               <h4 class="available-time">
                 <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($slots)) ?>:<br />
 <?php
-                foreach ($slots as $slot) { ?>
+    foreach ($slots as $slot) { ?>
                 <span class="highlight"><?=$slot['date']?></span>
                 <span class="divider">|</span>
                 <span class="time"><?= ($slot['time']) ?></span>
                 <br />
 <?php
-                }
+    }
 ?>
               </h4>
-            <?php }
-              if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
-                if (!empty($eid)) {
-            ?>
+<?php }
+if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
+    if (!empty($eid)) {
+?>
               <a data-eid="<?= $eid ?>" href="<?= 'http://eventbrite.ca/event/', $eid ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
-            <?php
-              } else {
-            ?>
+<?php
+    } else {
+?>
               <?= t('Registration Not Yet Open') ?>
-            <?php
-              }
-            }
-            ?>
+<?php
+    }
+}
+?>
           </div>
         </div>
       </div>
@@ -82,10 +89,7 @@ $this->inc('elements/header.php');
       <div class="row walk-leaders clearfix">
         <div class="col-md-7">
           <h4>
-            <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)) .
-                implode(', ', array_map(function ($mem) {
-                  return "{$mem['name-first']} {$mem['name-last']}"; },
-                $w->walkLeaders)); ?>
+            <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)) . $walkLeaders ?>
           </h4>
           <?php if ($meeting_place) { ?>
           <h4>
@@ -102,7 +106,7 @@ $this->inc('elements/header.php');
             <div class="walk-stops-meta box-sizing">
               <header id="header" class="walk-stops-meta-inner">
                 <?php if (isset($slots[0]['duration'])) { ?>
-                <h4><i class="fa fa-clock"></i> <?= t('Duration') ?>:</h4>
+                <h4><i class="fa fa-clock-o"></i> <?= t('Duration') ?>:</h4>
                 <h5>
                   <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
                 </h5>
@@ -113,8 +117,8 @@ $this->inc('elements/header.php');
                 <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
                 <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
                 <ol>
-                  <?php foreach ($w->map->markers as $key=>$marker) { ?>
-                  <li class='walk-stop' id='<?=$key?>'><h4><?=$marker->title?></h4></li>
+                  <?php foreach ($w->map->markers as $key => $marker) { ?>
+                  <li class='walk-stop' id='<?= $key ?>'><h4><?= $marker->title ?></h4></li>
                   <?php } ?>
                 </ol>
               </header>
@@ -179,17 +183,17 @@ $this->inc('elements/header.php');
             <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
 
             <?php foreach ($w->teamPictures as $k => $mem) { ?>
-            <div class="walk-leader clearfix">
+            <div class="walk-leader">
               <div class="row">
-                <div class="col-md-3">
+                <div class="avatar">
 <?php
                 if ($mem['avatar'] && $city->getCollectionName() !== 'Calgary') { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
                   <?php } else { ?>
-                    <img src='<?=$mem['image']?>' alt='<?=$mem['title']?>' class='pull-left'>
+                    <img src='<?= $mem['image'] ?>' alt='<?= $mem['title'] ?>' class='pull-left'>
                   <?php } ?>
                 </div>
-                <div class='col-md-9'>
+                <div>
                   <h4>
                     <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
                   </h4>

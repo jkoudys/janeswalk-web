@@ -1,7 +1,7 @@
 <?php
 defined('C5_EXECUTE') || die('Access Denied.');
 ?>
-<a class="see-all"><?= t2('show only this walk', 'see all %d walks', count($cards))?></a>
+<a class="see-all"><?= t2('show only this walk', 'see all %d walks', count($cards)) ?></a>
 <section class="ccm-block-page-list-walk-filters">
     <div class="walk-preview">
     </div>
@@ -174,4 +174,5 @@ defined('C5_EXECUTE') || die('Access Denied.');
         </div>
         <link href="<?= (BASE_URL.$rssUrl) ?>" rel="alternate" type="application/rss+xml" title="<?= ($rssTitle) ?>" />
         <?php } ?>
-    </section>
+    </div>
+</section>

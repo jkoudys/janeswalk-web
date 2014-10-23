@@ -219,7 +219,7 @@ class WalkPageTypeController extends Controller
 
         // Breadcrumb trail to walk
         $bc = $doc->appendChild($doc->createElement('ul'));
-        $bc->setAttribute('class', 'breadcrumb visible-desktop visible-tablet');
+        $bc->setAttribute('class', 'breadcrumb');
         foreach ((array) $this->walk->crumbs as $crumb) {
             if ($crumb->getCollectionTypeHandle() !== 'country' ) {
                 $li = $bc->appendChild($doc->createElement('li'));
@@ -234,11 +234,6 @@ class WalkPageTypeController extends Controller
                     }
                     $a->appendChild($doc->createTextNode(t($linkText)));
                 }
-                if ($k !== count($this->walk->crumbs)) {
-                    $span = $li->appendChild($doc->createElement('span'));
-                    $span->setAttribute('class','divider');
-                    $span->appendChild($doc->createElement('i'))->setAttribute('class','fa fa-angle-right');
-                }
             }
         }
         $li = $bc->appendChild($doc->createElement('li'));
@@ -251,6 +246,12 @@ class WalkPageTypeController extends Controller
         $this->set('th', Loader::helper('theme'));
         $this->set('eid', $c->getAttribute('eventbrite'));
         $this->set('w', $this->walk);
+
+        // Body variables
+        $this->bodyData['classes'][] = 'walk-page';
+        $this->bodyData['classes'][] = 'active-walk';
+        $this->bodyData['pageViewName'] = 'WalkPageView';
+        $this->set('bodyData', $this->bodyData);
 
         // Setup the page data needed in the script block
         $this->addToJanesWalk([

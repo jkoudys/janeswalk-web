@@ -5,10 +5,6 @@
 
   $this->inc('elements/header.php');
 ?>
-  <body class="home <?=($dh->canRead()) ? "logged_in" : ""; ?>"
-    data-pageViewName="HomePageView"
-    data-backgroundImageUrl="<?= ($headImage->getURL()) ?>">
-
     <div class="overlay o-connect">
       <div class="o-background">
       </div>

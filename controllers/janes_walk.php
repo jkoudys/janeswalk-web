@@ -8,7 +8,8 @@ use \Localization;
 
 class Controller extends \Controller
 {
-    protected $pageData = array();
+    protected $pageData = [];
+    protected $bodyData = [];
 
     /**
      * addToJanesWalk
@@ -23,7 +24,7 @@ class Controller extends \Controller
 
     /**
      * view
-     * Sets up the basic info we'll need from json
+     * Sets up the basic info we'll need from json and page rendering
      *
      * @return void
      */
@@ -38,6 +39,11 @@ class Controller extends \Controller
                 'title' => $c->getCollectionName()
             ]
         ];
+        $this->bodyData = [
+            'classes' => [],
+            'bg' => null,
+            'pageViewName' => 'PageView'
+        ];
 
         if ($u->isLoggedIn()) {
             $ui = UserInfo::getByID( $u->getUserID() );
@@ -46,6 +52,7 @@ class Controller extends \Controller
                 'firstName' => $ui->getAttribute('first_name'),
                 'lastName' => $ui->getAttribute('last_name')
             ];
+            $this->bodyData['classes'][] = 'logged_in';
             if ($city) {
                 $jwData['user']['city'] = [
                     'name' => $city->getCollectionName(),
@@ -71,6 +78,6 @@ class Controller extends \Controller
     // The 'on_before_render' will set up our JanesWalk json in the page
     public function on_before_render()
     {
-        $this->addFooterItem('<script type="text/javascript">var JanesWalk = ' . json_encode($this->pageData) . '</script>');
+        $this->addFooterItem('<script type="text/javascript">window.JanesWalk = ' . json_encode($this->pageData) . '</script>');
     }
 }

@@ -50,6 +50,10 @@ case 'DELETE':
   public function view()
   {
       parent::view();
+      $this->bodyData['bg'] = $this->city->fullbg->getURL();
+      $this->bodyData['classes'][] = 'city-page';
+      $this->bodyData['pageViewName'] = 'CityPageView';
+      $this->set('bodyData', $this->bodyData);
       $this->set('pageType', 'city-page');
       $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
       $this->set('isLoggedIn', (bool) Loader::helper('concrete/dashboard')->canRead());
