@@ -7997,7 +7997,7 @@ dialog input[type=password] {
 @media (min-width: 992px) {
   .ccm-page-list.ccm-blog-index li {
     float: left;
-    width: 25%;
+    width: 33.33333333%;
   }
 }
 .ccm-page-list.ccm-blog-index li:before {
