@@ -150,14 +150,16 @@
 }
 
 // input:submit style for little forms
-fieldset.search {
-  @buttonoffset:4px;
+fieldset.search:extend(.input-group all) {
+  @buttonoffset: 4px;
   @defaultWidth: 280px;
-  input[type=text] { width:@defaultWidth; font-size:14px; padding: 10px; margin:0; font-family:"museo-slab", "Roboto Slab", serif;  border: 1px solid #b4b4b4; border-radius: 8px 0 0 8px; height:43px; line-height:24px; color:#333;
+  .make-md-column(3, 0);
+  button {
+      width: auto;
+      height: 34px;
   }
-  input[type=submit] { font-family:"museo-slab", "Roboto Slab", serif; font-size:18px; height:43px; border: 1px solid #b4b4b4; border-left:none; background:@color-lightgrey; font-weight:300; color:#555; margin-left:-@buttonoffset; border-radius: 0 8px 8px 0; padding: 0 15px; line-height:24px; vertical-align:top; }
-  input[type=checkbox] { display:none; }
 }
+
 
 // Keep the menu away
 #ccm-toolbar {

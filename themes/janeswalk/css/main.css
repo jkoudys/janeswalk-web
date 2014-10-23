@@ -2288,7 +2288,8 @@ select[multiple].input-lg {
     width: auto;
     vertical-align: middle;
   }
-  .form-inline .input-group {
+  .form-inline .input-group,
+  .form-inline body fieldset.search {
     display: inline-table;
     vertical-align: middle;
   }
@@ -2300,6 +2301,9 @@ select[multiple].input-lg {
   .form-inline .input-group input[type=email],
   .form-inline .input-group input[type=password],
   .form-inline .input-group textarea,
+  .form-inline body fieldset.search .input-group-addon,
+  .form-inline body fieldset.search .input-group-btn,
+  .form-inline body fieldset.search .form-control,
   .form-inline .input-group dialog input[type=text],
   .form-inline .input-group dialog input[type=password] {
     width: auto;
@@ -2310,6 +2314,7 @@ select[multiple].input-lg {
   .form-inline .input-group > input[type=email],
   .form-inline .input-group > input[type=password],
   .form-inline .input-group > textarea,
+  .form-inline body fieldset.search > .form-control,
   .form-inline .input-group > dialog input[type=text],
   .form-inline .input-group > dialog input[type=password] {
     width: 100%;
@@ -3111,6 +3116,7 @@ tbody.collapse.in {
 }
 .btn-toolbar .btn-group,
 .btn-toolbar .input-group,
+.btn-toolbar body fieldset.search,
 .btn-toolbar #create-walk #map-control-bar,
 .btn-toolbar #create-walk #map-control-bar:after {
   float: left;
@@ -3118,6 +3124,7 @@ tbody.collapse.in {
 .btn-toolbar > .btn,
 .btn-toolbar > .btn-group,
 .btn-toolbar > .input-group,
+.btn-toolbar > body fieldset.search,
 .btn-toolbar > .walk-select .create-walk,
 .btn-toolbar > .walk-select .create-walk:after,
 .btn-toolbar > #create-walk #map-control-bar,
@@ -3386,12 +3393,14 @@ tbody.collapse.in {
   opacity: 0;
   filter: alpha(opacity=0);
 }
-.input-group {
+.input-group,
+body fieldset.search {
   position: relative;
   display: table;
   border-collapse: separate;
 }
-.input-group[class*="col-"] {
+.input-group[class*="col-"],
+body fieldset.search[class*="col-"] {
   float: none;
   padding-left: 0;
   padding-right: 0;
@@ -3402,6 +3411,7 @@ tbody.collapse.in {
 .input-group input[type=email],
 .input-group input[type=password],
 .input-group textarea,
+body fieldset.search .form-control,
 .input-group dialog input[type=text],
 .input-group dialog input[type=password] {
   position: relative;
@@ -3544,6 +3554,7 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group input[type=email],
 .input-group input[type=password],
 .input-group textarea,
+body fieldset.search .form-control,
 .input-group dialog input[type=text],
 .input-group dialog input[type=password] {
   display: table-cell;
@@ -3556,6 +3567,7 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group input[type=email]:not(:first-child):not(:last-child),
 .input-group input[type=password]:not(:first-child):not(:last-child),
 .input-group textarea:not(:first-child):not(:last-child),
+body fieldset.search .form-control:not(:first-child):not(:last-child),
 .input-group dialog input[type=text]:not(:first-child):not(:last-child),
 .input-group dialog input[type=password]:not(:first-child):not(:last-child) {
   border-radius: 0;
@@ -3603,6 +3615,7 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group input[type=email]:first-child,
 .input-group input[type=password]:first-child,
 .input-group textarea:first-child,
+body fieldset.search .form-control:first-child,
 .input-group dialog input[type=text]:first-child,
 .input-group dialog input[type=password]:first-child,
 .input-group-btn:first-child > .walk-select .create-walk,
@@ -3639,6 +3652,7 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 .input-group input[type=email]:last-child,
 .input-group input[type=password]:last-child,
 .input-group textarea:last-child,
+body fieldset.search .form-control:last-child,
 .input-group dialog input[type=text]:last-child,
 .input-group dialog input[type=password]:last-child,
 .input-group-btn:last-child > .walk-select .create-walk,
@@ -4299,7 +4313,8 @@ body > header nav ul.social-login-providers.template-fontawesome.navbar-right > 
     width: auto;
     vertical-align: middle;
   }
-  .navbar-form .input-group {
+  .navbar-form .input-group,
+  .navbar-form body fieldset.search {
     display: inline-table;
     vertical-align: middle;
   }
@@ -4311,6 +4326,9 @@ body > header nav ul.social-login-providers.template-fontawesome.navbar-right > 
   .navbar-form .input-group input[type=email],
   .navbar-form .input-group input[type=password],
   .navbar-form .input-group textarea,
+  .navbar-form body fieldset.search .input-group-addon,
+  .navbar-form body fieldset.search .input-group-btn,
+  .navbar-form body fieldset.search .form-control,
   .navbar-form .input-group dialog input[type=text],
   .navbar-form .input-group dialog input[type=password] {
     width: auto;
@@ -4321,6 +4339,7 @@ body > header nav ul.social-login-providers.template-fontawesome.navbar-right > 
   .navbar-form .input-group > input[type=email],
   .navbar-form .input-group > input[type=password],
   .navbar-form .input-group > textarea,
+  .navbar-form body fieldset.search > .form-control,
   .navbar-form .input-group > dialog input[type=text],
   .navbar-form .input-group > dialog input[type=password] {
     width: 100%;
@@ -7716,35 +7735,21 @@ body .navbar-outer form div#searchResults a {
 body .navbar-outer form div#searchResults a:hover {
   text-decoration: none;
 }
-body fieldset.search input[type=text] {
-  width: 280px;
-  font-size: 14px;
-  padding: 10px;
-  margin: 0;
-  font-family: "museo-slab", "Roboto Slab", serif;
-  border: 1px solid #b4b4b4;
-  border-radius: 8px 0 0 8px;
-  height: 43px;
-  line-height: 24px;
-  color: #333;
+body fieldset.search {
+  position: relative;
+  min-height: 1px;
+  padding-left: 0;
+  padding-right: 0;
 }
-body fieldset.search input[type=submit] {
-  font-family: "museo-slab", "Roboto Slab", serif;
-  font-size: 18px;
-  height: 43px;
-  border: 1px solid #b4b4b4;
-  border-left: none;
-  background: #efefef;
-  font-weight: 300;
-  color: #555;
-  margin-left: -4px;
-  border-radius: 0 8px 8px 0;
-  padding: 0 15px;
-  line-height: 24px;
-  vertical-align: top;
+@media (min-width: 992px) {
+  body fieldset.search {
+    float: left;
+    width: 25%;
+  }
 }
-body fieldset.search input[type=checkbox] {
-  display: none;
+body fieldset.search button {
+  width: auto;
+  height: 34px;
 }
 body #ccm-toolbar {
   z-index: -1;
@@ -8299,6 +8304,22 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 .intro-city {
   width: 100%;
   background-position: center center;
+}
+.intro:before,
+.intro:after {
+  content: " ";
+  display: table;
+}
+.intro:after {
+  clear: both;
+}
+.intro:before,
+.intro:after {
+  content: " ";
+  display: table;
+}
+.intro:after {
+  clear: both;
 }
 @media (max-width: 768px) {
   .intro,

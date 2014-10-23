@@ -1,653 +1,654 @@
 //HOMEPAGE
 
 .home {
-  background-attachment: fixed;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-
-  .intro,
-  .navbar_home .large,
-  .section2 ul.nav {
-    font-family: @font-slab;
-  }
-
-  &.logged_in {
-    padding-top: 0;
-  }
-
-  @media (max-width: @screen-sm-min) {
-    padding: 0;
-  }
-
-  .backgroundImageBanner {
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    opacity: 1;
-    transition: opacity 2s ease-in-out;
 
-    @media (max-width: @screen-sm-min) {
-      display: none;
-    }
-  }
-
-  .intro .nav li {
-    padding-right: 20px;
-
-    &.divider-vertical {
-      height: 40px;
-      margin: 0 20px 0 0;
-      border-right: 1px solid rgba(0,0,0,0.2);
-      border-left: none;
-      padding: 0;
-    }
-  }
-
-  .input-append {
-    margin: 10px 0 0 0;
-  }
-
-  .nav-tabs > li > a {
-    background: #DBDBDB;
-    padding: 20px;
-    border: none;
-    font-size: 1.5em;
-    &:hover {
-      border: none;
-    }
-  }
-
-  .nav-tabs > li.active > a{
-    background: #fff;
-  }
-
-  .intro {
-    .nav {
-      float: right;
-      padding: 50px 0 0 0;
-      li {
-        a {
-          color: #303030;
-          font-size: 16px;
-          margin-right: 0px;
-          line-height: 10px;
-          margin-top: 0;
-          border: 1px solid #a53d0b;
-          background: rgba(194, 83, 14, 0.9);
-          &:hover {
-            color: #fff;
-            background: #d54e0e;
-          }
-        }
-
-        &.active a {
-          text-decoration: none;
-          background-color: rgba(255, 250, 250, 0.5);
-        }
-      }
+    .intro,
+    .navbar_home .large,
+    .section2 ul.nav {
+        font-family: @font-slab;
     }
 
-
-    blockquote {
-      font-size:inherit;
-      float:none;
-      text-transform:none;
-      color:#fff;
-      width:auto;
-      max-width:@screen-lg-min;
-      font-size:15px;
-      line-height:22px;
-      margin:0 auto;
-    }
-
-    .linkbox {
-      margin:10px auto;
-      display:block;
-      width:270px;
-      font-size:1.4em;
-    }
-
-    a {
-      color:white;
-      transition-duration:0.2s;
-      &:hover {
-        opacity:0.8;
-      }
-    }
-
-    .ccm-page-list-typeahead {
-
-      h3 { 
-        margin: 5px 0 0 0; 
-
-        a { 
-          font-weight:500;
-          text-decoration:underline;
-          color:inherit;
-        }
-      }
-    }
-  }
-
-  section.blog {
-    background: #fff;
-    min-height: 525px;
-    padding: 30px 0 60px 0;
-    margin:0 0 0 0;
-
-    @media (max-width: @screen-md-min) {
-      padding-left: 20px;
-      padding-right: 20px;
+    &.logged_in {
+        padding-top: 0;
     }
 
     @media (max-width: @screen-sm-min) {
-      padding: 25px 10px 10px;
+        padding: 0;
     }
 
-    h1,h2,h3,h4,h5 {
-      font-family: @font-slab;
-      margin:0; 
-    }
-
-    section {
-      display:inline-block;
-      vertical-align:top;
-
-      &.walkblog {
-        max-width:@screen-lg-min - 300px;
-      }
-
-      &.twitter {
-        width:270px;
-        margin-left:25px;
+    .backgroundImageBanner {
+        background-attachment: fixed;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: -1;
+        opacity: 1;
+        transition: opacity 2s ease-in-out;
 
         @media (max-width: @screen-sm-min) {
-          display: none;
-          // padding: 30px 0 0;
-          // width: 100%;
-          // margin: 0;
-        }
-      }
-
-      > h3 {
-        color:@color-darkgrey;
-        font-weight:700;
-        margin-bottom:15px;
-
-        @media (max-width: @screen-sm-min) {
-          margin-bottom: 10px;
-        }
-
-        a {
-          color:@color-darkgrey;
-          font-size:0.6em;
-
-          @media (max-width: @screen-sm-min) {
             display: none;
-          }
         }
-      }
     }
 
-    > div {
-      max-width: @screen-lg-min;
-      margin:0 auto;
-    }
+    .intro .nav li {
+        padding-right: 20px;
 
-    .span3:first-child {
-      margin-left: 0;
-    }
-
-    &:after {
-      clear:both;
-      content:"";
-      display:table;
-    }
-  }
-
-  section.map {
-    margin-bottom: -5px;
-
-    @media (max-width: @screen-sm-min) {
-      display: none;
-
-    }
-  }
-
-  .overlap {
-    transition-duration:0.5s;
-    position:relative;
-    height:460px;
-
-    @media (max-width: @screen-sm-min) {
-      height: auto;
-    }
-
-    section.calltoaction {
-      width:100%;
-      position:absolute;
-      bottom:0;
-
-      @media (max-width: @screen-sm-min) {
-        width: auto;
-        position: static;
-        padding: 30px 10px 10px 10px;
-
-        > p {
-          display: none;
+        &.divider-vertical {
+            height: 40px;
+            margin: 0 20px 0 0;
+            border-right: 1px solid rgba(0,0,0,0.2);
+            border-left: none;
+            padding: 0;
         }
-
-        > p:first-child {
-          display: block;
-        }
-      }
     }
 
-    .controls {
-      @controlHeight:60px;
-      position:absolute;
-      margin:0;
-      top:-@controlHeight*3/4; width:100%; text-align:center;
-      z-index:1;
-      padding-bottom:160px; /* Cover below with a pad so mousewheel scroll doesn't work on the map. */
+    .input-append {
+        margin: 10px 0 0 0;
+    }
 
-      li {
-        display:block; height: @controlHeight;
-        text-transform:uppercase;
-        line-height:@controlHeight/2;
-      }
-
-      a { 
-        color:#fff;
-        font-size:11px;
-
-        i {
-          font-size:15px;
-          color:#fff;
-          padding:7px 8px;
-          margin-top:5px;
-          background:@color-blue;
-          border: 2px solid #fff;
-          border-radius:999px;
-        }
-
+    .nav-tabs > li > a {
+        background: #DBDBDB;
+        padding: 20px;
+        border: none;
+        font-size: 1.5em;
         &:hover {
-          text-decoration: none;
-          cursor: pointer;
+            border: none;
         }
-      }
-
-      @media (max-width: @screen-sm-min) {
-        display: none;
-      }
     }
 
-    &.fullmap {
-      height: 760px;
-      .controls {
-        padding-bottom:0;
-      }
+    .nav-tabs > li.active > a{
+        background: #fff;
     }
-  }
+
+    .intro {
+        .nav {
+            float: right;
+            padding: 50px 0 0 0;
+            li {
+                a {
+                    color: #303030;
+                    font-size: 16px;
+                    margin-right: 0px;
+                    line-height: 10px;
+                    margin-top: 0;
+                    border: 1px solid #a53d0b;
+                    background: rgba(194, 83, 14, 0.9);
+                    &:hover {
+                        color: #fff;
+                        background: #d54e0e;
+                    }
+                }
+
+                &.active a {
+                    text-decoration: none;
+                    background-color: rgba(255, 250, 250, 0.5);
+                }
+            }
+        }
+
+
+        blockquote {
+            font-size:inherit;
+            float:none;
+            text-transform:none;
+            color:#fff;
+            width:auto;
+            max-width:@screen-lg-min;
+            font-size:15px;
+            line-height:22px;
+            margin:0 auto;
+        }
+
+        .linkbox {
+            margin:10px auto;
+            display:block;
+            width:270px;
+            font-size:1.4em;
+        }
+
+        a {
+            color:white;
+            transition-duration:0.2s;
+            &:hover {
+                opacity:0.8;
+            }
+        }
+
+        .ccm-page-list-typeahead {
+
+            h3 { 
+                margin: 5px 0 0 0; 
+
+                a { 
+                    font-weight:500;
+                    text-decoration:underline;
+                    color:inherit;
+                }
+            }
+        }
+    }
+
+    section.blog {
+        background: #fff;
+        min-height: 525px;
+        padding: 30px 0 60px 0;
+        margin:0 0 0 0;
+
+        @media (max-width: @screen-md-min) {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @media (max-width: @screen-sm-min) {
+            padding: 25px 10px 10px;
+        }
+
+        h1,h2,h3,h4,h5 {
+            font-family: @font-slab;
+            margin:0; 
+        }
+
+        section {
+            display:inline-block;
+            vertical-align:top;
+
+            &.walkblog {
+                max-width:@screen-lg-min - 300px;
+            }
+
+            &.twitter {
+                width:270px;
+                margin-left:25px;
+
+                @media (max-width: @screen-sm-min) {
+                    display: none;
+                    // padding: 30px 0 0;
+                    // width: 100%;
+                    // margin: 0;
+                }
+            }
+
+            > h3 {
+                color:@color-darkgrey;
+                font-weight:700;
+                margin-bottom:15px;
+
+                @media (max-width: @screen-sm-min) {
+                    margin-bottom: 10px;
+                }
+
+                a {
+                    color:@color-darkgrey;
+                    font-size:0.6em;
+
+                    @media (max-width: @screen-sm-min) {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        > div {
+            max-width: @screen-lg-min;
+            margin:0 auto;
+        }
+
+        .span3:first-child {
+            margin-left: 0;
+        }
+
+        &:after {
+            clear:both;
+            content:"";
+            display:table;
+        }
+    }
+
+    section.map {
+        margin-bottom: -5px;
+
+        @media (max-width: @screen-sm-min) {
+            display: none;
+
+        }
+    }
+
+    .overlap {
+        transition-duration:0.5s;
+        position:relative;
+        height:460px;
+
+        @media (max-width: @screen-sm-min) {
+            height: auto;
+        }
+
+        section.calltoaction {
+            width:100%;
+            position:absolute;
+            bottom:0;
+
+            @media (max-width: @screen-sm-min) {
+                width: auto;
+                position: static;
+                padding: 30px 10px 10px 10px;
+
+                > p {
+                    display: none;
+                }
+
+                > p:first-child {
+                    display: block;
+                }
+            }
+        }
+
+        .controls {
+            @controlHeight:60px;
+            position:absolute;
+            margin:0;
+            top:-@controlHeight*3/4; width:100%; text-align:center;
+            z-index:1;
+            padding-bottom:160px; /* Cover below with a pad so mousewheel scroll doesn't work on the map. */
+
+            li {
+                display:block; height: @controlHeight;
+                text-transform:uppercase;
+                line-height:@controlHeight/2;
+            }
+
+            a { 
+                color:#fff;
+                font-size:11px;
+
+                i {
+                    font-size:15px;
+                    color:#fff;
+                    padding:7px 8px;
+                    margin-top:5px;
+                    background:@color-blue;
+                    border: 2px solid #fff;
+                    border-radius:999px;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+            }
+
+            @media (max-width: @screen-sm-min) {
+                display: none;
+            }
+        }
+
+        &.fullmap {
+            height: 760px;
+            .controls {
+                padding-bottom:0;
+            }
+        }
+    }
 }
 
 .intro {
-  width: 100%;
-  background-position: center center;
+    .clearfix();
+    width: 100%;
+    background-position: center center;
 
-  @media (max-width: @screen-sm-min) {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-  .logo {
-    background-image: url("../images/jwlogos-3.png");
-    display: block;
-    width: 172px;
-    height: 120px;
-    float: left;
-  }
+    @media (max-width: @screen-sm-min) {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .logo {
+        background-image: url("../images/jwlogos-3.png");
+        display: block;
+        width: 172px;
+        height: 120px;
+        float: left;
+    }
 }
 
 p.lead {
-  margin-top: 6%;
+    margin-top: 6%;
 }
 
 .callouts {
-  margin: 0;
-  top: 60px;
-  width: 100%;
-  padding: 20px 0 50px 0;
-  color: white;
-  background:@color-orange;
-  background: linear-gradient(fade(@color-orange, 70%) 20%, fade(@color-orange, 70%) 20%, @color-orange 80%);
+    margin: 0;
+    top: 60px;
+    width: 100%;
+    padding: 20px 0 50px 0;
+    color: white;
+    background:@color-orange;
+    background: linear-gradient(fade(@color-orange, 70%) 20%, fade(@color-orange, 70%) 20%, @color-orange 80%);
 
-  @media (max-width: @screen-sm-min) {
-    padding: 10px;
-    width: auto;
-  }
+    @media (max-width: @screen-sm-min) {
+        padding: 10px;
+        width: auto;
+    }
 
-  @media (max-width: @screen-md-min) {
-    padding: 20px;
-    box-sizing: border-box;
-  }
+    @media (max-width: @screen-md-min) {
+        padding: 20px;
+        box-sizing: border-box;
+    }
 }
 
 .homepage-callout2 {
-  border-left: 0;
-  padding: 0;
-  margin-bottom: 1.85em;
-  position: relative;
-
-  p {
-    font-size: 3em;
-    line-height: 123%;
-    font-weight: 300;
-    letter-spacing: 1px;
-
-    @media (max-width: @screen-md-min) {
-      font-size: 24px;
-      line-height: 1.5em;
-    }
-  }
-
-  div.cityCtaWrapper {
-    position: absolute;
-    left: 430px;
-    bottom: 0;
-
-    a.btn {
-      color: #333;
-    }
-  }
-
-  div.ccm-page-list-typeahead {
-    @media (max-width: @screen-sm-min) {
-      display: none;
-    }
-  }
-}
-
-.navbar_home {
-  font-size: 1em;
-  text-align: center;
-  margin: 0 auto;
-  .large {
-    font-size: 18px;
-    height: 34px;;
-    margin:0;
-  }
-}
-
-.test {
-  margin-top: 0%;
-}
-
-.little {
-  width: 22%;
-}
-
-.section2 {
-  position: relative;
-  padding-bottom: 20px;
-  width: 100%;
-  min-height: 300px;
-  background-position: center center;
-}
-
-.property-ul {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  padding:9px;
-  margin-left: 2%;
-  margin-right: 0%;
-  width: 30%;
-}
-
-.fest {
-  margin-left: 2%;
-}
-
-.row1 {
-  margin-top: 0%;
-}
-
-section.calltoaction {
-  background: #fff;
-  padding:40px 0;
-  margin-top:-200px;
-
-  @media (max-width: @screen-sm-min) {
-    margin: 0;
-    padding: 0;
-  }
-
-  @media (max-width: @screen-md-min) {
-    padding: 20px;
-    box-sizing: border-box;
-  }
-
-  h1,h2,h3,h4,h5,p,ul,ol {
-    margin:0 auto;
-    max-width: @screen-lg-min;
-    font-family: @font-slab;
-  }
-  h3 {
-    font-weight:700;
-    margin-bottom:15px;
-    color:@color-darkgrey;
-  }
-  p {
-    color:#333;
-    font-size:1.3em;
-    line-height:1.6;
-    font-weight:300;
-  }
-  a {
-    color:#fff;
-    width:100%; height:100%;
-    display:block;
-    padding: 10px 0;
-    text-align:center;
-    font-size:16px;
-    background:@color-darkgrey;
-    box-shadow: inset 0 -2px 0 #222;
-    &:hover {
-      text-decoration:none;
-      background:#333;
-    }
-  }
-  ul {
-    text-align:justify;
-    margin-top:20px;
-
-    @media (max-width: @screen-sm-min) {
-      margin-top: 10px;
-    }
-
-    li {
-      list-style-type:none;margin:0;padding:0;
-      display: inline-block;
-      width:@screen-lg-min/3 - 80px;
-      font-size:1.4em;
-      background: #333;
-
-      // @media(max-width: (@screen-lg-min/3 - 80) * 3 + 10) {
-      //   display:block;
-      // }
-
-      &.cityButtonCta {
-        display: none;
-        // margin-bottom: 0;
-
-        @media (max-width: @screen-sm-min) {
-          display: inline-block;
-        }
-      }
-
-      @media (max-width: @screen-md-min) {
-        display: inline-block;
-        width: 30%;
-        margin-bottom:5px;
-      }
-
-      @media (max-width: @screen-sm-min) {
-        width: 100%;
-        display: none;
-      }
-
-      &:last-child {
-        display: none;
-      }
-
-      &:first-child,
-      &:last-child {
-
-        @media (max-width: @screen-sm-min) {
-          display: inline-block;
-        }
-      }
-    }
-    &:after {
-      content:"";
-      display: inline-block;
-      position: relative;
-      width: 100%;
-      height: 0;
-
-      @media (max-width: @screen-sm-min) {
-        display: none;
-      }
-    }
-  }
-
-  div#city-choice-label {
-    padding: 20px 0 0;
-    display: none;
-
-    @media (max-width: @screen-sm-min) {
-      display: block;
-    }
-  }
-
-  div#city-choice-select {
-    display: none;
-
-    @media (max-width: @screen-sm-min) {
-      display: block;
-    }
-  }
-}
-
-section.sponsors {
-    margin:0 auto 240px;
-    width: @screen-lg-min;
-
-    @media (max-width: @screen-sm-min) {
-      display: none;
-    }
-}
-
-.nav-tabs.types {
-  border-bottom: none;
-  text-align: center;
-  margin: 20px auto 0 auto;
-  width: 75%;
-  background: #DBDBDB;
-  padding:0;
-  li {
-    width: 33.333%;
-  }
-}
-
-.festivalcontent {
-  width: 50%;
-}
-
-.festivalimg {
-  display: block;
-  position: relative;
-  background: white;
-  width: 400px;
-}
-
-#festival, #YearRoundWalks, #place-based-storytelling {
-  background: #fff;
-  padding: 20px;
-  margin: 0 auto;
-  width: 75%;
-}
-
-.caption {
-
-  h5 {
-    color: @color-orange;
-
-    @media (max-width: @screen-sm-min) {
-
-      a {
-        font-size: 16px;
-        display: block;
-      }
-    }
-  }
-
-  h6 {
-
-    @media (max-width: @screen-sm-min) {
-      margin: 5px 0 0;
-    }
-  }
-
-  p {
-    color: #555;
-
-    @media (max-width: @screen-sm-min) {
-      display: none;
-    }
-  }
-}
-
-.tab-content {
-  padding-bottom: 20px;
-  h3 {
-    line-height: 1em;
-  }
-}
-
-@media (max-width: @screen-sm-min) {
-  .full {
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-}
-
-
-@media (max-width: @screen-md-min) {
-  font-size: 2.7em;
-  .homepage-callout2 {
     border-left: 0;
     padding: 0;
     margin-bottom: 1.85em;
     position: relative;
-  }
+
+    p {
+        font-size: 3em;
+        line-height: 123%;
+        font-weight: 300;
+        letter-spacing: 1px;
+
+        @media (max-width: @screen-md-min) {
+            font-size: 24px;
+            line-height: 1.5em;
+        }
+    }
+
+    div.cityCtaWrapper {
+        position: absolute;
+        left: 430px;
+        bottom: 0;
+
+        a.btn {
+            color: #333;
+        }
+    }
+
+    div.ccm-page-list-typeahead {
+        @media (max-width: @screen-sm-min) {
+            display: none;
+        }
+    }
 }
 
-footer {
-
-  @media (max-width: @screen-sm-min) {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
+.navbar_home {
+    font-size: 1em;
+    text-align: center;
+    margin: 0 auto;
+    .large {
+        font-size: 18px;
+        height: 34px;;
+        margin:0;
+    }
 }
+
+.test {
+    margin-top: 0%;
+}
+
+.little {
+    width: 22%;
+}
+
+.section2 {
+    position: relative;
+    padding-bottom: 20px;
+    width: 100%;
+    min-height: 300px;
+    background-position: center center;
+}
+
+.property-ul {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding:9px;
+    margin-left: 2%;
+    margin-right: 0%;
+    width: 30%;
+}
+
+.fest {
+    margin-left: 2%;
+}
+
+.row1 {
+    margin-top: 0%;
+}
+
+section.calltoaction {
+    background: #fff;
+    padding:40px 0;
+    margin-top:-200px;
+
+    @media (max-width: @screen-sm-min) {
+        margin: 0;
+        padding: 0;
+    }
+
+    @media (max-width: @screen-md-min) {
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    h1,h2,h3,h4,h5,p,ul,ol {
+        margin:0 auto;
+        max-width: @screen-lg-min;
+        font-family: @font-slab;
+    }
+    h3 {
+        font-weight:700;
+        margin-bottom:15px;
+        color:@color-darkgrey;
+    }
+    p {
+        color:#333;
+        font-size:1.3em;
+        line-height:1.6;
+        font-weight:300;
+    }
+    a {
+        color:#fff;
+        width:100%; height:100%;
+        display:block;
+        padding: 10px 0;
+        text-align:center;
+        font-size:16px;
+        background:@color-darkgrey;
+        box-shadow: inset 0 -2px 0 #222;
+        &:hover {
+            text-decoration:none;
+            background:#333;
+        }
+    }
+    ul {
+        text-align:justify;
+        margin-top:20px;
+
+        @media (max-width: @screen-sm-min) {
+            margin-top: 10px;
+        }
+
+        li {
+            list-style-type:none;margin:0;padding:0;
+            display: inline-block;
+            width:@screen-lg-min/3 - 80px;
+            font-size:1.4em;
+            background: #333;
+
+            // @media(max-width: (@screen-lg-min/3 - 80) * 3 + 10) {
+                //   display:block;
+                // }
+
+                &.cityButtonCta {
+                    display: none;
+                    // margin-bottom: 0;
+
+                    @media (max-width: @screen-sm-min) {
+                        display: inline-block;
+                    }
+                }
+
+                @media (max-width: @screen-md-min) {
+                    display: inline-block;
+                    width: 30%;
+                    margin-bottom:5px;
+                }
+
+                @media (max-width: @screen-sm-min) {
+                    width: 100%;
+                    display: none;
+                }
+
+                &:last-child {
+                    display: none;
+                }
+
+                &:first-child,
+                &:last-child {
+
+                    @media (max-width: @screen-sm-min) {
+                        display: inline-block;
+                    }
+                }
+            }
+            &:after {
+                content:"";
+                display: inline-block;
+                position: relative;
+                width: 100%;
+                height: 0;
+
+                @media (max-width: @screen-sm-min) {
+                    display: none;
+                }
+            }
+        }
+
+        div#city-choice-label {
+            padding: 20px 0 0;
+            display: none;
+
+            @media (max-width: @screen-sm-min) {
+                display: block;
+            }
+        }
+
+        div#city-choice-select {
+            display: none;
+
+            @media (max-width: @screen-sm-min) {
+                display: block;
+            }
+        }
+    }
+
+    section.sponsors {
+        margin:0 auto 240px;
+        width: @screen-lg-min;
+
+        @media (max-width: @screen-sm-min) {
+            display: none;
+        }
+    }
+
+    .nav-tabs.types {
+        border-bottom: none;
+        text-align: center;
+        margin: 20px auto 0 auto;
+        width: 75%;
+        background: #DBDBDB;
+        padding:0;
+        li {
+            width: 33.333%;
+        }
+    }
+
+    .festivalcontent {
+        width: 50%;
+    }
+
+    .festivalimg {
+        display: block;
+        position: relative;
+        background: white;
+        width: 400px;
+    }
+
+    #festival, #YearRoundWalks, #place-based-storytelling {
+        background: #fff;
+        padding: 20px;
+        margin: 0 auto;
+        width: 75%;
+    }
+
+    .caption {
+
+        h5 {
+            color: @color-orange;
+
+            @media (max-width: @screen-sm-min) {
+
+                a {
+                    font-size: 16px;
+                    display: block;
+                }
+            }
+        }
+
+        h6 {
+
+            @media (max-width: @screen-sm-min) {
+                margin: 5px 0 0;
+            }
+        }
+
+        p {
+            color: #555;
+
+            @media (max-width: @screen-sm-min) {
+                display: none;
+            }
+        }
+    }
+
+    .tab-content {
+        padding-bottom: 20px;
+        h3 {
+            line-height: 1em;
+        }
+    }
+
+    @media (max-width: @screen-sm-min) {
+        .full {
+            margin-left: -20px;
+            margin-right: -20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+
+
+    @media (max-width: @screen-md-min) {
+        font-size: 2.7em;
+        .homepage-callout2 {
+            border-left: 0;
+            padding: 0;
+            margin-bottom: 1.85em;
+            position: relative;
+        }
+    }
+
+    footer {
+
+        @media (max-width: @screen-sm-min) {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+    }
 
