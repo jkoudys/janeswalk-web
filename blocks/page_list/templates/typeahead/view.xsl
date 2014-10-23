@@ -5,7 +5,7 @@
       <form>
         <fieldset class="search">
           <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk in which city?" autocomplete="off"/>
-          <input type="submit" value="Go"/>
+          <button type="submit">Go</button>
           <ul>
             <xsl:apply-templates select="country">
               <xsl:sort/>

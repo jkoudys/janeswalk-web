@@ -2,7 +2,7 @@
 > header:extend(.navbar all, .navbar-fixed-top all, .navbar-default all) {
 	background:#fff;
 	font-family: @font-slab;
-    z-index: 2;
+	z-index: 2;
 
 	// Logo
 	.logo:extend(.navbar-header all) {
@@ -36,7 +36,7 @@
 					padding-top: 0;
 					padding-bottom: 0;
 					line-height: @height-navbar;
-                    color: @color-darkgrey;
+					color: @color-darkgrey;
 				}
 			}
 			&.navbar-right {
@@ -68,12 +68,12 @@
 		}
 	}
 
-    .search-open, .search-close {
-        padding: 0 15px !important; // FIXME needed for bootstrap override
-        i {
-            line-height: 60px;
-        }
-    }
+	.search-open, .search-close {
+		padding: 0 15px !important; // FIXME needed for bootstrap override
+		i {
+			line-height: 60px;
+		}
+	}
 	.search-close {
 		background: @color-orange;
 		display:none;
@@ -113,11 +113,11 @@
         max-width: @screen-lg-min;
         margin: 0 auto;
         padding: 25px 0;
-        fieldset.search {
-            display: inline-block;
-            margin-right: 50px;
-            vertical-align: top;
-        }
+	fieldset.search {
+		display: inline-block;
+		margin-right: 50px;
+		vertical-align: top;
+	}
         div#searchResults {
             display:inline-block;
             max-width:600px;
@@ -157,6 +157,12 @@ fieldset.search:extend(.input-group all) {
   button {
       width: auto;
       height: 34px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 1px solid #ccc;
+      border-radius: 0 4px 4px 0;
+      color: @color-charcoal;
   }
 }
 

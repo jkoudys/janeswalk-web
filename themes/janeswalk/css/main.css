@@ -7750,6 +7750,12 @@ body fieldset.search {
 body fieldset.search button {
   width: auto;
   height: 34px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 0 4px 4px 0;
+  color: #333333;
 }
 body #ccm-toolbar {
   z-index: -1;
@@ -8139,6 +8145,22 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 }
 .home .intro a:hover {
   opacity: 0.8;
+}
+.home .intro .ccm-page-list-typeahead:before,
+.home .intro .ccm-page-list-typeahead:after {
+  content: " ";
+  display: table;
+}
+.home .intro .ccm-page-list-typeahead:after {
+  clear: both;
+}
+.home .intro .ccm-page-list-typeahead:before,
+.home .intro .ccm-page-list-typeahead:after {
+  content: " ";
+  display: table;
+}
+.home .intro .ccm-page-list-typeahead:after {
+  clear: both;
 }
 .home .intro .ccm-page-list-typeahead h3 {
   margin: 5px 0 0 0;
