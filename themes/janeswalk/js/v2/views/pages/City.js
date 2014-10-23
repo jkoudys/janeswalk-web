@@ -81,6 +81,7 @@ var CityPageView = PageView.extend({
         this._captureHash();
         //        this._setupText2DonateInterstitials();
         this._addLinkListeners();
+        $('.walks-list .tag').tooltip();
     },
 
     /**
