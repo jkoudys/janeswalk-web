@@ -6648,6 +6648,10 @@ dialog > div > article footer .btn-block + .btn-block {
 .panel-body:after,
 .modal-footer:before,
 .modal-footer:after,
+.walk-page .walk-leaders:before,
+.walk-page .walk-leaders:after,
+.walk-body:before,
+.walk-body:after,
 body > header:before,
 body > header:after,
 body > header .logo:before,
@@ -6700,6 +6704,8 @@ dialog > div > article footer:after,
 .pager:after,
 .panel-body:after,
 .modal-footer:after,
+.walk-page .walk-leaders:after,
+.walk-body:after,
 body > header:after,
 body > header .logo:after,
 body > header nav:after,
@@ -10529,8 +10535,26 @@ section.sponsors {
   margin: 0;
 }
 .walk-page .walk-leaders {
+  margin-left: -15px;
+  margin-right: -15px;
   margin-top: 0;
-  margin-bottom: 3.5em;
+  margin-bottom: 1.5em;
+}
+.walk-page .walk-leaders:before,
+.walk-page .walk-leaders:after {
+  content: " ";
+  display: table;
+}
+.walk-page .walk-leaders:after {
+  clear: both;
+}
+.walk-page .walk-leaders:before,
+.walk-page .walk-leaders:after {
+  content: " ";
+  display: table;
+}
+.walk-page .walk-leaders:after {
+  clear: both;
 }
 .walk-page .walk-leaders h3 {
   margin: 13px 0 0 0;
@@ -10564,16 +10588,16 @@ section.sponsors {
 }
 .walk-stops .walk-stops-meta {
   position: absolute;
-  left: 0;
+  left: 20px;
   top: 0;
   height: 352px;
   width: 30%;
+  overflow-y: scroll;
   z-index: 1;
   color: #fff;
   padding: 20px 10px 20px 20px;
   background: #6badfd;
   margin: 20px;
-  overflow: hidden;
   box-shadow: inset 0 -3px 0 #3991fc;
 }
 @media (max-width: 979px) {
@@ -10745,6 +10769,11 @@ section.sponsors {
   border-style: solid;
   border-width: 8px 8px 0 0;
   border-color: #d54e0e transparent transparent transparent;
+}
+.walk-body {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: 15px;
 }
 .walk-body .title {
   color: #777;

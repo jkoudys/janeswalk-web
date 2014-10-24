@@ -86,7 +86,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
         </div>
       </div>
 
-      <div class="row walk-leaders clearfix">
+      <div class="walk-leaders">
         <div class="col-md-7">
           <h4>
             <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)) . $walkLeaders ?>
@@ -100,7 +100,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
         </div>
       </div>
       <?php if (count((array) $w->map->markers) + count((array) $w->map->path) > 0) { ?>
-      <div class="jumbotron walk-stops" style="display:none">
+      <div class="walk-stops" style="display:none">
         <div class="row">
           <div class="col-md-12">
             <div class="walk-stops-meta box-sizing">
@@ -136,7 +136,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
       </div>
       <?php } ?>
 
-      <div class="row walk-body">
+      <div class="walk-body">
         <div class="col-md-8">
           <div class="clearfix">
             <h3><?= t('About This Walk') ?></h3>

@@ -305,8 +305,10 @@
         }
     }
     .walk-leaders {
+        .clearfix();
+        .make-row();
         margin-top: 0;
-        margin-bottom: 3.5em;
+        margin-bottom: 1.5em;
         h3 {
             margin: 13px 0 0 0;
             font-size: 1em;
@@ -340,10 +342,11 @@
 
     .walk-stops-meta {
         position: absolute;
-        left: 0;
+        left: 20px;
         top: 0;
         height: 352px;
         width: 30%;
+        overflow-y: scroll;
 
         @media (max-width: 979px) {
             width: 40%;
@@ -354,7 +357,6 @@
         padding: 20px 10px 20px 20px;
         background: @color-blue;
         margin: 20px;
-        overflow: hidden;
         box-shadow: inset 0 -3px 0 darken(@color-blue,10%);
 
         @media (max-width: @screen-sm-min) {
@@ -527,7 +529,8 @@
 
 
 .walk-body {
-
+    .make-row();
+    margin-top: 15px;
 
     .title {
         color: #777;
