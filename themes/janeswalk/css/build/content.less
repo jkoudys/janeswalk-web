@@ -380,16 +380,10 @@ blockquote {
 
 // Hokey pokey to get things to display right in edit mode
 body.logged_in {
-  @dashmenu_height: 50px;
-  padding-top:@dashmenu_height;
   header.navbar {
-    top:@dashmenu_height;
     z-index:6;
   }
   #ccm-highlighter { z-index:7; }
-}
-body.c5-edit {
-  padding-top:180px;
 }
 html.index-bg body {
   padding:0;
@@ -630,31 +624,6 @@ a {
 
 #ccm-profile-wrapper {
   padding-bottom:25px;
-}
-
-
-
-/* onassar */
-@media (max-width: 979px) {
-  .navbar {
-    &+* {
-      padding-top: 0 !important;
-    }
-  }
-  div.container-outter {
-      div.container {
-      padding: 20px 0 0;
-    }
-  }
-}
-
-header.navbar {
-  div.navbar-inner {
-    div.container {
-      height: @height-navbar;
-      overflow: hidden;
-    }
-  }
 }
 
 /*html.index-bg {

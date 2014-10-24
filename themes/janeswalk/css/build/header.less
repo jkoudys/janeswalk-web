@@ -12,7 +12,7 @@
 			background-position: center center;
 			background-repeat: no-repeat;
 			width: 102px;
-			height: @height-navbar;
+			height: @navbar-height;
 			padding: 0 20px;
 			background-size: contain;
 		}
@@ -35,7 +35,7 @@
 				> a {
 					padding-top: 0;
 					padding-bottom: 0;
-					line-height: @height-navbar;
+					line-height: @navbar-height;
 					color: @color-darkgrey;
 				}
 			}
@@ -99,7 +99,7 @@
 	#donate:extend(.btn, .btn-primary, .btn-large, .navbar-btn) {
 		@padding-top-button: 6px; // The pad on a button
 		// Align the button to the line-height set on the navbar
-		margin: ((@height-navbar - (2 * @padding-top-button)) / 4) 0;
+		margin: ((@navbar-height - (2 * @padding-top-button)) / 4) 0;
 	}
 }
 
