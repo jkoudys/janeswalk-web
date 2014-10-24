@@ -1,68 +1,69 @@
 html {
-  @media (min-width: @screen-sm-min) { padding-bottom:111px; } /* Pad for the fixed-footer */
+	padding-top: @navbar-height; // Push body content down for header
+	@media (min-width: @screen-sm-min) { padding-bottom:111px; } /* Pad for the fixed-footer */
 }
 
 body {
-  overflow-x: hidden;
-  font-size: 15px;
-  line-height: 20px;
-  font-weight:300;
-  color:#222;
-  font-family: @font-slab;
-  text-rendering: optimizeLegibility;
+	overflow-x: hidden;
+	font-size: 15px;
+	line-height: 20px;
+	font-weight:300;
+	color:#222;
+	font-family: @font-slab;
+	text-rendering: optimizeLegibility;
 }
 
 // Generic layouts - profile page, blogs, etc.
 body.full {
-  #body { 
-    max-width: @screen-lg-min - 300px;
-    padding-right: 300px;
-  }
-  #full { 
-    max-width: @screen-lg-min;
-    margin:0 auto;
-  }
+	#body { 
+		max-width: @screen-lg-min - 300px;
+		padding-right: 300px;
+	}
+	#full { 
+		max-width: @screen-lg-min;
+		margin:0 auto;
+	}
 }
 body.site-page {
-  .ccm-profile-body-item {
-    div {
-      line-height: 1.7;
-      label {
-        min-width: 145px;
-        display: inline-block;
-      }
-    }
-  }
+	.ccm-profile-body-item {
+		div {
+			line-height: 1.7;
+			label {
+				min-width: 145px;
+				display: inline-block;
+			}
+		}
+	}
 }
 
 #central { margin-bottom:30px; }
 
 ul.ccm-staff-list {
-  margin-left: 0 !important; // TODO: remove all !importants
-  &, li {
-    list-style-type: none;
-    &:before {
-      content: "" !important;
-    }
-  }
-  li { margin-bottom: 20px !important; }
-  h3 {
-    margin:0;
-  }
-  .u-avatar {
-    height: 80px;
-    width: 80px;
-    border-radius: 999px;
-    margin-right: 15px;
-    background-size: cover;
-  }
-  .u-avatar, .ccm-staff-list-details {
-    display: inline-block;
-    vertical-align: top;
-  }
-  .ccm-staff-list-details {
-    width:85%;
-  }
+	margin-left: 0 !important; // TODO: remove all !importants
+	&, li {
+		list-style-type: none;
+		&:before {
+			content: "" !important;
+		}
+	}
+	li { margin-bottom: 20px !important; }
+	h3 {
+		margin:0;
+	}
+	.u-avatar {
+		height: 80px;
+		width: 80px;
+		border-radius: 999px;
+		margin-right: 15px;
+		background-size: cover;
+	}
+	.u-avatar, .ccm-staff-list-details {
+		display: inline-block;
+		vertical-align: top;
+	}
+	.ccm-staff-list-details {
+		width:85%;
+	}
 }
 
 html#tool { padding:0; margin:0; }
@@ -74,6 +75,6 @@ html#tool { padding:0; margin:0; }
 
 // All links should give a pointer by default
 a { 
-  cursor:pointer;
+	cursor:pointer;
 }
 

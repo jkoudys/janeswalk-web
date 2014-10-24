@@ -6990,7 +6990,14 @@ input {
 div.field {
   padding-bottom: 1.5em;
 }
+#ccm-toolbar {
+  z-index: -1;
+}
+div#ccm-edit-overlay {
+  z-index: 1031;
+}
 html {
+  padding-top: 60px;
   /* Pad for the fixed-footer */
 }
 @media (min-width: 768px) {
@@ -7621,7 +7628,6 @@ body.form {
 body > header {
   background: #fff;
   font-family: "museo-slab", "Roboto Slab", serif;
-  z-index: 2;
 }
 body > header .logo span {
   background: url("../images/jwlogo.svg");
@@ -7781,9 +7787,6 @@ body fieldset.search button {
   border: 1px solid #ccc;
   border-radius: 0 4px 4px 0;
   color: #333333;
-}
-body #ccm-toolbar {
-  z-index: -1;
 }
 body > footer {
   clear: both;
