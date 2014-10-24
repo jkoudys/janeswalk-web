@@ -32,7 +32,7 @@ class ThemeHelper
         'urban-sports' => 'trophy',
         'urban-play' => 'puzzle-piece',
         'urban-water' => 'tint',
-        'urban-film' => 'facetime-video',
+        'urban-film' => 'video-camera',
         'urban-music' => 'music',
         'civic-international' => 'globe',
         'civic-military' => 'fighter-jet',

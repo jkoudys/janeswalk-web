@@ -7,10 +7,14 @@ defined('C5_EXECUTE') or die("Access Denied.");
 require_once(DIR_BASE . '/models/page_types/Walk.php');
 
 use \JanesWalk\Models\PageTypes\Walk;
+use \JanesWalk\Controllers\Controller;
+
+Loader::controller('/janes_walk');
 class WalkFormController extends Controller
 {
     public function view()
     {
+        parent::view();
         $u = new User();
         $ui = UserInfo::getByID($u->getUserID());
         $nh = Loader::helper('navigation');
@@ -38,16 +42,24 @@ class WalkFormController extends Controller
         $is_nyc = in_array($city->getCollectionID(), [276]);
 
         $latlng = explode(',', $city->getAttribute('latlng') );
+
         // If you don't have a lat and a lng, final resort is Toronto. It's at least better than being 400km off the coast of Nigeria.
-        if (sizeof((array) $latlng) !== 2) {
+        if (count((array) $latlng) !== 2) {
             $latlng = [43.653226,-79.3831843];
         }
 
         $walk_ward = trim((String) $c->getAttribute('walk_wards'));
         $city_wards = $city->getAttribute('city_wards');
         if ($city_wards) {
-            $wards = array_map(function ($ward) use ($walk_ward) { if ($ward->value == $walk_ward) { $ward->selected = true; } return $ward; },
-                $city_wards->getOptions() );
+            $wards = array_map(
+                function ($ward) use ($walk_ward) {
+                    if ($ward->value == $walk_ward) {
+                        $ward->selected = true;
+                    }
+                    return $ward;
+                },
+                $city_wards->getOptions()
+            );
         } else {
             $wards = false;
         }
@@ -109,6 +121,7 @@ class WalkFormController extends Controller
         $this->set('lng', $latlng[1]);
         $this->set('front', $front);
         $this->set('pageViewName', 'CreateWalkView');
+        $this->set('bodyData', $this->bodyData);
 
         // Load JS we need in the form
         $html = Loader::helper('html');
