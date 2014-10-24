@@ -306,7 +306,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
         </div>
         <div class="thumbnail accessibility">
           <div class="caption">
-            <h4><i class="fa"></i> <?= t('Accessibility') ?></h4>
+            <h4><i class="fa fa-male"></i> <?= t('Accessibility') ?></h4>
             <ul>
               <?php foreach ($w->accessible as $accessible => $value) { ?>
               <li><?= t($th->getName($accessible)) ?></li>
@@ -318,7 +318,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
             </p>
             <?php }
             if ($public_transit = trim($w->accessibleTransit)) { ?>
-            <h4><i class="fa"></i> <?= t('Taking Public Transit') ?></h4>
+            <h4><i class="fa fa-bus"></i> <?= t('Taking Public Transit') ?></h4>
             <p id="public transit directions">
               <?= t($public_transit) ?>
             </p>
