@@ -187,7 +187,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
               <div class="row">
                 <div class="avatar">
 <?php
-                if ($mem['avatar'] && $city->getCollectionName() !== 'Calgary') { ?>
+                if ($mem['avatar'] && $w->city->getCollectionName() !== 'Calgary') { ?>
                     <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
                   <?php } else { ?>
                     <img src='<?= $mem['image'] ?>' alt='<?= $mem['title'] ?>' class='pull-left'>

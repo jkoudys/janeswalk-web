@@ -203,17 +203,17 @@ class WalkPageTypeController extends Controller
         $doc = new DOMDocument;
         if ($thumb) {
             $meta = $doc->appendChild($doc->createElement('meta'));
-            $meta->setAttribute('property','og:image');
-            $meta->setAttribute('content', BASE_URL . $im->getThumbnail($thumb,340,720)->src);
+            $meta->setAttribute('property', 'og:image');
+            $meta->setAttribute('content', BASE_URL . $im->getThumbnail($thumb, 340, 720)->src);
         }
         $meta = $doc->appendChild($doc->createElement('meta'));
-        $meta->setAttribute('property','og:url');
+        $meta->setAttribute('property', 'og:url');
         $meta->setAttribute('content', $nh->getCollectionURL($c));
         $meta = $doc->appendChild($doc->createElement('meta'));
-        $meta->setAttribute('property','og:title');
+        $meta->setAttribute('property', 'og:title');
         $meta->setAttribute('content', $c->getCollectionName());
         $meta = $doc->appendChild($doc->createElement('meta'));
-        $meta->setAttribute('property','og:description');
+        $meta->setAttribute('property', 'og:description');
         $meta->setAttribute('content', $c->getAttribute('shortdescription'));
         $this->addHeaderItem($doc->saveHTML());
 
@@ -237,7 +237,7 @@ class WalkPageTypeController extends Controller
             }
         }
         $li = $bc->appendChild($doc->createElement('li'));
-        $li->setAttribute('class','active');
+        $li->setAttribute('class', 'active');
         $li->appendChild($doc->createTextNode($c->getCollectionName()));
         $this->set('breadcrumb', $doc->saveHTML($bc));
 
