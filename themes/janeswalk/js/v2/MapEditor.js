@@ -89,13 +89,6 @@ function MapEditor(jwdata) {
   // TODO: organize these inits together somewhere
   // Polylines
   this.initPoly();
-
-  // Create button to go to 'home'
-  var homeControlDiv = document.createElement('div'),
-    homeControl = (new HomeControl(homeControlDiv, _this.map));
-  homeControlDiv.index = 1;
-  _this.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
-
 }
 
 /**

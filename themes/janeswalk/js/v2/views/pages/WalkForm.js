@@ -21,7 +21,7 @@ function timeConvert (time) {
 }
 
 var dateSelected = [];
-var jwMap = {}; // Not ideal, but keep for now until I can localize this.
+window.jwMap = {}; // Not ideal, but keep for now until I can localize this.
 
 // Typeahead team members
 $.fn.teamTypeahead = function() {
@@ -64,6 +64,25 @@ window.Janeswalk = {
     // Date Picker
 
     var defaultDate = JanesWalk.form.datepicker_cfg.defaultDate;
+
+    // Defaults
+    JanesWalk.form.datepicker_cfg.beforeShowDay =
+      function (date) {
+        var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+        var dateFormatted = date.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
+        if ($.inArray(dateFormatted, dateSelected) != -1) {
+          return [
+            true, // disabled
+            'selected' // classes
+          ];
+        }
+        return [true, ''];
+      };
+    JanesWalk.form.datepicker_cfg.minDate = new Date();
+    JanesWalk.form.datepicker_cfg.maxDate = new Date("May 23, 2020");
+    JanesWalk.form.datepicker_cfg.defaultDate = new Date();
+
+
 
     // Note: $.datepicker.formatDate( "MM d, yy", defaultDate); also works.
     // Avoid including whole libs for one-offs, e.g. moment()
@@ -628,10 +647,10 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // Set DOM listener on page load.
-/*  if ($('#map-canvas').length > 0) {
+  if ($('#map-canvas').length > 0) {
     jwMap = new MapEditor(JanesWalk);
     JaneswalkData.mapPopulate(jwMap);
-  } FIXME */
+  }
 
   // Scroll top on tab change 
   $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){

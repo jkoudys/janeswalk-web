@@ -1,24 +1,4 @@
 <?php defined('C5_EXECUTE') or die(_("Access Denied.")); ?>
-<script type="text/javascript">
-JanesWalk = <?= json_encode($front) ?>;
-JanesWalk.form.datepicker_cfg.beforeShowDay =
-  function (date) {
-    var date_utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
-    var dateFormatted = date.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric'});
-    if ($.inArray(dateFormatted, dateSelected) != -1) {
-      return [
-        true, // disabled
-        'selected' // classes
-      ];
-    }
-    return [true, ''];
-  };
-JanesWalk.form.datepicker_cfg.minDate = new Date();
-JanesWalk.form.datepicker_cfg.maxDate = new Date("May 23, 2020");
-JanesWalk.form.datepicker_cfg.defaultDate = new Date();
-
-</script>
-
 <div style='display:none' class='pagejson' data-url='<?= DIR_REL . '/' . DISPATCHER_FILENAME  . '?cID=' . $c->getCollectionID() ?>'></div>
 <main id="create-walk">
     <section>

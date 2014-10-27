@@ -24,7 +24,7 @@ Loader::element('header_required');
     <script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js" type="text/javascript"></script>
 </head>
 <body
-  class="<?= join($bodyData['classes'], ' ') ?>"
+  class="<?= join((array) $bodyData['classes'], ' ') ?>"
   data-pageViewName="<?= $bodyData['pageViewName'] ?>"
   style="background-image:url(<?= $bodyData['bg'] ?>)">
   <?php $this->inc('elements/modals.php'); ?>

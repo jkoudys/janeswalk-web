@@ -2,6 +2,7 @@
 defined('C5_EXECUTE') || die(_('Access Denied.'));
 $this->inc('elements/header.php');
 
+// Comma separated list of walk leaders
 $walkLeaders = implode(
     ', ',
     array_map(
@@ -11,8 +12,20 @@ $walkLeaders = implode(
         $w->walkLeaders
     )
 );
+
+// Options to register
+if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
+    if (!empty($eid)) {
+        $registrationMessage = '<a data-eid="' . $eid . '" href="http://eventbrite.ca/event/' . $eid . '" id="register-btn" class="btn btn-primary btn-large">' .
+            t('Register For This Walk') .
+            '</a>';
+    } else {
+        $registrationMessage = t('Registration Not Yet Open');
+    }
+}
+
 ?>
-  <div id="fb-root"></div>
+<div id="fb-root"></div>
 <script type="text/javascript">
 window.fbAsyncInit = function () {
     FB.init({
@@ -42,12 +55,10 @@ window.fbAsyncInit = function () {
         </ul>
       </div>
 
-      <div class="row walk-header">
-        <div class="col-md-9">
-          <h1 class="walk-title"><?= $w ?></h1>
-        </div>
+      <div class="walk-header">
+        <h1 class="walk-title"><?= $w ?></h1>
 
-        <div class="col-md-3 profiles box-sizing">
+        <div class="profiles">
           <div id="reg-group">
 <?php
 $slots = (array) $w->time['slots'];
@@ -69,27 +80,15 @@ if ($w->time['open']) {
     }
 ?>
               </h4>
-<?php }
-if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
-    if (!empty($eid)) {
-?>
-              <a data-eid="<?= $eid ?>" href="<?= 'http://eventbrite.ca/event/', $eid ?>" id="register-btn" class="btn btn-primary btn-large"><?= t('Register For This Walk') ?></a>
-<?php
-    } else {
-?>
-              <?= t('Registration Not Yet Open') ?>
-<?php
-    }
-}
-?>
+<?php } ?>
+              <?= $registrationMessage ?>
           </div>
         </div>
       </div>
 
       <div class="walk-leaders">
-        <div class="col-md-7">
           <h4>
-            <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)) . $walkLeaders ?>
+            <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)), $walkLeaders ?>
           </h4>
           <?php if ($meeting_place) { ?>
           <h4>
@@ -97,38 +96,33 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
           </h4>
            <p><?= $meeting_place['description'] ?></p>
           <?php } ?>
-        </div>
       </div>
-      <?php if (count((array) $w->map->markers) + count((array) $w->map->path) > 0) { ?>
+      <?php if (count((array) $w->map->markers) + count((array) $w->map->path)) { ?>
       <div class="walk-stops" style="display:none">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="walk-stops-meta box-sizing">
-              <header id="header" class="walk-stops-meta-inner">
-                <?php if (isset($slots[0]['duration'])) { ?>
-                <h4><i class="fa fa-clock-o"></i> <?= t('Duration') ?>:</h4>
-                <h5>
-                  <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
-                </h5>
-                <?php } else { ?>
-                <h4><i class="fa fa-clock"></i> <?= t('Open Schedule') ?></h4>
-                <?php } ?>
-                <hr>
-                <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
-                <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
-                <ol>
-                  <?php foreach ($w->map->markers as $key => $marker) { ?>
-                  <li class='walk-stop' id='<?= $key ?>'><h4><?= $marker->title ?></h4></li>
-                  <?php } ?>
-                </ol>
-              </header>
-            </div>
-            <div id="map-canvas-wrapper">
-              <div id="map-canvas">
-                <div class="infobox-wrapper">
-                  <div id="infobox">
-                  </div>
-                </div>
+        <div class="walk-stops-meta box-sizing">
+          <header id="header" class="walk-stops-meta-inner">
+            <?php if (isset($slots[0]['duration'])) { ?>
+            <h4><i class="fa fa-clock-o"></i> <?= t('Duration') ?>:</h4>
+            <h5>
+              <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
+            </h5>
+            <?php } else { ?>
+            <h4><i class="fa fa-clock"></i> <?= t('Open Schedule') ?></h4>
+            <?php } ?>
+            <hr>
+            <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
+            <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
+            <ol>
+              <?php foreach ($w->map->markers as $key => $marker) { ?>
+              <li class='walk-stop' id='<?= $key ?>'><h4><?= $marker->title ?></h4></li>
+              <?php } ?>
+            </ol>
+          </header>
+        </div>
+        <div id="map-canvas-wrapper">
+          <div id="map-canvas">
+            <div class="infobox-wrapper">
+              <div id="infobox">
               </div>
             </div>
           </div>
@@ -137,21 +131,19 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
       <?php } ?>
 
       <div class="walk-body">
-        <div class="col-md-8">
-          <div class="clearfix">
-            <h3><?= t('About This Walk') ?></h3>
-            <?php if ($thumb) { ?>
-              <a class="thumb" href="<?= ($im->getThumbnail($w->thumbnail,1024,1024)->src) ?>">
-                <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
-              </a>
-            <?php }
-            echo $w->longdescription; ?>
-          </div>
+        <div class="walk-details">
+          <h3><?= t('About This Walk') ?></h3>
+          <?php if ($thumb) { ?>
+            <a class="thumb" href="<?= ($im->getThumbnail($w->thumbnail,1024,1024)->src) ?>">
+              <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
+            </a>
+          <?php }
+          echo $w->longdescription; ?>
 
           <?php
             if (count($w->map->markers) > 0):
           ?>
-            <div class="clearfix walk-stops-list">
+            <div class="walk-stops-list">
               <hr />
               <h3><?= t('Walk Stops') ?></h3>
               <?php
@@ -178,8 +170,8 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
             </div>
           <?php endif; ?>
 
-          <div class="clearfix walk-team">
-            <hr>
+          <div class="walk-team">
+            <hr />
             <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
 
             <?php foreach ($w->teamPictures as $k => $mem) { ?>
@@ -241,7 +233,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
 
         </div>
 
-        <aside class="col-md-4">
+        <aside>
         <div class="thumbnail" id="register">
           <?php
             if ((string) $c->getAttribute('show_registration_button') === 'Yes') {

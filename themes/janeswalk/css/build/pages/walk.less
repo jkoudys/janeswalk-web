@@ -39,7 +39,15 @@
     }
 
     .walk-header {
+        .make-row();
+        .clearfix();
 
+        .walk-title {
+            .make-md-column(9);
+        }
+        .profiles {
+            .make-md-column(3);
+        }
         h1 {
             color: #555;
             margin-top: 1em;
@@ -306,7 +314,6 @@
     }
     .walk-leaders {
         .clearfix();
-        .make-row();
         margin-top: 0;
         margin-bottom: 1.5em;
         h3 {
@@ -314,9 +321,6 @@
             font-size: 1em;
             color: #555;
             line-height: 0em;
-        }
-        .span4 {
-            width: 20%;
         }
     }
 }
@@ -585,17 +589,6 @@
                 h4 {
                     margin-top: 0;
                 }
-                @media (max-width: 480px) {
-                    .span2 {
-                        width: 25%;
-                        display: inline-block;
-                    }
-                }
-                @media (max-width: 480px) {
-                    .span6 {
-                        margin-bottom: 0.5em;
-                    }
-                }
             }
         }
     }
@@ -606,9 +599,17 @@
         box-shadow: 0 2px 0 rgba(0,0,0,0.1);
         max-width: 95%;
     }
+
+    .walk-details {
+        .make-md-column(8);
+        & + aside {
+            .make-md-column(4);
+        }
+    }
 }
 
 .walk-stops-list {
+    .clearfix();
     position: relative;
     display: none;
 
@@ -645,15 +646,6 @@
 }
 
 .profiles {
-    position: absolute;
-    right: 0;
-    bottom: -40px;
-    min-height: 155px !important;
-
-    @media (max-width: @screen-md-min) {
-        position:static;
-    }
-
     .profile-inner {
         color: #50616D;
         border: 1px solid darken(#F4F7FA,5%);
@@ -671,7 +663,7 @@
         }
         .bottom-bar {
             position: absolute;
-            font-family: "museo-slab", "Roboto Slab", serif;
+            font-family: @font-slab;
             bottom: -18px;
             right: -15px;
             padding: 5px 0;
@@ -771,16 +763,6 @@
         }
     }
     #reg-group {
-        position: absolute;
-        bottom: -20px;
-        width: 100%;
-        padding-left: 0;
-        padding-right: 0;
-        @media (max-width: @screen-md-min) {
-            bottom: 0;
-            position: relative;
-        }
-
         .available-time {
             display: block;
             margin-bottom: 1em;

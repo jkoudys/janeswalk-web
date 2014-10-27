@@ -83,7 +83,7 @@ if ($city->fullbg) {
   </div>
   <div class="section3 city-city">
     <div class="container">
-      <div class="row walk-select">
+      <div class="walk-select">
         <div class="action-items walk-preview">
           <div class="item">
             <h2><?= t('Jane’s Walks') ?></h2>

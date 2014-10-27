@@ -41,12 +41,6 @@ class WalkFormController extends Controller
         $ui_cityorganizer = UserInfo::getByID($city->getCollectionUserID());
         $is_nyc = in_array($city->getCollectionID(), [276]);
 
-        $latlng = explode(',', $city->getAttribute('latlng') );
-
-        // If you don't have a lat and a lng, final resort is Toronto. It's at least better than being 400km off the coast of Nigeria.
-        if (count((array) $latlng) !== 2) {
-            $latlng = [43.653226,-79.3831843];
-        }
 
         $walk_ward = trim((String) $c->getAttribute('walk_wards'));
         $city_wards = $city->getAttribute('city_wards');
@@ -75,19 +69,26 @@ class WalkFormController extends Controller
             }
         }
 
+        // Load our city
+        $latlng = explode(',', $city->getAttribute('latlng') );
+
+        // If you don't have a lat and a lng, final resort is Toronto. It's at least better than being 400km off the coast of Nigeria.
+        if (count((array) $latlng) !== 2) {
+            $latlng = [43.653226,-79.3831843];
+        }
+
+        $this->addToJanesWalk(['city' =>
+            [
+                'name' => $city->getCollectionName(),
+                'url' => $nh->getCollectionUrl($city),
+                'lat' => $latlng[0],
+                'lng' => $latlng[1]
+            ]
+        ]);
+
         /* Build array used to pass back walk data as JSON to the frontend */
-        $front = array();
-        $front['page'] = [
-            'url' => $nh->getCollectionURL($c),
-            'title' => $c->getCollectionName()
-        ];
-        $front['city'] = [
-            'name' => $city->getCollectionName(),
-            'url' => $nh->getCollectionURL($city),
-            'lat' => $latlng[0],
-            'lng' => $latlng[1]
-        ];
-        $front['form'] = [
+        $formSettings = array();
+        $formSettings['form'] = [
             'timepicker_cfg' => [
                 'defaultTime' => '9:00 AM',
                 'timeFormat' => 'h:i A'
@@ -100,9 +101,12 @@ class WalkFormController extends Controller
 
         // Special case for cities with walk-formatting requirements
         if ($is_nyc) {
-            $front['form']['timepicker_cfg']['step'] = 180;
-            $front['form']['timepicker_cfg']['disableTimeRanges'] = [ ['12am','8:59am'], ['9:01pm','11:59pm'] ];
+            $formSettings['form']['timepicker_cfg']['step'] = 180;
+            $formSettings['form']['timepicker_cfg']['disableTimeRanges'] = [ ['12am','8:59am'], ['9:01pm','11:59pm'] ];
         }
+
+        // Make these data available to JS
+        $this->addToJanesWalk($formSettings);
 
         $this->set('u', $u);
         $this->set('ui', $ui);
@@ -119,7 +123,6 @@ class WalkFormController extends Controller
         $this->set('is_nyc', $is_nyc);
         $this->set('lat', $latlng[0]);
         $this->set('lng', $latlng[1]);
-        $this->set('front', $front);
         $this->set('pageViewName', 'CreateWalkView');
         $this->set('bodyData', $this->bodyData);
 
