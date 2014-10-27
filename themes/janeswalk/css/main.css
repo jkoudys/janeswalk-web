@@ -217,14 +217,12 @@ th {
   }
   p,
   h2,
-  h3,
-  #profileWrapper div.headline {
+  h3 {
     orphans: 3;
     widows: 3;
   }
   h2,
-  h3,
-  #profileWrapper div.headline {
+  h3 {
     page-break-after: avoid;
   }
   select {
@@ -424,8 +422,7 @@ h1,
 h2,
 .h2,
 h3,
-.h3,
-#profileWrapper div.headline {
+.h3 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -448,7 +445,8 @@ h4,
 h5,
 .h5,
 h6,
-.h6 {
+.h6,
+#profileWrapper div.headline {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -475,12 +473,12 @@ h2,
   font-size: 30px;
 }
 h3,
-.h3,
-#profileWrapper div.headline {
+.h3 {
   font-size: 24px;
 }
 h4,
-.h4 {
+.h4,
+#profileWrapper div.headline {
   font-size: 18px;
 }
 h5,
@@ -7414,12 +7412,12 @@ h2 {
   font-weight: 100;
   font-size: 40px;
 }
-h3,
-#profileWrapper div.headline {
+h3 {
   font-weight: 100;
   font-size: 25px;
 }
-h4 {
+h4,
+#profileWrapper div.headline {
   font-weight: 700;
   font-size: 17px;
 }
@@ -8729,7 +8727,7 @@ section.sponsors {
   margin: 0;
 }
 #profileWrapper div.headline {
-  margin-top: 0;
+  margin-top: 10px;
 }
 #profileWrapper .field:before,
 #profileWrapper .field:after {

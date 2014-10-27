@@ -5,7 +5,7 @@ class ProfileController extends Concrete5_Controller_Profile
     public function view($userID = 0)
     {
         // Set the page view first
-        $this->set('pageViewName', 'ProfilePageView');
+        $this->set('bodyData', ['pageViewName' => 'ProfilePageView']);
 
         parent::view($userID);
         Loader::model('page_list');
