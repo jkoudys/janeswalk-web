@@ -50,7 +50,8 @@ case 'DELETE':
   public function view()
   {
       parent::view();
-      $this->bodyData['bg'] = $this->city->fullbg->getURL();
+      $bg = $this->city->fullbg;
+      if ($bg) $this->bodyData['bg'] = $bg->getURL();
       $this->bodyData['classes'][] = 'city-page';
       $this->bodyData['pageViewName'] = 'CityPageView';
       $this->set('bodyData', $this->bodyData);

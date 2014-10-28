@@ -14,7 +14,7 @@
                     </ul>
                     <br>
                     <section id="button-group">
-                        <button class="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." data-previewurl="<?=str_replace("format=json","format=html",$_REQUEST['load']); ?>"><?= t('Preview Walk') ?></button>
+                        <button class="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." data-previewurl="<?= str_replace("format=json","format=html",$_REQUEST['load']) ?>"><?= t('Preview Walk') ?></button>
                         <button class="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all."><?= t('Publish Walk') ?></button>
                         <button class="btn btn-info save" title="Save and return later" id="btn-save"><?= t('Save and return later') ?></button>
                     </section>
@@ -25,12 +25,12 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="description">
                     <div class="walk-submit lead">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img id="convo-marker" src="<?= $this->getThemePath() ?>/img/jw-intro-graphic.svg" alt="Jane's Walks are walking conversations.">
-                            </div>
-                            <div class="col-md-8"><h1><?= t('Hey there, %s!', $ui->getAttribute('first_name')) ?></h1>
-                                <p><?= t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') ?></p></div>
+                        <div class="col-md-4">
+                            <img id="convo-marker" src="<?= $this->getThemePath() ?>/img/jw-intro-graphic.svg" alt="Jane's Walks are walking conversations.">
+                        </div>
+                        <div class="col-md-8">
+                            <h1><?= t('Hey there, %s!', $ui->getAttribute('first_name')) ?></h1>
+                            <p><?= t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') ?></p>
                         </div>
                     </div>
                     <div class="page-header" data-section='description'>
@@ -66,7 +66,7 @@
                                 <div class="alert alert-info">
                                     <?= t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.') ?>
                                 </div>
-                                <textarea class="col-md-12" id="longdescription" name="longdescription" rows="14"><?= $c->getAttribute('longdescription') ?></textarea>
+                                <textarea id="longdescription" name="longdescription" rows="14"><?= $c->getAttribute('longdescription') ?></textarea>
                             </div>
                         </fieldset>
                         <?php if ($wards) { ?>
@@ -91,83 +91,76 @@
                             </div>
 
                             <div class="item">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <legend><?= t('Community') ?></legend>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-activist">  <?= t('Activism') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-truecitizen">  <?= t('Citizenry') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-goodneighbour">  <?= t('Community') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-writer">  <?= t('Storytelling') ?></label>
-                                        </fieldset>
-                                    </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend><?= t('Community') ?></legend>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-activist">  <?= t('Activism') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-truecitizen">  <?= t('Citizenry') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-goodneighbour">  <?= t('Community') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-writer">  <?= t('Storytelling') ?></label>
+                                    </fieldset>
+                                </div>
 
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <legend><?= t('City-building') ?></legend>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-architecturalenthusiast">  <?= t('Architecture') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-aesthete">  <?= t('Design') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-suburbanexplorer">  <?= t('Suburbs') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-moversandshakers">  <?= t('Transportation') ?></label>
-                                        </fieldset>
-                                    </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend><?= t('City-building') ?></legend>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-architecturalenthusiast">  <?= t('Architecture') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-aesthete">  <?= t('Design') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-suburbanexplorer">  <?= t('Suburbs') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-moversandshakers">  <?= t('Transportation') ?></label>
+                                    </fieldset>
                                 </div>
                             </div>
 
                             <div class="item">
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend><?= t('Society') ?></legend>
 
-                                        <fieldset>
-                                            <legend><?= t('Society') ?></legend>
-
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-gender">  <?= t('Gender') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-health">  <?= t('Health') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-historybuff">  <?= t('Heritage') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-nativeissues">  <?= t('Native Issues') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-religion">  <?= t('Religion') ?></label>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <fieldset>
-                                            <legend><?= t('Expression') ?></legend>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  <?= t('Art') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-film">  <?= t('Film') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-bookworm">   <?= t('Literature') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-music">   <?= t('Music') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-play">   <?= t('Play') ?></label>
-                                        </fieldset>
-                                    </div>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-gender">  <?= t('Gender') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-health">  <?= t('Health') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-historybuff">  <?= t('Heritage') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-nativeissues">  <?= t('Native Issues') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-religion">  <?= t('Religion') ?></label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <legend><?= t('Expression') ?></legend>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-artist">  <?= t('Art') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-film">  <?= t('Film') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-bookworm">   <?= t('Literature') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-music">   <?= t('Music') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-play">   <?= t('Play') ?></label>
+                                    </fieldset>
                                 </div>
                             </div>
 
                             <div class="item">
-                                <div class="row">
-                                    <div class="col-md-6">
+                                <div class="col-md-6">
 
-                                        <fieldset>
-                                            <legend><?= t('The Natural World') ?></legend>
+                                    <fieldset>
+                                        <legend><?= t('The Natural World') ?></legend>
 
-                                            <label class="checkbox"><input type="checkbox" name="theme-nature-petlover">  <?= t('Animals') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-nature-greenthumb">  <?= t('Gardening') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-nature-naturelover">   <?= t('Nature') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-water">   <?= t('Water') ?></label>
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-6">
+                                        <label class="checkbox"><input type="checkbox" name="theme-nature-petlover">  <?= t('Animals') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-nature-greenthumb">  <?= t('Gardening') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-nature-naturelover">   <?= t('Nature') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-water">   <?= t('Water') ?></label>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
 
-                                        <fieldset>
-                                            <legend><?= t('Modernity') ?></legend>
+                                    <fieldset>
+                                        <legend><?= t('Modernity') ?></legend>
 
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-international">  <?= t('International Issues') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-military">  <?= t('Military') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-civic-commerce">  <?= t('Commerce') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-nightowl">  <?= t('Night Life') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-techie">  <?= t('Technology') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-urban-sports">  <?= t('Sports') ?></label>
-                                            <label class="checkbox"><input type="checkbox" name="theme-culture-foodie">  <?= t('Food') ?></label>
-                                        </fieldset>
-                                    </div>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-international">  <?= t('International Issues') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-military">  <?= t('Military') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-civic-commerce">  <?= t('Commerce') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-nightowl">  <?= t('Night Life') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-techie">  <?= t('Technology') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-urban-sports">  <?= t('Sports') ?></label>
+                                        <label class="checkbox"><input type="checkbox" name="theme-culture-foodie">  <?= t('Food') ?></label>
+                                    </fieldset>
                                 </div>
                             </div>
                         </fieldset>
@@ -187,35 +180,33 @@
                         <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 class="lead"><?= t('Need help building your route?') ?></h2></a>
 
                         <div id="route-menu" class="collapse" style="height:0;">
-                            <div class="row">
-                                <div class="col-md4">
-                                    <h4>1. <?= t('Set a Meeting Place') ?></h4>
-                                    <ol>
-                                        <li><?= t('Click "Meeting Place" to add a pinpoint on the map') ?></li>
-                                        <li><?= t('Click and drag it into position') ?></li>
-                                        <li><?= t('Fill out the form fields and press Save Meeting Place') ?></li>
-                                    </ol>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>2. <?= t('Add Stops') ?></h4>
-                                    <ol>
-                                        <li><?= t('Click "Add Stop" to add a stop on the map') ?></li>
-                                        <li><?= t('Click and drag it into position') ?></li>
-                                        <li><?= t('Fill out the form fields and press Save Stop') ?></li>
-                                        <li><?= t('Repeat to add more stops') ?></li>
-                                    </ol>
-                                </div>
-                                <div class="col-md-4">
-                                    <h4>3. <?= t('Add Route') ?></h4>
-                                    <ol>
-                                        <li><?= t('Click Add Route') ?></li>
-                                        <li><?= t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') ?></li>
-                                        <li><?= t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') ?></li>
-                                        <li><?= t('Click Save Route') ?></li></ol>
-                                    <ul>
-                                        <li><?= t('If you want to delete your route to start over, click ') ?><a href="" class="clear-route"><?= t('Clear Route') ?></a>. <?= t('Your Stops will not be deleted') ?></li>
-                                    </ul>
-                                </div>
+                            <div class="col-md4">
+                                <h4>1. <?= t('Set a Meeting Place') ?></h4>
+                                <ol>
+                                    <li><?= t('Click "Meeting Place" to add a pinpoint on the map') ?></li>
+                                    <li><?= t('Click and drag it into position') ?></li>
+                                    <li><?= t('Fill out the form fields and press Save Meeting Place') ?></li>
+                                </ol>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>2. <?= t('Add Stops') ?></h4>
+                                <ol>
+                                    <li><?= t('Click "Add Stop" to add a stop on the map') ?></li>
+                                    <li><?= t('Click and drag it into position') ?></li>
+                                    <li><?= t('Fill out the form fields and press Save Stop') ?></li>
+                                    <li><?= t('Repeat to add more stops') ?></li>
+                                </ol>
+                            </div>
+                            <div class="col-md-4">
+                                <h4>3. <?= t('Add Route') ?></h4>
+                                <ol>
+                                    <li><?= t('Click Add Route') ?></li>
+                                    <li><?= t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') ?></li>
+                                    <li><?= t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') ?></li>
+                                    <li><?= t('Click Save Route') ?></li></ol>
+                                <ul>
+                                    <li><?= t('If you want to delete your route to start over, click ') ?><a href="" class="clear-route"><?= t('Clear Route') ?></a>. <?= t('Your Stops will not be deleted') ?></li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -309,7 +300,7 @@
                                             <hr>
                                             <label for="walk-time"><?= t('Start Time') ?>:</label>
 
-                                            <input id="walk-time" type="text" class="time ui-timepicker-input input-sm" autocomplete="off">
+                                            <input id="walk-time" type="text" class="time ui-timepicker-input" autocomplete="off">
 
                                             <label for="walk-time"><?= t('Approximate Duration of Walk') ?>:</label>
                                             <select name="duration" id="walk-duration">
@@ -440,7 +431,7 @@
                     <div class="item">
                         <fieldset>
                             <legend><?= t('What else do people need to know about the accessibility of this walk?') ?> (<?= t('Optional') ?>)</legend>
-                            <textarea rows="3" name="accessible-info"></textarea>
+                            <textarea name="accessible-info" rows="3" maxlength="140"></textarea>
                         </fieldset>
                     </div>
 
@@ -486,90 +477,88 @@
                             <input type="hidden" name="user_id[]" value="<?= $owner->getUserID() ?>">
                             <legend><?= t('You') ?></legend>
                             <div class="row" id="walkleader">
-                                <div class="col-md-9">
-                                    <div class="item required">
-                                        <label for="name"><?= t('Name') ?></label>
-                                        <input type="text" class="input-sm" name="name-first[]" id="name" placeholder="First" value="<?= htmlspecialchars($owner->getAttribute("first_name")) ?>">
-                                        <input type="text" class="input-sm" name="name-last[]" id="name" placeholder="Last" value="<?= htmlspecialchars($owner->getAttribute("last_name")) ?>">
-                                    </div>
-
-                                    <div class="item required">
-                                        <label for="role"><?= t('Role') ?></label>
-                                        <select id="role" name="role[]">
-                                            <option value="walk-leader" selected><?= t('Walk Leader') ?></option>
-                                            <option value="co-walk-leader"><?= t('Co-Walk Leader') ?></option>
-                                            <option value="walk-organizer"><?= t('Walk Organizer') ?></option>
-                                        </select>
-                                    </div>
-                                    <div class="item hide" id="primary-walkleader-select">
-                                        <label class="checkbox"><input type="checkbox" name="primary[]" class="role-check" checked>  <?= t('Primary Walk Leader') ?></label>
-                                    </div>
-                                    <div class="item required">
-                                        <label for="bio"><?= t('Introduce yourself') ?></label>
-                                        <div class="alert alert-info">
-                                            <?= t('We recommend keeping your bio under 60 words') ?>
-                                        </div>
-                                        <textarea class="col-md-12" id="bio" rows="6" name="bio[]"><?= htmlspecialchars($owner->getAttribute("bio")) ?></textarea>
-                                    </div>
-
-                                    <div class="row" id="newwalkleader">
-                                        <div class="col-md-6 required">
-                                            <label for="you-email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
-                                            <input type="email" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="leader-twitter"><i class="fa fa-twitter"></i> Twitter</label>
-                                            <div class="input-group">
-                                                <span class="input-group-addon">@</span>
-                                                <input class="col-md-12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?= htmlspecialchars($owner->getAttribute("twitter")) ?>">
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="row" id="newwalkleader">
-                                        <div class="col-md-6">
-                                            <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
-                                            <input type="text" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($owner->getAttribute("facebook"))?>">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
-                                            <input type="text" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($owner->getAttribute("website"))?>">
-                                        </div>
-                                    </div>
-
-                                    <hr>
-                                    <div class="private">
-                                        <h4><?= t('We\'ll keep this part private') ?></h4>
-                                        <div class="alert alert-info">
-                                            <?= t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') ?>
-                                        </div>
-
-                                        <div class="row" id="newwalkleader">
-                                            <div class="col-md-6 tel required">
-                                                <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
-                                                <input type="tel" maxlength="18" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($owner->getAttribute("phone"))?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php
-                                    if ($city->getCollectionName() === 'Toronto') {
-                                    ?>
-                                    <div class="prompt">
-                                        <hr />
-                                        <label>In need of volunteers?</label>
-                                        From helping you carry props to answering
-                                        questions about the festival and more, there are loads of
-                                        enthusiastic volunteers hoping to lend you a helping hand!<br /><br />
-                                        <a href="https://jfrolick.typeform.com/to/n5H8nL" target="_blank">Follow this link</a>
-                                        and the Project Office will match you up with volunteers as per
-                                        your request!
-                                    </div>
-                                    <?php
-                                    }
-                                    ?>
+                                <div class="item required">
+                                    <label for="name"><?= t('Name') ?></label>
+                                    <input type="text" name="name-first[]" id="name" placeholder="First" value="<?= htmlspecialchars($owner->getAttribute("first_name")) ?>">
+                                    <input type="text" name="name-last[]" id="name" placeholder="Last" value="<?= htmlspecialchars($owner->getAttribute("last_name")) ?>">
                                 </div>
+
+                                <div class="item required">
+                                    <label for="role"><?= t('Role') ?></label>
+                                    <select id="role" name="role[]">
+                                        <option value="walk-leader" selected><?= t('Walk Leader') ?></option>
+                                        <option value="co-walk-leader"><?= t('Co-Walk Leader') ?></option>
+                                        <option value="walk-organizer"><?= t('Walk Organizer') ?></option>
+                                    </select>
+                                </div>
+                                <div class="item hide" id="primary-walkleader-select">
+                                    <label class="checkbox"><input type="checkbox" name="primary[]" class="role-check" checked>  <?= t('Primary Walk Leader') ?></label>
+                                </div>
+                                <div class="item required">
+                                    <label for="bio"><?= t('Introduce yourself') ?></label>
+                                    <div class="alert alert-info">
+                                        <?= t('We recommend keeping your bio under 60 words') ?>
+                                    </div>
+                                    <textarea id="bio" rows="6" name="bio[]"><?= htmlspecialchars($owner->getAttribute("bio")) ?></textarea>
+                                </div>
+
+                                <div class="row" id="newwalkleader">
+                                    <div class="col-md-6 required">
+                                        <label for="you-email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
+                                        <input type="email" id="you-email" placeholder="" name="email[]" value="<?=$owner->getUserEmail()?>">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="leader-twitter"><i class="fa fa-twitter"></i> Twitter</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">@</span>
+                                            <input class="col-md-12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" value="<?= htmlspecialchars($owner->getAttribute("twitter")) ?>">
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row" id="newwalkleader">
+                                    <div class="col-md-6">
+                                        <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
+                                        <input type="text" id="facebook" placeholder="" name="facebook[]" value="<?=htmlspecialchars($owner->getAttribute("facebook"))?>">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
+                                        <input type="text" id="website" placeholder="" name="website[]" value="<?=htmlspecialchars($owner->getAttribute("website"))?>">
+                                    </div>
+                                </div>
+
+                                <hr>
+                                <div class="private">
+                                    <h4><?= t('We\'ll keep this part private') ?></h4>
+                                    <div class="alert alert-info">
+                                        <?= t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') ?>
+                                    </div>
+
+                                    <div class="row" id="newwalkleader">
+                                        <div class="col-md-6 tel required">
+                                            <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
+                                            <input type="tel" maxlength="18" id="phone" placeholder="" name="phone[]" value="<?=htmlspecialchars($owner->getAttribute("phone"))?>">
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                if ($city->getCollectionName() === 'Toronto') {
+                                ?>
+                                <div class="prompt">
+                                    <hr />
+                                    <label>In need of volunteers?</label>
+                                    From helping you carry props to answering
+                                    questions about the festival and more, there are loads of
+                                    enthusiastic volunteers hoping to lend you a helping hand!<br /><br />
+                                    <a href="https://jfrolick.typeform.com/to/n5H8nL" target="_blank">Follow this link</a>
+                                    and the Project Office will match you up with volunteers as per
+                                    your request!
+                                </div>
+                                <?php
+                                }
+                                ?>
                             </div>
                         </fieldset>
                     </div>
@@ -619,66 +608,64 @@
                             <input type="hidden" name="user_id[]" value="-1">
                             <legend><?= t('Walk Leader') ?></legend>
 
-                            <div class="row" id="walkleader">
-                                <div class="col-md-9">
-                                    <div class="item required">
-                                        <label for="name"><?= t('Name') ?></label>
-                                        <div class="item">
-                                            <form class="form-inline">
-                                                <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]" />
-                                                <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]" />
-                                            </form>
-                                        </div>
+                            <div id="walkleader">
+                                <div class="item required">
+                                    <label for="name"><?= t('Name') ?></label>
+                                    <div class="item">
+                                        <form class="form-inline">
+                                            <input type="text" id="name" placeholder="First" name="name-first[]" />
+                                            <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                                        </form>
                                     </div>
-                                    <div class="item" id="primary-walkleader-select">
-                                        <label class="checkbox"><input type="checkbox" class="role-check" name="primary[]">  <?= t('Primary Walk Leader') ?></label>
-                                    </div>
+                                </div>
+                                <div class="item" id="primary-walkleader-select">
+                                    <label class="checkbox"><input type="checkbox" class="role-check" name="primary[]">  <?= t('Primary Walk Leader') ?></label>
+                                </div>
 
-                                    <div class="item required">
-                                        <label for="bio"><?= t('Introduce the walk leader') ?></label>
-                                        <div class="alert alert-info">
-                                            <?= t('We recommend keeping the bio under 60 words') ?>
-                                        </div>
-                                        <textarea class="col-md-12" id="bio" rows="6" name="bio[]"></textarea>
-                                    </div>
-
-                                    <div class="row" id="newwalkleader">
-                                        <div class="col-md-6">
-                                            <label for="prependedInput"><i class="fa fa-twitter"></i> Twitter</label>
-                                            <div class="input-prepend">
-                                                <span class="add-on">@</span>
-                                                <input id="prependedInput" class="col-md-12" type="text" placeholder="Username" name="twitter[]">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
-                                            <input type="text" id="facebook" placeholder="" name="facebook[]">
-                                        </div>
-                                    </div>
-
-                                    <div class="row" id="newwalkleader">
-                                        <div class="col-md-6">
-                                            <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
-                                            <input type="text" id="website" placeholder="" value="" name="website[]">
-                                        </div>
-                                    </div>
-
-                                    <hr>
-
-                                    <h4><?= t('Private') ?></h4>
+                                <div class="item required">
+                                    <label for="bio"><?= t('Introduce the walk leader') ?></label>
                                     <div class="alert alert-info">
-                                        <?= t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') ?></div>
+                                        <?= t('We recommend keeping the bio under 60 words') ?>
+                                    </div>
+                                    <textarea class="col-md-12" id="bio" rows="6" name="bio[]"></textarea>
+                                </div>
 
-                                    <div class="row" id="newwalkleader">
-                                        <div class="col-md-6 required">
-                                            <label for="email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
-                                            <input type="email" id="email" placeholder="Email" name="email[]">
+                                <div class="row" id="newwalkleader">
+                                    <div class="col-md-6">
+                                        <label for="prependedInput"><i class="fa fa-twitter"></i> Twitter</label>
+                                        <div class="input-prepend">
+                                            <span class="add-on">@</span>
+                                            <input id="prependedInput" class="col-md-12" type="text" placeholder="Username" name="twitter[]">
                                         </div>
-                                        <div class="col-md-6 tel">
-                                            <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
-                                            <input type="tel" maxlength="16" id="phone" placeholder="" name="phone[]">
-                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label for="facebook"><i class="fa fa-facebook-square"></i> Facebook</label>
+                                        <input type="text" id="facebook" placeholder="" name="facebook[]">
+                                    </div>
+                                </div>
+
+                                <div class="row" id="newwalkleader">
+                                    <div class="col-md-6">
+                                        <label for="website"><i class="fa fa-link"></i> <?= t('Website') ?></label>
+                                        <input type="text" id="website" placeholder="" value="" name="website[]">
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <h4><?= t('Private') ?></h4>
+                                <div class="alert alert-info">
+                                    <?= t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') ?></div>
+
+                                <div class="row" id="newwalkleader">
+                                    <div class="col-md-6 required">
+                                        <label for="email"><i class="fa fa-envelope"></i> <?= t('Email') ?></label>
+                                        <input type="email" id="email" placeholder="Email" name="email[]">
+                                    </div>
+                                    <div class="col-md-6 tel">
+                                        <label for="phone"><i class="fa fa-phone-square"></i> <?= t('Phone Number') ?></label>
+                                        <input type="tel" maxlength="16" id="phone" placeholder="" name="phone[]">
                                     </div>
                                 </div>
                             </div>
@@ -700,8 +687,8 @@
                                     <div class="item required">
                                         <label for="name"><?= t('Name') ?></label>
                                         <form class="form-inline">
-                                            <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]">
-                                            <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]">
+                                            <input type="text" id="name" placeholder="First" name="name-first[]">
+                                            <input type="text" id="name" placeholder="Last" name="name-last[]">
                                         </form>
                                     </div>
                                     <label for="affiliation"><?= t('Affilated Institution') ?> (<?= t('Optional') ?>)</label>
@@ -732,8 +719,8 @@
                                     <div class="item required">
                                         <label for="name"><?= t('Name') ?></label>
                                         <form class="form-inline">
-                                            <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]">
-                                            <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]">
+                                            <input type="text" id="name" placeholder="First" name="name-first[]">
+                                            <input type="text" id="name" placeholder="Last" name="name-last[]">
                                         </form>
                                     </div>
                                     <div class="item">
@@ -781,8 +768,8 @@
                                     <div class="item required">
                                         <label for="name"><?= t('Name') ?></label>
                                         <form class="form-inline">
-                                            <input type="text" class="input-sm" id="name" placeholder="First" name="name-first[]">
-                                            <input type="text" class="input-sm" id="name" placeholder="Last" name="name-last[]">
+                                            <input type="text" id="name" placeholder="First" name="name-first[]">
+                                            <input type="text" id="name" placeholder="Last" name="name-last[]">
                                         </form>
                                     </div>
 
@@ -824,31 +811,30 @@
 </main>
 
 <!-- Publish Model 1 -->
-<div id="publish-warning" class="modal hide fade">
-    <div class="modal-header">
+<dialog id="publish-warning">
+    <header>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3><?= t('Okay, You\'re Ready to Publish') ?></h3>
-    </div>
+    </header>
     <div class="modal-body">
         <p><?= t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') ?></p>
     </div>
-
-    <div class="modal-footer">
+    <footer>
         <div class="pull-left">
             <a href="" class="walkthrough close" data-dismiss="modal"> <?= t('Bring me back to edit') ?></a>
         </div>
         <a href="<?php echo $this->url('/profile') ?>">
-            <button class="btn btn-primary walkthrough" data-step="publish-confirmation"><?= t('Publish') ?></button></a>
-    </div>
-
-</div>
+            <button class="btn btn-primary walkthrough" data-step="publish-confirmation"><?= t('Publish') ?></button>
+        </a>
+    </footer>
+</dialog>
 
 <!-- Publish Model 2 -->
-<div id="publish-confirmation" class="modal hide fade">
-    <div class="modal-header">
+<dialog id="publish-confirmation">
+    <header>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>Your Walk Has Been Published!</h3>
-    </div>
+    </header>
     <div class="modal-body">
         <p>Congratulations! Your walk is now available for all to peruse.</p>
         <h2 class="lead"> Don't forget to share your walk!</h2>
@@ -858,22 +844,22 @@
         <button class="btn facebook"><i class="fa fa-facebook-sign"></i> Share on Facebook</button>
         <button class="btn twitter"><i class="fa fa-twitter-sign"></i> Share on Twitter</button>
     </div>
-    <div class="modal-footer">
+    <footer>
         <button class="btn btn-primary walkthrough">Close</button>
-    </div>
-</div>
+    </footer>
+</dialog>
 
 <!-- Preview Modal -->
-<div id="preview-modal" class="modal hide fade">
-    <div class="modal-header">
+<dialog id="preview-modal">
+    <header>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3><?= t('Preview of your Walk') ?></h3>
-    </div>
+    </header>
     <div class="modal-body">
         <iframe src="" frameborder="0">
         </iframe>
     </div>
-    <div class="modal-footer">
+    <footer>
         <a href="#" class="btn close" data-dismiss="modal"><?= t('Close Preview') ?></a>
-    </div>
-</div>
+    </footer>
+</dialog>

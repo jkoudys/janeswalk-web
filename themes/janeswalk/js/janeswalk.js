@@ -2820,7 +2820,6 @@ window.Janeswalk = {
         console.log("server error");
       })
       .always(function(){
-        // $('.progress-spinner').spin(false);
       });
     }
   }
@@ -3117,44 +3116,43 @@ var JaneswalkData = {
   }
 };
 
-// Spinner Props
-var spinProperties = {lines:10,length:15,width:5,radius:30};
-
 // On page load
 document.addEventListener("DOMContentLoaded", function() {
-  // Loader
-  // $('.progress-spinner').spin(spinProperties);
   if (document.body.dataset.pageviewname === 'CreateWalkView') {
+    // TODO: Update MCE version after c5.7 upgrade
+    // Put special code to init separately if a tab isn't shown here.
+    // On old tinyMCE, it's 100x100px otherwise.
+    $('.tab-pane').attr('style', 'display:block;z-index:-99999;');
     tinyMCE.init({
-      mode : "textareas",
-      theme : "advanced",
-      theme_advanced_toolbar_location : "top",
-      theme_advanced_toolbar_align : "left",
-      theme_advanced_buttons1 : "bold,italic,underline,separator,bullist,numlist",
-      theme_advanced_buttons2 : "",
-      theme_advanced_buttons3 : ""
+      mode: 'textareas',
+      theme: 'advanced',
+      theme_advanced_toolbar_location: 'top',
+      theme_advanced_toolbar_align: 'left',
+      theme_advanced_buttons1: 'bold,italic,underline,separator,bullist,numlist',
+      theme_advanced_buttons2: '',
+      theme_advanced_buttons3: '',
+      oninit: function() { $('.tab-pane').attr('style', ''); }
+    });
+
+    // Set DOM listener on page load.
+    if ($('#map-canvas').length > 0) {
+      jwMap = new MapEditor(JanesWalk);
+      JaneswalkData.mapPopulate(jwMap);
+    }
+
+    // Scroll top on tab change 
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
+      $('body').scrollTop(0);
+      $('.walk-submit').addClass('hide');
+    });
+
+    $('a[href="#route"][data-toggle="tab"]').on('shown.bs.tab', function(e) {
+      google.maps.event.trigger(jwMap.map, 'resize');
+      jwMap.centerRoute();
     });
 
     Janeswalk.initialize();
   }
-
-  // Set DOM listener on page load.
-  if ($('#map-canvas').length > 0) {
-    jwMap = new MapEditor(JanesWalk);
-    JaneswalkData.mapPopulate(jwMap);
-  }
-
-  // Scroll top on tab change 
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-    $('body').scrollTop(0);
-    $('.walk-submit').addClass('hide');
-  });
-
-  $('a[href="#route"][data-toggle="tab"]').on('shown.bs.tab', function(e) {
-    google.maps.event.trigger(jwMap.map, 'resize');
-    jwMap.centerRoute();
-  });
-
 });
 
 ;/**

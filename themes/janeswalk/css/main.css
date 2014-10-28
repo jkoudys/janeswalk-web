@@ -6652,6 +6652,12 @@ dialog > div > article footer .btn-block + .btn-block {
 .walk-page .walk-header:after,
 .walk-body:before,
 .walk-body:after,
+#create-walk .walk-submit:before,
+#create-walk .walk-submit:after,
+#create-walk #walkleader:before,
+#create-walk #walkleader:after,
+#create-walk #route-menu:before,
+#create-walk #route-menu:after,
 body > header:before,
 body > header:after,
 body > header .logo:before,
@@ -6707,6 +6713,9 @@ dialog > div > article footer:after,
 .walk-select:after,
 .walk-page .walk-header:after,
 .walk-body:after,
+#create-walk .walk-submit:after,
+#create-walk #walkleader:after,
+#create-walk #route-menu:after,
 body > header:after,
 body > header .logo:after,
 body > header nav:after,
@@ -11315,43 +11324,37 @@ body[data-pageviewname=CreateWalkView] {
   /* ==========================================================================
     Forms
     ========================================================================== */
-  /* ==========================================================================
-Bootstrap overrides
-========================================================================== */
-  /* Hide footers on modal window pages */
   /* Hide disabled timepicker dropdowns */
   /* ==========================================================================
-New Member Additions
-========================================================================== */
+    New Member Additions
+    ========================================================================== */
   /* ==========================================================================
-Block select items
-========================================================================== */
+    Block select items
+    ========================================================================== */
   /* ==========================================================================
-Progress Navigation
-========================================================================== */
+    Progress Navigation
+    ========================================================================== */
   /* ==========================================================================
-Tips
-========================================================================== */
+    Tips
+    ========================================================================== */
   /* ==========================================================================
-Maps
-========================================================================== */
+    Maps
+    ========================================================================== */
   /* ==========================================================================
-Typeahead Overrides
-========================================================================== */
+    Typeahead Overrides
+    ========================================================================== */
   /* ==========================================================================
-Spinner Placement
-========================================================================== */
+    Spinner Placement
+    ========================================================================== */
   /* ==========================================================================
-Required inline field style
-========================================================================== */
+    Required inline field style
+    ========================================================================== */
   /* ==========================================================================
-Fontawesome addtions
-========================================================================== */
+    Fontawesome addtions
+    ========================================================================== */
   /* ==========================================================================
-Preview Modal
-========================================================================== */
-  /* Navbar */
-  /* onassar: January 24 */
+    Preview Modal
+    ========================================================================== */
 }
 #create-walk h1 {
   margin-top: 0;
@@ -11413,6 +11416,12 @@ Preview Modal
 #create-walk #tips-panel:after {
   clear: both;
 }
+#create-walk textarea {
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 #create-walk #map-control-bar {
   text-align: justify;
 }
@@ -11438,6 +11447,8 @@ Preview Modal
   width: auto;
 }
 #create-walk .walk-submit {
+  margin-left: -15px;
+  margin-right: -15px;
   margin: 0 0 3em 0;
   padding: 60px 20px;
   background: rgba(255, 184, 0, 0.67);
@@ -11456,13 +11467,6 @@ Preview Modal
   height: 28px;
   padding: 28px 16px;
   font-size: 18px;
-  box-sizing: border-box;
-}
-#create-walk textarea,
-#create-walk .wysihtml5-sandbox {
-  width: 100%;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 #create-walk .form-container {
@@ -11577,178 +11581,6 @@ Preview Modal
 }
 #create-walk #wards .ward input[type=radio]:checked:after {
   background-color: #ddd;
-}
-#create-walk h1 {
-  font-weight: 500;
-}
-#create-walk h2,
-#create-walk h3,
-#create-walk h4,
-#create-walk h5,
-#create-walk h6 {
-  font-weight: 600;
-}
-#create-walk .navbar-inverse .navbar-text {
-  color: rgba(0, 0, 0, 0.6);
-  text-shadow: none;
-  margin-right: 4px;
-  margin-top: 9px;
-}
-#create-walk .navbar-inverse .brand {
-  font-weight: 400;
-  color: rgba(0, 0, 0, 0.6);
-  text-shadow: none;
-}
-#create-walk .navbar-inverse .brand i {
-  display: inline-block;
-  -webkit-transform: translate(0, -50px);
-  -moz-transform: translate(0, -50px);
-  -ms-transform: translate(0, -50px);
-  -o-transform: translate(0, -50px);
-  transform: translate(0, -50px);
-}
-#create-walk .navbar-inverse .brand a {
-  color: inherit;
-}
-#create-walk .navbar-inverse .navbar-inner {
-  background-image: none;
-  background-color: #129ECA;
-  color: #fff;
-  border: none;
-  box-shadow: 0 2px 0 0px rgba(0, 0, 0, 0.05);
-}
-#create-walk .navbar-inverse .divider-vertical {
-  border-right-color: #2b2b2b;
-  border-left-color: rgba(255, 255, 255, 0.1);
-  margin-right: 0;
-}
-#create-walk .navbar-inverse #preview {
-  color: #fff;
-  background: #2b2b2b;
-  border: none;
-  border-bottom: 1px solid #3c3c3c;
-  text-shadow: none;
-  box-shadow: none;
-  margin-right: -20px;
-  padding-left: 40px;
-  padding-right: 40px;
-}
-#create-walk .navbar-inverse #preview:hover {
-  background: #111111;
-}
-#create-walk .navbar-inverse .navbar-link {
-  color: #fff;
-}
-#create-walk .navbar-inverse .icon-map-marker {
-  background-image: none;
-}
-#create-walk .navbar-inverse .icon-map-marker:before {
-  content: '';
-  display: inline-block;
-  width: 25px;
-  height: 25px;
-  background: url('../img/convo-marker.svg') no-repeat center center;
-  background-size: contain;
-}
-#create-walk label {
-  font-size: 1em;
-}
-#create-walk .lead {
-  font-weight: 400;
-  font-size: 24px;
-}
-#create-walk .modal,
-#create-walk dialog {
-  border-radius: 6px;
-  border: none;
-  width: 510px;
-  margin-left: -255px;
-  box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 0.1);
-}
-#create-walk .modal .form-lead,
-#create-walk dialog .form-lead {
-  font-weight: 200;
-  margin: 20px 0;
-}
-#create-walk .modal form,
-#create-walk dialog form {
-  margin-bottom: 0;
-}
-#create-walk .modal .modal-footer,
-#create-walk dialog .modal-footer,
-#create-walk .modal dialog > div > article footer {
-  color: #ddd;
-  background: #fff;
-  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.05);
-}
-#create-walk .modal .modal-footer div,
-#create-walk dialog .modal-footer div,
-#create-walk .modal dialog > div > article footer div {
-  padding: 10px 12px;
-}
-#create-walk .modal .modal-footer div.pull-left,
-#create-walk dialog .modal-footer div.pull-left,
-#create-walk .modal dialog > div > article footer div.pull-left {
-  padding: 10px 0;
-}
-#create-walk .modal .alert,
-#create-walk dialog .alert,
-#create-walk .modal #profileWrapper .steps {
-  margin-bottom: 0;
-}
-#create-walk #signup-panel footer.full,
-#create-walk body.form footer.full {
-  display: none;
-}
-#create-walk .btn,
-#create-walk .walk-select .create-walk,
-#create-walk .walk-select .create-walk:after,
-#create-walk #create-walk #map-control-bar button {
-  font-family: "freight-sans-pro", sans-serif;
-  font-size: 1em;
-  -webkit-font-smoothing: antialiased;
-  border-radius: 0;
-  text-shadow: none;
-  background-image: none;
-  padding: 10px 12px;
-}
-#create-walk .btn.ccm-input-submit,
-#create-walk .walk-select .create-walk.ccm-input-submit,
-#create-walk .walk-select .create-walk:after.ccm-input-submit,
-#create-walk #create-walk #map-control-bar button.ccm-input-submit {
-  background-color: #f16725;
-  color: #fff;
-}
-#create-walk .btn.ccm-input-submit:hover,
-#create-walk .walk-select .create-walk.ccm-input-submit:hover,
-#create-walk .walk-select .create-walk:after.ccm-input-submit:hover,
-#create-walk #create-walk #map-control-bar button.ccm-input-submit:hover {
-  background-color: #d54e0e;
-}
-#create-walk .btn.btn-large,
-#create-walk .walk-select .create-walk.btn-large,
-#create-walk .btn.walk-select .create-walk,
-#create-walk .walk-select .create-walk:after.btn-large,
-#create-walk .btn.walk-select .create-walk:after,
-#create-walk #create-walk #map-control-bar button.btn-large {
-  font-size: 22px;
-}
-#create-walk .btn.section-save,
-#create-walk .walk-select .create-walk.section-save,
-#create-walk .walk-select .create-walk:after.section-save,
-#create-walk #create-walk #map-control-bar button.section-save {
-  padding: 10px 40px;
-}
-#create-walk .btn-info {
-  color: #ffffff;
-  background-color: #2f96b4;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-}
-#create-walk .btn-info:hover {
-  background-color: #24748c;
-}
-#create-walk .modal-backdrop {
-  background-color: #129ECA;
 }
 #create-walk textarea,
 #create-walk input[type="text"],
@@ -11871,26 +11703,40 @@ Preview Modal
 #create-walk #new-walkleader.new-member {
   background: url('../img/walk-leader.png') 50% 15% no-repeat;
 }
-#create-walk #new-walkorganizer.new-member {
-  background: url('../img/walk-organizer.png') 50% 15% no-repeat;
-}
-#create-walk #new-communityvoice.new-member {
-  background: url('../img/community-voice.png') 50% 15% no-repeat;
-}
-#create-walk #new-othermember.new-member {
-  background: url('../img/volunteers.png') 50% 15% no-repeat;
-}
 #create-walk #new-walkleader.new-member:hover {
   background: url('../img/walk-leader-hover.png') 50% 15% no-repeat;
+}
+#create-walk #new-walkorganizer.new-member {
+  background: url('../img/walk-organizer.png') 50% 15% no-repeat;
 }
 #create-walk #new-walkorganizer.new-member:hover {
   background: url('../img/walk-organizer-hover.png') 50% 15% no-repeat;
 }
+#create-walk #new-communityvoice.new-member {
+  background: url('../img/community-voice.png') 50% 15% no-repeat;
+}
 #create-walk #new-communityvoice.new-member:hover {
   background: url('../img/community-voice-hover.png') 50% 15% no-repeat;
 }
+#create-walk #new-othermember.new-member {
+  background: url('../img/volunteers.png') 50% 15% no-repeat;
+}
 #create-walk #new-othermember.new-member:hover {
   background: url('../img/volunteers-hover.png') 50% 15% no-repeat;
+}
+#create-walk #walkleader {
+  margin-left: -15px;
+  margin-right: -15px;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #create-walk #walkleader {
+    float: left;
+    width: 100%;
+  }
 }
 #create-walk .team-set {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
@@ -12236,6 +12082,8 @@ Preview Modal
   margin-right: 20px;
 }
 #create-walk #route-menu {
+  margin-left: -15px;
+  margin-right: -15px;
   padding: 0 10px;
 }
 #create-walk #route-menu .span4 {
@@ -12426,30 +12274,4 @@ Preview Modal
 #create-walk #publish-confirmation dialog > div > article section hr,
 #create-walk #publish-confirmation dialog > div > article section + section hr {
   margin-top: 0;
-}
-#create-walk header.navbar .brand,
-#create-walk headerbody > header .brand,
-#create-walk headerbody > header.dropped .brand {
-  background: url(../img/jwlogo.svg);
-}
-#create-walk html.index-bg header.navbar,
-#create-walk html.index-bg headerbody > header,
-#create-walk html.index-bg headerbody > header.dropped {
-  display: none;
-}
-#create-walk body.form .navbar-inner div.container,
-#create-walk body.form .navbar-inner divbody > header nav,
-#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#create-walk body.form .navbar-inner div#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
-  display: none;
-}
-#create-walk .wysihtml5-toolbar i[class^=icon-],
-#create-walk #map-control-bar i[class^=icon-],
-#create-walk #remove-date i[class^=icon-] {
-  background-image: none;
 }

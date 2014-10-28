@@ -108,6 +108,9 @@ class WalkFormController extends Controller
         // Make these data available to JS
         $this->addToJanesWalk($formSettings);
 
+        // Set the view name
+        $this->bodyData['pageViewName'] = 'CreateWalkView';
+
         $this->set('u', $u);
         $this->set('ui', $ui);
         $this->set('owner', UserInfo::getByID($c->getCollectionUserID()));
@@ -123,7 +126,6 @@ class WalkFormController extends Controller
         $this->set('is_nyc', $is_nyc);
         $this->set('lat', $latlng[0]);
         $this->set('lng', $latlng[1]);
-        $this->set('pageViewName', 'CreateWalkView');
         $this->set('bodyData', $this->bodyData);
 
         // Load JS we need in the form
