@@ -628,8 +628,8 @@ var JaneswalkData = {
 document.addEventListener("DOMContentLoaded", function() {
   if (document.body.dataset.pageviewname === 'CreateWalkView') {
     // TODO: Update MCE version after c5.7 upgrade
-    // Put special code to init separately if a tab isn't shown here.
-    // On old tinyMCE, it's 100x100px otherwise.
+    // We need to make the tabs displayed but not visible, so we can init
+    // certain elements at the correct size, e.g. tinyMCE
     $('.tab-pane').attr('style', 'display:block;z-index:-99999;');
     tinyMCE.init({
       mode: 'textareas',

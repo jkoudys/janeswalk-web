@@ -201,10 +201,12 @@ class WalkPageTypeController extends Controller
 
         // Put the preview image for Facebook/Twitter to pick up
         $doc = new DOMDocument;
+        $thumb = $c->getAttribute('thumbnail');
         if ($thumb) {
             $meta = $doc->appendChild($doc->createElement('meta'));
             $meta->setAttribute('property', 'og:image');
             $meta->setAttribute('content', BASE_URL . $im->getThumbnail($thumb, 340, 720)->src);
+            $this->set('thumb', $thumb);
         }
         $meta = $doc->appendChild($doc->createElement('meta'));
         $meta->setAttribute('property', 'og:url');
