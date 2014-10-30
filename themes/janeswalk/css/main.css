@@ -8006,6 +8006,12 @@ dialog input[type=password] {
   padding-left: 15px;
   padding-right: 15px;
 }
+@media (min-width: 768px) {
+  .ccm-page-list.ccm-blog-index li {
+    float: left;
+    width: 50%;
+  }
+}
 @media (min-width: 992px) {
   .ccm-page-list.ccm-blog-index li {
     float: left;
@@ -9449,17 +9455,13 @@ section.sponsors {
   top: 0;
   height: 44px;
 }
-#ccm-profile-body form,
-#body > .pageSection form,
-#central > #body form {
+#ccm-profile-body form {
   font-family: "museo-slab", "Roboto Slab", serif;
   font-weight: 100;
   font-size: 22px;
   color: #222;
 }
-#ccm-profile-body form select,
-#body > .pageSection form select,
-#central > #body form select {
+#ccm-profile-body form select {
   margin: 0;
   height: 40px;
   border: 1px solid #b4b4b4;
@@ -9469,14 +9471,10 @@ section.sponsors {
   color: #888;
   font-family: "museo-slab", "Roboto Slab", serif;
 }
-#ccm-profile-body form fieldset.dropsubmit input[type=submit],
-#body > .pageSection form fieldset.dropsubmit input[type=submit],
-#central > #body form fieldset.dropsubmit input[type=submit] {
+#ccm-profile-body form fieldset.dropsubmit input[type=submit] {
   margin-left: -59px;
 }
-#ccm-profile-body form input[type=submit],
-#body > .pageSection form input[type=submit],
-#central > #body form input[type=submit] {
+#ccm-profile-body form input[type=submit] {
   height: 40px;
   min-width: 60px;
   background-color: #efefef;
@@ -9487,21 +9485,15 @@ section.sponsors {
   font-size: 22px;
   color: #222;
 }
-#ccm-profile-body ul,
-#body > .pageSection ul,
-#central > #body ul {
+#ccm-profile-body ul {
   margin-left: 50px;
 }
-#ccm-profile-body ul li,
-#body > .pageSection ul li,
-#central > #body ul li {
+#ccm-profile-body ul li {
   list-style-type: none;
   line-height: 25px;
   margin-bottom: 3px;
 }
-#ccm-profile-body ul li:before,
-#body > .pageSection ul li:before,
-#central > #body ul li:before {
+#ccm-profile-body ul li:before {
   display: inline-block;
   content: "» ";
   padding-right: 10px;
@@ -9731,6 +9723,12 @@ section.sponsors {
   padding-left: 15px;
   padding-right: 15px;
 }
+@media (min-width: 768px) {
+  .city-page .blog .ccm-blog-index li {
+    float: left;
+    width: 50%;
+  }
+}
 @media (min-width: 992px) {
   .city-page .blog .ccm-blog-index li {
     float: left;
@@ -9909,6 +9907,12 @@ section.sponsors {
   padding-top: 15px;
   padding-bottom: 0px;
   vertical-align: bottom;
+}
+@media (min-width: 768px) {
+  .walk-select .walk {
+    float: left;
+    width: 50%;
+  }
 }
 @media (min-width: 992px) {
   .walk-select .walk {
@@ -11322,6 +11326,7 @@ body.blog #body {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  padding-top: 10px;
 }
 @media (min-width: 992px) {
   body.blog #body {
@@ -11371,6 +11376,13 @@ body.blog #body ul.social-login-providers.template-fontawesome > li:before {
 body.blog #body ul.nav a,
 body.blog #body ul.social-login-providers.template-fontawesome a {
   display: inline;
+}
+body.blog .ccm-blog-index li {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+body.blog .ccm-blog-index li figure {
+  height: 450px;
 }
 body[data-pageviewname=CreateWalkView] {
   padding-top: 0;

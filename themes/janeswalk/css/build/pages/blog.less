@@ -44,6 +44,7 @@ body.blog {
     }
     #body {
         .make-md-column(5);
+        padding-top:10px;
         @media(min-width: @screen-sm-min) {
             max-width: @screen-sm-min;
             margin:0 auto;
@@ -78,6 +79,15 @@ body.blog {
             }
 
             a { display:inline; }
+        }
+    }
+    .ccm-blog-index {
+        li {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            figure {
+                height: 450px;
+            }
         }
     }
 }
