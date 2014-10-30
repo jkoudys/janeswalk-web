@@ -7031,12 +7031,42 @@ body {
   text-rendering: optimizeLegibility;
 }
 body.full #body {
-  max-width: 900px;
-  padding-right: 300px;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.full #body {
+    float: left;
+    width: 75%;
+  }
+}
+@media (min-width: 992px) {
+  body.full #body {
+    max-width: 992px;
+    margin: 0 auto;
+    float: none;
+  }
 }
 body.full #full {
-  max-width: 1200px;
-  margin: 0 auto;
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.full #full {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  body.full #full {
+    max-width: 1200px;
+    margin: 0 auto;
+    float: none;
+  }
 }
 body.site-page .ccm-profile-body-item div {
   line-height: 1.7;
@@ -9415,12 +9445,6 @@ section.sponsors {
   top: 0;
   height: 44px;
 }
-#ccm-profile-body,
-#body > .pageSection,
-#central > #body {
-  width: 1200px;
-  margin: 0 auto;
-}
 #ccm-profile-body form,
 #body > .pageSection form,
 #central > #body form {
@@ -11276,9 +11300,6 @@ body.blog #central > header:before {
   left: 0;
   background: #000;
   opacity: 0.5;
-}
-body.blog #body {
-  max-width: 642px !important;
 }
 body.blog #body img {
   padding: 4px;
