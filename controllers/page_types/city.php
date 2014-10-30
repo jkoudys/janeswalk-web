@@ -27,52 +27,58 @@ class CityPageTypeController extends Controller
             if ($_GET['format'] === 'json') {
                 $this->getJson();
                 exit;
-      }
-      break;
-      // 'unpublish' the event (true deletes done through dashboard controller, not city)
-case 'DELETE':
-    $c = Page::getCurrentPage();
-    $c->setAttribute('exclude_page_list',true);
-    break;
+            }
+            break;
+            // 'unpublish' the event (true deletes done through dashboard controller, not city)
+        case 'DELETE':
+            $c = Page::getCurrentPage();
+            $c->setAttribute('exclude_page_list',true);
+            break;
+        }
     }
-  }
 
-  public function getJson()
-  {
-      echo json_encode($this->city);
-  }
+    public function getJson()
+    {
+        echo json_encode($this->city);
+    }
 
-  /*
-   * view()
-   * Main controller for all city pages
-   * Set up variables you'll need in the view here.
-   */
-  public function view()
-  {
-      parent::view();
-      $bg = $this->city->fullbg;
-      if ($bg) $this->bodyData['bg'] = $bg->getURL();
-      $this->bodyData['classes'][] = 'city-page';
-      $this->bodyData['pageViewName'] = 'CityPageView';
-      $this->set('bodyData', $this->bodyData);
-      $this->set('pageType', 'city-page');
-      $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
-      $this->set('isLoggedIn', (bool) Loader::helper('concrete/dashboard')->canRead());
-      $this->set('isCampaignActive', false); // Is the donations campaign running?
-      $this->set('canEdit', is_object(ComposerPage::getByID($this->c->getCollectionID())));
-      $this->set('city', $this->city);
-  }
+    /*
+     * view()
+     * Main controller for all city pages
+     * Set up variables you'll need in the view here.
+     */
+    public function view()
+    {
+        parent::view();
+        $bg = $this->city->fullbg;
+        if ($bg) $this->bodyData['bg'] = $bg->getURL();
+        $this->bodyData['classes'][] = 'city-page';
+        $this->bodyData['pageViewName'] = 'CityPageView';
+        $this->set('bodyData', $this->bodyData);
+        $this->set('pageType', 'city-page');
+        $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
+        $this->set('isLoggedIn', (bool) Loader::helper('concrete/dashboard')->canRead());
+        $this->set('isCampaignActive', false); // Is the donations campaign running?
+        $this->set('canEdit', is_object(ComposerPage::getByID($this->c->getCollectionID())));
+        $this->set('city', $this->city);
 
-  /*
-   * walks()
-   * Called when you hit city/path/walks
-   * Used for the 'show all walks', as this is very separate from the main city
-   * logic. 'Edit' mode will expand both city areas and the areas shown in here,
-   * so you can edit either mode at the same time.
-   */
-  public function walks()
-  {
-      $this->view();
-      $this->set('show', 'all');
-  }
+        // Are there blog entries for this city?
+        $blog = new PageList;
+        $blog->filterByCollectionTypeHandle('city_blog');
+        $blog->filterByParentID($this->c->getCollectionID());
+        $this->set('blog', $blog->get(1)[0]);
+    }
+
+    /*
+     * walks()
+     * Called when you hit city/path/walks
+     * Used for the 'show all walks', as this is very separate from the main city
+     * logic. 'Edit' mode will expand both city areas and the areas shown in here,
+     * so you can edit either mode at the same time.
+     */
+    public function walks()
+    {
+        $this->view();
+        $this->set('show', 'all');
+    }
 }

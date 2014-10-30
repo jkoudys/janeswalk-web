@@ -72,6 +72,7 @@ class Controller extends \Controller
         }
 
         $this->set('isMobile', isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/iPhone|Android|iPad|iPod|webOS|CFNetwork/", $_SERVER['HTTP_USER_AGENT']));
+        $this->set('nh', $nh);
         $this->addToJanesWalk($jwData);
     }
 
