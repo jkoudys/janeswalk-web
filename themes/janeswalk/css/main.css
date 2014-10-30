@@ -9721,6 +9721,18 @@ section.sponsors {
   border-width: 0 15px 15px 0;
   border-color: transparent #d54e0e transparent transparent;
 }
+.city-page .blog .ccm-blog-index li {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .city-page .blog .ccm-blog-index li {
+    float: left;
+    width: 25%;
+  }
+}
 .intro-city {
   min-height: 247px;
   position: relative;
