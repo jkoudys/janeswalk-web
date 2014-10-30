@@ -6646,6 +6646,8 @@ dialog > div > article footer .btn-block + .btn-block {
 .panel-body:after,
 .modal-footer:before,
 .modal-footer:after,
+.ccm-page-list.ccm-blog-index:before,
+.ccm-page-list.ccm-blog-index:after,
 .walk-select:before,
 .walk-select:after,
 .walk-page .walk-header:before,
@@ -6710,6 +6712,7 @@ dialog > div > article footer:after,
 .pager:after,
 .panel-body:after,
 .modal-footer:after,
+.ccm-page-list.ccm-blog-index:after,
 .walk-select:after,
 .walk-page .walk-header:after,
 .walk-body:after,
@@ -7976,9 +7979,10 @@ dialog input[type=password] {
   }
 }
 .ccm-page-list.ccm-blog-index {
+  margin-left: -15px;
+  margin-right: -15px;
   list-style-type: none;
   padding: 0;
-  margin: 0 !important;
 }
 .ccm-page-list.ccm-blog-index:before,
 .ccm-page-list.ccm-blog-index:after {
