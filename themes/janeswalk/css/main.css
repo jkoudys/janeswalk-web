@@ -11317,6 +11317,25 @@ body.blog #central > header:before {
   background: #000;
   opacity: 0.5;
 }
+body.blog #body {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.blog #body {
+    float: left;
+    width: 41.66666667%;
+  }
+}
+@media (min-width: 768px) {
+  body.blog #body {
+    max-width: 768px;
+    margin: 0 auto;
+    float: none;
+  }
+}
 body.blog #body img {
   padding: 4px;
   background-color: #fff;

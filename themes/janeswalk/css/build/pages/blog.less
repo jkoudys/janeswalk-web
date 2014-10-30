@@ -43,6 +43,13 @@ body.blog {
         }
     }
     #body {
+        .make-md-column(5);
+        @media(min-width: @screen-sm-min) {
+            max-width: @screen-sm-min;
+            margin:0 auto;
+            float: none;
+        }
+
         img {
             padding: 4px;
             background-color: #fff;
