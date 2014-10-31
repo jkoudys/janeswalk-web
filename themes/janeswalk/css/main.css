@@ -7077,6 +7077,18 @@ body.full #full {
     float: none;
   }
 }
+body.full #full .ccm-blog-index li {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.full #full .ccm-blog-index li {
+    float: left;
+    width: 25%;
+  }
+}
 body.site-page .ccm-profile-body-item div {
   line-height: 1.7;
 }
