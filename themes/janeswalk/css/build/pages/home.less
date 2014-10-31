@@ -102,7 +102,7 @@
             text-transform:none;
             color:#fff;
             width:auto;
-            max-width:@screen-lg-min;
+            max-width: @screen-lg-min - @grid-gutter-width;
             font-size:15px;
             line-height:22px;
             margin:0 auto;
@@ -323,23 +323,12 @@ p.lead {
 }
 
 .callouts {
-    margin: 0;
-    top: 60px;
-    width: 100%;
-    padding: 20px 0 50px 0;
+    .make-xs-column(12);
+    padding-bottom: 50px;
+    padding-top: @grid-gutter-width/2;
     color: white;
     background:@color-orange;
     background: linear-gradient(fade(@color-orange, 70%) 20%, fade(@color-orange, 70%) 20%, @color-orange 80%);
-
-    @media (max-width: @screen-sm-min) {
-        padding: 10px;
-        width: auto;
-    }
-
-    @media (max-width: @screen-md-min) {
-        padding: 20px;
-        box-sizing: border-box;
-    }
 }
 
 .homepage-callout2 {
