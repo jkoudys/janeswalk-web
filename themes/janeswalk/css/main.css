@@ -8088,7 +8088,7 @@ div.ccm-page-list-typeahead fieldset.search li.aux a {
   color: #f16725 !important;
   display: block;
 }
-div.ccm-page-list-typeahead fieldset.search input[type=text]:focus + input[type=submit] + ul,
+div.ccm-page-list-typeahead fieldset.search input[type=text]:focus + * + ul,
 div.ccm-page-list-typeahead fieldset.search ul:hover {
   display: block;
 }
