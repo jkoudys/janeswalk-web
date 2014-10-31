@@ -559,22 +559,36 @@
 
     .walk-team {
         .clearfix();
-        .avatar {
-            .make-md-column(3);
-            img {
-                width: 100%;
-            }
-            & + div {
-                .make-md-column(9);
-            }
-        }
-
-
-        .walk-leader {
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            .btn-toolbar {
-                margin-bottom: 20px;
+        .walk-leaders {
+            .make-row();
+            list-style: none;
+            padding: 0;
+            li {
+                .make-sm-column(6);
+                .make-md-column(12);
+                .make-row();
+                margin-top: 10px;
+                .avatar {
+                    .make-sm-column(12);
+                    .make-md-column(3);
+                    background-size: cover;
+                    border-radius: 100%;
+                    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+                    &.default {
+                        border-radius: 0;
+                        box-shadow: none;
+                    }
+                }
+                > section {
+                    .make-sm-column(12);
+                    .make-md-column(9);
+                    h3, h4, h5 {
+                        margin-top: 0;
+                    }
+                    p {
+                        margin: 10px 0;
+                    }
+                }
             }
         }
         .walk-supporters {
@@ -594,10 +608,6 @@
     }
     hr {
         margin: 1 0 20px 0;
-    }
-    .img-circle {
-        box-shadow: 0 2px 0 rgba(0,0,0,0.1);
-        max-width: 95%;
     }
 
     .walk-details {

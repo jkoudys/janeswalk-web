@@ -27,336 +27,305 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
 ?>
 <div id="fb-root"></div>
 <script type="text/javascript">
-window.fbAsyncInit = function () {
-    FB.init({
-        appId: '544710848887303',
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '544710848887303',
             status: true,
             xfbml: true
-    });
-};
-(function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = '//connect.facebook.net/en_US/all.js';
-    fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+        });
+    };
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = '//connect.facebook.net/en_US/all.js';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 </script>
-  <?php $this->inc('elements/navbar.php'); ?>
-  <div class="container-outter" role="main">
+<?php $this->inc('elements/navbar.php'); ?>
+<div class="container-outter" role="main">
     <div class="container">
-      <?= $breadcrumb ?>
-      <div class="walk-label"><?= trim((string) $c->getAttribute('walk_initiatives')) ?: t('Festival Walk') ?></div>
-      <div class="tag-list">
-        <ul class="nav nav-pills">
-          <?php foreach ($w->themes as $theme => $status) { ?>
-            <li><?= $th->getIcon($theme) ?> <?= t($th->getName($theme)) ?></li>
-          <?php } ?>
-        </ul>
-      </div>
-
-      <div class="walk-header">
-        <h1 class="walk-title"><?= $w ?></h1>
-
-        <div class="profiles">
-          <div id="reg-group">
-<?php
-$slots = (array) $w->time['slots'];
-if ($w->time['open']) {
-?>
-              <h4 class="available-time"><i class="fa fa-calendar"></i> <?= t('Open schedule') ?></h4>
-<?php
-} elseif (isset($slots[0]['date'])) {
-?>
-              <h4 class="available-time">
-                <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($slots)) ?>:<br />
-<?php
-    foreach ($slots as $slot) { ?>
-                <span class="highlight"><?=$slot['date']?></span>
-                <span class="divider">|</span>
-                <span class="time"><?= ($slot['time']) ?></span>
-                <br />
-<?php
-    }
-?>
-              </h4>
-<?php } ?>
-              <?= $registrationMessage ?>
-          </div>
-        </div>
-      </div>
-
-      <div class="walk-leaders">
-          <h4>
-            <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)), $walkLeaders ?>
-          </h4>
-          <?php if ($meeting_place) { ?>
-          <h4>
-          <?= t('Meeting Place') ?>: <?= $meeting_place['title'] ?>
-          </h4>
-           <p><?= $meeting_place['description'] ?></p>
-          <?php } ?>
-      </div>
-      <?php if (count((array) $w->map->markers) + count((array) $w->map->path)) { ?>
-      <div class="walk-stops" style="display:none">
-        <div class="walk-stops-meta box-sizing">
-          <header id="header" class="walk-stops-meta-inner">
-            <?php if (isset($slots[0]['duration'])) { ?>
-            <h4><i class="fa fa-clock-o"></i> <?= t('Duration') ?>:</h4>
-            <h5>
-              <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
-            </h5>
-            <?php } else { ?>
-            <h4><i class="fa fa-clock"></i> <?= t('Open Schedule') ?></h4>
-            <?php } ?>
-            <hr>
-            <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
-            <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
-            <ol>
-              <?php foreach ($w->map->markers as $key => $marker) { ?>
-              <li class='walk-stop' id='<?= $key ?>'><h4><?= $marker->title ?></h4></li>
-              <?php } ?>
-            </ol>
-          </header>
-        </div>
-        <div id="map-canvas-wrapper">
-          <div id="map-canvas">
-            <div class="infobox-wrapper">
-              <div id="infobox">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <?php } ?>
-
-      <div class="walk-body">
-        <div class="walk-details">
-          <h3><?= t('About This Walk') ?></h3>
-          <?php if ($thumb) { ?>
-            <a class="thumb" href="<?= ($im->getThumbnail($w->thumbnail,1024,1024)->src) ?>">
-              <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
-            </a>
-          <?php }
-          echo $w->longdescription; ?>
-
-          <?php
-            if (count($w->map->markers) > 0):
-          ?>
-            <div class="walk-stops-list">
-              <hr />
-              <h3><?= t('Walk Stops') ?></h3>
-              <?php
-                $path = $_SERVER['REQUEST_URI'];
-                $url = 'http://janeswalk.org' . ($path);
-              ?>
-              <a href="https://maps.google.com/maps?q=<?= rawurlencode($url) ?>" target="_blank" class="btn btn-primary">
-                View in Google Maps
-              </a>
-              <ol>
-                <?php
-                  foreach($w->map->markers as $key => $marker):
-                ?>
-                  <li class="walk-stop" id="<?= ($key) ?>">
-                    <h4><?= ($marker->title) ?></h4>
-                    <p>
-                      <?= ($marker->description) ?>
-                    </p>
-                  </li>
-                <?php
-                  endforeach;
-                ?>
-              </ol>
-            </div>
-          <?php endif; ?>
-
-          <div class="walk-team">
-            <hr />
-            <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
-
-            <?php foreach ($w->teamPictures as $k => $mem) { ?>
-            <div class="walk-leader">
-              <div class="row">
-                <div class="avatar">
-<?php
-                if ($mem['avatar'] && (string) $w->city !== 'Calgary') { ?>
-                    <div class='u-avatar' style='background-image:url(<?=$mem['avatar']?>)' class='pull-left'></div>
-                  <?php } else { ?>
-                    <img src='<?= $mem['image'] ?>' alt='<?= $mem['title'] ?>' class='pull-left'>
-                  <?php } ?>
-                </div>
-                <div>
-                  <h4>
-                    <span class='title'><?=$mem['title']?></span><br /><?="{$mem['name-first']} {$mem['name-last']}"?>
-                  </h4>
-                  <div class="btn-toolbar">
-                    <?php if ($mem['email'] && $k == 0) { ?><a href="mailto:<?=$mem['email']?>" target="_blank" class="btn"><i class="fa fa-envelope-o"></i></a><?php } ?>
-                    <?php
-                      if ($mem['facebook']) {
-                        $submittedFacebookPiece = $mem['facebook'];
-                        if (!preg_match('/^http/', $submittedFacebookPiece)) {
-                          $submittedFacebookPiece = 'https://facebook.com/' . ($submittedFacebookPiece);
-                        }
-                    ?><a href="<?= ($submittedFacebookPiece) ?>" target="_blank" class="btn"><i class="fa fa-facebook"></i></a><?php } ?>
-                    <?php if ($mem['twitter']) { ?><a href="http://twitter.com/<?=$mem['twitter']?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
-                    <?php
-                      if ($mem['website']) {
-                        $submittedWebsitePiece = $mem['website'];
-                        if (!preg_match('/^http/', $submittedWebsitePiece)) {
-                          $submittedWebsitePiece = 'http://' . ($submittedWebsitePiece);
-                        }
-                    ?><a href="<?=$submittedWebsitePiece?>" target="_blank" class="btn"><i class="fa fa-globe"></i></a>
-                    <?php } ?>
-                  </div>
-                  <?=$mem['bio']?>
-                </div>
-              </div>
-            </div>
-            <?php } ?>
-          </div><!-- About The Walk Leader Section -->
-
-          <div class="walk-downloads">
-            <hr>
-            <h3><?= t('Downloads') ?></h3>
-            <div class="download-list">
-              <?php (new Area('Downloads'))->display($c) ?>
-            </div>
-          </div>
-
-          <div class="walk-aux">
-            <hr>
-            <div class="share-print">
-              <a href="javascript:window.print();" class="share notify printLink"><i class="fa fa-print"></i> <?= t('Print this walk') ?></a>
-              <a href="#" class="share notify facebookShareLink"><i class="fa fa-share"></i> <?= t('Share this walk') ?></a>
-            </div>
-          </div>
-
-        </div>
-
-        <aside>
-        <div class="thumbnail" id="register">
-          <?php
-            if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
-              if (!empty($eid)) {
-          ?>
-            <div class="caption">
-              <h3>
-                <i class="fa fa-calendar"></i>
-                <a href="<?= 'http://eventbrite.ca/event/', $eid ?>"><?= t('Register For This Walk') ?></a>
-                <p class="select-day"></p>
-              </h3>
-            </div>
-          <?php
-              } else {
-          ?>
-            <div class="caption">
-              <h3>
-                <i class="fa fa-calendar"></i>
-                <?= t('Registration Not Open') ?>
-                <p class="select-day"></p>
-              </h3>
-            </div>
-          <?php
-              }
-            }
-          ?>
-          <div class="calendar-wrap box-sizing" style="display:none">
-            <div class="calendar-header">
-              <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="fa fa-caret-left"></i></button>
-              <span id="custom-month">April</span>, <span id="custom-year">2013</span>
-              <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="fa fa-caret-right"></i></button>
-            </div>
-            <div id="calendar" class="fc-calendar-container"></div>
-          </div>
-          <div class="caption" style="display:none">
-            <div class="date-caption">
-              <div class="request-nowalks"><small>There is no scheduled walk for this day</small></div>
-              <a href="#" class="btn btn-primary request-btn">Request this day</a>
-            </div>
-          </div>
-          <div class="request" style="display:none">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="date-picker">Date</label>
-                <input type="text" value="12-02-2012" id="date-picker">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <label for="request-number">Number of people</label>
-                <input type="text" id="request-number" />
-              </div>
-            </div>
-            <label for="request-body">Add a Note:</label>
-            <textarea name="" id="request-body" cols="30" rows="5"></textarea>
-            <label for="request-email">Your email</label>
-            <input type="text" id="request-email" />
-            <button class="btn btn-primary notify">
-              Request Date
-            </button>
-          </div>
-        </div>
-        <div class="thumbnail accessibility">
-          <div class="caption">
-            <h4><i class="fa fa-male"></i> <?= t('Accessibility') ?></h4>
-            <ul>
-              <?php foreach ($w->accessible as $accessible => $value) { ?>
-              <li><?= t($th->getName($accessible)) ?></li>
-              <?php } ?>
+        <?= $breadcrumb ?>
+        <div class="walk-label"><?= trim((string) $c->getAttribute('walk_initiatives')) ?: t('Festival Walk') ?></div>
+        <div class="tag-list">
+            <ul class="nav nav-pills">
+                <?php foreach ($w->themes as $theme => $status) { ?>
+                <li><?= $th->getIcon($theme) ?> <?= t($th->getName($theme)) ?></li>
+                <?php } ?>
             </ul>
-            <?php if ($accessible_info = trim($w->accessibleInfo)) {?>
-            <p id="accessibility notes">
-              <?= t($accessible_info) ?>
-            </p>
-            <?php }
-            if ($public_transit = trim($w->accessibleTransit)) { ?>
-            <h4><i class="fa fa-bus"></i> <?= t('Taking Public Transit') ?></h4>
-            <p id="public transit directions">
-              <?= t($public_transit) ?>
-            </p>
-            <?php }
-            if ($accessible_parking = trim($w->accessibleParking)) {
-            ?>
-            <h4><i class="fa fa-road"></i> <?= t('Parking Availability') ?></h4>
-            <p id="parking availability">
-              <?= t($accessible_parking) ?>
-            </p>
-            <?php }
-            if ($accessible_find = trim($w->accessibleFind)) { ?>
-            <h4><i class="fa fa-flag"></i> <?= t('How to find us') ?></h4>
-            <p>
-              <?= t($accessible_find) ?>
-            </p>
-<?php
-            } ?>
-          </div>
-        </div><!-- accessibility -->
-        </aside>
-      </div>
-      <div class="walk-feedback">
-        <hr>
-        <h3><i class="fa fa-comments-o"></i> <?= t('Feedback') ?></h3>
-        <div class="row">
-          <div class="col-md-8">
-            <div class="well">
-              <div id="disqus_thread"></div>
-              <script type="text/javascript">
-                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                var disqus_shortname = 'janeswalk'; // required: replace example with your forum shortname
-
-                /* * * DON'T EDIT BELOW THIS LINE * * */
-                (function () {
-                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-              </script>
-              <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-              <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <div class="walk-header">
+            <h1 class="walk-title"><?= $w ?></h1>
+
+            <div class="profiles">
+                <div id="reg-group">
+                    <?php
+                    $slots = (array) $w->time['slots'];
+                    if ($w->time['open']) {
+                    ?>
+                    <h4 class="available-time"><i class="fa fa-calendar"></i> <?= t('Open schedule') ?></h4>
+                    <?php
+                    } elseif (isset($slots[0]['date'])) {
+                    ?>
+                    <h4 class="available-time">
+                        <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($slots)) ?>:<br />
+                        <?php
+                        foreach ($slots as $slot) { ?>
+                        <span class="highlight"><?=$slot['date']?></span>
+                        <span class="divider">|</span>
+                        <span class="time"><?= ($slot['time']) ?></span>
+                        <br />
+                        <?php
+                        }
+                        ?>
+                    </h4>
+                    <?php } ?>
+                    <?= $registrationMessage ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="walk-leaders">
+            <h4>
+                <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)), $walkLeaders ?>
+            </h4>
+            <?php if ($meeting_place) { ?>
+            <h4>
+                <?= t('Meeting Place') ?>: <?= $meeting_place['title'] ?>
+            </h4>
+            <p><?= $meeting_place['description'] ?></p>
+            <?php } ?>
+        </div>
+        <?php if (count((array) $w->map->markers) + count((array) $w->map->path)) { ?>
+        <div class="walk-stops" style="display:none">
+            <div class="walk-stops-meta box-sizing">
+                <header id="header" class="walk-stops-meta-inner">
+                    <?php if (isset($slots[0]['duration'])) { ?>
+                    <h4><i class="fa fa-clock-o"></i> <?= t('Duration') ?>:</h4>
+                    <h5>
+                        <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
+                    </h5>
+                    <?php } else { ?>
+                    <h4><i class="fa fa-clock"></i> <?= t('Open Schedule') ?></h4>
+                    <?php } ?>
+                    <hr>
+                    <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
+                    <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
+                    <ol>
+                        <?php foreach ($w->map->markers as $key => $marker) { ?>
+                        <li class='walk-stop' id='<?= $key ?>'><h4><?= $marker->title ?></h4></li>
+                        <?php } ?>
+                    </ol>
+                </header>
+            </div>
+            <div id="map-canvas-wrapper">
+                <div id="map-canvas">
+                    <div class="infobox-wrapper">
+                        <div id="infobox">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+        <div class="walk-body">
+            <div class="walk-details">
+                <h3><?= t('About This Walk') ?></h3>
+                <?php if ($thumb) { ?>
+                <a class="thumb" href="<?= ($im->getThumbnail($w->thumbnail,1024,1024)->src) ?>">
+                    <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
+                </a>
+                <?php } ?>
+                <?= $w->longdescription ?>
+                <?php if (count($w->map->markers)) { ?>
+                <div class="walk-stops-list">
+                    <hr />
+                    <h3><?= t('Walk Stops') ?></h3>
+                    <?php
+                    $path = $_SERVER['REQUEST_URI'];
+                    $url = 'http://janeswalk.org' . ($path);
+                    ?>
+                    <a href="https://maps.google.com/maps?q=<?= rawurlencode($url) ?>" target="_blank" class="btn btn-primary">
+                        View in Google Maps
+                    </a>
+                    <ol>
+                        <?php foreach($w->map->markers as $key => $marker) { ?>
+                        <li class="walk-stop" id="<?= ($key) ?>">
+                            <h4><?= $marker->title ?></h4>
+                            <p><?= $marker->description ?></p>
+                        </li>
+                        <?php } ?>
+                    </ol>
+                </div>
+                <?php } ?>
+
+                <div class="walk-team">
+                    <hr />
+                    <h3 id="walk-leader-bio"><?= t('About The Walk Team') ?></h3>
+                    <ul class="walk-leaders">
+                        <?php foreach ($w->teamPictures as $k => $mem) { ?>
+                        <li>
+                            <img class="avatar <?= $mem['avatar'] ? '' : 'default' ?>" src="<?= $mem['avatar'] ?: $mem['image'] ?>" alt="<?= $mem['title'] ?>" />
+                            <section>
+                                <h4>
+                                    <span class='title'><?= $mem['title'] ?></span><br /><?= $mem['name-first'] . ' ' . $mem['name-last'] ?>
+                                </h4>
+                                <div class="btn-toolbar">
+                                    <?php  // TODO: Replace all logic to format links with model logic ?>
+                                    <?php if ($mem['email']) { ?><a href="mailto:<?= $mem['email'] ?>" target="_blank" class="btn"><i class="fa fa-envelope-o"></i></a><?php } ?>
+                                    <?php if ($mem['facebook']) { ?><a href="<?= $mem['facebook'] ?>" target="_blank" class="btn"><i class="fa fa-facebook"></i></a><?php } ?>
+                                    <?php if ($mem['twitter']) { ?><a href="<?= $mem['twitter'] ?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
+                                    <?php if ($mem['website']) { ?><a href="<?= $mem['website'] ?>" target="_blank" class="btn"><i class="fa fa-globe"></i></a><?php } ?>
+                                </div>
+                                <p><?= $mem['bio'] ?></p>
+                            </section>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                </div><!-- About The Walk Leader Section -->
+
+                <div class="walk-downloads">
+                    <hr>
+                    <h3><?= t('Downloads') ?></h3>
+                    <div class="download-list">
+                        <?php (new Area('Downloads'))->display($c) ?>
+                    </div>
+                </div>
+
+                <div class="walk-aux">
+                    <hr>
+                    <div class="share-print">
+                        <a href="javascript:window.print();" class="share notify printLink"><i class="fa fa-print"></i> <?= t('Print this walk') ?></a>
+                        <a href="#" class="share notify facebookShareLink"><i class="fa fa-share"></i> <?= t('Share this walk') ?></a>
+                    </div>
+                </div>
+            </div>
+
+            <aside>
+                <div class="thumbnail" id="register">
+                    <?php
+                    if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
+                        if (!empty($eid)) {
+                    ?>
+                    <div class="caption">
+                        <h3>
+                            <i class="fa fa-calendar"></i>
+                            <a href="<?= 'http://eventbrite.ca/event/', $eid ?>"><?= t('Register For This Walk') ?></a>
+                            <p class="select-day"></p>
+                        </h3>
+                    </div>
+                    <?php
+                    } else {
+                    ?>
+                    <div class="caption">
+                        <h3>
+                            <i class="fa fa-calendar"></i>
+                            <?= t('Registration Not Open') ?>
+                            <p class="select-day"></p>
+                        </h3>
+                    </div>
+                    <?php
+                        }
+                    }
+                    ?>
+                    <div class="calendar-wrap box-sizing" style="display:none">
+                        <div class="calendar-header">
+                            <button id="custom-prev" class="custom-month btn btn-mini btn-primary pull-left"><i class="fa fa-caret-left"></i></button>
+                            <span id="custom-month">April</span>, <span id="custom-year">2013</span>
+                            <button id="custom-next" class="custom-month btn btn-mini btn-primary pull-right"><i class="fa fa-caret-right"></i></button>
+                        </div>
+                        <div id="calendar" class="fc-calendar-container"></div>
+                    </div>
+                    <div class="caption" style="display:none">
+                        <div class="date-caption">
+                            <div class="request-nowalks"><small>There is no scheduled walk for this day</small></div>
+                            <a href="#" class="btn btn-primary request-btn">Request this day</a>
+                        </div>
+                    </div>
+                    <div class="request" style="display:none">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="date-picker">Date</label>
+                                <input type="text" value="12-02-2012" id="date-picker">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="request-number">Number of people</label>
+                                <input type="text" id="request-number" />
+                            </div>
+                        </div>
+                        <label for="request-body">Add a Note:</label>
+                        <textarea name="" id="request-body" cols="30" rows="5"></textarea>
+                        <label for="request-email">Your email</label>
+                        <input type="text" id="request-email" />
+                        <button class="btn btn-primary notify">
+                            Request Date
+                        </button>
+                    </div>
+                </div>
+                <div class="thumbnail accessibility">
+                    <div class="caption">
+                        <h4><i class="fa fa-male"></i> <?= t('Accessibility') ?></h4>
+                        <ul>
+                            <?php foreach ($w->accessible as $accessible => $value) { ?>
+                            <li><?= t($th->getName($accessible)) ?></li>
+                            <?php } ?>
+                        </ul>
+                        <?php if ($accessible_info = trim($w->accessibleInfo)) {?>
+                        <p id="accessibility notes">
+                            <?= t($accessible_info) ?>
+                        </p>
+                        <?php }
+                        if ($public_transit = trim($w->accessibleTransit)) { ?>
+                        <h4><i class="fa fa-bus"></i> <?= t('Taking Public Transit') ?></h4>
+                        <p id="public transit directions">
+                            <?= t($public_transit) ?>
+                        </p>
+                        <?php }
+                        if ($accessible_parking = trim($w->accessibleParking)) {
+                        ?>
+                        <h4><i class="fa fa-road"></i> <?= t('Parking Availability') ?></h4>
+                        <p id="parking availability">
+                            <?= t($accessible_parking) ?>
+                        </p>
+                        <?php }
+                        if ($accessible_find = trim($w->accessibleFind)) { ?>
+                        <h4><i class="fa fa-flag"></i> <?= t('How to find us') ?></h4>
+                        <p>
+                            <?= t($accessible_find) ?>
+                        </p>
+                        <?php
+                        } ?>
+                    </div>
+                </div><!-- accessibility -->
+            </aside>
+        </div>
+        <div class="walk-feedback">
+            <hr>
+            <h3><i class="fa fa-comments-o"></i> <?= t('Feedback') ?></h3>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="well">
+                        <div id="disqus_thread"></div>
+                        <script type="text/javascript">
+                            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                            var disqus_shortname = 'janeswalk'; // required: replace example with your forum shortname
+
+                            /* * * DON'T EDIT BELOW THIS LINE * * */
+                            (function () {
+                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                            })();
+                        </script>
+                        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <?php $this->inc('elements/footer.php');
+</div>
+<?php $this->inc('elements/footer.php');

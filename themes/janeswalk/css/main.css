@@ -6654,6 +6654,10 @@ dialog > div > article footer .btn-block + .btn-block {
 .walk-page .walk-header:after,
 .walk-body:before,
 .walk-body:after,
+.walk-body .walk-team .walk-leaders:before,
+.walk-body .walk-team .walk-leaders:after,
+.walk-body .walk-team .walk-leaders li:before,
+.walk-body .walk-team .walk-leaders li:after,
 #create-walk .walk-submit:before,
 #create-walk .walk-submit:after,
 #create-walk #walkleader:before,
@@ -6716,6 +6720,8 @@ dialog > div > article footer:after,
 .walk-select:after,
 .walk-page .walk-header:after,
 .walk-body:after,
+.walk-body .walk-team .walk-leaders:after,
+.walk-body .walk-team .walk-leaders li:after,
 #create-walk .walk-submit:after,
 #create-walk #walkleader:after,
 #create-walk #route-menu:after,
@@ -10901,39 +10907,83 @@ section.sponsors {
 .walk-body .walk-team:after {
   clear: both;
 }
-.walk-body .walk-team .avatar {
+.walk-body .walk-team .walk-leaders {
+  margin-left: -15px;
+  margin-right: -15px;
+  list-style: none;
+  padding: 0;
+}
+.walk-body .walk-team .walk-leaders li {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-top: 10px;
+}
+@media (min-width: 768px) {
+  .walk-body .walk-team .walk-leaders li {
+    float: left;
+    width: 50%;
+  }
 }
 @media (min-width: 992px) {
-  .walk-body .walk-team .avatar {
+  .walk-body .walk-team .walk-leaders li {
+    float: left;
+    width: 100%;
+  }
+}
+.walk-body .walk-team .walk-leaders li .avatar {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-size: cover;
+  border-radius: 100%;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 768px) {
+  .walk-body .walk-team .walk-leaders li .avatar {
+    float: left;
+    width: 100%;
+  }
+}
+@media (min-width: 992px) {
+  .walk-body .walk-team .walk-leaders li .avatar {
     float: left;
     width: 25%;
   }
 }
-.walk-body .walk-team .avatar img {
-  width: 100%;
+.walk-body .walk-team .walk-leaders li .avatar.default {
+  border-radius: 0;
+  box-shadow: none;
 }
-.walk-body .walk-team .avatar + div {
+.walk-body .walk-team .walk-leaders li > section {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
+@media (min-width: 768px) {
+  .walk-body .walk-team .walk-leaders li > section {
+    float: left;
+    width: 100%;
+  }
+}
 @media (min-width: 992px) {
-  .walk-body .walk-team .avatar + div {
+  .walk-body .walk-team .walk-leaders li > section {
     float: left;
     width: 75%;
   }
 }
-.walk-body .walk-team .walk-leader {
-  margin-bottom: 20px;
-  padding-bottom: 20px;
+.walk-body .walk-team .walk-leaders li > section h3,
+.walk-body .walk-team .walk-leaders li > section h4,
+.walk-body .walk-team .walk-leaders li > section h5 {
+  margin-top: 0;
 }
-.walk-body .walk-team .walk-leader .btn-toolbar {
-  margin-bottom: 20px;
+.walk-body .walk-team .walk-leaders li > section p {
+  margin: 10px 0;
 }
 .walk-body .walk-team .walk-supporters .caption,
 .walk-body .walk-team .walk-supporters .ccm-page-list.ccm-blog-index li figure figcaption {
@@ -10952,10 +11002,6 @@ section.sponsors {
 }
 .walk-body hr {
   margin: 1 0 20px 0;
-}
-.walk-body .img-circle {
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
-  max-width: 95%;
 }
 .walk-body .walk-details {
   position: relative;
