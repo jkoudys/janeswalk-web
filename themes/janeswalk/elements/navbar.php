@@ -23,8 +23,7 @@ if ($u->isRegistered()) {
     <a href="<?= $this->url('') ?>" class="logo">
       <span><?= $SITE ?></span>
     </a>
-    <?php (new GlobalArea('Left Header'))->display($c); ?>
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav">
       <li>
         <a class="search-open"><i class="fa fa-search"></i></a>
         <a class="search-close"><i class="fa fa-search"></i></a>
@@ -34,6 +33,7 @@ if ($u->isRegistered()) {
         <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate">Donate</a>
       </li>
     </ul>
+    <?php (new GlobalArea('Left Header'))->display($c); ?>
   </nav>
   <div class="navbar-outer">
     <?php (new GlobalArea('Dropdown'))->display($c); ?>
