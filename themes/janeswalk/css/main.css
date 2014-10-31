@@ -7574,6 +7574,7 @@ a {
 .infoBox h3,
 .infoBox h4 {
   color: inherit;
+  margin-top: 5px;
 }
 .notification {
   background-image: url('images/festival-bg.png') bottom right no-repeat #35b0d7;
@@ -10675,12 +10676,12 @@ section.sponsors {
     display: none !important;
   }
 }
-.walk-stops h1,
-.walk-stops h2,
-.walk-stops h3,
-.walk-stops h4,
-.walk-stops h5,
-.walk-stops i {
+.walk-stops header h1,
+.walk-stops header h2,
+.walk-stops header h3,
+.walk-stops header h4,
+.walk-stops header h5,
+.walk-stops header i {
   color: #fff;
 }
 .walk-stops p {
