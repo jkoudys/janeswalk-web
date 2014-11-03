@@ -7876,6 +7876,7 @@ body > footer {
   z-index: 2;
   width: 100%;
   bottom: 0;
+  -webkit-transform: translateZ(0);
 }
 @media (max-width: 768px) {
   body > footer {

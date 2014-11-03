@@ -11,6 +11,10 @@
   font-size:11px;
   line-height:1.6;
   position:fixed; z-index:2; width:100%; bottom:0;
+
+  // Silly hack to workaround a chrome bug
+  -webkit-transform: translateZ(0);
+
   @media (max-width: @screen-sm-min) {
     position:static;
   }
