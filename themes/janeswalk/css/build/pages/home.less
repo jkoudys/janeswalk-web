@@ -102,7 +102,7 @@
             text-transform:none;
             color:#fff;
             width:auto;
-            max-width: @screen-lg-min - @grid-gutter-width;
+            max-width: @screen-lg-min - 2*@grid-gutter-width;
             font-size:15px;
             line-height:22px;
             margin:0 auto;
@@ -220,8 +220,8 @@
         }
 
         section.calltoaction {
-            max-width: @screen-lg-min - @grid-gutter-width;
-            padding: @grid-gutter-width 0;
+            max-width: @screen-lg-min;
+            padding: @grid-gutter-width @grid-gutter-width/2;
             margin: 0 auto;
 
 
@@ -235,7 +235,6 @@
             @media (max-width: @screen-sm-min) {
                 width: auto;
                 position: static;
-                padding: 30px 10px 10px 10px;
             }
 
             > h3:first-child {

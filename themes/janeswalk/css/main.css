@@ -8241,7 +8241,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   text-transform: none;
   color: #fff;
   width: auto;
-  max-width: 1170px;
+  max-width: 1140px;
   font-size: 15px;
   line-height: 22px;
   margin: 0 auto;
@@ -8407,8 +8407,8 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   }
 }
 .home .overlap section.calltoaction {
-  max-width: 1170px;
-  padding: 30px 0;
+  max-width: 1200px;
+  padding: 30px 15px;
   margin: 0 auto;
 }
 .home .overlap section.calltoaction #city-choice-label,
@@ -8425,7 +8425,6 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   .home .overlap section.calltoaction {
     width: auto;
     position: static;
-    padding: 30px 10px 10px 10px;
   }
 }
 .home .overlap section.calltoaction > h3:first-child {
