@@ -10,12 +10,15 @@
             content: '' !important;
             padding: 0 !important;
         }
-        &:first-child {
-            margin-left: 0;
-            padding-left: 0;
-        }
         figure:extend(.thumbnail all) {
             padding: 0;
+            .blogimage {
+                background-size: cover;
+                background-position: 50%;
+                width: 100%;
+                min-height: 240px;
+                display: block;
+            }
             figcaption:extend(.caption all) {
                 padding: 10px;
             }

@@ -56,7 +56,8 @@ if ($city->fullbg) {
                 <section class="city-organizer">
                     <?php if ($avatar) { ?>
                     <a href="<?= $profile_path ?>">
-                        <div class="u-avatar" style='background-image:url(<?= $avatar ?>)'></div></a>
+                        <div class="u-avatar" style='background-image:url(<?= $avatar ?>)'></div>
+                    </a>
                     <?php } ?>
                     <div class="city-organizer-details">
                         <h3>

@@ -16,21 +16,22 @@ class CityPageTypeController extends Controller
 
         $this->city = new City($this->c);
 
+        // TODO: This is a pseudo-router. On 5.7 upgrade, replace with symfony
         switch ($method) {
-            // Publish
         case 'POST':
-            // Save
+            // Publish
         case 'PUT':
+            // Save
             break;
-            // Retrieve the page's json
         case 'GET':
+            // Retrieve the page's json
             if ($_GET['format'] === 'json') {
                 $this->getJson();
                 exit;
             }
             break;
-            // 'unpublish' the event (true deletes done through dashboard controller, not city)
         case 'DELETE':
+            // 'unpublish' the event (true deletes done through dashboard controller, not city)
             $c = Page::getCurrentPage();
             $c->setAttribute('exclude_page_list',true);
             break;

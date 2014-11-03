@@ -22,14 +22,14 @@ class WalkPageTypeController extends Controller
 
         /* Ideally this should be in a router, not the individual on_start.
          * c5.7 uses symfony2 for routing
-         * TODO: either use the c5.6 'Request' class, or wait for 5.7.
+         * TODO: wait for 5.7.
          */
         switch ($_SERVER['REQUEST_METHOD']) {
         case 'POST':
             $this->create($_POST['json']);
             break;
         case 'PUT':
-            parse_str(file_get_contents('php://input'),$put_vars);
+            parse_str(file_get_contents('php://input'), $put_vars);
             $this->update($put_vars['json']);
             break;
         case 'GET':
@@ -44,6 +44,7 @@ class WalkPageTypeController extends Controller
     /**
      * show
      * Render view contents. Fall-through behaviour renders theme as HTML via view(). If 'format' is set, render in requested format
+     * TODO: Replace with symfony routes in 5.7; this should be view logic, not controller
      */
     public function show()
     {
@@ -148,6 +149,7 @@ class WalkPageTypeController extends Controller
 
     /**
      * getJson
+     * TODO: Replace with view logic on 5.7
      *
      * @return string of walk's json
      */
@@ -184,6 +186,7 @@ class WalkPageTypeController extends Controller
 
     /**
      * getKml()
+     * TODO: Replace with view logic on 5.7
      *
      * @return DOMDocument of KML map for walk
      */

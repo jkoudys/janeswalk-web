@@ -324,7 +324,7 @@
                 <?php
                   $title = ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName());
                 ?>
-                <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
+                <li>
                   <div class="image" style="display: none;">
                     <img src="" />
                   </div>
@@ -390,7 +390,7 @@
                   <?php
                     $title = ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName());
                   ?>
-                  <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
+                  <li>
                     <div class="image" style="display: none;">
                       <img src="" />
                     </div>
@@ -456,7 +456,7 @@
                   <?php
                     $title = ($blogPost->getCollectionName() === '' ? '(untitled)' : $blogPost->getCollectionName());
                   ?>
-                  <li class="<?= (($index % 2) === 0 ? 'odd' : 'even') ?>">
+                  <li>
                     <div class="image" style="display: none;">
                       <img src="" />
                     </div>

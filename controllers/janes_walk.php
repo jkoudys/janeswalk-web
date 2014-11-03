@@ -65,7 +65,8 @@ class Controller extends \Controller
         $crumbs = $nh->getTrailToCollection($c);
         $crumbs[] = $c; // Must check the current page first
         foreach ($crumbs as $crumb) {
-            if ($lang = (string) $crumb->getAttribute('lang')) {
+            $lang = (string) $crumb->getAttribute('lang');
+            if ($lang) {
                 Localization::changeLocale($lang);
                 break;
             }
