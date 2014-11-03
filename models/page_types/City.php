@@ -110,7 +110,10 @@ class City extends \Model implements \JsonSerializable
             return $this->twitter ? 'http://twitter.com/' . end(preg_split('/[@\/]/', $this->twitter)) : null;
             break;
         case 'website_url':
-            return $this->website ? (0 === strpos($website, 'http')) ? $website : ('http://' . $this->website) : null;
+            return $this->website ? 
+                (0 === strpos($this->website, 'http')) ?
+                    $this->website : ('http://' . $this->website) :
+                null;
             break;
         case 'url':
             return Loader::helper('navigation')->getCollectionURL($this->page);
