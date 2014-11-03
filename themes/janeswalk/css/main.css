@@ -8357,7 +8357,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 .home section.blog:before {
   content: " ";
   display: block;
-  background-color: #f00;
+  background-color: #fff;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -8374,9 +8374,42 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
     height: auto;
   }
 }
+.home .overlap .topcontent {
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  background-color: #fff;
+}
+.home .overlap .topcontent:before,
+.home .overlap .topcontent:after {
+  content: " ";
+  display: table;
+}
+.home .overlap .topcontent:after {
+  clear: both;
+}
+.home .overlap .topcontent:before,
+.home .overlap .topcontent:after {
+  content: " ";
+  display: table;
+}
+.home .overlap .topcontent:after {
+  clear: both;
+}
 .home .overlap section.calltoaction {
   max-width: 1170px;
+  padding: 30px 0;
   margin: 0 auto;
+}
+.home .overlap section.calltoaction #city-choice-label,
+.home .overlap section.calltoaction #city-choice-select {
+  display: none;
+}
+@media (max-width: 768px) {
+  .home .overlap section.calltoaction #city-choice-label,
+  .home .overlap section.calltoaction #city-choice-select {
+    display: block;
+  }
 }
 @media (max-width: 768px) {
   .home .overlap section.calltoaction {
@@ -8384,12 +8417,24 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
     position: static;
     padding: 30px 10px 10px 10px;
   }
-  .home .overlap section.calltoaction > p {
-    display: none;
-  }
-  .home .overlap section.calltoaction > p:first-child {
-    display: block;
-  }
+}
+.home .overlap section.calltoaction h3 {
+  color: #666666;
+  font-weight: 700;
+  margin: 0 0 0.8em 0;
+}
+.home .overlap section.calltoaction p {
+  color: #666666;
+  line-height: 1.6;
+  font-size: 1.3em;
+}
+.home .overlap section.calltoaction ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.home .overlap section.calltoaction ul li {
+  display: inline-block;
 }
 .home .overlap .controls {
   position: absolute;
@@ -11242,6 +11287,8 @@ body.blog #body img {
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  width: 100%;
 }
 body.blog #body ul.nav,
 body.blog #body ul.social-login-providers.template-fontawesome {
