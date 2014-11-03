@@ -8396,6 +8396,11 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 .home .overlap .topcontent:after {
   clear: both;
 }
+@media (max-width: 768px) {
+  .home .overlap .topcontent {
+    position: relative;
+  }
+}
 .home .overlap section.calltoaction {
   max-width: 1170px;
   padding: 30px 0;
@@ -8418,7 +8423,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
     padding: 30px 10px 10px 10px;
   }
 }
-.home .overlap section.calltoaction h3 {
+.home .overlap section.calltoaction h3:first-child {
   color: #666666;
   font-weight: 700;
   margin: 0 0 0.8em 0;

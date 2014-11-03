@@ -209,6 +209,10 @@
             bottom: 0;
             position: absolute;
             background-color: #fff;
+            
+            @media (max-width: @screen-sm-min) {
+                position: relative;
+            }
         }
 
         section.calltoaction {
@@ -230,7 +234,7 @@
                 padding: 30px 10px 10px 10px;
             }
 
-            h3 {
+            h3:first-child {
                 color: @color-darkgrey;
                 font-weight: 700;
                 margin: 0 0 0.8em 0;
