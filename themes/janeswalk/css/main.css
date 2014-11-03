@@ -8364,6 +8364,11 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   left: 0;
   z-index: 0;
 }
+@media (max-width: 768px) {
+  .home section.blog {
+    background-color: #fff;
+  }
+}
 .home .overlap {
   transition-duration: 0.5s;
   position: relative;
@@ -8423,7 +8428,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
     padding: 30px 10px 10px 10px;
   }
 }
-.home .overlap section.calltoaction h3:first-child {
+.home .overlap section.calltoaction > h3:first-child {
   color: #666666;
   font-weight: 700;
   margin: 0 0 0.8em 0;
@@ -8435,7 +8440,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 }
 .home .overlap section.calltoaction ul {
   list-style: none;
-  margin: 0;
+  margin: 0 0 1em 0;
   padding: 0;
 }
 .home .overlap section.calltoaction ul li {
