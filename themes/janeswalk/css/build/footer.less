@@ -1,47 +1,64 @@
 // Footer
 > footer {
-  clear:both;
-  color: #50616D;
-  padding: 12px 0;
-  background: #dcdcdc;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  font-family: @font-slab;
-  font-weight:500;
-  font-size:11px;
-  line-height:1.6;
-  position:fixed; z-index:2; width:100%; bottom:0;
+    width: 100%;
+    background: #dcdcdc;
+    color: #50616D;
+    font-family: @font-slab;
+    font-weight: 500;
+    position: fixed;
+    bottom:0;
 
-  // Silly hack to workaround a chrome bug
-  -webkit-transform: translateZ(0);
+    padding: @grid-gutter-width/2 0;
 
-  @media (max-width: @screen-sm-min) {
-    position:static;
-  }
-  h4 {
-    margin-top: 0;
-  }
-  a {
-    color: #df520e;
-  }
-  ul, li { list-style-type: none; }
-  ul { margin:0 0 0 5px; }
-  li { 
-    display: inline-block;
-    &:before { content: "| "; margin-right:3px; }
-  }
-  .social-icons {
-    font-size:18px;
-    display:inline-block;
-    vertical-align:top;
+    // Silly hack to workaround a chrome bug
+    -webkit-transform: translateZ(0);
+
+    nav {
+        .container-fixed();
+        max-width: @screen-lg-min;
+        font-size: 11px;
+        line-height: 1.6;
+        z-index: @zindex-navbar-fixed;
+    }
+
+    h4 {
+        margin-top: 0;
+    }
     a {
-      text-decoration:none;
-      i { color:@color-blue; font-size:24px; margin-right:4px; }
+        color: #df520e;
     }
-    & + div {
-      width:80%;
-      display:inline-block;
+    ul, li { list-style: none; }
+    ul {
+        margin: 0 0 0 5px;
+        padding: 0;
     }
-  }
+    li { 
+        display: inline-block;
+        &:before {
+            content: "| ";
+            margin-right: 3px;
+        }
+    }
+    .social-icons {
+        font-size:18px;
+        display:inline-block;
+        vertical-align:top;
+        a {
+            text-decoration:none;
+            i {
+                color: @color-blue;
+                font-size: 24px;
+                margin-right:4px;
+            }
+        }
+        & + div {
+            width: 80%;
+            display: inline-block;
+        }
+    }
+
+    @media (max-width: @screen-sm-min) {
+        position: static;
+    }
 }
 
