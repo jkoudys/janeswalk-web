@@ -4,8 +4,10 @@
     list-style-type: none;
     padding: 0;
     li {
-        .make-sm-column(6);
-        .make-md-column(4);
+        .make-columns-per-row(6, 'sm');
+        .make-columns-per-row(4, 'md');
+        .make-columns-per-row(4, 'lg');
+
         &:before {
             content: '' !important;
             padding: 0 !important;

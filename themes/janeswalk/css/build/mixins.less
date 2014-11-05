@@ -1,0 +1,41 @@
+.clear-on-row(@columns) {
+    @columns-per-row: floor((@grid-columns / @columns));
+    &:nth-child(@{columns-per-row}n + 1) {
+        clear: both;
+    }
+}
+
+// Make this element list as a certain number per row - adds clears so that
+// you can force a newline, e.g. 4 cards per row. Unlike .make-??-column() 
+// mixins, these are bounded based on size, so you must set for each media
+// type.
+.make-columns-per-row(@columns; @size: "md") {
+    // TODO: see if there's a better way to do this. Most scripting langs
+    // would be trivial, but less is a bit tricky here
+    & when (@size = "xs") {
+        @media (max-width: @screen-sm-min - 1) {
+            .make-xs-column(@columns);
+            .clear-on-row(@columns);
+        }
+    }
+    & when (@size = "sm") {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-md-min - 1) {
+            .make-sm-column(@columns);
+            .clear-on-row(@columns);
+        }
+    }
+    & when (@size = "md") {
+        .make-md-column(@columns);
+        @media (min-width: @screen-md-min) and (max-width: @screen-lg-min - 1) {
+            .make-md-column(@columns);
+            .clear-on-row(@columns);
+        }
+    }
+    & when (@size = "lg") {
+        .make-lg-column(@columns);
+        @media (min-width: @screen-lg-min) {
+            .make-lg-column(@columns);
+            .clear-on-row(@columns);
+        }
+    }
+}
