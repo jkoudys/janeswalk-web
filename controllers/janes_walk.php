@@ -80,6 +80,6 @@ class Controller extends \Controller
     // The 'on_before_render' will set up our JanesWalk json in the page
     public function on_before_render()
     {
-        $this->addFooterItem('<script type="text/javascript">window.JanesWalk = ' . json_encode($this->pageData) . '</script>');
+        $this->addFooterItem('<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; Object.assign(window.JanesWalk, ' . json_encode($this->pageData) . ');</script>');
     }
 }

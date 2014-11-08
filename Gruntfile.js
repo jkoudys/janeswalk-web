@@ -101,6 +101,15 @@ module.exports = function(grunt) {
         all: janeswalk.jslib,
         form: ['themes/jw_form/js/main.js', 'themes/jw_form/js/gmaps.js']
       },
+      react: {
+        files: {
+          expand: true,
+          cwd: 'blocks',
+          dest: 'blocks',
+          src: ['**/*.jsx'],
+          ext: '.js'
+        }
+      },
       phpcsfixer: {
         app: {
           dir: 'models',
@@ -134,6 +143,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-php-cs-fixer');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-react');
 
     // Default task(s).
     grunt.registerTask('js', ['concat', 'uglify']);

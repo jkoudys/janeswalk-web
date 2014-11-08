@@ -18,6 +18,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-php-cs-fixer": "0.0.5",
     "grunt-phpunit": "^0.3.3",
+    "grunt-react": "^0.10.0",
     "grunt-sass": "^0.14.0",
     "gulp-autoprefixer": "0.0.8",
     "gulp-sass": "^0.7.2",

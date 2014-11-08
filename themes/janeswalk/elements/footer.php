@@ -30,8 +30,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="<?=$this->getThemePath()?>/js/jquery.calendar.js"></script>
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/2.8.1/jquery.mCustomScrollbar.min.js"></script>
-    <script src="<?=$this->getThemePath()?>/js/Eventbrite.jquery.js"></script>
-
+    <script src="http://fb.me/react-0.12.0.min.js"></script>
     <script src="<?= $this->getThemePath() . (CONCRETE5_ENV === 'dev' ? '/js/janeswalk.js' : '/js/janeswalk.min.js') ?>"></script>
 
     <?php Loader::element('footer_required'); ?>
