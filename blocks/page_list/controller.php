@@ -244,7 +244,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             switch ($this->block->getBlockFilename()) {
             case 'walkcards':
             case 'walk_filters':
-                $this->addFooterItem('<script type="text/javascript">JanesWalk = JanesWalk || {}; JanesWalk.walks = ' . json_encode($this->pageData) . '</script>');
+                $this->addFooterItem('<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; Object.assign(window.JanesWalk, {walks:' . json_encode($this->pageData) . '});</script>');
                 break;
             default:
                 break;
