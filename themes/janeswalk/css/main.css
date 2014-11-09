@@ -7873,6 +7873,7 @@ body > footer {
   font-weight: 500;
   position: fixed;
   bottom: 0;
+  z-index: 1030;
   padding: 15px 0;
   -webkit-transform: translateZ(0);
 }
@@ -7884,7 +7885,6 @@ body > footer nav {
   max-width: 1200px;
   font-size: 11px;
   line-height: 1.6;
-  z-index: 1030;
 }
 body > footer h4 {
   margin-top: 0;
@@ -9570,6 +9570,7 @@ section.sponsors {
 .city-page .intro-city {
   font-family: "museo-slab", "Roboto Slab", serif;
   margin-bottom: 59px;
+  clear: both;
 }
 .city-page .intro-city.lower {
   margin-top: 0;
@@ -10285,6 +10286,28 @@ section.sponsors {
 .walk-page h3 {
   color: #555;
   margin: 0 0 0.6em 0;
+}
+.walk-page .walk-label:before,
+.walk-page .tag-list:before,
+.walk-page .walk-label:after,
+.walk-page .tag-list:after {
+  content: " ";
+  display: table;
+}
+.walk-page .walk-label:after,
+.walk-page .tag-list:after {
+  clear: both;
+}
+.walk-page .walk-label:before,
+.walk-page .tag-list:before,
+.walk-page .walk-label:after,
+.walk-page .tag-list:after {
+  content: " ";
+  display: table;
+}
+.walk-page .walk-label:after,
+.walk-page .tag-list:after {
+  clear: both;
 }
 @media (max-width: 768px) {
   .walk-page .walk-label,
