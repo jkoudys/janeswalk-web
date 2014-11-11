@@ -1,58 +1,37 @@
 <?php  defined('C5_EXECUTE') or die("Access Denied.");
 $this->inc('elements/header.php');
-$dh = Loader::helper('concrete/dashboard');
+$this->inc('elements/navbar.php');
 ?>
-<body class="index <?=($dh->canRead()) ? "logged_in" : ""; ?>">
-
-<script type="text/javascript">
-$(document).ready(function () {
-  $("html").addClass("index-bg");
-  });
-$(function () {
-	$("input[name=uName]").focus();
-});
-</script>
-
-<div class="modal-backdrop fade in"></div>
-<div class="modal hide fade in" id="survey-panel" data-keyboard="false" data-backdrop="static" style="display: block;" aria-hidden="false">
-  <div class="modal-header">
-    <?php
-      $a = new Area('Header');
-      $a->display($c);
-    ?>
-  </div>
-  <div class="modal-body">
-    <?php
-      $a = new Area('Body');
-      $a->display($c);
-    ?>
-  </div>
-  <div class="modal-footer">
-    <div class="pull-left">
-      <?php
-        $a = new Area('Footer');
-        $a->display($c);
-      ?>
+<dialog id="survey-panel" class="in">
+    <div>
+        <article>
+            <header>
+                <?php (new Area('Header'))->display($c) ?>
+            </header>
+            <section>
+                <?php (new Area('Body'))->display($c) ?>
+            </section>
+            <footer>
+<?php
+                    if (isset($error) && $error != '') {
+                        echo '<div class="alert alert-danger">';
+                        if ($error instanceof Exception) {
+                            $_error[] = $error->getMessage();
+                        } elseif ($error instanceof ValidationErrorHelper) {
+                            $_error = $error->getList();
+                        } elseif (is_array($error)) {
+                            $_error = $error;
+                        } elseif (is_string($error)) {
+                            $_error[] = $error;
+                        }
+                        foreach ($_error as $e) {
+                            echo $e . '<br />';
+                        }
+                        echo '</div>';
+                    }
+?>
+            </footer>
+        </article>
     </div>
-
-    <?php  if (isset($error) && $error != '') {
-      echo '<div class="ccm-error">';
-      if ($error instanceof Exception) {
-         $_error[] = $error->getMessage();
-      } elseif ($error instanceof ValidationErrorHelper) {
-         $_error = $error->getList();
-      } elseif (is_array($error)) {
-         $_error = $error;
-      } elseif (is_string($error)) {
-         $_error[] = $error;
-      }
-      foreach ($_error as $e) {
-        echo $e . "<br />";
-      }
-      echo '</div>';
-    }
-    ?>
-  </div>
-</div>
-<?php Loader::element('footer_required'); ?>
-</body>
+</dialog>
+<?php $this->inc('elements/footer.php') ?>
