@@ -6,7 +6,7 @@
 module.exports = function(grunt) {
     var janeswalk = {
         js: 'themes/janeswalk/js/',
-        jslib: ['themes/janeswalk/js/shims.js', 'themes/janeswalk/js/extend.js', 'themes/janeswalk/js/v2/**/*.js', 'themes/janeswalk/js/app.js', 'themes/janeswalk/js/v2/MapEditor.js'],
+        jslib: ['themes/janeswalk/js/shims.js', 'themes/janeswalk/js/lib/*.js', 'themes/janeswalk/js/extend.js', 'themes/janeswalk/js/v2/**/*.js', 'themes/janeswalk/js/app.js', 'themes/janeswalk/js/v2/MapEditor.js'],
         css: 'themes/janeswalk/css/'
     };
 
@@ -102,10 +102,17 @@ module.exports = function(grunt) {
         form: ['themes/jw_form/js/main.js', 'themes/jw_form/js/gmaps.js']
       },
       react: {
-        files: {
+        blocks: {
           expand: true,
           cwd: 'blocks',
           dest: 'blocks',
+          src: ['**/*.jsx'],
+          ext: '.js'
+        },
+        views: {
+          expand: true,
+          cwd: 'themes/janeswalk/js',
+          dest: 'themes/janeswalk/js',
           src: ['**/*.jsx'],
           ext: '.js'
         }
