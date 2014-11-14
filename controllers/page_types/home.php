@@ -7,6 +7,7 @@ class HomePageTypeController extends Controller
 {
   public function view()
   {
+      parent::view();
       $headImage = $this->c->getAttribute('full_bg');
       if ($headImage) {
           $this->bodyData['bg'] = $headImage->getURL();

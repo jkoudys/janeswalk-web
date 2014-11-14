@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     getSearchResults: function() {
       var action = this.props.action;
-      var searchForm = this.refs.search;
       $.ajax({
         url: action,
         dataType: 'json',
@@ -45,8 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var QueryInput = React.createClass({
+    getDefaultProps: function() {
+      return {
+        value: ''
+      };
+    },
     getInitialState: function() {
-      return {value: this.props.value || ''};
+      return {value: this.props.value};
     },
     handleChange: function(e) {
       this.setState({value: e.target.value});
@@ -67,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
           {results.map(function(result) {
             return <SearchResult href={result.url} name={result.name} description={result.description} />;
           })}
-          <SearchPagination paginator={this.props.paginator} onPageSelect={this.props.onPageSelect} />
+          <SearchPagination {...this.props} />
         </div>
       );
     }
@@ -130,5 +134,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   var sbf = document.querySelector('.ccm-search-block-form');
-  React.renderComponent(<SearchHeaderBlock action={sbf.dataset.action} placeholder={sbf.dataset.placeholder} />, sbf);
+  React.render(<SearchHeaderBlock action={sbf.dataset.action} placeholder={sbf.dataset.placeholder} />, sbf);
 });

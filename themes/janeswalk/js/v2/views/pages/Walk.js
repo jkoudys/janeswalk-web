@@ -189,7 +189,7 @@ var WalkPageView = PageView.extend({
 
         return function() {
 
-          for (var e=0; e<markers.length; e++) {
+          for (var e=0; e < markers.length; e++) {
             markers[e].setIcon(defaultMarker);
           }
 
@@ -197,8 +197,17 @@ var WalkPageView = PageView.extend({
 
           this.setIcon(activeMarker);
 
-          infowindow.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
-          infobox.setContent("<h4>"+ JanesWalk.page.gmap.markers[i].title +"</h4><p>"+ JanesWalk.page.gmap.markers[i].description +"</p>"+ markerContent);
+          infowindow.setContent(React.renderToStaticMarkup(
+            React.createElement("div", null, 
+              React.createElement("h4", null, 
+                JanesWalk.page.gmap.markers[i].title
+              ), 
+              React.createElement("p", null, 
+                JanesWalk.page.gmap.markers[i].description
+              ), 
+              markerContent
+            )
+          ));
           infobox.open(map, marker);
 
           $('.walk-stop').removeClass('active');
@@ -254,7 +263,7 @@ var WalkPageView = PageView.extend({
         markerContent = '';
 
         if ($('body').hasClass('create-page')) {
-          markerContent = "<button class='btn pull-right' id='delete-marker'><i class='icon-trash'><i></button>";
+          markerContent = React.createElement("button", {className: "btn pull-right", id: "delete-marker"}, React.createElement("i", {className: "fa fa-trash"}));
         }
 
         google.maps.event.addListener(marker, 'click', showInfoBox(marker, i, markerContent));
@@ -330,9 +339,17 @@ var WalkPageView = PageView.extend({
           });
         };
 
-        var stopForm = "<input type='text' placeholder='Name of this stop'><br><textarea class='box-sizing' placeholder='Description of this stop'></textarea><br><button class='btn' id='save-marker'>Save Stop</button><button class='btn pull-right' id='delete-marker'><i class='icon-trash'><i></button>";
 
-        infowindow.setContent(stopForm);
+        infowindow.setContent(React.renderStaticMarkup(
+          React.createElement("div", null, 
+            React.createElement("input", {type: "text", placeholder: "Name of this stop"}), 
+            React.createElement("br", null), 
+            React.createElement("textarea", {className: "box-sizing", placeholder: "Description of this stop"}), 
+            React.createElement("br", null), 
+            React.createElement("button", {className: "btn", id: "save-marker"}, "Save Stop"), 
+            React.createElement("button", {className: "btn pull-right", id: "delete-marker"}, React.createElement("i", {className: "fa fa-trash"}))
+          )
+        ));
         infowindow.open(map, marker);
         deleteMarkerButton();
 

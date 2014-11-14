@@ -1,7 +1,6 @@
 <?php
     defined('C5_EXECUTE') or die("Access Denied.");
 ?>
-<html>
 <?php
     $dh = Loader::helper('concrete/dashboard');
     $pageViewName = $pageViewName ?: 'PageView';

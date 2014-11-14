@@ -106,9 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (pages.length) {
         return (
           React.createElement("div", {className: "ccm-pagination"}, 
-             React.createElement("span", {className: "prev"}, React.createElement("a", null, React.createElement("i", {className: "fa fa-angle-left"}))), 
-             pages, 
-             React.createElement("span", {className: "next"}, React.createElement("a", null, React.createElement("i", {className: "fa fa-angle-right"})))
+             pages
           )
         );
       } else {
@@ -132,5 +130,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
   var sbf = document.querySelector('.ccm-search-block-form');
-  React.renderComponent(React.createElement(SearchHeaderBlock, {action: sbf.dataset.action, placeholder: sbf.dataset.placeholder}), sbf);
+  React.render(React.createElement(SearchHeaderBlock, {action: sbf.dataset.action, placeholder: sbf.dataset.placeholder}), sbf);
 });

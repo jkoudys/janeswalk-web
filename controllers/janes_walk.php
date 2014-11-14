@@ -49,6 +49,7 @@ class Controller extends \Controller
             $ui = UserInfo::getByID( $u->getUserID() );
             $city = $ui->getAttribute('home_city');
             $jwData['user'] = [
+                'id' => $ui->getUserID(),
                 'firstName' => $ui->getAttribute('first_name'),
                 'lastName' => $ui->getAttribute('last_name')
             ];

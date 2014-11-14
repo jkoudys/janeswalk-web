@@ -11309,14 +11309,39 @@ section.sponsors {
   width: auto !important;
 }
 body.blog #central > header {
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
   background: #f16725;
   position: relative;
   background-size: cover;
   background-position: 50%;
   color: #fff;
   text-align: center;
-  padding: 200px 0 40px 0;
-  margin-bottom: 20px;
+  padding-top: 10em;
+  padding-bottom: 2em;
+}
+body.blog #central > header:before,
+body.blog #central > header:after {
+  content: " ";
+  display: table;
+}
+body.blog #central > header:after {
+  clear: both;
+}
+body.blog #central > header:before,
+body.blog #central > header:after {
+  content: " ";
+  display: table;
+}
+body.blog #central > header:after {
+  clear: both;
+}
+@media (min-width: 992px) {
+  body.blog #central > header {
+    float: left;
+    width: 100%;
+  }
 }
 body.blog #central > header h1,
 body.blog #central > header p {
