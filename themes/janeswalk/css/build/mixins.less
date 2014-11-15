@@ -13,20 +13,20 @@
     // TODO: see if there's a better way to do this. Most scripting langs
     // would be trivial, but less is a bit tricky here
     & when (@size = "xs") {
-        @media (max-width: @screen-sm-min - 1) {
+        @media (max-width: @screen-xs-max) {
             .make-xs-column(@columns);
             .clear-on-row(@columns);
         }
     }
     & when (@size = "sm") {
-        @media (min-width: @screen-sm-min) and (max-width: @screen-md-min - 1) {
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
             .make-sm-column(@columns);
             .clear-on-row(@columns);
         }
     }
     & when (@size = "md") {
         .make-md-column(@columns);
-        @media (min-width: @screen-md-min) and (max-width: @screen-lg-min - 1) {
+        @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
             .make-md-column(@columns);
             .clear-on-row(@columns);
         }

@@ -320,7 +320,9 @@ img {
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img,
 .ccm-page-list.ccm-blog-index li figure > img,
-.ccm-page-list.ccm-blog-index li figure a > img {
+.ccm-page-list.ccm-blog-index li figure a > img,
+.ccm-page-list-city-cards li figure > img,
+.ccm-page-list-city-cards li figure a > img {
   display: block;
   width: 100% \9;
   max-width: 100%;
@@ -5221,7 +5223,8 @@ a.list-group-item.active > .badge,
   }
 }
 .thumbnail,
-.ccm-page-list.ccm-blog-index li figure {
+.ccm-page-list.ccm-blog-index li figure,
+.ccm-page-list-city-cards li figure {
   display: block;
   padding: 4px;
   margin-bottom: 20px;
@@ -5236,7 +5239,9 @@ a.list-group-item.active > .badge,
 .thumbnail > img,
 .thumbnail a > img,
 .ccm-page-list.ccm-blog-index li figure > img,
-.ccm-page-list.ccm-blog-index li figure a > img {
+.ccm-page-list.ccm-blog-index li figure a > img,
+.ccm-page-list-city-cards li figure > img,
+.ccm-page-list-city-cards li figure a > img {
   margin-left: auto;
   margin-right: auto;
 }
@@ -5245,12 +5250,16 @@ a.thumbnail:focus,
 a.thumbnail.active,
 a.ccm-page-list.ccm-blog-index li figure:hover,
 a.ccm-page-list.ccm-blog-index li figure:focus,
-a.ccm-page-list.ccm-blog-index li figure.active {
+a.ccm-page-list.ccm-blog-index li figure.active,
+a.ccm-page-list-city-cards li figure:hover,
+a.ccm-page-list-city-cards li figure:focus,
+a.ccm-page-list-city-cards li figure.active {
   border-color: #428bca;
 }
 .thumbnail .caption,
 .ccm-page-list.ccm-blog-index li figure .caption,
-.thumbnail .ccm-page-list.ccm-blog-index li figure figcaption {
+.thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
+.ccm-page-list-city-cards li figure .caption {
   padding: 9px;
   color: #333333;
 }
@@ -8040,7 +8049,7 @@ dialog input[type=password] {
   padding-left: 15px;
   padding-right: 15px;
 }
-@media (min-width: 768px) and (max-width: 992px - 1) {
+@media (min-width: 768px) and (max-width: 991px) {
   .ccm-page-list.ccm-blog-index li {
     position: relative;
     min-height: 1px;
@@ -8051,7 +8060,7 @@ dialog input[type=password] {
     clear: both;
   }
 }
-@media (min-width: 768px) and (max-width: 992px - 1) and (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 991px) and (min-width: 768px) {
   .ccm-page-list.ccm-blog-index li {
     float: left;
     width: 50%;
@@ -8063,7 +8072,7 @@ dialog input[type=password] {
     width: 33.33333333%;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) {
+@media (min-width: 992px) and (max-width: 1199px) {
   .ccm-page-list.ccm-blog-index li {
     position: relative;
     min-height: 1px;
@@ -8074,7 +8083,7 @@ dialog input[type=password] {
     clear: both;
   }
 }
-@media (min-width: 992px) and (max-width: 1200px - 1) and (min-width: 992px) {
+@media (min-width: 992px) and (max-width: 1199px) and (min-width: 992px) {
   .ccm-page-list.ccm-blog-index li {
     float: left;
     width: 33.33333333%;
@@ -8188,6 +8197,104 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 }
 .ccm-block-page-list-walk-filters.filtering .walk-filters {
   display: block;
+}
+.ccm-page-list-city-cards {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 0;
+  list-style: none;
+}
+@media (min-width: 992px) {
+  .ccm-page-list-city-cards {
+    float: left;
+    width: 100%;
+  }
+}
+.ccm-page-list-city-cards li {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  list-style: none;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .ccm-page-list-city-cards li {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .ccm-page-list-city-cards li:nth-child( 2n + 1) {
+    clear: both;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) and (min-width: 768px) {
+  .ccm-page-list-city-cards li {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .ccm-page-list-city-cards li {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .ccm-page-list-city-cards li {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .ccm-page-list-city-cards li:nth-child( 3n + 1) {
+    clear: both;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) and (min-width: 992px) {
+  .ccm-page-list-city-cards li {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+@media (min-width: 1200px) {
+  .ccm-page-list-city-cards li {
+    float: left;
+    width: 25%;
+  }
+}
+@media (min-width: 1200px) {
+  .ccm-page-list-city-cards li {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .ccm-page-list-city-cards li:nth-child( 4n + 1) {
+    clear: both;
+  }
+}
+@media (min-width: 1200px) and (min-width: 1200px) {
+  .ccm-page-list-city-cards li {
+    float: left;
+    width: 25%;
+  }
+}
+.ccm-page-list-city-cards li figure {
+  padding: 0;
+}
+.ccm-page-list-city-cards li figure a.thumbnail,
+.ccm-page-list-city-cards li figure a.ccm-page-list.ccm-blog-index li figure,
+.ccm-page-list-city-cards li figure a.ccm-page-list-city-cards li figure {
+  margin-bottom: 0;
+}
+.ccm-page-list-city-cards li figure figcaption {
+  padding: 15px;
+}
+.ccm-page-list-city-cards li figure figcaption > *:first-child {
+  margin-top: 0;
 }
 .social-login-providers.template-fontawesome {
   list-style-type: none;
@@ -9758,7 +9865,8 @@ section.sponsors {
   }
 }
 .intro-city .thumbnail,
-.intro-city .ccm-page-list.ccm-blog-index li figure {
+.intro-city .ccm-page-list.ccm-blog-index li figure,
+.intro-city .ccm-page-list-city-cards li figure {
   background: #fff;
 }
 @media (max-width: 992px) {
@@ -9893,14 +10001,16 @@ section.sponsors {
   }
 }
 .walk-select .walk .thumbnail,
-.walk-select .walk .ccm-page-list.ccm-blog-index li figure {
+.walk-select .walk .ccm-page-list.ccm-blog-index li figure,
+.walk-select .walk .ccm-page-list-city-cards li figure {
   height: 580px;
   transition: none;
   position: relative;
   padding: 0;
 }
 .walk-select .walk .thumbnail .walkimage,
-.walk-select .walk .ccm-page-list.ccm-blog-index li figure .walkimage {
+.walk-select .walk .ccm-page-list.ccm-blog-index li figure .walkimage,
+.walk-select .walk .ccm-page-list-city-cards li figure .walkimage {
   margin: 0;
   background-size: cover;
   background-position: 50% 50%;
@@ -9909,25 +10019,29 @@ section.sponsors {
 }
 .walk-select .walk .thumbnail .caption p,
 .walk-select .walk .ccm-page-list.ccm-blog-index li figure .caption p,
-.walk-select .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p {
+.walk-select .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
+.walk-select .walk .ccm-page-list-city-cards li figure .caption p {
   min-height: 90px;
   overflow: hidden;
   display: block;
 }
 .walk-select .walk .thumbnail .caption h6,
 .walk-select .walk .ccm-page-list.ccm-blog-index li figure .caption h6,
-.walk-select .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6 {
+.walk-select .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
+.walk-select .walk .ccm-page-list-city-cards li figure .caption h6 {
   font-weight: 700;
 }
 @media (max-width: 768px) {
   .walk-select .walk .thumbnail .caption,
   .walk-select .walk .ccm-page-list.ccm-blog-index li figure .caption,
-  .walk-select .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption {
+  .walk-select .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
+  .walk-select .walk .ccm-page-list-city-cards li figure .caption {
     padding-bottom: 20px;
   }
 }
 .walk-select .walk .thumbnail .when,
-.walk-select .walk .ccm-page-list.ccm-blog-index li figure .when {
+.walk-select .walk .ccm-page-list.ccm-blog-index li figure .when,
+.walk-select .walk .ccm-page-list-city-cards li figure .when {
   list-style-type: none;
   font-weight: 700;
   color: #222;
@@ -9938,7 +10052,8 @@ section.sponsors {
 }
 @media (max-width: 992px) {
   .walk-select .walk .thumbnail,
-  .walk-select .walk .ccm-page-list.ccm-blog-index li figure {
+  .walk-select .walk .ccm-page-list.ccm-blog-index li figure,
+  .walk-select .walk .ccm-page-list-city-cards li figure {
     min-height: 0;
   }
 }
@@ -9956,7 +10071,8 @@ section.sponsors {
   padding-bottom: 10px;
 }
 .walk-select .walk:hover .thumbnail,
-.walk-select .walk:hover .ccm-page-list.ccm-blog-index li figure {
+.walk-select .walk:hover .ccm-page-list.ccm-blog-index li figure,
+.walk-select .walk:hover .ccm-page-list-city-cards li figure {
   background: #6badfd;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
@@ -9968,14 +10084,19 @@ section.sponsors {
 .walk-select .walk:hover .ccm-page-list.ccm-blog-index li figure h4,
 .walk-select .walk:hover .ccm-page-list.ccm-blog-index li figure h6,
 .walk-select .walk:hover .ccm-page-list.ccm-blog-index li figure p,
-.walk-select .walk:hover .ccm-page-list.ccm-blog-index li figure li {
+.walk-select .walk:hover .ccm-page-list.ccm-blog-index li figure li,
+.walk-select .walk:hover .ccm-page-list-city-cards li figure h4,
+.walk-select .walk:hover .ccm-page-list-city-cards li figure h6,
+.walk-select .walk:hover .ccm-page-list-city-cards li figure p,
+.walk-select .walk:hover .ccm-page-list-city-cards li figure li {
   color: #FFF;
 }
 .walk-select .walk:active {
   margin-top: 0;
 }
 .walk-select .walk:active .thumbnail,
-.walk-select .walk:active .ccm-page-list.ccm-blog-index li figure {
+.walk-select .walk:active .ccm-page-list.ccm-blog-index li figure,
+.walk-select .walk:active .ccm-page-list-city-cards li figure {
   background: #3991fc;
 }
 .walk-select .see-all {
@@ -10468,33 +10589,41 @@ section.sponsors {
 .walk-page .thumbnail.accessibility,
 .walk-page .thumbnail.donation,
 .walk-page .ccm-page-list.ccm-blog-index li figure.accessibility,
-.walk-page .ccm-page-list.ccm-blog-index li figure.donation {
+.walk-page .ccm-page-list.ccm-blog-index li figure.donation,
+.walk-page .ccm-page-list-city-cards li figure.accessibility,
+.walk-page .ccm-page-list-city-cards li figure.donation {
   margin: 1em 0;
 }
 .walk-page .thumbnail.accessibility h4,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4 {
+.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4,
+.walk-page .ccm-page-list-city-cards li figure.accessibility h4 {
   margin-top: 1.5em;
 }
 .walk-page .thumbnail.accessibility h4:first-child,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4:first-child {
+.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4:first-child,
+.walk-page .ccm-page-list-city-cards li figure.accessibility h4:first-child {
   margin-top: 0;
 }
 .walk-page .thumbnail hr,
-.walk-page .ccm-page-list.ccm-blog-index li figure hr {
+.walk-page .ccm-page-list.ccm-blog-index li figure hr,
+.walk-page .ccm-page-list-city-cards li figure hr {
   margin: 10px 0;
 }
 .walk-page .thumbnail .alert,
 .walk-page .ccm-page-list.ccm-blog-index li figure .alert,
+.walk-page .ccm-page-list-city-cards li figure .alert,
 .walk-page .thumbnail #profileWrapper .steps {
   margin: 0;
 }
 .walk-page .thumbnail.focus,
-.walk-page .ccm-page-list.ccm-blog-index li figure.focus {
+.walk-page .ccm-page-list.ccm-blog-index li figure.focus,
+.walk-page .ccm-page-list-city-cards li figure.focus {
   transition: box-shadow 1s ease-in-out;
   box-shadow: inset 0 0 0 1px #eeeeee, 0 0 10px rgba(241, 103, 37, 0.7);
 }
 .walk-page .thumbnail.focus h3,
-.walk-page .ccm-page-list.ccm-blog-index li figure.focus h3 {
+.walk-page .ccm-page-list.ccm-blog-index li figure.focus h3,
+.walk-page .ccm-page-list-city-cards li figure.focus h3 {
   color: #222;
 }
 .walk-page .date-caption {
@@ -11770,7 +11899,8 @@ body[data-pageviewname=CreateWalkView] {
   background: rgba(0, 0, 0, 0.05);
 }
 #create-walk .thumbnail,
-#create-walk .ccm-page-list.ccm-blog-index li figure {
+#create-walk .ccm-page-list.ccm-blog-index li figure,
+#create-walk .ccm-page-list-city-cards li figure {
   border-radius: 0;
 }
 #create-walk .alert,
@@ -11927,7 +12057,8 @@ body[data-pageviewname=CreateWalkView] {
   background: #efefef;
 }
 #create-walk .thumbnail footer,
-#create-walk .ccm-page-list.ccm-blog-index li figure footer {
+#create-walk .ccm-page-list.ccm-blog-index li figure footer,
+#create-walk .ccm-page-list-city-cards li figure footer {
   border-top: 1px solid #eee;
   padding-top: 20px;
 }
@@ -11938,18 +12069,21 @@ body[data-pageviewname=CreateWalkView] {
   text-decoration: none;
 }
 #create-walk #block-select .thumbnail,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure {
+#create-walk #block-select .ccm-page-list.ccm-blog-index li figure,
+#create-walk #block-select .ccm-page-list-city-cards li figure {
   opacity: 0.65;
   cursor: pointer;
   min-height: 380px;
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
 }
 #create-walk #block-select .thumbnail img,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure img {
+#create-walk #block-select .ccm-page-list.ccm-blog-index li figure img,
+#create-walk #block-select .ccm-page-list-city-cards li figure img {
   width: 70%;
 }
 #create-walk #block-select .thumbnail:hover,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure:hover {
+#create-walk #block-select .ccm-page-list.ccm-blog-index li figure:hover,
+#create-walk #block-select .ccm-page-list-city-cards li figure:hover {
   opacity: 1;
   border: 1px solid #f16725;
   box-shadow: 0 2px 0 0 #f16725;

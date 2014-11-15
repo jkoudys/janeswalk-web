@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     getSearchResults: function() {
       var action = this.props.action;
-      var searchForm = this.refs.search;
       $.ajax({
         url: action,
         dataType: 'json',
@@ -45,8 +44,13 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var QueryInput = React.createClass({displayName: 'QueryInput',
+    getDefaultProps: function() {
+      return {
+        value: ''
+      };
+    },
     getInitialState: function() {
-      return {value: this.props.value || ''};
+      return {value: this.props.value};
     },
     handleChange: function(e) {
       this.setState({value: e.target.value});
@@ -67,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
           results.map(function(result) {
             return React.createElement(SearchResult, {href: result.url, name: result.name, description: result.description});
           }), 
-          React.createElement(SearchPagination, {paginator: this.props.paginator, onPageSelect: this.props.onPageSelect})
+          React.createElement(SearchPagination, React.__spread({},  this.props))
         )
       );
     }

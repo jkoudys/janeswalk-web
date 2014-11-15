@@ -1,0 +1,23 @@
+.ccm-page-list-city-cards {
+    .make-md-column(12);
+    padding: 0;
+    list-style: none;
+    li {
+        .make-columns-per-row(6, "sm");
+        .make-columns-per-row(4, "md");
+        .make-columns-per-row(3, "lg");
+        list-style: none;
+        figure:extend(.thumbnail all) {
+            padding: 0;
+            a.thumbnail {
+                margin-bottom: 0;
+            }
+            figcaption {
+                > *:first-child {
+                    margin-top: 0;
+                }
+                padding: @grid-gutter-width / 2;
+            }
+        }
+    }
+}

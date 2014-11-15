@@ -46,17 +46,15 @@ class City extends \Model implements \JsonSerializable
     public function __construct(Page $page)
     {
         // Set our helpers
-        $im = Loader::helper('image');
-        $nh = Loader::helper('navigation');
         $av = Loader::helper('concrete/avatar');
 
         if ($page->getCollectionTypeHandle() !== 'city') {
-            echo 'XXX' . $page->getCollectionTypeHandle();
-//            throw new Exception(t('Attempted to instantiate City model on a non-city page type.'));
+            throw new Exception(t('Attempted to instantiate City model on a non-city page type.'));
         }
 
         // Always store the $page object to refer to later
         $this->page = $page;
+
         // The city's name
         $this->title = $page->getCollectionName();
 
@@ -67,16 +65,6 @@ class City extends \Model implements \JsonSerializable
         $this->facebook = trim((string) $page_owner->getAttribute('facebook'));
         $this->twitter = trim((string) $page_owner->getAttribute('twitter'));
         $this->website = trim((string) $page_owner->getAttribute('website'));
-
-        $blog = new PageList();
-        $blog->filterByCollectionTypeHandle('city_blog');
-        $blog->filterByParentID($page->getCollectionID());
-
-        $walks = new PageList();
-        $walks->filterByParentID($page->getCollectionID());
-        $walks->filterByAttribute('exclude_page_list', false);
-        $walks->filterByCollectionTypeHandle('walk');
-        $this->totalWalks = $walks->getTotal();
 
         // Set the country Page as parent
         $this->country = Page::getByID($page->getCollectionParentID());
@@ -92,17 +80,23 @@ class City extends \Model implements \JsonSerializable
         $this->donateCopy = array_rand($donateCopyOptions);
 
         // Set our calculated values
-        $this->fullbg = ($full_bg_attr = $page->getAttribute('full_bg')) ?: null;
+        $this->fullbg = $page->getAttribute('main_image') ?: $page->getAttribute('full_bg') ?: null;
         $this->avatar = $av->getImagePath($page_owner) ?: null;
         $this->city_organizer = $page_owner;
         $this->profile_path = DIR_REL . '/' . DISPATCHER_FILENAME . "/profile/{$page_owner->getUserId()}";
-        $this->blog = $blog->get(1)[0];
     }
 
     public function __get($name)
     {
         /* One big switch for all the get names */
         switch ($name) {
+        case 'blog':
+            $blog = new PageList();
+            $blog->filterByCollectionTypeHandle('city_blog');
+            $blog->filterByParentID($page->getCollectionID());
+            $this->blog = $blog->get(1)[0];
+            return $this->blog;
+            break;
         case 'facebook_url':
             return $this->facebook ? 'http://facebook.com/' . end(preg_split('/\//', $this->facebook)) : null;
             break;
@@ -117,6 +111,14 @@ class City extends \Model implements \JsonSerializable
             break;
         case 'url':
             return Loader::helper('navigation')->getCollectionURL($this->page);
+            break;
+        case 'totalWalks':
+            $walks = new PageList();
+            $walks->filterByParentID($page->getCollectionID());
+            $walks->filterByAttribute('exclude_page_list', false);
+            $walks->filterByCollectionTypeHandle('walk');
+            $this->totalWalks = $walks->getTotal;
+            return $this->totalWalks;
             break;
         }
     }
