@@ -1,13 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
   var CCM_THEME_PATH = '/themes/janeswalk';
 
+  // Translation functions - TODO build an object of the translateables, then get their translations from the server
   function t(str) {
     return sprintf.apply(null, arguments);
   }
 
-  // Translation functions - build an object of the translateables, then get their translations from the server
-  /* var t = React.createClass({
-render: function() { */
+  // Link this component's state to the linkState() parent
+  var linkedParentStateMixin = {
+    linkParentState: function(propname) {
+      var valueLink = this.props.valueLink;
+      var parentState = valueLink.value;
+
+      return {
+        value: parentState[propname],
+        requestChange: function(value) {
+          parentState[propname] = value;
+          valueLink.requestChange(parentState);
+        }
+      };
+    }
+  };
 
   var CreateWalk = React.createClass({
     mixins: [React.addons.LinkedStateMixin],
@@ -37,7 +50,8 @@ render: function() { */
       );
     },
     handleSave: function() {
-      // Send in the updated walk to save, but keep working
+      /* Send in the updated walk to save, but keep working */
+      console.log(JSON.stringify(this.state));
     },
     handlePublish: function() {
       // Publish the walk
@@ -64,7 +78,7 @@ render: function() { */
                   <section id="button-group">
                     <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far.">{ t('Preview Walk') }</button>
                     <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all.">{ t('Publish Walk') }</button>
-                    <button className="btn btn-info save" title="Save and return later" id="btn-save">{ t('Save and return later') }</button>
+                    <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.handleSave}>{ t('Save') }</button>
                   </section>
                 </div>
               </div>
@@ -111,7 +125,7 @@ render: function() { */
                         <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longdescription')} />
                       </div>
                     </fieldset>
-                    <CAWThemeSelect />
+                    <CAWThemeSelect valueLink={this.linkState('checkboxes')} />
                     <hr />
                     <input className="btn btn-primary btn-large section-save" type="submit" value={ t('Next') } data-next="route" href="#route" /><br /><br />
                   </form>
@@ -338,26 +352,7 @@ render: function() { */
                     <h1>{ t('Make it Accessible') }</h1>
                   </div>
                   <div className="item">
-                    <fieldset>
-                      <legend className="required-legend">{ t('How accessible is this walk?') }</legend>
-                      <div className="row">
-                        <div className="col-md-6">
-                          <label className="checkbox"><input type="checkbox" name="accessible-familyfriendly" />{ t('Family friendly') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-wheelchair" />{ t('Wheelchair accessible') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-dogs" />{ t('Dogs welcome') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-strollers" />{ t('Strollers welcome') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-bicycles" />{ t('Bicycles welcome') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-steephills" />{ t('Steep hills') }</label>
-                        </div>
-                        <div className="col-md-6">
-                          <label className="checkbox"><input type="checkbox" name="accessible-uneven" />{ t('Wear sensible shoes (uneven terrain)') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-busy" />{ t('Busy sidewalks') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-bicyclesonly" />{ t('Bicycles only') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-lowlight" />{ t('Low light or nighttime') }</label>
-                          <label className="checkbox"><input type="checkbox" name="accessible-seniors" />{ t('Senior Friendly') }</label>
-                        </div>
-                      </div>
-                    </fieldset>
+                    <CAWAccessibleSelect valueLink={this.linkState('checkboxes')} />
                   </div>
 
                   <div className="item">
@@ -561,7 +556,7 @@ render: function() { */
                 <div className="popover-content collapse in" id="popover-content">
                   <div className='u-avatar' style={{"background-image": 'url(' + 'XXXavatar src' + ')'}}></div>
                   <p>
-                    { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', JanesWalk.user.firstName, JanesWalk.city.name) } <strong><a href={'mailto:' + 'XXXco email'}>{ t('email me') }!</a></strong></p>
+                    { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', JanesWalk.city.city_organizer.firstName, JanesWalk.city.name) } <strong><a href={'mailto:' + JanesWalk.city.city_organizer.email}>{ t('email me') }!</a></strong></p>
                 </div>
               </div>
             </aside>
@@ -650,13 +645,7 @@ render: function() { */
   });
 
   var CAWThemeSelect = React.createClass({
-    mixins: [React.addons.LinkedStateMixin],
-
-    getInitialState: function() {
-      return {
-        'theme-civic-activist': false
-      };
-    },
+    mixins: [linkedParentStateMixin],
 
     render: function() {
       // TODO: Don't select themes for NYC
@@ -670,19 +659,19 @@ render: function() { */
             <div className="col-md-6">
               <fieldset>
                 <legend>{ t('Community') }</legend>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-activist')} />{ t('Activism') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-truecitizen')} />{ t('Citizenry') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-goodneighbour')} />{ t('Community') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-writer')} />{ t('Storytelling') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-activist')} />{ t('Activism') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-truecitizen')} />{ t('Citizenry') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-goodneighbour')} />{ t('Community') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-writer')} />{ t('Storytelling') }</label>
               </fieldset>
             </div>
             <div className="col-md-6">
               <fieldset>
                 <legend>{ t('City-building') }</legend>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-architecturalenthusiast')} />{ t('Architecture') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-aesthete')} />{ t('Design') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-suburbanexplorer')} />{ t('Suburbs') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-moversandshakers')} />{ t('Transportation') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-architecturalenthusiast')} />{ t('Architecture') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-aesthete')} />{ t('Design') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-suburbanexplorer')} />{ t('Suburbs') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-moversandshakers')} />{ t('Transportation') }</label>
               </fieldset>
             </div>
           </div>
@@ -690,21 +679,21 @@ render: function() { */
             <div className="col-md-6">
               <fieldset>
                 <legend>{ t('Society') }</legend>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-gender')} />{ t('Gender') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-health')} />{ t('Health') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-historybuff')} />{ t('Heritage') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-nativeissues')} />{ t('Native Issues') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-religion')} />{ t('Religion') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-gender')} />{ t('Gender') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-health')} />{ t('Health') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-historybuff')} />{ t('Heritage') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-nativeissues')} />{ t('Native Issues') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-religion')} />{ t('Religion') }</label>
               </fieldset>
             </div>
             <div className="col-md-6">
               <fieldset>
                 <legend>{ t('Expression') }</legend>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-artist')} />{ t('Art') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-film')} />{ t('Film') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-bookworm')} />{ t('Literature') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-music')} />{ t('Music') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-play')} />{ t('Play') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-artist')} />{ t('Art') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-film')} />{ t('Film') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-bookworm')} />{ t('Literature') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-music')} />{ t('Music') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-play')} />{ t('Play') }</label>
               </fieldset>
             </div>
           </div>
@@ -713,22 +702,22 @@ render: function() { */
             <div className="col-md-6">
               <fieldset>
                 <legend>{ t('The Natural World') }</legend>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-nature-petlover')} />{ t('Animals') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-nature-greenthumb')} />{ t('Gardening') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-nature-naturelover')} />{ t('Nature') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-water')} />{ t('Water') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-nature-petlover')} />{ t('Animals') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-nature-greenthumb')} />{ t('Gardening') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-nature-naturelover')} />{ t('Nature') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-water')} />{ t('Water') }</label>
               </fieldset>
             </div>
             <div className="col-md-6">
               <fieldset>
                 <legend>{ t('Modernity') }</legend>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-international')} />{ t('International Issues') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-military')} />{ t('Military') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-civic-commerce')} />{ t('Commerce') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-nightowl')} />{ t('Night Life') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-techie')} />{ t('Technology') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-urban-sports')} />{ t('Sports') }</label>
-                <label className="checkbox"><input type="checkbox" checkedLink={this.linkState('theme-culture-foodie')} />{ t('Food') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-international')} />{ t('International Issues') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-military')} />{ t('Military') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-civic-commerce')} />{ t('Commerce') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-nightowl')} />{ t('Night Life') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-techie')} />{ t('Technology') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-urban-sports')} />{ t('Sports') }</label>
+                <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('theme-culture-foodie')} />{ t('Food') }</label>
               </fieldset>
             </div>
           </div>
@@ -736,6 +725,36 @@ render: function() { */
       );
     }
   });
+
+  var CAWAccessibleSelect = React.createClass({
+    mixins: [linkedParentStateMixin],
+
+    render: function() {
+      return (
+        <fieldset>
+          <legend className="required-legend">{ t('How accessible is this walk?') }</legend>
+          <div className="row">
+            <div className="col-md-6">
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-familyfriendly')} />{ t('Family friendly') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-wheelchair')} />{ t('Wheelchair accessible') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-dogs')} />{ t('Dogs welcome') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-strollers')} />{ t('Strollers welcome') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-bicycles')} />{ t('Bicycles welcome') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-steephills')} />{ t('Steep hills') }</label>
+            </div>
+            <div className="col-md-6">
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-uneven')} />{ t('Wear sensible shoes (uneven terrain)') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-busy')} />{ t('Busy sidewalks') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-bicyclesonly')} />{ t('Bicycles only') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-lowlight')} />{ t('Low light or nighttime') }</label>
+              <label className="checkbox"><input type="checkbox" checkedLink={this.linkParentState('accessible-seniors')} />{ t('Senior Friendly') }</label>
+            </div>
+          </div>
+        </fieldset>
+      );
+    }
+  });
+
 
   var TeamOwner = React.createClass({
     mixins: [React.addons.LinkedStateMixin],

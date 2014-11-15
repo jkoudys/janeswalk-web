@@ -1,13 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
   var CCM_THEME_PATH = '/themes/janeswalk';
 
+  // Translation functions - TODO build an object of the translateables, then get their translations from the server
   function t(str) {
     return sprintf.apply(null, arguments);
   }
 
-  // Translation functions - build an object of the translateables, then get their translations from the server
-  /* var t = React.createClass({
-render: function() { */
+  // Link this component's state to the linkState() parent
+  var linkedParentStateMixin = {
+    linkParentState: function(propname) {
+      var valueLink = this.props.valueLink;
+      var parentState = valueLink.value;
+
+      return {
+        value: parentState[propname],
+        requestChange: function(value) {
+          parentState[propname] = value;
+          valueLink.requestChange(parentState);
+        }
+      };
+    }
+  };
 
   var CreateWalk = React.createClass({displayName: 'CreateWalk',
     mixins: [React.addons.LinkedStateMixin],
@@ -37,7 +50,8 @@ render: function() { */
       );
     },
     handleSave: function() {
-      // Send in the updated walk to save, but keep working
+      /* Send in the updated walk to save, but keep working */
+      console.log(JSON.stringify(this.state));
     },
     handlePublish: function() {
       // Publish the walk
@@ -64,7 +78,7 @@ render: function() { */
                   React.createElement("section", {id: "button-group"}, 
                     React.createElement("button", {className: "btn btn-info btn-preview", id: "preview-walk", title: "Preview what you have so far."},  t('Preview Walk') ), 
                     React.createElement("button", {className: "btn btn-info btn-submit", id: "btn-submit", title: "Publishing will make your visible to all."},  t('Publish Walk') ), 
-                    React.createElement("button", {className: "btn btn-info save", title: "Save and return later", id: "btn-save"},  t('Save and return later') )
+                    React.createElement("button", {className: "btn btn-info save", title: "Save", id: "btn-save", onClick: this.handleSave},  t('Save') )
                   )
                 )
               )
@@ -111,7 +125,7 @@ render: function() { */
                         React.createElement("textarea", {id: "longdescription", name: "longdescription", rows: "14", valueLink: this.linkState('longdescription')})
                       )
                     ), 
-                    React.createElement(CAWThemeSelect, null), 
+                    React.createElement(CAWThemeSelect, {valueLink: this.linkState('checkboxes')}), 
                     React.createElement("hr", null), 
                     React.createElement("input", {className: "btn btn-primary btn-large section-save", type: "submit", value:  t('Next'), 'data-next': "route", href: "#route"}), React.createElement("br", null), React.createElement("br", null)
                   )
@@ -338,26 +352,7 @@ render: function() { */
                     React.createElement("h1", null,  t('Make it Accessible') )
                   ), 
                   React.createElement("div", {className: "item"}, 
-                    React.createElement("fieldset", null, 
-                      React.createElement("legend", {className: "required-legend"},  t('How accessible is this walk?') ), 
-                      React.createElement("div", {className: "row"}, 
-                        React.createElement("div", {className: "col-md-6"}, 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-familyfriendly"}),  t('Family friendly') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-wheelchair"}),  t('Wheelchair accessible') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-dogs"}),  t('Dogs welcome') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-strollers"}),  t('Strollers welcome') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-bicycles"}),  t('Bicycles welcome') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-steephills"}),  t('Steep hills') )
-                        ), 
-                        React.createElement("div", {className: "col-md-6"}, 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-uneven"}),  t('Wear sensible shoes (uneven terrain)') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-busy"}),  t('Busy sidewalks') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-bicyclesonly"}),  t('Bicycles only') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-lowlight"}),  t('Low light or nighttime') ), 
-                          React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "accessible-seniors"}),  t('Senior Friendly') )
-                        )
-                      )
-                    )
+                    React.createElement(CAWAccessibleSelect, {valueLink: this.linkState('checkboxes')})
                   ), 
 
                   React.createElement("div", {className: "item"}, 
@@ -561,7 +556,7 @@ render: function() { */
                 React.createElement("div", {className: "popover-content collapse in", id: "popover-content"}, 
                   React.createElement("div", {className: "u-avatar", style: {"background-image": 'url(' + 'XXXavatar src' + ')'}}), 
                   React.createElement("p", null, 
-                     t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', JanesWalk.user.firstName, JanesWalk.city.name), " ", React.createElement("strong", null, React.createElement("a", {href: 'mailto:' + 'XXXco email'},  t('email me'), "!")))
+                     t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', JanesWalk.city.city_organizer.firstName, JanesWalk.city.name), " ", React.createElement("strong", null, React.createElement("a", {href: 'mailto:' + JanesWalk.city.city_organizer.email},  t('email me'), "!")))
                 )
               )
             )
@@ -650,13 +645,7 @@ render: function() { */
   });
 
   var CAWThemeSelect = React.createClass({displayName: 'CAWThemeSelect',
-    mixins: [React.addons.LinkedStateMixin],
-
-    getInitialState: function() {
-      return {
-        'theme-civic-activist': false
-      };
-    },
+    mixins: [linkedParentStateMixin],
 
     render: function() {
       // TODO: Don't select themes for NYC
@@ -670,19 +659,19 @@ render: function() { */
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("fieldset", null, 
                 React.createElement("legend", null,  t('Community') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-activist')}),  t('Activism') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-truecitizen')}),  t('Citizenry') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-goodneighbour')}),  t('Community') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-writer')}),  t('Storytelling') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-activist')}),  t('Activism') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-truecitizen')}),  t('Citizenry') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-goodneighbour')}),  t('Community') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-writer')}),  t('Storytelling') )
               )
             ), 
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("fieldset", null, 
                 React.createElement("legend", null,  t('City-building') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-architecturalenthusiast')}),  t('Architecture') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-aesthete')}),  t('Design') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-suburbanexplorer')}),  t('Suburbs') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-moversandshakers')}),  t('Transportation') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-architecturalenthusiast')}),  t('Architecture') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-aesthete')}),  t('Design') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-suburbanexplorer')}),  t('Suburbs') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-moversandshakers')}),  t('Transportation') )
               )
             )
           ), 
@@ -690,21 +679,21 @@ render: function() { */
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("fieldset", null, 
                 React.createElement("legend", null,  t('Society') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-gender')}),  t('Gender') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-health')}),  t('Health') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-historybuff')}),  t('Heritage') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-nativeissues')}),  t('Native Issues') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-religion')}),  t('Religion') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-gender')}),  t('Gender') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-health')}),  t('Health') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-historybuff')}),  t('Heritage') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-nativeissues')}),  t('Native Issues') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-religion')}),  t('Religion') )
               )
             ), 
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("fieldset", null, 
                 React.createElement("legend", null,  t('Expression') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-artist')}),  t('Art') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-film')}),  t('Film') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-bookworm')}),  t('Literature') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-music')}),  t('Music') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-play')}),  t('Play') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-artist')}),  t('Art') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-film')}),  t('Film') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-bookworm')}),  t('Literature') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-music')}),  t('Music') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-play')}),  t('Play') )
               )
             )
           ), 
@@ -713,22 +702,22 @@ render: function() { */
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("fieldset", null, 
                 React.createElement("legend", null,  t('The Natural World') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-nature-petlover')}),  t('Animals') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-nature-greenthumb')}),  t('Gardening') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-nature-naturelover')}),  t('Nature') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-water')}),  t('Water') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-petlover')}),  t('Animals') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-greenthumb')}),  t('Gardening') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-naturelover')}),  t('Nature') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-water')}),  t('Water') )
               )
             ), 
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("fieldset", null, 
                 React.createElement("legend", null,  t('Modernity') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-international')}),  t('International Issues') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-military')}),  t('Military') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-civic-commerce')}),  t('Commerce') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-nightowl')}),  t('Night Life') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-techie')}),  t('Technology') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-urban-sports')}),  t('Sports') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkState('theme-culture-foodie')}),  t('Food') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-international')}),  t('International Issues') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-military')}),  t('Military') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-commerce')}),  t('Commerce') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-nightowl')}),  t('Night Life') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-techie')}),  t('Technology') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-sports')}),  t('Sports') ), 
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-foodie')}),  t('Food') )
               )
             )
           )
@@ -736,6 +725,36 @@ render: function() { */
       );
     }
   });
+
+  var CAWAccessibleSelect = React.createClass({displayName: 'CAWAccessibleSelect',
+    mixins: [linkedParentStateMixin],
+
+    render: function() {
+      return (
+        React.createElement("fieldset", null, 
+          React.createElement("legend", {className: "required-legend"},  t('How accessible is this walk?') ), 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col-md-6"}, 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-familyfriendly')}),  t('Family friendly') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-wheelchair')}),  t('Wheelchair accessible') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-dogs')}),  t('Dogs welcome') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-strollers')}),  t('Strollers welcome') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-bicycles')}),  t('Bicycles welcome') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-steephills')}),  t('Steep hills') )
+            ), 
+            React.createElement("div", {className: "col-md-6"}, 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-uneven')}),  t('Wear sensible shoes (uneven terrain)') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-busy')}),  t('Busy sidewalks') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-bicyclesonly')}),  t('Bicycles only') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-lowlight')}),  t('Low light or nighttime') ), 
+              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-seniors')}),  t('Senior Friendly') )
+            )
+          )
+        )
+      );
+    }
+  });
+
 
   var TeamOwner = React.createClass({displayName: 'TeamOwner',
     mixins: [React.addons.LinkedStateMixin],
