@@ -23,7 +23,7 @@ $im = Loader::helper('image');
 ?>
     <li>
         <figure>
-            <a href="<?= $city->url ?>" class="thumbnail placeholder<?= $key % 3 ?>" <?php if ($city->fullbg) { ?> style="background-image:url(<?= $im->getThumbnail($city->fullbg, 640, 640) ?>)" <?php } ?>></a>
+            <a href="<?= $city->url ?>" class="thumbnail placeholder<?= $key % 3 ?>" <?php if ($city->fullbg) { ?> style="background-image:url(<?= $im->getThumbnail($city->fullbg, 640, 640)->src ?>)" <?php } ?>></a>
             <figcaption>
                 <h4><a href="<?= $city->url ?>"><?= (string) $city ?></a></h4>
                 <p><?= $content ?></p>
