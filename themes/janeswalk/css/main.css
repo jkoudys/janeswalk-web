@@ -8289,6 +8289,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 .ccm-page-list-city-cards li figure a.ccm-page-list.ccm-blog-index li figure,
 .ccm-page-list-city-cards li figure a.ccm-page-list-city-cards li figure {
   margin-bottom: 0;
+  min-height: 12em;
 }
 .ccm-page-list-city-cards li figure figcaption {
   padding: 15px;
