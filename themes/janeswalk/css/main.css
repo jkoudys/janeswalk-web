@@ -8295,13 +8295,16 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   background-position: 50%;
 }
 .ccm-page-list-city-cards li figure figcaption {
-  padding: 15px;
+  padding: 15px 15px 0 15px;
 }
 .ccm-page-list-city-cards li figure figcaption > *:first-child {
   margin-top: 0;
 }
 .ccm-page-list-city-cards li figure figcaption p {
   height: 500;
+}
+.ccm-page-list-city-cards li figure h5 {
+  text-align: center;
 }
 .ccm-page-list-city-cards li figure .tag {
   padding: 20px;
