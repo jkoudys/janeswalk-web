@@ -9,15 +9,30 @@
         list-style: none;
         figure:extend(.thumbnail all) {
             padding: 0;
+            margin-bottom: @grid-gutter-width;
             a.thumbnail {
                 margin-bottom: 0;
                 min-height: 12em;
+                background-size: cover;
+                background-position: 50%;
             }
             figcaption {
+                padding: @grid-gutter-width / 2;
                 > *:first-child {
                     margin-top: 0;
                 }
-                padding: @grid-gutter-width / 2;
+                p {
+                    height: 500
+                }
+            }
+            .tag {
+                padding: 20px;
+                background-size: cover;
+                border-radius: 100%;
+                display: inherit;
+                margin: 0 auto -(@grid-gutter-width / 2) auto;
+                height: @grid-gutter-width;
+                width: @grid-gutter-width;
             }
         }
     }

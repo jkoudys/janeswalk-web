@@ -70,20 +70,20 @@ class City extends \Model implements \JsonSerializable
         $this->country = Page::getByID($page->getCollectionParentID());
 
         /* Text to donate campaign */
-        $donateCopyOptions = array(
-            array(
+        $donateCopyOptions = [
+            [
                 'imagePath' => 'https://d11lsn3axbj16p.cloudfront.net/hd.1397590505-7430110f-eba3.jpg',
                 'main' => 'Love Jane\'s Walk?',
                 'cta' => 'Text JANE to 45678 to donate $10'
-            )
-        );
+            ]
+        ];
         $this->donateCopy = array_rand($donateCopyOptions);
 
         // Set our calculated values
         $this->fullbg = $page->getAttribute('main_image') ?: $page->getAttribute('full_bg') ?: null;
         $this->avatar = $av->getImagePath($page_owner) ?: null;
         $this->city_organizer = $page_owner;
-        $this->profile_path = DIR_REL . '/' . DISPATCHER_FILENAME . "/profile/{$page_owner->getUserId()}";
+        $this->profile_path = DIR_REL . '/' . DISPATCHER_FILENAME . '/profile/' . $page_owner->getUserId();
     }
 
     public function __get($name)

@@ -8284,18 +8284,33 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 }
 .ccm-page-list-city-cards li figure {
   padding: 0;
+  margin-bottom: 30px;
 }
 .ccm-page-list-city-cards li figure a.thumbnail,
 .ccm-page-list-city-cards li figure a.ccm-page-list.ccm-blog-index li figure,
 .ccm-page-list-city-cards li figure a.ccm-page-list-city-cards li figure {
   margin-bottom: 0;
   min-height: 12em;
+  background-size: cover;
+  background-position: 50%;
 }
 .ccm-page-list-city-cards li figure figcaption {
   padding: 15px;
 }
 .ccm-page-list-city-cards li figure figcaption > *:first-child {
   margin-top: 0;
+}
+.ccm-page-list-city-cards li figure figcaption p {
+  height: 500;
+}
+.ccm-page-list-city-cards li figure .tag {
+  padding: 20px;
+  background-size: cover;
+  border-radius: 100%;
+  display: inherit;
+  margin: 0 auto -15px auto;
+  height: 30px;
+  width: 30px;
 }
 .social-login-providers.template-fontawesome {
   list-style-type: none;
