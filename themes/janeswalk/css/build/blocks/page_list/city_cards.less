@@ -9,7 +9,7 @@
         list-style: none;
         figure:extend(.thumbnail all) {
             padding: 0;
-            margin-bottom: @grid-gutter-width;
+            margin-bottom: @grid-gutter-width * 2;
             a.thumbnail {
                 margin-bottom: 0;
                 min-height: 12em;
@@ -30,9 +30,9 @@
                 background-size: cover;
                 border-radius: 100%;
                 display: inherit;
-                margin: 0 auto -(@grid-gutter-width / 2) auto;
-                height: @grid-gutter-width;
-                width: @grid-gutter-width;
+                margin: 0 auto -(@grid-gutter-width) auto;
+                height: @grid-gutter-width*2;
+                width: @grid-gutter-width*2;
             }
         }
     }

@@ -8284,7 +8284,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 }
 .ccm-page-list-city-cards li figure {
   padding: 0;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 .ccm-page-list-city-cards li figure a.thumbnail,
 .ccm-page-list-city-cards li figure a.ccm-page-list.ccm-blog-index li figure,
@@ -8308,9 +8308,9 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   background-size: cover;
   border-radius: 100%;
   display: inherit;
-  margin: 0 auto -15px auto;
-  height: 30px;
-  width: 30px;
+  margin: 0 auto -30px auto;
+  height: 60px;
+  width: 60px;
 }
 .social-login-providers.template-fontawesome {
   list-style-type: none;
