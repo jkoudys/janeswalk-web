@@ -25,14 +25,12 @@
         }
     }
     & when (@size = "md") {
-        .make-md-column(@columns);
         @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
             .make-md-column(@columns);
             .clear-on-row(@columns);
         }
     }
     & when (@size = "lg") {
-        .make-lg-column(@columns);
         @media (min-width: @screen-lg-min) {
             .make-lg-column(@columns);
             .clear-on-row(@columns);

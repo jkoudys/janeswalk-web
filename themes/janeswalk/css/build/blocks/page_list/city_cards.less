@@ -3,19 +3,24 @@
     padding: 0;
     list-style: none;
     li {
+        // Number per row on each device size
         .make-columns-per-row(6, "sm");
         .make-columns-per-row(4, "md");
         .make-columns-per-row(3, "lg");
         list-style: none;
+
+        // The card itself
         figure:extend(.thumbnail all) {
             padding: 0;
             margin-bottom: @grid-gutter-width * 2;
+            // The preview image of that city (it's main bg)
             a.thumbnail {
                 margin-bottom: 0;
                 min-height: 12em;
                 background-size: cover;
                 background-position: 50%;
             }
+            // All the city description text
             figcaption {
                 padding: (@grid-gutter-width / 2) (@grid-gutter-width / 2) 0 (@grid-gutter-width / 2);
                 > *:first-child {
@@ -25,17 +30,19 @@
                     height: 500
                 }
             }
+            // The caption above the CO's avatar
             h5 {
                 text-align: center;
             }
+            // The CO avatar
             .tag {
                 padding: 20px;
                 background-size: cover;
                 border-radius: 100%;
                 display: inherit;
                 margin: 0 auto -(@grid-gutter-width) auto;
-                height: @grid-gutter-width*2;
-                width: @grid-gutter-width*2;
+                height: @grid-gutter-width * 2;
+                width: @grid-gutter-width * 2;
             }
         }
     }

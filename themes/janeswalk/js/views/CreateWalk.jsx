@@ -51,13 +51,38 @@ document.addEventListener('DOMContentLoaded', function() {
     },
     handleSave: function() {
       /* Send in the updated walk to save, but keep working */
-      console.log(JSON.stringify(this.state));
+      // TODO: put 'saving' and 'saved' messages in
+      $.ajax({
+        url: this.props.url,
+        type: 'PUT',
+        data: this.state,
+        dataType: 'json',
+        success: function(data) {
+        },
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }
+      });
     },
     handlePublish: function() {
+      // TODO: put 'saving' and 'saved' messages in
       // Publish the walk
+      $.ajax({
+        url: this.props.url,
+        type: 'POST',
+        data: this.state,
+        dataType: 'json',
+        success: function(data) {
+        },
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }
+      });
     },
-    handlePreview: function() {
+    handlePreview: function(e) {
       // Save the walk, then load a modal to preview
+      this.handleSave();
+      // TODO: show modal with preview iframe
     },
 
     render: function() {
@@ -130,77 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input className="btn btn-primary btn-large section-save" type="submit" value={ t('Next') } data-next="route" href="#route" /><br /><br />
                   </form>
                 </div>
-
-                <div className="tab-pane" id="route">
-                  <div className="page-header" data-section="route">
-                    <h1>{ t('Share Your Route') }</h1>
-                  </div>
-                  <div className="alert alert-info">{ t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') }</div>
-                  <div id="route-help-panel">
-                    <a className="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 className="lead">{ t('Need help building your route?') }</h2></a>
-
-                    <div id="route-menu" className="collapse" style={{height: 0}}>
-                      <div className="col-md4">
-                        <h4>1. { t('Set a Meeting Place') }</h4>
-                        <ol>
-                          <li>{ t('Click "Meeting Place" to add a pinpoint on the map') }</li>
-                          <li>{ t('Click and drag it into position') }</li>
-                          <li>{ t('Fill out the form fields and press Save Meeting Place') }</li>
-                        </ol>
-                      </div>
-                      <div className="col-md-4">
-                        <h4>2. { t('Add Stops') }</h4>
-                        <ol>
-                          <li>{ t('Click "Add Stop" to add a stop on the map') }</li>
-                          <li>{ t('Click and drag it into position') }</li>
-                          <li>{ t('Fill out the form fields and press Save Stop') }</li>
-                          <li>{ t('Repeat to add more stops') }</li>
-                        </ol>
-                      </div>
-                      <div className="col-md-4">
-                        <h4>3. { t('Add Route') }</h4>
-                        <ol>
-                          <li>{ t('Click Add Route') }</li>
-                          <li>{ t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') }</li>
-                          <li>{ t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') }</li>
-                          <li>{ t('Click Save Route') }</li></ol>
-                        <ul>
-                          <li>{ t('If you want to delete your route to start over, click ') }<a href="" className="clear-route">{ t('Clear Route') }</a>. { t('Your Stops will not be deleted') }</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div id="map-control-bar">
-                    <button id="addmeetingplace"><i className="fa fa-flag" />{ t('Set a Meeting Place') }</button>
-                    <button id="addpoint"><i className="fa fa-map-marker" />{ t('Add Stop') }</button>
-                    <button id="addroute"><i className="fa fa-arrows" />{ t('Add Route') }</button>
-                    <button className="clear-route"><i className="fa fa-eraser" />{ t('Clear Route') }</button>
-                  </div>
-                  <div className="map-notifications"></div>
-                  <div id="map-canvas"></div>
-
-                  <h3>{ t('Walk Stops') }</h3>
-
-                  <table id="route-stops" className="table table-bordered table-hover">
-                    <thead>
-                      <tr>
-                        <th>{ t('Title') }</th>
-                        <th>{ t('Description') }</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td colspan="3"><p>{ t('You haven\'t set any stops yet.') }</p></td>
-                      </tr>
-                    </tbody>
-                  </table>
-
-                  <hr />
-                  <a href="#time-and-date" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
-                </div>
-
+                <CAWMapBuilder valueLink={this.likState('gmap')} />
                 <div className="tab-pane" id="time-and-date">
                   <div className="tab-content" id="walkduration">
                     <div className="tab-pane active" id="time-and-date-select">
@@ -751,6 +706,82 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
           </div>
         </fieldset>
+      );
+    }
+  });
+
+  var CAWMapBuilder = React.createClass({
+    render: function() {
+      return (
+        <div className="tab-pane" id="route">
+          <div className="page-header" data-section="route">
+            <h1>{ t('Share Your Route') }</h1>
+          </div>
+          <div className="alert alert-info">{ t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') }</div>
+          <div id="route-help-panel">
+            <a className="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 className="lead">{ t('Need help building your route?') }</h2></a>
+
+            <div id="route-menu" className="collapse" style={{height: 0}}>
+              <div className="col-md4">
+                <h4>1. { t('Set a Meeting Place') }</h4>
+                <ol>
+                  <li>{ t('Click "Meeting Place" to add a pinpoint on the map') }</li>
+                  <li>{ t('Click and drag it into position') }</li>
+                  <li>{ t('Fill out the form fields and press Save Meeting Place') }</li>
+                </ol>
+              </div>
+              <div className="col-md-4">
+                <h4>2. { t('Add Stops') }</h4>
+                <ol>
+                  <li>{ t('Click "Add Stop" to add a stop on the map') }</li>
+                  <li>{ t('Click and drag it into position') }</li>
+                  <li>{ t('Fill out the form fields and press Save Stop') }</li>
+                  <li>{ t('Repeat to add more stops') }</li>
+                </ol>
+              </div>
+              <div className="col-md-4">
+                <h4>3. { t('Add Route') }</h4>
+                <ol>
+                  <li>{ t('Click Add Route') }</li>
+                  <li>{ t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') }</li>
+                  <li>{ t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') }</li>
+                  <li>{ t('Click Save Route') }</li></ol>
+                <ul>
+                  <li>{ t('If you want to delete your route to start over, click ') }<a href="" className="clear-route">{ t('Clear Route') }</a>. { t('Your Stops will not be deleted') }</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div id="map-control-bar">
+            <button id="addmeetingplace"><i className="fa fa-flag" />{ t('Set a Meeting Place') }</button>
+            <button id="addpoint"><i className="fa fa-map-marker" />{ t('Add Stop') }</button>
+            <button id="addroute"><i className="fa fa-arrows" />{ t('Add Route') }</button>
+            <button className="clear-route"><i className="fa fa-eraser" />{ t('Clear Route') }</button>
+          </div>
+          <div className="map-notifications"></div>
+          <div id="map-canvas"></div>
+
+          <h3>{ t('Walk Stops') }</h3>
+
+          <table id="route-stops" className="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>{ t('Title') }</th>
+                <th>{ t('Description') }</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="3"><p>{ t('You haven\'t set any stops yet.') }</p></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <hr />
+          <a href="#time-and-date" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
+        </div>
       );
     }
   });

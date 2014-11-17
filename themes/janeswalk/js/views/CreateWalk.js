@@ -52,6 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
     handleSave: function() {
       /* Send in the updated walk to save, but keep working */
       console.log(JSON.stringify(this.state));
+      $.ajax({
+        url: '',
+        type: 'PUT',
+        data: this.state,
+        dataType: 'json'
+      });
     },
     handlePublish: function() {
       // Publish the walk

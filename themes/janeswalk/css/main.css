@@ -8043,12 +8043,6 @@ dialog input[type=password] {
 .ccm-page-list.ccm-blog-index:after {
   clear: both;
 }
-.ccm-page-list.ccm-blog-index li {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
 @media (min-width: 768px) and (max-width: 991px) {
   .ccm-page-list.ccm-blog-index li {
     position: relative;
@@ -8066,12 +8060,6 @@ dialog input[type=password] {
     width: 50%;
   }
 }
-@media (min-width: 992px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
 @media (min-width: 992px) and (max-width: 1199px) {
   .ccm-page-list.ccm-blog-index li {
     position: relative;
@@ -8084,12 +8072,6 @@ dialog input[type=password] {
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) and (min-width: 992px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 1200px) {
   .ccm-page-list.ccm-blog-index li {
     float: left;
     width: 33.33333333%;
@@ -8213,10 +8195,6 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   }
 }
 .ccm-page-list-city-cards li {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
   list-style: none;
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -8236,12 +8214,6 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
     width: 50%;
   }
 }
-@media (min-width: 992px) {
-  .ccm-page-list-city-cards li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
 @media (min-width: 992px) and (max-width: 1199px) {
   .ccm-page-list-city-cards li {
     position: relative;
@@ -8257,12 +8229,6 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   .ccm-page-list-city-cards li {
     float: left;
     width: 33.33333333%;
-  }
-}
-@media (min-width: 1200px) {
-  .ccm-page-list-city-cards li {
-    float: left;
-    width: 25%;
   }
 }
 @media (min-width: 1200px) {
@@ -8920,6 +8886,7 @@ section.sponsors {
 #profileWrapper div.title span.label {
   float: left;
   margin: 0 5px 0 0;
+  color: inherit;
 }
 #profileWrapper div.title a {
   display: block;
