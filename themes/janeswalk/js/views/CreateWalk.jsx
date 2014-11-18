@@ -22,6 +22,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 
+  // Link this component's state to the linkState() parent
+  var linkedTeamMemberStateMixin = {
+    linkMemberState: function(propname) {
+      return {
+        value: this.state[propname],
+        requestChange: function(value) {
+          this.state[propname] = value;
+          this.setState(this.state);
+        }
+      };
+    }
+  };
+
   var CreateWalk = React.createClass({
     mixins: [React.addons.LinkedStateMixin],
 
@@ -40,7 +53,20 @@ document.addEventListener('DOMContentLoaded', function() {
             markers: [],
             route: []
           },
-          team: [],
+          team: [{
+            user_id: -1,
+            type: 'you',
+            "name-first": 'Testy',
+            "name-last": 'McTesterson',
+            role: 'walk-leader',
+            primary: 'on',
+            bio: 'I\'m some guy',
+            twitter: 'twit',
+            facebook: 'fakeblock',
+            website: 'qaribou.com',
+            email: 'josh@qaribou.com',
+            phone: '4162750828' 
+          }],
           time: {type: '', slots: []},
           thumbnail_id: -1,
           thumbnail_url: null,
@@ -50,9 +76,10 @@ document.addEventListener('DOMContentLoaded', function() {
       );
     },
     handleSave: function() {
+      console.log(JSON.stringify(this.state));
       /* Send in the updated walk to save, but keep working */
       // TODO: put 'saving' and 'saved' messages in
-      $.ajax({
+      /*      $.ajax({
         url: this.props.url,
         type: 'PUT',
         data: this.state,
@@ -62,12 +89,12 @@ document.addEventListener('DOMContentLoaded', function() {
         error: function(xhr, status, err) {
           console.error(this.props.url, status, err.toString());
         }
-      });
+        }); */
     },
     handlePublish: function() {
       // TODO: put 'saving' and 'saved' messages in
       // Publish the walk
-      $.ajax({
+      /*      $.ajax({
         url: this.props.url,
         type: 'POST',
         data: this.state,
@@ -77,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         error: function(xhr, status, err) {
           console.error(this.props.url, status, err.toString());
         }
-      });
+        }); */
     },
     handlePreview: function(e) {
       // Save the walk, then load a modal to preview
@@ -126,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <form>
                     <fieldset>
                       <div className="item required">
-                        <label for="title">{ t('Walk Title') }</label>
+                        <label htmlFor="title">{ t('Walk Title') }</label>
                         <div className="alert alert-info">{ t('Something short and memorable.') }</div>
                         <input type="text" valueLink={this.linkState('title')} />
                       </div>
@@ -137,13 +164,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     <hr />
                     <fieldset>
                       <div className="item required">
-                        <label for="shortdescription">{ t('Your Walk in a Nutshell') }</label>
+                        <label htmlFor="shortdescription">{ t('Your Walk in a Nutshell') }</label>
                         <div className="alert alert-info">{ t('Build intrigue! This is what people see when browsing our walk listings.') }</div>
-                        <textarea id="shortdescription" name="shortdescription" rows="6" maxlength="140" valueLink={this.linkState('shortdescription')} required />
+                        <textarea id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortdescription')} required />
                       </div>
                       <hr />
                       <div className="item required">
-                        <label for="longdescription" id="longwalkdescription">{ t('Walk Description') }</label>
+                        <label htmlFor="longdescription" id="longwalkdescription">{ t('Walk Description') }</label>
                         <div className="alert alert-info">
                           { t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')} 
                         </div>
@@ -155,153 +182,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <input className="btn btn-primary btn-large section-save" type="submit" value={ t('Next') } data-next="route" href="#route" /><br /><br />
                   </form>
                 </div>
-                <CAWMapBuilder valueLink={this.likState('gmap')} />
-                <div className="tab-pane" id="time-and-date">
-                  <div className="tab-content" id="walkduration">
-                    <div className="tab-pane active" id="time-and-date-select">
-                      <div className="page-header" data-section='time-and-date'>
-                        <h1>{ t('Set the Time and Date') }</h1>
-                      </div>
-                      <legend >{ t('Pick one of the following:') }</legend>
-                      <div className="row">
-                        <ul className="thumbnails" id="block-select">
-                          <li className="col-md-6">
-                            <a href="#time-and-date-all" data-toggle="tab">
-                              <div className="thumbnail">
-                                <img src={CCM_THEME_PATH + '/img/time-and-date-full.png'} />
-                                <div className="caption">
-                                  <div className="text-center">
-                                    <h4>{ t('By Request') }</h4>
-                                  </div>
-                                  <p>{ t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.') }</p>
-                                </div>
-                              </div>
-                            </a>
-                          </li>
-                          <li className="col-md-6">
-                            <a href="#time-and-date-set" data-toggle="tab">
-                              <div className="thumbnail">
-                                <img src={CCM_THEME_PATH + '/img/time-and-date-some.png'} />
-                                <div className="caption">
-                                  <div className="text-center">
-                                    <h4>{ t('Pick Your Date') }</h4>
-                                  </div>
-                                  <p>{ t('Set specific dates and times that this walk is happening.') }</p>
-                                </div>
-                              </div>
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="tab-pane hide" id="time-and-date-set">
-                      <div className="page-header" data-section='time-and-date'>
-                        <h1>{ t('Time and Date') }</h1>
-                        <p className="lead">{ t('Select the date and time your walk is happening.') }</p>
-                      </div>
-
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="date-picker"></div>
-                        </div>
-                        <div className="col-md-6">
-                          <div className="thumbnail">
-                            <div className="caption">
-                              <small>{ t('Date selected') }:</small>
-                              <h4 className="date-indicate-set" data-dateselected="" />
-                              <hr />
-                              <label for="walk-time">{ t('Start Time') }:</label>
-                              <input id="walk-time" type="text" className="time ui-timepicker-input" autocomplete="off" />
-                              <label for="walk-time">{ t('Approximate Duration of Walk') }:</label>
-                              <select name="duration" id="walk-duration">
-                                <option value="30 Minutes">30 Minutes</option>
-                                <option value="1 Hour">1 Hour</option>
-                                <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
-                                <option value="2 Hours">2 Hours</option>
-                                <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
-                                <option value="3 Hours">3 Hours</option>
-                                <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
-                              </select>
-                              <hr />
-                              <button className="btn btn-primary" id="save-date-set">{ t('Add Date') }</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <br />
-                      <table className="table table-bordered table-hover" id="date-list-set">
-                        <thead>
-                          <tr>
-                            <th>{ t('Date') }</th>
-                            <th>{ t('Start Time') }</th>
-                            <th />
-                          </tr>
-                        </thead>
-                        <tbody />
-                      </table>
-                      <hr />
-                      <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
-                      <hr />
-                      <a href="#accessibility" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
-                    </div>
-                    <div className="tab-pane hide" id="time-and-date-all">
-                      <div className="page-header" data-section='time-and-date'>
-                        <h1>{ t('Time and Date') }</h1>
-                        <p className="lead">{ t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') }</p>
-                      </div>
-                      <label className="checkbox">
-                        <input type="checkbox" name="open" />{ t('Leave my availability open. Allow people to contact you to set up a walk.')} 
-                      </label>
-                      <br />
-                      <div className="row">
-                        <div className="col-md-6">
-                          <div className="date-picker" />
-                        </div>
-                        <div className="col-md-6">
-                          <div className="thumbnail">
-                            <div className="caption">
-                              <div className="date-select-group">
-                                <small>{ t('Date selected') }:</small>
-                                <h4 className="date-indicate-all" />
-                                <hr />
-                              </div>
-                              <label for="walk-duration">{ t('Approximate Duration of Walk') }:</label>
-                              <select name="duration" id="walk-duration">
-                                <option value="30 Minutes">30 Minutes</option>
-                                <option value="1 Hour">1 Hour</option>
-                                <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
-                                <option value="2 Hours">2 Hours</option>
-                                <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
-                                <option value="3 Hours">3 Hours</option>
-                                <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
-                              </select>
-                              <div className="date-select-group">
-                                <hr />
-                                <button className="btn btn-primary" id="save-date-all">{ t('Add Date') }</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <br />
-                      <table className="table table-bordered table-hover" id="date-list-all">
-                        <thead>
-                          <tr>
-                            <th>{ t('My Available Dates') }</th>
-                            <th>{ t('Approximate Duration') }</th>
-                            <th />
-                          </tr>
-                        </thead>
-                        <tbody />
-                      </table>
-                      <hr />
-                      <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
-                      <hr />
-                      <a href="#accessibility" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
-                    </div>
-                  </div>
-                </div>
+                <CAWMapBuilder valueLink={this.linkState('gmap')} />
+                <CAWDateSelect valueLink={this.linkState('time')} />
                 <div className="tab-pane" id="accessibility">
                   <div className="page-header" data-section='accessibility'>
                     <h1>{ t('Make it Accessible') }</h1>
@@ -313,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <div className="item">
                     <fieldset>
                       <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-                      <textarea name="accessible-info" rows="3" maxlength="140" valueLink={this.linkState('accessible-info')} />
+                      <textarea name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessible-info')} />
                     </fieldset>
                   </div>
 
@@ -348,157 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <br />
                   <br />
                 </div>
-
-                <div className="tab-pane" id="team">
-                  <div className="page-header" data-section="team">
-                    <h1>{ t('Build Your Team') }</h1>
-                  </div>
-                  <TeamOwner />
-                  <div id="walk-members" />
-                  <div className="thumbnail team-member" id="add-member">
-                    <h2>{ t('Who else is involved with this walk?') }</h2>
-                    <h3 className="lead">{ t('Click to add team members to your walk') } ({ t('Optional') })</h3>
-                    <div className="team-set">
-                      <div className="team-row">
-                        <section className="new-member" id="new-walkleader" title="Add New Walk Leader" data-new="walk-leader-new">
-                          <div className="icon"></div>
-                          <h4 className="title text-center">{ t('Walk Leader') }</h4>
-                          <p>{ t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') }</p>
-                        </section>
-                        <section className="new-member" id="new-walkorganizer" title="Add New Walk Organizer" data-new="walk-organizer-new">
-                          <div className="icon"></div>
-                          <h4 className="title text-center">{ t('Walk Organizer') }</h4>
-                          <p>{ t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') }</p>
-                        </section>
-                      </div>
-                      <div className="team-row">
-                        <section className="new-member" id="new-communityvoice" title="Add A Community Voice" data-new="community-voice-new">
-                          <div className="icon"></div>
-                          <h4 className="title text-center">{ t('Community Voice') }</h4>
-                          <p>{ t('A community member with stories and/or personal experiences to share.') }</p>
-                        </section>
-                        <section className="new-member" id="new-othermember" title="Add another helper to your walk" data-new="othermember-new">
-                          <div className="icon"></div>
-                          <h4 className="title text-center">{ t('Volunteers') }</h4>
-                          <p>{ t('Other people who are helping to make your walk happen.') }</p>
-                        </section>
-                      </div>
-                    </div>
-                  </div>
-                  <footer>
-                    <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
-                  </footer>
-                </div>
-                <div className="thumbnail team-member walk-organizer hide" id="walk-organizer-new">
-                  <fieldset>
-                    <legend>{ t('Walk Organizer') }</legend>
-                    <input type="hidden" name="type[]" value="organizer" />
-                    <input type="hidden" name="user_id[]" value="-1" />
-                    <div className="row" id="walkleader">
-                      <div className="col-md-9">
-                        <div className="item required">
-                          <label for="name">{ t('Name') }</label>
-                          <form className="form-inline">
-                            <input type="text" id="name" placeholder="First" name="name-first[]" />
-                            <input type="text" id="name" placeholder="Last" name="name-last[]" />
-                          </form>
-                        </div>
-                        <label for="affiliation">{ t('Affilated Institution') } ({ t('Optional') })</label>
-                        <input type="text" id="name" placeholder="e.g. City of Toronto" name="institution[]" />
-                        <div className="row" id="newwalkleader">
-                          <div className="col-md-6">
-                            <label for="website"><i className="fa fa-link" />{ t('Website') }</label>
-                            <input type="text" className="col-md-12" id="website" placeholder="" value="" name="name-website[]" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
-                  <footer>
-                    <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
-                  </footer>
-                </div>
-                <div className="thumbnail team-member hide community-voice" id="community-voice-new">
-                  <fieldset>
-                    <input type="hidden" name="type[]" value="community" />
-                    <input type="hidden" name="user_id[]" value="-1" />
-                    <legend id="community-voice">{ t('Community Voice') }</legend>
-                    <div className="row" id="walkleader">
-                      <div className="col-md-9">
-                        <div className="item required">
-                          <label for="name">{ t('Name') }</label>
-                          <form className="form-inline">
-                            <input type="text" id="name" placeholder="First" name="name-first[]" />
-                            <input type="text" id="name" placeholder="Last" name="name-last[]" />
-                          </form>
-                        </div>
-                        <div className="item">
-                          <label for="bio">{ t('Tell everyone about this person') }</label>
-                          <div className="alert alert-info">
-                            { t('We recommend keeping the bio under 60 words')} 
-                          </div>
-                          <textarea className="col-md-12" id="bio" rows="6" name="bio[]"></textarea>
-                        </div>
-                        <div className="row" id="newwalkleader">
-                          <div className="col-md-6">
-                            <label for="prependedInput"><i className="fa fa-twitter" /> Twitter</label>
-                            <div className="input-prepend">
-                              <span className="add-on">@</span>
-                              <input className="col-md-12" id="prependedInput" type="text" placeholder="Username" name="twitter[]" />
-                            </div>
-                          </div>
-                          <div className="col-md-6">
-                            <label for="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
-                            <input type="text" id="facebook" placeholder="" name="facebook[]" />
-                          </div>
-                        </div>
-                        <div className="row" id="newwalkleader">
-                          <div className="col-md-6">
-                            <label for="website"><i className="fa fa-link" />{ t('Website') }</label>
-                            <input type="text" className="col-md-12" id="website" placeholder="" value="" name="website[]" />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
-                  <footer>
-                    <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
-                  </footer>
-                </div>
-                <div className="thumbnail team-member hide othermember" id="othermember-new">
-                  <fieldset>
-                    <legend id="othermember">{ t('Volunteers') }</legend>
-                    <input type="hidden" name="type[]" value="volunteer" />
-                    <input type="hidden" name="user_id[]" value="-1" />
-                    <div className="row" id="walkleader">
-                      <div className="col-md-9">
-                        <div className="item required">
-                          <label for="name">{ t('Name') }</label>
-                          <form className="form-inline">
-                            <input type="text" id="name" placeholder="First" name="name-first[]" />
-                            <input type="text" id="name" placeholder="Last" name="name-last[]" />
-                          </form>
-                        </div>
-
-                        <div className="item required">
-                          <label for="role">{ t('Role') }</label>
-                          <input type="text" id="role" name="role[]" />
-                        </div>
-
-                        <div className="row" id="newwalkleader">
-                          <div className="col-md-6">
-                            <label for="website"><i className="fa fa-link" />{ t('Website') }</label>
-                            <input type="text" className="col-md-12" id="website" placeholder="" value="" name="website[]" />
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </fieldset>
-                  <footer>
-                    <button className="btn remove-othermember">{ t('Remove Team Member') }</button>
-                  </footer>
-                </div>
+                <CAWTeamBuilder valueLink={this.linkState('team')} />
                 <hr />
                 <button className="btn btn-primary btn-large section-save" id="section-save">{ t('Save') }</button>
                 <br />
@@ -571,10 +303,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var CAWFileUpload = React.createClass({
     render: function() {
       return (
-        <form method="post" enctype="multipart/form-data" action={CCM_TOOLS_PATH + '/files/importers/quick'} className="ccm-file-manager-submit-single">
+        <form method="post" encType="multipart/form-data" action={CCM_TOOLS_PATH + '/files/importers/quick'} className="ccm-file-manager-submit-single">
           <hr />
           <div className="item required">
-            <label for="walkphotos" id="photo-tip">{ t('Upload a photo that best represents your walk.') }</label>
+            <label htmlFor="walkphotos" id="photo-tip">{ t('Upload a photo that best represents your walk.') }</label>
             <iframe className="walkphotos" src={CCM_TOOLS_PATH + '/files/image_upload'}></iframe>
           </div>
         </form>
@@ -774,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </thead>
             <tbody>
               <tr>
-                <td colspan="3"><p>{ t('You haven\'t set any stops yet.') }</p></td>
+                <td colSpan="3"><p>{ t('You haven\'t set any stops yet.') }</p></td>
               </tr>
             </tbody>
           </table>
@@ -786,83 +518,296 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
+  var CAWDateSelect = React.createClass({
+    render: function() {
+      return (
+        <div className="tab-pane" id="time-and-date">
+          <div className="tab-content" id="walkduration">
+            <div className="tab-pane active" id="time-and-date-select">
+              <div className="page-header" data-section='time-and-date'>
+                <h1>{ t('Set the Time and Date') }</h1>
+              </div>
+              <legend >{ t('Pick one of the following:') }</legend>
+              <div className="row">
+                <ul className="thumbnails" id="block-select">
+                  <li className="col-md-6">
+                    <a href="#time-and-date-all" data-toggle="tab">
+                      <div className="thumbnail">
+                        <img src={CCM_THEME_PATH + '/img/time-and-date-full.png'} />
+                        <div className="caption">
+                          <div className="text-center">
+                            <h4>{ t('By Request') }</h4>
+                          </div>
+                          <p>{ t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.') }</p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li className="col-md-6">
+                    <a href="#time-and-date-set" data-toggle="tab">
+                      <div className="thumbnail">
+                        <img src={CCM_THEME_PATH + '/img/time-and-date-some.png'} />
+                        <div className="caption">
+                          <div className="text-center">
+                            <h4>{ t('Pick Your Date') }</h4>
+                          </div>
+                          <p>{ t('Set specific dates and times that this walk is happening.') }</p>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="tab-pane hide" id="time-and-date-set">
+              <div className="page-header" data-section='time-and-date'>
+                <h1>{ t('Time and Date') }</h1>
+                <p className="lead">{ t('Select the date and time your walk is happening.') }</p>
+              </div>
+
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="date-picker"></div>
+                </div>
+                <div className="col-md-6">
+                  <div className="thumbnail">
+                    <div className="caption">
+                      <small>{ t('Date selected') }:</small>
+                      <h4 className="date-indicate-set" data-dateselected="" />
+                      <hr />
+                      <label htmlFor="walk-time">{ t('Start Time') }:</label>
+                      <input id="walk-time" type="text" className="time ui-timepicker-input" autoComplete="off" />
+                      <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>
+                      <select name="duration" id="walk-duration">
+                        <option value="30 Minutes">30 Minutes</option>
+                        <option value="1 Hour">1 Hour</option>
+                        <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
+                        <option value="2 Hours">2 Hours</option>
+                        <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
+                        <option value="3 Hours">3 Hours</option>
+                        <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
+                      </select>
+                      <hr />
+                      <button className="btn btn-primary" id="save-date-set">{ t('Add Date') }</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <table className="table table-bordered table-hover" id="date-list-set">
+                <thead>
+                  <tr>
+                    <th>{ t('Date') }</th>
+                    <th>{ t('Start Time') }</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody />
+              </table>
+              <hr />
+              <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
+              <hr />
+              <a href="#accessibility" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
+            </div>
+            <div className="tab-pane hide" id="time-and-date-all">
+              <div className="page-header" data-section='time-and-date'>
+                <h1>{ t('Time and Date') }</h1>
+                <p className="lead">{ t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') }</p>
+              </div>
+              <label className="checkbox">
+                <input type="checkbox" name="open" />{ t('Leave my availability open. Allow people to contact you to set up a walk.')} 
+              </label>
+              <br />
+              <div className="row">
+                <div className="col-md-6">
+                  <div className="date-picker" />
+                </div>
+                <div className="col-md-6">
+                  <div className="thumbnail">
+                    <div className="caption">
+                      <div className="date-select-group">
+                        <small>{ t('Date selected') }:</small>
+                        <h4 className="date-indicate-all" />
+                        <hr />
+                      </div>
+                      <label htmlFor="walk-duration">{ t('Approximate Duration of Walk') }:</label>
+                      <select name="duration" id="walk-duration">
+                        <option value="30 Minutes">30 Minutes</option>
+                        <option value="1 Hour">1 Hour</option>
+                        <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
+                        <option value="2 Hours">2 Hours</option>
+                        <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
+                        <option value="3 Hours">3 Hours</option>
+                        <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
+                      </select>
+                      <div className="date-select-group">
+                        <hr />
+                        <button className="btn btn-primary" id="save-date-all">{ t('Add Date') }</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <table className="table table-bordered table-hover" id="date-list-all">
+                <thead>
+                  <tr>
+                    <th>{ t('My Available Dates') }</th>
+                    <th>{ t('Approximate Duration') }</th>
+                    <th />
+                  </tr>
+                </thead>
+                <tbody />
+              </table>
+              <hr />
+              <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
+              <hr />
+              <a href="#accessibility" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
+            </div>
+          </div>
+        </div>
+      );
+    }
+  });
+
+  var CAWTeamBuilder = React.createClass({
+    mixins: [linkedParentStateMixin],
+    handleTeamMemberChange: function(propname, memberValue, id) {
+      var valueLink = this.props.valueLink;
+      var value = valueLink.value;
+      value[id][propname] = memberValue;
+      valueLink.requestChange(value);
+    },
+
+    // Set the member at that specific index
+    render: function() {
+      // If there's no 'you', create one as the current user
+      var valueLink = this.props.valueLink;
+      var value = valueLink.value;
+
+      // Loop through all the users and render the appropriate user type
+      var users = value.map(function(user, i) {
+        if (user.type === 'you') {
+          return <TeamOwner key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        } else if (user.role === 'leader') {
+          return <TeamLeader key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        } else if (user.role === 'organizer') {
+          return <TeamOrganizer key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        } else if (user.role === 'community') {
+          return <TeamCommunityVoice key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        } else if (user.role === 'volunteer') {
+          return <TeamVolunteer key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        }
+      }, this);
+
+      return (
+        <div className="tab-pane" id="team">
+          <div className="page-header" data-section="team">
+            <h1>{ t('Build Your Team') }</h1>
+          </div>
+          {users}
+          <div className="thumbnail team-member" id="add-member">
+            <h2>{ t('Who else is involved with this walk?') }</h2>
+            <h3 className="lead">{ t('Click to add team members to your walk') } ({ t('Optional') })</h3>
+            <div className="team-set">
+              <div className="team-row">
+                <section className="new-member" id="new-walkleader" title="Add New Walk Leader" data-new="walk-leader-new">
+                  <div className="icon"></div>
+                  <h4 className="title text-center">{ t('Walk Leader') }</h4>
+                  <p>{ t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') }</p>
+                </section>
+                <section className="new-member" id="new-walkorganizer" title="Add New Walk Organizer" data-new="walk-organizer-new">
+                  <div className="icon"></div>
+                  <h4 className="title text-center">{ t('Walk Organizer') }</h4>
+                  <p>{ t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') }</p>
+                </section>
+              </div>
+              <div className="team-row">
+                <section className="new-member" id="new-communityvoice" title="Add A Community Voice" data-new="community-voice-new">
+                  <div className="icon"></div>
+                  <h4 className="title text-center">{ t('Community Voice') }</h4>
+                  <p>{ t('A community member with stories and/or personal experiences to share.') }</p>
+                </section>
+                <section className="new-member" id="new-othermember" title="Add another helper to your walk" data-new="othermember-new">
+                  <div className="icon"></div>
+                  <h4 className="title text-center">{ t('Volunteers') }</h4>
+                  <p>{ t('Other people who are helping to make your walk happen.') }</p>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  });
+
 
   var TeamOwner = React.createClass({
-    mixins: [React.addons.LinkedStateMixin],
-
-    getInitialState: function() {
+    linkProp: function(propname) {
+      var onChange = this.props.onChange;
+      var key = this.key;
       return {
-        user_id: -1,
-        type: 'you',
-        "name-first": 'joshi',
-        "name-last": 'mghoshi',
-        role: 'walk-leader',
-        primary: 'on',
-        bio: 'I\'m some guy',
-        twitter: 'twit',
-        facebook: 'fakeblock',
-        website: 'qaribou.com',
-        email: 'josh@qaribou.com',
-        phone: '4162750828' 
+        value: this.props.value[propname],
+        requestChange: function(value) {
+          onChange(propname, value, key);
+        }
       };
     },
- 
+
     render: function() {
       return (
         <div className="team-member thumbnail useredited" id="walk-leader-me">
           <fieldset>
-            <input type="hidden" name="type[]" value="you" />
-            <input type="hidden" name="user_id[]" value={JanesWalk.user.id} />
             <legend>{ t('You') }</legend>
             <div className="row" id="walkleader">
               <div className="item required">
-                <label for="name">{ t('Name') }</label>
-                <input type="text" name="name-first[]" id="name" placeholder="First" valueLink={this.linkState('name-first')} />
-                <input type="text" name="name-last[]" id="name" placeholder="Last" valueLink={this.linkState('name-last')} />
+                <label htmlFor="name">{ t('Name') }</label>
+                <input type="text" id="name" placeholder="First" valueLink={this.linkProp('name-first')} />
+                <input type="text" id="name" placeholder="Last" valueLink={this.linkProp('name-last')} />
               </div>
 
               <div className="item required">
-                <label for="role">{ t('Role') }</label>
-                <select id="role" name="role[]">
+                <label htmlFor="role">{ t('Role') }</label>
+                <select id="role" valueLinkl={this.linkProp('role')}>
                   <option value="walk-leader" selected>{ t('Walk Leader') }</option>
                   <option value="co-walk-leader">{ t('Co-Walk Leader') }</option>
                   <option value="walk-organizer">{ t('Walk Organizer') }</option>
                 </select>
               </div>
               <div className="item hide" id="primary-walkleader-select">
-                <label className="checkbox"><input type="checkbox" name="primary[]" className="role-check" checkLink={this.linkState('primary')} />{ t('Primary Walk Leader') }</label>
+                <label className="checkbox"><input type="checkbox" name="primary[]" className="role-check" checkLink={this.linkProp('primary')} />{ t('Primary Walk Leader') }</label>
               </div>
               <div className="item required">
-                <label for="bio">{ t('Introduce yourself') }</label>
+                <label htmlFor="bio">{ t('Introduce yourself') }</label>
                 <div className="alert alert-info">
                   { t('We recommend keeping your bio under 60 words')} 
                 </div>
-                <textarea id="bio" rows="6" name="bio[]" valueLink={this.linkState('bio')} />
+                <textarea id="bio" rows="6" name="bio[]" valueLink={this.linkProp('bio')} />
               </div>
 
               <div className="row" id="newwalkleader">
                 <div className="col-md-6 required">
-                  <label for="you-email"><i className="fa fa-envelope" />{ t('Email') }</label>
-                  <input type="email" id="you-email" placeholder="" name="email[]" valueLink={this.linkState('email')} />
+                  <label htmlFor="you-email"><i className="fa fa-envelope" />{ t('Email') }</label>
+                  <input type="email" id="you-email" placeholder="" valueLink={this.linkProp('email')} />
                 </div>
 
                 <div className="col-md-6">
-                  <label for="leader-twitter"><i className="fa fa-twitter" /> Twitter</label>
+                  <label htmlFor="leader-twitter"><i className="fa fa-twitter" /> Twitter</label>
                   <div className="input-group">
                     <span className="input-group-addon">@</span>
-                    <input className="col-md-12" id="leader-twitter" type="text" placeholder="Username" name="twitter[]" valueLink={this.linkState('twitter')} />
+                    <input className="col-md-12" id="leader-twitter" type="text" placeholder="Username" valueLink={this.linkProp('twitter')} />
                   </div>
                 </div>
               </div>
 
               <div className="row" id="newwalkleader">
                 <div className="col-md-6">
-                  <label for="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
-                  <input type="text" id="facebook" placeholder="" name="facebook[]" valueLink={this.linkState('facebook')} />
+                  <label htmlFor="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
+                  <input type="text" id="facebook" placeholder="" valueLink={this.linkProp('facebook')} />
                 </div>
                 <div className="col-md-6">
-                  <label for="website"><i className="fa fa-link" />{ t('Website') }</label>
-                  <input type="text" id="website" placeholder="" name="website[]" valueLink={this.linkState('website')} />
+                  <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
+                  <input type="text" id="website" placeholder="" valueLink={this.linkProp('website')} />
                 </div>
               </div>
               <hr />
@@ -873,8 +818,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div className="row" id="newwalkleader">
                   <div className="col-md-6 tel required">
-                    <label for="phone"><i className="fa fa-phone-square" />{ t('Phone Number') }</label>
-                    <input type="tel" maxlength="18" id="phone" placeholder="" name="phone[]" valueLink={this.linkState('phone')} />
+                    <label htmlFor="phone"><i className="fa fa-phone-square" />{ t('Phone Number') }</label>
+                    <input type="tel" maxLength="18" id="phone" placeholder="" valueLink={this.linkProp('phone')} />
                   </div>
                 </div>
               </div>
@@ -888,14 +833,12 @@ document.addEventListener('DOMContentLoaded', function() {
   var TeamLeader = React.createClass({
    render: function() {
       return (
-        <div className="thumbnail team-member hide walk-leader clearfix" id="walk-leader-new">
+        <div className="thumbnail team-member walk-leader clearfix" id="walk-leader-new">
           <fieldset>
-            <input type="hidden" name="type[]" value="leader" />
-            <input type="hidden" name="user_id[]" value="-1" />
             <legend>{ t('Walk Leader') }</legend>
             <div id="walkleader">
               <div className="item required">
-                <label for="name">{ t('Name') }</label>
+                <label htmlFor="name">{ t('Name') }</label>
                 <div className="item">
                   <form className="form-inline">
                     <input type="text" id="name" placeholder="First" name="name-first[]" />
@@ -907,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <label className="checkbox"><input type="checkbox" className="role-check" name="primary[]" />{ t('Primary Walk Leader') }</label>
               </div>
               <div className="item required">
-                <label for="bio">{ t('Introduce the walk leader') }</label>
+                <label htmlFor="bio">{ t('Introduce the walk leader') }</label>
                 <div className="alert alert-info">
                   { t('We recommend keeping the bio under 60 words')} 
                 </div>
@@ -915,20 +858,20 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
               <div className="row" id="newwalkleader">
                 <div className="col-md-6">
-                  <label for="prependedInput"><i className="fa fa-twitter" /> Twitter</label>
+                  <label htmlFor="prependedInput"><i className="fa fa-twitter" /> Twitter</label>
                   <div className="input-prepend">
                     <span className="add-on">@</span>
                     <input id="prependedInput" className="col-md-12" type="text" placeholder="Username" name="twitter[]" />
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <label for="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
+                  <label htmlFor="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
                   <input type="text" id="facebook" placeholder="" name="facebook[]" />
                 </div>
               </div>
               <div className="row" id="newwalkleader">
                 <div className="col-md-6">
-                  <label for="website"><i className="fa fa-link" />{ t('Website') }</label>
+                  <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
                   <input type="text" id="website" placeholder="" value="" name="website[]" />
                 </div>
               </div>
@@ -939,12 +882,47 @@ document.addEventListener('DOMContentLoaded', function() {
               </div>
               <div className="row" id="newwalkleader">
                 <div className="col-md-6 required">
-                  <label for="email"><i className="fa fa-envelope" />{ t('Email') }</label>
+                  <label htmlFor="email"><i className="fa fa-envelope" />{ t('Email') }</label>
                   <input type="email" id="email" placeholder="Email" name="email[]" />
                 </div>
                 <div className="col-md-6 tel">
-                  <label for="phone"><i className="fa fa-phone-square" />{ t('Phone Number') }</label>
-                  <input type="tel" maxlength="16" id="phone" placeholder="" name="phone[]" />
+                  <label htmlFor="phone"><i className="fa fa-phone-square" />{ t('Phone Number') }</label>
+                  <input type="tel" maxLength="16" id="phone" placeholder="" name="phone[]" />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <footer>
+            <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
+          </footer>
+        </div>
+      )
+    }
+  });
+  
+  var TeamOrganizer = React.createClass({
+    render: function() {
+      return (
+
+        <div className="thumbnail team-member walk-organizer" id="walk-organizer-new">
+          <fieldset>
+            <legend>{ t('Walk Organizer') }</legend>
+            <div className="row" id="walkleader">
+              <div className="col-md-9">
+                <div className="item required">
+                  <label htmlFor="name">{ t('Name') }</label>
+                  <form className="form-inline">
+                    <input type="text" id="name" placeholder="First" name="name-first[]" />
+                    <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                  </form>
+                </div>
+                <label htmlFor="affiliation">{ t('Affilated Institution') } ({ t('Optional') })</label>
+                <input type="text" id="name" placeholder="e.g. City of Toronto" name="institution[]" />
+                <div className="row" id="newwalkleader">
+                  <div className="col-md-6">
+                    <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
+                    <input type="text" className="col-md-12" id="website" placeholder="" value="" name="name-website[]" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -957,27 +935,94 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  var TeamMember = React.createClass({
-    getInitialState: function() {
-      return {
-        user_id: -1,
-        type: '',
-        "name-first": '',
-        "name-last": '',
-        role: '',
-        primary: '',
-        bio: '',
-        twitter: '',
-        facebook: '',
-        website: '',
-        email: '',
-        phone: null
-      };
-    },
+  var TeamCommunityVoice = React.createClass({
     render: function() {
       return (
-        <div />
-      );
+        <div className="thumbnail team-member community-voice" id="community-voice-new">
+          <fieldset>
+            <legend id="community-voice">{ t('Community Voice') }</legend>
+            <div className="row" id="walkleader">
+              <div className="col-md-9">
+                <div className="item required">
+                  <label htmlFor="name">{ t('Name') }</label>
+                  <form className="form-inline">
+                    <input type="text" id="name" placeholder="First" name="name-first[]" />
+                    <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                  </form>
+                </div>
+                <div className="item">
+                  <label htmlFor="bio">{ t('Tell everyone about this person') }</label>
+                  <div className="alert alert-info">
+                    { t('We recommend keeping the bio under 60 words')} 
+                  </div>
+                  <textarea className="col-md-12" id="bio" rows="6" name="bio[]"></textarea>
+                </div>
+                <div className="row" id="newwalkleader">
+                  <div className="col-md-6">
+                    <label htmlFor="prependedInput"><i className="fa fa-twitter" /> Twitter</label>
+                    <div className="input-prepend">
+                      <span className="add-on">@</span>
+                      <input className="col-md-12" id="prependedInput" type="text" placeholder="Username" name="twitter[]" />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <label htmlFor="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
+                    <input type="text" id="facebook" placeholder="" name="facebook[]" />
+                  </div>
+                </div>
+                <div className="row" id="newwalkleader">
+                  <div className="col-md-6">
+                    <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
+                    <input type="text" className="col-md-12" id="website" placeholder="" value="" name="website[]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+          <footer>
+            <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
+          </footer>
+        </div>
+      )
+    }
+  });
+  
+  var TeamVolunteer = React.createClass({
+    render: function() {
+      return (
+        <div className="thumbnail team-member othermember" id="othermember-new">
+          <fieldset>
+            <legend id="othermember">{ t('Volunteers') }</legend>
+            <div className="row" id="walkleader">
+              <div className="col-md-9">
+                <div className="item required">
+                  <label htmlFor="name">{ t('Name') }</label>
+                  <form className="form-inline">
+                    <input type="text" id="name" placeholder="First" name="name-first[]" />
+                    <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                  </form>
+                </div>
+
+                <div className="item required">
+                  <label htmlFor="role">{ t('Role') }</label>
+                  <input type="text" id="role" name="role[]" />
+                </div>
+
+                <div className="row" id="newwalkleader">
+                  <div className="col-md-6">
+                    <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
+                    <input type="text" className="col-md-12" id="website" placeholder="" value="" name="website[]" />
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </fieldset>
+          <footer>
+            <button className="btn remove-othermember">{ t('Remove Team Member') }</button>
+          </footer>
+        </div>
+      )
     }
   });
 
