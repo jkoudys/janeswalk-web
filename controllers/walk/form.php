@@ -39,11 +39,8 @@ class WalkFormController extends Controller
 
         if(!$city) $city = Page::getByID($c->getCollectionParentID());
 
-        // Instantiate as model
-        $city = new City($city);
-
         $walk_ward = trim((String) $c->getAttribute('walk_wards'));
-        $city_wards = $c->getAttribute('city_wards');
+        $city_wards = $city->getAttribute('city_wards');
         if ($city_wards) {
             $wards = array_map(
                 function ($ward) use ($walk_ward) {
@@ -55,7 +52,7 @@ class WalkFormController extends Controller
                 $city_wards->getOptions()
             );
         } else {
-            $wards = false;
+            $wards = null;
         }
 
         // Set the language based on a trail to the city
@@ -77,12 +74,15 @@ class WalkFormController extends Controller
             $latlng = [43.653226,-79.3831843];
         }
 
+        // Instantiate as model
+        $city = new City($city);
         $this->addToJanesWalk(['city' =>
             [
                 'name' => (string) $city,
                 'url' => $city->url,
                 'lat' => $latlng[0],
                 'lng' => $latlng[1],
+                'wards' => $wards,
                 'city_organizer' => [
                     'photo' => $city->avatar,
                     'first_name' => $city->city_organizer->getAttribute('first_name'),
@@ -93,7 +93,7 @@ class WalkFormController extends Controller
         ]);
 
         /* Build array used to pass back walk data as JSON to the frontend */
-        $formSettings = array();
+        $formSettings = [];
         $formSettings['form'] = [
             'timepicker_cfg' => [
                 'defaultTime' => '9:00 AM',
@@ -101,8 +101,13 @@ class WalkFormController extends Controller
             ],
             'datepicker_cfg' => [
                 'format' => 'dd/mm/yyyy'
-            ],
-            'data' => $walk
+            ]
+        ];
+
+        /* Add metadata on the walk page itself */
+        $formSettings['walk'] = [
+            'data' => $walk,
+            'url' => $nh->getCollectionURL($c)
         ];
 
         // Special case for cities with walk-formatting requirements

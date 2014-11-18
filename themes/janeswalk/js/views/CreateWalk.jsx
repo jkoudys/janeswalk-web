@@ -24,15 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Link this component's state to the linkState() parent
   var linkedTeamMemberStateMixin = {
-    linkMemberState: function(propname) {
+    linkProp: function(propname) {
+      var onChange = this.props.onChange;
+      var key = this._currentElement.key;
       return {
-        value: this.state[propname],
+        value: this.props.value[propname],
         requestChange: function(value) {
-          this.state[propname] = value;
-          this.setState(this.state);
+          onChange(propname, value, key);
         }
       };
-    }
+    },
   };
 
   var CreateWalk = React.createClass({
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     getInitialState: function() {
       return (
-        JanesWalk.form.data ||
+        JanesWalk.walk.data ||
         {
           title: '',
           shortdescription: '',
@@ -56,16 +57,16 @@ document.addEventListener('DOMContentLoaded', function() {
           team: [{
             user_id: -1,
             type: 'you',
-            "name-first": 'Testy',
-            "name-last": 'McTesterson',
+            "name-first": '',
+            "name-last": '',
             role: 'walk-leader',
             primary: 'on',
-            bio: 'I\'m some guy',
-            twitter: 'twit',
-            facebook: 'fakeblock',
-            website: 'qaribou.com',
-            email: 'josh@qaribou.com',
-            phone: '4162750828' 
+            bio: '',
+            twitter: '',
+            facebook: '',
+            website: '',
+            email: '',
+            phone: '' 
           }],
           time: {type: '', slots: []},
           thumbnail_id: -1,
@@ -178,8 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
                       </div>
                     </fieldset>
                     <CAWThemeSelect valueLink={this.linkState('checkboxes')} />
+                    <CAWWardSelect valueLink={this.linkState('wards')} />
                     <hr />
-                    <input className="btn btn-primary btn-large section-save" type="submit" value={ t('Next') } data-next="route" href="#route" /><br /><br />
+                    <input className="btn btn-primary btn-large section-save" type="submit" value={ t('Next') } readOnly data-next="route" href="#route" /><br /><br />
                   </form>
                 </div>
                 <CAWMapBuilder valueLink={this.linkState('gmap')} />
@@ -274,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <p>Congratulations! Your walk is now available for all to peruse.</p>
               <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
               <label>Your Walk Web Address:</label>
-              <input type="text" className="clone js-url-field" value="http://janeswalk.tv/be-there-be-square.html" readonly="readonly" />
+              <input type="text" className="clone js-url-field" value={JanesWalk.walk.url} readOnly />
               <hr />
               <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
               <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
@@ -315,19 +317,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var CAWWardSelect = React.createClass({
+    mixins: [linkedParentStateMixin],
     render: function() {
-      // TODO: Build a list of wards
-      return (
-        <fieldset id="wards">
-          <legend>{ t('Sub-locality') }</legend>
-          <div className="item">
-            <div className="alert alert-info">{ t('Choose a specific neighbourhood or area where your walk will take place.') }</div>
-            <select id="ward" name="ward">
-              <option selected value={'XXXWard name'}>{'XXXWard name'}</option>
-            </select>
-          </div>
-        </fieldset>
-      );
+      var wards = JanesWalk.city.wards;
+      if (wards && this.props.valueLink) {
+        return (
+          <fieldset id="wards">
+            <legend>{ t('Sub-locality') }</legend>
+            <div className="item">
+              <div className="alert alert-info">{ t('Choose a specific neighbourhood or area where your walk will take place.') }</div>
+              <select id="ward" name="ward" valueLink={this.props.valueLink}>
+                {wards.map(function(e) { return <option value={e.value}>{e.value}</option>; })}
+              </select>
+            </div>
+          </fieldset>
+        );
+      }
     }
   });
 
@@ -678,24 +683,47 @@ document.addEventListener('DOMContentLoaded', function() {
       value[id][propname] = memberValue;
       valueLink.requestChange(value);
     },
-
+    addLeader: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'leader', "name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''});
+      valueLink.requestChange(team);
+    },
+    addOrganizer: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'organizer', "name-first":'', "name-last":'', institution: '', website: ''});
+      valueLink.requestChange(team);
+    },
+    addCommunityVoice: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'community', "name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''});
+      valueLink.requestChange(team);
+    },
+    addVolunteer: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
+      valueLink.requestChange(team);
+    },
     // Set the member at that specific index
     render: function() {
       // If there's no 'you', create one as the current user
       var valueLink = this.props.valueLink;
       var value = valueLink.value;
-
+      
       // Loop through all the users and render the appropriate user type
       var users = value.map(function(user, i) {
         if (user.type === 'you') {
           return <TeamOwner key={i} value={user} onChange={this.handleTeamMemberChange} />;
-        } else if (user.role === 'leader') {
+        } else if (user.type === 'leader') {
           return <TeamLeader key={i} value={user} onChange={this.handleTeamMemberChange} />;
-        } else if (user.role === 'organizer') {
+        } else if (user.type === 'organizer') {
           return <TeamOrganizer key={i} value={user} onChange={this.handleTeamMemberChange} />;
-        } else if (user.role === 'community') {
+        } else if (user.type === 'community') {
           return <TeamCommunityVoice key={i} value={user} onChange={this.handleTeamMemberChange} />;
-        } else if (user.role === 'volunteer') {
+        } else if (user.type === 'volunteer') {
           return <TeamVolunteer key={i} value={user} onChange={this.handleTeamMemberChange} />;
         }
       }, this);
@@ -711,24 +739,24 @@ document.addEventListener('DOMContentLoaded', function() {
             <h3 className="lead">{ t('Click to add team members to your walk') } ({ t('Optional') })</h3>
             <div className="team-set">
               <div className="team-row">
-                <section className="new-member" id="new-walkleader" title="Add New Walk Leader" data-new="walk-leader-new">
+                <section className="new-member" id="new-walkleader" title="Add New Walk Leader" onClick={this.addLeader}>
                   <div className="icon"></div>
                   <h4 className="title text-center">{ t('Walk Leader') }</h4>
                   <p>{ t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') }</p>
                 </section>
-                <section className="new-member" id="new-walkorganizer" title="Add New Walk Organizer" data-new="walk-organizer-new">
+                <section className="new-member" id="new-walkorganizer" title="Add New Walk Organizer" onClick={this.addOrganizer}>
                   <div className="icon"></div>
                   <h4 className="title text-center">{ t('Walk Organizer') }</h4>
                   <p>{ t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') }</p>
                 </section>
               </div>
               <div className="team-row">
-                <section className="new-member" id="new-communityvoice" title="Add A Community Voice" data-new="community-voice-new">
+                <section className="new-member" id="new-communityvoice" title="Add A Community Voice" onClick={this.addCommunityVoice}>
                   <div className="icon"></div>
                   <h4 className="title text-center">{ t('Community Voice') }</h4>
                   <p>{ t('A community member with stories and/or personal experiences to share.') }</p>
                 </section>
-                <section className="new-member" id="new-othermember" title="Add another helper to your walk" data-new="othermember-new">
+                <section className="new-member" id="new-othermember" title="Add another helper to your walk" onClick={this.addVolunteer}>
                   <div className="icon"></div>
                   <h4 className="title text-center">{ t('Volunteers') }</h4>
                   <p>{ t('Other people who are helping to make your walk happen.') }</p>
@@ -743,17 +771,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   var TeamOwner = React.createClass({
-    linkProp: function(propname) {
-      var onChange = this.props.onChange;
-      var key = this.key;
-      return {
-        value: this.props.value[propname],
-        requestChange: function(value) {
-          onChange(propname, value, key);
-        }
-      };
-    },
-
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
         <div className="team-member thumbnail useredited" id="walk-leader-me">
@@ -768,21 +786,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
               <div className="item required">
                 <label htmlFor="role">{ t('Role') }</label>
-                <select id="role" valueLinkl={this.linkProp('role')}>
-                  <option value="walk-leader" selected>{ t('Walk Leader') }</option>
-                  <option value="co-walk-leader">{ t('Co-Walk Leader') }</option>
-                  <option value="walk-organizer">{ t('Walk Organizer') }</option>
+                <select id="role" valueLink={this.linkProp('role')}>
+                  <option defaultValue="walk-leader">{ t('Walk Leader') }</option>
+                  <option defaultValue="co-walk-leader">{ t('Co-Walk Leader') }</option>
+                  <option defaultValue="walk-organizer">{ t('Walk Organizer') }</option>
                 </select>
               </div>
               <div className="item hide" id="primary-walkleader-select">
-                <label className="checkbox"><input type="checkbox" name="primary[]" className="role-check" checkLink={this.linkProp('primary')} />{ t('Primary Walk Leader') }</label>
+                <label className="checkbox"><input type="checkbox" className="role-check" checkLink={this.linkProp('primary')} />{ t('Primary Walk Leader') }</label>
               </div>
               <div className="item required">
                 <label htmlFor="bio">{ t('Introduce yourself') }</label>
                 <div className="alert alert-info">
                   { t('We recommend keeping your bio under 60 words')} 
                 </div>
-                <textarea id="bio" rows="6" name="bio[]" valueLink={this.linkProp('bio')} />
+                <textarea id="bio" rows="6" valueLink={this.linkProp('bio')} />
               </div>
 
               <div className="row" id="newwalkleader">
@@ -831,6 +849,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var TeamLeader = React.createClass({
+   mixins: [linkedTeamMemberStateMixin],
    render: function() {
       return (
         <div className="thumbnail team-member walk-leader clearfix" id="walk-leader-new">
@@ -841,38 +860,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 <label htmlFor="name">{ t('Name') }</label>
                 <div className="item">
                   <form className="form-inline">
-                    <input type="text" id="name" placeholder="First" name="name-first[]" />
-                    <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                    <input type="text" id="name" placeholder="First" valueLink={this.linkProp('name-first')} />
+                    <input type="text" id="name" placeholder="Last" valueLink={this.linkProp('name-last')} />
                   </form>
                 </div>
               </div>
               <div className="item" id="primary-walkleader-select">
-                <label className="checkbox"><input type="checkbox" className="role-check" name="primary[]" />{ t('Primary Walk Leader') }</label>
+                <label className="checkbox"><input type="checkbox" className="role-check" valueLink={this.linkProp('primary')} />{ t('Primary Walk Leader') }</label>
               </div>
               <div className="item required">
                 <label htmlFor="bio">{ t('Introduce the walk leader') }</label>
                 <div className="alert alert-info">
                   { t('We recommend keeping the bio under 60 words')} 
                 </div>
-                <textarea className="col-md-12" id="bio" rows="6" name="bio[]" />
+                <textarea className="col-md-12" id="bio" rows="6" valueLink={this.linkProp('bio')} />
               </div>
               <div className="row" id="newwalkleader">
                 <div className="col-md-6">
                   <label htmlFor="prependedInput"><i className="fa fa-twitter" /> Twitter</label>
                   <div className="input-prepend">
                     <span className="add-on">@</span>
-                    <input id="prependedInput" className="col-md-12" type="text" placeholder="Username" name="twitter[]" />
+                    <input id="prependedInput" className="col-md-12" type="text" placeholder="Username" valueLink={this.linkProp('twitter')} />
                   </div>
                 </div>
                 <div className="col-md-6">
                   <label htmlFor="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
-                  <input type="text" id="facebook" placeholder="" name="facebook[]" />
+                  <input type="text" id="facebook" placeholder="" valueLink={this.linkProp('facebook')} />
                 </div>
               </div>
               <div className="row" id="newwalkleader">
                 <div className="col-md-6">
                   <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
-                  <input type="text" id="website" placeholder="" value="" name="website[]" />
+                  <input type="text" id="website" placeholder="" valueLink={this.linkProp('website')} />
                 </div>
               </div>
               <hr />
@@ -883,11 +902,11 @@ document.addEventListener('DOMContentLoaded', function() {
               <div className="row" id="newwalkleader">
                 <div className="col-md-6 required">
                   <label htmlFor="email"><i className="fa fa-envelope" />{ t('Email') }</label>
-                  <input type="email" id="email" placeholder="Email" name="email[]" />
+                  <input type="email" id="email" placeholder="Email" valueLink={this.linkProp('email')} />
                 </div>
                 <div className="col-md-6 tel">
                   <label htmlFor="phone"><i className="fa fa-phone-square" />{ t('Phone Number') }</label>
-                  <input type="tel" maxLength="16" id="phone" placeholder="" name="phone[]" />
+                  <input type="tel" maxLength="16" id="phone" placeholder="" valueLink={this.linkProp('phone')} />
                 </div>
               </div>
             </div>
@@ -901,9 +920,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   var TeamOrganizer = React.createClass({
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
-
         <div className="thumbnail team-member walk-organizer" id="walk-organizer-new">
           <fieldset>
             <legend>{ t('Walk Organizer') }</legend>
@@ -912,16 +931,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div className="item required">
                   <label htmlFor="name">{ t('Name') }</label>
                   <form className="form-inline">
-                    <input type="text" id="name" placeholder="First" name="name-first[]" />
-                    <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                    <input type="text" id="name" placeholder="First" valueLink={this.linkProp('name-first')} />
+                    <input type="text" id="name" placeholder="Last" valueLink={this.linkProp('name-last')} />
                   </form>
                 </div>
                 <label htmlFor="affiliation">{ t('Affilated Institution') } ({ t('Optional') })</label>
-                <input type="text" id="name" placeholder="e.g. City of Toronto" name="institution[]" />
+                <input type="text" id="name" placeholder="e.g. City of Toronto" valueLink={this.linkProp('institution')} />
                 <div className="row" id="newwalkleader">
                   <div className="col-md-6">
                     <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
-                    <input type="text" className="col-md-12" id="website" placeholder="" value="" name="name-website[]" />
+                    <input type="text" className="col-md-12" id="website" placeholder="" valueLink={this.linkProp('website')} />
                   </div>
                 </div>
               </div>
@@ -936,6 +955,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var TeamCommunityVoice = React.createClass({
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
         <div className="thumbnail team-member community-voice" id="community-voice-new">
@@ -946,8 +966,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div className="item required">
                   <label htmlFor="name">{ t('Name') }</label>
                   <form className="form-inline">
-                    <input type="text" id="name" placeholder="First" name="name-first[]" />
-                    <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                    <input type="text" id="name" placeholder="First" valueLink={this.linkProp('name-first')} />
+                    <input type="text" id="name" placeholder="Last" valueLink={this.linkProp('name-last')} />
                   </form>
                 </div>
                 <div className="item">
@@ -955,25 +975,25 @@ document.addEventListener('DOMContentLoaded', function() {
                   <div className="alert alert-info">
                     { t('We recommend keeping the bio under 60 words')} 
                   </div>
-                  <textarea className="col-md-12" id="bio" rows="6" name="bio[]"></textarea>
+                  <textarea className="col-md-12" id="bio" rows="6" valueLink={this.linkProp('bio')} />
                 </div>
                 <div className="row" id="newwalkleader">
                   <div className="col-md-6">
                     <label htmlFor="prependedInput"><i className="fa fa-twitter" /> Twitter</label>
                     <div className="input-prepend">
                       <span className="add-on">@</span>
-                      <input className="col-md-12" id="prependedInput" type="text" placeholder="Username" name="twitter[]" />
+                      <input className="col-md-12" id="prependedInput" type="text" placeholder="Username" valueLink={this.linkProp('twitter')} />
                     </div>
                   </div>
                   <div className="col-md-6">
                     <label htmlFor="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
-                    <input type="text" id="facebook" placeholder="" name="facebook[]" />
+                    <input type="text" id="facebook" placeholder="" valueLink={this.linkProp('facebook')} />
                   </div>
                 </div>
                 <div className="row" id="newwalkleader">
                   <div className="col-md-6">
                     <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
-                    <input type="text" className="col-md-12" id="website" placeholder="" value="" name="website[]" />
+                    <input type="text" className="col-md-12" id="website" placeholder="" valueLink={this.linkProp('website')} />
                   </div>
                 </div>
               </div>
@@ -988,6 +1008,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   var TeamVolunteer = React.createClass({
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
         <div className="thumbnail team-member othermember" id="othermember-new">
@@ -998,20 +1019,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div className="item required">
                   <label htmlFor="name">{ t('Name') }</label>
                   <form className="form-inline">
-                    <input type="text" id="name" placeholder="First" name="name-first[]" />
-                    <input type="text" id="name" placeholder="Last" name="name-last[]" />
+                    <input type="text" id="name" placeholder="First" valueLink={this.linkProp('name-first')} />
+                    <input type="text" id="name" placeholder="Last" valueLink={this.linkProp('name-last')} />
                   </form>
                 </div>
 
                 <div className="item required">
                   <label htmlFor="role">{ t('Role') }</label>
-                  <input type="text" id="role" name="role[]" />
+                  <input type="text" id="role" valueLink={this.linkProp('role')} />
                 </div>
 
                 <div className="row" id="newwalkleader">
                   <div className="col-md-6">
                     <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
-                    <input type="text" className="col-md-12" id="website" placeholder="" value="" name="website[]" />
+                    <input type="text" className="col-md-12" id="website" placeholder="" valueLink={this.linkProp('website')} />
                   </div>
                 </div>
 

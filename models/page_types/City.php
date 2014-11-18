@@ -93,7 +93,7 @@ class City extends \Model implements \JsonSerializable
         case 'blog':
             $blog = new PageList();
             $blog->filterByCollectionTypeHandle('city_blog');
-            $blog->filterByParentID($page->getCollectionID());
+            $blog->filterByParentID($this->page->getCollectionID());
             $this->blog = $blog->get(1)[0];
             return $this->blog;
             break;

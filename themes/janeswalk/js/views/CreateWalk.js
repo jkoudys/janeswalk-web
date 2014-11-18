@@ -24,15 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Link this component's state to the linkState() parent
   var linkedTeamMemberStateMixin = {
-    linkMemberState: function(propname) {
+    linkProp: function(propname) {
+      var onChange = this.props.onChange;
+      var key = this._currentElement.key;
       return {
-        value: this.state[propname],
+        value: this.props.value[propname],
         requestChange: function(value) {
-          this.state[propname] = value;
-          this.setState(this.state);
+          onChange(propname, value, key);
         }
       };
-    }
+    },
   };
 
   var CreateWalk = React.createClass({displayName: 'CreateWalk',
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     getInitialState: function() {
       return (
-        JanesWalk.form.data ||
+        JanesWalk.walk.data ||
         {
           title: '',
           shortdescription: '',
@@ -56,16 +57,16 @@ document.addEventListener('DOMContentLoaded', function() {
           team: [{
             user_id: -1,
             type: 'you',
-            "name-first": 'Testy',
-            "name-last": 'McTesterson',
+            "name-first": '',
+            "name-last": '',
             role: 'walk-leader',
             primary: 'on',
-            bio: 'I\'m some guy',
-            twitter: 'twit',
-            facebook: 'fakeblock',
-            website: 'qaribou.com',
-            email: 'josh@qaribou.com',
-            phone: '4162750828' 
+            bio: '',
+            twitter: '',
+            facebook: '',
+            website: '',
+            email: '',
+            phone: '' 
           }],
           time: {type: '', slots: []},
           thumbnail_id: -1,
@@ -178,8 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
                       )
                     ), 
                     React.createElement(CAWThemeSelect, {valueLink: this.linkState('checkboxes')}), 
+                    React.createElement(CAWWardSelect, {valueLink: this.linkState('wards')}), 
                     React.createElement("hr", null), 
-                    React.createElement("input", {className: "btn btn-primary btn-large section-save", type: "submit", value:  t('Next'), 'data-next': "route", href: "#route"}), React.createElement("br", null), React.createElement("br", null)
+                    React.createElement("input", {className: "btn btn-primary btn-large section-save", type: "submit", value:  t('Next'), readOnly: true, 'data-next': "route", href: "#route"}), React.createElement("br", null), React.createElement("br", null)
                   )
                 ), 
                 React.createElement(CAWMapBuilder, {valueLink: this.linkState('gmap')}), 
@@ -274,7 +276,7 @@ document.addEventListener('DOMContentLoaded', function() {
               React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
               React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
               React.createElement("label", null, "Your Walk Web Address:"), 
-              React.createElement("input", {type: "text", className: "clone js-url-field", value: "http://janeswalk.tv/be-there-be-square.html", readonly: "readonly"}), 
+              React.createElement("input", {type: "text", className: "clone js-url-field", value: JanesWalk.walk.url, readOnly: true}), 
               React.createElement("hr", null), 
               React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
               React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
@@ -315,19 +317,22 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var CAWWardSelect = React.createClass({displayName: 'CAWWardSelect',
+    mixins: [linkedParentStateMixin],
     render: function() {
-      // TODO: Build a list of wards
-      return (
-        React.createElement("fieldset", {id: "wards"}, 
-          React.createElement("legend", null,  t('Sub-locality') ), 
-          React.createElement("div", {className: "item"}, 
-            React.createElement("div", {className: "alert alert-info"},  t('Choose a specific neighbourhood or area where your walk will take place.') ), 
-            React.createElement("select", {id: "ward", name: "ward"}, 
-              React.createElement("option", {selected: true, value: 'XXXWard name'}, 'XXXWard name')
+      var wards = JanesWalk.city.wards;
+      if (wards && this.props.valueLink) {
+        return (
+          React.createElement("fieldset", {id: "wards"}, 
+            React.createElement("legend", null,  t('Sub-locality') ), 
+            React.createElement("div", {className: "item"}, 
+              React.createElement("div", {className: "alert alert-info"},  t('Choose a specific neighbourhood or area where your walk will take place.') ), 
+              React.createElement("select", {id: "ward", name: "ward", valueLink: this.props.valueLink}, 
+                wards.map(function(e) { return React.createElement("option", {value: e.value}, e.value); })
+              )
             )
           )
-        )
-      );
+        );
+      }
     }
   });
 
@@ -678,24 +683,47 @@ document.addEventListener('DOMContentLoaded', function() {
       value[id][propname] = memberValue;
       valueLink.requestChange(value);
     },
-
+    addLeader: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'leader', "name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''});
+      valueLink.requestChange(team);
+    },
+    addOrganizer: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'organizer', "name-first":'', "name-last":'', institution: '', website: ''});
+      valueLink.requestChange(team);
+    },
+    addCommunityVoice: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'community', "name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''});
+      valueLink.requestChange(team);
+    },
+    addVolunteer: function() {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
+      valueLink.requestChange(team);
+    },
     // Set the member at that specific index
     render: function() {
       // If there's no 'you', create one as the current user
       var valueLink = this.props.valueLink;
       var value = valueLink.value;
-
+      
       // Loop through all the users and render the appropriate user type
       var users = value.map(function(user, i) {
         if (user.type === 'you') {
           return React.createElement(TeamOwner, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.role === 'leader') {
+        } else if (user.type === 'leader') {
           return React.createElement(TeamLeader, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.role === 'organizer') {
+        } else if (user.type === 'organizer') {
           return React.createElement(TeamOrganizer, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.role === 'community') {
+        } else if (user.type === 'community') {
           return React.createElement(TeamCommunityVoice, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.role === 'volunteer') {
+        } else if (user.type === 'volunteer') {
           return React.createElement(TeamVolunteer, {key: i, value: user, onChange: this.handleTeamMemberChange});
         }
       }, this);
@@ -711,24 +739,24 @@ document.addEventListener('DOMContentLoaded', function() {
             React.createElement("h3", {className: "lead"},  t('Click to add team members to your walk'), " (",  t('Optional'), ")"), 
             React.createElement("div", {className: "team-set"}, 
               React.createElement("div", {className: "team-row"}, 
-                React.createElement("section", {className: "new-member", id: "new-walkleader", title: "Add New Walk Leader", 'data-new': "walk-leader-new"}, 
+                React.createElement("section", {className: "new-member", id: "new-walkleader", title: "Add New Walk Leader", onClick: this.addLeader}, 
                   React.createElement("div", {className: "icon"}), 
                   React.createElement("h4", {className: "title text-center"},  t('Walk Leader') ), 
                   React.createElement("p", null,  t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') )
                 ), 
-                React.createElement("section", {className: "new-member", id: "new-walkorganizer", title: "Add New Walk Organizer", 'data-new': "walk-organizer-new"}, 
+                React.createElement("section", {className: "new-member", id: "new-walkorganizer", title: "Add New Walk Organizer", onClick: this.addOrganizer}, 
                   React.createElement("div", {className: "icon"}), 
                   React.createElement("h4", {className: "title text-center"},  t('Walk Organizer') ), 
                   React.createElement("p", null,  t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') )
                 )
               ), 
               React.createElement("div", {className: "team-row"}, 
-                React.createElement("section", {className: "new-member", id: "new-communityvoice", title: "Add A Community Voice", 'data-new': "community-voice-new"}, 
+                React.createElement("section", {className: "new-member", id: "new-communityvoice", title: "Add A Community Voice", onClick: this.addCommunityVoice}, 
                   React.createElement("div", {className: "icon"}), 
                   React.createElement("h4", {className: "title text-center"},  t('Community Voice') ), 
                   React.createElement("p", null,  t('A community member with stories and/or personal experiences to share.') )
                 ), 
-                React.createElement("section", {className: "new-member", id: "new-othermember", title: "Add another helper to your walk", 'data-new': "othermember-new"}, 
+                React.createElement("section", {className: "new-member", id: "new-othermember", title: "Add another helper to your walk", onClick: this.addVolunteer}, 
                   React.createElement("div", {className: "icon"}), 
                   React.createElement("h4", {className: "title text-center"},  t('Volunteers') ), 
                   React.createElement("p", null,  t('Other people who are helping to make your walk happen.') )
@@ -743,17 +771,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
   var TeamOwner = React.createClass({displayName: 'TeamOwner',
-    linkProp: function(propname) {
-      var onChange = this.props.onChange;
-      var key = this.key;
-      return {
-        value: this.props.value[propname],
-        requestChange: function(value) {
-          onChange(propname, value, key);
-        }
-      };
-    },
-
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
         React.createElement("div", {className: "team-member thumbnail useredited", id: "walk-leader-me"}, 
@@ -768,21 +786,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
               React.createElement("div", {className: "item required"}, 
                 React.createElement("label", {htmlFor: "role"},  t('Role') ), 
-                React.createElement("select", {id: "role", valueLinkl: this.linkProp('role')}, 
-                  React.createElement("option", {value: "walk-leader", selected: true},  t('Walk Leader') ), 
-                  React.createElement("option", {value: "co-walk-leader"},  t('Co-Walk Leader') ), 
-                  React.createElement("option", {value: "walk-organizer"},  t('Walk Organizer') )
+                React.createElement("select", {id: "role", valueLink: this.linkProp('role')}, 
+                  React.createElement("option", {defaultValue: "walk-leader"},  t('Walk Leader') ), 
+                  React.createElement("option", {defaultValue: "co-walk-leader"},  t('Co-Walk Leader') ), 
+                  React.createElement("option", {defaultValue: "walk-organizer"},  t('Walk Organizer') )
                 )
               ), 
               React.createElement("div", {className: "item hide", id: "primary-walkleader-select"}, 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", name: "primary[]", className: "role-check", checkLink: this.linkProp('primary')}),  t('Primary Walk Leader') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", className: "role-check", checkLink: this.linkProp('primary')}),  t('Primary Walk Leader') )
               ), 
               React.createElement("div", {className: "item required"}, 
                 React.createElement("label", {htmlFor: "bio"},  t('Introduce yourself') ), 
                 React.createElement("div", {className: "alert alert-info"}, 
                    t('We recommend keeping your bio under 60 words')
                 ), 
-                React.createElement("textarea", {id: "bio", rows: "6", name: "bio[]", valueLink: this.linkProp('bio')})
+                React.createElement("textarea", {id: "bio", rows: "6", valueLink: this.linkProp('bio')})
               ), 
 
               React.createElement("div", {className: "row", id: "newwalkleader"}, 
@@ -831,6 +849,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var TeamLeader = React.createClass({displayName: 'TeamLeader',
+   mixins: [linkedTeamMemberStateMixin],
    render: function() {
       return (
         React.createElement("div", {className: "thumbnail team-member walk-leader clearfix", id: "walk-leader-new"}, 
@@ -841,38 +860,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 React.createElement("label", {htmlFor: "name"},  t('Name') ), 
                 React.createElement("div", {className: "item"}, 
                   React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", name: "name-first[]"}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", name: "name-last[]"})
+                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
+                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
                   )
                 )
               ), 
               React.createElement("div", {className: "item", id: "primary-walkleader-select"}, 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", className: "role-check", name: "primary[]"}),  t('Primary Walk Leader') )
+                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", className: "role-check", valueLink: this.linkProp('primary')}),  t('Primary Walk Leader') )
               ), 
               React.createElement("div", {className: "item required"}, 
                 React.createElement("label", {htmlFor: "bio"},  t('Introduce the walk leader') ), 
                 React.createElement("div", {className: "alert alert-info"}, 
                    t('We recommend keeping the bio under 60 words')
                 ), 
-                React.createElement("textarea", {className: "col-md-12", id: "bio", rows: "6", name: "bio[]"})
+                React.createElement("textarea", {className: "col-md-12", id: "bio", rows: "6", valueLink: this.linkProp('bio')})
               ), 
               React.createElement("div", {className: "row", id: "newwalkleader"}, 
                 React.createElement("div", {className: "col-md-6"}, 
                   React.createElement("label", {htmlFor: "prependedInput"}, React.createElement("i", {className: "fa fa-twitter"}), " Twitter"), 
                   React.createElement("div", {className: "input-prepend"}, 
                     React.createElement("span", {className: "add-on"}, "@"), 
-                    React.createElement("input", {id: "prependedInput", className: "col-md-12", type: "text", placeholder: "Username", name: "twitter[]"})
+                    React.createElement("input", {id: "prependedInput", className: "col-md-12", type: "text", placeholder: "Username", valueLink: this.linkProp('twitter')})
                   )
                 ), 
                 React.createElement("div", {className: "col-md-6"}, 
                   React.createElement("label", {htmlFor: "facebook"}, React.createElement("i", {className: "fa fa-facebook-square"}), " Facebook"), 
-                  React.createElement("input", {type: "text", id: "facebook", placeholder: "", name: "facebook[]"})
+                  React.createElement("input", {type: "text", id: "facebook", placeholder: "", valueLink: this.linkProp('facebook')})
                 )
               ), 
               React.createElement("div", {className: "row", id: "newwalkleader"}, 
                 React.createElement("div", {className: "col-md-6"}, 
                   React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                  React.createElement("input", {type: "text", id: "website", placeholder: "", value: "", name: "website[]"})
+                  React.createElement("input", {type: "text", id: "website", placeholder: "", valueLink: this.linkProp('website')})
                 )
               ), 
               React.createElement("hr", null), 
@@ -883,11 +902,11 @@ document.addEventListener('DOMContentLoaded', function() {
               React.createElement("div", {className: "row", id: "newwalkleader"}, 
                 React.createElement("div", {className: "col-md-6 required"}, 
                   React.createElement("label", {htmlFor: "email"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Email') ), 
-                  React.createElement("input", {type: "email", id: "email", placeholder: "Email", name: "email[]"})
+                  React.createElement("input", {type: "email", id: "email", placeholder: "Email", valueLink: this.linkProp('email')})
                 ), 
                 React.createElement("div", {className: "col-md-6 tel"}, 
                   React.createElement("label", {htmlFor: "phone"}, React.createElement("i", {className: "fa fa-phone-square"}),  t('Phone Number') ), 
-                  React.createElement("input", {type: "tel", maxLength: "16", id: "phone", placeholder: "", name: "phone[]"})
+                  React.createElement("input", {type: "tel", maxLength: "16", id: "phone", placeholder: "", valueLink: this.linkProp('phone')})
                 )
               )
             )
@@ -901,9 +920,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   var TeamOrganizer = React.createClass({displayName: 'TeamOrganizer',
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
-
         React.createElement("div", {className: "thumbnail team-member walk-organizer", id: "walk-organizer-new"}, 
           React.createElement("fieldset", null, 
             React.createElement("legend", null,  t('Walk Organizer') ), 
@@ -912,16 +931,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 React.createElement("div", {className: "item required"}, 
                   React.createElement("label", {htmlFor: "name"},  t('Name') ), 
                   React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", name: "name-first[]"}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", name: "name-last[]"})
+                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
+                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
                   )
                 ), 
                 React.createElement("label", {htmlFor: "affiliation"},  t('Affilated Institution'), " (",  t('Optional'), ")"), 
-                React.createElement("input", {type: "text", id: "name", placeholder: "e.g. City of Toronto", name: "institution[]"}), 
+                React.createElement("input", {type: "text", id: "name", placeholder: "e.g. City of Toronto", valueLink: this.linkProp('institution')}), 
                 React.createElement("div", {className: "row", id: "newwalkleader"}, 
                   React.createElement("div", {className: "col-md-6"}, 
                     React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", value: "", name: "name-website[]"})
+                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", valueLink: this.linkProp('website')})
                   )
                 )
               )
@@ -936,6 +955,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   var TeamCommunityVoice = React.createClass({displayName: 'TeamCommunityVoice',
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
         React.createElement("div", {className: "thumbnail team-member community-voice", id: "community-voice-new"}, 
@@ -946,8 +966,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 React.createElement("div", {className: "item required"}, 
                   React.createElement("label", {htmlFor: "name"},  t('Name') ), 
                   React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", name: "name-first[]"}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", name: "name-last[]"})
+                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
+                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
                   )
                 ), 
                 React.createElement("div", {className: "item"}, 
@@ -955,25 +975,25 @@ document.addEventListener('DOMContentLoaded', function() {
                   React.createElement("div", {className: "alert alert-info"}, 
                      t('We recommend keeping the bio under 60 words')
                   ), 
-                  React.createElement("textarea", {className: "col-md-12", id: "bio", rows: "6", name: "bio[]"})
+                  React.createElement("textarea", {className: "col-md-12", id: "bio", rows: "6", valueLink: this.linkProp('bio')})
                 ), 
                 React.createElement("div", {className: "row", id: "newwalkleader"}, 
                   React.createElement("div", {className: "col-md-6"}, 
                     React.createElement("label", {htmlFor: "prependedInput"}, React.createElement("i", {className: "fa fa-twitter"}), " Twitter"), 
                     React.createElement("div", {className: "input-prepend"}, 
                       React.createElement("span", {className: "add-on"}, "@"), 
-                      React.createElement("input", {className: "col-md-12", id: "prependedInput", type: "text", placeholder: "Username", name: "twitter[]"})
+                      React.createElement("input", {className: "col-md-12", id: "prependedInput", type: "text", placeholder: "Username", valueLink: this.linkProp('twitter')})
                     )
                   ), 
                   React.createElement("div", {className: "col-md-6"}, 
                     React.createElement("label", {htmlFor: "facebook"}, React.createElement("i", {className: "fa fa-facebook-square"}), " Facebook"), 
-                    React.createElement("input", {type: "text", id: "facebook", placeholder: "", name: "facebook[]"})
+                    React.createElement("input", {type: "text", id: "facebook", placeholder: "", valueLink: this.linkProp('facebook')})
                   )
                 ), 
                 React.createElement("div", {className: "row", id: "newwalkleader"}, 
                   React.createElement("div", {className: "col-md-6"}, 
                     React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", value: "", name: "website[]"})
+                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", valueLink: this.linkProp('website')})
                   )
                 )
               )
@@ -988,6 +1008,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
+    mixins: [linkedTeamMemberStateMixin],
     render: function() {
       return (
         React.createElement("div", {className: "thumbnail team-member othermember", id: "othermember-new"}, 
@@ -998,20 +1019,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 React.createElement("div", {className: "item required"}, 
                   React.createElement("label", {htmlFor: "name"},  t('Name') ), 
                   React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", name: "name-first[]"}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", name: "name-last[]"})
+                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
+                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
                   )
                 ), 
 
                 React.createElement("div", {className: "item required"}, 
                   React.createElement("label", {htmlFor: "role"},  t('Role') ), 
-                  React.createElement("input", {type: "text", id: "role", name: "role[]"})
+                  React.createElement("input", {type: "text", id: "role", valueLink: this.linkProp('role')})
                 ), 
 
                 React.createElement("div", {className: "row", id: "newwalkleader"}, 
                   React.createElement("div", {className: "col-md-6"}, 
                     React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", value: "", name: "website[]"})
+                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", valueLink: this.linkProp('website')})
                   )
                 )
 
