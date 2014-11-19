@@ -66,7 +66,7 @@ class Walk extends \Model implements \JsonSerializable
         $this->accessibleParking = $page->getAttribute('accessible_parking');
         $this->accessibleFind = $page->getAttribute('accessible_find');
         $this->map = json_decode($page->getAttribute('gmap'));
-        $this->team = json_decode($page->getAttribute('team'), true);
+        $this->team = json_decode($page->getAttribute('team'), true) ?: [];
         $this->time = $page->getAttribute('scheduled');
         $this->wards = $page->getAttribute('walk_wards');
 
@@ -306,9 +306,11 @@ class Walk extends \Model implements \JsonSerializable
         );
 
         // Load the thumbnail array
+        $walkData['thumbnails'] = [];
         if ($this->thumbnail) {
-            $walkData['thumbnails'] = [
-                ['id' => $this->thumbnail->getFileID(), 'url' => $im->getThumbnail($this->thumbnail, 340,720)->src]
+            $walkData['thumbnails'][] = [
+                'id' => $this->thumbnail->getFileID(),
+                'url' => $im->getThumbnail($this->thumbnail, 340,720)->src
             ];
         }
 
