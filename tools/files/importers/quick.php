@@ -55,6 +55,7 @@ if (isset($_REQUEST['fID'])) {
 header('Content-Type: application/json');
 // Response is json
 if ($error) {
+    http_response_code(400);
     echo json_encode(['error' => $error, 'errorCode' => $errorCode]);
 } else {
     $f = File::getByID(isset($resp) ? $resp->getFileID() : $_REQUEST['fID']);

@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     getInitialState: function() {
       return (
-        JanesWalk.walk.data ||
+        this.props.data ||
         {
           title: '',
           shortdescription: '',
@@ -69,8 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             phone: '' 
           }],
           time: {type: '', slots: []},
-          thumbnail_id: -1,
-          thumbnail_url: null,
+          thumbnails: [],
           wards: '',
           checkboxes: {}
         }
@@ -160,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       )
                     )
                   ), 
-                  React.createElement(CAWFileUpload, null), 
+                  React.createElement(CAWImageUpload, {valueLink: this.linkState('thumbnails'), valt: this.props.valt}), 
                   React.createElement("form", null, 
                     React.createElement("hr", null), 
                     React.createElement("fieldset", null, 
@@ -173,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       React.createElement("div", {className: "item required"}, 
                         React.createElement("label", {htmlFor: "longdescription", id: "longwalkdescription"},  t('Walk Description') ), 
                         React.createElement("div", {className: "alert alert-info"}, 
-                           t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')
+                          t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')
                         ), 
                         React.createElement("textarea", {id: "longdescription", name: "longdescription", rows: "14", valueLink: this.linkState('longdescription')})
                       )
@@ -243,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
               React.createElement("div", {className: "popover right", id: "city-organizer", style: {display: 'block'}}, 
                 React.createElement("h3", {className: "popover-title", 'data-toggle': "collapse", 'data-target': "#popover-content"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Contact City Organizer for help') ), 
                 React.createElement("div", {className: "popover-content collapse in", id: "popover-content"}, 
-                  React.createElement("div", {className: "u-avatar", style: {"background-image": 'url(' + 'XXXavatar src' + ')'}}), 
+                  React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + 'XXXavatar src' + ')'}}), 
                   React.createElement("p", null, 
                      t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', JanesWalk.city.city_organizer.firstName, JanesWalk.city.name), " ", React.createElement("strong", null, React.createElement("a", {href: 'mailto:' + JanesWalk.city.city_organizer.email},  t('email me'), "!")))
                 )
@@ -276,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
               React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
               React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
               React.createElement("label", null, "Your Walk Web Address:"), 
-              React.createElement("input", {type: "text", className: "clone js-url-field", value: JanesWalk.walk.url, readOnly: true}), 
+              React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.url, readOnly: true}), 
               React.createElement("hr", null), 
               React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
               React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
@@ -291,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
               React.createElement("h3", null,  t('Preview of your Walk') )
             ), 
             React.createElement("div", {className: "modal-body"}, 
-              React.createElement("iframe", {src: "", frameborder: "0"})
+              React.createElement("iframe", {src: "", frameBorder: "0"})
             ), 
             React.createElement("footer", null, 
               React.createElement("a", {href: "#", className: "btn close", 'data-dismiss': "modal"},  t('Close Preview') )
@@ -302,14 +301,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  var CAWFileUpload = React.createClass({displayName: 'CAWFileUpload',
+  var CAWImageUpload = React.createClass({displayName: 'CAWImageUpload',
+    removeImage: function(i) {
+      var thumbnails = this.props.valueLink.value;
+      thumbnails.splice(i, 1);
+      this.props.valueLink.requestChange(thumbnails);
+    },
+    handleUpload: function(e) {
+      var fd = new FormData();
+      var _this = this;
+      if (e.currentTarget.files) {
+        // TODO: Update to support uploading multiple files at once
+        // Load one file
+        fd.append('Filedata', e.currentTarget.files[0]);
+        // Form validation token, generated by concrete5
+        fd.append('ccm_token', this.props.valt);
+        $.ajax({
+          url: CCM_TOOLS_PATH + '/files/importers/quick',
+          type: 'POST',
+          cache: false,
+          data: fd,
+          processData: false,
+          contentType: false,
+          success: function(data, textStatus, jqXHR) {
+            var thumbnails = _this.props.valueLink.value;
+            thumbnails.push(data);
+            _this.props.valueLink.requestChange(thumbnails);
+            debugger;
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            // TODO: display error message
+          }
+        });
+      }
+    },
     render: function() {
+      var thumbnails = this.props.valueLink.value;
+      // TODO: include an upload callback that loads the uploaded image locally,
+      // instead of the one off the server
       return (
-        React.createElement("form", {method: "post", encType: "multipart/form-data", action: CCM_TOOLS_PATH + '/files/importers/quick', className: "ccm-file-manager-submit-single"}, 
-          React.createElement("hr", null), 
-          React.createElement("div", {className: "item required"}, 
-            React.createElement("label", {htmlFor: "walkphotos", id: "photo-tip"},  t('Upload a photo that best represents your walk.') ), 
-            React.createElement("iframe", {className: "walkphotos", src: CCM_TOOLS_PATH + '/files/image_upload'})
+        React.createElement("form", {className: "upload-image"}, 
+          React.createElement("label", {htmlFor: "walkphotos", id: "photo-tip"},  t('Upload a photo that best represents your walk.') ), 
+          thumbnails.map(function(thumb, i) {
+            return (
+              React.createElement("div", {
+                key: thumb.url, 
+                className: "thumbnail", 
+                style: {backgroundImage: 'url(' + thumb.url + ')'}}, 
+                React.createElement("a", {className: "remove", onClick: this.removeImage.bind(this, i)}, React.createElement("i", {className: "fa fa-times-circle"}))
+              )
+              );
+          }, this), 
+          React.createElement("div", {className: "thumbnail fileupload"}, 
+            React.createElement("input", {className: "ccm-al-upload-single-file", type: "file", onChange: this.handleUpload}), 
+            React.createElement("i", {className: "fa fa-camera-retro fa-5x"}), 
+            React.createElement("span", {className: "fileupload-new"},  t('Click to upload an image') )
           )
         )
       );
@@ -327,7 +373,8 @@ document.addEventListener('DOMContentLoaded', function() {
             React.createElement("div", {className: "item"}, 
               React.createElement("div", {className: "alert alert-info"},  t('Choose a specific neighbourhood or area where your walk will take place.') ), 
               React.createElement("select", {id: "ward", name: "ward", valueLink: this.props.valueLink}, 
-                wards.map(function(e) { return React.createElement("option", {value: e.value}, e.value); })
+                React.createElement("option", {value: ""}, "Choose a region"), 
+                wards.map(function(e, i) { return React.createElement("option", {key: i, value: e.value}, e.value); })
               )
             )
           )
@@ -338,14 +385,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var CAWThemeSelect = React.createClass({displayName: 'CAWThemeSelect',
     mixins: [linkedParentStateMixin],
-
+    maxChecked: 3,
     render: function() {
       // TODO: Don't select themes for NYC
       return (
         React.createElement("fieldset", {id: "theme-select"}, 
           React.createElement("legend", {className: "required-legend"},  t('Themes') ), 
           React.createElement("div", {className: "alert alert-info"}, 
-             t('Pick between %d and %d boxes.', 1, 3)
+             t('Pick between %d and %d boxes.', 1, this.maxChecked)
           ), 
           React.createElement("div", {className: "item"}, 
             React.createElement("div", {className: "col-md-6"}, 
@@ -389,7 +436,6 @@ document.addEventListener('DOMContentLoaded', function() {
               )
             )
           ), 
-
           React.createElement("div", {className: "item"}, 
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("fieldset", null, 
@@ -583,10 +629,10 @@ document.addEventListener('DOMContentLoaded', function() {
                       React.createElement("label", {htmlFor: "walk-time"},  t('Start Time'), ":"), 
                       React.createElement("input", {id: "walk-time", type: "text", className: "time ui-timepicker-input", autoComplete: "off"}), 
                       React.createElement("label", {htmlFor: "walk-time"},  t('Approximate Duration of Walk'), ":"), 
-                      React.createElement("select", {name: "duration", id: "walk-duration"}, 
+                      React.createElement("select", {name: "duration", id: "walk-duration", defaultValue: "1 Hour, 30 Minutes"}, 
                         React.createElement("option", {value: "30 Minutes"}, "30 Minutes"), 
                         React.createElement("option", {value: "1 Hour"}, "1 Hour"), 
-                        React.createElement("option", {value: "1 Hour, 30 Minutes", selected: true}, "1 Hour, 30 Minutes"), 
+                        React.createElement("option", {value: "1 Hour, 30 Minutes"}, "1 Hour, 30 Minutes"), 
                         React.createElement("option", {value: "2 Hours"}, "2 Hours"), 
                         React.createElement("option", {value: "2 Hours, 30 Minutes"}, "2 Hours, 30 Minutes"), 
                         React.createElement("option", {value: "3 Hours"}, "3 Hours"), 
@@ -636,10 +682,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         React.createElement("hr", null)
                       ), 
                       React.createElement("label", {htmlFor: "walk-duration"},  t('Approximate Duration of Walk'), ":"), 
-                      React.createElement("select", {name: "duration", id: "walk-duration"}, 
+                      React.createElement("select", {name: "duration", id: "walk-duration", defaultValue: "1 Hour, 30 Minutes"}, 
                         React.createElement("option", {value: "30 Minutes"}, "30 Minutes"), 
                         React.createElement("option", {value: "1 Hour"}, "1 Hour"), 
-                        React.createElement("option", {value: "1 Hour, 30 Minutes", selected: true}, "1 Hour, 30 Minutes"), 
+                        React.createElement("option", {value: "1 Hour, 30 Minutes"}, "1 Hour, 30 Minutes"), 
                         React.createElement("option", {value: "2 Hours"}, "2 Hours"), 
                         React.createElement("option", {value: "2 Hours, 30 Minutes"}, "2 Hours, 30 Minutes"), 
                         React.createElement("option", {value: "3 Hours"}, "3 Hours"), 
@@ -1047,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  React.render(React.createElement(CreateWalk, null), document.getElementById('createwalk'));
+  React.render(React.createElement(CreateWalk, {data: JanesWalk.walk.data, url: JanesWalk.walk.url, valt: JanesWalk.form.valt}), document.getElementById('createwalk'));
 });
 
 /*

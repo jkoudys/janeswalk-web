@@ -20,6 +20,7 @@ class WalkFormController extends Controller
         $ui = UserInfo::getByID($u->getUserID());
         $nh = Loader::helper('navigation');
         $av = Loader::helper('concrete/avatar');
+        $valt = Loader::helper('validation/token');
         $imgHelper = Loader::helper('image');
 
         /* If no page is passed to edit, create a new page.
@@ -101,7 +102,8 @@ class WalkFormController extends Controller
             ],
             'datepicker_cfg' => [
                 'format' => 'dd/mm/yyyy'
-            ]
+            ],
+            'valt' => $valt->generate('upload')
         ];
 
         /* Add metadata on the walk page itself */

@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     getInitialState: function() {
       return (
-        JanesWalk.walk.data ||
+        this.props.data ||
         {
           title: '',
           shortdescription: '',
@@ -69,8 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
             phone: '' 
           }],
           time: {type: '', slots: []},
-          thumbnail_id: -1,
-          thumbnail_url: null,
+          thumbnails: [],
           wards: '',
           checkboxes: {}
         }
@@ -160,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       </div>
                     </fieldset>
                   </form>
-                  <CAWFileUpload />
+                  <CAWImageUpload valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
                   <form>
                     <hr />
                     <fieldset>
@@ -173,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
                       <div className="item required">
                         <label htmlFor="longdescription" id="longwalkdescription">{ t('Walk Description') }</label>
                         <div className="alert alert-info">
-                          { t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')} 
+                          {t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')} 
                         </div>
                         <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longdescription')} />
                       </div>
@@ -243,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <div className="popover right" id="city-organizer" style={{display: 'block'}}>
                 <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t('Contact City Organizer for help') }</h3>
                 <div className="popover-content collapse in" id="popover-content">
-                  <div className='u-avatar' style={{"background-image": 'url(' + 'XXXavatar src' + ')'}}></div>
+                  <div className='u-avatar' style={{backgroundImage: 'url(' + 'XXXavatar src' + ')'}}></div>
                   <p>
                     { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', JanesWalk.city.city_organizer.firstName, JanesWalk.city.name) } <strong><a href={'mailto:' + JanesWalk.city.city_organizer.email}>{ t('email me') }!</a></strong></p>
                 </div>
@@ -276,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <p>Congratulations! Your walk is now available for all to peruse.</p>
               <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
               <label>Your Walk Web Address:</label>
-              <input type="text" className="clone js-url-field" value={JanesWalk.walk.url} readOnly />
+              <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
               <hr />
               <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
               <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
@@ -291,7 +290,7 @@ document.addEventListener('DOMContentLoaded', function() {
               <h3>{ t('Preview of your Walk') }</h3>
             </header>
             <div className="modal-body">
-              <iframe src="" frameborder="0" />
+              <iframe src="" frameBorder="0" />
             </div>
             <footer>
               <a href="#" className="btn close" data-dismiss="modal">{ t('Close Preview') }</a>
@@ -302,14 +301,61 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  var CAWFileUpload = React.createClass({
+  var CAWImageUpload = React.createClass({
+    removeImage: function(i) {
+      var thumbnails = this.props.valueLink.value;
+      thumbnails.splice(i, 1);
+      this.props.valueLink.requestChange(thumbnails);
+    },
+    handleUpload: function(e) {
+      var fd = new FormData();
+      var _this = this;
+      if (e.currentTarget.files) {
+        // TODO: Update to support uploading multiple files at once
+        // Load one file
+        fd.append('Filedata', e.currentTarget.files[0]);
+        // Form validation token, generated by concrete5
+        fd.append('ccm_token', this.props.valt);
+        $.ajax({
+          url: CCM_TOOLS_PATH + '/files/importers/quick',
+          type: 'POST',
+          cache: false,
+          data: fd,
+          processData: false,
+          contentType: false,
+          success: function(data, textStatus, jqXHR) {
+            var thumbnails = _this.props.valueLink.value;
+            thumbnails.push(data);
+            _this.props.valueLink.requestChange(thumbnails);
+            debugger;
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            // TODO: display error message
+          }
+        });
+      }
+    },
     render: function() {
+      var thumbnails = this.props.valueLink.value;
+      // TODO: include an upload callback that loads the uploaded image locally,
+      // instead of the one off the server
       return (
-        <form method="post" encType="multipart/form-data" action={CCM_TOOLS_PATH + '/files/importers/quick'} className="ccm-file-manager-submit-single">
-          <hr />
-          <div className="item required">
-            <label htmlFor="walkphotos" id="photo-tip">{ t('Upload a photo that best represents your walk.') }</label>
-            <iframe className="walkphotos" src={CCM_TOOLS_PATH + '/files/image_upload'}></iframe>
+        <form className="upload-image">
+          <label htmlFor="walkphotos" id="photo-tip">{ t('Upload a photo that best represents your walk.') }</label>
+          {thumbnails.map(function(thumb, i) {
+            return (
+              <div
+                key={thumb.url}
+                className="thumbnail"
+                style={{backgroundImage: 'url(' + thumb.url + ')'}}>
+                <a className="remove" onClick={this.removeImage.bind(this, i)}><i className="fa fa-times-circle" /></a>
+              </div>
+              );
+          }, this)}
+          <div className="thumbnail fileupload">
+            <input className="ccm-al-upload-single-file" type="file" onChange={this.handleUpload} />
+            <i className="fa fa-camera-retro fa-5x" />
+            <span className="fileupload-new">{ t('Click to upload an image') }</span>
           </div>
         </form>
       );
@@ -327,7 +373,8 @@ document.addEventListener('DOMContentLoaded', function() {
             <div className="item">
               <div className="alert alert-info">{ t('Choose a specific neighbourhood or area where your walk will take place.') }</div>
               <select id="ward" name="ward" valueLink={this.props.valueLink}>
-                {wards.map(function(e) { return <option value={e.value}>{e.value}</option>; })}
+                <option value="">Choose a region</option>
+                {wards.map(function(e, i) { return <option key={i} value={e.value}>{e.value}</option>; })}
               </select>
             </div>
           </fieldset>
@@ -338,14 +385,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var CAWThemeSelect = React.createClass({
     mixins: [linkedParentStateMixin],
-
+    maxChecked: 3,
     render: function() {
       // TODO: Don't select themes for NYC
       return (
         <fieldset id="theme-select">
           <legend className="required-legend">{ t('Themes') }</legend>
           <div className="alert alert-info">
-            { t('Pick between %d and %d boxes.', 1, 3)} 
+            { t('Pick between %d and %d boxes.', 1, this.maxChecked)} 
           </div>
           <div className="item">
             <div className="col-md-6">
@@ -389,7 +436,6 @@ document.addEventListener('DOMContentLoaded', function() {
               </fieldset>
             </div>
           </div>
-
           <div className="item">
             <div className="col-md-6">
               <fieldset>
@@ -583,10 +629,10 @@ document.addEventListener('DOMContentLoaded', function() {
                       <label htmlFor="walk-time">{ t('Start Time') }:</label>
                       <input id="walk-time" type="text" className="time ui-timepicker-input" autoComplete="off" />
                       <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>
-                      <select name="duration" id="walk-duration">
+                      <select name="duration" id="walk-duration" defaultValue="1 Hour, 30 Minutes">
                         <option value="30 Minutes">30 Minutes</option>
                         <option value="1 Hour">1 Hour</option>
-                        <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
+                        <option value="1 Hour, 30 Minutes">1 Hour, 30 Minutes</option>
                         <option value="2 Hours">2 Hours</option>
                         <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
                         <option value="3 Hours">3 Hours</option>
@@ -636,10 +682,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <hr />
                       </div>
                       <label htmlFor="walk-duration">{ t('Approximate Duration of Walk') }:</label>
-                      <select name="duration" id="walk-duration">
+                      <select name="duration" id="walk-duration" defaultValue="1 Hour, 30 Minutes">
                         <option value="30 Minutes">30 Minutes</option>
                         <option value="1 Hour">1 Hour</option>
-                        <option value="1 Hour, 30 Minutes" selected>1 Hour, 30 Minutes</option>
+                        <option value="1 Hour, 30 Minutes">1 Hour, 30 Minutes</option>
                         <option value="2 Hours">2 Hours</option>
                         <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
                         <option value="3 Hours">3 Hours</option>
@@ -1047,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  React.render(<CreateWalk />, document.getElementById('createwalk'));
+  React.render(<CreateWalk data={JanesWalk.walk.data} url={JanesWalk.walk.url} valt={JanesWalk.form.valt} />, document.getElementById('createwalk'));
 });
 
 /*

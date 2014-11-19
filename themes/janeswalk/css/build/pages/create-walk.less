@@ -58,9 +58,6 @@ body[data-pageviewname=CreateWalkView] {
     // Migrated from SASS + separate theme. TODO: move all this into less + common theme
     .index-bg {
         background: url('../img/intro-bg.jpg') center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
         background-size: cover;
     }
     /*  Resets */
@@ -103,20 +100,41 @@ body[data-pageviewname=CreateWalkView] {
 
     .upload-image {
         min-height: 250px;
-        padding: 0;
-        position: relative;
-        .upload-item {
-            color: #999;
-            padding: 1em;
-            position: relative;
-            background: #f2f2f2;
-            border: 3px dashed #ddd;
+        color: @color-darkgrey;
+        background: @color-lightgrey;
+        border: 3px dashed #999;
+        label {
+            color: @color-darkgrey;
+            display: block;
+            margin: @grid-gutter-width / 2;
         }
-    }
-    iframe.walkphotos {
-        border:0;
-        width:100%;
-        height:270px;
+        .thumbnail {
+            display: inline-block;
+            margin: 0 0 @grid-gutter-width / 2 @grid-gutter-width / 2;
+            height: 200px;
+            width: 200px;
+            position: relative;
+            vertical-align: top;
+            background-size: cover;
+            a i {
+                color: @color-orange;
+            }
+               
+            input[type=file] {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
+            &.fileupload {
+                text-align: center;
+                i.fa {
+                    display: block;
+                    padding: 0.5em 0 0.3em;
+                }
+            }
+        }
     }
 
     .resource-item, .resource-item-new {
@@ -157,14 +175,6 @@ body[data-pageviewname=CreateWalkView] {
 
     #add-resource {
         margin: 1em 0 3em 0;
-    }
-
-    .btn-file {
-        display: block;
-        > input {
-            height: 100%;
-            width: 100%;
-        }
     }
 
     input:focus:invalid:focus, textarea:focus:invalid:focus {

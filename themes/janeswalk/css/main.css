@@ -11677,9 +11677,6 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .index-bg {
   background: url('../img/intro-bg.jpg') center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
 }
 #create-walk i.icon-camera-retro.icon-4x {
@@ -11720,20 +11717,50 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .upload-image {
   min-height: 250px;
-  padding: 0;
-  position: relative;
+  color: #666666;
+  background: #efefef;
+  border: 3px dashed #999;
 }
-#create-walk .upload-image .upload-item {
-  color: #999;
-  padding: 1em;
-  position: relative;
-  background: #f2f2f2;
-  border: 3px dashed #ddd;
+#create-walk .upload-image label {
+  color: #666666;
+  display: block;
+  margin: 15px;
 }
-#create-walk iframe.walkphotos {
-  border: 0;
+#create-walk .upload-image .thumbnail,
+#create-walk .upload-image .ccm-page-list.ccm-blog-index li figure,
+#create-walk .upload-image .ccm-page-list-city-cards li figure {
+  display: inline-block;
+  margin: 0 0 15px 15px;
+  height: 200px;
+  width: 200px;
+  position: relative;
+  vertical-align: top;
+  background-size: cover;
+}
+#create-walk .upload-image .thumbnail a i,
+#create-walk .upload-image .ccm-page-list.ccm-blog-index li figure a i,
+#create-walk .upload-image .ccm-page-list-city-cards li figure a i {
+  color: #f16725;
+}
+#create-walk .upload-image .thumbnail input[type=file],
+#create-walk .upload-image .ccm-page-list.ccm-blog-index li figure input[type=file],
+#create-walk .upload-image .ccm-page-list-city-cards li figure input[type=file] {
+  position: absolute;
   width: 100%;
-  height: 270px;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+#create-walk .upload-image .thumbnail.fileupload,
+#create-walk .upload-image .ccm-page-list.ccm-blog-index li figure.fileupload,
+#create-walk .upload-image .ccm-page-list-city-cards li figure.fileupload {
+  text-align: center;
+}
+#create-walk .upload-image .thumbnail.fileupload i.fa,
+#create-walk .upload-image .ccm-page-list.ccm-blog-index li figure.fileupload i.fa,
+#create-walk .upload-image .ccm-page-list-city-cards li figure.fileupload i.fa {
+  display: block;
+  padding: 0.5em 0 0.3em;
 }
 #create-walk .resource-item,
 #create-walk .resource-item-new {
@@ -11778,13 +11805,6 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk #add-resource {
   margin: 1em 0 3em 0;
-}
-#create-walk .btn-file {
-  display: block;
-}
-#create-walk .btn-file > input {
-  height: 100%;
-  width: 100%;
 }
 #create-walk input:focus:invalid:focus,
 #create-walk textarea:focus:invalid:focus {

@@ -305,9 +305,16 @@ class Walk extends \Model implements \JsonSerializable
             'wards' => $this->wards
         );
 
+        // Load the thumbnail array
+        if ($this->thumbnail) {
+            $walkData['thumbnails'] = [
+                ['id' => $this->thumbnail->getFileID(), 'url' => $im->getThumbnail($this->thumbnail, 340,720)->src]
+            ];
+        }
+
         // Callback, in case we define more checkbox groups
         // Map their key names here to ones the service-consumers understand
-        $checkboxes = array();
+        $checkboxes = [];
         $mapKeyNames = function ($v, $k, $akHandle) use (&$checkboxes) {
             $checkboxes["{$akHandle}-{$k}"] = $v;
         };
