@@ -1,1102 +1,332 @@
-document.addEventListener('DOMContentLoaded', function() {
-  var CCM_THEME_PATH = '/themes/janeswalk';
+// Create a Walk
+// 
+// Form for creating new walks. Includes a map builder, team builder, scheduler
+//
 
-  // Translation functions - TODO build an object of the translateables, then get their translations from the server
-  function t(str) {
-    return sprintf.apply(null, arguments);
+var CAWImageUpload = require('elements/CAWImageUpload');
+
+// Translation functions - TODO build an object of the translateables, then get their translations from the server
+function t(str) {
+  return sprintf.apply(null, arguments);
+}
+
+// Link this component's state to the linkState() parent
+var linkedParentStateMixin = {
+  linkParentState: function(propname) {
+    var valueLink = this.props.valueLink;
+    var parentState = valueLink.value;
+
+    return {
+      value: parentState[propname],
+      requestChange: function(value) {
+        parentState[propname] = value;
+        valueLink.requestChange(parentState);
+      }
+    };
   }
+};
 
-  // Link this component's state to the linkState() parent
-  var linkedParentStateMixin = {
-    linkParentState: function(propname) {
-      var valueLink = this.props.valueLink;
-      var parentState = valueLink.value;
+// Link this component's state to the linkState() parent
+var linkedTeamMemberStateMixin = {
+  linkProp: function(propname) {
+    var onChange = this.props.onChange;
+    var key = this._currentElement.key;
+    return {
+      value: this.props.value[propname],
+      requestChange: function(value) {
+        onChange(propname, value, key);
+      }
+    };
+  },
+};
 
-      return {
-        value: parentState[propname],
-        requestChange: function(value) {
-          parentState[propname] = value;
-          valueLink.requestChange(parentState);
+var CreateWalk = React.createClass({displayName: 'CreateWalk',
+  mixins: [React.addons.LinkedStateMixin],
+
+  getInitialState: function() {
+    var data = this.props.data;
+
+    if (data) {
+      // Convert old {0: marker, 1: marker} indexing to a proper array
+      if (!Array.isArray(data.gmap.markers)) {
+        var markerArray = [];
+        
+        for (var i in data.gmap.markers) {
+          markerArray[i] = data.gmap.markers[i];
         }
+      }
+      data.gmap.markers = markerArray;
+
+      return data;
+    } else {
+      return {
+        title: '',
+        shortdescription: '',
+        longdescription: '',
+        'accessible-info': '',
+        'accessible-transit': '',
+        'accessible-parking': '',
+        'accessible-find': '',
+        gmap: {
+          markers: [],
+          route: []
+        },
+        team: [{
+          user_id: -1,
+          type: 'you',
+          "name-first": '',
+          "name-last": '',
+          role: 'walk-leader',
+          primary: 'on',
+          bio: '',
+          twitter: '',
+          facebook: '',
+          website: '',
+          email: '',
+          phone: '' 
+        }],
+        time: {type: '', slots: []},
+        thumbnails: [],
+        wards: '',
+        checkboxes: {}
       };
     }
-  };
+  },
+ 
+  handleSave: function() {
+    console.log(JSON.stringify(this.state));
+    /* Send in the updated walk to save, but keep working */
+    // TODO: put 'saving' and 'saved' messages in
+    /*      $.ajax({
+      url: this.props.url,
+      type: 'PUT',
+      data: this.state,
+      dataType: 'json',
+      success: function(data) {
+      },
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }
+      }); */
+  },
+ 
+  handlePublish: function() {
+    // TODO: put 'saving' and 'saved' messages in
+    // Publish the walk
+    /*      $.ajax({
+      url: this.props.url,
+      type: 'POST',
+      data: this.state,
+      dataType: 'json',
+      success: function(data) {
+      },
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }
+      }); */
+  },
+ 
+  handlePreview: function(e) {
+    // Save the walk, then load a modal to preview
+    this.handleSave();
+    // TODO: show modal with preview iframe
+  },
 
-  // Link this component's state to the linkState() parent
-  var linkedTeamMemberStateMixin = {
-    linkProp: function(propname) {
-      var onChange = this.props.onChange;
-      var key = this._currentElement.key;
-      return {
-        value: this.props.value[propname],
-        requestChange: function(value) {
-          onChange(propname, value, key);
-        }
-      };
-    },
-  };
-
-  var CreateWalk = React.createClass({displayName: 'CreateWalk',
-    mixins: [React.addons.LinkedStateMixin],
-
-    getInitialState: function() {
-      return (
-        this.props.data ||
-        {
-          title: '',
-          shortdescription: '',
-          longdescription: '',
-          'accessible-info': '',
-          'accessible-transit': '',
-          'accessible-parking': '',
-          'accessible-find': '',
-          gmap: {
-            markers: [],
-            route: []
-          },
-          team: [{
-            user_id: -1,
-            type: 'you',
-            "name-first": '',
-            "name-last": '',
-            role: 'walk-leader',
-            primary: 'on',
-            bio: '',
-            twitter: '',
-            facebook: '',
-            website: '',
-            email: '',
-            phone: '' 
-          }],
-          time: {type: '', slots: []},
-          thumbnails: [],
-          wards: '',
-          checkboxes: {}
-        }
-      );
-    },
-    handleSave: function() {
-      console.log(JSON.stringify(this.state));
-      /* Send in the updated walk to save, but keep working */
-      // TODO: put 'saving' and 'saved' messages in
-      /*      $.ajax({
-        url: this.props.url,
-        type: 'PUT',
-        data: this.state,
-        dataType: 'json',
-        success: function(data) {
-        },
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }
-        }); */
-    },
-    handlePublish: function() {
-      // TODO: put 'saving' and 'saved' messages in
-      // Publish the walk
-      /*      $.ajax({
-        url: this.props.url,
-        type: 'POST',
-        data: this.state,
-        dataType: 'json',
-        success: function(data) {
-        },
-        error: function(xhr, status, err) {
-          console.error(this.props.url, status, err.toString());
-        }
-        }); */
-    },
-    handlePreview: function(e) {
-      // Save the walk, then load a modal to preview
-      this.handleSave();
-      // TODO: show modal with preview iframe
-    },
-
-    render: function() {
-      return (
-        React.createElement("main", {id: "create-walk"}, 
-          React.createElement("section", null, 
-            React.createElement("nav", null, 
-              React.createElement("div", {id: "progress-panel"}, 
-                React.createElement("div", {className: "tabbable tabs-left"}, 
-                  React.createElement("ul", {className: "nav nav-tabs"}, 
-                    React.createElement("li", {className: "active"}, React.createElement("a", {'data-toggle': "tab", className: "description", href: "#description"}, React.createElement("i", {className: "fa fa-list-ol"}),  t('Describe Your Walk') )), 
-                    React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "route", href: "#route"}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Share Your Route') )), 
-                    React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "time-and-date", href: "#time-and-date"}, React.createElement("i", {className: "fa fa-calendar"}),  t('Set the Time & Date') )), 
-                    React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "accessibility", href: "#accessibility"}, React.createElement("i", {className: "fa fa-flag"}),  t('Make it Accessible') )), 
-                    React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "team", href: "#team"}, React.createElement("i", {className: "fa fa-users"}),  t('Build Your Team') ))
-                  ), 
-                  React.createElement("br", null), 
-                  React.createElement("section", {id: "button-group"}, 
-                    React.createElement("button", {className: "btn btn-info btn-preview", id: "preview-walk", title: "Preview what you have so far."},  t('Preview Walk') ), 
-                    React.createElement("button", {className: "btn btn-info btn-submit", id: "btn-submit", title: "Publishing will make your visible to all."},  t('Publish Walk') ), 
-                    React.createElement("button", {className: "btn btn-info save", title: "Save", id: "btn-save", onClick: this.handleSave},  t('Save') )
-                  )
+  render: function() {
+    return (
+      React.createElement("main", {id: "create-walk"}, 
+        React.createElement("section", null, 
+          React.createElement("nav", null, 
+            React.createElement("div", {id: "progress-panel"}, 
+              React.createElement("div", {className: "tabbable tabs-left"}, 
+                React.createElement("ul", {className: "nav nav-tabs"}, 
+                  React.createElement("li", {className: "active"}, React.createElement("a", {'data-toggle': "tab", className: "description", href: "#description"}, React.createElement("i", {className: "fa fa-list-ol"}),  t('Describe Your Walk') )), 
+                  React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "route", href: "#route"}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Share Your Route') )), 
+                  React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "time-and-date", href: "#time-and-date"}, React.createElement("i", {className: "fa fa-calendar"}),  t('Set the Time & Date') )), 
+                  React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "accessibility", href: "#accessibility"}, React.createElement("i", {className: "fa fa-flag"}),  t('Make it Accessible') )), 
+                  React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "team", href: "#team"}, React.createElement("i", {className: "fa fa-users"}),  t('Build Your Team') ))
+                ), 
+                React.createElement("br", null), 
+                React.createElement("section", {id: "button-group"}, 
+                  React.createElement("button", {className: "btn btn-info btn-preview", id: "preview-walk", title: "Preview what you have so far."},  t('Preview Walk') ), 
+                  React.createElement("button", {className: "btn btn-info btn-submit", id: "btn-submit", title: "Publishing will make your visible to all."},  t('Publish Walk') ), 
+                  React.createElement("button", {className: "btn btn-info save", title: "Save", id: "btn-save", onClick: this.handleSave},  t('Save') )
                 )
               )
-            ), 
-            React.createElement("div", {id: "main-panel", role: "main"}, 
-              React.createElement("div", {className: "alert alert-error"}, React.createElement("strong", null, "Walks will not be saved."), " We're currently updating this form. Do not use this to create a new walk."), 
-              React.createElement("div", {className: "tab-content"}, 
-                React.createElement("div", {className: "tab-pane active", id: "description"}, 
-                  React.createElement("div", {className: "walk-submit lead clearfix"}, 
-                    React.createElement("div", {className: "col-md-4"}, 
-                      React.createElement("img", {id: "convo-marker", src: CCM_THEME_PATH + '/img/jw-intro-graphic.svg', alt: "Jane's Walks are walking conversations."})
-                    ), 
-                    React.createElement("div", {className: "col-md-8"}, 
-                      React.createElement("h1", null,  t('Hey there, %s!', JanesWalk.user.firstName) ), 
-                      React.createElement("p", null,  t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') )
-                    )
+            )
+          ), 
+          React.createElement("div", {id: "main-panel", role: "main"}, 
+            React.createElement("div", {className: "alert alert-error"}, React.createElement("strong", null, "Walks will not be saved."), " We're currently updating this form. Do not use this to create a new walk."), 
+            React.createElement("div", {className: "tab-content"}, 
+              React.createElement("div", {className: "tab-pane active", id: "description"}, 
+                React.createElement("div", {className: "walk-submit lead clearfix"}, 
+                  React.createElement("div", {className: "col-md-4"}, 
+                    React.createElement("img", {id: "convo-marker", src: CCM_THEME_PATH + '/img/jw-intro-graphic.svg', alt: "Jane's Walks are walking conversations."})
                   ), 
-                  React.createElement("div", {className: "page-header", 'data-section': "description"}, 
-                    React.createElement("h1", null,  t('Describe Your Walk') )
-                  ), 
-                  React.createElement("form", null, 
-                    React.createElement("fieldset", null, 
-                      React.createElement("div", {className: "item required"}, 
-                        React.createElement("label", {htmlFor: "title"},  t('Walk Title') ), 
-                        React.createElement("div", {className: "alert alert-info"},  t('Something short and memorable.') ), 
-                        React.createElement("input", {type: "text", valueLink: this.linkState('title')})
-                      )
-                    )
-                  ), 
-                  React.createElement(CAWImageUpload, {valueLink: this.linkState('thumbnails'), valt: this.props.valt}), 
-                  React.createElement("form", null, 
-                    React.createElement("hr", null), 
-                    React.createElement("fieldset", null, 
-                      React.createElement("div", {className: "item required"}, 
-                        React.createElement("label", {htmlFor: "shortdescription"},  t('Your Walk in a Nutshell') ), 
-                        React.createElement("div", {className: "alert alert-info"},  t('Build intrigue! This is what people see when browsing our walk listings.') ), 
-                        React.createElement("textarea", {id: "shortdescription", name: "shortdescription", rows: "6", maxLength: "140", valueLink: this.linkState('shortdescription'), required: true})
-                      ), 
-                      React.createElement("hr", null), 
-                      React.createElement("div", {className: "item required"}, 
-                        React.createElement("label", {htmlFor: "longdescription", id: "longwalkdescription"},  t('Walk Description') ), 
-                        React.createElement("div", {className: "alert alert-info"}, 
-                          t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')
-                        ), 
-                        React.createElement("textarea", {id: "longdescription", name: "longdescription", rows: "14", valueLink: this.linkState('longdescription')})
-                      )
-                    ), 
-                    React.createElement(CAWThemeSelect, {valueLink: this.linkState('checkboxes')}), 
-                    React.createElement(CAWWardSelect, {valueLink: this.linkState('wards')}), 
-                    React.createElement("hr", null), 
-                    React.createElement("input", {className: "btn btn-primary btn-large section-save", type: "submit", value:  t('Next'), readOnly: true, 'data-next': "route", href: "#route"}), React.createElement("br", null), React.createElement("br", null)
+                  React.createElement("div", {className: "col-md-8"}, 
+                    React.createElement("h1", null,  t('Hey there, %s!', this.props.user.firstName) ), 
+                    React.createElement("p", null,  t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') )
                   )
                 ), 
-                React.createElement(CAWMapBuilder, {valueLink: this.linkState('gmap')}), 
-                React.createElement(CAWDateSelect, {valueLink: this.linkState('time')}), 
-                React.createElement("div", {className: "tab-pane", id: "accessibility"}, 
-                  React.createElement("div", {className: "page-header", 'data-section': "accessibility"}, 
-                    React.createElement("h1", null,  t('Make it Accessible') )
-                  ), 
-                  React.createElement("div", {className: "item"}, 
-                    React.createElement(CAWAccessibleSelect, {valueLink: this.linkState('checkboxes')})
-                  ), 
-
-                  React.createElement("div", {className: "item"}, 
-                    React.createElement("fieldset", null, 
-                      React.createElement("legend", null,  t('What else do people need to know about the accessibility of this walk?'), " (",  t('Optional'), ")"), 
-                      React.createElement("textarea", {name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessible-info')})
-                    )
-                  ), 
-
-                  React.createElement("div", {className: "item"}, 
-                    React.createElement("fieldset", null, 
-                      React.createElement("legend", {id: "transit"},  t('How can someone get to the meeting spot by public transit?'), " (",  t('Optional'), ")"), 
-                      React.createElement("div", {className: "alert alert-info"}, 
-                         t('Nearest subway stop, closest bus or streetcar lines, etc.')
-                      ), 
-                      React.createElement("textarea", {rows: "3", name: "accessible-transit", valueLink: this.linkState('accessible-transit')})
-                    )
-                  ), 
-
-                  React.createElement("div", {className: "item"}, 
-                    React.createElement("fieldset", null, 
-                      React.createElement("legend", null,  t('Where are the nearest places to park?'), " (",  t('Optional'), ")"), 
-                      React.createElement("textarea", {rows: "3", name: "accessible-parking", valueLink: this.linkState('accessible-parking')})
-                    )
-                  ), 
-
-                  React.createElement("div", {className: "item"}, 
-                    React.createElement("fieldset", null, 
-                      React.createElement("legend", {className: "required-legend"},  t('How will people find you?') ), 
-                      React.createElement("div", {className: "alert alert-info"}, 
-                         t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')
-                      ), 
-                      React.createElement("textarea", {rows: "3", name: "accessible-find", valueLink: this.linkState('accessible-find')})
-                    )
-                  ), 
-                  React.createElement("hr", null), 
-                  React.createElement("a", {href: "#team", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), 
-                  React.createElement("br", null), 
-                  React.createElement("br", null)
+                React.createElement("div", {className: "page-header", 'data-section': "description"}, 
+                  React.createElement("h1", null,  t('Describe Your Walk') )
                 ), 
-                React.createElement(CAWTeamBuilder, {valueLink: this.linkState('team')}), 
+                React.createElement("form", null, 
+                  React.createElement("fieldset", null, 
+                    React.createElement("div", {className: "item required"}, 
+                      React.createElement("label", {htmlFor: "title"},  t('Walk Title') ), 
+                      React.createElement("div", {className: "alert alert-info"},  t('Something short and memorable.') ), 
+                      React.createElement("input", {type: "text", valueLink: this.linkState('title')})
+                    )
+                  )
+                ), 
+                React.createElement(CAWImageUpload, {valueLink: this.linkState('thumbnails'), valt: this.props.valt}), 
+                React.createElement("form", null, 
+                  React.createElement("hr", null), 
+                  React.createElement("fieldset", null, 
+                    React.createElement("div", {className: "item required"}, 
+                      React.createElement("label", {htmlFor: "shortdescription"},  t('Your Walk in a Nutshell') ), 
+                      React.createElement("div", {className: "alert alert-info"},  t('Build intrigue! This is what people see when browsing our walk listings.') ), 
+                      React.createElement("textarea", {id: "shortdescription", name: "shortdescription", rows: "6", maxLength: "140", valueLink: this.linkState('shortdescription'), required: true})
+                    ), 
+                    React.createElement("hr", null), 
+                    React.createElement("div", {className: "item required"}, 
+                      React.createElement("label", {htmlFor: "longdescription", id: "longwalkdescription"},  t('Walk Description') ), 
+                      React.createElement("div", {className: "alert alert-info"}, 
+                        t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')
+                      ), 
+                      React.createElement("textarea", {id: "longdescription", name: "longdescription", rows: "14", valueLink: this.linkState('longdescription')})
+                    )
+                  ), 
+                  React.createElement(CAWThemeSelect, {valueLink: this.linkState('checkboxes')}), 
+                  React.createElement(CAWWardSelect, {wards: this.props.city.wards, valueLink: this.linkState('wards')}), 
+                  React.createElement("hr", null), 
+                  React.createElement("input", {className: "btn btn-primary btn-large section-save", type: "submit", value:  t('Next'), readOnly: true, 'data-next': "route", href: "#route"}), React.createElement("br", null), React.createElement("br", null)
+                )
+              ), 
+              React.createElement(CAWMapBuilder, {valueLink: this.linkState('gmap')}), 
+              React.createElement(CAWDateSelect, {valueLink: this.linkState('time')}), 
+              React.createElement("div", {className: "tab-pane", id: "accessibility"}, 
+                React.createElement("div", {className: "page-header", 'data-section': "accessibility"}, 
+                  React.createElement("h1", null,  t('Make it Accessible') )
+                ), 
+                React.createElement("div", {className: "item"}, 
+                  React.createElement(CAWAccessibleSelect, {valueLink: this.linkState('checkboxes')})
+                ), 
+
+                React.createElement("div", {className: "item"}, 
+                  React.createElement("fieldset", null, 
+                    React.createElement("legend", null,  t('What else do people need to know about the accessibility of this walk?'), " (",  t('Optional'), ")"), 
+                    React.createElement("textarea", {name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessible-info')})
+                  )
+                ), 
+
+                React.createElement("div", {className: "item"}, 
+                  React.createElement("fieldset", null, 
+                    React.createElement("legend", {id: "transit"},  t('How can someone get to the meeting spot by public transit?'), " (",  t('Optional'), ")"), 
+                    React.createElement("div", {className: "alert alert-info"}, 
+                       t('Nearest subway stop, closest bus or streetcar lines, etc.')
+                    ), 
+                    React.createElement("textarea", {rows: "3", name: "accessible-transit", valueLink: this.linkState('accessible-transit')})
+                  )
+                ), 
+
+                React.createElement("div", {className: "item"}, 
+                  React.createElement("fieldset", null, 
+                    React.createElement("legend", null,  t('Where are the nearest places to park?'), " (",  t('Optional'), ")"), 
+                    React.createElement("textarea", {rows: "3", name: "accessible-parking", valueLink: this.linkState('accessible-parking')})
+                  )
+                ), 
+
+                React.createElement("div", {className: "item"}, 
+                  React.createElement("fieldset", null, 
+                    React.createElement("legend", {className: "required-legend"},  t('How will people find you?') ), 
+                    React.createElement("div", {className: "alert alert-info"}, 
+                       t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')
+                    ), 
+                    React.createElement("textarea", {rows: "3", name: "accessible-find", valueLink: this.linkState('accessible-find')})
+                  )
+                ), 
                 React.createElement("hr", null), 
-                React.createElement("button", {className: "btn btn-primary btn-large section-save", id: "section-save"},  t('Save') ), 
+                React.createElement("a", {href: "#team", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), 
                 React.createElement("br", null), 
                 React.createElement("br", null)
-              )
-            ), 
-            React.createElement("aside", {id: "tips-panel", role: "complementary"}, 
-              React.createElement("div", {className: "popover right", id: "city-organizer", style: {display: 'block'}}, 
-                React.createElement("h3", {className: "popover-title", 'data-toggle': "collapse", 'data-target': "#popover-content"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Contact City Organizer for help') ), 
-                React.createElement("div", {className: "popover-content collapse in", id: "popover-content"}, 
-                  React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + 'XXXavatar src' + ')'}}), 
-                  React.createElement("p", null, 
-                     t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', JanesWalk.city.city_organizer.firstName, JanesWalk.city.name), " ", React.createElement("strong", null, React.createElement("a", {href: 'mailto:' + JanesWalk.city.city_organizer.email},  t('email me'), "!")))
-                )
-              )
-            )
-          ), 
-          React.createElement("dialog", {id: "publish-warning"}, 
-            React.createElement("header", null, 
-              React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-              React.createElement("h3", null,  t('Okay, You\'re Ready to Publish') )
-            ), 
-            React.createElement("div", {className: "modal-body"}, 
-              React.createElement("p", null,  t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') )
-            ), 
-            React.createElement("footer", null, 
-              React.createElement("div", {className: "pull-left"}, 
-                React.createElement("a", {href: "", className: "walkthrough close", 'data-dismiss': "modal"}, " ",  t('Bring me back to edit') )
               ), 
-              React.createElement("a", {href: 'XXXprofile URL'}, 
-                React.createElement("button", {className: "btn btn-primary walkthrough", 'data-step': "publish-confirmation"},  t('Publish') )
-              )
-            )
-          ), 
-          React.createElement("dialog", {id: "publish-confirmation"}, 
-            React.createElement("header", null, 
-              React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-              React.createElement("h3", null, "Your Walk Has Been Published!")
-            ), 
-            React.createElement("div", {className: "modal-body"}, 
-              React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
-              React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
-              React.createElement("label", null, "Your Walk Web Address:"), 
-              React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.url, readOnly: true}), 
+              React.createElement(CAWTeamBuilder, {valueLink: this.linkState('team')}), 
               React.createElement("hr", null), 
-              React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
-              React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
-            ), 
-            React.createElement("footer", null, 
-              React.createElement("button", {className: "btn btn-primary walkthrough"}, "Close")
-            )
-          ), 
-          React.createElement("dialog", {id: "preview-modal"}, 
-            React.createElement("header", null, 
-              React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-              React.createElement("h3", null,  t('Preview of your Walk') )
-            ), 
-            React.createElement("div", {className: "modal-body"}, 
-              React.createElement("iframe", {src: "", frameBorder: "0"})
-            ), 
-            React.createElement("footer", null, 
-              React.createElement("a", {href: "#", className: "btn close", 'data-dismiss': "modal"},  t('Close Preview') )
-            )
-          )
-        )
-      );
-    }
-  });
-
-  var CAWImageUpload = React.createClass({displayName: 'CAWImageUpload',
-    removeImage: function(i) {
-      var thumbnails = this.props.valueLink.value;
-      thumbnails.splice(i, 1);
-      this.props.valueLink.requestChange(thumbnails);
-    },
-    handleUpload: function(e) {
-      var fd = new FormData();
-      var _this = this;
-      if (e.currentTarget.files) {
-        // TODO: Update to support uploading multiple files at once
-        // TODO: display a spinner w/ the local file as the BG until
-        // it's fully uploaded
-        // Load one file
-        fd.append('Filedata', e.currentTarget.files[0]);
-        // Form validation token, generated by concrete5
-        fd.append('ccm_token', this.props.valt);
-        $.ajax({
-          url: CCM_TOOLS_PATH + '/files/importers/quick',
-          type: 'POST',
-          cache: false,
-          data: fd,
-          processData: false,
-          contentType: false,
-          success: function(data, textStatus, jqXHR) {
-            var thumbnails = _this.props.valueLink.value;
-            thumbnails.push(data);
-            _this.props.valueLink.requestChange(thumbnails);
-            debugger;
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            // TODO: display error message
-          }
-        });
-      }
-    },
-    render: function() {
-      var thumbnails = this.props.valueLink.value;
-      // TODO: include an upload callback that loads the uploaded image locally,
-      // instead of the one off the server
-      return (
-        React.createElement("form", {className: "upload-image"}, 
-          React.createElement("label", {htmlFor: "walkphotos", id: "photo-tip"},  t('Upload a photo that best represents your walk.') ), 
-          thumbnails.map(function(thumb, i) {
-            return (
-              React.createElement("div", {
-                key: thumb.url, 
-                className: "thumbnail", 
-                style: {backgroundImage: 'url(' + thumb.url + ')'}}, 
-                React.createElement("a", {className: "remove", onClick: this.removeImage.bind(this, i)}, React.createElement("i", {className: "fa fa-times-circle"}))
-              )
-              );
-          }, this), 
-          React.createElement("div", {className: "thumbnail fileupload"}, 
-            React.createElement("input", {className: "ccm-al-upload-single-file", type: "file", onChange: this.handleUpload}), 
-            React.createElement("i", {className: "fa fa-camera-retro fa-5x"}), 
-            React.createElement("span", {className: "fileupload-new"},  t('Click to upload an image') )
-          )
-        )
-      );
-    }
-  });
-
-  var CAWWardSelect = React.createClass({displayName: 'CAWWardSelect',
-    mixins: [linkedParentStateMixin],
-    render: function() {
-      var wards = JanesWalk.city.wards;
-      if (wards && this.props.valueLink) {
-        return (
-          React.createElement("fieldset", {id: "wards"}, 
-            React.createElement("legend", null,  t('Sub-locality') ), 
-            React.createElement("div", {className: "item"}, 
-              React.createElement("div", {className: "alert alert-info"},  t('Choose a specific neighbourhood or area where your walk will take place.') ), 
-              React.createElement("select", {id: "ward", name: "ward", valueLink: this.props.valueLink}, 
-                React.createElement("option", {value: ""}, "Choose a region"), 
-                wards.map(function(e, i) { return React.createElement("option", {key: i, value: e.value}, e.value); })
-              )
-            )
-          )
-        );
-      }
-    }
-  });
-
-  var CAWThemeSelect = React.createClass({displayName: 'CAWThemeSelect',
-    mixins: [linkedParentStateMixin],
-    maxChecked: 3,
-    render: function() {
-      // TODO: Don't select themes for NYC
-      return (
-        React.createElement("fieldset", {id: "theme-select"}, 
-          React.createElement("legend", {className: "required-legend"},  t('Themes') ), 
-          React.createElement("div", {className: "alert alert-info"}, 
-             t('Pick between %d and %d boxes.', 1, this.maxChecked)
-          ), 
-          React.createElement("div", {className: "item"}, 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("fieldset", null, 
-                React.createElement("legend", null,  t('Community') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-activist')}),  t('Activism') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-truecitizen')}),  t('Citizenry') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-goodneighbour')}),  t('Community') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-writer')}),  t('Storytelling') )
-              )
-            ), 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("fieldset", null, 
-                React.createElement("legend", null,  t('City-building') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-architecturalenthusiast')}),  t('Architecture') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-aesthete')}),  t('Design') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-suburbanexplorer')}),  t('Suburbs') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-moversandshakers')}),  t('Transportation') )
-              )
-            )
-          ), 
-          React.createElement("div", {className: "item"}, 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("fieldset", null, 
-                React.createElement("legend", null,  t('Society') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-gender')}),  t('Gender') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-health')}),  t('Health') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-historybuff')}),  t('Heritage') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-nativeissues')}),  t('Native Issues') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-religion')}),  t('Religion') )
-              )
-            ), 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("fieldset", null, 
-                React.createElement("legend", null,  t('Expression') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-artist')}),  t('Art') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-film')}),  t('Film') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-bookworm')}),  t('Literature') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-music')}),  t('Music') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-play')}),  t('Play') )
-              )
-            )
-          ), 
-          React.createElement("div", {className: "item"}, 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("fieldset", null, 
-                React.createElement("legend", null,  t('The Natural World') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-petlover')}),  t('Animals') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-greenthumb')}),  t('Gardening') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-naturelover')}),  t('Nature') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-water')}),  t('Water') )
-              )
-            ), 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("fieldset", null, 
-                React.createElement("legend", null,  t('Modernity') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-international')}),  t('International Issues') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-military')}),  t('Military') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-commerce')}),  t('Commerce') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-nightowl')}),  t('Night Life') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-techie')}),  t('Technology') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-sports')}),  t('Sports') ), 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-foodie')}),  t('Food') )
-              )
-            )
-          )
-        )
-      );
-    }
-  });
-
-  var CAWAccessibleSelect = React.createClass({displayName: 'CAWAccessibleSelect',
-    mixins: [linkedParentStateMixin],
-
-    render: function() {
-      return (
-        React.createElement("fieldset", null, 
-          React.createElement("legend", {className: "required-legend"},  t('How accessible is this walk?') ), 
-          React.createElement("div", {className: "row"}, 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-familyfriendly')}),  t('Family friendly') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-wheelchair')}),  t('Wheelchair accessible') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-dogs')}),  t('Dogs welcome') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-strollers')}),  t('Strollers welcome') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-bicycles')}),  t('Bicycles welcome') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-steephills')}),  t('Steep hills') )
-            ), 
-            React.createElement("div", {className: "col-md-6"}, 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-uneven')}),  t('Wear sensible shoes (uneven terrain)') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-busy')}),  t('Busy sidewalks') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-bicyclesonly')}),  t('Bicycles only') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-lowlight')}),  t('Low light or nighttime') ), 
-              React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('accessible-seniors')}),  t('Senior Friendly') )
-            )
-          )
-        )
-      );
-    }
-  });
-
-  var CAWMapBuilder = React.createClass({displayName: 'CAWMapBuilder',
-    render: function() {
-      return (
-        React.createElement("div", {className: "tab-pane", id: "route"}, 
-          React.createElement("div", {className: "page-header", 'data-section': "route"}, 
-            React.createElement("h1", null,  t('Share Your Route') )
-          ), 
-          React.createElement("div", {className: "alert alert-info"},  t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') ), 
-          React.createElement("div", {id: "route-help-panel"}, 
-            React.createElement("a", {className: "accordion-toggle collapsed", 'data-toggle': "collapse", 'data-parent': "#route-menu", href: "#route-menu"}, React.createElement("h2", {className: "lead"},  t('Need help building your route?') )), 
-
-            React.createElement("div", {id: "route-menu", className: "collapse", style: {height: 0}}, 
-              React.createElement("div", {className: "col-md4"}, 
-                React.createElement("h4", null, "1. ",  t('Set a Meeting Place') ), 
-                React.createElement("ol", null, 
-                  React.createElement("li", null,  t('Click "Meeting Place" to add a pinpoint on the map') ), 
-                  React.createElement("li", null,  t('Click and drag it into position') ), 
-                  React.createElement("li", null,  t('Fill out the form fields and press Save Meeting Place') )
-                )
-              ), 
-              React.createElement("div", {className: "col-md-4"}, 
-                React.createElement("h4", null, "2. ",  t('Add Stops') ), 
-                React.createElement("ol", null, 
-                  React.createElement("li", null,  t('Click "Add Stop" to add a stop on the map') ), 
-                  React.createElement("li", null,  t('Click and drag it into position') ), 
-                  React.createElement("li", null,  t('Fill out the form fields and press Save Stop') ), 
-                  React.createElement("li", null,  t('Repeat to add more stops') )
-                )
-              ), 
-              React.createElement("div", {className: "col-md-4"}, 
-                React.createElement("h4", null, "3. ",  t('Add Route') ), 
-                React.createElement("ol", null, 
-                  React.createElement("li", null,  t('Click Add Route') ), 
-                  React.createElement("li", null,  t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') ), 
-                  React.createElement("li", null,  t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') ), 
-                  React.createElement("li", null,  t('Click Save Route') )), 
-                React.createElement("ul", null, 
-                  React.createElement("li", null,  t('If you want to delete your route to start over, click '), React.createElement("a", {href: "", className: "clear-route"},  t('Clear Route') ), ". ",  t('Your Stops will not be deleted') )
-                )
-              )
-            )
-          ), 
-
-          React.createElement("div", {id: "map-control-bar"}, 
-            React.createElement("button", {id: "addmeetingplace"}, React.createElement("i", {className: "fa fa-flag"}),  t('Set a Meeting Place') ), 
-            React.createElement("button", {id: "addpoint"}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') ), 
-            React.createElement("button", {id: "addroute"}, React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') ), 
-            React.createElement("button", {className: "clear-route"}, React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') )
-          ), 
-          React.createElement("div", {className: "map-notifications"}), 
-          React.createElement("div", {id: "map-canvas"}), 
-
-          React.createElement("h3", null,  t('Walk Stops') ), 
-
-          React.createElement("table", {id: "route-stops", className: "table table-bordered table-hover"}, 
-            React.createElement("thead", null, 
-              React.createElement("tr", null, 
-                React.createElement("th", null,  t('Title') ), 
-                React.createElement("th", null,  t('Description') ), 
-                React.createElement("th", null)
-              )
-            ), 
-            React.createElement("tbody", null, 
-              React.createElement("tr", null, 
-                React.createElement("td", {colSpan: "3"}, React.createElement("p", null,  t('You haven\'t set any stops yet.') ))
-              )
-            )
-          ), 
-
-          React.createElement("hr", null), 
-          React.createElement("a", {href: "#time-and-date", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), React.createElement("br", null), React.createElement("br", null)
-        )
-      );
-    }
-  });
-
-  var CAWDateSelect = React.createClass({displayName: 'CAWDateSelect',
-    render: function() {
-      return (
-        React.createElement("div", {className: "tab-pane", id: "time-and-date"}, 
-          React.createElement("div", {className: "tab-content", id: "walkduration"}, 
-            React.createElement("div", {className: "tab-pane active", id: "time-and-date-select"}, 
-              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
-                React.createElement("h1", null,  t('Set the Time and Date') )
-              ), 
-              React.createElement("legend", null,  t('Pick one of the following:') ), 
-              React.createElement("div", {className: "row"}, 
-                React.createElement("ul", {className: "thumbnails", id: "block-select"}, 
-                  React.createElement("li", {className: "col-md-6"}, 
-                    React.createElement("a", {href: "#time-and-date-all", 'data-toggle': "tab"}, 
-                      React.createElement("div", {className: "thumbnail"}, 
-                        React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-full.png'}), 
-                        React.createElement("div", {className: "caption"}, 
-                          React.createElement("div", {className: "text-center"}, 
-                            React.createElement("h4", null,  t('By Request') )
-                          ), 
-                          React.createElement("p", null,  t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.') )
-                        )
-                      )
-                    )
-                  ), 
-                  React.createElement("li", {className: "col-md-6"}, 
-                    React.createElement("a", {href: "#time-and-date-set", 'data-toggle': "tab"}, 
-                      React.createElement("div", {className: "thumbnail"}, 
-                        React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-some.png'}), 
-                        React.createElement("div", {className: "caption"}, 
-                          React.createElement("div", {className: "text-center"}, 
-                            React.createElement("h4", null,  t('Pick Your Date') )
-                          ), 
-                          React.createElement("p", null,  t('Set specific dates and times that this walk is happening.') )
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            ), 
-            React.createElement("div", {className: "tab-pane hide", id: "time-and-date-set"}, 
-              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
-                React.createElement("h1", null,  t('Time and Date') ), 
-                React.createElement("p", {className: "lead"},  t('Select the date and time your walk is happening.') )
-              ), 
-
-              React.createElement("div", {className: "row"}, 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("div", {className: "date-picker"})
-                ), 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("div", {className: "thumbnail"}, 
-                    React.createElement("div", {className: "caption"}, 
-                      React.createElement("small", null,  t('Date selected'), ":"), 
-                      React.createElement("h4", {className: "date-indicate-set", 'data-dateselected': ""}), 
-                      React.createElement("hr", null), 
-                      React.createElement("label", {htmlFor: "walk-time"},  t('Start Time'), ":"), 
-                      React.createElement("input", {id: "walk-time", type: "text", className: "time ui-timepicker-input", autoComplete: "off"}), 
-                      React.createElement("label", {htmlFor: "walk-time"},  t('Approximate Duration of Walk'), ":"), 
-                      React.createElement("select", {name: "duration", id: "walk-duration", defaultValue: "1 Hour, 30 Minutes"}, 
-                        React.createElement("option", {value: "30 Minutes"}, "30 Minutes"), 
-                        React.createElement("option", {value: "1 Hour"}, "1 Hour"), 
-                        React.createElement("option", {value: "1 Hour, 30 Minutes"}, "1 Hour, 30 Minutes"), 
-                        React.createElement("option", {value: "2 Hours"}, "2 Hours"), 
-                        React.createElement("option", {value: "2 Hours, 30 Minutes"}, "2 Hours, 30 Minutes"), 
-                        React.createElement("option", {value: "3 Hours"}, "3 Hours"), 
-                        React.createElement("option", {value: "3 Hours, 30 Minutes"}, "3 Hours, 30 Minutes")
-                      ), 
-                      React.createElement("hr", null), 
-                      React.createElement("button", {className: "btn btn-primary", id: "save-date-set"},  t('Add Date') )
-                    )
-                  )
-                )
-              ), 
+              React.createElement("button", {className: "btn btn-primary btn-large section-save", id: "section-save", onClick: this.handleSave},  t('Save') ), 
               React.createElement("br", null), 
-              React.createElement("table", {className: "table table-bordered table-hover", id: "date-list-set"}, 
-                React.createElement("thead", null, 
-                  React.createElement("tr", null, 
-                    React.createElement("th", null,  t('Date') ), 
-                    React.createElement("th", null,  t('Start Time') ), 
-                    React.createElement("th", null)
-                  )
-                ), 
-                React.createElement("tbody", null)
-              ), 
-              React.createElement("hr", null), 
-              React.createElement("a", {href: "#time-and-date-select", 'data-toggle': "tab", className: "clear-date"},  t('Clear schedule and return to main Time and Date page') ), 
-              React.createElement("hr", null), 
-              React.createElement("a", {href: "#accessibility", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), React.createElement("br", null), React.createElement("br", null)
+              React.createElement("br", null)
+            )
+          ), 
+          React.createElement("aside", {id: "tips-panel", role: "complementary"}, 
+            React.createElement("div", {className: "popover right", id: "city-organizer", style: {display: 'block'}}, 
+              React.createElement("h3", {className: "popover-title", 'data-toggle': "collapse", 'data-target': "#popover-content"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Contact City Organizer for help') ), 
+              React.createElement("div", {className: "popover-content collapse in", id: "popover-content"}, 
+                React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + 'XXXavatar src' + ')'}}), 
+                React.createElement("p", null, 
+                   t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name), " ", React.createElement("strong", null, React.createElement("a", {href: 'mailto:' + this.props.city.cityOrganizer.email},  t('email me'), "!")))
+              )
+            )
+          )
+        ), 
+        React.createElement("dialog", {id: "publish-warning"}, 
+          React.createElement("header", null, 
+            React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
+            React.createElement("h3", null,  t('Okay, You\'re Ready to Publish') )
+          ), 
+          React.createElement("div", {className: "modal-body"}, 
+            React.createElement("p", null,  t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') )
+          ), 
+          React.createElement("footer", null, 
+            React.createElement("div", {className: "pull-left"}, 
+              React.createElement("a", {href: "", className: "walkthrough close", 'data-dismiss': "modal"}, " ",  t('Bring me back to edit') )
             ), 
-            React.createElement("div", {className: "tab-pane hide", id: "time-and-date-all"}, 
-              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
-                React.createElement("h1", null,  t('Time and Date') ), 
-                React.createElement("p", {className: "lead"},  t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') )
-              ), 
-              React.createElement("label", {className: "checkbox"}, 
-                React.createElement("input", {type: "checkbox", name: "open"}),  t('Leave my availability open. Allow people to contact you to set up a walk.')
-              ), 
-              React.createElement("br", null), 
-              React.createElement("div", {className: "row"}, 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("div", {className: "date-picker"})
-                ), 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("div", {className: "thumbnail"}, 
-                    React.createElement("div", {className: "caption"}, 
-                      React.createElement("div", {className: "date-select-group"}, 
-                        React.createElement("small", null,  t('Date selected'), ":"), 
-                        React.createElement("h4", {className: "date-indicate-all"}), 
-                        React.createElement("hr", null)
-                      ), 
-                      React.createElement("label", {htmlFor: "walk-duration"},  t('Approximate Duration of Walk'), ":"), 
-                      React.createElement("select", {name: "duration", id: "walk-duration", defaultValue: "1 Hour, 30 Minutes"}, 
-                        React.createElement("option", {value: "30 Minutes"}, "30 Minutes"), 
-                        React.createElement("option", {value: "1 Hour"}, "1 Hour"), 
-                        React.createElement("option", {value: "1 Hour, 30 Minutes"}, "1 Hour, 30 Minutes"), 
-                        React.createElement("option", {value: "2 Hours"}, "2 Hours"), 
-                        React.createElement("option", {value: "2 Hours, 30 Minutes"}, "2 Hours, 30 Minutes"), 
-                        React.createElement("option", {value: "3 Hours"}, "3 Hours"), 
-                        React.createElement("option", {value: "3 Hours, 30 Minutes"}, "3 Hours, 30 Minutes")
-                      ), 
-                      React.createElement("div", {className: "date-select-group"}, 
-                        React.createElement("hr", null), 
-                        React.createElement("button", {className: "btn btn-primary", id: "save-date-all"},  t('Add Date') )
-                      )
-                    )
-                  )
-                )
-              ), 
-              React.createElement("br", null), 
-              React.createElement("table", {className: "table table-bordered table-hover", id: "date-list-all"}, 
-                React.createElement("thead", null, 
-                  React.createElement("tr", null, 
-                    React.createElement("th", null,  t('My Available Dates') ), 
-                    React.createElement("th", null,  t('Approximate Duration') ), 
-                    React.createElement("th", null)
-                  )
-                ), 
-                React.createElement("tbody", null)
-              ), 
-              React.createElement("hr", null), 
-              React.createElement("a", {href: "#time-and-date-select", 'data-toggle': "tab", className: "clear-date"},  t('Clear schedule and return to main Time and Date page') ), 
-              React.createElement("hr", null), 
-              React.createElement("a", {href: "#accessibility", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), React.createElement("br", null), React.createElement("br", null)
+            React.createElement("a", {href: 'XXXprofile URL'}, 
+              React.createElement("button", {className: "btn btn-primary walkthrough", 'data-step': "publish-confirmation"},  t('Publish') )
             )
           )
-        )
-      );
-    }
-  });
-
-  var CAWTeamBuilder = React.createClass({displayName: 'CAWTeamBuilder',
-    mixins: [linkedParentStateMixin],
-    handleTeamMemberChange: function(propname, memberValue, id) {
-      var valueLink = this.props.valueLink;
-      var value = valueLink.value;
-      value[id][propname] = memberValue;
-      valueLink.requestChange(value);
-    },
-    addLeader: function() {
-      var valueLink = this.props.valueLink;
-      var team = valueLink.value;
-      team.push({type: 'leader', "name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''});
-      valueLink.requestChange(team);
-    },
-    addOrganizer: function() {
-      var valueLink = this.props.valueLink;
-      var team = valueLink.value;
-      team.push({type: 'organizer', "name-first":'', "name-last":'', institution: '', website: ''});
-      valueLink.requestChange(team);
-    },
-    addCommunityVoice: function() {
-      var valueLink = this.props.valueLink;
-      var team = valueLink.value;
-      team.push({type: 'community', "name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''});
-      valueLink.requestChange(team);
-    },
-    addVolunteer: function() {
-      var valueLink = this.props.valueLink;
-      var team = valueLink.value;
-      team.push({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
-      valueLink.requestChange(team);
-    },
-    // Set the member at that specific index
-    render: function() {
-      // If there's no 'you', create one as the current user
-      var valueLink = this.props.valueLink;
-      var value = valueLink.value;
-      
-      // Loop through all the users and render the appropriate user type
-      var users = value.map(function(user, i) {
-        if (user.type === 'you') {
-          return React.createElement(TeamOwner, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.type === 'leader') {
-          return React.createElement(TeamLeader, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.type === 'organizer') {
-          return React.createElement(TeamOrganizer, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.type === 'community') {
-          return React.createElement(TeamCommunityVoice, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        } else if (user.type === 'volunteer') {
-          return React.createElement(TeamVolunteer, {key: i, value: user, onChange: this.handleTeamMemberChange});
-        }
-      }, this);
-
-      return (
-        React.createElement("div", {className: "tab-pane", id: "team"}, 
-          React.createElement("div", {className: "page-header", 'data-section': "team"}, 
-            React.createElement("h1", null,  t('Build Your Team') )
+        ), 
+        React.createElement("dialog", {id: "publish-confirmation"}, 
+          React.createElement("header", null, 
+            React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
+            React.createElement("h3", null, "Your Walk Has Been Published!")
           ), 
-          users, 
-          React.createElement("div", {className: "thumbnail team-member", id: "add-member"}, 
-            React.createElement("h2", null,  t('Who else is involved with this walk?') ), 
-            React.createElement("h3", {className: "lead"},  t('Click to add team members to your walk'), " (",  t('Optional'), ")"), 
-            React.createElement("div", {className: "team-set"}, 
-              React.createElement("div", {className: "team-row"}, 
-                React.createElement("section", {className: "new-member", id: "new-walkleader", title: "Add New Walk Leader", onClick: this.addLeader}, 
-                  React.createElement("div", {className: "icon"}), 
-                  React.createElement("h4", {className: "title text-center"},  t('Walk Leader') ), 
-                  React.createElement("p", null,  t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') )
-                ), 
-                React.createElement("section", {className: "new-member", id: "new-walkorganizer", title: "Add New Walk Organizer", onClick: this.addOrganizer}, 
-                  React.createElement("div", {className: "icon"}), 
-                  React.createElement("h4", {className: "title text-center"},  t('Walk Organizer') ), 
-                  React.createElement("p", null,  t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') )
-                )
-              ), 
-              React.createElement("div", {className: "team-row"}, 
-                React.createElement("section", {className: "new-member", id: "new-communityvoice", title: "Add A Community Voice", onClick: this.addCommunityVoice}, 
-                  React.createElement("div", {className: "icon"}), 
-                  React.createElement("h4", {className: "title text-center"},  t('Community Voice') ), 
-                  React.createElement("p", null,  t('A community member with stories and/or personal experiences to share.') )
-                ), 
-                React.createElement("section", {className: "new-member", id: "new-othermember", title: "Add another helper to your walk", onClick: this.addVolunteer}, 
-                  React.createElement("div", {className: "icon"}), 
-                  React.createElement("h4", {className: "title text-center"},  t('Volunteers') ), 
-                  React.createElement("p", null,  t('Other people who are helping to make your walk happen.') )
-                )
-              )
-            )
-          )
-        )
-      );
-    }
-  });
-
-
-  var TeamOwner = React.createClass({displayName: 'TeamOwner',
-    mixins: [linkedTeamMemberStateMixin],
-    render: function() {
-      return (
-        React.createElement("div", {className: "team-member thumbnail useredited", id: "walk-leader-me"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('You') ), 
-            React.createElement("div", {className: "row", id: "walkleader"}, 
-              React.createElement("div", {className: "item required"}, 
-                React.createElement("label", {htmlFor: "name"},  t('Name') ), 
-                React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
-                React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
-              ), 
-
-              React.createElement("div", {className: "item required"}, 
-                React.createElement("label", {htmlFor: "role"},  t('Role') ), 
-                React.createElement("select", {id: "role", valueLink: this.linkProp('role')}, 
-                  React.createElement("option", {defaultValue: "walk-leader"},  t('Walk Leader') ), 
-                  React.createElement("option", {defaultValue: "co-walk-leader"},  t('Co-Walk Leader') ), 
-                  React.createElement("option", {defaultValue: "walk-organizer"},  t('Walk Organizer') )
-                )
-              ), 
-              React.createElement("div", {className: "item hide", id: "primary-walkleader-select"}, 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", className: "role-check", checkLink: this.linkProp('primary')}),  t('Primary Walk Leader') )
-              ), 
-              React.createElement("div", {className: "item required"}, 
-                React.createElement("label", {htmlFor: "bio"},  t('Introduce yourself') ), 
-                React.createElement("div", {className: "alert alert-info"}, 
-                   t('We recommend keeping your bio under 60 words')
-                ), 
-                React.createElement("textarea", {id: "bio", rows: "6", valueLink: this.linkProp('bio')})
-              ), 
-
-              React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                React.createElement("div", {className: "col-md-6 required"}, 
-                  React.createElement("label", {htmlFor: "you-email"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Email') ), 
-                  React.createElement("input", {type: "email", id: "you-email", placeholder: "", valueLink: this.linkProp('email')})
-                ), 
-
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("label", {htmlFor: "leader-twitter"}, React.createElement("i", {className: "fa fa-twitter"}), " Twitter"), 
-                  React.createElement("div", {className: "input-group"}, 
-                    React.createElement("span", {className: "input-group-addon"}, "@"), 
-                    React.createElement("input", {className: "col-md-12", id: "leader-twitter", type: "text", placeholder: "Username", valueLink: this.linkProp('twitter')})
-                  )
-                )
-              ), 
-
-              React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("label", {htmlFor: "facebook"}, React.createElement("i", {className: "fa fa-facebook-square"}), " Facebook"), 
-                  React.createElement("input", {type: "text", id: "facebook", placeholder: "", valueLink: this.linkProp('facebook')})
-                ), 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                  React.createElement("input", {type: "text", id: "website", placeholder: "", valueLink: this.linkProp('website')})
-                )
-              ), 
-              React.createElement("hr", null), 
-              React.createElement("div", {className: "private"}, 
-                React.createElement("h4", null,  t('We\'ll keep this part private') ), 
-                React.createElement("div", {className: "alert alert-info"}, 
-                   t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.')
-                ), 
-                React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                  React.createElement("div", {className: "col-md-6 tel required"}, 
-                    React.createElement("label", {htmlFor: "phone"}, React.createElement("i", {className: "fa fa-phone-square"}),  t('Phone Number') ), 
-                    React.createElement("input", {type: "tel", maxLength: "18", id: "phone", placeholder: "", valueLink: this.linkProp('phone')})
-                  )
-                )
-              )
-            )
-          )
-        )
-      );
-    }
-  });
-
-  var TeamLeader = React.createClass({displayName: 'TeamLeader',
-   mixins: [linkedTeamMemberStateMixin],
-   render: function() {
-      return (
-        React.createElement("div", {className: "thumbnail team-member walk-leader clearfix", id: "walk-leader-new"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('Walk Leader') ), 
-            React.createElement("div", {id: "walkleader"}, 
-              React.createElement("div", {className: "item required"}, 
-                React.createElement("label", {htmlFor: "name"},  t('Name') ), 
-                React.createElement("div", {className: "item"}, 
-                  React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
-                  )
-                )
-              ), 
-              React.createElement("div", {className: "item", id: "primary-walkleader-select"}, 
-                React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", className: "role-check", valueLink: this.linkProp('primary')}),  t('Primary Walk Leader') )
-              ), 
-              React.createElement("div", {className: "item required"}, 
-                React.createElement("label", {htmlFor: "bio"},  t('Introduce the walk leader') ), 
-                React.createElement("div", {className: "alert alert-info"}, 
-                   t('We recommend keeping the bio under 60 words')
-                ), 
-                React.createElement("textarea", {className: "col-md-12", id: "bio", rows: "6", valueLink: this.linkProp('bio')})
-              ), 
-              React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("label", {htmlFor: "prependedInput"}, React.createElement("i", {className: "fa fa-twitter"}), " Twitter"), 
-                  React.createElement("div", {className: "input-prepend"}, 
-                    React.createElement("span", {className: "add-on"}, "@"), 
-                    React.createElement("input", {id: "prependedInput", className: "col-md-12", type: "text", placeholder: "Username", valueLink: this.linkProp('twitter')})
-                  )
-                ), 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("label", {htmlFor: "facebook"}, React.createElement("i", {className: "fa fa-facebook-square"}), " Facebook"), 
-                  React.createElement("input", {type: "text", id: "facebook", placeholder: "", valueLink: this.linkProp('facebook')})
-                )
-              ), 
-              React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                React.createElement("div", {className: "col-md-6"}, 
-                  React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                  React.createElement("input", {type: "text", id: "website", placeholder: "", valueLink: this.linkProp('website')})
-                )
-              ), 
-              React.createElement("hr", null), 
-              React.createElement("h4", null,  t('Private') ), 
-              React.createElement("div", {className: "alert alert-info"}, 
-                 t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.') 
-              ), 
-              React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                React.createElement("div", {className: "col-md-6 required"}, 
-                  React.createElement("label", {htmlFor: "email"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Email') ), 
-                  React.createElement("input", {type: "email", id: "email", placeholder: "Email", valueLink: this.linkProp('email')})
-                ), 
-                React.createElement("div", {className: "col-md-6 tel"}, 
-                  React.createElement("label", {htmlFor: "phone"}, React.createElement("i", {className: "fa fa-phone-square"}),  t('Phone Number') ), 
-                  React.createElement("input", {type: "tel", maxLength: "16", id: "phone", placeholder: "", valueLink: this.linkProp('phone')})
-                )
-              )
-            )
+          React.createElement("div", {className: "modal-body"}, 
+            React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
+            React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
+            React.createElement("label", null, "Your Walk Web Address:"), 
+            React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.url, readOnly: true}), 
+            React.createElement("hr", null), 
+            React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
+            React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
           ), 
           React.createElement("footer", null, 
-            React.createElement("button", {className: "btn remove-team-member"},  t('Remove Team Member') )
+            React.createElement("button", {className: "btn btn-primary walkthrough"}, "Close")
+          )
+        ), 
+        React.createElement("dialog", {id: "preview-modal"}, 
+          React.createElement("header", null, 
+            React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
+            React.createElement("h3", null,  t('Preview of your Walk') )
+          ), 
+          React.createElement("div", {className: "modal-body"}, 
+            React.createElement("iframe", {src: "", frameBorder: "0"})
+          ), 
+          React.createElement("footer", null, 
+            React.createElement("a", {href: "#", className: "btn close", 'data-dismiss': "modal"},  t('Close Preview') )
           )
         )
       )
-    }
-  });
-  
-  var TeamOrganizer = React.createClass({displayName: 'TeamOrganizer',
-    mixins: [linkedTeamMemberStateMixin],
-    render: function() {
-      return (
-        React.createElement("div", {className: "thumbnail team-member walk-organizer", id: "walk-organizer-new"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('Walk Organizer') ), 
-            React.createElement("div", {className: "row", id: "walkleader"}, 
-              React.createElement("div", {className: "col-md-9"}, 
-                React.createElement("div", {className: "item required"}, 
-                  React.createElement("label", {htmlFor: "name"},  t('Name') ), 
-                  React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
-                  )
-                ), 
-                React.createElement("label", {htmlFor: "affiliation"},  t('Affilated Institution'), " (",  t('Optional'), ")"), 
-                React.createElement("input", {type: "text", id: "name", placeholder: "e.g. City of Toronto", valueLink: this.linkProp('institution')}), 
-                React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                  React.createElement("div", {className: "col-md-6"}, 
-                    React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", valueLink: this.linkProp('website')})
-                  )
-                )
-              )
-            )
-          ), 
-          React.createElement("footer", null, 
-            React.createElement("button", {className: "btn remove-team-member"},  t('Remove Team Member') )
-          )
-        )
-      )
-    }
-  });
+    );
+  }
+});
 
-  var TeamCommunityVoice = React.createClass({displayName: 'TeamCommunityVoice',
-    mixins: [linkedTeamMemberStateMixin],
-    render: function() {
-      return (
-        React.createElement("div", {className: "thumbnail team-member community-voice", id: "community-voice-new"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", {id: "community-voice"},  t('Community Voice') ), 
-            React.createElement("div", {className: "row", id: "walkleader"}, 
-              React.createElement("div", {className: "col-md-9"}, 
-                React.createElement("div", {className: "item required"}, 
-                  React.createElement("label", {htmlFor: "name"},  t('Name') ), 
-                  React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
-                  )
-                ), 
-                React.createElement("div", {className: "item"}, 
-                  React.createElement("label", {htmlFor: "bio"},  t('Tell everyone about this person') ), 
-                  React.createElement("div", {className: "alert alert-info"}, 
-                     t('We recommend keeping the bio under 60 words')
-                  ), 
-                  React.createElement("textarea", {className: "col-md-12", id: "bio", rows: "6", valueLink: this.linkProp('bio')})
-                ), 
-                React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                  React.createElement("div", {className: "col-md-6"}, 
-                    React.createElement("label", {htmlFor: "prependedInput"}, React.createElement("i", {className: "fa fa-twitter"}), " Twitter"), 
-                    React.createElement("div", {className: "input-prepend"}, 
-                      React.createElement("span", {className: "add-on"}, "@"), 
-                      React.createElement("input", {className: "col-md-12", id: "prependedInput", type: "text", placeholder: "Username", valueLink: this.linkProp('twitter')})
-                    )
-                  ), 
-                  React.createElement("div", {className: "col-md-6"}, 
-                    React.createElement("label", {htmlFor: "facebook"}, React.createElement("i", {className: "fa fa-facebook-square"}), " Facebook"), 
-                    React.createElement("input", {type: "text", id: "facebook", placeholder: "", valueLink: this.linkProp('facebook')})
-                  )
-                ), 
-                React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                  React.createElement("div", {className: "col-md-6"}, 
-                    React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", valueLink: this.linkProp('website')})
-                  )
-                )
-              )
-            )
-          ), 
-          React.createElement("footer", null, 
-            React.createElement("button", {className: "btn remove-team-member"},  t('Remove Team Member') )
-          )
-        )
-      )
-    }
-  });
-  
-  var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
-    mixins: [linkedTeamMemberStateMixin],
-    render: function() {
-      return (
-        React.createElement("div", {className: "thumbnail team-member othermember", id: "othermember-new"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", {id: "othermember"},  t('Volunteers') ), 
-            React.createElement("div", {className: "row", id: "walkleader"}, 
-              React.createElement("div", {className: "col-md-9"}, 
-                React.createElement("div", {className: "item required"}, 
-                  React.createElement("label", {htmlFor: "name"},  t('Name') ), 
-                  React.createElement("form", {className: "form-inline"}, 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "First", valueLink: this.linkProp('name-first')}), 
-                    React.createElement("input", {type: "text", id: "name", placeholder: "Last", valueLink: this.linkProp('name-last')})
-                  )
-                ), 
-
-                React.createElement("div", {className: "item required"}, 
-                  React.createElement("label", {htmlFor: "role"},  t('Role') ), 
-                  React.createElement("input", {type: "text", id: "role", valueLink: this.linkProp('role')})
-                ), 
-
-                React.createElement("div", {className: "row", id: "newwalkleader"}, 
-                  React.createElement("div", {className: "col-md-6"}, 
-                    React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
-                    React.createElement("input", {type: "text", className: "col-md-12", id: "website", placeholder: "", valueLink: this.linkProp('website')})
-                  )
-                )
-
-              )
-            )
-          ), 
-          React.createElement("footer", null, 
-            React.createElement("button", {className: "btn remove-othermember"},  t('Remove Team Member') )
-          )
-        )
-      )
-    }
-  });
-
-  React.render(React.createElement(CreateWalk, {data: JanesWalk.walk.data, url: JanesWalk.walk.url, valt: JanesWalk.form.valt}), document.getElementById('createwalk'));
+document.addEventListener('DOMContentLoaded', function() {
+  React.render(
+    React.createElement(CreateWalk, {data: JanesWalk.walk.data, city: JanesWalk.city, user: JanesWalk.user, url: JanesWalk.walk.url, valt: JanesWalk.form.valt}),
+    document.getElementById('createwalk')
+  );
 });
 
 /*
