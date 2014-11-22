@@ -74,33 +74,6 @@ module.exports = function(grunt) {
         }
       },
 
-      jslint: { // configure the task
-        form: {
-          src: ['themes/jw_form/js/main.js', 'themes/jw_form/js/gmaps.js'],
-          directives: {
-            browser: true,
-            predef: [
-              'jQuery'
-            ]
-          }
-        },
-        client: {
-          src: janeswalk.jslib,
-          directives: {
-            browser: true,
-            predef: [
-              'jQuery'
-            ]
-          },
-          options: {
-            junit: 'out/client-junit.xml'
-          }
-        }
-      },
-      jshint: {
-        all: janeswalk.jslib,
-        form: ['themes/jw_form/js/main.js', 'themes/jw_form/js/gmaps.js']
-      },
       react: {
         blocks: {
           expand: true,
@@ -129,27 +102,25 @@ module.exports = function(grunt) {
           quiet: false
         }
       },
-      watch: {
-        scripts: {
-          files: janeswalk.jslib,
-          tasks: ['jshint', 'js'],
-          options: {
-            spawn: false
-          }
+      browserify: {
+        options: {
+          transform: [ require('grunt-react').browserify ]
+        },
+        CreateWalk: {
+          src: 'themes/janeswalk/js/views/**/*.jsx',
+          dest: 'themes/janeswalk/js/views/CreateWalk.js'
         }
       }
     });
 
     // Load the plugin that provides the 'uglify' task.
+    grunt.loadNpmTasks('grunt-browserify')
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-sass'); // Using instead of grunt-contrib-css, as it shaves 50% of the running time off
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-jslint');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-php-cs-fixer');
-    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-react');
 
     // Default task(s).

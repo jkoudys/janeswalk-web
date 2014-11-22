@@ -1,4 +1,4 @@
-var CAWWardSelect = React.createClass({
+exports.CAWWardSelect = React.createClass({
   mixins: [linkedParentStateMixin],
   render: function() {
     var wards = this.props.wards;

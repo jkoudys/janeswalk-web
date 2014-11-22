@@ -1,4 +1,4 @@
-var CAWTeamBuilder = React.createClass({
+exports.CAWTeamBuilder = React.createClass({
   mixins: [linkedParentStateMixin],
   handleTeamMemberChange: function(propname, memberValue, id) {
     var valueLink = this.props.valueLink;

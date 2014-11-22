@@ -3,42 +3,8 @@
 // Form for creating new walks. Includes a map builder, team builder, scheduler
 //
 
-var CAWImageUpload = require('elements/CAWImageUpload');
-
-// Translation functions - TODO build an object of the translateables, then get their translations from the server
-function t(str) {
-  return sprintf.apply(null, arguments);
-}
-
-// Link this component's state to the linkState() parent
-var linkedParentStateMixin = {
-  linkParentState: function(propname) {
-    var valueLink = this.props.valueLink;
-    var parentState = valueLink.value;
-
-    return {
-      value: parentState[propname],
-      requestChange: function(value) {
-        parentState[propname] = value;
-        valueLink.requestChange(parentState);
-      }
-    };
-  }
-};
-
-// Link this component's state to the linkState() parent
-var linkedTeamMemberStateMixin = {
-  linkProp: function(propname) {
-    var onChange = this.props.onChange;
-    var key = this._currentElement.key;
-    return {
-      value: this.props.value[propname],
-      requestChange: function(value) {
-        onChange(propname, value, key);
-      }
-    };
-  },
-};
+var CAWImageUpload = require('./elements/CAWImageUpload.jsx');
+var CAWThemeSelect = require('./elements/CAWThemeSelect.jsx');
 
 var CreateWalk = React.createClass({
   mixins: [React.addons.LinkedStateMixin],

@@ -1,4 +1,4 @@
-var CAWMapBuilder = React.createClass({
+exports.CAWMapBuilder = React.createClass({
   getDefaultProps: function () {
     return {
       // Map config startup defaults

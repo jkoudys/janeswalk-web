@@ -1,4 +1,4 @@
-var CAWThemeSelect = React.createClass({
+exports.CAWThemeSelect = React.createClass({
   mixins: [linkedParentStateMixin],
   maxChecked: 3,
   render: function() {

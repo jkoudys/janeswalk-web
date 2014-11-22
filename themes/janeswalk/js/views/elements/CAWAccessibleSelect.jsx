@@ -1,4 +1,4 @@
-var CAWAccessibleSelect = React.createClass({
+exports.CAWAccessibleSelect = React.createClass({
   mixins: [linkedParentStateMixin],
 
   render: function() {
