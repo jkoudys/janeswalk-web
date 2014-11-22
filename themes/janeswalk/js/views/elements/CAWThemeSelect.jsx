@@ -1,5 +1,7 @@
-exports.CAWThemeSelect = React.createClass({
-  mixins: [linkedParentStateMixin],
+var linkedParentState = require ('../mixins/linkedParentState.jsx');
+
+exports = React.createClass({
+  mixins: [linkedParentState],
   maxChecked: 3,
   render: function() {
     // TODO: Don't select themes for NYC

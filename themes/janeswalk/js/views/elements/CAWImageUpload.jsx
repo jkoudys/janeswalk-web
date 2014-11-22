@@ -1,4 +1,4 @@
-exports.CAWImageUpload = React.createClass({
+exports = React.createClass({
   removeImage: function(i) {
     var thumbnails = this.props.valueLink.value;
     thumbnails.splice(i, 1);

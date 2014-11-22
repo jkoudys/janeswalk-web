@@ -1,4 +1,4 @@
-exports.CAWDateSelect = React.createClass({
+exports = React.createClass({
   render: function() {
     return (
       <div className="tab-pane" id="time-and-date">

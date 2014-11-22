@@ -1,5 +1,5 @@
 // TextArea with wordprocessor-like editing
-exports.TinyMCE = React.createClass({
+exports = React.createClass({
   // Initialize other libraries here
   componentDidMount: function() {
     // tinyMCE will leave applying to textarea to the components

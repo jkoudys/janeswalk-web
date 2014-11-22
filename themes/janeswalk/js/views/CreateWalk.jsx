@@ -5,6 +5,7 @@
 
 var CAWImageUpload = require('./elements/CAWImageUpload.jsx');
 var CAWThemeSelect = require('./elements/CAWThemeSelect.jsx');
+var t = require('./mixins/translate.jsx');
 
 var CreateWalk = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
