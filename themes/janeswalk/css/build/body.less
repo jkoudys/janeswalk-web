@@ -16,19 +16,11 @@ body {
 // Generic layouts - profile page, blogs, etc.
 body.full {
 	#body { 
-        .make-md-column(9);
-        @media(min-width: @screen-md-min) {
-            max-width: @screen-md-min;
-            margin:0 auto;
-            margin-top: 1em;
-            float: none;
-        }
-	}
-	#full { 
         .make-md-column(12);
         @media(min-width: @screen-md-min) {
             max-width: @screen-lg-min;
-            margin:0 auto;
+            margin: 0 auto;
+            margin-top: 1em;
             float: none;
         }
         .ccm-blog-index {

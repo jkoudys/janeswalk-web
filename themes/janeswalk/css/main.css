@@ -7050,44 +7050,25 @@ body.full #body {
 @media (min-width: 992px) {
   body.full #body {
     float: left;
-    width: 75%;
+    width: 100%;
   }
 }
 @media (min-width: 992px) {
   body.full #body {
-    max-width: 992px;
+    max-width: 1200px;
     margin: 0 auto;
     margin-top: 1em;
     float: none;
   }
 }
-body.full #full {
+body.full #body .ccm-blog-index li {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  body.full #full {
-    float: left;
-    width: 100%;
-  }
-}
-@media (min-width: 992px) {
-  body.full #full {
-    max-width: 1200px;
-    margin: 0 auto;
-    float: none;
-  }
-}
-body.full #full .ccm-blog-index li {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  body.full #full .ccm-blog-index li {
+  body.full #body .ccm-blog-index li {
     float: left;
     width: 25%;
   }
