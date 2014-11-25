@@ -7038,7 +7038,7 @@ body {
   line-height: 20px;
   font-weight: 300;
   color: #222;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
 }
 body.full #body {
@@ -7464,7 +7464,7 @@ h5,
 h6,
 #profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker .ui-datepicker-title {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   margin: 1.5em 0 0.6em 0;
@@ -7515,7 +7515,7 @@ body > header .logo span,
   text-align: center;
 }
 .calendar-wrap .calendar-header span {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   font-weight: 800;
 }
 .calendar-wrap .custom-month {
@@ -7539,7 +7539,7 @@ body > header #donate,
 .walk-select .create-walk:after,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   background-image: none;
   background-color: #f16725;
   border-radius: 0;
@@ -7651,7 +7651,7 @@ a {
   margin: 0;
 }
 .walk-label {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   padding: 5px 8px;
   color: #fff;
   background: #F2C50F;
@@ -7702,7 +7702,7 @@ body.form {
 */
 body > header {
   background: #fff;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
 }
 body > header .logo {
   padding: 0 20px 0 0;
@@ -7876,7 +7876,7 @@ body > footer {
   width: 100%;
   background: #dcdcdc;
   color: #50616D;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   font-weight: 500;
   position: fixed;
   bottom: 0;
@@ -8119,7 +8119,7 @@ div.ccm-page-list-tags {
 }
 div.ccm-page-list-typeahead {
   position: relative;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
 }
 div.ccm-page-list-typeahead ul,
 div.ccm-page-list-typeahead li {
@@ -8307,7 +8307,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 .home .navbar_home .large,
 .home .section2 ul.nav,
 .home .section2 ul.social-login-providers.template-fontawesome {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
 }
 .home.logged_in {
   padding-top: 0;
@@ -8446,7 +8446,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 .home section.blog h3,
 .home section.blog h4,
 .home section.blog h5 {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   margin: 0;
 }
 .home section.blog section {
@@ -9535,7 +9535,7 @@ section.sponsors {
   height: 44px;
 }
 #ccm-profile-body form {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   font-weight: 100;
   font-size: 22px;
   color: #222;
@@ -9548,7 +9548,7 @@ section.sponsors {
   width: 460px;
   font-size: 22px;
   color: #888;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
 }
 #ccm-profile-body form fieldset.dropsubmit input[type=submit] {
   margin-left: -59px;
@@ -9559,7 +9559,7 @@ section.sponsors {
   background-color: #efefef;
   border: 1px solid #b4b4b4;
   border-radius: 0 5px 5px 0;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   font-weight: 100;
   font-size: 22px;
   color: #222;
@@ -9666,7 +9666,7 @@ section.sponsors {
   }
 }
 .city-page .intro-city {
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   margin-bottom: 59px;
   clear: both;
 }
@@ -10044,7 +10044,7 @@ section.sponsors {
   font-weight: 700;
   color: #222;
   padding: 0;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   font-size: 12px;
   margin: 1.5em 0 0.6em 0;
 }
@@ -10169,7 +10169,7 @@ section.sponsors {
   height: 60px;
   padding: 20px 0;
   text-align: center;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   font-size: 16px;
   font-weight: 100;
   margin: 15px 0 0 -47px;
@@ -10552,7 +10552,7 @@ section.sponsors {
   text-align: center;
   margin-top: 20px;
   margin-bottom: 10px;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   font-weight: 800;
   font-size: 1.5em;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
@@ -10919,7 +10919,7 @@ section.sponsors {
   box-shadow: none;
   border: none;
   color: #fff;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
 }
 .download-list ul li .download:after {
   content: "";
@@ -10966,7 +10966,7 @@ section.sponsors {
   box-shadow: none;
   border: none;
   color: #fff;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
 }
 @media (max-width: 480px) {
   .resources-list .download {
@@ -11211,7 +11211,7 @@ section.sponsors {
 }
 .profiles .profile-inner .bottom-bar {
   position: absolute;
-  font-family: "museo-slab", "Roboto Slab", serif;
+  font-family: "Roboto Slab", serif;
   bottom: -18px;
   right: -15px;
   padding: 5px 0;
