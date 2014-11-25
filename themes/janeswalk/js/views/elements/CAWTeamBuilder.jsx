@@ -1,5 +1,11 @@
-exports = React.createClass({
-  mixins: [linkedParentStateMixin],
+var mixins = require('../functions/mixins.jsx');
+var t = require('../functions/translate.jsx');
+
+var TeamBuilder = React.createClass({
+  displayName: 'TeamBuilder',
+
+  mixins: [mixins.linkedParentState],
+
   handleTeamMemberChange: function(propname, memberValue, id) {
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
@@ -94,7 +100,7 @@ exports = React.createClass({
 
 
 var TeamOwner = React.createClass({
-  mixins: [linkedTeamMemberStateMixin],
+  mixins: [mixins.linkedTeamMemberState],
   render: function() {
     return (
       <div className="team-member thumbnail useredited" id="walk-leader-me">
@@ -172,8 +178,8 @@ var TeamOwner = React.createClass({
 });
 
 var TeamLeader = React.createClass({
- mixins: [linkedTeamMemberStateMixin],
- render: function() {
+  mixins: [mixins.linkedTeamMemberState],
+  render: function() {
     return (
       <div className="thumbnail team-member walk-leader clearfix" id="walk-leader-new">
         <fieldset>
@@ -243,7 +249,7 @@ var TeamLeader = React.createClass({
 });
 
 var TeamOrganizer = React.createClass({
-  mixins: [linkedTeamMemberStateMixin],
+  mixins: [mixins.linkedTeamMemberState],
   render: function() {
     return (
       <div className="thumbnail team-member walk-organizer" id="walk-organizer-new">
@@ -278,7 +284,7 @@ var TeamOrganizer = React.createClass({
 });
 
 var TeamCommunityVoice = React.createClass({
-  mixins: [linkedTeamMemberStateMixin],
+  mixins: [mixins.linkedTeamMemberState],
   render: function() {
     return (
       <div className="thumbnail team-member community-voice" id="community-voice-new">
@@ -331,7 +337,7 @@ var TeamCommunityVoice = React.createClass({
 });
 
 var TeamVolunteer = React.createClass({
-  mixins: [linkedTeamMemberStateMixin],
+  mixins: [mixins.linkedTeamMemberState],
   render: function() {
     return (
       <div className="thumbnail team-member othermember" id="othermember-new">
@@ -369,3 +375,5 @@ var TeamVolunteer = React.createClass({
     )
   }
 });
+
+module.exports = TeamBuilder;

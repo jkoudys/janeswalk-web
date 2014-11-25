@@ -1,16 +1,78 @@
-exports = React.createClass({
+var t = require('../functions/translate.jsx');
+
+// TODO: Make 'intiatives' build as separate selectors
+var DateSelect = React.createClass({
+  mixins: [React.addons.LinkedStateMixin],
+  getInitialState: function() {
+    // Note: we're only keeping the 'date' on there to use Date's string
+    // parsing. This method is concerned only with the Time
+    // TODO: use a Date for the end time; duration is for historical purposes
+    // but it's a bad design.
+    // TODO: Support proper time localization - ultimately these times are just
+    // strings, so we're using GMT, but that's bad practice.
+    var defaultTime = '12:00';
+    return {
+      start: new Date((new Date).toLocaleDateString() + ' ' + defaultTime),
+      duration: '1 Hour'
+    };
+  },
+  setDay: function(date) {
+    var startDate = this.state.start;
+
+    startDate.setFullYear(date.getFullYear());
+    startDate.setMonth(date.getMonth());
+    startDate.setDate(date.getDate());
+
+    this.setState({start: startDate});
+  },
+  /* @param Date time The current time of day
+   * @param Int duration Number of minutes the walk lasts
+   */
+  setTime: function(time, duration) {
+    var startDate = this.state.start;
+
+    startDate.setHours(time.getHours());
+    startDate.setMinutes(time.getMinutes());
+
+    this.setState({start: startDate});
+  },
+  linkTime: function() {
+    var _this = this;
+    return {
+      value: _this.state.start.getTime(),
+      requestChange: function(value) {
+        _this.setState({start: new Date(Number(value))});
+      }
+    };
+  },
+  // Push the date we built here to the linked state
+  addDate: function() {
+    var valueLink = this.props.valueLink;
+    var value = valueLink.value;
+    var slots = value.slots.slice() || [];
+    slots.push({
+      date: this.state.start.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}),
+      time: this.state.start.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit'}),
+      duration: this.state.duration
+    });
+
+    value.slots = slots;
+    valueLink.requestChange(value);
+  },
   render: function() {
+    var valueLink = this.props.valueLink;
+
     return (
       <div className="tab-pane" id="time-and-date">
         <div className="tab-content" id="walkduration">
-          <div className="tab-pane active" id="time-and-date-select">
+          <div className="tab-pane hide" id="time-and-date-select">
             <div className="page-header" data-section='time-and-date'>
               <h1>{ t('Set the Time and Date') }</h1>
             </div>
             <legend >{ t('Pick one of the following:') }</legend>
             <div className="row">
               <ul className="thumbnails" id="block-select">
-                <li className="col-md-6">
+                <li>
                   <a href="#time-and-date-all" data-toggle="tab">
                     <div className="thumbnail">
                       <img src={CCM_THEME_PATH + '/img/time-and-date-full.png'} />
@@ -23,7 +85,7 @@ exports = React.createClass({
                     </div>
                   </a>
                 </li>
-                <li className="col-md-6">
+                <li>
                   <a href="#time-and-date-set" data-toggle="tab">
                     <div className="thumbnail">
                       <img src={CCM_THEME_PATH + '/img/time-and-date-some.png'} />
@@ -39,7 +101,7 @@ exports = React.createClass({
               </ul>
             </div>
           </div>
-          <div className="tab-pane hide" id="time-and-date-set">
+          <div className="tab-pane active" id="time-and-date-set">
             <div className="page-header" data-section='time-and-date'>
               <h1>{ t('Time and Date') }</h1>
               <p className="lead">{ t('Select the date and time your walk is happening.') }</p>
@@ -47,45 +109,25 @@ exports = React.createClass({
 
             <div className="row">
               <div className="col-md-6">
-                <div className="date-picker"></div>
+                <DatePicker setDay={this.setDay} />
               </div>
               <div className="col-md-6">
                 <div className="thumbnail">
-                  <div className="caption">
-                    <small>{ t('Date selected') }:</small>
-                    <h4 className="date-indicate-set" data-dateselected="" />
+                  <div className="caption"> 
+                    <h4 className="date-indicate-set">
+                      <small>{ t('Date selected') }:</small>
+                      {this.state.start.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'})}
+                    </h4>
                     <hr />
-                    <label htmlFor="walk-time">{ t('Start Time') }:</label>
-                    <input id="walk-time" type="text" className="time ui-timepicker-input" autoComplete="off" />
-                    <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>
-                    <select name="duration" id="walk-duration" defaultValue="1 Hour, 30 Minutes">
-                      <option value="30 Minutes">30 Minutes</option>
-                      <option value="1 Hour">1 Hour</option>
-                      <option value="1 Hour, 30 Minutes">1 Hour, 30 Minutes</option>
-                      <option value="2 Hours">2 Hours</option>
-                      <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
-                      <option value="3 Hours">3 Hours</option>
-                      <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
-                    </select>
+                    <TimePicker valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
                     <hr />
-                    <button className="btn btn-primary" id="save-date-set">{ t('Add Date') }</button>
+                    <button className="btn btn-primary" id="save-date-set" onClick={this.addDate}>{ t('Add Date') }</button>
                   </div>
                 </div>
               </div>
             </div>
             <br />
-            <table className="table table-bordered table-hover" id="date-list-set">
-              <thead>
-                <tr>
-                  <th>{ t('Date') }</th>
-                  <th>{ t('Start Time') }</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody />
-            </table>
-            <hr />
-            <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
+            <TimeSetTable valueLink={valueLink} />
             <hr />
             <a href="#accessibility" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
           </div>
@@ -122,23 +164,14 @@ exports = React.createClass({
                     </select>
                     <div className="date-select-group">
                       <hr />
-                      <button className="btn btn-primary" id="save-date-all">{ t('Add Date') }</button>
+                      <button className="btn btn-primary" id="save-date-all" onClick={this.addDate}>{ t('Add Date') }</button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
             <br />
-            <table className="table table-bordered table-hover" id="date-list-all">
-              <thead>
-                <tr>
-                  <th>{ t('My Available Dates') }</th>
-                  <th>{ t('Approximate Duration') }</th>
-                  <th />
-                </tr>
-              </thead>
-              <tbody />
-            </table>
+            <TimeOpenTable />
             <hr />
             <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
             <hr />
@@ -150,3 +183,107 @@ exports = React.createClass({
   }
 });
 
+var DatePicker = React.createClass({
+  componentDidMount: function() {
+    // Setup sorting on the walk-stops list
+    $(this.getDOMNode()).datepicker({
+      onSelect: function(dateText) {
+        this.props.setDay(new Date(dateText));
+      }.bind(this)
+    });
+  },
+  render: function() {
+    return (
+      <div className="date-picker" />
+    );
+  }
+});
+
+var TimePicker = React.createClass({
+  render: function() {
+    // Count walk times in 30 min increments
+    var step = 30 * 60 * 1000;
+    var linkDuration = this.props.valueLinkDuration;
+    var linkStart = this.props.valueLinkStart;
+    var startDate = new Date(linkStart.value);
+    var firstTime = new Date(startDate.toLocaleDateString() + ' 00:00');
+    var lastTime = new Date(startDate.toLocaleDateString() + ' 23:30');
+    var startTimes = [];
+
+    for (var i = 0, time = firstTime;
+         time.getTime() <= lastTime.getTime();
+         time.setTime(time.getTime() + step), i++) {
+      startTimes.push(
+        <option key={i} value={time.getTime()}>{time.toLocaleString({}, {hour: '2-digit', minute: '2-digit'})}</option>
+      );
+    }
+    return (
+      <div className="time-picker">
+        <label htmlFor="walk-time">{ t('Start Time') }:</label>
+        <select name="start" id="walk-start" valueLink={linkStart}>
+          {startTimes}
+        </select>
+        <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>
+        <select name="duration" id="walk-duration" valueLink={linkDuration}>
+          <option value="30 Minutes">30 Minutes</option>
+          <option value="1 Hour">1 Hour</option>
+          <option value="1 Hour, 30 Minutes">1 Hour, 30 Minutes</option>
+          <option value="2 Hours">2 Hours</option>
+          <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
+          <option value="3 Hours">3 Hours</option>
+          <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
+        </select>
+      </div>
+    );
+  }
+});
+
+var TimeSetTable = React.createClass({
+  removeSlot: function(i) {
+    var valueLink = this.props.valueLink;
+    var value = valueLink.value;
+    var slots = (value.slots || []).slice();
+
+    slots.splice(i, 1);
+    value.slots = slots;
+
+    valueLink.requestChange(value);
+  },
+  render: function() {
+    var slots = this.props.valueLink.value.slots || [];
+
+    return (
+      <table className="table table-bordered table-hover" id="date-list-all">
+        <thead>
+          <tr>
+            <th>{ t('Date') }</th>
+            <th>{ t('Start Time') }</th>
+            <th />
+          </tr>
+        </thead>
+        <tbody>
+          {slots.map(function(e, i) {
+            return (
+              <tr key={i}>
+                <td>{e.date}</td>
+                <td>{e.time}</td>
+                <td><a onClick={this.removeSlot.bind(this, i)}><i className="fa fa-times-circle-o" />&nbsp;Remove</a></td>
+              </tr>
+              )
+          }.bind(this))}
+        </tbody>
+      </table>
+    );
+  }
+});
+
+// TODO: Once 'open' walk schedules are implemented on festivals
+var TimeOpenTable = React.createClass({
+  render: function() {
+    return (
+      <table />
+    );
+  }
+});
+
+module.exports = DateSelect;

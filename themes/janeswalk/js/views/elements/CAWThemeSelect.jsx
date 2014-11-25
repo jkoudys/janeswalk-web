@@ -1,7 +1,8 @@
-var linkedParentState = require ('../mixins/linkedParentState.jsx');
+var mixins = require('../functions/mixins.jsx');
+var t = require('../functions/translate.jsx');
 
-exports = React.createClass({
-  mixins: [linkedParentState],
+var ThemeSelect = React.createClass({
+  mixins: [mixins.linkedParentState],
   maxChecked: 3,
   render: function() {
     // TODO: Don't select themes for NYC
@@ -80,3 +81,5 @@ exports = React.createClass({
     );
   }
 });
+
+module.exports = ThemeSelect;

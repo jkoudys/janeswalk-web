@@ -1,5 +1,5 @@
 // Link this component's state to the linkState() parent
-exports.linkedParentState = {
+module.exports.linkedParentState = {
   linkParentState: function(propname) {
     var valueLink = this.props.valueLink;
     var parentState = valueLink.value;
@@ -15,7 +15,7 @@ exports.linkedParentState = {
 };
 
 // Link this component's state to the linkState() parent
-exports.linkedTeamMemberState = {
+module.exports.linkedTeamMemberState = {
   linkProp: function(propname) {
     var onChange = this.props.onChange;
     var key = this._currentElement.key;

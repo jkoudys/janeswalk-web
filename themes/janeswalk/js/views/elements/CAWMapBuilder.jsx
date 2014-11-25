@@ -1,4 +1,7 @@
-exports = React.createClass({
+var t = require('../functions/translate.jsx');
+var Helper = require('../functions/helpers.jsx');
+
+var MapBuilder = React.createClass({
   getDefaultProps: function () {
     return {
       // Map config startup defaults
@@ -11,8 +14,6 @@ exports = React.createClass({
   // State for this component should only track the map editor, since we
   // won't be persisting that. The map's
   getInitialState: function() {
-    var valueLink = this.props.valueLink;
-     
     return {
       // The 'mode' we're in: adding markers, route, etc
       editMode: false,
@@ -24,7 +25,7 @@ exports = React.createClass({
     };
   },
 
-  componentDidMount: function () {
+  componentDidMount: function() {
     var valueLink = this.props.valueLink,
         mapNode = this.refs.gmap.getDOMNode(),
         mapOptions = {
@@ -38,16 +39,16 @@ exports = React.createClass({
           }
         },
         map = new google.maps.Map(mapNode, mapOptions),
-        markers = valueLink.value.markers.map(function(marker) {
-          return this.buildMarker(marker);
-        }.bind(this)),
-        poly = new google.maps.Polyline({
-          strokeColor: '#F16725',
-          strokeOpacity: 0.8,
-          strokeWeight: 3,
-          editable: false,
-          map: map
-        });
+        markers;
+    
+    // Draw the route
+    if (valueLink.value) {
+      markers = valueLink.value.markers.map(function(marker) {
+        return this.buildMarker(marker, map);
+      }.bind(this));
+
+      this.buildRoute(valueLink.value.route, map);
+    }
 
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
     // FIXME: this $() selector is unbecoming of a React app
@@ -60,13 +61,7 @@ exports = React.createClass({
       map.setCenter(c);
     }.bind(this));
 
-    this.setState({map: map});
-  },
-
-  mapCenterLatLng: function() {
-    var props = this.props;
-
-    return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
+    this.setState({map: map, markers: markers});
   },
 
   componentDidUpdate: function() {
@@ -75,9 +70,15 @@ exports = React.createClass({
     map.panTo(this.mapCenterLatLng());
   },
 
+  mapCenterLatLng: function() {
+    var props = this.props;
+
+    return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
+  },
+
   // Map parameters
   stopMarker: {
-    url: CCM_BASE_URL + 'marker.png',
+    url: CCM_BASE_URL + '/img/marker.png',
     // This marker is 20 pixels wide by 32 pixels tall.
     size: new google.maps.Size(30, 46),
     // The origin for this image is 0,0.
@@ -89,17 +90,46 @@ exports = React.createClass({
   // Map related functions
   // Build gmaps Marker object from base data
   // Object marker {"title":"Ben Nobleman Parkette","description":"The huge picnic table in the middle of the park.","style":"meeting","lat":43.6983887613,"lng":-79.4351971008}
-  buildMarker: function(markObj) {
+  buildMarker: function(markObj, map) {
+    map = map || this.state.map;
     return new google.maps.Marker({
       position: new google.maps.LatLng(markObj.lat, markObj.lng),
       animation: google.maps.Animation.DROP,
       draggable: true,
       title: markObj.title,
       style: 'stop',
-      map: this.state.map,
+      map: map,
       icon: this.stopMarker
     });
   },
+
+  buildRoute: function(routeArray, map) {
+    poly = new google.maps.Polyline({
+      strokeColor: '#F16725',
+      strokeOpacity: 0.8,
+      strokeWeight: 3,
+      editable: false,
+      map: map,
+      path: routeArray.map(function(point) {
+        return new google.maps.LatLng(point.lat, point.lng);
+      })
+    });
+  },
+
+
+  editMarker: function(i) {
+    // TODO: edit the marker
+  },
+
+  changeMarkerOrder: function(from, to) {
+    var valueLink = this.props.valueLink,
+        map = valueLink.value,
+        markers = map.markers.slice();
+    markers.splice(to, 0, markers.splice(from, 1));
+    map.markers = markers;
+    valueLink.requestChange(map);
+  },
+
   /*
     // If this marker isn't passed with a title, prompt for info
     if (!markObj.lat) {
@@ -122,6 +152,15 @@ exports = React.createClass({
   },
   */
   render: function() {
+    var walkStops;
+    if (this.state.markers.length) {
+      // This 'key' is to force the component to not rebuild
+      walkStops = [
+        <h3 key={0}>{t('Walk Stops')}</h3>,
+        <WalkStopTable key={1} markers={this.state.markers} editMarker={this.editMarker} changeMarkerOrder={this.changeMarkerOrder} />
+      ];
+    }
+    
     return (
       <div className="tab-pane" id="route">
         <div className="page-header" data-section="route">
@@ -161,7 +200,6 @@ exports = React.createClass({
             </div>
           </div>
         </div>
-
         <div id="map-control-bar">
           <button ref="addmeetingplace"><i className="fa fa-flag" />{ t('Set a Meeting Place') }</button>
           <button ref="addpoint"><i className="fa fa-map-marker" />{ t('Add Stop') }</button>
@@ -170,33 +208,7 @@ exports = React.createClass({
         </div>
         <div className="map-notifications" />
         <div id="map-canvas" ref="gmap" />
-
-        <h3>{ t('Walk Stops') }</h3>
-
-        <table id="route-stops" className="table table-bordered table-hover">
-          <thead>
-            <tr>
-              <th>{ t('Title') }</th>
-              <th>{ t('Description') }</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.markers.map(function(marker, i) {
-              return (
-                <tr>
-                  <td>{marker.title}</td>
-                  <td>{marker.description}</td>
-                  <td><a class="delete-stop" onClick={this.editMarker.bind(this, i)}>Edit</a></td>
-                </tr>
-                );
-            })}
-            <tr>
-              <td colSpan="3"><p>{ t('You haven\'t set any stops yet.') }</p></td>
-            </tr>
-          </tbody>
-        </table>
-
+        {walkStops}
         <hr />
         <a href="#time-and-date" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a>
         <br />
@@ -205,3 +217,41 @@ exports = React.createClass({
     );
   }
 });
+
+var WalkStopTable = React.createClass({
+  componentDidMount: function() {
+    // Setup sorting on the walk-stops list
+    $(this.getDOMNode()).sortable({
+      items: 'tbody tr',
+      update: function(event, ui) {
+        this.props.changeMarkerOrder(ui.item.data('position'), ui.item.index());
+      }.bind(this)
+    });
+  },
+  render: function() {
+    return (
+      <table ref="routeStops" className="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>{ t('Title') }</th>
+            <th>{ t('Description') }</th>
+            <th />
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.markers.map(function(marker, i) {
+            return (
+              <tr data-position={i} key={i}>
+                <td>{marker.title}</td>
+                <td>{marker.description}</td>
+                <td><a className="delete-stop" onClick={this.props.editMarker.bind(this, i)}>Edit</a></td>
+              </tr>
+              );
+          }.bind(this))}
+        </tbody>
+      </table>
+    );
+  }
+});
+
+module.exports = MapBuilder;

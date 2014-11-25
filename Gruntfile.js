@@ -110,6 +110,16 @@ module.exports = function(grunt) {
           src: 'themes/janeswalk/js/views/**/*.jsx',
           dest: 'themes/janeswalk/js/views/CreateWalk.js'
         }
+      },
+      watch: {
+        react: {
+          files: ['themes/janeswalk/js/views/**/*.jsx'],
+          tasks: ['browserify']
+        },
+        less: {
+          files: ['themes/janeswalk/css/**/*.less'],
+          tasks: ['less']
+        }
       }
     });
 
@@ -122,6 +132,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-php-cs-fixer');
     grunt.loadNpmTasks('grunt-react');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('js', ['concat', 'uglify']);

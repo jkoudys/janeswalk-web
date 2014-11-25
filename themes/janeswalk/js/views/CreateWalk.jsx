@@ -3,9 +3,16 @@
 // Form for creating new walks. Includes a map builder, team builder, scheduler
 //
 
+// Load create-a-walk components
 var CAWImageUpload = require('./elements/CAWImageUpload.jsx');
 var CAWThemeSelect = require('./elements/CAWThemeSelect.jsx');
-var t = require('./mixins/translate.jsx');
+var CAWMapBuilder = require('./elements/CAWMapBuilder.jsx');
+var CAWDateSelect = require('./elements/CAWDateSelect.jsx');
+var CAWWardSelect = require('./elements/CAWWardSelect.jsx');
+var CAWAccessibleSelect = require('./elements/CAWAccessibleSelect.jsx');
+var CAWTeamBuilder = require('./elements/CAWTeamBuilder.jsx');
+var t = require('./functions/translate.jsx');
+var Helper = require('./functions/helpers.jsx');
 
 var CreateWalk = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
@@ -13,17 +20,20 @@ var CreateWalk = React.createClass({
   getInitialState: function() {
     var data = this.props.data;
 
+    // Convert old {0: marker, 1: marker} indexing to a proper array
     if (data) {
-      // Convert old {0: marker, 1: marker} indexing to a proper array
-      if (!Array.isArray(data.gmap.markers)) {
-        var markerArray = [];
-        
-        for (var i in data.gmap.markers) {
-          markerArray[i] = data.gmap.markers[i];
-        }
+      // Convert markers
+      if (data.gmap && !Array.isArray(data.gmap.markers)) {
+        data.gmap.markers = Helper.objectToArray(data.gmap.markers);
       }
-      data.gmap.markers = markerArray;
-
+      // Convert routes
+      if (data.gmap && !Array.isArray(data.gmap.route)) {
+        data.gmap.route = Helper.objectToArray(data.gmap.route);
+      }
+      // Convert time slots
+      if (data.time && !Array.isArray(data.time.slots)) {
+        data.time.slots = Helper.objectToArray(data.time.slots);
+      }
       return data;
     } else {
       return {

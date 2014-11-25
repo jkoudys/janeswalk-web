@@ -1,4 +1,8 @@
-exports = React.createClass({
+var t = require('../functions/translate.jsx');
+
+var ImageUpload = React.createClass({
+  displayName: 'ImageUpload',
+
   removeImage: function(i) {
     var thumbnails = this.props.valueLink.value;
     thumbnails.splice(i, 1);
@@ -68,3 +72,4 @@ exports = React.createClass({
   }
 });
 
+module.exports = ImageUpload;

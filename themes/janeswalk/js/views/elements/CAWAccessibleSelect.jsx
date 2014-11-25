@@ -1,5 +1,9 @@
-exports = React.createClass({
-  mixins: [linkedParentStateMixin],
+var mixins = require('../functions/mixins.jsx');
+var t = require('../functions/translate.jsx');
+
+var AccessibleSelect = React.createClass({
+  displayName: 'AccessibleSelect',
+  mixins: [mixins.linkedParentState],
 
   render: function() {
     return (
@@ -26,3 +30,5 @@ exports = React.createClass({
     );
   }
 });
+
+module.exports = AccessibleSelect;

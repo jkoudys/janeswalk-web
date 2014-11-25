@@ -1,5 +1,8 @@
-exports = React.createClass({
-  mixins: [linkedParentStateMixin],
+var mixins = require('../functions/mixins.jsx');
+var t = require('../functions/translate.jsx');
+
+var WardSelect = React.createClass({
+  mixins: [mixins.linkedParentState],
   render: function() {
     var wards = this.props.wards;
     if (wards && this.props.valueLink) {
@@ -18,3 +21,5 @@ exports = React.createClass({
     }
   }
 });
+
+module.exports = WardSelect;

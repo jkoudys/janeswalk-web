@@ -84,10 +84,10 @@ class WalkFormController extends Controller
                 'lat' => $latlng[0],
                 'lng' => $latlng[1],
                 'wards' => $wards,
-                'city_organizer' => [
+                'cityOrganizer' => [
                     'photo' => $city->avatar,
-                    'first_name' => $city->city_organizer->getAttribute('first_name'),
-                    'last_name' => $city->city_organizer->getAttribute('last_name'),
+                    'firstName' => $city->city_organizer->getAttribute('first_name'),
+                    'lastName' => $city->city_organizer->getAttribute('last_name'),
                     'email' => $city->city_organizer->getUserEmail()
                 ]
             ]
