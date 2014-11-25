@@ -7705,7 +7705,7 @@ body > header {
   font-family: "museo-slab", "Roboto Slab", serif;
 }
 body > header .logo {
-  padding: 0 20px;
+  padding: 0 20px 0 0;
 }
 body > header .logo span {
   background: url("../images/jwlogo.svg");
