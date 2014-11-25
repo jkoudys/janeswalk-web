@@ -4,7 +4,7 @@
     <div class="ccm-page-list-typeahead">
       <form>
         <fieldset class="search">
-          <input type="text" name="selected_option" class="typeahead" placeholder="Find a Walk in which city?" autocomplete="off"/>
+          <input type="text" name="selected_option" class="typeahead" placeholder="Start typing a city" autocomplete="off"/>
           <button type="submit">Go</button>
           <ul>
             <xsl:apply-templates select="country">
