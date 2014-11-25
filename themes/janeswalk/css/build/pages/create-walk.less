@@ -18,10 +18,6 @@ body[data-pageviewname=CreateWalkView] {
         }
     }
 
-    .row {
-        margin-left: 0;
-    }
-
     #main-panel {
         .make-md-column(7);
         padding-top: 50px;
@@ -42,16 +38,16 @@ body[data-pageviewname=CreateWalkView] {
     }
 
     // Share Your Route
-    #map-control-bar:extend(.btn-group all) {
-        text-align: justify;
+    #map-control-bar {
+        .make-row();
         button:extend(.btn all, .btn-lg) {
+            margin-left: @grid-gutter-width / 2;
             i {
                 display: block;
             }
-        }
-        &:after {
-            content: "";
-            display: block;
+            &.active {
+                background-color: darken(@color-orange, 10%);
+            }
         }
     }
 
@@ -224,11 +220,6 @@ body[data-pageviewname=CreateWalkView] {
         padding-top: 6px;
         padding-bottom: 6px;
         box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
-    }
-
-    /* Hide disabled timepicker dropdowns */
-    ul.ui-timepicker-list > li.ui-timepicker-disabled {
-        display:none;
     }
 
     .input-prepend .add-on:first-child, .input-prepend .btn:first-child {
@@ -408,7 +399,15 @@ body[data-pageviewname=CreateWalkView] {
     ========================================================================== */
 
     #block-select {
-        padding: 0 50px;
+        .make-row();
+        .clearfix();
+
+        padding: 0;
+        list-style: none;
+        li {
+            .make-md-column(6);
+            list-style: none;
+        }
         a {
             text-decoration: none;
         }
@@ -881,6 +880,44 @@ body[data-pageviewname=CreateWalkView] {
             }
             hr {
                 margin-top: 0;
+            }
+        }
+    }
+
+    // Time and Date page
+    #time-and-date {
+        // For use with jqueryui datepicker
+        .ui-datepicker {
+            width: auto;
+            box-shadow: none;
+            .ui-widget-header {
+                background: none;
+            }
+            .ui-datepicker-title:extend(h4) {
+                margin-top: 0.6em;
+            }
+            .ui-datepicker-next, .ui-datepicker-prev {
+                top: 11px;
+            }
+            td {
+                width: percentage(1/7);
+                text-align: center;
+                color: @color-darkgrey;
+                a {
+                    transition-duration: 0.2s;
+                    text-align: inherit;
+                    color: @color-orange;
+                    &.ui-state-active {
+                        color: #fff;
+                        background-color: @color-orange !important;
+                        border: none;
+                        box-shadow: none;
+                        text-shadow: none;
+                    }
+                    &:hover {
+                        background-color: @color-lightgrey;
+                    }
+                }
             }
         }
     }

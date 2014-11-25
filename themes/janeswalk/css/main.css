@@ -246,7 +246,9 @@ th {
   .walk-select .create-walk:after > .caret,
   .dropup > .walk-select .create-walk:after > .caret,
   #create-walk #map-control-bar button > .caret,
-  .dropup > #create-walk #map-control-bar button > .caret {
+  .dropup > #create-walk #map-control-bar button > .caret,
+  #create-walk #map-control-bar button.active > .caret,
+  .dropup > #create-walk #map-control-bar button.active > .caret {
     border-top-color: #000 !important;
   }
   .label {
@@ -385,7 +387,8 @@ h6,
 .h4,
 .h5,
 .h6,
-#profileWrapper div.headline {
+#profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-title {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
@@ -448,7 +451,8 @@ h5,
 .h5,
 h6,
 .h6,
-#profileWrapper div.headline {
+#profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-title {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -480,7 +484,8 @@ h3,
 }
 h4,
 .h4,
-#profileWrapper div.headline {
+#profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-title {
   font-size: 18px;
 }
 h5,
@@ -2381,7 +2386,8 @@ select[multiple].input-lg {
 body > header #donate,
 .walk-select .create-walk,
 .walk-select .create-walk:after,
-#create-walk #map-control-bar button {
+#create-walk #map-control-bar button,
+#create-walk #map-control-bar button.active {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -2411,7 +2417,10 @@ body > header #donate,
 .walk-select .create-walk:after.active:focus,
 #create-walk #map-control-bar button:focus,
 #create-walk #map-control-bar button:active:focus,
-#create-walk #map-control-bar button.active:focus {
+#create-walk #map-control-bar button.active:focus,
+#create-walk #map-control-bar button.active:focus,
+#create-walk #map-control-bar button.active:active:focus,
+#create-walk #map-control-bar button.active.active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
@@ -2423,7 +2432,9 @@ body > header #donate,
 .walk-select .create-walk:after:hover,
 .walk-select .create-walk:after:focus,
 #create-walk #map-control-bar button:hover,
-#create-walk #map-control-bar button:focus {
+#create-walk #map-control-bar button:focus,
+#create-walk #map-control-bar button.active:hover,
+#create-walk #map-control-bar button.active:focus {
   color: #333333;
   text-decoration: none;
 }
@@ -2434,7 +2445,9 @@ body > header #donate,
 .walk-select .create-walk:after:active,
 .walk-select .create-walk:after.active,
 #create-walk #map-control-bar button:active,
-#create-walk #map-control-bar button.active {
+#create-walk #map-control-bar button.active,
+#create-walk #map-control-bar button.active:active,
+#create-walk #map-control-bar button.active.active {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -2451,7 +2464,10 @@ fieldset[disabled] .walk-select .create-walk,
 fieldset[disabled] .walk-select .create-walk:after,
 #create-walk #map-control-bar button.disabled,
 #create-walk #map-control-bar button[disabled],
-fieldset[disabled] #create-walk #map-control-bar button {
+fieldset[disabled] #create-walk #map-control-bar button,
+#create-walk #map-control-bar button.active.disabled,
+#create-walk #map-control-bar button.active[disabled],
+fieldset[disabled] #create-walk #map-control-bar button.active {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -2792,9 +2808,11 @@ fieldset[disabled] .btn-link:focus {
 .btn-lg,
 .btn-group-lg > .btn,
 #create-walk #map-control-bar button,
+#create-walk #map-control-bar button.active,
 .btn-group-lg > .walk-select .create-walk,
 .btn-group-lg > .walk-select .create-walk:after,
-.btn-group-lg > #create-walk #map-control-bar button {
+.btn-group-lg > #create-walk #map-control-bar button,
+.btn-group-lg > #create-walk #map-control-bar button.active {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
@@ -2804,7 +2822,8 @@ fieldset[disabled] .btn-link:focus {
 .btn-group-sm > .btn,
 .btn-group-sm > .walk-select .create-walk,
 .btn-group-sm > .walk-select .create-walk:after,
-.btn-group-sm > #create-walk #map-control-bar button {
+.btn-group-sm > #create-walk #map-control-bar button,
+.btn-group-sm > #create-walk #map-control-bar button.active {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -2814,7 +2833,8 @@ fieldset[disabled] .btn-link:focus {
 .btn-group-xs > .btn,
 .btn-group-xs > .walk-select .create-walk,
 .btn-group-xs > .walk-select .create-walk:after,
-.btn-group-xs > #create-walk #map-control-bar button {
+.btn-group-xs > #create-walk #map-control-bar button,
+.btn-group-xs > #create-walk #map-control-bar button.active {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -3014,9 +3034,7 @@ tbody.collapse.in {
   }
 }
 .btn-group,
-.btn-group-vertical,
-#create-walk #map-control-bar,
-#create-walk #map-control-bar:after {
+.btn-group-vertical {
   position: relative;
   display: inline-block;
   vertical-align: middle;
@@ -3027,10 +3045,10 @@ tbody.collapse.in {
 .btn-group-vertical > .walk-select .create-walk,
 .btn-group > .walk-select .create-walk:after,
 .btn-group-vertical > .walk-select .create-walk:after,
-#create-walk #map-control-bar > .btn,
 .btn-group > #create-walk #map-control-bar button,
 .btn-group-vertical > #create-walk #map-control-bar button,
-#create-walk #map-control-bar:after > .btn {
+.btn-group > #create-walk #map-control-bar button.active,
+.btn-group-vertical > #create-walk #map-control-bar button.active {
   position: relative;
   float: left;
 }
@@ -3058,10 +3076,6 @@ tbody.collapse.in {
 .btn-group-vertical > .walk-select .create-walk:after:active,
 .btn-group > .walk-select .create-walk:after.active,
 .btn-group-vertical > .walk-select .create-walk:after.active,
-#create-walk #map-control-bar > .btn:hover,
-#create-walk #map-control-bar > .btn:focus,
-#create-walk #map-control-bar > .btn:active,
-#create-walk #map-control-bar > .btn.active,
 .btn-group > #create-walk #map-control-bar button:hover,
 .btn-group-vertical > #create-walk #map-control-bar button:hover,
 .btn-group > #create-walk #map-control-bar button:focus,
@@ -3070,10 +3084,14 @@ tbody.collapse.in {
 .btn-group-vertical > #create-walk #map-control-bar button:active,
 .btn-group > #create-walk #map-control-bar button.active,
 .btn-group-vertical > #create-walk #map-control-bar button.active,
-#create-walk #map-control-bar:after > .btn:hover,
-#create-walk #map-control-bar:after > .btn:focus,
-#create-walk #map-control-bar:after > .btn:active,
-#create-walk #map-control-bar:after > .btn.active {
+.btn-group > #create-walk #map-control-bar button.active:hover,
+.btn-group-vertical > #create-walk #map-control-bar button.active:hover,
+.btn-group > #create-walk #map-control-bar button.active:focus,
+.btn-group-vertical > #create-walk #map-control-bar button.active:focus,
+.btn-group > #create-walk #map-control-bar button.active:active,
+.btn-group-vertical > #create-walk #map-control-bar button.active:active,
+.btn-group > #create-walk #map-control-bar button.active.active,
+.btn-group-vertical > #create-walk #map-control-bar button.active.active {
   z-index: 2;
 }
 .btn-group > .btn:focus,
@@ -3082,10 +3100,10 @@ tbody.collapse.in {
 .btn-group-vertical > .walk-select .create-walk:focus,
 .btn-group > .walk-select .create-walk:after:focus,
 .btn-group-vertical > .walk-select .create-walk:after:focus,
-#create-walk #map-control-bar > .btn:focus,
 .btn-group > #create-walk #map-control-bar button:focus,
 .btn-group-vertical > #create-walk #map-control-bar button:focus,
-#create-walk #map-control-bar:after > .btn:focus {
+.btn-group > #create-walk #map-control-bar button.active:focus,
+.btn-group-vertical > #create-walk #map-control-bar button.active:focus {
   outline: 0;
 }
 .btn-group .btn + .btn,
@@ -3098,17 +3116,12 @@ tbody.collapse.in {
 .btn-group .walk-select .create-walk:after + .walk-select .create-walk:after,
 .btn-group .walk-select .create-walk:after + .btn-group,
 .btn-group .btn-group + .walk-select .create-walk:after,
-#create-walk #map-control-bar .btn + .btn,
-#create-walk #map-control-bar .btn + #create-walk #map-control-bar,
-#create-walk #map-control-bar #create-walk #map-control-bar + .btn,
-#create-walk #map-control-bar #create-walk #map-control-bar + #create-walk #map-control-bar,
 .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .btn-group #create-walk #map-control-bar button + .btn-group,
 .btn-group .btn-group + #create-walk #map-control-bar button,
-#create-walk #map-control-bar:after .btn + .btn,
-#create-walk #map-control-bar:after .btn + #create-walk #map-control-bar:after,
-#create-walk #map-control-bar:after #create-walk #map-control-bar:after + .btn,
-#create-walk #map-control-bar:after #create-walk #map-control-bar:after + #create-walk #map-control-bar:after {
+.btn-group #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
+.btn-group #create-walk #map-control-bar button.active + .btn-group,
+.btn-group .btn-group + #create-walk #map-control-bar button.active {
   margin-left: -1px;
 }
 .btn-toolbar {
@@ -3116,9 +3129,7 @@ tbody.collapse.in {
 }
 .btn-toolbar .btn-group,
 .btn-toolbar .input-group,
-.btn-toolbar body fieldset.search,
-.btn-toolbar #create-walk #map-control-bar,
-.btn-toolbar #create-walk #map-control-bar:after {
+.btn-toolbar body fieldset.search {
   float: left;
 }
 .btn-toolbar > .btn,
@@ -3127,33 +3138,29 @@ tbody.collapse.in {
 .btn-toolbar > body fieldset.search,
 .btn-toolbar > .walk-select .create-walk,
 .btn-toolbar > .walk-select .create-walk:after,
-.btn-toolbar > #create-walk #map-control-bar,
 .btn-toolbar > #create-walk #map-control-bar button,
-.btn-toolbar > #create-walk #map-control-bar:after {
+.btn-toolbar > #create-walk #map-control-bar button.active {
   margin-left: 5px;
 }
 .btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > .walk-select .create-walk:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > .walk-select .create-walk:after:not(:first-child):not(:last-child):not(.dropdown-toggle),
-#create-walk #map-control-bar > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:not(:first-child):not(:last-child):not(.dropdown-toggle),
-#create-walk #map-control-bar:after > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 .btn-group > .btn:first-child,
 .btn-group > .walk-select .create-walk:first-child,
 .btn-group > .walk-select .create-walk:after:first-child,
-#create-walk #map-control-bar > .btn:first-child,
 .btn-group > #create-walk #map-control-bar button:first-child,
-#create-walk #map-control-bar:after > .btn:first-child {
+.btn-group > #create-walk #map-control-bar button.active:first-child {
   margin-left: 0;
 }
 .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > .walk-select .create-walk:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > .walk-select .create-walk:after:first-child:not(:last-child):not(.dropdown-toggle),
-#create-walk #map-control-bar > .btn:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:first-child:not(:last-child):not(.dropdown-toggle),
-#create-walk #map-control-bar:after > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > #create-walk #map-control-bar button.active:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -3161,87 +3168,67 @@ tbody.collapse.in {
 .btn-group > .dropdown-toggle:not(:first-child),
 .btn-group > .walk-select .create-walk:last-child:not(:first-child),
 .btn-group > .walk-select .create-walk:after:last-child:not(:first-child),
-#create-walk #map-control-bar > .btn:last-child:not(:first-child),
-#create-walk #map-control-bar > .dropdown-toggle:not(:first-child),
 .btn-group > #create-walk #map-control-bar button:last-child:not(:first-child),
-#create-walk #map-control-bar:after > .btn:last-child:not(:first-child),
-#create-walk #map-control-bar:after > .dropdown-toggle:not(:first-child) {
+.btn-group > #create-walk #map-control-bar button.active:last-child:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
-.btn-group > .btn-group,
-#create-walk #map-control-bar > #create-walk #map-control-bar,
-#create-walk #map-control-bar:after > #create-walk #map-control-bar:after {
+.btn-group > .btn-group {
   float: left;
 }
 .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > .walk-select .create-walk,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > .walk-select .create-walk:after,
-#create-walk #map-control-bar > #create-walk #map-control-bar:not(:first-child):not(:last-child) > .btn,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
-#create-walk #map-control-bar:after > #create-walk #map-control-bar:after:not(:first-child):not(:last-child) > .btn {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active {
   border-radius: 0;
 }
 .btn-group > .btn-group:first-child > .btn:last-child,
 .btn-group > .btn-group:first-child > .dropdown-toggle,
 .btn-group > .btn-group:first-child > .walk-select .create-walk:last-child,
 .btn-group > .btn-group:first-child > .walk-select .create-walk:after:last-child,
-#create-walk #map-control-bar > #create-walk #map-control-bar:first-child > .btn:last-child,
-#create-walk #map-control-bar > #create-walk #map-control-bar:first-child > .dropdown-toggle,
 .btn-group > .btn-group:first-child > #create-walk #map-control-bar button:last-child,
-#create-walk #map-control-bar:after > #create-walk #map-control-bar:after:first-child > .btn:last-child,
-#create-walk #map-control-bar:after > #create-walk #map-control-bar:after:first-child > .dropdown-toggle {
+.btn-group > .btn-group:first-child > #create-walk #map-control-bar button.active:last-child {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 .btn-group > .btn-group:last-child > .btn:first-child,
 .btn-group > .btn-group:last-child > .walk-select .create-walk:first-child,
 .btn-group > .btn-group:last-child > .walk-select .create-walk:after:first-child,
-#create-walk #map-control-bar > #create-walk #map-control-bar:last-child > .btn:first-child,
 .btn-group > .btn-group:last-child > #create-walk #map-control-bar button:first-child,
-#create-walk #map-control-bar:after > #create-walk #map-control-bar:after:last-child > .btn:first-child {
+.btn-group > .btn-group:last-child > #create-walk #map-control-bar button.active:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
 .btn-group .dropdown-toggle:active,
-.btn-group.open .dropdown-toggle,
-#create-walk #map-control-bar .dropdown-toggle:active,
-#create-walk #map-control-bar.open .dropdown-toggle,
-#create-walk #map-control-bar:after .dropdown-toggle:active,
-#create-walk #map-control-bar:after.open .dropdown-toggle {
+.btn-group.open .dropdown-toggle {
   outline: 0;
 }
 .btn-group > .btn + .dropdown-toggle,
 .btn-group > .walk-select .create-walk + .dropdown-toggle,
 .btn-group > .walk-select .create-walk:after + .dropdown-toggle,
-#create-walk #map-control-bar > .btn + .dropdown-toggle,
 .btn-group > #create-walk #map-control-bar button + .dropdown-toggle,
-#create-walk #map-control-bar:after > .btn + .dropdown-toggle {
+.btn-group > #create-walk #map-control-bar button.active + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
-.btn-group > .btn-lg + .dropdown-toggle,
-#create-walk #map-control-bar > .btn-lg + .dropdown-toggle,
-#create-walk #map-control-bar:after > .btn-lg + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
 }
-.btn-group.open .dropdown-toggle,
-#create-walk #map-control-bar.open .dropdown-toggle,
-#create-walk #map-control-bar:after.open .dropdown-toggle {
+.btn-group.open .dropdown-toggle {
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
-.btn-group.open .dropdown-toggle.btn-link,
-#create-walk #map-control-bar.open .dropdown-toggle.btn-link,
-#create-walk #map-control-bar:after.open .dropdown-toggle.btn-link {
+.btn-group.open .dropdown-toggle.btn-link {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 .btn .caret,
 .walk-select .create-walk .caret,
 .walk-select .create-walk:after .caret,
-#create-walk #map-control-bar button .caret {
+#create-walk #map-control-bar button .caret,
+#create-walk #map-control-bar button.active .caret {
   margin-left: 0;
 }
 .btn-lg .caret {
@@ -3258,12 +3245,10 @@ tbody.collapse.in {
 .btn-group-vertical > .btn-group > .walk-select .create-walk,
 .btn-group-vertical > .walk-select .create-walk:after,
 .btn-group-vertical > .btn-group > .walk-select .create-walk:after,
-.btn-group-vertical > #create-walk #map-control-bar,
-.btn-group-vertical > #create-walk #map-control-bar > .btn,
 .btn-group-vertical > #create-walk #map-control-bar button,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button,
-.btn-group-vertical > #create-walk #map-control-bar:after,
-.btn-group-vertical > #create-walk #map-control-bar:after > .btn {
+.btn-group-vertical > #create-walk #map-control-bar button.active,
+.btn-group-vertical > .btn-group > #create-walk #map-control-bar button.active {
   display: block;
   float: none;
   width: 100%;
@@ -3272,9 +3257,8 @@ tbody.collapse.in {
 .btn-group-vertical > .btn-group > .btn,
 .btn-group-vertical > .btn-group > .walk-select .create-walk,
 .btn-group-vertical > .btn-group > .walk-select .create-walk:after,
-.btn-group-vertical > #create-walk #map-control-bar > .btn,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button,
-.btn-group-vertical > #create-walk #map-control-bar:after > .btn {
+.btn-group-vertical > .btn-group > #create-walk #map-control-bar button.active {
   float: none;
 }
 .btn-group-vertical > .btn + .btn,
@@ -3287,28 +3271,27 @@ tbody.collapse.in {
 .btn-group-vertical > .walk-select .create-walk:after + .walk-select .create-walk:after,
 .btn-group-vertical > .walk-select .create-walk:after + .btn-group,
 .btn-group-vertical > .btn-group + .walk-select .create-walk:after,
-.btn-group-vertical > .btn + #create-walk #map-control-bar,
-.btn-group-vertical > #create-walk #map-control-bar + .btn,
-.btn-group-vertical > #create-walk #map-control-bar + #create-walk #map-control-bar,
 .btn-group-vertical > #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .btn-group-vertical > #create-walk #map-control-bar button + .btn-group,
 .btn-group-vertical > .btn-group + #create-walk #map-control-bar button,
-.btn-group-vertical > .btn + #create-walk #map-control-bar:after,
-.btn-group-vertical > #create-walk #map-control-bar:after + .btn,
-.btn-group-vertical > #create-walk #map-control-bar:after + #create-walk #map-control-bar:after {
+.btn-group-vertical > #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
+.btn-group-vertical > #create-walk #map-control-bar button.active + .btn-group,
+.btn-group-vertical > .btn-group + #create-walk #map-control-bar button.active {
   margin-top: -1px;
   margin-left: 0;
 }
 .btn-group-vertical > .btn:not(:first-child):not(:last-child),
 .btn-group-vertical > .walk-select .create-walk:not(:first-child):not(:last-child),
 .btn-group-vertical > .walk-select .create-walk:after:not(:first-child):not(:last-child),
-.btn-group-vertical > #create-walk #map-control-bar button:not(:first-child):not(:last-child) {
+.btn-group-vertical > #create-walk #map-control-bar button:not(:first-child):not(:last-child),
+.btn-group-vertical > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 .btn-group-vertical > .btn:first-child:not(:last-child),
 .btn-group-vertical > .walk-select .create-walk:first-child:not(:last-child),
 .btn-group-vertical > .walk-select .create-walk:after:first-child:not(:last-child),
-.btn-group-vertical > #create-walk #map-control-bar button:first-child:not(:last-child) {
+.btn-group-vertical > #create-walk #map-control-bar button:first-child:not(:last-child),
+.btn-group-vertical > #create-walk #map-control-bar button.active:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -3316,7 +3299,8 @@ tbody.collapse.in {
 .btn-group-vertical > .btn:last-child:not(:first-child),
 .btn-group-vertical > .walk-select .create-walk:last-child:not(:first-child),
 .btn-group-vertical > .walk-select .create-walk:after:last-child:not(:first-child),
-.btn-group-vertical > #create-walk #map-control-bar button:last-child:not(:first-child) {
+.btn-group-vertical > #create-walk #map-control-bar button:last-child:not(:first-child),
+.btn-group-vertical > #create-walk #map-control-bar button.active:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -3324,29 +3308,24 @@ tbody.collapse.in {
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .walk-select .create-walk,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .walk-select .create-walk:after,
-.btn-group-vertical > #create-walk #map-control-bar:not(:first-child):not(:last-child) > .btn,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
-.btn-group-vertical > #create-walk #map-control-bar:after:not(:first-child):not(:last-child) > .btn {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active {
   border-radius: 0;
 }
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .walk-select .create-walk:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .walk-select .create-walk:after:last-child,
-.btn-group-vertical > #create-walk #map-control-bar:first-child:not(:last-child) > .btn:last-child,
-.btn-group-vertical > #create-walk #map-control-bar:first-child:not(:last-child) > .dropdown-toggle,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button:last-child,
-.btn-group-vertical > #create-walk #map-control-bar:after:first-child:not(:last-child) > .btn:last-child,
-.btn-group-vertical > #create-walk #map-control-bar:after:first-child:not(:last-child) > .dropdown-toggle {
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button.active:last-child {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > .walk-select .create-walk:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > .walk-select .create-walk:after:first-child,
-.btn-group-vertical > #create-walk #map-control-bar:last-child:not(:first-child) > .btn:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button:first-child,
-.btn-group-vertical > #create-walk #map-control-bar:after:last-child:not(:first-child) > .btn:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button.active:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -3360,9 +3339,8 @@ tbody.collapse.in {
 .btn-group-justified > .btn-group,
 .btn-group-justified > .walk-select .create-walk,
 .btn-group-justified > .walk-select .create-walk:after,
-.btn-group-justified > #create-walk #map-control-bar,
 .btn-group-justified > #create-walk #map-control-bar button,
-.btn-group-justified > #create-walk #map-control-bar:after {
+.btn-group-justified > #create-walk #map-control-bar button.active {
   float: none;
   display: table-cell;
   width: 1%;
@@ -3370,14 +3348,11 @@ tbody.collapse.in {
 .btn-group-justified > .btn-group .btn,
 .btn-group-justified > .btn-group .walk-select .create-walk,
 .btn-group-justified > .btn-group .walk-select .create-walk:after,
-.btn-group-justified > #create-walk #map-control-bar .btn,
 .btn-group-justified > .btn-group #create-walk #map-control-bar button,
-.btn-group-justified > #create-walk #map-control-bar:after .btn {
+.btn-group-justified > .btn-group #create-walk #map-control-bar button.active {
   width: 100%;
 }
-.btn-group-justified > .btn-group .dropdown-menu,
-.btn-group-justified > #create-walk #map-control-bar .dropdown-menu,
-.btn-group-justified > #create-walk #map-control-bar:after .dropdown-menu {
+.btn-group-justified > .btn-group .dropdown-menu {
   left: auto;
 }
 [data-toggle="buttons"] > .btn > input[type="radio"],
@@ -3387,7 +3362,9 @@ tbody.collapse.in {
 [data-toggle="buttons"] > .walk-select .create-walk:after > input[type="radio"],
 [data-toggle="buttons"] > .walk-select .create-walk:after > input[type="checkbox"],
 [data-toggle="buttons"] > #create-walk #map-control-bar button > input[type="radio"],
-[data-toggle="buttons"] > #create-walk #map-control-bar button > input[type="checkbox"] {
+[data-toggle="buttons"] > #create-walk #map-control-bar button > input[type="checkbox"],
+[data-toggle="buttons"] > #create-walk #map-control-bar button.active > input[type="radio"],
+[data-toggle="buttons"] > #create-walk #map-control-bar button.active > input[type="checkbox"] {
   position: absolute;
   z-index: -1;
   opacity: 0;
@@ -3432,7 +3409,8 @@ body fieldset.search .form-control,
 .input-group-lg > dialog input[type=password],
 .input-group-lg > .input-group-btn > .walk-select .create-walk,
 .input-group-lg > .input-group-btn > .walk-select .create-walk:after,
-.input-group-lg > .input-group-btn > #create-walk #map-control-bar button {
+.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
+.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -3451,7 +3429,8 @@ select.input-group-lg > dialog input[type=text],
 select.input-group-lg > dialog input[type=password],
 select.input-group-lg > .input-group-btn > .walk-select .create-walk,
 select.input-group-lg > .input-group-btn > .walk-select .create-walk:after,
-select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button {
+select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
+select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 46px;
   line-height: 46px;
 }
@@ -3480,7 +3459,9 @@ select[multiple].input-group-lg > .input-group-btn > .walk-select .create-walk,
 textarea.input-group-lg > .input-group-btn > .walk-select .create-walk:after,
 select[multiple].input-group-lg > .input-group-btn > .walk-select .create-walk:after,
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
-select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button {
+select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
+textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
+select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active {
   height: auto;
 }
 .input-group-sm > .form-control,
@@ -3495,7 +3476,8 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-b
 .input-group-sm > dialog input[type=password],
 .input-group-sm > .input-group-btn > .walk-select .create-walk,
 .input-group-sm > .input-group-btn > .walk-select .create-walk:after,
-.input-group-sm > .input-group-btn > #create-walk #map-control-bar button {
+.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
+.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -3514,7 +3496,8 @@ select.input-group-sm > dialog input[type=text],
 select.input-group-sm > dialog input[type=password],
 select.input-group-sm > .input-group-btn > .walk-select .create-walk,
 select.input-group-sm > .input-group-btn > .walk-select .create-walk:after,
-select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button {
+select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
+select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 30px;
   line-height: 30px;
 }
@@ -3543,7 +3526,9 @@ select[multiple].input-group-sm > .input-group-btn > .walk-select .create-walk,
 textarea.input-group-sm > .input-group-btn > .walk-select .create-walk:after,
 select[multiple].input-group-sm > .input-group-btn > .walk-select .create-walk:after,
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
-select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button {
+select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
+textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
+select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active {
   height: auto;
 }
 .input-group-addon,
@@ -3626,14 +3611,14 @@ body fieldset.search .form-control:first-child,
 .input-group-btn:first-child > .btn-group > .walk-select .create-walk:after,
 .input-group-btn:last-child > .walk-select .create-walk:after:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > .walk-select .create-walk:after,
-.input-group-btn:first-child > #create-walk #map-control-bar > .btn,
-.input-group-btn:last-child > #create-walk #map-control-bar:not(:last-child) > .btn,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
 .input-group-btn:first-child > .btn-group > #create-walk #map-control-bar button,
 .input-group-btn:last-child > #create-walk #map-control-bar button:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk #map-control-bar button,
-.input-group-btn:first-child > #create-walk #map-control-bar:after > .btn,
-.input-group-btn:last-child > #create-walk #map-control-bar:after:not(:last-child) > .btn {
+.input-group-btn:first-child > #create-walk #map-control-bar button.active,
+.input-group-btn:first-child > .btn-group > #create-walk #map-control-bar button.active,
+.input-group-btn:last-child > #create-walk #map-control-bar button.active:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk #map-control-bar button.active {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -3663,14 +3648,14 @@ body fieldset.search .form-control:last-child,
 .input-group-btn:last-child > .btn-group > .walk-select .create-walk:after,
 .input-group-btn:first-child > .walk-select .create-walk:after:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > .walk-select .create-walk:after,
-.input-group-btn:last-child > #create-walk #map-control-bar > .btn,
-.input-group-btn:first-child > #create-walk #map-control-bar:not(:first-child) > .btn,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
 .input-group-btn:last-child > .btn-group > #create-walk #map-control-bar button,
 .input-group-btn:first-child > #create-walk #map-control-bar button:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk #map-control-bar button,
-.input-group-btn:last-child > #create-walk #map-control-bar:after > .btn,
-.input-group-btn:first-child > #create-walk #map-control-bar:after:not(:first-child) > .btn {
+.input-group-btn:last-child > #create-walk #map-control-bar button.active,
+.input-group-btn:last-child > .btn-group > #create-walk #map-control-bar button.active,
+.input-group-btn:first-child > #create-walk #map-control-bar button.active:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk #map-control-bar button.active {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -3685,13 +3670,15 @@ body fieldset.search .form-control:last-child,
 .input-group-btn > .btn,
 .input-group-btn > .walk-select .create-walk,
 .input-group-btn > .walk-select .create-walk:after,
-.input-group-btn > #create-walk #map-control-bar button {
+.input-group-btn > #create-walk #map-control-bar button,
+.input-group-btn > #create-walk #map-control-bar button.active {
   position: relative;
 }
 .input-group-btn > .btn + .btn,
 .input-group-btn > .walk-select .create-walk + .walk-select .create-walk,
 .input-group-btn > .walk-select .create-walk:after + .walk-select .create-walk:after,
-.input-group-btn > #create-walk #map-control-bar button + #create-walk #map-control-bar button {
+.input-group-btn > #create-walk #map-control-bar button + #create-walk #map-control-bar button,
+.input-group-btn > #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active {
   margin-left: -1px;
 }
 .input-group-btn > .btn:hover,
@@ -3705,25 +3692,26 @@ body fieldset.search .form-control:last-child,
 .input-group-btn > .walk-select .create-walk:after:active,
 .input-group-btn > #create-walk #map-control-bar button:hover,
 .input-group-btn > #create-walk #map-control-bar button:focus,
-.input-group-btn > #create-walk #map-control-bar button:active {
+.input-group-btn > #create-walk #map-control-bar button:active,
+.input-group-btn > #create-walk #map-control-bar button.active:hover,
+.input-group-btn > #create-walk #map-control-bar button.active:focus,
+.input-group-btn > #create-walk #map-control-bar button.active:active {
   z-index: 2;
 }
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .btn-group,
 .input-group-btn:first-child > .walk-select .create-walk,
 .input-group-btn:first-child > .walk-select .create-walk:after,
-.input-group-btn:first-child > #create-walk #map-control-bar,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
-.input-group-btn:first-child > #create-walk #map-control-bar:after {
+.input-group-btn:first-child > #create-walk #map-control-bar button.active {
   margin-right: -1px;
 }
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .btn-group,
 .input-group-btn:last-child > .walk-select .create-walk,
 .input-group-btn:last-child > .walk-select .create-walk:after,
-.input-group-btn:last-child > #create-walk #map-control-bar,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
-.input-group-btn:last-child > #create-walk #map-control-bar:after {
+.input-group-btn:last-child > #create-walk #map-control-bar button.active {
   margin-left: -1px;
 }
 .nav,
@@ -5073,7 +5061,8 @@ a.label:focus {
 .btn .label,
 .walk-select .create-walk .label,
 .walk-select .create-walk:after .label,
-#create-walk #map-control-bar button .label {
+#create-walk #map-control-bar button .label,
+#create-walk #map-control-bar button.active .label {
   position: relative;
   top: -1px;
 }
@@ -5139,7 +5128,8 @@ a.label:focus {
 .btn .badge,
 .walk-select .create-walk .badge,
 .walk-select .create-walk:after .badge,
-#create-walk #map-control-bar button .badge {
+#create-walk #map-control-bar button .badge,
+#create-walk #map-control-bar button.active .badge {
   position: relative;
   top: -1px;
 }
@@ -6174,7 +6164,8 @@ dialog > div > article footer {
 dialog > div > article footer .btn + .btn,
 .modal-footer .walk-select .create-walk + .walk-select .create-walk,
 .modal-footer .walk-select .create-walk:after + .walk-select .create-walk:after,
-.modal-footer #create-walk #map-control-bar button + #create-walk #map-control-bar button {
+.modal-footer #create-walk #map-control-bar button + #create-walk #map-control-bar button,
+.modal-footer #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active {
   margin-left: 5px;
   margin-bottom: 0;
 }
@@ -6182,9 +6173,8 @@ dialog > div > article footer .btn + .btn,
 dialog > div > article footer .btn-group .btn + .btn,
 .modal-footer .btn-group .walk-select .create-walk + .walk-select .create-walk,
 .modal-footer .btn-group .walk-select .create-walk:after + .walk-select .create-walk:after,
-.modal-footer #create-walk #map-control-bar .btn + .btn,
 .modal-footer .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
-.modal-footer #create-walk #map-control-bar:after .btn + .btn {
+.modal-footer .btn-group #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active {
   margin-left: -1px;
 }
 .modal-footer .btn-block + .btn-block,
@@ -6597,7 +6587,8 @@ dialog > div > article footer .btn-block + .btn-block {
 .carousel-caption .btn,
 .carousel-caption .walk-select .create-walk,
 .carousel-caption .walk-select .create-walk:after,
-.carousel-caption #create-walk #map-control-bar button {
+.carousel-caption #create-walk #map-control-bar button,
+.carousel-caption #create-walk #map-control-bar button.active {
   text-shadow: none;
 }
 @media screen and (min-width: 768px) {
@@ -6671,10 +6662,14 @@ body > footer nav:after,
 .walk-body .walk-team .walk-leaders:after,
 .walk-body .walk-team .walk-leaders li:before,
 .walk-body .walk-team .walk-leaders li:after,
+#create-walk #map-control-bar:before,
+#create-walk #map-control-bar:after,
 #create-walk .walk-submit:before,
 #create-walk .walk-submit:after,
 #create-walk #walkleader:before,
 #create-walk #walkleader:after,
+#create-walk #block-select:before,
+#create-walk #block-select:after,
 #create-walk #route-menu:before,
 #create-walk #route-menu:after,
 body > header:before,
@@ -6704,11 +6699,7 @@ dialog > div > article footer:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
 #create-walk > section:before,
-#create-walk > section:after,
-.btn-group-vertical > #create-walk #map-control-bar:before,
-.btn-group-vertical > #create-walk #map-control-bar:after,
-.btn-group-vertical > #create-walk #map-control-bar:after:before,
-.btn-group-vertical > #create-walk #map-control-bar:after:after {
+#create-walk > section:after {
   content: " ";
   display: table;
 }
@@ -6734,8 +6725,10 @@ body > footer nav:after,
 .walk-body:after,
 .walk-body .walk-team .walk-leaders:after,
 .walk-body .walk-team .walk-leaders li:after,
+#create-walk #map-control-bar:after,
 #create-walk .walk-submit:after,
 #create-walk #walkleader:after,
+#create-walk #block-select:after,
 #create-walk #route-menu:after,
 body > header:after,
 body > header .logo:after,
@@ -6750,9 +6743,7 @@ dialog > div > article footer:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
-#create-walk > section:after,
-.btn-group-vertical > #create-walk #map-control-bar:after,
-.btn-group-vertical > #create-walk #map-control-bar:after:after {
+#create-walk > section:after {
   clear: both;
 }
 .center-block {
@@ -7277,7 +7268,8 @@ a {
 .overlay.o-donate .o-content div.btnWrapper a.btn,
 .overlay.o-donate .o-content div.btnWrapper a.walk-select .create-walk,
 .overlay.o-donate .o-content div.btnWrapper a.walk-select .create-walk:after,
-.overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button {
+.overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button,
+.overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button.active {
   background-color: #f1592a;
 }
 .overlay.o-donate .o-content div.quote {
@@ -7470,7 +7462,8 @@ h3,
 h4,
 h5,
 h6,
-#profileWrapper div.headline {
+#profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-title {
   font-family: "museo-slab", "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -7489,7 +7482,8 @@ h3 {
   font-size: 25px;
 }
 h4,
-#profileWrapper div.headline {
+#profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-title {
   font-weight: 700;
   font-size: 17px;
 }
@@ -7543,7 +7537,8 @@ body > header #donate,
 .walk-select .create-walk,
 .walk-select .create-walk:after,
 .walk-select .create-walk:after,
-#create-walk #map-control-bar button {
+#create-walk #map-control-bar button,
+#create-walk #map-control-bar button.active {
   font-family: "museo-slab", "Roboto Slab", serif;
   background-image: none;
   background-color: #f16725;
@@ -7562,7 +7557,8 @@ a {
 .form-actions .btn,
 .form-actions .walk-select .create-walk,
 .form-actions .walk-select .create-walk:after,
-.form-actions #create-walk #map-control-bar button {
+.form-actions #create-walk #map-control-bar button,
+.form-actions #create-walk #map-control-bar button.active {
   margin-right: 15px;
 }
 #donate {
@@ -7708,6 +7704,9 @@ body > header {
   background: #fff;
   font-family: "museo-slab", "Roboto Slab", serif;
 }
+body > header .logo {
+  padding: 0 20px;
+}
 body > header .logo span {
   background: url("../images/jwlogo.svg");
   display: inline-block;
@@ -7715,7 +7714,6 @@ body > header .logo span {
   background-repeat: no-repeat;
   width: 102px;
   height: 60px;
-  padding: 0 20px;
   background-size: contain;
 }
 body > header nav {
@@ -7942,7 +7940,8 @@ body > footer .social-icons + div {
 body > header #donate,
 .walk-select .create-walk,
 .walk-select .create-walk:after,
-#create-walk #map-control-bar button {
+#create-walk #map-control-bar button,
+#create-walk #map-control-bar button.active {
   background-color: #f16725;
   color: #fff;
   transition-duration: 0.2s;
@@ -7952,7 +7951,8 @@ body > header #donate,
 .btn:hover,
 .walk-select .create-walk:hover,
 .walk-select .create-walk:after:hover,
-#create-walk #map-control-bar button:hover {
+#create-walk #map-control-bar button:hover,
+#create-walk #map-control-bar button.active:hover {
   color: #fff;
   background-color: #d54e0e;
 }
@@ -8725,7 +8725,8 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 .home .callouts blockquote div.cityCtaWrapper a.btn,
 .home .callouts blockquote div.cityCtaWrapper a.walk-select .create-walk,
 .home .callouts blockquote div.cityCtaWrapper a.walk-select .create-walk:after,
-.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button {
+.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button,
+.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button.active {
   color: #333;
 }
 @media (max-width: 768px) {
@@ -9152,7 +9153,8 @@ section.sponsors {
 #profileWrapper div.content div#dashboardBlock div.column.walks > a.btn,
 #profileWrapper div.content div#dashboardBlock div.column.walks > a.walk-select .create-walk,
 #profileWrapper div.content div#dashboardBlock div.column.walks > a.walk-select .create-walk:after,
-#profileWrapper div.content div#dashboardBlock div.column.walks > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#dashboardBlock div.column.walks > a#create-walk #map-control-bar button,
+#profileWrapper div.content div#dashboardBlock div.column.walks > a#create-walk #map-control-bar button.active {
   position: absolute;
   right: 32px;
   top: 5px;
@@ -9179,7 +9181,8 @@ section.sponsors {
 #profileWrapper div.content div#dashboardBlock div.column.city > a.btn,
 #profileWrapper div.content div#dashboardBlock div.column.city > a.walk-select .create-walk,
 #profileWrapper div.content div#dashboardBlock div.column.city > a.walk-select .create-walk:after,
-#profileWrapper div.content div#dashboardBlock div.column.city > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#dashboardBlock div.column.city > a#create-walk #map-control-bar button,
+#profileWrapper div.content div#dashboardBlock div.column.city > a#create-walk #map-control-bar button.active {
   position: absolute;
   right: 32px;
   top: 5px;
@@ -9206,7 +9209,8 @@ section.sponsors {
 #profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.btn,
 #profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.walk-select .create-walk,
 #profileWrapper div.content div#dashboardBlock div.column.blogPosts > a.walk-select .create-walk:after,
-#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a#create-walk #map-control-bar button,
+#profileWrapper div.content div#dashboardBlock div.column.blogPosts > a#create-walk #map-control-bar button.active {
   position: absolute;
   right: 0;
   top: 5px;
@@ -9317,7 +9321,8 @@ section.sponsors {
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.walk-select .create-walk,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.walk-select .create-walk:after,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button,
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button.active {
   margin: 10px 0 0;
 }
 #profileWrapper div.content div#cityBlock div.footer {
@@ -9716,7 +9721,8 @@ section.sponsors {
 .city-page .get-involved .btn,
 .city-page .get-involved .walk-select .create-walk,
 .city-page .get-involved .walk-select .create-walk:after,
-.city-page .get-involved #create-walk #map-control-bar button {
+.city-page .get-involved #create-walk #map-control-bar button,
+.city-page .get-involved #create-walk #map-control-bar button.active {
   height: 60px;
   padding: 20px 0;
 }
@@ -9726,7 +9732,8 @@ section.sponsors {
 .city-page .get-involved .top .btn,
 .city-page .get-involved .top .walk-select .create-walk,
 .city-page .get-involved .top .walk-select .create-walk:after,
-.city-page .get-involved .top #create-walk #map-control-bar button {
+.city-page .get-involved .top #create-walk #map-control-bar button,
+.city-page .get-involved .top #create-walk #map-control-bar button.active {
   width: 50%;
   float: left;
   border: none;
@@ -9735,7 +9742,8 @@ section.sponsors {
 .city-page .get-involved .top .btn:first-child,
 .city-page .get-involved .top .walk-select .create-walk:first-child,
 .city-page .get-involved .top .walk-select .create-walk:after:first-child,
-.city-page .get-involved .top #create-walk #map-control-bar button:first-child {
+.city-page .get-involved .top #create-walk #map-control-bar button:first-child,
+.city-page .get-involved .top #create-walk #map-control-bar button.active:first-child {
   border-right: none;
   position: relative;
   box-shadow: 1px 0 0 rgba(0, 0, 0, 0.25);
@@ -9743,7 +9751,8 @@ section.sponsors {
 .city-page .get-involved .top .btn:first-child:after,
 .city-page .get-involved .top .walk-select .create-walk:first-child:after,
 .city-page .get-involved .top .walk-select .create-walk:after:first-child:after,
-.city-page .get-involved .top #create-walk #map-control-bar button:first-child:after {
+.city-page .get-involved .top #create-walk #map-control-bar button:first-child:after,
+.city-page .get-involved .top #create-walk #map-control-bar button.active:first-child:after {
   content: "";
   position: absolute;
   left: 0;
@@ -9761,7 +9770,8 @@ section.sponsors {
 .city-page .get-involved .below .btn,
 .city-page .get-involved .below .walk-select .create-walk,
 .city-page .get-involved .below .walk-select .create-walk:after,
-.city-page .get-involved .below #create-walk #map-control-bar button {
+.city-page .get-involved .below #create-walk #map-control-bar button,
+.city-page .get-involved .below #create-walk #map-control-bar button.active {
   border-top: none;
   width: 100%;
   border: none;
@@ -9770,13 +9780,15 @@ section.sponsors {
 .city-page .get-involved .below .btn:first-child,
 .city-page .get-involved .below .walk-select .create-walk:first-child,
 .city-page .get-involved .below .walk-select .create-walk:after:first-child,
-.city-page .get-involved .below #create-walk #map-control-bar button:first-child {
+.city-page .get-involved .below #create-walk #map-control-bar button:first-child,
+.city-page .get-involved .below #create-walk #map-control-bar button.active:first-child {
   position: relative;
 }
 .city-page .get-involved .below .btn:first-child:after,
 .city-page .get-involved .below .walk-select .create-walk:first-child:after,
 .city-page .get-involved .below .walk-select .create-walk:after:first-child:after,
-.city-page .get-involved .below #create-walk #map-control-bar button:first-child:after {
+.city-page .get-involved .below #create-walk #map-control-bar button:first-child:after,
+.city-page .get-involved .below #create-walk #map-control-bar button.active:first-child:after {
   content: "";
   position: absolute;
   left: 0;
@@ -10328,7 +10340,8 @@ section.sponsors {
 .city-organizer .btn,
 .city-organizer .walk-select .create-walk,
 .city-organizer .walk-select .create-walk:after,
-.city-organizer #create-walk #map-control-bar button {
+.city-organizer #create-walk #map-control-bar button,
+.city-organizer #create-walk #map-control-bar button.active {
   background-color: #fff;
 }
 @media print {
@@ -11157,7 +11170,8 @@ section.sponsors {
 .walk-stops-list a.btn,
 .walk-stops-list a.walk-select .create-walk,
 .walk-stops-list a.walk-select .create-walk:after,
-.walk-stops-list a#create-walk #map-control-bar button {
+.walk-stops-list a#create-walk #map-control-bar button,
+.walk-stops-list a#create-walk #map-control-bar button.active {
   position: absolute;
   left: 140px;
   top: 44px;
@@ -11243,7 +11257,8 @@ section.sponsors {
 .profiles .profile-inner .btn-toolbar .btn,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk:after,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button,
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active {
   margin: 0 0 8px 0;
   background: #F4F7FA;
   width: 30px;
@@ -11257,20 +11272,23 @@ section.sponsors {
 .profiles .profile-inner .btn-toolbar .btn i,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk i,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk:after i,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button i {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button i,
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active i {
   display: inline-block;
 }
 .profiles .profile-inner .btn-toolbar .btn:hover,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk:hover,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk:after:hover,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:hover {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:hover,
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:hover {
   color: #f16725;
   background: #cdd5dc;
 }
 .profiles .profile-inner .btn-toolbar .btn:after,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk:after,
 .profiles .profile-inner .btn-toolbar .walk-select .create-walk:after:after,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:after {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:after,
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:after {
   content: "";
   position: absolute;
   width: 0px;
@@ -11567,7 +11585,6 @@ body[data-pageviewname=CreateWalkView] {
   /* ==========================================================================
     Forms
     ========================================================================== */
-  /* Hide disabled timepicker dropdowns */
   /* ==========================================================================
     New Member Additions
     ========================================================================== */
@@ -11613,9 +11630,6 @@ body[data-pageviewname=CreateWalkView] {
     float: left;
     width: 16.66666667%;
   }
-}
-#create-walk .row {
-  margin-left: 0;
 }
 #create-walk #main-panel {
   position: relative;
@@ -11666,14 +11680,17 @@ body[data-pageviewname=CreateWalkView] {
   box-sizing: border-box;
 }
 #create-walk #map-control-bar {
-  text-align: justify;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+#create-walk #map-control-bar button {
+  margin-left: 15px;
 }
 #create-walk #map-control-bar button i {
   display: block;
 }
-#create-walk #map-control-bar:after {
-  content: "";
-  display: block;
+#create-walk #map-control-bar button.active {
+  background-color: #d54e0e;
 }
 #create-walk .index-bg {
   background: url('../img/intro-bg.jpg') center center fixed;
@@ -11865,14 +11882,12 @@ body[data-pageviewname=CreateWalkView] {
   padding-bottom: 6px;
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
 }
-#create-walk ul.ui-timepicker-list > li.ui-timepicker-disabled {
-  display: none;
-}
 #create-walk .input-prepend .add-on:first-child,
 #create-walk .input-prepend .btn:first-child,
 #create-walk .input-prepend .walk-select .create-walk:first-child,
 #create-walk .input-prepend .walk-select .create-walk:after:first-child,
-#create-walk .input-prepend #create-walk #map-control-bar button:first-child {
+#create-walk .input-prepend #create-walk #map-control-bar button:first-child,
+#create-walk .input-prepend #create-walk #map-control-bar button.active:first-child {
   border-top-left: 4px;
   border-bottom-left: 4px;
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
@@ -12069,7 +12084,39 @@ body[data-pageviewname=CreateWalkView] {
   padding-top: 20px;
 }
 #create-walk #block-select {
-  padding: 0 50px;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 0;
+  list-style: none;
+}
+#create-walk #block-select:before,
+#create-walk #block-select:after {
+  content: " ";
+  display: table;
+}
+#create-walk #block-select:after {
+  clear: both;
+}
+#create-walk #block-select:before,
+#create-walk #block-select:after {
+  content: " ";
+  display: table;
+}
+#create-walk #block-select:after {
+  clear: both;
+}
+#create-walk #block-select li {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  list-style: none;
+}
+@media (min-width: 992px) {
+  #create-walk #block-select li {
+    float: left;
+    width: 50%;
+  }
 }
 #create-walk #block-select a {
   text-decoration: none;
@@ -12175,7 +12222,8 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #progress-panel #button-group .btn,
 #create-walk #progress-panel #button-group .walk-select .create-walk,
 #create-walk #progress-panel #button-group .walk-select .create-walk:after,
-#create-walk #progress-panel #button-group #create-walk #map-control-bar button {
+#create-walk #progress-panel #button-group #create-walk #map-control-bar button,
+#create-walk #progress-panel #button-group #create-walk #map-control-bar button.active {
   text-align: left;
   width: 100%;
   margin-bottom: 20px;
@@ -12304,14 +12352,16 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-control-bar .addroute-wrapper,
 #create-walk #map-control-bar .walk-select .create-walk,
 #create-walk #map-control-bar .walk-select .create-walk:after,
-#create-walk #map-control-bar #create-walk #map-control-bar button {
+#create-walk #map-control-bar #create-walk #map-control-bar button,
+#create-walk #map-control-bar #create-walk #map-control-bar button.active {
   width: 23.4%;
 }
 #create-walk #map-control-bar .btn i,
 #create-walk #map-control-bar .addroute-wrapper i,
 #create-walk #map-control-bar .walk-select .create-walk i,
 #create-walk #map-control-bar .walk-select .create-walk:after i,
-#create-walk #map-control-bar #create-walk #map-control-bar button i {
+#create-walk #map-control-bar #create-walk #map-control-bar button i,
+#create-walk #map-control-bar #create-walk #map-control-bar button.active i {
   display: block;
 }
 #create-walk #map-control-bar .addroute-wrapper {
@@ -12320,7 +12370,8 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-control-bar .addroute-wrapper .btn,
 #create-walk #map-control-bar .addroute-wrapper .walk-select .create-walk,
 #create-walk #map-control-bar .addroute-wrapper .walk-select .create-walk:after,
-#create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button {
+#create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button,
+#create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button.active {
   width: 100%;
 }
 #create-walk #map-control-bar .addroute-wrapper .disable-alert {
@@ -12345,7 +12396,8 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-canvas .btn,
 #create-walk #map-canvas .walk-select .create-walk,
 #create-walk #map-canvas .walk-select .create-walk:after,
-#create-walk #map-canvas #create-walk #map-control-bar button {
+#create-walk #map-canvas #create-walk #map-control-bar button,
+#create-walk #map-canvas #create-walk #map-control-bar button.active {
   font-size: 16px;
   margin-right: 20px;
 }
@@ -12514,7 +12566,8 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #preview-modal dialog > div > article footer .btn,
 #create-walk #preview-modal .modal-footer .walk-select .create-walk,
 #create-walk #preview-modal .modal-footer .walk-select .create-walk:after,
-#create-walk #preview-modal .modal-footer #create-walk #map-control-bar button {
+#create-walk #preview-modal .modal-footer #create-walk #map-control-bar button,
+#create-walk #preview-modal .modal-footer #create-walk #map-control-bar button.active {
   margin-right: 15px;
 }
 #create-walk #preview-modal iframe {
@@ -12526,7 +12579,8 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #publish-confirmation dialog > div > article section + section .btn,
 #create-walk #publish-confirmation .modal-body .walk-select .create-walk,
 #create-walk #publish-confirmation .modal-body .walk-select .create-walk:after,
-#create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button {
+#create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button,
+#create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button.active {
   width: 47%;
   padding: 1em;
 }
@@ -12542,4 +12596,38 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #publish-confirmation dialog > div > article section hr,
 #create-walk #publish-confirmation dialog > div > article section + section hr {
   margin-top: 0;
+}
+#create-walk #time-and-date .ui-datepicker {
+  width: auto;
+  box-shadow: none;
+}
+#create-walk #time-and-date .ui-datepicker .ui-widget-header {
+  background: none;
+}
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-title {
+  margin-top: 0.6em;
+}
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-next,
+#create-walk #time-and-date .ui-datepicker .ui-datepicker-prev {
+  top: 11px;
+}
+#create-walk #time-and-date .ui-datepicker td {
+  width: 14.28571429%;
+  text-align: center;
+  color: #666666;
+}
+#create-walk #time-and-date .ui-datepicker td a {
+  transition-duration: 0.2s;
+  text-align: inherit;
+  color: #f16725;
+}
+#create-walk #time-and-date .ui-datepicker td a.ui-state-active {
+  color: #fff;
+  background-color: #f16725 !important;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+#create-walk #time-and-date .ui-datepicker td a:hover {
+  background-color: #efefef;
 }
