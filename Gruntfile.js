@@ -1,6 +1,8 @@
 /*
  * Gruntfile.js
  * Use grunt for all the main build and testing tasks in Jane's Walk.
+ * XXX Use this as a fallback if module is unavailable for gulp, but gulp is preferred now.
+ * TODO: Revisit in grunt 0.5 once piping becomes available
  */
 
 module.exports = function(grunt) {
@@ -38,18 +40,6 @@ module.exports = function(grunt) {
         }
       },
 
-      // CSS
-      sass: {
-        dev: {
-          options: {
-            style: 'compressed',
-          },
-          files: [{
-            '<%= janeswalk.css %>pages/sass/screen.css': janeswalk.css + 'pages/sass/screen.scss'
-          }]
-        }
-      },
-
       less: {
         dev: {
           options: {
@@ -63,17 +53,6 @@ module.exports = function(grunt) {
         }
       },
           
-      // Add vendor prefixed styles
-      autoprefixer: {
-        options: {
-          browsers: ['last 3 version', 'ie 8', 'ie 9']
-        },
-        single_file: {
-          src: janeswalk.css + 'pages/sass/screen.css',
-          dest: janeswalk.css + 'screen.css'
-        }
-      },
-
       react: {
         blocks: {
           expand: true,
@@ -88,18 +67,6 @@ module.exports = function(grunt) {
           dest: 'themes/janeswalk/js',
           src: ['**/*.jsx'],
           ext: '.js'
-        }
-      },
-      phpcsfixer: {
-        app: {
-          dir: 'models',
-        },
-        options: {
-          bin: 'vendor/bin/php-cs-fixer',
-          ignoreExitCode: true,
-          level: 'all',
-          fixers: ['indentation','linefeed','trailing_spaces','unused_use','return','phpdoc_params','braces','short_tag','one_class_per_file','spaces_cast','extra_empty_lines','php_closing_tag','object_operator','visibility','encoding','function_declaration','lowercase_constants','include','lowercase_keywords','controls_spaces','eof_ending'], // This is everything but the 'elseif' requirement; 'else if' is present in many languages, but elseif isn't in javascript, and some langs have elsif. Let's just avoid that.
-          quiet: false
         }
       },
       browserify: {
@@ -127,16 +94,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify')
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-sass'); // Using instead of grunt-contrib-css, as it shaves 50% of the running time off
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-autoprefixer');
-    grunt.loadNpmTasks('grunt-php-cs-fixer');
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('js', ['concat', 'uglify']);
-    grunt.registerTask('css', ['sass', 'autoprefixer']);
+    grunt.registerTask('css', ['autoprefixer']);
 
     grunt.registerTask('default', ['js','css']);
 
@@ -146,29 +111,12 @@ module.exports = function(grunt) {
     // TODO: revisit on grunt 0.5 and look at new piping methods.
     grunt.registerTask('webassets', function() {
         var done = this.async(),
-        sass = require('node-sass'),
         autoprefixer = require('autoprefixer'),
         UglifyJS = require('uglify-js'),
         themedir = 'themes/janeswalk/',
         uglyFiles = [themedir + 'js/extend.js', themedir + 'js/app.js'], // Need these files to go in first
         tasks = 2, // Total number of tasks to run before done()
         fs = require('fs');
-
-        // Setup libsass calls first
-        sass.render({
-            file: themedir + 'css/pages/sass/screen.scss',
-            outputStyle: 'compressed',
-            success: function(css) {
-                grunt.log.ok('Sass rendering complete.');
-                fs.writeFile(themedir + 'css/screen.css', autoprefixer.process(css), function() {
-                    grunt.log.ok('Autoprefix complete.');
-                    if(!--tasks) done();
-                })
-            },
-            error: function(err) {
-                grunt.log.error(err);
-            }
-        });
 
         // JS which must be in sync goes here
         // Define file-tree walker to async check all files

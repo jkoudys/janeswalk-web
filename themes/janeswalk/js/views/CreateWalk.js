@@ -230,11 +230,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                 React.createElement("br", null), 
                 React.createElement("br", null)
               ), 
-              React.createElement(CAWTeamBuilder, {valueLink: this.linkState('team')}), 
-              React.createElement("hr", null), 
-              React.createElement("button", {className: "btn btn-primary btn-large section-save", id: "section-save", onClick: this.handleSave},  t('Save') ), 
-              React.createElement("br", null), 
-              React.createElement("br", null)
+              React.createElement(CAWTeamBuilder, {valueLink: this.linkState('team')})
             )
           ), 
           React.createElement("aside", {id: "tips-panel", role: "complementary"}, 
@@ -734,7 +730,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   // won't be persisting that. The map's
   getInitialState: function() {
     return {
-      // The 'mode' we're in: adding markers, route, etc
+      // The 'mode' we're in: 'meetingplace', 'stop', 'route', or false
       editMode: false,
       map: null,
       markers: [],
@@ -772,27 +768,23 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
     // FIXME: this $() selector is unbecoming of a React app
     $('a[href="#route"]').on('shown.bs.tab', function(e) {
-      var map = this.state.map;
-      var x = map.getZoom(),
-      c = map.getCenter();
-      google.maps.event.trigger(map, 'resize');
-      map.setZoom(x);
-      map.setCenter(c);
+      this.boundMapByWalk();
+      //    this.setState({
     }.bind(this));
 
     this.setState({map: map, markers: markers});
   },
 
-  componentDidUpdate: function() {
-    var map = this.state.map;
+  // Make the map fit the markers in this walk
+  boundMapByWalk: function() {
+    // Don't include the route - it can be too expensive to compute.
+    var bounds = new google.maps.LatLngBounds;
+    for (var i = 0, len = this.state.markers.length; i < len; i++) {
+      bounds.extend(this.state.markers[i].getPosition());
+    }
 
-    map.panTo(this.mapCenterLatLng());
-  },
-
-  mapCenterLatLng: function() {
-    var props = this.props;
-
-    return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
+    google.maps.event.trigger(this.state.map, 'resize');
+    this.state.map.fitBounds(bounds);
   },
 
   // Map parameters
@@ -828,11 +820,14 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       strokeOpacity: 0.8,
       strokeWeight: 3,
       editable: false,
-      map: map,
-      path: routeArray.map(function(point) {
-        return new google.maps.LatLng(point.lat, point.lng);
-      })
+      map: map
     });
+
+    if (routeArray.length > 0) {
+      poly.setPath(routeArray.map(function(point) {
+        return new google.maps.LatLng(point.lat, point.lng);
+      }));
+    }
   },
 
 
@@ -1112,7 +1107,7 @@ var TeamOwner = React.createClass({displayName: 'TeamOwner',
 
             React.createElement("div", {className: "row", id: "newwalkleader"}, 
               React.createElement("div", {className: "col-md-6 required"}, 
-                React.createElement("label", {htmlFor: "you-email"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Email') ), 
+                React.createElement("label", {htmlFor: "you-email"}, React.createElement("i", {className: "fa fa-envelope"}), " ", t('Email')), 
                 React.createElement("input", {type: "email", id: "you-email", placeholder: "", valueLink: this.linkProp('email')})
               ), 
 
@@ -1127,11 +1122,11 @@ var TeamOwner = React.createClass({displayName: 'TeamOwner',
 
             React.createElement("div", {className: "row", id: "newwalkleader"}, 
               React.createElement("div", {className: "col-md-6"}, 
-                React.createElement("label", {htmlFor: "facebook"}, React.createElement("i", {className: "fa fa-facebook-square"}), " Facebook"), 
+                React.createElement("label", {htmlFor: "facebook"}, React.createElement("i", {className: "fa fa-facebook-square"}), " Facebook"), 
                 React.createElement("input", {type: "text", id: "facebook", placeholder: "", valueLink: this.linkProp('facebook')})
               ), 
               React.createElement("div", {className: "col-md-6"}, 
-                React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}),  t('Website') ), 
+                React.createElement("label", {htmlFor: "website"}, React.createElement("i", {className: "fa fa-link"}), " ", t('Website')), 
                 React.createElement("input", {type: "text", id: "website", placeholder: "", valueLink: this.linkProp('website')})
               )
             ), 
@@ -1523,10 +1518,13 @@ exports.renderAsNode = function(reactElement) {
 exports.objectToArray = function(obj) {
   var destination = [];
 
+  // Assign numeric index in object as array index
   for (var i in obj) {
     destination[i] = obj[i];
   }
-  return destination;
+
+  // Needed to remove any empty elements, e.g. if input obj counts from 1 not 0
+  return destination.filter(function(n) { return n !== undefined; });
 };
 
 

@@ -230,10 +230,6 @@ var CreateWalk = React.createClass({
                 <br />
               </div>
               <CAWTeamBuilder valueLink={this.linkState('team')} />
-              <hr />
-              <button className="btn btn-primary btn-large section-save" id="section-save" onClick={this.handleSave}>{ t('Save') }</button>
-              <br />
-              <br />
             </div>
           </div>
           <aside id="tips-panel" role="complementary">

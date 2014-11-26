@@ -134,7 +134,7 @@ var TeamOwner = React.createClass({
 
             <div className="row" id="newwalkleader">
               <div className="col-md-6 required">
-                <label htmlFor="you-email"><i className="fa fa-envelope" />{ t('Email') }</label>
+                <label htmlFor="you-email"><i className="fa fa-envelope" />&nbsp;{t('Email')}</label>
                 <input type="email" id="you-email" placeholder="" valueLink={this.linkProp('email')} />
               </div>
 
@@ -149,11 +149,11 @@ var TeamOwner = React.createClass({
 
             <div className="row" id="newwalkleader">
               <div className="col-md-6">
-                <label htmlFor="facebook"><i className="fa fa-facebook-square" /> Facebook</label>
+                <label htmlFor="facebook"><i className="fa fa-facebook-square" />&nbsp;Facebook</label>
                 <input type="text" id="facebook" placeholder="" valueLink={this.linkProp('facebook')} />
               </div>
               <div className="col-md-6">
-                <label htmlFor="website"><i className="fa fa-link" />{ t('Website') }</label>
+                <label htmlFor="website"><i className="fa fa-link" />&nbsp;{t('Website')}</label>
                 <input type="text" id="website" placeholder="" valueLink={this.linkProp('website')} />
               </div>
             </div>

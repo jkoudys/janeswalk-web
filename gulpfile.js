@@ -11,14 +11,33 @@
  */
 
 var gulp = require('gulp'),
+  path = require('path'),
   autoprefixer = require('gulp-autoprefixer'),
-  sass = require('gulp-sass');
+  less = require('gulp-less'),
+  browserify = require('browserify'),
+  reactify = require('reactify');
 
-gulp.task('css', function () {
-  gulp.src('themes/janeswalk/css/pages/sass/screen.scss')
-    .pipe(sass())
+var paths = {
+  js: ['./themes/janeswalk/js/v2/'],
+  jsx: ['./themes/janeswalk/js/views/'],
+  css: ['./themes/janeswalk/css/']
+};
+
+gulp.task('css', function() {
+  return gulp.src('./themes/janeswalk/css/main.less')
+    .pipe(less({compress: true}))
     .pipe(autoprefixer('last 3 versions'))
-    .pipe(gulp.dest('themes/janeswalk/css'));
+    .pipe(gulp.dest('./themes/janeswalk/css/'));
+});
+
+// TODO: decide if each view should be its own JSX, or there should
+// be larger bundles
+gulp.task('js', function() {
+  return browserify()
+    .transform(reactify)
+    .add(paths.jsx[0] + 'CreateWalk.jsx')
+    .bundle()
+    .pipe(gulp.dest(['./']));
 });
 
 gulp.task('default', function() {

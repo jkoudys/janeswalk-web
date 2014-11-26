@@ -20,9 +20,12 @@ exports.renderAsNode = function(reactElement) {
 exports.objectToArray = function(obj) {
   var destination = [];
 
+  // Assign numeric index in object as array index
   for (var i in obj) {
     destination[i] = obj[i];
   }
-  return destination;
+
+  // Needed to remove any empty elements, e.g. if input obj counts from 1 not 0
+  return destination.filter(function(n) { return n !== undefined; });
 };
 

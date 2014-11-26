@@ -15,7 +15,7 @@ var MapBuilder = React.createClass({
   // won't be persisting that. The map's
   getInitialState: function() {
     return {
-      // The 'mode' we're in: adding markers, route, etc
+      // The 'mode' we're in: 'meetingplace', 'stop', 'route', or false
       editMode: false,
       map: null,
       markers: [],
@@ -53,27 +53,23 @@ var MapBuilder = React.createClass({
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
     // FIXME: this $() selector is unbecoming of a React app
     $('a[href="#route"]').on('shown.bs.tab', function(e) {
-      var map = this.state.map;
-      var x = map.getZoom(),
-      c = map.getCenter();
-      google.maps.event.trigger(map, 'resize');
-      map.setZoom(x);
-      map.setCenter(c);
+      this.boundMapByWalk();
+      //    this.setState({
     }.bind(this));
 
     this.setState({map: map, markers: markers});
   },
 
-  componentDidUpdate: function() {
-    var map = this.state.map;
+  // Make the map fit the markers in this walk
+  boundMapByWalk: function() {
+    // Don't include the route - it can be too expensive to compute.
+    var bounds = new google.maps.LatLngBounds;
+    for (var i = 0, len = this.state.markers.length; i < len; i++) {
+      bounds.extend(this.state.markers[i].getPosition());
+    }
 
-    map.panTo(this.mapCenterLatLng());
-  },
-
-  mapCenterLatLng: function() {
-    var props = this.props;
-
-    return new google.maps.LatLng(props.mapCenterLat, props.mapCenterLng);
+    google.maps.event.trigger(this.state.map, 'resize');
+    this.state.map.fitBounds(bounds);
   },
 
   // Map parameters
@@ -109,11 +105,14 @@ var MapBuilder = React.createClass({
       strokeOpacity: 0.8,
       strokeWeight: 3,
       editable: false,
-      map: map,
-      path: routeArray.map(function(point) {
-        return new google.maps.LatLng(point.lat, point.lng);
-      })
+      map: map
     });
+
+    if (routeArray.length > 0) {
+      poly.setPath(routeArray.map(function(point) {
+        return new google.maps.LatLng(point.lat, point.lng);
+      }));
+    }
   },
 
 
