@@ -13,37 +13,45 @@ $ul->sortBy('ak_order', 'asc');
  * Build doc with all the 'member's in it, and load the values we'll
  * need to display.
  */
-$doc = new DOMDocument;
+$members = [];
 foreach ($ul->get(100) as $staffMember) {
-    $member = $doc->appendChild($doc->createElement('member'));
+    $member = [];
     $avatar = $av->getImagePath($staffMember);
     if ($avatar) {
-        $member->setAttribute('background', $avatar);
+        $member['background'] = $avatar;
     } else {
-        $member->setAttribute(
-            'placeholder',
-            'placeholder' . (ord($staffMember->getUserID()) % 3)
-        );
+        $member['placeholder'] = 'placeholder' . (ord($staffMember->getUserID()) % 3);
     }
-    $member->setAttribute('shortbio', 
-        $staffMember->getAttribute('first_name') . ' ' . $staffMember->getAttribute('last_name') . ', ' . ($staffMember->getAttribute('job_title') ?: 'Jane\'s Walk')
-    );
-    $member->setAttribute('email', $staffMember->getUserEmail());
-    $member->setAttribute('bio', $staffMember->getAttribute('bio'));
+    $member['shortbio'] = $staffMember->getAttribute('first_name') . ' ' .
+        $staffMember->getAttribute('last_name') . ', ' .
+        ($staffMember->getAttribute('job_title') ?: 'Jane\'s Walk');
+    
+    $member['email'] = $staffMember->getUserEmail();
+    $member['bio'] = $staffMember->getAttribute('bio');
+    $members[] = $member;
 }
 
-// Load the XSL and apply stylesheet
-$xsl = new XSLTProcessor;
-$xsl->importStyleSheet(DOMDocument::load(substr(__FILE__, 0, -3) . 'xsl'));
-$doc = $xsl->transformToDoc($doc); 
+echo $controller->getContent();
 
-// Load the content into the DOM. Typically a header above the staff list
-$content = DOMDocument::loadHTML($controller->getContent(), LIBXML_HTML_NOIMPLIED)->documentElement;
-$content = $doc->importNode($content, true);
-// insertBefore, as content should come before the staff list
-$doc->insertBefore($content, $doc->firstChild);
-
-// Stream out the rendered doc.
-// TODO: move to building a whole DOC of site, so return instead of echo
-// TODO: Use helpers for all this repeated XSLT code
-$doc->saveHTMLFile('php://output');
+?>
+<ul class="ccm-staff-list">
+<?php foreach ($members as $member) { ?>
+    <li>
+        <div 
+            class="u-avatar <?= $member['placeholder'] ?>"
+            <?= $member['background'] ? (' style="background-image:url(' . $member['background'] . '"') : '' ?>>
+        </div>
+        <div class="ccm-staff-list-details">
+            <h3>
+                <?= $member['shortbio'] ?>
+            </h3>
+            <a href="mailto:<?= $member['email'] ?>">
+                <?= $member['email'] ?>        
+            </a>
+            <p class="ccm-staff-list-bio">
+                <?= $member['bio'] ?>
+            </p>
+        </div>
+    </li>
+<?php } ?>
+</ul>
