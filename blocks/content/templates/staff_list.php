@@ -39,7 +39,7 @@ echo $controller->getContent();
     <li>
         <div 
             class="u-avatar <?= $member['placeholder'] ?>"
-            <?= $member['background'] ? (' style="background-image:url(' . $member['background'] . '"') : '' ?>>
+            <?= $member['background'] ? (' style="background-image:url(' . $member['background'] . ')"') : '' ?>>
         </div>
         <div class="ccm-staff-list-details">
             <h3>
