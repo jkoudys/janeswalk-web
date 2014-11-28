@@ -4,7 +4,7 @@
  * variables.
  */
 document.addEventListener('DOMContentLoaded', function() {
-  var pageViewName = document.body.getAttribute('data-pageViewName');
+  var pageViewName = document.body.getAttribute('data-pageViewName') || 'PageView';
 
   if (pageViewName) {
     // The pageViewName class gets loaded from the globally-defined class
@@ -16,8 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch(e) {
       console.log('Error instantiating page view ' + pageViewName + ': ' + e);
     }
-  } else {
-    console.log('No page view defined.');
   }
 
   // Init keyboard shortcuts

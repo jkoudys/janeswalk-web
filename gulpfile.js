@@ -5,15 +5,24 @@
  */
 
 var gulp = require('gulp'),
-  source = require('vinyl-source-stream'),
+  concat = require('gulp-concat'),
+  rename = require('gulp-rename'),
   autoprefixer = require('gulp-autoprefixer'),
   less = require('gulp-less'),
+  uglify = require('gulp-uglify'),
+  source = require('vinyl-source-stream'),
   browserify = require('browserify'),
   uglifyify = require('uglifyify'),
   reactify = require('reactify');
 
 var paths = {
-  js: ['./themes/janeswalk/js/v2/**/*.js'],
+  js: './themes/janeswalk/js',
+  js_views: [
+    './themes/janeswalk/js/app.js',
+    './themes/janeswalk/js/extend.js',
+    './themes/janeswalk/js/shims.js',
+    './themes/janeswalk/js/v2/**/*.js'
+  ],
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
@@ -25,6 +34,15 @@ gulp.task('css', function() {
     .pipe(less({compress: true}))
     .pipe(autoprefixer('last 3 versions'))
     .pipe(gulp.dest(paths.css));
+});
+
+gulp.task('js_views', function() {
+  return gulp.src(paths.js_views)
+    .pipe(concat('janeswalk.js'))
+    .pipe(gulp.dest(paths.js))
+    .pipe(uglify())
+    .pipe(rename('janeswalk.min.js'))
+    .pipe(gulp.dest(paths.js));
 });
 
 gulp.task('browserify', function(callback) {
@@ -41,6 +59,7 @@ gulp.task('browserify', function(callback) {
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
   gulp.watch(paths.jsx, ['browserify']);
+  gulp.watch(paths.js_views, ['js_views']);
 });
 
 gulp.task('default', function() {

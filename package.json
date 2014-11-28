@@ -25,6 +25,8 @@
     "gulp-rename": "~1.2.0",
     "vinyl-source-stream": "~1.0.0",
     "vinyl-buffer": "~1.0.0",
-    "uglifyify": "~2.6.0"
+    "uglifyify": "~2.6.0",
+    "gulp-uglify": "~1.0.1",
+    "gulp-concat": "~2.4.2"
   }
 }
