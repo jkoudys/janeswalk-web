@@ -1,3 +1,4 @@
+var View = require('../View.jsx');
 
 /**
  * ModalView
@@ -34,3 +35,5 @@ var ModalView = View.extend({
         );
     }
 });
+
+modules.extend = ModalView;

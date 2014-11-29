@@ -1,3 +1,4 @@
+var PageView = require('../Page.jsx');
 
 /**
 * WalkPageView
@@ -387,3 +388,5 @@ var WalkPageView = PageView.extend({
       });
     }
 });
+
+module.exports = WalkPageView;

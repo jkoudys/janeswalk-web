@@ -11,6 +11,7 @@ var gulp = require('gulp'),
   less = require('gulp-less'),
   uglify = require('gulp-uglify'),
   source = require('vinyl-source-stream'),
+  buffer = require('vinyl-buffer'),
   browserify = require('browserify'),
   uglifyify = require('uglifyify'),
   reactify = require('reactify');
@@ -22,7 +23,7 @@ var paths = {
     './themes/janeswalk/js/extend.js',
     './themes/janeswalk/js/shims.js',
   ],
-  jsx_views: './themes/janeswalk/js/v2/View.jsx',
+  jsx_views: './themes/janeswalk/js/janeswalk.jsx',
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
@@ -36,19 +37,19 @@ gulp.task('css', function() {
     .pipe(gulp.dest(paths.css));
 });
 
-gulp.task('js_views', function() {
+gulp.task('jsx_views', function() {
   return browserify({
     entries: paths.jsx_views,
     transform: [reactify],
     extensions: ['.jsx'],
   })
     .bundle()
-//    .pipe(concat(paths.js_lib))
-    .pipe(source('View.js'))
+    .pipe(source('janeswalk.js'))
     .pipe(gulp.dest(paths.js))
-//    .pipe(source('View.min.js'))
-//    .pipe(uglify())
-//    .pipe(gulp.dest(paths.js))
+    .pipe(rename('janeswalk.min.js'))
+    .pipe(buffer())
+    .pipe(uglify())
+    .pipe(gulp.dest(paths.js))
 });
 
 gulp.task('browserify', function(callback) {
@@ -65,7 +66,7 @@ gulp.task('browserify', function(callback) {
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
   gulp.watch(paths.jsx, ['browserify']);
-  gulp.watch(paths.js_views, ['js_views']);
+  gulp.watch(paths.jsx_views, ['jsx_views']);
 });
 
 gulp.task('default', function() {

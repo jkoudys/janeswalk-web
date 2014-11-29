@@ -50,3 +50,6 @@ var FacebookShareDialog = Class.extend({
         );
     }
 });
+
+module.exports = FacebookShareDialog;
+

@@ -1,3 +1,6 @@
+require('../extend.js');
+require('../shims.js');
+var Class = window.Class;
 
 /**
  * View
@@ -35,3 +38,6 @@ var View = Class.extend({
         return this._element;
     }
 });
+
+module.exports = View;
+

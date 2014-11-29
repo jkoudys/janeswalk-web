@@ -1,3 +1,4 @@
+var PageView = require('../Page.jsx');
 
 /**
  * HomePageView
@@ -190,3 +191,5 @@ var HomePageView = PageView.extend({
         );
     }
 });
+
+module.exports = HomePageView;

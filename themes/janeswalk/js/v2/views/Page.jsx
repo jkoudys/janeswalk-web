@@ -1,3 +1,4 @@
+var View = require('../View.jsx');
 
 /**
  * PageView
@@ -134,3 +135,5 @@ var PageView = View.extend({
         this._makeGaCall(call);
     }
 });
+
+module.exports = PageView;

@@ -1,3 +1,4 @@
+var PageView = require('../Page.jsx');
 
 /**
  * CityPageView
@@ -484,3 +485,5 @@ var CityPageView = PageView.extend({
         );
     }
 });
+
+module.exports = CityPageView;

@@ -3,8 +3,18 @@
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
+// Page Views
+PageViews = {
+  CityPageView: require('./v2/views/pages/City.jsx'),
+  HomePageView: require('./v2/views/pages/Home.jsx'),
+  ProfilePageView: require('./v2/views/pages/Profile.jsx'),
+  WalkPageView: require('./v2/views/pages/Walk.jsx')
+};
+
 document.addEventListener('DOMContentLoaded', function() {
-  var pageViewName = document.body.getAttribute('data-pageViewName') || 'PageView';
+  var pageViewName =
+    document.body.getAttribute('data-pageViewName') ||
+    'PageView';
 
   if (pageViewName) {
     // The pageViewName class gets loaded from the globally-defined class
@@ -12,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // objects) are the only things that should be declared globally.
     try {
       // FIXME: I'm not in-love with such a heavy jQuery reliance
-      new window[pageViewName]($(document.body));
+      new PageViews[pageViewName]($(document.body));
     } catch(e) {
       console.log('Error instantiating page view ' + pageViewName + ': ' + e);
     }
@@ -21,11 +31,17 @@ document.addEventListener('DOMContentLoaded', function() {
   // Init keyboard shortcuts
   var toolbar = document.getElementById('ccm-toolbar');
   if (toolbar) {
-    window.addEventListener("keyup", function(ev) {
+    window.addEventListener('keyup', function(ev) {
       /* Don't capture inputs going into a form */
       if(ev.target.tagName !== "INPUT") {
         ev.preventDefault();
-        switch(String(ev.key || (ev.keyCode && String.fromCharCode(ev.keyCode)) || ev.char).toUpperCase()) {
+        switch(
+          String(
+            ev.key ||
+            (ev.keyCode && String.fromCharCode(ev.keyCode)) ||
+            ev.char)
+            .toUpperCase()
+        ){
           case "M":
             if (toolbar.style) {
               if (toolbar.style.zIndex == 99999) {
@@ -41,5 +57,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
-
 });

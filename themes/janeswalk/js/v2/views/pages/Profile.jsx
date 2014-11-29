@@ -1,3 +1,4 @@
+var PageView = require('../Page.jsx');
 
 /**
  * ProfilePageView
@@ -561,3 +562,5 @@ var ProfilePageView = PageView.extend({
         );
     }
 });
+
+module.exports = ProfilePageView;
