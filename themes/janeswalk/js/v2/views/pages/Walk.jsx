@@ -214,8 +214,7 @@ var WalkPageView = PageView.extend({
           $('.walk-stops-meta #'+ i ).addClass('active');
 
           // Scroll to view item in list
-          var activePos = $('.active');
-          $('.walk-stops-meta').mCustomScrollbar("scrollTo",'.active');
+          // TODO: make the marker you clicked active
 
         };
       },

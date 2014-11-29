@@ -17,12 +17,12 @@ var gulp = require('gulp'),
 
 var paths = {
   js: './themes/janeswalk/js',
-  js_views: [
+  js_lib: [
     './themes/janeswalk/js/app.js',
     './themes/janeswalk/js/extend.js',
     './themes/janeswalk/js/shims.js',
-    './themes/janeswalk/js/v2/**/*.js'
   ],
+  jsx_views: './themes/janeswalk/js/v2/View.jsx',
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
@@ -37,12 +37,18 @@ gulp.task('css', function() {
 });
 
 gulp.task('js_views', function() {
-  return gulp.src(paths.js_views)
-    .pipe(concat('janeswalk.js'))
+  return browserify({
+    entries: paths.jsx_views,
+    transform: [reactify],
+    extensions: ['.jsx'],
+  })
+    .bundle()
+//    .pipe(concat(paths.js_lib))
+    .pipe(source('View.js'))
     .pipe(gulp.dest(paths.js))
-    .pipe(uglify())
-    .pipe(rename('janeswalk.min.js'))
-    .pipe(gulp.dest(paths.js));
+//    .pipe(source('View.min.js'))
+//    .pipe(uglify())
+//    .pipe(gulp.dest(paths.js))
 });
 
 gulp.task('browserify', function(callback) {
