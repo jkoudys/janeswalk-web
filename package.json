@@ -18,15 +18,16 @@
     "grunt-contrib-watch": "*",
     "grunt-phpunit": "*",
     "grunt-react": "*",
+    "gulp": "*",
     "gulp-autoprefixer": "*",
+    "gulp-concat": "~2.4.2",
     "gulp-less": "*",
+    "gulp-rename": "~1.2.0",
+    "gulp-uglify": "~1.0.1",
     "react": "*",
     "reactify": "*",
-    "gulp-rename": "~1.2.0",
-    "vinyl-source-stream": "~1.0.0",
-    "vinyl-buffer": "~1.0.0",
     "uglifyify": "~2.6.0",
-    "gulp-uglify": "~1.0.1",
-    "gulp-concat": "~2.4.2"
+    "vinyl-buffer": "~1.0.0",
+    "vinyl-source-stream": "~1.0.0"
   }
 }
