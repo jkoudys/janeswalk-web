@@ -364,10 +364,11 @@
 */
 ?>
           <?php
-            if ($userHasSetHomeCity && $userIsCityOrganizer) {
+            if ($userHasSetHomeCity) {
           ?>
             <div class="column city">
               <div class="headline"><?= t('My City\'s Walks') ?></div>
+              <a href="<?= $nh->getLinkToCollection($city) ?>" class="btn btn-primary btn-small"><?= t('Visit my city') ?></a>
               <?php
                 $nullcaseClasses = array('nullcase');
                 if ($cityHasWalks === true) {
@@ -388,7 +389,7 @@
               <ul class="<?= implode(' ', $cityWalkListClasses) ?>">
                 <?php foreach ($cityWalks as $index => $walk): ?>
                   <?php
-                    $title = ($walk->getCollectionName() === '' ? '(untitled)' : $walk->getCollectionName());
+                    $title = ($walk->getCollectionName() ? '(untitled)' : $walk->getCollectionName());
                   ?>
                   <li>
                     <div class="image" style="display: none;">
@@ -403,15 +404,17 @@
                           <?= ($title) ?>
                         </a>
                       </div>
-                      <div class="subactions">
-                        <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkpath="<?= ($walk->getCollectionPath()) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
-                        <?php endif; ?>
-                        <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
-                        <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
-                          <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>"><?= t('Unpublish') ?></a>
-                        <?php endif; ?>
-                      </div>
+                      <?php if ($userIsCityOrganizer) { ?>
+                        <div class="subactions">
+                          <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
+                            <a href="#" class="promote" data-walktitle="<?= addslashes($title) ?>" data-walkpath="<?= ($walk->getCollectionPath()) ?>" data-walkid="<?= ($walk->getCollectionID()) ?>"><?= t('Promote') ?></a>
+                          <?php endif; ?>
+                          <a href="<?= ($nh->getCollectionURL($newWalkForm)) ?>?load=<?= ($walk->getCollectionPath()) ?>" class="edit"><?= t('Edit') ?></a>
+                          <?php if ($walk->getAttribute('exclude_page_list') !== '1'): ?>
+                            <a href="<?= ($nh->getCollectionURL($walk)) ?>" class="delete" data-cid="<?= ($walk->getCollectionID()) ?>"><?= t('Unpublish') ?></a>
+                          <?php endif; ?>
+                        </div>
+                      <?php } ?>
                     </div>
                   </li>
                 <?php endforeach; ?>
@@ -667,7 +670,7 @@
                     <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizerData['cityName']) ?>,Canada&amp;zoom=12&amp;size=400x200&amp;sensor=false" class="map" />
                     <div class="meta">
                       <div class="tag" style="background-image:url(<?= ($organizerData['organizerImagePath']) ?>)"></div>
-                      <div class="name"><?= ($organizerData['organizerName']) ?></div>
+                      <div class="name"><?= ($organizerData['organizerName']) ?>, <?= $organizerData['cityName'] ?></div>
                       <div class="email">
                         <a href="mailto:<?= ($organizerData['organizerEmail']) ?>"><?= ($organizerData['organizerEmail']) ?></a>
                       </div>
