@@ -389,7 +389,7 @@
               <ul class="<?= implode(' ', $cityWalkListClasses) ?>">
                 <?php foreach ($cityWalks as $index => $walk): ?>
                   <?php
-                    $title = ($walk->getCollectionName() ? '(untitled)' : $walk->getCollectionName());
+                    $title = $walk->getCollectionName() ?: '(untitled)';
                   ?>
                   <li>
                     <div class="image" style="display: none;">
