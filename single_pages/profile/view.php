@@ -688,8 +688,8 @@
                 <?php foreach ($featuredWalkData as $featuredWalk): ?>
                   <li>
                     <div class="banner" style="background-image: url('<?= ($featuredWalk['walkImagePath']) ?>');"></div>
-                    <img src="/themes/janeswalk/images/countryFlags/<?= ($featuredWalk['countryName']) ?>.png" class="flag" />
                     <div class="meta">
+                      <img src="/themes/janeswalk/images/countryFlags/<?= ($featuredWalk['countryName']) ?>.png" class="flag" />
                       <div class="city"><?= ($featuredWalk['cityName']) ?></div>
                       <div class="title">
                         <a href="<?= ($featuredWalk['walkPath']) ?>"><?= ($featuredWalk['walkTitle']) ?></a>
