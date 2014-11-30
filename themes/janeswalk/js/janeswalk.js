@@ -6,6 +6,7 @@
  */
 // Page Views
 PageViews = {
+  PageView: require('./v2/views/Page.jsx'),
   CityPageView: require('./v2/views/pages/City.jsx'),
   HomePageView: require('./v2/views/pages/Home.jsx'),
   ProfilePageView: require('./v2/views/pages/Profile.jsx'),
@@ -17,16 +18,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
 
-  if (pageViewName) {
-    // The pageViewName class gets loaded from the globally-defined class
-    // This is a PHP-ish approach to OO, and classes themselves (not their
-    // objects) are the only things that should be declared globally.
-    try {
-      // FIXME: I'm not in-love with such a heavy jQuery reliance
-      new PageViews[pageViewName]($(document.body));
-    } catch(e) {
-      console.log('Error instantiating page view ' + pageViewName + ': ' + e);
-    }
+  // The pageViewName class gets loaded from the globally-defined class
+  // This is a PHP-ish approach to OO, and classes themselves (not their
+  // objects) are the only things that should be declared globally.
+  try {
+    // FIXME: I'm not in-love with such a heavy jQuery reliance
+    new PageViews[pageViewName]($(document.body));
+  } catch(e) {
+    console.log('Error instantiating page view ' + pageViewName + ': ' + e);
   }
 
   // Init keyboard shortcuts
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-},{"./v2/views/pages/City.jsx":6,"./v2/views/pages/Home.jsx":7,"./v2/views/pages/Profile.jsx":8,"./v2/views/pages/Walk.jsx":9}],2:[function(require,module,exports){
+},{"./v2/views/Page.jsx":5,"./v2/views/pages/City.jsx":6,"./v2/views/pages/Home.jsx":7,"./v2/views/pages/Profile.jsx":8,"./v2/views/pages/Walk.jsx":9}],2:[function(require,module,exports){
 
 /* Simple JavaScript Inheritance
  * By John Resig http://ejohn.org/
@@ -867,189 +866,193 @@ var PageView = require('../Page.jsx');
  */
 var HomePageView = PageView.extend({
 
-    /**
-     * init
-     * 
-     * @public
-     * @param  jQuery element
-     * @return void
-     */
-    init: function(element) {
-        this._super(element);
-        this._addMapToggleEvents();
-        this._addCityLookup();
-        this._addBgImage();
-        this._addCityDropdownEvent();
-        this._addCreateWalkEvent();
-    },
+  /**
+   * init
+   * 
+   * @public
+   * @param  jQuery element
+   * @return void
+   */
+  init: function(element) {
+    this._super(element);
+    this._addMapToggleEvents();
+    this._addCityLookup();
+    this._addBgImage();
+    this._addCityDropdownEvent();
+    this._addCreateWalkEvent();
+  },
 
-    /**
-     * _addCreateWalkEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addCreateWalkEvent: function() {
-        var _this = this,
-            $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                if (_this._element.find('a[href="/index.php/login/logout/"]').length) {
-                    location.href = $(this).attr('href');
-                } else {
-                    _this._element.find('.overlay').show();
-                }
-            }
-        );
-    },
-
-    /**
-     * _addCityDropdownEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addCityDropdownEvent: function() {
-        var $select = this._element.find('select.pageListSelect');
-        $select.change(
-            function(event) {
-                location.href = $select.val();
-            }
-        );
-    },
-
-    /**
-     * _addBgImage
-     * 
-     * @protected
-     * @return    void
-     */
-    _addBgImage: function() {
-        var backgroundImageUrl = this._element.attr('data-backgroundImageUrl'),
-            $backgroundImageBanner = this._element.find('.backgroundImageBanner'),
-            image = document.createElement("img");
-        image.onload = function() {
-            $backgroundImageBanner.css({
-                backgroundImage: 'url(' + (backgroundImageUrl) + ')'
-            });
-            $backgroundImageBanner.removeClass('faded');
-        };
-        image.src = backgroundImageUrl;
-    },
-
-    /**
-     * _addCityCalloutCta
-     * 
-     * @protected
-     * @param     String cityName
-     * @param     String cityPath
-     * @return    void
-     */
-    _addCityCalloutCta: function(cityName, cityPath) {
-        var $parent = this._element.find('.ccm-page-list-typeahead').first(),
-            $wrapper = $('<h3 />'),
-            $button = $('<a />');
-        $button.attr({
-            href: cityPath,
-        });
-        $button.text(cityName);
-        $wrapper.append('See walks in ').append($button).append(', or:');
-        $parent.prepend($wrapper);
-    },
-
-    /**
-     * _addCityButtonCta
-     * 
-     * @protected
-     * @param     String cityName
-     * @param     String cityPath
-     * @return    void
-     */
-    _addCityButtonCta: function(cityName, cityPath) {
-        var $parent = this._element.find('.calltoaction ul').first(),
-            $wrapper = $('<li />'),
-            $button = $('<a />');
-        $wrapper.attr({
-            class: 'cityButtonCta'
-        });
-        $button.attr({
-            class: 'btn btn-primary',
-            href: cityPath,
-        });
-        $wrapper.append($button);
-        $button.text('View walks in ' + (cityName));
-        $parent.prepend($wrapper);
-    },
-
-    /**
-     * _addCityLookup
-     * 
-     * @protected
-     * @return    void
-     */
-    _addCityLookup: function() {
-        var _this = this;
-        window.freeGeoIpCallback = function(obj) {
-            if (typeof obj !== 'undefined') {
-                var $cities = _this._element.find(
-                        'div.ccm-page-list-typeahead ul li a'
-                    ),
-                    $city;
-                $cities.each(function(index, cityEl) {
-                    if ($(cityEl).text() === obj.city) {
-                        _this._addCityCalloutCta(obj.city, $(cityEl).attr('href'));
-                        _this._addCityButtonCta(obj.city, $(cityEl).attr('href'));
-                    }
-                });
-            }
-        };
-        if (JanesWalk.user === undefined || JanesWalk.user.city === undefined) {
-            $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
-        } else {
-            _this._addCityCalloutCta(JanesWalk.user.city.name, JanesWalk.user.city.url);
-            _this._addCityButtonCta(JanesWalk.user.city.name, JanesWalk.user.city.url);
-        }
-    },
-
-    /**
-     * _addMapToggleEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _addMapToggleEvents: function() {
-        var $showButton = this._element.find('.overlap .controls a.showButton'),
-            $closeButton = this._element.find('.overlap .controls a.closeButton');
-        $showButton.click(
-            function() {
-                $('.overlap').addClass('fullmap');
-                $(this).fadeOut(
-                    400,
-                    function() {
-                        $closeButton.fadeIn();
-                    }
-                );
-                $('html, body').animate(
-                    {
-                        scrollTop: $(this).offset().top - 100
-                    },
-                    800
-                );
-            }
-        );
-        $closeButton.click(
-            function() {
-                $('.overlap').removeClass('fullmap');
-                $(this).fadeOut(
-                    400,
-                    function() {
-                        $showButton.fadeIn();
-                    }
-                );
-            }
-        );
+  /**
+   * _addCreateWalkEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addCreateWalkEvent: function() {
+    var _this = this,
+    $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
+    $btn.click(
+      function(event) {
+      event.preventDefault();
+      if (_this._element.find('a[href="/index.php/login/logout/"]').length) {
+        location.href = $(this).attr('href');
+      } else {
+        _this._element.find('.overlay').show();
+      }
     }
+    );
+  },
+
+  /**
+   * _addCityDropdownEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addCityDropdownEvent: function() {
+    var $select = this._element.find('select.pageListSelect');
+    $select.change(
+      function(event) {
+      location.href = $select.val();
+    }
+    );
+  },
+
+  /**
+   * _addBgImage
+   * 
+   * @protected
+   * @return    void
+   */
+  _addBgImage: function() {
+    var backgroundImageUrl = this._element.attr('data-backgroundImageUrl'),
+    $backgroundImageBanner = this._element.find('.backgroundImageBanner'),
+    image = document.createElement("img");
+    image.onload = function() {
+      $backgroundImageBanner.css({
+        backgroundImage: 'url(' + (backgroundImageUrl) + ')'
+      });
+      $backgroundImageBanner.removeClass('faded');
+    };
+    image.src = backgroundImageUrl;
+  },
+
+  /**
+   * _addCityCalloutCta
+   * 
+   * @protected
+   * @param     String cityName
+   * @param     String cityPath
+   * @return    void
+   */
+  _addCityCalloutCta: function(cityName, cityPath) {
+    React.render(
+      this._element.find('.ccm-page-list-typeahead').first(),
+      React.createElement("h3", null, 
+        "See walks in ", React.createElement("a", {href: cityPath}, cityName), ", or:"
+      )
+    );
+  },
+
+  /**
+   * _addCityButtonCta
+   * 
+   * @protected
+   * @param     String cityName
+   * @param     String cityPath
+   * @return    void
+   */
+  _addCityButtonCta: function(cityName, cityPath) {
+    React.render(
+      this._element.find('.calltoaction ul').first(),
+      React.createElement("li", {className: "cityButtonCta"}, 
+        React.createElement("a", {href: cityPath, className: "btn btn-primary"}, 
+          "View walks in ", cityName
+        )
+      )
+    );
+  },
+
+  /**
+   * _addCityLookup
+   * 
+   * @protected
+   * @return    void
+   */
+  _addCityLookup: function() {
+    var _this = this;
+    window.freeGeoIpCallback = function(obj) {
+      if (typeof obj !== 'undefined') {
+        var $cities = _this._element.find(
+          'div.ccm-page-list-typeahead ul li a'
+        ),
+        $city;
+        $cities.each(function(index, cityEl) {
+          if ($(cityEl).text() === obj.city) {
+            _this._addCityCalloutCta(
+              obj.city,
+              $(cityEl).attr('href')
+            );
+            _this._addCityButtonCta(
+              obj.city,
+              $(cityEl).attr('href')
+            );
+          }
+        });
+      }
+    };
+    if (JanesWalk.user === undefined || JanesWalk.user.city === undefined) {
+      $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
+    } else {
+      _this._addCityCalloutCta(
+        JanesWalk.user.city.name,
+        JanesWalk.user.city.url
+      );
+      _this._addCityButtonCta(
+        JanesWalk.user.city.name,
+        JanesWalk.user.city.url
+      );
+    }
+  },
+
+  /**
+   * _addMapToggleEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _addMapToggleEvents: function() {
+    var $showButton = this._element.find('.overlap .controls a.showButton'),
+    $closeButton = this._element.find('.overlap .controls a.closeButton');
+    $showButton.click(
+      function() {
+        $('.overlap').addClass('fullmap');
+        $(this).fadeOut(
+          400,
+          function() {
+            $closeButton.fadeIn();
+          }
+        );
+        $('html, body').animate(
+          {
+            scrollTop: $(this).offset().top - 100
+          },
+          800
+        );
+      }
+    );
+    $closeButton.click(
+      function() {
+        $('.overlap').removeClass('fullmap');
+        $(this).fadeOut(
+          400,
+          function() {
+            $showButton.fadeIn();
+          }
+        );
+      }
+    );
+  }
 });
 
 module.exports = HomePageView;
@@ -1064,560 +1067,560 @@ var PageView = require('../Page.jsx');
  */
 var ProfilePageView = PageView.extend({
 
-    /**
-     * _slideIndexes
-     * 
-     * @protected
-     * @var       Object
-     */
-    _slideIndexes: {
-        blogPost: 0,
-        city: 0,
-        walk: 0
-    },
+  /**
+   * _slideIndexes
+   * 
+   * @protected
+   * @var       Object
+   */
+  _slideIndexes: {
+    blogPost: 0,
+    city: 0,
+    walk: 0
+  },
 
-    /**
-     * _currentTab
-     * 
-     * @protected
-     * @var       String|null (default: null)
-     */
-    _currentTab: null,
+  /**
+   * _currentTab
+   * 
+   * @protected
+   * @var       String|null (default: null)
+   */
+  _currentTab: null,
 
-    /**
-     * init
-     * 
-     * @public
-     * @param  jQuery element
-     * @return void
-     */
-    init: function(element) {
-      try { 
-        this._super(element);
-        this._showProperStep();
-        this._addTabClickEvents();
-        this._setupDisplayPictureFlashWidget();
-        this._addPictureDeleteEvent();
-        this._addPromoteWalkClickEvent();
-        this._addPromoteCityClickEvent();
-        this._addPromoteBlogPostClickEvent();
-        this._setupCityPromoteModalEvents();
-        this._setupWalkPromoteModalEvents();
-        this._setupBlogPostPromoteModalEvents();
-        this._setupPromoteSlideshows();
-        this._setupTransferWalkEvents();
-      } catch(e) {
-        console.log("Error initializing profile: " + e);
-      }
-    },
-
-    /**
-     * _addPictureDeleteEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addPictureDeleteEvent: function() {
-        this._element.find('a[href="/index.php/profile/delete/"]').click(
-            function(event) {
-                event.preventDefault();
-                $.ajax({
-                    type: 'DELETE',
-                    url: $(this).attr('href'),
-                    success: function() {
-                        location.href = '/index.php/profile/#tab=picture&success=1';
-                    }
-                });
-            }
-        );
-    },
-
-    /**
-     * _addPromoteBlogPostClickEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addPromoteBlogPostClickEvent: function() {
-        var _this = this,
-            $btn = this._element.find('.column.blogPosts .subactions .promote');
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                var blogPostObj = _this._getBlogPostObjById(
-                    $(this).data('blogpostid')
-                );
-                _this._element.find('.blogPostPromoteOverlay .copy').each(
-                    function(index, copy) {
-                        var $copy = $(copy);
-                        $copy.data('blogpostpath', blogPostObj.path);
-                        $copy.find('.objTitle').text(blogPostObj.title);
-                    }
-                );
-                _this._element.find('.blogPostPromoteOverlay').show();
-            }
-        );
-    },
-
-    /**
-     * _addPromoteCityClickEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addPromoteCityClickEvent: function() {
-        var _this = this,
-            $btn = this._element.find('#cityBlock .promoteBtn');
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                _this._element.find('.cityPromoteOverlay').show();
-            }
-        );
-    },
-
-    /**
-     * _getBlogPostObjById
-     * 
-     * @protected
-     * @param     Number blogPostId
-     * @return    void
-     */
-    _getBlogPostObjById: function(blogPostId) {
-        var $link = this._element.find('[data-blogpostid="' + (blogPostId) + '"]');
-        return {
-            title: $link.first().data('blogposttitle'),
-            path: $link.first().data('blogpostpath')
-        };
-    },
-
-    /**
-     * _getWalkObjById
-     * 
-     * @protected
-     * @param     Number walkId
-     * @return    void
-     */
-    _getWalkObjById: function(walkId) {
-        var $link = this._element.find('[data-walkid="' + (walkId) + '"]');
-        return {
-            title: $link.first().data('walktitle'),
-            path: $link.first().data('walkpath')
-        };
-    },
-
-    /**
-     * _addPromoteWalkClickEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addPromoteWalkClickEvent: function() {
-        var _this = this,
-            $btn = this._element.find(
-                '.column.city .subactions .promote,' +
-                '.column.walks .subactions .promote'
-            );
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                var walkObj = _this._getWalkObjById($(this).data('walkid'));
-                _this._element.find('.walkPromoteOverlay .copy').each(
-                    function(index, copy) {
-                        var $copy = $(copy);
-                        $copy.data('walkpath', walkObj.path);
-                        $copy.find('.objTitle').text(walkObj.title);
-                    }
-                );
-                _this._element.find('.walkPromoteOverlay').show();
-            }
-        );
-    },
-
-    /**
-     * _addTabClickEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _addTabClickEvents: function() {
-
-        // Nav tabs
-        var _this = this;
-        this._element.find('ul.nav-tabs li a').click(
-            function(event) {
-                event.preventDefault();
-                _this._currentTab = $(this).attr('data-tab');
-                _this._showCurrentTab();
-            }
-        );
-
-        // Stand alone links
-        this._element.find('.tabLink').click(
-            function(event) {
-                event.preventDefault();
-                _this._currentTab = $(this).attr('data-tab');
-                _this._showCurrentTab();
-            }
-        );
-    },
-
-    /**
-     * _setupBlogPostPromoteModalEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _setupBlogPostPromoteModalEvents: function() {
-        var _this = this;
-        this._element.find('.blogPostPromoteOverlay').find('.icon-twitter').click(
-            function(event) {
-                event.preventDefault();
-                var $copy = $(this).closest('.option').find('.copy');
-                _this._showTwitterShareWindow(
-                    'http://janeswalk.org' + ($copy.data('blogpostpath')),
-                    $copy.text().trim()
-                );
-            }
-        );
-        this._element.find('.blogPostPromoteOverlay').find('.icon-facebook').click(
-            function(event) {
-                event.preventDefault();
-                var $copy = $(this).closest('.option').find('.copy');
-                _this._showFacebookShareWindow(
-                    'http://janeswalk.org' + ($copy.data('blogpostpath')),
-                    'Jane\'s Walk',
-                    $copy.text().trim()
-                );
-            }
-        );
-        this._element.find('.blogPostPromoteOverlay').find('.icon-envelope').click(
-            function(event) {
-                event.preventDefault();
-                var $copy = $(this).closest('.option').find('.copy');
-                _this._showEmailShareWindow(
-                    'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
-                    $copy.text().trim()
-                );
-            }
-        );
-    },
-
-    /**
-     * _setupCityPromoteModalEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _setupCityPromoteModalEvents: function() {
-        var cityPath = this._element.find('.cityPromoteOverlay').data('citypath'),
-            cityName = this._element.find('.cityPromoteOverlay').data('cityname');
-        var _this = this;
-        this._element.find('.cityPromoteOverlay').find('.icon-twitter').click(
-            function(event) {
-                event.preventDefault();
-                _this._showTwitterShareWindow(
-                    'http://janeswalk.org' + (cityPath),
-                    $(this).closest('.option').find('.copy').text().trim()
-                );
-            }
-        );
-        this._element.find('.cityPromoteOverlay').find('.icon-facebook').click(
-            function(event) {
-                event.preventDefault();
-                _this._showFacebookShareWindow(
-                    'http://janeswalk.org' + (cityPath),
-                    'Jane\'s Walk',
-                    $(this).closest('.option').find('.copy').text().trim()
-                );
-            }
-        );
-        this._element.find('.cityPromoteOverlay').find('.icon-envelope').click(
-            function(event) {
-                event.preventDefault();
-                _this._showEmailShareWindow(
-                    'Jane\'s Walk in ' + (cityName),
-                    $(this).closest('.option').find('.copy').text().trim()
-                );
-            }
-        );
-    },
-
-    /**
-     * _setupTransferWalkEvents
-     *
-     * @protected
-     * @return  void
-     */
-    _setupTransferWalkEvents: function() {
-      var _this = this;
-      // Set the requests when clicking the modal links
-      this._element.find('#walk-transfer .users a').click(
-        function(event) {
-          event.preventDefault();
-          $.get(
-            this.getAttribute('href'),
-            function(data) {
-              if (data.error) {
-                // TODO: alerts are lame. Find a proper area for messaging
-                alert(data.error);
-              } else {
-                // Just refresh the page for now
-                window.location = window.location;
-              }
-            }
-          );
-        }
-      );
-
-      // Set the 'transfer' buttons in the walks columns
-      this._element.find('a.transfer').removeClass('hidden').click(
-        function(event) {
-          event.preventDefault();
-          var modal = _this._element.find('#walk-transfer'),
-            href = this.getAttribute('href'),
-            links = modal.find('.users a');
-          for (var i = 0, len = links.length; i < len; i++) {
-            links[i].setAttribute('href', href + 'transfer/' + links[i].getAttribute('data-uid'));
-          }
-          modal.modal();
-        }
-      );
-    },
-            
-
-    /**
-     * _setupDisplayPictureFlashWidget
-     * 
-     * @protected
-     * @return    void
-     */
-    _setupDisplayPictureFlashWidget: function() {
-      window.ThumbnailBuilder_onSaveCompleted = function() {
-        location.href = '/index.php/profile/#tab=picture&success=1';
-      };
-      var params = {
-        bgcolor: '#ffffff',
-        wmode: 'transparent',
-        quality: 'high' 
-      },
-      flashvars = {
-        width: this._element.find('#flashContainer').attr('data-width'),
-        height: this._element.find('#flashContainer').attr('data-height'),
-        image: this._element.find('#flashContainer').attr('data-imagepath'),
-        save: this._element.find('#flashContainer').attr('data-savepath')
-      };
-      if(typeof swfobject !== "undefined") {
-        swfobject.embedSWF(
-          this._element.find('#flashContainer').attr('data-flashpath'),
-          'flashContainer',
-          '500',
-          '400',
-          '10,0,0,0',
-          'includes/expressInstall.swf',
-          flashvars,
-          params
-        );
-      }
-    },
-
-    /**
-     * _showSlide
-     * 
-     * @protected
-     * @param     String slideshowName
-     * @return    void
-     */
-    _showSlide: function(slideshowName) {
-        var index = this._slideIndexes[slideshowName],
-            $overlay = this._element.find('[data-slideshow="' + (slideshowName) + '"]'),
-            $options = $overlay.find('.options .option');
-        $options.addClass('hidden');
-        $($options[index]).removeClass('hidden');
-    },
-
-    /**
-     * _setupPromoteSlideshows
-     * 
-     * @protected
-     * @return    void
-     */
-    _setupPromoteSlideshows: function() {
-        var _this = this;
-        this._element.find('.promoteOverlay .nav > a.left').click(
-            function(event) {
-                event.preventDefault();
-                var $anchor = $(this),
-                    slideshow = $anchor.data('slideshow'),
-                    $overlay = $anchor.closest('.promoteOverlay'),
-                    numOptions = $overlay.find('.options .option').length,
-                    $options = $overlay.find('.options .option');
-                if (_this._slideIndexes[slideshow] === 0) {
-                    _this._slideIndexes[slideshow] = numOptions - 1;
-                } else {
-                    --_this._slideIndexes[slideshow];
-                }
-                _this._showSlide(slideshow);
-            }
-        );
-        this._element.find('.promoteOverlay .nav > a.right').click(
-            function(event) {
-                event.preventDefault();
-                var $anchor = $(this),
-                    slideshow = $anchor.data('slideshow'),
-                    $overlay = $anchor.closest('.promoteOverlay'),
-                    numOptions = $overlay.find('.options .option').length,
-                    $options = $overlay.find('.options .option');
-                if (_this._slideIndexes[slideshow] === (numOptions - 1)) {
-                    _this._slideIndexes[slideshow] = 0;
-                } else {
-                    ++_this._slideIndexes[slideshow];
-                }
-                _this._showSlide(slideshow);
-                
-            }
-        );
-    },
-
-    /**
-     * _setupWalkPromoteModalEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _setupWalkPromoteModalEvents: function() {
-        var _this = this;
-        this._element.find('.walkPromoteOverlay').find('.icon-twitter').click(
-            function(event) {
-                event.preventDefault();
-                var $copy = $(this).closest('.option').find('.copy');
-                _this._showTwitterShareWindow(
-                    'http://janeswalk.org' + ($copy.data('walkpath')),
-                    $copy.text().trim()
-                );
-            }
-        );
-        this._element.find('.walkPromoteOverlay').find('.icon-facebook').click(
-            function(event) {
-                event.preventDefault();
-                var $copy = $(this).closest('.option').find('.copy');
-                _this._showFacebookShareWindow(
-                    'http://janeswalk.org' + ($copy.data('walkpath')),
-                    'Jane\'s Walk',
-                    $copy.text().trim()
-                );
-            }
-        );
-        this._element.find('.walkPromoteOverlay').find('.icon-envelope').click(
-            function(event) {
-                event.preventDefault();
-                var $copy = $(this).closest('.option').find('.copy');
-                _this._showEmailShareWindow(
-                    'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
-                    $copy.text().trim()
-                );
-            }
-        );
-    },
-
-    /**
-     * _showCurrentTab
-     * 
-     * @protected
-     * @return    void
-     */
-    _showCurrentTab: function() {
-        this._element.find('ul.nav-tabs li.active').removeClass('active');
-        this._element.find('ul.nav-tabs li a[data-tab="' + (this._currentTab) + '"]').parent().addClass('active');
-        this._element.find('div.content div.block').addClass('hidden');
-        this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').removeClass('hidden');
-        location.hash = 'tab=' + (this._currentTab);
-    },
-
-    /**
-     * _showEmailShareWindow
-     * 
-     * @protected
-     * @param     String subject
-     * @param     String body
-     * @return    void
-     */
-    _showEmailShareWindow: function(subject, body) {
-        subject = encodeURIComponent(subject);
-        body = encodeURIComponent(body);
-        var link = 'mailto:?subject=' + (subject) + '&body=' + (body);
-        window.open(link);
-    },
-
-    /**
-     * _showFacebookShareWindow
-     * 
-     * @protected
-     * @param     String link
-     * @param     String title
-     * @param     String text
-     * @return    void
-     */
-    _showFacebookShareWindow: function(link, title, text) {
-        (new FacebookShareDialog({
-            link: link,
-            name: title,
-            description: text
-        })).show();
-    },
-
-    /**
-     * _showProperStep
-     * 
-     * @protected
-     * @return    void
-     */
-    _showProperStep: function() {
-        if (location.hash !== '') {
-            var pieces = location.hash.split('&'),
-                hash = {},
-                again;
-            $(pieces).each(
-                function(index, piece) {
-                    again = piece.split('=');
-                    hash[again[0].replace('#', '')] = again[1];
-                }
-            );
-            this._currentTab = hash.tab;
-            this._showCurrentTab();
-            if (
-                typeof hash.success !== 'undefined' &&
-                parseInt(hash.success) === 1
-            ) {
-                this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').addClass('success');
-            }
-        }
-    },
-
-    /**
-     * _showTwitterShareWindow
-     * 
-     * @protected
-     * @param     String link
-     * @param     String text
-     * @return    void
-     */
-    _showTwitterShareWindow: function(link, text) {
-        link = encodeURIComponent(link);
-        text = encodeURIComponent(text);
-        if (text.length > 130) {
-            text = text.substring(0,130) + '...';
-        }
-        link = 'https://twitter.com/intent/tweet' +
-            '?url=' + (link) +
-            '&via=janeswalk' +
-            '&text=' + (text);
-        window.open(
-            link,
-            'Twitter Share',
-            'width=640, height=320'
-        );
+  /**
+   * init
+   * 
+   * @public
+   * @param  jQuery element
+   * @return void
+   */
+  init: function(element) {
+    try { 
+      this._super(element);
+      this._showProperStep();
+      this._addTabClickEvents();
+      this._setupDisplayPictureFlashWidget();
+      this._addPictureDeleteEvent();
+      this._addPromoteWalkClickEvent();
+      this._addPromoteCityClickEvent();
+      this._addPromoteBlogPostClickEvent();
+      this._setupCityPromoteModalEvents();
+      this._setupWalkPromoteModalEvents();
+      this._setupBlogPostPromoteModalEvents();
+      this._setupPromoteSlideshows();
+      this._setupTransferWalkEvents();
+    } catch(e) {
+      console.log("Error initializing profile: " + e);
     }
+  },
+
+  /**
+   * _addPictureDeleteEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addPictureDeleteEvent: function() {
+    this._element.find('a[href="/index.php/profile/delete/"]').click(
+        function(event) {
+        event.preventDefault();
+        $.ajax({
+          type: 'DELETE',
+          url: $(this).attr('href'),
+          success: function() {
+            location.href = '/index.php/profile/#tab=picture&success=1';
+          }
+        });
+      }
+    );
+  },
+
+  /**
+   * _addPromoteBlogPostClickEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addPromoteBlogPostClickEvent: function() {
+    var _this = this,
+    $btn = this._element.find('.column.blogPosts .subactions .promote');
+    $btn.click(
+      function(event) {
+        event.preventDefault();
+        var blogPostObj = _this._getBlogPostObjById(
+          $(this).data('blogpostid')
+        );
+        _this._element.find('.blogPostPromoteOverlay .copy').each(
+          function(index, copy) {
+            var $copy = $(copy);
+            $copy.data('blogpostpath', blogPostObj.path);
+            $copy.find('.objTitle').text(blogPostObj.title);
+          }
+        );
+        _this._element.find('.blogPostPromoteOverlay').show();
+      }
+    );
+  },
+
+  /**
+   * _addPromoteCityClickEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addPromoteCityClickEvent: function() {
+    var _this = this,
+    $btn = this._element.find('#cityBlock .promoteBtn');
+    $btn.click(
+      function(event) {
+        event.preventDefault();
+        _this._element.find('.cityPromoteOverlay').show();
+      }
+    );
+  },
+
+  /**
+   * _getBlogPostObjById
+   * 
+   * @protected
+   * @param     Number blogPostId
+   * @return    void
+   */
+  _getBlogPostObjById: function(blogPostId) {
+    var $link = this._element.find('[data-blogpostid="' + (blogPostId) + '"]');
+    return {
+      title: $link.first().data('blogposttitle'),
+      path: $link.first().data('blogpostpath')
+    };
+  },
+
+  /**
+   * _getWalkObjById
+   * 
+   * @protected
+   * @param     Number walkId
+   * @return    void
+   */
+  _getWalkObjById: function(walkId) {
+    var $link = this._element.find('[data-walkid="' + (walkId) + '"]');
+    return {
+      title: $link.first().data('walktitle'),
+      path: $link.first().data('walkpath')
+    };
+  },
+
+  /**
+   * _addPromoteWalkClickEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addPromoteWalkClickEvent: function() {
+    var _this = this,
+    $btn = this._element.find(
+      '.column.city .subactions .promote,' +
+      '.column.walks .subactions .promote'
+    );
+    $btn.click(
+      function(event) {
+        event.preventDefault();
+        var walkObj = _this._getWalkObjById($(this).data('walkid'));
+        _this._element.find('.walkPromoteOverlay .copy').each(
+          function(index, copy) {
+          var $copy = $(copy);
+          $copy.data('walkpath', walkObj.path);
+          $copy.find('.objTitle').text(walkObj.title);
+        }
+        );
+        _this._element.find('.walkPromoteOverlay').show();
+      }
+    );
+  },
+
+  /**
+   * _addTabClickEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _addTabClickEvents: function() {
+
+    // Nav tabs
+    var _this = this;
+    this._element.find('ul.nav-tabs li a').click(
+      function(event) {
+        event.preventDefault();
+        _this._currentTab = $(this).attr('data-tab');
+        _this._showCurrentTab();
+      }
+    );
+
+    // Stand alone links
+    this._element.find('.tabLink').click(
+      function(event) {
+        event.preventDefault();
+        _this._currentTab = $(this).attr('data-tab');
+        _this._showCurrentTab();
+      }
+    );
+  },
+
+  /**
+   * _setupBlogPostPromoteModalEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _setupBlogPostPromoteModalEvents: function() {
+    var _this = this;
+    this._element.find('.blogPostPromoteOverlay').find('.icon-twitter').click(
+      function(event) {
+      event.preventDefault();
+      var $copy = $(this).closest('.option').find('.copy');
+      _this._showTwitterShareWindow(
+        'http://janeswalk.org' + ($copy.data('blogpostpath')),
+        $copy.text().trim()
+      );
+    }
+    );
+    this._element.find('.blogPostPromoteOverlay').find('.icon-facebook').click(
+      function(event) {
+        event.preventDefault();
+        var $copy = $(this).closest('.option').find('.copy');
+        _this._showFacebookShareWindow(
+          'http://janeswalk.org' + ($copy.data('blogpostpath')),
+          'Jane\'s Walk',
+          $copy.text().trim()
+        );
+      }
+    );
+    this._element.find('.blogPostPromoteOverlay').find('.icon-envelope').click(
+      function(event) {
+        event.preventDefault();
+        var $copy = $(this).closest('.option').find('.copy');
+        _this._showEmailShareWindow(
+          'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
+          $copy.text().trim()
+        );
+      }
+    );
+  },
+
+  /**
+   * _setupCityPromoteModalEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _setupCityPromoteModalEvents: function() {
+    var cityPath = this._element.find('.cityPromoteOverlay').data('citypath'),
+    cityName = this._element.find('.cityPromoteOverlay').data('cityname');
+    var _this = this;
+    this._element.find('.cityPromoteOverlay').find('.icon-twitter').click(
+      function(event) {
+        event.preventDefault();
+        _this._showTwitterShareWindow(
+          'http://janeswalk.org' + (cityPath),
+          $(this).closest('.option').find('.copy').text().trim()
+        );
+      }
+    );
+    this._element.find('.cityPromoteOverlay').find('.icon-facebook').click(
+      function(event) {
+        event.preventDefault();
+        _this._showFacebookShareWindow(
+          'http://janeswalk.org' + (cityPath),
+          'Jane\'s Walk',
+          $(this).closest('.option').find('.copy').text().trim()
+        );
+      }
+    );
+    this._element.find('.cityPromoteOverlay').find('.icon-envelope').click(
+      function(event) {
+        event.preventDefault();
+        _this._showEmailShareWindow(
+          'Jane\'s Walk in ' + (cityName),
+          $(this).closest('.option').find('.copy').text().trim()
+        );
+      }
+    );
+  },
+
+  /**
+   * _setupTransferWalkEvents
+   *
+   * @protected
+   * @return  void
+   */
+  _setupTransferWalkEvents: function() {
+    var _this = this;
+    // Set the requests when clicking the modal links
+    this._element.find('#walk-transfer .users a').click(
+      function(event) {
+      event.preventDefault();
+      $.get(
+        this.getAttribute('href'),
+        function(data) {
+          if (data.error) {
+            // TODO: alerts are lame. Find a proper area for messaging
+            alert(data.error);
+          } else {
+            // Just refresh the page for now
+            window.location = window.location;
+          }
+        }
+      );
+    }
+    );
+
+    // Set the 'transfer' buttons in the walks columns
+    this._element.find('a.transfer').removeClass('hidden').click(
+      function(event) {
+        event.preventDefault();
+        var modal = _this._element.find('#walk-transfer'),
+        href = this.getAttribute('href'),
+        links = modal.find('.users a');
+        for (var i = 0, len = links.length; i < len; i++) {
+          links[i].setAttribute('href', href + 'transfer/' + links[i].getAttribute('data-uid'));
+        }
+        modal.modal();
+      }
+    );
+  },
+
+
+  /**
+   * _setupDisplayPictureFlashWidget
+   * 
+   * @protected
+   * @return    void
+   */
+  _setupDisplayPictureFlashWidget: function() {
+    window.ThumbnailBuilder_onSaveCompleted = function() {
+      location.href = '/index.php/profile/#tab=picture&success=1';
+    };
+    var params = {
+      bgcolor: '#ffffff',
+      wmode: 'transparent',
+      quality: 'high' 
+    },
+    flashvars = {
+      width: this._element.find('#flashContainer').attr('data-width'),
+      height: this._element.find('#flashContainer').attr('data-height'),
+      image: this._element.find('#flashContainer').attr('data-imagepath'),
+      save: this._element.find('#flashContainer').attr('data-savepath')
+    };
+    if(typeof swfobject !== "undefined") {
+      swfobject.embedSWF(
+        this._element.find('#flashContainer').attr('data-flashpath'),
+        'flashContainer',
+        '500',
+        '400',
+        '10,0,0,0',
+        'includes/expressInstall.swf',
+        flashvars,
+        params
+      );
+    }
+  },
+
+  /**
+   * _showSlide
+   * 
+   * @protected
+   * @param     String slideshowName
+   * @return    void
+   */
+  _showSlide: function(slideshowName) {
+    var index = this._slideIndexes[slideshowName],
+    $overlay = this._element.find('[data-slideshow="' + (slideshowName) + '"]'),
+    $options = $overlay.find('.options .option');
+    $options.addClass('hidden');
+    $($options[index]).removeClass('hidden');
+  },
+
+  /**
+   * _setupPromoteSlideshows
+   * 
+   * @protected
+   * @return    void
+   */
+  _setupPromoteSlideshows: function() {
+    var _this = this;
+    this._element.find('.promoteOverlay .nav > a.left').click(
+      function(event) {
+        event.preventDefault();
+        var $anchor = $(this),
+        slideshow = $anchor.data('slideshow'),
+        $overlay = $anchor.closest('.promoteOverlay'),
+        numOptions = $overlay.find('.options .option').length,
+        $options = $overlay.find('.options .option');
+        if (_this._slideIndexes[slideshow] === 0) {
+          _this._slideIndexes[slideshow] = numOptions - 1;
+        } else {
+          --_this._slideIndexes[slideshow];
+        }
+        _this._showSlide(slideshow);
+      }
+    );
+    this._element.find('.promoteOverlay .nav > a.right').click(
+      function(event) {
+        event.preventDefault();
+        var $anchor = $(this),
+        slideshow = $anchor.data('slideshow'),
+        $overlay = $anchor.closest('.promoteOverlay'),
+        numOptions = $overlay.find('.options .option').length,
+        $options = $overlay.find('.options .option');
+        if (_this._slideIndexes[slideshow] === (numOptions - 1)) {
+          _this._slideIndexes[slideshow] = 0;
+        } else {
+          ++_this._slideIndexes[slideshow];
+        }
+        _this._showSlide(slideshow);
+
+      }
+    );
+  },
+
+  /**
+   * _setupWalkPromoteModalEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _setupWalkPromoteModalEvents: function() {
+    var _this = this;
+    this._element.find('.walkPromoteOverlay').find('.icon-twitter').click(
+      function(event) {
+      event.preventDefault();
+      var $copy = $(this).closest('.option').find('.copy');
+      _this._showTwitterShareWindow(
+        'http://janeswalk.org' + ($copy.data('walkpath')),
+        $copy.text().trim()
+      );
+    }
+    );
+    this._element.find('.walkPromoteOverlay').find('.icon-facebook').click(
+      function(event) {
+        event.preventDefault();
+        var $copy = $(this).closest('.option').find('.copy');
+        _this._showFacebookShareWindow(
+          'http://janeswalk.org' + ($copy.data('walkpath')),
+          'Jane\'s Walk',
+          $copy.text().trim()
+        );
+      }
+    );
+    this._element.find('.walkPromoteOverlay').find('.icon-envelope').click(
+      function(event) {
+        event.preventDefault();
+        var $copy = $(this).closest('.option').find('.copy');
+        _this._showEmailShareWindow(
+          'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
+          $copy.text().trim()
+        );
+      }
+    );
+  },
+
+  /**
+   * _showCurrentTab
+   * 
+   * @protected
+   * @return    void
+   */
+  _showCurrentTab: function() {
+    this._element.find('ul.nav-tabs li.active').removeClass('active');
+    this._element.find('ul.nav-tabs li a[data-tab="' + (this._currentTab) + '"]').parent().addClass('active');
+    this._element.find('div.content div.block').addClass('hidden');
+    this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').removeClass('hidden');
+    location.hash = 'tab=' + (this._currentTab);
+  },
+
+  /**
+   * _showEmailShareWindow
+   * 
+   * @protected
+   * @param     String subject
+   * @param     String body
+   * @return    void
+   */
+  _showEmailShareWindow: function(subject, body) {
+    subject = encodeURIComponent(subject);
+    body = encodeURIComponent(body);
+    var link = 'mailto:?subject=' + (subject) + '&body=' + (body);
+    window.open(link);
+  },
+
+  /**
+   * _showFacebookShareWindow
+   * 
+   * @protected
+   * @param     String link
+   * @param     String title
+   * @param     String text
+   * @return    void
+   */
+  _showFacebookShareWindow: function(link, title, text) {
+    (new FacebookShareDialog({
+      link: link,
+      name: title,
+      description: text
+    })).show();
+  },
+
+  /**
+   * _showProperStep
+   * 
+   * @protected
+   * @return    void
+   */
+  _showProperStep: function() {
+    if (location.hash !== '') {
+      var pieces = location.hash.split('&'),
+      hash = {},
+      again;
+      $(pieces).each(
+        function(index, piece) {
+          again = piece.split('=');
+          hash[again[0].replace('#', '')] = again[1];
+        }
+      );
+      this._currentTab = hash.tab;
+      this._showCurrentTab();
+      if (
+        typeof hash.success !== 'undefined' &&
+          parseInt(hash.success) === 1
+      ) {
+        this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').addClass('success');
+      }
+    }
+  },
+
+  /**
+   * _showTwitterShareWindow
+   * 
+   * @protected
+   * @param     String link
+   * @param     String text
+   * @return    void
+   */
+  _showTwitterShareWindow: function(link, text) {
+    link = encodeURIComponent(link);
+    text = encodeURIComponent(text);
+    if (text.length > 130) {
+      text = text.substring(0,130) + '...';
+    }
+    link = 'https://twitter.com/intent/tweet' +
+    '?url=' + (link) +
+      '&via=janeswalk' +
+      '&text=' + (text);
+    window.open(
+      link,
+      'Twitter Share',
+      'width=640, height=320'
+    );
+  }
 });
 
 module.exports = ProfilePageView;
@@ -1888,10 +1891,17 @@ var WalkPageView = PageView.extend({
         markerContent = '';
 
         if ($('body').hasClass('create-page')) {
-          markerContent = React.createElement("button", {className: "btn pull-right", id: "delete-marker"}, React.createElement("i", {className: "fa fa-trash"}));
+          markerContent =
+            React.createElement("button", {className: "btn pull-right", id: "delete-marker"}, 
+              React.createElement("i", {className: "fa fa-trash"})
+            );
         }
 
-        google.maps.event.addListener(marker, 'click', showInfoBox(marker, i, markerContent));
+        google.maps.event.addListener(
+          marker,
+          'click',
+          showInfoBox(marker, i, markerContent)
+        );
       }
       $('.walk-stops').show();
 
@@ -1912,9 +1922,13 @@ var WalkPageView = PageView.extend({
         map.setZoom(Math.min(16, oldZoom));
       });
 
-      google.maps.event.addDomListener(document.getElementById('map-canvas'), 'touchstart', function(e){
-        map.setOptions({panControl: false, draggable: false});
-      });
+      google.maps.event.addDomListener(
+        document.getElementById('map-canvas'),
+        'touchstart',
+        function(e){
+          map.setOptions({panControl: false, draggable: false});
+        }
+      );
 
       // Register Custom "dragend" Event
 
@@ -1924,7 +1938,9 @@ var WalkPageView = PageView.extend({
         // Center the map at given point
         map.panTo(point);
         // Update the textbox
-        document.getElementById('txt_latlng').value=point.lat()+", "+point.lng();
+        document.getElementById('txt_latlng').value = point.lat() +
+          ', ' +
+          point.lng();
       });
 
       // For all marker adding

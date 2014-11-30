@@ -263,10 +263,17 @@ var WalkPageView = PageView.extend({
         markerContent = '';
 
         if ($('body').hasClass('create-page')) {
-          markerContent = <button className="btn pull-right" id="delete-marker"><i className="fa fa-trash" /></button>;
+          markerContent =
+            <button className="btn pull-right" id="delete-marker">
+              <i className="fa fa-trash" />
+            </button>;
         }
 
-        google.maps.event.addListener(marker, 'click', showInfoBox(marker, i, markerContent));
+        google.maps.event.addListener(
+          marker,
+          'click',
+          showInfoBox(marker, i, markerContent)
+        );
       }
       $('.walk-stops').show();
 
@@ -287,9 +294,13 @@ var WalkPageView = PageView.extend({
         map.setZoom(Math.min(16, oldZoom));
       });
 
-      google.maps.event.addDomListener(document.getElementById('map-canvas'), 'touchstart', function(e){
-        map.setOptions({panControl: false, draggable: false});
-      });
+      google.maps.event.addDomListener(
+        document.getElementById('map-canvas'),
+        'touchstart',
+        function(e){
+          map.setOptions({panControl: false, draggable: false});
+        }
+      );
 
       // Register Custom "dragend" Event
 
@@ -299,7 +310,9 @@ var WalkPageView = PageView.extend({
         // Center the map at given point
         map.panTo(point);
         // Update the textbox
-        document.getElementById('txt_latlng').value=point.lat()+", "+point.lng();
+        document.getElementById('txt_latlng').value = point.lat() +
+          ', ' +
+          point.lng();
       });
 
       // For all marker adding

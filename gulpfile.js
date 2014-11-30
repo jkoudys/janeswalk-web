@@ -23,7 +23,8 @@ var paths = {
     './themes/janeswalk/js/extend.js',
     './themes/janeswalk/js/shims.js',
   ],
-  jsx_views: './themes/janeswalk/js/janeswalk.jsx',
+  jsx_app: './themes/janeswalk/js/janeswalk.jsx',
+  jsx_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/v2/**/*.jsx'],
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
@@ -37,9 +38,9 @@ gulp.task('css', function() {
     .pipe(gulp.dest(paths.css));
 });
 
-gulp.task('jsx_views', function() {
+gulp.task('jsx_app', function() {
   return browserify({
-    entries: paths.jsx_views,
+    entries: paths.jsx_app,
     transform: [reactify],
     extensions: ['.jsx'],
   })
@@ -66,7 +67,7 @@ gulp.task('browserify', function(callback) {
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
   gulp.watch(paths.jsx, ['browserify']);
-  gulp.watch(paths.jsx_views, ['jsx_views']);
+  gulp.watch(paths.jsx_views, ['jsx_app']);
 });
 
 gulp.task('default', function() {

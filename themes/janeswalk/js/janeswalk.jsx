@@ -5,6 +5,7 @@
  */
 // Page Views
 PageViews = {
+  PageView: require('./v2/views/Page.jsx'),
   CityPageView: require('./v2/views/pages/City.jsx'),
   HomePageView: require('./v2/views/pages/Home.jsx'),
   ProfilePageView: require('./v2/views/pages/Profile.jsx'),
@@ -16,16 +17,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
 
-  if (pageViewName) {
-    // The pageViewName class gets loaded from the globally-defined class
-    // This is a PHP-ish approach to OO, and classes themselves (not their
-    // objects) are the only things that should be declared globally.
-    try {
-      // FIXME: I'm not in-love with such a heavy jQuery reliance
-      new PageViews[pageViewName]($(document.body));
-    } catch(e) {
-      console.log('Error instantiating page view ' + pageViewName + ': ' + e);
-    }
+  // The pageViewName class gets loaded from the globally-defined class
+  // This is a PHP-ish approach to OO, and classes themselves (not their
+  // objects) are the only things that should be declared globally.
+  try {
+    // FIXME: I'm not in-love with such a heavy jQuery reliance
+    new PageViews[pageViewName]($(document.body));
+  } catch(e) {
+    console.log('Error instantiating page view ' + pageViewName + ': ' + e);
   }
 
   // Init keyboard shortcuts
