@@ -269,14 +269,7 @@
             div.column {
                 .make-md-column(6);
 
-                &.walks {
-
-                    > a.btn {
-                        position: absolute;
-                        right: 32px;
-                        top: 5px;
-                    }
-
+                &.walks, &.city, &.blogPosts {
                     div.nullcase {
 
                         div.copy {
@@ -291,78 +284,7 @@
 
                     ul {
                         padding: 0;
-                        margin: 0;
-                        list-style-type: none;
-                        max-height: 320px;
-                        overflow-x: auto;
-
-                        li {
-                            margin: 0;
-                            list-style-type: none;
-                            padding: 0 0 24px;
-                        }
-                    }
-                }
-
-                &.city {
-
-                    > a.btn {
-                        position: absolute;
-                        right: 32px;
-                        top: 5px;
-                    }
-
-                    div.nullcase {
-
-                        div.copy {
-                            font-size: 16px;
-                            line-height: 24px;
-                        }
-
-                        div.btnWrapper {
-                            padding: 8px 0 0;
-                        }
-                    }
-
-                    ul {
-                        padding: 0;
-                        margin: 0;
-                        list-style-type: none;
-                        max-height: 320px;
-                        overflow-x: auto;
-
-                        li {
-                            margin: 0;
-                            list-style-type: none;
-                            padding: 0 0 24px;
-
-                        }
-                    }
-                }
-
-                &.blogPosts {
-
-                    > a.btn {
-                        position: absolute;
-                        right: 0;
-                        top: 5px;
-                    }
-
-                    div.nullcase {
-
-                        div.copy {
-                            font-size: 16px;
-                            line-height: 24px;
-                        }
-
-                        div.btnWrapper {
-                            padding: 8px 0 0;
-                        }
-                    }
-
-                    ul {
-                        padding: 0;
-                        margin: 0;
+                        margin: 10px 0 0 0;
                         list-style-type: none;
                         max-height: 320px;
                         overflow-x: auto;
@@ -567,29 +489,35 @@
             div.cos {
 
                 ul {
+                    .make-row();
                     padding: 6px 0 0;
 
                     li {
                         img.map {
+                            width: 100%;
                             border-radius: 4px 4px 0 0;
                         }
-
-                        img.display {
-                            border-radius: 100px;
-                            width: 50px;
-                            height: 50px;
-                            position: absolute;
-                            left: 98px;
-                            top: 85px;
-                            border: 2px solid #fff;
-                        }
-
+                        
                         div.meta {
+                            position: relative;
                             border: 1px solid #ddd;
                             border-bottom-width: 2px;
                             font-size: 16px;
                             padding: 12px 0 12px 8px;
                             border-radius: 0 0 4px 4px;
+
+                            .tag {
+                                @tag-height: 50px;
+                                background-color: @color-blue;
+                                border: 2px solid #fff;
+                                border-radius: 100%;
+                                width: @tag-height;
+                                height: @tag-height;
+                                background-size: cover;
+                                background-position: 50%;
+                                display: block;
+                                margin: -(12px + @tag-height / 2) auto 0 auto;
+                            }
 
                             div.email {
 

@@ -664,9 +664,9 @@
               <ul>
                 <?php foreach ($cityOrganizerData as $organizerData): ?>
                   <li>
-                    <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizerData['cityName']) ?>,Canada&amp;zoom=12&amp;size=250x125&amp;sensor=false" class="map" />
-                    <img src="<?= ($organizerData['organizerImagePath']) ?>" class="display" />
+                    <img src="http://maps.googleapis.com/maps/api/staticmap?center=<?= ($organizerData['cityName']) ?>,Canada&amp;zoom=12&amp;size=400x200&amp;sensor=false" class="map" />
                     <div class="meta">
+                      <div class="tag" style="background-image:url(<?= ($organizerData['organizerImagePath']) ?>)"></div>
                       <div class="name"><?= ($organizerData['organizerName']) ?></div>
                       <div class="email">
                         <a href="mailto:<?= ($organizerData['organizerEmail']) ?>"><?= ($organizerData['organizerEmail']) ?></a>
