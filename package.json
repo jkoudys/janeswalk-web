@@ -8,6 +8,7 @@
   "devDependencies": {
     "autoprefixer": "*",
     "browserify": "*",
+    "browserify-shim": "^3.8.0",
     "grunt": "*",
     "grunt-autoprefixer": "*",
     "grunt-browserify": "*",
@@ -17,17 +18,18 @@
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
     "grunt-phpunit": "*",
-    "grunt-react": "*",
     "gulp": "*",
     "gulp-autoprefixer": "*",
     "gulp-concat": "~2.4.2",
     "gulp-less": "*",
     "gulp-rename": "~1.2.0",
     "gulp-uglify": "~1.0.1",
-    "react": "*",
     "reactify": "*",
     "uglifyify": "~2.6.0",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.0.0"
+  },
+  "browserify-shim": {
+    "react": "global:React"
   }
 }

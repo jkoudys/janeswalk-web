@@ -5,30 +5,27 @@ $th = Loader::helper('text');
 /**
  * The original pagelist has some funny mixing of echo w/ inline HTML, as well
  * as mixing logic to put out end-tags. This has been very error-prone, so let's
- * just build a DOMDocument instead, to manage the control logic nicely
+ * just build a JSON instead, to manage the control logic nicely
  */
-$doc = new DOMDocument;
 
-$countryList = array();
-$countries = $doc->appendChild($doc->createElement('countries'));
+$countryList = [];
 foreach ($pages as $city) {
     $pcID = (int) $city->getCollectionParentID();
     if (!isset($countryList[$pcID])) {
-        $countryList[$pcID] = $countries->appendChild(
-            $doc->createElement(
-                'country',
-                Page::getByID($pcID)->getCollectionName()
-            )
-        );
+        $countryList[$pcID] = [
+            'name' => Page::getByID($pcID)->getCollectionName(),
+            'cities' => []
+        ];
     }
-    $cityEl = $countryList[$pcID]->appendChild($doc->createElement('city', $city->getCollectionName()));
-    $cityEl->setAttribute('href', $nh->getLinkToCollection($city));
+    $countryList[$pcID]['cities'][] = [
+        'id' => $city->getCollectionID(),
+        'name' => $city->getCollectionName(),
+        'href' => $nh->getLinkToCollection($city)
+    ];
 }
 
-// Load the XSL
-$xsl = new XSLTProcessor;
-$xsl->importStyleSheet(DOMDocument::load(substr(__FILE__, 0, -3) . 'xsl'));
-
-// Apply stylesheet and echo it out.
-$xsl->transformToDoc($doc)->saveHTMLFile('php://output');
-
+// Add as JSON for client data
+// TODO: use generalized addToJanesWalk
+?>
+<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; window.JanesWalk.countries = <?= json_encode($countryList) ?>;</script>
+<div id="ccm-jw-page-list-typeahead"></div>

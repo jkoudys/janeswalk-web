@@ -64,10 +64,29 @@ gulp.task('browserify', function(callback) {
     .pipe(gulp.dest(paths.react_views))
 });
 
+// TODO: very lazy task; needs to be generalized for all blocks, not just one!
+gulp.task('blocks', function() {
+  return browserify({
+    shim: {
+      react: {
+        path: 'global:React',
+        exports: 'react'
+      }
+    },
+    entries: './blocks/page_list/templates/typeahead/view.jsx',
+    transform: [reactify],
+    extensions: ['.jsx']
+  })
+    .bundle()
+    .pipe(source('view.js'))
+    .pipe(gulp.dest('./blocks/page_list/templates/typeahead/'))
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
   gulp.watch(paths.jsx, ['browserify']);
   gulp.watch(paths.jsx_views, ['jsx_app']);
+  gulp.watch('./blocks/**/*.jsx', ['blocks']);
 });
 
 gulp.task('default', function() {
