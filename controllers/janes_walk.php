@@ -1,6 +1,7 @@
 <?php
 namespace JanesWalk\Controllers;
 
+// FIXME: Move to PSR standards for filename after c5.7 upgrade
 use \Loader;
 use \User;
 use \UserInfo;

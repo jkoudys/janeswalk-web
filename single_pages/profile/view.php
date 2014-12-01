@@ -436,7 +436,7 @@
             <a
               href="mailto:<?= ($cityOrganizerEmailAddress) ?>?subject=<?= ($subject) ?>&amp;body=<?= ($body) ?>"
               target="_blank"
-              class="btn btn-primary btn-small"><?= t('Share your story') ?></a>
+              class="btn btn-primary btn-small"><?= t('Share my story') ?></a>
             <?php
               $nullcaseClasses = array('nullcase');
               if ($userHasPostedBlogPost === true) {
