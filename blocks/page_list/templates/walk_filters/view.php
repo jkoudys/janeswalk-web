@@ -1,7 +1,7 @@
 <?php
 defined('C5_EXECUTE') || die('Access Denied.');
 ?>
-<?php if (count($cards)) { ?>
+<?php if (count($cards) > 1) { ?>
     <a class="see-all"><?= t2('show only this walk', 'see all %d walks', count($cards)) ?></a>
 <?php } ?>
 <section class="ccm-block-page-list-walk-filters">
