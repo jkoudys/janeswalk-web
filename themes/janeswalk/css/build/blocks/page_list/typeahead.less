@@ -3,73 +3,76 @@ div.ccm-page-list-rss-icon {
 }
 
 div.ccm-page-list-tags {
-  display: none;
+    display: none;
 }
 
 div.ccm-page-list-typeahead {
-  @buttonOffset: 4px;
-  @defaultWidth: 280px;
-  position: relative;
-  font-family: @font-slab;
+    @buttonOffset: 4px;
+    @defaultWidth: 280px;
+    position: relative;
+    font-family: @font-slab;
 
-  ul, li {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
+    ul, li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
 
-  fieldset.search {
+    fieldset.search {
 
-    > ul {
-      display: none;
-      position: absolute;
-      left: 0;
-      border: 1px solid #999;
-      background: #fff;
-      padding: 5px;
-      z-index: 2;
-      width: @defaultWidth + 15px - @buttonOffset;
-      max-height: 14em;
-      overflow-y: scroll;
+        > ul {
+            display: none;
+            position: absolute;
+            left: 0;
+            border: 1px solid #999;
+            background: #fff;
+            padding: 5px;
+            z-index: 2;
+            width: @defaultWidth + 15px - @buttonOffset;
+            max-height: 14em;
+            overflow-y: scroll;
 
-      li.country {
-        padding-left: 5px;
-        color: @color-darkgrey;
+            li.country {
+                padding-left: 5px;
+                color: @color-darkgrey;
+                a {
+                    color: inherit;
+                }
 
-        div.name {
-          color: #888;
-          font-size: 0.7em;
-          font-weight: 700;
+                div.name {
+                    color: #888;
+                    font-size: 0.7em;
+                    font-weight: 700;
+                }
+
+                ul.cities {
+                    padding: 0 0 0 10px;
+
+                    li {
+                        line-height: 24px;
+                        font-size: 15px;
+                        font-weight: 300;
+
+                        a {
+                            color: #f16725 !important;
+                        }
+                    }
+                }
+            }
         }
 
-        ul.cities {
-          padding: 0 0 0 10px;
-
-          li {
-            line-height: 24px;
-            font-size: 15px;
-            font-weight: 300;
+        li.aux {
+            padding-left: 5px;
 
             a {
-              color: #f16725 !important;
+                padding: 4px 0 4px 10px;
+                color: #f16725 !important;
+                display: block;
             }
-          }
         }
-      }
-    }
 
-    li.aux {
-        padding-left: 5px;
-
-        a {
-          padding: 4px 0 4px 10px;
-          color: #f16725 !important;
-          display: block;
+        input[type=text]:focus + * + ul, ul:hover {
+            display: block;
         }
     }
-
-    input[type=text]:focus + * + ul, ul:hover {
-      display: block;
-    }
-  }
 }

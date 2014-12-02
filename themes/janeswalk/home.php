@@ -21,7 +21,7 @@
 <div class="intro">
     <div class="callouts">
         <blockquote>
-            <?php (new Area('Intro'))->display($c); ?>
+            <?php (new Area('Intro'))->display($c) ?>
         </blockquote>
     </div>
 </div>
@@ -35,7 +35,7 @@
         </li>
     </ul>
     <section class="map">
-        <?php (new Area('Map'))->display($c); ?>
+        <?php (new Area('Map'))->display($c) ?>
     </section>
     <?php } ?>
     <div class="topcontent">
@@ -44,6 +44,9 @@
         </section>
     </div>
 </div>
+<main>
+    <?php (new Area('Main'))->display($c) ?>
+</main>
 <section class="blog">
     <section class="walkblog">
         <?php (new Area('Blog Header'))->display($c) ?>

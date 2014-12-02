@@ -332,7 +332,7 @@
         padding-bottom: 50px;
         padding-top: @grid-gutter-width/2;
         color: white;
-        background:@color-orange;
+        background: @color-orange;
         background: linear-gradient(fade(@color-orange, 70%) 20%, fade(@color-orange, 70%) 20%, @color-orange 80%);
         @media (max-width: @screen-sm-min) {
             padding-bottom: @grid-gutter-width/2 - 10px;
@@ -371,6 +371,11 @@
                 }
             }
         }
+    }
+
+    main {
+        .make-md-column(12);
+        padding: @grid-gutter-width/2 0;
     }
 }
 

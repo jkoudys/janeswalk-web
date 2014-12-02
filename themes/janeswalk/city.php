@@ -54,9 +54,9 @@ if ($city->fullbg) {
                 <?php } ?>
                 <?php if ($c->getCollectionUserID() > 1) { ?>
                 <section class="city-organizer">
-                    <?php if ($this->avatar) { ?>
-                    <a href="<?= $profile_path ?>">
-                        <div class="u-avatar" style='background-image:url(<?= $this->avatar ?>)'></div>
+                    <?php if ($city->avatar) { ?>
+                    <a href="<?= $city->profile_path ?>">
+                        <div class="u-avatar" style='background-image:url(<?= $city->avatar ?>)'></div>
                     </a>
                     <?php } ?>
                     <div class="city-organizer-details">

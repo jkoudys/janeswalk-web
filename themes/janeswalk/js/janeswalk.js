@@ -947,10 +947,8 @@ var HomePageView = PageView.extend({
    */
   _addCityCalloutCta: function(cityName, cityPath) {
     React.render(
-      this._element.find('.ccm-page-list-typeahead').first(),
-      React.createElement("h3", null, 
-        "See walks in ", React.createElement("a", {href: cityPath}, cityName), ", or:"
-      )
+      document.getElementById('ccm-jw-page-list-typeahead'),
+      React.createElement("h3", null, "See walks in ", React.createElement("a", {href: cityPath}, cityName), ", or:")
     );
   },
 
