@@ -876,7 +876,6 @@ var HomePageView = PageView.extend({
   init: function(element) {
     this._super(element);
     this._addMapToggleEvents();
-    this._addCityLookup();
     this._addBgImage();
     this._addCityDropdownEvent();
     this._addCreateWalkEvent();
@@ -938,21 +937,6 @@ var HomePageView = PageView.extend({
   },
 
   /**
-   * _addCityCalloutCta
-   * 
-   * @protected
-   * @param     String cityName
-   * @param     String cityPath
-   * @return    void
-   */
-  _addCityCalloutCta: function(cityName, cityPath) {
-    React.render(
-      document.getElementById('ccm-jw-page-list-typeahead'),
-      React.createElement("h3", null, "See walks in ", React.createElement("a", {href: cityPath}, cityName), ", or:")
-    );
-  },
-
-  /**
    * _addCityButtonCta
    * 
    * @protected
@@ -969,48 +953,6 @@ var HomePageView = PageView.extend({
         )
       )
     );
-  },
-
-  /**
-   * _addCityLookup
-   * 
-   * @protected
-   * @return    void
-   */
-  _addCityLookup: function() {
-    var _this = this;
-    window.freeGeoIpCallback = function(obj) {
-      if (typeof obj !== 'undefined') {
-        var $cities = _this._element.find(
-          'div.ccm-page-list-typeahead ul li a'
-        ),
-        $city;
-        $cities.each(function(index, cityEl) {
-          if ($(cityEl).text() === obj.city) {
-            _this._addCityCalloutCta(
-              obj.city,
-              $(cityEl).attr('href')
-            );
-            _this._addCityButtonCta(
-              obj.city,
-              $(cityEl).attr('href')
-            );
-          }
-        });
-      }
-    };
-    if (JanesWalk.user === undefined || JanesWalk.user.city === undefined) {
-      $.getScript('http://freegeoip.net/json/?callback=freeGeoIpCallback');
-    } else {
-      _this._addCityCalloutCta(
-        JanesWalk.user.city.name,
-        JanesWalk.user.city.url
-      );
-      _this._addCityButtonCta(
-        JanesWalk.user.city.name,
-        JanesWalk.user.city.url
-      );
-    }
   },
 
   /**

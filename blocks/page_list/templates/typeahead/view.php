@@ -15,14 +15,14 @@ foreach ($pages as $city) {
         $country = Page::getByID($pcID);
         $countryList[$pcID] = [
             'name' => $country->getCollectionName(),
-            'href' => $nh->getLinkToCollection($country),
+            'uri' => $nh->getLinkToCollection($country),
             'cities' => []
         ];
     }
     $countryList[$pcID]['cities'][] = [
         'id' => $city->getCollectionID(),
         'name' => $city->getCollectionName(),
-        'href' => $nh->getLinkToCollection($city)
+        'uri' => $nh->getLinkToCollection($city)
     ];
 }
 

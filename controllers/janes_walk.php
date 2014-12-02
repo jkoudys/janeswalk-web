@@ -36,7 +36,7 @@ class Controller extends \Controller
         $c = $this->getCollectionObject();
         $jwData = [
             'page' => [
-                'url' => 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
+                'uri' => 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
                 'title' => $c->getCollectionName()
             ]
         ];
@@ -57,8 +57,9 @@ class Controller extends \Controller
             $this->bodyData['classes'][] = 'logged_in';
             if ($city) {
                 $jwData['user']['city'] = [
+                    'id' => $city->getCollectionID(),
                     'name' => $city->getCollectionName(),
-                    'url' => $nh->getCollectionUrl($city)
+                    'uri' => $nh->getCollectionUrl($city)
                 ];
             }
         }

@@ -5,10 +5,6 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head prefix="og: http://ogp.me/ns#">
-<?php
-Loader::element('header_required');
-?>
-    <script type="text/javascript">var CCM_THEME_PATH = '<?= $this->getThemePath() ?>';</script>
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
@@ -21,6 +17,10 @@ Loader::element('header_required');
 <![endif]-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/main.css">
+<?php
+    Loader::element('header_required');
+?>
+    <script type="text/javascript">var CCM_THEME_PATH = '<?= $this->getThemePath() ?>';</script>
 </head>
 <body
   class="<?= join((array) $bodyData['classes'], ' ') ?>"

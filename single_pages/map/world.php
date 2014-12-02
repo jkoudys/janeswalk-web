@@ -1,4 +1,4 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+<?php  defined('C5_EXECUTE') || die('Access Denied.');
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,37 +16,52 @@
 <?php
 $cities = Cache::get('map','world') ?: [];
 if (!$cities) {
-  $pl = new PageList();
-  $nh = Loader::helper('navigation');
-  $pl->filterByCollectionTypeHandle('City');
-  $pages = $pl->get();
-  foreach ($pages as $page) {
-    $parent = Page::getByID($page->getCollectionParentID());
-    $page_owner = UserInfo::getByID($page->getCollectionUserID());
-    $city = t($city_name = $page->getCollectionName()) . ', ' . t($country_name = $parent->getCollectionName());
-    $latlng = array_map( function ($e) { return (float) trim($e); }, explode(',', $page->getAttribute('latlng')));
-    $info = "<a href='{$nh->getCollectionURL($page)}' target='_blank'>{$city_name} Walks</a>".(($page_owner->getUserID() > 1 && $page_owner->getAttribute('first_name') !== 'There\'s no City Organizer here' && $first_name = $page_owner->getAttribute('first_name')) ? "<br/>{$first_name}, City Organizer" : false);
-    $cities[] = ['country' => $country_name,
-      'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
-      'name' => $city,
-      'color' => '#f16725',
-      'info' => $info,
-      'lat' => $latlng[0],
-      'lng' => $latlng[1]];
-  }
-  Cache::set('map','world',$cities, 21600); // Refresh the world map every 6 hours
+    $pl = new PageList();
+    $nh = Loader::helper('navigation');
+    $pl->filterByCollectionTypeHandle('City');
+    foreach ($pl->get() as $page) {
+        $parent = Page::getByID($page->getCollectionParentID());
+        $page_owner = UserInfo::getByID($page->getCollectionUserID());
+        $city_name = t($page->getCollectionName());
+        $country_name = t($parent->getCollectionName());
+        $city = $city_name . ', ' . $country_name;
+        $latlng = array_map(
+            function ($e) {
+                return (float) trim($e);
+            },
+            explode(',', $page->getAttribute('latlng'))
+        );
+        $info =
+            '<a href="' . $nh->getCollectionURL($page) . '" target="_blank">' .
+                $city_name . ' Walks' .
+            '</a>' .
+            (
+                ($page_owner->getUserID() > 1 &&
+                $page_owner->getAttribute('first_name') !== 'There\'s no City Organizer here' &&
+                $first_name = $page_owner->getAttribute('first_name')) ?
+                ('<br/>' . $first_name . ', City Organizer') : ''
+            );
+        $cities[] = [
+            'country' => $country_name,
+            'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
+            'name' => $city,
+            'color' => '#f16725',
+            'info' => $info,
+            'lat' => $latlng[0],
+            'lng' => $latlng[1]
+        ];
+    }
+    Cache::set('map','world',$cities, 21600); // Refresh the world map every 6 hours
 }
 ?>
-
-var cities = <?=json_encode($cities)?>;
+var cities = <?= json_encode($cities) ?>;
 var style = new google.maps.StyledMapType(
   [{
     featureType: "landscape",
-      stylers: [{
-        visibility: "on"
-      }, {
-        color: "#ffffff"
-      }]
+    stylers: [
+      {visibility: "on"},
+      {color: "#ffffff"}
+    ]
   }, {
     featureType: "poi",
       stylers: [{
