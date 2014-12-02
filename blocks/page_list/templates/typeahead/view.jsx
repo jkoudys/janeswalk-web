@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
       );
     },
 
-    onComp
+    componentWillUpdate: function() {
+      // Geocode as early as we can
+    },
+
     render: function() {
 
       var countries = [];
@@ -59,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cities.length) {
           countries.push(
             <li key={'country' + i} className="country">
-              {country.name}
+              <a href={country.href}>{country.name}</a>
               <ul className="cities">
                 {cities}
               </ul>

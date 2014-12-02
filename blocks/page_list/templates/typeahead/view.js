@@ -3,12 +3,13 @@
 document.addEventListener('DOMContentLoaded', function() {
   var PageListTypeahead = React.createClass({displayName: 'PageListTypeahead',
     mixins: [React.addons.LinkedStateMixin],
-
+    
     getInitialState: function() {
       return {
         q: ''
       };
     },
+
     /**
      * _convertAccents
      * 
@@ -32,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function() {
           else if(ae) return 'ae';
         }
       );
+    },
+
+    componentWillUpdate: function() {
+      // Geocode as early as we can
     },
 
     render: function() {
@@ -58,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cities.length) {
           countries.push(
             React.createElement("li", {key: 'country' + i, className: "country"}, 
-              country.name, 
+              React.createElement("a", {href: country.href}, country.name), 
               React.createElement("ul", {className: "cities"}, 
                 cities
               )
@@ -71,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
         linkTo = CCM_REL + '/information/cities';
         countries.push(
           React.createElement("li", {className: "country"}, 
-            "Add ", this.state.q, " as a new city?"
+            "Add ", React.createElement("a", {href: linkTo}, this.state.q), " as a new city?"
           )
         );
       }
@@ -83,16 +88,14 @@ document.addEventListener('DOMContentLoaded', function() {
               React.createElement("input", {type: "text", name: "selected_option", className: "typeahead", placeholder: "Start typing a city", autoComplete: "off", valueLink: this.linkState('q')}), 
               React.createElement("button", {type: "submit"}, "Go"), 
               React.createElement("ul", null, 
-                
-                  countries ||
+                countries ||
                     React.createElement("li", null, 
                       React.createElement("a", {href: "/city-organizer-onboarding"}, "Add ", this.state.q, " to Jane's Walk")
-                      )
-                      
                     )
-                  )
-                )
               )
+            )
+          )
+        )
       );
     }
   });

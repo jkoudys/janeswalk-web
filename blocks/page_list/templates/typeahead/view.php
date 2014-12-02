@@ -12,8 +12,10 @@ $countryList = [];
 foreach ($pages as $city) {
     $pcID = (int) $city->getCollectionParentID();
     if (!isset($countryList[$pcID])) {
+        $country = Page::getByID($pcID);
         $countryList[$pcID] = [
-            'name' => Page::getByID($pcID)->getCollectionName(),
+            'name' => $country->getCollectionName(),
+            'href' => $nh->getLinkToCollection($country),
             'cities' => []
         ];
     }
