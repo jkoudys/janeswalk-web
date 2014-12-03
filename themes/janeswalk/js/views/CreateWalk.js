@@ -792,16 +792,16 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       }.bind(this));
 
       this.buildRoute(valueLink.value.route, map);
+      this.setState({markers: markers});
     }
 
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
     // FIXME: this $() selector is unbecoming of a React app
     $('a[href="#route"]').on('shown.bs.tab', function(e) {
       this.boundMapByWalk();
-      //    this.setState({
     }.bind(this));
 
-    this.setState({map: map, markers: markers});
+    this.setState({map: map});
   },
 
   // Make the map fit the markers in this walk
