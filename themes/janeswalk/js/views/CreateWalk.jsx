@@ -75,41 +75,54 @@ var CreateWalk = React.createClass({
   },
  
   handleSave: function() {
-    console.log(JSON.stringify(this.state));
+    console.log(this.state);
     /* Send in the updated walk to save, but keep working */
     // TODO: put 'saving' and 'saved' messages in
-    /*      $.ajax({
+    $.ajax({
       url: this.props.url,
       type: 'PUT',
       data: this.state,
       dataType: 'json',
       success: function(data) {
+        console.log('Walk saved');
       },
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }
-      }); */
+    });
   },
  
   handlePublish: function() {
     // TODO: put 'saving' and 'saved' messages in
     // Publish the walk
-    /*      $.ajax({
+    $.ajax({
       url: this.props.url,
       type: 'POST',
       data: this.state,
       dataType: 'json',
       success: function(data) {
+        console.log('Walk published');
       },
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }
-      }); */
+    });
   },
  
   handlePreview: function(e) {
     // Save the walk, then load a modal to preview
-    this.handleSave();
+    $.ajax({
+      url: this.props.url,
+      type: 'PUT',
+      data: this.state,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({preview: true});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }
+    });
     // TODO: show modal with preview iframe
   },
 
@@ -129,7 +142,7 @@ var CreateWalk = React.createClass({
                 </ul>
                 <br />
                 <section id="button-group">
-                  <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far.">{ t('Preview Walk') }</button>
+                  <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
                   <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all.">{ t('Publish Walk') }</button>
                   <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.handleSave}>{ t('Save') }</button>
                 </section>
@@ -281,18 +294,21 @@ var CreateWalk = React.createClass({
             <button className="btn btn-primary walkthrough">Close</button>
           </footer>
         </dialog>
-        <dialog id="preview-modal">
-          <header>
-            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>{ t('Preview of your Walk') }</h3>
-          </header>
-          <div className="modal-body">
-            <iframe src="" frameBorder="0" />
-          </div>
-          <footer>
-            <a href="#" className="btn close" data-dismiss="modal">{ t('Close Preview') }</a>
-          </footer>
-        </dialog>
+        {this.state.preview ?
+          <dialog id="preview-modal">
+            <div>
+              <article>
+                <header>
+                  <button type="button" className="close" aria-hidden="true" onClick={function(){this.setState({preview: false})}.bind(this)}>&times;</button>
+                  <h3>{ t('Preview of your Walk') }</h3>
+                </header>
+                <div className="modal-body">
+                  <iframe src={this.props.url} frameBorder="0" />
+                </div>
+              </article>
+            </div>
+          </dialog>
+        : null}
       </main>
     );
   }

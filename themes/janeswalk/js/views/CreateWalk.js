@@ -76,41 +76,54 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
   },
  
   handleSave: function() {
-    console.log(JSON.stringify(this.state));
+    console.log(this.state);
     /* Send in the updated walk to save, but keep working */
     // TODO: put 'saving' and 'saved' messages in
-    /*      $.ajax({
+    $.ajax({
       url: this.props.url,
       type: 'PUT',
       data: this.state,
       dataType: 'json',
       success: function(data) {
+        console.log('Walk saved');
       },
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }
-      }); */
+    });
   },
  
   handlePublish: function() {
     // TODO: put 'saving' and 'saved' messages in
     // Publish the walk
-    /*      $.ajax({
+    $.ajax({
       url: this.props.url,
       type: 'POST',
       data: this.state,
       dataType: 'json',
       success: function(data) {
+        console.log('Walk published');
       },
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }
-      }); */
+    });
   },
  
   handlePreview: function(e) {
     // Save the walk, then load a modal to preview
-    this.handleSave();
+    $.ajax({
+      url: this.props.url,
+      type: 'PUT',
+      data: this.state,
+      dataType: 'json',
+      success: function(data) {
+        this.setState({preview: true});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }
+    });
     // TODO: show modal with preview iframe
   },
 
@@ -130,7 +143,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                 ), 
                 React.createElement("br", null), 
                 React.createElement("section", {id: "button-group"}, 
-                  React.createElement("button", {className: "btn btn-info btn-preview", id: "preview-walk", title: "Preview what you have so far."},  t('Preview Walk') ), 
+                  React.createElement("button", {className: "btn btn-info btn-preview", id: "preview-walk", title: "Preview what you have so far.", onClick: this.handlePreview},  t('Preview Walk') ), 
                   React.createElement("button", {className: "btn btn-info btn-submit", id: "btn-submit", title: "Publishing will make your visible to all."},  t('Publish Walk') ), 
                   React.createElement("button", {className: "btn btn-info save", title: "Save", id: "btn-save", onClick: this.handleSave},  t('Save') )
                 )
@@ -282,18 +295,21 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             React.createElement("button", {className: "btn btn-primary walkthrough"}, "Close")
           )
         ), 
-        React.createElement("dialog", {id: "preview-modal"}, 
-          React.createElement("header", null, 
-            React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-            React.createElement("h3", null,  t('Preview of your Walk') )
-          ), 
-          React.createElement("div", {className: "modal-body"}, 
-            React.createElement("iframe", {src: "", frameBorder: "0"})
-          ), 
-          React.createElement("footer", null, 
-            React.createElement("a", {href: "#", className: "btn close", 'data-dismiss': "modal"},  t('Close Preview') )
+        this.state.preview ?
+          React.createElement("dialog", {id: "preview-modal"}, 
+            React.createElement("div", null, 
+              React.createElement("article", null, 
+                React.createElement("header", null, 
+                  React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", onClick: function(){this.setState({preview: false})}.bind(this)}, "×"), 
+                  React.createElement("h3", null,  t('Preview of your Walk') )
+                ), 
+                React.createElement("div", {className: "modal-body"}, 
+                  React.createElement("iframe", {src: this.props.url, frameBorder: "0"})
+                )
+              )
+            )
           )
-        )
+        : null
       )
     );
   }
