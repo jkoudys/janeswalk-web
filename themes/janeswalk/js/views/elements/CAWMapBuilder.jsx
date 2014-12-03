@@ -129,11 +129,17 @@ var MapBuilder = React.createClass({
   },
 
   // Button Actions
-  toggleAddMeetingPlace: function(e) {
+  toggleAddMeetingPlace: function() {
+    this.setState({editMode: 'meetingplace'});
   },
-  toggleAddPoint: function(e) {
+  toggleAddPoint: function() {
+    this.setState({editMode: 'addpoint'});
   },
-  toggleAddRoute: function(e) {
+  toggleAddRoute: function() {
+    this.setState({editMode: 'addroute'});
+  },
+  clearRoute: function() {
+    this.setState({poly: []});
   },
 
   /*
@@ -169,6 +175,7 @@ var MapBuilder = React.createClass({
     
     return (
       <div className="tab-pane" id="route">
+        <div className="alert alert-error"><strong>Map buttons currently offline.</strong> Sorry for the inconvenience - the buttons to add to your map aren't working. Please check back tomorrow.</div>
         <div className="page-header" data-section="route">
           <h1>{ t('Share Your Route') }</h1>
         </div>

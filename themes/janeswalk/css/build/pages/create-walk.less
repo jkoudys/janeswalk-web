@@ -61,7 +61,8 @@ body[data-pageviewname=CreateWalkView] {
         width:auto;
     }
     i[class^=icon-] {
-        height:auto;width:auto;
+        height:auto;
+        width:auto;
     }
 
     /* ==========================================================================
@@ -75,7 +76,13 @@ body[data-pageviewname=CreateWalkView] {
         background: fade(#FFB800, 67%);
     }
     .plaintext {
-        margin:0; padding:0; border:0; background:transparent; display:inline; font-family:inherit; font-size:17px;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        display: inline;
+        font-family: inherit;
+        font-size: 17px;
     }
 
     #title {
@@ -99,12 +106,12 @@ body[data-pageviewname=CreateWalkView] {
         color: @color-darkgrey;
         background: @color-lightgrey;
         border: 3px dashed #999;
-        label {
+        > label {
             color: @color-darkgrey;
             display: block;
             margin: @grid-gutter-width / 2;
         }
-        .thumbnail {
+        > .thumbnail {
             display: inline-block;
             margin: 0 0 @grid-gutter-width / 2 @grid-gutter-width / 2;
             height: 200px;
@@ -897,13 +904,13 @@ body[data-pageviewname=CreateWalkView] {
         .ui-datepicker {
             width: auto;
             box-shadow: none;
-            .ui-widget-header {
+            > .ui-widget-header {
                 background: none;
             }
-            .ui-datepicker-title:extend(h4) {
+            > .ui-datepicker-title:extend(h4) {
                 margin-top: 0.6em;
             }
-            .ui-datepicker-next, .ui-datepicker-prev {
+            > .ui-datepicker-next, .ui-datepicker-prev {
                 top: 11px;
             }
             td {
@@ -927,5 +934,9 @@ body[data-pageviewname=CreateWalkView] {
                 }
             }
         }
+    }
+
+    .checkbox input[type=checkbox] {
+        margin-right: 3px;
     }
 }

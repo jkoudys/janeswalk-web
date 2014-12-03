@@ -133,7 +133,6 @@ var CreateWalk = React.createClass({
             </div>
           </nav>
           <div id="main-panel" role="main">
-            <div className="alert alert-error"><strong>Walks will not be saved.</strong> We're currently updating this form. Do not use this to create a new walk.</div>
             <div className="tab-content">
               <div className="tab-pane active" id="description">
                 <div className="walk-submit lead clearfix">
@@ -236,7 +235,7 @@ var CreateWalk = React.createClass({
             <div className="popover right" id="city-organizer" style={{display: 'block'}}>
               <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t('Contact City Organizer for help') }</h3>
               <div className="popover-content collapse in" id="popover-content">
-                <div className='u-avatar' style={{backgroundImage: 'url(' + 'XXXavatar src' + ')'}}></div>
+                <div className='u-avatar' style={{backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}}></div>
                 <p>
                   { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name) } <strong><a href={'mailto:' + this.props.city.cityOrganizer.email}>{ t('email me') }!</a></strong></p>
               </div>

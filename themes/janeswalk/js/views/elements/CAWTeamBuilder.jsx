@@ -44,6 +44,8 @@ var TeamBuilder = React.createClass({
     
     // Loop through all the users and render the appropriate user type
     var users = value.map(function(user, i) {
+      // Use empty strings for unset/false
+      user.phone = user.phone || '';
       if (user.type === 'you') {
         return <TeamOwner key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'leader') {

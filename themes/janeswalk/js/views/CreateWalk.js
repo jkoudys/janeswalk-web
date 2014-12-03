@@ -134,7 +134,6 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             )
           ), 
           React.createElement("div", {id: "main-panel", role: "main"}, 
-            React.createElement("div", {className: "alert alert-error"}, React.createElement("strong", null, "Walks will not be saved."), " We're currently updating this form. Do not use this to create a new walk."), 
             React.createElement("div", {className: "tab-content"}, 
               React.createElement("div", {className: "tab-pane active", id: "description"}, 
                 React.createElement("div", {className: "walk-submit lead clearfix"}, 
@@ -237,7 +236,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             React.createElement("div", {className: "popover right", id: "city-organizer", style: {display: 'block'}}, 
               React.createElement("h3", {className: "popover-title", 'data-toggle': "collapse", 'data-target': "#popover-content"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Contact City Organizer for help') ), 
               React.createElement("div", {className: "popover-content collapse in", id: "popover-content"}, 
-                React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + 'XXXavatar src' + ')'}}), 
+                React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}}), 
                 React.createElement("p", null, 
                    t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name), " ", React.createElement("strong", null, React.createElement("a", {href: 'mailto:' + this.props.city.cityOrganizer.email},  t('email me'), "!")))
               )
@@ -547,28 +546,54 @@ var DatePicker = React.createClass({displayName: 'DatePicker',
 });
 
 var TimePicker = React.createClass({displayName: 'TimePicker',
+  getInitialState: function() {
+    return {startTimes: []};
+  },
+
+  // Date management is slow, so avoid rebuilding unless needed
+  setStartTimes: function(start, step) {
+    if (this.state.start !== start) {
+      this.setState({start: start})
+      var firstTime = new Date(start + ' 00:00');
+      var lastTime = new Date(start + ' 23:30');
+      var startTimes = [];
+      step = step || 1800000;
+
+      for (var i = 0, time = firstTime; time.getTime() <= lastTime.getTime(); time.setTime(time.getTime() + step), i++) {
+        startTimes.push({
+          time: time.getTime(),
+          string: time.toLocaleString({}, {hour: '2-digit', minute: '2-digit'})
+        });
+      }
+
+      this.setState({
+        start: start,
+        startTimes: startTimes
+      });
+    }
+  },
+
+  componentWillUpdate: function() {
+    var startDate = new Date(this.props.valueLinkStart.value);
+    this.setStartTimes(startDate.toLocaleDateString());
+  },
+
+  componentWillMount: function() {
+    this.componentWillUpdate();
+  },
+
   render: function() {
     // Count walk times in 30 min increments
-    var step = 30 * 60 * 1000;
     var linkDuration = this.props.valueLinkDuration;
     var linkStart = this.props.valueLinkStart;
-    var startDate = new Date(linkStart.value);
-    var firstTime = new Date(startDate.toLocaleDateString() + ' 00:00');
-    var lastTime = new Date(startDate.toLocaleDateString() + ' 23:30');
-    var startTimes = [];
 
-    for (var i = 0, time = firstTime;
-         time.getTime() <= lastTime.getTime();
-         time.setTime(time.getTime() + step), i++) {
-      startTimes.push(
-        React.createElement("option", {key: i, value: time.getTime()}, time.toLocaleString({}, {hour: '2-digit', minute: '2-digit'}))
-      );
-    }
     return (
       React.createElement("div", {className: "time-picker"}, 
         React.createElement("label", {htmlFor: "walk-time"},  t('Start Time'), ":"), 
         React.createElement("select", {name: "start", id: "walk-start", valueLink: linkStart}, 
-          startTimes
+          this.state.startTimes.map(function(time, i) {
+            return React.createElement("option", {key: i, value: time.time}, time.string);
+          })
         ), 
         React.createElement("label", {htmlFor: "walk-time"},  t('Approximate Duration of Walk'), ":"), 
         React.createElement("select", {name: "duration", id: "walk-duration", valueLink: linkDuration}, 
@@ -844,11 +869,17 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   },
 
   // Button Actions
-  toggleAddMeetingPlace: function(e) {
+  toggleAddMeetingPlace: function() {
+    this.setState({editMode: 'meetingplace'});
   },
-  toggleAddPoint: function(e) {
+  toggleAddPoint: function() {
+    this.setState({editMode: 'addpoint'});
   },
-  toggleAddRoute: function(e) {
+  toggleAddRoute: function() {
+    this.setState({editMode: 'addroute'});
+  },
+  clearRoute: function() {
+    this.setState({poly: []});
   },
 
   /*
@@ -884,6 +915,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     
     return (
       React.createElement("div", {className: "tab-pane", id: "route"}, 
+        React.createElement("div", {className: "alert alert-error"}, React.createElement("strong", null, "Map buttons currently offline."), " Sorry for the inconvenience - the buttons to add to your map aren't working. Please check back tomorrow."), 
         React.createElement("div", {className: "page-header", 'data-section': "route"}, 
           React.createElement("h1", null,  t('Share Your Route') )
         ), 
@@ -1025,6 +1057,8 @@ var TeamBuilder = React.createClass({
     
     // Loop through all the users and render the appropriate user type
     var users = value.map(function(user, i) {
+      // Use empty strings for unset/false
+      user.phone = user.phone || '';
       if (user.type === 'you') {
         return React.createElement(TeamOwner, {key: i, value: user, onChange: this.handleTeamMemberChange});
       } else if (user.type === 'leader') {

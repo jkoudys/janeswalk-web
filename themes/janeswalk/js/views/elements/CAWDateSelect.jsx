@@ -200,28 +200,54 @@ var DatePicker = React.createClass({
 });
 
 var TimePicker = React.createClass({
+  getInitialState: function() {
+    return {startTimes: []};
+  },
+
+  // Date management is slow, so avoid rebuilding unless needed
+  setStartTimes: function(start, step) {
+    if (this.state.start !== start) {
+      this.setState({start: start})
+      var firstTime = new Date(start + ' 00:00');
+      var lastTime = new Date(start + ' 23:30');
+      var startTimes = [];
+      step = step || 1800000;
+
+      for (var i = 0, time = firstTime; time.getTime() <= lastTime.getTime(); time.setTime(time.getTime() + step), i++) {
+        startTimes.push({
+          time: time.getTime(),
+          string: time.toLocaleString({}, {hour: '2-digit', minute: '2-digit'})
+        });
+      }
+
+      this.setState({
+        start: start,
+        startTimes: startTimes
+      });
+    }
+  },
+
+  componentWillUpdate: function() {
+    var startDate = new Date(this.props.valueLinkStart.value);
+    this.setStartTimes(startDate.toLocaleDateString());
+  },
+
+  componentWillMount: function() {
+    this.componentWillUpdate();
+  },
+
   render: function() {
     // Count walk times in 30 min increments
-    var step = 30 * 60 * 1000;
     var linkDuration = this.props.valueLinkDuration;
     var linkStart = this.props.valueLinkStart;
-    var startDate = new Date(linkStart.value);
-    var firstTime = new Date(startDate.toLocaleDateString() + ' 00:00');
-    var lastTime = new Date(startDate.toLocaleDateString() + ' 23:30');
-    var startTimes = [];
 
-    for (var i = 0, time = firstTime;
-         time.getTime() <= lastTime.getTime();
-         time.setTime(time.getTime() + step), i++) {
-      startTimes.push(
-        <option key={i} value={time.getTime()}>{time.toLocaleString({}, {hour: '2-digit', minute: '2-digit'})}</option>
-      );
-    }
     return (
       <div className="time-picker">
         <label htmlFor="walk-time">{ t('Start Time') }:</label>
         <select name="start" id="walk-start" valueLink={linkStart}>
-          {startTimes}
+          {this.state.startTimes.map(function(time, i) {
+            return <option key={i} value={time.time}>{time.string}</option>;
+          })}
         </select>
         <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>
         <select name="duration" id="walk-duration" valueLink={linkDuration}>
