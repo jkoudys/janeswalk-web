@@ -34,7 +34,7 @@
           <section>
               <table class="users">
                   <?php foreach ($cityUsers as $user) { ?>
-                  <tr><td><a data-uid="<?= $user['id'] ?>"><?= trim($user['first-name'] . ' ' . $user['last-name']) ?></a></td></tr>
+                  <tr><td><a data-uid="<?= $user['id'] ?>"><?= trim($user['firstName'] . ' ' . $user['lastName']) ?></a></td></tr>
                   <?php } ?>
               </table>
           </section>
@@ -51,8 +51,7 @@
     <?php if ($userIsViewingSelf === true): ?>
       <?php if ($userHasSetHomeCity === true): ?>
         <div class="overlay promoteOverlay cityPromoteOverlay" data-slideshow="city" data-citypath="<?= ($userHomeCityObj->getCollectionPath()) ?>" data-cityname="<?= ($userHomeCityObj->getCollectionName()) ?>">
-          <div class="o-background">
-          </div>
+          <div class="o-background"></div>
           <div class="o-content">
             <h1><?= tc('Promote CITY_NAME', 'Promote %s', $userHomeCity) ?></h1>
             <p><?= t('Use these pre-made messages to spread the word about Jane\'s Walk in %s', $userHomeCity) ?></p>

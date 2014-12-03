@@ -58,16 +58,20 @@ class ProfileController extends Concrete5_Controller_Profile
                 $pl->filterByCollectionTypeHandle('walk');
                 $pl->filterByParentID($city->getCollectionID());
                 $pl->filterByAttribute('exclude_page_list', true);
-                $cityWalks[] = ['city' => $city, 'walks' => $walks, 'inprogress' => $pl->get()];
+                $cityWalks[] = [
+                    'city' => $city,
+                    'walks' => $walks,
+                    'inprogress' => $pl->get()
+                ];
 
                 // Load the user list for this city
                 $ul = new UserList;
                 $ul->filterByHomeCity($city->getCollectionID());
                 foreach ($ul->get(65535) as $user) {
                     $cityUsers[] = [
-                        'first-name' => $user->getAttribute('first_name'),
-                        'last-name' => $user->getAttribute('last_name'),
-                        'id' => $user->getUserID()
+                        'id' => $user->getUserID(),
+                        'firstName' => $user->getAttribute('first_name'),
+                        'lastName' => $user->getAttribute('last_name')
                     ];
                 }
             }
