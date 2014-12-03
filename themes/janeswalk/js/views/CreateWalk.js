@@ -82,13 +82,13 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
     $.ajax({
       url: this.props.url,
       type: 'PUT',
-      data: this.state,
+      data: {json: JSON.stringify(this.state)},
       dataType: 'json',
       success: function(data) {
         console.log('Walk saved');
       },
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.url, status, err.toString());
       }
     });
   },
@@ -99,13 +99,13 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
     $.ajax({
       url: this.props.url,
       type: 'POST',
-      data: this.state,
+      data: {json: JSON.stringify(this.state)},
       dataType: 'json',
       success: function(data) {
         console.log('Walk published');
       },
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.url, status, err.toString());
       }
     });
   },

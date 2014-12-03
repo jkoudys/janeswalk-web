@@ -63,22 +63,28 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
         }
     }
 
+    /**
+     * Save a value, usually from setAttribute()
+     * @param Array $data The array data, as formatted by CAW
+     * ['slots' => [], 'times' => []]
+     */
     public function saveValue($data)
     {
         $db = Loader::db();
-        $db->Replace('atSchedule', array('avID' => $this->getAttributeValueID(), 'open' => $data->open, 'type' => $data->type), 'avID', true);
+        $db->Replace('atSchedule', array('avID' => $this->getAttributeValueID(), 'open' => $data['open'], 'type' => $data['type']), 'avID', true);
 
         /* slots are set by the walk form, and are in a format: start time, duration
          * times are set by the c5 forms, and are start time array, end time array
          */
         $sanitizedTimes = [];
-        foreach ((array) $data->slots as $time) {
+        foreach ((array) $data['slots'] as $time) {
             $sanitizedTimes[] = [
-                'start' => date('Y-m-d H:i:s', strtotime("{$time->date} {$time->time}")),
-                    'end' => date('Y-m-d H:i:s', strtotime("{$time->date} {$time->time} + {$time->duration}"))
+                'start' => date('Y-m-d H:i:s', strtotime("{$time['date']} {$time['time']}")),
+                    'end' => date('Y-m-d H:i:s', strtotime("{$time['date']} {$time['time']} + {$time['duration']}"))
                 ];
         }
-        foreach ((array) $data->times as $key=>$time) {
+        // Complex logic for parsing out start and end times
+        foreach ((array) $data['times'] as $key=>$time) {
             // Timestamp is in ms - so "/ 1000" is needed
             foreach (['start','end'] as $field) {
                 $dt = date('Y-m-d', floor( $time[$field . '_dt'] / 1000) );

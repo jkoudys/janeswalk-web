@@ -249,17 +249,17 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->setAttribute('scheduled', $postArray['time']);
 
             // Don't bother saving completely empty maps, since it's usually done in error
-            if (sizeof((array) $postArray->map->markers) + sizeof((array) $postArray->map->route)) {
-                $this->page->setAttribute('gmap', json_encode($postArray->map));
+            if (sizeof((array) $postArray['map']['markers']) + sizeof((array) $postArray['map']['route'])) {
+                $this->page->setAttribute('gmap', json_encode($postArray['map']));
             }
-            $this->page->setAttribute('team', json_encode($postArray->team));
-            if ($postArray->thumbnail_id && File::getByID($postArray->thumbnail_id)) {
-                $this->page->setAttribute('thumbnail', File::getByID($postArray->thumbnail_id));
+            $this->page->setAttribute('team', json_encode($postArray['team']));
+            if ($postArray->thumbnail_id && File::getByID($postArray['thumbnail_id'])) {
+                $this->page->setAttribute('thumbnail', File::getByID($postArray['thumbnail_id']));
             }
 
             /* Go through checkboxes */
             $checkboxes = array('theme' => [], 'accessible' => []);
-            foreach ($postArray->checkboxes as $key => $checked) {
+            foreach ($postArray['checkboxes'] as $key => $checked) {
                 $selectAttribute = strtok($key, '-');
                 $selectValue = strtok('');
                 if ($checked) {
