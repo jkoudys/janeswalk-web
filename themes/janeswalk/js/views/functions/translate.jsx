@@ -1,5 +1,8 @@
 // Translation functions - TODO build an object of the translateables, then get their translations from the server
 module.exports = function(str) {
-  return sprintf.apply(null, arguments);
+	var args = Array.prototype.slice.call(arguments);
+	return args.shift().replace(/%s/g, function(){
+		return args.shift();
+	});
 }
 

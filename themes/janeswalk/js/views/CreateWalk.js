@@ -922,10 +922,10 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
           )
         ), 
         React.createElement("div", {id: "map-control-bar"}, 
-          React.createElement("button", {ref: "addmeetingplace", onClick: toggleAddMeetingPlace}, React.createElement("i", {className: "fa fa-flag"}),  t('Set a Meeting Place') ), 
-          React.createElement("button", {ref: "addpoint", onClick: toggleAddPoint}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') ), 
-          React.createElement("button", {red: "addroute", onClick: toggleAddRoute}, React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') ), 
-          React.createElement("button", {ref: "clearroute", onClick: clearRoute}, React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') )
+          React.createElement("button", {ref: "addmeetingplace", onClick: this.toggleAddMeetingPlace}, React.createElement("i", {className: "fa fa-flag"}),  t('Set a Meeting Place') ), 
+          React.createElement("button", {ref: "addpoint", onClick: this.toggleAddPoint}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') ), 
+          React.createElement("button", {red: "addroute", onClick: this.toggleAddRoute}, React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') ), 
+          React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') )
         ), 
         React.createElement("div", {className: "map-notifications"}), 
         React.createElement("div", {id: "map-canvas", ref: "gmap"}), 
@@ -1541,7 +1541,10 @@ module.exports.linkedTeamMemberState = {
 },{}],11:[function(require,module,exports){
 // Translation functions - TODO build an object of the translateables, then get their translations from the server
 module.exports = function(str) {
-  return sprintf.apply(null, arguments);
+	var args = Array.prototype.slice.call(arguments);
+	return args.shift().replace(/%s/g, function(){
+		return args.shift();
+	});
 }
 
 

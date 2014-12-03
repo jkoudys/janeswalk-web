@@ -207,10 +207,10 @@ var MapBuilder = React.createClass({
           </div>
         </div>
         <div id="map-control-bar">
-          <button ref="addmeetingplace" onClick={toggleAddMeetingPlace}><i className="fa fa-flag" />{ t('Set a Meeting Place') }</button>
-          <button ref="addpoint" onClick={toggleAddPoint}><i className="fa fa-map-marker" />{ t('Add Stop') }</button>
-          <button red="addroute" onClick={toggleAddRoute}><i className="fa fa-arrows" />{ t('Add Route') }</button>
-          <button ref="clearroute" onClick={clearRoute}><i className="fa fa-eraser" />{ t('Clear Route') }</button>
+          <button ref="addmeetingplace" onClick={this.toggleAddMeetingPlace}><i className="fa fa-flag" />{ t('Set a Meeting Place') }</button>
+          <button ref="addpoint" onClick={this.toggleAddPoint}><i className="fa fa-map-marker" />{ t('Add Stop') }</button>
+          <button red="addroute" onClick={this.toggleAddRoute}><i className="fa fa-arrows" />{ t('Add Route') }</button>
+          <button ref="clearroute" onClick={this.clearRoute}><i className="fa fa-eraser" />{ t('Clear Route') }</button>
         </div>
         <div className="map-notifications" />
         <div id="map-canvas" ref="gmap" />
