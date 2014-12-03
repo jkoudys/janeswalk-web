@@ -34,6 +34,10 @@ var CreateWalk = React.createClass({
       if (data.time && !Array.isArray(data.time.slots)) {
         data.time.slots = Helper.objectToArray(data.time.slots);
       }
+      // Turn all 'false' values into empty strings
+      for (var i in data) {
+        if (data[i] === false) data[i] = '';
+      }
       return data;
     } else {
       return {
