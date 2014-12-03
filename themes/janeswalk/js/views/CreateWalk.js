@@ -755,7 +755,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   // won't be persisting that. The map's
   getInitialState: function() {
     return {
-      // The 'mode' we're in: 'meetingplace', 'stop', 'route', or false
+      // The 'mode' we're in: 'addmeetingplace', 'addstop', 'addroute', or false
       editMode: false,
       map: null,
       markers: [],
@@ -814,7 +814,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
   // Map parameters
   stopMarker: {
-    url: CCM_BASE_URL + '/img/marker.png',
+    url: CCM_THEME_PATH + '/images/marker.png',
     // This marker is 20 pixels wide by 32 pixels tall.
     size: new google.maps.Size(30, 46),
     // The origin for this image is 0,0.
@@ -870,7 +870,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
   // Button Actions
   toggleAddMeetingPlace: function() {
-    this.setState({editMode: 'meetingplace'});
+    this.setState({editMode: 'addmeetingplace'});
   },
   toggleAddPoint: function() {
     this.setState({editMode: 'addpoint'});
@@ -879,7 +879,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     this.setState({editMode: 'addroute'});
   },
   clearRoute: function() {
-    this.setState({poly: []});
+    this.setState({poly: [], editMode: false});
   },
 
   /*
@@ -955,9 +955,9 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
           )
         ), 
         React.createElement("div", {id: "map-control-bar"}, 
-          React.createElement("button", {ref: "addmeetingplace", onClick: this.toggleAddMeetingPlace}, React.createElement("i", {className: "fa fa-flag"}),  t('Set a Meeting Place') ), 
-          React.createElement("button", {ref: "addpoint", onClick: this.toggleAddPoint}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') ), 
-          React.createElement("button", {red: "addroute", onClick: this.toggleAddRoute}, React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') ), 
+          React.createElement("button", {className: (this.state.editMode === 'addmeetingplace') ? 'active' : '', ref: "addmeetingplace", onClick: this.toggleAddMeetingPlace}, React.createElement("i", {className: "fa fa-flag"}),  t('Set a Meeting Place') ), 
+          React.createElement("button", {className: (this.state.editMode === 'addpoint') ? 'active' : '', ref: "addpoint", onClick: this.toggleAddPoint}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') ), 
+          React.createElement("button", {className: (this.state.editMode === 'addroute') ? 'active' : '', ref: "addroute", onClick: this.toggleAddRoute}, React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') ), 
           React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') )
         ), 
         React.createElement("div", {className: "map-notifications"}), 
