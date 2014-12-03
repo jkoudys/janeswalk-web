@@ -691,12 +691,19 @@ body[data-pageviewname=CreateWalkView] {
 
     #route-menu {
         .make-row();
+        list-style-position: inside;
         padding: 0 10px;
-        .span4 {
+        > li {
+            .make-md-column(4);
             border-right:1px solid #eee;
-            padding-right: 10px;
             &:last-child {
                 border-right: none;
+            }
+            ol {
+                padding-left: 1em;
+            }
+            li {
+                list-style: lower-alpha inside;
             }
         }
     }

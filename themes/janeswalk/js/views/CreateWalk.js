@@ -890,17 +890,17 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         React.createElement("div", {className: "alert alert-info"},  t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') ), 
         React.createElement("div", {id: "route-help-panel"}, 
           React.createElement("a", {className: "accordion-toggle collapsed", 'data-toggle': "collapse", 'data-parent': "#route-menu", href: "#route-menu"}, React.createElement("h2", {className: "lead"},  t('Need help building your route?') )), 
-          React.createElement("div", {id: "route-menu", className: "collapse", style: {height: 0}}, 
-            React.createElement("div", {className: "col-md4"}, 
-              React.createElement("h4", null, "1. ",  t('Set a Meeting Place') ), 
+          React.createElement("ol", {id: "route-menu", className: "collapse", style: {height: 0}}, 
+            React.createElement("li", null, 
+              React.createElement("h4", null,  t('Set a Meeting Place') ), 
               React.createElement("ol", null, 
                 React.createElement("li", null,  t('Click "Meeting Place" to add a pinpoint on the map') ), 
                 React.createElement("li", null,  t('Click and drag it into position') ), 
                 React.createElement("li", null,  t('Fill out the form fields and press Save Meeting Place') )
               )
             ), 
-            React.createElement("div", {className: "col-md-4"}, 
-              React.createElement("h4", null, "2. ",  t('Add Stops') ), 
+            React.createElement("li", null, 
+              React.createElement("h4", null,  t('Add Stops') ), 
               React.createElement("ol", null, 
                 React.createElement("li", null,  t('Click "Add Stop" to add a stop on the map') ), 
                 React.createElement("li", null,  t('Click and drag it into position') ), 
@@ -908,15 +908,16 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
                 React.createElement("li", null,  t('Repeat to add more stops') )
               )
             ), 
-            React.createElement("div", {className: "col-md-4"}, 
-              React.createElement("h4", null, "3. ",  t('Add Route') ), 
+            React.createElement("li", null, 
+              React.createElement("h4", null,  t('Add Route') ), 
               React.createElement("ol", null, 
                 React.createElement("li", null,  t('Click Add Route') ), 
                 React.createElement("li", null,  t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') ), 
                 React.createElement("li", null,  t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') ), 
-                React.createElement("li", null,  t('Click Save Route') )), 
-              React.createElement("ul", null, 
-                React.createElement("li", null,  t('If you want to delete your route to start over, click '), React.createElement("a", {href: "", className: "clear-route"},  t('Clear Route') ), ". ",  t('Your Stops will not be deleted') )
+                React.createElement("li", null,  t('Click Save Route') )
+              ), 
+              React.createElement("p", null, 
+                 t('If you want to delete your route to start over, click '), React.createElement("a", {href: "", className: "clear-route"},  t('Clear Route') ), ". ",  t('Your Stops will not be deleted') 
               )
             )
           )
