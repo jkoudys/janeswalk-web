@@ -1735,7 +1735,7 @@ var WalkPageView = PageView.extend({
       // Load the google map canvas
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions),
       walkPathCoordinates = [],
-      mapMarker = '../../../../img/marker.png',
+      mapMarker = CCM_THEME_PATH + '/images/marker.png',
 
       // Setup basic infobox layout + display functions
       infowindow = new google.maps.InfoWindow({maxWidth: 300}),
@@ -1751,7 +1751,7 @@ var WalkPageView = PageView.extend({
           border: "1px solid #eee",
         },
         closeBoxMargin: "-22px -22px 2px -8px",
-        closeBoxURL: "../../../../img/map-close.png",
+        closeBoxURL: CCM_THEME_PATH + '/images/map-close.png',
         infoBoxClearance: new google.maps.Size(20, 20)
       }),
       showInfoBox = function(marker, i, markerContent) {
@@ -1766,8 +1766,8 @@ var WalkPageView = PageView.extend({
 
           this.setIcon(activeMarker);
 
-          infowindow.setContent(React.renderToStaticMarkup(
-            React.createElement("div", null, 
+          infobox.setContent(React.renderToStaticMarkup(
+            React.createElement("span", null, 
               React.createElement("h4", null, 
                 JanesWalk.page.gmap.markers[i].title
               ), 
@@ -1789,8 +1789,8 @@ var WalkPageView = PageView.extend({
       },
 
       // Static image objects 
-      activeMarker = new google.maps.MarkerImage('../../../../img/marker-active.png'),
-      defaultMarker = new google.maps.MarkerImage('../../../../img/marker.png'),
+      activeMarker = new google.maps.MarkerImage(CCM_THEME_PATH + '/images/marker-active.png'),
+      defaultMarker = new google.maps.MarkerImage(CCM_THEME_PATH + '/images/marker.png'),
 
       // Counter/indeces declarations
       walkPath,

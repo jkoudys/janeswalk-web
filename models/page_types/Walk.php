@@ -8,6 +8,7 @@ use \XSLTProcessor;
 // c5 classes
 use \Loader;
 use \Page;
+use \File;
 
 defined('C5_EXECUTE') || die('Access Denied.');
 
@@ -248,13 +249,12 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->setAttribute('walk_wards', $postArray['wards']);
             $this->page->setAttribute('scheduled', $postArray['time']);
 
-            // Don't bother saving completely empty maps, since it's usually done in error
-            if (sizeof((array) $postArray['map']['markers']) + sizeof((array) $postArray['map']['route'])) {
-                $this->page->setAttribute('gmap', json_encode($postArray['map']));
-            }
+            $this->page->setAttribute('gmap', json_encode($postArray['gmap']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
-            if ($postArray->thumbnail_id && File::getByID($postArray['thumbnail_id'])) {
-                $this->page->setAttribute('thumbnail', File::getByID($postArray['thumbnail_id']));
+            
+            if (count($postArray['thumbnails']) && File::getByID($postArray['thumbnails'][0]['id'])) {
+                var_dump($postArray['thumbnails'][0]);
+                $this->page->setAttribute('thumbnail', File::getByID($postArray['thumbnails'][0]['id']));
             }
 
             /* Go through checkboxes */

@@ -46,7 +46,8 @@ var ImageUpload = React.createClass({
     var thumbnails = this.props.valueLink.value;
     // TODO: include an upload callback that loads the uploaded image locally,
     // instead of the one off the server
-    //
+    // TODO: Implement server-side support for multiple thumbnails, then 
+    // remove limit here
     return (
       <form className="upload-image">
         <label htmlFor="walkphotos" id="photo-tip">{ t('Upload a photo that best represents your walk.') }</label>
@@ -62,11 +63,12 @@ var ImageUpload = React.createClass({
             </div>
             );
         }, this)}
+        {(thumbnails.length < 1) ?
         <div className="thumbnail fileupload">
           <input className="ccm-al-upload-single-file" type="file" onChange={this.handleUpload} />
           <i className="fa fa-camera-retro fa-5x" />
           <span className="fileupload-new">{ t('Click to upload an image') }</span>
-        </div>
+        </div> : null}
       </form>
     );
   }

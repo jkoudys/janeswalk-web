@@ -729,7 +729,8 @@ var ImageUpload = React.createClass({
     var thumbnails = this.props.valueLink.value;
     // TODO: include an upload callback that loads the uploaded image locally,
     // instead of the one off the server
-    //
+    // TODO: Implement server-side support for multiple thumbnails, then 
+    // remove limit here
     return (
       React.createElement("form", {className: "upload-image"}, 
         React.createElement("label", {htmlFor: "walkphotos", id: "photo-tip"},  t('Upload a photo that best represents your walk.') ), 
@@ -745,11 +746,12 @@ var ImageUpload = React.createClass({
             )
             );
         }, this), 
+        (thumbnails.length < 1) ?
         React.createElement("div", {className: "thumbnail fileupload"}, 
           React.createElement("input", {className: "ccm-al-upload-single-file", type: "file", onChange: this.handleUpload}), 
           React.createElement("i", {className: "fa fa-camera-retro fa-5x"}), 
           React.createElement("span", {className: "fileupload-new"},  t('Click to upload an image') )
-        )
+        ) : null
       )
     );
   }
@@ -883,7 +885,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     var valueLink = this.props.valueLink,
         map = valueLink.value,
         markers = map.markers.slice();
-    markers.splice(to, 0, markers.splice(from, 1));
+    markers.splice(to, 0, markers.splice(from, 1)[0]);
     map.markers = markers;
     valueLink.requestChange(map);
   },

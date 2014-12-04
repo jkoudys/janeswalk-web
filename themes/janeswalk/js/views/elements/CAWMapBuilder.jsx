@@ -123,7 +123,7 @@ var MapBuilder = React.createClass({
     var valueLink = this.props.valueLink,
         map = valueLink.value,
         markers = map.markers.slice();
-    markers.splice(to, 0, markers.splice(from, 1));
+    markers.splice(to, 0, markers.splice(from, 1)[0]);
     map.markers = markers;
     valueLink.requestChange(map);
   },
