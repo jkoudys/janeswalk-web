@@ -224,7 +224,6 @@ var MapBuilder = React.createClass({
         <div id="map-canvas" ref="gmap" />
         {walkStops}
         <hr />
-        <a href="#time-and-date" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a>
         <br />
         <br />
       </div>

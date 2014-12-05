@@ -150,6 +150,7 @@ var CreateWalk = React.createClass({
             </div>
           </nav>
           <div id="main-panel" role="main">
+            <div className="alert alert-error"><strong>Create a Walk is currently offline.</strong> Sorry for the inconvenience</div>
             <div className="tab-content">
               <div className="tab-pane active" id="description">
                 <div className="walk-submit lead clearfix">
@@ -194,7 +195,6 @@ var CreateWalk = React.createClass({
                   <CAWThemeSelect valueLink={this.linkState('checkboxes')} />
                   <CAWWardSelect wards={this.props.city.wards} valueLink={this.linkState('wards')} />
                   <hr />
-                  <input className="btn btn-primary btn-large section-save" type="submit" value={ t('Next') } readOnly data-next="route" href="#route" /><br /><br />
                 </form>
               </div>
               <CAWMapBuilder valueLink={this.linkState('gmap')} />
@@ -241,8 +241,6 @@ var CreateWalk = React.createClass({
                   </fieldset>
                 </div>
                 <hr />
-                <a href="#team" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a>
-                <br />
                 <br />
               </div>
               <CAWTeamBuilder valueLink={this.linkState('team')} />
