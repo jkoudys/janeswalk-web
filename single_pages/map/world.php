@@ -99,14 +99,13 @@ var style = new google.maps.StyledMapType(
   name: "Styled Map"
 })
 var mapOptions = {
-  center: new google.maps.LatLng(20, 15),
+    center: new google.maps.LatLng(20, 15),
+    scrollwheel: false,
     zoom: 2,
     minZoom: 2,
     disableDefaultUI: true,
     zoomControl: true,
-    zoomControlOptions: {
-    },
-    scrollwheel: true,
+    zoomControlOptions: {},
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     backgroundColor:"#90c2ff"
 }

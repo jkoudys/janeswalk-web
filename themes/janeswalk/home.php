@@ -26,24 +26,14 @@
     </div>
 </div>
 <!-- end of .intro -->
-<div class="overlap" id="getinvolved">
-    <?php if (!$isMobile) { ?>
-    <ul class="controls">
-        <li>
-        <a href="/map/world" target="_blank" class="showButton">Show Map<br /><i class="fa fa-chevron-down"></i></a>
-            <a class="closeButton" style="display:none">Close Map<br /><i class="fa fa-chevron-up"></i></a>
-        </li>
-    </ul>
-    <section class="map">
-        <?php (new Area('Map'))->display($c) ?>
-    </section>
-    <?php } ?>
-    <div class="topcontent">
-        <section class="calltoaction">
-            <?php (new Area('Call to Action'))->display($c) ?>
-        </section>
-    </div>
-</div>
+<?php if (!$isMobile) { ?>
+<section class="map">
+    <?php (new Area('Map'))->display($c) ?>
+</section>
+<?php } ?>
+<section class="calltoaction">
+    <?php (new Area('Call to Action'))->display($c) ?>
+</section>
 <main>
     <?php (new Area('Main'))->display($c) ?>
 </main>

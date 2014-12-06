@@ -197,115 +197,50 @@
         }
     }
 
-    .overlap {
-        @height-overlap: 460px;
-        transition-duration: 0.5s;
-        position: relative;
-        height: @height-overlap;
+    section.calltoaction {
+        max-width: @screen-lg-min;
+        padding: @grid-gutter-width @grid-gutter-width/2;
+        margin: 0 auto;
+
+
+        // TODO: move these; it's completely the wrong place to define this. It's not a call to action.
+        #city-choice-label, #city-choice-select {
+            display: none;
+            @media (max-width: @screen-sm-min) {
+                display: block;
+            }
+        }
+        @media (max-width: @screen-sm-min) {
+            width: auto;
+            position: static;
+        }
+
+        > h3:first-child {
+            color: @color-darkgrey;
+            font-weight: 700;
+            margin: 0 0 0.8em 0;
+        }
+        p {
+            color: @color-darkgrey;
+            line-height: 1.6;
+            font-size: 1.3em;
+        }
+        ul {
+            list-style: none;
+            margin: 0 0 1em 0;
+            padding: 0;
+            li {
+                display: inline-block;
+            }
+        }
+    }
+
+    section.map {
+        height: 350px;
+        overflow: hidden;
 
         @media (max-width: @screen-sm-min) {
-            height: auto;
-        }
-
-        .topcontent {
-            .clearfix();
-            width: 100%;
-            bottom: 0;
-            position: absolute;
-            background-color: #fff;
-            
-            @media (max-width: @screen-sm-min) {
-                position: relative;
-            }
-        }
-
-        section.calltoaction {
-            max-width: @screen-lg-min;
-            padding: @grid-gutter-width @grid-gutter-width/2;
-            margin: 0 auto;
-
-
-            // TODO: move these; it's completely the wrong place to define this. It's not a call to action.
-            #city-choice-label, #city-choice-select {
-                display: none;
-                @media (max-width: @screen-sm-min) {
-                    display: block;
-                }
-            }
-            @media (max-width: @screen-sm-min) {
-                width: auto;
-                position: static;
-            }
-
-            > h3:first-child {
-                color: @color-darkgrey;
-                font-weight: 700;
-                margin: 0 0 0.8em 0;
-            }
-            p {
-                color: @color-darkgrey;
-                line-height: 1.6;
-                font-size: 1.3em;
-            }
-            ul {
-                list-style: none;
-                margin: 0 0 1em 0;
-                padding: 0;
-                li {
-                    display: inline-block;
-                }
-            }
-        }
-
-        .controls {
-            @controlHeight:60px;
-            position:absolute;
-            margin:0;
-            top:-@controlHeight*3/4; width:100%; text-align:center;
-            z-index:0;
-            padding-bottom:160px; /* Cover below with a pad so mousewheel scroll doesn't work on the map. */
-
-            li {
-                display:block; height: @controlHeight;
-                text-transform:uppercase;
-                line-height:@controlHeight/2;
-            }
-
-            a { 
-                color:#fff;
-                font-size:11px;
-
-                i {
-                    font-size:15px;
-                    color:#fff;
-                    padding:7px 8px;
-                    margin-top:5px;
-                    background:@color-blue;
-                    border: 2px solid #fff;
-                    border-radius:999px;
-                }
-
-                &:hover {
-                    text-decoration: none;
-                    cursor: pointer;
-                }
-            }
-
-            @media (max-width: @screen-sm-min) {
-                display: none;
-            }
-        }
-
-        section.map {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: -1;
-
-            @media (max-width: @screen-sm-min) {
-                display: none;
-            }
+            display: none;
         }
     }
 
