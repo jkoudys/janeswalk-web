@@ -202,6 +202,7 @@
         padding: @grid-gutter-width @grid-gutter-width/2;
         margin: 0 auto;
         background: #fff;
+        position: relative;
 
         // TODO: move these; it's completely the wrong place to define this. It's not a call to action.
         #city-choice-label, #city-choice-select {
@@ -232,6 +233,17 @@
             li {
                 display: inline-block;
             }
+        }
+        &:after {
+            content: " ";
+            display: block;
+            position: absolute;
+            width: 300%;
+            height: 100%;
+            background: #fff;
+            top: 0;
+            left: -150%;
+            z-index: -1;
         }
     }
 

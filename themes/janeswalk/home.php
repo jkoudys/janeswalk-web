@@ -33,10 +33,8 @@
 <?php } ?>
 <section class="calltoaction">
     <?php (new Area('Call to Action'))->display($c) ?>
-</section>
-<main>
     <?php (new Area('Main'))->display($c) ?>
-</main>
+</section>
 <section class="blog">
     <section class="walkblog">
         <?php (new Area('Blog Header'))->display($c) ?>
