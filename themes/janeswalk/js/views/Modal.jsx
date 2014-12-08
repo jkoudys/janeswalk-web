@@ -1,3 +1,4 @@
+'use strict';
 var View = require('../View.jsx');
 
 /**

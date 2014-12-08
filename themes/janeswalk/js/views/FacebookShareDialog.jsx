@@ -1,3 +1,4 @@
+'use strict';
 /**
 * The dialogue to share on facebook
 * 

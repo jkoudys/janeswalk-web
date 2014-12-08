@@ -1,4 +1,5 @@
-var View = require('../View.jsx');
+'use strict';
+var View = require('./View.jsx');
 
 /**
  * Basic View info for a regular ol' page

@@ -24,7 +24,7 @@ var paths = {
     './themes/janeswalk/js/shims.js',
   ],
   jsx_app: './themes/janeswalk/js/janeswalk.jsx',
-  jsx_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/v2/**/*.jsx'],
+  js_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/views/**/*.jsx'],
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
@@ -53,17 +53,6 @@ gulp.task('jsx_app', function() {
     .pipe(gulp.dest(paths.js))
 });
 
-gulp.task('browserify', function(callback) {
-  return browserify({
-    entries: paths.react_views + 'CreateWalk.jsx',
-    transform: [reactify],
-    extensions: ['.jsx'],
-  })
-    .bundle()
-    .pipe(source('CreateWalk.js'))
-    .pipe(gulp.dest(paths.react_views))
-});
-
 // TODO: very lazy task; needs to be generalized for all blocks, not just one!
 gulp.task('blocks', function() {
   return browserify({
@@ -85,7 +74,7 @@ gulp.task('blocks', function() {
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
   gulp.watch(paths.jsx, ['browserify']);
-  gulp.watch(paths.jsx_views, ['jsx_app']);
+  gulp.watch(paths.js_views, ['jsx_app']);
   gulp.watch('./blocks/**/*.jsx', ['blocks']);
 });
 

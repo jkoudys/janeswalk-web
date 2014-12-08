@@ -1,3 +1,4 @@
+'use strict';
 // Create a Walk
 // 
 // Form for creating new walks. Includes a map builder, team builder, scheduler
@@ -312,12 +313,7 @@ var CreateWalk = React.createClass({
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  React.render(
-    <CreateWalk data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} url={JanesWalk.walk.url} valt={JanesWalk.form.valt} />,
-    document.getElementById('createwalk')
-  );
-});
+module.exports = CreateWalk;
 
 /*
 example json:

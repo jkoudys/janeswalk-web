@@ -114,7 +114,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                     <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
                     <ol>
                         <?php foreach ($w->map->markers as $key => $marker) { ?>
-                        <li class='walk-stop' id='<?= $key ?>'><h4><?= $marker->title ?></h4></li>
+                        <li class="walk-stop" data-key="<?= $key ?>"><h4><?= $marker->title ?></h4></li>
                         <?php } ?>
                     </ol>
                 </header>
