@@ -4,31 +4,26 @@ var PageView = require('../Page.jsx');
  * HomePageView
  * 
  * @extends PageView
+ * 
+ * @public
+ * @param  jQuery element
+ * @return void
  */
-var HomePageView = PageView.extend({
-
-  /**
-   * init
-   * 
-   * @public
-   * @param  jQuery element
-   * @return void
-   */
-  init: function(element) {
-    this._super(element);
-    this._addMapToggleEvents();
-    this._addBgImage();
-    this._addCityDropdownEvent();
-    this._addCreateWalkEvent();
-  },
-
+var HomePageView = function(element) {
+  PageView.call(this, element);
+  this._addMapToggleEvents();
+  this._addBgImage();
+  this._addCityDropdownEvent();
+  this._addCreateWalkEvent();
+};
+HomePageView.prototype = Object.create(PageView.prototype, {
   /**
    * _addCreateWalkEvent
    * 
    * @protected
    * @return    void
    */
-  _addCreateWalkEvent: function() {
+  _addCreateWalkEvent: {value: function() {
     var _this = this,
     $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
     $btn.click(
@@ -41,7 +36,7 @@ var HomePageView = PageView.extend({
       }
     }
     );
-  },
+  }},
 
   /**
    * _addCityDropdownEvent
@@ -49,14 +44,14 @@ var HomePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addCityDropdownEvent: function() {
+  _addCityDropdownEvent: {value: function() {
     var $select = this._element.find('select.pageListSelect');
     $select.change(
       function(event) {
       location.href = $select.val();
     }
     );
-  },
+  }},
 
   /**
    * _addBgImage
@@ -64,7 +59,7 @@ var HomePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addBgImage: function() {
+  _addBgImage: {value: function() {
     var backgroundImageUrl = this._element.attr('data-backgroundImageUrl'),
     $backgroundImageBanner = this._element.find('.backgroundImageBanner'),
     image = document.createElement("img");
@@ -75,7 +70,7 @@ var HomePageView = PageView.extend({
       $backgroundImageBanner.removeClass('faded');
     };
     image.src = backgroundImageUrl;
-  },
+  }},
 
   /**
    * _addCityButtonCta
@@ -85,7 +80,7 @@ var HomePageView = PageView.extend({
    * @param     String cityPath
    * @return    void
    */
-  _addCityButtonCta: function(cityName, cityPath) {
+  _addCityButtonCta: {value: function(cityName, cityPath) {
     React.render(
       this._element.find('.calltoaction ul').first(),
       <li className="cityButtonCta">
@@ -94,7 +89,7 @@ var HomePageView = PageView.extend({
         </a>
       </li>
     );
-  },
+  }},
 
   /**
    * _addMapToggleEvents
@@ -102,7 +97,7 @@ var HomePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addMapToggleEvents: function() {
+  _addMapToggleEvents: {value: function() {
     var $showButton = this._element.find('.overlap .controls a.showButton'),
     $closeButton = this._element.find('.overlap .controls a.closeButton');
     $showButton.click(
@@ -133,7 +128,7 @@ var HomePageView = PageView.extend({
         );
       }
     );
-  }
+  }}
 });
 
 module.exports = HomePageView;

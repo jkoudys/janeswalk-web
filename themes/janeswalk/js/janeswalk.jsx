@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // FIXME: I'm not in-love with such a heavy jQuery reliance
     new PageViews[pageViewName]($(document.body));
   } catch(e) {
-    console.log('Error instantiating page view ' + pageViewName + ': ' + e);
+    console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
   }
 
   // Init keyboard shortcuts

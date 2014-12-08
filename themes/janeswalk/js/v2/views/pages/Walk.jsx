@@ -1,95 +1,36 @@
 var PageView = require('../Page.jsx');
+var FacebookShareDialog = require('../FacebookShareDialog.jsx');
 
 /**
-* WalkPageView
-* 
-* @extends PageView
-*/
-var WalkPageView = PageView.extend({
+ * WalkPageView
+ * 
+ * @extends PageView
+ * 
+ * init
+ * 
+ * @public
+ * @param  jQuery element
+ * @return void
+ */
+var WalkPageView = function(element) {
+  PageView.call(this, element);
+  this._addFacebookDialogEvents();
 
-  /**
-  * init
-  * 
-  * @public
-  * @param  jQuery element
-  * @return void
-  */
-  init: function(element) {
-    this._super(element);
-    this._addFacebookDialogEvents();
+  // Check if there's a map to init first
+  if (document.getElementById('map-canvas')) {
     this._initializeMap();
-  },
-
+  }
+}
+WalkPageView.prototype = Object.create(PageView.prototype, {
   /**
-  * _addFacebookDialogEvents
-  * 
-  * @protected
-  * @return    void
-  */
-  _addFacebookDialogEvents: function() {
-    var _this = this;
-    this._element.find('.facebookShareLink').click(
-      function(event) {
-        event.preventDefault();
-        _this.trackEvent('Walk', 'share.attempted', 'facebook');
-        var shareObj = _this._getFacebookDialogObj();
-        (new FacebookShareDialog(shareObj)).show(
-          _this._facebookShareFailed,
-          _this._facebookShareSuccessful
-        );
-      }
-    );
-  },
-
-  /**
-  * _facebookShareFailed
-  * 
-  * @protected
-  * @return    void
-  */
-  _facebookShareFailed: function() {
-    this.trackEvent('Walk', 'share.failed', 'facebook');
-  },
-
-  /**
-  * _facebookShareSuccessful
-  * 
-  * @protected
-  * @return    void
-  */
-  _facebookShareSuccessful: function() {
-    this.trackEvent('Walk', 'share.successful', 'facebook');
-  },
-
-  /**
-  * _getFacebookDialogObj
-  * 
-  * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-  * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-  * @protected
-  * @return    Object
-  */
-  _getFacebookDialogObj: function() {
-    return {
-      link: JanesWalk.page.url,
-      picture: JanesWalk.page.pictureUrl,
-      name: JanesWalk.page.title,
-      description: JanesWalk.page.description,
-      actions: {
-        name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
-        link: JanesWalk.page.city.url
-      }
-    };
-  },
-
-  /**
-  * _styledMap
-  * 
-  * @type      StyledMapType
-  * @protected
-  */
-  _styledMap: new google.maps.StyledMapType(
-    [{
+   * _styledMap
+   * 
+   * @type      StyledMapType
+   * @protected
+   */
+  _styledMap: {
+    value: new google.maps.StyledMapType(
+      [{
       "featureType": "road.arterial",
       "elementType": "geometry.fill",
       "stylers": [
@@ -136,15 +77,86 @@ var WalkPageView = PageView.extend({
     {
       name: "Styled Map"
     }),
+    writable: false,
+    enumerable: true
+  },
 
-    /**
-    * _initializeMap
-    * 
-    * @protected
-    * @return    void
-    */
-    _initializeMap: function() {
+  /**
+   * _addFacebookDialogEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _addFacebookDialogEvents: {
+    value: function() {
+      var _this = this;
+      this._element.find('.facebookShareLink').click(function(event) {
+        event.preventDefault();
+        _this.trackEvent('Walk', 'share.attempted', 'facebook');
+        var shareObj = _this._getFacebookDialogObj();
+        (new FacebookShareDialog(shareObj)).show(
+          _this._facebookShareFailed,
+          _this._facebookShareSuccessful
+        );
+      });
+    }
+  },
 
+  /**
+   * _facebookShareFailed
+   * 
+   * @protected
+   * @return    void
+   */
+  _facebookShareFailed: {
+    value: function() {
+      this.trackEvent('Walk', 'share.failed', 'facebook');
+    }
+  },
+
+  /**
+   * _facebookShareSuccessful
+   * 
+   * @protected
+   * @return    void
+   */
+  _facebookShareSuccessful: {
+    value: function() {
+      this.trackEvent('Walk', 'share.successful', 'facebook');
+    }
+  },
+
+  /**
+   * _getFacebookDialogObj
+   * 
+   * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
+   * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
+   * @protected
+   * @return    Object
+   */
+  _getFacebookDialogObj: {
+    value: function() {
+      return {
+        link: JanesWalk.page.url,
+        picture: JanesWalk.page.pictureUrl,
+        name: JanesWalk.page.title,
+        description: JanesWalk.page.description,
+        actions: {
+          name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
+          link: JanesWalk.page.city.url
+        }
+      };
+    }
+  },
+
+  /**
+   * _initializeMap
+   * 
+   * @protected
+   * @return    void
+   */
+  _initializeMap: {
+    value: function() {
       var markers = [],
       // FIXME: This searching for a global zoomLevelset is terrible. Replace with proper
       // parameter passing.
@@ -165,24 +177,24 @@ var WalkPageView = PageView.extend({
       },
 
       // Load the google map canvas
-      map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions),
+      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions),
       walkPathCoordinates = [],
       mapMarker = CCM_THEME_PATH + '/images/marker.png',
 
       // Setup basic infobox layout + display functions
       infowindow = new google.maps.InfoWindow({maxWidth: 300}),
       infobox = new InfoBox({
-        content: document.getElementById("infobox"),
+        content: document.getElementById('infobox'),
         maxWidth: 150,
         pixelOffset: new google.maps.Size(-3, -25),
         alignBottom: true,
         boxStyle: {
-          background: "#fff",
-          width: "280px",
-          padding: "10px",
-          border: "1px solid #eee",
+          background: '#fff',
+          width: '280px',
+          padding: '10px',
+          border: '1px solid #eee',
         },
-        closeBoxMargin: "-22px -22px 2px -8px",
+        closeBoxMargin: '-22px -22px 2px -8px',
         closeBoxURL: CCM_THEME_PATH + '/images/map-close.png',
         infoBoxClearance: new google.maps.Size(20, 20)
       }),
@@ -400,6 +412,7 @@ var WalkPageView = PageView.extend({
         google.maps.event.trigger(marker, 'click');
       });
     }
+  }
 });
 
 module.exports = WalkPageView;

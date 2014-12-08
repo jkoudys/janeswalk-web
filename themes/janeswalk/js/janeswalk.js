@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // FIXME: I'm not in-love with such a heavy jQuery reliance
     new PageViews[pageViewName]($(document.body));
   } catch(e) {
-    console.log('Error instantiating page view ' + pageViewName + ': ' + e);
+    console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
   }
 
   // Init keyboard shortcuts
@@ -60,75 +60,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 },{"./v2/views/Page.jsx":5,"./v2/views/pages/City.jsx":6,"./v2/views/pages/Home.jsx":7,"./v2/views/pages/Profile.jsx":8,"./v2/views/pages/Walk.jsx":9}],2:[function(require,module,exports){
-
-/* Simple JavaScript Inheritance
- * By John Resig http://ejohn.org/
- * MIT Licensed.
- */
-// Inspired by base2 and Prototype
-(function(){
-  var initializing = false,
-    fnTest = /xyz/.test(function(){xyz;}) ? /\b_super\b/ : /.*/; // jshint ignore:line 
- 
-  // The base Class implementation (does nothing)
-  this.Class = function(){};
- 
-  // Create a new Class that inherits from this class
-  Class.extend = function(prop) {
-    var _super = this.prototype,
-      addPropertyToParent = function(name, fn){
-        return function() {
-          var tmp = this._super;
-
-          // Add a new ._super() method that is the same method
-          // but on the super-class
-          this._super = _super[name];
-
-          // The method only need to be bound temporarily, so we
-          // remove it when we're done executing
-          var ret = fn.apply(this, arguments);        
-          this._super = tmp;
-
-          return ret;
-        };
-      };
-   
-    // Instantiate a base class (but only create the instance,
-    // don't run the init constructor)
-    initializing = true;
-    var prototype = new this();
-    initializing = false;
-   
-    // Copy the properties over onto the new prototype
-    for (var name in prop) {
-      // Check if we're overwriting an existing function
-      prototype[name] = typeof prop[name] == "function" &&
-        typeof _super[name] == "function" && fnTest.test(prop[name]) ?
-        addPropertyToParent(name, prop[name]) :
-        prop[name];
-    }
-   
-    // The dummy class constructor
-    function Class() {
-      // All construction is actually done in the init method
-      if ( !initializing && this.init )
-        this.init.apply(this, arguments);
-    }
-   
-    // Populate our constructed prototype object
-    Class.prototype = prototype;
-   
-    // Enforce the constructor to be what we expect
-    Class.prototype.constructor = Class;
- 
-    // And make this class extendable
-    Class.extend = arguments.callee;
-   
-    return Class;
-  };
-})();
-
-},{}],3:[function(require,module,exports){
 /* jshint ignore:start */
 // Shims, polyfills, etc.
 // dataset
@@ -179,679 +110,718 @@ if (!Object.assign) {
 }
 /* jshint ignore:end */
 
-},{}],4:[function(require,module,exports){
-require('../extend.js');
+},{}],3:[function(require,module,exports){
 require('../shims.js');
-var Class = window.Class;
 
 /**
- * View
- * 
- * @extends Class
- */
-var View = Class.extend({
+* View constructor
+* 
+* @public
+* @param  jQuery element
+* @return void
+*/
+var View = function(element) {
+  this._element = element;
+};
+Object.defineProperties(View.prototype, {
+  /**
+   * _element
+   * 
+   * @protected
+   * @var       jQuery (default: null)
+   */
+  _element: {value: null, writable: true, configurable: true},
 
-    /**
-     * _element
-     * 
-     * @protected
-     * @var       jQuery (default: null)
-     */
-    _element: null,
-
-    /**
-     * init
-     * 
-     * @public
-     * @param  jQuery element
-     * @return void
-     */
-    init: function(element) {
-        this._element = element;
-    },
-
-    /**
-     * getElement
-     * 
-     * @public
-     * @return HTMLFormElement
-     */
-    getElement: function() {
-        return this._element;
+  /**
+   * getElement
+   * 
+   * @public
+   * @return HTMLFormElement
+   */
+  getElement: {
+    value: function() {
+      return this._element;
     }
+  }
 });
 
 module.exports = View;
 
 
-},{"../extend.js":2,"../shims.js":3}],5:[function(require,module,exports){
+},{"../shims.js":2}],4:[function(require,module,exports){
+/**
+* The dialogue to share on facebook
+* 
+* @public
+* @param  Object shareObj
+* @return void
+*/
+var FacebookShareDialog = function(shareObj) {
+  this._shareObj = shareObj;
+  this._shareObj.method = 'feed';
+};
+FacebookShareDialog.prototype = {
+  /**
+   * _shareObj
+   * 
+   * @protected
+   * @var       Object (default: null)
+   */
+  _shareObj: null,
+
+  /**
+   * show
+   * 
+   * @public
+   * @param  Function failed
+   * @param  Function successful
+   * @return void
+   */
+  show: function(failed, successful) {
+    var _this = this;
+    FB.ui(
+      this._shareObj,
+      function(response) {
+        if (response !== undefined) {
+          if (response === null) {
+            if (failed) failed();
+          } else {
+            if (successful) successful();
+          }
+        }
+      }
+    );
+  }
+};
+
+module.exports = FacebookShareDialog;
+
+
+},{}],5:[function(require,module,exports){
 var View = require('../View.jsx');
 
 /**
- * PageView
+ * Basic View info for a regular ol' page
  * 
- * @extends View
+ * @param  jQuery element
+ * @return void
  */
-var PageView = View.extend({
-
-    /**
-     * init
-     * 
-     * @public
-     * @param  jQuery element
-     * @return void
-     */
-    init: function(element) {
-        this._super(element);
-        this._addNavEvents();
-        this._addOverlayCloseEvent();
-    },
-
-    /**
-     * _addOverlayCloseEvent
-     * 
-     * @protected
-     * @return    void
-     */
-    _addOverlayCloseEvent: function() {
-        var _this = this;
-        this._element.find('.o-background').click(
-            function(event) {
-                _this._element.find('.overlay').hide();
-            }
-        );
-        this._element.find('a.closeModalCta').click(
-            function(event) {
-                event.preventDefault();
-                _this._element.find('.overlay').hide();
-            }
-        );
-    },
-
-    /**
-     * _addNavEvents
-     * 
-     * @protected
-     * @return    void
-     */
-    _addNavEvents: function() {
-        this._element.find('a.search-open').click(
-            function() {
-                $('html, body').animate(
-                    {
-                        scrollTop: 0
-                    },
-                    300
-                );
-                $('body > header').addClass('dropped');
-            }
-        );
-        this._element.find('a.search-close').click(
-            function() {
-                $('body > header').removeClass('dropped');
-            }
-        );
-    },
-
-    /**
-     * _makeGaCall
-     * 
-     * @protected
-     * @param     Array call
-     * @return    void
-     */
-    _makeGaCall: function(call) {
-        _gaq.push(call);
-    },
-
-    /**
-     * trackCustomVar
-     * 
-     * @see    http://www.sitepoint.com/google-analytics-custom-variables/
-     * @see    http://online-behavior.com/analytics/custom-variables-segmentation
-     * @public
-     * @param  String index
-     * @param  String name
-     * @param  String value
-     * @param  String scope (optional)
-     * @return void
-     */
-    trackCustomVar: function(index, name, value, scope) {
-        var call = ['_setCustomVar', index, name, value, scope];
-        this._makeGaCall(call);
-    },
-
-    /**
-     * trackEvent
-     * 
-     * @see    https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide#SettingUpEventTracking
-     * @public
-     * @param  String category The name you supply for the group of objects you want to track.
-     * @param  String action A string that is uniquely paired with each category, and commonly used to define the type of user interaction for the web object.
-     * @param  String optLabel (optional) An optional string to provide additional dimensions to the event data.
-     * @param  Number optValue (optional) An integer that you can use to provide numerical data about the user event.
-     * @param  Boolean override (optional)
-     * @return void
-     */
-    trackEvent: function(category, action, optLabel, optValue, override) {
-        var call = ['_trackEvent'];
-        if (category !== undefined) {
-            call.push(category);
-        }
-        if (action !== undefined) {
-            call.push(action);
-        }
-        if (optLabel !== undefined) {
-            call.push(optLabel);
-        }
-        if (optValue !== undefined) {
-            call.push(optValue);
-        }
-        this._makeGaCall(call, override);
-    },
-
-    /**
-     * trackView
-     * 
-     * @public
-     * @param  String path
-     * @return void
-     */
-    trackView: function(path) {
-        var call = ['_trackPageview', path];
-        this._makeGaCall(call);
+var PageView = function(element) {
+  View.call(this, element);
+  this._addNavEvents();
+  this._addOverlayCloseEvent();
+};
+PageView.prototype = Object.create(View.prototype, {
+  /**
+   * _addOverlayCloseEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addOverlayCloseEvent: {
+    value: function() {
+      var _this = this;
+      this._element.find('.o-background').click(
+        function(event) {
+        _this._element.find('.overlay').hide();
+      }
+      );
+      this._element.find('a.closeModalCta').click(
+        function(event) {
+        event.preventDefault();
+        _this._element.find('.overlay').hide();
+      }
+      );
     }
+  },
+
+  /**
+   * _addNavEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _addNavEvents: {
+    value: function() {
+      this._element.find('a.search-open').click(
+        function() {
+        $('html, body').animate(
+          {
+          scrollTop: 0
+        },
+        300
+        );
+        $('body > header').addClass('dropped');
+      }
+      );
+      this._element.find('a.search-close').click(
+        function() {
+        $('body > header').removeClass('dropped');
+      }
+      );
+    }
+  },
+
+  /**
+   * _makeGaCall
+   * 
+   * @protected
+   * @param     Array call
+   * @return    void
+   */
+  _makeGaCall: {
+    value: function(call) {
+      _gaq.push(call);
+    }
+  },
+
+  /**
+   * trackCustomVar
+   * 
+   * @see    http://www.sitepoint.com/google-analytics-custom-variables/
+   * @see    http://online-behavior.com/analytics/custom-variables-segmentation
+   * @public
+   * @param  String index
+   * @param  String name
+   * @param  String value
+   * @param  String scope (optional)
+   * @return void
+   */
+  trackCustomVar: {
+    value: function(index, name, value, scope) {
+      var call = ['_setCustomVar', index, name, value, scope];
+      this._makeGaCall(call);
+    }
+  },
+
+  /**
+   * trackEvent
+   * 
+   * @see    https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide#SettingUpEventTracking
+   * @public
+   * @param  String category The name you supply for the group of objects you want to track.
+   * @param  String action A string that is uniquely paired with each category, and commonly used to define the type of user interaction for the web object.
+   * @param  String optLabel (optional) An optional string to provide additional dimensions to the event data.
+   * @param  Number optValue (optional) An integer that you can use to provide numerical data about the user event.
+   * @param  Boolean override (optional)
+   * @return void
+   */
+  trackEvent: {
+    value: function(category, action, optLabel, optValue, override) {
+      var call = ['_trackEvent'];
+      if (category !== undefined) {
+        call.push(category);
+      }
+      if (action !== undefined) {
+        call.push(action);
+      }
+      if (optLabel !== undefined) {
+        call.push(optLabel);
+      }
+      if (optValue !== undefined) {
+        call.push(optValue);
+      }
+      this._makeGaCall(call, override);
+    }
+  },
+
+  /**
+   * trackView
+   * 
+   * @public
+   * @param  String path
+   * @return void
+   */
+  trackView: {
+    value: function(path) {
+      var call = ['_trackPageview', path];
+      this._makeGaCall(call);
+    }
+  }
 });
 
 module.exports = PageView;
 
-},{"../View.jsx":4}],6:[function(require,module,exports){
+},{"../View.jsx":3}],6:[function(require,module,exports){
 var PageView = require('../Page.jsx');
 
 /**
  * CityPageView
  * 
  * @extends PageView
+ * 
+ * @public
+ * @param  jQuery element
+ * @return void
  */
-var CityPageView = PageView.extend({
+var CityPageView = function(element) {
+  PageView.call(this, element);
+  this._cards = this._element[0].querySelectorAll(".walk");
+  this._previewCards();
+  this._data = JanesWalk.walks;
+  this._resetSelectElements();
+  this._addCreateWalkEvent();
+  this._addFilterEvents();
+  this._setThemeCounts();
+  this._captureHash();
+  //        this._setupText2DonateInterstitials();
+  this._addLinkListeners();
+  $('.walks-list .tag').tooltip();
+};
+CityPageView.prototype = Object.create(PageView.prototype, {
+  /**
+   * _accessibility
+   * 
+   * @protected
+   * @var       String|null (default: null)
+   */
+  _accessibility: {value: null, writable: true},
 
-    /**
-    * _accessibility
-    * 
-    * @protected
-    * @var       String|null (default: null)
-    */
-    _accessibility: null,
+  /**
+   * _cards
+   * 
+   * @protected
+   * @var       NodeList|null (default: null)
+   */
+  _cards: {value: null, writable: true},
 
-    /**
-    * _cards
-    * 
-    * @protected
-    * @var       NodeList|null (default: null)
-    */
-    _cards: null,
+  /**
+   * _data
+   * 
+   * @protected
+   * @var       Array|null (default: null)
+   */
+  _data: {value: null, writable: true},
 
-    /**
-    * _data
-    * 
-    * @protected
-    * @var       Array|null (default: null)
-    */
-    _data: null,
+  /**
+   * _date
+   * 
+   * @protected
+   * @var       Array|null (default: null)
+   */
+  _date: {value: null, writable: true},
 
-    /**
-    * _date
-    * 
-    * @protected
-    * @var       Array|null (default: null)
-    */
-    _date: null,
+  /**
+   * _initiative
+   * 
+   * @protected
+   * @var       String|null (default: null)
+   */
+  _initiative: {value: null, writable: true},
 
-    /**
-    * _initiative
-    * 
-    * @protected
-    * @var       String|null (default: null)
-    */
-    _initiative: null,
+  /**
+   * _theme
+   * 
+   * @protected
+   * @var       String|null (default: null)
+   */
+  _theme: {value: null, writable: true},
 
-    /**
-    * _theme
-    * 
-    * @protected
-    * @var       String|null (default: null)
-    */
-    _theme: null,
+  /**
+   * _ward
+   * 
+   * @protected
+   * @var       String|null (default: null)
+   */
+  _ward: {value: null, writable: true},
 
-    /**
-    * _ward
-    * 
-    * @protected
-    * @var       String|null (default: null)
-    */
-    _ward: null,
+  /**
+   * _getFacebookDialogDonateObj
+   * 
+   * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
+   * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
+   * @protected
+   * @return    Object
+   */
+  _getFacebookDialogDonateObj: {value: function() {
+    return {
+      link: 'http://janeswalk.org',
+      // picture: 'http://janeswalk.org',
+      name: 'Jane\'s Walk'
+    };
+  }},
 
-    /**
-    * init
-    * 
-    * @public
-    * @param  jQuery element
-    * @return void
-    */
-    init: function(element) {
-        this._super(element);
-        this._cards = this._element[0].querySelectorAll(".walk");
-        this._previewCards();
-        this._data = JanesWalk.walks;
-        this._resetSelectElements();
-        this._addCreateWalkEvent();
-        this._addFilterEvents();
-        this._setThemeCounts();
-        this._captureHash();
-        //        this._setupText2DonateInterstitials();
-        this._addLinkListeners();
-        $('.walks-list .tag').tooltip();
-    },
+  /**
+   * _previewCards
+   * Copy a random set of the full walk list into the preview area.
+   * Currently hard-codes a maximum preview size of 9 cards.
+   *
+   * @protected
+   * @return void
+   */
+  _previewCards: {value: function() {
+    var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function() { return 0.5 - Math.random(); } ),
+    previewNode = document.querySelector(".ccm-block-page-list-walk-filters .walk-preview");
 
-    /**
-    * _getFacebookDialogDonateObj
-    * 
-    * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-    * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-    * @protected
-    * @return    Object
-    */
-    _getFacebookDialogDonateObj: function() {
-        return {
-            link: 'http://janeswalk.org',
-            // picture: 'http://janeswalk.org',
-            name: 'Jane\'s Walk'
-        };
-    },
-
-    /**
-    * _previewCards
-    * Copy a random set of the full walk list into the preview area.
-    * Currently hard-codes a maximum preview size of 9 cards.
-    *
-    * @protected
-    * @return void
-    */
-    _previewCards: function() {
-        var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function() { return 0.5 - Math.random(); } ),
-        previewNode = document.querySelector(".ccm-block-page-list-walk-filters .walk-preview");
-
-        for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
-            var card = shuffledDeck[i].cloneNode(true);
-            previewNode.appendChild(card);
-        }
-    },
-
-    /**
-    * _addLinkListeners
-    * Listen on 'show all' walks
-    *
-    * @protected
-    * @return void
-    */
-    _addLinkListeners: function() {
-        var showAll = document.querySelector("a.see-all");
-        if(showAll) {
-            showAll.addEventListener("click", function() {
-                document.querySelector('.ccm-block-page-list-walk-filters').classList.add('filtering');
-                showAll.parentNode.removeChild(showAll);
-            });
-        }
-    },
-
-    /**
-    * _setupText2DonateInterstitials
-    * 
-    * @protected
-    * @return    void
-    */
-    _setupText2DonateInterstitials: function() {
-        var enabled = false,
-            _this = this,
-            isCanadianCity = (location.pathname.match(/\/canada\/[^/]+/) !== null),
-            hasSeenDonateInterstitial,
-            closeCallback,
-            url,
-            link;
-        // Catfish events
-        this._element.find('a.closeCatfishCta').click(
-            function(event) {
-                event.preventDefault();
-                _this._element.find('.catfish').hide();
-
-                // Track the closure
-                jQuery.cookie(
-                    'hasSeenDonateCatfish',
-                    '1',
-                    {
-                        path: '/',
-                        domain: location.host
-                    }
-                );
-            }
-        );
-
-        // Canadian city check
-        if (enabled && isCanadianCity === true) {
-
-            // Modal
-            hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null &&
-              typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
-
-            // Hasn't yet been seen
-            if (hasSeenDonateInterstitial === false) {
-                closeCallback = function() {
-
-                    // Track the closure
-                    jQuery.cookie(
-                        'hasSeenDonateInterstitial',
-                        '1',
-                        {
-                            path: '/',
-                            domain: location.host
-                        }
-                    );
-
-                    // Open the catfish
-                    _this._element.find('.catfish.c-donate').removeClass(
-                        'hidden'
-                    );
-                };
-                this._element.find('.overlay.o-donate').show();
-                this._element.find('.overlay.o-donate .o-background').click(closeCallback);
-                this._element.find('a.closeModalCta').click(closeCallback);
-
-                // Already donated flow
-                this._element.find('div.btnWrapper a').click(
-                    function(event) {
-
-                        // Track the closure
-                        jQuery.cookie(
-                            'hasSeenDonateInterstitial',
-                            '1',
-                            {
-                                path: '/',
-                                domain: location.host
-                            }
-                        );
-
-                        // Track the closure
-                        jQuery.cookie(
-                            'hasSeenDonateCatfish',
-                            '1',
-                            {
-                                path: '/',
-                                domain: location.host
-                            }
-                        );
-
-                        // Shout modal
-                        event.preventDefault();
-                        _this._element.find('.o-donate').hide();
-                        _this._element.find('.o-shout').show();
-
-                        // Twitter button
-                        _this._element.find('.o-shout .icon-twitter').click(
-                            function(event) {
-                                event.preventDefault();
-                                url = encodeURIComponent(
-                                    'http://janeswalk.org/'
-                                );
-                                text = encodeURIComponent(
-                                    $(this).closest('.option').find('.copy').text().trim()
-                                );
-                                link = 'https://twitter.com/intent/tweet' +
-                                    '?url=' + (url) +
-                                    '&via=janeswalk' +
-                                    '&text=' + (text);
-                                window.open(
-                                    link,
-                                    'Twitter Share',
-                                    'width=640, height=320'
-                                );
-                            }
-                        );
-
-                        // Twitter button
-                        _this._element.find('.o-shout .icon-facebook').click(
-                            function(event) {
-                                event.preventDefault();
-                                var shareObj = _this._getFacebookDialogDonateObj();
-                                shareObj.description = $(this).closest('.option').find('.copy').text().trim();
-                                (new FacebookShareDialog(shareObj)).show();
-                            }
-                        );
-                    }
-                );
-            } else {
-
-                // Catfish
-                hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null &&
-                  typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
-
-                // Hasn't yet been seen
-                if (hasSeenDonateCatfish === false) {
-                    this._element.find('.catfish').removeClass('hidden');
-                }
-            }
-        }
-    },
-
-    /**
-    * _setThemeCounts
-    * 
-    * @protected
-    * @return    void
-    */
-    _setThemeCounts: function() {
-        var _this = this,
-            count,
-            fe = Array.prototype.forEach,
-            el = this._element[0],
-            countFilterMatches = function (option, index) {
-                var filterCheck = option.getAttribute('value'),
-                    // Default to checking option property in filter
-                    compare_fn = this.compare_fn || function compareProperty(f,o) { return f[o]; };
-                if (filterCheck !== '*') {
-                    count = 0;
-                    for(var i in _this._data) {
-                        if(compare_fn(_this._data[i][this.filter], filterCheck)) {
-                            ++count;
-                        }
-                    }
-                    option.textContent += ' (' + count + ')';
-                    if (count === 0) {
-                        option.parentElement.removeChild(option);
-                    }
-                }
-            };
-
-        fe.call(el.querySelectorAll('div.filters select[name="theme"] option'), countFilterMatches, {filter:'themes'});
-        fe.call(el.querySelectorAll('div.filters select[name="accessibility"] option'), countFilterMatches, {filter:'accessibilities'});
-        fe.call(el.querySelectorAll('div.filters select[name="ward"] option'), countFilterMatches, {filter:'wards'});
-        fe.call(el.querySelectorAll('div.filters select[name="initiative"] option'), countFilterMatches, {filter:'initiatives'});
-        fe.call(el.querySelectorAll('div.filters select[name="date"] option'), countFilterMatches, {filter:'datetimes',
-            compare_fn: function compareDate(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) !== -1;} } 
-        });
-    },
-
-    /**
-    * _resetSelectElements
-    * 
-    * @protected
-    * @return    void
-    */
-    _resetSelectElements: function() {
-        var _this = this;
-        this._element.find('div.filters select').each(
-            function(index, element) {
-                $(element).val('*');
-            }
-        );
-        this._element.find('.initiatives').addClass('hidden');
-        this._element.find('.initiative').addClass('hidden');
-        this._element.find('#initiative').change(
-            function(event) {
-                if ($(this).val() !== '#') {
-                    _this._element.find('.initiatives').removeClass('hidden');
-                    _this._element.find(
-                        '[data-jw-initiative="' + ($(this).val()) + '"]'
-                    ).removeClass('hidden');
-                }
-            }
-        );
-    },
-
-    /**
-    * _addCreateWalkEvent
-    * 
-    * @protected
-    * @return    void
-    */
-    _addCreateWalkEvent: function() {
-        var _this = this,
-        $btn = this._element.find('.create-walk');
-        $btn.click(
-            function(event) {
-                event.preventDefault();
-                if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
-                    _this._element.find('.overlay.o-connect').show();
-                } else {
-                    location.href = $(this).attr('href');
-                }
-            }
-        );
-    },
-
-    /**
-    * _captureHash
-    * 
-    * @protected
-    * @return    void
-    */
-    _captureHash: function() {
-        var _this = this;
-        if (location.hash !== '') {
-            pieces = location.hash.replace('#', '').split('&');
-            key = '';
-            $(pieces).each(
-                function(index, piece) {
-                    key = '_' + (piece.split('=')[0]);
-                    _this[key] = piece.split('=')[1];
-                }
-            );
-            this._filterCards();
-            this._element.find('select[name="ward"]').val(this._ward);
-            this._element.find('select[name="theme"]').val(this._theme);
-            this._element.find('select[name="accessibility"]').val(this._accessibility);
-            this._element.find('select[name="initiative"]').val(this._initiative);
-            this._element.find('select[name="date"]').val(this._date);
-        }
-    },
-
-    /**
-    * _setHash
-    * 
-    * @protected
-    * @return    void
-    */
-    _setHash: function() {
-        location.hash = 'ward=' + (this._ward) +
-            '&theme=' + (this._theme) +
-            '&accessibility=' + (this._accessibility) +
-            '&initiative=' + (this._initiative) +
-            '&date=' + (this._date);
-    },
-
-    /**
-    * _filterCards
-    * 
-    * @protected
-    * @return    void
-    */
-    _filterCards: function() {
-        var _this = this,
-            showing = 0,
-            // Returns 'true' if this thing passes through the filter
-            filterMatch = function(filter, dataset) {
-                return (filter === "*") || (dataset && dataset[filter]);
-            },
-            i,
-            len;
-
-        // Hide the cards first
-        for(i = 0, len = this._cards.length; i < len; i++) {
-            this._cards[i].classList.add("hidden");
-        }
-        this._data.forEach(
-            function(data, index) {
-                // Check if we should show this card
-                if(
-                    filterMatch(_this._ward, data.wards) &&
-                    filterMatch(_this._theme, data.themes) &&
-                    filterMatch(_this._accessibility, data.accessibilities) &&
-                    filterMatch(_this._initiative, data.initiatives) &&
-                    // See if date in filter dropdown is inside the array of dates
-                    (function(f, o) {
-                        if(o === "*") return true;
-                        for(i = 0; i < f.length; i++) { return f[i].date.indexOf(o) !== -1;} 
-                    })(data.datetimes, _this._date)
-                ) {
-                    ++showing;
-                    _this._cards[index].classList.remove("hidden");
-                }
-
-            }
-        );
-
-        // Empty state
-        this._element.find('.empty').addClass('hidden');
-        if (showing === 0) {
-            this._element.find('.empty').removeClass('hidden');
-        }
-    },
-
-    /**
-    * _addFilterEvents
-    * 
-    * @protected
-    * @return    void
-    */
-    _addFilterEvents: function() {
-        var _this = this;
-        this._element.find('div.filters select').change(
-            function(event) {
-                event.preventDefault();
-                _this._ward = '*';
-                if (_this._element.find('select[name="ward"]').length > 0) {
-                    _this._ward = _this._element.find('select[name="ward"]').val();
-                }
-                _this._theme = '*';
-                if (_this._element.find('select[name="theme"]').length > 0) {
-                    _this._theme = _this._element.find('select[name="theme"]').val();
-                }
-                _this._accessibility = '*';
-                if (_this._element.find('select[name="accessibility"]').length > 0) {
-                    _this._accessibility = _this._element.find('select[name="accessibility"]').val();
-                }
-                _this._initiative = '*';
-                if (_this._element.find('select[name="initiative"]').length > 0) {
-                    _this._initiative = _this._element.find('select[name="initiative"]').val();
-                }
-                _this._date = '*';
-                if (_this._element.find('select[name="date"]').length > 0) {
-                    _this._date = _this._element.find('select[name="date"]').val();
-                }
-                _this._setHash();
-                _this._filterCards();
-            }
-        );
+    for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
+      var card = shuffledDeck[i].cloneNode(true);
+      previewNode.appendChild(card);
     }
+  }},
+
+  /**
+   * _addLinkListeners
+   * Listen on 'show all' walks
+   *
+   * @protected
+   * @return void
+   */
+  _addLinkListeners: {value: function() {
+    var showAll = document.querySelector("a.see-all");
+    if(showAll) {
+      showAll.addEventListener("click", function() {
+        document.querySelector('.ccm-block-page-list-walk-filters').classList.add('filtering');
+        showAll.parentNode.removeChild(showAll);
+      });
+    }
+  }},
+
+  /**
+   * _setupText2DonateInterstitials
+   * 
+   * @protected
+   * @return    void
+   */
+  _setupText2DonateInterstitials: {value: function() {
+    var enabled = false,
+    _this = this,
+    isCanadianCity = (location.pathname.match(/\/canada\/[^/]+/) !== null),
+    hasSeenDonateInterstitial,
+    closeCallback,
+    url,
+    link;
+    // Catfish events
+    this._element.find('a.closeCatfishCta').click(
+      function(event) {
+      event.preventDefault();
+      _this._element.find('.catfish').hide();
+
+      // Track the closure
+      jQuery.cookie(
+        'hasSeenDonateCatfish',
+        '1',
+        {
+          path: '/',
+          domain: location.host
+        }
+      );
+    }
+    );
+
+    // Canadian city check
+    if (enabled && isCanadianCity === true) {
+
+      // Modal
+      hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null &&
+        typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
+
+      // Hasn't yet been seen
+      if (hasSeenDonateInterstitial === false) {
+        closeCallback = function() {
+
+          // Track the closure
+          jQuery.cookie(
+            'hasSeenDonateInterstitial',
+            '1',
+            {
+              path: '/',
+              domain: location.host
+            }
+          );
+
+          // Open the catfish
+          _this._element.find('.catfish.c-donate').removeClass(
+            'hidden'
+          );
+        };
+        this._element.find('.overlay.o-donate').show();
+        this._element.find('.overlay.o-donate .o-background').click(closeCallback);
+        this._element.find('a.closeModalCta').click(closeCallback);
+
+        // Already donated flow
+        this._element.find('div.btnWrapper a').click(
+          function(event) {
+
+          // Track the closure
+          jQuery.cookie(
+            'hasSeenDonateInterstitial',
+            '1',
+            {
+              path: '/',
+              domain: location.host
+            }
+          );
+
+          // Track the closure
+          jQuery.cookie(
+            'hasSeenDonateCatfish',
+            '1',
+            {
+              path: '/',
+              domain: location.host
+            }
+          );
+
+          // Shout modal
+          event.preventDefault();
+          _this._element.find('.o-donate').hide();
+          _this._element.find('.o-shout').show();
+
+          // Twitter button
+          _this._element.find('.o-shout .icon-twitter').click(
+            function(event) {
+            event.preventDefault();
+            url = encodeURIComponent(
+              'http://janeswalk.org/'
+            );
+            text = encodeURIComponent(
+              $(this).closest('.option').find('.copy').text().trim()
+            );
+            link = 'https://twitter.com/intent/tweet' +
+            '?url=' + (url) +
+              '&via=janeswalk' +
+              '&text=' + (text);
+            window.open(
+              link,
+              'Twitter Share',
+              'width=640, height=320'
+            );
+          }
+          );
+
+          // Twitter button
+          _this._element.find('.o-shout .icon-facebook').click(
+            function(event) {
+            event.preventDefault();
+            var shareObj = _this._getFacebookDialogDonateObj();
+            shareObj.description = $(this).closest('.option').find('.copy').text().trim();
+            (new FacebookShareDialog(shareObj)).show();
+          }
+          );
+        }
+        );
+      } else {
+
+        // Catfish
+        hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null &&
+          typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
+
+        // Hasn't yet been seen
+        if (hasSeenDonateCatfish === false) {
+          this._element.find('.catfish').removeClass('hidden');
+        }
+      }
+    }
+  }},
+
+  /**
+   * _setThemeCounts
+   * 
+   * @protected
+   * @return    void
+   */
+  _setThemeCounts: {value: function() {
+    var _this = this,
+    count,
+    fe = Array.prototype.forEach,
+    el = this._element[0],
+    countFilterMatches = function (option, index) {
+      var filterCheck = option.getAttribute('value'),
+      // Default to checking option property in filter
+      compare_fn = this.compare_fn || function compareProperty(f,o) { return f[o]; };
+      if (filterCheck !== '*') {
+        count = 0;
+        for(var i in _this._data) {
+          if(compare_fn(_this._data[i][this.filter], filterCheck)) {
+            ++count;
+          }
+        }
+        option.textContent += ' (' + count + ')';
+        if (count === 0) {
+          option.parentElement.removeChild(option);
+        }
+      }
+    };
+
+    fe.call(el.querySelectorAll('div.filters select[name="theme"] option'), countFilterMatches, {filter:'themes'});
+    fe.call(el.querySelectorAll('div.filters select[name="accessibility"] option'), countFilterMatches, {filter:'accessibilities'});
+    fe.call(el.querySelectorAll('div.filters select[name="ward"] option'), countFilterMatches, {filter:'wards'});
+    fe.call(el.querySelectorAll('div.filters select[name="initiative"] option'), countFilterMatches, {filter:'initiatives'});
+    fe.call(el.querySelectorAll('div.filters select[name="date"] option'), countFilterMatches, {filter:'datetimes',
+            compare_fn: function compareDate(filter, optionValue) { for(var i = 0; i < filter.length; i++) { return filter[i].date.indexOf(optionValue) !== -1;} } 
+    });
+  }},
+
+  /**
+   * _resetSelectElements
+   * 
+   * @protected
+   * @return    void
+   */
+  _resetSelectElements: {value: function() {
+    var _this = this;
+    this._element.find('div.filters select').each(
+      function(index, element) {
+      $(element).val('*');
+    }
+    );
+    this._element.find('.initiatives').addClass('hidden');
+    this._element.find('.initiative').addClass('hidden');
+    this._element.find('#initiative').change(
+      function(event) {
+      if ($(this).val() !== '#') {
+        _this._element.find('.initiatives').removeClass('hidden');
+        _this._element.find(
+          '[data-jw-initiative="' + ($(this).val()) + '"]'
+        ).removeClass('hidden');
+      }
+    }
+    );
+  }},
+
+  /**
+   * _addCreateWalkEvent
+   * 
+   * @protected
+   * @return    void
+   */
+  _addCreateWalkEvent: {value: function() {
+    var _this = this,
+    $btn = this._element.find('.create-walk');
+    $btn.click(
+      function(event) {
+      event.preventDefault();
+      if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
+        _this._element.find('.overlay.o-connect').show();
+      } else {
+        location.href = $(this).attr('href');
+      }
+    }
+    );
+  }},
+
+  /**
+   * _captureHash
+   * 
+   * @protected
+   * @return    void
+   */
+  _captureHash: {value: function() {
+    var _this = this;
+    if (location.hash !== '') {
+      pieces = location.hash.replace('#', '').split('&');
+      key = '';
+      $(pieces).each(
+        function(index, piece) {
+        key = '_' + (piece.split('=')[0]);
+        _this[key] = piece.split('=')[1];
+      }
+      );
+      this._filterCards();
+      this._element.find('select[name="ward"]').val(this._ward);
+      this._element.find('select[name="theme"]').val(this._theme);
+      this._element.find('select[name="accessibility"]').val(this._accessibility);
+      this._element.find('select[name="initiative"]').val(this._initiative);
+      this._element.find('select[name="date"]').val(this._date);
+    }
+  }},
+
+  /**
+   * _setHash
+   * 
+   * @protected
+   * @return    void
+   */
+  _setHash: {value: function() {
+    location.hash = 'ward=' + (this._ward) +
+      '&theme=' + (this._theme) +
+      '&accessibility=' + (this._accessibility) +
+      '&initiative=' + (this._initiative) +
+      '&date=' + (this._date);
+  }},
+
+  /**
+   * _filterCards
+   * 
+   * @protected
+   * @return    void
+   */
+  _filterCards: {value: function() {
+    var _this = this,
+      showing = 0,
+      // Returns 'true' if this thing passes through the filter
+      filterMatch = function(filter, dataset) {
+        return (filter === "*") || (dataset && dataset[filter]);
+      };
+
+    // Hide the cards first
+    for(var i = 0, len = this._cards.length; i < len; i++) {
+      this._cards[i].classList.add("hidden");
+    }
+    this._data.forEach(
+      function(data, index) {
+      // Check if we should show this card
+      if(
+        filterMatch(_this._ward, data.wards) &&
+          filterMatch(_this._theme, data.themes) &&
+            filterMatch(_this._accessibility, data.accessibilities) &&
+              filterMatch(_this._initiative, data.initiatives) &&
+                // See if date in filter dropdown is inside the array of dates
+                (function(f, o) {
+        if(o === "*") return true;
+      for(i = 0; i < f.length; i++) { return f[i].date.indexOf(o) !== -1;} 
+      })(data.datetimes, _this._date)
+      ) {
+        ++showing;
+        _this._cards[index].classList.remove("hidden");
+      }
+
+    }
+    );
+
+    // Empty state
+    this._element.find('.empty').addClass('hidden');
+    if (showing === 0) {
+      this._element.find('.empty').removeClass('hidden');
+    }
+  }},
+
+  /**
+   * _addFilterEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _addFilterEvents: {value: function() {
+    var _this = this;
+    this._element.find('div.filters select').change(
+      function(event) {
+      event.preventDefault();
+      _this._ward = '*';
+      if (_this._element.find('select[name="ward"]').length > 0) {
+        _this._ward = _this._element.find('select[name="ward"]').val();
+      }
+      _this._theme = '*';
+      if (_this._element.find('select[name="theme"]').length > 0) {
+        _this._theme = _this._element.find('select[name="theme"]').val();
+      }
+      _this._accessibility = '*';
+      if (_this._element.find('select[name="accessibility"]').length > 0) {
+        _this._accessibility = _this._element.find('select[name="accessibility"]').val();
+      }
+      _this._initiative = '*';
+      if (_this._element.find('select[name="initiative"]').length > 0) {
+        _this._initiative = _this._element.find('select[name="initiative"]').val();
+      }
+      _this._date = '*';
+      if (_this._element.find('select[name="date"]').length > 0) {
+        _this._date = _this._element.find('select[name="date"]').val();
+      }
+      _this._setHash();
+      _this._filterCards();
+    }
+    );
+  }}
 });
 
 module.exports = CityPageView;
@@ -863,31 +833,26 @@ var PageView = require('../Page.jsx');
  * HomePageView
  * 
  * @extends PageView
+ * 
+ * @public
+ * @param  jQuery element
+ * @return void
  */
-var HomePageView = PageView.extend({
-
-  /**
-   * init
-   * 
-   * @public
-   * @param  jQuery element
-   * @return void
-   */
-  init: function(element) {
-    this._super(element);
-    this._addMapToggleEvents();
-    this._addBgImage();
-    this._addCityDropdownEvent();
-    this._addCreateWalkEvent();
-  },
-
+var HomePageView = function(element) {
+  PageView.call(this, element);
+  this._addMapToggleEvents();
+  this._addBgImage();
+  this._addCityDropdownEvent();
+  this._addCreateWalkEvent();
+};
+HomePageView.prototype = Object.create(PageView.prototype, {
   /**
    * _addCreateWalkEvent
    * 
    * @protected
    * @return    void
    */
-  _addCreateWalkEvent: function() {
+  _addCreateWalkEvent: {value: function() {
     var _this = this,
     $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
     $btn.click(
@@ -900,7 +865,7 @@ var HomePageView = PageView.extend({
       }
     }
     );
-  },
+  }},
 
   /**
    * _addCityDropdownEvent
@@ -908,14 +873,14 @@ var HomePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addCityDropdownEvent: function() {
+  _addCityDropdownEvent: {value: function() {
     var $select = this._element.find('select.pageListSelect');
     $select.change(
       function(event) {
       location.href = $select.val();
     }
     );
-  },
+  }},
 
   /**
    * _addBgImage
@@ -923,7 +888,7 @@ var HomePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addBgImage: function() {
+  _addBgImage: {value: function() {
     var backgroundImageUrl = this._element.attr('data-backgroundImageUrl'),
     $backgroundImageBanner = this._element.find('.backgroundImageBanner'),
     image = document.createElement("img");
@@ -934,7 +899,7 @@ var HomePageView = PageView.extend({
       $backgroundImageBanner.removeClass('faded');
     };
     image.src = backgroundImageUrl;
-  },
+  }},
 
   /**
    * _addCityButtonCta
@@ -944,7 +909,7 @@ var HomePageView = PageView.extend({
    * @param     String cityPath
    * @return    void
    */
-  _addCityButtonCta: function(cityName, cityPath) {
+  _addCityButtonCta: {value: function(cityName, cityPath) {
     React.render(
       this._element.find('.calltoaction ul').first(),
       React.createElement("li", {className: "cityButtonCta"}, 
@@ -953,7 +918,7 @@ var HomePageView = PageView.extend({
         )
       )
     );
-  },
+  }},
 
   /**
    * _addMapToggleEvents
@@ -961,7 +926,7 @@ var HomePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addMapToggleEvents: function() {
+  _addMapToggleEvents: {value: function() {
     var $showButton = this._element.find('.overlap .controls a.showButton'),
     $closeButton = this._element.find('.overlap .controls a.closeButton');
     $showButton.click(
@@ -992,7 +957,7 @@ var HomePageView = PageView.extend({
         );
       }
     );
-  }
+  }}
 });
 
 module.exports = HomePageView;
@@ -1004,9 +969,34 @@ var PageView = require('../Page.jsx');
  * ProfilePageView
  * 
  * @extends PageView
+ *
+ * init
+ * 
+ * @public
+ * @param  jQuery element
+ * @return void
  */
-var ProfilePageView = PageView.extend({
+var ProfilePageView = function(element) {
+  try { 
+    PageView.call(this, element);
+    this._showProperStep();
+    this._addTabClickEvents();
+    this._setupDisplayPictureFlashWidget();
+    this._addPictureDeleteEvent();
+    this._addPromoteWalkClickEvent();
+    this._addPromoteCityClickEvent();
+    this._addPromoteBlogPostClickEvent();
+    this._setupCityPromoteModalEvents();
+    this._setupWalkPromoteModalEvents();
+    this._setupBlogPostPromoteModalEvents();
+    this._setupPromoteSlideshows();
+    this._setupTransferWalkEvents();
+  } catch(e) {
+    console.error("Error initializing profile: " + e.stack);
+  }
+};
 
+ProfilePageView.prototype = Object.create(PageView.prototype, {
   /**
    * _slideIndexes
    * 
@@ -1014,9 +1004,8 @@ var ProfilePageView = PageView.extend({
    * @var       Object
    */
   _slideIndexes: {
-    blogPost: 0,
-    city: 0,
-    walk: 0
+    value: {blogPost: 0, city: 0, walk: 0 },
+    writable: true
   },
 
   /**
@@ -1025,33 +1014,9 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @var       String|null (default: null)
    */
-  _currentTab: null,
-
-  /**
-   * init
-   * 
-   * @public
-   * @param  jQuery element
-   * @return void
-   */
-  init: function(element) {
-    try { 
-      this._super(element);
-      this._showProperStep();
-      this._addTabClickEvents();
-      this._setupDisplayPictureFlashWidget();
-      this._addPictureDeleteEvent();
-      this._addPromoteWalkClickEvent();
-      this._addPromoteCityClickEvent();
-      this._addPromoteBlogPostClickEvent();
-      this._setupCityPromoteModalEvents();
-      this._setupWalkPromoteModalEvents();
-      this._setupBlogPostPromoteModalEvents();
-      this._setupPromoteSlideshows();
-      this._setupTransferWalkEvents();
-    } catch(e) {
-      console.log("Error initializing profile: " + e);
-    }
+  _currentTab: {
+    value: null,
+    writable: true
   },
 
   /**
@@ -1060,9 +1025,9 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addPictureDeleteEvent: function() {
-    this._element.find('a[href="/index.php/profile/delete/"]').click(
-        function(event) {
+  _addPictureDeleteEvent: {
+    value: function() {
+      this._element.find('a[href="/index.php/profile/delete/"]').click(function(event) {
         event.preventDefault();
         $.ajax({
           type: 'DELETE',
@@ -1071,8 +1036,8 @@ var ProfilePageView = PageView.extend({
             location.href = '/index.php/profile/#tab=picture&success=1';
           }
         });
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1081,25 +1046,25 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addPromoteBlogPostClickEvent: function() {
-    var _this = this,
-    $btn = this._element.find('.column.blogPosts .subactions .promote');
-    $btn.click(
-      function(event) {
+  _addPromoteBlogPostClickEvent: {
+    value: function() {
+      var _this = this,
+      $btn = this._element.find('.column.blogPosts .subactions .promote');
+      $btn.click(function(event) {
         event.preventDefault();
         var blogPostObj = _this._getBlogPostObjById(
           $(this).data('blogpostid')
         );
         _this._element.find('.blogPostPromoteOverlay .copy').each(
           function(index, copy) {
-            var $copy = $(copy);
-            $copy.data('blogpostpath', blogPostObj.path);
-            $copy.find('.objTitle').text(blogPostObj.title);
-          }
+          var $copy = $(copy);
+          $copy.data('blogpostpath', blogPostObj.path);
+          $copy.find('.objTitle').text(blogPostObj.title);
+        }
         );
         _this._element.find('.blogPostPromoteOverlay').show();
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1108,15 +1073,15 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addPromoteCityClickEvent: function() {
-    var _this = this,
-    $btn = this._element.find('#cityBlock .promoteBtn');
-    $btn.click(
-      function(event) {
+  _addPromoteCityClickEvent: {
+    value: function() {
+      var _this = this,
+      $btn = this._element.find('#cityBlock .promoteBtn');
+      $btn.click(function(event) {
         event.preventDefault();
         _this._element.find('.cityPromoteOverlay').show();
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1126,12 +1091,14 @@ var ProfilePageView = PageView.extend({
    * @param     Number blogPostId
    * @return    void
    */
-  _getBlogPostObjById: function(blogPostId) {
-    var $link = this._element.find('[data-blogpostid="' + (blogPostId) + '"]');
-    return {
-      title: $link.first().data('blogposttitle'),
-      path: $link.first().data('blogpostpath')
-    };
+  _getBlogPostObjById: {
+    value: function(blogPostId) {
+      var $link = this._element.find('[data-blogpostid="' + (blogPostId) + '"]');
+      return {
+        title: $link.first().data('blogposttitle'),
+        path: $link.first().data('blogpostpath')
+      };
+    }
   },
 
   /**
@@ -1141,12 +1108,14 @@ var ProfilePageView = PageView.extend({
    * @param     Number walkId
    * @return    void
    */
-  _getWalkObjById: function(walkId) {
-    var $link = this._element.find('[data-walkid="' + (walkId) + '"]');
-    return {
-      title: $link.first().data('walktitle'),
-      path: $link.first().data('walkpath')
-    };
+  _getWalkObjById: {
+    value: function(walkId) {
+      var $link = this._element.find('[data-walkid="' + (walkId) + '"]');
+      return {
+        title: $link.first().data('walktitle'),
+        path: $link.first().data('walkpath')
+      };
+    }
   },
 
   /**
@@ -1155,26 +1124,24 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addPromoteWalkClickEvent: function() {
-    var _this = this,
-    $btn = this._element.find(
-      '.column.city .subactions .promote,' +
-      '.column.walks .subactions .promote'
-    );
-    $btn.click(
-      function(event) {
+  _addPromoteWalkClickEvent: {
+    value: function() {
+      var _this = this,
+      $btn = this._element.find(
+        '.column.city .subactions .promote,' +
+        '.column.walks .subactions .promote'
+      );
+      $btn.click(function(event) {
         event.preventDefault();
         var walkObj = _this._getWalkObjById($(this).data('walkid'));
-        _this._element.find('.walkPromoteOverlay .copy').each(
-          function(index, copy) {
+        _this._element.find('.walkPromoteOverlay .copy').each(function(index, copy) {
           var $copy = $(copy);
           $copy.data('walkpath', walkObj.path);
           $copy.find('.objTitle').text(walkObj.title);
-        }
-        );
+        });
         _this._element.find('.walkPromoteOverlay').show();
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1183,26 +1150,23 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _addTabClickEvents: function() {
-
-    // Nav tabs
-    var _this = this;
-    this._element.find('ul.nav-tabs li a').click(
-      function(event) {
+  _addTabClickEvents: {
+    value: function() {
+      // Nav tabs
+      var _this = this;
+      this._element.find('ul.nav-tabs li a').click(function(event) {
         event.preventDefault();
         _this._currentTab = $(this).attr('data-tab');
         _this._showCurrentTab();
-      }
-    );
+      });
 
-    // Stand alone links
-    this._element.find('.tabLink').click(
-      function(event) {
+      // Stand alone links
+      this._element.find('.tabLink').click(function(event) {
         event.preventDefault();
         _this._currentTab = $(this).attr('data-tab');
         _this._showCurrentTab();
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1211,20 +1175,18 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _setupBlogPostPromoteModalEvents: function() {
-    var _this = this;
-    this._element.find('.blogPostPromoteOverlay').find('.icon-twitter').click(
-      function(event) {
-      event.preventDefault();
-      var $copy = $(this).closest('.option').find('.copy');
-      _this._showTwitterShareWindow(
-        'http://janeswalk.org' + ($copy.data('blogpostpath')),
-        $copy.text().trim()
-      );
-    }
-    );
-    this._element.find('.blogPostPromoteOverlay').find('.icon-facebook').click(
-      function(event) {
+  _setupBlogPostPromoteModalEvents: {
+    value: function() {
+      var _this = this;
+      this._element.find('.blogPostPromoteOverlay').find('.icon-twitter').click(function(event) {
+        event.preventDefault();
+        var $copy = $(this).closest('.option').find('.copy');
+        _this._showTwitterShareWindow(
+          'http://janeswalk.org' + ($copy.data('blogpostpath')),
+          $copy.text().trim()
+        );
+      });
+      this._element.find('.blogPostPromoteOverlay').find('.icon-facebook').click(function(event) {
         event.preventDefault();
         var $copy = $(this).closest('.option').find('.copy');
         _this._showFacebookShareWindow(
@@ -1232,18 +1194,16 @@ var ProfilePageView = PageView.extend({
           'Jane\'s Walk',
           $copy.text().trim()
         );
-      }
-    );
-    this._element.find('.blogPostPromoteOverlay').find('.icon-envelope').click(
-      function(event) {
+      });
+      this._element.find('.blogPostPromoteOverlay').find('.icon-envelope').click(function(event) {
         event.preventDefault();
         var $copy = $(this).closest('.option').find('.copy');
         _this._showEmailShareWindow(
           'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
           $copy.text().trim()
         );
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1252,38 +1212,34 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _setupCityPromoteModalEvents: function() {
-    var cityPath = this._element.find('.cityPromoteOverlay').data('citypath'),
-    cityName = this._element.find('.cityPromoteOverlay').data('cityname');
-    var _this = this;
-    this._element.find('.cityPromoteOverlay').find('.icon-twitter').click(
-      function(event) {
+  _setupCityPromoteModalEvents: {
+    value: function() {
+      var cityPath = this._element.find('.cityPromoteOverlay').data('citypath'),
+      cityName = this._element.find('.cityPromoteOverlay').data('cityname');
+      var _this = this;
+      this._element.find('.cityPromoteOverlay').find('.icon-twitter').click(function(event) {
         event.preventDefault();
         _this._showTwitterShareWindow(
           'http://janeswalk.org' + (cityPath),
           $(this).closest('.option').find('.copy').text().trim()
         );
-      }
-    );
-    this._element.find('.cityPromoteOverlay').find('.icon-facebook').click(
-      function(event) {
+      });
+      this._element.find('.cityPromoteOverlay').find('.icon-facebook').click(function(event) {
         event.preventDefault();
         _this._showFacebookShareWindow(
           'http://janeswalk.org' + (cityPath),
           'Jane\'s Walk',
           $(this).closest('.option').find('.copy').text().trim()
         );
-      }
-    );
-    this._element.find('.cityPromoteOverlay').find('.icon-envelope').click(
-      function(event) {
+      });
+      this._element.find('.cityPromoteOverlay').find('.icon-envelope').click(function(event) {
         event.preventDefault();
         _this._showEmailShareWindow(
           'Jane\'s Walk in ' + (cityName),
           $(this).closest('.option').find('.copy').text().trim()
         );
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1292,30 +1248,28 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return  void
    */
-  _setupTransferWalkEvents: function() {
-    var _this = this;
-    // Set the requests when clicking the modal links
-    this._element.find('#walk-transfer .users a').click(
-      function(event) {
-      event.preventDefault();
-      $.get(
-        this.getAttribute('href'),
-        function(data) {
-          if (data.error) {
-            // TODO: alerts are lame. Find a proper area for messaging
-            alert(data.error);
-          } else {
-            // Just refresh the page for now
-            window.location = window.location;
+  _setupTransferWalkEvents: {
+    value: function() {
+      var _this = this;
+      // Set the requests when clicking the modal links
+      this._element.find('#walk-transfer .users a').click(function(event) {
+        event.preventDefault();
+        $.get(
+          this.getAttribute('href'),
+          function(data) {
+            if (data.error) {
+              // TODO: alerts are lame. Find a proper area for messaging
+              alert(data.error);
+            } else {
+              // Just refresh the page for now
+              window.location = window.location;
+            }
           }
-        }
-      );
-    }
-    );
+        );
+      });
 
-    // Set the 'transfer' buttons in the walks columns
-    this._element.find('a.transfer').removeClass('hidden').click(
-      function(event) {
+      // Set the 'transfer' buttons in the walks columns
+      this._element.find('a.transfer').removeClass('hidden').click(function(event) {
         event.preventDefault();
         var modal = _this._element.find('#walk-transfer'),
         href = this.getAttribute('href'),
@@ -1324,8 +1278,8 @@ var ProfilePageView = PageView.extend({
           links[i].setAttribute('href', href + 'transfer/' + links[i].getAttribute('data-uid'));
         }
         modal.modal();
-      }
-    );
+      });
+    }
   },
 
 
@@ -1335,32 +1289,34 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _setupDisplayPictureFlashWidget: function() {
-    window.ThumbnailBuilder_onSaveCompleted = function() {
-      location.href = '/index.php/profile/#tab=picture&success=1';
-    };
-    var params = {
-      bgcolor: '#ffffff',
-      wmode: 'transparent',
-      quality: 'high' 
-    },
-    flashvars = {
-      width: this._element.find('#flashContainer').attr('data-width'),
-      height: this._element.find('#flashContainer').attr('data-height'),
-      image: this._element.find('#flashContainer').attr('data-imagepath'),
-      save: this._element.find('#flashContainer').attr('data-savepath')
-    };
-    if(typeof swfobject !== "undefined") {
-      swfobject.embedSWF(
-        this._element.find('#flashContainer').attr('data-flashpath'),
-        'flashContainer',
-        '500',
-        '400',
-        '10,0,0,0',
-        'includes/expressInstall.swf',
-        flashvars,
-        params
-      );
+  _setupDisplayPictureFlashWidget: {
+    value: function() {
+      window.ThumbnailBuilder_onSaveCompleted = function() {
+        location.href = '/index.php/profile/#tab=picture&success=1';
+      };
+      var params = {
+        bgcolor: '#ffffff',
+        wmode: 'transparent',
+        quality: 'high' 
+      },
+      flashvars = {
+        width: this._element.find('#flashContainer').attr('data-width'),
+        height: this._element.find('#flashContainer').attr('data-height'),
+        image: this._element.find('#flashContainer').attr('data-imagepath'),
+        save: this._element.find('#flashContainer').attr('data-savepath')
+      };
+      if(typeof swfobject !== "undefined") {
+        swfobject.embedSWF(
+          this._element.find('#flashContainer').attr('data-flashpath'),
+          'flashContainer',
+          '500',
+          '400',
+          '10,0,0,0',
+          'includes/expressInstall.swf',
+          flashvars,
+          params
+        );
+      }
     }
   },
 
@@ -1371,12 +1327,14 @@ var ProfilePageView = PageView.extend({
    * @param     String slideshowName
    * @return    void
    */
-  _showSlide: function(slideshowName) {
-    var index = this._slideIndexes[slideshowName],
-    $overlay = this._element.find('[data-slideshow="' + (slideshowName) + '"]'),
-    $options = $overlay.find('.options .option');
-    $options.addClass('hidden');
-    $($options[index]).removeClass('hidden');
+  _showSlide: {
+    value: function(slideshowName) {
+      var index = this._slideIndexes[slideshowName],
+      $overlay = this._element.find('[data-slideshow="' + (slideshowName) + '"]'),
+      $options = $overlay.find('.options .option');
+      $options.addClass('hidden');
+      $($options[index]).removeClass('hidden');
+    }
   },
 
   /**
@@ -1385,10 +1343,10 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _setupPromoteSlideshows: function() {
-    var _this = this;
-    this._element.find('.promoteOverlay .nav > a.left').click(
-      function(event) {
+  _setupPromoteSlideshows: {
+    value: function() {
+      var _this = this;
+      this._element.find('.promoteOverlay .nav > a.left').click(function(event) {
         event.preventDefault();
         var $anchor = $(this),
         slideshow = $anchor.data('slideshow'),
@@ -1401,10 +1359,8 @@ var ProfilePageView = PageView.extend({
           --_this._slideIndexes[slideshow];
         }
         _this._showSlide(slideshow);
-      }
-    );
-    this._element.find('.promoteOverlay .nav > a.right').click(
-      function(event) {
+      });
+      this._element.find('.promoteOverlay .nav > a.right').click(function(event) {
         event.preventDefault();
         var $anchor = $(this),
         slideshow = $anchor.data('slideshow'),
@@ -1418,8 +1374,8 @@ var ProfilePageView = PageView.extend({
         }
         _this._showSlide(slideshow);
 
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1428,20 +1384,18 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _setupWalkPromoteModalEvents: function() {
-    var _this = this;
-    this._element.find('.walkPromoteOverlay').find('.icon-twitter').click(
-      function(event) {
-      event.preventDefault();
-      var $copy = $(this).closest('.option').find('.copy');
-      _this._showTwitterShareWindow(
-        'http://janeswalk.org' + ($copy.data('walkpath')),
-        $copy.text().trim()
-      );
-    }
-    );
-    this._element.find('.walkPromoteOverlay').find('.icon-facebook').click(
-      function(event) {
+  _setupWalkPromoteModalEvents: {
+    value: function() {
+      var _this = this;
+      this._element.find('.walkPromoteOverlay').find('.icon-twitter').click(function(event) {
+        event.preventDefault();
+        var $copy = $(this).closest('.option').find('.copy');
+        _this._showTwitterShareWindow(
+          'http://janeswalk.org' + ($copy.data('walkpath')),
+          $copy.text().trim()
+        );
+      });
+      this._element.find('.walkPromoteOverlay').find('.icon-facebook').click(function(event) {
         event.preventDefault();
         var $copy = $(this).closest('.option').find('.copy');
         _this._showFacebookShareWindow(
@@ -1449,18 +1403,16 @@ var ProfilePageView = PageView.extend({
           'Jane\'s Walk',
           $copy.text().trim()
         );
-      }
-    );
-    this._element.find('.walkPromoteOverlay').find('.icon-envelope').click(
-      function(event) {
+      });
+      this._element.find('.walkPromoteOverlay').find('.icon-envelope').click(function(event) {
         event.preventDefault();
         var $copy = $(this).closest('.option').find('.copy');
         _this._showEmailShareWindow(
           'Jane\'s Walk in ' + (_this._element.find('#profileWrapper').data('city')),
           $copy.text().trim()
         );
-      }
-    );
+      });
+    }
   },
 
   /**
@@ -1469,12 +1421,14 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _showCurrentTab: function() {
-    this._element.find('ul.nav-tabs li.active').removeClass('active');
-    this._element.find('ul.nav-tabs li a[data-tab="' + (this._currentTab) + '"]').parent().addClass('active');
-    this._element.find('div.content div.block').addClass('hidden');
-    this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').removeClass('hidden');
-    location.hash = 'tab=' + (this._currentTab);
+  _showCurrentTab: {
+    value: function() {
+      this._element.find('ul.nav-tabs li.active').removeClass('active');
+      this._element.find('ul.nav-tabs li a[data-tab="' + (this._currentTab) + '"]').parent().addClass('active');
+      this._element.find('div.content div.block').addClass('hidden');
+      this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').removeClass('hidden');
+      location.hash = 'tab=' + (this._currentTab);
+    }
   },
 
   /**
@@ -1485,11 +1439,13 @@ var ProfilePageView = PageView.extend({
    * @param     String body
    * @return    void
    */
-  _showEmailShareWindow: function(subject, body) {
-    subject = encodeURIComponent(subject);
-    body = encodeURIComponent(body);
-    var link = 'mailto:?subject=' + (subject) + '&body=' + (body);
-    window.open(link);
+  _showEmailShareWindow: {
+    value: function(subject, body) {
+      subject = encodeURIComponent(subject);
+      body = encodeURIComponent(body);
+      var link = 'mailto:?subject=' + (subject) + '&body=' + (body);
+      window.open(link);
+    }
   },
 
   /**
@@ -1501,12 +1457,14 @@ var ProfilePageView = PageView.extend({
    * @param     String text
    * @return    void
    */
-  _showFacebookShareWindow: function(link, title, text) {
-    (new FacebookShareDialog({
-      link: link,
-      name: title,
-      description: text
-    })).show();
+  _showFacebookShareWindow: {
+    value: function(link, title, text) {
+      (new FacebookShareDialog({
+        link: link,
+        name: title,
+        description: text
+      })).show();
+    }
   },
 
   /**
@@ -1515,24 +1473,26 @@ var ProfilePageView = PageView.extend({
    * @protected
    * @return    void
    */
-  _showProperStep: function() {
-    if (location.hash !== '') {
-      var pieces = location.hash.split('&'),
-      hash = {},
-      again;
-      $(pieces).each(
-        function(index, piece) {
+  _showProperStep: {
+    value: function() {
+      if (location.hash !== '') {
+        var pieces = location.hash.split('&'),
+        hash = {},
+        again;
+        $(pieces).each(
+          function(index, piece) {
           again = piece.split('=');
           hash[again[0].replace('#', '')] = again[1];
         }
-      );
-      this._currentTab = hash.tab;
-      this._showCurrentTab();
-      if (
-        typeof hash.success !== 'undefined' &&
-          parseInt(hash.success) === 1
-      ) {
-        this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').addClass('success');
+        );
+        this._currentTab = hash.tab;
+        this._showCurrentTab();
+        if (
+          typeof hash.success !== 'undefined' &&
+            parseInt(hash.success) === 1
+        ) {
+          this._element.find('div.content div.block[data-tab="' + (this._currentTab) + '"]').addClass('success');
+        }
       }
     }
   },
@@ -1545,21 +1505,23 @@ var ProfilePageView = PageView.extend({
    * @param     String text
    * @return    void
    */
-  _showTwitterShareWindow: function(link, text) {
-    link = encodeURIComponent(link);
-    text = encodeURIComponent(text);
-    if (text.length > 130) {
-      text = text.substring(0,130) + '...';
+  _showTwitterShareWindow: {
+    value: function(link, text) {
+      link = encodeURIComponent(link);
+      text = encodeURIComponent(text);
+      if (text.length > 130) {
+        text = text.substring(0,130) + '...';
+      }
+      link = 'https://twitter.com/intent/tweet' +
+      '?url=' + (link) +
+        '&via=janeswalk' +
+        '&text=' + (text);
+      window.open(
+        link,
+        'Twitter Share',
+        'width=640, height=320'
+      );
     }
-    link = 'https://twitter.com/intent/tweet' +
-    '?url=' + (link) +
-      '&via=janeswalk' +
-      '&text=' + (text);
-    window.open(
-      link,
-      'Twitter Share',
-      'width=640, height=320'
-    );
   }
 });
 
@@ -1567,97 +1529,38 @@ module.exports = ProfilePageView;
 
 },{"../Page.jsx":5}],9:[function(require,module,exports){
 var PageView = require('../Page.jsx');
+var FacebookShareDialog = require('../FacebookShareDialog.jsx');
 
 /**
-* WalkPageView
-* 
-* @extends PageView
-*/
-var WalkPageView = PageView.extend({
+ * WalkPageView
+ * 
+ * @extends PageView
+ * 
+ * init
+ * 
+ * @public
+ * @param  jQuery element
+ * @return void
+ */
+var WalkPageView = function(element) {
+  PageView.call(this, element);
+  this._addFacebookDialogEvents();
 
-  /**
-  * init
-  * 
-  * @public
-  * @param  jQuery element
-  * @return void
-  */
-  init: function(element) {
-    this._super(element);
-    this._addFacebookDialogEvents();
+  // Check if there's a map to init first
+  if (document.getElementById('map-canvas')) {
     this._initializeMap();
-  },
-
+  }
+}
+WalkPageView.prototype = Object.create(PageView.prototype, {
   /**
-  * _addFacebookDialogEvents
-  * 
-  * @protected
-  * @return    void
-  */
-  _addFacebookDialogEvents: function() {
-    var _this = this;
-    this._element.find('.facebookShareLink').click(
-      function(event) {
-        event.preventDefault();
-        _this.trackEvent('Walk', 'share.attempted', 'facebook');
-        var shareObj = _this._getFacebookDialogObj();
-        (new FacebookShareDialog(shareObj)).show(
-          _this._facebookShareFailed,
-          _this._facebookShareSuccessful
-        );
-      }
-    );
-  },
-
-  /**
-  * _facebookShareFailed
-  * 
-  * @protected
-  * @return    void
-  */
-  _facebookShareFailed: function() {
-    this.trackEvent('Walk', 'share.failed', 'facebook');
-  },
-
-  /**
-  * _facebookShareSuccessful
-  * 
-  * @protected
-  * @return    void
-  */
-  _facebookShareSuccessful: function() {
-    this.trackEvent('Walk', 'share.successful', 'facebook');
-  },
-
-  /**
-  * _getFacebookDialogObj
-  * 
-  * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-  * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-  * @protected
-  * @return    Object
-  */
-  _getFacebookDialogObj: function() {
-    return {
-      link: JanesWalk.page.url,
-      picture: JanesWalk.page.pictureUrl,
-      name: JanesWalk.page.title,
-      description: JanesWalk.page.description,
-      actions: {
-        name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
-        link: JanesWalk.page.city.url
-      }
-    };
-  },
-
-  /**
-  * _styledMap
-  * 
-  * @type      StyledMapType
-  * @protected
-  */
-  _styledMap: new google.maps.StyledMapType(
-    [{
+   * _styledMap
+   * 
+   * @type      StyledMapType
+   * @protected
+   */
+  _styledMap: {
+    value: new google.maps.StyledMapType(
+      [{
       "featureType": "road.arterial",
       "elementType": "geometry.fill",
       "stylers": [
@@ -1704,15 +1607,86 @@ var WalkPageView = PageView.extend({
     {
       name: "Styled Map"
     }),
+    writable: false,
+    enumerable: true
+  },
 
-    /**
-    * _initializeMap
-    * 
-    * @protected
-    * @return    void
-    */
-    _initializeMap: function() {
+  /**
+   * _addFacebookDialogEvents
+   * 
+   * @protected
+   * @return    void
+   */
+  _addFacebookDialogEvents: {
+    value: function() {
+      var _this = this;
+      this._element.find('.facebookShareLink').click(function(event) {
+        event.preventDefault();
+        _this.trackEvent('Walk', 'share.attempted', 'facebook');
+        var shareObj = _this._getFacebookDialogObj();
+        (new FacebookShareDialog(shareObj)).show(
+          _this._facebookShareFailed,
+          _this._facebookShareSuccessful
+        );
+      });
+    }
+  },
 
+  /**
+   * _facebookShareFailed
+   * 
+   * @protected
+   * @return    void
+   */
+  _facebookShareFailed: {
+    value: function() {
+      this.trackEvent('Walk', 'share.failed', 'facebook');
+    }
+  },
+
+  /**
+   * _facebookShareSuccessful
+   * 
+   * @protected
+   * @return    void
+   */
+  _facebookShareSuccessful: {
+    value: function() {
+      this.trackEvent('Walk', 'share.successful', 'facebook');
+    }
+  },
+
+  /**
+   * _getFacebookDialogObj
+   * 
+   * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
+   * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
+   * @protected
+   * @return    Object
+   */
+  _getFacebookDialogObj: {
+    value: function() {
+      return {
+        link: JanesWalk.page.url,
+        picture: JanesWalk.page.pictureUrl,
+        name: JanesWalk.page.title,
+        description: JanesWalk.page.description,
+        actions: {
+          name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
+          link: JanesWalk.page.city.url
+        }
+      };
+    }
+  },
+
+  /**
+   * _initializeMap
+   * 
+   * @protected
+   * @return    void
+   */
+  _initializeMap: {
+    value: function() {
       var markers = [],
       // FIXME: This searching for a global zoomLevelset is terrible. Replace with proper
       // parameter passing.
@@ -1733,24 +1707,24 @@ var WalkPageView = PageView.extend({
       },
 
       // Load the google map canvas
-      map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions),
+      map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions),
       walkPathCoordinates = [],
       mapMarker = CCM_THEME_PATH + '/images/marker.png',
 
       // Setup basic infobox layout + display functions
       infowindow = new google.maps.InfoWindow({maxWidth: 300}),
       infobox = new InfoBox({
-        content: document.getElementById("infobox"),
+        content: document.getElementById('infobox'),
         maxWidth: 150,
         pixelOffset: new google.maps.Size(-3, -25),
         alignBottom: true,
         boxStyle: {
-          background: "#fff",
-          width: "280px",
-          padding: "10px",
-          border: "1px solid #eee",
+          background: '#fff',
+          width: '280px',
+          padding: '10px',
+          border: '1px solid #eee',
         },
-        closeBoxMargin: "-22px -22px 2px -8px",
+        closeBoxMargin: '-22px -22px 2px -8px',
         closeBoxURL: CCM_THEME_PATH + '/images/map-close.png',
         infoBoxClearance: new google.maps.Size(20, 20)
       }),
@@ -1968,8 +1942,9 @@ var WalkPageView = PageView.extend({
         google.maps.event.trigger(marker, 'click');
       });
     }
+  }
 });
 
 module.exports = WalkPageView;
 
-},{"../Page.jsx":5}]},{},[1]);
+},{"../FacebookShareDialog.jsx":4,"../Page.jsx":5}]},{},[1]);
