@@ -198,7 +198,7 @@ var CreateWalk = React.createClass({
                   <hr />
                 </form>
               </div>
-              <CAWMapBuilder valueLink={this.linkState('gmap')} />
+              <CAWMapBuilder valueLink={this.linkState('gmap')} city={this.props.city} />
               <CAWDateSelect valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>

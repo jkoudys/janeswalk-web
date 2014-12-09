@@ -23,16 +23,16 @@ document.addEventListener('DOMContentLoaded', function() {
   var pageViewName =
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
-  var reactView = ReactViews[pageViewName];
+  var ReactView = ReactViews[pageViewName];
 
   try {
     // Hybrid-routing. First check if there's a React view (which will render
     // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
-    if (reactView) {
+    if (ReactView) {
       switch (pageViewName) {
         case 'CreateWalkView':
           React.render(
-            <CreateWalk data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} url={JanesWalk.walk.url} valt={JanesWalk.form.valt} />,
+            <ReactView data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} url={JanesWalk.walk.url} valt={JanesWalk.form.valt} />,
         document.getElementById('createwalk')
         );
         break;

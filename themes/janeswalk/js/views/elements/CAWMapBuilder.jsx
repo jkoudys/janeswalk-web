@@ -6,8 +6,7 @@ var MapBuilder = React.createClass({
     return {
       // Map config startup defaults
       initialZoom: 15,
-      mapCenterLat: 43.663161,
-      mapCenterLng: -79.410828,
+      city: {lat: 43.663161, lng: -79.410828}
     };
   },
 
@@ -27,19 +26,18 @@ var MapBuilder = React.createClass({
 
   componentDidMount: function() {
     var valueLink = this.props.valueLink,
-        mapNode = this.refs.gmap.getDOMNode(),
-        mapOptions = {
-          // TODO: find if gmaps will geocode and init map at your location by default
-          // center: this.mapCenterLatLng(),
-          zoom: this.props.initialZoom,
-          scrollwheel: false,
-          rotateControl: true,
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
-          }
-        },
-        map = new google.maps.Map(mapNode, mapOptions),
-        markers;
+      mapNode = this.refs.gmap.getDOMNode(),
+      mapOptions = {
+        center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
+        zoom: this.props.initialZoom,
+        scrollwheel: false,
+        rotateControl: true,
+        mapTypeControlOptions: {
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
+        }
+      },
+      map = new google.maps.Map(mapNode, mapOptions),
+      markers;
     
     // Draw the route
     if (valueLink.value) {

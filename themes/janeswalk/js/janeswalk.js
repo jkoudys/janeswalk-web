@@ -24,16 +24,16 @@ document.addEventListener('DOMContentLoaded', function() {
   var pageViewName =
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
-  var reactView = ReactViews[pageViewName];
+  var ReactView = ReactViews[pageViewName];
 
   try {
     // Hybrid-routing. First check if there's a React view (which will render
     // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
-    if (reactView) {
+    if (ReactView) {
       switch (pageViewName) {
         case 'CreateWalkView':
           React.render(
-            React.createElement(CreateWalk, {data: JanesWalk.walk.data, city: JanesWalk.city, user: JanesWalk.user, url: JanesWalk.walk.url, valt: JanesWalk.form.valt}),
+            React.createElement(ReactView, {data: JanesWalk.walk.data, city: JanesWalk.city, user: JanesWalk.user, url: JanesWalk.walk.url, valt: JanesWalk.form.valt}),
         document.getElementById('createwalk')
         );
         break;
@@ -329,7 +329,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                   React.createElement("hr", null)
                 )
               ), 
-              React.createElement(CAWMapBuilder, {valueLink: this.linkState('gmap')}), 
+              React.createElement(CAWMapBuilder, {valueLink: this.linkState('gmap'), city: this.props.city}), 
               React.createElement(CAWDateSelect, {valueLink: this.linkState('time')}), 
               React.createElement("div", {className: "tab-pane", id: "accessibility"}, 
                 React.createElement("div", {className: "page-header", 'data-section': "accessibility"}, 
@@ -464,14 +464,14 @@ var FacebookShareDialog = function(shareObj) {
   this._shareObj = shareObj;
   this._shareObj.method = 'feed';
 };
-FacebookShareDialog.prototype = {
+Object.defineProperties(FacebookShareDialog.prototype, {
   /**
    * _shareObj
    * 
    * @protected
    * @var       Object (default: null)
    */
-  _shareObj: null,
+  _shareObj: {value: null, writable: true},
 
   /**
    * show
@@ -481,22 +481,24 @@ FacebookShareDialog.prototype = {
    * @param  Function successful
    * @return void
    */
-  show: function(failed, successful) {
-    var _this = this;
-    FB.ui(
-      this._shareObj,
-      function(response) {
-        if (response !== undefined) {
-          if (response === null) {
-            if (failed) failed();
-          } else {
-            if (successful) successful();
+  show: {
+    value: function(failed, successful) {
+      var _this = this;
+      FB.ui(
+        this._shareObj,
+        function(response) {
+          if (response !== undefined) {
+            if (response === null) {
+              if (failed) failed();
+            } else {
+              if (successful) successful();
+            }
           }
         }
-      }
-    );
+      );
+    }
   }
-};
+});
 
 module.exports = FacebookShareDialog;
 
@@ -1125,8 +1127,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     return {
       // Map config startup defaults
       initialZoom: 15,
-      mapCenterLat: 43.663161,
-      mapCenterLng: -79.410828,
+      city: {lat: 43.663161, lng: -79.410828}
     };
   },
 
@@ -1146,19 +1147,18 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
   componentDidMount: function() {
     var valueLink = this.props.valueLink,
-        mapNode = this.refs.gmap.getDOMNode(),
-        mapOptions = {
-          // TODO: find if gmaps will geocode and init map at your location by default
-          // center: this.mapCenterLatLng(),
-          zoom: this.props.initialZoom,
-          scrollwheel: false,
-          rotateControl: true,
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
-          }
-        },
-        map = new google.maps.Map(mapNode, mapOptions),
-        markers;
+      mapNode = this.refs.gmap.getDOMNode(),
+      mapOptions = {
+        center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
+        zoom: this.props.initialZoom,
+        scrollwheel: false,
+        rotateControl: true,
+        mapTypeControlOptions: {
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
+        }
+      },
+      map = new google.maps.Map(mapNode, mapOptions),
+      markers;
     
     // Draw the route
     if (valueLink.value) {
@@ -1891,11 +1891,10 @@ module.exports = WardSelect;
  * constructor
  *
  * @param object mapData Input data with {route, markers}
- * @param DOMElement mapCanvas Target to render the map to
+ * @param object DOMElement mapCanvas Target to render the map to
+ *
  */
 var WalkMap = function(mapData, mapCanvas) {
-  var _this = this;
-
   // Default to #map-canvas
   this.mapCanvas = mapCanvas;
 
@@ -1909,7 +1908,8 @@ var WalkMap = function(mapData, mapCanvas) {
   // Style Map
   this.map.mapTypes.set('map_style', this.styledMap);
   this.map.setMapTypeId('map_style');
-  $('.walk-stops').show();
+  // TODO: Replace hard-coded selectors with DOMElement arguments
+  document.querySelector('.walk-stops').style.display = 'block';
 
   // Center our map after first building it
   this.centerMap();
@@ -1933,6 +1933,12 @@ Object.defineProperties(WalkMap.prototype, {
 
   /* @prop DOMElement Canvas we'll render to */
   mapCanvas: {
+    value: null,
+    writable: true
+  },
+
+  /* @prop DOMElement of the list of stops you can select */
+  stopList: {
     value: null,
     writable: true
   },
@@ -2010,11 +2016,12 @@ Object.defineProperties(WalkMap.prototype, {
       name: "Styled Map"
     }),
     writable: false,
-    enumerable: true
+    enumerable: true,
+    configurable: true
   },
 
   // Map Markers
-  mapMarker: {value: CCM_THEME_PATH + '/images/marker.png'},
+  mapMarker: {value: new google.maps.MarkerImage(CCM_THEME_PATH + '/images/marker.png')},
   mapMarkerActive: {value: new google.maps.MarkerImage(CCM_THEME_PATH + '/images/marker-active.png')},
 
   // google map object

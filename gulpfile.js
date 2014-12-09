@@ -73,7 +73,7 @@ gulp.task('blocks', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
-  gulp.watch(paths.jsx, ['browserify']);
+  gulp.watch(paths.jsx, ['jsx_app']);
   gulp.watch(paths.js_views, ['jsx_app']);
   gulp.watch('./blocks/**/*.jsx', ['blocks']);
 });

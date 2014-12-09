@@ -3,11 +3,10 @@
  * constructor
  *
  * @param object mapData Input data with {route, markers}
- * @param DOMElement mapCanvas Target to render the map to
+ * @param object DOMElement mapCanvas Target to render the map to
+ *
  */
 var WalkMap = function(mapData, mapCanvas) {
-  var _this = this;
-
   // Default to #map-canvas
   this.mapCanvas = mapCanvas;
 
@@ -21,7 +20,8 @@ var WalkMap = function(mapData, mapCanvas) {
   // Style Map
   this.map.mapTypes.set('map_style', this.styledMap);
   this.map.setMapTypeId('map_style');
-  $('.walk-stops').show();
+  // TODO: Replace hard-coded selectors with DOMElement arguments
+  document.querySelector('.walk-stops').style.display = 'block';
 
   // Center our map after first building it
   this.centerMap();
@@ -45,6 +45,12 @@ Object.defineProperties(WalkMap.prototype, {
 
   /* @prop DOMElement Canvas we'll render to */
   mapCanvas: {
+    value: null,
+    writable: true
+  },
+
+  /* @prop DOMElement of the list of stops you can select */
+  stopList: {
     value: null,
     writable: true
   },
@@ -122,11 +128,12 @@ Object.defineProperties(WalkMap.prototype, {
       name: "Styled Map"
     }),
     writable: false,
-    enumerable: true
+    enumerable: true,
+    configurable: true
   },
 
   // Map Markers
-  mapMarker: {value: CCM_THEME_PATH + '/images/marker.png'},
+  mapMarker: {value: new google.maps.MarkerImage(CCM_THEME_PATH + '/images/marker.png')},
   mapMarkerActive: {value: new google.maps.MarkerImage(CCM_THEME_PATH + '/images/marker-active.png')},
 
   // google map object
@@ -303,7 +310,7 @@ Object.defineProperties(WalkMap.prototype, {
         bounds.extend(pathMark);
         ++totalPlotted;
       });
-      if(totalPlotted) {
+      if (totalPlotted) {
         this.map.fitBounds(bounds);
       }
       // Zoom out a bit from the centered/zoomed setting
