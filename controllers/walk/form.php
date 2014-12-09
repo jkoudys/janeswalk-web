@@ -6,6 +6,10 @@ defined('C5_EXECUTE') or die("Access Denied.");
 // c5.7.
 require_once(DIR_BASE . '/models/page_types/Walk.php');
 
+use \User;
+use \Page;
+use \PageList;
+
 use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Models\PageTypes\City;
 use \JanesWalk\Controllers\Controller;
@@ -13,6 +17,34 @@ use \JanesWalk\Controllers\Controller;
 Loader::controller('/janes_walk');
 class WalkFormController extends Controller
 {
+    /**
+     * Find the latest unstarted walk, so you don't need to make a new one.
+     * @param $u The user for whom you're finding their walk
+     * @return Collection
+     */
+    protected function getUnstartedWalk(User $u, Page $city)
+    {
+        // Find all walks for this user, in this city, with no name
+        $pl = new PageList;
+        $pl->filterByCollectionTypeHandle('walk');
+        $pl->filterByUserID($u->getUserID());
+        $pl->filterByParentID($city->getCollectionID());
+        $pl->filterByName('');
+        $pl->filterByAttribute('exclude_page_list', true);
+
+        var_dump($pl->get());
+        // Arbitrarily use the first; it's blank anyway.
+        $walk = $pl->get(1)[0];
+
+        // If you couldn't find a walk, make a new one in the city
+        if (!$walk) {
+            $walk = $city->add(CollectionType::getByHandle('walk'), []);
+            $walk->setAttribute('exclude_page_list', true);
+        }
+
+        return $walk;
+    }
+
     public function view()
     {
         parent::view();
@@ -24,21 +56,23 @@ class WalkFormController extends Controller
         $imgHelper = Loader::helper('image');
 
         /* If no page is passed to edit, create a new page.
-         * TODO: change this to either redirect, or detect if you have one in-progress so browser reloads don't make new walks.
          */
         $load = $_REQUEST['load'];
         if (empty($load)) {
-            $city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto')));
-            $newPage = $city->add(CollectionType::getByHandle('walk'),[]);
-            $newPage->setAttribute('exclude_page_list',true);
-            $c = $newPage;
+            // Find the parent page this should go under
+            $city = ($parentCID = $_REQUEST['parentCID']) ?
+                Page::getByID($parentCID) :
+                ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto'));
+            $c = $this->getUnstartedWalk($u, $city);
         } else {
             $c = Page::getByPath($load);
         }
         // Let's load the model for the walk, so we can access its json methods
         $walk = new Walk($c);
 
-        if(!$city) $city = Page::getByID($c->getCollectionParentID());
+        if (!$city) {
+            $city = Page::getByID($c->getCollectionParentID());
+        }
 
         $walk_ward = trim((String) $c->getAttribute('walk_wards'));
         $city_wards = $city->getAttribute('city_wards');
