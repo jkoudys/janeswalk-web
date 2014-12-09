@@ -65,11 +65,6 @@ class WalkFormController extends Controller
             $c = $this->getUnstartedWalk($u, $city);
         } else {
             $c = Page::getByPath($load);
-        }
-        // Let's load the model for the walk, so we can access its json methods
-        $walk = new Walk($c);
-
-        if (!$city) {
             $city = Page::getByID($c->getCollectionParentID());
         }
 
@@ -108,12 +103,15 @@ class WalkFormController extends Controller
             $latlng = [43.653226,-79.3831843];
         }
 
-        // Instantiate as model
+        // Instantiate as models, for JSON serialization
         $city = new City($city);
-        $this->addToJanesWalk(['city' =>
-            [
+        $walk = new Walk($c);
+
+        // Build data needed by frontend
+        $this->addToJanesWalk([
+            'city' => [
                 'name' => (string) $city,
-                'url' => $city->url,
+                'uri' => $city->url,
                 'lat' => $latlng[0],
                 'lng' => $latlng[1],
                 'wards' => $wards,
@@ -123,36 +121,23 @@ class WalkFormController extends Controller
                     'lastName' => $city->city_organizer->getAttribute('last_name'),
                     'email' => $city->city_organizer->getUserEmail()
                 ]
+            ],
+            'form' => [
+                'timepicker_cfg' => [
+                    'defaultTime' => '9:00 AM',
+                    'timeFormat' => 'h:i A'
+                ],
+                'datepicker_cfg' => [
+                    'format' => 'dd/mm/yyyy'
+                ],
+                'valt' => $valt->generate('upload')
+            ],
+            'walk' => [
+                'name' => (string) $walk,
+                'data' => $walk,
+                'uri' => $nh->getCollectionURL($c)
             ]
         ]);
-
-        /* Build array used to pass back walk data as JSON to the frontend */
-        $formSettings = [];
-        $formSettings['form'] = [
-            'timepicker_cfg' => [
-                'defaultTime' => '9:00 AM',
-                'timeFormat' => 'h:i A'
-            ],
-            'datepicker_cfg' => [
-                'format' => 'dd/mm/yyyy'
-            ],
-            'valt' => $valt->generate('upload')
-        ];
-
-        /* Add metadata on the walk page itself */
-        $formSettings['walk'] = [
-            'data' => $walk,
-            'url' => $nh->getCollectionURL($c)
-        ];
-
-        // Special case for cities with walk-formatting requirements
-        if ($is_nyc) {
-            $formSettings['form']['timepicker_cfg']['step'] = 180;
-            $formSettings['form']['timepicker_cfg']['disableTimeRanges'] = [ ['12am','8:59am'], ['9:01pm','11:59pm'] ];
-        }
-
-        // Make these data available to JS
-        $this->addToJanesWalk($formSettings);
 
         // Set the view name
         $this->bodyData['pageViewName'] = 'CreateWalkView';

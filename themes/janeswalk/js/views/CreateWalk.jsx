@@ -80,7 +80,7 @@ var CreateWalk = React.createClass({
     /* Send in the updated walk to save, but keep working */
     // TODO: put 'saving' and 'saved' messages in
     $.ajax({
-      url: this.props.url,
+      url: this.props.uri,
       type: 'PUT',
       data: {json: JSON.stringify(this.state)},
       dataType: 'json',
@@ -97,7 +97,7 @@ var CreateWalk = React.createClass({
     // TODO: put 'saving' and 'saved' messages in
     // Publish the walk
     $.ajax({
-      url: this.props.url,
+      url: this.props.uri,
       type: 'POST',
       data: {json: JSON.stringify(this.state)},
       dataType: 'json',
@@ -105,7 +105,7 @@ var CreateWalk = React.createClass({
         console.log('Walk published');
       },
       error: function(xhr, status, err) {
-        console.error(this.url, status, err.toString());
+        console.error(this.uri, status, err.toString());
       }
     });
   },
@@ -113,7 +113,7 @@ var CreateWalk = React.createClass({
   handlePreview: function(e) {
     // Save the walk, then load a modal to preview
     $.ajax({
-      url: this.props.url,
+      url: this.props.uri,
       type: 'PUT',
       data: this.state,
       dataType: 'json',
@@ -121,7 +121,7 @@ var CreateWalk = React.createClass({
         this.setState({preview: true});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.uri, status, err.toString());
       }
     });
     // TODO: show modal with preview iframe
@@ -279,7 +279,7 @@ var CreateWalk = React.createClass({
             <p>Congratulations! Your walk is now available for all to peruse.</p>
             <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
             <label>Your Walk Web Address:</label>
-            <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
+            <input type="text" className="clone js-url-field" value={this.props.uri} readOnly />
             <hr />
             <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
             <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
@@ -297,7 +297,7 @@ var CreateWalk = React.createClass({
                   <h3>{ t('Preview of your Walk') }</h3>
                 </header>
                 <div className="modal-body">
-                  <iframe src={this.props.url} frameBorder="0" />
+                  <iframe src={this.props.uri} frameBorder="0" />
                 </div>
               </article>
             </div>

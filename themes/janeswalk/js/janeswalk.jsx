@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       switch (pageViewName) {
         case 'CreateWalkView':
           React.render(
-            <ReactView data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} url={JanesWalk.walk.url} valt={JanesWalk.form.valt} />,
+            <ReactView data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} uri={JanesWalk.walk.uri} valt={JanesWalk.form.valt} />,
         document.getElementById('createwalk')
         );
         break;
