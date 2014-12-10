@@ -291,7 +291,7 @@
           </div>
           <div class="column walks">
             <div class="headline"><?= t('My Walks') ?></div>
-            <a href="/walk/form/" class="btn btn-primary btn-small"><?= t('Add a walk') ?></a>
+            <a href="<?= $nh->getCollectionURL(Page::getByPath('/walk/form/')) ?>" class="btn btn-primary btn-small"><?= t('Add a walk') ?></a>
             <?php
               $nullcaseClasses = array('nullcase');
               if ($userHasCreatedWalks === true) {
