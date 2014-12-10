@@ -267,7 +267,6 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
   componentWillMount: function() {
     // Start loading the translations file as early as possible
     if (this.props.translation) {
-    setTimeout(function() {
       $.ajax({
         url: this.props.translation,
         dataType: 'json',
@@ -275,7 +274,6 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
           this.setState({i18n: new I18nTranslate(data)});
         }.bind(this)
       });
-    }.bind(this), 5000);
     } else {
       this.setState({i18n: I18nTranslate.noTranslate});
     }
