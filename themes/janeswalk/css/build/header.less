@@ -5,7 +5,6 @@
 
     // Logo
     .logo:extend(.navbar-header all) {
-        padding: 0 20px 0 0;
         span:extend(.hide-text, .navbar-brand all) {
             background: url("../images/jwlogo.svg");
             display: inline-block;
@@ -14,6 +13,9 @@
             width: 102px;
             height: @navbar-height;
             background-size: contain;
+        }
+        @media (min-width: @screen-md-min) {
+            margin-right: @grid-gutter-width / 2;
         }
     }
     nav {

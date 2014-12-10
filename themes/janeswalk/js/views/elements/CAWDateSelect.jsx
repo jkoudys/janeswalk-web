@@ -129,7 +129,6 @@ var DateSelect = React.createClass({
             <br />
             <TimeSetTable valueLink={valueLink} />
             <hr />
-            <a href="#accessibility" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
           </div>
           <div className="tab-pane hide" id="time-and-date-all">
             <div className="page-header" data-section='time-and-date'>
@@ -175,7 +174,6 @@ var DateSelect = React.createClass({
             <hr />
             <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
             <hr />
-            <a href="#accessibility" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a><br /><br />
           </div>
         </div>
       </div>

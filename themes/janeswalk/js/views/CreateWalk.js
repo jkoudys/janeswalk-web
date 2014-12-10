@@ -151,6 +151,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             )
           ), 
           React.createElement("div", {id: "main-panel", role: "main"}, 
+            React.createElement("div", {className: "alert alert-error"}, React.createElement("strong", null, "Create a Walk is currently offline."), " Sorry for the inconvenience"), 
             React.createElement("div", {className: "tab-content"}, 
               React.createElement("div", {className: "tab-pane active", id: "description"}, 
                 React.createElement("div", {className: "walk-submit lead clearfix"}, 
@@ -194,8 +195,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                   ), 
                   React.createElement(CAWThemeSelect, {valueLink: this.linkState('checkboxes')}), 
                   React.createElement(CAWWardSelect, {wards: this.props.city.wards, valueLink: this.linkState('wards')}), 
-                  React.createElement("hr", null), 
-                  React.createElement("input", {className: "btn btn-primary btn-large section-save", type: "submit", value:  t('Next'), readOnly: true, 'data-next': "route", href: "#route"}), React.createElement("br", null), React.createElement("br", null)
+                  React.createElement("hr", null)
                 )
               ), 
               React.createElement(CAWMapBuilder, {valueLink: this.linkState('gmap')}), 
@@ -242,8 +242,6 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                   )
                 ), 
                 React.createElement("hr", null), 
-                React.createElement("a", {href: "#team", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), 
-                React.createElement("br", null), 
                 React.createElement("br", null)
               ), 
               React.createElement(CAWTeamBuilder, {valueLink: this.linkState('team')})
@@ -494,8 +492,7 @@ var DateSelect = React.createClass({displayName: 'DateSelect',
             ), 
             React.createElement("br", null), 
             React.createElement(TimeSetTable, {valueLink: valueLink}), 
-            React.createElement("hr", null), 
-            React.createElement("a", {href: "#accessibility", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), React.createElement("br", null), React.createElement("br", null)
+            React.createElement("hr", null)
           ), 
           React.createElement("div", {className: "tab-pane hide", id: "time-and-date-all"}, 
             React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
@@ -540,8 +537,7 @@ var DateSelect = React.createClass({displayName: 'DateSelect',
             React.createElement(TimeOpenTable, null), 
             React.createElement("hr", null), 
             React.createElement("a", {href: "#time-and-date-select", 'data-toggle': "tab", className: "clear-date"},  t('Clear schedule and return to main Time and Date page') ), 
-            React.createElement("hr", null), 
-            React.createElement("a", {href: "#accessibility", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), React.createElement("br", null), React.createElement("br", null)
+            React.createElement("hr", null)
           )
         )
       )
@@ -986,7 +982,6 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         React.createElement("div", {id: "map-canvas", ref: "gmap"}), 
         walkStops, 
         React.createElement("hr", null), 
-        React.createElement("a", {href: "#time-and-date", className: "btn btn-primary btn-large section-save", 'data-toggle': "tab"},  t('Next') ), 
         React.createElement("br", null), 
         React.createElement("br", null)
       )

@@ -1,3 +1,4 @@
+'use strict';
 // Create a Walk
 // 
 // Form for creating new walks. Includes a map builder, team builder, scheduler
@@ -79,7 +80,7 @@ var CreateWalk = React.createClass({
     /* Send in the updated walk to save, but keep working */
     // TODO: put 'saving' and 'saved' messages in
     $.ajax({
-      url: this.props.url,
+      url: this.props.uri,
       type: 'PUT',
       data: {json: JSON.stringify(this.state)},
       dataType: 'json',
@@ -96,7 +97,7 @@ var CreateWalk = React.createClass({
     // TODO: put 'saving' and 'saved' messages in
     // Publish the walk
     $.ajax({
-      url: this.props.url,
+      url: this.props.uri,
       type: 'POST',
       data: {json: JSON.stringify(this.state)},
       dataType: 'json',
@@ -104,7 +105,7 @@ var CreateWalk = React.createClass({
         console.log('Walk published');
       },
       error: function(xhr, status, err) {
-        console.error(this.url, status, err.toString());
+        console.error(this.uri, status, err.toString());
       }
     });
   },
@@ -112,7 +113,7 @@ var CreateWalk = React.createClass({
   handlePreview: function(e) {
     // Save the walk, then load a modal to preview
     $.ajax({
-      url: this.props.url,
+      url: this.props.uri,
       type: 'PUT',
       data: this.state,
       dataType: 'json',
@@ -120,7 +121,7 @@ var CreateWalk = React.createClass({
         this.setState({preview: true});
       }.bind(this),
       error: function(xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
+        console.error(this.props.uri, status, err.toString());
       }
     });
     // TODO: show modal with preview iframe
@@ -130,26 +131,22 @@ var CreateWalk = React.createClass({
     return (
       <main id="create-walk">
         <section>
-          <nav>
-            <div id="progress-panel">
-              <div className="tabbable tabs-left">
-                <ul className="nav nav-tabs">
-                  <li className="active"><a data-toggle="tab" className="description" href="#description"><i className="fa fa-list-ol" />{ t('Describe Your Walk') }</a></li>
-                  <li><a data-toggle="tab" className="route" href="#route"><i className="fa fa-map-marker" />{ t('Share Your Route') }</a></li>
-                  <li><a data-toggle="tab" className="time-and-date" href="#time-and-date"><i className="fa fa-calendar" />{ t('Set the Time & Date') }</a></li>
-                  <li><a data-toggle="tab" className="accessibility" href="#accessibility"><i className="fa fa-flag" />{ t('Make it Accessible') }</a></li>
-                  <li><a data-toggle="tab" className="team" href="#team"><i className="fa fa-users" />{ t('Build Your Team') }</a></li>
-                </ul>
-                <br />
-                <section id="button-group">
-                  <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
-                  <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all.">{ t('Publish Walk') }</button>
-                  <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.handleSave}>{ t('Save') }</button>
-                </section>
-              </div>
-            </div>
+          <nav id="progress-panel">
+            <ul className="nav nav-tabs">
+              <li className="active"><a data-toggle="tab" className="description" href="#description"><i className="fa fa-list-ol" />{ t('Describe Your Walk') }</a></li>
+              <li><a data-toggle="tab" className="route" href="#route"><i className="fa fa-map-marker" />{ t('Share Your Route') }</a></li>
+              <li><a data-toggle="tab" className="time-and-date" href="#time-and-date"><i className="fa fa-calendar" />{ t('Set the Time & Date') }</a></li>
+              <li><a data-toggle="tab" className="accessibility" href="#accessibility"><i className="fa fa-flag" />{ t('Make it Accessible') }</a></li>
+              <li><a data-toggle="tab" className="team" href="#team"><i className="fa fa-users" />{ t('Build Your Team') }</a></li>
+            </ul>
+            <section id="button-group">
+              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
+              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all.">{ t('Publish Walk') }</button>
+              <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.handleSave}>{ t('Save') }</button>
+            </section>
           </nav>
           <div id="main-panel" role="main">
+            <div className="alert alert-error"><strong>Create a Walk is currently offline.</strong> Sorry for the inconvenience</div>
             <div className="tab-content">
               <div className="tab-pane active" id="description">
                 <div className="walk-submit lead clearfix">
@@ -194,10 +191,9 @@ var CreateWalk = React.createClass({
                   <CAWThemeSelect valueLink={this.linkState('checkboxes')} />
                   <CAWWardSelect wards={this.props.city.wards} valueLink={this.linkState('wards')} />
                   <hr />
-                  <input className="btn btn-primary btn-large section-save" type="submit" value={ t('Next') } readOnly data-next="route" href="#route" /><br /><br />
                 </form>
               </div>
-              <CAWMapBuilder valueLink={this.linkState('gmap')} />
+              <CAWMapBuilder valueLink={this.linkState('gmap')} city={this.props.city} />
               <CAWDateSelect valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>
@@ -241,8 +237,6 @@ var CreateWalk = React.createClass({
                   </fieldset>
                 </div>
                 <hr />
-                <a href="#team" className="btn btn-primary btn-large section-save" data-toggle="tab">{ t('Next') }</a>
-                <br />
                 <br />
               </div>
               <CAWTeamBuilder valueLink={this.linkState('team')} />
@@ -285,7 +279,7 @@ var CreateWalk = React.createClass({
             <p>Congratulations! Your walk is now available for all to peruse.</p>
             <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
             <label>Your Walk Web Address:</label>
-            <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
+            <input type="text" className="clone js-url-field" value={this.props.uri} readOnly />
             <hr />
             <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
             <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
@@ -303,7 +297,7 @@ var CreateWalk = React.createClass({
                   <h3>{ t('Preview of your Walk') }</h3>
                 </header>
                 <div className="modal-body">
-                  <iframe src={this.props.url} frameBorder="0" />
+                  <iframe src={this.props.uri} frameBorder="0" />
                 </div>
               </article>
             </div>
@@ -314,12 +308,7 @@ var CreateWalk = React.createClass({
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  React.render(
-    <CreateWalk data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} url={JanesWalk.walk.url} valt={JanesWalk.form.valt} />,
-    document.getElementById('createwalk')
-  );
-});
+module.exports = CreateWalk;
 
 /*
 example json:

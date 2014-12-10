@@ -12,21 +12,15 @@ body[data-pageviewname=CreateWalkView] {
         margin-top: 0;
     }
 
-    > section:extend(.row) {
-        > nav {
-            .make-md-column(2);
-        }
-    }
-
     #main-panel {
         .make-md-column(7);
-        padding-top: 50px;
+        padding-top: @grid-gutter-width;
     }
 
     #tips-panel {
         .make-md-column(3);
         .clearfix();
-        padding-top: 50px;
+        padding-top: @grid-gutter-width;
     }
 
     // Form elements
@@ -439,29 +433,18 @@ body[data-pageviewname=CreateWalkView] {
     ========================================================================== */
 
     #progress-panel {
-        position: fixed;
-        width: 14.893617021276595%;
+        .make-md-column(2);
         height: 100%;
+        padding: @grid-gutter-width 0 100% @grid-gutter-width;
         border-right: 1px solid #eee;
         font-weight: 500;
-        padding-top: 60px;
-        top: 0;
-        left: 0;
-        padding-left: 20px;
         background: #f2f2f2;
-        box-shadow: inset 4px 0 15px rgba(0,0,0,0.1);
+        box-shadow: inset 4px 0 15px fade(#000, 10%);
         // Adjust from vertical alignment so we don't lose the 'save' button
-        @media (max-height: 730px) {
-            position: relative;
-            padding-top: 10px;
-            min-height:800px;
-            width: 100%;
-        }
-
         .nav-tabs {
-            width: 100%;
             li {
-                width: 101%;
+                width: 100%;
+                display: table;
             }
             i {
                 font-size: 20px;
@@ -482,43 +465,55 @@ body[data-pageviewname=CreateWalkView] {
                     }
                 }
                 > i {
-                    margin-right: 10px;
-                    width: 18px;
                     color: #FF820F;
-                    display: inline-block;
-                    height: 2em;
-                    float: left;
-
-                    &.icon-map-marker:before {
-                        content: '';
-                        background: url('../img/marker.svg') no-repeat;
-                        width: 18px;
-                        height: 18px;
-                    }
-                    &.icon-list-ol:before {
-                        content: '';
-                        background: url('../img/clipboard.svg') no-repeat;
-                        width: 18px;
-                        height: 18px;
-                    }
-                    &.icon-flag:before {
-                        content: '';
-                        background: url('../img/flag.svg') no-repeat;
-                        width: 18px;
-                        height: 18px;
-                    }
+                    display: table-cell;
+                    width: 1em;
+                    text-align: center;
+                }
+                > span {
+                    display: table-cell;
+                    padding-left: 0.5em;
                 }
             }
         }
         #button-group {
-            margin-right: 20px;
-            .btn-preview {
-                margin-top: 1em;
-            }
-            .btn {
+            .clearfix();
+            margin: @grid-gutter-width @grid-gutter-width 0 0;
+            button {
                 text-align: left;
                 width: 100%;
                 margin-bottom: 20px;
+            }
+        }
+        @media (max-width: @screen-sm-max) {
+            padding: @grid-gutter-width / 2;
+            .nav-tabs {
+                .make-row();
+                li {
+                    .make-xs-column(2.3);
+                }
+            }
+            #button-group {
+                margin: @grid-gutter-width / 2 0 0 0;
+                button {
+                    margin: 0 4%;
+                    width: 25%;
+                    text-align: center;
+                }
+            }
+        }
+        @media (max-width: @screen-xs-max) {
+            // On phones, top menu is just icons
+            .nav-tabs {
+                a {
+                    > i {
+                        display: block;
+                        margin: 0 auto;
+                    }
+                    > span {
+                        display: none
+                    }
+                }
             }
         }
     }
@@ -909,6 +904,13 @@ body[data-pageviewname=CreateWalkView] {
                     }
                 }
             }
+        }
+    }
+
+    // Theme selector
+    #theme-select {
+        > .item > fieldset {
+            .make-xs-column(6);
         }
     }
 

@@ -6,6 +6,10 @@ defined('C5_EXECUTE') or die("Access Denied.");
 // c5.7.
 require_once(DIR_BASE . '/models/page_types/Walk.php');
 
+use \User;
+use \Page;
+use \PageList;
+
 use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Models\PageTypes\City;
 use \JanesWalk\Controllers\Controller;
@@ -13,6 +17,33 @@ use \JanesWalk\Controllers\Controller;
 Loader::controller('/janes_walk');
 class WalkFormController extends Controller
 {
+    /**
+     * Find the latest unstarted walk, so you don't need to make a new one.
+     * @param $u The user for whom you're finding their walk
+     * @return Collection
+     */
+    protected function getUnstartedWalk(User $u, Page $city)
+    {
+        // Find all walks for this user, in this city, with no name
+        $pl = new PageList;
+        $pl->filterByCollectionTypeHandle('walk');
+        $pl->filterByUserID($u->getUserID());
+        $pl->filterByParentID($city->getCollectionID());
+        $pl->filterByName('', true);
+        $pl->filterByAttribute('exclude_page_list', true);
+
+        // Arbitrarily use the first; it's blank anyway.
+        $walk = $pl->get(1)[0];
+
+        // If you couldn't find a walk, make a new one in the city
+        if (!$walk) {
+            $walk = $city->add(CollectionType::getByHandle('walk'), []);
+            $walk->setAttribute('exclude_page_list', true);
+        }
+
+        return $walk;
+    }
+
     public function view()
     {
         parent::view();
@@ -24,21 +55,18 @@ class WalkFormController extends Controller
         $imgHelper = Loader::helper('image');
 
         /* If no page is passed to edit, create a new page.
-         * TODO: change this to either redirect, or detect if you have one in-progress so browser reloads don't make new walks.
          */
         $load = $_REQUEST['load'];
         if (empty($load)) {
-            $city = (($parentCID = $_REQUEST['parentCID']) ? Page::getByID($parentCID) : ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto')));
-            $newPage = $city->add(CollectionType::getByHandle('walk'),[]);
-            $newPage->setAttribute('exclude_page_list',true);
-            $c = $newPage;
+            // Find the parent page this should go under
+            $city = ($parentCID = $_REQUEST['parentCID']) ?
+                Page::getByID($parentCID) :
+                ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto'));
+            $c = $this->getUnstartedWalk($u, $city);
         } else {
             $c = Page::getByPath($load);
+            $city = Page::getByID($c->getCollectionParentID());
         }
-        // Let's load the model for the walk, so we can access its json methods
-        $walk = new Walk($c);
-
-        if(!$city) $city = Page::getByID($c->getCollectionParentID());
 
         $walk_ward = trim((String) $c->getAttribute('walk_wards'));
         $city_wards = $city->getAttribute('city_wards');
@@ -75,12 +103,15 @@ class WalkFormController extends Controller
             $latlng = [43.653226,-79.3831843];
         }
 
-        // Instantiate as model
+        // Instantiate as models, for JSON serialization
         $city = new City($city);
-        $this->addToJanesWalk(['city' =>
-            [
+        $walk = new Walk($c);
+
+        // Build data needed by frontend
+        $this->addToJanesWalk([
+            'city' => [
                 'name' => (string) $city,
-                'url' => $city->url,
+                'uri' => $city->url,
                 'lat' => $latlng[0],
                 'lng' => $latlng[1],
                 'wards' => $wards,
@@ -90,36 +121,23 @@ class WalkFormController extends Controller
                     'lastName' => $city->city_organizer->getAttribute('last_name'),
                     'email' => $city->city_organizer->getUserEmail()
                 ]
+            ],
+            'form' => [
+                'timepicker_cfg' => [
+                    'defaultTime' => '9:00 AM',
+                    'timeFormat' => 'h:i A'
+                ],
+                'datepicker_cfg' => [
+                    'format' => 'dd/mm/yyyy'
+                ],
+                'valt' => $valt->generate('upload')
+            ],
+            'walk' => [
+                'name' => (string) $walk,
+                'data' => $walk,
+                'uri' => $nh->getCollectionURL($c)
             ]
         ]);
-
-        /* Build array used to pass back walk data as JSON to the frontend */
-        $formSettings = [];
-        $formSettings['form'] = [
-            'timepicker_cfg' => [
-                'defaultTime' => '9:00 AM',
-                'timeFormat' => 'h:i A'
-            ],
-            'datepicker_cfg' => [
-                'format' => 'dd/mm/yyyy'
-            ],
-            'valt' => $valt->generate('upload')
-        ];
-
-        /* Add metadata on the walk page itself */
-        $formSettings['walk'] = [
-            'data' => $walk,
-            'url' => $nh->getCollectionURL($c)
-        ];
-
-        // Special case for cities with walk-formatting requirements
-        if ($is_nyc) {
-            $formSettings['form']['timepicker_cfg']['step'] = 180;
-            $formSettings['form']['timepicker_cfg']['disableTimeRanges'] = [ ['12am','8:59am'], ['9:01pm','11:59pm'] ];
-        }
-
-        // Make these data available to JS
-        $this->addToJanesWalk($formSettings);
 
         // Set the view name
         $this->bodyData['pageViewName'] = 'CreateWalkView';

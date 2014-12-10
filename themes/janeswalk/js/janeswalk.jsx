@@ -1,30 +1,48 @@
+'use strict';
+
 /**
  * Initialization code goes here. This is not to be a dumping ground for
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
+
 // Page Views
-PageViews = {
-  PageView: require('./v2/views/Page.jsx'),
-  CityPageView: require('./v2/views/pages/City.jsx'),
-  HomePageView: require('./v2/views/pages/Home.jsx'),
-  ProfilePageView: require('./v2/views/pages/Profile.jsx'),
-  WalkPageView: require('./v2/views/pages/Walk.jsx')
+var PageViews = {
+  PageView: require('./views/Page.jsx'),
+  CityPageView: require('./views/pages/City.jsx'),
+  HomePageView: require('./views/pages/Home.jsx'),
+  ProfilePageView: require('./views/pages/Profile.jsx'),
+  WalkPageView: require('./views/pages/Walk.jsx')
+};
+var ReactViews = {
+  CreateWalkView: require('./views/CreateWalk.jsx')
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+  'use strict';
   var pageViewName =
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
+  var ReactView = ReactViews[pageViewName];
 
-  // The pageViewName class gets loaded from the globally-defined class
-  // This is a PHP-ish approach to OO, and classes themselves (not their
-  // objects) are the only things that should be declared globally.
   try {
-    // FIXME: I'm not in-love with such a heavy jQuery reliance
-    new PageViews[pageViewName]($(document.body));
+    // Hybrid-routing. First check if there's a React view (which will render
+    // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
+    if (ReactView) {
+      switch (pageViewName) {
+        case 'CreateWalkView':
+          React.render(
+            <ReactView data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} uri={JanesWalk.walk.uri} valt={JanesWalk.form.valt} />,
+        document.getElementById('createwalk')
+        );
+        break;
+      }
+    } else {
+      // FIXME: I'm not in-love with such a heavy jQuery reliance
+      new PageViews[pageViewName]($(document.body));
+    }
   } catch(e) {
-    console.log('Error instantiating page view ' + pageViewName + ': ' + e);
+    console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
   }
 
   // Init keyboard shortcuts
