@@ -49,8 +49,8 @@ gulp.task('jsx_app', function() {
     .pipe(gulp.dest(paths.js))
     .pipe(rename('janeswalk.min.js'))
     .pipe(buffer())
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.js))
+//    .pipe(uglify())
+//    .pipe(gulp.dest(paths.js))
 });
 
 // TODO: very lazy task; needs to be generalized for all blocks, not just one!

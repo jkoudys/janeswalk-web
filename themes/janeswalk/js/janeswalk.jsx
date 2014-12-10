@@ -32,10 +32,17 @@ document.addEventListener('DOMContentLoaded', function() {
       switch (pageViewName) {
         case 'CreateWalkView':
           React.render(
-            <ReactView data={JanesWalk.walk.data} city={JanesWalk.city} user={JanesWalk.user} uri={JanesWalk.walk.uri} valt={JanesWalk.form.valt} />,
-        document.getElementById('createwalk')
-        );
-        break;
+            <ReactView
+              translation={JanesWalk.locale.translation}
+              data={JanesWalk.walk.data}
+              city={JanesWalk.city}
+              user={JanesWalk.user}
+              uri={JanesWalk.walk.uri}
+              valt={JanesWalk.form.valt}
+            />,
+            document.getElementById('createwalk')
+          );
+          break;
       }
     } else {
       // FIXME: I'm not in-love with such a heavy jQuery reliance

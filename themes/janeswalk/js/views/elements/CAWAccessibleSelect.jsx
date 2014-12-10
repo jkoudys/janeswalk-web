@@ -1,11 +1,12 @@
 var mixins = require('../functions/mixins.jsx');
-var t = require('../functions/translate.jsx');
 
 var AccessibleSelect = React.createClass({
   displayName: 'AccessibleSelect',
   mixins: [mixins.linkedParentState],
 
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
+
     return (
       <fieldset>
         <legend className="required-legend">{ t('How accessible is this walk?') }</legend>

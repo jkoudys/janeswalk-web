@@ -123,19 +123,16 @@ class WalkFormController extends Controller
                 ]
             ],
             'form' => [
-                'timepicker_cfg' => [
-                    'defaultTime' => '9:00 AM',
-                    'timeFormat' => 'h:i A'
-                ],
-                'datepicker_cfg' => [
-                    'format' => 'dd/mm/yyyy'
-                ],
                 'valt' => $valt->generate('upload')
             ],
             'walk' => [
                 'name' => (string) $walk,
                 'data' => $walk,
                 'uri' => $nh->getCollectionURL($c)
+            ],
+            'locale' => [
+                'name' => Localization::activeLocale(),
+                'translation' => Localization::getActiveTranslateJsonURL()
             ]
         ]);
 

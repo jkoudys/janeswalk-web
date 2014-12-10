@@ -20,7 +20,7 @@ class Controller extends \Controller
      */
     public function addToJanesWalk(array $properties)
     {
-        $this->pageData = array_merge_recursive($this->pageData, $properties);
+        $this->pageData = array_replace_recursive($this->pageData, $properties);
     }
 
     /**
@@ -34,18 +34,31 @@ class Controller extends \Controller
         $nh = Loader::helper('navigation');
         $u = new User();
         $c = $this->getCollectionObject();
-        $jwData = [
-            'page' => [
-                'uri' => 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
-                'title' => $c->getCollectionName()
-            ]
-        ];
         $this->bodyData = [
             'classes' => [],
             'bg' => null,
             'pageViewName' => 'PageView'
         ];
 
+        // TODO: should also skip this and just use the user Locale, if explicitly set
+        /* Set the city language to the first one matched, recursing from where we are */
+        $crumbs = $nh->getTrailToCollection($c);
+        $crumbs[] = $c; // Must check the current page first
+        foreach ($crumbs as $crumb) {
+            $lang = (string) $crumb->getAttribute('lang');
+            if ($lang) {
+                Localization::changeLocale($lang);
+                break;
+            }
+        }
+
+        // Base data we want access to client-side
+        $jwData = [
+            'page' => [
+                'uri' => 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
+                'title' => $c->getCollectionName(),
+            ]
+        ];
         if ($u->isLoggedIn()) {
             $ui = UserInfo::getByID( $u->getUserID() );
             $city = $ui->getAttribute('home_city');
@@ -64,16 +77,11 @@ class Controller extends \Controller
             }
         }
 
-        /* Set the city language to the first one matched, recursing from where we are */
-        $crumbs = $nh->getTrailToCollection($c);
-        $crumbs[] = $c; // Must check the current page first
-        foreach ($crumbs as $crumb) {
-            $lang = (string) $crumb->getAttribute('lang');
-            if ($lang) {
-                Localization::changeLocale($lang);
-                break;
-            }
-        }
+        // Grab localization info
+        $jwData['locale'] = [
+            'name' => Localization::activeLocale(),
+            'translation' => Localization::getActiveTranslateJsonURL()
+        ];
 
         $this->set('isMobile', isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/iPhone|Android|iPad|iPod|webOS|CFNetwork/", $_SERVER['HTTP_USER_AGENT']));
         $this->set('nh', $nh);

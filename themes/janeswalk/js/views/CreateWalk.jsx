@@ -12,7 +12,7 @@ var CAWDateSelect = require('./elements/CAWDateSelect.jsx');
 var CAWWardSelect = require('./elements/CAWWardSelect.jsx');
 var CAWAccessibleSelect = require('./elements/CAWAccessibleSelect.jsx');
 var CAWTeamBuilder = require('./elements/CAWTeamBuilder.jsx');
-var t = require('./functions/translate.jsx');
+var I18nTranslate = require('./functions/translate.js');
 var Helper = require('./functions/helpers.jsx');
 
 var CreateWalk = React.createClass({
@@ -124,10 +124,30 @@ var CreateWalk = React.createClass({
         console.error(this.props.uri, status, err.toString());
       }
     });
-    // TODO: show modal with preview iframe
+  },
+
+  componentWillMount: function() {
+    // Start loading the translations file as early as possible
+    if (this.props.translation) {
+    setTimeout(function() {
+      $.ajax({
+        url: this.props.translation,
+        dataType: 'json',
+        success: function(data) {
+          this.setState({i18n: new I18nTranslate(data)});
+        }.bind(this)
+      });
+    }.bind(this), 5000);
+    } else {
+      this.setState({i18n: I18nTranslate.noTranslate});
+    }
   },
 
   render: function() {
+    // If translations not loaded, use passthrough translation functions
+    var i18n = this.state.i18n || I18nTranslate.noTranslate;
+    var t = i18n.translate.bind(i18n);
+
     return (
       <main id="create-walk">
         <section>
@@ -170,7 +190,7 @@ var CreateWalk = React.createClass({
                     </div>
                   </fieldset>
                 </form>
-                <CAWImageUpload valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
+                <CAWImageUpload i18n={i18n} valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
                 <form>
                   <hr />
                   <fieldset>
@@ -188,19 +208,19 @@ var CreateWalk = React.createClass({
                       <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longdescription')} />
                     </div>
                   </fieldset>
-                  <CAWThemeSelect valueLink={this.linkState('checkboxes')} />
-                  <CAWWardSelect wards={this.props.city.wards} valueLink={this.linkState('wards')} />
+                  <CAWThemeSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
+                  <CAWWardSelect i18n={i18n} wards={this.props.city.wards} valueLink={this.linkState('wards')} />
                   <hr />
                 </form>
               </div>
-              <CAWMapBuilder valueLink={this.linkState('gmap')} city={this.props.city} />
-              <CAWDateSelect valueLink={this.linkState('time')} />
+              <CAWMapBuilder i18n={i18n} valueLink={this.linkState('gmap')} city={this.props.city} />
+              <CAWDateSelect i18n={i18n} valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>
                   <h1>{ t('Make it Accessible') }</h1>
                 </div>
                 <div className="item">
-                  <CAWAccessibleSelect valueLink={this.linkState('checkboxes')} />
+                  <CAWAccessibleSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
                 </div>
 
                 <div className="item">
@@ -239,7 +259,7 @@ var CreateWalk = React.createClass({
                 <hr />
                 <br />
               </div>
-              <CAWTeamBuilder valueLink={this.linkState('team')} />
+              <CAWTeamBuilder i18n={i18n} valueLink={this.linkState('team')} />
             </div>
           </div>
           <aside id="tips-panel" role="complementary">

@@ -1,9 +1,9 @@
 var mixins = require('../functions/mixins.jsx');
-var t = require('../functions/translate.jsx');
 
 var WardSelect = React.createClass({
   mixins: [mixins.linkedParentState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     var wards = this.props.wards;
     if (wards && this.props.valueLink) {
       return (

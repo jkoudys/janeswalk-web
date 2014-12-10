@@ -1,10 +1,10 @@
 var mixins = require('../functions/mixins.jsx');
-var t = require('../functions/translate.jsx');
 
 var ThemeSelect = React.createClass({
   mixins: [mixins.linkedParentState],
   maxChecked: 3,
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     // TODO: Don't select themes for NYC
     return (
       <fieldset id="theme-select">

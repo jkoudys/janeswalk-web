@@ -1,5 +1,4 @@
 var mixins = require('../functions/mixins.jsx');
-var t = require('../functions/translate.jsx');
 
 var TeamBuilder = React.createClass({
   displayName: 'TeamBuilder',
@@ -41,6 +40,7 @@ var TeamBuilder = React.createClass({
     // If there's no 'you', create one as the current user
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     
     // Loop through all the users and render the appropriate user type
     var users = value.map(function(user, i) {

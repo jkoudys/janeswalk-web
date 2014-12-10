@@ -1,4 +1,3 @@
-var t = require('../functions/translate.jsx');
 var Helper = require('../functions/helpers.jsx');
 
 var MapBuilder = React.createClass({
@@ -163,6 +162,8 @@ var MapBuilder = React.createClass({
   */
   render: function() {
     var walkStops;
+    var t = this.props.i18n.translate.bind(this.props.i18n);
+
     if (this.state.markers.length) {
       // This 'key' is to force the component to not rebuild
       walkStops = [

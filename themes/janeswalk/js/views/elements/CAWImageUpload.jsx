@@ -1,5 +1,3 @@
-var t = require('../functions/translate.jsx');
-
 var ImageUpload = React.createClass({
   displayName: 'ImageUpload',
 
@@ -44,6 +42,7 @@ var ImageUpload = React.createClass({
 
   render: function() {
     var thumbnails = this.props.valueLink.value;
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     // TODO: include an upload callback that loads the uploaded image locally,
     // instead of the one off the server
     // TODO: Implement server-side support for multiple thumbnails, then 

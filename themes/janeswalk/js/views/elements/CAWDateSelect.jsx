@@ -1,5 +1,3 @@
-var t = require('../functions/translate.jsx');
-
 // TODO: Make 'intiatives' build as separate selectors
 var DateSelect = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
@@ -48,8 +46,8 @@ var DateSelect = React.createClass({
   // Push the date we built here to the linked state
   addDate: function() {
     var valueLink = this.props.valueLink;
-    var value = valueLink.value;
-    var slots = value.slots.slice() || [];
+    var value = valueLink.value || {};
+    var slots = (value.slots || []).slice();
     slots.push({
       date: this.state.start.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}),
       time: this.state.start.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit'}),
@@ -61,6 +59,7 @@ var DateSelect = React.createClass({
   },
   render: function() {
     var valueLink = this.props.valueLink;
+    var t = this.props.i18n.translate.bind(this.props.i18n);
 
     return (
       <div className="tab-pane" id="time-and-date">
@@ -119,7 +118,7 @@ var DateSelect = React.createClass({
                       {this.state.start.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'})}
                     </h4>
                     <hr />
-                    <TimePicker valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
+                    <TimePicker i18n={this.props.i18n} valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
                     <hr />
                     <button className="btn btn-primary" id="save-date-set" onClick={this.addDate}>{ t('Add Date') }</button>
                   </div>
@@ -127,7 +126,7 @@ var DateSelect = React.createClass({
               </div>
             </div>
             <br />
-            <TimeSetTable valueLink={valueLink} />
+            <TimeSetTable i18n={this.props.i18n} valueLink={valueLink} />
             <hr />
           </div>
           <div className="tab-pane hide" id="time-and-date-all">
@@ -238,6 +237,7 @@ var TimePicker = React.createClass({
     // Count walk times in 30 min increments
     var linkDuration = this.props.valueLinkDuration;
     var linkStart = this.props.valueLinkStart;
+    var t = this.props.i18n.translate.bind(this.props.i18n);
 
     return (
       <div className="time-picker">
@@ -275,6 +275,7 @@ var TimeSetTable = React.createClass({
   },
   render: function() {
     var slots = this.props.valueLink.value.slots || [];
+    var t = this.props.i18n.translate.bind(this.props.i18n);
 
     return (
       <table className="table table-bordered table-hover" id="date-list-all">
@@ -291,7 +292,7 @@ var TimeSetTable = React.createClass({
               <tr key={i}>
                 <td>{e.date}</td>
                 <td>{e.time}</td>
-                <td><a onClick={this.removeSlot.bind(this, i)}><i className="fa fa-times-circle-o" />&nbsp;Remove</a></td>
+                <td><a onClick={this.removeSlot.bind(this, i)}><i className="fa fa-times-circle-o" />&nbsp;{t('Remove')}</a></td>
               </tr>
               )
           }.bind(this))}
