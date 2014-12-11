@@ -127,23 +127,30 @@ var CreateWalk = React.createClass({
   },
 
   componentWillMount: function() {
+    var locale = this.props.locale;
+    var _this = this;
+
     // Start loading the translations file as early as possible
-    if (this.props.translation) {
+    if (locale.translation) {
       $.ajax({
-        url: this.props.translation,
+        url: locale.translation,
         dataType: 'json',
         success: function(data) {
-          this.setState({i18n: new I18nTranslate(data)});
-        }.bind(this)
+          try {
+            _this.state.i18n.constructor(data.translations['']);
+            _this.setState({});
+          } catch (e) {
+            console.error('Failed to load i18n translations JSON: ' + e.stack);
+          }
+        }
       });
-    } else {
-      this.setState({i18n: I18nTranslate.noTranslate});
     }
+
+    this.setState({i18n: new I18nTranslate()});
   },
 
   render: function() {
-    // If translations not loaded, use passthrough translation functions
-    var i18n = this.state.i18n || I18nTranslate.noTranslate;
+    var i18n = this.state.i18n;
     var t = i18n.translate.bind(i18n);
 
     return (

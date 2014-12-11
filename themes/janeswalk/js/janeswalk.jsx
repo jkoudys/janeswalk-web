@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         case 'CreateWalkView':
           React.render(
             <ReactView
-              translation={JanesWalk.locale.translation}
+              locale={JanesWalk.locale}
               data={JanesWalk.walk.data}
               city={JanesWalk.city}
               user={JanesWalk.user}

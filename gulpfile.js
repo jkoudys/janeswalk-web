@@ -5,6 +5,7 @@
  */
 
 var gulp = require('gulp'),
+  gutil = require('gulp-util'),
   through = require('through2'),
   concat = require('gulp-concat'),
   rename = require('gulp-rename'),
@@ -16,7 +17,7 @@ var gulp = require('gulp'),
   browserify = require('browserify'),
   uglifyify = require('uglifyify'),
   reactify = require('reactify'),
-  Gettext = require('node-gettext');
+  gettextParser = require('gettext-parser');
 
 var paths = {
   js: './themes/janeswalk/js',
@@ -28,6 +29,7 @@ var paths = {
   jsx_app: './themes/janeswalk/js/janeswalk.jsx',
   jsx_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/v2/**/*.jsx'],
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
+  languages: './languages',
   mos: ['./languages/*/LC_MESSAGES/*.mo'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
@@ -85,32 +87,33 @@ gulp.task('blocks', function() {
     .pipe(gulp.dest('./blocks/page_list/templates/typeahead/'))
 });
 
-// Build i18next JSON from the mo files
+// Build JSON from the mo files
 gulp.task('i18nJson', function() {
   gulp.src(paths.mos)
     .pipe(
       (function() {
         var stream = through.obj(function(file, enc, cb) {
-          var gt = new Gettext();
           var locale = file.history[0].substring(file.base.length)
             .split('/')[0];
-          this.push(file);
-          console.log(locale + JSON.stringify(gt));
-          gt.addTextdomain(locale, file.contents, {}, function(err, data) {
-            console.log(JSON.stringify(gt));
-          });
-          cb();
+          var trans = gettextParser.mo.parse(file.contents);
+
+          // Remove redundant ID, as that's the key already
+          for (var i in trans.translations) {
+            for (var j in trans.translations[i]) {
+              delete trans.translations[i][j]['msgid'];
+              delete trans.translations[i][j]['msgid_plural'];
+              trans.translations[i][j] = trans.translations[i][j]['msgstr'];
+              delete trans.translations[i][j]['msgstr'];
+            }
+          }
+
+          file.contents = new Buffer(JSON.stringify(trans));
+          file.path = gutil.replaceExtension(file.path, '.json');
+          cb(null, file);
         });
         return stream;
-/*        function convertGettext(file) {
-          if (file.isNull()) return;
-          gt.addTextdomain('de', file.contents, {}, function(err, data) {
-            console.log(JSON.stringify(data));
-          });
-        }
-        function 
-        console.log(file); */
-    })());
+    })())
+    .pipe(gulp.dest(paths.languages));
 });
 
 // Placeholder for 'download po and build mos' task

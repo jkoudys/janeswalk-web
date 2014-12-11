@@ -13,25 +13,10 @@ function sprintf(str) {
 }
 
 function I18nTranslator(translations) {
-  this.translations = translations;
-}
-// Static methods
-Object.defineProperties(I18nTranslator, {
-  // Non-translating translations functions
-  noTranslate: {
-    value: {
-      translate: function() {
-        return sprintf.apply(this, arguments);
-      },
-      translatePlural: function() {
-        return sprintf.apply(this, arguments);
-      },
-      translateContext: function() {
-        return sprintf.apply(this, arguments);
-      }
-    }
+  if (translations) {
+    this.translations = translations;
   }
-});
+}
 // Prototype methods
 Object.defineProperties(I18nTranslator.prototype, {
   // The big translations map
@@ -48,7 +33,7 @@ Object.defineProperties(I18nTranslator.prototype, {
   translate: {
     value: function(str) {
       var translated = Array.prototype.slice.call(arguments);
-      translated[0] = this.translations[str] || str;
+      translated[0] = (this.translations[str] || [str])[0];
       return sprintf.apply(this, translated);
     }
   },

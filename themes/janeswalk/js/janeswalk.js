@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         case 'CreateWalkView':
           React.render(
             React.createElement(ReactView, {
-              translation: JanesWalk.locale.translation, 
+              locale: JanesWalk.locale, 
               data: JanesWalk.walk.data, 
               city: JanesWalk.city, 
               user: JanesWalk.user, 
@@ -265,23 +265,30 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
   },
 
   componentWillMount: function() {
+    var locale = this.props.locale;
+    var _this = this;
+
     // Start loading the translations file as early as possible
-    if (this.props.translation) {
+    if (locale.translation) {
       $.ajax({
-        url: this.props.translation,
+        url: locale.translation,
         dataType: 'json',
         success: function(data) {
-          this.setState({i18n: new I18nTranslate(data)});
-        }.bind(this)
+          try {
+            _this.state.i18n.constructor(data.translations['']);
+            _this.setState({});
+          } catch (e) {
+            console.error('Failed to load i18n translations JSON: ' + e.stack);
+          }
+        }
       });
-    } else {
-      this.setState({i18n: I18nTranslate.noTranslate});
     }
+
+    this.setState({i18n: new I18nTranslate()});
   },
 
   render: function() {
-    // If translations not loaded, use passthrough translation functions
-    var i18n = this.state.i18n || I18nTranslate.noTranslate;
+    var i18n = this.state.i18n;
     var t = i18n.translate.bind(i18n);
 
     return (
@@ -2318,25 +2325,10 @@ function sprintf(str) {
 }
 
 function I18nTranslator(translations) {
-  this.translations = translations;
-}
-// Static methods
-Object.defineProperties(I18nTranslator, {
-  // Non-translating translations functions
-  noTranslate: {
-    value: {
-      translate: function() {
-        return sprintf.apply(this, arguments);
-      },
-      translatePlural: function() {
-        return sprintf.apply(this, arguments);
-      },
-      translateContext: function() {
-        return sprintf.apply(this, arguments);
-      }
-    }
+  if (translations) {
+    this.translations = translations;
   }
-});
+}
 // Prototype methods
 Object.defineProperties(I18nTranslator.prototype, {
   // The big translations map
@@ -2353,7 +2345,7 @@ Object.defineProperties(I18nTranslator.prototype, {
   translate: {
     value: function(str) {
       var translated = Array.prototype.slice.call(arguments);
-      translated[0] = this.translations[str] || str;
+      translated[0] = (this.translations[str] || [str])[0];
       return sprintf.apply(this, translated);
     }
   },
