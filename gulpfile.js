@@ -5,6 +5,7 @@
  */
 
 var gulp = require('gulp'),
+  through = require('through2'),
   concat = require('gulp-concat'),
   rename = require('gulp-rename'),
   autoprefixer = require('gulp-autoprefixer'),
@@ -14,7 +15,8 @@ var gulp = require('gulp'),
   buffer = require('vinyl-buffer'),
   browserify = require('browserify'),
   uglifyify = require('uglifyify'),
-  reactify = require('reactify');
+  reactify = require('reactify'),
+  Gettext = require('node-gettext');
 
 var paths = {
   js: './themes/janeswalk/js',
@@ -24,8 +26,9 @@ var paths = {
     './themes/janeswalk/js/shims.js',
   ],
   jsx_app: './themes/janeswalk/js/janeswalk.jsx',
-  js_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/views/**/*.jsx'],
+  jsx_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/v2/**/*.jsx'],
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
+  mos: ['./languages/*/LC_MESSAGES/*.mo'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
   react_views: './themes/janeswalk/js/views/'
@@ -48,9 +51,20 @@ gulp.task('jsx_app', function() {
     .pipe(source('janeswalk.js'))
     .pipe(gulp.dest(paths.js))
     .pipe(rename('janeswalk.min.js'))
-    .pipe(buffer())
+//    .pipe(buffer())
 //    .pipe(uglify())
-//    .pipe(gulp.dest(paths.js))
+    .pipe(gulp.dest(paths.js))
+});
+
+gulp.task('browserify', function(callback) {
+  return browserify({
+    entries: paths.react_views + 'CreateWalk.jsx',
+    transform: [reactify],
+    extensions: ['.jsx'],
+  })
+    .bundle()
+    .pipe(source('CreateWalk.js'))
+    .pipe(gulp.dest(paths.react_views))
 });
 
 // TODO: very lazy task; needs to be generalized for all blocks, not just one!
@@ -71,10 +85,46 @@ gulp.task('blocks', function() {
     .pipe(gulp.dest('./blocks/page_list/templates/typeahead/'))
 });
 
+// Build i18next JSON from the mo files
+gulp.task('i18nJson', function() {
+  gulp.src(paths.mos)
+    .pipe(
+      (function() {
+        var stream = through.obj(function(file, enc, cb) {
+          var gt = new Gettext();
+          var locale = file.history[0].substring(file.base.length)
+            .split('/')[0];
+          this.push(file);
+          console.log(locale + JSON.stringify(gt));
+          gt.addTextdomain(locale, file.contents, {}, function(err, data) {
+            console.log(JSON.stringify(gt));
+          });
+          cb();
+        });
+        return stream;
+/*        function convertGettext(file) {
+          if (file.isNull()) return;
+          gt.addTextdomain('de', file.contents, {}, function(err, data) {
+            console.log(JSON.stringify(data));
+          });
+        }
+        function 
+        console.log(file); */
+    })());
+});
+
+// Placeholder for 'download po and build mos' task
+gulp.task('mo', function() {
+  var options = {
+    username: 'janeswalk_anon',
+    password: 'anonemouse'
+  }
+});
+
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
-  gulp.watch(paths.jsx, ['jsx_app']);
-  gulp.watch(paths.js_views, ['jsx_app']);
+  gulp.watch(paths.jsx, ['browserify']);
+  gulp.watch(paths.jsx_views, ['jsx_app']);
   gulp.watch('./blocks/**/*.jsx', ['blocks']);
 });
 
