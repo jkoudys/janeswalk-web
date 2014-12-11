@@ -290,6 +290,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
   render: function() {
     var i18n = this.state.i18n;
     var t = i18n.translate.bind(i18n);
+    var t2 = i18n.translatePlural.bind(i18n);
 
     return (
       React.createElement("main", {id: "create-walk"}, 
@@ -2365,7 +2366,12 @@ Object.defineProperties(I18nTranslator.prototype, {
   translatePlural: {
     value: function(singular, plural, count) {
       // The key for the plural is not the plural value, but singular_plural
-      // TODO
+      var translated = Array.prototype.slice.call(arguments);
+      // TODO Use the plural rules for the language, not just English
+      var isPlural = (count !== 1) ? 1 : 0;
+      translated[0] = (this.translations[singular + '_' + plural] ||
+                       [singular, plural])[isPlural];
+      return sprintf.apply(this, translated);
     }
   },
 

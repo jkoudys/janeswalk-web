@@ -152,6 +152,7 @@ var CreateWalk = React.createClass({
   render: function() {
     var i18n = this.state.i18n;
     var t = i18n.translate.bind(i18n);
+    var t2 = i18n.translatePlural.bind(i18n);
 
     return (
       <main id="create-walk">

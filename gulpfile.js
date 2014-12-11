@@ -100,10 +100,15 @@ gulp.task('i18nJson', function() {
           // Remove redundant ID, as that's the key already
           for (var i in trans.translations) {
             for (var j in trans.translations[i]) {
-              delete trans.translations[i][j]['msgid'];
-              delete trans.translations[i][j]['msgid_plural'];
-              trans.translations[i][j] = trans.translations[i][j]['msgstr'];
-              delete trans.translations[i][j]['msgstr'];
+              var plural = trans.translations[i][j]['msgid_plural'];
+              if (plural) {
+                // Build the key for plurals as singular_plural
+                trans.translations[i][j + '_' + plural] =
+                  trans.translations[i][j]['msgstr'];
+                delete trans.translations[i][j];
+              } else {
+                trans.translations[i][j] = trans.translations[i][j]['msgstr'];
+              }
             }
           }
 
