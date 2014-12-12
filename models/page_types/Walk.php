@@ -105,23 +105,24 @@ class Walk extends \Model implements \JsonSerializable
             $theme = \PageTheme::getByHandle('janeswalk');
             $this->teamPictures = array_map(function ($mem) use ($theme) {
                 if ($mem['type'] === 'you') {
-                    $mem['type'] = ($mem['role'] === 'walk-organizer') ? 'organizer' : 'leader';
+                    $mem['type'] = ($mem['role'] === 'walk-organizer') ?
+                        'organizer' : 'leader';
                 }
                 switch ($mem['type']) {
                 case 'leader':
-                    $mem['image'] = "{$theme->getThemeURL()}/img/walk-leader.png";
+                    $mem['image'] = $theme->getThemeURL() . '/img/walk-leader.png';
                     $mem['title'] = 'Walk Leader';
                     break;
                 case 'organizer':
-                    $mem['image'] = "{$theme->getThemeURL()}/img/walk-organizer.png";
+                    $mem['image'] = $theme->getThemeURL() . '/img/walk-organizer.png';
                     $mem['title'] = 'Walk Organizer';
                     break;
                 case 'community':
-                    $mem['image'] = "{$theme->getThemeURL()}/img/community-voice.png";
+                    $mem['image'] = $theme->getThemeURL() . '/img/community-voice.png';
                     $mem['title'] = 'Community Voice';
                     break;
                 case 'volunteer':
-                    $mem['image'] = "{$theme->getThemeURL()}/img/volunteers.png";
+                    $mem['image'] = $theme->getThemeURL() . '/img/volunteers.png';
                     $mem['title'] = 'Volunteer';
                     break;
                 default:
@@ -231,7 +232,7 @@ class Walk extends \Model implements \JsonSerializable
     public function setJson($json)
     {
         $postArray = json_decode($json, true);
-        $db = Loader::db(); // XXX on 5.7, no more adodb, so rewrite transactions here
+        $db = Loader::db(); // TODO on 5.7, no more adodb, so rewrite transactions here
         $db->StartTrans();
         $ok = true;
         try {
@@ -239,7 +240,7 @@ class Walk extends \Model implements \JsonSerializable
                 throw new Exception('Walk title cannot be empty.');
             }
 
-            $this->page->update(array('cName' => $postArray['title']));
+            $this->page->update(['cName' => $postArray['title']]);
             $this->page->setAttribute('shortdescription', $postArray['shortdescription']);
             $this->page->setAttribute('longdescription', $postArray['longdescription']);
             $this->page->setAttribute('accessible_info',$postArray['accessible-info']);
@@ -247,14 +248,16 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->setAttribute('accessible_parking',$postArray['accessible-parking']);
             $this->page->setAttribute('accessible_find', $postArray['accessible-find']);
             $this->page->setAttribute('walk_wards', $postArray['wards']);
-            $this->page->setAttribute('scheduled', $postArray['time']);
+            $this->page->setAttribute('scheduled', (array) $postArray['time']);
 
             $this->page->setAttribute('gmap', json_encode($postArray['gmap']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
             
             if (count($postArray['thumbnails']) && File::getByID($postArray['thumbnails'][0]['id'])) {
-                var_dump($postArray['thumbnails'][0]);
-                $this->page->setAttribute('thumbnail', File::getByID($postArray['thumbnails'][0]['id']));
+                $this->page->setAttribute(
+                    'thumbnail',
+                    File::getByID($postArray['thumbnails'][0]['id'])
+                );
             }
 
             /* Go through checkboxes */
@@ -271,7 +274,8 @@ class Walk extends \Model implements \JsonSerializable
             }
         } catch (Exception $e) {
             $db->FailTrans(); // Set transaction to rollback
-            (new \Log('error', false))->write(__CLASS__ . '::' . __FUNCTION__ . " failed on page {$this->page->title}: $e");
+            (new \Log('error', false))->write(__CLASS__ . '::' . __FUNCTION__ .
+                ' failed on page ' . $this->page->title . ': ' . $e);
             $ok = false;
         } 
         

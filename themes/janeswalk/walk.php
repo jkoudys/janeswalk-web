@@ -3,15 +3,22 @@ defined('C5_EXECUTE') || die(_('Access Denied.'));
 $this->inc('elements/header.php');
 
 // Comma separated list of walk leaders
-$walkLeaders = implode(
-    ', ',
-    array_map(
-        function ($mem) {
-            return $mem['name-first'] . ' ' . $mem['name-last'];
-        },
-        $w->walkLeaders
-    )
-);
+if (count($w->walkLeaders)) {
+    $walkLeaders = t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders));
+    $walkLeaders .= implode(
+        ', ',
+        array_map(
+            function ($mem) {
+                return $mem['name-first'] . ' ' . $mem['name-last'];
+            },
+            $w->walkLeaders
+        )
+    );
+} else if ($w->team) {
+    // If we have no leaders set, show the CO
+    $walkLeaders = t('Walk Organizer') . ': ' .
+        $w->team[0]['name-first'] . ' ' . $w->team[0]['name-last'];
+}
 
 // Options to register
 if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
@@ -88,7 +95,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
 
         <div class="walk-leaders">
             <h4>
-                <?= t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders)), $walkLeaders ?>
+                <?= $walkLeaders ?>
             </h4>
             <?php if ($meeting_place) { ?>
             <h4>
@@ -183,7 +190,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                         </li>
                         <?php } ?>
                     </ul>
-                </div><!-- About The Walk Leader Section -->
+                </div>
 
                 <div class="walk-downloads">
                     <hr>
@@ -299,7 +306,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                         <?php
                         } ?>
                     </div>
-                </div><!-- accessibility -->
+                </div>
             </aside>
         </div>
         <div class="walk-feedback">
@@ -310,17 +317,9 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                     <div class="well">
                         <div id="disqus_thread"></div>
                         <script type="text/javascript">
-                            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-                            var disqus_shortname = 'janeswalk'; // required: replace example with your forum shortname
-
-                            /* * * DON'T EDIT BELOW THIS LINE * * */
-                            (function () {
-                                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                            })();
+                            var disqus_shortname = 'janeswalk';
+                            (function () {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);})();
                         </script>
-                        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
                         <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
                     </div>
                 </div>

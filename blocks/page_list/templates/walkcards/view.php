@@ -11,7 +11,9 @@ foreach ($cards as $walk) {
     }
     /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
     if ($walk->meetingPlace) {
-        $meetingText = Loader::helper('text')->shortText($walk->meetingPlace['title'] ?: $walk->meetingPlace['description']);
+        $meetingText = Loader::helper('text')->shortText(
+            $walk->meetingPlace['title'] ?: $walk->meetingPlace['description']
+        );
     }
     if ($walk->walkLeaders) {
         $walkLeaders = implode(
@@ -59,7 +61,7 @@ foreach ($cards as $walk) {
 if ($showRss) {
 ?>
 <div class="ccm-page-list-rss-icon">
-  <a href="<?= ($rssUrl) ?>" target="_blank"><i class="fa fa-rss-square"></i></a>
+    <a href="<?= ($rssUrl) ?>" target="_blank"><i class="fa fa-rss-square"></i></a>
 </div>
 <link href="<?= (BASE_URL.$rssUrl) ?>" rel="alternate" type="application/rss+xml" title="<?= ($rssTitle) ?>" />
 <?php
