@@ -523,6 +523,14 @@ body[data-pageviewname=CreateWalkView] {
                 }
             }
         }
+        // Rough eyeballing of height needed for fixed position
+        @media (min-height: 750px) and (min-width: @screen-md-min) {
+            position: fixed;
+            // Make its neighbour pick up its spacing
+            & + * {
+                margin-left: 100% * (2/12);
+            }
+        }
     }
 
     label {
@@ -915,7 +923,7 @@ body[data-pageviewname=CreateWalkView] {
         // The table with the list of dates
         @media (max-width: @screen-sm-max) {
             // Hide descriptions next to icon in table on mobile
-            #date-list-all .fa + span {
+            #date-list-all .fa + span + span {
                 display: none;
             }
         }
@@ -930,5 +938,19 @@ body[data-pageviewname=CreateWalkView] {
 
     .checkbox input[type=checkbox] {
         margin-right: 3px;
+    }
+
+    // The notifications area
+    #notifications {
+        position: fixed;
+        top: @navbar-height;
+        z-index: @zindex-navbar-fixed;
+        padding: 0 @grid-gutter-width / 2;
+        transition-duration: 0.2s;
+        height: 0;
+        overflow: visible;
+        width: 100%;
+        opacity: 0.65;
+        pointer-events: none;
     }
 }

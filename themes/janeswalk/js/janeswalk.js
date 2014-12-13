@@ -68,12 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .toUpperCase()
         ){
           case "M":
-            if (toolbar.style) {
-              if (toolbar.style.zIndex == 99999) {
-                toolbar.style.zIndex = -1;
-              } else {
-                toolbar.style.zIndex = 99999;
-              }
+            if (toolbar.style.display === 'block' || !toolbar.style.display) {
+              toolbar.style.display = 'none';
+            } else {
+              toolbar.style.display = 'block';
             }
             break;
           default:
@@ -142,7 +140,7 @@ if (!Object.assign) {
 // Form for creating new walks. Includes a map builder, team builder, scheduler
 //
 
-// Load create-a-walk components
+// Load create-a-walk View components
 var CAWImageUpload = require('./elements/CAWImageUpload.jsx');
 var CAWThemeSelect = require('./elements/CAWThemeSelect.jsx');
 var CAWMapBuilder = require('./elements/CAWMapBuilder.jsx');
@@ -150,6 +148,8 @@ var CAWDateSelect = require('./elements/CAWDateSelect.jsx');
 var CAWWardSelect = require('./elements/CAWWardSelect.jsx');
 var CAWAccessibleSelect = require('./elements/CAWAccessibleSelect.jsx');
 var CAWTeamBuilder = require('./elements/CAWTeamBuilder.jsx');
+
+// Libs
 var I18nTranslate = require('./functions/translate.js');
 var Helper = require('./functions/helpers.jsx');
 
@@ -158,6 +158,39 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
 
   getInitialState: function() {
     var data = this.props.data;
+    // TODO: move this into its own model js
+    var walk = {
+      title: '',
+      shortdescription: '',
+      longdescription: '',
+      'accessible-info': '',
+      'accessible-transit': '',
+      'accessible-parking': '',
+      'accessible-find': '',
+      gmap: {
+        markers: [],
+        route: []
+      },
+      team: [{
+        user_id: -1,
+        type: 'you',
+        "name-first": '',
+        "name-last": '',
+        role: 'walk-leader',
+        primary: 'on',
+        bio: '',
+        twitter: '',
+        facebook: '',
+        website: '',
+        email: '',
+        phone: '' 
+      }],
+      time: {type: '', slots: []},
+      thumbnails: [],
+      wards: '',
+      checkboxes: {},
+      notifications: []
+    };
 
     // Convert old {0: marker, 1: marker} indexing to a proper array
     if (data) {
@@ -177,90 +210,93 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       for (var i in data) {
         if (data[i] === false) data[i] = '';
       }
-      return data;
-    } else {
-      return {
-        title: '',
-        shortdescription: '',
-        longdescription: '',
-        'accessible-info': '',
-        'accessible-transit': '',
-        'accessible-parking': '',
-        'accessible-find': '',
-        gmap: {
-          markers: [],
-          route: []
-        },
-        team: [{
-          user_id: -1,
+
+      // Init the leader as creator, if none set
+      if (data.team.length === 0) {
+        var user = this.props.user;
+        data.team = [{
+          user_id: user.id,
           type: 'you',
-          "name-first": '',
-          "name-last": '',
+          "name-first": user.firstName,
+          "name-last": user.lastName,
           role: 'walk-leader',
           primary: 'on',
-          bio: '',
-          twitter: '',
-          facebook: '',
-          website: '',
-          email: '',
+          bio: user.bio,
+          twitter: user.twitter,
+          facebook: user.facebook,
+          website: user.website,
+          email: user.email,
           phone: '' 
-        }],
-        time: {type: '', slots: []},
-        thumbnails: [],
-        wards: '',
-        checkboxes: {}
-      };
+        }];
+      }
+      Object.assign(walk, data);
+    }
+    return walk;
+  },
+
+  saveWalk: function(options, cb) {
+    // TODO: separate the notifications logic
+    /* Send in the updated walk to save, but keep working */
+    var notifications = this.state.notifications.slice();
+    var removeNotice = function() {
+      var notifications = this.state.notifications.slice();
+      this.setState({notifications: notifications.slice(1)});
+    }.bind(this);
+
+    options = options || {};
+
+    notifications.push({type: 'info', name: 'Saving walk'});
+    this.setState({notifications: notifications});
+    setTimeout(removeNotice, 1200);
+    $.ajax({
+      url: this.props.uri,
+      type: options.publish ? 'PUT' : 'POST',
+      data: {json: JSON.stringify(this.state)},
+      dataType: 'json',
+      success: function(data) {
+        var notifications = this.state.notifications.slice();
+        notifications.push({type: 'success', name: 'Walk saved'});
+        this.setState({notifications: notifications});
+        setTimeout(removeNotice, 1200);
+        console.log('Walk saved');
+        if (cb && cb instanceof Function) {
+          cb();
+        }
+      }.bind(this),
+      error: function(xhr, status, err) {
+        var notifications = this.state.notifications.slice();
+        notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
+        this.setState({notifications: notifications});
+        setTimeout(removeNotice, 6000);
+        console.error(this.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  handleNext: function() {
+    // Bootstrap's managing the tabs, so trigger a jQuery click on the next
+    var next = $('#progress-panel > .nav > li.active + li > a');
+    if (next) {
+      this.saveWalk();
+      window.scrollTo(0, 0);
+      next.trigger('click');
     }
   },
  
   handleSave: function() {
-    console.log(this.state);
-    /* Send in the updated walk to save, but keep working */
-    // TODO: put 'saving' and 'saved' messages in
-    $.ajax({
-      url: this.props.uri,
-      type: 'PUT',
-      data: {json: JSON.stringify(this.state)},
-      dataType: 'json',
-      success: function(data) {
-        console.log('Walk saved');
-      },
-      error: function(xhr, status, err) {
-        console.error(this.url, status, err.toString());
-      }
-    });
+    this.saveWalk();
   },
- 
+
   handlePublish: function() {
-    // TODO: put 'saving' and 'saved' messages in
-    // Publish the walk
-    $.ajax({
-      url: this.props.uri,
-      type: 'POST',
-      data: {json: JSON.stringify(this.state)},
-      dataType: 'json',
-      success: function(data) {
-        console.log('Walk published');
-      },
-      error: function(xhr, status, err) {
-        console.error(this.uri, status, err.toString());
-      }
+    this.saveWalk({publish: true}, function() {
+      console.log('Walk published');
     });
   },
  
   handlePreview: function(e) {
-    // Save the walk, then load a modal to preview
-    $.ajax({
-      url: this.props.uri,
-      type: 'PUT',
-      data: this.state,
-      dataType: 'json',
-      success: function(data) {
-        this.setState({preview: true});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error(this.props.uri, status, err.toString());
-      }
+    var _this = this;
+    this.saveWalk({}, function() {
+      _this.setState({preview: true});
     });
   },
 
@@ -310,7 +346,6 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             )
           ), 
           React.createElement("div", {id: "main-panel", role: "main"}, 
-            React.createElement("div", {className: "alert alert-error"}, React.createElement("strong", null, "Create a Walk is currently offline."), " Sorry for the inconvenience"), 
             React.createElement("div", {className: "tab-content"}, 
               React.createElement("div", {className: "tab-pane active", id: "description"}, 
                 React.createElement("div", {className: "walk-submit lead clearfix"}, 
@@ -404,7 +439,8 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                 React.createElement("br", null)
               ), 
               React.createElement(CAWTeamBuilder, {i18n: i18n, valueLink: this.linkState('team')})
-            )
+            ), 
+            React.createElement("button", {type: "button", onClick: this.handleNext, className: "btn"}, "Next")
           ), 
           React.createElement("aside", {id: "tips-panel", role: "complementary"}, 
             React.createElement("div", {className: "popover right", id: "city-organizer", style: {display: 'block'}}, 
@@ -466,7 +502,17 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
               )
             )
           )
-        : null
+          : null, 
+          React.createElement("aside", {id: "notifications"}, 
+            this.state.notifications.map(function(notification) {
+              return (
+                React.createElement("div", {key: notification.message, className: 'alert alert-' + notification.type}, 
+                  React.createElement("strong", null, notification.name || '', ": "), 
+                  notification.message || ''
+                )
+                );
+            })
+        )
       )
     );
   }
@@ -1318,7 +1364,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       // This 'key' is to force the component to not rebuild
       walkStops = [
         React.createElement("h3", {key: 0}, t('Walk Stops')),
-        React.createElement(WalkStopTable, {key: 1, markers: this.state.markers, editMarker: this.editMarker, changeMarkerOrder: this.changeMarkerOrder})
+        React.createElement(WalkStopTable, {i18n: this.props.i18n, key: 1, markers: this.state.markers, editMarker: this.editMarker, changeMarkerOrder: this.changeMarkerOrder})
       ];
     }
     
@@ -1391,6 +1437,7 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
     });
   },
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       React.createElement("table", {ref: "routeStops", className: "table table-bordered table-hover"}, 
         React.createElement("thead", null, 
@@ -1468,15 +1515,15 @@ var TeamBuilder = React.createClass({
       // Use empty strings for unset/false
       user.phone = user.phone || '';
       if (user.type === 'you') {
-        return React.createElement(TeamOwner, {key: i, value: user, onChange: this.handleTeamMemberChange});
+        return React.createElement(TeamOwner, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
       } else if (user.type === 'leader') {
-        return React.createElement(TeamLeader, {key: i, value: user, onChange: this.handleTeamMemberChange});
+        return React.createElement(TeamLeader, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
       } else if (user.type === 'organizer') {
-        return React.createElement(TeamOrganizer, {key: i, value: user, onChange: this.handleTeamMemberChange});
+        return React.createElement(TeamOrganizer, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
       } else if (user.type === 'community') {
-        return React.createElement(TeamCommunityVoice, {key: i, value: user, onChange: this.handleTeamMemberChange});
+        return React.createElement(TeamCommunityVoice, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
       } else if (user.type === 'volunteer') {
-        return React.createElement(TeamVolunteer, {key: i, value: user, onChange: this.handleTeamMemberChange});
+        return React.createElement(TeamVolunteer, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
       }
     }, this);
 
@@ -1525,6 +1572,7 @@ var TeamBuilder = React.createClass({
 var TeamOwner = React.createClass({displayName: 'TeamOwner',
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       React.createElement("div", {className: "team-member thumbnail useredited", id: "walk-leader-me"}, 
         React.createElement("fieldset", null, 
@@ -1603,6 +1651,7 @@ var TeamOwner = React.createClass({displayName: 'TeamOwner',
 var TeamLeader = React.createClass({displayName: 'TeamLeader',
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       React.createElement("div", {className: "thumbnail team-member walk-leader clearfix", id: "walk-leader-new"}, 
         React.createElement("fieldset", null, 
@@ -1674,6 +1723,7 @@ var TeamLeader = React.createClass({displayName: 'TeamLeader',
 var TeamOrganizer = React.createClass({displayName: 'TeamOrganizer',
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       React.createElement("div", {className: "thumbnail team-member walk-organizer", id: "walk-organizer-new"}, 
         React.createElement("fieldset", null, 
@@ -1709,6 +1759,7 @@ var TeamOrganizer = React.createClass({displayName: 'TeamOrganizer',
 var TeamCommunityVoice = React.createClass({displayName: 'TeamCommunityVoice',
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       React.createElement("div", {className: "thumbnail team-member community-voice", id: "community-voice-new"}, 
         React.createElement("fieldset", null, 
@@ -1762,6 +1813,7 @@ var TeamCommunityVoice = React.createClass({displayName: 'TeamCommunityVoice',
 var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       React.createElement("div", {className: "thumbnail team-member othermember", id: "othermember-new"}, 
         React.createElement("fieldset", null, 
@@ -1896,6 +1948,10 @@ var WardSelect = React.createClass({displayName: 'WardSelect',
             )
           )
         )
+      );
+    } else {
+      return (
+        React.createElement("fieldset", {id: "wards"})
       );
     }
   }

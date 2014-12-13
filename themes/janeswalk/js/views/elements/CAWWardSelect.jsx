@@ -18,6 +18,10 @@ var WardSelect = React.createClass({
           </div>
         </fieldset>
       );
+    } else {
+      return (
+        <fieldset id="wards" />
+      );
     }
   }
 });

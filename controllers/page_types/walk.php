@@ -177,7 +177,8 @@ class WalkPageTypeController extends Controller
 
         /* We use 'exclude_page_list' to 'unpublish' walks */
         if ($publish) {
-            $c->setAttribute('exclude_page_list',false);
+            $c = $this->getCollectionObject();
+            $c->setAttribute('exclude_page_list', false);
             $newCollectionVersion->approve();
         }
 
