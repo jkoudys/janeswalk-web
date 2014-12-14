@@ -94,7 +94,7 @@ class MirrorWalk
             } while ($mrc === CURLM_CALL_MULTI_PERFORM);
 
             // Block until a service responds
-            while ($info = curl_multi_info_read($mh)) {
+            while ($info = curl_multi_info_read($this->mh)) {
                 // Check which object the response is for
                 foreach ($this->handleTuples as $tuple) {
                     // If curl handlers match, this is the object that made it
@@ -104,7 +104,7 @@ class MirrorWalk
                             true
                         );
                         // Process each event response in the order they return
-                        $tuple['ei']->receiveEvent($response);
+                        $tuple['event']->receiveEvent((array) $response);
                     }
                 }
             }

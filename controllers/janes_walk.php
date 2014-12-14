@@ -65,7 +65,12 @@ class Controller extends \Controller
             $jwData['user'] = [
                 'id' => $ui->getUserID(),
                 'firstName' => $ui->getAttribute('first_name'),
-                'lastName' => $ui->getAttribute('last_name')
+                'lastName' => $ui->getAttribute('last_name'),
+                'bio' => $ui->getAttribute('bio'),
+                'facebook' => $ui->getAttribute('facebook'),
+                'twitter' => $ui->getAttribute('twitter'),
+                'website' => $ui->getAttribute('website'),
+                'email' => $ui->getUserEmail()
             ];
             $this->bodyData['classes'][] = 'logged_in';
             if ($city) {

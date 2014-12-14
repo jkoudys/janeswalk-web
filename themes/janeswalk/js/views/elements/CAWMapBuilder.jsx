@@ -168,7 +168,7 @@ var MapBuilder = React.createClass({
       // This 'key' is to force the component to not rebuild
       walkStops = [
         <h3 key={0}>{t('Walk Stops')}</h3>,
-        <WalkStopTable key={1} markers={this.state.markers} editMarker={this.editMarker} changeMarkerOrder={this.changeMarkerOrder} />
+        <WalkStopTable i18n={this.props.i18n} key={1} markers={this.state.markers} editMarker={this.editMarker} changeMarkerOrder={this.changeMarkerOrder} />
       ];
     }
     
@@ -241,6 +241,7 @@ var WalkStopTable = React.createClass({
     });
   },
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <table ref="routeStops" className="table table-bordered table-hover">
         <thead>

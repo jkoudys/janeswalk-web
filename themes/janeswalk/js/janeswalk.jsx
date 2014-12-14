@@ -67,12 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
             .toUpperCase()
         ){
           case "M":
-            if (toolbar.style) {
-              if (toolbar.style.zIndex == 99999) {
-                toolbar.style.zIndex = -1;
-              } else {
-                toolbar.style.zIndex = 99999;
-              }
+            if (toolbar.style.display === 'block' || !toolbar.style.display) {
+              toolbar.style.display = 'none';
+            } else {
+              toolbar.style.display = 'block';
             }
             break;
           default:

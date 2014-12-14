@@ -47,15 +47,15 @@ var TeamBuilder = React.createClass({
       // Use empty strings for unset/false
       user.phone = user.phone || '';
       if (user.type === 'you') {
-        return <TeamOwner key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        return <TeamOwner i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'leader') {
-        return <TeamLeader key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        return <TeamLeader i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'organizer') {
-        return <TeamOrganizer key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        return <TeamOrganizer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'community') {
-        return <TeamCommunityVoice key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        return <TeamCommunityVoice i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'volunteer') {
-        return <TeamVolunteer key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        return <TeamVolunteer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       }
     }, this);
 
@@ -104,6 +104,7 @@ var TeamBuilder = React.createClass({
 var TeamOwner = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
@@ -182,6 +183,7 @@ var TeamOwner = React.createClass({
 var TeamLeader = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member walk-leader clearfix" id="walk-leader-new">
         <fieldset>
@@ -253,6 +255,7 @@ var TeamLeader = React.createClass({
 var TeamOrganizer = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member walk-organizer" id="walk-organizer-new">
         <fieldset>
@@ -288,6 +291,7 @@ var TeamOrganizer = React.createClass({
 var TeamCommunityVoice = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member community-voice" id="community-voice-new">
         <fieldset>
@@ -341,6 +345,7 @@ var TeamCommunityVoice = React.createClass({
 var TeamVolunteer = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
+    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member othermember" id="othermember-new">
         <fieldset>

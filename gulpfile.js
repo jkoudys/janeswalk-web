@@ -53,8 +53,8 @@ gulp.task('jsx_app', function() {
     .pipe(source('janeswalk.js'))
     .pipe(gulp.dest(paths.js))
     .pipe(rename('janeswalk.min.js'))
-//    .pipe(buffer())
-//    .pipe(uglify())
+    .pipe(buffer())
+    .pipe(uglify())
     .pipe(gulp.dest(paths.js))
 });
 

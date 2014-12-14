@@ -162,3 +162,8 @@ fieldset.search:extend(.input-group all) {
     }
 }
 
+// Brute-force way to not compete with the c5 menu
+div#ccm-toolbar {
+    display: none;
+    z-index: @zindex-modal;
+}
