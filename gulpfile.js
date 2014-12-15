@@ -38,7 +38,8 @@ var paths = {
 
 gulp.task('css', function() {
   return gulp.src(paths.less)
-    .pipe(less({compress: true}))
+    .pipe(less({compress: false}))
+    .on('error', console.error.bind(console))
     .pipe(autoprefixer('last 3 versions'))
     .pipe(gulp.dest(paths.css));
 });

@@ -20,10 +20,13 @@
 <?php
     Loader::element('header_required');
 ?>
-    <script type="text/javascript">var CCM_THEME_PATH = '<?= $this->getThemePath() ?>';</script>
+    <script type="text/javascript">var CCM_THEME_PATH = '<?= $this->getThemePath() ?>';window.fbAsyncInit = function () {FB.init({appId: '544710848887303', status: true, xfbml: true }); };(function (d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = '//connect.facebook.net/en_US/all.js'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script>
 </head>
 <body
-  class="<?= join((array) $bodyData['classes'], ' ') ?>"
-  data-pageViewName="<?= $bodyData['pageViewName'] ?>"
-  style="background-image:url(<?= $bodyData['bg'] ?>)">
-  <?php $this->inc('elements/modals.php'); ?>
+    class="<?= join((array) $bodyData['classes'], ' ') ?>"
+    data-pageViewName="<?= $bodyData['pageViewName'] ?>"
+    style="background-image:url(<?= $bodyData['bg'] ?>)">
+    <div id="fb-root"></div>
+    <script type="text/javascript">
+    </script>
+    <?php $this->inc('elements/modals.php'); ?>

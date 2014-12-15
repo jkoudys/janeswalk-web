@@ -35,7 +35,7 @@ echo (
         join(array_map(function($country) { return 
             '<optgroup label="' . $country['name'] . '">' .
                 join(array_map(function($city) { return
-                    '<option value="' . $city['uri'] . '">' . $city['name'] .'</option>';
+                     '<option value="' . $city['uri'] . '">' . $city['name'] .'</option>';
                 }, $country['cities'])) .
             '</optgroup>';
         }, $countryList)) .

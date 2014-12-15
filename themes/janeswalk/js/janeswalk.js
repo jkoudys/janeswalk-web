@@ -183,7 +183,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
         facebook: '',
         website: '',
         email: '',
-        phone: '' 
+        phone: ''
       }],
       time: {type: '', slots: []},
       thumbnails: [],
@@ -243,6 +243,9 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       this.setState({notifications: notifications.slice(1)});
     }.bind(this);
 
+    var defaultOptions = {
+      messageTimeout: 1200
+    };
     options = options || {};
 
     notifications.push({type: 'info', name: 'Saving walk'});

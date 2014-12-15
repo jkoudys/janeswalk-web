@@ -10,7 +10,7 @@ class SearchBlockController extends Concrete5_Controller_Block_Search
     }
     $this->hText = $fulltext;
     $this->hHighlight  = str_replace(array('"',"'","&quot;"),'',$highlight); // strip the quotes as they mess the regex
-    $this->hText = @preg_replace( "#$this->hHighlight#ui", '<mark>$0</mark>', $this->hText );
+    $this->hText = preg_replace( "#$this->hHighlight#ui", '<mark>$0</mark>', $this->hText );
 
     return $this->hText;
   }
