@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
               data: JanesWalk.walk.data, 
               city: JanesWalk.city, 
               user: JanesWalk.user, 
-              uri: JanesWalk.walk.uri, 
+              url: JanesWalk.walk.url, 
               valt: JanesWalk.form.valt}
             ),
             document.getElementById('createwalk')
@@ -252,7 +252,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
     this.setState({notifications: notifications});
     setTimeout(removeNotice, 1200);
     $.ajax({
-      url: this.props.uri,
+      url: this.props.url,
       type: options.publish ? 'PUT' : 'POST',
       data: {json: JSON.stringify(this.state)},
       dataType: 'json',
@@ -482,7 +482,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
             React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
             React.createElement("label", null, "Your Walk Web Address:"), 
-            React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.uri, readOnly: true}), 
+            React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.url, readOnly: true}), 
             React.createElement("hr", null), 
             React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
             React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
@@ -500,7 +500,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                   React.createElement("h3", null,  t('Preview of your Walk') )
                 ), 
                 React.createElement("div", {className: "modal-body"}, 
-                  React.createElement("iframe", {src: this.props.uri, frameBorder: "0"})
+                  React.createElement("iframe", {src: this.props.url, frameBorder: "0"})
                 )
               )
             )

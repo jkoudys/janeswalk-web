@@ -1,12 +1,12 @@
 //HOMEPAGE
 
-.home {
+body.home {
     background-attachment: fixed;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
 
-    .intro,
+    #intro,
     .navbar_home .large,
     .section2 ul.nav {
         font-family: @font-slab;
@@ -39,18 +39,6 @@
         }
     }
 
-    .intro .nav li {
-        padding-right: 20px;
-
-        &.divider-vertical {
-            height: 40px;
-            margin: 0 20px 0 0;
-            border-right: 1px solid rgba(0,0,0,0.2);
-            border-left: none;
-            padding: 0;
-        }
-    }
-
     .input-append {
         margin: 10px 0 0 0;
     }
@@ -69,23 +57,45 @@
         background: #fff;
     }
 
-    .intro {
+    #intro {
+        .clearfix();
+        width: 100%;
+        background-position: center center;
+
+        .logo {
+            background-image: url("../images/jwlogos-3.png");
+            display: block;
+            width: 172px;
+            height: 120px;
+            float: left;
+        }
+
         .nav {
             float: right;
             padding: 50px 0 0 0;
+            a {
+                color: #303030;
+                font-size: 16px;
+                margin-right: 0px;
+                line-height: 10px;
+                margin-top: 0;
+                border: 1px solid #a53d0b;
+                background: rgba(194, 83, 14, 0.9);
+                &:hover {
+                    color: #fff;
+                    background: #d54e0e;
+                }
+            }
+
             li {
-                a {
-                    color: #303030;
-                    font-size: 16px;
-                    margin-right: 0px;
-                    line-height: 10px;
-                    margin-top: 0;
-                    border: 1px solid #a53d0b;
-                    background: rgba(194, 83, 14, 0.9);
-                    &:hover {
-                        color: #fff;
-                        background: #d54e0e;
-                    }
+                padding-right: 20px;
+
+                &.divider-vertical {
+                    height: 40px;
+                    margin: 0 20px 0 0;
+                    border-right: 1px solid rgba(0,0,0,0.2);
+                    border-left: none;
+                    padding: 0;
                 }
 
                 &.active a {
@@ -94,7 +104,6 @@
                 }
             }
         }
-
 
         blockquote {
             font-size:inherit;
@@ -136,19 +145,18 @@
                 }
             }
         }
+        @media (max-width: @screen-sm-min) {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
     }
 
-    section.blog {
+    #blog {
         .clearfix();
         max-width: @screen-lg-min;
         margin: 0 auto;
         min-height: 525px;
         background-color: #fff;
-
-        h1,h2,h3,h4,h5 {
-            font-family: @font-slab;
-            margin:0; 
-        }
 
         section {
             vertical-align:top;
@@ -188,7 +196,7 @@
             display: block;
             background-color: #fff;
             width: 100%;
-            height: 100%;
+            height: 115%;
             position:absolute;
             left: 0;
             z-index: 0;
@@ -199,10 +207,10 @@
         }
     }
 
-    section.calltoaction {
-        max-width: @screen-lg-min;
-        padding: @grid-gutter-width @grid-gutter-width/2;
-        margin: 0 auto;
+    #calltoaction {
+        max-width: @screen-sm-min;
+        padding: @grid-gutter-width;
+        margin: @grid-gutter-width * 2 auto;
         background: #fff;
         position: relative;
 
@@ -218,10 +226,10 @@
             position: static;
         }
 
-        > h3:first-child {
+        > div > h3:first-child {
             color: @color-darkgrey;
             font-weight: 700;
-            margin: 0 0 0.8em 0;
+            margin: 0;
         }
         p {
             color: @color-darkgrey;
@@ -236,43 +244,14 @@
                 display: inline-block;
             }
         }
-        &:after {
-            content: " ";
-            display: block;
-            position: absolute;
-            width: 300%;
-            height: 100%;
-            background: #fff;
-            top: 0;
-            left: -150%;
-            z-index: -1;
-        }
     }
 
-    section.map {
+    #map {
         height: 350px;
         overflow: hidden;
 
         @media (max-width: @screen-sm-min) {
             display: none;
-        }
-    }
-
-    .intro {
-        .clearfix();
-        width: 100%;
-        background-position: center center;
-
-        @media (max-width: @screen-sm-min) {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-        .logo {
-            background-image: url("../images/jwlogos-3.png");
-            display: block;
-            width: 172px;
-            height: 120px;
-            float: left;
         }
     }
 
@@ -339,7 +318,7 @@
     }
 }
 
-section.sponsors {
+#sponsors {
     clear: both;
     margin:0 auto 240px;
     width: @screen-lg-min;

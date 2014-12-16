@@ -238,10 +238,10 @@ th {
   }
   .btn > .caret,
   .dropup > .btn > .caret,
-  body.city-page #city-details .create-walk > .caret,
-  .dropup > body.city-page #city-details .create-walk > .caret,
-  body.city-page #city-details .create-walk:after > .caret,
-  .dropup > body.city-page #city-details .create-walk:after > .caret,
+  body.city-page > #city-details .create-walk > .caret,
+  .dropup > body.city-page > #city-details .create-walk > .caret,
+  body.city-page > #city-details .create-walk:after > .caret,
+  .dropup > body.city-page > #city-details .create-walk:after > .caret,
   #create-walk #map-control-bar button > .caret,
   .dropup > #create-walk #map-control-bar button > .caret,
   #create-walk #map-control-bar button.active > .caret,
@@ -2364,8 +2364,8 @@ select[multiple].input-lg {
 }
 .btn,
 body > header #donate,
-body.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk:after,
+body.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active {
   display: inline-block;
@@ -2389,12 +2389,12 @@ body.city-page #city-details .create-walk:after,
 .btn:focus,
 .btn:active:focus,
 .btn.active:focus,
-body.city-page #city-details .create-walk:focus,
-body.city-page #city-details .create-walk:active:focus,
-body.city-page #city-details .create-walk.active:focus,
-body.city-page #city-details .create-walk:after:focus,
-body.city-page #city-details .create-walk:after:active:focus,
-body.city-page #city-details .create-walk:after.active:focus,
+body.city-page > #city-details .create-walk:focus,
+body.city-page > #city-details .create-walk:active:focus,
+body.city-page > #city-details .create-walk.active:focus,
+body.city-page > #city-details .create-walk:after:focus,
+body.city-page > #city-details .create-walk:after:active:focus,
+body.city-page > #city-details .create-walk:after.active:focus,
 #create-walk #map-control-bar button:focus,
 #create-walk #map-control-bar button:active:focus,
 #create-walk #map-control-bar button.active:focus,
@@ -2407,10 +2407,10 @@ body.city-page #city-details .create-walk:after.active:focus,
 }
 .btn:hover,
 .btn:focus,
-body.city-page #city-details .create-walk:hover,
-body.city-page #city-details .create-walk:focus,
-body.city-page #city-details .create-walk:after:hover,
-body.city-page #city-details .create-walk:after:focus,
+body.city-page > #city-details .create-walk:hover,
+body.city-page > #city-details .create-walk:focus,
+body.city-page > #city-details .create-walk:after:hover,
+body.city-page > #city-details .create-walk:after:focus,
 #create-walk #map-control-bar button:hover,
 #create-walk #map-control-bar button:focus,
 #create-walk #map-control-bar button.active:hover,
@@ -2420,10 +2420,10 @@ body.city-page #city-details .create-walk:after:focus,
 }
 .btn:active,
 .btn.active,
-body.city-page #city-details .create-walk:active,
-body.city-page #city-details .create-walk.active,
-body.city-page #city-details .create-walk:after:active,
-body.city-page #city-details .create-walk:after.active,
+body.city-page > #city-details .create-walk:active,
+body.city-page > #city-details .create-walk.active,
+body.city-page > #city-details .create-walk:after:active,
+body.city-page > #city-details .create-walk:after.active,
 #create-walk #map-control-bar button:active,
 #create-walk #map-control-bar button.active,
 #create-walk #map-control-bar button.active:active,
@@ -2435,12 +2435,12 @@ body.city-page #city-details .create-walk:after.active,
 .btn.disabled,
 .btn[disabled],
 fieldset[disabled] .btn,
-body.city-page #city-details .create-walk.disabled,
-body.city-page #city-details .create-walk[disabled],
-fieldset[disabled] body.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk:after.disabled,
-body.city-page #city-details .create-walk:after[disabled],
-fieldset[disabled] body.city-page #city-details .create-walk:after,
+body.city-page > #city-details .create-walk.disabled,
+body.city-page > #city-details .create-walk[disabled],
+fieldset[disabled] body.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk:after.disabled,
+body.city-page > #city-details .create-walk:after[disabled],
+fieldset[disabled] body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button.disabled,
 #create-walk #map-control-bar button[disabled],
 fieldset[disabled] #create-walk #map-control-bar button,
@@ -2496,8 +2496,8 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary,
 body > header #donate,
-body.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk:after {
+body.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk:after {
   color: #ffffff;
   background-color: #428bca;
   border-color: #357ebd;
@@ -2507,16 +2507,16 @@ body.city-page #city-details .create-walk:after {
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary,
-body.city-page #city-details .create-walk:hover,
-body.city-page #city-details .create-walk:focus,
-body.city-page #city-details .create-walk:active,
-body.city-page #city-details .create-walk.active,
-.open > .dropdown-togglebody.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk:after:hover,
-body.city-page #city-details .create-walk:after:focus,
-body.city-page #city-details .create-walk:after:active,
-body.city-page #city-details .create-walk:after.active,
-.open > .dropdown-togglebody.city-page #city-details .create-walk:after {
+body.city-page > #city-details .create-walk:hover,
+body.city-page > #city-details .create-walk:focus,
+body.city-page > #city-details .create-walk:active,
+body.city-page > #city-details .create-walk.active,
+.open > .dropdown-togglebody.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk:after:hover,
+body.city-page > #city-details .create-walk:after:focus,
+body.city-page > #city-details .create-walk:after:active,
+body.city-page > #city-details .create-walk:after.active,
+.open > .dropdown-togglebody.city-page > #city-details .create-walk:after {
   color: #ffffff;
   background-color: #3071a9;
   border-color: #285e8e;
@@ -2524,12 +2524,12 @@ body.city-page #city-details .create-walk:after.active,
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary,
-body.city-page #city-details .create-walk:active,
-body.city-page #city-details .create-walk.active,
-.open > .dropdown-togglebody.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk:after:active,
-body.city-page #city-details .create-walk:after.active,
-.open > .dropdown-togglebody.city-page #city-details .create-walk:after {
+body.city-page > #city-details .create-walk:active,
+body.city-page > #city-details .create-walk.active,
+.open > .dropdown-togglebody.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk:after:active,
+body.city-page > #city-details .create-walk:after.active,
+.open > .dropdown-togglebody.city-page > #city-details .create-walk:after {
   background-image: none;
 }
 .btn-primary.disabled,
@@ -2547,42 +2547,42 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active,
-body.city-page #city-details .create-walk.disabled,
-body.city-page #city-details .create-walk[disabled],
-fieldset[disabled] body.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk.disabled:hover,
-body.city-page #city-details .create-walk[disabled]:hover,
-fieldset[disabled] body.city-page #city-details .create-walk:hover,
-body.city-page #city-details .create-walk.disabled:focus,
-body.city-page #city-details .create-walk[disabled]:focus,
-fieldset[disabled] body.city-page #city-details .create-walk:focus,
-body.city-page #city-details .create-walk.disabled:active,
-body.city-page #city-details .create-walk[disabled]:active,
-fieldset[disabled] body.city-page #city-details .create-walk:active,
-body.city-page #city-details .create-walk.disabled.active,
-body.city-page #city-details .create-walk[disabled].active,
-fieldset[disabled] body.city-page #city-details .create-walk.active,
-body.city-page #city-details .create-walk:after.disabled,
-body.city-page #city-details .create-walk:after[disabled],
-fieldset[disabled] body.city-page #city-details .create-walk:after,
-body.city-page #city-details .create-walk:after.disabled:hover,
-body.city-page #city-details .create-walk:after[disabled]:hover,
-fieldset[disabled] body.city-page #city-details .create-walk:after:hover,
-body.city-page #city-details .create-walk:after.disabled:focus,
-body.city-page #city-details .create-walk:after[disabled]:focus,
-fieldset[disabled] body.city-page #city-details .create-walk:after:focus,
-body.city-page #city-details .create-walk:after.disabled:active,
-body.city-page #city-details .create-walk:after[disabled]:active,
-fieldset[disabled] body.city-page #city-details .create-walk:after:active,
-body.city-page #city-details .create-walk:after.disabled.active,
-body.city-page #city-details .create-walk:after[disabled].active,
-fieldset[disabled] body.city-page #city-details .create-walk:after.active {
+body.city-page > #city-details .create-walk.disabled,
+body.city-page > #city-details .create-walk[disabled],
+fieldset[disabled] body.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk.disabled:hover,
+body.city-page > #city-details .create-walk[disabled]:hover,
+fieldset[disabled] body.city-page > #city-details .create-walk:hover,
+body.city-page > #city-details .create-walk.disabled:focus,
+body.city-page > #city-details .create-walk[disabled]:focus,
+fieldset[disabled] body.city-page > #city-details .create-walk:focus,
+body.city-page > #city-details .create-walk.disabled:active,
+body.city-page > #city-details .create-walk[disabled]:active,
+fieldset[disabled] body.city-page > #city-details .create-walk:active,
+body.city-page > #city-details .create-walk.disabled.active,
+body.city-page > #city-details .create-walk[disabled].active,
+fieldset[disabled] body.city-page > #city-details .create-walk.active,
+body.city-page > #city-details .create-walk:after.disabled,
+body.city-page > #city-details .create-walk:after[disabled],
+fieldset[disabled] body.city-page > #city-details .create-walk:after,
+body.city-page > #city-details .create-walk:after.disabled:hover,
+body.city-page > #city-details .create-walk:after[disabled]:hover,
+fieldset[disabled] body.city-page > #city-details .create-walk:after:hover,
+body.city-page > #city-details .create-walk:after.disabled:focus,
+body.city-page > #city-details .create-walk:after[disabled]:focus,
+fieldset[disabled] body.city-page > #city-details .create-walk:after:focus,
+body.city-page > #city-details .create-walk:after.disabled:active,
+body.city-page > #city-details .create-walk:after[disabled]:active,
+fieldset[disabled] body.city-page > #city-details .create-walk:after:active,
+body.city-page > #city-details .create-walk:after.disabled.active,
+body.city-page > #city-details .create-walk:after[disabled].active,
+fieldset[disabled] body.city-page > #city-details .create-walk:after.active {
   background-color: #428bca;
   border-color: #357ebd;
 }
 .btn-primary .badge,
-body.city-page #city-details .create-walk .badge,
-body.city-page #city-details .create-walk:after .badge {
+body.city-page > #city-details .create-walk .badge,
+body.city-page > #city-details .create-walk:after .badge {
   color: #428bca;
   background-color: #ffffff;
 }
@@ -2786,8 +2786,8 @@ fieldset[disabled] .btn-link:focus {
 .btn-group-lg > .btn,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active,
-.btn-group-lg > body.city-page #city-details .create-walk,
-.btn-group-lg > body.city-page #city-details .create-walk:after,
+.btn-group-lg > body.city-page > #city-details .create-walk,
+.btn-group-lg > body.city-page > #city-details .create-walk:after,
 .btn-group-lg > #create-walk #map-control-bar button,
 .btn-group-lg > #create-walk #map-control-bar button.active {
   padding: 10px 16px;
@@ -2797,8 +2797,8 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-sm,
 .btn-group-sm > .btn,
-.btn-group-sm > body.city-page #city-details .create-walk,
-.btn-group-sm > body.city-page #city-details .create-walk:after,
+.btn-group-sm > body.city-page > #city-details .create-walk,
+.btn-group-sm > body.city-page > #city-details .create-walk:after,
 .btn-group-sm > #create-walk #map-control-bar button,
 .btn-group-sm > #create-walk #map-control-bar button.active {
   padding: 5px 10px;
@@ -2808,8 +2808,8 @@ fieldset[disabled] .btn-link:focus {
 }
 .btn-xs,
 .btn-group-xs > .btn,
-.btn-group-xs > body.city-page #city-details .create-walk,
-.btn-group-xs > body.city-page #city-details .create-walk:after,
+.btn-group-xs > body.city-page > #city-details .create-walk,
+.btn-group-xs > body.city-page > #city-details .create-walk:after,
 .btn-group-xs > #create-walk #map-control-bar button,
 .btn-group-xs > #create-walk #map-control-bar button.active {
   padding: 1px 5px;
@@ -2831,8 +2831,8 @@ input[type="button"].btn-block {
 }
 .fade,
 dialog,
-body.city-page #city-details .walk-list,
-body.city-page #city-details .walk-list.showall {
+body.city-page > #city-details .walk-list,
+body.city-page > #city-details .walk-list.showall {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
@@ -2840,10 +2840,10 @@ body.city-page #city-details .walk-list.showall {
 .fade.in,
 dialog.in,
 dialog.in,
-body.city-page #city-details .walk-list.in,
-body.city-page #city-details .walk-list,
-body.city-page #city-details .walk-list.showall.in,
-body.city-page #city-details .walk-list.showall {
+body.city-page > #city-details .walk-list.in,
+body.city-page > #city-details .walk-list,
+body.city-page > #city-details .walk-list.showall.in,
+body.city-page > #city-details .walk-list.showall {
   opacity: 1;
 }
 .collapse {
@@ -3015,10 +3015,10 @@ tbody.collapse.in {
 }
 .btn-group > .btn,
 .btn-group-vertical > .btn,
-.btn-group > body.city-page #city-details .create-walk,
-.btn-group-vertical > body.city-page #city-details .create-walk,
-.btn-group > body.city-page #city-details .create-walk:after,
-.btn-group-vertical > body.city-page #city-details .create-walk:after,
+.btn-group > body.city-page > #city-details .create-walk,
+.btn-group-vertical > body.city-page > #city-details .create-walk,
+.btn-group > body.city-page > #city-details .create-walk:after,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after,
 .btn-group > #create-walk #map-control-bar button,
 .btn-group-vertical > #create-walk #map-control-bar button,
 .btn-group > #create-walk #map-control-bar button.active,
@@ -3034,22 +3034,22 @@ tbody.collapse.in {
 .btn-group-vertical > .btn:active,
 .btn-group > .btn.active,
 .btn-group-vertical > .btn.active,
-.btn-group > body.city-page #city-details .create-walk:hover,
-.btn-group-vertical > body.city-page #city-details .create-walk:hover,
-.btn-group > body.city-page #city-details .create-walk:focus,
-.btn-group-vertical > body.city-page #city-details .create-walk:focus,
-.btn-group > body.city-page #city-details .create-walk:active,
-.btn-group-vertical > body.city-page #city-details .create-walk:active,
-.btn-group > body.city-page #city-details .create-walk.active,
-.btn-group-vertical > body.city-page #city-details .create-walk.active,
-.btn-group > body.city-page #city-details .create-walk:after:hover,
-.btn-group-vertical > body.city-page #city-details .create-walk:after:hover,
-.btn-group > body.city-page #city-details .create-walk:after:focus,
-.btn-group-vertical > body.city-page #city-details .create-walk:after:focus,
-.btn-group > body.city-page #city-details .create-walk:after:active,
-.btn-group-vertical > body.city-page #city-details .create-walk:after:active,
-.btn-group > body.city-page #city-details .create-walk:after.active,
-.btn-group-vertical > body.city-page #city-details .create-walk:after.active,
+.btn-group > body.city-page > #city-details .create-walk:hover,
+.btn-group-vertical > body.city-page > #city-details .create-walk:hover,
+.btn-group > body.city-page > #city-details .create-walk:focus,
+.btn-group-vertical > body.city-page > #city-details .create-walk:focus,
+.btn-group > body.city-page > #city-details .create-walk:active,
+.btn-group-vertical > body.city-page > #city-details .create-walk:active,
+.btn-group > body.city-page > #city-details .create-walk.active,
+.btn-group-vertical > body.city-page > #city-details .create-walk.active,
+.btn-group > body.city-page > #city-details .create-walk:after:hover,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after:hover,
+.btn-group > body.city-page > #city-details .create-walk:after:focus,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after:focus,
+.btn-group > body.city-page > #city-details .create-walk:after:active,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after:active,
+.btn-group > body.city-page > #city-details .create-walk:after.active,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after.active,
 .btn-group > #create-walk #map-control-bar button:hover,
 .btn-group-vertical > #create-walk #map-control-bar button:hover,
 .btn-group > #create-walk #map-control-bar button:focus,
@@ -3070,10 +3070,10 @@ tbody.collapse.in {
 }
 .btn-group > .btn:focus,
 .btn-group-vertical > .btn:focus,
-.btn-group > body.city-page #city-details .create-walk:focus,
-.btn-group-vertical > body.city-page #city-details .create-walk:focus,
-.btn-group > body.city-page #city-details .create-walk:after:focus,
-.btn-group-vertical > body.city-page #city-details .create-walk:after:focus,
+.btn-group > body.city-page > #city-details .create-walk:focus,
+.btn-group-vertical > body.city-page > #city-details .create-walk:focus,
+.btn-group > body.city-page > #city-details .create-walk:after:focus,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after:focus,
 .btn-group > #create-walk #map-control-bar button:focus,
 .btn-group-vertical > #create-walk #map-control-bar button:focus,
 .btn-group > #create-walk #map-control-bar button.active:focus,
@@ -3084,12 +3084,12 @@ tbody.collapse.in {
 .btn-group .btn + .btn-group,
 .btn-group .btn-group + .btn,
 .btn-group .btn-group + .btn-group,
-.btn-group body.city-page #city-details .create-walk + body.city-page #city-details .create-walk,
-.btn-group body.city-page #city-details .create-walk + .btn-group,
-.btn-group .btn-group + body.city-page #city-details .create-walk,
-.btn-group body.city-page #city-details .create-walk:after + body.city-page #city-details .create-walk:after,
-.btn-group body.city-page #city-details .create-walk:after + .btn-group,
-.btn-group .btn-group + body.city-page #city-details .create-walk:after,
+.btn-group body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
+.btn-group body.city-page > #city-details .create-walk + .btn-group,
+.btn-group .btn-group + body.city-page > #city-details .create-walk,
+.btn-group body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
+.btn-group body.city-page > #city-details .create-walk:after + .btn-group,
+.btn-group .btn-group + body.city-page > #city-details .create-walk:after,
 .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .btn-group #create-walk #map-control-bar button + .btn-group,
 .btn-group .btn-group + #create-walk #map-control-bar button,
@@ -3110,29 +3110,29 @@ tbody.collapse.in {
 .btn-toolbar > .btn-group,
 .btn-toolbar > .input-group,
 .btn-toolbar > body fieldset.search,
-.btn-toolbar > body.city-page #city-details .create-walk,
-.btn-toolbar > body.city-page #city-details .create-walk:after,
+.btn-toolbar > body.city-page > #city-details .create-walk,
+.btn-toolbar > body.city-page > #city-details .create-walk:after,
 .btn-toolbar > #create-walk #map-control-bar button,
 .btn-toolbar > #create-walk #map-control-bar button.active {
   margin-left: 5px;
 }
 .btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page #city-details .create-walk:not(:first-child):not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page #city-details .create-walk:after:not(:first-child):not(:last-child):not(.dropdown-toggle),
+.btn-group > body.city-page > #city-details .create-walk:not(:first-child):not(:last-child):not(.dropdown-toggle),
+.btn-group > body.city-page > #city-details .create-walk:after:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 .btn-group > .btn:first-child,
-.btn-group > body.city-page #city-details .create-walk:first-child,
-.btn-group > body.city-page #city-details .create-walk:after:first-child,
+.btn-group > body.city-page > #city-details .create-walk:first-child,
+.btn-group > body.city-page > #city-details .create-walk:after:first-child,
 .btn-group > #create-walk #map-control-bar button:first-child,
 .btn-group > #create-walk #map-control-bar button.active:first-child {
   margin-left: 0;
 }
 .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page #city-details .create-walk:first-child:not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page #city-details .create-walk:after:first-child:not(:last-child):not(.dropdown-toggle),
+.btn-group > body.city-page > #city-details .create-walk:first-child:not(:last-child):not(.dropdown-toggle),
+.btn-group > body.city-page > #city-details .create-walk:after:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button.active:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
@@ -3140,8 +3140,8 @@ tbody.collapse.in {
 }
 .btn-group > .btn:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child),
-.btn-group > body.city-page #city-details .create-walk:last-child:not(:first-child),
-.btn-group > body.city-page #city-details .create-walk:after:last-child:not(:first-child),
+.btn-group > body.city-page > #city-details .create-walk:last-child:not(:first-child),
+.btn-group > body.city-page > #city-details .create-walk:after:last-child:not(:first-child),
 .btn-group > #create-walk #map-control-bar button:last-child:not(:first-child),
 .btn-group > #create-walk #map-control-bar button.active:last-child:not(:first-child) {
   border-bottom-left-radius: 0;
@@ -3151,24 +3151,24 @@ tbody.collapse.in {
   float: left;
 }
 .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn,
-.btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page #city-details .create-walk,
-.btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page #city-details .create-walk:after,
+.btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk,
+.btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:after,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active {
   border-radius: 0;
 }
 .btn-group > .btn-group:first-child > .btn:last-child,
 .btn-group > .btn-group:first-child > .dropdown-toggle,
-.btn-group > .btn-group:first-child > body.city-page #city-details .create-walk:last-child,
-.btn-group > .btn-group:first-child > body.city-page #city-details .create-walk:after:last-child,
+.btn-group > .btn-group:first-child > body.city-page > #city-details .create-walk:last-child,
+.btn-group > .btn-group:first-child > body.city-page > #city-details .create-walk:after:last-child,
 .btn-group > .btn-group:first-child > #create-walk #map-control-bar button:last-child,
 .btn-group > .btn-group:first-child > #create-walk #map-control-bar button.active:last-child {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 .btn-group > .btn-group:last-child > .btn:first-child,
-.btn-group > .btn-group:last-child > body.city-page #city-details .create-walk:first-child,
-.btn-group > .btn-group:last-child > body.city-page #city-details .create-walk:after:first-child,
+.btn-group > .btn-group:last-child > body.city-page > #city-details .create-walk:first-child,
+.btn-group > .btn-group:last-child > body.city-page > #city-details .create-walk:after:first-child,
 .btn-group > .btn-group:last-child > #create-walk #map-control-bar button:first-child,
 .btn-group > .btn-group:last-child > #create-walk #map-control-bar button.active:first-child {
   border-bottom-left-radius: 0;
@@ -3179,8 +3179,8 @@ tbody.collapse.in {
   outline: 0;
 }
 .btn-group > .btn + .dropdown-toggle,
-.btn-group > body.city-page #city-details .create-walk + .dropdown-toggle,
-.btn-group > body.city-page #city-details .create-walk:after + .dropdown-toggle,
+.btn-group > body.city-page > #city-details .create-walk + .dropdown-toggle,
+.btn-group > body.city-page > #city-details .create-walk:after + .dropdown-toggle,
 .btn-group > #create-walk #map-control-bar button + .dropdown-toggle,
 .btn-group > #create-walk #map-control-bar button.active + .dropdown-toggle {
   padding-left: 8px;
@@ -3197,8 +3197,8 @@ tbody.collapse.in {
   box-shadow: none;
 }
 .btn .caret,
-body.city-page #city-details .create-walk .caret,
-body.city-page #city-details .create-walk:after .caret,
+body.city-page > #city-details .create-walk .caret,
+body.city-page > #city-details .create-walk:after .caret,
 #create-walk #map-control-bar button .caret,
 #create-walk #map-control-bar button.active .caret {
   margin-left: 0;
@@ -3213,10 +3213,10 @@ body.city-page #city-details .create-walk:after .caret,
 .btn-group-vertical > .btn,
 .btn-group-vertical > .btn-group,
 .btn-group-vertical > .btn-group > .btn,
-.btn-group-vertical > body.city-page #city-details .create-walk,
-.btn-group-vertical > .btn-group > body.city-page #city-details .create-walk,
-.btn-group-vertical > body.city-page #city-details .create-walk:after,
-.btn-group-vertical > .btn-group > body.city-page #city-details .create-walk:after,
+.btn-group-vertical > body.city-page > #city-details .create-walk,
+.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after,
+.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk:after,
 .btn-group-vertical > #create-walk #map-control-bar button,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button,
 .btn-group-vertical > #create-walk #map-control-bar button.active,
@@ -3227,8 +3227,8 @@ body.city-page #city-details .create-walk:after .caret,
   max-width: 100%;
 }
 .btn-group-vertical > .btn-group > .btn,
-.btn-group-vertical > .btn-group > body.city-page #city-details .create-walk,
-.btn-group-vertical > .btn-group > body.city-page #city-details .create-walk:after,
+.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk,
+.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk:after,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button.active {
   float: none;
@@ -3237,12 +3237,12 @@ body.city-page #city-details .create-walk:after .caret,
 .btn-group-vertical > .btn + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
 .btn-group-vertical > .btn-group + .btn-group,
-.btn-group-vertical > body.city-page #city-details .create-walk + body.city-page #city-details .create-walk,
-.btn-group-vertical > body.city-page #city-details .create-walk + .btn-group,
-.btn-group-vertical > .btn-group + body.city-page #city-details .create-walk,
-.btn-group-vertical > body.city-page #city-details .create-walk:after + body.city-page #city-details .create-walk:after,
-.btn-group-vertical > body.city-page #city-details .create-walk:after + .btn-group,
-.btn-group-vertical > .btn-group + body.city-page #city-details .create-walk:after,
+.btn-group-vertical > body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
+.btn-group-vertical > body.city-page > #city-details .create-walk + .btn-group,
+.btn-group-vertical > .btn-group + body.city-page > #city-details .create-walk,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
+.btn-group-vertical > body.city-page > #city-details .create-walk:after + .btn-group,
+.btn-group-vertical > .btn-group + body.city-page > #city-details .create-walk:after,
 .btn-group-vertical > #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .btn-group-vertical > #create-walk #map-control-bar button + .btn-group,
 .btn-group-vertical > .btn-group + #create-walk #map-control-bar button,
@@ -3253,15 +3253,15 @@ body.city-page #city-details .create-walk:after .caret,
   margin-left: 0;
 }
 .btn-group-vertical > .btn:not(:first-child):not(:last-child),
-.btn-group-vertical > body.city-page #city-details .create-walk:not(:first-child):not(:last-child),
-.btn-group-vertical > body.city-page #city-details .create-walk:after:not(:first-child):not(:last-child),
+.btn-group-vertical > body.city-page > #city-details .create-walk:not(:first-child):not(:last-child),
+.btn-group-vertical > body.city-page > #city-details .create-walk:after:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 .btn-group-vertical > .btn:first-child:not(:last-child),
-.btn-group-vertical > body.city-page #city-details .create-walk:first-child:not(:last-child),
-.btn-group-vertical > body.city-page #city-details .create-walk:after:first-child:not(:last-child),
+.btn-group-vertical > body.city-page > #city-details .create-walk:first-child:not(:last-child),
+.btn-group-vertical > body.city-page > #city-details .create-walk:after:first-child:not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button:first-child:not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button.active:first-child:not(:last-child) {
   border-top-right-radius: 4px;
@@ -3269,8 +3269,8 @@ body.city-page #city-details .create-walk:after .caret,
   border-bottom-left-radius: 0;
 }
 .btn-group-vertical > .btn:last-child:not(:first-child),
-.btn-group-vertical > body.city-page #city-details .create-walk:last-child:not(:first-child),
-.btn-group-vertical > body.city-page #city-details .create-walk:after:last-child:not(:first-child),
+.btn-group-vertical > body.city-page > #city-details .create-walk:last-child:not(:first-child),
+.btn-group-vertical > body.city-page > #city-details .create-walk:after:last-child:not(:first-child),
 .btn-group-vertical > #create-walk #map-control-bar button:last-child:not(:first-child),
 .btn-group-vertical > #create-walk #map-control-bar button.active:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
@@ -3278,24 +3278,24 @@ body.city-page #city-details .create-walk:after .caret,
   border-top-left-radius: 0;
 }
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn,
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page #city-details .create-walk,
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page #city-details .create-walk:after,
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk,
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:after,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active {
   border-radius: 0;
 }
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle,
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page #city-details .create-walk:last-child,
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page #city-details .create-walk:after:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page > #city-details .create-walk:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page > #city-details .create-walk:after:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button.active:last-child {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child,
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page #city-details .create-walk:first-child,
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page #city-details .create-walk:after:first-child,
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page > #city-details .create-walk:first-child,
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page > #city-details .create-walk:after:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button.active:first-child {
   border-top-right-radius: 0;
@@ -3309,8 +3309,8 @@ body.city-page #city-details .create-walk:after .caret,
 }
 .btn-group-justified > .btn,
 .btn-group-justified > .btn-group,
-.btn-group-justified > body.city-page #city-details .create-walk,
-.btn-group-justified > body.city-page #city-details .create-walk:after,
+.btn-group-justified > body.city-page > #city-details .create-walk,
+.btn-group-justified > body.city-page > #city-details .create-walk:after,
 .btn-group-justified > #create-walk #map-control-bar button,
 .btn-group-justified > #create-walk #map-control-bar button.active {
   float: none;
@@ -3318,8 +3318,8 @@ body.city-page #city-details .create-walk:after .caret,
   width: 1%;
 }
 .btn-group-justified > .btn-group .btn,
-.btn-group-justified > .btn-group body.city-page #city-details .create-walk,
-.btn-group-justified > .btn-group body.city-page #city-details .create-walk:after,
+.btn-group-justified > .btn-group body.city-page > #city-details .create-walk,
+.btn-group-justified > .btn-group body.city-page > #city-details .create-walk:after,
 .btn-group-justified > .btn-group #create-walk #map-control-bar button,
 .btn-group-justified > .btn-group #create-walk #map-control-bar button.active {
   width: 100%;
@@ -3329,10 +3329,10 @@ body.city-page #city-details .create-walk:after .caret,
 }
 [data-toggle="buttons"] > .btn > input[type="radio"],
 [data-toggle="buttons"] > .btn > input[type="checkbox"],
-[data-toggle="buttons"] > body.city-page #city-details .create-walk > input[type="radio"],
-[data-toggle="buttons"] > body.city-page #city-details .create-walk > input[type="checkbox"],
-[data-toggle="buttons"] > body.city-page #city-details .create-walk:after > input[type="radio"],
-[data-toggle="buttons"] > body.city-page #city-details .create-walk:after > input[type="checkbox"],
+[data-toggle="buttons"] > body.city-page > #city-details .create-walk > input[type="radio"],
+[data-toggle="buttons"] > body.city-page > #city-details .create-walk > input[type="checkbox"],
+[data-toggle="buttons"] > body.city-page > #city-details .create-walk:after > input[type="radio"],
+[data-toggle="buttons"] > body.city-page > #city-details .create-walk:after > input[type="checkbox"],
 [data-toggle="buttons"] > #create-walk #map-control-bar button > input[type="radio"],
 [data-toggle="buttons"] > #create-walk #map-control-bar button > input[type="checkbox"],
 [data-toggle="buttons"] > #create-walk #map-control-bar button.active > input[type="radio"],
@@ -3379,8 +3379,8 @@ body fieldset.search .form-control,
 .input-group-lg > textarea,
 .input-group-lg > dialog input[type=text],
 .input-group-lg > dialog input[type=password],
-.input-group-lg > .input-group-btn > body.city-page #city-details .create-walk,
-.input-group-lg > .input-group-btn > body.city-page #city-details .create-walk:after,
+.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
+.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 46px;
@@ -3399,8 +3399,8 @@ select.input-group-lg > input[type=password],
 select.input-group-lg > textarea,
 select.input-group-lg > dialog input[type=text],
 select.input-group-lg > dialog input[type=password],
-select.input-group-lg > .input-group-btn > body.city-page #city-details .create-walk,
-select.input-group-lg > .input-group-btn > body.city-page #city-details .create-walk:after,
+select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
+select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 46px;
@@ -3426,10 +3426,10 @@ textarea.input-group-lg > dialog input[type=text],
 select[multiple].input-group-lg > dialog input[type=text],
 textarea.input-group-lg > dialog input[type=password],
 select[multiple].input-group-lg > dialog input[type=password],
-textarea.input-group-lg > .input-group-btn > body.city-page #city-details .create-walk,
-select[multiple].input-group-lg > .input-group-btn > body.city-page #city-details .create-walk,
-textarea.input-group-lg > .input-group-btn > body.city-page #city-details .create-walk:after,
-select[multiple].input-group-lg > .input-group-btn > body.city-page #city-details .create-walk:after,
+textarea.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
+select[multiple].input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
+textarea.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
+select[multiple].input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
@@ -3446,8 +3446,8 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-b
 .input-group-sm > textarea,
 .input-group-sm > dialog input[type=text],
 .input-group-sm > dialog input[type=password],
-.input-group-sm > .input-group-btn > body.city-page #city-details .create-walk,
-.input-group-sm > .input-group-btn > body.city-page #city-details .create-walk:after,
+.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
+.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 30px;
@@ -3466,8 +3466,8 @@ select.input-group-sm > input[type=password],
 select.input-group-sm > textarea,
 select.input-group-sm > dialog input[type=text],
 select.input-group-sm > dialog input[type=password],
-select.input-group-sm > .input-group-btn > body.city-page #city-details .create-walk,
-select.input-group-sm > .input-group-btn > body.city-page #city-details .create-walk:after,
+select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
+select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active {
   height: 30px;
@@ -3493,10 +3493,10 @@ textarea.input-group-sm > dialog input[type=text],
 select[multiple].input-group-sm > dialog input[type=text],
 textarea.input-group-sm > dialog input[type=password],
 select[multiple].input-group-sm > dialog input[type=password],
-textarea.input-group-sm > .input-group-btn > body.city-page #city-details .create-walk,
-select[multiple].input-group-sm > .input-group-btn > body.city-page #city-details .create-walk,
-textarea.input-group-sm > .input-group-btn > body.city-page #city-details .create-walk:after,
-select[multiple].input-group-sm > .input-group-btn > body.city-page #city-details .create-walk:after,
+textarea.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
+select[multiple].input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
+textarea.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
+select[multiple].input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
@@ -3575,14 +3575,14 @@ body fieldset.search .form-control:not(:first-child):not(:last-child),
 body fieldset.search .form-control:first-child,
 .input-group dialog input[type=text]:first-child,
 .input-group dialog input[type=password]:first-child,
-.input-group-btn:first-child > body.city-page #city-details .create-walk,
-.input-group-btn:first-child > .btn-group > body.city-page #city-details .create-walk,
-.input-group-btn:last-child > body.city-page #city-details .create-walk:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > body.city-page #city-details .create-walk,
-.input-group-btn:first-child > body.city-page #city-details .create-walk:after,
-.input-group-btn:first-child > .btn-group > body.city-page #city-details .create-walk:after,
-.input-group-btn:last-child > body.city-page #city-details .create-walk:after:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > body.city-page #city-details .create-walk:after,
+.input-group-btn:first-child > body.city-page > #city-details .create-walk,
+.input-group-btn:first-child > .btn-group > body.city-page > #city-details .create-walk,
+.input-group-btn:last-child > body.city-page > #city-details .create-walk:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > body.city-page > #city-details .create-walk,
+.input-group-btn:first-child > body.city-page > #city-details .create-walk:after,
+.input-group-btn:first-child > .btn-group > body.city-page > #city-details .create-walk:after,
+.input-group-btn:last-child > body.city-page > #city-details .create-walk:after:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > body.city-page > #city-details .create-walk:after,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
 .input-group-btn:first-child > .btn-group > #create-walk #map-control-bar button,
 .input-group-btn:last-child > #create-walk #map-control-bar button:not(:last-child):not(.dropdown-toggle),
@@ -3612,14 +3612,14 @@ body fieldset.search .form-control:first-child,
 body fieldset.search .form-control:last-child,
 .input-group dialog input[type=text]:last-child,
 .input-group dialog input[type=password]:last-child,
-.input-group-btn:last-child > body.city-page #city-details .create-walk,
-.input-group-btn:last-child > .btn-group > body.city-page #city-details .create-walk,
-.input-group-btn:first-child > body.city-page #city-details .create-walk:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > body.city-page #city-details .create-walk,
-.input-group-btn:last-child > body.city-page #city-details .create-walk:after,
-.input-group-btn:last-child > .btn-group > body.city-page #city-details .create-walk:after,
-.input-group-btn:first-child > body.city-page #city-details .create-walk:after:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > body.city-page #city-details .create-walk:after,
+.input-group-btn:last-child > body.city-page > #city-details .create-walk,
+.input-group-btn:last-child > .btn-group > body.city-page > #city-details .create-walk,
+.input-group-btn:first-child > body.city-page > #city-details .create-walk:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > body.city-page > #city-details .create-walk,
+.input-group-btn:last-child > body.city-page > #city-details .create-walk:after,
+.input-group-btn:last-child > .btn-group > body.city-page > #city-details .create-walk:after,
+.input-group-btn:first-child > body.city-page > #city-details .create-walk:after:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > body.city-page > #city-details .create-walk:after,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
 .input-group-btn:last-child > .btn-group > #create-walk #map-control-bar button,
 .input-group-btn:first-child > #create-walk #map-control-bar button:not(:first-child),
@@ -3640,15 +3640,15 @@ body fieldset.search .form-control:last-child,
   white-space: nowrap;
 }
 .input-group-btn > .btn,
-.input-group-btn > body.city-page #city-details .create-walk,
-.input-group-btn > body.city-page #city-details .create-walk:after,
+.input-group-btn > body.city-page > #city-details .create-walk,
+.input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-btn > #create-walk #map-control-bar button,
 .input-group-btn > #create-walk #map-control-bar button.active {
   position: relative;
 }
 .input-group-btn > .btn + .btn,
-.input-group-btn > body.city-page #city-details .create-walk + body.city-page #city-details .create-walk,
-.input-group-btn > body.city-page #city-details .create-walk:after + body.city-page #city-details .create-walk:after,
+.input-group-btn > body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
+.input-group-btn > body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .input-group-btn > #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .input-group-btn > #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active {
   margin-left: -1px;
@@ -3656,12 +3656,12 @@ body fieldset.search .form-control:last-child,
 .input-group-btn > .btn:hover,
 .input-group-btn > .btn:focus,
 .input-group-btn > .btn:active,
-.input-group-btn > body.city-page #city-details .create-walk:hover,
-.input-group-btn > body.city-page #city-details .create-walk:focus,
-.input-group-btn > body.city-page #city-details .create-walk:active,
-.input-group-btn > body.city-page #city-details .create-walk:after:hover,
-.input-group-btn > body.city-page #city-details .create-walk:after:focus,
-.input-group-btn > body.city-page #city-details .create-walk:after:active,
+.input-group-btn > body.city-page > #city-details .create-walk:hover,
+.input-group-btn > body.city-page > #city-details .create-walk:focus,
+.input-group-btn > body.city-page > #city-details .create-walk:active,
+.input-group-btn > body.city-page > #city-details .create-walk:after:hover,
+.input-group-btn > body.city-page > #city-details .create-walk:after:focus,
+.input-group-btn > body.city-page > #city-details .create-walk:after:active,
 .input-group-btn > #create-walk #map-control-bar button:hover,
 .input-group-btn > #create-walk #map-control-bar button:focus,
 .input-group-btn > #create-walk #map-control-bar button:active,
@@ -3672,16 +3672,16 @@ body fieldset.search .form-control:last-child,
 }
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .btn-group,
-.input-group-btn:first-child > body.city-page #city-details .create-walk,
-.input-group-btn:first-child > body.city-page #city-details .create-walk:after,
+.input-group-btn:first-child > body.city-page > #city-details .create-walk,
+.input-group-btn:first-child > body.city-page > #city-details .create-walk:after,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
 .input-group-btn:first-child > #create-walk #map-control-bar button.active {
   margin-right: -1px;
 }
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .btn-group,
-.input-group-btn:last-child > body.city-page #city-details .create-walk,
-.input-group-btn:last-child > body.city-page #city-details .create-walk:after,
+.input-group-btn:last-child > body.city-page > #city-details .create-walk,
+.input-group-btn:last-child > body.city-page > #city-details .create-walk:after,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
 .input-group-btn:last-child > #create-walk #map-control-bar button.active {
   margin-left: -1px;
@@ -5029,8 +5029,8 @@ a.label:focus {
   display: none;
 }
 .btn .label,
-body.city-page #city-details .create-walk .label,
-body.city-page #city-details .create-walk:after .label,
+body.city-page > #city-details .create-walk .label,
+body.city-page > #city-details .create-walk:after .label,
 #create-walk #map-control-bar button .label,
 #create-walk #map-control-bar button.active .label {
   position: relative;
@@ -5096,8 +5096,8 @@ body.city-page #city-details .create-walk:after .label,
   display: none;
 }
 .btn .badge,
-body.city-page #city-details .create-walk .badge,
-body.city-page #city-details .create-walk:after .badge,
+body.city-page > #city-details .create-walk .badge,
+body.city-page > #city-details .create-walk:after .badge,
 #create-walk #map-control-bar button .badge,
 #create-walk #map-control-bar button.active .badge {
   position: relative;
@@ -6034,8 +6034,8 @@ dialog {
 dialog.fade .modal-dialog,
 .modaldialog .modal-dialog,
 .modal.fade dialog > div,
-.modalbody.city-page #city-details .walk-list .modal-dialog,
-.modalbody.city-page #city-details .walk-list.showall .modal-dialog {
+.modalbody.city-page > #city-details .walk-list .modal-dialog,
+.modalbody.city-page > #city-details .walk-list.showall .modal-dialog {
   -webkit-transform: translate3d(0, -25%, 0);
   transform: translate3d(0, -25%, 0);
   -webkit-transition: -webkit-transform 0.3s ease-out;
@@ -6080,8 +6080,8 @@ dialog > div > article {
 }
 .modal-backdrop.fade,
 .modal-backdropdialog,
-.modal-backdropbody.city-page #city-details .walk-list,
-.modal-backdropbody.city-page #city-details .walk-list.showall {
+.modal-backdropbody.city-page > #city-details .walk-list,
+.modal-backdropbody.city-page > #city-details .walk-list.showall {
   opacity: 0;
   filter: alpha(opacity=0);
 }
@@ -6117,8 +6117,8 @@ dialog > div > article footer {
 }
 .modal-footer .btn + .btn,
 dialog > div > article footer .btn + .btn,
-.modal-footer body.city-page #city-details .create-walk + body.city-page #city-details .create-walk,
-.modal-footer body.city-page #city-details .create-walk:after + body.city-page #city-details .create-walk:after,
+.modal-footer body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
+.modal-footer body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .modal-footer #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .modal-footer #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active {
   margin-left: 5px;
@@ -6126,8 +6126,8 @@ dialog > div > article footer .btn + .btn,
 }
 .modal-footer .btn-group .btn + .btn,
 dialog > div > article footer .btn-group .btn + .btn,
-.modal-footer .btn-group body.city-page #city-details .create-walk + body.city-page #city-details .create-walk,
-.modal-footer .btn-group body.city-page #city-details .create-walk:after + body.city-page #city-details .create-walk:after,
+.modal-footer .btn-group body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
+.modal-footer .btn-group body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .modal-footer .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .modal-footer .btn-group #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active {
   margin-left: -1px;
@@ -6535,8 +6535,8 @@ dialog > div > article footer .btn-block + .btn-block {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 .carousel-caption .btn,
-.carousel-caption body.city-page #city-details .create-walk,
-.carousel-caption body.city-page #city-details .create-walk:after,
+.carousel-caption body.city-page > #city-details .create-walk,
+.carousel-caption body.city-page > #city-details .create-walk:after,
 .carousel-caption #create-walk #map-control-bar button,
 .carousel-caption #create-walk #map-control-bar button.active {
   text-shadow: none;
@@ -7198,8 +7198,8 @@ a {
   top: 15px;
 }
 .overlay.o-donate .o-content div.btnWrapper a.btn,
-.overlay.o-donate .o-content div.btnWrapper abody.city-page #city-details .create-walk,
-.overlay.o-donate .o-content div.btnWrapper abody.city-page #city-details .create-walk:after,
+.overlay.o-donate .o-content div.btnWrapper abody.city-page > #city-details .create-walk,
+.overlay.o-donate .o-content div.btnWrapper abody.city-page > #city-details .create-walk:after,
 .overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button,
 .overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button.active {
   background-color: #f1592a;
@@ -7466,10 +7466,10 @@ body > header .logo span,
 .btn-primary,
 body > header #donate,
 body > header #donate,
-body.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk:after,
-body.city-page #city-details .create-walk:after,
+body.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk:after,
+body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active {
   font-family: "Roboto Slab", serif;
@@ -7488,8 +7488,8 @@ a {
   top: 40%;
 }
 .form-actions .btn,
-.form-actions body.city-page #city-details .create-walk,
-.form-actions body.city-page #city-details .create-walk:after,
+.form-actions body.city-page > #city-details .create-walk,
+.form-actions body.city-page > #city-details .create-walk:after,
 .form-actions #create-walk #map-control-bar button,
 .form-actions #create-walk #map-control-bar button.active {
   margin-right: 15px;
@@ -7874,8 +7874,8 @@ body > footer .social-icons + div {
 }
 .btn,
 body > header #donate,
-body.city-page #city-details .create-walk,
-body.city-page #city-details .create-walk:after,
+body.city-page > #city-details .create-walk,
+body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active {
   background-color: #f16725;
@@ -7886,8 +7886,8 @@ body.city-page #city-details .create-walk:after,
   box-shadow: 0 2px 0 0 #752b08;
 }
 .btn:hover,
-body.city-page #city-details .create-walk:hover,
-body.city-page #city-details .create-walk:after:hover,
+body.city-page > #city-details .create-walk:hover,
+body.city-page > #city-details .create-walk:after:hover,
 #create-walk #map-control-bar button:hover,
 #create-walk #map-control-bar button.active:hover {
   color: #fff;
@@ -8265,27 +8265,27 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
     float: left;
   }
 }
-.home {
+body.home {
   background-attachment: fixed;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
 }
-.home .intro,
-.home .navbar_home .large,
-.home .section2 ul.nav,
-.home .section2 ul.social-login-providers.template-fontawesome {
+body.home #intro,
+body.home .navbar_home .large,
+body.home .section2 ul.nav,
+body.home .section2 ul.social-login-providers.template-fontawesome {
   font-family: "Roboto Slab", serif;
 }
-.home.logged_in {
+body.home.logged_in {
   padding-top: 0;
 }
 @media (max-width: 768px) {
-  .home {
+  body.home {
     padding: 0;
   }
 }
-.home .backgroundImageBanner {
+body.home .backgroundImageBanner {
   background-attachment: fixed;
   background-position: center center;
   background-repeat: no-repeat;
@@ -8301,44 +8301,59 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
           transition: opacity 2s ease-in-out;
 }
 @media (max-width: 768px) {
-  .home .backgroundImageBanner {
+  body.home .backgroundImageBanner {
     display: none;
   }
 }
-.home .intro .nav li,
-.home .intro .social-login-providers.template-fontawesome li {
-  padding-right: 20px;
-}
-.home .intro .nav li.divider-vertical,
-.home .intro .social-login-providers.template-fontawesome li.divider-vertical {
-  height: 40px;
-  margin: 0 20px 0 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
-  border-left: none;
-  padding: 0;
-}
-.home .input-append {
+body.home .input-append {
   margin: 10px 0 0 0;
 }
-.home .nav-tabs > li > a {
+body.home .nav-tabs > li > a {
   background: #DBDBDB;
   padding: 20px;
   border: none;
   font-size: 1.5em;
 }
-.home .nav-tabs > li > a:hover {
+body.home .nav-tabs > li > a:hover {
   border: none;
 }
-.home .nav-tabs > li.active > a {
+body.home .nav-tabs > li.active > a {
   background: #fff;
 }
-.home .intro .nav,
-.home .intro .social-login-providers.template-fontawesome {
+body.home #intro {
+  width: 100%;
+  background-position: center center;
+}
+body.home #intro:before,
+body.home #intro:after {
+  content: " ";
+  display: table;
+}
+body.home #intro:after {
+  clear: both;
+}
+body.home #intro:before,
+body.home #intro:after {
+  content: " ";
+  display: table;
+}
+body.home #intro:after {
+  clear: both;
+}
+body.home #intro .logo {
+  background-image: url("../images/jwlogos-3.png");
+  display: block;
+  width: 172px;
+  height: 120px;
+  float: left;
+}
+body.home #intro .nav,
+body.home #intro .social-login-providers.template-fontawesome {
   float: right;
   padding: 50px 0 0 0;
 }
-.home .intro .nav li a,
-.home .intro .social-login-providers.template-fontawesome li a {
+body.home #intro .nav a,
+body.home #intro .social-login-providers.template-fontawesome a {
   color: #303030;
   font-size: 16px;
   margin-right: 0px;
@@ -8347,17 +8362,29 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   border: 1px solid #a53d0b;
   background: rgba(194, 83, 14, 0.9);
 }
-.home .intro .nav li a:hover,
-.home .intro .social-login-providers.template-fontawesome li a:hover {
+body.home #intro .nav a:hover,
+body.home #intro .social-login-providers.template-fontawesome a:hover {
   color: #fff;
   background: #d54e0e;
 }
-.home .intro .nav li.active a,
-.home .intro .social-login-providers.template-fontawesome li.active a {
+body.home #intro .nav li,
+body.home #intro .social-login-providers.template-fontawesome li {
+  padding-right: 20px;
+}
+body.home #intro .nav li.divider-vertical,
+body.home #intro .social-login-providers.template-fontawesome li.divider-vertical {
+  height: 40px;
+  margin: 0 20px 0 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-left: none;
+  padding: 0;
+}
+body.home #intro .nav li.active a,
+body.home #intro .social-login-providers.template-fontawesome li.active a {
   text-decoration: none;
   background-color: rgba(255, 250, 250, 0.5);
 }
-.home .intro blockquote {
+body.home #intro blockquote {
   font-size: inherit;
   float: none;
   text-transform: none;
@@ -8368,242 +8395,196 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   line-height: 22px;
   margin: 0 auto;
 }
-.home .intro .linkbox {
+body.home #intro .linkbox {
   margin: 10px auto;
   display: block;
   width: 270px;
   font-size: 1.4em;
 }
-.home .intro a {
+body.home #intro a {
   color: white;
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-.home .intro a:hover {
+body.home #intro a:hover {
   opacity: 0.8;
 }
-.home .intro .ccm-page-list-typeahead:before,
-.home .intro .ccm-page-list-typeahead:after {
+body.home #intro .ccm-page-list-typeahead:before,
+body.home #intro .ccm-page-list-typeahead:after {
   content: " ";
   display: table;
 }
-.home .intro .ccm-page-list-typeahead:after {
+body.home #intro .ccm-page-list-typeahead:after {
   clear: both;
 }
-.home .intro .ccm-page-list-typeahead:before,
-.home .intro .ccm-page-list-typeahead:after {
+body.home #intro .ccm-page-list-typeahead:before,
+body.home #intro .ccm-page-list-typeahead:after {
   content: " ";
   display: table;
 }
-.home .intro .ccm-page-list-typeahead:after {
+body.home #intro .ccm-page-list-typeahead:after {
   clear: both;
 }
-.home .intro .ccm-page-list-typeahead h3 {
+body.home #intro .ccm-page-list-typeahead h3 {
   margin: 5px 0 15px 0;
 }
-.home .intro .ccm-page-list-typeahead h3 a {
+body.home #intro .ccm-page-list-typeahead h3 a {
   font-weight: 500;
   text-decoration: underline;
   color: inherit;
 }
-.home section.blog {
+@media (max-width: 768px) {
+  body.home #intro {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+body.home #blog {
   max-width: 1200px;
   margin: 0 auto;
   min-height: 525px;
   background-color: #fff;
 }
-.home section.blog:before,
-.home section.blog:after {
+body.home #blog:before,
+body.home #blog:after {
   content: " ";
   display: table;
 }
-.home section.blog:after {
+body.home #blog:after {
   clear: both;
 }
-.home section.blog:before,
-.home section.blog:after {
+body.home #blog:before,
+body.home #blog:after {
   content: " ";
   display: table;
 }
-.home section.blog:after {
+body.home #blog:after {
   clear: both;
 }
-.home section.blog h1,
-.home section.blog h2,
-.home section.blog h3,
-.home section.blog h4,
-.home section.blog h5 {
-  font-family: "Roboto Slab", serif;
-  margin: 0;
-}
-.home section.blog section {
+body.home #blog section {
   vertical-align: top;
 }
-.home section.blog section.walkblog {
+body.home #blog section.walkblog {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .home section.blog section.walkblog {
+  body.home #blog section.walkblog {
     float: left;
     width: 100%;
   }
 }
 @media (min-width: 992px) {
-  .home section.blog section.walkblog {
+  body.home #blog section.walkblog {
     float: left;
     width: 75%;
   }
 }
-.home section.blog section.twitter {
+body.home #blog section.twitter {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  .home section.blog section.twitter {
+  body.home #blog section.twitter {
     float: left;
     width: 100%;
   }
 }
 @media (min-width: 992px) {
-  .home section.blog section.twitter {
+  body.home #blog section.twitter {
     float: left;
     width: 25%;
   }
 }
-.home section.blog section > h3 {
+body.home #blog section > h3 {
   color: #666666;
   font-weight: 700;
   margin-bottom: 15px;
 }
 @media (max-width: 768px) {
-  .home section.blog section > h3 {
+  body.home #blog section > h3 {
     margin-bottom: 10px;
   }
 }
-.home section.blog section > h3 a {
+body.home #blog section > h3 a {
   color: #666666;
   font-size: 0.6em;
 }
 @media (max-width: 768px) {
-  .home section.blog section > h3 a {
+  body.home #blog section > h3 a {
     display: none;
   }
 }
-.home section.blog:before {
+body.home #blog:before {
   content: " ";
   display: block;
   background-color: #fff;
   width: 100%;
-  height: 100%;
+  height: 115%;
   position: absolute;
   left: 0;
   z-index: 0;
 }
 @media (max-width: 768px) {
-  .home section.blog {
+  body.home #blog {
     background-color: #fff;
   }
 }
-.home section.calltoaction {
-  max-width: 1200px;
-  padding: 30px 15px;
-  margin: 0 auto;
+body.home #calltoaction {
+  max-width: 768px;
+  padding: 30px;
+  margin: 60px auto;
   background: #fff;
   position: relative;
 }
-.home section.calltoaction #city-choice-label,
-.home section.calltoaction #city-choice-select {
+body.home #calltoaction #city-choice-label,
+body.home #calltoaction #city-choice-select {
   display: none;
 }
 @media (max-width: 768px) {
-  .home section.calltoaction #city-choice-label,
-  .home section.calltoaction #city-choice-select {
+  body.home #calltoaction #city-choice-label,
+  body.home #calltoaction #city-choice-select {
     display: block;
   }
 }
 @media (max-width: 768px) {
-  .home section.calltoaction {
+  body.home #calltoaction {
     width: auto;
     position: static;
   }
 }
-.home section.calltoaction > h3:first-child {
+body.home #calltoaction > div > h3:first-child {
   color: #666666;
   font-weight: 700;
-  margin: 0 0 0.8em 0;
+  margin: 0;
 }
-.home section.calltoaction p {
+body.home #calltoaction p {
   color: #666666;
   line-height: 1.6;
   font-size: 1.3em;
 }
-.home section.calltoaction ul {
+body.home #calltoaction ul {
   list-style: none;
   margin: 0 0 1em 0;
   padding: 0;
 }
-.home section.calltoaction ul li {
+body.home #calltoaction ul li {
   display: inline-block;
 }
-.home section.calltoaction:after {
-  content: " ";
-  display: block;
-  position: absolute;
-  width: 300%;
-  height: 100%;
-  background: #fff;
-  top: 0;
-  left: -150%;
-  z-index: -1;
-}
-.home section.map {
+body.home #map {
   height: 350px;
   overflow: hidden;
 }
 @media (max-width: 768px) {
-  .home section.map {
+  body.home #map {
     display: none;
   }
 }
-.home .intro {
-  width: 100%;
-  background-position: center center;
-}
-.home .intro:before,
-.home .intro:after {
-  content: " ";
-  display: table;
-}
-.home .intro:after {
-  clear: both;
-}
-.home .intro:before,
-.home .intro:after {
-  content: " ";
-  display: table;
-}
-.home .intro:after {
-  clear: both;
-}
-@media (max-width: 768px) {
-  .home .intro {
-    padding: 0 !important;
-    margin: 0 !important;
-  }
-}
-.home .intro .logo {
-  background-image: url("../images/jwlogos-3.png");
-  display: block;
-  width: 172px;
-  height: 120px;
-  float: left;
-}
-.home .callouts {
+body.home .callouts {
   position: relative;
   float: left;
   width: 100%;
@@ -8618,46 +8599,46 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   background: linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
 }
 @media (max-width: 768px) {
-  .home .callouts {
+  body.home .callouts {
     padding-bottom: 5px;
   }
 }
-.home .callouts blockquote {
+body.home .callouts blockquote {
   border-left: 0;
   padding: 0;
   margin-bottom: 1.85em;
   position: relative;
 }
-.home .callouts blockquote p {
+body.home .callouts blockquote p {
   font-size: 3em;
   line-height: 123%;
   font-weight: 300;
   letter-spacing: 1px;
 }
 @media (max-width: 992px) {
-  .home .callouts blockquote p {
+  body.home .callouts blockquote p {
     font-size: 24px;
     line-height: 1.5em;
   }
 }
-.home .callouts blockquote div.cityCtaWrapper {
+body.home .callouts blockquote div.cityCtaWrapper {
   position: absolute;
   left: 430px;
   bottom: 0;
 }
-.home .callouts blockquote div.cityCtaWrapper a.btn,
-.home .callouts blockquote div.cityCtaWrapper abody.city-page #city-details .create-walk,
-.home .callouts blockquote div.cityCtaWrapper abody.city-page #city-details .create-walk:after,
-.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button,
-.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button.active {
+body.home .callouts blockquote div.cityCtaWrapper a.btn,
+body.home .callouts blockquote div.cityCtaWrapper abody.city-page > #city-details .create-walk,
+body.home .callouts blockquote div.cityCtaWrapper abody.city-page > #city-details .create-walk:after,
+body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button,
+body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button.active {
   color: #333;
 }
 @media (max-width: 768px) {
-  .home .callouts blockquote div.ccm-page-list-typeahead {
+  body.home .callouts blockquote div.ccm-page-list-typeahead {
     display: none;
   }
 }
-.home main {
+body.home main {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
@@ -8665,7 +8646,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   padding: 15px 0;
 }
 @media (min-width: 992px) {
-  .home main {
+  body.home main {
     float: left;
     width: 100%;
   }
@@ -8680,13 +8661,13 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   height: 34px;
   margin: 0;
 }
-section.sponsors {
+#sponsors {
   clear: both;
   margin: 0 auto 240px;
   width: 1200px;
 }
 @media (max-width: 768px) {
-  section.sponsors {
+  #sponsors {
     display: none;
   }
 }
@@ -9198,8 +9179,8 @@ section.sponsors {
   padding: 0 0 0 8px;
 }
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page #city-details .create-walk,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page #city-details .create-walk:after,
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page > #city-details .create-walk,
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page > #city-details .create-walk:after,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button.active {
   margin: 10px 0 0;
@@ -9481,7 +9462,7 @@ body.city-page h4,
 body.city-page h5 {
   margin: 10px 0;
 }
-body.city-page #intro-city {
+body.city-page > #intro-city {
   background: transparent;
   color: #fff;
   font-family: "Roboto Slab", serif;
@@ -9494,57 +9475,57 @@ body.city-page #intro-city {
   margin: 30px auto 90px auto;
   max-width: 1200px;
 }
-body.city-page #intro-city .city-summary {
+body.city-page > #intro-city .city-summary {
   padding: 30px;
   background: #f16725;
   background: -webkit-linear-gradient(rgba(241, 103, 37, 0.7), rgba(241, 103, 37, 0.8), rgba(241, 103, 37, 0.9));
   background: linear-gradient(rgba(241, 103, 37, 0.7), rgba(241, 103, 37, 0.8), rgba(241, 103, 37, 0.9));
 }
 @media (min-width: 992px) {
-  body.city-page #intro-city .city-summary {
+  body.city-page > #intro-city .city-summary {
     width: 67%;
   }
 }
-body.city-page #intro-city .city-organizer,
-body.city-page #intro-city .city-organizer a,
-body.city-page #intro-city .city-organizer a i,
-body.city-page #intro-city .city-organizer a:hover {
+body.city-page > #intro-city .city-organizer,
+body.city-page > #intro-city .city-organizer a,
+body.city-page > #intro-city .city-organizer a i,
+body.city-page > #intro-city .city-organizer a:hover {
   text-decoration: none;
   color: #333;
 }
-body.city-page #intro-city .city-organizer h3,
-body.city-page #intro-city .city-organizer h4,
-body.city-page #intro-city .city-organizer h3 > a {
+body.city-page > #intro-city .city-organizer h3,
+body.city-page > #intro-city .city-organizer h4,
+body.city-page > #intro-city .city-organizer h3 > a {
   color: #fff;
 }
-body.city-page #intro-city .city-organizer .u-avatar,
-body.city-page #intro-city .city-organizer .city-organizer-details {
+body.city-page > #intro-city .city-organizer .u-avatar,
+body.city-page > #intro-city .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
 }
 @media (max-width: 768px) {
-  body.city-page #intro-city .city-organizer .u-avatar {
+  body.city-page > #intro-city .city-organizer .u-avatar {
     width: 76px;
     height: 76px;
     margin: 10px 0 0;
   }
 }
-body.city-page #intro-city .city-organizer .btn,
-body.city-page #intro-city .city-organizer body.city-page #city-details .create-walk,
-body.city-page #intro-city .city-organizer body.city-page #city-details .create-walk:after,
-body.city-page #intro-city .city-organizer #create-walk #map-control-bar button,
-body.city-page #intro-city .city-organizer #create-walk #map-control-bar button.active {
+body.city-page > #intro-city .city-organizer .btn,
+body.city-page > #intro-city .city-organizer body.city-page > #city-details .create-walk,
+body.city-page > #intro-city .city-organizer body.city-page > #city-details .create-walk:after,
+body.city-page > #intro-city .city-organizer #create-walk #map-control-bar button,
+body.city-page > #intro-city .city-organizer #create-walk #map-control-bar button.active {
   background-color: #fff;
 }
-body.city-page #intro-city a {
+body.city-page > #intro-city a {
   color: #fff;
   text-decoration: underline;
 }
-body.city-page #intro-city a i {
+body.city-page > #intro-city a i {
   text-decoration: none;
 }
-body.city-page #city-details {
+body.city-page > #city-details {
   top: -60px;
   background: #fff;
   padding: 15px 0 60px 0;
@@ -9553,41 +9534,41 @@ body.city-page #city-details {
   position: relative;
   max-width: 1200px;
 }
-body.city-page #city-details:before,
-body.city-page #city-details:after {
+body.city-page > #city-details:before,
+body.city-page > #city-details:after {
   content: " ";
   display: table;
 }
-body.city-page #city-details:after {
+body.city-page > #city-details:after {
   clear: both;
 }
-body.city-page #city-details:before,
-body.city-page #city-details:after {
+body.city-page > #city-details:before,
+body.city-page > #city-details:after {
   content: " ";
   display: table;
 }
-body.city-page #city-details:after {
+body.city-page > #city-details:after {
   clear: both;
 }
-body.city-page #city-details hr {
+body.city-page > #city-details hr {
   border-top: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   margin: 0;
 }
-body.city-page #city-details h3 {
+body.city-page > #city-details h3 {
   line-height: 1em;
   margin-bottom: 1em;
   display: inline-block;
 }
-body.city-page #city-details .see-all {
+body.city-page > #city-details .see-all {
   font-size: 18px;
   color: #222;
   margin-left: 10px;
 }
-body.city-page #city-details .see-all:after {
+body.city-page > #city-details .see-all:after {
   content: " >>";
 }
-body.city-page #city-details .walk {
+body.city-page > #city-details .walk {
   position: relative;
   min-height: 1px;
   padding-left: 5px;
@@ -9599,69 +9580,69 @@ body.city-page #city-details .walk {
           transition-duration: 0.1s;
 }
 @media (min-width: 768px) {
-  body.city-page #city-details .walk {
+  body.city-page > #city-details .walk {
     float: left;
     width: 50%;
   }
 }
 @media (min-width: 992px) {
-  body.city-page #city-details .walk {
+  body.city-page > #city-details .walk {
     float: left;
     width: 33.33333333%;
   }
 }
-body.city-page #city-details .walk h4 {
+body.city-page > #city-details .walk h4 {
   color: #f16725;
 }
-body.city-page #city-details .walk h6 {
+body.city-page > #city-details .walk h6 {
   color: #222;
 }
-body.city-page #city-details .walk a {
+body.city-page > #city-details .walk a {
   color: #666;
 }
-body.city-page #city-details .walk .thumbnail,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure {
+body.city-page > #city-details .walk .thumbnail,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure {
   height: 580px;
   -webkit-transition: none;
           transition: none;
   position: relative;
   padding: 0;
 }
-body.city-page #city-details .walk .thumbnail .walkimage,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure .walkimage {
+body.city-page > #city-details .walk .thumbnail .walkimage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage {
   margin: 0;
   background-size: cover;
   background-position: 50% 50%;
   width: 100%;
   min-height: 240px;
 }
-body.city-page #city-details .walk .thumbnail .caption p,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption p,
-body.city-page #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure .caption p {
+body.city-page > #city-details .walk .thumbnail .caption p,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption p,
+body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption p {
   min-height: 90px;
   overflow: hidden;
   display: block;
 }
-body.city-page #city-details .walk .thumbnail .caption h6,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption h6,
-body.city-page #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure .caption h6 {
+body.city-page > #city-details .walk .thumbnail .caption h6,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption h6,
+body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption h6 {
   font-weight: 700;
 }
 @media (max-width: 768px) {
-  body.city-page #city-details .walk .thumbnail .caption,
-  body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption,
-  body.city-page #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
-  body.city-page #city-details .walk .ccm-page-list-city-cards li figure .caption {
+  body.city-page > #city-details .walk .thumbnail .caption,
+  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption,
+  body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
+  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption {
     padding-bottom: 20px;
   }
 }
-body.city-page #city-details .walk .thumbnail .when,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .when,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure .when {
+body.city-page > #city-details .walk .thumbnail .when,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .when,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .when {
   list-style-type: none;
   font-weight: 700;
   color: #222;
@@ -9670,72 +9651,72 @@ body.city-page #city-details .walk .ccm-page-list-city-cards li figure .when {
   font-size: 12px;
   margin: 1.5em 0 0.6em 0;
 }
-body.city-page #city-details .walk .thumbnail .tags,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure .tags {
+body.city-page > #city-details .walk .thumbnail .tags,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags {
   position: absolute;
   bottom: -30px;
   width: 100%;
   text-align: center;
 }
-body.city-page #city-details .walk .thumbnail .tags .tag,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .tag,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure .tags .tag {
+body.city-page > #city-details .walk .thumbnail .tags .tag,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .tag,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .tag {
   display: inline-block;
   padding: 8px;
   cursor: pointer;
   background: #0675fc;
   border-radius: 100%;
 }
-body.city-page #city-details .walk .thumbnail .tags .fa,
-body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .fa,
-body.city-page #city-details .walk .ccm-page-list-city-cards li figure .tags .fa {
+body.city-page > #city-details .walk .thumbnail .tags .fa,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .fa,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .fa {
   color: #fff;
   width: auto;
   line-height: 15px;
   width: 15px;
 }
 @media (max-width: 992px) {
-  body.city-page #city-details .walk .thumbnail,
-  body.city-page #city-details .walk .ccm-page-list.ccm-blog-index li figure,
-  body.city-page #city-details .walk .ccm-page-list-city-cards li figure {
+  body.city-page > #city-details .walk .thumbnail,
+  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure,
+  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure {
     min-height: 0;
   }
 }
-body.city-page #city-details .walk:hover {
+body.city-page > #city-details .walk:hover {
   padding-top: 5px;
   padding-bottom: 10px;
 }
-body.city-page #city-details .walk:hover .thumbnail,
-body.city-page #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure,
-body.city-page #city-details .walk:hover .ccm-page-list-city-cards li figure {
+body.city-page > #city-details .walk:hover .thumbnail,
+body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure,
+body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure {
   background: #6badfd;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
 }
-body.city-page #city-details .walk:hover .thumbnail h4,
-body.city-page #city-details .walk:hover .thumbnail h6,
-body.city-page #city-details .walk:hover .thumbnail p,
-body.city-page #city-details .walk:hover .thumbnail li,
-body.city-page #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure h4,
-body.city-page #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure h6,
-body.city-page #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure p,
-body.city-page #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure li,
-body.city-page #city-details .walk:hover .ccm-page-list-city-cards li figure h4,
-body.city-page #city-details .walk:hover .ccm-page-list-city-cards li figure h6,
-body.city-page #city-details .walk:hover .ccm-page-list-city-cards li figure p,
-body.city-page #city-details .walk:hover .ccm-page-list-city-cards li figure li {
+body.city-page > #city-details .walk:hover .thumbnail h4,
+body.city-page > #city-details .walk:hover .thumbnail h6,
+body.city-page > #city-details .walk:hover .thumbnail p,
+body.city-page > #city-details .walk:hover .thumbnail li,
+body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure h4,
+body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure h6,
+body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure p,
+body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure li,
+body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure h4,
+body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure h6,
+body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure p,
+body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure li {
   color: #FFF;
 }
-body.city-page #city-details .walk:active {
+body.city-page > #city-details .walk:active {
   margin-top: 0;
 }
-body.city-page #city-details .walk:active .thumbnail,
-body.city-page #city-details .walk:active .ccm-page-list.ccm-blog-index li figure,
-body.city-page #city-details .walk:active .ccm-page-list-city-cards li figure {
+body.city-page > #city-details .walk:active .thumbnail,
+body.city-page > #city-details .walk:active .ccm-page-list.ccm-blog-index li figure,
+body.city-page > #city-details .walk:active .ccm-page-list-city-cards li figure {
   background: #3991fc;
 }
-body.city-page #city-details .create-walk {
+body.city-page > #city-details .create-walk {
   position: absolute;
   top: 10px;
   padding-right: 30px;
@@ -9745,12 +9726,12 @@ body.city-page #city-details .create-walk {
   font-size: 18px;
 }
 @media (max-width: 992px) {
-  body.city-page #city-details .create-walk {
+  body.city-page > #city-details .create-walk {
     right: -20px;
     display: none;
   }
 }
-body.city-page #city-details .create-walk:after {
+body.city-page > #city-details .create-walk:after {
   content: " ";
   position: absolute;
   width: 0px;
@@ -9765,23 +9746,23 @@ body.city-page #city-details .create-walk:after {
   box-shadow: none;
 }
 @media (max-width: 992px) {
-  body.city-page #city-details .create-walk:after {
+  body.city-page > #city-details .create-walk:after {
     display: none;
   }
 }
-body.city-page #city-details .description {
+body.city-page > #city-details .description {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  body.city-page #city-details .description {
+  body.city-page > #city-details .description {
     float: left;
     width: 33.33333333%;
   }
 }
-body.city-page #city-details .description .menu-flags a {
+body.city-page > #city-details .description .menu-flags a {
   display: block;
   position: relative;
   margin: 15px 0 0 -30px;
@@ -9796,10 +9777,10 @@ body.city-page #city-details .description .menu-flags a {
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-body.city-page #city-details .description .menu-flags a:hover {
+body.city-page > #city-details .description .menu-flags a:hover {
   background-color: #df520e;
 }
-body.city-page #city-details .description .menu-flags a:after {
+body.city-page > #city-details .description .menu-flags a:after {
   content: " ";
   position: absolute;
   left: 0;
@@ -9811,66 +9792,66 @@ body.city-page #city-details .description .menu-flags a:after {
   border-color: transparent #d54e0e transparent transparent;
 }
 @media (max-width: 992px) {
-  body.city-page #city-details .description {
+  body.city-page > #city-details .description {
     display: none;
   }
 }
-body.city-page #city-details .walk-list {
+body.city-page > #city-details .walk-list {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  body.city-page #city-details .walk-list {
+  body.city-page > #city-details .walk-list {
     float: left;
     width: 66.66666667%;
   }
 }
-body.city-page #city-details .walk-list .filters {
+body.city-page > #city-details .walk-list .filters {
   padding: 10px;
   margin: 0 0 20px;
   border: 1px solid #ddd;
   border-top: none;
   border-radius: 0 0 6px 6px;
 }
-body.city-page #city-details .walk-list .filters .filter {
+body.city-page > #city-details .walk-list .filters .filter {
   float: left;
   width: 260px;
 }
-body.city-page #city-details .walk-list .filters .filter label {
+body.city-page > #city-details .walk-list .filters .filter label {
   display: block;
   font-size: 16px;
   line-height: 24px;
   color: #B36038;
   color: #333;
 }
-body.city-page #city-details .walk-list.showall {
+body.city-page > #city-details .walk-list.showall {
   clear: both;
   margin-left: 2.5%;
 }
-body.city-page #city-details .walk-list .initiatives .initiative {
+body.city-page > #city-details .walk-list .initiatives .initiative {
   padding: 0 24px 12px 12px;
   margin: 0 0 12px 12px;
   border-left: 2px dashed #eee;
 }
-body.city-page #city-details .walk-list .initiatives .initiative div.headline {
+body.city-page > #city-details .walk-list .initiatives .initiative div.headline {
   font-size: 16px;
   font-weight: bold;
 }
-body.city-page #city-details .walk-list .initiatives .initiative p {
+body.city-page > #city-details .walk-list .initiatives .initiative p {
   margin: 0;
 }
-body.city-page #city-details .walk-list .initiatives .initiative div.subheadline {
+body.city-page > #city-details .walk-list .initiatives .initiative div.subheadline {
   font-size: 14px;
   font-weight: bold;
   padding: 12px 0 0;
 }
-body.city-page #city-details .walk-list .wards {
+body.city-page > #city-details .walk-list .wards {
   margin: 0 0 12px;
   display: none;
 }
-body.city-page #city-details .walk-list .wards a {
+body.city-page > #city-details .walk-list .wards a {
   display: inline-block;
   background: #fff;
   padding: 2px 5px;
@@ -9878,36 +9859,36 @@ body.city-page #city-details .walk-list .wards a {
   color: #111;
   border: 1px dotted #ccc;
 }
-body.city-page #city-details .walk-list .wards a:hover,
-body.city-page #city-details .walk-list .wards a.active {
+body.city-page > #city-details .walk-list .wards a:hover,
+body.city-page > #city-details .walk-list .wards a.active {
   color: #fff;
   border-color: transparent;
   background-color: #ff6600;
 }
-body.city-page #city-details .walk-list .empty {
+body.city-page > #city-details .walk-list .empty {
   font-size: 24px;
   line-height: 32px;
   margin: 16px 0 0;
 }
-body.city-page #city-details .walk-list .walk.hidden {
+body.city-page > #city-details .walk-list .walk.hidden {
   display: none;
 }
 @media (max-width: 992px) {
-  body.city-page #city-details .walk-list {
+  body.city-page > #city-details .walk-list {
     padding: 20px;
   }
 }
 @media (max-width: 768px) {
-  body.city-page #city-details .walk-list .ccm-page-list-rss-icon {
+  body.city-page > #city-details .walk-list .ccm-page-list-rss-icon {
     display: none;
   }
 }
 @media (max-width: 992px) {
-  body.city-page #city-details {
+  body.city-page > #city-details {
     top: 0;
   }
 }
-body.city-page #city-details:before {
+body.city-page > #city-details:before {
   background-color: #efefef;
   position: absolute;
   display: block;
@@ -9917,14 +9898,14 @@ body.city-page #city-details:before {
   height: 100%;
   z-index: -1;
 }
-body.city-page #blog {
+body.city-page > #blog {
   margin: -5px auto 0 auto;
   padding: 0 15px;
   max-width: 1200px;
   position: relative;
   min-height: 200px;
 }
-body.city-page #blog .title {
+body.city-page > #blog .title {
   display: inline-block;
   margin: -0.7em 0 1em 0;
   background: #f16725;
@@ -9933,42 +9914,42 @@ body.city-page #blog .title {
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
 }
-body.city-page #blog .title a {
+body.city-page > #blog .title a {
   display: inline-block;
   padding: 5px 15px;
   color: #fff;
 }
-body.city-page #blog .title a:hover {
+body.city-page > #blog .title a:hover {
   text-decoration: none;
 }
-body.city-page #blog .title a.add {
+body.city-page > #blog .title a.add {
   font-size: 20px;
 }
-body.city-page #blog .title:hover {
+body.city-page > #blog .title:hover {
   background: #d54e0e;
 }
-body.city-page #blog .ccm-blog-index li {
+body.city-page > #blog .ccm-blog-index li {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 768px) {
-  body.city-page #blog .ccm-blog-index li {
+  body.city-page > #blog .ccm-blog-index li {
     float: left;
     width: 50%;
   }
 }
 @media (min-width: 992px) {
-  body.city-page #blog .ccm-blog-index li {
+  body.city-page > #blog .ccm-blog-index li {
     float: left;
     width: 25%;
   }
 }
-body.city-page #blog .see-all {
+body.city-page > #blog .see-all {
   margin: 2em 0 0 0;
 }
-body.city-page #blog:after {
+body.city-page > #blog:after {
   content: " ";
   display: block;
   position: absolute;
@@ -9980,7 +9961,7 @@ body.city-page #blog:after {
   background: rgba(146, 205, 245, 0.75);
 }
 @media (max-width: 768px) {
-  body.city-page #blog:after {
+  body.city-page > #blog:after {
     background-color: #fff;
   }
 }
@@ -10810,8 +10791,8 @@ body.city-page #blog:after {
   }
 }
 .walk-stops-list a.btn,
-.walk-stops-list abody.city-page #city-details .create-walk,
-.walk-stops-list abody.city-page #city-details .create-walk:after,
+.walk-stops-list abody.city-page > #city-details .create-walk,
+.walk-stops-list abody.city-page > #city-details .create-walk:after,
 .walk-stops-list a#create-walk #map-control-bar button,
 .walk-stops-list a#create-walk #map-control-bar button.active {
   position: absolute;
@@ -10897,8 +10878,8 @@ body.city-page #blog:after {
   z-index: 5;
 }
 .profiles .profile-inner .btn-toolbar .btn,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk:after,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active {
   margin: 0 0 8px 0;
@@ -10912,23 +10893,23 @@ body.city-page #blog:after {
   text-indent: -1px;
 }
 .profiles .profile-inner .btn-toolbar .btn i,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk i,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk:after i,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk i,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after i,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button i,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active i {
   display: inline-block;
 }
 .profiles .profile-inner .btn-toolbar .btn:hover,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk:hover,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk:after:hover,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:hover,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after:hover,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:hover,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:hover {
   color: #f16725;
   background: #cdd5dc;
 }
 .profiles .profile-inner .btn-toolbar .btn:after,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk:after,
-.profiles .profile-inner .btn-toolbar body.city-page #city-details .create-walk:after:after,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after,
+.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:after {
   content: "";
@@ -11514,8 +11495,8 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .input-prepend .add-on:first-child,
 #create-walk .input-prepend .btn:first-child,
-#create-walk .input-prepend body.city-page #city-details .create-walk:first-child,
-#create-walk .input-prepend body.city-page #city-details .create-walk:after:first-child,
+#create-walk .input-prepend body.city-page > #city-details .create-walk:first-child,
+#create-walk .input-prepend body.city-page > #city-details .create-walk:after:first-child,
 #create-walk .input-prepend #create-walk #map-control-bar button:first-child,
 #create-walk .input-prepend #create-walk #map-control-bar button.active:first-child {
   border-top-left: 4px;
@@ -12005,16 +11986,16 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk #map-control-bar .btn,
 #create-walk #map-control-bar .addroute-wrapper,
-#create-walk #map-control-bar body.city-page #city-details .create-walk,
-#create-walk #map-control-bar body.city-page #city-details .create-walk:after,
+#create-walk #map-control-bar body.city-page > #city-details .create-walk,
+#create-walk #map-control-bar body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar #create-walk #map-control-bar button,
 #create-walk #map-control-bar #create-walk #map-control-bar button.active {
   width: 23.4%;
 }
 #create-walk #map-control-bar .btn i,
 #create-walk #map-control-bar .addroute-wrapper i,
-#create-walk #map-control-bar body.city-page #city-details .create-walk i,
-#create-walk #map-control-bar body.city-page #city-details .create-walk:after i,
+#create-walk #map-control-bar body.city-page > #city-details .create-walk i,
+#create-walk #map-control-bar body.city-page > #city-details .create-walk:after i,
 #create-walk #map-control-bar #create-walk #map-control-bar button i,
 #create-walk #map-control-bar #create-walk #map-control-bar button.active i {
   display: block;
@@ -12023,8 +12004,8 @@ body[data-pageviewname=CreateWalkView] {
   position: relative;
 }
 #create-walk #map-control-bar .addroute-wrapper .btn,
-#create-walk #map-control-bar .addroute-wrapper body.city-page #city-details .create-walk,
-#create-walk #map-control-bar .addroute-wrapper body.city-page #city-details .create-walk:after,
+#create-walk #map-control-bar .addroute-wrapper body.city-page > #city-details .create-walk,
+#create-walk #map-control-bar .addroute-wrapper body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button,
 #create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button.active {
   width: 100%;
@@ -12049,8 +12030,8 @@ body[data-pageviewname=CreateWalkView] {
   padding: 0.5em;
 }
 #create-walk #map-canvas .btn,
-#create-walk #map-canvas body.city-page #city-details .create-walk,
-#create-walk #map-canvas body.city-page #city-details .create-walk:after,
+#create-walk #map-canvas body.city-page > #city-details .create-walk,
+#create-walk #map-canvas body.city-page > #city-details .create-walk:after,
 #create-walk #map-canvas #create-walk #map-control-bar button,
 #create-walk #map-canvas #create-walk #map-control-bar button.active {
   font-size: 16px;
@@ -12210,8 +12191,8 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #publish-confirmation .modal-body .btn,
 #create-walk #publish-confirmation dialog > div > article section .btn,
 #create-walk #publish-confirmation dialog > div > article section + section .btn,
-#create-walk #publish-confirmation .modal-body body.city-page #city-details .create-walk,
-#create-walk #publish-confirmation .modal-body body.city-page #city-details .create-walk:after,
+#create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk,
+#create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk:after,
 #create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button,
 #create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button.active {
   width: 47%;

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         q: '',
         city: {
           name: '',
-          uri: ''
+          url: ''
         }
       };
     },
@@ -94,10 +94,10 @@ document.addEventListener('DOMContentLoaded', function() {
               (this.convertAccents(str).toLowerCase().indexOf(
                this.convertAccents(this.state.q.toLowerCase())) > - 1)
           }.bind(this))(city.name)) {
-            if (!linkTo) { linkTo = city.uri; }
+            if (!linkTo) { linkTo = city.url; }
             cities.push(
               React.createElement("li", {key: 'city' + city.id}, 
-                React.createElement("a", {href: city.uri}, city.name)
+                React.createElement("a", {href: city.url}, city.name)
               )
             );
           }
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cities.length) {
           countries.push(
             React.createElement("li", {key: 'country' + i, className: "country"}, 
-              React.createElement("a", {href: country.uri}, country.name), 
+              React.createElement("a", {href: country.url}, country.name), 
               React.createElement("ul", {className: "cities"}, 
                 cities
               )
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       if (this.state.city.name) {
-        homeCity = React.createElement("h3", null, "See walks in ", React.createElement("a", {href: this.state.city.uri}, this.state.city.name), ", or:")
+        homeCity = React.createElement("h3", null, "See walks in ", React.createElement("a", {href: this.state.city.url}, this.state.city.name), ", or:")
       }
 
       return (

@@ -13,14 +13,14 @@ foreach ($pages as $city) {
         $country = Page::getByID($pcID);
         $countryList[$pcID] = [
             'name' => $country->getCollectionName(),
-            'uri' => $nh->getLinkToCollection($country),
+            'url' => $nh->getLinkToCollection($country),
             'cities' => []
         ];
     }
     $countryList[$pcID]['cities'][] = [
         'id' => $city->getCollectionID(),
         'name' => $city->getCollectionName(),
-        'uri' => $nh->getLinkToCollection($city)
+        'url' => $nh->getLinkToCollection($city)
     ];
 }
 
@@ -35,7 +35,7 @@ echo (
         join(array_map(function($country) { return 
             '<optgroup label="' . $country['name'] . '">' .
                 join(array_map(function($city) { return
-                     '<option value="' . $city['uri'] . '">' . $city['name'] .'</option>';
+                     '<option value="' . $city['url'] . '">' . $city['name'] .'</option>';
                 }, $country['cities'])) .
             '</optgroup>';
         }, $countryList)) .

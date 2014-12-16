@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         q: '',
         city: {
           name: '',
-          uri: ''
+          url: ''
         }
       };
     },
@@ -93,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function() {
               (this.convertAccents(str).toLowerCase().indexOf(
                this.convertAccents(this.state.q.toLowerCase())) > - 1)
           }.bind(this))(city.name)) {
-            if (!linkTo) { linkTo = city.uri; }
+            if (!linkTo) { linkTo = city.url; }
             cities.push(
               <li key={'city' + city.id}>
-                <a href={city.uri}>{city.name}</a>
+                <a href={city.url}>{city.name}</a>
               </li>
             );
           }
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (cities.length) {
           countries.push(
             <li key={'country' + i} className="country">
-              <a href={country.uri}>{country.name}</a>
+              <a href={country.url}>{country.name}</a>
               <ul className="cities">
                 {cities}
               </ul>
@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
 
       if (this.state.city.name) {
-        homeCity = <h3>See walks in <a href={this.state.city.uri}>{this.state.city.name}</a>, or:</h3>
+        homeCity = <h3>See walks in <a href={this.state.city.url}>{this.state.city.name}</a>, or:</h3>
       }
 
       return (

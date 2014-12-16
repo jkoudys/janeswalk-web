@@ -55,7 +55,7 @@ class Controller extends \Controller
         // Base data we want access to client-side
         $jwData = [
             'page' => [
-                'uri' => 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
+                'url' => 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'],
                 'title' => $c->getCollectionName(),
             ]
         ];
@@ -77,7 +77,7 @@ class Controller extends \Controller
                 $jwData['user']['city'] = [
                     'id' => $city->getCollectionID(),
                     'name' => $city->getCollectionName(),
-                    'uri' => $nh->getCollectionUrl($city)
+                    'url' => $nh->getCollectionUrl($city)
                 ];
             }
         }

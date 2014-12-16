@@ -10,7 +10,8 @@ body.city-page {
         margin: 10px 0;
     }
 
-    #intro-city {
+    // Top section with window introducing city and its organizer
+    > #intro-city {
         background: transparent;
         color: #fff;
         font-family: @font-slab;
@@ -62,7 +63,8 @@ body.city-page {
         }
     }
 
-    #city-details {
+    // The meat of the page, with the walk lists and links
+    > #city-details {
         .clearfix();
         top: -(@grid-gutter-width * 2);
         background: #fff;
@@ -374,6 +376,7 @@ body.city-page {
         @media (max-width: @screen-md-min) {
             top: 0;
         }
+        // Place a grey background behind this section
         &:before {
             background-color: @color-lightgrey;
             position: absolute;
@@ -386,7 +389,8 @@ body.city-page {
         }
     }
 
-    #blog {
+    // An optional blog at the bottom
+    > #blog {
         margin: -5px auto 0 auto;
         padding: 0 @grid-gutter-width / 2;
         max-width: @screen-lg-min;
@@ -423,6 +427,8 @@ body.city-page {
         .see-all {
             margin: 2em 0 0 0;
         }
+
+        // Place a light semiopaque bg behind the city blog
         &:after {
             content: " ";
             display: block;

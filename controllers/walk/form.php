@@ -111,7 +111,7 @@ class WalkFormController extends Controller
         $this->addToJanesWalk([
             'city' => [
                 'name' => (string) $city,
-                'uri' => $city->url,
+                'url' => $city->url,
                 'lat' => $latlng[0],
                 'lng' => $latlng[1],
                 'wards' => $wards,
@@ -128,7 +128,7 @@ class WalkFormController extends Controller
             'walk' => [
                 'name' => (string) $walk,
                 'data' => $walk,
-                'uri' => $nh->getCollectionURL($c)
+                'url' => $nh->getCollectionURL($c)
             ],
             'locale' => [
                 'name' => Localization::activeLocale(),

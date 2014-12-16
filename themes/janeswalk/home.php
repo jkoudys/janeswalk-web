@@ -18,7 +18,7 @@
 
 <div class="backgroundImageBanner faded"></div>
 <?php $this->inc('elements/navbar.php') ?>
-<div class="intro">
+<div id="intro">
     <div class="callouts">
         <blockquote>
             <?php (new Area('Intro'))->display($c) ?>
@@ -27,15 +27,15 @@
 </div>
 <!-- end of .intro -->
 <?php if (!$isMobile) { ?>
-<section class="map">
+<section id="map">
     <?php (new Area('Map'))->display($c) ?>
 </section>
 <?php } ?>
-<section class="calltoaction">
+<section id="calltoaction">
     <?php (new Area('Call to Action'))->display($c) ?>
     <?php (new Area('Main'))->display($c) ?>
 </section>
-<section class="blog">
+<section id="blog">
     <section class="walkblog">
         <?php (new Area('Blog Header'))->display($c) ?>
         <?php (new Area('Blog'))->display($c) ?>
@@ -45,7 +45,7 @@
         <?php (new Area('Twitter'))->display($c) ?>
     </section>
 </section>
-<section class="sponsors">
+<section id="sponsors">
     <?php (new Area('Sponsors'))->display($c) ?>
 </section>
 <script type="text/javascript">

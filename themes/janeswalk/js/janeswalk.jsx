@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
               data={JanesWalk.walk.data}
               city={JanesWalk.city}
               user={JanesWalk.user}
-              uri={JanesWalk.walk.uri}
+              url={JanesWalk.walk.url}
               valt={JanesWalk.form.valt}
             />,
             document.getElementById('createwalk')

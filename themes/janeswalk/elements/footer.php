@@ -6,7 +6,7 @@
                 <a href="http://facebook.com/janeswalk" target="_blank"><i class="fa fa-facebook-square"></i></a>
             </div>
             <div>
-                <?php $ah = new GlobalArea('Footer'); $ah->display($c); ?>
+                <?php (new GlobalArea('Footer'))->display($c) ?>
             </div>
         </nav>
     </footer>

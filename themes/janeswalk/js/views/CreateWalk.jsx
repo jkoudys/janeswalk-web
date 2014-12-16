@@ -116,7 +116,7 @@ var CreateWalk = React.createClass({
     this.setState({notifications: notifications});
     setTimeout(removeNotice, 1200);
     $.ajax({
-      url: this.props.uri,
+      url: this.props.url,
       type: options.publish ? 'PUT' : 'POST',
       data: {json: JSON.stringify(this.state)},
       dataType: 'json',
@@ -346,7 +346,7 @@ var CreateWalk = React.createClass({
             <p>Congratulations! Your walk is now available for all to peruse.</p>
             <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
             <label>Your Walk Web Address:</label>
-            <input type="text" className="clone js-url-field" value={this.props.uri} readOnly />
+            <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
             <hr />
             <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
             <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
@@ -364,7 +364,7 @@ var CreateWalk = React.createClass({
                   <h3>{ t('Preview of your Walk') }</h3>
                 </header>
                 <div className="modal-body">
-                  <iframe src={this.props.uri} frameBorder="0" />
+                  <iframe src={this.props.url} frameBorder="0" />
                 </div>
               </article>
             </div>

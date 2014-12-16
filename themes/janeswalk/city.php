@@ -11,13 +11,13 @@ if ($city->fullbg) {
 // CO's contact methods
 $coContacts = [];
 if ($city->facebook) {
-    $coContacts[] = ['uri' => $city->facebook_url, 'icon' => 'facebook'];
+    $coContacts[] = ['url' => $city->facebook_url, 'icon' => 'facebook'];
 }
 if ($city->twitter) {
-    $coContacts[] = ['uri' => $city->twitter_url, 'icon' => 'twitter'];
+    $coContacts[] = ['url' => $city->twitter_url, 'icon' => 'twitter'];
 }
 if ($city->website) {
-    $coContacts[] = ['uri' => $city->website_url, 'icon' => 'globe'];
+    $coContacts[] = ['url' => $city->website_url, 'icon' => 'globe'];
 }
 
 $this->inc('elements/navbar.php') ?>
@@ -47,7 +47,7 @@ $this->inc('elements/navbar.php') ?>
                 <h4><?= t('City Organizer') ?></h4>
                 <div class="btn-toolbar">
                     <a href="mailto:<?= $city->city_organizer->getUserEmail() ?>" class="btn"><i class="fa fa-envelope-o"></i></a>
-                    <?php foreach($coContacts as $contact) { ?><a href='<?= $contact['uri'] ?>' target="_blank" class="btn"><i class="fa fa-<?= $contact['icon'] ?>"></i></a><?php } ?>
+                    <?php foreach($coContacts as $contact) { ?><a href='<?= $contact['url'] ?>' target="_blank" class="btn"><i class="fa fa-<?= $contact['icon'] ?>"></i></a><?php } ?>
                 </div>
             </div>
         </section>

@@ -4,7 +4,6 @@
  * @return this
  */
 var Walk = function(data) {
-  // Old data had a different layout, so conver it here.
   // Convert old {0: marker, 1: marker} indexing to a proper array
   if (data) {
     // Convert markers
@@ -124,3 +123,6 @@ Object.defineProperties(Walk.prototype, {
     enumerable: true
   }
 });
+
+module.exports = Walk;
+
