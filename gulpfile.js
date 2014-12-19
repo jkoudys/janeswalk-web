@@ -30,7 +30,7 @@ var paths = {
   jsx_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/v2/**/*.jsx'],
   jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
   languages: './languages',
-  mos: ['./languages/*/LC_MESSAGES/*.mo'],
+  mos: ['./languages/*/*.mo'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
   react_views: './themes/janeswalk/js/views/'
@@ -132,7 +132,7 @@ gulp.task('mo', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
-  gulp.watch(paths.jsx, ['browserify']);
+  gulp.watch(paths.jsx, ['jsx_app']);
   gulp.watch(paths.jsx_views, ['jsx_app']);
   gulp.watch('./blocks/**/*.jsx', ['blocks']);
 });

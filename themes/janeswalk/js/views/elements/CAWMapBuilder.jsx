@@ -9,17 +9,15 @@ var MapBuilder = React.createClass({
     };
   },
 
-  // State for this component should only track the map editor, since we
-  // won't be persisting that. The map's
+  // State for this component should only track the map editor
   getInitialState: function() {
     return {
       // The 'mode' we're in: 'addmeetingplace', 'addstop', 'addroute', or false
       editMode: false,
       map: null,
       markers: [],
-      poly: [],
-      point: [],
-      infowindow: new google.maps.InfoWindow()
+      route: null,
+      infowindow: new google.maps.InfoWindow
     };
   },
 
@@ -36,7 +34,8 @@ var MapBuilder = React.createClass({
         }
       },
       map = new google.maps.Map(mapNode, mapOptions),
-      markers;
+      markers,
+      route;
     
     // Draw the route
     if (valueLink.value) {
@@ -44,8 +43,8 @@ var MapBuilder = React.createClass({
         return this.buildMarker(marker, map);
       }.bind(this));
 
-      this.buildRoute(valueLink.value.route, map);
-      this.setState({markers: markers});
+      route = this.buildRoute(valueLink.value.route, map);
+      this.setState({markers: markers, route: route});
     }
 
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
@@ -82,14 +81,13 @@ var MapBuilder = React.createClass({
   
   // Map related functions
   // Build gmaps Marker object from base data
-  // Object marker {"title":"Ben Nobleman Parkette","description":"The huge picnic table in the middle of the park.","style":"meeting","lat":43.6983887613,"lng":-79.4351971008}
   buildMarker: function(markObj, map) {
     map = map || this.state.map;
     return new google.maps.Marker({
       position: new google.maps.LatLng(markObj.lat, markObj.lng),
       animation: google.maps.Animation.DROP,
       draggable: true,
-      title: markObj.title,
+      title: JSON.stringify({title: markObj.title, description: markObj.description}),
       style: 'stop',
       map: map,
       icon: this.stopMarker
@@ -110,33 +108,46 @@ var MapBuilder = React.createClass({
         return new google.maps.LatLng(point.lat, point.lng);
       }));
     }
+
+    return poly;
   },
 
   editMarker: function(i) {
     // TODO: edit the marker
   },
 
+  deleteMarker: function(i) {
+    var markers = this.state.markers;
+    // Clear marker from map
+    markers[i].setMap(null);
+    // Remove reference in state
+    markers.splice(i, 1);
+    this.setState({markers: markers});
+  },
+
   changeMarkerOrder: function(from, to) {
-    var valueLink = this.props.valueLink,
-        map = valueLink.value,
-        markers = map.markers.slice();
+    // Remove the marker, then insert into new position
+    var markers = this.state.markers.slice();
     markers.splice(to, 0, markers.splice(from, 1)[0]);
-    map.markers = markers;
-    valueLink.requestChange(map);
+    this.setState({markers: markers});
   },
 
   // Button Actions
   toggleAddMeetingPlace: function() {
     this.setState({editMode: 'addmeetingplace'});
   },
+
   toggleAddPoint: function() {
     this.setState({editMode: 'addpoint'});
   },
+
   toggleAddRoute: function() {
     this.setState({editMode: 'addroute'});
   },
+
   clearRoute: function() {
-    this.setState({poly: [], editMode: false});
+    this.state.route.setPath([]);
+    this.setState({editMode: false});
   },
 
   /*
@@ -160,6 +171,29 @@ var MapBuilder = React.createClass({
     this.setState({markers: this.state.markers.concat([marker])});
   },
   */
+
+  // Build a version of state appropriate for persistence
+  getStateSimple: function() {
+    return {
+      markers: this.state.markers.map(function(marker) {
+        var titleObj = JSON.parse(marker.title);
+        return {
+          lat: marker.position.lat(),
+          lng: marker.position.lng(),
+          title: titleObj.title,
+          description: titleObj.description,
+          style: 'stop'
+        };
+      }),
+      route: this.state.route.getPath().getArray().map(function(point) {
+        return {
+          lat: point.lat(),
+          lng: point.lng()
+        };
+      })
+    };
+  },
+
   render: function() {
     var walkStops;
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -167,8 +201,8 @@ var MapBuilder = React.createClass({
     if (this.state.markers.length) {
       // This 'key' is to force the component to not rebuild
       walkStops = [
-        <h3 key={0}>{t('Walk Stops')}</h3>,
-        <WalkStopTable i18n={this.props.i18n} key={1} markers={this.state.markers} editMarker={this.editMarker} changeMarkerOrder={this.changeMarkerOrder} />
+        <h3 key={'stops'}>{t('Walk Stops')}</h3>,
+        <WalkStopTable i18n={this.props.i18n} key={1} markers={this.state.markers} deleteMarker={this.deleteMarker} changeMarkerOrder={this.changeMarkerOrder} />
       ];
     }
     
@@ -253,11 +287,12 @@ var WalkStopTable = React.createClass({
         </thead>
         <tbody>
           {this.props.markers.map(function(marker, i) {
+            var titleObj = JSON.parse(marker.title);
             return (
-              <tr data-position={i} key={i}>
-                <td>{marker.title}</td>
-                <td>{marker.description}</td>
-                <td><a className="delete-stop" onClick={this.props.editMarker.bind(this, i)}>Edit</a></td>
+              <tr data-position={i} key={'marker' + i}>
+                <td>{titleObj.title}</td>
+                <td>{titleObj.description}</td>
+                <td><a className="delete-stop" onClick={this.props.deleteMarker.bind(this, i)}><i className="fa fa-times-circle-o" /></a></td>
               </tr>
               );
           }.bind(this))}

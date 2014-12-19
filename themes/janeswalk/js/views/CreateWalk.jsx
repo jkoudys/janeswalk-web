@@ -112,6 +112,9 @@ var CreateWalk = React.createClass({
     };
     options = options || {};
 
+    // Build a simplified map from the Google objects
+    this.setState({gmap: this.refs.mapBuilder.getStateSimple()});
+
     notifications.push({type: 'info', name: 'Saving walk'});
     this.setState({notifications: notifications});
     setTimeout(removeNotice, 1200);
@@ -259,7 +262,7 @@ var CreateWalk = React.createClass({
                   <hr />
                 </form>
               </div>
-              <CAWMapBuilder i18n={i18n} valueLink={this.linkState('gmap')} city={this.props.city} />
+              <CAWMapBuilder ref="mapBuilder" i18n={i18n} valueLink={this.linkState('gmap')} city={this.props.city} />
               <CAWDateSelect i18n={i18n} valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>

@@ -154,8 +154,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       url,
       link;
       // Catfish events
-      this._element.find('a.closeCatfishCta').click(
-        function(event) {
+      this._element.find('a.closeCatfishCta').click(function(event) {
         event.preventDefault();
         _this._element.find('.catfish').hide();
 
@@ -168,8 +167,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
             domain: location.host
           }
         );
-      }
-      );
+      });
 
       // Canadian city check
       if (enabled && isCanadianCity === true) {

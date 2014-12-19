@@ -20,11 +20,13 @@ if ($city->website) {
     $coContacts[] = ['url' => $city->website_url, 'icon' => 'globe'];
 }
 
+$cityName = t((string) $city);
+
 $this->inc('elements/navbar.php') ?>
 <section id="intro-city">
     <div class="city-summary">
         <h1>
-            <?= t($city) ?>
+            <?= $cityName ?>
             <?php if ($canEdit) { ?><a href="<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>"><i class='fa fa-pencil-square'></i></a><?php } ?>
         </h1>
         <?php (new Area('City Header'))->display($c) ?>
@@ -58,7 +60,7 @@ $this->inc('elements/navbar.php') ?>
     <div class="description">
         <div class="item">
             <h2><?= t('Jane’s Walks') ?></h2>
-            <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', (string) $city) ?></h4>
+            <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $cityName) ?></h4>
             <?php (new Area('City Description'))->display($c) ?>
         </div>
         <div class="menu-flags">
@@ -68,7 +70,7 @@ $this->inc('elements/navbar.php') ?>
     </div>
     <div class="walk-list">
         <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="create-walk"><i class="fa fa-star"></i> <?= t('Create a Walk') ?></a>
-        <h3><?= t('Walks in %s', (string) $city) ?></h3>
+        <h3><?= t('Walks in %s', $cityName) ?></h3>
         <?php (new Area('All Walks List'))->display($c) ?>
     </div>
 </section>

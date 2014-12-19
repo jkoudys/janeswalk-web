@@ -248,6 +248,9 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
     };
     options = options || {};
 
+    // Build a simplified map from the Google objects
+    this.setState({gmap: this.refs.mapBuilder.getStateSimple()});
+
     notifications.push({type: 'info', name: 'Saving walk'});
     this.setState({notifications: notifications});
     setTimeout(removeNotice, 1200);
@@ -395,7 +398,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                   React.createElement("hr", null)
                 )
               ), 
-              React.createElement(CAWMapBuilder, {i18n: i18n, valueLink: this.linkState('gmap'), city: this.props.city}), 
+              React.createElement(CAWMapBuilder, {ref: "mapBuilder", i18n: i18n, valueLink: this.linkState('gmap'), city: this.props.city}), 
               React.createElement(CAWDateSelect, {i18n: i18n, valueLink: this.linkState('time')}), 
               React.createElement("div", {className: "tab-pane", id: "accessibility"}, 
                 React.createElement("div", {className: "page-header", 'data-section': "accessibility"}, 
@@ -1208,17 +1211,15 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     };
   },
 
-  // State for this component should only track the map editor, since we
-  // won't be persisting that. The map's
+  // State for this component should only track the map editor
   getInitialState: function() {
     return {
       // The 'mode' we're in: 'addmeetingplace', 'addstop', 'addroute', or false
       editMode: false,
       map: null,
       markers: [],
-      poly: [],
-      point: [],
-      infowindow: new google.maps.InfoWindow()
+      route: null,
+      infowindow: new google.maps.InfoWindow
     };
   },
 
@@ -1235,7 +1236,8 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         }
       },
       map = new google.maps.Map(mapNode, mapOptions),
-      markers;
+      markers,
+      route;
     
     // Draw the route
     if (valueLink.value) {
@@ -1243,8 +1245,8 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         return this.buildMarker(marker, map);
       }.bind(this));
 
-      this.buildRoute(valueLink.value.route, map);
-      this.setState({markers: markers});
+      route = this.buildRoute(valueLink.value.route, map);
+      this.setState({markers: markers, route: route});
     }
 
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
@@ -1281,14 +1283,13 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   
   // Map related functions
   // Build gmaps Marker object from base data
-  // Object marker {"title":"Ben Nobleman Parkette","description":"The huge picnic table in the middle of the park.","style":"meeting","lat":43.6983887613,"lng":-79.4351971008}
   buildMarker: function(markObj, map) {
     map = map || this.state.map;
     return new google.maps.Marker({
       position: new google.maps.LatLng(markObj.lat, markObj.lng),
       animation: google.maps.Animation.DROP,
       draggable: true,
-      title: markObj.title,
+      title: JSON.stringify({title: markObj.title, description: markObj.description}),
       style: 'stop',
       map: map,
       icon: this.stopMarker
@@ -1309,33 +1310,46 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         return new google.maps.LatLng(point.lat, point.lng);
       }));
     }
+
+    return poly;
   },
 
   editMarker: function(i) {
     // TODO: edit the marker
   },
 
+  deleteMarker: function(i) {
+    var markers = this.state.markers;
+    // Clear marker from map
+    markers[i].setMap(null);
+    // Remove reference in state
+    markers.splice(i, 1);
+    this.setState({markers: markers});
+  },
+
   changeMarkerOrder: function(from, to) {
-    var valueLink = this.props.valueLink,
-        map = valueLink.value,
-        markers = map.markers.slice();
+    // Remove the marker, then insert into new position
+    var markers = this.state.markers.slice();
     markers.splice(to, 0, markers.splice(from, 1)[0]);
-    map.markers = markers;
-    valueLink.requestChange(map);
+    this.setState({markers: markers});
   },
 
   // Button Actions
   toggleAddMeetingPlace: function() {
     this.setState({editMode: 'addmeetingplace'});
   },
+
   toggleAddPoint: function() {
     this.setState({editMode: 'addpoint'});
   },
+
   toggleAddRoute: function() {
     this.setState({editMode: 'addroute'});
   },
+
   clearRoute: function() {
-    this.setState({poly: [], editMode: false});
+    this.state.route.setPath([]);
+    this.setState({editMode: false});
   },
 
   /*
@@ -1359,6 +1373,29 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     this.setState({markers: this.state.markers.concat([marker])});
   },
   */
+
+  // Build a version of state appropriate for persistence
+  getStateSimple: function() {
+    return {
+      markers: this.state.markers.map(function(marker) {
+        var titleObj = JSON.parse(marker.title);
+        return {
+          lat: marker.position.lat(),
+          lng: marker.position.lng(),
+          title: titleObj.title,
+          description: titleObj.description,
+          style: 'stop'
+        };
+      }),
+      route: this.state.route.getPath().getArray().map(function(point) {
+        return {
+          lat: point.lat(),
+          lng: point.lng()
+        };
+      })
+    };
+  },
+
   render: function() {
     var walkStops;
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -1366,8 +1403,8 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     if (this.state.markers.length) {
       // This 'key' is to force the component to not rebuild
       walkStops = [
-        React.createElement("h3", {key: 0}, t('Walk Stops')),
-        React.createElement(WalkStopTable, {i18n: this.props.i18n, key: 1, markers: this.state.markers, editMarker: this.editMarker, changeMarkerOrder: this.changeMarkerOrder})
+        React.createElement("h3", {key: 'stops'}, t('Walk Stops')),
+        React.createElement(WalkStopTable, {i18n: this.props.i18n, key: 1, markers: this.state.markers, deleteMarker: this.deleteMarker, changeMarkerOrder: this.changeMarkerOrder})
       ];
     }
     
@@ -1452,11 +1489,12 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
         ), 
         React.createElement("tbody", null, 
           this.props.markers.map(function(marker, i) {
+            var titleObj = JSON.parse(marker.title);
             return (
-              React.createElement("tr", {'data-position': i, key: i}, 
-                React.createElement("td", null, marker.title), 
-                React.createElement("td", null, marker.description), 
-                React.createElement("td", null, React.createElement("a", {className: "delete-stop", onClick: this.props.editMarker.bind(this, i)}, "Edit"))
+              React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
+                React.createElement("td", null, titleObj.title), 
+                React.createElement("td", null, titleObj.description), 
+                React.createElement("td", null, React.createElement("a", {className: "delete-stop", onClick: this.props.deleteMarker.bind(this, i)}, React.createElement("i", {className: "fa fa-times-circle-o"})))
               )
               );
           }.bind(this))
@@ -2614,8 +2652,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       url,
       link;
       // Catfish events
-      this._element.find('a.closeCatfishCta').click(
-        function(event) {
+      this._element.find('a.closeCatfishCta').click(function(event) {
         event.preventDefault();
         _this._element.find('.catfish').hide();
 
@@ -2628,8 +2665,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
             domain: location.host
           }
         );
-      }
-      );
+      });
 
       // Canadian city check
       if (enabled && isCanadianCity === true) {
@@ -2990,16 +3026,14 @@ HomePageView.prototype = Object.create(PageView.prototype, {
   _addCreateWalkEvent: {value: function() {
     var _this = this,
     $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
-    $btn.click(
-      function(event) {
+    $btn.click(function(event) {
       event.preventDefault();
       if (_this._element.find('a[href="/index.php/login/logout/"]').length) {
         location.href = $(this).attr('href');
       } else {
         _this._element.find('.overlay').show();
       }
-    }
-    );
+    });
   }},
 
   /**
@@ -3010,11 +3044,9 @@ HomePageView.prototype = Object.create(PageView.prototype, {
    */
   _addCityDropdownEvent: {value: function() {
     var $select = this._element.find('select.pageListSelect');
-    $select.change(
-      function(event) {
+    $select.change(function(event) {
       location.href = $select.val();
-    }
-    );
+    });
   }},
 
   /**
@@ -3081,17 +3113,15 @@ HomePageView.prototype = Object.create(PageView.prototype, {
         );
       }
     );
-    $closeButton.click(
-      function() {
-        $('.overlap').removeClass('fullmap');
-        $(this).fadeOut(
-          400,
-          function() {
-            $showButton.fadeIn();
-          }
-        );
-      }
-    );
+    $closeButton.click(function() {
+      $('.overlap').removeClass('fullmap');
+      $(this).fadeOut(
+        400,
+        function() {
+          $showButton.fadeIn();
+        }
+      );
+    });
   }}
 });
 

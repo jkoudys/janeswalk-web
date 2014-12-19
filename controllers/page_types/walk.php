@@ -26,11 +26,11 @@ class WalkPageTypeController extends Controller
          */
         switch ($_SERVER['REQUEST_METHOD']) {
         case 'POST':
-            $this->create($_POST['json']);
+            $this->update($_POST['json']);
             break;
         case 'PUT':
             parse_str(file_get_contents('php://input'), $put_vars);
-            $this->update($put_vars['json']);
+            $this->create($put_vars['json']);
             break;
         case 'GET':
             $this->show();

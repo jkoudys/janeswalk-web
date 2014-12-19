@@ -26,7 +26,7 @@ class MirrorWalk
     public function __construct(Walk $walk, $publish = false)
     {
         $this->walk = $walk;
-        $this->mh = curl_multi_init();
+        $this->mh = \curl_multi_init();
 
         // TODO: Create config to pick + choose which event services to mirror on for which walks
         $eb = new Eventbrite($walk);

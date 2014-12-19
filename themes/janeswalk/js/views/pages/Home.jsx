@@ -27,16 +27,14 @@ HomePageView.prototype = Object.create(PageView.prototype, {
   _addCreateWalkEvent: {value: function() {
     var _this = this,
     $btn = this._element.find('.calltoaction li a[href="/walk/form/"]');
-    $btn.click(
-      function(event) {
+    $btn.click(function(event) {
       event.preventDefault();
       if (_this._element.find('a[href="/index.php/login/logout/"]').length) {
         location.href = $(this).attr('href');
       } else {
         _this._element.find('.overlay').show();
       }
-    }
-    );
+    });
   }},
 
   /**
@@ -47,11 +45,9 @@ HomePageView.prototype = Object.create(PageView.prototype, {
    */
   _addCityDropdownEvent: {value: function() {
     var $select = this._element.find('select.pageListSelect');
-    $select.change(
-      function(event) {
+    $select.change(function(event) {
       location.href = $select.val();
-    }
-    );
+    });
   }},
 
   /**
@@ -118,17 +114,15 @@ HomePageView.prototype = Object.create(PageView.prototype, {
         );
       }
     );
-    $closeButton.click(
-      function() {
-        $('.overlap').removeClass('fullmap');
-        $(this).fadeOut(
-          400,
-          function() {
-            $showButton.fadeIn();
-          }
-        );
-      }
-    );
+    $closeButton.click(function() {
+      $('.overlap').removeClass('fullmap');
+      $(this).fadeOut(
+        400,
+        function() {
+          $showButton.fadeIn();
+        }
+      );
+    });
   }}
 });
 

@@ -27,7 +27,7 @@ class Localization extends Concrete5_Library_Localization
     private static function getActiveTranslateResourceURL($extension)
     {
         $locale = self::activeLocale();
-        $filename = '/' . $locale . '/LC_MESSAGES/messages.' . $extension;
+        $filename = '/' . $locale . '/messages.' . $extension;
 
         if (file_exists(DIR_LANGUAGES)) {
             if (is_dir(DIR_LANGUAGES . '/' . $locale) &&

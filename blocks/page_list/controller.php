@@ -8,7 +8,7 @@ Loader::model('page_types/Walk');
 class PageListBlockController extends Concrete5_Controller_Block_PageList
 {
     // Data for returning in JSON
-    protected $pageData = array();
+    protected $pageData = [];
 
     public function getPageList()
     {
@@ -16,7 +16,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         $db = Loader::db();
         $bID = $this->bID;
         if ($this->bID) {
-            $q = "select num, cParentID, cThis, orderBy, ctID, displayAliases, rss from btPageList where bID = '$bID'";
+            $q = 'select num, cParentID, cThis, orderBy, ctID, displayAliases, rss from btPageList where bID = \'' . $bID . '\'';
             $r = $db->query($q);
             if ($r) {
                 $row = $r->fetchRow();
