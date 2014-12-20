@@ -20,7 +20,7 @@ var WalkMap = function(mapData, mapCanvas) {
   // Style Map
   this.map.mapTypes.set('map_style', this.styledMap);
   this.map.setMapTypeId('map_style');
-  // TODO: Replace hard-coded selectors with DOMElement arguments
+  // TODO: Replace hard-coded selectors with ReactJS
   document.querySelector('.walk-stops').style.display = 'block';
 
   // Center our map after first building it

@@ -43,7 +43,8 @@ class Controller extends \Controller
         // TODO: should also skip this and just use the user Locale, if explicitly set
         /* Set the city language to the first one matched, recursing from where we are */
         $crumbs = $nh->getTrailToCollection($c);
-        array_unshift($crumbs, $c); // Must check the current page first
+        // Must check the current page first
+        array_unshift($crumbs, $c);
         foreach ($crumbs as $crumb) {
             $lang = (string) $crumb->getAttribute('lang');
             if ($lang) {
@@ -88,7 +89,12 @@ class Controller extends \Controller
             'translation' => Localization::getActiveTranslateJsonURL()
         ];
 
-        $this->set('isMobile', isset($_SERVER['HTTP_USER_AGENT']) && preg_match("/iPhone|Android|iPad|iPod|webOS|CFNetwork/", $_SERVER['HTTP_USER_AGENT']));
+        $this->set(
+            'isMobile',
+            isset($_SERVER['HTTP_USER_AGENT']) &&
+                preg_match("/iPhone|Android|iPad|iPod|webOS|CFNetwork/",
+            $_SERVER['HTTP_USER_AGENT'])
+        );
         $this->set('nh', $nh);
         $this->addToJanesWalk($jwData);
     }

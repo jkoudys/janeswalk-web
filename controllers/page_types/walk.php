@@ -43,7 +43,8 @@ class WalkPageTypeController extends Controller
 
     /**
      * show
-     * Render view contents. Fall-through behaviour renders theme as HTML via view(). If 'format' is set, render in requested format
+     * Render view contents. Fall-through behaviour renders theme as HTML via
+     * view(). If 'format' is set, render in requested format.
      * TODO: Replace with symfony routes in 5.7; this should be view logic, not controller
      */
     public function show()
@@ -53,7 +54,8 @@ class WalkPageTypeController extends Controller
             header('Content-Type: application/json');
             echo $this->getJson();
             exit;
-        } elseif ($_GET['format'] === 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],'Kml-Google')) {
+        } elseif (
+            $_GET['format'] === 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],'Kml-Google')) {
             // Render KML of map only
             header('Content-Type: application/vnd.google-earth.kml+xml');
             $this->getKml()->save('php://output');

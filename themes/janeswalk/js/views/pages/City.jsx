@@ -128,13 +128,27 @@ CityPageView.prototype = Object.create(PageView.prototype, {
    */
   _addLinkListeners: {
     value: function() {
+      var _this = this;
       var showAll = document.querySelector("a.see-all");
-      if(showAll) {
-        showAll.addEventListener("click", function() {
+      var fullMode = function() {
+        if (showAll) {
           document.querySelector('.ccm-block-page-list-walk-filters').classList.add('filtering');
           showAll.parentNode.removeChild(showAll);
-        });
+        }
+        showAll = document.querySelector('a.see-all');
       }
+      if(showAll) {
+        showAll.addEventListener("click", fullMode);
+      }
+      var toolTips = document.querySelectorAll('.walk .tags > li');
+      Array.prototype.forEach.call(toolTips, function(tooltip) {
+        tooltip.addEventListener('click', function(event) {
+          event.preventDefault();
+          fullMode();
+          _this._theme = this.dataset.theme;
+          _this._filterCards();
+        });
+      });
     }
   },
 

@@ -104,7 +104,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
             <p><?= $meeting_place['description'] ?></p>
             <?php } ?>
         </div>
-        <?php if (count((array) $w->map->markers) + count((array) $w->map->path)) { ?>
+        <?php if (count((array) $w->map['markers']) + count((array) $w->map['path'])) { ?>
         <div class="walk-stops" style="display:none">
             <div class="walk-stops-meta box-sizing">
                 <header id="header" class="walk-stops-meta-inner">

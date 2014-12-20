@@ -36,7 +36,7 @@ class Walk extends \Model implements \JsonSerializable
            $map,
            $team,
            $time,
-           $thumbnail,
+           $thumbnailID,
            $wards,
            $themes;
 
@@ -58,35 +58,47 @@ class Walk extends \Model implements \JsonSerializable
         $this->getCache = array();
 
         $this->page = $page;
-        $this->thumbnail = $page->getAttribute('thumbnail');
         $this->title = $page->getCollectionName();
-        $this->shortdescription = $page->getAttribute('shortdescription');
-        $this->longdescription = $page->getAttribute('longdescription');
-        $this->accessibleInfo = $page->getAttribute('accessible_info');
-        $this->accessibleTransit = $page->getAttribute('accessible_transit');
-        $this->accessibleParking = $page->getAttribute('accessible_parking');
-        $this->accessibleFind = $page->getAttribute('accessible_find');
-        $this->map = json_decode($page->getAttribute('gmap'));
-        $this->team = json_decode($page->getAttribute('team'), true) ?: [];
-        $this->time = $page->getAttribute('scheduled');
-        $this->wards = $page->getAttribute('walk_wards');
 
+        $db = Loader::db();
+
+        list(
+            $this->thumbnailID,
+            $this->shortdescription,
+            $this->longdescription,
+            $this->accessibleInfo,
+            $this->accessibleTransit,
+            $this->accessibleParking,
+            $this->accessibleFind,
+            $this->map,
+            $this->team,
+            $this->wards,
+            $this->themes,
+            $this->accessible
+        ) = array_values($db->getRow('SELECT ak_thumbnail, ak_shortdescription, ak_longdescription, ak_accessible_info, ak_accessible_transit, ak_accessible_parking, ak_accessible_find, ak_gmap, ak_team, ak_walk_wards, ak_theme, ak_accessible FROM CollectionSearchIndexAttributes where cID=?', [$page->getCollectionID()]));
         /* Themes and Accessibility are sets of checkboxes, so a bit more involved to load */
-        $loadChecks = function ($akHandle) use ($page) {
-            $checkboxes = array();
-            foreach ((array) $page->getAttribute($akHandle) as $av) {
-                foreach ((array) $av as $selectAttribute) {
-                    if ($selectAttribute) {
-                        $checkboxes[(string) $selectAttribute] = true;
-                    }
+        $loadChecks = function ($attrString) use ($page) {
+            $checkboxes = [];
+            $av = explode("\n", $attrString);
+            foreach ((array) $av as $selectAttribute) {
+                if ($selectAttribute) {
+                    $checkboxes[(string) $selectAttribute] = true;
                 }
             }
 
             return $checkboxes;
         };
 
-        $this->themes = $loadChecks('theme');
-        $this->accessible = $loadChecks('accessible');
+        // Decode the JSON fields
+        $this->map = json_decode($this->map, true);
+        $this->team = json_decode($this->team, true);
+
+        // Decode \n delimited arrays
+        $this->themes = $loadChecks($this->themes);
+        $this->accessible = $loadChecks($this->accessible);
+
+        // Load more complex attributes
+        $this->time = $page->getAttribute('scheduled');
     }
 
     public function __get($name)
@@ -154,15 +166,15 @@ class Walk extends \Model implements \JsonSerializable
             break;
         case 'meetingPlace':
             // @return Array<title, description> for first stop on walking route
-            foreach ((array) $this->map->markers as $marker) {
-                $this->meetingPlace = array('title' => $marker->title, 'description' => $marker->description);
+            foreach ((array) $this->map['markers'] as $marker) {
+                $this->meetingPlace = ['title' => $marker['title'], 'description' => $marker['description']];
 
                 return $this->meetingPlace;
             }
             break;
         case 'initiatives':
             // Initiatives
-            $this->initiatives = array();
+            $this->initiatives = [];
             $initiativeObjects = $this->page->getAttribute('walk_initiatives');
             if ($initiativeObjects !== false) {
                 foreach ($initiativeObjects->getOptions() as $initiative) {
@@ -177,10 +189,14 @@ class Walk extends \Model implements \JsonSerializable
         case 'datetimes':
             // Date + time pairings
             $scheduled = $this->page->getAttribute('scheduled');
-            $this->datetimes = array();
+            $this->datetimes = [];
 
             foreach ((array) $scheduled['slots'] as $s) {
-                $this->datetimes[] = array('date' => $s['date'], 'time' => $s['time'], 'timestamp' => strtotime("{$s['date']} {$s['time']}"));
+                $this->datetimes[] = [
+                    'date' => $s['date'],
+                    'time' => $s['time'],
+                    'timestamp' => strtotime($s['date'] . ' ' . $s['time'])
+                ];
             }
 
             return $this->datetimes;
@@ -304,11 +320,10 @@ class Walk extends \Model implements \JsonSerializable
             'gmap' => $this->map,
             'team' => $this->team,
             'time' => $this->time,
-            'thumbnail_id' => ($this->thumbnail ? $this->thumbnail->getFileID() : null),
-            'thumbnail_url' => $this->thumbnail ? $im->getThumbnail($this->thumbnail, 340,720)->src : null,
+            'thumbnail_id' => $this->thumbnail,
+            'thumbnail_url' => $this->thumbnail ? $im->getThumbnail(File::getByID($this->thumbnail), 340,720)->src : null,
             'wards' => $this->wards
         );
-
         // Load the thumbnail array
         $walkData['thumbnails'] = [];
         if ($this->thumbnail) {
@@ -348,18 +363,18 @@ class Walk extends \Model implements \JsonSerializable
         $map->appendChild($doc->createElement('name', (string) $this));
 
         // Set the map markers -- "meeting place" and "stop"s
-        foreach ($this->map->markers as $k => $marker) {
+        foreach ($this->map['markers'] as $k => $marker) {
             $m = $map->appendChild($doc->createElement('marker'));
-            $m->setAttribute('name', $marker->title);
-            $m->setAttribute('description', $marker->description);
-            $m->setAttribute('lat', $marker->lat);
-            $m->setAttribute('lng', $marker->lng);
+            $m->setAttribute('name', $marker['title']);
+            $m->setAttribute('description', $marker['description']);
+            $m->setAttribute('lat', $marker['lat']);
+            $m->setAttribute('lng', $marker['lng']);
         }
         
         $coorStr = '';
-        foreach ($this->map->route as $route) {
+        foreach ($this->map['route'] as $route) {
             // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
-            $coorStr .= PHP_EOL . $route->lng . ', ' . $route->lat . ', 0';
+            $coorStr .= PHP_EOL . $route['lng'] . ', ' . $route['lat'] . ', 0';
         }
         if ($coorStr) $map->appendChild($doc->createElement('route', $coorStr));
 

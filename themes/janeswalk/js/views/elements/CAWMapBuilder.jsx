@@ -44,7 +44,6 @@ var MapBuilder = React.createClass({
       }.bind(this));
 
       route = this.buildRoute(valueLink.value.route, map);
-      this.setState({markers: markers, route: route});
     }
 
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
@@ -53,19 +52,25 @@ var MapBuilder = React.createClass({
       this.boundMapByWalk();
     }.bind(this));
 
-    this.setState({map: map});
+    this.setState({
+      map: map,
+      markers: markers,
+      route: route
+    });
   },
 
   // Make the map fit the markers in this walk
   boundMapByWalk: function() {
     // Don't include the route - it can be too expensive to compute.
     var bounds = new google.maps.LatLngBounds;
-    for (var i = 0, len = this.state.markers.length; i < len; i++) {
-      bounds.extend(this.state.markers[i].getPosition());
-    }
-
     google.maps.event.trigger(this.state.map, 'resize');
-    this.state.map.fitBounds(bounds);
+    if (this.state.markers.length) {
+      for (var i = 0, len = this.state.markers.length; i < len; i++) {
+        bounds.extend(this.state.markers[i].getPosition());
+      }
+
+      this.state.map.fitBounds(bounds);
+    }
   },
 
   // Map parameters
@@ -174,23 +179,29 @@ var MapBuilder = React.createClass({
 
   // Build a version of state appropriate for persistence
   getStateSimple: function() {
-    return {
-      markers: this.state.markers.map(function(marker) {
-        var titleObj = JSON.parse(marker.title);
-        return {
-          lat: marker.position.lat(),
-          lng: marker.position.lng(),
-          title: titleObj.title,
-          description: titleObj.description,
-          style: 'stop'
-        };
-      }),
-      route: this.state.route.getPath().getArray().map(function(point) {
+    var markers = this.state.markers.map(function(marker) {
+      var titleObj = JSON.parse(marker.title);
+      return {
+        lat: marker.position.lat(),
+        lng: marker.position.lng(),
+        title: titleObj.title,
+        description: titleObj.description,
+        style: 'stop'
+      };
+    });
+    var route = [];
+    if (this.state.route) {
+      route = this.state.route.getPath().getArray().map(function(point) {
         return {
           lat: point.lat(),
           lng: point.lng()
         };
-      })
+      });
+    }
+
+    return {
+      markers: markers,
+      route: route
     };
   },
 

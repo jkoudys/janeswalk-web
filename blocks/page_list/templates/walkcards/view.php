@@ -46,7 +46,7 @@ foreach ($cards as $walk) {
             </div>
             <ul class="list-inline tags">
                 <?php foreach ($walk->themes as $theme => $set) { ?>
-                    <li class="tag" data-toggle="tooltip" title="<?= ThemeHelper::getName($theme) ?>">
+                    <li class="tag" data-toggle="tooltip" data-theme="<?= $theme ?>" title="<?= ThemeHelper::getName($theme) ?>">
                         <?= ThemeHelper::getIcon($theme) ?>
                     </li>
                 <?php } ?>

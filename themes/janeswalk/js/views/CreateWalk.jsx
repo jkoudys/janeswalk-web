@@ -111,36 +111,38 @@ var CreateWalk = React.createClass({
       messageTimeout: 1200
     };
     options = options || {};
+    
+    notifications.push({type: 'info', name: 'Saving walk'});
 
     // Build a simplified map from the Google objects
-    this.setState({gmap: this.refs.mapBuilder.getStateSimple()});
-
-    notifications.push({type: 'info', name: 'Saving walk'});
-    this.setState({notifications: notifications});
+    this.setState({
+      gmap: this.refs.mapBuilder.getStateSimple(),
+      notifications: notifications
+    }, function() {
+      $.ajax({
+        url: this.props.url,
+        type: options.publish ? 'PUT' : 'POST',
+        data: {json: JSON.stringify(this.state)},
+        dataType: 'json',
+        success: function(data) {
+          var notifications = this.state.notifications.slice();
+          notifications.push({type: 'success', name: 'Walk saved'});
+          this.setState({notifications: notifications});
+          setTimeout(removeNotice, 1200);
+          if (cb && cb instanceof Function) {
+            cb();
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          var notifications = this.state.notifications.slice();
+          notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
+          this.setState({notifications: notifications});
+          setTimeout(removeNotice, 6000);
+          console.error(this.url, status, err.toString());
+        }.bind(this)
+      });
+    }.bind(this));
     setTimeout(removeNotice, 1200);
-    $.ajax({
-      url: this.props.url,
-      type: options.publish ? 'PUT' : 'POST',
-      data: {json: JSON.stringify(this.state)},
-      dataType: 'json',
-      success: function(data) {
-        var notifications = this.state.notifications.slice();
-        notifications.push({type: 'success', name: 'Walk saved'});
-        this.setState({notifications: notifications});
-        setTimeout(removeNotice, 1200);
-        console.log('Walk saved');
-        if (cb && cb instanceof Function) {
-          cb();
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        var notifications = this.state.notifications.slice();
-        notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
-        this.setState({notifications: notifications});
-        setTimeout(removeNotice, 6000);
-        console.error(this.url, status, err.toString());
-      }.bind(this)
-    });
   },
 
   handleNext: function() {

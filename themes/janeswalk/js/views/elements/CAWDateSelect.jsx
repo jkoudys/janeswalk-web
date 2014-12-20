@@ -204,7 +204,6 @@ var TimePicker = React.createClass({
   // Date management is slow, so avoid rebuilding unless needed
   setStartTimes: function(start, step) {
     if (this.state.start !== start) {
-      this.setState({start: start})
       var firstTime = new Date(start + ' 00:00');
       var lastTime = new Date(start + ' 23:30');
       var startTimes = [];

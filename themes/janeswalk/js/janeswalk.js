@@ -247,36 +247,38 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       messageTimeout: 1200
     };
     options = options || {};
+    
+    notifications.push({type: 'info', name: 'Saving walk'});
 
     // Build a simplified map from the Google objects
-    this.setState({gmap: this.refs.mapBuilder.getStateSimple()});
-
-    notifications.push({type: 'info', name: 'Saving walk'});
-    this.setState({notifications: notifications});
+    this.setState({
+      gmap: this.refs.mapBuilder.getStateSimple(),
+      notifications: notifications
+    }, function() {
+      $.ajax({
+        url: this.props.url,
+        type: options.publish ? 'PUT' : 'POST',
+        data: {json: JSON.stringify(this.state)},
+        dataType: 'json',
+        success: function(data) {
+          var notifications = this.state.notifications.slice();
+          notifications.push({type: 'success', name: 'Walk saved'});
+          this.setState({notifications: notifications});
+          setTimeout(removeNotice, 1200);
+          if (cb && cb instanceof Function) {
+            cb();
+          }
+        }.bind(this),
+        error: function(xhr, status, err) {
+          var notifications = this.state.notifications.slice();
+          notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
+          this.setState({notifications: notifications});
+          setTimeout(removeNotice, 6000);
+          console.error(this.url, status, err.toString());
+        }.bind(this)
+      });
+    }.bind(this));
     setTimeout(removeNotice, 1200);
-    $.ajax({
-      url: this.props.url,
-      type: options.publish ? 'PUT' : 'POST',
-      data: {json: JSON.stringify(this.state)},
-      dataType: 'json',
-      success: function(data) {
-        var notifications = this.state.notifications.slice();
-        notifications.push({type: 'success', name: 'Walk saved'});
-        this.setState({notifications: notifications});
-        setTimeout(removeNotice, 1200);
-        console.log('Walk saved');
-        if (cb && cb instanceof Function) {
-          cb();
-        }
-      }.bind(this),
-      error: function(xhr, status, err) {
-        var notifications = this.state.notifications.slice();
-        notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
-        this.setState({notifications: notifications});
-        setTimeout(removeNotice, 6000);
-        console.error(this.url, status, err.toString());
-      }.bind(this)
-    });
   },
 
   handleNext: function() {
@@ -1012,7 +1014,6 @@ var TimePicker = React.createClass({displayName: 'TimePicker',
   // Date management is slow, so avoid rebuilding unless needed
   setStartTimes: function(start, step) {
     if (this.state.start !== start) {
-      this.setState({start: start})
       var firstTime = new Date(start + ' 00:00');
       var lastTime = new Date(start + ' 23:30');
       var startTimes = [];
@@ -1246,7 +1247,6 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       }.bind(this));
 
       route = this.buildRoute(valueLink.value.route, map);
-      this.setState({markers: markers, route: route});
     }
 
     // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
@@ -1255,19 +1255,25 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       this.boundMapByWalk();
     }.bind(this));
 
-    this.setState({map: map});
+    this.setState({
+      map: map,
+      markers: markers,
+      route: route
+    });
   },
 
   // Make the map fit the markers in this walk
   boundMapByWalk: function() {
     // Don't include the route - it can be too expensive to compute.
     var bounds = new google.maps.LatLngBounds;
-    for (var i = 0, len = this.state.markers.length; i < len; i++) {
-      bounds.extend(this.state.markers[i].getPosition());
-    }
-
     google.maps.event.trigger(this.state.map, 'resize');
-    this.state.map.fitBounds(bounds);
+    if (this.state.markers.length) {
+      for (var i = 0, len = this.state.markers.length; i < len; i++) {
+        bounds.extend(this.state.markers[i].getPosition());
+      }
+
+      this.state.map.fitBounds(bounds);
+    }
   },
 
   // Map parameters
@@ -1376,23 +1382,29 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
   // Build a version of state appropriate for persistence
   getStateSimple: function() {
-    return {
-      markers: this.state.markers.map(function(marker) {
-        var titleObj = JSON.parse(marker.title);
-        return {
-          lat: marker.position.lat(),
-          lng: marker.position.lng(),
-          title: titleObj.title,
-          description: titleObj.description,
-          style: 'stop'
-        };
-      }),
-      route: this.state.route.getPath().getArray().map(function(point) {
+    var markers = this.state.markers.map(function(marker) {
+      var titleObj = JSON.parse(marker.title);
+      return {
+        lat: marker.position.lat(),
+        lng: marker.position.lng(),
+        title: titleObj.title,
+        description: titleObj.description,
+        style: 'stop'
+      };
+    });
+    var route = [];
+    if (this.state.route) {
+      route = this.state.route.getPath().getArray().map(function(point) {
         return {
           lat: point.lat(),
           lng: point.lng()
         };
-      })
+      });
+    }
+
+    return {
+      markers: markers,
+      route: route
     };
   },
 
@@ -2023,7 +2035,7 @@ var WalkMap = function(mapData, mapCanvas) {
   // Style Map
   this.map.mapTypes.set('map_style', this.styledMap);
   this.map.setMapTypeId('map_style');
-  // TODO: Replace hard-coded selectors with DOMElement arguments
+  // TODO: Replace hard-coded selectors with ReactJS
   document.querySelector('.walk-stops').style.display = 'block';
 
   // Center our map after first building it
@@ -2626,13 +2638,27 @@ CityPageView.prototype = Object.create(PageView.prototype, {
    */
   _addLinkListeners: {
     value: function() {
+      var _this = this;
       var showAll = document.querySelector("a.see-all");
-      if(showAll) {
-        showAll.addEventListener("click", function() {
+      var fullMode = function() {
+        if (showAll) {
           document.querySelector('.ccm-block-page-list-walk-filters').classList.add('filtering');
           showAll.parentNode.removeChild(showAll);
-        });
+        }
+        showAll = document.querySelector('a.see-all');
       }
+      if(showAll) {
+        showAll.addEventListener("click", fullMode);
+      }
+      var toolTips = document.querySelectorAll('.walk .tags > li');
+      Array.prototype.forEach.call(toolTips, function(tooltip) {
+        tooltip.addEventListener('click', function(event) {
+          event.preventDefault();
+          fullMode();
+          _this._theme = this.dataset.theme;
+          _this._filterCards();
+        });
+      });
     }
   },
 
