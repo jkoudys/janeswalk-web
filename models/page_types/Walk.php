@@ -42,6 +42,21 @@ class Walk extends \Model implements \JsonSerializable
 
     /* Value store for getters */
     private $getCache;
+    // Map the object properties to their DB handle
+    private $handleMap = [
+        'shortDescription' => 'shortdescription',
+        'longDescription' => 'longdescription',
+        'accessibleInfo' => 'accessible_info',
+        'accessibleTransit' => 'accessible_transit',
+        'accessibleParking' => 'accessible_parking',
+        'accessibleFind' => 'accessible_find',
+        'map' => 'gmap',
+        'team' => 'team',
+        'wards' => 'walk_wards',
+        'themes' => 'theme',
+        'accessible' => 'accessible'
+    ];
+
 
     /*
      * __construct
@@ -62,27 +77,28 @@ class Walk extends \Model implements \JsonSerializable
 
         $db = Loader::db();
 
-        list(
-            $this->thumbnailID,
-            $this->shortdescription,
-            $this->longdescription,
-            $this->accessibleInfo,
-            $this->accessibleTransit,
-            $this->accessibleParking,
-            $this->accessibleFind,
-            $this->map,
-            $this->team,
-            $this->wards,
-            $this->themes,
-            $this->accessible
-        ) = array_values($db->getRow('SELECT ak_thumbnail, ak_shortdescription, ak_longdescription, ak_accessible_info, ak_accessible_transit, ak_accessible_parking, ak_accessible_find, ak_gmap, ak_team, ak_walk_wards, ak_theme, ak_accessible FROM CollectionSearchIndexAttributes where cID=?', [$page->getCollectionID()]));
-        /* Themes and Accessibility are sets of checkboxes, so a bit more involved to load */
-        $loadChecks = function ($attrString) use ($page) {
+        $stmt = 'akHandle=\'' . join($this->handleMap, '\' or akHandle=\'') . '\'';
+
+        // Consolodated query; runs way faster than a dozen getAttributes
+        foreach (
+            $db->getAll('select value, ak.akHandle from atDefault atd INNER JOIN CollectionAttributeValues cav ON (atd.avID = cav.avID) INNER JOIN AttributeKeys ak ON (ak.akID = cav.akID AND (' . $stmt . ')) WHERE cav.cID = ? AND cav.cvID = ?', [$page->getCollectionID(), $page->getVersionID()]) as
+            $av
+        ) {
+            // Find which return value we're setting
+            $key = array_search($av['akHandle'], $this->handleMap);
+            if ($key) {
+                $this->{$key} = $av['value'];
+            }
+        }
+
+        // Themes and Accessibility are sets of checkboxes
+        $loadChecks = function ($akHandle) use ($page) {
             $checkboxes = [];
-            $av = explode("\n", $attrString);
-            foreach ((array) $av as $selectAttribute) {
-                if ($selectAttribute) {
-                    $checkboxes[(string) $selectAttribute] = true;
+            foreach ((array) $page->getAttribute($akHandle) as $av) {
+                foreach ((array) $av as $selectAttribute) {
+                    if ($selectAttribute) {
+                        $checkboxes[(string) $selectAttribute] = true;
+                    }
                 }
             }
 
@@ -94,8 +110,8 @@ class Walk extends \Model implements \JsonSerializable
         $this->team = json_decode($this->team, true);
 
         // Decode \n delimited arrays
-        $this->themes = $loadChecks($this->themes);
-        $this->accessible = $loadChecks($this->accessible);
+        $this->themes = $loadChecks('theme');
+        $this->accessible = $loadChecks('accessible');
 
         // Load more complex attributes
         $this->time = $page->getAttribute('scheduled');

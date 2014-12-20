@@ -120,8 +120,8 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                     <h4><i class="fa fa-map-marker"></i> <?= t('Walk Route') ?></h4>
                     <h5 class="clickdetails"><?= t('Click locations to see details') ?></h5>
                     <ol>
-                        <?php foreach ($w->map->markers as $key => $marker) { ?>
-                        <li class="walk-stop" data-key="<?= $key ?>"><h4><?= $marker->title ?></h4></li>
+                        <?php foreach ($w->map['markers'] as $key => $marker) { ?>
+                        <li class="walk-stop" data-key="<?= $key ?>"><h4><?= $marker['title'] ?></h4></li>
                         <?php } ?>
                     </ol>
                 </header>
@@ -144,8 +144,8 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                     <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
                 </a>
                 <?php } ?>
-                <?= $w->longdescription ?>
-                <?php if (count($w->map->markers)) { ?>
+                <?= $w->longDescription ?>
+                <?php if (count($w->map['markers'])) { ?>
                 <div class="walk-stops-list">
                     <hr />
                     <h3><?= t('Walk Stops') ?></h3>
@@ -157,10 +157,10 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                         View in Google Maps
                     </a>
                     <ol>
-                        <?php foreach($w->map->markers as $key => $marker) { ?>
+                        <?php foreach($w->map['markers'] as $key => $marker) { ?>
                         <li class="walk-stop" id="<?= ($key) ?>">
-                            <h4><?= $marker->title ?></h4>
-                            <p><?= $marker->description ?></p>
+                            <h4><?= $marker['title'] ?></h4>
+                            <p><?= $marker['description'] ?></p>
                         </li>
                         <?php } ?>
                     </ol>

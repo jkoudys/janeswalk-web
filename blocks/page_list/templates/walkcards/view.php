@@ -42,7 +42,7 @@ foreach ($cards as $walk) {
                 <?php if ($walkLeaders) { ?>
                     <h6><?= t('Walk led by %s', $walkLeaders) ?></h6>
                 <?php } ?>
-                <p><?= Loader::helper('text')->shortText($walk->shortdescription, 115) ?></p>
+                <p><?= Loader::helper('text')->shortText($walk->shortDescription, 115) ?></p>
             </div>
             <ul class="list-inline tags">
                 <?php foreach ($walk->themes as $theme => $set) { ?>
