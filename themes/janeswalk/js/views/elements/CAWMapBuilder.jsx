@@ -34,8 +34,8 @@ var MapBuilder = React.createClass({
         }
       },
       map = new google.maps.Map(mapNode, mapOptions),
-      markers,
-      route;
+      markers = this.state.markers,
+      route = this.state.route;
     
     // Draw the route
     if (valueLink.value) {
@@ -46,17 +46,17 @@ var MapBuilder = React.createClass({
       route = this.buildRoute(valueLink.value.route, map);
     }
 
-    // The map won't size properly if it starts on a hidden tab, so refresh on tab shown
-    // FIXME: this $() selector is unbecoming of a React app
-    $('a[href="#route"]').on('shown.bs.tab', function(e) {
-      this.boundMapByWalk();
-    }.bind(this));
-
     this.setState({
       map: map,
       markers: markers,
       route: route
-    });
+    }, function() {
+      // Map won't size properly on a hidden tab, so refresh on tab shown
+      // FIXME: this $() selector is unbecoming of a React app
+      $('a[href="#route"]').on('shown.bs.tab', function(e) {
+        this.boundMapByWalk();
+      }.bind(this));
+    }.bind(this));
   },
 
   // Make the map fit the markers in this walk
@@ -209,7 +209,7 @@ var MapBuilder = React.createClass({
     var walkStops;
     var t = this.props.i18n.translate.bind(this.props.i18n);
 
-    if (this.state.markers.length) {
+    if (this.state.markers && this.state.markers.length) {
       // This 'key' is to force the component to not rebuild
       walkStops = [
         <h3 key={'stops'}>{t('Walk Stops')}</h3>,

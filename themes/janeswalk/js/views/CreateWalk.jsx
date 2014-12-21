@@ -76,6 +76,7 @@ var CreateWalk = React.createClass({
       }
 
       // Init the leader as creator, if none set
+      data.team = data.team || []
       if (data.team.length === 0) {
         var user = this.props.user;
         data.team = [{
