@@ -12064,6 +12064,15 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-canvas .stop-form {
   padding: 0.5em;
 }
+#create-walk #map-canvas .stop-form .marker-description {
+  height: 6em;
+  margin-top: 11px;
+}
+#create-walk #map-canvas .stop-form a {
+  position: absolute;
+  right: 2px;
+  bottom: 0;
+}
 #create-walk #map-canvas .btn,
 #create-walk #map-canvas body.city-page > #city-details .create-walk,
 #create-walk #map-canvas body.city-page > #city-details .create-walk:after,

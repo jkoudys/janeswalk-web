@@ -1202,6 +1202,8 @@ var ImageUpload = React.createClass({
 module.exports = ImageUpload;
 
 },{}],10:[function(require,module,exports){
+'use strict';
+
 var Helper = require('../functions/helpers.jsx');
 
 var MapBuilder = React.createClass({displayName: 'MapBuilder',
@@ -1209,14 +1211,13 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     return {
       // Map config startup defaults
       initialZoom: 15,
-      city: {lat: 43.663161, lng: -79.410828}
     };
   },
 
   // State for this component should only track the map editor
   getInitialState: function() {
     return {
-      // The 'mode' we're in: 'addmeetingplace', 'addstop', 'addroute', or false
+      // The 'mode' we're in: 'addpoint', 'addroute', or false
       editMode: false,
       map: null,
       markers: [],
@@ -1226,40 +1227,52 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   },
 
   componentDidMount: function() {
-    var valueLink = this.props.valueLink,
-      mapNode = this.refs.gmap.getDOMNode(),
-      mapOptions = {
-        center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
-        zoom: this.props.initialZoom,
-        scrollwheel: false,
-        rotateControl: true,
-        mapTypeControlOptions: {
-          mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
+    var _this = this,
+    valueLink = this.props.valueLink,
+    mapNode = this.refs.gmap.getDOMNode(),
+    mapOptions = {
+      center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
+      zoom: this.props.initialZoom,
+      scrollwheel: false,
+      rotateControl: true,
+      mapTypeControlOptions: {
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
+      }
+    },
+    map = new google.maps.Map(mapNode, mapOptions),
+    markers = this.state.markers,
+    route = this.state.route;
+
+    this.setState({map: map}, function() {
+      // Draw the route
+      if (valueLink.value) {
+        markers = valueLink.value.markers.map(function(marker) {
+          return this.buildMarker(marker);
+        }.bind(this));
+
+        route = this.buildRoute(valueLink.value.route);
+      }
+
+      // Set marker/route adding
+      google.maps.event.addListener(map, 'click', function(ev) {
+        switch (_this.state.editMode) {
+          case 'addpoint':
+            var markers = _this.state.markers;
+            var marker = _this.buildMarker(ev.latLng);
+            markers.push(marker);
+            _this.setState({markers: markers}, function() {
+              _this.showInfoWindow(marker);
+            }); 
+          break;
         }
-      },
-      map = new google.maps.Map(mapNode, mapOptions),
-      markers = this.state.markers,
-      route = this.state.route;
-    
-    // Draw the route
-    if (valueLink.value) {
-      markers = valueLink.value.markers.map(function(marker) {
-        return this.buildMarker(marker, map);
-      }.bind(this));
-
-      route = this.buildRoute(valueLink.value.route, map);
-    }
-
-    this.setState({
-      map: map,
-      markers: markers,
-      route: route
-    }, function() {
+      });
       // Map won't size properly on a hidden tab, so refresh on tab shown
       // FIXME: this $() selector is unbecoming of a React app
       $('a[href="#route"]').on('shown.bs.tab', function(e) {
         this.boundMapByWalk();
       }.bind(this));
+
+      this.setState({markers: markers, route: route});
     }.bind(this));
   },
 
@@ -1290,10 +1303,20 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   
   // Map related functions
   // Build gmaps Marker object from base data
-  buildMarker: function(markObj, map) {
-    map = map || this.state.map;
-    return new google.maps.Marker({
-      position: new google.maps.LatLng(markObj.lat, markObj.lng),
+  buildMarker: function(markObj) {
+    var marker;
+    var _this = this;
+    var position;
+    var map = this.state.map;
+
+    // See which type we passed in
+    if (markObj instanceof google.maps.LatLng) {
+      position = markObj;
+    } else {
+      position = new google.maps.LatLng(markObj.lat, markObj.lng);
+    }
+    marker = new google.maps.Marker({
+      position: position,
       animation: google.maps.Animation.DROP,
       draggable: true,
       title: JSON.stringify({title: markObj.title, description: markObj.description}),
@@ -1301,10 +1324,40 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       map: map,
       icon: this.stopMarker
     });
+    
+    google.maps.event.addListener(marker, 'click', function(ev) {
+      _this.showInfoWindow(this)
+    });
+
+    return marker;
   },
 
-  buildRoute: function(routeArray, map) {
-    poly = new google.maps.Polyline({
+  /**
+   * Show the info box for editing this marker
+   *
+   * @param google.maps.Marker marker
+   */
+  showInfoWindow: function(marker) {
+    var _this = this;
+    var infoDOM = document.createElement('div');
+
+    React.render(
+      React.createElement(WalkInfoWindow, {marker: marker, deleteMarker: this.deleteMarker.bind(this, marker), refresh: this.setState.bind(this, {})}),
+      infoDOM
+    );
+    
+    this.state.map.panTo(marker.getPosition());
+
+    this.state.infowindow.setContent(infoDOM);
+
+    this.state.infowindow.open(this.state.map, marker);
+
+  },
+
+  buildRoute: function(routeArray) {
+    var map = this.state.map;
+
+    var poly = new google.maps.Polyline({
       strokeColor: '#F16725',
       strokeOpacity: 0.8,
       strokeWeight: 3,
@@ -1321,16 +1374,18 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     return poly;
   },
 
-  editMarker: function(i) {
-    // TODO: edit the marker
-  },
-
-  deleteMarker: function(i) {
+  /**
+   * @param google.maps.Marker marker
+   */
+  deleteMarker: function(marker) {
     var markers = this.state.markers;
+
     // Clear marker from map
-    markers[i].setMap(null);
+    marker.setMap(null);
+
     // Remove reference in state
-    markers.splice(i, 1);
+    markers.splice(markers.indexOf(marker), 1);
+
     this.setState({markers: markers});
   },
 
@@ -1342,10 +1397,6 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   },
 
   // Button Actions
-  toggleAddMeetingPlace: function() {
-    this.setState({editMode: 'addmeetingplace'});
-  },
-
   toggleAddPoint: function() {
     this.setState({editMode: 'addpoint'});
   },
@@ -1362,18 +1413,6 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   /*
     // If this marker isn't passed with a title, prompt for info
     if (!markObj.lat) {
-      this.state.infowindow = new google.maps.InfoWindow({
-        content: (
-          <div class='stop-form'>
-            <input type='text' value={marker.title} placeholder='Title of this stop' class='marker-title' />
-            <br />
-            <textarea class='marker-description box-sizing' placeholder='Description of this stop'>{marker.description}</textarea>
-            <br />
-            <button class='btn btn-primary' id='save-marker'>Save Stop</button>
-            <button class='btn' id='delete-marker'>Delete</button>
-          </div>
-        )
-      });
       this.state.infowindow.open(this.state.map, marker);
     }
 
@@ -1417,7 +1456,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       // This 'key' is to force the component to not rebuild
       walkStops = [
         React.createElement("h3", {key: 'stops'}, t('Walk Stops')),
-        React.createElement(WalkStopTable, {i18n: this.props.i18n, key: 1, markers: this.state.markers, deleteMarker: this.deleteMarker, changeMarkerOrder: this.changeMarkerOrder})
+        React.createElement(WalkStopTable, {ref: "walkStopTable", i18n: this.props.i18n, key: 1, markers: this.state.markers, deleteMarker: this.deleteMarker, changeMarkerOrder: this.changeMarkerOrder, showInfoWindow: this.showInfoWindow})
       ];
     }
     
@@ -1463,7 +1502,6 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
           )
         ), 
         React.createElement("div", {id: "map-control-bar"}, 
-          React.createElement("button", {className: (this.state.editMode === 'addmeetingplace') ? 'active' : '', ref: "addmeetingplace", onClick: this.toggleAddMeetingPlace}, React.createElement("i", {className: "fa fa-flag"}),  t('Set a Meeting Place') ), 
           React.createElement("button", {className: (this.state.editMode === 'addpoint') ? 'active' : '', ref: "addpoint", onClick: this.toggleAddPoint}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') ), 
           React.createElement("button", {className: (this.state.editMode === 'addroute') ? 'active' : '', ref: "addroute", onClick: this.toggleAddRoute}, React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') ), 
           React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') )
@@ -1503,15 +1541,53 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
         React.createElement("tbody", null, 
           this.props.markers.map(function(marker, i) {
             var titleObj = JSON.parse(marker.title);
+            var showInfoWindow = this.props.showInfoWindow.bind(this, marker);
             return (
               React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
-                React.createElement("td", null, titleObj.title), 
-                React.createElement("td", null, titleObj.description), 
-                React.createElement("td", null, React.createElement("a", {className: "delete-stop", onClick: this.props.deleteMarker.bind(this, i)}, React.createElement("i", {className: "fa fa-times-circle-o"})))
+                React.createElement("td", {onClick: showInfoWindow}, titleObj.title), 
+                React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
+                React.createElement("td", null, React.createElement("a", {className: "delete-stop", onClick: this.props.deleteMarker.bind(this, marker)}, React.createElement("i", {className: "fa fa-times-circle-o"})))
               )
               );
           }.bind(this))
         )
+      )
+    );
+  }
+});
+
+var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
+  getInitialState: function() {
+    return {
+      marker: null
+    };
+  },
+  componentWillMount: function() {
+    this.setState({
+      marker: this.props.marker
+    });
+  },
+  setMarkerContent: function(ev) {
+    var marker = this.state.marker;
+    var markerContent = JSON.parse(marker.getTitle());
+    if (ev.target.classList.contains('marker-title')) {
+      markerContent.title = ev.target.value;
+    } else if (ev.target.classList.contains('marker-description')) {
+      markerContent.description = ev.target.value;
+    }
+    marker.setTitle(JSON.stringify(markerContent));
+    this.setState({marker: marker});
+    this.props.refresh();
+  },
+  render: function() {
+    var marker = this.state.marker;
+    var markerContent = JSON.parse(marker.getTitle());
+
+    return (
+      React.createElement("div", {className: "stop-form"}, 
+        React.createElement("input", {type: "text", onChange: this.setMarkerContent, value: markerContent.title, placeholder: "Title of this stop", className: "marker-title"}), 
+        React.createElement("textarea", {className: "marker-description box-sizing", onChange: this.setMarkerContent, placeholder: "Description of this stop", value: markerContent.description}), 
+        React.createElement("a", {onClick: this.props.deleteMarker}, React.createElement("i", {className: "fa fa-trash-o"}))
       )
     );
   }

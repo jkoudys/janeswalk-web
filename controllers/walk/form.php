@@ -96,8 +96,7 @@ class WalkFormController extends Controller
         }
 
         // Load our city
-        $latlng = explode(',', $c->getAttribute('latlng') );
-
+        $latlng = explode(',', $city->getAttribute('latlng'));
         // If you don't have a lat and a lng, final resort is Toronto. It's at least better than being 400km off the coast of Nigeria.
         if (count((array) $latlng) !== 2) {
             $latlng = [43.653226,-79.3831843];
