@@ -151,7 +151,7 @@ class City extends \Model implements \JsonSerializable
         $pl = new PageList;
         $pl->filterByCollectionTypeHandle('walk');
         $pl->filterByPath($this->page->getCollectionPath());
-        $pl->filterByAttribute('exclude_page_list',false);
+        $pl->filterByAttribute('exclude_page_list', false);
         $pagecount = 500;
         $cityData = array(
             'title' => $this->title,
@@ -179,7 +179,7 @@ class City extends \Model implements \JsonSerializable
             $cityData['walks'][$key] = array(
                 'url' => $nh->getCollectionURL($page),
                 'title' => $page->getCollectionName(),
-                'thumb' => ($thumb = $page->getAttribute('thumbnail')) ? $im->getThumbnail($thumb, 340,720)->src : null,
+                'thumb' => ($thumb = $page->getAttribute('thumbnail')) ? $im->getThumbnail($thumb, 340, 720)->src : null,
                 'schedule' => isset($scheduled['open']) ? 'Open Schedule' : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
                 'wards' => $page->getAttribute('walk_wards'),
                 'time' => isset($slots[0]['time']) ? $slots[0]['time'] : 'multiple',

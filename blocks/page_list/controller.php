@@ -153,7 +153,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             }
 
             $this->set('walksByDate', $cards);
-        default:
             break;
         }
 

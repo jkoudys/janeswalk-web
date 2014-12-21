@@ -16,17 +16,17 @@
                             'monthly' => t('Monthly'),
                             'yearly' => t('Yearly')
                         ],
-                        $data['repeat']
-                    )
+                    $data['repeat']
+                )
                 ?>
             </label>
             <label>
                 <?= t('Repeat for') ?> 
-                <?= $fh->select('akID[' . $akID . '][repeat]', range(1, 30), $data['repeat'] ) ?> <span class="repeat-frequency"></span>
+                <?= $fh->select('akID[' . $akID . '][repeat]', range(1, 30), $data['repeat']) ?> <span class="repeat-frequency"></span>
             </label>
             <label>
                 <?= t('Repeats') ?> 
-                <?= $fh->select('akID[' . $akID . '][repeat]', ['' => 'No Booking', 'set' => 'Scheduled', 'all' => 'By Request'], $data['repeat'] ) ?>
+                <?= $fh->select('akID[' . $akID . '][repeat]', ['' => 'No Booking', 'set' => 'Scheduled', 'all' => 'By Request'], $data['repeat']) ?>
             </label>
         </fieldset>
     </section>
@@ -36,18 +36,18 @@
     <ul class="dateList" id="ak<?= $akID ?>_eventTimeList">
         <a class="ccm-add-option"><img src="<?= ASSETS_URL_IMAGES ?>/icons/add.png" /></a>
         <?php
-        if ($data['slots']) foreach ($data['slots'] as $key => $slot) { ?>
+        if ($data['slots']) { foreach ($data['slots'] as $key => $slot) { ?>
         <script>new EventDate(<?= $akID ?>);</script>
         <fieldset>
             <a class="ccm-search-remove-option"><img src="<?= ASSETS_URL_IMAGES ?>/icons/remove_minus.png" /></a>
             <legend><?= t('Date') ?> #<?=$key?></legend>
             <label class='datetime'>
-                <?= $dt->datetime("akID[$akID][times][$key][start]", str_replace('-','/',$slot['start'])) ?>
+                <?= $dt->datetime("akID[$akID][times][$key][start]", str_replace('-', '/', $slot['start'])) ?>
             </label>
             <span><?= t('to') ?></span>
             <label class='datetime'>
                 End<br/>
-                <?= $dt->datetime("akID[$akID][times][$key][end]", str_replace('-','/',$slot['end'])) ?>
+                <?= $dt->datetime("akID[$akID][times][$key][end]", str_replace('-', '/', $slot['end'])) ?>
             </label>
             <label class="checkbox">
                 <?= $fh->checkbox("akID[$akID][all-day]", 'all-day', $data['all-day']) ?>
@@ -59,6 +59,7 @@
             </label>
         </fieldset>
         <?php
+        } 
         }
         ?>
     </ul>

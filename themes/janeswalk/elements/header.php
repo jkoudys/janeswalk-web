@@ -22,10 +22,8 @@
 ?>
     <script type="text/javascript">var CCM_THEME_PATH = '<?= $this->getThemePath() ?>';window.fbAsyncInit = function () {FB.init({appId: '544710848887303', status: true, xfbml: true }); };(function (d, s, id) {var js, fjs = d.getElementsByTagName(s)[0]; if (d.getElementById(id)) {return;} js = d.createElement(s); js.id = id; js.src = '//connect.facebook.net/en_US/all.js'; fjs.parentNode.insertBefore(js, fjs); }(document, 'script', 'facebook-jssdk'));</script>
 </head>
-<body
-    class="<?= join((array) $bodyData['classes'], ' ') ?>"
-    data-pageViewName="<?= $bodyData['pageViewName'] ?>"
-    style="background-image:url(<?= $bodyData['bg'] ?>)">
+<body class="<?= join((array) $bodyData['classes'], ' ') ?>" data-pageViewName="<?= $bodyData['pageViewName'] ?>">
+    <div id="body-bg" style="background-image:url(<?= $bodyData['bg'] ?>)"></div>
     <div id="fb-root"></div>
     <script type="text/javascript">
     </script>

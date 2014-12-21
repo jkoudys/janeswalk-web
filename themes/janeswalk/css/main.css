@@ -7052,6 +7052,19 @@ body.site-page .ccm-profile-body-item div label {
   min-width: 145px;
   display: inline-block;
 }
+body > #body-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 100vh;
+  width: 100vw;
+  -webkit-transform: translateZ(-1px) scale(2);
+          transform: translateZ(-1px) scale(2);
+  background: 50% 50% / cover;
+  z-index: -1;
+}
 #central {
   margin-bottom: 30px;
 }

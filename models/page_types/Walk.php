@@ -131,39 +131,41 @@ class Walk extends \Model implements \JsonSerializable
         case 'teamPictures':
             // @return Array<Array> of members
             $theme = \PageTheme::getByHandle('janeswalk');
-            $this->teamPictures = array_map(function ($mem) use ($theme) {
-                if ($mem['type'] === 'you') {
-                    $mem['type'] = ($mem['role'] === 'walk-organizer') ?
+            $this->teamPictures = array_map(
+                function ($mem) use ($theme) {
+                    if ($mem['type'] === 'you') {
+                        $mem['type'] = ($mem['role'] === 'walk-organizer') ?
                         'organizer' : 'leader';
-                }
-                switch ($mem['type']) {
-                case 'leader':
-                    $mem['image'] = $theme->getThemeURL() . '/img/walk-leader.png';
-                    $mem['title'] = 'Walk Leader';
-                    break;
-                case 'organizer':
-                    $mem['image'] = $theme->getThemeURL() . '/img/walk-organizer.png';
-                    $mem['title'] = 'Walk Organizer';
-                    break;
-                case 'community':
-                    $mem['image'] = $theme->getThemeURL() . '/img/community-voice.png';
-                    $mem['title'] = 'Community Voice';
-                    break;
-                case 'volunteer':
-                    $mem['image'] = $theme->getThemeURL() . '/img/volunteers.png';
-                    $mem['title'] = 'Volunteer';
-                    break;
-                default:
-                    break;
-                }
-                if ($mem['user_id'] > 0) {
-                    if ($avatar = Loader::helper('concrete/avatar')->getImagePath(\UserInfo::getByID($mem['user_id']))) {
-                        $mem['avatar'] = $avatar;
                     }
-                }
+                    switch ($mem['type']) {
+                    case 'leader':
+                        $mem['image'] = $theme->getThemeURL() . '/img/walk-leader.png';
+                        $mem['title'] = 'Walk Leader';
+                        break;
+                    case 'organizer':
+                        $mem['image'] = $theme->getThemeURL() . '/img/walk-organizer.png';
+                        $mem['title'] = 'Walk Organizer';
+                        break;
+                    case 'community':
+                        $mem['image'] = $theme->getThemeURL() . '/img/community-voice.png';
+                        $mem['title'] = 'Community Voice';
+                        break;
+                    case 'volunteer':
+                        $mem['image'] = $theme->getThemeURL() . '/img/volunteers.png';
+                        $mem['title'] = 'Volunteer';
+                        break;
+                    default:
+                        break;
+                    }
+                    if ($mem['user_id'] > 0) {
+                        if ($avatar = Loader::helper('concrete/avatar')->getImagePath(\UserInfo::getByID($mem['user_id']))) {
+                            $mem['avatar'] = $avatar;
+                        }
+                    }
 
-                return $mem;
-            }, (array) $this->team);
+                    return $mem;
+                }, (array) $this->team
+            );
 
             return $this->teamPictures;
             break;
@@ -234,7 +236,7 @@ class Walk extends \Model implements \JsonSerializable
         }
 
         // Always finish by running parent method, else only defined properties can be set
-        parent::__set($name,$value);
+        parent::__set($name, $value);
     }
 
     /*
@@ -275,9 +277,9 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->update(['cName' => $postArray['title']]);
             $this->page->setAttribute('shortdescription', $postArray['shortdescription']);
             $this->page->setAttribute('longdescription', $postArray['longdescription']);
-            $this->page->setAttribute('accessible_info',$postArray['accessible-info']);
-            $this->page->setAttribute('accessible_transit',$postArray['accessible-transit']);
-            $this->page->setAttribute('accessible_parking',$postArray['accessible-parking']);
+            $this->page->setAttribute('accessible_info', $postArray['accessible-info']);
+            $this->page->setAttribute('accessible_transit', $postArray['accessible-transit']);
+            $this->page->setAttribute('accessible_parking', $postArray['accessible-parking']);
             $this->page->setAttribute('accessible_find', $postArray['accessible-find']);
             $this->page->setAttribute('walk_wards', $postArray['wards']);
             $this->page->setAttribute('scheduled', (array) $postArray['time']);
@@ -306,8 +308,10 @@ class Walk extends \Model implements \JsonSerializable
             }
         } catch (Exception $e) {
             $db->FailTrans(); // Set transaction to rollback
-            (new \Log('error', false))->write(__CLASS__ . '::' . __FUNCTION__ .
-                ' failed on page ' . $this->page->title . ': ' . $e);
+            (new \Log('error', false))->write(
+                __CLASS__ . '::' . __FUNCTION__ .
+                ' failed on page ' . $this->page->title . ': ' . $e
+            );
             $ok = false;
         } 
         
@@ -337,7 +341,7 @@ class Walk extends \Model implements \JsonSerializable
             'team' => $this->team,
             'time' => $this->time,
             'thumbnail_id' => $this->thumbnail,
-            'thumbnail_url' => $this->thumbnail ? $im->getThumbnail(File::getByID($this->thumbnail), 340,720)->src : null,
+            'thumbnail_url' => $this->thumbnail ? $im->getThumbnail(File::getByID($this->thumbnail), 340, 720)->src : null,
             'wards' => $this->wards
         );
         // Load the thumbnail array
@@ -345,7 +349,7 @@ class Walk extends \Model implements \JsonSerializable
         if ($this->thumbnail) {
             $walkData['thumbnails'][] = [
                 'id' => $this->thumbnail->getFileID(),
-                'url' => $im->getThumbnail($this->thumbnail, 340,720)->src
+                'url' => $im->getThumbnail($this->thumbnail, 340, 720)->src
             ];
         }
 
@@ -392,7 +396,8 @@ class Walk extends \Model implements \JsonSerializable
             // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
             $coorStr .= PHP_EOL . $route['lng'] . ', ' . $route['lat'] . ', 0';
         }
-        if ($coorStr) $map->appendChild($doc->createElement('route', $coorStr));
+        if ($coorStr) { $map->appendChild($doc->createElement('route', $coorStr)); 
+        }
 
         $xsltp = new XSLTProcessor;
         $xsltp->importStyleSheet(DOMDocument::load(DIR_BASE . '/elements/templates/kmlmap.xsl'));

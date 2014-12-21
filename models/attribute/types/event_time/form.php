@@ -29,26 +29,27 @@ function EventDate(akID)
 </label>
 <label class="select">
   Booking Type
-<?= $fh->select("akID[$akID][type]", ['' => 'No Booking', 'set' => 'Scheduled', 'all' => 'By Request'], $data['type'] ) ?>
+<?= $fh->select("akID[$akID][type]", ['' => 'No Booking', 'set' => 'Scheduled', 'all' => 'By Request'], $data['type']) ?>
 </label>
 <ul class="dateList" id="ak<?= $akID ?>_eventTimeList">
   <a class="ccm-add-option"><img src="<?= ASSETS_URL_IMAGES ?>/icons/add.png" /></a>
 <?php
-if ($data['slots']) foreach ($data['slots'] as $key=>$slot) { ?>
+if ($data['slots']) { foreach ($data['slots'] as $key=>$slot) { ?>
     <script>new EventDate(<?= $akID ?>);</script>
     <fieldset>
     <a class="ccm-search-remove-option"><img src="<?= ASSETS_URL_IMAGES ?>/icons/remove_minus.png" /></a>
     <legend>Date <?=$key?></legend>
     <label class='datetime'>
     Start<br/>
-    <?= $dt->datetime("akID[$akID][times][$key][start]", str_replace('-','/',$slot['eb_start'])) ?>
+    <?= $dt->datetime("akID[$akID][times][$key][start]", str_replace('-', '/', $slot['eb_start'])) ?>
     </label>
     <label class='datetime'>
     End<br/>
-    <?= $dt->datetime("akID[$akID][times][$key][end]", str_replace('-','/',$slot['eb_end'])) ?>
+    <?= $dt->datetime("akID[$akID][times][$key][end]", str_replace('-', '/', $slot['eb_end'])) ?>
     </label>
     </fieldset>
 <?php
+} 
 }
 ?>
     </ul>
