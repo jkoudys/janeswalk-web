@@ -12228,6 +12228,20 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #preview-modal > div > article > dialog > div > article section + section {
   height: 100%;
 }
+#create-walk #preview-modal header {
+  position: absolute;
+  width: 100%;
+  z-index: 1060;
+}
+#create-walk #preview-modal .modal-body,
+#create-walk #preview-modal dialog > div > article section,
+#create-walk #preview-modal dialog > div > article section + section {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  padding-top: 100px;
+  top: 0;
+}
 #create-walk #preview-modal iframe {
   width: 100%;
   height: 100%;

@@ -13,8 +13,8 @@ var MapBuilder = React.createClass({
   // State for this component should only track the map editor
   getInitialState: function() {
     return {
-      // The 'mode' we're in: 'addpoint', 'addroute', or false
-      editMode: false,
+      // The 'mode' we're in: 'addPoint', 'addRoute'
+      mode: {},
       map: null,
       markers: [],
       route: null,
@@ -51,15 +51,17 @@ var MapBuilder = React.createClass({
 
       // Set marker/route adding
       google.maps.event.addListener(map, 'click', function(ev) {
-        switch (_this.state.editMode) {
-          case 'addpoint':
-            var markers = _this.state.markers;
-            var marker = _this.buildMarker(ev.latLng);
-            markers.push(marker);
-            _this.setState({markers: markers}, function() {
-              _this.showInfoWindow(marker);
-            }); 
-          break;
+        if (_this.state.mode.addPoint) {
+          var markers = _this.state.markers;
+          var marker = _this.buildMarker(ev.latLng);
+          markers.push(marker);
+          _this.setState({markers: markers, mode: {}}, function() {
+            _this.showInfoWindow(marker);
+          }); 
+        }
+        if (_this.state.mode.addRoute) {
+          var route = _this.state.route;
+          route.setPath(route.getPath().push(ev.latLng));
         }
       });
       // Map won't size properly on a hidden tab, so refresh on tab shown
@@ -210,27 +212,25 @@ var MapBuilder = React.createClass({
 
   // Button Actions
   toggleAddPoint: function() {
-    this.setState({editMode: 'addpoint'});
+    this.setState({
+      mode: {
+        addPoint: !this.state.mode.addPoint
+      }
+    });
   },
 
   toggleAddRoute: function() {
-    this.setState({editMode: 'addroute'});
+    this.setState({
+      mode: {
+        addRoute: !this.state.mode.addRoute
+      }
+    });
   },
 
   clearRoute: function() {
     this.state.route.setPath([]);
-    this.setState({editMode: false});
+    this.setState({mode: {}});
   },
-
-  /*
-    // If this marker isn't passed with a title, prompt for info
-    if (!markObj.lat) {
-      this.state.infowindow.open(this.state.map, marker);
-    }
-
-    this.setState({markers: this.state.markers.concat([marker])});
-  },
-  */
 
   // Build a version of state appropriate for persistence
   getStateSimple: function() {
@@ -282,7 +282,6 @@ var MapBuilder = React.createClass({
     
     return (
       <div className="tab-pane" id="route">
-        <div className="alert alert-error"><strong>Map buttons currently offline.</strong> Sorry for the inconvenience - the buttons to add to your map aren't working. Please check back tomorrow.</div>
         <div className="page-header" data-section="route">
           <h1>{ t('Share Your Route') }</h1>
         </div>
@@ -329,14 +328,14 @@ var MapBuilder = React.createClass({
         </div>
         <div id="map-control-bar">
           <button
-            ref="addpoint"
-            className={(this.state.editMode === 'addpoint') ? 'active' : ''}
+            ref="addPoint"
+            className={(this.state.mode.addPoint) ? 'active' : ''}
             onClick={this.toggleAddPoint}>
             <i className="fa fa-map-marker" />{ t('Add Stop') }
           </button>
           <button
-            ref="addroute"
-            className={(this.state.editMode === 'addroute') ? 'active' : ''}
+            ref="addRoute"
+            className={(this.state.mode.addRoute) ? 'active' : ''}
             onClick={this.toggleAddRoute}>
             <i className="fa fa-arrows" />{ t('Add Route') }
           </button>
