@@ -171,8 +171,6 @@ var DateSelect = React.createClass({
             <br />
             <TimeOpenTable />
             <hr />
-            <a href="#time-and-date-select" data-toggle="tab" className="clear-date">{ t('Clear schedule and return to main Time and Date page') }</a>
-            <hr />
           </div>
         </div>
       </div>

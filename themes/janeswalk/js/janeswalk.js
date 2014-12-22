@@ -981,8 +981,6 @@ var DateSelect = React.createClass({displayName: 'DateSelect',
             ), 
             React.createElement("br", null), 
             React.createElement(TimeOpenTable, null), 
-            React.createElement("hr", null), 
-            React.createElement("a", {href: "#time-and-date-select", 'data-toggle': "tab", className: "clear-date"},  t('Clear schedule and return to main Time and Date page') ), 
             React.createElement("hr", null)
           )
         )
@@ -1393,10 +1391,22 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     this.setState({markers: markers});
   },
 
-  changeMarkerOrder: function(from, to) {
-    // Remove the marker, then insert into new position
-    var markers = this.state.markers.slice();
-    markers.splice(to, 0, markers.splice(from, 1)[0]);
+  /**
+   * Insert a marker before a reference marker. If no reference, insert at end.
+   * @param google.maps.Marker marker 
+   * @param google.maps.Marker referenceMarker
+   */
+  insertBefore: function(marker, referenceMarker) {
+    var markers = this.state.markers;
+    if (referenceMarker) {
+      markers.splice(
+        markers.indexOf(referenceMarker),
+        0,
+        markers.splice(markers.indexOf(marker))[0]
+      );
+    } else {
+      markers.push(marker);
+    }
     this.setState({markers: markers});
   },
 
@@ -1466,7 +1476,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
           i18n: this.props.i18n, 
           markers: this.state.markers, 
           deleteMarker: this.deleteMarker, 
-          changeMarkerOrder: this.changeMarkerOrder, 
+          insertBefore: this.insertBefore, 
           showInfoWindow: this.showInfoWindow}
         )
       ];
@@ -1551,7 +1561,10 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
     $(this.getDOMNode()).sortable({
       items: 'tbody tr',
       update: function(event, ui) {
-        this.props.changeMarkerOrder(ui.item.data('position'), ui.item.index());
+        this.props.insertBefore(
+          this.state.markers[ui.item.data('position')],
+          this.state.markers[ui.item.index()]
+        );
       }.bind(this)
     });
   },
@@ -1563,19 +1576,24 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
           React.createElement("tr", null, 
             React.createElement("th", null,  t('Title') ), 
             React.createElement("th", null,  t('Description') ), 
-            React.createElement("th", null)
+            React.createElement("th", null, React.createElement("i", {className: "fa fa-trash-o"}))
           )
         ), 
         React.createElement("tbody", null, 
           this.props.markers.map(function(marker, i) {
             var titleObj = JSON.parse(marker.title);
-            var showInfoWindow = this.props.showInfoWindow.bind(this, marker);
+            var showInfoWindow = function() {
+              this.props.showInfoWindow(marker);
+            }.bind(this);
+            var deleteMarker = function() {
+              this.props.deleteMarker(marker);
+            }.bind(this);
             return (
               React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
                 React.createElement("td", {onClick: showInfoWindow}, titleObj.title), 
                 React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
                 React.createElement("td", null, 
-                  React.createElement("a", {className: "delete-stop", onClick: this.props.deleteMarker.bind(this, marker)}, 
+                  React.createElement("a", {className: "delete-stop", onClick: deleteMarker}, 
                     React.createElement("i", {className: "fa fa-times-circle-o"})
                   )
                 )

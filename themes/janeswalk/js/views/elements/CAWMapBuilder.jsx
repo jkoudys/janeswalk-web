@@ -189,10 +189,22 @@ var MapBuilder = React.createClass({
     this.setState({markers: markers});
   },
 
-  changeMarkerOrder: function(from, to) {
-    // Remove the marker, then insert into new position
-    var markers = this.state.markers.slice();
-    markers.splice(to, 0, markers.splice(from, 1)[0]);
+  /**
+   * Insert a marker before a reference marker. If no reference, insert at end.
+   * @param google.maps.Marker marker 
+   * @param google.maps.Marker referenceMarker
+   */
+  insertBefore: function(marker, referenceMarker) {
+    var markers = this.state.markers;
+    if (referenceMarker) {
+      markers.splice(
+        markers.indexOf(referenceMarker),
+        0,
+        markers.splice(markers.indexOf(marker))[0]
+      );
+    } else {
+      markers.push(marker);
+    }
     this.setState({markers: markers});
   },
 
@@ -262,7 +274,7 @@ var MapBuilder = React.createClass({
           i18n={this.props.i18n}
           markers={this.state.markers}
           deleteMarker={this.deleteMarker}
-          changeMarkerOrder={this.changeMarkerOrder}
+          insertBefore={this.insertBefore}
           showInfoWindow={this.showInfoWindow}
         />
       ];
@@ -347,7 +359,10 @@ var WalkStopTable = React.createClass({
     $(this.getDOMNode()).sortable({
       items: 'tbody tr',
       update: function(event, ui) {
-        this.props.changeMarkerOrder(ui.item.data('position'), ui.item.index());
+        this.props.insertBefore(
+          this.state.markers[ui.item.data('position')],
+          this.state.markers[ui.item.index()]
+        );
       }.bind(this)
     });
   },
@@ -359,19 +374,24 @@ var WalkStopTable = React.createClass({
           <tr>
             <th>{ t('Title') }</th>
             <th>{ t('Description') }</th>
-            <th />
+            <th><i className="fa fa-trash-o" /></th>
           </tr>
         </thead>
         <tbody>
           {this.props.markers.map(function(marker, i) {
             var titleObj = JSON.parse(marker.title);
-            var showInfoWindow = this.props.showInfoWindow.bind(this, marker);
+            var showInfoWindow = function() {
+              this.props.showInfoWindow(marker);
+            }.bind(this);
+            var deleteMarker = function() {
+              this.props.deleteMarker(marker);
+            }.bind(this);
             return (
               <tr data-position={i} key={'marker' + i}>
                 <td onClick={showInfoWindow}>{titleObj.title}</td>
                 <td onClick={showInfoWindow}>{titleObj.description}</td>
                 <td>
-                  <a className="delete-stop" onClick={this.props.deleteMarker.bind(this, marker)}>
+                  <a className="delete-stop" onClick={deleteMarker}>
                     <i className="fa fa-times-circle-o" />
                   </a>
                 </td>
