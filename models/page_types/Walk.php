@@ -331,7 +331,7 @@ class Walk extends \Model implements \JsonSerializable
     public function jsonSerialize()
     {
         $im = Loader::helper('image');
-        $walkData = array(
+        $walkData = [
             'title' => $this->title,
             'shortdescription' => $this->shortDescription,
             'longdescription' => $this->longDescription,
@@ -341,13 +341,13 @@ class Walk extends \Model implements \JsonSerializable
             'gmap' => $this->map,
             'team' => $this->team,
             'time' => $this->time,
-            'thumbnail_id' => $this->thumbnail->getFileID(),
-            'thumbnail_url' => $this->thumbnail ? $im->getThumbnail($this->thumbnail, 340, 720)->src : null,
             'wards' => $this->wards
-        );
+        ];
         // Load the thumbnail array
         $walkData['thumbnails'] = [];
         if ($this->thumbnail) {
+            $walkData['thumbnail_id'] = $this->thumbnail->getFileID();
+            $walkData['thumbnail_url'] = $im->getThumbnail($this->thumbnail, 340, 720)->src;
             $walkData['thumbnails'][] = [
                 'id' => $this->thumbnail->getFileID(),
                 'url' => $im->getThumbnail($this->thumbnail, 340, 720)->src
