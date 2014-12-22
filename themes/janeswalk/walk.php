@@ -140,8 +140,8 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
             <div class="walk-details">
                 <h3><?= t('About This Walk') ?></h3>
                 <?php if ($thumb) { ?>
-                <a class="thumb" href="<?= ($im->getThumbnail($w->thumbnail,1024,1024)->src) ?>">
-                    <img src="<?= $im->getThumbnail($w->thumbnail,340,720)->src ?>" class="pull-right img-polaroid" />
+                <a class="thumb" href="<?= ($im->getThumbnail($thumb, 1024, 1024)->src) ?>">
+                    <img src="<?= $im->getThumbnail($thumb, 340, 720)->src ?>" class="pull-right img-polaroid" />
                 </a>
                 <?php } ?>
                 <?= $w->longDescription ?>

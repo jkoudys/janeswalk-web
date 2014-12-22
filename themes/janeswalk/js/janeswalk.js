@@ -2241,6 +2241,7 @@ Object.defineProperties(WalkMap.prototype, {
   },
 
   // The information in the window that pops up
+  // TODO: remove this InfoBox and use React w/ InfoWindow
   infobox: {
     value: new InfoBox({
       content: document.getElementById('infobox'),
