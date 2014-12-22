@@ -170,7 +170,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
             'open' => !!$data['open'],
             'type' => $data['type'],
             'times' => $data['times'] ];
-        $this->saveValue((object) $values);
+        $this->saveValue((array) $values);
     }
 }
 

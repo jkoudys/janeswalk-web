@@ -138,7 +138,11 @@ var MapBuilder = React.createClass({
     var infoDOM = document.createElement('div');
 
     React.render(
-      <WalkInfoWindow marker={marker} deleteMarker={this.deleteMarker.bind(this, marker)} refresh={this.setState.bind(this, {})} />,
+      <WalkInfoWindow
+        marker={marker}
+        deleteMarker={this.deleteMarker.bind(this, marker)}
+        refresh={this.setState.bind(this, {})}
+      />,
       infoDOM
     );
     
@@ -252,7 +256,15 @@ var MapBuilder = React.createClass({
       // This 'key' is to force the component to not rebuild
       walkStops = [
         <h3 key={'stops'}>{t('Walk Stops')}</h3>,
-        <WalkStopTable ref="walkStopTable" i18n={this.props.i18n} key={1} markers={this.state.markers} deleteMarker={this.deleteMarker} changeMarkerOrder={this.changeMarkerOrder} showInfoWindow={this.showInfoWindow} />
+        <WalkStopTable
+          ref="walkStopTable"
+          key={1}
+          i18n={this.props.i18n}
+          markers={this.state.markers}
+          deleteMarker={this.deleteMarker}
+          changeMarkerOrder={this.changeMarkerOrder}
+          showInfoWindow={this.showInfoWindow}
+        />
       ];
     }
     
@@ -262,9 +274,13 @@ var MapBuilder = React.createClass({
         <div className="page-header" data-section="route">
           <h1>{ t('Share Your Route') }</h1>
         </div>
-        <div className="alert alert-info">{ t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') }</div>
+        <div className="alert alert-info">
+          { t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') }
+        </div>
         <div id="route-help-panel">
-          <a className="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu"><h2 className="lead">{ t('Need help building your route?') }</h2></a>
+          <a className="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu">
+            <h2 className="lead">{ t('Need help building your route?') }</h2>
+          </a>
           <ol id="route-menu" className="collapse" style={{height: 0}}>
             <li>
               <h4>{ t('Set a Meeting Place') }</h4>
@@ -292,22 +308,34 @@ var MapBuilder = React.createClass({
                 <li>{ t('Click Save Route') }</li>
               </ol>
               <p>
-                { t('If you want to delete your route to start over, click ') }<a href="" className="clear-route">{ t('Clear Route') }</a>. { t('Your Stops will not be deleted') }
+                { t('If you want to delete your route to start over, click ') }
+                <a href="" className="clear-route">{ t('Clear Route') }</a>.
+                { t('Your Stops will not be deleted') }
               </p>
             </li>
           </ol>
         </div>
         <div id="map-control-bar">
-          <button className={(this.state.editMode === 'addpoint') ? 'active' : ''} ref="addpoint" onClick={this.toggleAddPoint}><i className="fa fa-map-marker" />{ t('Add Stop') }</button>
-          <button className={(this.state.editMode === 'addroute') ? 'active' : ''} ref="addroute" onClick={this.toggleAddRoute}><i className="fa fa-arrows" />{ t('Add Route') }</button>
-          <button ref="clearroute" onClick={this.clearRoute}><i className="fa fa-eraser" />{ t('Clear Route') }</button>
+          <button
+            ref="addpoint"
+            className={(this.state.editMode === 'addpoint') ? 'active' : ''}
+            onClick={this.toggleAddPoint}>
+            <i className="fa fa-map-marker" />{ t('Add Stop') }
+          </button>
+          <button
+            ref="addroute"
+            className={(this.state.editMode === 'addroute') ? 'active' : ''}
+            onClick={this.toggleAddRoute}>
+            <i className="fa fa-arrows" />{ t('Add Route') }
+          </button>
+          <button ref="clearroute" onClick={this.clearRoute}>
+            <i className="fa fa-eraser" />{ t('Clear Route') }
+          </button>
         </div>
         <div className="map-notifications" />
         <div id="map-canvas" ref="gmap" />
         {walkStops}
         <hr />
-        <br />
-        <br />
       </div>
     );
   }
@@ -342,7 +370,11 @@ var WalkStopTable = React.createClass({
               <tr data-position={i} key={'marker' + i}>
                 <td onClick={showInfoWindow}>{titleObj.title}</td>
                 <td onClick={showInfoWindow}>{titleObj.description}</td>
-                <td><a className="delete-stop" onClick={this.props.deleteMarker.bind(this, marker)}><i className="fa fa-times-circle-o" /></a></td>
+                <td>
+                  <a className="delete-stop" onClick={this.props.deleteMarker.bind(this, marker)}>
+                    <i className="fa fa-times-circle-o" />
+                  </a>
+                </td>
               </tr>
               );
           }.bind(this))}
@@ -381,9 +413,22 @@ var WalkInfoWindow = React.createClass({
 
     return (
       <div className='stop-form'>
-        <input type='text' onChange={this.setMarkerContent} value={markerContent.title} placeholder='Title of this stop' className='marker-title' />
-        <textarea className='marker-description box-sizing' onChange={this.setMarkerContent} placeholder='Description of this stop' value={markerContent.description} />
-        <a onClick={this.props.deleteMarker}><i className="fa fa-trash-o" /></a>
+        <input
+          type='text'
+          onChange={this.setMarkerContent}
+          value={markerContent.title}
+          placeholder='Title of this stop'
+          className='marker-title'
+        />
+        <textarea
+          className='marker-description box-sizing'
+          onChange={this.setMarkerContent}
+          placeholder='Description of this stop'
+          value={markerContent.description}
+        />
+        <a onClick={this.props.deleteMarker}>
+          <i className="fa fa-trash-o" />
+        </a>
       </div>
     );
   }

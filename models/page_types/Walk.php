@@ -36,7 +36,7 @@ class Walk extends \Model implements \JsonSerializable
            $map,
            $team,
            $time,
-           $thumbnailID,
+           $thumbnail,
            $wards,
            $themes;
 
@@ -115,6 +115,7 @@ class Walk extends \Model implements \JsonSerializable
 
         // Load more complex attributes
         $this->time = $page->getAttribute('scheduled');
+        $this->thumbnail = $page->getAttribute('thumbnail');
     }
 
     public function __get($name)
@@ -332,16 +333,16 @@ class Walk extends \Model implements \JsonSerializable
         $im = Loader::helper('image');
         $walkData = array(
             'title' => $this->title,
-            'shortdescription' => $this->shortdescription,
-            'longdescription' => $this->longdescription,
+            'shortdescription' => $this->shortDescription,
+            'longdescription' => $this->longDescription,
             'accessible-info' => $this->accessibleInfo,
             'accessible-transit' => $this->accessibleTransit,
             'accessible-parking' => $this->accessibleParking,
             'gmap' => $this->map,
             'team' => $this->team,
             'time' => $this->time,
-            'thumbnail_id' => $this->thumbnail,
-            'thumbnail_url' => $this->thumbnail ? $im->getThumbnail(File::getByID($this->thumbnail), 340, 720)->src : null,
+            'thumbnail_id' => $this->thumbnail->getFileID(),
+            'thumbnail_url' => $this->thumbnail ? $im->getThumbnail($this->thumbnail, 340, 720)->src : null,
             'wards' => $this->wards
         );
         // Load the thumbnail array

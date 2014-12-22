@@ -1342,7 +1342,11 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     var infoDOM = document.createElement('div');
 
     React.render(
-      React.createElement(WalkInfoWindow, {marker: marker, deleteMarker: this.deleteMarker.bind(this, marker), refresh: this.setState.bind(this, {})}),
+      React.createElement(WalkInfoWindow, {
+        marker: marker, 
+        deleteMarker: this.deleteMarker.bind(this, marker), 
+        refresh: this.setState.bind(this, {})}
+      ),
       infoDOM
     );
     
@@ -1456,7 +1460,15 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       // This 'key' is to force the component to not rebuild
       walkStops = [
         React.createElement("h3", {key: 'stops'}, t('Walk Stops')),
-        React.createElement(WalkStopTable, {ref: "walkStopTable", i18n: this.props.i18n, key: 1, markers: this.state.markers, deleteMarker: this.deleteMarker, changeMarkerOrder: this.changeMarkerOrder, showInfoWindow: this.showInfoWindow})
+        React.createElement(WalkStopTable, {
+          ref: "walkStopTable", 
+          key: 1, 
+          i18n: this.props.i18n, 
+          markers: this.state.markers, 
+          deleteMarker: this.deleteMarker, 
+          changeMarkerOrder: this.changeMarkerOrder, 
+          showInfoWindow: this.showInfoWindow}
+        )
       ];
     }
     
@@ -1466,9 +1478,13 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         React.createElement("div", {className: "page-header", 'data-section': "route"}, 
           React.createElement("h1", null,  t('Share Your Route') )
         ), 
-        React.createElement("div", {className: "alert alert-info"},  t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') ), 
+        React.createElement("div", {className: "alert alert-info"}, 
+           t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') 
+        ), 
         React.createElement("div", {id: "route-help-panel"}, 
-          React.createElement("a", {className: "accordion-toggle collapsed", 'data-toggle': "collapse", 'data-parent': "#route-menu", href: "#route-menu"}, React.createElement("h2", {className: "lead"},  t('Need help building your route?') )), 
+          React.createElement("a", {className: "accordion-toggle collapsed", 'data-toggle': "collapse", 'data-parent': "#route-menu", href: "#route-menu"}, 
+            React.createElement("h2", {className: "lead"},  t('Need help building your route?') )
+          ), 
           React.createElement("ol", {id: "route-menu", className: "collapse", style: {height: 0}}, 
             React.createElement("li", null, 
               React.createElement("h4", null,  t('Set a Meeting Place') ), 
@@ -1496,22 +1512,34 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
                 React.createElement("li", null,  t('Click Save Route') )
               ), 
               React.createElement("p", null, 
-                 t('If you want to delete your route to start over, click '), React.createElement("a", {href: "", className: "clear-route"},  t('Clear Route') ), ". ",  t('Your Stops will not be deleted') 
+                 t('If you want to delete your route to start over, click '), 
+                React.createElement("a", {href: "", className: "clear-route"},  t('Clear Route') ), ".", 
+                 t('Your Stops will not be deleted') 
               )
             )
           )
         ), 
         React.createElement("div", {id: "map-control-bar"}, 
-          React.createElement("button", {className: (this.state.editMode === 'addpoint') ? 'active' : '', ref: "addpoint", onClick: this.toggleAddPoint}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') ), 
-          React.createElement("button", {className: (this.state.editMode === 'addroute') ? 'active' : '', ref: "addroute", onClick: this.toggleAddRoute}, React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') ), 
-          React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') )
+          React.createElement("button", {
+            ref: "addpoint", 
+            className: (this.state.editMode === 'addpoint') ? 'active' : '', 
+            onClick: this.toggleAddPoint}, 
+            React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') 
+          ), 
+          React.createElement("button", {
+            ref: "addroute", 
+            className: (this.state.editMode === 'addroute') ? 'active' : '', 
+            onClick: this.toggleAddRoute}, 
+            React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') 
+          ), 
+          React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, 
+            React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') 
+          )
         ), 
         React.createElement("div", {className: "map-notifications"}), 
         React.createElement("div", {id: "map-canvas", ref: "gmap"}), 
         walkStops, 
-        React.createElement("hr", null), 
-        React.createElement("br", null), 
-        React.createElement("br", null)
+        React.createElement("hr", null)
       )
     );
   }
@@ -1546,7 +1574,11 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
               React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
                 React.createElement("td", {onClick: showInfoWindow}, titleObj.title), 
                 React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
-                React.createElement("td", null, React.createElement("a", {className: "delete-stop", onClick: this.props.deleteMarker.bind(this, marker)}, React.createElement("i", {className: "fa fa-times-circle-o"})))
+                React.createElement("td", null, 
+                  React.createElement("a", {className: "delete-stop", onClick: this.props.deleteMarker.bind(this, marker)}, 
+                    React.createElement("i", {className: "fa fa-times-circle-o"})
+                  )
+                )
               )
               );
           }.bind(this))
@@ -1585,9 +1617,22 @@ var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
 
     return (
       React.createElement("div", {className: "stop-form"}, 
-        React.createElement("input", {type: "text", onChange: this.setMarkerContent, value: markerContent.title, placeholder: "Title of this stop", className: "marker-title"}), 
-        React.createElement("textarea", {className: "marker-description box-sizing", onChange: this.setMarkerContent, placeholder: "Description of this stop", value: markerContent.description}), 
-        React.createElement("a", {onClick: this.props.deleteMarker}, React.createElement("i", {className: "fa fa-trash-o"}))
+        React.createElement("input", {
+          type: "text", 
+          onChange: this.setMarkerContent, 
+          value: markerContent.title, 
+          placeholder: "Title of this stop", 
+          className: "marker-title"}
+        ), 
+        React.createElement("textarea", {
+          className: "marker-description box-sizing", 
+          onChange: this.setMarkerContent, 
+          placeholder: "Description of this stop", 
+          value: markerContent.description}
+        ), 
+        React.createElement("a", {onClick: this.props.deleteMarker}, 
+          React.createElement("i", {className: "fa fa-trash-o"})
+        )
       )
     );
   }
