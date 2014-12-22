@@ -1,4 +1,16 @@
 <?php
+/**
+ * Mirror walks from JW to an external event service
+ *
+ * PHP Version 5.4
+ *
+ * @category  Events
+ * @package   Janeswalk
+ * @author    Joshua Koudys <josh@qaribou.com>
+ * @copyright 2014 Jane's Walk
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT
+ * @link      http://janeswalk.org
+ */
 namespace JanesWalk\Libraries\MirrorWalk;
 
 use \JanesWalk\Models\PageTypes\Walk;
@@ -9,7 +21,9 @@ require_once 'Eventbrite.php';
 class MirrorWalk
 {
     /**
-     * @type [[resource<curl> 'ch', EventInterface 'event']] $handleTuples Pairs of curl handles and their event
+     * Curl requires we match each event to a handler
+     * @type [[resource<curl> 'ch', EventInterface 'event']] $handleTuples
+     *  Pairs of curl handles and their event
      */
     protected $handleTuples = [],
               $eventServices = [],
@@ -20,7 +34,7 @@ class MirrorWalk
     /**
      * Instantiate list of event services
      *
-     * @param Walk $walk The Walk model we're mirroring
+     * @param Walk $walk    The Walk model we're mirroring
      * @param bool $publish Whether or not these events should be made public
      */
     public function __construct(Walk $walk, $publish = false)
@@ -28,9 +42,11 @@ class MirrorWalk
         $this->walk = $walk;
         $this->mh = \curl_multi_init();
 
-        // TODO: Create config to pick + choose which event services to mirror on for which walks
+        // TODO: Create config to choose event services to mirror on for which walks
         $eb = new Eventbrite($walk);
-        if ($publish) $eb->setStatusPublic();
+        if ($publish) {
+            $eb->setStatusPublic(); 
+        }
         $this->eventServices = [
             $eb
         ];
@@ -45,7 +61,6 @@ class MirrorWalk
     }
 
     /**
-     * mirrorStart
      * Launch non-blocking service requests to update the 3rd-party event
      * services. This should be run as early as possible, since processing may
      * continue while these external services are being updated.
@@ -54,7 +69,10 @@ class MirrorWalk
      */
     public function mirrorStart()
     {
-        /** @type EventInterface $ei */
+        /**
+         * Loop through configured Event services
+         * @type EventInterface $ei 
+         */
         foreach ($this->eventServices as $ei) {
             if ($ei->isCreated()) {
                 curl_multi_add_handle($this->mh, $ei->requestUpdateEvent());
@@ -75,10 +93,10 @@ class MirrorWalk
     }
 
     /**
-     * mirrorEnd
      * Blocking code to wait for the results of the service requests. If not
      * all services have completed, it will wait here until they have or have
      * timed out.
+     * @return null
      */
     public function mirrorEnd()
     {
