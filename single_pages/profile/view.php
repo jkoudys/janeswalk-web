@@ -23,7 +23,10 @@
     if (!window.JanesWalk) window.JanesWalk = {};
     window.JanesWalk.cityUsers = <?= json_encode($cityUsers) ?>;
   </script>
-  <?php /* walk transfer modal */ ?>
+<?php
+  /* walk transfer modal */ 
+  if ($cityOrganizerData) {
+?>
   <dialog id="walk-transfer">
     <div>
       <article>
@@ -41,12 +44,13 @@
       </article>
     </div>
   </dialog>
-  <?php
-    $dataCity = '{unset}';
-    if ($userHasSetHomeCity === true) {
-        $dataCity = $userHomeCity;
-    }
-  ?>
+<?php
+  }
+  $dataCity = '{unset}';
+  if ($userHasSetHomeCity === true) {
+      $dataCity = $userHomeCity;
+  }
+?>
   <main id="profileWrapper" data-city="<?= ($dataCity) ?>">
     <?php if ($userIsViewingSelf === true): ?>
       <?php if ($userHasSetHomeCity === true): ?>
