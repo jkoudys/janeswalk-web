@@ -1355,7 +1355,6 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     this.state.infowindow.setContent(infoDOM);
 
     this.state.infowindow.open(this.state.map, marker);
-
   },
 
   buildRoute: function(routeArray) {
@@ -1365,8 +1364,16 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       strokeColor: '#F16725',
       strokeOpacity: 0.8,
       strokeWeight: 3,
-      editable: false,
+      editable: true,
       map: map
+    });
+
+    // Remove vertices when right-clicked
+    google.maps.event.addListener(poly, 'rightclick', function(ev) {
+      // Check if we clicked a vertex
+      if (ev.vertex !== undefined) {
+         poly.setPath(poly.getPath().removeAt(ev.vertex));
+      }
     });
 
     if (routeArray.length > 0) {
