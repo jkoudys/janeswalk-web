@@ -38,7 +38,7 @@ class ProfileController extends Concrete5_Controller_Profile
 
         $userIsViewingSelf = ($u->getUserID() === $profile->getUserID());
         $userIsCityOrganizer = in_array('City Organizers', $profile->getUserObject()->getUserGroups());
-        if ($userIsCityOrganizer && $userIsViewingSelf) {
+        if ($userIsViewingSelf) {
             // Load the cities this CO organizes
             $pl = new PageList();
             $pl->filterByCollectionTypeHandle('city');
@@ -87,7 +87,6 @@ class ProfileController extends Concrete5_Controller_Profile
             );
             $city = $ui->getAttribute('home_city');
             $this->set('city', $city);
-            $this->set('cityComposerURL', View::url('/dashboard/composer/write/-/edit/' . $city->getCollectionID()));
             $this->set('cityWalks', $cityWalks);
             $this->set('cityUsers', $cityUsers);
         }
@@ -272,6 +271,8 @@ class ProfileController extends Concrete5_Controller_Profile
                         },
                             (array) $pl->get(3)
                         );
+
+                    $this->set('cityComposerURL', View::url('/dashboard/composer/write/-/edit/' . $city->getCollectionID()));
                 }
             }
 
