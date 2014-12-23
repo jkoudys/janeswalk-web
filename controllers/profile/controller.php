@@ -193,7 +193,6 @@ class ProfileController extends Concrete5_Controller_Profile
 
                 // If the user is a city organizer
                 if ($userIsCityOrganizer === true) {
-
                     // Whether the city has any walks posted to it
                     // Whether the city has a blog page set up for it
                     $pl = new PageList();
@@ -240,6 +239,39 @@ class ProfileController extends Concrete5_Controller_Profile
                         $cityDescriptionIsEmpty ||
                         $cityBackgroundPhotoIsEmpty );
                     $this->set('cityHasFullDetails', $cityHasFullDetails);
+
+                    // Walks
+
+                    // List of basic data for three walks we want to highlight to city
+                    // organizers/walk leaders that showcase creative/unique walks
+                    $pl = new PageList();
+                    $pl->filterByCollectionTypeHandle('walk');
+                    $pl->filter(false,'p1.uID !=' . $u->getUserID());
+                    $pl->filterByAttribute('exclude_page_list', false);
+                    $pl->sortBy('RAND()');
+
+                    $featuredWalkData = array_map(
+                        function ($page) use ($nh, $ih) {
+                            $_city = Page::getByID($page->getCollectionParentID());
+                            $_country = Page::getByID($_city->getCollectionParentID());
+                            $_thumb = $page->getAttribute('thumbnail');
+                            $countryName = $_country->getCollectionName();
+                            if ($countryName === 'United States') {
+                                $countryName = 'United States of America';
+                            }
+                            $countryName = str_replace(' ', '_', $countryName);
+                            $walkImage = $_thumb ? $ih->getThumbnail($_thumb,800,800)->src : '';
+
+                            return array(
+                                'walkImagePath' => $walkImage,
+                                'countryName' => $countryName,
+                                'cityName' => $_city->getCollectionName(),
+                                'walkTitle' => $page->getCollectionName(),
+                                'walkPath' => $nh->getLinkToCollection($page)
+                            );
+                        },
+                            (array) $pl->get(3)
+                        );
                 }
             }
 
@@ -284,38 +316,6 @@ class ProfileController extends Concrete5_Controller_Profile
                 $this->set('cityOrganizerData', $cityOrganizerData);
             }
 
-            // Walks
-
-            // List of basic data for three walks we want to highlight to city
-            // organizers/walk leaders that showcase creative/unique walks
-            $pl = new PageList();
-            $pl->filterByCollectionTypeHandle('walk');
-            $pl->filter(false,'p1.uID !=' . $u->getUserID());
-            $pl->filterByAttribute('exclude_page_list', false);
-            $pl->sortBy('RAND()');
-
-            $featuredWalkData = array_map(
-                function ($page) use ($nh, $ih) {
-                    $_city = Page::getByID($page->getCollectionParentID());
-                    $_country = Page::getByID($_city->getCollectionParentID());
-                    $_thumb = $page->getAttribute('thumbnail');
-                    $countryName = $_country->getCollectionName();
-                    if ($countryName === 'United States') {
-                        $countryName = 'United States of America';
-                    }
-                    $countryName = str_replace(' ', '_', $countryName);
-                    $walkImage = $_thumb ? $ih->getThumbnail($_thumb,800,800)->src : '';
-
-                    return array(
-                        'walkImagePath' => $walkImage,
-                        'countryName' => $countryName,
-                        'cityName' => $_city->getCollectionName(),
-                        'walkTitle' => $page->getCollectionName(),
-                        'walkPath' => $nh->getLinkToCollection($page)
-                    );
-                },
-                (array) $pl->get(3)
-            );
             $this->set('featuredWalkData', $featuredWalkData);
 
             $this->set('resources', $resources);
