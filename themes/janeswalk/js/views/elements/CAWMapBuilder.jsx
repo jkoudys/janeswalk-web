@@ -43,7 +43,10 @@ var MapBuilder = React.createClass({
       // Draw the route
       if (valueLink.value) {
         markers = valueLink.value.markers.map(function(marker) {
-          return this.buildMarker(marker);
+          return this.buildMarker(
+            new google.maps.LatLng(marker.lat, marker.lng),
+            {title: marker.title, description: marker.description}
+          );
         }.bind(this));
 
         route = this.buildRoute(valueLink.value.route);
@@ -51,14 +54,7 @@ var MapBuilder = React.createClass({
 
       // Set marker/route adding
       google.maps.event.addListener(map, 'click', function(ev) {
-        if (_this.state.mode.addPoint) {
-          var markers = _this.state.markers;
-          var marker = _this.buildMarker(ev.latLng);
-          markers.push(marker);
-          _this.setState({markers: markers, mode: {}}, function() {
-            _this.showInfoWindow(marker);
-          }); 
-        }
+        _this.state.infowindow.setMap(null);
         if (_this.state.mode.addRoute) {
           var route = _this.state.route;
           route.setPath(route.getPath().push(ev.latLng));
@@ -101,27 +97,35 @@ var MapBuilder = React.createClass({
   
   // Map related functions
   // Build gmaps Marker object from base data
-  buildMarker: function(markObj) {
+  // @param google.maps.LatLng latlng The position to add
+  // @param Object title {title, description}
+  buildMarker: function(latlng, title) {
     var marker;
     var _this = this;
-    var position;
     var map = this.state.map;
-
-    // See which type we passed in
-    if (markObj instanceof google.maps.LatLng) {
-      position = markObj;
-    } else {
-      position = new google.maps.LatLng(markObj.lat, markObj.lng);
-    }
-    marker = new google.maps.Marker({
-      position: position,
+    var options = {
       animation: google.maps.Animation.DROP,
       draggable: true,
-      title: JSON.stringify({title: markObj.title, description: markObj.description}),
       style: 'stop',
       map: map,
       icon: this.stopMarker
-    });
+    };
+
+    // If we passed in a position
+    if (latlng instanceof google.maps.LatLng) {
+      options.position = latlng;
+    } else {
+      options.position = this.state.map.center;
+    }
+
+    // Set to an empty title/description object.
+    // Google maps has a limited amount of marker data we 
+    if (!title) {
+      title = {title: '', description: ''};
+    }
+    options.title = JSON.stringify(title);
+
+    marker = new google.maps.Marker(options);
     
     google.maps.event.addListener(marker, 'click', function(ev) {
       _this.showInfoWindow(this)
@@ -173,6 +177,9 @@ var MapBuilder = React.createClass({
          poly.setPath(poly.getPath().removeAt(ev.vertex));
       }
     });
+    google.maps.event.addListener(poly, 'mousedown', function(ev) {
+      this.state.infowindow.setMap(null);
+    }.bind(this));
 
     if (routeArray.length > 0) {
       poly.setPath(routeArray.map(function(point) {
@@ -219,11 +226,14 @@ var MapBuilder = React.createClass({
 
   // Button Actions
   toggleAddPoint: function() {
-    this.setState({
-      mode: {
-        addPoint: !this.state.mode.addPoint
-      }
-    });
+    var markers = this.state.markers;
+    var marker = this.buildMarker();
+    markers.push(marker);
+    this.setState({markers: markers, mode: {}}, function() {
+      this.showInfoWindow(marker);
+    }.bind(this)); 
+
+    this.state.infowindow.setMap(null);
   },
 
   toggleAddRoute: function() {
@@ -232,9 +242,11 @@ var MapBuilder = React.createClass({
         addRoute: !this.state.mode.addRoute
       }
     });
+    this.state.infowindow.setMap(null);
   },
 
   clearRoute: function() {
+    this.state.infowindow.setMap(null);
     this.state.route.setPath([]);
     this.setState({mode: {}});
   },

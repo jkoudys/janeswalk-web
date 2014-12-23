@@ -202,16 +202,16 @@ var TimePicker = React.createClass({
   // Date management is slow, so avoid rebuilding unless needed
   setStartTimes: function(start, step) {
     if (this.state.start !== start) {
-      var firstTime = new Date(start + ' 00:00');
-      var lastTime = new Date(start + ' 23:30');
+      var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate() + 7];
+      var firstTime = Date.UTC.apply(this, yrMoDay);
+      var lastTime = Date.UTC.apply(this, yrMoDay.concat([23, 30]));
       var startTimes = [];
       step = step || 1800000;
 
-      for (var i = 0, time = firstTime; time.getTime() <= lastTime.getTime(); time.setTime(time.getTime() + step), i++) {
-        startTimes.push({
-          time: time.getTime(),
-          string: time.toLocaleString({}, {hour: '2-digit', minute: '2-digit'})
-        });
+      for (var i = 0, time = firstTime;
+           time <= lastTime;
+           time += step) {
+        startTimes.push(time);
       }
 
       this.setState({
@@ -222,12 +222,12 @@ var TimePicker = React.createClass({
   },
 
   componentWillUpdate: function() {
-    var startDate = new Date(this.props.valueLinkStart.value);
-    this.setStartTimes(startDate.toLocaleDateString());
   },
 
   componentWillMount: function() {
     this.componentWillUpdate();
+    var startDate = new Date(this.props.valueLinkStart.value);
+    this.setStartTimes(startDate);
   },
 
   render: function() {
@@ -241,7 +241,11 @@ var TimePicker = React.createClass({
         <label htmlFor="walk-time">{ t('Start Time') }:</label>
         <select name="start" id="walk-start" valueLink={linkStart}>
           {this.state.startTimes.map(function(time, i) {
-            return <option key={i} value={time.time}>{time.string}</option>;
+            var date = new Date(time);
+            return
+              <option key={'walk-start' + i} value={time}>
+                {date.toLocaleTimeString()}
+              </option>;
           })}
         </select>
         <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>
