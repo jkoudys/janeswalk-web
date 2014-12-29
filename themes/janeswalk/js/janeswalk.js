@@ -1222,7 +1222,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       // The 'mode' we're in: 'addPoint', 'addRoute'
       mode: {},
       map: null,
-      markers: [],
+      markers: new google.maps.MVCArray,
       route: null,
       infowindow: new google.maps.InfoWindow
     };
@@ -1248,10 +1248,12 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     this.setState({map: map}, function() {
       // Draw the route
       if (valueLink.value) {
-        markers = valueLink.value.markers.map(function(marker) {
-          return this.buildMarker(
-            new google.maps.LatLng(marker.lat, marker.lng),
-            {title: marker.title, description: marker.description}
+        valueLink.value.markers.forEach(function(marker) {
+          markers.push(
+            this.buildMarker(
+              new google.maps.LatLng(marker.lat, marker.lng),
+              {title: marker.title, description: marker.description}
+            )
           );
         }.bind(this));
 
@@ -1281,9 +1283,9 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     // Don't include the route - it can be too expensive to compute.
     var bounds = new google.maps.LatLngBounds;
     google.maps.event.trigger(this.state.map, 'resize');
-    if (this.state.markers.length) {
-      for (var i = 0, len = this.state.markers.length; i < len; i++) {
-        bounds.extend(this.state.markers[i].getPosition());
+    if (this.state.markers.getLength()) {
+      for (var i = 0, len = this.state.markers.getLength(); i < len; i++) {
+        bounds.extend(this.state.markers.getAt(i).getPosition());
       }
 
       this.state.map.fitBounds(bounds);
@@ -1337,6 +1339,9 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       _this.showInfoWindow(this)
     });
 
+    google.maps.event.addListener(marker, 'drag', function(ev) {
+      debugger;
+    });
     return marker;
   },
 
@@ -1419,11 +1424,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   insertBefore: function(marker, referenceMarker) {
     var markers = this.state.markers;
     if (referenceMarker) {
-      markers.splice(
-        markers.indexOf(referenceMarker),
-        0,
-        markers.splice(markers.indexOf(marker))[0]
-      );
+      markers.insertAt(markers.getArray().indexOf(referenceMarker), marker);
     } else {
       markers.push(marker);
     }
@@ -1459,7 +1460,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
   // Build a version of state appropriate for persistence
   getStateSimple: function() {
-    var markers = this.state.markers.map(function(marker) {
+    var markers = this.state.markers.getArray().map(function(marker) {
       var titleObj = JSON.parse(marker.title);
       return {
         lat: marker.position.lat(),
@@ -1584,8 +1585,8 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
       items: 'tbody tr',
       update: function(event, ui) {
         this.props.insertBefore(
-          this.state.markers[ui.item.data('position')],
-          this.state.markers[ui.item.index()]
+          this.state.markers.getAt(ui.item.data('position')),
+          this.state.markers.getAt(ui.item.index())
         );
       }.bind(this)
     });
@@ -1602,7 +1603,7 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
           )
         ), 
         React.createElement("tbody", null, 
-          this.props.markers.map(function(marker, i) {
+          this.props.markers.getArray().map(function(marker, i) {
             var titleObj = JSON.parse(marker.title);
             var showInfoWindow = function() {
               this.props.showInfoWindow(marker);

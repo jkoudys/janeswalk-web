@@ -9072,6 +9072,7 @@ body.home main {
   display: block;
 }
 #profileWrapper div.content div#dashboardBlock {
+  clear: both;
   min-height: 220px;
 }
 #profileWrapper div.content div#dashboardBlock:before,
