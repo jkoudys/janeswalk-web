@@ -5,17 +5,11 @@ $this->inc('elements/navbar.php');
 ?>
 <div id="central">
     <div id="sidebar">
-        <?php
-        $as = new Area('Sidebar');
-        $as->display($c);
-        ?>
+        <?php (new Area('Sidebar'))->display($c) ?>
     </div>
 
     <div id="body">
-        <?php
-        $a = new Area('Main');
-        $a->display($c);
-        ?>
+        <?php (new Area('Main'))->display($c) ?>
     </div>
 </div>
-<?php  $this->inc('elements/footer.php'); ?>
+<?php  $this->inc('elements/footer.php') ?>

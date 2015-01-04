@@ -13,9 +13,9 @@ $form = Loader::helper('form'); ?>
     <div class="modal-dialog">
         <div class="modal-content">
             <?php  if ($changePasswordForm) { ?>
-            <p><?php echo t('Enter your new password below.') ?></p>
+            <p><?= t('Enter your new password below.') ?></p>
             <div class="ccm-form modal-body">
-                <form method="post" action="<?php echo $this->url( '/login', 'change_password', $uHash )?>">
+                <form method="post" action="<?php echo $this->url('/login', 'change_password', $uHash)?>">
                     <div class="control-group">
                         <label for="uPassword" class="control-label"><?php echo t('New Password')?></label>
                         <div class="controls">
@@ -33,16 +33,18 @@ $form = Loader::helper('form'); ?>
                     </div>
                 </form>
             </div>
-            <?php  } elseif ($validated) { ?>
-            <h3><?=t('Email Address Verified')?></h3>
+            <?php  
+} elseif ($validated) { ?>
+            <h3><?= t('Email Address Verified') ?></h3>
             <div class="success alert-message block-message modal-body">
                 <p>
-                    <?=t('The email address <b>%s</b> has been verified and you are now a fully validated member of this website.', $uEmail)?>
+                    <?= t('The email address <b>%s</b> has been verified and you are now a fully validated member of this website.', $uEmail) ?>
                 </p>
                 <div class="alert-actions"><a class="btn small" href="<?php echo $this->url('/')?>"><?php echo t('Continue to Site')?></a></div>
             </div>
 
-            <?php  } elseif (isset($_SESSION['uOpenIDError']) && isset($_SESSION['uOpenIDRequested'])) { ?>
+            <?php  
+} elseif (isset($_SESSION['uOpenIDError']) && isset($_SESSION['uOpenIDRequested'])) { ?>
             <div class="ccm-form modal-body">
                 <?php  switch ($_SESSION['uOpenIDError']) {
                 case OpenIDAuth::E_REGISTRATION_EMAIL_INCOMPLETE: ?>
@@ -57,13 +59,15 @@ $form = Loader::helper('form'); ?>
                     </div>
                 </form>
 
-                <?php  break;
+                <?php  
+                    break;
                 case OpenIDAuth::E_REGISTRATION_EMAIL_EXISTS:
-                $ui = UserInfo::getByID($_SESSION['uOpenIDExistingUser']);
-                break;
-                }?>
+                    $ui = UserInfo::getByID($_SESSION['uOpenIDExistingUser']);
+                    break;
+}?>
             </div>
-            <?php  } elseif ($invalidRegistrationFields == true) { ?>
+            <?php  
+} elseif ($invalidRegistrationFields == true) { ?>
             <div class="ccm-form modal fade in">
                 <div class="modal-header">
                     <h3 class="form-lead"><?php echo t('Sign into %s', SITE)?></h3>
@@ -71,20 +75,20 @@ $form = Loader::helper('form'); ?>
                 <div class="modal-body">
                     <p><?php echo t('Welcome back! We\'ve updated the website, as you can see. We need just a few more things from you to get started.')?></p>
                     <form method="post" action="<?php echo $this->url('/login', 'do_login')?>">
-                        <?php
+<?php
                         $attribs = UserAttributeKey::getRegistrationList();
                         $af = Loader::helper('form/attribute');
 
                         $i = 0;
                         foreach ($unfilledAttributes as $ak) {
-                        print $af->display($ak, $ak->isAttributeKeyRequiredOnRegister());
-                        $i++;
+                            print $af->display($ak, $ak->isAttributeKeyRequiredOnRegister());
+                            $i++;
                         }
-                        ?>
-                        <?php echo $form->hidden('uName', Loader::helper('text')->entities($_POST['uName']))?>
-                        <?php echo $form->hidden('uPassword', Loader::helper('text')->entities($_POST['uPassword']))?>
-                        <?php echo $form->hidden('uOpenID', $uOpenID)?>
-                        <?php echo $form->hidden('completePartialProfile', true)?>
+                        echo $form->hidden('uName', Loader::helper('text')->entities($_POST['uName'])),
+                            $form->hidden('uPassword', Loader::helper('text')->entities($_POST['uPassword'])),
+                            $form->hidden('uOpenID', $uOpenID),
+                            $form->hidden('completePartialProfile', true);
+?>
                     </div>
                     <div class="modal-footer">
                         <div class="ccm-button">
@@ -96,7 +100,8 @@ $form = Loader::helper('form'); ?>
                 </form>
             </div>
 
-            <?php } else { ?>
+            <?php 
+} else { ?>
             <div class="modal-header">
                 <h3 class="form-lead"><?php echo t('Sign into %s', SITE)?></h3>
             </div>
@@ -104,18 +109,22 @@ $form = Loader::helper('form'); ?>
                 <div class="modal-body">
                     <?php  if (isset($intro_msg)) { ?>
                     <div class="alert-message block-message success"><p><?php echo $intro_msg?></p></div>
-                    <?php  } ?>
+                    <?php  
+} ?>
                     <?php  if ($passwordChanged) { ?>
 
                     <div class="block-message info alert-message"><p><?php echo t('Password changed.  Please login to continue. ') ?></p></div>
 
-                    <?php  } ?>
+                    <?php  
+} ?>
 
                     <label for="uName"><?php  if (USER_REGISTRATION_WITH_EMAIL_ADDRESS == true) { ?>
                         <?php echo t('Email')?>
-                        <?php  } else { ?>
+                        <?php  
+} else { ?>
                         <?php echo t('User name')?>
-                        <?php  } ?></label>
+                        <?php  
+} ?></label>
                     <input type="text" name="uName" id="uName" <?php echo  (isset($uName)?'value="'.$uName.'"':'');?> class="ccm-input-text input-large">
                     <label for="uPassword"><?php echo t('Password')?></label>
                     <input type="password" name="uPassword" id="uPassword" class="ccm-input-text input-large">
@@ -123,35 +132,40 @@ $form = Loader::helper('form'); ?>
                         <input type="checkbox"> Keep me signed in.
                     </label>
                     <input type="hidden" name="uEmail" id="uEmail" />
-                    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/login','forgot_password') ?>')" value="Request a new password"></input>
+                    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/login', 'forgot_password') ?>')" value="Request a new password"></input>
                 </div>
                 <div class="modal-footer">
                     <div class="pull-left">
                         <?php  if (ENABLE_REGISTRATION == 1) { ?>
                         <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/register') ?>')" value="Register for a new account."></input>
-                        <?php  } ?>
+                        <?php  
+} ?>
                     </div>
-                    <?php echo $form->submit('submit', t('Go!'), null, "" )?>
-                    <?php  if (isset($error) && $error != '') { ?>
-                    <?php
-                    if ($error instanceof Exception) {
-                    $_error[] = $error->getMessage();
-                    } elseif ($error instanceof ValidationErrorHelper) {
-                    $_error = $error->getList();
-                    } elseif (is_array($error)) {
-                    $_error = $error;
-                    } elseif (is_string($error)) {
-                    $_error[] = $error;
-                    }
-                    ?>
-                    <div class="ccm-error">
-                        <?php  foreach ($_error as $e) { ?><?php echo $e?><br /><?php  } ?>
-                    </div>
-                    <?php
-                    } ?>
+<?php
+                        echo $form->submit('submit', t('Go!'), null, '');
+if (isset($error) && $error != '') {
+    if ($error instanceof Exception) {
+        $_error[] = $error->getMessage();
+    } elseif ($error instanceof ValidationErrorHelper) {
+        $_error = $error->getList();
+    } elseif (is_array($error)) {
+        $_error = $error;
+    } elseif (is_string($error)) {
+        $_error[] = $error;
+    }
+?>
+<div class="ccm-error">
+<?php  foreach ($_error as $e) {
+    echo $e, '<br />';
+} ?>
+</div>
+<?php
+}
+?>
                 </div>
             </form>
-            <?php  } ?>
+            <?php  
+} ?>
         </div>
     </div>
 </div>

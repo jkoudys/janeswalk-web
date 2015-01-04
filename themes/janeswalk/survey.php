@@ -1,4 +1,5 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+<?php
+defined('C5_EXECUTE') || die('Access Denied.');
 $this->inc('elements/header.php');
 $this->inc('elements/navbar.php');
 ?>
@@ -13,22 +14,22 @@ $this->inc('elements/navbar.php');
             </section>
             <footer>
 <?php
-                    if (isset($error) && $error != '') {
-                        echo '<div class="alert alert-danger">';
-                        if ($error instanceof Exception) {
-                            $_error[] = $error->getMessage();
-                        } elseif ($error instanceof ValidationErrorHelper) {
-                            $_error = $error->getList();
-                        } elseif (is_array($error)) {
-                            $_error = $error;
-                        } elseif (is_string($error)) {
-                            $_error[] = $error;
-                        }
-                        foreach ($_error as $e) {
-                            echo $e . '<br />';
-                        }
-                        echo '</div>';
-                    }
+if (isset($error) && $error != '') {
+    echo '<div class="alert alert-danger">';
+    if ($error instanceof Exception) {
+        $_error[] = $error->getMessage();
+    } elseif ($error instanceof ValidationErrorHelper) {
+        $_error = $error->getList();
+    } elseif (is_array($error)) {
+        $_error = $error;
+    } elseif (is_string($error)) {
+        $_error[] = $error;
+    }
+    foreach ($_error as $e) {
+        echo $e . '<br />';
+    }
+    echo '</div>';
+}
 ?>
             </footer>
         </article>

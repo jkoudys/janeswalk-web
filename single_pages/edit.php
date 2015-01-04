@@ -1,6 +1,6 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php  defined('C5_EXECUTE') || die('Access Denied.'); ?>
 <div id="ccm-profile-wrapper">
-    <?php  Loader::element('profile/sidebar', array('profile'=> $ui)); ?>
+    <?php  Loader::element('profile/sidebar', ['profile'=> $ui]); ?>
     <div id="ccm-profile-body">
 
 		<?php  if (isset($error) && $error->has()) {

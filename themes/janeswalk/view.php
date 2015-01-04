@@ -18,5 +18,5 @@ if (is_object($fullbg)) {
 
 $this->inc('elements/header.php');
 $this->inc('elements/navbar.php');
-print $innerContent;
+echo $innerContent;
 $this->inc('elements/footer.php');

@@ -8,7 +8,7 @@ $this->inc('elements/header.php'); ?>
         <a href="<?= $nh->getCollectionURL($parentPage) ?>">Back to <?= $parentPage->getCollectionName() ?> Walks</a>
         <h2>City Blog</h2>
         <h3><?= $parentPage->getCollectionName() ?></h3>
-        <?php (new Area('Main'))->display($c); ?>
+        <?php (new Area('Main'))->display($c) ?>
     </div>
 </div>
-<?php  $this->inc('elements/footer.php'); ?>
+<?php  $this->inc('elements/footer.php') ?>

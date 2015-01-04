@@ -8436,14 +8436,6 @@ body.home #intro .linkbox {
   width: 270px;
   font-size: 1.4em;
 }
-body.home #intro a {
-  color: white;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
-}
-body.home #intro a:hover {
-  opacity: 0.8;
-}
 body.home #intro .ccm-page-list-typeahead:before,
 body.home #intro .ccm-page-list-typeahead:after {
   content: " ";

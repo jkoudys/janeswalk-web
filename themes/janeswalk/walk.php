@@ -9,7 +9,7 @@ if (count($w->walkLeaders)) {
         ', ',
         array_map(
             function ($mem) {
-                return $mem['name-first'] . ' ' . $mem['name-last'];
+                return trim($mem['name-first'] . ' ' . $mem['name-last']);
             },
             $w->walkLeaders
         )
