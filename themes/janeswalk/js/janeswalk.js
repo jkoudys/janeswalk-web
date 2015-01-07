@@ -2972,10 +2972,12 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       count,
       forEach = Function.prototype.call.bind(Array.prototype.forEach),
       el = this._element[0],
-      countFilterMatches = function (option, index) {
-        var filterCheck = option.getAttribute('value'),
+      countFilterMatches = function(option, index) {
+        var filterCheck = option.getAttribute('value');
+
         // Default to checking option property in filter
-        compare_fn = this.compare_fn || function compareProperty(f,o) { return f[o]; };
+        var compare_fn = this.compare_fn || function(f,o) { return f && f[o]; };
+
         if (filterCheck !== '*') {
           count = 0;
           for(var i in _this._data) {
@@ -2990,18 +2992,38 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         }
       };
 
-      forEach(el.querySelectorAll('div.filters select[name="theme"] option'), countFilterMatches, {filter:'themes'});
-      forEach(el.querySelectorAll('div.filters select[name="accessibility"] option'), countFilterMatches, {filter:'accessibilities'});
-      forEach(el.querySelectorAll('div.filters select[name="ward"] option'), countFilterMatches, {filter:'wards'});
-      forEach(el.querySelectorAll('div.filters select[name="initiative"] option'), countFilterMatches, {filter:'initiatives'});
-      forEach(el.querySelectorAll('div.filters select[name="date"] option'), countFilterMatches, {
-        filter:'datetimes',
-        compare_fn: function compareDate(filter, optionValue) {
-          for (var i = 0; i < filter.length; i++) {
-            return filter[i].date.indexOf(optionValue) !== -1;
+      forEach(
+        el.querySelectorAll('div.filters select[name="theme"] option'),
+        countFilterMatches,
+        {filter: 'themes'}
+      );
+      forEach(
+        el.querySelectorAll('div.filters select[name="accessibility"] option'),
+        countFilterMatches,
+        {filter: 'accessibilities'}
+      );
+      forEach(
+        el.querySelectorAll('div.filters select[name="ward"] option'),
+        countFilterMatches,
+        {filter: 'wards'}
+      );
+      forEach(
+        el.querySelectorAll('div.filters select[name="initiative"] option'),
+        countFilterMatches,
+        {filter: 'initiatives'}
+      );
+      forEach(
+        el.querySelectorAll('div.filters select[name="date"] option'),
+        countFilterMatches,
+        {
+          filter: 'datetimes',
+          compare_fn: function compareDate(filter, optionValue) {
+            for (var i = 0; i < filter.length; i++) {
+              return filter[i].date.indexOf(optionValue) !== -1;
+            } 
           } 
-        } 
-      });
+        }
+      );
     }
   },
 
