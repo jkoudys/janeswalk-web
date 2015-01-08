@@ -61,10 +61,8 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                 <?php } ?>
             </ul>
         </div>
-
         <div class="walk-header">
             <h1 class="walk-title"><?= $w ?></h1>
-
             <div class="profiles">
                 <div id="reg-group">
                     <?php
@@ -79,7 +77,7 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
                         <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($slots)) ?>:<br />
                         <?php
                         foreach ($slots as $slot) { ?>
-                        <span class="highlight"><?=$slot['date']?></span>
+                        <span class="highlight"><?= $slot['date'] ?></span>
                         <span class="divider">|</span>
                         <span class="time"><?= ($slot['time']) ?></span>
                         <br />

@@ -2832,6 +2832,12 @@ input[type="button"].btn-block {
 .fade,
 dialog,
 body.city-page > #city-details .walk-list,
+body.city-page > #city-details .walk-list:before,
+body.city-page > #city-details .walk-list:after,
+body.city-page > #city-details .walk-list:after,
+body.city-page > #city-details .walk-list:before,
+body.city-page > #city-details .walk-list:after,
+body.city-page > #city-details .walk-list:after,
 body.city-page > #city-details .walk-list.showall {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
@@ -2842,6 +2848,18 @@ dialog.in,
 dialog.in,
 body.city-page > #city-details .walk-list.in,
 body.city-page > #city-details .walk-list,
+body.city-page > #city-details .walk-list:before.in,
+body.city-page > #city-details .walk-list:before,
+body.city-page > #city-details .walk-list:after.in,
+body.city-page > #city-details .walk-list:after,
+body.city-page > #city-details .walk-list:after.in,
+body.city-page > #city-details .walk-list:after,
+body.city-page > #city-details .walk-list:before.in,
+body.city-page > #city-details .walk-list:before,
+body.city-page > #city-details .walk-list:after.in,
+body.city-page > #city-details .walk-list:after,
+body.city-page > #city-details .walk-list:after.in,
+body.city-page > #city-details .walk-list:after,
 body.city-page > #city-details .walk-list.showall.in,
 body.city-page > #city-details .walk-list.showall {
   opacity: 1;
@@ -6035,6 +6053,12 @@ dialog.fade .modal-dialog,
 .modaldialog .modal-dialog,
 .modal.fade dialog > div,
 .modalbody.city-page > #city-details .walk-list .modal-dialog,
+.modalbody.city-page > #city-details .walk-list:before .modal-dialog,
+.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
+.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
+.modalbody.city-page > #city-details .walk-list:before .modal-dialog,
+.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
+.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
 .modalbody.city-page > #city-details .walk-list.showall .modal-dialog {
   -webkit-transform: translate3d(0, -25%, 0);
   transform: translate3d(0, -25%, 0);
@@ -6081,6 +6105,12 @@ dialog > div > article {
 .modal-backdrop.fade,
 .modal-backdropdialog,
 .modal-backdropbody.city-page > #city-details .walk-list,
+.modal-backdropbody.city-page > #city-details .walk-list:before,
+.modal-backdropbody.city-page > #city-details .walk-list:after,
+.modal-backdropbody.city-page > #city-details .walk-list:after,
+.modal-backdropbody.city-page > #city-details .walk-list:before,
+.modal-backdropbody.city-page > #city-details .walk-list:after,
+.modal-backdropbody.city-page > #city-details .walk-list:after,
 .modal-backdropbody.city-page > #city-details .walk-list.showall {
   opacity: 0;
   filter: alpha(opacity=0);
@@ -9830,6 +9860,22 @@ body.city-page > #city-details .walk-list {
   padding-left: 15px;
   padding-right: 15px;
 }
+body.city-page > #city-details .walk-list:before,
+body.city-page > #city-details .walk-list:after {
+  content: " ";
+  display: table;
+}
+body.city-page > #city-details .walk-list:after {
+  clear: both;
+}
+body.city-page > #city-details .walk-list:before,
+body.city-page > #city-details .walk-list:after {
+  content: " ";
+  display: table;
+}
+body.city-page > #city-details .walk-list:after {
+  clear: both;
+}
 @media (min-width: 992px) {
   body.city-page > #city-details .walk-list {
     float: left;
@@ -9837,17 +9883,23 @@ body.city-page > #city-details .walk-list {
   }
 }
 body.city-page > #city-details .walk-list .filters {
-  padding: 10px;
-  margin: 0 0 20px;
-  border: 1px solid #ddd;
-  border-top: none;
+  border: 1px solid #efefef;
   border-radius: 0 0 6px 6px;
+  list-style: none;
 }
-body.city-page > #city-details .walk-list .filters .filter {
-  float: left;
-  width: 260px;
+body.city-page > #city-details .walk-list .filters li {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-body.city-page > #city-details .walk-list .filters .filter label {
+@media (min-width: 992px) {
+  body.city-page > #city-details .walk-list .filters li {
+    float: left;
+    width: 50%;
+  }
+}
+body.city-page > #city-details .walk-list .filters li label {
   display: block;
   font-size: 16px;
   line-height: 24px;
@@ -12073,6 +12125,13 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-canvas #create-walk #map-control-bar button.active {
   font-size: 16px;
   margin-right: 20px;
+}
+#create-walk #map-canvas .gm-style-iw + div img {
+  display: none;
+}
+#create-walk #map-canvas .gm-style-iw + div:before {
+  font-family: "FontAwesome";
+  content: "\f00c";
 }
 #create-walk #route-menu {
   margin-left: -15px;

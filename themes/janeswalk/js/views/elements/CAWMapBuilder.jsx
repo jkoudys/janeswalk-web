@@ -134,7 +134,6 @@ var MapBuilder = React.createClass({
     });
 
     google.maps.event.addListener(marker, 'drag', function(ev) {
-      debugger;
     });
     return marker;
   },
@@ -205,7 +204,7 @@ var MapBuilder = React.createClass({
     marker.setMap(null);
 
     // Remove reference in state
-    markers.splice(markers.indexOf(marker), 1);
+    markers.removeAt(markers.indexOf(marker));
 
     this.setState({markers: markers});
   },

@@ -19,7 +19,6 @@ var ReactViews = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-  'use strict';
   var pageViewName =
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
