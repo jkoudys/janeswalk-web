@@ -21,7 +21,8 @@ if (!$cities) {
     $pl->filterByCollectionTypeHandle('City');
     foreach ($pl->get() as $page) {
         $parent = Page::getByID($page->getCollectionParentID());
-        $page_owner = UserInfo::getByID($page->getCollectionUserID());
+        $pageOwnerID = $page->getCollectionUserID();
+        $pageOwner = UserInfo::getByID($pageOwnerID);
         $city_name = t($page->getCollectionName());
         $country_name = t($parent->getCollectionName());
         $city = $city_name . ', ' . $country_name;
@@ -36,14 +37,14 @@ if (!$cities) {
                 $city_name . ' Walks' .
             '</a>' .
             (
-                ($page_owner->getUserID() > 1 &&
-                $page_owner->getAttribute('first_name') !== 'There\'s no City Organizer here' &&
-                $first_name = $page_owner->getAttribute('first_name')) ?
+                ($pageOwnerID > 1 &&
+                $pageOwner->getAttribute('first_name') !== 'There\'s no City Organizer here' &&
+                $first_name = $pageOwner->getAttribute('first_name')) ?
                 ('<br/>' . $first_name . ', City Organizer') : ''
             );
         $cities[] = [
             'country' => $country_name,
-            'city_organizer' => $first_name . ' ' . $page_owner->getAttribute('last_name'),
+            'city_organizer' => $first_name . ' ' . $pageOwner->getAttribute('last_name'),
             'name' => $city,
             'color' => '#f16725',
             'info' => $info,
