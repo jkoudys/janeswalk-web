@@ -15,7 +15,7 @@
 <script>
 <?php
 $cities = Cache::get('map', 'world') ?: [];
-if (!empty($cities)) {
+if (empty($cities)) {
     $nh = Loader::helper('navigation');
     $pl = new PageList;
     $pl->filterByCollectionTypeHandle('City');
