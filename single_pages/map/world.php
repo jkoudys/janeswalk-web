@@ -14,45 +14,52 @@
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM&sensor=false"></script>
 <script>
 <?php
-$cities = Cache::get('map','world') ?: [];
-if (!$cities) {
-    $pl = new PageList();
+$cities = Cache::get('map', 'world') ?: [];
+if (!empty($cities)) {
     $nh = Loader::helper('navigation');
+    $pl = new PageList;
     $pl->filterByCollectionTypeHandle('City');
     foreach ($pl->get() as $page) {
         $parent = Page::getByID($page->getCollectionParentID());
         $pageOwnerID = $page->getCollectionUserID();
         $pageOwner = UserInfo::getByID($pageOwnerID);
-        $city_name = t($page->getCollectionName());
-        $country_name = t($parent->getCollectionName());
-        $city = $city_name . ', ' . $country_name;
+        $cityName = t($page->getCollectionName());
+        $countryName = t($parent->getCollectionName());
+        
         $latlng = array_map(
             function ($e) {
                 return (float) trim($e);
             },
             explode(',', $page->getAttribute('latlng'))
         );
+
         $info =
             '<a href="' . $nh->getCollectionURL($page) . '" target="_blank">' .
-                $city_name . ' Walks' .
-            '</a>' .
-            (
-                ($pageOwnerID > 1 &&
-                $pageOwner->getAttribute('first_name') !== 'There\'s no City Organizer here' &&
-                $first_name = $pageOwner->getAttribute('first_name')) ?
-                ('<br/>' . $first_name . ', City Organizer') : ''
-            );
+                $cityName . ' Walks' .
+            '</a>';
+        
+        // If the owner is set
+        if ($pageOwnerID > 1) {
+            $coName = [
+                $pageOwner->getAttribute('first_name'),
+                $pageOwner->getAttribute('last_name')
+            ];
+            $info .= '<br />' . $coName[0] . ', City Organizer';
+        } else {
+            $coName = [];
+        }
+
         $cities[] = [
-            'country' => $country_name,
-            'city_organizer' => $first_name . ' ' . $pageOwner->getAttribute('last_name'),
-            'name' => $city,
+            'country' => $countryName,
+            'city_organizer' => join(' ', $coName),
+            'name' => $cityName . ', ' . $countryName,
             'color' => '#f16725',
             'info' => $info,
             'lat' => $latlng[0],
             'lng' => $latlng[1]
         ];
     }
-    Cache::set('map','world',$cities, 21600); // Refresh the world map every 6 hours
+    Cache::set('map', 'world', $cities, 21600); // Refresh the world map every 6 hours
 }
 ?>
 var cities = <?= json_encode($cities) ?>;
