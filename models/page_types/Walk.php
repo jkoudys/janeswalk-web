@@ -5,6 +5,8 @@ namespace JanesWalk\Models\PageTypes;
 use \Exception;
 use \DOMDocument;
 use \XSLTProcessor;
+use \stdClass;
+
 // c5 classes
 use \Loader;
 use \Page;
@@ -362,6 +364,12 @@ class Walk extends \Model implements \JsonSerializable
         };
         array_walk($this->themes, $mapKeyNames, 'theme');
         array_walk($this->accessible, $mapKeyNames, 'accessible');
+
+        // Force checkboxes as an empty object, not empty array, for json_encode
+        if (empty($checkboxes)) {
+            $checkboxes = new stdClass;
+        }
+
         $walkData['checkboxes'] = $checkboxes;
 
         return $walkData;
