@@ -2,25 +2,41 @@
 var DateSelect = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
+    var today = new Date;
     // Note: we're only keeping the 'date' on there to use Date's string
     // parsing. This method is concerned only with the Time
     // TODO: use a Date for the end time; duration is for historical purposes
     // but it's a bad design.
     // TODO: Support proper time localization - ultimately these times are just
     // strings, so we're using GMT, but that's bad practice.
-    var defaultTime = '12:00';
     return {
-      start: new Date((new Date).toLocaleDateString() + ' ' + defaultTime),
+      start: new Date(
+        Date.UTC(
+          today.getUTCFullYear(),
+          today.getUTCMonth(),
+          today.getUTCDate() + 7,
+          11,
+          00
+        )
+      ),
       duration: '1 Hour'
     };
   },
   setDay: function(date) {
     var startDate = this.state.start;
 
-    startDate.setFullYear(date.getFullYear());
-    startDate.setMonth(date.getMonth());
-    startDate.setDate(date.getDate());
+    // Set the Day we're choosing
+    startDate.setUTCFullYear(date.getUTCFullYear());
+    startDate.setUTCMonth(date.getUTCMonth());
+    startDate.setUTCDate(date.getUTCDate());
 
+    // Refresh the timepicker
+    this.refs.timePicker.setStartTimes(startDate);
+
+    // Update our state
+    // FIXME: This is an overly-complex pattern, but done to avoid frequent
+    // date rebuilding, which is very slow. See if it can be done through
+    // state updates instead.
     this.setState({start: startDate});
   },
   /* @param Date time The current time of day
@@ -29,8 +45,8 @@ var DateSelect = React.createClass({
   setTime: function(time, duration) {
     var startDate = this.state.start;
 
-    startDate.setHours(time.getHours());
-    startDate.setMinutes(time.getMinutes());
+    startDate.setUTCHours(time.getUTCHours());
+    startDate.setUTCMinutes(time.getUTCMinutes());
 
     this.setState({start: startDate});
   },
@@ -49,8 +65,8 @@ var DateSelect = React.createClass({
     var value = valueLink.value || {};
     var slots = (value.slots || []).slice();
     slots.push({
-      date: this.state.start.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric'}),
-      time: this.state.start.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit'}),
+      date: this.state.start.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'}),
+      time: this.state.start.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit', timeZone: 'UTC'}),
       duration: this.state.duration
     });
 
@@ -115,10 +131,10 @@ var DateSelect = React.createClass({
                   <div className="caption"> 
                     <h4 className="date-indicate-set">
                       <small>{ t('Date selected') }:</small>
-                      {this.state.start.toLocaleDateString('en-US', {weekday: 'long', month: 'long', day: 'numeric'})}
+                      {this.state.start.toLocaleDateString(undefined, {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'})}
                     </h4>
                     <hr />
-                    <TimePicker i18n={this.props.i18n} valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
+                    <TimePicker ref="timePicker" i18n={this.props.i18n} valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
                     <hr />
                     <button className="btn btn-primary" id="save-date-set" onClick={this.addDate}>{ t('Add Date') }</button>
                   </div>
@@ -202,7 +218,7 @@ var TimePicker = React.createClass({
   // Date management is slow, so avoid rebuilding unless needed
   setStartTimes: function(start, step) {
     if (this.state.start !== start) {
-      var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate() + 7];
+      var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()];
       var firstTime = Date.UTC.apply(this, yrMoDay);
       var lastTime = Date.UTC.apply(this, yrMoDay.concat([23, 30]));
       var startTimes = [];
@@ -241,11 +257,11 @@ var TimePicker = React.createClass({
         <label htmlFor="walk-time">{ t('Start Time') }:</label>
         <select name="start" id="walk-start" valueLink={linkStart}>
           {this.state.startTimes.map(function(time, i) {
-            var date = new Date(time);
-            return
+            return (
               <option key={'walk-start' + i} value={time}>
-                {date.toLocaleTimeString()}
-              </option>;
+                {(new Date(time)).toLocaleTimeString(undefined, {timeZone: 'UTC'})}
+              </option>
+              );
           })}
         </select>
         <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>

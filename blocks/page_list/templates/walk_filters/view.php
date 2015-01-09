@@ -1,5 +1,15 @@
 <?php
 defined('C5_EXECUTE') || die('Access Denied.');
+
+// Give the human-readable name, and JS-usable key, for the filters
+$filterTuples = [
+    [$wardName, 'ward', $wards],
+    [t('Theme'), 'theme', $themes],
+    [t('Accessibility'), 'accessibility', $accessibilities],
+    [t('Initiative'), 'initiative', $initiatives],
+    [t('Day'), 'date', $dates]
+];
+
 ?>
 <?php if (count($cards) > 8) { ?>
     <a class="see-all"><?= t2('show only this walk', 'see all %d walks', count($cards)) ?></a>
@@ -21,78 +31,25 @@ defined('C5_EXECUTE') || die('Access Denied.');
         <!-- Tab panes -->
         <div class="tab-content">
             <section class="tab-pane active fade in" id="jw-cards">
-                <div class="filters clearfix">
-
-                    <?php if (!empty($wards)): ?>
-                    <div class="filter clearfix">
-                        <label for="ward"><?= ($wardName) ?></label>
-                        <div class="options">
-                            <select name="ward" id="ward">
-                                <option value="*">All</option>
-                                <?php foreach ($wards as $ward): ?>
-                                <option value="<?= ($ward) ?>"><?= ($ward) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($themes)) { ?>
-                    <div class="filter clearfix">
-                        <label for="theme"><?= t('Theme') ?></label>
-                        <div class="options">
-                            <select name="theme" id="theme">
-                                <option value="*">All</option>
-                                <?php foreach ($themes as $key => $theme) { ?>
-                                <option value="<?= $key ?>"><?= ($theme) ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php } ?>
-
-                    <?php if (!empty($accessibilities)): ?>
-                    <div class="filter clearfix">
-                        <label for="accessibility"><?= t('Accessibility') ?></label>
-                        <div class="options">
-                            <select name="accessibility" id="accessibility">
-                                <option value="*">All</option>
-                                <?php foreach ($accessibilities as $key=>$accessibility) { ?>
-                                <option value="<?= $key ?>"><?= ($accessibility) ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-
-                    <?php if (!empty($initiatives)): ?>
-                    <div class="filter clearfix">
-                        <label for="initiative"><?= t('Initiative') ?></label>
-                        <div class="options">
-                            <select name="initiative" id="initiative">
-                                <option value="*">All</option>
-                                <?php foreach ($initiatives as $initiative): ?>
-                                <option value="<?= ($initiative) ?>"><?= ($initiative) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-
-                    <div class="filter clearfix">
-                        <label for="date"><?= t('Day') ?></label>
-                        <div class="options">
-                            <select name="date" id="date">
-                                <option value="*">All</option>
-                                <?php foreach ($dates as $date): ?>
-                                <option value="<?= ($date) ?>"><?= ($date) ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
-
+                <ul class="filters">
+<?php
+            foreach ($filterTuples as list($name, $key, $data)) {
+                if (!empty($data)) {
+?>
+                    <li>
+                        <label><?= $name ?></label>
+                        <select name="<?= $key ?>">
+                            <option value="*">All</option>
+                            <?php foreach ($data as $k => $datum) { ?>
+                            <option value="<?= is_string($k) ? $k : $datum ?>"><?= $datum ?></option>
+                            <?php } ?>
+                        </select>
+                    </li>
+<?php
+                }
+            }
+?>
+                </ul>
                 <div class="initiatives hidden">
                     <div class="initiative hidden" data-jw-initiative="Open Streets TO">
                         <div class="headline">What is Open Streets TO?</div>

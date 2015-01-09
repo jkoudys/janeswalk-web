@@ -12331,10 +12331,6 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title {
   margin-top: 0.6em;
 }
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-next,
-#create-walk #time-and-date .ui-datepicker .ui-datepicker-prev {
-  top: 11px;
-}
 #create-walk #time-and-date .ui-datepicker td {
   width: 14.28571429%;
   text-align: center;
