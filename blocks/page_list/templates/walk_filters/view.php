@@ -33,7 +33,8 @@ $filterTuples = [
             <section class="tab-pane active fade in" id="jw-cards">
                 <ul class="filters">
 <?php
-            foreach ($filterTuples as list($name, $key, $data)) {
+            foreach ($filterTuples as $tuple) {
+                list($name, $key, $data) = $tuple;
                 if (!empty($data)) {
 ?>
                     <li>
