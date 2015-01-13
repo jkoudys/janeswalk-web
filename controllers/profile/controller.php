@@ -159,7 +159,7 @@ class ProfileController extends Concrete5_Controller_Profile
 
             // Whether the logged in user has created any blog posts
             $pl = new PageList();
-            $pl->filterByCollectionTypeHandle(array('walk_blog_entry', 'city_blog_entry'));
+            $pl->filterByCollectionTypeHandle(['walk_blog_entry', 'city_blog_entry']);
             $pl->filterByUserID($u->getUserID());
             $blogs = $pl->get();
 
@@ -176,11 +176,12 @@ class ProfileController extends Concrete5_Controller_Profile
              */
             if ($userHasSetHomeCity === true) {
                 $cityOrganizer = UserInfo::getByID($userHomeCity->getCollectionUserID());
-
-                // The email address of the city organizer for the logged in user's
-                // home city
-                $cityOrganizerEmailAddress = $cityOrganizer->getUserEmail();
-                $this->set('cityOrganizerEmailAddress', $cityOrganizerEmailAddress);
+                if ($cityOrganizer) {
+                    // The email address of the city organizer for the logged in user's
+                    // home city
+                    $cityOrganizerEmailAddress = $cityOrganizer->getUserEmail();
+                    $this->set('cityOrganizerEmailAddress', $cityOrganizerEmailAddress);
+                }
 
                 // Whether the city has a blog page set up for it
                 $pl = new PageList();
