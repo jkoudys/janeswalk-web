@@ -8025,6 +8025,9 @@ dialog input[type=password] {
     width: 90%;
   }
 }
+#signup-panel {
+  opacity: 1;
+}
 .ccm-page-list.ccm-blog-index {
   margin-left: -15px;
   margin-right: -15px;
