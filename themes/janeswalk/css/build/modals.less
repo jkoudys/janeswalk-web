@@ -3,6 +3,7 @@ dialog {
     &:extend(.modal all, .fade all);
     &.in:extend(.fade.in all) {
         display: block !important; // TODO: Check if this is necessary
+        opacity: 1;
         // Blur everything not our modal
         & ~ * {
             -webkit-filter: blur(5px);

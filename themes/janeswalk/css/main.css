@@ -7977,6 +7977,7 @@ dialog {
 }
 dialog.in {
   display: block !important;
+  opacity: 1;
 }
 dialog.in ~ * {
   -webkit-filter: blur(5px);
