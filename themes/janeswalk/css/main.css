@@ -9169,6 +9169,7 @@ body.home main {
   }
 }
 #profileWrapper div.content div#cityBlock {
+  clear: both;
   padding: 32px 0 0;
 }
 #profileWrapper div.content div#cityBlock div.main {
@@ -9257,6 +9258,9 @@ body.home main {
   font-size: 22px;
   margin: 0 0 20px;
 }
+#profileWrapper div.content div#accountBlock {
+  clear: both;
+}
 #profileWrapper div.content div#accountBlock form:before,
 #profileWrapper div.content div#accountBlock form:after {
   content: " ";
@@ -9290,6 +9294,7 @@ body.home main {
   padding: 0 4px 0 0;
 }
 #profileWrapper div.content div#pictureBlock {
+  clear: both;
   position: relative;
 }
 #profileWrapper div.content div#pictureBlock:before,
@@ -9323,6 +9328,9 @@ body.home main {
   display: block;
   text-align: right;
   margin: 20px 0 0 0;
+}
+#profileWrapper div.content div#resourcesBlock {
+  clear: both;
 }
 #profileWrapper div.content div#resourcesBlock div.resourceBlock {
   margin: 0 0 48px;

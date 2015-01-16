@@ -326,67 +326,81 @@ var CreateWalk = React.createClass({
             </div>
           </aside>
         </section>
-        <dialog id="publish-warning">
-          <header>
-            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>{ t('Okay, You\'re Ready to Publish') }</h3>
-          </header>
-          <div className="modal-body">
-            <p>{ t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') }</p>
-          </div>
-          <footer>
-            <div className="pull-left">
-              <a href="" className="walkthrough close" data-dismiss="modal"> { t('Bring me back to edit') }</a>
-            </div>
-            <a href={'XXXprofile URL'}>
-              <button className="btn btn-primary walkthrough" data-step="publish-confirmation">{ t('Publish') }</button>
-            </a>
-          </footer>
-        </dialog>
-        <dialog id="publish-confirmation">
-          <header>
-            <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Your Walk Has Been Published!</h3>
-          </header>
-          <div className="modal-body">
-            <p>Congratulations! Your walk is now available for all to peruse.</p>
-            <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
-            <label>Your Walk Web Address:</label>
-            <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
-            <hr />
-            <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
-            <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
-          </div>
-          <footer>
-            <button className="btn btn-primary walkthrough">Close</button>
-          </footer>
-        </dialog>
-        {this.state.preview ?
-          <dialog id="preview-modal">
-            <div>
-              <article>
-                <header>
-                  <button type="button" className="close" aria-hidden="true" onClick={function(){this.setState({preview: false})}.bind(this)}>&times;</button>
-                  <h3>{ t('Preview of your Walk') }</h3>
-                </header>
-                <div className="modal-body">
-                  <iframe src={this.props.url} frameBorder="0" />
-                </div>
-              </article>
-            </div>
-          </dialog>
-          : null}
-          <aside id="notifications">
-            {this.state.notifications.map(function(notification) {
-              return (
-                <div key={notification.message} className={'alert alert-' + notification.type}>
-                  <strong>{notification.name || ''}:&nbsp;</strong>
-                  {notification.message || ''}
-                </div>
-                );
-            })}
+        <WalkPublish />
+        {this.state.preview ? <WalkPreview /> : null}
+        <aside id="notifications">
+          {this.state.notifications.map(function(notification) {
+            return (
+              <div key={notification.message} className={'alert alert-' + notification.type}>
+                <strong>{notification.name || ''}:&nbsp;</strong>
+                {notification.message || ''}
+              </div>
+              );
+          })}
         </aside>
       </main>
+    );
+  }
+});
+
+var WalkPreview = React.createClass({
+  render: function() {
+    return (
+      <dialog id="preview-modal">
+        <div>
+          <article>
+            <header>
+              <button type="button" className="close" aria-hidden="true" onClick={function(){this.setState({preview: false})}.bind(this)}>&times;</button>
+              <h3>{ t('Preview of your Walk') }</h3>
+            </header>
+            <div className="modal-body">
+              <iframe src={this.props.url} frameBorder="0" />
+            </div>
+          </article>
+        </div>
+      </dialog>
+    );
+  }
+});
+
+var WalkPublish = React.createClass({
+  render: function() {
+    return (
+      <dialog id="publish-warning">
+        <header>
+          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>{ t('Okay, You\'re Ready to Publish') }</h3>
+        </header>
+        <div className="modal-body">
+          <p>{ t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') }</p>
+        </div>
+        <footer>
+          <div className="pull-left">
+            <a href="" className="walkthrough close" data-dismiss="modal"> { t('Bring me back to edit') }</a>
+          </div>
+          <a href={'XXXprofile URL'}>
+            <button className="btn btn-primary walkthrough" data-step="publish-confirmation">{ t('Publish') }</button>
+          </a>
+        </footer>
+      </dialog>
+      <dialog id="publish-confirmation">
+        <header>
+          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>Your Walk Has Been Published!</h3>
+        </header>
+        <div className="modal-body">
+          <p>Congratulations! Your walk is now available for all to peruse.</p>
+          <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
+          <label>Your Walk Web Address:</label>
+          <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
+          <hr />
+          <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
+          <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
+        </div>
+        <footer>
+          <button className="btn btn-primary walkthrough">Close</button>
+        </footer>
+      </dialog>
     );
   }
 });

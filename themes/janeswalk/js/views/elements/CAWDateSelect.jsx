@@ -218,6 +218,7 @@ var TimePicker = React.createClass({
   // Date management is slow, so avoid rebuilding unless needed
   setStartTimes: function(start, step) {
     if (this.state.start !== start) {
+      // All start times begin on the date's 0:00, and by default step every 30 min
       var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()];
       var firstTime = Date.UTC.apply(this, yrMoDay);
       var lastTime = Date.UTC.apply(this, yrMoDay.concat([23, 30]));
