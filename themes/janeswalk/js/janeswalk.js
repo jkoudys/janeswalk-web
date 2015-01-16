@@ -462,7 +462,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
           )
         ), 
         React.createElement(WalkPublish, {i18n: i18n}), 
-        this.state.preview ? React.createElement(WalkPreview, null) : null, 
+        this.state.preview ? React.createElement(WalkPreview, {i18n: i18n, url: this.props.url, close: this.setState.bind(this, {preview: false})}) : null, 
         React.createElement("aside", {id: "notifications"}, 
           this.state.notifications.map(function(notification) {
             return (
@@ -480,12 +480,15 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
 
 var WalkPreview = React.createClass({displayName: 'WalkPreview',
   render: function() {
+    var i18n = this.props.i18n;
+    var t = i18n.translate.bind(i18n);
+
     return (
       React.createElement("dialog", {id: "preview-modal"}, 
         React.createElement("div", null, 
           React.createElement("article", null, 
             React.createElement("header", null, 
-              React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", onClick: function(){this.setState({preview: false})}.bind(this)}, "×"), 
+              React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", onClick: function() { this.props.close() }.bind(this)}, "×"), 
               React.createElement("h3", null,  t('Preview of your Walk') )
             ), 
             React.createElement("div", {className: "modal-body"}, 

@@ -327,7 +327,7 @@ var CreateWalk = React.createClass({
           </aside>
         </section>
         <WalkPublish i18n={i18n} />
-        {this.state.preview ? <WalkPreview /> : null}
+        {this.state.preview ? <WalkPreview i18n={i18n} url={this.props.url} close={this.setState.bind(this, {preview: false})} /> : null}
         <aside id="notifications">
           {this.state.notifications.map(function(notification) {
             return (
@@ -345,12 +345,15 @@ var CreateWalk = React.createClass({
 
 var WalkPreview = React.createClass({
   render: function() {
+    var i18n = this.props.i18n;
+    var t = i18n.translate.bind(i18n);
+
     return (
       <dialog id="preview-modal">
         <div>
           <article>
             <header>
-              <button type="button" className="close" aria-hidden="true" onClick={function(){this.setState({preview: false})}.bind(this)}>&times;</button>
+              <button type="button" className="close" aria-hidden="true" onClick={function() { this.props.close() }.bind(this)}>&times;</button>
               <h3>{ t('Preview of your Walk') }</h3>
             </header>
             <div className="modal-body">
