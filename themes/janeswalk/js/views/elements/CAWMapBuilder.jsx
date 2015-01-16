@@ -52,14 +52,16 @@ var MapBuilder = React.createClass({
         }.bind(this));
 
         route = this.buildRoute(valueLink.value.route);
+      } else {
+        route = this.buildRoute([]);
       }
 
       // Set marker/route adding
       google.maps.event.addListener(map, 'click', function(ev) {
         _this.state.infowindow.setMap(null);
         if (_this.state.mode.addRoute) {
-          var route = _this.state.route;
           route.setPath(route.getPath().push(ev.latLng));
+          _this.setState({route: route});
         }
       });
       // Map won't size properly on a hidden tab, so refresh on tab shown
@@ -155,11 +157,10 @@ var MapBuilder = React.createClass({
       />,
       infoDOM
     );
-    
+
+    // Center the marker and display its info window
     this.state.map.panTo(marker.getPosition());
-
     this.state.infowindow.setContent(infoDOM);
-
     this.state.infowindow.open(this.state.map, marker);
   },
 
@@ -181,6 +182,8 @@ var MapBuilder = React.createClass({
          poly.setPath(poly.getPath().removeAt(ev.vertex));
       }
     });
+
+    // Hide the infowindow if we click outside it
     google.maps.event.addListener(poly, 'mousedown', function(ev) {
       this.state.infowindow.setMap(null);
     }.bind(this));

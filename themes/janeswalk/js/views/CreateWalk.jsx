@@ -326,7 +326,7 @@ var CreateWalk = React.createClass({
             </div>
           </aside>
         </section>
-        <WalkPublish />
+        <WalkPublish i18n={i18n} />
         {this.state.preview ? <WalkPreview /> : null}
         <aside id="notifications">
           {this.state.notifications.map(function(notification) {
@@ -365,6 +365,9 @@ var WalkPreview = React.createClass({
 
 var WalkPublish = React.createClass({
   render: function() {
+    var i18n = this.props.i18n;
+    var t = i18n.translate.bind(i18n);
+
     return (
       <dialog id="publish-warning">
         <header>
@@ -383,6 +386,8 @@ var WalkPublish = React.createClass({
           </a>
         </footer>
       </dialog>
+    );
+    return (
       <dialog id="publish-confirmation">
         <header>
           <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>

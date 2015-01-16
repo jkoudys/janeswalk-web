@@ -461,65 +461,84 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             )
           )
         ), 
-        React.createElement("dialog", {id: "publish-warning"}, 
-          React.createElement("header", null, 
-            React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-            React.createElement("h3", null,  t('Okay, You\'re Ready to Publish') )
-          ), 
-          React.createElement("div", {className: "modal-body"}, 
-            React.createElement("p", null,  t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') )
-          ), 
-          React.createElement("footer", null, 
-            React.createElement("div", {className: "pull-left"}, 
-              React.createElement("a", {href: "", className: "walkthrough close", 'data-dismiss': "modal"}, " ",  t('Bring me back to edit') )
-            ), 
-            React.createElement("a", {href: 'XXXprofile URL'}, 
-              React.createElement("button", {className: "btn btn-primary walkthrough", 'data-step': "publish-confirmation"},  t('Publish') )
-            )
-          )
-        ), 
-        React.createElement("dialog", {id: "publish-confirmation"}, 
-          React.createElement("header", null, 
-            React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-            React.createElement("h3", null, "Your Walk Has Been Published!")
-          ), 
-          React.createElement("div", {className: "modal-body"}, 
-            React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
-            React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
-            React.createElement("label", null, "Your Walk Web Address:"), 
-            React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.url, readOnly: true}), 
-            React.createElement("hr", null), 
-            React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
-            React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
-          ), 
-          React.createElement("footer", null, 
-            React.createElement("button", {className: "btn btn-primary walkthrough"}, "Close")
-          )
-        ), 
-        this.state.preview ?
-          React.createElement("dialog", {id: "preview-modal"}, 
-            React.createElement("div", null, 
-              React.createElement("article", null, 
-                React.createElement("header", null, 
-                  React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", onClick: function(){this.setState({preview: false})}.bind(this)}, "×"), 
-                  React.createElement("h3", null,  t('Preview of your Walk') )
-                ), 
-                React.createElement("div", {className: "modal-body"}, 
-                  React.createElement("iframe", {src: this.props.url, frameBorder: "0"})
-                )
+        React.createElement(WalkPublish, {i18n: i18n}), 
+        this.state.preview ? React.createElement(WalkPreview, null) : null, 
+        React.createElement("aside", {id: "notifications"}, 
+          this.state.notifications.map(function(notification) {
+            return (
+              React.createElement("div", {key: notification.message, className: 'alert alert-' + notification.type}, 
+                React.createElement("strong", null, notification.name || '', ": "), 
+                notification.message || ''
               )
+              );
+          })
+        )
+      )
+    );
+  }
+});
+
+var WalkPreview = React.createClass({displayName: 'WalkPreview',
+  render: function() {
+    return (
+      React.createElement("dialog", {id: "preview-modal"}, 
+        React.createElement("div", null, 
+          React.createElement("article", null, 
+            React.createElement("header", null, 
+              React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", onClick: function(){this.setState({preview: false})}.bind(this)}, "×"), 
+              React.createElement("h3", null,  t('Preview of your Walk') )
+            ), 
+            React.createElement("div", {className: "modal-body"}, 
+              React.createElement("iframe", {src: this.props.url, frameBorder: "0"})
             )
           )
-          : null, 
-          React.createElement("aside", {id: "notifications"}, 
-            this.state.notifications.map(function(notification) {
-              return (
-                React.createElement("div", {key: notification.message, className: 'alert alert-' + notification.type}, 
-                  React.createElement("strong", null, notification.name || '', ": "), 
-                  notification.message || ''
-                )
-                );
-            })
+        )
+      )
+    );
+  }
+});
+
+var WalkPublish = React.createClass({displayName: 'WalkPublish',
+  render: function() {
+    var i18n = this.props.i18n;
+    var t = i18n.translate.bind(i18n);
+
+    return (
+      React.createElement("dialog", {id: "publish-warning"}, 
+        React.createElement("header", null, 
+          React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
+          React.createElement("h3", null,  t('Okay, You\'re Ready to Publish') )
+        ), 
+        React.createElement("div", {className: "modal-body"}, 
+          React.createElement("p", null,  t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') )
+        ), 
+        React.createElement("footer", null, 
+          React.createElement("div", {className: "pull-left"}, 
+            React.createElement("a", {href: "", className: "walkthrough close", 'data-dismiss': "modal"}, " ",  t('Bring me back to edit') )
+          ), 
+          React.createElement("a", {href: 'XXXprofile URL'}, 
+            React.createElement("button", {className: "btn btn-primary walkthrough", 'data-step': "publish-confirmation"},  t('Publish') )
+          )
+        )
+      )
+    );
+    return (
+      React.createElement("dialog", {id: "publish-confirmation"}, 
+        React.createElement("header", null, 
+          React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
+          React.createElement("h3", null, "Your Walk Has Been Published!")
+        ), 
+        React.createElement("div", {className: "modal-body"}, 
+          React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
+          React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
+          React.createElement("label", null, "Your Walk Web Address:"), 
+          React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.url, readOnly: true}), 
+          React.createElement("hr", null), 
+          React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
+          React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
+        ), 
+        React.createElement("footer", null, 
+          React.createElement("button", {className: "btn btn-primary walkthrough"}, "Close")
         )
       )
     );
@@ -1028,6 +1047,7 @@ var TimePicker = React.createClass({displayName: 'TimePicker',
   // Date management is slow, so avoid rebuilding unless needed
   setStartTimes: function(start, step) {
     if (this.state.start !== start) {
+      // All start times begin on the date's 0:00, and by default step every 30 min
       var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()];
       var firstTime = Date.UTC.apply(this, yrMoDay);
       var lastTime = Date.UTC.apply(this, yrMoDay.concat([23, 30]));
@@ -1273,14 +1293,16 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         }.bind(this));
 
         route = this.buildRoute(valueLink.value.route);
+      } else {
+        route = this.buildRoute([]);
       }
 
       // Set marker/route adding
       google.maps.event.addListener(map, 'click', function(ev) {
         _this.state.infowindow.setMap(null);
         if (_this.state.mode.addRoute) {
-          var route = _this.state.route;
           route.setPath(route.getPath().push(ev.latLng));
+          _this.setState({route: route});
         }
       });
       // Map won't size properly on a hidden tab, so refresh on tab shown
@@ -1376,11 +1398,10 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       ),
       infoDOM
     );
-    
+
+    // Center the marker and display its info window
     this.state.map.panTo(marker.getPosition());
-
     this.state.infowindow.setContent(infoDOM);
-
     this.state.infowindow.open(this.state.map, marker);
   },
 
@@ -1402,6 +1423,8 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
          poly.setPath(poly.getPath().removeAt(ev.vertex));
       }
     });
+
+    // Hide the infowindow if we click outside it
     google.maps.event.addListener(poly, 'mousedown', function(ev) {
       this.state.infowindow.setMap(null);
     }.bind(this));
