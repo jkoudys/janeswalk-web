@@ -41,10 +41,10 @@ $getWalkData = function($walk) use ($nh) {
 };
 
 // Walks owned by this user
-$userWalksArr = array_map($getWalkData, $userWalks);
+$userWalksArr = array_map($getWalkData, (array) $userWalks);
 
 // Walks owned by their city
-$cityWalksArr = array_map($getWalkData, $cityWalks);
+$cityWalksArr = array_map($getWalkData, (array) $cityWalks);
 
 // User's blog posts
 $userBlogPostsArr = array_map(
@@ -55,7 +55,7 @@ $userBlogPostsArr = array_map(
             'url' => $nh->getCollectionURL($post)
         ];
     },
-    $userBlogPosts
+    (array) $userBlogPosts
 );
 
 ?>
