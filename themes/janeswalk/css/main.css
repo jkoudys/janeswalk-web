@@ -9871,6 +9871,7 @@ body.city-page > #city-details .walk-list {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  opacity: 1;
 }
 body.city-page > #city-details .walk-list:before,
 body.city-page > #city-details .walk-list:after {

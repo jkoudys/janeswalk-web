@@ -157,6 +157,10 @@ class WalkFormController extends Controller
 
         // Load JS we need in the form
         $html = Loader::helper('html');
-        $this->addHeaderItem($html->javascript('jquery.timepicker.min.js'));
+
+        // Set default stylesheets for libs
+        $this->addHeaderItem($html->css('jquery.ui.css'));
+        // Set libs we'll need on the page
+        $this->addFooterItem(Loader::helper('html')->javascript('jquery.ui.js'));
     }
 }
