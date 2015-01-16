@@ -13,9 +13,9 @@ if (!$userHasSetName) {
     $nextStep = ['tab' => 'account', 'message' => t('Set your name')];
 } elseif (!$homeCityName) {
     $nextStep = ['tab' => 'account', 'message' => t('Set your home city')];
-} elseif (!$userPicture) {
+} /* elseif (!$userPicture) {
     $nextStep = ['tab' => 'picture', 'message' => t('Update your display picture')];
-} elseif ($userIsCityOrganizer && !$cityHasFullDetails) {
+} */ elseif ($userIsCityOrganizer && !$cityHasFullDetails) {
     $nextStep = ['tab' => 'city', 'message' => t('Update your city header, description and photo')];
 } elseif (empty($userBlogPosts)) {
     $nextStep = ['tab' => 'dashboard', 'message' => t('Share a story about walking in %s', $homeCityName)];
@@ -240,9 +240,9 @@ if ($cityOrganizerData) {
         <li>
             <a href="/index.php/profile/#tab=account" data-tab="account"><?= t('Account') ?></a>
         </li>
-        <li>
+<?php /* <li>
             <a href="/index.php/profile/#tab=picture" data-tab="picture"><?= t('My Picture') ?></a>
-        </li>
+            </li> */?>
         <li>
             <a href="/index.php/profile/#tab=resources" data-tab="resources"><?= t('Resources') ?></a>
         </li>
