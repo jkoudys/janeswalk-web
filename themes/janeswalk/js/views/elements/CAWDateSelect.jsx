@@ -124,7 +124,7 @@ var DateSelect = React.createClass({
 
             <div className="row">
               <div className="col-md-6">
-                <DatePicker setDay={this.setDay} />
+                <DatePicker setDay={this.setDay} defaultDate={this.state.start} />
               </div>
               <div className="col-md-6">
                 <div className="thumbnail">
@@ -198,6 +198,7 @@ var DatePicker = React.createClass({
   componentDidMount: function() {
     // Setup sorting on the walk-stops list
     $(this.getDOMNode()).datepicker({
+      defaultDate: this.props.defaultDate,
       onSelect: function(dateText) {
         this.props.setDay(new Date(dateText));
       }.bind(this)
@@ -228,7 +229,10 @@ var TimePicker = React.createClass({
       for (var i = 0, time = firstTime;
            time <= lastTime;
            time += step) {
-        startTimes.push(time);
+        startTimes.push({
+          asMs: time,
+          asString: (new Date(time)).toLocaleTimeString(undefined, {timeZone: 'UTC'})
+        });
       }
 
       this.setState({
@@ -259,8 +263,8 @@ var TimePicker = React.createClass({
         <select name="start" id="walk-start" valueLink={linkStart}>
           {this.state.startTimes.map(function(time, i) {
             return (
-              <option key={'walk-start' + i} value={time}>
-                {(new Date(time)).toLocaleTimeString(undefined, {timeZone: 'UTC'})}
+              <option key={'walk-start' + i} value={time.asMs}>
+                {time.asString}
               </option>
               );
           })}

@@ -71,17 +71,20 @@ class WalkPageTypeController extends Controller
      */
     public function create($json)
     {
+        $nh = Loader::helper('navigation');
         header('Content-Type: application/json');
         try {
             // Save the walk
+            $cID = $this->walk->getPage()->getCollectionID();
             $cvID = $this->setJson($json, true);
              // Send requests to all walk-mirroring services
             $mw = new MirrorWalk($this->walk);
             $mw->mirrorStart();
 
             echo json_encode([
-                'cID' => $this->walk->getPage()->getCollectionID(),
-                'cvID' => $cvID
+                'cID' => $cID,
+                'cvID' => $cvID,
+                'url' => $nh->getLinkToCollection(Page::getByID($cID))
             ]);
 
             // Wait until walk-mirrroring blocking code completes

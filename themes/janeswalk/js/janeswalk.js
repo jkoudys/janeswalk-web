@@ -188,7 +188,8 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       thumbnails: [],
       wards: '',
       checkboxes: {},
-      notifications: []
+      notifications: [],
+      url: this.props.url
     };
 
     // Convert old {0: marker, 1: marker} indexing to a proper array
@@ -256,19 +257,24 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       notifications: notifications
     }, function() {
       $.ajax({
-        url: this.props.url,
+        url: this.state.url,
         type: options.publish ? 'PUT' : 'POST',
         data: {json: JSON.stringify(this.state)},
         dataType: 'json',
         success: function(data) {
           var notifications = this.state.notifications.slice();
           notifications.push({type: 'success', name: 'Walk saved'});
-          this.setState({notifications: notifications});
+          this.setState(
+            {notifications: notifications, url: (data.url || this.state.url)},
+            function() {
+              if (cb && cb instanceof Function) {
+                // The 'this' in each callback should be the <CreateWalk>
+                cb.call(this);
+              }
+            }
+          );
           setTimeout(removeNotice, 1200);
-          if (cb && cb instanceof Function) {
-            cb();
-          }
-        }.bind(this),
+          }.bind(this),
         error: function(xhr, status, err) {
           var notifications = this.state.notifications.slice();
           notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
@@ -349,7 +355,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             ), 
             React.createElement("section", {id: "button-group"}, 
               React.createElement("button", {className: "btn btn-info btn-preview", id: "preview-walk", title: "Preview what you have so far.", onClick: this.handlePreview},  t('Preview Walk') ), 
-              React.createElement("button", {className: "btn btn-info btn-submit", id: "btn-submit", title: "Publishing will make your visible to all."},  t('Publish Walk') ), 
+              React.createElement("button", {className: "btn btn-info btn-submit", id: "btn-submit", title: "Publishing will make your visible to all.", onClick: function() {this.setState({publish: true})}.bind(this)},  t('Publish Walk') ), 
               React.createElement("button", {className: "btn btn-info save", title: "Save", id: "btn-save", onClick: this.handleSave},  t('Save') )
             )
           ), 
@@ -461,8 +467,8 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             )
           )
         ), 
-        React.createElement(WalkPublish, {i18n: i18n}), 
-        this.state.preview ? React.createElement(WalkPreview, {i18n: i18n, url: this.props.url, close: this.setState.bind(this, {preview: false})}) : null, 
+        this.state.publish ? React.createElement(WalkPublish, {i18n: i18n, url: this.state.url, saveWalk: this.saveWalk.bind(this), close: this.setState.bind(this, {publish: false})}) : null, 
+        this.state.preview ? React.createElement(WalkPreview, {i18n: i18n, url: this.state.url, close: this.setState.bind(this, {preview: false})}) : null, 
         React.createElement("aside", {id: "notifications"}, 
           this.state.notifications.map(function(notification) {
             return (
@@ -479,6 +485,15 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
 });
 
 var WalkPreview = React.createClass({displayName: 'WalkPreview',
+  componentDidMount: function() {
+    var _this = this;
+    // Bootstrap Modal
+    $(this.getDOMNode()).modal();
+    // Close the modal when modal closes
+    $(this.getDOMNode()).bind('hidden.bs.modal', function() {
+      _this.props.close();
+    });
+  },
   render: function() {
     var i18n = this.props.i18n;
     var t = i18n.translate.bind(i18n);
@@ -488,7 +503,7 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
         React.createElement("div", null, 
           React.createElement("article", null, 
             React.createElement("header", null, 
-              React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", onClick: function() { this.props.close() }.bind(this)}, "×"), 
+              React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", 'data-dismiss': "modal"}, "×"), 
               React.createElement("h3", null,  t('Preview of your Walk') )
             ), 
             React.createElement("div", {className: "modal-body"}, 
@@ -502,49 +517,71 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
 });
 
 var WalkPublish = React.createClass({displayName: 'WalkPublish',
+  componentDidMount: function() {
+    var _this = this;
+    // Bootstrap Modal
+    $(this.getDOMNode()).modal();
+    // Close the modal when modal closes
+    $(this.getDOMNode()).bind('hidden.bs.modal', function() {
+      _this.props.close();
+    });
+  },
   render: function() {
     var i18n = this.props.i18n;
     var t = i18n.translate.bind(i18n);
+    var close = function() { this.props.close() }.bind(this);
+    var publish = function() {
+      this.props.saveWalk({publish: true}, function() {
+        // This function's meant for callbacks, so it grabs the URL from the caller's state
+        window.location = this.state.url;
+      });
+    }.bind(this);
 
     return (
       React.createElement("dialog", {id: "publish-warning"}, 
-        React.createElement("header", null, 
-          React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-          React.createElement("h3", null,  t('Okay, You\'re Ready to Publish') )
-        ), 
-        React.createElement("div", {className: "modal-body"}, 
-          React.createElement("p", null,  t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') )
-        ), 
-        React.createElement("footer", null, 
-          React.createElement("div", {className: "pull-left"}, 
-            React.createElement("a", {href: "", className: "walkthrough close", 'data-dismiss': "modal"}, " ",  t('Bring me back to edit') )
-          ), 
-          React.createElement("a", {href: 'XXXprofile URL'}, 
-            React.createElement("button", {className: "btn btn-primary walkthrough", 'data-step': "publish-confirmation"},  t('Publish') )
+        React.createElement("div", null, 
+          React.createElement("article", null, 
+            React.createElement("header", null, 
+              React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
+              React.createElement("h3", null,  t('Okay, You\'re Ready to Publish') )
+            ), 
+            React.createElement("div", {className: "modal-body"}, 
+              React.createElement("p", null,  t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.') )
+            ), 
+            React.createElement("footer", null, 
+              React.createElement("div", {className: "pull-left"}, 
+                React.createElement("a", {className: "walkthrough close", 'data-dismiss': "modal", onClick: close}, " ",  t('Bring me back to edit') )
+              ), 
+              React.createElement("a", null, 
+                React.createElement("button", {className: "btn btn-primary walkthrough", 'data-step': "publish-confirmation", onClick: publish},  t('Publish') )
+              )
+            )
           )
         )
       )
     );
+    /*
     return (
-      React.createElement("dialog", {id: "publish-confirmation"}, 
-        React.createElement("header", null, 
-          React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
-          React.createElement("h3", null, "Your Walk Has Been Published!")
-        ), 
-        React.createElement("div", {className: "modal-body"}, 
-          React.createElement("p", null, "Congratulations! Your walk is now available for all to peruse."), 
-          React.createElement("h2", {className: "lead"}, t('Don\'t forget to share your walk!')), 
-          React.createElement("label", null, "Your Walk Web Address:"), 
-          React.createElement("input", {type: "text", className: "clone js-url-field", value: this.props.url, readOnly: true}), 
-          React.createElement("hr", null), 
-          React.createElement("button", {className: "btn facebook"}, React.createElement("i", {className: "fa fa-facebook-sign"}), " Share on Facebook"), 
-          React.createElement("button", {className: "btn twitter"}, React.createElement("i", {className: "fa fa-twitter-sign"}), " Share on Twitter")
-        ), 
-        React.createElement("footer", null, 
-          React.createElement("button", {className: "btn btn-primary walkthrough"}, "Close")
-        )
-      )
+      <dialog id="publish-confirmation">
+        <header>
+          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h3>Your Walk Has Been Published!</h3>
+        </header>
+        <div className="modal-body">
+          <p>Congratulations! Your walk is now available for all to peruse.</p>
+          <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
+          <label>Your Walk Web Address:</label>
+          <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
+          <hr />
+          <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
+          <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
+        </div>
+        <footer>
+          <button className="btn btn-primary walkthrough">Close</button>
+        </footer>
+      </dialog>
     );
+    */
   }
 });
 
@@ -956,7 +993,7 @@ var DateSelect = React.createClass({displayName: 'DateSelect',
 
             React.createElement("div", {className: "row"}, 
               React.createElement("div", {className: "col-md-6"}, 
-                React.createElement(DatePicker, {setDay: this.setDay})
+                React.createElement(DatePicker, {setDay: this.setDay, defaultDate: this.state.start})
               ), 
               React.createElement("div", {className: "col-md-6"}, 
                 React.createElement("div", {className: "thumbnail"}, 
@@ -1030,6 +1067,7 @@ var DatePicker = React.createClass({displayName: 'DatePicker',
   componentDidMount: function() {
     // Setup sorting on the walk-stops list
     $(this.getDOMNode()).datepicker({
+      defaultDate: this.props.defaultDate,
       onSelect: function(dateText) {
         this.props.setDay(new Date(dateText));
       }.bind(this)
@@ -1060,7 +1098,10 @@ var TimePicker = React.createClass({displayName: 'TimePicker',
       for (var i = 0, time = firstTime;
            time <= lastTime;
            time += step) {
-        startTimes.push(time);
+        startTimes.push({
+          asMs: time,
+          asString: (new Date(time)).toLocaleTimeString(undefined, {timeZone: 'UTC'})
+        });
       }
 
       this.setState({
@@ -1091,8 +1132,8 @@ var TimePicker = React.createClass({displayName: 'TimePicker',
         React.createElement("select", {name: "start", id: "walk-start", valueLink: linkStart}, 
           this.state.startTimes.map(function(time, i) {
             return (
-              React.createElement("option", {key: 'walk-start' + i, value: time}, 
-                (new Date(time)).toLocaleTimeString(undefined, {timeZone: 'UTC'})
+              React.createElement("option", {key: 'walk-start' + i, value: time.asMs}, 
+                time.asString
               )
               );
           })
