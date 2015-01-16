@@ -145,7 +145,9 @@ class WalkPageTypeController extends Controller
     {
         header('Content-Type: application/json');
         $this->c->setAttribute('exclude_page_list',true);
-        $this->setEventBriteStatus('draft');
+
+        // TODO: Update the MirrorWalk to unpublish
+        
         echo json_encode([
             'cID' => $this->walk->getPage()->getCollectionID(),
         ]);

@@ -3450,6 +3450,7 @@ var ProfilePageView = function(element) {
     this._setupBlogPostPromoteModalEvents();
     this._setupPromoteSlideshows();
     this._setupTransferWalkEvents();
+    this._setupUnpublishWalkEvents();
   } catch(e) {
     console.error("Error initializing profile: " + e.stack);
   }
@@ -3717,8 +3718,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
           this.getAttribute('href'),
           function(data) {
             if (data.error) {
-              // TODO: alerts are lame. Find a proper area for messaging
-              alert(data.error);
+              console.error(data.error);
             } else {
               // Just refresh the page for now
               window.location = window.location;
@@ -3741,6 +3741,28 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
     }
   },
 
+  /**
+   * _setupUnpublishWalkEvents
+   *
+   * @protected
+   * @return  void
+   */
+  _setupUnpublishWalkEvents: {
+    value: function() {
+      var _this = this;
+      // Set the 'unpublish' buttons in the walks columns
+      this._element.find('a.delete').click(function(event) {
+        event.preventDefault();
+        $.ajax({
+          url: this.getAttribute('href'),
+          type: 'DELETE',
+          success: function() {
+            window.location = window.location;
+          }
+        });
+      });
+    }
+  },
 
   /**
    * _setupDisplayPictureFlashWidget
