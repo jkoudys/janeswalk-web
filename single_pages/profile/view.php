@@ -58,6 +58,12 @@ $userBlogPostsArr = array_map(
     (array) $userBlogPosts
 );
 
+// Messages for promoting your city
+$cityPromoMessages = [
+    t('%1$s has %2$s happening this year. Why not make it %3$s? Lead a Jane\'s Walk in %1$s this year!', $homeCityName, t2('%d walk', '%d walks', count($cityWalks)), count($cityWalks) + 1),
+    t('Calling all volunteers in %s! We need some help at this year\'s Jane\'s Walk!', $homeCityName)
+];
+
 ?>
 <script type="text/javascript">
     window.fbAsyncInit = function () {
@@ -111,47 +117,16 @@ if ($cityOrganizerData) {
             <h1><?= tc('Promote CITY_NAME', 'Promote %s', $homeCityName) ?></h1>
             <p><?= t('Use these pre-made messages to spread the word about Jane\'s Walk in %s', $homeCityName) ?></p>
             <div class="options">
-                <div class="option">
-                    <div class="copy">
-                        <?= t('%1$s has %2$s happening this year. Why not make it %3$s? Lead a Jane\'s Walk in %1$s this year!',
-                        $homeCityName, t2('%d walk', '%d walks', count($cityWalks)), count($cityWalks) + 1) ?>
-                    </div>
+                <?php foreach ($cityPromoMessages as $key => $message) { ?>
+                <div class="option <?= $key ? 'hidden' : '' ?>">
+                    <div class="copy"><?= $message ?></div>
                     <div class="networks">
                         <a href="#" class="fa fa-facebook"></a>
                         <a href="#" class="fa fa-twitter"></a>
                         <a href="#" class="fa fa-envelope"></a>
                     </div>
                 </div>
-                <div class="option hidden">
-                    <div class="copy">
-                        "<?= t('Calling all volunteers in %s! We need some help at this year\'s Jane\'s Walk!', $homeCityName) ?>"
-                    </div>
-                    <div class="networks">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-envelope"></a>
-                    </div>
-                </div>
-                <div class="option hidden">
-                    <div class="copy">
-                        "<?= t('Option #3 ...', $homeCityName) ?>"
-                    </div>
-                    <div class="networks">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-envelope"></a>
-                    </div>
-                </div>
-                <div class="option hidden">
-                    <div class="copy">
-                        "<?= t('Option #4 ...', $homeCityName) ?>"
-                    </div>
-                    <div class="networks">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-envelope"></a>
-                    </div>
-                </div>
+                <?php } ?>
                 <div class="nav">
                     <a href="#" class="left fa fa-arrow-left" data-slideshow="city"></a>
                     <a href="#" class="right fa fa-arrow-right" data-slideshow="city"></a>

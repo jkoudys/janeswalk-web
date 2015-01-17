@@ -155,10 +155,13 @@ var CreateWalk = React.createClass({
   handleNext: function() {
     // Bootstrap's managing the tabs, so trigger a jQuery click on the next
     var next = $('#progress-panel > .nav > li.active + li > a');
-    if (next) {
+    window.scrollTo(0, 0);
+    if (next.length) {
       this.saveWalk();
-      window.scrollTo(0, 0);
       next.trigger('click');
+    } else {
+      // If no 'next' tab, next step is to publish
+      $(this.refs.publish.getDOMNode()).trigger('click');
     }
   },
  
@@ -220,7 +223,7 @@ var CreateWalk = React.createClass({
             </ul>
             <section id="button-group">
               <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
-              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={function() {this.setState({publish: true})}.bind(this)}>{ t('Publish Walk') }</button>
+              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={function() {this.setState({publish: true})}.bind(this)} ref="publish">{ t('Publish Walk') }</button>
               <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.handleSave}>{ t('Save') }</button>
             </section>
           </nav>
