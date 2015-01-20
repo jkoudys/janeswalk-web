@@ -64,6 +64,13 @@ $cityPromoMessages = [
     t('Calling all volunteers in %s! We need some help at this year\'s Jane\'s Walk!', $homeCityName)
 ];
 
+$walkPromoMessages = [
+    t('Join me on my walk [WALKNAME] at this year\'s Jane\'s Walk!')
+];
+
+$blogPromoMessages = [
+];
+
 ?>
 <script type="text/javascript">
     window.fbAsyncInit = function () {
@@ -109,7 +116,7 @@ if ($cityOrganizerData) {
 }
 ?>
 <main id="profileWrapper" <?= $homeCityName ? ('data-city="' . $homeCityName . '"') : '' ?>>
-    <?php if ($userIsViewingSelf === true): ?>
+    <?php if ($userIsViewingSelf === true) { ?>
     <?php if ($userHomeCity) { ?>
     <div class="overlay promoteOverlay cityPromoteOverlay" data-slideshow="city" data-citypath="<?= $userHomeCity->getCollectionPath() ?>" data-cityname="<?= $userHomeCity->getCollectionName() ?>">
         <div class="o-background"></div>
@@ -144,37 +151,7 @@ if ($cityOrganizerData) {
             <div class="options">
                 <div class="option">
                     <div class="copy">
-                        "<?= t('Sample tweet: <span class="objTitle">{obj.title}</span>') ?>"
-                    </div>
-                    <div class="networks">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-envelope"></a>
-                    </div>
-                </div>
-                <div class="option hidden">
-                    <div class="copy">
-                        "<?= t('Sample tweet #2: <span class="objTitle">{obj.title}</span>') ?>"
-                    </div>
-                    <div class="networks">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-envelope"></a>
-                    </div>
-                </div>
-                <div class="option hidden">
-                    <div class="copy">
-                        "<?= t('Sample tweet #3: <span class="objTitle">{obj.title}</span>') ?>"
-                    </div>
-                    <div class="networks">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-envelope"></a>
-                    </div>
-                </div>
-                <div class="option hidden">
-                    <div class="copy">
-                        "<?= t('Sample tweet #4: <span class="objTitle">{obj.title}</span>') ?>"
+                        "<?= 'Sample tweet: <span class="objTitle">{obj.title}</span>' ?>"
                     </div>
                     <div class="networks">
                         <a href="#" class="fa fa-facebook"></a>
@@ -236,9 +213,10 @@ if ($cityOrganizerData) {
                     <h1><?= t('Promote Your Walk') ?></h1>
                     <p><?= t('Use these pre-made messages to spread the word about your walk') ?>:</p>
                     <div class="options">
-                        <div class="option">
+                        <?php foreach ($walkPromoMessages as $key => $message) { ?>
+                        <div class="option <?= $key ? 'hidden' : '' ?>">
                             <div class="copy">
-                                "<?= t('Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
+                                "<?= $message ?>"
                             </div>
                             <div class="networks">
                                 <a href="#" class="fa fa-facebook"></a>
@@ -246,36 +224,7 @@ if ($cityOrganizerData) {
                                 <a href="#" class="fa fa-envelope"></a>
                             </div>
                         </div>
-                        <div class="option hidden">
-                            <div class="copy">
-                                "<?= t('#2: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
-                            </div>
-                            <div class="networks">
-                                <a href="#" class="fa fa-facebook"></a>
-                                <a href="#" class="fa fa-twitter"></a>
-                                <a href="#" class="fa fa-envelope"></a>
-                            </div>
-                        </div>
-                        <div class="option hidden">
-                            <div class="copy">
-                                "<?= t('#3: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
-                            </div>
-                            <div class="networks">
-                                <a href="#" class="fa fa-facebook"></a>
-                                <a href="#" class="fa fa-twitter"></a>
-                                <a href="#" class="fa fa-envelope"></a>
-                            </div>
-                        </div>
-                        <div class="option hidden">
-                            <div class="copy">
-                                "<?= t('#4: Join me on my walk <span class="objTitle">{obj.title}</span> at this year\'s Jane\'s Walk!') ?>"
-                            </div>
-                            <div class="networks">
-                                <a href="#" class="fa fa-facebook"></a>
-                                <a href="#" class="fa fa-twitter"></a>
-                                <a href="#" class="fa fa-envelope"></a>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
                     <div class="nav">
                         <a href="#" class="left fa fa-arrow-left" data-slideshow="walk"></a>
@@ -550,7 +499,7 @@ if ($cityOrganizerData) {
                     }
                     ?>
                     <div class="btnWrapper">
-                        <?= $form->submit('edit/save', t('Save'), array(), 'btn-primary btn-large') ?>
+                        <?= $form->submit('edit/save', t('Save'), [], 'btn-primary btn-large') ?>
                     </div>
                 </div>
                 <div class="column password">
@@ -572,7 +521,7 @@ if ($cityOrganizerData) {
                         </div>
                     </div>
                     <div class="btnWrapper">
-                        <?= ($form->submit('save', t('Save'), array(), 'btn-primary btn-large')) ?>
+                        <?= ($form->submit('save', t('Save'), [], 'btn-primary btn-large')) ?>
                     </div>
                 </div>
                 <?php
@@ -707,7 +656,7 @@ if ($cityOrganizerData) {
             <?php endif; ?>
         </div>
     </div>
-    <?php else: ?>
+    <?php } else { ?>
     <div id="ccm-profile-wrapper">
         <div id="ccm-profile-body">
             <div id="ccm-profile-body-attributes">
@@ -727,5 +676,5 @@ if ($cityOrganizerData) {
             </div>
         </div>
     </div>
-    <?php endif; ?>
+    <?php } ?>
 </main>

@@ -172,9 +172,8 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
         event.preventDefault();
         var walkObj = _this._getWalkObjById($(this).data('walkid'));
         _this._element.find('.walkPromoteOverlay .copy').each(function(index, copy) {
-          var $copy = $(copy);
-          $copy.data('walkpath', walkObj.path);
-          $copy.find('.objTitle').text(walkObj.title);
+          copy.dataset.walkpath = walkObj.path;
+          copy.textContent = copy.textContent.replace(/\[WALKNAME\]/, walkObj.title);
         });
         _this._element.find('.walkPromoteOverlay').show();
       });
