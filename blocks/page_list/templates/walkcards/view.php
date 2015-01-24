@@ -27,7 +27,7 @@ foreach ($cards as $walk) {
         );
     }
 ?>
-<div class="walk" <?php if (!empty($walk->slots)) { ?>data-time="<?= $walk->slots[0][0] * 1000 ?>"<?php } ?>>
+<div class="walk" <?php if (!empty($walk->slots)) { ?>data-time-start="<?= $walk->slots[0][0] * 1000 ?>" data-time-end="<?= $walk->slots[0][1] * 1000 ?>"<?php } ?>>
     <a href="<?= $link ?>">
         <div class="thumbnail">
             <div class="walkimage <?= $placeholder ?>" style="background-image:url(<?= $thumbnail ?>)"></div>
@@ -35,7 +35,7 @@ foreach ($cards as $walk) {
                 <h4><?= Loader::helper('text')->shortText((string) $walk, 45) ?></h4>
                 <ul class="when">
                     <?php foreach ($walk->slots as $slot) { ?>
-                        <li><i class="fa fa-calendar"></i> <?= date('h:i A, M j, Y', $slot[0]) ?></li>
+                        <li><i class="fa fa-calendar"></i> <?= gmdate('h:i A, M j, Y', $slot[0]) ?></li>
                     <?php } ?>
                     <li><?= t('Meet at %s', $meetingText) ?></li>
                 </ul>
