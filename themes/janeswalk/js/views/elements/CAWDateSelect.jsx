@@ -3,24 +3,23 @@ var DateSelect = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
   getInitialState: function() {
     var today = new Date;
+    var start = new Date(
+      Date.UTC(
+        today.getUTCFullYear(),
+        today.getUTCMonth(),
+        today.getUTCDate() + 7,
+        11,
+        00
+      )
+    );
+    // Default to a 1-hour walk time
+    var duration = 60 * 60 * 1000;
+
     // Note: we're only keeping the 'date' on there to use Date's string
     // parsing. This method is concerned only with the Time
-    // TODO: use a Date for the end time; duration is for historical purposes
-    // but it's a bad design.
     // TODO: Support proper time localization - ultimately these times are just
     // strings, so we're using GMT, but that's bad practice.
-    return {
-      start: new Date(
-        Date.UTC(
-          today.getUTCFullYear(),
-          today.getUTCMonth(),
-          today.getUTCDate() + 7,
-          11,
-          00
-        )
-      ),
-      duration: '1 Hour'
-    };
+    return {start: start, duration: duration};
   },
   setDay: function(date) {
     var startDate = this.state.start;
@@ -64,11 +63,11 @@ var DateSelect = React.createClass({
     var valueLink = this.props.valueLink;
     var value = valueLink.value || {};
     var slots = (value.slots || []).slice();
-    slots.push({
-      date: this.state.start.toLocaleString('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'}),
-      time: this.state.start.toLocaleString('en-US', {hour: '2-digit', minute: '2-digit', timeZone: 'UTC'}),
-      duration: this.state.duration
-    });
+    var start = this.state.start.getTime();
+    var end = start + this.state.duration;
+
+    // Store the timeslot state as seconds, not ms
+    slots.push([start / 1000, end / 1000]);
 
     value.slots = slots;
     valueLink.requestChange(value);
@@ -219,6 +218,8 @@ var TimePicker = React.createClass({
   // Date management is slow, so avoid rebuilding unless needed
   setStartTimes: function(start, step) {
     if (this.state.start !== start) {
+      // It's fastest to build our date formatter once upfront
+      var dtfTime = new Intl.DateTimeFormat(undefined, {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
       // All start times begin on the date's 0:00, and by default step every 30 min
       var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()];
       var firstTime = Date.UTC.apply(this, yrMoDay);
@@ -231,7 +232,7 @@ var TimePicker = React.createClass({
            time += step) {
         startTimes.push({
           asMs: time,
-          asString: (new Date(time)).toLocaleTimeString(undefined, {timeZone: 'UTC'})
+          asString: dtfTime.format(time)
         });
       }
 
@@ -254,8 +255,14 @@ var TimePicker = React.createClass({
   render: function() {
     // Count walk times in 30 min increments
     var linkDuration = this.props.valueLinkDuration;
+    var requestChange = linkDuration.requestChange;
     var linkStart = this.props.valueLinkStart;
     var t = this.props.i18n.translate.bind(this.props.i18n);
+
+    // Cast duration as a number
+    linkDuration.requestChange = function(value) {
+      requestChange(Number(value));
+    };
 
     return (
       <div className="time-picker">
@@ -271,13 +278,13 @@ var TimePicker = React.createClass({
         </select>
         <label htmlFor="walk-time">{ t('Approximate Duration of Walk') }:</label>
         <select name="duration" id="walk-duration" valueLink={linkDuration}>
-          <option value="30 Minutes">30 Minutes</option>
-          <option value="1 Hour">1 Hour</option>
-          <option value="1 Hour, 30 Minutes">1 Hour, 30 Minutes</option>
-          <option value="2 Hours">2 Hours</option>
-          <option value="2 Hours, 30 Minutes">2 Hours, 30 Minutes</option>
-          <option value="3 Hours">3 Hours</option>
-          <option value="3 Hours, 30 Minutes">3 Hours, 30 Minutes</option>
+          <option value={30 * 60000}>30 Minutes</option>
+          <option value={60 * 60000}>1 Hour</option>
+          <option value={90 * 60000}>1 Hour, 30 Minutes</option>
+          <option value={120 * 60000}>2 Hours</option>
+          <option value={150 * 60000}>2 Hours, 30 Minutes</option>
+          <option value={180 * 60000}>3 Hours</option>
+          <option value={210 * 60000}>3 Hours, 30 Minutes</option>
         </select>
       </div>
     );
@@ -298,22 +305,41 @@ var TimeSetTable = React.createClass({
   render: function() {
     var slots = this.props.valueLink.value.slots || [];
     var t = this.props.i18n.translate.bind(this.props.i18n);
+    var t2 = this.props.i18n.translatePlural.bind(this.props.i18n);
+
+    var dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
+    var dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
 
     return (
       <table className="table table-bordered table-hover" id="date-list-all">
         <thead>
           <tr>
-            <th>{ t('Date') }</th>
-            <th>{ t('Start Time') }</th>
+            <th>{t('Date')}</th>
+            <th>{t('Start Time')}</th>
+            <th>{t('Duration')}</th>
             <th />
           </tr>
         </thead>
         <tbody>
-          {slots.map(function(e, i) {
+          {slots.map(function(slot, i) {
+            var start = (new Date(slot[0] * 1000));
+            var duration = (new Date((slot[1] - slot[0]) * 1000));
+
+            var hours = duration.getUTCHours();
+            var minutes = duration.getUTCMinutes();
+            var durationFmt = [];
+            if (hours) {
+              durationFmt.push(t2('%d Hour', '%d Hours', hours));
+            }
+            if (minutes) {
+              durationFmt.push(t2('%d Minute', '%d Minutes', minutes));
+            }
+
             return (
               <tr key={i}>
-                <td>{e.date}</td>
-                <td>{e.time}</td>
+                <td>{dtfDate.format(start)}</td>
+                <td>{dtfDuration.format(start)}</td>
+                <td>{durationFmt.join(', ')}</td>
                 <td><a onClick={this.removeSlot.bind(this, i)}><i className="fa fa-times-circle-o" />&nbsp;{t('Remove')}</a></td>
               </tr>
               )

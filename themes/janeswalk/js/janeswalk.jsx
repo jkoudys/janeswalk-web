@@ -18,6 +18,10 @@ var ReactViews = {
   CreateWalkView: require('./views/CreateWalk.jsx')
 };
 
+// Shims
+// Used for Intl.DateTimeFormat
+require('intl/Intl.min');
+
 document.addEventListener('DOMContentLoaded', function() {
   var pageViewName =
     document.body.getAttribute('data-pageViewName') ||

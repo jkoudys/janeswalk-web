@@ -31,6 +31,21 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
     }
 }
 
+// Use the duration of the next available walk
+if (!empty($w->time['slots'])) {
+    $duration = new DateTime('@' . ($w->time['slots'][0][1] - $w->time['slots'][0][0]));
+    $hours = (int) $duration->format('H');
+    $minutes = (int) $duration->format('i');
+    $durationComponents = [];
+
+    if ($hours) {
+        $durationComponents[] = t2('%d Hour', '%d Hours', $hours);
+    }
+    if ($minutes) {
+        $durationComponents[] = t2('%d Minute', '%d Minutes', $minutes);
+    }
+}
+
 ?>
 <div id="fb-root"></div>
 <script type="text/javascript">
@@ -65,21 +80,20 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
             <h1 class="walk-title"><?= $w ?></h1>
             <div class="profiles">
                 <div id="reg-group">
-                    <?php
-                    $slots = (array) $w->time['slots'];
-                    if ($w->time['open']) {
-                    ?>
+                    <?php if ($w->time['open']) { ?>
                     <h4 class="available-time"><i class="fa fa-calendar"></i> <?= t('Open schedule') ?></h4>
                     <?php
-                    } elseif (isset($slots[0]['date'])) {
+                    } elseif (isset($w->time['slots'])) {
                     ?>
                     <h4 class="available-time">
                         <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($slots)) ?>:<br />
                         <?php
-                        foreach ($slots as $slot) { ?>
-                        <span class="highlight"><?= $slot['date'] ?></span>
+                        foreach ($w->time['slots'] as $slot) {
+                            $start = DateTime::createFromFormat('U', $slot[0]);
+                        ?>
+                        <span class="highlight"><?= $start->format('F j, Y') ?></span>
                         <span class="divider">|</span>
-                        <span class="time"><?= ($slot['time']) ?></span>
+                        <span class="time"><?= $start->format('h:i A') ?></span>
                         <br />
                         <?php
                         }
@@ -106,10 +120,10 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
         <div class="walk-stops" style="display:none">
             <div class="walk-stops-meta box-sizing">
                 <header id="header" class="walk-stops-meta-inner">
-                    <?php if (isset($slots[0]['duration'])) { ?>
+                    <?php if (isset($duration)) { ?>
                     <h4><i class="fa fa-clock-o"></i> <?= t('Duration') ?>:</h4>
                     <h5>
-                        <?= t('Approximately'), '  ', $slots[0]['duration'] ?>
+                        <?= t('Approximately') . '  ', join(', ', $durationComponents) ?>
                     </h5>
                     <?php } else { ?>
                     <h4><i class="fa fa-clock"></i> <?= t('Open Schedule') ?></h4>

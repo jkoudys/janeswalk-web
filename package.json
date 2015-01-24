@@ -22,7 +22,8 @@
     "through2": "^0.6.3",
     "uglifyify": "~2.6.0",
     "vinyl-buffer": "~1.0.0",
-    "vinyl-source-stream": "~1.0.0"
+    "vinyl-source-stream": "~1.0.0",
+    "intl": "~0.1.4"
   },
   "browserify-shim": {
     "react": "global:React"

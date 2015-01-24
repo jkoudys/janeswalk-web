@@ -119,23 +119,26 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             Loader::helper('theme');
             $cards = $this->loadCards();
             $this->set('cards', $cards);
+
+            // Build a separate walk card for each date
             foreach ($cards as $walk) {
-                foreach (array_slice($walk->datetimes, 1) as $dt) {
-                    $walk->datetimes = array($dt);
+                foreach ((array) $walk->time['slots'] as $slot) {
+                    $walk->slots = [$slot];
                     $cards[] = $walk;
                 }
             }
+
             // Sort the cards by their timestamp
-            // TODO: This would be more efficient in SQL, as we're resorting
+            // TODO: Move this to client-side sorting
             usort(
                 $cards,
-                function ($b, $a) {
-                    if ($a->datetimes[0] && $b->datetimes[0]) {
-                        return $a->datetimes[0]['timestamp'] - $b->datetimes[0]['timestamp'];
+                function($b, $a) {
+                    if ($a->slots[0] && $b->slots[0]) {
+                        return $a->slots[0][0] - $b->slots[0][0];
                     } else {
-                        if ($a->datetimes[0]) {
+                        if (!empty($a->slots[0])) {
                             return -1;
-                        } elseif ($b->datetimes[0]) {
+                        } elseif (!empty($b->slots[0])) {
                             return 1;
                         }
 

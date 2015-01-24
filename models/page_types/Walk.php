@@ -42,8 +42,6 @@ class Walk extends \Model implements \JsonSerializable
            $wards,
            $themes;
 
-    /* Value store for getters */
-    private $getCache;
     // Map the object properties to their DB handle
     private $handleMap = [
         'shortDescription' => 'shortdescription',
@@ -72,7 +70,6 @@ class Walk extends \Model implements \JsonSerializable
         if ($page->getCollectionTypeHandle() !== 'walk') {
             throw new Exception(t('Attempted to instantiate Walk model on a non-walk page type.'));
         }
-        $this->getCache = array();
 
         $this->page = $page;
         $this->title = $page->getCollectionName();
@@ -83,8 +80,10 @@ class Walk extends \Model implements \JsonSerializable
 
         // Consolodated query; runs way faster than a dozen getAttributes
         foreach (
-            $db->getAll('select value, ak.akHandle from atDefault atd INNER JOIN CollectionAttributeValues cav ON (atd.avID = cav.avID) INNER JOIN AttributeKeys ak ON (ak.akID = cav.akID AND (' . $stmt . ')) WHERE cav.cID = ? AND cav.cvID = ?', [$page->getCollectionID(), $page->getVersionID()]) as
-            $av
+            $db->getAll(
+                'select value, ak.akHandle from atDefault atd INNER JOIN CollectionAttributeValues cav ON (atd.avID = cav.avID) INNER JOIN AttributeKeys ak ON (ak.akID = cav.akID AND (' . $stmt . ')) WHERE cav.cID = ? AND cav.cvID = ?',
+                [$page->getCollectionID(), $page->getVersionID()]
+            ) as $av
         ) {
             // Find which return value we're setting
             $key = array_search($av['akHandle'], $this->handleMap);
@@ -131,6 +130,7 @@ class Walk extends \Model implements \JsonSerializable
 
             return $this->crumbs;
             break;
+
         case 'teamPictures':
             // @return Array<Array> of members
             $theme = \PageTheme::getByHandle('janeswalk');
@@ -167,11 +167,13 @@ class Walk extends \Model implements \JsonSerializable
                     }
 
                     return $mem;
-                }, (array) $this->team
+                },
+                (array) $this->team
             );
 
             return $this->teamPictures;
             break;
+
         case 'walkLeaders':
             // @return Array of team members who are walk leaders
             return array_filter(
@@ -181,10 +183,13 @@ class Walk extends \Model implements \JsonSerializable
                 }
             );
             break;
+
         case 'city':
             // @return City of walk's city
-            return $this->getCache['city'] ?: ($this->getCache['city'] = new City(Page::getByID($this->page->getCollectionParentID())));
+            $this->city = new City(Page::getByID($this->page->getCollectionParentID()));
+            return $this->city;
             break;
+
         case 'meetingPlace':
             // @return Array<title, description> for first stop on walking route
             foreach ((array) $this->map['markers'] as $marker) {
@@ -193,6 +198,7 @@ class Walk extends \Model implements \JsonSerializable
                 return $this->meetingPlace;
             }
             break;
+
         case 'initiatives':
             // Initiatives
             $this->initiatives = [];
@@ -207,39 +213,7 @@ class Walk extends \Model implements \JsonSerializable
 
             return $this->initiatives;
             break;
-        case 'datetimes':
-            // Date + time pairings
-            $scheduled = $this->page->getAttribute('scheduled');
-            $this->datetimes = [];
-
-            foreach ((array) $scheduled['slots'] as $s) {
-                $this->datetimes[] = [
-                    'date' => $s['date'],
-                    'time' => $s['time'],
-                    'timestamp' => strtotime($s['date'] . ' ' . $s['time'])
-                ];
-            }
-
-            return $this->datetimes;
-            break;
         }
-    }
-
-    public function __set($name, $value)
-    {
-        switch ($name) {
-        case 'city':
-            // When setting a walk's city, this implies moving that walk Page to a new parent
-            if ($value instanceof Page && $value->getCollectionTypeHandle() === 'city') {
-                return $this->page->move($value);
-            } else {
-                throw new Exception(t('Attempted to move a page of type Walk to a non-City page'));
-            }
-            break;
-        }
-
-        // Always finish by running parent method, else only defined properties can be set
-        parent::__set($name, $value);
     }
 
     /*
@@ -416,8 +390,8 @@ class Walk extends \Model implements \JsonSerializable
     }
 
     /**
-     * getPage()
      * Returns a page object for this walk. Keeping $page protected as we may want some logic around this later
+     *
      * @return Page
      */
     public function getPage()
@@ -426,8 +400,8 @@ class Walk extends \Model implements \JsonSerializable
     }
 
     /**
-     * getTimezone()
      * Looks up the timezone for this walk.
+     *
      * @return string Time zone abbreviation
      */
     public function getTimezone()

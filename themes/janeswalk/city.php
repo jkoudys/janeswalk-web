@@ -1,5 +1,5 @@
 <?php
-defined('C5_EXECUTE') || die(_("Access Denied."));
+defined('C5_EXECUTE') || die(_('Access Denied.'));
 $this->inc('elements/header.php');
 
 // Photo credits
@@ -22,6 +22,9 @@ if ($city->website) {
 
 $cityName = t((string) $city);
 
+$intro = $c->getAttribute('intro');
+$longDescription = $c->getAttribute('longdescription');
+
 $this->inc('elements/navbar.php') ?>
 <section id="intro-city">
     <div class="city-summary">
@@ -29,6 +32,7 @@ $this->inc('elements/navbar.php') ?>
             <?= $cityName ?>
             <?php if ($canEdit) { ?><a href="<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>"><i class='fa fa-pencil-square'></i></a><?php } ?>
         </h1>
+        <?= $intro ?>
         <?php (new Area('City Header'))->display($c) ?>
         <?php if ($bgPhotoCreditName && $bgPhotoCreditName) { ?>
         <small>
@@ -61,6 +65,7 @@ $this->inc('elements/navbar.php') ?>
         <div class="item">
             <h2><?= t('Jane’s Walks') ?></h2>
             <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $cityName) ?></h4>
+            <?= $longDescription ?>
             <?php (new Area('City Description'))->display($c) ?>
         </div>
         <div class="menu-flags">

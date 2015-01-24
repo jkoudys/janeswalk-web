@@ -52,13 +52,13 @@ Object.defineProperties(I18nTranslator.prototype, {
    */
   translatePlural: {
     value: function(singular, plural, count) {
-      // The key for the plural is not the plural value, but singular_plural
-      var translated = Array.prototype.slice.call(arguments);
       // TODO Use the plural rules for the language, not just English
       var isPlural = (count !== 1) ? 1 : 0;
-      translated[0] = (this.translations[singular + '_' + plural] ||
+   
+      var translateTo = (this.translations[singular + '_' + plural] ||
                        [singular, plural])[isPlural];
-      return sprintf.apply(this, translated);
+      
+      return sprintf(translateTo, count);
     }
   },
 
