@@ -2814,7 +2814,7 @@ var PageView = require('../Page.jsx');
  */
 var CityPageView = function(element) {
   PageView.call(this, element);
-  this._cards = this._element[0].querySelectorAll('.walk');
+  this._cards = Array.prototype.slice.call(this._element[0].querySelectorAll('.walk'), 0);
   this._data = JanesWalk.walks;
   this._sortWalkList();
   this._resetSelectElements();
@@ -2839,7 +2839,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
    * _cards
    * 
    * @protected
-   * @var       NodeList|null (default: null)
+   * @var       Array|null (default: null)
    */
   _cards: {value: null, writable: true},
 
@@ -3164,7 +3164,9 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       archiveMessage.classList.add('statusMessage');
       // TODO: Use translation functions once loaded by ReactJS
       archiveMessage.textContent = 'Archived';
-      Array.prototype.forEach.call(this._cards, function(card) {
+
+      // List the archived walks as archived
+      this._cards.forEach(function(card) {
         var img = card.querySelector('.walkimage');
         var dayOld = (utcTime - Number(card.dataset.timeEnd)) > (24 * 60 * 60 * 1000);
         if (img && dayOld) {
@@ -3172,7 +3174,9 @@ CityPageView.prototype = Object.create(PageView.prototype, {
           img.appendChild(archiveMessage.cloneNode(true));
         }
       });
-      Array.prototype.sort.call(this._cards, function(a, b) {
+
+      // Sort the walks by date, with archived at the end
+      this._cards.sort(function(a, b) {
         // If one is archived and the other not, the unarchived comes next
         if (a.dataset.archived  && !b.dataset.archived) {
           return 1;
@@ -3182,6 +3186,12 @@ CityPageView.prototype = Object.create(PageView.prototype, {
           // If they're both archived or unarchived, sort by date
           return a.dataset.timeEnd - b.dataset.timeEnd;
         }
+      });
+
+      // And now, we can re-order it in the DOM
+      this._cards.forEach(function(card) {
+        // Take it out of its current order, and back in at the end
+        card.parentElement.appendChild(card);
       });
     }
   },
