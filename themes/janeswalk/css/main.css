@@ -214,18 +214,12 @@ th {
   }
   p,
   h2,
-  h3,
-  body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
-  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+  h3 {
     orphans: 3;
     widows: 3;
   }
   h2,
-  h3,
-  body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
-  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+  h3 {
     page-break-after: avoid;
   }
   select {
@@ -387,9 +381,12 @@ h6,
 .h6,
 #profileWrapper div.headline,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
@@ -428,10 +425,7 @@ h1,
 h2,
 .h2,
 h3,
-.h3,
-body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+.h3 {
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -456,7 +450,13 @@ h5,
 h6,
 .h6,
 #profileWrapper div.headline,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title {
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -483,16 +483,19 @@ h2,
   font-size: 30px;
 }
 h3,
-.h3,
-body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+.h3 {
   font-size: 24px;
 }
 h4,
 .h4,
 #profileWrapper div.headline,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title {
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
   font-size: 18px;
 }
 h5,
@@ -7455,9 +7458,12 @@ h5,
 h6,
 #profileWrapper div.headline,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
   font-family: "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -7471,16 +7477,19 @@ h2 {
   font-weight: 100;
   font-size: 40px;
 }
-h3,
-body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+h3 {
   font-weight: 100;
   font-size: 25px;
 }
 h4,
 #profileWrapper div.headline,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title {
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
   font-weight: 700;
   font-size: 17px;
 }
@@ -9692,6 +9701,13 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkim
   color: #fff;
   line-height: 250px;
   text-align: center;
+}
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
+  font-family: FontAwesome;
+  content: "\f017";
+  padding-right: 0.5em;
 }
 body.city-page > #city-details .walk .thumbnail .caption p,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption p,

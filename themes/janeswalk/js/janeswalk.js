@@ -3163,7 +3163,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       var utcTime = Date.now() - (new Date).getTimezoneOffset() * 60 * 1000;
       archiveMessage.classList.add('statusMessage');
       // TODO: Use translation functions once loaded by ReactJS
-      archiveMessage.textContent = 'Archived';
+      archiveMessage.textContent = 'Ended';
 
       // List the archived walks as archived
       this._cards.forEach(function(card) {

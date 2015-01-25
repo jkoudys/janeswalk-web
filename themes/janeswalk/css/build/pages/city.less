@@ -132,7 +132,7 @@ body.city-page {
                     background-position: 50% 50%;
                     width:100%;
                     min-height: @height-walkimage;
-                    .statusMessage:extend(h3) {
+                    .statusMessage:extend(h4) {
                         position: absolute;
                         margin-top: 0;
                         top: 0;
@@ -143,6 +143,13 @@ body.city-page {
                         color: #fff;
                         line-height: @height-walkimage;
                         text-align: center;
+
+                        // Fontawesome clock
+                        &:before {
+                            font-family: FontAwesome;
+                            content: "\f017";
+                            padding-right: 0.5em;
+                        }
                     }
                 }
 
