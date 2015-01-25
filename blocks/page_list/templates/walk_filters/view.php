@@ -11,12 +11,7 @@ $filterTuples = [
 ];
 
 ?>
-<?php if (count($cards) > 8) { ?>
-    <a class="see-all"><?= t2('show only this walk', 'see all %d walks', count($cards)) ?></a>
-<?php } ?>
 <section class="ccm-block-page-list-walk-filters">
-    <div class="walk-preview">
-    </div>
     <div class="walk-filters">
         <ul class="nav nav-tabs">
             <li class="active"><a href="#jw-cards" data-toggle="tab">All Walks</a></li>
@@ -104,18 +99,21 @@ $filterTuples = [
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        foreach ($walksByDate as $k => $walk) {
+<?php
+foreach ($cards as $k => $walk) {
+    if ($walk->time['slots']) {
+        $dt = DateTime::createFromFormat('U', $walk->time['slots'][0][0]);
                         ?>
                         <tr data-janeswalk-sort="<?= $k ?>">
-                            <td><?= $walk->datetimes[0]['date'] ?: '--' ?></td>
-                            <td><?= $walk->datetimes[0]['time'] ?: '--' ?></td>
+                            <td><?= $dt->format('M j, Y') ?></td>
+                            <td><?= $dt->format('h:i A') ?></td>
                             <td><a href="<?= $nh->getLinkToCollection($walk->getPage()) ?>" target="_blank" ><?= $walk ?></a></td>
                             <td><?= implode(', ', array_filter((array) $walk->meetingPlace)) ?></td>
                         </tr>
                         <?php
-                        }
-                        ?>
+    }
+}
+?>
                     </tbody>
                 </table>
             </section>

@@ -12,9 +12,9 @@ var PageView = require('../Page.jsx');
  */
 var CityPageView = function(element) {
   PageView.call(this, element);
-  this._cards = this._element[0].querySelectorAll(".walk");
-  this._previewCards();
+  this._cards = this._element[0].querySelectorAll('.walk');
   this._data = JanesWalk.walks;
+  this._sortWalkList();
   this._resetSelectElements();
   this._addCreateWalkEvent();
   this._addFilterEvents();
@@ -100,26 +100,6 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   },
 
   /**
-   * _previewCards
-   * Copy a random set of the full walk list into the preview area.
-   * Currently hard-codes a maximum preview size of 9 cards.
-   *
-   * @protected
-   * @return void
-   */
-  _previewCards: {
-    value: function() {
-      var shuffledDeck = Array.prototype.slice.call(this._cards).sort( function() { return 0.5 - Math.random(); } ),
-      previewNode = document.querySelector(".ccm-block-page-list-walk-filters .walk-preview");
-
-      for(var i = 0, len = Math.min(shuffledDeck.length, 9); i < len; i++) {
-        var card = shuffledDeck[i].cloneNode(true);
-        previewNode.appendChild(card);
-      }
-    }
-  },
-
-  /**
    * _addLinkListeners
    * Listen on 'show all' walks
    *
@@ -129,17 +109,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _addLinkListeners: {
     value: function() {
       var _this = this;
-      var showAll = document.querySelector("a.see-all");
-      var fullMode = function() {
-        if (showAll) {
-          document.querySelector('.ccm-block-page-list-walk-filters').classList.add('filtering');
-          showAll.parentNode.removeChild(showAll);
-        }
-        showAll = document.querySelector('a.see-all');
-      }
-      if(showAll) {
-        showAll.addEventListener("click", fullMode);
-      }
+      var showAll = document.querySelector('a.see-all');
       var toolTips = document.querySelectorAll('.walk .tags > li');
       Array.prototype.forEach.call(toolTips, function(tooltip) {
         tooltip.addEventListener('click', function(event) {
@@ -373,6 +343,42 @@ CityPageView.prototype = Object.create(PageView.prototype, {
           _this._element.find(
             '[data-jw-initiative="' + ($(this).val()) + '"]'
           ).removeClass('hidden');
+        }
+      });
+    }
+  },
+
+  /**
+   * _sortWalkList
+   *
+   * @protected
+   * @return void
+   */
+  _sortWalkList: {
+    value: function() {
+      var archiveMessage = document.createElement('div');
+      // JW dates are stored timezone-agnostic, e.g. an 0900 walk is at 0900 UTC
+      var utcTime = Date.now() - (new Date).getTimezoneOffset() * 60 * 1000;
+      archiveMessage.classList.add('statusMessage');
+      // TODO: Use translation functions once loaded by ReactJS
+      archiveMessage.textContent = 'Archived';
+      Array.prototype.forEach.call(this._cards, function(card) {
+        var img = card.querySelector('.walkimage');
+        var dayOld = (utcTime - Number(card.dataset.timeEnd)) > (24 * 60 * 60 * 1000);
+        if (img && dayOld) {
+          card.dataset.archived = true;
+          img.appendChild(archiveMessage.cloneNode(true));
+        }
+      });
+      Array.prototype.sort.call(this._cards, function(a, b) {
+        // If one is archived and the other not, the unarchived comes next
+        if (a.dataset.archived  && !b.dataset.archived) {
+          return 1;
+        } else if (!a.dataset.archived  && b.dataset.archived) {
+          return -1;
+        } else {
+          // If they're both archived or unarchived, sort by date
+          return a.dataset.timeEnd - b.dataset.timeEnd;
         }
       });
     }

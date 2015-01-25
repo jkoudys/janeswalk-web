@@ -125,11 +125,25 @@ body.city-page {
                 padding: 0;
 
                 .walkimage {
+                    @height-walkimage: 250px;
+                    position: relative;
                     margin: 0;
                     background-size:cover;
                     background-position: 50% 50%;
                     width:100%;
-                    min-height: 240px;
+                    min-height: @height-walkimage;
+                    .statusMessage:extend(h3) {
+                        position: absolute;
+                        margin-top: 0;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: fade(@color-orange, 80%);
+                        color: #fff;
+                        line-height: @height-walkimage;
+                        text-align: center;
+                    }
                 }
 
                 .caption {
@@ -282,6 +296,8 @@ body.city-page {
             opacity: 1;
 
             .filters {
+                .clearfix();
+                padding: 0;
                 border: 1px solid @color-lightgrey;
                 border-radius: 0 0 6px 6px;
                 list-style: none;

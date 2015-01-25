@@ -118,34 +118,16 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         case 'walk_filters':
             Loader::helper('theme');
             $cards = $this->loadCards();
-            $this->set('cards', $cards);
 
             // Build a separate walk card for each date
+            $walksByDate = [];
             foreach ($cards as $walk) {
                 foreach ((array) $walk->time['slots'] as $slot) {
-                    $walk->slots = [$slot];
-                    $cards[] = $walk;
+                    $dateWalk = clone $walk;
+                    $dateWalk->time['slots'] = [$slot];
+                    $walksByDate[] = $dateWalk;
                 }
             }
-
-            // Sort the cards by their timestamp
-            // TODO: Move this to client-side sorting
-            usort(
-                $cards,
-                function($b, $a) {
-                    if ($a->slots[0] && $b->slots[0]) {
-                        return $a->slots[0][0] - $b->slots[0][0];
-                    } else {
-                        if (!empty($a->slots[0])) {
-                            return -1;
-                        } elseif (!empty($b->slots[0])) {
-                            return 1;
-                        }
-
-                        return 0;
-                    }
-                }
-            );
 
             /* Load the lat/lng for the city we're displaying */
             /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
@@ -155,7 +137,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $this->set('lng', $latlng[1]);
             }
 
-            $this->set('walksByDate', $cards);
+            $this->set('cards', $walksByDate);
             break;
         }
 

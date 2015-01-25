@@ -214,12 +214,18 @@ th {
   }
   p,
   h2,
-  h3 {
+  h3,
+  body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
     orphans: 3;
     widows: 3;
   }
   h2,
-  h3 {
+  h3,
+  body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
     page-break-after: avoid;
   }
   select {
@@ -380,7 +386,10 @@ h6,
 .h5,
 .h6,
 #profileWrapper div.headline,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title {
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
@@ -419,7 +428,10 @@ h1,
 h2,
 .h2,
 h3,
-.h3 {
+.h3,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -471,7 +483,10 @@ h2,
   font-size: 30px;
 }
 h3,
-.h3 {
+.h3,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
   font-size: 24px;
 }
 h4,
@@ -6975,28 +6990,6 @@ dialog > div > article footer:after,
     display: none !important;
   }
 }
-@-webkit-keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
 textarea {
   height: auto;
 }
@@ -7461,7 +7454,10 @@ h4,
 h5,
 h6,
 #profileWrapper div.headline,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title {
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
   font-family: "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -7475,7 +7471,10 @@ h2 {
   font-weight: 100;
   font-size: 40px;
 }
-h3 {
+h3,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
   font-weight: 100;
   font-size: 25px;
 }
@@ -8179,15 +8178,6 @@ div.ccm-page-list-typeahead fieldset.search li.aux a {
 }
 div.ccm-page-list-typeahead fieldset.search input[type=text]:focus + * + ul,
 div.ccm-page-list-typeahead fieldset.search ul:hover {
-  display: block;
-}
-.ccm-block-page-list-walk-filters .walk-filters {
-  display: none;
-}
-.ccm-block-page-list-walk-filters.filtering .walk-preview {
-  display: none;
-}
-.ccm-block-page-list-walk-filters.filtering .walk-filters {
   display: block;
 }
 .ccm-page-list-city-cards {
@@ -9682,11 +9672,26 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure {
 body.city-page > #city-details .walk .thumbnail .walkimage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage,
 body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage {
+  position: relative;
   margin: 0;
   background-size: cover;
   background-position: 50% 50%;
   width: 100%;
-  min-height: 240px;
+  min-height: 250px;
+}
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+  position: absolute;
+  margin-top: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(241, 103, 37, 0.8);
+  color: #fff;
+  line-height: 250px;
+  text-align: center;
 }
 body.city-page > #city-details .walk .thumbnail .caption p,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption p,
@@ -9896,9 +9901,26 @@ body.city-page > #city-details .walk-list:after {
   }
 }
 body.city-page > #city-details .walk-list .filters {
+  padding: 0;
   border: 1px solid #efefef;
   border-radius: 0 0 6px 6px;
   list-style: none;
+}
+body.city-page > #city-details .walk-list .filters:before,
+body.city-page > #city-details .walk-list .filters:after {
+  content: " ";
+  display: table;
+}
+body.city-page > #city-details .walk-list .filters:after {
+  clear: both;
+}
+body.city-page > #city-details .walk-list .filters:before,
+body.city-page > #city-details .walk-list .filters:after {
+  content: " ";
+  display: table;
+}
+body.city-page > #city-details .walk-list .filters:after {
+  clear: both;
 }
 body.city-page > #city-details .walk-list .filters li {
   position: relative;

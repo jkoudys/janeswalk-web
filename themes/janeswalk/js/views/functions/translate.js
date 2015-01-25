@@ -54,10 +54,10 @@ Object.defineProperties(I18nTranslator.prototype, {
     value: function(singular, plural, count) {
       // TODO Use the plural rules for the language, not just English
       var isPlural = (count !== 1) ? 1 : 0;
-   
+ 
       var translateTo = (this.translations[singular + '_' + plural] ||
                        [singular, plural])[isPlural];
-      
+ 
       return sprintf(translateTo, count);
     }
   },
