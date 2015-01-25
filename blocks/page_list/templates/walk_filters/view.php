@@ -25,7 +25,7 @@ $filterTuples = [
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <section class="tab-pane active fade in" id="jw-cards">
+            <section class="tab-pane active in" id="jw-cards">
                 <ul class="filters">
 <?php
             foreach ($filterTuples as $tuple) {
@@ -88,7 +88,7 @@ $filterTuples = [
                 </div>
                 <?php include(__DIR__ . '/../walkcards/view.php'); /* TODO: use a c5 function for loading this */ ?>
             </section>
-            <section class="tab-pane fade" id="jw-list">
+            <section class="tab-pane" id="jw-list">
                 <table class="walklist table">
                     <thead>
                         <tr>
@@ -119,7 +119,7 @@ foreach ($cards as $k => $walk) {
             </section>
             <?php
             if ($lat && $lng) { ?>
-            <section class="tab-pane fade" id="jw-map">
+            <section class="tab-pane" id="jw-map">
                 <iframe width="100%" height="600px" scrolling="no" frameborder="no" src="https://www.google.com/fusiontables/embedviz?q=select+col2+from+1Yy3SCGdCfmIVjgJLdqthaBlgKmkmIEJDZ3BEmR0p&amp;viz=MAP&amp;h=false&amp;lat=<?= $lat + 0.2 ?>&amp;lng=<?= $lng - 0.6 ?>&amp;t=1&amp;z=10&amp;l=col2&amp;y=3&amp;tmplt=3&amp;hml=GEOCODABLE"></iframe>
             </section>
             <?php

@@ -9917,6 +9917,7 @@ body.city-page > #city-details .walk-list:after {
   }
 }
 body.city-page > #city-details .walk-list .filters {
+  clear: both;
   padding: 0;
   border: 1px solid #efefef;
   border-radius: 0 0 6px 6px;
@@ -10109,7 +10110,7 @@ body.city-page > #blog:after {
     display: none !important;
   }
   body.city-page .city-page section#jw-cards {
-    display: none !important;
+    opacity: 1;
   }
   body.city-page .city-page section#jw-list {
     display: block !important;
