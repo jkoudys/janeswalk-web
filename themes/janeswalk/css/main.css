@@ -12409,13 +12409,17 @@ body[data-pageviewname=CreateWalkView] {
     display: none;
   }
 }
-#create-walk #theme-select > .item > fieldset {
+#create-walk #theme-select > fieldset {
   position: relative;
   float: left;
   width: 50%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  margin-bottom: 1em;
+}
+#create-walk #theme-select > fieldset > legend {
+  margin-bottom: 0;
 }
 #create-walk .checkbox input[type=checkbox] {
   margin-right: 3px;

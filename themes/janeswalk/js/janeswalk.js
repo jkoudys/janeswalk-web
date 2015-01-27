@@ -2202,69 +2202,163 @@ var mixins = require('../functions/mixins.jsx');
 
 var ThemeSelect = React.createClass({displayName: 'ThemeSelect',
   mixins: [mixins.linkedParentState],
-  maxChecked: 3,
+ 
+  getInitialState: function() {
+    return {
+      maxChecked: 3,
+      totalChecked: 0
+    };
+  },
+
+  getDefaultProps: function() {
+    return {
+      // Using array for themes to enforce order
+      themeCategories: [{
+        name: 'Community',
+        themes: [{
+          id: 'theme-civic-activist',
+          name: 'Activism'
+        }, {
+          id: 'theme-civic-truecitizen',
+          name: 'Citizenry'
+        }, {
+          id: 'theme-civic-goodneighbour',
+          name: 'Community'
+        }, {
+          id: 'theme-culture-writer',
+          name: 'Storytelling'
+        }]
+      }, {
+        name: 'City-building',
+        themes: [{
+          id: 'theme-urban-architecturalenthusiast',
+          name: 'Architecture'
+        }, {
+          id: 'theme-culture-aesthete',
+          name: 'Design'
+        }, {
+          id: 'theme-urban-suburbanexplorer',
+          name: 'Suburbs'
+        }, {
+          id: 'theme-urban-moversandshakers',
+          name: 'Transportation'
+        }]
+      }, {
+        name: 'Society',
+        themes: [{
+          id: 'theme-civic-gender',
+          name: 'Gender'
+        }, {
+          id: 'theme-civic-health',
+          name: 'Health'
+        }, {
+          id: 'theme-culture-historybuff',
+          name: 'Heritage'
+        }, {
+          id: 'theme-civic-nativeissues',
+          name: 'Native Issues'
+        }, {
+          id: 'theme-civic-religion',
+          name: 'Religion'
+        }]
+      }, {
+        name: 'Expression',
+        themes: [{
+          id: 'theme-culture-artist',
+          name: 'Art'
+        }, {
+          id: 'theme-urban-film',
+          name: 'Film'
+        }, {
+          id: 'theme-culture-bookworm',
+          name: 'Literature'
+        }, {
+          id: 'theme-urban-music',
+          name: 'Music'
+        }, {
+          id: 'theme-urban-play',
+          name: 'Play'
+        }]
+      }, {
+        name: 'The Natural World',
+        themes: [{
+          id: 'theme-nature-petlover',
+          name: 'Animals'
+        }, {
+          id: 'theme-nature-greenthumb',
+          name: 'Gardening'
+        }, {
+          id: 'theme-nature-naturelover',
+          name: 'Nature'
+        }, {
+          id: 'theme-urban-water',
+          name: 'Water'
+        }]
+      }, {
+        name: 'Modernity',
+        themes: [{
+          id: 'theme-civic-international',
+          name: 'International Issues'
+        }, {
+          id: 'theme-civic-military',
+          name: 'Military'
+        }, {
+          id: 'theme-civic-commerce',
+          name: 'Commerce'
+        }, {
+          id: 'theme-culture-nightowl',
+          name: 'Night Life'
+        }, {
+          id: 'theme-culture-techie',
+          name: 'Technology'
+        }, {
+          id: 'theme-urban-sports',
+          name: 'Sports'
+        }, {
+          id: 'theme-culture-foodie',
+          name: 'Food'
+        }]
+      }]
+    };
+  },
+
   render: function() {
+    var _this = this;
+    var totalChecked = 0;
+    var checkboxes = this.props.valueLink.value;
     var t = this.props.i18n.translate.bind(this.props.i18n);
+
+    for (var i in checkboxes) {
+      if (checkboxes[i] && i.substring(0, 6) === 'theme-') {
+        totalChecked++;
+      }
+    }
+
     // TODO: Don't select themes for NYC
     return (
       React.createElement("fieldset", {id: "theme-select"}, 
         React.createElement("legend", {className: "required-legend"},  t('Themes') ), 
         React.createElement("div", {className: "alert alert-info"}, 
-           t('Pick between %d and %d boxes.', 1, this.maxChecked)
+           t('Pick between %d and %d boxes.', 1, this.state.maxChecked) 
         ), 
-        React.createElement("div", {className: "item"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('Community') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-activist')}),  t('Activism') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-truecitizen')}),  t('Citizenry') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-goodneighbour')}),  t('Community') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-writer')}),  t('Storytelling') )
-          ), 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('City-building') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-architecturalenthusiast')}),  t('Architecture') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-aesthete')}),  t('Design') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-suburbanexplorer')}),  t('Suburbs') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-moversandshakers')}),  t('Transportation') )
-          )
-        ), 
-        React.createElement("div", {className: "item"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('Society') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-gender')}),  t('Gender') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-health')}),  t('Health') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-historybuff')}),  t('Heritage') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-nativeissues')}),  t('Native Issues') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-religion')}),  t('Religion') )
-          ), 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('Expression') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-artist')}),  t('Art') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-film')}),  t('Film') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-bookworm')}),  t('Literature') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-music')}),  t('Music') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-play')}),  t('Play') )
-          )
-        ), 
-        React.createElement("div", {className: "item"}, 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('The Natural World') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-petlover')}),  t('Animals') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-greenthumb')}),  t('Gardening') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-nature-naturelover')}),  t('Nature') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-water')}),  t('Water') )
-          ), 
-          React.createElement("fieldset", null, 
-            React.createElement("legend", null,  t('Modernity') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-international')}),  t('International Issues') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-military')}),  t('Military') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-civic-commerce')}),  t('Commerce') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-nightowl')}),  t('Night Life') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-techie')}),  t('Technology') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-urban-sports')}),  t('Sports') ), 
-            React.createElement("label", {className: "checkbox"}, React.createElement("input", {type: "checkbox", checkedLink: this.linkParentState('theme-culture-foodie')}),  t('Food') )
-          )
-        )
+         this.props.themeCategories.map(function(category) {
+          return (
+            React.createElement("fieldset", {key: category.name}, 
+              React.createElement("legend", null, t(category.name)), 
+              category.themes.map(function(theme) {
+                // Don't let a checkbox be checked if it pushes over limit
+                var disabled = (totalChecked >= _this.state.maxChecked) && !checkboxes[theme.id];
+                return (
+                  React.createElement("label", {key: theme.id, className: "checkbox"}, 
+                    React.createElement("input", {type: "checkbox", disabled: disabled, checkedLink: _this.linkParentState(theme.id)}), 
+                    t(theme.name)
+                  )
+                  );
+              })
+            )
+            );
+          })
+        
       )
     );
   }
