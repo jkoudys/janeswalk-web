@@ -6,10 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     getInitialState: function() {
       return {
         q: '',
-        city: {
-          name: '',
-          url: ''
-        }
       };
     },
 
@@ -44,40 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
           this.convertAccents(b.toLowerCase())
         ) > -1
       );
-    },
-
-    componentWillMount: function() {
-      if (this.props.user && this.props.user.city) {
-        this.setState({city: this.props.user.city});
-      } else {
-        // Get geolocation from in-browser cache
-        var storedGeo = sessionStorage.getItem('geoip');
-        if (storedGeo) {
-          this.setState({city: JSON.parse(storedGeo)});
-        } else {
-          // Geocode as early as we can
-          $.ajax({
-            url: 'http://freegeoip.net/json/',
-            success: function(data) {
-              var city = this.state.city;
-              city.name = data.city;
-              // Loop through loaded cities and find page match
-              for (var i in this.props.countries) {
-                var country = this.props.countries[i];
-                if (this.strContains(country.name, data.country_name)) {
-                  this.setState({city: country});
-                  country.cities.forEach(function(city) {
-                    if (this.strContains(city.name, data.city)) {
-                      this.setState({city: city});
-                      sessionStorage.setItem('geoip', JSON.stringify(city));
-                    }
-                  }.bind(this))
-                }
-              }
-            }.bind(this)
-          });
-        }
-      }
     },
 
     render: function() {
@@ -122,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
         );
       }
 
-      if (this.state.city.name) {
-        homeCity = <h3>See walks in <a href={this.state.city.url}>{this.state.city.name}</a>, or:</h3>
+      if (this.props.user && this.props.user.city) {
+        homeCity = <h3>See walks in <a href={this.props.user.city.url}>{this.props.user.city.name}</a>, or:</h3>
       }
 
       return (
