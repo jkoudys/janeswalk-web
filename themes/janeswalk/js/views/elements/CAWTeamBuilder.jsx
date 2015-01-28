@@ -44,31 +44,46 @@ var TeamBuilder = React.createClass({
     this.addMember({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
   },
 
+  deleteMember: function(i) {
+    var valueLink = this.props.valueLink;
+    var value = valueLink.value.slice();
+    value.splice(i, 1);
+    valueLink.requestChange(value);
+  },
+
   // Set the member at that specific index
   render: function() {
+    var _this = this;
     // If there's no 'you', create one as the current user
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
     var t = this.props.i18n.translate.bind(this.props.i18n);
     
     // Loop through all the users and render the appropriate user type
+    var teamMemberProps = {
+      onChange: this.handleTeamMemberChange,
+      i18n: this.props.i18n
+    };
     var users = value.map(function(user, i) {
       var teamMember = null;
+      teamMemberProps.key = i;
+      teamMemberProps.value = user;
+      teamMemberProps.onDelete = _this.deleteMember.bind(_this, i);
       // Use empty strings for unset/false
       user.phone = user.phone || '';
       if (user.type === 'you') {
-        teamMember = <TeamOwner i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamOwner {...teamMemberProps} />;
       } else if (user.type === 'leader') {
-        teamMember = <TeamLeader i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamLeader {...teamMemberProps} />;
       } else if (user.type === 'organizer') {
-        teamMember = <TeamOrganizer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamOrganizer {...teamMemberProps} />;
       } else if (user.type === 'community') {
-        teamMember = <TeamCommunityVoice i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamCommunityVoice {...teamMemberProps} />;
       } else if (user.type === 'volunteer') {
-        teamMember = <TeamVolunteer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamVolunteer {...teamMemberProps} />;
       }
       return teamMember;
-    }, this);
+    });
 
     return (
       <div className="tab-pane" id="team">
@@ -256,7 +271,7 @@ var TeamLeader = React.createClass({
           </div>
         </fieldset>
         <footer>
-          <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
+          <button className="btn remove-team-member" onClick={this.props.onDelete}>{ t('Remove Team Member') }</button>
         </footer>
       </div>
     )
@@ -292,7 +307,7 @@ var TeamOrganizer = React.createClass({
           </div>
         </fieldset>
         <footer>
-          <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
+          <button className="btn remove-team-member" onClick={this.props.onDelete}>{ t('Remove Team Member') }</button>
         </footer>
       </div>
     )
@@ -346,7 +361,7 @@ var TeamCommunityVoice = React.createClass({
           </div>
         </fieldset>
         <footer>
-          <button className="btn remove-team-member">{ t('Remove Team Member') }</button>
+          <button className="btn remove-team-member" onClick={this.props.onDelete}>{ t('Remove Team Member') }</button>
         </footer>
       </div>
     )
@@ -387,7 +402,7 @@ var TeamVolunteer = React.createClass({
           </div>
         </fieldset>
         <footer>
-          <button className="btn remove-othermember">{ t('Remove Team Member') }</button>
+          <button className="btn remove-team-member" onClick={this.props.onDelete}>{ t('Remove Team Member') }</button>
         </footer>
       </div>
     )

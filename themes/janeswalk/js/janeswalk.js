@@ -1856,31 +1856,46 @@ var TeamBuilder = React.createClass({
     this.addMember({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
   },
 
+  deleteMember: function(i) {
+    var valueLink = this.props.valueLink;
+    var value = valueLink.value.slice();
+    value.splice(i, 1);
+    valueLink.requestChange(value);
+  },
+
   // Set the member at that specific index
   render: function() {
+    var _this = this;
     // If there's no 'you', create one as the current user
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
     var t = this.props.i18n.translate.bind(this.props.i18n);
     
     // Loop through all the users and render the appropriate user type
+    var teamMemberProps = {
+      onChange: this.handleTeamMemberChange,
+      i18n: this.props.i18n
+    };
     var users = value.map(function(user, i) {
       var teamMember = null;
+      teamMemberProps.key = i;
+      teamMemberProps.value = user;
+      teamMemberProps.onDelete = _this.deleteMember.bind(_this, i);
       // Use empty strings for unset/false
       user.phone = user.phone || '';
       if (user.type === 'you') {
-        teamMember = React.createElement(TeamOwner, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
+        teamMember = React.createElement(TeamOwner, React.__spread({},  teamMemberProps));
       } else if (user.type === 'leader') {
-        teamMember = React.createElement(TeamLeader, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
+        teamMember = React.createElement(TeamLeader, React.__spread({},  teamMemberProps));
       } else if (user.type === 'organizer') {
-        teamMember = React.createElement(TeamOrganizer, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
+        teamMember = React.createElement(TeamOrganizer, React.__spread({},  teamMemberProps));
       } else if (user.type === 'community') {
-        teamMember = React.createElement(TeamCommunityVoice, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
+        teamMember = React.createElement(TeamCommunityVoice, React.__spread({},  teamMemberProps));
       } else if (user.type === 'volunteer') {
-        teamMember = React.createElement(TeamVolunteer, {i18n: this.props.i18n, key: i, value: user, onChange: this.handleTeamMemberChange});
+        teamMember = React.createElement(TeamVolunteer, React.__spread({},  teamMemberProps));
       }
       return teamMember;
-    }, this);
+    });
 
     return (
       React.createElement("div", {className: "tab-pane", id: "team"}, 
@@ -2068,7 +2083,7 @@ var TeamLeader = React.createClass({displayName: 'TeamLeader',
           )
         ), 
         React.createElement("footer", null, 
-          React.createElement("button", {className: "btn remove-team-member"},  t('Remove Team Member') )
+          React.createElement("button", {className: "btn remove-team-member", onClick: this.props.onDelete},  t('Remove Team Member') )
         )
       )
     )
@@ -2104,7 +2119,7 @@ var TeamOrganizer = React.createClass({displayName: 'TeamOrganizer',
           )
         ), 
         React.createElement("footer", null, 
-          React.createElement("button", {className: "btn remove-team-member"},  t('Remove Team Member') )
+          React.createElement("button", {className: "btn remove-team-member", onClick: this.props.onDelete},  t('Remove Team Member') )
         )
       )
     )
@@ -2158,7 +2173,7 @@ var TeamCommunityVoice = React.createClass({displayName: 'TeamCommunityVoice',
           )
         ), 
         React.createElement("footer", null, 
-          React.createElement("button", {className: "btn remove-team-member"},  t('Remove Team Member') )
+          React.createElement("button", {className: "btn remove-team-member", onClick: this.props.onDelete},  t('Remove Team Member') )
         )
       )
     )
@@ -2199,7 +2214,7 @@ var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
           )
         ), 
         React.createElement("footer", null, 
-          React.createElement("button", {className: "btn remove-othermember"},  t('Remove Team Member') )
+          React.createElement("button", {className: "btn remove-team-member", onClick: this.props.onDelete},  t('Remove Team Member') )
         )
       )
     )
