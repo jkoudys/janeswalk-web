@@ -5,36 +5,45 @@ var TeamBuilder = React.createClass({
 
   mixins: [mixins.linkedParentState],
 
+  getInitialState: function() {
+    // So we know if this is the first loading, or changed after
+    return {initialized: false};
+  },
+
+  componentDidMount: function() {
+    this.setState({initialized: true});
+  },
+
   handleTeamMemberChange: function(propname, memberValue, id) {
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
     value[id][propname] = memberValue;
     valueLink.requestChange(value);
   },
+
+  addMember: function(props) {
+    var valueLink = this.props.valueLink;
+    var team = valueLink.value;
+    team.push(props);
+    valueLink.requestChange(team);
+  },
+
   addLeader: function() {
-    var valueLink = this.props.valueLink;
-    var team = valueLink.value;
-    team.push({type: 'leader', "name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''});
-    valueLink.requestChange(team);
+    this.addMember({type: 'leader', "name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''});
   },
+
   addOrganizer: function() {
-    var valueLink = this.props.valueLink;
-    var team = valueLink.value;
-    team.push({type: 'organizer', "name-first":'', "name-last":'', institution: '', website: ''});
-    valueLink.requestChange(team);
+    this.addMember({type: 'organizer', "name-first":'', "name-last":'', institution: '', website: ''});
   },
+
   addCommunityVoice: function() {
-    var valueLink = this.props.valueLink;
-    var team = valueLink.value;
-    team.push({type: 'community', "name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''});
-    valueLink.requestChange(team);
+    this.addMember({type: 'community', "name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''});
   },
+
   addVolunteer: function() {
-    var valueLink = this.props.valueLink;
-    var team = valueLink.value;
-    team.push({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
-    valueLink.requestChange(team);
+    this.addMember({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
   },
+
   // Set the member at that specific index
   render: function() {
     // If there's no 'you', create one as the current user
@@ -44,19 +53,21 @@ var TeamBuilder = React.createClass({
     
     // Loop through all the users and render the appropriate user type
     var users = value.map(function(user, i) {
+      var teamMember = null;
       // Use empty strings for unset/false
       user.phone = user.phone || '';
       if (user.type === 'you') {
-        return <TeamOwner i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamOwner i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'leader') {
-        return <TeamLeader i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamLeader i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'organizer') {
-        return <TeamOrganizer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamOrganizer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'community') {
-        return <TeamCommunityVoice i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamCommunityVoice i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       } else if (user.type === 'volunteer') {
-        return <TeamVolunteer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
+        teamMember = <TeamVolunteer i18n={this.props.i18n} key={i} value={user} onChange={this.handleTeamMemberChange} />;
       }
+      return teamMember;
     }, this);
 
     return (

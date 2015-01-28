@@ -11343,6 +11343,7 @@ body[data-pageviewname=CreateWalkView] {
   /* ==========================================================================
     New Member Additions
     ========================================================================== */
+  /* Preload hover states */
   /* ==========================================================================
     Block select items
     ========================================================================== */
@@ -11721,25 +11722,29 @@ body[data-pageviewname=CreateWalkView] {
   box-shadow: inset 0 0 0 2px rgba(241, 103, 37, 0.5);
 }
 #create-walk #new-walkleader.new-member {
-  background: url('../img/walk-leader.png') 50% 15% no-repeat;
+  background: url('../img/walk-leader-hover.png') 0 no-repeat, url('../img/walk-leader.png') 50% 15% no-repeat;
+  background-size: 0, auto;
 }
 #create-walk #new-walkleader.new-member:hover {
   background: url('../img/walk-leader-hover.png') 50% 15% no-repeat;
 }
 #create-walk #new-walkorganizer.new-member {
-  background: url('../img/walk-organizer.png') 50% 15% no-repeat;
+  background: url('../img/walk-organizer-hover.png') 0 0 no-repeat, url('../img/walk-organizer.png') 50% 15% no-repeat;
+  background-size: 0, auto;
 }
 #create-walk #new-walkorganizer.new-member:hover {
   background: url('../img/walk-organizer-hover.png') 50% 15% no-repeat;
 }
 #create-walk #new-communityvoice.new-member {
-  background: url('../img/community-voice.png') 50% 15% no-repeat;
+  background: url('../img/community-voice-hover.png') 0 no-repeat, url('../img/community-voice.png') 50% 15% no-repeat;
+  background-size: 0, auto;
 }
 #create-walk #new-communityvoice.new-member:hover {
   background: url('../img/community-voice-hover.png') 50% 15% no-repeat;
 }
 #create-walk #new-othermember.new-member {
-  background: url('../img/volunteers.png') 50% 15% no-repeat;
+  background: url('../img/volunteers-hover.png') 0 no-repeat, url('../img/volunteers.png') 50% 15% no-repeat;
+  background-size: 0, auto;
 }
 #create-walk #new-othermember.new-member:hover {
   background: url('../img/volunteers-hover.png') 50% 15% no-repeat;

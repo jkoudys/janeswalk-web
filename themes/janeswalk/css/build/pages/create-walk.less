@@ -319,26 +319,31 @@ body[data-pageviewname=CreateWalkView] {
             box-shadow: inset 0 0 0 2px fade(@color-orange, 50%);
         }
     }
+    /* Preload hover states */
     #new-walkleader.new-member {
-        background: url('../img/walk-leader.png') 50% 15% no-repeat;
+        background: url('../img/walk-leader-hover.png') 0 no-repeat, url('../img/walk-leader.png') 50% 15% no-repeat;
+        background-size: 0, auto;
         &:hover {
             background: url('../img/walk-leader-hover.png') 50% 15% no-repeat;
         }
     }
     #new-walkorganizer.new-member {
-        background: url('../img/walk-organizer.png') 50% 15% no-repeat;
+        background: url('../img/walk-organizer-hover.png') 0 0 no-repeat, url('../img/walk-organizer.png') 50% 15% no-repeat;
+        background-size: 0, auto;
         &:hover {
             background: url('../img/walk-organizer-hover.png') 50% 15% no-repeat;
         }
     }
     #new-communityvoice.new-member {
-        background: url('../img/community-voice.png') 50% 15% no-repeat;
+        background: url('../img/community-voice-hover.png') 0 no-repeat, url('../img/community-voice.png') 50% 15% no-repeat;
+        background-size: 0, auto;
         &:hover {
             background: url('../img/community-voice-hover.png') 50% 15% no-repeat;
         }
     }
     #new-othermember.new-member {
-        background: url('../img/volunteers.png') 50% 15% no-repeat;
+        background: url('../img/volunteers-hover.png') 0 no-repeat, url('../img/volunteers.png') 50% 15% no-repeat;
+        background-size: 0, auto;
         &:hover {
             background: url('../img/volunteers-hover.png') 50% 15% no-repeat;
         }
