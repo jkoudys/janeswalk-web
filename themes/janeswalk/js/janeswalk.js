@@ -481,7 +481,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
             React.createElement("div", {className: "popover right", id: "city-organizer", style: {display: 'block'}}, 
               React.createElement("h3", {className: "popover-title", 'data-toggle': "collapse", 'data-target': "#popover-content"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Contact City Organizer for help') ), 
               React.createElement("div", {className: "popover-content collapse in", id: "popover-content"}, 
-                React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}}), 
+                this.props.city.cityOrganizer.photo ? React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}}) : null, 
                 React.createElement("p", null, 
                    t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name), " ", React.createElement("strong", null, React.createElement("a", {href: 'mailto:' + this.props.city.cityOrganizer.email},  t('email me'), "!")))
               )

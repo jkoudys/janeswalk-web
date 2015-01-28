@@ -328,7 +328,7 @@ var CreateWalk = React.createClass({
             <div className="popover right" id="city-organizer" style={{display: 'block'}}>
               <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t('Contact City Organizer for help') }</h3>
               <div className="popover-content collapse in" id="popover-content">
-                <div className='u-avatar' style={{backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}}></div>
+                {this.props.city.cityOrganizer.photo ? <div className='u-avatar' style={{backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}} /> : null}
                 <p>
                   { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name) } <strong><a href={'mailto:' + this.props.city.cityOrganizer.email}>{ t('email me') }!</a></strong></p>
               </div>
