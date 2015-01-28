@@ -270,7 +270,7 @@ var CreateWalk = React.createClass({
                     </div>
                   </fieldset>
                   <CAWThemeSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
-                  <CAWWardSelect i18n={i18n} wards={this.props.city.wards} valueLink={this.linkState('wards')} />
+                  {((this.props.city.wards || []).length > 0) ? <CAWWardSelect i18n={i18n} wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
                   <hr />
                 </form>
               </div>

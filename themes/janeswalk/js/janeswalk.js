@@ -423,7 +423,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                     )
                   ), 
                   React.createElement(CAWThemeSelect, {i18n: i18n, valueLink: this.linkState('checkboxes')}), 
-                  React.createElement(CAWWardSelect, {i18n: i18n, wards: this.props.city.wards, valueLink: this.linkState('wards')}), 
+                  ((this.props.city.wards || []).length > 0) ? React.createElement(CAWWardSelect, {i18n: i18n, wards: this.props.city.wards, valueLink: this.linkState('wards')}) : null, 
                   React.createElement("hr", null)
                 )
               ), 
