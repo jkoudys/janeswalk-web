@@ -22,7 +22,7 @@ if ($city->website) {
 
 $cityName = t((string) $city);
 
-$intro = $c->getAttribute('shortdescription');
+$intro = $c->getCollectionDescription();
 $longDescription = $c->getAttribute('longdescription');
 
 $this->inc('elements/navbar.php') ?>
