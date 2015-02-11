@@ -57,7 +57,6 @@ class Walk extends \Model implements \JsonSerializable
         'accessible' => 'accessible'
     ];
 
-
     /*
      * __construct
      *

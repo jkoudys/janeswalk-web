@@ -67,14 +67,14 @@ $form = Loader::helper('form'); ?>
 }?>
             </div>
             <?php  
-} elseif ($invalidRegistrationFields == true) { ?>
+} elseif ($invalidRegistrationFields) { ?>
             <div class="ccm-form modal fade in">
                 <div class="modal-header">
                     <h3 class="form-lead"><?php echo t('Sign into %s', SITE)?></h3>
                 </div>
                 <div class="modal-body">
-                    <p><?php echo t('Welcome back! We\'ve updated the website, as you can see. We need just a few more things from you to get started.')?></p>
-                    <form method="post" action="<?php echo $this->url('/login', 'do_login')?>">
+                    <p><?= t('Welcome back! We\'ve updated the website, as you can see. We need just a few more things from you to get started.') ?></p>
+                    <form method="post" action="<?= $this->url('/login', 'do_login') ?>">
 <?php
                         $attribs = UserAttributeKey::getRegistrationList();
                         $af = Loader::helper('form/attribute');
@@ -92,8 +92,8 @@ $form = Loader::helper('form'); ?>
                     </div>
                     <div class="modal-footer">
                         <div class="ccm-button">
-                            <?php echo $form->submit('submit', t('Sign In'))?>
-                            <?php echo $form->hidden('rcID', $rcID); ?>
+                            <?= $form->submit('submit', t('Sign In')) ?>
+                            <?= $form->hidden('rcID', $rcID) ?>
                         </div>
                     </div>
 
@@ -103,35 +103,37 @@ $form = Loader::helper('form'); ?>
             <?php 
 } else { ?>
             <div class="modal-header">
-                <h3 class="form-lead"><?php echo t('Sign into %s', SITE)?></h3>
+                <h3 class="form-lead"><?= t('Sign into %s', SITE) ?></h3>
             </div>
             <form method="post" action="<?php echo $this->url('/login', 'do_login')?>">
                 <div class="modal-body">
                     <?php  if (isset($intro_msg)) { ?>
-                    <div class="alert-message block-message success"><p><?php echo $intro_msg?></p></div>
+                    <div class="alert-message block-message success"><p><?= $intro_msg ?></p></div>
                     <?php  
 } ?>
                     <?php  if ($passwordChanged) { ?>
 
-                    <div class="block-message info alert-message"><p><?php echo t('Password changed.  Please login to continue. ') ?></p></div>
+                    <div class="block-message info alert-message"><p><?= t('Password changed.  Please login to continue. ') ?></p></div>
 
                     <?php  
 } ?>
 
-                    <label for="uName"><?php  if (USER_REGISTRATION_WITH_EMAIL_ADDRESS == true) { ?>
-                        <?php echo t('Email')?>
+                    <label for="uName"><?php  if (USER_REGISTRATION_WITH_EMAIL_ADDRESS) { ?>
+                        <?= t('Email') ?>
                         <?php  
 } else { ?>
-                        <?php echo t('User name')?>
+                        <?= t('User name') ?>
                         <?php  
 } ?></label>
-                    <input type="text" name="uName" id="uName" <?php echo  (isset($uName)?'value="'.$uName.'"':'');?> class="ccm-input-text input-large">
-                    <label for="uPassword"><?php echo t('Password')?></label>
+                    <input type="text" name="uName" id="uName" <?= isset($uName) ? 'value="' . $uName . '"' : '' ?> class="ccm-input-text input-large">
+                    <label for="uPassword"><?= t('Password') ?></label>
                     <input type="password" name="uPassword" id="uPassword" class="ccm-input-text input-large">
                     <label class="checkbox">
                         <input type="checkbox"> Keep me signed in.
                     </label>
                     <input type="hidden" name="uEmail" id="uEmail" />
+                    <input type="hidden" name="redirectURL" value="/information" />
+                    <input type="hidden" name="format" value="json" />
                     <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/login', 'forgot_password') ?>')" value="Request a new password"></input>
                 </div>
                 <div class="modal-footer">
@@ -141,8 +143,8 @@ $form = Loader::helper('form'); ?>
                         <?php  
 } ?>
                     </div>
+                    <?= $form->submit('submit', t('Go!'), null, '') ?>
 <?php
-                        echo $form->submit('submit', t('Go!'), null, '');
 if (isset($error) && $error != '') {
     if ($error instanceof Exception) {
         $_error[] = $error->getMessage();

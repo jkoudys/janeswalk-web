@@ -405,11 +405,9 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       var _this = this,
       $btn = this._element.find('.create-walk');
       $btn.click(function(event) {
-        event.preventDefault();
-        if (_this._element.find('a[href="/index.php/login/logout/"]').length === 0) {
-          _this._element.find('.overlay.o-connect').show();
-        } else {
-          location.href = $(this).attr('href');
+        if (!JanesWalk.user) {
+          event.preventDefault();
+          $('#login').modal();
         }
       });
     }
