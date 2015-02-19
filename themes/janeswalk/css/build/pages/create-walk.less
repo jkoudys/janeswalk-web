@@ -49,6 +49,25 @@ body[data-pageviewname=CreateWalkView] {
                 background-color: darken(@color-orange, 10%);
             }
         }
+        .loadFeed:extend(.btn all) {
+            display: inline-block;
+            vertical-align: top;
+            margin-left: @grid-gutter-width / 2;
+            padding: 12px 15px;
+            border: 1px solid @color-orange;
+            i {
+                margin-right: 6px;
+                display: inline;
+            }
+            input[type=text] {
+                display: inline;
+                width: 80%;
+                margin-right: 6px;
+            }
+            a {
+                color: #fff;
+            }
+        }
     }
 
     // Migrated from SASS + separate theme. TODO: move all this into less + common theme
@@ -703,9 +722,20 @@ body[data-pageviewname=CreateWalkView] {
             max-width: none;
         }
         .stop-form {
+            display: inline-block;
             padding: 0.5em;
+            > img, > .details {
+                display: inline-block;
+            }
+            > img {
+                height: 100%;
+                margin-right: 10px;
+            }
+            > .details {
+                vertical-align: top;
+            }
             .marker-description {
-                height: 6em;
+                height: 105px;
                 margin-top: 11px;
             }
             a {
@@ -727,6 +757,16 @@ body[data-pageviewname=CreateWalkView] {
                 // Checkmark
                 content: "\f00c";
             }
+        }
+    }
+
+    #route {
+        td > img {
+            height: 80px;
+            margin-right: 1em;
+        }
+        th:last-child {
+            width: 1em;
         }
     }
 
