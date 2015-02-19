@@ -14,7 +14,7 @@ $filterTuples = [
 <section class="ccm-block-page-list-walk-filters">
     <div class="walk-filters">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#jw-cards" data-toggle="tab">All Walks</a></li>
+            <li><a href="#jw-cards" data-toggle="tab">All Walks</a></li>
             <li><a href="#jw-list" data-toggle="tab">List</a></li>
             <?php
             if ($lat && $lng) { ?>
@@ -25,7 +25,7 @@ $filterTuples = [
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <section class="tab-pane <?= $isMobile ? '' : 'active in' ?>" id="jw-cards">
+            <section class="tab-pane" id="jw-cards">
                 <ul class="filters">
 <?php
             foreach ($filterTuples as $tuple) {
@@ -88,7 +88,7 @@ $filterTuples = [
                 </div>
                 <?php include(__DIR__ . '/../walkcards/view.php'); /* TODO: use a c5 function for loading this */ ?>
             </section>
-            <section class="tab-pane <?= $isMobile ? 'active in' : '' ?>" id="jw-list">
+            <section class="tab-pane" id="jw-list">
                 <table class="walklist table">
                     <thead>
                         <tr>

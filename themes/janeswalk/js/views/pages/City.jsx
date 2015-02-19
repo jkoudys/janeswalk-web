@@ -16,6 +16,7 @@ var CityPageView = function(element) {
   this._data = this._initData(JanesWalk.walks, this._cards);
   this._sortWalkList();
   this._resetSelectElements();
+  this._initMenu();
   this._addCreateWalkEvent();
   this._addFilterEvents();
   this._setThemeCounts();
@@ -82,6 +83,17 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _ward: {value: null, writable: true},
 
   /**
+   * _isMobile
+   *
+   * @protected
+   * @var bool
+   */
+  _isMobile: {
+    value: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+    writablbe: false
+  },
+
+  /**
    * _initData
    * Until this is Reactified, associate data state directly with DOM
    *
@@ -111,6 +123,16 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         // picture: 'http://janeswalk.org',
         name: 'Jane\'s Walk'
       };
+    }
+  },
+
+  _initMenu: {
+    value: function() {
+      if (this._isMobile) {
+        $('a[href=#jw-list]').click();
+      } else {
+        $('a[href=#jw-cards]').click();
+      }
     }
   },
 
