@@ -3689,6 +3689,8 @@ CityPageView.prototype = Object.create(PageView.prototype, {
                 themeSelect.value = el.value;
                 _this._theme = el.value;
                 _this._filterCards();
+                // Scroll to top of filters
+                document.body.scrollTop = document.getElementById('city-details').offsetTop;
               }
             });
         });
