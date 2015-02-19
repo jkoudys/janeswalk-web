@@ -25,7 +25,7 @@ $filterTuples = [
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <section class="tab-pane active in" id="jw-cards">
+            <section class="tab-pane <?= $isMobile ? '' : 'active in' ?>" id="jw-cards">
                 <ul class="filters">
 <?php
             foreach ($filterTuples as $tuple) {
@@ -88,7 +88,7 @@ $filterTuples = [
                 </div>
                 <?php include(__DIR__ . '/../walkcards/view.php'); /* TODO: use a c5 function for loading this */ ?>
             </section>
-            <section class="tab-pane" id="jw-list">
+            <section class="tab-pane <?= $isMobile ? 'active in' : '' ?>" id="jw-list">
                 <table class="walklist table">
                     <thead>
                         <tr>
