@@ -13,16 +13,16 @@ var PageView = require('../Page.jsx');
 var CityPageView = function(element) {
   PageView.call(this, element);
   this._cards = Array.prototype.slice.call(this._element[0].querySelectorAll('.walk'), 0);
-  this._data = JanesWalk.walks;
+  this._data = this._initData(JanesWalk.walks, this._cards);
   this._sortWalkList();
   this._resetSelectElements();
   this._addCreateWalkEvent();
   this._addFilterEvents();
   this._setThemeCounts();
-  this._captureHash();
-  //        this._setupText2DonateInterstitials();
   this._addLinkListeners();
-  $('.walks-list .tag').tooltip();
+  this._captureHash();
+  //this._setupText2DonateInterstitials();
+  $('.walks-filters .tag').tooltip();
 };
 CityPageView.prototype = Object.create(PageView.prototype, {
   /**
@@ -82,6 +82,21 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _ward: {value: null, writable: true},
 
   /**
+   * _initData
+   * Until this is Reactified, associate data state directly with DOM
+   *
+   * @protected
+   */
+  _initData: {
+    value: function(data, cards) {
+      return data.map(function(data, i) {
+        data.card = cards[i];
+        return data;
+      });
+    }
+  },
+
+  /**
    * _getFacebookDialogDonateObj
    * 
    * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
@@ -96,29 +111,6 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         // picture: 'http://janeswalk.org',
         name: 'Jane\'s Walk'
       };
-    }
-  },
-
-  /**
-   * _addLinkListeners
-   * Listen on 'show all' walks
-   *
-   * @protected
-   * @return void
-   */
-  _addLinkListeners: {
-    value: function() {
-      var _this = this;
-      var showAll = document.querySelector('a.see-all');
-      var toolTips = document.querySelectorAll('.walk .tags > li');
-      Array.prototype.forEach.call(toolTips, function(tooltip) {
-        tooltip.addEventListener('click', function(event) {
-          event.preventDefault();
-          fullMode();
-          _this._theme = this.dataset.theme;
-          _this._filterCards();
-        });
-      });
     }
   },
 
@@ -272,7 +264,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         var filterCheck = option.getAttribute('value');
 
         // Default to checking option property in filter
-        var compare_fn = this.compare_fn || function(f,o) { return f && f[o]; };
+        var compare_fn = this.compare_fn || function(f, o) { return f && f[o]; };
 
         if (filterCheck !== '*') {
           count = 0;
@@ -289,27 +281,27 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       };
 
       forEach(
-        el.querySelectorAll('div.filters select[name="theme"] option'),
+        el.querySelectorAll('.filters select[name="theme"] option'),
         countFilterMatches,
         {filter: 'themes'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="accessibility"] option'),
+        el.querySelectorAll('.filters select[name="accessibility"] option'),
         countFilterMatches,
         {filter: 'accessibilities'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="ward"] option'),
+        el.querySelectorAll('.filters select[name="ward"] option'),
         countFilterMatches,
         {filter: 'wards'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="initiative"] option'),
+        el.querySelectorAll('.filters select[name="initiative"] option'),
         countFilterMatches,
         {filter: 'initiatives'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="date"] option'),
+        el.querySelectorAll('.filters select[name="date"] option'),
         countFilterMatches,
         {
           filter: 'datetimes',
@@ -332,7 +324,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _resetSelectElements: {
     value: function() {
       var _this = this;
-      this._element.find('div.filters select').each(function(index, element) {
+      this._element.find('.filters select').each(function(index, element) {
         $(element).val('*');
       });
       this._element.find('.initiatives').addClass('hidden');
@@ -482,21 +474,16 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       };
 
       // Hide the cards first
-      for (var i = 0, len = this._cards.length; i < len; i++) {
-        this._cards[i].classList.add('hidden');
-      }
+      this._cards.forEach(function(card) {
+        card.classList.add('hidden');
+      });
 
       // Go through all the cards
       this._data.forEach(function(data, index) {
         // Check if we should show this card
-        if(filterMatch(_this._ward, data.wards) &&
-          filterMatch(_this._theme, data.themes) &&
-          filterMatch(_this._accessibility, data.accessibilities) &&
-          filterMatch(_this._initiative, data.initiatives) &&
-          // See if date in filter dropdown is inside the array of dates
-          filterDate(data.datetimes, _this._date)) {
+        if (filterMatch(_this._ward, data.wards) && filterMatch(_this._theme, data.themes) && filterMatch(_this._accessibility, data.accessibilities) &&  filterMatch(_this._initiative, data.initiatives) && filterDate(data.datetimes, _this._date)) {
           ++showing;
-          _this._cards[index].classList.remove("hidden");
+          data.card.classList.remove("hidden");
         }
       });
 
@@ -509,6 +496,36 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   },
 
   /**
+   * _addLinkListeners
+   * Map the tooltips to the filter action
+   *
+   * @protected
+   * @return void
+   */
+  _addLinkListeners: {
+    value: function() {
+      var _this = this;
+      Array.prototype.forEach.call(document.querySelectorAll('.walk .tags > li'), function(tooltip) {
+        tooltip.addEventListener('click', function(event) {
+          var tag = this;
+          var themeSelect = document.querySelector('select[name=theme]');
+          event.preventDefault();
+          // Equivalent to choosing it from the dropdown options
+          Array.prototype.forEach.call(
+            themeSelect.querySelectorAll('option'),
+            function(el, i) {
+              if (el.value === tag.dataset.theme) {
+                themeSelect.value = el.value;
+                _this._theme = el.value;
+                _this._filterCards();
+              }
+            });
+        });
+      });
+    }
+  },
+
+  /**
    * _addFilterEvents
    * 
    * @protected
@@ -517,7 +534,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _addFilterEvents: {
     value: function() {
       var _this = this;
-      this._element.find('div.filters select').change(function(event) {
+      this._element.find('.filters select').change(function(event) {
         event.preventDefault();
         _this._ward = '*';
         if (_this._element.find('select[name="ward"]').length > 0) {

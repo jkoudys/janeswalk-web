@@ -137,6 +137,20 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $this->set('lng', $latlng[1]);
             }
 
+            $this->pageData = array_map(
+                function($walk) {
+                    return [
+                        'name' => (string) $walk,
+                        'wards' => $walk->wards,
+                        'themes' => $walk->themes,
+                        'accessibilities' => $walk->accessible,
+                        'initiatives' => $walk->initiatives,
+                        'datetimes' => $walk->datetimes
+                    ];
+                },
+                $walksByDate
+            );
+
             $this->set('cards', $walksByDate);
             break;
         }
@@ -208,13 +222,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         $cards = array();
         foreach ((array) $this->get('pages') as $page) {
             $walk = new Walk($page);
-            $this->pageData[] = array(
-                'wards' => $walk->wards,
-                'themes' => $walk->themes,
-                'accessibilities' => $walk->accessible,
-                'initiatives' => $walk->initiatives,
-                'datetimes' => $walk->datetimes
-            );
             $cards[] = $walk;
         }
 

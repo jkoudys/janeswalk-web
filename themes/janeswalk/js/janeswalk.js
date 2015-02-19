@@ -363,6 +363,14 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
     var t = i18n.translate.bind(i18n);
     var t2 = i18n.translatePlural.bind(i18n);
 
+    // Used to let the map pass a callback
+    var linkStateMap = {
+      value: this.state.gmap,
+      requestChange: function(newVal, cb) {
+        this.setState({gmap: newVal}, cb);
+      }.bind(this)
+    };
+
     return (
       React.createElement("main", {id: "create-walk"}, 
         React.createElement("section", null, 
@@ -427,7 +435,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                   React.createElement("hr", null)
                 )
               ), 
-              React.createElement(CAWMapBuilder, {ref: "mapBuilder", i18n: i18n, valueLink: this.linkState('gmap'), city: this.props.city}), 
+              React.createElement(CAWMapBuilder, {ref: "mapBuilder", i18n: i18n, valueLink: linkStateMap, city: this.props.city}), 
               React.createElement(CAWDateSelect, {i18n: i18n, valueLink: this.linkState('time')}), 
               React.createElement("div", {className: "tab-pane", id: "accessibility"}, 
                 React.createElement("div", {className: "page-header", 'data-section': "accessibility"}, 
@@ -1356,7 +1364,6 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
   componentDidMount: function() {
     var _this = this,
-    valueLink = this.props.valueLink,
     mapNode = this.refs.gmap.getDOMNode(),
     mapOptions = {
       center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
@@ -1370,40 +1377,56 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     map = new google.maps.Map(mapNode, mapOptions),
     markers = this.state.markers,
     route = this.state.route;
+  
+    // Map won't size properly on a hidden tab, so refresh on tab shown
+    // FIXME: this $() selector is unbecoming of a React app
+    $('a[href="#route"]').on('shown.bs.tab', function(e) {
+      this.boundMapByWalk();
+    }.bind(this));
 
-    this.setState({map: map}, function() {
-      // Draw the route
-      if (valueLink.value) {
-        valueLink.value.markers.forEach(function(marker) {
-          markers.push(
-            this.buildMarker(
-              new google.maps.LatLng(marker.lat, marker.lng),
-              {title: marker.title, description: marker.description}
-            )
-          );
-        }.bind(this));
+    this.setState({map: map}, this.refreshGMap);
+  },
 
-        route = this.buildRoute(valueLink.value.route);
-      } else {
-        route = this.buildRoute([]);
-      }
+  // Build a google map from our serialized map state
+  refreshGMap: function() {
+    var valueLink = this.props.valueLink;
+    var markers = new google.maps.MVCArray;
+    var route = null;
+    if (this.state.route) {
+      this.state.route.setMap(null);
+    }
+    this.state.markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
 
-      // Set marker/route adding
-      google.maps.event.addListener(map, 'click', function(ev) {
-        _this.state.infowindow.setMap(null);
-        if (_this.state.mode.addRoute) {
-          route.setPath(route.getPath().push(ev.latLng));
-          _this.setState({route: route});
-        }
-      });
-      // Map won't size properly on a hidden tab, so refresh on tab shown
-      // FIXME: this $() selector is unbecoming of a React app
-      $('a[href="#route"]').on('shown.bs.tab', function(e) {
-        this.boundMapByWalk();
+    // Draw the route
+    if (valueLink.value) {
+      valueLink.value.markers.forEach(function(marker) {
+        markers.push(
+          this.buildMarker({
+            latlng: new google.maps.LatLng(marker.lat, marker.lng),
+            title: marker.title,
+            description: marker.description,
+            media: marker.media
+          })
+        );
       }.bind(this));
 
-      this.setState({markers: markers, route: route});
-    }.bind(this));
+      route = this.buildRoute(valueLink.value.route);
+    } else {
+      route = this.buildRoute([]);
+    }
+
+    // Set marker/route adding
+    google.maps.event.addListener(this.state.map, 'click', function(ev) {
+      _this.state.infowindow.setMap(null);
+      if (_this.state.mode.addRoute) {
+        route.setPath(route.getPath().push(ev.latLng));
+        _this.setState({route: route});
+      }
+    });
+
+    this.setState({markers: markers, route: route});
   },
 
   // Make the map fit the markers in this walk
@@ -1435,11 +1458,15 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   // Build gmaps Marker object from base data
   // @param google.maps.LatLng latlng The position to add
   // @param Object title {title, description}
-  buildMarker: function(latlng, title) {
-    var marker;
+  buildMarker: function(options) {
     var _this = this;
+    var latlng = options.latlng;
+    var title = options.title || '';
+    var description = options.description || '';
+    var media = options.media || null;
+    var marker;
     var map = this.state.map;
-    var options = {
+    var gMarkerOptions = {
       animation: google.maps.Animation.DROP,
       draggable: true,
       style: 'stop',
@@ -1449,19 +1476,20 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
     // If we passed in a position
     if (latlng instanceof google.maps.LatLng) {
-      options.position = latlng;
+      gMarkerOptions.position = latlng;
     } else {
-      options.position = this.state.map.center;
+      gMarkerOptions.position = this.state.map.center;
     }
 
     // Set to an empty title/description object.
     // Google maps has a limited amount of marker data we 
-    if (!title) {
-      title = {title: '', description: ''};
-    }
-    options.title = JSON.stringify(title);
+    gMarkerOptions.title = JSON.stringify({
+      title: title,
+      description: description,
+      media: media
+    });
 
-    marker = new google.maps.Marker(options);
+    marker = new google.maps.Marker(gMarkerOptions);
     
     google.maps.event.addListener(marker, 'click', function(ev) {
       _this.showInfoWindow(this)
@@ -1469,6 +1497,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
     google.maps.event.addListener(marker, 'drag', function(ev) {
     });
+
     return marker;
   },
 
@@ -1595,6 +1624,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         lng: marker.position.lng(),
         title: titleObj.title,
         description: titleObj.description,
+        media: titleObj.media,
         style: 'stop'
       };
     });
@@ -1695,7 +1725,8 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
           ), 
           React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, 
             React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') 
-          )
+          ), 
+          React.createElement(InstagramConnect, {valueLink: this.props.valueLink, refreshGMap: this.refreshGMap, boundMapByWalk: this.boundMapByWalk})
         ), 
         React.createElement("div", {className: "map-notifications"}), 
         React.createElement("div", {id: "map-canvas", ref: "gmap"}), 
@@ -1739,9 +1770,16 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
             var deleteMarker = function() {
               this.props.deleteMarker(marker);
             }.bind(this);
+            var imageThumb = null;
+
+            if (titleObj.media) {
+              if (titleObj.media.type === 'instagram') {
+                imageThumb = React.createElement("img", {src: titleObj.media.url + 'media?size=t'});
+              }
+            }
             return (
               React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
-                React.createElement("td", {onClick: showInfoWindow}, titleObj.title), 
+                React.createElement("td", {onClick: showInfoWindow}, imageThumb, titleObj.title), 
                 React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
                 React.createElement("td", null, 
                   React.createElement("a", {className: "delete-stop", onClick: deleteMarker}, 
@@ -1783,21 +1821,25 @@ var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
   render: function() {
     var marker = this.state.marker;
     var markerContent = JSON.parse(marker.getTitle());
+    var image = markerContent.media ? React.createElement("img", {src: markerContent.media.url + 'media?size=t'}) : null;
 
     return (
       React.createElement("div", {className: "stop-form"}, 
-        React.createElement("input", {
-          type: "text", 
-          onChange: this.setMarkerContent, 
-          value: markerContent.title, 
-          placeholder: "Title of this stop", 
-          className: "marker-title"}
-        ), 
-        React.createElement("textarea", {
-          className: "marker-description box-sizing", 
-          onChange: this.setMarkerContent, 
-          placeholder: "Description of this stop", 
-          value: markerContent.description}
+        image, 
+        React.createElement("section", {className: "details"}, 
+          React.createElement("input", {
+            type: "text", 
+            onChange: this.setMarkerContent, 
+            value: markerContent.title, 
+            placeholder: "Title of this stop", 
+            className: "marker-title"}
+          ), 
+          React.createElement("textarea", {
+            className: "marker-description box-sizing", 
+            onChange: this.setMarkerContent, 
+            placeholder: "Description of this stop", 
+            value: markerContent.description}
+          )
         ), 
         React.createElement("a", {onClick: this.props.deleteMarker}, 
           React.createElement("i", {className: "fa fa-trash-o"})
@@ -1807,6 +1849,213 @@ var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
   }
 });
 
+var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
+  getInitialState: function() {
+    return {
+      tag: ''
+    };
+  },
+
+  componentWillMount: function() {
+    window.setAccessToken = function(accessToken) {
+      this.setState({accessToken: accessToken});
+    }.bind(this);
+  },
+
+  handleConnect: function() {
+    var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
+    var redirectURI = 'http://janeswalk.org/connected';
+    var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
+    this.setState({authWindow: authWindow});
+  },
+
+  handleLoadToken: function() {
+    var hash = this.state.authWindow.location.hash;
+    this.setState({
+      authWindow: undefined,
+      accessToken: hash.substr(hash.indexOf('=') + 1)
+    });
+  },
+
+  handleLoadFeed: function() {
+    var _this = this;
+    var tag = this.state.tag;
+
+    $.ajax({
+      type: 'GET',
+      crossDomain: true,
+      dataType: 'jsonp',
+      url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
+      success: function(data) {
+        var walkMap = data.data.filter(function(gram) {
+          var tagMatch = true;
+          if (tag) {
+            tagMatch = gram.tags.indexOf(tag) !== -1;
+          }
+          return !!(gram.location && tagMatch);
+        })
+        .reverse()
+        .map(function(gram) {
+          // If the first comment is from the owner, use that as the description
+          var description = '';
+          if (gram.comments && gram.comments.data.length > 0) {
+            if (gram.comments.data[0].from.id === gram.user.id) {
+              description = gram.comments.data[0].text;
+            }
+          }
+
+          return {
+            title: gram.caption ? gram.caption.text.replace(/\#\w+/g, '').trim() : '',
+            description: description,
+            media: {
+              id: gram.id,
+              url: gram.link,
+              type: 'instagram'
+            },
+            lat: gram.location.latitude,
+            lng: gram.location.longitude
+          };
+        });
+
+        _this.props.valueLink.requestChange({markers: walkMap, route: []}, function() {
+          _this.props.refreshGMap();
+          _this.props.boundMapByWalk();
+        });
+      }
+    });
+  },
+
+  handleTagChange: function(ev) {
+    this.setState({tag: ev.target.value});
+  },
+
+  render: function() {
+    if (this.state.accessToken) {
+      return (
+        React.createElement("div", {className: "loadFeed"}, 
+          React.createElement("i", {className: "fa fa-instagram"}), 
+          React.createElement("input", {type: "text", placeholder: "Walk Tag", value: this.state.tag, onChange: this.handleTagChange}), 
+          React.createElement("a", {onClick: this.handleLoadFeed}, "Load")
+        )
+      );
+    } else if (this.state.authWindow) {
+      return (
+        React.createElement("a", {onClick: this.handleLoadToken}, "Get that token!")
+      );
+    } else {
+      return (
+        React.createElement("button", {onClick: this.handleConnect}, 
+          React.createElement("i", {className: "fa fa-instagram"}), 
+          "Instagram"
+        )
+      );
+    }
+  }
+});
+
+var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
+  getInitialState: function() {
+    return {
+      tag: ''
+    };
+  },
+
+  componentWillMount: function() {
+    window.setAccessToken = function(accessToken) {
+      this.setState({accessToken: accessToken});
+    }.bind(this);
+  },
+
+  handleConnect: function() {
+    var clientID = 'IVfBVtRBs7AT7gQnhU3o8iHpc';
+    var redirectURI = 'http://janeswalk.org/connected';
+    var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
+    this.setState({authWindow: authWindow});
+  },
+
+  handleLoadToken: function() {
+    var hash = this.state.authWindow.location.hash;
+    this.setState({
+      authWindow: undefined,
+      accessToken: hash.substr(hash.indexOf('=') + 1)
+    });
+  },
+
+  handleLoadFeed: function() {
+    var _this = this;
+    var tag = this.state.tag;
+
+    $.ajax({
+      type: 'GET',
+      crossDomain: true,
+      dataType: 'jsonp',
+      url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
+      success: function(data) {
+        var walkMap = data.data.filter(function(gram) {
+          var tagMatch = true;
+          if (tag) {
+            tagMatch = gram.tags.indexOf(tag) !== -1;
+          }
+          return !!(gram.location && tagMatch);
+        })
+        .reverse()
+        .map(function(gram) {
+          // If the first comment is from the owner, use that as the description
+          var description = '';
+          if (gram.comments && gram.comments.data.length > 0) {
+            if (gram.comments.data[0].from.id === gram.user.id) {
+              description = gram.comments.data[0].text;
+            }
+          }
+
+          return {
+            title: gram.caption ? gram.caption.text.replace(/\#\w+/g, '').trim() : '',
+            description: description,
+            media: {
+              id: gram.id,
+              url: gram.link,
+              type: 'twitter'
+            },
+            lat: gram.location.latitude,
+            lng: gram.location.longitude
+          };
+        });
+
+        _this.props.valueLink.requestChange({markers: walkMap, route: []}, function() {
+          _this.props.refreshGMap();
+          _this.props.boundMapByWalk();
+        });
+      }
+    });
+  },
+
+  handleTagChange: function(ev) {
+    this.setState({tag: ev.target.value});
+  },
+
+  render: function() {
+    if (this.state.accessToken) {
+      return (
+        React.createElement("div", {className: "loadFeed"}, 
+          React.createElement("i", {className: "fa fa-twitter"}), 
+          React.createElement("input", {type: "text", placeholder: "Walk Tag", value: this.state.tag, onChange: this.handleTagChange}), 
+          React.createElement("a", {onClick: this.handleLoadFeed}, "Load")
+        )
+      );
+    } else if (this.state.authWindow) {
+      return (
+        React.createElement("a", {onClick: this.handleLoadToken}, "Get that token!")
+      );
+    } else {
+      return (
+        React.createElement("button", {onClick: this.handleConnect}, 
+          React.createElement("i", {className: "fa fa-twitter"}), 
+          "Instagram"
+        )
+      );
+    }
+  }
+})
 module.exports = MapBuilder;
 
 },{"../functions/helpers.jsx":16}],12:[function(require,module,exports){
@@ -2935,16 +3184,16 @@ var PageView = require('../Page.jsx');
 var CityPageView = function(element) {
   PageView.call(this, element);
   this._cards = Array.prototype.slice.call(this._element[0].querySelectorAll('.walk'), 0);
-  this._data = JanesWalk.walks;
+  this._data = this._initData(JanesWalk.walks, this._cards);
   this._sortWalkList();
   this._resetSelectElements();
   this._addCreateWalkEvent();
   this._addFilterEvents();
   this._setThemeCounts();
-  this._captureHash();
-  //        this._setupText2DonateInterstitials();
   this._addLinkListeners();
-  $('.walks-list .tag').tooltip();
+  this._captureHash();
+  //this._setupText2DonateInterstitials();
+  $('.walks-filters .tag').tooltip();
 };
 CityPageView.prototype = Object.create(PageView.prototype, {
   /**
@@ -3004,6 +3253,21 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _ward: {value: null, writable: true},
 
   /**
+   * _initData
+   * Until this is Reactified, associate data state directly with DOM
+   *
+   * @protected
+   */
+  _initData: {
+    value: function(data, cards) {
+      return data.map(function(data, i) {
+        data.card = cards[i];
+        return data;
+      });
+    }
+  },
+
+  /**
    * _getFacebookDialogDonateObj
    * 
    * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
@@ -3018,29 +3282,6 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         // picture: 'http://janeswalk.org',
         name: 'Jane\'s Walk'
       };
-    }
-  },
-
-  /**
-   * _addLinkListeners
-   * Listen on 'show all' walks
-   *
-   * @protected
-   * @return void
-   */
-  _addLinkListeners: {
-    value: function() {
-      var _this = this;
-      var showAll = document.querySelector('a.see-all');
-      var toolTips = document.querySelectorAll('.walk .tags > li');
-      Array.prototype.forEach.call(toolTips, function(tooltip) {
-        tooltip.addEventListener('click', function(event) {
-          event.preventDefault();
-          fullMode();
-          _this._theme = this.dataset.theme;
-          _this._filterCards();
-        });
-      });
     }
   },
 
@@ -3194,7 +3435,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         var filterCheck = option.getAttribute('value');
 
         // Default to checking option property in filter
-        var compare_fn = this.compare_fn || function(f,o) { return f && f[o]; };
+        var compare_fn = this.compare_fn || function(f, o) { return f && f[o]; };
 
         if (filterCheck !== '*') {
           count = 0;
@@ -3211,27 +3452,27 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       };
 
       forEach(
-        el.querySelectorAll('div.filters select[name="theme"] option'),
+        el.querySelectorAll('.filters select[name="theme"] option'),
         countFilterMatches,
         {filter: 'themes'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="accessibility"] option'),
+        el.querySelectorAll('.filters select[name="accessibility"] option'),
         countFilterMatches,
         {filter: 'accessibilities'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="ward"] option'),
+        el.querySelectorAll('.filters select[name="ward"] option'),
         countFilterMatches,
         {filter: 'wards'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="initiative"] option'),
+        el.querySelectorAll('.filters select[name="initiative"] option'),
         countFilterMatches,
         {filter: 'initiatives'}
       );
       forEach(
-        el.querySelectorAll('div.filters select[name="date"] option'),
+        el.querySelectorAll('.filters select[name="date"] option'),
         countFilterMatches,
         {
           filter: 'datetimes',
@@ -3254,7 +3495,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _resetSelectElements: {
     value: function() {
       var _this = this;
-      this._element.find('div.filters select').each(function(index, element) {
+      this._element.find('.filters select').each(function(index, element) {
         $(element).val('*');
       });
       this._element.find('.initiatives').addClass('hidden');
@@ -3404,21 +3645,16 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       };
 
       // Hide the cards first
-      for (var i = 0, len = this._cards.length; i < len; i++) {
-        this._cards[i].classList.add('hidden');
-      }
+      this._cards.forEach(function(card) {
+        card.classList.add('hidden');
+      });
 
       // Go through all the cards
       this._data.forEach(function(data, index) {
         // Check if we should show this card
-        if(filterMatch(_this._ward, data.wards) &&
-          filterMatch(_this._theme, data.themes) &&
-          filterMatch(_this._accessibility, data.accessibilities) &&
-          filterMatch(_this._initiative, data.initiatives) &&
-          // See if date in filter dropdown is inside the array of dates
-          filterDate(data.datetimes, _this._date)) {
+        if (filterMatch(_this._ward, data.wards) && filterMatch(_this._theme, data.themes) && filterMatch(_this._accessibility, data.accessibilities) &&  filterMatch(_this._initiative, data.initiatives) && filterDate(data.datetimes, _this._date)) {
           ++showing;
-          _this._cards[index].classList.remove("hidden");
+          data.card.classList.remove("hidden");
         }
       });
 
@@ -3431,6 +3667,36 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   },
 
   /**
+   * _addLinkListeners
+   * Map the tooltips to the filter action
+   *
+   * @protected
+   * @return void
+   */
+  _addLinkListeners: {
+    value: function() {
+      var _this = this;
+      Array.prototype.forEach.call(document.querySelectorAll('.walk .tags > li'), function(tooltip) {
+        tooltip.addEventListener('click', function(event) {
+          var tag = this;
+          var themeSelect = document.querySelector('select[name=theme]');
+          event.preventDefault();
+          // Equivalent to choosing it from the dropdown options
+          Array.prototype.forEach.call(
+            themeSelect.querySelectorAll('option'),
+            function(el, i) {
+              if (el.value === tag.dataset.theme) {
+                themeSelect.value = el.value;
+                _this._theme = el.value;
+                _this._filterCards();
+              }
+            });
+        });
+      });
+    }
+  },
+
+  /**
    * _addFilterEvents
    * 
    * @protected
@@ -3439,7 +3705,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _addFilterEvents: {
     value: function() {
       var _this = this;
-      this._element.find('div.filters select').change(function(event) {
+      this._element.find('.filters select').change(function(event) {
         event.preventDefault();
         _this._ward = '*';
         if (_this._element.find('select[name="ward"]').length > 0) {

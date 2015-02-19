@@ -6,8 +6,8 @@ $filterTuples = [
     [$wardName, 'ward', $wards],
     [t('Theme'), 'theme', $themes],
     [t('Accessibility'), 'accessibility', $accessibilities],
-    [t('Initiative'), 'initiative', $initiatives],
-    [t('Day'), 'date', $dates]
+    [t('Initiative'), 'initiative', $initiatives]
+//    [t('Day'), 'date', $dates]
 ];
 
 ?>

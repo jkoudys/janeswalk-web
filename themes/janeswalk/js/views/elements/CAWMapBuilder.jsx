@@ -24,7 +24,6 @@ var MapBuilder = React.createClass({
 
   componentDidMount: function() {
     var _this = this,
-    valueLink = this.props.valueLink,
     mapNode = this.refs.gmap.getDOMNode(),
     mapOptions = {
       center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
@@ -38,40 +37,56 @@ var MapBuilder = React.createClass({
     map = new google.maps.Map(mapNode, mapOptions),
     markers = this.state.markers,
     route = this.state.route;
+  
+    // Map won't size properly on a hidden tab, so refresh on tab shown
+    // FIXME: this $() selector is unbecoming of a React app
+    $('a[href="#route"]').on('shown.bs.tab', function(e) {
+      this.boundMapByWalk();
+    }.bind(this));
 
-    this.setState({map: map}, function() {
-      // Draw the route
-      if (valueLink.value) {
-        valueLink.value.markers.forEach(function(marker) {
-          markers.push(
-            this.buildMarker(
-              new google.maps.LatLng(marker.lat, marker.lng),
-              {title: marker.title, description: marker.description}
-            )
-          );
-        }.bind(this));
+    this.setState({map: map}, this.refreshGMap);
+  },
 
-        route = this.buildRoute(valueLink.value.route);
-      } else {
-        route = this.buildRoute([]);
-      }
+  // Build a google map from our serialized map state
+  refreshGMap: function() {
+    var valueLink = this.props.valueLink;
+    var markers = new google.maps.MVCArray;
+    var route = null;
+    if (this.state.route) {
+      this.state.route.setMap(null);
+    }
+    this.state.markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
 
-      // Set marker/route adding
-      google.maps.event.addListener(map, 'click', function(ev) {
-        _this.state.infowindow.setMap(null);
-        if (_this.state.mode.addRoute) {
-          route.setPath(route.getPath().push(ev.latLng));
-          _this.setState({route: route});
-        }
-      });
-      // Map won't size properly on a hidden tab, so refresh on tab shown
-      // FIXME: this $() selector is unbecoming of a React app
-      $('a[href="#route"]').on('shown.bs.tab', function(e) {
-        this.boundMapByWalk();
+    // Draw the route
+    if (valueLink.value) {
+      valueLink.value.markers.forEach(function(marker) {
+        markers.push(
+          this.buildMarker({
+            latlng: new google.maps.LatLng(marker.lat, marker.lng),
+            title: marker.title,
+            description: marker.description,
+            media: marker.media
+          })
+        );
       }.bind(this));
 
-      this.setState({markers: markers, route: route});
-    }.bind(this));
+      route = this.buildRoute(valueLink.value.route);
+    } else {
+      route = this.buildRoute([]);
+    }
+
+    // Set marker/route adding
+    google.maps.event.addListener(this.state.map, 'click', function(ev) {
+      _this.state.infowindow.setMap(null);
+      if (_this.state.mode.addRoute) {
+        route.setPath(route.getPath().push(ev.latLng));
+        _this.setState({route: route});
+      }
+    });
+
+    this.setState({markers: markers, route: route});
   },
 
   // Make the map fit the markers in this walk
@@ -103,11 +118,15 @@ var MapBuilder = React.createClass({
   // Build gmaps Marker object from base data
   // @param google.maps.LatLng latlng The position to add
   // @param Object title {title, description}
-  buildMarker: function(latlng, title) {
-    var marker;
+  buildMarker: function(options) {
     var _this = this;
+    var latlng = options.latlng;
+    var title = options.title || '';
+    var description = options.description || '';
+    var media = options.media || null;
+    var marker;
     var map = this.state.map;
-    var options = {
+    var gMarkerOptions = {
       animation: google.maps.Animation.DROP,
       draggable: true,
       style: 'stop',
@@ -117,19 +136,20 @@ var MapBuilder = React.createClass({
 
     // If we passed in a position
     if (latlng instanceof google.maps.LatLng) {
-      options.position = latlng;
+      gMarkerOptions.position = latlng;
     } else {
-      options.position = this.state.map.center;
+      gMarkerOptions.position = this.state.map.center;
     }
 
     // Set to an empty title/description object.
     // Google maps has a limited amount of marker data we 
-    if (!title) {
-      title = {title: '', description: ''};
-    }
-    options.title = JSON.stringify(title);
+    gMarkerOptions.title = JSON.stringify({
+      title: title,
+      description: description,
+      media: media
+    });
 
-    marker = new google.maps.Marker(options);
+    marker = new google.maps.Marker(gMarkerOptions);
     
     google.maps.event.addListener(marker, 'click', function(ev) {
       _this.showInfoWindow(this)
@@ -137,6 +157,7 @@ var MapBuilder = React.createClass({
 
     google.maps.event.addListener(marker, 'drag', function(ev) {
     });
+
     return marker;
   },
 
@@ -263,6 +284,7 @@ var MapBuilder = React.createClass({
         lng: marker.position.lng(),
         title: titleObj.title,
         description: titleObj.description,
+        media: titleObj.media,
         style: 'stop'
       };
     });
@@ -364,6 +386,7 @@ var MapBuilder = React.createClass({
           <button ref="clearroute" onClick={this.clearRoute}>
             <i className="fa fa-eraser" />{ t('Clear Route') }
           </button>
+          <InstagramConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
         </div>
         <div className="map-notifications" />
         <div id="map-canvas" ref="gmap" />
@@ -407,9 +430,16 @@ var WalkStopTable = React.createClass({
             var deleteMarker = function() {
               this.props.deleteMarker(marker);
             }.bind(this);
+            var imageThumb = null;
+
+            if (titleObj.media) {
+              if (titleObj.media.type === 'instagram') {
+                imageThumb = <img src={titleObj.media.url + 'media?size=t'} />;
+              }
+            }
             return (
               <tr data-position={i} key={'marker' + i}>
-                <td onClick={showInfoWindow}>{titleObj.title}</td>
+                <td onClick={showInfoWindow}>{imageThumb}{titleObj.title}</td>
                 <td onClick={showInfoWindow}>{titleObj.description}</td>
                 <td>
                   <a className="delete-stop" onClick={deleteMarker}>
@@ -451,22 +481,26 @@ var WalkInfoWindow = React.createClass({
   render: function() {
     var marker = this.state.marker;
     var markerContent = JSON.parse(marker.getTitle());
+    var image = markerContent.media ? <img src={markerContent.media.url + 'media?size=t'} /> : null;
 
     return (
       <div className='stop-form'>
-        <input
-          type='text'
-          onChange={this.setMarkerContent}
-          value={markerContent.title}
-          placeholder='Title of this stop'
-          className='marker-title'
-        />
-        <textarea
-          className='marker-description box-sizing'
-          onChange={this.setMarkerContent}
-          placeholder='Description of this stop'
-          value={markerContent.description}
-        />
+        {image}
+        <section className="details">
+          <input
+            type='text'
+            onChange={this.setMarkerContent}
+            value={markerContent.title}
+            placeholder='Title of this stop'
+            className='marker-title'
+          />
+          <textarea
+            className='marker-description box-sizing'
+            onChange={this.setMarkerContent}
+            placeholder='Description of this stop'
+            value={markerContent.description}
+          />
+        </section>
         <a onClick={this.props.deleteMarker}>
           <i className="fa fa-trash-o" />
         </a>
@@ -475,4 +509,211 @@ var WalkInfoWindow = React.createClass({
   }
 });
 
+var InstagramConnect = React.createClass({
+  getInitialState: function() {
+    return {
+      tag: ''
+    };
+  },
+
+  componentWillMount: function() {
+    window.setAccessToken = function(accessToken) {
+      this.setState({accessToken: accessToken});
+    }.bind(this);
+  },
+
+  handleConnect: function() {
+    var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
+    var redirectURI = 'http://janeswalk.org/connected';
+    var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
+    this.setState({authWindow: authWindow});
+  },
+
+  handleLoadToken: function() {
+    var hash = this.state.authWindow.location.hash;
+    this.setState({
+      authWindow: undefined,
+      accessToken: hash.substr(hash.indexOf('=') + 1)
+    });
+  },
+
+  handleLoadFeed: function() {
+    var _this = this;
+    var tag = this.state.tag;
+
+    $.ajax({
+      type: 'GET',
+      crossDomain: true,
+      dataType: 'jsonp',
+      url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
+      success: function(data) {
+        var walkMap = data.data.filter(function(gram) {
+          var tagMatch = true;
+          if (tag) {
+            tagMatch = gram.tags.indexOf(tag) !== -1;
+          }
+          return !!(gram.location && tagMatch);
+        })
+        .reverse()
+        .map(function(gram) {
+          // If the first comment is from the owner, use that as the description
+          var description = '';
+          if (gram.comments && gram.comments.data.length > 0) {
+            if (gram.comments.data[0].from.id === gram.user.id) {
+              description = gram.comments.data[0].text;
+            }
+          }
+
+          return {
+            title: gram.caption ? gram.caption.text.replace(/\#\w+/g, '').trim() : '',
+            description: description,
+            media: {
+              id: gram.id,
+              url: gram.link,
+              type: 'instagram'
+            },
+            lat: gram.location.latitude,
+            lng: gram.location.longitude
+          };
+        });
+
+        _this.props.valueLink.requestChange({markers: walkMap, route: []}, function() {
+          _this.props.refreshGMap();
+          _this.props.boundMapByWalk();
+        });
+      }
+    });
+  },
+
+  handleTagChange: function(ev) {
+    this.setState({tag: ev.target.value});
+  },
+
+  render: function() {
+    if (this.state.accessToken) {
+      return (
+        <div className="loadFeed">
+          <i className="fa fa-instagram" />
+          <input type="text" placeholder="Walk Tag" value={this.state.tag} onChange={this.handleTagChange} />
+          <a onClick={this.handleLoadFeed}>Load</a>
+        </div>
+      );
+    } else if (this.state.authWindow) {
+      return (
+        <a onClick={this.handleLoadToken}>Get that token!</a>
+      );
+    } else {
+      return (
+        <button onClick={this.handleConnect}>
+          <i className="fa fa-instagram" />
+          Instagram
+        </button>
+      );
+    }
+  }
+});
+
+var TwitterConnect = React.createClass({
+  getInitialState: function() {
+    return {
+      tag: ''
+    };
+  },
+
+  componentWillMount: function() {
+    window.setAccessToken = function(accessToken) {
+      this.setState({accessToken: accessToken});
+    }.bind(this);
+  },
+
+  handleConnect: function() {
+    var clientID = 'IVfBVtRBs7AT7gQnhU3o8iHpc';
+    var redirectURI = 'http://janeswalk.org/connected';
+    var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
+    this.setState({authWindow: authWindow});
+  },
+
+  handleLoadToken: function() {
+    var hash = this.state.authWindow.location.hash;
+    this.setState({
+      authWindow: undefined,
+      accessToken: hash.substr(hash.indexOf('=') + 1)
+    });
+  },
+
+  handleLoadFeed: function() {
+    var _this = this;
+    var tag = this.state.tag;
+
+    $.ajax({
+      type: 'GET',
+      crossDomain: true,
+      dataType: 'jsonp',
+      url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
+      success: function(data) {
+        var walkMap = data.data.filter(function(gram) {
+          var tagMatch = true;
+          if (tag) {
+            tagMatch = gram.tags.indexOf(tag) !== -1;
+          }
+          return !!(gram.location && tagMatch);
+        })
+        .reverse()
+        .map(function(gram) {
+          // If the first comment is from the owner, use that as the description
+          var description = '';
+          if (gram.comments && gram.comments.data.length > 0) {
+            if (gram.comments.data[0].from.id === gram.user.id) {
+              description = gram.comments.data[0].text;
+            }
+          }
+
+          return {
+            title: gram.caption ? gram.caption.text.replace(/\#\w+/g, '').trim() : '',
+            description: description,
+            media: {
+              id: gram.id,
+              url: gram.link,
+              type: 'twitter'
+            },
+            lat: gram.location.latitude,
+            lng: gram.location.longitude
+          };
+        });
+
+        _this.props.valueLink.requestChange({markers: walkMap, route: []}, function() {
+          _this.props.refreshGMap();
+          _this.props.boundMapByWalk();
+        });
+      }
+    });
+  },
+
+  handleTagChange: function(ev) {
+    this.setState({tag: ev.target.value});
+  },
+
+  render: function() {
+    if (this.state.accessToken) {
+      return (
+        <div className="loadFeed">
+          <i className="fa fa-twitter" />
+          <input type="text" placeholder="Walk Tag" value={this.state.tag} onChange={this.handleTagChange} />
+          <a onClick={this.handleLoadFeed}>Load</a>
+        </div>
+      );
+    } else if (this.state.authWindow) {
+      return (
+        <a onClick={this.handleLoadToken}>Get that token!</a>
+      );
+    } else {
+      return (
+        <button onClick={this.handleConnect}>
+          <i className="fa fa-twitter" />
+          Instagram
+        </button>
+      );
+    }
+  }
+})
 module.exports = MapBuilder;

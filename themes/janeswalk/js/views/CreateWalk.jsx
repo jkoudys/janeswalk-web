@@ -210,6 +210,14 @@ var CreateWalk = React.createClass({
     var t = i18n.translate.bind(i18n);
     var t2 = i18n.translatePlural.bind(i18n);
 
+    // Used to let the map pass a callback
+    var linkStateMap = {
+      value: this.state.gmap,
+      requestChange: function(newVal, cb) {
+        this.setState({gmap: newVal}, cb);
+      }.bind(this)
+    };
+
     return (
       <main id="create-walk">
         <section>
@@ -274,7 +282,7 @@ var CreateWalk = React.createClass({
                   <hr />
                 </form>
               </div>
-              <CAWMapBuilder ref="mapBuilder" i18n={i18n} valueLink={this.linkState('gmap')} city={this.props.city} />
+              <CAWMapBuilder ref="mapBuilder" i18n={i18n} valueLink={linkStateMap} city={this.props.city} />
               <CAWDateSelect i18n={i18n} valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>
