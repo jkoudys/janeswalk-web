@@ -421,6 +421,9 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       $btn.click(function(event) {
         if (!JanesWalk.user) {
           event.preventDefault();
+          // Redirect to the CAW you were attempting
+          // FIXME: bad approach - should be dispatcher based
+          JanesWalk.react.login.props.redirectURL = this.href;
           $('#login').modal();
         }
       });

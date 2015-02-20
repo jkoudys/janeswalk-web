@@ -17,6 +17,8 @@ var PageViews = {
 var ReactViews = {
   CreateWalkView: require('./views/CreateWalk.jsx')
 };
+// load modals
+var Login = require('./views/elements/Login.jsx')
 
 // Shims
 // Used for Intl.DateTimeFormat
@@ -29,6 +31,19 @@ document.addEventListener('DOMContentLoaded', function() {
   var ReactView = ReactViews[pageViewName];
 
   try {
+    // Render modals we need on each page
+    var loginEl = <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />;
+
+    // FIXME: once site's all-react, move this out of the JanesWalk object. Don't follow this approach
+    // or we'll end up with massive spaghetti.
+    JanesWalk.react = {
+      login: loginEl
+    };
+    React.render(
+      loginEl,
+      document.getElementById('modals')
+    );
+
     // Hybrid-routing. First check if there's a React view (which will render
     // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
     if (ReactView) {

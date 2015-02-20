@@ -1,8 +1,5 @@
 <?php
 /* Home for all modals which are hidden on page load */
-// Helpers
-$form = Loader::helper('form');
-
 // Error modal
 if (isset($error) && $error !== '') {
     if ($error instanceof Exception) {
@@ -16,40 +13,17 @@ if (isset($error) && $error !== '') {
     }
 }
 
-// Login
-$loginMethod = USER_REGISTRATION_WITH_EMAIL_ADDRESS ? t('Email') : t('User name');
+$sl = Stack::getByName('Social Logins');
+if ($sl) {
+    ob_start();
+    $sl->display();
+    // Set the social logins stack as accessible to client-side apps
+    $this->addFooterItem(
+        '<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; Object.assign(window.JanesWalk, {stacks: {"Social Logins": ' .
+        json_encode(ob_get_contents()) .
+        '}});</script>'
+    );
+    ob_end_clean();
+}
 ?>
-<dialog id="login">
-    <div>
-        <article>
-            <header>
-                <h3 class="form-lead"><?= t('Sign into %s', SITE) ?></h3>
-            </header>
-            <form method="post" action="<?= $this->url('/login', 'do_login') ?>">
-                <section>
-                    <?php $sl = Stack::getByName('Social Logins'); if ($sl) $sl->display() ?>
-                </section>
-                <section>
-                    <h4><?= t('or, log-in using your email & password') ?></h4>
-                    <label for="uName"><?= $loginMethod ?>
-                        <input type="text" name="uName" id="uName" <?= (isset($uName) ? 'value="' . $uName . '"' : '') ?> class="ccm-input-text input-large">
-                    </label>
-                    <label for="uPassword"><?= t('Password') ?>
-                        <input type="password" name="uPassword" id="uPassword" class="ccm-input-text input-large">
-                    </label>
-                    <label>
-                        <input type="checkbox" /> <?= t('Keep me signed in.') ?>
-                    </label>
-                    <input type="hidden" name="uEmail" id="uEmail" />
-                    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/login','forgot_password') ?>')" value="Request a new password" />
-                </section>
-                <footer>
-                    <?php  if (ENABLE_REGISTRATION) { ?>
-                    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/register') ?>')" value="Register for a new account." />
-                    <?php  } ?>
-                    <?= $form->submit('submit', t('Go!'), null, '') ?>
-                </footer>
-            </form>
-        </article>
-    </div>
-</dialog>
+<div id="modals"></div>
