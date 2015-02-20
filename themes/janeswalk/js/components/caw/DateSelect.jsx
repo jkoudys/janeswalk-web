@@ -1,3 +1,5 @@
+'use strict';
+
 // TODO: Make 'intiatives' build as separate selectors
 var DateSelect = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
@@ -9,7 +11,7 @@ var DateSelect = React.createClass({
         today.getUTCMonth(),
         today.getUTCDate() + 7,
         11,
-        00
+        0
       )
     );
     // Default to a 1-hour walk time

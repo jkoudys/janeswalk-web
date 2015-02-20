@@ -1,3 +1,5 @@
+'use strict';
+
 var mixins = require('../functions/mixins.jsx');
 
 var TeamBuilder = React.createClass({

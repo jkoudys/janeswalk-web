@@ -1,3 +1,5 @@
+'use strict';
+
 var mixins = require('../functions/mixins.jsx');
 
 var AccessibleSelect = React.createClass({

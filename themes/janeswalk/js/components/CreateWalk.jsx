@@ -5,13 +5,13 @@
 //
 
 // Load create-a-walk View components
-var CAWImageUpload = require('./elements/CAWImageUpload.jsx');
-var CAWThemeSelect = require('./elements/CAWThemeSelect.jsx');
-var CAWMapBuilder = require('./elements/CAWMapBuilder.jsx');
-var CAWDateSelect = require('./elements/CAWDateSelect.jsx');
-var CAWWardSelect = require('./elements/CAWWardSelect.jsx');
-var CAWAccessibleSelect = require('./elements/CAWAccessibleSelect.jsx');
-var CAWTeamBuilder = require('./elements/CAWTeamBuilder.jsx');
+var ImageUpload = require('./caw/ImageUpload.jsx');
+var ThemeSelect = require('./caw/ThemeSelect.jsx');
+var MapBuilder = require('./caw/MapBuilder.jsx');
+var DateSelect = require('./caw/DateSelect.jsx');
+var WardSelect = require('./caw/WardSelect.jsx');
+var AccessibleSelect = require('./caw/AccessibleSelect.jsx');
+var TeamBuilder = require('./caw/TeamBuilder.jsx');
 
 // Libs
 var I18nTranslate = require('./functions/translate.js');
@@ -259,7 +259,7 @@ var CreateWalk = React.createClass({
                     </div>
                   </fieldset>
                 </form>
-                <CAWImageUpload i18n={i18n} valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
+                <ImageUpload i18n={i18n} valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
                 <form>
                   <hr />
                   <fieldset>
@@ -277,19 +277,19 @@ var CreateWalk = React.createClass({
                       <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longdescription')} />
                     </div>
                   </fieldset>
-                  <CAWThemeSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
-                  {((this.props.city.wards || []).length > 0) ? <CAWWardSelect i18n={i18n} wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
+                  <ThemeSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
+                  {((this.props.city.wards || []).length > 0) ? <WardSelect i18n={i18n} wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
                   <hr />
                 </form>
               </div>
-              <CAWMapBuilder ref="mapBuilder" i18n={i18n} valueLink={linkStateMap} city={this.props.city} />
-              <CAWDateSelect i18n={i18n} valueLink={this.linkState('time')} />
+              <MapBuilder ref="mapBuilder" i18n={i18n} valueLink={linkStateMap} city={this.props.city} />
+              <DateSelect i18n={i18n} valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>
                   <h1>{ t('Make it Accessible') }</h1>
                 </div>
                 <div className="item">
-                  <CAWAccessibleSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
+                  <AccessibleSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
                 </div>
 
                 <div className="item">
@@ -328,7 +328,7 @@ var CreateWalk = React.createClass({
                 <hr />
                 <br />
               </div>
-              <CAWTeamBuilder i18n={i18n} valueLink={this.linkState('team')} />
+              <TeamBuilder i18n={i18n} valueLink={this.linkState('team')} />
             </div>
             <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>

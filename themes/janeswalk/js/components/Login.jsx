@@ -1,3 +1,5 @@
+'use strict';
+
 var Login = React.createClass({
   getInitialState: function() {
     // <?= (isset($uName) ? 'value="' . $uName . '"' : '') ?> 

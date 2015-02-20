@@ -8,17 +8,17 @@
 
 // Page Views
 var PageViews = {
-  PageView: require('./views/Page.jsx'),
-  CityPageView: require('./views/pages/City.jsx'),
-  HomePageView: require('./views/pages/Home.jsx'),
-  ProfilePageView: require('./views/pages/Profile.jsx'),
-  WalkPageView: require('./views/pages/Walk.jsx')
+  PageView: require('./components/Page.jsx'),
+  CityPageView: require('./components/pages/City.jsx'),
+  HomePageView: require('./components/pages/Home.jsx'),
+  ProfilePageView: require('./components/pages/Profile.jsx'),
+  WalkPageView: require('./components/pages/Walk.jsx')
 };
 var ReactViews = {
-  CreateWalkView: require('./views/CreateWalk.jsx')
+  CreateWalkView: require('./components/CreateWalk.jsx')
 };
 // load modals
-var Login = require('./views/elements/Login.jsx')
+var Login = require('./components/Login.jsx')
 
 // Shims
 // Used for Intl.DateTimeFormat

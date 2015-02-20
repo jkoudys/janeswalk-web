@@ -1,7 +1,8 @@
 'use strict';
+
 var PageView = require('../Page.jsx');
 var FacebookShareDialog = require('../FacebookShareDialog.jsx');
-var WalkMap = require('../elements/WalkMap.jsx');
+var WalkMap = require('../WalkMap.jsx');
 
 /**
  * WalkPageView

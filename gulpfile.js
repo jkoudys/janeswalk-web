@@ -26,14 +26,14 @@ var paths = {
     './themes/janeswalk/js/extend.js',
     './themes/janeswalk/js/shims.js',
   ],
-  jsx_app: './themes/janeswalk/js/janeswalk.jsx',
-  jsx_views: ['./themes/janeswalk/js/janeswalk.jsx', './themes/janeswalk/js/v2/**/*.jsx'],
-  jsx: ['./themes/janeswalk/js/views/**/*.jsx'],
+  jsx_app: './themes/janeswalk/js/router.jsx',
+  jsx_views: ['./themes/janeswalk/js/router.jsx'],
+  jsx: ['./themes/janeswalk/js/components/**/*.jsx'],
   languages: './languages',
   mos: ['./languages/*/*.mo'],
   less: ['./themes/janeswalk/css/main.less'],
   css: './themes/janeswalk/css/',
-  react_views: './themes/janeswalk/js/views/'
+  react_views: './themes/janeswalk/js/components/'
 };
 
 gulp.task('css', function() {

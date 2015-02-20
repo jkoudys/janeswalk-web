@@ -1,3 +1,5 @@
+'use strict';
+
 // Link this component's state to the linkState() parent
 module.exports.linkedParentState = {
   linkParentState: function(propname) {

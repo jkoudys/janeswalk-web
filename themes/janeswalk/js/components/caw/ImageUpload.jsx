@@ -1,3 +1,5 @@
+'use strict';
+
 var ImageUpload = React.createClass({
   displayName: 'ImageUpload',
 
