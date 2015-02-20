@@ -46,4 +46,15 @@ if (!Object.assign) {
     }
   });
 }
+
+if (!Number.isInteger) {
+  Object.defineProperty(Number, 'isInteger', {
+    enumerable: false,
+    configurable: true,
+    writable: true,
+    value: function(n) {
+      return n === +n && n === (n|0);
+    }
+  });
+}
 /* jshint ignore:end */
