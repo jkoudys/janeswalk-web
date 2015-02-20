@@ -16,7 +16,7 @@ var InstagramConnect = React.createClass({
   handleConnect: function() {
     var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
     var redirectURI = 'http://janeswalk.org/connected';
-    var authWindow = window.open('https://instagram.com/oauth/authenticate/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
+    var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
     this.setState({authWindow: authWindow});
   },
 
