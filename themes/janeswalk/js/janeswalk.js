@@ -2920,7 +2920,8 @@ module.exports = InstagramConnect;
 var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
   getInitialState: function() {
     return {
-      tag: ''
+      query: '',
+      accessToken: true
     };
   },
 
@@ -2930,62 +2931,30 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
     }.bind(this);
   },
 
-  handleConnect: function() {
-    var clientID = 'IVfBVtRBs7AT7gQnhU3o8iHpc';
-    var redirectURI = 'http://janeswalk.org/connected';
-    var authWindow = window.open('https://twitter.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
-    this.setState({authWindow: authWindow});
-  },
-
   handleLoadToken: function() {
-    var hash = this.state.authWindow.location.hash;
-    this.setState({
-      authWindow: undefined,
-      accessToken: hash.substr(hash.indexOf('=') + 1)
+    var _this = this;
+
+    // Twitter requires a server-side auth with secret, so clients get token from JW
+    $.ajax({
+      method: 'GET',
+      url: '/api/twitter',
+      dataType: 'json',
+      success: function(data) {
+        if (data.access_token) {
+          _this.setState({accessToken: data.access_token});
+        }
+      }
     });
   },
 
   handleLoadFeed: function() {
     var _this = this;
-    var tag = this.state.tag;
 
     $.ajax({
       type: 'GET',
-      crossDomain: true,
-      dataType: 'jsonp',
-      url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
+      url: '/api/twitter?q=' + this.state.query,
       success: function(data) {
-        var walkMap = data.data.filter(function(gram) {
-          var tagMatch = true;
-          if (tag) {
-            tagMatch = gram.tags.indexOf(tag) !== -1;
-          }
-          return !!(gram.location && tagMatch);
-        })
-        .reverse()
-        .map(function(gram) {
-          // If the first comment is from the owner, use that as the description
-          var description = '';
-          if (gram.comments && gram.comments.data.length > 0) {
-            if (gram.comments.data[0].from.id === gram.user.id) {
-              description = gram.comments.data[0].text;
-            }
-          }
-
-          return {
-            title: gram.caption ? gram.caption.text.replace(/\#\w+/g, '').trim() : '',
-            description: description,
-            media: {
-              id: gram.id,
-              url: gram.link,
-              type: 'twitter'
-            },
-            lat: gram.location.latitude,
-            lng: gram.location.longitude
-          };
-        });
-
-        _this.props.valueLink.requestChange({markers: walkMap, route: []}, function() {
+        _this.props.valueLink.requestChange({markers: data, route: []}, function() {
           _this.props.refreshGMap();
           _this.props.boundMapByWalk();
         });
@@ -2993,8 +2962,8 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
     });
   },
 
-  handleTagChange: function(ev) {
-    this.setState({tag: ev.target.value});
+  handleQueryChange: function(ev) {
+    this.setState({query: ev.target.value});
   },
 
   render: function() {
@@ -3002,17 +2971,13 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
       return (
         React.createElement("div", {className: "loadFeed"}, 
           React.createElement("i", {className: "fa fa-twitter"}), 
-          React.createElement("input", {type: "text", placeholder: "Walk Tag", value: this.state.tag, onChange: this.handleTagChange}), 
+          React.createElement("input", {type: "text", placeholder: "Walk Tag", value: this.state.query, onChange: this.handleQueryChange}), 
           React.createElement("a", {onClick: this.handleLoadFeed}, "Load")
         )
       );
-    } else if (this.state.authWindow) {
-      return (
-        React.createElement("a", {onClick: this.handleLoadToken}, "Get that token!")
-      );
     } else {
       return (
-        React.createElement("button", {onClick: this.handleConnect}, 
+        React.createElement("button", {onClick: this.handleLoadToken}, 
           React.createElement("i", {className: "fa fa-twitter"}), 
           "twitter"
         )
