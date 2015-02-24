@@ -27,25 +27,21 @@ class ApiTwitterController extends Controller
     {
         $points = [];
 
-        try {
-            $ch = curl_init();
-            curl_setopt_array(
-                $ch,
-                [
-                    CURLOPT_URL => 'https://api.twitter.com/1.1/search/tweets.json?geocode=43.7,-79.4,9999999999km&q=' . $query,
-                    CURLOPT_RETURNTRANSFER => true,
-                    // TODO: use a const for some of these
-                    CURLOPT_TIMEOUT => 20,
-                    CURLOPT_HTTPHEADER => [
-                        'Authorization: Bearer ' . $this->accessToken
-                    ],
-                ]
-            );
-            $res = json_decode(curl_exec($ch), true);
-        } catch (Exception $e) {
-            throw new Exception('Error loading Twitter search results.');
-        }
-        foreach ((array)$res['statuses'] as $status) {
+        $ch = curl_init();
+        curl_setopt_array(
+            $ch,
+            [
+                CURLOPT_URL => 'https://api.twitter.com/1.1/search/tweets.json?geocode=43.7,-79.4,9999999999km&q=' . $query,
+                CURLOPT_RETURNTRANSFER => true,
+                // TODO: use a const for some of these
+                CURLOPT_TIMEOUT => 20,
+                CURLOPT_HTTPHEADER => [
+                    'Authorization: Bearer ' . $this->accessToken
+                ],
+            ]
+        );
+        $res = json_decode(curl_exec($ch), true);
+        foreach ((array) $res['statuses'] as $status) {
             $geo = $status['geo'];
             if ($geo['type'] === 'Point') {
                 $points[] = [
@@ -71,13 +67,13 @@ class ApiTwitterController extends Controller
                 CURLOPT_TIMEOUT => 20,
                 CURLOPT_HTTPHEADER => [
                     'Authorization: Basic ' . base64_encode(TWITTER_CONSUMER_KEY . ':' . TWITTER_CONSUMER_SECRET),
-                    'Content-type: application/x-www-form-urlencoded;charset=UTF-8'
-                ],
-                CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
-            ]
-        );
+                        'Content-type: application/x-www-form-urlencoded;charset=UTF-8'
+                    ],
+                    CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+                ]
+            );
         $res = json_decode(curl_exec($ch), true);
-        
+
         // Verify we successfully authorized
         if (!$res || count($res['errors'])) {
             throw new Exception('Error connecting to twitter API');

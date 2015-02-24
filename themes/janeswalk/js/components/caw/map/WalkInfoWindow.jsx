@@ -26,11 +26,20 @@ var WalkInfoWindow = React.createClass({
   render: function() {
     var marker = this.state.marker;
     var markerContent = JSON.parse(marker.getTitle());
-    var image = markerContent.media ? <img src={markerContent.media.url + 'media?size=t'} /> : null;
+    var media;
+
+    // Load rich media
+    if (markerContent.media) {
+      if (markerContent.media.type === 'instagram') {
+        media = <img src={markerContent.media.url + 'media?size=t'} />;
+      } else if (markerContent.media.type === 'soundcloud') {
+        media = <iframe width="200" height="200" scrolling="no" frameborder="no" src={'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'} />;
+      }
+    }
 
     return (
       <div className='stop-form'>
-        {image}
+        {media}
         <section className="details">
           <input
             type='text'

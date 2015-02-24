@@ -4,6 +4,7 @@ var Helper = require('../functions/helpers.jsx');
 var WalkStopTable = require('./map/WalkStopTable.jsx');
 var WalkInfoWindow = require('./map/WalkInfoWindow.jsx');
 var InstagramConnect = require('./map/InstagramConnect.jsx');
+var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
 var TwitterConnect = require('./map/TwitterConnect.jsx');
 
 var MapBuilder = React.createClass({
@@ -66,9 +67,17 @@ var MapBuilder = React.createClass({
     // Draw the route
     if (valueLink.value) {
       valueLink.value.markers.forEach(function(marker) {
+        var latlng;
+        // Set to the markers latlng if available, otherwise place at center
+        if (marker.lat && marker.lng) {
+          latlng = new google.maps.LatLng(marker.lat, marker.lng);
+        } else {
+          latlng = this.state.map.center;
+        }
+
         markers.push(
           this.buildMarker({
-            latlng: new google.maps.LatLng(marker.lat, marker.lng),
+            latlng: latlng,
             title: marker.title,
             description: marker.description,
             media: marker.media
@@ -390,8 +399,9 @@ var MapBuilder = React.createClass({
           <button ref="clearroute" onClick={this.clearRoute}>
             <i className="fa fa-eraser" />{ t('Clear Route') }
           </button>
-          <InstagramConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
           <TwitterConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
+          <InstagramConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
+          <SoundCloudConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
         </div>
         <div className="map-notifications" />
         <div id="map-canvas" ref="gmap" />

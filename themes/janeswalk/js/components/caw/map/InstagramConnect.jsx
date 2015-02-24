@@ -7,25 +7,17 @@ var InstagramConnect = React.createClass({
     };
   },
 
-  componentWillMount: function() {
-    window.setAccessToken = function(accessToken) {
-      this.setState({accessToken: accessToken});
-    }.bind(this);
-  },
-
   handleConnect: function() {
     var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
     var redirectURI = 'http://janeswalk.org/connected';
+
+    // Race-condition prone, but safest way to pull this from a child window
+    window.loadAccessToken = function(accessToken) {
+      this.setState({accessToken: accessToken});
+    }.bind(this);
+
     var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
     this.setState({authWindow: authWindow});
-  },
-
-  handleLoadToken: function() {
-    var hash = this.state.authWindow.location.hash;
-    this.setState({
-      authWindow: undefined,
-      accessToken: hash.substr(hash.indexOf('=') + 1)
-    });
   },
 
   handleLoadFeed: function() {
