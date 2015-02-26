@@ -42,16 +42,16 @@ class ApiWalkLeadersController extends Controller
             $home_city = $user->getAttribute('home_city');
             $userSet[$user->getUserID()] = [
                 'user_id' => $user->getUserID(),
-                    'first_name' => $user->getAttribute('first_name'),
-                    'last_name' => $user->getAttribute('last_name'),
-                    'city_name' => $home_city ? $home_city->getCollectionName() : null,
-                    'city_id' => $home_city ? $home_city->getCollectionID() : null,
-                    'bio' => $user->getAttribute('bio'),
-                    'twitter' => $user->getAttribute('twitter'),
-                    'facebook' => $user->getAttribute('facebook'),
-                    'website' => $user->getAttribute('website'),
-                    'avatar' => $av->getImagePath($user)
-                ];
+                'first_name' => $user->getAttribute('first_name'),
+                'last_name' => $user->getAttribute('last_name'),
+                'city_name' => $home_city ? $home_city->getCollectionName() : null,
+                'city_id' => $home_city ? $home_city->getCollectionID() : null,
+                'bio' => $user->getAttribute('bio'),
+                'twitter' => $user->getAttribute('twitter'),
+                'facebook' => $user->getAttribute('facebook'),
+                'website' => $user->getAttribute('website'),
+                'avatar' => $av->getImagePath($user)
+            ];
         }
 
         return json_encode($userSet);

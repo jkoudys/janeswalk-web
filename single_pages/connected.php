@@ -1,4 +1,8 @@
 <?php
+/**
+ * Simple page for receiving an 'access_token' hash on redirect from an
+ * oauth2 API
+ */
 ?>
 <script>
 (function() {

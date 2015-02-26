@@ -112,8 +112,7 @@ class Controller extends \Controller
     {
         $this->addFooterItem(
             '<script type="text/javascript">' .
-            'window.JanesWalk = window.JanesWalk || {};' .
-            'Object.assign(window.JanesWalk, ' .
+            'window.JanesWalk = Object.assign({}, window.JanesWalk, ' .
             json_encode($this->pageData) . ');' .
             '</script>'
         );

@@ -19,7 +19,7 @@ if ($sl) {
     $sl->display();
     // Set the social logins stack as accessible to client-side apps
     $this->addFooterItem(
-        '<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; Object.assign(window.JanesWalk, {stacks: {"Social Logins": ' .
+        '<script type="text/javascript">window.JanesWalk = Object.assign({}, window.JanesWalk, {stacks: {"Social Logins": ' .
         json_encode(ob_get_contents()) .
         '}});</script>'
     );

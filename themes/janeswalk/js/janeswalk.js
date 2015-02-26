@@ -198,7 +198,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       if (data.team.length === 0) {
         var user = this.props.user;
         data.team = [{
-          user_id: user.id,
+          //          user_id: user.id,
           type: 'you',
           "name-first": user.firstName,
           "name-last": user.lastName,
@@ -1808,7 +1808,9 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       map: null,
       markers: new google.maps.MVCArray,
       route: null,
-      infowindow: new google.maps.InfoWindow
+      infowindow: new google.maps.InfoWindow,
+      // The collection of search terms boxes
+      filters: []
     };
   },
 
@@ -1917,6 +1919,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
   // @param google.maps.LatLng latlng The position to add
   // @param Object title {title, description}
   buildMarker: function(options) {
+    options = options || {};
     var _this = this;
     var latlng = options.latlng;
     var title = options.title || '';
@@ -2102,9 +2105,39 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     };
   },
 
+  // Manage the filters for loading data from external APIs
+  handleRemoveFilter: function(i) {
+    var filters = this.state.filters.slice();
+    filters.splice(i, 1);
+    this.setState({filters: filters});
+  },
+
+  // Update the _text_ of a filter
+  handleChangeFilter: function(i, val) {
+    var filters = this.state.filters.slice();
+    filters[i].value = val;
+    this.setState({filters: filters});
+  },
+
+  // Push a new filter to our box, usually done by the buttons
+  handleAddFilter: function(filter) {
+    var filters = this.state.filters.slice();
+    filters.push(filter);
+    this.setState({filters: filters});
+  },
+
   render: function() {
     var walkStops;
     var t = this.props.i18n.translate.bind(this.props.i18n);
+
+    // Standard properties the filter buttons need
+    var filterProps = {
+      valueLink: this.props.valueLink,
+      refreshGMap: this.refreshGMap,
+      boundMapByWalk: this.boundMapByWalk,
+      addFilter: this.handleAddFilter,
+      city: this.props.city
+    };
 
     if (this.state.markers && this.state.markers.length) {
       // This 'key' is to force the component to not rebuild
@@ -2184,10 +2217,11 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
           React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, 
             React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') 
           ), 
-          React.createElement(TwitterConnect, {valueLink: this.props.valueLink, refreshGMap: this.refreshGMap, boundMapByWalk: this.boundMapByWalk}), 
-          React.createElement(InstagramConnect, {valueLink: this.props.valueLink, refreshGMap: this.refreshGMap, boundMapByWalk: this.boundMapByWalk}), 
-          React.createElement(SoundCloudConnect, {valueLink: this.props.valueLink, refreshGMap: this.refreshGMap, boundMapByWalk: this.boundMapByWalk})
+          React.createElement(TwitterConnect, React.__spread({},  filterProps)), 
+          React.createElement(InstagramConnect, React.__spread({},  filterProps)), 
+          React.createElement(SoundCloudConnect, React.__spread({},  filterProps))
         ), 
+        React.createElement(ConnectFilters, {filters: this.state.filters, changeFilter: this.handleChangeFilter, remove: this.handleRemoveFilter}), 
         React.createElement("div", {className: "map-notifications"}), 
         React.createElement("div", {id: "map-canvas", ref: "gmap"}), 
         walkStops, 
@@ -2196,6 +2230,61 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
     );
   }
 });
+
+var ConnectFilters = React.createClass({displayName: 'ConnectFilters',
+  render: function() {
+    var _this = this;
+    return (
+      React.createElement("div", {className: "filterInputs"}, 
+        this.props.filters.map(function(filter, i) {
+          var input = null;
+          var cbAndRemove = function(ev) {
+            ev.preventDefault();
+            filter.cb(filter.value);
+            _this.props.remove(i);
+          }
+
+          var handleChange = function(ev) {
+            _this.props.changeFilter(i, ev.target.value);
+          }
+
+          var cancel = function() {
+            _this.props.remove(i);
+          }
+
+          if (filter.type === 'text') {
+            input = React.createElement("input", {type: "text", placeholder: filter.placeholder, value: filter.text, onChange: handleChange});
+          } else if (filter.type === 'select') {
+            input = (
+              React.createElement("select", {selected: filter.value, onChange: handleChange}, 
+                filter.options.map(function(option, i) {
+                  return React.createElement("option", {key: 'option' + i, value: i}, option.title)
+                })
+              )
+            );
+          }
+
+          // FIXME: these spans are rather silly, but needed to play nice with bootstrap
+          return (
+            React.createElement("form", {className: "filter", onSubmit: cbAndRemove}, 
+              React.createElement("i", {className: filter.icon}), 
+              React.createElement("span", {className: "input"}, 
+                input
+              ), 
+              React.createElement("span", {className: "button"}, 
+                React.createElement("input", {type: "submit", value: 'Go'})
+              ), 
+              React.createElement("span", {className: "button"}, 
+                React.createElement("input", {type: "button", value: 'Cancel', onClick: cancel})
+              )
+            )
+            );
+        })
+        )
+    );
+  }
+});
+        
 
 module.exports = MapBuilder;
 
@@ -2825,26 +2914,25 @@ module.exports = WardSelect;
 var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
   getInitialState: function() {
     return {
-      tag: ''
+      accessToken: null
     };
   },
 
-  handleConnect: function() {
+  handleConnect: function(cb) {
     var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
     var redirectURI = 'http://janeswalk.org/connected';
 
     // Race-condition prone, but safest way to pull this from a child window
     window.loadAccessToken = function(accessToken) {
-      this.setState({accessToken: accessToken});
+      this.setState({accessToken: accessToken}, cb);
     }.bind(this);
 
     var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
     this.setState({authWindow: authWindow});
   },
 
-  handleLoadFeed: function() {
+  handleLoadFeed: function(query) {
     var _this = this;
-    var tag = this.state.tag;
 
     $.ajax({
       type: 'GET',
@@ -2852,10 +2940,11 @@ var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
       dataType: 'jsonp',
       url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
       success: function(data) {
+        var markers = _this.props.valueLink.value.markers.slice();
         var walkMap = data.data.filter(function(gram) {
           var tagMatch = true;
-          if (tag) {
-            tagMatch = gram.tags.indexOf(tag) !== -1;
+          if (query) {
+            tagMatch = gram.tags.indexOf(query) !== -1;
           }
           return !!(gram.location && tagMatch);
         })
@@ -2882,7 +2971,7 @@ var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
           };
         });
 
-        _this.props.valueLink.requestChange({markers: walkMap, route: []}, function() {
+        _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: []}, function() {
           _this.props.refreshGMap();
           _this.props.boundMapByWalk();
         });
@@ -2890,27 +2979,32 @@ var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
     });
   },
 
-  handleTagChange: function(ev) {
-    this.setState({tag: ev.target.value});
-  },
-
   render: function() {
-    if (this.state.accessToken) {
-      return (
-        React.createElement("div", {className: "loadFeed"}, 
-          React.createElement("i", {className: "fa fa-instagram"}), 
-          React.createElement("input", {type: "text", placeholder: "Walk Tag", value: this.state.tag, onChange: this.handleTagChange}), 
-          React.createElement("a", {onClick: this.handleLoadFeed}, "Load")
-        )
-      );
-    } else {
-      return (
-        React.createElement("button", {onClick: this.handleConnect}, 
-          React.createElement("i", {className: "fa fa-instagram"}), 
-          "Instagram"
-        )
-      );
-    }
+    var _this = this;
+    var addFilter = function() {
+      var filterProps = {
+        type: 'text',
+        icon: 'fa fa-instagram',
+        placeholder: 'Type in the tag you used on the geocoded photos for your walk',
+        value: '',
+        cb: _this.handleLoadFeed
+      }
+      if (_this.state.accessToken) {
+        _this.props.addFilter(filterProps);
+      } else {
+        // Connect, and add the box when done
+        _this.handleConnect(function() {
+          _this.props.addFilter(filterProps);
+        });
+      }
+    };
+
+    return (
+      React.createElement("button", {onClick: addFilter}, 
+        React.createElement("i", {className: "fa fa-instagram"}), 
+        "Instagram"
+      )
+    );
   }
 });
 
@@ -2922,25 +3016,24 @@ module.exports = InstagramConnect;
 var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
   getInitialState: function() {
     return {
-      playlistSelected: 0,
       playlists: []
     };
   },
 
-  handleConnect: function() {
+  handleConnect: function(cb) {
     var clientID = '3a4c85d0eb4f8579fb680bb738bd0ba8';
     var redirectURI = 'http://janeswalk.org/connected';
 
     // FIXME Race-condition prone if you open multiple services in parallel
     window.loadAccessToken = function(accessToken) {
-      this.setState({accessToken: accessToken}, this.handleLoadPlaylists(accessToken));
+      this.setState({accessToken: accessToken}, this.handleLoadPlaylists(accessToken, cb));
     }.bind(this);
 
     var authWindow = window.open('https://soundcloud.com/connect/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token&state=soundcloud');
     this.setState({authWindow: authWindow});
   },
 
-  handleLoadPlaylists: function(accessToken) {
+  handleLoadPlaylists: function(accessToken, cb) {
     var _this = this;
     accessToken = accessToken || this.state.accessToken;
 
@@ -2951,18 +3044,16 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
       url: 'https://api.soundcloud.com/me/playlists.json?oauth_token=' + accessToken,
       success: function(data) {
         _this.setState({playlists: data});
+        cb();
       }
     });
   },
 
-  handlePlaylistChange: function(ev) {
-    this.setState({playlistSelected: ev.target.value});
-  },
-
-  loadPointsFromPlaylist: function() {
+  loadPointsFromPlaylist: function(i) {
     var _this = this;
+    var markers = _this.props.valueLink.value.markers.slice();
 
-    var points = this.state.playlists[this.state.playlistSelected].tracks.map(function(track) {
+    var points = this.state.playlists[i].tracks.map(function(track) {
       var point = {
         title: track.title || '',
         description: track.description || '',
@@ -2988,36 +3079,39 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
 
       return point;
     });
-    _this.props.valueLink.requestChange({markers: points, route: []}, function() {
+    _this.props.valueLink.requestChange({markers: markers.concat(points), route: []}, function() {
       _this.props.refreshGMap();
       _this.props.boundMapByWalk();
     });
   },
 
   render: function() {
-    var playlists = (
-      React.createElement("select", {ref: playlists, selected: this.state.playlistSelected, onChange: this.handlePlaylistChange}, 
-        this.state.playlists.map(function(playlist, i) {
-          return React.createElement("option", {key: 'playlist' + i, value: i}, playlist.title)
-        })
+    var _this = this;
+    var addFilter = function() {
+      var filterProps = {
+        type: 'select',
+        icon: 'fa fa-soundcloud',
+        options: _this.state.playlists,
+        value: 0,
+        cb: _this.loadPointsFromPlaylist
+      }
+      if (_this.state.accessToken) {
+        _this.props.addFilter(filterProps);
+      } else {
+        // Connect, and add the box when done
+        _this.handleConnect(function() {
+          filterProps.options = _this.state.playlists;
+          _this.props.addFilter(filterProps);
+        });
+      }
+    };
+
+    return (
+      React.createElement("button", {onClick: addFilter}, 
+        React.createElement("i", {className: "fa fa-soundcloud"}), 
+        "SoundCloud"
       )
     );
-    if (this.state.accessToken) {
-      return (
-        React.createElement("div", {className: "loadFeed"}, 
-          React.createElement("i", {className: "fa fa-soundcloud"}), 
-          playlists, 
-          React.createElement("a", {onClick: this.loadPointsFromPlaylist}, "Load")
-        )
-      );
-    } else {
-      return (
-        React.createElement("button", {onClick: this.handleConnect}, 
-          React.createElement("i", {className: "fa fa-soundcloud"}), 
-          "SoundCloud"
-        )
-      );
-    }
   }
 });
 
@@ -3056,16 +3150,32 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
     });
   },
 
-  handleLoadFeed: function() {
+  loadFeed: function(query) {
     var _this = this;
 
     $.ajax({
       type: 'GET',
-      url: '/api/twitter?q=' + this.state.query,
+      url: '/api/twitter?q=' + query + '&coords=' + this.props.city.lat + ',' + this.props.city.lng,
       success: function(data) {
-        _this.props.valueLink.requestChange({markers: data, route: []}, function() {
-          _this.props.refreshGMap();
-          _this.props.boundMapByWalk();
+        var markers = _this.props.valueLink.value.markers.slice();
+
+        _this.props.valueLink.requestChange({
+          markers: markers.concat(data.map(function(tweet) {
+            // Take first 5 words as the title
+            return {
+              title: tweet.description.split(' ').slice(0, 5).join(' '),
+              description: tweet.description,
+              lat: tweet.lat,
+              lng: tweet.lng,
+            };
+          })),
+          route: []
+        }, function() {
+          // kludge - need to find if there's a callback we can pass into gmaps for this
+          setTimeout(function() {
+            _this.props.refreshGMap();
+            _this.props.boundMapByWalk();
+          }, 100);
         });
       }
     });
@@ -3076,22 +3186,23 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
   },
 
   render: function() {
-    if (this.state.accessToken) {
-      return (
-        React.createElement("div", {className: "loadFeed"}, 
-          React.createElement("i", {className: "fa fa-twitter"}), 
-          React.createElement("input", {type: "text", placeholder: "Walk Tag", value: this.state.query, onChange: this.handleQueryChange}), 
-          React.createElement("a", {onClick: this.handleLoadFeed}, "Load")
-        )
-      );
-    } else {
-      return (
-        React.createElement("button", {onClick: this.handleLoadToken}, 
-          React.createElement("i", {className: "fa fa-twitter"}), 
-          "twitter"
-        )
-      );
-    }
+    var addFilter = function() {
+      // The filter we set to the 'filter box'
+      this.props.addFilter({
+        type: 'text',
+        icon: 'fa fa-twitter',
+        placeholder: 'Type in a standard twitter search for geocoded tweets, e.g. "#ParkStroll #janeswalk from:MyName"',
+        value: '',
+        cb: this.loadFeed
+      });
+    }.bind(this);
+
+    return (
+      React.createElement("button", {onClick: addFilter}, 
+        React.createElement("i", {className: "fa fa-twitter"}), 
+        "twitter"
+      )
+    );
   }
 });
 
@@ -3131,9 +3242,9 @@ var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
     // Load rich media
     if (markerContent.media) {
       if (markerContent.media.type === 'instagram') {
-        media = React.createElement("img", {src: markerContent.media.url + 'media?size=t'});
+        media = React.createElement("img", {className: "media", src: markerContent.media.url + 'media?size=t'});
       } else if (markerContent.media.type === 'soundcloud') {
-        media = React.createElement("iframe", {width: "200", height: "200", scrolling: "no", frameborder: "no", src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'});
+        media = React.createElement("iframe", {className: "media", width: "150", height: "100%", scrolling: "no", frameborder: "no", src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'});
       }
     }
 

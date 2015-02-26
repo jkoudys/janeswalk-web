@@ -31,9 +31,9 @@ var WalkInfoWindow = React.createClass({
     // Load rich media
     if (markerContent.media) {
       if (markerContent.media.type === 'instagram') {
-        media = <img src={markerContent.media.url + 'media?size=t'} />;
+        media = <img className="media" src={markerContent.media.url + 'media?size=t'} />;
       } else if (markerContent.media.type === 'soundcloud') {
-        media = <iframe width="200" height="200" scrolling="no" frameborder="no" src={'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'} />;
+        media = <iframe className="media" width="150" height="100%" scrolling="no" frameborder="no" src={'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'} />;
       }
     }
 

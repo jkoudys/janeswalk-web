@@ -81,7 +81,7 @@ var CreateWalk = React.createClass({
       if (data.team.length === 0) {
         var user = this.props.user;
         data.team = [{
-          user_id: user.id,
+          //          user_id: user.id,
           type: 'you',
           "name-first": user.firstName,
           "name-last": user.lastName,

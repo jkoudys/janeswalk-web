@@ -23,7 +23,9 @@ var MapBuilder = React.createClass({
       map: null,
       markers: new google.maps.MVCArray,
       route: null,
-      infowindow: new google.maps.InfoWindow
+      infowindow: new google.maps.InfoWindow,
+      // The collection of search terms boxes
+      filters: []
     };
   },
 
@@ -132,6 +134,7 @@ var MapBuilder = React.createClass({
   // @param google.maps.LatLng latlng The position to add
   // @param Object title {title, description}
   buildMarker: function(options) {
+    options = options || {};
     var _this = this;
     var latlng = options.latlng;
     var title = options.title || '';
@@ -317,9 +320,39 @@ var MapBuilder = React.createClass({
     };
   },
 
+  // Manage the filters for loading data from external APIs
+  handleRemoveFilter: function(i) {
+    var filters = this.state.filters.slice();
+    filters.splice(i, 1);
+    this.setState({filters: filters});
+  },
+
+  // Update the _text_ of a filter
+  handleChangeFilter: function(i, val) {
+    var filters = this.state.filters.slice();
+    filters[i].value = val;
+    this.setState({filters: filters});
+  },
+
+  // Push a new filter to our box, usually done by the buttons
+  handleAddFilter: function(filter) {
+    var filters = this.state.filters.slice();
+    filters.push(filter);
+    this.setState({filters: filters});
+  },
+
   render: function() {
     var walkStops;
     var t = this.props.i18n.translate.bind(this.props.i18n);
+
+    // Standard properties the filter buttons need
+    var filterProps = {
+      valueLink: this.props.valueLink,
+      refreshGMap: this.refreshGMap,
+      boundMapByWalk: this.boundMapByWalk,
+      addFilter: this.handleAddFilter,
+      city: this.props.city
+    };
 
     if (this.state.markers && this.state.markers.length) {
       // This 'key' is to force the component to not rebuild
@@ -399,10 +432,11 @@ var MapBuilder = React.createClass({
           <button ref="clearroute" onClick={this.clearRoute}>
             <i className="fa fa-eraser" />{ t('Clear Route') }
           </button>
-          <TwitterConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
-          <InstagramConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
-          <SoundCloudConnect valueLink={this.props.valueLink} refreshGMap={this.refreshGMap} boundMapByWalk={this.boundMapByWalk} />
+          <TwitterConnect {...filterProps} />
+          <InstagramConnect {...filterProps} />
+          <SoundCloudConnect {...filterProps} />
         </div>
+        <ConnectFilters filters={this.state.filters} changeFilter={this.handleChangeFilter} remove={this.handleRemoveFilter} />
         <div className="map-notifications" />
         <div id="map-canvas" ref="gmap" />
         {walkStops}
@@ -411,5 +445,60 @@ var MapBuilder = React.createClass({
     );
   }
 });
+
+var ConnectFilters = React.createClass({
+  render: function() {
+    var _this = this;
+    return (
+      <div className="filterInputs">
+        {this.props.filters.map(function(filter, i) {
+          var input = null;
+          var cbAndRemove = function(ev) {
+            ev.preventDefault();
+            filter.cb(filter.value);
+            _this.props.remove(i);
+          }
+
+          var handleChange = function(ev) {
+            _this.props.changeFilter(i, ev.target.value);
+          }
+
+          var cancel = function() {
+            _this.props.remove(i);
+          }
+
+          if (filter.type === 'text') {
+            input = <input type="text" placeholder={filter.placeholder} value={filter.text} onChange={handleChange} />;
+          } else if (filter.type === 'select') {
+            input = (
+              <select selected={filter.value} onChange={handleChange}>
+                {filter.options.map(function(option, i) {
+                  return <option key={'option' + i} value={i}>{option.title}</option>
+                })}
+              </select>
+            );
+          }
+
+          // FIXME: these spans are rather silly, but needed to play nice with bootstrap
+          return (
+            <form className="filter" onSubmit={cbAndRemove}>
+              <i className={filter.icon} />
+              <span className="input">
+                {input}
+              </span>
+              <span className="button">
+                <input type="submit" value={'Go'} />
+              </span>
+              <span className="button">
+                <input type="button" value={'Cancel'} onClick={cancel} />
+              </span>
+            </form>
+            );
+        })}
+        </div>
+    );
+  }
+});
+        
 
 module.exports = MapBuilder;

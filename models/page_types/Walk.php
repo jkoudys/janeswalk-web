@@ -332,7 +332,7 @@ class Walk extends \Model implements \JsonSerializable
         // Callback, in case we define more checkbox groups
         // Map their key names here to ones the service-consumers understand
         $checkboxes = [];
-        $mapKeyNames = function ($v, $k, $akHandle) use (&$checkboxes) {
+        $mapKeyNames = function($v, $k, $akHandle) use (&$checkboxes) {
             $checkboxes["{$akHandle}-{$k}"] = $v;
         };
         array_walk($this->themes, $mapKeyNames, 'theme');

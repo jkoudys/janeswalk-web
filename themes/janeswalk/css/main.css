@@ -247,7 +247,11 @@ th {
   #create-walk #map-control-bar button.active > .caret,
   .dropup > #create-walk #map-control-bar button.active > .caret,
   #create-walk #map-control-bar .loadFeed > .caret,
-  .dropup > #create-walk #map-control-bar .loadFeed > .caret {
+  .dropup > #create-walk #map-control-bar .loadFeed > .caret,
+  #create-walk .filterInputs .filter input[type=submit] > .caret,
+  .dropup > #create-walk .filterInputs .filter input[type=submit] > .caret,
+  #create-walk .filterInputs .filter input[type=button] > .caret,
+  .dropup > #create-walk .filterInputs .filter input[type=button] > .caret {
     border-top-color: #000 !important;
   }
   .label {
@@ -2388,7 +2392,9 @@ body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active,
-#create-walk #map-control-bar .loadFeed {
+#create-walk #map-control-bar .loadFeed,
+#create-walk .filterInputs .filter input[type=submit],
+#create-walk .filterInputs .filter input[type=button] {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -2424,7 +2430,13 @@ body.city-page > #city-details .create-walk:after.active:focus,
 #create-walk #map-control-bar button.active.active:focus,
 #create-walk #map-control-bar .loadFeed:focus,
 #create-walk #map-control-bar .loadFeed:active:focus,
-#create-walk #map-control-bar .loadFeed.active:focus {
+#create-walk #map-control-bar .loadFeed.active:focus,
+#create-walk .filterInputs .filter input[type=submit]:focus,
+#create-walk .filterInputs .filter input[type=submit]:active:focus,
+#create-walk .filterInputs .filter input[type=submit].active:focus,
+#create-walk .filterInputs .filter input[type=button]:focus,
+#create-walk .filterInputs .filter input[type=button]:active:focus,
+#create-walk .filterInputs .filter input[type=button].active:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
@@ -2440,7 +2452,11 @@ body.city-page > #city-details .create-walk:after:focus,
 #create-walk #map-control-bar button.active:hover,
 #create-walk #map-control-bar button.active:focus,
 #create-walk #map-control-bar .loadFeed:hover,
-#create-walk #map-control-bar .loadFeed:focus {
+#create-walk #map-control-bar .loadFeed:focus,
+#create-walk .filterInputs .filter input[type=submit]:hover,
+#create-walk .filterInputs .filter input[type=submit]:focus,
+#create-walk .filterInputs .filter input[type=button]:hover,
+#create-walk .filterInputs .filter input[type=button]:focus {
   color: #333333;
   text-decoration: none;
 }
@@ -2455,7 +2471,11 @@ body.city-page > #city-details .create-walk:after.active,
 #create-walk #map-control-bar button.active:active,
 #create-walk #map-control-bar button.active.active,
 #create-walk #map-control-bar .loadFeed:active,
-#create-walk #map-control-bar .loadFeed.active {
+#create-walk #map-control-bar .loadFeed.active,
+#create-walk .filterInputs .filter input[type=submit]:active,
+#create-walk .filterInputs .filter input[type=submit].active,
+#create-walk .filterInputs .filter input[type=button]:active,
+#create-walk .filterInputs .filter input[type=button].active {
   outline: 0;
   background-image: none;
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
@@ -2477,7 +2497,13 @@ fieldset[disabled] #create-walk #map-control-bar button,
 fieldset[disabled] #create-walk #map-control-bar button.active,
 #create-walk #map-control-bar .loadFeed.disabled,
 #create-walk #map-control-bar .loadFeed[disabled],
-fieldset[disabled] #create-walk #map-control-bar .loadFeed {
+fieldset[disabled] #create-walk #map-control-bar .loadFeed,
+#create-walk .filterInputs .filter input[type=submit].disabled,
+#create-walk .filterInputs .filter input[type=submit][disabled],
+fieldset[disabled] #create-walk .filterInputs .filter input[type=submit],
+#create-walk .filterInputs .filter input[type=button].disabled,
+#create-walk .filterInputs .filter input[type=button][disabled],
+fieldset[disabled] #create-walk .filterInputs .filter input[type=button] {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -2821,7 +2847,9 @@ fieldset[disabled] .btn-link:focus {
 .btn-group-lg > body.city-page > #city-details .create-walk:after,
 .btn-group-lg > #create-walk #map-control-bar button,
 .btn-group-lg > #create-walk #map-control-bar button.active,
-.btn-group-lg > #create-walk #map-control-bar .loadFeed {
+.btn-group-lg > #create-walk #map-control-bar .loadFeed,
+.btn-group-lg > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-lg > #create-walk .filterInputs .filter input[type=button] {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.33;
@@ -2833,7 +2861,9 @@ fieldset[disabled] .btn-link:focus {
 .btn-group-sm > body.city-page > #city-details .create-walk:after,
 .btn-group-sm > #create-walk #map-control-bar button,
 .btn-group-sm > #create-walk #map-control-bar button.active,
-.btn-group-sm > #create-walk #map-control-bar .loadFeed {
+.btn-group-sm > #create-walk #map-control-bar .loadFeed,
+.btn-group-sm > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-sm > #create-walk .filterInputs .filter input[type=button] {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -2845,7 +2875,9 @@ fieldset[disabled] .btn-link:focus {
 .btn-group-xs > body.city-page > #city-details .create-walk:after,
 .btn-group-xs > #create-walk #map-control-bar button,
 .btn-group-xs > #create-walk #map-control-bar button.active,
-.btn-group-xs > #create-walk #map-control-bar .loadFeed {
+.btn-group-xs > #create-walk #map-control-bar .loadFeed,
+.btn-group-xs > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-xs > #create-walk .filterInputs .filter input[type=button] {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -3076,7 +3108,11 @@ tbody.collapse.in {
 .btn-group > #create-walk #map-control-bar button.active,
 .btn-group-vertical > #create-walk #map-control-bar button.active,
 .btn-group > #create-walk #map-control-bar .loadFeed,
-.btn-group-vertical > #create-walk #map-control-bar .loadFeed {
+.btn-group-vertical > #create-walk #map-control-bar .loadFeed,
+.btn-group > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit],
+.btn-group > #create-walk .filterInputs .filter input[type=button],
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button] {
   position: relative;
   float: left;
 }
@@ -3127,7 +3163,23 @@ tbody.collapse.in {
 .btn-group > #create-walk #map-control-bar .loadFeed:active,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed:active,
 .btn-group > #create-walk #map-control-bar .loadFeed.active,
-.btn-group-vertical > #create-walk #map-control-bar .loadFeed.active {
+.btn-group-vertical > #create-walk #map-control-bar .loadFeed.active,
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:hover,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:hover,
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:focus,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:focus,
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:active,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:active,
+.btn-group > #create-walk .filterInputs .filter input[type=submit].active,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit].active,
+.btn-group > #create-walk .filterInputs .filter input[type=button]:hover,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:hover,
+.btn-group > #create-walk .filterInputs .filter input[type=button]:focus,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:focus,
+.btn-group > #create-walk .filterInputs .filter input[type=button]:active,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:active,
+.btn-group > #create-walk .filterInputs .filter input[type=button].active,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button].active {
   z-index: 2;
 }
 .btn-group > .btn:focus,
@@ -3141,7 +3193,11 @@ tbody.collapse.in {
 .btn-group > #create-walk #map-control-bar button.active:focus,
 .btn-group-vertical > #create-walk #map-control-bar button.active:focus,
 .btn-group > #create-walk #map-control-bar .loadFeed:focus,
-.btn-group-vertical > #create-walk #map-control-bar .loadFeed:focus {
+.btn-group-vertical > #create-walk #map-control-bar .loadFeed:focus,
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:focus,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:focus,
+.btn-group > #create-walk .filterInputs .filter input[type=button]:focus,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:focus {
   outline: 0;
 }
 .btn-group .btn + .btn,
@@ -3162,7 +3218,13 @@ tbody.collapse.in {
 .btn-group .btn-group + #create-walk #map-control-bar button.active,
 .btn-group #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
 .btn-group #create-walk #map-control-bar .loadFeed + .btn-group,
-.btn-group .btn-group + #create-walk #map-control-bar .loadFeed {
+.btn-group .btn-group + #create-walk #map-control-bar .loadFeed,
+.btn-group #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
+.btn-group #create-walk .filterInputs .filter input[type=submit] + .btn-group,
+.btn-group .btn-group + #create-walk .filterInputs .filter input[type=submit],
+.btn-group #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button],
+.btn-group #create-walk .filterInputs .filter input[type=button] + .btn-group,
+.btn-group .btn-group + #create-walk .filterInputs .filter input[type=button] {
   margin-left: -1px;
 }
 .btn-toolbar {
@@ -3181,7 +3243,9 @@ tbody.collapse.in {
 .btn-toolbar > body.city-page > #city-details .create-walk:after,
 .btn-toolbar > #create-walk #map-control-bar button,
 .btn-toolbar > #create-walk #map-control-bar button.active,
-.btn-toolbar > #create-walk #map-control-bar .loadFeed {
+.btn-toolbar > #create-walk #map-control-bar .loadFeed,
+.btn-toolbar > #create-walk .filterInputs .filter input[type=submit],
+.btn-toolbar > #create-walk .filterInputs .filter input[type=button] {
   margin-left: 5px;
 }
 .btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle),
@@ -3189,7 +3253,9 @@ tbody.collapse.in {
 .btn-group > body.city-page > #city-details .create-walk:after:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child):not(.dropdown-toggle),
-.btn-group > #create-walk #map-control-bar .loadFeed:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > #create-walk #map-control-bar .loadFeed:not(:first-child):not(:last-child):not(.dropdown-toggle),
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:not(:first-child):not(:last-child):not(.dropdown-toggle),
+.btn-group > #create-walk .filterInputs .filter input[type=button]:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 .btn-group > .btn:first-child,
@@ -3197,7 +3263,9 @@ tbody.collapse.in {
 .btn-group > body.city-page > #city-details .create-walk:after:first-child,
 .btn-group > #create-walk #map-control-bar button:first-child,
 .btn-group > #create-walk #map-control-bar button.active:first-child,
-.btn-group > #create-walk #map-control-bar .loadFeed:first-child {
+.btn-group > #create-walk #map-control-bar .loadFeed:first-child,
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:first-child,
+.btn-group > #create-walk .filterInputs .filter input[type=button]:first-child {
   margin-left: 0;
 }
 .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
@@ -3205,7 +3273,9 @@ tbody.collapse.in {
 .btn-group > body.city-page > #city-details .create-walk:after:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button.active:first-child:not(:last-child):not(.dropdown-toggle),
-.btn-group > #create-walk #map-control-bar .loadFeed:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > #create-walk #map-control-bar .loadFeed:first-child:not(:last-child):not(.dropdown-toggle),
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:first-child:not(:last-child):not(.dropdown-toggle),
+.btn-group > #create-walk .filterInputs .filter input[type=button]:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -3215,7 +3285,9 @@ tbody.collapse.in {
 .btn-group > body.city-page > #city-details .create-walk:after:last-child:not(:first-child),
 .btn-group > #create-walk #map-control-bar button:last-child:not(:first-child),
 .btn-group > #create-walk #map-control-bar button.active:last-child:not(:first-child),
-.btn-group > #create-walk #map-control-bar .loadFeed:last-child:not(:first-child) {
+.btn-group > #create-walk #map-control-bar .loadFeed:last-child:not(:first-child),
+.btn-group > #create-walk .filterInputs .filter input[type=submit]:last-child:not(:first-child),
+.btn-group > #create-walk .filterInputs .filter input[type=button]:last-child:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -3227,7 +3299,9 @@ tbody.collapse.in {
 .btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:after,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active,
-.btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar .loadFeed {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar .loadFeed,
+.btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=submit],
+.btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=button] {
   border-radius: 0;
 }
 .btn-group > .btn-group:first-child > .btn:last-child,
@@ -3236,7 +3310,9 @@ tbody.collapse.in {
 .btn-group > .btn-group:first-child > body.city-page > #city-details .create-walk:after:last-child,
 .btn-group > .btn-group:first-child > #create-walk #map-control-bar button:last-child,
 .btn-group > .btn-group:first-child > #create-walk #map-control-bar button.active:last-child,
-.btn-group > .btn-group:first-child > #create-walk #map-control-bar .loadFeed:last-child {
+.btn-group > .btn-group:first-child > #create-walk #map-control-bar .loadFeed:last-child,
+.btn-group > .btn-group:first-child > #create-walk .filterInputs .filter input[type=submit]:last-child,
+.btn-group > .btn-group:first-child > #create-walk .filterInputs .filter input[type=button]:last-child {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -3245,7 +3321,9 @@ tbody.collapse.in {
 .btn-group > .btn-group:last-child > body.city-page > #city-details .create-walk:after:first-child,
 .btn-group > .btn-group:last-child > #create-walk #map-control-bar button:first-child,
 .btn-group > .btn-group:last-child > #create-walk #map-control-bar button.active:first-child,
-.btn-group > .btn-group:last-child > #create-walk #map-control-bar .loadFeed:first-child {
+.btn-group > .btn-group:last-child > #create-walk #map-control-bar .loadFeed:first-child,
+.btn-group > .btn-group:last-child > #create-walk .filterInputs .filter input[type=submit]:first-child,
+.btn-group > .btn-group:last-child > #create-walk .filterInputs .filter input[type=button]:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -3258,7 +3336,9 @@ tbody.collapse.in {
 .btn-group > body.city-page > #city-details .create-walk:after + .dropdown-toggle,
 .btn-group > #create-walk #map-control-bar button + .dropdown-toggle,
 .btn-group > #create-walk #map-control-bar button.active + .dropdown-toggle,
-.btn-group > #create-walk #map-control-bar .loadFeed + .dropdown-toggle {
+.btn-group > #create-walk #map-control-bar .loadFeed + .dropdown-toggle,
+.btn-group > #create-walk .filterInputs .filter input[type=submit] + .dropdown-toggle,
+.btn-group > #create-walk .filterInputs .filter input[type=button] + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
@@ -3277,7 +3357,9 @@ body.city-page > #city-details .create-walk .caret,
 body.city-page > #city-details .create-walk:after .caret,
 #create-walk #map-control-bar button .caret,
 #create-walk #map-control-bar button.active .caret,
-#create-walk #map-control-bar .loadFeed .caret {
+#create-walk #map-control-bar .loadFeed .caret,
+#create-walk .filterInputs .filter input[type=submit] .caret,
+#create-walk .filterInputs .filter input[type=button] .caret {
   margin-left: 0;
 }
 .btn-lg .caret {
@@ -3299,7 +3381,11 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > #create-walk #map-control-bar button.active,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button.active,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed,
-.btn-group-vertical > .btn-group > #create-walk #map-control-bar .loadFeed {
+.btn-group-vertical > .btn-group > #create-walk #map-control-bar .loadFeed,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-vertical > .btn-group > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button],
+.btn-group-vertical > .btn-group > #create-walk .filterInputs .filter input[type=button] {
   display: block;
   float: none;
   width: 100%;
@@ -3310,7 +3396,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk:after,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button.active,
-.btn-group-vertical > .btn-group > #create-walk #map-control-bar .loadFeed {
+.btn-group-vertical > .btn-group > #create-walk #map-control-bar .loadFeed,
+.btn-group-vertical > .btn-group > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-vertical > .btn-group > #create-walk .filterInputs .filter input[type=button] {
   float: none;
 }
 .btn-group-vertical > .btn + .btn,
@@ -3331,7 +3419,13 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > .btn-group + #create-walk #map-control-bar button.active,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed + .btn-group,
-.btn-group-vertical > .btn-group + #create-walk #map-control-bar .loadFeed {
+.btn-group-vertical > .btn-group + #create-walk #map-control-bar .loadFeed,
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit] + .btn-group,
+.btn-group-vertical > .btn-group + #create-walk .filterInputs .filter input[type=submit],
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button],
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button] + .btn-group,
+.btn-group-vertical > .btn-group + #create-walk .filterInputs .filter input[type=button] {
   margin-top: -1px;
   margin-left: 0;
 }
@@ -3340,7 +3434,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > body.city-page > #city-details .create-walk:after:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child),
-.btn-group-vertical > #create-walk #map-control-bar .loadFeed:not(:first-child):not(:last-child) {
+.btn-group-vertical > #create-walk #map-control-bar .loadFeed:not(:first-child):not(:last-child),
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:not(:first-child):not(:last-child),
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 .btn-group-vertical > .btn:first-child:not(:last-child),
@@ -3348,7 +3444,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > body.city-page > #city-details .create-walk:after:first-child:not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button:first-child:not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button.active:first-child:not(:last-child),
-.btn-group-vertical > #create-walk #map-control-bar .loadFeed:first-child:not(:last-child) {
+.btn-group-vertical > #create-walk #map-control-bar .loadFeed:first-child:not(:last-child),
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:first-child:not(:last-child),
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
@@ -3358,7 +3456,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > body.city-page > #city-details .create-walk:after:last-child:not(:first-child),
 .btn-group-vertical > #create-walk #map-control-bar button:last-child:not(:first-child),
 .btn-group-vertical > #create-walk #map-control-bar button.active:last-child:not(:first-child),
-.btn-group-vertical > #create-walk #map-control-bar .loadFeed:last-child:not(:first-child) {
+.btn-group-vertical > #create-walk #map-control-bar .loadFeed:last-child:not(:first-child),
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:last-child:not(:first-child),
+.btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
@@ -3368,7 +3468,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:after,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active,
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar .loadFeed {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar .loadFeed,
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=button] {
   border-radius: 0;
 }
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
@@ -3377,7 +3479,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page > #city-details .create-walk:after:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button.active:last-child,
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar .loadFeed:last-child {
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar .loadFeed:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk .filterInputs .filter input[type=submit]:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk .filterInputs .filter input[type=button]:last-child {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -3386,7 +3490,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page > #city-details .create-walk:after:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button.active:first-child,
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar .loadFeed:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar .loadFeed:first-child,
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk .filterInputs .filter input[type=submit]:first-child,
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk .filterInputs .filter input[type=button]:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -3402,7 +3508,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-justified > body.city-page > #city-details .create-walk:after,
 .btn-group-justified > #create-walk #map-control-bar button,
 .btn-group-justified > #create-walk #map-control-bar button.active,
-.btn-group-justified > #create-walk #map-control-bar .loadFeed {
+.btn-group-justified > #create-walk #map-control-bar .loadFeed,
+.btn-group-justified > #create-walk .filterInputs .filter input[type=submit],
+.btn-group-justified > #create-walk .filterInputs .filter input[type=button] {
   float: none;
   display: table-cell;
   width: 1%;
@@ -3412,7 +3520,9 @@ body.city-page > #city-details .create-walk:after .caret,
 .btn-group-justified > .btn-group body.city-page > #city-details .create-walk:after,
 .btn-group-justified > .btn-group #create-walk #map-control-bar button,
 .btn-group-justified > .btn-group #create-walk #map-control-bar button.active,
-.btn-group-justified > .btn-group #create-walk #map-control-bar .loadFeed {
+.btn-group-justified > .btn-group #create-walk #map-control-bar .loadFeed,
+.btn-group-justified > .btn-group #create-walk .filterInputs .filter input[type=submit],
+.btn-group-justified > .btn-group #create-walk .filterInputs .filter input[type=button] {
   width: 100%;
 }
 .btn-group-justified > .btn-group .dropdown-menu {
@@ -3429,7 +3539,11 @@ body.city-page > #city-details .create-walk:after .caret,
 [data-toggle="buttons"] > #create-walk #map-control-bar button.active > input[type="radio"],
 [data-toggle="buttons"] > #create-walk #map-control-bar button.active > input[type="checkbox"],
 [data-toggle="buttons"] > #create-walk #map-control-bar .loadFeed > input[type="radio"],
-[data-toggle="buttons"] > #create-walk #map-control-bar .loadFeed > input[type="checkbox"] {
+[data-toggle="buttons"] > #create-walk #map-control-bar .loadFeed > input[type="checkbox"],
+[data-toggle="buttons"] > #create-walk .filterInputs .filter input[type=submit] > input[type="radio"],
+[data-toggle="buttons"] > #create-walk .filterInputs .filter input[type=submit] > input[type="checkbox"],
+[data-toggle="buttons"] > #create-walk .filterInputs .filter input[type=button] > input[type="radio"],
+[data-toggle="buttons"] > #create-walk .filterInputs .filter input[type=button] > input[type="checkbox"] {
   position: absolute;
   z-index: -1;
   opacity: 0;
@@ -3476,7 +3590,9 @@ body fieldset.search .form-control,
 .input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
-.input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed {
+.input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
+.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -3497,7 +3613,9 @@ select.input-group-lg > .input-group-btn > body.city-page > #city-details .creat
 select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
-select.input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed {
+select.input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
+select.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+select.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
   height: 46px;
   line-height: 46px;
 }
@@ -3530,7 +3648,11 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-b
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
 select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
-select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed {
+select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
+textarea.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+select[multiple].input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+textarea.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=button],
+select[multiple].input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
   height: auto;
 }
 .input-group-sm > .form-control,
@@ -3547,7 +3669,9 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-b
 .input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
-.input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed {
+.input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
+.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -3568,7 +3692,9 @@ select.input-group-sm > .input-group-btn > body.city-page > #city-details .creat
 select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
-select.input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed {
+select.input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
+select.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+select.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
   height: 30px;
   line-height: 30px;
 }
@@ -3601,7 +3727,11 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-b
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
 select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
-select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed {
+select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
+textarea.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+select[multiple].input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+textarea.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=button],
+select[multiple].input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
   height: auto;
 }
 .input-group-addon,
@@ -3695,7 +3825,15 @@ body fieldset.search .form-control:first-child,
 .input-group-btn:first-child > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:first-child > .btn-group > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:last-child > #create-walk #map-control-bar .loadFeed:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk #map-control-bar .loadFeed {
+.input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk #map-control-bar .loadFeed,
+.input-group-btn:first-child > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:first-child > .btn-group > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:last-child > #create-walk .filterInputs .filter input[type=submit]:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:first-child > #create-walk .filterInputs .filter input[type=button],
+.input-group-btn:first-child > .btn-group > #create-walk .filterInputs .filter input[type=button],
+.input-group-btn:last-child > #create-walk .filterInputs .filter input[type=button]:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk .filterInputs .filter input[type=button] {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -3736,7 +3874,15 @@ body fieldset.search .form-control:last-child,
 .input-group-btn:last-child > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:last-child > .btn-group > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:first-child > #create-walk #map-control-bar .loadFeed:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk #map-control-bar .loadFeed {
+.input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk #map-control-bar .loadFeed,
+.input-group-btn:last-child > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:last-child > .btn-group > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:first-child > #create-walk .filterInputs .filter input[type=submit]:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:last-child > #create-walk .filterInputs .filter input[type=button],
+.input-group-btn:last-child > .btn-group > #create-walk .filterInputs .filter input[type=button],
+.input-group-btn:first-child > #create-walk .filterInputs .filter input[type=button]:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk .filterInputs .filter input[type=button] {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -3753,7 +3899,9 @@ body fieldset.search .form-control:last-child,
 .input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-btn > #create-walk #map-control-bar button,
 .input-group-btn > #create-walk #map-control-bar button.active,
-.input-group-btn > #create-walk #map-control-bar .loadFeed {
+.input-group-btn > #create-walk #map-control-bar .loadFeed,
+.input-group-btn > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn > #create-walk .filterInputs .filter input[type=button] {
   position: relative;
 }
 .input-group-btn > .btn + .btn,
@@ -3761,7 +3909,9 @@ body fieldset.search .form-control:last-child,
 .input-group-btn > body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .input-group-btn > #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .input-group-btn > #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
-.input-group-btn > #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed {
+.input-group-btn > #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
+.input-group-btn > #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn > #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button] {
   margin-left: -1px;
 }
 .input-group-btn > .btn:hover,
@@ -3781,7 +3931,13 @@ body fieldset.search .form-control:last-child,
 .input-group-btn > #create-walk #map-control-bar button.active:active,
 .input-group-btn > #create-walk #map-control-bar .loadFeed:hover,
 .input-group-btn > #create-walk #map-control-bar .loadFeed:focus,
-.input-group-btn > #create-walk #map-control-bar .loadFeed:active {
+.input-group-btn > #create-walk #map-control-bar .loadFeed:active,
+.input-group-btn > #create-walk .filterInputs .filter input[type=submit]:hover,
+.input-group-btn > #create-walk .filterInputs .filter input[type=submit]:focus,
+.input-group-btn > #create-walk .filterInputs .filter input[type=submit]:active,
+.input-group-btn > #create-walk .filterInputs .filter input[type=button]:hover,
+.input-group-btn > #create-walk .filterInputs .filter input[type=button]:focus,
+.input-group-btn > #create-walk .filterInputs .filter input[type=button]:active {
   z-index: 2;
 }
 .input-group-btn:first-child > .btn,
@@ -3790,7 +3946,9 @@ body fieldset.search .form-control:last-child,
 .input-group-btn:first-child > body.city-page > #city-details .create-walk:after,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
 .input-group-btn:first-child > #create-walk #map-control-bar button.active,
-.input-group-btn:first-child > #create-walk #map-control-bar .loadFeed {
+.input-group-btn:first-child > #create-walk #map-control-bar .loadFeed,
+.input-group-btn:first-child > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:first-child > #create-walk .filterInputs .filter input[type=button] {
   margin-right: -1px;
 }
 .input-group-btn:last-child > .btn,
@@ -3799,7 +3957,9 @@ body fieldset.search .form-control:last-child,
 .input-group-btn:last-child > body.city-page > #city-details .create-walk:after,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
 .input-group-btn:last-child > #create-walk #map-control-bar button.active,
-.input-group-btn:last-child > #create-walk #map-control-bar .loadFeed {
+.input-group-btn:last-child > #create-walk #map-control-bar .loadFeed,
+.input-group-btn:last-child > #create-walk .filterInputs .filter input[type=submit],
+.input-group-btn:last-child > #create-walk .filterInputs .filter input[type=button] {
   margin-left: -1px;
 }
 .nav,
@@ -5149,7 +5309,9 @@ body.city-page > #city-details .create-walk .label,
 body.city-page > #city-details .create-walk:after .label,
 #create-walk #map-control-bar button .label,
 #create-walk #map-control-bar button.active .label,
-#create-walk #map-control-bar .loadFeed .label {
+#create-walk #map-control-bar .loadFeed .label,
+#create-walk .filterInputs .filter input[type=submit] .label,
+#create-walk .filterInputs .filter input[type=button] .label {
   position: relative;
   top: -1px;
 }
@@ -5217,7 +5379,9 @@ body.city-page > #city-details .create-walk .badge,
 body.city-page > #city-details .create-walk:after .badge,
 #create-walk #map-control-bar button .badge,
 #create-walk #map-control-bar button.active .badge,
-#create-walk #map-control-bar .loadFeed .badge {
+#create-walk #map-control-bar .loadFeed .badge,
+#create-walk .filterInputs .filter input[type=submit] .badge,
+#create-walk .filterInputs .filter input[type=button] .badge {
   position: relative;
   top: -1px;
 }
@@ -6251,7 +6415,9 @@ dialog > div > article footer .btn + .btn,
 .modal-footer body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .modal-footer #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .modal-footer #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
-.modal-footer #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed {
+.modal-footer #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
+.modal-footer #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
+.modal-footer #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button] {
   margin-left: 5px;
   margin-bottom: 0;
 }
@@ -6261,7 +6427,9 @@ dialog > div > article footer .btn-group .btn + .btn,
 .modal-footer .btn-group body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .modal-footer .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .modal-footer .btn-group #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
-.modal-footer .btn-group #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed {
+.modal-footer .btn-group #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
+.modal-footer .btn-group #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
+.modal-footer .btn-group #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button] {
   margin-left: -1px;
 }
 .modal-footer .btn-block + .btn-block,
@@ -6671,7 +6839,9 @@ dialog > div > article footer .btn-block + .btn-block {
 .carousel-caption body.city-page > #city-details .create-walk:after,
 .carousel-caption #create-walk #map-control-bar button,
 .carousel-caption #create-walk #map-control-bar button.active,
-.carousel-caption #create-walk #map-control-bar .loadFeed {
+.carousel-caption #create-walk #map-control-bar .loadFeed,
+.carousel-caption #create-walk .filterInputs .filter input[type=submit],
+.carousel-caption #create-walk .filterInputs .filter input[type=button] {
   text-shadow: none;
 }
 @media screen and (min-width: 768px) {
@@ -7348,7 +7518,9 @@ a {
 .overlay.o-donate .o-content div.btnWrapper abody.city-page > #city-details .create-walk:after,
 .overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button,
 .overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button.active,
-.overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar .loadFeed {
+.overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar .loadFeed,
+.overlay.o-donate .o-content div.btnWrapper a#create-walk .filterInputs .filter input[type=submit],
+.overlay.o-donate .o-content div.btnWrapper a#create-walk .filterInputs .filter input[type=button] {
   background-color: #f1592a;
 }
 .overlay.o-donate .o-content div.quote {
@@ -7631,7 +7803,9 @@ body.city-page > #city-details .create-walk:after,
 body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active,
-#create-walk #map-control-bar .loadFeed {
+#create-walk #map-control-bar .loadFeed,
+#create-walk .filterInputs .filter input[type=submit],
+#create-walk .filterInputs .filter input[type=button] {
   font-family: "Roboto Slab", serif;
   background-image: none;
   background-color: #f16725;
@@ -7652,7 +7826,9 @@ a {
 .form-actions body.city-page > #city-details .create-walk:after,
 .form-actions #create-walk #map-control-bar button,
 .form-actions #create-walk #map-control-bar button.active,
-.form-actions #create-walk #map-control-bar .loadFeed {
+.form-actions #create-walk #map-control-bar .loadFeed,
+.form-actions #create-walk .filterInputs .filter input[type=submit],
+.form-actions #create-walk .filterInputs .filter input[type=button] {
   margin-right: 15px;
 }
 #donate {
@@ -8039,7 +8215,9 @@ body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
 #create-walk #map-control-bar button.active,
-#create-walk #map-control-bar .loadFeed {
+#create-walk #map-control-bar .loadFeed,
+#create-walk .filterInputs .filter input[type=submit],
+#create-walk .filterInputs .filter input[type=button] {
   background-color: #f16725;
   color: #fff;
   -webkit-transition-duration: 0.2s;
@@ -8052,7 +8230,9 @@ body.city-page > #city-details .create-walk:hover,
 body.city-page > #city-details .create-walk:after:hover,
 #create-walk #map-control-bar button:hover,
 #create-walk #map-control-bar button.active:hover,
-#create-walk #map-control-bar .loadFeed:hover {
+#create-walk #map-control-bar .loadFeed:hover,
+#create-walk .filterInputs .filter input[type=submit]:hover,
+#create-walk .filterInputs .filter input[type=button]:hover {
   color: #fff;
   background-color: #d54e0e;
 }
@@ -8781,7 +8961,9 @@ body.home .callouts blockquote div.cityCtaWrapper abody.city-page > #city-detail
 body.home .callouts blockquote div.cityCtaWrapper abody.city-page > #city-details .create-walk:after,
 body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button,
 body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button.active,
-body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar .loadFeed {
+body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar .loadFeed,
+body.home .callouts blockquote div.cityCtaWrapper a#create-walk .filterInputs .filter input[type=submit],
+body.home .callouts blockquote div.cityCtaWrapper a#create-walk .filterInputs .filter input[type=button] {
   color: #333;
 }
 @media (max-width: 768px) {
@@ -9339,7 +9521,9 @@ body.home main {
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page > #city-details .create-walk:after,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button.active,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar .loadFeed {
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar .loadFeed,
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk .filterInputs .filter input[type=submit],
+#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk .filterInputs .filter input[type=button] {
   margin: 10px 0 0;
 }
 #profileWrapper div.content div#cityBlock div.footer {
@@ -9680,7 +9864,9 @@ body.city-page > #intro-city .city-organizer body.city-page > #city-details .cre
 body.city-page > #intro-city .city-organizer body.city-page > #city-details .create-walk:after,
 body.city-page > #intro-city .city-organizer #create-walk #map-control-bar button,
 body.city-page > #intro-city .city-organizer #create-walk #map-control-bar button.active,
-body.city-page > #intro-city .city-organizer #create-walk #map-control-bar .loadFeed {
+body.city-page > #intro-city .city-organizer #create-walk #map-control-bar .loadFeed,
+body.city-page > #intro-city .city-organizer #create-walk .filterInputs .filter input[type=submit],
+body.city-page > #intro-city .city-organizer #create-walk .filterInputs .filter input[type=button] {
   background-color: #fff;
 }
 body.city-page > #intro-city a {
@@ -11026,7 +11212,9 @@ body.city-page > #blog:after {
 .walk-stops-list abody.city-page > #city-details .create-walk:after,
 .walk-stops-list a#create-walk #map-control-bar button,
 .walk-stops-list a#create-walk #map-control-bar button.active,
-.walk-stops-list a#create-walk #map-control-bar .loadFeed {
+.walk-stops-list a#create-walk #map-control-bar .loadFeed,
+.walk-stops-list a#create-walk .filterInputs .filter input[type=submit],
+.walk-stops-list a#create-walk .filterInputs .filter input[type=button] {
   position: absolute;
   left: 140px;
   top: 44px;
@@ -11114,7 +11302,9 @@ body.city-page > #blog:after {
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed,
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit],
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button] {
   margin: 0 0 8px 0;
   background: #F4F7FA;
   width: 30px;
@@ -11130,7 +11320,9 @@ body.city-page > #blog:after {
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after i,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button i,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active i,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed i {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed i,
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit] i,
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button] i {
   display: inline-block;
 }
 .profiles .profile-inner .btn-toolbar .btn:hover,
@@ -11138,7 +11330,9 @@ body.city-page > #blog:after {
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after:hover,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:hover,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:hover,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed:hover {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed:hover,
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit]:hover,
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button]:hover {
   color: #f16725;
   background: #cdd5dc;
 }
@@ -11147,7 +11341,9 @@ body.city-page > #blog:after {
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:after,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed:after {
+.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed:after,
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit]:after,
+.profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button]:after {
   content: "";
   position: absolute;
   width: 0px;
@@ -11760,7 +11956,9 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk .input-prepend body.city-page > #city-details .create-walk:after:first-child,
 #create-walk .input-prepend #create-walk #map-control-bar button:first-child,
 #create-walk .input-prepend #create-walk #map-control-bar button.active:first-child,
-#create-walk .input-prepend #create-walk #map-control-bar .loadFeed:first-child {
+#create-walk .input-prepend #create-walk #map-control-bar .loadFeed:first-child,
+#create-walk .input-prepend #create-walk .filterInputs .filter input[type=submit]:first-child,
+#create-walk .input-prepend #create-walk .filterInputs .filter input[type=button]:first-child {
   border-top-left: 4px;
   border-bottom-left: 4px;
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.1);
@@ -12256,7 +12454,9 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-control-bar body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar #create-walk #map-control-bar button,
 #create-walk #map-control-bar #create-walk #map-control-bar button.active,
-#create-walk #map-control-bar #create-walk #map-control-bar .loadFeed {
+#create-walk #map-control-bar #create-walk #map-control-bar .loadFeed,
+#create-walk #map-control-bar #create-walk .filterInputs .filter input[type=submit],
+#create-walk #map-control-bar #create-walk .filterInputs .filter input[type=button] {
   width: 23.4%;
 }
 #create-walk #map-control-bar .btn i,
@@ -12265,7 +12465,9 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-control-bar body.city-page > #city-details .create-walk:after i,
 #create-walk #map-control-bar #create-walk #map-control-bar button i,
 #create-walk #map-control-bar #create-walk #map-control-bar button.active i,
-#create-walk #map-control-bar #create-walk #map-control-bar .loadFeed i {
+#create-walk #map-control-bar #create-walk #map-control-bar .loadFeed i,
+#create-walk #map-control-bar #create-walk .filterInputs .filter input[type=submit] i,
+#create-walk #map-control-bar #create-walk .filterInputs .filter input[type=button] i {
   display: block;
 }
 #create-walk #map-control-bar .addroute-wrapper {
@@ -12276,7 +12478,9 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-control-bar .addroute-wrapper body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button,
 #create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button.active,
-#create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar .loadFeed {
+#create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar .loadFeed,
+#create-walk #map-control-bar .addroute-wrapper #create-walk .filterInputs .filter input[type=submit],
+#create-walk #map-control-bar .addroute-wrapper #create-walk .filterInputs .filter input[type=button] {
   width: 100%;
 }
 #create-walk #map-control-bar .addroute-wrapper .disable-alert {
@@ -12303,7 +12507,7 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-canvas .stop-form > .details {
   display: inline-block;
 }
-#create-walk #map-canvas .stop-form > img {
+#create-walk #map-canvas .stop-form > .media {
   height: 100%;
   margin-right: 10px;
 }
@@ -12324,7 +12528,9 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #map-canvas body.city-page > #city-details .create-walk:after,
 #create-walk #map-canvas #create-walk #map-control-bar button,
 #create-walk #map-canvas #create-walk #map-control-bar button.active,
-#create-walk #map-canvas #create-walk #map-control-bar .loadFeed {
+#create-walk #map-canvas #create-walk #map-control-bar .loadFeed,
+#create-walk #map-canvas #create-walk .filterInputs .filter input[type=submit],
+#create-walk #map-canvas #create-walk .filterInputs .filter input[type=button] {
   font-size: 16px;
   margin-right: 20px;
 }
@@ -12409,6 +12615,29 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk #route-help-panel ul {
   list-style: none;
+}
+#create-walk .filterInputs .filter {
+  padding: 12px;
+  margin-bottom: 1em;
+  display: table;
+  width: 100%;
+}
+#create-walk .filterInputs .filter .button {
+  padding-left: 5px;
+}
+#create-walk .filterInputs .filter .input,
+#create-walk .filterInputs .filter .button,
+#create-walk .filterInputs .filter i {
+  display: table-cell;
+}
+#create-walk .filterInputs .filter .input {
+  padding: 0 5px 0 10px;
+  width: 100%;
+}
+#create-walk .filterInputs .filter input[type=submit],
+#create-walk .filterInputs .filter input[type=button] {
+  display: table-cell;
+  margin-top: -4px;
 }
 #create-walk #save-notify {
   position: fixed;
@@ -12514,7 +12743,9 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk:after,
 #create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button,
 #create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button.active,
-#create-walk #publish-confirmation .modal-body #create-walk #map-control-bar .loadFeed {
+#create-walk #publish-confirmation .modal-body #create-walk #map-control-bar .loadFeed,
+#create-walk #publish-confirmation .modal-body #create-walk .filterInputs .filter input[type=submit],
+#create-walk #publish-confirmation .modal-body #create-walk .filterInputs .filter input[type=button] {
   width: 47%;
   padding: 1em;
 }

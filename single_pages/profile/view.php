@@ -88,8 +88,7 @@ $blogPromoMessages = [
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    if (!window.JanesWalk) window.JanesWalk = {};
-    window.JanesWalk.cityUsers = <?= json_encode($cityUsers) ?>;
+    window.JanesWalk = Object.assign({}, window.JanesWalk, {cityUsers: <?= json_encode($cityUsers) ?>});
 </script>
 <?php
 /* walk transfer modal */ 

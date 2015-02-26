@@ -733,7 +733,7 @@ body[data-pageviewname=CreateWalkView] {
             > img, > .details {
                 display: inline-block;
             }
-            > img {
+            > .media {
                 height: 100%;
                 margin-right: 10px;
             }
@@ -838,6 +838,30 @@ body[data-pageviewname=CreateWalkView] {
         }
     }
 
+    // The dropdown box for social media connect APIs
+    .filterInputs {
+        .filter {
+            padding: 12px;
+            margin-bottom: 1em;
+            display: table;
+            width: 100%;
+            .button {
+                padding-left: 5px;
+            }
+            .input, .button, i {
+                display: table-cell;
+            }
+            .input {
+                padding: 0 5px 0 10px;
+                width: 100%;
+            }
+            input[type=submit], input[type=button] {
+                &:extend(.btn all);
+                display: table-cell;
+                margin-top: -4px;
+            }
+        }
+    }
     #save-notify {
         position: fixed;
         top: 60px;

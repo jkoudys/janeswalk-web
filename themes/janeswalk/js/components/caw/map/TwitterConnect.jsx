@@ -30,16 +30,32 @@ var TwitterConnect = React.createClass({
     });
   },
 
-  handleLoadFeed: function() {
+  loadFeed: function(query) {
     var _this = this;
 
     $.ajax({
       type: 'GET',
-      url: '/api/twitter?q=' + this.state.query,
+      url: '/api/twitter?q=' + query + '&coords=' + this.props.city.lat + ',' + this.props.city.lng,
       success: function(data) {
-        _this.props.valueLink.requestChange({markers: data, route: []}, function() {
-          _this.props.refreshGMap();
-          _this.props.boundMapByWalk();
+        var markers = _this.props.valueLink.value.markers.slice();
+
+        _this.props.valueLink.requestChange({
+          markers: markers.concat(data.map(function(tweet) {
+            // Take first 5 words as the title
+            return {
+              title: tweet.description.split(' ').slice(0, 5).join(' '),
+              description: tweet.description,
+              lat: tweet.lat,
+              lng: tweet.lng,
+            };
+          })),
+          route: []
+        }, function() {
+          // kludge - need to find if there's a callback we can pass into gmaps for this
+          setTimeout(function() {
+            _this.props.refreshGMap();
+            _this.props.boundMapByWalk();
+          }, 100);
         });
       }
     });
@@ -50,22 +66,23 @@ var TwitterConnect = React.createClass({
   },
 
   render: function() {
-    if (this.state.accessToken) {
-      return (
-        <div className="loadFeed">
-          <i className="fa fa-twitter" />
-          <input type="text" placeholder="Walk Tag" value={this.state.query} onChange={this.handleQueryChange} />
-          <a onClick={this.handleLoadFeed}>Load</a>
-        </div>
-      );
-    } else {
-      return (
-        <button onClick={this.handleLoadToken}>
-          <i className="fa fa-twitter" />
-          twitter
-        </button>
-      );
-    }
+    var addFilter = function() {
+      // The filter we set to the 'filter box'
+      this.props.addFilter({
+        type: 'text',
+        icon: 'fa fa-twitter',
+        placeholder: 'Type in a standard twitter search for geocoded tweets, e.g. "#ParkStroll #janeswalk from:MyName"',
+        value: '',
+        cb: this.loadFeed
+      });
+    }.bind(this);
+
+    return (
+      <button onClick={addFilter}>
+        <i className="fa fa-twitter" />
+        twitter
+      </button>
+    );
   }
 });
 

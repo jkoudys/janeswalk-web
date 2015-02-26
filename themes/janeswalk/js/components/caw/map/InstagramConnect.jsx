@@ -3,26 +3,25 @@
 var InstagramConnect = React.createClass({
   getInitialState: function() {
     return {
-      tag: ''
+      accessToken: null
     };
   },
 
-  handleConnect: function() {
+  handleConnect: function(cb) {
     var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
     var redirectURI = 'http://janeswalk.org/connected';
 
     // Race-condition prone, but safest way to pull this from a child window
     window.loadAccessToken = function(accessToken) {
-      this.setState({accessToken: accessToken});
+      this.setState({accessToken: accessToken}, cb);
     }.bind(this);
 
     var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
     this.setState({authWindow: authWindow});
   },
 
-  handleLoadFeed: function() {
+  handleLoadFeed: function(query) {
     var _this = this;
-    var tag = this.state.tag;
 
     $.ajax({
       type: 'GET',
@@ -30,10 +29,11 @@ var InstagramConnect = React.createClass({
       dataType: 'jsonp',
       url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
       success: function(data) {
+        var markers = _this.props.valueLink.value.markers.slice();
         var walkMap = data.data.filter(function(gram) {
           var tagMatch = true;
-          if (tag) {
-            tagMatch = gram.tags.indexOf(tag) !== -1;
+          if (query) {
+            tagMatch = gram.tags.indexOf(query) !== -1;
           }
           return !!(gram.location && tagMatch);
         })
@@ -60,7 +60,7 @@ var InstagramConnect = React.createClass({
           };
         });
 
-        _this.props.valueLink.requestChange({markers: walkMap, route: []}, function() {
+        _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: []}, function() {
           _this.props.refreshGMap();
           _this.props.boundMapByWalk();
         });
@@ -68,27 +68,32 @@ var InstagramConnect = React.createClass({
     });
   },
 
-  handleTagChange: function(ev) {
-    this.setState({tag: ev.target.value});
-  },
-
   render: function() {
-    if (this.state.accessToken) {
-      return (
-        <div className="loadFeed">
-          <i className="fa fa-instagram" />
-          <input type="text" placeholder="Walk Tag" value={this.state.tag} onChange={this.handleTagChange} />
-          <a onClick={this.handleLoadFeed}>Load</a>
-        </div>
-      );
-    } else {
-      return (
-        <button onClick={this.handleConnect}>
-          <i className="fa fa-instagram" />
-          Instagram
-        </button>
-      );
-    }
+    var _this = this;
+    var addFilter = function() {
+      var filterProps = {
+        type: 'text',
+        icon: 'fa fa-instagram',
+        placeholder: 'Type in the tag you used on the geocoded photos for your walk',
+        value: '',
+        cb: _this.handleLoadFeed
+      }
+      if (_this.state.accessToken) {
+        _this.props.addFilter(filterProps);
+      } else {
+        // Connect, and add the box when done
+        _this.handleConnect(function() {
+          _this.props.addFilter(filterProps);
+        });
+      }
+    };
+
+    return (
+      <button onClick={addFilter}>
+        <i className="fa fa-instagram" />
+        Instagram
+      </button>
+    );
   }
 });
 
