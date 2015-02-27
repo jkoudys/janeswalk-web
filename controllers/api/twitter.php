@@ -44,7 +44,7 @@ class ApiTwitterController extends Controller
         curl_setopt_array(
             $ch,
             [
-                CURLOPT_URL => 'https://api.twitter.com/1.1/search/tweets.json?geocode=' . $coords . ',9999999km&q=' . $query,
+                CURLOPT_URL => 'https://api.twitter.com/1.1/search/tweets.json?geocode=' . $coords . ',9999999km&q=' . urlencode($query),
                 CURLOPT_RETURNTRANSFER => true,
                 // TODO: use a const for some of these
                 CURLOPT_TIMEOUT => 20,
