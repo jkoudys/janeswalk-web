@@ -3160,6 +3160,7 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
 
   loadFeed: function(query) {
     var _this = this;
+    query = encodeURIComponent(query);
 
     $.ajax({
       type: 'GET',
