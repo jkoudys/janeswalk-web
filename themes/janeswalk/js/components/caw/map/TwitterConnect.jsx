@@ -37,7 +37,7 @@ var TwitterConnect = React.createClass({
       type: 'GET',
       url: '/api/twitter?q=' + query + '&coords=' + this.props.city.lat + ',' + this.props.city.lng,
       success: function(data) {
-        var markers = _this.props.valueLink.value.markers.slice();
+        var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
 
         _this.props.valueLink.requestChange({
           markers: markers.concat(data.map(function(tweet) {
@@ -49,7 +49,7 @@ var TwitterConnect = React.createClass({
               lng: tweet.lng,
             };
           })),
-          route: []
+          route: _this.props.valueLink.value.route
         }, function() {
           // kludge - need to find if there's a callback we can pass into gmaps for this
           setTimeout(function() {

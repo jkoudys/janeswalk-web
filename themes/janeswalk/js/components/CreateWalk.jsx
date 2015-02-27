@@ -23,6 +23,8 @@ var CreateWalk = React.createClass({
   getInitialState: function() {
     var data = this.props.data;
     // TODO: move this into its own model js
+    // Keep these defaults to type, ie don't pre-seed data here, aside from
+    // data loaded by passing it in
     var walk = {
       title: '',
       shortdescription: '',
@@ -73,7 +75,12 @@ var CreateWalk = React.createClass({
       }
       // Turn all 'false' values into empty strings
       for (var i in data) {
-        if (data[i] === false) data[i] = '';
+        if (data[i] === false) {
+          data[i] = '';
+        } else if (data[i] === null) {
+          // Clear out 'nulls' so we instead take their state from defaults
+          delete data[i];
+        }
       }
 
       // Init the leader as creator, if none set

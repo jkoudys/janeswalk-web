@@ -29,7 +29,7 @@ var InstagramConnect = React.createClass({
       dataType: 'jsonp',
       url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
       success: function(data) {
-        var markers = _this.props.valueLink.value.markers.slice();
+        var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
         var walkMap = data.data.filter(function(gram) {
           var tagMatch = true;
           if (query) {
@@ -60,7 +60,7 @@ var InstagramConnect = React.createClass({
           };
         });
 
-        _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: []}, function() {
+        _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: _this.props.valueLink.value.route}, function() {
           _this.props.refreshGMap();
           _this.props.boundMapByWalk();
         });

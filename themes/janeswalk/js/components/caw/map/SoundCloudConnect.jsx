@@ -38,7 +38,7 @@ var SoundCloudConnect = React.createClass({
 
   loadPointsFromPlaylist: function(i) {
     var _this = this;
-    var markers = _this.props.valueLink.value.markers.slice();
+    var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
 
     var points = this.state.playlists[i].tracks.map(function(track) {
       var point = {
@@ -66,7 +66,7 @@ var SoundCloudConnect = React.createClass({
 
       return point;
     });
-    _this.props.valueLink.requestChange({markers: markers.concat(points), route: []}, function() {
+    _this.props.valueLink.requestChange({markers: markers.concat(points), route: _this.props.valueLink.value.route}, function() {
       _this.props.refreshGMap();
       _this.props.boundMapByWalk();
     });

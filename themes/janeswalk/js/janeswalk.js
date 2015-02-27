@@ -140,6 +140,8 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
   getInitialState: function() {
     var data = this.props.data;
     // TODO: move this into its own model js
+    // Keep these defaults to type, ie don't pre-seed data here, aside from
+    // data loaded by passing it in
     var walk = {
       title: '',
       shortdescription: '',
@@ -190,7 +192,12 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       }
       // Turn all 'false' values into empty strings
       for (var i in data) {
-        if (data[i] === false) data[i] = '';
+        if (data[i] === false) {
+          data[i] = '';
+        } else if (data[i] === null) {
+          // Clear out 'nulls' so we instead take their state from defaults
+          delete data[i];
+        }
       }
 
       // Init the leader as creator, if none set
@@ -2941,7 +2948,7 @@ var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
       dataType: 'jsonp',
       url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
       success: function(data) {
-        var markers = _this.props.valueLink.value.markers.slice();
+        var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
         var walkMap = data.data.filter(function(gram) {
           var tagMatch = true;
           if (query) {
@@ -2972,7 +2979,7 @@ var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
           };
         });
 
-        _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: []}, function() {
+        _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: _this.props.valueLink.value.route}, function() {
           _this.props.refreshGMap();
           _this.props.boundMapByWalk();
         });
@@ -3052,7 +3059,7 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
 
   loadPointsFromPlaylist: function(i) {
     var _this = this;
-    var markers = _this.props.valueLink.value.markers.slice();
+    var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
 
     var points = this.state.playlists[i].tracks.map(function(track) {
       var point = {
@@ -3080,7 +3087,7 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
 
       return point;
     });
-    _this.props.valueLink.requestChange({markers: markers.concat(points), route: []}, function() {
+    _this.props.valueLink.requestChange({markers: markers.concat(points), route: _this.props.valueLink.value.route}, function() {
       _this.props.refreshGMap();
       _this.props.boundMapByWalk();
     });
@@ -3158,7 +3165,7 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
       type: 'GET',
       url: '/api/twitter?q=' + query + '&coords=' + this.props.city.lat + ',' + this.props.city.lng,
       success: function(data) {
-        var markers = _this.props.valueLink.value.markers.slice();
+        var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
 
         _this.props.valueLink.requestChange({
           markers: markers.concat(data.map(function(tweet) {
@@ -3170,7 +3177,7 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
               lng: tweet.lng,
             };
           })),
-          route: []
+          route: _this.props.valueLink.value.route
         }, function() {
           // kludge - need to find if there's a callback we can pass into gmaps for this
           setTimeout(function() {
