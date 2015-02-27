@@ -57,6 +57,7 @@ var MapBuilder = React.createClass({
   // Build a google map from our serialized map state
   refreshGMap: function() {
     var valueLink = this.props.valueLink;
+    var _this = this;
     var markers = new google.maps.MVCArray;
     var route = null;
     if (this.state.route) {
