@@ -316,7 +316,10 @@ class Walk extends \Model implements \JsonSerializable
             'gmap' => $this->map,
             'team' => $this->team,
             'time' => $this->time,
-            'wards' => $this->wards
+            'wards' => $this->wards,
+            'mirrors' => [
+                'eventbrite' => (bool) $this->page->getAttribute('eventbrite')
+            ]
         ];
         // Load the thumbnail array
         $walkData['thumbnails'] = [];

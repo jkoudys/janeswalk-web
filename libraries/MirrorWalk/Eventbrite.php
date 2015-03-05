@@ -41,7 +41,7 @@ class Eventbrite implements EventInterface
             'max' => '20',
             'quantity_available' => '250',
             // Default ticket availability start to today
-            'start_date' => date('Y-m-d H:i:s', time())
+            'start_date' => gmdate('Y-m-d H:i:s', time())
         ];
 
         // Walk may be loaded after construction
@@ -63,24 +63,23 @@ class Eventbrite implements EventInterface
             'confirmation_page' => 'http://janeswalk.org/donate',
             'title' => (string) $walk,
             'description' => $walk->longdescription,
-            'end_date' => date('Y-m-d H:i:s', time() + (365 * 24 * 60 * 60)),
             // Default status to draft, so only explicit calls publish an event
             'status' => 'draft',
-            'timezone' => $walk->timezone,
+            'timezone' => $walk->getTimezone(),
             'app_key' => EVENTBRITE_APP_KEY,
             'user_key' => EVENTBRITE_USER_KEY
         ];
 
         // Load the available time slots
-        $slots = (array) $walk->time['slots'];
-        if ($scheduled['open']) {
-            $this->eventParams['start_date'] = date('Y-m-d', time());
-            $this->eventParams['end_date'] = date('Y-m-d', time());
+        // TODO: just syncing the next time -- check if the EB API supports
+        // easily setting multi-date events;
+        if ($walk->time['open']) {
             $this->eventParams['repeats'] = 'yes';
-        } elseif (isset($slots[0]['date'])) {
-            // Until 'repeats' is working by eb, just assume the next available date is the one that's open to book
-            $this->eventParams['start_date'] = $slots[0]['eb_start'];
-            $this->eventParams['end_date'] = $slots[0]['eb_end'];
+        }
+        foreach ((array) $walk->time['slots'] as $time) {
+            $date = gmdate('Y-m-d H:i:s', $time[0]);
+            $this->eventParams['start_date'] = $date;
+            $this->eventParams['end_date'] = $date;
         }
     }
 
@@ -116,9 +115,9 @@ class Eventbrite implements EventInterface
     public function receiveEvent(array $reply)
     {
         // Get the eid from response, if needed
-        if (!$this->isCreated()) {
-            $this->ticketParams['event_id'] = $reply['id'];
-            $this->page->setAttribute('eventbrite', $reply['id']);
+        if (!$this->isCreated() && $reply['process']) {
+            $this->ticketParams['event_id'] = $reply['process']['id'];
+            $this->page->setAttribute('eventbrite', $reply['process']['id']);
         }
 
         // Setup our multi-handler
@@ -197,12 +196,12 @@ class Eventbrite implements EventInterface
         $ch = curl_init();
         curl_setopt_array($ch, [
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_URL => self::$apiEndpoint . $method,
-            CURLOPT_POSTFIELDS => $params,
+            CURLOPT_URL => self::$apiEndpoint . $method . '?' . http_build_query($params),
             CURLOPT_VERBOSE => true,
             CURLOPT_POST => 1
         ]);
-
         return $ch;
     }
 }
+
+https://www.eventbrite.com/json/event_new?privacy=1&confirmation_page=http%3A%2F%2Fjaneswalk.org%2Fdonate&title=EB+Test&status=draft&timezone=EST&app_key=2ECDDYBC2I72R376TV&user_key=136300279154938082283&start_date=2015-03-12+19%3A00&end_date=2015-03-12+19%3A00{"cID":"5189","cvID":28,"url":"\/canada\/burlington\/eb-test\/"}url: https://www.eventbrite.com/json/ticket_update?{"error": {"error_type": "Date error", "error_message": "The specified start date is invalid or in the past., required format  (YYYY-MM-DD HH:MM:SS)"}}

@@ -7248,6 +7248,26 @@ dialog > div > article footer:after,
     display: none !important;
   }
 }
+.fade-enter {
+  opacity: 0.01;
+  max-height: 0;
+  -webkit-transition: opacity 2s ease-in;
+          transition: opacity 2s ease-in;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  max-height: none;
+}
+.fade-leave {
+  opacity: 1;
+  max-height: none;
+  -webkit-transition: opacity 2s ease-in;
+          transition: opacity 2s ease-in;
+}
+.fade-leave.fade-leave-active {
+  max-height: 0;
+  opacity: 0.01;
+}
 textarea {
   height: auto;
 }
