@@ -304,7 +304,7 @@ var CreateWalk = React.createClass({
                 <div className="item">
                   <fieldset>
                     <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-                    <textarea name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessible-info')} />
+                    <TextAreaLimit name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessible-info')} />
                   </fieldset>
                 </div>
 
@@ -397,6 +397,15 @@ var WalkPreview = React.createClass({
           </article>
         </div>
       </dialog>
+    );
+  }
+});
+
+// Text areas with a 'remaining characters' limit
+var TextAreaLimit = React.createClass({
+  render: function() {
+    return (
+      <textarea {...this.props} />
     );
   }
 });

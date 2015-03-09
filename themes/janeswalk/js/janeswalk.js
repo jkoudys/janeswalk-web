@@ -421,7 +421,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                 React.createElement("div", {className: "item"}, 
                   React.createElement("fieldset", null, 
                     React.createElement("legend", null,  t('What else do people need to know about the accessibility of this walk?'), " (",  t('Optional'), ")"), 
-                    React.createElement("textarea", {name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessible-info')})
+                    React.createElement(TextAreaLimit, {name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessible-info')})
                   )
                 ), 
 
@@ -514,6 +514,15 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
           )
         )
       )
+    );
+  }
+});
+
+// Text areas with a 'remaining characters' limit
+var TextAreaLimit = React.createClass({displayName: 'TextAreaLimit',
+  render: function() {
+    return (
+      React.createElement("textarea", React.__spread({},  this.props))
     );
   }
 });
@@ -1727,7 +1736,6 @@ var InstagramConnect = require('./map/InstagramConnect.jsx');
 var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
 var TwitterConnect = require('./map/TwitterConnect.jsx');
 var ConnectFilters = require('./map/ConnectFilters.jsx');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var MapBuilder = React.createClass({displayName: 'MapBuilder',
   getDefaultProps: function () {
@@ -2888,6 +2896,7 @@ module.exports = WardSelect;
 
 },{"../functions/mixins.jsx":24}],17:[function(require,module,exports){
 'use strict';
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var ConnectFilters = React.createClass({displayName: 'ConnectFilters',
   render: function() {
@@ -3628,7 +3637,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
    */
   _isMobile: {
     value: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-    writablbe: false
+    writable: false
   },
 
   /**

@@ -7,7 +7,6 @@ var InstagramConnect = require('./map/InstagramConnect.jsx');
 var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
 var TwitterConnect = require('./map/TwitterConnect.jsx');
 var ConnectFilters = require('./map/ConnectFilters.jsx');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var MapBuilder = React.createClass({
   getDefaultProps: function () {
