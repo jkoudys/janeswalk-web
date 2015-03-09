@@ -8992,11 +8992,6 @@ body.home .callouts blockquote div.cityCtaWrapper a#create-walk .filterInputs .f
 body.home .callouts blockquote div.cityCtaWrapper a#create-walk .filterInputs .filter input[type=button] {
   color: #333;
 }
-@media (max-width: 768px) {
-  body.home .callouts blockquote div.ccm-page-list-typeahead {
-    display: none;
-  }
-}
 body.home .callouts a {
   color: inherit;
 }
