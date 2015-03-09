@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-},{"./components/CreateWalk.jsx":3,"./components/Login.jsx":5,"./components/Page.jsx":6,"./components/pages/City.jsx":26,"./components/pages/Home.jsx":27,"./components/pages/Profile.jsx":28,"./components/pages/Walk.jsx":29,"intl/Intl.min":2}],2:[function(require,module,exports){
+},{"./components/CreateWalk.jsx":3,"./components/Login.jsx":5,"./components/Page.jsx":6,"./components/pages/City.jsx":27,"./components/pages/Home.jsx":28,"./components/pages/Profile.jsx":29,"./components/pages/Walk.jsx":30,"intl/Intl.min":2}],2:[function(require,module,exports){
 (function (global){
 /**
  * @license Copyright 2013 Andy Earnshaw, MIT License
@@ -130,6 +130,7 @@ var WardSelect = require('./caw/WardSelect.jsx');
 var AccessibleSelect = require('./caw/AccessibleSelect.jsx');
 var TeamBuilder = require('./caw/TeamBuilder.jsx');
 var WalkPublish = require('./caw/WalkPublish.jsx');
+var TextAreaLimit = require('./TextAreaLimit.jsx');
 
 // Libs
 var I18nTranslate = require('./functions/translate.js');
@@ -392,7 +393,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                     React.createElement("div", {className: "item required"}, 
                       React.createElement("label", {htmlFor: "shortdescription"},  t('Your Walk in a Nutshell') ), 
                       React.createElement("div", {className: "alert alert-info"},  t('Build intrigue! This is what people see when browsing our walk listings.') ), 
-                      React.createElement("textarea", {id: "shortdescription", name: "shortdescription", rows: "6", maxLength: "140", valueLink: this.linkState('shortdescription'), required: true})
+                      React.createElement(TextAreaLimit, {i18n: i18n, id: "shortdescription", name: "shortdescription", rows: "6", maxLength: "140", valueLink: this.linkState('shortdescription'), required: true})
                     ), 
                     React.createElement("hr", null), 
                     React.createElement("div", {className: "item required"}, 
@@ -421,7 +422,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                 React.createElement("div", {className: "item"}, 
                   React.createElement("fieldset", null, 
                     React.createElement("legend", null,  t('What else do people need to know about the accessibility of this walk?'), " (",  t('Optional'), ")"), 
-                    React.createElement(TextAreaLimit, {name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessible-info')})
+                    React.createElement(TextAreaLimit, {i18n: i18n, name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessible-info')})
                   )
                 ), 
 
@@ -518,18 +519,9 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
   }
 });
 
-// Text areas with a 'remaining characters' limit
-var TextAreaLimit = React.createClass({displayName: 'TextAreaLimit',
-  render: function() {
-    return (
-      React.createElement("textarea", React.__spread({},  this.props))
-    );
-  }
-});
-
 module.exports = CreateWalk;
 
-},{"./caw/AccessibleSelect.jsx":9,"./caw/DateSelect.jsx":10,"./caw/ImageUpload.jsx":11,"./caw/MapBuilder.jsx":12,"./caw/TeamBuilder.jsx":13,"./caw/ThemeSelect.jsx":14,"./caw/WalkPublish.jsx":15,"./caw/WardSelect.jsx":16,"./functions/helpers.jsx":23,"./functions/translate.js":25}],4:[function(require,module,exports){
+},{"./TextAreaLimit.jsx":7,"./caw/AccessibleSelect.jsx":10,"./caw/DateSelect.jsx":11,"./caw/ImageUpload.jsx":12,"./caw/MapBuilder.jsx":13,"./caw/TeamBuilder.jsx":14,"./caw/ThemeSelect.jsx":15,"./caw/WalkPublish.jsx":16,"./caw/WardSelect.jsx":17,"./functions/helpers.jsx":24,"./functions/translate.js":26}],4:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -851,7 +843,28 @@ PageView.prototype = Object.create(View.prototype, {
 
 module.exports = PageView;
 
-},{"./View.jsx":7}],7:[function(require,module,exports){
+},{"./View.jsx":8}],7:[function(require,module,exports){
+'use strict';
+
+// Text areas with a 'remaining characters' limit
+var TextAreaLimit = React.createClass({displayName: 'TextAreaLimit',
+  render: function() {
+    var i18n = this.props.i18n;
+    var t2 = i18n.translatePlural.bind(i18n);
+    var remaining = this.props.maxLength - this.props.valueLink.value.length;
+
+    return (
+      React.createElement("div", {className: "text-area-limit"}, 
+        React.createElement("textarea", React.__spread({},  this.props)), 
+        React.createElement("span", null, t2('%s character remaining', '%s characters remaining', remaining))
+      )
+    );
+  }
+});
+
+module.exports = TextAreaLimit;
+
+},{}],8:[function(require,module,exports){
 'use strict';
 require('../shims.js');
 
@@ -890,7 +903,7 @@ Object.defineProperties(View.prototype, {
 module.exports = View;
 
 
-},{"../shims.js":30}],8:[function(require,module,exports){
+},{"../shims.js":31}],9:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1234,7 +1247,7 @@ Object.defineProperties(WalkMap.prototype, {
 
 module.exports = WalkMap;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -1280,7 +1293,7 @@ var AccessibleSelect = React.createClass({
 
 module.exports = AccessibleSelect;
 
-},{"../functions/mixins.jsx":24}],10:[function(require,module,exports){
+},{"../functions/mixins.jsx":25}],11:[function(require,module,exports){
 'use strict';
 
 // TODO: Make 'intiatives' build as separate selectors
@@ -1646,7 +1659,7 @@ var TimeOpenTable = React.createClass({displayName: 'TimeOpenTable',
 
 module.exports = DateSelect;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var ImageUpload = React.createClass({
@@ -1726,7 +1739,7 @@ var ImageUpload = React.createClass({
 
 module.exports = ImageUpload;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var Helper = require('../functions/helpers.jsx');
@@ -2179,7 +2192,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
 module.exports = MapBuilder;
 
-},{"../functions/helpers.jsx":23,"./map/ConnectFilters.jsx":17,"./map/InstagramConnect.jsx":18,"./map/SoundCloudConnect.jsx":19,"./map/TwitterConnect.jsx":20,"./map/WalkInfoWindow.jsx":21,"./map/WalkStopTable.jsx":22}],13:[function(require,module,exports){
+},{"../functions/helpers.jsx":24,"./map/ConnectFilters.jsx":18,"./map/InstagramConnect.jsx":19,"./map/SoundCloudConnect.jsx":20,"./map/TwitterConnect.jsx":21,"./map/WalkInfoWindow.jsx":22,"./map/WalkStopTable.jsx":23}],14:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -2595,7 +2608,7 @@ var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
 
 module.exports = TeamBuilder;
 
-},{"../functions/mixins.jsx":24}],14:[function(require,module,exports){
+},{"../functions/mixins.jsx":25}],15:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -2766,7 +2779,7 @@ var ThemeSelect = React.createClass({displayName: 'ThemeSelect',
 
 module.exports = ThemeSelect;
 
-},{"../functions/mixins.jsx":24}],15:[function(require,module,exports){
+},{"../functions/mixins.jsx":25}],16:[function(require,module,exports){
 'use strict';
 
 var WalkPublish = React.createClass({displayName: 'WalkPublish',
@@ -2861,7 +2874,7 @@ var WalkPublish = React.createClass({displayName: 'WalkPublish',
 
 module.exports = WalkPublish;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -2894,7 +2907,7 @@ var WardSelect = React.createClass({displayName: 'WardSelect',
 
 module.exports = WardSelect;
 
-},{"../functions/mixins.jsx":24}],17:[function(require,module,exports){
+},{"../functions/mixins.jsx":25}],18:[function(require,module,exports){
 'use strict';
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -2956,7 +2969,7 @@ var ConnectFilters = React.createClass({displayName: 'ConnectFilters',
 
 module.exports = ConnectFilters;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
@@ -3058,7 +3071,7 @@ var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
 
 module.exports = InstagramConnect;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
@@ -3165,7 +3178,7 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
 
 module.exports = SoundCloudConnect;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
@@ -3257,7 +3270,7 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
 
 module.exports = TwitterConnect;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
@@ -3325,7 +3338,7 @@ var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
 
 module.exports = WalkInfoWindow;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
@@ -3388,7 +3401,7 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
 
 module.exports = WalkStopTable;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /* 
  * Helpers for building React pages with
  *
@@ -3421,7 +3434,7 @@ exports.objectToArray = function(obj) {
 };
 
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 // Link this component's state to the linkState() parent
@@ -3456,7 +3469,7 @@ module.exports.linkedTeamMemberState = {
 
 
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /**
  * i18n translation class
  *
@@ -3544,7 +3557,7 @@ Object.defineProperties(I18nTranslator.prototype, {
 
 module.exports = I18nTranslator;
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4139,7 +4152,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = CityPageView;
 
-},{"../Page.jsx":6}],27:[function(require,module,exports){
+},{"../Page.jsx":6}],28:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4270,7 +4283,7 @@ HomePageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = HomePageView;
 
-},{"../Page.jsx":6}],28:[function(require,module,exports){
+},{"../Page.jsx":6}],29:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4857,7 +4870,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = ProfilePageView;
 
-},{"../Page.jsx":6}],29:[function(require,module,exports){
+},{"../Page.jsx":6}],30:[function(require,module,exports){
 'use strict';
 
 var PageView = require('../Page.jsx');
@@ -4960,7 +4973,7 @@ WalkPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = WalkPageView;
 
-},{"../FacebookShareDialog.jsx":4,"../Page.jsx":6,"../WalkMap.jsx":8}],30:[function(require,module,exports){
+},{"../FacebookShareDialog.jsx":4,"../Page.jsx":6,"../WalkMap.jsx":9}],31:[function(require,module,exports){
 /* jshint ignore:start */
 // Shims, polyfills, etc.
 // dataset

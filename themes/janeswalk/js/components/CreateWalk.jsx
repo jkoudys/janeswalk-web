@@ -13,6 +13,7 @@ var WardSelect = require('./caw/WardSelect.jsx');
 var AccessibleSelect = require('./caw/AccessibleSelect.jsx');
 var TeamBuilder = require('./caw/TeamBuilder.jsx');
 var WalkPublish = require('./caw/WalkPublish.jsx');
+var TextAreaLimit = require('./TextAreaLimit.jsx');
 
 // Libs
 var I18nTranslate = require('./functions/translate.js');
@@ -275,7 +276,7 @@ var CreateWalk = React.createClass({
                     <div className="item required">
                       <label htmlFor="shortdescription">{ t('Your Walk in a Nutshell') }</label>
                       <div className="alert alert-info">{ t('Build intrigue! This is what people see when browsing our walk listings.') }</div>
-                      <textarea id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortdescription')} required />
+                      <TextAreaLimit i18n={i18n} id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortdescription')} required />
                     </div>
                     <hr />
                     <div className="item required">
@@ -304,7 +305,7 @@ var CreateWalk = React.createClass({
                 <div className="item">
                   <fieldset>
                     <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-                    <TextAreaLimit name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessible-info')} />
+                    <TextAreaLimit i18n={i18n} name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessible-info')} />
                   </fieldset>
                 </div>
 
@@ -397,15 +398,6 @@ var WalkPreview = React.createClass({
           </article>
         </div>
       </dialog>
-    );
-  }
-});
-
-// Text areas with a 'remaining characters' limit
-var TextAreaLimit = React.createClass({
-  render: function() {
-    return (
-      <textarea {...this.props} />
     );
   }
 });
