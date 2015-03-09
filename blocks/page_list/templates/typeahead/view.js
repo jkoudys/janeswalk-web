@@ -44,13 +44,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     handleInput: function(ev) {
       var _this = this;
-      var countries = {}; 
+      var countries = {};
+      var q = ev.target.value;
 
       for (var i in this.props.countries) {
         var country = this.props.countries[i];
         var cities = [];
         country.cities.forEach(function(city) {
-          if (!_this.state.q || _this.strContains(city.name, _this.state.q)) {
+          if (!q || _this.strContains(city.name, q)) {
             cities.push(city);
           }
         });
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
 
-      this.setState({q: ev.target.value, matched: countries});
+      this.setState({q: q, matched: countries});
     },
 
     handleSubmit: function(ev) {

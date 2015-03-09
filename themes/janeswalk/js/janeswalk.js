@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-},{"./components/CreateWalk.jsx":3,"./components/Login.jsx":5,"./components/Page.jsx":6,"./components/pages/City.jsx":25,"./components/pages/Home.jsx":26,"./components/pages/Profile.jsx":27,"./components/pages/Walk.jsx":28,"intl/Intl.min":2}],2:[function(require,module,exports){
+},{"./components/CreateWalk.jsx":3,"./components/Login.jsx":5,"./components/Page.jsx":6,"./components/pages/City.jsx":26,"./components/pages/Home.jsx":27,"./components/pages/Profile.jsx":28,"./components/pages/Walk.jsx":29,"intl/Intl.min":2}],2:[function(require,module,exports){
 (function (global){
 /**
  * @license Copyright 2013 Andy Earnshaw, MIT License
@@ -520,7 +520,7 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
 
 module.exports = CreateWalk;
 
-},{"./caw/AccessibleSelect.jsx":9,"./caw/DateSelect.jsx":10,"./caw/ImageUpload.jsx":11,"./caw/MapBuilder.jsx":12,"./caw/TeamBuilder.jsx":13,"./caw/ThemeSelect.jsx":14,"./caw/WalkPublish.jsx":15,"./caw/WardSelect.jsx":16,"./functions/helpers.jsx":22,"./functions/translate.js":24}],4:[function(require,module,exports){
+},{"./caw/AccessibleSelect.jsx":9,"./caw/DateSelect.jsx":10,"./caw/ImageUpload.jsx":11,"./caw/MapBuilder.jsx":12,"./caw/TeamBuilder.jsx":13,"./caw/ThemeSelect.jsx":14,"./caw/WalkPublish.jsx":15,"./caw/WardSelect.jsx":16,"./functions/helpers.jsx":23,"./functions/translate.js":25}],4:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -881,7 +881,7 @@ Object.defineProperties(View.prototype, {
 module.exports = View;
 
 
-},{"../shims.js":29}],8:[function(require,module,exports){
+},{"../shims.js":30}],8:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1271,7 +1271,7 @@ var AccessibleSelect = React.createClass({
 
 module.exports = AccessibleSelect;
 
-},{"../functions/mixins.jsx":23}],10:[function(require,module,exports){
+},{"../functions/mixins.jsx":24}],10:[function(require,module,exports){
 'use strict';
 
 // TODO: Make 'intiatives' build as separate selectors
@@ -1726,6 +1726,7 @@ var WalkInfoWindow = require('./map/WalkInfoWindow.jsx');
 var InstagramConnect = require('./map/InstagramConnect.jsx');
 var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
 var TwitterConnect = require('./map/TwitterConnect.jsx');
+var ConnectFilters = require('./map/ConnectFilters.jsx');
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var MapBuilder = React.createClass({displayName: 'MapBuilder',
@@ -2166,68 +2167,11 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
       )
     );
   }
-});
-
-var ConnectFilters = React.createClass({displayName: 'ConnectFilters',
-  render: function() {
-    var _this = this;
-    return (
-      React.createElement("div", {className: "filterInputs"}, 
-        React.createElement(ReactCSSTransitionGroup, {transitionName: "fade"}, 
-          this.props.filters.map(function(filter, i) {
-            var input = null;
-            var cbAndRemove = function(ev) {
-              ev.preventDefault();
-              filter.cb(filter.value);
-              _this.props.remove(i);
-            }
-
-            var handleChange = function(ev) {
-              _this.props.changeFilter(i, ev.target.value);
-            }
-
-            var cancel = function() {
-              _this.props.remove(i);
-            }
-
-            if (filter.type === 'text') {
-              input = React.createElement("input", {type: "text", placeholder: filter.placeholder, value: filter.text, onChange: handleChange});
-            } else if (filter.type === 'select') {
-              input = (
-                React.createElement("select", {selected: filter.value, onChange: handleChange}, 
-                  filter.options.map(function(option, i) {
-                    return React.createElement("option", {key: 'option' + i, value: i}, option.title)
-                  })
-                )
-              );
-            }
-
-            // FIXME: these spans are rather silly, but needed to play nice with bootstrap
-            return (
-              React.createElement("form", {className: "filter", onSubmit: cbAndRemove}, 
-                React.createElement("i", {className: filter.icon}), 
-                React.createElement("span", {className: "input"}, 
-                  input
-                ), 
-                React.createElement("span", {className: "button"}, 
-                  React.createElement("input", {type: "submit", value: 'Go'})
-                ), 
-                React.createElement("span", {className: "button"}, 
-                  React.createElement("input", {type: "button", value: 'Cancel', onClick: cancel})
-                )
-              )
-              );
-          })
-        )
-      )
-    );
-  }
-});
-        
+});        
 
 module.exports = MapBuilder;
 
-},{"../functions/helpers.jsx":22,"./map/InstagramConnect.jsx":17,"./map/SoundCloudConnect.jsx":18,"./map/TwitterConnect.jsx":19,"./map/WalkInfoWindow.jsx":20,"./map/WalkStopTable.jsx":21}],13:[function(require,module,exports){
+},{"../functions/helpers.jsx":23,"./map/ConnectFilters.jsx":17,"./map/InstagramConnect.jsx":18,"./map/SoundCloudConnect.jsx":19,"./map/TwitterConnect.jsx":20,"./map/WalkInfoWindow.jsx":21,"./map/WalkStopTable.jsx":22}],13:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -2643,7 +2587,7 @@ var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
 
 module.exports = TeamBuilder;
 
-},{"../functions/mixins.jsx":23}],14:[function(require,module,exports){
+},{"../functions/mixins.jsx":24}],14:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -2814,7 +2758,7 @@ var ThemeSelect = React.createClass({displayName: 'ThemeSelect',
 
 module.exports = ThemeSelect;
 
-},{"../functions/mixins.jsx":23}],15:[function(require,module,exports){
+},{"../functions/mixins.jsx":24}],15:[function(require,module,exports){
 'use strict';
 
 var WalkPublish = React.createClass({displayName: 'WalkPublish',
@@ -2942,7 +2886,68 @@ var WardSelect = React.createClass({displayName: 'WardSelect',
 
 module.exports = WardSelect;
 
-},{"../functions/mixins.jsx":23}],17:[function(require,module,exports){
+},{"../functions/mixins.jsx":24}],17:[function(require,module,exports){
+'use strict';
+
+var ConnectFilters = React.createClass({displayName: 'ConnectFilters',
+  render: function() {
+    var _this = this;
+    return (
+      React.createElement("div", {className: "filterInputs"}, 
+        React.createElement(ReactCSSTransitionGroup, {transitionName: "fade"}, 
+          this.props.filters.map(function(filter, i) {
+            var input = null;
+            var cbAndRemove = function(ev) {
+              ev.preventDefault();
+              filter.cb(filter.value);
+              _this.props.remove(i);
+            }
+
+            var handleChange = function(ev) {
+              _this.props.changeFilter(i, ev.target.value);
+            }
+
+            var cancel = function() {
+              _this.props.remove(i);
+            }
+
+            if (filter.type === 'text') {
+              input = React.createElement("input", {type: "text", placeholder: filter.placeholder, value: filter.text, onChange: handleChange});
+            } else if (filter.type === 'select') {
+              input = (
+                React.createElement("select", {selected: filter.value, onChange: handleChange}, 
+                  filter.options.map(function(option, i) {
+                    return React.createElement("option", {key: 'option' + i, value: i}, option.title)
+                  })
+                )
+              );
+            }
+
+            // FIXME: these spans are rather silly, but needed to play nice with bootstrap
+            return (
+              React.createElement("form", {className: "filter", onSubmit: cbAndRemove}, 
+                React.createElement("i", {className: filter.icon}), 
+                React.createElement("span", {className: "input"}, 
+                  input
+                ), 
+                React.createElement("span", {className: "button"}, 
+                  React.createElement("input", {type: "submit", value: 'Go'})
+                ), 
+                React.createElement("span", {className: "button"}, 
+                  React.createElement("input", {type: "button", value: 'Cancel', onClick: cancel})
+                )
+              )
+              );
+          })
+        )
+      )
+    );
+  }
+});
+
+module.exports = ConnectFilters;
+
+},{}],18:[function(require,module,exports){
 'use strict';
 
 var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
@@ -3044,7 +3049,7 @@ var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
 
 module.exports = InstagramConnect;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
@@ -3151,7 +3156,7 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
 
 module.exports = SoundCloudConnect;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
@@ -3243,7 +3248,7 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
 
 module.exports = TwitterConnect;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
@@ -3311,7 +3316,7 @@ var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
 
 module.exports = WalkInfoWindow;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
@@ -3374,7 +3379,7 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
 
 module.exports = WalkStopTable;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /* 
  * Helpers for building React pages with
  *
@@ -3407,7 +3412,7 @@ exports.objectToArray = function(obj) {
 };
 
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 // Link this component's state to the linkState() parent
@@ -3442,7 +3447,7 @@ module.exports.linkedTeamMemberState = {
 
 
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /**
  * i18n translation class
  *
@@ -3530,7 +3535,7 @@ Object.defineProperties(I18nTranslator.prototype, {
 
 module.exports = I18nTranslator;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4125,7 +4130,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = CityPageView;
 
-},{"../Page.jsx":6}],26:[function(require,module,exports){
+},{"../Page.jsx":6}],27:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4256,7 +4261,7 @@ HomePageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = HomePageView;
 
-},{"../Page.jsx":6}],27:[function(require,module,exports){
+},{"../Page.jsx":6}],28:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4843,7 +4848,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = ProfilePageView;
 
-},{"../Page.jsx":6}],28:[function(require,module,exports){
+},{"../Page.jsx":6}],29:[function(require,module,exports){
 'use strict';
 
 var PageView = require('../Page.jsx');
@@ -4946,7 +4951,7 @@ WalkPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = WalkPageView;
 
-},{"../FacebookShareDialog.jsx":4,"../Page.jsx":6,"../WalkMap.jsx":8}],29:[function(require,module,exports){
+},{"../FacebookShareDialog.jsx":4,"../Page.jsx":6,"../WalkMap.jsx":8}],30:[function(require,module,exports){
 /* jshint ignore:start */
 // Shims, polyfills, etc.
 // dataset
