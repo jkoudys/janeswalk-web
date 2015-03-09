@@ -77,9 +77,8 @@ class Eventbrite implements EventInterface
             $this->eventParams['repeats'] = 'yes';
         }
         foreach ((array) $walk->time['slots'] as $time) {
-            $date = gmdate('Y-m-d H:i:s', $time[0]);
-            $this->eventParams['start_date'] = $date;
-            $this->eventParams['end_date'] = $date;
+            $this->eventParams['start_date'] = gmdate('Y-m-d H:i:s', $time[0]);
+            $this->eventParams['end_date'] = gmdate('Y-m-d H:i:s', $time[1]);
         }
     }
 

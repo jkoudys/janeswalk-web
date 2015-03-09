@@ -8783,6 +8783,12 @@ body.home #intro .ccm-page-list-typeahead h3 a {
   text-decoration: underline;
   color: inherit;
 }
+body.home #intro .ccm-page-list-typeahead .country a {
+  color: inherit;
+}
+body.home #intro .ccm-page-list-typeahead a {
+  color: #f16725;
+}
 @media (max-width: 768px) {
   body.home #intro {
     padding: 0 !important;

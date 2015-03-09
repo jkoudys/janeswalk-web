@@ -2,15 +2,10 @@
 // TODO: get browserify-shim working and `React = require('react');`
 document.addEventListener('DOMContentLoaded', function() {
   var PageListTypeahead = React.createClass({displayName: 'PageListTypeahead',
-    mixins: [React.addons.LinkedStateMixin],
-    
     getInitialState: function() {
       return {
         q: '',
-        city: {
-          name: '',
-          url: ''
-        }
+        matched: this.props.countries
       };
     },
 
@@ -47,98 +42,74 @@ document.addEventListener('DOMContentLoaded', function() {
       );
     },
 
-    componentWillMount: function() {
-      if (this.props.user && this.props.user.city) {
-        this.setState({city: this.props.user.city});
-      } else {
-        // Get geolocation from in-browser cache
-        var storedGeo = sessionStorage.getItem('geoip');
-        if (storedGeo) {
-          this.setState({city: JSON.parse(storedGeo)});
-        } else {
-          // Geocode as early as we can
-          $.ajax({
-            url: 'http://freegeoip.net/json/',
-            success: function(data) {
-              var city = this.state.city;
-              city.name = data.city;
-              // Loop through loaded cities and find page match
-              for (var i in this.props.countries) {
-                var country = this.props.countries[i];
-                if (this.strContains(country.name, data.country_name)) {
-                  this.setState({city: country});
-                  country.cities.forEach(function(city) {
-                    if (this.strContains(city.name, data.city)) {
-                      this.setState({city: city});
-                      sessionStorage.setItem('geoip', JSON.stringify(city));
-                    }
-                  }.bind(this))
-                }
-              }
-            }.bind(this)
-          });
+    handleInput: function(ev) {
+      var _this = this;
+      var countries = {}; 
+
+      for (var i in this.props.countries) {
+        var country = this.props.countries[i];
+        var cities = [];
+        country.cities.forEach(function(city) {
+          if (!_this.state.q || _this.strContains(city.name, _this.state.q)) {
+            cities.push(city);
+          }
+        });
+        if (cities.length) {
+          countries[i] = Object.assign({}, country, {cities: cities});
+        }
+      }
+
+      this.setState({q: ev.target.value, matched: countries});
+    },
+
+    handleSubmit: function(ev) {
+      var firstCountry = Object.keys(this.state.matched).shift();
+      var firstCity;
+
+      if (firstCountry) {
+        firstCity = this.state.matched[firstCountry].shift();
+        if (firstCity) {
+          ev.target.action = firstCity.url;
         }
       }
     },
 
     render: function() {
-      var countries = [];
+      var _this = this;
       var homeCity = React.createElement("h3", null);
-      var linkTo = false;
-      for (var i in this.props.countries) {
-        var country = this.props.countries[i];
-        var cities = [];
-        country.cities.forEach(function(city) {
-          if ((function(str){
-            return !this.state.q ||
-              (this.convertAccents(str).toLowerCase().indexOf(
-               this.convertAccents(this.state.q.toLowerCase())) > - 1)
-          }.bind(this))(city.name)) {
-            if (!linkTo) { linkTo = city.url; }
-            cities.push(
-              React.createElement("li", {key: 'city' + city.id}, 
-                React.createElement("a", {href: city.url}, city.name)
-              )
-            );
-          }
-        }.bind(this));
-        if (cities.length) {
-          countries.push(
-            React.createElement("li", {key: 'country' + i, className: "country"}, 
-              React.createElement("a", {href: country.url}, country.name), 
-              React.createElement("ul", {className: "cities"}, 
-                cities
-              )
-            )
-          );
-        }
-      }
 
-      if (!countries.length) {
-        linkTo = CCM_REL + '/information/cities';
-        countries.push(
-          React.createElement("li", {className: "country"}, 
-            "Add ", React.createElement("a", {href: linkTo}, this.state.q), " as a new city?"
-          )
-        );
-      }
-
-      if (this.state.city.name) {
-        homeCity = React.createElement("h3", null, "See walks in ", React.createElement("a", {href: this.state.city.url}, this.state.city.name), ", or:")
+      if (this.props.user && this.props.user.city) {
+        homeCity = React.createElement("h3", null, "See walks in ", React.createElement("a", {href: this.props.user.city.url}, this.props.user.city.name), ", or:")
       }
 
       return (
         React.createElement("div", {className: "ccm-page-list-typeahead"}, 
           homeCity, 
-          React.createElement("form", {action: linkTo}, 
+          React.createElement("form", {onSubmit: this.handleSubmit}, 
             React.createElement("fieldset", {className: "search"}, 
-              React.createElement("input", {type: "text", name: "selected_option", className: "typeahead", placeholder: "Start typing a city", autoComplete: "off", valueLink: this.linkState('q')}), 
+              React.createElement("input", {type: "text", name: "selected_option", className: "typeahead", placeholder: "Start typing a city", autoComplete: "off", value: this.state.q, onChange: this.handleInput}), 
               React.createElement("button", {type: "submit"}, "Go"), 
               React.createElement("ul", null, 
-                countries ||
-                    React.createElement("li", null, 
-                      React.createElement("a", {href: "/city-organizer-onboarding"}, "Add ", this.state.q, " to Jane's Walk")
+                Object.keys(this.state.matched).map(function(key) {
+                  return (
+                    React.createElement("li", {key: 'country' + key, className: "country"}, 
+                      React.createElement("a", {href: _this.state.matched[key].url}, _this.state.matched[key].name), 
+                      React.createElement("ul", {className: "cities"}, 
+                        _this.state.matched[key].cities.map(function(city) {
+                          return (
+                            React.createElement("li", {key: 'city' + city.id}, 
+                              React.createElement("a", {href: city.url}, city.name)
+                            )
+                            )
+                        })
+                      )
                     )
+                    );
+                }), 
+                Object.keys(this.state.matched).length === 0 ?
+                  React.createElement("li", null, React.createElement("a", {href: "/city-organizer-onboarding"}, 'Add ' + _this.state.q + ' to Jane\'s Walk')) :
+                  null
+                
               )
             )
           )
