@@ -83,7 +83,7 @@ $this->inc('elements/navbar.php') ?>
 <section id="blog">
     <h2 class="title"><a href="<?= $blog ? $nh->getCollectionURL($blog) : '' ?>"><?= t('City Blog') ?></a>
         <?php if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
-        <a class="add" href="<?= $this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), '/', $blog->getCollectionID()) ?>">
+        <a class="add" href="<?= $this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), $blog->getCollectionID()) ?>">
             <i class="fa fa-angle-double-right"></i> <?= t('post new article') ?></a>
         <?php } ?>
     </h2>
