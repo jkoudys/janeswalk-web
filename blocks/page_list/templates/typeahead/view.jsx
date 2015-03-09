@@ -136,8 +136,78 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  React.render(
-    <PageListTypeahead countries={JanesWalk.countries} user={JanesWalk.user} />,
-    document.getElementById('ccm-jw-page-list-typeahead')
-  );
+  // Alternate render of these same cities as a select, primarily for mobile
+  // TODO: use ReactRouter for loading either, not c5 blocks directly
+  var PageListSelect = React.createClass({
+    getInitialState: function() {
+      return {
+        selected: null,
+        countries: this.props.countries.sort(function(a, b) {
+          return a.name.localeCompare(b.name);
+        })
+      };
+    },
+
+    handleChange: function(ev) {
+      this.setState({selected: ev.target.value}, function() {
+      debugger;
+        this.refs.form;
+      });
+    },
+
+    renderCity: function(city) {
+      return (
+        <option value={city.url} key={'city' + city.id}>
+          {city.name}
+        </option>
+      );
+    },
+
+    renderCountry: function(country) {
+      return (
+        <optgroup key={'country' + country.id} className="country" label={country.name}>
+          {country.cities.map(this.renderCity)}
+        </optgroup>
+      );
+    },
+
+    render: function() {
+      var _this = this;
+      var homeCity = <h3 />;
+
+      if (this.props.user && this.props.user.city) {
+        homeCity = <h3>See walks in <a href={this.props.user.city.url}>{this.props.user.city.name}</a>, or:</h3>
+      }
+
+      return (
+        <div className="ccm-page-list-typeahead">
+          {homeCity}
+          <form ref="form" onSubmit={this.handleSubmit} action={this.state.selected}>
+            <fieldset className="search">
+              <select value={this.state.selected} onChange={this.handleChange}>
+                <option value="" disabled selected>Choose your city</option>
+                {this.state.countries.map(this.renderCountry)}
+              </select>
+            </fieldset>
+          </form>
+        </div>
+      );
+    }
+  });
+
+  // Mobile should stick to standard form elements, so it can style its widget
+  // TODO: ReactRouter this
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    React.render(
+      <PageListSelect countries={JanesWalk.countries} user={JanesWalk.user} />,
+      document.getElementById('ccm-jw-page-list-typeahead')
+    );
+  } else {
+    React.render(
+      <PageListTypeahead countries={JanesWalk.countries} user={JanesWalk.user} />,
+      document.getElementById('ccm-jw-page-list-typeahead')
+    );
+  }
 });

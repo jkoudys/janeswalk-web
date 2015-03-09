@@ -137,10 +137,80 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  React.render(
-    React.createElement(PageListTypeahead, {countries: JanesWalk.countries, user: JanesWalk.user}),
-    document.getElementById('ccm-jw-page-list-typeahead')
-  );
+  // Alternate render of these same cities as a select, primarily for mobile
+  // TODO: use ReactRouter for loading either, not c5 blocks directly
+  var PageListSelect = React.createClass({displayName: 'PageListSelect',
+    getInitialState: function() {
+      return {
+        selected: null,
+        countries: this.props.countries.sort(function(a, b) {
+          return a.name.localeCompare(b.name);
+        })
+      };
+    },
+
+    handleChange: function(ev) {
+      this.setState({selected: ev.target.value}, function() {
+      debugger;
+        this.refs.form;
+      });
+    },
+
+    renderCity: function(city) {
+      return (
+        React.createElement("option", {value: city.url, key: 'city' + city.id}, 
+          city.name
+        )
+      );
+    },
+
+    renderCountry: function(country) {
+      return (
+        React.createElement("optgroup", {key: 'country' + country.id, className: "country", label: country.name}, 
+          country.cities.map(this.renderCity)
+        )
+      );
+    },
+
+    render: function() {
+      var _this = this;
+      var homeCity = React.createElement("h3", null);
+
+      if (this.props.user && this.props.user.city) {
+        homeCity = React.createElement("h3", null, "See walks in ", React.createElement("a", {href: this.props.user.city.url}, this.props.user.city.name), ", or:")
+      }
+
+      return (
+        React.createElement("div", {className: "ccm-page-list-typeahead"}, 
+          homeCity, 
+          React.createElement("form", {ref: "form", onSubmit: this.handleSubmit, action: this.state.selected}, 
+            React.createElement("fieldset", {className: "search"}, 
+              React.createElement("select", {value: this.state.selected, onChange: this.handleChange}, 
+                React.createElement("option", {value: "", disabled: true, selected: true}, "Choose your city"), 
+                this.state.countries.map(this.renderCountry)
+              )
+            )
+          )
+        )
+      );
+    }
+  });
+
+  // Mobile should stick to standard form elements, so it can style its widget
+  // TODO: ReactRouter this
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    React.render(
+      React.createElement(PageListSelect, {countries: JanesWalk.countries, user: JanesWalk.user}),
+      document.getElementById('ccm-jw-page-list-typeahead')
+    );
+  } else {
+    React.render(
+      React.createElement(PageListTypeahead, {countries: JanesWalk.countries, user: JanesWalk.user}),
+      document.getElementById('ccm-jw-page-list-typeahead')
+    );
+  }
 });
 
 },{}]},{},[1]);

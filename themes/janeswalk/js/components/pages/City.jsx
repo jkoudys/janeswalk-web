@@ -90,7 +90,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
    */
   _isMobile: {
     value: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-    writablbe: false
+    writable: false
   },
 
   /**
