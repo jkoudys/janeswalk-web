@@ -10,9 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     },
 
     /**
-     * _convertAccents
-     * 
-     * @protected
+     * Fold accent-characters into their accentless character
      * @param     String str
      * @return    String
      */
@@ -34,6 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
       );
     },
 
+    /**
+     * Detect if one string contains another, accent-folded
+     * @param string a haystack
+     * @param string b needle
+     */
     strContains: function(a, b) {
       return (
         this.convertAccents(a.toLowerCase()).indexOf(
@@ -42,37 +45,67 @@ document.addEventListener('DOMContentLoaded', function() {
       );
     },
 
+    /**
+     * Called when typing in the input
+     * @param ReactEvent ev
+     */
     handleInput: function(ev) {
       var _this = this;
-      var countries = {};
+      var countries = [];
       var q = ev.target.value;
 
-      for (var i in this.props.countries) {
-        var country = this.props.countries[i];
+      // Loop through all countries and build a list of cities which match
+      this.props.countries.forEach(function(country) {
         var cities = [];
         country.cities.forEach(function(city) {
           if (!q || _this.strContains(city.name, q)) {
             cities.push(city);
           }
         });
+        // Avoid including countries which have no matching cities
         if (cities.length) {
-          countries[i] = Object.assign({}, country, {cities: cities});
+          countries.push(Object.assign({}, country, {cities: cities}));
         }
-      }
+      });
 
       this.setState({q: q, matched: countries});
     },
 
+    /**
+     * Form action links the top selected city
+     * @param ReactEvent ev
+     */
     handleSubmit: function(ev) {
-      var firstCountry = Object.keys(this.state.matched).shift();
+      var firstCountry = this.state.matched[0];
       var firstCity;
 
+      // If there's a matching city, that's the URL we go to
       if (firstCountry) {
-        firstCity = this.state.matched[firstCountry].shift();
+        firstCity = firstCountry[0].cities[0];
         if (firstCity) {
           ev.target.action = firstCity.url;
         }
       }
+    },
+
+    renderCity: function(city) {
+      return (
+        React.createElement("li", {key: 'city' + city.id}, 
+          React.createElement("a", {href: city.url}, city.name)
+        )
+      )
+    },
+
+    renderCountry: function(country) {
+      return (
+        React.createElement("li", {key: 'country' + country.id, className: "country"}, 
+          React.createElement("a", {href: country.url}, country.name), 
+          React.createElement("ul", {className: "cities"}, 
+            country.cities.map(this.renderCity)
+          )
+        )
+      );
+
     },
 
     render: function() {
@@ -91,23 +124,8 @@ document.addEventListener('DOMContentLoaded', function() {
               React.createElement("input", {type: "text", name: "selected_option", className: "typeahead", placeholder: "Start typing a city", autoComplete: "off", value: this.state.q, onChange: this.handleInput}), 
               React.createElement("button", {type: "submit"}, "Go"), 
               React.createElement("ul", null, 
-                Object.keys(this.state.matched).map(function(key) {
-                  return (
-                    React.createElement("li", {key: 'country' + key, className: "country"}, 
-                      React.createElement("a", {href: _this.state.matched[key].url}, _this.state.matched[key].name), 
-                      React.createElement("ul", {className: "cities"}, 
-                        _this.state.matched[key].cities.map(function(city) {
-                          return (
-                            React.createElement("li", {key: 'city' + city.id}, 
-                              React.createElement("a", {href: city.url}, city.name)
-                            )
-                            )
-                        })
-                      )
-                    )
-                    );
-                }), 
-                Object.keys(this.state.matched).length === 0 ?
+                this.state.matched.map(this.renderCountry), 
+                this.state.matched.length === 0 ?
                   React.createElement("li", null, React.createElement("a", {href: "/city-organizer-onboarding"}, 'Add ' + _this.state.q + ' to Jane\'s Walk')) :
                   null
                 

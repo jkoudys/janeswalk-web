@@ -50,12 +50,11 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     handleInput: function(ev) {
       var _this = this;
-      var countries = {};
+      var countries = [];
       var q = ev.target.value;
 
       // Loop through all countries and build a list of cities which match
-      for (var i in this.props.countries) {
-        var country = this.props.countries[i];
+      this.props.countries.forEach(function(country) {
         var cities = [];
         country.cities.forEach(function(city) {
           if (!q || _this.strContains(city.name, q)) {
@@ -64,9 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         // Avoid including countries which have no matching cities
         if (cities.length) {
-          countries[i] = Object.assign({}, country, {cities: cities});
+          countries.push(Object.assign({}, country, {cities: cities}));
         }
-      }
+      });
 
       this.setState({q: q, matched: countries});
     },
@@ -76,16 +75,36 @@ document.addEventListener('DOMContentLoaded', function() {
      * @param ReactEvent ev
      */
     handleSubmit: function(ev) {
-      var firstCountry = Object.keys(this.state.matched).shift();
+      var firstCountry = this.state.matched[0];
       var firstCity;
 
       // If there's a matching city, that's the URL we go to
       if (firstCountry) {
-        firstCity = this.state.matched[firstCountry].shift();
+        firstCity = firstCountry[0].cities[0];
         if (firstCity) {
           ev.target.action = firstCity.url;
         }
       }
+    },
+
+    renderCity: function(city) {
+      return (
+        <li key={'city' + city.id}>
+          <a href={city.url}>{city.name}</a>
+        </li>
+      )
+    },
+
+    renderCountry: function(country) {
+      return (
+        <li key={'country' + country.id} className="country">
+          <a href={country.url}>{country.name}</a>
+          <ul className="cities">
+            {country.cities.map(this.renderCity)}
+          </ul>
+        </li>
+      );
+
     },
 
     render: function() {
@@ -104,23 +123,8 @@ document.addEventListener('DOMContentLoaded', function() {
               <input type="text" name="selected_option" className="typeahead" placeholder="Start typing a city" autoComplete="off" value={this.state.q} onChange={this.handleInput} />
               <button type="submit">Go</button>
               <ul>
-                {Object.keys(this.state.matched).map(function(key) {
-                  return (
-                    <li key={'country' + key} className="country">
-                      <a href={_this.state.matched[key].url}>{_this.state.matched[key].name}</a>
-                      <ul className="cities">
-                        {_this.state.matched[key].cities.map(function(city) {
-                          return (
-                            <li key={'city' + city.id}>
-                              <a href={city.url}>{city.name}</a>
-                            </li>
-                            )
-                        })}
-                      </ul>
-                    </li>
-                    );
-                })}
-                {Object.keys(this.state.matched).length === 0 ?
+                {this.state.matched.map(this.renderCountry)}
+                {this.state.matched.length === 0 ?
                   <li><a href="/city-organizer-onboarding">{'Add ' + _this.state.q + ' to Jane\'s Walk'}</a></li> :
                   null
                 }

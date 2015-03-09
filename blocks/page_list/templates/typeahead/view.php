@@ -14,6 +14,7 @@ foreach ($pages as $city) {
     if (!isset($countryList[$pcID])) {
         $country = Page::getByID($pcID);
         $countryList[$pcID] = [
+            'id' => $pcID,
             'name' => $country->getCollectionName(),
             'url' => $nh->getLinkToCollection($country),
             'cities' => []
@@ -29,5 +30,5 @@ foreach ($pages as $city) {
 // Add as JSON for client data
 // TODO: use generalized addToJanesWalk
 ?>
-<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; window.JanesWalk.countries = <?= json_encode($countryList) ?>;</script>
+<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; window.JanesWalk.countries = <?= json_encode(array_values($countryList)) ?>;</script>
 <div id="ccm-jw-page-list-typeahead"></div>
