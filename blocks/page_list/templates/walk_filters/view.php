@@ -28,8 +28,7 @@ $filterTuples = [
             <section class="tab-pane" id="jw-cards">
                 <ul class="filters">
 <?php
-            foreach ($filterTuples as $tuple) {
-                list($name, $key, $data) = $tuple;
+            foreach ($filterTuples as list($name, $key, $data)) {
                 if (!empty($data)) {
 ?>
                     <li>
@@ -100,13 +99,15 @@ $filterTuples = [
                     </thead>
                     <tbody>
 <?php
-foreach ($cards as $k => $walk) {
+// Display the list chronologically
+foreach ($cardsUpcoming as $k => $walk) {
     if ($walk->time['slots']) {
-        $dt = DateTime::createFromFormat('U', $walk->time['slots'][0][0]);
+        $startTime = $walk->time['slots'][0][0];
+        $dt = DateTime::createFromFormat('U', $startTime);
                         ?>
                         <tr data-janeswalk-sort="<?= $k ?>">
-                            <td><?= $dt->format('M j, Y') ?></td>
-                            <td><?= $dt->format('h:i A') ?></td>
+                            <td data-sort="<?= $startTime ?>"><?= $dt->format('M j, Y') ?></td>
+                            <td data-sort="<?= $startTime ?>"><?= $dt->format('h:i A') ?></td>
                             <td><a href="<?= $nh->getLinkToCollection($walk->getPage()) ?>" target="_blank" ><?= $walk ?></a></td>
                             <td><?= implode(', ', array_filter((array) $walk->meetingPlace)) ?></td>
                         </tr>

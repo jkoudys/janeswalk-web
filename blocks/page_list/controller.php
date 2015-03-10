@@ -151,7 +151,18 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $walksByDate
             );
 
+            // Filter out past walks
+            // Check up to 2 days ago
+            $time = time() - (60 * 60 * 48);
+            $cardsUpcoming = array_filter(
+                $walksByDate,
+                function($walk) use ($time) {
+                    return $walk->time['slots'] && ((int) $walk->time['slots'][0][0]) > $time;
+                }
+            );
+
             $this->set('cards', $walksByDate);
+            $this->set('cardsUpcoming', $cardsUpcoming);
             break;
         }
 
@@ -219,7 +230,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
      */
     public function loadCards()
     {
-        $cards = array();
+        $cards = [];
         foreach ((array) $this->get('pages') as $page) {
             $walk = new Walk($page);
             $cards[] = $walk;

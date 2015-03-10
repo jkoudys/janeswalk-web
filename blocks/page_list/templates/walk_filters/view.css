@@ -13,3 +13,7 @@ div.ccm-page-list-tags {
 div.ccm-page-list-walkcards {
   position: relative;
   font-family: "museo-slab", "Roboto Slab", serif; }
+
+table.walklist th {
+    cursor: pointer;
+}
