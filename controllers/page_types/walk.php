@@ -75,8 +75,10 @@ class WalkPageTypeController extends Controller
         header('Content-Type: application/json');
         try {
             // Send requests to all walk-mirroring services
-            $mw = new MirrorWalk($this->walk);
-            $mw->mirrorStart();
+            if (false) {
+                $mw = new MirrorWalk($this->walk);
+                $mw->mirrorStart();
+            }
 
             // Save the walk
             $cID = $this->walk->getPage()->getCollectionID();
@@ -89,7 +91,9 @@ class WalkPageTypeController extends Controller
             ]);
 
             // Wait until walk-mirrroring blocking code completes
-            $mw->mirrorEnd();
+            if (false) {
+                $mw->mirrorEnd();
+            }
         } catch (Exception $e) {
             Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
             echo json_encode([
