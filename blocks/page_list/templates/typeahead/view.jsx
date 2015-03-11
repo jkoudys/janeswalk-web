@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // If there's a matching city, that's the URL we go to
       if (firstCountry) {
-        firstCity = firstCountry[0].cities[0];
+        firstCity = firstCountry.cities[0];
         if (firstCity) {
           ev.target.action = firstCity.url;
         }
