@@ -587,7 +587,7 @@ if ($cityOrganizerData) {
                     <?= t('Here are some fun ones from around the world') ?>
                 </p>
                 <ul>
-                    <?php foreach ($featuredWalkData as $featuredWalk) { ?>
+                    <?php foreach ((array) $featuredWalkData as $featuredWalk) { ?>
                     <li>
                         <div class="banner" style="background-image: url('<?= ($featuredWalk['walkImagePath']) ?>');"></div>
                         <div class="meta">
