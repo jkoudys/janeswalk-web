@@ -69,6 +69,7 @@ var TeamBuilder = React.createClass({
     var users = value.map(function(user, i) {
       var teamMember = null;
       teamMemberProps.key = i;
+      teamMemberProps.index = i;
       teamMemberProps.value = user;
       teamMemberProps.onDelete = _this.deleteMember.bind(_this, i);
       // Use empty strings for unset/false

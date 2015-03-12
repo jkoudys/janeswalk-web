@@ -20,7 +20,7 @@ module.exports.linkedParentState = {
 module.exports.linkedTeamMemberState = {
   linkProp: function(propname) {
     var onChange = this.props.onChange;
-    var key = this._currentElement.key;
+    var key = this.props.index;
     return {
       value: this.props.value[propname],
       requestChange: function(value) {

@@ -2264,6 +2264,7 @@ var TeamBuilder = React.createClass({
     var users = value.map(function(user, i) {
       var teamMember = null;
       teamMemberProps.key = i;
+      teamMemberProps.index = i;
       teamMemberProps.value = user;
       teamMemberProps.onDelete = _this.deleteMember.bind(_this, i);
       // Use empty strings for unset/false
@@ -3457,7 +3458,7 @@ module.exports.linkedParentState = {
 module.exports.linkedTeamMemberState = {
   linkProp: function(propname) {
     var onChange = this.props.onChange;
-    var key = this._currentElement.key;
+    var key = this.props.index;
     return {
       value: this.props.value[propname],
       requestChange: function(value) {
