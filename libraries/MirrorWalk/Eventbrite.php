@@ -34,7 +34,7 @@ class Eventbrite implements EventInterface
     public function __construct(Walk $walk = null)
     {
         // Set EB ticket defaults upfront
-        $ticketParams = [
+        $this->ticketParams = [
             // Jane's Walks are always free
             'price' => '0.00',
             'min' => '1',
