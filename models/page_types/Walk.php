@@ -341,12 +341,7 @@ class Walk extends \Model implements \JsonSerializable
         array_walk($this->themes, $mapKeyNames, 'theme');
         array_walk($this->accessible, $mapKeyNames, 'accessible');
 
-        // Force checkboxes as an empty object, not empty array, for json_encode
-        if (empty($checkboxes)) {
-            $checkboxes = new stdClass;
-        }
-
-        $walkData['checkboxes'] = $checkboxes;
+        $walkData['checkboxes'] = (object) $checkboxes;
 
         return $walkData;
     }

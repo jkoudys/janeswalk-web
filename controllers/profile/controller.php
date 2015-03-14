@@ -5,8 +5,6 @@
  * The user profile page, with that user's personal and city information.
  */
 
-defined('C5_EXECUTE') || die('Access Denied.');
-
 class ProfileController extends Concrete5_Controller_Profile
 {
     /**
@@ -119,7 +117,7 @@ class ProfileController extends Concrete5_Controller_Profile
                 // organizers/walk leaders that showcase creative/unique walks
                 $pl = new PageList();
                 $pl->filterByCollectionTypeHandle('walk');
-                $pl->filter(false,'p1.uID !=' . $u->getUserID());
+                $pl->filter(false, 'p1.uID !=' . $u->getUserID());
                 $pl->filterByAttribute('exclude_page_list', false);
                 $pl->sortBy('RAND()');
 
@@ -134,7 +132,7 @@ class ProfileController extends Concrete5_Controller_Profile
                             $countryName = 'United States of America';
                         }
                         $countryName = str_replace(' ', '_', $countryName);
-                        $walkImage = $_thumb ? $ih->getThumbnail($_thumb,800,800)->src : '';
+                        $walkImage = $_thumb ? $ih->getThumbnail($_thumb, 800, 800)->src : '';
 
                         return [
                             'walkImagePath' => $walkImage,

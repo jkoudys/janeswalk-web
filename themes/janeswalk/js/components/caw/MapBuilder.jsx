@@ -380,44 +380,6 @@ var MapBuilder = React.createClass({
         <div className="alert alert-info">
           { t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') }
         </div>
-        <div id="route-help-panel">
-          <a className="accordion-toggle collapsed" data-toggle="collapse" data-parent="#route-menu" href="#route-menu">
-            <h2 className="lead">{ t('Need help building your route?') }</h2>
-          </a>
-          <ol id="route-menu" className="collapse" style={{height: 0}}>
-            <li>
-              <h4>{ t('Set a Meeting Place') }</h4>
-              <ol>
-                <li>{ t('Click "Meeting Place" to add a pinpoint on the map') }</li>
-                <li>{ t('Click and drag it into position') }</li>
-                <li>{ t('Fill out the form fields and press Save Meeting Place') }</li>
-              </ol>
-            </li>
-            <li>
-              <h4>{ t('Add Stops') }</h4>
-              <ol>
-                <li>{ t('Click "Add Stop" to add a stop on the map') }</li>
-                <li>{ t('Click and drag it into position') }</li>
-                <li>{ t('Fill out the form fields and press Save Stop') }</li>
-                <li>{ t('Repeat to add more stops') }</li>
-              </ol>
-            </li>
-            <li>
-              <h4>{ t('Add Route') }</h4>
-              <ol>
-                <li>{ t('Click Add Route') }</li>
-                <li>{ t('A point will appear on your meeting place, now click on each of the stops that flow to connect them.') }</li>
-                <li>{ t('Click and drag the circles on the orange lines to make the path between each stop. Right click on a point to delete it.') }</li>
-                <li>{ t('Click Save Route') }</li>
-              </ol>
-              <p>
-                { t('If you want to delete your route to start over, click ') }
-                <a href="" className="clear-route">{ t('Clear Route') }</a>.
-                { t('Your Stops will not be deleted') }
-              </p>
-            </li>
-          </ol>
-        </div>
         <div id="map-control-bar">
           <button
             ref="addPoint"
