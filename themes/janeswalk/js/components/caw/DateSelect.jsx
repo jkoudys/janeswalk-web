@@ -53,7 +53,8 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
       // date rebuilding, which is very slow. See if it can be done through
       // state updates instead.
       this.setState({start: startDate});
-    }
+    },
+    writable: true
   },
 
   /* @param Date time The current time of day
@@ -97,7 +98,8 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
 
       value.slots = slots;
       valueLink.requestChange(value);
-    }
+    },
+    writable: true
   },
 
   render: {
