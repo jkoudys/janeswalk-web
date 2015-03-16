@@ -27,5 +27,10 @@
   },
   "browserify-shim": {
     "react": "global:React"
-  }
+  },
+    "browserify": {
+        "transform": [
+            ["reactify", {"es6": true}]
+        ]
+    }
 }

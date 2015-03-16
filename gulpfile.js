@@ -49,6 +49,7 @@ gulp.task('jsx_app', function() {
     entries: paths.jsx_app,
     transform: [reactify],
     extensions: ['.jsx'],
+    es6: true
   })
     .bundle()
     .pipe(source('janeswalk.js'))

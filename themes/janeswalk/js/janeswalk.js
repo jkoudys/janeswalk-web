@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-},{"./components/CreateWalk.jsx":3,"./components/Login.jsx":5,"./components/Page.jsx":6,"./components/pages/City.jsx":27,"./components/pages/Home.jsx":28,"./components/pages/Profile.jsx":29,"./components/pages/Walk.jsx":30,"intl/Intl.min":2}],2:[function(require,module,exports){
+},{"./components/CreateWalk.jsx":3,"./components/Login.jsx":5,"./components/Page.jsx":6,"./components/pages/City.jsx":31,"./components/pages/Home.jsx":32,"./components/pages/Profile.jsx":33,"./components/pages/Walk.jsx":34,"intl/Intl.min":2}],2:[function(require,module,exports){
 (function (global){
 /**
  * @license Copyright 2013 Andy Earnshaw, MIT License
@@ -521,7 +521,7 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
 
 module.exports = CreateWalk;
 
-},{"./TextAreaLimit.jsx":7,"./caw/AccessibleSelect.jsx":10,"./caw/DateSelect.jsx":11,"./caw/ImageUpload.jsx":12,"./caw/MapBuilder.jsx":13,"./caw/TeamBuilder.jsx":14,"./caw/ThemeSelect.jsx":15,"./caw/WalkPublish.jsx":16,"./caw/WardSelect.jsx":17,"./functions/helpers.jsx":24,"./functions/translate.js":26}],4:[function(require,module,exports){
+},{"./TextAreaLimit.jsx":7,"./caw/AccessibleSelect.jsx":10,"./caw/DateSelect.jsx":11,"./caw/ImageUpload.jsx":12,"./caw/MapBuilder.jsx":13,"./caw/TeamBuilder.jsx":14,"./caw/ThemeSelect.jsx":15,"./caw/WalkPublish.jsx":16,"./caw/WardSelect.jsx":17,"./functions/helpers.jsx":28,"./functions/translate.js":30}],4:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -903,7 +903,7 @@ Object.defineProperties(View.prototype, {
 module.exports = View;
 
 
-},{"../shims.js":31}],9:[function(require,module,exports){
+},{"../shims.js":35}],9:[function(require,module,exports){
 'use strict';
 
 /**
@@ -1293,373 +1293,238 @@ var AccessibleSelect = React.createClass({
 
 module.exports = AccessibleSelect;
 
-},{"../functions/mixins.jsx":25}],11:[function(require,module,exports){
+},{"../functions/mixins.jsx":29}],11:[function(require,module,exports){
 'use strict';
 
+var DatePicker = require('./date/DatePicker.jsx');
+var TimePicker = require('./date/TimePicker.jsx');
+var TimeSetTable = require('./date/TimeSetTable.jsx');
+var TimeOpenTable = require('./date/TimeOpenTable.jsx');
+
 // TODO: Make 'intiatives' build as separate selectors
-var DateSelect = React.createClass({displayName: 'DateSelect',
-  mixins: [React.addons.LinkedStateMixin],
-  getInitialState: function() {
-    var today = new Date;
-    var start = new Date(
-      Date.UTC(
-        today.getUTCFullYear(),
-        today.getUTCMonth(),
-        today.getUTCDate() + 7,
-        11,
-        0
-      )
-    );
-    // Default to a 1-hour walk time
-    var duration = 60 * 60 * 1000;
+function DateSelect() {
+  var today = new Date;
+  var start = new Date(
+    Date.UTC(
+      today.getUTCFullYear(),
+      today.getUTCMonth(),
+      today.getUTCDate() + 7,
+      11,
+      0
+    )
+  );
+  // Default to a 1-hour walk time
+  var duration = 60 * 60 * 1000;
 
-    // Note: we're only keeping the 'date' on there to use Date's string
-    // parsing. This method is concerned only with the Time
-    // TODO: Support proper time localization - ultimately these times are just
-    // strings, so we're using GMT, but that's bad practice.
-    return {start: start, duration: duration};
-  },
-  setDay: function(date) {
-    var startDate = this.state.start;
+  // Bind class methods
+  this.setDay = this.setDay.bind(this);
+  this.addDate = this.addDate.bind(this);
 
-    // Set the Day we're choosing
-    startDate.setUTCFullYear(date.getUTCFullYear());
-    startDate.setUTCMonth(date.getUTCMonth());
-    startDate.setUTCDate(date.getUTCDate());
+  // Note: we're only keeping the 'date' on there to use Date's string
+  // parsing. This method is concerned only with the Time
+  // TODO: Support proper time localization - ultimately these times are just
+  // strings, so we're using GMT, but that's bad practice.
+  this.state = {start: start, duration: duration};
+}
 
-    // Refresh the timepicker
-    this.refs.timePicker.setStartTimes(startDate);
-
-    // Update our state
-    // FIXME: This is an overly-complex pattern, but done to avoid frequent
-    // date rebuilding, which is very slow. See if it can be done through
-    // state updates instead.
-    this.setState({start: startDate});
-  },
-  /* @param Date time The current time of day
-   * @param Int duration Number of minutes the walk lasts
-   */
-  setTime: function(time, duration) {
-    var startDate = this.state.start;
-
-    startDate.setUTCHours(time.getUTCHours());
-    startDate.setUTCMinutes(time.getUTCMinutes());
-
-    this.setState({start: startDate});
-  },
-  linkTime: function() {
-    var _this = this;
-    return {
-      value: _this.state.start.getTime(),
-      requestChange: function(value) {
-        _this.setState({start: new Date(Number(value))});
-      }
-    };
-  },
-  // Push the date we built here to the linked state
-  addDate: function() {
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value || {};
-    var slots = (value.slots || []).slice();
-    var start = this.state.start.getTime();
-    var end = start + this.state.duration;
-
-    // Store the timeslot state as seconds, not ms
-    slots.push([start / 1000, end / 1000]);
-
-    value.slots = slots;
-    valueLink.requestChange(value);
-  },
-  render: function() {
-    var valueLink = this.props.valueLink;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
-
-    return (
-      React.createElement("div", {className: "tab-pane", id: "time-and-date"}, 
-        React.createElement("div", {className: "tab-content", id: "walkduration"}, 
-          React.createElement("div", {className: "tab-pane hide", id: "time-and-date-select"}, 
-            React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
-              React.createElement("h1", null,  t('Set the Time and Date') )
-            ), 
-            React.createElement("legend", null,  t('Pick one of the following:') ), 
-            React.createElement("div", {className: "row"}, 
-              React.createElement("ul", {className: "thumbnails", id: "block-select"}, 
-                React.createElement("li", null, 
-                  React.createElement("a", {href: "#time-and-date-all", 'data-toggle': "tab"}, 
-                    React.createElement("div", {className: "thumbnail"}, 
-                      React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-full.png'}), 
-                      React.createElement("div", {className: "caption"}, 
-                        React.createElement("div", {className: "text-center"}, 
-                          React.createElement("h4", null,  t('By Request') )
-                        ), 
-                        React.createElement("p", null,  t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.') )
-                      )
-                    )
-                  )
-                ), 
-                React.createElement("li", null, 
-                  React.createElement("a", {href: "#time-and-date-set", 'data-toggle': "tab"}, 
-                    React.createElement("div", {className: "thumbnail"}, 
-                      React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-some.png'}), 
-                      React.createElement("div", {className: "caption"}, 
-                        React.createElement("div", {className: "text-center"}, 
-                          React.createElement("h4", null,  t('Pick Your Date') )
-                        ), 
-                        React.createElement("p", null,  t('Set specific dates and times that this walk is happening.') )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          ), 
-          React.createElement("div", {className: "tab-pane active", id: "time-and-date-set"}, 
-            React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
-              React.createElement("h1", null,  t('Time and Date') ), 
-              React.createElement("p", {className: "lead"},  t('Select the date and time your walk is happening.') )
-            ), 
-
-            React.createElement("div", {className: "row"}, 
-              React.createElement("div", {className: "col-md-6"}, 
-                React.createElement(DatePicker, {setDay: this.setDay, defaultDate: this.state.start})
-              ), 
-              React.createElement("div", {className: "col-md-6"}, 
-                React.createElement("div", {className: "thumbnail"}, 
-                  React.createElement("div", {className: "caption"}, 
-                    React.createElement("h4", {className: "date-indicate-set"}, 
-                      React.createElement("small", null,  t('Date selected'), ":"), 
-                      this.state.start.toLocaleDateString(undefined, {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'})
-                    ), 
-                    React.createElement("hr", null), 
-                    React.createElement(TimePicker, {ref: "timePicker", i18n: this.props.i18n, valueLinkDuration: this.linkState('duration'), valueLinkStart: this.linkTime()}), 
-                    React.createElement("hr", null), 
-                    React.createElement("button", {className: "btn btn-primary", id: "save-date-set", onClick: this.addDate},  t('Add Date') )
-                  )
-                )
-              )
-            ), 
-            React.createElement("br", null), 
-            React.createElement(TimeSetTable, {i18n: this.props.i18n, valueLink: valueLink}), 
-            React.createElement("hr", null)
-          ), 
-          React.createElement("div", {className: "tab-pane hide", id: "time-and-date-all"}, 
-            React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
-              React.createElement("h1", null,  t('Time and Date') ), 
-              React.createElement("p", {className: "lead"},  t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') )
-            ), 
-            React.createElement("label", {className: "checkbox"}, 
-              React.createElement("input", {type: "checkbox", name: "open"}),  t('Leave my availability open. Allow people to contact you to set up a walk.')
-            ), 
-            React.createElement("br", null), 
-            React.createElement("div", {className: "row"}, 
-              React.createElement("div", {className: "col-md-6"}, 
-                React.createElement("div", {className: "date-picker"})
-              ), 
-              React.createElement("div", {className: "col-md-6"}, 
-                React.createElement("div", {className: "thumbnail"}, 
-                  React.createElement("div", {className: "caption"}, 
-                    React.createElement("div", {className: "date-select-group"}, 
-                      React.createElement("small", null,  t('Date selected'), ":"), 
-                      React.createElement("h4", {className: "date-indicate-all"}), 
-                      React.createElement("hr", null)
-                    ), 
-                    React.createElement("label", {htmlFor: "walk-duration"},  t('Approximate Duration of Walk'), ":"), 
-                    React.createElement("select", {name: "duration", id: "walk-duration", defaultValue: "1 Hour, 30 Minutes"}, 
-                      React.createElement("option", {value: "30 Minutes"}, "30 Minutes"), 
-                      React.createElement("option", {value: "1 Hour"}, "1 Hour"), 
-                      React.createElement("option", {value: "1 Hour, 30 Minutes"}, "1 Hour, 30 Minutes"), 
-                      React.createElement("option", {value: "2 Hours"}, "2 Hours"), 
-                      React.createElement("option", {value: "2 Hours, 30 Minutes"}, "2 Hours, 30 Minutes"), 
-                      React.createElement("option", {value: "3 Hours"}, "3 Hours"), 
-                      React.createElement("option", {value: "3 Hours, 30 Minutes"}, "3 Hours, 30 Minutes")
-                    ), 
-                    React.createElement("div", {className: "date-select-group"}, 
-                      React.createElement("hr", null), 
-                      React.createElement("button", {className: "btn btn-primary", id: "save-date-all", onClick: this.addDate},  t('Add Date') )
-                    )
-                  )
-                )
-              )
-            ), 
-            React.createElement("br", null), 
-            React.createElement(TimeOpenTable, null), 
-            React.createElement("hr", null)
-          )
-        )
-      )
-    );
-  }
-});
-
-var DatePicker = React.createClass({displayName: 'DatePicker',
-  componentDidMount: function() {
-    // Setup sorting on the walk-stops list
-    $(this.getDOMNode()).datepicker({
-      defaultDate: this.props.defaultDate,
-      onSelect: function(dateText) {
-        this.props.setDay(new Date(dateText));
-      }.bind(this)
-    });
-  },
-  render: function() {
-    return (
-      React.createElement("div", {className: "date-picker"})
-    );
-  }
-});
-
-var TimePicker = React.createClass({displayName: 'TimePicker',
-  getInitialState: function() {
-    return {startTimes: []};
+DateSelect.prototype = Object.create(React.Component.prototype, {
+  constructor: {
+    value: DateSelect
   },
 
-  // Date management is slow, so avoid rebuilding unless needed
-  setStartTimes: function(start, step) {
-    if (this.state.start !== start) {
-      // It's fastest to build our date formatter once upfront
-      var dtfTime = new Intl.DateTimeFormat(undefined, {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
-      // All start times begin on the date's 0:00, and by default step every 30 min
-      var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()];
-      var firstTime = Date.UTC.apply(this, yrMoDay);
-      var lastTime = Date.UTC.apply(this, yrMoDay.concat([23, 30]));
-      var startTimes = [];
-      step = step || 1800000;
+  setDay: {
+    value: function(date) {
+      var startDate = this.state.start;
 
-      for (var i = 0, time = firstTime;
-           time <= lastTime;
-           time += step) {
-        startTimes.push({
-          asMs: time,
-          asString: dtfTime.format(time)
-        });
-      }
+      // Set the Day we're choosing
+      startDate.setUTCFullYear(date.getUTCFullYear());
+      startDate.setUTCMonth(date.getUTCMonth());
+      startDate.setUTCDate(date.getUTCDate());
 
-      this.setState({
-        start: start,
-        startTimes: startTimes
-      });
+      // Refresh the timepicker
+      this.refs.timePicker.setStartTimes(startDate);
+
+      // Update our state
+      // FIXME: This is an overly-complex pattern, but done to avoid frequent
+      // date rebuilding, which is very slow. See if it can be done through
+      // state updates instead.
+      this.setState({start: startDate});
     }
   },
 
-  componentWillUpdate: function() {
+  /* @param Date time The current time of day
+   * @param Int duration Number of minutes the walk lasts
+   */
+  setTime: {
+    value: function(time, duration) {
+      var startDate = this.state.start;
+
+      startDate.setUTCHours(time.getUTCHours());
+      startDate.setUTCMinutes(time.getUTCMinutes());
+
+      this.setState({start: startDate});
+    }
   },
 
-  componentWillMount: function() {
-    this.componentWillUpdate();
-    var startDate = new Date(this.props.valueLinkStart.value);
-    this.setStartTimes(startDate);
+  // Build a valueLink object for updating the time
+  linkTime: {
+    value: function() {
+      var _this = this;
+      return {
+        value: _this.state.start.getTime(),
+        requestChange: function(value) {
+          _this.setState({start: new Date(Number(value))});
+        }
+      };
+    }
   },
 
-  render: function() {
-    // Count walk times in 30 min increments
-    var linkDuration = this.props.valueLinkDuration;
-    var requestChange = linkDuration.requestChange;
-    var linkStart = this.props.valueLinkStart;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+  // Push the date we built here to the linked state
+  addDate: {
+    value: function() {
+      var valueLink = this.props.valueLink;
+      var value = valueLink.value || {};
+      var slots = (value.slots || []).slice();
+      var start = this.state.start.getTime();
+      var end = start + this.state.duration;
 
-    // Cast duration as a number
-    linkDuration.requestChange = function(value) {
-      requestChange(Number(value));
-    };
+      // Store the timeslot state as seconds, not ms
+      slots.push([start / 1000, end / 1000]);
 
-    return (
-      React.createElement("div", {className: "time-picker"}, 
-        React.createElement("label", {htmlFor: "walk-time"},  t('Start Time'), ":"), 
-        React.createElement("select", {name: "start", id: "walk-start", valueLink: linkStart}, 
-          this.state.startTimes.map(function(time, i) {
-            return (
-              React.createElement("option", {key: 'walk-start' + i, value: time.asMs}, 
-                time.asString
+      value.slots = slots;
+      valueLink.requestChange(value);
+    }
+  },
+
+  render: {
+    value: function() {
+      var valueLink = this.props.valueLink;
+      var t = this.props.i18n.translate.bind(this.props.i18n);
+
+      return (
+        React.createElement("div", {className: "tab-pane", id: "time-and-date"}, 
+          React.createElement("div", {className: "tab-content", id: "walkduration"}, 
+            React.createElement("div", {className: "tab-pane hide", id: "time-and-date-select"}, 
+              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
+                React.createElement("h1", null,  t('Set the Time and Date') )
+              ), 
+              React.createElement("legend", null,  t('Pick one of the following:') ), 
+              React.createElement("div", {className: "row"}, 
+                React.createElement("ul", {className: "thumbnails", id: "block-select"}, 
+                  React.createElement("li", null, 
+                    React.createElement("a", {href: "#time-and-date-all", 'data-toggle': "tab"}, 
+                      React.createElement("div", {className: "thumbnail"}, 
+                        React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-full.png'}), 
+                        React.createElement("div", {className: "caption"}, 
+                          React.createElement("div", {className: "text-center"}, 
+                            React.createElement("h4", null,  t('By Request') )
+                          ), 
+                          React.createElement("p", null,  t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.') )
+                        )
+                      )
+                    )
+                  ), 
+                  React.createElement("li", null, 
+                    React.createElement("a", {href: "#time-and-date-set", 'data-toggle': "tab"}, 
+                      React.createElement("div", {className: "thumbnail"}, 
+                        React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-some.png'}), 
+                        React.createElement("div", {className: "caption"}, 
+                          React.createElement("div", {className: "text-center"}, 
+                            React.createElement("h4", null,  t('Pick Your Date') )
+                          ), 
+                          React.createElement("p", null,  t('Set specific dates and times that this walk is happening.') )
+                        )
+                      )
+                    )
+                  )
+                )
               )
-              );
-          })
-        ), 
-        React.createElement("label", {htmlFor: "walk-time"},  t('Approximate Duration of Walk'), ":"), 
-        React.createElement("select", {name: "duration", id: "walk-duration", valueLink: linkDuration}, 
-          React.createElement("option", {value: 30 * 60000}, "30 Minutes"), 
-          React.createElement("option", {value: 60 * 60000}, "1 Hour"), 
-          React.createElement("option", {value: 90 * 60000}, "1 Hour, 30 Minutes"), 
-          React.createElement("option", {value: 120 * 60000}, "2 Hours"), 
-          React.createElement("option", {value: 150 * 60000}, "2 Hours, 30 Minutes"), 
-          React.createElement("option", {value: 180 * 60000}, "3 Hours"), 
-          React.createElement("option", {value: 210 * 60000}, "3 Hours, 30 Minutes")
-        )
-      )
-    );
-  }
-});
+            ), 
+            React.createElement("div", {className: "tab-pane active", id: "time-and-date-set"}, 
+              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
+                React.createElement("h1", null,  t('Time and Date') ), 
+                React.createElement("p", {className: "lead"},  t('Select the date and time your walk is happening.') )
+              ), 
 
-var TimeSetTable = React.createClass({displayName: 'TimeSetTable',
-  removeSlot: function(i) {
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value;
-    var slots = (value.slots || []).slice();
-
-    slots.splice(i, 1);
-    value.slots = slots;
-
-    valueLink.requestChange(value);
-  },
-  render: function() {
-    var slots = this.props.valueLink.value.slots || [];
-    var t = this.props.i18n.translate.bind(this.props.i18n);
-    var t2 = this.props.i18n.translatePlural.bind(this.props.i18n);
-
-    var dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
-    var dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
-
-    return (
-      React.createElement("table", {className: "table table-bordered table-hover", id: "date-list-all"}, 
-        React.createElement("thead", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null, t('Date')), 
-            React.createElement("th", null, t('Start Time')), 
-            React.createElement("th", null, t('Duration')), 
-            React.createElement("th", null)
+              React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "col-md-6"}, 
+                  React.createElement(DatePicker, {setDay: this.setDay, defaultDate: this.state.start})
+                ), 
+                React.createElement("div", {className: "col-md-6"}, 
+                  React.createElement("div", {className: "thumbnail"}, 
+                    React.createElement("div", {className: "caption"}, 
+                      React.createElement("h4", {className: "date-indicate-set"}, 
+                        React.createElement("small", null,  t('Date selected'), ":"), 
+                        this.state.start.toLocaleDateString(undefined, {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'})
+                      ), 
+                      React.createElement("hr", null), 
+                      React.createElement(TimePicker, {ref: "timePicker", i18n: this.props.i18n, valueLinkDuration: this.linkState('duration'), valueLinkStart: this.linkTime()}), 
+                      React.createElement("hr", null), 
+                      React.createElement("button", {className: "btn btn-primary", id: "save-date-set", onClick: this.addDate},  t('Add Date') )
+                    )
+                  )
+                )
+              ), 
+              React.createElement("br", null), 
+              React.createElement(TimeSetTable, {i18n: this.props.i18n, valueLink: valueLink}), 
+              React.createElement("hr", null)
+            ), 
+            React.createElement("div", {className: "tab-pane hide", id: "time-and-date-all"}, 
+              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
+                React.createElement("h1", null,  t('Time and Date') ), 
+                React.createElement("p", {className: "lead"},  t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') )
+              ), 
+              React.createElement("label", {className: "checkbox"}, 
+                React.createElement("input", {type: "checkbox", name: "open"}),  t('Leave my availability open. Allow people to contact you to set up a walk.')
+              ), 
+              React.createElement("br", null), 
+              React.createElement("div", {className: "row"}, 
+                React.createElement("div", {className: "col-md-6"}, 
+                  React.createElement("div", {className: "date-picker"})
+                ), 
+                React.createElement("div", {className: "col-md-6"}, 
+                  React.createElement("div", {className: "thumbnail"}, 
+                    React.createElement("div", {className: "caption"}, 
+                      React.createElement("div", {className: "date-select-group"}, 
+                        React.createElement("small", null,  t('Date selected'), ":"), 
+                        React.createElement("h4", {className: "date-indicate-all"}), 
+                        React.createElement("hr", null)
+                      ), 
+                      React.createElement("label", {htmlFor: "walk-duration"},  t('Approximate Duration of Walk'), ":"), 
+                      React.createElement("select", {name: "duration", id: "walk-duration", defaultValue: "1 Hour, 30 Minutes"}, 
+                        React.createElement("option", {value: "30 Minutes"}, "30 Minutes"), 
+                        React.createElement("option", {value: "1 Hour"}, "1 Hour"), 
+                        React.createElement("option", {value: "1 Hour, 30 Minutes"}, "1 Hour, 30 Minutes"), 
+                        React.createElement("option", {value: "2 Hours"}, "2 Hours"), 
+                        React.createElement("option", {value: "2 Hours, 30 Minutes"}, "2 Hours, 30 Minutes"), 
+                        React.createElement("option", {value: "3 Hours"}, "3 Hours"), 
+                        React.createElement("option", {value: "3 Hours, 30 Minutes"}, "3 Hours, 30 Minutes")
+                      ), 
+                      React.createElement("div", {className: "date-select-group"}, 
+                        React.createElement("hr", null), 
+                        React.createElement("button", {className: "btn btn-primary", id: "save-date-all", onClick: this.addDate},  t('Add Date') )
+                      )
+                    )
+                  )
+                )
+              ), 
+              React.createElement("br", null), 
+              React.createElement(TimeOpenTable, null), 
+              React.createElement("hr", null)
+            )
           )
-        ), 
-        React.createElement("tbody", null, 
-          slots.map(function(slot, i) {
-            var start = (new Date(slot[0] * 1000));
-            var duration = (new Date((slot[1] - slot[0]) * 1000));
-
-            var hours = duration.getUTCHours();
-            var minutes = duration.getUTCMinutes();
-            var durationFmt = [];
-            if (hours) {
-              durationFmt.push(t2('%d Hour', '%d Hours', hours));
-            }
-            if (minutes) {
-              durationFmt.push(t2('%d Minute', '%d Minutes', minutes));
-            }
-
-            return (
-              React.createElement("tr", {key: i}, 
-                React.createElement("td", null, dtfDate.format(start)), 
-                React.createElement("td", null, dtfDuration.format(start)), 
-                React.createElement("td", null, durationFmt.join(', ')), 
-                React.createElement("td", null, React.createElement("a", {onClick: this.removeSlot.bind(this, i)}, React.createElement("i", {className: "fa fa-times-circle-o"}), " ", t('Remove')))
-              )
-              )
-          }.bind(this))
         )
-      )
-    );
+      );
+    }
   }
 });
 
-// TODO: Once 'open' walk schedules are implemented on festivals
-var TimeOpenTable = React.createClass({displayName: 'TimeOpenTable',
-  render: function() {
-    return (
-      React.createElement("table", null)
-    );
-  }
-});
+// Load mixins
+Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 module.exports = DateSelect;
 
-},{}],12:[function(require,module,exports){
+},{"./date/DatePicker.jsx":18,"./date/TimeOpenTable.jsx":19,"./date/TimePicker.jsx":20,"./date/TimeSetTable.jsx":21}],12:[function(require,module,exports){
 'use strict';
 
 var ImageUpload = React.createClass({
@@ -2113,7 +1978,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
         )
       ];
     }
-    
+ 
     return (
       React.createElement("div", {className: "tab-pane", id: "route"}, 
         React.createElement("div", {className: "page-header", 'data-section': "route"}, 
@@ -2154,7 +2019,7 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
 
 module.exports = MapBuilder;
 
-},{"../functions/helpers.jsx":24,"./map/ConnectFilters.jsx":18,"./map/InstagramConnect.jsx":19,"./map/SoundCloudConnect.jsx":20,"./map/TwitterConnect.jsx":21,"./map/WalkInfoWindow.jsx":22,"./map/WalkStopTable.jsx":23}],14:[function(require,module,exports){
+},{"../functions/helpers.jsx":28,"./map/ConnectFilters.jsx":22,"./map/InstagramConnect.jsx":23,"./map/SoundCloudConnect.jsx":24,"./map/TwitterConnect.jsx":25,"./map/WalkInfoWindow.jsx":26,"./map/WalkStopTable.jsx":27}],14:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -2571,7 +2436,7 @@ var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
 
 module.exports = TeamBuilder;
 
-},{"../functions/mixins.jsx":25}],15:[function(require,module,exports){
+},{"../functions/mixins.jsx":29}],15:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
@@ -2742,7 +2607,7 @@ var ThemeSelect = React.createClass({displayName: 'ThemeSelect',
 
 module.exports = ThemeSelect;
 
-},{"../functions/mixins.jsx":25}],16:[function(require,module,exports){
+},{"../functions/mixins.jsx":29}],16:[function(require,module,exports){
 'use strict';
 
 var WalkPublish = React.createClass({displayName: 'WalkPublish',
@@ -2870,171 +2735,420 @@ var WardSelect = React.createClass({displayName: 'WardSelect',
 
 module.exports = WardSelect;
 
-},{"../functions/mixins.jsx":25}],18:[function(require,module,exports){
+},{"../functions/mixins.jsx":29}],18:[function(require,module,exports){
+'use strict';
+
+/**
+ * Basic wrapper around jQuery.datepicker(), so it can be loaded
+ * as a React class
+ */
+
+function DatePicker() {}
+
+DatePicker.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: DatePicker},
+
+  componentDidMount: {
+    value: function() {
+      // Setup sorting on the walk-stops list
+      $(React.findDOMNode(this)).datepicker({
+        defaultDate: this.props.defaultDate,
+        onSelect: function(dateText) {
+          this.props.setDay(new Date(dateText));
+        }.bind(this)
+      });
+    }
+  },
+
+  render: {
+    value: function() {
+      return (
+        React.createElement("div", {className: "date-picker"})
+      );
+    }
+  }
+});
+
+module.exports = DatePicker;
+
+},{}],19:[function(require,module,exports){
+'use strict';
+
+/**
+ * The table showing open-schedule walks and their times
+ */
+
+// TODO: Once 'open' walk schedules are implemented on festivals
+function TimeOpenTable() {}
+TimeOpenTable.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: TimeOpenTable},
+
+  render: {
+    value: function() {
+      return (
+        React.createElement("table", null)
+      );
+    }
+  }
+});
+
+module.exports = TimeOpenTable;
+
+},{}],20:[function(require,module,exports){
+'use strict';
+
+/**
+ * Select options to choose your time.
+ * This is an important one, considering how complex timezones and localizing
+ * date formats can be when you're an international organization.
+ */
+
+function TimePicker() {
+  this.state = {startTimes: []};
+}
+
+TimePicker.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: TimePicker},
+
+  // Date management is slow, so avoid rebuilding unless needed
+  setStartTimes: {
+    value: function(start, step) {
+      if (this.state.start !== start) {
+        // It's fastest to build our date formatter once upfront
+        var dtfTime = new Intl.DateTimeFormat(undefined, {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
+        // All start times begin on the date's 0:00, and by default step every 30 min
+        var yrMoDay = [start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()];
+        var firstTime = Date.UTC.apply(this, yrMoDay);
+        var lastTime = Date.UTC.apply(this, yrMoDay.concat([23, 30]));
+        var startTimes = [];
+        step = step || 1800000;
+
+        for (var i = 0, time = firstTime;
+             time <= lastTime;
+             time += step) {
+          startTimes.push({
+            asMs: time,
+            asString: dtfTime.format(time)
+          });
+        }
+
+        this.setState({
+          start: start,
+          startTimes: startTimes
+        });
+      }
+    }
+  },
+
+  componentWillUpdate: {
+    value: function() {
+    }
+  },
+
+  componentWillMount: {
+    value: function() {
+      this.componentWillUpdate();
+      var startDate = new Date(this.props.valueLinkStart.value);
+      this.setStartTimes(startDate);
+    }
+  },
+
+  render: {
+    value: function() {
+      // Count walk times in 30 min increments
+      var linkDuration = this.props.valueLinkDuration;
+      var requestChange = linkDuration.requestChange;
+      var linkStart = this.props.valueLinkStart;
+      var t = this.props.i18n.translate.bind(this.props.i18n);
+
+      // Cast duration as a number
+      linkDuration.requestChange = function(value) {
+        requestChange(Number(value));
+      };
+
+      return (
+        React.createElement("div", {className: "time-picker"}, 
+          React.createElement("label", {htmlFor: "walk-time"},  t('Start Time'), ":"), 
+          React.createElement("select", {name: "start", id: "walk-start", valueLink: linkStart}, 
+            this.state.startTimes.map(function(time, i) {
+              return (
+                React.createElement("option", {key: 'walk-start' + i, value: time.asMs}, 
+                  time.asString
+                )
+                );
+            })
+          ), 
+          React.createElement("label", {htmlFor: "walk-time"},  t('Approximate Duration of Walk'), ":"), 
+          React.createElement("select", {name: "duration", id: "walk-duration", valueLink: linkDuration}, 
+            React.createElement("option", {value: 30 * 60000}, "30 Minutes"), 
+            React.createElement("option", {value: 60 * 60000}, "1 Hour"), 
+            React.createElement("option", {value: 90 * 60000}, "1 Hour, 30 Minutes"), 
+            React.createElement("option", {value: 120 * 60000}, "2 Hours"), 
+            React.createElement("option", {value: 150 * 60000}, "2 Hours, 30 Minutes"), 
+            React.createElement("option", {value: 180 * 60000}, "3 Hours"), 
+            React.createElement("option", {value: 210 * 60000}, "3 Hours, 30 Minutes")
+          )
+        )
+      );
+    }
+  }
+});
+
+module.exports = TimePicker;
+
+},{}],21:[function(require,module,exports){
+'use strict';
+/**
+ * The table with all the times that the walks are scheduled
+ */
+function TimeSetTable() {}
+
+TimeSetTable.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: TimeSetTable},
+
+  // Remove a scheduled time
+  removeSlot: {
+    value: function(i) {
+      var valueLink = this.props.valueLink;
+      var value = valueLink.value;
+      var slots = (value.slots || []).slice();
+
+      slots.splice(i, 1);
+      value.slots = slots;
+
+      valueLink.requestChange(value);
+    }
+  },
+
+  render: {
+    value: function() {
+      var slots = this.props.valueLink.value.slots || [];
+      var t = this.props.i18n.translate.bind(this.props.i18n);
+      var t2 = this.props.i18n.translatePlural.bind(this.props.i18n);
+
+      var dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
+      var dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
+
+      return (
+        React.createElement("table", {className: "table table-bordered table-hover", id: "date-list-all"}, 
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null, t('Date')), 
+              React.createElement("th", null, t('Start Time')), 
+              React.createElement("th", null, t('Duration')), 
+              React.createElement("th", null)
+            )
+          ), 
+          React.createElement("tbody", null, 
+            slots.map(function(slot, i) {
+              var start = (new Date(slot[0] * 1000));
+              var duration = (new Date((slot[1] - slot[0]) * 1000));
+
+              var hours = duration.getUTCHours();
+              var minutes = duration.getUTCMinutes();
+              var durationFmt = [];
+              if (hours) {
+                durationFmt.push(t2('%d Hour', '%d Hours', hours));
+              }
+              if (minutes) {
+                durationFmt.push(t2('%d Minute', '%d Minutes', minutes));
+              }
+
+              return (
+                React.createElement("tr", {key: i}, 
+                  React.createElement("td", null, dtfDate.format(start)), 
+                  React.createElement("td", null, dtfDuration.format(start)), 
+                  React.createElement("td", null, durationFmt.join(', ')), 
+                  React.createElement("td", null, React.createElement("a", {onClick: this.removeSlot.bind(this, i)}, React.createElement("i", {className: "fa fa-times-circle-o"}), " ", t('Remove')))
+                )
+                )
+            }.bind(this))
+          )
+        )
+      );
+    }
+  }
+});
+
+module.exports = TimeSetTable;
+
+},{}],22:[function(require,module,exports){
 'use strict';
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var ConnectFilters = React.createClass({displayName: 'ConnectFilters',
-  render: function() {
-    var _this = this;
-    return (
-      React.createElement("div", {className: "filterInputs"}, 
-        React.createElement(ReactCSSTransitionGroup, {transitionName: "fade"}, 
-          this.props.filters.map(function(filter, i) {
-            var input = null;
-            var cbAndRemove = function(ev) {
-              ev.preventDefault();
-              filter.cb(filter.value);
-              _this.props.remove(i);
-            }
+function ConnectFilters() {}
+ConnectFilters.prototype = Object.create(React.Component.prototype, {
+  constructor: {
+    value: ConnectFilters
+  },
 
-            var handleChange = function(ev) {
-              _this.props.changeFilter(i, ev.target.value);
-            }
+  render: {
+    value: function() {
+      var _this = this;
+      return (
+        React.createElement("div", {className: "filterInputs"}, 
+          React.createElement(ReactCSSTransitionGroup, {transitionName: "fade"}, 
+            this.props.filters.map(function(filter, i) {
+              var input = null;
+              var cbAndRemove = function(ev) {
+                ev.preventDefault();
+                filter.cb(filter.value);
+                _this.props.remove(i);
+              }
 
-            var cancel = function() {
-              _this.props.remove(i);
-            }
+              var handleChange = function(ev) {
+                _this.props.changeFilter(i, ev.target.value);
+              }
 
-            if (filter.type === 'text') {
-              input = React.createElement("input", {type: "text", placeholder: filter.placeholder, value: filter.text, onChange: handleChange});
-            } else if (filter.type === 'select') {
-              input = (
-                React.createElement("select", {selected: filter.value, onChange: handleChange}, 
-                  filter.options.map(function(option, i) {
-                    return React.createElement("option", {key: 'option' + i, value: i}, option.title)
-                  })
+              var cancel = function() {
+                _this.props.remove(i);
+              }
+
+              if (filter.type === 'text') {
+                input = React.createElement("input", {type: "text", placeholder: filter.placeholder, value: filter.text, onChange: handleChange});
+              } else if (filter.type === 'select') {
+                input = (
+                  React.createElement("select", {selected: filter.value, onChange: handleChange}, 
+                    filter.options.map(function(option, i) {
+                      return React.createElement("option", {key: 'option' + i, value: i}, option.title)
+                      })
+                    )
+                    );
+              }
+
+              // FIXME: these spans are rather silly, but needed to play nice with bootstrap
+              return (
+                React.createElement("form", {className: "filter", onSubmit: cbAndRemove}, 
+                  React.createElement("i", {className: filter.icon}), 
+                  React.createElement("span", {className: "input"}, 
+                    input
+                  ), 
+                  React.createElement("span", {className: "button"}, 
+                    React.createElement("input", {type: "submit", value: 'Go'})
+                  ), 
+                  React.createElement("span", {className: "button"}, 
+                    React.createElement("input", {type: "button", value: 'Cancel', onClick: cancel})
+                  )
                 )
-              );
-            }
-
-            // FIXME: these spans are rather silly, but needed to play nice with bootstrap
-            return (
-              React.createElement("form", {className: "filter", onSubmit: cbAndRemove}, 
-                React.createElement("i", {className: filter.icon}), 
-                React.createElement("span", {className: "input"}, 
-                  input
-                ), 
-                React.createElement("span", {className: "button"}, 
-                  React.createElement("input", {type: "submit", value: 'Go'})
-                ), 
-                React.createElement("span", {className: "button"}, 
-                  React.createElement("input", {type: "button", value: 'Cancel', onClick: cancel})
-                )
-              )
-              );
-          })
+                );
+            })
+          )
         )
-      )
-    );
+      );
+    }
   }
 });
 
 module.exports = ConnectFilters;
 
-},{}],19:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
-var InstagramConnect = React.createClass({displayName: 'InstagramConnect',
-  getInitialState: function() {
-    return {
-      accessToken: null
-    };
+function InstagramConnect() {
+  this.state = {accessToken: null};
+}
+InstagramConnect.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: InstagramConnect},
+
+  handleConnect: {
+    value: function(cb) {
+      var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
+      var redirectURI = 'http://janeswalk.org/connected';
+
+      // Race-condition prone, but safest way to pull this from a child window
+      window.loadAccessToken = function(accessToken) {
+        this.setState({accessToken: accessToken}, cb);
+      }.bind(this);
+
+      var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
+      this.setState({authWindow: authWindow});
+    }
   },
 
-  handleConnect: function(cb) {
-    var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
-    var redirectURI = 'http://janeswalk.org/connected';
+  handleLoadFeed: {
+    value: function(query) {
+      var _this = this;
 
-    // Race-condition prone, but safest way to pull this from a child window
-    window.loadAccessToken = function(accessToken) {
-      this.setState({accessToken: accessToken}, cb);
-    }.bind(this);
-
-    var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
-    this.setState({authWindow: authWindow});
-  },
-
-  handleLoadFeed: function(query) {
-    var _this = this;
-
-    $.ajax({
-      type: 'GET',
-      crossDomain: true,
-      dataType: 'jsonp',
-      url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
-      success: function(data) {
-        var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
-        var walkMap = data.data.filter(function(gram) {
-          var tagMatch = true;
-          if (query) {
-            tagMatch = gram.tags.indexOf(query) !== -1;
-          }
-          return !!(gram.location && tagMatch);
-        })
-        .reverse()
-        .map(function(gram) {
-          // If the first comment is from the owner, use that as the description
-          var description = '';
-          if (gram.comments && gram.comments.data.length > 0) {
-            if (gram.comments.data[0].from.id === gram.user.id) {
-              description = gram.comments.data[0].text;
+      $.ajax({
+        type: 'GET',
+        crossDomain: true,
+        dataType: 'jsonp',
+        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
+        success: function(data) {
+          var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
+          var walkMap = data.data.filter(function(gram) {
+            var tagMatch = true;
+            if (query) {
+              tagMatch = gram.tags.indexOf(query) !== -1;
             }
-          }
+            return !!(gram.location && tagMatch);
+          })
+          .reverse()
+          .map(function(gram) {
+            // If the first comment is from the owner, use that as the description
+            var description = '';
+            if (gram.comments && gram.comments.data.length > 0) {
+              if (gram.comments.data[0].from.id === gram.user.id) {
+                description = gram.comments.data[0].text;
+              }
+            }
 
-          return {
-            title: gram.caption ? gram.caption.text.replace(/\#\w+/g, '').trim() : '',
-            description: description,
-            media: {
-              id: gram.id,
-              url: gram.link,
-              type: 'instagram'
-            },
-            lat: gram.location.latitude,
-            lng: gram.location.longitude
-          };
-        });
+            return {
+              title: gram.caption ? gram.caption.text.replace(/\#\w+/g, '').trim() : '',
+              description: description,
+              media: {
+                id: gram.id,
+                url: gram.link,
+                type: 'instagram'
+              },
+              lat: gram.location.latitude,
+              lng: gram.location.longitude
+            };
+          });
 
-        _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: _this.props.valueLink.value.route}, function() {
-          _this.props.refreshGMap();
-          _this.props.boundMapByWalk();
-        });
-      }
-    });
+          _this.props.valueLink.requestChange({markers: markers.concat(walkMap), route: _this.props.valueLink.value.route}, function() {
+            _this.props.refreshGMap();
+            _this.props.boundMapByWalk();
+          });
+        }
+      });
+    }
   },
 
-  render: function() {
-    var _this = this;
-    var addFilter = function() {
-      var filterProps = {
-        type: 'text',
-        icon: 'fa fa-instagram',
-        placeholder: 'Type in the tag you used on the geocoded photos for your walk',
-        value: '',
-        cb: _this.handleLoadFeed
-      }
-      if (_this.state.accessToken) {
-        _this.props.addFilter(filterProps);
-      } else {
-        // Connect, and add the box when done
-        _this.handleConnect(function() {
+  render: {
+    value: function() {
+      var _this = this;
+      var addFilter = function() {
+        var filterProps = {
+          type: 'text',
+          icon: 'fa fa-instagram',
+          placeholder: 'Type in the tag you used on the geocoded photos for your walk',
+          value: '',
+          cb: _this.handleLoadFeed
+        }
+        if (_this.state.accessToken) {
           _this.props.addFilter(filterProps);
-        });
-      }
-    };
+        } else {
+          // Connect, and add the box when done
+          _this.handleConnect(function() {
+            _this.props.addFilter(filterProps);
+          });
+        }
+      };
 
-    return (
-      React.createElement("button", {onClick: addFilter}, 
-        React.createElement("i", {className: "fa fa-instagram"}), 
-        "Instagram"
-      )
-    );
+      return (
+        React.createElement("button", {onClick: addFilter}, 
+          React.createElement("i", {className: "fa fa-instagram"}), 
+          "Instagram"
+        )
+      );
+    }
   }
 });
 
 module.exports = InstagramConnect;
 
-},{}],20:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
 var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
@@ -3141,7 +3255,7 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
 
 module.exports = SoundCloudConnect;
 
-},{}],21:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
 var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
@@ -3233,7 +3347,7 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
 
 module.exports = TwitterConnect;
 
-},{}],22:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
@@ -3301,7 +3415,7 @@ var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
 
 module.exports = WalkInfoWindow;
 
-},{}],23:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
@@ -3364,7 +3478,7 @@ var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
 
 module.exports = WalkStopTable;
 
-},{}],24:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* 
  * Helpers for building React pages with
  *
@@ -3397,7 +3511,7 @@ exports.objectToArray = function(obj) {
 };
 
 
-},{}],25:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 // Link this component's state to the linkState() parent
@@ -3432,7 +3546,7 @@ module.exports.linkedTeamMemberState = {
 
 
 
-},{}],26:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /**
  * i18n translation class
  *
@@ -3520,7 +3634,7 @@ Object.defineProperties(I18nTranslator.prototype, {
 
 module.exports = I18nTranslator;
 
-},{}],27:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4115,7 +4229,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = CityPageView;
 
-},{"../Page.jsx":6}],28:[function(require,module,exports){
+},{"../Page.jsx":6}],32:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4246,7 +4360,7 @@ HomePageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = HomePageView;
 
-},{"../Page.jsx":6}],29:[function(require,module,exports){
+},{"../Page.jsx":6}],33:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -4833,7 +4947,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = ProfilePageView;
 
-},{"../Page.jsx":6}],30:[function(require,module,exports){
+},{"../Page.jsx":6}],34:[function(require,module,exports){
 'use strict';
 
 var PageView = require('../Page.jsx');
@@ -4936,7 +5050,7 @@ WalkPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = WalkPageView;
 
-},{"../FacebookShareDialog.jsx":4,"../Page.jsx":6,"../WalkMap.jsx":9}],31:[function(require,module,exports){
+},{"../FacebookShareDialog.jsx":4,"../Page.jsx":6,"../WalkMap.jsx":9}],35:[function(require,module,exports){
 /* jshint ignore:start */
 // Shims, polyfills, etc.
 // dataset
