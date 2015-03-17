@@ -21,8 +21,8 @@ function DateSelect() {
   var duration = 60 * 60 * 1000;
 
   // Bind class methods
-  this.setDay = this.setDay.bind(this);
-  this.addDate = this.addDate.bind(this);
+  this.setDay = this._setDay.bind(this);
+  this.addDate = this._addDate.bind(this);
 
   // Note: we're only keeping the 'date' on there to use Date's string
   // parsing. This method is concerned only with the Time
@@ -36,7 +36,7 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
     value: DateSelect
   },
 
-  setDay: {
+  _setDay: {
     value: function(date) {
       var startDate = this.state.start;
 
@@ -53,8 +53,7 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
       // date rebuilding, which is very slow. See if it can be done through
       // state updates instead.
       this.setState({start: startDate});
-    },
-    writable: true
+    }
   },
 
   /* @param Date time The current time of day
@@ -85,7 +84,7 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
   },
 
   // Push the date we built here to the linked state
-  addDate: {
+  _addDate: {
     value: function() {
       var valueLink = this.props.valueLink;
       var value = valueLink.value || {};
@@ -98,8 +97,7 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
 
       value.slots = slots;
       valueLink.requestChange(value);
-    },
-    writable: true
+    }
   },
 
   render: {
