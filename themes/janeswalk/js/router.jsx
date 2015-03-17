@@ -22,7 +22,9 @@ var Login = require('./components/Login.jsx')
 
 // Shims
 // Used for Intl.DateTimeFormat
-require('intl/Intl.en');
+if (!window.Intl) {
+  window.Intl = require('intl/Intl.en');
+}
 
 document.addEventListener('DOMContentLoaded', function() {
   var pageViewName =
