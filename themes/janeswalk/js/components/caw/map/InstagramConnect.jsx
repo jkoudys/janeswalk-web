@@ -80,7 +80,7 @@ InstagramConnect.prototype = Object.create(React.Component.prototype, {
           icon: 'fa fa-instagram',
           placeholder: 'Type in the tag you used on the geocoded photos for your walk',
           value: '',
-          cb: _this.handleLoadFeed
+          cb: _this.handleLoadFeed.bind(_this)
         }
         if (_this.state.accessToken) {
           _this.props.addFilter(filterProps);

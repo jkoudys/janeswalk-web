@@ -262,7 +262,10 @@ class ProfileController extends Concrete5_Controller_Profile
                         return [
                             'cityName' => $page->getCollectionName(),
                             'organizerImagePath' => $ah->getImagePath($_co),
-                            'organizerName' => trim("{$_co->getAttribute('first_name')} {$_co->getAttribute('last_name')}"),
+                            'organizerName' => trim(
+                                $_co->getAttribute('first_name') . ' ' .
+                                $_co->getAttribute('last_name')
+                            ),
                             'organizerEmail' => $_co->getUserEmail()
                         ];
                     },
