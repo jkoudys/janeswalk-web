@@ -44,22 +44,21 @@ PageView.prototype = Object.create(View.prototype, {
    */
   _addNavEvents: {
     value: function() {
-      this._element.find('a.search-open').click(
-        function() {
-        $('html, body').animate(
-          {
+      this._element.find('a.search-open').click(function() {
+        $('html, body').animate({
           scrollTop: 0
-        },
-        300
-        );
+        }, 300);
         $('body > header').addClass('dropped');
-      }
-      );
-      this._element.find('a.search-close').click(
-        function() {
+
+        // If there's a text-field in the drop, move caret to it
+        var textInput = document.querySelector('body > header input[type=text]');
+        if (textInput) {
+          textInput.focus();
+        }
+      });
+      this._element.find('a.search-close').click(function() {
         $('body > header').removeClass('dropped');
-      }
-      );
+      });
     }
   },
 
