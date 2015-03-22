@@ -150,8 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     handleChange: function(ev) {
       this.setState({selected: ev.target.value}, function() {
-      debugger;
-        this.refs.form;
+        React.findDOMNode(this.refs.form).submit();
       });
     },
 
