@@ -193,9 +193,9 @@ if (!empty($w->time['slots'])) {
                                 <div class="btn-toolbar">
                                     <?php  // TODO: Replace all logic to format links with model logic ?>
                                     <?php if ($mem['email']) { ?><a href="mailto:<?= $mem['email'] ?>" target="_blank" class="btn"><i class="fa fa-envelope-o"></i></a><?php } ?>
-                                    <?php if ($mem['facebook']) { ?><a href="<?= $mem['facebook'] ?>" target="_blank" class="btn"><i class="fa fa-facebook"></i></a><?php } ?>
-                                    <?php if ($mem['twitter']) { ?><a href="<?= $mem['twitter'] ?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
-                                    <?php if ($mem['website']) { ?><a href="<?= $mem['website'] ?>" target="_blank" class="btn"><i class="fa fa-globe"></i></a><?php } ?>
+                                    <?php if ($mem['facebook']) { ?><a href="http://facebook.com/<?= $mem['facebook'] ?>" target="_blank" class="btn"><i class="fa fa-facebook"></i></a><?php } ?>
+                                    <?php if ($mem['twitter']) { ?><a href="http://twitter.com/<?= $mem['twitter'] ?>" target="_blank" class="btn"><i class="fa fa-twitter"></i></a><?php } ?>
+                                    <?php if ($mem['website']) { ?><a href="http://<?= $mem['website'] ?>" target="_blank" class="btn"><i class="fa fa-globe"></i></a><?php } ?>
                                 </div>
                                 <p><?= $mem['bio'] ?></p>
                             </section>
