@@ -130,17 +130,29 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
         }
 
         // Loops through all times set from c5 - edit properties, composer, etc.
+        $localTimezone = new DateTimeZone(date_default_timezone_get());
+        $utc = new DateTimeZone('UTC');
+        // Setup our formatter
+        if (DATE_FORM_HELPER_FORMAT_HOUR == '12') {
+            $dtFormat = 'n/j/Y g:i a';
+        } else {
+            $dtFormat = 'n/j/Y h:i';
+        }
         foreach ((array) $data['times'] as $key => $time) {
             // Timestamp is in ms - so "/ 1000" is needed
             foreach (['start', 'end'] as $field) {
-                $dt = date('Y-m-d', floor($time[$field . '_dt'] / 1000));
-                $str = $dt . ' ' . $time[$field . '_h'] . ':' . $time[$field . '_m'] . ' ' . $time[$field . '_a'];
+                // Collapse the fields into a parseable string
+                $str = $time[$field . '_dt'] . ' ' . $time[$field . '_h'] . ':' . $time[$field . '_m'];
                 if (DATE_FORM_HELPER_FORMAT_HOUR == '12') {
-                    $str = $dt . ' ' . $time[$field . '_h'] . ':' . $time[$field . '_m'] . ' ' . $time[$field . '_a'];
-                } else {
-                    $str = $dt . ' ' . $time[$field . '_h'] . ':' . $time[$field . '_m'];
+                    $str .= ' ' . $time[$field . '_a'];
                 }
-                $sanitizedTimes[$key][$field] = date('Y-m-d H:i:s', strtotime($str));
+                // Make a date object from that string
+                $date = DateTime::createFromFormat($dtFormat, $str, $utc);
+                // TODO: implement proper timezone support, and remove this kludge
+                // of swapping back to local time before save
+                $date->setTimezone($localTimezone);
+                // format for SQL inserts
+                $sanitizedTimes[$key][$field] =  $date->format('Y-m-d H:i:s');
             }
         }
         $this->setScheduledEventTimes($sanitizedTimes);
