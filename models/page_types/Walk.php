@@ -118,6 +118,13 @@ class Walk extends \Model implements \JsonSerializable
         $this->thumbnail = $page->getAttribute('thumbnail');
     }
 
+    /**
+     * Convenience getters, mostly for grabbing model properties from views. If
+     * the data takes a non-trivial time to fetch, store as an object property
+     * of the same name, so it will be served from that.
+     * Apart from caching, there must be no side effects.
+     *
+     */
     public function __get($name)
     {
         /* One big switch for all the get names */
@@ -313,6 +320,7 @@ class Walk extends \Model implements \JsonSerializable
             'accessible-info' => $this->accessibleInfo,
             'accessible-transit' => $this->accessibleTransit,
             'accessible-parking' => $this->accessibleParking,
+            'accessible-find' => $this->accessibleFind,
             'gmap' => $this->map,
             'team' => $this->team,
             'time' => $this->time,
