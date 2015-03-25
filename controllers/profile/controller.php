@@ -162,7 +162,7 @@ class ProfileController extends Concrete5_Controller_Profile
                 // If the user is a city organizer
                 if ($userIsCityOrganizer === true) {
                     // Whether the city organizer's city has its header info set
-                    $cityHeaderInfo = $userHomeCity->getBlocks('City Header')[0]->getController()->getContent();
+                    $cityHeaderInfo = $userHomeCity->getCollectionDescription();
                     $cityHeaderInfoIsEmpty = !trim($cityHeaderInfo);
                     if ($cityHeaderInfoIsEmpty === false) {
                         $cityHeaderInfo = $th->shorten($cityHeaderInfo, 150);
@@ -172,7 +172,7 @@ class ProfileController extends Concrete5_Controller_Profile
 
                     // Whether the city organizer's city has its short description
                     // set
-                    $cityDescription = $userHomeCity->getBlocks('City Description')[0]->getController()->getContent();
+                    $cityDescription = $userHomeCity->getAttribute('longdescription');
                     $cityDescriptionIsEmpty = !trim($cityDescription);
                     if ($cityDescriptionIsEmpty === false) {
                         $cityDescription = $th->shorten($cityDescription, 150);
