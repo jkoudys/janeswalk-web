@@ -29,6 +29,7 @@ class WalkFormController extends Controller
         $pl->filterByCollectionTypeHandle('walk');
         $pl->filterByUserID($u->getUserID());
         $pl->filterByParentID($city->getCollectionID());
+        $pl->displayUnapprovedPages();
         $pl->filterByName('', true);
         $pl->filterByAttribute('exclude_page_list', true);
 

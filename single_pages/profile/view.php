@@ -88,7 +88,7 @@ $blogPromoMessages = [
         fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
 
-    window.JanesWalk = Object.assign({}, window.JanesWalk, {cityUsers: <?= json_encode($cityUsers) ?>});
+    window.JanesWalk = window.JanesWalk || {}; window.JanesWalk.cityUsers = <?= json_encode($cityUsers) ?>;
 </script>
 <?php
 /* walk transfer modal */ 
@@ -191,9 +191,9 @@ if ($cityOrganizerData) {
         <li>
             <a href="/index.php/profile/#tab=account" data-tab="account"><?= t('Account') ?></a>
         </li>
-<?php /* <li>
+        <li>
             <a href="/index.php/profile/#tab=picture" data-tab="picture"><?= t('My Picture') ?></a>
-            </li> */?>
+        </li>
         <li>
             <a href="/index.php/profile/#tab=resources" data-tab="resources"><?= t('Resources') ?></a>
         </li>
