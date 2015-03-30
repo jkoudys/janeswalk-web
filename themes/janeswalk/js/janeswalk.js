@@ -238,7 +238,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
 
     // Build a simplified map from the Google objects
     this.setState({
-      gmap: this.refs.mapBuilder.getStateSimple(),
+      map: this.refs.mapBuilder.getStateSimple(),
       notifications: notifications
     }, function() {
       $.ajax({
