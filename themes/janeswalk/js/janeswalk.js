@@ -139,19 +139,19 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
     // Keep these defaults to type, ie don't pre-seed data here, aside from
     // data loaded by passing it in
     var walk = {
-      title: '',
-      shortdescription: '',
-      longdescription: '',
-      'accessible-info': '',
-      'accessible-transit': '',
-      'accessible-parking': '',
-      'accessible-find': '',
-      gmap: {
+      name: '',
+      shortDescription: '',
+      longDescription: '',
+      accessibleInfo: '',
+      accessibleTransit: '',
+      accessibleParking: '',
+      accessibleFind: '',
+      map: {
         markers: [],
         route: []
       },
       team: [{
-        user_id: -1,
+        id: -1,
         type: 'you',
         "name-first": '',
         "name-last": '',
@@ -176,12 +176,12 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
     // Convert old {0: marker, 1: marker} indexing to a proper array
     if (data) {
       // Convert markers
-      if (data.gmap && !Array.isArray(data.gmap.markers)) {
-        data.gmap.markers = Helper.objectToArray(data.gmap.markers);
+      if (data.map && !Array.isArray(data.map.markers)) {
+        data.map.markers = Helper.objectToArray(data.map.markers);
       }
       // Convert routes
-      if (data.gmap && !Array.isArray(data.gmap.route)) {
-        data.gmap.route = Helper.objectToArray(data.gmap.route);
+      if (data.map && !Array.isArray(data.map.route)) {
+        data.map.route = Helper.objectToArray(data.map.route);
       }
       // Convert time slots
       if (data.time && !Array.isArray(data.time.slots)) {
@@ -202,7 +202,6 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
       if (data.team.length === 0) {
         var user = this.props.user;
         data.team = [{
-          //          user_id: user.id,
           type: 'you',
           "name-first": user.firstName,
           "name-last": user.lastName,
@@ -333,9 +332,9 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
 
     // Used to let the map pass a callback
     var linkStateMap = {
-      value: this.state.gmap,
+      value: this.state.map,
       requestChange: function(newVal, cb) {
-        this.setState({gmap: newVal}, cb);
+        this.setState({map: newVal}, cb);
       }.bind(this)
     };
 
@@ -387,7 +386,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                     React.createElement("div", {className: "item required"}, 
                       React.createElement("label", {htmlFor: "shortdescription"},  t('Your Walk in a Nutshell') ), 
                       React.createElement("div", {className: "alert alert-info"},  t('Build intrigue! This is what people see when browsing our walk listings.') ), 
-                      React.createElement(TextAreaLimit, {i18n: i18n, id: "shortdescription", name: "shortdescription", rows: "6", maxLength: "140", valueLink: this.linkState('shortdescription'), required: true})
+                      React.createElement(TextAreaLimit, {i18n: i18n, id: "shortdescription", name: "shortdescription", rows: "6", maxLength: "140", valueLink: this.linkState('shortDescription'), required: true})
                     ), 
                     React.createElement("hr", null), 
                     React.createElement("div", {className: "item required"}, 
@@ -395,7 +394,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                       React.createElement("div", {className: "alert alert-info"}, 
                         t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')
                       ), 
-                      React.createElement("textarea", {id: "longdescription", name: "longdescription", rows: "14", valueLink: this.linkState('longdescription')})
+                      React.createElement("textarea", {id: "longdescription", name: "longdescription", rows: "14", valueLink: this.linkState('longDescription')})
                     )
                   ), 
                   React.createElement(ThemeSelect, {i18n: i18n, valueLink: this.linkState('checkboxes')}), 
@@ -416,7 +415,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                 React.createElement("div", {className: "item"}, 
                   React.createElement("fieldset", null, 
                     React.createElement("legend", null,  t('What else do people need to know about the accessibility of this walk?'), " (",  t('Optional'), ")"), 
-                    React.createElement(TextAreaLimit, {i18n: i18n, name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessible-info')})
+                    React.createElement(TextAreaLimit, {i18n: i18n, name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessibleInfo')})
                   )
                 ), 
 
@@ -426,14 +425,14 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                     React.createElement("div", {className: "alert alert-info"}, 
                        t('Nearest subway stop, closest bus or streetcar lines, etc.')
                     ), 
-                    React.createElement("textarea", {rows: "3", name: "accessible-transit", valueLink: this.linkState('accessible-transit')})
+                    React.createElement("textarea", {rows: "3", name: "accessible-transit", valueLink: this.linkState('accessibleTransit')})
                   )
                 ), 
 
                 React.createElement("div", {className: "item"}, 
                   React.createElement("fieldset", null, 
                     React.createElement("legend", null,  t('Where are the nearest places to park?'), " (",  t('Optional'), ")"), 
-                    React.createElement("textarea", {rows: "3", name: "accessible-parking", valueLink: this.linkState('accessible-parking')})
+                    React.createElement("textarea", {rows: "3", name: "accessible-parking", valueLink: this.linkState('accessibleParking')})
                   )
                 ), 
 
@@ -443,7 +442,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                     React.createElement("div", {className: "alert alert-info"}, 
                        t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')
                     ), 
-                    React.createElement("textarea", {rows: "3", name: "accessible-find", valueLink: this.linkState('accessible-find')})
+                    React.createElement("textarea", {rows: "3", name: "accessible-find", valueLink: this.linkState('accessibleFind')})
                   )
                 ), 
                 React.createElement("hr", null), 
@@ -738,22 +737,21 @@ PageView.prototype = Object.create(View.prototype, {
    */
   _addNavEvents: {
     value: function() {
-      this._element.find('a.search-open').click(
-        function() {
-        $('html, body').animate(
-          {
+      this._element.find('a.search-open').click(function() {
+        $('html, body').animate({
           scrollTop: 0
-        },
-        300
-        );
+        }, 300);
         $('body > header').addClass('dropped');
-      }
-      );
-      this._element.find('a.search-close').click(
-        function() {
+
+        // If there's a text-field in the drop, move caret to it
+        var textInput = document.querySelector('body > header input[type=text]');
+        if (textInput) {
+          textInput.focus();
+        }
+      });
+      this._element.find('a.search-close').click(function() {
         $('body > header').removeClass('dropped');
-      }
-      );
+      });
     }
   },
 
@@ -1243,47 +1241,54 @@ module.exports = WalkMap;
 
 },{}],10:[function(require,module,exports){
 'use strict';
+/**
+ * Menu to select accessibility requirements
+ */
 
 var mixins = require('../functions/mixins.jsx');
 
-var AccessibleSelect = React.createClass({
-  displayName: 'AccessibleSelect',
+function AccessibleSelect() {}
 
-  mixins: [mixins.linkedParentState],
+AccessibleSelect.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: AccessibleSelect},
 
-  render: function() {
-    var _this = this;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
-    var options = [
-      {id: 'accessible-familyfriendly', name: t('Family friendly')},
-      {id: 'accessible-wheelchair', name: t('Wheelchair accessible')},
-      {id: 'accessible-dogs', name: t('Dogs welcome')},
-      {id: 'accessible-strollers', name: t('Strollers welcome')},
-      {id: 'accessible-bicycles', name: t('Bicycles welcome')},
-      {id: 'accessible-steephills', name: t('Steep hills')},
-      {id: 'accessible-uneven', name: t('Wear sensible shoes (uneven terrain)')},
-      {id: 'accessible-busy', name: t('Busy sidewalks')},
-      {id: 'accessible-bicyclesonly', name: t('Bicycles only')},
-      {id: 'accessible-lowlight', name: t('Low light or nighttime')},
-      {id: 'accessible-seniors', name: t('Senior Friendly')}
-    ];
+  render: {
+    value: function() {
+      var _this = this;
+      var t = this.props.i18n.translate.bind(this.props.i18n);
+      var options = [
+        {id: 'accessible-familyfriendly', name: t('Family friendly')},
+        {id: 'accessible-wheelchair', name: t('Wheelchair accessible')},
+        {id: 'accessible-dogs', name: t('Dogs welcome')},
+        {id: 'accessible-strollers', name: t('Strollers welcome')},
+        {id: 'accessible-bicycles', name: t('Bicycles welcome')},
+        {id: 'accessible-steephills', name: t('Steep hills')},
+        {id: 'accessible-uneven', name: t('Wear sensible shoes (uneven terrain)')},
+        {id: 'accessible-busy', name: t('Busy sidewalks')},
+        {id: 'accessible-bicyclesonly', name: t('Bicycles only')},
+        {id: 'accessible-lowlight', name: t('Low light or nighttime')},
+        {id: 'accessible-seniors', name: t('Senior Friendly')}
+      ];
 
-    return (
-      React.createElement("fieldset", {id: "accessibilities"}, 
-        React.createElement("legend", {className: "required-legend"},  t('How accessible is this walk?') ), 
-        React.createElement("fieldset", null, 
-          options.map(function(option) {
-            return (
-              React.createElement("label", {className: "checkbox"}, 
-                React.createElement("input", {type: "checkbox", checkedLink: _this.linkParentState(option.id)}), option.name
-              )
-              );
-          })
+      return (
+        React.createElement("fieldset", {id: "accessibilities"}, 
+          React.createElement("legend", {className: "required-legend"},  t('How accessible is this walk?') ), 
+          React.createElement("fieldset", null, 
+            options.map(function(option) {
+              return (
+                React.createElement("label", {className: "checkbox"}, 
+                  React.createElement("input", {type: "checkbox", checkedLink: _this.linkParentState(option.id)}), option.name
+                )
+                );
+            })
+          )
         )
-      )
-    );
+      );
+    }
   }
 });
+
+Object.assign(AccessibleSelect.prototype, mixins.linkedParentState);
 
 module.exports = AccessibleSelect;
 
@@ -1609,175 +1614,190 @@ var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
 var TwitterConnect = require('./map/TwitterConnect.jsx');
 var ConnectFilters = require('./map/ConnectFilters.jsx');
 
-var MapBuilder = React.createClass({displayName: 'MapBuilder',
-  getDefaultProps: function () {
-    return {
-      // Map config startup defaults
-      initialZoom: 15,
-    };
-  },
-
+// Constructor
+function MapBuilder() {
   // State for this component should only track the map editor
-  getInitialState: function() {
-    return {
-      // The 'mode' we're in: 'addPoint', 'addRoute'
-      mode: {},
-      map: null,
-      markers: new google.maps.MVCArray,
-      route: null,
-      infowindow: new google.maps.InfoWindow,
-      // The collection of search terms boxes
-      filters: []
-    };
-  },
+  this.state = {
+    // The 'mode' we're in: 'addPoint', 'addRoute'
+    mode: {},
+    map: null,
+    markers: new google.maps.MVCArray,
+    route: null,
+    infowindow: new google.maps.InfoWindow,
+    // The collection of search terms boxes
+    filters: []
+  };
+}
 
-  componentDidMount: function() {
-    var _this = this,
-    mapNode = this.refs.gmap.getDOMNode(),
-    mapOptions = {
-      center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
-      zoom: this.props.initialZoom,
-      scrollwheel: false,
-      rotateControl: true,
-      mapTypeControlOptions: {
-        mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
-      }
-    },
-    map = new google.maps.Map(mapNode, mapOptions),
-    markers = this.state.markers,
-    route = this.state.route;
-  
-    // Map won't size properly on a hidden tab, so refresh on tab shown
-    // FIXME: this $() selector is unbecoming of a React app
-    $('a[href="#route"]').on('shown.bs.tab', function(e) {
-      this.boundMapByWalk();
-    }.bind(this));
+// Static properties
+Object.assign(MapBuilder, {
+  defaultProps: {
+    initialZoom: 15
+  }
+});
 
-    this.setState({map: map}, this.refreshGMap);
+// Prototype methods
+MapBuilder.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: MapBuilder},
+
+  componentDidMount: {
+    value: function() {
+      var _this = this,
+      mapNode = this.refs.gmap.getDOMNode(),
+      mapOptions = {
+        center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
+        zoom: this.props.initialZoom,
+        scrollwheel: false,
+        rotateControl: true,
+        mapTypeControlOptions: {
+          mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
+        }
+      },
+      map = new google.maps.Map(mapNode, mapOptions),
+      markers = this.state.markers,
+      route = this.state.route;
+
+      // Map won't size properly on a hidden tab, so refresh on tab shown
+      // FIXME: this $() selector is unbecoming of a React app
+      $('a[href="#route"]').on('shown.bs.tab', function(e) {
+        _this.boundMapByWalk();
+      });
+
+      this.setState({map: map}, this.refreshGMap);
+    }
   },
 
   // Build a google map from our serialized map state
-  refreshGMap: function() {
-    var valueLink = this.props.valueLink;
-    var _this = this;
-    var markers = new google.maps.MVCArray;
-    var route = null;
-    if (this.state.route) {
-      this.state.route.setMap(null);
-    }
-    this.state.markers.forEach(function(marker) {
-      marker.setMap(null);
-    });
+  refreshGMap: {
+    value: function() {
+      var valueLink = this.props.valueLink;
+      var _this = this;
+      var markers = new google.maps.MVCArray;
+      var route = null;
+      if (this.state.route) {
+        this.state.route.setMap(null);
+      }
+      this.state.markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
 
-    // Draw the route
-    if (valueLink.value) {
-      valueLink.value.markers.forEach(function(marker) {
-        var latlng;
-        // Set to the markers latlng if available, otherwise place at center
-        if (marker.lat && marker.lng) {
-          latlng = new google.maps.LatLng(marker.lat, marker.lng);
-        } else {
-          latlng = this.state.map.center;
-        }
+      // Draw the route
+      if (valueLink.value) {
+        valueLink.value.markers.forEach(function(marker) {
+          var latlng;
+          // Set to the markers latlng if available, otherwise place at center
+          if (marker.lat && marker.lng) {
+            latlng = new google.maps.LatLng(marker.lat, marker.lng);
+          } else {
+            latlng = this.state.map.center;
+          }
 
-        markers.push(
-          this.buildMarker({
+          markers.push(
+            this.buildMarker({
             latlng: latlng,
             title: marker.title,
             description: marker.description,
             media: marker.media
           })
-        );
-      }.bind(this));
+          );
+        }.bind(this));
 
-      route = this.buildRoute(valueLink.value.route);
-    } else {
-      route = this.buildRoute([]);
-    }
-
-    // Set marker/route adding
-    google.maps.event.addListener(this.state.map, 'click', function(ev) {
-      _this.state.infowindow.setMap(null);
-      if (_this.state.mode.addRoute) {
-        route.setPath(route.getPath().push(ev.latLng));
-        _this.setState({route: route});
+        route = this.buildRoute(valueLink.value.route);
+      } else {
+        route = this.buildRoute([]);
       }
-    });
 
-    this.setState({markers: markers, route: route});
+      // Set marker/route adding
+      google.maps.event.addListener(this.state.map, 'click', function(ev) {
+        _this.state.infowindow.setMap(null);
+        if (_this.state.mode.addRoute) {
+          route.setPath(route.getPath().push(ev.latLng));
+          _this.setState({route: route});
+        }
+      });
+
+      this.setState({markers: markers, route: route});
+    }
   },
 
   // Make the map fit the markers in this walk
-  boundMapByWalk: function() {
-    // Don't include the route - it can be too expensive to compute.
-    var bounds = new google.maps.LatLngBounds;
-    google.maps.event.trigger(this.state.map, 'resize');
-    if (this.state.markers.getLength()) {
-      for (var i = 0, len = this.state.markers.getLength(); i < len; i++) {
-        bounds.extend(this.state.markers.getAt(i).getPosition());
-      }
+  boundMapByWalk: {
+    value: function() {
+      // Don't include the route - it can be too expensive to compute.
+      var bounds = new google.maps.LatLngBounds;
+      google.maps.event.trigger(this.state.map, 'resize');
+      if (this.state.markers.getLength()) {
+        for (var i = 0, len = this.state.markers.getLength(); i < len; i++) {
+          bounds.extend(this.state.markers.getAt(i).getPosition());
+        }
 
-      this.state.map.fitBounds(bounds);
+        this.state.map.fitBounds(bounds);
+      }
     }
   },
 
   // Map parameters
   stopMarker: {
-    url: CCM_THEME_PATH + '/images/marker.png',
-    // This marker is 20 pixels wide by 32 pixels tall.
-    size: new google.maps.Size(30, 46),
-    // The origin for this image is 0,0.
-    origin: new google.maps.Point(0,0),
-    // The anchor for this image is the base of the flagpole at 0,32.
-    anchor: new google.maps.Point(11, 44)
+    value: {
+      url: CCM_THEME_PATH + '/images/marker.png',
+      // This marker is 20 pixels wide by 32 pixels tall.
+      size: new google.maps.Size(30, 46),
+      // The origin for this image is 0,0.
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at 0,32.
+      anchor: new google.maps.Point(11, 44)
+    },
+    enumerable: true
   },
-  
+
   // Map related functions
   // Build gmaps Marker object from base data
   // @param google.maps.LatLng latlng The position to add
   // @param Object title {title, description}
-  buildMarker: function(options) {
-    options = options || {};
-    var _this = this;
-    var latlng = options.latlng;
-    var title = options.title || '';
-    var description = options.description || '';
-    var media = options.media || null;
-    var marker;
-    var map = this.state.map;
-    var gMarkerOptions = {
-      animation: google.maps.Animation.DROP,
-      draggable: true,
-      style: 'stop',
-      map: map,
-      icon: this.stopMarker
-    };
+  buildMarker: {
+    value: function(options) {
+      options = options || {};
+      var _this = this;
+      var latlng = options.latlng;
+      var title = options.title || '';
+      var description = options.description || '';
+      var media = options.media || null;
+      var marker;
+      var map = this.state.map;
+      var gMarkerOptions = {
+        animation: google.maps.Animation.DROP,
+        draggable: true,
+        style: 'stop',
+        map: map,
+        icon: this.stopMarker
+      };
 
-    // If we passed in a position
-    if (latlng instanceof google.maps.LatLng) {
-      gMarkerOptions.position = latlng;
-    } else {
-      gMarkerOptions.position = this.state.map.center;
+      // If we passed in a position
+      if (latlng instanceof google.maps.LatLng) {
+        gMarkerOptions.position = latlng;
+      } else {
+        gMarkerOptions.position = this.state.map.center;
+      }
+
+      // Set to an empty title/description object.
+      // Google maps has a limited amount of marker data we 
+      gMarkerOptions.title = JSON.stringify({
+        title: title,
+        description: description,
+        media: media
+      });
+
+      marker = new google.maps.Marker(gMarkerOptions);
+
+      google.maps.event.addListener(marker, 'click', function(ev) {
+        _this.showInfoWindow(this)
+      });
+
+      google.maps.event.addListener(marker, 'drag', function(ev) {
+      });
+
+      return marker;
     }
-
-    // Set to an empty title/description object.
-    // Google maps has a limited amount of marker data we 
-    gMarkerOptions.title = JSON.stringify({
-      title: title,
-      description: description,
-      media: media
-    });
-
-    marker = new google.maps.Marker(gMarkerOptions);
-    
-    google.maps.event.addListener(marker, 'click', function(ev) {
-      _this.showInfoWindow(this)
-    });
-
-    google.maps.event.addListener(marker, 'drag', function(ev) {
-    });
-
-    return marker;
   },
 
   /**
@@ -1785,71 +1805,77 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
    *
    * @param google.maps.Marker marker
    */
-  showInfoWindow: function(marker) {
-    var _this = this;
-    var infoDOM = document.createElement('div');
+  showInfoWindow: {
+    value: function(marker) {
+      var _this = this;
+      var infoDOM = document.createElement('div');
 
-    React.render(
-      React.createElement(WalkInfoWindow, {
-        marker: marker, 
-        deleteMarker: this.deleteMarker.bind(this, marker), 
-        refresh: this.setState.bind(this, {})}
-      ),
-      infoDOM
-    );
+      React.render(
+        React.createElement(WalkInfoWindow, {
+          marker: marker, 
+          deleteMarker: this.deleteMarker.bind(this, marker), 
+          refresh: this.syncState.bind(this)}
+        ),
+        infoDOM
+      );
 
-    // Center the marker and display its info window
-    this.state.map.panTo(marker.getPosition());
-    this.state.infowindow.setContent(infoDOM);
-    this.state.infowindow.open(this.state.map, marker);
+      // Center the marker and display its info window
+      this.state.map.panTo(marker.getPosition());
+      this.state.infowindow.setContent(infoDOM);
+      this.state.infowindow.open(this.state.map, marker);
+    }
   },
 
-  buildRoute: function(routeArray) {
-    var map = this.state.map;
+  buildRoute: {
+    value: function(routeArray) {
+      var map = this.state.map;
 
-    var poly = new google.maps.Polyline({
-      strokeColor: '#F16725',
-      strokeOpacity: 0.8,
-      strokeWeight: 3,
-      editable: true,
-      map: map
-    });
+      var poly = new google.maps.Polyline({
+        strokeColor: '#F16725',
+        strokeOpacity: 0.8,
+        strokeWeight: 3,
+        editable: true,
+        map: map
+      });
 
-    // Remove vertices when right-clicked
-    google.maps.event.addListener(poly, 'rightclick', function(ev) {
-      // Check if we clicked a vertex
-      if (ev.vertex !== undefined) {
-         poly.setPath(poly.getPath().removeAt(ev.vertex));
+      // Remove vertices when right-clicked
+      google.maps.event.addListener(poly, 'rightclick', function(ev) {
+        // Check if we clicked a vertex
+        if (ev.vertex !== undefined) {
+          poly.setPath(poly.getPath().removeAt(ev.vertex));
+        }
+      });
+
+      // Hide the infowindow if we click outside it
+      google.maps.event.addListener(poly, 'mousedown', function(ev) {
+        this.state.infowindow.setMap(null);
+      }.bind(this));
+
+      if (routeArray.length > 0) {
+        poly.setPath(routeArray.map(function(point) {
+          return new google.maps.LatLng(point.lat, point.lng);
+        }));
       }
-    });
 
-    // Hide the infowindow if we click outside it
-    google.maps.event.addListener(poly, 'mousedown', function(ev) {
-      this.state.infowindow.setMap(null);
-    }.bind(this));
-
-    if (routeArray.length > 0) {
-      poly.setPath(routeArray.map(function(point) {
-        return new google.maps.LatLng(point.lat, point.lng);
-      }));
+      return poly;
     }
-
-    return poly;
   },
 
   /**
    * @param google.maps.Marker marker
    */
-  deleteMarker: function(marker) {
-    var markers = this.state.markers;
+  deleteMarker: {
+    value: function(marker) {
+      var markers = this.state.markers;
 
-    // Clear marker from map
-    marker.setMap(null);
+      // Clear marker from map
+      marker.setMap(null);
 
-    // Remove reference in state
-    markers.removeAt(markers.indexOf(marker));
+      // Remove reference in state
+      markers.removeAt(markers.indexOf(marker));
 
-    this.setState({markers: markers});
+      this.setState({markers: markers});
+    }
   },
 
   /**
@@ -1857,159 +1883,185 @@ var MapBuilder = React.createClass({displayName: 'MapBuilder',
    * @param google.maps.Marker marker 
    * @param google.maps.Marker referenceMarker
    */
-  insertBefore: function(marker, referenceMarker) {
-    var markers = this.state.markers;
-    if (referenceMarker) {
-      markers.insertAt(markers.getArray().indexOf(referenceMarker), marker);
-    } else {
-      markers.push(marker);
+  insertBefore: {
+    value: function(marker, referenceMarker) {
+      var markers = this.state.markers;
+      if (referenceMarker) {
+        markers.insertAt(markers.getArray().indexOf(referenceMarker), marker);
+      } else {
+        markers.push(marker);
+      }
+      this.setState({markers: markers}, this.syncState);
     }
-    this.setState({markers: markers});
   },
 
   // Button Actions
-  toggleAddPoint: function() {
-    var markers = this.state.markers;
-    var marker = this.buildMarker();
-    markers.push(marker);
-    this.setState({markers: markers, mode: {}}, function() {
-      this.showInfoWindow(marker);
-    }.bind(this)); 
+  toggleAddPoint: {
+    value: function() {
+      var markers = this.state.markers;
+      var marker = this.buildMarker();
+      markers.push(marker);
+      this.setState({markers: markers, mode: {}}, function() {
+        this.syncState();
+        this.showInfoWindow(marker);
+      }.bind(this)); 
 
-    this.state.infowindow.setMap(null);
+      this.state.infowindow.setMap(null);
+    }
   },
 
-  toggleAddRoute: function() {
-    this.setState({
-      mode: {
-        addRoute: !this.state.mode.addRoute
-      }
-    });
-    this.state.infowindow.setMap(null);
+  toggleAddRoute: {
+    value: function() {
+      this.setState({
+        mode: {
+          addRoute: !this.state.mode.addRoute
+        }
+      });
+      this.state.infowindow.setMap(null);
+    }
   },
 
-  clearRoute: function() {
-    this.state.infowindow.setMap(null);
-    this.state.route.setPath([]);
-    this.setState({mode: {}});
+  clearRoute: {
+    value: function() {
+      this.state.infowindow.setMap(null);
+      this.state.route.setPath([]);
+      this.setState({mode: {}});
+    }
   },
 
   // Build a version of state appropriate for persistence
-  getStateSimple: function() {
-    var markers = this.state.markers.getArray().map(function(marker) {
-      var titleObj = JSON.parse(marker.title);
-      return {
-        lat: marker.position.lat(),
-        lng: marker.position.lng(),
-        title: titleObj.title,
-        description: titleObj.description,
-        media: titleObj.media,
-        style: 'stop'
-      };
-    });
-    var route = [];
-    if (this.state.route) {
-      route = this.state.route.getPath().getArray().map(function(point) {
+  getStateSimple: {
+    value: function() {
+      var markers = this.state.markers.getArray().map(function(marker) {
+        var titleObj = JSON.parse(marker.title);
         return {
-          lat: point.lat(),
-          lng: point.lng()
+          lat: marker.position.lat(),
+          lng: marker.position.lng(),
+          title: titleObj.title,
+          description: titleObj.description,
+          media: titleObj.media,
+          style: 'stop'
         };
       });
-    }
+      var route = [];
+      if (this.state.route) {
+        route = this.state.route.getPath().getArray().map(function(point) {
+          return {
+            lat: point.lat(),
+            lng: point.lng()
+          };
+        });
+      }
 
-    return {
-      markers: markers,
-      route: route
-    };
+      return {
+        markers: markers,
+        route: route
+      };
+    }
+  },
+
+  // Sync what's on the gmap to what's stored in our state
+  syncState: {
+    value: function() {
+      this.props.valueLink.requestChange(this.getStateSimple());
+    }
   },
 
   // Manage the filters for loading data from external APIs
-  handleRemoveFilter: function(i) {
-    var filters = this.state.filters.slice();
-    filters.splice(i, 1);
-    this.setState({filters: filters});
+  handleRemoveFilter: {
+    value: function(i) {
+      var filters = this.state.filters.slice();
+      filters.splice(i, 1);
+      this.setState({filters: filters});
+    }
   },
 
   // Update the _text_ of a filter
-  handleChangeFilter: function(i, val) {
-    var filters = this.state.filters.slice();
-    filters[i].value = val;
-    this.setState({filters: filters});
+  handleChangeFilter: {
+    value: function(i, val) {
+      var filters = this.state.filters.slice();
+      filters[i].value = val;
+      this.setState({filters: filters});
+    }
   },
 
   // Push a new filter to our box, usually done by the buttons
-  handleAddFilter: function(filter) {
-    var filters = this.state.filters.slice();
-    filters.push(filter);
-    this.setState({filters: filters});
+  handleAddFilter: {
+    value: function(filter) {
+      var filters = this.state.filters.slice();
+      filters.push(filter);
+      this.setState({filters: filters});
+    }
   },
 
-  render: function() {
-    var walkStops;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+  render: {
+    value: function() {
+      var walkStops;
+      var t = this.props.i18n.translate.bind(this.props.i18n);
 
-    // Standard properties the filter buttons need
-    var filterProps = {
-      valueLink: this.props.valueLink,
-      refreshGMap: this.refreshGMap,
-      boundMapByWalk: this.boundMapByWalk,
-      addFilter: this.handleAddFilter,
-      city: this.props.city
-    };
+      // Standard properties the filter buttons need
+      var filterProps = {
+        valueLink: this.props.valueLink,
+        refreshGMap: this.refreshGMap.bind(this),
+        boundMapByWalk: this.boundMapByWalk.bind(this),
+        addFilter: this.handleAddFilter.bind(this),
+        city: this.props.city
+      };
 
-    if (this.state.markers && this.state.markers.length) {
-      // This 'key' is to force the component to not rebuild
-      walkStops = [
-        React.createElement("h3", {key: 'stops'}, t('Walk Stops')),
-        React.createElement(WalkStopTable, {
-          ref: "walkStopTable", 
-          key: 1, 
-          i18n: this.props.i18n, 
-          markers: this.state.markers, 
-          deleteMarker: this.deleteMarker, 
-          insertBefore: this.insertBefore, 
-          showInfoWindow: this.showInfoWindow}
+      if (this.state.markers && this.state.markers.length) {
+        // This 'key' is to force the component to not rebuild
+        walkStops = [
+          React.createElement("h3", {key: 'stops'}, t('Walk Stops')),
+          React.createElement(WalkStopTable, {
+            ref: "walkStopTable", 
+            key: 1, 
+            i18n: this.props.i18n, 
+            markers: this.state.markers, 
+            deleteMarker: this.deleteMarker.bind(this), 
+            insertBefore: this.insertBefore.bind(this), 
+            showInfoWindow: this.showInfoWindow.bind(this)}
+          )
+        ];
+      }
+
+      return (
+        React.createElement("div", {className: "tab-pane", id: "route"}, 
+          React.createElement("div", {className: "page-header", 'data-section': "route"}, 
+            React.createElement("h1", null,  t('Share Your Route') )
+          ), 
+          React.createElement("div", {className: "alert alert-info"}, 
+             t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') 
+          ), 
+          React.createElement("div", {id: "map-control-bar"}, 
+            React.createElement("button", {
+              ref: "addPoint", 
+              className: (this.state.mode.addPoint) ? 'active' : '', 
+              onClick: this.toggleAddPoint.bind(this)}, 
+              React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') 
+            ), 
+            React.createElement("button", {
+              ref: "addRoute", 
+              className: (this.state.mode.addRoute) ? 'active' : '', 
+              onClick: this.toggleAddRoute.bind(this)}, 
+              React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') 
+            ), 
+            React.createElement("button", {ref: "clearroute", onClick: this.clearRoute.bind(this)}, 
+              React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') 
+            ), 
+            React.createElement(TwitterConnect, React.__spread({},  filterProps)), 
+            React.createElement(InstagramConnect, React.__spread({},  filterProps)), 
+            React.createElement(SoundCloudConnect, React.__spread({},  filterProps))
+          ), 
+          React.createElement(ConnectFilters, {filters: this.state.filters, changeFilter: this.handleChangeFilter.bind(this), remove: this.handleRemoveFilter.bind(this)}), 
+          React.createElement("div", {className: "map-notifications"}), 
+          React.createElement("div", {id: "map-canvas", ref: "gmap"}), 
+          walkStops, 
+          React.createElement("hr", null)
         )
-      ];
+      );
     }
- 
-    return (
-      React.createElement("div", {className: "tab-pane", id: "route"}, 
-        React.createElement("div", {className: "page-header", 'data-section': "route"}, 
-          React.createElement("h1", null,  t('Share Your Route') )
-        ), 
-        React.createElement("div", {className: "alert alert-info"}, 
-           t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.') 
-        ), 
-        React.createElement("div", {id: "map-control-bar"}, 
-          React.createElement("button", {
-            ref: "addPoint", 
-            className: (this.state.mode.addPoint) ? 'active' : '', 
-            onClick: this.toggleAddPoint}, 
-            React.createElement("i", {className: "fa fa-map-marker"}),  t('Add Stop') 
-          ), 
-          React.createElement("button", {
-            ref: "addRoute", 
-            className: (this.state.mode.addRoute) ? 'active' : '', 
-            onClick: this.toggleAddRoute}, 
-            React.createElement("i", {className: "fa fa-arrows"}),  t('Add Route') 
-          ), 
-          React.createElement("button", {ref: "clearroute", onClick: this.clearRoute}, 
-            React.createElement("i", {className: "fa fa-eraser"}),  t('Clear Route') 
-          ), 
-          React.createElement(TwitterConnect, React.__spread({},  filterProps)), 
-          React.createElement(InstagramConnect, React.__spread({},  filterProps)), 
-          React.createElement(SoundCloudConnect, React.__spread({},  filterProps))
-        ), 
-        React.createElement(ConnectFilters, {filters: this.state.filters, changeFilter: this.handleChangeFilter, remove: this.handleRemoveFilter}), 
-        React.createElement("div", {className: "map-notifications"}), 
-        React.createElement("div", {id: "map-canvas", ref: "gmap"}), 
-        walkStops, 
-        React.createElement("hr", null)
-      )
-    );
   }
-});        
+});
 
 module.exports = MapBuilder;
 
@@ -2633,10 +2685,10 @@ var WalkPublish = React.createClass({displayName: 'WalkPublish',
   render: function() {
     var i18n = this.props.i18n;
     var t = i18n.translate.bind(i18n);
-    
-    // TODO: Move this into a server-side config to say which cities are eligible
-    var mirrorWalk = null;
-    if (this.props.city.name === 'Burlington/Halton Region, ON') {
+
+    // Check city config for which walk mirroring services to expose
+    var mirrorWalk;
+    if (this.props.city.mirrors.indexOf('eventbrite') !== -1) {
       mirrorWalk = (
         React.createElement("label", {className: "checkbox"}, 
           React.createElement("input", {type: "checkbox", checkedLink: this.linkState('eventbrite')}), 
@@ -2748,7 +2800,9 @@ DatePicker.prototype = Object.create(React.Component.prototype, {
       $(React.findDOMNode(this)).datepicker({
         defaultDate: this.props.defaultDate,
         onSelect: function(dateText) {
-          this.props.setDay(new Date(dateText));
+          // Silly, but needed for inconsistent date formats across libs
+          var dateMDY = dateText.split('/');
+          this.props.setDay(new Date(Date.UTC(dateMDY[2], dateMDY[0] - 1, dateMDY[1])));
         }.bind(this)
       });
     }
@@ -3344,66 +3398,91 @@ module.exports = TwitterConnect;
 },{}],26:[function(require,module,exports){
 'use strict';
 
-var WalkInfoWindow = React.createClass({displayName: 'WalkInfoWindow',
-  getInitialState: function() {
-    return {
-      marker: null
-    };
-  },
-  componentWillMount: function() {
-    this.setState({
-      marker: this.props.marker
-    });
-  },
-  setMarkerContent: function(ev) {
-    var marker = this.state.marker;
-    var markerContent = JSON.parse(marker.getTitle());
-    if (ev.target.classList.contains('marker-title')) {
-      markerContent.title = ev.target.value;
-    } else if (ev.target.classList.contains('marker-description')) {
-      markerContent.description = ev.target.value;
-    }
-    marker.setTitle(JSON.stringify(markerContent));
-    this.setState({marker: marker});
-    this.props.refresh();
-  },
-  render: function() {
-    var marker = this.state.marker;
-    var markerContent = JSON.parse(marker.getTitle());
-    var media;
+/**
+ * The 'info window', aka the input box that pops up over markers in maps
+ */
 
-    // Load rich media
-    if (markerContent.media) {
-      if (markerContent.media.type === 'instagram') {
-        media = React.createElement("img", {className: "media", src: markerContent.media.url + 'media?size=t'});
-      } else if (markerContent.media.type === 'soundcloud') {
-        media = React.createElement("iframe", {className: "media", width: "150", height: "100%", scrolling: "no", frameborder: "no", src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'});
+function WalkInfoWindow(props) { 
+  // Weird, but needed since it's rendering to a DOM node
+  this.state = {marker: props.marker};
+
+  // Bind methods
+  this.handleTitleChange = this.handleTitleChange.bind(this);
+  this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+}
+
+WalkInfoWindow.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: WalkInfoWindow},
+
+  /**
+   * Set the content of this marker
+   * @param Object props The properties to set
+   */
+  setMarkerContent: {
+    value: function(props) {
+      var marker = this.state.marker;
+      // Parse, apply new properties, re-encode then assign as new title. Needed
+      // as gmaps doesn't give you multiple fields, so we encode in the title.
+      marker.setTitle(JSON.stringify(Object.assign({}, JSON.parse(marker.getTitle()), props)));
+      this.setState({marker: marker}, this.props.refresh);
+    }
+  },
+
+  // Simple method to set title property
+  handleTitleChange: {
+    value: function(ev) {
+      this.setMarkerContent({title: ev.target.value});
+    },
+    writable: true
+  },
+
+  // Simple method to set description property
+  handleDescriptionChange: {
+    value: function(ev) {
+      this.setMarkerContent({description: ev.target.value});
+    },
+    writable: true
+  },
+
+  render: {
+    value: function() {
+      var marker = this.state.marker;
+      var markerContent = JSON.parse(marker.getTitle());
+      var media;
+
+      // Load rich media
+      if (markerContent.media) {
+        if (markerContent.media.type === 'instagram') {
+          media = React.createElement("img", {className: "media", src: markerContent.media.url + 'media?size=t'});
+        } else if (markerContent.media.type === 'soundcloud') {
+          media = React.createElement("iframe", {className: "media", width: "150", height: "100%", scrolling: "no", frameborder: "no", src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'});
+        }
       }
-    }
 
-    return (
-      React.createElement("div", {className: "stop-form"}, 
-        media, 
-        React.createElement("section", {className: "details"}, 
-          React.createElement("input", {
-            type: "text", 
-            onChange: this.setMarkerContent, 
-            value: markerContent.title, 
-            placeholder: "Title of this stop", 
-            className: "marker-title"}
+      return (
+        React.createElement("div", {className: "stop-form"}, 
+          media, 
+          React.createElement("section", {className: "details"}, 
+            React.createElement("input", {
+              type: "text", 
+              onChange: this.handleTitleChange, 
+              value: markerContent.title, 
+              placeholder: "Title of this stop", 
+              className: "marker-title"}
+            ), 
+            React.createElement("textarea", {
+              className: "marker-description box-sizing", 
+              onChange: this.handleDescriptionChange, 
+              placeholder: "Description of this stop", 
+              value: markerContent.description}
+            )
           ), 
-          React.createElement("textarea", {
-            className: "marker-description box-sizing", 
-            onChange: this.setMarkerContent, 
-            placeholder: "Description of this stop", 
-            value: markerContent.description}
+          React.createElement("a", {onClick: this.props.deleteMarker}, 
+            React.createElement("i", {className: "fa fa-trash-o"})
           )
-        ), 
-        React.createElement("a", {onClick: this.props.deleteMarker}, 
-          React.createElement("i", {className: "fa fa-trash-o"})
         )
-      )
-    );
+      );
+    }
   }
 });
 
@@ -3411,62 +3490,74 @@ module.exports = WalkInfoWindow;
 
 },{}],27:[function(require,module,exports){
 'use strict';
+/**
+ * The table with all the walk stops on it, in CAW
+ */
 
-var WalkStopTable = React.createClass({displayName: 'WalkStopTable',
-  componentDidMount: function() {
-    // Setup sorting on the walk-stops list
-    $(this.getDOMNode()).sortable({
-      items: 'tbody tr',
-      update: function(event, ui) {
-        this.props.insertBefore(
-          this.state.markers.getAt(ui.item.data('position')),
-          this.state.markers.getAt(ui.item.index())
-        );
-      }.bind(this)
-    });
+function WalkStopTable() {}
+
+WalkStopTable.prototype = Object.create(React.Component.prototype, {
+  constructor: {value: WalkStopTable},
+
+  componentDidMount: {
+    value: function() {
+      // Setup sorting on the walk-stops list
+      $(React.findDOMNode(this)).sortable({
+        items: 'tbody tr',
+        update: function(event, ui) {
+          this.props.insertBefore(
+            this.props.markers.getAt(ui.item.data('position')),
+            this.props.markers.getAt(ui.item.index())
+          );
+        }.bind(this)
+      });
+    }
   },
-  render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
-    return (
-      React.createElement("table", {ref: "routeStops", className: "table table-bordered table-hover"}, 
-        React.createElement("thead", null, 
-          React.createElement("tr", null, 
-            React.createElement("th", null,  t('Title') ), 
-            React.createElement("th", null,  t('Description') ), 
-            React.createElement("th", null, React.createElement("i", {className: "fa fa-trash-o"}))
-          )
-        ), 
-        React.createElement("tbody", null, 
-          this.props.markers.getArray().map(function(marker, i) {
-            var titleObj = JSON.parse(marker.title);
-            var showInfoWindow = function() {
-              this.props.showInfoWindow(marker);
-            }.bind(this);
-            var deleteMarker = function() {
-              this.props.deleteMarker(marker);
-            }.bind(this);
-            var imageThumb = null;
 
-            if (titleObj.media) {
-              if (titleObj.media.type === 'instagram') {
-                imageThumb = React.createElement("img", {src: titleObj.media.url + 'media?size=t'});
+  render: {
+    value: function() {
+      var t = this.props.i18n.translate.bind(this.props.i18n);
+      return (
+        React.createElement("table", {ref: "routeStops", className: "table table-bordered table-hover"}, 
+          React.createElement("thead", null, 
+            React.createElement("tr", null, 
+              React.createElement("th", null,  t('Title') ), 
+              React.createElement("th", null,  t('Description') ), 
+              React.createElement("th", null, React.createElement("i", {className: "fa fa-trash-o"}))
+            )
+          ), 
+          React.createElement("tbody", null, 
+            this.props.markers.getArray().map(function(marker, i) {
+              var titleObj = JSON.parse(marker.title);
+              var showInfoWindow = function() {
+                this.props.showInfoWindow(marker);
+              }.bind(this);
+              var deleteMarker = function() {
+                this.props.deleteMarker(marker);
+              }.bind(this);
+              var imageThumb = null;
+
+              if (titleObj.media) {
+                if (titleObj.media.type === 'instagram') {
+                  imageThumb = React.createElement("img", {src: titleObj.media.url + 'media?size=t'});
+                }
               }
-            }
-            return (
-              React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
-                React.createElement("td", {onClick: showInfoWindow}, imageThumb, titleObj.title), 
-                React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
-                React.createElement("td", null, 
-                  React.createElement("a", {className: "delete-stop", onClick: deleteMarker}, 
-                    React.createElement("i", {className: "fa fa-times-circle-o"})
+              return (
+                React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
+                  React.createElement("td", {onClick: showInfoWindow}, imageThumb, titleObj.title), 
+                  React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
+                  React.createElement("td", null, 
+                    React.createElement("a", {className: "delete-stop", onClick: deleteMarker}, 
+                      React.createElement("i", {className: "fa fa-times-circle-o"})
+                    )
                   )
                 )
-              )
-              );
-          }.bind(this))
+                );
+            }.bind(this))
+          )
         )
-      )
-    );
+      );
+    }
   }
 });
 
@@ -4968,7 +5059,7 @@ var WalkPageView = function(element) {
 
   // Check if there's a map to init first
   if (mapCanvas) {
-    new WalkMap(JanesWalk.page.gmap, mapCanvas);
+    new WalkMap(JanesWalk.page.map, mapCanvas);
   }
 };
 WalkPageView.prototype = Object.create(PageView.prototype, {

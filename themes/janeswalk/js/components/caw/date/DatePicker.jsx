@@ -16,7 +16,9 @@ DatePicker.prototype = Object.create(React.Component.prototype, {
       $(React.findDOMNode(this)).datepicker({
         defaultDate: this.props.defaultDate,
         onSelect: function(dateText) {
-          this.props.setDay(new Date(dateText));
+          // Silly, but needed for inconsistent date formats across libs
+          var dateMDY = dateText.split('/');
+          this.props.setDay(new Date(Date.UTC(dateMDY[2], dateMDY[0] - 1, dateMDY[1])));
         }.bind(this)
       });
     }
