@@ -175,6 +175,12 @@ class City extends \Model implements \JsonSerializable
                     return (string) $mirror;
                 },
                 $mirrorOptions
+            ),
+            'latlng' => array_map(
+                function($coord) {
+                    return (float) $coord;
+                },
+                split(',', $this->page->getAttribute('latlng'))
             )
         ];
 

@@ -1645,7 +1645,7 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
       var _this = this,
       mapNode = this.refs.gmap.getDOMNode(),
       mapOptions = {
-        center: new google.maps.LatLng(this.props.city.lat, this.props.city.lng),
+        center: new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]),
         zoom: this.props.initialZoom,
         scrollwheel: false,
         rotateControl: true,
