@@ -40,7 +40,10 @@ class CityPageTypeController extends Controller
 
     public function getJson()
     {
-        echo json_encode($this->city);
+        // The city itself includes the walks for now, so merge in controller
+        echo json_encode(
+            array_merge($this->city->jsonSerialize(), ['walks' => $this->city->getWalks()])
+        );
     }
 
     /*
@@ -57,7 +60,7 @@ class CityPageTypeController extends Controller
         $this->bodyData['pageViewName'] = 'CityPageView';
         $this->set('bodyData', $this->bodyData);
         $this->set('pageType', 'city-page');
-        $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->city_organizer->getUserID());
+        $this->set('isCityOrganizer', (new User)->getUserID() === $this->city->cityOrganizer->getUserID());
         $this->set('isLoggedIn', (bool) Loader::helper('concrete/dashboard')->canRead());
         $this->set('isCampaignActive', false); // Is the donations campaign running?
         $this->set('canEdit', is_object(ComposerPage::getByID($this->c->getCollectionID())));

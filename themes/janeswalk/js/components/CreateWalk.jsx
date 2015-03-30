@@ -28,19 +28,19 @@ var CreateWalk = React.createClass({
     // Keep these defaults to type, ie don't pre-seed data here, aside from
     // data loaded by passing it in
     var walk = {
-      title: '',
-      shortdescription: '',
-      longdescription: '',
-      'accessible-info': '',
-      'accessible-transit': '',
-      'accessible-parking': '',
-      'accessible-find': '',
-      gmap: {
+      name: '',
+      shortDescription: '',
+      longDescription: '',
+      accessibleInfo: '',
+      accessibleTransit: '',
+      accessibleParking: '',
+      accessibleFind: '',
+      map: {
         markers: [],
         route: []
       },
       team: [{
-        user_id: -1,
+        id: -1,
         type: 'you',
         "name-first": '',
         "name-last": '',
@@ -65,12 +65,12 @@ var CreateWalk = React.createClass({
     // Convert old {0: marker, 1: marker} indexing to a proper array
     if (data) {
       // Convert markers
-      if (data.gmap && !Array.isArray(data.gmap.markers)) {
-        data.gmap.markers = Helper.objectToArray(data.gmap.markers);
+      if (data.map && !Array.isArray(data.map.markers)) {
+        data.map.markers = Helper.objectToArray(data.map.markers);
       }
       // Convert routes
-      if (data.gmap && !Array.isArray(data.gmap.route)) {
-        data.gmap.route = Helper.objectToArray(data.gmap.route);
+      if (data.map && !Array.isArray(data.map.route)) {
+        data.map.route = Helper.objectToArray(data.map.route);
       }
       // Convert time slots
       if (data.time && !Array.isArray(data.time.slots)) {
@@ -91,7 +91,6 @@ var CreateWalk = React.createClass({
       if (data.team.length === 0) {
         var user = this.props.user;
         data.team = [{
-          //          user_id: user.id,
           type: 'you',
           "name-first": user.firstName,
           "name-last": user.lastName,
@@ -222,9 +221,9 @@ var CreateWalk = React.createClass({
 
     // Used to let the map pass a callback
     var linkStateMap = {
-      value: this.state.gmap,
+      value: this.state.map,
       requestChange: function(newVal, cb) {
-        this.setState({gmap: newVal}, cb);
+        this.setState({map: newVal}, cb);
       }.bind(this)
     };
 
@@ -276,7 +275,7 @@ var CreateWalk = React.createClass({
                     <div className="item required">
                       <label htmlFor="shortdescription">{ t('Your Walk in a Nutshell') }</label>
                       <div className="alert alert-info">{ t('Build intrigue! This is what people see when browsing our walk listings.') }</div>
-                      <TextAreaLimit i18n={i18n} id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortdescription')} required />
+                      <TextAreaLimit i18n={i18n} id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortDescription')} required />
                     </div>
                     <hr />
                     <div className="item required">
@@ -284,7 +283,7 @@ var CreateWalk = React.createClass({
                       <div className="alert alert-info">
                         {t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')} 
                       </div>
-                      <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longdescription')} />
+                      <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longDescription')} />
                     </div>
                   </fieldset>
                   <ThemeSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
@@ -305,7 +304,7 @@ var CreateWalk = React.createClass({
                 <div className="item">
                   <fieldset>
                     <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-                    <TextAreaLimit i18n={i18n} name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessible-info')} />
+                    <TextAreaLimit i18n={i18n} name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessibleInfo')} />
                   </fieldset>
                 </div>
 
@@ -315,14 +314,14 @@ var CreateWalk = React.createClass({
                     <div className="alert alert-info">
                       { t('Nearest subway stop, closest bus or streetcar lines, etc.')} 
                     </div>
-                    <textarea rows="3" name="accessible-transit" valueLink={this.linkState('accessible-transit')} />
+                    <textarea rows="3" name="accessible-transit" valueLink={this.linkState('accessibleTransit')} />
                   </fieldset>
                 </div>
 
                 <div className="item">
                   <fieldset>
                     <legend>{ t('Where are the nearest places to park?') } ({ t('Optional') })</legend>
-                    <textarea rows="3" name="accessible-parking" valueLink={this.linkState('accessible-parking')} />
+                    <textarea rows="3" name="accessible-parking" valueLink={this.linkState('accessibleParking')} />
                   </fieldset>
                 </div>
 
@@ -332,7 +331,7 @@ var CreateWalk = React.createClass({
                     <div className="alert alert-info">
                       { t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')} 
                     </div>
-                    <textarea rows="3" name="accessible-find"  valueLink={this.linkState('accessible-find')} />
+                    <textarea rows="3" name="accessible-find"  valueLink={this.linkState('accessibleFind')} />
                   </fieldset>
                 </div>
                 <hr />

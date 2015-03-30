@@ -27,7 +27,7 @@ $im = Loader::helper('image');
             <figcaption>
                 <h4><a href="<?= $city->url ?>"><?= (string) $city ?></a></h4>
                 <p><?= $content ?></p>
-                <h5>City Organizer<br /><?= trim($city->city_organizer->getAttribute('first_name') . ' ' . $city->city_organizer->getAttribute('last_name')) ?></h5>
+                <h5>City Organizer<br /><?= trim($city->cityOrganizer->getAttribute('first_name') . ' ' . $city->cityOrganizer->getAttribute('last_name')) ?></h5>
             </figcaption>
         <?php if ($city->avatar) { ?><div class="tag" style="background-image:url(<?= $city->avatar ?>)"></div><?php } ?>
         </figure>

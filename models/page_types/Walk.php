@@ -258,16 +258,16 @@ class Walk extends \Model implements \JsonSerializable
             }
 
             $this->page->update(['cName' => $postArray['title']]);
-            $this->page->setAttribute('shortdescription', $postArray['shortdescription']);
-            $this->page->setAttribute('longdescription', $postArray['longdescription']);
-            $this->page->setAttribute('accessible_info', $postArray['accessible-info']);
-            $this->page->setAttribute('accessible_transit', $postArray['accessible-transit']);
-            $this->page->setAttribute('accessible_parking', $postArray['accessible-parking']);
-            $this->page->setAttribute('accessible_find', $postArray['accessible-find']);
+            $this->page->setAttribute('shortdescription', $postArray['shortDescription']);
+            $this->page->setAttribute('longdescription', $postArray['longDescription']);
+            $this->page->setAttribute('accessible_info', $postArray['accessibleInfo']);
+            $this->page->setAttribute('accessible_transit', $postArray['accessibleTransit']);
+            $this->page->setAttribute('accessible_parking', $postArray['accessibleParking']);
+            $this->page->setAttribute('accessible_find', $postArray['accessibleFind']);
             $this->page->setAttribute('walk_wards', $postArray['wards']);
             $this->page->setAttribute('scheduled', (array) $postArray['time']);
 
-            $this->page->setAttribute('gmap', json_encode($postArray['gmap']));
+            $this->page->setAttribute('gmap', json_encode($postArray['map']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
             
             if (count($postArray['thumbnails']) && File::getByID($postArray['thumbnails'][0]['id'])) {
@@ -313,27 +313,30 @@ class Walk extends \Model implements \JsonSerializable
     public function jsonSerialize()
     {
         $im = Loader::helper('image');
+        $nh = Loader::helper('navigation');
         $walkData = [
+            'id' => $this->page->getCollectionID(),
             'title' => $this->title,
-            'shortdescription' => $this->shortDescription,
-            'longdescription' => $this->longDescription,
-            'accessible-info' => $this->accessibleInfo,
-            'accessible-transit' => $this->accessibleTransit,
-            'accessible-parking' => $this->accessibleParking,
-            'accessible-find' => $this->accessibleFind,
-            'gmap' => $this->map,
+            'url' => $nh->getCollectionURL($this->page),
+            'shortDescription' => $this->shortDescription,
+            'longDescription' => $this->longDescription,
+            'accessibleInfo' => $this->accessibleInfo,
+            'accessibleTransit' => $this->accessibleTransit,
+            'accessibleParking' => $this->accessibleParking,
+            'accessibleFind' => $this->accessibleFind,
+            'map' => $this->map,
             'team' => $this->team,
             'time' => $this->time,
             'wards' => $this->wards,
             'mirrors' => [
-                'eventbrite' => (bool) $this->page->getAttribute('eventbrite')
+                'eventbrite' => $this->page->getAttribute('eventbrite') ?: null
             ]
         ];
         // Load the thumbnail array
         $walkData['thumbnails'] = [];
         if ($this->thumbnail) {
-            $walkData['thumbnail_id'] = $this->thumbnail->getFileID();
-            $walkData['thumbnail_url'] = $im->getThumbnail($this->thumbnail, 340, 720)->src;
+            $walkData['thumbnailId'] = $this->thumbnail->getFileID();
+            $walkData['thumbnailUrl'] = $im->getThumbnail($this->thumbnail, 340, 720)->src;
             $walkData['thumbnails'][] = [
                 'id' => $this->thumbnail->getFileID(),
                 'url' => $im->getThumbnail($this->thumbnail, 340, 720)->src

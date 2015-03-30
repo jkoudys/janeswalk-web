@@ -24,7 +24,7 @@ var WalkPageView = function(element) {
 
   // Check if there's a map to init first
   if (mapCanvas) {
-    new WalkMap(JanesWalk.page.gmap, mapCanvas);
+    new WalkMap(JanesWalk.page.map, mapCanvas);
   }
 };
 WalkPageView.prototype = Object.create(PageView.prototype, {

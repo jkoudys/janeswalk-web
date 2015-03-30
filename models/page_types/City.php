@@ -1,6 +1,9 @@
 <?php
 namespace JanesWalk\Models\PageTypes;
 
+// FIXME: replace with spl autoloader on PSR standard after c5.7 upgrade
+require_once(DIR_BASE . '/models/page_types/Walk.php');
+
 // Default lib classes
 use \Exception;
 // c5 classes
@@ -9,6 +12,7 @@ use \Page;
 use \UserInfo;
 use \User;
 use \PageList;
+use JanesWalk\Models\PageTypes\Walk;
 
 defined('C5_EXECUTE') || die('Access Denied.');
 
@@ -28,13 +32,15 @@ class City extends \Model implements \JsonSerializable
     public $donateCopy;
     public $fullbg;
     public $avatar;
-    public $city_organizer;
+    public $cityOrganizer;
     public $profile_path;
     public $blog;
     public $facebook;
     public $twitter;
     public $website;
     public $country;
+    public $shortDescription;
+    public $longDescription;
 
     /*
      * __construct
@@ -57,6 +63,10 @@ class City extends \Model implements \JsonSerializable
 
         // The city's name
         $this->title = $page->getCollectionName();
+
+        // Short + long descriptions
+        $this->shortDescription = $page->getCollectionDescription();
+        $this->longDescription = $page->getAttribute('longdescription');
 
         // Load + format data
         // Assume $page_owner is the admin if not set
@@ -82,7 +92,7 @@ class City extends \Model implements \JsonSerializable
         // Set our calculated values
         $this->fullbg = $page->getAttribute('main_image') ?: $page->getAttribute('full_bg') ?: null;
         $this->avatar = $av->getImagePath($page_owner) ?: null;
-        $this->city_organizer = $page_owner;
+        $this->cityOrganizer = $page_owner;
         $this->profile_path = DIR_REL . '/' . DISPATCHER_FILENAME . '/profile/' . $page_owner->getUserId();
     }
 
@@ -145,59 +155,69 @@ class City extends \Model implements \JsonSerializable
     public function jsonSerialize()
     {
         Loader::model('page_list');
-        $nh = Loader::helper('navigation');
         $im = Loader::helper('image');
-        $u = new User;
-        $pl = new PageList;
-        $pl->filterByCollectionTypeHandle('walk');
-        $pl->filterByPath($this->page->getCollectionPath());
-        $pl->filterByAttribute('exclude_page_list', false);
-        $pagecount = 500;
-        $cityData = array(
-            'title' => $this->title,
+
+        // Load the mirror services allowed in this city
+        $mirrors = $this->page->getAttribute('mirrors');
+        $mirrorOptions = $mirrors ? $mirrors->getOptions() : [];
+
+        // Set basic city data
+        $cityData = [
+            'name' => $this->title,
             'url' => $this->url,
             'background' => $this->full_bg ? $this->full_bg->getURL() : null,
             /* We'll assume each area's first block is the one with the descriptions */
-            'short_description' => strip_tags($this->page->getBlocks('City Header')[0]->getController()->getContent()),
-            'long_description' => strip_tags($this->page->getBlocks('City Description')[0]->getController()->getContent()),
-            'sponsors' => $this->page->getBlocks('Sponsors')[0]->getController()->getContent()
-        );
-        if ((int) $this->city_organizer->getUserID() > 1) {
-            $cityData['city_organizer'] = array(
+            'shortDescription' => $this->shortDescription,
+            'longDescription' => $this->longDescription,
+            'sponsors' => $this->page->getBlocks('Sponsors')[0]->getController()->getContent(),
+            'mirrors' =>  array_map(
+                function($mirror) {
+                    return (string) $mirror;
+                },
+                $mirrorOptions
+            )
+        ];
+
+        // Load details on CO, only if not the site admin
+        if ((int) $this->cityOrganizer->getUserID() > 1) {
+            $cityData['cityOrganizer'] = [
                 'photo' => $this->avatar,
-                'first_name' => $this->city_organizer->getAttribute('first_name'),
-                'last_name' => $this->city_organizer->getAttribute('last_name'),
-                'email' => $this->city_organizer->getUserEmail(),
+                'firstName' => $this->cityOrganizer->getAttribute('first_name'),
+                'lastName' => $this->cityOrganizer->getAttribute('last_name'),
+                'email' => $this->cityOrganizer->getUserEmail(),
                 'facebook' => $this->facebook,
                 'twitter' => $this->twitter,
                 'website' => $this->website
-            );
-        }
-        foreach ($pl->get($pagecount) as $key => $page) {
-            $scheduled = $page->getAttribute('scheduled');
-            $slots = (Array) $scheduled['slots'];
-            $cityData['walks'][$key] = array(
-                'url' => $nh->getCollectionURL($page),
-                'title' => $page->getCollectionName(),
-                'thumb' => ($thumb = $page->getAttribute('thumbnail')) ? $im->getThumbnail($thumb, 340, 720)->src : null,
-                'schedule' => isset($scheduled['open']) ? 'Open Schedule' : (isset($slots[0]['date']) ? $slots[0]['date'] : null),
-                'wards' => $page->getAttribute('walk_wards'),
-                'time' => isset($slots[0]['time']) ? $slots[0]['time'] : 'multiple',
-                'map' => json_decode($page->getAttribute('gmap')),
-                'short_description' => $page->getAttribute('shortdescription')
-            );
-            foreach ($slots as $slot) {
-                $cityData['walks'][$key]['slots'][] = ['date' => $slot['date'], 'time' => $slot['time'] ?: 'multiple'];
-            }
-            foreach (json_decode($page->getAttribute('team')) as $memkey=>$mem) {
-                $cityData['walks'][$key]['team'] .= ($memkey == 0 ? 'Walk led by ' : ($memkey > 0 ? ', ' : '')) . "{$mem->{'name-first'}} {$mem->{'name-last'}}";
-            }
+            ];
         }
 
         return $cityData;
     }
 
-    /*
+    /**
+     * getWalks
+     *
+     * Get all the walks for this city
+     *
+     * @return array
+     */
+    public function getWalks()
+    {
+        $pl = new PageList;
+        $pl->filterByCollectionTypeHandle('walk');
+        $pl->filterByPath($this->page->getCollectionPath());
+        $pl->filterByAttribute('exclude_page_list', false);
+        $pagecount = 500;
+
+        return array_map(
+            function($page) {
+                return new Walk($page);
+            },
+            $pl->get($pagecount)
+        );
+    }
+
+    /**
      * getPage()
      * Returns a page object for this city. Keeping $page protected as we may want some logic around this later
      * @return Page

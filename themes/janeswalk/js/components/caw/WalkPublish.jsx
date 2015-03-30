@@ -29,10 +29,10 @@ var WalkPublish = React.createClass({
   render: function() {
     var i18n = this.props.i18n;
     var t = i18n.translate.bind(i18n);
-    
-    // TODO: Move this into a server-side config to say which cities are eligible
-    var mirrorWalk = null;
-    if (this.props.city.name === 'Burlington/Halton Region, ON') {
+
+    // Check city config for which walk mirroring services to expose
+    var mirrorWalk;
+    if (this.props.city.mirrors.indexOf('eventbrite') !== -1) {
       mirrorWalk = (
         <label className="checkbox">
           <input type="checkbox" checkedLink={this.linkState('eventbrite')} />

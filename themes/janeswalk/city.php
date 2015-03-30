@@ -47,12 +47,12 @@ $this->inc('elements/navbar.php') ?>
             <?php } ?>
             <div class="city-organizer-details">
                 <h3>
-                    <a href="<?= $city->profile_path ?>"><?= $city->city_organizer->getAttribute('first_name'), ' ', $city->city_organizer->getAttribute('last_name') ?></a>
+                    <a href="<?= $city->profile_path ?>"><?= $city->cityOrganizer->getAttribute('first_name'), ' ', $city->cityOrganizer->getAttribute('last_name') ?></a>
                     <?php if ($isCityOrganizer) { ?><a href="<?= $this->url('/profile/edit') ?>"><i class='fa fa-pencil-square'></i></a><?php } ?>
                 </h3>
                 <h4><?= t('City Organizer') ?></h4>
                 <div class="btn-toolbar">
-                    <a href="mailto:<?= $city->city_organizer->getUserEmail() ?>" class="btn"><i class="fa fa-envelope-o"></i></a>
+                    <a href="mailto:<?= $city->cityOrganizer->getUserEmail() ?>" class="btn"><i class="fa fa-envelope-o"></i></a>
                     <?php foreach($coContacts as $contact) { ?><a href='<?= $contact['url'] ?>' target="_blank" class="btn"><i class="fa fa-<?= $contact['icon'] ?>"></i></a><?php } ?>
                 </div>
             </div>

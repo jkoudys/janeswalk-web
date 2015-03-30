@@ -1,6 +1,4 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
-
 // FIXME: Don't know why the Loader::model won't find this, but this
 // stuff will all change with improved PSR-standard autoloading in
 // c5.7.
@@ -60,17 +58,17 @@ class WalkFormController extends Controller
         $load = $_REQUEST['load'];
         if (empty($load)) {
             // Find the parent page this should go under
-            $city = ($parentCID = $_REQUEST['parentCID']) ?
+            $cityPage = ($parentCID = $_REQUEST['parentCID']) ?
                 Page::getByID($parentCID) :
                 ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto'));
-            $c = $this->getUnstartedWalk($u, $city);
+            $c = $this->getUnstartedWalk($u, $cityPage);
         } else {
             $c = Page::getByPath($load);
-            $city = Page::getByID($c->getCollectionParentID());
+            $cityPage = Page::getByID($c->getCollectionParentID());
         }
 
         $walk_ward = trim((String) $c->getAttribute('walk_wards'));
-        $city_wards = $city->getAttribute('city_wards');
+        $city_wards = $cityPage->getAttribute('city_wards');
         if ($city_wards) {
             $wards = array_map(
                 function ($ward) use ($walk_ward) {
@@ -97,31 +95,19 @@ class WalkFormController extends Controller
         }
 
         // Load our city
-        $latlng = explode(',', $city->getAttribute('latlng'));
+        $latlng = explode(',', $cityPage->getAttribute('latlng'));
         // If you don't have a lat and a lng, final resort is Toronto. It's at least better than being 400km off the coast of Nigeria.
         if (count((array) $latlng) !== 2) {
             $latlng = [43.653226,-79.3831843];
         }
 
         // Instantiate as models, for JSON serialization
-        $city = new City($city);
+        $city = new City($cityPage);
         $walk = new Walk($c);
 
         // Build data needed by frontend
         $this->addToJanesWalk([
-            'city' => [
-                'name' => (string) $city,
-                'url' => $city->url,
-                'lat' => $latlng[0],
-                'lng' => $latlng[1],
-                'wards' => $wards,
-                'cityOrganizer' => [
-                    'photo' => $city->avatar,
-                    'firstName' => $city->city_organizer->getAttribute('first_name'),
-                    'lastName' => $city->city_organizer->getAttribute('last_name'),
-                    'email' => $city->city_organizer->getUserEmail()
-                ]
-            ],
+            'city' => $city,
             'form' => [
                 'valt' => $valt->generate('upload')
             ],

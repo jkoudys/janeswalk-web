@@ -1,9 +1,2 @@
 <?php
-Events::extend('on_user_add', 'SiteEvents', 'addUser', false);
-class SiteEvents {
-   public static function addUser($ui) {
-      $g = Group::getByName('Walk Leaders');
-      $ui->getUserObject()->enterGroup($g);
-   }
-}
-?>
+Events::extendPageType('walk', 'on_page_update');

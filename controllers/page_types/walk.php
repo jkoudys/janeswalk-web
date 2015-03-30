@@ -279,7 +279,7 @@ class WalkPageTypeController extends Controller
                     'name' => (string) $this->walk->city,
                     'url' => $nh->getCollectionURL($this->walk->city->getPage()),
                 ],
-                'gmap' => $this->walk->map,
+                'map' => $this->walk->map,
             ]
         ]);
     }
@@ -308,5 +308,12 @@ class WalkPageTypeController extends Controller
         }
         // Lazy way to make this a service endpoint
         exit;
+    }
+
+    /**
+     * Observes the updates of walk pages, to clear its cache
+     */
+    public function on_page_update(Page $self)
+    {
     }
 }
