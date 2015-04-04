@@ -3342,7 +3342,7 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
 
     $.ajax({
       type: 'GET',
-      url: '/api/twitter?q=' + query + '&coords=' + this.props.city.lat + ',' + this.props.city.lng,
+      url: '/api/twitter?q=' + query + '&coords=' + this.props.city.latlng[0] + ',' + this.props.city.latlng[1],
       success: function(data) {
         var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
 

@@ -166,9 +166,9 @@ class City extends \Model implements \JsonSerializable
             'name' => $this->title,
             'url' => $this->url,
             'background' => $this->full_bg ? $this->full_bg->getURL() : null,
-            /* We'll assume each area's first block is the one with the descriptions */
             'shortDescription' => $this->shortDescription,
             'longDescription' => $this->longDescription,
+            /* We'll assume Sponsors area's first block is the one with the description */
             'sponsors' => $this->page->getBlocks('Sponsors')[0]->getController()->getContent(),
             'mirrors' =>  array_map(
                 function($mirror) {
@@ -185,8 +185,10 @@ class City extends \Model implements \JsonSerializable
         ];
 
         // Load details on CO, only if not the site admin
-        if ((int) $this->cityOrganizer->getUserID() > 1) {
+        $coID = (int) $this->cityOrganizer->getUserID();
+        if ($coID > 1) {
             $cityData['cityOrganizer'] = [
+                'id' => $coID,
                 'photo' => $this->avatar,
                 'firstName' => $this->cityOrganizer->getAttribute('first_name'),
                 'lastName' => $this->cityOrganizer->getAttribute('last_name'),
