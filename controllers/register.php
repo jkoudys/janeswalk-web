@@ -1,5 +1,4 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
 class RegisterController extends Concrete5_Controller_Register
 {
     public function __construct()
@@ -22,6 +21,11 @@ class RegisterController extends Concrete5_Controller_Register
         }
     }
 
+    /**
+     * Original method is too convoluted to extend, so unfortunately
+     * bad things happen if it's not customized like this.
+     * TODO: on 5.7 update clean this out.
+     */
     public function do_register()
     {
         $registerData['success'] = 0;
@@ -171,14 +175,6 @@ class RegisterController extends Concrete5_Controller_Register
                 }
                 // if this is successful, uID is loaded into session for this user
                 
-                // Now that we have a user object, register them in the public
-                // 'Walk Leaders' group automatically.
-                try {
-                    $u->enterGroup(Group::getByName('Walk Leaders'));
-                } catch (Exception $ex) {
-                    $e->add('Error adding user ' . $u->getUserName() . ' to Walk Leaders group.');
-                }
-
                 $rcID = $this->post('rcID');
                 $nh = Loader::helper('validation/numbers');
                 if (!$nh->integer($rcID)) {
@@ -245,6 +241,7 @@ class RegisterController extends Concrete5_Controller_Register
             die;
         }
     }
+
     public function getRegisterSuccessValidateMsgs()
     {
         $msgs=array();
