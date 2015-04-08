@@ -304,7 +304,7 @@ var CreateWalk = React.createClass({
                 <div className="item">
                   <fieldset>
                     <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-                    <TextAreaLimit i18n={i18n} name="accessible-info" rows="3" maxLength="140" valueLink={this.linkState('accessibleInfo')} />
+                    <TextAreaLimit i18n={i18n} name="accessible-info" rows="3" maxLength="500" valueLink={this.linkState('accessibleInfo')} />
                   </fieldset>
                 </div>
 

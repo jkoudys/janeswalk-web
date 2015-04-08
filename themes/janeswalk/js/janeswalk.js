@@ -415,7 +415,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                 React.createElement("div", {className: "item"}, 
                   React.createElement("fieldset", null, 
                     React.createElement("legend", null,  t('What else do people need to know about the accessibility of this walk?'), " (",  t('Optional'), ")"), 
-                    React.createElement(TextAreaLimit, {i18n: i18n, name: "accessible-info", rows: "3", maxLength: "140", valueLink: this.linkState('accessibleInfo')})
+                    React.createElement(TextAreaLimit, {i18n: i18n, name: "accessible-info", rows: "3", maxLength: "500", valueLink: this.linkState('accessibleInfo')})
                   )
                 ), 
 
