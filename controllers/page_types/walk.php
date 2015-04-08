@@ -42,6 +42,16 @@ class WalkPageTypeController extends Controller
     }
 
     /**
+     * Render the page as json only
+     */
+    public function json()
+    {
+        header('Content-Type: application/json');
+        echo $this->getJson();
+        exit;
+    }
+
+    /**
      * show
      * Render view contents. Fall-through behaviour renders theme as HTML via
      * view(). If 'format' is set, render in requested format.

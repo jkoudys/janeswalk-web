@@ -51,6 +51,7 @@ class CityPageTypeController extends Controller
      */
     public function json()
     {
+        header('Content-Type: application/json');
         echo $this->getJson();
         exit;
     }
