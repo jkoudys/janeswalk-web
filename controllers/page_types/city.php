@@ -26,7 +26,7 @@ class CityPageTypeController extends Controller
         case 'GET':
             // Retrieve the page's json
             if ($_GET['format'] === 'json') {
-                $this->getJson();
+                echo $this->getJson();
                 exit;
             }
             break;
@@ -38,12 +38,21 @@ class CityPageTypeController extends Controller
         }
     }
 
-    public function getJson()
+    protected function getJson()
     {
         // The city itself includes the walks for now, so merge in controller
-        echo json_encode(
+        return json_encode(
             array_merge($this->city->jsonSerialize(), ['walks' => $this->city->getWalks()])
         );
+    }
+
+    /**
+     * Render the page as json only
+     */
+    public function json()
+    {
+        echo $this->getJson();
+        exit;
     }
 
     /*
