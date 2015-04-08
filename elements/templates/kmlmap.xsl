@@ -41,7 +41,7 @@
       <xsl:value-of select="@description"/>
     </description>
     <Point>
-      <coordinates><xsl:value-of select="@lat"/>,<xsl:value-of select="@lng"/></coordinates>
+      <coordinates><xsl:value-of select="@lng"/>,<xsl:value-of select="@lat"/></coordinates>
     </Point>
   </xsl:template>
 </xsl:stylesheet>
