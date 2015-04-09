@@ -9,24 +9,13 @@ $im = Loader::helper('image');
 <?php
     foreach ($pages as $key => $page) { 
         $city = new City($page);
-        // Grab the intro text only
-        ob_start();
-        (new Area('City Header'))->display($page);
-        $content = ob_get_contents();
-        ob_end_clean();
-        if ($content) {
-            try {
-                $content = trim(strip_tags($content));
-            } catch (Exception $e) {
-            }
-        }
 ?>
     <li>
         <figure>
             <a href="<?= $city->url ?>" class="thumbnail placeholder<?= $key % 3 ?>" <?php if ($city->fullbg) { ?> style="background-image:url(<?= $im->getThumbnail($city->fullbg, 640, 640)->src ?>)" <?php } ?>></a>
             <figcaption>
                 <h4><a href="<?= $city->url ?>"><?= (string) $city ?></a></h4>
-                <p><?= $content ?></p>
+                <p><?= trim(strip_tags($page->getCollectionDescription())) ?></p>
                 <h5>City Organizer<br /><?= trim($city->cityOrganizer->getAttribute('first_name') . ' ' . $city->cityOrganizer->getAttribute('last_name')) ?></h5>
             </figcaption>
         <?php if ($city->avatar) { ?><div class="tag" style="background-image:url(<?= $city->avatar ?>)"></div><?php } ?>

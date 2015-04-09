@@ -47,7 +47,7 @@ class WalkPageTypeController extends Controller
     public function json()
     {
         header('Content-Type: application/json');
-        echo $this->getJson();
+         $this->getJson();
         exit;
     }
 
