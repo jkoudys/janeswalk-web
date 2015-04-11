@@ -150,13 +150,15 @@ if (!empty($w->time['slots'])) {
         <?php } ?>
         <div class="walk-body">
             <div class="walk-details">
-                <h3><?= t('About This Walk') ?></h3>
-                <?php if ($thumb) { ?>
-                <a class="thumb" href="<?= ($im->getThumbnail($thumb, 1024, 1024)->src) ?>">
-                    <img src="<?= $im->getThumbnail($thumb, 340, 720)->src ?>" class="pull-right img-polaroid" />
-                </a>
-                <?php } ?>
-                <?= $w->longDescription ?>
+                <div class="walk-about">
+                    <h3><?= t('About This Walk') ?></h3>
+                    <?php if ($thumb) { ?>
+                    <a class="thumb" href="<?= ($im->getThumbnail($thumb, 1024, 1024)->src) ?>">
+                        <img src="<?= $im->getThumbnail($thumb, 340, 720)->src ?>" class="pull-right img-polaroid" />
+                    </a>
+                    <?php } ?>
+                    <?= $w->longDescription ?>
+                </div>
                 <?php if (count($w->map['markers'])) { ?>
                 <div class="walk-stops-list">
                     <hr />
