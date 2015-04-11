@@ -396,7 +396,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
           return -1;
         } else {
           // If they're both archived or unarchived, sort by date
-          return a.dataset.timeEnd - b.dataset.timeEnd;
+          return a.dataset.timeStart - b.dataset.timeStart;
         }
       });
 
