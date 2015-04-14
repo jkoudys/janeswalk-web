@@ -3744,6 +3744,7 @@ var CityPageView = function(element) {
   this._setThemeCounts();
   this._addLinkListeners();
   this._captureHash();
+  this._addBlogLink();
   //this._setupText2DonateInterstitials();
   $('.walks-filters .tag').tooltip();
 };
@@ -4273,6 +4274,23 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       });
     }
   },
+
+  /**
+   * Add a link to the blog page
+   */
+  _addBlogLink: {
+    value: function() {
+      var blogLink = document.querySelector('#blog a');
+      var nav = document.querySelector('.walk-filters ul.nav');
+
+      if (blogLink) {
+        var li = document.createElement('li');
+        li.appendChild(blogLink.cloneNode(true));
+        nav.appendChild(li);
+      }
+    }
+  },
+
 
   /**
    * _addFilterEvents

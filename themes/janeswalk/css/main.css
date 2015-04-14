@@ -11669,6 +11669,18 @@ body.blog .ccm-blog-index li {
 body.blog .ccm-blog-index li figure {
   height: 450px;
 }
+#city-blog {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #city-blog {
+    float: left;
+    width: 100%;
+  }
+}
 body[data-pageviewname=CreateWalkView] {
   padding-top: 0;
 }
