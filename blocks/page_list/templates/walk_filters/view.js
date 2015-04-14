@@ -44,4 +44,7 @@ document.addEventListener('DOMContentLoaded', function(){
       }
     }
   }
+
+  // Sort by the first column, by default
+  sortOptions[0].dispatchEvent(new MouseEvent('click'));
 });

@@ -373,7 +373,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
     value: function() {
       var archiveMessage = document.createElement('div');
       // JW dates are stored timezone-agnostic, e.g. an 0900 walk is at 0900 UTC
-      var utcTime = Date.now() - (new Date).getTimezoneOffset() * 60 * 1000;
+      var utcTime = Date.now() - (new Date()).getTimezoneOffset() * 60 * 1000;
       archiveMessage.classList.add('statusMessage');
       // TODO: Use translation functions once loaded by ReactJS
       archiveMessage.textContent = 'Ended';
