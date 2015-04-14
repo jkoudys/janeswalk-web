@@ -1,5 +1,4 @@
 <?php
-defined('C5_EXECUTE') || die(_('Access Denied.'));
 $this->inc('elements/header.php');
 
 // Comma separated list of walk leaders
@@ -31,8 +30,8 @@ if ((string) $c->getAttribute('show_registration_button') === 'Yes') {
     }
 }
 
-// Use the duration of the next available walk
 if (!empty($w->time['slots'])) {
+    // Use the duration of the next available walk
     $duration = new DateTime('@' . ($w->time['slots'][0][1] - $w->time['slots'][0][0]));
     $hours = (int) $duration->format('H');
     $minutes = (int) $duration->format('i');
@@ -44,6 +43,21 @@ if (!empty($w->time['slots'])) {
     if ($minutes) {
         $durationComponents[] = t2('%d Minute', '%d Minutes', $minutes);
     }
+
+    // Separate which are upcoming, and which are past walks
+    $pastSlots = [];
+    $futureSlots = array_filter(
+        $w->time['slots'],
+        function($slot) use (&$pastSlots) {
+            // Check that it ends at least yesterday
+            if ($slot[1] > (time() - 24 * 60 * 60)) {
+                return true;
+            } else {
+                $pastSlots[] = $slot;
+                return false;
+            }
+        }
+    );
 }
 
 ?>
@@ -83,12 +97,12 @@ if (!empty($w->time['slots'])) {
                     <?php if ($w->time['open']) { ?>
                     <h4 class="available-time"><i class="fa fa-calendar"></i> <?= t('Open schedule') ?></h4>
                     <?php
-                    } elseif (isset($w->time['slots'])) {
+                    } elseif (!empty($futureSlots)) {
                     ?>
                     <h4 class="available-time">
-                        <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($slots)) ?>:<br />
+                        <i class="fa fa-calendar"></i> <?= t2('Next available day', 'Available dates', count($futureSlots)) ?>:<br />
                         <?php
-                        foreach ($w->time['slots'] as $slot) {
+                        foreach ($futureSlots as $slot) {
                             $start = DateTime::createFromFormat('U', $slot[0]);
                         ?>
                         <span class="highlight"><?= $start->format('F j, Y') ?></span>
@@ -213,6 +227,13 @@ if (!empty($w->time['slots'])) {
                         <?php (new Area('Downloads'))->display($c) ?>
                     </div>
                 </div>
+
+                <?php if (!empty($pastSlots)) { ?>
+                <div class="walk-past">
+                    <strong><?= t('Past Walk Dates') ?>: </strong>
+                    <?= implode(', ', array_map(function($slot) { return DateTime::createFromFormat('U', $slot[0])->format('F j, Y'); }, $pastSlots)) ?>
+                </div>
+                <?php } ?>
 
                 <div class="walk-aux">
                     <hr>
