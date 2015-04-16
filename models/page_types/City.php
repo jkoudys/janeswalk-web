@@ -169,7 +169,6 @@ class City extends \Model implements \JsonSerializable
             'shortDescription' => $this->shortDescription,
             'longDescription' => $this->longDescription,
             /* We'll assume Sponsors area's first block is the one with the description */
-            'sponsors' => $this->page->getBlocks('Sponsors')[0]->getController()->getContent(),
             'mirrors' =>  array_map(
                 function($mirror) {
                     return (string) $mirror;
@@ -183,6 +182,13 @@ class City extends \Model implements \JsonSerializable
                 split(',', $this->page->getAttribute('latlng'))
             )
         ];
+
+        // Load the sponsors from the first block
+        $sponsorsBlock = $this->page->getBlocks('Sponsors')[0];
+        // Don't try and load sponsors if the block is unset
+        if ($sponsorsBlock) {
+            $cityData['sponsors'] = $sponsorsBlock->getController()->getContent();
+        }
 
         // Load details on CO, only if not the site admin
         $coID = (int) $this->cityOrganizer->getUserID();
