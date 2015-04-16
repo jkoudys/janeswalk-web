@@ -1,8 +1,11 @@
+/**
+ * The 'login' modal that comes up on standard login, not to be confused
+ * with the login page.
+ */
 'use strict';
 
 var Login = React.createClass({
   getInitialState: function() {
-    // <?= (isset($uName) ? 'value="' . $uName . '"' : '') ?> 
     return {
       email: '',
       password: '',
@@ -13,6 +16,7 @@ var Login = React.createClass({
 
   handleReset: function(ev) {
     var _this = this;
+    // Post a reset request to the c5 endpoint for resets
     $.ajax({
       type: 'POST',
       url: CCM_REL + '/login/forgot_password',
@@ -43,6 +47,7 @@ var Login = React.createClass({
   handleSubmit: function(ev) {
     var _this = this;
     ev.preventDefault();
+    // Post the login to the c5 endpoint for logins
     $.ajax({
       type: 'POST',
       url: CCM_REL + '/login/do_login',
@@ -81,7 +86,7 @@ var Login = React.createClass({
           {this.state.message.msg}{this.state.message.error}
       </div>
     ) : null;
-    
+
     return (
       <dialog id="login">
         <div>

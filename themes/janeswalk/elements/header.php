@@ -1,5 +1,6 @@
-<?php  defined('C5_EXECUTE') || die('Access Denied.') ?>
-<!DOCTYPE html>
+<?php
+// TODO: Move all script imports to bottom. Block script load order requires React up here
+?><!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
@@ -17,6 +18,7 @@
 <![endif]-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/main.css">
+    <script src="<?= CONCRETE5_ENV === 'dev' ? '//cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react-with-addons.js' : '//cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react-with-addons.min.js' ?>"></script>
 <?php
     Loader::element('header_required');
 ?>

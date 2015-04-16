@@ -76,6 +76,9 @@ class CityPageTypeController extends Controller
         $this->set('canEdit', is_object(ComposerPage::getByID($this->c->getCollectionID())));
         $this->set('city', $this->city);
 
+        // Make JSON available
+        $this->addToJanesWalk(['city' => $this->city]);
+
         // Are there blog entries for this city?
         $blog = new PageList;
         $blog->filterByCollectionTypeHandle('city_blog');

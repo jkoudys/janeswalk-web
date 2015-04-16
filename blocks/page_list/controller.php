@@ -137,19 +137,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $this->set('lng', $latlng[1]);
             }
 
-            $this->pageData = array_map(
-                function($walk) {
-                    return [
-                        'name' => (string) $walk,
-                        'wards' => $walk->wards,
-                        'themes' => $walk->themes,
-                        'accessibilities' => $walk->accessible,
-                        'initiatives' => $walk->initiatives,
-                        'datetimes' => $walk->datetimes
-                    ];
-                },
-                $walksByDate
-            );
+            $this->pageData = ['walks' => $cards];
 
             // Filter out past walks
             // Check up to 2 days ago
@@ -246,7 +234,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             switch ($this->block->getBlockFilename()) {
             case 'walkcards':
             case 'walk_filters':
-                $this->addFooterItem('<script type="text/javascript">window.JanesWalk = Object.assign({}, window.JanesWalk, {walks:' . json_encode($this->pageData) . '});</script>');
+                $this->addFooterItem('<script type="text/javascript">window.JanesWalk = Object.assign({}, window.JanesWalk, ' . json_encode($this->pageData) . ');</script>');
                 break;
             default:
                 break;

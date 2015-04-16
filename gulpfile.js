@@ -71,22 +71,24 @@ gulp.task('browserify', function(callback) {
     .pipe(gulp.dest(paths.react_views))
 });
 
-// TODO: very lazy task; needs to be generalized for all blocks, not just one!
 gulp.task('blocks', function() {
-  return browserify({
-    shim: {
-      react: {
-        path: 'global:React',
-        exports: 'react'
-      }
-    },
-    entries: './blocks/page_list/templates/typeahead/view.jsx',
-    transform: [reactify],
-    extensions: ['.jsx']
-  })
-    .bundle()
-    .pipe(source('view.js'))
-    .pipe(gulp.dest('./blocks/page_list/templates/typeahead/'))
+  // Run for each block view in array
+  return ['./blocks/page_list/templates/typeahead/', './blocks/page_list/templates/walk_filters/'].map(function(template) {
+    return browserify({
+      shim: {
+        react: {
+          path: 'global:React',
+          exports: 'react'
+        }
+      },
+      entries: template + 'view.jsx',
+      transform: [reactify],
+      extensions: ['.jsx']
+    })
+      .bundle()
+      .pipe(source('view.js'))
+      .pipe(gulp.dest(template))
+  });
 });
 
 // Build JSON from the mo files
