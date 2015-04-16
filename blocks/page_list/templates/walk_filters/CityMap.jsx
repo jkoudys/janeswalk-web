@@ -91,7 +91,7 @@ CityMap.prototype = Object.create(React.Component.prototype, {
                 <h4 style={{marginBottom: '0.1em'}}>{walk.title}</h4>
                 {date}
                 <h6>Led by: {leaders.join(', ')}</h6>
-                <p>{walk.shortDescription} <a href={walk.url}>Read More</a></p>
+                <p>{walk.shortDescription} <a href={walk.url} target="_blank">Read More</a></p>
               </span>,
               infoNode
             );

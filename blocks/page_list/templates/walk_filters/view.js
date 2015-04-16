@@ -113,7 +113,7 @@ CityMap.prototype = Object.create(React.Component.prototype, {
                 React.createElement("h4", {style: {marginBottom: '0.1em'}}, walk.title), 
                 date, 
                 React.createElement("h6", null, "Led by: ", leaders.join(', ')), 
-                React.createElement("p", null, walk.shortDescription, " ", React.createElement("a", {href: walk.url}, "Read More"))
+                React.createElement("p", null, walk.shortDescription, " ", React.createElement("a", {href: walk.url, target: "_blank"}, "Read More"))
               ),
               infoNode
             );
