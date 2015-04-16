@@ -74,9 +74,9 @@ CityMap.prototype = Object.create(React.Component.prototype, {
             startTime > (Date.now() - 2 * 24 * 60 * 60 * 1000)) {
           // Walk location is meeting place coords
           if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
-            latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[1].lng);
+            latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
           } else if (Array.isArray(walk.map.route) && walk.map.route.length > 0) {
-            latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[1].lng);
+            latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
           }
 
           // Add the marker
