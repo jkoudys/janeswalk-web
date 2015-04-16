@@ -567,11 +567,14 @@ module.exports = FacebookShareDialog;
 
 
 },{}],5:[function(require,module,exports){
+/**
+ * The 'login' modal that comes up on standard login, not to be confused
+ * with the login page.
+ */
 'use strict';
 
 var Login = React.createClass({displayName: 'Login',
   getInitialState: function() {
-    // <?= (isset($uName) ? 'value="' . $uName . '"' : '') ?> 
     return {
       email: '',
       password: '',
@@ -582,6 +585,7 @@ var Login = React.createClass({displayName: 'Login',
 
   handleReset: function(ev) {
     var _this = this;
+    // Post a reset request to the c5 endpoint for resets
     $.ajax({
       type: 'POST',
       url: CCM_REL + '/login/forgot_password',
@@ -612,6 +616,7 @@ var Login = React.createClass({displayName: 'Login',
   handleSubmit: function(ev) {
     var _this = this;
     ev.preventDefault();
+    // Post the login to the c5 endpoint for logins
     $.ajax({
       type: 'POST',
       url: CCM_REL + '/login/do_login',
@@ -650,7 +655,7 @@ var Login = React.createClass({displayName: 'Login',
           this.state.message.msg, this.state.message.error
       )
     ) : null;
-    
+
     return (
       React.createElement("dialog", {id: "login"}, 
         React.createElement("div", null, 
@@ -4095,7 +4100,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
     value: function() {
       var archiveMessage = document.createElement('div');
       // JW dates are stored timezone-agnostic, e.g. an 0900 walk is at 0900 UTC
-      var utcTime = Date.now() - (new Date).getTimezoneOffset() * 60 * 1000;
+      var utcTime = Date.now() - (new Date()).getTimezoneOffset() * 60 * 1000;
       archiveMessage.classList.add('statusMessage');
       // TODO: Use translation functions once loaded by ReactJS
       archiveMessage.textContent = 'Ended';

@@ -59,6 +59,7 @@ CityMap.prototype = Object.create(React.Component.prototype, {
         var latlng;
         var marker;
         var startTime = (walk.time.slots.length > 0) && walk.time.slots[0][0] * 1000;
+        var twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000;
         var leaders;
         var icon = {
           path: google.maps.SymbolPath.CIRCLE,
@@ -71,7 +72,7 @@ CityMap.prototype = Object.create(React.Component.prototype, {
 
         // Check that it starts at latest 2 days ago
         if (walk.time.slots.length > 0 &&
-            startTime > (Date.now() - 2 * 24 * 60 * 60 * 1000)) {
+            startTime > twoDaysAgo) {
           // Walk location is meeting place coords
           if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
             latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
@@ -88,7 +89,6 @@ CityMap.prototype = Object.create(React.Component.prototype, {
           });
 
           google.maps.event.addListener(marker, 'click', function() {
-            var date = new Date(startTime);
             var date;
             var leaders = [];
 
@@ -103,9 +103,17 @@ CityMap.prototype = Object.create(React.Component.prototype, {
 
             // Best-effort grab of the time
             try {
+              // Show all dates joined together
               var dtfDate = new Intl.DateTimeFormat(undefined, {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
-              date = React.createElement("h6", null, React.createElement("i", {className: "fa fa-calendar"}), " ", dtfDate.format(startTime));
-            } catch(e) {}
+              var upcoming = walk.time.slots.filter(function(slot) {
+                // Get all the future walks
+                return (slot[0] * 1000) > twoDaysAgo;
+              });
+              date = React.createElement("h6", null, React.createElement("i", {className: "fa fa-calendar"}), " ", upcoming.map(function(slot) { return dtfDate.format(slot[0] * 1000);}).join(', '));
+            } catch(e) {
+              // Just log this, but don't die
+              console.error('Failed to parse walk time.');
+            }
 
             // Setup infowindow
             React.render(
