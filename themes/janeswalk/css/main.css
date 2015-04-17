@@ -10250,6 +10250,7 @@ body.city-page > #city-details .walk-list .filters li {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  margin-top: 15px;
 }
 @media (min-width: 992px) {
   body.city-page > #city-details .walk-list .filters li {
@@ -10263,6 +10264,10 @@ body.city-page > #city-details .walk-list .filters li label {
   line-height: 24px;
   color: #B36038;
   color: #333;
+}
+body.city-page > #city-details .walk-list .filters li .datepicker {
+  display: inline-block;
+  width: 40%;
 }
 body.city-page > #city-details .walk-list.showall {
   clear: both;

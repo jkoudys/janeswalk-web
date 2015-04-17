@@ -1,15 +1,25 @@
 <?php
 defined('C5_EXECUTE') || die('Access Denied.');
 
+// Build a list of unique upcoming dates
+$uniqueTimes = array_unique(array_map(function($card) { return (int) $card->time['slots'][0][0]; }, $cardsUpcoming));
+sort($uniqueTimes);
+$uniqueDates = array_map(
+    function($time) {
+        $dt = DateTime::createFromFormat('U', $time, new DateTimeZone('UTC'));
+        return $dt->format('M j, Y');
+    },
+    $uniqueTimes
+);
+
 // Give the human-readable name, and JS-usable key, for the filters
 $filterTuples = [
-    [$wardName, 'ward', $wards],
+    [$wardName, 'ward', array_combine($wards, $wards)],
     [t('Theme'), 'theme', $themes],
     [t('Accessibility'), 'accessibility', $accessibilities],
-    [t('Initiative'), 'initiative', $initiatives]
-//    [t('Day'), 'date', $dates]
+    [t('Initiative'), 'initiative', $initiatives],
+    [t('Date') . ' <small>(includes repeating dates)</small>', 'date', array_unique(array_combine($uniqueTimes, $uniqueDates))]
 ];
-
 ?>
 <section class="ccm-block-page-list-walk-filters">
     <div class="walk-filters">
@@ -36,7 +46,7 @@ $filterTuples = [
                         <select name="<?= $key ?>">
                             <option value="*">All</option>
                             <?php foreach ($data as $k => $datum) { ?>
-                            <option value="<?= is_string($k) ? $k : $datum ?>"><?= $datum ?></option>
+                            <option value="<?= $k ?>"><?= $datum ?></option>
                             <?php } ?>
                         </select>
                     </li>

@@ -125,7 +125,17 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         id: 'date',
         nodes: document.querySelectorAll('.filters select[name="date"] option'),
         compare: function(node, walk) {
-          return false;
+          var chosenDate = new Date(node.value * 1000);
+          if (Array.isArray(walk.time.slots)) {
+            return walk.time.slots.filter(function(slot) {
+              var date = new Date(slot[0] * 1000);
+              return (date.getUTCDay() === chosenDate.getUTCDay() &&
+                      date.getUTCMonth() === chosenDate.getUTCMonth() &&
+                      date.getUTCFullYear() === chosenDate.getUTCFullYear());
+            }).length > 0;
+          } else {
+            return false;
+          }
         }
       }];
     }
