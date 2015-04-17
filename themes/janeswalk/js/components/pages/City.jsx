@@ -26,6 +26,7 @@ var CityPageView = function(element) {
   //this._setupText2DonateInterstitials();
   $('.walks-filters .tag').tooltip();
 };
+
 CityPageView.prototype = Object.create(PageView.prototype, {
   /**
    * _accessibility
@@ -84,6 +85,53 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _ward: {value: null, writable: true},
 
   /**
+   * filters
+   */
+  getFilters: {
+    value: function() {
+      return [{
+        id: 'theme',
+        nodes: document.querySelectorAll('.filters select[name="theme"] option'),
+        compare: function(node, walk) {
+          return !!walk.checkboxes['theme-' + node.value];
+        }
+      },
+      {
+        id: 'accessibility',
+        nodes: document.querySelectorAll('.filters select[name="accessibility"] option'),
+        compare: function(node, walk) {
+          return !!walk.checkboxes['accessible-' + node.value];
+        }
+      },
+      {
+        id: 'ward',
+        nodes: document.querySelectorAll('.filters select[name="ward"] option'),
+        compare: function(node, walk) {
+          return node.value.indexOf(walk.wards) > -1;
+        }
+      },
+      {
+        id: 'initiative',
+        nodes: document.querySelectorAll('.filters select[name="initiative"] option'),
+        compare: function(node, walk) {
+          if (Array.isArray(walk.intitiatives)) {
+            return walk.initiatives.indexOf(node.value) > -1;
+          } else {
+            return false;
+          }
+        }
+      },
+      {
+        id: 'date',
+        nodes: document.querySelectorAll('.filters select[name="date"] option'),
+        compare: function(node, walk) {
+          return false;
+        }
+      }];
+    }
+  },
+
+  /**
    * _isMobile
    *
    * @protected
@@ -103,7 +151,16 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _initData: {
     value: function(data, cards) {
       return data.map(function(data, i) {
-        data.card = cards[i];
+        data.cards = [].filter.call(cards, function(card) {
+          if (data.url === card.querySelector('a').href) {
+            // See if its date is in our slots
+            if (data.time.slots) {
+              return data.time.slots.filter(function(slot) {
+                return (slot[0] + '000') == card.dataset.timeStart;
+              }).length > 0;
+            }
+          }
+        });
         return data;
       });
     }
@@ -279,62 +336,31 @@ CityPageView.prototype = Object.create(PageView.prototype, {
    */
   _setThemeCounts: {
     value: function() {
-      var _this = this,
-      count,
-      forEach = Function.prototype.call.bind(Array.prototype.forEach),
-      el = this._element[0],
-      countFilterMatches = function(option, index) {
-        var filterCheck = option.getAttribute('value');
+      var _this = this;
 
-        // Default to checking option property in filter
-        var compare_fn = this.compare_fn || function(f, o) { return f && f[o]; };
-
-        if (filterCheck !== '*') {
-          count = 0;
-          for(var i in _this._data) {
-            if(compare_fn(_this._data[i][this.filter], filterCheck)) {
-              ++count;
+      // Go through each filter list
+      this.getFilters().forEach(function(filter) {
+        // Compare all the filter options and see which match this walk
+        [].forEach.call(filter.nodes, function(node) {
+          var count = 0;
+          if (node.value !== '*') {
+            // Loop through all the walks
+            _this._data.forEach(function(walk) {
+              // Don't check if it's the wildcard match
+              if (filter.compare(node, walk)) {
+                count++;
+              }
+            });
+            // If no walks match this filter, don't bother showing it
+            if (count === 0) {
+              node.parentElement.removeChild(node);
+            } else {
+              // Show the matching walks count on the option
+              node.textContent += ' (' + count + ')';
             }
           }
-          option.textContent += ' (' + count + ')';
-          if (count === 0) {
-            option.parentElement.removeChild(option);
-          }
-        }
-      };
-
-      forEach(
-        el.querySelectorAll('.filters select[name="theme"] option'),
-        countFilterMatches,
-        {filter: 'themes'}
-      );
-      forEach(
-        el.querySelectorAll('.filters select[name="accessibility"] option'),
-        countFilterMatches,
-        {filter: 'accessibilities'}
-      );
-      forEach(
-        el.querySelectorAll('.filters select[name="ward"] option'),
-        countFilterMatches,
-        {filter: 'wards'}
-      );
-      forEach(
-        el.querySelectorAll('.filters select[name="initiative"] option'),
-        countFilterMatches,
-        {filter: 'initiatives'}
-      );
-      forEach(
-        el.querySelectorAll('.filters select[name="date"] option'),
-        countFilterMatches,
-        {
-          filter: 'datetimes',
-          compare_fn: function compareDate(filter, optionValue) {
-            for (var i = 0; i < filter.length; i++) {
-              return filter[i].date.indexOf(optionValue) !== -1;
-            } 
-          } 
-        }
-      );
+        });
+      });
     }
   },
 
@@ -481,42 +507,45 @@ CityPageView.prototype = Object.create(PageView.prototype, {
    */
   _filterCards: {
     value: function() {
-      var _this = this,
-      showing = 0,
-      // Returns 'true' if this thing passes through the filter
-      filterMatch = function(filter, dataset) {
-        return (filter === '*') || (dataset && dataset[filter]);
-      },
-      filterDate = function(dateList, date) {
-        if (date === '*') {
-          return true;
-        }
-        for (var i = 0; i < dateList.length; i++) {
-          if (dateList[i].date.indexOf(date) > -1) {
-            return true;
+      var _this = this;
+      var empty = true;
+      var filters = this.getFilters();
+      var appliedFilters = filters.filter(function(filter) {
+        return filter.nodes.length > 0 && filter.nodes[0].parentElement.selectedIndex > 0;
+      });
+
+      // Check if we have any filters - if not, show all
+      if (appliedFilters.length > 0) {
+        // Loop through the walks
+        this._data.forEach(function(walk) {
+          // Innocent until proven guilty
+          var matched = true;
+          appliedFilters.forEach(function(filter) {
+            var option = filter.nodes[0].parentElement.selectedOptions[0];
+            if (filter.compare(option, walk)) {
+              matched = true && matched;
+            } else {
+              matched = false;
+            }
+          });
+          if (matched) {
+            walk.cards.forEach(function(card) { card.classList.remove('hidden'); });
+            empty = false;
+          } else {
+            walk.cards.forEach(function(card) { card.classList.add('hidden'); });
           }
+        });
+
+        // Empty state
+        if (empty) {
+          this._element.find('.empty').removeClass('hidden');
+        } else {
+          this._element.find('.empty').addClass('hidden');
         }
-        return false;
-      };
-
-      // Hide the cards first
-      this._cards.forEach(function(card) {
-        card.classList.add('hidden');
-      });
-
-      // Go through all the cards
-      this._data.forEach(function(data, index) {
-        // Check if we should show this card
-        if (filterMatch(_this._ward, data.wards) && filterMatch(_this._theme, data.themes) && filterMatch(_this._accessibility, data.accessibilities) &&  filterMatch(_this._initiative, data.initiatives) && filterDate(data.datetimes, _this._date)) {
-          ++showing;
-          data.card.classList.remove("hidden");
-        }
-      });
-
-      // Empty state
-      this._element.find('.empty').addClass('hidden');
-      if (showing === 0) {
-        this._element.find('.empty').removeClass('hidden');
+      } else {
+        this._data.forEach(function(walk) {
+          walk.cards.forEach(function(card) { card.classList.remove('hidden'); });
+        });
       }
     }
   },
@@ -531,13 +560,13 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _addLinkListeners: {
     value: function() {
       var _this = this;
-      Array.prototype.forEach.call(document.querySelectorAll('.walk .tags > li'), function(tooltip) {
+      [].forEach.call(document.querySelectorAll('.walk .tags > li'), function(tooltip) {
         tooltip.addEventListener('click', function(event) {
           var tag = this;
           var themeSelect = document.querySelector('select[name=theme]');
           event.preventDefault();
           // Equivalent to choosing it from the dropdown options
-          Array.prototype.forEach.call(
+          [].forEach.call(
             themeSelect.querySelectorAll('option'),
             function(el, i) {
               if (el.value === tag.dataset.theme) {
@@ -581,26 +610,6 @@ CityPageView.prototype = Object.create(PageView.prototype, {
       var _this = this;
       this._element.find('.filters select').change(function(event) {
         event.preventDefault();
-        _this._ward = '*';
-        if (_this._element.find('select[name="ward"]').length > 0) {
-          _this._ward = _this._element.find('select[name="ward"]').val();
-        }
-        _this._theme = '*';
-        if (_this._element.find('select[name="theme"]').length > 0) {
-          _this._theme = _this._element.find('select[name="theme"]').val();
-        }
-        _this._accessibility = '*';
-        if (_this._element.find('select[name="accessibility"]').length > 0) {
-          _this._accessibility = _this._element.find('select[name="accessibility"]').val();
-        }
-        _this._initiative = '*';
-        if (_this._element.find('select[name="initiative"]').length > 0) {
-          _this._initiative = _this._element.find('select[name="initiative"]').val();
-        }
-        _this._date = '*';
-        if (_this._element.find('select[name="date"]').length > 0) {
-          _this._date = _this._element.find('select[name="date"]').val();
-        }
         _this._setHash();
         _this._filterCards();
       });
