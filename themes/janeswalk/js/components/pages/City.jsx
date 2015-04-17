@@ -364,7 +364,7 @@ CityPageView.prototype = Object.create(PageView.prototype, {
             // If no walks match this filter, don't bother showing it
             if (count === 0) {
               node.parentElement.removeChild(node);
-            } else {
+            } else if (filter.id !== 'date') {
               // Show the matching walks count on the option
               node.textContent += ' (' + count + ')';
             }
