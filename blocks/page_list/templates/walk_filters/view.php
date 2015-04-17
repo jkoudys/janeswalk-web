@@ -92,8 +92,8 @@ $filterTuples = [
                 </div>
 
                 <div class="empty hidden">
-                    <?= t('No walks found') ?><br />
-                    <?= t('Try another region or theme') ?>
+                    <h4><?= t('Keep looking.') ?></h4>
+                    <p><?= t('We couldn\'t find any walks to match your search. Try setting one of your search options back to "All"') ?></p>
                 </div>
                 <?php include(__DIR__ . '/../walkcards/view.php'); /* TODO: use a c5 function for loading this */ ?>
             </section>
