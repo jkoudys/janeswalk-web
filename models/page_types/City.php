@@ -12,6 +12,7 @@ use \Page;
 use \UserInfo;
 use \User;
 use \PageList;
+use \SelectAttributeTypeOptionList;
 use JanesWalk\Models\PageTypes\Walk;
 
 defined('C5_EXECUTE') || die('Access Denied.');
@@ -161,6 +162,15 @@ class City extends \Model implements \JsonSerializable
         $mirrors = $this->page->getAttribute('mirrors');
         $mirrorOptions = $mirrors ? $mirrors->getOptions() : [];
 
+        // Load our list of wards/boroughs/regions
+        $city_wards = $this->page->getAttribute('city_wards');
+        // Validate we retrieved this attribute
+        if ($city_wards instanceof SelectAttributeTypeOptionList) {
+            $wards = $city_wards->getOptions();
+        } else {
+            $wards = [];
+        }
+
         // Set basic city data
         $cityData = [
             'name' => $this->title,
@@ -180,6 +190,12 @@ class City extends \Model implements \JsonSerializable
                     return (float) $coord;
                 },
                 split(',', $this->page->getAttribute('latlng'))
+            ),
+            'wards' => array_map(
+                function($ward) {
+                    return ['id' => $ward->ID, 'value' => $ward->value];
+                },
+                $wards
             )
         ];
 
