@@ -142,9 +142,13 @@ class Walk extends \Model implements \JsonSerializable
             $theme = \PageTheme::getByHandle('janeswalk');
             $this->teamPictures = array_map(
                 function ($mem) use ($theme) {
+                    // TODO: deprecate this special-casing around the member 'you'
                     if ($mem['type'] === 'you') {
-                        $mem['type'] = ($mem['role'] === 'walk-organizer') ?
-                        'organizer' : 'leader';
+                        if ($mem['role'] === 'walk-organizer' || $mem['role'] === 'Walk Organizer') {
+                            $mem['type'] = 'organizer';
+                        } else {
+                            $mem['type'] = 'leader';
+                        }
                     }
                     switch ($mem['type']) {
                     case 'leader':

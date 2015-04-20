@@ -185,7 +185,7 @@ if (!empty($w->time['slots'])) {
                         View in Google Maps
                     </a>
                     <ol>
-                        <?php foreach($w->map['markers'] as $key => $marker) { ?>
+                        <?php foreach ($w->map['markers'] as $key => $marker) { ?>
                         <li class="walk-stop" id="<?= ($key) ?>">
                             <h4><?= $marker['title'] ?></h4>
                             <p><?= $marker['description'] ?></p>
