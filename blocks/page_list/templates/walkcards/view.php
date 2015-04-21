@@ -3,7 +3,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 
 // This may be included by other templates which want to render a card with the same content
 // TODO: turn into a ReactJS template
-foreach ($cards as $walk) {
+foreach ($cardsUpcoming as $walk) {
     $link = $nh->getLinkToCollection($walk->getPage());
     $placeholder = 'placeholder' . $walk->getPage()->getCollectionID() % 3;
     if ($walk->thumbnail) {
