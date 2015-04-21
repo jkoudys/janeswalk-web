@@ -162,7 +162,6 @@ class WalkPageTypeController extends Controller
         $this->c->setAttribute('exclude_page_list',true);
 
         // TODO: Update the MirrorWalk to unpublish
-        
         echo json_encode([
             'cID' => $this->walk->getPage()->getCollectionID(),
         ]);
@@ -172,6 +171,8 @@ class WalkPageTypeController extends Controller
     /**
      * getJson
      * TODO: Replace with view logic on 5.7
+     * TODO: put similar caching logic to the city page in here. Low priority,
+     * as these pages render fast.
      *
      * @return string of walk's json
      */
@@ -325,5 +326,8 @@ class WalkPageTypeController extends Controller
      */
     public function on_page_update(Page $self)
     {
+        // Clear out the parent cache entry
+        $parent = Page::getByID($self->getCollectionParentID());
+        Cache::delete('page_' . $parent->getCollectionTypeHandle(), $parent->getCollectionId());
     }
 }

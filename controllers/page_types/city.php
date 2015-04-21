@@ -40,10 +40,18 @@ class CityPageTypeController extends Controller
 
     protected function getJson()
     {
-        // The city itself includes the walks for now, so merge in controller
-        return json_encode(
-            array_merge($this->city->jsonSerialize(), ['walks' => $this->city->getWalks()])
-        );
+        // Encode the model, or return if it's cached already.
+        $cached = Cache::get('page_' . $this->c->getCollectionTypeHandle(), $this->c->getCollectionId());
+        if ($cached) {
+            return $cached;
+        } else {
+            // The city itself includes the walks for now, so merge in controller
+            $json =  json_encode(
+                array_merge($this->city->jsonSerialize(), ['walks' => $this->city->getWalks()])
+            );
+            Cache::set('page_' . $this->c->getCollectionTypeHandle(), $this->c->getCollectionId(), $json);
+            return $json;
+        }
     }
 
     /**
