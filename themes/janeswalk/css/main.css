@@ -10520,6 +10520,9 @@ body.city-page > #city-details .walk-list .walk.hidden {
     display: none;
   }
 }
+body.city-page > #city-details .walk-list .tab-content {
+  clear: both;
+}
 @media (max-width: 992px) {
   body.city-page > #city-details {
     top: 0;
