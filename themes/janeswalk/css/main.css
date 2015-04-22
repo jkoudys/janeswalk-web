@@ -13083,3 +13083,25 @@ body[data-pageviewname=CreateWalkView] {
   opacity: 0.65;
   pointer-events: none;
 }
+/* Language localization */
+body:lang(he) p,
+body:lang(he) h1,
+body:lang(he) h2,
+body:lang(he) h3,
+body:lang(he) h4,
+body:lang(he) h5,
+body:lang(he) article,
+body:lang(he) section,
+body:lang(he) #intro-city,
+body:lang(he) .btn,
+body:lang(he) a,
+body:lang(he) body.city-page > #city-details .create-walk,
+body:lang(he) body.city-page > #city-details .create-walk:after,
+body:lang(he) #create-walk #map-control-bar button,
+body:lang(he) #create-walk #map-control-bar button.active,
+body:lang(he) #create-walk #map-control-bar .loadFeed,
+body:lang(he) #create-walk .filterInputs .filter input[type=submit],
+body:lang(he) #create-walk .filterInputs .filter input[type=button] {
+  font-family: "Alef", "Roboto Slab", serif;
+  /* TODO: direction: rtl; */
+}
