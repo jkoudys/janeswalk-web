@@ -329,5 +329,8 @@ class WalkPageTypeController extends Controller
         // Clear out the parent cache entry
         $parent = Page::getByID($self->getCollectionParentID());
         Cache::delete('page_' . $parent->getCollectionTypeHandle(), $parent->getCollectionId());
+        // Clear out the parent full-page cache
+        $pageCache = PageCache::getLibrary();
+        $pageCache->purge($parent);
     }
 }

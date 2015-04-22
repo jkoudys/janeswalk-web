@@ -8,44 +8,39 @@ function WalkStopTable() {}
 WalkStopTable.prototype = Object.create(React.Component.prototype, {
   constructor: {value: WalkStopTable},
 
-  componentDidMount: {
-    value: function() {
-      // Setup sorting on the walk-stops list
-      $(React.findDOMNode(this)).sortable({
-        items: 'tbody tr',
-        update: function(event, ui) {
-          this.props.insertBefore(
-            this.props.markers.getAt(ui.item.data('position')),
-            this.props.markers.getAt(ui.item.index())
-          );
-        }.bind(this)
-      });
-    }
-  },
-
   render: {
     value: function() {
       var t = this.props.i18n.translate.bind(this.props.i18n);
+      var markersSet = this.props.markers.getArray();
       return (
-        <table ref="routeStops" className="table table-bordered table-hover">
+        <table ref="routeStops" className="table-hover routeStops">
           <thead>
             <tr>
               <th>{ t('Title') }</th>
               <th>{ t('Description') }</th>
+              <th className="controls"><i className="fa fa-arrows" /></th>
               <th><i className="fa fa-trash-o" /></th>
             </tr>
           </thead>
           <tbody>
-            {this.props.markers.getArray().map(function(marker, i) {
+            {markersSet.map(function(marker, i) {
               var titleObj = JSON.parse(marker.title);
-              var showInfoWindow = function() {
-                this.props.showInfoWindow(marker);
-              }.bind(this);
-              var deleteMarker = function() {
-                this.props.deleteMarker(marker);
-              }.bind(this);
+              var showInfoWindow = this.props.showInfoWindow.bind(this, marker);
               var imageThumb = null;
 
+              // Up/down arrows
+              if (i > 0) {
+                var upArrow = <a className="move-marker-up" onClick={this.props.moveBefore.bind(this, i, i - 1)}>
+                  <i className="fa fa-arrow-up" />
+                </a>;
+              }
+              if (i < markersSet.length - 1) {
+                var downArrow = <a className="move-marker-down" onClick={this.props.moveBefore.bind(this, i, i + 1)}>
+                  <i className="fa fa-arrow-down" />
+                </a>;
+              }
+
+              // The picture of the stop given in media
               if (titleObj.media) {
                 if (titleObj.media.type === 'instagram') {
                   imageThumb = <img src={titleObj.media.url + 'media?size=t'} />;
@@ -56,7 +51,11 @@ WalkStopTable.prototype = Object.create(React.Component.prototype, {
                   <td onClick={showInfoWindow}>{imageThumb}{titleObj.title}</td>
                   <td onClick={showInfoWindow}>{titleObj.description}</td>
                   <td>
-                    <a className="delete-stop" onClick={deleteMarker}>
+                    {downArrow}
+                    {upArrow}
+                  </td>
+                  <td>
+                    <a className="delete-stop" onClick={this.props.deleteMarker.bind(this, marker)}>
                       <i className="fa fa-times-circle-o" />
                     </a>
                   </td>

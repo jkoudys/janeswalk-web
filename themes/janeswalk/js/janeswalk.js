@@ -1884,18 +1884,17 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
   },
 
   /**
-   * Insert a marker before a reference marker. If no reference, insert at end.
-   * @param google.maps.Marker marker 
-   * @param google.maps.Marker referenceMarker
+   * Reorder the marker at index to a new position, pushing up those after
+   * @param int from
+   * @param int to
    */
-  insertBefore: {
-    value: function(marker, referenceMarker) {
+  moveBefore: {
+    value: function(from, to) {
       var markers = this.state.markers;
-      if (referenceMarker) {
-        markers.insertAt(markers.getArray().indexOf(referenceMarker), marker);
-      } else {
-        markers.push(marker);
-      }
+      var fMarker = markers.getAt(from);
+      markers.removeAt(from);
+      markers.insertAt(to, fMarker);
+
       this.setState({markers: markers}, this.syncState);
     }
   },
@@ -2023,7 +2022,7 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
             i18n: this.props.i18n, 
             markers: this.state.markers, 
             deleteMarker: this.deleteMarker.bind(this), 
-            insertBefore: this.insertBefore.bind(this), 
+            moveBefore: this.moveBefore.bind(this), 
             showInfoWindow: this.showInfoWindow.bind(this)}
           )
         ];
@@ -3504,44 +3503,39 @@ function WalkStopTable() {}
 WalkStopTable.prototype = Object.create(React.Component.prototype, {
   constructor: {value: WalkStopTable},
 
-  componentDidMount: {
-    value: function() {
-      // Setup sorting on the walk-stops list
-      $(React.findDOMNode(this)).sortable({
-        items: 'tbody tr',
-        update: function(event, ui) {
-          this.props.insertBefore(
-            this.props.markers.getAt(ui.item.data('position')),
-            this.props.markers.getAt(ui.item.index())
-          );
-        }.bind(this)
-      });
-    }
-  },
-
   render: {
     value: function() {
       var t = this.props.i18n.translate.bind(this.props.i18n);
+      var markersSet = this.props.markers.getArray();
       return (
-        React.createElement("table", {ref: "routeStops", className: "table table-bordered table-hover"}, 
+        React.createElement("table", {ref: "routeStops", className: "table-hover routeStops"}, 
           React.createElement("thead", null, 
             React.createElement("tr", null, 
               React.createElement("th", null,  t('Title') ), 
               React.createElement("th", null,  t('Description') ), 
+              React.createElement("th", {className: "controls"}, React.createElement("i", {className: "fa fa-arrows"})), 
               React.createElement("th", null, React.createElement("i", {className: "fa fa-trash-o"}))
             )
           ), 
           React.createElement("tbody", null, 
-            this.props.markers.getArray().map(function(marker, i) {
+            markersSet.map(function(marker, i) {
               var titleObj = JSON.parse(marker.title);
-              var showInfoWindow = function() {
-                this.props.showInfoWindow(marker);
-              }.bind(this);
-              var deleteMarker = function() {
-                this.props.deleteMarker(marker);
-              }.bind(this);
+              var showInfoWindow = this.props.showInfoWindow.bind(this, marker);
               var imageThumb = null;
 
+              // Up/down arrows
+              if (i > 0) {
+                var upArrow = React.createElement("a", {className: "move-marker-up", onClick: this.props.moveBefore.bind(this, i, i - 1)}, 
+                  React.createElement("i", {className: "fa fa-arrow-up"})
+                );
+              }
+              if (i < markersSet.length - 1) {
+                var downArrow = React.createElement("a", {className: "move-marker-down", onClick: this.props.moveBefore.bind(this, i, i + 1)}, 
+                  React.createElement("i", {className: "fa fa-arrow-down"})
+                );
+              }
+
+              // The picture of the stop given in media
               if (titleObj.media) {
                 if (titleObj.media.type === 'instagram') {
                   imageThumb = React.createElement("img", {src: titleObj.media.url + 'media?size=t'});
@@ -3552,7 +3546,11 @@ WalkStopTable.prototype = Object.create(React.Component.prototype, {
                   React.createElement("td", {onClick: showInfoWindow}, imageThumb, titleObj.title), 
                   React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
                   React.createElement("td", null, 
-                    React.createElement("a", {className: "delete-stop", onClick: deleteMarker}, 
+                    downArrow, 
+                    upArrow
+                  ), 
+                  React.createElement("td", null, 
+                    React.createElement("a", {className: "delete-stop", onClick: this.props.deleteMarker.bind(this, marker)}, 
                       React.createElement("i", {className: "fa fa-times-circle-o"})
                     )
                   )

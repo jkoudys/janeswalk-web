@@ -273,18 +273,17 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
   },
 
   /**
-   * Insert a marker before a reference marker. If no reference, insert at end.
-   * @param google.maps.Marker marker 
-   * @param google.maps.Marker referenceMarker
+   * Reorder the marker at index to a new position, pushing up those after
+   * @param int from
+   * @param int to
    */
-  insertBefore: {
-    value: function(marker, referenceMarker) {
+  moveBefore: {
+    value: function(from, to) {
       var markers = this.state.markers;
-      if (referenceMarker) {
-        markers.insertAt(markers.getArray().indexOf(referenceMarker), marker);
-      } else {
-        markers.push(marker);
-      }
+      var fMarker = markers.getAt(from);
+      markers.removeAt(from);
+      markers.insertAt(to, fMarker);
+
       this.setState({markers: markers}, this.syncState);
     }
   },
@@ -412,7 +411,7 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
             i18n={this.props.i18n}
             markers={this.state.markers}
             deleteMarker={this.deleteMarker.bind(this)}
-            insertBefore={this.insertBefore.bind(this)}
+            moveBefore={this.moveBefore.bind(this)}
             showInfoWindow={this.showInfoWindow.bind(this)}
           />
         ];
