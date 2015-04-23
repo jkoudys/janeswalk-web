@@ -3839,8 +3839,11 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         id: 'initiative',
         nodes: document.querySelectorAll('.filters select[name="initiative"] option'),
         compare: function(node, walk) {
-          if (Array.isArray(walk.intitiatives)) {
-            return walk.initiatives.indexOf(node.value) > -1;
+          if (Array.isArray(walk.initiatives)) {
+            // See if any of the walk initiatives match this ID
+            return walk.initiatives.some(function(walk) {
+              return walk.id == node.value;
+            });
           } else {
             return false;
           }
@@ -4078,10 +4081,11 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         // Compare all the filter options and see which match this walk
         [].forEach.call(filter.nodes, function(node) {
           var count = 0;
+          // Don't check if it's the wildcard match
           if (node.value !== '*') {
             // Loop through all the walks
             _this._data.forEach(function(walk) {
-              // Don't check if it's the wildcard match
+              // Count this in our filter list if it matches a walk
               if (filter.compare(node, walk)) {
                 count++;
               }
@@ -4090,6 +4094,8 @@ CityPageView.prototype = Object.create(PageView.prototype, {
             if (count === 0) {
               node.parentElement.removeChild(node);
             } else if (filter.id !== 'date') {
+              // Don't show the number of matching dates -- misleading with
+              // multi-date walks.
               // Show the matching walks count on the option
               node.textContent += ' (' + count + ')';
             }
@@ -5180,6 +5186,9 @@ module.exports = WalkPageView;
 // Shims, polyfills, etc.
 // dataset
 Function.prototype.bind||(Function.prototype.bind=function(e){"use strict";if(typeof this!="function")throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");var t=Array.prototype.slice.call(arguments,1),n=this,r=function(){},i=function(){return n.apply(this instanceof r&&e?this:e,t.concat(Array.prototype.slice.call(arguments)))};return r.prototype=this.prototype,i.prototype=new r,i}),function(){"use strict";var e=Object.prototype,t=e.__defineGetter__,n=e.__defineSetter__,r=e.__lookupGetter__,i=e.__lookupSetter__,s=e.hasOwnProperty;t&&n&&r&&i&&(Object.defineProperty||(Object.defineProperty=function(e,o,u){if(arguments.length<3)throw new TypeError("Arguments not optional");o+="";if(s.call(u,"value")){!r.call(e,o)&&!i.call(e,o)&&(e[o]=u.value);if(s.call(u,"get")||s.call(u,"set"))throw new TypeError("Cannot specify an accessor and a value")}if(!(u.writable&&u.enumerable&&u.configurable))throw new TypeError("This implementation of Object.defineProperty does not support false for configurable, enumerable, or writable.");return u.get&&t.call(e,o,u.get),u.set&&n.call(e,o,u.set),e}),Object.getOwnPropertyDescriptor||(Object.getOwnPropertyDescriptor=function(e,t){if(arguments.length<2)throw new TypeError("Arguments not optional.");t+="";var n={configurable:!0,enumerable:!0,writable:!0},o=r.call(e,t),u=i.call(e,t);return s.call(e,t)?!o&&!u?(n.value=e[t],n):(delete n.writable,n.get=n.set=undefined,o&&(n.get=o),u&&(n.set=u),n):n}),Object.defineProperties||(Object.defineProperties=function(e,t){var n;for(n in t)s.call(t,n)&&Object.defineProperty(e,n,t[n])}))}();if(!document.documentElement.dataset&&(!Object.getOwnPropertyDescriptor(Element.prototype,"dataset")||!Object.getOwnPropertyDescriptor(Element.prototype,"dataset").get)){var propDescriptor={enumerable:!0,get:function(){"use strict";var e,t=this,n,r,i,s,o,u=this.attributes,a=u.length,f=function(e){return e.charAt(1).toUpperCase()},l=function(){return this},c=function(e,t){return typeof t!="undefined"?this.setAttribute(e,t):this.removeAttribute(e)};try{(({})).__defineGetter__("test",function(){}),n={}}catch(h){n=document.createElement("div")}for(e=0;e<a;e++){o=u[e];if(o&&o.name&&/^data-\w[\w\-]*$/.test(o.name)){r=o.value,i=o.name,s=i.substr(5).replace(/-./g,f);try{Object.defineProperty(n,s,{enumerable:this.enumerable,get:l.bind(r||""),set:c.bind(t,i)})}catch(p){n[s]=r}}}return n}};try{Object.defineProperty(Element.prototype,"dataset",propDescriptor)}catch(e){propDescriptor.enumerable=!1,Object.defineProperty(Element.prototype,"dataset",propDescriptor)}};
+
+// Array.prototype.some
+Array.prototype.some||(Array.prototype.some=function(a){"use strict";if(null==this)throw new TypeError("Array.prototype.some called on null or undefined");if("function"!=typeof a)throw new TypeError;for(var b=Object(this),c=b.length>>>0,d=arguments.length>=2?arguments[1]:void 0,e=0;c>e;e++)if(e in b&&a.call(d,b[e],e,b))return!0;return!1});
 
 // Object.assign, useful for merging objects
 if (!Object.assign) {

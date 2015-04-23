@@ -18,7 +18,7 @@ $filterTuples = [
     [t('Theme'), 'theme', $themes],
     [t('Accessibility'), 'accessibility', $accessibilities],
     [t('Initiative'), 'initiative', $initiatives],
-    [t('Date') . ' <small>(includes repeating dates)</small>', 'date', array_unique(array_combine($uniqueTimes, $uniqueDates))]
+    [t('Date') . ' <small>(includes repeating dates)</small>', 'date', array_unique(array_combine($uniqueTimes, $uniqueDates))],
 ];
 ?>
 <section class="ccm-block-page-list-walk-filters">
@@ -55,42 +55,6 @@ $filterTuples = [
             }
 ?>
                 </ul>
-                <div class="initiatives hidden">
-                    <div class="initiative hidden" data-jw-initiative="Open Streets TO">
-                        <div class="headline">What is Open Streets TO?</div>
-                        <p>
-                            Open Streets TO involves briefly closing Bloor St to vehicle
-                            traffic, and opening it to everyone else for fun, safe, and
-                            free recreational activities. Open Streets programs take place
-                            in cities around the world, usually on Sunday mornings and
-                            typically last for about 6 hours. Participants can bike, run,
-                            rollerblade, hopscotch, do yoga, skateboard, unicycle... you
-                            get the picture.
-                        </p>
-                        <div class="subheadline">Event dates:</div>
-                        <div class="dates">
-                            July 27, 2014<br />
-                            August 3, 2014<br />
-                            August 17, 2014
-                        </div>
-                    </div>
-                    <div class="initiative hidden" data-jw-initiative="100 in 1 Day">
-                        <div class="headline">What is 100 In 1 Day?</div>
-                        <p>
-                            100 in 1 Day is a citizen-driven festival will unite people
-                            across the city to make Toronto a better place by creating
-                            acts of urban change. These acts, or interventions, have the
-                            potential to raise awareness of urban and social issues,
-                            inspire ideas, and motivate leaders to consider new approaches
-                            to old problems.
-                        </p>
-                        <div class="subheadline">Event dates:</div>
-                        <div class="dates">
-                            June 7, 2014
-                        </div>
-                    </div>
-                </div>
-
                 <div class="empty hidden">
                     <h4><?= t('Keep looking.') ?></h4>
                     <p><?= t('We couldn\'t find any walks to match your search. Try setting one of your search options back to "All"') ?></p>

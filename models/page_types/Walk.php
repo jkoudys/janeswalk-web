@@ -273,7 +273,7 @@ class Walk extends \Model implements \JsonSerializable
 
             $this->page->setAttribute('gmap', json_encode($postArray['map']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
-            
+
             if (count($postArray['thumbnails']) && File::getByID($postArray['thumbnails'][0]['id'])) {
                 $this->page->setAttribute(
                     'thumbnail',
@@ -300,8 +300,8 @@ class Walk extends \Model implements \JsonSerializable
                 ' failed on page ' . $this->page->title . ': ' . $e
             );
             $ok = false;
-        } 
-        
+        }
+
         $db->CompleteTrans();
 
         return $ok;
@@ -347,6 +347,15 @@ class Walk extends \Model implements \JsonSerializable
             ];
         }
 
+        // Load any initiatives, e.g. Greenbelt, 100 in 1 day, etc.
+        $initiatives = $this->page->getAttribute('walk_initiatives');
+        $walkData['initiatives'] = [];
+        if ($initiatives) {
+            foreach ($initiatives as $initiative) {
+                $walkData['initiatives'][] = ['id' => $initiative->ID, 'name' => $initiative->value];
+            }
+        }
+
         // Callback, in case we define more checkbox groups
         // Map their key names here to ones the service-consumers understand
         $checkboxes = [];
@@ -385,7 +394,7 @@ class Walk extends \Model implements \JsonSerializable
             $m->setAttribute('lat', $marker['lat']);
             $m->setAttribute('lng', $marker['lng']);
         }
-        
+
         $coorStr = '';
         foreach ($this->map['route'] as $route) {
             // Creates a coordinates element and gives it the value of the lng and lat columns from the results.

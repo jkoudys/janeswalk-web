@@ -176,17 +176,13 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             $accessibilities = ThemeHelper::getAll('accessibilities');
             asort($accessibilities);
 
-            // Intiatives
-            if ($c->getCollectionName() === 'Toronto') {
-                $initiatives = array();
-                $ak = CollectionAttributeKey::getByHandle('walk_initiatives');
-                $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
-                if ($ak) {
-                    $satc->setAttributeKey($ak);
-                    foreach ($satc->getOptions() as $option) {
-                        $initiatives[] = $option->value;
-                    }
+            // Initiatives
+            $initiatives = [];
+            if (strpos($c->getCollectionPath(), 'burlington') !== false) {
+                foreach ($c->getAttribute('walk_initiatives') as $initiative) {
+                    $initiatives[$initiative->ID] = $initiative->value;
                 }
+                unset($initiative);
             }
 
             // Ward semantics

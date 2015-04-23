@@ -114,8 +114,11 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         id: 'initiative',
         nodes: document.querySelectorAll('.filters select[name="initiative"] option'),
         compare: function(node, walk) {
-          if (Array.isArray(walk.intitiatives)) {
-            return walk.initiatives.indexOf(node.value) > -1;
+          if (Array.isArray(walk.initiatives)) {
+            // See if any of the walk initiatives match this ID
+            return walk.initiatives.some(function(walk) {
+              return walk.id == node.value;
+            });
           } else {
             return false;
           }
@@ -353,10 +356,11 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         // Compare all the filter options and see which match this walk
         [].forEach.call(filter.nodes, function(node) {
           var count = 0;
+          // Don't check if it's the wildcard match
           if (node.value !== '*') {
             // Loop through all the walks
             _this._data.forEach(function(walk) {
-              // Don't check if it's the wildcard match
+              // Count this in our filter list if it matches a walk
               if (filter.compare(node, walk)) {
                 count++;
               }
@@ -365,6 +369,8 @@ CityPageView.prototype = Object.create(PageView.prototype, {
             if (count === 0) {
               node.parentElement.removeChild(node);
             } else if (filter.id !== 'date') {
+              // Don't show the number of matching dates -- misleading with
+              // multi-date walks.
               // Show the matching walks count on the option
               node.textContent += ' (' + count + ')';
             }

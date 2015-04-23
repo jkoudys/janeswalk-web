@@ -60,6 +60,21 @@ if (!empty($w->time['slots'])) {
     );
 }
 
+// Load array of initiatives this walk is part of
+$iniAttr = $c->getAttribute('walk_initiatives');
+$initiatives = [];
+if ($iniAttr) {
+    $initiatives = array_map(
+        function($init) {
+            return $init->value;
+        },
+        $iniAttr->getOptions()
+    );
+}
+// Default to a festival walk, if no initiative
+if (empty($initiatives)) {
+    $initiatives = [t('Festival Walk')];
+}
 ?>
 <div id="fb-root"></div>
 <script type="text/javascript">
@@ -82,7 +97,7 @@ if (!empty($w->time['slots'])) {
 <div class="container-outter" role="main">
     <div class="container">
         <?= $breadcrumb ?>
-        <div class="walk-label"><?= trim((string) $c->getAttribute('walk_initiatives')) ?: t('Festival Walk') ?></div>
+        <div class="walk-label"><?= implode(', ', $initiatives) ?></div>
         <div class="tag-list">
             <ul class="nav nav-pills">
                 <?php foreach ($w->themes as $theme => $status) { ?>
