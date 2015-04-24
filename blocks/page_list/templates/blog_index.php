@@ -21,7 +21,7 @@ $dh = Loader::helper('date');
     <li>
       <figure>
         <?php if (is_object($mainImage)) { ?>
-          <a class="blogimage" href="<?= $url ?>" style="background-image:url(<?= $ih->getThumbnail($mainImage->getPath(), 270, 800, false)->src ?>)" /></a>
+          <a class="blogimage" href="<?= $url ?>" style="background-image:url(<?= $ih->getThumbnail($mainImage->getPath(), 500, 500, false)->src ?>)" /></a>
         <?php } ?>
         <figcaption>
           <h5><a href="<?= $url ?>" target="<?= $target ?>"><?= $title ?></a></h5>
