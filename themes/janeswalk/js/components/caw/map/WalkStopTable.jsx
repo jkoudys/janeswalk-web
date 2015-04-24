@@ -48,7 +48,7 @@ WalkStopTable.prototype = Object.create(React.Component.prototype, {
               }
               return (
                 <tr data-position={i} key={'marker' + i}>
-                  <td onClick={showInfoWindow}>{i === 0 ? 'Meeting place: ' : ''}{imageThumb}{titleObj.title}</td>
+                  <td onClick={showInfoWindow}>{i === 0 ? (t('Meeting Place') + ': ') : ''}{imageThumb}{titleObj.title}</td>
                   <td onClick={showInfoWindow}>{titleObj.description}</td>
                   <td>
                     {downArrow}
