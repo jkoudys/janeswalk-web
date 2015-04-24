@@ -3543,7 +3543,7 @@ WalkStopTable.prototype = Object.create(React.Component.prototype, {
               }
               return (
                 React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
-                  React.createElement("td", {onClick: showInfoWindow}, imageThumb, titleObj.title), 
+                  React.createElement("td", {onClick: showInfoWindow}, i === 0 ? 'Meeting place: ' : '', imageThumb, titleObj.title), 
                   React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
                   React.createElement("td", null, 
                     downArrow, 
