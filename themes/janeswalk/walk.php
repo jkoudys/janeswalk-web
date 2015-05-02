@@ -141,12 +141,6 @@ $kmlLink = $nh->getCollectionURL($c) . '?format=kml';
             <h4>
                 <?= $walkLeaders ?>
             </h4>
-            <?php if ($meeting_place) { ?>
-            <h4>
-                <?= t('Meeting Place') ?>: <?= $meeting_place['title'] ?>
-            </h4>
-            <p><?= $meeting_place['description'] ?></p>
-            <?php } ?>
         </div>
         <?php if (count((array) $w->map['markers']) + count((array) $w->map['route'])) { ?>
         <div class="walk-stops" style="display:none">
@@ -202,8 +196,15 @@ $kmlLink = $nh->getCollectionURL($c) . '?format=kml';
                     <ol>
                         <?php foreach ($w->map['markers'] as $key => $marker) { ?>
                         <li class="walk-stop" id="<?= ($key) ?>">
-                            <h4><?= $marker['title'] ?></h4>
-                            <p><?= $marker['description'] ?></p>
+                            <h4>
+                                <?= $marker['title'] ?>
+                                <a href="geo:<?= $marker['lat'] . ',' . $marker['lng'] ?>">
+                                    <i class="fa fa-map-marker"></i>
+                                </a>
+                            </h4>
+                            <p>
+                                <?= $marker['description'] ?>
+                            </p>
                         </li>
                         <?php } ?>
                     </ol>
