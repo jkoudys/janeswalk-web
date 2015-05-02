@@ -199,9 +199,6 @@ $kmlLink = $nh->getCollectionURL($c) . '?format=kml';
                     $path = $_SERVER['REQUEST_URI'];
                     $url = 'http://janeswalk.org' . ($path);
                     ?>
-                    <a href="geo:0,0?q=<?= $kmlLink ?>" target="_blank" class="btn btn-primary">
-                        View in Maps App
-                    </a>
                     <ol>
                         <?php foreach ($w->map['markers'] as $key => $marker) { ?>
                         <li class="walk-stop" id="<?= ($key) ?>">
