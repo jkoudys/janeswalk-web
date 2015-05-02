@@ -198,7 +198,7 @@ $kmlLink = $nh->getCollectionURL($c) . '?format=kml';
                         <li class="walk-stop" id="<?= ($key) ?>">
                             <h4>
                                 <?= $marker['title'] ?>
-                                <a href="geo:<?= $marker['lat'] . ',' . $marker['lng'] ?>">
+                                <a href="geo:0,0?q=<?= $marker['lat'] . ',' . $marker['lng'] ?>">
                                     <i class="fa fa-map-marker"></i>
                                 </a>
                             </h4>
