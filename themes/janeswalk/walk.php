@@ -196,9 +196,6 @@ if (empty($initiatives)) {
                     $path = $_SERVER['REQUEST_URI'];
                     $url = 'http://janeswalk.org' . ($path);
                     ?>
-                    <a href="https://maps.google.com/maps?q=<?= rawurlencode($url) ?>" target="_blank" class="btn btn-primary">
-                        View in Google Maps
-                    </a>
                     <ol>
                         <?php foreach ($w->map['markers'] as $key => $marker) { ?>
                         <li class="walk-stop" id="<?= ($key) ?>">
