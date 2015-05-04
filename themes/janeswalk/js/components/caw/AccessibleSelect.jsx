@@ -3,7 +3,10 @@
  * Menu to select accessibility requirements
  */
 
-var mixins = require('../functions/mixins.jsx');
+var mixins = require('../../helpers/mixins.jsx');
+
+// Flux
+var t = require('../../stores/I18nStore.js').getTranslate();
 
 function AccessibleSelect() {}
 
@@ -13,7 +16,6 @@ AccessibleSelect.prototype = Object.create(React.Component.prototype, {
   render: {
     value: function() {
       var _this = this;
-      var t = this.props.i18n.translate.bind(this.props.i18n);
       var options = [
         {id: 'accessible-familyfriendly', name: t('Family friendly')},
         {id: 'accessible-wheelchair', name: t('Wheelchair accessible')},

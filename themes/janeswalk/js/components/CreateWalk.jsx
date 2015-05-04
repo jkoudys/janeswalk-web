@@ -15,9 +15,14 @@ var TeamBuilder = require('./caw/TeamBuilder.jsx');
 var WalkPublish = require('./caw/WalkPublish.jsx');
 var TextAreaLimit = require('./TextAreaLimit.jsx');
 
-// Libs
-var I18nTranslate = require('./functions/translate.js');
-var Helper = require('./functions/helpers.jsx');
+// Flux
+var I18nStore = require('../stores/I18nStore.js');
+var t = I18nStore.getTranslate();
+var t2 = I18nStore.getTranslatePlural();
+var I18nActions = require('../actions/I18nActions.js');
+
+// Helpers
+var Helper = require('../helpers/helpers.jsx');
 
 var CreateWalk = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
@@ -122,7 +127,7 @@ var CreateWalk = React.createClass({
       messageTimeout: 1200
     };
     options = options || {};
-    
+
     notifications.push({type: 'info', name: 'Saving walk'});
 
     // Build a simplified map from the Google objects
@@ -193,32 +198,21 @@ var CreateWalk = React.createClass({
 
   componentWillMount: function() {
     var locale = this.props.locale;
-    var _this = this;
+    // Load translations
+    I18nActions.receive(locale);
+    I18nStore.addChangeListener(this._onChange.bind(this));
+  },
 
-    // Start loading the translations file as early as possible
-    if (locale.translation) {
-      $.ajax({
-        url: locale.translation,
-        dataType: 'json',
-        success: function(data) {
-          try {
-            _this.state.i18n.constructor(data.translations['']);
-            _this.setState({});
-          } catch (e) {
-            console.error('Failed to load i18n translations JSON: ' + e.stack);
-          }
-        }
-      });
-    }
+  componentWillUnmount: function() {
+    I18nStore.removeChangeListener(this._onChange.bind(this));
+  },
 
-    this.setState({i18n: new I18nTranslate()});
+  // Simple trigger to re-render the components
+  _onChange: function() {
+    this.setState({});
   },
 
   render: function() {
-    var i18n = this.state.i18n;
-    var t = i18n.translate.bind(i18n);
-    var t2 = i18n.translatePlural.bind(i18n);
-
     // Used to let the map pass a callback
     var linkStateMap = {
       value: this.state.map,
@@ -268,14 +262,14 @@ var CreateWalk = React.createClass({
                     </div>
                   </fieldset>
                 </form>
-                <ImageUpload i18n={i18n} valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
+                <ImageUpload valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
                 <form>
                   <hr />
                   <fieldset>
                     <div className="item required">
                       <label htmlFor="shortdescription">{ t('Your Walk in a Nutshell') }</label>
                       <div className="alert alert-info">{ t('Build intrigue! This is what people see when browsing our walk listings.') }</div>
-                      <TextAreaLimit i18n={i18n} id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortDescription')} required />
+                      <TextAreaLimit id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortDescription')} required />
                     </div>
                     <hr />
                     <div className="item required">
@@ -286,25 +280,25 @@ var CreateWalk = React.createClass({
                       <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longDescription')} />
                     </div>
                   </fieldset>
-                  <ThemeSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
-                  {((this.props.city.wards || []).length > 0) ? <WardSelect i18n={i18n} wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
+                  <ThemeSelect valueLink={this.linkState('checkboxes')} />
+                  {((this.props.city.wards || []).length > 0) ? <WardSelect wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
                   <hr />
                 </form>
               </div>
-              <MapBuilder ref="mapBuilder" i18n={i18n} valueLink={linkStateMap} city={this.props.city} />
-              <DateSelect i18n={i18n} valueLink={this.linkState('time')} />
+              <MapBuilder ref="mapBuilder" valueLink={linkStateMap} city={this.props.city} />
+              <DateSelect valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>
                   <h1>{ t('Make it Accessible') }</h1>
                 </div>
                 <div className="item">
-                  <AccessibleSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
+                  <AccessibleSelect valueLink={this.linkState('checkboxes')} />
                 </div>
 
                 <div className="item">
                   <fieldset>
                     <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-                    <TextAreaLimit i18n={i18n} name="accessible-info" rows="3" maxLength="500" valueLink={this.linkState('accessibleInfo')} />
+                    <TextAreaLimit name="accessible-info" rows="3" maxLength="500" valueLink={this.linkState('accessibleInfo')} />
                   </fieldset>
                 </div>
 
@@ -337,7 +331,7 @@ var CreateWalk = React.createClass({
                 <hr />
                 <br />
               </div>
-              <TeamBuilder i18n={i18n} valueLink={this.linkState('team')} />
+              <TeamBuilder valueLink={this.linkState('team')} />
             </div>
             <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>
@@ -352,8 +346,8 @@ var CreateWalk = React.createClass({
             </div>
           </aside>
         </section>
-        {this.state.publish ? <WalkPublish i18n={i18n} url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={this.props.city} mirrors={this.state.mirrors} /> : null}
-        {this.state.preview ? <WalkPreview i18n={i18n} url={this.state.url} close={this.setState.bind(this, {preview: false})} /> : null}
+        {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={this.props.city} mirrors={this.state.mirrors} /> : null}
+        {this.state.preview ? <WalkPreview url={this.state.url} close={this.setState.bind(this, {preview: false})} /> : null}
         <aside id="notifications">
           {this.state.notifications.map(function(notification) {
             return (
@@ -380,9 +374,6 @@ var WalkPreview = React.createClass({
     });
   },
   render: function() {
-    var i18n = this.props.i18n;
-    var t = i18n.translate.bind(i18n);
-
     return (
       <dialog id="preview-modal">
         <div>

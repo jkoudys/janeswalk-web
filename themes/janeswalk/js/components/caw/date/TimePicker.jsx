@@ -1,5 +1,9 @@
 'use strict';
 
+// Flux
+var i18n = require('../../../stores/I18nStore.js');
+var t = i18n.getTranslate();
+
 /**
  * Select options to choose your time.
  * This is an important one, considering how complex timezones and localizing
@@ -62,7 +66,6 @@ TimePicker.prototype = Object.create(React.Component.prototype, {
       var linkDuration = this.props.valueLinkDuration;
       var requestChange = linkDuration.requestChange;
       var linkStart = this.props.valueLinkStart;
-      var t = this.props.i18n.translate.bind(this.props.i18n);
 
       // Cast duration as a number
       linkDuration.requestChange = function(value) {

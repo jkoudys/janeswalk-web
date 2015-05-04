@@ -23,14 +23,20 @@
     "uglifyify": "~2.6.0",
     "vinyl-buffer": "~1.0.0",
     "vinyl-source-stream": "~1.0.0",
-    "intl": "~0.1.4"
+    "intl": "~0.1.4",
+    "flux": "~2.0.3"
   },
   "browserify-shim": {
     "react": "global:React"
   },
-    "browserify": {
-        "transform": [
-            ["reactify", {"es6": true}]
-        ]
-    }
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
+    ]
+  }
 }

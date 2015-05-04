@@ -1,12 +1,15 @@
 'use strict';
 
-var Helper = require('../functions/helpers.jsx');
+var Helper = require('../../helpers/helpers.jsx');
 var WalkStopTable = require('./map/WalkStopTable.jsx');
 var WalkInfoWindow = require('./map/WalkInfoWindow.jsx');
 var InstagramConnect = require('./map/InstagramConnect.jsx');
 var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
 var TwitterConnect = require('./map/TwitterConnect.jsx');
 var ConnectFilters = require('./map/ConnectFilters.jsx');
+
+// Flux
+var t = require('../../stores/I18nStore.js').getTranslate();
 
 // Constructor
 function MapBuilder() {
@@ -390,7 +393,6 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
   render: {
     value: function() {
       var walkStops;
-      var t = this.props.i18n.translate.bind(this.props.i18n);
 
       // Standard properties the filter buttons need
       var filterProps = {
@@ -408,7 +410,6 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
           <WalkStopTable
             ref="walkStopTable"
             key={1}
-            i18n={this.props.i18n}
             markers={this.state.markers}
             deleteMarker={this.deleteMarker.bind(this)}
             moveBefore={this.moveBefore.bind(this)}

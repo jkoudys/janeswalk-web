@@ -1,6 +1,9 @@
 'use strict';
 
-var mixins = require('../functions/mixins.jsx');
+var mixins = require('../../helpers/mixins.jsx');
+
+// Flux
+var t = require('../../stores/I18nStore.js').getTranslate();
 
 var ThemeSelect = React.createClass({
   mixins: [mixins.linkedParentState],
@@ -128,7 +131,6 @@ var ThemeSelect = React.createClass({
     var _this = this;
     var totalChecked = 0;
     var checkboxes = this.props.valueLink.value;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
 
     for (var i in checkboxes) {
       if (checkboxes[i] && i.substring(0, 6) === 'theme-') {

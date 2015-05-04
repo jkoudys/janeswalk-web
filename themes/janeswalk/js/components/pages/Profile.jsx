@@ -13,7 +13,7 @@ var PageView = require('../Page.jsx');
  * @return void
  */
 var ProfilePageView = function(element) {
-  try { 
+  try {
     PageView.call(this, element);
     this._showProperStep();
     this._addTabClickEvents();
@@ -36,7 +36,7 @@ var ProfilePageView = function(element) {
 ProfilePageView.prototype = Object.create(PageView.prototype, {
   /**
    * _slideIndexes
-   * 
+   *
    * @protected
    * @var       Object
    */
@@ -79,7 +79,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _addPromoteBlogPostClickEvent
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -106,7 +106,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _addPromoteCityClickEvent
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -123,7 +123,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _getBlogPostObjById
-   * 
+   *
    * @protected
    * @param     Number blogPostId
    * @return    void
@@ -140,7 +140,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _getWalkObjById
-   * 
+   *
    * @protected
    * @param     Number walkId
    * @return    void
@@ -157,7 +157,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _addPromoteWalkClickEvent
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -182,7 +182,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _addTabClickEvents
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -207,7 +207,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _setupBlogPostPromoteModalEvents
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -244,7 +244,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _setupCityPromoteModalEvents
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -342,7 +342,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _setupDisplayPictureFlashWidget
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -379,7 +379,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _showSlide
-   * 
+   *
    * @protected
    * @param     String slideshowName
    * @return    void
@@ -396,7 +396,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _setupPromoteSlideshows
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -437,7 +437,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _setupWalkPromoteModalEvents
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -474,7 +474,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _showCurrentTab
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -490,7 +490,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _showEmailShareWindow
-   * 
+   *
    * @protected
    * @param     String subject
    * @param     String body
@@ -507,7 +507,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _showFacebookShareWindow
-   * 
+   *
    * @protected
    * @param     String link
    * @param     String title
@@ -526,7 +526,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _showProperStep
-   * 
+   *
    * @protected
    * @return    void
    */
@@ -556,7 +556,7 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
   /**
    * _showTwitterShareWindow
-   * 
+   *
    * @protected
    * @param     String link
    * @param     String text

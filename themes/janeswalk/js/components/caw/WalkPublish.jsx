@@ -1,5 +1,8 @@
 'use strict';
 
+// Flux
+var t = require('../../stores/I18nStore.js').getTranslate();
+
 var WalkPublish = React.createClass({
   mixins: [React.addons.LinkedStateMixin],
 
@@ -27,9 +30,6 @@ var WalkPublish = React.createClass({
   },
 
   render: function() {
-    var i18n = this.props.i18n;
-    var t = i18n.translate.bind(i18n);
-
     // Check city config for which walk mirroring services to expose
     var mirrorWalk;
     if (this.props.city.mirrors.indexOf('eventbrite') !== -1) {

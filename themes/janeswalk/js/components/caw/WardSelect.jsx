@@ -1,11 +1,14 @@
 'use strict';
 
-var mixins = require('../functions/mixins.jsx');
+var mixins = require('../../helpers/mixins.jsx');
+
+// Flux
+var i18n = require('../../stores/I18nStore.js');
+var t = i18n.getTranslate();
 
 var WardSelect = React.createClass({
   mixins: [mixins.linkedParentState],
   render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
     var wards = this.props.wards;
     if (wards && this.props.valueLink) {
       return (

@@ -1,4 +1,8 @@
 'use strict';
+
+// Flux
+var t = require('../../../stores/I18nStore.js').getTranslate();
+
 /**
  * The table with all the walk stops on it, in CAW
  */
@@ -10,7 +14,6 @@ WalkStopTable.prototype = Object.create(React.Component.prototype, {
 
   render: {
     value: function() {
-      var t = this.props.i18n.translate.bind(this.props.i18n);
       var markersSet = this.props.markers.getArray();
       return (
         <table ref="routeStops" className="table-hover routeStops">

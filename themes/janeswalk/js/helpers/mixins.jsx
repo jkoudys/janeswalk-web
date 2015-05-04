@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * TODO: replace both of these silly 2-way binding helpers with flux
+ */
+
 // Link this component's state to the linkState() parent
 module.exports.linkedParentState = {
   linkParentState: function(propname) {

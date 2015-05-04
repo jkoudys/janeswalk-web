@@ -1,6 +1,10 @@
 'use strict';
+var mixins = require('../../helpers/mixins.jsx');
 
-var mixins = require('../functions/mixins.jsx');
+// Flux
+var i18n = require('../../stores/I18nStore.js');
+var t = i18n.getTranslate();
+var t2 = i18n.getTranslatePlural();
 
 var TeamBuilder = React.createClass({
   displayName: 'TeamBuilder',
@@ -59,12 +63,10 @@ var TeamBuilder = React.createClass({
     // If there's no 'you', create one as the current user
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
 
     // Loop through all the users and render the appropriate user type
     var teamMemberProps = {
-      onChange: this.handleTeamMemberChange,
-      i18n: this.props.i18n
+      onChange: this.handleTeamMemberChange
     };
     var users = value.map(function(user, i) {
       var teamMember = null;
@@ -133,7 +135,6 @@ var TeamBuilder = React.createClass({
 var TeamOwner = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
@@ -212,7 +213,6 @@ var TeamOwner = React.createClass({
 var TeamLeader = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member walk-leader clearfix" id="walk-leader-new">
         <fieldset>
@@ -284,7 +284,6 @@ var TeamLeader = React.createClass({
 var TeamOrganizer = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member walk-organizer" id="walk-organizer-new">
         <fieldset>
@@ -320,7 +319,6 @@ var TeamOrganizer = React.createClass({
 var TeamCommunityVoice = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member community-voice" id="community-voice-new">
         <fieldset>
@@ -374,7 +372,6 @@ var TeamCommunityVoice = React.createClass({
 var TeamVolunteer = React.createClass({
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
     return (
       <div className="thumbnail team-member othermember" id="othermember-new">
         <fieldset>

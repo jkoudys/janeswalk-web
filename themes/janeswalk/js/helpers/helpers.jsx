@@ -1,4 +1,4 @@
-/* 
+/*
  * Helpers for building React pages with
  *
  * Try to only put things in here after exhausting all possible other options,

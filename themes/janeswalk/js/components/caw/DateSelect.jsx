@@ -1,9 +1,13 @@
 'use strict';
 
+// Components
 var DatePicker = require('./date/DatePicker.jsx');
 var TimePicker = require('./date/TimePicker.jsx');
 var TimeSetTable = require('./date/TimeSetTable.jsx');
 var TimeOpenTable = require('./date/TimeOpenTable.jsx');
+
+// Flux
+var t = require('../../stores/I18nStore.js').getTranslate();
 
 // TODO: Make 'intiatives' build as separate selectors
 function DateSelect() {
@@ -103,7 +107,6 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
   render: {
     value: function() {
       var valueLink = this.props.valueLink;
-      var t = this.props.i18n.translate.bind(this.props.i18n);
 
       return (
         <div className="tab-pane" id="time-and-date">
