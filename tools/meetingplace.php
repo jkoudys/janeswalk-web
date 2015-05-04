@@ -15,7 +15,22 @@ class MeetingPlace
     // Couplets [URL, meeting place title]
     protected $updates;
 
-    public function __construct(array $updates)
+    public function __construct(array $updates = [])
+    {
+        $this->updates = $updates;
+    }
+
+    public function push(array $couplet)
+    {
+        $this->updates[] = $couplet;
+    }
+
+    public function getAll()
+    {
+        return $this->updates;
+    }
+
+    public function set(array $updates)
     {
         $this->updates = $updates;
     }

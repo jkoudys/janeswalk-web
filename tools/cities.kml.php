@@ -1,5 +1,4 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
 $pl = new PageList();
 $nh = Loader::helper('navigation');
 $city = "Toronto, Canada";
