@@ -17,14 +17,14 @@ var WalkMap = require('../WalkMap.jsx');
  */
 var WalkPageView = function(element) {
   PageView.call(this, element);
-  
+
   var mapCanvas = document.getElementById('map-canvas');
 
   this._addFacebookDialogEvents();
 
   // Check if there's a map to init first
   if (mapCanvas) {
-    new WalkMap(JanesWalk.page.map, mapCanvas);
+    new WalkMap(JanesWalk.walk.map, mapCanvas);
   }
 };
 WalkPageView.prototype = Object.create(PageView.prototype, {

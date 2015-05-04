@@ -52,6 +52,16 @@ class WalkPageTypeController extends Controller
     }
 
     /**
+     * Render the KML for this walk's map
+     */
+    public function kml()
+    {
+        header('Content-Type: application/vnd.google-earth.kml+xml');
+        $this->getKml()->save('php://output');
+        exit;
+    }
+
+    /**
      * show
      * Render view contents. Fall-through behaviour renders theme as HTML via
      * view(). If 'format' is set, render in requested format.
@@ -64,8 +74,7 @@ class WalkPageTypeController extends Controller
             header('Content-Type: application/json');
             echo $this->getJson();
             exit;
-        } elseif (
-            $_GET['format'] === 'kml' || 0 === strpos($_SERVER['HTTP_USER_AGENT'],'Kml-Google')) {
+        } elseif ($_GET['format'] === 'kml') {
             // Render KML of map only
             header('Content-Type: application/vnd.google-earth.kml+xml');
             $this->getKml()->save('php://output');
@@ -128,7 +137,7 @@ class WalkPageTypeController extends Controller
         header('Content-Type: application/json');
         try {
             $cvID = $this->setJson($json);
-    
+
             // Set the eventbrite
             $mw = new MirrorWalk($this->walk);
             $mw->mirrorStart();
@@ -286,12 +295,9 @@ class WalkPageTypeController extends Controller
         $this->addToJanesWalk([
             'page' => [
                 'description' => strip_tags($c->getAttribute('longdescription')),
-                'city' => [
-                    'name' => (string) $this->walk->city,
-                    'url' => $nh->getCollectionURL($this->walk->city->getPage()),
-                ],
-                'map' => $this->walk->map,
-            ]
+            ],
+            'city' => $this->walk->city,
+            'walk' => $this->walk
         ]);
     }
 

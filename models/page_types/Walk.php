@@ -3,6 +3,7 @@ namespace JanesWalk\Models\PageTypes;
 
 // Default lib classes
 use \Exception;
+use \RuntimeException;
 use \DOMDocument;
 use \XSLTProcessor;
 use \stdClass;
@@ -67,7 +68,7 @@ class Walk extends \Model implements \JsonSerializable
     public function __construct(Page $page)
     {
         if ($page->getCollectionTypeHandle() !== 'walk') {
-            throw new Exception(t('Attempted to instantiate Walk model on a non-walk page type.'));
+            throw new RuntimeException(t('Attempted to instantiate Walk model on a non-walk page type.'));
         }
 
         $this->page = $page;
@@ -75,7 +76,7 @@ class Walk extends \Model implements \JsonSerializable
 
         $db = Loader::db();
 
-        $stmt = 'akHandle=\'' . join($this->handleMap, '\' or akHandle=\'') . '\'';
+        $stmt = 'akHandle=\'' . implode('\' or akHandle=\'', $this->handleMap) . '\'';
 
         // Consolodated query; runs way faster than a dozen getAttributes
         foreach (
@@ -215,11 +216,9 @@ class Walk extends \Model implements \JsonSerializable
             $initiativeObjects = $this->page->getAttribute('walk_initiatives');
             if ($initiativeObjects !== false) {
                 foreach ($initiativeObjects->getOptions() as $initiative) {
-                    $val = $initiative->value;
-                    $this->initiatives[] = $val;
+                    $this->initiatives[] = ['id' => $initiative->ID, 'name' => $initiative->value];
                 }
             }
-            sort($this->initiatives);
 
             return $this->initiatives;
             break;
@@ -258,7 +257,7 @@ class Walk extends \Model implements \JsonSerializable
         $ok = true;
         try {
             if (empty($postArray['title'])) {
-                throw new Exception('Walk title cannot be empty.');
+                throw new RuntimeException('Walk title cannot be empty.');
             }
 
             $this->page->update(['cName' => $postArray['title']]);
@@ -332,6 +331,7 @@ class Walk extends \Model implements \JsonSerializable
             'team' => $this->team,
             'time' => $this->time,
             'wards' => $this->wards,
+            'initiatives' => $this->initiatives,
             'mirrors' => [
                 'eventbrite' => $this->page->getAttribute('eventbrite') ?: null
             ]
@@ -345,15 +345,6 @@ class Walk extends \Model implements \JsonSerializable
                 'id' => $this->thumbnail->getFileID(),
                 'url' => $im->getThumbnail($this->thumbnail, 340, 720)->src
             ];
-        }
-
-        // Load any initiatives, e.g. Greenbelt, 100 in 1 day, etc.
-        $initiatives = $this->page->getAttribute('walk_initiatives');
-        $walkData['initiatives'] = [];
-        if ($initiatives) {
-            foreach ($initiatives as $initiative) {
-                $walkData['initiatives'][] = ['id' => $initiative->ID, 'name' => $initiative->value];
-            }
         }
 
         // Callback, in case we define more checkbox groups

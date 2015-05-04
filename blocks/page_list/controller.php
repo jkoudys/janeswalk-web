@@ -179,10 +179,13 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             // Initiatives
             $initiatives = [];
             if (strpos($c->getCollectionPath(), 'burlington') !== false) {
-                foreach ($c->getAttribute('walk_initiatives') as $initiative) {
-                    $initiatives[$initiative->ID] = $initiative->value;
+                $initAttr = $c->getAttribute('walk_initiatives');
+                if ($initAttr) {
+                    foreach ($c->getAttribute('walk_initiatives') as $initiative) {
+                        $initiatives[$initiative->ID] = $initiative->value;
+                    }
+                    unset($initiative);
                 }
-                unset($initiative);
             }
 
             // Ward semantics

@@ -60,7 +60,7 @@ var TeamBuilder = React.createClass({
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
     var t = this.props.i18n.translate.bind(this.props.i18n);
-    
+
     // Loop through all the users and render the appropriate user type
     var teamMemberProps = {
       onChange: this.handleTeamMemberChange,

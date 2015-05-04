@@ -13103,5 +13103,5 @@ body:lang(he) #create-walk #map-control-bar .loadFeed,
 body:lang(he) #create-walk .filterInputs .filter input[type=submit],
 body:lang(he) #create-walk .filterInputs .filter input[type=button] {
   font-family: "Alef", "Roboto Slab", serif;
-  /* TODO: direction: rtl; */
+  direction: rtl;
 }

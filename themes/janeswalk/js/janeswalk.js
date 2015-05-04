@@ -102,6 +102,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
+
+
 },{"./components/CreateWalk.jsx":3,"./components/Login.jsx":5,"./components/Page.jsx":6,"./components/pages/City.jsx":31,"./components/pages/Home.jsx":32,"./components/pages/Profile.jsx":33,"./components/pages/Walk.jsx":34,"intl/Intl.en":2}],2:[function(require,module,exports){
 (function (global){
 (function(global,factory){var IntlPolyfill=factory();if(typeof define==="function"&&define.amd){define(IntlPolyfill)}if(typeof exports==="object"){module.exports=IntlPolyfill}if(global){global.IntlPolyfill=IntlPolyfill}})(typeof global!=="undefined"?global:this,function(){"use strict";var Intl={},realDefineProp=function(){try{return!!Object.defineProperty({},"a",{})}catch(e){return false}}(),es3=!realDefineProp&&!Object.prototype.__defineGetter__,hop=Object.prototype.hasOwnProperty,tls=1.23.toLocaleString(undefined,{style:"currency",currency:"ZZZ"}).indexOf("ZZZ")>-1,defineProperty=realDefineProp?Object.defineProperty:function(obj,name,desc){if("get"in desc&&obj.__defineGetter__)obj.__defineGetter__(name,desc.get);else if(!hop.call(obj,name)||"value"in desc)obj[name]=desc.value},arrIndexOf=Array.prototype.indexOf||function(search){var t=this;if(!t.length)return-1;for(var i=arguments[1]||0,max=t.length;i<max;i++){if(t[i]===search)return i}return-1},objCreate=Object.create||function(proto,props){var obj;function F(){}F.prototype=proto;obj=new F;for(var k in props){if(hop.call(props,k))defineProperty(obj,k,props[k])}return obj},arrSlice=Array.prototype.slice,arrConcat=Array.prototype.concat,arrPush=Array.prototype.push,arrJoin=Array.prototype.join,arrShift=Array.prototype.shift,arrUnshift=Array.prototype.unshift,fnBind=Function.prototype.bind||function(thisObj){var fn=this,args=arrSlice.call(arguments,1);if(fn.length===1){return function(a){return fn.apply(thisObj,arrConcat.call(args,arrSlice.call(arguments)))}}else{return function(){return fn.apply(thisObj,arrConcat.call(args,arrSlice.call(arguments)))}}},defaultLocale,internals=objCreate(null),secret=Math.random(),dateWidths=objCreate(null,{narrow:{},"short":{},"long":{}}),numberFormatProtoInitialised=false,dateTimeFormatProtoInitialised=false,expCurrencyCode=/^[A-Z]{3}$/,expUnicodeExSeq=/-u(?:-[0-9a-z]{2,8})+/gi,expBCP47Syntax,expExtSequences,expVariantDupes,expSingletonDupes,redundantTags={tags:{"art-lojban":"jbo","i-ami":"ami","i-bnn":"bnn","i-hak":"hak","i-klingon":"tlh","i-lux":"lb","i-navajo":"nv","i-pwn":"pwn","i-tao":"tao","i-tay":"tay","i-tsu":"tsu","no-bok":"nb","no-nyn":"nn","sgn-BE-FR":"sfb","sgn-BE-NL":"vgt","sgn-CH-DE":"sgg","zh-guoyu":"cmn","zh-hakka":"hak","zh-min-nan":"nan","zh-xiang":"hsn","sgn-BR":"bzs","sgn-CO":"csn","sgn-DE":"gsg","sgn-DK":"dsl","sgn-ES":"ssp","sgn-FR":"fsl","sgn-GB":"bfi","sgn-GR":"gss","sgn-IE":"isg","sgn-IT":"ise","sgn-JP":"jsl","sgn-MX":"mfs","sgn-NI":"ncs","sgn-NL":"dse","sgn-NO":"nsl","sgn-PT":"psr","sgn-SE":"swl","sgn-US":"ase","sgn-ZA":"sfs","zh-cmn":"cmn","zh-cmn-Hans":"cmn-Hans","zh-cmn-Hant":"cmn-Hant","zh-gan":"gan","zh-wuu":"wuu","zh-yue":"yue"},subtags:{BU:"MM",DD:"DE",FX:"FR",TP:"TL",YD:"YE",ZR:"CD",heploc:"alalc97","in":"id",iw:"he",ji:"yi",jw:"jv",mo:"ro",ayx:"nun",bjd:"drl",ccq:"rki",cjr:"mom",cka:"cmr",cmk:"xch",drh:"khk",drw:"prs",gav:"dev",hrr:"jal",ibi:"opa",kgh:"kml",lcq:"ppr",mst:"mry",myt:"mry",sca:"hle",tie:"ras",tkk:"twm",tlw:"weo",tnf:"prs",ybd:"rki",yma:"lrr"},extLang:{aao:["aao","ar"],abh:["abh","ar"],abv:["abv","ar"],acm:["acm","ar"],acq:["acq","ar"],acw:["acw","ar"],acx:["acx","ar"],acy:["acy","ar"],adf:["adf","ar"],ads:["ads","sgn"],aeb:["aeb","ar"],aec:["aec","ar"],aed:["aed","sgn"],aen:["aen","sgn"],afb:["afb","ar"],afg:["afg","sgn"],ajp:["ajp","ar"],apc:["apc","ar"],apd:["apd","ar"],arb:["arb","ar"],arq:["arq","ar"],ars:["ars","ar"],ary:["ary","ar"],arz:["arz","ar"],ase:["ase","sgn"],asf:["asf","sgn"],asp:["asp","sgn"],asq:["asq","sgn"],asw:["asw","sgn"],auz:["auz","ar"],avl:["avl","ar"],ayh:["ayh","ar"],ayl:["ayl","ar"],ayn:["ayn","ar"],ayp:["ayp","ar"],bbz:["bbz","ar"],bfi:["bfi","sgn"],bfk:["bfk","sgn"],bjn:["bjn","ms"],bog:["bog","sgn"],bqn:["bqn","sgn"],bqy:["bqy","sgn"],btj:["btj","ms"],bve:["bve","ms"],bvl:["bvl","sgn"],bvu:["bvu","ms"],bzs:["bzs","sgn"],cdo:["cdo","zh"],cds:["cds","sgn"],cjy:["cjy","zh"],cmn:["cmn","zh"],coa:["coa","ms"],cpx:["cpx","zh"],csc:["csc","sgn"],csd:["csd","sgn"],cse:["cse","sgn"],csf:["csf","sgn"],csg:["csg","sgn"],csl:["csl","sgn"],csn:["csn","sgn"],csq:["csq","sgn"],csr:["csr","sgn"],czh:["czh","zh"],czo:["czo","zh"],doq:["doq","sgn"],dse:["dse","sgn"],dsl:["dsl","sgn"],dup:["dup","ms"],ecs:["ecs","sgn"],esl:["esl","sgn"],esn:["esn","sgn"],eso:["eso","sgn"],eth:["eth","sgn"],fcs:["fcs","sgn"],fse:["fse","sgn"],fsl:["fsl","sgn"],fss:["fss","sgn"],gan:["gan","zh"],gds:["gds","sgn"],gom:["gom","kok"],gse:["gse","sgn"],gsg:["gsg","sgn"],gsm:["gsm","sgn"],gss:["gss","sgn"],gus:["gus","sgn"],hab:["hab","sgn"],haf:["haf","sgn"],hak:["hak","zh"],hds:["hds","sgn"],hji:["hji","ms"],hks:["hks","sgn"],hos:["hos","sgn"],hps:["hps","sgn"],hsh:["hsh","sgn"],hsl:["hsl","sgn"],hsn:["hsn","zh"],icl:["icl","sgn"],ils:["ils","sgn"],inl:["inl","sgn"],ins:["ins","sgn"],ise:["ise","sgn"],isg:["isg","sgn"],isr:["isr","sgn"],jak:["jak","ms"],jax:["jax","ms"],jcs:["jcs","sgn"],jhs:["jhs","sgn"],jls:["jls","sgn"],jos:["jos","sgn"],jsl:["jsl","sgn"],jus:["jus","sgn"],kgi:["kgi","sgn"],knn:["knn","kok"],kvb:["kvb","ms"],kvk:["kvk","sgn"],kvr:["kvr","ms"],kxd:["kxd","ms"],lbs:["lbs","sgn"],lce:["lce","ms"],lcf:["lcf","ms"],liw:["liw","ms"],lls:["lls","sgn"],lsg:["lsg","sgn"],lsl:["lsl","sgn"],lso:["lso","sgn"],lsp:["lsp","sgn"],lst:["lst","sgn"],lsy:["lsy","sgn"],ltg:["ltg","lv"],lvs:["lvs","lv"],lzh:["lzh","zh"],max:["max","ms"],mdl:["mdl","sgn"],meo:["meo","ms"],mfa:["mfa","ms"],mfb:["mfb","ms"],mfs:["mfs","sgn"],min:["min","ms"],mnp:["mnp","zh"],mqg:["mqg","ms"],mre:["mre","sgn"],msd:["msd","sgn"],msi:["msi","ms"],msr:["msr","sgn"],mui:["mui","ms"],mzc:["mzc","sgn"],mzg:["mzg","sgn"],mzy:["mzy","sgn"],nan:["nan","zh"],nbs:["nbs","sgn"],ncs:["ncs","sgn"],nsi:["nsi","sgn"],nsl:["nsl","sgn"],nsp:["nsp","sgn"],nsr:["nsr","sgn"],nzs:["nzs","sgn"],okl:["okl","sgn"],orn:["orn","ms"],ors:["ors","ms"],pel:["pel","ms"],pga:["pga","ar"],pks:["pks","sgn"],prl:["prl","sgn"],prz:["prz","sgn"],psc:["psc","sgn"],psd:["psd","sgn"],pse:["pse","ms"],psg:["psg","sgn"],psl:["psl","sgn"],pso:["pso","sgn"],psp:["psp","sgn"],psr:["psr","sgn"],pys:["pys","sgn"],rms:["rms","sgn"],rsi:["rsi","sgn"],rsl:["rsl","sgn"],sdl:["sdl","sgn"],sfb:["sfb","sgn"],sfs:["sfs","sgn"],sgg:["sgg","sgn"],sgx:["sgx","sgn"],shu:["shu","ar"],slf:["slf","sgn"],sls:["sls","sgn"],sqk:["sqk","sgn"],sqs:["sqs","sgn"],ssh:["ssh","ar"],ssp:["ssp","sgn"],ssr:["ssr","sgn"],svk:["svk","sgn"],swc:["swc","sw"],swh:["swh","sw"],swl:["swl","sgn"],syy:["syy","sgn"],tmw:["tmw","ms"],tse:["tse","sgn"],tsm:["tsm","sgn"],tsq:["tsq","sgn"],tss:["tss","sgn"],tsy:["tsy","sgn"],tza:["tza","sgn"],ugn:["ugn","sgn"],ugy:["ugy","sgn"],ukl:["ukl","sgn"],uks:["uks","sgn"],urk:["urk","ms"],uzn:["uzn","uz"],uzs:["uzs","uz"],vgt:["vgt","sgn"],vkk:["vkk","ms"],vkt:["vkt","ms"],vsi:["vsi","sgn"],vsl:["vsl","sgn"],vsv:["vsv","sgn"],wuu:["wuu","zh"],xki:["xki","sgn"],xml:["xml","sgn"],xmm:["xmm","ms"],xms:["xms","sgn"],yds:["yds","sgn"],ysl:["ysl","sgn"],yue:["yue","zh"],zib:["zib","sgn"],zlm:["zlm","ms"],zmi:["zmi","ms"],zsl:["zsl","sgn"],zsm:["zsm","ms"]}},currencyMinorUnits={BHD:3,BYR:0,XOF:0,BIF:0,XAF:0,CLF:0,CLP:0,KMF:0,DJF:0,XPF:0,GNF:0,ISK:0,IQD:3,JPY:0,JOD:3,KRW:0,KWD:3,LYD:3,OMR:3,PYG:0,RWF:0,TND:3,UGX:0,UYI:0,VUV:0,VND:0};(function(){var extlang="[a-z]{3}(?:-[a-z]{3}){0,2}",language="(?:[a-z]{2,3}(?:-"+extlang+")?|[a-z]{4}|[a-z]{5,8})",script="[a-z]{4}",region="(?:[a-z]{2}|\\d{3})",variant="(?:[a-z0-9]{5,8}|\\d[a-z0-9]{3})",singleton="[0-9a-wy-z]",extension=singleton+"(?:-[a-z0-9]{2,8})+",privateuse="x(?:-[a-z0-9]{1,8})+",irregular="(?:en-GB-oed"+"|i-(?:ami|bnn|default|enochian|hak|klingon|lux|mingo|navajo|pwn|tao|tay|tsu)"+"|sgn-(?:BE-FR|BE-NL|CH-DE))",regular="(?:art-lojban|cel-gaulish|no-bok|no-nyn"+"|zh-(?:guoyu|hakka|min|min-nan|xiang))",grandfathered="(?:"+irregular+"|"+regular+")",langtag=language+"(?:-"+script+")?(?:-"+region+")?(?:-"+variant+")*(?:-"+extension+")*(?:-"+privateuse+")?";expBCP47Syntax=RegExp("^(?:"+langtag+"|"+privateuse+"|"+grandfathered+")$","i");expVariantDupes=RegExp("^(?!x).*?-("+variant+")-(?:\\w{4,8}-(?!x-))*\\1\\b","i");expSingletonDupes=RegExp("^(?!x).*?-("+singleton+")-(?:\\w+-(?!x-))*\\1\\b","i");expExtSequences=RegExp("-"+extension,"ig")})();function IsStructurallyValidLanguageTag(locale){if(!expBCP47Syntax.test(locale))return false;if(expVariantDupes.test(locale))return false;if(expSingletonDupes.test(locale))return false;return true}function CanonicalizeLanguageTag(locale){var match,parts;locale=locale.toLowerCase();parts=locale.split("-");for(var i=1,max=parts.length;i<max;i++){if(parts[i].length===2)parts[i]=parts[i].toUpperCase();else if(parts[i].length===4)parts[i]=parts[i].charAt(0).toUpperCase()+parts[i].slice(1);else if(parts[i].length===1&&parts[i]!="x")break}locale=arrJoin.call(parts,"-");if((match=locale.match(expExtSequences))&&match.length>1){match.sort();locale=locale.replace(RegExp("(?:"+expExtSequences.source+")+","i"),arrJoin.call(match,""))}if(hop.call(redundantTags.tags,locale))locale=redundantTags.tags[locale];parts=locale.split("-");for(var i=1,max=parts.length;i<max;i++){if(hop.call(redundantTags.subtags,parts[i]))parts[i]=redundantTags.subtags[parts[i]];else if(hop.call(redundantTags.extLang,parts[i])){parts[i]=redundantTags.extLang[parts[i]][0];if(i===1&&redundantTags.extLang[parts[1]][1]===parts[0]){parts=arrSlice.call(parts,i++);max-=1}}}return arrJoin.call(parts,"-")}function DefaultLocale(){return defaultLocale}function IsWellFormedCurrencyCode(currency){var c=String(currency),normalized=toLatinUpperCase(c);if(expCurrencyCode.test(normalized)===false)return false;return true}function CanonicalizeLocaleList(locales){if(locales===undefined)return new List;var seen=new List,locales=typeof locales==="string"?[locales]:locales,O=toObject(locales),len=O.length,k=0;while(k<len){var Pk=String(k),kPresent=Pk in O;if(kPresent){var kValue=O[Pk];if(kValue==null||typeof kValue!=="string"&&typeof kValue!=="object")throw new TypeError("String or Object type expected");var tag=String(kValue);if(!IsStructurallyValidLanguageTag(tag))throw new RangeError("'"+tag+"' is not a structurally valid language tag");tag=CanonicalizeLanguageTag(tag);if(arrIndexOf.call(seen,tag)===-1)arrPush.call(seen,tag)}k++}return seen}function BestAvailableLocale(availableLocales,locale){var candidate=locale;while(true){if(arrIndexOf.call(availableLocales,candidate)>-1)return candidate;var pos=candidate.lastIndexOf("-");if(pos<0)return;if(pos>=2&&candidate.charAt(pos-2)=="-")pos-=2;candidate=candidate.substring(0,pos)}}function LookupMatcher(availableLocales,requestedLocales){var i=0,len=requestedLocales.length,availableLocale;while(i<len&&!availableLocale){var locale=requestedLocales[i],noExtensionsLocale=String(locale).replace(expUnicodeExSeq,""),availableLocale=BestAvailableLocale(availableLocales,noExtensionsLocale);i++}var result=new Record;if(availableLocale!==undefined){result["[[locale]]"]=availableLocale;if(String(locale)!==String(noExtensionsLocale)){var extension=locale.match(expUnicodeExSeq)[0],extensionIndex=locale.indexOf("-u-");result["[[extension]]"]=extension;result["[[extensionIndex]]"]=extensionIndex}}else result["[[locale]]"]=DefaultLocale();return result}function BestFitMatcher(availableLocales,requestedLocales){return LookupMatcher(availableLocales,requestedLocales)}function ResolveLocale(availableLocales,requestedLocales,options,relevantExtensionKeys,localeData){if(availableLocales.length===0){throw new ReferenceError("No locale data has been provided for this object yet.")}var matcher=options["[[localeMatcher]]"];if(matcher==="lookup")var r=LookupMatcher(availableLocales,requestedLocales);else var r=BestFitMatcher(availableLocales,requestedLocales);var foundLocale=r["[[locale]]"];if(hop.call(r,"[[extension]]"))var extension=r["[[extension]]"],extensionIndex=r["[[extensionIndex]]"],split=String.prototype.split,extensionSubtags=split.call(extension,"-"),extensionSubtagsLength=extensionSubtags.length;var result=new Record;result["[[dataLocale]]"]=foundLocale;var supportedExtension="-u",i=0,len=relevantExtensionKeys.length;while(i<len){var key=relevantExtensionKeys[i],foundLocaleData=localeData[foundLocale],keyLocaleData=foundLocaleData[key],value=keyLocaleData["0"],supportedExtensionAddition="",indexOf=arrIndexOf;if(extensionSubtags!==undefined){var keyPos=indexOf.call(extensionSubtags,key);if(keyPos!==-1){if(keyPos+1<extensionSubtagsLength&&extensionSubtags[keyPos+1].length>2){var requestedValue=extensionSubtags[keyPos+1],valuePos=indexOf.call(keyLocaleData,requestedValue);if(valuePos!==-1)var value=requestedValue,supportedExtensionAddition="-"+key+"-"+value}else{var valuePos=indexOf(keyLocaleData,"true");if(valuePos!==-1)var value="true"}}}if(hop.call(options,"[["+key+"]]")){var optionsValue=options["[["+key+"]]"];if(indexOf.call(keyLocaleData,optionsValue)!==-1){if(optionsValue!==value){value=optionsValue;supportedExtensionAddition=""}}}result["[["+key+"]]"]=value;supportedExtension+=supportedExtensionAddition;i++}if(supportedExtension.length>2){var preExtension=foundLocale.substring(0,extensionIndex),postExtension=foundLocale.substring(extensionIndex),foundLocale=preExtension+supportedExtension+postExtension}result["[[locale]]"]=foundLocale;return result}function LookupSupportedLocales(availableLocales,requestedLocales){var len=requestedLocales.length,subset=new List,k=0;while(k<len){var locale=requestedLocales[k],noExtensionsLocale=String(locale).replace(expUnicodeExSeq,""),availableLocale=BestAvailableLocale(availableLocales,noExtensionsLocale);if(availableLocale!==undefined)arrPush.call(subset,locale);k++}var subsetArray=arrSlice.call(subset);return subsetArray}function BestFitSupportedLocales(availableLocales,requestedLocales){return LookupSupportedLocales(availableLocales,requestedLocales)}function SupportedLocales(availableLocales,requestedLocales,options){if(options!==undefined){var options=new Record(toObject(options)),matcher=options.localeMatcher;if(matcher!==undefined){matcher=String(matcher);if(matcher!=="lookup"&&matcher!=="best fit")throw new RangeError('matcher should be "lookup" or "best fit"')}}if(matcher===undefined||matcher==="best fit")var subset=BestFitSupportedLocales(availableLocales,requestedLocales);else var subset=LookupSupportedLocales(availableLocales,requestedLocales);for(var P in subset){if(!hop.call(subset,P))continue;defineProperty(subset,P,{writable:false,configurable:false,value:subset[P]})}defineProperty(subset,"length",{writable:false});return subset}function GetOption(options,property,type,values,fallback){var value=options[property];if(value!==undefined){value=type==="boolean"?Boolean(value):type==="string"?String(value):value;if(values!==undefined){if(arrIndexOf.call(values,value)===-1)throw new RangeError("'"+value+"' is not an allowed value for `"+property+"`")}return value}return fallback}function GetNumberOption(options,property,minimum,maximum,fallback){var value=options[property];if(value!==undefined){value=Number(value);if(isNaN(value)||value<minimum||value>maximum)throw new RangeError("Value is not a number or outside accepted range");return Math.floor(value)}return fallback}function NumberFormatConstructor(){var locales=arguments[0];var options=arguments[1];if(!this||this===Intl){return new Intl.NumberFormat(locales,options)}return InitializeNumberFormat(toObject(this),locales,options)}defineProperty(Intl,"NumberFormat",{configurable:true,writable:true,value:NumberFormatConstructor});defineProperty(Intl.NumberFormat,"prototype",{writable:false});function InitializeNumberFormat(numberFormat,locales,options){var internal=getInternalProperties(numberFormat),regexpState=createRegExpRestore();if(internal["[[initializedIntlObject]]"]===true)throw new TypeError("`this` object has already been initialized as an Intl object");defineProperty(numberFormat,"__getInternalProperties",{value:function(){if(arguments[0]===secret)return internal}});internal["[[initializedIntlObject]]"]=true;var requestedLocales=CanonicalizeLocaleList(locales);if(options===undefined)options={};else options=toObject(options);var opt=new Record,matcher=GetOption(options,"localeMatcher","string",new List("lookup","best fit"),"best fit");opt["[[localeMatcher]]"]=matcher;var localeData=internals.NumberFormat["[[localeData]]"],r=ResolveLocale(internals.NumberFormat["[[availableLocales]]"],requestedLocales,opt,internals.NumberFormat["[[relevantExtensionKeys]]"],localeData);internal["[[locale]]"]=r["[[locale]]"];internal["[[numberingSystem]]"]=r["[[nu]]"];internal["[[dataLocale]]"]=r["[[dataLocale]]"];var dataLocale=r["[[dataLocale]]"],s=GetOption(options,"style","string",new List("decimal","percent","currency"),"decimal");internal["[[style]]"]=s;var c=GetOption(options,"currency","string");if(c!==undefined&&!IsWellFormedCurrencyCode(c))throw new RangeError("'"+c+"' is not a valid currency code");if(s==="currency"&&c===undefined)throw new TypeError("Currency code is required when style is currency");if(s==="currency"){c=c.toUpperCase();internal["[[currency]]"]=c;var cDigits=CurrencyDigits(c)}var cd=GetOption(options,"currencyDisplay","string",new List("code","symbol","name"),"symbol");if(s==="currency")internal["[[currencyDisplay]]"]=cd;var mnid=GetNumberOption(options,"minimumIntegerDigits",1,21,1);internal["[[minimumIntegerDigits]]"]=mnid;var mnfdDefault=s==="currency"?cDigits:0,mnfd=GetNumberOption(options,"minimumFractionDigits",0,20,mnfdDefault);internal["[[minimumFractionDigits]]"]=mnfd;var mxfdDefault=s==="currency"?Math.max(mnfd,cDigits):s==="percent"?Math.max(mnfd,0):Math.max(mnfd,3),mxfd=GetNumberOption(options,"maximumFractionDigits",mnfd,20,mxfdDefault);internal["[[maximumFractionDigits]]"]=mxfd;var mnsd=options.minimumSignificantDigits,mxsd=options.maximumSignificantDigits;if(mnsd!==undefined||mxsd!==undefined){mnsd=GetNumberOption(options,"minimumSignificantDigits",1,21,1);mxsd=GetNumberOption(options,"maximumSignificantDigits",mnsd,21,21);internal["[[minimumSignificantDigits]]"]=mnsd;internal["[[maximumSignificantDigits]]"]=mxsd}var g=GetOption(options,"useGrouping","boolean",undefined,true);internal["[[useGrouping]]"]=g;var dataLocaleData=localeData[dataLocale],patterns=dataLocaleData.patterns;var stylePatterns=patterns[s];internal["[[positivePattern]]"]=stylePatterns.positivePattern;internal["[[negativePattern]]"]=stylePatterns.negativePattern;internal["[[boundFormat]]"]=undefined;internal["[[initializedNumberFormat]]"]=true;if(es3)numberFormat.format=GetFormatNumber.call(numberFormat);regexpState.exp.test(regexpState.input);return numberFormat}function CurrencyDigits(currency){return currencyMinorUnits[currency]!==undefined?currencyMinorUnits[currency]:2}internals.NumberFormat={"[[availableLocales]]":[],"[[relevantExtensionKeys]]":["nu"],"[[localeData]]":{}};defineProperty(Intl.NumberFormat,"supportedLocalesOf",{configurable:true,writable:true,value:fnBind.call(supportedLocalesOf,internals.NumberFormat)});defineProperty(Intl.NumberFormat.prototype,"format",{configurable:true,get:GetFormatNumber});function GetFormatNumber(){var internal=this!=null&&typeof this==="object"&&getInternalProperties(this);if(!internal||!internal["[[initializedNumberFormat]]"])throw new TypeError("`this` value for format() is not an initialized Intl.NumberFormat object.");if(internal["[[boundFormat]]"]===undefined){var F=function(value){return FormatNumber(this,Number(value))},bf=fnBind.call(F,this);internal["[[boundFormat]]"]=bf}return internal["[[boundFormat]]"]}function FormatNumber(numberFormat,x){var n,regexpState=createRegExpRestore(),internal=getInternalProperties(numberFormat),locale=internal["[[dataLocale]]"],nums=internal["[[numberingSystem]]"],data=internals.NumberFormat["[[localeData]]"][locale],ild=data.symbols[nums]||data.symbols.latn,negative=false;if(isFinite(x)===false){if(isNaN(x))n=ild.nan;else{n=ild.infinity;if(x<0)negative=true}}else{if(x<0){negative=true;x=-x}if(internal["[[style]]"]==="percent")x*=100;if(hop.call(internal,"[[minimumSignificantDigits]]")&&hop.call(internal,"[[maximumSignificantDigits]]"))n=ToRawPrecision(x,internal["[[minimumSignificantDigits]]"],internal["[[maximumSignificantDigits]]"]);else n=ToRawFixed(x,internal["[[minimumIntegerDigits]]"],internal["[[minimumFractionDigits]]"],internal["[[maximumFractionDigits]]"]);if(numSys[nums]){var digits=numSys[internal["[[numberingSystem]]"]];n=String(n).replace(/\d/g,function(digit){return digits[digit]})}else n=String(n);n=n.replace(/\./g,ild.decimal);if(internal["[[useGrouping]]"]===true){var parts=n.split(ild.decimal),igr=parts[0],pgSize=data.patterns.primaryGroupSize||3,sgSize=data.patterns.secondaryGroupSize||pgSize;if(igr.length>pgSize){var groups=new List,end=igr.length-pgSize,idx=end%sgSize,start=igr.slice(0,idx);if(start.length)arrPush.call(groups,start);while(idx<end){arrPush.call(groups,igr.slice(idx,idx+sgSize));idx+=sgSize}arrPush.call(groups,igr.slice(end));parts[0]=arrJoin.call(groups,ild.group)}n=arrJoin.call(parts,ild.decimal)}}var result=internal[negative===true?"[[negativePattern]]":"[[positivePattern]]"];result=result.replace("{number}",n);if(internal["[[style]]"]==="currency"){var cd,currency=internal["[[currency]]"],cData=data.currencies[currency];switch(internal["[[currencyDisplay]]"]){case"symbol":cd=cData||currency;break;default:case"code":case"name":cd=currency}result=result.replace("{currency}",cd)}regexpState.exp.test(regexpState.input);return result}function ToRawPrecision(x,minPrecision,maxPrecision){var p=maxPrecision;if(x===0){var m=arrJoin.call(Array(p+1),"0"),e=0}else{var e=Math.floor(Math.log(Math.abs(x))/Math.LN10),f=Math.round(Math.exp(Math.abs(e-p+1)*Math.LN10)),m=String(Math.round(e-p+1<0?x*f:x/f))}if(e>=p)return m+arrJoin.call(Array(e-p+1+1),"0");else if(e===p-1)return m;else if(e>=0)m=m.slice(0,e+1)+"."+m.slice(e+1);else if(e<0)m="0."+arrJoin.call(Array(-(e+1)+1),"0")+m;if(m.indexOf(".")>=0&&maxPrecision>minPrecision){var cut=maxPrecision-minPrecision;while(cut>0&&m.charAt(m.length-1)==="0"){m=m.slice(0,-1);cut--}if(m.charAt(m.length-1)===".")m=m.slice(0,-1)}return m}function ToRawFixed(x,minInteger,minFraction,maxFraction){var idx,m=Number.prototype.toFixed.call(x,maxFraction),igr=m.split(".")[0].length,cut=maxFraction-minFraction,exp=(idx=m.indexOf("e"))>-1?m.slice(idx+1):0;if(exp){m=m.slice(0,idx).replace(".","");m+=arrJoin.call(Array(exp-(m.length-1)+1),"0")+"."+arrJoin.call(Array(maxFraction+1),"0");igr=m.length}while(cut>0&&m.slice(-1)==="0"){m=m.slice(0,-1);cut--}if(m.slice(-1)===".")m=m.slice(0,-1);if(igr<minInteger)var z=arrJoin.call(Array(minInteger-igr+1),"0");return(z?z:"")+m}var numSys={arab:["٠","١","٢","٣","٤","٥","٦","٧","٨","٩"],arabext:["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"],bali:["᭐","᭑","᭒","᭓","᭔","᭕","᭖","᭗","᭘","᭙"],beng:["০","১","২","৩","৪","৫","৬","৭","৮","৯"],deva:["०","१","२","३","४","५","६","७","८","९"],fullwide:["０","１","２","３","４","５","６","７","８","９"],gujr:["૦","૧","૨","૩","૪","૫","૬","૭","૮","૯"],guru:["੦","੧","੨","੩","੪","੫","੬","੭","੮","੯"],hanidec:["〇","一","二","三","四","五","六","七","八","九"],khmr:["០","១","២","៣","៤","៥","៦","៧","៨","៩"],knda:["೦","೧","೨","೩","೪","೫","೬","೭","೮","೯"],laoo:["໐","໑","໒","໓","໔","໕","໖","໗","໘","໙"],latn:["0","1","2","3","4","5","6","7","8","9"],limb:["᥆","᥇","᥈","᥉","᥊","᥋","᥌","᥍","᥎","᥏"],mlym:["൦","൧","൨","൩","൪","൫","൬","൭","൮","൯"],mong:["᠐","᠑","᠒","᠓","᠔","᠕","᠖","᠗","᠘","᠙"],mymr:["၀","၁","၂","၃","၄","၅","၆","၇","၈","၉"],orya:["୦","୧","୨","୩","୪","୫","୬","୭","୮","୯"],tamldec:["௦","௧","௨","௩","௪","௫","௬","௭","௮","௯"],telu:["౦","౧","౨","౩","౪","౫","౬","౭","౮","౯"],thai:["๐","๑","๒","๓","๔","๕","๖","๗","๘","๙"],tibt:["༠","༡","༢","༣","༤","༥","༦","༧","༨","༩"]};defineProperty(Intl.NumberFormat.prototype,"resolvedOptions",{configurable:true,writable:true,value:function(){var prop,descs=new Record,props=["locale","numberingSystem","style","currency","currencyDisplay","minimumIntegerDigits","minimumFractionDigits","maximumFractionDigits","minimumSignificantDigits","maximumSignificantDigits","useGrouping"],internal=this!=null&&typeof this==="object"&&getInternalProperties(this);if(!internal||!internal["[[initializedNumberFormat]]"])throw new TypeError("`this` value for resolvedOptions() is not an initialized Intl.NumberFormat object.");for(var i=0,max=props.length;i<max;i++){if(hop.call(internal,prop="[["+props[i]+"]]"))descs[props[i]]={value:internal[prop],writable:true,configurable:true,enumerable:true}}return objCreate({},descs)}});function DateTimeFormatConstructor(){var locales=arguments[0];var options=arguments[1];if(!this||this===Intl){return new Intl.DateTimeFormat(locales,options)}return InitializeDateTimeFormat(toObject(this),locales,options)}defineProperty(Intl,"DateTimeFormat",{configurable:true,writable:true,value:DateTimeFormatConstructor});defineProperty(DateTimeFormatConstructor,"prototype",{writable:false});function InitializeDateTimeFormat(dateTimeFormat,locales,options){var internal=getInternalProperties(dateTimeFormat),regexpState=createRegExpRestore();if(internal["[[initializedIntlObject]]"]===true)throw new TypeError("`this` object has already been initialized as an Intl object");defineProperty(dateTimeFormat,"__getInternalProperties",{value:function(){if(arguments[0]===secret)return internal}});internal["[[initializedIntlObject]]"]=true;var requestedLocales=CanonicalizeLocaleList(locales),options=ToDateTimeOptions(options,"any","date"),opt=new Record;matcher=GetOption(options,"localeMatcher","string",new List("lookup","best fit"),"best fit");opt["[[localeMatcher]]"]=matcher;var DateTimeFormat=internals.DateTimeFormat,localeData=DateTimeFormat["[[localeData]]"],r=ResolveLocale(DateTimeFormat["[[availableLocales]]"],requestedLocales,opt,DateTimeFormat["[[relevantExtensionKeys]]"],localeData);internal["[[locale]]"]=r["[[locale]]"];internal["[[calendar]]"]=r["[[ca]]"];internal["[[numberingSystem]]"]=r["[[nu]]"];internal["[[dataLocale]]"]=r["[[dataLocale]]"];var dataLocale=r["[[dataLocale]]"],tz=options.timeZone;if(tz!==undefined){tz=toLatinUpperCase(tz);if(tz!=="UTC")throw new RangeError("timeZone is not supported.")}internal["[[timeZone]]"]=tz;opt=new Record;for(var prop in dateTimeComponents){if(!hop.call(dateTimeComponents,prop))continue;var value=GetOption(options,prop,"string",dateTimeComponents[prop]);opt["[["+prop+"]]"]=value}var bestFormat,dataLocaleData=localeData[dataLocale],formats=dataLocaleData.formats,matcher=GetOption(options,"formatMatcher","string",new List("basic","best fit"),"best fit");if(matcher==="basic")bestFormat=BasicFormatMatcher(opt,formats);else bestFormat=BestFitFormatMatcher(opt,formats);for(var prop in dateTimeComponents){if(!hop.call(dateTimeComponents,prop))continue;if(hop.call(bestFormat,prop)){var p=bestFormat[prop];internal["[["+prop+"]]"]=p}}var pattern,hr12=GetOption(options,"hour12","boolean");if(internal["[[hour]]"]){hr12=hr12===undefined?dataLocaleData.hour12:hr12;internal["[[hour12]]"]=hr12;if(hr12===true){var hourNo0=dataLocaleData.hourNo0;internal["[[hourNo0]]"]=hourNo0;pattern=bestFormat.pattern12}else pattern=bestFormat.pattern}else pattern=bestFormat.pattern;internal["[[pattern]]"]=pattern;internal["[[boundFormat]]"]=undefined;internal["[[initializedDateTimeFormat]]"]=true;if(es3)dateTimeFormat.format=GetFormatDateTime.call(dateTimeFormat);regexpState.exp.test(regexpState.input);return dateTimeFormat}var dateTimeComponents={weekday:["narrow","short","long"],era:["narrow","short","long"],year:["2-digit","numeric"],month:["2-digit","numeric","narrow","short","long"],day:["2-digit","numeric"],hour:["2-digit","numeric"],minute:["2-digit","numeric"],second:["2-digit","numeric"],timeZoneName:["short","long"]};function ToDateTimeOptions(options,required,defaults){if(options===undefined)options=null;else{var opt2=toObject(options);options=new Record;for(var k in opt2)options[k]=opt2[k]}var create=objCreate,options=create(options),needDefaults=true;if(required==="date"||required==="any"){if(options.weekday!==undefined||options.year!==undefined||options.month!==undefined||options.day!==undefined)needDefaults=false}if(required==="time"||required==="any"){if(options.hour!==undefined||options.minute!==undefined||options.second!==undefined)needDefaults=false}if(needDefaults&&(defaults==="date"||defaults==="all"))options.year=options.month=options.day="numeric";if(needDefaults&&(defaults==="time"||defaults==="all"))options.hour=options.minute=options.second="numeric";return options}function BasicFormatMatcher(options,formats){var removalPenalty=120,additionPenalty=20,longLessPenalty=8,longMorePenalty=6,shortLessPenalty=6,shortMorePenalty=3,bestScore=-Infinity,bestFormat,i=0,len=formats.length;while(i<len){var format=formats[i],score=0;for(var property in dateTimeComponents){if(!hop.call(dateTimeComponents,property))continue;var optionsProp=options["[["+property+"]]"],formatProp=hop.call(format,property)?format[property]:undefined;if(optionsProp===undefined&&formatProp!==undefined)score-=additionPenalty;else if(optionsProp!==undefined&&formatProp===undefined)score-=removalPenalty;else{var values=["2-digit","numeric","narrow","short","long"],optionsPropIndex=arrIndexOf.call(values,optionsProp),formatPropIndex=arrIndexOf.call(values,formatProp),delta=Math.max(Math.min(formatPropIndex-optionsPropIndex,2),-2);if(delta===2)score-=longMorePenalty;else if(delta===1)score-=shortMorePenalty;else if(delta===-1)score-=shortLessPenalty;else if(delta===-2)score-=longLessPenalty}}if(score>bestScore){bestScore=score;bestFormat=format}i++}return bestFormat}function BestFitFormatMatcher(options,formats){return BasicFormatMatcher(options,formats)}internals.DateTimeFormat={"[[availableLocales]]":[],"[[relevantExtensionKeys]]":["ca","nu"],"[[localeData]]":{}};defineProperty(Intl.DateTimeFormat,"supportedLocalesOf",{configurable:true,writable:true,value:fnBind.call(supportedLocalesOf,internals.DateTimeFormat)});defineProperty(Intl.DateTimeFormat.prototype,"format",{configurable:true,get:GetFormatDateTime});function GetFormatDateTime(){var internal=this!=null&&typeof this==="object"&&getInternalProperties(this);if(!internal||!internal["[[initializedDateTimeFormat]]"])throw new TypeError("`this` value for format() is not an initialized Intl.DateTimeFormat object.");if(internal["[[boundFormat]]"]===undefined){var F=function(){var x=Number(arguments.length===0?Date.now():arguments[0]);return FormatDateTime(this,x)},bf=fnBind.call(F,this);internal["[[boundFormat]]"]=bf}return internal["[[boundFormat]]"]}function FormatDateTime(dateTimeFormat,x){if(!isFinite(x))throw new RangeError("Invalid valid date passed to format");var internal=dateTimeFormat.__getInternalProperties(secret),regexpState=createRegExpRestore(),locale=internal["[[locale]]"],nf=new Intl.NumberFormat([locale],{useGrouping:false}),nf2=new Intl.NumberFormat([locale],{minimumIntegerDigits:2,useGrouping:false}),tm=ToLocalTime(x,internal["[[calendar]]"],internal["[[timeZone]]"]),result=internal["[[pattern]]"],dataLocale=internal["[[dataLocale]]"],localeData=internals.DateTimeFormat["[[localeData]]"][dataLocale].calendars,ca=internal["[[calendar]]"];for(var p in dateTimeComponents){if(hop.call(internal,"[["+p+"]]")){var pm,fv,f=internal["[["+p+"]]"],v=tm["[["+p+"]]"];if(p==="year"&&v<=0)v=1-v;else if(p==="month")v++;else if(p==="hour"&&internal["[[hour12]]"]===true){v=v%12;pm=v!==tm["[["+p+"]]"];if(v===0&&internal["[[hourNo0]]"]===true)v=12}if(f==="numeric")fv=FormatNumber(nf,v);else if(f==="2-digit"){fv=FormatNumber(nf2,v);if(fv.length>2)fv=fv.slice(-2)}else if(f in dateWidths){switch(p){case"month":fv=resolveDateString(localeData,ca,"months",f,tm["[["+p+"]]"]);break;case"weekday":try{fv=resolveDateString(localeData,ca,"days",f,tm["[["+p+"]]"])}catch(e){throw new Error("Could not find weekday data for locale "+locale)}break;case"timeZoneName":fv="";break;default:fv=tm["[["+p+"]]"]}}result=result.replace("{"+p+"}",fv)}}if(internal["[[hour12]]"]===true){fv=resolveDateString(localeData,ca,"dayPeriods",pm?"pm":"am");result=result.replace("{ampm}",fv)}regexpState.exp.test(regexpState.input);return result}function ToLocalTime(date,calendar,timeZone){var d=new Date(date),m="get"+(timeZone||"");
@@ -130,7 +132,7 @@ var TextAreaLimit = require('./TextAreaLimit.jsx');
 var I18nTranslate = require('./functions/translate.js');
 var Helper = require('./functions/helpers.jsx');
 
-var CreateWalk = React.createClass({displayName: 'CreateWalk',
+var CreateWalk = React.createClass({displayName: "CreateWalk",
   mixins: [React.addons.LinkedStateMixin],
 
   getInitialState: function() {
@@ -343,11 +345,11 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
         React.createElement("section", null, 
           React.createElement("nav", {id: "progress-panel"}, 
             React.createElement("ul", {className: "nav nav-tabs"}, 
-              React.createElement("li", {className: "active"}, React.createElement("a", {'data-toggle': "tab", className: "description", href: "#description"}, React.createElement("i", {className: "fa fa-list-ol"}),  t('Describe Your Walk') )), 
-              React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "route", href: "#route"}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Share Your Route') )), 
-              React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "time-and-date", href: "#time-and-date"}, React.createElement("i", {className: "fa fa-calendar"}),  t('Set the Time & Date') )), 
-              React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "accessibility", href: "#accessibility"}, React.createElement("i", {className: "fa fa-flag"}),  t('Make it Accessible') )), 
-              React.createElement("li", null, React.createElement("a", {'data-toggle': "tab", className: "team", href: "#team"}, React.createElement("i", {className: "fa fa-users"}),  t('Build Your Team') ))
+              React.createElement("li", {className: "active"}, React.createElement("a", {"data-toggle": "tab", className: "description", href: "#description"}, React.createElement("i", {className: "fa fa-list-ol"}),  t('Describe Your Walk') )), 
+              React.createElement("li", null, React.createElement("a", {"data-toggle": "tab", className: "route", href: "#route"}, React.createElement("i", {className: "fa fa-map-marker"}),  t('Share Your Route') )), 
+              React.createElement("li", null, React.createElement("a", {"data-toggle": "tab", className: "time-and-date", href: "#time-and-date"}, React.createElement("i", {className: "fa fa-calendar"}),  t('Set the Time & Date') )), 
+              React.createElement("li", null, React.createElement("a", {"data-toggle": "tab", className: "accessibility", href: "#accessibility"}, React.createElement("i", {className: "fa fa-flag"}),  t('Make it Accessible') )), 
+              React.createElement("li", null, React.createElement("a", {"data-toggle": "tab", className: "team", href: "#team"}, React.createElement("i", {className: "fa fa-users"}),  t('Build Your Team') ))
             ), 
             React.createElement("section", {id: "button-group"}, 
               React.createElement("button", {className: "btn btn-info btn-preview", id: "preview-walk", title: "Preview what you have so far.", onClick: this.handlePreview},  t('Preview Walk') ), 
@@ -367,7 +369,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
                     React.createElement("p", null,  t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') )
                   )
                 ), 
-                React.createElement("div", {className: "page-header", 'data-section': "description"}, 
+                React.createElement("div", {className: "page-header", "data-section": "description"}, 
                   React.createElement("h1", null,  t('Describe Your Walk') )
                 ), 
                 React.createElement("form", null, 
@@ -405,7 +407,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
               React.createElement(MapBuilder, {ref: "mapBuilder", i18n: i18n, valueLink: linkStateMap, city: this.props.city}), 
               React.createElement(DateSelect, {i18n: i18n, valueLink: this.linkState('time')}), 
               React.createElement("div", {className: "tab-pane", id: "accessibility"}, 
-                React.createElement("div", {className: "page-header", 'data-section': "accessibility"}, 
+                React.createElement("div", {className: "page-header", "data-section": "accessibility"}, 
                   React.createElement("h1", null,  t('Make it Accessible') )
                 ), 
                 React.createElement("div", {className: "item"}, 
@@ -454,7 +456,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
           ), 
           React.createElement("aside", {id: "tips-panel", role: "complementary"}, 
             React.createElement("div", {className: "popover right", id: "city-organizer", style: {display: 'block'}}, 
-              React.createElement("h3", {className: "popover-title", 'data-toggle': "collapse", 'data-target': "#popover-content"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Contact City Organizer for help') ), 
+              React.createElement("h3", {className: "popover-title", "data-toggle": "collapse", "data-target": "#popover-content"}, React.createElement("i", {className: "fa fa-envelope"}),  t('Contact City Organizer for help') ), 
               React.createElement("div", {className: "popover-content collapse in", id: "popover-content"}, 
                 this.props.city.cityOrganizer.photo ? React.createElement("div", {className: "u-avatar", style: {backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}}) : null, 
                 React.createElement("p", null, 
@@ -480,7 +482,7 @@ var CreateWalk = React.createClass({displayName: 'CreateWalk',
   }
 });
 
-var WalkPreview = React.createClass({displayName: 'WalkPreview',
+var WalkPreview = React.createClass({displayName: "WalkPreview",
   componentDidMount: function() {
     var _this = this;
     // Bootstrap Modal
@@ -499,7 +501,7 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
         React.createElement("div", null, 
           React.createElement("article", null, 
             React.createElement("header", null, 
-              React.createElement("button", {type: "button", className: "close", 'aria-hidden': "true", 'data-dismiss': "modal"}, "×"), 
+              React.createElement("button", {type: "button", className: "close", "aria-hidden": "true", "data-dismiss": "modal"}, "×"), 
               React.createElement("h3", null,  t('Preview of your Walk') )
             ), 
             React.createElement("div", {className: "modal-body"}, 
@@ -513,6 +515,8 @@ var WalkPreview = React.createClass({displayName: 'WalkPreview',
 });
 
 module.exports = CreateWalk;
+
+
 
 },{"./TextAreaLimit.jsx":7,"./caw/AccessibleSelect.jsx":10,"./caw/DateSelect.jsx":11,"./caw/ImageUpload.jsx":12,"./caw/MapBuilder.jsx":13,"./caw/TeamBuilder.jsx":14,"./caw/ThemeSelect.jsx":15,"./caw/WalkPublish.jsx":16,"./caw/WardSelect.jsx":17,"./functions/helpers.jsx":28,"./functions/translate.js":30}],4:[function(require,module,exports){
 'use strict';
@@ -566,6 +570,8 @@ Object.defineProperties(FacebookShareDialog.prototype, {
 module.exports = FacebookShareDialog;
 
 
+
+
 },{}],5:[function(require,module,exports){
 /**
  * The 'login' modal that comes up on standard login, not to be confused
@@ -573,7 +579,7 @@ module.exports = FacebookShareDialog;
  */
 'use strict';
 
-var Login = React.createClass({displayName: 'Login',
+var Login = React.createClass({displayName: "Login",
   getInitialState: function() {
     return {
       email: '',
@@ -693,6 +699,8 @@ var Login = React.createClass({displayName: 'Login',
 });
 
 module.exports = Login;
+
+
 
 
 },{}],6:[function(require,module,exports){
@@ -840,11 +848,13 @@ PageView.prototype = Object.create(View.prototype, {
 
 module.exports = PageView;
 
+
+
 },{"./View.jsx":8}],7:[function(require,module,exports){
 'use strict';
 
 // Text areas with a 'remaining characters' limit
-var TextAreaLimit = React.createClass({displayName: 'TextAreaLimit',
+var TextAreaLimit = React.createClass({displayName: "TextAreaLimit",
   render: function() {
     var i18n = this.props.i18n;
     var t2 = i18n.translatePlural.bind(i18n);
@@ -860,6 +870,8 @@ var TextAreaLimit = React.createClass({displayName: 'TextAreaLimit',
 });
 
 module.exports = TextAreaLimit;
+
+
 
 },{}],8:[function(require,module,exports){
 'use strict';
@@ -898,6 +910,8 @@ Object.defineProperties(View.prototype, {
 });
 
 module.exports = View;
+
+
 
 
 },{"../shims.js":35}],9:[function(require,module,exports){
@@ -1244,6 +1258,8 @@ Object.defineProperties(WalkMap.prototype, {
 
 module.exports = WalkMap;
 
+
+
 },{}],10:[function(require,module,exports){
 'use strict';
 /**
@@ -1296,6 +1312,8 @@ AccessibleSelect.prototype = Object.create(React.Component.prototype, {
 Object.assign(AccessibleSelect.prototype, mixins.linkedParentState);
 
 module.exports = AccessibleSelect;
+
+
 
 },{"../functions/mixins.jsx":29}],11:[function(require,module,exports){
 'use strict';
@@ -1409,14 +1427,14 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
         React.createElement("div", {className: "tab-pane", id: "time-and-date"}, 
           React.createElement("div", {className: "tab-content", id: "walkduration"}, 
             React.createElement("div", {className: "tab-pane hide", id: "time-and-date-select"}, 
-              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
+              React.createElement("div", {className: "page-header", "data-section": "time-and-date"}, 
                 React.createElement("h1", null,  t('Set the Time and Date') )
               ), 
               React.createElement("legend", null,  t('Pick one of the following:') ), 
               React.createElement("div", {className: "row"}, 
                 React.createElement("ul", {className: "thumbnails", id: "block-select"}, 
                   React.createElement("li", null, 
-                    React.createElement("a", {href: "#time-and-date-all", 'data-toggle': "tab"}, 
+                    React.createElement("a", {href: "#time-and-date-all", "data-toggle": "tab"}, 
                       React.createElement("div", {className: "thumbnail"}, 
                         React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-full.png'}), 
                         React.createElement("div", {className: "caption"}, 
@@ -1429,7 +1447,7 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
                     )
                   ), 
                   React.createElement("li", null, 
-                    React.createElement("a", {href: "#time-and-date-set", 'data-toggle': "tab"}, 
+                    React.createElement("a", {href: "#time-and-date-set", "data-toggle": "tab"}, 
                       React.createElement("div", {className: "thumbnail"}, 
                         React.createElement("img", {src: CCM_THEME_PATH + '/img/time-and-date-some.png'}), 
                         React.createElement("div", {className: "caption"}, 
@@ -1445,7 +1463,7 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
               )
             ), 
             React.createElement("div", {className: "tab-pane active", id: "time-and-date-set"}, 
-              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
+              React.createElement("div", {className: "page-header", "data-section": "time-and-date"}, 
                 React.createElement("h1", null,  t('Time and Date') ), 
                 React.createElement("p", {className: "lead"},  t('Select the date and time your walk is happening.') )
               ), 
@@ -1474,7 +1492,7 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
               React.createElement("hr", null)
             ), 
             React.createElement("div", {className: "tab-pane hide", id: "time-and-date-all"}, 
-              React.createElement("div", {className: "page-header", 'data-section': "time-and-date"}, 
+              React.createElement("div", {className: "page-header", "data-section": "time-and-date"}, 
                 React.createElement("h1", null,  t('Time and Date') ), 
                 React.createElement("p", {className: "lead"},  t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') )
               ), 
@@ -1527,6 +1545,8 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
 Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 module.exports = DateSelect;
+
+
 
 },{"./date/DatePicker.jsx":18,"./date/TimeOpenTable.jsx":19,"./date/TimePicker.jsx":20,"./date/TimeSetTable.jsx":21}],12:[function(require,module,exports){
 'use strict';
@@ -1607,6 +1627,8 @@ var ImageUpload = React.createClass({
 });
 
 module.exports = ImageUpload;
+
+
 
 },{}],13:[function(require,module,exports){
 'use strict';
@@ -2030,7 +2052,7 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
 
       return (
         React.createElement("div", {className: "tab-pane", id: "route"}, 
-          React.createElement("div", {className: "page-header", 'data-section': "route"}, 
+          React.createElement("div", {className: "page-header", "data-section": "route"}, 
             React.createElement("h1", null,  t('Share Your Route') )
           ), 
           React.createElement("div", {className: "alert alert-info"}, 
@@ -2068,6 +2090,8 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
 });
 
 module.exports = MapBuilder;
+
+
 
 },{"../functions/helpers.jsx":28,"./map/ConnectFilters.jsx":22,"./map/InstagramConnect.jsx":23,"./map/SoundCloudConnect.jsx":24,"./map/TwitterConnect.jsx":25,"./map/WalkInfoWindow.jsx":26,"./map/WalkStopTable.jsx":27}],14:[function(require,module,exports){
 'use strict';
@@ -2132,7 +2156,7 @@ var TeamBuilder = React.createClass({
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
     var t = this.props.i18n.translate.bind(this.props.i18n);
-    
+
     // Loop through all the users and render the appropriate user type
     var teamMemberProps = {
       onChange: this.handleTeamMemberChange,
@@ -2162,7 +2186,7 @@ var TeamBuilder = React.createClass({
 
     return (
       React.createElement("div", {className: "tab-pane", id: "team"}, 
-        React.createElement("div", {className: "page-header", 'data-section': "team"}, 
+        React.createElement("div", {className: "page-header", "data-section": "team"}, 
           React.createElement("h1", null,  t('Build Your Team') )
         ), 
         users, 
@@ -2202,7 +2226,7 @@ var TeamBuilder = React.createClass({
 });
 
 
-var TeamOwner = React.createClass({displayName: 'TeamOwner',
+var TeamOwner = React.createClass({displayName: "TeamOwner",
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -2281,7 +2305,7 @@ var TeamOwner = React.createClass({displayName: 'TeamOwner',
   }
 });
 
-var TeamLeader = React.createClass({displayName: 'TeamLeader',
+var TeamLeader = React.createClass({displayName: "TeamLeader",
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -2353,7 +2377,7 @@ var TeamLeader = React.createClass({displayName: 'TeamLeader',
   }
 });
 
-var TeamOrganizer = React.createClass({displayName: 'TeamOrganizer',
+var TeamOrganizer = React.createClass({displayName: "TeamOrganizer",
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -2389,7 +2413,7 @@ var TeamOrganizer = React.createClass({displayName: 'TeamOrganizer',
   }
 });
 
-var TeamCommunityVoice = React.createClass({displayName: 'TeamCommunityVoice',
+var TeamCommunityVoice = React.createClass({displayName: "TeamCommunityVoice",
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -2443,7 +2467,7 @@ var TeamCommunityVoice = React.createClass({displayName: 'TeamCommunityVoice',
   }
 });
 
-var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
+var TeamVolunteer = React.createClass({displayName: "TeamVolunteer",
   mixins: [mixins.linkedTeamMemberState],
   render: function() {
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -2486,12 +2510,14 @@ var TeamVolunteer = React.createClass({displayName: 'TeamVolunteer',
 
 module.exports = TeamBuilder;
 
+
+
 },{"../functions/mixins.jsx":29}],15:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
 
-var ThemeSelect = React.createClass({displayName: 'ThemeSelect',
+var ThemeSelect = React.createClass({displayName: "ThemeSelect",
   mixins: [mixins.linkedParentState],
  
   getInitialState: function() {
@@ -2657,10 +2683,12 @@ var ThemeSelect = React.createClass({displayName: 'ThemeSelect',
 
 module.exports = ThemeSelect;
 
+
+
 },{"../functions/mixins.jsx":29}],16:[function(require,module,exports){
 'use strict';
 
-var WalkPublish = React.createClass({displayName: 'WalkPublish',
+var WalkPublish = React.createClass({displayName: "WalkPublish",
   mixins: [React.addons.LinkedStateMixin],
 
   getInitialState: function() {
@@ -2706,7 +2734,7 @@ var WalkPublish = React.createClass({displayName: 'WalkPublish',
         React.createElement("div", null, 
           React.createElement("article", null, 
             React.createElement("header", null, 
-              React.createElement("button", {type: "button", className: "close", 'data-dismiss': "modal", 'aria-hidden': "true"}, "×"), 
+              React.createElement("button", {type: "button", className: "close", "data-dismiss": "modal", "aria-hidden": "true"}, "×"), 
               React.createElement("h3", null,  t('Okay, You\'re Ready to Publish') )
             ), 
             React.createElement("div", {className: "modal-body"}, 
@@ -2715,10 +2743,10 @@ var WalkPublish = React.createClass({displayName: 'WalkPublish',
             ), 
             React.createElement("footer", null, 
               React.createElement("div", {className: "pull-left"}, 
-                React.createElement("a", {className: "walkthrough close", 'data-dismiss': "modal", onClick: this.props.close.bind(this)}, " ",  t('Bring me back to edit') )
+                React.createElement("a", {className: "walkthrough close", "data-dismiss": "modal", onClick: this.props.close.bind(this)}, " ",  t('Bring me back to edit') )
               ), 
               React.createElement("a", null, 
-                React.createElement("button", {className: "btn btn-primary walkthrough", 'data-step': "publish-confirmation", onClick: this.handlePublish},  t('Publish') )
+                React.createElement("button", {className: "btn btn-primary walkthrough", "data-step": "publish-confirmation", onClick: this.handlePublish},  t('Publish') )
               )
             )
           )
@@ -2752,12 +2780,14 @@ var WalkPublish = React.createClass({displayName: 'WalkPublish',
 
 module.exports = WalkPublish;
 
+
+
 },{}],17:[function(require,module,exports){
 'use strict';
 
 var mixins = require('../functions/mixins.jsx');
 
-var WardSelect = React.createClass({displayName: 'WardSelect',
+var WardSelect = React.createClass({displayName: "WardSelect",
   mixins: [mixins.linkedParentState],
   render: function() {
     var t = this.props.i18n.translate.bind(this.props.i18n);
@@ -2784,6 +2814,8 @@ var WardSelect = React.createClass({displayName: 'WardSelect',
 });
 
 module.exports = WardSelect;
+
+
 
 },{"../functions/mixins.jsx":29}],18:[function(require,module,exports){
 'use strict';
@@ -2823,6 +2855,8 @@ DatePicker.prototype = Object.create(React.Component.prototype, {
 
 module.exports = DatePicker;
 
+
+
 },{}],19:[function(require,module,exports){
 'use strict';
 
@@ -2845,6 +2879,8 @@ TimeOpenTable.prototype = Object.create(React.Component.prototype, {
 });
 
 module.exports = TimeOpenTable;
+
+
 
 },{}],20:[function(require,module,exports){
 'use strict';
@@ -2948,6 +2984,8 @@ TimePicker.prototype = Object.create(React.Component.prototype, {
 
 module.exports = TimePicker;
 
+
+
 },{}],21:[function(require,module,exports){
 'use strict';
 /**
@@ -3024,6 +3062,8 @@ TimeSetTable.prototype = Object.create(React.Component.prototype, {
 
 module.exports = TimeSetTable;
 
+
+
 },{}],22:[function(require,module,exports){
 'use strict';
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
@@ -3092,6 +3132,8 @@ ConnectFilters.prototype = Object.create(React.Component.prototype, {
 });
 
 module.exports = ConnectFilters;
+
+
 
 },{}],23:[function(require,module,exports){
 'use strict';
@@ -3200,10 +3242,12 @@ InstagramConnect.prototype = Object.create(React.Component.prototype, {
 
 module.exports = InstagramConnect;
 
+
+
 },{}],24:[function(require,module,exports){
 'use strict';
 
-var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
+var SoundCloudConnect = React.createClass({displayName: "SoundCloudConnect",
   getInitialState: function() {
     return {
       playlists: []
@@ -3307,10 +3351,12 @@ var SoundCloudConnect = React.createClass({displayName: 'SoundCloudConnect',
 
 module.exports = SoundCloudConnect;
 
+
+
 },{}],25:[function(require,module,exports){
 'use strict';
 
-var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
+var TwitterConnect = React.createClass({displayName: "TwitterConnect",
   getInitialState: function() {
     return {
       query: '',
@@ -3398,6 +3444,8 @@ var TwitterConnect = React.createClass({displayName: 'TwitterConnect',
 });
 
 module.exports = TwitterConnect;
+
+
 
 },{}],26:[function(require,module,exports){
 'use strict';
@@ -3492,6 +3540,8 @@ WalkInfoWindow.prototype = Object.create(React.Component.prototype, {
 
 module.exports = WalkInfoWindow;
 
+
+
 },{}],27:[function(require,module,exports){
 'use strict';
 /**
@@ -3542,7 +3592,7 @@ WalkStopTable.prototype = Object.create(React.Component.prototype, {
                 }
               }
               return (
-                React.createElement("tr", {'data-position': i, key: 'marker' + i}, 
+                React.createElement("tr", {"data-position": i, key: 'marker' + i}, 
                   React.createElement("td", {onClick: showInfoWindow}, i === 0 ? (t('Meeting Place') + ': ') : '', imageThumb, titleObj.title), 
                   React.createElement("td", {onClick: showInfoWindow}, titleObj.description), 
                   React.createElement("td", null, 
@@ -3565,6 +3615,8 @@ WalkStopTable.prototype = Object.create(React.Component.prototype, {
 });
 
 module.exports = WalkStopTable;
+
+
 
 },{}],28:[function(require,module,exports){
 /* 
@@ -3599,6 +3651,8 @@ exports.objectToArray = function(obj) {
 };
 
 
+
+
 },{}],29:[function(require,module,exports){
 'use strict';
 
@@ -3631,6 +3685,8 @@ module.exports.linkedTeamMemberState = {
     };
   },
 };
+
+
 
 
 
@@ -3721,6 +3777,8 @@ Object.defineProperties(I18nTranslator.prototype, {
 });
 
 module.exports = I18nTranslator;
+
+
 
 },{}],31:[function(require,module,exports){
 'use strict';
@@ -4360,6 +4418,8 @@ CityPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = CityPageView;
 
+
+
 },{"../Page.jsx":6}],32:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
@@ -4490,6 +4550,8 @@ HomePageView.prototype = Object.create(PageView.prototype, {
 });
 
 module.exports = HomePageView;
+
+
 
 },{"../Page.jsx":6}],33:[function(require,module,exports){
 'use strict';
@@ -5078,6 +5140,8 @@ ProfilePageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = ProfilePageView;
 
+
+
 },{"../Page.jsx":6}],34:[function(require,module,exports){
 'use strict';
 
@@ -5098,14 +5162,14 @@ var WalkMap = require('../WalkMap.jsx');
  */
 var WalkPageView = function(element) {
   PageView.call(this, element);
-  
+
   var mapCanvas = document.getElementById('map-canvas');
 
   this._addFacebookDialogEvents();
 
   // Check if there's a map to init first
   if (mapCanvas) {
-    new WalkMap(JanesWalk.page.map, mapCanvas);
+    new WalkMap(JanesWalk.walk.map, mapCanvas);
   }
 };
 WalkPageView.prototype = Object.create(PageView.prototype, {
@@ -5181,6 +5245,8 @@ WalkPageView.prototype = Object.create(PageView.prototype, {
 
 module.exports = WalkPageView;
 
+
+
 },{"../FacebookShareDialog.jsx":4,"../Page.jsx":6,"../WalkMap.jsx":9}],35:[function(require,module,exports){
 /* jshint ignore:start */
 // Shims, polyfills, etc.
@@ -5245,5 +5311,7 @@ if (!Number.isInteger) {
   });
 }
 /* jshint ignore:end */
+
+
 
 },{}]},{},[1]);
