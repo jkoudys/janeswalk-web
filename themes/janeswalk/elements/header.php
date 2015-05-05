@@ -17,6 +17,7 @@
      <script type="text/javascript" src="<?=$this->getThemePath();?>/js/ie_sux.js"></script>
 <![endif]-->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Roboto+Slab:400,300,700|Roboto:400,400italic,300,300italic,500,500italic,700italic,700" rel="stylesheet" type="text/css">
 <?php if (Localization::activeLocale() === 'he') { ?>
     <link href='//fonts.googleapis.com/css?family=Alef:400,700&subset=hebrew' rel='stylesheet' type='text/css'>
 <?php } ?>
