@@ -22,7 +22,7 @@
     <link href='//fonts.googleapis.com/css?family=Alef:400,700&subset=hebrew' rel='stylesheet' type='text/css'>
 <?php } ?>
     <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/main.css">
-    <script src="<?= CONCRETE5_ENV === 'dev' ? '//cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react-with-addons.js' : '//cdnjs.cloudflare.com/ajax/libs/react/0.13.1/react-with-addons.min.js' ?>"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react-with-addons<?= CONCRETE5_ENV === 'dev' ? '.min' : '' ?>.js"></script>
 <?php
     Loader::element('header_required');
 ?>

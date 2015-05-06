@@ -11,6 +11,11 @@ module.exports = {
     [
       // i18n translations
       'I18N_RECEIVE',
+
+      // Walks
+      'WALK_RECEIVE',
+      'WALK_SAVE',
+      'WALK_PUBLISH'
     ].forEach(function(key) {
       keys[key] = key;
     });

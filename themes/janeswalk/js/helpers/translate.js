@@ -17,6 +17,7 @@ function I18nTranslator(translations) {
     this.translations = translations;
   }
 }
+
 // Prototype methods
 Object.defineProperties(I18nTranslator.prototype, {
   // The big translations map

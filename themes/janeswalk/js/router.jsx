@@ -5,6 +5,8 @@
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
+// Translations for i18n L10n
+var I18nUtils = require('./utils/I18nUtils.js');
 
 // Page Views
 var PageViews = {
@@ -46,6 +48,9 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('modals')
     );
 
+    // Load our translations upfront
+    I18nUtils.getTranslations(JanesWalk.locale);
+
     // Hybrid-routing. First check if there's a React view (which will render
     // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
     if (ReactView) {
@@ -53,7 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
         case 'CreateWalkView':
           React.render(
             <ReactView
-              locale={JanesWalk.locale}
               data={JanesWalk.walk.data}
               city={JanesWalk.city}
               user={JanesWalk.user}

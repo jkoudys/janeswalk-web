@@ -197,9 +197,6 @@ var CreateWalk = React.createClass({
   },
 
   componentWillMount: function() {
-    var locale = this.props.locale;
-    // Load translations
-    I18nActions.receive(locale);
     I18nStore.addChangeListener(this._onChange.bind(this));
   },
 

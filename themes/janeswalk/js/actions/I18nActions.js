@@ -14,10 +14,10 @@ var ActionTypes = JWConstants.ActionTypes;
 
 module.exports = {
   // Load all loop data
-  receive: function(locale) {
+  receive: function(translations) {
     AppDispatcher.dispatch({
       type: ActionTypes.I18N_RECEIVE,
-      locale: locale
+      translations: translations
     });
   }
 };

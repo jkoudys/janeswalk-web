@@ -6,6 +6,8 @@
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
+// Translations for i18n L10n
+var I18nUtils = require('./utils/I18nUtils.js');
 
 // Page Views
 var PageViews = {
@@ -47,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('modals')
     );
 
+    // Load our translations upfront
+    I18nUtils.getTranslations(JanesWalk.locale);
+
     // Hybrid-routing. First check if there's a React view (which will render
     // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
     if (ReactView) {
@@ -54,7 +59,6 @@ document.addEventListener('DOMContentLoaded', function() {
         case 'CreateWalkView':
           React.render(
             React.createElement(ReactView, {
-              locale: JanesWalk.locale, 
               data: JanesWalk.walk.data, 
               city: JanesWalk.city, 
               user: JanesWalk.user, 
@@ -104,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-},{"./components/CreateWalk.jsx":8,"./components/Login.jsx":10,"./components/Page.jsx":11,"./components/pages/City.jsx":33,"./components/pages/Home.jsx":34,"./components/pages/Profile.jsx":35,"./components/pages/Walk.jsx":36,"intl/Intl.en":6}],2:[function(require,module,exports){
+},{"./components/CreateWalk.jsx":8,"./components/Login.jsx":10,"./components/Page.jsx":11,"./components/pages/City.jsx":33,"./components/pages/Home.jsx":34,"./components/pages/Profile.jsx":35,"./components/pages/Walk.jsx":36,"./utils/I18nUtils.js":44,"intl/Intl.en":6}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -749,10 +753,10 @@ var ActionTypes = JWConstants.ActionTypes;
 
 module.exports = {
   // Load all loop data
-  receive: function(locale) {
+  receive: function(translations) {
     AppDispatcher.dispatch({
       type: ActionTypes.I18N_RECEIVE,
-      locale: locale
+      translations: translations
     });
   }
 };
@@ -959,9 +963,6 @@ var CreateWalk = React.createClass({displayName: "CreateWalk",
   },
 
   componentWillMount: function() {
-    var locale = this.props.locale;
-    // Load translations
-    I18nActions.receive(locale);
     I18nStore.addChangeListener(this._onChange.bind(this));
   },
 
@@ -5761,6 +5762,11 @@ module.exports = {
     [
       // i18n translations
       'I18N_RECEIVE',
+
+      // Walks
+      'WALK_RECEIVE',
+      'WALK_SAVE',
+      'WALK_PUBLISH'
     ].forEach(function(key) {
       keys[key] = key;
     });
@@ -5873,6 +5879,7 @@ function I18nTranslator(translations) {
     this.translations = translations;
   }
 }
+
 // Prototype methods
 Object.defineProperties(I18nTranslator.prototype, {
   // The big translations map
@@ -6024,38 +6031,13 @@ var EventEmitter = require('events').EventEmitter;
 var ActionTypes = require('../constants/JWConstants').ActionTypes;
 
 // The library for managing translations
-var I18nTranslate = require('../helpers/translate.js');
+var I18nTranslator = require('../helpers/translate.js');
 
 // Simple 'something has changed' event
 var CHANGE_EVENT = 'change';
 
 // Local vars
-var _i18n = new I18nTranslate();
-
-/**
- * Load translations file from JanesWalk
- *
- * @param string locale The i18n standard locale name, e.g. es_ES, en_US, etc.
- * @param function cb Callback to execute on translations load success
- */
-function loadTranslations(locale, cb) {
-  // Check that we have a translations file set
-  if (locale.translation) {
-    // Pull translations JSON from JW backend
-    $.ajax({
-      url: locale.translation,
-      dataType: 'json',
-      success: function(data) {
-        // Load translations
-        _i18n = _i18n.constructor(data.translations['']);
-        // Complete callback, if set
-        if (cb instanceof Function) {
-          cb();
-        }
-      }
-    });
-  }
-}
+var _i18n = new I18nTranslator();
 
 var I18nStore = Object.assign({}, EventEmitter.prototype, {
   emitChange: function() {
@@ -6084,7 +6066,8 @@ I18nStore.dispatchToken = AppDispatcher.register(function(payload) {
   switch(payload.type) {
     // POI actions
     case ActionTypes.I18N_RECEIVE:
-      loadTranslations(payload.locale, I18nStore.emitChange.bind(I18nStore));
+      _i18n.constructor(payload.translations);
+      I18nStore.emitChange();
     break;
     default:
       // do nothing
@@ -6095,4 +6078,42 @@ module.exports = I18nStore;
 
 
 
-},{"../constants/JWConstants":37,"../dispatcher/AppDispatcher":38,"../helpers/translate.js":41,"events":2}]},{},[1]);
+},{"../constants/JWConstants":37,"../dispatcher/AppDispatcher":38,"../helpers/translate.js":41,"events":2}],44:[function(require,module,exports){
+'use strict';
+
+var I18nActions = require('../actions/I18nActions.js');
+
+module.exports = {
+  /**
+   * Load translations file from JanesWalk
+   *
+   * @param object locale The locale definition, including name and url to messages
+   */
+  getTranslations: function(locale) {
+    // Check that we have a translations file set
+    if (locale.translation) {
+      // Grab from session if we have it
+      var translation = window.sessionStorage.getItem('i18n_' + locale.name);
+      if (translation) {
+        I18nActions.receive(JSON.parse(translation).translations['']);
+      } else {
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', locale.translation, true);
+        xhr.onload = function() {
+          var data = JSON.parse(this.responseText);
+
+          // Store with the session
+          window.sessionStorage.setItem('i18n_' + locale.name, this.responseText);
+
+          // Trigger i18n change on complete
+          I18nActions.receive(data.translations['']);
+        };
+        xhr.send();
+      }
+    }
+  }
+};
+
+
+
+},{"../actions/I18nActions.js":7}]},{},[1]);
