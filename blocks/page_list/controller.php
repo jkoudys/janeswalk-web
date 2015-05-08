@@ -140,8 +140,8 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             $this->pageData = ['walks' => $cards];
 
             // Filter out past walks
-            // Check up to 2 days ago
-            $time = time() - (60 * 60 * 48);
+            // Check up to 30 days ago
+            $time = time() - (60 * 60 * 24 * 30);
             $cardsUpcoming = array_filter(
                 $walksByDate,
                 function($walk) use ($time) {
