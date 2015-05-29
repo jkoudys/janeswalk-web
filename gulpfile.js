@@ -19,21 +19,23 @@ var gulp = require('gulp'),
   reactify = require('reactify'),
   gettextParser = require('gettext-parser');
 
+var THEMEDIR = './application/themes/janeswalk';
+
 var paths = {
-  js: './themes/janeswalk/js',
+  js: THEMEDIR + '/js',
   js_lib: [
-    './themes/janeswalk/js/app.js',
-    './themes/janeswalk/js/extend.js',
-    './themes/janeswalk/js/shims.js',
+    THEMEDIR + '/js/app.js',
+    THEMEDIR + '/js/extend.js',
+    THEMEDIR + '/js/shims.js',
   ],
-  jsx_app: './themes/janeswalk/js/router.jsx',
-  jsx_views: ['./themes/janeswalk/js/router.jsx'],
-  jsx: ['./themes/janeswalk/js/components/**/*.jsx'],
+  jsx_app: THEMEDIR + '/js/router.jsx',
+  jsx_views: [THEMEDIR + '/js/router.jsx'],
+  jsx: [THEMEDIR + '/js/components/**/*.jsx'],
   languages: './languages',
   mos: ['./languages/*/*.mo'],
-  less: ['./themes/janeswalk/css/main.less'],
-  css: './themes/janeswalk/css/',
-  react_views: './themes/janeswalk/js/components/'
+  less: [THEMEDIR + '/css/main.less'],
+  css: THEMEDIR + '/css/',
+  react_views: THEMEDIR + '/js/components/'
 };
 
 gulp.task('css', function() {

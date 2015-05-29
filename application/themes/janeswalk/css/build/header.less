@@ -1,0 +1,163 @@
+// The main menu bar at the top
+> header:extend(.navbar all, .navbar-fixed-top all, .navbar-default all) {
+	background:#fff;
+	font-family: @font-slab;
+
+	// Logo
+	.logo:extend(.navbar-header all) {
+		span:extend(.hide-text, .navbar-brand all) {
+			background: url("../images/jwlogo.svg");
+			display: inline-block;
+			background-position: center center;
+			background-repeat: no-repeat;
+			width: 102px;
+			height: @navbar-height;
+			background-size: contain;
+		}
+		@media (min-width: @screen-md-min) {
+			margin-right: @grid-gutter-width / 2;
+		}
+	}
+	nav {
+		.clearfix();
+		height: @navbar-height;
+		overflow-y: hidden;
+		max-width: @screen-lg-min;
+		margin: 0 auto;
+		padding: 0 @grid-gutter-width/2;
+		ul.nav {
+			> li {
+				> a {
+					padding-top: 0;
+					padding-bottom: 0;
+					line-height: @navbar-height;
+					color: @color-darkgrey;
+				}
+			}
+		}
+		a + ul.nav {
+			&:extend(.navbar-right all, .navbar-nav all);
+		}
+		a + ul.nav + ul.nav {
+			&:extend(.navbar-left all, .navbar-nav all);
+		}
+	}
+
+	// Use this area for user-friendly notes, either from js or server-side
+	.notification {
+		position: absolute;
+		overflow: hidden;
+		background-image: none;
+		top: 61px;
+		box-shadow: 0 2px 0 darken(#9854df, 10%);
+		background: #9854df;
+		.container {
+			margin-top: 0.3em;
+			margin-bottom: 0.5em;
+		}
+		.title-sub {
+			font-size: 20px;
+			margin: 0;
+		}
+		&.expanded {
+			height: 50px;
+		}
+	}
+
+	.search-open, .search-close {
+		padding: 0 15px !important; // FIXME needed for bootstrap override
+		i {
+			line-height: 60px;
+		}
+	}
+	.search-close {
+		background: @color-orange;
+		display:none;
+		&:hover { 
+			color: inherit;
+		}
+		i {
+			color: #fff;
+		}
+	}
+
+	&.dropped {
+		.search-close {
+			display:block;
+			&:hover i { color: @color-darkgrey; }
+		}
+		.search-open { display:none; }
+		.navbar-outer {
+			max-height: 900px;
+		}
+	}
+
+	#donate:extend(.btn, .btn-primary, .btn-large, .navbar-btn) {
+		@padding-top-button: 6px; // The pad on a button
+		// Align the button to the line-height set on the navbar
+		margin: ((@navbar-height - (2 * @padding-top-button)) / 4) 0;
+	}
+}
+
+// A dropdown area, for including widgets in the header, e.g. search results
+.navbar-outer {
+	background-color: @color-darkgrey;
+	max-height: 0;
+	overflow: hidden;
+	transition-duration: 0.6s;
+	form {
+		max-width: @screen-lg-min;
+		margin: 0 auto;
+		padding: 25px 0;
+		fieldset.search {
+			display: inline-block;
+			margin-right: 50px;
+			vertical-align: top;
+		}
+		div#searchResults {
+			display:inline-block;
+			max-width:600px;
+			margin-top:-10px;
+			mark {
+				color:inherit;
+				background-color:inherit;
+				border-bottom: 1px dotted;
+			}
+			h4, p { 
+				margin:0;
+				padding: 0 0 8px 0;
+			}
+			.searchResult {
+				margin:0;
+				padding: 8px 8px 0 8px;
+				transition-duration: 0.3s;
+				&:hover {
+					background:#333;
+				}
+			}
+			a {
+				color:@color-lightgrey;
+				&:hover {
+					text-decoration:none;
+				}
+			}
+		}
+	}
+}
+
+// input:submit style for little forms
+fieldset.search:extend(.input-group all) {
+	@buttonoffset: 4px;
+	@defaultWidth: 280px;
+	.make-md-column(3, 0);
+	button {
+		width: auto;
+		height: 34px;
+		position: absolute;
+		top: 0;
+		right: 0;
+		border: 1px solid #ccc;
+		border-radius: 0 4px 4px 0;
+		color: @color-charcoal;
+	}
+}
