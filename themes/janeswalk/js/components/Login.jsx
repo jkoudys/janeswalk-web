@@ -2,20 +2,25 @@
  * The 'login' modal that comes up on standard login, not to be confused
  * with the login page.
  */
-'use strict';
 
-var Login = React.createClass({
-  getInitialState: function() {
-    return {
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       email: '',
       password: '',
       maintainLogin: false,
       message: {}
     };
-  },
 
-  handleReset: function(ev) {
-    var _this = this;
+    // Bind handlers
+    this.handleReset = this.handleReset.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleReset(ev) {
     // Post a reset request to the c5 endpoint for resets
     $.ajax({
       type: 'POST',
@@ -26,25 +31,23 @@ var Login = React.createClass({
         format: 'JSON'
       },
       dataType: 'json',
-      success: function(data) {
-        _this.setState({message: data});
-      }
+      success: data => this.setState({message: data})
     });
-  },
+  }
 
-  handleChangeEmail: function(ev) {
+  handleChangeEmail(ev) {
     this.setState({email: ev.target.value});
-  },
+  }
 
-  handleChangePassword: function(ev) {
+  handleChangePassword(ev) {
     this.setState({password: ev.target.value});
-  },
+  }
 
-  handleChangeMaintainLogin: function(ev) {
+  handleChangeMaintainLogin(ev) {
     this.setState({maintainLogin: ev.target.value});
-  },
+  }
 
-  handleSubmit: function(ev) {
+  handleSubmit(ev) {
     var _this = this;
     ev.preventDefault();
     // Post the login to the c5 endpoint for logins
@@ -71,9 +74,9 @@ var Login = React.createClass({
         });
       }
     });
-  },
+  }
 
-  render: function() {
+  render() {
     // TODO: link to the i18n
     var t = function(str) {
       var args = Array.prototype.slice.call(arguments);
@@ -121,7 +124,6 @@ var Login = React.createClass({
       </dialog>
     );
   }
-});
+}
 
-module.exports = Login;
-
+export default Login;

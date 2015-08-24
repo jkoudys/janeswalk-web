@@ -6,7 +6,7 @@ var t2 = require('../stores/I18nStore.js').getTranslatePlural();
 // Text areas with a 'remaining characters' limit
 var TextAreaLimit = React.createClass({
   render: function() {
-    var remaining = this.props.maxLength - this.props.valueLink.value.length;
+    var remaining = this.props.maxLength - this.props.value.length;
 
     return (
       <div className="text-area-limit">

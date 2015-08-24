@@ -1,12 +1,10 @@
-'use strict';
-
 /**
  * Initialization code goes here. This is not to be a dumping ground for
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
 // Translations for i18n L10n
-var I18nUtils = require('./utils/I18nUtils.js');
+import * as I18nUtils from './utils/I18nUtils.js';
 
 // Page Views
 var PageViews = {

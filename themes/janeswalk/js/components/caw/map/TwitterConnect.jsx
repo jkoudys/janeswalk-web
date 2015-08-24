@@ -1,20 +1,19 @@
-'use strict';
-
-var TwitterConnect = React.createClass({
-  getInitialState: function() {
-    return {
+class TwitterConnect extends React.Component {
+  constructor() {
+    super();
+    this.state = {
       query: '',
       accessToken: true
     };
-  },
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     window.setAccessToken = function(accessToken) {
       this.setState({accessToken: accessToken});
     }.bind(this);
-  },
+  }
 
-  handleLoadToken: function() {
+  handleLoadToken() {
     var _this = this;
 
     // Twitter requires a server-side auth with secret, so clients get token from JW
@@ -28,9 +27,9 @@ var TwitterConnect = React.createClass({
         }
       }
     });
-  },
+  }
 
-  loadFeed: function(query) {
+  loadFeed(query) {
     var _this = this;
     query = encodeURIComponent(query);
 
@@ -60,13 +59,13 @@ var TwitterConnect = React.createClass({
         });
       }
     });
-  },
+  }
 
-  handleQueryChange: function(ev) {
+  handleQueryChange(ev) {
     this.setState({query: ev.target.value});
-  },
+  }
 
-  render: function() {
+  render() {
     var addFilter = function() {
       // The filter we set to the 'filter box'
       this.props.addFilter({
@@ -85,6 +84,6 @@ var TwitterConnect = React.createClass({
       </button>
     );
   }
-});
+}
 
-module.exports = TwitterConnect;
+export default TwitterConnect;

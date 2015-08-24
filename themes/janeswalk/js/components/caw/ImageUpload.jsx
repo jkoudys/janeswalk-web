@@ -1,18 +1,14 @@
-'use strict';
-
 // Flux
 var t = require('../../stores/I18nStore.js').getTranslate();
 
-var ImageUpload = React.createClass({
-  displayName: 'ImageUpload',
-
-  removeImage: function(i) {
+class ImageUpload extends React.Component {
+  removeImage(i) {
     var thumbnails = this.props.valueLink.value;
     thumbnails.splice(i, 1);
     this.props.valueLink.requestChange(thumbnails);
-  },
+  }
 
-  handleUpload: function(e) {
+  handleUpload(e) {
     var fd = new FormData();
     var _this = this;
 
@@ -44,9 +40,9 @@ var ImageUpload = React.createClass({
         }
       });
     }
-  },
+  }
 
-  render: function() {
+  render() {
     var thumbnails = this.props.valueLink.value;
     // TODO: include an upload callback that loads the uploaded image locally,
     // instead of the one off the server
@@ -76,6 +72,6 @@ var ImageUpload = React.createClass({
       </form>
     );
   }
-});
+}
 
-module.exports = ImageUpload;
+export default ImageUpload;
