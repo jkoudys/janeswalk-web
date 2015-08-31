@@ -7494,12 +7494,6 @@ div#ccm-edit-overlay {
 }
 html {
   padding-top: 60px;
-  /* Pad for the fixed-footer */
-}
-@media (min-width: 768px) {
-  html {
-    padding-bottom: 111px;
-  }
 }
 body {
   overflow-x: hidden;
@@ -8370,15 +8364,14 @@ body div#ccm-toolbar {
 }
 body > footer {
   width: 100%;
-  background: #dcdcdc;
-  color: #50616D;
+  background: #f16725;
+  color: #fff;
   font-family: "Roboto Slab", serif;
   font-weight: 500;
-  position: fixed;
   bottom: 0;
   z-index: 1030;
   clear: both;
-  padding: 15px 0;
+  padding: 60px 0;
   -webkit-transform: translateZ(0);
 }
 body > footer nav {
@@ -8394,7 +8387,7 @@ body > footer h4 {
   margin-top: 0;
 }
 body > footer a {
-  color: #df520e;
+  color: #ffffff;
 }
 body > footer ul,
 body > footer li {
@@ -8420,7 +8413,7 @@ body > footer .social-icons a {
   text-decoration: none;
 }
 body > footer .social-icons a i {
-  color: #6badfd;
+  color: #ffffff;
   font-size: 24px;
   margin-right: 4px;
 }

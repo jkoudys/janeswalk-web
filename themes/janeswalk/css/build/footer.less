@@ -1,16 +1,15 @@
 // Footer
 > footer {
     width: 100%;
-    background: #dcdcdc;
-    color: #50616D;
+    background: @color-orange;
+    color: #fff;
     font-family: @font-slab;
     font-weight: 500;
-    position: fixed;
     bottom:0;
     z-index: @zindex-navbar-fixed;
     clear: both;
 
-    padding: @grid-gutter-width/2 0;
+    padding: @grid-gutter-width*2 0;
 
     // Silly hack to workaround a chrome bug
     -webkit-transform: translateZ(0);
@@ -26,7 +25,7 @@
         margin-top: 0;
     }
     a {
-        color: #df520e;
+        color: @color-white;
     }
     ul, li { list-style: none; }
     ul {
@@ -47,7 +46,7 @@
         a {
             text-decoration:none;
             i {
-                color: @color-blue;
+                color: @color-white;
                 font-size: 24px;
                 margin-right:4px;
             }
