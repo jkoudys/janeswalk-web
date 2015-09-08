@@ -1,11 +1,9 @@
-'use strict';
+// Flux
+import i18n from '../../stores/I18nStore.js';
+var t = i18n.getTranslate();
 
-var mixins = require('../functions/mixins.jsx');
-
-var WardSelect = React.createClass({
-  mixins: [mixins.linkedParentState],
-  render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+class WardSelect extends React.Component {
+  render() {
     var wards = this.props.wards;
     if (wards && this.props.valueLink) {
       return (
@@ -26,6 +24,6 @@ var WardSelect = React.createClass({
       );
     }
   }
-});
+}
 
-module.exports = WardSelect;
+export default WardSelect;

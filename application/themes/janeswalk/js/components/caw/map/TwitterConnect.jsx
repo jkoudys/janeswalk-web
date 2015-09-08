@@ -1,13 +1,6 @@
-/**
- * Connect to Twitter
- * Doesn't technically connect to twitter, but to the Jane's Walk
- * server which connects for you.
- */
-
 class TwitterConnect extends React.Component {
-  constructor(props) {
-    super(props);
-
+  constructor() {
+    super();
     this.state = {
       query: '',
       accessToken: true
@@ -21,52 +14,51 @@ class TwitterConnect extends React.Component {
   }
 
   handleLoadToken() {
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/api/twitter');
-    xhr.onload = function() {
-      let data;
-      data = JSON.parse(this.responseText);
-      if (data.access_token) {
-        _this.setState({accessToken: data.access_token});
+    var _this = this;
+
+    // Twitter requires a server-side auth with secret, so clients get token from JW
+    $.ajax({
+      method: 'GET',
+      url: '/api/twitter',
+      dataType: 'json',
+      success: function(data) {
+        if (data.access_token) {
+          _this.setState({accessToken: data.access_token});
+        }
       }
-    };
-    xhr.onerror = function() {
-    };
-    xhr.send();
+    });
   }
 
   loadFeed(query) {
-    let xhr = new XMLHttpRequest();
-    xhr.open(
-      'GET',
-      '/api/twitter?q=' + encodeURIComponent(query) +
-      '&coords=' + this.props.city.latlng[0] + ',' + this.props.city.latlng[1]
-    );
-    xhr.onload = function() {
-      let data;
-      data = JSON.parse(this.responseText);
-      var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
+    var _this = this;
+    query = encodeURIComponent(query);
 
-      _this.props.valueLink.requestChange({
-        markers: markers.concat(data.map(function(tweet) {
-          // Take first 5 words as the title
-          return {
-            title: tweet.description.split(' ').slice(0, 5).join(' '),
-            description: tweet.description,
-            lat: tweet.lat,
-            lng: tweet.lng,
-          };
-        })),
-        route: _this.props.valueLink.value.route
-      }, function() {
-        // kludge - need to find if there's a callback we can pass into gmaps for this
-        setTimeout(function() {
-          _this.props.refreshGMap();
-          _this.props.boundMapByWalk();
-        }, 100);
-      });
-    }
-    xhr.send();
+    $.ajax({
+      type: 'GET',
+      url: '/api/twitter?q=' + query + '&coords=' + this.props.city.latlng[0] + ',' + this.props.city.latlng[1],
+      success: function(data) {
+        var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
+
+        _this.props.valueLink.requestChange({
+          markers: markers.concat(data.map(function(tweet) {
+            // Take first 5 words as the title
+            return {
+              title: tweet.description.split(' ').slice(0, 5).join(' '),
+              description: tweet.description,
+              lat: tweet.lat,
+              lng: tweet.lng,
+            };
+          })),
+          route: _this.props.valueLink.value.route
+        }, function() {
+          // kludge - need to find if there's a callback we can pass into gmaps for this
+          setTimeout(function() {
+            _this.props.refreshGMap();
+            _this.props.boundMapByWalk();
+          }, 100);
+        });
+      }
+    });
   }
 
   handleQueryChange(ev) {

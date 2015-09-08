@@ -1,21 +1,21 @@
-'use strict';
+// Flux
+var t = require('../../stores/I18nStore.js').getTranslate();
 
-var ImageUpload = React.createClass({
-  displayName: 'ImageUpload',
-
-  removeImage: function(i) {
+class ImageUpload extends React.Component {
+  removeImage(i) {
     var thumbnails = this.props.valueLink.value;
     thumbnails.splice(i, 1);
     this.props.valueLink.requestChange(thumbnails);
-  },
+  }
 
-  handleUpload: function(e) {
+  handleUpload(e) {
     var fd = new FormData();
     var _this = this;
-    
+
     if (e.currentTarget.files) {
       // TODO: Update to support uploading multiple files at once
       // TODO: display a spinner w/ the local file as the BG until
+      // TODO: Move to flux
       // it's fully uploaded
       // Load one file
       fd.append('Filedata', e.currentTarget.files[0]);
@@ -40,11 +40,10 @@ var ImageUpload = React.createClass({
         }
       });
     }
-  },
+  }
 
-  render: function() {
+  render() {
     var thumbnails = this.props.valueLink.value;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
     // TODO: include an upload callback that loads the uploaded image locally,
     // instead of the one off the server
     // TODO: Implement server-side support for multiple thumbnails, then 
@@ -73,6 +72,6 @@ var ImageUpload = React.createClass({
       </form>
     );
   }
-});
+}
 
-module.exports = ImageUpload;
+export default ImageUpload;

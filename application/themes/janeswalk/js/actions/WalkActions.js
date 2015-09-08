@@ -1,23 +1,19 @@
-/**
- * i18n Translations
- *
- * Translate text content into our available translations using
- * the i18n standard.
- */
+import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import {ActionTypes} from '../constants/JWConstants.js';
 
-'use strict';
+// Load the walk
+export function receive(walk, url) {
+  AppDispatcher.dispatch({
+    type: ActionTypes.WALK_RECEIVE,
+    walk: walk,
+    url: url
+  });
+}
 
-var AppDispatcher = require('../dispatcher/AppDispatcher.js');
-var JWConstants = require('../constants/JWConstants.js');
-
-var ActionTypes = JWConstants.ActionTypes;
-
-module.exports = {
-  // Load all loop data
-  receive: function(locale) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.I18N_RECEIVE,
-      locale: locale
-    });
-  }
-};
+export function change(property, value) {
+  AppDispatcher.dispatch({
+    type: ActionTypes.WALK_CHANGE,
+    property: property,
+    value: value
+  });
+}

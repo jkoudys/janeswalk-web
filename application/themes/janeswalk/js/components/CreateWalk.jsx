@@ -1,232 +1,78 @@
-'use strict';
-// Create a Walk
-// 
-// Form for creating new walks. Includes a map builder, team builder, scheduler
-//
+/*
+ * Create a Walk
+ * Form for creating new walks. Includes a map builder, team builder, scheduler
+ */
 
 // Load create-a-walk View components
-var ImageUpload = require('./caw/ImageUpload.jsx');
-var ThemeSelect = require('./caw/ThemeSelect.jsx');
-var MapBuilder = require('./caw/MapBuilder.jsx');
-var DateSelect = require('./caw/DateSelect.jsx');
-var WardSelect = require('./caw/WardSelect.jsx');
-var AccessibleSelect = require('./caw/AccessibleSelect.jsx');
-var TeamBuilder = require('./caw/TeamBuilder.jsx');
-var WalkPublish = require('./caw/WalkPublish.jsx');
-var TextAreaLimit = require('./TextAreaLimit.jsx');
+import ImageUpload from './caw/ImageUpload.jsx';
+import ThemeSelect from './caw/ThemeSelect.jsx';
+import MapBuilder from './caw/MapBuilder.jsx';
+import DateSelect from './caw/DateSelect.jsx';
+import WardSelect from './caw/WardSelect.jsx';
+import AccessibleSelect from './caw/AccessibleSelect.jsx';
+import TeamBuilder from './caw/TeamBuilder.jsx';
+import WalkPublish from './caw/WalkPublish.jsx';
+import TextAreaLimit from './TextAreaLimit.jsx';
 
-// Libs
-var I18nTranslate = require('./functions/translate.js');
-var Helper = require('./functions/helpers.jsx');
+// Flux
+import WalkStore from '../stores/WalkStore.js';
+import * as WalkUtils from '../utils/WalkUtils.js';
+import I18nActions from '../actions/I18nActions.js';
+import I18nStore from '../stores/I18nStore.js';
+const t = I18nStore.getTranslate();
+const t2 = I18nStore.getTranslatePlural();
 
-var CreateWalk = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
+// Helpers
+import Helper from '../helpers/helpers.jsx';
 
-  getInitialState: function() {
-    var data = this.props.data;
-    // TODO: move this into its own model js
-    // Keep these defaults to type, ie don't pre-seed data here, aside from
-    // data loaded by passing it in
-    var walk = {
-      name: '',
-      shortDescription: '',
-      longDescription: '',
-      accessibleInfo: '',
-      accessibleTransit: '',
-      accessibleParking: '',
-      accessibleFind: '',
-      map: {
-        markers: [],
-        route: []
-      },
-      team: [{
-        id: -1,
-        type: 'you',
-        "name-first": '',
-        "name-last": '',
-        role: 'walk-leader',
-        primary: 'on',
-        bio: '',
-        twitter: '',
-        facebook: '',
-        website: '',
-        email: '',
-        phone: ''
-      }],
-      time: {type: '', slots: []},
-      thumbnails: [],
-      wards: '',
-      checkboxes: {},
-      notifications: [],
-      mirrors: {},
-      url: this.props.url
-    };
+class CreateWalk extends React.Component {
+  constructor() {
+    super();
 
-    // Convert old {0: marker, 1: marker} indexing to a proper array
-    if (data) {
-      // Convert markers
-      if (data.map && !Array.isArray(data.map.markers)) {
-        data.map.markers = Helper.objectToArray(data.map.markers);
-      }
-      // Convert routes
-      if (data.map && !Array.isArray(data.map.route)) {
-        data.map.route = Helper.objectToArray(data.map.route);
-      }
-      // Convert time slots
-      if (data.time && !Array.isArray(data.time.slots)) {
-        data.time.slots = Helper.objectToArray(data.time.slots);
-      }
-      // Turn all 'false' values into empty strings
-      for (var i in data) {
-        if (data[i] === false) {
-          data[i] = '';
-        } else if (data[i] === null) {
-          // Clear out 'nulls' so we instead take their state from defaults
-          delete data[i];
-        }
-      }
+    this.state = WalkStore.getWalk();
+  }
 
-      // Init the leader as creator, if none set
-      data.team = data.team || []
-      if (data.team.length === 0) {
-        var user = this.props.user;
-        data.team = [{
-          type: 'you',
-          "name-first": user.firstName,
-          "name-last": user.lastName,
-          role: 'walk-leader',
-          primary: 'on',
-          bio: user.bio,
-          twitter: user.twitter,
-          facebook: user.facebook,
-          website: user.website,
-          email: user.email,
-          phone: '' 
-        }];
-      }
-      Object.assign(walk, data);
-    }
-    return walk;
-  },
-
-  saveWalk: function(options, cb) {
-    // TODO: separate the notifications logic
-    /* Send in the updated walk to save, but keep working */
-    var notifications = this.state.notifications.slice();
-    var removeNotice = function() {
-      var notifications = this.state.notifications.slice();
-      this.setState({notifications: notifications.slice(1)});
-    }.bind(this);
-
-    var defaultOptions = {
-      messageTimeout: 1200
-    };
-    options = options || {};
-    
-    notifications.push({type: 'info', name: 'Saving walk'});
-
-    // Build a simplified map from the Google objects
-    this.setState({
-      map: this.refs.mapBuilder.getStateSimple(),
-      notifications: notifications
-    }, function() {
-      $.ajax({
-        url: this.state.url,
-        type: options.publish ? 'PUT' : 'POST',
-        data: {json: JSON.stringify(this.state)},
-        dataType: 'json',
-        success: function(data) {
-          var notifications = this.state.notifications.slice();
-          notifications.push({type: 'success', name: 'Walk saved'});
-          this.setState(
-            {notifications: notifications, url: (data.url || this.state.url)},
-            function() {
-              if (cb && cb instanceof Function) {
-                // The 'this' in each callback should be the <CreateWalk>
-                cb.call(this);
-              }
-            }
-          );
-          setTimeout(removeNotice, 1200);
-          }.bind(this),
-        error: function(xhr, status, err) {
-          var notifications = this.state.notifications.slice();
-          notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
-          this.setState({notifications: notifications});
-          setTimeout(removeNotice, 6000);
-          console.error(this.url, status, err.toString());
-        }.bind(this)
-      });
-    }.bind(this));
-    setTimeout(removeNotice, 1200);
-  },
-
-  handleNext: function() {
+  handleNext() {
     // Bootstrap's managing the tabs, so trigger a jQuery click on the next
     var next = $('#progress-panel > .nav > li.active + li > a');
     window.scrollTo(0, 0);
     if (next.length) {
-      this.saveWalk();
+      this.handleSave();
       next.trigger('click');
     } else {
       // If no 'next' tab, next step is to publish
       $(this.refs.publish.getDOMNode()).trigger('click');
     }
-  },
- 
-  handleSave: function() {
-    this.saveWalk();
-  },
+  }
 
-  handlePublish: function() {
-    this.saveWalk({publish: true}, function() {
-      console.log('Walk published');
-    });
-  },
- 
-  handlePreview: function(e) {
-    var _this = this;
-    this.saveWalk({}, function() {
-      _this.setState({preview: true});
-    });
-  },
+  handleSave() {
+    WalkUtils.save();
+  }
 
-  componentWillMount: function() {
-    var locale = this.props.locale;
-    var _this = this;
+  handlePublish() {
+    WalkUtils.publish();
+  }
 
-    // Start loading the translations file as early as possible
-    if (locale.translation) {
-      $.ajax({
-        url: locale.translation,
-        dataType: 'json',
-        success: function(data) {
-          try {
-            _this.state.i18n.constructor(data.translations['']);
-            _this.setState({});
-          } catch (e) {
-            console.error('Failed to load i18n translations JSON: ' + e.stack);
-          }
-        }
-      });
-    }
+  handlePreview() {
+    WalkUtils.save(() => this.setState({preview: true}));
+  }
 
-    this.setState({i18n: new I18nTranslate()});
-  },
+  componentWillMount() {
+    I18nStore.addChangeListener(this._onChange.bind(this));
+    WalkStore.addChangeListener(this._onChange.bind(this));
+  }
 
-  render: function() {
-    var i18n = this.state.i18n;
-    var t = i18n.translate.bind(i18n);
-    var t2 = i18n.translatePlural.bind(i18n);
+  componentWillUnmount() {
+    I18nStore.removeChangeListener(this._onChange);
+    WalkStore.removeChangeListener(this._onChange);
+  }
 
-    // Used to let the map pass a callback
-    var linkStateMap = {
-      value: this.state.map,
-      requestChange: function(newVal, cb) {
-        this.setState({map: newVal}, cb);
-      }.bind(this)
-    };
+  // Simple trigger to re-render the components
+  _onChange() {
+    this.setState(WalkStore.getWalk());
+  }
 
+  render() {
     return (
       <main id="create-walk">
         <section>
@@ -268,14 +114,14 @@ var CreateWalk = React.createClass({
                     </div>
                   </fieldset>
                 </form>
-                <ImageUpload i18n={i18n} valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
+                <ImageUpload valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
                 <form>
                   <hr />
                   <fieldset>
                     <div className="item required">
                       <label htmlFor="shortdescription">{ t('Your Walk in a Nutshell') }</label>
                       <div className="alert alert-info">{ t('Build intrigue! This is what people see when browsing our walk listings.') }</div>
-                      <TextAreaLimit i18n={i18n} id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortDescription')} required />
+                      <TextAreaLimit id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortDescription')} required />
                     </div>
                     <hr />
                     <div className="item required">
@@ -286,58 +132,15 @@ var CreateWalk = React.createClass({
                       <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longDescription')} />
                     </div>
                   </fieldset>
-                  <ThemeSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
-                  {((this.props.city.wards || []).length > 0) ? <WardSelect i18n={i18n} wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
+                  <ThemeSelect valueLink={this.linkState('checkboxes')} />
+                  {((this.props.city.wards || []).length > 0) ? <WardSelect wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
                   <hr />
                 </form>
               </div>
-              <MapBuilder ref="mapBuilder" i18n={i18n} valueLink={linkStateMap} city={this.props.city} />
-              <DateSelect i18n={i18n} valueLink={this.linkState('time')} />
-              <div className="tab-pane" id="accessibility">
-                <div className="page-header" data-section='accessibility'>
-                  <h1>{ t('Make it Accessible') }</h1>
-                </div>
-                <div className="item">
-                  <AccessibleSelect i18n={i18n} valueLink={this.linkState('checkboxes')} />
-                </div>
-
-                <div className="item">
-                  <fieldset>
-                    <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-                    <TextAreaLimit i18n={i18n} name="accessible-info" rows="3" maxLength="500" valueLink={this.linkState('accessibleInfo')} />
-                  </fieldset>
-                </div>
-
-                <div className="item">
-                  <fieldset>
-                    <legend id="transit">{ t('How can someone get to the meeting spot by public transit?') } ({ t('Optional') })</legend>
-                    <div className="alert alert-info">
-                      { t('Nearest subway stop, closest bus or streetcar lines, etc.')} 
-                    </div>
-                    <textarea rows="3" name="accessible-transit" valueLink={this.linkState('accessibleTransit')} />
-                  </fieldset>
-                </div>
-
-                <div className="item">
-                  <fieldset>
-                    <legend>{ t('Where are the nearest places to park?') } ({ t('Optional') })</legend>
-                    <textarea rows="3" name="accessible-parking" valueLink={this.linkState('accessibleParking')} />
-                  </fieldset>
-                </div>
-
-                <div className="item">
-                  <fieldset>
-                    <legend className="required-legend" >{ t('How will people find you?') }</legend>
-                    <div className="alert alert-info">
-                      { t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')} 
-                    </div>
-                    <textarea rows="3" name="accessible-find"  valueLink={this.linkState('accessibleFind')} />
-                  </fieldset>
-                </div>
-                <hr />
-                <br />
-              </div>
-              <TeamBuilder i18n={i18n} valueLink={this.linkState('team')} />
+              <MapBuilder ref="mapBuilder" city={this.props.city} />
+              <DateSelect valueLink={this.linkState('time')} />
+              <Accessible />
+              <TeamBuilder valueLink={this.linkState('team')} />
             </div>
             <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>
@@ -352,8 +155,8 @@ var CreateWalk = React.createClass({
             </div>
           </aside>
         </section>
-        {this.state.publish ? <WalkPublish i18n={i18n} url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={this.props.city} mirrors={this.state.mirrors} /> : null}
-        {this.state.preview ? <WalkPreview i18n={i18n} url={this.state.url} close={this.setState.bind(this, {preview: false})} /> : null}
+        {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={this.props.city} mirrors={this.state.mirrors} /> : null}
+        {this.state.preview ? <WalkPreview url={this.state.url} close={this.setState.bind(this, {preview: false})} /> : null}
         <aside id="notifications">
           {this.state.notifications.map(function(notification) {
             return (
@@ -367,10 +170,10 @@ var CreateWalk = React.createClass({
       </main>
     );
   }
-});
+}
 
-var WalkPreview = React.createClass({
-  componentDidMount: function() {
+class WalkPreview extends React.Component {
+  componentDidMount() {
     var _this = this;
     // Bootstrap Modal
     $(this.getDOMNode()).modal();
@@ -378,11 +181,9 @@ var WalkPreview = React.createClass({
     $(this.getDOMNode()).bind('hidden.bs.modal', function() {
       _this.props.close();
     });
-  },
-  render: function() {
-    var i18n = this.props.i18n;
-    var t = i18n.translate.bind(i18n);
+  }
 
+  render() {
     return (
       <dialog id="preview-modal">
         <div>
@@ -399,6 +200,6 @@ var WalkPreview = React.createClass({
       </dialog>
     );
   }
-});
+}
 
-module.exports = CreateWalk;
+export default CreateWalk;

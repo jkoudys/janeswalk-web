@@ -1,4 +1,10 @@
 'use strict';
+
+// Flux
+var i18n = require('../../../stores/I18nStore.js');
+var t = i18n.getTranslate();
+var t2 = i18n.getTranslatePlural();
+
 /**
  * The table with all the times that the walks are scheduled
  */
@@ -24,8 +30,6 @@ TimeSetTable.prototype = Object.create(React.Component.prototype, {
   render: {
     value: function() {
       var slots = this.props.valueLink.value.slots || [];
-      var t = this.props.i18n.translate.bind(this.props.i18n);
-      var t2 = this.props.i18n.translatePlural.bind(this.props.i18n);
 
       var dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
       var dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});

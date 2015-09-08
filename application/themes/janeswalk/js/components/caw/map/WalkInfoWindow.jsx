@@ -14,13 +14,13 @@ class WalkInfoWindow extends React.Component {
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
   }
 
+
   /**
    * Set the content of this marker
    * @param Object props The properties to set
    */
   setMarkerContent(props) {
     var marker = this.state.marker;
-
     // Parse, apply new properties, re-encode then assign as new title. Needed
     // as gmaps doesn't give you multiple fields, so we encode in the title.
     marker.setTitle(JSON.stringify(Object.assign({}, JSON.parse(marker.getTitle()), props)));

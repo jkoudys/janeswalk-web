@@ -1,6 +1,6 @@
 class InstagramConnect extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {accessToken: null};
   }
 

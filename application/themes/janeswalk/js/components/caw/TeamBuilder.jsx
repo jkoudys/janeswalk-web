@@ -1,70 +1,67 @@
-'use strict';
+// Flux
+import I18nStore from '../../stores/I18nStore.js';
+const t = I18nStore.getTranslate();
+const t2 = I18nStore.getTranslatePlural();
 
-var mixins = require('../functions/mixins.jsx');
+class TeamBuilder extends React.Component {
+  constructor() {
+    super();
 
-var TeamBuilder = React.createClass({
-  displayName: 'TeamBuilder',
-
-  mixins: [mixins.linkedParentState],
-
-  getInitialState: function() {
     // So we know if this is the first loading, or changed after
-    return {initialized: false};
-  },
+    this.state = {initialized: false};
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     this.setState({initialized: true});
-  },
+  }
 
-  handleTeamMemberChange: function(propname, memberValue, id) {
+  handleTeamMemberChange(propname, memberValue, id) {
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
     value[id][propname] = memberValue;
     valueLink.requestChange(value);
-  },
+  }
 
-  addMember: function(props) {
+  addMember(props) {
     var valueLink = this.props.valueLink;
     var team = valueLink.value;
     team.push(props);
     valueLink.requestChange(team);
-  },
+  }
 
-  addLeader: function() {
+  addLeader() {
     this.addMember({type: 'leader', "name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''});
-  },
+  }
 
-  addOrganizer: function() {
+  addOrganizer() {
     this.addMember({type: 'organizer', "name-first":'', "name-last":'', institution: '', website: ''});
-  },
+  }
 
-  addCommunityVoice: function() {
+  addCommunityVoice() {
     this.addMember({type: 'community', "name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''});
-  },
+  }
 
-  addVolunteer: function() {
+  addVolunteer() {
     this.addMember({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
-  },
+  }
 
-  deleteMember: function(i) {
+  deleteMember(i) {
     var valueLink = this.props.valueLink;
     var value = valueLink.value.slice();
     value.splice(i, 1);
     valueLink.requestChange(value);
-  },
+  }
 
   // Set the member at that specific index
-  render: function() {
+  render() {
     var _this = this;
     // If there's no 'you', create one as the current user
     var valueLink = this.props.valueLink;
     var value = valueLink.value;
-    var t = this.props.i18n.translate.bind(this.props.i18n);
 
     // Loop through all the users and render the appropriate user type
     var teamMemberProps = {
-      onChange: this.handleTeamMemberChange,
-      i18n: this.props.i18n
+      onChange: this.handleTeamMemberChange
     };
     var users = value.map(function(user, i) {
       var teamMember = null;
@@ -127,13 +124,11 @@ var TeamBuilder = React.createClass({
       </div>
     );
   }
-});
+}
 
 
-var TeamOwner = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+class TeamOwner extends React.Component {
+  render() {
     return (
       <div className="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
@@ -207,12 +202,10 @@ var TeamOwner = React.createClass({
       </div>
     );
   }
-});
+}
 
-var TeamLeader = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+class TeamLeader extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member walk-leader clearfix" id="walk-leader-new">
         <fieldset>
@@ -279,12 +272,10 @@ var TeamLeader = React.createClass({
       </div>
     )
   }
-});
+}
 
-var TeamOrganizer = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+class TeamOrganizer extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member walk-organizer" id="walk-organizer-new">
         <fieldset>
@@ -315,12 +306,10 @@ var TeamOrganizer = React.createClass({
       </div>
     )
   }
-});
+}
 
-var TeamCommunityVoice = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+class TeamCommunityVoice extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member community-voice" id="community-voice-new">
         <fieldset>
@@ -369,12 +358,10 @@ var TeamCommunityVoice = React.createClass({
       </div>
     )
   }
-});
+}
 
-var TeamVolunteer = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
-    var t = this.props.i18n.translate.bind(this.props.i18n);
+class TeamVolunteer extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member othermember" id="othermember-new">
         <fieldset>
@@ -410,6 +397,6 @@ var TeamVolunteer = React.createClass({
       </div>
     )
   }
-});
+}
 
-module.exports = TeamBuilder;
+export default TeamBuilder;

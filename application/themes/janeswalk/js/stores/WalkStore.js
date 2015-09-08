@@ -1,81 +1,54 @@
 /**
- * i18n Store
+ * Walk store
  *
- * Store for i18n language translations
+ * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+ * description, and people involved with a walk.
  */
-'use strict';
 
-// Basic flux setup
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var ActionTypes = require('../constants/JWConstants').ActionTypes;
+import Store from './Store.js';
+import {Events, ActionTypes} from '../constants/JWConstants.js';
+import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import defaultWalk from '../constants/defaultWalk.json';
 
-// The library for managing translations
-var I18nTranslate = require('../helpers/translate.js');
+// Store singletons
+// The Walk object, and its default params
+let _walk = defaultWalk;
+// @var string The service endpoint for this walk
+let _url = '';
 
-// Simple 'something has changed' event
-var CHANGE_EVENT = 'change';
-
-// Local vars
-var _i18n = new I18nTranslate();
-
-/**
- * Load translations file from JanesWalk
- *
- * @param string locale The i18n standard locale name, e.g. es_ES, en_US, etc.
- * @param function cb Callback to execute on translations load success
- */
-function loadTranslations(locale, cb) {
-  // Check that we have a translations file set
-  if (locale.translation) {
-    // Pull translations JSON from JW backend
-    $.ajax({
-      url: locale.translation,
-      dataType: 'json',
-      success: function(data) {
-        // Load translations
-        _i18n = _i18n.constructor(data.translations['']);
-        // Complete callback, if set
-        if (cb instanceof Function) {
-          cb();
-        }
-      }
-    });
-  }
+function receiveWalk(walk, url) {
+  // Map the walk data
+  _walk = [
+    'id', 'title', 'initiatives', 'longDescription', 'shortDescription',
+    'thumbnails', 'mirrors', 'wards'
+  ].reduce((obj, cur) => { obj[cur] = walk.data[cur]; return obj; }, {});
+  _url = walk.url;
 }
 
-var I18nStore = Object.assign({}, EventEmitter.prototype, {
-  emitChange: function() {
-    this.emit(CHANGE_EVENT);
+const WalkStore = Object.assign({}, Store, {
+  getWalk() {
+    return _walk;
   },
 
-  /**
-   * @param {function} callback
-   */
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+  getUrl() {
+    return _url
   },
 
-  getTranslate: function() {
-    return _i18n.translate.bind(_i18n);
-  },
-
-  getTranslatePlural: function() {
-    return _i18n.translatePlural.bind(_i18n);
+  getApi() {
+    return {};
   }
 });
 
 // Register our dispatch token as a static method
-I18nStore.dispatchToken = AppDispatcher.register(function(payload) {
+WalkStore.dispatchToken = AppDispatcher.register(function(payload) {
   // Go through the various actions
   switch(payload.type) {
-    // POI actions
-    case ActionTypes.I18N_RECEIVE:
-      loadTranslations(payload.locale, I18nStore.emitChange.bind(I18nStore));
+    // Route actions
+    case ActionTypes.WALK_RECEIVE:
+      receiveWalk(payload.walk, payload.url);
+      WalkStore.emitChange();
     break;
-    default:
-      // do nothing
   }
-});
+})
 
-module.exports = I18nStore;
+export default WalkStore;

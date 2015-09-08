@@ -1,11 +1,12 @@
 'use strict';
 
+// Flux
+var t2 = require('../stores/I18nStore.js').getTranslatePlural();
+
 // Text areas with a 'remaining characters' limit
 var TextAreaLimit = React.createClass({
   render: function() {
-    var i18n = this.props.i18n;
-    var t2 = i18n.translatePlural.bind(i18n);
-    var remaining = this.props.maxLength - this.props.valueLink.value.length;
+    var remaining = this.props.maxLength - this.props.value.length;
 
     return (
       <div className="text-area-limit">

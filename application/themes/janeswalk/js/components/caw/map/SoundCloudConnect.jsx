@@ -1,9 +1,9 @@
 class SoundCloudConnect extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       playlists: []
-    };
+    }
   }
 
   handleConnect(cb) {

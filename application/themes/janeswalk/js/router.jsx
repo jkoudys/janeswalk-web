@@ -1,10 +1,10 @@
-'use strict';
-
 /**
  * Initialization code goes here. This is not to be a dumping ground for
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
+// Translations for i18n L10n
+import * as I18nUtils from './utils/I18nUtils.js';
 
 // Page Views
 var PageViews = {
@@ -46,6 +46,9 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('modals')
     );
 
+    // Load our translations upfront
+    I18nUtils.getTranslations(JanesWalk.locale);
+
     // Hybrid-routing. First check if there's a React view (which will render
     // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
     if (ReactView) {
@@ -53,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
         case 'CreateWalkView':
           React.render(
             <ReactView
-              locale={JanesWalk.locale}
               data={JanesWalk.walk.data}
               city={JanesWalk.city}
               user={JanesWalk.user}
@@ -70,5 +72,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   } catch(e) {
     console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
+  }
+
+  // Init keyboard shortcuts
+  var toolbar = document.getElementById('ccm-toolbar');
+  if (toolbar) {
+    window.addEventListener('keyup', function(ev) {
+      /* Don't capture inputs going into a form */
+      if(ev.target.tagName !== "INPUT") {
+        ev.preventDefault();
+        switch(
+          String(
+            ev.key ||
+            (ev.keyCode && String.fromCharCode(ev.keyCode)) ||
+            ev.char)
+            .toUpperCase()
+        ){
+          case "M":
+            if (toolbar.style.display === 'block' || !toolbar.style.display) {
+              toolbar.style.display = 'none';
+            } else {
+              toolbar.style.display = 'block';
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    });
   }
 });
