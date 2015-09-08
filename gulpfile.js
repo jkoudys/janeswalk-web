@@ -38,6 +38,9 @@ var paths = {
   react_views: THEMEDIR + '/js/components/'
 };
 
+/**
+ * Compile our CSS
+ */
 gulp.task('css', function() {
   return gulp.src(paths.less)
     .pipe(less({compress: false}))
@@ -46,6 +49,9 @@ gulp.task('css', function() {
     .pipe(gulp.dest(paths.css));
 });
 
+/**
+ * Build React/Flux application
+ */
 gulp.task('js', function() {
   return browserify({
     entries: paths.jsx_app,
@@ -61,6 +67,9 @@ gulp.task('js', function() {
     .pipe(gulp.dest(paths.js))
 });
 
+/**
+ * Build JSX templates for all our custom blocks
+ */
 gulp.task('blocks', function() {
   // Run for each block view in array
   return ['./blocks/page_list/templates/typeahead/', './blocks/page_list/templates/walk_filters/'].map(function(template) {
@@ -131,5 +140,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default', function() {
-  // place code for your default task here
 });

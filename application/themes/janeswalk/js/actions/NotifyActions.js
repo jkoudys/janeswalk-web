@@ -9,7 +9,7 @@ export info(message, component) {
   });
 }
 
-export warn(message, type) {
+export warn(message, component) {
   AppDispatcher.dispatch({
     type: ActionTypes.LOG_WARN,
     message: message,
@@ -17,7 +17,7 @@ export warn(message, type) {
   });
 }
 
-export error(message, type) {
+export error(message, component) {
   AppDispatcher.dispatch({
     type: ActionTypes.LOG_ERROR,
     message: message,
