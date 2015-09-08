@@ -16,7 +16,7 @@ var gulp = require('gulp'),
   buffer = require('vinyl-buffer'),
   browserify = require('browserify'),
   uglifyify = require('uglifyify'),
-  reactify = require('reactify'),
+  babelify = require('babelify'),
   gettextParser = require('gettext-parser');
 
 var THEMEDIR = './application/themes/janeswalk';
@@ -46,12 +46,11 @@ gulp.task('css', function() {
     .pipe(gulp.dest(paths.css));
 });
 
-gulp.task('jsx_app', function() {
+gulp.task('js', function() {
   return browserify({
     entries: paths.jsx_app,
-    transform: [reactify],
-    extensions: ['.jsx'],
-    es6: true
+    transform: [babelify],
+    extensions: ['.jsx']
   })
     .bundle()
     .pipe(source('janeswalk.js'))
@@ -60,17 +59,6 @@ gulp.task('jsx_app', function() {
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(paths.js))
-});
-
-gulp.task('browserify', function(callback) {
-  return browserify({
-    entries: paths.react_views + 'CreateWalk.jsx',
-    transform: [reactify],
-    extensions: ['.jsx'],
-  })
-    .bundle()
-    .pipe(source('CreateWalk.js'))
-    .pipe(gulp.dest(paths.react_views))
 });
 
 gulp.task('blocks', function() {

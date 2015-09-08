@@ -1,11 +1,10 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
 class Localization extends Concrete5_Library_Localization
 {
     /**
      * For client-side translations, we need to supply a JSON file.
      *
-     * @return string 
+     * @return string
      * @example '/languages/de/LC_MESSAGES/messages.json'
      */
     public static function getActiveTranslateJsonURL()
@@ -16,7 +15,7 @@ class Localization extends Concrete5_Library_Localization
     /**
      * For client-side translations that can use the MO
      *
-     * @return string 
+     * @return string
      * @example '/languages/de/LC_MESSAGES/messages.mo'
      */
     public static function getActiveTranslateMoURL()
