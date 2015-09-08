@@ -1,18 +1,24 @@
-'use strict';
+/**
+ * Connect to Twitter
+ * Doesn't technically connect to twitter, but to the Jane's Walk
+ * server which connects for you.
+ */
 
-var TwitterConnect = React.createClass({
-  getInitialState: function() {
-    return {
+class TwitterConnect extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       query: '',
       accessToken: true
     };
-  },
+  }
 
-  componentWillMount: function() {
+  componentWillMount() {
     window.setAccessToken = function(accessToken) {
       this.setState({accessToken: accessToken});
     }.bind(this);
-  },
+  }
 
   handleLoadToken() {
     let xhr = new XMLHttpRequest();
@@ -63,11 +69,11 @@ var TwitterConnect = React.createClass({
     xhr.send();
   }
 
-  handleQueryChange: function(ev) {
+  handleQueryChange(ev) {
     this.setState({query: ev.target.value});
-  },
+  }
 
-  render: function() {
+  render() {
     var addFilter = function() {
       // The filter we set to the 'filter box'
       this.props.addFilter({
@@ -86,6 +92,6 @@ var TwitterConnect = React.createClass({
       </button>
     );
   }
-});
+}
 
-module.exports = TwitterConnect;
+export default TwitterConnect;

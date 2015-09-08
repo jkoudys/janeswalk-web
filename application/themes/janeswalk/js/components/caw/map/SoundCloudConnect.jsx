@@ -1,13 +1,12 @@
-'use strict';
-
-var SoundCloudConnect = React.createClass({
-  getInitialState: function() {
-    return {
+class SoundCloudConnect extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       playlists: []
     };
-  },
+  }
 
-  handleConnect: function(cb) {
+  handleConnect(cb) {
     var clientID = '3a4c85d0eb4f8579fb680bb738bd0ba8';
     var redirectURI = 'http://janeswalk.org/connected';
 
@@ -18,9 +17,9 @@ var SoundCloudConnect = React.createClass({
 
     var authWindow = window.open('https://soundcloud.com/connect/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token&state=soundcloud');
     this.setState({authWindow: authWindow});
-  },
+  }
 
-  handleLoadPlaylists: function(accessToken, cb) {
+  handleLoadPlaylists(accessToken, cb) {
     var _this = this;
     accessToken = accessToken || this.state.accessToken;
 
@@ -34,9 +33,9 @@ var SoundCloudConnect = React.createClass({
         cb();
       }
     });
-  },
+  }
 
-  loadPointsFromPlaylist: function(i) {
+  loadPointsFromPlaylist(i) {
     var _this = this;
     var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
 
@@ -70,9 +69,9 @@ var SoundCloudConnect = React.createClass({
       _this.props.refreshGMap();
       _this.props.boundMapByWalk();
     });
-  },
+  }
 
-  render: function() {
+  render() {
     var _this = this;
     var addFilter = function() {
       var filterProps = {
@@ -100,6 +99,6 @@ var SoundCloudConnect = React.createClass({
       </button>
     );
   }
-});
+}
 
-module.exports = SoundCloudConnect;
+export default SoundCloudConnect;
