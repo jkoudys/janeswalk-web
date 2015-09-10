@@ -202,5 +202,3 @@ class Eventbrite implements EventInterface
         return $ch;
     }
 }
-
-https://www.eventbrite.com/json/event_new?privacy=1&confirmation_page=http%3A%2F%2Fjaneswalk.org%2Fdonate&title=EB+Test&status=draft&timezone=EST&app_key=2ECDDYBC2I72R376TV&user_key=136300279154938082283&start_date=2015-03-12+19%3A00&end_date=2015-03-12+19%3A00{"cID":"5189","cvID":28,"url":"\/canada\/burlington\/eb-test\/"}url: https://www.eventbrite.com/json/ticket_update?{"error": {"error_type": "Date error", "error_message": "The specified start date is invalid or in the past., required format  (YYYY-MM-DD HH:MM:SS)"}}
