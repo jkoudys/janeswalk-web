@@ -3,26 +3,54 @@ defined('C5_EXECUTE') || die('Access Denied.');
 $bodyData = [];
 $bodyData['classes'][] = 'blog';
 $this->controller->set('bodyData', $bodyData);
+/**
+ * Content
+ */
+if ($headImage) {
+    $bg = "style=\"background-image:url({$headImage->src})\"";
+}
+
+if ($canEdit) {
+    $edit = <<< EOT
+<a href="{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}" style='margin-bottom:1em;display:block'><i class='fa fa-pencil-square'></i> edit</a>
+EOT;
+}
+
+/**
+ * Components
+ */
+ob_start();
 $this->inc('elements/header.php');
 $this->inc('elements/navbar.php');
-?>
+$Header = ob_get_clean();
+
+ob_start();
+$this->inc('elements/footer.php');
+$Footer = ob_get_clean();
+
+ob_start();
+(new Area('Blog Post Header'))->display($c);
+$BlogPostHeader = ob_get_clean();
+
+ob_start();
+(new Area('Main'))->display($c);
+$Main = ob_get_clean();
+
+echo <<< EOT
+{$Header}
 <div id="central">
-    <header <?php if ($headImage) echo 'style="background-image:url(' . $headImage->src . ')"' ?>>
-        <?php (new Area('Blog Post Header'))->display($c) ?>
-        <h1><?= $c->getCollectionName() ?></h1>
-        <p class="description"><?= $c->getCollectionDescription() ?></p>
-        <p class="meta"><?= $authorName ?>, <strong><?= $publishDate ?></strong></p>
+    <header {$bg}>
+        {$BlogPostHeader}
+        <h1>{$c->getCollectionName()}</h1>
+        <p class="description">{$c->getCollectionDescription()}</p>
+        <p class="meta">{$authorName}, <strong>{$publishDate}</strong></p>
     </header>
     <div id="body">
         <article>
-            <?php
-            if ($canEdit) { ?>
-            <a href='<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>' style='margin-bottom:1em;display:block'><i class='fa fa-pencil-square'></i> edit</a>
-            <?php
-            }
-            (new Area('Main'))->display($c);
-            ?>
+            {$edit}
+            {$Main}
         </article>
     </div>
 </div>
-<?php $this->inc('elements/footer.php');
+{$Footer}
+EOT;
