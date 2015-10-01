@@ -2138,25 +2138,44 @@ module.exports = WalkMap;
 
 
 },{}],15:[function(require,module,exports){
-'use strict';
 /**
  * Menu to select accessibility requirements
  */
+
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var mixins = require('../../helpers/mixins.jsx');
 
 // Flux
 var t = require('../../stores/I18nStore.js').getTranslate();
 
-function AccessibleSelect() {}
+var options = [{ id: 'accessible-familyfriendly', name: t('Family friendly') }, { id: 'accessible-wheelchair', name: t('Wheelchair accessible') }, { id: 'accessible-dogs', name: t('Dogs welcome') }, { id: 'accessible-strollers', name: t('Strollers welcome') }, { id: 'accessible-bicycles', name: t('Bicycles welcome') }, { id: 'accessible-steephills', name: t('Steep hills') }, { id: 'accessible-uneven', name: t('Wear sensible shoes (uneven terrain)') }, { id: 'accessible-busy', name: t('Busy sidewalks') }, { id: 'accessible-bicyclesonly', name: t('Bicycles only') }, { id: 'accessible-lowlight', name: t('Low light or nighttime') }, { id: 'accessible-seniors', name: t('Senior Friendly') }];
 
-AccessibleSelect.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: AccessibleSelect },
+var AccessibleSelect = (function (_React$Component) {
+  _inherits(AccessibleSelect, _React$Component);
 
-  render: {
-    value: function value() {
+  function AccessibleSelect() {
+    _classCallCheck(this, AccessibleSelect);
+
+    _get(Object.getPrototypeOf(AccessibleSelect.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(AccessibleSelect, [{
+    key: 'render',
+    value: function render() {
       var _this = this;
-      var options = [{ id: 'accessible-familyfriendly', name: t('Family friendly') }, { id: 'accessible-wheelchair', name: t('Wheelchair accessible') }, { id: 'accessible-dogs', name: t('Dogs welcome') }, { id: 'accessible-strollers', name: t('Strollers welcome') }, { id: 'accessible-bicycles', name: t('Bicycles welcome') }, { id: 'accessible-steephills', name: t('Steep hills') }, { id: 'accessible-uneven', name: t('Wear sensible shoes (uneven terrain)') }, { id: 'accessible-busy', name: t('Busy sidewalks') }, { id: 'accessible-bicyclesonly', name: t('Bicycles only') }, { id: 'accessible-lowlight', name: t('Low light or nighttime') }, { id: 'accessible-seniors', name: t('Senior Friendly') }];
 
       return React.createElement(
         'fieldset',
@@ -2180,18 +2199,33 @@ AccessibleSelect.prototype = Object.create(React.Component.prototype, {
         )
       );
     }
-  }
-});
+  }]);
+
+  return AccessibleSelect;
+})(React.Component);
+
+exports['default'] = AccessibleSelect;
 
 Object.assign(AccessibleSelect.prototype, mixins.linkedParentState);
-
-module.exports = AccessibleSelect;
+module.exports = exports['default'];
 
 
 },{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],16:[function(require,module,exports){
+// Components
 'use strict';
 
-// Components
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var DatePicker = require('./date/DatePicker.jsx');
 var TimePicker = require('./date/TimePicker.jsx');
 var TimeSetTable = require('./date/TimeSetTable.jsx');
@@ -2201,30 +2235,36 @@ var TimeOpenTable = require('./date/TimeOpenTable.jsx');
 var t = require('../../stores/I18nStore.js').getTranslate();
 
 // TODO: Make 'intiatives' build as separate selectors
-function DateSelect() {
-  var today = new Date();
-  var start = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 7, 11, 0));
-  // Default to a 1-hour walk time
-  var duration = 60 * 60 * 1000;
 
-  // Bind class methods
-  this.setDay = this._setDay.bind(this);
-  this.addDate = this._addDate.bind(this);
+var DateSelect = (function (_React$Component) {
+  _inherits(DateSelect, _React$Component);
 
-  // Note: we're only keeping the 'date' on there to use Date's string
-  // parsing. This method is concerned only with the Time
-  // TODO: Support proper time localization - ultimately these times are just
-  // strings, so we're using GMT, but that's bad practice.
-  this.state = { start: start, duration: duration };
-}
+  function DateSelect() {
+    _classCallCheck(this, DateSelect);
 
-DateSelect.prototype = Object.create(React.Component.prototype, {
-  constructor: {
-    value: DateSelect
-  },
+    _get(Object.getPrototypeOf(DateSelect.prototype), 'constructor', this).call(this);
 
-  _setDay: {
-    value: function value(date) {
+    var today = new Date();
+    var start = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 7, 11, 0));
+    // Default to a 1-hour walk time
+    var duration = 60 * 60 * 1000;
+
+    // Bind class methods
+    this.setDay = this._setDay.bind(this);
+    this.addDate = this._addDate.bind(this);
+
+    // Note: we're only keeping the 'date' on there to use Date's string
+    // parsing. This method is concerned only with the Time
+    // TODO: Support proper time localization - ultimately these times are just
+    // strings, so we're using GMT, but that's bad practice.
+    this.state = { start: start, duration: duration };
+  }
+
+  // Load mixins
+
+  _createClass(DateSelect, [{
+    key: '_setDay',
+    value: function _setDay(date) {
       var startDate = this.state.start;
 
       // Set the Day we're choosing
@@ -2241,13 +2281,15 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
       // state updates instead.
       this.setState({ start: startDate });
     }
-  },
 
-  /* @param Date time The current time of day
-   * @param Int duration Number of minutes the walk lasts
-   */
-  setTime: {
-    value: function value(time, duration) {
+    /**
+     * Set the time
+     * @param Date time The current time of day
+     * @param Int duration Number of minutes the walk lasts
+     */
+  }, {
+    key: 'setTime',
+    value: function setTime(time, duration) {
       var startDate = this.state.start;
 
       startDate.setUTCHours(time.getUTCHours());
@@ -2255,24 +2297,27 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
 
       this.setState({ start: startDate });
     }
-  },
 
-  // Build a valueLink object for updating the time
-  linkTime: {
-    value: function value() {
+    /**
+     * Build a valueLink object for updating the time
+     */
+  }, {
+    key: 'linkTime',
+    value: function linkTime() {
       var _this = this;
+
       return {
-        value: _this.state.start.getTime(),
+        value: this.state.start.getTime(),
         requestChange: function requestChange(value) {
-          _this.setState({ start: new Date(Number(value)) });
+          return _this.setState({ start: new Date(Number(value)) });
         }
       };
     }
-  },
 
-  // Push the date we built here to the linked state
-  _addDate: {
-    value: function value() {
+    // Push the date we built here to the linked state
+  }, {
+    key: '_addDate',
+    value: function _addDate() {
       var valueLink = this.props.valueLink;
       var value = valueLink.value || {};
       var slots = (value.slots || []).slice();
@@ -2285,10 +2330,9 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
       value.slots = slots;
       valueLink.requestChange(value);
     }
-  },
-
-  render: {
-    value: function value() {
+  }, {
+    key: 'render',
+    value: function render() {
       var valueLink = this.props.valueLink;
 
       return React.createElement(
@@ -2565,114 +2609,156 @@ DateSelect.prototype = Object.create(React.Component.prototype, {
         )
       );
     }
-  }
-});
+  }]);
 
-// Load mixins
+  return DateSelect;
+})(React.Component);
+
+exports['default'] = DateSelect;
 Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
-
-module.exports = DateSelect;
+module.exports = exports['default'];
 
 
 },{"../../stores/I18nStore.js":43,"./date/DatePicker.jsx":23,"./date/TimeOpenTable.jsx":24,"./date/TimePicker.jsx":25,"./date/TimeSetTable.jsx":26}],17:[function(require,module,exports){
+// Flux
 'use strict';
 
-// Flux
-var t = require('../../stores/I18nStore.js').getTranslate();
-
-var ImageUpload = React.createClass({
-  displayName: 'ImageUpload',
-
-  removeImage: function removeImage(i) {
-    var thumbnails = this.props.valueLink.value;
-    thumbnails.splice(i, 1);
-    this.props.valueLink.requestChange(thumbnails);
-  },
-
-  handleUpload: function handleUpload(e) {
-    var fd = new FormData();
-    var _this = this;
-
-    if (e.currentTarget.files) {
-      // TODO: Update to support uploading multiple files at once
-      // TODO: display a spinner w/ the local file as the BG until
-      // TODO: Move to flux
-      // it's fully uploaded
-      // Load one file
-      fd.append('Filedata', e.currentTarget.files[0]);
-
-      // Form validation token, generated by concrete5
-      fd.append('ccm_token', this.props.valt);
-
-      $.ajax({
-        url: CCM_TOOLS_PATH + '/files/importers/quick',
-        type: 'POST',
-        cache: false,
-        data: fd,
-        processData: false,
-        contentType: false,
-        success: function success(data, textStatus, jqXHR) {
-          var thumbnails = _this.props.valueLink.value;
-          thumbnails.push(data);
-          _this.props.valueLink.requestChange(thumbnails);
-        },
-        error: function error(jqXHR, textStatus, errorThrown) {
-          // TODO: display error message
-        }
-      });
-    }
-  },
-
-  render: function render() {
-    var thumbnails = this.props.valueLink.value;
-    // TODO: include an upload callback that loads the uploaded image locally,
-    // instead of the one off the server
-    // TODO: Implement server-side support for multiple thumbnails, then
-    // remove limit here
-    return React.createElement(
-      'form',
-      { className: 'upload-image' },
-      React.createElement(
-        'label',
-        { htmlFor: 'walkphotos', id: 'photo-tip' },
-        t('Upload a photo that best represents your walk.')
-      ),
-      thumbnails.map(function (thumb, i) {
-        // Grab just the name, so local files being uploaded have the same key as the hosted URL
-        var filename = (thumb.url || '' + i).replace(/^.*[\\\/]/, '');
-        return React.createElement(
-          'div',
-          {
-            key: filename,
-            className: 'thumbnail',
-            style: { backgroundImage: 'url(' + thumb.url + ')' } },
-          React.createElement(
-            'a',
-            { className: 'remove', onClick: this.removeImage.bind(this, i) },
-            React.createElement('i', { className: 'fa fa-times-circle' })
-          )
-        );
-      }, this),
-      thumbnails.length < 1 ? React.createElement(
-        'div',
-        { className: 'thumbnail fileupload' },
-        React.createElement('input', { className: 'ccm-al-upload-single-file', type: 'file', onChange: this.handleUpload }),
-        React.createElement('i', { className: 'fa fa-camera-retro fa-5x' }),
-        React.createElement(
-          'span',
-          { className: 'fileupload-new' },
-          t('Click to upload an image')
-        )
-      ) : null
-    );
-  }
+Object.defineProperty(exports, '__esModule', {
+  value: true
 });
 
-module.exports = ImageUpload;
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var t = require('../../stores/I18nStore.js').getTranslate();
+
+var ImageUpload = (function (_React$Component) {
+  _inherits(ImageUpload, _React$Component);
+
+  function ImageUpload() {
+    _classCallCheck(this, ImageUpload);
+
+    _get(Object.getPrototypeOf(ImageUpload.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(ImageUpload, [{
+    key: 'removeImage',
+    value: function removeImage(i) {
+      var thumbnails = this.props.valueLink.value;
+      thumbnails.splice(i, 1);
+      this.props.valueLink.requestChange(thumbnails);
+    }
+  }, {
+    key: 'handleUpload',
+    value: function handleUpload(e) {
+      var _this = this;
+
+      var fd = new FormData();
+
+      if (e.currentTarget.files) {
+        // TODO: Update to support uploading multiple files at once
+        // TODO: display a spinner w/ the local file as the BG until
+        // TODO: Move to flux
+        // it's fully uploaded
+        // Load one file
+        fd.append('Filedata', e.currentTarget.files[0]);
+
+        // Form validation token, generated by concrete5
+        fd.append('ccm_token', this.props.valt);
+
+        $.ajax({
+          url: CCM_TOOLS_PATH + '/files/importers/quick',
+          type: 'POST',
+          cache: false,
+          data: fd,
+          processData: false,
+          contentType: false,
+          success: function success(data, textStatus, jqXHR) {
+            var thumbnails = _this.props.valueLink.value;
+            thumbnails.push(data);
+            _this.props.valueLink.requestChange(thumbnails);
+          },
+          error: function error(jqXHR, textStatus, errorThrown) {
+            // TODO: display error message
+          }
+        });
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      var thumbnails = this.props.valueLink.value;
+      // TODO: include an upload callback that loads the uploaded image locally,
+      // instead of the one off the server
+      // TODO: Implement server-side support for multiple thumbnails, then
+      // remove limit here
+      return React.createElement(
+        'form',
+        { className: 'upload-image' },
+        React.createElement(
+          'label',
+          { htmlFor: 'walkphotos', id: 'photo-tip' },
+          t('Upload a photo that best represents your walk.')
+        ),
+        thumbnails.map(function (thumb, i) {
+          // Grab just the name, so local files being uploaded have the same key as the hosted URL
+          var filename = (thumb.url || '' + i).replace(/^.*[\\\/]/, '');
+          return React.createElement(
+            'div',
+            {
+              key: filename,
+              className: 'thumbnail',
+              style: { backgroundImage: 'url(' + thumb.url + ')' } },
+            React.createElement(
+              'a',
+              { className: 'remove', onClick: _this2.removeImage.bind(_this2, i) },
+              React.createElement('i', { className: 'fa fa-times-circle' })
+            )
+          );
+        }),
+        thumbnails.length < 1 ? React.createElement(
+          'div',
+          { className: 'thumbnail fileupload' },
+          React.createElement('input', { className: 'ccm-al-upload-single-file', type: 'file', onChange: this.handleUpload }),
+          React.createElement('i', { className: 'fa fa-camera-retro fa-5x' }),
+          React.createElement(
+            'span',
+            { className: 'fileupload-new' },
+            t('Click to upload an image')
+          )
+        ) : null
+      );
+    }
+  }]);
+
+  return ImageUpload;
+})(React.Component);
+
+exports['default'] = ImageUpload;
+module.exports = exports['default'];
 
 
 },{"../../stores/I18nStore.js":43}],18:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Helper = require('../../helpers/helpers.jsx');
 var WalkStopTable = require('./map/WalkStopTable.jsx');
@@ -2685,37 +2771,46 @@ var ConnectFilters = require('./map/ConnectFilters.jsx');
 // Flux
 var t = require('../../stores/I18nStore.js').getTranslate();
 
-// Constructor
-function MapBuilder() {
-  // State for this component should only track the map editor
-  this.state = {
-    // The 'mode' we're in: 'addPoint', 'addRoute'
-    mode: {},
-    map: null,
-    markers: new google.maps.MVCArray(),
-    route: null,
-    infowindow: new google.maps.InfoWindow(),
-    // The collection of search terms boxes
-    filters: []
-  };
-}
+// Map parameters
+var stopMarker = {
+  url: CCM_THEME_PATH + '/images/marker.png',
+  // This marker is 20 pixels wide by 32 pixels tall.
+  size: new google.maps.Size(30, 46),
+  // The origin for this image is 0,0.
+  origin: new google.maps.Point(0, 0),
+  // The anchor for this image is the base of the flagpole at 0,32.
+  anchor: new google.maps.Point(11, 44)
+};
 
-// Static properties
-Object.assign(MapBuilder, {
-  defaultProps: {
-    initialZoom: 15
+var MapBuilder = (function (_React$Component) {
+  _inherits(MapBuilder, _React$Component);
+
+  function MapBuilder() {
+    _classCallCheck(this, MapBuilder);
+
+    _get(Object.getPrototypeOf(MapBuilder.prototype), 'constructor', this).call(this);
+
+    // State for this component should only track the map editor
+    this.state = {
+      // The 'mode' we're in: 'addPoint', 'addRoute'
+      mode: {},
+      map: null,
+      markers: new google.maps.MVCArray(),
+      route: null,
+      infowindow: new google.maps.InfoWindow(),
+      // The collection of search terms boxes
+      filters: []
+    };
   }
-});
 
-// Prototype methods
-MapBuilder.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: MapBuilder },
+  // Static properties
 
-  componentDidMount: {
-    value: function value() {
-      var _this = this,
-          mapNode = this.refs.gmap.getDOMNode(),
-          mapOptions = {
+  _createClass(MapBuilder, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this = this;
+
+      var map = new google.maps.Map(React.findDOMNode(this.refs.gmap), {
         center: new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]),
         zoom: this.props.initialZoom,
         scrollwheel: false,
@@ -2723,53 +2818,52 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
         mapTypeControlOptions: {
           mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE]
         }
-      },
-          map = new google.maps.Map(mapNode, mapOptions),
-          markers = this.state.markers,
-          route = this.state.route;
+      });
 
       // Map won't size properly on a hidden tab, so refresh on tab shown
-      // FIXME: this $() selector is unbecoming of a React app
       $('a[href="#route"]').on('shown.bs.tab', function (e) {
-        _this.boundMapByWalk();
+        return _this.boundMapByWalk();
       });
 
       this.setState({ map: map }, this.refreshGMap);
     }
-  },
 
-  // Build a google map from our serialized map state
-  refreshGMap: {
-    value: function value() {
+    // Build a google map from our serialized map state
+  }, {
+    key: 'refreshGMap',
+    value: function refreshGMap() {
+      var _this2 = this;
+
       var valueLink = this.props.valueLink;
-      var _this = this;
       var markers = new google.maps.MVCArray();
       var route = null;
+
       if (this.state.route) {
         this.state.route.setMap(null);
       }
+
       this.state.markers.forEach(function (marker) {
-        marker.setMap(null);
+        return marker.setMap(null);
       });
 
       // Draw the route
       if (valueLink.value) {
-        valueLink.value.markers.forEach((function (marker) {
-          var latlng;
+        valueLink.value.markers.forEach(function (marker) {
+          var latlng = undefined;
           // Set to the markers latlng if available, otherwise place at center
           if (marker.lat && marker.lng) {
             latlng = new google.maps.LatLng(marker.lat, marker.lng);
           } else {
-            latlng = this.state.map.center;
+            latlng = _this2.state.map.center;
           }
 
-          markers.push(this.buildMarker({
+          markers.push(_this2.buildMarker({
             latlng: latlng,
             title: marker.title,
             description: marker.description,
             media: marker.media
           }));
-        }).bind(this));
+        });
 
         route = this.buildRoute(valueLink.value.route);
       } else {
@@ -2778,20 +2872,22 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
 
       // Set marker/route adding
       google.maps.event.addListener(this.state.map, 'click', function (ev) {
-        _this.state.infowindow.setMap(null);
-        if (_this.state.mode.addRoute) {
+        _this2.state.infowindow.setMap(null);
+        if (_this2.state.mode.addRoute) {
           route.setPath(route.getPath().push(ev.latLng));
-          _this.setState({ route: route });
+          _this2.setState({ route: route });
         }
       });
 
       this.setState({ markers: markers, route: route });
     }
-  },
 
-  // Make the map fit the markers in this walk
-  boundMapByWalk: {
-    value: function value() {
+    /**
+     * Make the map fit the markers in this walk
+     */
+  }, {
+    key: 'boundMapByWalk',
+    value: function boundMapByWalk() {
       // Don't include the route - it can be too expensive to compute.
       var bounds = new google.maps.LatLngBounds();
       google.maps.event.trigger(this.state.map, 'resize');
@@ -2803,47 +2899,37 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
         this.state.map.fitBounds(bounds);
       }
     }
-  },
 
-  // Map parameters
-  stopMarker: {
-    value: {
-      url: CCM_THEME_PATH + '/images/marker.png',
-      // This marker is 20 pixels wide by 32 pixels tall.
-      size: new google.maps.Size(30, 46),
-      // The origin for this image is 0,0.
-      origin: new google.maps.Point(0, 0),
-      // The anchor for this image is the base of the flagpole at 0,32.
-      anchor: new google.maps.Point(11, 44)
-    },
-    enumerable: true
-  },
+    // Map related functions
+    // Build gmaps Marker object from base data
+    // @param google.maps.LatLng latlng The position to add
+    // @param Object title {title, description}
+  }, {
+    key: 'buildMarker',
+    value: function buildMarker(options) {
+      var _this3 = this;
 
-  // Map related functions
-  // Build gmaps Marker object from base data
-  // @param google.maps.LatLng latlng The position to add
-  // @param Object title {title, description}
-  buildMarker: {
-    value: function value(options) {
-      options = options || {};
-      var _this = this;
-      var latlng = options.latlng;
-      var title = options.title || '';
-      var description = options.description || '';
-      var media = options.media || null;
-      var marker;
       var map = this.state.map;
       var gMarkerOptions = {
         animation: google.maps.Animation.DROP,
         draggable: true,
         style: 'stop',
         map: map,
-        icon: this.stopMarker
+        icon: stopMarker
       };
+      var marker = undefined;
+
+      // Assign default options
+      options = Object.assign({}, options, {
+        latlng: null,
+        title: '',
+        description: '',
+        media: null
+      });
 
       // If we passed in a position
-      if (latlng instanceof google.maps.LatLng) {
-        gMarkerOptions.position = latlng;
+      if (options.latlng instanceof google.maps.LatLng) {
+        gMarkerOptions.position = options.latlng;
       } else {
         gMarkerOptions.position = this.state.map.center;
       }
@@ -2851,31 +2937,30 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
       // Set to an empty title/description object.
       // Google maps has a limited amount of marker data we
       gMarkerOptions.title = JSON.stringify({
-        title: title,
-        description: description,
-        media: media
+        title: options.title,
+        description: options.description,
+        media: options.media
       });
 
       marker = new google.maps.Marker(gMarkerOptions);
 
       google.maps.event.addListener(marker, 'click', function (ev) {
-        _this.showInfoWindow(this);
+        return _this3.showInfoWindow(marker);
       });
 
       google.maps.event.addListener(marker, 'drag', function (ev) {});
 
       return marker;
     }
-  },
 
-  /**
-   * Show the info box for editing this marker
-   *
-   * @param google.maps.Marker marker
-   */
-  showInfoWindow: {
-    value: function value(marker) {
-      var _this = this;
+    /**
+     * Show the info box for editing this marker
+     *
+     * @param google.maps.Marker marker
+     */
+  }, {
+    key: 'showInfoWindow',
+    value: function showInfoWindow(marker) {
       var infoDOM = document.createElement('div');
 
       React.render(React.createElement(WalkInfoWindow, {
@@ -2889,18 +2974,17 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
       this.state.infowindow.setContent(infoDOM);
       this.state.infowindow.open(this.state.map, marker);
     }
-  },
-
-  buildRoute: {
-    value: function value(routeArray) {
-      var map = this.state.map;
+  }, {
+    key: 'buildRoute',
+    value: function buildRoute(routeArray) {
+      var _this4 = this;
 
       var poly = new google.maps.Polyline({
         strokeColor: '#F16725',
         strokeOpacity: 0.8,
         strokeWeight: 3,
         editable: true,
-        map: map
+        map: this.state.map
       });
 
       // Remove vertices when right-clicked
@@ -2912,9 +2996,9 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
       });
 
       // Hide the infowindow if we click outside it
-      google.maps.event.addListener(poly, 'mousedown', (function (ev) {
-        this.state.infowindow.setMap(null);
-      }).bind(this));
+      google.maps.event.addListener(poly, 'mousedown', function (ev) {
+        return _this4.state.infowindow.setMap(null);
+      });
 
       if (routeArray.length > 0) {
         poly.setPath(routeArray.map(function (point) {
@@ -2924,13 +3008,13 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
 
       return poly;
     }
-  },
 
-  /**
-   * @param google.maps.Marker marker
-   */
-  deleteMarker: {
-    value: function value(marker) {
+    /**
+     * @param google.maps.Marker marker
+     */
+  }, {
+    key: 'deleteMarker',
+    value: function deleteMarker(marker) {
       var markers = this.state.markers;
 
       // Clear marker from map
@@ -2941,15 +3025,15 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
 
       this.setState({ markers: markers });
     }
-  },
 
-  /**
-   * Reorder the marker at index to a new position, pushing up those after
-   * @param int from
-   * @param int to
-   */
-  moveBefore: {
-    value: function value(from, to) {
+    /**
+     * Reorder the marker at index to a new position, pushing up those after
+     * @param int from
+     * @param int to
+     */
+  }, {
+    key: 'moveBefore',
+    value: function moveBefore(from, to) {
       var markers = this.state.markers;
       var fMarker = markers.getAt(from);
       markers.removeAt(from);
@@ -2957,45 +3041,50 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
 
       this.setState({ markers: markers }, this.syncState);
     }
-  },
 
-  // Button Actions
-  toggleAddPoint: {
-    value: function value() {
+    // Button Actions
+  }, {
+    key: 'toggleAddPoint',
+    value: function toggleAddPoint() {
+      var _this5 = this;
+
       var markers = this.state.markers;
       var marker = this.buildMarker();
       markers.push(marker);
-      this.setState({ markers: markers, mode: {} }, (function () {
-        this.syncState();
-        this.showInfoWindow(marker);
-      }).bind(this));
+
+      this.setState({ markers: markers, mode: {} }, function () {
+        _this5.syncState();
+        _this5.showInfoWindow(marker);
+      });
 
       this.state.infowindow.setMap(null);
     }
-  },
+  }, {
+    key: 'toggleAddRoute',
+    value: function toggleAddRoute() {
+      var _this6 = this;
 
-  toggleAddRoute: {
-    value: function value() {
       this.setState({
         mode: {
           addRoute: !this.state.mode.addRoute
         }
       });
-      this.state.infowindow.setMap(null);
+      (function () {
+        return _this6.state.infowindow.setMap(null);
+      });
     }
-  },
-
-  clearRoute: {
-    value: function value() {
+  }, {
+    key: 'clearRoute',
+    value: function clearRoute() {
       this.state.infowindow.setMap(null);
       this.state.route.setPath([]);
       this.setState({ mode: {} });
     }
-  },
 
-  // Build a version of state appropriate for persistence
-  getStateSimple: {
-    value: function value() {
+    // Build a version of state appropriate for persistence
+  }, {
+    key: 'getStateSimple',
+    value: function getStateSimple() {
       var markers = this.state.markers.getArray().map(function (marker) {
         var titleObj = JSON.parse(marker.title);
         return {
@@ -3008,6 +3097,7 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
         };
       });
       var route = [];
+
       if (this.state.route) {
         route = this.state.route.getPath().getArray().map(function (point) {
           return {
@@ -3022,45 +3112,44 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
         route: route
       };
     }
-  },
 
-  // Sync what's on the gmap to what's stored in our state
-  syncState: {
-    value: function value() {
+    // Sync what's on the gmap to what's stored in our state
+  }, {
+    key: 'syncState',
+    value: function syncState() {
       this.props.valueLink.requestChange(this.getStateSimple());
     }
-  },
 
-  // Manage the filters for loading data from external APIs
-  handleRemoveFilter: {
-    value: function value(i) {
+    // Manage the filters for loading data from external APIs
+  }, {
+    key: 'handleRemoveFilter',
+    value: function handleRemoveFilter(i) {
       var filters = this.state.filters.slice();
       filters.splice(i, 1);
       this.setState({ filters: filters });
     }
-  },
 
-  // Update the _text_ of a filter
-  handleChangeFilter: {
-    value: function value(i, val) {
+    // Update the _text_ of a filter
+  }, {
+    key: 'handleChangeFilter',
+    value: function handleChangeFilter(i, val) {
       var filters = this.state.filters.slice();
       filters[i].value = val;
       this.setState({ filters: filters });
     }
-  },
 
-  // Push a new filter to our box, usually done by the buttons
-  handleAddFilter: {
-    value: function value(filter) {
+    // Push a new filter to our box, usually done by the buttons
+  }, {
+    key: 'handleAddFilter',
+    value: function handleAddFilter(filter) {
       var filters = this.state.filters.slice();
       filters.push(filter);
       this.setState({ filters: filters });
     }
-  },
-
-  render: {
-    value: function value() {
-      var walkStops;
+  }, {
+    key: 'render',
+    value: function render() {
+      var walkStops = undefined;
 
       // Standard properties the filter buttons need
       var filterProps = {
@@ -3072,7 +3161,6 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
       };
 
       if (this.state.markers && this.state.markers.length) {
-        // This 'key' is to force the component to not rebuild
         walkStops = [React.createElement(
           'h3',
           { key: 'stops' },
@@ -3089,7 +3177,7 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
 
       return React.createElement(
         'div',
-        { className: 'tab-pane', id: 'route' },
+        { className: 'tab-pane', id: 'route', ref: 'route' },
         React.createElement(
           'div',
           { className: 'page-header', 'data-section': 'route' },
@@ -3142,14 +3230,35 @@ MapBuilder.prototype = Object.create(React.Component.prototype, {
         React.createElement('hr', null)
       );
     }
+  }]);
+
+  return MapBuilder;
+})(React.Component);
+
+exports['default'] = MapBuilder;
+Object.assign(MapBuilder, {
+  defaultProps: {
+    initialZoom: 15
   }
 });
-
-module.exports = MapBuilder;
+module.exports = exports['default'];
 
 
 },{"../../helpers/helpers.jsx":39,"../../stores/I18nStore.js":43,"./map/ConnectFilters.jsx":27,"./map/InstagramConnect.jsx":28,"./map/SoundCloudConnect.jsx":29,"./map/TwitterConnect.jsx":30,"./map/WalkInfoWindow.jsx":31,"./map/WalkStopTable.jsx":32}],19:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var mixins = require('../../helpers/mixins.jsx');
 
 // Flux
@@ -3157,565 +3266,248 @@ var i18n = require('../../stores/I18nStore.js');
 var t = i18n.getTranslate();
 var t2 = i18n.getTranslatePlural();
 
-var TeamBuilder = React.createClass({
-  displayName: 'TeamBuilder',
+var TeamBuilder = (function (_React$Component) {
+  _inherits(TeamBuilder, _React$Component);
 
-  mixins: [mixins.linkedParentState],
+  function TeamBuilder() {
+    _classCallCheck(this, TeamBuilder);
 
-  getInitialState: function getInitialState() {
+    _get(Object.getPrototypeOf(TeamBuilder.prototype), 'constructor', this).call(this);
     // So we know if this is the first loading, or changed after
-    return { initialized: false };
-  },
+    this.state = { initialized: false };
 
-  componentDidMount: function componentDidMount() {
-    this.setState({ initialized: true });
-  },
-
-  handleTeamMemberChange: function handleTeamMemberChange(propname, memberValue, id) {
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value;
-    value[id][propname] = memberValue;
-    valueLink.requestChange(value);
-  },
-
-  addMember: function addMember(props) {
-    var valueLink = this.props.valueLink;
-    var team = valueLink.value;
-    team.push(props);
-    valueLink.requestChange(team);
-  },
-
-  addLeader: function addLeader() {
-    this.addMember({ type: 'leader', "name-first": '', "name-last": '', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: '' });
-  },
-
-  addOrganizer: function addOrganizer() {
-    this.addMember({ type: 'organizer', "name-first": '', "name-last": '', institution: '', website: '' });
-  },
-
-  addCommunityVoice: function addCommunityVoice() {
-    this.addMember({ type: 'community', "name-first": '', "name-last": '', bio: '', twitter: '', facebook: '', website: '' });
-  },
-
-  addVolunteer: function addVolunteer() {
-    this.addMember({ type: 'volunteer', "name-first": '', "name-last": '', role: '', website: '' });
-  },
-
-  deleteMember: function deleteMember(i) {
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value.slice();
-    value.splice(i, 1);
-    valueLink.requestChange(value);
-  },
-
-  // Set the member at that specific index
-  render: function render() {
-    var _this = this;
-    // If there's no 'you', create one as the current user
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value;
-
-    // Loop through all the users and render the appropriate user type
-    var teamMemberProps = {
-      onChange: this.handleTeamMemberChange
-    };
-    var users = value.map(function (user, i) {
-      var teamMember = null;
-      teamMemberProps.key = i;
-      teamMemberProps.index = i;
-      teamMemberProps.value = user;
-      teamMemberProps.onDelete = _this.deleteMember.bind(_this, i);
-      // Use empty strings for unset/false
-      user.phone = user.phone || '';
-      if (user.type === 'you') {
-        teamMember = React.createElement(TeamOwner, teamMemberProps);
-      } else if (user.type === 'leader') {
-        teamMember = React.createElement(TeamLeader, teamMemberProps);
-      } else if (user.type === 'organizer') {
-        teamMember = React.createElement(TeamOrganizer, teamMemberProps);
-      } else if (user.type === 'community') {
-        teamMember = React.createElement(TeamCommunityVoice, teamMemberProps);
-      } else if (user.type === 'volunteer') {
-        teamMember = React.createElement(TeamVolunteer, teamMemberProps);
-      }
-      return teamMember;
-    });
-
-    return React.createElement(
-      'div',
-      { className: 'tab-pane', id: 'team' },
-      React.createElement(
-        'div',
-        { className: 'page-header', 'data-section': 'team' },
-        React.createElement(
-          'h1',
-          null,
-          t('Build Your Team')
-        )
-      ),
-      users,
-      React.createElement(
-        'div',
-        { className: 'thumbnail team-member', id: 'add-member' },
-        React.createElement(
-          'h2',
-          null,
-          t('Who else is involved with this walk?')
-        ),
-        React.createElement(
-          'h3',
-          { className: 'lead' },
-          t('Click to add team members to your walk'),
-          ' (',
-          t('Optional'),
-          ')'
-        ),
-        React.createElement(
-          'div',
-          { className: 'team-set' },
-          React.createElement(
-            'div',
-            { className: 'team-row' },
-            React.createElement(
-              'section',
-              { className: 'new-member', id: 'new-walkleader', title: 'Add New Walk Leader', onClick: this.addLeader },
-              React.createElement('div', { className: 'icon' }),
-              React.createElement(
-                'h4',
-                { className: 'title text-center' },
-                t('Walk Leader')
-              ),
-              React.createElement(
-                'p',
-                null,
-                t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.')
-              )
-            ),
-            React.createElement(
-              'section',
-              { className: 'new-member', id: 'new-walkorganizer', title: 'Add New Walk Organizer', onClick: this.addOrganizer },
-              React.createElement('div', { className: 'icon' }),
-              React.createElement(
-                'h4',
-                { className: 'title text-center' },
-                t('Walk Organizer')
-              ),
-              React.createElement(
-                'p',
-                null,
-                t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.')
-              )
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'team-row' },
-            React.createElement(
-              'section',
-              { className: 'new-member', id: 'new-communityvoice', title: 'Add A Community Voice', onClick: this.addCommunityVoice },
-              React.createElement('div', { className: 'icon' }),
-              React.createElement(
-                'h4',
-                { className: 'title text-center' },
-                t('Community Voice')
-              ),
-              React.createElement(
-                'p',
-                null,
-                t('A community member with stories and/or personal experiences to share.')
-              )
-            ),
-            React.createElement(
-              'section',
-              { className: 'new-member', id: 'new-othermember', title: 'Add another helper to your walk', onClick: this.addVolunteer },
-              React.createElement('div', { className: 'icon' }),
-              React.createElement(
-                'h4',
-                { className: 'title text-center' },
-                t('Volunteers')
-              ),
-              React.createElement(
-                'p',
-                null,
-                t('Other people who are helping to make your walk happen.')
-              )
-            )
-          )
-        )
-      )
-    );
+    this.addLeader = this.addLeader.bind(this);
+    this.addOrganizer = this.addOrganizer.bind(this);
+    this.addCommunityVoice = this.addCommunityVoice.bind(this);
+    this.addVolunteer = this.addVolunteer.bind(this);
   }
-});
 
-var TeamOwner = React.createClass({
-  displayName: 'TeamOwner',
+  _createClass(TeamBuilder, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.setState({ initialized: true });
+    }
+  }, {
+    key: 'handleTeamMemberChange',
+    value: function handleTeamMemberChange(propname, memberValue, id) {
+      var valueLink = this.props.valueLink;
+      var value = valueLink.value;
+      value[id][propname] = memberValue;
+      valueLink.requestChange(value);
+    }
+  }, {
+    key: 'addMember',
+    value: function addMember(props) {
+      var valueLink = this.props.valueLink;
+      var team = valueLink.value;
+      team.push(props);
+      valueLink.requestChange(team);
+    }
+  }, {
+    key: 'addLeader',
+    value: function addLeader() {
+      this.addMember({ type: 'leader', "name-first": '', "name-last": '', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: '' });
+    }
+  }, {
+    key: 'addOrganizer',
+    value: function addOrganizer() {
+      this.addMember({ type: 'organizer', "name-first": '', "name-last": '', institution: '', website: '' });
+    }
+  }, {
+    key: 'addCommunityVoice',
+    value: function addCommunityVoice() {
+      this.addMember({ type: 'community', "name-first": '', "name-last": '', bio: '', twitter: '', facebook: '', website: '' });
+    }
+  }, {
+    key: 'addVolunteer',
+    value: function addVolunteer() {
+      this.addMember({ type: 'volunteer', "name-first": '', "name-last": '', role: '', website: '' });
+    }
+  }, {
+    key: 'deleteMember',
+    value: function deleteMember(i) {
+      var valueLink = this.props.valueLink;
+      var value = valueLink.value.slice();
+      value.splice(i, 1);
+      valueLink.requestChange(value);
+    }
 
-  mixins: [mixins.linkedTeamMemberState],
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'team-member thumbnail useredited', id: 'walk-leader-me' },
-      React.createElement(
-        'fieldset',
-        null,
-        React.createElement(
-          'legend',
-          null,
-          t('You')
-        ),
-        React.createElement(
-          'div',
-          { className: 'row', id: 'walkleader' },
-          React.createElement(
-            'div',
-            { className: 'item required' },
-            React.createElement(
-              'label',
-              { htmlFor: 'name' },
-              t('Name')
-            ),
-            React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-            React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-          ),
-          React.createElement(
-            'div',
-            { className: 'item required' },
-            React.createElement(
-              'label',
-              { htmlFor: 'role' },
-              t('Role')
-            ),
-            React.createElement(
-              'select',
-              { id: 'role', valueLink: this.linkProp('role') },
-              React.createElement(
-                'option',
-                { defaultValue: 'walk-leader' },
-                t('Walk Leader')
-              ),
-              React.createElement(
-                'option',
-                { defaultValue: 'co-walk-leader' },
-                t('Co-Walk Leader')
-              ),
-              React.createElement(
-                'option',
-                { defaultValue: 'walk-organizer' },
-                t('Walk Organizer')
-              )
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'item hide', id: 'primary-walkleader-select' },
-            React.createElement(
-              'label',
-              { className: 'checkbox' },
-              React.createElement('input', { type: 'checkbox', className: 'role-check', checkLink: this.linkProp('primary') }),
-              t('Primary Walk Leader')
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'item required' },
-            React.createElement(
-              'label',
-              { htmlFor: 'bio' },
-              t('Introduce yourself')
-            ),
-            React.createElement(
-              'div',
-              { className: 'alert alert-info' },
-              t('We recommend keeping your bio under 60 words')
-            ),
-            React.createElement('textarea', { id: 'bio', rows: '6', valueLink: this.linkProp('bio') })
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'newwalkleader' },
-            React.createElement(
-              'div',
-              { className: 'col-md-6 required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'you-email' },
-                React.createElement('i', { className: 'fa fa-envelope' }),
-                ' ',
-                t('Email')
-              ),
-              React.createElement('input', { type: 'email', id: 'you-email', placeholder: '', valueLink: this.linkProp('email') })
-            ),
-            React.createElement(
-              'div',
-              { className: 'col-md-6' },
-              React.createElement(
-                'label',
-                { htmlFor: 'leader-twitter' },
-                React.createElement('i', { className: 'fa fa-twitter' }),
-                ' Twitter'
-              ),
-              React.createElement(
-                'div',
-                { className: 'input-group' },
-                React.createElement(
-                  'span',
-                  { className: 'input-group-addon' },
-                  '@'
-                ),
-                React.createElement('input', { className: 'col-md-12', id: 'leader-twitter', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
-              )
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'newwalkleader' },
-            React.createElement(
-              'div',
-              { className: 'col-md-6' },
-              React.createElement(
-                'label',
-                { htmlFor: 'facebook' },
-                React.createElement('i', { className: 'fa fa-facebook-square' }),
-                ' Facebook'
-              ),
-              React.createElement('input', { type: 'text', id: 'facebook', placeholder: '', valueLink: this.linkProp('facebook') })
-            ),
-            React.createElement(
-              'div',
-              { className: 'col-md-6' },
-              React.createElement(
-                'label',
-                { htmlFor: 'website' },
-                React.createElement('i', { className: 'fa fa-link' }),
-                ' ',
-                t('Website')
-              ),
-              React.createElement('input', { type: 'text', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
-            )
-          ),
-          React.createElement('hr', null),
-          React.createElement(
-            'div',
-            { className: 'private' },
-            React.createElement(
-              'h4',
-              null,
-              t('We\'ll keep this part private')
-            ),
-            React.createElement(
-              'div',
-              { className: 'alert alert-info' },
-              t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.')
-            ),
-            React.createElement(
-              'div',
-              { className: 'row', id: 'newwalkleader' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6 tel required' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'phone' },
-                  React.createElement('i', { className: 'fa fa-phone-square' }),
-                  t('Phone Number')
-                ),
-                React.createElement('input', { type: 'tel', maxLength: '18', id: 'phone', placeholder: '', valueLink: this.linkProp('phone') })
-              )
-            )
-          )
-        )
-      )
-    );
-  }
-});
+    // Set the member at that specific index
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this = this;
 
-var TeamLeader = React.createClass({
-  displayName: 'TeamLeader',
+      // If there's no 'you', create one as the current user
+      var valueLink = this.props.valueLink;
+      var value = valueLink.value;
 
-  mixins: [mixins.linkedTeamMemberState],
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'thumbnail team-member walk-leader clearfix', id: 'walk-leader-new' },
-      React.createElement(
-        'fieldset',
-        null,
-        React.createElement(
-          'legend',
-          null,
-          t('Walk Leader')
-        ),
+      // Loop through all the users and render the appropriate user type
+      var teamMemberProps = {
+        onChange: this.handleTeamMemberChange
+      };
+
+      var users = value.map(function (user, i) {
+        var teamMember = undefined;
+        teamMemberProps.key = i;
+        teamMemberProps.index = i;
+        teamMemberProps.value = user;
+        teamMemberProps.onDelete = _this.deleteMember.bind(_this, i);
+        // Use empty strings for unset/false
+        user.phone = user.phone || '';
+        if (user.type === 'you') {
+          teamMember = React.createElement(TeamOwner, teamMemberProps);
+        } else if (user.type === 'leader') {
+          teamMember = React.createElement(TeamLeader, teamMemberProps);
+        } else if (user.type === 'organizer') {
+          teamMember = React.createElement(TeamOrganizer, teamMemberProps);
+        } else if (user.type === 'community') {
+          teamMember = React.createElement(TeamCommunityVoice, teamMemberProps);
+        } else if (user.type === 'volunteer') {
+          teamMember = React.createElement(TeamVolunteer, teamMemberProps);
+        }
+        return teamMember;
+      });
+
+      return React.createElement(
+        'div',
+        { className: 'tab-pane', id: 'team' },
         React.createElement(
           'div',
-          { id: 'walkleader' },
+          { className: 'page-header', 'data-section': 'team' },
           React.createElement(
-            'div',
-            { className: 'item required' },
-            React.createElement(
-              'label',
-              { htmlFor: 'name' },
-              t('Name')
-            ),
-            React.createElement(
-              'div',
-              { className: 'item' },
-              React.createElement(
-                'form',
-                { className: 'form-inline' },
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-              )
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'item', id: 'primary-walkleader-select' },
-            React.createElement(
-              'label',
-              { className: 'checkbox' },
-              React.createElement('input', { type: 'checkbox', className: 'role-check', valueLink: this.linkProp('primary') }),
-              t('Primary Walk Leader')
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'item required' },
-            React.createElement(
-              'label',
-              { htmlFor: 'bio' },
-              t('Introduce the walk leader')
-            ),
-            React.createElement(
-              'div',
-              { className: 'alert alert-info' },
-              t('We recommend keeping the bio under 60 words')
-            ),
-            React.createElement('textarea', { className: 'col-md-12', id: 'bio', rows: '6', valueLink: this.linkProp('bio') })
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'newwalkleader' },
-            React.createElement(
-              'div',
-              { className: 'col-md-6' },
-              React.createElement(
-                'label',
-                { htmlFor: 'prependedInput' },
-                React.createElement('i', { className: 'fa fa-twitter' }),
-                ' Twitter'
-              ),
-              React.createElement(
-                'div',
-                { className: 'input-prepend' },
-                React.createElement(
-                  'span',
-                  { className: 'add-on' },
-                  '@'
-                ),
-                React.createElement('input', { id: 'prependedInput', className: 'col-md-12', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'col-md-6' },
-              React.createElement(
-                'label',
-                { htmlFor: 'facebook' },
-                React.createElement('i', { className: 'fa fa-facebook-square' }),
-                ' Facebook'
-              ),
-              React.createElement('input', { type: 'text', id: 'facebook', placeholder: '', valueLink: this.linkProp('facebook') })
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'newwalkleader' },
-            React.createElement(
-              'div',
-              { className: 'col-md-6' },
-              React.createElement(
-                'label',
-                { htmlFor: 'website' },
-                React.createElement('i', { className: 'fa fa-link' }),
-                t('Website')
-              ),
-              React.createElement('input', { type: 'text', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
-            )
-          ),
-          React.createElement('hr', null),
-          React.createElement(
-            'h4',
+            'h1',
             null,
-            t('Private')
+            t('Build Your Team')
+          )
+        ),
+        users,
+        React.createElement(
+          'div',
+          { className: 'thumbnail team-member', id: 'add-member' },
+          React.createElement(
+            'h2',
+            null,
+            t('Who else is involved with this walk?')
+          ),
+          React.createElement(
+            'h3',
+            { className: 'lead' },
+            t('Click to add team members to your walk'),
+            ' (',
+            t('Optional'),
+            ')'
           ),
           React.createElement(
             'div',
-            { className: 'alert alert-info' },
-            t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.')
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'newwalkleader' },
+            { className: 'team-set' },
             React.createElement(
               'div',
-              { className: 'col-md-6 required' },
+              { className: 'team-row' },
               React.createElement(
-                'label',
-                { htmlFor: 'email' },
-                React.createElement('i', { className: 'fa fa-envelope' }),
-                t('Email')
+                'section',
+                { className: 'new-member', id: 'new-walkleader', title: 'Add New Walk Leader', onClick: this.addLeader },
+                React.createElement('div', { className: 'icon' }),
+                React.createElement(
+                  'h4',
+                  { className: 'title text-center' },
+                  t('Walk Leader')
+                ),
+                React.createElement(
+                  'p',
+                  null,
+                  t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.')
+                )
               ),
-              React.createElement('input', { type: 'email', id: 'email', placeholder: 'Email', valueLink: this.linkProp('email') })
+              React.createElement(
+                'section',
+                { className: 'new-member', id: 'new-walkorganizer', title: 'Add New Walk Organizer', onClick: this.addOrganizer },
+                React.createElement('div', { className: 'icon' }),
+                React.createElement(
+                  'h4',
+                  { className: 'title text-center' },
+                  t('Walk Organizer')
+                ),
+                React.createElement(
+                  'p',
+                  null,
+                  t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.')
+                )
+              )
             ),
             React.createElement(
               'div',
-              { className: 'col-md-6 tel' },
+              { className: 'team-row' },
               React.createElement(
-                'label',
-                { htmlFor: 'phone' },
-                React.createElement('i', { className: 'fa fa-phone-square' }),
-                t('Phone Number')
+                'section',
+                { className: 'new-member', id: 'new-communityvoice', title: 'Add A Community Voice', onClick: this.addCommunityVoice },
+                React.createElement('div', { className: 'icon' }),
+                React.createElement(
+                  'h4',
+                  { className: 'title text-center' },
+                  t('Community Voice')
+                ),
+                React.createElement(
+                  'p',
+                  null,
+                  t('A community member with stories and/or personal experiences to share.')
+                )
               ),
-              React.createElement('input', { type: 'tel', maxLength: '16', id: 'phone', placeholder: '', valueLink: this.linkProp('phone') })
+              React.createElement(
+                'section',
+                { className: 'new-member', id: 'new-othermember', title: 'Add another helper to your walk', onClick: this.addVolunteer },
+                React.createElement('div', { className: 'icon' }),
+                React.createElement(
+                  'h4',
+                  { className: 'title text-center' },
+                  t('Volunteers')
+                ),
+                React.createElement(
+                  'p',
+                  null,
+                  t('Other people who are helping to make your walk happen.')
+                )
+              )
             )
           )
         )
-      ),
-      React.createElement(
-        'footer',
-        null,
-        React.createElement(
-          'button',
-          { className: 'btn remove-team-member', onClick: this.props.onDelete },
-          t('Remove Team Member')
-        )
-      )
-    );
+      );
+    }
+  }]);
+
+  return TeamBuilder;
+})(React.Component);
+
+exports['default'] = TeamBuilder;
+
+Object.assign(TeamBuilder.prototype, mixins.linkedParentState);
+
+var TeamOwner = (function (_React$Component2) {
+  _inherits(TeamOwner, _React$Component2);
+
+  function TeamOwner() {
+    _classCallCheck(this, TeamOwner);
+
+    _get(Object.getPrototypeOf(TeamOwner.prototype), 'constructor', this).apply(this, arguments);
   }
-});
 
-var TeamOrganizer = React.createClass({
-  displayName: 'TeamOrganizer',
-
-  mixins: [mixins.linkedTeamMemberState],
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'thumbnail team-member walk-organizer', id: 'walk-organizer-new' },
-      React.createElement(
-        'fieldset',
-        null,
+  _createClass(TeamOwner, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'team-member thumbnail useredited', id: 'walk-leader-me' },
         React.createElement(
-          'legend',
+          'fieldset',
           null,
-          t('Walk Organizer')
-        ),
-        React.createElement(
-          'div',
-          { className: 'row', id: 'walkleader' },
+          React.createElement(
+            'legend',
+            null,
+            t('You')
+          ),
           React.createElement(
             'div',
-            { className: 'col-md-9' },
+            { className: 'row', id: 'walkleader' },
             React.createElement(
               'div',
               { className: 'item required' },
@@ -3724,22 +3516,98 @@ var TeamOrganizer = React.createClass({
                 { htmlFor: 'name' },
                 t('Name')
               ),
+              React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
+              React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
+            ),
+            React.createElement(
+              'div',
+              { className: 'item required' },
               React.createElement(
-                'form',
-                { className: 'form-inline' },
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
+                'label',
+                { htmlFor: 'role' },
+                t('Role')
+              ),
+              React.createElement(
+                'select',
+                { id: 'role', valueLink: this.linkProp('role') },
+                React.createElement(
+                  'option',
+                  { defaultValue: 'walk-leader' },
+                  t('Walk Leader')
+                ),
+                React.createElement(
+                  'option',
+                  { defaultValue: 'co-walk-leader' },
+                  t('Co-Walk Leader')
+                ),
+                React.createElement(
+                  'option',
+                  { defaultValue: 'walk-organizer' },
+                  t('Walk Organizer')
+                )
               )
             ),
             React.createElement(
-              'label',
-              { htmlFor: 'affiliation' },
-              t('Affilated Institution'),
-              ' (',
-              t('Optional'),
-              ')'
+              'div',
+              { className: 'item hide', id: 'primary-walkleader-select' },
+              React.createElement(
+                'label',
+                { className: 'checkbox' },
+                React.createElement('input', { type: 'checkbox', className: 'role-check', checkLink: this.linkProp('primary') }),
+                t('Primary Walk Leader')
+              )
             ),
-            React.createElement('input', { type: 'text', id: 'name', placeholder: 'e.g. City of Toronto', valueLink: this.linkProp('institution') }),
+            React.createElement(
+              'div',
+              { className: 'item required' },
+              React.createElement(
+                'label',
+                { htmlFor: 'bio' },
+                t('Introduce yourself')
+              ),
+              React.createElement(
+                'div',
+                { className: 'alert alert-info' },
+                t('We recommend keeping your bio under 60 words')
+              ),
+              React.createElement('textarea', { id: 'bio', rows: '6', valueLink: this.linkProp('bio') })
+            ),
+            React.createElement(
+              'div',
+              { className: 'row', id: 'newwalkleader' },
+              React.createElement(
+                'div',
+                { className: 'col-md-6 required' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'you-email' },
+                  React.createElement('i', { className: 'fa fa-envelope' }),
+                  ' ',
+                  t('Email')
+                ),
+                React.createElement('input', { type: 'email', id: 'you-email', placeholder: '', valueLink: this.linkProp('email') })
+              ),
+              React.createElement(
+                'div',
+                { className: 'col-md-6' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'leader-twitter' },
+                  React.createElement('i', { className: 'fa fa-twitter' }),
+                  ' Twitter'
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'input-group' },
+                  React.createElement(
+                    'span',
+                    { className: 'input-group-addon' },
+                    '@'
+                  ),
+                  React.createElement('input', { className: 'col-md-12', id: 'leader-twitter', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
+                )
+              )
+            ),
             React.createElement(
               'div',
               { className: 'row', id: 'newwalkleader' },
@@ -3748,51 +3616,92 @@ var TeamOrganizer = React.createClass({
                 { className: 'col-md-6' },
                 React.createElement(
                   'label',
+                  { htmlFor: 'facebook' },
+                  React.createElement('i', { className: 'fa fa-facebook-square' }),
+                  ' Facebook'
+                ),
+                React.createElement('input', { type: 'text', id: 'facebook', placeholder: '', valueLink: this.linkProp('facebook') })
+              ),
+              React.createElement(
+                'div',
+                { className: 'col-md-6' },
+                React.createElement(
+                  'label',
                   { htmlFor: 'website' },
                   React.createElement('i', { className: 'fa fa-link' }),
+                  ' ',
                   t('Website')
                 ),
-                React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
+                React.createElement('input', { type: 'text', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
+              )
+            ),
+            React.createElement('hr', null),
+            React.createElement(
+              'div',
+              { className: 'private' },
+              React.createElement(
+                'h4',
+                null,
+                t('We\'ll keep this part private')
+              ),
+              React.createElement(
+                'div',
+                { className: 'alert alert-info' },
+                t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.')
+              ),
+              React.createElement(
+                'div',
+                { className: 'row', id: 'newwalkleader' },
+                React.createElement(
+                  'div',
+                  { className: 'col-md-6 tel required' },
+                  React.createElement(
+                    'label',
+                    { htmlFor: 'phone' },
+                    React.createElement('i', { className: 'fa fa-phone-square' }),
+                    t('Phone Number')
+                  ),
+                  React.createElement('input', { type: 'tel', maxLength: '18', id: 'phone', placeholder: '', valueLink: this.linkProp('phone') })
+                )
               )
             )
           )
         )
-      ),
-      React.createElement(
-        'footer',
-        null,
-        React.createElement(
-          'button',
-          { className: 'btn remove-team-member', onClick: this.props.onDelete },
-          t('Remove Team Member')
-        )
-      )
-    );
+      );
+    }
+  }]);
+
+  return TeamOwner;
+})(React.Component);
+
+Object.assign(TeamOwner.prototype, mixins.linkedTeamMemberState);
+
+var TeamLeader = (function (_React$Component3) {
+  _inherits(TeamLeader, _React$Component3);
+
+  function TeamLeader() {
+    _classCallCheck(this, TeamLeader);
+
+    _get(Object.getPrototypeOf(TeamLeader.prototype), 'constructor', this).apply(this, arguments);
   }
-});
 
-var TeamCommunityVoice = React.createClass({
-  displayName: 'TeamCommunityVoice',
-
-  mixins: [mixins.linkedTeamMemberState],
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'thumbnail team-member community-voice', id: 'community-voice-new' },
-      React.createElement(
-        'fieldset',
-        null,
+  _createClass(TeamLeader, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'thumbnail team-member walk-leader clearfix', id: 'walk-leader-new' },
         React.createElement(
-          'legend',
-          { id: 'community-voice' },
-          t('Community Voice')
-        ),
-        React.createElement(
-          'div',
-          { className: 'row', id: 'walkleader' },
+          'fieldset',
+          null,
+          React.createElement(
+            'legend',
+            null,
+            t('Walk Leader')
+          ),
           React.createElement(
             'div',
-            { className: 'col-md-9' },
+            { id: 'walkleader' },
             React.createElement(
               'div',
               { className: 'item required' },
@@ -3802,19 +3711,33 @@ var TeamCommunityVoice = React.createClass({
                 t('Name')
               ),
               React.createElement(
-                'form',
-                { className: 'form-inline' },
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
+                'div',
+                { className: 'item' },
+                React.createElement(
+                  'form',
+                  { className: 'form-inline' },
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
+                )
               )
             ),
             React.createElement(
               'div',
-              { className: 'item' },
+              { className: 'item', id: 'primary-walkleader-select' },
+              React.createElement(
+                'label',
+                { className: 'checkbox' },
+                React.createElement('input', { type: 'checkbox', className: 'role-check', valueLink: this.linkProp('primary') }),
+                t('Primary Walk Leader')
+              )
+            ),
+            React.createElement(
+              'div',
+              { className: 'item required' },
               React.createElement(
                 'label',
                 { htmlFor: 'bio' },
-                t('Tell everyone about this person')
+                t('Introduce the walk leader')
               ),
               React.createElement(
                 'div',
@@ -3843,7 +3766,7 @@ var TeamCommunityVoice = React.createClass({
                     { className: 'add-on' },
                     '@'
                   ),
-                  React.createElement('input', { className: 'col-md-12', id: 'prependedInput', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
+                  React.createElement('input', { id: 'prependedInput', className: 'col-md-12', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
                 )
               ),
               React.createElement(
@@ -3870,289 +3793,583 @@ var TeamCommunityVoice = React.createClass({
                   React.createElement('i', { className: 'fa fa-link' }),
                   t('Website')
                 ),
-                React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
+                React.createElement('input', { type: 'text', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
               )
-            )
-          )
-        )
-      ),
-      React.createElement(
-        'footer',
-        null,
-        React.createElement(
-          'button',
-          { className: 'btn remove-team-member', onClick: this.props.onDelete },
-          t('Remove Team Member')
-        )
-      )
-    );
-  }
-});
-
-var TeamVolunteer = React.createClass({
-  displayName: 'TeamVolunteer',
-
-  mixins: [mixins.linkedTeamMemberState],
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'thumbnail team-member othermember', id: 'othermember-new' },
-      React.createElement(
-        'fieldset',
-        null,
-        React.createElement(
-          'legend',
-          { id: 'othermember' },
-          t('Volunteers')
-        ),
-        React.createElement(
-          'div',
-          { className: 'row', id: 'walkleader' },
-          React.createElement(
-            'div',
-            { className: 'col-md-9' },
+            ),
+            React.createElement('hr', null),
             React.createElement(
-              'div',
-              { className: 'item required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'name' },
-                t('Name')
-              ),
-              React.createElement(
-                'form',
-                { className: 'form-inline' },
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-              )
+              'h4',
+              null,
+              t('Private')
             ),
             React.createElement(
               'div',
-              { className: 'item required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'role' },
-                t('Role')
-              ),
-              React.createElement('input', { type: 'text', id: 'role', valueLink: this.linkProp('role') })
+              { className: 'alert alert-info' },
+              t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.')
             ),
             React.createElement(
               'div',
               { className: 'row', id: 'newwalkleader' },
               React.createElement(
                 'div',
-                { className: 'col-md-6' },
+                { className: 'col-md-6 required' },
                 React.createElement(
                   'label',
-                  { htmlFor: 'website' },
-                  React.createElement('i', { className: 'fa fa-link' }),
-                  t('Website')
+                  { htmlFor: 'email' },
+                  React.createElement('i', { className: 'fa fa-envelope' }),
+                  t('Email')
                 ),
-                React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
+                React.createElement('input', { type: 'email', id: 'email', placeholder: 'Email', valueLink: this.linkProp('email') })
+              ),
+              React.createElement(
+                'div',
+                { className: 'col-md-6 tel' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'phone' },
+                  React.createElement('i', { className: 'fa fa-phone-square' }),
+                  t('Phone Number')
+                ),
+                React.createElement('input', { type: 'tel', maxLength: '16', id: 'phone', placeholder: '', valueLink: this.linkProp('phone') })
               )
             )
           )
-        )
-      ),
-      React.createElement(
-        'footer',
-        null,
+        ),
         React.createElement(
-          'button',
-          { className: 'btn remove-team-member', onClick: this.props.onDelete },
-          t('Remove Team Member')
+          'footer',
+          null,
+          React.createElement(
+            'button',
+            { className: 'btn remove-team-member', onClick: this.props.onDelete },
+            t('Remove Team Member')
+          )
         )
-      )
-    );
-  }
-});
+      );
+    }
+  }]);
 
-module.exports = TeamBuilder;
+  return TeamLeader;
+})(React.Component);
+
+Object.assign(TeamLeader.prototype, mixins.linkedTeamMemberState);
+
+var TeamOrganizer = (function (_React$Component4) {
+  _inherits(TeamOrganizer, _React$Component4);
+
+  function TeamOrganizer() {
+    _classCallCheck(this, TeamOrganizer);
+
+    _get(Object.getPrototypeOf(TeamOrganizer.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(TeamOrganizer, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'thumbnail team-member walk-organizer', id: 'walk-organizer-new' },
+        React.createElement(
+          'fieldset',
+          null,
+          React.createElement(
+            'legend',
+            null,
+            t('Walk Organizer')
+          ),
+          React.createElement(
+            'div',
+            { className: 'row', id: 'walkleader' },
+            React.createElement(
+              'div',
+              { className: 'col-md-9' },
+              React.createElement(
+                'div',
+                { className: 'item required' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'name' },
+                  t('Name')
+                ),
+                React.createElement(
+                  'form',
+                  { className: 'form-inline' },
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
+                )
+              ),
+              React.createElement(
+                'label',
+                { htmlFor: 'affiliation' },
+                t('Affilated Institution'),
+                ' (',
+                t('Optional'),
+                ')'
+              ),
+              React.createElement('input', { type: 'text', id: 'name', placeholder: 'e.g. City of Toronto', valueLink: this.linkProp('institution') }),
+              React.createElement(
+                'div',
+                { className: 'row', id: 'newwalkleader' },
+                React.createElement(
+                  'div',
+                  { className: 'col-md-6' },
+                  React.createElement(
+                    'label',
+                    { htmlFor: 'website' },
+                    React.createElement('i', { className: 'fa fa-link' }),
+                    t('Website')
+                  ),
+                  React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
+                )
+              )
+            )
+          )
+        ),
+        React.createElement(
+          'footer',
+          null,
+          React.createElement(
+            'button',
+            { className: 'btn remove-team-member', onClick: this.props.onDelete },
+            t('Remove Team Member')
+          )
+        )
+      );
+    }
+  }]);
+
+  return TeamOrganizer;
+})(React.Component);
+
+Object.assign(TeamOrganizer.prototype, mixins.linkedTeamMemberState);
+
+var TeamCommunityVoice = (function (_React$Component5) {
+  _inherits(TeamCommunityVoice, _React$Component5);
+
+  function TeamCommunityVoice() {
+    _classCallCheck(this, TeamCommunityVoice);
+
+    _get(Object.getPrototypeOf(TeamCommunityVoice.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(TeamCommunityVoice, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'thumbnail team-member community-voice', id: 'community-voice-new' },
+        React.createElement(
+          'fieldset',
+          null,
+          React.createElement(
+            'legend',
+            { id: 'community-voice' },
+            t('Community Voice')
+          ),
+          React.createElement(
+            'div',
+            { className: 'row', id: 'walkleader' },
+            React.createElement(
+              'div',
+              { className: 'col-md-9' },
+              React.createElement(
+                'div',
+                { className: 'item required' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'name' },
+                  t('Name')
+                ),
+                React.createElement(
+                  'form',
+                  { className: 'form-inline' },
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'item' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'bio' },
+                  t('Tell everyone about this person')
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'alert alert-info' },
+                  t('We recommend keeping the bio under 60 words')
+                ),
+                React.createElement('textarea', { className: 'col-md-12', id: 'bio', rows: '6', valueLink: this.linkProp('bio') })
+              ),
+              React.createElement(
+                'div',
+                { className: 'row', id: 'newwalkleader' },
+                React.createElement(
+                  'div',
+                  { className: 'col-md-6' },
+                  React.createElement(
+                    'label',
+                    { htmlFor: 'prependedInput' },
+                    React.createElement('i', { className: 'fa fa-twitter' }),
+                    ' Twitter'
+                  ),
+                  React.createElement(
+                    'div',
+                    { className: 'input-prepend' },
+                    React.createElement(
+                      'span',
+                      { className: 'add-on' },
+                      '@'
+                    ),
+                    React.createElement('input', { className: 'col-md-12', id: 'prependedInput', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
+                  )
+                ),
+                React.createElement(
+                  'div',
+                  { className: 'col-md-6' },
+                  React.createElement(
+                    'label',
+                    { htmlFor: 'facebook' },
+                    React.createElement('i', { className: 'fa fa-facebook-square' }),
+                    ' Facebook'
+                  ),
+                  React.createElement('input', { type: 'text', id: 'facebook', placeholder: '', valueLink: this.linkProp('facebook') })
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'row', id: 'newwalkleader' },
+                React.createElement(
+                  'div',
+                  { className: 'col-md-6' },
+                  React.createElement(
+                    'label',
+                    { htmlFor: 'website' },
+                    React.createElement('i', { className: 'fa fa-link' }),
+                    t('Website')
+                  ),
+                  React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
+                )
+              )
+            )
+          )
+        ),
+        React.createElement(
+          'footer',
+          null,
+          React.createElement(
+            'button',
+            { className: 'btn remove-team-member', onClick: this.props.onDelete },
+            t('Remove Team Member')
+          )
+        )
+      );
+    }
+  }]);
+
+  return TeamCommunityVoice;
+})(React.Component);
+
+Object.assign(TeamCommunityVoice.prototype, mixins.linkedTeamMemberState);
+
+var TeamVolunteer = (function (_React$Component6) {
+  _inherits(TeamVolunteer, _React$Component6);
+
+  function TeamVolunteer() {
+    _classCallCheck(this, TeamVolunteer);
+
+    _get(Object.getPrototypeOf(TeamVolunteer.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(TeamVolunteer, [{
+    key: 'render',
+    value: function render() {
+      return React.createElement(
+        'div',
+        { className: 'thumbnail team-member othermember', id: 'othermember-new' },
+        React.createElement(
+          'fieldset',
+          null,
+          React.createElement(
+            'legend',
+            { id: 'othermember' },
+            t('Volunteers')
+          ),
+          React.createElement(
+            'div',
+            { className: 'row', id: 'walkleader' },
+            React.createElement(
+              'div',
+              { className: 'col-md-9' },
+              React.createElement(
+                'div',
+                { className: 'item required' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'name' },
+                  t('Name')
+                ),
+                React.createElement(
+                  'form',
+                  { className: 'form-inline' },
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
+                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
+                )
+              ),
+              React.createElement(
+                'div',
+                { className: 'item required' },
+                React.createElement(
+                  'label',
+                  { htmlFor: 'role' },
+                  t('Role')
+                ),
+                React.createElement('input', { type: 'text', id: 'role', valueLink: this.linkProp('role') })
+              ),
+              React.createElement(
+                'div',
+                { className: 'row', id: 'newwalkleader' },
+                React.createElement(
+                  'div',
+                  { className: 'col-md-6' },
+                  React.createElement(
+                    'label',
+                    { htmlFor: 'website' },
+                    React.createElement('i', { className: 'fa fa-link' }),
+                    t('Website')
+                  ),
+                  React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
+                )
+              )
+            )
+          )
+        ),
+        React.createElement(
+          'footer',
+          null,
+          React.createElement(
+            'button',
+            { className: 'btn remove-team-member', onClick: this.props.onDelete },
+            t('Remove Team Member')
+          )
+        )
+      );
+    }
+  }]);
+
+  return TeamVolunteer;
+})(React.Component);
+
+Object.assign(TeamVolunteer.prototype, mixins.linkedTeamMemberState);
+module.exports = exports['default'];
 
 
 },{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],20:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var mixins = require('../../helpers/mixins.jsx');
 
 // Flux
 var t = require('../../stores/I18nStore.js').getTranslate();
 
-var ThemeSelect = React.createClass({
-  displayName: 'ThemeSelect',
+var ThemeSelect = (function (_React$Component) {
+  _inherits(ThemeSelect, _React$Component);
 
-  mixins: [mixins.linkedParentState],
+  function ThemeSelect() {
+    _classCallCheck(this, ThemeSelect);
 
-  getInitialState: function getInitialState() {
-    return {
+    _get(Object.getPrototypeOf(ThemeSelect.prototype), 'constructor', this).call(this);
+    this.state = {
       maxChecked: 3,
       totalChecked: 0
     };
-  },
+  }
 
-  getDefaultProps: function getDefaultProps() {
-    return {
-      // Using array for themes to enforce order
-      themeCategories: [{
-        name: 'Community',
-        themes: [{
-          id: 'theme-civic-activist',
-          name: 'Activism'
-        }, {
-          id: 'theme-civic-truecitizen',
-          name: 'Citizenry'
-        }, {
-          id: 'theme-civic-goodneighbour',
-          name: 'Community'
-        }, {
-          id: 'theme-culture-writer',
-          name: 'Storytelling'
-        }]
-      }, {
-        name: 'City-building',
-        themes: [{
-          id: 'theme-urban-architecturalenthusiast',
-          name: 'Architecture'
-        }, {
-          id: 'theme-culture-aesthete',
-          name: 'Design'
-        }, {
-          id: 'theme-urban-suburbanexplorer',
-          name: 'Suburbs'
-        }, {
-          id: 'theme-urban-moversandshakers',
-          name: 'Transportation'
-        }]
-      }, {
-        name: 'Society',
-        themes: [{
-          id: 'theme-civic-gender',
-          name: 'Gender'
-        }, {
-          id: 'theme-civic-health',
-          name: 'Health'
-        }, {
-          id: 'theme-culture-historybuff',
-          name: 'Heritage'
-        }, {
-          id: 'theme-civic-nativeissues',
-          name: 'Native Issues'
-        }, {
-          id: 'theme-civic-religion',
-          name: 'Religion'
-        }]
-      }, {
-        name: 'Expression',
-        themes: [{
-          id: 'theme-culture-artist',
-          name: 'Art'
-        }, {
-          id: 'theme-urban-film',
-          name: 'Film'
-        }, {
-          id: 'theme-culture-bookworm',
-          name: 'Literature'
-        }, {
-          id: 'theme-urban-music',
-          name: 'Music'
-        }, {
-          id: 'theme-urban-play',
-          name: 'Play'
-        }]
-      }, {
-        name: 'The Natural World',
-        themes: [{
-          id: 'theme-nature-petlover',
-          name: 'Animals'
-        }, {
-          id: 'theme-nature-greenthumb',
-          name: 'Gardening'
-        }, {
-          id: 'theme-nature-naturelover',
-          name: 'Nature'
-        }, {
-          id: 'theme-urban-water',
-          name: 'Water'
-        }]
-      }, {
-        name: 'Modernity',
-        themes: [{
-          id: 'theme-civic-international',
-          name: 'International Issues'
-        }, {
-          id: 'theme-civic-military',
-          name: 'Military'
-        }, {
-          id: 'theme-civic-commerce',
-          name: 'Commerce'
-        }, {
-          id: 'theme-culture-nightowl',
-          name: 'Night Life'
-        }, {
-          id: 'theme-culture-techie',
-          name: 'Technology'
-        }, {
-          id: 'theme-urban-sports',
-          name: 'Sports'
-        }, {
-          id: 'theme-culture-foodie',
-          name: 'Food'
-        }]
-      }]
-    };
-  },
+  _createClass(ThemeSelect, [{
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
 
-  render: function render() {
-    var _this = this;
-    var totalChecked = 0;
-    var checkboxes = this.props.valueLink.value;
+      var _this = this;
+      var checkboxes = this.props.valueLink.value;
+      var totalChecked = 0;
 
-    for (var i in checkboxes) {
-      if (checkboxes[i] && i.substring(0, 6) === 'theme-') {
-        totalChecked++;
+      for (var i in checkboxes) {
+        if (checkboxes[i] && i.substring(0, 6) === 'theme-') {
+          totalChecked++;
+        }
       }
-    }
 
-    // TODO: Don't select themes for NYC
-    return React.createElement(
-      'fieldset',
-      { id: 'theme-select' },
-      React.createElement(
-        'legend',
-        { className: 'required-legend' },
-        t('Themes')
-      ),
-      React.createElement(
-        'div',
-        { className: 'alert alert-info' },
-        t('Pick between %d and %d boxes.', 1, this.state.maxChecked)
-      ),
-      this.props.themeCategories.map(function (category) {
-        return React.createElement(
-          'fieldset',
-          { key: category.name },
-          React.createElement(
-            'legend',
-            null,
-            t(category.name)
-          ),
-          category.themes.map(function (theme) {
-            // Don't let a checkbox be checked if it pushes over limit
-            var disabled = totalChecked >= _this.state.maxChecked && !checkboxes[theme.id];
-            return React.createElement(
-              'label',
-              { key: theme.id, className: 'checkbox' },
-              React.createElement('input', { type: 'checkbox', disabled: disabled, checkedLink: _this.linkParentState(theme.id) }),
-              t(theme.name)
-            );
-          })
-        );
-      })
-    );
+      // TODO: Don't select themes for NYC
+      return React.createElement(
+        'fieldset',
+        { id: 'theme-select' },
+        React.createElement(
+          'legend',
+          { className: 'required-legend' },
+          t('Themes')
+        ),
+        React.createElement(
+          'div',
+          { className: 'alert alert-info' },
+          t('Pick between %d and %d boxes.', 1, this.state.maxChecked)
+        ),
+        this.props.themeCategories.map(function (category) {
+          return React.createElement(
+            'fieldset',
+            { key: category.name },
+            React.createElement(
+              'legend',
+              null,
+              t(category.name)
+            ),
+            category.themes.map(function (theme) {
+              // Don't let a checkbox be checked if it pushes over limit
+              var disabled = totalChecked >= _this.state.maxChecked && !checkboxes[theme.id];
+              return React.createElement(
+                'label',
+                { key: theme.id, className: 'checkbox' },
+                React.createElement('input', { type: 'checkbox', disabled: disabled, checkedLink: _this2.linkParentState(theme.id) }),
+                t(theme.name)
+              );
+            })
+          );
+        }),
+        ';'
+      );
+    }
+  }]);
+
+  return ThemeSelect;
+})(React.Component);
+
+exports['default'] = ThemeSelect;
+
+Object.assign(ThemeSelect.prototype, mixins.linkedParentState);
+Object.assign(ThemeSelect, {
+  defaultProps: {
+    // Using array for themes to enforce order
+    themeCategories: [{
+      name: 'Community',
+      themes: [{
+        id: 'theme-civic-activist',
+        name: 'Activism'
+      }, {
+        id: 'theme-civic-truecitizen',
+        name: 'Citizenry'
+      }, {
+        id: 'theme-civic-goodneighbour',
+        name: 'Community'
+      }, {
+        id: 'theme-culture-writer',
+        name: 'Storytelling'
+      }]
+    }, {
+      name: 'City-building',
+      themes: [{
+        id: 'theme-urban-architecturalenthusiast',
+        name: 'Architecture'
+      }, {
+        id: 'theme-culture-aesthete',
+        name: 'Design'
+      }, {
+        id: 'theme-urban-suburbanexplorer',
+        name: 'Suburbs'
+      }, {
+        id: 'theme-urban-moversandshakers',
+        name: 'Transportation'
+      }]
+    }, {
+      name: 'Society',
+      themes: [{
+        id: 'theme-civic-gender',
+        name: 'Gender'
+      }, {
+        id: 'theme-civic-health',
+        name: 'Health'
+      }, {
+        id: 'theme-culture-historybuff',
+        name: 'Heritage'
+      }, {
+        id: 'theme-civic-nativeissues',
+        name: 'Native Issues'
+      }, {
+        id: 'theme-civic-religion',
+        name: 'Religion'
+      }]
+    }, {
+      name: 'Expression',
+      themes: [{
+        id: 'theme-culture-artist',
+        name: 'Art'
+      }, {
+        id: 'theme-urban-film',
+        name: 'Film'
+      }, {
+        id: 'theme-culture-bookworm',
+        name: 'Literature'
+      }, {
+        id: 'theme-urban-music',
+        name: 'Music'
+      }, {
+        id: 'theme-urban-play',
+        name: 'Play'
+      }]
+    }, {
+      name: 'The Natural World',
+      themes: [{
+        id: 'theme-nature-petlover',
+        name: 'Animals'
+      }, {
+        id: 'theme-nature-greenthumb',
+        name: 'Gardening'
+      }, {
+        id: 'theme-nature-naturelover',
+        name: 'Nature'
+      }, {
+        id: 'theme-urban-water',
+        name: 'Water'
+      }]
+    }, {
+      name: 'Modernity',
+      themes: [{
+        id: 'theme-civic-international',
+        name: 'International Issues'
+      }, {
+        id: 'theme-civic-military',
+        name: 'Military'
+      }, {
+        id: 'theme-civic-commerce',
+        name: 'Commerce'
+      }, {
+        id: 'theme-culture-nightowl',
+        name: 'Night Life'
+      }, {
+        id: 'theme-culture-techie',
+        name: 'Technology'
+      }, {
+        id: 'theme-urban-sports',
+        name: 'Sports'
+      }, {
+        id: 'theme-culture-foodie',
+        name: 'Food'
+      }]
+    }]
   }
 });
-
-module.exports = ThemeSelect;
+module.exports = exports['default'];
 
 
 },{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],21:[function(require,module,exports){
@@ -4348,20 +4565,37 @@ module.exports = WardSelect;
 
 
 },{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],23:[function(require,module,exports){
-'use strict';
-
 /**
  * Basic wrapper around jQuery.datepicker(), so it can be loaded
  * as a React class
  */
 
-function DatePicker() {}
+"use strict";
 
-DatePicker.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: DatePicker },
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-  componentDidMount: {
-    value: function value() {
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DatePicker = (function (_React$Component) {
+  _inherits(DatePicker, _React$Component);
+
+  function DatePicker() {
+    _classCallCheck(this, DatePicker);
+
+    _get(Object.getPrototypeOf(DatePicker.prototype), "constructor", this).apply(this, arguments);
+  }
+
+  _createClass(DatePicker, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
       // Setup sorting on the walk-stops list
       $(React.findDOMNode(this)).datepicker({
         defaultDate: this.props.defaultDate,
@@ -4372,38 +4606,61 @@ DatePicker.prototype = Object.create(React.Component.prototype, {
         }).bind(this)
       });
     }
-  },
-
-  render: {
-    value: function value() {
-      return React.createElement('div', { className: 'date-picker' });
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement("div", { className: "date-picker" });
     }
-  }
-});
+  }]);
 
-module.exports = DatePicker;
+  return DatePicker;
+})(React.Component);
+
+exports["default"] = DatePicker;
+module.exports = exports["default"];
 
 
 },{}],24:[function(require,module,exports){
-'use strict';
-
 /**
  * The table showing open-schedule walks and their times
  */
 
 // TODO: Once 'open' walk schedules are implemented on festivals
-function TimeOpenTable() {}
-TimeOpenTable.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: TimeOpenTable },
+"use strict";
 
-  render: {
-    value: function value() {
-      return React.createElement('table', null);
-    }
-  }
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-module.exports = TimeOpenTable;
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TimeOpenTable = (function (_React$Component) {
+  _inherits(TimeOpenTable, _React$Component);
+
+  function TimeOpenTable() {
+    _classCallCheck(this, TimeOpenTable);
+
+    _get(Object.getPrototypeOf(TimeOpenTable.prototype), "constructor", this).apply(this, arguments);
+  }
+
+  _createClass(TimeOpenTable, [{
+    key: "render",
+    value: function render() {
+      return React.createElement("table", null);
+    }
+  }]);
+
+  return TimeOpenTable;
+})(React.Component);
+
+exports["default"] = TimeOpenTable;
+module.exports = exports["default"];
 
 
 },{}],25:[function(require,module,exports){
@@ -4552,9 +4809,21 @@ module.exports = TimePicker;
 
 
 },{"../../../stores/I18nStore.js":43}],26:[function(require,module,exports){
+// Flux
 'use strict';
 
-// Flux
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var i18n = require('../../../stores/I18nStore.js');
 var t = i18n.getTranslate();
 var t2 = i18n.getTranslatePlural();
@@ -4562,14 +4831,21 @@ var t2 = i18n.getTranslatePlural();
 /**
  * The table with all the times that the walks are scheduled
  */
-function TimeSetTable() {}
 
-TimeSetTable.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: TimeSetTable },
+var TimeSetTable = (function (_React$Component) {
+  _inherits(TimeSetTable, _React$Component);
 
-  // Remove a scheduled time
-  removeSlot: {
-    value: function value(i) {
+  function TimeSetTable() {
+    _classCallCheck(this, TimeSetTable);
+
+    _get(Object.getPrototypeOf(TimeSetTable.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(TimeSetTable, [{
+    key: 'removeSlot',
+
+    // Remove a scheduled time
+    value: function removeSlot(i) {
       var valueLink = this.props.valueLink;
       var value = valueLink.value;
       var slots = (value.slots || []).slice();
@@ -4579,10 +4855,11 @@ TimeSetTable.prototype = Object.create(React.Component.prototype, {
 
       valueLink.requestChange(value);
     }
-  },
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this = this;
 
-  render: {
-    value: function value() {
       var slots = this.props.valueLink.value.slots || [];
 
       var dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
@@ -4618,7 +4895,7 @@ TimeSetTable.prototype = Object.create(React.Component.prototype, {
         React.createElement(
           'tbody',
           null,
-          slots.map((function (slot, i) {
+          slots.map(function (slot, i) {
             var start = new Date(slot[0] * 1000);
             var duration = new Date((slot[1] - slot[0]) * 1000);
 
@@ -4655,36 +4932,57 @@ TimeSetTable.prototype = Object.create(React.Component.prototype, {
                 null,
                 React.createElement(
                   'a',
-                  { onClick: this.removeSlot.bind(this, i) },
+                  { onClick: _this.removeSlot.bind(_this, i) },
                   React.createElement('i', { className: 'fa fa-times-circle-o' }),
                   ' ',
                   t('Remove')
                 )
               )
             );
-          }).bind(this))
+          })
         )
       );
     }
-  }
-});
+  }]);
 
-module.exports = TimeSetTable;
+  return TimeSetTable;
+})(React.Component);
+
+exports['default'] = TimeSetTable;
+module.exports = exports['default'];
 
 
 },{"../../../stores/I18nStore.js":43}],27:[function(require,module,exports){
-'use strict';
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-function ConnectFilters() {}
-ConnectFilters.prototype = Object.create(React.Component.prototype, {
-  constructor: {
-    value: ConnectFilters
-  },
+var ConnectFilters = (function (_React$Component) {
+  _inherits(ConnectFilters, _React$Component);
 
-  render: {
-    value: function value() {
+  function ConnectFilters() {
+    _classCallCheck(this, ConnectFilters);
+
+    _get(Object.getPrototypeOf(ConnectFilters.prototype), "constructor", this).apply(this, arguments);
+  }
+
+  _createClass(ConnectFilters, [{
+    key: "render",
+    value: function render() {
       var _this = this;
+
       return React.createElement(
         "div",
         { className: "filterInputs" },
@@ -4692,20 +4990,18 @@ ConnectFilters.prototype = Object.create(React.Component.prototype, {
           ReactCSSTransitionGroup,
           { transitionName: "fade" },
           this.props.filters.map(function (filter, i) {
-            var input = null;
             var cbAndRemove = function cbAndRemove(ev) {
               ev.preventDefault();
               filter.cb(filter.value);
               _this.props.remove(i);
             };
-
             var handleChange = function handleChange(ev) {
-              _this.props.changeFilter(i, ev.target.value);
+              return _this.props.changeFilter(i, ev.target.value);
             };
-
             var cancel = function cancel() {
-              _this.props.remove(i);
+              return _this.props.remove(i);
             };
+            var input = null;
 
             if (filter.type === 'text') {
               input = React.createElement("input", { type: "text", placeholder: filter.placeholder, value: filter.text, onChange: handleChange });
@@ -4748,39 +5044,60 @@ ConnectFilters.prototype = Object.create(React.Component.prototype, {
         )
       );
     }
-  }
-});
+  }]);
 
-module.exports = ConnectFilters;
+  return ConnectFilters;
+})(React.Component);
+
+exports["default"] = ConnectFilters;
+module.exports = exports["default"];
 
 
 },{}],28:[function(require,module,exports){
 'use strict';
 
-function InstagramConnect() {
-  this.state = { accessToken: null };
-}
-InstagramConnect.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: InstagramConnect },
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-  handleConnect: {
-    value: function value(cb) {
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var InstagramConnect = (function (_React$Component) {
+  _inherits(InstagramConnect, _React$Component);
+
+  function InstagramConnect() {
+    _classCallCheck(this, InstagramConnect);
+
+    _get(Object.getPrototypeOf(InstagramConnect.prototype), 'constructor', this).call(this);
+    this.state = { accessToken: null };
+  }
+
+  _createClass(InstagramConnect, [{
+    key: 'handleConnect',
+    value: function handleConnect(cb) {
+      var _this2 = this;
+
       var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
       var redirectURI = 'http://janeswalk.org/connected';
 
       // Race-condition prone, but safest way to pull this from a child window
-      window.loadAccessToken = (function (accessToken) {
-        this.setState({ accessToken: accessToken }, cb);
-      }).bind(this);
+      window.loadAccessToken = function (accessToken) {
+        return _this2.setState({ accessToken: accessToken }, cb);
+      };
 
       var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
       this.setState({ authWindow: authWindow });
     }
-  },
-
-  handleLoadFeed: {
-    value: function value(query) {
-      var _this = this;
+  }, {
+    key: 'handleLoadFeed',
+    value: function handleLoadFeed(query) {
+      var _this3 = this;
 
       $.ajax({
         type: 'GET',
@@ -4788,7 +5105,7 @@ InstagramConnect.prototype = Object.create(React.Component.prototype, {
         dataType: 'jsonp',
         url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
         success: function success(data) {
-          var markers = (_this.props.valueLink.value || { markers: [] }).markers.slice();
+          var markers = (_this3.props.valueLink.value || { markers: [] }).markers.slice();
           var walkMap = data.data.filter(function (gram) {
             var tagMatch = true;
             if (query) {
@@ -4817,32 +5134,35 @@ InstagramConnect.prototype = Object.create(React.Component.prototype, {
             };
           });
 
-          _this.props.valueLink.requestChange({ markers: markers.concat(walkMap), route: _this.props.valueLink.value.route }, function () {
-            _this.props.refreshGMap();
-            _this.props.boundMapByWalk();
+          _this3.props.valueLink.requestChange({
+            markers: markers.concat(walkMap),
+            route: _this.props.valueLink.value.route
+          }, function () {
+            this.props.refreshGMap();
+            this.props.boundMapByWalk();
           });
         }
       });
     }
-  },
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
 
-  render: {
-    value: function value() {
-      var _this = this;
       var addFilter = function addFilter() {
         var filterProps = {
           type: 'text',
           icon: 'fa fa-instagram',
           placeholder: 'Type in the tag you used on the geocoded photos for your walk',
           value: '',
-          cb: _this.handleLoadFeed.bind(_this)
+          cb: _this4.handleLoadFeed.bind(_this4)
         };
-        if (_this.state.accessToken) {
-          _this.props.addFilter(filterProps);
+        if (_this4.state.accessToken) {
+          _this4.props.addFilter(filterProps);
         } else {
           // Connect, and add the box when done
-          _this.handleConnect(function () {
-            _this.props.addFilter(filterProps);
+          _this4.handleConnect(function () {
+            return _this4.props.addFilter(filterProps);
           });
         }
       };
@@ -4854,10 +5174,13 @@ InstagramConnect.prototype = Object.create(React.Component.prototype, {
         'Instagram'
       );
     }
-  }
-});
+  }]);
 
-module.exports = InstagramConnect;
+  return InstagramConnect;
+})(React.Component);
+
+exports['default'] = InstagramConnect;
+module.exports = exports['default'];
 
 
 },{}],29:[function(require,module,exports){
@@ -5066,221 +5389,264 @@ module.exports = TwitterConnect;
 
 
 },{}],31:[function(require,module,exports){
-'use strict';
-
 /**
  * The 'info window', aka the input box that pops up over markers in maps
  */
 
-function WalkInfoWindow(props) {
-  // Weird, but needed since it's rendering to a DOM node
-  this.state = { marker: props.marker };
+'use strict';
 
-  // Bind methods
-  this.handleTitleChange = this.handleTitleChange.bind(this);
-  this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-}
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-WalkInfoWindow.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: WalkInfoWindow },
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var WalkInfoWindow = (function (_React$Component) {
+  _inherits(WalkInfoWindow, _React$Component);
+
+  function WalkInfoWindow(props) {
+    _classCallCheck(this, WalkInfoWindow);
+
+    _get(Object.getPrototypeOf(WalkInfoWindow.prototype), 'constructor', this).call(this);
+    // Weird, but needed since it's rendering to a DOM node
+    this.state = { marker: props.marker };
+
+    // Bind methods
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+  }
 
   /**
    * Set the content of this marker
    * @param Object props The properties to set
    */
-  setMarkerContent: {
-    value: function value(props) {
+
+  _createClass(WalkInfoWindow, [{
+    key: 'setMarkerContent',
+    value: function setMarkerContent(props) {
       var marker = this.state.marker;
       // Parse, apply new properties, re-encode then assign as new title. Needed
       // as gmaps doesn't give you multiple fields, so we encode in the title.
       marker.setTitle(JSON.stringify(Object.assign({}, JSON.parse(marker.getTitle()), props)));
       this.setState({ marker: marker }, this.props.refresh);
     }
-  },
 
-  // Simple method to set title property
-  handleTitleChange: {
-    value: function value(ev) {
+    // Simple method to set title property
+  }, {
+    key: 'handleTitleChange',
+    value: function handleTitleChange(ev) {
       this.setMarkerContent({ title: ev.target.value });
-    },
-    writable: true
-  },
-
-  // Simple method to set description property
-  handleDescriptionChange: {
-    value: function value(ev) {
-      this.setMarkerContent({ description: ev.target.value });
-    },
-    writable: true
-  },
-
-  render: {
-    value: function value() {
-      var marker = this.state.marker;
-      var markerContent = JSON.parse(marker.getTitle());
-      var media;
-
-      // Load rich media
-      if (markerContent.media) {
-        if (markerContent.media.type === 'instagram') {
-          media = React.createElement('img', { className: 'media', src: markerContent.media.url + 'media?size=t' });
-        } else if (markerContent.media.type === 'soundcloud') {
-          media = React.createElement('iframe', { className: 'media', width: '150', height: '100%', scrolling: 'no', frameborder: 'no', src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true' });
-        }
-      }
-
-      return React.createElement(
-        'div',
-        { className: 'stop-form' },
-        media,
-        React.createElement(
-          'section',
-          { className: 'details' },
-          React.createElement('input', {
-            type: 'text',
-            onChange: this.handleTitleChange,
-            value: markerContent.title,
-            placeholder: 'Title of this stop',
-            className: 'marker-title'
-          }),
-          React.createElement('textarea', {
-            className: 'marker-description box-sizing',
-            onChange: this.handleDescriptionChange,
-            placeholder: 'Description of this stop',
-            value: markerContent.description
-          })
-        ),
-        React.createElement(
-          'a',
-          { onClick: this.props.deleteMarker },
-          React.createElement('i', { className: 'fa fa-trash-o' })
-        )
-      );
     }
-  }
-});
 
-module.exports = WalkInfoWindow;
+    // Simple method to set description property
+  }, {
+    key: 'handleDescriptionChange',
+    value: function handleDescriptionChange(ev) {
+      this.setMarkerContent({ description: ev.target.value });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var marker = this.state.marker;
+      if (marker) {
+        var markerContent = JSON.parse(marker.getTitle());
+        var media = undefined;
+
+        // Load rich media
+        if (markerContent.media) {
+          if (markerContent.media.type === 'instagram') {
+            media = React.createElement('img', { className: 'media', src: markerContent.media.url + 'media?size=t' });
+          } else if (markerContent.media.type === 'soundcloud') {
+            media = React.createElement('iframe', { className: 'media', width: '150', height: '100%', scrolling: 'no', frameborder: 'no', src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true' });
+          }
+        }
+
+        return React.createElement(
+          'div',
+          { className: 'stop-form' },
+          media,
+          React.createElement(
+            'section',
+            { className: 'details' },
+            React.createElement('input', {
+              type: 'text',
+              onChange: this.handleTitleChange,
+              value: markerContent.title,
+              placeholder: 'Title of this stop',
+              className: 'marker-title'
+            }),
+            React.createElement('textarea', {
+              className: 'marker-description box-sizing',
+              onChange: this.handleDescriptionChange,
+              placeholder: 'Description of this stop',
+              value: markerContent.description
+            })
+          ),
+          React.createElement(
+            'a',
+            { onClick: this.props.deleteMarker },
+            React.createElement('i', { className: 'fa fa-trash-o' })
+          )
+        );
+      }
+    }
+  }]);
+
+  return WalkInfoWindow;
+})(React.Component);
+
+exports['default'] = WalkInfoWindow;
+module.exports = exports['default'];
 
 
 },{}],32:[function(require,module,exports){
-'use strict';
-
 // Flux
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var t = require('../../../stores/I18nStore.js').getTranslate();
 
 /**
  * The table with all the walk stops on it, in CAW
  */
 
-function WalkStopTable() {}
+var WalkStopTable = (function (_React$Component) {
+  _inherits(WalkStopTable, _React$Component);
 
-WalkStopTable.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: WalkStopTable },
+  function WalkStopTable() {
+    _classCallCheck(this, WalkStopTable);
 
-  render: {
-    value: function value() {
+    _get(Object.getPrototypeOf(WalkStopTable.prototype), "constructor", this).apply(this, arguments);
+  }
+
+  _createClass(WalkStopTable, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
       var markersSet = this.props.markers.getArray();
       return React.createElement(
-        'table',
-        { ref: 'routeStops', className: 'table-hover routeStops' },
+        "table",
+        { ref: "routeStops", className: "table-hover routeStops" },
         React.createElement(
-          'thead',
+          "thead",
           null,
           React.createElement(
-            'tr',
+            "tr",
             null,
             React.createElement(
-              'th',
+              "th",
               null,
               t('Title')
             ),
             React.createElement(
-              'th',
+              "th",
               null,
               t('Description')
             ),
             React.createElement(
-              'th',
-              { className: 'controls' },
-              React.createElement('i', { className: 'fa fa-arrows' })
+              "th",
+              { className: "controls" },
+              React.createElement("i", { className: "fa fa-arrows" })
             ),
             React.createElement(
-              'th',
+              "th",
               null,
-              React.createElement('i', { className: 'fa fa-trash-o' })
+              React.createElement("i", { className: "fa fa-trash-o" })
             )
           )
         ),
         React.createElement(
-          'tbody',
+          "tbody",
           null,
-          markersSet.map((function (marker, i) {
+          markersSet.map(function (marker, i) {
             var titleObj = JSON.parse(marker.title);
-            var showInfoWindow = this.props.showInfoWindow.bind(this, marker);
+            var showInfoWindow = _this.props.showInfoWindow.bind(_this, marker);
             var imageThumb = null;
+            var opArrow = undefined,
+                downArrow = undefined;
 
             // Up/down arrows
             if (i > 0) {
-              var upArrow = React.createElement(
-                'a',
-                { className: 'move-marker-up', onClick: this.props.moveBefore.bind(this, i, i - 1) },
-                React.createElement('i', { className: 'fa fa-arrow-up' })
+              upArrow = React.createElement(
+                "a",
+                { className: "move-marker-up", onClick: _this.props.moveBefore.bind(_this, i, i - 1) },
+                React.createElement("i", { className: "fa fa-arrow-up" })
               );
             }
             if (i < markersSet.length - 1) {
-              var downArrow = React.createElement(
-                'a',
-                { className: 'move-marker-down', onClick: this.props.moveBefore.bind(this, i, i + 1) },
-                React.createElement('i', { className: 'fa fa-arrow-down' })
+              downArrow = React.createElement(
+                "a",
+                { className: "move-marker-down", onClick: _this.props.moveBefore.bind(_this, i, i + 1) },
+                React.createElement("i", { className: "fa fa-arrow-down" })
               );
             }
 
             // The picture of the stop given in media
             if (titleObj.media) {
               if (titleObj.media.type === 'instagram') {
-                imageThumb = React.createElement('img', { src: titleObj.media.url + 'media?size=t' });
+                imageThumb = React.createElement("img", { src: titleObj.media.url + 'media?size=t' });
               }
             }
             return React.createElement(
-              'tr',
-              { 'data-position': i, key: 'marker' + i },
+              "tr",
+              { "data-position": i, key: 'marker' + i },
               React.createElement(
-                'td',
+                "td",
                 { onClick: showInfoWindow },
                 i === 0 ? t('Meeting Place') + ': ' : '',
                 imageThumb,
                 titleObj.title
               ),
               React.createElement(
-                'td',
+                "td",
                 { onClick: showInfoWindow },
                 titleObj.description
               ),
               React.createElement(
-                'td',
+                "td",
                 null,
                 downArrow,
                 upArrow
               ),
               React.createElement(
-                'td',
+                "td",
                 null,
                 React.createElement(
-                  'a',
-                  { className: 'delete-stop', onClick: this.props.deleteMarker.bind(this, marker) },
-                  React.createElement('i', { className: 'fa fa-times-circle-o' })
+                  "a",
+                  { className: "delete-stop", onClick: _this.props.deleteMarker.bind(_this, marker) },
+                  React.createElement("i", { className: "fa fa-times-circle-o" })
                 )
               )
             );
-          }).bind(this))
+          })
         )
       );
     }
-  }
-});
+  }]);
 
-module.exports = WalkStopTable;
+  return WalkStopTable;
+})(React.Component);
+
+exports["default"] = WalkStopTable;
+module.exports = exports["default"];
 
 
 },{"../../../stores/I18nStore.js":43}],33:[function(require,module,exports){
@@ -6963,9 +7329,10 @@ if (!Number.isInteger) {
  *
  * Store for i18n language translations
  */
-'use strict';
 
 // Basic flux setup
+'use strict';
+
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var ActionTypes = require('../constants/JWConstants').ActionTypes;

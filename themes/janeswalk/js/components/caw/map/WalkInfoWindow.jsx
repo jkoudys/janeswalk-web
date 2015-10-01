@@ -1,56 +1,45 @@
-'use strict';
-
 /**
  * The 'info window', aka the input box that pops up over markers in maps
  */
 
-function WalkInfoWindow(props) { 
-  // Weird, but needed since it's rendering to a DOM node
-  this.state = {marker: props.marker};
+export default class WalkInfoWindow extends React.Component {
+  constructor(props) {
+    super();
+    // Weird, but needed since it's rendering to a DOM node
+    this.state = {marker: props.marker};
 
-  // Bind methods
-  this.handleTitleChange = this.handleTitleChange.bind(this);
-  this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-}
-
-WalkInfoWindow.prototype = Object.create(React.Component.prototype, {
-  constructor: {value: WalkInfoWindow},
+    // Bind methods
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
+  }
 
   /**
    * Set the content of this marker
    * @param Object props The properties to set
    */
-  setMarkerContent: {
-    value: function(props) {
-      var marker = this.state.marker;
-      // Parse, apply new properties, re-encode then assign as new title. Needed
-      // as gmaps doesn't give you multiple fields, so we encode in the title.
-      marker.setTitle(JSON.stringify(Object.assign({}, JSON.parse(marker.getTitle()), props)));
-      this.setState({marker: marker}, this.props.refresh);
-    }
-  },
+  setMarkerContent(props) {
+    const marker = this.state.marker;
+    // Parse, apply new properties, re-encode then assign as new title. Needed
+    // as gmaps doesn't give you multiple fields, so we encode in the title.
+    marker.setTitle(JSON.stringify(Object.assign({}, JSON.parse(marker.getTitle()), props)));
+    this.setState({marker: marker}, this.props.refresh);
+  }
 
   // Simple method to set title property
-  handleTitleChange: {
-    value: function(ev) {
-      this.setMarkerContent({title: ev.target.value});
-    },
-    writable: true
-  },
+  handleTitleChange(ev) {
+    this.setMarkerContent({title: ev.target.value});
+  }
 
   // Simple method to set description property
-  handleDescriptionChange: {
-    value: function(ev) {
-      this.setMarkerContent({description: ev.target.value});
-    },
-    writable: true
-  },
+  handleDescriptionChange(ev) {
+    this.setMarkerContent({description: ev.target.value});
+  }
 
-  render: {
-    value: function() {
-      var marker = this.state.marker;
-      var markerContent = JSON.parse(marker.getTitle());
-      var media;
+  render() {
+    const marker = this.state.marker;
+    if (marker) {
+      const markerContent = JSON.parse(marker.getTitle());
+      let media;
 
       // Load rich media
       if (markerContent.media) {
@@ -86,6 +75,4 @@ WalkInfoWindow.prototype = Object.create(React.Component.prototype, {
       );
     }
   }
-});
-
-module.exports = WalkInfoWindow;
+}

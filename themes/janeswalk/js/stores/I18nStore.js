@@ -3,7 +3,6 @@
  *
  * Store for i18n language translations
  */
-'use strict';
 
 // Basic flux setup
 var AppDispatcher = require('../dispatcher/AppDispatcher');
@@ -19,7 +18,7 @@ var CHANGE_EVENT = 'change';
 // Local vars
 var _i18n = new I18nTranslator();
 
-var I18nStore = Object.assign({}, EventEmitter.prototype, {
+const I18nStore = Object.assign({}, EventEmitter.prototype, {
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
