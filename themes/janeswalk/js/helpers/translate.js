@@ -12,24 +12,32 @@ function sprintf(str) {
   });
 }
 
-class I18nTranslator {
-  constructor(translations) {
-    if (translations) {
-      this.translations = translations;
-    } else {
-      this.translations = {};
-    }
+function I18nTranslator(translations) {
+  if (translations) {
+    this.translations = translations;
   }
+}
+
+// Prototype methods
+Object.defineProperties(I18nTranslator.prototype, {
+  // The big translations map
+  translations: {
+    value: {},
+    writable: true,
+    enumerable: true
+  },
 
   /**
    * Basic translation.
    * sprintf syntax used to replace %d and %s tokens with arguments
    */
-  translate(str) {
-    var translated = Array.prototype.slice.call(arguments);
-    translated[0] = (this.translations[str] || [str])[0];
-    return sprintf.apply(this, translated);
-  }
+  translate: {
+    value: function(str) {
+      var translated = Array.prototype.slice.call(arguments);
+      translated[0] = (this.translations[str] || [str])[0];
+      return sprintf.apply(this, translated);
+    }
+  },
 
   /**
    * Plural translations
@@ -43,33 +51,37 @@ class I18nTranslator {
    * @return string
    * @example t2('%d ox', '%d oxen', numberOfOxen)
    */
-  translatePlural(singular, plural, count) {
-    // TODO Use the plural rules for the language, not just English
-    var isPlural = (count !== 1) ? 1 : 0;
+  translatePlural: {
+    value: function(singular, plural, count) {
+      // TODO Use the plural rules for the language, not just English
+      var isPlural = (count !== 1) ? 1 : 0;
 
-    var translateTo = (this.translations[singular + '_' + plural] ||
+      var translateTo = (this.translations[singular + '_' + plural] ||
                        [singular, plural])[isPlural];
 
-    return sprintf(translateTo, count);
-  }
+      return sprintf(translateTo, count);
+    }
+  },
 
   /**
-   * Translate with context
-   * Some words mean different things based on context, so
-   * use tc to give context.
-   *
-   * @param string context
-   * @param string str Sprintf-formatted string
-   * @return string
-   * @example tc('make or manufacture', 'produce'); tc('food', 'produce');
-   */
-  translateContext(context, str) {
-    // Grab the values to apply to the string
-    var args = Array.prototype.slice.call(arguments, 2);
-    // i18n lib makes context keys simply an underscore between them
-    var key = context + '_' + str;
-    sprintf.apply(this, [context, args]);
+  * Translate with context
+  * Some words mean different things based on context, so
+  * use tc to give context.
+  *
+  * @param string context
+  * @param string str Sprintf-formatted string
+  * @return string
+  * @example tc('make or manufacture', 'produce'); tc('food', 'produce');
+  */
+  translateContext: {
+    value: function(context, str) {
+      // Grab the values to apply to the string
+      var args = Array.prototype.slice.call(arguments, 2);
+      // i18n lib makes context keys simply an underscore between them
+      var key = context + '_' + str;
+      sprintf.apply(this, [context, args]);
+    }
   }
-}
+});
 
-export default I18nTranslator;
+module.exports = I18nTranslator;

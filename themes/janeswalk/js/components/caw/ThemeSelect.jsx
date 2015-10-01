@@ -1,17 +1,21 @@
-// Flux
-import I18nStore from '../../stores/I18nStore.js';
-const t = I18nStore.getTranslate();
+'use strict';
 
-class ThemeSelect extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+var mixins = require('../../helpers/mixins.jsx');
+
+// Flux
+var t = require('../../stores/I18nStore.js').getTranslate();
+
+var ThemeSelect = React.createClass({
+  mixins: [mixins.linkedParentState],
+ 
+  getInitialState: function() {
+    return {
       maxChecked: 3,
       totalChecked: 0
     };
-  }
+  },
 
-  getDefaultProps() {
+  getDefaultProps: function() {
     return {
       // Using array for themes to enforce order
       themeCategories: [{
@@ -121,9 +125,9 @@ class ThemeSelect extends React.Component {
         }]
       }]
     };
-  }
+  },
 
-  render() {
+  render: function() {
     var _this = this;
     var totalChecked = 0;
     var checkboxes = this.props.valueLink.value;
@@ -162,6 +166,6 @@ class ThemeSelect extends React.Component {
       </fieldset>
     );
   }
-}
+});
 
-export default ThemeSelect;
+module.exports = ThemeSelect;

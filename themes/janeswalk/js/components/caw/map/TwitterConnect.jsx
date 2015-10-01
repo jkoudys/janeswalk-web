@@ -1,19 +1,20 @@
-class TwitterConnect extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+'use strict';
+
+var TwitterConnect = React.createClass({
+  getInitialState: function() {
+    return {
       query: '',
       accessToken: true
     };
-  }
+  },
 
-  componentWillMount() {
+  componentWillMount: function() {
     window.setAccessToken = function(accessToken) {
       this.setState({accessToken: accessToken});
     }.bind(this);
-  }
+  },
 
-  handleLoadToken() {
+  handleLoadToken: function() {
     var _this = this;
 
     // Twitter requires a server-side auth with secret, so clients get token from JW
@@ -27,9 +28,9 @@ class TwitterConnect extends React.Component {
         }
       }
     });
-  }
+  },
 
-  loadFeed(query) {
+  loadFeed: function(query) {
     var _this = this;
     query = encodeURIComponent(query);
 
@@ -59,13 +60,13 @@ class TwitterConnect extends React.Component {
         });
       }
     });
-  }
+  },
 
-  handleQueryChange(ev) {
+  handleQueryChange: function(ev) {
     this.setState({query: ev.target.value});
-  }
+  },
 
-  render() {
+  render: function() {
     var addFilter = function() {
       // The filter we set to the 'filter box'
       this.props.addFilter({
@@ -84,6 +85,6 @@ class TwitterConnect extends React.Component {
       </button>
     );
   }
-}
+});
 
-export default TwitterConnect;
+module.exports = TwitterConnect;

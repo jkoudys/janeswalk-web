@@ -2,25 +2,20 @@
  * The 'login' modal that comes up on standard login, not to be confused
  * with the login page.
  */
+'use strict';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+var Login = React.createClass({
+  getInitialState: function() {
+    return {
       email: '',
       password: '',
       maintainLogin: false,
       message: {}
     };
+  },
 
-    // Bind handlers
-    this.handleReset = this.handleReset.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleReset(ev) {
+  handleReset: function(ev) {
+    var _this = this;
     // Post a reset request to the c5 endpoint for resets
     $.ajax({
       type: 'POST',
@@ -31,23 +26,25 @@ class Login extends React.Component {
         format: 'JSON'
       },
       dataType: 'json',
-      success: data => this.setState({message: data})
+      success: function(data) {
+        _this.setState({message: data});
+      }
     });
-  }
+  },
 
-  handleChangeEmail(ev) {
+  handleChangeEmail: function(ev) {
     this.setState({email: ev.target.value});
-  }
+  },
 
-  handleChangePassword(ev) {
+  handleChangePassword: function(ev) {
     this.setState({password: ev.target.value});
-  }
+  },
 
-  handleChangeMaintainLogin(ev) {
+  handleChangeMaintainLogin: function(ev) {
     this.setState({maintainLogin: ev.target.value});
-  }
+  },
 
-  handleSubmit(ev) {
+  handleSubmit: function(ev) {
     var _this = this;
     ev.preventDefault();
     // Post the login to the c5 endpoint for logins
@@ -74,9 +71,9 @@ class Login extends React.Component {
         });
       }
     });
-  }
+  },
 
-  render() {
+  render: function() {
     // TODO: link to the i18n
     var t = function(str) {
       var args = Array.prototype.slice.call(arguments);
@@ -124,6 +121,7 @@ class Login extends React.Component {
       </dialog>
     );
   }
-}
+});
 
-export default Login;
+module.exports = Login;
+
