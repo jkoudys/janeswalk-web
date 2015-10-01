@@ -7,7 +7,7 @@ import I18nActions from '../actions/I18nActions.js';
  */
 export function getTranslations(locale) {
   // Check that we have a translations file set
-  if (locale.translation) {
+  if (locale && locale.translation) {
     // Grab from session if we have it
     var translation = window.sessionStorage.getItem('i18n_' + locale.name);
     if (translation) {

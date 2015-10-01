@@ -758,6 +758,7 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 exports.receive = receive;
+exports.change = change;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -774,6 +775,14 @@ function receive(walk, url) {
     type: _constantsJWConstantsJs.ActionTypes.WALK_RECEIVE,
     walk: walk,
     url: url
+  });
+}
+
+function change(property, value) {
+  _dispatcherAppDispatcherJs2['default'].dispatch({
+    type: _constantsJWConstantsJs.ActionTypes.WALK_CHANGE,
+    property: property,
+    value: value
   });
 }
 
@@ -1127,101 +1136,7 @@ var CreateWalk = (function (_React$Component) {
               ),
               React.createElement(_cawMapBuilderJsx2['default'], { ref: 'mapBuilder', city: this.props.city }),
               React.createElement(_cawDateSelectJsx2['default'], { valueLink: this.linkState('time') }),
-              React.createElement(
-                'div',
-                { className: 'tab-pane', id: 'accessibility' },
-                React.createElement(
-                  'div',
-                  { className: 'page-header', 'data-section': 'accessibility' },
-                  React.createElement(
-                    'h1',
-                    null,
-                    t('Make it Accessible')
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'item' },
-                  React.createElement(_cawAccessibleSelectJsx2['default'], { valueLink: this.linkState('checkboxes') })
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'item' },
-                  React.createElement(
-                    'fieldset',
-                    null,
-                    React.createElement(
-                      'legend',
-                      null,
-                      t('What else do people need to know about the accessibility of this walk?'),
-                      ' (',
-                      t('Optional'),
-                      ')'
-                    ),
-                    React.createElement(_TextAreaLimitJsx2['default'], { name: 'accessible-info', rows: '3', maxLength: '500', valueLink: this.linkState('accessibleInfo') })
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'item' },
-                  React.createElement(
-                    'fieldset',
-                    null,
-                    React.createElement(
-                      'legend',
-                      { id: 'transit' },
-                      t('How can someone get to the meeting spot by public transit?'),
-                      ' (',
-                      t('Optional'),
-                      ')'
-                    ),
-                    React.createElement(
-                      'div',
-                      { className: 'alert alert-info' },
-                      t('Nearest subway stop, closest bus or streetcar lines, etc.')
-                    ),
-                    React.createElement('textarea', { rows: '3', name: 'accessible-transit', valueLink: this.linkState('accessibleTransit') })
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'item' },
-                  React.createElement(
-                    'fieldset',
-                    null,
-                    React.createElement(
-                      'legend',
-                      null,
-                      t('Where are the nearest places to park?'),
-                      ' (',
-                      t('Optional'),
-                      ')'
-                    ),
-                    React.createElement('textarea', { rows: '3', name: 'accessible-parking', valueLink: this.linkState('accessibleParking') })
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'item' },
-                  React.createElement(
-                    'fieldset',
-                    null,
-                    React.createElement(
-                      'legend',
-                      { className: 'required-legend' },
-                      t('How will people find you?')
-                    ),
-                    React.createElement(
-                      'div',
-                      { className: 'alert alert-info' },
-                      t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')
-                    ),
-                    React.createElement('textarea', { rows: '3', name: 'accessible-find', valueLink: this.linkState('accessibleFind') })
-                  )
-                ),
-                React.createElement('hr', null),
-                React.createElement('br', null)
-              ),
+              React.createElement(Accessible, null),
               React.createElement(_cawTeamBuilderJsx2['default'], { valueLink: this.linkState('team') })
             ),
             React.createElement(
@@ -1761,7 +1676,7 @@ var TextAreaLimit = React.createClass({
   displayName: 'TextAreaLimit',
 
   render: function render() {
-    var remaining = this.props.maxLength - this.props.valueLink.value.length;
+    var remaining = this.props.maxLength - this.props.value.length;
 
     return React.createElement(
       'div',
@@ -7065,7 +6980,7 @@ var ActionTypes = mirror([
 'I18N_RECEIVE',
 
 // Walks
-'WALK_RECEIVE',
+'WALK_RECEIVE', 'WALK_CHANGE',
 
 // Notification logger
 'LOG_INFO', 'LOG_ERROR', 'LOG_WARN']);
@@ -7599,7 +7514,7 @@ var _actionsI18nActionsJs2 = _interopRequireDefault(_actionsI18nActionsJs);
 
 function getTranslations(locale) {
   // Check that we have a translations file set
-  if (locale.translation) {
+  if (locale && locale.translation) {
     // Grab from session if we have it
     var translation = window.sessionStorage.getItem('i18n_' + locale.name);
     if (translation) {
