@@ -3280,6 +3280,7 @@ var TeamBuilder = (function (_React$Component) {
     this.addOrganizer = this.addOrganizer.bind(this);
     this.addCommunityVoice = this.addCommunityVoice.bind(this);
     this.addVolunteer = this.addVolunteer.bind(this);
+    this.handleTeamMemberChange = this.handleTeamMemberChange.bind(this);
   }
 
   _createClass(TeamBuilder, [{
@@ -4373,140 +4374,157 @@ module.exports = exports['default'];
 
 
 },{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],21:[function(require,module,exports){
+// Flux
 'use strict';
 
-// Flux
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var t = require('../../stores/I18nStore.js').getTranslate();
 
-var WalkPublish = React.createClass({
-  displayName: 'WalkPublish',
+var WalkPublish = (function (_React$Component) {
+  _inherits(WalkPublish, _React$Component);
 
-  mixins: [React.addons.LinkedStateMixin],
+  function WalkPublish() {
+    _classCallCheck(this, WalkPublish);
 
-  getInitialState: function getInitialState() {
-    return {
+    _get(Object.getPrototypeOf(WalkPublish.prototype), 'constructor', this).call(this);
+    this.state = {
       eventbrite: !!this.props.mirrors.eventbrite
     };
-  },
+  }
 
-  componentDidMount: function componentDidMount() {
-    var _this = this;
-    // Bootstrap Modal
-    $(this.getDOMNode()).modal();
-    // Close the modal when modal closes
-    $(this.getDOMNode()).bind('hidden.bs.modal', function () {
-      _this.props.close();
-    });
-  },
+  _createClass(WalkPublish, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this = this;
 
-  handlePublish: function handlePublish() {
-    this.props.saveWalk({ publish: true }, function () {
-      // This function's meant for callbacks, so it grabs the URL from the caller's state
-      window.location = this.state.url;
-    });
-  },
+      // Bootstrap Modal
+      $(this.getDOMNode()).modal();
 
-  render: function render() {
-    // Check city config for which walk mirroring services to expose
-    var mirrorWalk;
-    if (this.props.city.mirrors.indexOf('eventbrite') !== -1) {
-      mirrorWalk = React.createElement(
-        'label',
-        { className: 'checkbox' },
-        React.createElement('input', { type: 'checkbox', checkedLink: this.linkState('eventbrite') }),
-        t('Publish walk to EventBrite')
-      );
+      // Close the modal when modal closes
+      $(this.getDOMNode()).bind('hidden.bs.modal', function () {
+        return _this.props.close();
+      });
     }
+  }, {
+    key: 'handlePublish',
+    value: function handlePublish() {
+      var _this2 = this;
 
-    return React.createElement(
-      'dialog',
-      { id: 'publish-warning' },
-      React.createElement(
-        'div',
-        null,
+      // This function's meant for callbacks, so it grabs the URL from the caller's state
+      this.props.saveWalk({ publish: true }, function () {
+        return window.location = _this2.state.url;
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      // Check city config for which walk mirroring services to expose
+      var mirrorWalk = undefined;
+      if (this.props.city.mirrors.indexOf('eventbrite') > -1) {
+        mirrorWalk = React.createElement(
+          'label',
+          { className: 'checkbox' },
+          React.createElement('input', { type: 'checkbox', checkedLink: this.linkState('eventbrite') }),
+          t('Publish walk to EventBrite')
+        );
+      }
+
+      return React.createElement(
+        'dialog',
+        { id: 'publish-warning' },
         React.createElement(
-          'article',
+          'div',
           null,
           React.createElement(
-            'header',
+            'article',
             null,
             React.createElement(
-              'button',
-              { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-hidden': 'true' },
-              '×'
-            ),
-            React.createElement(
-              'h3',
-              null,
-              t('Okay, You\'re Ready to Publish')
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'modal-body' },
-            React.createElement(
-              'p',
-              null,
-              t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.')
-            ),
-            mirrorWalk
-          ),
-          React.createElement(
-            'footer',
-            null,
-            React.createElement(
-              'div',
-              { className: 'pull-left' },
-              React.createElement(
-                'a',
-                { className: 'walkthrough close', 'data-dismiss': 'modal', onClick: this.props.close.bind(this) },
-                ' ',
-                t('Bring me back to edit')
-              )
-            ),
-            React.createElement(
-              'a',
+              'header',
               null,
               React.createElement(
                 'button',
-                { className: 'btn btn-primary walkthrough', 'data-step': 'publish-confirmation', onClick: this.handlePublish },
-                t('Publish')
+                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-hidden': 'true' },
+                '×'
+              ),
+              React.createElement(
+                'h3',
+                null,
+                t('Okay, You\'re Ready to Publish')
+              )
+            ),
+            React.createElement(
+              'div',
+              { className: 'modal-body' },
+              React.createElement(
+                'p',
+                null,
+                t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.')
+              ),
+              mirrorWalk
+            ),
+            React.createElement(
+              'footer',
+              null,
+              React.createElement(
+                'div',
+                { className: 'pull-left' },
+                React.createElement(
+                  'a',
+                  { className: 'walkthrough close', 'data-dismiss': 'modal', onClick: this.props.close.bind(this) },
+                  ' ',
+                  t('Bring me back to edit')
+                )
+              ),
+              React.createElement(
+                'a',
+                null,
+                React.createElement(
+                  'button',
+                  { className: 'btn btn-primary walkthrough', 'data-step': 'publish-confirmation', onClick: this.handlePublish },
+                  t('Publish')
+                )
               )
             )
           )
         )
-      )
-    );
-    /*
-    return (
-      <dialog id="publish-confirmation">
-        <header>
-          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h3>Your Walk Has Been Published!</h3>
-        </header>
-        <div className="modal-body">
-          <p>Congratulations! Your walk is now available for all to peruse.</p>
-          <h2 className="lead">{t('Don\'t forget to share your walk!')}</h2>
-          <label>Your Walk Web Address:</label>
-          <input type="text" className="clone js-url-field" value={this.props.url} readOnly />
-          <hr />
-          <button className="btn facebook"><i className="fa fa-facebook-sign" /> Share on Facebook</button>
-          <button className="btn twitter"><i className="fa fa-twitter-sign" /> Share on Twitter</button>
-        </div>
-        <footer>
-          <button className="btn btn-primary walkthrough">Close</button>
-        </footer>
-      </dialog>
-    );
-    */
-  }
-});
+      );
+    }
+  }]);
 
-module.exports = WalkPublish;
+  return WalkPublish;
+})(React.Component);
+
+exports['default'] = WalkPublish;
+
+Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
+module.exports = exports['default'];
 
 
 },{"../../stores/I18nStore.js":43}],22:[function(require,module,exports){
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var mixins = require('../../helpers/mixins.jsx');
 
@@ -4514,54 +4532,67 @@ var mixins = require('../../helpers/mixins.jsx');
 var i18n = require('../../stores/I18nStore.js');
 var t = i18n.getTranslate();
 
-var WardSelect = React.createClass({
-  displayName: 'WardSelect',
+var WardSelect = (function (_React$Component) {
+  _inherits(WardSelect, _React$Component);
 
-  mixins: [mixins.linkedParentState],
-  render: function render() {
-    var wards = this.props.wards;
-    if (wards && this.props.valueLink) {
-      return React.createElement(
-        'fieldset',
-        { id: 'wards' },
-        React.createElement(
-          'legend',
-          null,
-          t('Sub-locality')
-        ),
-        React.createElement(
-          'div',
-          { className: 'item' },
+  function WardSelect() {
+    _classCallCheck(this, WardSelect);
+
+    _get(Object.getPrototypeOf(WardSelect.prototype), 'constructor', this).apply(this, arguments);
+  }
+
+  _createClass(WardSelect, [{
+    key: 'render',
+    value: function render() {
+      var wards = this.props.wards;
+      if (wards && this.props.valueLink) {
+        return React.createElement(
+          'fieldset',
+          { id: 'wards' },
           React.createElement(
-            'div',
-            { className: 'alert alert-info' },
-            t('Choose a specific neighbourhood or area where your walk will take place.')
+            'legend',
+            null,
+            t('Sub-locality')
           ),
           React.createElement(
-            'select',
-            { id: 'ward', name: 'ward', valueLink: this.props.valueLink },
+            'div',
+            { className: 'item' },
             React.createElement(
-              'option',
-              { value: '' },
-              'Choose a region'
+              'div',
+              { className: 'alert alert-info' },
+              t('Choose a specific neighbourhood or area where your walk will take place.')
             ),
-            wards.map(function (e, i) {
-              return React.createElement(
+            React.createElement(
+              'select',
+              { id: 'ward', name: 'ward', valueLink: this.props.valueLink },
+              React.createElement(
                 'option',
-                { key: i, value: e.value },
-                e.value
-              );
-            })
+                { value: '' },
+                'Choose a region'
+              ),
+              wards.map(function (e, i) {
+                return React.createElement(
+                  'option',
+                  { key: i, value: e.value },
+                  e.value
+                );
+              })
+            )
           )
-        )
-      );
-    } else {
-      return React.createElement('fieldset', { id: 'wards' });
+        );
+      } else {
+        return React.createElement('fieldset', { id: 'wards' });
+      }
     }
-  }
-});
+  }]);
 
-module.exports = WardSelect;
+  return WardSelect;
+})(React.Component);
+
+exports['default'] = WardSelect;
+
+Object.assign(WardSelect.prototype, mixins.linkedParentState);
+module.exports = exports['default'];
 
 
 },{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],23:[function(require,module,exports){
@@ -7068,14 +7099,17 @@ exports.objectToArray = function (obj) {
 
 
 },{}],40:[function(require,module,exports){
-'use strict';
-
 /**
  * TODO: replace both of these silly 2-way binding helpers with flux
  */
 
 // Link this component's state to the linkState() parent
-module.exports.linkedParentState = {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var linkedParentState = {
   linkParentState: function linkParentState(propname) {
     var valueLink = this.props.valueLink;
     var parentState = valueLink.value;
@@ -7090,19 +7124,22 @@ module.exports.linkedParentState = {
   }
 };
 
+exports.linkedParentState = linkedParentState;
 // Link this component's state to the linkState() parent
-module.exports.linkedTeamMemberState = {
+var linkedTeamMemberState = {
   linkProp: function linkProp(propname) {
     var onChange = this.props.onChange;
     var key = this.props.index;
+
     return {
       value: this.props.value[propname],
       requestChange: function requestChange(value) {
-        onChange(propname, value, key);
+        return onChange(propname, value, key);
       }
     };
   }
 };
+exports.linkedTeamMemberState = linkedTeamMemberState;
 
 
 },{}],41:[function(require,module,exports){
@@ -7333,20 +7370,33 @@ if (!Number.isInteger) {
 // Basic flux setup
 'use strict';
 
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var ActionTypes = require('../constants/JWConstants').ActionTypes;
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _events = require('events');
+
+var _dispatcherAppDispatcher = require('../dispatcher/AppDispatcher');
+
+var _dispatcherAppDispatcher2 = _interopRequireDefault(_dispatcherAppDispatcher);
+
+var _constantsJWConstants = require('../constants/JWConstants');
 
 // The library for managing translations
-var I18nTranslator = require('../helpers/translate.js');
+
+var _helpersTranslateJs = require('../helpers/translate.js');
+
+var _helpersTranslateJs2 = _interopRequireDefault(_helpersTranslateJs);
 
 // Simple 'something has changed' event
 var CHANGE_EVENT = 'change';
 
 // Local vars
-var _i18n = new I18nTranslator();
+var _i18n = new _helpersTranslateJs2['default']();
 
-var I18nStore = Object.assign({}, EventEmitter.prototype, {
+var I18nStore = Object.assign({}, _events.EventEmitter.prototype, {
   emitChange: function emitChange() {
     this.emit(CHANGE_EVENT);
   },
@@ -7368,11 +7418,11 @@ var I18nStore = Object.assign({}, EventEmitter.prototype, {
 });
 
 // Register our dispatch token as a static method
-I18nStore.dispatchToken = AppDispatcher.register(function (payload) {
+I18nStore.dispatchToken = _dispatcherAppDispatcher2['default'].register(function (payload) {
   // Go through the various actions
   switch (payload.type) {
     // POI actions
-    case ActionTypes.I18N_RECEIVE:
+    case _constantsJWConstants.ActionTypes.I18N_RECEIVE:
       _i18n.constructor(payload.translations);
       I18nStore.emitChange();
       break;
@@ -7381,7 +7431,8 @@ I18nStore.dispatchToken = AppDispatcher.register(function (payload) {
   }
 });
 
-module.exports = I18nStore;
+exports['default'] = I18nStore;
+module.exports = exports['default'];
 
 
 },{"../constants/JWConstants":37,"../dispatcher/AppDispatcher":38,"../helpers/translate.js":41,"events":2}],44:[function(require,module,exports){

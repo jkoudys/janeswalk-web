@@ -15,6 +15,7 @@ export default class TeamBuilder extends React.Component {
     this.addOrganizer = this.addOrganizer.bind(this);
     this.addCommunityVoice = this.addCommunityVoice.bind(this);
     this.addVolunteer = this.addVolunteer.bind(this);
+    this.handleTeamMemberChange = this.handleTeamMemberChange.bind(this);
   }
 
   componentDidMount() {
