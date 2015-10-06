@@ -325,10 +325,14 @@ body.city-page {
                         color: #333;
                     }
                     .daterange {
+                      @width: 45%;
                       .clearfix();
                       input {
-                        width: 45%;
+                        width: @width;
                         display: inline-block;
+                        &:last-child {
+                          margin-left: 100 - 2 * @width;
+                        }
                       }
                     }
                 }
@@ -525,4 +529,23 @@ body.city-page {
             // }
         }
     }
+}
+
+/* The date select popups */
+#ui-datepicker-div {
+  .ui-datepicker-header {
+    background: @color-orange;
+  }
+  .ui-datepicker-title {
+    select {
+      width: 40%;
+      display: inline-block;
+      &:first-child {
+        margin: 0 2.5% 0 5%;
+      }
+      &:last-child {
+        margin: 0 5% 0 2.5%;
+      }
+   }
+ }
 }

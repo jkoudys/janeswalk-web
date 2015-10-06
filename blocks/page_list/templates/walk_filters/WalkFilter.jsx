@@ -9,6 +9,10 @@ import CityMap from './CityMap.jsx';
 // Not doing this now because we'd need to build multiple translators for blocks vs site
 const t = s => s;
 const offset = (new Date()).getTimezoneOffset();
+const oneDay = 24 * 60 * 60 * 1000;
+const today = new Date();
+today.setUTCHours(0);
+today.setUTCMinutes(0);
 
 export default class WalkFilter extends React.Component {
   constructor(props) {
@@ -17,18 +21,22 @@ export default class WalkFilter extends React.Component {
       walks: props.walks || [],
       city: props.city,
       filters: props.filters || {},
-      filterMatches: props.walks || [],
-      dateRange: [null, null]
+      dateRange: [today.getTime(), null],
+      filterMatches: []
     };
 
     this.handleFilters();
-
     // Setup event listeners
     JanesWalk.event.on('walks.receive', (walks, props) => {
       this.setState({walks: walks, filters: props.filters}, this.handleFilters);
     });
     JanesWalk.event.on('city.receive', city => this.setState({city: city}));
     JanesWalk.event.on('blogurl.receive', url => this.setState({blog: url}));
+
+    // Load our filtered walks after we've built the filter page
+    setTimeout(() => this.setState({
+      filterMatches: this.filterWalks(this.state.filters, this.state.dateRange)
+    }), 1);
   }
 
   handleFilters() {
@@ -38,26 +46,31 @@ export default class WalkFilter extends React.Component {
   setFilter(filter, val) {
     const filters = this.state.filters;
     filters[filter].selected = val;
+    this.setState({filters: filters, filterMatches: this.filterWalks(filters, this.state.dateRange)});
+  }
 
-    this.setState({
-      filters: filters,
-      filterMatches: this.state.walks.filter(walk => {
-        // TODO: cleanup and perf test
-        if ((filters.theme && filters.theme.selected && !(walk.checkboxes['theme-' + filters.theme.selected])) ||
-            (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
-            (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes['accessible-' + filters.accessibility.selected])) ||
-            (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1)
-           )
-         {
-           return false;
-         }
-         return true;
-      })
+  filterWalks(filters, dr) {
+    return this.state.walks.filter(walk => {
+      let time;
+      if (walk.time.slots.length) {
+        time = walk.time.slots[0][0] * 1000;
+      }
+      // TODO: cleanup and perf test
+      if ((filters.theme && filters.theme.selected && !(walk.checkboxes['theme-' + filters.theme.selected])) ||
+          (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
+          (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes['accessible-' + filters.accessibility.selected])) ||
+          (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
+          (dr[0] && dr[0] > time) || (dr[1] && dr[1] < time)
+         )
+       {
+         return false;
+       }
+       return true;
     });
   }
 
   setDateRange(from, to) {
-    this.setState({dateRange: [from, to]});
+    this.setState({dateRange: [from, to], filterMatches: this.filterWalks(this.state.filters, [from, to])});
   }
 
   render() {
@@ -123,11 +136,23 @@ export default class WalkFilter extends React.Component {
   }
 }
 
+const df = 'yy-mm-dd';
 class DateRange extends React.Component {
+  constructor(props) {
+    super(props);
+    if (Array.isArray(props.value) && props.value.length === 2) {
+      this.state = {
+        from: $.datepicker.formatDate(df, props.value[0] + offset),
+        to: $.datepicker.formatDate(df, props.value[1] + offset)
+      };
+    } else {
+      this.state = {from: '', to: ''};
+    }
+  }
+
   componentDidMount() {
     const $to = $(React.findDOMNode(this.refs.to));
     const $from = $(React.findDOMNode(this.refs.from));
-    const df = 'yy-mm-dd';
 
     let toTime;
     let fromTime;
@@ -135,10 +160,12 @@ class DateRange extends React.Component {
     $from.datepicker({
       defaultDate: '+1w',
       changeMonth: true,
+      changeYear: true,
       dateFormat: df,
       onClose: selectedDate => {
         fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
         $to.datepicker('option', 'minDate', selectedDate);
+        this.setState({from: selectedDate});
         this.props.onChange(fromTime, toTime);
       }
     });
@@ -146,10 +173,12 @@ class DateRange extends React.Component {
     $to.datepicker({
       defaultDate: '+5w',
       changeMonth: true,
+      changeYear: true,
       dateFormat: df,
       onClose: selectedDate => {
         toTime = $.datepicker.parseDate(df, selectedDate) - offset;
-        $from.datepicker('option', 'minDate', selectedDate)
+        $from.datepicker('option', 'maxDate', selectedDate)
+        this.setState({to: selectedDate});
         this.props.onChange(fromTime, toTime);
       }
     });
@@ -158,8 +187,8 @@ class DateRange extends React.Component {
   render() {
     return (
       <fieldset className="daterange">
-        <input type="text" ref="from" placeholder="From" />
-        <input type="text" ref="to" placeholder="To" />
+        <input type="text" ref="from" placeholder="From" value={this.state.from} />
+        <input type="text" ref="to" placeholder="To" value={this.state.to} />
       </fieldset>
     );
   }

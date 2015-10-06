@@ -71,6 +71,7 @@ function isWalkLeader(member) {
 
 // Date formatter
 var dtfDate = new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
+var _infoNode = document.createElement('div');
 
 var CityMap = (function (_React$Component) {
   _inherits(CityMap, _React$Component);
@@ -80,8 +81,7 @@ var CityMap = (function (_React$Component) {
 
     _get(Object.getPrototypeOf(CityMap.prototype), 'constructor', this).call(this);
 
-    this.infoNode = document.createElement('div');
-    this.state = { map: null };
+    this.state = { map: null, markers: {} };
   }
 
   _createClass(CityMap, [{
@@ -96,25 +96,45 @@ var CityMap = (function (_React$Component) {
         backgroundColor: '#d7f0fa'
       });
 
+      // Play nice with bootstrap tabs
+      $('a[href="#jw-map"]').on('shown.bs.tab', function (e) {
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(cityLatLng);
+      });
+
+      this.setState({ map: map });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      var _this = this;
+
+      var icon = {
+        path: google.maps.SymbolPath.CIRCLE,
+        scale: 7,
+        strokeWeight: 1,
+        strokeColor: '#f16725',
+        fillOpacity: 0.7,
+        fillColor: '#f16725'
+      };
       var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
 
+      // Clean out the markers before we put them back in
+      Object.keys(this.state.markers).forEach(function (k) {
+        _this.state.markers[k].setMap(null);
+      });
+
       // Grab starting point of each walk
-      this.props.walks.forEach(function (walk) {
+      props.walks.forEach(function (walk) {
         var latlng = undefined;
         var marker = undefined;
-        var startTime = walk.time.slots.length > 0 && walk.time.slots[0][0] * 1000;
-        var twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000;
-        var icon = {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 7,
-          strokeWeight: 1,
-          strokeColor: '#f16725',
-          fillOpacity: 0.7,
-          fillColor: '#f16725'
-        };
+        var map = _this.state.map;
 
-        // Check that it starts at latest 2 days ago
-        if (walk.time.slots.length > 0 && startTime > twoDaysAgo) {
+        if (_this.state.markers[walk.id]) {
+          // We already have this marker built, so simply add it to the map
+          _this.state.markers[walk.id].setMap(map);
+        } else {
+          // We must build a marker
           // Walk location is meeting place coords
           if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
             latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
@@ -129,6 +149,8 @@ var CityMap = (function (_React$Component) {
             icon: icon,
             map: map
           });
+
+          _this.state.markers[walk.id] = marker;
 
           google.maps.event.addListener(marker, 'click', function () {
             var leaders = undefined;
@@ -167,22 +189,18 @@ var CityMap = (function (_React$Component) {
             // Setup infowindow
             React.render(React.createElement(InfoWindow, _extends({
               key: walk.id
-            }, Object.assign({}, walk, { date: date, leaders: leaders }))), this.infoNode);
+            }, Object.assign({}, walk, { date: date, leaders: leaders }))), _infoNode);
 
             // Center the marker and display its info window
             infoWindow.setMap(map);
             map.panTo(marker.getPosition());
-            infoWindow.setContent(this.infoNode);
+            infoWindow.setContent(_infoNode);
             infoWindow.open(map, marker);
           });
         }
       });
 
-      // Play nice with bootstrap tabs
-      $('a[href="#jw-map"]').on('shown.bs.tab', function (e) {
-        google.maps.event.trigger(map, 'resize');
-        map.setCenter(cityLatLng);
-      });
+      this.setState({ markers: this.state.markers });
     }
   }, {
     key: 'render',
@@ -567,6 +585,10 @@ var t = function t(s) {
   return s;
 };
 var offset = new Date().getTimezoneOffset();
+var oneDay = 24 * 60 * 60 * 1000;
+var today = new Date();
+today.setUTCHours(0);
+today.setUTCMinutes(0);
 
 var WalkFilter = (function (_React$Component) {
   _inherits(WalkFilter, _React$Component);
@@ -581,12 +603,11 @@ var WalkFilter = (function (_React$Component) {
       walks: props.walks || [],
       city: props.city,
       filters: props.filters || {},
-      filterMatches: props.walks || [],
-      dateRange: [null, null]
+      dateRange: [today.getTime(), null],
+      filterMatches: []
     };
 
     this.handleFilters();
-
     // Setup event listeners
     JanesWalk.event.on('walks.receive', function (walks, props) {
       _this.setState({ walks: walks, filters: props.filters }, _this.handleFilters);
@@ -597,6 +618,13 @@ var WalkFilter = (function (_React$Component) {
     JanesWalk.event.on('blogurl.receive', function (url) {
       return _this.setState({ blog: url });
     });
+
+    // Load our filtered walks after we've built the filter page
+    setTimeout(function () {
+      return _this.setState({
+        filterMatches: _this.filterWalks(_this.state.filters, _this.state.dateRange)
+      });
+    }, 1);
   }
 
   _createClass(WalkFilter, [{
@@ -613,22 +641,27 @@ var WalkFilter = (function (_React$Component) {
     value: function setFilter(filter, val) {
       var filters = this.state.filters;
       filters[filter].selected = val;
-
-      this.setState({
-        filters: filters,
-        filterMatches: this.state.walks.filter(function (walk) {
-          // TODO: cleanup and perf test
-          if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) {
-            return false;
-          }
-          return true;
-        })
+      this.setState({ filters: filters, filterMatches: this.filterWalks(filters, this.state.dateRange) });
+    }
+  }, {
+    key: 'filterWalks',
+    value: function filterWalks(filters, dr) {
+      return this.state.walks.filter(function (walk) {
+        var time = undefined;
+        if (walk.time.slots.length) {
+          time = walk.time.slots[0][0] * 1000;
+        }
+        // TODO: cleanup and perf test
+        if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
+          return false;
+        }
+        return true;
       });
     }
   }, {
     key: 'setDateRange',
     value: function setDateRange(from, to) {
-      this.setState({ dateRange: [from, to] });
+      this.setState({ dateRange: [from, to], filterMatches: this.filterWalks(this.state.filters, [from, to]) });
     }
   }, {
     key: 'render',
@@ -771,13 +804,23 @@ var WalkFilter = (function (_React$Component) {
 
 exports['default'] = WalkFilter;
 
+var df = 'yy-mm-dd';
+
 var DateRange = (function (_React$Component2) {
   _inherits(DateRange, _React$Component2);
 
-  function DateRange() {
+  function DateRange(props) {
     _classCallCheck(this, DateRange);
 
-    _get(Object.getPrototypeOf(DateRange.prototype), 'constructor', this).apply(this, arguments);
+    _get(Object.getPrototypeOf(DateRange.prototype), 'constructor', this).call(this, props);
+    if (Array.isArray(props.value) && props.value.length === 2) {
+      this.state = {
+        from: $.datepicker.formatDate(df, props.value[0] + offset),
+        to: $.datepicker.formatDate(df, props.value[1] + offset)
+      };
+    } else {
+      this.state = { from: '', to: '' };
+    }
   }
 
   _createClass(DateRange, [{
@@ -787,7 +830,6 @@ var DateRange = (function (_React$Component2) {
 
       var $to = $(React.findDOMNode(this.refs.to));
       var $from = $(React.findDOMNode(this.refs.from));
-      var df = 'yy-mm-dd';
 
       var toTime = undefined;
       var fromTime = undefined;
@@ -795,10 +837,12 @@ var DateRange = (function (_React$Component2) {
       $from.datepicker({
         defaultDate: '+1w',
         changeMonth: true,
+        changeYear: true,
         dateFormat: df,
         onClose: function onClose(selectedDate) {
           fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
           $to.datepicker('option', 'minDate', selectedDate);
+          _this4.setState({ from: selectedDate });
           _this4.props.onChange(fromTime, toTime);
         }
       });
@@ -806,10 +850,12 @@ var DateRange = (function (_React$Component2) {
       $to.datepicker({
         defaultDate: '+5w',
         changeMonth: true,
+        changeYear: true,
         dateFormat: df,
         onClose: function onClose(selectedDate) {
           toTime = $.datepicker.parseDate(df, selectedDate) - offset;
-          $from.datepicker('option', 'minDate', selectedDate);
+          $from.datepicker('option', 'maxDate', selectedDate);
+          _this4.setState({ to: selectedDate });
           _this4.props.onChange(fromTime, toTime);
         }
       });
@@ -820,8 +866,8 @@ var DateRange = (function (_React$Component2) {
       return React.createElement(
         'fieldset',
         { className: 'daterange' },
-        React.createElement('input', { type: 'text', ref: 'from', placeholder: 'From' }),
-        React.createElement('input', { type: 'text', ref: 'to', placeholder: 'To' })
+        React.createElement('input', { type: 'text', ref: 'from', placeholder: 'From', value: this.state.from }),
+        React.createElement('input', { type: 'text', ref: 'to', placeholder: 'To', value: this.state.to })
       );
     }
   }]);

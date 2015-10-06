@@ -11,13 +11,13 @@ function isWalkLeader(member) {
 
 // Date formatter
 const dtfDate = new Intl.DateTimeFormat(undefined, {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
+const _infoNode = document.createElement('div');
 
 export default class CityMap extends React.Component {
   constructor() {
     super();
 
-    this.infoNode = document.createElement('div');
-    this.state = {map: null};
+    this.state = {map: null, markers: {}};
   }
 
   componentDidMount() {
@@ -30,26 +30,42 @@ export default class CityMap extends React.Component {
       backgroundColor: '#d7f0fa'
     });
 
+    // Play nice with bootstrap tabs
+    $('a[href="#jw-map"]').on('shown.bs.tab', function(e) {
+      google.maps.event.trigger(map, 'resize');
+      map.setCenter(cityLatLng);
+    });
+
+    this.setState({map: map});
+  }
+
+  componentWillReceiveProps(props) {
+    const icon = {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 7,
+      strokeWeight: 1,
+      strokeColor: '#f16725',
+      fillOpacity: 0.7,
+      fillColor: '#f16725'
+    };
     const infoWindow = new google.maps.InfoWindow({maxWidth: 300});
 
+    // Clean out the markers before we put them back in
+    Object.keys(this.state.markers).forEach(k => {
+      this.state.markers[k].setMap(null);
+    });
+
     // Grab starting point of each walk
-    this.props.walks.forEach(function(walk) {
+    props.walks.forEach(walk => {
       let latlng;
       let marker;
-      const startTime = (walk.time.slots.length > 0) && walk.time.slots[0][0] * 1000;
-      const twoDaysAgo = Date.now() - 2 * 24 * 60 * 60 * 1000;
-      const icon = {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 7,
-        strokeWeight: 1,
-        strokeColor: '#f16725',
-        fillOpacity: 0.7,
-        fillColor: '#f16725'
-      };
+      const map = this.state.map;
 
-      // Check that it starts at latest 2 days ago
-      if (walk.time.slots.length > 0 &&
-          startTime > twoDaysAgo) {
+      if (this.state.markers[walk.id]) {
+        // We already have this marker built, so simply add it to the map
+        this.state.markers[walk.id].setMap(map);
+      } else {
+        // We must build a marker
         // Walk location is meeting place coords
         if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
           latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
@@ -64,6 +80,9 @@ export default class CityMap extends React.Component {
           icon: icon,
           map: map
         });
+
+        this.state.markers[walk.id] = marker;
+
 
         google.maps.event.addListener(marker, 'click', function() {
           let leaders;
@@ -97,23 +116,19 @@ export default class CityMap extends React.Component {
               key={walk.id}
               {...Object.assign({}, walk, {date: date, leaders: leaders})}
             />,
-            this.infoNode
+            _infoNode
           );
 
           // Center the marker and display its info window
           infoWindow.setMap(map);
           map.panTo(marker.getPosition());
-          infoWindow.setContent(this.infoNode);
+          infoWindow.setContent(_infoNode);
           infoWindow.open(map, marker);
         });
       }
     });
 
-    // Play nice with bootstrap tabs
-    $('a[href="#jw-map"]').on('shown.bs.tab', function(e) {
-      google.maps.event.trigger(map, 'resize');
-      map.setCenter(cityLatLng);
-    });
+    this.setState({markers: this.state.markers});
   }
 
   render() {

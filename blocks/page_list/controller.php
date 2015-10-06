@@ -125,6 +125,11 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                     $walksByDate[] = $dateWalk;
                 }
             }
+            usort($walksByDate, function($a, $b) {
+                $ta = $a->time['slots'][0][0];
+                $tb = $b->time['slots'][0][0];
+                return $ta < $tb ? -1 : 1;
+            });
 
             /* Load the lat/lng for the city we're displaying */
             /* Note: this must change if this block is used on a non-city page, to instead use cParentID */

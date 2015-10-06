@@ -10488,6 +10488,9 @@ body.city-page > #city-details .walk-list .filters li .daterange input {
   width: 45%;
   display: inline-block;
 }
+body.city-page > #city-details .walk-list .filters li .daterange input:last-child {
+  margin-left: 10%;
+}
 body.city-page > #city-details .walk-list.showall {
   clear: both;
   margin-left: 2.5%;
@@ -10654,6 +10657,20 @@ body.city-page > #blog:after {
   body.city-page .city-page div.city-header {
     margin-top: 0;
   }
+}
+/* The date select popups */
+#ui-datepicker-div .ui-datepicker-header {
+  background: #f16725;
+}
+#ui-datepicker-div .ui-datepicker-title select {
+  width: 40%;
+  display: inline-block;
+}
+#ui-datepicker-div .ui-datepicker-title select:first-child {
+  margin: 0 2.5% 0 5%;
+}
+#ui-datepicker-div .ui-datepicker-title select:last-child {
+  margin: 0 5% 0 2.5%;
 }
 .walk-page blockquote {
   width: auto;
