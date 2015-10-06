@@ -12,14 +12,9 @@ var PageView = require('../Page.jsx');
  */
 var CityPageView = function(element) {
   PageView.call(this, element);
-  this._cards = Array.prototype.slice.call(this._element[0].querySelectorAll('.walk'), 0);
-  this._data = this._initData(JanesWalk.walks, this._cards);
-  this._sortWalkList();
   this._resetSelectElements();
   this._initMenu();
   this._addCreateWalkEvent();
-  this._addFilterEvents();
-  this._setThemeCounts();
   this._addLinkListeners();
   this._captureHash();
   this._addBlogLink();
@@ -604,12 +599,9 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _addBlogLink: {
     value: function() {
       var blogLink = document.querySelector('#blog a');
-      var nav = document.querySelector('.walk-filters ul.nav');
 
       if (blogLink) {
-        var li = document.createElement('li');
-        li.appendChild(blogLink.cloneNode(true));
-        nav.appendChild(li);
+        JanesWalk.event.emit('blogurl.receive', blogLink.href);
       }
     }
   },

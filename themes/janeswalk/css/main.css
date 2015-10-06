@@ -10427,7 +10427,7 @@ body.city-page > #city-details .walk-list:after {
 }
 body.city-page > #city-details .walk-list .filters {
   clear: both;
-  padding: 0;
+  padding: 5px 0;
   border: 1px solid #efefef;
   border-radius: 0 0 6px 6px;
   list-style: none;
@@ -10453,7 +10453,7 @@ body.city-page > #city-details .walk-list .filters li {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  margin-top: 15px;
+  margin: 10px 0;
 }
 @media (min-width: 992px) {
   body.city-page > #city-details .walk-list .filters li {
@@ -10468,9 +10468,25 @@ body.city-page > #city-details .walk-list .filters li label {
   color: #B36038;
   color: #333;
 }
-body.city-page > #city-details .walk-list .filters li .datepicker {
+body.city-page > #city-details .walk-list .filters li .daterange:before,
+body.city-page > #city-details .walk-list .filters li .daterange:after {
+  content: " ";
+  display: table;
+}
+body.city-page > #city-details .walk-list .filters li .daterange:after {
+  clear: both;
+}
+body.city-page > #city-details .walk-list .filters li .daterange:before,
+body.city-page > #city-details .walk-list .filters li .daterange:after {
+  content: " ";
+  display: table;
+}
+body.city-page > #city-details .walk-list .filters li .daterange:after {
+  clear: both;
+}
+body.city-page > #city-details .walk-list .filters li .daterange input {
+  width: 45%;
   display: inline-block;
-  width: 40%;
 }
 body.city-page > #city-details .walk-list.showall {
   clear: both;

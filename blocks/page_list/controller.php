@@ -1,15 +1,12 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
-
+use \Qaribou\Collection\ImmArray;
 use \JanesWalk\Models\PageTypes\Walk;
 
 Loader::helper('theme');
 Loader::model('page_types/Walk');
+
 class PageListBlockController extends Concrete5_Controller_Block_PageList
 {
-    // Data for returning in JSON
-    protected $pageData = [];
-
     public function getPageList()
     {
         Loader::model('page_list');
@@ -137,8 +134,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $this->set('lng', $latlng[1]);
             }
 
-            $this->pageData = ['walks' => $cards];
-
             // Filter out past walks
             // Check up to 30 days ago
             $time = time() - (60 * 60 * 24 * 30);
@@ -224,20 +219,5 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         }
 
         return $cards;
-    }
-
-    // The 'on_before_render' will set up our JanesWalk json in the page
-    public function on_before_render()
-    {
-        if ($this->block) {
-            switch ($this->block->getBlockFilename()) {
-            case 'walkcards':
-            case 'walk_filters':
-                $this->addFooterItem('<script type="text/javascript">window.JanesWalk = Object.assign({}, window.JanesWalk, ' . json_encode($this->pageData) . ');</script>');
-                break;
-            default:
-                break;
-            }
-        }
     }
 }

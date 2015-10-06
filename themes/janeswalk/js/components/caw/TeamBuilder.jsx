@@ -1,4 +1,4 @@
-var mixins = require('../../helpers/mixins.jsx');
+import * as mixins from '../../helpers/mixins.jsx';
 
 // Flux
 var i18n = require('../../stores/I18nStore.js');

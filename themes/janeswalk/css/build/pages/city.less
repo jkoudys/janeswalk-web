@@ -308,14 +308,14 @@ body.city-page {
             .filters {
                 .clearfix();
                 clear: both;
-                padding: 0;
+                padding: 5px 0;
                 border: 1px solid @color-lightgrey;
                 border-radius: 0 0 6px 6px;
                 list-style: none;
 
                 li {
                     .make-md-column(6);
-                    margin-top: 15px;
+                    margin: 10px 0;
 
                     label {
                         display: block;
@@ -324,9 +324,12 @@ body.city-page {
                         color: #B36038;
                         color: #333;
                     }
-                    .datepicker {
+                    .daterange {
+                      .clearfix();
+                      input {
+                        width: 45%;
                         display: inline-block;
-                        width: 40%;
+                      }
                     }
                 }
             }

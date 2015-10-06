@@ -7,18 +7,18 @@
 import * as I18nUtils from './utils/I18nUtils.js';
 
 // Page Views
-var PageViews = {
+const PageViews = {
   PageView: require('./components/Page.jsx'),
   CityPageView: require('./components/pages/City.jsx'),
   HomePageView: require('./components/pages/Home.jsx'),
   ProfilePageView: require('./components/pages/Profile.jsx'),
   WalkPageView: require('./components/pages/Walk.jsx')
 };
-var ReactViews = {
+const ReactViews = {
   CreateWalkView: require('./components/CreateWalk.jsx')
 };
 // load modals
-var Login = require('./components/Login.jsx')
+const Login = require('./components/Login.jsx')
 
 // Shims
 // Used for Intl.DateTimeFormat
@@ -27,20 +27,19 @@ if (!window.Intl) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  var pageViewName =
+  const pageViewName =
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
-  var ReactView = ReactViews[pageViewName];
+  const ReactView = ReactViews[pageViewName];
 
   try {
     // Render modals we need on each page
-    var loginEl = <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />;
+    const loginEl = <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />;
 
     // FIXME: once site's all-react, move this out of the JanesWalk object. Don't follow this approach
     // or we'll end up with massive spaghetti.
-    JanesWalk.react = {
-      login: loginEl
-    };
+    window.JanesWalk.react = {login: loginEl};
+
     React.render(
       loginEl,
       document.getElementById('modals')
@@ -75,9 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Init keyboard shortcuts
-  var toolbar = document.getElementById('ccm-toolbar');
+  let toolbar = document.getElementById('ccm-toolbar');
   if (toolbar) {
-    window.addEventListener('keyup', function(ev) {
+    window.addEventListener('keyup', ev => {
       /* Don't capture inputs going into a form */
       if(ev.target.tagName !== "INPUT") {
         ev.preventDefault();

@@ -43,9 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // FIXME: once site's all-react, move this out of the JanesWalk object. Don't follow this approach
     // or we'll end up with massive spaghetti.
-    JanesWalk.react = {
-      login: loginEl
-    };
+    window.JanesWalk.react = { login: loginEl };
+
     React.render(loginEl, document.getElementById('modals'));
 
     // Load our translations upfront
@@ -97,7 +96,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-},{"./components/CreateWalk.jsx":8,"./components/Login.jsx":10,"./components/Page.jsx":11,"./components/pages/City.jsx":33,"./components/pages/Home.jsx":34,"./components/pages/Profile.jsx":35,"./components/pages/Walk.jsx":36,"./utils/I18nUtils.js":44,"intl/Intl.en":6}],2:[function(require,module,exports){
+},{"./components/CreateWalk.jsx":8,"./components/Login.jsx":10,"./components/Page.jsx":11,"./components/pages/City.jsx":33,"./components/pages/Home.jsx":34,"./components/pages/Profile.jsx":35,"./components/pages/Walk.jsx":36,"./utils/I18nUtils.js":43,"intl/Intl.en":6}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1379,7 +1378,7 @@ var WalkPreview = React.createClass({
 module.exports = CreateWalk;
 
 
-},{"../actions/I18nActions.js":7,"../helpers/helpers.jsx":39,"../stores/I18nStore.js":43,"./TextAreaLimit.jsx":12,"./caw/AccessibleSelect.jsx":15,"./caw/DateSelect.jsx":16,"./caw/ImageUpload.jsx":17,"./caw/MapBuilder.jsx":18,"./caw/TeamBuilder.jsx":19,"./caw/ThemeSelect.jsx":20,"./caw/WalkPublish.jsx":21,"./caw/WardSelect.jsx":22}],9:[function(require,module,exports){
+},{"../actions/I18nActions.js":7,"../helpers/helpers.jsx":39,"../stores/I18nStore.js":42,"./TextAreaLimit.jsx":12,"./caw/AccessibleSelect.jsx":15,"./caw/DateSelect.jsx":16,"./caw/ImageUpload.jsx":17,"./caw/MapBuilder.jsx":18,"./caw/TeamBuilder.jsx":19,"./caw/ThemeSelect.jsx":20,"./caw/WalkPublish.jsx":21,"./caw/WardSelect.jsx":22}],9:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -1768,9 +1767,8 @@ var TextAreaLimit = React.createClass({
 module.exports = TextAreaLimit;
 
 
-},{"../stores/I18nStore.js":43}],13:[function(require,module,exports){
+},{"../stores/I18nStore.js":42}],13:[function(require,module,exports){
 'use strict';
-require('../shims.js');
 
 /**
 * View constructor
@@ -1807,7 +1805,7 @@ Object.defineProperties(View.prototype, {
 module.exports = View;
 
 
-},{"../shims.js":42}],14:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 /**
@@ -2210,7 +2208,7 @@ Object.assign(AccessibleSelect.prototype, mixins.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],16:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":42}],16:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -2619,7 +2617,7 @@ Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":43,"./date/DatePicker.jsx":23,"./date/TimeOpenTable.jsx":24,"./date/TimePicker.jsx":25,"./date/TimeSetTable.jsx":26}],17:[function(require,module,exports){
+},{"../../stores/I18nStore.js":42,"./date/DatePicker.jsx":23,"./date/TimeOpenTable.jsx":24,"./date/TimePicker.jsx":25,"./date/TimeSetTable.jsx":26}],17:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -2745,7 +2743,7 @@ exports['default'] = ImageUpload;
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":43}],18:[function(require,module,exports){
+},{"../../stores/I18nStore.js":42}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3244,7 +3242,7 @@ Object.assign(MapBuilder, {
 module.exports = exports['default'];
 
 
-},{"../../helpers/helpers.jsx":39,"../../stores/I18nStore.js":43,"./map/ConnectFilters.jsx":27,"./map/InstagramConnect.jsx":28,"./map/SoundCloudConnect.jsx":29,"./map/TwitterConnect.jsx":30,"./map/WalkInfoWindow.jsx":31,"./map/WalkStopTable.jsx":32}],19:[function(require,module,exports){
+},{"../../helpers/helpers.jsx":39,"../../stores/I18nStore.js":42,"./map/ConnectFilters.jsx":27,"./map/InstagramConnect.jsx":28,"./map/SoundCloudConnect.jsx":29,"./map/TwitterConnect.jsx":30,"./map/WalkInfoWindow.jsx":31,"./map/WalkStopTable.jsx":32}],19:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -3255,11 +3253,15 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var mixins = require('../../helpers/mixins.jsx');
+var _helpersMixinsJsx = require('../../helpers/mixins.jsx');
+
+var mixins = _interopRequireWildcard(_helpersMixinsJsx);
 
 // Flux
 var i18n = require('../../stores/I18nStore.js');
@@ -4165,7 +4167,7 @@ Object.assign(TeamVolunteer.prototype, mixins.linkedTeamMemberState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],20:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":42}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4373,7 +4375,7 @@ Object.assign(ThemeSelect, {
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],21:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":42}],21:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -4511,7 +4513,7 @@ Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":43}],22:[function(require,module,exports){
+},{"../../stores/I18nStore.js":42}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -4595,7 +4597,7 @@ Object.assign(WardSelect.prototype, mixins.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":43}],23:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":40,"../../stores/I18nStore.js":42}],23:[function(require,module,exports){
 /**
  * Basic wrapper around jQuery.datepicker(), so it can be loaded
  * as a React class
@@ -4839,7 +4841,7 @@ TimePicker.prototype = Object.create(React.Component.prototype, {
 module.exports = TimePicker;
 
 
-},{"../../../stores/I18nStore.js":43}],26:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":42}],26:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -4983,7 +4985,7 @@ exports['default'] = TimeSetTable;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":43}],27:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":42}],27:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5680,7 +5682,7 @@ exports["default"] = WalkStopTable;
 module.exports = exports["default"];
 
 
-},{"../../../stores/I18nStore.js":43}],33:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":42}],33:[function(require,module,exports){
 'use strict';
 var PageView = require('../Page.jsx');
 
@@ -5695,14 +5697,9 @@ var PageView = require('../Page.jsx');
  */
 var CityPageView = function CityPageView(element) {
   PageView.call(this, element);
-  this._cards = Array.prototype.slice.call(this._element[0].querySelectorAll('.walk'), 0);
-  this._data = this._initData(JanesWalk.walks, this._cards);
-  this._sortWalkList();
   this._resetSelectElements();
   this._initMenu();
   this._addCreateWalkEvent();
-  this._addFilterEvents();
-  this._setThemeCounts();
   this._addLinkListeners();
   this._captureHash();
   this._addBlogLink();
@@ -6246,12 +6243,9 @@ CityPageView.prototype = Object.create(PageView.prototype, {
   _addBlogLink: {
     value: function value() {
       var blogLink = document.querySelector('#blog a');
-      var nav = document.querySelector('.walk-filters ul.nav');
 
       if (blogLink) {
-        var li = document.createElement('li');
-        li.appendChild(blogLink.cloneNode(true));
-        nav.appendChild(li);
+        JanesWalk.event.emit('blogurl.receive', blogLink.href);
       }
     }
   },
@@ -7234,133 +7228,6 @@ module.exports = I18nTranslator;
 
 
 },{}],42:[function(require,module,exports){
-/* jshint ignore:start */
-// Shims, polyfills, etc.
-// dataset
-"use strict";
-
-Function.prototype.bind || (Function.prototype.bind = function (e) {
-  "use strict";if (typeof this != "function") throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");var t = Array.prototype.slice.call(arguments, 1),
-      n = this,
-      r = function r() {},
-      i = function i() {
-    return n.apply(this instanceof r && e ? this : e, t.concat(Array.prototype.slice.call(arguments)));
-  };return (r.prototype = this.prototype, i.prototype = new r(), i);
-}), (function () {
-  "use strict";var e = Object.prototype,
-      t = e.__defineGetter__,
-      n = e.__defineSetter__,
-      r = e.__lookupGetter__,
-      i = e.__lookupSetter__,
-      s = e.hasOwnProperty;t && n && r && i && (Object.defineProperty || (Object.defineProperty = function (e, o, u) {
-    if (arguments.length < 3) throw new TypeError("Arguments not optional");o += "";if (s.call(u, "value")) {
-      !r.call(e, o) && !i.call(e, o) && (e[o] = u.value);if (s.call(u, "get") || s.call(u, "set")) throw new TypeError("Cannot specify an accessor and a value");
-    }if (!(u.writable && u.enumerable && u.configurable)) throw new TypeError("This implementation of Object.defineProperty does not support false for configurable, enumerable, or writable.");return (u.get && t.call(e, o, u.get), u.set && n.call(e, o, u.set), e);
-  }), Object.getOwnPropertyDescriptor || (Object.getOwnPropertyDescriptor = function (e, t) {
-    if (arguments.length < 2) throw new TypeError("Arguments not optional.");t += "";var n = { configurable: !0, enumerable: !0, writable: !0 },
-        o = r.call(e, t),
-        u = i.call(e, t);return s.call(e, t) ? !o && !u ? (n.value = e[t], n) : (delete n.writable, n.get = n.set = undefined, o && (n.get = o), u && (n.set = u), n) : n;
-  }), Object.defineProperties || (Object.defineProperties = function (e, t) {
-    var n;for (n in t) s.call(t, n) && Object.defineProperty(e, n, t[n]);
-  }));
-})();if (!document.documentElement.dataset && (!Object.getOwnPropertyDescriptor(Element.prototype, "dataset") || !Object.getOwnPropertyDescriptor(Element.prototype, "dataset").get)) {
-  var propDescriptor = { enumerable: !0, get: function get() {
-      "use strict";var e,
-          t = this,
-          n,
-          r,
-          i,
-          s,
-          o,
-          u = this.attributes,
-          a = u.length,
-          f = function f(e) {
-        return e.charAt(1).toUpperCase();
-      },
-          l = function l() {
-        return this;
-      },
-          c = function c(e, t) {
-        return typeof t != "undefined" ? this.setAttribute(e, t) : this.removeAttribute(e);
-      };try {
-        ({}).__defineGetter__("test", function () {}), n = {};
-      } catch (h) {
-        n = document.createElement("div");
-      }for (e = 0; e < a; e++) {
-        o = u[e];if (o && o.name && /^data-\w[\w\-]*$/.test(o.name)) {
-          r = o.value, i = o.name, s = i.substr(5).replace(/-./g, f);try {
-            Object.defineProperty(n, s, { enumerable: this.enumerable, get: l.bind(r || ""), set: c.bind(t, i) });
-          } catch (p) {
-            n[s] = r;
-          }
-        }
-      }return n;
-    } };try {
-    Object.defineProperty(Element.prototype, "dataset", propDescriptor);
-  } catch (e) {
-    propDescriptor.enumerable = !1, Object.defineProperty(Element.prototype, "dataset", propDescriptor);
-  }
-};
-
-// Array.prototype.some
-Array.prototype.some || (Array.prototype.some = function (a) {
-  "use strict";if (null == this) throw new TypeError("Array.prototype.some called on null or undefined");if ("function" != typeof a) throw new TypeError();for (var b = Object(this), c = b.length >>> 0, d = arguments.length >= 2 ? arguments[1] : void 0, e = 0; c > e; e++) if (e in b && a.call(d, b[e], e, b)) return !0;return !1;
-});
-
-// Object.assign, useful for merging objects
-if (!Object.assign) {
-  Object.defineProperty(Object, "assign", {
-    enumerable: false,
-    configurable: true,
-    writable: true,
-    value: function value(target, firstSource) {
-      "use strict";
-      if (target === undefined || target === null) throw new TypeError("Cannot convert first argument to object");
-
-      var to = Object(target);
-
-      var hasPendingException = false;
-      var pendingException;
-
-      for (var i = 1; i < arguments.length; i++) {
-        var nextSource = arguments[i];
-        if (nextSource === undefined || nextSource === null) continue;
-
-        var keysArray = Object.keys(Object(nextSource));
-        for (var nextIndex = 0, len = keysArray.length; nextIndex < len; nextIndex++) {
-          var nextKey = keysArray[nextIndex];
-          try {
-            var desc = Object.getOwnPropertyDescriptor(nextSource, nextKey);
-            if (desc !== undefined && desc.enumerable) to[nextKey] = nextSource[nextKey];
-          } catch (e) {
-            if (!hasPendingException) {
-              hasPendingException = true;
-              pendingException = e;
-            }
-          }
-        }
-
-        if (hasPendingException) throw pendingException;
-      }
-      return to;
-    }
-  });
-}
-
-if (!Number.isInteger) {
-  Object.defineProperty(Number, 'isInteger', {
-    enumerable: false,
-    configurable: true,
-    writable: true,
-    value: function value(n) {
-      return n === +n && n === (n | 0);
-    }
-  });
-}
-/* jshint ignore:end */
-
-
-},{}],43:[function(require,module,exports){
 /**
  * i18n Store
  *
@@ -7435,7 +7302,7 @@ exports['default'] = I18nStore;
 module.exports = exports['default'];
 
 
-},{"../constants/JWConstants":37,"../dispatcher/AppDispatcher":38,"../helpers/translate.js":41,"events":2}],44:[function(require,module,exports){
+},{"../constants/JWConstants":37,"../dispatcher/AppDispatcher":38,"../helpers/translate.js":41,"events":2}],43:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

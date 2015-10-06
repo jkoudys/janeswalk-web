@@ -24,6 +24,7 @@ var paths = {
     './themes/janeswalk/js/app.js',
     './themes/janeswalk/js/extend.js',
     './themes/janeswalk/js/shims.js',
+    './themes/janeswalk/js/tiny-pubsub.js'
   ],
   jsx_app: './themes/janeswalk/js/router.jsx',
   jsx_views: ['./themes/janeswalk/js/router.jsx'],
@@ -76,6 +77,19 @@ gulp.task('blocks', function() {
       .pipe(source('view.js'))
       .pipe(gulp.dest(template))
   });
+});
+
+gulp.task('js.global', function() {
+  return browserify({
+    entries: './js/jwobject.jsx',
+    transform: [babelify],
+    extensions: ['.jsx']
+  })
+  .bundle()
+  .pipe(source('jwglobal.js'))
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(gulp.dest('./js/'));
 });
 
 // Build JSON from the mo files

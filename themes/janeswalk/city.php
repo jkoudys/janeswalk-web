@@ -1,6 +1,14 @@
 <?php
 defined('C5_EXECUTE') || die(_('Access Denied.'));
-$this->inc('elements/header.php');
+
+// Translate function
+$t = 't';
+
+$area = function($name) use ($c) {
+    ob_start();
+    (new Area($name))->display($c);
+    return ob_get_clean();
+};
 
 // Photo credits
 if ($city->fullbg) {
@@ -25,69 +33,127 @@ $cityName = t((string) $city);
 $intro = nl2br($c->getCollectionDescription());
 $longDescription = $c->getAttribute('longdescription');
 
-$this->inc('elements/navbar.php') ?>
+/**
+ * Template Components
+ */
+// Edit
+if ($canEdit) {
+    $Edit = <<< EOT
+<a href="{$this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}"><i class='fa fa-pencil-square'></i></a>
+EOT;
+}
+
+if ($c->isEditMode() || $blog) {
+    if ($blog) {
+        $BlogLink = $nh->getCollectionURL($blog);
+    }
+
+    if ($blog && (new Permissions($blog))->canAddSubpage()) {
+        $BlogPostButton = <<< EOT
+<a class="add" href="{$this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), $blog->getCollectionID())}">
+    <i class="fa fa-angle-double-right"></i> {$t('post new article')}
+</a>
+EOT;
+    }
+
+    $Blog = <<< EOT
+<section id="blog">
+    <h2 class="title"><a href="{$BlogLink}">{$t('City Blog')}</a>
+        {$BlogPostButton}
+    </h2>
+    {$area('City Blog')}
+</section>
+EOT;
+}
+
+// Background Photo
+if ($bgPhotoCreditName && $bgPhotoCreditName) {
+    $BackgroundPhoto = <<< EOT
+<small>
+    {$t('Background photo credit')}
+    <a href="{$bgPhotoCreditLink}" target="_blank">{$bgPhotoCreditName}</a>
+</small>
+EOT;
+}
+
+// CO Details
+if ($c->getCollectionUserID() > 1) {
+    if ($city->avatar) {
+        $COAvatar = <<< EOT
+<a href="{$city->profile_path}"><div class="u-avatar" style='background-image:url({$city->avatar})'></div></a>
+EOT;
+    }
+
+    if ($isCityOrganizer) {
+        $COEdit = <<< EOT
+<a href="{$this->url('/profile/edit')}"><i class='fa fa-pencil-square'></i></a>
+EOT;
+    }
+
+    $COContacts = array_reduce(
+        $coContacts,
+        function($p, $contact) {
+            return $p . <<< EOT
+<a href='{$contact['url']}' target="_blank" class="btn"><i class="fa fa-{$contact['icon']}"></i></a>
+EOT;
+        }
+    );
+
+    $CityOrganizerDetails = <<< EOT
+<section class="city-organizer">
+    {$COAvatar}
+    <div class="city-organizer-details">
+        <h3>
+            <a href="{$city->profile_path}">{$city->cityOrganizer->getAttribute('first_name')} {$city->cityOrganizer->getAttribute('last_name')}</a>
+            {$COEdit}
+        </h3>
+        <h4>{$t('City Organizer')}</h4>
+        <div class="btn-toolbar">
+            <a href="mailto:{$city->cityOrganizer->getUserEmail()}" class="btn"><i class="fa fa-envelope-o"></i></a>
+            {$COContacts}
+        </div>
+    </div>
+</section>
+EOT;
+}
+
+$this->inc('elements/header.php');
+$this->inc('elements/navbar.php');
+
+// Template
+echo <<< EOT
 <section id="intro-city">
     <div class="city-summary">
         <h1>
-            <?= $cityName ?>
-            <?php if ($canEdit) { ?><a href="<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>"><i class='fa fa-pencil-square'></i></a><?php } ?>
+            {$cityName}
+            {$Edit}
         </h1>
-        <?= $intro ?>
-        <?php (new Area('City Header'))->display($c) ?>
-        <?php if ($bgPhotoCreditName && $bgPhotoCreditName) { ?>
-        <small>
-            <?= t('Background photo credit') ?>:
-            <a href="<?= $bgPhotoCreditLink ?>" target="_blank"><?= $bgPhotoCreditName ?></a>
-        </small>
-        <?php } ?>
-        <?php if ($c->getCollectionUserID() > 1) { ?>
-        <section class="city-organizer">
-            <?php if ($city->avatar) { ?>
-            <a href="<?= $city->profile_path ?>"><div class="u-avatar" style='background-image:url(<?= $city->avatar ?>)'></div></a>
-            <?php } ?>
-            <div class="city-organizer-details">
-                <h3>
-                    <a href="<?= $city->profile_path ?>"><?= $city->cityOrganizer->getAttribute('first_name'), ' ', $city->cityOrganizer->getAttribute('last_name') ?></a>
-                    <?php if ($isCityOrganizer) { ?><a href="<?= $this->url('/profile/edit') ?>"><i class='fa fa-pencil-square'></i></a><?php } ?>
-                </h3>
-                <h4><?= t('City Organizer') ?></h4>
-                <div class="btn-toolbar">
-                    <a href="mailto:<?= $city->cityOrganizer->getUserEmail() ?>" class="btn"><i class="fa fa-envelope-o"></i></a>
-                    <?php foreach($coContacts as $contact) { ?><a href='<?= $contact['url'] ?>' target="_blank" class="btn"><i class="fa fa-<?= $contact['icon'] ?>"></i></a><?php } ?>
-                </div>
-            </div>
-        </section>
-        <?php } ?>
+        {$intro}
+        {$area('City Header')}
+        {$BackgroundPhoto}
+        {$CityOrganizerDetails}
     </div>
 </section>
 <section id="city-details">
     <div class="description">
         <div class="item">
-            <h2><?= t('Jane’s Walks') ?></h2>
-            <h4><?= t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $cityName) ?></h4>
-            <?= $longDescription ?>
-            <?php (new Area('City Description'))->display($c) ?>
+            <h2>{$t('Jane’s Walks')}</h2>
+            <h4>{$t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $cityName)}</h4>
+            {$longDescription}
+            {$area('City Description')}
         </div>
         <div class="menu-flags">
-            <?php (new Area('City Nav'))->display($c) ?>
+            {$area('City Nav')}
         </div>
-        <?php (new Area('Sponsors'))->display($c) ?>
+        {$area('Sponsors')}
     </div>
     <div class="walk-list">
-        <a href="<?= $this->url('/walk/form'), '?parentCID=', $c->getCollectionID() ?>" class="create-walk"><i class="fa fa-star"></i> <?= t('Create a Walk') ?></a>
-        <h3><?= t('Walks in %s', $cityName) ?></h3>
-        <?php (new Area('All Walks List'))->display($c) ?>
+        <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Create a Walk')}</a>
+        <h3>{$t('Walks in %s', $cityName)}</h3>
+        {$area('All Walks List')}
     </div>
 </section>
-<?php if ($c->isEditMode() || $blog) { ?>
-<section id="blog">
-    <h2 class="title"><a href="<?= $blog ? $nh->getCollectionURL($blog) : '' ?>"><?= t('City Blog') ?></a>
-        <?php if ($blog && (new Permissions($blog))->canAddSubpage()) { ?>
-        <a class="add" href="<?= $this->url('/dashboard/composer/write/', CollectionType::getByHandle('city_blog_entry')->getCollectionTypeID(), $blog->getCollectionID()) ?>">
-            <i class="fa fa-angle-double-right"></i> <?= t('post new article') ?></a>
-        <?php } ?>
-    </h2>
-    <?php (new Area('City Blog'))->display($c) ?>
-</section>
-<?php }
+{$Blog}
+EOT;
+
 $this->inc('elements/footer.php');

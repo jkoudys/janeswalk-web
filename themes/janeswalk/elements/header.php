@@ -23,6 +23,7 @@
 <?php } ?>
     <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/main.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.2/react-with-addons<?= CONCRETE5_ENV === 'dev' ? '' : '.min' ?>.js"></script>
+    <script src="/js/jwglobal.js"></script>
 <?php
     Loader::element('header_required');
 ?>
