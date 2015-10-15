@@ -2695,6 +2695,8 @@ var ImageUpload = (function (_React$Component) {
       var thumbnails = this.props.valueLink.value;
       thumbnails.splice(i, 1);
       this.props.valueLink.requestChange(thumbnails);
+
+      this.handleUpload = this.handleUpload.bind(this);
     }
   }, {
     key: 'handleUpload',

@@ -6,6 +6,8 @@ export default class ImageUpload extends React.Component {
     const thumbnails = this.props.valueLink.value;
     thumbnails.splice(i, 1);
     this.props.valueLink.requestChange(thumbnails);
+
+    this.handleUpload = this.handleUpload.bind(this);
   }
 
   handleUpload(e) {
