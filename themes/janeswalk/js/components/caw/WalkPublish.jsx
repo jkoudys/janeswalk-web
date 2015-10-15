@@ -2,24 +2,26 @@
 var t = require('../../stores/I18nStore.js').getTranslate();
 
 export default class WalkPublish extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      eventbrite: !!(this.props.mirrors && this.props.mirror.eventbrite)
+      eventbrite: !!(props.mirrors && props.mirrors.eventbrite)
     };
+
+    this.handlePublish = this.handlePublish.bind(this);
   }
 
   componentDidMount() {
     // Bootstrap Modal
-    $(this.getDOMNode()).modal();
+    $(React.findDOMNode(this)).modal();
 
     // Close the modal when modal closes
-    $(this.getDOMNode()).bind('hidden.bs.modal', () => this.props.close());
+    $(React.findDOMNode(this)).bind('hidden.bs.modal', () => this.props.close());
   }
 
   handlePublish() {
     // This function's meant for callbacks, so it grabs the URL from the caller's state
-    this.props.saveWalk({publish: true}, () => window.location = this.state.url);
+    this.props.saveWalk({publish: true}, () => window.location = this.props.url);
   }
 
   render() {

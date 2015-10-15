@@ -4460,13 +4460,15 @@ var t = require('../../stores/I18nStore.js').getTranslate();
 var WalkPublish = (function (_React$Component) {
   _inherits(WalkPublish, _React$Component);
 
-  function WalkPublish() {
+  function WalkPublish(props) {
     _classCallCheck(this, WalkPublish);
 
-    _get(Object.getPrototypeOf(WalkPublish.prototype), 'constructor', this).call(this);
+    _get(Object.getPrototypeOf(WalkPublish.prototype), 'constructor', this).call(this, props);
     this.state = {
-      eventbrite: !!(this.props.mirrors && this.props.mirror.eventbrite)
+      eventbrite: !!(props.mirrors && props.mirrors.eventbrite)
     };
+
+    this.handlePublish = this.handlePublish.bind(this);
   }
 
   _createClass(WalkPublish, [{
@@ -4475,10 +4477,10 @@ var WalkPublish = (function (_React$Component) {
       var _this = this;
 
       // Bootstrap Modal
-      $(this.getDOMNode()).modal();
+      $(React.findDOMNode(this)).modal();
 
       // Close the modal when modal closes
-      $(this.getDOMNode()).bind('hidden.bs.modal', function () {
+      $(React.findDOMNode(this)).bind('hidden.bs.modal', function () {
         return _this.props.close();
       });
     }
@@ -4489,7 +4491,7 @@ var WalkPublish = (function (_React$Component) {
 
       // This function's meant for callbacks, so it grabs the URL from the caller's state
       this.props.saveWalk({ publish: true }, function () {
-        return window.location = _this2.state.url;
+        return window.location = _this2.props.url;
       });
     }
   }, {
