@@ -2799,19 +2799,38 @@ var _createClass = (function () { function defineProperties(target, props) { for
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Helper = require('../../helpers/helpers.jsx');
-var WalkStopTable = require('./map/WalkStopTable.jsx');
-var WalkInfoWindow = require('./map/WalkInfoWindow.jsx');
-var InstagramConnect = require('./map/InstagramConnect.jsx');
-var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
-var TwitterConnect = require('./map/TwitterConnect.jsx');
-var ConnectFilters = require('./map/ConnectFilters.jsx');
+var _mapWalkStopTableJsx = require('./map/WalkStopTable.jsx');
+
+var _mapWalkStopTableJsx2 = _interopRequireDefault(_mapWalkStopTableJsx);
+
+var _mapWalkInfoWindowJsx = require('./map/WalkInfoWindow.jsx');
+
+var _mapWalkInfoWindowJsx2 = _interopRequireDefault(_mapWalkInfoWindowJsx);
+
+var _mapInstagramConnectJsx = require('./map/InstagramConnect.jsx');
+
+var _mapInstagramConnectJsx2 = _interopRequireDefault(_mapInstagramConnectJsx);
+
+var _mapSoundCloudConnectJsx = require('./map/SoundCloudConnect.jsx');
+
+var _mapSoundCloudConnectJsx2 = _interopRequireDefault(_mapSoundCloudConnectJsx);
+
+var _mapTwitterConnectJsx = require('./map/TwitterConnect.jsx');
+
+var _mapTwitterConnectJsx2 = _interopRequireDefault(_mapTwitterConnectJsx);
+
+var _mapConnectFiltersJsx = require('./map/ConnectFilters.jsx');
+
+var _mapConnectFiltersJsx2 = _interopRequireDefault(_mapConnectFiltersJsx);
 
 // Flux
+var Helper = require('../../helpers/helpers.jsx');
 var t = require('../../stores/I18nStore.js').getTranslate();
 
 // Map parameters
@@ -2963,12 +2982,12 @@ var MapBuilder = (function (_React$Component) {
       var marker = undefined;
 
       // Assign default options
-      options = Object.assign({}, options, {
+      options = Object.assign({}, {
         latlng: null,
         title: '',
         description: '',
         media: null
-      });
+      }, options);
 
       // If we passed in a position
       if (options.latlng instanceof google.maps.LatLng) {
@@ -3006,7 +3025,7 @@ var MapBuilder = (function (_React$Component) {
     value: function showInfoWindow(marker) {
       var infoDOM = document.createElement('div');
 
-      React.render(React.createElement(WalkInfoWindow, {
+      React.render(React.createElement(_mapWalkInfoWindowJsx2['default'], {
         marker: marker,
         deleteMarker: this.deleteMarker.bind(this, marker),
         refresh: this.syncState.bind(this)
@@ -3208,7 +3227,7 @@ var MapBuilder = (function (_React$Component) {
           'h3',
           { key: 'stops' },
           t('Walk Stops')
-        ), React.createElement(WalkStopTable, {
+        ), React.createElement(_mapWalkStopTableJsx2['default'], {
           ref: 'walkStopTable',
           key: 1,
           markers: this.state.markers,
@@ -3262,11 +3281,11 @@ var MapBuilder = (function (_React$Component) {
             React.createElement('i', { className: 'fa fa-eraser' }),
             t('Clear Route')
           ),
-          React.createElement(TwitterConnect, filterProps),
-          React.createElement(InstagramConnect, filterProps),
-          React.createElement(SoundCloudConnect, filterProps)
+          React.createElement(_mapTwitterConnectJsx2['default'], filterProps),
+          React.createElement(_mapInstagramConnectJsx2['default'], filterProps),
+          React.createElement(_mapSoundCloudConnectJsx2['default'], filterProps)
         ),
-        React.createElement(ConnectFilters, { filters: this.state.filters, changeFilter: this.handleChangeFilter.bind(this), remove: this.handleRemoveFilter.bind(this) }),
+        React.createElement(_mapConnectFiltersJsx2['default'], { filters: this.state.filters, changeFilter: this.handleChangeFilter.bind(this), remove: this.handleRemoveFilter.bind(this) }),
         React.createElement('div', { className: 'map-notifications' }),
         React.createElement('div', { id: 'map-canvas', ref: 'gmap' }),
         walkStops,

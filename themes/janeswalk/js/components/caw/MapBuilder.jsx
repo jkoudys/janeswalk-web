@@ -1,10 +1,10 @@
 var Helper = require('../../helpers/helpers.jsx');
-var WalkStopTable = require('./map/WalkStopTable.jsx');
-var WalkInfoWindow = require('./map/WalkInfoWindow.jsx');
-var InstagramConnect = require('./map/InstagramConnect.jsx');
-var SoundCloudConnect = require('./map/SoundCloudConnect.jsx');
-var TwitterConnect = require('./map/TwitterConnect.jsx');
-var ConnectFilters = require('./map/ConnectFilters.jsx');
+import WalkStopTable from './map/WalkStopTable.jsx';
+import WalkInfoWindow from './map/WalkInfoWindow.jsx';
+import InstagramConnect from './map/InstagramConnect.jsx';
+import SoundCloudConnect from './map/SoundCloudConnect.jsx';
+import TwitterConnect from './map/TwitterConnect.jsx';
+import ConnectFilters from './map/ConnectFilters.jsx';
 
 // Flux
 var t = require('../../stores/I18nStore.js').getTranslate();
@@ -137,12 +137,12 @@ export default class MapBuilder extends React.Component {
     let marker;
 
     // Assign default options
-    options = Object.assign({}, options, {
+    options = Object.assign({}, {
       latlng: null,
       title: '',
       description: '',
       media: null
-    });
+    }, options);
 
     // If we passed in a position
     if (options.latlng instanceof google.maps.LatLng) {
