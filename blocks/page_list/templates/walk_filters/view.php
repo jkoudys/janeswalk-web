@@ -1,6 +1,4 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
-
 // Give the human-readable name, and JS-usable key, for the filters
 $filters = [];
 
@@ -19,7 +17,5 @@ if (count($initiatives)) {
 ?>
 <div id="janeswalk-walk-filters"></div>
 <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        JanesWalk.event.emit('walks.receive', <?= json_encode($cards) ?>, {filters: <?= json_encode($filters) ?>});
-    });
+    JanesWalk.event.emit('walks.receive', <?= json_encode($cards) ?>, {filters: <?= json_encode($filters) ?>});
 </script>

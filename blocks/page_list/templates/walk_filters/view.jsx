@@ -17,18 +17,7 @@ JanesWalk.event.on('walks.receive', function(walks, props) {
   );
 });
 
-JanesWalk.event.on('city.receive', city => { _city = city });
 
-document.addEventListener('DOMContentLoaded', function() {
-  // We should have the city in the footer at this point. Eventually this
-  // footer city should be completely replaced with events
-  JanesWalk.event.emit('city.receive', JanesWalk.city);
-
-  // Setup the walk map
- /*
-  React.render(
-    <CityMap walks={JanesWalk.walks} city={JanesWalk.city} />,
-    document.getElementById('jw-map')
-  ); */
-
+JanesWalk.event.on('city.receive', function(city) {
+  _city = city;
 });

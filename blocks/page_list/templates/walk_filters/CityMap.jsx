@@ -51,9 +51,9 @@ export default class CityMap extends React.Component {
     const infoWindow = new google.maps.InfoWindow({maxWidth: 300});
 
     // Clean out the markers before we put them back in
-    Object.keys(this.state.markers).forEach(k => {
+    for (let k in this.state.markers) {
       this.state.markers[k].setMap(null);
-    });
+    }
 
     // Grab starting point of each walk
     props.walks.forEach(walk => {

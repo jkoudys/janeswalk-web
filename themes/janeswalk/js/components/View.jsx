@@ -1,22 +1,36 @@
+'use strict';
+
 /**
 * View constructor
-*
+* 
 * @public
 * @param  jQuery element
 * @return void
 */
-export default class View {
-  constructor(element) {
-    this._element = element;
-  }
+var View = function(element) {
+  this._element = element;
+};
+Object.defineProperties(View.prototype, {
+  /**
+   * _element
+   * 
+   * @protected
+   * @var       jQuery (default: null)
+   */
+  _element: {value: null, writable: true, configurable: true},
 
   /**
    * getElement
-   *
+   * 
    * @public
    * @return HTMLFormElement
    */
-  getElement() {
-    return this._element;
+  getElement: {
+    value: function() {
+      return this._element;
+    }
   }
-}
+});
+
+module.exports = View;
+

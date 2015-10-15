@@ -28,19 +28,6 @@ JanesWalk.event.on('city.receive', function (city) {
   _city = city;
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  // We should have the city in the footer at this point. Eventually this
-  // footer city should be completely replaced with events
-  JanesWalk.event.emit('city.receive', JanesWalk.city);
-
-  // Setup the walk map
-  /*
-   React.render(
-     <CityMap walks={JanesWalk.walks} city={JanesWalk.city} />,
-     document.getElementById('jw-map')
-   ); */
-});
-
 
 },{"./CityMap.jsx":2,"./WalkFilter.jsx":5}],2:[function(require,module,exports){
 /**
@@ -120,9 +107,9 @@ var CityMap = (function (_React$Component) {
       var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
 
       // Clean out the markers before we put them back in
-      Object.keys(this.state.markers).forEach(function (k) {
-        _this.state.markers[k].setMap(null);
-      });
+      for (var k in this.state.markers) {
+        this.state.markers[k].setMap(null);
+      }
 
       // Grab starting point of each walk
       props.walks.forEach(function (walk) {
@@ -590,6 +577,40 @@ var today = new Date();
 today.setUTCHours(0);
 today.setUTCMinutes(0);
 
+/**
+ * Apply filters and date range to walks
+ */
+function filterWalks(walks, filters, dr) {
+  return walks.filter(function (walk) {
+    var time = undefined;
+    if (walk.time.slots.length) {
+      time = walk.time.slots[0][0] * 1000;
+    }
+    // TODO: cleanup and perf test
+    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
+      return false;
+    }
+    return true;
+  });
+}
+
+/**
+ * Grab the day the 3rd most recent walk appears on
+ */
+function thirdRecentDate(walks) {
+  if (walks.length) {
+    var lastThree = walks.slice(-3);
+    // Find the day the walk starts
+    if (lastThree[0].time.slots.length) {
+      var lastDate = new Date(lastThree[0].time.slots[0][0] * 1000);
+      lastDate.setUTCHours(0);
+      lastDate.setUTCMinutes(0);
+      return lastDate;
+    }
+  }
+  return null;
+}
+
 var WalkFilter = (function (_React$Component) {
   _inherits(WalkFilter, _React$Component);
 
@@ -598,16 +619,21 @@ var WalkFilter = (function (_React$Component) {
 
     _classCallCheck(this, WalkFilter);
 
+    var thirdDate = thirdRecentDate(props.walks);
+    var dateRange = [today.getTime(), null];
+    if (thirdDate && thirdDate < today) {
+      dateRange[0] = thirdDate.getTime();
+    }
+
     _get(Object.getPrototypeOf(WalkFilter.prototype), 'constructor', this).call(this, props);
     this.state = {
       walks: props.walks || [],
       city: props.city,
       filters: props.filters || {},
-      dateRange: [today.getTime(), null],
-      filterMatches: []
+      dateRange: dateRange,
+      filterMatches: filterWalks(props.walks, props.filters, dateRange)
     };
 
-    this.handleFilters();
     // Setup event listeners
     JanesWalk.event.on('walks.receive', function (walks, props) {
       _this.setState({ walks: walks, filters: props.filters }, _this.handleFilters);
@@ -618,62 +644,31 @@ var WalkFilter = (function (_React$Component) {
     JanesWalk.event.on('blogurl.receive', function (url) {
       return _this.setState({ blog: url });
     });
-
-    // Load our filtered walks after we've built the filter page
-    setTimeout(function () {
-      return _this.setState({
-        filterMatches: _this.filterWalks(_this.state.filters, _this.state.dateRange)
-      });
-    }, 1);
   }
 
   _createClass(WalkFilter, [{
-    key: 'handleFilters',
-    value: function handleFilters() {
-      var _this2 = this;
-
-      setTimeout(function () {
-        _this2.setState({ filterMatches: _this2.state.walks.slice() });
-      }, 1);
-    }
-  }, {
     key: 'setFilter',
     value: function setFilter(filter, val) {
       var filters = this.state.filters;
       filters[filter].selected = val;
-      this.setState({ filters: filters, filterMatches: this.filterWalks(filters, this.state.dateRange) });
-    }
-  }, {
-    key: 'filterWalks',
-    value: function filterWalks(filters, dr) {
-      return this.state.walks.filter(function (walk) {
-        var time = undefined;
-        if (walk.time.slots.length) {
-          time = walk.time.slots[0][0] * 1000;
-        }
-        // TODO: cleanup and perf test
-        if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
-          return false;
-        }
-        return true;
-      });
+      this.setState({ filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange) });
     }
   }, {
     key: 'setDateRange',
     value: function setDateRange(from, to) {
-      this.setState({ dateRange: [from, to], filterMatches: this.filterWalks(this.state.filters, [from, to]) });
+      this.setState({ dateRange: [from, to], filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to]) });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var TabMap = undefined;
       var TabBlog = undefined;
       var CityMapSection = undefined;
 
       var Filters = Object.keys(this.state.filters).map(function (key) {
-        var filter = _this3.state.filters[key];
+        var filter = _this2.state.filters[key];
         return React.createElement(
           'li',
           { key: 'filter' + key },
@@ -685,7 +680,7 @@ var WalkFilter = (function (_React$Component) {
           React.createElement(
             'select',
             { name: key, value: filter.selected, onChange: function (e) {
-                return _this3.setFilter(key, e.target.value);
+                return _this2.setFilter(key, e.target.value);
               } },
             React.createElement(
               'option',
@@ -728,7 +723,7 @@ var WalkFilter = (function (_React$Component) {
           { key: 'tb' },
           React.createElement(
             'a',
-            { href: this.state.blog },
+            { href: this.state.blog, target: '_blank' },
             'Blog'
           )
         );
@@ -752,7 +747,7 @@ var WalkFilter = (function (_React$Component) {
                 null,
                 'Dates'
               ),
-              React.createElement(DateRange, { value: this.dateRange, onChange: this.setDateRange.bind(this) })
+              React.createElement(DateRange, { value: this.state.dateRange, onChange: this.setDateRange.bind(this) })
             )
           ),
           React.createElement(
@@ -815,8 +810,8 @@ var DateRange = (function (_React$Component2) {
     _get(Object.getPrototypeOf(DateRange.prototype), 'constructor', this).call(this, props);
     if (Array.isArray(props.value) && props.value.length === 2) {
       this.state = {
-        from: $.datepicker.formatDate(df, props.value[0] + offset),
-        to: $.datepicker.formatDate(df, props.value[1] + offset)
+        from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
+        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : ''
       };
     } else {
       this.state = { from: '', to: '' };
@@ -826,7 +821,7 @@ var DateRange = (function (_React$Component2) {
   _createClass(DateRange, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this4 = this;
+      var _this3 = this;
 
       var $to = $(React.findDOMNode(this.refs.to));
       var $from = $(React.findDOMNode(this.refs.from));
@@ -842,8 +837,8 @@ var DateRange = (function (_React$Component2) {
         onClose: function onClose(selectedDate) {
           fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
           $to.datepicker('option', 'minDate', selectedDate);
-          _this4.setState({ from: selectedDate });
-          _this4.props.onChange(fromTime, toTime);
+          _this3.setState({ from: selectedDate });
+          _this3.props.onChange(fromTime, toTime);
         }
       });
 
@@ -855,8 +850,8 @@ var DateRange = (function (_React$Component2) {
         onClose: function onClose(selectedDate) {
           toTime = $.datepicker.parseDate(df, selectedDate) - offset;
           $from.datepicker('option', 'maxDate', selectedDate);
-          _this4.setState({ to: selectedDate });
-          _this4.props.onChange(fromTime, toTime);
+          _this3.setState({ to: selectedDate });
+          _this3.props.onChange(fromTime, toTime);
         }
       });
     }
@@ -892,8 +887,6 @@ Object.defineProperty(exports, '__esModule', {
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-exports.addWalkListEvents = addWalkListEvents;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -1044,60 +1037,7 @@ var ListItem = (function (_React$Component2) {
   return ListItem;
 })(React.Component);
 
-function addWalkListEvents() {
-  var walkList = document.querySelector('#jw-list .walklist');
-  var walkBody = walkList.querySelector('tbody');
-  var sortOptions = walkList.querySelectorAll('thead th');
-  var walkElements = walkList.querySelectorAll('tbody tr');
-
-  for (var i = 0, len = sortOptions.length; i < len; i++) {
-    sortOptions[i].index = i;
-    sortOptions[i].walkElements = walkElements;
-
-    sortOptions[i].onclick = function (ev) {
-      var walkElements = this.walkElements;
-      var walks = [];
-      if (this.classList.contains('sort')) {
-        for (var currentWalks = walkBody.querySelectorAll('tr'), _i = currentWalks.length - 1; _i >= 0; _i--) {
-          walkBody.appendChild(currentWalks[_i]);
-        }
-        this.classList.toggle('reverse');
-      } else {
-        for (var _i2 = 0, _len = walkElements.length; _i2 < _len; _i2++) {
-          walks.push(walkElements[_i2]);
-          walks[_i2].index = this.index;
-        }
-
-        walks.sort(function (a, b) {
-          var aEl = a.querySelectorAll('td')[a.index];
-          var bEl = b.querySelectorAll('td')[b.index];
-          if (aEl.dataset.sort) {
-            return parseInt(aEl.dataset.sort) - parseInt(bEl.dataset.sort);
-          } else {
-            return aEl.textContent.localeCompare(bEl.textContent);
-          }
-        });
-
-        for (var _i3 = 0, _len2 = walks.length; _i3 < _len2; _i3++) {
-          walkBody.appendChild(walks[_i3]);
-        }
-
-        // Clear the sort arrows, set to the new one
-        for (var _i4 = 0, _len3 = sortOptions.length; _i4 < _len3; _i4++) {
-          sortOptions[_i4].classList.remove('sort', 'reverse');
-        }
-        this.classList.add('sort');
-      }
-    };
-  }
-
-  // Sort by the first column, by default
-  sortOptions[0].dispatchEvent(new MouseEvent('click'));
-}
-
-/*
-
-                */
+module.exports = exports['default'];
 
 
 },{}]},{},[1]);

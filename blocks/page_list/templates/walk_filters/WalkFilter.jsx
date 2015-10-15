@@ -14,63 +14,79 @@ const today = new Date();
 today.setUTCHours(0);
 today.setUTCMinutes(0);
 
+/**
+ * Apply filters and date range to walks
+ */
+function filterWalks(walks, filters, dr) {
+  return walks.filter(walk => {
+    let time;
+    if (walk.time.slots.length) {
+      time = walk.time.slots[0][0] * 1000;
+    }
+    // TODO: cleanup and perf test
+    if ((filters.theme && filters.theme.selected && !(walk.checkboxes['theme-' + filters.theme.selected])) ||
+        (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
+        (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes['accessible-' + filters.accessibility.selected])) ||
+        (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
+        (dr[0] && dr[0] > time) || (dr[1] && dr[1] < time)
+       )
+     {
+       return false;
+     }
+     return true;
+  });
+}
+
+/**
+ * Grab the day the 3rd most recent walk appears on
+ */
+function thirdRecentDate(walks) {
+  if (walks.length) {
+    let lastThree = walks.slice(-3);
+    // Find the day the walk starts
+    if (lastThree[0].time.slots.length) {
+      const lastDate = new Date(lastThree[0].time.slots[0][0] * 1000);
+      lastDate.setUTCHours(0);
+      lastDate.setUTCMinutes(0);
+      return lastDate;
+    }
+  }
+  return null;
+}
+
 export default class WalkFilter extends React.Component {
   constructor(props) {
+    const thirdDate = thirdRecentDate(props.walks);
+    const dateRange = [today.getTime(), null];
+    if (thirdDate && thirdDate < today) {
+      dateRange[0] = thirdDate.getTime();
+    }
+
     super(props);
     this.state = {
       walks: props.walks || [],
       city: props.city,
       filters: props.filters || {},
-      dateRange: [today.getTime(), null],
-      filterMatches: []
+      dateRange: dateRange,
+      filterMatches: filterWalks(props.walks, props.filters, dateRange)
     };
 
-    this.handleFilters();
     // Setup event listeners
     JanesWalk.event.on('walks.receive', (walks, props) => {
       this.setState({walks: walks, filters: props.filters}, this.handleFilters);
     });
     JanesWalk.event.on('city.receive', city => this.setState({city: city}));
     JanesWalk.event.on('blogurl.receive', url => this.setState({blog: url}));
-
-    // Load our filtered walks after we've built the filter page
-    setTimeout(() => this.setState({
-      filterMatches: this.filterWalks(this.state.filters, this.state.dateRange)
-    }), 1);
-  }
-
-  handleFilters() {
-    setTimeout(() => {this.setState({filterMatches: this.state.walks.slice()})}, 1);
   }
 
   setFilter(filter, val) {
     const filters = this.state.filters;
     filters[filter].selected = val;
-    this.setState({filters: filters, filterMatches: this.filterWalks(filters, this.state.dateRange)});
-  }
-
-  filterWalks(filters, dr) {
-    return this.state.walks.filter(walk => {
-      let time;
-      if (walk.time.slots.length) {
-        time = walk.time.slots[0][0] * 1000;
-      }
-      // TODO: cleanup and perf test
-      if ((filters.theme && filters.theme.selected && !(walk.checkboxes['theme-' + filters.theme.selected])) ||
-          (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
-          (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes['accessible-' + filters.accessibility.selected])) ||
-          (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
-          (dr[0] && dr[0] > time) || (dr[1] && dr[1] < time)
-         )
-       {
-         return false;
-       }
-       return true;
-    });
+    this.setState({filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange)});
   }
 
   setDateRange(from, to) {
-    this.setState({dateRange: [from, to], filterMatches: this.filterWalks(this.state.filters, [from, to])});
+    this.setState({dateRange: [from, to], filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to])});
   }
 
   render() {
@@ -101,7 +117,7 @@ export default class WalkFilter extends React.Component {
 
     // Blog link, if we have one
     if (this.state.blog) {
-      TabBlog = <li key="tb"><a href={this.state.blog}>Blog</a></li>;
+      TabBlog = <li key="tb"><a href={this.state.blog} target="_blank">Blog</a></li>;
     }
 
     return (
@@ -111,7 +127,7 @@ export default class WalkFilter extends React.Component {
             {Filters}
             <li>
               <label>Dates</label>
-              <DateRange value={this.dateRange} onChange={this.setDateRange.bind(this)} />
+              <DateRange value={this.state.dateRange} onChange={this.setDateRange.bind(this)} />
             </li>
           </ul>
           <ul className="nav nav-tabs">
@@ -142,8 +158,8 @@ class DateRange extends React.Component {
     super(props);
     if (Array.isArray(props.value) && props.value.length === 2) {
       this.state = {
-        from: $.datepicker.formatDate(df, props.value[0] + offset),
-        to: $.datepicker.formatDate(df, props.value[1] + offset)
+        from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
+        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : ''
       };
     } else {
       this.state = {from: '', to: ''};
