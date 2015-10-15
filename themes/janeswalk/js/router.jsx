@@ -26,7 +26,43 @@ if (!window.Intl) {
   window.Intl = require('intl/Intl.en');
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+/**
+ * Let hitting 'm' make the menu pop up
+ */
+function initKeyEvents() {
+  // Init keyboard shortcuts
+  let toolbar = document.getElementById('ccm-toolbar');
+  if (toolbar) {
+    window.addEventListener('keyup', ev => {
+      /* Don't capture inputs going into a form */
+      if(ev.target.tagName !== "INPUT") {
+        ev.preventDefault();
+        switch(
+          String(
+            ev.key ||
+            (ev.keyCode && String.fromCharCode(ev.keyCode)) ||
+            ev.char)
+            .toUpperCase()
+        ){
+          case "M":
+            if (toolbar.style.display === 'block' || !toolbar.style.display) {
+              toolbar.style.display = 'none';
+            } else {
+              toolbar.style.display = 'block';
+            }
+            break;
+          default:
+            break;
+        }
+      }
+    });
+  }
+}
+
+/**
+ * Route the JSX view, for either an old v1 page, or a React component
+ */
+function routePage() {
   const pageViewName =
     document.body.getAttribute('data-pageViewName') ||
     'PageView';
@@ -72,32 +108,14 @@ document.addEventListener('DOMContentLoaded', function() {
   } catch(e) {
     console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
   }
+}
 
-  // Init keyboard shortcuts
-  let toolbar = document.getElementById('ccm-toolbar');
-  if (toolbar) {
-    window.addEventListener('keyup', ev => {
-      /* Don't capture inputs going into a form */
-      if(ev.target.tagName !== "INPUT") {
-        ev.preventDefault();
-        switch(
-          String(
-            ev.key ||
-            (ev.keyCode && String.fromCharCode(ev.keyCode)) ||
-            ev.char)
-            .toUpperCase()
-        ){
-          case "M":
-            if (toolbar.style.display === 'block' || !toolbar.style.display) {
-              toolbar.style.display = 'none';
-            } else {
-              toolbar.style.display = 'block';
-            }
-            break;
-          default:
-            break;
-        }
-      }
-    });
-  }
+document.addEventListener('DOMContentLoaded', function() {
+  // Process all deferred events
+  JanesWalk.event.activate();
+
+  // TODO: emit the city without needing to load JanesWalk with static data
+  JanesWalk.event.emit('city.receive', JanesWalk.city);
+  routePage();
+  initKeyEvents();
 });
