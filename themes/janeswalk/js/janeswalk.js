@@ -4465,7 +4465,7 @@ var WalkPublish = (function (_React$Component) {
 
     _get(Object.getPrototypeOf(WalkPublish.prototype), 'constructor', this).call(this);
     this.state = {
-      eventbrite: !!this.props.mirrors.eventbrite
+      eventbrite: !!(this.props.mirrors && this.props.mirror.eventbrite)
     };
   }
 

@@ -5,7 +5,7 @@ export default class WalkPublish extends React.Component {
   constructor() {
     super();
     this.state = {
-      eventbrite: !!this.props.mirrors.eventbrite
+      eventbrite: !!(this.props.mirrors && this.props.mirror.eventbrite)
     };
   }
 
