@@ -1,7 +1,9 @@
-// TextArea with wordprocessor-like editing
-var TinyMCE = React.createClass({
+/**
+ * TextArea with wordprocessor-like editing
+ */
+export default class TinyMCE extends React.Component {
   // Initialize other libraries here
-  componentDidMount: function() {
+  componentDidMount() {
     // tinyMCE will leave applying to textarea to the components
     tinyMCE.init({
       mode : 'none',
@@ -13,16 +15,11 @@ var TinyMCE = React.createClass({
       theme_advanced_buttons3 : '',
       width: '100%'
     });
-    tinyMCE.execCommand('mceAddControl', true, this.getDOMNode().id);
-  },
-
-  render: function() {
-    var id = this.props.id || ('mce' + this._rootNodeID);
-    
-    return (
-      <textarea key={id} id={id} {...this.props} />
-    );
+    tinyMCE.execCommand('mceAddControl', true, React.findDOMNode(this).id);
   }
-});
 
-module.exports = TinyMCE;
+  render() {
+    const id = this.props.id || ('mce' + this._rootNodeID);
+    return <textarea key={id} id={id} {...this.props} />;
+  }
+}

@@ -9,14 +9,14 @@ export function getTranslations(locale) {
   // Check that we have a translations file set
   if (locale && locale.translation) {
     // Grab from session if we have it
-    var translation = window.sessionStorage.getItem('i18n_' + locale.name);
+    const translation = window.sessionStorage.getItem('i18n_' + locale.name);
     if (translation) {
       I18nActions.receive(JSON.parse(translation).translations['']);
     } else {
-      var xhr = new XMLHttpRequest();
+      const xhr = new XMLHttpRequest();
       xhr.open('get', locale.translation, true);
       xhr.onload = function() {
-        var data = JSON.parse(this.responseText);
+        let data = JSON.parse(this.responseText);
 
         // Store with the session
         window.sessionStorage.setItem('i18n_' + locale.name, this.responseText);

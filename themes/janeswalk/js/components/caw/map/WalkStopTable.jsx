@@ -22,7 +22,7 @@ export default class WalkStopTable extends React.Component {
             const titleObj = JSON.parse(marker.title);
             const showInfoWindow = this.props.showInfoWindow.bind(this, marker);
             let imageThumb = null;
-            let opArrow, downArrow;
+            let upArrow, downArrow;
 
             // Up/down arrows
             if (i > 0) {
