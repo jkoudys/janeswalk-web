@@ -1,21 +1,36 @@
+// TODO: link to the i18n
+function t(str) {
+  const args = Array.from(arguments);
+  return args.shift().replace(/%(s|d)/g, () => args.shift());
+}
+
+const Message = (props) => (
+  <div className={'alert alert-' + (props.success ? 'info' : 'danger')}>
+    {props.msg}{props.error}
+  </div>
+);
+
 /**
  * The 'login' modal that comes up on standard login, not to be confused
  * with the login page.
  */
-'use strict';
-
-var Login = React.createClass({
-  getInitialState: function() {
-    return {
+export default class Login extends React.Component {
+  constructor() {
+    super();
+    this.state = {
       email: '',
       password: '',
       maintainLogin: false,
       message: {}
     };
-  },
+    this.handleReset = this.handleReset.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeMaintainLogin = this.handleChangeMaintainLogin.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-  handleReset: function(ev) {
-    var _this = this;
+  handleReset(ev) {
     // Post a reset request to the c5 endpoint for resets
     $.ajax({
       type: 'POST',
@@ -26,26 +41,23 @@ var Login = React.createClass({
         format: 'JSON'
       },
       dataType: 'json',
-      success: function(data) {
-        _this.setState({message: data});
-      }
+      success: data => this.setState({message: data})
     });
-  },
+  }
 
-  handleChangeEmail: function(ev) {
+  handleChangeEmail(ev) {
     this.setState({email: ev.target.value});
-  },
+  }
 
-  handleChangePassword: function(ev) {
+  handleChangePassword(ev) {
     this.setState({password: ev.target.value});
-  },
+  }
 
-  handleChangeMaintainLogin: function(ev) {
+  handleChangeMaintainLogin(ev) {
     this.setState({maintainLogin: ev.target.value});
-  },
+  }
 
-  handleSubmit: function(ev) {
-    var _this = this;
+  handleSubmit(ev) {
     ev.preventDefault();
     // Post the login to the c5 endpoint for logins
     $.ajax({
@@ -59,11 +71,11 @@ var Login = React.createClass({
         format: 'JSON'
       },
       dataType: 'json',
-      success: function(data) {
-        _this.setState({message: data}, function() {
+      success: data => {
+        this.setState({message: data}, () => {
           if (data.success === 1) {
-            if (_this.props.redirectURL) {
-              window.location.replace(_this.props.redirectURL);
+            if (this.props.redirectURL) {
+              window.location.replace(this.props.redirectURL);
             } else {
               window.location.reload();
             }
@@ -71,21 +83,13 @@ var Login = React.createClass({
         });
       }
     });
-  },
+  }
 
-  render: function() {
-    // TODO: link to the i18n
-    var t = function(str) {
-      var args = Array.prototype.slice.call(arguments);
-      return args.shift().replace(/%(s|d)/g, function(){
-        return args.shift();
-      });
-    };
-    var message = Number.isInteger(this.state.message.success) ? (
-      <div className={'alert alert-' + (this.state.message.success ? 'info' : 'danger')}>
-          {this.state.message.msg}{this.state.message.error}
-      </div>
-    ) : null;
+  render() {
+    let message;
+    if (Number.isInteger(this.state.message.success)) {
+      message = <Message {...this.state.message} />
+    }
 
     return (
       <dialog id="login">
@@ -121,7 +125,4 @@ var Login = React.createClass({
       </dialog>
     );
   }
-});
-
-module.exports = Login;
-
+}

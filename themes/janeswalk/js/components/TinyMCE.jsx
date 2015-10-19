@@ -15,7 +15,7 @@ export default class TinyMCE extends React.Component {
       theme_advanced_buttons3 : '',
       width: '100%'
     });
-    tinyMCE.execCommand('mceAddControl', true, React.findDOMNode(this).id);
+    tinyMCE.execCommand('mceAddControl', true, ReactDOM.findDOMNode(this).id);
   }
 
   render() {

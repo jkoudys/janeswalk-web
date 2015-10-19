@@ -64,11 +64,11 @@ export default class MapBuilder extends React.Component {
       this.state.route.setMap(null);
     }
 
-    this.state.markers.forEach(marker => marker.setMap(null));
+    for (let marker of this.state.markers) marker.setMap(null);
 
     // Draw the route
     if (valueLink.value) {
-      valueLink.value.markers.forEach(marker => {
+      for (let marker of valueLink.value.markers) {
         let latlng;
         // Set to the markers latlng if available, otherwise place at center
         if (marker.lat && marker.lng) {
@@ -85,7 +85,7 @@ export default class MapBuilder extends React.Component {
           media: marker.media
         })
         );
-      });
+      }
 
       route = this.buildRoute(valueLink.value.route);
     } else {

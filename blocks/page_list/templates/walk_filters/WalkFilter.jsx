@@ -54,6 +54,16 @@ function thirdRecentDate(walks) {
   return null;
 }
 
+const Filter = props => (
+  <li>
+    <label>{props.name}</label>
+    <select name={props.key} value={props.selected} onChange={e => props.setFilter(props.key, e.target.value)}>
+      <option value="">All</option>
+      {Object.keys(props.data).map(k => <option value={k}>{props.data[k]}</option>)}
+    </select>
+  </li>
+);
+
 export default class WalkFilter extends React.Component {
   constructor(props) {
     const thirdDate = thirdRecentDate(props.walks);
@@ -94,18 +104,9 @@ export default class WalkFilter extends React.Component {
     let TabBlog;
     let CityMapSection;
 
-    const Filters = Object.keys(this.state.filters).map(key => {
-      const filter = this.state.filters[key];
-      return (
-        <li key={'filter' + key}>
-          <label>{filter.name}</label>
-          <select name={key} value={filter.selected} onChange={e => this.setFilter(key, e.target.value)}>
-            <option value="">All</option>
-            {Object.keys(filter.data).map(k => <option value={k}>{filter.data[k]}</option>)}
-          </select>
-        </li>
-      );
-    });
+    const Filters = Object.keys(this.state.filters).map(
+      key => <Filter key={key} {...this.state.filters[key]} setFilter={(k, v) => this.setFilter(k, v)} />
+    );
 
     // See if this city has a location set
     if (this.state.city && this.state.city.latlng.length === 2) {
@@ -167,8 +168,8 @@ class DateRange extends React.Component {
   }
 
   componentDidMount() {
-    const $to = $(React.findDOMNode(this.refs.to));
-    const $from = $(React.findDOMNode(this.refs.from));
+    const $to = $(this.refs.to);
+    const $from = $(this.refs.from);
 
     let toTime;
     let fromTime;

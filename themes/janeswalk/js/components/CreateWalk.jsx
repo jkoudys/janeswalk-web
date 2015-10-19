@@ -1,38 +1,36 @@
-'use strict';
 // Create a Walk
-// 
+//
 // Form for creating new walks. Includes a map builder, team builder, scheduler
 //
 
 // Load create-a-walk View components
-var ImageUpload = require('./caw/ImageUpload.jsx');
-var ThemeSelect = require('./caw/ThemeSelect.jsx');
-var MapBuilder = require('./caw/MapBuilder.jsx');
-var DateSelect = require('./caw/DateSelect.jsx');
-var WardSelect = require('./caw/WardSelect.jsx');
-var AccessibleSelect = require('./caw/AccessibleSelect.jsx');
-var TeamBuilder = require('./caw/TeamBuilder.jsx');
-var WalkPublish = require('./caw/WalkPublish.jsx');
-var TextAreaLimit = require('./TextAreaLimit.jsx');
+import ImageUpload from './caw/ImageUpload.jsx';
+import ThemeSelect from './caw/ThemeSelect.jsx';
+import MapBuilder from './caw/MapBuilder.jsx';
+import DateSelect from './caw/DateSelect.jsx';
+import WardSelect from './caw/WardSelect.jsx';
+import AccessibleSelect from './caw/AccessibleSelect.jsx';
+import TeamBuilder from './caw/TeamBuilder.jsx';
+import WalkPublish from './caw/WalkPublish.jsx';
+import TextAreaLimit from './TextAreaLimit.jsx';
 
 // Flux
-var I18nStore = require('../stores/I18nStore.js');
-var t = I18nStore.getTranslate();
-var t2 = I18nStore.getTranslatePlural();
-var I18nActions = require('../actions/I18nActions.js');
+const I18nStore = require('../stores/I18nStore.js');
+const t = I18nStore.getTranslate();
+const t2 = I18nStore.getTranslatePlural();
+const I18nActions = require('../actions/I18nActions.js');
 
 // Helpers
-var Helper = require('../helpers/helpers.jsx');
+const Helper = require('../helpers/helpers.jsx');
 
-var CreateWalk = React.createClass({
-  mixins: [React.addons.LinkedStateMixin],
-
-  getInitialState: function() {
-    var data = this.props.data;
+export default class CreateWalk extends React.Component {
+  constructor(props) {
+    super();
+    const data = props.data;
     // TODO: move this into its own model js
     // Keep these defaults to type, ie don't pre-seed data here, aside from
     // data loaded by passing it in
-    var walk = {
+    const walk = {
       name: '',
       shortDescription: '',
       longDescription: '',
@@ -64,7 +62,7 @@ var CreateWalk = React.createClass({
       checkboxes: {},
       notifications: [],
       mirrors: {},
-      url: this.props.url
+      url: props.url
     };
 
     // Convert old {0: marker, 1: marker} indexing to a proper array
@@ -82,7 +80,7 @@ var CreateWalk = React.createClass({
         data.time.slots = Helper.objectToArray(data.time.slots);
       }
       // Turn all 'false' values into empty strings
-      for (var i in data) {
+      for (let i in data) {
         if (data[i] === false) {
           data[i] = '';
         } else if (data[i] === null) {
@@ -94,7 +92,7 @@ var CreateWalk = React.createClass({
       // Init the leader as creator, if none set
       data.team = data.team || []
       if (data.team.length === 0) {
-        var user = this.props.user;
+        var user = props.user;
         data.team = [{
           type: 'you',
           "name-first": user.firstName,
@@ -111,22 +109,23 @@ var CreateWalk = React.createClass({
       }
       Object.assign(walk, data);
     }
-    return walk;
-  },
 
-  saveWalk: function(options, cb) {
+    this.state = walk;
+  }
+
+  saveWalk(options, cb) {
     // TODO: separate the notifications logic
     /* Send in the updated walk to save, but keep working */
-    var notifications = this.state.notifications.slice();
-    var removeNotice = function() {
+    const notifications = this.state.notifications.slice();
+    const removeNotice = () => {
       var notifications = this.state.notifications.slice();
       this.setState({notifications: notifications.slice(1)});
-    }.bind(this);
+    };
 
-    var defaultOptions = {
+    const defaultOptions = {
       messageTimeout: 1200
     };
-    options = options || {};
+    options = Object.assign({}, defaultOptions, options);
 
     notifications.push({type: 'info', name: 'Saving walk'});
 
@@ -134,7 +133,7 @@ var CreateWalk = React.createClass({
     this.setState({
       map: this.refs.mapBuilder.getStateSimple(),
       notifications: notifications
-    }, function() {
+    }, () => {
       $.ajax({
         url: this.state.url,
         type: options.publish ? 'PUT' : 'POST',
@@ -153,7 +152,7 @@ var CreateWalk = React.createClass({
             }
           );
           setTimeout(removeNotice, 1200);
-          }.bind(this),
+        }.bind(this),
         error: function(xhr, status, err) {
           var notifications = this.state.notifications.slice();
           notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
@@ -162,60 +161,55 @@ var CreateWalk = React.createClass({
           console.error(this.url, status, err.toString());
         }.bind(this)
       });
-    }.bind(this));
+    });
     setTimeout(removeNotice, 1200);
-  },
+  }
 
-  handleNext: function() {
+  handleNext() {
     // Bootstrap's managing the tabs, so trigger a jQuery click on the next
-    var next = $('#progress-panel > .nav > li.active + li > a');
+    const next = $('#progress-panel > .nav > li.active + li > a');
     window.scrollTo(0, 0);
     if (next.length) {
       this.saveWalk();
       next.trigger('click');
     } else {
       // If no 'next' tab, next step is to publish
-      $(this.refs.publish.getDOMNode()).trigger('click');
+      $(React.findDOMNode(this.refs.publish)).trigger('click');
     }
-  },
- 
-  handleSave: function() {
+  }
+
+  handleSave() {
     this.saveWalk();
-  },
+  }
 
-  handlePublish: function() {
-    this.saveWalk({publish: true}, function() {
-      console.log('Walk published');
-    });
-  },
- 
-  handlePreview: function(e) {
-    var _this = this;
-    this.saveWalk({}, function() {
-      _this.setState({preview: true});
-    });
-  },
+  handlePublish() {
+    this.saveWalk({publish: true}, () => console.log('Walk published'));
+  }
 
-  componentWillMount: function() {
+  handlePreview(e) {
+    this.saveWalk({}, () => this.setState({preview: true}));
+  }
+
+  componentWillMount() {
     I18nStore.addChangeListener(this._onChange.bind(this));
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     I18nStore.removeChangeListener(this._onChange.bind(this));
-  },
+  }
 
   // Simple trigger to re-render the components
-  _onChange: function() {
+  _onChange() {
     this.setState({});
-  },
+  }
 
-  render: function() {
+  render() {
     // Used to let the map pass a callback
-    var linkStateMap = {
+    const linkStateMap = {
       value: this.state.map,
-      requestChange: function(newVal, cb) {
+      requestChange: (newVal, cb) => {
         this.setState({map: newVal}, cb);
-      }.bind(this)
+      }
     };
 
     return (
@@ -346,31 +340,30 @@ var CreateWalk = React.createClass({
         {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={this.props.city} mirrors={this.state.mirrors} /> : null}
         {this.state.preview ? <WalkPreview url={this.state.url} close={this.setState.bind(this, {preview: false})} /> : null}
         <aside id="notifications">
-          {this.state.notifications.map(function(notification) {
-            return (
-              <div key={notification.message} className={'alert alert-' + notification.type}>
-                <strong>{notification.name || ''}:&nbsp;</strong>
-                {notification.message || ''}
-              </div>
-              );
-          })}
-        </aside>
-      </main>
+          {this.state.notifications.map(note => (
+            <div key={note.message} className={'alert alert-' + note.type}>
+              <strong>{note.name || ''}:&nbsp;</strong>
+              {note.message || ''}
+            </div>
+            ))}
+          </aside>
+        </main>
     );
   }
-});
+}
+// Mixins
+Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin),
 
-var WalkPreview = React.createClass({
-  componentDidMount: function() {
-    var _this = this;
+class WalkPreview extends React.Component {
+  componentDidMount() {
+    const el = React.findDOMNode(this);
     // Bootstrap Modal
-    $(this.getDOMNode()).modal();
+    $(el).modal();
     // Close the modal when modal closes
-    $(this.getDOMNode()).bind('hidden.bs.modal', function() {
-      _this.props.close();
-    });
-  },
-  render: function() {
+    $(el).bind('hidden.bs.modal', () => this.props.close());
+  }
+
+  render() {
     return (
       <dialog id="preview-modal">
         <div>
@@ -387,6 +380,4 @@ var WalkPreview = React.createClass({
       </dialog>
     );
   }
-});
-
-module.exports = CreateWalk;
+}

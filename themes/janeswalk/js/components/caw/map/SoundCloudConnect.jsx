@@ -1,27 +1,29 @@
-'use strict';
+/**
+ * Get some sounds from SoundCloud!
+ */
 
-var SoundCloudConnect = React.createClass({
-  getInitialState: function() {
-    return {
+export default class SoundCloudConnect extends React.Component {
+  constructor() {
+    super();
+    this.state = {
       playlists: []
     };
-  },
+  }
 
-  handleConnect: function(cb) {
-    var clientID = '3a4c85d0eb4f8579fb680bb738bd0ba8';
-    var redirectURI = 'http://janeswalk.org/connected';
+  handleConnect(cb) {
+    const clientID = '3a4c85d0eb4f8579fb680bb738bd0ba8';
+    const redirectURI = 'http://janeswalk.org/connected';
 
     // FIXME Race-condition prone if you open multiple services in parallel
-    window.loadAccessToken = function(accessToken) {
+    window.loadAccessToken = accessToken => {
       this.setState({accessToken: accessToken}, this.handleLoadPlaylists(accessToken, cb));
-    }.bind(this);
+    };
 
-    var authWindow = window.open('https://soundcloud.com/connect/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token&state=soundcloud');
+    const authWindow = window.open('https://soundcloud.com/connect/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token&state=soundcloud');
     this.setState({authWindow: authWindow});
-  },
+  }
 
-  handleLoadPlaylists: function(accessToken, cb) {
-    var _this = this;
+  handleLoadPlaylists(accessToken, cb) {
     accessToken = accessToken || this.state.accessToken;
 
     $.ajax({
@@ -29,19 +31,18 @@ var SoundCloudConnect = React.createClass({
       crossDomain: true,
       dataType: 'jsonp',
       url: 'https://api.soundcloud.com/me/playlists.json?oauth_token=' + accessToken,
-      success: function(data) {
+      success: data => {
         _this.setState({playlists: data});
         cb();
       }
     });
   },
 
-  loadPointsFromPlaylist: function(i) {
-    var _this = this;
-    var markers = (_this.props.valueLink.value || {markers: []}).markers.slice();
+  loadPointsFromPlaylist(i) {
+    const markers = (this.props.valueLink.value || {markers: []}).markers.slice();
 
-    var points = this.state.playlists[i].tracks.map(function(track) {
-      var point = {
+    const points = this.state.playlists[i].tracks.map(track => {
+      const point = {
         title: track.title || '',
         description: track.description || '',
         media: {
@@ -52,8 +53,8 @@ var SoundCloudConnect = React.createClass({
       };
 
       // Soundcloud puts geotags in the regular tags, as geo:lat=
-      track.tag_list.split(' ').forEach(function(tag) {
-        var idx;
+      track.tag_list.split(' ').forEach(tag => {
+        let idx;
         idx = tag.indexOf('geo:lat=');
         if (idx > -1) {
           point.lat = tag.substr(idx + 8);
@@ -66,40 +67,41 @@ var SoundCloudConnect = React.createClass({
 
       return point;
     });
-    _this.props.valueLink.requestChange({markers: markers.concat(points), route: _this.props.valueLink.value.route}, function() {
-      _this.props.refreshGMap();
-      _this.props.boundMapByWalk();
-    });
-  },
 
-  render: function() {
+    this.props.valueLink.requestChange({markers: markers.concat(points), route: this.props.valueLink.value.route}, () => {
+      this.props.refreshGMap();
+      this.props.boundMapByWalk();
+    });
+  }
+
+  addFilter() {
+    const filterProps = {
+      type: 'select',
+      icon: 'fa fa-soundcloud',
+      options: this.state.playlists,
+      value: 0,
+      cb: this.loadPointsFromPlaylist
+    }
+
+    if (this.state.accessToken) {
+      this.props.addFilter(filterProps);
+    } else {
+      // Connect, and add the box when done
+      this.handleConnect(() => {
+        filterProps.options = this.state.playlists;
+        this.props.addFilter(filterProps);
+      });
+    }
+  }
+
+  render() {
     var _this = this;
-    var addFilter = function() {
-      var filterProps = {
-        type: 'select',
-        icon: 'fa fa-soundcloud',
-        options: _this.state.playlists,
-        value: 0,
-        cb: _this.loadPointsFromPlaylist
-      }
-      if (_this.state.accessToken) {
-        _this.props.addFilter(filterProps);
-      } else {
-        // Connect, and add the box when done
-        _this.handleConnect(function() {
-          filterProps.options = _this.state.playlists;
-          _this.props.addFilter(filterProps);
-        });
-      }
-    };
 
     return (
-      <button onClick={addFilter}>
+      <button onClick={() => this.addFilter()}>
         <i className="fa fa-soundcloud" />
         SoundCloud
       </button>
     );
   }
-});
-
-module.exports = SoundCloudConnect;
+}

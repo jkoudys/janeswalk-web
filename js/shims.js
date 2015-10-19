@@ -6,6 +6,9 @@ Function.prototype.bind||(Function.prototype.bind=function(e){"use strict";if(ty
 // Array.prototype.some
 Array.prototype.some||(Array.prototype.some=function(a){"use strict";if(null==this)throw new TypeError("Array.prototype.some called on null or undefined");if("function"!=typeof a)throw new TypeError;for(var b=Object(this),c=b.length>>>0,d=arguments.length>=2?arguments[1]:void 0,e=0;c>e;e++)if(e in b&&a.call(d,b[e],e,b))return!0;return!1});
 
+// Array.from
+Array.from||(Array.from=function(){var a=Object.prototype.toString,b=function(b){return"function"==typeof b||"[object Function]"===a.call(b)},c=function(a){var b=Number(a);return isNaN(b)?0:0!==b&&isFinite(b)?(b>0?1:-1)*Math.floor(Math.abs(b)):b},d=Math.pow(2,53)-1,e=function(a){var b=c(a);return Math.min(Math.max(b,0),d)};return function(a){var c=this,d=Object(a);if(null==a)throw new TypeError("Array.from requires an array-like object - not null or undefined");var g,f=arguments.length>1?arguments[1]:void 0;if("undefined"!=typeof f){if(!b(f))throw new TypeError("Array.from: when provided, the second argument must be a function");arguments.length>2&&(g=arguments[2])}for(var k,h=e(d.length),i=b(c)?Object(new c(h)):new Array(h),j=0;h>j;)k=d[j],f?i[j]="undefined"==typeof g?f(k,j):f.call(g,k,j):i[j]=k,j+=1;return i.length=h,i}}());
+
 // Object.assign, useful for merging objects
 if (!Object.assign) {
   Object.defineProperty(Object, "assign", {

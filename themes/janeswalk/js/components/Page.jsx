@@ -1,5 +1,4 @@
-'use strict';
-var View = require('./View.jsx');
+import View from './View.jsx';
 
 /**
  * Basic View info for a regular ol' page
@@ -7,34 +6,33 @@ var View = require('./View.jsx');
  * @param  jQuery element
  * @return void
  */
-var PageView = function(element) {
-  View.call(this, element);
-  this._addNavEvents();
-  this._addOverlayCloseEvent();
-};
-PageView.prototype = Object.create(View.prototype, {
+export default class PageView extends View {
+  constructor(element) {
+    super(element);
+    this._addNavEvents();
+    this._addOverlayCloseEvent();
+  }
+
   /**
    * _addOverlayCloseEvent
    * 
    * @protected
    * @return    void
    */
-  _addOverlayCloseEvent: {
-    value: function() {
-      var _this = this;
-      this._element.find('.o-background').click(
-        function(event) {
-        _this._element.find('.overlay').hide();
-      }
-      );
-      this._element.find('a.closeModalCta').click(
-        function(event) {
-        event.preventDefault();
-        _this._element.find('.overlay').hide();
-      }
-      );
+  _addOverlayCloseEvent() {
+    var _this = this;
+    this._element.find('.o-background').click(
+      function(event) {
+      _this._element.find('.overlay').hide();
     }
-  },
+    );
+    this._element.find('a.closeModalCta').click(
+      function(event) {
+      event.preventDefault();
+      _this._element.find('.overlay').hide();
+    }
+    );
+  }
 
   /**
    * _addNavEvents
@@ -42,25 +40,23 @@ PageView.prototype = Object.create(View.prototype, {
    * @protected
    * @return    void
    */
-  _addNavEvents: {
-    value: function() {
-      this._element.find('a.search-open').click(function() {
-        $('html, body').animate({
-          scrollTop: 0
-        }, 300);
-        $('body > header').addClass('dropped');
+  _addNavEvents() {
+    this._element.find('a.search-open').click(function() {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 300);
+      $('body > header').addClass('dropped');
 
-        // If there's a text-field in the drop, move caret to it
-        var textInput = document.querySelector('body > header input[type=text]');
-        if (textInput) {
-          textInput.focus();
-        }
-      });
-      this._element.find('a.search-close').click(function() {
-        $('body > header').removeClass('dropped');
-      });
-    }
-  },
+      // If there's a text-field in the drop, move caret to it
+      var textInput = document.querySelector('body > header input[type=text]');
+      if (textInput) {
+        textInput.focus();
+      }
+    });
+    this._element.find('a.search-close').click(function() {
+      $('body > header').removeClass('dropped');
+    });
+  }
 
   /**
    * _makeGaCall
@@ -69,11 +65,9 @@ PageView.prototype = Object.create(View.prototype, {
    * @param     Array call
    * @return    void
    */
-  _makeGaCall: {
-    value: function(call) {
-      _gaq.push(call);
-    }
-  },
+  _makeGaCall(call) {
+    _gaq.push(call);
+  }
 
   /**
    * trackCustomVar
@@ -87,12 +81,9 @@ PageView.prototype = Object.create(View.prototype, {
    * @param  String scope (optional)
    * @return void
    */
-  trackCustomVar: {
-    value: function(index, name, value, scope) {
-      var call = ['_setCustomVar', index, name, value, scope];
-      this._makeGaCall(call);
-    }
-  },
+  trackCustomVar(index, name, value, scope) {
+    this._makeGaCall(['_setCustomVar', index, name, value, scope]);
+  }
 
   /**
    * trackEvent
@@ -106,24 +97,22 @@ PageView.prototype = Object.create(View.prototype, {
    * @param  Boolean override (optional)
    * @return void
    */
-  trackEvent: {
-    value: function(category, action, optLabel, optValue, override) {
-      var call = ['_trackEvent'];
-      if (category !== undefined) {
-        call.push(category);
-      }
-      if (action !== undefined) {
-        call.push(action);
-      }
-      if (optLabel !== undefined) {
-        call.push(optLabel);
-      }
-      if (optValue !== undefined) {
-        call.push(optValue);
-      }
-      this._makeGaCall(call, override);
+  trackEvent(category, action, optLabel, optValue, override) {
+    const call = ['_trackEvent'];
+    if (category !== undefined) {
+      call.push(category);
     }
-  },
+    if (action !== undefined) {
+      call.push(action);
+    }
+    if (optLabel !== undefined) {
+      call.push(optLabel);
+    }
+    if (optValue !== undefined) {
+      call.push(optValue);
+    }
+    this._makeGaCall(call, override);
+  }
 
   /**
    * trackView
@@ -132,12 +121,7 @@ PageView.prototype = Object.create(View.prototype, {
    * @param  String path
    * @return void
    */
-  trackView: {
-    value: function(path) {
-      var call = ['_trackPageview', path];
-      this._makeGaCall(call);
-    }
+  trackView(path) {
+    this._makeGaCall(['_trackPageview', path]);
   }
-});
-
-module.exports = PageView;
+}

@@ -1,6 +1,4 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
-
 class SearchBlockController extends Concrete5_Controller_Block_Search
 {
     public function highlightedMarkup($fulltext, $highlight)

@@ -1,9 +1,9 @@
 import * as mixins from '../../helpers/mixins.jsx';
 
 // Flux
-var i18n = require('../../stores/I18nStore.js');
-var t = i18n.getTranslate();
-var t2 = i18n.getTranslatePlural();
+const i18n = require('../../stores/I18nStore.js');
+const t = i18n.getTranslate();
+const t2 = i18n.getTranslatePlural();
 
 export default class TeamBuilder extends React.Component {
   constructor() {

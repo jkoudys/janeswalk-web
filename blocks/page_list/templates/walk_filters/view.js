@@ -6,7 +6,11 @@
 
 'use strict';
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 var _CityMapJsx = require('./CityMap.jsx');
 
@@ -21,7 +25,18 @@ var _city = undefined;
 
 JanesWalk.event.on('walks.receive', function (walks, props) {
   _walks = walks;
-  React.render(React.createElement(_WalkFilterJsx2['default'], { walks: walks, filters: props.filters, city: _city }), document.getElementById('janeswalk-walk-filters'));
+  React.render({
+    $$typeof: _typeofReactElement,
+    type: _WalkFilterJsx2['default'],
+    key: null,
+    ref: null,
+    props: _defaultProps(_WalkFilterJsx2['default'].defaultProps, {
+      walks: walks,
+      filters: props.filters,
+      city: _city
+    }),
+    _owner: null
+  }, document.getElementById('janeswalk-walk-filters'));
 });
 
 JanesWalk.event.on('city.receive', function (city) {
@@ -42,6 +57,8 @@ Object.defineProperty(exports, '__esModule', {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -159,15 +176,27 @@ var CityMap = (function (_React$Component) {
                 // Get all the future walks
                 return slot[0] * 1000 > twoDaysAgo;
               });
-              date = React.createElement(
-                'h6',
-                null,
-                React.createElement('i', { className: 'fa fa-calendar' }),
-                ' ',
-                upcoming.map(function (slot) {
-                  return dtfDate.format(slot[0] * 1000);
-                }).join(', ')
-              );
+              date = {
+                $$typeof: _typeofReactElement,
+                type: 'h6',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'i',
+                    key: null,
+                    ref: null,
+                    props: {
+                      className: 'fa fa-calendar'
+                    },
+                    _owner: null
+                  }, ' ', upcoming.map(function (slot) {
+                    return dtfDate.format(slot[0] * 1000);
+                  }).join(', ')]
+                },
+                _owner: null
+              };
             } catch (e) {
               // Just log this, but don't die
               console.error('Failed to parse walk time.');
@@ -192,7 +221,17 @@ var CityMap = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement('div', { className: 'cityMap', style: { width: '100%', height: '600px' } });
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          className: 'cityMap',
+          style: { width: '100%', height: '600px' }
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -213,33 +252,55 @@ var InfoWindow = (function (_React$Component2) {
   _createClass(InfoWindow, [{
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'span',
-        null,
-        React.createElement(
-          'h4',
-          { style: { marginBottom: '0.1em' } },
-          this.props.title
-        ),
-        this.props.date,
-        React.createElement(
-          'h6',
-          null,
-          'Led by: ',
-          this.props.leaders.join(', ')
-        ),
-        React.createElement(
-          'p',
-          null,
-          this.props.shortDescription,
-          ' ',
-          React.createElement(
-            'a',
-            { href: this.props.url, target: '_blank' },
-            'Read More'
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'span',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'h4',
+            key: null,
+            ref: null,
+            props: {
+              children: this.props.title,
+              style: { marginBottom: '0.1em' }
+            },
+            _owner: null
+          }, this.props.date, {
+            $$typeof: _typeofReactElement,
+            type: 'h6',
+            key: null,
+            ref: null,
+            props: {
+              children: ['Led by: ', this.props.leaders.join(', ')]
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'p',
+            key: null,
+            ref: null,
+            props: {
+              children: [this.props.shortDescription, ' ', {
+                $$typeof: _typeofReactElement,
+                type: 'a',
+                key: null,
+                ref: null,
+                props: {
+                  children: 'Read More',
+                  href: this.props.url,
+                  target: '_blank'
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          }]
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -313,9 +374,13 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -353,28 +418,57 @@ var WalkCards = (function (_React$Component) {
     key: 'render',
     value: function render() {
       if (this.props.walks.length === 0) {
-        return React.createElement(
-          'div',
-          { className: 'empty' },
-          React.createElement(
-            'h4',
-            null,
-            t('Keep looking.')
-          ),
-          React.createElement(
-            'p',
-            null,
-            t('We couldn\'t find any matching walks.')
-          )
-        );
+        return {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            children: [{
+              $$typeof: _typeofReactElement,
+              type: 'h4',
+              key: null,
+              ref: null,
+              props: {
+                children: t('Keep looking.')
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: 'p',
+              key: null,
+              ref: null,
+              props: {
+                children: t('We couldn\'t find any matching walks.')
+              },
+              _owner: null
+            }],
+            className: 'empty'
+          },
+          _owner: null
+        };
       } else {
-        return React.createElement(
-          'div',
-          null,
-          this.props.walks.map(function (walk) {
-            return React.createElement(Card, { walk: walk });
-          })
-        );
+        return {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            children: this.props.walks.map(function (walk) {
+              return {
+                $$typeof: _typeofReactElement,
+                type: Card,
+                key: null,
+                ref: null,
+                props: _defaultProps(Card.defaultProps, {
+                  walk: walk
+                }),
+                _owner: null
+              };
+            })
+          },
+          _owner: null
+        };
       }
     }
   }]);
@@ -434,11 +528,29 @@ var Card = (function (_React$Component2) {
       var Tags = Object.keys(walk.checkboxes).filter(function (check) {
         return check.indexOf('theme-') === 0 && walk.checkboxes[check];
       }).map(function (theme) {
-        return React.createElement(
-          'li',
-          { className: 'tag', 'data-toggle': 'tooltip', 'data-theme': theme, title: (0, _ThemesJs.getThemeName)(theme) },
-          React.createElement('i', { className: 'fa ' + (0, _ThemesJs.getThemeIcon)(theme) })
-        );
+        return {
+          $$typeof: _typeofReactElement,
+          type: 'li',
+          key: null,
+          ref: null,
+          props: {
+            children: {
+              $$typeof: _typeofReactElement,
+              type: 'i',
+              key: null,
+              ref: null,
+              props: {
+                className: 'fa ' + (0, _ThemesJs.getThemeIcon)(theme)
+              },
+              _owner: null
+            },
+            className: 'tag',
+            'data-toggle': 'tooltip',
+            'data-theme': theme,
+            title: (0, _ThemesJs.getThemeName)(theme)
+          },
+          _owner: null
+        };
       });
 
       // Build the optional elements
@@ -452,79 +564,153 @@ var Card = (function (_React$Component2) {
       }
 
       if (leaders.length) {
-        LedBy = React.createElement(
-          'h6',
-          null,
-          'Walk led by ' + leaders.map(function (v) {
-            return v['name-first'] + ' ' + v['name-last'];
-          }).join(', ')
-        );
+        LedBy = {
+          $$typeof: _typeofReactElement,
+          type: 'h6',
+          key: null,
+          ref: null,
+          props: {
+            children: 'Walk led by ' + leaders.map(function (v) {
+              return v['name-first'] + ' ' + v['name-last'];
+            }).join(', ')
+          },
+          _owner: null
+        };
       }
 
       if (this.state.past) {
-        Status = React.createElement(
-          'div',
-          { className: 'statusMessage' },
-          'Ended'
-        );
+        Status = {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            children: 'Ended',
+            className: 'statusMessage'
+          },
+          _owner: null
+        };
       }
 
-      return React.createElement(
-        'div',
-        { className: 'walk' },
-        React.createElement(
-          'a',
-          { href: walk.url },
-          React.createElement(
-            'div',
-            { className: 'thumbnail' },
-            React.createElement(
-              'div',
-              { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
-              Status
-            ),
-            React.createElement(
-              'div',
-              { className: 'caption' },
-              React.createElement(
-                'h4',
-                null,
-                (walk.title || '').slice(0, 45)
-              ),
-              React.createElement(
-                'ul',
-                { className: 'when' },
-                this.state.startTimes.map(function (startTime) {
-                  return React.createElement(
-                    'li',
-                    null,
-                    React.createElement('i', { className: 'fa fa-calendar' }),
-                    ' ',
-                    startTime
-                  );
-                }),
-                React.createElement(
-                  'li',
-                  null,
-                  'Meet at ',
-                  Meeting
-                )
-              ),
-              LedBy,
-              React.createElement(
-                'p',
-                null,
-                (walk.shortDescription || '').slice(0, 140)
-              )
-            ),
-            React.createElement(
-              'ul',
-              { className: 'list-inline tags' },
-              Tags
-            )
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'a',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: Status,
+                      className: 'walkimage ' + placeholder,
+                      style: { backgroundImage: 'url(' + Thumb + ')' }
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'h4',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: (walk.title || '').slice(0, 45)
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'ul',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [this.state.startTimes.map(function (startTime) {
+                            return {
+                              $$typeof: _typeofReactElement,
+                              type: 'li',
+                              key: null,
+                              ref: null,
+                              props: {
+                                children: [{
+                                  $$typeof: _typeofReactElement,
+                                  type: 'i',
+                                  key: null,
+                                  ref: null,
+                                  props: {
+                                    className: 'fa fa-calendar'
+                                  },
+                                  _owner: null
+                                }, ' ', startTime]
+                              },
+                              _owner: null
+                            };
+                          }), {
+                            $$typeof: _typeofReactElement,
+                            type: 'li',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: ['Meet at ', Meeting]
+                            },
+                            _owner: null
+                          }],
+                          className: 'when'
+                        },
+                        _owner: null
+                      }, LedBy, {
+                        $$typeof: _typeofReactElement,
+                        type: 'p',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: (walk.shortDescription || '').slice(0, 140)
+                        },
+                        _owner: null
+                      }],
+                      className: 'caption'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'ul',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: Tags,
+                      className: 'list-inline tags'
+                    },
+                    _owner: null
+                  }],
+                  className: 'thumbnail'
+                },
+                _owner: null
+              },
+              href: walk.url
+            },
+            _owner: null
+          },
+          className: 'walk'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -544,11 +730,17 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -611,6 +803,64 @@ function thirdRecentDate(walks) {
   return null;
 }
 
+var Filter = function Filter(props) {
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'li',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'label',
+        key: null,
+        ref: null,
+        props: {
+          children: props.name
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: 'select',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'option',
+            key: null,
+            ref: null,
+            props: {
+              children: 'All',
+              value: ''
+            },
+            _owner: null
+          }, Object.keys(props.data).map(function (k) {
+            return {
+              $$typeof: _typeofReactElement,
+              type: 'option',
+              key: null,
+              ref: null,
+              props: {
+                children: props.data[k],
+                value: k
+              },
+              _owner: null
+            };
+          })],
+          name: props.key,
+          value: props.selected,
+          onChange: function (e) {
+            return props.setFilter(props.key, e.target.value);
+          }
+        },
+        _owner: null
+      }]
+    },
+    _owner: null
+  };
+};
+
 var WalkFilter = (function (_React$Component) {
   _inherits(WalkFilter, _React$Component);
 
@@ -668,129 +918,242 @@ var WalkFilter = (function (_React$Component) {
       var CityMapSection = undefined;
 
       var Filters = Object.keys(this.state.filters).map(function (key) {
-        var filter = _this2.state.filters[key];
-        return React.createElement(
-          'li',
-          { key: 'filter' + key },
-          React.createElement(
-            'label',
-            null,
-            filter.name
-          ),
-          React.createElement(
-            'select',
-            { name: key, value: filter.selected, onChange: function (e) {
-                return _this2.setFilter(key, e.target.value);
-              } },
-            React.createElement(
-              'option',
-              { value: '' },
-              'All'
-            ),
-            Object.keys(filter.data).map(function (k) {
-              return React.createElement(
-                'option',
-                { value: k },
-                filter.data[k]
-              );
-            })
-          )
-        );
+        return React.createElement(Filter, _extends({ key: key }, _this2.state.filters[key], { setFilter: function (k, v) {
+            return _this2.setFilter(k, v);
+          } }));
       });
 
       // See if this city has a location set
       if (this.state.city && this.state.city.latlng.length === 2) {
-        TabMap = React.createElement(
-          'li',
-          { key: 'tabmap' },
-          React.createElement(
-            'a',
-            { href: '#jw-map', 'data-toggle': 'tab' },
-            'Map'
-          )
-        );
-        CityMapSection = React.createElement(
-          'section',
-          { className: 'tab-pane', id: 'jw-map' },
-          React.createElement(_CityMapJsx2['default'], { walks: this.state.filterMatches, city: this.state.city })
-        );
+        TabMap = {
+          $$typeof: _typeofReactElement,
+          type: 'li',
+          key: 'tabmap',
+          ref: null,
+          props: {
+            children: {
+              $$typeof: _typeofReactElement,
+              type: 'a',
+              key: null,
+              ref: null,
+              props: {
+                children: 'Map',
+                href: '#jw-map',
+                'data-toggle': 'tab'
+              },
+              _owner: null
+            }
+          },
+          _owner: null
+        };
+        CityMapSection = {
+          $$typeof: _typeofReactElement,
+          type: 'section',
+          key: null,
+          ref: null,
+          props: {
+            children: {
+              $$typeof: _typeofReactElement,
+              type: _CityMapJsx2['default'],
+              key: null,
+              ref: null,
+              props: _defaultProps(_CityMapJsx2['default'].defaultProps, {
+                walks: this.state.filterMatches,
+                city: this.state.city
+              }),
+              _owner: null
+            },
+            className: 'tab-pane',
+            id: 'jw-map'
+          },
+          _owner: null
+        };
       }
 
       // Blog link, if we have one
       if (this.state.blog) {
-        TabBlog = React.createElement(
-          'li',
-          { key: 'tb' },
-          React.createElement(
-            'a',
-            { href: this.state.blog, target: '_blank' },
-            'Blog'
-          )
-        );
+        TabBlog = {
+          $$typeof: _typeofReactElement,
+          type: 'li',
+          key: 'tb',
+          ref: null,
+          props: {
+            children: {
+              $$typeof: _typeofReactElement,
+              type: 'a',
+              key: null,
+              ref: null,
+              props: {
+                children: 'Blog',
+                href: this.state.blog,
+                target: '_blank'
+              },
+              _owner: null
+            }
+          },
+          _owner: null
+        };
       }
 
-      return React.createElement(
-        'section',
-        { className: 'ccm-block-page-list-walk-filters' },
-        React.createElement(
-          'div',
-          { className: 'walk-filters' },
-          React.createElement(
-            'ul',
-            { className: 'filters' },
-            Filters,
-            React.createElement(
-              'li',
-              null,
-              React.createElement(
-                'label',
-                null,
-                'Dates'
-              ),
-              React.createElement(DateRange, { value: this.state.dateRange, onChange: this.setDateRange.bind(this) })
-            )
-          ),
-          React.createElement(
-            'ul',
-            { className: 'nav nav-tabs' },
-            React.createElement(
-              'li',
-              null,
-              React.createElement(
-                'a',
-                { href: '#jw-cards', 'data-toggle': 'tab' },
-                'All Walks'
-              )
-            ),
-            React.createElement(
-              'li',
-              null,
-              React.createElement(
-                'a',
-                { href: '#jw-list', 'data-toggle': 'tab' },
-                'List'
-              )
-            ),
-            TabMap,
-            TabBlog
-          ),
-          React.createElement(
-            'div',
-            { className: 'tab-content' },
-            React.createElement(
-              'section',
-              { className: 'tab-pane', id: 'jw-cards' },
-              React.createElement(_WalkCardsJsx2['default'], { walks: this.state.filterMatches })
-            ),
-            React.createElement(
-              'section',
-              { className: 'tab-pane', id: 'jw-list' },
-              React.createElement(_WalkListJsx2['default'], { walks: this.state.filterMatches })
-            ),
-            CityMapSection
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'section',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'ul',
+                key: null,
+                ref: null,
+                props: {
+                  children: [Filters, {
+                    $$typeof: _typeofReactElement,
+                    type: 'li',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: 'Dates'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: DateRange,
+                        key: null,
+                        ref: null,
+                        props: _defaultProps(DateRange.defaultProps, {
+                          value: this.state.dateRange,
+                          onChange: this.setDateRange.bind(this)
+                        }),
+                        _owner: null
+                      }]
+                    },
+                    _owner: null
+                  }],
+                  className: 'filters'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'ul',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'li',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'a',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: 'All Walks',
+                          href: '#jw-cards',
+                          'data-toggle': 'tab'
+                        },
+                        _owner: null
+                      }
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'li',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'a',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: 'List',
+                          href: '#jw-list',
+                          'data-toggle': 'tab'
+                        },
+                        _owner: null
+                      }
+                    },
+                    _owner: null
+                  }, TabMap, TabBlog],
+                  className: 'nav nav-tabs'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'section',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: _WalkCardsJsx2['default'],
+                        key: null,
+                        ref: null,
+                        props: _defaultProps(_WalkCardsJsx2['default'].defaultProps, {
+                          walks: this.state.filterMatches
+                        }),
+                        _owner: null
+                      },
+                      className: 'tab-pane',
+                      id: 'jw-cards'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'section',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: _WalkListJsx2['default'],
+                        key: null,
+                        ref: null,
+                        props: _defaultProps(_WalkListJsx2['default'].defaultProps, {
+                          walks: this.state.filterMatches
+                        }),
+                        _owner: null
+                      },
+                      className: 'tab-pane',
+                      id: 'jw-list'
+                    },
+                    _owner: null
+                  }, CityMapSection],
+                  className: 'tab-content'
+                },
+                _owner: null
+              }],
+              className: 'walk-filters'
+            },
+            _owner: null
+          },
+          className: 'ccm-block-page-list-walk-filters'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -823,8 +1186,8 @@ var DateRange = (function (_React$Component2) {
     value: function componentDidMount() {
       var _this3 = this;
 
-      var $to = $(React.findDOMNode(this.refs.to));
-      var $from = $(React.findDOMNode(this.refs.from));
+      var $to = $(this.refs.to);
+      var $from = $(this.refs.from);
 
       var toTime = undefined;
       var fromTime = undefined;
@@ -858,12 +1221,17 @@ var DateRange = (function (_React$Component2) {
   }, {
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'fieldset',
-        { className: 'daterange' },
-        React.createElement('input', { type: 'text', ref: 'from', placeholder: 'From', value: this.state.from }),
-        React.createElement('input', { type: 'text', ref: 'to', placeholder: 'To', value: this.state.to })
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'fieldset',
+        key: null,
+        ref: null,
+        props: {
+          children: [React.createElement('input', { type: 'text', ref: 'from', placeholder: 'From', value: this.state.from }), React.createElement('input', { type: 'text', ref: 'to', placeholder: 'To', value: this.state.to })],
+          className: 'daterange'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -884,9 +1252,13 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -926,45 +1298,91 @@ var WalkList = (function (_React$Component) {
     key: 'render',
     value: function render() {
       var walks = this.props.walks;
-      return React.createElement(
-        'table',
-        { className: 'walklist table' },
-        React.createElement(
-          'thead',
-          null,
-          React.createElement(
-            'tr',
-            null,
-            React.createElement(
-              'th',
-              null,
-              t('Date')
-            ),
-            React.createElement(
-              'th',
-              null,
-              t('Time')
-            ),
-            React.createElement(
-              'th',
-              null,
-              t('Title')
-            ),
-            React.createElement(
-              'th',
-              null,
-              t('Meeting Place')
-            )
-          )
-        ),
-        React.createElement(
-          'tbody',
-          null,
-          walks.map(function (walk) {
-            return React.createElement(ListItem, { walk: walk });
-          })
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'table',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'thead',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'tr',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Date')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Time')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Title')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Meeting Place')
+                    },
+                    _owner: null
+                  }]
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'tbody',
+            key: null,
+            ref: null,
+            props: {
+              children: walks.map(function (walk) {
+                return {
+                  $$typeof: _typeofReactElement,
+                  type: ListItem,
+                  key: null,
+                  ref: null,
+                  props: _defaultProps(ListItem.defaultProps, {
+                    walk: walk
+                  }),
+                  _owner: null
+                };
+              })
+            },
+            _owner: null
+          }],
+          className: 'walklist table'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -1003,34 +1421,63 @@ var ListItem = (function (_React$Component2) {
         Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
       }
 
-      return React.createElement(
-        'tr',
-        null,
-        React.createElement(
-          'td',
-          null,
-          this.state.startDate
-        ),
-        React.createElement(
-          'td',
-          null,
-          this.state.startTime
-        ),
-        React.createElement(
-          'td',
-          null,
-          React.createElement(
-            'a',
-            { href: this.props.walk.url, target: '_blank' },
-            this.props.walk.title
-          )
-        ),
-        React.createElement(
-          'td',
-          null,
-          Meeting
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'tr',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'td',
+            key: null,
+            ref: null,
+            props: {
+              children: this.state.startDate
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'td',
+            key: null,
+            ref: null,
+            props: {
+              children: this.state.startTime
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'td',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'a',
+                key: null,
+                ref: null,
+                props: {
+                  children: this.props.walk.title,
+                  href: this.props.walk.url,
+                  target: '_blank'
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'td',
+            key: null,
+            ref: null,
+            props: {
+              children: Meeting
+            },
+            _owner: null
+          }]
+        },
+        _owner: null
+      };
     }
   }]);
 

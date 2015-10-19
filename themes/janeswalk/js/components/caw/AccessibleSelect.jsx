@@ -2,7 +2,7 @@
  * Menu to select accessibility requirements
  */
 
-const mixins = require('../../helpers/mixins.jsx');
+import {linkedParentState} from '../../helpers/mixins.jsx';
 
 // Flux
 const t = require('../../stores/I18nStore.js').getTranslate();
@@ -38,4 +38,4 @@ export default class AccessibleSelect extends React.Component {
   }
 }
 
-Object.assign(AccessibleSelect.prototype, mixins.linkedParentState);
+Object.assign(AccessibleSelect.prototype, linkedParentState);

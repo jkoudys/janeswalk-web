@@ -1,18 +1,17 @@
 // Flux
-var t2 = require('../stores/I18nStore.js').getTranslatePlural();
+const t2 = require('../stores/I18nStore.js').getTranslatePlural();
 
 /**
  * Text areas with a 'remaining characters' limit
  */
-export default class TextAreaLimit extends React.Component {
-  render() {
-    const remaining = this.props.maxLength - this.props.valueLink.value.length;
+const TextAreaLimit = props => (
+  <div className="text-area-limit">
+    <textarea {...props} />
+    <span>
+      {t2('%s character remaining', '%s characters remaining',
+          props.maxLength - props.valueLink.value.length)}
+    </span>
+  </div>
+);
 
-    return (
-      <div className="text-area-limit">
-        <textarea {...this.props} />
-        <span>{t2('%s character remaining', '%s characters remaining', remaining)}</span>
-      </div>
-    );
-  }
-}
+export default TextAreaLimit;

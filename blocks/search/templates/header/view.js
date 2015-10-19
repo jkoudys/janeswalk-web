@@ -1,138 +1,297 @@
-document.addEventListener('DOMContentLoaded', function() {
-  var SearchHeaderBlock = React.createClass({displayName: 'SearchHeaderBlock',
-    getInitialState: function() {
-      return {
-        query: '',
-        results: [],
-        paginator: {current_page: 0, number_of_pages: 0}
-      };
-    },
-    getSearchResults: function() {
-      var action = this.props.action;
-      $.ajax({
-        url: action,
-        dataType: 'json',
-        data: { query: this.refs.query.state.value, ccm_paging_p: this.state.paginator.current_page + 1 },
-        success: function(data) {
-          this.setState(data);
-        }.bind(this),
-        error: function(xhr, status, err) {
-          console.error(action, status, err.toString());
-        }.bind(this)
-      });
-    },
-    handleSubmit: function(e) {
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function getSearchResults(action, query, paginator) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', action + '?query=' + encodeURIComponent(query) + '&ccm_paging_p=' + encodeURIComponent(paginator.current_page + 1));
+  xhr.onload = function () {
+    return JanesWalk.event.emit('search.receive', JSON.parse(xhr.response));
+  };
+  xhr.send();
+}
+
+var SearchHeaderBlock = (function (_React$Component) {
+  _inherits(SearchHeaderBlock, _React$Component);
+
+  function SearchHeaderBlock() {
+    var _this = this;
+
+    _classCallCheck(this, SearchHeaderBlock);
+
+    _get(Object.getPrototypeOf(SearchHeaderBlock.prototype), 'constructor', this).call(this);
+    this.state = {
+      query: '',
+      results: [],
+      paginator: { current_page: 0, number_of_pages: 0 }
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePageSelect = this.handlePageSelect.bind(this);
+
+    JanesWalk.event.on('search.receive', function (data) {
+      return _this.setState(data);
+    });
+  }
+
+  _createClass(SearchHeaderBlock, [{
+    key: 'handleSubmit',
+    value: function handleSubmit(e) {
       e.preventDefault();
-      this.getSearchResults();
-    },
-    handlePageSelect: function(pageID) {
-      this.state.paginator.current_page = pageID;
-      this.getSearchResults();
-    },
-    render: function() {
-      return (
-        React.createElement("form", {onSubmit: this.handleSubmit, ref: "search", action: this.props.action, method: "get", className: "ccm-search-block-form", id: "ccm-search-header"}, 
-          React.createElement("input", {name: "search_paths[]", type: "hidden"}), 
-          React.createElement("fieldset", {className: "search"}, 
-            React.createElement(QueryInput, {ref: "query", placeholder: this.props.placeholder}), 
-            React.createElement("button", {type: "submit"}, "Go")
-          ), 
-          React.createElement(SearchResults, {results: this.state.results, paginator: this.state.paginator, onPageSelect: this.handlePageSelect})
-        )
-      );
+      getSearchResults(this.props.action, this.state.query, this.state.paginator.current_page + 1);
     }
-  });
+  }, {
+    key: 'handlePageSelect',
+    value: function handlePageSelect(pageID) {
+      getSearchResults(this.props.action, this.state.query, pageID + 1);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
 
-  var QueryInput = React.createClass({displayName: 'QueryInput',
-    getDefaultProps: function() {
       return {
-        value: ''
+        $$typeof: _typeofReactElement,
+        type: 'form',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'input',
+            key: null,
+            ref: null,
+            props: {
+              name: 'search_paths[]',
+              type: 'hidden'
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'fieldset',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: QueryInput,
+                key: null,
+                ref: null,
+                props: _defaultProps(QueryInput.defaultProps, {
+                  placeholder: this.props.placeholder,
+                  value: this.state.query,
+                  onChange: function (e) {
+                    return _this2.setState({ query: e.target.value });
+                  }
+                }),
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'button',
+                key: null,
+                ref: null,
+                props: {
+                  children: 'Go',
+                  type: 'submit'
+                },
+                _owner: null
+              }],
+              className: 'search'
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: SearchResults,
+            key: null,
+            ref: null,
+            props: _defaultProps(SearchResults.defaultProps, {
+              results: this.state.results,
+              paginator: this.state.paginator,
+              onPageSelect: this.handlePageSelect
+            }),
+            _owner: null
+          }],
+          onSubmit: this.handleSubmit,
+          action: this.props.action,
+          method: 'get',
+          className: 'ccm-search-block-form',
+          id: 'ccm-search-header'
+        },
+        _owner: null
       };
-    },
-    getInitialState: function() {
-      return {value: this.props.value};
-    },
-    handleChange: function(e) {
-      this.setState({value: e.target.value});
-    },
-    render: function() {
-      return (
-        React.createElement("input", {type: "text", className: "ccm-search-block-text", placeholder: this.props.placeholder, value: this.state.value, onChange: this.handleChange})
-      );
     }
-  });
+  }]);
 
-  var SearchResults = React.createClass({displayName: 'SearchResults',
-    render: function() {
-      var results = this.props.results;
+  return SearchHeaderBlock;
+})(React.Component);
 
-      return (
-        React.createElement("div", {id: "searchResults"}, 
-          results.map(function(result) {
-            return React.createElement(SearchResult, {href: result.url, name: result.name, description: result.description});
-          }), 
-          React.createElement(SearchPagination, React.__spread({},  this.props))
-        )
-      );
-    }
-  });
+var QueryInput = function QueryInput(props) {
+  return React.createElement('input', _extends({ type: 'text', className: 'ccm-search-block-text' }, props));
+};
 
-  var SearchResult = React.createClass({displayName: 'SearchResult',
-    render: function() {
-      return (
-        React.createElement("a", {href: this.props.href}, 
-          React.createElement("div", {className: "searchResult"}, 
-            React.createElement("h4", null, this.props.name), 
-            React.createElement("p", null, 
-              this.props.description
-            )
-          )
-        )
-      );
-    }
-  });
+var SearchResults = function SearchResults(props) {
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'div',
+    key: null,
+    ref: null,
+    props: {
+      children: [props.results.map(function (result) {
+        return {
+          $$typeof: _typeofReactElement,
+          type: SearchResult,
+          key: null,
+          ref: null,
+          props: _defaultProps(SearchResult.defaultProps, {
+            href: result.url,
+            name: result.name,
+            description: result.description
+          }),
+          _owner: null
+        };
+      }), ';', React.createElement(SearchPagination, props)],
+      id: 'searchResults'
+    },
+    _owner: null
+  };
+};
 
-  var SearchPagination = React.createClass({displayName: 'SearchPagination',
-    render: function() {
-      var pages = [];
-      var paginator = this.props.paginator;
-      for (var i = 0, classes = ['numbers'], number; i < paginator.number_of_pages; i++) {
-        if (i === this.props.paginator.current_page) {
-          classes.push('currentPage');
-          classes.push('active');
-          number = React.createElement("strong", null, i + 1);
-        } else {
-          number = React.createElement(SearchPageLink, {page: i, onClick: this.props.onPageSelect});
-        }
-        pages.push(React.createElement("span", {className: classes}, number));
+var SearchResult = function SearchResult(props) {
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'a',
+    key: null,
+    ref: null,
+    props: {
+      children: {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'h4',
+            key: null,
+            ref: null,
+            props: {
+              children: props.name
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'p',
+            key: null,
+            ref: null,
+            props: {
+              children: props.description
+            },
+            _owner: null
+          }],
+          className: 'searchResult'
+        },
+        _owner: null
+      },
+      href: props.href
+    },
+    _owner: null
+  };
+};
+
+var SearchPagination = function SearchPagination(props) {
+  var pages = [];
+  var classes = ['numbers'];
+
+  var _loop = function (i, _number) {
+    if (i === props.paginator.current_page) {
+      classes.push('currentPage');
+      classes.push('active');
+      _number = {
+        $$typeof: _typeofReactElement,
+        type: 'strong',
+        key: null,
+        ref: null,
+        props: {
+          children: i + 1
+        },
+        _owner: null
       };
-
-      if (pages.length) {
-        return (
-          React.createElement("div", {className: "ccm-pagination"}, 
-             pages
-          )
-        );
-      } else {
-        return null;
-      }
+    } else {
+      _number = {
+        $$typeof: _typeofReactElement,
+        type: 'a',
+        key: null,
+        ref: null,
+        props: {
+          children: i + 1,
+          onClick: function () {
+            return undefined.props.onPageSelect(+i);
+          }
+        },
+        _owner: null
+      };
     }
-  });
+    pages.push({
+      $$typeof: _typeofReactElement,
+      type: 'span',
+      key: null,
+      ref: null,
+      props: {
+        children: _number,
+        className: classes
+      },
+      _owner: null
+    });
+    number = _number;
+  };
 
-  var SearchPageLink = React.createClass({displayName: 'SearchPageLink',
-    getInitialState: function() {
-      return {page: -1};
+  for (var i = 0, number = undefined; i < props.paginator.number_of_pages; i++) {
+    _loop(i, number);
+  }
+
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'div',
+    key: null,
+    ref: null,
+    props: {
+      children: pages,
+      className: 'ccm-pagination'
     },
-    handleClick: function() {
-      this.props.onClick(this.state.page);
-    },
-    render: function() {
-      this.state.page = parseInt(this.props.page);
-      return (
-        React.createElement("a", {onClick: this.handleClick}, this.state.page + 1)
-      );
-    }
-  });
-  var sbf = document.querySelector('.ccm-search-block-form');
-  React.render(React.createElement(SearchHeaderBlock, {action: sbf.dataset.action, placeholder: sbf.dataset.placeholder}), sbf);
+    _owner: null
+  };
+};
+
+/**
+ * Bind our event listener
+ */
+JanesWalk.event.on('search.init', function (id, props) {
+  var sbf = document.getElementById(id);
+  React.render({
+    $$typeof: _typeofReactElement,
+    type: SearchHeaderBlock,
+    key: null,
+    ref: null,
+    props: _defaultProps(SearchHeaderBlock.defaultProps, {
+      id: 'id',
+      action: props.action,
+      placeholder: props.placeholder
+    }),
+    _owner: null
+  }, sbf);
 });
+
+
+},{}]},{},[1]);

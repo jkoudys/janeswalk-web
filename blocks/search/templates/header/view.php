@@ -1,3 +1,9 @@
-<?php  defined('C5_EXECUTE') || die('Access Denied.'); ?>
-<?= $error ?: null ?>
-<div class="ccm-search-block-form" data-placeholder="<?= $title ?>" data-action="<?= $this->action('resultsJson') ?>"></div>
+<?php
+echo $error ?: null;
+
+echo <<< EOT
+<div id="b{$bID}" class="ccm-search-block-form"></div>
+<script type="text/javascript">
+    JanesWalk.event.emit('search.init', 'b{$bID}', {placeholder: '{$title}', action: '{$this->action('resultsJson')}'});
+</script>
+EOT;

@@ -7,7 +7,11 @@
 // Translations for i18n L10n
 'use strict';
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 var _utilsI18nUtilsJs = require('./utils/I18nUtils.js');
 
@@ -69,7 +73,16 @@ function routePage() {
 
   try {
     // Render modals we need on each page
-    var loginEl = React.createElement(Login, { socialLogin: (JanesWalk.stacks || { "Social Logins": "" })['Social Logins'] });
+    var loginEl = {
+      $$typeof: _typeofReactElement,
+      type: Login,
+      key: null,
+      ref: null,
+      props: _defaultProps(Login.defaultProps, {
+        socialLogin: (JanesWalk.stacks || { "Social Logins": "" })['Social Logins']
+      }),
+      _owner: null
+    };
 
     // FIXME: once site's all-react, move this out of the JanesWalk object. Don't follow this approach
     // or we'll end up with massive spaghetti.
@@ -85,13 +98,20 @@ function routePage() {
     if (ReactView) {
       switch (pageViewName) {
         case 'CreateWalkView':
-          React.render(React.createElement(ReactView, {
-            data: JanesWalk.walk.data,
-            city: JanesWalk.city,
-            user: JanesWalk.user,
-            url: JanesWalk.walk.url,
-            valt: JanesWalk.form.valt
-          }), document.getElementById('createwalk'));
+          React.render({
+            $$typeof: _typeofReactElement,
+            type: ReactView,
+            key: null,
+            ref: null,
+            props: _defaultProps(ReactView.defaultProps, {
+              data: JanesWalk.walk.data,
+              city: JanesWalk.city,
+              user: JanesWalk.user,
+              url: JanesWalk.walk.url,
+              valt: JanesWalk.form.valt
+            }),
+            _owner: null
+          }, document.getElementById('createwalk'));
           break;
       }
     } else {
@@ -769,22 +789,67 @@ module.exports = {
 
 
 },{"../constants/JWConstants.js":37,"../dispatcher/AppDispatcher.js":38}],8:[function(require,module,exports){
-'use strict';
 // Create a Walk
 //
 // Form for creating new walks. Includes a map builder, team builder, scheduler
 //
 
 // Load create-a-walk View components
-var ImageUpload = require('./caw/ImageUpload.jsx');
-var ThemeSelect = require('./caw/ThemeSelect.jsx');
-var MapBuilder = require('./caw/MapBuilder.jsx');
-var DateSelect = require('./caw/DateSelect.jsx');
-var WardSelect = require('./caw/WardSelect.jsx');
-var AccessibleSelect = require('./caw/AccessibleSelect.jsx');
-var TeamBuilder = require('./caw/TeamBuilder.jsx');
-var WalkPublish = require('./caw/WalkPublish.jsx');
-var TextAreaLimit = require('./TextAreaLimit.jsx');
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _cawImageUploadJsx = require('./caw/ImageUpload.jsx');
+
+var _cawImageUploadJsx2 = _interopRequireDefault(_cawImageUploadJsx);
+
+var _cawThemeSelectJsx = require('./caw/ThemeSelect.jsx');
+
+var _cawThemeSelectJsx2 = _interopRequireDefault(_cawThemeSelectJsx);
+
+var _cawMapBuilderJsx = require('./caw/MapBuilder.jsx');
+
+var _cawMapBuilderJsx2 = _interopRequireDefault(_cawMapBuilderJsx);
+
+var _cawDateSelectJsx = require('./caw/DateSelect.jsx');
+
+var _cawDateSelectJsx2 = _interopRequireDefault(_cawDateSelectJsx);
+
+var _cawWardSelectJsx = require('./caw/WardSelect.jsx');
+
+var _cawWardSelectJsx2 = _interopRequireDefault(_cawWardSelectJsx);
+
+var _cawAccessibleSelectJsx = require('./caw/AccessibleSelect.jsx');
+
+var _cawAccessibleSelectJsx2 = _interopRequireDefault(_cawAccessibleSelectJsx);
+
+var _cawTeamBuilderJsx = require('./caw/TeamBuilder.jsx');
+
+var _cawTeamBuilderJsx2 = _interopRequireDefault(_cawTeamBuilderJsx);
+
+var _cawWalkPublishJsx = require('./caw/WalkPublish.jsx');
+
+var _cawWalkPublishJsx2 = _interopRequireDefault(_cawWalkPublishJsx);
+
+var _TextAreaLimitJsx = require('./TextAreaLimit.jsx');
+
+var _TextAreaLimitJsx2 = _interopRequireDefault(_TextAreaLimitJsx);
 
 // Flux
 var I18nStore = require('../stores/I18nStore.js');
@@ -795,13 +860,14 @@ var I18nActions = require('../actions/I18nActions.js');
 // Helpers
 var Helper = require('../helpers/helpers.jsx');
 
-var CreateWalk = React.createClass({
-  displayName: 'CreateWalk',
+var CreateWalk = (function (_React$Component) {
+  _inherits(CreateWalk, _React$Component);
 
-  mixins: [React.addons.LinkedStateMixin],
+  function CreateWalk(props) {
+    _classCallCheck(this, CreateWalk);
 
-  getInitialState: function getInitialState() {
-    var data = this.props.data;
+    _get(Object.getPrototypeOf(CreateWalk.prototype), 'constructor', this).call(this);
+    var data = props.data;
     // TODO: move this into its own model js
     // Keep these defaults to type, ie don't pre-seed data here, aside from
     // data loaded by passing it in
@@ -837,7 +903,7 @@ var CreateWalk = React.createClass({
       checkboxes: {},
       notifications: [],
       mirrors: {},
-      url: this.props.url
+      url: props.url
     };
 
     // Convert old {0: marker, 1: marker} indexing to a proper array
@@ -867,7 +933,7 @@ var CreateWalk = React.createClass({
       // Init the leader as creator, if none set
       data.team = data.team || [];
       if (data.team.length === 0) {
-        var user = this.props.user;
+        var user = props.user;
         data.team = [{
           type: 'you',
           "name-first": user.firstName,
@@ -884,516 +950,1224 @@ var CreateWalk = React.createClass({
       }
       Object.assign(walk, data);
     }
-    return walk;
-  },
 
-  saveWalk: function saveWalk(options, cb) {
-    // TODO: separate the notifications logic
-    /* Send in the updated walk to save, but keep working */
-    var notifications = this.state.notifications.slice();
-    var removeNotice = (function () {
+    this.state = walk;
+  }
+
+  // Mixins
+
+  _createClass(CreateWalk, [{
+    key: 'saveWalk',
+    value: function saveWalk(options, cb) {
+      var _this = this;
+
+      // TODO: separate the notifications logic
+      /* Send in the updated walk to save, but keep working */
       var notifications = this.state.notifications.slice();
-      this.setState({ notifications: notifications.slice(1) });
-    }).bind(this);
+      var removeNotice = function removeNotice() {
+        var notifications = _this.state.notifications.slice();
+        _this.setState({ notifications: notifications.slice(1) });
+      };
 
-    var defaultOptions = {
-      messageTimeout: 1200
-    };
-    options = options || {};
+      var defaultOptions = {
+        messageTimeout: 1200
+      };
+      options = Object.assign({}, defaultOptions, options);
 
-    notifications.push({ type: 'info', name: 'Saving walk' });
+      notifications.push({ type: 'info', name: 'Saving walk' });
 
-    // Build a simplified map from the Google objects
-    this.setState({
-      map: this.refs.mapBuilder.getStateSimple(),
-      notifications: notifications
-    }, (function () {
-      $.ajax({
-        url: this.state.url,
-        type: options.publish ? 'PUT' : 'POST',
-        data: { json: JSON.stringify(this.state) },
-        dataType: 'json',
-        success: (function (data) {
-          var notifications = this.state.notifications.slice();
-          notifications.push({ type: 'success', name: 'Walk saved' });
-          this.setState({ notifications: notifications, url: data.url || this.state.url }, function () {
-            if (cb && cb instanceof Function) {
-              // The 'this' in each callback should be the <CreateWalk>
-              cb.call(this);
-            }
-          });
-          setTimeout(removeNotice, 1200);
-        }).bind(this),
-        error: (function (xhr, status, err) {
-          var notifications = this.state.notifications.slice();
-          notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
-          this.setState({ notifications: notifications });
-          setTimeout(removeNotice, 6000);
-          console.error(this.url, status, err.toString());
-        }).bind(this)
+      // Build a simplified map from the Google objects
+      this.setState({
+        map: this.refs.mapBuilder.getStateSimple(),
+        notifications: notifications
+      }, function () {
+        $.ajax({
+          url: _this.state.url,
+          type: options.publish ? 'PUT' : 'POST',
+          data: { json: JSON.stringify(_this.state) },
+          dataType: 'json',
+          success: (function (data) {
+            var notifications = this.state.notifications.slice();
+            notifications.push({ type: 'success', name: 'Walk saved' });
+            this.setState({ notifications: notifications, url: data.url || this.state.url }, function () {
+              if (cb && cb instanceof Function) {
+                // The 'this' in each callback should be the <CreateWalk>
+                cb.call(this);
+              }
+            });
+            setTimeout(removeNotice, 1200);
+          }).bind(_this),
+          error: (function (xhr, status, err) {
+            var notifications = this.state.notifications.slice();
+            notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
+            this.setState({ notifications: notifications });
+            setTimeout(removeNotice, 6000);
+            console.error(this.url, status, err.toString());
+          }).bind(_this)
+        });
       });
-    }).bind(this));
-    setTimeout(removeNotice, 1200);
-  },
-
-  handleNext: function handleNext() {
-    // Bootstrap's managing the tabs, so trigger a jQuery click on the next
-    var next = $('#progress-panel > .nav > li.active + li > a');
-    window.scrollTo(0, 0);
-    if (next.length) {
-      this.saveWalk();
-      next.trigger('click');
-    } else {
-      // If no 'next' tab, next step is to publish
-      $(this.refs.publish.getDOMNode()).trigger('click');
+      setTimeout(removeNotice, 1200);
     }
-  },
+  }, {
+    key: 'handleNext',
+    value: function handleNext() {
+      // Bootstrap's managing the tabs, so trigger a jQuery click on the next
+      var next = $('#progress-panel > .nav > li.active + li > a');
+      window.scrollTo(0, 0);
+      if (next.length) {
+        this.saveWalk();
+        next.trigger('click');
+      } else {
+        // If no 'next' tab, next step is to publish
+        $(React.findDOMNode(this.refs.publish)).trigger('click');
+      }
+    }
+  }, {
+    key: 'handleSave',
+    value: function handleSave() {
+      this.saveWalk();
+    }
+  }, {
+    key: 'handlePublish',
+    value: function handlePublish() {
+      this.saveWalk({ publish: true }, function () {
+        return console.log('Walk published');
+      });
+    }
+  }, {
+    key: 'handlePreview',
+    value: function handlePreview(e) {
+      var _this2 = this;
 
-  handleSave: function handleSave() {
-    this.saveWalk();
-  },
+      this.saveWalk({}, function () {
+        return _this2.setState({ preview: true });
+      });
+    }
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      I18nStore.addChangeListener(this._onChange.bind(this));
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      I18nStore.removeChangeListener(this._onChange.bind(this));
+    }
 
-  handlePublish: function handlePublish() {
-    this.saveWalk({ publish: true }, function () {
-      console.log('Walk published');
-    });
-  },
+    // Simple trigger to re-render the components
+  }, {
+    key: '_onChange',
+    value: function _onChange() {
+      this.setState({});
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this3 = this;
 
-  handlePreview: function handlePreview(e) {
-    var _this = this;
-    this.saveWalk({}, function () {
-      _this.setState({ preview: true });
-    });
-  },
+      // Used to let the map pass a callback
+      var linkStateMap = {
+        value: this.state.map,
+        requestChange: function requestChange(newVal, cb) {
+          _this3.setState({ map: newVal }, cb);
+        }
+      };
 
-  componentWillMount: function componentWillMount() {
-    I18nStore.addChangeListener(this._onChange.bind(this));
-  },
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'main',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'section',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'nav',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'ul',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'li',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-list-ol'
+                                },
+                                _owner: null
+                              }, t('Describe Your Walk')],
+                              'data-toggle': 'tab',
+                              className: 'description',
+                              href: '#description'
+                            },
+                            _owner: null
+                          },
+                          className: 'active'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'li',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-map-marker'
+                                },
+                                _owner: null
+                              }, t('Share Your Route')],
+                              'data-toggle': 'tab',
+                              className: 'route',
+                              href: '#route'
+                            },
+                            _owner: null
+                          }
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'li',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-calendar'
+                                },
+                                _owner: null
+                              }, t('Set the Time & Date')],
+                              'data-toggle': 'tab',
+                              className: 'time-and-date',
+                              href: '#time-and-date'
+                            },
+                            _owner: null
+                          }
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'li',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-flag'
+                                },
+                                _owner: null
+                              }, t('Make it Accessible')],
+                              'data-toggle': 'tab',
+                              className: 'accessibility',
+                              href: '#accessibility'
+                            },
+                            _owner: null
+                          }
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'li',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-users'
+                                },
+                                _owner: null
+                              }, t('Build Your Team')],
+                              'data-toggle': 'tab',
+                              className: 'team',
+                              href: '#team'
+                            },
+                            _owner: null
+                          }
+                        },
+                        _owner: null
+                      }],
+                      className: 'nav nav-tabs'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'section',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'button',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Preview Walk'),
+                          className: 'btn btn-info btn-preview',
+                          id: 'preview-walk',
+                          title: 'Preview what you have so far.',
+                          onClick: this.handlePreview
+                        },
+                        _owner: null
+                      }, React.createElement(
+                        'button',
+                        { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: (function () {
+                            this.setState({ publish: true });
+                          }).bind(this), ref: 'publish' },
+                        t('Publish Walk')
+                      ), {
+                        $$typeof: _typeofReactElement,
+                        type: 'button',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Save'),
+                          className: 'btn btn-info save',
+                          title: 'Save',
+                          id: 'btn-save',
+                          onClick: this.handleSave
+                        },
+                        _owner: null
+                      }],
+                      id: 'button-group'
+                    },
+                    _owner: null
+                  }],
+                  id: 'progress-panel'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'div',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'img',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      id: 'convo-marker',
+                                      src: CCM_THEME_PATH + '/img/jw-intro-graphic.svg',
+                                      alt: 'Jane\'s Walks are walking conversations.'
+                                    },
+                                    _owner: null
+                                  },
+                                  className: 'col-md-4'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'div',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'h1',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: t('Hey there, %s!', this.props.user.firstName)
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'p',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.')
+                                    },
+                                    _owner: null
+                                  }],
+                                  className: 'col-md-8'
+                                },
+                                _owner: null
+                              }],
+                              className: 'walk-submit lead clearfix'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'h1',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: t('Describe Your Walk')
+                                },
+                                _owner: null
+                              },
+                              className: 'page-header',
+                              'data-section': 'description'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'form',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'fieldset',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'label',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: t('Walk Title'),
+                                          htmlFor: 'title'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'div',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: t('Something short and memorable.'),
+                                          className: 'alert alert-info'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'input',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          type: 'text',
+                                          valueLink: this.linkState('title')
+                                        },
+                                        _owner: null
+                                      }],
+                                      className: 'item required'
+                                    },
+                                    _owner: null
+                                  }
+                                },
+                                _owner: null
+                              }
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: _cawImageUploadJsx2['default'],
+                            key: null,
+                            ref: null,
+                            props: _defaultProps(_cawImageUploadJsx2['default'].defaultProps, {
+                              valueLink: this.linkState('thumbnails'),
+                              valt: this.props.valt
+                            }),
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'form',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'hr',
+                                key: null,
+                                ref: null,
+                                props: {},
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'fieldset',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'label',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: t('Your Walk in a Nutshell'),
+                                          htmlFor: 'shortdescription'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'div',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: t('Build intrigue! This is what people see when browsing our walk listings.'),
+                                          className: 'alert alert-info'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: _TextAreaLimitJsx2['default'],
+                                        key: null,
+                                        ref: null,
+                                        props: _defaultProps(_TextAreaLimitJsx2['default'].defaultProps, {
+                                          id: 'shortdescription',
+                                          name: 'shortdescription',
+                                          rows: '6',
+                                          maxLength: '140',
+                                          valueLink: this.linkState('shortDescription'),
+                                          required: true
+                                        }),
+                                        _owner: null
+                                      }],
+                                      className: 'item required'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'hr',
+                                    key: null,
+                                    ref: null,
+                                    props: {},
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'label',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: t('Walk Description'),
+                                          htmlFor: 'longdescription',
+                                          id: 'longwalkdescription'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'div',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.'),
+                                          className: 'alert alert-info'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'textarea',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          id: 'longdescription',
+                                          name: 'longdescription',
+                                          rows: '14',
+                                          valueLink: this.linkState('longDescription')
+                                        },
+                                        _owner: null
+                                      }],
+                                      className: 'item required'
+                                    },
+                                    _owner: null
+                                  }]
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: _cawThemeSelectJsx2['default'],
+                                key: null,
+                                ref: null,
+                                props: _defaultProps(_cawThemeSelectJsx2['default'].defaultProps, {
+                                  valueLink: this.linkState('checkboxes')
+                                }),
+                                _owner: null
+                              }, (this.props.city.wards || []).length > 0 ? {
+                                $$typeof: _typeofReactElement,
+                                type: _cawWardSelectJsx2['default'],
+                                key: null,
+                                ref: null,
+                                props: _defaultProps(_cawWardSelectJsx2['default'].defaultProps, {
+                                  wards: this.props.city.wards,
+                                  valueLink: this.linkState('wards')
+                                }),
+                                _owner: null
+                              } : null, {
+                                $$typeof: _typeofReactElement,
+                                type: 'hr',
+                                key: null,
+                                ref: null,
+                                props: {},
+                                _owner: null
+                              }]
+                            },
+                            _owner: null
+                          }],
+                          className: 'tab-pane active',
+                          id: 'description'
+                        },
+                        _owner: null
+                      }, React.createElement(_cawMapBuilderJsx2['default'], { ref: 'mapBuilder', valueLink: linkStateMap, city: this.props.city }), {
+                        $$typeof: _typeofReactElement,
+                        type: _cawDateSelectJsx2['default'],
+                        key: null,
+                        ref: null,
+                        props: _defaultProps(_cawDateSelectJsx2['default'].defaultProps, {
+                          valueLink: this.linkState('time')
+                        }),
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'h1',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: t('Make it Accessible')
+                                },
+                                _owner: null
+                              },
+                              className: 'page-header',
+                              'data-section': 'accessibility'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: _cawAccessibleSelectJsx2['default'],
+                                key: null,
+                                ref: null,
+                                props: _defaultProps(_cawAccessibleSelectJsx2['default'].defaultProps, {
+                                  valueLink: this.linkState('checkboxes')
+                                }),
+                                _owner: null
+                              },
+                              className: 'item'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'fieldset',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'legend',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [t('What else do people need to know about the accessibility of this walk?'), ' (', t('Optional'), ')']
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: _TextAreaLimitJsx2['default'],
+                                    key: null,
+                                    ref: null,
+                                    props: _defaultProps(_TextAreaLimitJsx2['default'].defaultProps, {
+                                      name: 'accessible-info',
+                                      rows: '3',
+                                      maxLength: '500',
+                                      valueLink: this.linkState('accessibleInfo')
+                                    }),
+                                    _owner: null
+                                  }]
+                                },
+                                _owner: null
+                              },
+                              className: 'item'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'fieldset',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'legend',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [t('How can someone get to the meeting spot by public transit?'), ' (', t('Optional'), ')'],
+                                      id: 'transit'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: t('Nearest subway stop, closest bus or streetcar lines, etc.'),
+                                      className: 'alert alert-info'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'textarea',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      rows: '3',
+                                      name: 'accessible-transit',
+                                      valueLink: this.linkState('accessibleTransit')
+                                    },
+                                    _owner: null
+                                  }]
+                                },
+                                _owner: null
+                              },
+                              className: 'item'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'fieldset',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'legend',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [t('Where are the nearest places to park?'), ' (', t('Optional'), ')']
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'textarea',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      rows: '3',
+                                      name: 'accessible-parking',
+                                      valueLink: this.linkState('accessibleParking')
+                                    },
+                                    _owner: null
+                                  }]
+                                },
+                                _owner: null
+                              },
+                              className: 'item'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'fieldset',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'legend',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: t('How will people find you?'),
+                                      className: 'required-legend'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.'),
+                                      className: 'alert alert-info'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'textarea',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      rows: '3',
+                                      name: 'accessible-find',
+                                      valueLink: this.linkState('accessibleFind')
+                                    },
+                                    _owner: null
+                                  }]
+                                },
+                                _owner: null
+                              },
+                              className: 'item'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'hr',
+                            key: null,
+                            ref: null,
+                            props: {},
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'br',
+                            key: null,
+                            ref: null,
+                            props: {},
+                            _owner: null
+                          }],
+                          className: 'tab-pane',
+                          id: 'accessibility'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: _cawTeamBuilderJsx2['default'],
+                        key: null,
+                        ref: null,
+                        props: _defaultProps(_cawTeamBuilderJsx2['default'].defaultProps, {
+                          valueLink: this.linkState('team')
+                        }),
+                        _owner: null
+                      }],
+                      className: 'tab-content'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'button',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: 'Next',
+                      type: 'button',
+                      onClick: this.handleNext,
+                      className: 'btn'
+                    },
+                    _owner: null
+                  }],
+                  id: 'main-panel',
+                  role: 'main'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'aside',
+                key: null,
+                ref: null,
+                props: {
+                  children: {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'h3',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'i',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'fa fa-envelope'
+                            },
+                            _owner: null
+                          }, t('Contact City Organizer for help')],
+                          className: 'popover-title',
+                          'data-toggle': 'collapse',
+                          'data-target': '#popover-content'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [this.props.city.cityOrganizer.photo ? {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'u-avatar',
+                              style: { backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')' }
+                            },
+                            _owner: null
+                          } : null, {
+                            $$typeof: _typeofReactElement,
+                            type: 'p',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name), ' ', {
+                                $$typeof: _typeofReactElement,
+                                type: 'strong',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'a',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [t('email me'), '!'],
+                                      href: 'mailto:' + this.props.city.cityOrganizer.email
+                                    },
+                                    _owner: null
+                                  }
+                                },
+                                _owner: null
+                              }]
+                            },
+                            _owner: null
+                          }],
+                          className: 'popover-content collapse in',
+                          id: 'popover-content'
+                        },
+                        _owner: null
+                      }],
+                      className: 'popover right',
+                      id: 'city-organizer',
+                      style: { display: 'block' }
+                    },
+                    _owner: null
+                  },
+                  id: 'tips-panel',
+                  role: 'complementary'
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          }, this.state.publish ? {
+            $$typeof: _typeofReactElement,
+            type: _cawWalkPublishJsx2['default'],
+            key: null,
+            ref: null,
+            props: _defaultProps(_cawWalkPublishJsx2['default'].defaultProps, {
+              url: this.state.url,
+              saveWalk: this.saveWalk.bind(this),
+              close: this.setState.bind(this, { publish: false }),
+              city: this.props.city,
+              mirrors: this.state.mirrors
+            }),
+            _owner: null
+          } : null, this.state.preview ? {
+            $$typeof: _typeofReactElement,
+            type: WalkPreview,
+            key: null,
+            ref: null,
+            props: _defaultProps(WalkPreview.defaultProps, {
+              url: this.state.url,
+              close: this.setState.bind(this, { preview: false })
+            }),
+            _owner: null
+          } : null, {
+            $$typeof: _typeofReactElement,
+            type: 'aside',
+            key: null,
+            ref: null,
+            props: {
+              children: this.state.notifications.map(function (note) {
+                return {
+                  $$typeof: _typeofReactElement,
+                  type: 'div',
+                  key: note.message,
+                  ref: null,
+                  props: {
+                    children: [{
+                      $$typeof: _typeofReactElement,
+                      type: 'strong',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: [note.name || '', ': ']
+                      },
+                      _owner: null
+                    }, note.message || ''],
+                    className: 'alert alert-' + note.type
+                  },
+                  _owner: null
+                };
+              }),
+              id: 'notifications'
+            },
+            _owner: null
+          }],
+          id: 'create-walk'
+        },
+        _owner: null
+      };
+    }
+  }]);
 
-  componentWillUnmount: function componentWillUnmount() {
-    I18nStore.removeChangeListener(this._onChange.bind(this));
-  },
+  return CreateWalk;
+})(React.Component);
 
-  // Simple trigger to re-render the components
-  _onChange: function _onChange() {
-    this.setState({});
-  },
+exports['default'] = CreateWalk;
+Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin), (function (_React$Component2) {
+  _inherits(WalkPreview, _React$Component2);
 
-  render: function render() {
-    // Used to let the map pass a callback
-    var linkStateMap = {
-      value: this.state.map,
-      requestChange: (function (newVal, cb) {
-        this.setState({ map: newVal }, cb);
-      }).bind(this)
-    };
+  function WalkPreview() {
+    _classCallCheck(this, WalkPreview);
 
-    return React.createElement(
-      'main',
-      { id: 'create-walk' },
-      React.createElement(
-        'section',
-        null,
-        React.createElement(
-          'nav',
-          { id: 'progress-panel' },
-          React.createElement(
-            'ul',
-            { className: 'nav nav-tabs' },
-            React.createElement(
-              'li',
-              { className: 'active' },
-              React.createElement(
-                'a',
-                { 'data-toggle': 'tab', className: 'description', href: '#description' },
-                React.createElement('i', { className: 'fa fa-list-ol' }),
-                t('Describe Your Walk')
-              )
-            ),
-            React.createElement(
-              'li',
-              null,
-              React.createElement(
-                'a',
-                { 'data-toggle': 'tab', className: 'route', href: '#route' },
-                React.createElement('i', { className: 'fa fa-map-marker' }),
-                t('Share Your Route')
-              )
-            ),
-            React.createElement(
-              'li',
-              null,
-              React.createElement(
-                'a',
-                { 'data-toggle': 'tab', className: 'time-and-date', href: '#time-and-date' },
-                React.createElement('i', { className: 'fa fa-calendar' }),
-                t('Set the Time & Date')
-              )
-            ),
-            React.createElement(
-              'li',
-              null,
-              React.createElement(
-                'a',
-                { 'data-toggle': 'tab', className: 'accessibility', href: '#accessibility' },
-                React.createElement('i', { className: 'fa fa-flag' }),
-                t('Make it Accessible')
-              )
-            ),
-            React.createElement(
-              'li',
-              null,
-              React.createElement(
-                'a',
-                { 'data-toggle': 'tab', className: 'team', href: '#team' },
-                React.createElement('i', { className: 'fa fa-users' }),
-                t('Build Your Team')
-              )
-            )
-          ),
-          React.createElement(
-            'section',
-            { id: 'button-group' },
-            React.createElement(
-              'button',
-              { className: 'btn btn-info btn-preview', id: 'preview-walk', title: 'Preview what you have so far.', onClick: this.handlePreview },
-              t('Preview Walk')
-            ),
-            React.createElement(
-              'button',
-              { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: (function () {
-                  this.setState({ publish: true });
-                }).bind(this), ref: 'publish' },
-              t('Publish Walk')
-            ),
-            React.createElement(
-              'button',
-              { className: 'btn btn-info save', title: 'Save', id: 'btn-save', onClick: this.handleSave },
-              t('Save')
-            )
-          )
-        ),
-        React.createElement(
-          'div',
-          { id: 'main-panel', role: 'main' },
-          React.createElement(
-            'div',
-            { className: 'tab-content' },
-            React.createElement(
-              'div',
-              { className: 'tab-pane active', id: 'description' },
-              React.createElement(
-                'div',
-                { className: 'walk-submit lead clearfix' },
-                React.createElement(
-                  'div',
-                  { className: 'col-md-4' },
-                  React.createElement('img', { id: 'convo-marker', src: CCM_THEME_PATH + '/img/jw-intro-graphic.svg', alt: 'Jane\'s Walks are walking conversations.' })
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'col-md-8' },
-                  React.createElement(
-                    'h1',
-                    null,
-                    t('Hey there, %s!', this.props.user.firstName)
-                  ),
-                  React.createElement(
-                    'p',
-                    null,
-                    t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.')
-                  )
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'page-header', 'data-section': 'description' },
-                React.createElement(
-                  'h1',
-                  null,
-                  t('Describe Your Walk')
-                )
-              ),
-              React.createElement(
-                'form',
-                null,
-                React.createElement(
-                  'fieldset',
-                  null,
-                  React.createElement(
-                    'div',
-                    { className: 'item required' },
-                    React.createElement(
-                      'label',
-                      { htmlFor: 'title' },
-                      t('Walk Title')
-                    ),
-                    React.createElement(
-                      'div',
-                      { className: 'alert alert-info' },
-                      t('Something short and memorable.')
-                    ),
-                    React.createElement('input', { type: 'text', valueLink: this.linkState('title') })
-                  )
-                )
-              ),
-              React.createElement(ImageUpload, { valueLink: this.linkState('thumbnails'), valt: this.props.valt }),
-              React.createElement(
-                'form',
-                null,
-                React.createElement('hr', null),
-                React.createElement(
-                  'fieldset',
-                  null,
-                  React.createElement(
-                    'div',
-                    { className: 'item required' },
-                    React.createElement(
-                      'label',
-                      { htmlFor: 'shortdescription' },
-                      t('Your Walk in a Nutshell')
-                    ),
-                    React.createElement(
-                      'div',
-                      { className: 'alert alert-info' },
-                      t('Build intrigue! This is what people see when browsing our walk listings.')
-                    ),
-                    React.createElement(TextAreaLimit, { id: 'shortdescription', name: 'shortdescription', rows: '6', maxLength: '140', valueLink: this.linkState('shortDescription'), required: true })
-                  ),
-                  React.createElement('hr', null),
-                  React.createElement(
-                    'div',
-                    { className: 'item required' },
-                    React.createElement(
-                      'label',
-                      { htmlFor: 'longdescription', id: 'longwalkdescription' },
-                      t('Walk Description')
-                    ),
-                    React.createElement(
-                      'div',
-                      { className: 'alert alert-info' },
-                      t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')
-                    ),
-                    React.createElement('textarea', { id: 'longdescription', name: 'longdescription', rows: '14', valueLink: this.linkState('longDescription') })
-                  )
-                ),
-                React.createElement(ThemeSelect, { valueLink: this.linkState('checkboxes') }),
-                (this.props.city.wards || []).length > 0 ? React.createElement(WardSelect, { wards: this.props.city.wards, valueLink: this.linkState('wards') }) : null,
-                React.createElement('hr', null)
-              )
-            ),
-            React.createElement(MapBuilder, { ref: 'mapBuilder', valueLink: linkStateMap, city: this.props.city }),
-            React.createElement(DateSelect, { valueLink: this.linkState('time') }),
-            React.createElement(
-              'div',
-              { className: 'tab-pane', id: 'accessibility' },
-              React.createElement(
-                'div',
-                { className: 'page-header', 'data-section': 'accessibility' },
-                React.createElement(
-                  'h1',
-                  null,
-                  t('Make it Accessible')
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'item' },
-                React.createElement(AccessibleSelect, { valueLink: this.linkState('checkboxes') })
-              ),
-              React.createElement(
-                'div',
-                { className: 'item' },
-                React.createElement(
-                  'fieldset',
-                  null,
-                  React.createElement(
-                    'legend',
-                    null,
-                    t('What else do people need to know about the accessibility of this walk?'),
-                    ' (',
-                    t('Optional'),
-                    ')'
-                  ),
-                  React.createElement(TextAreaLimit, { name: 'accessible-info', rows: '3', maxLength: '500', valueLink: this.linkState('accessibleInfo') })
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'item' },
-                React.createElement(
-                  'fieldset',
-                  null,
-                  React.createElement(
-                    'legend',
-                    { id: 'transit' },
-                    t('How can someone get to the meeting spot by public transit?'),
-                    ' (',
-                    t('Optional'),
-                    ')'
-                  ),
-                  React.createElement(
-                    'div',
-                    { className: 'alert alert-info' },
-                    t('Nearest subway stop, closest bus or streetcar lines, etc.')
-                  ),
-                  React.createElement('textarea', { rows: '3', name: 'accessible-transit', valueLink: this.linkState('accessibleTransit') })
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'item' },
-                React.createElement(
-                  'fieldset',
-                  null,
-                  React.createElement(
-                    'legend',
-                    null,
-                    t('Where are the nearest places to park?'),
-                    ' (',
-                    t('Optional'),
-                    ')'
-                  ),
-                  React.createElement('textarea', { rows: '3', name: 'accessible-parking', valueLink: this.linkState('accessibleParking') })
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'item' },
-                React.createElement(
-                  'fieldset',
-                  null,
-                  React.createElement(
-                    'legend',
-                    { className: 'required-legend' },
-                    t('How will people find you?')
-                  ),
-                  React.createElement(
-                    'div',
-                    { className: 'alert alert-info' },
-                    t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')
-                  ),
-                  React.createElement('textarea', { rows: '3', name: 'accessible-find', valueLink: this.linkState('accessibleFind') })
-                )
-              ),
-              React.createElement('hr', null),
-              React.createElement('br', null)
-            ),
-            React.createElement(TeamBuilder, { valueLink: this.linkState('team') })
-          ),
-          React.createElement(
-            'button',
-            { type: 'button', onClick: this.handleNext, className: 'btn' },
-            'Next'
-          )
-        ),
-        React.createElement(
-          'aside',
-          { id: 'tips-panel', role: 'complementary' },
-          React.createElement(
-            'div',
-            { className: 'popover right', id: 'city-organizer', style: { display: 'block' } },
-            React.createElement(
-              'h3',
-              { className: 'popover-title', 'data-toggle': 'collapse', 'data-target': '#popover-content' },
-              React.createElement('i', { className: 'fa fa-envelope' }),
-              t('Contact City Organizer for help')
-            ),
-            React.createElement(
-              'div',
-              { className: 'popover-content collapse in', id: 'popover-content' },
-              this.props.city.cityOrganizer.photo ? React.createElement('div', { className: 'u-avatar', style: { backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')' } }) : null,
-              React.createElement(
-                'p',
-                null,
-                t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name),
-                ' ',
-                React.createElement(
-                  'strong',
-                  null,
-                  React.createElement(
-                    'a',
-                    { href: 'mailto:' + this.props.city.cityOrganizer.email },
-                    t('email me'),
-                    '!'
-                  )
-                )
-              )
-            )
-          )
-        )
-      ),
-      this.state.publish ? React.createElement(WalkPublish, { url: this.state.url, saveWalk: this.saveWalk.bind(this), close: this.setState.bind(this, { publish: false }), city: this.props.city, mirrors: this.state.mirrors }) : null,
-      this.state.preview ? React.createElement(WalkPreview, { url: this.state.url, close: this.setState.bind(this, { preview: false }) }) : null,
-      React.createElement(
-        'aside',
-        { id: 'notifications' },
-        this.state.notifications.map(function (notification) {
-          return React.createElement(
-            'div',
-            { key: notification.message, className: 'alert alert-' + notification.type },
-            React.createElement(
-              'strong',
-              null,
-              notification.name || '',
-              ': '
-            ),
-            notification.message || ''
-          );
-        })
-      )
-    );
+    _get(Object.getPrototypeOf(WalkPreview.prototype), 'constructor', this).apply(this, arguments);
   }
-});
 
-var WalkPreview = React.createClass({
-  displayName: 'WalkPreview',
+  _createClass(WalkPreview, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this4 = this;
 
-  componentDidMount: function componentDidMount() {
-    var _this = this;
-    // Bootstrap Modal
-    $(this.getDOMNode()).modal();
-    // Close the modal when modal closes
-    $(this.getDOMNode()).bind('hidden.bs.modal', function () {
-      _this.props.close();
-    });
-  },
-  render: function render() {
-    return React.createElement(
-      'dialog',
-      { id: 'preview-modal' },
-      React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'article',
-          null,
-          React.createElement(
-            'header',
-            null,
-            React.createElement(
-              'button',
-              { type: 'button', className: 'close', 'aria-hidden': 'true', 'data-dismiss': 'modal' },
-              '×'
-            ),
-            React.createElement(
-              'h3',
-              null,
-              t('Preview of your Walk')
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'modal-body' },
-            React.createElement('iframe', { src: this.props.url, frameBorder: '0' })
-          )
-        )
-      )
-    );
-  }
-});
+      var el = React.findDOMNode(this);
+      // Bootstrap Modal
+      $(el).modal();
+      // Close the modal when modal closes
+      $(el).bind('hidden.bs.modal', function () {
+        return _this4.props.close();
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'dialog',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'article',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'header',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'button',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: '×',
+                          type: 'button',
+                          className: 'close',
+                          'aria-hidden': 'true',
+                          'data-dismiss': 'modal'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'h3',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Preview of your Walk')
+                        },
+                        _owner: null
+                      }]
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'iframe',
+                        key: null,
+                        ref: null,
+                        props: {
+                          src: this.props.url,
+                          frameBorder: '0'
+                        },
+                        _owner: null
+                      },
+                      className: 'modal-body'
+                    },
+                    _owner: null
+                  }]
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          },
+          id: 'preview-modal'
+        },
+        _owner: null
+      };
+    }
+  }]);
 
-module.exports = CreateWalk;
+  return WalkPreview;
+})(React.Component);
+module.exports = exports['default'];
 
 
 },{"../actions/I18nActions.js":7,"../helpers/helpers.jsx":39,"../stores/I18nStore.js":42,"./TextAreaLimit.jsx":12,"./caw/AccessibleSelect.jsx":15,"./caw/DateSelect.jsx":16,"./caw/ImageUpload.jsx":17,"./caw/MapBuilder.jsx":18,"./caw/TeamBuilder.jsx":19,"./caw/ThemeSelect.jsx":20,"./caw/WalkPublish.jsx":21,"./caw/WardSelect.jsx":22}],9:[function(require,module,exports){
@@ -1446,172 +2220,334 @@ module.exports = FacebookShareDialog;
 
 
 },{}],10:[function(require,module,exports){
+// TODO: link to the i18n
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function t(str) {
+  var args = Array.from(arguments);
+  return args.shift().replace(/%(s|d)/g, function () {
+    return args.shift();
+  });
+}
+
+var Message = function Message(props) {
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'div',
+    key: null,
+    ref: null,
+    props: {
+      children: [props.msg, props.error],
+      className: 'alert alert-' + (props.success ? 'info' : 'danger')
+    },
+    _owner: null
+  };
+};
+
 /**
  * The 'login' modal that comes up on standard login, not to be confused
  * with the login page.
  */
-'use strict';
 
-var Login = React.createClass({
-  displayName: 'Login',
+var Login = (function (_React$Component) {
+  _inherits(Login, _React$Component);
 
-  getInitialState: function getInitialState() {
-    return {
+  function Login() {
+    _classCallCheck(this, Login);
+
+    _get(Object.getPrototypeOf(Login.prototype), 'constructor', this).call(this);
+    this.state = {
       email: '',
       password: '',
       maintainLogin: false,
       message: {}
     };
-  },
-
-  handleReset: function handleReset(ev) {
-    var _this = this;
-    // Post a reset request to the c5 endpoint for resets
-    $.ajax({
-      type: 'POST',
-      url: CCM_REL + '/login/forgot_password',
-      data: {
-        uEmail: this.state.email,
-        uName: this.state.email,
-        format: 'JSON'
-      },
-      dataType: 'json',
-      success: function success(data) {
-        _this.setState({ message: data });
-      }
-    });
-  },
-
-  handleChangeEmail: function handleChangeEmail(ev) {
-    this.setState({ email: ev.target.value });
-  },
-
-  handleChangePassword: function handleChangePassword(ev) {
-    this.setState({ password: ev.target.value });
-  },
-
-  handleChangeMaintainLogin: function handleChangeMaintainLogin(ev) {
-    this.setState({ maintainLogin: ev.target.value });
-  },
-
-  handleSubmit: function handleSubmit(ev) {
-    var _this = this;
-    ev.preventDefault();
-    // Post the login to the c5 endpoint for logins
-    $.ajax({
-      type: 'POST',
-      url: CCM_REL + '/login/do_login',
-      data: {
-        uEmail: this.state.email,
-        uName: this.state.email,
-        uPassword: this.state.password,
-        uMaintainLogin: this.state.maintainLogin,
-        format: 'JSON'
-      },
-      dataType: 'json',
-      success: function success(data) {
-        _this.setState({ message: data }, function () {
-          if (data.success === 1) {
-            if (_this.props.redirectURL) {
-              window.location.replace(_this.props.redirectURL);
-            } else {
-              window.location.reload();
-            }
-          }
-        });
-      }
-    });
-  },
-
-  render: function render() {
-    // TODO: link to the i18n
-    var t = function t(str) {
-      var args = Array.prototype.slice.call(arguments);
-      return args.shift().replace(/%(s|d)/g, function () {
-        return args.shift();
-      });
-    };
-    var message = Number.isInteger(this.state.message.success) ? React.createElement(
-      'div',
-      { className: 'alert alert-' + (this.state.message.success ? 'info' : 'danger') },
-      this.state.message.msg,
-      this.state.message.error
-    ) : null;
-
-    return React.createElement(
-      'dialog',
-      { id: 'login' },
-      React.createElement(
-        'div',
-        null,
-        React.createElement(
-          'article',
-          null,
-          React.createElement(
-            'header',
-            null,
-            React.createElement(
-              'h3',
-              { className: 'form-lead' },
-              t('Sign in to %s', 'Jane\'s Walk')
-            )
-          ),
-          React.createElement(
-            'form',
-            { rel: 'form', method: 'post', onSubmit: this.handleSubmit },
-            React.createElement('section', { dangerouslySetInnerHTML: { __html: this.props.socialLogin } }),
-            React.createElement(
-              'section',
-              null,
-              React.createElement(
-                'h4',
-                null,
-                t('or, log-in using your email & password')
-              ),
-              React.createElement(
-                'label',
-                { htmlFor: 'uEmail' },
-                t('Email'),
-                React.createElement('input', { type: 'text', name: 'uEmail', id: 'uEmail', ref: 'uEmail', value: this.state.email, onChange: this.handleChangeEmail, className: 'ccm-input-text input-large' })
-              ),
-              React.createElement(
-                'label',
-                { htmlFor: 'uPassword' },
-                t('Password'),
-                React.createElement('input', { type: 'password', name: 'uPassword', id: 'uPassword', value: this.state.password, onChange: this.handleChangePassword, className: 'ccm-input-text input-large' })
-              ),
-              React.createElement(
-                'label',
-                null,
-                React.createElement('input', { type: 'checkbox', name: 'uMaintainLogin', checked: this.maintainLogin, onChange: this.handleChangeMaintainLogin }),
-                ' ',
-                t('Keep me signed in.')
-              ),
-              React.createElement(
-                'a',
-                { onClick: this.handleReset },
-                t('Request a new password')
-              )
-            ),
-            React.createElement(
-              'footer',
-              null,
-              message,
-              React.createElement(
-                'a',
-                { href: CCM_REL + '/register?uEmail=' + this.state.email },
-                t('Register for a new account.')
-              ),
-              React.createElement('input', { type: 'submit', className: 'btn ccm-input-submit', id: 'submit', value: t('Go!') })
-            )
-          )
-        )
-      )
-    );
+    this.handleReset = this.handleReset.bind(this);
+    this.handleChangeEmail = this.handleChangeEmail.bind(this);
+    this.handleChangePassword = this.handleChangePassword.bind(this);
+    this.handleChangeMaintainLogin = this.handleChangeMaintainLogin.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
-});
 
-module.exports = Login;
+  _createClass(Login, [{
+    key: 'handleReset',
+    value: function handleReset(ev) {
+      var _this = this;
+
+      // Post a reset request to the c5 endpoint for resets
+      $.ajax({
+        type: 'POST',
+        url: CCM_REL + '/login/forgot_password',
+        data: {
+          uEmail: this.state.email,
+          uName: this.state.email,
+          format: 'JSON'
+        },
+        dataType: 'json',
+        success: function success(data) {
+          return _this.setState({ message: data });
+        }
+      });
+    }
+  }, {
+    key: 'handleChangeEmail',
+    value: function handleChangeEmail(ev) {
+      this.setState({ email: ev.target.value });
+    }
+  }, {
+    key: 'handleChangePassword',
+    value: function handleChangePassword(ev) {
+      this.setState({ password: ev.target.value });
+    }
+  }, {
+    key: 'handleChangeMaintainLogin',
+    value: function handleChangeMaintainLogin(ev) {
+      this.setState({ maintainLogin: ev.target.value });
+    }
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(ev) {
+      var _this2 = this;
+
+      ev.preventDefault();
+      // Post the login to the c5 endpoint for logins
+      $.ajax({
+        type: 'POST',
+        url: CCM_REL + '/login/do_login',
+        data: {
+          uEmail: this.state.email,
+          uName: this.state.email,
+          uPassword: this.state.password,
+          uMaintainLogin: this.state.maintainLogin,
+          format: 'JSON'
+        },
+        dataType: 'json',
+        success: function success(data) {
+          _this2.setState({ message: data }, function () {
+            if (data.success === 1) {
+              if (_this2.props.redirectURL) {
+                window.location.replace(_this2.props.redirectURL);
+              } else {
+                window.location.reload();
+              }
+            }
+          });
+        }
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var message = undefined;
+      if (Number.isInteger(this.state.message.success)) {
+        message = React.createElement(Message, this.state.message);
+      }
+
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'dialog',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'article',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'header',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'h3',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Sign in to %s', 'Jane\'s Walk'),
+                          className: 'form-lead'
+                        },
+                        _owner: null
+                      }
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'form',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'section',
+                        key: null,
+                        ref: null,
+                        props: {
+                          dangerouslySetInnerHTML: { __html: this.props.socialLogin }
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'section',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'h4',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('or, log-in using your email & password')
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [t('Email'), React.createElement('input', { type: 'text', name: 'uEmail', id: 'uEmail', ref: 'uEmail', value: this.state.email, onChange: this.handleChangeEmail, className: 'ccm-input-text input-large' })],
+                              htmlFor: 'uEmail'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [t('Password'), {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'password',
+                                  name: 'uPassword',
+                                  id: 'uPassword',
+                                  value: this.state.password,
+                                  onChange: this.handleChangePassword,
+                                  className: 'ccm-input-text input-large'
+                                },
+                                _owner: null
+                              }],
+                              htmlFor: 'uPassword'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'checkbox',
+                                  name: 'uMaintainLogin',
+                                  checked: this.maintainLogin,
+                                  onChange: this.handleChangeMaintainLogin
+                                },
+                                _owner: null
+                              }, ' ', t('Keep me signed in.')]
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Request a new password'),
+                              onClick: this.handleReset
+                            },
+                            _owner: null
+                          }]
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'footer',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [message, {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Register for a new account.'),
+                              href: CCM_REL + '/register?uEmail=' + this.state.email
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'submit',
+                              className: 'btn ccm-input-submit',
+                              id: 'submit',
+                              value: t('Go!')
+                            },
+                            _owner: null
+                          }]
+                        },
+                        _owner: null
+                      }],
+                      rel: 'form',
+                      method: 'post',
+                      onSubmit: this.handleSubmit
+                    },
+                    _owner: null
+                  }]
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          },
+          id: 'login'
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return Login;
+})(React.Component);
+
+exports['default'] = Login;
+module.exports = exports['default'];
 
 
 },{}],11:[function(require,module,exports){
@@ -1764,49 +2700,35 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var t2 = require('../stores/I18nStore.js').getTranslatePlural();
 
 /**
  * Text areas with a 'remaining characters' limit
  */
-
-var TextAreaLimit = (function (_React$Component) {
-  _inherits(TextAreaLimit, _React$Component);
-
-  function TextAreaLimit() {
-    _classCallCheck(this, TextAreaLimit);
-
-    _get(Object.getPrototypeOf(TextAreaLimit.prototype), 'constructor', this).apply(this, arguments);
-  }
-
-  _createClass(TextAreaLimit, [{
-    key: 'render',
-    value: function render() {
-      var remaining = this.props.maxLength - this.props.valueLink.value.length;
-
-      return React.createElement(
-        'div',
-        { className: 'text-area-limit' },
-        React.createElement('textarea', this.props),
-        React.createElement(
-          'span',
-          null,
-          t2('%s character remaining', '%s characters remaining', remaining)
-        )
-      );
-    }
-  }]);
-
-  return TextAreaLimit;
-})(React.Component);
+var TextAreaLimit = function TextAreaLimit(props) {
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'div',
+    key: null,
+    ref: null,
+    props: {
+      children: [React.createElement('textarea', props), {
+        $$typeof: _typeofReactElement,
+        type: 'span',
+        key: null,
+        ref: null,
+        props: {
+          children: t2('%s character remaining', '%s characters remaining', props.maxLength - props.valueLink.value.length)
+        },
+        _owner: null
+      }],
+      className: 'text-area-limit'
+    },
+    _owner: null
+  };
+};
 
 exports['default'] = TextAreaLimit;
 module.exports = exports['default'];
@@ -1861,6 +2783,9 @@ module.exports = View;
  * @param object DOMElement mapCanvas Target to render the map to
  *
  */
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var WalkMap = function WalkMap(mapData, mapCanvas) {
   // Default to #map-canvas
   this.mapCanvas = mapCanvas;
@@ -2023,21 +2948,34 @@ Object.defineProperties(WalkMap.prototype, {
       // the title? We were using a separate array to store them before, which
       // is even worse, but JSON encoding the title is weird. gmaps won't let
       // it be anything but a string.
-      this.infobox.setContent(React.renderToStaticMarkup(React.createElement(
-        'span',
-        null,
-        React.createElement(
-          'h4',
-          null,
-          JSON.parse(this.markers[i].getTitle()).name
-        ),
-        React.createElement(
-          'p',
-          null,
-          JSON.parse(this.markers[i].getTitle()).description
-        ),
-        markerContent
-      )));
+      this.infobox.setContent(React.renderToStaticMarkup({
+        $$typeof: _typeofReactElement,
+        type: 'span',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'h4',
+            key: null,
+            ref: null,
+            props: {
+              children: JSON.parse(this.markers[i].getTitle()).name
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'p',
+            key: null,
+            ref: null,
+            props: {
+              children: JSON.parse(this.markers[i].getTitle()).description
+            },
+            _owner: null
+          }, markerContent]
+        },
+        _owner: null
+      }));
       this.infobox.open(this.map, marker);
 
       [].forEach.call(document.querySelectorAll('.walk-stops'), function (stop) {
@@ -2191,6 +3129,8 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -2199,7 +3139,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var mixins = require('../../helpers/mixins.jsx');
+var _helpersMixinsJsx = require('../../helpers/mixins.jsx');
 
 // Flux
 var t = require('../../stores/I18nStore.js').getTranslate();
@@ -2220,27 +3160,58 @@ var AccessibleSelect = (function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      return React.createElement(
-        'fieldset',
-        { id: 'accessibilities' },
-        React.createElement(
-          'legend',
-          { className: 'required-legend' },
-          t('How accessible is this walk?')
-        ),
-        React.createElement(
-          'fieldset',
-          null,
-          options.map(function (option) {
-            return React.createElement(
-              'label',
-              { className: 'checkbox' },
-              React.createElement('input', { type: 'checkbox', checkedLink: _this.linkParentState(option.id) }),
-              option.name
-            );
-          })
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'fieldset',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'legend',
+            key: null,
+            ref: null,
+            props: {
+              children: t('How accessible is this walk?'),
+              className: 'required-legend'
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'fieldset',
+            key: null,
+            ref: null,
+            props: {
+              children: options.map(function (option) {
+                return {
+                  $$typeof: _typeofReactElement,
+                  type: 'label',
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: [{
+                      $$typeof: _typeofReactElement,
+                      type: 'input',
+                      key: null,
+                      ref: null,
+                      props: {
+                        type: 'checkbox',
+                        checkedLink: _this.linkParentState(option.id)
+                      },
+                      _owner: null
+                    }, option.name],
+                    className: 'checkbox'
+                  },
+                  _owner: null
+                };
+              })
+            },
+            _owner: null
+          }],
+          id: 'accessibilities'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -2249,7 +3220,7 @@ var AccessibleSelect = (function (_React$Component) {
 
 exports['default'] = AccessibleSelect;
 
-Object.assign(AccessibleSelect.prototype, mixins.linkedParentState);
+Object.assign(AccessibleSelect.prototype, _helpersMixinsJsx.linkedParentState);
 module.exports = exports['default'];
 
 
@@ -2261,9 +3232,13 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -2277,6 +3252,9 @@ var TimeOpenTable = require('./date/TimeOpenTable.jsx');
 // Flux
 var t = require('../../stores/I18nStore.js').getTranslate();
 
+// Default to a 1-hour walk time
+var ONE_HOUR = 60 * 60 * 1000;
+
 // TODO: Make 'intiatives' build as separate selectors
 
 var DateSelect = (function (_React$Component) {
@@ -2289,8 +3267,6 @@ var DateSelect = (function (_React$Component) {
 
     var today = new Date();
     var start = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 7, 11, 0));
-    // Default to a 1-hour walk time
-    var duration = 60 * 60 * 1000;
 
     // Bind class methods
     this.setDay = this._setDay.bind(this);
@@ -2300,7 +3276,7 @@ var DateSelect = (function (_React$Component) {
     // parsing. This method is concerned only with the Time
     // TODO: Support proper time localization - ultimately these times are just
     // strings, so we're using GMT, but that's bad practice.
-    this.state = { start: start, duration: duration };
+    this.state = { start: start, duration: ONE_HOUR };
   }
 
   // Load mixins
@@ -2378,279 +3354,718 @@ var DateSelect = (function (_React$Component) {
     value: function render() {
       var valueLink = this.props.valueLink;
 
-      return React.createElement(
-        'div',
-        { className: 'tab-pane', id: 'time-and-date' },
-        React.createElement(
-          'div',
-          { className: 'tab-content', id: 'walkduration' },
-          React.createElement(
-            'div',
-            { className: 'tab-pane hide', id: 'time-and-date-select' },
-            React.createElement(
-              'div',
-              { className: 'page-header', 'data-section': 'time-and-date' },
-              React.createElement(
-                'h1',
-                null,
-                t('Set the Time and Date')
-              )
-            ),
-            React.createElement(
-              'legend',
-              null,
-              t('Pick one of the following:')
-            ),
-            React.createElement(
-              'div',
-              { className: 'row' },
-              React.createElement(
-                'ul',
-                { className: 'thumbnails', id: 'block-select' },
-                React.createElement(
-                  'li',
-                  null,
-                  React.createElement(
-                    'a',
-                    { href: '#time-and-date-all', 'data-toggle': 'tab' },
-                    React.createElement(
-                      'div',
-                      { className: 'thumbnail' },
-                      React.createElement('img', { src: CCM_THEME_PATH + '/img/time-and-date-full.png' }),
-                      React.createElement(
-                        'div',
-                        { className: 'caption' },
-                        React.createElement(
-                          'div',
-                          { className: 'text-center' },
-                          React.createElement(
-                            'h4',
-                            null,
-                            t('By Request')
-                          )
-                        ),
-                        React.createElement(
-                          'p',
-                          null,
-                          t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.')
-                        )
-                      )
-                    )
-                  )
-                ),
-                React.createElement(
-                  'li',
-                  null,
-                  React.createElement(
-                    'a',
-                    { href: '#time-and-date-set', 'data-toggle': 'tab' },
-                    React.createElement(
-                      'div',
-                      { className: 'thumbnail' },
-                      React.createElement('img', { src: CCM_THEME_PATH + '/img/time-and-date-some.png' }),
-                      React.createElement(
-                        'div',
-                        { className: 'caption' },
-                        React.createElement(
-                          'div',
-                          { className: 'text-center' },
-                          React.createElement(
-                            'h4',
-                            null,
-                            t('Pick Your Date')
-                          )
-                        ),
-                        React.createElement(
-                          'p',
-                          null,
-                          t('Set specific dates and times that this walk is happening.')
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          ),
-          React.createElement(
-            'div',
-            { className: 'tab-pane active', id: 'time-and-date-set' },
-            React.createElement(
-              'div',
-              { className: 'page-header', 'data-section': 'time-and-date' },
-              React.createElement(
-                'h1',
-                null,
-                t('Time and Date')
-              ),
-              React.createElement(
-                'p',
-                { className: 'lead' },
-                t('Select the date and time your walk is happening.')
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'row' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(DatePicker, { setDay: this.setDay, defaultDate: this.state.start })
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'div',
-                  { className: 'thumbnail' },
-                  React.createElement(
-                    'div',
-                    { className: 'caption' },
-                    React.createElement(
-                      'h4',
-                      { className: 'date-indicate-set' },
-                      React.createElement(
-                        'small',
-                        null,
-                        t('Date selected'),
-                        ':'
-                      ),
-                      this.state.start.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' })
-                    ),
-                    React.createElement('hr', null),
-                    React.createElement(TimePicker, { ref: 'timePicker', i18n: this.props.i18n, valueLinkDuration: this.linkState('duration'), valueLinkStart: this.linkTime() }),
-                    React.createElement('hr', null),
-                    React.createElement(
-                      'button',
-                      { className: 'btn btn-primary', id: 'save-date-set', onClick: this.addDate },
-                      t('Add Date')
-                    )
-                  )
-                )
-              )
-            ),
-            React.createElement('br', null),
-            React.createElement(TimeSetTable, { i18n: this.props.i18n, valueLink: valueLink }),
-            React.createElement('hr', null)
-          ),
-          React.createElement(
-            'div',
-            { className: 'tab-pane hide', id: 'time-and-date-all' },
-            React.createElement(
-              'div',
-              { className: 'page-header', 'data-section': 'time-and-date' },
-              React.createElement(
-                'h1',
-                null,
-                t('Time and Date')
-              ),
-              React.createElement(
-                'p',
-                { className: 'lead' },
-                t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.')
-              )
-            ),
-            React.createElement(
-              'label',
-              { className: 'checkbox' },
-              React.createElement('input', { type: 'checkbox', name: 'open' }),
-              t('Leave my availability open. Allow people to contact you to set up a walk.')
-            ),
-            React.createElement('br', null),
-            React.createElement(
-              'div',
-              { className: 'row' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement('div', { className: 'date-picker' })
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'div',
-                  { className: 'thumbnail' },
-                  React.createElement(
-                    'div',
-                    { className: 'caption' },
-                    React.createElement(
-                      'div',
-                      { className: 'date-select-group' },
-                      React.createElement(
-                        'small',
-                        null,
-                        t('Date selected'),
-                        ':'
-                      ),
-                      React.createElement('h4', { className: 'date-indicate-all' }),
-                      React.createElement('hr', null)
-                    ),
-                    React.createElement(
-                      'label',
-                      { htmlFor: 'walk-duration' },
-                      t('Approximate Duration of Walk'),
-                      ':'
-                    ),
-                    React.createElement(
-                      'select',
-                      { name: 'duration', id: 'walk-duration', defaultValue: '1 Hour, 30 Minutes' },
-                      React.createElement(
-                        'option',
-                        { value: '30 Minutes' },
-                        '30 Minutes'
-                      ),
-                      React.createElement(
-                        'option',
-                        { value: '1 Hour' },
-                        '1 Hour'
-                      ),
-                      React.createElement(
-                        'option',
-                        { value: '1 Hour, 30 Minutes' },
-                        '1 Hour, 30 Minutes'
-                      ),
-                      React.createElement(
-                        'option',
-                        { value: '2 Hours' },
-                        '2 Hours'
-                      ),
-                      React.createElement(
-                        'option',
-                        { value: '2 Hours, 30 Minutes' },
-                        '2 Hours, 30 Minutes'
-                      ),
-                      React.createElement(
-                        'option',
-                        { value: '3 Hours' },
-                        '3 Hours'
-                      ),
-                      React.createElement(
-                        'option',
-                        { value: '3 Hours, 30 Minutes' },
-                        '3 Hours, 30 Minutes'
-                      )
-                    ),
-                    React.createElement(
-                      'div',
-                      { className: 'date-select-group' },
-                      React.createElement('hr', null),
-                      React.createElement(
-                        'button',
-                        { className: 'btn btn-primary', id: 'save-date-all', onClick: this.addDate },
-                        t('Add Date')
-                      )
-                    )
-                  )
-                )
-              )
-            ),
-            React.createElement('br', null),
-            React.createElement(TimeOpenTable, null),
-            React.createElement('hr', null)
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'h1',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Set the Time and Date')
+                        },
+                        _owner: null
+                      },
+                      className: 'page-header',
+                      'data-section': 'time-and-date'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'legend',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Pick one of the following:')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'ul',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'li',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'a',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'img',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          src: CCM_THEME_PATH + '/img/time-and-date-full.png'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'div',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: [{
+                                            $$typeof: _typeofReactElement,
+                                            type: 'div',
+                                            key: null,
+                                            ref: null,
+                                            props: {
+                                              children: {
+                                                $$typeof: _typeofReactElement,
+                                                type: 'h4',
+                                                key: null,
+                                                ref: null,
+                                                props: {
+                                                  children: t('By Request')
+                                                },
+                                                _owner: null
+                                              },
+                                              className: 'text-center'
+                                            },
+                                            _owner: null
+                                          }, {
+                                            $$typeof: _typeofReactElement,
+                                            type: 'p',
+                                            key: null,
+                                            ref: null,
+                                            props: {
+                                              children: t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.')
+                                            },
+                                            _owner: null
+                                          }],
+                                          className: 'caption'
+                                        },
+                                        _owner: null
+                                      }],
+                                      className: 'thumbnail'
+                                    },
+                                    _owner: null
+                                  },
+                                  href: '#time-and-date-all',
+                                  'data-toggle': 'tab'
+                                },
+                                _owner: null
+                              }
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'li',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'a',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'img',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          src: CCM_THEME_PATH + '/img/time-and-date-some.png'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'div',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: [{
+                                            $$typeof: _typeofReactElement,
+                                            type: 'div',
+                                            key: null,
+                                            ref: null,
+                                            props: {
+                                              children: {
+                                                $$typeof: _typeofReactElement,
+                                                type: 'h4',
+                                                key: null,
+                                                ref: null,
+                                                props: {
+                                                  children: t('Pick Your Date')
+                                                },
+                                                _owner: null
+                                              },
+                                              className: 'text-center'
+                                            },
+                                            _owner: null
+                                          }, {
+                                            $$typeof: _typeofReactElement,
+                                            type: 'p',
+                                            key: null,
+                                            ref: null,
+                                            props: {
+                                              children: t('Set specific dates and times that this walk is happening.')
+                                            },
+                                            _owner: null
+                                          }],
+                                          className: 'caption'
+                                        },
+                                        _owner: null
+                                      }],
+                                      className: 'thumbnail'
+                                    },
+                                    _owner: null
+                                  },
+                                  href: '#time-and-date-set',
+                                  'data-toggle': 'tab'
+                                },
+                                _owner: null
+                              }
+                            },
+                            _owner: null
+                          }],
+                          className: 'thumbnails',
+                          id: 'block-select'
+                        },
+                        _owner: null
+                      },
+                      className: 'row'
+                    },
+                    _owner: null
+                  }],
+                  className: 'tab-pane hide',
+                  id: 'time-and-date-select'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'h1',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Time and Date')
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'p',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Select the date and time your walk is happening.'),
+                          className: 'lead'
+                        },
+                        _owner: null
+                      }],
+                      className: 'page-header',
+                      'data-section': 'time-and-date'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: DatePicker,
+                            key: null,
+                            ref: null,
+                            props: _defaultProps(DatePicker.defaultProps, {
+                              setDay: this.setDay,
+                              defaultDate: this.state.start
+                            }),
+                            _owner: null
+                          },
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'div',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'h4',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'small',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: [t('Date selected'), ':']
+                                        },
+                                        _owner: null
+                                      }, this.state.start.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' })],
+                                      className: 'date-indicate-set'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'hr',
+                                    key: null,
+                                    ref: null,
+                                    props: {},
+                                    _owner: null
+                                  }, React.createElement(TimePicker, { ref: 'timePicker', i18n: this.props.i18n, valueLinkDuration: this.linkState('duration'), valueLinkStart: this.linkTime() }), {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'hr',
+                                    key: null,
+                                    ref: null,
+                                    props: {},
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'button',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: t('Add Date'),
+                                      className: 'btn btn-primary',
+                                      id: 'save-date-set',
+                                      onClick: this.addDate
+                                    },
+                                    _owner: null
+                                  }],
+                                  className: 'caption'
+                                },
+                                _owner: null
+                              },
+                              className: 'thumbnail'
+                            },
+                            _owner: null
+                          },
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }],
+                      className: 'row'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'br',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: TimeSetTable,
+                    key: null,
+                    ref: null,
+                    props: _defaultProps(TimeSetTable.defaultProps, {
+                      i18n: this.props.i18n,
+                      valueLink: valueLink
+                    }),
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'hr',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }],
+                  className: 'tab-pane active',
+                  id: 'time-and-date-set'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'h1',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Time and Date')
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'p',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.'),
+                          className: 'lead'
+                        },
+                        _owner: null
+                      }],
+                      className: 'page-header',
+                      'data-section': 'time-and-date'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'label',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'input',
+                        key: null,
+                        ref: null,
+                        props: {
+                          type: 'checkbox',
+                          name: 'open'
+                        },
+                        _owner: null
+                      }, t('Leave my availability open. Allow people to contact you to set up a walk.')],
+                      className: 'checkbox'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'br',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'date-picker'
+                            },
+                            _owner: null
+                          },
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: {
+                                $$typeof: _typeofReactElement,
+                                type: 'div',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'small',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: [t('Date selected'), ':']
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'h4',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          className: 'date-indicate-all'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'hr',
+                                        key: null,
+                                        ref: null,
+                                        props: {},
+                                        _owner: null
+                                      }],
+                                      className: 'date-select-group'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'label',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [t('Approximate Duration of Walk'), ':'],
+                                      htmlFor: 'walk-duration'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'select',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'option',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: '30 Minutes',
+                                          value: '30 Minutes'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'option',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: '1 Hour',
+                                          value: '1 Hour'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'option',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: '1 Hour, 30 Minutes',
+                                          value: '1 Hour, 30 Minutes'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'option',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: '2 Hours',
+                                          value: '2 Hours'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'option',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: '2 Hours, 30 Minutes',
+                                          value: '2 Hours, 30 Minutes'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'option',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: '3 Hours',
+                                          value: '3 Hours'
+                                        },
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'option',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: '3 Hours, 30 Minutes',
+                                          value: '3 Hours, 30 Minutes'
+                                        },
+                                        _owner: null
+                                      }],
+                                      name: 'duration',
+                                      id: 'walk-duration',
+                                      defaultValue: '1 Hour, 30 Minutes'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'div',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: [{
+                                        $$typeof: _typeofReactElement,
+                                        type: 'hr',
+                                        key: null,
+                                        ref: null,
+                                        props: {},
+                                        _owner: null
+                                      }, {
+                                        $$typeof: _typeofReactElement,
+                                        type: 'button',
+                                        key: null,
+                                        ref: null,
+                                        props: {
+                                          children: t('Add Date'),
+                                          className: 'btn btn-primary',
+                                          id: 'save-date-all',
+                                          onClick: this.addDate
+                                        },
+                                        _owner: null
+                                      }],
+                                      className: 'date-select-group'
+                                    },
+                                    _owner: null
+                                  }],
+                                  className: 'caption'
+                                },
+                                _owner: null
+                              },
+                              className: 'thumbnail'
+                            },
+                            _owner: null
+                          },
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }],
+                      className: 'row'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'br',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: TimeOpenTable,
+                    key: null,
+                    ref: null,
+                    props: _defaultProps(TimeOpenTable.defaultProps, {}),
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'hr',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }],
+                  className: 'tab-pane hide',
+                  id: 'time-and-date-all'
+                },
+                _owner: null
+              }],
+              className: 'tab-content',
+              id: 'walkduration'
+            },
+            _owner: null
+          },
+          className: 'tab-pane',
+          id: 'time-and-date'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -2669,6 +4084,8 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -2738,42 +4155,103 @@ var ImageUpload = (function (_React$Component) {
       // instead of the one off the server
       // TODO: Implement server-side support for multiple thumbnails, then
       // remove limit here
-      return React.createElement(
-        'form',
-        { className: 'upload-image' },
-        React.createElement(
-          'label',
-          { htmlFor: 'walkphotos', id: 'photo-tip' },
-          t('Upload a photo that best represents your walk.')
-        ),
-        thumbnails.map(function (thumb, i) {
-          // Grab just the name, so local files being uploaded have the same key as the hosted URL
-          var filename = (thumb.url || '' + i).replace(/^.*[\\\/]/, '');
-          return React.createElement(
-            'div',
-            {
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'form',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'label',
+            key: null,
+            ref: null,
+            props: {
+              children: t('Upload a photo that best represents your walk.'),
+              htmlFor: 'walkphotos',
+              id: 'photo-tip'
+            },
+            _owner: null
+          }, thumbnails.map(function (thumb, i) {
+            // Grab just the name, so local files being uploaded have the same key as the hosted URL
+            var filename = (thumb.url || '' + i).replace(/^.*[\\\/]/, '');
+            return {
+              $$typeof: _typeofReactElement,
+              type: 'div',
               key: filename,
-              className: 'thumbnail',
-              style: { backgroundImage: 'url(' + thumb.url + ')' } },
-            React.createElement(
-              'a',
-              { className: 'remove', onClick: _this2.removeImage.bind(_this2, i) },
-              React.createElement('i', { className: 'fa fa-times-circle' })
-            )
-          );
-        }),
-        thumbnails.length < 1 ? React.createElement(
-          'div',
-          { className: 'thumbnail fileupload' },
-          React.createElement('input', { className: 'ccm-al-upload-single-file', type: 'file', onChange: this.handleUpload }),
-          React.createElement('i', { className: 'fa fa-camera-retro fa-5x' }),
-          React.createElement(
-            'span',
-            { className: 'fileupload-new' },
-            t('Click to upload an image')
-          )
-        ) : null
-      );
+              ref: null,
+              props: {
+                children: {
+                  $$typeof: _typeofReactElement,
+                  type: 'a',
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: {
+                      $$typeof: _typeofReactElement,
+                      type: 'i',
+                      key: null,
+                      ref: null,
+                      props: {
+                        className: 'fa fa-times-circle'
+                      },
+                      _owner: null
+                    },
+                    className: 'remove',
+                    onClick: _this2.removeImage.bind(_this2, i)
+                  },
+                  _owner: null
+                },
+                className: 'thumbnail',
+                style: { backgroundImage: 'url(' + thumb.url + ')' }
+              },
+              _owner: null
+            };
+          }), thumbnails.length < 1 ? {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'input',
+                key: null,
+                ref: null,
+                props: {
+                  className: 'ccm-al-upload-single-file',
+                  type: 'file',
+                  onChange: this.handleUpload
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'i',
+                key: null,
+                ref: null,
+                props: {
+                  className: 'fa fa-camera-retro fa-5x'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'span',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Click to upload an image'),
+                  className: 'fileupload-new'
+                },
+                _owner: null
+              }],
+              className: 'thumbnail fileupload'
+            },
+            _owner: null
+          } : null],
+          className: 'upload-image'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -2791,11 +4269,15 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -3021,11 +4503,18 @@ var MapBuilder = (function (_React$Component) {
     value: function showInfoWindow(marker) {
       var infoDOM = document.createElement('div');
 
-      React.render(React.createElement(_mapWalkInfoWindowJsx2['default'], {
-        marker: marker,
-        deleteMarker: this.deleteMarker.bind(this, marker),
-        refresh: this.syncState.bind(this)
-      }), infoDOM);
+      React.render({
+        $$typeof: _typeofReactElement,
+        type: _mapWalkInfoWindowJsx2['default'],
+        key: null,
+        ref: null,
+        props: _defaultProps(_mapWalkInfoWindowJsx2['default'].defaultProps, {
+          marker: marker,
+          deleteMarker: this.deleteMarker.bind(this, marker),
+          refresh: this.syncState.bind(this)
+        }),
+        _owner: null
+      }, infoDOM);
 
       // Center the marker and display its info window
       this.state.map.panTo(marker.getPosition());
@@ -3219,11 +4708,16 @@ var MapBuilder = (function (_React$Component) {
       };
 
       if (this.state.markers && this.state.markers.length) {
-        walkStops = [React.createElement(
-          'h3',
-          { key: 'stops' },
-          t('Walk Stops')
-        ), React.createElement(_mapWalkStopTableJsx2['default'], {
+        walkStops = [{
+          $$typeof: _typeofReactElement,
+          type: 'h3',
+          key: 'stops',
+          ref: null,
+          props: {
+            children: t('Walk Stops')
+          },
+          _owner: null
+        }, React.createElement(_mapWalkStopTableJsx2['default'], {
           ref: 'walkStopTable',
           key: 1,
           markers: this.state.markers,
@@ -3236,56 +4730,129 @@ var MapBuilder = (function (_React$Component) {
       return React.createElement(
         'div',
         { className: 'tab-pane', id: 'route', ref: 'route' },
-        React.createElement(
-          'div',
-          { className: 'page-header', 'data-section': 'route' },
-          React.createElement(
-            'h1',
-            null,
-            t('Share Your Route')
-          )
-        ),
-        React.createElement(
-          'div',
-          { className: 'alert alert-info' },
-          t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.')
-        ),
-        React.createElement(
-          'div',
-          { id: 'map-control-bar' },
-          React.createElement(
-            'button',
-            {
-              ref: 'addPoint',
-              className: this.state.mode.addPoint ? 'active' : '',
-              onClick: this.toggleAddPoint.bind(this) },
-            React.createElement('i', { className: 'fa fa-map-marker' }),
-            t('Add Stop')
-          ),
-          React.createElement(
-            'button',
-            {
-              ref: 'addRoute',
-              className: this.state.mode.addRoute ? 'active' : '',
-              onClick: this.toggleAddRoute.bind(this) },
-            React.createElement('i', { className: 'fa fa-arrows' }),
-            t('Add Route')
-          ),
-          React.createElement(
-            'button',
-            { ref: 'clearroute', onClick: this.clearRoute.bind(this) },
-            React.createElement('i', { className: 'fa fa-eraser' }),
-            t('Clear Route')
-          ),
-          React.createElement(_mapTwitterConnectJsx2['default'], filterProps),
-          React.createElement(_mapInstagramConnectJsx2['default'], filterProps),
-          React.createElement(_mapSoundCloudConnectJsx2['default'], filterProps)
-        ),
-        React.createElement(_mapConnectFiltersJsx2['default'], { filters: this.state.filters, changeFilter: this.handleChangeFilter.bind(this), remove: this.handleRemoveFilter.bind(this) }),
-        React.createElement('div', { className: 'map-notifications' }),
+        {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            children: {
+              $$typeof: _typeofReactElement,
+              type: 'h1',
+              key: null,
+              ref: null,
+              props: {
+                children: t('Share Your Route')
+              },
+              _owner: null
+            },
+            className: 'page-header',
+            'data-section': 'route'
+          },
+          _owner: null
+        },
+        {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            children: t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.'),
+            className: 'alert alert-info'
+          },
+          _owner: null
+        },
+        {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            children: [React.createElement(
+              'button',
+              {
+                ref: 'addPoint',
+                className: this.state.mode.addPoint ? 'active' : '',
+                onClick: this.toggleAddPoint.bind(this) },
+              {
+                $$typeof: _typeofReactElement,
+                type: 'i',
+                key: null,
+                ref: null,
+                props: {
+                  className: 'fa fa-map-marker'
+                },
+                _owner: null
+              },
+              t('Add Stop')
+            ), React.createElement(
+              'button',
+              {
+                ref: 'addRoute',
+                className: this.state.mode.addRoute ? 'active' : '',
+                onClick: this.toggleAddRoute.bind(this) },
+              {
+                $$typeof: _typeofReactElement,
+                type: 'i',
+                key: null,
+                ref: null,
+                props: {
+                  className: 'fa fa-arrows'
+                },
+                _owner: null
+              },
+              t('Add Route')
+            ), React.createElement(
+              'button',
+              { ref: 'clearroute', onClick: this.clearRoute.bind(this) },
+              {
+                $$typeof: _typeofReactElement,
+                type: 'i',
+                key: null,
+                ref: null,
+                props: {
+                  className: 'fa fa-eraser'
+                },
+                _owner: null
+              },
+              t('Clear Route')
+            ), React.createElement(_mapTwitterConnectJsx2['default'], filterProps), React.createElement(_mapInstagramConnectJsx2['default'], filterProps), React.createElement(_mapSoundCloudConnectJsx2['default'], filterProps)],
+            id: 'map-control-bar'
+          },
+          _owner: null
+        },
+        {
+          $$typeof: _typeofReactElement,
+          type: _mapConnectFiltersJsx2['default'],
+          key: null,
+          ref: null,
+          props: _defaultProps(_mapConnectFiltersJsx2['default'].defaultProps, {
+            filters: this.state.filters,
+            changeFilter: this.handleChangeFilter.bind(this),
+            remove: this.handleRemoveFilter.bind(this)
+          }),
+          _owner: null
+        },
+        {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            className: 'map-notifications'
+          },
+          _owner: null
+        },
         React.createElement('div', { id: 'map-canvas', ref: 'gmap' }),
         walkStops,
-        React.createElement('hr', null)
+        {
+          $$typeof: _typeofReactElement,
+          type: 'hr',
+          key: null,
+          ref: null,
+          props: {},
+          _owner: null
+        }
       );
     }
   }]);
@@ -3308,6 +4875,8 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -3432,109 +5001,262 @@ var TeamBuilder = (function (_React$Component) {
         return teamMember;
       });
 
-      return React.createElement(
-        'div',
-        { className: 'tab-pane', id: 'team' },
-        React.createElement(
-          'div',
-          { className: 'page-header', 'data-section': 'team' },
-          React.createElement(
-            'h1',
-            null,
-            t('Build Your Team')
-          )
-        ),
-        users,
-        React.createElement(
-          'div',
-          { className: 'thumbnail team-member', id: 'add-member' },
-          React.createElement(
-            'h2',
-            null,
-            t('Who else is involved with this walk?')
-          ),
-          React.createElement(
-            'h3',
-            { className: 'lead' },
-            t('Click to add team members to your walk'),
-            ' (',
-            t('Optional'),
-            ')'
-          ),
-          React.createElement(
-            'div',
-            { className: 'team-set' },
-            React.createElement(
-              'div',
-              { className: 'team-row' },
-              React.createElement(
-                'section',
-                { className: 'new-member', id: 'new-walkleader', title: 'Add New Walk Leader', onClick: this.addLeader },
-                React.createElement('div', { className: 'icon' }),
-                React.createElement(
-                  'h4',
-                  { className: 'title text-center' },
-                  t('Walk Leader')
-                ),
-                React.createElement(
-                  'p',
-                  null,
-                  t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.')
-                )
-              ),
-              React.createElement(
-                'section',
-                { className: 'new-member', id: 'new-walkorganizer', title: 'Add New Walk Organizer', onClick: this.addOrganizer },
-                React.createElement('div', { className: 'icon' }),
-                React.createElement(
-                  'h4',
-                  { className: 'title text-center' },
-                  t('Walk Organizer')
-                ),
-                React.createElement(
-                  'p',
-                  null,
-                  t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.')
-                )
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'team-row' },
-              React.createElement(
-                'section',
-                { className: 'new-member', id: 'new-communityvoice', title: 'Add A Community Voice', onClick: this.addCommunityVoice },
-                React.createElement('div', { className: 'icon' }),
-                React.createElement(
-                  'h4',
-                  { className: 'title text-center' },
-                  t('Community Voice')
-                ),
-                React.createElement(
-                  'p',
-                  null,
-                  t('A community member with stories and/or personal experiences to share.')
-                )
-              ),
-              React.createElement(
-                'section',
-                { className: 'new-member', id: 'new-othermember', title: 'Add another helper to your walk', onClick: this.addVolunteer },
-                React.createElement('div', { className: 'icon' }),
-                React.createElement(
-                  'h4',
-                  { className: 'title text-center' },
-                  t('Volunteers')
-                ),
-                React.createElement(
-                  'p',
-                  null,
-                  t('Other people who are helping to make your walk happen.')
-                )
-              )
-            )
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'h1',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Build Your Team')
+                },
+                _owner: null
+              },
+              className: 'page-header',
+              'data-section': 'team'
+            },
+            _owner: null
+          }, users, {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'h2',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Who else is involved with this walk?')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'h3',
+                key: null,
+                ref: null,
+                props: {
+                  children: [t('Click to add team members to your walk'), ' (', t('Optional'), ')'],
+                  className: 'lead'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'section',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'icon'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'h4',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Walk Leader'),
+                              className: 'title text-center'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'p',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.')
+                            },
+                            _owner: null
+                          }],
+                          className: 'new-member',
+                          id: 'new-walkleader',
+                          title: 'Add New Walk Leader',
+                          onClick: this.addLeader
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'section',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'icon'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'h4',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Walk Organizer'),
+                              className: 'title text-center'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'p',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.')
+                            },
+                            _owner: null
+                          }],
+                          className: 'new-member',
+                          id: 'new-walkorganizer',
+                          title: 'Add New Walk Organizer',
+                          onClick: this.addOrganizer
+                        },
+                        _owner: null
+                      }],
+                      className: 'team-row'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'section',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'icon'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'h4',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Community Voice'),
+                              className: 'title text-center'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'p',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('A community member with stories and/or personal experiences to share.')
+                            },
+                            _owner: null
+                          }],
+                          className: 'new-member',
+                          id: 'new-communityvoice',
+                          title: 'Add A Community Voice',
+                          onClick: this.addCommunityVoice
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'section',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'icon'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'h4',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Volunteers'),
+                              className: 'title text-center'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'p',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Other people who are helping to make your walk happen.')
+                            },
+                            _owner: null
+                          }],
+                          className: 'new-member',
+                          id: 'new-othermember',
+                          title: 'Add another helper to your walk',
+                          onClick: this.addVolunteer
+                        },
+                        _owner: null
+                      }],
+                      className: 'team-row'
+                    },
+                    _owner: null
+                  }],
+                  className: 'team-set'
+                },
+                _owner: null
+              }],
+              className: 'thumbnail team-member',
+              id: 'add-member'
+            },
+            _owner: null
+          }],
+          className: 'tab-pane',
+          id: 'team'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -3557,180 +5279,521 @@ var TeamOwner = (function (_React$Component2) {
   _createClass(TeamOwner, [{
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'div',
-        { className: 'team-member thumbnail useredited', id: 'walk-leader-me' },
-        React.createElement(
-          'fieldset',
-          null,
-          React.createElement(
-            'legend',
-            null,
-            t('You')
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'walkleader' },
-            React.createElement(
-              'div',
-              { className: 'item required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'name' },
-                t('Name')
-              ),
-              React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-              React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-            ),
-            React.createElement(
-              'div',
-              { className: 'item required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'role' },
-                t('Role')
-              ),
-              React.createElement(
-                'select',
-                { id: 'role', valueLink: this.linkProp('role') },
-                React.createElement(
-                  'option',
-                  { defaultValue: 'walk-leader' },
-                  t('Walk Leader')
-                ),
-                React.createElement(
-                  'option',
-                  { defaultValue: 'co-walk-leader' },
-                  t('Co-Walk Leader')
-                ),
-                React.createElement(
-                  'option',
-                  { defaultValue: 'walk-organizer' },
-                  t('Walk Organizer')
-                )
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'item hide', id: 'primary-walkleader-select' },
-              React.createElement(
-                'label',
-                { className: 'checkbox' },
-                React.createElement('input', { type: 'checkbox', className: 'role-check', checkLink: this.linkProp('primary') }),
-                t('Primary Walk Leader')
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'item required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'bio' },
-                t('Introduce yourself')
-              ),
-              React.createElement(
-                'div',
-                { className: 'alert alert-info' },
-                t('We recommend keeping your bio under 60 words')
-              ),
-              React.createElement('textarea', { id: 'bio', rows: '6', valueLink: this.linkProp('bio') })
-            ),
-            React.createElement(
-              'div',
-              { className: 'row', id: 'newwalkleader' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6 required' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'you-email' },
-                  React.createElement('i', { className: 'fa fa-envelope' }),
-                  ' ',
-                  t('Email')
-                ),
-                React.createElement('input', { type: 'email', id: 'you-email', placeholder: '', valueLink: this.linkProp('email') })
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'leader-twitter' },
-                  React.createElement('i', { className: 'fa fa-twitter' }),
-                  ' Twitter'
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'input-group' },
-                  React.createElement(
-                    'span',
-                    { className: 'input-group-addon' },
-                    '@'
-                  ),
-                  React.createElement('input', { className: 'col-md-12', id: 'leader-twitter', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
-                )
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'row', id: 'newwalkleader' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'facebook' },
-                  React.createElement('i', { className: 'fa fa-facebook-square' }),
-                  ' Facebook'
-                ),
-                React.createElement('input', { type: 'text', id: 'facebook', placeholder: '', valueLink: this.linkProp('facebook') })
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'website' },
-                  React.createElement('i', { className: 'fa fa-link' }),
-                  ' ',
-                  t('Website')
-                ),
-                React.createElement('input', { type: 'text', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
-              )
-            ),
-            React.createElement('hr', null),
-            React.createElement(
-              'div',
-              { className: 'private' },
-              React.createElement(
-                'h4',
-                null,
-                t('We\'ll keep this part private')
-              ),
-              React.createElement(
-                'div',
-                { className: 'alert alert-info' },
-                t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.')
-              ),
-              React.createElement(
-                'div',
-                { className: 'row', id: 'newwalkleader' },
-                React.createElement(
-                  'div',
-                  { className: 'col-md-6 tel required' },
-                  React.createElement(
-                    'label',
-                    { htmlFor: 'phone' },
-                    React.createElement('i', { className: 'fa fa-phone-square' }),
-                    t('Phone Number')
-                  ),
-                  React.createElement('input', { type: 'tel', maxLength: '18', id: 'phone', placeholder: '', valueLink: this.linkProp('phone') })
-                )
-              )
-            )
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'fieldset',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'legend',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('You')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Name'),
+                          htmlFor: 'name'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'input',
+                        key: null,
+                        ref: null,
+                        props: {
+                          type: 'text',
+                          id: 'name',
+                          placeholder: 'First',
+                          valueLink: this.linkProp('name-first')
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'input',
+                        key: null,
+                        ref: null,
+                        props: {
+                          type: 'text',
+                          id: 'name',
+                          placeholder: 'Last',
+                          valueLink: this.linkProp('name-last')
+                        },
+                        _owner: null
+                      }],
+                      className: 'item required'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Role'),
+                          htmlFor: 'role'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'select',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'option',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Walk Leader'),
+                              defaultValue: 'walk-leader'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'option',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Co-Walk Leader'),
+                              defaultValue: 'co-walk-leader'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'option',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Walk Organizer'),
+                              defaultValue: 'walk-organizer'
+                            },
+                            _owner: null
+                          }],
+                          id: 'role',
+                          valueLink: this.linkProp('role')
+                        },
+                        _owner: null
+                      }],
+                      className: 'item required'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'checkbox',
+                              className: 'role-check',
+                              checkLink: this.linkProp('primary')
+                            },
+                            _owner: null
+                          }, t('Primary Walk Leader')],
+                          className: 'checkbox'
+                        },
+                        _owner: null
+                      },
+                      className: 'item hide',
+                      id: 'primary-walkleader-select'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Introduce yourself'),
+                          htmlFor: 'bio'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('We recommend keeping your bio under 60 words'),
+                          className: 'alert alert-info'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'textarea',
+                        key: null,
+                        ref: null,
+                        props: {
+                          id: 'bio',
+                          rows: '6',
+                          valueLink: this.linkProp('bio')
+                        },
+                        _owner: null
+                      }],
+                      className: 'item required'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-envelope'
+                                },
+                                _owner: null
+                              }, ' ', t('Email')],
+                              htmlFor: 'you-email'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'email',
+                              id: 'you-email',
+                              placeholder: '',
+                              valueLink: this.linkProp('email')
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6 required'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-twitter'
+                                },
+                                _owner: null
+                              }, ' Twitter'],
+                              htmlFor: 'leader-twitter'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'span',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: '@',
+                                  className: 'input-group-addon'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'col-md-12',
+                                  id: 'leader-twitter',
+                                  type: 'text',
+                                  placeholder: 'Username',
+                                  valueLink: this.linkProp('twitter')
+                                },
+                                _owner: null
+                              }],
+                              className: 'input-group'
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }],
+                      className: 'row',
+                      id: 'newwalkleader'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-facebook-square'
+                                },
+                                _owner: null
+                              }, ' Facebook'],
+                              htmlFor: 'facebook'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'text',
+                              id: 'facebook',
+                              placeholder: '',
+                              valueLink: this.linkProp('facebook')
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-link'
+                                },
+                                _owner: null
+                              }, ' ', t('Website')],
+                              htmlFor: 'website'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'text',
+                              id: 'website',
+                              placeholder: '',
+                              valueLink: this.linkProp('website')
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }],
+                      className: 'row',
+                      id: 'newwalkleader'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'hr',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'h4',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('We\'ll keep this part private')
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.'),
+                          className: 'alert alert-info'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'label',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'i',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      className: 'fa fa-phone-square'
+                                    },
+                                    _owner: null
+                                  }, t('Phone Number')],
+                                  htmlFor: 'phone'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'tel',
+                                  maxLength: '18',
+                                  id: 'phone',
+                                  placeholder: '',
+                                  valueLink: this.linkProp('phone')
+                                },
+                                _owner: null
+                              }],
+                              className: 'col-md-6 tel required'
+                            },
+                            _owner: null
+                          },
+                          className: 'row',
+                          id: 'newwalkleader'
+                        },
+                        _owner: null
+                      }],
+                      className: 'private'
+                    },
+                    _owner: null
+                  }],
+                  className: 'row',
+                  id: 'walkleader'
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          },
+          className: 'team-member thumbnail useredited',
+          id: 'walk-leader-me'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -3751,163 +5814,490 @@ var TeamLeader = (function (_React$Component3) {
   _createClass(TeamLeader, [{
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'div',
-        { className: 'thumbnail team-member walk-leader clearfix', id: 'walk-leader-new' },
-        React.createElement(
-          'fieldset',
-          null,
-          React.createElement(
-            'legend',
-            null,
-            t('Walk Leader')
-          ),
-          React.createElement(
-            'div',
-            { id: 'walkleader' },
-            React.createElement(
-              'div',
-              { className: 'item required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'name' },
-                t('Name')
-              ),
-              React.createElement(
-                'div',
-                { className: 'item' },
-                React.createElement(
-                  'form',
-                  { className: 'form-inline' },
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-                )
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'item', id: 'primary-walkleader-select' },
-              React.createElement(
-                'label',
-                { className: 'checkbox' },
-                React.createElement('input', { type: 'checkbox', className: 'role-check', valueLink: this.linkProp('primary') }),
-                t('Primary Walk Leader')
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'item required' },
-              React.createElement(
-                'label',
-                { htmlFor: 'bio' },
-                t('Introduce the walk leader')
-              ),
-              React.createElement(
-                'div',
-                { className: 'alert alert-info' },
-                t('We recommend keeping the bio under 60 words')
-              ),
-              React.createElement('textarea', { className: 'col-md-12', id: 'bio', rows: '6', valueLink: this.linkProp('bio') })
-            ),
-            React.createElement(
-              'div',
-              { className: 'row', id: 'newwalkleader' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'prependedInput' },
-                  React.createElement('i', { className: 'fa fa-twitter' }),
-                  ' Twitter'
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'input-prepend' },
-                  React.createElement(
-                    'span',
-                    { className: 'add-on' },
-                    '@'
-                  ),
-                  React.createElement('input', { id: 'prependedInput', className: 'col-md-12', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'facebook' },
-                  React.createElement('i', { className: 'fa fa-facebook-square' }),
-                  ' Facebook'
-                ),
-                React.createElement('input', { type: 'text', id: 'facebook', placeholder: '', valueLink: this.linkProp('facebook') })
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'row', id: 'newwalkleader' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'website' },
-                  React.createElement('i', { className: 'fa fa-link' }),
-                  t('Website')
-                ),
-                React.createElement('input', { type: 'text', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
-              )
-            ),
-            React.createElement('hr', null),
-            React.createElement(
-              'h4',
-              null,
-              t('Private')
-            ),
-            React.createElement(
-              'div',
-              { className: 'alert alert-info' },
-              t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.')
-            ),
-            React.createElement(
-              'div',
-              { className: 'row', id: 'newwalkleader' },
-              React.createElement(
-                'div',
-                { className: 'col-md-6 required' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'email' },
-                  React.createElement('i', { className: 'fa fa-envelope' }),
-                  t('Email')
-                ),
-                React.createElement('input', { type: 'email', id: 'email', placeholder: 'Email', valueLink: this.linkProp('email') })
-              ),
-              React.createElement(
-                'div',
-                { className: 'col-md-6 tel' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'phone' },
-                  React.createElement('i', { className: 'fa fa-phone-square' }),
-                  t('Phone Number')
-                ),
-                React.createElement('input', { type: 'tel', maxLength: '16', id: 'phone', placeholder: '', valueLink: this.linkProp('phone') })
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'footer',
-          null,
-          React.createElement(
-            'button',
-            { className: 'btn remove-team-member', onClick: this.props.onDelete },
-            t('Remove Team Member')
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'fieldset',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'legend',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Walk Leader')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Name'),
+                          htmlFor: 'name'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'form',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'First',
+                                  valueLink: this.linkProp('name-first')
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'Last',
+                                  valueLink: this.linkProp('name-last')
+                                },
+                                _owner: null
+                              }],
+                              className: 'form-inline'
+                            },
+                            _owner: null
+                          },
+                          className: 'item'
+                        },
+                        _owner: null
+                      }],
+                      className: 'item required'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'checkbox',
+                              className: 'role-check',
+                              valueLink: this.linkProp('primary')
+                            },
+                            _owner: null
+                          }, t('Primary Walk Leader')],
+                          className: 'checkbox'
+                        },
+                        _owner: null
+                      },
+                      className: 'item',
+                      id: 'primary-walkleader-select'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Introduce the walk leader'),
+                          htmlFor: 'bio'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('We recommend keeping the bio under 60 words'),
+                          className: 'alert alert-info'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'textarea',
+                        key: null,
+                        ref: null,
+                        props: {
+                          className: 'col-md-12',
+                          id: 'bio',
+                          rows: '6',
+                          valueLink: this.linkProp('bio')
+                        },
+                        _owner: null
+                      }],
+                      className: 'item required'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-twitter'
+                                },
+                                _owner: null
+                              }, ' Twitter'],
+                              htmlFor: 'prependedInput'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'span',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: '@',
+                                  className: 'add-on'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  id: 'prependedInput',
+                                  className: 'col-md-12',
+                                  type: 'text',
+                                  placeholder: 'Username',
+                                  valueLink: this.linkProp('twitter')
+                                },
+                                _owner: null
+                              }],
+                              className: 'input-prepend'
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-facebook-square'
+                                },
+                                _owner: null
+                              }, ' Facebook'],
+                              htmlFor: 'facebook'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'text',
+                              id: 'facebook',
+                              placeholder: '',
+                              valueLink: this.linkProp('facebook')
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      }],
+                      className: 'row',
+                      id: 'newwalkleader'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-link'
+                                },
+                                _owner: null
+                              }, t('Website')],
+                              htmlFor: 'website'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'text',
+                              id: 'website',
+                              placeholder: '',
+                              valueLink: this.linkProp('website')
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6'
+                        },
+                        _owner: null
+                      },
+                      className: 'row',
+                      id: 'newwalkleader'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'hr',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'h4',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Private')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('We\'ll use this information to contact you about your walk submission. We wont share this information with 3rd parties.'),
+                      className: 'alert alert-info'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-envelope'
+                                },
+                                _owner: null
+                              }, t('Email')],
+                              htmlFor: 'email'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'email',
+                              id: 'email',
+                              placeholder: 'Email',
+                              valueLink: this.linkProp('email')
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6 required'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'i',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  className: 'fa fa-phone-square'
+                                },
+                                _owner: null
+                              }, t('Phone Number')],
+                              htmlFor: 'phone'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'tel',
+                              maxLength: '16',
+                              id: 'phone',
+                              placeholder: '',
+                              valueLink: this.linkProp('phone')
+                            },
+                            _owner: null
+                          }],
+                          className: 'col-md-6 tel'
+                        },
+                        _owner: null
+                      }],
+                      className: 'row',
+                      id: 'newwalkleader'
+                    },
+                    _owner: null
+                  }],
+                  id: 'walkleader'
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'footer',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'button',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Remove Team Member'),
+                  className: 'btn remove-team-member',
+                  onClick: this.props.onDelete
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }],
+          className: 'thumbnail team-member walk-leader clearfix',
+          id: 'walk-leader-new'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -3928,75 +6318,206 @@ var TeamOrganizer = (function (_React$Component4) {
   _createClass(TeamOrganizer, [{
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'div',
-        { className: 'thumbnail team-member walk-organizer', id: 'walk-organizer-new' },
-        React.createElement(
-          'fieldset',
-          null,
-          React.createElement(
-            'legend',
-            null,
-            t('Walk Organizer')
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'walkleader' },
-            React.createElement(
-              'div',
-              { className: 'col-md-9' },
-              React.createElement(
-                'div',
-                { className: 'item required' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'name' },
-                  t('Name')
-                ),
-                React.createElement(
-                  'form',
-                  { className: 'form-inline' },
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-                )
-              ),
-              React.createElement(
-                'label',
-                { htmlFor: 'affiliation' },
-                t('Affilated Institution'),
-                ' (',
-                t('Optional'),
-                ')'
-              ),
-              React.createElement('input', { type: 'text', id: 'name', placeholder: 'e.g. City of Toronto', valueLink: this.linkProp('institution') }),
-              React.createElement(
-                'div',
-                { className: 'row', id: 'newwalkleader' },
-                React.createElement(
-                  'div',
-                  { className: 'col-md-6' },
-                  React.createElement(
-                    'label',
-                    { htmlFor: 'website' },
-                    React.createElement('i', { className: 'fa fa-link' }),
-                    t('Website')
-                  ),
-                  React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
-                )
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'footer',
-          null,
-          React.createElement(
-            'button',
-            { className: 'btn remove-team-member', onClick: this.props.onDelete },
-            t('Remove Team Member')
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'fieldset',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'legend',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Walk Organizer')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Name'),
+                              htmlFor: 'name'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'form',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'First',
+                                  valueLink: this.linkProp('name-first')
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'Last',
+                                  valueLink: this.linkProp('name-last')
+                                },
+                                _owner: null
+                              }],
+                              className: 'form-inline'
+                            },
+                            _owner: null
+                          }],
+                          className: 'item required'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'label',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [t('Affilated Institution'), ' (', t('Optional'), ')'],
+                          htmlFor: 'affiliation'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'input',
+                        key: null,
+                        ref: null,
+                        props: {
+                          type: 'text',
+                          id: 'name',
+                          placeholder: 'e.g. City of Toronto',
+                          valueLink: this.linkProp('institution')
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'label',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'i',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      className: 'fa fa-link'
+                                    },
+                                    _owner: null
+                                  }, t('Website')],
+                                  htmlFor: 'website'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  className: 'col-md-12',
+                                  id: 'website',
+                                  placeholder: '',
+                                  valueLink: this.linkProp('website')
+                                },
+                                _owner: null
+                              }],
+                              className: 'col-md-6'
+                            },
+                            _owner: null
+                          },
+                          className: 'row',
+                          id: 'newwalkleader'
+                        },
+                        _owner: null
+                      }],
+                      className: 'col-md-9'
+                    },
+                    _owner: null
+                  },
+                  className: 'row',
+                  id: 'walkleader'
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'footer',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'button',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Remove Team Member'),
+                  className: 'btn remove-team-member',
+                  onClick: this.props.onDelete
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }],
+          className: 'thumbnail team-member walk-organizer',
+          id: 'walk-organizer-new'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -4017,116 +6538,341 @@ var TeamCommunityVoice = (function (_React$Component5) {
   _createClass(TeamCommunityVoice, [{
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'div',
-        { className: 'thumbnail team-member community-voice', id: 'community-voice-new' },
-        React.createElement(
-          'fieldset',
-          null,
-          React.createElement(
-            'legend',
-            { id: 'community-voice' },
-            t('Community Voice')
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'walkleader' },
-            React.createElement(
-              'div',
-              { className: 'col-md-9' },
-              React.createElement(
-                'div',
-                { className: 'item required' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'name' },
-                  t('Name')
-                ),
-                React.createElement(
-                  'form',
-                  { className: 'form-inline' },
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'item' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'bio' },
-                  t('Tell everyone about this person')
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'alert alert-info' },
-                  t('We recommend keeping the bio under 60 words')
-                ),
-                React.createElement('textarea', { className: 'col-md-12', id: 'bio', rows: '6', valueLink: this.linkProp('bio') })
-              ),
-              React.createElement(
-                'div',
-                { className: 'row', id: 'newwalkleader' },
-                React.createElement(
-                  'div',
-                  { className: 'col-md-6' },
-                  React.createElement(
-                    'label',
-                    { htmlFor: 'prependedInput' },
-                    React.createElement('i', { className: 'fa fa-twitter' }),
-                    ' Twitter'
-                  ),
-                  React.createElement(
-                    'div',
-                    { className: 'input-prepend' },
-                    React.createElement(
-                      'span',
-                      { className: 'add-on' },
-                      '@'
-                    ),
-                    React.createElement('input', { className: 'col-md-12', id: 'prependedInput', type: 'text', placeholder: 'Username', valueLink: this.linkProp('twitter') })
-                  )
-                ),
-                React.createElement(
-                  'div',
-                  { className: 'col-md-6' },
-                  React.createElement(
-                    'label',
-                    { htmlFor: 'facebook' },
-                    React.createElement('i', { className: 'fa fa-facebook-square' }),
-                    ' Facebook'
-                  ),
-                  React.createElement('input', { type: 'text', id: 'facebook', placeholder: '', valueLink: this.linkProp('facebook') })
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'row', id: 'newwalkleader' },
-                React.createElement(
-                  'div',
-                  { className: 'col-md-6' },
-                  React.createElement(
-                    'label',
-                    { htmlFor: 'website' },
-                    React.createElement('i', { className: 'fa fa-link' }),
-                    t('Website')
-                  ),
-                  React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
-                )
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'footer',
-          null,
-          React.createElement(
-            'button',
-            { className: 'btn remove-team-member', onClick: this.props.onDelete },
-            t('Remove Team Member')
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'fieldset',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'legend',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Community Voice'),
+                  id: 'community-voice'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Name'),
+                              htmlFor: 'name'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'form',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'First',
+                                  valueLink: this.linkProp('name-first')
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'Last',
+                                  valueLink: this.linkProp('name-last')
+                                },
+                                _owner: null
+                              }],
+                              className: 'form-inline'
+                            },
+                            _owner: null
+                          }],
+                          className: 'item required'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Tell everyone about this person'),
+                              htmlFor: 'bio'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('We recommend keeping the bio under 60 words'),
+                              className: 'alert alert-info'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'textarea',
+                            key: null,
+                            ref: null,
+                            props: {
+                              className: 'col-md-12',
+                              id: 'bio',
+                              rows: '6',
+                              valueLink: this.linkProp('bio')
+                            },
+                            _owner: null
+                          }],
+                          className: 'item'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'label',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'i',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      className: 'fa fa-twitter'
+                                    },
+                                    _owner: null
+                                  }, ' Twitter'],
+                                  htmlFor: 'prependedInput'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'div',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'span',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      children: '@',
+                                      className: 'add-on'
+                                    },
+                                    _owner: null
+                                  }, {
+                                    $$typeof: _typeofReactElement,
+                                    type: 'input',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      className: 'col-md-12',
+                                      id: 'prependedInput',
+                                      type: 'text',
+                                      placeholder: 'Username',
+                                      valueLink: this.linkProp('twitter')
+                                    },
+                                    _owner: null
+                                  }],
+                                  className: 'input-prepend'
+                                },
+                                _owner: null
+                              }],
+                              className: 'col-md-6'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'label',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'i',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      className: 'fa fa-facebook-square'
+                                    },
+                                    _owner: null
+                                  }, ' Facebook'],
+                                  htmlFor: 'facebook'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'facebook',
+                                  placeholder: '',
+                                  valueLink: this.linkProp('facebook')
+                                },
+                                _owner: null
+                              }],
+                              className: 'col-md-6'
+                            },
+                            _owner: null
+                          }],
+                          className: 'row',
+                          id: 'newwalkleader'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'label',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'i',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      className: 'fa fa-link'
+                                    },
+                                    _owner: null
+                                  }, t('Website')],
+                                  htmlFor: 'website'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  className: 'col-md-12',
+                                  id: 'website',
+                                  placeholder: '',
+                                  valueLink: this.linkProp('website')
+                                },
+                                _owner: null
+                              }],
+                              className: 'col-md-6'
+                            },
+                            _owner: null
+                          },
+                          className: 'row',
+                          id: 'newwalkleader'
+                        },
+                        _owner: null
+                      }],
+                      className: 'col-md-9'
+                    },
+                    _owner: null
+                  },
+                  className: 'row',
+                  id: 'walkleader'
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'footer',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'button',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Remove Team Member'),
+                  className: 'btn remove-team-member',
+                  onClick: this.props.onDelete
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }],
+          className: 'thumbnail team-member community-voice',
+          id: 'community-voice-new'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -4147,76 +6893,216 @@ var TeamVolunteer = (function (_React$Component6) {
   _createClass(TeamVolunteer, [{
     key: 'render',
     value: function render() {
-      return React.createElement(
-        'div',
-        { className: 'thumbnail team-member othermember', id: 'othermember-new' },
-        React.createElement(
-          'fieldset',
-          null,
-          React.createElement(
-            'legend',
-            { id: 'othermember' },
-            t('Volunteers')
-          ),
-          React.createElement(
-            'div',
-            { className: 'row', id: 'walkleader' },
-            React.createElement(
-              'div',
-              { className: 'col-md-9' },
-              React.createElement(
-                'div',
-                { className: 'item required' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'name' },
-                  t('Name')
-                ),
-                React.createElement(
-                  'form',
-                  { className: 'form-inline' },
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'First', valueLink: this.linkProp('name-first') }),
-                  React.createElement('input', { type: 'text', id: 'name', placeholder: 'Last', valueLink: this.linkProp('name-last') })
-                )
-              ),
-              React.createElement(
-                'div',
-                { className: 'item required' },
-                React.createElement(
-                  'label',
-                  { htmlFor: 'role' },
-                  t('Role')
-                ),
-                React.createElement('input', { type: 'text', id: 'role', valueLink: this.linkProp('role') })
-              ),
-              React.createElement(
-                'div',
-                { className: 'row', id: 'newwalkleader' },
-                React.createElement(
-                  'div',
-                  { className: 'col-md-6' },
-                  React.createElement(
-                    'label',
-                    { htmlFor: 'website' },
-                    React.createElement('i', { className: 'fa fa-link' }),
-                    t('Website')
-                  ),
-                  React.createElement('input', { type: 'text', className: 'col-md-12', id: 'website', placeholder: '', valueLink: this.linkProp('website') })
-                )
-              )
-            )
-          )
-        ),
-        React.createElement(
-          'footer',
-          null,
-          React.createElement(
-            'button',
-            { className: 'btn remove-team-member', onClick: this.props.onDelete },
-            t('Remove Team Member')
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'fieldset',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'legend',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Volunteers'),
+                  id: 'othermember'
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'div',
+                key: null,
+                ref: null,
+                props: {
+                  children: {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Name'),
+                              htmlFor: 'name'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'form',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'First',
+                                  valueLink: this.linkProp('name-first')
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  id: 'name',
+                                  placeholder: 'Last',
+                                  valueLink: this.linkProp('name-last')
+                                },
+                                _owner: null
+                              }],
+                              className: 'form-inline'
+                            },
+                            _owner: null
+                          }],
+                          className: 'item required'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: 'label',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Role'),
+                              htmlFor: 'role'
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: 'input',
+                            key: null,
+                            ref: null,
+                            props: {
+                              type: 'text',
+                              id: 'role',
+                              valueLink: this.linkProp('role')
+                            },
+                            _owner: null
+                          }],
+                          className: 'item required'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'div',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [{
+                                $$typeof: _typeofReactElement,
+                                type: 'label',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  children: [{
+                                    $$typeof: _typeofReactElement,
+                                    type: 'i',
+                                    key: null,
+                                    ref: null,
+                                    props: {
+                                      className: 'fa fa-link'
+                                    },
+                                    _owner: null
+                                  }, t('Website')],
+                                  htmlFor: 'website'
+                                },
+                                _owner: null
+                              }, {
+                                $$typeof: _typeofReactElement,
+                                type: 'input',
+                                key: null,
+                                ref: null,
+                                props: {
+                                  type: 'text',
+                                  className: 'col-md-12',
+                                  id: 'website',
+                                  placeholder: '',
+                                  valueLink: this.linkProp('website')
+                                },
+                                _owner: null
+                              }],
+                              className: 'col-md-6'
+                            },
+                            _owner: null
+                          },
+                          className: 'row',
+                          id: 'newwalkleader'
+                        },
+                        _owner: null
+                      }],
+                      className: 'col-md-9'
+                    },
+                    _owner: null
+                  },
+                  className: 'row',
+                  id: 'walkleader'
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'footer',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'button',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Remove Team Member'),
+                  className: 'btn remove-team-member',
+                  onClick: this.props.onDelete
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }],
+          className: 'thumbnail team-member othermember',
+          id: 'othermember-new'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -4233,6 +7119,8 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -4276,42 +7164,82 @@ var ThemeSelect = (function (_React$Component) {
       }
 
       // TODO: Don't select themes for NYC
-      return React.createElement(
-        'fieldset',
-        { id: 'theme-select' },
-        React.createElement(
-          'legend',
-          { className: 'required-legend' },
-          t('Themes')
-        ),
-        React.createElement(
-          'div',
-          { className: 'alert alert-info' },
-          t('Pick between %d and %d boxes.', 1, this.state.maxChecked)
-        ),
-        this.props.themeCategories.map(function (category) {
-          return React.createElement(
-            'fieldset',
-            { key: category.name },
-            React.createElement(
-              'legend',
-              null,
-              t(category.name)
-            ),
-            category.themes.map(function (theme) {
-              // Don't let a checkbox be checked if it pushes over limit
-              var disabled = totalChecked >= _this.state.maxChecked && !checkboxes[theme.id];
-              return React.createElement(
-                'label',
-                { key: theme.id, className: 'checkbox' },
-                React.createElement('input', { type: 'checkbox', disabled: disabled, checkedLink: _this2.linkParentState(theme.id) }),
-                t(theme.name)
-              );
-            })
-          );
-        }),
-        ';'
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'fieldset',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'legend',
+            key: null,
+            ref: null,
+            props: {
+              children: t('Themes'),
+              className: 'required-legend'
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: t('Pick between %d and %d boxes.', 1, this.state.maxChecked),
+              className: 'alert alert-info'
+            },
+            _owner: null
+          }, this.props.themeCategories.map(function (category) {
+            return {
+              $$typeof: _typeofReactElement,
+              type: 'fieldset',
+              key: category.name,
+              ref: null,
+              props: {
+                children: [{
+                  $$typeof: _typeofReactElement,
+                  type: 'legend',
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: t(category.name)
+                  },
+                  _owner: null
+                }, category.themes.map(function (theme) {
+                  // Don't let a checkbox be checked if it pushes over limit
+                  var disabled = totalChecked >= _this.state.maxChecked && !checkboxes[theme.id];
+                  return {
+                    $$typeof: _typeofReactElement,
+                    type: 'label',
+                    key: theme.id,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'input',
+                        key: null,
+                        ref: null,
+                        props: {
+                          type: 'checkbox',
+                          disabled: disabled,
+                          checkedLink: _this2.linkParentState(theme.id)
+                        },
+                        _owner: null
+                      }, t(theme.name)],
+                      className: 'checkbox'
+                    },
+                    _owner: null
+                  };
+                })]
+              },
+              _owner: null
+            };
+          }), ';'],
+          id: 'theme-select'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -4443,6 +7371,8 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -4496,73 +7426,160 @@ var WalkPublish = (function (_React$Component) {
       // Check city config for which walk mirroring services to expose
       var mirrorWalk = undefined;
       if (this.props.city.mirrors.indexOf('eventbrite') > -1) {
-        mirrorWalk = React.createElement(
-          'label',
-          { className: 'checkbox' },
-          React.createElement('input', { type: 'checkbox', checkedLink: this.linkState('eventbrite') }),
-          t('Publish walk to EventBrite')
-        );
+        mirrorWalk = {
+          $$typeof: _typeofReactElement,
+          type: 'label',
+          key: null,
+          ref: null,
+          props: {
+            children: [{
+              $$typeof: _typeofReactElement,
+              type: 'input',
+              key: null,
+              ref: null,
+              props: {
+                type: 'checkbox',
+                checkedLink: this.linkState('eventbrite')
+              },
+              _owner: null
+            }, t('Publish walk to EventBrite')],
+            className: 'checkbox'
+          },
+          _owner: null
+        };
       }
 
-      return React.createElement(
-        'dialog',
-        { id: 'publish-warning' },
-        React.createElement(
-          'div',
-          null,
-          React.createElement(
-            'article',
-            null,
-            React.createElement(
-              'header',
-              null,
-              React.createElement(
-                'button',
-                { type: 'button', className: 'close', 'data-dismiss': 'modal', 'aria-hidden': 'true' },
-                '×'
-              ),
-              React.createElement(
-                'h3',
-                null,
-                t('Okay, You\'re Ready to Publish')
-              )
-            ),
-            React.createElement(
-              'div',
-              { className: 'modal-body' },
-              React.createElement(
-                'p',
-                null,
-                t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.')
-              ),
-              mirrorWalk
-            ),
-            React.createElement(
-              'footer',
-              null,
-              React.createElement(
-                'div',
-                { className: 'pull-left' },
-                React.createElement(
-                  'a',
-                  { className: 'walkthrough close', 'data-dismiss': 'modal', onClick: this.props.close.bind(this) },
-                  ' ',
-                  t('Bring me back to edit')
-                )
-              ),
-              React.createElement(
-                'a',
-                null,
-                React.createElement(
-                  'button',
-                  { className: 'btn btn-primary walkthrough', 'data-step': 'publish-confirmation', onClick: this.handlePublish },
-                  t('Publish')
-                )
-              )
-            )
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'dialog',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'article',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'header',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'button',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: '×',
+                          type: 'button',
+                          className: 'close',
+                          'data-dismiss': 'modal',
+                          'aria-hidden': 'true'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'h3',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Okay, You\'re Ready to Publish')
+                        },
+                        _owner: null
+                      }]
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'div',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'p',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: t('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.')
+                        },
+                        _owner: null
+                      }, mirrorWalk],
+                      className: 'modal-body'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'footer',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: 'div',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'a',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: [' ', t('Bring me back to edit')],
+                              className: 'walkthrough close',
+                              'data-dismiss': 'modal',
+                              onClick: this.props.close.bind(this)
+                            },
+                            _owner: null
+                          },
+                          className: 'pull-left'
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: 'a',
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: {
+                            $$typeof: _typeofReactElement,
+                            type: 'button',
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: t('Publish'),
+                              className: 'btn btn-primary walkthrough',
+                              'data-step': 'publish-confirmation',
+                              onClick: this.handlePublish
+                            },
+                            _owner: null
+                          }
+                        },
+                        _owner: null
+                      }]
+                    },
+                    _owner: null
+                  }]
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          },
+          id: 'publish-warning'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -4581,6 +7598,8 @@ module.exports = exports['default'];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -4610,42 +7629,91 @@ var WardSelect = (function (_React$Component) {
     value: function render() {
       var wards = this.props.wards;
       if (wards && this.props.valueLink) {
-        return React.createElement(
-          'fieldset',
-          { id: 'wards' },
-          React.createElement(
-            'legend',
-            null,
-            t('Sub-locality')
-          ),
-          React.createElement(
-            'div',
-            { className: 'item' },
-            React.createElement(
-              'div',
-              { className: 'alert alert-info' },
-              t('Choose a specific neighbourhood or area where your walk will take place.')
-            ),
-            React.createElement(
-              'select',
-              { id: 'ward', name: 'ward', valueLink: this.props.valueLink },
-              React.createElement(
-                'option',
-                { value: '' },
-                'Choose a region'
-              ),
-              wards.map(function (e, i) {
-                return React.createElement(
-                  'option',
-                  { key: i, value: e.value },
-                  e.value
-                );
-              })
-            )
-          )
-        );
+        return {
+          $$typeof: _typeofReactElement,
+          type: 'fieldset',
+          key: null,
+          ref: null,
+          props: {
+            children: [{
+              $$typeof: _typeofReactElement,
+              type: 'legend',
+              key: null,
+              ref: null,
+              props: {
+                children: t('Sub-locality')
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: 'div',
+              key: null,
+              ref: null,
+              props: {
+                children: [{
+                  $$typeof: _typeofReactElement,
+                  type: 'div',
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: t('Choose a specific neighbourhood or area where your walk will take place.'),
+                    className: 'alert alert-info'
+                  },
+                  _owner: null
+                }, {
+                  $$typeof: _typeofReactElement,
+                  type: 'select',
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: [{
+                      $$typeof: _typeofReactElement,
+                      type: 'option',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: 'Choose a region',
+                        value: ''
+                      },
+                      _owner: null
+                    }, wards.map(function (e, i) {
+                      return {
+                        $$typeof: _typeofReactElement,
+                        type: 'option',
+                        key: i,
+                        ref: null,
+                        props: {
+                          children: e.value,
+                          value: e.value
+                        },
+                        _owner: null
+                      };
+                    })],
+                    id: 'ward',
+                    name: 'ward',
+                    valueLink: this.props.valueLink
+                  },
+                  _owner: null
+                }],
+                className: 'item'
+              },
+              _owner: null
+            }],
+            id: 'wards'
+          },
+          _owner: null
+        };
       } else {
-        return React.createElement('fieldset', { id: 'wards' });
+        return {
+          $$typeof: _typeofReactElement,
+          type: 'fieldset',
+          key: null,
+          ref: null,
+          props: {
+            id: 'wards'
+          },
+          _owner: null
+        };
       }
     }
   }]);
@@ -4670,6 +7738,8 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -4704,7 +7774,16 @@ var DatePicker = (function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return React.createElement("div", { className: "date-picker" });
+      return {
+        $$typeof: _typeofReactElement,
+        type: "div",
+        key: null,
+        ref: null,
+        props: {
+          className: "date-picker"
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -4727,6 +7806,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -4747,7 +7828,14 @@ var TimeOpenTable = (function (_React$Component) {
   _createClass(TimeOpenTable, [{
     key: "render",
     value: function render() {
-      return React.createElement("table", null);
+      return {
+        $$typeof: _typeofReactElement,
+        type: "table",
+        key: null,
+        ref: null,
+        props: {},
+        _owner: null
+      };
     }
   }]);
 
@@ -4759,9 +7847,23 @@ module.exports = exports["default"];
 
 
 },{}],25:[function(require,module,exports){
+// Flux
 'use strict';
 
-// Flux
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 var i18n = require('../../../stores/I18nStore.js');
 var t = i18n.getTranslate();
 
@@ -4771,16 +7873,21 @@ var t = i18n.getTranslate();
  * date formats can be when you're an international organization.
  */
 
-function TimePicker() {
-  this.state = { startTimes: [] };
-}
+var TimePicker = (function (_React$Component) {
+  _inherits(TimePicker, _React$Component);
 
-TimePicker.prototype = Object.create(React.Component.prototype, {
-  constructor: { value: TimePicker },
+  function TimePicker() {
+    _classCallCheck(this, TimePicker);
+
+    _get(Object.getPrototypeOf(TimePicker.prototype), 'constructor', this).call(this);
+    this.state = { startTimes: [] };
+  }
 
   // Date management is slow, so avoid rebuilding unless needed
-  setStartTimes: {
-    value: function value(start, step) {
+
+  _createClass(TimePicker, [{
+    key: 'setStartTimes',
+    value: function setStartTimes(start, step) {
       if (this.state.start !== start) {
         // It's fastest to build our date formatter once upfront
         var dtfTime = new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
@@ -4804,22 +7911,14 @@ TimePicker.prototype = Object.create(React.Component.prototype, {
         });
       }
     }
-  },
-
-  componentWillUpdate: {
-    value: function value() {}
-  },
-
-  componentWillMount: {
-    value: function value() {
-      this.componentWillUpdate();
-      var startDate = new Date(this.props.valueLinkStart.value);
-      this.setStartTimes(startDate);
+  }, {
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      this.setStartTimes(new Date(this.props.valueLinkStart.value));
     }
-  },
-
-  render: {
-    value: function value() {
+  }, {
+    key: 'render',
+    value: function render() {
       // Count walk times in 30 min increments
       var linkDuration = this.props.valueLinkDuration;
       var requestChange = linkDuration.requestChange;
@@ -4827,80 +7926,154 @@ TimePicker.prototype = Object.create(React.Component.prototype, {
 
       // Cast duration as a number
       linkDuration.requestChange = function (value) {
-        requestChange(Number(value));
+        return requestChange(+value);
       };
 
-      return React.createElement(
-        'div',
-        { className: 'time-picker' },
-        React.createElement(
-          'label',
-          { htmlFor: 'walk-time' },
-          t('Start Time'),
-          ':'
-        ),
-        React.createElement(
-          'select',
-          { name: 'start', id: 'walk-start', valueLink: linkStart },
-          this.state.startTimes.map(function (time, i) {
-            return React.createElement(
-              'option',
-              { key: 'walk-start' + i, value: time.asMs },
-              time.asString
-            );
-          })
-        ),
-        React.createElement(
-          'label',
-          { htmlFor: 'walk-time' },
-          t('Approximate Duration of Walk'),
-          ':'
-        ),
-        React.createElement(
-          'select',
-          { name: 'duration', id: 'walk-duration', valueLink: linkDuration },
-          React.createElement(
-            'option',
-            { value: 30 * 60000 },
-            '30 Minutes'
-          ),
-          React.createElement(
-            'option',
-            { value: 60 * 60000 },
-            '1 Hour'
-          ),
-          React.createElement(
-            'option',
-            { value: 90 * 60000 },
-            '1 Hour, 30 Minutes'
-          ),
-          React.createElement(
-            'option',
-            { value: 120 * 60000 },
-            '2 Hours'
-          ),
-          React.createElement(
-            'option',
-            { value: 150 * 60000 },
-            '2 Hours, 30 Minutes'
-          ),
-          React.createElement(
-            'option',
-            { value: 180 * 60000 },
-            '3 Hours'
-          ),
-          React.createElement(
-            'option',
-            { value: 210 * 60000 },
-            '3 Hours, 30 Minutes'
-          )
-        )
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'label',
+            key: null,
+            ref: null,
+            props: {
+              children: [t('Start Time'), ':'],
+              htmlFor: 'walk-time'
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'select',
+            key: null,
+            ref: null,
+            props: {
+              children: this.state.startTimes.map(function (time, i) {
+                return {
+                  $$typeof: _typeofReactElement,
+                  type: 'option',
+                  key: 'walk-start' + i,
+                  ref: null,
+                  props: {
+                    children: time.asString,
+                    value: time.asMs
+                  },
+                  _owner: null
+                };
+              }),
+              name: 'start',
+              id: 'walk-start',
+              valueLink: linkStart
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'label',
+            key: null,
+            ref: null,
+            props: {
+              children: [t('Approximate Duration of Walk'), ':'],
+              htmlFor: 'walk-time'
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'select',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'option',
+                key: null,
+                ref: null,
+                props: {
+                  children: '30 Minutes',
+                  value: 30 * 60000
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'option',
+                key: null,
+                ref: null,
+                props: {
+                  children: '1 Hour',
+                  value: 60 * 60000
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'option',
+                key: null,
+                ref: null,
+                props: {
+                  children: '1 Hour, 30 Minutes',
+                  value: 90 * 60000
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'option',
+                key: null,
+                ref: null,
+                props: {
+                  children: '2 Hours',
+                  value: 120 * 60000
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'option',
+                key: null,
+                ref: null,
+                props: {
+                  children: '2 Hours, 30 Minutes',
+                  value: 150 * 60000
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'option',
+                key: null,
+                ref: null,
+                props: {
+                  children: '3 Hours',
+                  value: 180 * 60000
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'option',
+                key: null,
+                ref: null,
+                props: {
+                  children: '3 Hours, 30 Minutes',
+                  value: 210 * 60000
+                },
+                _owner: null
+              }],
+              name: 'duration',
+              id: 'walk-duration',
+              valueLink: linkDuration
+            },
+            _owner: null
+          }],
+          className: 'time-picker'
+        },
+        _owner: null
+      };
     }
-  }
-});
+  }]);
 
-module.exports = TimePicker;
+  return TimePicker;
+})(React.Component);
+
+exports['default'] = TimePicker;
+module.exports = exports['default'];
 
 
 },{"../../../stores/I18nStore.js":42}],26:[function(require,module,exports){
@@ -4910,6 +8083,8 @@ module.exports = TimePicker;
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -4960,83 +8135,158 @@ var TimeSetTable = (function (_React$Component) {
       var dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
       var dtfDuration = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
 
-      return React.createElement(
-        'table',
-        { className: 'table table-bordered table-hover', id: 'date-list-all' },
-        React.createElement(
-          'thead',
-          null,
-          React.createElement(
-            'tr',
-            null,
-            React.createElement(
-              'th',
-              null,
-              t('Date')
-            ),
-            React.createElement(
-              'th',
-              null,
-              t('Start Time')
-            ),
-            React.createElement(
-              'th',
-              null,
-              t('Duration')
-            ),
-            React.createElement('th', null)
-          )
-        ),
-        React.createElement(
-          'tbody',
-          null,
-          slots.map(function (slot, i) {
-            var start = new Date(slot[0] * 1000);
-            var duration = new Date((slot[1] - slot[0]) * 1000);
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'table',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'thead',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'tr',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Date')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Start Time')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: t('Duration')
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  }]
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'tbody',
+            key: null,
+            ref: null,
+            props: {
+              children: slots.map(function (slot, i) {
+                var start = new Date(slot[0] * 1000);
+                var duration = new Date((slot[1] - slot[0]) * 1000);
 
-            var hours = duration.getUTCHours();
-            var minutes = duration.getUTCMinutes();
-            var durationFmt = [];
-            if (hours) {
-              durationFmt.push(t2('%d Hour', '%d Hours', hours));
-            }
-            if (minutes) {
-              durationFmt.push(t2('%d Minute', '%d Minutes', minutes));
-            }
+                var hours = duration.getUTCHours();
+                var minutes = duration.getUTCMinutes();
+                var durationFmt = [];
+                if (hours) {
+                  durationFmt.push(t2('%d Hour', '%d Hours', hours));
+                }
+                if (minutes) {
+                  durationFmt.push(t2('%d Minute', '%d Minutes', minutes));
+                }
 
-            return React.createElement(
-              'tr',
-              { key: i },
-              React.createElement(
-                'td',
-                null,
-                dtfDate.format(start)
-              ),
-              React.createElement(
-                'td',
-                null,
-                dtfDuration.format(start)
-              ),
-              React.createElement(
-                'td',
-                null,
-                durationFmt.join(', ')
-              ),
-              React.createElement(
-                'td',
-                null,
-                React.createElement(
-                  'a',
-                  { onClick: _this.removeSlot.bind(_this, i) },
-                  React.createElement('i', { className: 'fa fa-times-circle-o' }),
-                  ' ',
-                  t('Remove')
-                )
-              )
-            );
-          })
-        )
-      );
+                return {
+                  $$typeof: _typeofReactElement,
+                  type: 'tr',
+                  key: i,
+                  ref: null,
+                  props: {
+                    children: [{
+                      $$typeof: _typeofReactElement,
+                      type: 'td',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: dtfDate.format(start)
+                      },
+                      _owner: null
+                    }, {
+                      $$typeof: _typeofReactElement,
+                      type: 'td',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: dtfDuration.format(start)
+                      },
+                      _owner: null
+                    }, {
+                      $$typeof: _typeofReactElement,
+                      type: 'td',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: durationFmt.join(', ')
+                      },
+                      _owner: null
+                    }, {
+                      $$typeof: _typeofReactElement,
+                      type: 'td',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: {
+                          $$typeof: _typeofReactElement,
+                          type: 'a',
+                          key: null,
+                          ref: null,
+                          props: {
+                            children: [{
+                              $$typeof: _typeofReactElement,
+                              type: 'i',
+                              key: null,
+                              ref: null,
+                              props: {
+                                className: 'fa fa-times-circle-o'
+                              },
+                              _owner: null
+                            }, ' ', t('Remove')],
+                            onClick: _this.removeSlot.bind(_this, i)
+                          },
+                          _owner: null
+                        }
+                      },
+                      _owner: null
+                    }]
+                  },
+                  _owner: null
+                };
+              })
+            },
+            _owner: null
+          }],
+          className: 'table table-bordered table-hover',
+          id: 'date-list-all'
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -5054,95 +8304,162 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === "undefined") { props[propName] = defaultProps[propName]; } } } return props; }
 
 var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-var ConnectFilters = (function (_React$Component) {
-  _inherits(ConnectFilters, _React$Component);
-
-  function ConnectFilters() {
-    _classCallCheck(this, ConnectFilters);
-
-    _get(Object.getPrototypeOf(ConnectFilters.prototype), "constructor", this).apply(this, arguments);
-  }
-
-  _createClass(ConnectFilters, [{
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      return React.createElement(
-        "div",
-        { className: "filterInputs" },
-        React.createElement(
-          ReactCSSTransitionGroup,
-          { transitionName: "fade" },
-          this.props.filters.map(function (filter, i) {
+var ConnectFilters = function ConnectFilters(props) {
+  return {
+    $$typeof: _typeofReactElement,
+    type: "div",
+    key: null,
+    ref: null,
+    props: {
+      children: {
+        $$typeof: _typeofReactElement,
+        type: ReactCSSTransitionGroup,
+        key: null,
+        ref: null,
+        props: _defaultProps(ReactCSSTransitionGroup.defaultProps, {
+          children: props.filters.map(function (filter, i) {
             var cbAndRemove = function cbAndRemove(ev) {
               ev.preventDefault();
               filter.cb(filter.value);
-              _this.props.remove(i);
+              props.remove(i);
             };
             var handleChange = function handleChange(ev) {
-              return _this.props.changeFilter(i, ev.target.value);
-            };
-            var cancel = function cancel() {
-              return _this.props.remove(i);
+              return props.changeFilter(i, ev.target.value);
             };
             var input = null;
 
             if (filter.type === 'text') {
-              input = React.createElement("input", { type: "text", placeholder: filter.placeholder, value: filter.text, onChange: handleChange });
+              input = {
+                $$typeof: _typeofReactElement,
+                type: "input",
+                key: null,
+                ref: null,
+                props: {
+                  type: "text",
+                  placeholder: filter.placeholder,
+                  value: filter.text,
+                  onChange: handleChange
+                },
+                _owner: null
+              };
             } else if (filter.type === 'select') {
-              input = React.createElement(
-                "select",
-                { selected: filter.value, onChange: handleChange },
-                filter.options.map(function (option, i) {
-                  return React.createElement(
-                    "option",
-                    { key: 'option' + i, value: i },
-                    option.title
-                  );
-                })
-              );
+              input = {
+                $$typeof: _typeofReactElement,
+                type: "select",
+                key: null,
+                ref: null,
+                props: {
+                  children: filter.options.map(function (option, i) {
+                    return {
+                      $$typeof: _typeofReactElement,
+                      type: "option",
+                      key: 'option' + i,
+                      ref: null,
+                      props: {
+                        children: option.title,
+                        value: i
+                      },
+                      _owner: null
+                    };
+                  }),
+                  selected: filter.value,
+                  onChange: handleChange
+                },
+                _owner: null
+              };
             }
 
             // FIXME: these spans are rather silly, but needed to play nice with bootstrap
-            return React.createElement(
-              "form",
-              { className: "filter", onSubmit: cbAndRemove },
-              React.createElement("i", { className: filter.icon }),
-              React.createElement(
-                "span",
-                { className: "input" },
-                input
-              ),
-              React.createElement(
-                "span",
-                { className: "button" },
-                React.createElement("input", { type: "submit", value: 'Go' })
-              ),
-              React.createElement(
-                "span",
-                { className: "button" },
-                React.createElement("input", { type: "button", value: 'Cancel', onClick: cancel })
-              )
-            );
-          })
-        )
-      );
-    }
-  }]);
-
-  return ConnectFilters;
-})(React.Component);
+            return {
+              $$typeof: _typeofReactElement,
+              type: "form",
+              key: null,
+              ref: null,
+              props: {
+                children: [{
+                  $$typeof: _typeofReactElement,
+                  type: "i",
+                  key: null,
+                  ref: null,
+                  props: {
+                    className: filter.icon
+                  },
+                  _owner: null
+                }, {
+                  $$typeof: _typeofReactElement,
+                  type: "span",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: input,
+                    className: "input"
+                  },
+                  _owner: null
+                }, {
+                  $$typeof: _typeofReactElement,
+                  type: "span",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: {
+                      $$typeof: _typeofReactElement,
+                      type: "input",
+                      key: null,
+                      ref: null,
+                      props: {
+                        type: "submit",
+                        value: 'Go'
+                      },
+                      _owner: null
+                    },
+                    className: "button"
+                  },
+                  _owner: null
+                }, {
+                  $$typeof: _typeofReactElement,
+                  type: "span",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: {
+                      $$typeof: _typeofReactElement,
+                      type: "input",
+                      key: null,
+                      ref: null,
+                      props: {
+                        type: "button",
+                        value: 'Cancel',
+                        onClick: function () {
+                          return props.remove(i);
+                        }
+                      },
+                      _owner: null
+                    },
+                    className: "button"
+                  },
+                  _owner: null
+                }],
+                className: "filter",
+                onSubmit: cbAndRemove
+              },
+              _owner: null
+            };
+          }),
+          transitionName: "fade"
+        }),
+        _owner: null
+      },
+      className: "filterInputs"
+    },
+    _owner: null
+  };
+};
 
 exports["default"] = ConnectFilters;
 module.exports = exports["default"];
@@ -5154,6 +8471,8 @@ module.exports = exports["default"];
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -5262,12 +8581,26 @@ var InstagramConnect = (function (_React$Component) {
         }
       };
 
-      return React.createElement(
-        'button',
-        { onClick: addFilter },
-        React.createElement('i', { className: 'fa fa-instagram' }),
-        'Instagram'
-      );
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'button',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'i',
+            key: null,
+            ref: null,
+            props: {
+              className: 'fa fa-instagram'
+            },
+            _owner: null
+          }, 'Instagram'],
+          onClick: addFilter
+        },
+        _owner: null
+      };
     }
   }]);
 
@@ -5280,6 +8613,8 @@ module.exports = exports['default'];
 
 },{}],29:[function(require,module,exports){
 'use strict';
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var SoundCloudConnect = React.createClass({
   displayName: 'SoundCloudConnect',
@@ -5376,12 +8711,26 @@ var SoundCloudConnect = React.createClass({
       }
     };
 
-    return React.createElement(
-      'button',
-      { onClick: addFilter },
-      React.createElement('i', { className: 'fa fa-soundcloud' }),
-      'SoundCloud'
-    );
+    return {
+      $$typeof: _typeofReactElement,
+      type: 'button',
+      key: null,
+      ref: null,
+      props: {
+        children: [{
+          $$typeof: _typeofReactElement,
+          type: 'i',
+          key: null,
+          ref: null,
+          props: {
+            className: 'fa fa-soundcloud'
+          },
+          _owner: null
+        }, 'SoundCloud'],
+        onClick: addFilter
+      },
+      _owner: null
+    };
   }
 });
 
@@ -5390,6 +8739,8 @@ module.exports = SoundCloudConnect;
 
 },{}],30:[function(require,module,exports){
 'use strict';
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var TwitterConnect = React.createClass({
   displayName: 'TwitterConnect',
@@ -5471,12 +8822,26 @@ var TwitterConnect = React.createClass({
       });
     }).bind(this);
 
-    return React.createElement(
-      'button',
-      { onClick: addFilter },
-      React.createElement('i', { className: 'fa fa-twitter' }),
-      'twitter'
-    );
+    return {
+      $$typeof: _typeofReactElement,
+      type: 'button',
+      key: null,
+      ref: null,
+      props: {
+        children: [{
+          $$typeof: _typeofReactElement,
+          type: 'i',
+          key: null,
+          ref: null,
+          props: {
+            className: 'fa fa-twitter'
+          },
+          _owner: null
+        }, 'twitter'],
+        onClick: addFilter
+      },
+      _owner: null
+    };
   }
 });
 
@@ -5493,6 +8858,8 @@ module.exports = TwitterConnect;
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -5556,39 +8923,101 @@ var WalkInfoWindow = (function (_React$Component) {
         // Load rich media
         if (markerContent.media) {
           if (markerContent.media.type === 'instagram') {
-            media = React.createElement('img', { className: 'media', src: markerContent.media.url + 'media?size=t' });
+            media = {
+              $$typeof: _typeofReactElement,
+              type: 'img',
+              key: null,
+              ref: null,
+              props: {
+                className: 'media',
+                src: markerContent.media.url + 'media?size=t'
+              },
+              _owner: null
+            };
           } else if (markerContent.media.type === 'soundcloud') {
-            media = React.createElement('iframe', { className: 'media', width: '150', height: '100%', scrolling: 'no', frameborder: 'no', src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true' });
+            media = {
+              $$typeof: _typeofReactElement,
+              type: 'iframe',
+              key: null,
+              ref: null,
+              props: {
+                className: 'media',
+                width: '150',
+                height: '100%',
+                scrolling: 'no',
+                frameborder: 'no',
+                src: 'https://w.soundcloud.com/player/?url=' + markerContent.media.url + '&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true'
+              },
+              _owner: null
+            };
           }
         }
 
-        return React.createElement(
-          'div',
-          { className: 'stop-form' },
-          media,
-          React.createElement(
-            'section',
-            { className: 'details' },
-            React.createElement('input', {
-              type: 'text',
-              onChange: this.handleTitleChange,
-              value: markerContent.title,
-              placeholder: 'Title of this stop',
-              className: 'marker-title'
-            }),
-            React.createElement('textarea', {
-              className: 'marker-description box-sizing',
-              onChange: this.handleDescriptionChange,
-              placeholder: 'Description of this stop',
-              value: markerContent.description
-            })
-          ),
-          React.createElement(
-            'a',
-            { onClick: this.props.deleteMarker },
-            React.createElement('i', { className: 'fa fa-trash-o' })
-          )
-        );
+        return {
+          $$typeof: _typeofReactElement,
+          type: 'div',
+          key: null,
+          ref: null,
+          props: {
+            children: [media, {
+              $$typeof: _typeofReactElement,
+              type: 'section',
+              key: null,
+              ref: null,
+              props: {
+                children: [{
+                  $$typeof: _typeofReactElement,
+                  type: 'input',
+                  key: null,
+                  ref: null,
+                  props: {
+                    type: 'text',
+                    onChange: this.handleTitleChange,
+                    value: markerContent.title,
+                    placeholder: 'Title of this stop',
+                    className: 'marker-title'
+                  },
+                  _owner: null
+                }, {
+                  $$typeof: _typeofReactElement,
+                  type: 'textarea',
+                  key: null,
+                  ref: null,
+                  props: {
+                    className: 'marker-description box-sizing',
+                    onChange: this.handleDescriptionChange,
+                    placeholder: 'Description of this stop',
+                    value: markerContent.description
+                  },
+                  _owner: null
+                }],
+                className: 'details'
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: 'a',
+              key: null,
+              ref: null,
+              props: {
+                children: {
+                  $$typeof: _typeofReactElement,
+                  type: 'i',
+                  key: null,
+                  ref: null,
+                  props: {
+                    className: 'fa fa-trash-o'
+                  },
+                  _owner: null
+                },
+                onClick: this.props.deleteMarker
+              },
+              _owner: null
+            }],
+            className: 'stop-form'
+          },
+          _owner: null
+        };
       }
     }
   }]);
@@ -5608,137 +9037,286 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === "undefined") { props[propName] = defaultProps[propName]; } } } return props; }
 
 var t = require('../../../stores/I18nStore.js').getTranslate();
+
+var UpArrow = function UpArrow(props) {
+  return React.createElement(
+    "a",
+    _extends({ className: "move-marker-up" }, props),
+    {
+      $$typeof: _typeofReactElement,
+      type: "i",
+      key: null,
+      ref: null,
+      props: {
+        className: "fa fa-arrow-up"
+      },
+      _owner: null
+    }
+  );
+};
+
+var DownArrow = function DownArrow(props) {
+  return React.createElement(
+    "a",
+    _extends({ className: "move-marker-down" }, props),
+    {
+      $$typeof: _typeofReactElement,
+      type: "i",
+      key: null,
+      ref: null,
+      props: {
+        className: "fa fa-arrow-down"
+      },
+      _owner: null
+    }
+  );
+};
+
+var DeleteStop = function DeleteStop(props) {
+  return React.createElement(
+    "a",
+    _extends({ className: "delete-stop" }, props),
+    {
+      $$typeof: _typeofReactElement,
+      type: "i",
+      key: null,
+      ref: null,
+      props: {
+        className: "fa fa-times-circle-o"
+      },
+      _owner: null
+    }
+  );
+};
+
+var MarkerRow = function MarkerRow(props) {
+  var titleObj = JSON.parse(props.marker.title);
+  var i = props.index;
+  var showInfoWindow = function showInfoWindow() {
+    return props.showInfoWindow(props.marker);
+  };
+  var meetingPlace = undefined;
+  var imageThumb = undefined;
+  var upArrow = undefined,
+      downArrow = undefined;
+
+  // Up/down arrows
+  if (i > 0) {
+    upArrow = {
+      $$typeof: _typeofReactElement,
+      type: UpArrow,
+      key: null,
+      ref: null,
+      props: _defaultProps(UpArrow.defaultProps, {
+        onClick: function () {
+          return props.moveBefore(i, i - 1);
+        }
+      }),
+      _owner: null
+    };
+  } else {
+    meetingPlace = t('Meeting Place') + ': ';
+  }
+
+  if (i < props.length - 1) {
+    downArrow = {
+      $$typeof: _typeofReactElement,
+      type: DownArrow,
+      key: null,
+      ref: null,
+      props: _defaultProps(DownArrow.defaultProps, {
+        onClick: function () {
+          return props.moveBefore(i, i + 1);
+        }
+      }),
+      _owner: null
+    };
+  }
+
+  // The picture of the stop given in media
+  if (titleObj.media) {
+    if (titleObj.media.type === 'instagram') {
+      imageThumb = {
+        $$typeof: _typeofReactElement,
+        type: "img",
+        key: null,
+        ref: null,
+        props: {
+          src: titleObj.media.url + 'media?size=t'
+        },
+        _owner: null
+      };
+    }
+  }
+  return {
+    $$typeof: _typeofReactElement,
+    type: "tr",
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: "td",
+        key: null,
+        ref: null,
+        props: {
+          children: [meetingPlace, imageThumb, titleObj.title],
+          onClick: showInfoWindow
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "td",
+        key: null,
+        ref: null,
+        props: {
+          children: titleObj.description,
+          onClick: showInfoWindow
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "td",
+        key: null,
+        ref: null,
+        props: {
+          children: [downArrow, upArrow]
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "td",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: DeleteStop,
+            key: null,
+            ref: null,
+            props: _defaultProps(DeleteStop.defaultProps, {
+              onClick: function () {
+                return props.deleteMarker(marker);
+              }
+            }),
+            _owner: null
+          }
+        },
+        _owner: null
+      }]
+    },
+    _owner: null
+  };
+};
 
 /**
  * The table with all the walk stops on it, in CAW
  */
-
-var WalkStopTable = (function (_React$Component) {
-  _inherits(WalkStopTable, _React$Component);
-
-  function WalkStopTable() {
-    _classCallCheck(this, WalkStopTable);
-
-    _get(Object.getPrototypeOf(WalkStopTable.prototype), "constructor", this).apply(this, arguments);
-  }
-
-  _createClass(WalkStopTable, [{
-    key: "render",
-    value: function render() {
-      var _this = this;
-
-      var markersSet = this.props.markers.getArray();
-      return React.createElement(
-        "table",
-        { ref: "routeStops", className: "table-hover routeStops" },
-        React.createElement(
-          "thead",
-          null,
-          React.createElement(
-            "tr",
-            null,
-            React.createElement(
-              "th",
-              null,
-              t('Title')
-            ),
-            React.createElement(
-              "th",
-              null,
-              t('Description')
-            ),
-            React.createElement(
-              "th",
-              { className: "controls" },
-              React.createElement("i", { className: "fa fa-arrows" })
-            ),
-            React.createElement(
-              "th",
-              null,
-              React.createElement("i", { className: "fa fa-trash-o" })
-            )
-          )
-        ),
-        React.createElement(
-          "tbody",
-          null,
-          markersSet.map(function (marker, i) {
-            var titleObj = JSON.parse(marker.title);
-            var showInfoWindow = _this.props.showInfoWindow.bind(_this, marker);
-            var imageThumb = null;
-            var upArrow = undefined,
-                downArrow = undefined;
-
-            // Up/down arrows
-            if (i > 0) {
-              upArrow = React.createElement(
-                "a",
-                { className: "move-marker-up", onClick: _this.props.moveBefore.bind(_this, i, i - 1) },
-                React.createElement("i", { className: "fa fa-arrow-up" })
-              );
-            }
-            if (i < markersSet.length - 1) {
-              downArrow = React.createElement(
-                "a",
-                { className: "move-marker-down", onClick: _this.props.moveBefore.bind(_this, i, i + 1) },
-                React.createElement("i", { className: "fa fa-arrow-down" })
-              );
-            }
-
-            // The picture of the stop given in media
-            if (titleObj.media) {
-              if (titleObj.media.type === 'instagram') {
-                imageThumb = React.createElement("img", { src: titleObj.media.url + 'media?size=t' });
-              }
-            }
-            return React.createElement(
-              "tr",
-              { "data-position": i, key: 'marker' + i },
-              React.createElement(
-                "td",
-                { onClick: showInfoWindow },
-                i === 0 ? t('Meeting Place') + ': ' : '',
-                imageThumb,
-                titleObj.title
-              ),
-              React.createElement(
-                "td",
-                { onClick: showInfoWindow },
-                titleObj.description
-              ),
-              React.createElement(
-                "td",
-                null,
-                downArrow,
-                upArrow
-              ),
-              React.createElement(
-                "td",
-                null,
-                React.createElement(
-                  "a",
-                  { className: "delete-stop", onClick: _this.props.deleteMarker.bind(_this, marker) },
-                  React.createElement("i", { className: "fa fa-times-circle-o" })
-                )
-              )
-            );
+var WalkStopTable = function WalkStopTable(props) {
+  var markersSet = props.markers.getArray();
+  return {
+    $$typeof: _typeofReactElement,
+    type: "table",
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: "thead",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "tr",
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: "th",
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Title')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: "th",
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Description')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: "th",
+                key: null,
+                ref: null,
+                props: {
+                  children: {
+                    $$typeof: _typeofReactElement,
+                    type: "i",
+                    key: null,
+                    ref: null,
+                    props: {
+                      className: "fa fa-arrows"
+                    },
+                    _owner: null
+                  },
+                  className: "controls"
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: "th",
+                key: null,
+                ref: null,
+                props: {
+                  children: {
+                    $$typeof: _typeofReactElement,
+                    type: "i",
+                    key: null,
+                    ref: null,
+                    props: {
+                      className: "fa fa-trash-o"
+                    },
+                    _owner: null
+                  }
+                },
+                _owner: null
+              }]
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "tbody",
+        key: null,
+        ref: null,
+        props: {
+          children: markersSet.map(function (marker, i) {
+            return React.createElement(MarkerRow, _extends({ marker: marker, key: 'marker' + i, index: i, length: markersSet.length }, props));
           })
-        )
-      );
-    }
-  }]);
-
-  return WalkStopTable;
-})(React.Component);
+        },
+        _owner: null
+      }],
+      className: "table-hover routeStops"
+    },
+    _owner: null
+  };
+};
 
 exports["default"] = WalkStopTable;
 module.exports = exports["default"];
@@ -6335,6 +9913,9 @@ module.exports = CityPageView;
 
 },{"../Page.jsx":11}],34:[function(require,module,exports){
 'use strict';
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
 var PageView = require('../Page.jsx');
 
 /**
@@ -6414,16 +9995,28 @@ HomePageView.prototype = Object.create(PageView.prototype, {
    * @return    void
    */
   _addCityButtonCta: { value: function value(cityName, cityPath) {
-      React.render(this._element.find('.calltoaction ul').first(), React.createElement(
-        'li',
-        { className: 'cityButtonCta' },
-        React.createElement(
-          'a',
-          { href: cityPath, className: 'btn btn-primary' },
-          'View walks in ',
-          cityName
-        )
-      ));
+      React.render(this._element.find('.calltoaction ul').first(), {
+        $$typeof: _typeofReactElement,
+        type: 'li',
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: 'a',
+            key: null,
+            ref: null,
+            props: {
+              children: ['View walks in ', cityName],
+              href: cityPath,
+              className: 'btn btn-primary'
+            },
+            _owner: null
+          },
+          className: 'cityButtonCta'
+        },
+        _owner: null
+      });
     } },
 
   /**

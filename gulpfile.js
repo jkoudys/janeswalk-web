@@ -47,7 +47,7 @@ gulp.task('css', function() {
 gulp.task('js', function() {
   return browserify({
     entries: paths.jsx_app,
-    transform: [babelify],
+    transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
     extensions: ['.jsx']
   })
     .bundle()
@@ -61,16 +61,10 @@ gulp.task('js', function() {
 
 gulp.task('blocks', function() {
   // Run for each block view in array
-  return ['./blocks/page_list/templates/typeahead/', './blocks/page_list/templates/walk_filters/'].map(function(template) {
+  return ['./blocks/search/templates/header/', './blocks/page_list/templates/typeahead/', './blocks/page_list/templates/walk_filters/'].map(function(template) {
     return browserify({
-      shim: {
-        react: {
-          path: 'global:React',
-          exports: 'react'
-        }
-      },
       entries: template + 'view.jsx',
-      transform: [babelify],
+      transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
       extensions: ['.jsx']
     })
       .bundle()
@@ -82,7 +76,7 @@ gulp.task('blocks', function() {
 gulp.task('js.global', function() {
   return browserify({
     entries: './js/jwobject.jsx',
-    transform: [babelify],
+    transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
     extensions: ['.jsx']
   })
   .bundle()

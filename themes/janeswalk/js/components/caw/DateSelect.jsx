@@ -7,6 +7,9 @@ const TimeOpenTable = require('./date/TimeOpenTable.jsx');
 // Flux
 const t = require('../../stores/I18nStore.js').getTranslate();
 
+// Default to a 1-hour walk time
+const ONE_HOUR = 60 * 60 * 1000;
+
 // TODO: Make 'intiatives' build as separate selectors
 export default class DateSelect extends React.Component {
   constructor() {
@@ -22,8 +25,6 @@ export default class DateSelect extends React.Component {
         0
       )
     );
-    // Default to a 1-hour walk time
-    const duration = 60 * 60 * 1000;
 
     // Bind class methods
     this.setDay = this._setDay.bind(this);
@@ -33,7 +34,7 @@ export default class DateSelect extends React.Component {
     // parsing. This method is concerned only with the Time
     // TODO: Support proper time localization - ultimately these times are just
     // strings, so we're using GMT, but that's bad practice.
-    this.state = {start: start, duration: duration};
+    this.state = {start: start, duration: ONE_HOUR};
   }
 
   _setDay(date) {
