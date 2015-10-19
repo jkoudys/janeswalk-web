@@ -55,8 +55,8 @@ export default class InstagramConnect extends React.Component {
 
         this.props.valueLink.requestChange({
           markers: markers.concat(walkMap),
-          route: _this.props.valueLink.value.route
-        }, function() {
+          route: this.props.valueLink.value.route
+        }, () => {
           this.props.refreshGMap();
           this.props.boundMapByWalk();
         });
@@ -64,25 +64,25 @@ export default class InstagramConnect extends React.Component {
     });
   }
 
-  render() {
-    const addFilter = () => {
-      const filterProps = {
-        type: 'text',
-        icon: 'fa fa-instagram',
-        placeholder: 'Type in the tag you used on the geocoded photos for your walk',
-        value: '',
-        cb: this.handleLoadFeed.bind(this)
-      }
-      if (this.state.accessToken) {
-        this.props.addFilter(filterProps);
-      } else {
-        // Connect, and add the box when done
-        this.handleConnect(() => this.props.addFilter(filterProps));
-      }
-    };
+  addFilter() {
+    const filterProps = {
+      type: 'text',
+      icon: 'fa fa-instagram',
+      placeholder: 'Type in the tag you used on the geocoded photos for your walk',
+      value: '',
+      cb: this.handleLoadFeed.bind(this)
+    }
+    if (this.state.accessToken) {
+      this.props.addFilter(filterProps);
+    } else {
+      // Connect, and add the box when done
+      this.handleConnect(() => this.props.addFilter(filterProps));
+    }
+  }
 
+  render() {
     return (
-      <button onClick={addFilter}>
+      <button onClick={() => this.addFilter()}>
         <i className="fa fa-instagram" />
         Instagram
       </button>

@@ -5176,14 +5176,14 @@ var InstagramConnect = (function (_React$Component) {
   _createClass(InstagramConnect, [{
     key: 'handleConnect',
     value: function handleConnect(cb) {
-      var _this2 = this;
+      var _this = this;
 
       var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
       var redirectURI = 'http://janeswalk.org/connected';
 
       // Race-condition prone, but safest way to pull this from a child window
       window.loadAccessToken = function (accessToken) {
-        return _this2.setState({ accessToken: accessToken }, cb);
+        return _this.setState({ accessToken: accessToken }, cb);
       };
 
       var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
@@ -5192,7 +5192,7 @@ var InstagramConnect = (function (_React$Component) {
   }, {
     key: 'handleLoadFeed',
     value: function handleLoadFeed(query) {
-      var _this3 = this;
+      var _this2 = this;
 
       $.ajax({
         type: 'GET',
@@ -5200,7 +5200,7 @@ var InstagramConnect = (function (_React$Component) {
         dataType: 'jsonp',
         url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
         success: function success(data) {
-          var markers = (_this3.props.valueLink.value || { markers: [] }).markers.slice();
+          var markers = (_this2.props.valueLink.value || { markers: [] }).markers.slice();
           var walkMap = data.data.filter(function (gram) {
             var tagMatch = true;
             if (query) {
@@ -5229,42 +5229,47 @@ var InstagramConnect = (function (_React$Component) {
             };
           });
 
-          _this3.props.valueLink.requestChange({
+          _this2.props.valueLink.requestChange({
             markers: markers.concat(walkMap),
-            route: _this.props.valueLink.value.route
+            route: _this2.props.valueLink.value.route
           }, function () {
-            this.props.refreshGMap();
-            this.props.boundMapByWalk();
+            _this2.props.refreshGMap();
+            _this2.props.boundMapByWalk();
           });
         }
       });
+    }
+  }, {
+    key: 'addFilter',
+    value: function addFilter() {
+      var _this3 = this;
+
+      var filterProps = {
+        type: 'text',
+        icon: 'fa fa-instagram',
+        placeholder: 'Type in the tag you used on the geocoded photos for your walk',
+        value: '',
+        cb: this.handleLoadFeed.bind(this)
+      };
+      if (this.state.accessToken) {
+        this.props.addFilter(filterProps);
+      } else {
+        // Connect, and add the box when done
+        this.handleConnect(function () {
+          return _this3.props.addFilter(filterProps);
+        });
+      }
     }
   }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
 
-      var addFilter = function addFilter() {
-        var filterProps = {
-          type: 'text',
-          icon: 'fa fa-instagram',
-          placeholder: 'Type in the tag you used on the geocoded photos for your walk',
-          value: '',
-          cb: _this4.handleLoadFeed.bind(_this4)
-        };
-        if (_this4.state.accessToken) {
-          _this4.props.addFilter(filterProps);
-        } else {
-          // Connect, and add the box when done
-          _this4.handleConnect(function () {
-            return _this4.props.addFilter(filterProps);
-          });
-        }
-      };
-
       return React.createElement(
         'button',
-        { onClick: addFilter },
+        { onClick: function () {
+            return _this4.addFilter();
+          } },
         React.createElement('i', { className: 'fa fa-instagram' }),
         'Instagram'
       );
@@ -5389,78 +5394,105 @@ module.exports = SoundCloudConnect;
 
 
 },{}],30:[function(require,module,exports){
+/**
+ * Pull all the tweets
+ */
+
 'use strict';
 
-var TwitterConnect = React.createClass({
-  displayName: 'TwitterConnect',
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
-  getInitialState: function getInitialState() {
-    return {
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TwitterConnect = (function (_React$Component) {
+  _inherits(TwitterConnect, _React$Component);
+
+  function TwitterConnect() {
+    _classCallCheck(this, TwitterConnect);
+
+    _get(Object.getPrototypeOf(TwitterConnect.prototype), 'constructor', this).call(this);
+    this.state = {
       query: '',
       accessToken: true
     };
-  },
+  }
 
-  componentWillMount: function componentWillMount() {
-    window.setAccessToken = (function (accessToken) {
-      this.setState({ accessToken: accessToken });
-    }).bind(this);
-  },
+  _createClass(TwitterConnect, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this = this;
 
-  handleLoadToken: function handleLoadToken() {
-    var _this = this;
+      window.setAccessToken = function (accessToken) {
+        return _this.setState({ accessToken: accessToken });
+      };
+    }
+  }, {
+    key: 'handleLoadToken',
+    value: function handleLoadToken() {
+      var _this2 = this;
 
-    // Twitter requires a server-side auth with secret, so clients get token from JW
-    $.ajax({
-      method: 'GET',
-      url: '/api/twitter',
-      dataType: 'json',
-      success: function success(data) {
-        if (data.access_token) {
-          _this.setState({ accessToken: data.access_token });
+      // Twitter requires a server-side auth with secret, so clients get token from JW
+      $.ajax({
+        method: 'GET',
+        url: '/api/twitter',
+        dataType: 'json',
+        success: function success(data) {
+          if (data.access_token) {
+            _this2.setState({ accessToken: data.access_token });
+          }
         }
-      }
-    });
-  },
+      });
+    }
+  }, {
+    key: 'loadFeed',
+    value: function loadFeed(query) {
+      var _this3 = this;
 
-  loadFeed: function loadFeed(query) {
-    var _this = this;
-    query = encodeURIComponent(query);
+      query = encodeURIComponent(query);
 
-    $.ajax({
-      type: 'GET',
-      url: '/api/twitter?q=' + query + '&coords=' + this.props.city.latlng[0] + ',' + this.props.city.latlng[1],
-      success: function success(data) {
-        var markers = (_this.props.valueLink.value || { markers: [] }).markers.slice();
+      $.ajax({
+        type: 'GET',
+        url: '/api/twitter?q=' + query + '&coords=' + this.props.city.latlng[0] + ',' + this.props.city.latlng[1],
+        success: function success(data) {
+          var markers = (_this3.props.valueLink.value || { markers: [] }).markers.slice();
 
-        _this.props.valueLink.requestChange({
-          markers: markers.concat(data.map(function (tweet) {
-            // Take first 5 words as the title
-            return {
-              title: tweet.description.split(' ').slice(0, 5).join(' '),
-              description: tweet.description,
-              lat: tweet.lat,
-              lng: tweet.lng
-            };
-          })),
-          route: _this.props.valueLink.value.route
-        }, function () {
-          // kludge - need to find if there's a callback we can pass into gmaps for this
-          setTimeout(function () {
-            _this.props.refreshGMap();
-            _this.props.boundMapByWalk();
-          }, 100);
-        });
-      }
-    });
-  },
-
-  handleQueryChange: function handleQueryChange(ev) {
-    this.setState({ query: ev.target.value });
-  },
-
-  render: function render() {
-    var addFilter = (function () {
+          _this3.props.valueLink.requestChange({
+            markers: markers.concat(data.map(function (tweet) {
+              return {
+                // Take first 5 words as the title
+                title: tweet.description.split(' ').slice(0, 5).join(' '),
+                description: tweet.description,
+                lat: tweet.lat,
+                lng: tweet.lng
+              };
+            })),
+            route: _this3.props.valueLink.value.route
+          }, function () {
+            // kludge - need to find if there's a callback we can pass into gmaps for this
+            setTimeout(function () {
+              _this3.props.refreshGMap();
+              _this3.props.boundMapByWalk();
+            }, 100);
+          });
+        }
+      });
+    }
+  }, {
+    key: 'handleQueryChange',
+    value: function handleQueryChange(ev) {
+      this.setState({ query: ev.target.value });
+    }
+  }, {
+    key: 'addFilter',
+    value: function addFilter() {
       // The filter we set to the 'filter box'
       this.props.addFilter({
         type: 'text',
@@ -5469,18 +5501,28 @@ var TwitterConnect = React.createClass({
         value: '',
         cb: this.loadFeed
       });
-    }).bind(this);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
 
-    return React.createElement(
-      'button',
-      { onClick: addFilter },
-      React.createElement('i', { className: 'fa fa-twitter' }),
-      'twitter'
-    );
-  }
-});
+      return React.createElement(
+        'button',
+        { onClick: function () {
+            return _this4.addFilter;
+          } },
+        React.createElement('i', { className: 'fa fa-twitter' }),
+        'twitter'
+      );
+    }
+  }]);
 
-module.exports = TwitterConnect;
+  return TwitterConnect;
+})(React.Component);
+
+exports['default'] = TwitterConnect;
+module.exports = exports['default'];
 
 
 },{}],31:[function(require,module,exports){
