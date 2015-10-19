@@ -138,15 +138,11 @@ export default class CityMap extends React.Component {
   }
 }
 
-class InfoWindow extends React.Component {
-  render() {
-    return (
-      <span>
-        <h4 style={{marginBottom: '0.1em'}}>{this.props.title}</h4>
-        {this.props.date}
-        <h6>Led by: {this.props.leaders.join(', ')}</h6>
-        <p>{this.props.shortDescription} <a href={this.props.url} target="_blank">Read More</a></p>
-      </span>
-    );
-  }
-}
+const InfoWindow = props => (
+  <span>
+    <h4 style={{marginBottom: '0.1em'}}>{props.title}</h4>
+    {props.date}
+    <h6>Led by: {this.props.leaders.join(', ')}</h6>
+    <p>{props.shortDescription} <a href={props.url} target="_blank">Read More</a></p>
+  </span>
+);

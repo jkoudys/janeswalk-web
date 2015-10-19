@@ -2552,7 +2552,24 @@ module.exports = exports['default'];
 
 },{}],11:[function(require,module,exports){
 'use strict';
-var View = require('./View.jsx');
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _ViewJsx = require('./View.jsx');
+
+var _ViewJsx2 = _interopRequireDefault(_ViewJsx);
 
 /**
  * Basic View info for a regular ol' page
@@ -2560,20 +2577,28 @@ var View = require('./View.jsx');
  * @param  jQuery element
  * @return void
  */
-var PageView = function PageView(element) {
-  View.call(this, element);
-  this._addNavEvents();
-  this._addOverlayCloseEvent();
-};
-PageView.prototype = Object.create(View.prototype, {
+
+var PageView = (function (_View) {
+  _inherits(PageView, _View);
+
+  function PageView(element) {
+    _classCallCheck(this, PageView);
+
+    _get(Object.getPrototypeOf(PageView.prototype), 'constructor', this).call(this, element);
+    this._addNavEvents();
+    this._addOverlayCloseEvent();
+  }
+
   /**
    * _addOverlayCloseEvent
    * 
    * @protected
    * @return    void
    */
-  _addOverlayCloseEvent: {
-    value: function value() {
+
+  _createClass(PageView, [{
+    key: '_addOverlayCloseEvent',
+    value: function _addOverlayCloseEvent() {
       var _this = this;
       this._element.find('.o-background').click(function (event) {
         _this._element.find('.overlay').hide();
@@ -2583,16 +2608,16 @@ PageView.prototype = Object.create(View.prototype, {
         _this._element.find('.overlay').hide();
       });
     }
-  },
 
-  /**
-   * _addNavEvents
-   * 
-   * @protected
-   * @return    void
-   */
-  _addNavEvents: {
-    value: function value() {
+    /**
+     * _addNavEvents
+     * 
+     * @protected
+     * @return    void
+     */
+  }, {
+    key: '_addNavEvents',
+    value: function _addNavEvents() {
       this._element.find('a.search-open').click(function () {
         $('html, body').animate({
           scrollTop: 0
@@ -2609,54 +2634,53 @@ PageView.prototype = Object.create(View.prototype, {
         $('body > header').removeClass('dropped');
       });
     }
-  },
 
-  /**
-   * _makeGaCall
-   * 
-   * @protected
-   * @param     Array call
-   * @return    void
-   */
-  _makeGaCall: {
-    value: function value(call) {
+    /**
+     * _makeGaCall
+     * 
+     * @protected
+     * @param     Array call
+     * @return    void
+     */
+  }, {
+    key: '_makeGaCall',
+    value: function _makeGaCall(call) {
       _gaq.push(call);
     }
-  },
 
-  /**
-   * trackCustomVar
-   * 
-   * @see    http://www.sitepoint.com/google-analytics-custom-variables/
-   * @see    http://online-behavior.com/analytics/custom-variables-segmentation
-   * @public
-   * @param  String index
-   * @param  String name
-   * @param  String value
-   * @param  String scope (optional)
-   * @return void
-   */
-  trackCustomVar: {
-    value: function value(index, name, _value, scope) {
-      var call = ['_setCustomVar', index, name, _value, scope];
-      this._makeGaCall(call);
+    /**
+     * trackCustomVar
+     * 
+     * @see    http://www.sitepoint.com/google-analytics-custom-variables/
+     * @see    http://online-behavior.com/analytics/custom-variables-segmentation
+     * @public
+     * @param  String index
+     * @param  String name
+     * @param  String value
+     * @param  String scope (optional)
+     * @return void
+     */
+  }, {
+    key: 'trackCustomVar',
+    value: function trackCustomVar(index, name, value, scope) {
+      this._makeGaCall(['_setCustomVar', index, name, value, scope]);
     }
-  },
 
-  /**
-   * trackEvent
-   * 
-   * @see    https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide#SettingUpEventTracking
-   * @public
-   * @param  String category The name you supply for the group of objects you want to track.
-   * @param  String action A string that is uniquely paired with each category, and commonly used to define the type of user interaction for the web object.
-   * @param  String optLabel (optional) An optional string to provide additional dimensions to the event data.
-   * @param  Number optValue (optional) An integer that you can use to provide numerical data about the user event.
-   * @param  Boolean override (optional)
-   * @return void
-   */
-  trackEvent: {
-    value: function value(category, action, optLabel, optValue, override) {
+    /**
+     * trackEvent
+     * 
+     * @see    https://developers.google.com/analytics/devguides/collection/gajs/eventTrackerGuide#SettingUpEventTracking
+     * @public
+     * @param  String category The name you supply for the group of objects you want to track.
+     * @param  String action A string that is uniquely paired with each category, and commonly used to define the type of user interaction for the web object.
+     * @param  String optLabel (optional) An optional string to provide additional dimensions to the event data.
+     * @param  Number optValue (optional) An integer that you can use to provide numerical data about the user event.
+     * @param  Boolean override (optional)
+     * @return void
+     */
+  }, {
+    key: 'trackEvent',
+    value: function trackEvent(category, action, optLabel, optValue, override) {
       var call = ['_trackEvent'];
       if (category !== undefined) {
         call.push(category);
@@ -2672,24 +2696,26 @@ PageView.prototype = Object.create(View.prototype, {
       }
       this._makeGaCall(call, override);
     }
-  },
 
-  /**
-   * trackView
-   * 
-   * @public
-   * @param  String path
-   * @return void
-   */
-  trackView: {
-    value: function value(path) {
-      var call = ['_trackPageview', path];
-      this._makeGaCall(call);
+    /**
+     * trackView
+     * 
+     * @public
+     * @param  String path
+     * @return void
+     */
+  }, {
+    key: 'trackView',
+    value: function trackView(path) {
+      this._makeGaCall(['_trackPageview', path]);
     }
-  }
-});
+  }]);
 
-module.exports = PageView;
+  return PageView;
+})(_ViewJsx2['default']);
+
+exports['default'] = PageView;
+module.exports = exports['default'];
 
 
 },{"./View.jsx":13}],12:[function(require,module,exports){
@@ -2735,8 +2761,6 @@ module.exports = exports['default'];
 
 
 },{"../stores/I18nStore.js":42}],13:[function(require,module,exports){
-'use strict';
-
 /**
 * View constructor
 * 
@@ -2744,17 +2768,22 @@ module.exports = exports['default'];
 * @param  jQuery element
 * @return void
 */
-var View = function View(element) {
-  this._element = element;
-};
-Object.defineProperties(View.prototype, {
-  /**
-   * _element
-   * 
-   * @protected
-   * @var       jQuery (default: null)
-   */
-  _element: { value: null, writable: true, configurable: true },
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var View = (function () {
+  function View(element) {
+    _classCallCheck(this, View);
+
+    this._element = element;
+  }
 
   /**
    * getElement
@@ -2762,14 +2791,19 @@ Object.defineProperties(View.prototype, {
    * @public
    * @return HTMLFormElement
    */
-  getElement: {
-    value: function value() {
+
+  _createClass(View, [{
+    key: "getElement",
+    value: function getElement() {
       return this._element;
     }
-  }
-});
+  }]);
 
-module.exports = View;
+  return View;
+})();
+
+exports["default"] = View;
+module.exports = exports["default"];
 
 
 },{}],14:[function(require,module,exports){
@@ -4382,28 +4416,68 @@ var MapBuilder = (function (_React$Component) {
         this.state.route.setMap(null);
       }
 
-      this.state.markers.forEach(function (marker) {
-        return marker.setMap(null);
-      });
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
-      // Draw the route
-      if (valueLink.value) {
-        valueLink.value.markers.forEach(function (marker) {
-          var latlng = undefined;
-          // Set to the markers latlng if available, otherwise place at center
-          if (marker.lat && marker.lng) {
-            latlng = new google.maps.LatLng(marker.lat, marker.lng);
-          } else {
-            latlng = _this2.state.map.center;
+      try {
+        for (var _iterator = this.state.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var marker = _step.value;
+          marker.setMap(null);
+        } // Draw the route
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator['return']) {
+            _iterator['return']();
           }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
 
-          markers.push(_this2.buildMarker({
-            latlng: latlng,
-            title: marker.title,
-            description: marker.description,
-            media: marker.media
-          }));
-        });
+      if (valueLink.value) {
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+          for (var _iterator2 = valueLink.value.markers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var marker = _step2.value;
+
+            var latlng = undefined;
+            // Set to the markers latlng if available, otherwise place at center
+            if (marker.lat && marker.lng) {
+              latlng = new google.maps.LatLng(marker.lat, marker.lng);
+            } else {
+              latlng = this.state.map.center;
+            }
+
+            markers.push(this.buildMarker({
+              latlng: latlng,
+              title: marker.title,
+              description: marker.description,
+              media: marker.media
+            }));
+          }
+        } catch (err) {
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+              _iterator2['return']();
+            }
+          } finally {
+            if (_didIteratorError2) {
+              throw _iteratorError2;
+            }
+          }
+        }
 
         route = this.buildRoute(valueLink.value.route);
       } else {
@@ -8495,14 +8569,14 @@ var InstagramConnect = (function (_React$Component) {
   _createClass(InstagramConnect, [{
     key: 'handleConnect',
     value: function handleConnect(cb) {
-      var _this2 = this;
+      var _this = this;
 
       var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
       var redirectURI = 'http://janeswalk.org/connected';
 
       // Race-condition prone, but safest way to pull this from a child window
       window.loadAccessToken = function (accessToken) {
-        return _this2.setState({ accessToken: accessToken }, cb);
+        return _this.setState({ accessToken: accessToken }, cb);
       };
 
       var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
@@ -8511,7 +8585,7 @@ var InstagramConnect = (function (_React$Component) {
   }, {
     key: 'handleLoadFeed',
     value: function handleLoadFeed(query) {
-      var _this3 = this;
+      var _this2 = this;
 
       $.ajax({
         type: 'GET',
@@ -8519,7 +8593,7 @@ var InstagramConnect = (function (_React$Component) {
         dataType: 'jsonp',
         url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
         success: function success(data) {
-          var markers = (_this3.props.valueLink.value || { markers: [] }).markers.slice();
+          var markers = (_this2.props.valueLink.value || { markers: [] }).markers.slice();
           var walkMap = data.data.filter(function (gram) {
             var tagMatch = true;
             if (query) {
@@ -8548,38 +8622,41 @@ var InstagramConnect = (function (_React$Component) {
             };
           });
 
-          _this3.props.valueLink.requestChange({
+          _this2.props.valueLink.requestChange({
             markers: markers.concat(walkMap),
-            route: _this.props.valueLink.value.route
+            route: _this2.props.valueLink.value.route
           }, function () {
-            this.props.refreshGMap();
-            this.props.boundMapByWalk();
+            _this2.props.refreshGMap();
+            _this2.props.boundMapByWalk();
           });
         }
       });
     }
   }, {
+    key: 'addFilter',
+    value: function addFilter() {
+      var _this3 = this;
+
+      var filterProps = {
+        type: 'text',
+        icon: 'fa fa-instagram',
+        placeholder: 'Type in the tag you used on the geocoded photos for your walk',
+        value: '',
+        cb: this.handleLoadFeed.bind(this)
+      };
+      if (this.state.accessToken) {
+        this.props.addFilter(filterProps);
+      } else {
+        // Connect, and add the box when done
+        this.handleConnect(function () {
+          return _this3.props.addFilter(filterProps);
+        });
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
-
-      var addFilter = function addFilter() {
-        var filterProps = {
-          type: 'text',
-          icon: 'fa fa-instagram',
-          placeholder: 'Type in the tag you used on the geocoded photos for your walk',
-          value: '',
-          cb: _this4.handleLoadFeed.bind(_this4)
-        };
-        if (_this4.state.accessToken) {
-          _this4.props.addFilter(filterProps);
-        } else {
-          // Connect, and add the box when done
-          _this4.handleConnect(function () {
-            return _this4.props.addFilter(filterProps);
-          });
-        }
-      };
 
       return {
         $$typeof: _typeofReactElement,
@@ -8597,7 +8674,9 @@ var InstagramConnect = (function (_React$Component) {
             },
             _owner: null
           }, 'Instagram'],
-          onClick: addFilter
+          onClick: function () {
+            return _this4.addFilter();
+          }
         },
         _owner: null
       };
@@ -8612,206 +8691,273 @@ module.exports = exports['default'];
 
 
 },{}],29:[function(require,module,exports){
+/**
+ * Get some sounds from SoundCloud!
+ */
+
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
-var SoundCloudConnect = React.createClass({
-  displayName: 'SoundCloudConnect',
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-  getInitialState: function getInitialState() {
-    return {
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var SoundCloudConnect = (function (_React$Component) {
+  _inherits(SoundCloudConnect, _React$Component);
+
+  function SoundCloudConnect() {
+    _classCallCheck(this, SoundCloudConnect);
+
+    _get(Object.getPrototypeOf(SoundCloudConnect.prototype), 'constructor', this).call(this);
+    this.state = {
       playlists: []
     };
-  },
+  }
 
-  handleConnect: function handleConnect(cb) {
-    var clientID = '3a4c85d0eb4f8579fb680bb738bd0ba8';
-    var redirectURI = 'http://janeswalk.org/connected';
+  _createClass(SoundCloudConnect, [{
+    key: 'handleConnect',
+    value: function handleConnect(cb) {
+      var _this2 = this;
 
-    // FIXME Race-condition prone if you open multiple services in parallel
-    window.loadAccessToken = (function (accessToken) {
-      this.setState({ accessToken: accessToken }, this.handleLoadPlaylists(accessToken, cb));
-    }).bind(this);
+      var clientID = '3a4c85d0eb4f8579fb680bb738bd0ba8';
+      var redirectURI = 'http://janeswalk.org/connected';
 
-    var authWindow = window.open('https://soundcloud.com/connect/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token&state=soundcloud');
-    this.setState({ authWindow: authWindow });
-  },
-
-  handleLoadPlaylists: function handleLoadPlaylists(accessToken, cb) {
-    var _this = this;
-    accessToken = accessToken || this.state.accessToken;
-
-    $.ajax({
-      type: 'GET',
-      crossDomain: true,
-      dataType: 'jsonp',
-      url: 'https://api.soundcloud.com/me/playlists.json?oauth_token=' + accessToken,
-      success: function success(data) {
-        _this.setState({ playlists: data });
-        cb();
-      }
-    });
-  },
-
-  loadPointsFromPlaylist: function loadPointsFromPlaylist(i) {
-    var _this = this;
-    var markers = (_this.props.valueLink.value || { markers: [] }).markers.slice();
-
-    var points = this.state.playlists[i].tracks.map(function (track) {
-      var point = {
-        title: track.title || '',
-        description: track.description || '',
-        media: {
-          type: 'soundcloud',
-          id: track.id,
-          url: track.uri
-        }
+      // FIXME Race-condition prone if you open multiple services in parallel
+      window.loadAccessToken = function (accessToken) {
+        _this2.setState({ accessToken: accessToken }, _this2.handleLoadPlaylists(accessToken, cb));
       };
 
-      // Soundcloud puts geotags in the regular tags, as geo:lat=
-      track.tag_list.split(' ').forEach(function (tag) {
-        var idx;
-        idx = tag.indexOf('geo:lat=');
-        if (idx > -1) {
-          point.lat = tag.substr(idx + 8);
-        }
-        idx = tag.indexOf('geo:lon=');
-        if (idx > -1) {
-          point.lng = tag.substr(idx + 8);
+      var authWindow = window.open('https://soundcloud.com/connect/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token&state=soundcloud');
+      this.setState({ authWindow: authWindow });
+    }
+  }, {
+    key: 'handleLoadPlaylists',
+    value: function handleLoadPlaylists(accessToken, cb) {
+      accessToken = accessToken || this.state.accessToken;
+
+      $.ajax({
+        type: 'GET',
+        crossDomain: true,
+        dataType: 'jsonp',
+        url: 'https://api.soundcloud.com/me/playlists.json?oauth_token=' + accessToken,
+        success: function success(data) {
+          _this.setState({ playlists: data });
+          cb();
         }
       });
+    }
+  }, {
+    key: 'loadPointsFromPlaylist',
+    value: function loadPointsFromPlaylist(i) {
+      var _this3 = this;
 
-      return point;
-    });
-    _this.props.valueLink.requestChange({ markers: markers.concat(points), route: _this.props.valueLink.value.route }, function () {
-      _this.props.refreshGMap();
-      _this.props.boundMapByWalk();
-    });
-  },
+      var markers = (this.props.valueLink.value || { markers: [] }).markers.slice();
 
-  render: function render() {
-    var _this = this;
-    var addFilter = function addFilter() {
+      var points = this.state.playlists[i].tracks.map(function (track) {
+        var point = {
+          title: track.title || '',
+          description: track.description || '',
+          media: {
+            type: 'soundcloud',
+            id: track.id,
+            url: track.uri
+          }
+        };
+
+        // Soundcloud puts geotags in the regular tags, as geo:lat=
+        track.tag_list.split(' ').forEach(function (tag) {
+          var idx = undefined;
+          idx = tag.indexOf('geo:lat=');
+          if (idx > -1) {
+            point.lat = tag.substr(idx + 8);
+          }
+          idx = tag.indexOf('geo:lon=');
+          if (idx > -1) {
+            point.lng = tag.substr(idx + 8);
+          }
+        });
+
+        return point;
+      });
+
+      this.props.valueLink.requestChange({ markers: markers.concat(points), route: this.props.valueLink.value.route }, function () {
+        _this3.props.refreshGMap();
+        _this3.props.boundMapByWalk();
+      });
+    }
+  }, {
+    key: 'addFilter',
+    value: function addFilter() {
+      var _this4 = this;
+
       var filterProps = {
         type: 'select',
         icon: 'fa fa-soundcloud',
-        options: _this.state.playlists,
+        options: this.state.playlists,
         value: 0,
-        cb: _this.loadPointsFromPlaylist
+        cb: this.loadPointsFromPlaylist
       };
-      if (_this.state.accessToken) {
-        _this.props.addFilter(filterProps);
+
+      if (this.state.accessToken) {
+        this.props.addFilter(filterProps);
       } else {
         // Connect, and add the box when done
-        _this.handleConnect(function () {
-          filterProps.options = _this.state.playlists;
-          _this.props.addFilter(filterProps);
+        this.handleConnect(function () {
+          filterProps.options = _this4.state.playlists;
+          _this4.props.addFilter(filterProps);
         });
       }
-    };
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this5 = this;
 
-    return {
-      $$typeof: _typeofReactElement,
-      type: 'button',
-      key: null,
-      ref: null,
-      props: {
-        children: [{
-          $$typeof: _typeofReactElement,
-          type: 'i',
-          key: null,
-          ref: null,
-          props: {
-            className: 'fa fa-soundcloud'
-          },
-          _owner: null
-        }, 'SoundCloud'],
-        onClick: addFilter
-      },
-      _owner: null
-    };
-  }
-});
+      var _this = this;
 
-module.exports = SoundCloudConnect;
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'button',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'i',
+            key: null,
+            ref: null,
+            props: {
+              className: 'fa fa-soundcloud'
+            },
+            _owner: null
+          }, 'SoundCloud'],
+          onClick: function () {
+            return _this5.addFilter();
+          }
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return SoundCloudConnect;
+})(React.Component);
+
+exports['default'] = SoundCloudConnect;
+module.exports = exports['default'];
 
 
 },{}],30:[function(require,module,exports){
+/**
+ * Pull all the tweets
+ */
+
 'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
-var TwitterConnect = React.createClass({
-  displayName: 'TwitterConnect',
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-  getInitialState: function getInitialState() {
-    return {
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var TwitterConnect = (function (_React$Component) {
+  _inherits(TwitterConnect, _React$Component);
+
+  function TwitterConnect() {
+    _classCallCheck(this, TwitterConnect);
+
+    _get(Object.getPrototypeOf(TwitterConnect.prototype), 'constructor', this).call(this);
+    this.state = {
       query: '',
       accessToken: true
     };
-  },
+  }
 
-  componentWillMount: function componentWillMount() {
-    window.setAccessToken = (function (accessToken) {
-      this.setState({ accessToken: accessToken });
-    }).bind(this);
-  },
+  _createClass(TwitterConnect, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this = this;
 
-  handleLoadToken: function handleLoadToken() {
-    var _this = this;
+      window.setAccessToken = function (accessToken) {
+        return _this.setState({ accessToken: accessToken });
+      };
+    }
+  }, {
+    key: 'handleLoadToken',
+    value: function handleLoadToken() {
+      var _this2 = this;
 
-    // Twitter requires a server-side auth with secret, so clients get token from JW
-    $.ajax({
-      method: 'GET',
-      url: '/api/twitter',
-      dataType: 'json',
-      success: function success(data) {
-        if (data.access_token) {
-          _this.setState({ accessToken: data.access_token });
+      // Twitter requires a server-side auth with secret, so clients get token from JW
+      $.ajax({
+        method: 'GET',
+        url: '/api/twitter',
+        dataType: 'json',
+        success: function success(data) {
+          if (data.access_token) {
+            _this2.setState({ accessToken: data.access_token });
+          }
         }
-      }
-    });
-  },
+      });
+    }
+  }, {
+    key: 'loadFeed',
+    value: function loadFeed(query) {
+      var _this3 = this;
 
-  loadFeed: function loadFeed(query) {
-    var _this = this;
-    query = encodeURIComponent(query);
+      query = encodeURIComponent(query);
 
-    $.ajax({
-      type: 'GET',
-      url: '/api/twitter?q=' + query + '&coords=' + this.props.city.latlng[0] + ',' + this.props.city.latlng[1],
-      success: function success(data) {
-        var markers = (_this.props.valueLink.value || { markers: [] }).markers.slice();
+      $.ajax({
+        type: 'GET',
+        url: '/api/twitter?q=' + query + '&coords=' + this.props.city.latlng[0] + ',' + this.props.city.latlng[1],
+        success: function success(data) {
+          var markers = (_this3.props.valueLink.value || { markers: [] }).markers.slice();
 
-        _this.props.valueLink.requestChange({
-          markers: markers.concat(data.map(function (tweet) {
-            // Take first 5 words as the title
-            return {
-              title: tweet.description.split(' ').slice(0, 5).join(' '),
-              description: tweet.description,
-              lat: tweet.lat,
-              lng: tweet.lng
-            };
-          })),
-          route: _this.props.valueLink.value.route
-        }, function () {
-          // kludge - need to find if there's a callback we can pass into gmaps for this
-          setTimeout(function () {
-            _this.props.refreshGMap();
-            _this.props.boundMapByWalk();
-          }, 100);
-        });
-      }
-    });
-  },
-
-  handleQueryChange: function handleQueryChange(ev) {
-    this.setState({ query: ev.target.value });
-  },
-
-  render: function render() {
-    var addFilter = (function () {
+          _this3.props.valueLink.requestChange({
+            markers: markers.concat(data.map(function (tweet) {
+              return {
+                // Take first 5 words as the title
+                title: tweet.description.split(' ').slice(0, 5).join(' '),
+                description: tweet.description,
+                lat: tweet.lat,
+                lng: tweet.lng
+              };
+            })),
+            route: _this3.props.valueLink.value.route
+          }, function () {
+            // kludge - need to find if there's a callback we can pass into gmaps for this
+            setTimeout(function () {
+              _this3.props.refreshGMap();
+              _this3.props.boundMapByWalk();
+            }, 100);
+          });
+        }
+      });
+    }
+  }, {
+    key: 'handleQueryChange',
+    value: function handleQueryChange(ev) {
+      this.setState({ query: ev.target.value });
+    }
+  }, {
+    key: 'addFilter',
+    value: function addFilter() {
       // The filter we set to the 'filter box'
       this.props.addFilter({
         type: 'text',
@@ -8820,32 +8966,42 @@ var TwitterConnect = React.createClass({
         value: '',
         cb: this.loadFeed
       });
-    }).bind(this);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this4 = this;
 
-    return {
-      $$typeof: _typeofReactElement,
-      type: 'button',
-      key: null,
-      ref: null,
-      props: {
-        children: [{
-          $$typeof: _typeofReactElement,
-          type: 'i',
-          key: null,
-          ref: null,
-          props: {
-            className: 'fa fa-twitter'
-          },
-          _owner: null
-        }, 'twitter'],
-        onClick: addFilter
-      },
-      _owner: null
-    };
-  }
-});
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'button',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'i',
+            key: null,
+            ref: null,
+            props: {
+              className: 'fa fa-twitter'
+            },
+            _owner: null
+          }, 'twitter'],
+          onClick: function () {
+            return _this4.addFilter;
+          }
+        },
+        _owner: null
+      };
+    }
+  }]);
 
-module.exports = TwitterConnect;
+  return TwitterConnect;
+})(React.Component);
+
+exports['default'] = TwitterConnect;
+module.exports = exports['default'];
 
 
 },{}],31:[function(require,module,exports){
@@ -9324,7 +9480,56 @@ module.exports = exports["default"];
 
 },{"../../../stores/I18nStore.js":42}],33:[function(require,module,exports){
 'use strict';
-var PageView = require('../Page.jsx');
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _PageJsx = require('../Page.jsx');
+
+var _PageJsx2 = _interopRequireDefault(_PageJsx);
+
+/**
+ * _isMobile
+ *
+ * @static
+ * @var bool
+ */
+var _isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+var facebookDialogDonate = {
+  link: 'http://janeswalk.org',
+  // picture: 'http://janeswalk.org',
+  name: 'Jane\'s Walk'
+};
+
+function shareOnTwitter(event) {
+  var url = encodeURIComponent('http://janeswalk.org/');
+  var text = encodeURIComponent($(this).closest('.option').find('.copy').text().trim());
+  var link = 'https://twitter.com/intent/tweet' + '?url=' + url + '&via=janeswalk' + '&text=' + text;
+
+  window.open(link, 'Twitter Share', 'width=640, height=320');
+
+  event.preventDefault();
+}
+
+function shareOnFacebook(event) {
+  var shareObj = Object.assign({}, facebookDialogDonate, {
+    description: $(this).closest('.option').find('.copy').text().trim()
+  });
+  new FacebookShareDialog(shareObj).show();
+  event.preventDefault();
+}
 
 /**
  * CityPageView
@@ -9335,411 +9540,28 @@ var PageView = require('../Page.jsx');
  * @param  jQuery element
  * @return void
  */
-var CityPageView = function CityPageView(element) {
-  PageView.call(this, element);
-  this._resetSelectElements();
-  this._initMenu();
-  this._addCreateWalkEvent();
-  this._addLinkListeners();
-  this._captureHash();
-  this._addBlogLink();
-  //this._setupText2DonateInterstitials();
-  $('.walks-filters .tag').tooltip();
-};
 
-CityPageView.prototype = Object.create(PageView.prototype, {
-  /**
-   * _accessibility
-   * 
-   * @protected
-   * @var       String|null (default: null)
-   */
-  _accessibility: { value: null, writable: true },
+var CityPageView = (function (_PageView) {
+  _inherits(CityPageView, _PageView);
 
-  /**
-   * _cards
-   * 
-   * @protected
-   * @var       Array|null (default: null)
-   */
-  _cards: { value: null, writable: true },
+  function CityPageView(element) {
+    _classCallCheck(this, CityPageView);
 
-  /**
-   * _data
-   * 
-   * @protected
-   * @var       Array|null (default: null)
-   */
-  _data: { value: null, writable: true },
-
-  /**
-   * _date
-   * 
-   * @protected
-   * @var       Array|null (default: null)
-   */
-  _date: { value: null, writable: true },
-
-  /**
-   * _initiative
-   * 
-   * @protected
-   * @var       String|null (default: null)
-   */
-  _initiative: { value: null, writable: true },
-
-  /**
-   * _theme
-   * 
-   * @protected
-   * @var       String|null (default: null)
-   */
-  _theme: { value: null, writable: true },
-
-  /**
-   * _ward
-   * 
-   * @protected
-   * @var       String|null (default: null)
-   */
-  _ward: { value: null, writable: true },
-
-  /**
-   * filters
-   */
-  getFilters: {
-    value: function value() {
-      return [{
-        id: 'theme',
-        nodes: document.querySelectorAll('.filters select[name="theme"] option'),
-        compare: function compare(node, walk) {
-          return !!walk.checkboxes['theme-' + node.value];
-        }
-      }, {
-        id: 'accessibility',
-        nodes: document.querySelectorAll('.filters select[name="accessibility"] option'),
-        compare: function compare(node, walk) {
-          return !!walk.checkboxes['accessible-' + node.value];
-        }
-      }, {
-        id: 'ward',
-        nodes: document.querySelectorAll('.filters select[name="ward"] option'),
-        compare: function compare(node, walk) {
-          return node.value.indexOf(walk.wards) > -1;
-        }
-      }, {
-        id: 'initiative',
-        nodes: document.querySelectorAll('.filters select[name="initiative"] option'),
-        compare: function compare(node, walk) {
-          if (Array.isArray(walk.initiatives)) {
-            // See if any of the walk initiatives match this ID
-            return walk.initiatives.some(function (walk) {
-              return walk.id == node.value;
-            });
-          } else {
-            return false;
-          }
-        }
-      }, {
-        id: 'date',
-        nodes: document.querySelectorAll('.filters select[name="date"] option'),
-        compare: function compare(node, walk) {
-          var chosenDate = new Date(node.value * 1000);
-          if (Array.isArray(walk.time.slots)) {
-            return walk.time.slots.filter(function (slot) {
-              var date = new Date(slot[0] * 1000);
-              return date.getUTCDay() === chosenDate.getUTCDay() && date.getUTCMonth() === chosenDate.getUTCMonth() && date.getUTCFullYear() === chosenDate.getUTCFullYear();
-            }).length > 0;
-          } else {
-            return false;
-          }
-        }
-      }];
-    }
-  },
-
-  /**
-   * _isMobile
-   *
-   * @protected
-   * @var bool
-   */
-  _isMobile: {
-    value: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
-    writable: false
-  },
-
-  /**
-   * _initData
-   * Until this is Reactified, associate data state directly with DOM
-   *
-   * @protected
-   */
-  _initData: {
-    value: function value(data, cards) {
-      return data.map(function (data, i) {
-        data.cards = [].filter.call(cards, function (card) {
-          if (data.url === card.querySelector('a').href) {
-            // See if its date is in our slots
-            if (data.time.slots) {
-              return data.time.slots.filter(function (slot) {
-                return slot[0] + '000' == card.dataset.timeStart;
-              }).length > 0;
-            }
-          }
-        });
-        return data;
-      });
-    }
-  },
-
-  /**
-   * _getFacebookDialogDonateObj
-   * 
-   * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-   * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-   * @protected
-   * @return    Object
-   */
-  _getFacebookDialogDonateObj: {
-    value: function value() {
-      return {
-        link: 'http://janeswalk.org',
-        // picture: 'http://janeswalk.org',
-        name: 'Jane\'s Walk'
-      };
-    }
-  },
-
-  _initMenu: {
-    value: function value() {
-      if (this._isMobile) {
-        $('a[href=#jw-list]').click();
-      } else {
-        $('a[href=#jw-cards]').click();
-      }
-    }
-  },
-
-  /**
-   * _setupText2DonateInterstitials
-   * 
-   * @protected
-   * @return    void
-   */
-  _setupText2DonateInterstitials: {
-    value: function value() {
-      var enabled = false,
-          _this = this,
-          isCanadianCity = location.pathname.match(/\/canada\/[^/]+/) !== null,
-          hasSeenDonateInterstitial,
-          closeCallback,
-          url,
-          link;
-      // Catfish events
-      this._element.find('a.closeCatfishCta').click(function (event) {
-        event.preventDefault();
-        _this._element.find('.catfish').hide();
-
-        // Track the closure
-        jQuery.cookie('hasSeenDonateCatfish', '1', {
-          path: '/',
-          domain: location.host
-        });
-      });
-
-      // Canadian city check
-      if (enabled && isCanadianCity === true) {
-
-        // Modal
-        hasSeenDonateInterstitial = jQuery.cookie('hasSeenDonateInterstitial') !== null && typeof jQuery.cookie('hasSeenDonateInterstitial') !== 'undefined';
-
-        // Hasn't yet been seen
-        if (hasSeenDonateInterstitial === false) {
-          closeCallback = function () {
-
-            // Track the closure
-            jQuery.cookie('hasSeenDonateInterstitial', '1', {
-              path: '/',
-              domain: location.host
-            });
-
-            // Open the catfish
-            _this._element.find('.catfish.c-donate').removeClass('hidden');
-          };
-          this._element.find('.overlay.o-donate').show();
-          this._element.find('.overlay.o-donate .o-background').click(closeCallback);
-          this._element.find('a.closeModalCta').click(closeCallback);
-
-          // Already donated flow
-          this._element.find('div.btnWrapper a').click(function (event) {
-
-            // Track the closure
-            jQuery.cookie('hasSeenDonateInterstitial', '1', {
-              path: '/',
-              domain: location.host
-            });
-
-            // Track the closure
-            jQuery.cookie('hasSeenDonateCatfish', '1', {
-              path: '/',
-              domain: location.host
-            });
-
-            // Shout modal
-            event.preventDefault();
-            _this._element.find('.o-donate').hide();
-            _this._element.find('.o-shout').show();
-
-            // Twitter button
-            _this._element.find('.o-shout .icon-twitter').click(function (event) {
-              event.preventDefault();
-              url = encodeURIComponent('http://janeswalk.org/');
-              text = encodeURIComponent($(this).closest('.option').find('.copy').text().trim());
-              link = 'https://twitter.com/intent/tweet' + '?url=' + url + '&via=janeswalk' + '&text=' + text;
-              window.open(link, 'Twitter Share', 'width=640, height=320');
-            });
-
-            // Twitter button
-            _this._element.find('.o-shout .icon-facebook').click(function (event) {
-              event.preventDefault();
-              var shareObj = _this._getFacebookDialogDonateObj();
-              shareObj.description = $(this).closest('.option').find('.copy').text().trim();
-              new FacebookShareDialog(shareObj).show();
-            });
-          });
-        } else {
-
-          // Catfish
-          hasSeenDonateCatfish = jQuery.cookie('hasSeenDonateCatfish') !== null && typeof jQuery.cookie('hasSeenDonateCatfish') !== 'undefined';
-
-          // Hasn't yet been seen
-          if (hasSeenDonateCatfish === false) {
-            this._element.find('.catfish').removeClass('hidden');
-          }
-        }
-      }
-    }
-  },
-
-  /**
-   * _setThemeCounts
-   * 
-   * @protected
-   * @return    void
-   */
-  _setThemeCounts: {
-    value: function value() {
-      var _this = this;
-
-      // Go through each filter list
-      this.getFilters().forEach(function (filter) {
-        // Compare all the filter options and see which match this walk
-        [].forEach.call(filter.nodes, function (node) {
-          var count = 0;
-          // Don't check if it's the wildcard match
-          if (node.value !== '*') {
-            // Loop through all the walks
-            _this._data.forEach(function (walk) {
-              // Count this in our filter list if it matches a walk
-              if (filter.compare(node, walk)) {
-                count++;
-              }
-            });
-            // If no walks match this filter, don't bother showing it
-            if (count === 0) {
-              node.parentElement.removeChild(node);
-            } else if (filter.id !== 'date') {
-              // Don't show the number of matching dates -- misleading with
-              // multi-date walks.
-              // Show the matching walks count on the option
-              node.textContent += ' (' + count + ')';
-            }
-          }
-        });
-      });
-    }
-  },
-
-  /**
-   * _resetSelectElements
-   * 
-   * @protected
-   * @return    void
-   */
-  _resetSelectElements: {
-    value: function value() {
-      var _this = this;
-      this._element.find('.filters select').each(function (index, element) {
-        $(element).val('*');
-      });
-      this._element.find('.initiatives').addClass('hidden');
-      this._element.find('.initiative').addClass('hidden');
-      this._element.find('#initiative').change(function (event) {
-        if ($(this).val() !== '#') {
-          _this._element.find('.initiatives').removeClass('hidden');
-          _this._element.find('[data-jw-initiative="' + $(this).val() + '"]').removeClass('hidden');
-        }
-      });
-    }
-  },
-
-  /**
-   * _sortWalkList
-   *
-   * @protected
-   * @return void
-   */
-  _sortWalkList: {
-    value: function value() {
-      var archiveMessage = document.createElement('div');
-      // JW dates are stored timezone-agnostic, e.g. an 0900 walk is at 0900 UTC
-      var utcTime = Date.now() - new Date().getTimezoneOffset() * 60 * 1000;
-      archiveMessage.classList.add('statusMessage');
-      // TODO: Use translation functions once loaded by ReactJS
-      archiveMessage.textContent = 'Ended';
-
-      // List the archived walks as archived
-      this._cards.forEach(function (card) {
-        var img = card.querySelector('.walkimage');
-        var dayOld = utcTime - Number(card.dataset.timeEnd) > 24 * 60 * 60 * 1000;
-        if (img && dayOld) {
-          card.dataset.archived = true;
-          img.appendChild(archiveMessage.cloneNode(true));
-        }
-      });
-
-      // Sort the walks by date, with archived at the end
-      this._cards.sort(function (a, b) {
-        // If one is archived and the other not, the unarchived comes next
-        if (a.dataset.archived && !b.dataset.archived) {
-          return 1;
-        } else if (!a.dataset.archived && b.dataset.archived) {
-          return -1;
-        } else {
-          // If they're both archived or unarchived, sort by date
-          return a.dataset.timeStart - b.dataset.timeStart;
-        }
-      });
-
-      // And now, we can re-order it in the DOM
-      this._cards.forEach(function (card) {
-        // Take it out of its current order, and back in at the end
-        card.parentElement.appendChild(card);
-      });
-    }
-  },
+    _get(Object.getPrototypeOf(CityPageView.prototype), 'constructor', this).call(this, element);
+    this._addCreateWalkEvent();
+  }
 
   /**
    * _addCreateWalkEvent
-   * 
+   *
    * @protected
    * @return    void
    */
-  _addCreateWalkEvent: {
-    value: function value() {
-      var _this = this,
-          $btn = this._element.find('.create-walk');
+
+  _createClass(CityPageView, [{
+    key: '_addCreateWalkEvent',
+    value: function _addCreateWalkEvent() {
+      $btn = this._element.find('.create-walk');
       $btn.click(function (event) {
         if (!JanesWalk.user) {
           event.preventDefault();
@@ -9750,165 +9572,13 @@ CityPageView.prototype = Object.create(PageView.prototype, {
         }
       });
     }
-  },
+  }]);
 
-  /**
-   * _captureHash
-   * 
-   * @protected
-   * @return    void
-   */
-  _captureHash: {
-    value: function value() {
-      var _this = this;
-      if (location.hash !== '') {
-        var pieces = location.hash.replace('#', '').split('&');
-        var key = '';
-        $(pieces).each(function (index, piece) {
-          key = '_' + piece.split('=')[0];
-          _this[key] = piece.split('=')[1];
-        });
-        this._filterCards();
-        this._element.find('select[name="ward"]').val(this._ward);
-        this._element.find('select[name="theme"]').val(this._theme);
-        this._element.find('select[name="accessibility"]').val(this._accessibility);
-        this._element.find('select[name="initiative"]').val(this._initiative);
-        this._element.find('select[name="date"]').val(this._date);
-      }
-    }
-  },
+  return CityPageView;
+})(_PageJsx2['default']);
 
-  /**
-   * _setHash
-   * 
-   * @protected
-   * @return    void
-   */
-  _setHash: {
-    value: function value() {
-      location.hash = 'ward=' + this._ward + '&theme=' + this._theme + '&accessibility=' + this._accessibility + '&initiative=' + this._initiative + '&date=' + this._date;
-    }
-  },
-
-  /**
-   * _filterCards
-   * 
-   * @protected
-   * @return    void
-   */
-  _filterCards: {
-    value: function value() {
-      var _this = this;
-      var empty = true;
-      var filters = this.getFilters();
-      var appliedFilters = filters.filter(function (filter) {
-        return filter.nodes.length > 0 && filter.nodes[0].parentElement.selectedIndex > 0;
-      });
-
-      // Check if we have any filters - if not, show all
-      if (appliedFilters.length > 0) {
-        // Loop through the walks
-        this._data.forEach(function (walk) {
-          // Innocent until proven guilty
-          var matched = true;
-          appliedFilters.forEach(function (filter) {
-            var option = filter.nodes[0].parentElement.selectedOptions[0];
-            if (filter.compare(option, walk)) {
-              matched = true && matched;
-            } else {
-              matched = false;
-            }
-          });
-          if (matched) {
-            walk.cards.forEach(function (card) {
-              card.classList.remove('hidden');
-            });
-            empty = false;
-          } else {
-            walk.cards.forEach(function (card) {
-              card.classList.add('hidden');
-            });
-          }
-        });
-
-        // Empty state
-        if (empty) {
-          this._element.find('.empty').removeClass('hidden');
-        } else {
-          this._element.find('.empty').addClass('hidden');
-        }
-      } else {
-        this._data.forEach(function (walk) {
-          walk.cards.forEach(function (card) {
-            card.classList.remove('hidden');
-          });
-        });
-      }
-    }
-  },
-
-  /**
-   * _addLinkListeners
-   * Map the tooltips to the filter action
-   *
-   * @protected
-   * @return void
-   */
-  _addLinkListeners: {
-    value: function value() {
-      var _this = this;
-      [].forEach.call(document.querySelectorAll('.walk .tags > li'), function (tooltip) {
-        tooltip.addEventListener('click', function (event) {
-          var tag = this;
-          var themeSelect = document.querySelector('select[name=theme]');
-          event.preventDefault();
-          // Equivalent to choosing it from the dropdown options
-          [].forEach.call(themeSelect.querySelectorAll('option'), function (el, i) {
-            if (el.value === tag.dataset.theme) {
-              themeSelect.value = el.value;
-              _this._theme = el.value;
-              _this._filterCards();
-              // Scroll to top of filters
-              document.body.scrollTop = document.getElementById('city-details').offsetTop;
-            }
-          });
-        });
-      });
-    }
-  },
-
-  /**
-   * Add a link to the blog page
-   */
-  _addBlogLink: {
-    value: function value() {
-      var blogLink = document.querySelector('#blog a');
-
-      if (blogLink) {
-        JanesWalk.event.emit('blogurl.receive', blogLink.href);
-      }
-    }
-  },
-
-  /**
-   * _addFilterEvents
-   * 
-   * @protected
-   * @return    void
-   */
-  _addFilterEvents: {
-    value: function value() {
-      var _this = this;
-      this._element.find('.filters select').change(function (event) {
-        event.preventDefault();
-        _this._setHash();
-        _this._filterCards();
-      });
-    }
-  }
-});
-
-module.exports = CityPageView;
+exports['default'] = CityPageView;
+module.exports = exports['default'];
 
 
 },{"../Page.jsx":11}],34:[function(require,module,exports){

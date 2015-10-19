@@ -16,9 +16,7 @@ export default class View {
    * @public
    * @return HTMLFormElement
    */
-  getElement: {
-    value: function() {
-      return this._element;
-    }
+  getElement() {
+    return this._element;
   }
 }

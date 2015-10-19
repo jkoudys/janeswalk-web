@@ -33,7 +33,7 @@ function shareOnTwitter(event) {
 
 function shareOnFacebook(event) {
   const shareObj = Object.assign({}, facebookDialogDonate, {
-    description: $(this).closest('.option').find('.copy').text().trim();
+    description: $(this).closest('.option').find('.copy').text().trim()
   });
   (new FacebookShareDialog(shareObj)).show();
   event.preventDefault();

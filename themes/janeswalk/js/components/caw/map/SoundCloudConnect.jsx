@@ -36,7 +36,7 @@ export default class SoundCloudConnect extends React.Component {
         cb();
       }
     });
-  },
+  }
 
   loadPointsFromPlaylist(i) {
     const markers = (this.props.valueLink.value || {markers: []}).markers.slice();
