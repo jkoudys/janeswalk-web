@@ -6,6 +6,7 @@
 
 // Requires
 import {ActionTypes} from '../constants/JWConstants.js';
+import {register} from '../dispatcher/AppDispatcher.js';
 import Store from './Store.js';
 
 let _markers = [];
@@ -42,7 +43,7 @@ const MapStore = Object.assign({}, Store, {
 });
 
 // Register our dispatch token as a static method
-MapStore.dispatchToken = AppDispatcher.register(function(payload) {
+MapStore.dispatchToken = register(function(payload) {
   // Go through the various actions
   switch(payload.type) {
     // Route actions

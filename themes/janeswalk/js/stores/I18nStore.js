@@ -6,7 +6,7 @@
 
 // Basic flux setup
 import {EventEmitter} from 'events';
-import AppDispatcher from '../dispatcher/AppDispatcher';
+import {register} from '../dispatcher/AppDispatcher';
 import {ActionTypes} from '../constants/JWConstants';
 
 // The library for managing translations
@@ -40,7 +40,7 @@ const I18nStore = Object.assign({}, EventEmitter.prototype, {
 });
 
 // Register our dispatch token as a static method
-I18nStore.dispatchToken = AppDispatcher.register(function(payload) {
+I18nStore.dispatchToken = register(payload => {
   // Go through the various actions
   switch(payload.type) {
     // POI actions
