@@ -1,15 +1,15 @@
 const ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
-const ConnectFilters = (props) => (
+export default ({filters, remove, changeFilter}) => (
   <div className="filterInputs">
     <ReactCSSTransitionGroup transitionName="fade">
-      {props.filters.map((filter, i) => {
+      {filters.map((filter, i) => {
         const cbAndRemove = ev => {
           ev.preventDefault();
           filter.cb(filter.value);
-          props.remove(i);
+          remove(i);
         };
-        const handleChange = ev => props.changeFilter(i, ev.target.value);
+        const handleChange = ev => changeFilter(i, ev.target.value);
         let input = null;
 
         if (filter.type === 'text') {
@@ -33,7 +33,7 @@ const ConnectFilters = (props) => (
               <input type="submit" value={'Go'} />
             </span>
             <span className="button">
-              <input type="button" value={'Cancel'} onClick={() => props.remove(i)} />
+              <input type="button" value={'Cancel'} onClick={() => remove(i)} />
             </span>
           </form>
           );
@@ -41,5 +41,3 @@ const ConnectFilters = (props) => (
     </ReactCSSTransitionGroup>
   </div>
 );
-
-export default ConnectFilters;

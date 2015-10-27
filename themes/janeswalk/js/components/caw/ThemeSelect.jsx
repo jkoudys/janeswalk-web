@@ -50,114 +50,112 @@ export default class ThemeSelect extends React.Component {
   }
 }
 Object.assign(ThemeSelect.prototype, mixins.linkedParentState);
-Object.assign(ThemeSelect, {
-  defaultProps: {
-    // Using array for themes to enforce order
-    themeCategories: [{
-      name: 'Community',
-      themes: [{
-        id: 'theme-civic-activist',
-        name: 'Activism'
-      }, {
-        id: 'theme-civic-truecitizen',
-        name: 'Citizenry'
-      }, {
-        id: 'theme-civic-goodneighbour',
-        name: 'Community'
-      }, {
-        id: 'theme-culture-writer',
-        name: 'Storytelling'
-      }]
+ThemeSelect.defaultProps = {
+  // Using array for themes to enforce order
+  themeCategories: [{
+    name: 'Community',
+    themes: [{
+      id: 'theme-civic-activist',
+      name: 'Activism'
     }, {
-      name: 'City-building',
-      themes: [{
-        id: 'theme-urban-architecturalenthusiast',
-        name: 'Architecture'
-      }, {
-        id: 'theme-culture-aesthete',
-        name: 'Design'
-      }, {
-        id: 'theme-urban-suburbanexplorer',
-        name: 'Suburbs'
-      }, {
-        id: 'theme-urban-moversandshakers',
-        name: 'Transportation'
-      }]
+      id: 'theme-civic-truecitizen',
+      name: 'Citizenry'
     }, {
-      name: 'Society',
-      themes: [{
-        id: 'theme-civic-gender',
-        name: 'Gender'
-      }, {
-        id: 'theme-civic-health',
-        name: 'Health'
-      }, {
-        id: 'theme-culture-historybuff',
-        name: 'Heritage'
-      }, {
-        id: 'theme-civic-nativeissues',
-        name: 'Native Issues'
-      }, {
-        id: 'theme-civic-religion',
-        name: 'Religion'
-      }]
+      id: 'theme-civic-goodneighbour',
+      name: 'Community'
     }, {
-      name: 'Expression',
-      themes: [{
-        id: 'theme-culture-artist',
-        name: 'Art'
-      }, {
-        id: 'theme-urban-film',
-        name: 'Film'
-      }, {
-        id: 'theme-culture-bookworm',
-        name: 'Literature'
-      }, {
-        id: 'theme-urban-music',
-        name: 'Music'
-      }, {
-        id: 'theme-urban-play',
-        name: 'Play'
-      }]
-    }, {
-      name: 'The Natural World',
-      themes: [{
-        id: 'theme-nature-petlover',
-        name: 'Animals'
-      }, {
-        id: 'theme-nature-greenthumb',
-        name: 'Gardening'
-      }, {
-        id: 'theme-nature-naturelover',
-        name: 'Nature'
-      }, {
-        id: 'theme-urban-water',
-        name: 'Water'
-      }]
-    }, {
-      name: 'Modernity',
-      themes: [{
-        id: 'theme-civic-international',
-        name: 'International Issues'
-      }, {
-        id: 'theme-civic-military',
-        name: 'Military'
-      }, {
-        id: 'theme-civic-commerce',
-        name: 'Commerce'
-      }, {
-        id: 'theme-culture-nightowl',
-        name: 'Night Life'
-      }, {
-        id: 'theme-culture-techie',
-        name: 'Technology'
-      }, {
-        id: 'theme-urban-sports',
-        name: 'Sports'
-      }, {
-        id: 'theme-culture-foodie',
-        name: 'Food'
-      }]
+      id: 'theme-culture-writer',
+      name: 'Storytelling'
     }]
-  }
-});
+  }, {
+    name: 'City-building',
+    themes: [{
+      id: 'theme-urban-architecturalenthusiast',
+      name: 'Architecture'
+    }, {
+      id: 'theme-culture-aesthete',
+      name: 'Design'
+    }, {
+      id: 'theme-urban-suburbanexplorer',
+      name: 'Suburbs'
+    }, {
+      id: 'theme-urban-moversandshakers',
+      name: 'Transportation'
+    }]
+  }, {
+    name: 'Society',
+    themes: [{
+      id: 'theme-civic-gender',
+      name: 'Gender'
+    }, {
+      id: 'theme-civic-health',
+      name: 'Health'
+    }, {
+      id: 'theme-culture-historybuff',
+      name: 'Heritage'
+    }, {
+      id: 'theme-civic-nativeissues',
+      name: 'Native Issues'
+    }, {
+      id: 'theme-civic-religion',
+      name: 'Religion'
+    }]
+  }, {
+    name: 'Expression',
+    themes: [{
+      id: 'theme-culture-artist',
+      name: 'Art'
+    }, {
+      id: 'theme-urban-film',
+      name: 'Film'
+    }, {
+      id: 'theme-culture-bookworm',
+      name: 'Literature'
+    }, {
+      id: 'theme-urban-music',
+      name: 'Music'
+    }, {
+      id: 'theme-urban-play',
+      name: 'Play'
+    }]
+  }, {
+    name: 'The Natural World',
+    themes: [{
+      id: 'theme-nature-petlover',
+      name: 'Animals'
+    }, {
+      id: 'theme-nature-greenthumb',
+      name: 'Gardening'
+    }, {
+      id: 'theme-nature-naturelover',
+      name: 'Nature'
+    }, {
+      id: 'theme-urban-water',
+      name: 'Water'
+    }]
+  }, {
+    name: 'Modernity',
+    themes: [{
+      id: 'theme-civic-international',
+      name: 'International Issues'
+    }, {
+      id: 'theme-civic-military',
+      name: 'Military'
+    }, {
+      id: 'theme-civic-commerce',
+      name: 'Commerce'
+    }, {
+      id: 'theme-culture-nightowl',
+      name: 'Night Life'
+    }, {
+      id: 'theme-culture-techie',
+      name: 'Technology'
+    }, {
+      id: 'theme-urban-sports',
+      name: 'Sports'
+    }, {
+      id: 'theme-culture-foodie',
+      name: 'Food'
+    }]
+  }]
+};

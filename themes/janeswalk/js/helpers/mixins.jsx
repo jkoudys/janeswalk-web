@@ -17,16 +17,3 @@ export const linkedParentState = {
     };
   }
 };
-
-// Link this component's state to the linkState() parent
-export const linkedTeamMemberState = {
-  linkProp: function(propname) {
-    const onChange = this.props.onChange;
-    const key = this.props.index;
-
-    return {
-      value: this.props.value[propname],
-      requestChange: value => onChange(propname, value, key)
-    }
-  }
-};

@@ -1,9 +1,9 @@
-import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import {dispatch} from '../dispatcher/AppDispatcher.js';
 import {ActionTypes} from '../constants/JWConstants.js';
 
 // Load the walk
 export function receive(walk, url) {
-  AppDispatcher.dispatch({
+  dispatch({
     type: ActionTypes.WALK_RECEIVE,
     walk: walk,
     url: url
@@ -11,7 +11,7 @@ export function receive(walk, url) {
 }
 
 export function change(property, value) {
-  AppDispatcher.dispatch({
+  dispatch({
     type: ActionTypes.WALK_CHANGE,
     property: property,
     value: value

@@ -240,73 +240,57 @@ var CityMap = (function (_React$Component) {
 
 exports['default'] = CityMap;
 
-var InfoWindow = (function (_React$Component2) {
-  _inherits(InfoWindow, _React$Component2);
-
-  function InfoWindow() {
-    _classCallCheck(this, InfoWindow);
-
-    _get(Object.getPrototypeOf(InfoWindow.prototype), 'constructor', this).apply(this, arguments);
-  }
-
-  _createClass(InfoWindow, [{
-    key: 'render',
-    value: function render() {
-      return {
+var InfoWindow = function InfoWindow(props) {
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'span',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
         $$typeof: _typeofReactElement,
-        type: 'span',
+        type: 'h4',
         key: null,
         ref: null,
         props: {
-          children: [{
+          children: props.title,
+          style: { marginBottom: '0.1em' }
+        },
+        _owner: null
+      }, props.date, {
+        $$typeof: _typeofReactElement,
+        type: 'h6',
+        key: null,
+        ref: null,
+        props: {
+          children: ['Led by: ', undefined.props.leaders.join(', ')]
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: 'p',
+        key: null,
+        ref: null,
+        props: {
+          children: [props.shortDescription, ' ', {
             $$typeof: _typeofReactElement,
-            type: 'h4',
+            type: 'a',
             key: null,
             ref: null,
             props: {
-              children: this.props.title,
-              style: { marginBottom: '0.1em' }
-            },
-            _owner: null
-          }, this.props.date, {
-            $$typeof: _typeofReactElement,
-            type: 'h6',
-            key: null,
-            ref: null,
-            props: {
-              children: ['Led by: ', this.props.leaders.join(', ')]
-            },
-            _owner: null
-          }, {
-            $$typeof: _typeofReactElement,
-            type: 'p',
-            key: null,
-            ref: null,
-            props: {
-              children: [this.props.shortDescription, ' ', {
-                $$typeof: _typeofReactElement,
-                type: 'a',
-                key: null,
-                ref: null,
-                props: {
-                  children: 'Read More',
-                  href: this.props.url,
-                  target: '_blank'
-                },
-                _owner: null
-              }]
+              children: 'Read More',
+              href: props.url,
+              target: '_blank'
             },
             _owner: null
           }]
         },
         _owner: null
-      };
-    }
-  }]);
-
-  return InfoWindow;
-})(React.Component);
-
+      }]
+    },
+    _owner: null
+  };
+};
 module.exports = exports['default'];
 
 

@@ -322,7 +322,7 @@ export default class CreateWalk extends React.Component {
                 <hr />
                 <br />
               </div>
-              <TeamBuilder valueLink={this.linkState('team')} />
+              <TeamBuilder onChange={(v) => this.setState({team: v})} team={this.state.team} />
             </div>
             <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>

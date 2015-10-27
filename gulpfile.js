@@ -45,6 +45,10 @@ gulp.task('css', function() {
 });
 
 gulp.task('js', function() {
+  gulp.run('js.theme', 'js.blocks', 'js.global');
+});
+
+gulp.task('js.theme', function() {
   return browserify({
     entries: paths.jsx_app,
     transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
@@ -59,7 +63,7 @@ gulp.task('js', function() {
     .pipe(gulp.dest(paths.js))
 });
 
-gulp.task('blocks', function() {
+gulp.task('js.blocks', function() {
   // Run for each block view in array
   return ['./blocks/search/templates/header/', './blocks/page_list/templates/typeahead/', './blocks/page_list/templates/walk_filters/'].map(function(template) {
     return browserify({
@@ -87,7 +91,7 @@ gulp.task('js.global', function() {
 });
 
 // Build JSON from the mo files
-gulp.task('i18nJson', function() {
+gulp.task('i18n.json', function() {
   gulp.src(paths.mos)
     .pipe(
       (function() {
@@ -121,7 +125,7 @@ gulp.task('i18nJson', function() {
 });
 
 // Placeholder for 'download po and build mos' task
-gulp.task('mo', function() {
+gulp.task('i18n.mo', function() {
   var options = {
     username: 'janeswalk_anon',
     password: 'anonemouse'
@@ -130,9 +134,9 @@ gulp.task('mo', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
-  gulp.watch(paths.jsx, ['js']);
-  gulp.watch(paths.jsx_views, ['js']);
-  gulp.watch('./blocks/**/*.jsx', ['blocks']);
+  gulp.watch(paths.jsx, ['js.theme']);
+  gulp.watch(paths.jsx_views, ['js.theme']);
+  gulp.watch('./blocks/**/*.jsx', ['js.blocks']);
 });
 
 gulp.task('default', function() {

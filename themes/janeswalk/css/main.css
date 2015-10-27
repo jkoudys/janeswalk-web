@@ -327,7 +327,9 @@ img {
 .ccm-page-list.ccm-blog-index li figure > img,
 .ccm-page-list.ccm-blog-index li figure a > img,
 .ccm-page-list-city-cards li figure > img,
-.ccm-page-list-city-cards li figure a > img {
+.ccm-page-list-city-cards li figure a > img,
+#create-walk .team-member > img,
+#create-walk .team-member a > img {
   display: block;
   width: 100% \9;
   max-width: 100%;
@@ -396,7 +398,9 @@ body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
@@ -466,7 +470,9 @@ body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -505,7 +511,9 @@ body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
   font-size: 18px;
 }
 h5,
@@ -5578,7 +5586,8 @@ a.list-group-item.active > .badge,
 }
 .thumbnail,
 .ccm-page-list.ccm-blog-index li figure,
-.ccm-page-list-city-cards li figure {
+.ccm-page-list-city-cards li figure,
+#create-walk .team-member {
   display: block;
   padding: 4px;
   margin-bottom: 20px;
@@ -5594,7 +5603,9 @@ a.list-group-item.active > .badge,
 .ccm-page-list.ccm-blog-index li figure > img,
 .ccm-page-list.ccm-blog-index li figure a > img,
 .ccm-page-list-city-cards li figure > img,
-.ccm-page-list-city-cards li figure a > img {
+.ccm-page-list-city-cards li figure a > img,
+#create-walk .team-member > img,
+#create-walk .team-member a > img {
   margin-left: auto;
   margin-right: auto;
 }
@@ -5606,13 +5617,17 @@ a.ccm-page-list.ccm-blog-index li figure:focus,
 a.ccm-page-list.ccm-blog-index li figure.active,
 a.ccm-page-list-city-cards li figure:hover,
 a.ccm-page-list-city-cards li figure:focus,
-a.ccm-page-list-city-cards li figure.active {
+a.ccm-page-list-city-cards li figure.active,
+a#create-walk .team-member:hover,
+a#create-walk .team-member:focus,
+a#create-walk .team-member.active {
   border-color: #428bca;
 }
 .thumbnail .caption,
 .ccm-page-list.ccm-blog-index li figure .caption,
 .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
-.ccm-page-list-city-cards li figure .caption {
+.ccm-page-list-city-cards li figure .caption,
+#create-walk .team-member .caption {
   padding: 9px;
   color: #333333;
 }
@@ -7937,7 +7952,9 @@ body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
   font-family: "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -7963,7 +7980,9 @@ body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
   font-weight: 700;
   font-size: 17px;
 }
@@ -8770,7 +8789,8 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 }
 .ccm-page-list-city-cards li figure a.thumbnail,
 .ccm-page-list-city-cards li figure a.ccm-page-list.ccm-blog-index li figure,
-.ccm-page-list-city-cards li figure a.ccm-page-list-city-cards li figure {
+.ccm-page-list-city-cards li figure a.ccm-page-list-city-cards li figure,
+.ccm-page-list-city-cards li figure a#create-walk .team-member {
   margin-bottom: 0;
   min-height: 12em;
   background-size: cover;
@@ -10180,7 +10200,8 @@ body.city-page > #city-details .walk a:hover {
 }
 body.city-page > #city-details .walk .thumbnail,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure,
+body.city-page > #city-details .walk #create-walk .team-member {
   height: 580px;
   -webkit-transition: none;
           transition: none;
@@ -10189,7 +10210,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure {
 }
 body.city-page > #city-details .walk .thumbnail .walkimage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage {
   position: relative;
   margin: 0;
   background-size: cover;
@@ -10199,7 +10221,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkim
 }
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage {
   position: absolute;
   margin-top: 0;
   top: 0;
@@ -10213,7 +10236,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkim
 }
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
   font-family: FontAwesome;
   content: "\f017";
   padding-right: 0.5em;
@@ -10221,7 +10245,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkim
 body.city-page > #city-details .walk .thumbnail .caption p,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption p,
 body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption p {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption p,
+body.city-page > #city-details .walk #create-walk .team-member .caption p {
   min-height: 90px;
   overflow: hidden;
   display: block;
@@ -10229,20 +10254,23 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .captio
 body.city-page > #city-details .walk .thumbnail .caption h6,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption h6,
 body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption h6 {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption h6,
+body.city-page > #city-details .walk #create-walk .team-member .caption h6 {
   font-weight: 700;
 }
 @media (max-width: 768px) {
   body.city-page > #city-details .walk .thumbnail .caption,
   body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption,
   body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
-  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption {
+  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption,
+  body.city-page > #city-details .walk #create-walk .team-member .caption {
     padding-bottom: 20px;
   }
 }
 body.city-page > #city-details .walk .thumbnail .when,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .when,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .when {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .when,
+body.city-page > #city-details .walk #create-walk .team-member .when {
   list-style-type: none;
   font-weight: 700;
   color: #222;
@@ -10253,7 +10281,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .when {
 }
 body.city-page > #city-details .walk .thumbnail .tags,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags,
+body.city-page > #city-details .walk #create-walk .team-member .tags {
   position: absolute;
   bottom: -30px;
   width: 100%;
@@ -10261,7 +10290,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags {
 }
 body.city-page > #city-details .walk .thumbnail .tags .tag,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .tag,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .tag {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .tag,
+body.city-page > #city-details .walk #create-walk .team-member .tags .tag {
   display: inline-block;
   padding: 8px;
   cursor: pointer;
@@ -10270,7 +10300,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .
 }
 body.city-page > #city-details .walk .thumbnail .tags .fa,
 body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .fa,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .fa {
+body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .fa,
+body.city-page > #city-details .walk #create-walk .team-member .tags .fa {
   color: #fff;
   width: auto;
   line-height: 15px;
@@ -10279,7 +10310,8 @@ body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .
 @media (max-width: 992px) {
   body.city-page > #city-details .walk .thumbnail,
   body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure,
-  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure {
+  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure,
+  body.city-page > #city-details .walk #create-walk .team-member {
     min-height: 0;
   }
 }
@@ -10289,7 +10321,8 @@ body.city-page > #city-details .walk:hover {
 }
 body.city-page > #city-details .walk:hover .thumbnail,
 body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure,
-body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure {
+body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure,
+body.city-page > #city-details .walk:hover #create-walk .team-member {
   background: #6badfd;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
@@ -10305,7 +10338,11 @@ body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figu
 body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure h4,
 body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure h6,
 body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure p,
-body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure li {
+body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure li,
+body.city-page > #city-details .walk:hover #create-walk .team-member h4,
+body.city-page > #city-details .walk:hover #create-walk .team-member h6,
+body.city-page > #city-details .walk:hover #create-walk .team-member p,
+body.city-page > #city-details .walk:hover #create-walk .team-member li {
   color: #FFF;
 }
 body.city-page > #city-details .walk:active {
@@ -10313,7 +10350,8 @@ body.city-page > #city-details .walk:active {
 }
 body.city-page > #city-details .walk:active .thumbnail,
 body.city-page > #city-details .walk:active .ccm-page-list.ccm-blog-index li figure,
-body.city-page > #city-details .walk:active .ccm-page-list-city-cards li figure {
+body.city-page > #city-details .walk:active .ccm-page-list-city-cards li figure,
+body.city-page > #city-details .walk:active #create-walk .team-member {
   background: #3991fc;
 }
 body.city-page > #city-details .create-walk {
@@ -10888,40 +10926,48 @@ body.city-page > #blog:after {
 .walk-page .ccm-page-list.ccm-blog-index li figure.accessibility,
 .walk-page .ccm-page-list.ccm-blog-index li figure.donation,
 .walk-page .ccm-page-list-city-cards li figure.accessibility,
-.walk-page .ccm-page-list-city-cards li figure.donation {
+.walk-page .ccm-page-list-city-cards li figure.donation,
+.walk-page #create-walk .team-member.accessibility,
+.walk-page #create-walk .team-member.donation {
   margin: 1em 0;
 }
 .walk-page .thumbnail.accessibility h4,
 .walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4,
-.walk-page .ccm-page-list-city-cards li figure.accessibility h4 {
+.walk-page .ccm-page-list-city-cards li figure.accessibility h4,
+.walk-page #create-walk .team-member.accessibility h4 {
   margin-top: 1.5em;
 }
 .walk-page .thumbnail.accessibility h4:first-child,
 .walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4:first-child,
-.walk-page .ccm-page-list-city-cards li figure.accessibility h4:first-child {
+.walk-page .ccm-page-list-city-cards li figure.accessibility h4:first-child,
+.walk-page #create-walk .team-member.accessibility h4:first-child {
   margin-top: 0;
 }
 .walk-page .thumbnail hr,
 .walk-page .ccm-page-list.ccm-blog-index li figure hr,
-.walk-page .ccm-page-list-city-cards li figure hr {
+.walk-page .ccm-page-list-city-cards li figure hr,
+.walk-page #create-walk .team-member hr {
   margin: 10px 0;
 }
 .walk-page .thumbnail .alert,
 .walk-page .ccm-page-list.ccm-blog-index li figure .alert,
 .walk-page .ccm-page-list-city-cards li figure .alert,
-.walk-page .thumbnail #profileWrapper .steps {
+.walk-page .thumbnail #profileWrapper .steps,
+.walk-page #create-walk .team-member .alert {
   margin: 0;
 }
 .walk-page .thumbnail.focus,
 .walk-page .ccm-page-list.ccm-blog-index li figure.focus,
-.walk-page .ccm-page-list-city-cards li figure.focus {
+.walk-page .ccm-page-list-city-cards li figure.focus,
+.walk-page #create-walk .team-member.focus {
   -webkit-transition: box-shadow 1s ease-in-out;
           transition: box-shadow 1s ease-in-out;
   box-shadow: inset 0 0 0 1px #eeeeee, 0 0 10px rgba(241, 103, 37, 0.7);
 }
 .walk-page .thumbnail.focus h3,
 .walk-page .ccm-page-list.ccm-blog-index li figure.focus h3,
-.walk-page .ccm-page-list-city-cards li figure.focus h3 {
+.walk-page .ccm-page-list-city-cards li figure.focus h3,
+.walk-page #create-walk .team-member.focus h3 {
   color: #222;
 }
 .walk-page .date-caption {
@@ -12059,7 +12105,7 @@ body[data-pageviewname=CreateWalkView] {
   margin-left: -15px;
   margin-right: -15px;
   margin: 0 0 3em 0;
-  padding: 60px 20px;
+  padding: 60px 15px;
   background: rgba(255, 184, 0, 0.67);
 }
 #create-walk .plaintext {
@@ -12097,7 +12143,8 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .upload-image > .thumbnail,
 #create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure,
-#create-walk .upload-image > .ccm-page-list-city-cards li figure {
+#create-walk .upload-image > .ccm-page-list-city-cards li figure,
+#create-walk .upload-image > #create-walk .team-member {
   display: inline-block;
   margin: 0 0 15px 15px;
   height: 200px;
@@ -12108,12 +12155,14 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .upload-image > .thumbnail a i,
 #create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure a i,
-#create-walk .upload-image > .ccm-page-list-city-cards li figure a i {
+#create-walk .upload-image > .ccm-page-list-city-cards li figure a i,
+#create-walk .upload-image > #create-walk .team-member a i {
   color: #f16725;
 }
 #create-walk .upload-image > .thumbnail input[type=file],
 #create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure input[type=file],
-#create-walk .upload-image > .ccm-page-list-city-cards li figure input[type=file] {
+#create-walk .upload-image > .ccm-page-list-city-cards li figure input[type=file],
+#create-walk .upload-image > #create-walk .team-member input[type=file] {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -12122,12 +12171,14 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .upload-image > .thumbnail.fileupload,
 #create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure.fileupload,
-#create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload {
+#create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload,
+#create-walk .upload-image > #create-walk .team-member.fileupload {
   text-align: center;
 }
 #create-walk .upload-image > .thumbnail.fileupload i.fa,
 #create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure.fileupload i.fa,
-#create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload i.fa {
+#create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload i.fa,
+#create-walk .upload-image > #create-walk .team-member.fileupload i.fa {
   display: block;
   padding: 0.5em 0 0.3em;
 }
@@ -12279,7 +12330,8 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .thumbnail,
 #create-walk .ccm-page-list.ccm-blog-index li figure,
-#create-walk .ccm-page-list-city-cards li figure {
+#create-walk .ccm-page-list-city-cards li figure,
+#create-walk #create-walk .team-member {
   border-radius: 0;
 }
 #create-walk .alert,
@@ -12401,14 +12453,45 @@ body[data-pageviewname=CreateWalkView] {
   clear: both;
 }
 #create-walk .team-member {
-  padding: 20px;
+  padding: 15px;
   margin-bottom: 1.5em;
+}
+#create-walk .team-member fieldset.name label {
+  display: block;
+}
+#create-walk .team-member fieldset.name > input {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #create-walk .team-member fieldset.name > input {
+    float: left;
+    width: 50%;
+  }
+}
+#create-walk .team-member fieldset.contact,
+#create-walk .team-member fieldset.social {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+#create-walk .team-member fieldset.contact > fieldset,
+#create-walk .team-member fieldset.social > fieldset {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #create-walk .team-member fieldset.contact > fieldset,
+  #create-walk .team-member fieldset.social > fieldset {
+    float: left;
+    width: 50%;
+  }
 }
 #create-walk .team-member:hover {
   border-color: #eee;
-}
-#create-walk .team-member .new {
-  display: none;
 }
 #create-walk .team-member .tel .input-mini {
   width: 35px;
@@ -12443,7 +12526,8 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk .thumbnail footer,
 #create-walk .ccm-page-list.ccm-blog-index li figure footer,
-#create-walk .ccm-page-list-city-cards li figure footer {
+#create-walk .ccm-page-list-city-cards li figure footer,
+#create-walk #create-walk .team-member footer {
   border-top: 1px solid #eee;
   padding-top: 20px;
 }
@@ -12487,7 +12571,8 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk #block-select .thumbnail,
 #create-walk #block-select .ccm-page-list.ccm-blog-index li figure,
-#create-walk #block-select .ccm-page-list-city-cards li figure {
+#create-walk #block-select .ccm-page-list-city-cards li figure,
+#create-walk #block-select #create-walk .team-member {
   opacity: 0.65;
   cursor: pointer;
   min-height: 380px;
@@ -12495,12 +12580,14 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk #block-select .thumbnail img,
 #create-walk #block-select .ccm-page-list.ccm-blog-index li figure img,
-#create-walk #block-select .ccm-page-list-city-cards li figure img {
+#create-walk #block-select .ccm-page-list-city-cards li figure img,
+#create-walk #block-select #create-walk .team-member img {
   width: 70%;
 }
 #create-walk #block-select .thumbnail:hover,
 #create-walk #block-select .ccm-page-list.ccm-blog-index li figure:hover,
-#create-walk #block-select .ccm-page-list-city-cards li figure:hover {
+#create-walk #block-select .ccm-page-list-city-cards li figure:hover,
+#create-walk #block-select #create-walk .team-member:hover {
   opacity: 1;
   border: 1px solid #f16725;
   box-shadow: 0 2px 0 0 #f16725;

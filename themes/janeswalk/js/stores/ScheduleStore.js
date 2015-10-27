@@ -6,6 +6,7 @@
 
 // Requires
 import {ActionTypes} from '../constants/JWConstants.js';
+import {register} from '../dispatcher/AppDispatcher';
 import 'Store' from './Store.js';
 
 // The team - an ordered set of objects representing the team
@@ -22,7 +23,7 @@ const ScheduleStore = Object.assign({}, Store, {
 });
 
 // Register our dispatch token as a static method
-ScheduleStore.dispatchToken = AppDispatcher.register(function(payload) {
+ScheduleStore.dispatchToken = register(function(payload) {
   // Go through the various actions
   switch(payload.type) {
     // Receive a full walk

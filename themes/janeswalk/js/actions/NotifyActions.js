@@ -1,24 +1,24 @@
-import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import {dispatch} from '../dispatcher/AppDispatcher.js';
 import ActionTypes from '../constants/JWConstants.js';
 
-export info(message, component) {
-  AppDispatcher.dispatch({
+export function info(message, component) {
+  dispatch({
     type: ActionTypes.LOG_INFO,
     message: message,
     component: component
   });
 }
 
-export warn(message, type) {
-  AppDispatcher.dispatch({
+export function warn(message, type) {
+  dispatch({
     type: ActionTypes.LOG_WARN,
     message: message,
     component: component
   });
 }
 
-export error(message, type) {
-  AppDispatcher.dispatch({
+export function error(message, type) {
+  dispatch({
     type: ActionTypes.LOG_ERROR,
     message: message,
     component: component

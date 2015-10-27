@@ -95,8 +95,6 @@ export default class SoundCloudConnect extends React.Component {
   }
 
   render() {
-    var _this = this;
-
     return (
       <button onClick={() => this.addFilter()}>
         <i className="fa fa-soundcloud" />

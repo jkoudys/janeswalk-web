@@ -1,35 +1,25 @@
-'use strict';
-var View = require('../View.jsx');
+import View from '../View.jsx';
 
 /**
  * ModalView
- * 
+ *
  * @extends View
  * @param element jQuery element
  */
-var ModalView = function(element) {
-  View.call(this, element);
-  this._addCloseEvents();
-};
+export default class ModalView extends View {
+  constructor(element) {
+    super(element);
+    View.call(this, element);
+    this._addCloseEvents();
+  }
 
-ModalView.prototype = Object.create(View.prototype, {
   /**
    * _addCloseEvents
-   * 
+   *
    * @protected
    * @return    void
    */
-  _addCloseEvents: {
-    value: function() {
-      var _this = this;
-      this._element.find('.closeModalSource').click(
-        function(event) {
-        event.preventDefault();
-        _this.close();
-      }
-      );
-    }
+  _addCloseEvents() {
+    this._element.find('.closeModalSource').click(ev => {ev.preventDefault; this.close()});
   }
-});
-
-modules.extend = ModalView;
+}

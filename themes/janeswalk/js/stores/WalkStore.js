@@ -7,7 +7,7 @@
 
 import Store from './Store.js';
 import {Events, ActionTypes} from '../constants/JWConstants.js';
-import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import {register} from '../dispatcher/AppDispatcher.js';
 import defaultWalk from '../constants/defaultWalk.json';
 
 // Store singletons
@@ -37,18 +37,18 @@ const WalkStore = Object.assign({}, Store, {
   getApi() {
     return {};
   }
-});
 
-// Register our dispatch token as a static method
-WalkStore.dispatchToken = AppDispatcher.register(function(payload) {
-  // Go through the various actions
-  switch(payload.type) {
-    // Route actions
-    case ActionTypes.WALK_RECEIVE:
-      receiveWalk(payload.walk, payload.url);
+  // Register our dispatch token as a static method
+  dispatchToken: register(function(payload) {
+    // Go through the various actions
+    switch(payload.type) {
+      // Route actions
+      case ActionTypes.WALK_RECEIVE:
+        receiveWalk(payload.walk, payload.url);
       WalkStore.emitChange();
-    break;
-  }
-})
+      break;
+    }
+  })
+});
 
 export default WalkStore;

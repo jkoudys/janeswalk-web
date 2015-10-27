@@ -17,7 +17,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== 'function' 
 
 function getSearchResults(action, query, paginator) {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', action + '?query=' + encodeURIComponent(query) + '&ccm_paging_p=' + encodeURIComponent(paginator.current_page + 1));
+  xhr.open('GET', action + '&query=' + query + '&ccm_paging_p=' + encodeURIComponent(paginator.current_page + 1));
   xhr.onload = function () {
     return JanesWalk.event.emit('search.receive', JSON.parse(xhr.response));
   };
@@ -32,14 +32,17 @@ var SearchHeaderBlock = (function (_React$Component) {
 
     _classCallCheck(this, SearchHeaderBlock);
 
-    _get(Object.getPrototypeOf(SearchHeaderBlock.prototype), 'constructor', this).call(this);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(SearchHeaderBlock.prototype), 'constructor', this).apply(this, args);
     this.state = {
       query: '',
       results: [],
       paginator: { current_page: 0, number_of_pages: 0 }
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePageSelect = this.handlePageSelect.bind(this);
 
     JanesWalk.event.on('search.receive', function (data) {
       return _this.setState(data);
@@ -55,7 +58,7 @@ var SearchHeaderBlock = (function (_React$Component) {
   }, {
     key: 'handlePageSelect',
     value: function handlePageSelect(pageID) {
-      getSearchResults(this.props.action, this.state.query, pageID + 1);
+      getSearchResults(this.props.action, this.state.query, Object.assign({}, this.state.paginator, { current_page: pageID }));
     }
   }, {
     key: 'render',
@@ -119,7 +122,9 @@ var SearchHeaderBlock = (function (_React$Component) {
             props: _defaultProps(SearchResults.defaultProps, {
               results: this.state.results,
               paginator: this.state.paginator,
-              onPageSelect: this.handlePageSelect
+              onPageSelect: function (i) {
+                return _this2.handlePageSelect(i);
+              }
             }),
             _owner: null
           }],
@@ -148,16 +153,16 @@ var SearchResults = function SearchResults(props) {
     key: null,
     ref: null,
     props: {
-      children: [props.results.map(function (result) {
+      children: [props.results.map(function (r) {
         return {
           $$typeof: _typeofReactElement,
           type: SearchResult,
           key: null,
           ref: null,
           props: _defaultProps(SearchResult.defaultProps, {
-            href: result.url,
-            name: result.name,
-            description: result.description
+            href: r.url,
+            name: r.name,
+            description: r.description
           }),
           _owner: null
         };
@@ -168,7 +173,10 @@ var SearchResults = function SearchResults(props) {
   };
 };
 
-var SearchResult = function SearchResult(props) {
+var SearchResult = function SearchResult(_ref) {
+  var href = _ref.href;
+  var name = _ref.name;
+  var description = _ref.description;
   return {
     $$typeof: _typeofReactElement,
     type: 'a',
@@ -187,7 +195,7 @@ var SearchResult = function SearchResult(props) {
             key: null,
             ref: null,
             props: {
-              children: props.name
+              children: name
             },
             _owner: null
           }, {
@@ -196,7 +204,7 @@ var SearchResult = function SearchResult(props) {
             key: null,
             ref: null,
             props: {
-              children: props.description
+              children: description
             },
             _owner: null
           }],
@@ -204,20 +212,24 @@ var SearchResult = function SearchResult(props) {
         },
         _owner: null
       },
-      href: props.href
+      href: href
     },
     _owner: null
   };
 };
 
-var SearchPagination = function SearchPagination(props) {
+var SearchPagination = function SearchPagination(_ref2) {
+  var paginator = _ref2.paginator;
+  var onPageSelect = _ref2.onPageSelect;
+
+  var Prev = undefined,
+      Next = undefined;
   var pages = [];
-  var classes = ['numbers'];
 
   var _loop = function (i, _number) {
-    if (i === props.paginator.current_page) {
-      classes.push('currentPage');
-      classes.push('active');
+    var classes = 'numbers';
+    if (i === paginator.current_page) {
+      classes += ' currentPage active';
       _number = {
         $$typeof: _typeofReactElement,
         type: 'strong',
@@ -237,7 +249,7 @@ var SearchPagination = function SearchPagination(props) {
         props: {
           children: i + 1,
           onClick: function () {
-            return undefined.props.onPageSelect(+i);
+            return onPageSelect(+i);
           }
         },
         _owner: null
@@ -257,8 +269,58 @@ var SearchPagination = function SearchPagination(props) {
     number = _number;
   };
 
-  for (var i = 0, number = undefined; i < props.paginator.number_of_pages; i++) {
+  for (var i = 0, number = undefined; i < paginator.number_of_pages; i++) {
     _loop(i, number);
+  }
+
+  if (paginator.current_page > 0) {
+    Prev = {
+      $$typeof: _typeofReactElement,
+      type: 'a',
+      key: null,
+      ref: null,
+      props: {
+        children: {
+          $$typeof: _typeofReactElement,
+          type: 'i',
+          key: null,
+          ref: null,
+          props: {
+            className: 'fa fa-arrow-left'
+          },
+          _owner: null
+        },
+        onClick: function () {
+          return onPageSelect(paginator.current_page - 1);
+        }
+      },
+      _owner: null
+    };
+  }
+
+  if (paginator.current_page < paginator.number_of_pages - 1) {
+    Next = {
+      $$typeof: _typeofReactElement,
+      type: 'a',
+      key: null,
+      ref: null,
+      props: {
+        children: {
+          $$typeof: _typeofReactElement,
+          type: 'i',
+          key: null,
+          ref: null,
+          props: {
+            className: 'fa fa-arrow-right'
+          },
+          _owner: null
+        },
+        onClick: function () {
+          return onPageSelect(paginator.current_page + 1);
+        }
+      },
+      _owner: null
+    };
   }
 
   return {
@@ -267,7 +329,7 @@ var SearchPagination = function SearchPagination(props) {
     key: null,
     ref: null,
     props: {
-      children: pages,
+      children: [Prev, pages, Next],
       className: 'ccm-pagination'
     },
     _owner: null
@@ -275,7 +337,7 @@ var SearchPagination = function SearchPagination(props) {
 };
 
 /**
- * Bind our event listener
+ * Render search block once init data ready
  */
 JanesWalk.event.on('search.init', function (id, props) {
   var sbf = document.getElementById(id);

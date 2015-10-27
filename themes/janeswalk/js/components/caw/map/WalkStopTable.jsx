@@ -62,7 +62,7 @@ const MarkerRow = props => {
 /**
  * The table with all the walk stops on it, in CAW
  */
-const WalkStopTable = (props) => {
+const WalkStopTable = props => {
   const markersSet = props.markers.getArray();
   return (
     <table className="table-hover routeStops">

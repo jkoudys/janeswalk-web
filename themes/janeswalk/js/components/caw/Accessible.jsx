@@ -6,13 +6,17 @@ import I18nStore from '../../stores/I18nStore.js';
 const t = I18nStore.getTranslate();
 const t2 = I18nStore.getTranslatePlural();
 
+// Link value and change
+function link(context, property) {
+  return {
+    value: context.state[property],
+    onChange: e => change(property, e.target.value);
+  }
+}
+
 class Accessible extends React.Component {
   constructor(props) {
     super(props);
-    this.changeInfo = this.handleChange.bind(this, 'info');
-    this.changeTransit = this.handleChange.bind(this, 'transit');
-    this.changeParking = this.handleChange.bind(this, 'parking');
-    this.changeFind = this.handleChange.bind(this, 'find');
   }
 
   componentWillMount() {
@@ -27,17 +31,11 @@ class Accessible extends React.Component {
 
   // Simple trigger to re-render the components
   _onChange() {
-    this.setState(AccessibleStore.getWalk());
-  }
-
-  handleChange(property, ev) {
-    change(property, ev.target.value);
+    this.setState(AccessibleStore.getDescription());
   }
 
   // Set the member at that specific index
   render() {
-    let desc = AccessibleStore.getDescription();
-
     return (
       <div className="tab-pane" id="accessibility">
         <div className="page-header" data-section='accessibility'>
@@ -50,7 +48,7 @@ class Accessible extends React.Component {
         <div className="item">
           <fieldset>
             <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
-            <TextAreaLimit name="accessible-info" rows="3" maxLength="500" value={desc.info} onChange={this.changeInfo} />
+            <TextAreaLimit name="accessible-info" rows="3" maxLength="500" {...link(this, 'info')} />
           </fieldset>
         </div>
 
@@ -60,14 +58,14 @@ class Accessible extends React.Component {
             <div className="alert alert-info">
               { t('Nearest subway stop, closest bus or streetcar lines, etc.')} 
             </div>
-            <textarea rows="3" name="accessible-transit" value={desc.transit} onChange={this.changeTransit} />
+            <textarea rows="3" name="accessible-transit" {...link(this, 'transit')} />
           </fieldset>
         </div>
 
         <div className="item">
           <fieldset>
             <legend>{ t('Where are the nearest places to park?') } ({ t('Optional') })</legend>
-            <textarea rows="3" name="accessible-parking" value={desc.parking} onChange={this.changeParking} />
+            <textarea rows="3" name="accessible-parking" {...link(this, 'parking')} />
           </fieldset>
         </div>
 
@@ -77,7 +75,7 @@ class Accessible extends React.Component {
             <div className="alert alert-info">
               { t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')} 
             </div>
-            <textarea rows="3" name="accessible-find"  value={desc.find} onChange={this.changeFind} />
+            <textarea rows="3" name="accessible-find" {...link(this, 'find')} />
           </fieldset>
         </div>
         <hr />

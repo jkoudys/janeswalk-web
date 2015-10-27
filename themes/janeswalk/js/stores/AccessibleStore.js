@@ -5,6 +5,7 @@
  */
 
 import {ActionTypes} from '../constants/JWConstants.js';
+import {register} from '../dispatcher/AppDispatcher';
 import 'Store' from './Store.js';
 
 const _desc = {
@@ -73,19 +74,19 @@ const AccessibleStore = Object.assign({}, Store, {
     }, {});
 
     return ret;
-  }
-});
+  },
 
-// Register our dispatch token as a static method
-AccessibleStore.dispatchToken = AppDispatcher.register(payload => {
-  // Go through the various actions
-  switch(payload.type) {
-    // Receive a full walk
-    case ActionTypes.WALK_RECEIVE:
-      receiveWalk(payload.data);
+  // Register our dispatch token as a static method
+  AccessibleStore.dispatchToken: register(payload => {
+    // Go through the various actions
+    switch(payload.type) {
+      // Receive a full walk
+      case ActionTypes.WALK_RECEIVE:
+        receiveWalk(payload.data);
       AccessibleStore.emitChange();
-    break;
-  }
+      break;
+    }
+  })
 });
 
 export default AccessibleStore;
