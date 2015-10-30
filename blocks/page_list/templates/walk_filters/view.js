@@ -893,6 +893,26 @@ var WalkFilter = (function (_React$Component) {
       this.setState({ dateRange: [from, to], filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to]) });
     }
   }, {
+    key: 'printList',
+    value: function printList() {
+      var win = window.open();
+      var el = win.document.createElement('div');
+      React.render({
+        $$typeof: _typeofReactElement,
+        type: _WalkListJsx2['default'],
+        key: null,
+        ref: null,
+        props: _defaultProps(_WalkListJsx2['default'].defaultProps, {
+          walks: this.state.filterMatches
+        }),
+        _owner: null
+      }, el);
+      window.focus();
+      win.document.body.appendChild(el);
+      win.print();
+      win.close();
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this2 = this;
@@ -992,6 +1012,28 @@ var WalkFilter = (function (_React$Component) {
             ref: null,
             props: {
               children: [{
+                $$typeof: _typeofReactElement,
+                type: 'a',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'i',
+                    key: null,
+                    ref: null,
+                    props: {
+                      className: 'fa fa-print'
+                    },
+                    _owner: null
+                  }, ' Print List'],
+                  className: 'print-button',
+                  onClick: function () {
+                    return _this2.printList();
+                  }
+                },
+                _owner: null
+              }, {
                 $$typeof: _typeofReactElement,
                 type: 'ul',
                 key: null,

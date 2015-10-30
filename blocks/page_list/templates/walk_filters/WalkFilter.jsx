@@ -99,6 +99,16 @@ export default class WalkFilter extends React.Component {
     this.setState({dateRange: [from, to], filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to])});
   }
 
+  printList() {
+    const win = window.open();
+    const el = win.document.createElement('div');
+    React.render(<WalkList walks={this.state.filterMatches} />, el);
+    window.focus();
+    win.document.body.appendChild(el);
+    win.print();
+    win.close();
+  }
+
   render() {
     let TabMap;
     let TabBlog;
@@ -124,6 +134,7 @@ export default class WalkFilter extends React.Component {
     return (
       <section className="ccm-block-page-list-walk-filters">
         <div className="walk-filters">
+          <a className="print-button" onClick={() => this.printList()}><i className="fa fa-print" /> Print List</a>
           <ul className="filters">
             {Filters}
             <li>
@@ -137,7 +148,6 @@ export default class WalkFilter extends React.Component {
             {TabMap}
             {TabBlog}
           </ul>
-
           <div className="tab-content">
             <section className="tab-pane" id="jw-cards">
               <WalkCards walks={this.state.filterMatches} />
