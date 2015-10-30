@@ -27,14 +27,16 @@ const memberTypes = {
  */
 const teamMemberList = props => props.map(({value, onChange}) => value.map((user, i) => {
   let teamMember;
+
   // Use empty strings for unset/false
   user.phone = user.phone || '';
+
   // TODO: make linking function
   let thisUser = Object.assign({}, teamMemberProps, {
     key: i,
     index: i,
     value: user,
-    onChange: () => 
+    onChange: () => 1,
     onDelete: () => deleteMember(i, onChange)
   });
 
@@ -49,8 +51,9 @@ const teamMemberList = props => props.map(({value, onChange}) => value.map((user
   } else if (user.type === 'volunteer') {
     teamMember = <TeamVolunteer {...thisUser} />;
   }
+
   return teamMember;
-});
+}));
 
 function memberChange(team, propname, value, id, onChange) {
   const newTeam = team.slice();

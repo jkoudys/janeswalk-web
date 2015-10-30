@@ -1,5 +1,9 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
+require_once(DIR_BASE . '/models/page_types/City.php');
+require_once(DIR_BASE . '/models/page_types/Walk.php');
+use \JanesWalk\Models\PageTypes\City;
+use \JanesWalk\Models\PageTypes\Walk;
+
 define('IS_PROFILE', 1);
 $ui = UserInfo::getByID($u->getUserID());
 
@@ -71,6 +75,9 @@ $walkPromoMessages = [
 $blogPromoMessages = [
 ];
 
+// Walk Model objects
+$walkObjects = array_map(function($walkPage) { return new Walk($walkPage); }, $cityWalks);
+
 ?>
 <script type="text/javascript">
     window.fbAsyncInit = function () {
@@ -89,6 +96,7 @@ $blogPromoMessages = [
     }(document, 'script', 'facebook-jssdk'));
 
     window.JanesWalk = window.JanesWalk || {}; window.JanesWalk.cityUsers = <?= json_encode($cityUsers) ?>;
+    JanesWalk.event.emit('profile.receive', {city: Object.assign(<?= json_encode(new City($city)) ?>, {walks: <?= json_encode($walkObjects) ?>})});
 </script>
 <?php
 /* walk transfer modal */ 
@@ -186,6 +194,9 @@ if ($cityOrganizerData) {
         <?php if ($userHomeCity && $userIsCityOrganizer) { ?>
         <li>
             <a href="/index.php/profile/#tab=city" data-tab="city"><?= $homeCityName ?></a>
+        </li>
+        <li>
+            <a href="/index.php/profile/#tab=impact" data-tab="impact"><?= t('Impact Reporting') ?></a>
         </li>
         <?php } ?>
         <li>
@@ -449,6 +460,7 @@ if ($cityOrganizerData) {
             </div>
         </div>
         <?php } ?>
+        <div id="impactBlock" class="block hidden" data-tab="impact"></div>
         <div id="accountBlock" class="block hidden" data-tab="account">
             <div class="success">
                 <span class="fa fa-check"></span>
