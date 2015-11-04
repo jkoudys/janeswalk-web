@@ -43076,33 +43076,35 @@ function receiveCity(city) {
     });
 
     // Normalize the members indexed by email, then names if unavailable
-    walk.team.forEach(function (member) {
-      var type = '';
-      var walkIds = [];
-      if ('role' in member) {
-        type = member.role;
-      } else if ('type' in member) {
-        type = member.type;
-      }
-      // Check if this is a leader. Co-walk leaders count *deprecated concept
-      if (type.indexOf('leader') > -1) {
-        var _name = undefined;
-        var _walkIds = [];
-        // Assume walk leaders with same email are same person; if no email, use name
-        if (member.email) {
-          _name = member.email;
-        } else {
-          _name = member['name-first'] + member['name-last'];
+    if (walk.team) {
+      walk.team.forEach(function (member) {
+        var type = '';
+        var walkIds = [];
+        if ('role' in member) {
+          type = member.role;
+        } else if ('type' in member) {
+          type = member.type;
         }
-        _name = _name.toLowerCase();
-        // Track an array of all the walks this member was on
-        if (_leaders[_name]) {
-          _walkIds = _leaders[_name]['walkIds'];
+        // Check if this is a leader. Co-walk leaders count *deprecated concept
+        if (type.indexOf('leader') > -1) {
+          var _name = undefined;
+          var _walkIds = [];
+          // Assume walk leaders with same email are same person; if no email, use name
+          if (member.email) {
+            _name = member.email;
+          } else {
+            _name = member['name-first'] + member['name-last'];
+          }
+          _name = _name.toLowerCase();
+          // Track an array of all the walks this member was on
+          if (_leaders[_name]) {
+            _walkIds = _leaders[_name]['walkIds'];
+          }
+          _walkIds.push(walk.id);
+          _leaders[_name.toLowerCase()] = Object.assign({}, member, { walkIds: _walkIds });
         }
-        _walkIds.push(walk.id);
-        _leaders[_name.toLowerCase()] = Object.assign({}, member, { walkIds: _walkIds });
-      }
-    });
+      });
+    }
   });
   _city = city;
   delete _city.walks;
