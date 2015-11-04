@@ -43065,7 +43065,7 @@ function receiveCity(city) {
     delete details.slots;
     _walks.push(walk.id);
     _details[walk.id] = details;
-    if ('slots' in walk.time) {
+    if (walk.time && 'slots' in walk.time) {
       _dates = _dates.concat(walk.time.slots.map(function (slot) {
         return Object.assign({}, { range: slot }, { walkId: walk.id });
       }));
