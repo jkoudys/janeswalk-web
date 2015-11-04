@@ -1309,6 +1309,17 @@ if (typeof Intl === 'object') {
     minute: '2-digit',
     timeZone: 'UTC'
   });
+} else {
+  // Quick and dirty shim for those poor souls on Safari
+  dtfDate = {};
+  dtfTime = {};
+  dtfDate.format = function (time) {
+    return $.datepicker.formatDate('M d, yy', new Date(time));
+  };
+  dtfTime.format = function (time) {
+    var d = new Date(time);
+    return d.getHours() + ':' + d.getMinutes();
+  };
 }
 
 var WalkList = (function (_React$Component) {

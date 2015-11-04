@@ -19,6 +19,15 @@ if (typeof(Intl) === 'object') {
     minute: '2-digit',
     timeZone: 'UTC'
   });
+} else {
+  // Quick and dirty shim for those poor souls on Safari
+  dtfDate = {};
+  dtfTime = {};
+  dtfDate.format = time => $.datepicker.formatDate('M d, yy', new Date(time));
+  dtfTime.format = time => {
+    let d = new Date(time);
+    return d.getHours() + ':' + d.getMinutes();
+  };
 }
 
 export default class WalkList extends React.Component {
