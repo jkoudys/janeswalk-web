@@ -32,33 +32,35 @@ function receiveCity(city) {
     _dates.sort((a, b) => a.range[0] - b.range[0]);
 
     // Normalize the members indexed by email, then names if unavailable
-    walk.team.forEach(member => {
-      let type = '';
-      let walkIds = [];
-      if ('role' in member) {
-        type = member.role;
-      } else if ('type' in member) {
-        type = member.type;
-      }
-      // Check if this is a leader. Co-walk leaders count *deprecated concept
-      if (type.indexOf('leader') > -1) {
-        let name;
+    if (walk.team) {
+      walk.team.forEach(member => {
+        let type = '';
         let walkIds = [];
-        // Assume walk leaders with same email are same person; if no email, use name
-        if (member.email) {
-          name = member.email;
-        } else {
-          name = member['name-first'] + member['name-last'];
+        if ('role' in member) {
+          type = member.role;
+        } else if ('type' in member) {
+          type = member.type;
         }
-        name = name.toLowerCase();
-        // Track an array of all the walks this member was on
-        if (_leaders[name]) {
-           walkIds = _leaders[name]['walkIds'];
+        // Check if this is a leader. Co-walk leaders count *deprecated concept
+        if (type.indexOf('leader') > -1) {
+          let name;
+          let walkIds = [];
+          // Assume walk leaders with same email are same person; if no email, use name
+          if (member.email) {
+            name = member.email;
+          } else {
+            name = member['name-first'] + member['name-last'];
+          }
+          name = name.toLowerCase();
+          // Track an array of all the walks this member was on
+          if (_leaders[name]) {
+            walkIds = _leaders[name]['walkIds'];
+          }
+          walkIds.push(walk.id);
+          _leaders[name.toLowerCase()] = Object.assign({}, member, {walkIds: walkIds});
         }
-        walkIds.push(walk.id);
-        _leaders[name.toLowerCase()] = Object.assign({}, member, {walkIds: walkIds});
-      }
-    });
+      });
+    }
   });
   _city = city;
   delete _city.walks;
