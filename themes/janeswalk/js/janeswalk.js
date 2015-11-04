@@ -42071,21 +42071,176 @@ var WalksPerYear = function WalksPerYear(_ref4) {
   };
 };
 
+var WalkLeaders = function WalkLeaders(_ref5) {
+  var leaders = _ref5.leaders;
+  var limit = _ref5.limit;
+  var showAll = _ref5.showAll;
+  var showSome = _ref5.showSome;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'section',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'h3',
+        key: null,
+        ref: null,
+        props: {
+          children: 'Most Active Walk Leaders'
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: 'table',
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: 'thead',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'tr',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: 'Name'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: 'email'
+                    },
+                    _owner: null
+                  }, {
+                    $$typeof: _typeofReactElement,
+                    type: 'th',
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: 'Total Walks'
+                    },
+                    _owner: null
+                  }]
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: 'tbody',
+            key: null,
+            ref: null,
+            props: {
+              children: leaders.sort(function (a, b) {
+                return b.walkIds.length - a.walkIds.length;
+              }).slice(0, limit).map(function (leader) {
+                return {
+                  $$typeof: _typeofReactElement,
+                  type: 'tr',
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: [{
+                      $$typeof: _typeofReactElement,
+                      type: 'td',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: leader['name-first'] + ' ' + leader['name-last']
+                      },
+                      _owner: null
+                    }, {
+                      $$typeof: _typeofReactElement,
+                      type: 'td',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: leader['email']
+                      },
+                      _owner: null
+                    }, {
+                      $$typeof: _typeofReactElement,
+                      type: 'td',
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: leader.walkIds.length
+                      },
+                      _owner: null
+                    }]
+                  },
+                  _owner: null
+                };
+              })
+            },
+            _owner: null
+          }]
+        },
+        _owner: null
+      }, limit ? {
+        $$typeof: _typeofReactElement,
+        type: 'a',
+        key: null,
+        ref: null,
+        props: {
+          children: 'Show All',
+          onClick: showAll
+        },
+        _owner: null
+      } : {
+        $$typeof: _typeofReactElement,
+        type: 'a',
+        key: null,
+        ref: null,
+        props: {
+          children: 'Collapse',
+          onClick: showSome
+        },
+        _owner: null
+      }],
+      className: 'walk-leaders'
+    },
+    _owner: null
+  };
+};
+
 var ImpactReport = (function (_React$Component) {
   _inherits(ImpactReport, _React$Component);
 
   function ImpactReport() {
     _classCallCheck(this, ImpactReport);
 
-    _get(Object.getPrototypeOf(ImpactReport.prototype), 'constructor', this).apply(this, arguments);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(ImpactReport.prototype), 'constructor', this).apply(this, args);
+    this.state = { leadersLimit: 6 };
   }
+
+  /**
+   * Print this whole element
+   */
 
   _createClass(ImpactReport, [{
     key: 'printReport',
-
-    /**
-     * Print this whole element
-     */
     value: function printReport() {
       var win = window.open();
       window.focus();
@@ -42114,12 +42269,63 @@ var ImpactReport = (function (_React$Component) {
         props: {
           children: [{
             $$typeof: _typeofReactElement,
+            type: 'p',
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: 'a',
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'i',
+                    key: null,
+                    ref: null,
+                    props: {
+                      className: 'fa fa-print'
+                    },
+                    _owner: null
+                  }, ' Print Report'],
+                  className: 'print-button',
+                  onClick: function () {
+                    return _this.printReport();
+                  }
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
             type: 'h3',
             key: null,
             ref: null,
             props: {
               children: ['In ', city.name, ', there have been ', Object.keys(leaders).length, ' registered walk leaders, who led ', dates.length, ' walks since ', startDate, '!']
             },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: WalkLeaders,
+            key: null,
+            ref: null,
+            props: _defaultProps(WalkLeaders.defaultProps, {
+              leaders: Object.keys(leaders).filter(function (k) {
+                return k;
+              }).map(function (k) {
+                return leaders[k];
+              }),
+              limit: this.state.leadersLimit,
+              showAll: function () {
+                return _this.setState({ leadersLimit: undefined });
+              },
+              showSome: function () {
+                return _this.setState({ leadersLimit: 6 });
+              }
+            }),
             _owner: null
           }, {
             $$typeof: _typeofReactElement,
@@ -42151,37 +42357,6 @@ var ImpactReport = (function (_React$Component) {
               leaders: leaders,
               dates: dates
             }),
-            _owner: null
-          }, {
-            $$typeof: _typeofReactElement,
-            type: 'p',
-            key: null,
-            ref: null,
-            props: {
-              children: {
-                $$typeof: _typeofReactElement,
-                type: 'a',
-                key: null,
-                ref: null,
-                props: {
-                  children: [{
-                    $$typeof: _typeofReactElement,
-                    type: 'i',
-                    key: null,
-                    ref: null,
-                    props: {
-                      className: 'fa fa-print'
-                    },
-                    _owner: null
-                  }, ' Print Report'],
-                  className: 'print-button',
-                  onClick: function () {
-                    return _this.printReport();
-                  }
-                },
-                _owner: null
-              }
-            },
             _owner: null
           }]
         },
@@ -42933,7 +43108,7 @@ function receiveCity(city) {
   delete _city.walks;
 }
 
-// TODO: Move these tou a router class
+// TODO: Move these to a router class
 JanesWalk.event.on('profile.receive', function (_ref) {
   var city = _ref.city;
 

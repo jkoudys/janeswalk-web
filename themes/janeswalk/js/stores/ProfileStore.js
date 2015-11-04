@@ -64,7 +64,7 @@ function receiveCity(city) {
   delete _city.walks;
 }
 
-// TODO: Move these tou a router class
+// TODO: Move these to a router class
 JanesWalk.event.on('profile.receive', function({city}) {
   receiveCity(city);
 

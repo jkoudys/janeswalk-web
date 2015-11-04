@@ -58,7 +58,37 @@ const WalksPerYear = ({dates}) => (
   </section>
 );
 
+const WalkLeaders = ({leaders, limit, showAll, showSome}) => (
+  <section className="walk-leaders">
+    <h3>Most Active Walk Leaders</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>email</th>
+          <th>Total Walks</th>
+        </tr>
+      </thead>
+      <tbody>
+        {leaders.sort((a, b) => b.walkIds.length - a.walkIds.length).slice(0, limit).map(leader => (
+          <tr>
+            <td>{leader['name-first'] + ' ' + leader['name-last']}</td>
+            <td>{leader['email']}</td>
+            <td>{leader.walkIds.length}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    {limit ? <a onClick={showAll}>Show All</a> : <a onClick={showSome}>Collapse</a>}
+  </section>
+);
+
 class ImpactReport extends React.Component {
+  constructor(...args) {
+    super(...args);
+    this.state = {leadersLimit: 6};
+  }
+
   /**
    * Print this whole element
    */
@@ -74,13 +104,14 @@ class ImpactReport extends React.Component {
     const {city, leaders, walks, details, dates, startDate} = this.props;
     return (
       <section>
-        <h3>In {city.name}, there have been {Object.keys(leaders).length} registered walk leaders, who led {dates.length} walks since {startDate}!</h3>
-        <ReturningWalkLeaders walks={walks} dates={dates} year={2015} />
-        <WalksPerYear dates={dates} />
-        <WalksPerLeader walks={walks} leaders={leaders} dates={dates} />
         <p>
           <a className="print-button" onClick={() => this.printReport()}><i className="fa fa-print" /> Print Report</a>
         </p>
+        <h3>In {city.name}, there have been {Object.keys(leaders).length} registered walk leaders, who led {dates.length} walks since {startDate}!</h3>
+        <WalkLeaders leaders={Object.keys(leaders).filter(k => k).map(k => leaders[k])} limit={this.state.leadersLimit} showAll={() => this.setState({leadersLimit: undefined})} showSome={() => this.setState({leadersLimit: 6})} />
+        <ReturningWalkLeaders walks={walks} dates={dates} year={2015} />
+        <WalksPerYear dates={dates} />
+        <WalksPerLeader walks={walks} leaders={leaders} dates={dates} />
       </section>
     );
   }
