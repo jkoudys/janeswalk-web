@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-},{"./components/CreateWalk.jsx":221,"./components/Login.jsx":223,"./components/Page.jsx":224,"./components/pages/City.jsx":246,"./components/pages/Home.jsx":247,"./components/pages/Profile.jsx":248,"./components/pages/Walk.jsx":249,"./utils/I18nUtils.js":258,"intl/Intl.en":7}],2:[function(require,module,exports){
+},{"./components/CreateWalk.jsx":221,"./components/Login.jsx":223,"./components/Page.jsx":224,"./components/pages/City.jsx":246,"./components/pages/Home.jsx":247,"./components/pages/Profile.jsx":248,"./components/pages/Walk.jsx":249,"./utils/I18nUtils.js":259,"intl/Intl.en":7}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -32897,7 +32897,7 @@ function receive(translations) {
 }
 
 
-},{"../constants/JWConstants.js":251,"../dispatcher/AppDispatcher.js":252}],221:[function(require,module,exports){
+},{"../constants/JWConstants.js":252,"../dispatcher/AppDispatcher.js":253}],221:[function(require,module,exports){
 // Create a Walk
 //
 // Form for creating new walks. Includes a map builder, team builder, scheduler
@@ -34282,7 +34282,7 @@ Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin), (function (_
 module.exports = exports['default'];
 
 
-},{"../actions/I18nActions.js":220,"../helpers/helpers.jsx":253,"../stores/I18nStore.js":256,"./TextAreaLimit.jsx":225,"./caw/AccessibleSelect.jsx":228,"./caw/DateSelect.jsx":229,"./caw/ImageUpload.jsx":230,"./caw/MapBuilder.jsx":231,"./caw/TeamBuilder.jsx":232,"./caw/ThemeSelect.jsx":233,"./caw/WalkPublish.jsx":234,"./caw/WardSelect.jsx":235}],222:[function(require,module,exports){
+},{"../actions/I18nActions.js":220,"../helpers/helpers.jsx":254,"../stores/I18nStore.js":257,"./TextAreaLimit.jsx":225,"./caw/AccessibleSelect.jsx":228,"./caw/DateSelect.jsx":229,"./caw/ImageUpload.jsx":230,"./caw/MapBuilder.jsx":231,"./caw/TeamBuilder.jsx":232,"./caw/ThemeSelect.jsx":233,"./caw/WalkPublish.jsx":234,"./caw/WardSelect.jsx":235}],222:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -34872,7 +34872,7 @@ exports['default'] = TextAreaLimit;
 module.exports = exports['default'];
 
 
-},{"../stores/I18nStore.js":256}],226:[function(require,module,exports){
+},{"../stores/I18nStore.js":257}],226:[function(require,module,exports){
 /**
 * View constructor
 * 
@@ -35370,7 +35370,7 @@ Object.assign(AccessibleSelect.prototype, _helpersMixinsJsx.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":254,"../../stores/I18nStore.js":256}],229:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":255,"../../stores/I18nStore.js":257}],229:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -36223,7 +36223,7 @@ Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":256,"./date/DatePicker.jsx":236,"./date/TimeOpenTable.jsx":237,"./date/TimePicker.jsx":238,"./date/TimeSetTable.jsx":239}],230:[function(require,module,exports){
+},{"../../stores/I18nStore.js":257,"./date/DatePicker.jsx":236,"./date/TimeOpenTable.jsx":237,"./date/TimePicker.jsx":238,"./date/TimeSetTable.jsx":239}],230:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -36408,7 +36408,7 @@ exports['default'] = ImageUpload;
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":256}],231:[function(require,module,exports){
+},{"../../stores/I18nStore.js":257}],231:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -37055,7 +37055,7 @@ Object.assign(MapBuilder, {
 module.exports = exports['default'];
 
 
-},{"../../helpers/helpers.jsx":253,"../../stores/I18nStore.js":256,"./map/ConnectFilters.jsx":240,"./map/InstagramConnect.jsx":241,"./map/SoundCloudConnect.jsx":242,"./map/TwitterConnect.jsx":243,"./map/WalkInfoWindow.jsx":244,"./map/WalkStopTable.jsx":245}],232:[function(require,module,exports){
+},{"../../helpers/helpers.jsx":254,"../../stores/I18nStore.js":257,"./map/ConnectFilters.jsx":240,"./map/InstagramConnect.jsx":241,"./map/SoundCloudConnect.jsx":242,"./map/TwitterConnect.jsx":243,"./map/WalkInfoWindow.jsx":244,"./map/WalkStopTable.jsx":245}],232:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -38720,7 +38720,7 @@ var TeamVolunteer = function TeamVolunteer(props) {
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":256}],233:[function(require,module,exports){
+},{"../../stores/I18nStore.js":257}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -38968,7 +38968,7 @@ ThemeSelect.defaultProps = {
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":254,"../../stores/I18nStore.js":256}],234:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":255,"../../stores/I18nStore.js":257}],234:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39197,7 +39197,7 @@ Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":256}],235:[function(require,module,exports){
+},{"../../stores/I18nStore.js":257}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -39332,7 +39332,7 @@ Object.assign(WardSelect.prototype, mixins.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":254,"../../stores/I18nStore.js":256}],236:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":255,"../../stores/I18nStore.js":257}],236:[function(require,module,exports){
 /**
  * Basic wrapper around jQuery.datepicker(), so it can be loaded
  * as a React class
@@ -39681,7 +39681,7 @@ exports['default'] = TimePicker;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":256}],239:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":257}],239:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39902,7 +39902,7 @@ exports['default'] = TimeSetTable;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":256}],240:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":257}],240:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41009,7 +41009,7 @@ exports["default"] = WalkStopTable;
 module.exports = exports["default"];
 
 
-},{"../../../stores/I18nStore.js":256}],246:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":257}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -41794,7 +41794,7 @@ exports['default'] = ProfilePageView;
 module.exports = exports['default'];
 
 
-},{"../../stores/ProfileStore.js":257,"../Page.jsx":224,"../profile/ImpactReport.jsx":250}],249:[function(require,module,exports){
+},{"../../stores/ProfileStore.js":258,"../Page.jsx":224,"../profile/ImpactReport.jsx":250}],249:[function(require,module,exports){
 'use strict';
 
 var PageView = require('../Page.jsx');
@@ -41918,6 +41918,12 @@ var _reactD3 = require('react-d3');
 
 var _reactD3Barchart = require('react-d3/barchart');
 
+var YEARS = {
+  '2015': Date.UTC(2015, 0),
+  '2014': Date.UTC(2014, 0),
+  '2013': Date.UTC(2013, 0)
+};
+
 var WalksByYear = function WalksByYear(_ref) {
   var walks = _ref.walks;
   var dates = _ref.dates;
@@ -41974,7 +41980,7 @@ var ReturningWalkLeaders = function ReturningWalkLeaders(_ref2) {
   };
 };
 
-var walksPerLeaderData = [{ label: '1', values: [60] }, { label: '2', values: [20] }, { label: '3', values: [3] }, { label: '4 or more', values: [5] }];
+var walksPerLeaderData = [{ label: '1', values: [{ x: 1, y: 60 }, { x: 2, y: 20 }, { x: 3, y: 3 }, { x: 4, y: 5 }] }];
 
 var WalksPerLeader = function WalksPerLeader(_ref3) {
   var walks = _ref3.walks;
@@ -42008,6 +42014,58 @@ var WalksPerLeader = function WalksPerLeader(_ref3) {
         _owner: null
       }],
       className: 'walks-per-leader'
+    },
+    _owner: null
+  };
+};
+
+// TODO: this function isn't very well written. Should be in the store, too
+function buildWalksByYear(dates) {
+  // 2014, 2015
+  var values = [{ x: 2014, y: 0 }, { x: 2015, y: 0 }];
+  dates.forEach(function (date) {
+    if (date.range[0] * 1000 < YEARS['2015']) {
+      values[0]['y']++;
+    } else {
+      values[1]['y']++;
+    }
+  });
+  return [{
+    label: '1',
+    values: values
+  }];
+}
+
+var WalksPerYear = function WalksPerYear(_ref4) {
+  var dates = _ref4.dates;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'section',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'h3',
+        key: null,
+        ref: null,
+        props: {
+          children: 'Walks per Year'
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: _reactD3Barchart.BarChart,
+        key: null,
+        ref: null,
+        props: _defaultProps(_reactD3Barchart.BarChart.defaultProps, {
+          data: buildWalksByYear(dates),
+          width: 400,
+          height: 400
+        }),
+        _owner: null
+      }],
+      className: 'walks-per-year'
     },
     _owner: null
   };
@@ -42076,6 +42134,26 @@ var ImpactReport = (function (_React$Component) {
             _owner: null
           }, {
             $$typeof: _typeofReactElement,
+            type: WalksPerYear,
+            key: null,
+            ref: null,
+            props: _defaultProps(WalksPerYear.defaultProps, {
+              dates: dates
+            }),
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: WalksPerLeader,
+            key: null,
+            ref: null,
+            props: _defaultProps(WalksPerLeader.defaultProps, {
+              walks: walks,
+              leaders: leaders,
+              dates: dates
+            }),
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
             type: 'p',
             key: null,
             ref: null,
@@ -42086,7 +42164,17 @@ var ImpactReport = (function (_React$Component) {
                 key: null,
                 ref: null,
                 props: {
-                  children: 'Print Report',
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: 'i',
+                    key: null,
+                    ref: null,
+                    props: {
+                      className: 'fa fa-print'
+                    },
+                    _owner: null
+                  }, ' Print Report'],
+                  className: 'print-button',
                   onClick: function () {
                     return _this.printReport();
                   }
@@ -42110,6 +42198,388 @@ module.exports = exports['default'];
 
 
 },{"react-d3":37,"react-d3/barchart":17}],251:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === "undefined") { props[propName] = defaultProps[propName]; } } } return props; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var RemovePrompt = function RemovePrompt(_ref) {
+  var close = _ref.close;
+  var removeCO = _ref.removeCO;
+  return {
+    $$typeof: _typeofReactElement,
+    type: "section",
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: "p",
+        key: null,
+        ref: null,
+        props: {
+          children: "We're sad to lose you, but we understand that not everyone can stay a City Organizer forever. If you have to go, then we thank you for all the help you've donated to the Jane's Walk project."
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "p",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: "I understand, remove me.",
+              onClick: removeCO
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "p",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: "Keep me as CO for now.",
+              onClick: close
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }]
+    },
+    _owner: null
+  };
+};
+
+var RemovedScreen = function RemovedScreen(_ref2) {
+  var close = _ref2.close;
+  return {
+    $$typeof: _typeofReactElement,
+    type: "section",
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: "p",
+        key: null,
+        ref: null,
+        props: {
+          children: ["Know anyone you think would do a great job as the new City Organizer? Please email Nadia at ", {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: "nadia.halim@janeswalk.org",
+              href: "mailto:nadia.halim@janeswalk.org"
+            },
+            _owner: null
+          }, " and recommend someone!"]
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "p",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: "i",
+                key: null,
+                ref: null,
+                props: {
+                  className: "fa fa-times"
+                },
+                _owner: null
+              }, "Close"],
+              onClick: close
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }]
+    },
+    _owner: null
+  };
+};
+
+var RemoveSelf = (function (_React$Component) {
+  _inherits(RemoveSelf, _React$Component);
+
+  function RemoveSelf() {
+    _classCallCheck(this, RemoveSelf);
+
+    _get(Object.getPrototypeOf(RemoveSelf.prototype), "constructor", this).apply(this, arguments);
+  }
+
+  _createClass(RemoveSelf, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      $(React.findDOMNode(this)).modal();
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      $(React.findDOMNode(this)).modal('hide');
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _props = this.props;
+      var city = _props.city;
+      var closeModal = _props.closeModal;
+      var removeCO = _props.removeCO;
+      var removed = _props.removed;
+
+      return {
+        $$typeof: _typeofReactElement,
+        type: "dialog",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "div",
+            key: null,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: "article",
+                key: null,
+                ref: null,
+                props: {
+                  children: [{
+                    $$typeof: _typeofReactElement,
+                    type: "header",
+                    key: null,
+                    ref: null,
+                    props: {
+                      children: [{
+                        $$typeof: _typeofReactElement,
+                        type: "button",
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: [{
+                            $$typeof: _typeofReactElement,
+                            type: "span",
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: "×",
+                              "aria-hidden": "true"
+                            },
+                            _owner: null
+                          }, {
+                            $$typeof: _typeofReactElement,
+                            type: "span",
+                            key: null,
+                            ref: null,
+                            props: {
+                              children: "Close",
+                              className: "sr-only"
+                            },
+                            _owner: null
+                          }],
+                          type: "button",
+                          className: "close",
+                          "data-dismiss": "modal",
+                          onClick: closeModal
+                        },
+                        _owner: null
+                      }, {
+                        $$typeof: _typeofReactElement,
+                        type: "h4",
+                        key: null,
+                        ref: null,
+                        props: {
+                          children: "Remove me from my role as City Organizer",
+                          className: "modal-title"
+                        },
+                        _owner: null
+                      }]
+                    },
+                    _owner: null
+                  }, removed ? {
+                    $$typeof: _typeofReactElement,
+                    type: RemovedScreen,
+                    key: null,
+                    ref: null,
+                    props: _defaultProps(RemovedScreen.defaultProps, {
+                      close: closeModal
+                    }),
+                    _owner: null
+                  } : {
+                    $$typeof: _typeofReactElement,
+                    type: RemovePrompt,
+                    key: null,
+                    ref: null,
+                    props: _defaultProps(RemovePrompt.defaultProps, {
+                      close: closeModal,
+                      removeCO: removeCO
+                    }),
+                    _owner: null
+                  }]
+                },
+                _owner: null
+              }
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return RemoveSelf;
+})(React.Component);
+
+var RemoveSelfAsCO = (function (_React$Component2) {
+  _inherits(RemoveSelfAsCO, _React$Component2);
+
+  function RemoveSelfAsCO() {
+    _classCallCheck(this, RemoveSelfAsCO);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(RemoveSelfAsCO.prototype), "constructor", this).apply(this, args);
+    this.state = { modal: false, removed: false };
+  }
+
+  _createClass(RemoveSelfAsCO, [{
+    key: "handleRemoveCO",
+    value: function handleRemoveCO() {
+      var xhr = new XMLHttpRequest();
+      var _this = this;
+      xhr.open('get', '/profile/removeSelfAsCO/' + this.props.city, true);
+      xhr.onload = function () {
+        _this.setState({ removed: true });
+      };
+      xhr.send();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var removeModal = undefined;
+      var removeLink = undefined;
+      if (this.state.modal) {
+        removeModal = {
+          $$typeof: _typeofReactElement,
+          type: RemoveSelf,
+          key: null,
+          ref: null,
+          props: _defaultProps(RemoveSelf.defaultProps, {
+            city: this.props.city,
+            closeModal: function () {
+              return _this2.setState({ modal: false });
+            },
+            removeCO: function () {
+              return _this2.handleRemoveCO();
+            },
+            removed: this.state.removed
+          }),
+          _owner: null
+        };
+      }
+      if (!this.state.removed) {
+        removeLink = {
+          $$typeof: _typeofReactElement,
+          type: "a",
+          key: null,
+          ref: null,
+          props: {
+            children: [{
+              $$typeof: _typeofReactElement,
+              type: "i",
+              key: null,
+              ref: null,
+              props: {
+                className: "fa fa-times"
+              },
+              _owner: null
+            }, " Remove me as city organizer."],
+            onClick: function () {
+              return _this2.setState({ modal: true });
+            }
+          },
+          _owner: null
+        };
+      } else {
+        removeLink = {
+          $$typeof: _typeofReactElement,
+          type: "span",
+          key: null,
+          ref: null,
+          props: {
+            children: "You have removed yourself as the official City Organizer."
+          },
+          _owner: null
+        };
+      }
+
+      return {
+        $$typeof: _typeofReactElement,
+        type: "div",
+        key: null,
+        ref: null,
+        props: {
+          children: [removeLink, removeModal]
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return RemoveSelfAsCO;
+})(React.Component);
+
+exports["default"] = RemoveSelfAsCO;
+module.exports = exports["default"];
+
+
+},{}],252:[function(require,module,exports){
 /**
  * Basic constants for route app
  */
@@ -42132,7 +42602,7 @@ var ActionTypes = [
 exports.ActionTypes = ActionTypes;
 
 
-},{}],252:[function(require,module,exports){
+},{}],253:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -42150,7 +42620,7 @@ exports.register = register;
 exports.dispatch = dispatch;
 
 
-},{"flux":4}],253:[function(require,module,exports){
+},{"flux":4}],254:[function(require,module,exports){
 /*
  * Helpers for building React pages with
  *
@@ -42187,7 +42657,7 @@ exports.objectToArray = function (obj) {
 };
 
 
-},{}],254:[function(require,module,exports){
+},{}],255:[function(require,module,exports){
 /**
  * TODO: replace both of these silly 2-way binding helpers with flux
  */
@@ -42215,7 +42685,7 @@ var linkedParentState = {
 exports.linkedParentState = linkedParentState;
 
 
-},{}],255:[function(require,module,exports){
+},{}],256:[function(require,module,exports){
 /**
  * i18n translation class
  *
@@ -42306,7 +42776,7 @@ Object.defineProperties(I18nTranslator.prototype, {
 module.exports = I18nTranslator;
 
 
-},{}],256:[function(require,module,exports){
+},{}],257:[function(require,module,exports){
 /**
  * i18n Store
  *
@@ -42379,7 +42849,7 @@ exports['default'] = I18nStore;
 module.exports = exports['default'];
 
 
-},{"../constants/JWConstants":251,"../dispatcher/AppDispatcher":252,"../helpers/translate.js":255,"events":2}],257:[function(require,module,exports){
+},{"../constants/JWConstants":252,"../dispatcher/AppDispatcher":253,"../helpers/translate.js":256,"events":2}],258:[function(require,module,exports){
 'use strict';
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
@@ -42391,6 +42861,10 @@ function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propN
 var _componentsProfileImpactReportJsx = require('../components/profile/ImpactReport.jsx');
 
 var _componentsProfileImpactReportJsx2 = _interopRequireDefault(_componentsProfileImpactReportJsx);
+
+var _componentsProfileRemoveSelfAsCOJsx = require('../components/profile/RemoveSelfAsCO.jsx');
+
+var _componentsProfileRemoveSelfAsCOJsx2 = _interopRequireDefault(_componentsProfileRemoveSelfAsCOJsx);
 
 /**
  * Events-based first-pass of simple store
@@ -42459,6 +42933,7 @@ function receiveCity(city) {
   delete _city.walks;
 }
 
+// TODO: Move these tou a router class
 JanesWalk.event.on('profile.receive', function (_ref) {
   var city = _ref.city;
 
@@ -42481,8 +42956,23 @@ JanesWalk.event.on('profile.receive', function (_ref) {
   }, document.getElementById('impactBlock'));
 });
 
+JanesWalk.event.on('profile.co.receive', function (_ref2) {
+  var cID = _ref2.cID;
 
-},{"../components/profile/ImpactReport.jsx":250}],258:[function(require,module,exports){
+  React.render({
+    $$typeof: _typeofReactElement,
+    type: _componentsProfileRemoveSelfAsCOJsx2['default'],
+    key: null,
+    ref: null,
+    props: _defaultProps(_componentsProfileRemoveSelfAsCOJsx2['default'].defaultProps, {
+      city: cID
+    }),
+    _owner: null
+  }, document.getElementById('remove-co'));
+});
+
+
+},{"../components/profile/ImpactReport.jsx":250,"../components/profile/RemoveSelfAsCO.jsx":251}],259:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

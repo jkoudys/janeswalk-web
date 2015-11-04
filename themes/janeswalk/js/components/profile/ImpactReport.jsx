@@ -1,6 +1,12 @@
 import {LineChart, PieChart} from 'react-d3';
 import {BarChart} from 'react-d3/barchart';
 
+const YEARS = {
+  '2015': Date.UTC(2015, 0),
+  '2014': Date.UTC(2014, 0),
+  '2013': Date.UTC(2013, 0)
+};
+
 const WalksByYear = ({walks, dates}) => {
   debugger;
   <LineChart />
@@ -18,16 +24,37 @@ const ReturningWalkLeaders = ({walks, leaders, dates, year}) => (
 );
 
 const walksPerLeaderData = [
-  {label: '1', values: [60]},
-  {label: '2', values: [20]},
-  {label: '3', values: [3]},
-  {label: '4 or more', values: [5]}
+  {label: '1', values: [{x: 1, y: 60}, {x: 2, y: 20}, {x: 3, y: 3}, {x: 4, y: 5}]},
 ];
 
 const WalksPerLeader = ({walks, leaders, dates}) => (
   <section className="walks-per-leader">
     <h3>Walks per Leader</h3>
     <BarChart data={walksPerLeaderData} width={400} height={400} />
+  </section>
+);
+
+// TODO: this function isn't very well written. Should be in the store, too
+function buildWalksByYear(dates) {
+  // 2014, 2015
+  const values = [{x: 2014, y: 0}, {x: 2015, y: 0}];
+  dates.forEach(date => {
+    if (date.range[0] * 1000 < YEARS['2015']) {
+      values[0]['y']++;
+    } else {
+      values[1]['y']++;
+    }
+  });
+  return [{
+    label: '1',
+    values: values
+  }];
+}
+
+const WalksPerYear = ({dates}) => (
+  <section className="walks-per-year">
+    <h3>Walks per Year</h3>
+    <BarChart data={buildWalksByYear(dates)} width={400} height={400} />
   </section>
 );
 
@@ -49,6 +76,8 @@ class ImpactReport extends React.Component {
       <section>
         <h3>In {city.name}, there have been {Object.keys(leaders).length} registered walk leaders, who led {dates.length} walks since {startDate}!</h3>
         <ReturningWalkLeaders walks={walks} dates={dates} year={2015} />
+        <WalksPerYear dates={dates} />
+        <WalksPerLeader walks={walks} leaders={leaders} dates={dates} />
         <p>
           <a className="print-button" onClick={() => this.printReport()}><i className="fa fa-print" /> Print Report</a>
         </p>

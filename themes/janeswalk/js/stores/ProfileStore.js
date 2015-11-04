@@ -1,4 +1,5 @@
 import ImpactReport from '../components/profile/ImpactReport.jsx';
+import RemoveSelfAsCO from '../components/profile/RemoveSelfAsCO.jsx';
 
 /**
  * Events-based first-pass of simple store
@@ -63,8 +64,13 @@ function receiveCity(city) {
   delete _city.walks;
 }
 
+// TODO: Move these tou a router class
 JanesWalk.event.on('profile.receive', function({city}) {
   receiveCity(city);
 
   React.render(<ImpactReport startDate={dtfDate.format(_dates[0]['range'][0] * 1000)} city={_city} walks={_walks} details={_details} dates={_dates} leaders={_leaders} />, document.getElementById('impactBlock'));
+});
+
+JanesWalk.event.on('profile.co.receive', function({cID}) {
+  React.render(<RemoveSelfAsCO city={cID} />, document.getElementById('remove-co'));
 });

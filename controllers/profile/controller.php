@@ -152,7 +152,7 @@ class ProfileController extends Concrete5_Controller_Profile
                 $pl->filterByParentID($userHomeCity->getCollectionID());
                 $pl->filterByAttribute('exclude_page_list', false);
                 $cityWalks = $pl->get();
-                
+
                 // Export to view
                 $this->set('cityWalks', $cityWalks);
                 $this->set('cityHasWalks', !empty($cityWalks));
@@ -258,7 +258,7 @@ class ProfileController extends Concrete5_Controller_Profile
                 $cityOrganizerData = array_map(
                     function ($page) use ($ah) {
                         $_co = UserInfo::getByID($page->getCollectionUserID());
-                        
+
                         return [
                             'cityName' => $page->getCollectionName(),
                             'organizerImagePath' => $ah->getImagePath($_co),
@@ -284,5 +284,50 @@ class ProfileController extends Concrete5_Controller_Profile
         $this->set('userIsViewingSelf', $userIsViewingSelf);
         // Validation helper for form tokens
         $this->set('valt', Loader::helper('validation/token'));
+    }
+
+    /**
+     * Remove a city organizer who owns a city, and set to the default
+     *
+     * @param int $cID The city page we're changing the owner for
+     */
+    public function removeSelfAsCO($cID = null)
+    {
+        // The active user
+        $u = new User();
+
+        // The default user account
+        $uJWalk = User::getByUserID(175);
+
+        // The city page we're removing
+        $city = Page::getByID($cID);
+
+        // Build the response upfront, to simplify control flow
+        $response = ['error' => false];
+
+        try {
+            if ($city) {
+                // Forgo standard permissions, and simply allow them to remove the CO if
+                // they're removing themselves. Admins will do this through the dashboard
+                if ($city->getCollectionUserID() === $u->getUserID()) {
+                    // Set to the default account
+                    $city->update(['uID' => $uJWalk->getUserID()]);
+                    // Success message
+                    $response = ['error' => false, 'cID' => $city->getCollectionID(), 'uID' => $uJWalk->getUserID()];
+                } else {
+                    throw new RuntimeException('Attempt to modify owner of page not owned by user');
+                }
+
+            } else {
+                throw new RuntimeException('Invalid city ID');
+            }
+        } catch (Exception $e) {
+            http_response_code(500);
+           $response = ['error' => true, 'msg' => $e->getMessage(), 'code' => $e->getCode()];
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
     }
 }
