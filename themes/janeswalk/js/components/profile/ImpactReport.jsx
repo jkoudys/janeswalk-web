@@ -34,6 +34,13 @@ const WalksPerLeader = ({walks, leaders, dates}) => (
   </section>
 );
 
+const WalksPerWard = ({wardWalkCount}) => (
+  <section className="walks-per-ward">
+    <h3>Walks per Region</h3>
+    <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
+  </section>
+);
+
 // TODO: this function isn't very well written. Should be in the store, too
 function buildWalksByYear(dates) {
   // 2014, 2015
@@ -49,6 +56,10 @@ function buildWalksByYear(dates) {
     label: '1',
     values: values
   }];
+}
+
+function buildWardWalkData(walksPerWard) {
+  return [Object.assign({}, {label: '1'}, {values: Object.keys(walksPerWard).map((k, i) => ({x: k, y: walksPerWard[k]}))})];
 }
 
 const WalksPerYear = ({dates}) => (
@@ -101,7 +112,7 @@ class ImpactReport extends React.Component {
   }
 
   render() {
-    const {city, leaders, walks, details, dates, startDate} = this.props;
+    const {city, leaders, walks, details, dates, startDate, wardWalkCount} = this.props;
     return (
       <section>
         <p>
@@ -110,6 +121,7 @@ class ImpactReport extends React.Component {
         <h3>In {city.name}, there have been {Object.keys(leaders).length} registered walk leaders, who led {dates.length} walks since {startDate}!</h3>
         <WalkLeaders leaders={Object.keys(leaders).filter(k => k).map(k => leaders[k])} limit={this.state.leadersLimit} showAll={() => this.setState({leadersLimit: undefined})} showSome={() => this.setState({leadersLimit: 6})} />
         <ReturningWalkLeaders walks={walks} dates={dates} year={2015} />
+        <WalksPerWard wardWalkCount={wardWalkCount} />
         <WalksPerYear dates={dates} />
         <WalksPerLeader walks={walks} leaders={leaders} dates={dates} />
       </section>

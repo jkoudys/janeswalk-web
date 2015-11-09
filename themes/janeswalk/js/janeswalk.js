@@ -41092,7 +41092,7 @@ var CityPageView = (function (_PageView) {
   _createClass(CityPageView, [{
     key: '_addCreateWalkEvent',
     value: function _addCreateWalkEvent() {
-      $btn = this._element.find('.create-walk');
+      var $btn = $('.create-walk');
       $btn.click(function (event) {
         if (!JanesWalk.user) {
           event.preventDefault();
@@ -42019,6 +42019,41 @@ var WalksPerLeader = function WalksPerLeader(_ref3) {
   };
 };
 
+var WalksPerWard = function WalksPerWard(_ref4) {
+  var wardWalkCount = _ref4.wardWalkCount;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'section',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'h3',
+        key: null,
+        ref: null,
+        props: {
+          children: 'Walks per Region'
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: _reactD3Barchart.BarChart,
+        key: null,
+        ref: null,
+        props: _defaultProps(_reactD3Barchart.BarChart.defaultProps, {
+          data: buildWardWalkData(wardWalkCount),
+          width: 400,
+          height: 400
+        }),
+        _owner: null
+      }],
+      className: 'walks-per-ward'
+    },
+    _owner: null
+  };
+};
+
 // TODO: this function isn't very well written. Should be in the store, too
 function buildWalksByYear(dates) {
   // 2014, 2015
@@ -42036,8 +42071,14 @@ function buildWalksByYear(dates) {
   }];
 }
 
-var WalksPerYear = function WalksPerYear(_ref4) {
-  var dates = _ref4.dates;
+function buildWardWalkData(walksPerWard) {
+  return [Object.assign({}, { label: '1' }, { values: Object.keys(walksPerWard).map(function (k, i) {
+      return { x: k, y: walksPerWard[k] };
+    }) })];
+}
+
+var WalksPerYear = function WalksPerYear(_ref5) {
+  var dates = _ref5.dates;
   return {
     $$typeof: _typeofReactElement,
     type: 'section',
@@ -42071,11 +42112,11 @@ var WalksPerYear = function WalksPerYear(_ref4) {
   };
 };
 
-var WalkLeaders = function WalkLeaders(_ref5) {
-  var leaders = _ref5.leaders;
-  var limit = _ref5.limit;
-  var showAll = _ref5.showAll;
-  var showSome = _ref5.showSome;
+var WalkLeaders = function WalkLeaders(_ref6) {
+  var leaders = _ref6.leaders;
+  var limit = _ref6.limit;
+  var showAll = _ref6.showAll;
+  var showSome = _ref6.showSome;
   return {
     $$typeof: _typeofReactElement,
     type: 'section',
@@ -42260,6 +42301,7 @@ var ImpactReport = (function (_React$Component) {
       var details = _props.details;
       var dates = _props.dates;
       var startDate = _props.startDate;
+      var wardWalkCount = _props.wardWalkCount;
 
       return {
         $$typeof: _typeofReactElement,
@@ -42336,6 +42378,15 @@ var ImpactReport = (function (_React$Component) {
               walks: walks,
               dates: dates,
               year: 2015
+            }),
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: WalksPerWard,
+            key: null,
+            ref: null,
+            props: _defaultProps(WalksPerWard.defaultProps, {
+              wardWalkCount: wardWalkCount
             }),
             _owner: null
           }, {
@@ -43055,6 +43106,7 @@ var _details = {};
 var _dates = [];
 var _leaders = {};
 var _city = {};
+var _wardWalkCount = {};
 
 function receiveCity(city) {
   // Load the stores
@@ -43103,6 +43155,15 @@ function receiveCity(city) {
           _walkIds.push(walk.id);
           _leaders[_name.toLowerCase()] = Object.assign({}, member, { walkIds: _walkIds });
         }
+
+        // Count the number of walks in this ward
+        // Oddly, walk.wards is a string, not an array. Will change in v2
+        if (walk.wards) {
+          if (!_wardWalkCount[walk.wards]) {
+            _wardWalkCount[walk.wards] = 0;
+          }
+          _wardWalkCount[walk.wards]++;
+        }
       });
     }
   });
@@ -43123,6 +43184,7 @@ JanesWalk.event.on('profile.receive', function (_ref) {
     ref: null,
     props: _defaultProps(_componentsProfileImpactReportJsx2['default'].defaultProps, {
       startDate: dtfDate.format(_dates[0]['range'][0] * 1000),
+      wardWalkCount: _wardWalkCount,
       city: _city,
       walks: _walks,
       details: _details,

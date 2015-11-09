@@ -15,6 +15,7 @@ let _details = {};
 let _dates = [];
 let _leaders = {};
 let _city = {};
+let _wardWalkCount = {};
 
 function receiveCity(city) {
   // Load the stores
@@ -59,6 +60,15 @@ function receiveCity(city) {
           walkIds.push(walk.id);
           _leaders[name.toLowerCase()] = Object.assign({}, member, {walkIds: walkIds});
         }
+
+        // Count the number of walks in this ward
+        // Oddly, walk.wards is a string, not an array. Will change in v2
+        if (walk.wards) {
+          if (!_wardWalkCount[walk.wards]) {
+            _wardWalkCount[walk.wards] = 0;
+          }
+          _wardWalkCount[walk.wards]++;
+        }
       });
     }
   });
@@ -70,7 +80,7 @@ function receiveCity(city) {
 JanesWalk.event.on('profile.receive', function({city}) {
   receiveCity(city);
 
-  React.render(<ImpactReport startDate={dtfDate.format(_dates[0]['range'][0] * 1000)} city={_city} walks={_walks} details={_details} dates={_dates} leaders={_leaders} />, document.getElementById('impactBlock'));
+  React.render(<ImpactReport startDate={dtfDate.format(_dates[0]['range'][0] * 1000)} wardWalkCount={_wardWalkCount} city={_city} walks={_walks} details={_details} dates={_dates} leaders={_leaders} />, document.getElementById('impactBlock'));
 });
 
 JanesWalk.event.on('profile.co.receive', function({cID}) {
