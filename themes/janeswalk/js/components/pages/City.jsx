@@ -61,7 +61,7 @@ export default class CityPageView extends PageView {
    * @return    void
    */
   _addCreateWalkEvent() {
-    $btn = this._element.find('.create-walk');
+    const $btn = $('.create-walk');
     $btn.click(function(event) {
       if (!JanesWalk.user) {
         event.preventDefault();
