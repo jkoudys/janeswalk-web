@@ -4,12 +4,11 @@
 import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
 import CityMap from './CityMap.jsx';
+import DateRange from './DateRange.jsx';
 
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
 const t = s => s;
-const offset = (new Date()).getTimezoneOffset();
-const oneDay = 24 * 60 * 60 * 1000;
 const today = new Date();
 today.setUTCHours(0);
 today.setUTCMinutes(0);
@@ -143,13 +142,13 @@ export default class WalkFilter extends React.Component {
             </li>
           </ul>
           <ul className="nav nav-tabs">
-            <li><a href="#jw-cards" data-toggle="tab">All Walks</a></li>
+            <li><a href="#jw-cards" className="active" data-toggle="tab">All Walks</a></li>
             <li><a href="#jw-list" data-toggle="tab">List</a></li>
             {TabMap}
             {TabBlog}
           </ul>
           <div className="tab-content">
-            <section className="tab-pane" id="jw-cards">
+            <section className="tab-pane active" id="jw-cards">
               <WalkCards walks={this.state.filterMatches} />
             </section>
             <section className="tab-pane" id="jw-list">
@@ -159,64 +158,6 @@ export default class WalkFilter extends React.Component {
           </div>
         </div>
       </section>
-    );
-  }
-}
-
-const df = 'yy-mm-dd';
-class DateRange extends React.Component {
-  constructor(props) {
-    super(props);
-    if (Array.isArray(props.value) && props.value.length === 2) {
-      this.state = {
-        from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
-        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : ''
-      };
-    } else {
-      this.state = {from: '', to: ''};
-    }
-  }
-
-  componentDidMount() {
-    const $to = $(this.refs.to);
-    const $from = $(this.refs.from);
-
-    let toTime;
-    let fromTime;
-
-    $from.datepicker({
-      defaultDate: '+1w',
-      changeMonth: true,
-      changeYear: true,
-      dateFormat: df,
-      onClose: selectedDate => {
-        fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
-        $to.datepicker('option', 'minDate', selectedDate);
-        this.setState({from: selectedDate});
-        this.props.onChange(fromTime, toTime);
-      }
-    });
-
-    $to.datepicker({
-      defaultDate: '+5w',
-      changeMonth: true,
-      changeYear: true,
-      dateFormat: df,
-      onClose: selectedDate => {
-        toTime = $.datepicker.parseDate(df, selectedDate) - offset;
-        $from.datepicker('option', 'maxDate', selectedDate)
-        this.setState({to: selectedDate});
-        this.props.onChange(fromTime, toTime);
-      }
-    });
-  }
-
-  render() {
-    return (
-      <fieldset className="daterange">
-        <input type="text" ref="from" placeholder="From" value={this.state.from} />
-        <input type="text" ref="to" placeholder="To" value={this.state.to} />
-      </fieldset>
     );
   }
 }

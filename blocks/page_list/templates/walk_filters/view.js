@@ -44,7 +44,7 @@ JanesWalk.event.on('city.receive', function (city) {
 });
 
 
-},{"./CityMap.jsx":2,"./WalkFilter.jsx":5}],2:[function(require,module,exports){
+},{"./CityMap.jsx":2,"./WalkFilter.jsx":6}],2:[function(require,module,exports){
 /**
  * The map of upcoming walks for a whole city
  */
@@ -295,6 +295,110 @@ module.exports = exports['default'];
 
 
 },{}],3:[function(require,module,exports){
+/**
+ * Date Range
+ * a jQueryUI based React component for picking a to/from date range
+ */
+
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var df = 'yy-mm-dd';
+var offset = new Date().getTimezoneOffset();
+var oneDay = 24 * 60 * 60 * 1000;
+
+var DateRange = (function (_React$Component) {
+  _inherits(DateRange, _React$Component);
+
+  function DateRange(props) {
+    _classCallCheck(this, DateRange);
+
+    _get(Object.getPrototypeOf(DateRange.prototype), 'constructor', this).call(this, props);
+    if (Array.isArray(props.value) && props.value.length === 2) {
+      this.state = {
+        from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
+        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : ''
+      };
+    } else {
+      this.state = { from: '', to: '' };
+    }
+  }
+
+  _createClass(DateRange, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this = this;
+
+      var $to = $(this.refs.to);
+      var $from = $(this.refs.from);
+
+      var toTime = undefined;
+      var fromTime = undefined;
+
+      $from.datepicker({
+        defaultDate: '+1w',
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: df,
+        onClose: function onClose(selectedDate) {
+          fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
+          $to.datepicker('option', 'minDate', selectedDate);
+          _this.setState({ from: selectedDate });
+          _this.props.onChange(fromTime, toTime);
+        }
+      });
+
+      $to.datepicker({
+        defaultDate: '+5w',
+        changeMonth: true,
+        changeYear: true,
+        dateFormat: df,
+        onClose: function onClose(selectedDate) {
+          toTime = $.datepicker.parseDate(df, selectedDate) - offset;
+          $from.datepicker('option', 'maxDate', selectedDate);
+          _this.setState({ to: selectedDate });
+          _this.props.onChange(fromTime, toTime);
+        }
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'fieldset',
+        key: null,
+        ref: null,
+        props: {
+          children: [React.createElement('input', { type: 'text', ref: 'from', placeholder: 'From', defaultValue: this.state.from }), React.createElement('input', { type: 'text', ref: 'to', placeholder: 'To', defaultValue: this.state.to })],
+          className: 'daterange'
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return DateRange;
+})(React.Component);
+
+exports['default'] = DateRange;
+module.exports = exports['default'];
+
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -348,7 +452,7 @@ function getThemeIcon(theme) {
 }
 
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /**
  * The cards showing your walk
  */
@@ -704,7 +808,7 @@ var Card = (function (_React$Component2) {
 module.exports = exports['default'];
 
 
-},{"./Themes.js":3}],5:[function(require,module,exports){
+},{"./Themes.js":4}],6:[function(require,module,exports){
 /**
  * Filters, lists, maps, the whole shebang
  */
@@ -742,13 +846,15 @@ var _CityMapJsx = require('./CityMap.jsx');
 
 var _CityMapJsx2 = _interopRequireDefault(_CityMapJsx);
 
+var _DateRangeJsx = require('./DateRange.jsx');
+
+var _DateRangeJsx2 = _interopRequireDefault(_DateRangeJsx);
+
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
 var t = function t(s) {
   return s;
 };
-var offset = new Date().getTimezoneOffset();
-var oneDay = 24 * 60 * 60 * 1000;
 var today = new Date();
 today.setUTCHours(0);
 today.setUTCMinutes(0);
@@ -1056,10 +1162,10 @@ var WalkFilter = (function (_React$Component) {
                         _owner: null
                       }, {
                         $$typeof: _typeofReactElement,
-                        type: DateRange,
+                        type: _DateRangeJsx2['default'],
                         key: null,
                         ref: null,
-                        props: _defaultProps(DateRange.defaultProps, {
+                        props: _defaultProps(_DateRangeJsx2['default'].defaultProps, {
                           value: this.state.dateRange,
                           onChange: this.setDateRange.bind(this)
                         }),
@@ -1091,6 +1197,7 @@ var WalkFilter = (function (_React$Component) {
                         props: {
                           children: 'All Walks',
                           href: '#jw-cards',
+                          className: 'active',
                           'data-toggle': 'tab'
                         },
                         _owner: null
@@ -1143,7 +1250,7 @@ var WalkFilter = (function (_React$Component) {
                         }),
                         _owner: null
                       },
-                      className: 'tab-pane',
+                      className: 'tab-pane active',
                       id: 'jw-cards'
                     },
                     _owner: null
@@ -1187,87 +1294,10 @@ var WalkFilter = (function (_React$Component) {
 })(React.Component);
 
 exports['default'] = WalkFilter;
-
-var df = 'yy-mm-dd';
-
-var DateRange = (function (_React$Component2) {
-  _inherits(DateRange, _React$Component2);
-
-  function DateRange(props) {
-    _classCallCheck(this, DateRange);
-
-    _get(Object.getPrototypeOf(DateRange.prototype), 'constructor', this).call(this, props);
-    if (Array.isArray(props.value) && props.value.length === 2) {
-      this.state = {
-        from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
-        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : ''
-      };
-    } else {
-      this.state = { from: '', to: '' };
-    }
-  }
-
-  _createClass(DateRange, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var _this3 = this;
-
-      var $to = $(this.refs.to);
-      var $from = $(this.refs.from);
-
-      var toTime = undefined;
-      var fromTime = undefined;
-
-      $from.datepicker({
-        defaultDate: '+1w',
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: df,
-        onClose: function onClose(selectedDate) {
-          fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
-          $to.datepicker('option', 'minDate', selectedDate);
-          _this3.setState({ from: selectedDate });
-          _this3.props.onChange(fromTime, toTime);
-        }
-      });
-
-      $to.datepicker({
-        defaultDate: '+5w',
-        changeMonth: true,
-        changeYear: true,
-        dateFormat: df,
-        onClose: function onClose(selectedDate) {
-          toTime = $.datepicker.parseDate(df, selectedDate) - offset;
-          $from.datepicker('option', 'maxDate', selectedDate);
-          _this3.setState({ to: selectedDate });
-          _this3.props.onChange(fromTime, toTime);
-        }
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return {
-        $$typeof: _typeofReactElement,
-        type: 'fieldset',
-        key: null,
-        ref: null,
-        props: {
-          children: [React.createElement('input', { type: 'text', ref: 'from', placeholder: 'From', value: this.state.from }), React.createElement('input', { type: 'text', ref: 'to', placeholder: 'To', value: this.state.to })],
-          className: 'daterange'
-        },
-        _owner: null
-      };
-    }
-  }]);
-
-  return DateRange;
-})(React.Component);
-
 module.exports = exports['default'];
 
 
-},{"./CityMap.jsx":2,"./WalkCards.jsx":4,"./WalkList.jsx":6}],6:[function(require,module,exports){
+},{"./CityMap.jsx":2,"./DateRange.jsx":3,"./WalkCards.jsx":5,"./WalkList.jsx":7}],7:[function(require,module,exports){
 /**
  * The list of walks to order
  */
