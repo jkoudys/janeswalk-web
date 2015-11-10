@@ -309,7 +309,7 @@ var DateRange = (function (_React$Component) {
         changeMonth: true,
         changeYear: true,
         dateFormat: df,
-        onClose: function onClose(selectedDate) {
+        onSelect: function onSelect(selectedDate) {
           fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
           $to.datepicker('option', 'minDate', selectedDate);
           _this.setState({ from: selectedDate });
@@ -322,7 +322,7 @@ var DateRange = (function (_React$Component) {
         changeMonth: true,
         changeYear: true,
         dateFormat: df,
-        onClose: function onClose(selectedDate) {
+        onSelect: function onSelect(selectedDate) {
           toTime = $.datepicker.parseDate(df, selectedDate) - offset;
           $from.datepicker('option', 'maxDate', selectedDate);
           _this.setState({ to: selectedDate });
