@@ -170,7 +170,9 @@ class DateRange extends React.Component {
     if (Array.isArray(props.value) && props.value.length === 2) {
       this.state = {
         from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
-        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : ''
+        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : '',
+        fromInt: props.value[0] ? props.value[0] + offset : '',
+        toInt: props.value[1] ? props.value[1] + offset : ''
       };
     } else {
       this.state = {from: '', to: ''};
@@ -181,8 +183,8 @@ class DateRange extends React.Component {
     const $to = $(this.refs.to);
     const $from = $(this.refs.from);
 
-    let toTime;
-    let fromTime;
+    let toTime = this.state.toInt;
+    let fromTime = this.state.fromInt;
 
     $from.datepicker({
       defaultDate: '+1w',

@@ -1154,7 +1154,9 @@ var DateRange = (function (_React$Component2) {
     if (Array.isArray(props.value) && props.value.length === 2) {
       this.state = {
         from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
-        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : ''
+        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : '',
+        fromInt: props.value[0] ? props.value[0] + offset : '',
+        toInt: props.value[1] ? props.value[1] + offset : ''
       };
     } else {
       this.state = { from: '', to: '' };
@@ -1169,8 +1171,8 @@ var DateRange = (function (_React$Component2) {
       var $to = $(this.refs.to);
       var $from = $(this.refs.from);
 
-      var toTime = undefined;
-      var fromTime = undefined;
+      var toTime = this.state.toInt;
+      var fromTime = this.state.fromInt;
 
       $from.datepicker({
         defaultDate: '+1w',
