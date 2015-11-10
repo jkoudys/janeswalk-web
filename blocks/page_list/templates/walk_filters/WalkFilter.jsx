@@ -189,7 +189,7 @@ class DateRange extends React.Component {
       changeMonth: true,
       changeYear: true,
       dateFormat: df,
-      onClose: selectedDate => {
+      onSelect: selectedDate => {
         fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
         $to.datepicker('option', 'minDate', selectedDate);
         this.setState({from: selectedDate});
@@ -202,7 +202,7 @@ class DateRange extends React.Component {
       changeMonth: true,
       changeYear: true,
       dateFormat: df,
-      onClose: selectedDate => {
+      onSelect: selectedDate => {
         toTime = $.datepicker.parseDate(df, selectedDate) - offset;
         $from.datepicker('option', 'maxDate', selectedDate)
         this.setState({to: selectedDate});

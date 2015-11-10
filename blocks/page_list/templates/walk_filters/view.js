@@ -1,51 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
- * A set of walk filters, to filter on properties. Also includes
- * the tabs, like 'list' and 'map/
- */
-
-'use strict';
-
-var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
-
-var _CityMapJsx = require('./CityMap.jsx');
-
-var _CityMapJsx2 = _interopRequireDefault(_CityMapJsx);
-
-var _WalkFilterJsx = require('./WalkFilter.jsx');
-
-var _WalkFilterJsx2 = _interopRequireDefault(_WalkFilterJsx);
-
-var _walks = undefined;
-var _city = undefined;
-
-JanesWalk.event.on('walks.receive', function (walks, props) {
-  _walks = walks;
-  React.render({
-    $$typeof: _typeofReactElement,
-    type: _WalkFilterJsx2['default'],
-    key: null,
-    ref: null,
-    props: _defaultProps(_WalkFilterJsx2['default'].defaultProps, {
-      walks: walks,
-      filters: props.filters,
-      city: _city
-    }),
-    _owner: null
-  }, document.getElementById('janeswalk-walk-filters'));
-});
-
-JanesWalk.event.on('city.receive', function (city) {
-  _city = city;
-});
-
-
-},{"./CityMap.jsx":2,"./WalkFilter.jsx":5}],2:[function(require,module,exports){
-/**
  * The map of upcoming walks for a whole city
  */
 
@@ -294,7 +248,7 @@ var InfoWindow = function InfoWindow(props) {
 module.exports = exports['default'];
 
 
-},{}],3:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -348,7 +302,7 @@ function getThemeIcon(theme) {
 }
 
 
-},{}],4:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /**
  * The cards showing your walk
  */
@@ -704,7 +658,7 @@ var Card = (function (_React$Component2) {
 module.exports = exports['default'];
 
 
-},{"./Themes.js":3}],5:[function(require,module,exports){
+},{"./Themes.js":2}],4:[function(require,module,exports){
 /**
  * Filters, lists, maps, the whole shebang
  */
@@ -1223,7 +1177,7 @@ var DateRange = (function (_React$Component2) {
         changeMonth: true,
         changeYear: true,
         dateFormat: df,
-        onClose: function onClose(selectedDate) {
+        onSelect: function onSelect(selectedDate) {
           fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
           $to.datepicker('option', 'minDate', selectedDate);
           _this3.setState({ from: selectedDate });
@@ -1236,7 +1190,7 @@ var DateRange = (function (_React$Component2) {
         changeMonth: true,
         changeYear: true,
         dateFormat: df,
-        onClose: function onClose(selectedDate) {
+        onSelect: function onSelect(selectedDate) {
           toTime = $.datepicker.parseDate(df, selectedDate) - offset;
           $from.datepicker('option', 'maxDate', selectedDate);
           _this3.setState({ to: selectedDate });
@@ -1267,7 +1221,7 @@ var DateRange = (function (_React$Component2) {
 module.exports = exports['default'];
 
 
-},{"./CityMap.jsx":2,"./WalkCards.jsx":4,"./WalkList.jsx":6}],6:[function(require,module,exports){
+},{"./CityMap.jsx":1,"./WalkCards.jsx":3,"./WalkList.jsx":5}],5:[function(require,module,exports){
 /**
  * The list of walks to order
  */
@@ -1524,4 +1478,50 @@ var ListItem = (function (_React$Component2) {
 module.exports = exports['default'];
 
 
-},{}]},{},[1]);
+},{}],6:[function(require,module,exports){
+/**
+ * A set of walk filters, to filter on properties. Also includes
+ * the tabs, like 'list' and 'map/
+ */
+
+'use strict';
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
+
+var _CityMapJsx = require('./CityMap.jsx');
+
+var _CityMapJsx2 = _interopRequireDefault(_CityMapJsx);
+
+var _WalkFilterJsx = require('./WalkFilter.jsx');
+
+var _WalkFilterJsx2 = _interopRequireDefault(_WalkFilterJsx);
+
+var _walks = undefined;
+var _city = undefined;
+
+JanesWalk.event.on('walks.receive', function (walks, props) {
+  _walks = walks;
+  React.render({
+    $$typeof: _typeofReactElement,
+    type: _WalkFilterJsx2['default'],
+    key: null,
+    ref: null,
+    props: _defaultProps(_WalkFilterJsx2['default'].defaultProps, {
+      walks: walks,
+      filters: props.filters,
+      city: _city
+    }),
+    _owner: null
+  }, document.getElementById('janeswalk-walk-filters'));
+});
+
+JanesWalk.event.on('city.receive', function (city) {
+  _city = city;
+});
+
+
+},{"./CityMap.jsx":1,"./WalkFilter.jsx":4}]},{},[6]);
