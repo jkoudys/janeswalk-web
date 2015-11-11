@@ -1,5 +1,6 @@
 import {LineChart, PieChart} from 'react-d3';
 import {BarChart} from 'react-d3/barchart';
+import HBarChart from './HBarChart.jsx';
 
 const YEARS = {
   '2015': Date.UTC(2015, 0),
@@ -37,10 +38,11 @@ const WalksPerLeader = ({walks, leaders, dates}) => (
 const WalksPerWard = ({wardWalkCount}) => (
   <section className="walks-per-ward">
     <h3>Walks per Region</h3>
-    <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
+    <HBarChart data={buildWardWalkData(wardWalkCount)} width={'100%'} />
   </section>
 );
 
+// <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
 // TODO: this function isn't very well written. Should be in the store, too
 function buildWalksByYear(dates) {
   // 2014, 2015
@@ -59,7 +61,7 @@ function buildWalksByYear(dates) {
 }
 
 function buildWardWalkData(walksPerWard) {
-  return [Object.assign({}, {label: '1'}, {values: Object.keys(walksPerWard).map((k, i) => ({x: k, y: walksPerWard[k]}))})];
+  return [Object.assign({}, {label: '1'}, {values: Object.keys(walksPerWard).map((k, i) => ({y: k, x: walksPerWard[k]}))})];
 }
 
 const WalksPerYear = ({dates}) => (

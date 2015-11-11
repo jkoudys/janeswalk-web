@@ -25,35 +25,37 @@ const memberTypes = {
  * Not a React component, since we use this to build an array of users
  * @return array
  */
-const teamMemberList = props => props.map(({value, onChange}) => value.map((user, i) => {
-  let teamMember;
+function teamMemberList({values, onChange}) {
+  return values.map((user, i) => {
+    let teamMember;
 
-  // Use empty strings for unset/false
-  user.phone = user.phone || '';
+    // Use empty strings for unset/false
+    user.phone = user.phone || '';
 
-  // TODO: make linking function
-  let thisUser = Object.assign({}, teamMemberProps, {
-    key: i,
-    index: i,
-    value: user,
-    onChange: () => 1,
-    onDelete: () => deleteMember(i, onChange)
+    // TODO: make linking function
+    let thisUser = {
+      key: i,
+      index: i,
+      value: user,
+      onChange: () => onChange,
+      onDelete: () => deleteMember(i, onChange)
+    };
+
+    if (user.type === 'you') {
+      teamMember = <TeamOwner {...thisUser} />;
+    } else if (user.type === 'leader') {
+      teamMember = <TeamLeader {...thisUser} />;
+    } else if (user.type === 'organizer') {
+      teamMember = <TeamOrganizer {...thisUser} />;
+    } else if (user.type === 'community') {
+      teamMember = <TeamCommunityVoice {...thisUser} />;
+    } else if (user.type === 'volunteer') {
+      teamMember = <TeamVolunteer {...thisUser} />;
+    }
+
+    return teamMember;
   });
-
-  if (user.type === 'you') {
-    teamMember = <TeamOwner {...thisUser} />;
-  } else if (user.type === 'leader') {
-    teamMember = <TeamLeader {...thisUser} />;
-  } else if (user.type === 'organizer') {
-    teamMember = <TeamOrganizer {...thisUser} />;
-  } else if (user.type === 'community') {
-    teamMember = <TeamCommunityVoice {...thisUser} />;
-  } else if (user.type === 'volunteer') {
-    teamMember = <TeamVolunteer {...thisUser} />;
-  }
-
-  return teamMember;
-}));
+}
 
 function memberChange(team, propname, value, id, onChange) {
   const newTeam = team.slice();
@@ -79,7 +81,7 @@ export default ({team, onChange}) => (
     <div className="page-header" data-section="team">
       <h1>{ t('Build Your Team') }</h1>
     </div>
-    {teamMemberList({value: team, onChange: onChange})}
+    {teamMemberList({values: team, onChange: onChange})}
     <div id="add-member">
       <h2>{ t('Who else is involved with this walk?') }</h2>
       <h3 className="lead">{ t('Click to add team members to your walk') } ({ t('Optional') })</h3>

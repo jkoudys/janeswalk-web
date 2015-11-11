@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-},{"./components/CreateWalk.jsx":221,"./components/Login.jsx":223,"./components/Page.jsx":224,"./components/pages/City.jsx":246,"./components/pages/Home.jsx":247,"./components/pages/Profile.jsx":248,"./components/pages/Walk.jsx":249,"./utils/I18nUtils.js":259,"intl/Intl.en":7}],2:[function(require,module,exports){
+},{"./components/CreateWalk.jsx":221,"./components/Login.jsx":223,"./components/Page.jsx":224,"./components/pages/City.jsx":246,"./components/pages/Home.jsx":247,"./components/pages/Profile.jsx":248,"./components/pages/Walk.jsx":249,"./utils/I18nUtils.js":260,"intl/Intl.en":7}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -32897,7 +32897,7 @@ function receive(translations) {
 }
 
 
-},{"../constants/JWConstants.js":252,"../dispatcher/AppDispatcher.js":253}],221:[function(require,module,exports){
+},{"../constants/JWConstants.js":253,"../dispatcher/AppDispatcher.js":254}],221:[function(require,module,exports){
 // Create a Walk
 //
 // Form for creating new walks. Includes a map builder, team builder, scheduler
@@ -34282,7 +34282,7 @@ Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin), (function (_
 module.exports = exports['default'];
 
 
-},{"../actions/I18nActions.js":220,"../helpers/helpers.jsx":254,"../stores/I18nStore.js":257,"./TextAreaLimit.jsx":225,"./caw/AccessibleSelect.jsx":228,"./caw/DateSelect.jsx":229,"./caw/ImageUpload.jsx":230,"./caw/MapBuilder.jsx":231,"./caw/TeamBuilder.jsx":232,"./caw/ThemeSelect.jsx":233,"./caw/WalkPublish.jsx":234,"./caw/WardSelect.jsx":235}],222:[function(require,module,exports){
+},{"../actions/I18nActions.js":220,"../helpers/helpers.jsx":255,"../stores/I18nStore.js":258,"./TextAreaLimit.jsx":225,"./caw/AccessibleSelect.jsx":228,"./caw/DateSelect.jsx":229,"./caw/ImageUpload.jsx":230,"./caw/MapBuilder.jsx":231,"./caw/TeamBuilder.jsx":232,"./caw/ThemeSelect.jsx":233,"./caw/WalkPublish.jsx":234,"./caw/WardSelect.jsx":235}],222:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -34872,7 +34872,7 @@ exports['default'] = TextAreaLimit;
 module.exports = exports['default'];
 
 
-},{"../stores/I18nStore.js":257}],226:[function(require,module,exports){
+},{"../stores/I18nStore.js":258}],226:[function(require,module,exports){
 /**
 * View constructor
 * 
@@ -35370,7 +35370,7 @@ Object.assign(AccessibleSelect.prototype, _helpersMixinsJsx.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":255,"../../stores/I18nStore.js":257}],229:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":256,"../../stores/I18nStore.js":258}],229:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -36223,7 +36223,7 @@ Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":257,"./date/DatePicker.jsx":236,"./date/TimeOpenTable.jsx":237,"./date/TimePicker.jsx":238,"./date/TimeSetTable.jsx":239}],230:[function(require,module,exports){
+},{"../../stores/I18nStore.js":258,"./date/DatePicker.jsx":236,"./date/TimeOpenTable.jsx":237,"./date/TimePicker.jsx":238,"./date/TimeSetTable.jsx":239}],230:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -36408,7 +36408,7 @@ exports['default'] = ImageUpload;
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":257}],231:[function(require,module,exports){
+},{"../../stores/I18nStore.js":258}],231:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -37055,7 +37055,7 @@ Object.assign(MapBuilder, {
 module.exports = exports['default'];
 
 
-},{"../../helpers/helpers.jsx":254,"../../stores/I18nStore.js":257,"./map/ConnectFilters.jsx":240,"./map/InstagramConnect.jsx":241,"./map/SoundCloudConnect.jsx":242,"./map/TwitterConnect.jsx":243,"./map/WalkInfoWindow.jsx":244,"./map/WalkStopTable.jsx":245}],232:[function(require,module,exports){
+},{"../../helpers/helpers.jsx":255,"../../stores/I18nStore.js":258,"./map/ConnectFilters.jsx":240,"./map/InstagramConnect.jsx":241,"./map/SoundCloudConnect.jsx":242,"./map/TwitterConnect.jsx":243,"./map/WalkInfoWindow.jsx":244,"./map/WalkStopTable.jsx":245}],232:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -37099,45 +37099,44 @@ var memberTypes = {
  * Not a React component, since we use this to build an array of users
  * @return array
  */
-var teamMemberList = function teamMemberList(props) {
-  return props.map(function (_ref2) {
-    var value = _ref2.value;
-    var onChange = _ref2.onChange;
-    return value.map(function (user, i) {
-      var teamMember = undefined;
+function teamMemberList(_ref2) {
+  var values = _ref2.values;
+  var _onChange2 = _ref2.onChange;
 
-      // Use empty strings for unset/false
-      user.phone = user.phone || '';
+  return values.map(function (user, i) {
+    var teamMember = undefined;
 
-      // TODO: make linking function
-      var thisUser = Object.assign({}, teamMemberProps, {
-        key: i,
-        index: i,
-        value: user,
-        onChange: function onChange() {
-          return 1;
-        },
-        onDelete: function onDelete() {
-          return deleteMember(i, onChange);
-        }
-      });
+    // Use empty strings for unset/false
+    user.phone = user.phone || '';
 
-      if (user.type === 'you') {
-        teamMember = React.createElement(TeamOwner, thisUser);
-      } else if (user.type === 'leader') {
-        teamMember = React.createElement(TeamLeader, thisUser);
-      } else if (user.type === 'organizer') {
-        teamMember = React.createElement(TeamOrganizer, thisUser);
-      } else if (user.type === 'community') {
-        teamMember = React.createElement(TeamCommunityVoice, thisUser);
-      } else if (user.type === 'volunteer') {
-        teamMember = React.createElement(TeamVolunteer, thisUser);
+    // TODO: make linking function
+    var thisUser = {
+      key: i,
+      index: i,
+      value: user,
+      onChange: function onChange() {
+        return _onChange2;
+      },
+      onDelete: function onDelete() {
+        return deleteMember(i, _onChange2);
       }
+    };
 
-      return teamMember;
-    });
+    if (user.type === 'you') {
+      teamMember = React.createElement(TeamOwner, thisUser);
+    } else if (user.type === 'leader') {
+      teamMember = React.createElement(TeamLeader, thisUser);
+    } else if (user.type === 'organizer') {
+      teamMember = React.createElement(TeamOrganizer, thisUser);
+    } else if (user.type === 'community') {
+      teamMember = React.createElement(TeamCommunityVoice, thisUser);
+    } else if (user.type === 'volunteer') {
+      teamMember = React.createElement(TeamVolunteer, thisUser);
+    }
+
+    return teamMember;
   });
-};
+}
 
 function memberChange(team, propname, value, id, onChange) {
   var newTeam = team.slice();
@@ -37188,7 +37187,7 @@ exports['default'] = function (_ref3) {
           'data-section': 'team'
         },
         _owner: null
-      }, teamMemberList({ value: team, onChange: onChange }), {
+      }, teamMemberList({ values: team, onChange: onChange }), {
         $$typeof: _typeofReactElement,
         type: 'div',
         key: null,
@@ -38720,7 +38719,7 @@ var TeamVolunteer = function TeamVolunteer(props) {
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":257}],233:[function(require,module,exports){
+},{"../../stores/I18nStore.js":258}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -38968,7 +38967,7 @@ ThemeSelect.defaultProps = {
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":255,"../../stores/I18nStore.js":257}],234:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":256,"../../stores/I18nStore.js":258}],234:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39197,7 +39196,7 @@ Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":257}],235:[function(require,module,exports){
+},{"../../stores/I18nStore.js":258}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -39332,7 +39331,7 @@ Object.assign(WardSelect.prototype, mixins.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":255,"../../stores/I18nStore.js":257}],236:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":256,"../../stores/I18nStore.js":258}],236:[function(require,module,exports){
 /**
  * Basic wrapper around jQuery.datepicker(), so it can be loaded
  * as a React class
@@ -39681,7 +39680,7 @@ exports['default'] = TimePicker;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":257}],239:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":258}],239:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39902,7 +39901,7 @@ exports['default'] = TimeSetTable;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":257}],240:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":258}],240:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -41009,7 +41008,7 @@ exports["default"] = WalkStopTable;
 module.exports = exports["default"];
 
 
-},{"../../../stores/I18nStore.js":257}],246:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":258}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -41794,7 +41793,7 @@ exports['default'] = ProfilePageView;
 module.exports = exports['default'];
 
 
-},{"../../stores/ProfileStore.js":258,"../Page.jsx":224,"../profile/ImpactReport.jsx":250}],249:[function(require,module,exports){
+},{"../../stores/ProfileStore.js":259,"../Page.jsx":224,"../profile/ImpactReport.jsx":251}],249:[function(require,module,exports){
 'use strict';
 
 var PageView = require('../Page.jsx');
@@ -41902,11 +41901,91 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+var spaceFactor = 30;
+
+var HBarChart = function HBarChart(_ref) {
+  var data = _ref.data;
+  var width = _ref.width;
+  var height = _ref.height;
+
+  var sets = data[0]['values'].sort(function (a, b) {
+    return a.y < b.y ? -1 : 1;
+  });
+  var largest = sets.reduce(function (p, v) {
+    return v.x > p ? v.x : p;
+  }, 0);
+  var calcHeight = height || sets.length * spaceFactor;
+
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'svg',
+    key: null,
+    ref: null,
+    props: {
+      children: sets.map(function (set, i) {
+        return {
+          $$typeof: _typeofReactElement,
+          type: 'g',
+          key: null,
+          ref: null,
+          props: {
+            children: [{
+              $$typeof: _typeofReactElement,
+              type: 'text',
+              key: null,
+              ref: null,
+              props: {
+                children: set.y,
+                x: '0',
+                y: '14'
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: 'rect',
+              key: null,
+              ref: null,
+              props: {
+                x: '250',
+                width: set.x / largest * 400,
+                height: '19',
+                fill: '#f16725'
+              },
+              _owner: null
+            }],
+            transform: 'translate(0, ' + i * spaceFactor + ')'
+          },
+          _owner: null
+        };
+      }),
+      className: 'horizontal-bar-chart',
+      height: calcHeight,
+      width: width
+    },
+    _owner: null
+  };
+};
+
+exports['default'] = HBarChart;
+module.exports = exports['default'];
+
+
+},{}],251:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -41917,6 +41996,10 @@ function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propN
 var _reactD3 = require('react-d3');
 
 var _reactD3Barchart = require('react-d3/barchart');
+
+var _HBarChartJsx = require('./HBarChart.jsx');
+
+var _HBarChartJsx2 = _interopRequireDefault(_HBarChartJsx);
 
 var YEARS = {
   '2015': Date.UTC(2015, 0),
@@ -42038,13 +42121,12 @@ var WalksPerWard = function WalksPerWard(_ref4) {
         _owner: null
       }, {
         $$typeof: _typeofReactElement,
-        type: _reactD3Barchart.BarChart,
+        type: _HBarChartJsx2['default'],
         key: null,
         ref: null,
-        props: _defaultProps(_reactD3Barchart.BarChart.defaultProps, {
+        props: _defaultProps(_HBarChartJsx2['default'].defaultProps, {
           data: buildWardWalkData(wardWalkCount),
-          width: 400,
-          height: 400
+          width: '100%'
         }),
         _owner: null
       }],
@@ -42054,6 +42136,7 @@ var WalksPerWard = function WalksPerWard(_ref4) {
   };
 };
 
+// <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
 // TODO: this function isn't very well written. Should be in the store, too
 function buildWalksByYear(dates) {
   // 2014, 2015
@@ -42073,7 +42156,7 @@ function buildWalksByYear(dates) {
 
 function buildWardWalkData(walksPerWard) {
   return [Object.assign({}, { label: '1' }, { values: Object.keys(walksPerWard).map(function (k, i) {
-      return { x: k, y: walksPerWard[k] };
+      return { y: k, x: walksPerWard[k] };
     }) })];
 }
 
@@ -42423,7 +42506,7 @@ exports['default'] = ImpactReport;
 module.exports = exports['default'];
 
 
-},{"react-d3":37,"react-d3/barchart":17}],251:[function(require,module,exports){
+},{"./HBarChart.jsx":250,"react-d3":37,"react-d3/barchart":17}],252:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42805,7 +42888,7 @@ exports["default"] = RemoveSelfAsCO;
 module.exports = exports["default"];
 
 
-},{}],252:[function(require,module,exports){
+},{}],253:[function(require,module,exports){
 /**
  * Basic constants for route app
  */
@@ -42828,7 +42911,7 @@ var ActionTypes = [
 exports.ActionTypes = ActionTypes;
 
 
-},{}],253:[function(require,module,exports){
+},{}],254:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -42846,7 +42929,7 @@ exports.register = register;
 exports.dispatch = dispatch;
 
 
-},{"flux":4}],254:[function(require,module,exports){
+},{"flux":4}],255:[function(require,module,exports){
 /*
  * Helpers for building React pages with
  *
@@ -42883,7 +42966,7 @@ exports.objectToArray = function (obj) {
 };
 
 
-},{}],255:[function(require,module,exports){
+},{}],256:[function(require,module,exports){
 /**
  * TODO: replace both of these silly 2-way binding helpers with flux
  */
@@ -42911,7 +42994,7 @@ var linkedParentState = {
 exports.linkedParentState = linkedParentState;
 
 
-},{}],256:[function(require,module,exports){
+},{}],257:[function(require,module,exports){
 /**
  * i18n translation class
  *
@@ -43002,7 +43085,7 @@ Object.defineProperties(I18nTranslator.prototype, {
 module.exports = I18nTranslator;
 
 
-},{}],257:[function(require,module,exports){
+},{}],258:[function(require,module,exports){
 /**
  * i18n Store
  *
@@ -43075,7 +43158,7 @@ exports['default'] = I18nStore;
 module.exports = exports['default'];
 
 
-},{"../constants/JWConstants":252,"../dispatcher/AppDispatcher":253,"../helpers/translate.js":256,"events":2}],258:[function(require,module,exports){
+},{"../constants/JWConstants":253,"../dispatcher/AppDispatcher":254,"../helpers/translate.js":257,"events":2}],259:[function(require,module,exports){
 'use strict';
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
@@ -43211,7 +43294,7 @@ JanesWalk.event.on('profile.co.receive', function (_ref2) {
 });
 
 
-},{"../components/profile/ImpactReport.jsx":250,"../components/profile/RemoveSelfAsCO.jsx":251}],259:[function(require,module,exports){
+},{"../components/profile/ImpactReport.jsx":251,"../components/profile/RemoveSelfAsCO.jsx":252}],260:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {

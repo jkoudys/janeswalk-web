@@ -27,7 +27,9 @@
     "babelify": "~6.3.0",
     "gulp-babel": "~5.3.0",
     "flux": "~2.1.1",
-    "react-d3": "~0.4.0"
+    "react-d3": "~0.4.0",
+    "d3": "~3.5.7",
+    "react-horizontal-bar-chart": "~0.3.2"
   },
   "browserify-shim": {
     "react": "global:React"

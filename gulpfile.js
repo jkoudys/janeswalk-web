@@ -52,7 +52,7 @@ gulp.task('js.theme', function() {
   return browserify({
     entries: paths.jsx_app,
     transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-    extensions: ['.jsx']
+    extensions: ['.jsx', '.js']
   })
     .bundle()
     .pipe(source('janeswalk.js'))
