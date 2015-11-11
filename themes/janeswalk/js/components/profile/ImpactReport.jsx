@@ -61,7 +61,12 @@ function buildWalksByYear(dates) {
 }
 
 function buildWardWalkData(walksPerWard) {
-  return [Object.assign({}, {label: '1'}, {values: Object.keys(walksPerWard).map((k, i) => ({y: k, x: walksPerWard[k]}))})];
+  const values = Object.keys(walksPerWard).map((k, i) => ({y: k, x: walksPerWard[k]}));
+
+  // Some magic to sort and sort parsed numbers, so 10 comes after 2.
+  const sorted = values.map(i => [i.y.match(/(\d+)/)[1], i]).sort((a,b) => a[0] - b[0]).map(i => i[1]);
+
+  return [Object.assign({}, {label: '1'}, {values: sorted})];
 }
 
 const WalksPerYear = ({dates}) => (
@@ -107,7 +112,9 @@ class ImpactReport extends React.Component {
    */
   printReport() {
     const win = window.open();
+    const styles = document.querySelectorAll('style[rel=stylesheet]');
     window.focus();
+    [].forEach.call(styles, s => win.appendChild(s.cloneNode()));
     win.document.body.appendChild(React.findDOMNode(this).cloneNode(true));
     win.print();
     win.close();

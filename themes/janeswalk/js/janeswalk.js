@@ -41910,9 +41910,7 @@ var HBarChart = function HBarChart(_ref) {
   var width = _ref.width;
   var height = _ref.height;
 
-  var sets = data[0]['values'].sort(function (a, b) {
-    return a.y < b.y ? -1 : 1;
-  });
+  var sets = data[0]['values'];
   var largest = sets.reduce(function (p, v) {
     return v.x > p ? v.x : p;
   }, 0);
@@ -41952,6 +41950,17 @@ var HBarChart = function HBarChart(_ref) {
                 width: set.x / largest * 400,
                 height: '19',
                 fill: '#f16725'
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: 'text',
+              key: null,
+              ref: null,
+              props: {
+                children: set.x,
+                x: 250 + 7 + set.x / largest * 400,
+                y: '15'
               },
               _owner: null
             }],
@@ -42155,9 +42164,20 @@ function buildWalksByYear(dates) {
 }
 
 function buildWardWalkData(walksPerWard) {
-  return [Object.assign({}, { label: '1' }, { values: Object.keys(walksPerWard).map(function (k, i) {
-      return { y: k, x: walksPerWard[k] };
-    }) })];
+  var values = Object.keys(walksPerWard).map(function (k, i) {
+    return { y: k, x: walksPerWard[k] };
+  });
+
+  // Some magic to sort and sort parsed numbers, so 10 comes after 2.
+  var sorted = values.map(function (i) {
+    return [i.y.match(/(\d+)/)[1], i];
+  }).sort(function (a, b) {
+    return a[0] - b[0];
+  }).map(function (i) {
+    return i[1];
+  });
+
+  return [Object.assign({}, { label: '1' }, { values: sorted })];
 }
 
 var WalksPerYear = function WalksPerYear(_ref5) {
@@ -42367,7 +42387,11 @@ var ImpactReport = (function (_React$Component) {
     key: 'printReport',
     value: function printReport() {
       var win = window.open();
+      var styles = document.querySelectorAll('style[rel=stylesheet]');
       window.focus();
+      [].forEach.call(styles, function (s) {
+        return win.appendChild(s.cloneNode());
+      });
       win.document.body.appendChild(React.findDOMNode(this).cloneNode(true));
       win.print();
       win.close();
