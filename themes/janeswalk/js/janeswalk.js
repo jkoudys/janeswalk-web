@@ -42159,7 +42159,9 @@ function buildWalksByYear(dates) {
   });
   return [{
     label: '1',
-    values: values
+    values: values.map(function (v) {
+      v.x = v.x + ' (' + v.y + ')';return v;
+    })
   }];
 }
 
