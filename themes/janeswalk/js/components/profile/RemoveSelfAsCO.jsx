@@ -70,19 +70,19 @@ export default class RemoveSelfAsCO extends React.Component {
     }
     if (!this.state.removed) {
       removeLink = (
-        <a onClick={() => this.setState({modal: true})}>
-          <i className="fa fa-times" /> Remove me as city organizer.
-        </a>
+        <span>
+          If you're no longer able to be a CO this year, then <a onClick={() => this.setState({modal: true})}>click here to remove yourself as City Organizer.</a>
+        </span>
       );
     } else {
       removeLink = <span>You have removed yourself as the official City Organizer.</span>;
     }
 
     return (
-      <div>
+      <p>
         {removeLink}
         {removeModal}
-      </div>
+      </p>
     );
   }
 }

@@ -337,10 +337,6 @@ if ($cityOrganizerData) {
                     </li>
                     <?php } ?>
                 </ul>
-<?php if ($u->getUserID() === $city->getCollectionUserID()) { ?>
-                <div id="remove-co"></div>
-                <script>JanesWalk.event.emit('profile.co.receive', <?= json_encode(['cID' => $city->getCollectionID()]) ?>)</script>
-<?php } ?>
             </div>
             <?php
             }
@@ -457,6 +453,10 @@ if ($cityOrganizerData) {
                         </div>
                     </div>
                 </div>
+<?php if ($u->getUserID() === $city->getCollectionUserID()) { ?>
+                <div id="remove-co"></div>
+                <script>JanesWalk.event.emit('profile.co.receive', <?= json_encode(['cID' => $city->getCollectionID()]) ?>)</script>
+<?php } ?>
             </div>
             <div class="footer">
                 <p><?= t('Want more people at this year\'s Jane\'s Walk in %s?', $homeCityName) ?></p>

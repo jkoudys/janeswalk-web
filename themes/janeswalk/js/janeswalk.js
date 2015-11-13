@@ -42859,23 +42859,23 @@ var RemoveSelfAsCO = (function (_React$Component2) {
       if (!this.state.removed) {
         removeLink = {
           $$typeof: _typeofReactElement,
-          type: "a",
+          type: "span",
           key: null,
           ref: null,
           props: {
-            children: [{
+            children: ["If you're no longer able to be a CO this year, then ", {
               $$typeof: _typeofReactElement,
-              type: "i",
+              type: "a",
               key: null,
               ref: null,
               props: {
-                className: "fa fa-times"
+                children: "click to remove yourself as City Organizer.",
+                onClick: function () {
+                  return _this2.setState({ modal: true });
+                }
               },
               _owner: null
-            }, " Remove me as city organizer."],
-            onClick: function () {
-              return _this2.setState({ modal: true });
-            }
+            }]
           },
           _owner: null
         };
@@ -42894,7 +42894,7 @@ var RemoveSelfAsCO = (function (_React$Component2) {
 
       return {
         $$typeof: _typeofReactElement,
-        type: "div",
+        type: "p",
         key: null,
         ref: null,
         props: {
