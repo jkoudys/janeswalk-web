@@ -58,11 +58,11 @@ Object.defineProperty(exports, '__esModule', {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
-
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -76,6 +76,122 @@ function isWalkLeader(member) {
 // Date formatter
 var dtfDate = new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
 var _infoNode = document.createElement('div');
+
+/**
+ * Loop through the first set of markers, and see which in the update need to be
+ * displayed.
+ *
+ * @param object markers The currently rendered markers
+ * @param array walks The walks we want to render markers for
+ * @param google.maps.Map map The google map to render to
+ * @return object updated set of markers
+ */
+function addNewMarkersToMap(markers, walks, map) {
+  // TODO: see how to move these consts out of the function, since
+  // they need to be here so google can load first
+  // Basic info window
+  var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
+
+  // Simple map marker icon
+  var icon = {
+    path: google.maps.SymbolPath.CIRCLE,
+    scale: 7,
+    strokeWeight: 1,
+    strokeColor: '#f16725',
+    fillOpacity: 0.7,
+    fillColor: '#f16725'
+  };
+
+  // Clean out the markers before we put them back in
+  for (var k in markers) {
+    markers[k].setMap(null);
+  }
+
+  // Grab starting point of each walk
+  walks.forEach(function (walk) {
+    var latlng = undefined;
+    var marker = undefined;
+
+    if (markers[walk.id]) {
+      // We already have this marker built, so simply add it to the map
+      markers[walk.id].setMap(map);
+    } else {
+      // We must build a marker
+      // Walk location is meeting place coords
+      if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
+        latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
+      } else if (Array.isArray(walk.map.route) && walk.map.route.length > 0) {
+        latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
+      }
+
+      // Add the marker
+      marker = new google.maps.Marker({
+        position: latlng,
+        title: walk.title,
+        icon: icon,
+        map: map
+      });
+
+      markers[walk.id] = marker;
+
+      google.maps.event.addListener(marker, 'click', function () {
+        var leaders = undefined;
+        var date = undefined;
+
+        // Build the team list of walk leaders
+        if (Array.isArray(walk.team)) {
+          leaders = walk.team.filter(function (member) {
+            return isWalkLeader(member);
+          }).map(function (member) {
+            return member['name-first'] + ' ' + member['name-last'];
+          });
+        }
+
+        // Best-effort grab of the time
+        try {
+          // Show all dates joined together
+          date = {
+            $$typeof: _typeofReactElement,
+            type: 'h6',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'i',
+                key: null,
+                ref: null,
+                props: {
+                  className: 'fa fa-calendar'
+                },
+                _owner: null
+              }, ' ', walk.time.slots.map(function (slot) {
+                return dtfDate.format(slot[0] * 1000);
+              }).join(', ')]
+            },
+            _owner: null
+          };
+        } catch (e) {
+          // Just log this, but don't die
+          console.error('Failed to parse walk time.');
+        }
+
+        // Setup infowindow
+        React.render(React.createElement(InfoWindow, _extends({
+          key: walk.id
+        }, Object.assign({}, walk, { date: date, leaders: leaders }))), _infoNode);
+
+        // Center the marker and display its info window
+        infoWindow.setMap(map);
+        map.panTo(marker.getPosition());
+        infoWindow.setContent(_infoNode);
+        infoWindow.open(map, marker);
+      });
+    }
+  });
+
+  return markers;
+}
 
 var CityMap = (function (_React$Component) {
   _inherits(CityMap, _React$Component);
@@ -106,113 +222,15 @@ var CityMap = (function (_React$Component) {
         map.setCenter(cityLatLng);
       });
 
-      this.setState({ map: map });
+      // Add our markers to the empty map
+      var newMarkers = addNewMarkersToMap({}, this.props.walks, map);
+      this.setState({ map: map, markers: newMarkers });
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(props) {
-      var _this = this;
-
-      var icon = {
-        path: google.maps.SymbolPath.CIRCLE,
-        scale: 7,
-        strokeWeight: 1,
-        strokeColor: '#f16725',
-        fillOpacity: 0.7,
-        fillColor: '#f16725'
-      };
-      var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
-
-      // Clean out the markers before we put them back in
-      for (var k in this.state.markers) {
-        this.state.markers[k].setMap(null);
-      }
-
-      // Grab starting point of each walk
-      props.walks.forEach(function (walk) {
-        var latlng = undefined;
-        var marker = undefined;
-        var map = _this.state.map;
-
-        if (_this.state.markers[walk.id]) {
-          // We already have this marker built, so simply add it to the map
-          _this.state.markers[walk.id].setMap(map);
-        } else {
-          // We must build a marker
-          // Walk location is meeting place coords
-          if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
-            latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
-          } else if (Array.isArray(walk.map.route) && walk.map.route.length > 0) {
-            latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
-          }
-
-          // Add the marker
-          marker = new google.maps.Marker({
-            position: latlng,
-            title: walk.title,
-            icon: icon,
-            map: map
-          });
-
-          _this.state.markers[walk.id] = marker;
-
-          google.maps.event.addListener(marker, 'click', function () {
-            var leaders = undefined;
-            var date = undefined;
-
-            // Build the team list of walk leaders
-            if (Array.isArray(walk.team)) {
-              leaders = walk.team.filter(function (member) {
-                return isWalkLeader(member);
-              }).map(function (member) {
-                return member['name-first'] + ' ' + member['name-last'];
-              });
-            }
-
-            // Best-effort grab of the time
-            try {
-              // Show all dates joined together
-              date = {
-                $$typeof: _typeofReactElement,
-                type: 'h6',
-                key: null,
-                ref: null,
-                props: {
-                  children: [{
-                    $$typeof: _typeofReactElement,
-                    type: 'i',
-                    key: null,
-                    ref: null,
-                    props: {
-                      className: 'fa fa-calendar'
-                    },
-                    _owner: null
-                  }, ' ', walk.time.slots.map(function (slot) {
-                    return dtfDate.format(slot[0] * 1000);
-                  }).join(', ')]
-                },
-                _owner: null
-              };
-            } catch (e) {
-              // Just log this, but don't die
-              console.error('Failed to parse walk time.');
-            }
-
-            // Setup infowindow
-            React.render(React.createElement(InfoWindow, _extends({
-              key: walk.id
-            }, Object.assign({}, walk, { date: date, leaders: leaders }))), _infoNode);
-
-            // Center the marker and display its info window
-            infoWindow.setMap(map);
-            map.panTo(marker.getPosition());
-            infoWindow.setContent(_infoNode);
-            infoWindow.open(map, marker);
-          });
-        }
-      });
-
-      this.setState({ markers: this.state.markers });
+      var newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
+      this.setState({ markers: newMarkers });
     }
   }, {
     key: 'render',
