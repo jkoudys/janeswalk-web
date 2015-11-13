@@ -42505,17 +42505,6 @@ var ImpactReport = (function (_React$Component) {
               dates: dates
             }),
             _owner: null
-          }, {
-            $$typeof: _typeofReactElement,
-            type: WalksPerLeader,
-            key: null,
-            ref: null,
-            props: _defaultProps(WalksPerLeader.defaultProps, {
-              walks: walks,
-              leaders: leaders,
-              dates: dates
-            }),
-            _owner: null
           }]
         },
         _owner: null
@@ -42869,7 +42858,7 @@ var RemoveSelfAsCO = (function (_React$Component2) {
               key: null,
               ref: null,
               props: {
-                children: "click to remove yourself as City Organizer.",
+                children: "click here to remove yourself as City Organizer.",
                 onClick: function () {
                   return _this2.setState({ modal: true });
                 }

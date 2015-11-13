@@ -132,7 +132,6 @@ class ImpactReport extends React.Component {
         <ReturningWalkLeaders walks={walks} dates={dates} year={2015} />
         <WalksPerWard wardWalkCount={wardWalkCount} />
         <WalksPerYear dates={dates} />
-        <WalksPerLeader walks={walks} leaders={leaders} dates={dates} />
       </section>
     );
   }
