@@ -100,11 +100,7 @@ export default class CityMap extends React.Component {
           // Best-effort grab of the time
           try {
             // Show all dates joined together
-            var upcoming = walk.time.slots.filter(function(slot) {
-              // Get all the future walks
-              return (slot[0] * 1000) > twoDaysAgo;
-            });
-            date = <h6><i className="fa fa-calendar" /> {upcoming.map(slot => dtfDate.format(slot[0] * 1000)).join(', ')}</h6>;
+            date = <h6><i className="fa fa-calendar" /> {walk.time.slots.map(slot => dtfDate.format(slot[0] * 1000)).join(', ')}</h6>;
           } catch(e) {
             // Just log this, but don't die
             console.error('Failed to parse walk time.');
@@ -138,11 +134,11 @@ export default class CityMap extends React.Component {
   }
 }
 
-const InfoWindow = props => (
+const InfoWindow = ({title, url, date, shortDescription, leaders}) => (
   <span>
-    <h4 style={{marginBottom: '0.1em'}}>{props.title}</h4>
-    {props.date}
-    <h6>Led by: {this.props.leaders.join(', ')}</h6>
-    <p>{props.shortDescription} <a href={props.url} target="_blank">Read More</a></p>
+    <h4 style={{marginBottom: '0.1em'}}>{title}</h4>
+    {date}
+    <h6>Led by: {leaders.join(', ')}</h6>
+    <p>{shortDescription} <a href={url} target="_blank">Read More</a></p>
   </span>
 );
