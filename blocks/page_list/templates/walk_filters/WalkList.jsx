@@ -30,26 +30,24 @@ if (typeof(Intl) === 'object') {
   };
 }
 
-export default class WalkList extends React.Component {
-  render() {
-    const walks = this.props.walks;
-    return (
-      <table className="walklist table">
-        <thead>
-          <tr>
-            <th>{t('Date')}</th>
-            <th>{t('Time')}</th>
-            <th>{t('Title')}</th>
-            <th>{t('Meeting Place')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {walks.map(walk => <ListItem walk={walk} />)}
-        </tbody>
-      </table>
-    );
-  }
-}
+/**
+ * The walk list
+ */
+export default ({walks}) => (
+  <table className="walklist table">
+    <thead>
+      <tr>
+        <th>{t('Date')}</th>
+        <th>{t('Time')}</th>
+        <th>{t('Title')}</th>
+        <th>{t('Meeting Place')}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {walks.map(walk => <ListItem walk={walk} />)}
+    </tbody>
+  </table>
+);
 
 class ListItem extends React.Component {
   constructor(props) {

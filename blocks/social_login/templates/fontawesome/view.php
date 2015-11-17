@@ -1,4 +1,4 @@
-<?php  
+<?php
 defined('C5_EXECUTE') || die(_('Access Denied.'));
 
 // Map fontawesome icons of the providers

@@ -114,8 +114,8 @@ function addNewMarkersToMap(markers, walks, map) {
 }
 
 export default class CityMap extends React.Component {
-  constructor() {
-    super();
+  constructor(...args) {
+    super(...args);
 
     this.state = {map: null, markers: {}};
   }

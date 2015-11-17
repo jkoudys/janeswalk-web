@@ -53,12 +53,12 @@ function thirdRecentDate(walks) {
   return null;
 }
 
-const Filter = props => (
+const Filter = ({name, key, selected, setFilter, data}) => (
   <li>
-    <label>{props.name}</label>
-    <select name={props.key} value={props.selected} onChange={e => props.setFilter(props.key, e.target.value)}>
+    <label>{name}</label>
+    <select name={key} value={selected} onChange={e => setFilter(key, e.target.value)}>
       <option value="">All</option>
-      {Object.keys(props.data).map(k => <option value={k}>{props.data[k]}</option>)}
+      {Object.keys(data).map(k => <option value={k}>{data[k]}</option>)}
     </select>
   </li>
 );
