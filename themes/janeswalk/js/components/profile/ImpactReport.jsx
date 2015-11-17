@@ -8,39 +8,10 @@ const YEARS = {
   '2013': Date.UTC(2013, 0)
 };
 
-const WalksByYear = ({walks, dates}) => {
-  debugger;
-  <LineChart />
-};
-
 const pieData = [
   {label: 'Returning', value: 65.0},
   {label: 'New', value: 25.0}
 ];
-const ReturningWalkLeaders = ({walks, leaders, dates, year}) => (
-  <section className="returning-walk-leaders">
-    <h3>{year}</h3>
-    <PieChart data={pieData} width={400} height={400} radius={100} innerRadius={30} />
-  </section>
-);
-
-const walksPerLeaderData = [
-  {label: '1', values: [{x: 1, y: 60}, {x: 2, y: 20}, {x: 3, y: 3}, {x: 4, y: 5}]},
-];
-
-const WalksPerLeader = ({walks, leaders, dates}) => (
-  <section className="walks-per-leader">
-    <h3>Walks per Leader</h3>
-    <BarChart data={walksPerLeaderData} width={400} height={400} />
-  </section>
-);
-
-const WalksPerWard = ({wardWalkCount}) => (
-  <section className="walks-per-ward">
-    <h3>Walks per Region</h3>
-    <HBarChart data={buildWardWalkData(wardWalkCount)} width={'100%'} />
-  </section>
-);
 
 // <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
 // TODO: this function isn't very well written. Should be in the store, too
@@ -68,6 +39,31 @@ function buildWardWalkData(walksPerWard) {
 
   return [Object.assign({}, {label: '1'}, {values: sorted})];
 }
+
+const ReturningWalkLeaders = ({walks, leaders, dates, year}) => (
+  <section className="returning-walk-leaders">
+    <h3>{year}</h3>
+    <PieChart data={pieData} width={400} height={400} radius={100} innerRadius={30} />
+  </section>
+);
+
+const walksPerLeaderData = [
+  {label: '1', values: [{x: 1, y: 60}, {x: 2, y: 20}, {x: 3, y: 3}, {x: 4, y: 5}]},
+];
+
+const WalksPerLeader = ({walks, leaders, dates}) => (
+  <section className="walks-per-leader">
+    <h3>Walks per Leader</h3>
+    <BarChart data={walksPerLeaderData} width={400} height={400} />
+  </section>
+);
+
+const WalksPerWard = ({wardWalkCount}) => (
+  <section className="walks-per-ward">
+    <h3>Walks per Region</h3>
+    <HBarChart data={buildWardWalkData(wardWalkCount)} width={'100%'} />
+  </section>
+);
 
 const WalksPerYear = ({dates}) => (
   <section className="walks-per-year">
@@ -101,7 +97,7 @@ const WalkLeaders = ({leaders, limit, showAll, showSome}) => (
   </section>
 );
 
-class ImpactReport extends React.Component {
+export default class ImpactReport extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {leadersLimit: 6};
@@ -136,5 +132,3 @@ class ImpactReport extends React.Component {
     );
   }
 }
-
-export default ImpactReport;

@@ -69,7 +69,7 @@ export default class ImageUpload extends React.Component {
           <input className="ccm-al-upload-single-file" type="file" onChange={this.handleUpload} />
           <i className="fa fa-camera-retro fa-5x" />
           <span className="fileupload-new">{ t('Click to upload an image') }</span>
-        </div> : null}
+        </div> : undefined}
       </form>
     );
   }

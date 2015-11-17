@@ -36393,7 +36393,7 @@ var ImageUpload = (function (_React$Component) {
               className: 'thumbnail fileupload'
             },
             _owner: null
-          } : null],
+          } : undefined],
           className: 'upload-image'
         },
         _owner: null
@@ -42016,134 +42016,7 @@ var YEARS = {
   '2013': Date.UTC(2013, 0)
 };
 
-var WalksByYear = function WalksByYear(_ref) {
-  var walks = _ref.walks;
-  var dates = _ref.dates;
-
-  debugger;
-  ({
-    $$typeof: _typeofReactElement,
-    type: _reactD3.LineChart,
-    key: null,
-    ref: null,
-    props: _defaultProps(_reactD3.LineChart.defaultProps, {}),
-    _owner: null
-  });
-};
-
 var pieData = [{ label: 'Returning', value: 65.0 }, { label: 'New', value: 25.0 }];
-var ReturningWalkLeaders = function ReturningWalkLeaders(_ref2) {
-  var walks = _ref2.walks;
-  var leaders = _ref2.leaders;
-  var dates = _ref2.dates;
-  var year = _ref2.year;
-  return {
-    $$typeof: _typeofReactElement,
-    type: 'section',
-    key: null,
-    ref: null,
-    props: {
-      children: [{
-        $$typeof: _typeofReactElement,
-        type: 'h3',
-        key: null,
-        ref: null,
-        props: {
-          children: year
-        },
-        _owner: null
-      }, {
-        $$typeof: _typeofReactElement,
-        type: _reactD3.PieChart,
-        key: null,
-        ref: null,
-        props: _defaultProps(_reactD3.PieChart.defaultProps, {
-          data: pieData,
-          width: 400,
-          height: 400,
-          radius: 100,
-          innerRadius: 30
-        }),
-        _owner: null
-      }],
-      className: 'returning-walk-leaders'
-    },
-    _owner: null
-  };
-};
-
-var walksPerLeaderData = [{ label: '1', values: [{ x: 1, y: 60 }, { x: 2, y: 20 }, { x: 3, y: 3 }, { x: 4, y: 5 }] }];
-
-var WalksPerLeader = function WalksPerLeader(_ref3) {
-  var walks = _ref3.walks;
-  var leaders = _ref3.leaders;
-  var dates = _ref3.dates;
-  return {
-    $$typeof: _typeofReactElement,
-    type: 'section',
-    key: null,
-    ref: null,
-    props: {
-      children: [{
-        $$typeof: _typeofReactElement,
-        type: 'h3',
-        key: null,
-        ref: null,
-        props: {
-          children: 'Walks per Leader'
-        },
-        _owner: null
-      }, {
-        $$typeof: _typeofReactElement,
-        type: _reactD3Barchart.BarChart,
-        key: null,
-        ref: null,
-        props: _defaultProps(_reactD3Barchart.BarChart.defaultProps, {
-          data: walksPerLeaderData,
-          width: 400,
-          height: 400
-        }),
-        _owner: null
-      }],
-      className: 'walks-per-leader'
-    },
-    _owner: null
-  };
-};
-
-var WalksPerWard = function WalksPerWard(_ref4) {
-  var wardWalkCount = _ref4.wardWalkCount;
-  return {
-    $$typeof: _typeofReactElement,
-    type: 'section',
-    key: null,
-    ref: null,
-    props: {
-      children: [{
-        $$typeof: _typeofReactElement,
-        type: 'h3',
-        key: null,
-        ref: null,
-        props: {
-          children: 'Walks per Region'
-        },
-        _owner: null
-      }, {
-        $$typeof: _typeofReactElement,
-        type: _HBarChartJsx2['default'],
-        key: null,
-        ref: null,
-        props: _defaultProps(_HBarChartJsx2['default'].defaultProps, {
-          data: buildWardWalkData(wardWalkCount),
-          width: '100%'
-        }),
-        _owner: null
-      }],
-      className: 'walks-per-ward'
-    },
-    _owner: null
-  };
-};
 
 // <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
 // TODO: this function isn't very well written. Should be in the store, too
@@ -42182,8 +42055,121 @@ function buildWardWalkData(walksPerWard) {
   return [Object.assign({}, { label: '1' }, { values: sorted })];
 }
 
-var WalksPerYear = function WalksPerYear(_ref5) {
-  var dates = _ref5.dates;
+var ReturningWalkLeaders = function ReturningWalkLeaders(_ref) {
+  var walks = _ref.walks;
+  var leaders = _ref.leaders;
+  var dates = _ref.dates;
+  var year = _ref.year;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'section',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'h3',
+        key: null,
+        ref: null,
+        props: {
+          children: year
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: _reactD3.PieChart,
+        key: null,
+        ref: null,
+        props: _defaultProps(_reactD3.PieChart.defaultProps, {
+          data: pieData,
+          width: 400,
+          height: 400,
+          radius: 100,
+          innerRadius: 30
+        }),
+        _owner: null
+      }],
+      className: 'returning-walk-leaders'
+    },
+    _owner: null
+  };
+};
+
+var walksPerLeaderData = [{ label: '1', values: [{ x: 1, y: 60 }, { x: 2, y: 20 }, { x: 3, y: 3 }, { x: 4, y: 5 }] }];
+
+var WalksPerLeader = function WalksPerLeader(_ref2) {
+  var walks = _ref2.walks;
+  var leaders = _ref2.leaders;
+  var dates = _ref2.dates;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'section',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'h3',
+        key: null,
+        ref: null,
+        props: {
+          children: 'Walks per Leader'
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: _reactD3Barchart.BarChart,
+        key: null,
+        ref: null,
+        props: _defaultProps(_reactD3Barchart.BarChart.defaultProps, {
+          data: walksPerLeaderData,
+          width: 400,
+          height: 400
+        }),
+        _owner: null
+      }],
+      className: 'walks-per-leader'
+    },
+    _owner: null
+  };
+};
+
+var WalksPerWard = function WalksPerWard(_ref3) {
+  var wardWalkCount = _ref3.wardWalkCount;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'section',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'h3',
+        key: null,
+        ref: null,
+        props: {
+          children: 'Walks per Region'
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: _HBarChartJsx2['default'],
+        key: null,
+        ref: null,
+        props: _defaultProps(_HBarChartJsx2['default'].defaultProps, {
+          data: buildWardWalkData(wardWalkCount),
+          width: '100%'
+        }),
+        _owner: null
+      }],
+      className: 'walks-per-ward'
+    },
+    _owner: null
+  };
+};
+
+var WalksPerYear = function WalksPerYear(_ref4) {
+  var dates = _ref4.dates;
   return {
     $$typeof: _typeofReactElement,
     type: 'section',
@@ -42217,11 +42203,11 @@ var WalksPerYear = function WalksPerYear(_ref5) {
   };
 };
 
-var WalkLeaders = function WalkLeaders(_ref6) {
-  var leaders = _ref6.leaders;
-  var limit = _ref6.limit;
-  var showAll = _ref6.showAll;
-  var showSome = _ref6.showSome;
+var WalkLeaders = function WalkLeaders(_ref5) {
+  var leaders = _ref5.leaders;
+  var limit = _ref5.limit;
+  var showAll = _ref5.showAll;
+  var showSome = _ref5.showSome;
   return {
     $$typeof: _typeofReactElement,
     type: 'section',
