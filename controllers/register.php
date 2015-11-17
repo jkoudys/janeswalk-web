@@ -6,7 +6,7 @@ class RegisterController extends Concrete5_Controller_Register
         if (!ENABLE_REGISTRATION) {
             $cont = Loader::controller('/page_not_found');
             $cont->view();
-            $this->render("/page_not_found");
+            $this->render('/page_not_found');
         }
         parent::__construct();
         Loader::model('user_attributes');
@@ -174,7 +174,7 @@ class RegisterController extends Concrete5_Controller_Register
                     $u = new User($_POST['uName'], $_POST['uPassword']);
                 }
                 // if this is successful, uID is loaded into session for this user
-                
+
                 $rcID = $this->post('rcID');
                 $nh = Loader::helper('validation/numbers');
                 if (!$nh->integer($rcID)) {
@@ -221,9 +221,9 @@ class RegisterController extends Concrete5_Controller_Register
                     $registerData['uID']=intval($u->uID);
                 }
 
-                $registerData['success']=1;
+                $registerData['success'] = 1;
 
-                if($_REQUEST['format']!='JSON')
+                if($_REQUEST['format'] !== 'JSON')
                     $this->redirect('/register', $redirectMethod, $rcID);
             }
         } else {

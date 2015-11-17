@@ -3,7 +3,6 @@ use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Controllers\Controller;
 use \JanesWalk\Libraries\MirrorWalk\MirrorWalk;
 
-defined('C5_EXECUTE') or die("Access Denied.");
 Loader::library('Eventbrite');
 Loader::controller('/janes_walk');
 Loader::model('page_types/Walk');

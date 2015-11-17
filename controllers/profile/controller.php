@@ -323,7 +323,7 @@ class ProfileController extends Concrete5_Controller_Profile
             }
         } catch (Exception $e) {
             http_response_code(500);
-           $response = ['error' => true, 'msg' => $e->getMessage(), 'code' => $e->getCode()];
+            $response = ['error' => true, 'msg' => $e->getMessage(), 'code' => $e->getCode()];
         }
 
         header('Content-Type: application/json');
