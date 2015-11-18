@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * @package Helpers
  * @category Concrete
@@ -18,5 +18,4 @@
  * @license    http://www.concrete5.org/license/     MIT License
  */
 
-defined('C5_EXECUTE') or die("Access Denied.");
 class FormPageSelectorHelper extends Concrete5_Helper_Form_PageSelector {}

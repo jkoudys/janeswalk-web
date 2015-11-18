@@ -7,9 +7,8 @@
  * Not quite true to its name, this helper is for modelling 'select' type attribute options, including theme and accessible
  */
 
-defined('C5_EXECUTE') or die("Access Denied.");
 class ThemeHelper
-{ 
+{
     private static $attributeIconMap = array(
         'nature-naturelover' => 'bug',
         'nature-greenthumb' => 'leaf',
@@ -186,4 +185,3 @@ class ThemeHelper
         return self::$attributeIconMap[(string)$handle];
     }
 }
-
