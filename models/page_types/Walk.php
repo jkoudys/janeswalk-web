@@ -330,7 +330,7 @@ class Walk extends \Model implements \JsonSerializable
             'time' => $this->time,
             'wards' => $this->wards,
             'initiatives' => $this->initiatives,
-            'cityID' => $this->page->getCollectionParentID(),
+            'cityID' => (int) $this->page->getCollectionParentID(),
             'mirrors' => [
                 'eventbrite' => $this->page->getAttribute('eventbrite') ?: null
             ]
