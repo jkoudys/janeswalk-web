@@ -10170,6 +10170,9 @@ body.home main {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+#remove-co {
+  margin-top: 2em;
+}
 body.city-page {
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -12081,6 +12084,22 @@ body.blog .ccm-blog-index li {
 }
 body.blog .ccm-blog-index li figure {
   height: 450px;
+}
+body.blog p {
+  line-height: 1.8;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 30px 0 0 0;
+}
+body.blog p a {
+  color: inherit;
+  border-bottom: 1px solid #f16725;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+}
+body.blog p a:hover {
+  opacity: 0.8;
+  text-decoration: none;
 }
 #city-blog {
   position: relative;
