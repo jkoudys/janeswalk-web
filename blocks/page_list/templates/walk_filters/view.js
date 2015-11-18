@@ -199,7 +199,11 @@ var CityMap = (function (_React$Component) {
   function CityMap() {
     _classCallCheck(this, CityMap);
 
-    _get(Object.getPrototypeOf(CityMap.prototype), 'constructor', this).call(this);
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(CityMap.prototype), 'constructor', this).apply(this, args);
 
     this.state = { map: null, markers: {} };
   }
@@ -914,7 +918,12 @@ function thirdRecentDate(walks) {
   return null;
 }
 
-var Filter = function Filter(props) {
+var Filter = function Filter(_ref) {
+  var name = _ref.name;
+  var key = _ref.key;
+  var selected = _ref.selected;
+  var setFilter = _ref.setFilter;
+  var data = _ref.data;
   return {
     $$typeof: _typeofReactElement,
     type: 'li',
@@ -927,7 +936,7 @@ var Filter = function Filter(props) {
         key: null,
         ref: null,
         props: {
-          children: props.name
+          children: name
         },
         _owner: null
       }, {
@@ -946,23 +955,23 @@ var Filter = function Filter(props) {
               value: ''
             },
             _owner: null
-          }, Object.keys(props.data).map(function (k) {
+          }, Object.keys(data).map(function (k) {
             return {
               $$typeof: _typeofReactElement,
               type: 'option',
               key: null,
               ref: null,
               props: {
-                children: props.data[k],
+                children: data[k],
                 value: k
               },
               _owner: null
             };
           })],
-          name: props.key,
-          value: props.selected,
+          name: key,
+          value: selected,
           onChange: function (e) {
-            return props.setFilter(props.key, e.target.value);
+            return setFilter(key, e.target.value);
           }
         },
         _owner: null
@@ -1002,8 +1011,8 @@ var WalkFilter = (function (_React$Component) {
     JanesWalk.event.on('city.receive', function (city) {
       return _this.setState({ city: city });
     });
-    JanesWalk.event.on('blogurl.receive', function (url) {
-      return _this.setState({ blog: url });
+    JanesWalk.event.on('blog.receive', function (blog) {
+      return _this.setState({ blog: blog });
     });
   }
 
@@ -1044,9 +1053,9 @@ var WalkFilter = (function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var TabMap = undefined;
-      var TabBlog = undefined;
-      var CityMapSection = undefined;
+      var tabMap = undefined;
+      var tabBlog = undefined;
+      var cityMapSection = undefined;
 
       var Filters = Object.keys(this.state.filters).map(function (key) {
         return React.createElement(Filter, _extends({ key: key }, _this2.state.filters[key], { setFilter: function (k, v) {
@@ -1056,7 +1065,7 @@ var WalkFilter = (function (_React$Component) {
 
       // See if this city has a location set
       if (this.state.city && this.state.city.latlng.length === 2) {
-        TabMap = {
+        tabMap = {
           $$typeof: _typeofReactElement,
           type: 'li',
           key: 'tabmap',
@@ -1077,7 +1086,7 @@ var WalkFilter = (function (_React$Component) {
           },
           _owner: null
         };
-        CityMapSection = {
+        cityMapSection = {
           $$typeof: _typeofReactElement,
           type: 'section',
           key: null,
@@ -1103,7 +1112,7 @@ var WalkFilter = (function (_React$Component) {
 
       // Blog link, if we have one
       if (this.state.blog) {
-        TabBlog = {
+        tabBlog = {
           $$typeof: _typeofReactElement,
           type: 'li',
           key: 'tb',
@@ -1116,7 +1125,7 @@ var WalkFilter = (function (_React$Component) {
               ref: null,
               props: {
                 children: 'Blog',
-                href: this.state.blog,
+                href: this.state.blog.url,
                 target: '_blank'
               },
               _owner: null
@@ -1245,7 +1254,7 @@ var WalkFilter = (function (_React$Component) {
                       }
                     },
                     _owner: null
-                  }, TabMap, TabBlog],
+                  }, tabMap, tabBlog],
                   className: 'nav nav-tabs'
                 },
                 _owner: null
@@ -1295,7 +1304,7 @@ var WalkFilter = (function (_React$Component) {
                       id: 'jw-list'
                     },
                     _owner: null
-                  }, CityMapSection],
+                  }, cityMapSection],
                   className: 'tab-content'
                 },
                 _owner: null
@@ -1329,17 +1338,17 @@ Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
-
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
 var dtfDate = undefined;
 var dtfTime = undefined;
@@ -1373,114 +1382,101 @@ if (typeof Intl === 'object') {
   };
 }
 
-var WalkList = (function (_React$Component) {
-  _inherits(WalkList, _React$Component);
+/**
+ * The walk list
+ */
 
-  function WalkList() {
-    _classCallCheck(this, WalkList);
-
-    _get(Object.getPrototypeOf(WalkList.prototype), 'constructor', this).apply(this, arguments);
-  }
-
-  _createClass(WalkList, [{
-    key: 'render',
-    value: function render() {
-      var walks = this.props.walks;
-      return {
+exports['default'] = function (_ref) {
+  var walks = _ref.walks;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'table',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
         $$typeof: _typeofReactElement,
-        type: 'table',
+        type: 'thead',
         key: null,
         ref: null,
         props: {
-          children: [{
+          children: {
             $$typeof: _typeofReactElement,
-            type: 'thead',
+            type: 'tr',
             key: null,
             ref: null,
             props: {
-              children: {
+              children: [{
                 $$typeof: _typeofReactElement,
-                type: 'tr',
+                type: 'th',
                 key: null,
                 ref: null,
                 props: {
-                  children: [{
-                    $$typeof: _typeofReactElement,
-                    type: 'th',
-                    key: null,
-                    ref: null,
-                    props: {
-                      children: t('Date')
-                    },
-                    _owner: null
-                  }, {
-                    $$typeof: _typeofReactElement,
-                    type: 'th',
-                    key: null,
-                    ref: null,
-                    props: {
-                      children: t('Time')
-                    },
-                    _owner: null
-                  }, {
-                    $$typeof: _typeofReactElement,
-                    type: 'th',
-                    key: null,
-                    ref: null,
-                    props: {
-                      children: t('Title')
-                    },
-                    _owner: null
-                  }, {
-                    $$typeof: _typeofReactElement,
-                    type: 'th',
-                    key: null,
-                    ref: null,
-                    props: {
-                      children: t('Meeting Place')
-                    },
-                    _owner: null
-                  }]
+                  children: t('Date')
                 },
                 _owner: null
-              }
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'th',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Time')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'th',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Title')
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'th',
+                key: null,
+                ref: null,
+                props: {
+                  children: t('Meeting Place')
+                },
+                _owner: null
+              }]
             },
             _owner: null
-          }, {
-            $$typeof: _typeofReactElement,
-            type: 'tbody',
-            key: null,
-            ref: null,
-            props: {
-              children: walks.map(function (walk) {
-                return {
-                  $$typeof: _typeofReactElement,
-                  type: ListItem,
-                  key: null,
-                  ref: null,
-                  props: _defaultProps(ListItem.defaultProps, {
-                    walk: walk
-                  }),
-                  _owner: null
-                };
-              })
-            },
-            _owner: null
-          }],
-          className: 'walklist table'
+          }
         },
         _owner: null
-      };
-    }
-  }]);
+      }, {
+        $$typeof: _typeofReactElement,
+        type: 'tbody',
+        key: null,
+        ref: null,
+        props: {
+          children: walks.map(function (walk) {
+            return {
+              $$typeof: _typeofReactElement,
+              type: ListItem,
+              key: null,
+              ref: null,
+              props: _defaultProps(ListItem.defaultProps, {
+                walk: walk
+              }),
+              _owner: null
+            };
+          })
+        },
+        _owner: null
+      }],
+      className: 'walklist table'
+    },
+    _owner: null
+  };
+};
 
-  return WalkList;
-})(React.Component);
-
-exports['default'] = WalkList;
-
-var ListItem = (function (_React$Component2) {
-  _inherits(ListItem, _React$Component2);
+var ListItem = (function (_React$Component) {
+  _inherits(ListItem, _React$Component);
 
   function ListItem(props) {
     _classCallCheck(this, ListItem);

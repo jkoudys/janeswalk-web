@@ -85,7 +85,7 @@ export default class WalkFilter extends React.Component {
       this.setState({walks: walks, filters: props.filters}, this.handleFilters);
     });
     JanesWalk.event.on('city.receive', city => this.setState({city: city}));
-    JanesWalk.event.on('blogurl.receive', url => this.setState({blog: url}));
+    JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
   }
 
   setFilter(filter, val) {
@@ -109,9 +109,9 @@ export default class WalkFilter extends React.Component {
   }
 
   render() {
-    let TabMap;
-    let TabBlog;
-    let CityMapSection;
+    let tabMap;
+    let tabBlog;
+    let cityMapSection;
 
     const Filters = Object.keys(this.state.filters).map(
       key => <Filter key={key} {...this.state.filters[key]} setFilter={(k, v) => this.setFilter(k, v)} />
@@ -119,15 +119,15 @@ export default class WalkFilter extends React.Component {
 
     // See if this city has a location set
     if (this.state.city && this.state.city.latlng.length === 2) {
-      TabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
-      CityMapSection = <section className="tab-pane" id="jw-map">
+      tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
+      cityMapSection = <section className="tab-pane" id="jw-map">
         <CityMap walks={this.state.filterMatches} city={this.state.city} />
       </section>
     }
 
     // Blog link, if we have one
     if (this.state.blog) {
-      TabBlog = <li key="tb"><a href={this.state.blog} target="_blank">Blog</a></li>;
+      tabBlog = <li key="tb"><a href={this.state.blog.url} target="_blank">Blog</a></li>;
     }
 
     return (
@@ -144,8 +144,8 @@ export default class WalkFilter extends React.Component {
           <ul className="nav nav-tabs">
             <li><a href="#jw-cards" className="active" data-toggle="tab">All Walks</a></li>
             <li><a href="#jw-list" data-toggle="tab">List</a></li>
-            {TabMap}
-            {TabBlog}
+            {tabMap}
+            {tabBlog}
           </ul>
           <div className="tab-content">
             <section className="tab-pane active" id="jw-cards">
@@ -154,7 +154,7 @@ export default class WalkFilter extends React.Component {
             <section className="tab-pane" id="jw-list">
               <WalkList walks={this.state.filterMatches} />
             </section>
-            {CityMapSection}
+            {cityMapSection}
           </div>
         </div>
       </section>
