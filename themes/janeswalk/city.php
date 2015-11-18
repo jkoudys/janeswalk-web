@@ -63,6 +63,7 @@ EOT;
     </h2>
     {$area('City Blog')}
 </section>
+<script>JanesWalk.event.emit('blog.receive', {"url": "{$BlogLink}"});</script>
 EOT;
 }
 
