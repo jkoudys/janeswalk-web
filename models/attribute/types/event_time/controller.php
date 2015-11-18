@@ -1,75 +1,6 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
-
 class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
 {
-    public function getScheduledEventTimes()
-    {
-        $db = Loader::db();
-        $events = $db->GetAll("select start, end from atEventTime ev where ev.atScheduledId = ? order by ev.start", array($this->getAttributeValueID()));
-    }
-
-    public function getDurationsMinutes()
-    {
-        $db = Loader::db();
-
-        return $db->GetAll("select TIMESTAMPDIFF(MINUTE,start,end) from atEventTime where atScheduleID = ?", array($this->getAttributeValueID()));
-    }
-
-    public function getDurationsHours()
-    {
-        $db = Loader::db();
-
-        return $db->GetAll("select TIMESTAMPDIFF(HOUR,start,end) from atEventTime where atScheduleID = ?", array($this->getAttributeValueID()));
-    }
-
-    /**
-     * Human-format the date response in SQL. Useful in legacy PHP, but deprecated
-     * in favour of client-side templating based on ms from unix epoch
-     *
-     * @return array
-     */
-    public function getHumanValue()
-    {
-        $db = Loader::db();
-        $reArr = $db->GetRow("select open, type from atSchedule where avID = ?", array($this->getAttributeValueID()));
-        if (sizeof($reArr) > 0) {
-            // Fast-running formatting function; quick but a silly place for this
-            $reArr['slots'] = $db->GetAll(
-                "select DATE_FORMAT(start, '%M %e, %Y') as date, DATE_FORMAT(start, '%h:%i %p') as time,
-                CONCAT(
-                    CASE WHEN FLOOR(TIMESTAMPDIFF(HOUR,start,end)) > 0 THEN
-                    CONCAT((TIMESTAMPDIFF(HOUR,start,end)),
-                        CASE
-                        WHEN FLOOR(TIMESTAMPDIFF(HOUR,start,end)) = 1 THEN
-                        ' Hour'
-                        ELSE
-                        ' Hours'
-                        END
-                    )
-                    ELSE
-                    ''
-                    END,
-                    CASE
-                    WHEN MOD(TIMESTAMPDIFF(MINUTE,start,end),60) > 0 THEN
-                    CONCAT(
-                        CASE
-                        WHEN FLOOR(TIMESTAMPDIFF(HOUR,start,end)) > 0 THEN ', ' ELSE ''
-                        END
-                        , MOD(TIMESTAMPDIFF(MINUTE,start,end),60), ' Minutes')
-                        ELSE
-                        ''
-                        END
-                    ) as duration,
-                    DATE_FORMAT(start, '%Y-%m-%d %H:%i:%S') as eb_start,
-                    DATE_FORMAT(end, '%Y-%m-%d %H:%i:%S') as eb_end
-                    from atSchedule, atEventTime where atSchedule.avID = atEventTime.atScheduleID and atSchedule.avID = ? ORDER BY start < CURRENT_DATE, start", [$this->getAttributeValueID()]
-            );
-
-            return array_filter($reArr);
-        }
-    }
-
     /**
      * Get the type of schedule, and all the slotted dates
      *
@@ -159,7 +90,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
     }
 
     /* $scheduledTimes = array of 'start' and 'duration' */
-    public function setScheduledEventTimes($scheduledTimes)
+    protected function setScheduledEventTimes($scheduledTimes)
     {
         $db = Loader::db();
         $db->BeginTrans();

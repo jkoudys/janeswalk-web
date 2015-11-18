@@ -15,8 +15,6 @@ use \PageList;
 use \SelectAttributeTypeOptionList;
 use JanesWalk\Models\PageTypes\Walk;
 
-defined('C5_EXECUTE') || die('Access Denied.');
-
 /*
  * City
  *

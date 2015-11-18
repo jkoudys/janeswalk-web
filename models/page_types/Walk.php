@@ -13,8 +13,6 @@ use \Loader;
 use \Page;
 use \File;
 
-defined('C5_EXECUTE') || die('Access Denied.');
-
 /**
  * Walk
  *

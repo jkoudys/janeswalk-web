@@ -1,6 +1,4 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
-
 class PageAttributeTypeController extends AttributeTypeController
 {
     protected $searchIndexFieldDefinition = 'I DEFAULT 0 NULL';
