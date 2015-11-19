@@ -4,15 +4,14 @@ export default class Tabs extends React.Component {
   }
 
   render() {
-
     let tabBlog;
     let tabMap;
 
     if (this.props.blog)
-        tabBlog = <li key="tb"><a href={this.props.blog} target="_blank">Blog</a></li>;
+      tabBlog = <li key="tb"><a href={this.props.blog} target="_blank">Blog</a></li>;
 
     if (this.props.location && this.props.location.latlng.length === 2) {
-        tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
+      tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
     }
 
     //Map is active for country only
@@ -22,13 +21,12 @@ export default class Tabs extends React.Component {
     //}
 
     return (
-        <ul className="nav nav-tabs">
-            <li><a href="#jw-cards" className="active" data-toggle="tab">All Walks</a></li>
-            <li><a href="#jw-list" data-toggle="tab">List</a></li>
-            ;
-            {tabMap}
-            {tabBlog}
-        </ul>
+      <ul className="nav nav-tabs">
+        <li><a href="#jw-cards" className="active" data-toggle="tab">All Walks</a></li>
+        <li><a href="#jw-list" data-toggle="tab">List</a></li>
+        {tabMap}
+        {tabBlog}
+      </ul>
     );
   }
 };
