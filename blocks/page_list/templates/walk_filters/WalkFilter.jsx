@@ -3,7 +3,7 @@
  */
 import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
-import LocationMap from './CityMap.jsx'; //TODO: Change name of CityMap
+import LocationMap from './CityMap.jsx'; //TODO: Change name of CityMap.jsx to to LocationMap.jsx
 import DateRange from './DateRange.jsx';
 import Tabs from './Tab.jsx';
 
