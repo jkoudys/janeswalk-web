@@ -115,6 +115,8 @@ class Walk extends \Model implements \JsonSerializable
         // Load more complex attributes
         $this->time = $page->getAttribute('scheduled');
         $this->thumbnail = $page->getAttribute('thumbnail');
+
+        $this->published = !($page->getAttribute('exclude_page_list') === '1');
     }
 
     /**

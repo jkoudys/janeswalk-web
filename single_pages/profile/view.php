@@ -296,7 +296,12 @@ if ($cityOrganizerData) {
             <div class="column city">
                 <div class="headline"><?= t('My City\'s Walks') ?></div>
                 <a href="<?= $nh->getLinkToCollection($city) ?>" class="btn btn-primary btn-small"><?= t('Visit my city') ?></a>
-                <?php
+<?php
+                if ($userIsCityOrganizer) { ?>
+                <a href="exportCity/<?= $city->getCollectionID() ?>" target="_blank" class="btn btn-primary btn-small"><i class="fa fa-table"></i> <?= t('Export') ?></a>
+<?php
+                }
+
                 $nullcaseClasses = ['nullcase'];
                 if ($cityHasWalks === true) {
                     $nullcaseClasses[] = 'hidden';
