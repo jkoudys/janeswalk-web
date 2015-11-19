@@ -5,6 +5,7 @@ import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
 import CityMap from './CityMap.jsx';
 import DateRange from './DateRange.jsx';
+import Tabs from './Tab.jsx';
 
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
@@ -142,12 +143,9 @@ export default class WalkFilter extends React.Component {
               <DateRange value={this.state.dateRange} onChange={this.setDateRange.bind(this)} />
             </li>
           </ul>
-          <ul className="nav nav-tabs">
-            <li><a href="#jw-cards" className="active" data-toggle="tab">All Walks</a></li>
-            <li><a href="#jw-list" data-toggle="tab">List</a></li>
-            {tabMap}
-            {tabBlog}
-          </ul>
+          <div>
+            <Tabs blog={this.state.blog} showMap={showMap} location={this.state.location}/>
+          </div>
           <div className="tab-content">
             <section className="tab-pane active" id="jw-cards">
               <WalkCards walks={this.state.filterMatches} />
