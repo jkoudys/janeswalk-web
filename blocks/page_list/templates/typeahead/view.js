@@ -1,47 +1,133 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-// TODO: get browserify-shim working and `React = require('react');`
+/**
+ * Fold accent-characters into their accentless character
+ * @param     String str
+ * @return    String
+ */
 'use strict';
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
 function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
-document.addEventListener('DOMContentLoaded', function () {
-  var PageListTypeahead = React.createClass({
-    displayName: 'PageListTypeahead',
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-    getInitialState: function getInitialState() {
-      return {
-        q: '',
-        matched: this.props.countries
-      };
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function convertAccents(str) {
+  return str.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g, function (str, a, c, e, i, n, o, s, u, y, ae) {
+    if (a) return 'a';else if (c) return 'c';else if (e) return 'e';else if (i) return 'i';else if (n) return 'n';else if (o) return 'o';else if (s) return 's';else if (u) return 'u';else if (y) return 'y';else if (ae) return 'ae';
+  });
+}
+
+/**
+ * Detect if one string contains another, accent-folded
+ * @param string a haystack
+ * @param string b needle
+ */
+var strContains = function strContains(a, b) {
+  return convertAccents(a.toLowerCase()).indexOf(convertAccents(b.toLowerCase())) > -1;
+};
+
+// Mobile should stick to standard form elements, so it can style its widget
+// TODO: ReactRouter this
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+var City = function City(_ref) {
+  var id = _ref.id;
+  var name = _ref.name;
+  var url = _ref.url;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'li',
+    key: 'city' + id,
+    ref: null,
+    props: {
+      children: {
+        $$typeof: _typeofReactElement,
+        type: 'a',
+        key: null,
+        ref: null,
+        props: {
+          children: name,
+          href: url
+        },
+        _owner: null
+      }
     },
+    _owner: null
+  };
+};
 
-    /**
-     * Fold accent-characters into their accentless character
-     * @param     String str
-     * @return    String
-     */
-    convertAccents: function convertAccents(str) {
-      return str.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g, function (str, a, c, e, i, n, o, s, u, y, ae) {
-        if (a) return 'a';else if (c) return 'c';else if (e) return 'e';else if (i) return 'i';else if (n) return 'n';else if (o) return 'o';else if (s) return 's';else if (u) return 'u';else if (y) return 'y';else if (ae) return 'ae';
-      });
+var Country = function Country(_ref2) {
+  var id = _ref2.id;
+  var name = _ref2.name;
+  var url = _ref2.url;
+  var cities = _ref2.cities;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'li',
+    key: 'country' + id,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'a',
+        key: null,
+        ref: null,
+        props: {
+          children: name,
+          href: url
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: 'ul',
+        key: null,
+        ref: null,
+        props: {
+          children: cities.map(function (city) {
+            return React.createElement(City, _extends({ key: 'city' + city.id }, city));
+          }),
+          className: 'cities'
+        },
+        _owner: null
+      }],
+      className: 'country'
     },
+    _owner: null
+  };
+};
 
-    /**
-     * Detect if one string contains another, accent-folded
-     * @param string a haystack
-     * @param string b needle
-     */
-    strContains: function strContains(a, b) {
-      return this.convertAccents(a.toLowerCase()).indexOf(this.convertAccents(b.toLowerCase())) > -1;
-    },
+var PageListTypeahead = (function (_React$Component) {
+  _inherits(PageListTypeahead, _React$Component);
 
-    /**
-     * Called when typing in the input
-     * @param ReactEvent ev
-     */
-    handleInput: function handleInput(ev) {
+  function PageListTypeahead(props) {
+    _classCallCheck(this, PageListTypeahead);
+
+    _get(Object.getPrototypeOf(PageListTypeahead.prototype), 'constructor', this).call(this, props);
+    this.state = {
+      q: '',
+      matched: props.countries
+    };
+  }
+
+  // Alternate render of these same cities as a select, primarily for mobile
+
+  /**
+   * Called when typing in the input
+   * @param ReactEvent ev
+   */
+
+  _createClass(PageListTypeahead, [{
+    key: 'handleInput',
+    value: function handleInput(ev) {
       var _this = this;
       var countries = [];
       var q = ev.target.value;
@@ -61,13 +147,15 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
       this.setState({ q: q, matched: countries });
-    },
+    }
 
     /**
      * Form action links the top selected city
      * @param ReactEvent ev
      */
-    handleSubmit: function handleSubmit(ev) {
+  }, {
+    key: 'handleSubmit',
+    value: function handleSubmit(ev) {
       var firstCountry = this.state.matched[0];
       var firstCity;
 
@@ -78,66 +166,10 @@ document.addEventListener('DOMContentLoaded', function () {
           ev.target.action = firstCity.url;
         }
       }
-    },
-
-    renderCity: function renderCity(city) {
-      return {
-        $$typeof: _typeofReactElement,
-        type: 'li',
-        key: 'city' + city.id,
-        ref: null,
-        props: {
-          children: {
-            $$typeof: _typeofReactElement,
-            type: 'a',
-            key: null,
-            ref: null,
-            props: {
-              children: city.name,
-              href: city.url
-            },
-            _owner: null
-          }
-        },
-        _owner: null
-      };
-    },
-
-    renderCountry: function renderCountry(country) {
-      return {
-        $$typeof: _typeofReactElement,
-        type: 'li',
-        key: 'country' + country.id,
-        ref: null,
-        props: {
-          children: [{
-            $$typeof: _typeofReactElement,
-            type: 'a',
-            key: null,
-            ref: null,
-            props: {
-              children: country.name,
-              href: country.url
-            },
-            _owner: null
-          }, {
-            $$typeof: _typeofReactElement,
-            type: 'ul',
-            key: null,
-            ref: null,
-            props: {
-              children: country.cities.map(this.renderCity),
-              className: 'cities'
-            },
-            _owner: null
-          }],
-          className: 'country'
-        },
-        _owner: null
-      };
-    },
-
-    render: function render() {
+    }
+  }, {
+    key: 'render',
+    value: function render() {
       var _this = this;
       var homeCity = {
         $$typeof: _typeofReactElement,
@@ -220,7 +252,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     key: null,
                     ref: null,
                     props: {
-                      children: [this.state.matched.map(this.renderCountry), this.state.matched.length === 0 ? {
+                      children: [this.state.matched.map(function (country) {
+                        return React.createElement(Country, country);
+                      }), this.state.matched.length === 0 ? {
                         $$typeof: _typeofReactElement,
                         type: 'li',
                         key: null,
@@ -256,59 +290,76 @@ document.addEventListener('DOMContentLoaded', function () {
         _owner: null
       };
     }
-  });
+  }]);
 
-  // Alternate render of these same cities as a select, primarily for mobile
-  // TODO: use ReactRouter for loading either, not c5 blocks directly
-  var PageListSelect = React.createClass({
-    displayName: 'PageListSelect',
+  return PageListTypeahead;
+})(React.Component);
 
-    getInitialState: function getInitialState() {
-      return {
-        selected: null,
-        countries: this.props.countries.sort(function (a, b) {
-          return a.name.localeCompare(b.name);
-        })
-      };
+var CityOption = function CityOption(_ref3) {
+  var id = _ref3.id;
+  var name = _ref3.name;
+  var url = _ref3.url;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'option',
+    key: 'city' + id,
+    ref: null,
+    props: {
+      children: name,
+      value: url
     },
+    _owner: null
+  };
+};
 
-    handleChange: function handleChange(ev) {
+var CountryOption = function CountryOption(_ref4) {
+  var id = _ref4.id;
+  var name = _ref4.name;
+  var url = _ref4.url;
+  var cities = _ref4.cities;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'optgroup',
+    key: 'country' + id,
+    ref: null,
+    props: {
+      children: cities.map(function (city) {
+        return React.createElement(CityOption, city);
+      }),
+      className: 'country',
+      label: name
+    },
+    _owner: null
+  };
+};
+
+var PageListSelect = (function (_React$Component2) {
+  _inherits(PageListSelect, _React$Component2);
+
+  function PageListSelect(props) {
+    _classCallCheck(this, PageListSelect);
+
+    _get(Object.getPrototypeOf(PageListSelect.prototype), 'constructor', this).call(this, props);
+    this.state = {
+      selected: null,
+      countries: props.countries.sort(function (a, b) {
+        return a.name.localeCompare(b.name);
+      })
+    };
+  }
+
+  // TODO: get browserify-shim working and `React = require('react');`
+
+  _createClass(PageListSelect, [{
+    key: 'handleChange',
+    value: function handleChange(ev) {
       this.setState({ selected: ev.target.value }, function () {
         React.findDOMNode(this.refs.form).submit();
       });
-    },
-
-    renderCity: function renderCity(city) {
-      return {
-        $$typeof: _typeofReactElement,
-        type: 'option',
-        key: 'city' + city.id,
-        ref: null,
-        props: {
-          children: city.name,
-          value: city.url
-        },
-        _owner: null
-      };
-    },
-
-    renderCountry: function renderCountry(country) {
-      return {
-        $$typeof: _typeofReactElement,
-        type: 'optgroup',
-        key: 'country' + country.id,
-        ref: null,
-        props: {
-          children: country.cities.map(this.renderCity),
-          className: 'country',
-          label: country.name
-        },
-        _owner: null
-      };
-    },
-
-    render: function render() {
-      var _this = this;
+    }
+  }, {
+    key: 'render',
+    value: function render() {
       var homeCity = {
         $$typeof: _typeofReactElement,
         type: 'h3',
@@ -390,12 +441,13 @@ document.addEventListener('DOMContentLoaded', function () {
         _owner: null
       };
     }
-  });
+  }]);
 
-  // Mobile should stick to standard form elements, so it can style its widget
-  // TODO: ReactRouter this
-  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  return PageListSelect;
+})(React.Component);
 
+document.addEventListener('DOMContentLoaded', function () {
+  // TODO: use ReactRouter for loading either, not c5 blocks directly
   if (isMobile) {
     React.render({
       $$typeof: _typeofReactElement,

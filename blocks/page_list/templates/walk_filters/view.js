@@ -1,5 +1,58 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /**
+ * A set of walk filters, to filter on properties. Also includes
+ * the tabs, like 'list' and 'map/
+ */
+
+'use strict';
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
+
+var _LocationMapJsx = require('./LocationMap.jsx');
+
+var _LocationMapJsx2 = _interopRequireDefault(_LocationMapJsx);
+
+var _WalkFilterJsx = require('./WalkFilter.jsx');
+
+var _WalkFilterJsx2 = _interopRequireDefault(_WalkFilterJsx);
+
+var _walks = undefined;
+var _location = undefined;
+var _cities = undefined;
+
+JanesWalk.event.on('walks.receive', function (walks, props) {
+  _walks = walks;
+  React.render({
+    $$typeof: _typeofReactElement,
+    type: _WalkFilterJsx2['default'],
+    key: null,
+    ref: null,
+    props: _defaultProps(_WalkFilterJsx2['default'].defaultProps, {
+      walks: walks,
+      filters: props.filters,
+      location: _location
+    }),
+    _owner: null
+  }, document.getElementById('janeswalk-walk-filters'));
+});
+
+JanesWalk.event.on('city.receive', function (city) {
+  return _location = city;
+});
+JanesWalk.event.on('country.receive', function (country) {
+  return _location = country;
+});
+JanesWalk.event.on('country.cities', function (cities) {
+  return _cities = cities;
+});
+
+
+},{"./LocationMap.jsx":3,"./WalkFilter.jsx":7}],2:[function(require,module,exports){
+/**
  * Date Range
  * a jQueryUI based React component for picking a to/from date range
  */
@@ -14,7 +67,7 @@ var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbo
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -104,7 +157,7 @@ exports['default'] = DateRange;
 module.exports = exports['default'];
 
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /**
  * The map of upcoming walks for a whole city
  */
@@ -120,7 +173,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
@@ -377,155 +430,128 @@ var InfoWindow = function InfoWindow(_ref) {
 module.exports = exports['default'];
 
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+exports["default"] = function (_ref) {
+  var blog = _ref.blog;
+  var location = _ref.location;
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+  var tabBlog = undefined;
+  var tabMap = undefined;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Tabs = (function (_React$Component) {
-    _inherits(Tabs, _React$Component);
-
-    function Tabs(props) {
-        _classCallCheck(this, Tabs);
-
-        _get(Object.getPrototypeOf(Tabs.prototype), "constructor", this).call(this, props);
-    }
-
-    _createClass(Tabs, [{
-        key: "render",
-        value: function render() {
-
-            var tabBlog = undefined;
-            var tabMap = undefined;
-
-            if (this.props.blog) tabBlog = {
-                $$typeof: _typeofReactElement,
-                type: "li",
-                key: "tb",
-                ref: null,
-                props: {
-                    children: {
-                        $$typeof: _typeofReactElement,
-                        type: "a",
-                        key: null,
-                        ref: null,
-                        props: {
-                            children: "Blog",
-                            href: this.props.blog,
-                            target: "_blank"
-                        },
-                        _owner: null
-                    }
-                },
-                _owner: null
-            };
-
-            if (this.props.location && this.props.location.latlng.length === 2) {
-                tabMap = {
-                    $$typeof: _typeofReactElement,
-                    type: "li",
-                    key: "tabmap",
-                    ref: null,
-                    props: {
-                        children: {
-                            $$typeof: _typeofReactElement,
-                            type: "a",
-                            key: null,
-                            ref: null,
-                            props: {
-                                children: "Map",
-                                href: "#jw-map",
-                                "data-toggle": "tab"
-                            },
-                            _owner: null
-                        }
-                    },
-                    _owner: null
-                };
-            }
-
-            //Map is active for country only
-            //if(this.props.showMap && this.props.location.type === 'country'){
-            //  tabMap = <li key="tabmap"><a href="#jw-map" className="active" data-toggle="tab">Map</a></li>;
-            //  tabWalks = <li><a href="#jw-cards" data-toggle="tab">All Walks</a></li>
-            //}
-
-            return {
-                $$typeof: _typeofReactElement,
-                type: "ul",
-                key: null,
-                ref: null,
-                props: {
-                    children: [{
-                        $$typeof: _typeofReactElement,
-                        type: "li",
-                        key: null,
-                        ref: null,
-                        props: {
-                            children: {
-                                $$typeof: _typeofReactElement,
-                                type: "a",
-                                key: null,
-                                ref: null,
-                                props: {
-                                    children: "All Walks",
-                                    href: "#jw-cards",
-                                    className: "active",
-                                    "data-toggle": "tab"
-                                },
-                                _owner: null
-                            }
-                        },
-                        _owner: null
-                    }, {
-                        $$typeof: _typeofReactElement,
-                        type: "li",
-                        key: null,
-                        ref: null,
-                        props: {
-                            children: {
-                                $$typeof: _typeofReactElement,
-                                type: "a",
-                                key: null,
-                                ref: null,
-                                props: {
-                                    children: "List",
-                                    href: "#jw-list",
-                                    "data-toggle": "tab"
-                                },
-                                _owner: null
-                            }
-                        },
-                        _owner: null
-                    }, ";", tabMap, tabBlog],
-                    className: "nav nav-tabs"
-                },
-                _owner: null
-            };
+  if (blog) {
+    tabBlog = {
+      $$typeof: _typeofReactElement,
+      type: "li",
+      key: "tb",
+      ref: null,
+      props: {
+        children: {
+          $$typeof: _typeofReactElement,
+          type: "a",
+          key: null,
+          ref: null,
+          props: {
+            children: "Blog",
+            href: blog.url,
+            target: "_blank"
+          },
+          _owner: null
         }
-    }]);
+      },
+      _owner: null
+    };
+  }
 
-    return Tabs;
-})(React.Component);
+  if (location && location.latlng.length === 2) {
+    tabMap = {
+      $$typeof: _typeofReactElement,
+      type: "li",
+      key: "tabmap",
+      ref: null,
+      props: {
+        children: {
+          $$typeof: _typeofReactElement,
+          type: "a",
+          key: null,
+          ref: null,
+          props: {
+            children: "Map",
+            href: "#jw-map",
+            "data-toggle": "tab"
+          },
+          _owner: null
+        }
+      },
+      _owner: null
+    };
+  }
 
-exports["default"] = Tabs;
-;
+  return {
+    $$typeof: _typeofReactElement,
+    type: "ul",
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: "li",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: "All Walks",
+              href: "#jw-cards",
+              className: "active",
+              "data-toggle": "tab"
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "li",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: "List",
+              href: "#jw-list",
+              "data-toggle": "tab"
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }, tabMap, tabBlog],
+      className: "nav nav-tabs"
+    },
+    _owner: null
+  };
+};
+
 module.exports = exports["default"];
 
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -579,7 +605,7 @@ function getThemeIcon(theme) {
 }
 
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * The cards showing your walk
  */
@@ -593,7 +619,7 @@ var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbo
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
@@ -935,7 +961,7 @@ var Card = (function (_React$Component2) {
 module.exports = exports['default'];
 
 
-},{"./Themes.js":4}],6:[function(require,module,exports){
+},{"./Themes.js":5}],7:[function(require,module,exports){
 /**
  * Filters, lists, maps, the whole shebang
  */
@@ -949,7 +975,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
@@ -1386,7 +1412,7 @@ exports['default'] = WalkFilter;
 module.exports = exports['default'];
 
 
-},{"./DateRange.jsx":1,"./LocationMap.jsx":2,"./Tabs.jsx":3,"./WalkCards.jsx":5,"./WalkList.jsx":7}],7:[function(require,module,exports){
+},{"./DateRange.jsx":2,"./LocationMap.jsx":3,"./Tabs.jsx":4,"./WalkCards.jsx":6,"./WalkList.jsx":8}],8:[function(require,module,exports){
 /**
  * The list of walks to order
  */
@@ -1399,7 +1425,7 @@ Object.defineProperty(exports, '__esModule', {
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
@@ -1630,57 +1656,4 @@ var ListItem = (function (_React$Component) {
 module.exports = exports['default'];
 
 
-},{}],8:[function(require,module,exports){
-/**
- * A set of walk filters, to filter on properties. Also includes
- * the tabs, like 'list' and 'map/
- */
-
-'use strict';
-
-var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
-
-var _LocationMapJsx = require('./LocationMap.jsx');
-
-var _LocationMapJsx2 = _interopRequireDefault(_LocationMapJsx);
-
-var _WalkFilterJsx = require('./WalkFilter.jsx');
-
-var _WalkFilterJsx2 = _interopRequireDefault(_WalkFilterJsx);
-
-var _walks = undefined;
-var _location = undefined;
-var _cities = undefined;
-
-JanesWalk.event.on('walks.receive', function (walks, props) {
-  _walks = walks;
-  React.render({
-    $$typeof: _typeofReactElement,
-    type: _WalkFilterJsx2['default'],
-    key: null,
-    ref: null,
-    props: _defaultProps(_WalkFilterJsx2['default'].defaultProps, {
-      walks: walks,
-      filters: props.filters,
-      location: _location
-    }),
-    _owner: null
-  }, document.getElementById('janeswalk-walk-filters'));
-});
-
-JanesWalk.event.on('city.receive', function (city) {
-  return _location = city;
-});
-JanesWalk.event.on('country.receive', function (country) {
-  return _location = country;
-});
-JanesWalk.event.on('country.cities', function (cities) {
-  return _cities = cities;
-});
-
-
-},{"./LocationMap.jsx":2,"./WalkFilter.jsx":6}]},{},[8]);
+},{}]},{},[1]);
