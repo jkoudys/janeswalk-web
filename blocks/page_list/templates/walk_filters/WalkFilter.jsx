@@ -3,8 +3,9 @@
  */
 import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
-import CityMap from './CityMap.jsx';
+import LocationMap from './LocationMap.jsx'; //TODO: Change name of CityMap.jsx to to LocationMap.jsx
 import DateRange from './DateRange.jsx';
+import Tabs from './Tabs.jsx';
 
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
@@ -53,6 +54,9 @@ function thirdRecentDate(walks) {
   return null;
 }
 
+//"cityID":258,
+//
+
 const Filter = ({name, key, selected, setFilter, data}) => (
   <li>
     <label>{name}</label>
@@ -74,7 +78,8 @@ export default class WalkFilter extends React.Component {
     super(props);
     this.state = {
       walks: props.walks || [],
-      city: props.city,
+      location: props.location,
+      cities: props.cities, //REFACTOR: Anyway to add this to filters, so filters.cities ?
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -84,8 +89,17 @@ export default class WalkFilter extends React.Component {
     JanesWalk.event.on('walks.receive', (walks, props) => {
       this.setState({walks: walks, filters: props.filters}, this.handleFilters);
     });
-    JanesWalk.event.on('city.receive', city => this.setState({city: city}));
+
+    JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
+    JanesWalk.event.on('country.receive', country => this.setState({location: country}));
+    JanesWalk.event.on('country.cities', cities => {
+      let filtersObj = this.state.filters;
+
+      filtersObj.cities = cities || {};
+
+      this.setState({filters: filtersObj})
+    }); //TODO: Test if this actually works
   }
 
   setFilter(filter, val) {
@@ -93,6 +107,12 @@ export default class WalkFilter extends React.Component {
     filters[filter].selected = val;
     this.setState({filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange)});
   }
+
+  //setCityFilter(filter, val) { //REFACTORed into filters, need to test
+  //  const cities = this.state.cities;
+  //  cities[filter].selected = val;
+  //  this.setState({cities, filterMatches: filterWalks(this.state.walks, cities, this.state.dateRange)});
+  //}
 
   setDateRange(from, to) {
     this.setState({dateRange: [from, to], filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to])});
@@ -109,25 +129,22 @@ export default class WalkFilter extends React.Component {
   }
 
   render() {
-    let tabMap;
-    let tabBlog;
-    let cityMapSection;
+    let locationMapSection;
+    let CitiesFilter;
 
     const Filters = Object.keys(this.state.filters).map(
       key => <Filter key={key} {...this.state.filters[key]} setFilter={(k, v) => this.setFilter(k, v)} />
     );
 
-    // See if this city has a location set
-    if (this.state.city && this.state.city.latlng.length === 2) {
-      tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
-      cityMapSection = <section className="tab-pane" id="jw-map">
-        <CityMap walks={this.state.filterMatches} city={this.state.city} />
-      </section>
+    if(this.state.cities){
+      CitiesFilter = Object.keys(this.state.filters.cities).map(key => <Filter key={key} {...this.state.filters.cities[key]} setFilter={(k, v) => this.setFilter(k, v)} />)
     }
 
-    // Blog link, if we have one
-    if (this.state.blog) {
-      tabBlog = <li key="tb"><a href={this.state.blog.url} target="_blank">Blog</a></li>;
+    // See if this city has a location set
+    if (this.state.location && this.state.location.latlng.length === 2) {
+      locationMapSection = <section className="tab-pane" id="jw-map">
+        <LocationMap walks={this.state.filterMatches} city={this.state.location} />
+      </section>
     }
 
     return (
@@ -136,17 +153,15 @@ export default class WalkFilter extends React.Component {
           <a className="print-button" onClick={() => this.printList()}><i className="fa fa-print" /> Print List</a>
           <ul className="filters">
             {Filters}
+            {CitiesFilter}
             <li>
               <label>Dates</label>
               <DateRange value={this.state.dateRange} onChange={this.setDateRange.bind(this)} />
             </li>
           </ul>
-          <ul className="nav nav-tabs">
-            <li><a href="#jw-cards" className="active" data-toggle="tab">All Walks</a></li>
-            <li><a href="#jw-list" data-toggle="tab">List</a></li>
-            {tabMap}
-            {tabBlog}
-          </ul>
+          <div>
+            <Tabs blog={this.state.blog} location={this.state.location}/>
+          </div>
           <div className="tab-content">
             <section className="tab-pane active" id="jw-cards">
               <WalkCards walks={this.state.filterMatches} />
@@ -154,7 +169,7 @@ export default class WalkFilter extends React.Component {
             <section className="tab-pane" id="jw-list">
               <WalkList walks={this.state.filterMatches} />
             </section>
-            {cityMapSection}
+            {locationMapSection}
           </div>
         </div>
       </section>

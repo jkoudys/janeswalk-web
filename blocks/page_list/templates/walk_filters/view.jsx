@@ -3,21 +3,21 @@
  * the tabs, like 'list' and 'map/
  */
 
-import CityMap from './CityMap.jsx';
+import LocationMap from './LocationMap.jsx';
 import WalkFilter from './WalkFilter.jsx';
 
 let _walks;
-let _city;
+let _location;
+let _cities;
 
 JanesWalk.event.on('walks.receive', function(walks, props) {
   _walks = walks;
   React.render(
-    <WalkFilter walks={walks} filters={props.filters} city={_city} />,
+    <WalkFilter walks={walks} filters={props.filters} location={_location} />,
     document.getElementById('janeswalk-walk-filters')
   );
 });
 
-
-JanesWalk.event.on('city.receive', function(city) {
-  _city = city;
-});
+JanesWalk.event.on('city.receive', city =>  _location = city);
+JanesWalk.event.on('country.receive', country => _location = country);
+JanesWalk.event.on('country.cities', cities => _cities = cities);

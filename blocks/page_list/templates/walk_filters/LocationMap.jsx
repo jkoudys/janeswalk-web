@@ -121,11 +121,11 @@ export default class CityMap extends React.Component {
   }
 
   componentDidMount() {
-    const cityLatLng = new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]);
+    const locationLatLng = new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]);
 
     // Setup map
     const map = new google.maps.Map(React.findDOMNode(this), {
-      center: cityLatLng,
+      center: locationLatLng,
       zoom: 8,
       backgroundColor: '#d7f0fa'
     });
@@ -133,7 +133,7 @@ export default class CityMap extends React.Component {
     // Play nice with bootstrap tabs
     $('a[href="#jw-map"]').on('shown.bs.tab', function(e) {
       google.maps.event.trigger(map, 'resize');
-      map.setCenter(cityLatLng);
+      map.setCenter(locationLatLng);
     });
 
     // Add our markers to the empty map
