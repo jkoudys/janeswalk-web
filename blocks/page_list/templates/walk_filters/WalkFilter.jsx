@@ -74,7 +74,7 @@ export default class WalkFilter extends React.Component {
     super(props);
     this.state = {
       walks: props.walks || [],
-      city: props.city,
+      location: props.location,
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -84,8 +84,9 @@ export default class WalkFilter extends React.Component {
     JanesWalk.event.on('walks.receive', (walks, props) => {
       this.setState({walks: walks, filters: props.filters}, this.handleFilters);
     });
-    JanesWalk.event.on('city.receive', city => this.setState({city: city}));
+    JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
+    JanesWalk.event.on('country.receive', country => this.setState({location: country}));
   }
 
   setFilter(filter, val) {
@@ -118,10 +119,10 @@ export default class WalkFilter extends React.Component {
     );
 
     // See if this city has a location set
-    if (this.state.city && this.state.city.latlng.length === 2) {
+    if (this.state.location && this.state.location.latlng.length === 2) {
       tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
       cityMapSection = <section className="tab-pane" id="jw-map">
-        <CityMap walks={this.state.filterMatches} city={this.state.city} />
+        <CityMap walks={this.state.filterMatches} city={this.state.location} />
       </section>
     }
 
