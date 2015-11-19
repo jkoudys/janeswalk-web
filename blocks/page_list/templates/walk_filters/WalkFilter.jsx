@@ -79,7 +79,7 @@ export default class WalkFilter extends React.Component {
     this.state = {
       walks: props.walks || [],
       location: props.location,
-      cities:props.cities,
+      cities:props.cities, //REFACTOR: Anyway to add this to filters, so filters.cities ?
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -93,7 +93,7 @@ export default class WalkFilter extends React.Component {
     JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
     JanesWalk.event.on('country.receive', country => this.setState({location: country}));
-    JanesWalk.event.on('country.cities', cities => this.setState({cities: cities}));
+    JanesWalk.event.on('country.cities', cities => this.setState({filters['cities']: cities})); //TODO: Test if this actually works
   }
 
   setFilter(filter, val) {
@@ -101,6 +101,12 @@ export default class WalkFilter extends React.Component {
     filters[filter].selected = val;
     this.setState({filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange)});
   }
+
+  //setCityFilter(filter, val) { //REFACTORed into filters, need to test
+  //  const cities = this.state.cities;
+  //  cities[filter].selected = val;
+  //  this.setState({cities, filterMatches: filterWalks(this.state.walks, cities, this.state.dateRange)});
+  //}
 
   setDateRange(from, to) {
     this.setState({dateRange: [from, to], filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to])});
@@ -118,10 +124,15 @@ export default class WalkFilter extends React.Component {
 
   render() {
     let locationMapSection;
+    let CitiesFilter;
 
     const Filters = Object.keys(this.state.filters).map(
       key => <Filter key={key} {...this.state.filters[key]} setFilter={(k, v) => this.setFilter(k, v)} />
     );
+
+    if(this.state.cities){
+      CitiesFilter = Object.keys(this.state.filters.cities).map(key => <Filter key={key} {...this.state.filters.cities[key]} setFilter={(k, v) => this.setFilter(k, v)} />
+    }
 
     // See if this city has a location set
     if (this.state.location && this.state.location.latlng.length === 2) {
@@ -136,6 +147,7 @@ export default class WalkFilter extends React.Component {
           <a className="print-button" onClick={() => this.printList()}><i className="fa fa-print" /> Print List</a>
           <ul className="filters">
             {Filters}
+            {CitiesFilter}
             <li>
               <label>Dates</label>
               <DateRange value={this.state.dateRange} onChange={this.setDateRange.bind(this)} />
