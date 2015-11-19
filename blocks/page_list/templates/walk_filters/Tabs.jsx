@@ -1,4 +1,4 @@
-default export class Tabs extends React.Component{
+export default class Tabs extends React.Component{
     constructor(props){
         super(props);
     }

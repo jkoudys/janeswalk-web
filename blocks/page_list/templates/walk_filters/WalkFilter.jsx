@@ -3,7 +3,7 @@
  */
 import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
-import CityMap from './CityMap.jsx';
+import LocationMap from './CityMap.jsx'; //TODO: Change name of CityMap
 import DateRange from './DateRange.jsx';
 import Tabs from './Tab.jsx';
 
@@ -111,9 +111,7 @@ export default class WalkFilter extends React.Component {
   }
 
   render() {
-    let tabMap;
-    let tabBlog;
-    let cityMapSection;
+    let locationMapSection;
 
     const Filters = Object.keys(this.state.filters).map(
       key => <Filter key={key} {...this.state.filters[key]} setFilter={(k, v) => this.setFilter(k, v)} />
@@ -121,15 +119,9 @@ export default class WalkFilter extends React.Component {
 
     // See if this city has a location set
     if (this.state.location && this.state.location.latlng.length === 2) {
-      tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
-      cityMapSection = <section className="tab-pane" id="jw-map">
-        <CityMap walks={this.state.filterMatches} city={this.state.location} />
+      locationMapSection = <section className="tab-pane" id="jw-map">
+        <LocationMap walks={this.state.filterMatches} city={this.state.location} />
       </section>
-    }
-
-    // Blog link, if we have one
-    if (this.state.blog) {
-      tabBlog = <li key="tb"><a href={this.state.blog.url} target="_blank">Blog</a></li>;
     }
 
     return (
@@ -153,7 +145,7 @@ export default class WalkFilter extends React.Component {
             <section className="tab-pane" id="jw-list">
               <WalkList walks={this.state.filterMatches} />
             </section>
-            {cityMapSection}
+            {locationMapSection}
           </div>
         </div>
       </section>
