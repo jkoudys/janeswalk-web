@@ -11,7 +11,7 @@ default export class Tabs extends React.Component{
         if(this.props.blog)
             tabBlog = <li key="tb"><a href={this.props.blog} target="_blank">Blog</a></li>;
 
-        if(this.props.showMap){
+        if(this.props.location && this.props.location.latlng.length === 2){
             tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
         }
 

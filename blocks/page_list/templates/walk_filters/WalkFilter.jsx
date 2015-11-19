@@ -144,7 +144,7 @@ export default class WalkFilter extends React.Component {
             </li>
           </ul>
           <div>
-            <Tabs blog={this.state.blog} showMap={showMap} location={this.state.location}/>
+            <Tabs blog={this.state.blog} location={this.state.location}/>
           </div>
           <div className="tab-content">
             <section className="tab-pane active" id="jw-cards">
