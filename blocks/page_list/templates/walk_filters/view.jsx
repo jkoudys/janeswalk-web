@@ -8,6 +8,7 @@ import WalkFilter from './WalkFilter.jsx';
 
 let _walks;
 let _location;
+let _cities;
 
 JanesWalk.event.on('walks.receive', function(walks, props) {
   _walks = walks;
@@ -18,10 +19,8 @@ JanesWalk.event.on('walks.receive', function(walks, props) {
 });
 
 
-JanesWalk.event.on('city.receive', function(city) {
-  _location = city;
-});
+JanesWalk.event.on('city.receive', city =>  _location = city);
 
-JanesWalk.event.on('country.receive', function(country) {
-  _location = country;
-});
+JanesWalk.event.on('country.receive', country => _location = country);
+
+JanesWalk.event.on('country.cities', cities => _cities = cities);

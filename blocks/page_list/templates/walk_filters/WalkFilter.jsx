@@ -54,6 +54,9 @@ function thirdRecentDate(walks) {
   return null;
 }
 
+//"cityID":258,
+//
+
 const Filter = ({name, key, selected, setFilter, data}) => (
   <li>
     <label>{name}</label>
@@ -76,6 +79,7 @@ export default class WalkFilter extends React.Component {
     this.state = {
       walks: props.walks || [],
       location: props.location,
+      cities:props.cities,
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -85,9 +89,11 @@ export default class WalkFilter extends React.Component {
     JanesWalk.event.on('walks.receive', (walks, props) => {
       this.setState({walks: walks, filters: props.filters}, this.handleFilters);
     });
+
     JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
     JanesWalk.event.on('country.receive', country => this.setState({location: country}));
+    JanesWalk.event.on('country.cities', cities => this.setState({cities: cities}));
   }
 
   setFilter(filter, val) {
