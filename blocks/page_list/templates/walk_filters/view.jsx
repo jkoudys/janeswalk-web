@@ -13,11 +13,10 @@ let _cities;
 JanesWalk.event.on('walks.receive', function(walks, props) {
   _walks = walks;
   React.render(
-      <WalkFilter walks={walks} filters={props.filters} location={_location} />,
-      document.getElementById('janeswalk-walk-filters')
+    <WalkFilter walks={walks} filters={props.filters} location={_location} />,
+    document.getElementById('janeswalk-walk-filters')
   );
 });
-
 
 JanesWalk.event.on('city.receive', city =>  _location = city);
 JanesWalk.event.on('country.receive', country => _location = country);

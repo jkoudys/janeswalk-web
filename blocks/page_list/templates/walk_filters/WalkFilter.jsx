@@ -5,7 +5,7 @@ import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
 import LocationMap from './LocationMap.jsx'; //TODO: Change name of CityMap.jsx to to LocationMap.jsx
 import DateRange from './DateRange.jsx';
-import Tabs from './Tab.jsx';
+import Tabs from './Tabs.jsx';
 
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
@@ -79,7 +79,7 @@ export default class WalkFilter extends React.Component {
     this.state = {
       walks: props.walks || [],
       location: props.location,
-      cities:props.cities, //REFACTOR: Anyway to add this to filters, so filters.cities ?
+      cities: props.cities, //REFACTOR: Anyway to add this to filters, so filters.cities ?
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -93,7 +93,13 @@ export default class WalkFilter extends React.Component {
     JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
     JanesWalk.event.on('country.receive', country => this.setState({location: country}));
-    JanesWalk.event.on('country.cities', cities => this.setState({filters['cities']: cities})); //TODO: Test if this actually works
+    JanesWalk.event.on('country.cities', cities => {
+      let filtersObj = this.state.filters;
+
+      filtersObj.cities = cities || {};
+
+      this.setState({filters: filtersObj})
+    }); //TODO: Test if this actually works
   }
 
   setFilter(filter, val) {
@@ -131,7 +137,7 @@ export default class WalkFilter extends React.Component {
     );
 
     if(this.state.cities){
-      CitiesFilter = Object.keys(this.state.filters.cities).map(key => <Filter key={key} {...this.state.filters.cities[key]} setFilter={(k, v) => this.setFilter(k, v)} />
+      CitiesFilter = Object.keys(this.state.filters.cities).map(key => <Filter key={key} {...this.state.filters.cities[key]} setFilter={(k, v) => this.setFilter(k, v)} />)
     }
 
     // See if this city has a location set
