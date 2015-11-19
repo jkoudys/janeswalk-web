@@ -22,7 +22,6 @@ var _WalkFilterJsx2 = _interopRequireDefault(_WalkFilterJsx);
 
 var _walks = undefined;
 var _location = undefined;
-var _cities = undefined;
 
 JanesWalk.event.on('walks.receive', function (walks, props) {
   _walks = walks;
@@ -45,9 +44,6 @@ JanesWalk.event.on('city.receive', function (city) {
 });
 JanesWalk.event.on('country.receive', function (country) {
   return _location = country;
-});
-JanesWalk.event.on('country.cities', function (cities) {
-  return _cities = cities;
 });
 
 
@@ -231,9 +227,9 @@ function addNewMarkersToMap(markers, walks, map) {
     } else {
       // We must build a marker
       // Walk location is meeting place coords
-      if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
+      if (walk.map && Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
         latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
-      } else if (Array.isArray(walk.map.route) && walk.map.route.length > 0) {
+      } else if (walk.map && Array.isArray(walk.map.route) && walk.map.route.length > 0) {
         latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
       }
 
@@ -324,12 +320,16 @@ var CityMap = (function (_React$Component) {
   _createClass(CityMap, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var locationLatLng = new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]);
+      var _props$location = this.props.location;
+      var zoomlevel = _props$location.zoomlevel;
+      var latlng = _props$location.latlng;
+
+      var locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
 
       // Setup map
       var map = new google.maps.Map(React.findDOMNode(this), {
         center: locationLatLng,
-        zoom: 8,
+        zoom: zoomlevel || 8,
         backgroundColor: '#d7f0fa'
       });
 
@@ -474,7 +474,7 @@ exports["default"] = function (_ref) {
     tabMap = {
       $$typeof: _typeofReactElement,
       type: "li",
-      key: "tabmap",
+      key: "maptab",
       ref: null,
       props: {
         children: {
@@ -800,7 +800,7 @@ var Card = (function (_React$Component2) {
       }
 
       /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-      if (walk.map.markers && walk.map.markers.length) {
+      if (walk.map && walk.map.markers && walk.map.markers.length) {
         Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
       }
 
@@ -999,8 +999,6 @@ var _LocationMapJsx = require('./LocationMap.jsx');
 
 var _LocationMapJsx2 = _interopRequireDefault(_LocationMapJsx);
 
-//TODO: Change name of CityMap.jsx to to LocationMap.jsx
-
 var _DateRangeJsx = require('./DateRange.jsx');
 
 var _DateRangeJsx2 = _interopRequireDefault(_DateRangeJsx);
@@ -1028,7 +1026,11 @@ function filterWalks(walks, filters, dr) {
       time = walk.time.slots[0][0] * 1000;
     }
     // TODO: cleanup and perf test
-    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
+    // Filter by checking that the filter doesn't match the walk
+    // Note that this would be a lot cleaner using functions, but it's
+    // built with a big set of basic boolean operators to speed it up
+    // along this likely bottleneck
+    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || filters.city && filters.city.selected && walk.cityID != filters.city.selected || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
       return false;
     }
     return true;
@@ -1134,7 +1136,6 @@ var WalkFilter = (function (_React$Component) {
     this.state = {
       walks: props.walks || [],
       location: props.location,
-      cities: props.cities, //REFACTOR: Anyway to add this to filters, so filters.cities ?
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -1154,13 +1155,6 @@ var WalkFilter = (function (_React$Component) {
     JanesWalk.event.on('country.receive', function (country) {
       return _this.setState({ location: country });
     });
-    JanesWalk.event.on('country.cities', function (cities) {
-      var filtersObj = _this.state.filters;
-
-      filtersObj.cities = cities || {};
-
-      _this.setState({ filters: filtersObj });
-    }); //TODO: Test if this actually works
   }
 
   _createClass(WalkFilter, [{
@@ -1174,13 +1168,6 @@ var WalkFilter = (function (_React$Component) {
       filters[filter].selected = val;
       this.setState({ filters: filters, filterMatches: filterWalks(walks, filters, dateRange) });
     }
-
-    //setCityFilter(filter, val) { //REFACTORed into filters, need to test
-    //  const cities = this.state.cities;
-    //  cities[filter].selected = val;
-    //  this.setState({cities, filterMatches: filterWalks(this.state.walks, cities, this.state.dateRange)});
-    //}
-
   }, {
     key: 'setDateRange',
     value: function setDateRange(from, to) {
@@ -1220,14 +1207,6 @@ var WalkFilter = (function (_React$Component) {
           } }));
       });
 
-      if (this.state.cities) {
-        CitiesFilter = Object.keys(this.state.filters.cities).map(function (key) {
-          return React.createElement(Filter, _extends({ key: key }, _this2.state.filters.cities[key], { setFilter: function (v) {
-              return _this2.setFilter(key, v);
-            } }));
-        });
-      }
-
       // See if this city has a location set
       if (this.state.location && this.state.location.latlng.length === 2) {
         locationMapSection = {
@@ -1243,7 +1222,7 @@ var WalkFilter = (function (_React$Component) {
               ref: null,
               props: _defaultProps(_LocationMapJsx2['default'].defaultProps, {
                 walks: this.state.filterMatches,
-                city: this.state.location
+                location: this.state.location
               }),
               _owner: null
             },
@@ -1588,7 +1567,7 @@ var ListItem = (function (_React$Component) {
       var walk = this.props.walk;
 
       /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-      if (walk.map.markers && walk.map.markers.length) {
+      if (walk.map && walk.map.markers && walk.map.markers.length) {
         Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
       }
 

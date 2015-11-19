@@ -7,7 +7,7 @@ export default ({blog, location}) => {
   }
 
   if (location && location.latlng.length === 2) {
-    tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
+    tabMap = <li key="maptab"><a href="#jw-map" data-toggle="tab">Map</a></li>;
   }
 
   return (

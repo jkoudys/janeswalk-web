@@ -54,9 +54,9 @@ function addNewMarkersToMap(markers, walks, map) {
     } else {
       // We must build a marker
       // Walk location is meeting place coords
-      if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
+      if (walk.map && Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
         latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
-      } else if (Array.isArray(walk.map.route) && walk.map.route.length > 0) {
+      } else if (walk.map && Array.isArray(walk.map.route) && walk.map.route.length > 0) {
         latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
       }
 
@@ -121,12 +121,13 @@ export default class CityMap extends React.Component {
   }
 
   componentDidMount() {
-    const locationLatLng = new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]);
+    const {zoomlevel, latlng} = this.props.location;
+    const locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
 
     // Setup map
     const map = new google.maps.Map(React.findDOMNode(this), {
       center: locationLatLng,
-      zoom: 8,
+      zoom: zoomlevel || 8,
       backgroundColor: '#d7f0fa'
     });
 
