@@ -12,16 +12,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
-var _CityMapJsx = require('./CityMap.jsx');
+var _LocationMapJsx = require('./LocationMap.jsx');
 
-var _CityMapJsx2 = _interopRequireDefault(_CityMapJsx);
+var _LocationMapJsx2 = _interopRequireDefault(_LocationMapJsx);
 
 var _WalkFilterJsx = require('./WalkFilter.jsx');
 
 var _WalkFilterJsx2 = _interopRequireDefault(_WalkFilterJsx);
 
 var _walks = undefined;
-var _city = undefined;
+var _location = undefined;
 
 JanesWalk.event.on('walks.receive', function (walks, props) {
   _walks = walks;
@@ -33,291 +33,21 @@ JanesWalk.event.on('walks.receive', function (walks, props) {
     props: _defaultProps(_WalkFilterJsx2['default'].defaultProps, {
       walks: walks,
       filters: props.filters,
-      city: _city
+      location: _location
     }),
     _owner: null
   }, document.getElementById('janeswalk-walk-filters'));
 });
 
 JanesWalk.event.on('city.receive', function (city) {
-  _city = city;
+  return _location = city;
+});
+JanesWalk.event.on('country.receive', function (country) {
+  return _location = country;
 });
 
 
-},{"./CityMap.jsx":2,"./WalkFilter.jsx":6}],2:[function(require,module,exports){
-/**
- * The map of upcoming walks for a whole city
- */
-
-// Helper to see if a member is a walk leader
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function isWalkLeader(member) {
-  // Check if their role contains leader, or their type does
-  return member.role && member.role.indexOf('leader') > -1 || member.type && member.type.indexOf('leader') > -1;
-}
-
-// Date formatter
-var dtfDate = new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
-var _infoNode = document.createElement('div');
-
-/**
- * Loop through the first set of markers, and see which in the update need to be
- * displayed.
- *
- * @param object markers The currently rendered markers
- * @param array walks The walks we want to render markers for
- * @param google.maps.Map map The google map to render to
- * @return object updated set of markers
- */
-function addNewMarkersToMap(markers, walks, map) {
-  // TODO: see how to move these consts out of the function, since
-  // they need to be here so google can load first
-  // Basic info window
-  var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
-
-  // Simple map marker icon
-  var icon = {
-    path: google.maps.SymbolPath.CIRCLE,
-    scale: 7,
-    strokeWeight: 1,
-    strokeColor: '#f16725',
-    fillOpacity: 0.7,
-    fillColor: '#f16725'
-  };
-
-  // Clean out the markers before we put them back in
-  for (var k in markers) {
-    markers[k].setMap(null);
-  }
-
-  // Grab starting point of each walk
-  walks.forEach(function (walk) {
-    var latlng = undefined;
-    var marker = undefined;
-
-    if (markers[walk.id]) {
-      // We already have this marker built, so simply add it to the map
-      markers[walk.id].setMap(map);
-    } else {
-      // We must build a marker
-      // Walk location is meeting place coords
-      if (Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
-        latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
-      } else if (Array.isArray(walk.map.route) && walk.map.route.length > 0) {
-        latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
-      }
-
-      // Add the marker
-      marker = new google.maps.Marker({
-        position: latlng,
-        title: walk.title,
-        icon: icon,
-        map: map
-      });
-
-      markers[walk.id] = marker;
-
-      google.maps.event.addListener(marker, 'click', function () {
-        var leaders = undefined;
-        var date = undefined;
-
-        // Build the team list of walk leaders
-        if (Array.isArray(walk.team)) {
-          leaders = walk.team.filter(function (member) {
-            return isWalkLeader(member);
-          }).map(function (member) {
-            return member['name-first'] + ' ' + member['name-last'];
-          });
-        }
-
-        // Best-effort grab of the time
-        try {
-          // Show all dates joined together
-          date = {
-            $$typeof: _typeofReactElement,
-            type: 'h6',
-            key: null,
-            ref: null,
-            props: {
-              children: [{
-                $$typeof: _typeofReactElement,
-                type: 'i',
-                key: null,
-                ref: null,
-                props: {
-                  className: 'fa fa-calendar'
-                },
-                _owner: null
-              }, ' ', walk.time.slots.map(function (slot) {
-                return dtfDate.format(slot[0] * 1000);
-              }).join(', ')]
-            },
-            _owner: null
-          };
-        } catch (e) {
-          // Just log this, but don't die
-          console.error('Failed to parse walk time.');
-        }
-
-        // Setup infowindow
-        React.render(React.createElement(InfoWindow, _extends({
-          key: walk.id
-        }, Object.assign({}, walk, { date: date, leaders: leaders }))), _infoNode);
-
-        // Center the marker and display its info window
-        infoWindow.setMap(map);
-        map.panTo(marker.getPosition());
-        infoWindow.setContent(_infoNode);
-        infoWindow.open(map, marker);
-      });
-    }
-  });
-
-  return markers;
-}
-
-var CityMap = (function (_React$Component) {
-  _inherits(CityMap, _React$Component);
-
-  function CityMap() {
-    _classCallCheck(this, CityMap);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    _get(Object.getPrototypeOf(CityMap.prototype), 'constructor', this).apply(this, args);
-
-    this.state = { map: null, markers: {} };
-  }
-
-  _createClass(CityMap, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      var cityLatLng = new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]);
-
-      // Setup map
-      var map = new google.maps.Map(React.findDOMNode(this), {
-        center: cityLatLng,
-        zoom: 8,
-        backgroundColor: '#d7f0fa'
-      });
-
-      // Play nice with bootstrap tabs
-      $('a[href="#jw-map"]').on('shown.bs.tab', function (e) {
-        google.maps.event.trigger(map, 'resize');
-        map.setCenter(cityLatLng);
-      });
-
-      // Add our markers to the empty map
-      var newMarkers = addNewMarkersToMap({}, this.props.walks, map);
-      this.setState({ map: map, markers: newMarkers });
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(props) {
-      var newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
-      this.setState({ markers: newMarkers });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return {
-        $$typeof: _typeofReactElement,
-        type: 'div',
-        key: null,
-        ref: null,
-        props: {
-          className: 'cityMap',
-          style: { width: '100%', height: '600px' }
-        },
-        _owner: null
-      };
-    }
-  }]);
-
-  return CityMap;
-})(React.Component);
-
-exports['default'] = CityMap;
-
-var InfoWindow = function InfoWindow(_ref) {
-  var title = _ref.title;
-  var url = _ref.url;
-  var date = _ref.date;
-  var shortDescription = _ref.shortDescription;
-  var leaders = _ref.leaders;
-  return {
-    $$typeof: _typeofReactElement,
-    type: 'span',
-    key: null,
-    ref: null,
-    props: {
-      children: [{
-        $$typeof: _typeofReactElement,
-        type: 'h4',
-        key: null,
-        ref: null,
-        props: {
-          children: title,
-          style: { marginBottom: '0.1em' }
-        },
-        _owner: null
-      }, date, {
-        $$typeof: _typeofReactElement,
-        type: 'h6',
-        key: null,
-        ref: null,
-        props: {
-          children: ['Led by: ', leaders.join(', ')]
-        },
-        _owner: null
-      }, {
-        $$typeof: _typeofReactElement,
-        type: 'p',
-        key: null,
-        ref: null,
-        props: {
-          children: [shortDescription, ' ', {
-            $$typeof: _typeofReactElement,
-            type: 'a',
-            key: null,
-            ref: null,
-            props: {
-              children: 'Read More',
-              href: url,
-              target: '_blank'
-            },
-            _owner: null
-          }]
-        },
-        _owner: null
-      }]
-    },
-    _owner: null
-  };
-};
-module.exports = exports['default'];
-
-
-},{}],3:[function(require,module,exports){
+},{"./LocationMap.jsx":3,"./WalkFilter.jsx":7}],2:[function(require,module,exports){
 /**
  * Date Range
  * a jQueryUI based React component for picking a to/from date range
@@ -423,7 +153,405 @@ exports['default'] = DateRange;
 module.exports = exports['default'];
 
 
+},{}],3:[function(require,module,exports){
+/**
+ * The map of upcoming walks for a whole city
+ */
+
+// Helper to see if a member is a walk leader
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function isWalkLeader(member) {
+  // Check if their role contains leader, or their type does
+  return member.role && member.role.indexOf('leader') > -1 || member.type && member.type.indexOf('leader') > -1;
+}
+
+// Date formatter
+var dtfDate = new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
+var _infoNode = document.createElement('div');
+
+/**
+ * Loop through the first set of markers, and see which in the update need to be
+ * displayed.
+ *
+ * @param object markers The currently rendered markers
+ * @param array walks The walks we want to render markers for
+ * @param google.maps.Map map The google map to render to
+ * @return object updated set of markers
+ */
+function addNewMarkersToMap(markers, walks, map) {
+  // TODO: see how to move these consts out of the function, since
+  // they need to be here so google can load first
+  // Basic info window
+  var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
+
+  // Simple map marker icon
+  var icon = {
+    path: google.maps.SymbolPath.CIRCLE,
+    scale: 7,
+    strokeWeight: 1,
+    strokeColor: '#f16725',
+    fillOpacity: 0.7,
+    fillColor: '#f16725'
+  };
+
+  // Clean out the markers before we put them back in
+  for (var k in markers) {
+    markers[k].setMap(null);
+  }
+
+  // Grab starting point of each walk
+  walks.forEach(function (walk) {
+    var latlng = undefined;
+    var marker = undefined;
+
+    if (markers[walk.id]) {
+      // We already have this marker built, so simply add it to the map
+      markers[walk.id].setMap(map);
+    } else {
+      // We must build a marker
+      // Walk location is meeting place coords
+      if (walk.map && Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
+        latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
+      } else if (walk.map && Array.isArray(walk.map.route) && walk.map.route.length > 0) {
+        latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
+      }
+
+      // Add the marker
+      marker = new google.maps.Marker({
+        position: latlng,
+        title: walk.title,
+        icon: icon,
+        map: map
+      });
+
+      markers[walk.id] = marker;
+
+      google.maps.event.addListener(marker, 'click', function () {
+        var leaders = undefined;
+        var date = undefined;
+
+        // Build the team list of walk leaders
+        if (Array.isArray(walk.team)) {
+          leaders = walk.team.filter(function (member) {
+            return isWalkLeader(member);
+          }).map(function (member) {
+            return member['name-first'] + ' ' + member['name-last'];
+          });
+        }
+
+        // Best-effort grab of the time
+        try {
+          // Show all dates joined together
+          date = {
+            $$typeof: _typeofReactElement,
+            type: 'h6',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'i',
+                key: null,
+                ref: null,
+                props: {
+                  className: 'fa fa-calendar'
+                },
+                _owner: null
+              }, ' ', walk.time.slots.map(function (slot) {
+                return dtfDate.format(slot[0] * 1000);
+              }).join(', ')]
+            },
+            _owner: null
+          };
+        } catch (e) {
+          // Just log this, but don't die
+          console.error('Failed to parse walk time.');
+        }
+
+        // Setup infowindow
+        React.render(React.createElement(InfoWindow, _extends({
+          key: walk.id
+        }, Object.assign({}, walk, { date: date, leaders: leaders }))), _infoNode);
+
+        // Center the marker and display its info window
+        infoWindow.setMap(map);
+        map.panTo(marker.getPosition());
+        infoWindow.setContent(_infoNode);
+        infoWindow.open(map, marker);
+      });
+    }
+  });
+
+  return markers;
+}
+
+var CityMap = (function (_React$Component) {
+  _inherits(CityMap, _React$Component);
+
+  function CityMap() {
+    _classCallCheck(this, CityMap);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(CityMap.prototype), 'constructor', this).apply(this, args);
+
+    this.state = { map: null, markers: {} };
+  }
+
+  _createClass(CityMap, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _props$location = this.props.location;
+      var zoomlevel = _props$location.zoomlevel;
+      var latlng = _props$location.latlng;
+
+      var locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
+
+      // Setup map
+      var map = new google.maps.Map(React.findDOMNode(this), {
+        center: locationLatLng,
+        zoom: zoomlevel || 8,
+        backgroundColor: '#d7f0fa'
+      });
+
+      // Play nice with bootstrap tabs
+      $('a[href="#jw-map"]').on('shown.bs.tab', function (e) {
+        google.maps.event.trigger(map, 'resize');
+        map.setCenter(locationLatLng);
+      });
+
+      // Add our markers to the empty map
+      var newMarkers = addNewMarkersToMap({}, this.props.walks, map);
+      this.setState({ map: map, markers: newMarkers });
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(props) {
+      var newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
+      this.setState({ markers: newMarkers });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'div',
+        key: null,
+        ref: null,
+        props: {
+          className: 'cityMap',
+          style: { width: '100%', height: '600px' }
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return CityMap;
+})(React.Component);
+
+exports['default'] = CityMap;
+
+var InfoWindow = function InfoWindow(_ref) {
+  var title = _ref.title;
+  var url = _ref.url;
+  var date = _ref.date;
+  var shortDescription = _ref.shortDescription;
+  var leaders = _ref.leaders;
+  return {
+    $$typeof: _typeofReactElement,
+    type: 'span',
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: 'h4',
+        key: null,
+        ref: null,
+        props: {
+          children: title,
+          style: { marginBottom: '0.1em' }
+        },
+        _owner: null
+      }, date, {
+        $$typeof: _typeofReactElement,
+        type: 'h6',
+        key: null,
+        ref: null,
+        props: {
+          children: ['Led by: ', leaders.join(', ')]
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: 'p',
+        key: null,
+        ref: null,
+        props: {
+          children: [shortDescription, ' ', {
+            $$typeof: _typeofReactElement,
+            type: 'a',
+            key: null,
+            ref: null,
+            props: {
+              children: 'Read More',
+              href: url,
+              target: '_blank'
+            },
+            _owner: null
+          }]
+        },
+        _owner: null
+      }]
+    },
+    _owner: null
+  };
+};
+module.exports = exports['default'];
+
+
 },{}],4:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+
+exports["default"] = function (_ref) {
+  var blog = _ref.blog;
+  var location = _ref.location;
+
+  var tabBlog = undefined;
+  var tabMap = undefined;
+
+  if (blog) {
+    tabBlog = {
+      $$typeof: _typeofReactElement,
+      type: "li",
+      key: "tb",
+      ref: null,
+      props: {
+        children: {
+          $$typeof: _typeofReactElement,
+          type: "a",
+          key: null,
+          ref: null,
+          props: {
+            children: "Blog",
+            href: blog.url,
+            target: "_blank"
+          },
+          _owner: null
+        }
+      },
+      _owner: null
+    };
+  }
+
+  if (location && location.latlng.length === 2) {
+    tabMap = {
+      $$typeof: _typeofReactElement,
+      type: "li",
+      key: "maptab",
+      ref: null,
+      props: {
+        children: {
+          $$typeof: _typeofReactElement,
+          type: "a",
+          key: null,
+          ref: null,
+          props: {
+            children: "Map",
+            href: "#jw-map",
+            "data-toggle": "tab"
+          },
+          _owner: null
+        }
+      },
+      _owner: null
+    };
+  }
+
+  return {
+    $$typeof: _typeofReactElement,
+    type: "ul",
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: "li",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: "All Walks",
+              href: "#jw-cards",
+              className: "active",
+              "data-toggle": "tab"
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }, {
+        $$typeof: _typeofReactElement,
+        type: "li",
+        key: null,
+        ref: null,
+        props: {
+          children: {
+            $$typeof: _typeofReactElement,
+            type: "a",
+            key: null,
+            ref: null,
+            props: {
+              children: "List",
+              href: "#jw-list",
+              "data-toggle": "tab"
+            },
+            _owner: null
+          }
+        },
+        _owner: null
+      }, tabMap, tabBlog],
+      className: "nav nav-tabs"
+    },
+    _owner: null
+  };
+};
+
+module.exports = exports["default"];
+
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -477,7 +605,7 @@ function getThemeIcon(theme) {
 }
 
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 /**
  * The cards showing your walk
  */
@@ -672,7 +800,7 @@ var Card = (function (_React$Component2) {
       }
 
       /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-      if (walk.map.markers && walk.map.markers.length) {
+      if (walk.map && walk.map.markers && walk.map.markers.length) {
         Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
       }
 
@@ -833,7 +961,7 @@ var Card = (function (_React$Component2) {
 module.exports = exports['default'];
 
 
-},{"./Themes.js":4}],6:[function(require,module,exports){
+},{"./Themes.js":5}],7:[function(require,module,exports){
 /**
  * Filters, lists, maps, the whole shebang
  */
@@ -867,13 +995,17 @@ var _WalkListJsx = require('./WalkList.jsx');
 
 var _WalkListJsx2 = _interopRequireDefault(_WalkListJsx);
 
-var _CityMapJsx = require('./CityMap.jsx');
+var _LocationMapJsx = require('./LocationMap.jsx');
 
-var _CityMapJsx2 = _interopRequireDefault(_CityMapJsx);
+var _LocationMapJsx2 = _interopRequireDefault(_LocationMapJsx);
 
 var _DateRangeJsx = require('./DateRange.jsx');
 
 var _DateRangeJsx2 = _interopRequireDefault(_DateRangeJsx);
+
+var _TabsJsx = require('./Tabs.jsx');
+
+var _TabsJsx2 = _interopRequireDefault(_TabsJsx);
 
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
@@ -894,7 +1026,11 @@ function filterWalks(walks, filters, dr) {
       time = walk.time.slots[0][0] * 1000;
     }
     // TODO: cleanup and perf test
-    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
+    // Filter by checking that the filter doesn't match the walk
+    // Note that this would be a lot cleaner using functions, but it's
+    // built with a big set of basic boolean operators to speed it up
+    // along this likely bottleneck
+    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || filters.city && filters.city.selected && walk.cityID != filters.city.selected || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
       return false;
     }
     return true;
@@ -918,9 +1054,11 @@ function thirdRecentDate(walks) {
   return null;
 }
 
+//"cityID":258,
+//
+
 var Filter = function Filter(_ref) {
   var name = _ref.name;
-  var key = _ref.key;
   var selected = _ref.selected;
   var setFilter = _ref.setFilter;
   var data = _ref.data;
@@ -968,10 +1106,9 @@ var Filter = function Filter(_ref) {
               _owner: null
             };
           })],
-          name: key,
           value: selected,
           onChange: function (e) {
-            return setFilter(key, e.target.value);
+            return setFilter(e.target.value);
           }
         },
         _owner: null
@@ -998,7 +1135,7 @@ var WalkFilter = (function (_React$Component) {
     _get(Object.getPrototypeOf(WalkFilter.prototype), 'constructor', this).call(this, props);
     this.state = {
       walks: props.walks || [],
-      city: props.city,
+      location: props.location,
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -1008,20 +1145,28 @@ var WalkFilter = (function (_React$Component) {
     JanesWalk.event.on('walks.receive', function (walks, props) {
       _this.setState({ walks: walks, filters: props.filters }, _this.handleFilters);
     });
+
     JanesWalk.event.on('city.receive', function (city) {
-      return _this.setState({ city: city });
+      return _this.setState({ location: city });
     });
     JanesWalk.event.on('blog.receive', function (blog) {
       return _this.setState({ blog: blog });
+    });
+    JanesWalk.event.on('country.receive', function (country) {
+      return _this.setState({ location: country });
     });
   }
 
   _createClass(WalkFilter, [{
     key: 'setFilter',
     value: function setFilter(filter, val) {
-      var filters = this.state.filters;
+      var _state = this.state;
+      var filters = _state.filters;
+      var walks = _state.walks;
+      var dateRange = _state.dateRange;
+
       filters[filter].selected = val;
-      this.setState({ filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange) });
+      this.setState({ filters: filters, filterMatches: filterWalks(walks, filters, dateRange) });
     }
   }, {
     key: 'setDateRange',
@@ -1053,40 +1198,18 @@ var WalkFilter = (function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var tabMap = undefined;
-      var tabBlog = undefined;
-      var cityMapSection = undefined;
+      var locationMapSection = undefined;
+      var CitiesFilter = undefined;
 
       var Filters = Object.keys(this.state.filters).map(function (key) {
-        return React.createElement(Filter, _extends({ key: key }, _this2.state.filters[key], { setFilter: function (k, v) {
-            return _this2.setFilter(k, v);
+        return React.createElement(Filter, _extends({ key: key }, _this2.state.filters[key], { setFilter: function (v) {
+            return _this2.setFilter(key, v);
           } }));
       });
 
       // See if this city has a location set
-      if (this.state.city && this.state.city.latlng.length === 2) {
-        tabMap = {
-          $$typeof: _typeofReactElement,
-          type: 'li',
-          key: 'tabmap',
-          ref: null,
-          props: {
-            children: {
-              $$typeof: _typeofReactElement,
-              type: 'a',
-              key: null,
-              ref: null,
-              props: {
-                children: 'Map',
-                href: '#jw-map',
-                'data-toggle': 'tab'
-              },
-              _owner: null
-            }
-          },
-          _owner: null
-        };
-        cityMapSection = {
+      if (this.state.location && this.state.location.latlng.length === 2) {
+        locationMapSection = {
           $$typeof: _typeofReactElement,
           type: 'section',
           key: null,
@@ -1094,42 +1217,17 @@ var WalkFilter = (function (_React$Component) {
           props: {
             children: {
               $$typeof: _typeofReactElement,
-              type: _CityMapJsx2['default'],
+              type: _LocationMapJsx2['default'],
               key: null,
               ref: null,
-              props: _defaultProps(_CityMapJsx2['default'].defaultProps, {
+              props: _defaultProps(_LocationMapJsx2['default'].defaultProps, {
                 walks: this.state.filterMatches,
-                city: this.state.city
+                location: this.state.location
               }),
               _owner: null
             },
             className: 'tab-pane',
             id: 'jw-map'
-          },
-          _owner: null
-        };
-      }
-
-      // Blog link, if we have one
-      if (this.state.blog) {
-        tabBlog = {
-          $$typeof: _typeofReactElement,
-          type: 'li',
-          key: 'tb',
-          ref: null,
-          props: {
-            children: {
-              $$typeof: _typeofReactElement,
-              type: 'a',
-              key: null,
-              ref: null,
-              props: {
-                children: 'Blog',
-                href: this.state.blog.url,
-                target: '_blank'
-              },
-              _owner: null
-            }
           },
           _owner: null
         };
@@ -1175,7 +1273,7 @@ var WalkFilter = (function (_React$Component) {
                 key: null,
                 ref: null,
                 props: {
-                  children: [Filters, {
+                  children: [Filters, CitiesFilter, {
                     $$typeof: _typeofReactElement,
                     type: 'li',
                     key: null,
@@ -1209,53 +1307,21 @@ var WalkFilter = (function (_React$Component) {
                 _owner: null
               }, {
                 $$typeof: _typeofReactElement,
-                type: 'ul',
+                type: 'div',
                 key: null,
                 ref: null,
                 props: {
-                  children: [{
+                  children: {
                     $$typeof: _typeofReactElement,
-                    type: 'li',
+                    type: _TabsJsx2['default'],
                     key: null,
                     ref: null,
-                    props: {
-                      children: {
-                        $$typeof: _typeofReactElement,
-                        type: 'a',
-                        key: null,
-                        ref: null,
-                        props: {
-                          children: 'All Walks',
-                          href: '#jw-cards',
-                          className: 'active',
-                          'data-toggle': 'tab'
-                        },
-                        _owner: null
-                      }
-                    },
+                    props: _defaultProps(_TabsJsx2['default'].defaultProps, {
+                      blog: this.state.blog,
+                      location: this.state.location
+                    }),
                     _owner: null
-                  }, {
-                    $$typeof: _typeofReactElement,
-                    type: 'li',
-                    key: null,
-                    ref: null,
-                    props: {
-                      children: {
-                        $$typeof: _typeofReactElement,
-                        type: 'a',
-                        key: null,
-                        ref: null,
-                        props: {
-                          children: 'List',
-                          href: '#jw-list',
-                          'data-toggle': 'tab'
-                        },
-                        _owner: null
-                      }
-                    },
-                    _owner: null
-                  }, tabMap, tabBlog],
-                  className: 'nav nav-tabs'
+                  }
                 },
                 _owner: null
               }, {
@@ -1304,7 +1370,7 @@ var WalkFilter = (function (_React$Component) {
                       id: 'jw-list'
                     },
                     _owner: null
-                  }, cityMapSection],
+                  }, locationMapSection],
                   className: 'tab-content'
                 },
                 _owner: null
@@ -1327,7 +1393,7 @@ exports['default'] = WalkFilter;
 module.exports = exports['default'];
 
 
-},{"./CityMap.jsx":2,"./DateRange.jsx":3,"./WalkCards.jsx":5,"./WalkList.jsx":7}],7:[function(require,module,exports){
+},{"./DateRange.jsx":2,"./LocationMap.jsx":3,"./Tabs.jsx":4,"./WalkCards.jsx":6,"./WalkList.jsx":8}],8:[function(require,module,exports){
 /**
  * The list of walks to order
  */
@@ -1501,7 +1567,7 @@ var ListItem = (function (_React$Component) {
       var walk = this.props.walk;
 
       /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-      if (walk.map.markers && walk.map.markers.length) {
+      if (walk.map && walk.map.markers && walk.map.markers.length) {
         Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
       }
 

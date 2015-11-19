@@ -49,6 +49,7 @@ const Country = ({id, name, url, cities}) => (
 
 class PageListTypeahead extends React.Component {
   constructor(props) {
+    super(props);
     this.state = {
       q: '',
       matched: props.countries
@@ -59,7 +60,7 @@ class PageListTypeahead extends React.Component {
    * Called when typing in the input
    * @param ReactEvent ev
    */
-  handleInput: function(ev) {
+  handleInput(ev) {
     var _this = this;
     var countries = [];
     var q = ev.target.value;
@@ -79,13 +80,13 @@ class PageListTypeahead extends React.Component {
     });
 
     this.setState({q: q, matched: countries});
-  },
+  }
 
   /**
    * Form action links the top selected city
    * @param ReactEvent ev
    */
-  handleSubmit: function(ev) {
+  handleSubmit(ev) {
     var firstCountry = this.state.matched[0];
     var firstCity;
 
@@ -96,9 +97,9 @@ class PageListTypeahead extends React.Component {
         ev.target.action = firstCity.url;
       }
     }
-  },
+  }
 
-  render: function() {
+  render() {
     var _this = this;
     var homeCity = <h3 />;
 
@@ -142,6 +143,7 @@ const CountryOption = ({id, name, url, cities}) => (
 
 class PageListSelect extends React.Component {
   constructor(props) {
+    super(props);
     this.state = {
       selected: null,
       countries: props.countries.sort((a, b) => a.name.localeCompare(b.name))
@@ -154,7 +156,7 @@ class PageListSelect extends React.Component {
     });
   }
 
-  render: function() {
+  render() {
     let homeCity = <h3 />;
 
     if (this.props.user && this.props.user.city) {

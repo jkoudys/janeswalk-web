@@ -3,8 +3,9 @@
  */
 import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
-import CityMap from './CityMap.jsx';
+import LocationMap from './LocationMap.jsx';
 import DateRange from './DateRange.jsx';
+import Tabs from './Tabs.jsx';
 
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
@@ -23,10 +24,15 @@ function filterWalks(walks, filters, dr) {
       time = walk.time.slots[0][0] * 1000;
     }
     // TODO: cleanup and perf test
+    // Filter by checking that the filter doesn't match the walk
+    // Note that this would be a lot cleaner using functions, but it's
+    // built with a big set of basic boolean operators to speed it up
+    // along this likely bottleneck
     if ((filters.theme && filters.theme.selected && !(walk.checkboxes['theme-' + filters.theme.selected])) ||
         (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
         (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes['accessible-' + filters.accessibility.selected])) ||
         (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
+        (filters.city && filters.city.selected && walk.cityID != filters.city.selected) ||
         (dr[0] && dr[0] > time) || (dr[1] && dr[1] < time)
        )
      {
@@ -53,10 +59,13 @@ function thirdRecentDate(walks) {
   return null;
 }
 
-const Filter = ({name, key, selected, setFilter, data}) => (
+//"cityID":258,
+//
+
+const Filter = ({name, selected, setFilter, data}) => (
   <li>
     <label>{name}</label>
-    <select name={key} value={selected} onChange={e => setFilter(key, e.target.value)}>
+    <select value={selected} onChange={e => setFilter(e.target.value)}>
       <option value="">All</option>
       {Object.keys(data).map(k => <option value={k}>{data[k]}</option>)}
     </select>
@@ -74,7 +83,7 @@ export default class WalkFilter extends React.Component {
     super(props);
     this.state = {
       walks: props.walks || [],
-      city: props.city,
+      location: props.location,
       filters: props.filters || {},
       dateRange: dateRange,
       filterMatches: filterWalks(props.walks, props.filters, dateRange)
@@ -84,14 +93,16 @@ export default class WalkFilter extends React.Component {
     JanesWalk.event.on('walks.receive', (walks, props) => {
       this.setState({walks: walks, filters: props.filters}, this.handleFilters);
     });
-    JanesWalk.event.on('city.receive', city => this.setState({city: city}));
+
+    JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
+    JanesWalk.event.on('country.receive', country => this.setState({location: country}));
   }
 
   setFilter(filter, val) {
-    const filters = this.state.filters;
+    const {filters, walks, dateRange} = this.state;
     filters[filter].selected = val;
-    this.setState({filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange)});
+    this.setState({filters: filters, filterMatches: filterWalks(walks, filters, dateRange)});
   }
 
   setDateRange(from, to) {
@@ -109,25 +120,18 @@ export default class WalkFilter extends React.Component {
   }
 
   render() {
-    let tabMap;
-    let tabBlog;
-    let cityMapSection;
+    let locationMapSection;
+    let CitiesFilter;
 
     const Filters = Object.keys(this.state.filters).map(
-      key => <Filter key={key} {...this.state.filters[key]} setFilter={(k, v) => this.setFilter(k, v)} />
+      key => <Filter key={key} {...this.state.filters[key]} setFilter={v => this.setFilter(key, v)} />
     );
 
     // See if this city has a location set
-    if (this.state.city && this.state.city.latlng.length === 2) {
-      tabMap = <li key="tabmap"><a href="#jw-map" data-toggle="tab">Map</a></li>;
-      cityMapSection = <section className="tab-pane" id="jw-map">
-        <CityMap walks={this.state.filterMatches} city={this.state.city} />
+    if (this.state.location && this.state.location.latlng.length === 2) {
+      locationMapSection = <section className="tab-pane" id="jw-map">
+        <LocationMap walks={this.state.filterMatches} location={this.state.location} />
       </section>
-    }
-
-    // Blog link, if we have one
-    if (this.state.blog) {
-      tabBlog = <li key="tb"><a href={this.state.blog.url} target="_blank">Blog</a></li>;
     }
 
     return (
@@ -136,17 +140,15 @@ export default class WalkFilter extends React.Component {
           <a className="print-button" onClick={() => this.printList()}><i className="fa fa-print" /> Print List</a>
           <ul className="filters">
             {Filters}
+            {CitiesFilter}
             <li>
               <label>Dates</label>
               <DateRange value={this.state.dateRange} onChange={this.setDateRange.bind(this)} />
             </li>
           </ul>
-          <ul className="nav nav-tabs">
-            <li><a href="#jw-cards" className="active" data-toggle="tab">All Walks</a></li>
-            <li><a href="#jw-list" data-toggle="tab">List</a></li>
-            {tabMap}
-            {tabBlog}
-          </ul>
+          <div>
+            <Tabs blog={this.state.blog} location={this.state.location}/>
+          </div>
           <div className="tab-content">
             <section className="tab-pane active" id="jw-cards">
               <WalkCards walks={this.state.filterMatches} />
@@ -154,7 +156,7 @@ export default class WalkFilter extends React.Component {
             <section className="tab-pane" id="jw-list">
               <WalkList walks={this.state.filterMatches} />
             </section>
-            {cityMapSection}
+            {locationMapSection}
           </div>
         </div>
       </section>

@@ -16,3 +16,5 @@ composer.lock
 .DS_Store
 *~
 .idea/*
+composer.phar
+janeswalk.sql.xz

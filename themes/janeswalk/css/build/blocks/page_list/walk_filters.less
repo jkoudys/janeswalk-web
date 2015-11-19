@@ -1,2 +1,19 @@
 .ccm-block-page-list-walk-filters {
+  ul, li {
+    list-style-type: none;
+  }
+  ul.filters {
+    .clearfix();
+    padding: 0;
+    li {
+      .make-md-column(6);
+      .make-md-column(4);
+      .daterange input {
+        .make-md-column(6);
+      }
+    }
+  }
+  .walk:extend(.walk-card all) {
+    .make-md-column(3);
+  }
 }

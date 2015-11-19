@@ -394,16 +394,20 @@ h6,
 .h4,
 .h5,
 .h6,
+.walk-card .thumbnail .walkimage .statusMessage,
+.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage,
+.walk-card #create-walk .team-member .walkimage .statusMessage:before {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
@@ -466,16 +470,20 @@ h5,
 .h5,
 h6,
 .h6,
+.walk-card .thumbnail .walkimage .statusMessage,
+.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage,
+.walk-card #create-walk .team-member .walkimage .statusMessage:before {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -507,16 +515,20 @@ h3,
 }
 h4,
 .h4,
+.walk-card .thumbnail .walkimage .statusMessage,
+.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage,
+.walk-card #create-walk .team-member .walkimage .statusMessage:before {
   font-size: 18px;
 }
 h5,
@@ -8073,16 +8085,20 @@ h3,
 h4,
 h5,
 h6,
+.walk-card .thumbnail .walkimage .statusMessage,
+.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage,
+.walk-card #create-walk .team-member .walkimage .statusMessage:before {
   font-family: "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -8101,16 +8117,20 @@ h3 {
   font-size: 25px;
 }
 h4,
+.walk-card .thumbnail .walkimage .statusMessage,
+.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
+#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
 body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
-#create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage,
+.walk-card #create-walk .team-member .walkimage .statusMessage:before {
   font-weight: 700;
   font-size: 17px;
 }
@@ -8677,6 +8697,251 @@ dialog input[type=password] {
 #signup-panel {
   opacity: 1;
 }
+.walk-card,
+.ccm-block-page-list-walk-filters .walk,
+body.city-page > #city-details .walk {
+  position: relative;
+  min-height: 1px;
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 15px;
+  padding-bottom: 0px;
+  vertical-align: bottom;
+  -webkit-transition-duration: 0.1s;
+          transition-duration: 0.1s;
+}
+@media (min-width: 768px) {
+  .walk-card,
+  .ccm-block-page-list-walk-filters .walk,
+  body.city-page > #city-details .walk {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .walk-card,
+  .ccm-block-page-list-walk-filters .walk,
+  body.city-page > #city-details .walk {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+.walk-card h4,
+.ccm-block-page-list-walk-filters .walk h4,
+body.city-page > #city-details .walk h4 {
+  color: #f16725;
+}
+.walk-card h6,
+.ccm-block-page-list-walk-filters .walk h6,
+body.city-page > #city-details .walk h6 {
+  color: #222;
+}
+.walk-card a,
+.ccm-block-page-list-walk-filters .walk a,
+body.city-page > #city-details .walk a {
+  color: #666;
+}
+.walk-card a:hover,
+.ccm-block-page-list-walk-filters .walk a:hover,
+body.city-page > #city-details .walk a:hover {
+  text-decoration: none;
+}
+.walk-card .thumbnail,
+.walk-card .ccm-page-list.ccm-blog-index li figure,
+.ccm-block-page-list-walk-filters .walk .thumbnail,
+.walk-card .ccm-page-list-city-cards li figure,
+body.city-page > #city-details .walk .thumbnail,
+.walk-card #create-walk .team-member {
+  height: 580px;
+  -webkit-transition: none;
+          transition: none;
+  position: relative;
+  padding: 0;
+}
+.walk-card .thumbnail .walkimage,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage,
+.walk-card .ccm-page-list-city-cards li figure .walkimage,
+body.city-page > #city-details .walk .thumbnail .walkimage,
+.walk-card #create-walk .team-member .walkimage {
+  position: relative;
+  margin: 0;
+  background-size: cover;
+  background-position: 50% 50%;
+  width: 100%;
+  min-height: 250px;
+}
+.walk-card .thumbnail .walkimage .statusMessage,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
+.walk-card #create-walk .team-member .walkimage .statusMessage {
+  position: absolute;
+  margin-top: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(241, 103, 37, 0.8);
+  color: #fff;
+  line-height: 250px;
+  text-align: center;
+}
+.walk-card .thumbnail .walkimage .statusMessage:before,
+.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
+.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
+.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
+body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
+.walk-card #create-walk .team-member .walkimage .statusMessage:before {
+  font-family: FontAwesome;
+  content: "\f017";
+  padding-right: 0.5em;
+}
+.walk-card .thumbnail .caption p,
+.walk-card .ccm-page-list.ccm-blog-index li figure .caption p,
+.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
+.ccm-block-page-list-walk-filters .walk .thumbnail .caption p,
+.walk-card .ccm-page-list-city-cards li figure .caption p,
+body.city-page > #city-details .walk .thumbnail .caption p,
+.walk-card #create-walk .team-member .caption p {
+  min-height: 90px;
+  overflow: hidden;
+  display: block;
+}
+.walk-card .thumbnail .caption h6,
+.walk-card .ccm-page-list.ccm-blog-index li figure .caption h6,
+.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
+.ccm-block-page-list-walk-filters .walk .thumbnail .caption h6,
+.walk-card .ccm-page-list-city-cards li figure .caption h6,
+body.city-page > #city-details .walk .thumbnail .caption h6,
+.walk-card #create-walk .team-member .caption h6 {
+  font-weight: 700;
+}
+@media (max-width: 768px) {
+  .walk-card .thumbnail .caption,
+  .walk-card .ccm-page-list.ccm-blog-index li figure .caption,
+  .walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
+  .ccm-block-page-list-walk-filters .walk .thumbnail .caption,
+  .walk-card .ccm-page-list-city-cards li figure .caption,
+  body.city-page > #city-details .walk .thumbnail .caption,
+  .walk-card #create-walk .team-member .caption {
+    padding-bottom: 20px;
+  }
+}
+.walk-card .thumbnail .when,
+.walk-card .ccm-page-list.ccm-blog-index li figure .when,
+.ccm-block-page-list-walk-filters .walk .thumbnail .when,
+.walk-card .ccm-page-list-city-cards li figure .when,
+body.city-page > #city-details .walk .thumbnail .when,
+.walk-card #create-walk .team-member .when {
+  list-style-type: none;
+  font-weight: 700;
+  color: #222;
+  padding: 0;
+  font-family: "Roboto Slab", serif;
+  font-size: 12px;
+  margin: 1.5em 0 0.6em 0;
+}
+.walk-card .thumbnail .tags,
+.walk-card .ccm-page-list.ccm-blog-index li figure .tags,
+.ccm-block-page-list-walk-filters .walk .thumbnail .tags,
+.walk-card .ccm-page-list-city-cards li figure .tags,
+body.city-page > #city-details .walk .thumbnail .tags,
+.walk-card #create-walk .team-member .tags {
+  position: absolute;
+  bottom: -30px;
+  width: 100%;
+  text-align: center;
+}
+.walk-card .thumbnail .tags .tag,
+.walk-card .ccm-page-list.ccm-blog-index li figure .tags .tag,
+.ccm-block-page-list-walk-filters .walk .thumbnail .tags .tag,
+.walk-card .ccm-page-list-city-cards li figure .tags .tag,
+body.city-page > #city-details .walk .thumbnail .tags .tag,
+.walk-card #create-walk .team-member .tags .tag {
+  display: inline-block;
+  padding: 8px;
+  cursor: pointer;
+  background: #0675fc;
+  border-radius: 100%;
+}
+.walk-card .thumbnail .tags .fa,
+.walk-card .ccm-page-list.ccm-blog-index li figure .tags .fa,
+.ccm-block-page-list-walk-filters .walk .thumbnail .tags .fa,
+.walk-card .ccm-page-list-city-cards li figure .tags .fa,
+body.city-page > #city-details .walk .thumbnail .tags .fa,
+.walk-card #create-walk .team-member .tags .fa {
+  color: #fff;
+  width: auto;
+  line-height: 15px;
+  width: 15px;
+}
+@media (max-width: 992px) {
+  .walk-card .thumbnail,
+  .walk-card .ccm-page-list.ccm-blog-index li figure,
+  .ccm-block-page-list-walk-filters .walk .thumbnail,
+  .walk-card .ccm-page-list-city-cards li figure,
+  body.city-page > #city-details .walk .thumbnail,
+  .walk-card #create-walk .team-member {
+    min-height: 0;
+  }
+}
+.walk-card:hover,
+.ccm-block-page-list-walk-filters .walk:hover,
+body.city-page > #city-details .walk:hover {
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+.walk-card:hover .thumbnail,
+.walk-card:hover .ccm-page-list.ccm-blog-index li figure,
+.ccm-block-page-list-walk-filters .walk:hover .thumbnail,
+.walk-card:hover .ccm-page-list-city-cards li figure,
+body.city-page > #city-details .walk:hover .thumbnail,
+.walk-card:hover #create-walk .team-member {
+  background: #6badfd;
+  box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
+  color: #FFF;
+}
+.walk-card:hover .thumbnail h4,
+.walk-card:hover .thumbnail h6,
+.walk-card:hover .thumbnail p,
+.walk-card:hover .thumbnail li,
+.walk-card:hover .ccm-page-list.ccm-blog-index li figure h4,
+.walk-card:hover .ccm-page-list.ccm-blog-index li figure h6,
+.walk-card:hover .ccm-page-list.ccm-blog-index li figure p,
+.walk-card:hover .ccm-page-list.ccm-blog-index li figure li,
+.ccm-block-page-list-walk-filters .walk:hover .thumbnail h4,
+.ccm-block-page-list-walk-filters .walk:hover .thumbnail h6,
+.ccm-block-page-list-walk-filters .walk:hover .thumbnail p,
+.ccm-block-page-list-walk-filters .walk:hover .thumbnail li,
+.walk-card:hover .ccm-page-list-city-cards li figure h4,
+.walk-card:hover .ccm-page-list-city-cards li figure h6,
+.walk-card:hover .ccm-page-list-city-cards li figure p,
+.walk-card:hover .ccm-page-list-city-cards li figure li,
+body.city-page > #city-details .walk:hover .thumbnail h4,
+body.city-page > #city-details .walk:hover .thumbnail h6,
+body.city-page > #city-details .walk:hover .thumbnail p,
+body.city-page > #city-details .walk:hover .thumbnail li,
+.walk-card:hover #create-walk .team-member h4,
+.walk-card:hover #create-walk .team-member h6,
+.walk-card:hover #create-walk .team-member p,
+.walk-card:hover #create-walk .team-member li {
+  color: #FFF;
+}
+.walk-card:active,
+.ccm-block-page-list-walk-filters .walk:active,
+body.city-page > #city-details .walk:active {
+  margin-top: 0;
+}
+.walk-card:active .thumbnail,
+.walk-card:active .ccm-page-list.ccm-blog-index li figure,
+.ccm-block-page-list-walk-filters .walk:active .thumbnail,
+.walk-card:active .ccm-page-list-city-cards li figure,
+body.city-page > #city-details .walk:active .thumbnail,
+.walk-card:active #create-walk .team-member {
+  background: #3991fc;
+}
 .ccm-page-list.ccm-blog-index {
   margin-left: -15px;
   margin-right: -15px;
@@ -8829,6 +9094,71 @@ div.ccm-page-list-typeahead fieldset.search li.aux a {
 div.ccm-page-list-typeahead fieldset.search input[type=text]:focus + * + ul,
 div.ccm-page-list-typeahead fieldset.search ul:hover {
   display: block;
+}
+.ccm-block-page-list-walk-filters ul,
+.ccm-block-page-list-walk-filters li {
+  list-style-type: none;
+}
+.ccm-block-page-list-walk-filters ul.filters {
+  padding: 0;
+}
+.ccm-block-page-list-walk-filters ul.filters:before,
+.ccm-block-page-list-walk-filters ul.filters:after {
+  content: " ";
+  display: table;
+}
+.ccm-block-page-list-walk-filters ul.filters:after {
+  clear: both;
+}
+.ccm-block-page-list-walk-filters ul.filters:before,
+.ccm-block-page-list-walk-filters ul.filters:after {
+  content: " ";
+  display: table;
+}
+.ccm-block-page-list-walk-filters ul.filters:after {
+  clear: both;
+}
+.ccm-block-page-list-walk-filters ul.filters li {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .ccm-block-page-list-walk-filters ul.filters li {
+    float: left;
+    width: 50%;
+  }
+}
+@media (min-width: 992px) {
+  .ccm-block-page-list-walk-filters ul.filters li {
+    float: left;
+    width: 33.33333333%;
+  }
+}
+.ccm-block-page-list-walk-filters ul.filters li .daterange input {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .ccm-block-page-list-walk-filters ul.filters li .daterange input {
+    float: left;
+    width: 50%;
+  }
+}
+.ccm-block-page-list-walk-filters .walk {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .ccm-block-page-list-walk-filters .walk {
+    float: left;
+    width: 25%;
+  }
 }
 .ccm-page-list-city-cards {
   position: relative;
@@ -10293,197 +10623,6 @@ body.city-page > #city-details .see-all {
 }
 body.city-page > #city-details .see-all:after {
   content: " >>";
-}
-body.city-page > #city-details .walk {
-  position: relative;
-  min-height: 1px;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 15px;
-  padding-bottom: 0px;
-  vertical-align: bottom;
-  -webkit-transition-duration: 0.1s;
-          transition-duration: 0.1s;
-}
-@media (min-width: 768px) {
-  body.city-page > #city-details .walk {
-    float: left;
-    width: 50%;
-  }
-}
-@media (min-width: 992px) {
-  body.city-page > #city-details .walk {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-body.city-page > #city-details .walk h4 {
-  color: #f16725;
-}
-body.city-page > #city-details .walk h6 {
-  color: #222;
-}
-body.city-page > #city-details .walk a {
-  color: #666;
-}
-body.city-page > #city-details .walk a:hover {
-  text-decoration: none;
-}
-body.city-page > #city-details .walk .thumbnail,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure,
-body.city-page > #city-details .walk #create-walk .team-member {
-  height: 580px;
-  -webkit-transition: none;
-          transition: none;
-  position: relative;
-  padding: 0;
-}
-body.city-page > #city-details .walk .thumbnail .walkimage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage {
-  position: relative;
-  margin: 0;
-  background-size: cover;
-  background-position: 50% 50%;
-  width: 100%;
-  min-height: 250px;
-}
-body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage {
-  position: absolute;
-  margin-top: 0;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(241, 103, 37, 0.8);
-  color: #fff;
-  line-height: 250px;
-  text-align: center;
-}
-body.city-page > #city-details .walk .thumbnail .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-body.city-page > #city-details .walk #create-walk .team-member .walkimage .statusMessage:before {
-  font-family: FontAwesome;
-  content: "\f017";
-  padding-right: 0.5em;
-}
-body.city-page > #city-details .walk .thumbnail .caption p,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption p,
-body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption p,
-body.city-page > #city-details .walk #create-walk .team-member .caption p {
-  min-height: 90px;
-  overflow: hidden;
-  display: block;
-}
-body.city-page > #city-details .walk .thumbnail .caption h6,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption h6,
-body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption h6,
-body.city-page > #city-details .walk #create-walk .team-member .caption h6 {
-  font-weight: 700;
-}
-@media (max-width: 768px) {
-  body.city-page > #city-details .walk .thumbnail .caption,
-  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .caption,
-  body.city-page > #city-details .walk .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
-  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .caption,
-  body.city-page > #city-details .walk #create-walk .team-member .caption {
-    padding-bottom: 20px;
-  }
-}
-body.city-page > #city-details .walk .thumbnail .when,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .when,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .when,
-body.city-page > #city-details .walk #create-walk .team-member .when {
-  list-style-type: none;
-  font-weight: 700;
-  color: #222;
-  padding: 0;
-  font-family: "Roboto Slab", serif;
-  font-size: 12px;
-  margin: 1.5em 0 0.6em 0;
-}
-body.city-page > #city-details .walk .thumbnail .tags,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags,
-body.city-page > #city-details .walk #create-walk .team-member .tags {
-  position: absolute;
-  bottom: -30px;
-  width: 100%;
-  text-align: center;
-}
-body.city-page > #city-details .walk .thumbnail .tags .tag,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .tag,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .tag,
-body.city-page > #city-details .walk #create-walk .team-member .tags .tag {
-  display: inline-block;
-  padding: 8px;
-  cursor: pointer;
-  background: #0675fc;
-  border-radius: 100%;
-}
-body.city-page > #city-details .walk .thumbnail .tags .fa,
-body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure .tags .fa,
-body.city-page > #city-details .walk .ccm-page-list-city-cards li figure .tags .fa,
-body.city-page > #city-details .walk #create-walk .team-member .tags .fa {
-  color: #fff;
-  width: auto;
-  line-height: 15px;
-  width: 15px;
-}
-@media (max-width: 992px) {
-  body.city-page > #city-details .walk .thumbnail,
-  body.city-page > #city-details .walk .ccm-page-list.ccm-blog-index li figure,
-  body.city-page > #city-details .walk .ccm-page-list-city-cards li figure,
-  body.city-page > #city-details .walk #create-walk .team-member {
-    min-height: 0;
-  }
-}
-body.city-page > #city-details .walk:hover {
-  padding-top: 5px;
-  padding-bottom: 10px;
-}
-body.city-page > #city-details .walk:hover .thumbnail,
-body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure,
-body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure,
-body.city-page > #city-details .walk:hover #create-walk .team-member {
-  background: #6badfd;
-  box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
-  color: #FFF;
-}
-body.city-page > #city-details .walk:hover .thumbnail h4,
-body.city-page > #city-details .walk:hover .thumbnail h6,
-body.city-page > #city-details .walk:hover .thumbnail p,
-body.city-page > #city-details .walk:hover .thumbnail li,
-body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure h4,
-body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure h6,
-body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure p,
-body.city-page > #city-details .walk:hover .ccm-page-list.ccm-blog-index li figure li,
-body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure h4,
-body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure h6,
-body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure p,
-body.city-page > #city-details .walk:hover .ccm-page-list-city-cards li figure li,
-body.city-page > #city-details .walk:hover #create-walk .team-member h4,
-body.city-page > #city-details .walk:hover #create-walk .team-member h6,
-body.city-page > #city-details .walk:hover #create-walk .team-member p,
-body.city-page > #city-details .walk:hover #create-walk .team-member li {
-  color: #FFF;
-}
-body.city-page > #city-details .walk:active {
-  margin-top: 0;
-}
-body.city-page > #city-details .walk:active .thumbnail,
-body.city-page > #city-details .walk:active .ccm-page-list.ccm-blog-index li figure,
-body.city-page > #city-details .walk:active .ccm-page-list-city-cards li figure,
-body.city-page > #city-details .walk:active #create-walk .team-member {
-  background: #3991fc;
 }
 body.city-page > #city-details .create-walk {
   position: absolute;
