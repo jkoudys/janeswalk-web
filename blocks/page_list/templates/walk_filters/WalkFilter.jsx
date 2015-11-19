@@ -57,10 +57,10 @@ function thirdRecentDate(walks) {
 //"cityID":258,
 //
 
-const Filter = ({name, key, selected, setFilter, data}) => (
+const Filter = ({name, selected, setFilter, data}) => (
   <li>
     <label>{name}</label>
-    <select name={key} value={selected} onChange={e => setFilter(key, e.target.value)}>
+    <select value={selected} onChange={e => setFilter(e.target.value)}>
       <option value="">All</option>
       {Object.keys(data).map(k => <option value={k}>{data[k]}</option>)}
     </select>
@@ -103,9 +103,9 @@ export default class WalkFilter extends React.Component {
   }
 
   setFilter(filter, val) {
-    const filters = this.state.filters;
+    const {filters, walks, dateRange} = this.state;
     filters[filter].selected = val;
-    this.setState({filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange)});
+    this.setState({filters: filters, filterMatches: filterWalks(walks, filters, dateRange)});
   }
 
   //setCityFilter(filter, val) { //REFACTORed into filters, need to test
@@ -133,11 +133,11 @@ export default class WalkFilter extends React.Component {
     let CitiesFilter;
 
     const Filters = Object.keys(this.state.filters).map(
-      key => <Filter key={key} {...this.state.filters[key]} setFilter={(k, v) => this.setFilter(k, v)} />
+      key => <Filter key={key} {...this.state.filters[key]} setFilter={v => this.setFilter(key, v)} />
     );
 
-    if(this.state.cities){
-      CitiesFilter = Object.keys(this.state.filters.cities).map(key => <Filter key={key} {...this.state.filters.cities[key]} setFilter={(k, v) => this.setFilter(k, v)} />)
+    if (this.state.cities) {
+      CitiesFilter = Object.keys(this.state.filters.cities).map(key => <Filter key={key} {...this.state.filters.cities[key]} setFilter={v => this.setFilter(key, v)} />)
     }
 
     // See if this city has a location set

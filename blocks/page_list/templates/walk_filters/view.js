@@ -1057,7 +1057,6 @@ function thirdRecentDate(walks) {
 
 var Filter = function Filter(_ref) {
   var name = _ref.name;
-  var key = _ref.key;
   var selected = _ref.selected;
   var setFilter = _ref.setFilter;
   var data = _ref.data;
@@ -1105,10 +1104,9 @@ var Filter = function Filter(_ref) {
               _owner: null
             };
           })],
-          name: key,
           value: selected,
           onChange: function (e) {
-            return setFilter(key, e.target.value);
+            return setFilter(e.target.value);
           }
         },
         _owner: null
@@ -1168,9 +1166,13 @@ var WalkFilter = (function (_React$Component) {
   _createClass(WalkFilter, [{
     key: 'setFilter',
     value: function setFilter(filter, val) {
-      var filters = this.state.filters;
+      var _state = this.state;
+      var filters = _state.filters;
+      var walks = _state.walks;
+      var dateRange = _state.dateRange;
+
       filters[filter].selected = val;
-      this.setState({ filters: filters, filterMatches: filterWalks(this.state.walks, filters, this.state.dateRange) });
+      this.setState({ filters: filters, filterMatches: filterWalks(walks, filters, dateRange) });
     }
 
     //setCityFilter(filter, val) { //REFACTORed into filters, need to test
@@ -1213,15 +1215,15 @@ var WalkFilter = (function (_React$Component) {
       var CitiesFilter = undefined;
 
       var Filters = Object.keys(this.state.filters).map(function (key) {
-        return React.createElement(Filter, _extends({ key: key }, _this2.state.filters[key], { setFilter: function (k, v) {
-            return _this2.setFilter(k, v);
+        return React.createElement(Filter, _extends({ key: key }, _this2.state.filters[key], { setFilter: function (v) {
+            return _this2.setFilter(key, v);
           } }));
       });
 
       if (this.state.cities) {
         CitiesFilter = Object.keys(this.state.filters.cities).map(function (key) {
-          return React.createElement(Filter, _extends({ key: key }, _this2.state.filters.cities[key], { setFilter: function (k, v) {
-              return _this2.setFilter(k, v);
+          return React.createElement(Filter, _extends({ key: key }, _this2.state.filters.cities[key], { setFilter: function (v) {
+              return _this2.setFilter(key, v);
             } }));
         });
       }
