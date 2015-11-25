@@ -2,8 +2,7 @@ import React from 'react';
 import ItineraryStore from './Itinerary-Store';
 import ItineraryActions from './Itinerary-Actions';
 
-import Walk from 'Walk.jsx';
-
+import Walk from './Walk';
 
 const getItinerary = () => {
 	return {
@@ -34,7 +33,7 @@ export default class Itinerary extends React.Component({
 
 	render(){
 		let {walks, title, description} = this.state;
-		let itineraryWalks = walks.map((walk)=><Walk walk={walk} key={walk.id} remove={ItineraryActions.remove}/> )
+		let itineraryWalks = walks.map((walk)=><Walk walk={walk} key={walk.id} remove={ItineraryActions.remove}/> );
 
 		return (<div>
 			{title}

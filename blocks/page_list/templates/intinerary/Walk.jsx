@@ -1,4 +1,4 @@
-import {dateFormatted} from './Itinerary-Utils';
+import {dateFormatted} from './Itinerary-Utils'
 
 export default ({walk,remove,key}) => {
 	return (
@@ -13,7 +13,6 @@ export default ({walk,remove,key}) => {
 		</div>
 	)
 }
-
 
 //var ItineraryItem = ({itinerary}) => {
 //	return 	(
