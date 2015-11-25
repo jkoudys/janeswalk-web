@@ -12554,7 +12554,7 @@ body[data-pageviewname=CreateWalkView] {
 #create-walk #accessibilities > fieldset {
   -webkit-column-count: 2;
   -moz-column-count: 2;
-  column-count: 2;
+       column-count: 2;
 }
 #create-walk textarea,
 #create-walk input[type="text"],
