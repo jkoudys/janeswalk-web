@@ -1,7 +1,7 @@
 export default {
 	dateFormatted:(dateInSeconds) => {
 		let dtfDate;
-		// Date formatter
+		// Date formattera
 		if (typeof(Intl) === 'object') {
 			dtfDate = new Intl.DateTimeFormat('en-US', {
 				year: 'numeric',

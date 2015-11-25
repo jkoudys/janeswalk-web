@@ -12,7 +12,7 @@ const getItinerary = () => {
 	};
 };
 
-export default class Itinerary extends React.Component({
+export default class Itinerary extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = props.itinerary || getItinerary();
@@ -41,4 +41,4 @@ export default class Itinerary extends React.Component({
 			{itineraryWalks}
 		</div>)
 	}
-});
+};

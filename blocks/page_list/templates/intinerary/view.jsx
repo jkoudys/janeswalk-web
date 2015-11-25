@@ -7,7 +7,7 @@ let _itinerary;
 JanesWalk.event.on('itinerary.receive',function(itinerary){
 	_itinerary = itinerary;
 	React.render(
-		<Itinerary itinerary={intinerary}/>,
+		<Itinerary itinerary={itinerary}/>,
 		document.getElementById('janeswalk-user-itinerary')
 	);
 });
