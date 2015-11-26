@@ -1,5 +1,5 @@
-import ItineraryConstants from './Itinerary-Constants';
-import { dispatch } from './Itinerary-Dispatcher';
+import ItineraryConstants from './ItineraryConstants';
+import { dispatch } from './ItineraryDispatcher';
 
 
 //TODO: API call and dispatch walks returned

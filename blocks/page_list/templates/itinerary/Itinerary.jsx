@@ -1,16 +1,14 @@
 import React from 'react';
-import ItineraryStore from './Itinerary-Store';
-import ItineraryActions from './Itinerary-Actions';
+import ItineraryStore from './ItineraryStore';
+import ItineraryActions from './ItineraryActions';
 
 import Walk from './Walk';
 
-const getItinerary = () => {
-  return {
+const getItinerary = () => ({
     walks: ItineraryStore.getItinerary().walks,
     title: ItineraryStore.getItinerary().title || "My Itinerary",
     description: ItineraryStore.getItinerary().description || "View my Jane's Walk Itinerary!",
-  };
-};
+});
 
 export default class Itinerary extends React.Component {
   getDefaultProps() {
@@ -25,8 +23,8 @@ export default class Itinerary extends React.Component {
     };
   }
 
-  constructor(props) {
-    super(props);
+  constructor(...args) {
+    super(...args);
     this.state = props.itinerary || getItinerary();
     this._onChange = this._onChange.bind(this);
   }
@@ -45,19 +43,20 @@ export default class Itinerary extends React.Component {
 
   render() {
     const {walks, title, description} = this.state;
-    const ItineraryWalks = walks.map((walk)=>
+
+    const ItineraryWalks = walks.map(({map, id, title, time}) =>
         <Walk
-            title={walk.title}
-            meeting={walk.map.markers[0].title}
-            start={walk.time.slots[0][0]}
-            key={walk.id}
+            title={title}
+            meeting={map.markers[0].title}
+            start={time.slots[0][0]}
+            key={id}
             remove={ItineraryActions.remove}
         />
     );
 
     return (
       <dialog id="itinerary">
-        <div>
+        <div class="itinerary">
           <article>
             <header>
               <h2> {title} </h2>

@@ -1,23 +1,21 @@
-import { dateFormatted } from './Itinerary-Utils';
+import { dateFormatted } from './ItineraryUtils';
 import React from 'react';
 
 
-const Walk = ({title, start, meeting, remove, key}) => {
-  return (
+const Walk = ({title, start, meeting, remove, key}) => (
     <div>
-      <div className="itinerary-walk clearfix">
+      <div className="walk">
         <h3>{title}</h3>
         <h4>{dateFormatted(start)}</h4>
         <h4>{meeting}</h4>
       </div>
 
-      <div className="itinerary-remove-walk">
-        <button className="itinerary-remove-button" onClick={remove.bind(null, key)}> remove </button>
+      <div className="remove-walk">
+        <button className="remove-button" onClick={remove.bind(null, key)}> remove </button>
       </div>
 
     </div>
-  );
-};
+);
 
 Walk.propTypes = {
   title: React.PropTypes.string,
