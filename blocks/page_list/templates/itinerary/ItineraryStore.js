@@ -5,27 +5,27 @@ import walks from './ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
-let _walksList = {walks: walks.slice(0, -1)}; //grabbing static walks for now
+let _itinerary = {walks: walks.slice(0, -1)}; //grabbing static walks for now
 
 const _removeWalk = ( id ) => {
-  _walksList.splice( _walksList.findIndex(walks => walks.id === id),1);
+  _itinerary.splice( _itinerary.findIndex(walk => walk.id === id), 1);
 };
 
 
 const _addWalk = ( id ) => {
-  let walkExists = _walksList.walks.findIndex(walk => walk.id === id);
+  let walkExists = _itinerary.walks.findIndex(walk => walk.id === id);
 
-  if(walkExists === -1) {
-    let walkToAdd = walks.find(walk => walk.id === id)[0];
-    _walksList.unshift(walkToAdd);
-  }else{
+  if (walkExists === -1) {
+    const walkToAdd = walks.find(walk => walk.id === id)[0];
+    _itinerary.walks.unshift(walkToAdd);
+  } else {
     console.log('Walk already exists, to notify the user');
   }
 };
 
-//walks received from API used to update _walksList
+//walks received from API used to update _itinerary
 const _updateWalks = ( walks ) => {
-  _walksList = walks.slice();
+  _itinerary.walks = walks.slice();
 };
 
 const ItineraryStore = Object.assign(EventEmitter.prototype, {
@@ -42,12 +42,12 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   },
 
   getItinerary(){
-    return _walksList;
+    return _itinerary;
   },
 
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(action) {
-    switch(action.actionType) {
+    switch (action.actionType) {
       case ItineraryConstants.REMOVE_ITINERARY:
         _removeItinerary( action.id );
         break;

@@ -65,9 +65,9 @@ export default class Itinerary extends React.Component {
           <section>
             {description}
           </section>
-          <section>
+          <ul>
             {ItineraryWalks}
-          </section>
+          </ul>
         </div>
       </dialog>
     );

@@ -3,7 +3,7 @@ import React from 'react';
 
 
 const Walk = ({title, start, meeting, remove, key}) => (
-    <div>
+    <li>
       <div className="walk">
         <h3>{title}</h3>
         <h4>{dateFormatted(start)}</h4>
@@ -13,8 +13,7 @@ const Walk = ({title, start, meeting, remove, key}) => (
       <div className="remove-walk">
         <button className="remove-button" onClick={remove.bind(null, key)}> remove </button>
       </div>
-
-    </div>
+    </li>
 );
 
 Walk.propTypes = {
