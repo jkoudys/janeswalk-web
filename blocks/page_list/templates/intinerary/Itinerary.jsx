@@ -13,6 +13,18 @@ const getItinerary = () => {
 };
 
 export default class Itinerary extends React.Component {
+  getDefaultProps() {
+    return {
+      itinerary: null,
+    };
+  }
+
+  propTypes() {
+    return {
+      itinerary: React.PropTypes.array,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = props.itinerary || getItinerary();
@@ -33,7 +45,15 @@ export default class Itinerary extends React.Component {
 
 		render() {
     const {walks, title, description} = this.state;
-    const itineraryWalks = walks.map((walk)=><Walk walk={walk} key={walk.id} remove={ItineraryActions.remove}/> );
+    const itineraryWalks = walks.map((walk)=>
+        <Walk
+            title={walk.title}
+            meeting={walk.map.markers[0].title}
+            start={walk.time.slots[0][0]}
+            key={walk.id}
+            remove={ItineraryActions.remove}
+        />
+    );
 
     return (<div>
     {title}
