@@ -56,7 +56,7 @@ export default class Itinerary extends React.Component {
 
     return (
       <dialog id="itinerary">
-        <div class="itinerary">
+        <div className="itinerary">
           <article>
             <header>
               <h2> {title} </h2>

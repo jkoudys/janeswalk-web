@@ -10,8 +10,8 @@ const Walk = ({title, start, meeting, remove, key}) => (
         <h4>{meeting}</h4>
       </div>
 
-      <div className="remove-walk">
-        <button className="remove-button" onClick={remove.bind(null, key)}> remove </button>
+      <div className="remove">
+        <button className="button" onClick={remove.bind(null, key)}> remove </button>
       </div>
     </li>
 );
