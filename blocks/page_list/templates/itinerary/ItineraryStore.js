@@ -16,7 +16,7 @@ const _addWalk = ( id ) => {
   let walkExists = _itinerary.walks.findIndex(walk => walk.id === id);
 
   if (walkExists === -1) {
-    const walkToAdd = walks.find(walk => walk.id === id)[0];
+    const walkToAdd = walks.find(walk => walk.id === id);
     _itinerary.walks.unshift(walkToAdd);
   } else {
     console.log('Walk already exists, to notify the user');
