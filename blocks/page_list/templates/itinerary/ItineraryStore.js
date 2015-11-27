@@ -8,7 +8,7 @@ const CHANGE_EVENT = 'change';
 let _itinerary = {walks: walks.slice(0, -1)}; //grabbing static walks for now
 
 const _removeWalk = ( id ) => {
-  _itinerary.splice( _itinerary.findIndex(walk => walk.id === id), 1);
+  _itinerary.walks.splice( _itinerary.walks.findIndex(walk => walk.id === id), 1);
 };
 
 
@@ -16,7 +16,7 @@ const _addWalk = ( id ) => {
   let walkExists = _itinerary.walks.findIndex(walk => walk.id === id);
 
   if (walkExists === -1) {
-    const walkToAdd = walks.find(walk => walk.id === id);
+    const walkToAdd = _itinerary.walks.find(walk => walk.id === id);
     _itinerary.walks.unshift(walkToAdd);
   } else {
     console.log('Walk already exists, to notify the user');
@@ -49,10 +49,10 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   dispatcherIndex: register(function(action) {
     switch (action.actionType) {
       case ItineraryConstants.REMOVE_ITINERARY:
-        _removeItinerary( action.id );
+        _removeWalk( action.id );
         break;
       case ItineraryConstants.ADD_TO_ITINERARY:
-        _addToItinerary( action.id );
+        _addWalk( action.id );
         break;
     }
 
