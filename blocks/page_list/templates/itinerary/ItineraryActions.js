@@ -7,19 +7,19 @@ import { dispatch } from './ItineraryDispatcher';
 export default {
 
   remove( id ) {
-    dispatch({action: ItineraryConstants.REMOVE_WALK, id});
+    dispatch({type: ItineraryConstants.REMOVE_WALK, id});
   },
 
   add( id ) {
-    dispatch({action: ItineraryConstants.ADD_WALK, id});
+    dispatch({type: ItineraryConstants.ADD_WALK, id});
   },
 
   updateTitle( title ) {
-    dispatch({action: ItineraryConstants.UPDATE_TITLE, title});
+    dispatch({type: ItineraryConstants.UPDATE_TITLE, title});
   },
 
   updateDescription( description ) {
-    dispatch({action: ItineraryConstants.UPDATE_DESCRIPTION, description});
+    dispatch({type: ItineraryConstants.UPDATE_DESCRIPTION, description});
   },
 
 }

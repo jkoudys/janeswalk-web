@@ -47,7 +47,7 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
 
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(action) {
-    switch (action.actionType) {
+    switch (action.type) {
       case ItineraryConstants.REMOVE_WALK:
         _removeWalk( action.id );
         break;
