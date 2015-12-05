@@ -49,7 +49,7 @@ export default class Itinerary extends React.Component {
             title={title}
             meeting={map.markers[0].title}
             start={time.slots[0][0]}
-            key={id}
+            id={id}
             remove={ItineraryActions.remove}
         />
     );

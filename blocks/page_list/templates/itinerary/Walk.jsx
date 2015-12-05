@@ -2,7 +2,7 @@ import { dateFormatted } from './ItineraryUtils';
 import React from 'react';
 
 
-const Walk = ({title, start, meeting, remove, key}) => (
+const Walk = ({title, start, meeting, remove, id}) => (
     <li>
       <div className="walk">
         <h3>{title}</h3>
@@ -10,7 +10,7 @@ const Walk = ({title, start, meeting, remove, key}) => (
         <h4>{meeting}</h4>
       </div>
 
-      <button className="remove" onClick={(ev) => remove(key, ev.target.value)}> remove </button>
+      <button className="remove" onClick={(ev) => remove(id, ev.target.value)}> remove </button>
     </li>
 );
 
