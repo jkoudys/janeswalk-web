@@ -18,3 +18,8 @@ composer.lock
 .idea/*
 composer.phar
 janeswalk.sql.xz
+npm-debug.log
+package.json
+.eslintrc
+notes.txt
+prev-notes.txt

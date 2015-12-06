@@ -60,7 +60,6 @@ function thirdRecentDate(walks) {
 }
 
 //"cityID":258,
-//
 
 const Filter = ({name, selected, setFilter, data}) => (
   <li>

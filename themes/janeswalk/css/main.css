@@ -348,7 +348,7 @@ img {
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
   display: inline-block;
   width: 100% \9;
   max-width: 100%;
@@ -2110,7 +2110,7 @@ dialog input[type=password] {
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus,
 select:focus,
@@ -3126,7 +3126,7 @@ body.city-page > #city-details .walk-list:after,
 body.city-page > #city-details .walk-list.showall {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
-  transition: opacity 0.15s linear;
+          transition: opacity 0.15s linear;
 }
 .fade.in,
 dialog.in,
@@ -3165,7 +3165,7 @@ tbody.collapse.in {
   height: 0;
   overflow: hidden;
   -webkit-transition: height 0.35s ease;
-  transition: height 0.35s ease;
+          transition: height 0.35s ease;
 }
 .caret {
   display: inline-block;
@@ -4547,7 +4547,7 @@ body > header.dropped {
   left: 0;
   z-index: 1030;
   -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
 }
 @media (min-width: 768px) {
   .navbar-fixed-top,
@@ -5694,7 +5694,7 @@ a.list-group-item.active > .badge,
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
 }
 .thumbnail > img,
 .thumbnail a > img,
@@ -5846,7 +5846,7 @@ a#create-walk .team-member.active {
   background-color: #428bca;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
-  transition: width 0.6s ease;
+          transition: width 0.6s ease;
 }
 .progress-striped .progress-bar,
 .progress-bar-striped {
@@ -5857,7 +5857,7 @@ a#create-walk .team-member.active {
 .progress.active .progress-bar,
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
-  animation: progress-bar-stripes 2s linear infinite;
+          animation: progress-bar-stripes 2s linear infinite;
 }
 .progress-bar[aria-valuenow="1"],
 .progress-bar[aria-valuenow="2"] {
@@ -6676,15 +6676,15 @@ dialog.fade .modal-dialog,
 .modalbody.city-page > #city-details .walk-list:after .modal-dialog,
 .modalbody.city-page > #city-details .walk-list.showall .modal-dialog {
   -webkit-transform: translate3d(0, -25%, 0);
-  transform: translate3d(0, -25%, 0);
+          transform: translate3d(0, -25%, 0);
   -webkit-transition: -webkit-transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
+          transition: transform 0.3s ease-out;
 }
 .modal.in .modal-dialog,
 dialog.in .modal-dialog,
 .modal.in dialog > div {
   -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
 }
 .modal-open .modal,
 .modal-open dialog {
@@ -7041,7 +7041,7 @@ dialog > div > article footer .btn-block + .btn-block {
   display: none;
   position: relative;
   -webkit-transition: 0.6s ease-in-out left;
-  transition: 0.6s ease-in-out left;
+          transition: 0.6s ease-in-out left;
 }
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
@@ -7387,7 +7387,7 @@ dialog > div > article footer:after,
 .affix {
   position: fixed;
   -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
 }
 @-ms-viewport {
   width: device-width;
@@ -7770,7 +7770,7 @@ a {
 }
 /**
  * Overlays
- * 
+ *
  */
 .overlay {
   margin: 0 auto;
@@ -12553,8 +12553,8 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk #accessibilities > fieldset {
   -webkit-column-count: 2;
-     -moz-column-count: 2;
-          column-count: 2;
+  -moz-column-count: 2;
+       column-count: 2;
 }
 #create-walk textarea,
 #create-walk input[type="text"],
