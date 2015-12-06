@@ -1,11 +1,12 @@
 import { dispatch, register } from './ItineraryDispatcher';
 import { EventEmitter } from 'events';
 import ItineraryConstants from './ItineraryConstants';
-import walks from './ItineraryStaticData';
+import lists from './ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
-let _itinerary = {walks: walks.slice(0, -1)}; //grabbing static walks for now
+let _itinerary = lists[0];
+let _lists = lists.slice();
 
 const _removeWalk = ( id ) => {
   _itinerary.walks.splice( _itinerary.walks.findIndex(walk => walk.id === id), 1);
