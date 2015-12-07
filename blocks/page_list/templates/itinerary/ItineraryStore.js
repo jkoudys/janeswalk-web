@@ -5,8 +5,8 @@ import lists from './ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
-let _itinerary = lists[0];
-let _lists = lists.slice();
+let _itinerary = lists[0]; //_itinerary represents the current list, will refactor to be _currentList
+let _allLists = lists.slice();
 
 const _removeWalk = ( id ) => {
   _itinerary.walks.splice( _itinerary.walks.findIndex(walk => walk.id === id), 1);

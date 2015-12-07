@@ -3,6 +3,7 @@ import ItineraryStore from './ItineraryStore';
 import ItineraryActions from './ItineraryActions';
 
 import Walk from './Walk';
+import Header from './Header';
 
 const getItinerary = () => ({
     walks: ItineraryStore.getItinerary().walks,
@@ -57,13 +58,8 @@ export default class Itinerary extends React.Component {
     return (
       <dialog id="itinerary">
         <div className="itinerary">
-          <article>
-            <header>
-              <h2> {title} </h2>
-            </header>
-          </article>
           <section>
-            {description}
+            <Header {...args} {...ItineraryActions}/>
           </section>
           <ul>
             {ItineraryWalks}
