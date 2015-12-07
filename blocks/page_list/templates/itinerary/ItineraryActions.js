@@ -6,20 +6,24 @@ import { dispatch } from './ItineraryDispatcher';
 
 export default {
 
-  remove( id ) {
+  remove(id) {
     dispatch({type: ItineraryConstants.REMOVE_WALK, id});
   },
 
-  add( id ) {
+  add(id) {
     dispatch({type: ItineraryConstants.ADD_WALK, id});
   },
 
-  updateTitle( title ) {
+  updateTitle(title) {
     dispatch({type: ItineraryConstants.UPDATE_TITLE, title});
   },
 
-  updateDescription( description ) {
+  updateDescription(description) {
     dispatch({type: ItineraryConstants.UPDATE_DESCRIPTION, description});
   },
+
+  viewList(id){
+    dispatch({type: ItineraryConstants.VIEW_LIST, id})
+  }
 
 }

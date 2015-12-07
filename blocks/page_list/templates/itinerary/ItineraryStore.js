@@ -37,6 +37,20 @@ const _updateDescription = (description) => {
   _itinerary.description = description;
 };
 
+const _getWalks = (id) => {
+  if(_itinerary.id !== id){
+
+    let listFound = _allLists.find(list => list.id === id);
+
+    if(listFound){
+      _itinerary = listFound;
+    } else {
+      console.log('list not found, notify user');
+    }
+
+  }
+};
+
 const ItineraryStore = Object.assign(EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
@@ -54,6 +68,10 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
     return _itinerary;
   },
 
+  getAllLists(){
+    return _allLists;
+  }
+
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(action) {
     switch (action.type) {
@@ -68,6 +86,9 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
         break;
       case ItineraryConstants.UPDATE_DESCRIPTION:
         _updateDescription(action.description);
+        break;
+      case ItineraryConstants.VIEW_LIST:
+        _getWalks(action.id);
         break;
     }
 

@@ -9,6 +9,7 @@ const getItinerary = () => ({
     walks: ItineraryStore.getItinerary().walks,
     title: ItineraryStore.getItinerary().title || "My Itinerary",
     description: ItineraryStore.getItinerary().description || "View my Jane's Walk Itinerary!",
+    lists: ItineraryStore.getAllLists(),
 });
 
 export default class Itinerary extends React.Component {

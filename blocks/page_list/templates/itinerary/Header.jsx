@@ -24,20 +24,30 @@ export default class Header extends React.Component {
 
 		_update(){
 			 const {updateTitle, updateDescription} = this.props;
+				const {editable} = this.state;
 
 				updateTitle(this.refs.title.value);
 				updateDescription(this.refs.description.value);
-			 this.setState({editable:!this.state.editable})
+			 this.setState({editable:!editable})
 		}
 
 		render(){
-				const {title, description} = this.props;
+				const {title, description, lists, viewList} = this.props;
 				let {editable} = this.state;
 
 				if(editable){
 						return (
 								<header>
-										<h2>{title}</h2>
+
+										<div className="dropdown">
+												<button className="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dropdownMenu1">
+														<h2>{title}</h2>
+												</button>
+												<ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
+													{lists.map(list => <li key={list.id} onClick={(ev)=> viewList(list.id, ev.target.value)}>{list.title}</li>)}
+												</ul>
+										</div>
+
 										<h4>{description}</h4>
 										<span className="glyphicon glyphicon-pencil" onClick={this.setState({editable:!editable})}> </span>
 								</header>
