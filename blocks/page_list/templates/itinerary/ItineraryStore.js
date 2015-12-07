@@ -8,12 +8,12 @@ const CHANGE_EVENT = 'change';
 let _itinerary = lists[0]; //_itinerary represents the current list, will refactor to be _currentList
 let _allLists = lists.slice();
 
-const _removeWalk = ( id ) => {
-  _itinerary.walks.splice( _itinerary.walks.findIndex(walk => walk.id === id), 1);
+const _removeWalk = (id) => {
+  _itinerary.walks.splice(_itinerary.walks.findIndex(walk => walk.id === id), 1);
 };
 
 
-const _addWalk = ( id ) => {
+const _addWalk = (id) => {
   let walkExists = _itinerary.walks.findIndex(walk => walk.id === id);
 
   if (walkExists === -1) {
@@ -25,21 +25,29 @@ const _addWalk = ( id ) => {
 };
 
 //walks received from API used to update _itinerary
-const _updateWalks = ( walks ) => {
+const _updateWalks = (walks) => {
   _itinerary.walks = walks.slice();
+};
+
+const _updateTitle = (title) => {
+  _itinerary.title = title;
+};
+
+const _updateDescription = (description) => {
+  _itinerary.description = description;
 };
 
 const ItineraryStore = Object.assign(EventEmitter.prototype, {
   emitChange() {
-    this.emit( CHANGE_EVENT );
+    this.emit(CHANGE_EVENT);
   },
 
-  addChangeListener( callback ){
-    this.on( CHANGE_EVENT, callback);
+  addChangeListener(callback){
+    this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener( callback ){
-    this.removeListener( CHANGE_EVENT, callback);
+  removeChangeListener(callback){
+    this.removeListener(CHANGE_EVENT, callback);
   },
 
   getItinerary(){
@@ -50,10 +58,16 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   dispatcherIndex: register(function(action) {
     switch (action.type) {
       case ItineraryConstants.REMOVE_WALK:
-        _removeWalk( action.id );
+        _removeWalk(action.id);
         break;
       case ItineraryConstants.ADD_WALK:
-        _addWalk( action.id );
+        _addWalk(action.id);
+        break;
+      case ItineraryConstants.UPDATE_TITLE:
+        _updateTitle(action.title);
+        break;
+      case ItineraryConstants.UPDATE_DESCRIPTION:
+        _updateDescription(action.description);
         break;
     }
 

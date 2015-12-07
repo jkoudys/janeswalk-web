@@ -18,7 +18,7 @@ export default class Header extends React.Component {
 						title: React.PropTypes.string,
 						description: React.PropTypes.string,
 						updateTitle: React.PropTypes.func,
-						updateDescription: React.PropTypes.func,
+						updateDescription: React.PropTypes.func
 				}
 		}
 
