@@ -1,18 +1,18 @@
 export default class AddWalkToListDialog extends React.component {
-		constructor(...args) {
-				super(...args);
-		}
+  constructor(...args) {
+    super(...args);
+  }
 
-		propTypes() {
+  propTypes() {
     return {
       lists: React.PropTypes.array,
       add: React.PropTypes.func,
       createList: React.PropTypes.func,
       walkSelected: React.PropTypes.number,
     }
-		}
+  }
 
-		render() {
+  render() {
     const {lists, add, createList, activeWalk} = this.props;
     //selectedWalk comes from where
 
