@@ -1,4 +1,6 @@
-export default class AddWalkToListDialog extends React.component {
+import React from 'react';
+
+export default class AddWalkToListDialog extends React.Component {
   constructor(...args) {
     super(...args);
   }

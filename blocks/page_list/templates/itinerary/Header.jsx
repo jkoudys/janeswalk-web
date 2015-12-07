@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default class Header extends React.Component {
   constructor(...args) {
     super(...args);
@@ -31,6 +33,11 @@ export default class Header extends React.Component {
   	 this.setState({editable:!editable})
   }
 
+
+  _toggleEdit() {
+    this.setState({editable:!this.state.editable});
+  }
+
   render() {
     const {title, description, lists, viewList} = this.props;
     let {editable} = this.state;
@@ -45,7 +52,7 @@ export default class Header extends React.Component {
             <input ref="description" value={description}>{description}</input>
           </h4>
           <span className="update" onClick={this._update}> </span>
-          <span className="cancel" onClick={this.setState({editable:!editable})}> </span>
+          <span className="cancel" onClick={this._toggleEdit}> </span>
         </header>
       )
     } else {
@@ -62,7 +69,7 @@ export default class Header extends React.Component {
           </div>
 
           <h4>{description}</h4>
-          <span className="edit" onClick={this.setState({editable:!editable})}> </span>
+          <span className="edit" onClick={this._toggleEdit}> </span>
         </header>
       )
     }
