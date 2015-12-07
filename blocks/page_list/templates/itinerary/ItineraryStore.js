@@ -7,16 +7,17 @@ const CHANGE_EVENT = 'change';
 
 let _itinerary = lists[0]; //_itinerary represents the current list, will refactor to be _currentList
 let _allLists = lists.slice();
+let _walkSelected = null;
 
 const _removeWalk = (id) => {
   _itinerary.walks.splice(_itinerary.walks.findIndex(walk => walk.id === id), 1);
 };
 
-
 const _addWalk = (id, list = _itinerary) => { //Refactor: Should pass around the list id instead, or title, instead of the list as is
-  let walkExists = list.walks.findIndex(walk => walk.id === id);
 
-  if (walkExists === -1) {
+  let walkFound = list.walks.find(walk => walk.id === id);
+
+  if (!walkFound) {
     const walk = walks.find(walk => walk.id === id);
     list.walks.unshift(walk);
   } else {
@@ -25,19 +26,19 @@ const _addWalk = (id, list = _itinerary) => { //Refactor: Should pass around the
 };
 
 const _createList = (title) => {
-  let list = _allLists.find(list => list.title === title)
+  const list = _allLists.find(list => list.title === title);
 
-  if(!list){
+  if (!list){
     _allLists.push({
-      id: _allLists.length+1,
+      id: _allLists.length + 1,
       title,
       shareUrl: "janeswalk.org/Harold/" + title,
       description: "View my Jane's Walk Itinerary!",
       walks: [],
-    })
+    });
   }
 
-  return _allLists[_allLists.length]; //Returning list, since after _createList, _addWalk is called, so passing around the list
+  return _allLists[_allLists.length-1]; //Returning list, since after _createList, _addWalk is called, so passing around the list
 };
 
 //walks received from API used to update _itinerary
@@ -58,7 +59,7 @@ const _getWalks = (id) => {
 
     let listFound = _allLists.find(list => list.id === id);
 
-    if(listFound){
+    if (listFound){
       _itinerary = listFound;
     } else {
       console.log('list not found, notify user');
@@ -88,6 +89,10 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
     return _allLists;
   },
 
+  getWalkSelected(){
+    return _walkSelected;
+  },
+
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(action) {
     switch (action.type) {
@@ -110,6 +115,8 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       let newList = _createList(action.title);
       _addWalk(action.id, newList);
       break;
+    case ItineraryConstants.WALK_SELECTED:
+      _walkSelected = action.id
     }
 
     ItineraryStore.emitChange();

@@ -5,7 +5,12 @@ export default class Header extends React.Component {
     super(...args);
     this.state = {
       editable: false,
+      tempDescription: null,
+      tempTitle: null,
     }
+    this._edit = this._edit.bind(this);
+    this._update = this._update.bind(this);
+    this._cancel = this._cancel.bind(this);
   }
 
   getDefaultProps() {
@@ -25,34 +30,50 @@ export default class Header extends React.Component {
   }
 
   _update() {
-  	 const {updateTitle, updateDescription} = this.props;
+    const {updateTitle, updateDescription} = this.props;
     const {editable} = this.state;
 
     updateTitle(this.refs.title.value);
     updateDescription(this.refs.description.value);
-  	 this.setState({editable:!editable})
+
+    this.setState({
+      editable:!editable
+    })
   }
 
+  _cancel() {
+    const {editable} = this.state;
 
-  _toggleEdit() {
-    this.setState({editable:!this.state.editable});
+    this.setState({
+      tempTitle: null,
+      tempDescription: null,
+      editable: !editable,
+    });
+  }
+
+  _edit() {
+    const {editable} = this.state;
+
+    this.setState({
+      editable: !editable,
+    });
   }
 
   render() {
     const {title, description, lists, viewList} = this.props;
-    let {editable} = this.state;
+    let {editable, tempTitle, tempDescription} = this.state;
 
     if(editable){
       return (
         <header class="itineraryHeader">
           <h2>
-            <input ref="title" value={title}>{title}</input>
+            <input ref="title" value={tempTitle || title} onChange={(ev) => this.setState({tempTitle:ev.target.value})}></input>
           </h2>
           <h4>
-            <input ref="description" value={description}>{description}</input>
+            <input ref="description" value={tempDescription || description} onChange={(ev) => this.setState({tempDescription:ev.target.value})}></input>
           </h4>
-          <span className="update" onClick={this._update}> </span>
-          <span className="cancel" onClick={this._toggleEdit}> </span>
+          <span className="update" onClick={this._update}>Update</span>
+          <span className="cancel" onClick={this._cancel}>Cancel</span>
         </header>
       )
     } else {
@@ -69,7 +90,7 @@ export default class Header extends React.Component {
           </div>
 
           <h4>{description}</h4>
-          <span className="edit" onClick={this._toggleEdit}> </span>
+          <span className="edit" onClick={this._edit}>Edit</span>
         </header>
       )
     }

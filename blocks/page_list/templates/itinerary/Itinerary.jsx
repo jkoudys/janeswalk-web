@@ -11,7 +11,7 @@ const getItinerary = () => ({
     title: ItineraryStore.getItinerary().title,
     description: ItineraryStore.getItinerary().description,
     lists: ItineraryStore.getAllLists(),
-    activeWalk: null,
+    activeWalk: ItineraryStore.getWalkSelected(),
 });
 
 export default class Itinerary extends React.Component {
@@ -29,7 +29,7 @@ export default class Itinerary extends React.Component {
 
   constructor(...args) {
     super(...args);
-    this.state = props.itinerary || getItinerary();
+    this.state = this.props.itinerary || getItinerary();
     this._onChange = this._onChange.bind(this);
   }
 
@@ -61,7 +61,7 @@ export default class Itinerary extends React.Component {
             start={time.slots[0][0]}
             id={id}
             remove={ItineraryActions.remove}
-            walkSelected={this.walkSelected}
+            walkSelected={ItineraryActions.walkSelected}
         />
     );
 

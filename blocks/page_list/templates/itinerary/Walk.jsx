@@ -3,21 +3,21 @@ import React from 'react';
 
 
 const Walk = ({title, start, meeting, remove, id, walkSelected}) => (
-    <li>
-      <div className="walk">
-        <h3>{title}</h3>
-        <h4>{dateFormatted(start)}</h4>
-        <h4>{meeting}</h4>
-      </div>
+  <li>
+    <div className="walk">
+      <h3>{title}</h3>
+      <h4>{dateFormatted(start)}</h4>
+      <h4>{meeting}</h4>
+    </div>
 
-      <button className="action removeWalk" onClick={(ev) => remove(id, ev.target.value)}> </button>
-      <button className="action addWalk"
-        onClick={(ev) => {
-          document.getElementById('addWalk').show();
-          walkSelected(id, ev.target.value);
-        }}>
-      </button>
-    </li>
+    <button className="action removeWalk" onClick={(ev) => remove(id, ev.target.value)}>Remove</button>
+    <button className="action addWalk"
+            onClick={(ev) => {
+        document.getElementById('addWalk').show();
+        walkSelected(id, ev.target.value);
+      }}>Add
+    </button>
+  </li>
 );
 
 Walk.propTypes = {

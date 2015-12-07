@@ -22,12 +22,16 @@ export default {
     dispatch({type: ItineraryConstants.UPDATE_DESCRIPTION, description});
   },
 
-  viewList(id){
+  viewList(id) {
     dispatch({type: ItineraryConstants.VIEW_LIST, id});
   },
 
-  creatList(id, title){
+  createList(id, title) {
     dispatch({type: ItineraryConstants.CREATE_LIST, id, title});
-  }
+  },
+
+  walkSelected(id) {
+    dispatch({type: ItineraryConstants.WALK_SELECTED, id});
+  },
 
 }
