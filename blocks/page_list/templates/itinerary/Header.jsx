@@ -22,7 +22,7 @@ export default class Header extends React.Component {
 				}
 		}
 
-		_update(){
+		_update() {
 			 const {updateTitle, updateDescription} = this.props;
 				const {editable} = this.state;
 
@@ -31,7 +31,7 @@ export default class Header extends React.Component {
 			 this.setState({editable:!editable})
 		}
 
-		render(){
+		render() {
 				const {title, description, lists, viewList} = this.props;
 				let {editable} = this.state;
 

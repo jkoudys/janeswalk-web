@@ -1,7 +1,7 @@
 import { dispatch, register } from './ItineraryDispatcher';
 import { EventEmitter } from 'events';
 import ItineraryConstants from './ItineraryConstants';
-import lists from './ItineraryStaticData';
+import {lists, walks} from './ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
@@ -13,15 +13,31 @@ const _removeWalk = (id) => {
 };
 
 
-const _addWalk = (id) => {
-  let walkExists = _itinerary.walks.findIndex(walk => walk.id === id);
+const _addWalk = (id, list = _itinerary) => { //Refactor: Should we pass around the list, or just the title?
+  let walkExists = list.walks.findIndex(walk => walk.id === id);
 
   if (walkExists === -1) {
-    const walkToAdd = _itinerary.walks.find(walk => walk.id === id);
-    _itinerary.walks.unshift(walkToAdd);
+    const walk = walks.find(walk => walk.id === id);
+    list.walks.unshift(walk);
   } else {
-    console.log('Walk already exists, to notify the user');
+    console.log('Walk already exists, notify the user');
   }
+};
+
+const _createList = (title) => {
+  let list = _allLists.find(list => list.title === title)
+
+  if(!list){
+    _allLists.push({
+      id: _allLists.length+1,
+      title,
+      shareUrl: "janeswalk.org/Harold/" + title,
+      description: "View my Jane's Walk Itinerary!",
+      walks: [],
+    })
+  }
+
+  return _allLists[_allLists.length];
 };
 
 //walks received from API used to update _itinerary
@@ -70,26 +86,30 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
 
   getAllLists(){
     return _allLists;
-  }
+  },
 
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(action) {
     switch (action.type) {
-      case ItineraryConstants.REMOVE_WALK:
-        _removeWalk(action.id);
-        break;
-      case ItineraryConstants.ADD_WALK:
-        _addWalk(action.id);
-        break;
-      case ItineraryConstants.UPDATE_TITLE:
-        _updateTitle(action.title);
-        break;
-      case ItineraryConstants.UPDATE_DESCRIPTION:
-        _updateDescription(action.description);
-        break;
-      case ItineraryConstants.VIEW_LIST:
-        _getWalks(action.id);
-        break;
+    case ItineraryConstants.REMOVE_WALK:
+      _removeWalk(action.id);
+      break;
+    case ItineraryConstants.ADD_WALK:
+      _addWalk(action.id, action.list);
+      break;
+    case ItineraryConstants.UPDATE_TITLE:
+      _updateTitle(action.title);
+      break;
+    case ItineraryConstants.UPDATE_DESCRIPTION:
+      _updateDescription(action.description);
+      break;
+    case ItineraryConstants.VIEW_LIST:
+      _getWalks(action.id);
+      break;
+    case ItineraryConstants.CREATE_LIST:
+      let newList = _createList(action.title);
+      _addWalk(action.id, newList);
+      break;
     }
 
     ItineraryStore.emitChange();

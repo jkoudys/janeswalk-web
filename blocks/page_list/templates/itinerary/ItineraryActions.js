@@ -10,8 +10,8 @@ export default {
     dispatch({type: ItineraryConstants.REMOVE_WALK, id});
   },
 
-  add(id) {
-    dispatch({type: ItineraryConstants.ADD_WALK, id});
+  add(id, list=null) {
+    dispatch({type: ItineraryConstants.ADD_WALK, id, list});
   },
 
   updateTitle(title) {
@@ -23,7 +23,11 @@ export default {
   },
 
   viewList(id){
-    dispatch({type: ItineraryConstants.VIEW_LIST, id})
+    dispatch({type: ItineraryConstants.VIEW_LIST, id});
+  },
+
+  creatList(id, title){
+    dispatch({type: ItineraryConstants.CREATE_LIST, id, title});
   }
 
 }

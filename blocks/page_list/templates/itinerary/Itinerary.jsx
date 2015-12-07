@@ -4,12 +4,14 @@ import ItineraryActions from './ItineraryActions';
 
 import Walk from './Walk';
 import Header from './Header';
+import AddWalkToListDialog from './AddWalkToListDialog';
 
 const getItinerary = () => ({
     walks: ItineraryStore.getItinerary().walks,
     title: ItineraryStore.getItinerary().title || "My Itinerary",
     description: ItineraryStore.getItinerary().description || "View my Jane's Walk Itinerary!",
     lists: ItineraryStore.getAllLists(),
+    activeWalk: null,
 });
 
 export default class Itinerary extends React.Component {
@@ -43,6 +45,12 @@ export default class Itinerary extends React.Component {
     this.setState(getItinerary);
   }
 
+  walkSelected(id) {
+    this.setState({
+      activeWalk:id,
+    })
+  }
+
   render() {
     const {walks, title, description} = this.state;
 
@@ -53,14 +61,16 @@ export default class Itinerary extends React.Component {
             start={time.slots[0][0]}
             id={id}
             remove={ItineraryActions.remove}
+            walkSelected={this.walkSelected}
         />
     );
 
     return (
       <dialog id="itinerary">
+        <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
         <div className="itinerary">
           <section>
-            <Header {...args} {...ItineraryActions}/>
+            <Header {...this.state} {...ItineraryActions}/>
           </section>
           <ul>
             {ItineraryWalks}
