@@ -13,7 +13,7 @@ const _removeWalk = (id) => {
 };
 
 
-const _addWalk = (id, list = _itinerary) => { //Refactor: Should we pass around the list, or just the title?
+const _addWalk = (id, list = _itinerary) => { //Refactor: Should pass around the list id instead, or title, instead of the list as is
   let walkExists = list.walks.findIndex(walk => walk.id === id);
 
   if (walkExists === -1) {
@@ -37,7 +37,7 @@ const _createList = (title) => {
     })
   }
 
-  return _allLists[_allLists.length];
+  return _allLists[_allLists.length]; //Returning list, since after _createList, _addWalk is called, so passing around the list
 };
 
 //walks received from API used to update _itinerary

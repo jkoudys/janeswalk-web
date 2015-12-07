@@ -44,7 +44,7 @@ export default class AddWalkToListDialog extends React.component {
 										</ul>
 										<input ref="list" placeholder="Create a new List"></input>
 										<button onClick={(ev) => createList(walkSelected.id, this.refs.list.value)}>Create</button>
-										<button>Close</button>
+										<button onClick={(ev) => document.getElementById('addWalk').close()}>Close</button>
 								</dialog>
 				)
 		}

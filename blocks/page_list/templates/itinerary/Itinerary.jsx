@@ -8,8 +8,8 @@ import AddWalkToListDialog from './AddWalkToListDialog';
 
 const getItinerary = () => ({
     walks: ItineraryStore.getItinerary().walks,
-    title: ItineraryStore.getItinerary().title || "My Itinerary",
-    description: ItineraryStore.getItinerary().description || "View my Jane's Walk Itinerary!",
+    title: ItineraryStore.getItinerary().title,
+    description: ItineraryStore.getItinerary().description,
     lists: ItineraryStore.getAllLists(),
     activeWalk: null,
 });
