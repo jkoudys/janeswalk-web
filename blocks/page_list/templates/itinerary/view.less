@@ -1,4 +1,21 @@
+dialog#itinerary{
+  min-width: 60%;
+  max-width: 60%;
+  position: absolute;
+  margin-right: 0%;
+  box-shadow: -1px -4px 33px #000;
+  border-color: white;
+}
+
 .itinerary {
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    overflow: auto; //need to use .clearfix() mixin
+  }
 
   .walk {
     .clearfix();
@@ -6,25 +23,19 @@
     float: left;
   }
 
-  .remove {
+  .action {
     float: right;
     max-width: 30%;
     position: relative;
     transform: translateY(100%);
+    border: none;
+    background-color: transparent;
+    color: #959595;
+    outline: none;
+    text-align: right;
 
-    button {
-      border: none;
-      background-color: transparent;
-      color: #959595;
-      min-width: 100px;
-      outline: none;
-      text-align: right;
-
-      &:hover {
-        color: black;
-      }
+    &:hover {
+      color: black;
     }
   }
 }
-
-
