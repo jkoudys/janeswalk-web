@@ -7,3 +7,5 @@ export default {
 	CREATE_LIST: 'CREATE_LIST',
 	WALK_SELECTED: 'WALK_SELECTED',
 };
+
+// git
