@@ -5,12 +5,9 @@ export default class Header extends React.Component {
     super(...args);
     this.state = {
       editable: false,
-      tempDescription: null,
-      tempTitle: null,
-    };
-    this._edit = this._edit.bind(this);
-    this._update = this._update.bind(this);
-    this._cancel = this._cancel.bind(this);
+      newDescription: null,
+      newTitle: null,
+    }
   }
 
   getDefaultProps() {
@@ -25,33 +22,33 @@ export default class Header extends React.Component {
       title: React.PropTypes.string,
       description: React.PropTypes.string,
       updateTitle: React.PropTypes.func,
-      updateDescription: React.PropTypes.func
+      updateDescription: React.PropTypes.func,
     }
   }
 
-  _update() {
-    const {updateTitle, updateDescription} = this.props;
-    const {editable} = this.state;
+  update() {
+    const {updateTitle, updateDescription, title, description} = this.props;
+    const {editable, newTitle, newDescription} = this.state;
 
-    updateTitle(this.refs.title.value);
-    updateDescription(this.refs.description.value);
+    updateTitle(newTitle || title);
+    updateDescription(newDescription || description);
 
     this.setState({
       editable:!editable
     })
   }
 
-  _cancel() {
+  cancel() {
     const {editable} = this.state;
 
     this.setState({
-      tempTitle: null,
-      tempDescription: null,
+      newTitle: null,
+      newDescription: null,
       editable: !editable,
     });
   }
 
-  _edit() {
+  edit() {
     const {editable} = this.state;
 
     this.setState({
@@ -61,19 +58,19 @@ export default class Header extends React.Component {
 
   render() {
     const {title, description, lists, viewList} = this.props;
-    let {editable, tempTitle, tempDescription} = this.state;
+    let {editable, newTitle, newDescription} = this.state;
 
     if (editable){
       return (
         <header class="itineraryHeader">
           <h2>
-            <input ref="title" value={tempTitle || title} onChange={(ev) => this.setState({tempTitle:ev.target.value})}></input>
+            <input value={newTitle || title} onChange={ev => this.setState({newTitle:ev.target.value})}></input>
           </h2>
           <h4>
-            <input ref="description" value={tempDescription || description} onChange={(ev) => this.setState({tempDescription:ev.target.value})}></input>
+            <input value={newDescription || description} onChange={ev => this.setState({newDescription:ev.target.value})}></input>
           </h4>
-          <span className="update" onClick={this._update}>Update</span>
-          <span className="cancel" onClick={this._cancel}>Cancel</span>
+          <span className="update" onClick={(ev) => this.update()}>Update</span>
+          <span className="cancel" onClick={(ev) => this.cancel()}>Cancel</span>
         </header>
       )
     } else {
@@ -85,12 +82,12 @@ export default class Header extends React.Component {
               <h2>{title}</h2>
             </button>
             <ul className="dropdown-menu" aria-labelledby="lists">
-              {lists.map(list => <li key={list.id} onClick={(ev)=> viewList(list.id, ev.target.value)}>{list.title}</li>)}
+              {lists.map(list => <li key={list.id} onClick={ev => viewList(list.id, ev.target.value)}>{list.title}</li>)}
             </ul>
           </div>
 
           <h4>{description}</h4>
-          <span className="edit" onClick={this._edit}>Edit</span>
+          <span className="edit" onClick={(ev) => this.edit()}>Edit</span>
         </header>
       )
     }
