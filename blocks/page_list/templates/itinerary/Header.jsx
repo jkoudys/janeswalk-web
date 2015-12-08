@@ -7,7 +7,7 @@ export default class Header extends React.Component {
       editable: false,
       tempDescription: null,
       tempTitle: null,
-    }
+    };
     this._edit = this._edit.bind(this);
     this._update = this._update.bind(this);
     this._cancel = this._cancel.bind(this);
@@ -63,7 +63,7 @@ export default class Header extends React.Component {
     const {title, description, lists, viewList} = this.props;
     let {editable, tempTitle, tempDescription} = this.state;
 
-    if(editable){
+    if (editable){
       return (
         <header class="itineraryHeader">
           <h2>
@@ -82,10 +82,10 @@ export default class Header extends React.Component {
 
           <div className="itineraryHeader dropdown">
             <button className="toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="lists">
-            	<h2>{title}</h2>
+              <h2>{title}</h2>
             </button>
             <ul className="dropdown-menu" aria-labelledby="lists">
-            	{lists.map(list => <li key={list.id} onClick={(ev)=> viewList(list.id, ev.target.value)}>{list.title}</li>)}
+              {lists.map(list => <li key={list.id} onClick={(ev)=> viewList(list.id, ev.target.value)}>{list.title}</li>)}
             </ul>
           </div>
 
