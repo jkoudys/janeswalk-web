@@ -69,8 +69,8 @@ export default class Header extends React.Component {
           <h4>
             <input value={newDescription || description} onChange={ev => this.setState({newDescription:ev.target.value})}></input>
           </h4>
-          <span className="update" onClick={(ev) => this.update()}>Update</span>
-          <span className="cancel" onClick={(ev) => this.cancel()}>Cancel</span>
+          <span className="update" onClick={ev => this.update()}>Update</span>
+          <span className="cancel" onClick={ev => this.cancel()}>Cancel</span>
         </header>
       )
     } else {
@@ -87,7 +87,7 @@ export default class Header extends React.Component {
           </div>
 
           <h4>{description}</h4>
-          <span className="edit" onClick={(ev) => this.edit()}>Edit</span>
+          <span className="edit" onClick={ev => this.edit()}>Edit</span>
         </header>
       )
     }
