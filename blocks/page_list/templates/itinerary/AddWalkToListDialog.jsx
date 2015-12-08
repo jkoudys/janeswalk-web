@@ -3,6 +3,9 @@ import React from 'react';
 export default class AddWalkToListDialog extends React.Component {
   constructor(...args) {
     super(...args);
+    this.state = {
+      newList: null
+    }
   }
 
   propTypes() {
@@ -16,6 +19,7 @@ export default class AddWalkToListDialog extends React.Component {
 
   render() {
     const {lists, add, createList, activeWalk} = this.props;
+    const {newList} = this.state;
     //selectedWalk comes from where
 
     const allLists = lists.map(list => {
@@ -46,9 +50,9 @@ export default class AddWalkToListDialog extends React.Component {
           {allLists}
         </ul>
 
-        <input ref="list" placeholder="Create a new List"></input>
+        <input placeholder="Create a new List" value={newList} onChange={ev => {this.setState({newList:ev.target.value})}}></input>
 
-        <button onClick={(ev) => createList(activeWalk, this.refs.list.value)}>Create</button>
+        <button onClick={(ev) => {createList(activeWalk, newList);this.setState({newList:null})}}>Create</button>
         <button onClick={(ev) => document.getElementById('addWalk').close()}>Close</button>
       </dialog>
     )
