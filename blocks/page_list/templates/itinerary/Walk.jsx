@@ -28,7 +28,7 @@ Walk.propTypes = {
 
 Walk.defaultProps = {
   title: 'Walk Title',
-  time: Date.parse(new Date()),
+  time: Date.now()
 };
 
 export default Walk;
