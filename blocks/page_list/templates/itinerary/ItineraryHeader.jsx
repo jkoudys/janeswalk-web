@@ -1,28 +1,12 @@
 import React from 'react';
 
-export default class Header extends React.Component {
+export default class ItineraryHeader extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
       editable: false,
       newDescription: null,
       newTitle: null,
-    }
-  }
-
-  getDefaultProps() {
-    return {
-      title:"My Itinerary",
-      description:"View my Jane's Walk Itinerary!"
-    }
-  }
-
-  propTypes() {
-    return {
-      title: React.PropTypes.string,
-      description: React.PropTypes.string,
-      updateTitle: React.PropTypes.func,
-      updateDescription: React.PropTypes.func,
     }
   }
 
@@ -92,4 +76,16 @@ export default class Header extends React.Component {
       )
     }
   };
+};
+
+ItineraryHeader.getPropTypes = {
+  title: React.PropTypes.string,
+  description: React.PropTypes.string,
+  updateTitle: React.PropTypes.func,
+  updateDescription: React.PropTypes.func,
+};
+
+ItineraryHeader.defaultProps = {
+  title:"My Itinerary",
+  description:"View my Jane's Walk Itinerary!"
 };

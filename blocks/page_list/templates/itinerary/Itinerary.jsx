@@ -3,7 +3,7 @@ import ItineraryStore from './ItineraryStore';
 import ItineraryActions from './ItineraryActions';
 
 import Walk from './Walk';
-import Header from './Header';
+import ItineraryHeader from './ItineraryHeader';
 import AddWalkToListDialog from './AddWalkToListDialog';
 
 const getItinerary = () => ({
@@ -45,12 +45,6 @@ export default class Itinerary extends React.Component {
     this.setState(getItinerary);
   }
 
-  walkSelected(id) {
-    this.setState({
-      activeWalk:id,
-    })
-  }
-
   render() {
     const {walks, title, description} = this.state;
 
@@ -70,7 +64,7 @@ export default class Itinerary extends React.Component {
         <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
         <div className="itinerary">
           <section>
-            <Header {...this.state} {...ItineraryActions}/>
+            <ItineraryHeader {...this.state} {...ItineraryActions}/>
           </section>
           <ul>
             {ItineraryWalks}
