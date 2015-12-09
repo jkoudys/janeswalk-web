@@ -8,6 +8,7 @@ const CHANGE_EVENT = 'change';
 let _itinerary = lists[0]; //_itinerary represents the current list, will refactor to be _currentList
 let _allLists = lists.slice();
 let _walkSelected = null;
+let _walkDialogOpen = false;
 
 const _removeWalk = (id) => {
   _itinerary.walks.splice(_itinerary.walks.findIndex(walk => walk.id === id), 1);
@@ -73,24 +74,28 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
-  addChangeListener(callback){
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  removeChangeListener(callback){
+  removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getItinerary(){
+  getItinerary() {
     return _itinerary;
   },
 
-  getAllLists(){
+  getAllLists() {
     return _allLists;
   },
 
-  getWalkSelected(){
+  getWalkSelected() {
     return _walkSelected;
+  },
+
+  getWalkDialog() {
+    return _walkDialogOpen;
   },
 
   //TODO: use _updateWalks to receive walks from server via API call
@@ -117,6 +122,9 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       break;
     case Actions.WALK_SELECTED:
       _walkSelected = action.id;
+      break
+    case Actions.ADD_WALK_DIALOG:
+      _walkDialogOpen = !_walkDialogOpen;
       break;
     }
 

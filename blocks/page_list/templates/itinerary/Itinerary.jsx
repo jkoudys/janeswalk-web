@@ -12,6 +12,7 @@ const getItinerary = () => ({
     description: ItineraryStore.getItinerary().description,
     lists: ItineraryStore.getAllLists(),
     activeWalk: ItineraryStore.getWalkSelected(),
+    walkDialogOpen: ItineraryStore.getWalkDialog(),
 });
 
 export default class Itinerary extends React.Component {
@@ -56,6 +57,7 @@ export default class Itinerary extends React.Component {
             id={id}
             remove={ItineraryActions.remove}
             walkSelected={ItineraryActions.walkSelected}
+            addWalkDialog={ItineraryActions.addWalkDialog}
         />
     );
 

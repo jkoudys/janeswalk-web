@@ -11,7 +11,7 @@ export default {
   },
 
   add(id, list=null) {
-    dispatch({type: ItineraryConstants.ADD_WALK, id, list});
+    dispatch({type: Actions.ADD_WALK, id, list});
   },
 
   updateTitle(title) {
@@ -33,5 +33,9 @@ export default {
   walkSelected(id) {
     dispatch({type: Actions.WALK_SELECTED, id});
   },
+
+  addWalkDialog() {
+    dispatch({type: Actions.ADD_WALK_DIALOG});
+  }
 
 }
