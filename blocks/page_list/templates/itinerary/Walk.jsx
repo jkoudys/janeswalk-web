@@ -2,7 +2,9 @@ import { dateFormatted } from './ItineraryUtils';
 import React from 'react';
 
 
-const Walk = ({title, start, meeting, remove, id}) => (
+const Walk = ({title, start, meeting, remove, id, walkSelected, addWalkDialog}) => {
+  debugger;
+  return(
     <li>
       <div className="walk">
         <h3>{title}</h3>
@@ -10,9 +12,11 @@ const Walk = ({title, start, meeting, remove, id}) => (
         <h4>{meeting}</h4>
       </div>
 
-      <button className="remove" onClick={(ev) => remove(id, ev.target.value)}> remove </button>
+      <button className="action removeWalk" onClick={(ev) => remove(id, ev.target.value)}>Remove</button>
+      <button className="action addWalk" onClick={(ev) => {addWalkDialog();walkSelected(id, ev.target.value);}}>Add</button>
     </li>
-);
+  );
+}
 
 Walk.propTypes = {
   title: React.PropTypes.string,

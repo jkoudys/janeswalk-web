@@ -3,28 +3,21 @@ import ItineraryStore from './ItineraryStore';
 import ItineraryActions from './ItineraryActions';
 
 import Walk from './Walk';
+import ItineraryHeader from './ItineraryHeader';
+import AddWalkToListDialog from './AddWalkToListDialog';
 
 const getItinerary = () => ({
     walks: ItineraryStore.getItinerary().walks,
-    title: ItineraryStore.getItinerary().title || "My Itinerary",
-    description: ItineraryStore.getItinerary().description || "View my Jane's Walk Itinerary!",
+    title: ItineraryStore.getItinerary().title,
+    description: ItineraryStore.getItinerary().description,
+    lists: ItineraryStore.getAllLists(),
+    activeWalk: ItineraryStore.getWalkSelected(),
+    walkDialogOpen: ItineraryStore.getWalkDialog(),
 });
 
 export default class Itinerary extends React.Component {
-  getDefaultProps() {
-    return {
-      itinerary: null,
-    };
-  }
-
-  propTypes() {
-    return {
-      itinerary: React.PropTypes.array,
-    };
-  }
-
-  constructor(...args) {
-    super(...args);
+  constructor(props, ...args) {
+    super(props, ...args);
     this.state = props.itinerary || getItinerary();
     this._onChange = this._onChange.bind(this);
   }
@@ -51,19 +44,17 @@ export default class Itinerary extends React.Component {
             start={time.slots[0][0]}
             id={id}
             remove={ItineraryActions.remove}
+            walkSelected={ItineraryActions.walkSelected}
+            addWalkDialog={ItineraryActions.addWalkDialog}
         />
     );
 
     return (
       <dialog id="itinerary">
+        <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
         <div className="itinerary">
-          <article>
-            <header>
-              <h2> {title} </h2>
-            </header>
-          </article>
           <section>
-            {description}
+            <ItineraryHeader {...this.state} {...ItineraryActions}/>
           </section>
           <ul>
             {ItineraryWalks}
@@ -73,3 +64,11 @@ export default class Itinerary extends React.Component {
     );
   }
 }
+
+Itinerary.defaultProps = {
+  itinerary: null,
+};
+
+Itinerary.propTypes = {
+  itinerary: React.PropTypes.array,
+};
