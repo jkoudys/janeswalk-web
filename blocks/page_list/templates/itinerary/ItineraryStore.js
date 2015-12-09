@@ -116,7 +116,8 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       _addWalk(action.id, newList);
       break;
     case Actions.WALK_SELECTED:
-      _walkSelected = action.id
+      _walkSelected = action.id;
+      break;
     }
 
     ItineraryStore.emitChange();
