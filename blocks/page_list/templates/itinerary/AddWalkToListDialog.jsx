@@ -8,17 +8,8 @@ export default class AddWalkToListDialog extends React.Component {
     }
   }
 
-  propTypes() {
-    return {
-      lists: React.PropTypes.array,
-      add: React.PropTypes.func,
-      createList: React.PropTypes.func,
-      walkSelected: React.PropTypes.number,
-    }
-  }
-
   render() {
-    const {lists, add, createList, activeWalk} = this.props;
+    const {lists, add, createList, activeWalk, walkDialogOpen, addWalkDialog} = this.props;
     const {newList} = this.state;
     //selectedWalk comes from where
 
@@ -31,13 +22,13 @@ export default class AddWalkToListDialog extends React.Component {
       if (walkFound){
         //TODO: Issue with onClick, only available for last item in the list
         return (
-          <li onClick={(ev) => add(activeWalk,list,ev.target.value)} key={id}>
+          <li key={id} onClick={(ev) => add(activeWalk,list,ev.target.value)}>
             <span className="glyphicon glyphicon-ok">{title}</span>
           </li>
         )
       } else {
         return (
-          <li key={id}>
+          <li key={id} onClick={(ev) => add(activeWalk,list,ev.target.value)}>
             <span>{title}</span>
           </li>
         )
@@ -45,16 +36,23 @@ export default class AddWalkToListDialog extends React.Component {
     });
 
     return(
-      <dialog id="addWalk">
+      <dialog id="addWalk" open={walkDialogOpen}>
         <ul>
           {allLists}
         </ul>
 
         <input placeholder="Create a new List" value={newList} onChange={ev => {this.setState({newList:ev.target.value})}}></input>
 
-        <button onClick={(ev) => {createList(activeWalk, newList);this.setState({newList:null})}}>Create</button>
-        <button onClick={(ev) => document.getElementById('addWalk').close()}>Close</button>
+        <button onClick={ev => {createList(activeWalk, newList);this.setState({newList:null})}}>Create</button>
+        <button onClick={ev => addWalkDialog()}>Close</button>
       </dialog>
     )
   }
 }
+
+AddWalkToListDialog.propTypes = {
+    lists: React.PropTypes.array,
+    add: React.PropTypes.func,
+    createList: React.PropTypes.func,
+    walkSelected: React.PropTypes.number,
+};
