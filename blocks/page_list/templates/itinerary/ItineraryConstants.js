@@ -7,6 +7,6 @@ const Actions = [
 	'CREATE_LIST',
 	'WALK_SELECTED',
 	'ADD_WALK_DIALOG',
-].reduce((p,v) => {p[v] = v; return p}, {});
+].reduce((p, v) => {p[v] = v; return p}, {});
 
 export default Actions;

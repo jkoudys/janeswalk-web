@@ -1,6 +1,6 @@
 import { dispatch, register } from './ItineraryDispatcher';
 import { EventEmitter } from 'events';
-import ItineraryConstants from './ItineraryConstants';
+import Actions from './ItineraryConstants';
 import {lists, walks} from './ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
@@ -96,26 +96,26 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(action) {
     switch (action.type) {
-    case ItineraryConstants.REMOVE_WALK:
+    case Actions.REMOVE_WALK:
       _removeWalk(action.id);
       break;
-    case ItineraryConstants.ADD_WALK:
+    case Actions.ADD_WALK:
       _addWalk(action.id, action.list);
       break;
-    case ItineraryConstants.UPDATE_TITLE:
+    case Actions.UPDATE_TITLE:
       _updateTitle(action.title);
       break;
-    case ItineraryConstants.UPDATE_DESCRIPTION:
+    case Actions.UPDATE_DESCRIPTION:
       _updateDescription(action.description);
       break;
-    case ItineraryConstants.VIEW_LIST:
+    case Actions.VIEW_LIST:
       _getWalks(action.id);
       break;
-    case ItineraryConstants.CREATE_LIST:
+    case Actions.CREATE_LIST:
       let newList = _createList(action.title);
       _addWalk(action.id, newList);
       break;
-    case ItineraryConstants.WALK_SELECTED:
+    case Actions.WALK_SELECTED:
       _walkSelected = action.id
     }
 
