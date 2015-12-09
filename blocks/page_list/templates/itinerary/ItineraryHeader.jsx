@@ -78,7 +78,7 @@ export default class ItineraryHeader extends React.Component {
   };
 };
 
-ItineraryHeader.getPropTypes = {
+ItineraryHeader.propTypes = {
   title: React.PropTypes.string,
   description: React.PropTypes.string,
   updateTitle: React.PropTypes.func,
