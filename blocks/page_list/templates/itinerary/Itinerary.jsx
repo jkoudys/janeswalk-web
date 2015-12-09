@@ -16,21 +16,9 @@ const getItinerary = () => ({
 });
 
 export default class Itinerary extends React.Component {
-  getDefaultProps() {
-    return {
-      itinerary: null,
-    };
-  }
-
-  propTypes() {
-    return {
-      itinerary: React.PropTypes.array,
-    };
-  }
-
-  constructor(...args) {
-    super(...args);
-    this.state = this.props.itinerary || getItinerary();
+  constructor(props, ...args) {
+    super(props, ...args);
+    this.state = props.itinerary || getItinerary();
     this._onChange = this._onChange.bind(this);
   }
 
@@ -76,3 +64,11 @@ export default class Itinerary extends React.Component {
     );
   }
 }
+
+Itinerary.defaultProps = {
+  itinerary: null,
+};
+
+Itinerary.propTypes = {
+  itinerary: React.PropTypes.array,
+};
