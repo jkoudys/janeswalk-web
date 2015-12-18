@@ -15,7 +15,8 @@ const WalkTeam = ({team}) => {
     return (
       <div>
         { connections.map(c => (member[c.name].length > 0 ? <a href={c.href + member[c.name]} target="_blank" className={c.style}></a> : null))}
-      </div>)
+      </div>
+    );
   };
 
   let teamMembers = team.map(member => (

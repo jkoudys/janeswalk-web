@@ -9,7 +9,7 @@ const WalkDescription = ({longDescription}) => (
 );
 
 WalkDescription.propTypes = {
- longDescription: React.PropTypes.string.isRequired,
-}
+  longDescription: React.PropTypes.string.isRequired,
+};
 
 export default WalkDescription;

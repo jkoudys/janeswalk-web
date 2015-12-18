@@ -7,18 +7,18 @@ const WalkAccessibility = ({checkboxes}) => {
   //TODO: Need to format accessibility further so accessible-familyfriendly should be Family Friendly (create a function to do this)
 
  return (
-    <section id="walkAccessibility">
-      <a name="Accessibility"></a>
-      <h2>Accessibility</h2>
-      <ul>
-        {accessibilityKeys.map(k => (<li><input type="checkbox" disabled="disabled" checked={checkboxes[k] ? "checked" : ""} value={k}></input></li>))}
-      </ul>
-    </section>
+   <section id="walkAccessibility">
+     <a name="Accessibility"></a>
+     <h2>Accessibility</h2>
+     <ul>
+       {accessibilityKeys.map(k => (<li><input type="checkbox" disabled="disabled" checked={checkboxes[k] ? "checked" : ""} value={k}></input></li>))}
+     </ul>
+   </section>
  );
 };
 
 WalkAccessibility.propTypes = {
- checkboxes: React.PropTypes.array.isRequired,
+  checkboxes: React.PropTypes.array.isRequired,
 };
 
 export default WalkAccessibility;
