@@ -1,7 +1,7 @@
 import React from 'react';
 
 const WalkPublicTransit = ({accessibleTransit}) => (
-  <section id="walkPublicTransit">
+  <section className="walkPublicTransit">
     <a name="Taking Public Transit"></a>
     <h2>Public Transit</h2>
     {accessibleTransit}

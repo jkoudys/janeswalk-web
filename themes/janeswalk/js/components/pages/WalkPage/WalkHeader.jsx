@@ -22,8 +22,8 @@ const WalkHeader = ({walk, id, remove, add, existsInItinerary, existsInFavourite
   const {title, map, time, team} = walk;
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
-  return (
-    <section id="walkHeader">
+  return(
+    <section className="walkHeader">
       <h1>{title}{addToFavourites}</h1>
       <h4>Led By {walkLeader['name-first']} {walkLeader['name-last']} - {dateFormatted(time.slots[0][0])}{addToItinerary}</h4>
       <h4>Meeting at {map.markers[0].title}</h4>
