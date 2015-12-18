@@ -11,6 +11,13 @@ const WalkMenu = ({walk}) => {
   let {checkboxes, title, map, time, team} = walk;
   const walkLeader = team.find(member => member.role === 'walk-leader');
   const tags = Object.keys(checkboxes).filter(item => item.includes("theme-civic"));
+
+  const tagsRef = {
+    "theme-civic-goodneighbour":"Community",
+    "theme-civic-international":"International Issues",
+    "theme-civic-religion":"Religion",
+  };
+
   const menuItems = ['About This Walk', 'Walk Route', 'Accessibility', 'Taking Public Transit', 'How to find us', 'About the Walk Team'];
 
   return (
@@ -27,7 +34,7 @@ const WalkMenu = ({walk}) => {
         </ul>
       </section>
       <section id="tags">
-        {tags.map(tag => <span>#{tag}, </span>)}
+        {tags.map(tag => <span>#{tagsRef[tag]}, </span>)}
       </section>
     </section>
   );
