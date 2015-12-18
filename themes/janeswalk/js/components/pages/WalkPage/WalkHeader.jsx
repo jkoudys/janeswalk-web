@@ -9,12 +9,12 @@ const WalkHeader = ({walk, id, remove, add, existsInItinerary, existsInFavourite
 
   const favButton = () => {
     if (existsInFavourites) return <button className="removeFavourite" onClick={()=>remove(id,favoriteListId)}> </button>;
-    else return <button className="addFavourite" onClick={()=>add(id,favoriteListId)}> </button>;
+    return <button className="addFavourite" onClick={()=>add(id,favoriteListId)}> </button>;
   };
 
   const addButton = () => {
-    if(existsInItinerary) return <button className="removeItinerary" onClick={()=>remove(id,itineraryListId)}>I'm going</button>;
-    else return <button className="addItinerary" onClick={()=>add(id,itineraryListId)}> </button>;
+    if (existsInItinerary) return <button className="removeItinerary" onClick={()=>remove(id,itineraryListId)}>I'm going</button>;
+    return <button className="addItinerary" onClick={()=>add(id,itineraryListId)}> </button>;
   };
 
   const addToFavourites = favButton();
@@ -22,7 +22,7 @@ const WalkHeader = ({walk, id, remove, add, existsInItinerary, existsInFavourite
   const {title, map, time, team} = walk;
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
-  return(
+  return (
     <section id="walkHeader">
       <h1>{title}{addToFavourites}</h1>
       <h4>Led By {walkLeader['name-first']} {walkLeader['name-last']} - {dateFormatted(time.slots[0][0])}{addToItinerary}</h4>

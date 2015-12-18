@@ -1,10 +1,8 @@
 import React from 'react';
 
 const WalkTeam = ({team}) => {
-
   let generateLinks = (member) => {
-
-    let connections = [
+    const connections = [
       {name:'twitter', href:'http://twitter.com/', style:'fa fa-twitter'},
       {name:'facebook',href:'http://facebook.com/', style:'fa fa-facebook'},
       {name:'email',href:'mailto:', style:'fa fa-envelope-o'},
@@ -19,7 +17,7 @@ const WalkTeam = ({team}) => {
     );
   };
 
-  let teamMembers = team.map(member => (
+  const teamMembers = team.map(member => (
     <article>
       <header>
         <h3>{member['name-first']} {member['name-last']}</h3>
