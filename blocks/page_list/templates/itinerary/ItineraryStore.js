@@ -5,28 +5,40 @@ import {lists, walks} from './ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
-let _itinerary = lists[0]; //_itinerary represents the current list, will refactor to be _currentList
-let _favourites = lists[1]; //_itinerary represents the current list, will refactor to be _currentList
+
+let _itinerary = lists[0];
+let _favourites = lists[1];
+let _currentList = _itinerary;
 let _allLists = lists.slice();
+let _dialogOpen = false;
 let _walkSelected = null;
 let _walkDialogOpen = false;
-let _dialogOpen = false;
-let _currentListId = lists[0].id;
 
 const _removeWalk = (id, listId) => {
-  let list = _allLists.find(list => list.id === listId);
-  list.walks.splice(_itinerary.walks.findIndex(walk => walk.id === id), 1);
+  const list = _allLists.find(list => list.id === listId);
+
+  if (!list) {
+    console.log('List could not be found');
+  } else {
+
+    const walkFound = list.walks.find(walk => walk.id === id);
+
+    if (walkFound) {
+      list.walks.splice(list.walks.findIndex(walk => walk.id === id), 1);
+    } else {
+      console.log('Walk does not exists');
+    }
+  }
 };
 
-//const _addWalk = (id, list = _itinerary) => {
 const _addWalk = (id, listId) => {
-  let list = _allLists.find(list => list.id === listId);
+  const list = _allLists.find(list => list.id === listId);
 
   //TODO: May not be required after API calls
-  if (!list){
-    console.log('List could not be found')
+  if (!list) {
+    console.log('List could not be found');
   } else {
-    let walkFound = list.walks.find(walk => walk.id === id);
+    const walkFound = list.walks.find(walk => walk.id === id);
 
     if (!walkFound) {
       const walk = walks.find(walk => walk.id === id);
@@ -35,7 +47,6 @@ const _addWalk = (id, listId) => {
       } else {
         list.walks.unshift(walk);
       }
-
     } else {
       console.log('Walk already exists, notify the user');
     }
@@ -45,11 +56,11 @@ const _addWalk = (id, listId) => {
 const _createList = (title) => {
   const list = _allLists.find(list => list.title === title);
 
-  if (!list){
+  if (!list) {
     _allLists.push({
       id: _allLists.length + 1,
       title,
-      shareUrl: "janeswalk.org/Harold/" + title,
+      shareUrl: 'janeswalk.org/Harold/' + title,
       description: "View my Jane's Walk Itinerary!",
       walks: [],
     });
@@ -60,28 +71,26 @@ const _createList = (title) => {
 
 //walks received from API used to update _itinerary
 const _updateWalks = (walks) => {
-  _itinerary.walks = walks.slice();
+  _currentList.walks = walks.slice();
 };
 
 const _updateTitle = (title) => {
-  _itinerary.title = title;
+  _currentList.title = title;
 };
 
 const _updateDescription = (description) => {
-  _itinerary.description = description;
+  _currentList.description = description;
 };
 
 const _getWalks = (id) => {
-  if(_itinerary.id !== id){
+  if (_currentList.id !== id) {
+    const listFound = _allLists.find(list => list.id === id);
 
-    let listFound = _allLists.find(list => list.id === id);
-
-    if (listFound){
-      _itinerary = listFound;
+    if (listFound) {
+      _currentList = listFound;
     } else {
       console.log('list not found, notify user');
     }
-
   }
 };
 
@@ -98,8 +107,8 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getItinerary() {
-    return _itinerary;
+  getWalks() {
+    return _currentList;
   },
 
   getAllLists() {
@@ -111,7 +120,7 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   },
 
   getActiveList() {
-    return _currentListId;
+    return _currentList;
   },
 
   getWalkDialog() {
@@ -153,7 +162,6 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       break;
     case Actions.VIEW_LIST:
       _getWalks(action.id);
-      _currentListId = action.id;
       break;
     case Actions.CREATE_LIST:
       let newList = _createList(action.title);

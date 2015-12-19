@@ -7,13 +7,14 @@ import ItineraryHeader from './ItineraryHeader';
 import AddWalkToListDialog from './AddWalkToListDialog';
 
 const getItinerary = () => ({
-  walks: ItineraryStore.getItinerary().walks,
-  title: ItineraryStore.getItinerary().title,
-  description: ItineraryStore.getItinerary().description,
+  walks: ItineraryStore.getWalks().walks,
+  title: ItineraryStore.getWalks().title,
+  description: ItineraryStore.getWalks().description,
   lists: ItineraryStore.getAllLists(),
   activeWalk: ItineraryStore.getWalkSelected(),
   walkDialogOpen: ItineraryStore.getWalkDialog(),
   dialogOpen: ItineraryStore.getDialog(),
+  listId: ItineraryStore.getWalks().id,
 });
 
 export default class Itinerary extends React.Component {
@@ -36,7 +37,7 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    const {walks, title, description, dialogOpen, listId} = this.state;
+    const {walks, dialogOpen, listId} = this.state;
 
     const ItineraryWalks = walks.map(({map, id, title, time}) =>
         <Walk
