@@ -106,10 +106,6 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getWalks() {
-    return _currentList;
-  },
-
   getAllLists() {
     return _allLists;
   },

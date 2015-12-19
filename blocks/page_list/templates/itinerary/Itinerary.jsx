@@ -7,14 +7,14 @@ import ItineraryHeader from './ItineraryHeader';
 import AddWalkToListDialog from './AddWalkToListDialog';
 
 const getItinerary = () => ({
-  walks: ItineraryStore.getWalks().walks,
-  title: ItineraryStore.getWalks().title,
-  description: ItineraryStore.getWalks().description,
+  walks: ItineraryStore.getActiveList().walks,
+  title: ItineraryStore.getActiveList().title,
+  description: ItineraryStore.getActiveList().description,
   lists: ItineraryStore.getAllLists(),
   activeWalk: ItineraryStore.getWalkSelected(),
   walkDialogOpen: ItineraryStore.getWalkDialog(),
   dialogOpen: ItineraryStore.getDialog(),
-  listId: ItineraryStore.getWalks().id,
+  listId: ItineraryStore.getActiveList().id,
 });
 
 export default class Itinerary extends React.Component {
