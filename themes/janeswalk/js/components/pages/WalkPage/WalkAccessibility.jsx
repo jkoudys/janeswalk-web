@@ -15,7 +15,7 @@ const WalkAccessibility = ({checkboxes}) => {
       <a name="Accessibility"></a>
       <h2>Accessibility</h2>
       <ul>
-        {accessibilityKeys.map((k,i) => {return <li key={i}><input type="checkbox" disabled="disabled" checked={checkboxes[k] ? "checked" : ""}></input>{accessibility[k]}</li>})}
+        {accessibilityKeys.map((k,i) => (<li key={i}><input type="checkbox" disabled="disabled" checked={checkboxes[k] ? "checked" : ""}></input>{accessibility[k]}</li>))}
       </ul>
     </section>
   );

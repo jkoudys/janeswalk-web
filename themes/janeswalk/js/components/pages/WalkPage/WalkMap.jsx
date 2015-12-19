@@ -51,7 +51,7 @@ export default class WalkMap extends React.Component {
       })
     });
 
-    var routePath = new google.maps.Polyline({
+    const routePath = new google.maps.Polyline({
       path: routeCoordinates,
       strokeColor: '#000000',
       geodesic: true,
