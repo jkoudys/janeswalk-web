@@ -20,15 +20,14 @@ export default class AddWalkToListDialog extends React.Component {
       const walkFound = walks.find(walk => walk.id === activeWalk);
 
       if (walkFound){
-        //TODO: Issue with onClick, only available for last item in the list
         return (
-          <li key={id} onClick={(ev) => add(activeWalk,list,ev.target.value)}>
+          <li key={id} onClick={(ev) => add(activeWalk,list.id,ev.target.value)}>
             <span className="glyphicon glyphicon-ok">{title}</span>
           </li>
         )
       } else {
         return (
-          <li key={id} onClick={(ev) => add(activeWalk,list,ev.target.value)}>
+          <li key={id} onClick={(ev) => add(activeWalk,list.id,ev.target.value)}>
             <span>{title}</span>
           </li>
         )
