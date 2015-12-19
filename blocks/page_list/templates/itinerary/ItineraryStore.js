@@ -5,7 +5,6 @@ import {lists, walks} from './ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
-
 let _itinerary = lists[0];
 let _favourites = lists[1];
 let _currentList = _itinerary;
