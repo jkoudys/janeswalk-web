@@ -308,14 +308,14 @@ body.city-page {
             .filters {
                 .clearfix();
                 clear: both;
-                padding: 0;
+                padding: 5px 0;
                 border: 1px solid @color-lightgrey;
                 border-radius: 0 0 6px 6px;
                 list-style: none;
 
                 li {
                     .make-md-column(6);
-                    margin-top: 15px;
+                    margin: 10px 0;
 
                     label {
                         display: block;
@@ -324,9 +324,16 @@ body.city-page {
                         color: #B36038;
                         color: #333;
                     }
-                    .datepicker {
+                    .daterange {
+                      @width: 45%;
+                      .clearfix();
+                      input {
+                        width: @width;
                         display: inline-block;
-                        width: 40%;
+                        &:last-child {
+                          margin-left: 100 - 2 * @width;
+                        }
+                      }
                     }
                 }
             }
@@ -522,4 +529,23 @@ body.city-page {
             // }
         }
     }
+}
+
+/* The date select popups */
+#ui-datepicker-div {
+  .ui-datepicker-header {
+    background: @color-orange;
+  }
+  .ui-datepicker-title {
+    select {
+      width: 40%;
+      display: inline-block;
+      &:first-child {
+        margin: 0 2.5% 0 5%;
+      }
+      &:last-child {
+        margin: 0 5% 0 2.5%;
+      }
+   }
+ }
 }

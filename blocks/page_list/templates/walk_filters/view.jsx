@@ -2,18 +2,22 @@
  * A set of walk filters, to filter on properties. Also includes
  * the tabs, like 'list' and 'map/
  */
-'use strict';
 
-var CityMap = require('./CityMap.jsx');
-var WalkList = require('./WalkList.jsx');
+import CityMap from './CityMap.jsx';
+import WalkFilter from './WalkFilter.jsx';
 
-document.addEventListener('DOMContentLoaded', function(){
-  // Setup the walk list
-  WalkList.addWalkListEvents();
+let _walks;
+let _city;
 
-  // Setup the walk map
+JanesWalk.event.on('walks.receive', function(walks, props) {
+  _walks = walks;
   React.render(
-    <CityMap walks={JanesWalk.walks} city={JanesWalk.city} />,
-    document.getElementById('jw-map')
+    <WalkFilter walks={walks} filters={props.filters} city={_city} />,
+    document.getElementById('janeswalk-walk-filters')
   );
+});
+
+
+JanesWalk.event.on('city.receive', function(city) {
+  _city = city;
 });

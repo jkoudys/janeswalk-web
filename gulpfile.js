@@ -15,8 +15,7 @@ var gulp = require('gulp'),
   source = require('vinyl-source-stream'),
   buffer = require('vinyl-buffer'),
   browserify = require('browserify'),
-  uglifyify = require('uglifyify'),
-  reactify = require('reactify'),
+  babelify = require('babelify'),
   gettextParser = require('gettext-parser');
 
 var paths = {
@@ -25,6 +24,7 @@ var paths = {
     './themes/janeswalk/js/app.js',
     './themes/janeswalk/js/extend.js',
     './themes/janeswalk/js/shims.js',
+    './themes/janeswalk/js/tiny-pubsub.js'
   ],
   jsx_app: './themes/janeswalk/js/router.jsx',
   jsx_views: ['./themes/janeswalk/js/router.jsx'],
@@ -44,12 +44,11 @@ gulp.task('css', function() {
     .pipe(gulp.dest(paths.css));
 });
 
-gulp.task('jsx_app', function() {
+gulp.task('js', function() {
   return browserify({
     entries: paths.jsx_app,
-    transform: [reactify],
-    extensions: ['.jsx'],
-    es6: true
+    transform: [babelify],
+    extensions: ['.jsx']
   })
     .bundle()
     .pipe(source('janeswalk.js'))
@@ -58,17 +57,6 @@ gulp.task('jsx_app', function() {
     .pipe(buffer())
     .pipe(uglify())
     .pipe(gulp.dest(paths.js))
-});
-
-gulp.task('browserify', function(callback) {
-  return browserify({
-    entries: paths.react_views + 'CreateWalk.jsx',
-    transform: [reactify],
-    extensions: ['.jsx'],
-  })
-    .bundle()
-    .pipe(source('CreateWalk.js'))
-    .pipe(gulp.dest(paths.react_views))
 });
 
 gulp.task('blocks', function() {
@@ -82,13 +70,26 @@ gulp.task('blocks', function() {
         }
       },
       entries: template + 'view.jsx',
-      transform: [reactify],
+      transform: [babelify],
       extensions: ['.jsx']
     })
       .bundle()
       .pipe(source('view.js'))
       .pipe(gulp.dest(template))
   });
+});
+
+gulp.task('js.global', function() {
+  return browserify({
+    entries: './js/jwobject.jsx',
+    transform: [babelify],
+    extensions: ['.jsx']
+  })
+  .bundle()
+  .pipe(source('jwglobal.js'))
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(gulp.dest('./js/'));
 });
 
 // Build JSON from the mo files
@@ -135,8 +136,8 @@ gulp.task('mo', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.css + '**/*.less', ['css']);
-  gulp.watch(paths.jsx, ['jsx_app']);
-  gulp.watch(paths.jsx_views, ['jsx_app']);
+  gulp.watch(paths.jsx, ['js']);
+  gulp.watch(paths.jsx_views, ['js']);
   gulp.watch('./blocks/**/*.jsx', ['blocks']);
 });
 

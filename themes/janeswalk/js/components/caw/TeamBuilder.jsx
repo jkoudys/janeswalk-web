@@ -1,79 +1,81 @@
-'use strict';
-var mixins = require('../../helpers/mixins.jsx');
+import * as mixins from '../../helpers/mixins.jsx';
 
 // Flux
 var i18n = require('../../stores/I18nStore.js');
 var t = i18n.getTranslate();
 var t2 = i18n.getTranslatePlural();
 
-var TeamBuilder = React.createClass({
-  displayName: 'TeamBuilder',
-
-  mixins: [mixins.linkedParentState],
-
-  getInitialState: function() {
+export default class TeamBuilder extends React.Component {
+  constructor() {
+    super();
     // So we know if this is the first loading, or changed after
-    return {initialized: false};
-  },
+    this.state = {initialized: false};
 
-  componentDidMount: function() {
+    this.addLeader = this.addLeader.bind(this);
+    this.addOrganizer = this.addOrganizer.bind(this);
+    this.addCommunityVoice = this.addCommunityVoice.bind(this);
+    this.addVolunteer = this.addVolunteer.bind(this);
+    this.handleTeamMemberChange = this.handleTeamMemberChange.bind(this);
+  }
+
+  componentDidMount() {
     this.setState({initialized: true});
-  },
+  }
 
-  handleTeamMemberChange: function(propname, memberValue, id) {
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value;
+  handleTeamMemberChange(propname, memberValue, id) {
+    const valueLink = this.props.valueLink;
+    const value = valueLink.value;
     value[id][propname] = memberValue;
     valueLink.requestChange(value);
-  },
+  }
 
-  addMember: function(props) {
-    var valueLink = this.props.valueLink;
-    var team = valueLink.value;
+  addMember(props) {
+    const valueLink = this.props.valueLink;
+    const team = valueLink.value;
     team.push(props);
     valueLink.requestChange(team);
-  },
+  }
 
-  addLeader: function() {
+  addLeader() {
     this.addMember({type: 'leader', "name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''});
-  },
+  }
 
-  addOrganizer: function() {
+  addOrganizer() {
     this.addMember({type: 'organizer', "name-first":'', "name-last":'', institution: '', website: ''});
-  },
+  }
 
-  addCommunityVoice: function() {
+  addCommunityVoice() {
     this.addMember({type: 'community', "name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''});
-  },
+  }
 
-  addVolunteer: function() {
+  addVolunteer() {
     this.addMember({type: 'volunteer', "name-first":'', "name-last":'', role: '', website: ''});
-  },
+  }
 
-  deleteMember: function(i) {
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value.slice();
+  deleteMember(i) {
+    const valueLink = this.props.valueLink;
+    const value = valueLink.value.slice();
     value.splice(i, 1);
     valueLink.requestChange(value);
-  },
+  }
 
   // Set the member at that specific index
-  render: function() {
-    var _this = this;
+  render() {
     // If there's no 'you', create one as the current user
-    var valueLink = this.props.valueLink;
-    var value = valueLink.value;
+    const valueLink = this.props.valueLink;
+    const value = valueLink.value;
 
     // Loop through all the users and render the appropriate user type
-    var teamMemberProps = {
+    const teamMemberProps = {
       onChange: this.handleTeamMemberChange
     };
-    var users = value.map(function(user, i) {
-      var teamMember = null;
+
+    const users = value.map((user, i) => {
+      let teamMember;
       teamMemberProps.key = i;
       teamMemberProps.index = i;
       teamMemberProps.value = user;
-      teamMemberProps.onDelete = _this.deleteMember.bind(_this, i);
+      teamMemberProps.onDelete = this.deleteMember.bind(this, i);
       // Use empty strings for unset/false
       user.phone = user.phone || '';
       if (user.type === 'you') {
@@ -129,12 +131,11 @@ var TeamBuilder = React.createClass({
       </div>
     );
   }
-});
+}
+Object.assign(TeamBuilder.prototype, mixins.linkedParentState);
 
-
-var TeamOwner = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
+class TeamOwner extends React.Component {
+  render() {
     return (
       <div className="team-member thumbnail useredited" id="walk-leader-me">
         <fieldset>
@@ -208,11 +209,11 @@ var TeamOwner = React.createClass({
       </div>
     );
   }
-});
+}
+Object.assign(TeamOwner.prototype, mixins.linkedTeamMemberState);
 
-var TeamLeader = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
+class TeamLeader extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member walk-leader clearfix" id="walk-leader-new">
         <fieldset>
@@ -279,11 +280,11 @@ var TeamLeader = React.createClass({
       </div>
     )
   }
-});
+}
+Object.assign(TeamLeader.prototype, mixins.linkedTeamMemberState);
 
-var TeamOrganizer = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
+class TeamOrganizer extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member walk-organizer" id="walk-organizer-new">
         <fieldset>
@@ -314,11 +315,11 @@ var TeamOrganizer = React.createClass({
       </div>
     )
   }
-});
+}
+Object.assign(TeamOrganizer.prototype, mixins.linkedTeamMemberState);
 
-var TeamCommunityVoice = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
+class TeamCommunityVoice extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member community-voice" id="community-voice-new">
         <fieldset>
@@ -367,11 +368,11 @@ var TeamCommunityVoice = React.createClass({
       </div>
     )
   }
-});
+}
+Object.assign(TeamCommunityVoice.prototype, mixins.linkedTeamMemberState);
 
-var TeamVolunteer = React.createClass({
-  mixins: [mixins.linkedTeamMemberState],
-  render: function() {
+class TeamVolunteer extends React.Component {
+  render() {
     return (
       <div className="thumbnail team-member othermember" id="othermember-new">
         <fieldset>
@@ -407,6 +408,5 @@ var TeamVolunteer = React.createClass({
       </div>
     )
   }
-});
-
-module.exports = TeamBuilder;
+}
+Object.assign(TeamVolunteer.prototype, mixins.linkedTeamMemberState);

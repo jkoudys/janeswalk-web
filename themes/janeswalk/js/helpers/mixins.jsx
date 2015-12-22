@@ -1,18 +1,16 @@
-'use strict';
-
 /**
  * TODO: replace both of these silly 2-way binding helpers with flux
  */
 
 // Link this component's state to the linkState() parent
-module.exports.linkedParentState = {
+export const linkedParentState = {
   linkParentState: function(propname) {
-    var valueLink = this.props.valueLink;
-    var parentState = valueLink.value;
+    const valueLink = this.props.valueLink;
+    const parentState = valueLink.value;
 
     return {
       value: parentState[propname],
-      requestChange: function(value) {
+      requestChange: value => {
         parentState[propname] = value;
         valueLink.requestChange(parentState);
       }
@@ -21,17 +19,14 @@ module.exports.linkedParentState = {
 };
 
 // Link this component's state to the linkState() parent
-module.exports.linkedTeamMemberState = {
+export const linkedTeamMemberState = {
   linkProp: function(propname) {
-    var onChange = this.props.onChange;
-    var key = this.props.index;
+    const onChange = this.props.onChange;
+    const key = this.props.index;
+
     return {
       value: this.props.value[propname],
-      requestChange: function(value) {
-        onChange(propname, value, key);
-      }
-    };
-  },
+      requestChange: value => onChange(propname, value, key)
+    }
+  }
 };
-
-

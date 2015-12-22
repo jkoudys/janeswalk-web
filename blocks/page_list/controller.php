@@ -1,15 +1,12 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
-
+use \Qaribou\Collection\ImmArray;
 use \JanesWalk\Models\PageTypes\Walk;
 
 Loader::helper('theme');
 Loader::model('page_types/Walk');
+
 class PageListBlockController extends Concrete5_Controller_Block_PageList
 {
-    // Data for returning in JSON
-    protected $pageData = [];
-
     public function getPageList()
     {
         Loader::model('page_list');
@@ -128,29 +125,13 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                     $walksByDate[] = $dateWalk;
                 }
             }
-
-            /* Load the lat/lng for the city we're displaying */
-            /* Note: this must change if this block is used on a non-city page, to instead use cParentID */
-            $latlng = explode(',', $c->getAttribute('latlng'));
-            if (count($latlng) === 2) {
-                $this->set('lat', $latlng[0]);
-                $this->set('lng', $latlng[1]);
-            }
-
-            $this->pageData = ['walks' => $cards];
-
-            // Filter out past walks
-            // Check up to 30 days ago
-            $time = time() - (60 * 60 * 24 * 30);
-            $cardsUpcoming = array_filter(
-                $walksByDate,
-                function($walk) use ($time) {
-                    return $walk->time['slots'] && ((int) $walk->time['slots'][0][0]) > $time;
-                }
-            );
+            usort($walksByDate, function($a, $b) {
+                $ta = $a->time['slots'][0][0];
+                $tb = $b->time['slots'][0][0];
+                return $ta < $tb ? -1 : 1;
+            });
 
             $this->set('cards', $walksByDate);
-            $this->set('cardsUpcoming', $cardsUpcoming);
             break;
         }
 
@@ -194,13 +175,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $wardName = 'Ward';
             }
 
-            // Dates
-            // TODO: This needs to be the future dates where walks are available,
-            // plus the option to look at past dates
-            $dates = array('May 1, 2014', 'May 2, 2014', 'May 3, 2014', 'May 4, 2014');
-
             /* Set variables needed for rendering show all walks */
-            $this->set('dates', $dates);
             $this->set('wardName', $wardName);
             $this->set('initiatives', $initiatives);
             $this->set('accessibilities', $accessibilities);
@@ -224,20 +199,5 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         }
 
         return $cards;
-    }
-
-    // The 'on_before_render' will set up our JanesWalk json in the page
-    public function on_before_render()
-    {
-        if ($this->block) {
-            switch ($this->block->getBlockFilename()) {
-            case 'walkcards':
-            case 'walk_filters':
-                $this->addFooterItem('<script type="text/javascript">window.JanesWalk = Object.assign({}, window.JanesWalk, ' . json_encode($this->pageData) . ');</script>');
-                break;
-            default:
-                break;
-            }
-        }
     }
 }

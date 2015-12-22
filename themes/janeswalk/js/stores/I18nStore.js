@@ -3,39 +3,38 @@
  *
  * Store for i18n language translations
  */
-'use strict';
 
 // Basic flux setup
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var ActionTypes = require('../constants/JWConstants').ActionTypes;
+import {EventEmitter} from 'events';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import {ActionTypes} from '../constants/JWConstants';
 
 // The library for managing translations
-var I18nTranslator = require('../helpers/translate.js');
+import I18nTranslator from '../helpers/translate.js';
 
 // Simple 'something has changed' event
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change';
 
 // Local vars
-var _i18n = new I18nTranslator();
+const _i18n = new I18nTranslator();
 
-var I18nStore = Object.assign({}, EventEmitter.prototype, {
-  emitChange: function() {
+const I18nStore = Object.assign({}, EventEmitter.prototype, {
+  emitChange() {
     this.emit(CHANGE_EVENT);
   },
 
   /**
    * @param {function} callback
    */
-  addChangeListener: function(callback) {
+  addChangeListener(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
-  getTranslate: function() {
+  getTranslate() {
     return _i18n.translate.bind(_i18n);
   },
 
-  getTranslatePlural: function() {
+  getTranslatePlural() {
     return _i18n.translatePlural.bind(_i18n);
   }
 });
@@ -54,4 +53,4 @@ I18nStore.dispatchToken = AppDispatcher.register(function(payload) {
   }
 });
 
-module.exports = I18nStore;
+export default I18nStore;

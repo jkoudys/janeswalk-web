@@ -1,0 +1,34 @@
+{
+  "name": "",
+  "shortDescription": "",
+  "longDescription": "",
+  "accessibleInfo": "",
+  "accessibleTransit": "",
+  "accessibleParking": "",
+  "accessibleFind": "",
+  "map": {
+    "markers": [],
+    "route": []
+  },
+  "team": [{
+    "id": -1,
+    "type": "you",
+    "name-first": "",
+    "name-last": "",
+    "role": "walk-leader",
+    "primary": "on",
+    "bio": "",
+    "twitter": "",
+    "facebook": "",
+    "website": "",
+    "email": "",
+    "phone": ""
+  }],
+  "time": {"type": "", "slots": []},
+  "thumbnails": [],
+  "wards": "",
+  "checkboxes": {},
+  "notifications": [],
+  "mirrors": {},
+  "url": ""
+};

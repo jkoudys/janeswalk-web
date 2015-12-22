@@ -2,6 +2,7 @@
   "require": {
     "phpunit/phpunit": "4.1.*",
     "squizlabs/php_codesniffer": "*@dev",
-    "fabpot/php-cs-fixer": "*"
+    "fabpot/php-cs-fixer": "*",
+    "qaribou/immutable.php": "*"
   }
 }

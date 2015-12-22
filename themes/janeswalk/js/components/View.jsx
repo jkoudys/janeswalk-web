@@ -1,5 +1,4 @@
 'use strict';
-require('../shims.js');
 
 /**
 * View constructor
