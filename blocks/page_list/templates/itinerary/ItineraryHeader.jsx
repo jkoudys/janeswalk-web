@@ -18,7 +18,9 @@ export default class ItineraryHeader extends React.Component {
     updateDescription(newDescription || description);
 
     this.setState({
-      editable:!editable
+      editable:!editable,
+      newTitle: null,
+      newDescription: null,
     })
   }
 
@@ -46,7 +48,7 @@ export default class ItineraryHeader extends React.Component {
 
     if (editable){
       return (
-        <header class="itineraryHeader">
+        <header className="itineraryHeader">
           <h2>
             <input value={newTitle || title} onChange={ev => this.setState({newTitle:ev.target.value})}></input>
           </h2>
@@ -59,9 +61,9 @@ export default class ItineraryHeader extends React.Component {
       )
     } else {
       return (
-        <header>
+        <header className="itineraryHeader">
 
-          <div className="itineraryHeader dropdown">
+          <div className="dropdown">
             <button className="toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="lists">
               <h2>{title}</h2>
             </button>

@@ -6,11 +6,11 @@ import { dispatch } from './ItineraryDispatcher';
 
 export default {
 
-  remove(id) {
-    dispatch({type: Actions.REMOVE_WALK, id});
+  remove(id, list) {
+    dispatch({type: Actions.REMOVE_WALK, id, list});
   },
 
-  add(id, list=null) {
+  add(id, list) {
     dispatch({type: Actions.ADD_WALK, id, list});
   },
 
