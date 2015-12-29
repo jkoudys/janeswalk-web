@@ -1,0 +1,297 @@
+
+#itinerary{
+  max-width: 65%;
+  position: absolute;
+  right: 0;
+  margin-right: 0;
+  box-shadow: -1px -4px 33px rgba(0,0,50,0.85);
+  border-color: white;
+  background: #fff;
+  min-width: 700px;
+  height: 100%;
+  padding: 2.25rem 5.5rem;
+  overflow-y: scroll;
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  #addWalk {
+    ul {
+      font-size: 12px;
+      letter-spacing: 0.025rem;
+      line-height: 1.5;
+      margin-bottom: 3px;
+    }
+    input {
+      width: 104px;
+      font-size: 12px; 
+      border: 0px;
+      border-bottom: 1px solid #cccccc;
+      margin-right: 3px;
+      opacity: 0.75;
+      transition: border-bottom 0.3s;
+      &:hover {
+        opacity: 1;
+      }
+      &~ button {
+        cursor: auto;
+      }
+      &:focus {
+        border-bottom: 1px solid #8a8a8a;
+      }
+      &:focus + button  {
+        opacity: 0.85;
+        left: 0;
+        cursor: pointer;
+        &:hover {
+          transition: opacity 0s;
+          opacity: 1;
+        }
+      }
+    }
+    button {
+      background: @color-orange;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-size: 12px;
+      padding: 2px 7px;
+      margin: 0 2px;
+      opacity: 0;
+      position: relative;
+      left: -5px;
+      cursor: pointer;
+      transition: opacity 0.3s, left 0.3s;
+    }
+  }
+}
+#name_donate {
+  position: fixed;
+  top: 0;
+  right: 30px;
+  z-index: 5;
+}
+.itinerary {
+  margin: 30px auto 5rem;
+  ul {
+    list-style: none; 
+  }
+
+  li.walklistItem {
+    overflow: auto; //need to use .clearfix() mixin
+    border-top: 2px solid #e0e0e0;
+    padding: 30px 0;
+  }
+
+  .walk {
+    //.clearfix();
+    max-width: 70%;
+    float: left;
+    h3, h4 {
+      font-weight: 300;
+    }
+    h3 {
+      margin-top: 0;
+      line-height: 1.2;
+    }
+    h4 {
+      margin: 0px auto 3px;
+    }
+    &~button {
+      font-size: 2.2rem;
+      opacity: 0.5;
+      line-height: 0.5;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .action {
+    float: right;
+    max-width: 30%;
+    position: relative;
+    transform: translateY(100%);
+    border: none;
+    background-color: transparent;
+    color: #959595;
+    outline: none;
+    text-align: right;
+
+    &:hover {
+      color: black;
+    }
+  }
+
+  .removeWalk {
+    .glyphicon;
+    .glyphicon-remove;
+  }
+
+  .addWalk {
+    .glyphicon;
+    .glyphicon-new-window;
+  }
+
+}
+
+.itineraryHeader {
+  .update {
+    .glyphicon;
+    .glyphicon-ok;
+  }
+
+  .cancel {
+    .glyphicon;
+    .glyphicon-remove;
+  }
+
+  .dropdown {
+    .toggle {
+      border: 0px;
+      background: none;
+      padding: 0;
+      h1.walklistTitle {
+        margin: 0;
+        .dropdown-chevron {
+          .glyphicon;
+          .glyphicon-chevron-down;
+          font-size: 21px;
+          margin-left: 10px;
+          position: relative;
+          top: 1px;
+          opacity: 0.3;
+          transition: opacity 0.3s;
+        }
+      }
+      &:hover {
+        span.dropdown-chevron {
+          opacity: 1;
+        }
+      }
+      /*TODO: Dropdown is not working */
+    }
+    ul.dropdown-menu {
+      padding: 0;
+      min-width: 200px;
+      left: -10px;
+      margin-top: 10px;
+      border-radius: 0;
+      border: 0px;
+      border-top: 1px solid #ddd;
+      border-bottom: 2px solid #c0c0c0;
+      box-shadow: -1px 3px 12px rgba(0,0,50,0.185);
+      li {
+        padding: 10px 40px 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        &:hover {
+          background: #F5F5F5;
+        }
+        &:first-child {
+          padding-top: 13px;
+        }
+        &:last-child {
+          padding-bottom: 13px;
+        }
+      }
+    }
+  }
+  h5.shareUrl a {
+    color: #666;
+  }
+  h4.walklistDescription {
+    width: 76%;
+    line-height: 1.3;
+    margin: 20px 0 10px;
+    textarea { 
+      width: 100%;
+      outline: none;
+      height: 100px;
+      &:invalid {
+        resize: none;
+        height: 100px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-bottom: 3px solid #ddd;
+        opacity: 1;
+        cursor: pointer;
+        outline: none;
+        box-shadow: none;
+        &:hover {
+          opacity: 0.85;
+        }
+      }
+      &:hover {
+        opacity: 1;
+      }
+      &:focus, &:focus:valid {
+        padding: 15px;
+        cursor: text;
+        width: 100%;
+        height: 110px;
+        border: 1px solid #F16725;
+        border-bottom: 3px solid @@color-orange;
+        font-weight: 300;
+        letter-spacing: 0.1rem;
+        resize: none;
+        background-color: #fff;
+        &:hover {
+          opacity: 1;
+          border: 1px solid #F16725;
+          border-bottom: 3px solid @color-orange;
+          cursor: text;
+          background-color: #fff;
+        }
+      }
+      &:focus:valid { 
+        &~span.update {
+          opacity: 0.9;
+          top: 3px;
+        }
+      }
+      &:valid {
+        border: 1px solid #fff;
+        border-bottom: 3px solid #fff;
+        resize: none;
+        height: 110px;
+        padding: 15px;
+        border-right: 0px solid #ddd;
+        border-left: 0px;
+        border-top: 0px;
+        border-bottom: 3px solid #ddd;
+        background-color: #f6f6f6;
+        &:hover {
+          cursor: pointer;
+          border-right: 0px solid #ddd;
+          border-left: 0px;
+          border-top: 0px;
+          border-bottom: 3px solid #ddd;
+          background-color: #f6f6f6;
+          opacity: 0.9;
+        }
+      }
+    }
+  }
+
+  .update {
+    cursor: pointer;
+    font-family: "Roboto Slab";
+    font-size: 16px;
+    margin: 7px 0 35px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background-color: @color-orange;
+    color: #fff;
+    font-weight: 600;
+    opacity: 0;
+    position: relative;
+    top: 0;
+    transition: opacity 0.3s, top 0.3s;
+    &::before {
+      font-family: "Glyphicons Halflings";
+      font-size: smaller;
+      content: "";
+    } 
+  }
+}
