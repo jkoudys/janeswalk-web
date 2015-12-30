@@ -225,14 +225,14 @@ th {
     background: #fff !important;
   }
   .navbar,
-  body > header,
-  body > header.dropped {
+  body #navbar > header,
+  body #navbar > header.dropped {
     display: none;
   }
   .table td,
   .table th,
-  dialog table td,
-  dialog table th,
+  #modals dialog table td,
+  #modals dialog table th,
   #profileWrapper table td,
   #profileWrapper table th,
   #create-walk table.routeStops td,
@@ -261,7 +261,7 @@ th {
     border: 1px solid #000;
   }
   .table,
-  dialog table,
+  #modals dialog table,
   #profileWrapper table,
   #create-walk table.routeStops {
     border-collapse: collapse !important;
@@ -348,7 +348,7 @@ img {
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
   display: inline-block;
   width: 100% \9;
   max-width: 100%;
@@ -1530,7 +1530,7 @@ th {
   text-align: left;
 }
 .table,
-dialog table,
+#modals dialog table,
 #profileWrapper table,
 #create-walk table.routeStops {
   width: 100%;
@@ -1543,12 +1543,12 @@ dialog table,
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td,
-dialog table > thead > tr > th,
-dialog table > tbody > tr > th,
-dialog table > tfoot > tr > th,
-dialog table > thead > tr > td,
-dialog table > tbody > tr > td,
-dialog table > tfoot > tr > td,
+#modals dialog table > thead > tr > th,
+#modals dialog table > tbody > tr > th,
+#modals dialog table > tfoot > tr > th,
+#modals dialog table > thead > tr > td,
+#modals dialog table > tbody > tr > td,
+#modals dialog table > tfoot > tr > td,
 #profileWrapper table > thead > tr > th,
 #profileWrapper table > tbody > tr > th,
 #profileWrapper table > tfoot > tr > th,
@@ -1567,7 +1567,7 @@ dialog table > tfoot > tr > td,
   border-top: 1px solid #dddddd;
 }
 .table > thead > tr > th,
-dialog table > thead > tr > th,
+#modals dialog table > thead > tr > th,
 #profileWrapper table > thead > tr > th,
 #create-walk table.routeStops > thead > tr > th {
   vertical-align: bottom;
@@ -1579,12 +1579,12 @@ dialog table > thead > tr > th,
 .table > caption + thead > tr:first-child > td,
 .table > colgroup + thead > tr:first-child > td,
 .table > thead:first-child > tr:first-child > td,
-dialog table > caption + thead > tr:first-child > th,
-dialog table > colgroup + thead > tr:first-child > th,
-dialog table > thead:first-child > tr:first-child > th,
-dialog table > caption + thead > tr:first-child > td,
-dialog table > colgroup + thead > tr:first-child > td,
-dialog table > thead:first-child > tr:first-child > td,
+#modals dialog table > caption + thead > tr:first-child > th,
+#modals dialog table > colgroup + thead > tr:first-child > th,
+#modals dialog table > thead:first-child > tr:first-child > th,
+#modals dialog table > caption + thead > tr:first-child > td,
+#modals dialog table > colgroup + thead > tr:first-child > td,
+#modals dialog table > thead:first-child > tr:first-child > td,
 #profileWrapper table > caption + thead > tr:first-child > th,
 #profileWrapper table > colgroup + thead > tr:first-child > th,
 #profileWrapper table > thead:first-child > tr:first-child > th,
@@ -1600,13 +1600,13 @@ dialog table > thead:first-child > tr:first-child > td,
   border-top: 0;
 }
 .table > tbody + tbody,
-dialog table > tbody + tbody,
+#modals dialog table > tbody + tbody,
 #profileWrapper table > tbody + tbody,
 #create-walk table.routeStops > tbody + tbody {
   border-top: 2px solid #dddddd;
 }
 .table .table,
-dialog table dialog table,
+#modals dialog table #modals dialog table,
 #profileWrapper table #profileWrapper table,
 #create-walk table.routeStops #create-walk table.routeStops {
   background-color: #ffffff;
@@ -1674,18 +1674,18 @@ table th[class*="col-"] {
 .table > thead > tr.active > th,
 .table > tbody > tr.active > th,
 .table > tfoot > tr.active > th,
-dialog table > thead > tr > td.active,
-dialog table > tbody > tr > td.active,
-dialog table > tfoot > tr > td.active,
-dialog table > thead > tr > th.active,
-dialog table > tbody > tr > th.active,
-dialog table > tfoot > tr > th.active,
-dialog table > thead > tr.active > td,
-dialog table > tbody > tr.active > td,
-dialog table > tfoot > tr.active > td,
-dialog table > thead > tr.active > th,
-dialog table > tbody > tr.active > th,
-dialog table > tfoot > tr.active > th,
+#modals dialog table > thead > tr > td.active,
+#modals dialog table > tbody > tr > td.active,
+#modals dialog table > tfoot > tr > td.active,
+#modals dialog table > thead > tr > th.active,
+#modals dialog table > tbody > tr > th.active,
+#modals dialog table > tfoot > tr > th.active,
+#modals dialog table > thead > tr.active > td,
+#modals dialog table > tbody > tr.active > td,
+#modals dialog table > tfoot > tr.active > td,
+#modals dialog table > thead > tr.active > th,
+#modals dialog table > tbody > tr.active > th,
+#modals dialog table > tfoot > tr.active > th,
 #profileWrapper table > thead > tr > td.active,
 #profileWrapper table > tbody > tr > td.active,
 #profileWrapper table > tfoot > tr > td.active,
@@ -1731,18 +1731,18 @@ dialog table > tfoot > tr.active > th,
 .table > thead > tr.success > th,
 .table > tbody > tr.success > th,
 .table > tfoot > tr.success > th,
-dialog table > thead > tr > td.success,
-dialog table > tbody > tr > td.success,
-dialog table > tfoot > tr > td.success,
-dialog table > thead > tr > th.success,
-dialog table > tbody > tr > th.success,
-dialog table > tfoot > tr > th.success,
-dialog table > thead > tr.success > td,
-dialog table > tbody > tr.success > td,
-dialog table > tfoot > tr.success > td,
-dialog table > thead > tr.success > th,
-dialog table > tbody > tr.success > th,
-dialog table > tfoot > tr.success > th,
+#modals dialog table > thead > tr > td.success,
+#modals dialog table > tbody > tr > td.success,
+#modals dialog table > tfoot > tr > td.success,
+#modals dialog table > thead > tr > th.success,
+#modals dialog table > tbody > tr > th.success,
+#modals dialog table > tfoot > tr > th.success,
+#modals dialog table > thead > tr.success > td,
+#modals dialog table > tbody > tr.success > td,
+#modals dialog table > tfoot > tr.success > td,
+#modals dialog table > thead > tr.success > th,
+#modals dialog table > tbody > tr.success > th,
+#modals dialog table > tfoot > tr.success > th,
 #profileWrapper table > thead > tr > td.success,
 #profileWrapper table > tbody > tr > td.success,
 #profileWrapper table > tfoot > tr > td.success,
@@ -1788,18 +1788,18 @@ dialog table > tfoot > tr.success > th,
 .table > thead > tr.info > th,
 .table > tbody > tr.info > th,
 .table > tfoot > tr.info > th,
-dialog table > thead > tr > td.info,
-dialog table > tbody > tr > td.info,
-dialog table > tfoot > tr > td.info,
-dialog table > thead > tr > th.info,
-dialog table > tbody > tr > th.info,
-dialog table > tfoot > tr > th.info,
-dialog table > thead > tr.info > td,
-dialog table > tbody > tr.info > td,
-dialog table > tfoot > tr.info > td,
-dialog table > thead > tr.info > th,
-dialog table > tbody > tr.info > th,
-dialog table > tfoot > tr.info > th,
+#modals dialog table > thead > tr > td.info,
+#modals dialog table > tbody > tr > td.info,
+#modals dialog table > tfoot > tr > td.info,
+#modals dialog table > thead > tr > th.info,
+#modals dialog table > tbody > tr > th.info,
+#modals dialog table > tfoot > tr > th.info,
+#modals dialog table > thead > tr.info > td,
+#modals dialog table > tbody > tr.info > td,
+#modals dialog table > tfoot > tr.info > td,
+#modals dialog table > thead > tr.info > th,
+#modals dialog table > tbody > tr.info > th,
+#modals dialog table > tfoot > tr.info > th,
 #profileWrapper table > thead > tr > td.info,
 #profileWrapper table > tbody > tr > td.info,
 #profileWrapper table > tfoot > tr > td.info,
@@ -1845,18 +1845,18 @@ dialog table > tfoot > tr.info > th,
 .table > thead > tr.warning > th,
 .table > tbody > tr.warning > th,
 .table > tfoot > tr.warning > th,
-dialog table > thead > tr > td.warning,
-dialog table > tbody > tr > td.warning,
-dialog table > tfoot > tr > td.warning,
-dialog table > thead > tr > th.warning,
-dialog table > tbody > tr > th.warning,
-dialog table > tfoot > tr > th.warning,
-dialog table > thead > tr.warning > td,
-dialog table > tbody > tr.warning > td,
-dialog table > tfoot > tr.warning > td,
-dialog table > thead > tr.warning > th,
-dialog table > tbody > tr.warning > th,
-dialog table > tfoot > tr.warning > th,
+#modals dialog table > thead > tr > td.warning,
+#modals dialog table > tbody > tr > td.warning,
+#modals dialog table > tfoot > tr > td.warning,
+#modals dialog table > thead > tr > th.warning,
+#modals dialog table > tbody > tr > th.warning,
+#modals dialog table > tfoot > tr > th.warning,
+#modals dialog table > thead > tr.warning > td,
+#modals dialog table > tbody > tr.warning > td,
+#modals dialog table > tfoot > tr.warning > td,
+#modals dialog table > thead > tr.warning > th,
+#modals dialog table > tbody > tr.warning > th,
+#modals dialog table > tfoot > tr.warning > th,
 #profileWrapper table > thead > tr > td.warning,
 #profileWrapper table > tbody > tr > td.warning,
 #profileWrapper table > tfoot > tr > td.warning,
@@ -1902,18 +1902,18 @@ dialog table > tfoot > tr.warning > th,
 .table > thead > tr.danger > th,
 .table > tbody > tr.danger > th,
 .table > tfoot > tr.danger > th,
-dialog table > thead > tr > td.danger,
-dialog table > tbody > tr > td.danger,
-dialog table > tfoot > tr > td.danger,
-dialog table > thead > tr > th.danger,
-dialog table > tbody > tr > th.danger,
-dialog table > tfoot > tr > th.danger,
-dialog table > thead > tr.danger > td,
-dialog table > tbody > tr.danger > td,
-dialog table > tfoot > tr.danger > td,
-dialog table > thead > tr.danger > th,
-dialog table > tbody > tr.danger > th,
-dialog table > tfoot > tr.danger > th,
+#modals dialog table > thead > tr > td.danger,
+#modals dialog table > tbody > tr > td.danger,
+#modals dialog table > tfoot > tr > td.danger,
+#modals dialog table > thead > tr > th.danger,
+#modals dialog table > tbody > tr > th.danger,
+#modals dialog table > tfoot > tr > th.danger,
+#modals dialog table > thead > tr.danger > td,
+#modals dialog table > tbody > tr.danger > td,
+#modals dialog table > tfoot > tr.danger > td,
+#modals dialog table > thead > tr.danger > th,
+#modals dialog table > tbody > tr.danger > th,
+#modals dialog table > tfoot > tr.danger > th,
 #profileWrapper table > thead > tr > td.danger,
 #profileWrapper table > tbody > tr > td.danger,
 #profileWrapper table > tfoot > tr > td.danger,
@@ -1958,7 +1958,7 @@ dialog table > tfoot > tr.danger > th,
     -webkit-overflow-scrolling: touch;
   }
   .table-responsive > .table,
-  .table-responsive > dialog table,
+  .table-responsive > #modals dialog table,
   .table-responsive > #profileWrapper table,
   .table-responsive > #create-walk table.routeStops {
     margin-bottom: 0;
@@ -1969,12 +1969,12 @@ dialog table > tfoot > tr.danger > th,
   .table-responsive > .table > thead > tr > td,
   .table-responsive > .table > tbody > tr > td,
   .table-responsive > .table > tfoot > tr > td,
-  .table-responsive > dialog table > thead > tr > th,
-  .table-responsive > dialog table > tbody > tr > th,
-  .table-responsive > dialog table > tfoot > tr > th,
-  .table-responsive > dialog table > thead > tr > td,
-  .table-responsive > dialog table > tbody > tr > td,
-  .table-responsive > dialog table > tfoot > tr > td,
+  .table-responsive > #modals dialog table > thead > tr > th,
+  .table-responsive > #modals dialog table > tbody > tr > th,
+  .table-responsive > #modals dialog table > tfoot > tr > th,
+  .table-responsive > #modals dialog table > thead > tr > td,
+  .table-responsive > #modals dialog table > tbody > tr > td,
+  .table-responsive > #modals dialog table > tfoot > tr > td,
   .table-responsive > #profileWrapper table > thead > tr > th,
   .table-responsive > #profileWrapper table > tbody > tr > th,
   .table-responsive > #profileWrapper table > tfoot > tr > th,
@@ -2095,8 +2095,8 @@ input[type=text],
 input[type=email],
 input[type=password],
 textarea,
-dialog input[type=text],
-dialog input[type=password] {
+#modals dialog input[type=text],
+#modals dialog input[type=password] {
   display: block;
   width: 100%;
   height: 34px;
@@ -2110,7 +2110,7 @@ dialog input[type=password] {
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
-          transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus,
 select:focus,
@@ -2118,8 +2118,8 @@ input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus,
 textarea:focus,
-dialog input[type=text]:focus,
-dialog input[type=password]:focus {
+#modals dialog input[type=text]:focus,
+#modals dialog input[type=password]:focus {
   border-color: #66afe9;
   outline: 0;
   box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
@@ -2130,8 +2130,8 @@ input[type=text]::-moz-placeholder,
 input[type=email]::-moz-placeholder,
 input[type=password]::-moz-placeholder,
 textarea::-moz-placeholder,
-dialog input[type=text]::-moz-placeholder,
-dialog input[type=password]::-moz-placeholder {
+#modals dialog input[type=text]::-moz-placeholder,
+#modals dialog input[type=password]::-moz-placeholder {
   color: #777777;
   opacity: 1;
 }
@@ -2141,8 +2141,8 @@ input[type=text]:-ms-input-placeholder,
 input[type=email]:-ms-input-placeholder,
 input[type=password]:-ms-input-placeholder,
 textarea:-ms-input-placeholder,
-dialog input[type=text]:-ms-input-placeholder,
-dialog input[type=password]:-ms-input-placeholder {
+#modals dialog input[type=text]:-ms-input-placeholder,
+#modals dialog input[type=password]:-ms-input-placeholder {
   color: #777777;
 }
 .form-control::-webkit-input-placeholder,
@@ -2151,8 +2151,8 @@ input[type=text]::-webkit-input-placeholder,
 input[type=email]::-webkit-input-placeholder,
 input[type=password]::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder,
-dialog input[type=text]::-webkit-input-placeholder,
-dialog input[type=password]::-webkit-input-placeholder {
+#modals dialog input[type=text]::-webkit-input-placeholder,
+#modals dialog input[type=password]::-webkit-input-placeholder {
   color: #777777;
 }
 .form-control[disabled],
@@ -2173,12 +2173,12 @@ fieldset[disabled] input[type=password],
 textarea[disabled],
 textarea[readonly],
 fieldset[disabled] textarea,
-dialog input[type=text][disabled],
-dialog input[type=text][readonly],
-fieldset[disabled] dialog input[type=text],
-dialog input[type=password][disabled],
-dialog input[type=password][readonly],
-fieldset[disabled] dialog input[type=password] {
+#modals dialog input[type=text][disabled],
+#modals dialog input[type=text][readonly],
+fieldset[disabled] #modals dialog input[type=text],
+#modals dialog input[type=password][disabled],
+#modals dialog input[type=password][readonly],
+fieldset[disabled] #modals dialog input[type=password] {
   cursor: not-allowed;
   background-color: #eeeeee;
   opacity: 1;
@@ -2189,8 +2189,8 @@ textareainput[type=text],
 textareainput[type=email],
 textareainput[type=password],
 textareatextarea,
-textareadialog input[type=text],
-textareadialog input[type=password] {
+textarea#modals dialog input[type=text],
+textarea#modals dialog input[type=password] {
   height: auto;
 }
 input[type="search"] {
@@ -2216,7 +2216,7 @@ input[type="month"].input-lg {
   line-height: 46px;
 }
 .form-group,
-dialog label {
+#modals dialog label {
   margin-bottom: 15px;
 }
 .radio,
@@ -2297,8 +2297,8 @@ fieldset[disabled] .checkbox label {
 .form-horizontal .form-group-sm input[type=email],
 .form-horizontal .form-group-sm input[type=password],
 .form-horizontal .form-group-sm textarea,
-.form-horizontal .form-group-sm dialog input[type=text],
-.form-horizontal .form-group-sm dialog input[type=password] {
+.form-horizontal .form-group-sm #modals dialog input[type=text],
+.form-horizontal .form-group-sm #modals dialog input[type=password] {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -2320,8 +2320,8 @@ select[multiple].input-sm {
 .form-horizontal .form-group-lg input[type=email],
 .form-horizontal .form-group-lg input[type=password],
 .form-horizontal .form-group-lg textarea,
-.form-horizontal .form-group-lg dialog input[type=text],
-.form-horizontal .form-group-lg dialog input[type=password] {
+.form-horizontal .form-group-lg #modals dialog input[type=text],
+.form-horizontal .form-group-lg #modals dialog input[type=password] {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -2345,8 +2345,8 @@ select[multiple].input-lg {
 .has-feedback input[type=email],
 .has-feedback input[type=password],
 .has-feedback textarea,
-.has-feedback dialog input[type=text],
-.has-feedback dialog input[type=password] {
+.has-feedback #modals dialog input[type=text],
+.has-feedback #modals dialog input[type=password] {
   padding-right: 42.5px;
 }
 .form-control-feedback {
@@ -2384,8 +2384,8 @@ select[multiple].input-lg {
 .has-success input[type=email],
 .has-success input[type=password],
 .has-success textarea,
-.has-success dialog input[type=text],
-.has-success dialog input[type=password] {
+.has-success #modals dialog input[type=text],
+.has-success #modals dialog input[type=password] {
   border-color: #3c763d;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
@@ -2395,8 +2395,8 @@ select[multiple].input-lg {
 .has-success input[type=email]:focus,
 .has-success input[type=password]:focus,
 .has-success textarea:focus,
-.has-success dialog input[type=text]:focus,
-.has-success dialog input[type=password]:focus {
+.has-success #modals dialog input[type=text]:focus,
+.has-success #modals dialog input[type=password]:focus {
   border-color: #2b542c;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #67b168;
 }
@@ -2422,8 +2422,8 @@ select[multiple].input-lg {
 .has-warning input[type=email],
 .has-warning input[type=password],
 .has-warning textarea,
-.has-warning dialog input[type=text],
-.has-warning dialog input[type=password] {
+.has-warning #modals dialog input[type=text],
+.has-warning #modals dialog input[type=password] {
   border-color: #8a6d3b;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
@@ -2433,8 +2433,8 @@ select[multiple].input-lg {
 .has-warning input[type=email]:focus,
 .has-warning input[type=password]:focus,
 .has-warning textarea:focus,
-.has-warning dialog input[type=text]:focus,
-.has-warning dialog input[type=password]:focus {
+.has-warning #modals dialog input[type=text]:focus,
+.has-warning #modals dialog input[type=password]:focus {
   border-color: #66512c;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #c0a16b;
 }
@@ -2460,8 +2460,8 @@ select[multiple].input-lg {
 .has-error input[type=email],
 .has-error input[type=password],
 .has-error textarea,
-.has-error dialog input[type=text],
-.has-error dialog input[type=password] {
+.has-error #modals dialog input[type=text],
+.has-error #modals dialog input[type=password] {
   border-color: #a94442;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 }
@@ -2471,8 +2471,8 @@ select[multiple].input-lg {
 .has-error input[type=email]:focus,
 .has-error input[type=password]:focus,
 .has-error textarea:focus,
-.has-error dialog input[type=text]:focus,
-.has-error dialog input[type=password]:focus {
+.has-error #modals dialog input[type=text]:focus,
+.has-error #modals dialog input[type=password]:focus {
   border-color: #843534;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px #ce8483;
 }
@@ -2495,7 +2495,7 @@ select[multiple].input-lg {
 }
 @media (min-width: 768px) {
   .form-inline .form-group,
-  .form-inline dialog label {
+  .form-inline #modals dialog label {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -2506,8 +2506,8 @@ select[multiple].input-lg {
   .form-inline input[type=email],
   .form-inline input[type=password],
   .form-inline textarea,
-  .form-inline dialog input[type=text],
-  .form-inline dialog input[type=password] {
+  .form-inline #modals dialog input[type=text],
+  .form-inline #modals dialog input[type=password] {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -2528,8 +2528,8 @@ select[multiple].input-lg {
   .form-inline body fieldset.search .input-group-addon,
   .form-inline body fieldset.search .input-group-btn,
   .form-inline body fieldset.search .form-control,
-  .form-inline .input-group dialog input[type=text],
-  .form-inline .input-group dialog input[type=password] {
+  .form-inline .input-group #modals dialog input[type=text],
+  .form-inline .input-group #modals dialog input[type=password] {
     width: auto;
   }
   .form-inline .input-group > .form-control,
@@ -2539,8 +2539,8 @@ select[multiple].input-lg {
   .form-inline .input-group > input[type=password],
   .form-inline .input-group > textarea,
   .form-inline body fieldset.search > .form-control,
-  .form-inline .input-group > dialog input[type=text],
-  .form-inline .input-group > dialog input[type=password] {
+  .form-inline .input-group > #modals dialog input[type=text],
+  .form-inline .input-group > #modals dialog input[type=password] {
     width: 100%;
   }
   .form-inline .control-label {
@@ -2580,7 +2580,7 @@ select[multiple].input-lg {
   min-height: 27px;
 }
 .form-horizontal .form-group,
-.form-horizontal dialog label {
+.form-horizontal #modals dialog label {
   margin-left: -15px;
   margin-right: -15px;
 }
@@ -2606,7 +2606,7 @@ select[multiple].input-lg {
   }
 }
 .btn,
-body > header #donate,
+body #navbar > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
@@ -2771,7 +2771,7 @@ fieldset[disabled] .btn-default.active {
   background-color: #333333;
 }
 .btn-primary,
-body > header #donate,
+body #navbar > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after {
   color: #ffffff;
@@ -3115,7 +3115,7 @@ input[type="button"].btn-block {
   width: 100%;
 }
 .fade,
-dialog,
+#modals dialog,
 body.city-page > #city-details .walk-list,
 body.city-page > #city-details .walk-list:before,
 body.city-page > #city-details .walk-list:after,
@@ -3126,11 +3126,12 @@ body.city-page > #city-details .walk-list:after,
 body.city-page > #city-details .walk-list.showall {
   opacity: 0;
   -webkit-transition: opacity 0.15s linear;
-          transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
 }
 .fade.in,
-dialog.in,
-dialog.in,
+#modals dialog.in,
+#modals dialog.in,
+#modals dialog.in ~ *,
 body.city-page > #city-details .walk-list.in,
 body.city-page > #city-details .walk-list,
 body.city-page > #city-details .walk-list:before.in,
@@ -3165,7 +3166,7 @@ tbody.collapse.in {
   height: 0;
   overflow: hidden;
   -webkit-transition: height 0.35s ease;
-          transition: height 0.35s ease;
+  transition: height 0.35s ease;
 }
 .caret {
   display: inline-block;
@@ -3297,14 +3298,14 @@ tbody.collapse.in {
 }
 @media (min-width: 768px) {
   .navbar-right .dropdown-menu,
-  body > header nav a + ul.nav .dropdown-menu,
-  body > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu {
+  body #navbar > header nav a + ul.nav .dropdown-menu,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu {
     left: auto;
     right: 0;
   }
   .navbar-right .dropdown-menu-left,
-  body > header nav a + ul.nav .dropdown-menu-left,
-  body > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu-left {
+  body #navbar > header nav a + ul.nav .dropdown-menu-left,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu-left {
     left: 0;
     right: auto;
   }
@@ -3786,8 +3787,8 @@ body fieldset.search[class*="col-"] {
 .input-group input[type=password],
 .input-group textarea,
 body fieldset.search .form-control,
-.input-group dialog input[type=text],
-.input-group dialog input[type=password] {
+.input-group #modals dialog input[type=text],
+.input-group #modals dialog input[type=password] {
   position: relative;
   z-index: 2;
   float: left;
@@ -3802,8 +3803,8 @@ body fieldset.search .form-control,
 .input-group-lg > input[type=email],
 .input-group-lg > input[type=password],
 .input-group-lg > textarea,
-.input-group-lg > dialog input[type=text],
-.input-group-lg > dialog input[type=password],
+.input-group-lg > #modals dialog input[type=text],
+.input-group-lg > #modals dialog input[type=password],
 .input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
 .input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
@@ -3825,8 +3826,8 @@ select.input-group-lg > input[type=text],
 select.input-group-lg > input[type=email],
 select.input-group-lg > input[type=password],
 select.input-group-lg > textarea,
-select.input-group-lg > dialog input[type=text],
-select.input-group-lg > dialog input[type=password],
+select.input-group-lg > #modals dialog input[type=text],
+select.input-group-lg > #modals dialog input[type=password],
 select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
 select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
@@ -3853,10 +3854,10 @@ textarea.input-group-lg > input[type=password],
 select[multiple].input-group-lg > input[type=password],
 textarea.input-group-lg > textarea,
 select[multiple].input-group-lg > textarea,
-textarea.input-group-lg > dialog input[type=text],
-select[multiple].input-group-lg > dialog input[type=text],
-textarea.input-group-lg > dialog input[type=password],
-select[multiple].input-group-lg > dialog input[type=password],
+textarea.input-group-lg > #modals dialog input[type=text],
+select[multiple].input-group-lg > #modals dialog input[type=text],
+textarea.input-group-lg > #modals dialog input[type=password],
+select[multiple].input-group-lg > #modals dialog input[type=password],
 textarea.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
 select[multiple].input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
 textarea.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
@@ -3881,8 +3882,8 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk .filterInputs 
 .input-group-sm > input[type=email],
 .input-group-sm > input[type=password],
 .input-group-sm > textarea,
-.input-group-sm > dialog input[type=text],
-.input-group-sm > dialog input[type=password],
+.input-group-sm > #modals dialog input[type=text],
+.input-group-sm > #modals dialog input[type=password],
 .input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
 .input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
@@ -3904,8 +3905,8 @@ select.input-group-sm > input[type=text],
 select.input-group-sm > input[type=email],
 select.input-group-sm > input[type=password],
 select.input-group-sm > textarea,
-select.input-group-sm > dialog input[type=text],
-select.input-group-sm > dialog input[type=password],
+select.input-group-sm > #modals dialog input[type=text],
+select.input-group-sm > #modals dialog input[type=password],
 select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
 select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
@@ -3932,10 +3933,10 @@ textarea.input-group-sm > input[type=password],
 select[multiple].input-group-sm > input[type=password],
 textarea.input-group-sm > textarea,
 select[multiple].input-group-sm > textarea,
-textarea.input-group-sm > dialog input[type=text],
-select[multiple].input-group-sm > dialog input[type=text],
-textarea.input-group-sm > dialog input[type=password],
-select[multiple].input-group-sm > dialog input[type=password],
+textarea.input-group-sm > #modals dialog input[type=text],
+select[multiple].input-group-sm > #modals dialog input[type=text],
+textarea.input-group-sm > #modals dialog input[type=password],
+select[multiple].input-group-sm > #modals dialog input[type=password],
 textarea.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
 select[multiple].input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
 textarea.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
@@ -3961,8 +3962,8 @@ select[multiple].input-group-sm > .input-group-btn > #create-walk .filterInputs 
 .input-group input[type=password],
 .input-group textarea,
 body fieldset.search .form-control,
-.input-group dialog input[type=text],
-.input-group dialog input[type=password] {
+.input-group #modals dialog input[type=text],
+.input-group #modals dialog input[type=password] {
   display: table-cell;
 }
 .input-group-addon:not(:first-child):not(:last-child),
@@ -3974,8 +3975,8 @@ body fieldset.search .form-control,
 .input-group input[type=password]:not(:first-child):not(:last-child),
 .input-group textarea:not(:first-child):not(:last-child),
 body fieldset.search .form-control:not(:first-child):not(:last-child),
-.input-group dialog input[type=text]:not(:first-child):not(:last-child),
-.input-group dialog input[type=password]:not(:first-child):not(:last-child) {
+.input-group #modals dialog input[type=text]:not(:first-child):not(:last-child),
+.input-group #modals dialog input[type=password]:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 .input-group-addon,
@@ -4022,8 +4023,8 @@ body fieldset.search .form-control:not(:first-child):not(:last-child),
 .input-group input[type=password]:first-child,
 .input-group textarea:first-child,
 body fieldset.search .form-control:first-child,
-.input-group dialog input[type=text]:first-child,
-.input-group dialog input[type=password]:first-child,
+.input-group #modals dialog input[type=text]:first-child,
+.input-group #modals dialog input[type=password]:first-child,
 .input-group-btn:first-child > body.city-page > #city-details .create-walk,
 .input-group-btn:first-child > .btn-group > body.city-page > #city-details .create-walk,
 .input-group-btn:last-child > body.city-page > #city-details .create-walk:not(:last-child):not(.dropdown-toggle),
@@ -4071,8 +4072,8 @@ body fieldset.search .form-control:first-child,
 .input-group input[type=password]:last-child,
 .input-group textarea:last-child,
 body fieldset.search .form-control:last-child,
-.input-group dialog input[type=text]:last-child,
-.input-group dialog input[type=password]:last-child,
+.input-group #modals dialog input[type=text]:last-child,
+.input-group #modals dialog input[type=password]:last-child,
 .input-group-btn:last-child > body.city-page > #city-details .create-walk,
 .input-group-btn:last-child > .btn-group > body.city-page > #city-details .create-walk,
 .input-group-btn:first-child > body.city-page > #city-details .create-walk:not(:first-child),
@@ -4412,8 +4413,8 @@ body fieldset.search .form-control:last-child,
   border-top-left-radius: 0;
 }
 .navbar,
-body > header,
-body > header.dropped {
+body #navbar > header,
+body #navbar > header.dropped {
   position: relative;
   min-height: 60px;
   margin-bottom: 20px;
@@ -4421,14 +4422,14 @@ body > header.dropped {
 }
 @media (min-width: 768px) {
   .navbar,
-  body > header,
-  body > header.dropped {
+  body #navbar > header,
+  body #navbar > header.dropped {
     border-radius: 4px;
   }
 }
 @media (min-width: 768px) {
   .navbar-header,
-  body > header .logo {
+  body #navbar > header .logo {
     float: left;
   }
 }
@@ -4461,23 +4462,23 @@ body > header.dropped {
   .navbar-fixed-top .navbar-collapse,
   .navbar-static-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse,
-  body > header .navbar-collapse,
-  body > header.dropped .navbar-collapse {
+  body #navbar > header .navbar-collapse,
+  body #navbar > header.dropped .navbar-collapse {
     padding-left: 0;
     padding-right: 0;
   }
 }
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse,
-body > header .navbar-collapse,
-body > header.dropped .navbar-collapse {
+body #navbar > header .navbar-collapse,
+body #navbar > header.dropped .navbar-collapse {
   max-height: 340px;
 }
 @media (max-width: 480px) and (orientation: landscape) {
   .navbar-fixed-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse,
-  body > header .navbar-collapse,
-  body > header.dropped .navbar-collapse {
+  body #navbar > header .navbar-collapse,
+  body #navbar > header.dropped .navbar-collapse {
     max-height: 200px;
   }
 }
@@ -4485,8 +4486,8 @@ body > header.dropped .navbar-collapse {
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse,
-.container > body > header .logo,
-.container-fluid > body > header .logo,
+.container > body #navbar > header .logo,
+.container-fluid > body #navbar > header .logo,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
@@ -4509,8 +4510,8 @@ body > header.dropped .navbar-collapse {
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
   .container-fluid > .navbar-collapse,
-  .container > body > header .logo,
-  .container-fluid > body > header .logo,
+  .container > body #navbar > header .logo,
+  .container-fluid > body #navbar > header .logo,
   #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
   #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
   #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
@@ -4540,26 +4541,26 @@ body > header.dropped .navbar-collapse {
 }
 .navbar-fixed-top,
 .navbar-fixed-bottom,
-body > header,
-body > header.dropped {
+body #navbar > header,
+body #navbar > header.dropped {
   position: fixed;
   right: 0;
   left: 0;
   z-index: 1030;
   -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 @media (min-width: 768px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom,
-  body > header,
-  body > header.dropped {
+  body #navbar > header,
+  body #navbar > header.dropped {
     border-radius: 0;
   }
 }
 .navbar-fixed-top,
-body > header,
-body > header.dropped {
+body #navbar > header,
+body #navbar > header.dropped {
   top: 0;
   border-width: 0 0 1px;
 }
@@ -4569,7 +4570,7 @@ body > header.dropped {
   border-width: 1px 0 0;
 }
 .navbar-brand,
-body > header .logo span {
+body #navbar > header .logo span {
   float: left;
   padding: 20px 15px;
   font-size: 18px;
@@ -4578,19 +4579,19 @@ body > header .logo span {
 }
 .navbar-brand:hover,
 .navbar-brand:focus,
-body > header .logo span:hover,
-body > header .logo span:focus {
+body #navbar > header .logo span:hover,
+body #navbar > header .logo span:focus {
   text-decoration: none;
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand,
-  body > header > .container .navbar-brand,
-  body > header > .container-fluid .navbar-brand,
-  .navbar > .container body > header .logo span,
-  .navbar > .container-fluid body > header .logo span,
-  body > header.dropped > .container .navbar-brand,
-  body > header.dropped > .container-fluid .navbar-brand,
+  body #navbar > header > .container .navbar-brand,
+  body #navbar > header > .container-fluid .navbar-brand,
+  .navbar > .container body #navbar > header .logo span,
+  .navbar > .container-fluid body #navbar > header .logo span,
+  body #navbar > header.dropped > .container .navbar-brand,
+  body #navbar > header.dropped > .container-fluid .navbar-brand,
   .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .navbar-brand,
   .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .navbar-brand,
   .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
@@ -4631,27 +4632,27 @@ body > header .logo span:focus {
   }
 }
 .navbar-nav,
-body > header nav a + ul.nav,
-body > header nav a + ul.nav + ul.nav,
-body > header nav a + ul.social-login-providers.template-fontawesome,
-body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
+body #navbar > header nav a + ul.nav,
+body #navbar > header nav a + ul.nav + ul.nav,
+body #navbar > header nav a + ul.social-login-providers.template-fontawesome,
+body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
   margin: 10px -15px;
 }
 .navbar-nav > li > a,
-body > header nav a + ul.nav > li > a,
-body > header nav a + ul.nav + ul.nav > li > a,
-body > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+body #navbar > header nav a + ul.nav > li > a,
+body #navbar > header nav a + ul.nav + ul.nav > li > a,
+body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu,
-  body > header nav a + ul.nav .open .dropdown-menu,
-  body > header nav a + ul.nav + ul.nav .open .dropdown-menu,
-  body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu {
+  body #navbar > header nav a + ul.nav .open .dropdown-menu,
+  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu {
     position: static;
     float: none;
     width: auto;
@@ -4662,79 +4663,79 @@ body > header nav a + ul.social-login-providers.template-fontawesome + ul.social
   }
   .navbar-nav .open .dropdown-menu > li > a,
   .navbar-nav .open .dropdown-menu .dropdown-header,
-  body > header nav a + ul.nav .open .dropdown-menu > li > a,
-  body > header nav a + ul.nav .open .dropdown-menu .dropdown-header,
-  body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  body > header nav a + ul.nav + ul.nav .open .dropdown-menu .dropdown-header,
-  body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header {
+  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > header nav a + ul.nav .open .dropdown-menu .dropdown-header,
+  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu .dropdown-header,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header {
     padding: 5px 15px 5px 25px;
   }
   .navbar-nav .open .dropdown-menu > li > a,
-  body > header nav a + ul.nav .open .dropdown-menu > li > a,
-  body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
+  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
     line-height: 20px;
   }
   .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-nav .open .dropdown-menu > li > a:focus,
-  body > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
-  body > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
-  body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
-  body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
-  body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
+  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
+  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
+  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
+  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
     background-image: none;
   }
 }
 @media (min-width: 768px) {
   .navbar-nav,
-  body > header nav a + ul.nav,
-  body > header nav a + ul.nav + ul.nav,
-  body > header nav a + ul.social-login-providers.template-fontawesome,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
+  body #navbar > header nav a + ul.nav,
+  body #navbar > header nav a + ul.nav + ul.nav,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
     float: left;
     margin: 0;
   }
   .navbar-nav > li,
-  body > header nav a + ul.nav > li,
-  body > header nav a + ul.nav + ul.nav > li,
-  body > header nav a + ul.social-login-providers.template-fontawesome > li,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li {
+  body #navbar > header nav a + ul.nav > li,
+  body #navbar > header nav a + ul.nav + ul.nav > li,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li {
     float: left;
   }
   .navbar-nav > li > a,
-  body > header nav a + ul.nav > li > a,
-  body > header nav a + ul.nav + ul.nav > li > a,
-  body > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+  body #navbar > header nav a + ul.nav > li > a,
+  body #navbar > header nav a + ul.nav + ul.nav > li > a,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
     padding-top: 20px;
     padding-bottom: 20px;
   }
   .navbar-nav.navbar-right:last-child,
-  .navbar-navbody > header nav a + ul.nav:last-child,
-  body > header nav a + ul.nav.navbar-right:last-child,
-  body > header nav a + ul.nav + ul.nav.navbar-right:last-child,
-  .navbar-navbody > header nav a + ul.social-login-providers.template-fontawesome:last-child,
-  body > header nav a + ul.social-login-providers.template-fontawesome.navbar-right:last-child,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome.navbar-right:last-child {
+  .navbar-navbody #navbar > header nav a + ul.nav:last-child,
+  body #navbar > header nav a + ul.nav.navbar-right:last-child,
+  body #navbar > header nav a + ul.nav + ul.nav.navbar-right:last-child,
+  .navbar-navbody #navbar > header nav a + ul.social-login-providers.template-fontawesome:last-child,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome.navbar-right:last-child,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome.navbar-right:last-child {
     margin-right: -15px;
   }
 }
 @media (min-width: 768px) {
   .navbar-left,
-  body > header nav a + ul.nav + ul.nav,
-  body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
+  body #navbar > header nav a + ul.nav + ul.nav,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
     float: left !important;
   }
   .navbar-right,
-  body > header nav a + ul.nav,
-  body > header nav a + ul.social-login-providers.template-fontawesome {
+  body #navbar > header nav a + ul.nav,
+  body #navbar > header nav a + ul.social-login-providers.template-fontawesome {
     float: right !important;
   }
 }
@@ -4750,7 +4751,7 @@ body > header nav a + ul.social-login-providers.template-fontawesome + ul.social
 }
 @media (min-width: 768px) {
   .navbar-form .form-group,
-  .navbar-form dialog label {
+  .navbar-form #modals dialog label {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -4761,8 +4762,8 @@ body > header nav a + ul.social-login-providers.template-fontawesome + ul.social
   .navbar-form input[type=email],
   .navbar-form input[type=password],
   .navbar-form textarea,
-  .navbar-form dialog input[type=text],
-  .navbar-form dialog input[type=password] {
+  .navbar-form #modals dialog input[type=text],
+  .navbar-form #modals dialog input[type=password] {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -4783,8 +4784,8 @@ body > header nav a + ul.social-login-providers.template-fontawesome + ul.social
   .navbar-form body fieldset.search .input-group-addon,
   .navbar-form body fieldset.search .input-group-btn,
   .navbar-form body fieldset.search .form-control,
-  .navbar-form .input-group dialog input[type=text],
-  .navbar-form .input-group dialog input[type=password] {
+  .navbar-form .input-group #modals dialog input[type=text],
+  .navbar-form .input-group #modals dialog input[type=password] {
     width: auto;
   }
   .navbar-form .input-group > .form-control,
@@ -4794,8 +4795,8 @@ body > header nav a + ul.social-login-providers.template-fontawesome + ul.social
   .navbar-form .input-group > input[type=password],
   .navbar-form .input-group > textarea,
   .navbar-form body fieldset.search > .form-control,
-  .navbar-form .input-group > dialog input[type=text],
-  .navbar-form .input-group > dialog input[type=password] {
+  .navbar-form .input-group > #modals dialog input[type=text],
+  .navbar-form .input-group > #modals dialog input[type=password] {
     width: 100%;
   }
   .navbar-form .control-label {
@@ -4824,7 +4825,7 @@ body > header nav a + ul.social-login-providers.template-fontawesome + ul.social
 }
 @media (max-width: 767px) {
   .navbar-form .form-group,
-  .navbar-form dialog label {
+  .navbar-form #modals dialog label {
     margin-bottom: 5px;
   }
 }
@@ -4839,30 +4840,30 @@ body > header nav a + ul.social-login-providers.template-fontawesome + ul.social
     box-shadow: none;
   }
   .navbar-form.navbar-right:last-child,
-  .navbar-formbody > header nav a + ul.nav:last-child,
-  .navbar-formbody > header nav a + ul.social-login-providers.template-fontawesome:last-child {
+  .navbar-formbody #navbar > header nav a + ul.nav:last-child,
+  .navbar-formbody #navbar > header nav a + ul.social-login-providers.template-fontawesome:last-child {
     margin-right: -15px;
   }
 }
 .navbar-nav > li > .dropdown-menu,
-body > header nav a + ul.nav > li > .dropdown-menu,
-body > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
-body > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
-body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
+body #navbar > header nav a + ul.nav > li > .dropdown-menu,
+body #navbar > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
+body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
+body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
   margin-top: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu,
-.navbar-fixed-bottom body > header nav a + ul.nav > li > .dropdown-menu,
-.navbar-fixed-bottom body > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
-.navbar-fixed-bottom body > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
-.navbar-fixed-bottom body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
+.navbar-fixed-bottom body #navbar > header nav a + ul.nav > li > .dropdown-menu,
+.navbar-fixed-bottom body #navbar > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
+.navbar-fixed-bottom body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
+.navbar-fixed-bottom body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .navbar-btn,
-body > header #donate {
+body #navbar > header #donate {
   margin-top: 13px;
   margin-bottom: 13px;
 }
@@ -4885,274 +4886,274 @@ body > header #donate {
     margin-right: 15px;
   }
   .navbar-text.navbar-right:last-child,
-  .navbar-textbody > header nav a + ul.nav:last-child,
-  .navbar-textbody > header nav a + ul.social-login-providers.template-fontawesome:last-child {
+  .navbar-textbody #navbar > header nav a + ul.nav:last-child,
+  .navbar-textbody #navbar > header nav a + ul.social-login-providers.template-fontawesome:last-child {
     margin-right: 0;
   }
 }
 .navbar-default,
-body > header,
-body > header.dropped {
+body #navbar > header,
+body #navbar > header.dropped {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand,
-body > header .navbar-brand,
-.navbar-default body > header .logo span,
-body > header.dropped .navbar-brand {
+body #navbar > header .navbar-brand,
+.navbar-default body #navbar > header .logo span,
+body #navbar > header.dropped .navbar-brand {
   color: #777777;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus,
-body > header .navbar-brand:hover,
-body > header .navbar-brand:focus,
-.navbar-default body > header .logo span:hover,
-.navbar-default body > header .logo span:focus,
-body > header.dropped .navbar-brand:hover,
-body > header.dropped .navbar-brand:focus {
+body #navbar > header .navbar-brand:hover,
+body #navbar > header .navbar-brand:focus,
+.navbar-default body #navbar > header .logo span:hover,
+.navbar-default body #navbar > header .logo span:focus,
+body #navbar > header.dropped .navbar-brand:hover,
+body #navbar > header.dropped .navbar-brand:focus {
   color: #5e5e5e;
   background-color: transparent;
 }
 .navbar-default .navbar-text,
-body > header .navbar-text,
-body > header.dropped .navbar-text {
+body #navbar > header .navbar-text,
+body #navbar > header.dropped .navbar-text {
   color: #777777;
 }
 .navbar-default .navbar-nav > li > a,
-body > header .navbar-nav > li > a,
-.navbar-default body > header nav a + ul.nav > li > a,
-.navbar-default body > header nav a + ul.nav + ul.nav > li > a,
-body > header.dropped .navbar-nav > li > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+body #navbar > header .navbar-nav > li > a,
+.navbar-default body #navbar > header nav a + ul.nav > li > a,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > li > a,
+body #navbar > header.dropped .navbar-nav > li > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
   color: #777777;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus,
-body > header .navbar-nav > li > a:hover,
-body > header .navbar-nav > li > a:focus,
-.navbar-default body > header nav a + ul.nav > li > a:hover,
-.navbar-default body > header nav a + ul.nav > li > a:focus,
-.navbar-default body > header nav a + ul.nav + ul.nav > li > a:hover,
-.navbar-default body > header nav a + ul.nav + ul.nav > li > a:focus,
-body > header.dropped .navbar-nav > li > a:hover,
-body > header.dropped .navbar-nav > li > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
+body #navbar > header .navbar-nav > li > a:hover,
+body #navbar > header .navbar-nav > li > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav > li > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav > li > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > li > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > li > a:focus,
+body #navbar > header.dropped .navbar-nav > li > a:hover,
+body #navbar > header.dropped .navbar-nav > li > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
   color: #333333;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus,
-body > header .navbar-nav > .active > a,
-body > header .navbar-nav > .active > a:hover,
-body > header .navbar-nav > .active > a:focus,
-.navbar-default body > header nav a + ul.nav > .active > a,
-.navbar-default body > header nav a + ul.nav > .active > a:hover,
-.navbar-default body > header nav a + ul.nav > .active > a:focus,
-.navbar-default body > header nav a + ul.nav + ul.nav > .active > a,
-.navbar-default body > header nav a + ul.nav + ul.nav > .active > a:hover,
-.navbar-default body > header nav a + ul.nav + ul.nav > .active > a:focus,
-body > header.dropped .navbar-nav > .active > a,
-body > header.dropped .navbar-nav > .active > a:hover,
-body > header.dropped .navbar-nav > .active > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
+body #navbar > header .navbar-nav > .active > a,
+body #navbar > header .navbar-nav > .active > a:hover,
+body #navbar > header .navbar-nav > .active > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav > .active > a,
+.navbar-default body #navbar > header nav a + ul.nav > .active > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav > .active > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .active > a,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .active > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .active > a:focus,
+body #navbar > header.dropped .navbar-nav > .active > a,
+body #navbar > header.dropped .navbar-nav > .active > a:hover,
+body #navbar > header.dropped .navbar-nav > .active > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
   color: #555555;
   background-color: #e7e7e7;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus,
-body > header .navbar-nav > .disabled > a,
-body > header .navbar-nav > .disabled > a:hover,
-body > header .navbar-nav > .disabled > a:focus,
-.navbar-default body > header nav a + ul.nav > .disabled > a,
-.navbar-default body > header nav a + ul.nav > .disabled > a:hover,
-.navbar-default body > header nav a + ul.nav > .disabled > a:focus,
-.navbar-default body > header nav a + ul.nav + ul.nav > .disabled > a,
-.navbar-default body > header nav a + ul.nav + ul.nav > .disabled > a:hover,
-.navbar-default body > header nav a + ul.nav + ul.nav > .disabled > a:focus,
-body > header.dropped .navbar-nav > .disabled > a,
-body > header.dropped .navbar-nav > .disabled > a:hover,
-body > header.dropped .navbar-nav > .disabled > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
+body #navbar > header .navbar-nav > .disabled > a,
+body #navbar > header .navbar-nav > .disabled > a:hover,
+body #navbar > header .navbar-nav > .disabled > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav > .disabled > a,
+.navbar-default body #navbar > header nav a + ul.nav > .disabled > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav > .disabled > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .disabled > a,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:focus,
+body #navbar > header.dropped .navbar-nav > .disabled > a,
+body #navbar > header.dropped .navbar-nav > .disabled > a:hover,
+body #navbar > header.dropped .navbar-nav > .disabled > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
   color: #cccccc;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle,
-body > header .navbar-toggle,
-body > header.dropped .navbar-toggle {
+body #navbar > header .navbar-toggle,
+body #navbar > header.dropped .navbar-toggle {
   border-color: #dddddd;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus,
-body > header .navbar-toggle:hover,
-body > header .navbar-toggle:focus,
-body > header.dropped .navbar-toggle:hover,
-body > header.dropped .navbar-toggle:focus {
+body #navbar > header .navbar-toggle:hover,
+body #navbar > header .navbar-toggle:focus,
+body #navbar > header.dropped .navbar-toggle:hover,
+body #navbar > header.dropped .navbar-toggle:focus {
   background-color: #dddddd;
 }
 .navbar-default .navbar-toggle .icon-bar,
-body > header .navbar-toggle .icon-bar,
-body > header.dropped .navbar-toggle .icon-bar {
+body #navbar > header .navbar-toggle .icon-bar,
+body #navbar > header.dropped .navbar-toggle .icon-bar {
   background-color: #888888;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form,
-body > header .navbar-collapse,
-body > header .navbar-form,
-body > header.dropped .navbar-collapse,
-body > header.dropped .navbar-form {
+body #navbar > header .navbar-collapse,
+body #navbar > header .navbar-form,
+body #navbar > header.dropped .navbar-collapse,
+body #navbar > header.dropped .navbar-form {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus,
-body > header .navbar-nav > .open > a,
-body > header .navbar-nav > .open > a:hover,
-body > header .navbar-nav > .open > a:focus,
-.navbar-default body > header nav a + ul.nav > .open > a,
-.navbar-default body > header nav a + ul.nav > .open > a:hover,
-.navbar-default body > header nav a + ul.nav > .open > a:focus,
-.navbar-default body > header nav a + ul.nav + ul.nav > .open > a,
-.navbar-default body > header nav a + ul.nav + ul.nav > .open > a:hover,
-.navbar-default body > header nav a + ul.nav + ul.nav > .open > a:focus,
-body > header.dropped .navbar-nav > .open > a,
-body > header.dropped .navbar-nav > .open > a:hover,
-body > header.dropped .navbar-nav > .open > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
+body #navbar > header .navbar-nav > .open > a,
+body #navbar > header .navbar-nav > .open > a:hover,
+body #navbar > header .navbar-nav > .open > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav > .open > a,
+.navbar-default body #navbar > header nav a + ul.nav > .open > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav > .open > a:focus,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .open > a,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .open > a:hover,
+.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .open > a:focus,
+body #navbar > header.dropped .navbar-nav > .open > a,
+body #navbar > header.dropped .navbar-nav > .open > a:hover,
+body #navbar > header.dropped .navbar-nav > .open > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
   background-color: #e7e7e7;
   color: #555555;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a,
-  body > header .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > li > a,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  body > header.dropped .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
+  body #navbar > header .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
     color: #777777;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
-  body > header .navbar-nav .open .dropdown-menu > li > a:hover,
-  body > header .navbar-nav .open .dropdown-menu > li > a:focus,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
-  body > header.dropped .navbar-nav .open .dropdown-menu > li > a:hover,
-  body > header.dropped .navbar-nav .open .dropdown-menu > li > a:focus,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
+  body #navbar > header .navbar-nav .open .dropdown-menu > li > a:hover,
+  body #navbar > header .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > li > a:hover,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
     color: #333333;
     background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus,
-  body > header .navbar-nav .open .dropdown-menu > .active > a,
-  body > header .navbar-nav .open .dropdown-menu > .active > a:hover,
-  body > header .navbar-nav .open .dropdown-menu > .active > a:focus,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .active > a,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .active > a:hover,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .active > a:focus,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
+  body #navbar > header .navbar-nav .open .dropdown-menu > .active > a,
+  body #navbar > header .navbar-nav .open .dropdown-menu > .active > a:hover,
+  body #navbar > header .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .active > a,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .active > a:hover,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
     color: #555555;
     background-color: #e7e7e7;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  body > header .navbar-nav .open .dropdown-menu > .disabled > a,
-  body > header .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  body > header .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  body > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
+  body #navbar > header .navbar-nav .open .dropdown-menu > .disabled > a,
+  body #navbar > header .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  body #navbar > header .navbar-nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
     color: #cccccc;
     background-color: transparent;
   }
 }
 .navbar-default .navbar-link,
-body > header .navbar-link,
-body > header.dropped .navbar-link {
+body #navbar > header .navbar-link,
+body #navbar > header.dropped .navbar-link {
   color: #777777;
 }
 .navbar-default .navbar-link:hover,
-body > header .navbar-link:hover,
-body > header.dropped .navbar-link:hover {
+body #navbar > header .navbar-link:hover,
+body #navbar > header.dropped .navbar-link:hover {
   color: #333333;
 }
 .navbar-default .btn-link,
-body > header .btn-link,
-body > header.dropped .btn-link {
+body #navbar > header .btn-link,
+body #navbar > header.dropped .btn-link {
   color: #777777;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus,
-body > header .btn-link:hover,
-body > header .btn-link:focus,
-body > header.dropped .btn-link:hover,
-body > header.dropped .btn-link:focus {
+body #navbar > header .btn-link:hover,
+body #navbar > header .btn-link:focus,
+body #navbar > header.dropped .btn-link:hover,
+body #navbar > header.dropped .btn-link:focus {
   color: #333333;
 }
 .navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
 .navbar-default .btn-link[disabled]:focus,
 fieldset[disabled] .navbar-default .btn-link:focus,
-body > header .btn-link[disabled]:hover,
-fieldset[disabled] body > header .btn-link:hover,
-body > header .btn-link[disabled]:focus,
-fieldset[disabled] body > header .btn-link:focus,
-body > header.dropped .btn-link[disabled]:hover,
-fieldset[disabled] body > header.dropped .btn-link:hover,
-body > header.dropped .btn-link[disabled]:focus,
-fieldset[disabled] body > header.dropped .btn-link:focus {
+body #navbar > header .btn-link[disabled]:hover,
+fieldset[disabled] body #navbar > header .btn-link:hover,
+body #navbar > header .btn-link[disabled]:focus,
+fieldset[disabled] body #navbar > header .btn-link:focus,
+body #navbar > header.dropped .btn-link[disabled]:hover,
+fieldset[disabled] body #navbar > header.dropped .btn-link:hover,
+body #navbar > header.dropped .btn-link[disabled]:focus,
+fieldset[disabled] body #navbar > header.dropped .btn-link:focus {
   color: #cccccc;
 }
 .navbar-inverse {
@@ -5160,13 +5161,13 @@ fieldset[disabled] body > header.dropped .btn-link:focus {
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand,
-.navbar-inverse body > header .logo span {
+.navbar-inverse body #navbar > header .logo span {
   color: #777777;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus,
-.navbar-inverse body > header .logo span:hover,
-.navbar-inverse body > header .logo span:focus {
+.navbar-inverse body #navbar > header .logo span:hover,
+.navbar-inverse body #navbar > header .logo span:focus {
   color: #ffffff;
   background-color: transparent;
 }
@@ -5174,58 +5175,58 @@ fieldset[disabled] body > header.dropped .btn-link:focus {
   color: #777777;
 }
 .navbar-inverse .navbar-nav > li > a,
-.navbar-inverse body > header nav a + ul.nav > li > a,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > li > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+.navbar-inverse body #navbar > header nav a + ul.nav > li > a,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > li > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
   color: #777777;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus,
-.navbar-inverse body > header nav a + ul.nav > li > a:hover,
-.navbar-inverse body > header nav a + ul.nav > li > a:focus,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > li > a:hover,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > li > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
+.navbar-inverse body #navbar > header nav a + ul.nav > li > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav > li > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > li > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > li > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
   color: #ffffff;
   background-color: transparent;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus,
-.navbar-inverse body > header nav a + ul.nav > .active > a,
-.navbar-inverse body > header nav a + ul.nav > .active > a:hover,
-.navbar-inverse body > header nav a + ul.nav > .active > a:focus,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .active > a,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .active > a:hover,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .active > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
+.navbar-inverse body #navbar > header nav a + ul.nav > .active > a,
+.navbar-inverse body #navbar > header nav a + ul.nav > .active > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav > .active > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .active > a,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .active > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .active > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
   color: #ffffff;
   background-color: #080808;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
 .navbar-inverse .navbar-nav > .disabled > a:focus,
-.navbar-inverse body > header nav a + ul.nav > .disabled > a,
-.navbar-inverse body > header nav a + ul.nav > .disabled > a:hover,
-.navbar-inverse body > header nav a + ul.nav > .disabled > a:focus,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .disabled > a,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .disabled > a:hover,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .disabled > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
+.navbar-inverse body #navbar > header nav a + ul.nav > .disabled > a,
+.navbar-inverse body #navbar > header nav a + ul.nav > .disabled > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav > .disabled > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .disabled > a,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
   color: #444444;
   background-color: transparent;
 }
@@ -5246,89 +5247,89 @@ fieldset[disabled] body > header.dropped .btn-link:focus {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus,
-.navbar-inverse body > header nav a + ul.nav > .open > a,
-.navbar-inverse body > header nav a + ul.nav > .open > a:hover,
-.navbar-inverse body > header nav a + ul.nav > .open > a:focus,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .open > a,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .open > a:hover,
-.navbar-inverse body > header nav a + ul.nav + ul.nav > .open > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
+.navbar-inverse body #navbar > header nav a + ul.nav > .open > a,
+.navbar-inverse body #navbar > header nav a + ul.nav > .open > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav > .open > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .open > a,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .open > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .open > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
   background-color: #080808;
   color: #ffffff;
 }
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header {
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu .divider,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu .divider,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider {
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu .divider,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu .divider,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider {
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > li > a,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
     color: #777777;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
     color: #ffffff;
     background-color: transparent;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
     color: #444444;
     background-color: transparent;
   }
@@ -5694,7 +5695,7 @@ a.list-group-item.active > .badge,
   border: 1px solid #dddddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
-          transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .thumbnail > img,
 .thumbnail a > img,
@@ -5846,7 +5847,7 @@ a#create-walk .team-member.active {
   background-color: #428bca;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
-          transition: width 0.6s ease;
+  transition: width 0.6s ease;
 }
 .progress-striped .progress-bar,
 .progress-bar-striped {
@@ -5857,7 +5858,7 @@ a#create-walk .team-member.active {
 .progress.active .progress-bar,
 .progress-bar.active {
   -webkit-animation: progress-bar-stripes 2s linear infinite;
-          animation: progress-bar-stripes 2s linear infinite;
+  animation: progress-bar-stripes 2s linear infinite;
 }
 .progress-bar[aria-valuenow="1"],
 .progress-bar[aria-valuenow="2"] {
@@ -6162,9 +6163,9 @@ a.list-group-item-danger.active:focus {
 .panel > .table,
 .panel > .table-responsive > .table,
 .panel > .panel-collapse > .table,
-.panel > dialog table,
-.panel > .table-responsive > dialog table,
-.panel > .panel-collapse > dialog table,
+.panel > #modals dialog table,
+.panel > .table-responsive > #modals dialog table,
+.panel > .panel-collapse > #modals dialog table,
 .panel > #profileWrapper table,
 .panel > .table-responsive > #profileWrapper table,
 .panel > .panel-collapse > #profileWrapper table,
@@ -6175,8 +6176,8 @@ a.list-group-item-danger.active:focus {
 }
 .panel > .table:first-child,
 .panel > .table-responsive:first-child > .table:first-child,
-.panel > dialog table:first-child,
-.panel > .table-responsive:first-child > dialog table:first-child,
+.panel > #modals dialog table:first-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child,
 .panel > #profileWrapper table:first-child,
 .panel > .table-responsive:first-child > #profileWrapper table:first-child,
 .panel > #create-walk table.routeStops:first-child,
@@ -6192,14 +6193,14 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:first-child,
 .panel > .table:first-child > tbody:first-child > tr:first-child th:first-child,
 .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:first-child,
-.panel > dialog table:first-child > thead:first-child > tr:first-child td:first-child,
-.panel > .table-responsive:first-child > dialog table:first-child > thead:first-child > tr:first-child td:first-child,
-.panel > dialog table:first-child > tbody:first-child > tr:first-child td:first-child,
-.panel > .table-responsive:first-child > dialog table:first-child > tbody:first-child > tr:first-child td:first-child,
-.panel > dialog table:first-child > thead:first-child > tr:first-child th:first-child,
-.panel > .table-responsive:first-child > dialog table:first-child > thead:first-child > tr:first-child th:first-child,
-.panel > dialog table:first-child > tbody:first-child > tr:first-child th:first-child,
-.panel > .table-responsive:first-child > dialog table:first-child > tbody:first-child > tr:first-child th:first-child,
+.panel > #modals dialog table:first-child > thead:first-child > tr:first-child td:first-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > thead:first-child > tr:first-child td:first-child,
+.panel > #modals dialog table:first-child > tbody:first-child > tr:first-child td:first-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > tbody:first-child > tr:first-child td:first-child,
+.panel > #modals dialog table:first-child > thead:first-child > tr:first-child th:first-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > thead:first-child > tr:first-child th:first-child,
+.panel > #modals dialog table:first-child > tbody:first-child > tr:first-child th:first-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > tbody:first-child > tr:first-child th:first-child,
 .panel > #profileWrapper table:first-child > thead:first-child > tr:first-child td:first-child,
 .panel > .table-responsive:first-child > #profileWrapper table:first-child > thead:first-child > tr:first-child td:first-child,
 .panel > #profileWrapper table:first-child > tbody:first-child > tr:first-child td:first-child,
@@ -6226,14 +6227,14 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:first-child > .table:first-child > thead:first-child > tr:first-child th:last-child,
 .panel > .table:first-child > tbody:first-child > tr:first-child th:last-child,
 .panel > .table-responsive:first-child > .table:first-child > tbody:first-child > tr:first-child th:last-child,
-.panel > dialog table:first-child > thead:first-child > tr:first-child td:last-child,
-.panel > .table-responsive:first-child > dialog table:first-child > thead:first-child > tr:first-child td:last-child,
-.panel > dialog table:first-child > tbody:first-child > tr:first-child td:last-child,
-.panel > .table-responsive:first-child > dialog table:first-child > tbody:first-child > tr:first-child td:last-child,
-.panel > dialog table:first-child > thead:first-child > tr:first-child th:last-child,
-.panel > .table-responsive:first-child > dialog table:first-child > thead:first-child > tr:first-child th:last-child,
-.panel > dialog table:first-child > tbody:first-child > tr:first-child th:last-child,
-.panel > .table-responsive:first-child > dialog table:first-child > tbody:first-child > tr:first-child th:last-child,
+.panel > #modals dialog table:first-child > thead:first-child > tr:first-child td:last-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > thead:first-child > tr:first-child td:last-child,
+.panel > #modals dialog table:first-child > tbody:first-child > tr:first-child td:last-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > tbody:first-child > tr:first-child td:last-child,
+.panel > #modals dialog table:first-child > thead:first-child > tr:first-child th:last-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > thead:first-child > tr:first-child th:last-child,
+.panel > #modals dialog table:first-child > tbody:first-child > tr:first-child th:last-child,
+.panel > .table-responsive:first-child > #modals dialog table:first-child > tbody:first-child > tr:first-child th:last-child,
 .panel > #profileWrapper table:first-child > thead:first-child > tr:first-child td:last-child,
 .panel > .table-responsive:first-child > #profileWrapper table:first-child > thead:first-child > tr:first-child td:last-child,
 .panel > #profileWrapper table:first-child > tbody:first-child > tr:first-child td:last-child,
@@ -6254,8 +6255,8 @@ a.list-group-item-danger.active:focus {
 }
 .panel > .table:last-child,
 .panel > .table-responsive:last-child > .table:last-child,
-.panel > dialog table:last-child,
-.panel > .table-responsive:last-child > dialog table:last-child,
+.panel > #modals dialog table:last-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child,
 .panel > #profileWrapper table:last-child,
 .panel > .table-responsive:last-child > #profileWrapper table:last-child,
 .panel > #create-walk table.routeStops:last-child,
@@ -6271,14 +6272,14 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:first-child,
 .panel > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
 .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:first-child,
-.panel > dialog table:last-child > tbody:last-child > tr:last-child td:first-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tbody:last-child > tr:last-child td:first-child,
-.panel > dialog table:last-child > tfoot:last-child > tr:last-child td:first-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tfoot:last-child > tr:last-child td:first-child,
-.panel > dialog table:last-child > tbody:last-child > tr:last-child th:first-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tbody:last-child > tr:last-child th:first-child,
-.panel > dialog table:last-child > tfoot:last-child > tr:last-child th:first-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tfoot:last-child > tr:last-child th:first-child,
+.panel > #modals dialog table:last-child > tbody:last-child > tr:last-child td:first-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tbody:last-child > tr:last-child td:first-child,
+.panel > #modals dialog table:last-child > tfoot:last-child > tr:last-child td:first-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tfoot:last-child > tr:last-child td:first-child,
+.panel > #modals dialog table:last-child > tbody:last-child > tr:last-child th:first-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tbody:last-child > tr:last-child th:first-child,
+.panel > #modals dialog table:last-child > tfoot:last-child > tr:last-child th:first-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tfoot:last-child > tr:last-child th:first-child,
 .panel > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:first-child,
 .panel > .table-responsive:last-child > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:first-child,
 .panel > #profileWrapper table:last-child > tfoot:last-child > tr:last-child td:first-child,
@@ -6305,14 +6306,14 @@ a.list-group-item-danger.active:focus {
 .panel > .table-responsive:last-child > .table:last-child > tbody:last-child > tr:last-child th:last-child,
 .panel > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
 .panel > .table-responsive:last-child > .table:last-child > tfoot:last-child > tr:last-child th:last-child,
-.panel > dialog table:last-child > tbody:last-child > tr:last-child td:last-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tbody:last-child > tr:last-child td:last-child,
-.panel > dialog table:last-child > tfoot:last-child > tr:last-child td:last-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tfoot:last-child > tr:last-child td:last-child,
-.panel > dialog table:last-child > tbody:last-child > tr:last-child th:last-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tbody:last-child > tr:last-child th:last-child,
-.panel > dialog table:last-child > tfoot:last-child > tr:last-child th:last-child,
-.panel > .table-responsive:last-child > dialog table:last-child > tfoot:last-child > tr:last-child th:last-child,
+.panel > #modals dialog table:last-child > tbody:last-child > tr:last-child td:last-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tbody:last-child > tr:last-child td:last-child,
+.panel > #modals dialog table:last-child > tfoot:last-child > tr:last-child td:last-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tfoot:last-child > tr:last-child td:last-child,
+.panel > #modals dialog table:last-child > tbody:last-child > tr:last-child th:last-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tbody:last-child > tr:last-child th:last-child,
+.panel > #modals dialog table:last-child > tfoot:last-child > tr:last-child th:last-child,
+.panel > .table-responsive:last-child > #modals dialog table:last-child > tfoot:last-child > tr:last-child th:last-child,
 .panel > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:last-child,
 .panel > .table-responsive:last-child > #profileWrapper table:last-child > tbody:last-child > tr:last-child td:last-child,
 .panel > #profileWrapper table:last-child > tfoot:last-child > tr:last-child td:last-child,
@@ -6333,15 +6334,15 @@ a.list-group-item-danger.active:focus {
 }
 .panel > .panel-body + .table,
 .panel > .panel-body + .table-responsive,
-.panel > .panel-body + dialog table,
+.panel > .panel-body + #modals dialog table,
 .panel > .panel-body + #profileWrapper table,
 .panel > .panel-body + #create-walk table.routeStops {
   border-top: 1px solid #dddddd;
 }
 .panel > .table > tbody:first-child > tr:first-child th,
 .panel > .table > tbody:first-child > tr:first-child td,
-.panel > dialog table > tbody:first-child > tr:first-child th,
-.panel > dialog table > tbody:first-child > tr:first-child td,
+.panel > #modals dialog table > tbody:first-child > tr:first-child th,
+.panel > #modals dialog table > tbody:first-child > tr:first-child td,
 .panel > #profileWrapper table > tbody:first-child > tr:first-child th,
 .panel > #profileWrapper table > tbody:first-child > tr:first-child td,
 .panel > #create-walk table.routeStops > tbody:first-child > tr:first-child th,
@@ -6651,7 +6652,7 @@ button.close {
   overflow: hidden;
 }
 .modal,
-dialog {
+#modals dialog {
   display: none;
   overflow: hidden;
   position: fixed;
@@ -6664,9 +6665,9 @@ dialog {
   outline: 0;
 }
 .modal.fade .modal-dialog,
-dialog.fade .modal-dialog,
-.modaldialog .modal-dialog,
-.modal.fade dialog > div,
+#modals dialog.fade .modal-dialog,
+.modal#modals dialog .modal-dialog,
+.modal.fade #modals dialog > div,
 .modalbody.city-page > #city-details .walk-list .modal-dialog,
 .modalbody.city-page > #city-details .walk-list:before .modal-dialog,
 .modalbody.city-page > #city-details .walk-list:after .modal-dialog,
@@ -6676,29 +6677,29 @@ dialog.fade .modal-dialog,
 .modalbody.city-page > #city-details .walk-list:after .modal-dialog,
 .modalbody.city-page > #city-details .walk-list.showall .modal-dialog {
   -webkit-transform: translate3d(0, -25%, 0);
-          transform: translate3d(0, -25%, 0);
+  transform: translate3d(0, -25%, 0);
   -webkit-transition: -webkit-transform 0.3s ease-out;
-          transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 .modal.in .modal-dialog,
-dialog.in .modal-dialog,
-.modal.in dialog > div {
+#modals dialog.in .modal-dialog,
+.modal.in #modals dialog > div {
   -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 .modal-open .modal,
-.modal-open dialog {
+.modal-open #modals dialog {
   overflow-x: hidden;
   overflow-y: auto;
 }
 .modal-dialog,
-dialog > div {
+#modals dialog > div {
   position: relative;
   width: auto;
   margin: 10px;
 }
 .modal-content,
-dialog > div > article {
+#modals dialog > div > article {
   position: relative;
   background-color: #ffffff;
   border: 1px solid #999999;
@@ -6718,7 +6719,7 @@ dialog > div > article {
   background-color: #000000;
 }
 .modal-backdrop.fade,
-.modal-backdropdialog,
+.modal-backdrop#modals dialog,
 .modal-backdropbody.city-page > #city-details .walk-list,
 .modal-backdropbody.city-page > #city-details .walk-list:before,
 .modal-backdropbody.city-page > #city-details .walk-list:after,
@@ -6735,13 +6736,13 @@ dialog > div > article {
   filter: alpha(opacity=50);
 }
 .modal-header,
-dialog > div > article header {
+#modals dialog > div > article header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
   min-height: 16.42857143px;
 }
 .modal-header .close,
-dialog > div > article header .close {
+#modals dialog > div > article header .close {
   margin-top: -2px;
 }
 .modal-title {
@@ -6749,19 +6750,19 @@ dialog > div > article header .close {
   line-height: 1.42857143;
 }
 .modal-body,
-dialog > div > article section,
-dialog > div > article section + section {
+#modals dialog > div > article section,
+#modals dialog > div > article section + section {
   position: relative;
   padding: 15px;
 }
 .modal-footer,
-dialog > div > article footer {
+#modals dialog > div > article footer {
   padding: 15px;
   text-align: right;
   border-top: 1px solid #e5e5e5;
 }
 .modal-footer .btn + .btn,
-dialog > div > article footer .btn + .btn,
+#modals dialog > div > article footer .btn + .btn,
 .modal-footer body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
 .modal-footer body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .modal-footer #create-walk #map-control-bar button + #create-walk #map-control-bar button,
@@ -6773,7 +6774,7 @@ dialog > div > article footer .btn + .btn,
   margin-bottom: 0;
 }
 .modal-footer .btn-group .btn + .btn,
-dialog > div > article footer .btn-group .btn + .btn,
+#modals dialog > div > article footer .btn-group .btn + .btn,
 .modal-footer .btn-group body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
 .modal-footer .btn-group body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
 .modal-footer .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
@@ -6784,7 +6785,7 @@ dialog > div > article footer .btn-group .btn + .btn,
   margin-left: -1px;
 }
 .modal-footer .btn-block + .btn-block,
-dialog > div > article footer .btn-block + .btn-block {
+#modals dialog > div > article footer .btn-block + .btn-block {
   margin-left: 0;
 }
 .modal-scrollbar-measure {
@@ -6796,12 +6797,12 @@ dialog > div > article footer .btn-block + .btn-block {
 }
 @media (min-width: 768px) {
   .modal-dialog,
-  dialog > div {
+  #modals dialog > div {
     width: 600px;
     margin: 30px auto;
   }
   .modal-content,
-  dialog > div > article {
+  #modals dialog > div > article {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
   }
   .modal-sm {
@@ -7041,7 +7042,7 @@ dialog > div > article footer .btn-block + .btn-block {
   display: none;
   position: relative;
   -webkit-transition: 0.6s ease-in-out left;
-          transition: 0.6s ease-in-out left;
+  transition: 0.6s ease-in-out left;
 }
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img {
@@ -7278,16 +7279,16 @@ body > footer nav:after,
 #create-walk #block-select:after,
 #create-walk #route-menu:before,
 #create-walk #route-menu:after,
-body > header:before,
-body > header:after,
-body > header .logo:before,
-body > header .logo:after,
-body > header.dropped:before,
-body > header.dropped:after,
-dialog > div > article footer:before,
-dialog > div > article footer:after,
-.form-horizontal dialog label:before,
-.form-horizontal dialog label:after,
+body #navbar > header:before,
+body #navbar > header:after,
+body #navbar > header .logo:before,
+body #navbar > header .logo:after,
+body #navbar > header.dropped:before,
+body #navbar > header.dropped:after,
+#modals dialog > div > article footer:before,
+#modals dialog > div > article footer:after,
+.form-horizontal #modals dialog label:before,
+.form-horizontal #modals dialog label:after,
 .social-login-providers.template-fontawesome:before,
 .social-login-providers.template-fontawesome:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
@@ -7335,11 +7336,11 @@ body > footer nav:after,
 #create-walk #walkleader:after,
 #create-walk #block-select:after,
 #create-walk #route-menu:after,
-body > header:after,
-body > header .logo:after,
-body > header.dropped:after,
-dialog > div > article footer:after,
-.form-horizontal dialog label:after,
+body #navbar > header:after,
+body #navbar > header .logo:after,
+body #navbar > header.dropped:after,
+#modals dialog > div > article footer:after,
+.form-horizontal #modals dialog label:after,
 .social-login-providers.template-fontawesome:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
@@ -7387,7 +7388,7 @@ dialog > div > article footer:after,
 .affix {
   position: fixed;
   -webkit-transform: translate3d(0, 0, 0);
-          transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 @-ms-viewport {
   width: device-width;
@@ -7599,6 +7600,622 @@ dialog > div > article footer:after,
     display: none !important;
   }
 }
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+.glyphicon {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.glyphicon-asterisk:before {
+  content: "\2a";
+}
+.glyphicon-plus:before {
+  content: "\2b";
+}
+.glyphicon-euro:before {
+  content: "\20ac";
+}
+.glyphicon-minus:before {
+  content: "\2212";
+}
+.glyphicon-cloud:before {
+  content: "\2601";
+}
+.glyphicon-envelope:before {
+  content: "\2709";
+}
+.glyphicon-pencil:before {
+  content: "\270f";
+}
+.glyphicon-glass:before {
+  content: "\e001";
+}
+.glyphicon-music:before {
+  content: "\e002";
+}
+.glyphicon-search:before {
+  content: "\e003";
+}
+.glyphicon-heart:before {
+  content: "\e005";
+}
+.glyphicon-star:before {
+  content: "\e006";
+}
+.glyphicon-star-empty:before {
+  content: "\e007";
+}
+.glyphicon-user:before {
+  content: "\e008";
+}
+.glyphicon-film:before {
+  content: "\e009";
+}
+.glyphicon-th-large:before {
+  content: "\e010";
+}
+.glyphicon-th:before {
+  content: "\e011";
+}
+.glyphicon-th-list:before {
+  content: "\e012";
+}
+.glyphicon-ok:before {
+  content: "\e013";
+}
+.glyphicon-remove:before {
+  content: "\e014";
+}
+.glyphicon-zoom-in:before {
+  content: "\e015";
+}
+.glyphicon-zoom-out:before {
+  content: "\e016";
+}
+.glyphicon-off:before {
+  content: "\e017";
+}
+.glyphicon-signal:before {
+  content: "\e018";
+}
+.glyphicon-cog:before {
+  content: "\e019";
+}
+.glyphicon-trash:before {
+  content: "\e020";
+}
+.glyphicon-home:before {
+  content: "\e021";
+}
+.glyphicon-file:before {
+  content: "\e022";
+}
+.glyphicon-time:before {
+  content: "\e023";
+}
+.glyphicon-road:before {
+  content: "\e024";
+}
+.glyphicon-download-alt:before {
+  content: "\e025";
+}
+.glyphicon-download:before {
+  content: "\e026";
+}
+.glyphicon-upload:before {
+  content: "\e027";
+}
+.glyphicon-inbox:before {
+  content: "\e028";
+}
+.glyphicon-play-circle:before {
+  content: "\e029";
+}
+.glyphicon-repeat:before {
+  content: "\e030";
+}
+.glyphicon-refresh:before {
+  content: "\e031";
+}
+.glyphicon-list-alt:before {
+  content: "\e032";
+}
+.glyphicon-lock:before {
+  content: "\e033";
+}
+.glyphicon-flag:before {
+  content: "\e034";
+}
+.glyphicon-headphones:before {
+  content: "\e035";
+}
+.glyphicon-volume-off:before {
+  content: "\e036";
+}
+.glyphicon-volume-down:before {
+  content: "\e037";
+}
+.glyphicon-volume-up:before {
+  content: "\e038";
+}
+.glyphicon-qrcode:before {
+  content: "\e039";
+}
+.glyphicon-barcode:before {
+  content: "\e040";
+}
+.glyphicon-tag:before {
+  content: "\e041";
+}
+.glyphicon-tags:before {
+  content: "\e042";
+}
+.glyphicon-book:before {
+  content: "\e043";
+}
+.glyphicon-bookmark:before {
+  content: "\e044";
+}
+.glyphicon-print:before {
+  content: "\e045";
+}
+.glyphicon-camera:before {
+  content: "\e046";
+}
+.glyphicon-font:before {
+  content: "\e047";
+}
+.glyphicon-bold:before {
+  content: "\e048";
+}
+.glyphicon-italic:before {
+  content: "\e049";
+}
+.glyphicon-text-height:before {
+  content: "\e050";
+}
+.glyphicon-text-width:before {
+  content: "\e051";
+}
+.glyphicon-align-left:before {
+  content: "\e052";
+}
+.glyphicon-align-center:before {
+  content: "\e053";
+}
+.glyphicon-align-right:before {
+  content: "\e054";
+}
+.glyphicon-align-justify:before {
+  content: "\e055";
+}
+.glyphicon-list:before {
+  content: "\e056";
+}
+.glyphicon-indent-left:before {
+  content: "\e057";
+}
+.glyphicon-indent-right:before {
+  content: "\e058";
+}
+.glyphicon-facetime-video:before {
+  content: "\e059";
+}
+.glyphicon-picture:before {
+  content: "\e060";
+}
+.glyphicon-map-marker:before {
+  content: "\e062";
+}
+.glyphicon-adjust:before {
+  content: "\e063";
+}
+.glyphicon-tint:before {
+  content: "\e064";
+}
+.glyphicon-edit:before {
+  content: "\e065";
+}
+.glyphicon-share:before {
+  content: "\e066";
+}
+.glyphicon-check:before {
+  content: "\e067";
+}
+.glyphicon-move:before {
+  content: "\e068";
+}
+.glyphicon-step-backward:before {
+  content: "\e069";
+}
+.glyphicon-fast-backward:before {
+  content: "\e070";
+}
+.glyphicon-backward:before {
+  content: "\e071";
+}
+.glyphicon-play:before {
+  content: "\e072";
+}
+.glyphicon-pause:before {
+  content: "\e073";
+}
+.glyphicon-stop:before {
+  content: "\e074";
+}
+.glyphicon-forward:before {
+  content: "\e075";
+}
+.glyphicon-fast-forward:before {
+  content: "\e076";
+}
+.glyphicon-step-forward:before {
+  content: "\e077";
+}
+.glyphicon-eject:before {
+  content: "\e078";
+}
+.glyphicon-chevron-left:before {
+  content: "\e079";
+}
+.glyphicon-chevron-right:before {
+  content: "\e080";
+}
+.glyphicon-plus-sign:before {
+  content: "\e081";
+}
+.glyphicon-minus-sign:before {
+  content: "\e082";
+}
+.glyphicon-remove-sign:before {
+  content: "\e083";
+}
+.glyphicon-ok-sign:before {
+  content: "\e084";
+}
+.glyphicon-question-sign:before {
+  content: "\e085";
+}
+.glyphicon-info-sign:before {
+  content: "\e086";
+}
+.glyphicon-screenshot:before {
+  content: "\e087";
+}
+.glyphicon-remove-circle:before {
+  content: "\e088";
+}
+.glyphicon-ok-circle:before {
+  content: "\e089";
+}
+.glyphicon-ban-circle:before {
+  content: "\e090";
+}
+.glyphicon-arrow-left:before {
+  content: "\e091";
+}
+.glyphicon-arrow-right:before {
+  content: "\e092";
+}
+.glyphicon-arrow-up:before {
+  content: "\e093";
+}
+.glyphicon-arrow-down:before {
+  content: "\e094";
+}
+.glyphicon-share-alt:before {
+  content: "\e095";
+}
+.glyphicon-resize-full:before {
+  content: "\e096";
+}
+.glyphicon-resize-small:before {
+  content: "\e097";
+}
+.glyphicon-exclamation-sign:before {
+  content: "\e101";
+}
+.glyphicon-gift:before {
+  content: "\e102";
+}
+.glyphicon-leaf:before {
+  content: "\e103";
+}
+.glyphicon-fire:before {
+  content: "\e104";
+}
+.glyphicon-eye-open:before {
+  content: "\e105";
+}
+.glyphicon-eye-close:before {
+  content: "\e106";
+}
+.glyphicon-warning-sign:before {
+  content: "\e107";
+}
+.glyphicon-plane:before {
+  content: "\e108";
+}
+.glyphicon-calendar:before {
+  content: "\e109";
+}
+.glyphicon-random:before {
+  content: "\e110";
+}
+.glyphicon-comment:before {
+  content: "\e111";
+}
+.glyphicon-magnet:before {
+  content: "\e112";
+}
+.glyphicon-chevron-up:before {
+  content: "\e113";
+}
+.glyphicon-chevron-down:before {
+  content: "\e114";
+}
+.glyphicon-retweet:before {
+  content: "\e115";
+}
+.glyphicon-shopping-cart:before {
+  content: "\e116";
+}
+.glyphicon-folder-close:before {
+  content: "\e117";
+}
+.glyphicon-folder-open:before {
+  content: "\e118";
+}
+.glyphicon-resize-vertical:before {
+  content: "\e119";
+}
+.glyphicon-resize-horizontal:before {
+  content: "\e120";
+}
+.glyphicon-hdd:before {
+  content: "\e121";
+}
+.glyphicon-bullhorn:before {
+  content: "\e122";
+}
+.glyphicon-bell:before {
+  content: "\e123";
+}
+.glyphicon-certificate:before {
+  content: "\e124";
+}
+.glyphicon-thumbs-up:before {
+  content: "\e125";
+}
+.glyphicon-thumbs-down:before {
+  content: "\e126";
+}
+.glyphicon-hand-right:before {
+  content: "\e127";
+}
+.glyphicon-hand-left:before {
+  content: "\e128";
+}
+.glyphicon-hand-up:before {
+  content: "\e129";
+}
+.glyphicon-hand-down:before {
+  content: "\e130";
+}
+.glyphicon-circle-arrow-right:before {
+  content: "\e131";
+}
+.glyphicon-circle-arrow-left:before {
+  content: "\e132";
+}
+.glyphicon-circle-arrow-up:before {
+  content: "\e133";
+}
+.glyphicon-circle-arrow-down:before {
+  content: "\e134";
+}
+.glyphicon-globe:before {
+  content: "\e135";
+}
+.glyphicon-wrench:before {
+  content: "\e136";
+}
+.glyphicon-tasks:before {
+  content: "\e137";
+}
+.glyphicon-filter:before {
+  content: "\e138";
+}
+.glyphicon-briefcase:before {
+  content: "\e139";
+}
+.glyphicon-fullscreen:before {
+  content: "\e140";
+}
+.glyphicon-dashboard:before {
+  content: "\e141";
+}
+.glyphicon-paperclip:before {
+  content: "\e142";
+}
+.glyphicon-heart-empty:before {
+  content: "\e143";
+}
+.glyphicon-link:before {
+  content: "\e144";
+}
+.glyphicon-phone:before {
+  content: "\e145";
+}
+.glyphicon-pushpin:before {
+  content: "\e146";
+}
+.glyphicon-usd:before {
+  content: "\e148";
+}
+.glyphicon-gbp:before {
+  content: "\e149";
+}
+.glyphicon-sort:before {
+  content: "\e150";
+}
+.glyphicon-sort-by-alphabet:before {
+  content: "\e151";
+}
+.glyphicon-sort-by-alphabet-alt:before {
+  content: "\e152";
+}
+.glyphicon-sort-by-order:before {
+  content: "\e153";
+}
+.glyphicon-sort-by-order-alt:before {
+  content: "\e154";
+}
+.glyphicon-sort-by-attributes:before {
+  content: "\e155";
+}
+.glyphicon-sort-by-attributes-alt:before {
+  content: "\e156";
+}
+.glyphicon-unchecked:before {
+  content: "\e157";
+}
+.glyphicon-expand:before {
+  content: "\e158";
+}
+.glyphicon-collapse-down:before {
+  content: "\e159";
+}
+.glyphicon-collapse-up:before {
+  content: "\e160";
+}
+.glyphicon-log-in:before {
+  content: "\e161";
+}
+.glyphicon-flash:before {
+  content: "\e162";
+}
+.glyphicon-log-out:before {
+  content: "\e163";
+}
+.glyphicon-new-window:before {
+  content: "\e164";
+}
+.glyphicon-record:before {
+  content: "\e165";
+}
+.glyphicon-save:before {
+  content: "\e166";
+}
+.glyphicon-open:before {
+  content: "\e167";
+}
+.glyphicon-saved:before {
+  content: "\e168";
+}
+.glyphicon-import:before {
+  content: "\e169";
+}
+.glyphicon-export:before {
+  content: "\e170";
+}
+.glyphicon-send:before {
+  content: "\e171";
+}
+.glyphicon-floppy-disk:before {
+  content: "\e172";
+}
+.glyphicon-floppy-saved:before {
+  content: "\e173";
+}
+.glyphicon-floppy-remove:before {
+  content: "\e174";
+}
+.glyphicon-floppy-save:before {
+  content: "\e175";
+}
+.glyphicon-floppy-open:before {
+  content: "\e176";
+}
+.glyphicon-credit-card:before {
+  content: "\e177";
+}
+.glyphicon-transfer:before {
+  content: "\e178";
+}
+.glyphicon-cutlery:before {
+  content: "\e179";
+}
+.glyphicon-header:before {
+  content: "\e180";
+}
+.glyphicon-compressed:before {
+  content: "\e181";
+}
+.glyphicon-earphone:before {
+  content: "\e182";
+}
+.glyphicon-phone-alt:before {
+  content: "\e183";
+}
+.glyphicon-tower:before {
+  content: "\e184";
+}
+.glyphicon-stats:before {
+  content: "\e185";
+}
+.glyphicon-sd-video:before {
+  content: "\e186";
+}
+.glyphicon-hd-video:before {
+  content: "\e187";
+}
+.glyphicon-subtitles:before {
+  content: "\e188";
+}
+.glyphicon-sound-stereo:before {
+  content: "\e189";
+}
+.glyphicon-sound-dolby:before {
+  content: "\e190";
+}
+.glyphicon-sound-5-1:before {
+  content: "\e191";
+}
+.glyphicon-sound-6-1:before {
+  content: "\e192";
+}
+.glyphicon-sound-7-1:before {
+  content: "\e193";
+}
+.glyphicon-copyright-mark:before {
+  content: "\e194";
+}
+.glyphicon-registration-mark:before {
+  content: "\e195";
+}
+.glyphicon-cloud-download:before {
+  content: "\e197";
+}
+.glyphicon-cloud-upload:before {
+  content: "\e198";
+}
+.glyphicon-tree-conifer:before {
+  content: "\e199";
+}
+.glyphicon-tree-deciduous:before {
+  content: "\e200";
+}
 .fade-enter {
   opacity: 0.01;
   max-height: 0;
@@ -7649,12 +8266,6 @@ div#ccm-edit-overlay {
 }
 html {
   padding-top: 60px;
-  /* Pad for the fixed-footer */
-}
-@media (min-width: 768px) {
-  html {
-    padding-bottom: 111px;
-  }
 }
 body {
   overflow-x: hidden;
@@ -7770,7 +8381,7 @@ a {
 }
 /**
  * Overlays
- *
+ * 
  */
 .overlay {
   margin: 0 auto;
@@ -8059,8 +8670,8 @@ blockquote {
   margin-left: -150px;
 }
 body.logged_in header.navbar,
-body.logged_in headerbody > header,
-body.logged_in headerbody > header.dropped {
+body.logged_in headerbody #navbar > header,
+body.logged_in headerbody #navbar > header.dropped {
   z-index: 6;
 }
 body.logged_in #ccm-highlighter {
@@ -8139,7 +8750,7 @@ h5 {
   font-size: 14;
 }
 .hide-text,
-body > header .logo span,
+body #navbar > header .logo span,
 .profiles .flex-control-nav a {
   text-indent: 130%;
   white-space: nowrap;
@@ -8178,8 +8789,8 @@ body > header .logo span,
 }
 .btn,
 .btn-primary,
-body > header #donate,
-body > header #donate,
+body #navbar > header #donate,
+body #navbar > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
@@ -8355,11 +8966,11 @@ body.form {
   .navbar-inner div.container { display:none; }
 }
 */
-body > header {
+body #navbar > header {
   background: #fff;
   font-family: "Roboto Slab", serif;
 }
-body > header .logo span {
+body #navbar > header .logo span {
   background: url("../images/jwlogo.svg");
   display: inline-block;
   background-position: center center;
@@ -8369,41 +8980,40 @@ body > header .logo span {
   background-size: contain;
 }
 @media (min-width: 992px) {
-  body > header .logo {
+  body #navbar > header .logo {
     margin-right: 15px;
   }
 }
-body > header nav {
+body #navbar > header nav {
   height: 60px;
   overflow-y: hidden;
-  max-width: 1200px;
   margin: 0 auto;
   padding: 0 15px;
 }
-body > header nav:before,
-body > header nav:after {
+body #navbar > header nav:before,
+body #navbar > header nav:after {
   content: " ";
   display: table;
 }
-body > header nav:after {
+body #navbar > header nav:after {
   clear: both;
 }
-body > header nav:before,
-body > header nav:after {
+body #navbar > header nav:before,
+body #navbar > header nav:after {
   content: " ";
   display: table;
 }
-body > header nav:after {
+body #navbar > header nav:after {
   clear: both;
 }
-body > header nav ul.nav > li > a,
-body > header nav ul.social-login-providers.template-fontawesome > li > a {
+body #navbar > header nav ul.nav > li > a,
+body #navbar > header nav ul.social-login-providers.template-fontawesome > li > a {
   padding-top: 0;
   padding-bottom: 0;
   line-height: 60px;
   color: #666666;
 }
-body > header .notification {
+body #navbar > header .notification {
   position: absolute;
   overflow: hidden;
   background-image: none;
@@ -8411,55 +9021,55 @@ body > header .notification {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-body > header .notification .container,
-body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+body #navbar > header .notification .container,
+body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-body > header .notification .title-sub {
+body #navbar > header .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-body > header .notification.expanded {
+body #navbar > header .notification.expanded {
   height: 50px;
 }
-body > header .search-open,
-body > header .search-close {
+body #navbar > header .search-open,
+body #navbar > header .search-close {
   padding: 0 15px !important;
 }
-body > header .search-open i,
-body > header .search-close i {
+body #navbar > header .search-open i,
+body #navbar > header .search-close i {
   line-height: 60px;
 }
-body > header .search-close {
+body #navbar > header .search-close {
   background: #f16725;
   display: none;
 }
-body > header .search-close:hover {
+body #navbar > header .search-close:hover {
   color: inherit;
 }
-body > header .search-close i {
+body #navbar > header .search-close i {
   color: #fff;
 }
-body > header.dropped .search-close {
+body #navbar > header.dropped .search-close {
   display: block;
 }
-body > header.dropped .search-close:hover i {
+body #navbar > header.dropped .search-close:hover i {
   color: #666666;
 }
-body > header.dropped .search-open {
+body #navbar > header.dropped .search-open {
   display: none;
 }
-body > header.dropped .navbar-outer {
+body #navbar > header.dropped .navbar-outer {
   max-height: 900px;
 }
-body > header #donate {
+body #navbar > header #donate {
   margin: 12px 0;
 }
 body .navbar-outer {
@@ -8541,7 +9151,6 @@ body > footer {
   color: #50616D;
   font-family: "Roboto Slab", serif;
   font-weight: 500;
-  position: fixed;
   bottom: 0;
   z-index: 1030;
   clear: both;
@@ -8600,8 +9209,436 @@ body > footer .social-icons + div {
     position: static;
   }
 }
+body #itinerary {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-right: 0;
+  box-shadow: -1px -4px 33px rgba(0, 0, 50, 0.85);
+  border-color: #fff;
+  background: #fff;
+  height: 100%;
+  padding: 2.25rem 5.5rem;
+  overflow-y: auto;
+  z-index: -1;
+}
+@media (min-width: 992px) {
+  body #itinerary {
+    float: left;
+    width: 66.66666667%;
+  }
+}
+body #itinerary:before,
+body #itinerary:after {
+  content: " ";
+  display: table;
+}
+body #itinerary:after {
+  clear: both;
+}
+body #itinerary:before,
+body #itinerary:after {
+  content: " ";
+  display: table;
+}
+body #itinerary:after {
+  clear: both;
+}
+body #itinerary ul {
+  list-style: none;
+  padding-left: 0;
+}
+body #itinerary #addWalk ul {
+  font-size: 12px;
+  letter-spacing: 0.025rem;
+  line-height: 1.5;
+  margin-bottom: 3px;
+}
+body #itinerary #addWalk input {
+  width: 104px;
+  font-size: 12px;
+  border: 0px;
+  border-bottom: 1px solid #ccc;
+  margin-right: 3px;
+  opacity: 0.75;
+  -webkit-transition: border-bottom 0.3s;
+          transition: border-bottom 0.3s;
+}
+body #itinerary #addWalk input:hover {
+  opacity: 1;
+}
+body #itinerary #addWalk input ~ button {
+  cursor: auto;
+}
+body #itinerary #addWalk input:focus {
+  border-bottom: 1px solid #8a8a8a;
+}
+body #itinerary #addWalk input:focus + button {
+  opacity: 0.85;
+  left: 0;
+  cursor: pointer;
+}
+body #itinerary #addWalk input:focus + button:hover {
+  -webkit-transition: opacity 0s;
+          transition: opacity 0s;
+  opacity: 1;
+}
+body #itinerary #addWalk button {
+  background: #f16725;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 2px 7px;
+  margin: 0 2px;
+  opacity: 0;
+  position: relative;
+  left: -5px;
+  cursor: pointer;
+  -webkit-transition: opacity 0.3s, left 0.3s;
+          transition: opacity 0.3s, left 0.3s;
+}
+body .itinerary {
+  margin: 30px auto 5rem;
+}
+body .itinerary ul {
+  list-style: none;
+}
+body .itinerary li.walklistItem {
+  overflow: auto;
+  border-top: 2px solid #e0e0e0;
+  padding: 30px 0;
+}
+body .itinerary .walk {
+  max-width: 70%;
+  float: left;
+}
+body .itinerary .walk:before,
+body .itinerary .walk:after {
+  content: " ";
+  display: table;
+}
+body .itinerary .walk:after {
+  clear: both;
+}
+body .itinerary .walk:before,
+body .itinerary .walk:after {
+  content: " ";
+  display: table;
+}
+body .itinerary .walk:after {
+  clear: both;
+}
+body .itinerary .walk h3,
+body .itinerary .walk h4 {
+  font-weight: 300;
+}
+body .itinerary .walk h3 {
+  margin-top: 0;
+  line-height: 1.2;
+}
+body .itinerary .walk h4 {
+  margin: 0px auto 3px;
+}
+body .itinerary .walk ~ button {
+  font-size: 2.2rem;
+  opacity: 0.5;
+  line-height: 0.5;
+}
+body .itinerary .walk ~ button:hover {
+  opacity: 1;
+}
+body .itinerary .action {
+  float: right;
+  max-width: 30%;
+  position: relative;
+  -webkit-transform: translateY(100%);
+      -ms-transform: translateY(100%);
+          transform: translateY(100%);
+  border: none;
+  background-color: transparent;
+  color: #959595;
+  outline: none;
+  text-align: right;
+}
+body .itinerary .action:hover {
+  color: black;
+}
+body .itinerary .removeWalk {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body .itinerary .removeWalk:before {
+  content: "\e014";
+}
+body .itinerary .addWalk {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body .itinerary .addWalk:before {
+  content: "\e164";
+}
+body .itineraryHeader .update {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body .itineraryHeader .update:before {
+  content: "\e013";
+}
+body .itineraryHeader .cancel {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body .itineraryHeader .cancel:before {
+  content: "\e014";
+}
+body .itineraryHeader .dropdown .toggle {
+  border: 0px;
+  background: none;
+  padding: 0;
+  /*TODO: Dropdown is not working */
+}
+body .itineraryHeader .dropdown .toggle h1.walklistTitle {
+  margin: 0;
+}
+body .itineraryHeader .dropdown .toggle h1.walklistTitle .dropdown-chevron {
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 21px;
+  margin-left: 10px;
+  position: relative;
+  top: 1px;
+  opacity: 0.3;
+  -webkit-transition: opacity 0.3s;
+          transition: opacity 0.3s;
+}
+body .itineraryHeader .dropdown .toggle h1.walklistTitle .dropdown-chevron:before {
+  content: "\e114";
+}
+body .itineraryHeader .dropdown .toggle:hover span.dropdown-chevron {
+  opacity: 1;
+}
+body .itineraryHeader .dropdown ul.dropdown-menu {
+  padding: 0;
+  min-width: 200px;
+  left: -10px;
+  margin-top: 10px;
+  border-radius: 0;
+  border: 0px;
+  border-top: 1px solid #ddd;
+  border-bottom: 2px solid #c0c0c0;
+  box-shadow: -1px 3px 12px rgba(0, 0, 50, 0.185);
+}
+body .itineraryHeader .dropdown ul.dropdown-menu li {
+  padding: 10px 40px 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+}
+body .itineraryHeader .dropdown ul.dropdown-menu li:hover {
+  background: #F5F5F5;
+}
+body .itineraryHeader .dropdown ul.dropdown-menu li:first-child {
+  padding-top: 13px;
+}
+body .itineraryHeader .dropdown ul.dropdown-menu li:last-child {
+  padding-bottom: 13px;
+}
+body .itineraryHeader h5.shareUrl a {
+  color: #666;
+}
+body .itineraryHeader h4.walklistDescription {
+  width: 76%;
+  line-height: 1.3;
+  margin: 20px 0 10px;
+}
+body .itineraryHeader h4.walklistDescription textarea {
+  width: 100%;
+  outline: none;
+  height: 100px;
+}
+body .itineraryHeader h4.walklistDescription textarea:invalid {
+  resize: none;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-bottom: 3px solid #ddd;
+  opacity: 1;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+body .itineraryHeader h4.walklistDescription textarea:invalid:hover {
+  opacity: 0.85;
+}
+body .itineraryHeader h4.walklistDescription textarea:hover {
+  opacity: 1;
+}
+body .itineraryHeader h4.walklistDescription textarea:focus,
+body .itineraryHeader h4.walklistDescription textarea:focus:valid {
+  padding: 15px;
+  cursor: text;
+  width: 100%;
+  height: 110px;
+  border: 1px solid #F16725;
+  border-bottom: 3px solid #f16725;
+  font-weight: 300;
+  letter-spacing: 0.1rem;
+  resize: none;
+  background-color: #fff;
+}
+body .itineraryHeader h4.walklistDescription textarea:focus:hover,
+body .itineraryHeader h4.walklistDescription textarea:focus:valid:hover {
+  opacity: 1;
+  border: 1px solid #F16725;
+  border-bottom: 3px solid #f16725;
+  cursor: text;
+  background-color: #fff;
+}
+body .itineraryHeader h4.walklistDescription textarea:focus:valid ~ span.update {
+  opacity: 0.9;
+  top: 3px;
+}
+body .itineraryHeader h4.walklistDescription textarea:valid {
+  border: 1px solid #fff;
+  border-bottom: 3px solid #fff;
+  resize: none;
+  height: 110px;
+  padding: 15px;
+  border-right: 0px solid #ddd;
+  border-left: 0px;
+  border-top: 0px;
+  border-bottom: 3px solid #ddd;
+  background-color: #f6f6f6;
+}
+body .itineraryHeader h4.walklistDescription textarea:valid:hover {
+  cursor: pointer;
+  border-right: 0px solid #ddd;
+  border-left: 0px;
+  border-top: 0px;
+  border-bottom: 3px solid #ddd;
+  background-color: #f6f6f6;
+  opacity: 0.9;
+}
+body .itineraryHeader .update {
+  cursor: pointer;
+  font-family: "Roboto Slab";
+  font-size: 16px;
+  margin: 7px 0 35px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background-color: #f16725;
+  color: #fff;
+  font-weight: 600;
+  opacity: 0;
+  position: relative;
+  top: 0;
+  -webkit-transition: opacity 0.3s, top 0.3s;
+          transition: opacity 0.3s, top 0.3s;
+}
+body .itineraryHeader .update:before {
+  font-family: "Glyphicons Halflings";
+  font-size: smaller;
+  content: "";
+}
+#modals dialog {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#modals dialog.in {
+  display: block !important;
+  opacity: 1;
+}
+#modals dialog.in ~ * {
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  filter: blur(5px);
+}
+#modals dialog > div > article header {
+  padding: 40px 65px;
+}
+#modals dialog > div > article header h1,
+#modals dialog > div > article header h2,
+#modals dialog > div > article header h3,
+#modals dialog > div > article header h4,
+#modals dialog > div > article header h5,
+#modals dialog > div > article header h6 {
+  padding: 0;
+  margin: 0;
+  font-weight: 700;
+}
+#modals dialog > div > article section {
+  padding: 35px 65px;
+}
+#modals dialog > div > article section + section {
+  padding: 0 65px 35px;
+}
+@media (max-width: 768px) {
+  #modals dialog > div > article section {
+    padding-bottom: 0;
+  }
+}
+#modals dialog > div > article footer {
+  padding: 30px 65px;
+}
+#modals dialog label {
+  display: block;
+}
+#modals dialog input[type=text],
+#modals dialog input[type=password] {
+  font-weight: 500;
+  width: 65%;
+}
+@media (max-width: 768px) {
+  #modals dialog input[type=text],
+  #modals dialog input[type=password] {
+    width: 90%;
+  }
+}
+#modals #signup-panel {
+  opacity: 1;
+}
 .btn,
-body > header #donate,
+body #navbar > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
@@ -8636,66 +9673,6 @@ input.plaintext {
 }
 input.plaintext:hover {
   opacity: 0.8;
-}
-dialog {
-  border: none;
-  background-color: transparent;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
-dialog.in {
-  display: block !important;
-  opacity: 1;
-}
-dialog.in ~ * {
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  filter: blur(5px);
-}
-dialog > div > article header {
-  padding: 40px 65px;
-}
-dialog > div > article header h1,
-dialog > div > article header h2,
-dialog > div > article header h3,
-dialog > div > article header h4,
-dialog > div > article header h5,
-dialog > div > article header h6 {
-  padding: 0;
-  margin: 0;
-  font-weight: 700;
-}
-dialog > div > article section {
-  padding: 35px 65px;
-}
-dialog > div > article section + section {
-  padding: 0 65px 35px;
-}
-@media (max-width: 768px) {
-  dialog > div > article section {
-    padding-bottom: 0;
-  }
-}
-dialog > div > article footer {
-  padding: 30px 65px;
-}
-dialog label {
-  display: block;
-}
-dialog input[type=text],
-dialog input[type=password] {
-  font-weight: 500;
-  width: 65%;
-}
-@media (max-width: 768px) {
-  dialog input[type=text],
-  dialog input[type=password] {
-    width: 90%;
-  }
-}
-#signup-panel {
-  opacity: 1;
 }
 .walk-card,
 .ccm-block-page-list-walk-filters .walk,
@@ -9361,7 +10338,7 @@ body.home .nav-tabs > li.active > a {
   background: #fff;
 }
 body.home #intro {
-  width: 100%;
+  width: 50%;
   background-position: center center;
 }
 body.home #intro:before,
@@ -10987,8 +11964,8 @@ body.city-page > #blog:after {
 }
 @media (max-width: 768px) {
   .walk-page header.navbar,
-  .walk-page headerbody > header,
-  .walk-page headerbody > header.dropped {
+  .walk-page headerbody #navbar > header,
+  .walk-page headerbody #navbar > header.dropped {
     margin: 0;
   }
 }
@@ -12553,8 +13530,8 @@ body[data-pageviewname=CreateWalkView] {
 }
 #create-walk #accessibilities > fieldset {
   -webkit-column-count: 2;
-  -moz-column-count: 2;
-       column-count: 2;
+     -moz-column-count: 2;
+          column-count: 2;
 }
 #create-walk textarea,
 #create-walk input[type="text"],
@@ -13318,8 +14295,8 @@ body[data-pageviewname=CreateWalkView] {
   z-index: 200000;
 }
 #create-walk .modal-body,
-#create-walk dialog > div > article section,
-#create-walk dialog > div > article section + section {
+#create-walk #modals dialog > div > article section,
+#create-walk #modals dialog > div > article section + section {
   overflow-y: inherit;
 }
 #create-walk .progress-spinner {
@@ -13381,8 +14358,8 @@ body[data-pageviewname=CreateWalkView] {
   height: 100%;
 }
 #create-walk #preview-modal > div > article > .modal-body,
-#create-walk #preview-modal > div > article > dialog > div > article section,
-#create-walk #preview-modal > div > article > dialog > div > article section + section {
+#create-walk #preview-modal > div > article > #modals dialog > div > article section,
+#create-walk #preview-modal > div > article > #modals dialog > div > article section + section {
   height: 100%;
 }
 #create-walk #preview-modal header {
@@ -13391,8 +14368,8 @@ body[data-pageviewname=CreateWalkView] {
   z-index: 1060;
 }
 #create-walk #preview-modal .modal-body,
-#create-walk #preview-modal dialog > div > article section,
-#create-walk #preview-modal dialog > div > article section + section {
+#create-walk #preview-modal #modals dialog > div > article section,
+#create-walk #preview-modal #modals dialog > div > article section + section {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -13404,8 +14381,8 @@ body[data-pageviewname=CreateWalkView] {
   height: 100%;
 }
 #create-walk #publish-confirmation .modal-body .btn,
-#create-walk #publish-confirmation dialog > div > article section .btn,
-#create-walk #publish-confirmation dialog > div > article section + section .btn,
+#create-walk #publish-confirmation #modals dialog > div > article section .btn,
+#create-walk #publish-confirmation #modals dialog > div > article section + section .btn,
 #create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk,
 #create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk:after,
 #create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button,
@@ -13417,16 +14394,16 @@ body[data-pageviewname=CreateWalkView] {
   padding: 1em;
 }
 #create-walk #publish-confirmation .modal-body input[type='text'],
-#create-walk #publish-confirmation dialog > div > article section input[type='text'],
-#create-walk #publish-confirmation dialog > div > article section + section input[type='text'] {
+#create-walk #publish-confirmation #modals dialog > div > article section input[type='text'],
+#create-walk #publish-confirmation #modals dialog > div > article section + section input[type='text'] {
   width: 90%;
   font-size: 16px;
   padding: 12px;
   cursor: text;
 }
 #create-walk #publish-confirmation .modal-body hr,
-#create-walk #publish-confirmation dialog > div > article section hr,
-#create-walk #publish-confirmation dialog > div > article section + section hr {
+#create-walk #publish-confirmation #modals dialog > div > article section hr,
+#create-walk #publish-confirmation #modals dialog > div > article section + section hr {
   margin-top: 0;
 }
 #create-walk #time-and-date .ui-datepicker {

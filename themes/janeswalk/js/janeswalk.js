@@ -9,6 +9,8 @@
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
 function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
@@ -16,6 +18,14 @@ function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propN
 var _utilsI18nUtilsJs = require('./utils/I18nUtils.js');
 
 var I18nUtils = _interopRequireWildcard(_utilsI18nUtilsJs);
+
+var _actionsAreaActionsJs = require('./actions/AreaActions.js');
+
+var AreaActions = _interopRequireWildcard(_actionsAreaActionsJs);
+
+var _componentsNavbarJsx = require('./components/Navbar.jsx');
+
+var _componentsNavbarJsx2 = _interopRequireDefault(_componentsNavbarJsx);
 
 // Page Views
 var PageViews = {
@@ -71,6 +81,16 @@ function routePage() {
   var pageViewName = document.body.getAttribute('data-pageViewName') || 'PageView';
   var ReactView = ReactViews[pageViewName];
 
+  // Render our header first
+  React.render({
+    $$typeof: _typeofReactElement,
+    type: _componentsNavbarJsx2['default'],
+    key: null,
+    ref: null,
+    props: _defaultProps(_componentsNavbarJsx2['default'].defaultProps, {}),
+    _owner: null
+  }, document.getElementById('navbar'));
+
   try {
     // Render modals we need on each page
     var loginEl = {
@@ -124,6 +144,10 @@ function routePage() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+  JanesWalk.event.on('area.receive', function (areas) {
+    return AreaActions.receive(areas);
+  });
+
   // Process all deferred events
   JanesWalk.event.activate();
 
@@ -134,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-},{"./components/CreateWalk.jsx":221,"./components/Login.jsx":223,"./components/Page.jsx":224,"./components/pages/City.jsx":246,"./components/pages/Home.jsx":247,"./components/pages/Profile.jsx":248,"./components/pages/Walk.jsx":249,"./utils/I18nUtils.js":260,"intl/Intl.en":7}],2:[function(require,module,exports){
+},{"./actions/AreaActions.js":220,"./components/CreateWalk.jsx":222,"./components/Login.jsx":224,"./components/Navbar.jsx":225,"./components/Page.jsx":226,"./components/pages/City.jsx":248,"./components/pages/Home.jsx":249,"./components/pages/Profile.jsx":250,"./components/pages/Walk.jsx":251,"./utils/I18nUtils.js":263,"intl/Intl.en":7}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -32889,6 +32913,38 @@ var _constantsJWConstantsJs = require('../constants/JWConstants.js');
 
 // Load all loop data
 
+function receive(areas) {
+  Object.keys(areas).forEach(function (name) {
+    (0, _dispatcherAppDispatcherJs.dispatch)({
+      type: _constantsJWConstantsJs.ActionTypes.AREA_RECEIVE,
+      name: name,
+      content: areas[name]
+    });
+  });
+}
+
+
+},{"../constants/JWConstants.js":255,"../dispatcher/AppDispatcher.js":256}],221:[function(require,module,exports){
+/**
+ * i18n Translations
+ *
+ * Translate text content into our available translations using
+ * the i18n standard.
+ */
+
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.receive = receive;
+
+var _dispatcherAppDispatcherJs = require('../dispatcher/AppDispatcher.js');
+
+var _constantsJWConstantsJs = require('../constants/JWConstants.js');
+
+// Load all loop data
+
 function receive(translations) {
   (0, _dispatcherAppDispatcherJs.dispatch)({
     type: _constantsJWConstantsJs.ActionTypes.I18N_RECEIVE,
@@ -32897,7 +32953,7 @@ function receive(translations) {
 }
 
 
-},{"../constants/JWConstants.js":253,"../dispatcher/AppDispatcher.js":254}],221:[function(require,module,exports){
+},{"../constants/JWConstants.js":255,"../dispatcher/AppDispatcher.js":256}],222:[function(require,module,exports){
 // Create a Walk
 //
 // Form for creating new walks. Includes a map builder, team builder, scheduler
@@ -32975,7 +33031,7 @@ var CreateWalk = (function (_React$Component) {
   function CreateWalk(props) {
     _classCallCheck(this, CreateWalk);
 
-    _get(Object.getPrototypeOf(CreateWalk.prototype), 'constructor', this).call(this);
+    _get(Object.getPrototypeOf(CreateWalk.prototype), 'constructor', this).call(this, props);
     var data = props.data;
     // TODO: move this into its own model js
     // Keep these defaults to type, ie don't pre-seed data here, aside from
@@ -33181,6 +33237,11 @@ var CreateWalk = (function (_React$Component) {
           _this3.setState({ map: newVal }, cb);
         }
       };
+
+      var _props = this.props;
+      var user = _props.user;
+      var valt = _props.valt;
+      var city = _props.city;
 
       return {
         $$typeof: _typeofReactElement,
@@ -33464,7 +33525,7 @@ var CreateWalk = (function (_React$Component) {
                                     key: null,
                                     ref: null,
                                     props: {
-                                      children: t('Hey there, %s!', this.props.user.firstName)
+                                      children: t('Hey there, %s!', user.firstName)
                                     },
                                     _owner: null
                                   }, {
@@ -33569,7 +33630,7 @@ var CreateWalk = (function (_React$Component) {
                             ref: null,
                             props: _defaultProps(_cawImageUploadJsx2['default'].defaultProps, {
                               valueLink: this.linkState('thumbnails'),
-                              valt: this.props.valt
+                              valt: valt
                             }),
                             _owner: null
                           }, {
@@ -33697,13 +33758,13 @@ var CreateWalk = (function (_React$Component) {
                                   valueLink: this.linkState('checkboxes')
                                 }),
                                 _owner: null
-                              }, (this.props.city.wards || []).length > 0 ? {
+                              }, (city.wards || []).length > 0 ? {
                                 $$typeof: _typeofReactElement,
                                 type: _cawWardSelectJsx2['default'],
                                 key: null,
                                 ref: null,
                                 props: _defaultProps(_cawWardSelectJsx2['default'].defaultProps, {
-                                  wards: this.props.city.wards,
+                                  wards: city.wards,
                                   valueLink: this.linkState('wards')
                                 }),
                                 _owner: null
@@ -33722,7 +33783,7 @@ var CreateWalk = (function (_React$Component) {
                           id: 'description'
                         },
                         _owner: null
-                      }, React.createElement(_cawMapBuilderJsx2['default'], { ref: 'mapBuilder', valueLink: linkStateMap, city: this.props.city }), {
+                      }, React.createElement(_cawMapBuilderJsx2['default'], { ref: 'mapBuilder', valueLink: linkStateMap, city: city }), {
                         $$typeof: _typeofReactElement,
                         type: _cawDateSelectJsx2['default'],
                         key: null,
@@ -34046,14 +34107,14 @@ var CreateWalk = (function (_React$Component) {
                         key: null,
                         ref: null,
                         props: {
-                          children: [this.props.city.cityOrganizer.photo ? {
+                          children: [city.cityOrganizer.photo ? {
                             $$typeof: _typeofReactElement,
                             type: 'div',
                             key: null,
                             ref: null,
                             props: {
                               className: 'u-avatar',
-                              style: { backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')' }
+                              style: { backgroundImage: 'url(' + city.cityOrganizer.photo + ')' }
                             },
                             _owner: null
                           } : null, {
@@ -34062,7 +34123,7 @@ var CreateWalk = (function (_React$Component) {
                             key: null,
                             ref: null,
                             props: {
-                              children: [t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name), ' ', {
+                              children: [t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', city.cityOrganizer.firstName, city.name), ' ', {
                                 $$typeof: _typeofReactElement,
                                 type: 'strong',
                                 key: null,
@@ -34075,7 +34136,7 @@ var CreateWalk = (function (_React$Component) {
                                     ref: null,
                                     props: {
                                       children: [t('email me'), '!'],
-                                      href: 'mailto:' + this.props.city.cityOrganizer.email
+                                      href: 'mailto:' + city.cityOrganizer.email
                                     },
                                     _owner: null
                                   }
@@ -34112,7 +34173,7 @@ var CreateWalk = (function (_React$Component) {
               url: this.state.url,
               saveWalk: this.saveWalk.bind(this),
               close: this.setState.bind(this, { publish: false }),
-              city: this.props.city,
+              city: city,
               mirrors: this.state.mirrors
             }),
             _owner: null
@@ -34282,7 +34343,7 @@ Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin), (function (_
 module.exports = exports['default'];
 
 
-},{"../actions/I18nActions.js":220,"../helpers/helpers.jsx":255,"../stores/I18nStore.js":258,"./TextAreaLimit.jsx":225,"./caw/AccessibleSelect.jsx":228,"./caw/DateSelect.jsx":229,"./caw/ImageUpload.jsx":230,"./caw/MapBuilder.jsx":231,"./caw/TeamBuilder.jsx":232,"./caw/ThemeSelect.jsx":233,"./caw/WalkPublish.jsx":234,"./caw/WardSelect.jsx":235}],222:[function(require,module,exports){
+},{"../actions/I18nActions.js":221,"../helpers/helpers.jsx":257,"../stores/I18nStore.js":261,"./TextAreaLimit.jsx":227,"./caw/AccessibleSelect.jsx":230,"./caw/DateSelect.jsx":231,"./caw/ImageUpload.jsx":232,"./caw/MapBuilder.jsx":233,"./caw/TeamBuilder.jsx":234,"./caw/ThemeSelect.jsx":235,"./caw/WalkPublish.jsx":236,"./caw/WardSelect.jsx":237}],223:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -34331,7 +34392,7 @@ Object.defineProperties(FacebookShareDialog.prototype, {
 module.exports = FacebookShareDialog;
 
 
-},{}],223:[function(require,module,exports){
+},{}],224:[function(require,module,exports){
 // TODO: link to the i18n
 'use strict';
 
@@ -34356,15 +34417,18 @@ function t(str) {
   });
 }
 
-var Message = function Message(props) {
+var Message = function Message(_ref) {
+  var success = _ref.success;
+  var msg = _ref.msg;
+  var error = _ref.error;
   return {
     $$typeof: _typeofReactElement,
     type: 'div',
     key: null,
     ref: null,
     props: {
-      children: [props.msg, props.error],
-      className: 'alert alert-' + (props.success ? 'info' : 'danger')
+      children: [msg, error],
+      className: 'alert alert-' + (success ? 'info' : 'danger')
     },
     _owner: null
   };
@@ -34464,6 +34528,11 @@ var Login = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var socialLogin = this.props.socialLogin;
+      var _state = this.state;
+      var email = _state.email;
+      var password = _state.password;
+
       var message = undefined;
       if (Number.isInteger(this.state.message.success)) {
         message = React.createElement(Message, this.state.message);
@@ -34518,7 +34587,7 @@ var Login = (function (_React$Component) {
                         key: null,
                         ref: null,
                         props: {
-                          dangerouslySetInnerHTML: { __html: this.props.socialLogin }
+                          dangerouslySetInnerHTML: { __html: socialLogin }
                         },
                         _owner: null
                       }, {
@@ -34542,7 +34611,7 @@ var Login = (function (_React$Component) {
                             key: null,
                             ref: null,
                             props: {
-                              children: [t('Email'), React.createElement('input', { type: 'text', name: 'uEmail', id: 'uEmail', ref: 'uEmail', value: this.state.email, onChange: this.handleChangeEmail, className: 'ccm-input-text input-large' })],
+                              children: [t('Email'), React.createElement('input', { type: 'text', name: 'uEmail', id: 'uEmail', ref: 'uEmail', value: email, onChange: this.handleChangeEmail, className: 'ccm-input-text input-large' })],
                               htmlFor: 'uEmail'
                             },
                             _owner: null
@@ -34561,7 +34630,7 @@ var Login = (function (_React$Component) {
                                   type: 'password',
                                   name: 'uPassword',
                                   id: 'uPassword',
-                                  value: this.state.password,
+                                  value: password,
                                   onChange: this.handleChangePassword,
                                   className: 'ccm-input-text input-large'
                                 },
@@ -34617,7 +34686,7 @@ var Login = (function (_React$Component) {
                             ref: null,
                             props: {
                               children: t('Register for a new account.'),
-                              href: CCM_REL + '/register?uEmail=' + this.state.email
+                              href: CCM_REL + '/register?uEmail=' + email
                             },
                             _owner: null
                           }, {
@@ -34662,7 +34731,389 @@ exports['default'] = Login;
 module.exports = exports['default'];
 
 
-},{}],224:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _storesAreaStoreJs = require('../stores/AreaStore.js');
+
+var _storesAreaStoreJs2 = _interopRequireDefault(_storesAreaStoreJs);
+
+// TODO: Replace translations placeholders
+var t = function t(s) {
+  return s;
+};
+var tc = function tc(c, s) {
+  return s;
+};
+
+/* Build menu options depending if currently logged in or not */
+var LoggedInOptions = function LoggedInOptions(_ref) {
+  var name = _ref.name;
+  return [{
+    $$typeof: _typeofReactElement,
+    type: "li",
+    key: null,
+    ref: null,
+    props: {
+      children: {
+        $$typeof: _typeofReactElement,
+        type: "a",
+        key: null,
+        ref: null,
+        props: {
+          children: name,
+          href: "/profile"
+        },
+        _owner: null
+      }
+    },
+    _owner: null
+  }, {
+    $$typeof: _typeofReactElement,
+    type: "li",
+    key: null,
+    ref: null,
+    props: {
+      children: {
+        $$typeof: _typeofReactElement,
+        type: "a",
+        key: null,
+        ref: null,
+        props: {
+          children: tc('Register on a website', 'Join'),
+          href: "/login/logout"
+        },
+        _owner: null
+      }
+    },
+    _owner: null
+  }];
+};
+
+var LoggedOutOptions = function LoggedOutOptions() {
+  return [{
+    $$typeof: _typeofReactElement,
+    type: "li",
+    key: null,
+    ref: null,
+    props: {
+      children: {
+        $$typeof: _typeofReactElement,
+        type: "a",
+        key: null,
+        ref: null,
+        props: {
+          children: tc('Register on a website', 'Join'),
+          href: "/register"
+        },
+        _owner: null
+      }
+    },
+    _owner: null
+  }, {
+    $$typeof: _typeofReactElement,
+    type: "li",
+    key: null,
+    ref: null,
+    props: {
+      children: {
+        $$typeof: _typeofReactElement,
+        type: "a",
+        key: null,
+        ref: null,
+        props: {
+          children: t('Log in'),
+          onClick: function () {
+            return $('#login').modal();
+          }
+        },
+        _owner: null
+      }
+    },
+    _owner: null
+  }];
+};
+
+function getNavbar() {
+  return {
+    options: _storesAreaStoreJs2["default"].getArea('Left Header'),
+    dropdown: _storesAreaStoreJs2["default"].getArea('Dropdown')
+  };
+}
+
+/**
+ * Parse out some HTML, and add the built element after the ref
+ */
+function appendSiblings(html, refNode) {
+  var div = document.createElement('div');
+  div.innerHTML = html;
+
+  [].forEach.call(div.children, function (child) {
+    return refNode.parentNode.appendChild(child);
+  });
+}
+
+// The header menu
+
+var Navbar = (function (_React$Component) {
+  _inherits(Navbar, _React$Component);
+
+  function Navbar() {
+    _classCallCheck(this, Navbar);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(Navbar.prototype), "constructor", this).apply(this, args);
+    this.state = getNavbar();
+    this._onChange = this._onChange.bind(this);
+  }
+
+  _createClass(Navbar, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      _storesAreaStoreJs2["default"].addChangeListener(this._onChange);
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      _storesAreaStoreJs2["default"].removeChangeListener(this._onChage);
+    }
+  }, {
+    key: "_onChange",
+    value: function _onChange() {
+      this.setState(getNavbar());
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      appendSiblings(this.state.options, this.refs.topnav);
+    }
+
+    /**
+     * Need to check if the HTML has updated, so we don't rebuild the DOM
+     */
+  }, {
+    key: "componentWillUpdate",
+    value: function componentWillUpdate(nextProps, _ref2) {
+      var options = _ref2.options;
+      var dropdown = _ref2.dropdown;
+
+      if (options !== this.state.options) {
+        appendSiblings(options, this.refs.topnav);
+      }
+    }
+
+    /**
+     * _addNavEvents
+     *
+     * @protected
+     * @return    void
+     */
+  }, {
+    key: "_addNavEvents",
+    value: function _addNavEvents() {
+      this._element.find('a.search-open').click(function () {
+        $('body > header').addClass('dropped');
+      });
+      this._element.find('a.search-close').click(function () {
+        $('body > header').removeClass('dropped');
+      });
+    }
+  }, {
+    key: "openSearch",
+    value: function openSearch() {
+      $('html, body').animate({
+        scrollTop: 0
+      }, 300);
+
+      // If there's a text-field in the drop, move caret to it
+      var textInput = document.querySelector('body > header input[type=text]');
+      if (textInput) {
+        textInput.focus();
+      }
+
+      this.setState({ searching: true });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var editMode = this.props.editMode;
+      var _state = this.state;
+      var user = _state.user;
+      var searching = _state.searching;
+
+      return {
+        $$typeof: _typeofReactElement,
+        type: "header",
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: "nav",
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: "a",
+                key: null,
+                ref: null,
+                props: {
+                  children: {
+                    $$typeof: _typeofReactElement,
+                    type: "span",
+                    key: null,
+                    ref: null,
+                    props: {},
+                    _owner: null
+                  },
+                  href: "/",
+                  className: "logo"
+                },
+                _owner: null
+              }, React.createElement(
+                "ul",
+                { className: "nav", ref: "topnav" },
+                {
+                  $$typeof: _typeofReactElement,
+                  type: "li",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: [{
+                      $$typeof: _typeofReactElement,
+                      type: "a",
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: {
+                          $$typeof: _typeofReactElement,
+                          type: "i",
+                          key: null,
+                          ref: null,
+                          props: {
+                            className: "fa fa-search"
+                          },
+                          _owner: null
+                        },
+                        className: "search-open",
+                        onClick: function () {
+                          return _this.openSearch();
+                        }
+                      },
+                      _owner: null
+                    }, {
+                      $$typeof: _typeofReactElement,
+                      type: "a",
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: {
+                          $$typeof: _typeofReactElement,
+                          type: "i",
+                          key: null,
+                          ref: null,
+                          props: {
+                            className: "fa fa-search"
+                          },
+                          _owner: null
+                        },
+                        className: "search-close",
+                        onClick: function () {
+                          return _this.setState({ searching: false });
+                        }
+                      },
+                      _owner: null
+                    }]
+                  },
+                  _owner: null
+                },
+                user ? LoggedInOptions(user) : LoggedOutOptions(),
+                {
+                  $$typeof: _typeofReactElement,
+                  type: "li",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: {
+                      $$typeof: _typeofReactElement,
+                      type: "a",
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: "Donate",
+                        href: "/donate",
+                        id: "donate"
+                      },
+                      _owner: null
+                    }
+                  },
+                  _owner: null
+                }
+              )],
+              role: "navigation"
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: "div",
+            key: null,
+            ref: null,
+            props: {
+              className: "navbar-outer",
+              dangerouslySetInnerHTML: { __html: this.state.dropdown }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: "div",
+            key: null,
+            ref: null,
+            props: {
+              id: "profilenav"
+            },
+            _owner: null
+          }],
+          className: [editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return Navbar;
+})(React.Component);
+
+exports["default"] = Navbar;
+
+Navbar.defaultProps = {
+  editMode: CCM_EDIT_MODE
+};
+module.exports = exports["default"];
+
+
+},{"../stores/AreaStore.js":260}],226:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -34697,7 +35148,6 @@ var PageView = (function (_View) {
     _classCallCheck(this, PageView);
 
     _get(Object.getPrototypeOf(PageView.prototype), 'constructor', this).call(this, element);
-    this._addNavEvents();
     this._addOverlayCloseEvent();
   }
 
@@ -34718,32 +35168,6 @@ var PageView = (function (_View) {
       this._element.find('a.closeModalCta').click(function (event) {
         event.preventDefault();
         _this._element.find('.overlay').hide();
-      });
-    }
-
-    /**
-     * _addNavEvents
-     * 
-     * @protected
-     * @return    void
-     */
-  }, {
-    key: '_addNavEvents',
-    value: function _addNavEvents() {
-      this._element.find('a.search-open').click(function () {
-        $('html, body').animate({
-          scrollTop: 0
-        }, 300);
-        $('body > header').addClass('dropped');
-
-        // If there's a text-field in the drop, move caret to it
-        var textInput = document.querySelector('body > header input[type=text]');
-        if (textInput) {
-          textInput.focus();
-        }
-      });
-      this._element.find('a.search-close').click(function () {
-        $('body > header').removeClass('dropped');
       });
     }
 
@@ -34830,7 +35254,7 @@ exports['default'] = PageView;
 module.exports = exports['default'];
 
 
-},{"./View.jsx":226}],225:[function(require,module,exports){
+},{"./View.jsx":228}],227:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -34872,7 +35296,7 @@ exports['default'] = TextAreaLimit;
 module.exports = exports['default'];
 
 
-},{"../stores/I18nStore.js":258}],226:[function(require,module,exports){
+},{"../stores/I18nStore.js":261}],228:[function(require,module,exports){
 /**
 * View constructor
 * 
@@ -34918,7 +35342,7 @@ exports["default"] = View;
 module.exports = exports["default"];
 
 
-},{}],227:[function(require,module,exports){
+},{}],229:[function(require,module,exports){
 'use strict';
 
 /**
@@ -35264,7 +35688,7 @@ Object.defineProperties(WalkMap.prototype, {
 module.exports = WalkMap;
 
 
-},{}],228:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 /**
  * Menu to select accessibility requirements
  */
@@ -35370,7 +35794,7 @@ Object.assign(AccessibleSelect.prototype, _helpersMixinsJsx.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":256,"../../stores/I18nStore.js":258}],229:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":258,"../../stores/I18nStore.js":261}],231:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -36223,7 +36647,7 @@ Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":258,"./date/DatePicker.jsx":236,"./date/TimeOpenTable.jsx":237,"./date/TimePicker.jsx":238,"./date/TimeSetTable.jsx":239}],230:[function(require,module,exports){
+},{"../../stores/I18nStore.js":261,"./date/DatePicker.jsx":238,"./date/TimeOpenTable.jsx":239,"./date/TimePicker.jsx":240,"./date/TimeSetTable.jsx":241}],232:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -36408,7 +36832,7 @@ exports['default'] = ImageUpload;
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":258}],231:[function(require,module,exports){
+},{"../../stores/I18nStore.js":261}],233:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -37055,7 +37479,7 @@ Object.assign(MapBuilder, {
 module.exports = exports['default'];
 
 
-},{"../../helpers/helpers.jsx":255,"../../stores/I18nStore.js":258,"./map/ConnectFilters.jsx":240,"./map/InstagramConnect.jsx":241,"./map/SoundCloudConnect.jsx":242,"./map/TwitterConnect.jsx":243,"./map/WalkInfoWindow.jsx":244,"./map/WalkStopTable.jsx":245}],232:[function(require,module,exports){
+},{"../../helpers/helpers.jsx":257,"../../stores/I18nStore.js":261,"./map/ConnectFilters.jsx":242,"./map/InstagramConnect.jsx":243,"./map/SoundCloudConnect.jsx":244,"./map/TwitterConnect.jsx":245,"./map/WalkInfoWindow.jsx":246,"./map/WalkStopTable.jsx":247}],234:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -38719,7 +39143,7 @@ var TeamVolunteer = function TeamVolunteer(props) {
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":258}],233:[function(require,module,exports){
+},{"../../stores/I18nStore.js":261}],235:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -38967,7 +39391,7 @@ ThemeSelect.defaultProps = {
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":256,"../../stores/I18nStore.js":258}],234:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":258,"../../stores/I18nStore.js":261}],236:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -38997,8 +39421,6 @@ var WalkPublish = (function (_React$Component) {
     this.state = {
       eventbrite: !!(props.mirrors && props.mirrors.eventbrite)
     };
-
-    this.handlePublish = this.handlePublish.bind(this);
   }
 
   _createClass(WalkPublish, [{
@@ -39027,6 +39449,8 @@ var WalkPublish = (function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       // Check city config for which walk mirroring services to expose
       var mirrorWalk = undefined;
       if (this.props.city.mirrors.indexOf('eventbrite') > -1) {
@@ -39164,7 +39588,9 @@ var WalkPublish = (function (_React$Component) {
                               children: t('Publish'),
                               className: 'btn btn-primary walkthrough',
                               'data-step': 'publish-confirmation',
-                              onClick: this.handlePublish
+                              onClick: function () {
+                                return _this3.handlePublish();
+                              }
                             },
                             _owner: null
                           }
@@ -39196,7 +39622,7 @@ Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":258}],235:[function(require,module,exports){
+},{"../../stores/I18nStore.js":261}],237:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -39331,7 +39757,7 @@ Object.assign(WardSelect.prototype, mixins.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":256,"../../stores/I18nStore.js":258}],236:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":258,"../../stores/I18nStore.js":261}],238:[function(require,module,exports){
 /**
  * Basic wrapper around jQuery.datepicker(), so it can be loaded
  * as a React class
@@ -39398,7 +39824,7 @@ exports["default"] = DatePicker;
 module.exports = exports["default"];
 
 
-},{}],237:[function(require,module,exports){
+},{}],239:[function(require,module,exports){
 /**
  * The table showing open-schedule walks and their times
  */
@@ -39450,7 +39876,7 @@ exports["default"] = TimeOpenTable;
 module.exports = exports["default"];
 
 
-},{}],238:[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39680,7 +40106,7 @@ exports['default'] = TimePicker;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":258}],239:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":261}],241:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39901,7 +40327,7 @@ exports['default'] = TimeSetTable;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":258}],240:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":261}],242:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40071,7 +40497,7 @@ exports["default"] = function (_ref) {
 module.exports = exports["default"];
 
 
-},{}],241:[function(require,module,exports){
+},{}],243:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -40222,7 +40648,7 @@ exports['default'] = InstagramConnect;
 module.exports = exports['default'];
 
 
-},{}],242:[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 /**
  * Get some sounds from SoundCloud!
  */
@@ -40386,7 +40812,7 @@ exports['default'] = SoundCloudConnect;
 module.exports = exports['default'];
 
 
-},{}],243:[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 /**
  * Pull all the tweets
  */
@@ -40534,7 +40960,7 @@ exports['default'] = TwitterConnect;
 module.exports = exports['default'];
 
 
-},{}],244:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 /**
  * The 'info window', aka the input box that pops up over markers in maps
  */
@@ -40715,7 +41141,7 @@ exports['default'] = WalkInfoWindow;
 module.exports = exports['default'];
 
 
-},{}],245:[function(require,module,exports){
+},{}],247:[function(require,module,exports){
 // Flux
 "use strict";
 
@@ -41008,7 +41434,7 @@ exports["default"] = WalkStopTable;
 module.exports = exports["default"];
 
 
-},{"../../../stores/I18nStore.js":258}],246:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":261}],248:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -41111,7 +41537,7 @@ exports['default'] = CityPageView;
 module.exports = exports['default'];
 
 
-},{"../Page.jsx":224}],247:[function(require,module,exports){
+},{"../Page.jsx":226}],249:[function(require,module,exports){
 'use strict';
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
@@ -41249,7 +41675,7 @@ HomePageView.prototype = Object.create(PageView.prototype, {
 module.exports = HomePageView;
 
 
-},{"../Page.jsx":224}],248:[function(require,module,exports){
+},{"../Page.jsx":226}],250:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -41793,7 +42219,7 @@ exports['default'] = ProfilePageView;
 module.exports = exports['default'];
 
 
-},{"../../stores/ProfileStore.js":259,"../Page.jsx":224,"../profile/ImpactReport.jsx":251}],249:[function(require,module,exports){
+},{"../../stores/ProfileStore.js":262,"../Page.jsx":226,"../profile/ImpactReport.jsx":253}],251:[function(require,module,exports){
 'use strict';
 
 var PageView = require('../Page.jsx');
@@ -41894,7 +42320,7 @@ WalkPageView.prototype = Object.create(PageView.prototype, {
 module.exports = WalkPageView;
 
 
-},{"../FacebookShareDialog.jsx":222,"../Page.jsx":224,"../WalkMap.jsx":227}],250:[function(require,module,exports){
+},{"../FacebookShareDialog.jsx":223,"../Page.jsx":226,"../WalkMap.jsx":229}],252:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -41981,7 +42407,7 @@ exports['default'] = HBarChart;
 module.exports = exports['default'];
 
 
-},{}],251:[function(require,module,exports){
+},{}],253:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -42507,7 +42933,7 @@ exports['default'] = ImpactReport;
 module.exports = exports['default'];
 
 
-},{"./HBarChart.jsx":250,"react-d3":37,"react-d3/barchart":17}],252:[function(require,module,exports){
+},{"./HBarChart.jsx":252,"react-d3":37,"react-d3/barchart":17}],254:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -42889,7 +43315,7 @@ exports["default"] = RemoveSelfAsCO;
 module.exports = exports["default"];
 
 
-},{}],253:[function(require,module,exports){
+},{}],255:[function(require,module,exports){
 /**
  * Basic constants for route app
  */
@@ -42905,14 +43331,17 @@ var ActionTypes = [
 'I18N_RECEIVE',
 
 // Walks
-'WALK_RECEIVE', 'WALK_SAVE', 'WALK_PUBLISH'].reduce(function (p, k) {
+'WALK_RECEIVE', 'WALK_SAVE', 'WALK_PUBLISH',
+
+// Areas
+'AREA_RECEIVE'].reduce(function (p, k) {
   p[k] = k;return p;
 }, {});
 
 exports.ActionTypes = ActionTypes;
 
 
-},{}],254:[function(require,module,exports){
+},{}],256:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -42930,7 +43359,7 @@ exports.register = register;
 exports.dispatch = dispatch;
 
 
-},{"flux":4}],255:[function(require,module,exports){
+},{"flux":4}],257:[function(require,module,exports){
 /*
  * Helpers for building React pages with
  *
@@ -42967,7 +43396,7 @@ exports.objectToArray = function (obj) {
 };
 
 
-},{}],256:[function(require,module,exports){
+},{}],258:[function(require,module,exports){
 /**
  * TODO: replace both of these silly 2-way binding helpers with flux
  */
@@ -42995,7 +43424,7 @@ var linkedParentState = {
 exports.linkedParentState = linkedParentState;
 
 
-},{}],257:[function(require,module,exports){
+},{}],259:[function(require,module,exports){
 /**
  * i18n translation class
  *
@@ -43086,7 +43515,61 @@ Object.defineProperties(I18nTranslator.prototype, {
 module.exports = I18nTranslator;
 
 
-},{}],258:[function(require,module,exports){
+},{}],260:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _dispatcherAppDispatcher = require('../dispatcher/AppDispatcher');
+
+var _events = require('events');
+
+var _constantsJWConstantsJs = require('../constants/JWConstants.js');
+
+var CHANGE_EVENT = 'change';
+
+var _areas = {};
+
+var AreaStore = Object.assign(_events.EventEmitter.prototype, {
+  emitChange: function emitChange() {
+    this.emit(CHANGE_EVENT);
+  },
+
+  addChangeListener: function addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
+  },
+
+  removeChangeListener: function removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getAreas: function getAreas() {
+    return _areas;
+  },
+
+  getArea: function getArea(name) {
+    return _areas[name];
+  },
+
+  dispatcherIndex: (0, _dispatcherAppDispatcher.register)(function (action) {
+    switch (action.type) {
+      case _constantsJWConstantsJs.ActionTypes.AREA_RECEIVE:
+        _areas[action.name] = action.content;
+        break;
+    }
+
+    AreaStore.emitChange();
+  })
+
+});
+
+exports['default'] = AreaStore;
+module.exports = exports['default'];
+
+
+},{"../constants/JWConstants.js":255,"../dispatcher/AppDispatcher":256,"events":2}],261:[function(require,module,exports){
 /**
  * i18n Store
  *
@@ -43159,7 +43642,7 @@ exports['default'] = I18nStore;
 module.exports = exports['default'];
 
 
-},{"../constants/JWConstants":253,"../dispatcher/AppDispatcher":254,"../helpers/translate.js":257,"events":2}],259:[function(require,module,exports){
+},{"../constants/JWConstants":255,"../dispatcher/AppDispatcher":256,"../helpers/translate.js":259,"events":2}],262:[function(require,module,exports){
 'use strict';
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
@@ -43295,7 +43778,7 @@ JanesWalk.event.on('profile.co.receive', function (_ref2) {
 });
 
 
-},{"../components/profile/ImpactReport.jsx":251,"../components/profile/RemoveSelfAsCO.jsx":252}],260:[function(require,module,exports){
+},{"../components/profile/ImpactReport.jsx":253,"../components/profile/RemoveSelfAsCO.jsx":254}],263:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -43340,4 +43823,4 @@ function getTranslations(locale) {
 }
 
 
-},{"../actions/I18nActions.js":220}]},{},[1]);
+},{"../actions/I18nActions.js":221}]},{},[1]);
