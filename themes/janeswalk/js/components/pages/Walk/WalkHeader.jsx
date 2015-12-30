@@ -1,5 +1,4 @@
-//TODO: Define as a path in a common place to share with other components
-import { dateFormatted } from '../../../../../../blocks/page_list/templates/itinerary/itinerary/ItineraryUtils';
+import {dateFormatted} from '../../../utils/ItineraryUtils';
 
 //TODO: Duplicate of Itinerary <Walk/>
 //TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
@@ -26,7 +25,7 @@ const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFav
     <section className="coverImage">
       <ul className="breadcrumb">
         <li><a href="/"><i className="fa fa-home"></i></a></li>
-        <li><a href={url}>{`${name} walks}</a></li>
+        <li><a href={url}>{`${name} walks`}</a></li>
         <li className="active">{title}</li>
       </ul>
     </section>

@@ -18,7 +18,7 @@ const WalkTeam = ({team}) => {
   let teamMembers = team.map((member, i)=> (
     <article key={i}>
       <header>
-        <h3>{({`${member['name-first']} ${member['name-last']}`}).trim()}, <span className="walkTeamMemberRole">{member['role']}</span></h3>
+        <h3>{(`${member['name-first']} ${member['name-last']}`).trim()}, <span className="walkTeamMemberRole">{member['role']}</span></h3>
         <footer>
           {generateLinks(member)}
         </footer>

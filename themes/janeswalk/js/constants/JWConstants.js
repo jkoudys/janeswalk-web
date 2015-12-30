@@ -16,7 +16,19 @@ const ActionTypes = [
   'AREA_RECEIVE',
 
   // Users
-  'USER_RECEIVE'
+  'USER_RECEIVE',
+
+  // Itineraries
+  'ITINERARY_RECEIVE',
+  'ITINERARY_REMOVE_WALK',
+  'ITINERARY_ADD_WALK',
+  'ITINERARY_UPDATE_TITLE',
+  'ITINERARY_UPDATE_DESCRIPTION',
+  'ITINERARY_VIEW_LIST',
+  'ITINERARY_CREATE_LIST',
+  'ITINERARY_WALK_SELECTED',
+  'ITINERARY_ADD_WALK_DIALOG',
+
 ].reduce((p, k) => {p[k] = k; return p}, {});
 
 export {ActionTypes};

@@ -7,7 +7,7 @@ const WalkAccessibility = ({checkboxes, accessibility, style}) => {
       {style === 'walk-page' ? <a name="Accessibility"></a> : null}
       <h2>Accessibility</h2>
       <ul>
-        {accessibilityKeys.map((k,i) => (<li key={i}>{accessibility.data[k.split('-')[1]]}</li>))}
+        {accessibilityKeys.map((k,i) => (<li key={i}>{accessibility && accessibility.data[k.split('-')[1]]}</li>))}
       </ul>
     </section>
   );

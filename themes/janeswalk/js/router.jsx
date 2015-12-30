@@ -15,10 +15,10 @@ const PageViews = {
   CityPageView: require('./components/pages/City.jsx'),
   HomePageView: require('./components/pages/Home.jsx'),
   ProfilePageView: require('./components/pages/Profile.jsx'),
-  WalkPageView: require('./components/pages/Walk.jsx')
 };
 const ReactViews = {
-  CreateWalkView: require('./components/CreateWalk.jsx')
+  CreateWalkView: require('./components/CreateWalk.jsx'),
+  WalkPageView: require('./components/pages/Walk.jsx')
 };
 // load modals
 const Login = require('./components/Login.jsx')
@@ -72,7 +72,10 @@ function routePage() {
   const ReactView = ReactViews[pageViewName];
 
   // Render our header first
-  React.render(<Navbar />, document.getElementById('navbar'));
+  const navbar = document.getElementById('navbar');
+  if (navbar) {
+    React.render(<Navbar />, navbar);
+  }
 
   try {
     // Render modals we need on each page
@@ -104,6 +107,12 @@ function routePage() {
               valt={JanesWalk.form.valt}
             />,
             document.getElementById('createwalk')
+        );
+        break;
+        default:
+          React.render(
+            <ReactView />,
+            document.getElementById('page')
           );
           break;
       }
