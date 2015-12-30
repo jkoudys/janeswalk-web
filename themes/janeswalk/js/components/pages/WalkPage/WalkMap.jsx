@@ -1,6 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 //TODO: WalkMap.jsx already exists, review and re-use
 
 const InfoWindow = ({title, description}) => (
@@ -17,6 +14,8 @@ export default class WalkMap extends React.Component {
   }
 
   componentDidMount() {
+
+    //TODO: Create a <GoogleMap/> component to generalize use of google maps
     const {map} = this.props;
     const locationLatLng = new google.maps.LatLng(map.markers[0].lat,map.markers[0].lng);
     const infoWindow = new google.maps.InfoWindow({maxWidth: 300});
@@ -25,10 +24,12 @@ export default class WalkMap extends React.Component {
     const mapOptions = {
       center: locationLatLng,
       zoom: 13,
+      scrollwheel: false,
       backgroundColor: '#d7f0fa',
+
     };
 
-    const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this),mapOptions);
+    const googleMap = new google.maps.Map(React.findDOMNode(this),mapOptions);
 
     let routeCoordinates = [];
 
@@ -42,7 +43,7 @@ export default class WalkMap extends React.Component {
       });
 
       google.maps.event.addListener(marker, 'click', ()=>{
-        ReactDOM.render(<InfoWindow {...m}/>, _infoNode);
+        React.render(<InfoWindow {...m}/>, _infoNode);
 
         infoWindow.setMap(googleMap);
         googleMap.panTo(marker.getPosition());
@@ -65,7 +66,7 @@ export default class WalkMap extends React.Component {
   }
 
   render() {
-   return (<div className="walkMap" style={{width: '30%', height: '300px'}}/>)
+   return (<div className="walkMap" style={{width: '60%', height: '350px'}}/>)
   }
 }
 

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const WalkTeam = ({team}) => {
   let generateLinks = (member) => {
     const connections = [
@@ -20,13 +18,12 @@ const WalkTeam = ({team}) => {
   let teamMembers = team.map((member, i)=> (
     <article key={i}>
       <header>
-        <h3>{member['name-first']} {member['name-last']}</h3>
-        <h4>{member['role']}</h4>
+        <h3>{({`${member['name-first']} ${member['name-last']}`}).trim()}, <span className="walkTeamMemberRole">{member['role']}</span></h3>
+        <footer>
+          {generateLinks(member)}
+        </footer>
       </header>
       <summary dangerouslySetInnerHTML={{__html: member['bio']}}></summary>
-      <footer>
-        {generateLinks(member)}
-      </footer>
     </article>)
   );
 
