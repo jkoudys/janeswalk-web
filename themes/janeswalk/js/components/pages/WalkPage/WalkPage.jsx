@@ -9,24 +9,26 @@ import WalkDescription from './WalkDescription.jsx';
 import WalkRoute from './WalkRoute.jsx';
 import WalkAccessibility from './WalkAccessibility.jsx';
 import WalkPublicTransit from './WalkPublicTransit.jsx';
+import WalkParking from './WalkParking.jsx';
 import WalkStart from './WalkStart.jsx';
 import WalkTeam from './WalkTeam.jsx';
 import WalkMenu from './WalkMenu.jsx';
 import WalkMap from './WalkMap.jsx';
 
-import {walk} from './WalkStaticData';
+import {walk, filters} from './WalkStaticData';
 import './view.less';
 
 const walkId = walk.walk.id;
 const itineraryListId = ItineraryStore.getItineraryList().id; //for stubbed data, assumed first list is Itinerary
 const favoriteListId = ItineraryStore.getFavouriteList().id; //for stubbed data, assumed second list is fav
 
-//TODO: Conditionals (? and ||) in getWalk are for stubbed data
-
 const getWalk = (props) => ({
+  //TODO: Conditionals (? and ||) in getWalk are for stubbed data
   walk: props.walk || walk.walk,
   page: props.page || walk.page,
+  city: props.city || walk.city,
   id: props.walk ? props.walk.id : walkId,
+  filters: props.filters || filters,
   existsInItinerary : ItineraryStore.existsInList(itineraryListId, props.walk ? props.walk.id : walkId),
   existsInFavourites : ItineraryStore.existsInList(favoriteListId, props.walk ? props.walk.id : walkId),
 });
@@ -69,10 +71,6 @@ export default class WalkPage extends React.Component {
       <WalkMap {...this.state.walk}/>
 
       <WalkRoute {...this.state.walk}/>
-
-      <WalkAccessibility {...this.state.walk}/>
-
-      <WalkPublicTransit {...this.state.walk}/>
 
       <WalkStart {...this.state.walk}/>
 
