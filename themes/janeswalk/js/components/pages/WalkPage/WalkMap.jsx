@@ -17,6 +17,8 @@ export default class WalkMap extends React.Component {
   }
 
   componentDidMount() {
+
+    //TODO: Create a <GoogleMap/> component to generalize use of google maps
     const {map} = this.props;
     const locationLatLng = new google.maps.LatLng(map.markers[0].lat,map.markers[0].lng);
     const infoWindow = new google.maps.InfoWindow({maxWidth: 300});
@@ -25,7 +27,9 @@ export default class WalkMap extends React.Component {
     const mapOptions = {
       center: locationLatLng,
       zoom: 13,
+      scrollwheel: false,
       backgroundColor: '#d7f0fa',
+
     };
 
     const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this),mapOptions);
@@ -65,7 +69,7 @@ export default class WalkMap extends React.Component {
   }
 
   render() {
-   return (<div className="walkMap" style={{width: '30%', height: '300px'}}/>)
+   return (<div className="walkMap" style={{width: '60%', height: '350px'}}/>)
   }
 }
 
