@@ -6,6 +6,7 @@
 // Translations for i18n L10n
 import * as I18nUtils from './utils/I18nUtils.js';
 import * as AreaActions from './actions/AreaActions.js';
+import * as UserActions from './actions/UserActions.js';
 import Navbar from './components/Navbar.jsx';
 
 // Page Views
@@ -117,6 +118,7 @@ function routePage() {
 
 document.addEventListener('DOMContentLoaded', function() {
   JanesWalk.event.on('area.receive', areas => AreaActions.receive(areas));
+  JanesWalk.event.on('user.receive', user => UserActions.receive(user));
 
   // Process all deferred events
   JanesWalk.event.activate();

@@ -9221,7 +9221,6 @@ body #itinerary {
   box-shadow: -1px -4px 33px rgba(0, 0, 50, 0.85);
   border-color: #fff;
   background: #fff;
-  height: 100%;
   padding: 2.25rem 5.5rem;
   overflow-y: auto;
   z-index: -1;

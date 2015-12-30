@@ -13,7 +13,10 @@ const ActionTypes = [
   'WALK_PUBLISH',
 
   // Areas
-  'AREA_RECEIVE'
+  'AREA_RECEIVE',
+
+  // Users
+  'USER_RECEIVE'
 ].reduce((p, k) => {p[k] = k; return p}, {});
 
 export {ActionTypes};

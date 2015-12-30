@@ -1,13 +1,15 @@
+import Itinerary from './itinerary/Itinerary.jsx';
 import AreaStore from '../stores/AreaStore.js';
+import UserStore from '../stores/UserStore.js';
 
 // TODO: Replace translations placeholders
 const t = s => s;
 const tc = (c, s) => s;
 
 /* Build menu options depending if currently logged in or not */
-const LoggedInOptions = ({name}) => ([
+const LoggedInOptions = ({user, profiling, toggleProfile}) => ([
   <li>
-    <a href="/profile">{name}</a>
+    <a onClick={toggleProfile}>{user.firstName || user.name} &nbsp;<i className="fa fa-caret-down" style={{transitionDuration: '0.2s', transform: 'rotate(' + (profiling ? -180 : 0) + 'deg)'}} /></a>
   </li>,
   <li>
     <a href="/login/logout">{tc('Register on a website', 'Join')}</a>
@@ -26,7 +28,8 @@ const LoggedOutOptions = () => ([
 function getNavbar() {
   return {
     options: AreaStore.getArea('Left Header'),
-    dropdown: AreaStore.getArea('Dropdown')
+    dropdown: AreaStore.getArea('Dropdown'),
+    user: UserStore.getUser()
   };
 }
 
@@ -50,10 +53,12 @@ export default class Navbar extends React.Component {
 
   componentWillMount() {
     AreaStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
     AreaStore.removeChangeListener(this._onChage);
+    UserStore.removeChangeListener(this._onChage);
   }
 
   _onChange() {
@@ -105,7 +110,7 @@ export default class Navbar extends React.Component {
 
   render() {
     const {editMode} = this.props;
-    const {user, searching} = this.state;
+    const {user, searching, profiling} = this.state;
 
     return (
       <header className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
@@ -122,14 +127,14 @@ export default class Navbar extends React.Component {
                 <i className="fa fa-search" />
               </a>
             </li>
-            {user ? LoggedInOptions(user) : LoggedOutOptions()}
+            {user ? LoggedInOptions({user: user, profiling: profiling, toggleProfile: () => this.setState({profiling: !this.state.profiling})}) : LoggedOutOptions()}
             <li>
               <a href="/donate" id="donate">Donate</a>
             </li>
           </ul>
         </nav>
         <div className="navbar-outer" dangerouslySetInnerHTML={{__html: this.state.dropdown}} />
-        <div id="profilenav"></div>
+        {profiling ? <Itinerary /> : null}
       </header>
     );
   }

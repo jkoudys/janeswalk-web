@@ -23,6 +23,10 @@ var _actionsAreaActionsJs = require('./actions/AreaActions.js');
 
 var AreaActions = _interopRequireWildcard(_actionsAreaActionsJs);
 
+var _actionsUserActionsJs = require('./actions/UserActions.js');
+
+var UserActions = _interopRequireWildcard(_actionsUserActionsJs);
+
 var _componentsNavbarJsx = require('./components/Navbar.jsx');
 
 var _componentsNavbarJsx2 = _interopRequireDefault(_componentsNavbarJsx);
@@ -147,6 +151,9 @@ document.addEventListener('DOMContentLoaded', function () {
   JanesWalk.event.on('area.receive', function (areas) {
     return AreaActions.receive(areas);
   });
+  JanesWalk.event.on('user.receive', function (user) {
+    return UserActions.receive(user);
+  });
 
   // Process all deferred events
   JanesWalk.event.activate();
@@ -158,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-},{"./actions/AreaActions.js":220,"./components/CreateWalk.jsx":222,"./components/Login.jsx":224,"./components/Navbar.jsx":225,"./components/Page.jsx":226,"./components/pages/City.jsx":248,"./components/pages/Home.jsx":249,"./components/pages/Profile.jsx":250,"./components/pages/Walk.jsx":251,"./utils/I18nUtils.js":263,"intl/Intl.en":7}],2:[function(require,module,exports){
+},{"./actions/AreaActions.js":220,"./actions/UserActions.js":222,"./components/CreateWalk.jsx":223,"./components/Login.jsx":225,"./components/Navbar.jsx":226,"./components/Page.jsx":227,"./components/pages/City.jsx":259,"./components/pages/Home.jsx":260,"./components/pages/Profile.jsx":261,"./components/pages/Walk.jsx":262,"./utils/I18nUtils.js":275,"intl/Intl.en":7}],2:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -32924,7 +32931,7 @@ function receive(areas) {
 }
 
 
-},{"../constants/JWConstants.js":255,"../dispatcher/AppDispatcher.js":256}],221:[function(require,module,exports){
+},{"../constants/JWConstants.js":266,"../dispatcher/AppDispatcher.js":267}],221:[function(require,module,exports){
 /**
  * i18n Translations
  *
@@ -32953,7 +32960,36 @@ function receive(translations) {
 }
 
 
-},{"../constants/JWConstants.js":255,"../dispatcher/AppDispatcher.js":256}],222:[function(require,module,exports){
+},{"../constants/JWConstants.js":266,"../dispatcher/AppDispatcher.js":267}],222:[function(require,module,exports){
+/**
+ * i18n Translations
+ *
+ * Translate text content into our available translations using
+ * the i18n standard.
+ */
+
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.receive = receive;
+
+var _dispatcherAppDispatcherJs = require('../dispatcher/AppDispatcher.js');
+
+var _constantsJWConstantsJs = require('../constants/JWConstants.js');
+
+// Load all loop data
+
+function receive(user) {
+  (0, _dispatcherAppDispatcherJs.dispatch)({
+    type: _constantsJWConstantsJs.ActionTypes.USER_RECEIVE,
+    user: user
+  });
+}
+
+
+},{"../constants/JWConstants.js":266,"../dispatcher/AppDispatcher.js":267}],223:[function(require,module,exports){
 // Create a Walk
 //
 // Form for creating new walks. Includes a map builder, team builder, scheduler
@@ -34343,7 +34379,7 @@ Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin), (function (_
 module.exports = exports['default'];
 
 
-},{"../actions/I18nActions.js":221,"../helpers/helpers.jsx":257,"../stores/I18nStore.js":261,"./TextAreaLimit.jsx":227,"./caw/AccessibleSelect.jsx":230,"./caw/DateSelect.jsx":231,"./caw/ImageUpload.jsx":232,"./caw/MapBuilder.jsx":233,"./caw/TeamBuilder.jsx":234,"./caw/ThemeSelect.jsx":235,"./caw/WalkPublish.jsx":236,"./caw/WardSelect.jsx":237}],223:[function(require,module,exports){
+},{"../actions/I18nActions.js":221,"../helpers/helpers.jsx":268,"../stores/I18nStore.js":272,"./TextAreaLimit.jsx":228,"./caw/AccessibleSelect.jsx":231,"./caw/DateSelect.jsx":232,"./caw/ImageUpload.jsx":233,"./caw/MapBuilder.jsx":234,"./caw/TeamBuilder.jsx":235,"./caw/ThemeSelect.jsx":236,"./caw/WalkPublish.jsx":237,"./caw/WardSelect.jsx":238}],224:[function(require,module,exports){
 'use strict';
 /**
 * The dialogue to share on facebook
@@ -34392,7 +34428,7 @@ Object.defineProperties(FacebookShareDialog.prototype, {
 module.exports = FacebookShareDialog;
 
 
-},{}],224:[function(require,module,exports){
+},{}],225:[function(require,module,exports){
 // TODO: link to the i18n
 'use strict';
 
@@ -34731,28 +34767,38 @@ exports['default'] = Login;
 module.exports = exports['default'];
 
 
-},{}],225:[function(require,module,exports){
-"use strict";
+},{}],226:[function(require,module,exports){
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _itineraryItineraryJsx = require('./itinerary/Itinerary.jsx');
+
+var _itineraryItineraryJsx2 = _interopRequireDefault(_itineraryItineraryJsx);
 
 var _storesAreaStoreJs = require('../stores/AreaStore.js');
 
 var _storesAreaStoreJs2 = _interopRequireDefault(_storesAreaStoreJs);
+
+var _storesUserStoreJs = require('../stores/UserStore.js');
+
+var _storesUserStoreJs2 = _interopRequireDefault(_storesUserStoreJs);
 
 // TODO: Replace translations placeholders
 var t = function t(s) {
@@ -34764,21 +34810,33 @@ var tc = function tc(c, s) {
 
 /* Build menu options depending if currently logged in or not */
 var LoggedInOptions = function LoggedInOptions(_ref) {
-  var name = _ref.name;
+  var user = _ref.user;
+  var profiling = _ref.profiling;
+  var toggleProfile = _ref.toggleProfile;
   return [{
     $$typeof: _typeofReactElement,
-    type: "li",
+    type: 'li',
     key: null,
     ref: null,
     props: {
       children: {
         $$typeof: _typeofReactElement,
-        type: "a",
+        type: 'a',
         key: null,
         ref: null,
         props: {
-          children: name,
-          href: "/profile"
+          children: [user.firstName || user.name, '  ', {
+            $$typeof: _typeofReactElement,
+            type: 'i',
+            key: null,
+            ref: null,
+            props: {
+              className: 'fa fa-caret-down',
+              style: { transitionDuration: '0.2s', transform: 'rotate(' + (profiling ? -180 : 0) + 'deg)' }
+            },
+            _owner: null
+          }],
+          onClick: toggleProfile
         },
         _owner: null
       }
@@ -34786,18 +34844,18 @@ var LoggedInOptions = function LoggedInOptions(_ref) {
     _owner: null
   }, {
     $$typeof: _typeofReactElement,
-    type: "li",
+    type: 'li',
     key: null,
     ref: null,
     props: {
       children: {
         $$typeof: _typeofReactElement,
-        type: "a",
+        type: 'a',
         key: null,
         ref: null,
         props: {
           children: tc('Register on a website', 'Join'),
-          href: "/login/logout"
+          href: '/login/logout'
         },
         _owner: null
       }
@@ -34809,18 +34867,18 @@ var LoggedInOptions = function LoggedInOptions(_ref) {
 var LoggedOutOptions = function LoggedOutOptions() {
   return [{
     $$typeof: _typeofReactElement,
-    type: "li",
+    type: 'li',
     key: null,
     ref: null,
     props: {
       children: {
         $$typeof: _typeofReactElement,
-        type: "a",
+        type: 'a',
         key: null,
         ref: null,
         props: {
           children: tc('Register on a website', 'Join'),
-          href: "/register"
+          href: '/register'
         },
         _owner: null
       }
@@ -34828,13 +34886,13 @@ var LoggedOutOptions = function LoggedOutOptions() {
     _owner: null
   }, {
     $$typeof: _typeofReactElement,
-    type: "li",
+    type: 'li',
     key: null,
     ref: null,
     props: {
       children: {
         $$typeof: _typeofReactElement,
-        type: "a",
+        type: 'a',
         key: null,
         ref: null,
         props: {
@@ -34852,8 +34910,9 @@ var LoggedOutOptions = function LoggedOutOptions() {
 
 function getNavbar() {
   return {
-    options: _storesAreaStoreJs2["default"].getArea('Left Header'),
-    dropdown: _storesAreaStoreJs2["default"].getArea('Dropdown')
+    options: _storesAreaStoreJs2['default'].getArea('Left Header'),
+    dropdown: _storesAreaStoreJs2['default'].getArea('Dropdown'),
+    user: _storesUserStoreJs2['default'].getUser()
   };
 }
 
@@ -34881,28 +34940,30 @@ var Navbar = (function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    _get(Object.getPrototypeOf(Navbar.prototype), "constructor", this).apply(this, args);
+    _get(Object.getPrototypeOf(Navbar.prototype), 'constructor', this).apply(this, args);
     this.state = getNavbar();
     this._onChange = this._onChange.bind(this);
   }
 
   _createClass(Navbar, [{
-    key: "componentWillMount",
+    key: 'componentWillMount',
     value: function componentWillMount() {
-      _storesAreaStoreJs2["default"].addChangeListener(this._onChange);
+      _storesAreaStoreJs2['default'].addChangeListener(this._onChange);
+      _storesUserStoreJs2['default'].addChangeListener(this._onChange);
     }
   }, {
-    key: "componentWillUnmount",
+    key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      _storesAreaStoreJs2["default"].removeChangeListener(this._onChage);
+      _storesAreaStoreJs2['default'].removeChangeListener(this._onChage);
+      _storesUserStoreJs2['default'].removeChangeListener(this._onChage);
     }
   }, {
-    key: "_onChange",
+    key: '_onChange',
     value: function _onChange() {
       this.setState(getNavbar());
     }
   }, {
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
       appendSiblings(this.state.options, this.refs.topnav);
     }
@@ -34911,7 +34972,7 @@ var Navbar = (function (_React$Component) {
      * Need to check if the HTML has updated, so we don't rebuild the DOM
      */
   }, {
-    key: "componentWillUpdate",
+    key: 'componentWillUpdate',
     value: function componentWillUpdate(nextProps, _ref2) {
       var options = _ref2.options;
       var dropdown = _ref2.dropdown;
@@ -34928,7 +34989,7 @@ var Navbar = (function (_React$Component) {
      * @return    void
      */
   }, {
-    key: "_addNavEvents",
+    key: '_addNavEvents',
     value: function _addNavEvents() {
       this._element.find('a.search-open').click(function () {
         $('body > header').addClass('dropped');
@@ -34938,7 +34999,7 @@ var Navbar = (function (_React$Component) {
       });
     }
   }, {
-    key: "openSearch",
+    key: 'openSearch',
     value: function openSearch() {
       $('html, body').animate({
         scrollTop: 0
@@ -34953,7 +35014,7 @@ var Navbar = (function (_React$Component) {
       this.setState({ searching: true });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var _this = this;
 
@@ -34961,63 +35022,64 @@ var Navbar = (function (_React$Component) {
       var _state = this.state;
       var user = _state.user;
       var searching = _state.searching;
+      var profiling = _state.profiling;
 
       return {
         $$typeof: _typeofReactElement,
-        type: "header",
+        type: 'header',
         key: null,
         ref: null,
         props: {
           children: [{
             $$typeof: _typeofReactElement,
-            type: "nav",
+            type: 'nav',
             key: null,
             ref: null,
             props: {
               children: [{
                 $$typeof: _typeofReactElement,
-                type: "a",
+                type: 'a',
                 key: null,
                 ref: null,
                 props: {
                   children: {
                     $$typeof: _typeofReactElement,
-                    type: "span",
+                    type: 'span',
                     key: null,
                     ref: null,
                     props: {},
                     _owner: null
                   },
-                  href: "/",
-                  className: "logo"
+                  href: '/',
+                  className: 'logo'
                 },
                 _owner: null
               }, React.createElement(
-                "ul",
-                { className: "nav", ref: "topnav" },
+                'ul',
+                { className: 'nav', ref: 'topnav' },
                 {
                   $$typeof: _typeofReactElement,
-                  type: "li",
+                  type: 'li',
                   key: null,
                   ref: null,
                   props: {
                     children: [{
                       $$typeof: _typeofReactElement,
-                      type: "a",
+                      type: 'a',
                       key: null,
                       ref: null,
                       props: {
                         children: {
                           $$typeof: _typeofReactElement,
-                          type: "i",
+                          type: 'i',
                           key: null,
                           ref: null,
                           props: {
-                            className: "fa fa-search"
+                            className: 'fa fa-search'
                           },
                           _owner: null
                         },
-                        className: "search-open",
+                        className: 'search-open',
                         onClick: function () {
                           return _this.openSearch();
                         }
@@ -35025,21 +35087,21 @@ var Navbar = (function (_React$Component) {
                       _owner: null
                     }, {
                       $$typeof: _typeofReactElement,
-                      type: "a",
+                      type: 'a',
                       key: null,
                       ref: null,
                       props: {
                         children: {
                           $$typeof: _typeofReactElement,
-                          type: "i",
+                          type: 'i',
                           key: null,
                           ref: null,
                           props: {
-                            className: "fa fa-search"
+                            className: 'fa fa-search'
                           },
                           _owner: null
                         },
-                        className: "search-close",
+                        className: 'search-close',
                         onClick: function () {
                           return _this.setState({ searching: false });
                         }
@@ -35049,22 +35111,24 @@ var Navbar = (function (_React$Component) {
                   },
                   _owner: null
                 },
-                user ? LoggedInOptions(user) : LoggedOutOptions(),
+                user ? LoggedInOptions({ user: user, profiling: profiling, toggleProfile: function toggleProfile() {
+                    return _this.setState({ profiling: !_this.state.profiling });
+                  } }) : LoggedOutOptions(),
                 {
                   $$typeof: _typeofReactElement,
-                  type: "li",
+                  type: 'li',
                   key: null,
                   ref: null,
                   props: {
                     children: {
                       $$typeof: _typeofReactElement,
-                      type: "a",
+                      type: 'a',
                       key: null,
                       ref: null,
                       props: {
-                        children: "Donate",
-                        href: "/donate",
-                        id: "donate"
+                        children: 'Donate',
+                        href: '/donate',
+                        id: 'donate'
                       },
                       _owner: null
                     }
@@ -35072,29 +35136,27 @@ var Navbar = (function (_React$Component) {
                   _owner: null
                 }
               )],
-              role: "navigation"
+              role: 'navigation'
             },
             _owner: null
           }, {
             $$typeof: _typeofReactElement,
-            type: "div",
+            type: 'div',
             key: null,
             ref: null,
             props: {
-              className: "navbar-outer",
+              className: 'navbar-outer',
               dangerouslySetInnerHTML: { __html: this.state.dropdown }
             },
             _owner: null
-          }, {
+          }, profiling ? {
             $$typeof: _typeofReactElement,
-            type: "div",
+            type: _itineraryItineraryJsx2['default'],
             key: null,
             ref: null,
-            props: {
-              id: "profilenav"
-            },
+            props: _defaultProps(_itineraryItineraryJsx2['default'].defaultProps, {}),
             _owner: null
-          }],
+          } : null],
           className: [editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')
         },
         _owner: null
@@ -35105,15 +35167,15 @@ var Navbar = (function (_React$Component) {
   return Navbar;
 })(React.Component);
 
-exports["default"] = Navbar;
+exports['default'] = Navbar;
 
 Navbar.defaultProps = {
   editMode: CCM_EDIT_MODE
 };
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 
-},{"../stores/AreaStore.js":260}],226:[function(require,module,exports){
+},{"../stores/AreaStore.js":271,"../stores/UserStore.js":274,"./itinerary/Itinerary.jsx":250}],227:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -35254,7 +35316,7 @@ exports['default'] = PageView;
 module.exports = exports['default'];
 
 
-},{"./View.jsx":228}],227:[function(require,module,exports){
+},{"./View.jsx":229}],228:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -35296,7 +35358,7 @@ exports['default'] = TextAreaLimit;
 module.exports = exports['default'];
 
 
-},{"../stores/I18nStore.js":261}],228:[function(require,module,exports){
+},{"../stores/I18nStore.js":272}],229:[function(require,module,exports){
 /**
 * View constructor
 * 
@@ -35342,7 +35404,7 @@ exports["default"] = View;
 module.exports = exports["default"];
 
 
-},{}],229:[function(require,module,exports){
+},{}],230:[function(require,module,exports){
 'use strict';
 
 /**
@@ -35688,7 +35750,7 @@ Object.defineProperties(WalkMap.prototype, {
 module.exports = WalkMap;
 
 
-},{}],230:[function(require,module,exports){
+},{}],231:[function(require,module,exports){
 /**
  * Menu to select accessibility requirements
  */
@@ -35794,7 +35856,7 @@ Object.assign(AccessibleSelect.prototype, _helpersMixinsJsx.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":258,"../../stores/I18nStore.js":261}],231:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":269,"../../stores/I18nStore.js":272}],232:[function(require,module,exports){
 // Components
 'use strict';
 
@@ -36647,7 +36709,7 @@ Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":261,"./date/DatePicker.jsx":238,"./date/TimeOpenTable.jsx":239,"./date/TimePicker.jsx":240,"./date/TimeSetTable.jsx":241}],232:[function(require,module,exports){
+},{"../../stores/I18nStore.js":272,"./date/DatePicker.jsx":239,"./date/TimeOpenTable.jsx":240,"./date/TimePicker.jsx":241,"./date/TimeSetTable.jsx":242}],233:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -36832,7 +36894,7 @@ exports['default'] = ImageUpload;
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":261}],233:[function(require,module,exports){
+},{"../../stores/I18nStore.js":272}],234:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -37479,7 +37541,7 @@ Object.assign(MapBuilder, {
 module.exports = exports['default'];
 
 
-},{"../../helpers/helpers.jsx":257,"../../stores/I18nStore.js":261,"./map/ConnectFilters.jsx":242,"./map/InstagramConnect.jsx":243,"./map/SoundCloudConnect.jsx":244,"./map/TwitterConnect.jsx":245,"./map/WalkInfoWindow.jsx":246,"./map/WalkStopTable.jsx":247}],234:[function(require,module,exports){
+},{"../../helpers/helpers.jsx":268,"../../stores/I18nStore.js":272,"./map/ConnectFilters.jsx":243,"./map/InstagramConnect.jsx":244,"./map/SoundCloudConnect.jsx":245,"./map/TwitterConnect.jsx":246,"./map/WalkInfoWindow.jsx":247,"./map/WalkStopTable.jsx":248}],235:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39143,7 +39205,7 @@ var TeamVolunteer = function TeamVolunteer(props) {
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":261}],235:[function(require,module,exports){
+},{"../../stores/I18nStore.js":272}],236:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -39391,7 +39453,7 @@ ThemeSelect.defaultProps = {
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":258,"../../stores/I18nStore.js":261}],236:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":269,"../../stores/I18nStore.js":272}],237:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -39622,7 +39684,7 @@ Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 module.exports = exports['default'];
 
 
-},{"../../stores/I18nStore.js":261}],237:[function(require,module,exports){
+},{"../../stores/I18nStore.js":272}],238:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -39757,7 +39819,7 @@ Object.assign(WardSelect.prototype, mixins.linkedParentState);
 module.exports = exports['default'];
 
 
-},{"../../helpers/mixins.jsx":258,"../../stores/I18nStore.js":261}],238:[function(require,module,exports){
+},{"../../helpers/mixins.jsx":269,"../../stores/I18nStore.js":272}],239:[function(require,module,exports){
 /**
  * Basic wrapper around jQuery.datepicker(), so it can be loaded
  * as a React class
@@ -39824,7 +39886,7 @@ exports["default"] = DatePicker;
 module.exports = exports["default"];
 
 
-},{}],239:[function(require,module,exports){
+},{}],240:[function(require,module,exports){
 /**
  * The table showing open-schedule walks and their times
  */
@@ -39876,7 +39938,7 @@ exports["default"] = TimeOpenTable;
 module.exports = exports["default"];
 
 
-},{}],240:[function(require,module,exports){
+},{}],241:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -40106,7 +40168,7 @@ exports['default'] = TimePicker;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":261}],241:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":272}],242:[function(require,module,exports){
 // Flux
 'use strict';
 
@@ -40327,7 +40389,7 @@ exports['default'] = TimeSetTable;
 module.exports = exports['default'];
 
 
-},{"../../../stores/I18nStore.js":261}],242:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":272}],243:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -40497,7 +40559,7 @@ exports["default"] = function (_ref) {
 module.exports = exports["default"];
 
 
-},{}],243:[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -40648,7 +40710,7 @@ exports['default'] = InstagramConnect;
 module.exports = exports['default'];
 
 
-},{}],244:[function(require,module,exports){
+},{}],245:[function(require,module,exports){
 /**
  * Get some sounds from SoundCloud!
  */
@@ -40812,7 +40874,7 @@ exports['default'] = SoundCloudConnect;
 module.exports = exports['default'];
 
 
-},{}],245:[function(require,module,exports){
+},{}],246:[function(require,module,exports){
 /**
  * Pull all the tweets
  */
@@ -40960,7 +41022,7 @@ exports['default'] = TwitterConnect;
 module.exports = exports['default'];
 
 
-},{}],246:[function(require,module,exports){
+},{}],247:[function(require,module,exports){
 /**
  * The 'info window', aka the input box that pops up over markers in maps
  */
@@ -41141,7 +41203,7 @@ exports['default'] = WalkInfoWindow;
 module.exports = exports['default'];
 
 
-},{}],247:[function(require,module,exports){
+},{}],248:[function(require,module,exports){
 // Flux
 "use strict";
 
@@ -41434,7 +41496,1201 @@ exports["default"] = WalkStopTable;
 module.exports = exports["default"];
 
 
-},{"../../../stores/I18nStore.js":261}],248:[function(require,module,exports){
+},{"../../../stores/I18nStore.js":272}],249:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddWalkToListDialog = (function (_React$Component) {
+  _inherits(AddWalkToListDialog, _React$Component);
+
+  function AddWalkToListDialog() {
+    _classCallCheck(this, AddWalkToListDialog);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(AddWalkToListDialog.prototype), "constructor", this).apply(this, args);
+    this.state = {
+      newList: null
+    };
+  }
+
+  _createClass(AddWalkToListDialog, [{
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var _props = this.props;
+      var lists = _props.lists;
+      var add = _props.add;
+      var createList = _props.createList;
+      var activeWalk = _props.activeWalk;
+      var walkDialogOpen = _props.walkDialogOpen;
+      var addWalkDialog = _props.addWalkDialog;
+      var newList = this.state.newList;
+
+      //selectedWalk comes from where
+
+      var allLists = lists.map(function (list) {
+        var id = list.id;
+        var title = list.title;
+        var walks = list.walks;
+
+        var walkFound = walks.find(function (walk) {
+          return walk.id === activeWalk;
+        });
+
+        if (walkFound) {
+          return {
+            $$typeof: _typeofReactElement,
+            type: "li",
+            key: id,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: "span",
+                key: null,
+                ref: null,
+                props: {
+                  children: title,
+                  className: "fa fa-check"
+                },
+                _owner: null
+              },
+              onClick: function (ev) {
+                return add(activeWalk, list.id, ev.target.value);
+              }
+            },
+            _owner: null
+          };
+        } else {
+          return {
+            $$typeof: _typeofReactElement,
+            type: "li",
+            key: id,
+            ref: null,
+            props: {
+              children: {
+                $$typeof: _typeofReactElement,
+                type: "span",
+                key: null,
+                ref: null,
+                props: {
+                  children: title
+                },
+                _owner: null
+              },
+              onClick: function (ev) {
+                return add(activeWalk, list.id, ev.target.value);
+              }
+            },
+            _owner: null
+          };
+        }
+      });
+
+      return {
+        $$typeof: _typeofReactElement,
+        type: "dialog",
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: "ul",
+            key: null,
+            ref: null,
+            props: {
+              children: allLists
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: "input",
+            key: null,
+            ref: null,
+            props: {
+              placeholder: "create a new list...",
+              value: newList,
+              onChange: function (ev) {
+                _this.setState({ newList: ev.target.value });
+              }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: "button",
+            key: null,
+            ref: null,
+            props: {
+              children: "Create",
+              onClick: function (ev) {
+                createList(activeWalk, newList);_this.setState({ newList: null });
+              }
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: "button",
+            key: null,
+            ref: null,
+            props: {
+              children: "Close",
+              onClick: function (ev) {
+                return addWalkDialog();
+              }
+            },
+            _owner: null
+          }],
+          id: "addWalk",
+          open: walkDialogOpen
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return AddWalkToListDialog;
+})(React.Component);
+
+exports["default"] = AddWalkToListDialog;
+
+AddWalkToListDialog.propTypes = {
+  lists: React.PropTypes.array,
+  add: React.PropTypes.func,
+  createList: React.PropTypes.func,
+  walkSelected: React.PropTypes.number
+};
+module.exports = exports["default"];
+
+
+},{}],250:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function _defaultProps(defaultProps, props) { if (defaultProps) { for (var propName in defaultProps) { if (typeof props[propName] === 'undefined') { props[propName] = defaultProps[propName]; } } } return props; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _ItineraryStore = require('./ItineraryStore');
+
+var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+var _ItineraryActions = require('./ItineraryActions');
+
+var _ItineraryActions2 = _interopRequireDefault(_ItineraryActions);
+
+var _WalkJsx = require('./Walk.jsx');
+
+var _WalkJsx2 = _interopRequireDefault(_WalkJsx);
+
+var _ItineraryHeaderJsx = require('./ItineraryHeader.jsx');
+
+var _ItineraryHeaderJsx2 = _interopRequireDefault(_ItineraryHeaderJsx);
+
+var _AddWalkToListDialogJsx = require('./AddWalkToListDialog.jsx');
+
+var _AddWalkToListDialogJsx2 = _interopRequireDefault(_AddWalkToListDialogJsx);
+
+var getItinerary = function getItinerary() {
+  return {
+    walks: _ItineraryStore2['default'].getActiveList().walks,
+    title: _ItineraryStore2['default'].getActiveList().title,
+    description: _ItineraryStore2['default'].getActiveList().description,
+    lists: _ItineraryStore2['default'].getAllLists(),
+    activeWalk: _ItineraryStore2['default'].getWalkSelected(),
+    walkDialogOpen: _ItineraryStore2['default'].getWalkDialog(),
+    dialogOpen: _ItineraryStore2['default'].getDialog(),
+    listId: _ItineraryStore2['default'].getActiveList().id
+  };
+};
+
+var Itinerary = (function (_React$Component) {
+  _inherits(Itinerary, _React$Component);
+
+  function Itinerary(props) {
+    var _get2;
+
+    _classCallCheck(this, Itinerary);
+
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
+
+    (_get2 = _get(Object.getPrototypeOf(Itinerary.prototype), 'constructor', this)).call.apply(_get2, [this, props].concat(args));
+    this.state = props.itinerary || getItinerary();
+    this._onChange = this._onChange.bind(this);
+  }
+
+  _createClass(Itinerary, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _ItineraryStore2['default'].addChangeListener(this._onChange);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _ItineraryStore2['default'].removeChangeListener(this._onChange);
+    }
+  }, {
+    key: '_onChange',
+    value: function _onChange() {
+      this.setState(getItinerary);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _state = this.state;
+      var walks = _state.walks;
+      var dialogOpen = _state.dialogOpen;
+      var listId = _state.listId;
+
+      var ItineraryWalks = walks.map(function (_ref) {
+        var map = _ref.map;
+        var id = _ref.id;
+        var title = _ref.title;
+        var time = _ref.time;
+        return {
+          $$typeof: _typeofReactElement,
+          type: _WalkJsx2['default'],
+          key: id,
+          ref: null,
+          props: _defaultProps(_WalkJsx2['default'].defaultProps, {
+            title: title,
+            meeting: map.markers[0].title,
+            start: time.slots[0][0],
+            id: id,
+            remove: _ItineraryActions2['default'].remove,
+            walkSelected: _ItineraryActions2['default'].walkSelected,
+            addWalkDialog: _ItineraryActions2['default'].addWalkDialog,
+            listId: listId
+          }),
+          _owner: null
+        };
+      });
+
+      return {
+        $$typeof: _typeofReactElement,
+        type: 'dialog',
+        key: null,
+        ref: null,
+        props: {
+          children: [React.createElement(_AddWalkToListDialogJsx2['default'], _extends({}, this.state, _ItineraryActions2['default'])), {
+            $$typeof: _typeofReactElement,
+            type: 'div',
+            key: null,
+            ref: null,
+            props: {
+              children: [{
+                $$typeof: _typeofReactElement,
+                type: 'section',
+                key: null,
+                ref: null,
+                props: {
+                  children: React.createElement(_ItineraryHeaderJsx2['default'], _extends({}, this.state, _ItineraryActions2['default']))
+                },
+                _owner: null
+              }, {
+                $$typeof: _typeofReactElement,
+                type: 'ul',
+                key: null,
+                ref: null,
+                props: {
+                  children: ItineraryWalks
+                },
+                _owner: null
+              }],
+              className: 'itinerary'
+            },
+            _owner: null
+          }],
+          open: true,
+          id: 'itinerary'
+        },
+        _owner: null
+      };
+    }
+  }]);
+
+  return Itinerary;
+})(React.Component);
+
+exports['default'] = Itinerary;
+
+Itinerary.defaultProps = {
+  itinerary: null
+};
+
+Itinerary.propTypes = {
+  itinerary: React.PropTypes.array.isRequired
+};
+module.exports = exports['default'];
+
+
+},{"./AddWalkToListDialog.jsx":249,"./ItineraryActions":251,"./ItineraryHeader.jsx":254,"./ItineraryStore":256,"./Walk.jsx":258}],251:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _ItineraryConstants = require('./ItineraryConstants');
+
+var _ItineraryConstants2 = _interopRequireDefault(_ItineraryConstants);
+
+var _ItineraryDispatcher = require('./ItineraryDispatcher');
+
+//TODO: API call before dispatch
+
+exports['default'] = {
+
+  remove: function remove(id, list) {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].REMOVE_WALK, id: id, list: list });
+  },
+
+  add: function add(id, list) {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].ADD_WALK, id: id, list: list });
+  },
+
+  updateTitle: function updateTitle(title) {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].UPDATE_TITLE, title: title });
+  },
+
+  updateDescription: function updateDescription(description) {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].UPDATE_DESCRIPTION, description: description });
+  },
+
+  viewList: function viewList(id) {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].VIEW_LIST, id: id });
+  },
+
+  createList: function createList(id, title) {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].CREATE_LIST, id: id, title: title });
+  },
+
+  walkSelected: function walkSelected(id) {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].WALK_SELECTED, id: id });
+  },
+
+  addWalkDialog: function addWalkDialog() {
+    (0, _ItineraryDispatcher.dispatch)({ type: _ItineraryConstants2['default'].ADD_WALK_DIALOG });
+  }
+
+};
+module.exports = exports['default'];
+
+
+},{"./ItineraryConstants":252,"./ItineraryDispatcher":253}],252:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+var Actions = ['REMOVE_WALK', 'ADD_WALK', 'UPDATE_TITLE', 'UPDATE_DESCRIPTION', 'VIEW_LIST', 'CREATE_LIST', 'WALK_SELECTED', 'ADD_WALK_DIALOG'].reduce(function (p, v) {
+  p[v] = v;return p;
+}, {});
+
+exports['default'] = Actions;
+module.exports = exports['default'];
+
+
+},{}],253:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.register = register;
+exports.dispatch = dispatch;
+
+var _flux = require('flux');
+
+var flux = new _flux.Dispatcher();
+
+function register(callback) {
+  return flux.register(callback);
+}
+
+function dispatch(actionType, action) {
+  flux.dispatch(actionType, action);
+}
+
+
+},{"flux":4}],254:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ItineraryHeader = (function (_React$Component) {
+  _inherits(ItineraryHeader, _React$Component);
+
+  function ItineraryHeader() {
+    _classCallCheck(this, ItineraryHeader);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _get(Object.getPrototypeOf(ItineraryHeader.prototype), "constructor", this).apply(this, args);
+    this.state = {
+      editable: false,
+      newDescription: null,
+      newTitle: null
+    };
+  }
+
+  _createClass(ItineraryHeader, [{
+    key: "update",
+    value: function update() {
+      var _props = this.props;
+      var updateTitle = _props.updateTitle;
+      var updateDescription = _props.updateDescription;
+      var title = _props.title;
+      var description = _props.description;
+      var _state = this.state;
+      var editable = _state.editable;
+      var newTitle = _state.newTitle;
+      var newDescription = _state.newDescription;
+
+      updateTitle(newTitle || title);
+      updateDescription(newDescription || description);
+
+      this.setState({
+        editable: !editable,
+        newTitle: null,
+        newDescription: null
+      });
+    }
+  }, {
+    key: "cancel",
+    value: function cancel() {
+      var editable = this.state.editable;
+
+      this.setState({
+        newTitle: null,
+        newDescription: null,
+        editable: !editable
+      });
+    }
+  }, {
+    key: "edit",
+    value: function edit() {
+      var editable = this.state.editable;
+
+      this.setState({
+        editable: !editable
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this = this;
+
+      var _props2 = this.props;
+      var title = _props2.title;
+      var description = _props2.description;
+      var lists = _props2.lists;
+      var viewList = _props2.viewList;
+      var _state2 = this.state;
+      var editable = _state2.editable;
+      var newTitle = _state2.newTitle;
+      var newDescription = _state2.newDescription;
+
+      if (editable) {
+        return {
+          $$typeof: _typeofReactElement,
+          type: "header",
+          key: null,
+          ref: null,
+          props: {
+            children: [{
+              $$typeof: _typeofReactElement,
+              type: "h2",
+              key: null,
+              ref: null,
+              props: {
+                children: {
+                  $$typeof: _typeofReactElement,
+                  type: "input",
+                  key: null,
+                  ref: null,
+                  props: {
+                    value: newTitle || title,
+                    onChange: function (ev) {
+                      return _this.setState({ newTitle: ev.target.value });
+                    }
+                  },
+                  _owner: null
+                }
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: "h4",
+              key: null,
+              ref: null,
+              props: {
+                children: {
+                  $$typeof: _typeofReactElement,
+                  type: "textarea",
+                  key: null,
+                  ref: null,
+                  props: {
+                    value: newDescription || description,
+                    onChange: function (ev) {
+                      return _this.setState({ newDescription: ev.target.value });
+                    }
+                  },
+                  _owner: null
+                }
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: "span",
+              key: null,
+              ref: null,
+              props: {
+                children: "Update",
+                className: "update",
+                onClick: function (ev) {
+                  return _this.update();
+                }
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: "span",
+              key: null,
+              ref: null,
+              props: {
+                children: "Cancel",
+                className: "cancel",
+                onClick: function (ev) {
+                  return _this.cancel();
+                }
+              },
+              _owner: null
+            }],
+            className: "itineraryHeader"
+          },
+          _owner: null
+        };
+      } else {
+        return {
+          $$typeof: _typeofReactElement,
+          type: "header",
+          key: null,
+          ref: null,
+          props: {
+            children: [{
+              $$typeof: _typeofReactElement,
+              type: "div",
+              key: null,
+              ref: null,
+              props: {
+                children: [{
+                  $$typeof: _typeofReactElement,
+                  type: "button",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: {
+                      $$typeof: _typeofReactElement,
+                      type: "h1",
+                      key: null,
+                      ref: null,
+                      props: {
+                        children: [title, {
+                          $$typeof: _typeofReactElement,
+                          type: "span",
+                          key: null,
+                          ref: null,
+                          props: {
+                            className: "dropdown-chevron"
+                          },
+                          _owner: null
+                        }],
+                        className: "walklistTitle"
+                      },
+                      _owner: null
+                    },
+                    className: "toggle",
+                    type: "button",
+                    "data-toggle": "dropdown",
+                    "aria-haspopup": "true",
+                    "aria-expanded": "false",
+                    id: "lists"
+                  },
+                  _owner: null
+                }, {
+                  $$typeof: _typeofReactElement,
+                  type: "ul",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: lists.map(function (list) {
+                      return {
+                        $$typeof: _typeofReactElement,
+                        type: "li",
+                        key: list.id,
+                        ref: null,
+                        props: {
+                          children: list.title,
+                          onClick: function (ev) {
+                            return viewList(list.id, ev.target.value);
+                          }
+                        },
+                        _owner: null
+                      };
+                    }),
+                    className: "dropdown-menu",
+                    "aria-labelledby": "lists"
+                  },
+                  _owner: null
+                }],
+                className: "dropdown"
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: "h5",
+              key: null,
+              ref: null,
+              props: {
+                children: {
+                  $$typeof: _typeofReactElement,
+                  type: "a",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: "janeswalk.org/TuckerMCL/itinerary",
+                    href: ""
+                  },
+                  _owner: null
+                },
+                className: "shareUrl"
+              },
+              _owner: null
+            }, {
+              $$typeof: _typeofReactElement,
+              type: "h4",
+              key: null,
+              ref: null,
+              props: {
+                children: [{
+                  $$typeof: _typeofReactElement,
+                  type: "textarea",
+                  key: null,
+                  ref: null,
+                  props: {
+                    required: "required",
+                    placeholder: "Tell people about it! Start typing here to give your list some commentary.",
+                    onChange: function (ev) {
+                      return _this.setState({ newDescription: ev.target.value });
+                    }
+                  },
+                  _owner: null
+                }, {
+                  $$typeof: _typeofReactElement,
+                  type: "span",
+                  key: null,
+                  ref: null,
+                  props: {
+                    children: "save",
+                    className: "update"
+                  },
+                  _owner: null
+                }],
+                className: "walklistDescription"
+              },
+              _owner: null
+            }],
+            className: "itineraryHeader"
+          },
+          _owner: null
+        };
+      }
+    }
+  }]);
+
+  return ItineraryHeader;
+})(React.Component);
+
+exports["default"] = ItineraryHeader;
+;
+
+ItineraryHeader.propTypes = {
+  title: React.PropTypes.string,
+  description: React.PropTypes.string,
+  updateTitle: React.PropTypes.func,
+  updateDescription: React.PropTypes.func
+};
+
+ItineraryHeader.defaultProps = {
+  title: 'My Itinerary',
+  description: 'Test'
+};
+module.exports = exports["default"];
+
+
+},{}],255:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var walks = [{ "id": "2411", "title": "ROMwalks - About the ROM", "url": "http:\/\/janeswalk.org\/canada\/toronto\/around-rom-100-years\/", "shortDescription": "Experience a ROMwalk around the ROM. Explore the area through architecture, anecdotes and archival photographs.", "longDescription": "Experience a ROMwalk around the ROM. Explore the area through architecture, anecdotes and archival photographs. <br \/><br \/>\nThe May 13th and July 5th walks will also be given in French.", "accessibleInfo": null, "accessibleTransit": "St. George subway station, Bedford Road exit, or Museum subway station", "accessibleParking": null, "accessibleFind": "Look for the Purple umbrella at the meeting point.", "map": { "markers": [{ "lat": 43.6683139552, "lng": -79.395058155082, "title": "The ROM on Bloor Street - meeting point", "description": "The front entrance of the ROM on Bloor Street - look for the purple umbrella.", "media": null, "style": "stop" }, { "lat": 43.66850795613, "lng": -79.394350051902, "title": "Bloor & Queens Park - end of walk", "description": "", "media": null, "style": "stop" }], "route": [] }, "team": [{ "user_id": "147", "type": "you", "name-first": "", "name-last": "", "role": "walk-leader", "primary": "on", "bio": "The walk is led by several trained and qualified ROMwalks guides who belong to the ROM's Department of Museum volunteers. ROMwalks have been giving guided walking tours of Toronto's historic and architectural neighbourhoods for over 30 years. <br \/><br \/>\nFurther information can be viewed at www.rom.on.ca\/romwalks or follow the conversation at #ROMwalks and @ROMtoronto", "twitter": "", "facebook": "", "website": "", "email": "", "phone": "416-694-6436" }], "time": { "open": false, "type": "set", "slots": [["1431540000", "1431545400"], ["1436104800", "1436110200"], ["1439733600", "1439739000"], ["1443362400", "1443367800"]] }, "wards": "Ward 20 Trinity-Spadina", "initiatives": [{ "id": "127", "name": "Open Streets TO" }], "mirrors": { "eventbrite": null }, "thumbnails": [{ "id": "453", "url": "\/files\/cache\/9b34ecb08eca3d810d2e4f98f33fc937_f453.jpg" }], "thumbnailId": "453", "thumbnailUrl": "\/files\/cache\/9b34ecb08eca3d810d2e4f98f33fc937_f453.jpg", "checkboxes": { "theme-urban-architecturalenthusiast": true, "theme-culture-historybuff": true, "accessible-familyfriendly": true, "accessible-seniors": true } }, { "id": "7554", "title": "Scarborough Poetry Walk", "url": "http:\/\/janeswalk.org\/canada\/toronto\/scarborough-poetry-walk1\/", "shortDescription": "Explore Ron Watson Park in Scarborough through poetry. ", "longDescription": "Join us for a walking tour of Ron Watson Park in Scarborough and explore the area's sights, histories, and local idiosyncrasies through the lens of Scarborough poets. Guests will also have the option of staying in the Agincourt Library program room where they can learn about the Toronto Public Library's Toronto Poetry Map, poetry collections, Young Voices program and the Agincourt Library's new poetry club​.\n\nReserve your spot to this walk via Eventbrite:\nhttp://www.eventbrite.ca/e/poetry-came-in-search-of-me-scarborough-poetry-walk-tickets-18579629171\n", "accessibleInfo": null, "accessibleTransit": "The closest major intersection is Sheppard Avenue East and Kennedy Road. The Agincourt Library is located on the south side of Bonis Avenue, one block north of Sheppard Avenue, midway between Birchmount Road and Kennedy Road, directly north of Agincourt Mall. \n\nBy TTC: Take the TTC Birchmount bus #17 - stops at Bonis Avenue \/ TTC Kennedy bus #43 - stops at Bonis Avenue \/ TTC Sheppard Ave. E bus #85 - stops at Agincourt Mall", "accessibleParking": "There are 85 free parking spaces (including 3 disabled) at the parking lot adjacent to the Agincourt Library.", "accessibleFind": "There will be signs in the Agincourt Library pointing to the specific meeting place. Our Walk Leader, Anna Nieminen, will be holding a Culture Days poster!", "map": { "markers": [{ "lat": 43.784179869385, "lng": -79.291924820477, "title": "Agincourt Library", "description": "", "media": null, "style": "stop" }, { "lat": 43.785296664031, "lng": -79.295143471295, "title": "Ron Watson Park", "description": "", "media": null, "style": "stop" }], "route": [] }, "team": [{ "type": "you", "name-first": "Scarborough", "name-last": "Arts", "role": "Walk Organizer", "primary": "on", "bio": "Scarborough Arts is the only arts organization of its kind specifically serving the Scarborough community through innovative arts and culture programs for citizens of all ages. We bring artists to the community and community to artists. ", "twitter": "scararts", "facebook": "scarborougharts", "website": "scarborougharts.com", "email": "news@scarborougharts.com", "phone": "416-698-7322" }, { "type": "organizer", "name-first": "Anna ", "name-last": "Nieminen", "institution": "", "website": "", "phone": "" }, { "type": "leader", "name-first": "Anna", "name-last": "Nieminen", "bio": "Anna Nieminen is an emerging poetry curator from Scarborough. She led her first Scarborough Poetry Walk in May 2015 as part of the Jane’s Walk festival. She will be co-facilitating the Scarborough Poetry Club at the Toronto Public Library - Agincourt Branch in October 2015. She plans to publish a collection of her mother Valma Nieminen’s Finnish language poems. She blogs about walking and poetry at http://janeswalk.org/canada/toronto/toronto-blog/", "primary": "", "twitter": "", "facebook": "", "website": "", "email": "am_niemi@live.com", "phone": "" }], "time": { "open": false, "type": null, "slots": [["1443362400", "1443371400"]] }, "wards": "Ward 39 Scarborough-Agincourt", "initiatives": [], "mirrors": { "eventbrite": null }, "thumbnails": [{ "id": "4927", "url": "\/files\/cache\/24af5962fd1632772c448ea217a7cce8_f4927.jpg" }], "thumbnailId": "4927", "thumbnailUrl": "\/files\/cache\/24af5962fd1632772c448ea217a7cce8_f4927.jpg", "checkboxes": { "theme-culture-bookworm": true, "theme-culture-writer": true, "theme-civic-goodneighbour": true, "accessible-familyfriendly": true, "accessible-wheelchair": true, "accessible-strollers": true, "accessible-bicycles": true, "accessible-seniors": true } }, { "id": "7543", "title": "Stories of Renewable Energy: a Neighbourhood Walk of St. Clair West", "url": "http:\/\/janeswalk.org\/canada\/toronto\/stories-renewable-energy-neighbourhood-walk-st-clair-west\/", "shortDescription": "Renewable energy is all around us! Find out how one community is going green. ", "longDescription": "Join us for a walking tour of St. Clair West to find out what everyday Torontonians are doing to lead the renewable energy transition, and how you can get involved! \n\nWe will share what’s happening to green Toronto’s energy mix, and homeowners will share their experiences of switching to renewables.\n\nRegister <a href=\"http://renewable-energy-stories.eventbrite.com/\">here</a>, and we will see you there!", "accessibleInfo": null, "accessibleTransit": null, "accessibleParking": null, "accessibleFind": "We will meet in front of the Humewood Park sign at the southwest corner of the park! ", "map": { "markers": [{ "lat": 43.683415118003, "lng": -79.426743374402, "title": "Humewood Park ", "description": "", "media": null, "style": "stop" }, { "lat": 43.682467853095, "lng": -79.426711187894, "title": "Solar hot water", "description": "", "media": null, "style": "stop" }, { "lat": 43.681086068425, "lng": -79.42819176727, "title": "Councillor Mihevc's Community Office", "description": "", "media": null, "style": "stop" }, { "lat": 43.680209290221, "lng": -79.427161799008, "title": "Solar PV, Bullfrog Power, green features", "description": "", "media": null, "style": "stop" }, { "lat": 43.678486041842, "lng": -79.427258358533, "title": "LEED for homes", "description": "", "media": null, "style": "stop" }, { "lat": 43.679773393841, "lng": -79.424415216977, "title": "Wychwood Barns", "description": "", "media": null, "style": "stop" }, { "lat": 43.680370159175, "lng": -79.420123682553, "title": "Solar PV", "description": "", "media": null, "style": "stop" }, { "lat": 43.680866050736, "lng": -79.417677507932, "title": "Toronto Community Housing", "description": "", "media": null, "style": "stop" }, { "lat": 43.679057468928, "lng": -79.416390047604, "title": "Hillcrest Community School", "description": "", "media": null, "style": "stop" }], "route": [] }, "team": [{ "type": "you", "name-first": "Madison", "name-last": "Van West", "role": "walk-leader", "primary": "on", "bio": "", "twitter": "@joinourpower", "facebook": null, "website": "http:\/\/www.ourpower.ca", "email": "madison@trec.on.ca", "phone": "" }], "time": { "open": false, "type": null, "slots": [["1443366000", "1443373200"]] }, "wards": "Ward 21 St. Pauls", "initiatives": [], "mirrors": { "eventbrite": null }, "thumbnails": [{ "id": "4923", "url": "\/files\/cache\/8536b5267140de1b0d7a983702efca86_f4923.jpg" }], "thumbnailId": "4923", "thumbnailUrl": "\/files\/cache\/8536b5267140de1b0d7a983702efca86_f4923.jpg", "checkboxes": { "theme-urban-architecturalenthusiast": true, "theme-culture-techie": true, "theme-civic-goodneighbour": true, "accessible-familyfriendly": true, "accessible-strollers": true, "accessible-busy": true } }, { "id": "7567", "title": "Riverside Past, Present & Future Walk - October 10th", "url": "http:\/\/janeswalk.org\/canada\/toronto\/riverside-past-present-future-walk-october-10th\/", "shortDescription": "Learn about the Riverside neighbourhood’s fascinating history, as well as the inside scoop on exciting current and future plans!", "longDescription": "You're invited to a FREE Riverside Guided Walk on October 10th led by Megan Sheppard, starting at 11am from 625 Queen Street East (near Queen E/DVP). \n\nBring your family and friends as a great local activity for Thanksgiving Weekend! Learn about the Riverside neighbourhood’s fascinating history dating back to the 1800s, as well as the inside scoop on exciting current and future plans. Explore the stories of the Riverside Bridge, Sunlight Park, Riverside Square, Broadview Hotel, the Royal Antediluvian Order of Buffalo, Degrassi Street and much, much more. To end off our walk, we’ll enjoy refreshments at The County General Riverside.\n", "accessibleInfo": "This walk follows city sidewalks and laneways - we do plan to enter a few buildings.", "accessibleTransit": "Take the Queen or King Streetcar to the Carroll Street stop.  Walk west one block to our starting point at 625 Queen East.", "accessibleParking": "Green P at Broadview and Queen, or along Queen St (metered street parking)", "accessibleFind": "Wearing a grey Riverside t-shirt with bright yellow decal (these shirts will be on sale for $15 by the way!)", "map": { "markers": [{ "lat": 43.658069694855, "lng": -79.353100643689, "title": "The Riverside Bridge", "description": "Meet at 625 Queen Street East at 11AM - we'll look at the Queen Street East Bridge, talking about the art, history and recent additions to light it up!", "media": null, "style": "stop" }, { "lat": 43.659941025975, "lng": -79.346105442578, "title": "The County General Riverside", "description": "The tour will end at Degrassi Street, speaking about the history and current culture of that famous street. We will end at 1pm with refreshments at 698 Queen East! ", "media": null, "style": "stop" }], "route": [] }, "team": [{ "type": "you", "name-first": "Riverside BIA", "name-last": "Riverside Business Improvement Area", "role": "Walk Organizer", "primary": "on", "bio": "Just few blocks from downtown Toronto, on the other side of the Don River valley and the busy parkway which bears its name, lies a vibrant neighbourhood with a unique small town in the big city atmosphere that makes it a draw for residents and visitors alike. Best known for heritage buildings, award-winning restaurants, and the street that inspired the internationally renowned Degrassi TV series, Riverside’s attraction also lies in its artisans and community builders of many sorts.  ", "twitter": "@RiversideBIA", "facebook": "RiversideTO", "website": "http:\/\/www.riverside-to.com\/", "email": "marketing@riverside-to.com", "phone": "416-466-8167" }, { "type": "leader", "name-first": "Megan", "name-last": "Sheppard", "bio": "Our fabulous walk leader is Megan Sheppard – who was born and raised right here in Riverside on the famous Degrassi Street. Megan stems from three generations of realtors serving Riverside, Leslieville, Leadside and the Beach neighbourhoods. She promises a fun-filled walk!", "primary": "", "twitter": "", "facebook": "", "website": "", "email": "marketing@riverside-to.com", "phone": "" }], "time": { "open": false, "type": null, "slots": [["1444474800", "1444482000"]] }, "wards": "Ward 30 Toronto-Danforth", "initiatives": [], "mirrors": { "eventbrite": null }, "thumbnails": [{ "id": "5017", "url": "\/files\/cache\/37af97e06d875e56ae4fe944185ae1e3_f5017.jpg" }], "thumbnailId": "5017", "thumbnailUrl": "\/files\/cache\/37af97e06d875e56ae4fe944185ae1e3_f5017.jpg", "checkboxes": { "theme-culture-historybuff": true, "theme-culture-writer": true, "theme-civic-goodneighbour": true, "accessible-familyfriendly": true, "accessible-wheelchair": true, "accessible-dogs": true, "accessible-strollers": true, "accessible-bicycles": true, "accessible-uneven": true, "accessible-busy": true, "accessible-seniors": true } }, { "id": "6210", "title": "ROMwalks - Heart of Toronto", "url": "http:\/\/janeswalk.org\/canada\/toronto\/romwalks-heart-toronto\/", "shortDescription": "This walk covers an area that has been the center of the judicial system, municipal government and shopping district for over 100 years.", "longDescription": "This walk was the original ROMwalk in 1980. It highlights the block bordered by Dundas & Queen and University & Yonge, an area that has been the center of the judicial system, municipal government and the shopping district for over 100 years. The walk will portray early colonial York, Victorian Toronto and the modern city.", "accessibleInfo": null, "accessibleTransit": "Osgoode or Queen subway stations", "accessibleParking": null, "accessibleFind": "Look for the Purple umbrella at the meeting point", "map": { "markers": [{ "lat": 43.652806815732, "lng": -79.384171352917, "title": "New City Hall main doors - meeting point", "description": "Meet in front of the main doors - look for the purple umbrella", "media": null, "style": "stop" }, { "lat": 43.654484249133, "lng": -79.382143602902, "title": "Church of the Holy Trinity - end of walk", "description": "", "media": null, "style": "stop" }], "route": [] }, "team": [{ "type": "you", "name-first": "", "name-last": "", "role": "walk-leader", "primary": "on", "bio": "The walk is led by several trained and qualified ROMwalks guides who belong to the ROM's Department of Museum volunteers. ROMwalks have been giving guided walking tours of Toronto's historic and architectural neighbourhoods for over 30 years.<br \/><br \/>\nFurther information can be viewed at www.rom.on.ca\/romwalks or follow the conversation at #ROMwalks and @ROMtoronto", "twitter": "", "facebook": "", "website": "", "email": "", "phone": "416-694-6436" }], "time": { "open": false, "type": null, "slots": [["1433685600", "1433692800"], ["1444572000", "1444579200"]] }, "wards": null, "initiatives": [], "mirrors": { "eventbrite": null }, "thumbnails": [{ "id": "3295", "url": "\/files\/cache\/fe674be5f04e06635d931f100e27b5c1_f3295.jpg" }], "thumbnailId": "3295", "thumbnailUrl": "\/files\/cache\/fe674be5f04e06635d931f100e27b5c1_f3295.jpg", "checkboxes": { "theme-urban-architecturalenthusiast": true, "theme-culture-historybuff": true, "accessible-familyfriendly": true, "accessible-seniors": true } }, { "id": "7623", "title": "The History of Muslims in Toronto - A Special December Jane's Walk", "url": "http:\/\/janeswalk.org\/canada\/toronto\/history-muslims-toronto-december-janes-walk\/", "shortDescription": "A Special December Jane's Walk will reveal The Forgotten History of Toronto's First Muslims & where they Prayed, Played, and Built Community", "longDescription": "Recent current events have highlighted many Torontonians are unaware of The History of Muslims and their original Houses of Worship in Canada's Largest City. \n<P>\n<P>\nThis Special Jane's Walk in December will visit four locations in The Junction and High Park neighbourhoods to reveal that history.\n<P>\nWalk stop locations:\n<P>\n<ul><li>The Dundas Street Mosque - The City's First masjid<\/li>\n<li>The little known history of The Albanian Muslim Society of Toronto - The pivotal role of its founder, Reggie Assim<\/li>\n<li>Toronto's FIRST Halal Butcher Shop - Roncesvalles Village<\/li>\n<li>Jami Mosque - Toronto's Second Islamic Centre and its national significance<\/li><\/ul>\n<P>\nThrough this special Jane's Walk, Torontonians will gain an understanding and will come to appreciate the work of Third, Fourth, and Fifth Generation Muslim-Torontonians in building our city.", "accessibleInfo": "Dress appropriate for the day, as it is December! \n<P>\nMuch of the walk will be on regular sidewalks. \n<P>\nIn The Junction at our second walk stop location, expect the sidewalk to be busy with Christmas Shoppers.", "accessibleTransit": "Runnymede TTC Subway Station - Main Entrance.", "accessibleParking": "Green P Parking near Runnymede Station.", "accessibleFind": "Walk Leader will be wearing a Green Jacket holding a Jane's Walk sign.",
+
+  "map": { "markers": [{ "lat": 43.651567876422, "lng": -79.476332054014, "title": "Runnymede Station - Front Entrance", "description": "The Meeting and Starting Point for this Jane's Walk will be in front of Runnymede TTC Subway Station - Main Entrance.", "media": null, "style": "stop" }, { "lat": 43.659913083999, "lng": -79.480859622668, "title": "Albanian Muslim Society of Toronto", "description": "The Albanian Muslim Society of Toronto - Our Second Walk Stop, we will see a Historic Plaque built into the outside wall of the building, dedicated to the Founder of the original Muslim Society of Toronto.", "media": null, "style": "stop" }, { "lat": 43.665396555336, "lng": -79.471035584734, "title": "3047 Dundas Street East ", "description": "The Forgotten \"Dundas Street Mosque\", 3047 Dundas Street East in The Junction neighbourhood, was Toronto's First Islamic Centre.", "media": null, "style": "stop" }, { "lat": 43.653373279207, "lng": -79.451948984238, "title": "Site of Toronto's FIRST Halal Butcher Shop", "description": "The unique three- and half-way-intersection where Dundas Street West meets Roncesvalles, steps away from Jami Mosque, was home the first Muslim Halal Food Shops in the city.", "media": null, "style": "stop" }, { "lat": 43.653279092389, "lng": -79.454495295427, "title": "Jami Mosque - The Islamic Centre of Toronto", "description": "Toronto's second official House of Worship for Muslims. Still in operation today, it belongs as a Heritage for All Torontonians to appreciate and learn from.", "media": null, "style": "stop" }], "route": [] }, "team": [{ "type": "you", "name-first": "HiMY", "name-last": "SYeD", "role": "walk-leader", "primary": "on", "bio": "A Walk Leader in Toronto since Jane's Walk inaugural year, HiMY has organized and lead at least 50 different walks since 2007 in three different cities.\n<P>\nSince 2011, during Ramadan, HiMY has been blogging about visits to different Masjids, Islamic Centres or public gatherings where Muslims break their daily fasts.\n<P>\nHis blog, <a href=\"http:\/\/30Masjids.ca\">30Masjids.ca<\/a>, has become a unique guidepost and archive of The Story of Muslims in Toronto and Southern Ontario.\n<P>\nHis Special December 20 2015 Jane's Walk will share the best of that researched archive from the past five years.", "twitter": "30Masjids", "facebook": "", "website": "http:\/\/30Masjids.ca", "email": "HiMY.org@gmail.com", "phone": "" }],
+
+  "time": { "open": false, "type": null, "slots": [["1450609200", "1450618200"]] }, "wards": "Ward 13 Parkdale-High Park", "initiatives": [],
+
+  "mirrors": { "eventbrite": null }, "thumbnails": [{ "id": "5049", "url": "\/files\/cache\/dd4a4c169a98f83771645a3480b4e541_f5049.jpg" }], "thumbnailId": "5049", "thumbnailUrl": "\/files\/cache\/dd4a4c169a98f83771645a3480b4e541_f5049.jpg",
+
+  "checkboxes": { "theme-civic-goodneighbour": true, "theme-civic-international": true, "theme-civic-religion": true, "accessible-familyfriendly": true, "accessible-busy": true, "accessible-seniors": true } }];
+
+var lists = [{
+  id: 1,
+  title: "My Itinerary",
+  shareUrl: "janeswalk.org/Harold/itinerary",
+  description: "Each year, I take some time to read about all of the walks happening in my city in order to curate a list for myself and my friends, family, and colleagues. And this year, I’m sharing the list with you! Here are my Top 10 choices for the 2015 walk weekend in Toronto. Hope to see you out there, and maybe even having a walking conversation with YOU!",
+  walks: walks.slice(0, -1)
+}, {
+  id: 2,
+  title: 'Favourites',
+  shareUrl: "janeswalk.org/Harold/favourites",
+  description: "View my Jane's Walk Itinerary!",
+  walks: walks.slice(0, -2)
+}, {
+  id: 3,
+  title: 'Skateboard',
+  shareUrl: "janeswalk.org/Harold/skateboard",
+  description: "View my Jane's Walk Itinerary!",
+  walks: walks.slice(0, -3)
+}, {
+  id: 4,
+  title: 'Walk led by Friends',
+  shareUrl: "janeswalk.org/Harold/walk-led-by-friends",
+  description: "View my Jane's Walk Itinerary!",
+  walks: walks.slice(0, -4)
+}];
+
+exports.lists = lists;
+exports.walks = walks;
+
+
+},{}],256:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _ItineraryDispatcher = require('./ItineraryDispatcher');
+
+var _events = require('events');
+
+var _ItineraryConstants = require('./ItineraryConstants');
+
+var _ItineraryConstants2 = _interopRequireDefault(_ItineraryConstants);
+
+var _ItineraryStaticData = require('./ItineraryStaticData');
+
+var CHANGE_EVENT = 'change';
+
+var _itinerary = _ItineraryStaticData.lists[0];
+var _favourites = _ItineraryStaticData.lists[1];
+var _currentList = _itinerary;
+var _allLists = _ItineraryStaticData.lists.slice();
+var _dialogOpen = false;
+var _walkSelected = null;
+var _walkDialogOpen = false;
+
+var _removeWalk = function _removeWalk(id, listId) {
+  var list = _allLists.find(function (list) {
+    return list.id === listId;
+  });
+
+  if (!list) {
+    console.log('List could not be found');
+  } else {
+
+    var walkFound = list.walks.find(function (walk) {
+      return walk.id === id;
+    });
+
+    if (walkFound) {
+      list.walks.splice(list.walks.findIndex(function (walk) {
+        return walk.id === id;
+      }), 1);
+    } else {
+      console.log('Walk does not exists');
+    }
+  }
+};
+
+var _addWalk = function _addWalk(id, listId) {
+  var list = _allLists.find(function (list) {
+    return list.id === listId;
+  });
+
+  //TODO: May not be required after API calls
+  if (!list) {
+    console.log('List could not be found');
+  } else {
+    var walkFound = list.walks.find(function (walk) {
+      return walk.id === id;
+    });
+
+    if (!walkFound) {
+      var walk = _ItineraryStaticData.walks.find(function (walk) {
+        return walk.id === id;
+      });
+      if (!walk) {
+        console.log('walk not found');
+      } else {
+        list.walks.unshift(walk);
+      }
+    } else {
+      console.log('Walk already exists, notify the user');
+    }
+  }
+};
+
+var _createList = function _createList(title) {
+  var list = _allLists.find(function (list) {
+    return list.title === title;
+  });
+
+  if (!list) {
+    _allLists.push({
+      id: _allLists.length + 1,
+      title: title,
+      shareUrl: 'janeswalk.org/Harold/' + title,
+      description: "View my Jane's Walk Itinerary!",
+      walks: []
+    });
+  }
+
+  //Returning list, since after _createList, _addWalk is called, so passing around the list
+  return _allLists[_allLists.length - 1];
+};
+
+//walks received from API used to update _itinerary
+var _updateWalks = function _updateWalks(walks) {
+  _currentList.walks = walks.slice();
+};
+
+var _updateTitle = function _updateTitle(title) {
+  _currentList.title = title;
+};
+
+var _updateDescription = function _updateDescription(description) {
+  _currentList.description = description;
+};
+
+var _getWalks = function _getWalks(id) {
+  if (_currentList.id !== id) {
+    var listFound = _allLists.find(function (list) {
+      return list.id === id;
+    });
+
+    if (listFound) {
+      _currentList = listFound;
+    } else {
+      console.log('list not found, notify user');
+    }
+  }
+};
+
+var ItineraryStore = Object.assign(_events.EventEmitter.prototype, {
+  emitChange: function emitChange() {
+    this.emit(CHANGE_EVENT);
+  },
+
+  addChangeListener: function addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
+  },
+
+  removeChangeListener: function removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getAllLists: function getAllLists() {
+    return _allLists;
+  },
+
+  getWalkSelected: function getWalkSelected() {
+    return _walkSelected;
+  },
+
+  getActiveList: function getActiveList() {
+    return _currentList;
+  },
+
+  getWalkDialog: function getWalkDialog() {
+    return _walkDialogOpen;
+  },
+
+  getDialog: function getDialog() {
+    return _dialogOpen;
+  },
+
+  getItineraryList: function getItineraryList() {
+    return _itinerary;
+  },
+
+  getFavouriteList: function getFavouriteList() {
+    return _favourites;
+  },
+
+  existsInList: function existsInList(listId, id) {
+    var list = _allLists.find(function (list) {
+      return list.id === listId;
+    });
+    return list.walks.find(function (walk) {
+      return walk.id === id;
+    });
+  },
+
+  //TODO: use _updateWalks to receive walks from server via API call
+  dispatcherIndex: (0, _ItineraryDispatcher.register)(function (action) {
+    switch (action.type) {
+      case _ItineraryConstants2['default'].REMOVE_WALK:
+        _removeWalk(action.id, action.list);
+        break;
+      case _ItineraryConstants2['default'].ADD_WALK:
+        //TODO: Dialog to open on first add to Itinerary/Favourites
+        _addWalk(action.id, action.list);
+        break;
+      case _ItineraryConstants2['default'].UPDATE_TITLE:
+        _updateTitle(action.title);
+        break;
+      case _ItineraryConstants2['default'].UPDATE_DESCRIPTION:
+        _updateDescription(action.description);
+        break;
+      case _ItineraryConstants2['default'].VIEW_LIST:
+        _getWalks(action.id);
+        break;
+      case _ItineraryConstants2['default'].CREATE_LIST:
+        var newList = _createList(action.title);
+        _addWalk(action.id, newList.id);
+        break;
+      case _ItineraryConstants2['default'].WALK_SELECTED:
+        _walkSelected = action.id;
+        break;
+      case _ItineraryConstants2['default'].ADD_WALK_DIALOG:
+        _walkDialogOpen = !_walkDialogOpen;
+        break;
+    }
+
+    ItineraryStore.emitChange();
+  })
+
+});
+
+exports['default'] = ItineraryStore;
+module.exports = exports['default'];
+
+
+},{"./ItineraryConstants":252,"./ItineraryDispatcher":253,"./ItineraryStaticData":255,"events":2}],257:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+exports.dateFormatted = dateFormatted;
+
+function dateFormatted(dateInSeconds) {
+  var dtfDate = undefined;
+  // Date formatted
+  if (typeof Intl === 'object') {
+    dtfDate = new Intl.DateTimeFormat('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      timeZone: 'UTC'
+    });
+  }
+
+  if (dtfDate) {
+    return dtfDate.format(dateInSeconds * 1000);
+  } else {
+    var date = new Date(dateInSeconds * 1000);
+    var dateString = date.toUTCString();
+    return dateString.slice(0, dateString.indexOf(' GMT'));
+  }
+}
+
+
+},{}],258:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeofReactElement = typeof Symbol === "function" && Symbol["for"] && Symbol["for"]("react.element") || 60103;
+
+var _ItineraryUtils = require('./ItineraryUtils');
+
+var Walk = function Walk(_ref) {
+  var title = _ref.title;
+  var start = _ref.start;
+  var meeting = _ref.meeting;
+  var remove = _ref.remove;
+  var id = _ref.id;
+  var listId = _ref.listId;
+  var walkSelected = _ref.walkSelected;
+  var addWalkDialog = _ref.addWalkDialog;
+
+  var removeButton = remove ? {
+    $$typeof: _typeofReactElement,
+    type: "button",
+    key: null,
+    ref: null,
+    props: {
+      className: "action removeWalk",
+      onClick: function (ev) {
+        return remove(id, listId, ev.target.value);
+      }
+    },
+    _owner: null
+  } : null;
+  var addButton = addWalkDialog ? {
+    $$typeof: _typeofReactElement,
+    type: "button",
+    key: null,
+    ref: null,
+    props: {
+      className: "action addWalk",
+      onClick: function (ev) {
+        addWalkDialog();walkSelected(id, ev.target.value);
+      }
+    },
+    _owner: null
+  } : null;
+
+  return {
+    $$typeof: _typeofReactElement,
+    type: "li",
+    key: null,
+    ref: null,
+    props: {
+      children: [{
+        $$typeof: _typeofReactElement,
+        type: "div",
+        key: null,
+        ref: null,
+        props: {
+          children: [{
+            $$typeof: _typeofReactElement,
+            type: "h3",
+            key: null,
+            ref: null,
+            props: {
+              children: title
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: "h4",
+            key: null,
+            ref: null,
+            props: {
+              children: (0, _ItineraryUtils.dateFormatted)(start)
+            },
+            _owner: null
+          }, {
+            $$typeof: _typeofReactElement,
+            type: "h4",
+            key: null,
+            ref: null,
+            props: {
+              children: meeting
+            },
+            _owner: null
+          }],
+          className: "walk"
+        },
+        _owner: null
+      }, removeButton, addButton],
+      className: "walklistItem"
+    },
+    _owner: null
+  };
+};
+
+Walk.propTypes = {
+  title: React.PropTypes.string,
+  time: React.PropTypes.number,
+  meeting: React.PropTypes.string,
+  id: React.PropTypes.number.isRequired,
+  remove: React.PropTypes.func.isRequired,
+  addWalkDialog: React.PropTypes.func.isRequired
+};
+
+Walk.defaultProps = {
+  title: 'Walk Title',
+  time: Date.now(),
+  remove: null,
+  addWalkDialog: null
+};
+
+exports["default"] = Walk;
+module.exports = exports["default"];
+
+
+},{"./ItineraryUtils":257}],259:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -41537,7 +42793,7 @@ exports['default'] = CityPageView;
 module.exports = exports['default'];
 
 
-},{"../Page.jsx":226}],249:[function(require,module,exports){
+},{"../Page.jsx":227}],260:[function(require,module,exports){
 'use strict';
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
@@ -41675,7 +42931,7 @@ HomePageView.prototype = Object.create(PageView.prototype, {
 module.exports = HomePageView;
 
 
-},{"../Page.jsx":226}],250:[function(require,module,exports){
+},{"../Page.jsx":227}],261:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -42219,7 +43475,7 @@ exports['default'] = ProfilePageView;
 module.exports = exports['default'];
 
 
-},{"../../stores/ProfileStore.js":262,"../Page.jsx":226,"../profile/ImpactReport.jsx":253}],251:[function(require,module,exports){
+},{"../../stores/ProfileStore.js":273,"../Page.jsx":227,"../profile/ImpactReport.jsx":264}],262:[function(require,module,exports){
 'use strict';
 
 var PageView = require('../Page.jsx');
@@ -42320,7 +43576,7 @@ WalkPageView.prototype = Object.create(PageView.prototype, {
 module.exports = WalkPageView;
 
 
-},{"../FacebookShareDialog.jsx":223,"../Page.jsx":226,"../WalkMap.jsx":229}],252:[function(require,module,exports){
+},{"../FacebookShareDialog.jsx":224,"../Page.jsx":227,"../WalkMap.jsx":230}],263:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -42407,7 +43663,7 @@ exports['default'] = HBarChart;
 module.exports = exports['default'];
 
 
-},{}],253:[function(require,module,exports){
+},{}],264:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -42933,7 +44189,7 @@ exports['default'] = ImpactReport;
 module.exports = exports['default'];
 
 
-},{"./HBarChart.jsx":252,"react-d3":37,"react-d3/barchart":17}],254:[function(require,module,exports){
+},{"./HBarChart.jsx":263,"react-d3":37,"react-d3/barchart":17}],265:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43315,7 +44571,7 @@ exports["default"] = RemoveSelfAsCO;
 module.exports = exports["default"];
 
 
-},{}],255:[function(require,module,exports){
+},{}],266:[function(require,module,exports){
 /**
  * Basic constants for route app
  */
@@ -43334,14 +44590,17 @@ var ActionTypes = [
 'WALK_RECEIVE', 'WALK_SAVE', 'WALK_PUBLISH',
 
 // Areas
-'AREA_RECEIVE'].reduce(function (p, k) {
+'AREA_RECEIVE',
+
+// Users
+'USER_RECEIVE'].reduce(function (p, k) {
   p[k] = k;return p;
 }, {});
 
 exports.ActionTypes = ActionTypes;
 
 
-},{}],256:[function(require,module,exports){
+},{}],267:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -43359,7 +44618,7 @@ exports.register = register;
 exports.dispatch = dispatch;
 
 
-},{"flux":4}],257:[function(require,module,exports){
+},{"flux":4}],268:[function(require,module,exports){
 /*
  * Helpers for building React pages with
  *
@@ -43396,7 +44655,7 @@ exports.objectToArray = function (obj) {
 };
 
 
-},{}],258:[function(require,module,exports){
+},{}],269:[function(require,module,exports){
 /**
  * TODO: replace both of these silly 2-way binding helpers with flux
  */
@@ -43424,7 +44683,7 @@ var linkedParentState = {
 exports.linkedParentState = linkedParentState;
 
 
-},{}],259:[function(require,module,exports){
+},{}],270:[function(require,module,exports){
 /**
  * i18n translation class
  *
@@ -43515,7 +44774,7 @@ Object.defineProperties(I18nTranslator.prototype, {
 module.exports = I18nTranslator;
 
 
-},{}],260:[function(require,module,exports){
+},{}],271:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -43569,7 +44828,7 @@ exports['default'] = AreaStore;
 module.exports = exports['default'];
 
 
-},{"../constants/JWConstants.js":255,"../dispatcher/AppDispatcher":256,"events":2}],261:[function(require,module,exports){
+},{"../constants/JWConstants.js":266,"../dispatcher/AppDispatcher":267,"events":2}],272:[function(require,module,exports){
 /**
  * i18n Store
  *
@@ -43642,7 +44901,7 @@ exports['default'] = I18nStore;
 module.exports = exports['default'];
 
 
-},{"../constants/JWConstants":255,"../dispatcher/AppDispatcher":256,"../helpers/translate.js":259,"events":2}],262:[function(require,module,exports){
+},{"../constants/JWConstants":266,"../dispatcher/AppDispatcher":267,"../helpers/translate.js":270,"events":2}],273:[function(require,module,exports){
 'use strict';
 
 var _typeofReactElement = typeof Symbol === 'function' && Symbol['for'] && Symbol['for']('react.element') || 60103;
@@ -43778,7 +45037,57 @@ JanesWalk.event.on('profile.co.receive', function (_ref2) {
 });
 
 
-},{"../components/profile/ImpactReport.jsx":253,"../components/profile/RemoveSelfAsCO.jsx":254}],263:[function(require,module,exports){
+},{"../components/profile/ImpactReport.jsx":264,"../components/profile/RemoveSelfAsCO.jsx":265}],274:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+var _dispatcherAppDispatcher = require('../dispatcher/AppDispatcher');
+
+var _events = require('events');
+
+var _constantsJWConstantsJs = require('../constants/JWConstants.js');
+
+var CHANGE_EVENT = 'change';
+
+var _user = undefined;
+
+var UserStore = Object.assign(_events.EventEmitter.prototype, {
+  emitChange: function emitChange() {
+    this.emit(CHANGE_EVENT);
+  },
+
+  addChangeListener: function addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
+  },
+
+  removeChangeListener: function removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getUser: function getUser() {
+    return _user;
+  },
+
+  dispatcherIndex: (0, _dispatcherAppDispatcher.register)(function (action) {
+    switch (action.type) {
+      case _constantsJWConstantsJs.ActionTypes.USER_RECEIVE:
+        _user = action.user;
+        break;
+    }
+
+    UserStore.emitChange();
+  })
+
+});
+
+exports['default'] = UserStore;
+module.exports = exports['default'];
+
+
+},{"../constants/JWConstants.js":266,"../dispatcher/AppDispatcher":267,"events":2}],275:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
