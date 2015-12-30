@@ -5,7 +5,6 @@ import { dateFormatted } from '../../../../../../blocks/page_list/templates/itin
 //TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
 
 const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFavourites, favoriteListId, itineraryListId}) => {
-  debugger;
   const favButton = () => {
     if (existsInFavourites) return <button className="removeFavourite" onClick={()=>remove(id,favoriteListId)}> </button>;
     else return <button className="addFavourite" onClick={()=>add(id,favoriteListId)}> </button>;
