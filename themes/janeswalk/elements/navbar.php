@@ -1,8 +1,8 @@
 <?php
 $u = new User();
-$ui = UserInfo::getByID($u->getUserID());
 
-if ($u) {
+if ($u->getUserID()) {
+    $ui = UserInfo::getByID($u->getUserID());
     $userInfo = [
       'name' => $u->getUserName(),
       'firstName' => $ui->getAttribute('first_name')
