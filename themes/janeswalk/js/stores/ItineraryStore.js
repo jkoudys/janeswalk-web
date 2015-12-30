@@ -1,7 +1,7 @@
-import {dispatch, register} from './ItineraryDispatcher';
+import {dispatch, register} from '../dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
-import Actions from './ItineraryConstants';
-import {lists, walks} from './ItineraryStaticData';
+import {ActionTypes} from '../constants/JWConstants.js';
+import {lists, walks} from '../components/itinerary/ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
@@ -137,36 +137,38 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
 
   existsInList(listId,id) {
     const list = _allLists.find(list => list.id === listId);
-    return list.walks.find(walk => walk.id === id);
+    if (list) {
+      return list.walks.find(walk => walk.id === id);
+    }
   },
 
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(action) {
     switch (action.type) {
-    case Actions.REMOVE_WALK:
+    case ActionTypes.ITINERARY_REMOVE_WALK:
       _removeWalk(action.id, action.list);
       break;
-    case Actions.ADD_WALK:
+    case ActionTypes.ITINERARY_ADD_WALK:
        //TODO: Dialog to open on first add to Itinerary/Favourites
       _addWalk(action.id, action.list);
       break;
-    case Actions.UPDATE_TITLE:
+    case ActionTypes.ITINERARY_UPDATE_TITLE:
       _updateTitle(action.title);
       break;
-    case Actions.UPDATE_DESCRIPTION:
+    case ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
       _updateDescription(action.description);
       break;
-    case Actions.VIEW_LIST:
+    case ActionTypes.ITINERARY_VIEW_LIST:
       _getWalks(action.id);
       break;
-    case Actions.CREATE_LIST:
+    case ActionTypes.ITINERARY_CREATE_LIST:
       let newList = _createList(action.title);
       _addWalk(action.id, newList.id);
       break;
-    case Actions.WALK_SELECTED:
+    case ActionTypes.ITINERARY_WALK_SELECTED:
       _walkSelected = action.id;
       break;
-    case Actions.ADD_WALK_DIALOG:
+    case ActionTypes.ITINERARY_ADD_WALK_DIALOG:
       _walkDialogOpen = !_walkDialogOpen;
       break;
     }

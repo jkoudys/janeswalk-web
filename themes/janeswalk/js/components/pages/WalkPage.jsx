@@ -1,4 +1,3 @@
-import React from 'react';
 import WalkPage from './WalkPage/WalkPage.jsx';
 
 let _walk;

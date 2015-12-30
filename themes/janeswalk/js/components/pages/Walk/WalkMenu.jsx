@@ -1,5 +1,4 @@
-import React from 'react';
-import { dateFormatted } from '../../../../../../blocks/page_list/templates/itinerary/itinerary/ItineraryUtils';
+import {dateFormatted} from '../../../utils/ItineraryUtils';
 import WalkAccessibility from './WalkAccessibility.jsx';
 import WalkPublicTransit from './WalkPublicTransit.jsx';
 import WalkParking from './WalkParking.jsx';
@@ -7,10 +6,13 @@ import WalkParking from './WalkParking.jsx';
 //TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 //TODO: Make walkMenu sticky - will complete after Dashboard
 
-const WalkMenu = ({walk,filters}) => {
+const WalkMenu = ({walk, filters}) => {
 
   const {checkboxes, title, map, time, team} = walk;
-  const {theme} = filters;
+  let theme = {data: {}};
+  if (filters) {
+    theme = filters.theme;
+  }
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
   //TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>
