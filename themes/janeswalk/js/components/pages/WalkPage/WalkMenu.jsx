@@ -1,24 +1,22 @@
 import React from 'react';
-
-//TODO: Define as a path in a common place to share with other components
 import { dateFormatted } from '../../../../../../blocks/page_list/templates/itinerary/itinerary/ItineraryUtils';
+import WalkAccessibility from './WalkAccessibility.jsx';
+import WalkPublicTransit from './WalkPublicTransit.jsx';
+import WalkParking from './WalkParking.jsx';
 
 //TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
-//TODO: Cleanup display of tags, perhaps using a simple lookup
+//TODO: Make walkMenu sticky - will complete after Dashboard
 
-const WalkMenu = ({walk}) => {
+const WalkMenu = ({walk,filters}) => {
 
-  let {checkboxes, title, map, time, team} = walk;
+  const {checkboxes, title, map, time, team} = walk;
+  const {theme} = filters;
   const walkLeader = team.find(member => member.role === 'walk-leader');
-  const tags = Object.keys(checkboxes).filter(item => item.includes('theme-civic'));
 
-  const tagsRef = {
-    'theme-civic-goodneighbour': 'Community',
-    'theme-civic-international': 'International Issues',
-    'theme-civic-religion': 'Religion',
-  };
+  //TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>
+  const tags = Object.keys(checkboxes).filter(item => item.includes('theme'));
 
-  const menuItems = ['About This Walk', 'Walk Route', 'Accessibility', 'Taking Public Transit', 'How to find us', 'About the Walk Team'];
+  const menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'About the Walk Team'];
 
   return (
     <section className="walkMenu">
@@ -27,6 +25,9 @@ const WalkMenu = ({walk}) => {
         <h6>Led By {walkLeader['name-first']} {walkLeader['name-last']} </h6>
         <h6>{dateFormatted(time.slots[0][0])}</h6>
         <h6>Meeting at {map.markers[0].title}</h6>
+        <WalkAccessibility {...walk} {...filters} style="walk-menu-navigation"/>
+        <WalkPublicTransit {...walk} style="walk-menu-navigation"/>
+        <WalkParking {...walk} style="walk-menu-navigation"/>
       </header>
       <section className="menu">
         <ul>
@@ -34,8 +35,11 @@ const WalkMenu = ({walk}) => {
         </ul>
       </section>
       <section className="tags">
-        {tags.map((tag,i) => <span key={i}>#{tagsRef[tag]}, </span>)}
+        {tags.map((tag,i) => <span className="tag" key={i}>#{theme.data[tag.split('-').slice(1, 3).join('-')]}</span>)}
       </section>
+      <WalkAccessibility {...walk} {...filters} style="walk-menu-navigation"/>
+      <WalkPublicTransit {...walk} style="walk-menu-navigation"/>
+      <WalkParking {...walk} style="walk-menu-navigation"/>
     </section>
   );
 };
