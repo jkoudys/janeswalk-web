@@ -1,5 +1,5 @@
 <?php  defined('C5_EXECUTE') || die('Access Denied.') ?>
-    <footer role="contentinfo">
+<?php /*    <footer role="contentinfo">
         <nav>
             <div class="social-icons">
                 <a href="http://twitter.com/janeswalk" target="_blank"><i class="fa fa-twitter"></i></a>
@@ -9,7 +9,8 @@
                 <?php (new GlobalArea('Footer'))->display($c) ?>
             </div>
         </nav>
-    </footer>
+        </footer> */ ?>
+<img src="http://tuckermclachlan.com/janeswalk/footer.jpg" style="width: 100%">
     <div id="progress" style="z-index: -1;"></div>
     <script type="text/javascript">
         var _gaq = _gaq || [];
