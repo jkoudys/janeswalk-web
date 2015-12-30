@@ -1,9 +1,9 @@
 import React from 'react';
 
-const WalkPublicTransit = ({accessibleTransit}) => (
-  <section className="walkPublicTransit">
-    <a name="Taking Public Transit"></a>
-    <h2>Public Transit</h2>
+const WalkPublicTransit = ({accessibleTransit, style}) => (
+  <section className={`walkPublicTransit ${style}`}>
+    {style === 'walk-page' ? <a name="Taking Public Transit"></a> : ''}
+    <h2>Taking Public Transit</h2>
     {accessibleTransit}
   </section>
 );
