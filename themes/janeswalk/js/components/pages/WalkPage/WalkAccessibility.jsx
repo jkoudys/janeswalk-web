@@ -4,7 +4,7 @@ const WalkAccessibility = ({checkboxes, accessibility, style}) => {
 
   return (
     <section className={`walkAccessibility ${style}`}>
-      {style === 'walk-page' ? <a name="Accessibility"></a> : ''}
+      {style === 'walk-page' ? <a name="Accessibility"></a> : null}
       <h2>Accessibility</h2>
       <ul>
         {accessibilityKeys.map((k,i) => (<li key={i}>{accessibility.data[k.split('-')[1]]}</li>))}
