@@ -1,6 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 //TODO: WalkMap.jsx already exists, review and re-use
 
 const InfoWindow = ({title, description}) => (
@@ -32,7 +29,7 @@ export default class WalkMap extends React.Component {
 
     };
 
-    const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this),mapOptions);
+    const googleMap = new google.maps.Map(React.findDOMNode(this),mapOptions);
 
     let routeCoordinates = [];
 
@@ -46,7 +43,7 @@ export default class WalkMap extends React.Component {
       });
 
       google.maps.event.addListener(marker, 'click', ()=>{
-        ReactDOM.render(<InfoWindow {...m}/>, _infoNode);
+        React.render(<InfoWindow {...m}/>, _infoNode);
 
         infoWindow.setMap(googleMap);
         googleMap.panTo(marker.getPosition());

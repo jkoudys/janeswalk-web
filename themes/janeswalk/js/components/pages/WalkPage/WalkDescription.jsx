@@ -1,5 +1,3 @@
-import React from 'react';
-
 const WalkDescription = ({longDescription}) => (
   <section className="walkDescription">
     <a name="About This Walk"></a>

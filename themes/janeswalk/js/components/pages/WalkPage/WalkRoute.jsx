@@ -1,5 +1,3 @@
-import React from 'react';
-
 const WalkRoute = ({map}) => (
   <section className="walkRoute">
     <a name="Walk Route"></a>

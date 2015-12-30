@@ -1,5 +1,3 @@
-import React from 'react';
-
 const WalkParking = ({accessibleParking, style}) => (
     <section className={`walkParking ${style}`}>
      {style === 'walk-page' ? <a name="Parking Availability"></a> : ''}

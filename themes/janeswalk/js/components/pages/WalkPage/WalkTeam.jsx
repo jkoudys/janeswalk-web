@@ -1,5 +1,3 @@
-import React from 'react';
-
 const WalkTeam = ({team}) => {
   let generateLinks = (member) => {
     const connections = [

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const WalkStart = ({accessibleFind}) => (
   <section className="walkStart">
     <a name="How to find us"></a>

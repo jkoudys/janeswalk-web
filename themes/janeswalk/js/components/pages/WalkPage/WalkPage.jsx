@@ -1,5 +1,3 @@
-import React from 'react';
-
 //TODO: Define as a path in a common place to share with other components
 import ItineraryActions from '../../../../../../blocks/page_list/templates/itinerary/ItineraryActions';
 import ItineraryStore from '../../../../../../blocks/page_list/templates/itinerary/ItineraryStore';

@@ -1,5 +1,3 @@
-import React from 'react';
-
 const WalkAccessibility = ({checkboxes, accessibility, style}) => {
 
   const accessibilityKeys = Object.keys(checkboxes).filter(item => item.includes("accessible"));
