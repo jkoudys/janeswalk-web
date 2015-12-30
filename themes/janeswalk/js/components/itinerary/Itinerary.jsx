@@ -1,11 +1,9 @@
-import React from 'react';
 import ItineraryStore from './ItineraryStore';
 import ItineraryActions from './ItineraryActions';
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
 import AddWalkToListDialog from './AddWalkToListDialog.jsx';
-import './view.less';
 
 const getItinerary = () => ({
   walks: ItineraryStore.getActiveList().walks,
@@ -57,7 +55,6 @@ export default class Itinerary extends React.Component {
     return (
       <dialog open id="itinerary">
         <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
-        <img id="name_donate" src="http://tuckermclachlan.com/janeswalk/namedonate.png"/>
         <div className="itinerary">
           <section>
             <ItineraryHeader {...this.state} {...ItineraryActions}/>

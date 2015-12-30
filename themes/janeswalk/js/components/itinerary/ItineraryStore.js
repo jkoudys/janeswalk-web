@@ -1,5 +1,5 @@
-import { dispatch, register } from './ItineraryDispatcher';
-import { EventEmitter } from 'events';
+import {dispatch, register} from './ItineraryDispatcher';
+import {EventEmitter} from 'events';
 import Actions from './ItineraryConstants';
 import {lists, walks} from './ItineraryStaticData';
 
@@ -65,7 +65,8 @@ const _createList = (title) => {
     });
   }
 
-  return _allLists[_allLists.length-1]; //Returning list, since after _createList, _addWalk is called, so passing around the list
+  //Returning list, since after _createList, _addWalk is called, so passing around the list
+  return _allLists[_allLists.length - 1];
 };
 
 //walks received from API used to update _itinerary

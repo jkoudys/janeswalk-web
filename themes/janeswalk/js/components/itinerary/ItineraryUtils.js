@@ -1,4 +1,4 @@
-export function	dateFormatted(dateInSeconds) {
+export function dateFormatted(dateInSeconds) {
   let dtfDate;
   // Date formatted
   if (typeof(Intl) === 'object') {

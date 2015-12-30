@@ -1,5 +1,5 @@
 import Actions from './ItineraryConstants';
-import { dispatch } from './ItineraryDispatcher';
+import {dispatch} from './ItineraryDispatcher';
 
 
 //TODO: API call before dispatch
@@ -7,12 +7,10 @@ import { dispatch } from './ItineraryDispatcher';
 export default {
 
   remove(id, list) {
-    debugger;
     dispatch({type: Actions.REMOVE_WALK, id, list});
   },
 
   add(id, list) {
-    debugger;
     dispatch({type: Actions.ADD_WALK, id, list});
   },
 

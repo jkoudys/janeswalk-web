@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default class AddWalkToListDialog extends React.Component {
   constructor(...args) {
     super(...args);
@@ -15,14 +13,14 @@ export default class AddWalkToListDialog extends React.Component {
 
     const allLists = lists.map(list => {
 
-      const {id,title,walks} = list;
+      const {id, title, walks} = list;
 
       const walkFound = walks.find(walk => walk.id === activeWalk);
 
       if (walkFound){
         return (
           <li key={id} onClick={(ev) => add(activeWalk,list.id,ev.target.value)}>
-            <span className="glyphicon glyphicon-ok">{title}</span>
+            <span className="fa fa-check">{title}</span>
           </li>
         )
       } else {
@@ -42,7 +40,7 @@ export default class AddWalkToListDialog extends React.Component {
 
         <input placeholder="create a new list..." value={newList} onChange={ev => {this.setState({newList:ev.target.value})}}></input>
 
-        <button onClick={ev => {createList(activeWalk, newList);this.setState({newList:null})}}>Create</button>
+        <button onClick={ev => {createList(activeWalk, newList); this.setState({newList:null})}}>Create</button>
         <button onClick={ev => addWalkDialog()}>Close</button>
       </dialog>
     )

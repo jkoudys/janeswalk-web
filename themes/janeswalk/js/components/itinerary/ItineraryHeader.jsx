@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default class ItineraryHeader extends React.Component {
   constructor(...args) {
     super(...args);
@@ -90,6 +88,6 @@ ItineraryHeader.propTypes = {
 };
 
 ItineraryHeader.defaultProps = {
-  title:"My Itinerary",
-  description:"Test",
+  title: 'My Itinerary',
+  description: 'Test',
 };
