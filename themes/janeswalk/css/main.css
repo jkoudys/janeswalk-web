@@ -13011,6 +13011,261 @@ body.city-page > #blog:after {
     margin-top: 0 !important;
   }
 }
+.addFavourite,
+.removeFavourite {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border: none;
+  background: none;
+}
+.addFavourite:before,
+.removeFavourite:before {
+  content: "\e005";
+}
+.walkPage .removeFavourite {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border: none;
+  background: none;
+  color: orange;
+}
+.walkPage .removeFavourite:before {
+  content: "\e005";
+}
+.walkPage .addItinerary,
+.walkPage .removeItinerary {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: 6px;
+  border: 1px solid #F16725;
+  padding: 5px 7px;
+  font-size: 13px;
+  opacity: 0.7;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: -5px 10px -6px;
+}
+.walkPage .addItinerary:before,
+.walkPage .removeItinerary:before {
+  content: "\e109";
+}
+.walkPage .addItinerary::after,
+.walkPage .removeItinerary::after {
+  font-family: 'Roboto Slab';
+  content: "I'm Going";
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+}
+.walkPage .addItinerary {
+  background: none;
+  color: #F16725;
+}
+.walkPage .addItinerary:hover {
+  opacity: 1;
+}
+.walkPage .removeItinerary {
+  color: #fff;
+  background: #F16725;
+  opacity: 0.95;
+}
+.walkPage .walkAccessibility ul {
+  list-style: none;
+}
+.walkPage .walkMenu {
+  width: 30%;
+  position: absolute;
+  right: 55px;
+  padding-top: 87px;
+  /* opacity: 0.5; */
+}
+.walkPage .walkMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+.walkPage .walkMenu h5,
+.walkPage .walkMenu h6,
+.walkPage .walkMenu a,
+.walkPage .walkMenu .tags {
+  font-size: 13px;
+}
+.walkPage .walkMenu h5 {
+  font-weight: 600;
+}
+.walkPage .walkMenu h6 {
+  margin: 5px 0;
+}
+.walkPage .walkMenu .tags {
+  opacity: 0.7;
+}
+.walkPage .walkMenu .tags span.tag {
+  display: block;
+}
+.walkPage .walkMenu .walk-menu-navigation {
+  padding: 0;
+  font-size: 13px;
+}
+.walkPage .walkMenu .walk-menu-navigation h2 {
+  margin: 10px 0 0;
+}
+.walkPage .walkMenu .walk-menu-navigation h2,
+.walkPage .walkMenu .walk-menu-navigation ul {
+  font-size: 13px;
+}
+.walkPage .walkMenu .walk-menu-navigation ul {
+  margin-top: 3px;
+}
+.walkPage .walkMenu .walk-menu-navigation ul li::before {
+  font-size: 22px;
+}
+.walkPage > .walkHeader {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 50px;
+}
+.walkPage > .walkHeader .coverImage {
+  height: 350px;
+  background-image: url('http://www.tuckermclachlan.com/janeswalk/himy_walkphoto.jpg');
+  background-size: cover;
+}
+.walkPage > .walkHeader .breadcrumb {
+  position: absolute;
+  border-radius: 0;
+  border-bottom-right-radius: 6px;
+  background: #fff;
+}
+.walkPage > .walkHeader h1,
+.walkPage > .walkHeader h4 {
+  padding-left: 70px;
+}
+.walkPage > .walkHeader h1 {
+  padding-top: 30px;
+  font-weight: 300;
+  width: 80%;
+  font-size: 38px;
+  margin-bottom: 16px;
+}
+.walkPage > .walkHeader h1 .addFavourite {
+  position: relative;
+  top: -2px;
+  font-size: 22px;
+  opacity: 0.5;
+  color: #F16725;
+  margin-left: 7px;
+}
+.walkPage > .walkHeader h1 .addFavourite:hover {
+  font-size: 30px;
+  top: 2px;
+  margin-left: 2px;
+}
+.walkPage > .walkHeader h1 .removeFavourite {
+  line-height: 0;
+  font-size: 30px;
+  position: relative;
+  top: 2px;
+  margin-left: 2px;
+  color: #F16725;
+}
+.walkPage > .walkHeader h4 {
+  margin: 5px 0;
+  font-size: 16px;
+}
+.walkPage .walkDescription,
+.walkPage .walkRoute,
+.walkPage .walkAccessibility,
+.walkPage .walkPublicTransit,
+.walkPage .walkStart,
+.walkPage .walkTeam,
+.walkPage .walkParking {
+  padding: 25px 70px 0;
+  width: 65%;
+}
+.walkPage .walkDescription h2,
+.walkPage .walkRoute h2,
+.walkPage .walkAccessibility h2,
+.walkPage .walkPublicTransit h2,
+.walkPage .walkStart h2,
+.walkPage .walkTeam h2,
+.walkPage .walkParking h2 {
+  font-size: 22px;
+}
+.walkPage .walkDescription {
+  padding: 40px 70px 50px;
+}
+.walkPage .walkDescription article {
+  font-size: 18px;
+  font-weight: 300;
+}
+.walkPage .walkDescription article ul li {
+  margin-bottom: 5px;
+}
+.walkPage .walkRoute ol {
+  padding: 0 19px;
+  font-size: 20px;
+  font-weight: 300;
+}
+.walkPage .walkRoute ol li h2 {
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+.walkPage .walkRoute ol li p {
+  font-size: 18px;
+  padding-left: 39px;
+}
+.walkPage .walkAccessibility ul {
+  padding: 0;
+  font-size: 20px;
+  font-weight: 300;
+}
+.walkPage .walkAccessibility ul li::before {
+  content: "✔";
+  color: #00C46E;
+  margin-right: 7px;
+  font-size: 28px;
+  line-height: 0;
+  position: relative;
+  top: 2px;
+}
+.walkPage .walkPublicTransit,
+.walkPage .walkStart,
+.walkPage .walkParking {
+  font-size: 20px;
+  font-weight: 300;
+}
+.walkPage .walkTeam {
+  margin-bottom: 100px;
+}
+.walkPage .walkTeam .walkTeamMemberRole {
+  font-weight: 300;
+}
+.walkPage .walkTeam h3 {
+  font-size: 19px;
+}
+.walkPage .walkTeam summary {
+  font-size: 18px;
+  font-weight: 300;
+}
 .custom-walk-page {
   padding-top: 160px;
 }
