@@ -5,6 +5,8 @@
  */
 // Translations for i18n L10n
 import * as I18nUtils from './utils/I18nUtils.js';
+import * as AreaActions from './actions/AreaActions.js';
+import Navbar from './components/Navbar.jsx';
 
 // Page Views
 const PageViews = {
@@ -68,6 +70,9 @@ function routePage() {
     'PageView';
   const ReactView = ReactViews[pageViewName];
 
+  // Render our header first
+  React.render(<Navbar />, document.getElementById('navbar'));
+
   try {
     // Render modals we need on each page
     const loginEl = <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />;
@@ -111,6 +116,8 @@ function routePage() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  JanesWalk.event.on('area.receive', areas => AreaActions.receive(areas));
+
   // Process all deferred events
   JanesWalk.event.activate();
 

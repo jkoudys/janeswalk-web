@@ -1,41 +1,25 @@
 <?php
-$c = Page::getCurrentPage();
 $u = new User();
 $ui = UserInfo::getByID($u->getUserID());
 
-// Array of various states the page can be in
-$pageState = [];
-if ($c->isEditMode()) $pageState[] = 'edit';
-if ($_REQUEST['query']) $pageState[] = 'dropped';
+$userInfo = [
+  'name' => $u->getUserName(),
+  'firstName' => $ui->getAttribute('first_name')
+];
 
-/* Build menu options depending if currently logged in or not */
-if ($u->isRegistered()) {
-  $profileMenu = '<li><a href="' . ($this->url('/profile')) . '">' . ($ui->getAttribute('first_name') ? : $u->getUserName()) . '</a></li>'
-    . '<li><a href="' . ($this->url('/login', 'logout')) . '">' . t('Logout') . '</a></li>';
-} else {
-  $profileMenu = '<li><a href="' . ($this->url('/register')) . '">' . tc('Register on a website', 'Join') . '</a></li>'
-    . '<li><a onclick="$(\'#login\').modal()">' . t('Log in') . '</a></li>';
-}
+// Capture renderable areas
+ob_start();
+(new GlobalArea('Left Header'))->display($c);
+$LeftHeader = ['Left Header' => ob_get_clean()];
+
+ob_start();
+(new GlobalArea('Dropdown'))->display($c);
+$Dropdown = ['Dropdown' => ob_get_clean()];
 
 ?>
-<header class="<?= join($pageState, ' ') ?>">
-  <nav role="navigation">
-    <a href="<?= $this->url('') ?>" class="logo">
-      <span><?= $SITE ?></span>
-    </a>
-    <ul class="nav">
-      <li>
-        <a class="search-open"><i class="fa fa-search"></i></a>
-        <a class="search-close"><i class="fa fa-search"></i></a>
-      </li>
-      <?= $profileMenu ?>
-      <li>
-        <a href="<?= Loader::helper('navigation')->getLinkToCollection(Page::getByPath('/donate')) ?>" id="donate">Donate</a>
-      </li>
-    </ul>
-    <?php (new GlobalArea('Left Header'))->display($c); ?>
-  </nav>
-  <div class="navbar-outer">
-    <?php (new GlobalArea('Dropdown'))->display($c); ?>
-  </div>
-</header>
+<script>
+  JanesWalk.event.emit('user.receive', <?= json_encode($userInfo) ?>);
+  JanesWalk.event.emit('area.receive', <?= json_encode($LeftHeader) ?>);
+  JanesWalk.event.emit('area.receive', <?= json_encode($Dropdown) ?>);
+</script>
+<span id="navbar"></span>

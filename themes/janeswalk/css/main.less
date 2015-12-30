@@ -1,5 +1,6 @@
 // Import bootstrap 3 mixins and variables so we can use them */
 @import "build/bootstrap-3.2.0/bootstrap.less";
+@import "build/bootstrap-3.2.0/glyphicons.less";
 
 // Import our theme variables. */
 @import "presets/defaults.less";
@@ -23,10 +24,13 @@
 body {
   @import "build/header.less";
   @import "build/footer.less";
+  @import "build/itinerary.less";
+}
+#modals {
+  @import "build/modals.less";
 }
 @import "build/pagination.less";
 @import "build/buttons.less";
-@import "build/modals.less";
 
 @import "build/elements/walk-card.less";
 // Block imports

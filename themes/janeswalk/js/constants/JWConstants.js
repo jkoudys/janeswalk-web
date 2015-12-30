@@ -10,7 +10,10 @@ const ActionTypes = [
   // Walks
   'WALK_RECEIVE',
   'WALK_SAVE',
-  'WALK_PUBLISH'
+  'WALK_PUBLISH',
+
+  // Areas
+  'AREA_RECEIVE'
 ].reduce((p, k) => {p[k] = k; return p}, {});
 
 export {ActionTypes};
