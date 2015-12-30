@@ -2,10 +2,12 @@
 $u = new User();
 $ui = UserInfo::getByID($u->getUserID());
 
-$userInfo = [
-  'name' => $u->getUserName(),
-  'firstName' => $ui->getAttribute('first_name')
-];
+if ($u) {
+    $userInfo = [
+      'name' => $u->getUserName(),
+      'firstName' => $ui->getAttribute('first_name')
+  ];
+}
 
 // Capture renderable areas
 ob_start();
