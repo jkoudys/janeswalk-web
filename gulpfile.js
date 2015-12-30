@@ -65,7 +65,12 @@ gulp.task('js.theme', function() {
 
 gulp.task('js.blocks', function() {
   // Run for each block view in array
-  return ['./blocks/search/templates/header/', './blocks/page_list/templates/typeahead/', './blocks/page_list/templates/walk_filters/'].map(function(template) {
+  return [
+    './blocks/search/templates/header/',
+    './blocks/page_list/templates/typeahead/',
+    './blocks/page_list/templates/walk_filters/',
+    './blocks/page_list/templates/itinerary'
+  ].map(function(template) {
     return browserify({
       entries: template + 'view.jsx',
       transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],

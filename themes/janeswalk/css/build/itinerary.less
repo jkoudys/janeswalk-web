@@ -1,16 +1,18 @@
-
-#itinerary{
-  max-width: 65%;
+#itinerary {
+  .make-md-column(8);
+  .clearfix();
   position: absolute;
   right: 0;
+  top: 0;
   margin-right: 0;
-  box-shadow: -1px -4px 33px rgba(0,0,50,0.85);
-  border-color: white;
+  box-shadow: -1px -4px 33px rgba(0, 0, 50, 0.85);
+  border-color: #fff;
   background: #fff;
-  min-width: 700px;
   height: 100%;
   padding: 2.25rem 5.5rem;
-  overflow-y: scroll;
+  overflow-y: auto;
+  z-index: -1;
+
   ul {
     list-style: none;
     padding-left: 0;
@@ -24,9 +26,9 @@
     }
     input {
       width: 104px;
-      font-size: 12px; 
+      font-size: 12px;
       border: 0px;
-      border-bottom: 1px solid #cccccc;
+      border-bottom: 1px solid #ccc;
       margin-right: 3px;
       opacity: 0.75;
       transition: border-bottom 0.3s;
@@ -65,12 +67,7 @@
     }
   }
 }
-#name_donate {
-  position: fixed;
-  top: 0;
-  right: 30px;
-  z-index: 5;
-}
+
 .itinerary {
   margin: 30px auto 5rem;
   ul {
@@ -84,7 +81,7 @@
   }
 
   .walk {
-    //.clearfix();
+    .clearfix();
     max-width: 70%;
     float: left;
     h3, h4 {
@@ -204,7 +201,7 @@
     width: 76%;
     line-height: 1.3;
     margin: 20px 0 10px;
-    textarea { 
+    textarea {
       width: 100%;
       outline: none;
       height: 100px;
@@ -231,7 +228,7 @@
         width: 100%;
         height: 110px;
         border: 1px solid #F16725;
-        border-bottom: 3px solid @@color-orange;
+        border-bottom: 3px solid @color-orange;
         font-weight: 300;
         letter-spacing: 0.1rem;
         resize: none;
@@ -244,7 +241,7 @@
           background-color: #fff;
         }
       }
-      &:focus:valid { 
+      &:focus:valid {
         &~span.update {
           opacity: 0.9;
           top: 3px;
@@ -288,10 +285,10 @@
     position: relative;
     top: 0;
     transition: opacity 0.3s, top 0.3s;
-    &::before {
+    &:before {
       font-family: "Glyphicons Halflings";
       font-size: smaller;
       content: "";
-    } 
+    }
   }
 }

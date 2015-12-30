@@ -157,9 +157,7 @@ class ProfileController extends Concrete5_Controller_Profile
 
                 // Export to view
                 $this->set('cityWalks', $cityWalks);
-                $this->set('cityHasWalks', !empty($cityWalks));
                 $this->set('city', $city);
-                $this->set('featuredWalkData', $featuredWalkData);
 
                 // If the user is a city organizer
                 if ($userIsCityOrganizer === true) {
@@ -341,6 +339,14 @@ class ProfileController extends Concrete5_Controller_Profile
         echo json_encode($response);
         exit;
     }
+
+    /**
+     * Get or set itineraries and favourites lists
+     */
+    public function walkList(array $options = ['scheduled', 'categorized'])
+    {
+
+    }
 }
 
 class CityExporter
@@ -424,7 +430,7 @@ class CityExporter
             usort($outings, function($a, $b) {
                 $ta = $a->time['slots'][0][0];
                 $tb = $b->time['slots'][0][0];
-                return $ta < $tb ? -1 : 1;
+                return $ta - $tb;
             });
 
             foreach ($outings as $outing) {

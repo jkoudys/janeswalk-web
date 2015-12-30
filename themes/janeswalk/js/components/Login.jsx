@@ -4,9 +4,9 @@ function t(str) {
   return args.shift().replace(/%(s|d)/g, () => args.shift());
 }
 
-const Message = (props) => (
-  <div className={'alert alert-' + (props.success ? 'info' : 'danger')}>
-    {props.msg}{props.error}
+const Message = ({success, msg, error}) => (
+  <div className={'alert alert-' + (success ? 'info' : 'danger')}>
+    {msg}{error}
   </div>
 );
 
@@ -86,6 +86,9 @@ export default class Login extends React.Component {
   }
 
   render() {
+    const {socialLogin} = this.props;
+    const {email, password} = this.state;
+
     let message;
     if (Number.isInteger(this.state.message.success)) {
       message = <Message {...this.state.message} />
@@ -99,15 +102,15 @@ export default class Login extends React.Component {
               <h3 className="form-lead">{t('Sign in to %s', 'Jane\'s Walk')}</h3>
             </header>
             <form rel="form" method="post" onSubmit={this.handleSubmit}>
-              <section dangerouslySetInnerHTML={{__html: this.props.socialLogin}} />
+              <section dangerouslySetInnerHTML={{__html: socialLogin}} />
               <section>
                 <h4>{t('or, log-in using your email & password')}</h4>
                 <label htmlFor="uEmail">
                   {t('Email')}
-                  <input type="text" name="uEmail" id="uEmail" ref="uEmail" value={this.state.email} onChange={this.handleChangeEmail} className="ccm-input-text input-large" />
+                  <input type="text" name="uEmail" id="uEmail" ref="uEmail" value={email} onChange={this.handleChangeEmail} className="ccm-input-text input-large" />
                 </label>
                 <label htmlFor="uPassword">{t('Password')}
-                  <input type="password" name="uPassword" id="uPassword" value={this.state.password} onChange={this.handleChangePassword} className="ccm-input-text input-large" />
+                  <input type="password" name="uPassword" id="uPassword" value={password} onChange={this.handleChangePassword} className="ccm-input-text input-large" />
                 </label>
                 <label>
                   <input type="checkbox" name="uMaintainLogin" checked={this.maintainLogin} onChange={this.handleChangeMaintainLogin} /> {t('Keep me signed in.')}
@@ -116,7 +119,7 @@ export default class Login extends React.Component {
               </section>
               <footer>
                 {message}
-                <a href={CCM_REL + '/register?uEmail=' + this.state.email}>{t('Register for a new account.')}</a>
+                <a href={CCM_REL + '/register?uEmail=' + email}>{t('Register for a new account.')}</a>
                 <input type="submit" className="btn ccm-input-submit" id="submit" value={t('Go!')} />
               </footer>
             </form>
