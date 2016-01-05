@@ -2,7 +2,7 @@
 
 .walk-page {
 
-    blockquote { 
+    blockquote {
         width:auto;
         float:none;
         margin-left:0;
@@ -912,9 +912,10 @@
 
   .walkMenu {
     width: 30%;
-    position: absolute;
-    right: 55px;
-    padding-top: 87px;
+    position: sticky;
+    padding-top: @grid-gutter-width;
+    top: @navbar-height;
+    float: right;
     /* opacity: 0.5; */
     ul {
       list-style: none;
@@ -956,7 +957,8 @@
 
   > .walkHeader {
     border-bottom: 1px solid lightgray;
-    padding-bottom: 50px;
+    padding-bottom: @grid-gutter-width * 2;
+    margin-bottom: @grid-gutter-width * 2;
     .coverImage {
       height: 350px;
       background-image: url('http://www.tuckermclachlan.com/janeswalk/himy_walkphoto.jpg');
@@ -966,6 +968,7 @@
       position: absolute;
       border-radius: 0;
       border-bottom-right-radius: 6px;
+      padding: @grid-gutter-width / 3 @grid-gutter-width / 2;
       background: #fff;
     }
     h1, h4 {
