@@ -1,6 +1,5 @@
 import DashboardStore from './DashboardStore';
 
-//import CityWalks from './CityWalks.jsx';
 import Walks from './Walks.jsx';
 import WalkLeaders from './WalkLeaders.jsx';
 //TODO: Data for ImpactReport
