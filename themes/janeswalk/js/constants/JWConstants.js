@@ -29,6 +29,14 @@ const ActionTypes = [
   'ITINERARY_WALK_SELECTED',
   'ITINERARY_ADD_WALK_DIALOG',
 
+   // Dashboard
+  'FILTER_WALKS',
+  'ADD_WALK_FILTER',
+  'REMOVE_WALK_FILTER',
+  'FILTER_WALKS_BY_DATE',
+  'FILTER_LEADERS_BY_DATE',
+  'SORT_LEADERS',
+
 ].reduce((p, k) => {p[k] = k; return p}, {});
 
 export {ActionTypes};
