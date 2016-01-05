@@ -252,27 +252,27 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
 
   dispatcherIndex: register(function(action) {
     switch (action.type) {
-      case Actions.FILTER_WALKS:
+      case ActionsTypes.FILTER_WALKS:
         _filterWalks(action.filters);
         break;
-      case Actions.ADD_WALK_FILTER:
+      case ActionsTypes.ADD_WALK_FILTER:
         _addWalkFilter(action.filter);
         _filterWalks();
         break;
-      case Actions.REMOVE_WALK_FILTER:
+      case ActionsTypes.REMOVE_WALK_FILTER:
         _removeWalkFilter(action.filter);
         _filterWalks();
         break;
-      case Actions.FILTER_WALKS_BY_DATE:
+      case ActionsTypes.FILTER_WALKS_BY_DATE:
         _filterWalks(activeFilters,action.filter);
         filterByDate = action.filter;
         break;
-      case Actions.FILTER_LEADERS_BY_DATE:
+      case ActionsTypes.FILTER_LEADERS_BY_DATE:
         debugger;
         _filterWalkLeaders(action.filter);
         filterByDate = action.filter;
         break;
-      case Actions.SORT_LEADERS:
+      case ActionsTypes.SORT_LEADERS:
         _sortWalkLeaders(action.sortBy);
         sortBy = action.sortBy;
         break;

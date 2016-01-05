@@ -1,4 +1,3 @@
-
 //TODO: Missing data to add to blog post (Post-PR)
 
 const DashboardHeader = ({cityOrganizer, blogUrl, name, post}) => {

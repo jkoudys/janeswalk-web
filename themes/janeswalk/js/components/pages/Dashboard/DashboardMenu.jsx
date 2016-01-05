@@ -1,4 +1,3 @@
-
 const DashboardMenu = ({name, style, menuItems}) => {
 
   const menu = menuItems.map((item,i) => (<li key={i}><Link to={item.link}>{item.display}</Link></li>));
