@@ -1,20 +1,19 @@
+import DashboardStore from './DashboardStore';
+import DashboardActions from '../../../actions/DashboardActions';
 
-//TODO: Default filter to All or 'Select One' (PR)
-const Filter = ({name, selected, addFilter, data}) => (
+const Filter = ({name, selected, addFilter, data, key}) => (
   <li>
     <label>{name}</label>
-    <select value={selected} onChange={e => addFilter(e.target.value)}>
-      <option value="">All</option>
-      {Object.keys(data).map(k => <option value={k}>{data[k]}</option>)}
+    <select value="Select One" onChange={e => addFilter(e.target.value)}>
+      <option value="">Select One</option>
+      {Object.keys(data).map((k,i) => <option key={i} value={k}>{data[k]}</option>)}
     </select>
   </li>
 );
 
-const WalkFilters = ({filters, addFilter, activeFilters, removeFilter}) => {
+const WalkFilters = ({filters, activeFilters, removeFilter, addFilter}) => {
 
-  const Filters = Object.keys(filters).map(
-    key => <Filter key={key} {...filters[key]} addFilter={addFilter}/>
-  );
+  const Filters = Object.keys(filters).map(key => <Filter key={key} {...filters[key]} addFilter={addFilter}/>);
 
   const ActiveFilters = activeFilters.map(f => <button onClick={e => removeFilter(f, e.target.value)}>{f}</button>);
 
@@ -27,7 +26,16 @@ const WalkFilters = ({filters, addFilter, activeFilters, removeFilter}) => {
 };
 
 WalkFilters.PropTypes = {
-  //TODO: (PR)
+  filters: React.PropTypes.array.isRequired,
+  activeFilters: React.PropTypes.array.isRequired,
+  removeFilter: React.PropTypes.func.isRequired,
+  addFilter: React.PropTypes.func.isRequired,
+};
+
+Filter.PropTypes = {
+  name: React.PropTypes.string.isRequired,
+  addFilter: React.PropTypes.func.isRequired,
+  data: React.PropTypes.object.isRequired,
 };
 
 export default WalkFilters;

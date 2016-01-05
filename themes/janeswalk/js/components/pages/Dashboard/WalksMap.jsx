@@ -1,5 +1,6 @@
+import DashboardStore from './DashboardStore';
 
-//TODO: WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined (Post-PR)
+//TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
 
 const InfoWindow = ({title, shortDescription}) => (
   <span>
@@ -8,14 +9,14 @@ const InfoWindow = ({title, shortDescription}) => (
   </span>
 );
 
-const manageMarkers = (map, markers, activeWalks) => {
+const manageMarkers = (map, markers, walks) => {
 
   const infoWindow = new google.maps.InfoWindow({maxWidth: 600});
   const _infoNode = document.createElement('div');
 
   //remove any markers that are not part of active walks
   markers = markers.filter(m => {
-    const walkFound = activeWalks.find(w => (w.id === m.walkId));
+    const walkFound = walks.find(w => (w.id === m.walkId));
 
     if (walkFound) {
       return walkFound;
@@ -27,7 +28,7 @@ const manageMarkers = (map, markers, activeWalks) => {
   });
 
   //add additional markers
-  activeWalks.forEach(walk => {
+  walks.forEach(walk => {
     if (walk.map && walk.map.markers) {
 
       let m = walk.map.markers[0];
@@ -65,34 +66,27 @@ export default class WalksMap extends React.Component {
     super(props,...args);
     this.state = {
       googleMap: null,
-      activeWalks: props.activeWalks,
+      walks: props.walks,
       googleMapMarkers:[],
     };
   }
-
+  //You cannot use this.setState() in componentWillUpdate
   componentWillReceiveProps(updatedProps) {
-    debugger;
-
     const {googleMap, googleMapMarkers} = this.state;
-    const {activeWalks} = updatedProps;
+    const {walks} = updatedProps;
 
-    //googleMapMarkers = manageMarkers(googleMap, googleMapMarkers, activeWalks);
-
-    debugger;
-    this.setState({googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, activeWalks), activeWalks});
+    this.setState({googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks), walks});
   }
 
   componentDidMount() {
 
-    debugger;
-
-    //TODO: Create a <GoogleMap/> component to generalize use of google maps (Post-PR)
-    const {latlng} = this.props;
-    let {activeWalks, googleMapMarkers} = this.state;
-
-    debugger;
+    //TODO: (Post-PR) Create a <GoogleMap/> component to generalize use of google maps
+    const {latlng} = DashboardStore.getCityData();
+    let {walks, googleMapMarkers} = this.state;
 
     const locationLatLng = new google.maps.LatLng(latlng[0],latlng[1]);
+
+    //TODO: Place configuration and constants in a single file
 
     const mapOptions = {
       center: locationLatLng,
@@ -100,11 +94,9 @@ export default class WalksMap extends React.Component {
       backgroundColor: '#d7f0fa',
     };
 
-    const googleMap = new google.maps.Map(React.findDOMNode(this), mapOptions);
+    const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
 
-    //googleMapMarkers = manageMarkers(googleMap, googleMapMarkers, activeWalks);
-
-    this.setState({googleMap, googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, activeWalks)});
+    this.setState({googleMap, googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks)});
   }
 
   render() {
@@ -113,5 +105,5 @@ export default class WalksMap extends React.Component {
 }
 
 WalksMap.PropTypes = {
-  //TODO: (PR)
+  walks: React.PropTypes.array.isRequired,
 };
