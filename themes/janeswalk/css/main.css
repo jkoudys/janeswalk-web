@@ -13095,9 +13095,11 @@ body.city-page > #blog:after {
 }
 .walkPage .walkMenu {
   width: 30%;
-  position: absolute;
-  right: 55px;
-  padding-top: 87px;
+  position: -webkit-sticky;
+  position: sticky;
+  padding-top: 30px;
+  top: 60px;
+  float: right;
   /* opacity: 0.5; */
 }
 .walkPage .walkMenu ul {
@@ -13142,7 +13144,8 @@ body.city-page > #blog:after {
 }
 .walkPage > .walkHeader {
   border-bottom: 1px solid lightgray;
-  padding-bottom: 50px;
+  padding-bottom: 60px;
+  margin-bottom: 60px;
 }
 .walkPage > .walkHeader .coverImage {
   height: 350px;
@@ -13153,6 +13156,7 @@ body.city-page > #blog:after {
   position: absolute;
   border-radius: 0;
   border-bottom-right-radius: 6px;
+  padding: 10px 15px;
   background: #fff;
 }
 .walkPage > .walkHeader h1,
