@@ -1,23 +1,21 @@
 import DashboardStore from './DashboardStore';
 
-import DashboardHeader from './DashboardHeader.jsx';
-import DashboardMenu from './DashboardMenu.jsx';
-import CityWalks from './CityWalks.jsx';
+//import CityWalks from './CityWalks.jsx';
+import Walks from './Walks.jsx';
 import WalkLeaders from './WalkLeaders.jsx';
-import MyWalks from './MyWalks.jsx';
-import ImpactReport from './ImpactReport.jsx'; //TODO: Data for ImpactReport (Post-PR)
+//TODO: Data for ImpactReport
+import ImpactReport from './ImpactReport.jsx';
 import DashboardSummary from './DashboardSummary.jsx';
 import DashboardResources from './DashboardResources.jsx';
 import DashboardTemplate from './DashboardTemplate.jsx';
 import MyBlogPosts from './MyBlogPosts.jsx';
 
-import {dashboard} from './DashboardStaticData';
 import './view.less';
 
 const DashboardPage = () => {
   return (
     <section>
-      <DashboardSummary {...DashboardStore.getWalkLeadersAndVolunteers()} {...DashboardStore.getCityData()}/>
+      <DashboardSummary {...DashboardStore.getRegionSummary()}/>
       <DashboardResources {...DashboardStore.getResources()}/>
     </section>
   );
@@ -27,10 +25,10 @@ const Dashboard = () => (
   <Router>
     <Route path="/" component={DashboardTemplate}>
       <IndexRoute component={DashboardPage}/>
-      <Route path="cityWalks" component={CityWalks}/>
-      <Route path="myWalks" component={MyWalks}/>
+      <Route path="cityWalks" component={Walks}/>
+      <Route path="myWalks" component={Walks}/>
       <Route path="walkLeaders" component={WalkLeaders}/>
-      <Route path="resources" component={DashboardResources}/>
+      <Route path="resources" component={DashboardResources} {...DashboardStore.getResources()}/>
       <Route path="posts" component={MyBlogPosts}/>
       <Route path="impact" component={ImpactReport}/>
     </Route>
