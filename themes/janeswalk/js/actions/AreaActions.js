@@ -5,8 +5,8 @@
  * the i18n standard.
  */
 
-import {dispatch} from '../dispatcher/AppDispatcher.js';
-import {ActionTypes} from '../constants/JWConstants.js';
+import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
+import {ActionTypes} from 'janeswalk/constants/JWConstants';
 
 // Load all loop data
 export function receive(areas) {

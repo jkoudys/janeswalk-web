@@ -1,5 +1,5 @@
 {
-  "name": "janeswalk",
+  "name": "janeswalk-web",
   "version": "1.0.1",
   "repository": {
     "type": "git",
@@ -53,5 +53,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "janeswalk": "0.0.0"
   }
 }

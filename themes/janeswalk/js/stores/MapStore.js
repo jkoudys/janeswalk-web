@@ -6,7 +6,7 @@
 
 // Requires
 import {ActionTypes} from '../constants/JWConstants.js';
-import {register} from '../dispatcher/AppDispatcher.js';
+import {register} from 'janeswalk/dispatcher/AppDispatcher';
 import Store from './Store.js';
 
 let _markers = [];

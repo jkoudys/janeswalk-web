@@ -1,7 +1,5 @@
 // Flux
-const i18n = require('../../../stores/I18nStore.js');
-const t = i18n.getTranslate();
-const t2 = i18n.getTranslatePlural();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 /**
  * The table with all the times that the walks are scheduled

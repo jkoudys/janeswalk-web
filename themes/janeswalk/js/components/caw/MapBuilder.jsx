@@ -7,7 +7,7 @@ import TwitterConnect from './map/TwitterConnect.jsx';
 import ConnectFilters from './map/ConnectFilters.jsx';
 
 // Flux
-var t = require('../../stores/I18nStore.js').getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 // Map parameters
 const stopMarker = {

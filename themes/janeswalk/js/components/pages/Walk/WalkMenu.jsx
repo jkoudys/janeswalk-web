@@ -3,8 +3,12 @@ import WalkAccessibility from './WalkAccessibility.jsx';
 import WalkPublicTransit from './WalkPublicTransit.jsx';
 import WalkParking from './WalkParking.jsx';
 
+import {getThemeName} from 'janeswalk/utils/lookups/Theme';
+
 //TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 //TODO: Make walkMenu sticky - will complete after Dashboard
+
+const menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'About the Walk Team'];
 
 const WalkMenu = ({walk, filters}) => {
 
@@ -18,8 +22,6 @@ const WalkMenu = ({walk, filters}) => {
   //TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>
   const tags = Object.keys(checkboxes).filter(item => item.includes('theme'));
 
-  const menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'About the Walk Team'];
-
   return (
     <section className="walkMenu">
       <header className="walkHeader">
@@ -27,9 +29,9 @@ const WalkMenu = ({walk, filters}) => {
         <h6>Led By {walkLeader['name-first']} {walkLeader['name-last']} </h6>
         <h6>{dateFormatted(time.slots[0][0])}</h6>
         <h6>Meeting at {map.markers[0].title}</h6>
-        <WalkAccessibility {...walk} {...filters} style="walk-menu-navigation"/>
-        <WalkPublicTransit {...walk} style="walk-menu-navigation"/>
-        <WalkParking {...walk} style="walk-menu-navigation"/>
+        <WalkAccessibility {...walk} {...filters} />
+        <WalkPublicTransit {...walk} />
+        <WalkParking {...walk} />
       </header>
       <section className="menu">
         <ul>
@@ -37,11 +39,8 @@ const WalkMenu = ({walk, filters}) => {
         </ul>
       </section>
       <section className="tags">
-        {tags.map((tag,i) => <span className="tag" key={i}>#{theme.data[tag.split('-').slice(1, 3).join('-')]}</span>)}
+        {tags.map((tag, i) => <span className="tag" key={i}>#{getThemeName(tag)}</span>)}
       </section>
-      <WalkAccessibility {...walk} {...filters} style="walk-menu-navigation"/>
-      <WalkPublicTransit {...walk} style="walk-menu-navigation"/>
-      <WalkParking {...walk} style="walk-menu-navigation"/>
     </section>
   );
 };

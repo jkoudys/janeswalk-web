@@ -1,5 +1,5 @@
 // Flux
-const t = require('../../../stores/I18nStore.js').getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 const UpArrow = props => (
   <a className="move-marker-up" {...props}>

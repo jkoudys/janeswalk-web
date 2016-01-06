@@ -4,24 +4,32 @@
  * variables.
  */
 // Translations for i18n L10n
-import * as I18nUtils from './utils/I18nUtils.js';
+import * as I18nUtils from 'janeswalk/utils/I18nUtils.js';
 import * as AreaActions from './actions/AreaActions.js';
 import * as UserActions from './actions/UserActions.js';
 import Navbar from './components/Navbar.jsx';
 
 // Page Views
+import Page from './components/Page.jsx';
+import City from './components/pages/City.jsx';
+import Home from './components/pages/Home.jsx';
+import Profile from './components/pages/Profile.jsx';
 const PageViews = {
-  PageView: require('./components/Page.jsx'),
-  CityPageView: require('./components/pages/City.jsx'),
-  HomePageView: require('./components/pages/Home.jsx'),
-  ProfilePageView: require('./components/pages/Profile.jsx'),
+  PageView: Page,
+  CityPageView: City,
+  HomePageView: Home,
+  ProfilePageView: Profile,
 };
+
+// React Views
+import CreateWalk from './components/CreateWalk.jsx';
+import Walk from './components/pages/Walk.jsx';
 const ReactViews = {
-  CreateWalkView: require('./components/CreateWalk.jsx'),
-  WalkPageView: require('./components/pages/Walk.jsx')
+  CreateWalkView: CreateWalk,
+  WalkPageView: Walk
 };
 // load modals
-const Login = require('./components/Login.jsx')
+import Login from './components/Login.jsx';
 
 // Shims
 // Used for Intl.DateTimeFormat
@@ -110,8 +118,9 @@ function routePage() {
         );
         break;
         default:
+          // TODO: use JanesWalk.event to supply these data, not a global obj
           React.render(
-            <ReactView />,
+            <ReactView {...JanesWalk} />,
             document.getElementById('page')
           );
           break;

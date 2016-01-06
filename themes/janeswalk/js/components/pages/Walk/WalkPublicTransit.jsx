@@ -1,6 +1,5 @@
-const WalkPublicTransit = ({accessibleTransit, style}) => (
-  <section className={`walkPublicTransit ${style}`}>
-    {style === 'walk-page' ? <a name="Taking Public Transit"></a> : null}
+const WalkPublicTransit = ({accessibleTransit}) => (
+  <section className="walkPublicTransit">
     <h2>Taking Public Transit</h2>
     {accessibleTransit}
   </section>

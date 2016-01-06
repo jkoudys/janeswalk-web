@@ -13097,7 +13097,8 @@ body.city-page > #blog:after {
   width: 30%;
   position: -webkit-sticky;
   position: sticky;
-  padding-top: 30px;
+  /* Hack around the odd behaviour when padding-top is 1px vs 0px */
+  padding-top: 46px;
   top: 60px;
   float: right;
   /* opacity: 0.5; */
@@ -13125,21 +13126,33 @@ body.city-page > #blog:after {
 .walkPage .walkMenu .tags span.tag {
   display: block;
 }
-.walkPage .walkMenu .walk-menu-navigation {
+.walkPage .walkMenu .walkAccessibility,
+.walkPage .walkMenu .walkPublicTransit,
+.walkPage .walkMenu .walkParking {
   padding: 0;
   font-size: 13px;
 }
-.walkPage .walkMenu .walk-menu-navigation h2 {
+.walkPage .walkMenu .walkAccessibility h2,
+.walkPage .walkMenu .walkPublicTransit h2,
+.walkPage .walkMenu .walkParking h2 {
   margin: 10px 0 0;
 }
-.walkPage .walkMenu .walk-menu-navigation h2,
-.walkPage .walkMenu .walk-menu-navigation ul {
+.walkPage .walkMenu .walkAccessibility h2,
+.walkPage .walkMenu .walkPublicTransit h2,
+.walkPage .walkMenu .walkParking h2,
+.walkPage .walkMenu .walkAccessibility ul,
+.walkPage .walkMenu .walkPublicTransit ul,
+.walkPage .walkMenu .walkParking ul {
   font-size: 13px;
 }
-.walkPage .walkMenu .walk-menu-navigation ul {
+.walkPage .walkMenu .walkAccessibility ul,
+.walkPage .walkMenu .walkPublicTransit ul,
+.walkPage .walkMenu .walkParking ul {
   margin-top: 3px;
 }
-.walkPage .walkMenu .walk-menu-navigation ul li::before {
+.walkPage .walkMenu .walkAccessibility ul li::before,
+.walkPage .walkMenu .walkPublicTransit ul li::before,
+.walkPage .walkMenu .walkParking ul li::before {
   font-size: 22px;
 }
 .walkPage > .walkHeader {
@@ -13215,7 +13228,7 @@ body.city-page > #blog:after {
   font-size: 22px;
 }
 .walkPage .walkDescription {
-  padding: 40px 70px 50px;
+  padding: 1px 70px 50px;
 }
 .walkPage .walkDescription article {
   font-size: 18px;

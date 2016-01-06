@@ -173,7 +173,7 @@ class City extends \Model implements \JsonSerializable
         $cityData = [
             'name' => $this->title,
             'url' => $this->url,
-            'background' => $this->full_bg ? $this->full_bg->getURL() : null,
+            'background' => $this->fullbg ? $this->fullbg->getURL() : null,
             'shortDescription' => $this->shortDescription,
             'longDescription' => $this->longDescription,
             /* We'll assume Sponsors area's first block is the one with the description */

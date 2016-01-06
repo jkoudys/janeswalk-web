@@ -1,8 +1,7 @@
 var mixins = require('../../helpers/mixins.jsx');
 
 // Flux
-var i18n = require('../../stores/I18nStore.js');
-var t = i18n.getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 export default class WardSelect extends React.Component {
   render() {

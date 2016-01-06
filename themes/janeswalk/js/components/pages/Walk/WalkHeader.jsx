@@ -1,7 +1,29 @@
 import {dateFormatted} from '../../../utils/ItineraryUtils';
+import Hello from 'janeswalk';
 
 //TODO: Duplicate of Itinerary <Walk/>
 //TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
+
+/**
+ * Build a style object for the header
+ * @return object A style object for React
+ */
+function headerBG(city, walk) {
+  // Load the BG
+  const thumb = (walk.thumbnails[0] && walk.thumbnails[0].url) || city.background;
+  let bg;
+  if (thumb) {
+    bg = 'url(' + thumb + ')';
+  } else {
+    bg = '#eaeaea';
+  }
+
+  return {
+    background: bg,
+    backgroundSize: 'cover',
+    backgroundPosition: '50%'
+  };
+}
 
 const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFavourites, favoriteListId, itineraryListId}) => {
   const favButton = () => {
@@ -16,13 +38,13 @@ const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFav
 
   const addToFavourites = favButton();
   const addToItinerary = addButton();
-  const {title, map, time, team} = walk;
+  const {title, map, time, team, thumbnails} = walk;
   const {url, name} = city;
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
   return(
     <section className="walkHeader">
-    <section className="coverImage">
+    <section className="coverImage" style={headerBG(city, walk)}>
       <ul className="breadcrumb">
         <li><a href="/"><i className="fa fa-home"></i></a></li>
         <li><a href={url}>{`${name} walks`}</a></li>
