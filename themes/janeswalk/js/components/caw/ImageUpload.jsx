@@ -1,5 +1,5 @@
 // Flux
-const t = require('../../stores/I18nStore.js').getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 export default class ImageUpload extends React.Component {
   constructor() {

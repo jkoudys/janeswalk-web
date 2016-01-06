@@ -5,7 +5,7 @@
  */
 
 import {ActionTypes} from '../constants/JWConstants.js';
-import {register} from '../dispatcher/AppDispatcher';
+import {register} from 'janeswalk/dispatcher/AppDispatcher';
 import 'Store' from './Store.js';
 
 const _desc = {

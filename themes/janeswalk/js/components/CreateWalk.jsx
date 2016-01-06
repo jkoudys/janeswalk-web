@@ -15,13 +15,11 @@ import WalkPublish from './caw/WalkPublish.jsx';
 import TextAreaLimit from './TextAreaLimit.jsx';
 
 // Flux
-const I18nStore = require('../stores/I18nStore.js');
-const t = I18nStore.getTranslate();
-const t2 = I18nStore.getTranslatePlural();
-const I18nActions = require('../actions/I18nActions.js');
+import I18nActions from 'janeswalk/actions/I18nActions';
+import I18nStore, {t, t2} from 'janeswalk/stores/I18nStore';
 
 // Helpers
-const Helper = require('../helpers/helpers.jsx');
+import Helper from '../helpers/helpers.jsx';
 
 export default class CreateWalk extends React.Component {
   constructor(props) {

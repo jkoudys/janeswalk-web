@@ -1,6 +1,5 @@
-import ActionTypes from '../constants/JWConstants.js';
-import {dispatch} from '../dispatcher/AppDispatcher';
-
+import {ActionTypes} from 'janeswalk/constants/JWConstants';
+import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 
 //TODO: API call before dispatch
 

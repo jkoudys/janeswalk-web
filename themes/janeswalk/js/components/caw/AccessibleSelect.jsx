@@ -5,7 +5,7 @@
 import {linkedParentState} from '../../helpers/mixins.jsx';
 
 // Flux
-const t = require('../../stores/I18nStore.js').getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 const options = [
   {id: 'accessible-familyfriendly', name: t('Family friendly')},

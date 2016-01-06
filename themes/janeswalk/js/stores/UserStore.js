@@ -1,6 +1,6 @@
-import {dispatch, register} from '../dispatcher/AppDispatcher';
+import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
-import {ActionTypes} from '../constants/JWConstants.js';
+import {ActionTypes} from 'janeswalk/constants/JWConstants.js';
 
 const CHANGE_EVENT = 'change';
 

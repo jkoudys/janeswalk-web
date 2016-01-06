@@ -1,6 +1,5 @@
 // Flux
-const i18n = require('../../../stores/I18nStore.js');
-const t = i18n.getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 /**
  * Select options to choose your time.

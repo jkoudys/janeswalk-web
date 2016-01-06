@@ -1,13 +1,14 @@
-const WalkAccessibility = ({checkboxes, accessibility, style}) => {
+import {getAccessibleName} from 'janeswalk/utils/lookups/Accessible';
 
-  const accessibilityKeys = Object.keys(checkboxes).filter(item => item.includes("accessible"));
+const WalkAccessibility = ({checkboxes}) => {
+
+  const accessibilityKeys = Object.keys(checkboxes).filter(item => item.includes("accessible-"));
 
   return (
-    <section className={`walkAccessibility ${style}`}>
-      {style === 'walk-page' ? <a name="Accessibility"></a> : null}
+    <section className="walkAccessibility">
       <h2>Accessibility</h2>
       <ul>
-        {accessibilityKeys.map((k,i) => (<li key={i}>{accessibility && accessibility.data[k.split('-')[1]]}</li>))}
+        {accessibilityKeys.map((k, i) => (<li key={i}>{getAccessibleName(k)}</li>))}
       </ul>
     </section>
   );

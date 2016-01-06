@@ -48,17 +48,17 @@ export default class WalkPage extends React.Component {
 
   render() {
     return (
-    <section className="walkPage">
-      <WalkHeader
+      <section className="walkPage">
+        <WalkHeader
         {...this.state}
-      />
-      <WalkMenu {...this.state}/>
-      <WalkDescription {...this.state.walk}/>
-      <WalkMap {...this.state.walk}/>
-      <WalkRoute {...this.state.walk}/>
-      <WalkStart {...this.state.walk}/>
-      <WalkTeam {...this.state.walk}/>
-    </section>
+        />
+        <WalkMenu {...this.state}/>
+        <WalkDescription {...this.state.walk}/>
+        <WalkMap {...this.state.walk}/>
+        <WalkRoute {...this.state.walk}/>
+        <WalkStart {...this.state.walk}/>
+        <WalkTeam {...this.state.walk}/>
+      </section>
     );
   }
 };
