@@ -6,11 +6,11 @@
 
 // Basic flux setup
 import {EventEmitter} from 'events';
-import {register} from '../dispatcher/AppDispatcher';
-import {ActionTypes} from '../constants/JWConstants';
+import {register} from 'janeswalk/dispatcher/AppDispatcher';
+import {ActionTypes} from 'janeswalk/constants/JWConstants';
 
 // The library for managing translations
-import I18nTranslator from '../helpers/translate.js';
+import I18nTranslator from '../utils/translate.js';
 
 // Simple 'something has changed' event
 const CHANGE_EVENT = 'change';
@@ -54,3 +54,5 @@ I18nStore.dispatchToken = register(payload => {
 });
 
 export default I18nStore;
+export let t = _i18n.translate.bind(_i18n);
+export let t2 = _i18n.translatePlural.bind(_i18n);
