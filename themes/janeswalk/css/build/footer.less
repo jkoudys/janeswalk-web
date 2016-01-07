@@ -1,64 +1,54 @@
 // Footer
 > footer {
+    .clearfix();
     width: 100%;
-    background: #dcdcdc;
-    color: #50616D;
+    background: @color-orange;
+    color: #fff;
     font-family: @font-slab;
     font-weight: 500;
-    bottom:0;
     z-index: @zindex-navbar-fixed;
     clear: both;
-
     padding: @grid-gutter-width/2 0;
 
-    // Silly hack to workaround a chrome bug
-    -webkit-transform: translateZ(0);
-
-    nav {
-        .container-fixed();
-        max-width: @screen-lg-min;
-        font-size: 11px;
-        line-height: 1.6;
-    }
-
-    h4 {
+    h1, h2, h3, h4 {
         margin-top: 0;
     }
+
+    .blurb {
+        .make-md-column(8);
+        padding-right: 20%;
+    }
+    nav {
+        .make-md-column(4);
+        ul {
+            .make-md-column(6);
+            list-style-type: none;
+            padding: 0;
+        }
+    }
     a {
-        color: #df520e;
-    }
-    ul, li { list-style: none; }
-    ul {
-        margin: 0 0 0 5px;
-        padding: 0;
-    }
-    li { 
-        display: inline-block;
-        &:before {
-            content: "| ";
-            margin-right: 3px;
+        color: inherit;
+        &:hover {
+            color: inherit;
+            text-decoration: none;
+            font-weight: 900;
         }
     }
     .social-icons {
-        font-size:18px;
-        display:inline-block;
-        vertical-align:top;
+        font-size: 18px;
+        display: inline-block;
+        vertical-align: top;
         a {
-            text-decoration:none;
+            text-decoration: none;
             i {
-                color: @color-blue;
                 font-size: 24px;
-                margin-right:4px;
+                margin-right: 4px;
             }
         }
         & + div {
             width: 80%;
             display: inline-block;
         }
-    }
-
-    @media (max-width: @screen-sm-min) {
-        position: static;
     }
 }
 
