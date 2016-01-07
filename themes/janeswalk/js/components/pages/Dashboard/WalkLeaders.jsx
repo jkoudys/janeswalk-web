@@ -30,21 +30,18 @@ export default class WalkLeaders extends React.Component {
 
   render() {
 
-    const {activeLeaders} = this.state;
+    const {activeLeaders, filterByDate, sortBy} = this.state;
     const {name} = DashboardStore.getCityData();
     const {filterLeadersByDate, sortLeaders} = DashboardActions;
 
     const WalkLeaders = activeLeaders.map((wL,i) => (<WalkLeader {...wL} key={i}/> ));
-
-    //TODO: Show button is active for onClick
-    return (<section>
-      <h2>{name} Walk Leaders and Volunteers</h2>
-      <h3>Show walk leaders and volunteers with...</h3>
-      <button onClick={() => filterLeadersByDate('past')}>Past Walks</button>
-      <button onClick={() => filterLeadersByDate('future')}>Upcoming Walks</button>
-      <button onClick={() => filterLeadersByDate('all')}>All Walks</button><br/>
-      <button onClick={() => sortLeaders('alpha')}>Sort Alphabetically by First Name</button>
-      <button onClick={() => sortLeaders('count')}>Sort by Most Walks</button>
+    //TODO* Create generic button component
+    return (<section className="dashboardWalkLeaders">
+      <button className={`buttonAllWalks ${filterByDate === 'all' ? 'active' : null}`} onClick={() => filterLeadersByDate('all')}>All Walks</button>
+      <button className={`buttonUpcomingWalks ${filterByDate === 'future' ? 'active' : null}`} onClick={() => filterLeadersByDate('future')}>Upcoming Walks Only</button>
+      <button className={`buttonPastWalks ${filterByDate === 'past' ? 'active' : null}`} onClick={() => filterLeadersByDate('past')}>Past Walks Only</button><br/>
+      <button className={`buttonSortAlphabetically ${sortBy === 'alpha' ? 'active' : null}`} onClick={() => sortLeaders('alpha')}>Sort Alphabetically by First Name</button>
+      <button className={`buttonSortByMostWalks ${sortBy === 'count' ? 'active' : null}`} onClick={() => sortLeaders('count')}>Sort by Most Walks</button>
       {WalkLeaders}
     </section>);
   };
