@@ -1,16 +1,13 @@
 import React from 'react';
 import DashboardStore from './DashboardStore';
 
-const grabProps = ({route}) => {
-  return {cityOrganizers, videoTips, files, featuredWalks} = route
-};
+//TODO* Country Flag (data is not stubbed, just 'Canada') and 'Toronto' as well
 
-const DashboardResources = ({route}) => {
-  const {cityOrganizers, videoTips, files, featuredWalks} = route;
+const DashboardResources = () => {
+  const {cityOrganizers, videoTips, files, featuredWalks} = DashboardStore.getResources();
+
   return (
-    <section>
-      <h2>Resources</h2>
-
+    <section className="dashboardResources">
       <section className="walkOrganizers">
         <h3>Connect with Fellow organizers</h3>
         Got a question? Reach out to a fellow City Organizer for help.
@@ -21,15 +18,17 @@ const DashboardResources = ({route}) => {
 
       <section className="globalWalks resourceBlock">
         <h3>Walks from around the world</h3>
-        Don't know what kind of walk to lead? Here are some fun ones from around the world
+        Don't know what kind of walk to lead? Here are some fun ones from around the world.
         <ul>
           {featuredWalks.map((w,i) =>
             (
-              <li key={i}>
-                <h4>Toronto, ON</h4>
-                <a href={w.url}>{`${w.title}`}</a><br/>
-                <img src={`http://janeswalk.org/${w.thumbnailUrl}`}/>
-                <img src="http://janeswalk.org/themes/janeswalk/images/countryFlags/Canada.png"/>
+              <li key={i} className="funWalksFromAroundWorld">
+                <a href={w.url} className="walkImage"><img src={`http://janeswalk.org/${w.thumbnailUrl}`}/></a>
+                <span className="flag"><img src={`http://janeswalk.org/themes/janeswalk/images/countryFlags/Canada.png`}/></span>
+                <div>
+                  <a href={w.url}>{`${w.title}`}</a>
+                  <h4>Toronto, ON</h4>
+                </div>
               </li>
             )
           )}
@@ -38,7 +37,7 @@ const DashboardResources = ({route}) => {
 
       <section className="walkTips vimeos resourceBlock">
         <h3>Tips on leading a walk</h3>
-        Leading your first or fifth walk? Here are some tips from the Jane's Walk crew?
+        Leading your first or fifth walk? Here are some tips from the Jane's Walk crew!
         <ul>
           {videoTips.map((v,i) => (
             <li key={i}>

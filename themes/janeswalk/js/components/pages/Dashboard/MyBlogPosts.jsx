@@ -9,7 +9,7 @@ const MyBlogPosts = () => {
     </li>
   ));
 
-  return(<ul>{posts}</ul>);
+  return(<ul className="dashboardMyBlogPosts">{posts}</ul>);
 };
 
 export default MyBlogPosts;
