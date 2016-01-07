@@ -24,6 +24,10 @@ export default {
   },
 
   sortLeaders(sortBy) {
-    dispatch({type: ActionsTypes.SORT_LEADERS, sortBy});
+    dispatch({type: Actions.SORT_LEADERS, sortBy});
+  },
+
+  toggleMenuItems(item) {
+    dispatch({type: Actions.TOGGLE_MENU, item});
   },
 }
