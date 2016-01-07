@@ -4,19 +4,21 @@ import {dashboard} from './DashboardStaticData';
 
 const {city, walks, resources, blog, impact} = dashboard;
 const {walks: cityWalks, filters} = city;
+
 let filteredWalks = [];
 let activeLeaders = [];
-let activeFilters = [];
+
+let activeFilters = {};
 let filterByDate = 'all';
 let currentRoute = null;
 let sortBy = null;
 
-const menuItems = [ { display: `${city.name} Walks`, link: '/cityWalks'},
-  { display:'Walks', link: '/userWalks'},
-  { display:'Walk Leaders and Volunteers', link: '/walkLeaders'},
-  { display:'My Blog Posts', link: '/posts'},
-  //{ display:'Impact Report Builder', link: '/impact'}, //TODO: Complete with Data
-  { display:'Resources', link: 'resources'},
+const menuItems = [ { display: `${city.name} Walks`, link: '/cityWalks', active: false, componentName: 'Walks'},
+  { display:'My Walks', link: '/userWalks', active: false, componentName: 'Walks'},
+  { display:'Walk Leaders and Volunteers', link: '/walkLeaders', active: false, componentName: 'WalkLeaders'},
+  { display:'My Blog Posts', link: '/posts', active: false, componentName: 'MyBlogPosts'},
+  //{ display:'Impact Report Builder', link: '/impact', active: false, componentName: 'ImpactReport'}, //TODO: Complete with Data
+  { display:'Resources', link: 'resources', active: false, componentName: 'DashboardResources'},
 ];
 
 const CHANGE_EVENT = 'change';
@@ -79,26 +81,28 @@ const _regionSummary = _generateRegionSummary(walks);
 
 const _retrieveWalks = () => {
   if (currentRoute === '/cityWalks') return cityWalks;
-  if (currentRoute === '/myWalks') return walks;
-}
+  if (currentRoute === '/userWalks') return walks;
+};
 
 const _filterWalks = (filters = activeFilters, filterByDate = 'all') => {
   let allWalks = _retrieveWalks();
 
-  if (!filters.length) filteredWalks = allWalks;
+  //grab all filters whose state:true
+  const filtersArray = Object.keys(filters).reduce((array, key) => array.concat(filters[key].filter(f => f.state)), []);
+
+  if (!filtersArray.length) filteredWalks = allWalks;
   else {
     filteredWalks = allWalks.filter(walk => {
-      return filters.reduce((p, c)=> {
+      return filtersArray.reduce((bool, {filter})=> {
         //TODO: Assumed wards is a single string
-        const ward = walk.wards ? walk.wards.indexOf(c) !== -1 : false;
-        const theme = walk.checkboxes ? Object.keys(walk.checkboxes).indexOf('theme-' + c) !== -1 : false;
-        const accessibility = walk.checkboxes ? Object.keys(walk.checkboxes).indexOf('accessible-' + c) !== -1 : false;
+        const ward = walk.wards ? walk.wards.indexOf(filter) !== -1 : false;
+        const theme = walk.checkboxes ? Object.keys(walk.checkboxes).indexOf('theme-' + filter) !== -1 : false;
+        const accessibility = walk.checkboxes ? Object.keys(walk.checkboxes).indexOf('accessible-' + filter) !== -1 : false;
 
-        return (p && (ward || theme || accessibility));
+        return (bool && (ward || theme || accessibility));
       }, true);
     });
   }
-
   if (!filterByDate.length || filterByDate === 'all') return;
   else {
     filteredWalks = filteredWalks.filter(walk => {
@@ -132,7 +136,7 @@ const _filterWalkLeaders = (filterByDate = '') => {
       return true; //filterByDate === 'all'
     });
   }
-}
+};
 
 const _sortWalkLeaders = (sortSelected) => {
   //TODO: Toggle off and on or reset
@@ -149,13 +153,23 @@ const _sortWalkLeaders = (sortSelected) => {
   }
 };
 
-const _addWalkFilter = (filter) => {
-  if (activeFilters.findIndex(f => f === filter) === -1) activeFilters.push(filter);
+const _toggleWalkFilter = (filter, filterName) => {
+
+  const activeFilterIndex = activeFilters[filterName].findIndex(f => f.filter === filter);
+
+  if (activeFilterIndex === -1) {
+    let display = filters[filterName].data[filter];
+    activeFilters[filterName].push({filter, display, state: true});
+  } else {
+    let filter = activeFilters[filterName][activeFilterIndex];
+    filter.state = !filter.state;
+  }
 };
 
-const _removeWalkFilter = (filter) => {
+const _removeWalkFilter = (filter, filterName) => {
+  const activeFilterIndex = activeFilters[filterName].findIndex(f => f.filter === filter);
 
-  activeFilters.splice(activeFilters.findIndex(f => f === filter), 1);
+  if (activeFilterIndex !== -1) activeFilters[filterName].splice(activeFilterIndex, 1);
 };
 
 const _generateCSV = () => {
@@ -189,7 +203,7 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
   },
 
   getActiveFilters() {
-    return activeFilters;
+    return {activeFilters};
   },
 
   getDateFilter() {
@@ -204,22 +218,21 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
     return _generateCSV();
   },
 
-  getWalks(route) {
-    const {pathname} = route;
+  getWalks(pathname) {
 
     if (pathname !== currentRoute) {
       currentRoute = pathname;
       filteredWalks = _retrieveWalks();
-      activeFilters = [];
+      Object.keys(filters).map(f => {
+        activeFilters[f] = [];
+      });
       filterByDate = 'all';
     }
 
     return filteredWalks;
   },
 
-  getWalkLeadersAndVolunteers(route) {
-    const {pathname} = route;
-
+  getWalkLeadersAndVolunteers(pathname) {
     if (pathname !== currentRoute) {
       currentRoute = pathname;
       filterByDate = 'all';
@@ -247,7 +260,7 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
   },
 
   getMenuItems() {
-    return {menuItems};
+    return menuItems;
   },
 
   dispatcherIndex: register(function(action) {
@@ -255,12 +268,12 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
       case ActionsTypes.FILTER_WALKS:
         _filterWalks(action.filters);
         break;
-      case ActionsTypes.ADD_WALK_FILTER:
-        _addWalkFilter(action.filter);
+      case ActionsTypes.TOGGLE_WALK_FILTER:
+        _toggleWalkFilter(action.filter, action.filterName);
         _filterWalks();
         break;
       case ActionsTypes.REMOVE_WALK_FILTER:
-        _removeWalkFilter(action.filter);
+        _removeWalkFilter(action.filter, action.filterName);
         _filterWalks();
         break;
       case ActionsTypes.FILTER_WALKS_BY_DATE:
@@ -268,7 +281,6 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
         filterByDate = action.filter;
         break;
       case ActionsTypes.FILTER_LEADERS_BY_DATE:
-        debugger;
         _filterWalkLeaders(action.filter);
         filterByDate = action.filter;
         break;
@@ -276,6 +288,10 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
         _sortWalkLeaders(action.sortBy);
         sortBy = action.sortBy;
         break;
+      case ActionsTypes.TOGGLE_MENU:
+        //TODO: refactor into separate component
+        let menuItem = menuItems.find(i => i.display === action.item);
+        menuItem.active = !menuItem.active;
     }
 
     DashboardStore.emitChange();
