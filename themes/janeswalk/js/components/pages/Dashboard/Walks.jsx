@@ -11,7 +11,8 @@ import Walk from './Walk.jsx';
 //Walks is required before activeFilters to reset activeFilters
 const getWalks = (props) => ({
   walks: props.walks || DashboardStore.getWalks(props.location),
-  activeFilters: props.activeFilters || DashboardStore.getActiveFilters(),
+  activeFilters: props.activeFilters || DashboardStore.getActiveFilters().activeFilters,
+  inActiveFilters: props.inActiveFilters || DashboardStore.getActiveFilters().inActiveFilters,
   filterByDate: props.filterByDate || DashboardStore.getDateFilter(),
 });
 
@@ -43,7 +44,7 @@ export default class Walks extends React.Component {
   render() {
     const {currentView, walks} = this.state;
     const filters = DashboardStore.getFilters();
-    const filterByDate = DashboardStore.getDateFilter()
+    const filterByDate = DashboardStore.getDateFilter();
 
     const Walks = walks.map(({map, id, title, time, team, url}) =>
       <Walk
@@ -58,10 +59,15 @@ export default class Walks extends React.Component {
     );
 
     //TODO: (Post-PR) Place buttons in WalksFilterOptions (should be a generic FilterOptions)
-    return (<div className="cityWalks">
-      <button onClick={() => this.setState({currentView: 'list'})}>List</button>
-      <button onClick={() => this.setState({currentView: 'map'})}>Map</button>
-      { filterByDate ==='all' ? <button onClick={() => DashboardActions.filterByDate('future')}>Hide Past Walks</button> : <button onClick={()=>DashboardActions.filterByDate('all')}>Show All Walks</button>}
+    //TODO* Create generic button component
+    return (<div className="walks">
+      <button className={`walksListButton ${currentView === 'list' ? 'active' : null}`} onClick={()=>this.setState({currentView: 'list'})}>List</button>
+      <button className={`walksMapButton ${currentView === 'map' ? 'active' : null}`} onClick={()=>this.setState({currentView: 'map'})}>Map</button>
+      {
+        filterByDate ==='all' ?
+        <button className = {filterByDate ==='past' ? 'active' : null }onClick={() => DashboardActions.filterByDate('future')}>Hide Past Walks</button> :
+        <button className = {filterByDate === 'future' ? 'active' : null } onClick={()=>DashboardActions.filterByDate('all')}>Show All Walks</button>
+      }
       <button onClick={() => window.open(DashboardStore.generateCSV())}>Export Spreadsheet</button>
       <WalksFilter
         {...this.state}
@@ -76,6 +82,6 @@ export default class Walks extends React.Component {
 
 Walks.PropTypes = {
   walks: React.PropTypes.array.isRequired,
-  activeFilters: React.PropTypes.array.isRequired,
+  activeFilters: React.PropTypes.object.isRequired,
   filterByDate: React.PropTypes.string.isRequired,
 };

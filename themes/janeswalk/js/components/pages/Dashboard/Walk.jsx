@@ -7,6 +7,7 @@ import { dateFormatted } from './../itinerary/ItineraryUtils';
 const Walk = ({title, start, meeting, id, team, url}) => {
   //TODO: no consistent definition of "walk-leader", how to grab the 'Led by' data, grabbing first team member.
   //TODO: Promote | Edit | Unpublish
+  //TODO*: mailto: for email
 
   return (
     <li key={id}>

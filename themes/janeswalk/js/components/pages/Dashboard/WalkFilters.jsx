@@ -1,25 +1,43 @@
 import DashboardStore from './DashboardStore';
 import DashboardActions from '../../../actions/DashboardActions';
 
-const Filter = ({name, selected, addFilter, data, key}) => (
-  <li>
-    <label>{name}</label>
-    <select value="Select One" onChange={e => addFilter(e.target.value)}>
-      <option value="">Select One</option>
-      {Object.keys(data).map((k,i) => <option key={i} value={k}>{data[k]}</option>)}
-    </select>
-  </li>
-);
+//TODO*: Refactoring Components, WalksFilter is not doing much
 
-const WalkFilters = ({filters, activeFilters, removeFilter, addFilter}) => {
+const Filter = ({name, selected, filterName, toggleFilter, removeFilter, data, key, activeFilters}) => {
 
-  const Filters = Object.keys(filters).map(key => <Filter key={key} {...filters[key]} addFilter={addFilter}/>);
+  let ActiveFilters;
 
-  const ActiveFilters = activeFilters.map(f => <button onClick={e => removeFilter(f, e.target.value)}>{f}</button>);
+  if (Object.keys(activeFilters).includes(filterName)) {
+    ActiveFilters = activeFilters[filterName].map(({filter, state, display}, i) =>
+      <button key={i} className={state ? "activeFilter" : "inActiveFilter"}>
+        <span onClick={e => toggleFilter(filter, filterName, e.target.value)}> {display} </span>
+        <span className="buttonClose" onClick={e => removeFilter(filter, filterName, e.target.value)}> x </span>
+      </button>
+    );
+  }
 
   return (
-    <div>
+    <li>
+      <label>{name}</label>
+      <select value="Select One" onChange={e => toggleFilter(e.target.value, filterName)}>
+        <option value="">Select One</option>
+        {Object.keys(data).map((k,i) => <option key={i} value={k}>{data[k]}</option>)}
+      </select>
+      <section>
       {ActiveFilters}
+      </section>
+    </li>
+  );
+};
+
+const WalkFilters = ({filters, activeFilters, removeFilter, toggleFilter}) => {
+
+  const Filters = Object.keys(filters).map(
+    key => <Filter key={key} filterName={key} {...filters[key]} toggleFilter={toggleFilter} removeFilter={removeFilter} activeFilters={activeFilters}/>
+  );
+
+  return (
+    <div className="walksFilter">
       {Filters}
     </div>
   );
@@ -34,7 +52,7 @@ WalkFilters.PropTypes = {
 
 Filter.PropTypes = {
   name: React.PropTypes.string.isRequired,
-  addFilter: React.PropTypes.func.isRequired,
+  toggleFilter: React.PropTypes.func.isRequired,
   data: React.PropTypes.object.isRequired,
 };
 
