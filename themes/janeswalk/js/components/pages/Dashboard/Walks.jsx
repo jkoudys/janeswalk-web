@@ -12,7 +12,6 @@ import Walk from './Walk.jsx';
 const getWalks = (props) => ({
   walks: props.walks || DashboardStore.getWalks(props.location),
   activeFilters: props.activeFilters || DashboardStore.getActiveFilters().activeFilters,
-  inActiveFilters: props.inActiveFilters || DashboardStore.getActiveFilters().inActiveFilters,
   filterByDate: props.filterByDate || DashboardStore.getDateFilter(),
 });
 
@@ -30,11 +29,6 @@ export default class Walks extends React.Component {
 
   componentWillUnmount() {
     DashboardStore.removeChangeListener( this._onChange );
-  }
-
-  //This is required to capture updated routing (indicating which type of walks to retrieve)
-  componentWillReceiveProps(props) {
-    this.setState(getWalks(props));
   }
 
   _onChange() {
@@ -65,8 +59,8 @@ export default class Walks extends React.Component {
       <button className={`walksMapButton ${currentView === 'map' ? 'active' : null}`} onClick={()=>this.setState({currentView: 'map'})}>Map</button>
       {
         filterByDate ==='all' ?
-        <button className = {filterByDate ==='past' ? 'active' : null }onClick={() => DashboardActions.filterByDate('future')}>Hide Past Walks</button> :
-        <button className = {filterByDate === 'future' ? 'active' : null } onClick={()=>DashboardActions.filterByDate('all')}>Show All Walks</button>
+        <button className = {filterByDate ==='past' ? 'active' : null }onClick={() => DashboardActions.filterByDate('future')}>With Past Walks</button> :
+        <button className = {filterByDate === 'future' ? 'active' : null } onClick={()=>DashboardActions.filterByDate('all')}>Without Past Walks</button>
       }
       <button onClick={() => window.open(DashboardStore.generateCSV())}>Export Spreadsheet</button>
       <WalksFilter

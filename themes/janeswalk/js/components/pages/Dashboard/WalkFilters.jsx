@@ -11,16 +11,16 @@ const Filter = ({name, selected, filterName, toggleFilter, removeFilter, data, k
     ActiveFilters = activeFilters[filterName].map(({filter, state, display}, i) =>
       <button key={i} className={state ? "activeFilter" : "inActiveFilter"}>
         <span onClick={e => toggleFilter(filter, filterName, e.target.value)}> {display} </span>
-        <span className="buttonClose" onClick={e => removeFilter(filter, filterName, e.target.value)}> x </span>
+        <span className="buttonClose" onClick={e => removeFilter(filter, filterName, e.target.value)}> × </span>
       </button>
     );
   }
 
   return (
     <li>
-      <label>{name}</label>
-      <select value="Select One" onChange={e => toggleFilter(e.target.value, filterName)}>
-        <option value="">Select One</option>
+      <label></label>
+      <select value="Select" onChange={e => toggleFilter(e.target.value, filterName)}>
+        <option value="">{name}</option>
         {Object.keys(data).map((k,i) => <option key={i} value={k}>{data[k]}</option>)}
       </select>
       <section>
@@ -47,7 +47,7 @@ WalkFilters.PropTypes = {
   filters: React.PropTypes.array.isRequired,
   activeFilters: React.PropTypes.array.isRequired,
   removeFilter: React.PropTypes.func.isRequired,
-  addFilter: React.PropTypes.func.isRequired,
+  toggleFilter: React.PropTypes.func.isRequired,
 };
 
 Filter.PropTypes = {

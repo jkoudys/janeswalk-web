@@ -7,6 +7,7 @@
 @color-blue: #6BADFD;
 @color-midnight: #001d40;
 @color-orange: #F16725;
+@grid-gutter-width: 30px;
 
 // Mixins
 @import "~bootstrap/less/mixins.less";
@@ -39,7 +40,7 @@ button {
   padding: 4px 8px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  margin-right: 7px;
+  margin: 0 8px 8px 0;
   background: #fff;
   cursor: pointer;
   &:focus {
@@ -59,10 +60,10 @@ button {
   }
   &.inActiveFilter {
     .buttonClose {
-      background: rgba(200,200,200,0.4);
+      background: rgba(200,200,200,0.2);
       border-left: 1px solid rgba(50,50,50,0.3);
       &:hover {
-        background:rgba(200,200,200,0.6);
+        background:rgba(200,200,200,0.4);
       }
     }
   }
@@ -86,7 +87,7 @@ button {
     list-style: none;
   }
   a {
-    color: @color-blue;
+    color: @color-orange;
   }
   > header {
     padding: 10px 70px 50px 15px;
@@ -103,7 +104,7 @@ button {
       color: @color-midnight;
     }
     .dashboardLatestPost {
-      margin: 70px 55px 50px;
+      margin: 70px 50px 50px;
       h4 {
         font-size: 16px;
         font-weight: 600;
@@ -141,12 +142,12 @@ button {
     ul {
       list-style: none;
       padding: 0;
-      section > li {
+      > section > li {
         font-size: 28px;
         border-bottom: 1px solid #ddd;
         background: @color-blue;
         border-bottom: 1px solid #fff;
-        padding: 30px 70px;
+        padding: @grid-gutter-width @grid-gutter-width*2;
         color: #fff;
         cursor: pointer;
         a {
@@ -163,7 +164,7 @@ button {
     }
   }
   .dashboardRecap, .dashboardResources, .walks, .dashboardWalkLeaders, .dashboardMyBlogPosts {
-    padding: 50px 70px;
+    padding: @grid-gutter-width @grid-gutter-width*2 @grid-gutter-width*2;
     border-bottom: 1px solid #ddd;
   }
   .dashboardRecap {
@@ -191,6 +192,9 @@ button {
     }
     .walksFilter {
       margin-top: 10px;
+      > li {
+        margin-top: 10px;
+      }
       li {
         list-style: none;
         label {
@@ -200,6 +204,9 @@ button {
           }
         }
       }
+    }
+    .walkMap {
+      margin-top: 15px;
     }
     li {
       .walk {
@@ -219,10 +226,10 @@ button {
         }
         button {
           font-size: 12px;
-          color: @color-blue;
+          color: @color-orange;
           margin-top: 8px;
           letter-spacing: 0.01rem;
-          border: 1px solid @color-blue;
+          border: 1px solid @color-orange;
           opacity: 0.8;
           &:hover {
             opacity: 1;
@@ -233,23 +240,25 @@ button {
   }
   .dashboardWalkLeaders {
     button {
-      border: 1px solid #ddd;
       padding: 6px 10px;
-      background: #fff;
       margin-bottom: 7px;
       &.buttonAllWalks, &.buttonSortAlphabetically {
-        border-top-left-radius: 6px;
-        border-bottom-left-radius: 6px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
         margin-right: -1px;
       }
+      &.buttonUpcomingWalks {
+        border-radius: 0;
+        margin-right: 0;
+      }
       &.buttonPastWalks {
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
         margin-left: -1px;
       }
       &.buttonSortByMostWalks {
-        border-top-right-radius: 6px;
-        border-bottom-right-radius: 6px;
+        border-top-left-radius: 0px;
+        border-bottom-left-radius: 0px;
       }
     }
     .walkLeader {
@@ -282,9 +291,13 @@ button {
       }
     }
   }
-  .dashboardMyBlogPosts {
+  ul.dashboardMyBlogPosts {
+    padding: @grid-gutter-width @grid-gutter-width*2 @grid-gutter-width*2;
     a {
-      color: @color-blue;
+      color: @color-midnight;
+      h2 {
+        font-weight: 300;
+      }
     }
   }
   .dashboardResources {
