@@ -31,11 +31,12 @@ const ActionTypes = [
 
    // Dashboard
   'FILTER_WALKS',
-  'ADD_WALK_FILTER',
+  'TOGGLE_WALK_FILTER',
   'REMOVE_WALK_FILTER',
   'FILTER_WALKS_BY_DATE',
   'FILTER_LEADERS_BY_DATE',
   'SORT_LEADERS',
+  'TOGGLE_MENU',
 
 ].reduce((p, k) => {p[k] = k; return p}, {});
 
