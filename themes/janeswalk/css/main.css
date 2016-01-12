@@ -8264,6 +8264,9 @@ div#ccm-edit-overlay {
 html {
   padding-top: 60px;
 }
+#body {
+  min-height: 650px;
+}
 body {
   overflow-x: hidden;
   font-size: 15px;
