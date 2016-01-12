@@ -28,7 +28,7 @@ export default class WalkCards extends React.Component {
         </div>
       );
     } else {
-      return <div>
+      return <div className="walkCards">
         {this.props.walks.map(walk => <Card walk={walk} />)}
       </div>;
     }
