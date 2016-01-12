@@ -62,12 +62,12 @@ const manageMarkers = (map, markers, walks) => {
 };
 
 export default class WalksMap extends React.Component {
-  constructor(props,...args) {
-    super(props,...args);
+  constructor(props, ...args) {
+    super(props, ...args);
     this.state = {
       googleMap: null,
       walks: props.walks,
-      googleMapMarkers:[],
+      googleMapMarkers: [],
     };
   }
   //You cannot use this.setState() in componentWillUpdate
@@ -84,7 +84,7 @@ export default class WalksMap extends React.Component {
     const {latlng} = DashboardStore.getCityData();
     let {walks, googleMapMarkers} = this.state;
 
-    const locationLatLng = new google.maps.LatLng(latlng[0],latlng[1]);
+    const locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
 
     //TODO: Place configuration and constants in a single file
 

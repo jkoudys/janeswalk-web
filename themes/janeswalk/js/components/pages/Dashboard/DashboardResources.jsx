@@ -12,7 +12,7 @@ const DashboardResources = () => {
         <h3>Connect with Fellow organizers</h3>
         Got a question? Reach out to a fellow City Organizer for help.
         <ul>
-          {cityOrganizers.map((co,i) => (<li key={i}>{`${co.firstName} from ${co.cityName}: ${co.email}`}</li>))}
+          {cityOrganizers.map((co, i) => (<li key={i}>{`${co.firstName} from ${co.cityName}: ${co.email}`}</li>))}
         </ul>
       </section>
 
@@ -20,7 +20,7 @@ const DashboardResources = () => {
         <h3>Walks from around the world</h3>
         Don't know what kind of walk to lead? Here are some fun ones from around the world.
         <ul>
-          {featuredWalks.map((w,i) =>
+          {featuredWalks.map((w, i) =>
             (
               <li key={i} className="funWalksFromAroundWorld">
                 <a href={w.url} className="walkImage"><img src={`http://janeswalk.org/${w.thumbnailUrl}`}/></a>
@@ -39,9 +39,11 @@ const DashboardResources = () => {
         <h3>Tips on leading a walk</h3>
         Leading your first or fifth walk? Here are some tips from the Jane's Walk crew!
         <ul>
-          {videoTips.map((v,i) => (
+          {videoTips.map((v, i) => (
             <li key={i}>
-              <iframe src={`${v}`} width="250" height="140" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              <div className='embed-container'>
+                <iframe src={`${v}`} frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+              </div>
             </li>)
           )}
         </ul>
@@ -52,7 +54,7 @@ const DashboardResources = () => {
         Want help promoting Jane's Walk?
         Use these files to promote Jane's Walk in your city
         <ul>
-          {files.map((f,i) => (<li key={i}><a href={f.url}>{`${f.name}`}</a></li>))}
+          {files.map((f, i) => (<li key={i}><a href={f.url}>{`${f.name}`}</a></li>))}
         </ul>
       </section>
     </section>
