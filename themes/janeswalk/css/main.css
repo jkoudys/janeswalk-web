@@ -8265,7 +8265,7 @@ html {
   padding-top: 60px;
 }
 #body {
-  min-height: 650px;
+  min-height: 60vh;
 }
 body {
   overflow-x: hidden;
@@ -8281,6 +8281,7 @@ body.full #body {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  min-height: 60vh;
 }
 @media (min-width: 992px) {
   body.full #body {

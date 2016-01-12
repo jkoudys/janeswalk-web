@@ -3,7 +3,7 @@ html {
 }
 
 #body {
-    min-height: 650px;
+    min-height: 60vh;
 }
 
 body {
@@ -17,8 +17,9 @@ body {
 
     // Generic layouts - profile page, blogs, etc.
     &.full {
-        #body { 
+        #body {
             .make-md-column(12);
+            min-height: 60vh;
             @media(min-width: @screen-md-min) {
                 max-width: @screen-lg-min;
                 margin: 0 auto;
