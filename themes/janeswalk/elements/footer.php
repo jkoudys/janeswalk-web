@@ -1,4 +1,3 @@
-<?php  defined('C5_EXECUTE') || die('Access Denied.') ?>
 <footer role="contentinfo">
     <section class="blurb">
         <h2>Citizen-led walking tours towards community-based city building.</h2>
