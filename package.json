@@ -53,5 +53,8 @@
         }
       ]
     ]
+  },
+  "dependencies": {
+    "janeswalk": "0.0.0"
   }
 }
