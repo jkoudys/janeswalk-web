@@ -45,6 +45,10 @@ gulp.task('css', function() {
     .pipe(gulp.dest(paths.css));
 });
 
+gulp.task('watch.css', function() {
+  gulp.watch(paths.css + '**/*.less', ['css']);
+});
+
 gulp.task('js', function() {
   gulp.run('js.theme', 'js.blocks', 'js.global');
 });
