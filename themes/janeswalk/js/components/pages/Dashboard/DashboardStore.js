@@ -39,7 +39,7 @@ const generateWalkLeaders = (walks) => {
         if (role.includes('leader') || role.includes('organizer')) {
           let leaderExists = walkLeaders.findIndex(l => l.firstName === m['name-first'] && l.lastName === m['name-last']);
           if (leaderExists !== -1) walkLeaders[leaderExists].walks.push(w);
-          else walkLeaders.push({firstName:m['name-first'], lastName:m['name-last'], walks: [w], email:m['email']});
+          else walkLeaders.push({firstName: m['name-first'], lastName: m['name-last'], walks: [w], email: m['email']});
         }
       });
     }
@@ -51,14 +51,14 @@ const _walkLeaders = generateWalkLeaders(walks);
 
 const _walkLeadersPerYear = (year, walkLeaders) => {
   return walkLeaders.reduce((sum, walkLeader)=>{
-    const ledWalkThisYear = walkLeader.walks.find(w => new Date(JSON.parse(w.time.slots[0][0])*1000).getFullYear() === year);
+    const ledWalkThisYear = walkLeader.walks.find(w => new Date(JSON.parse(w.time.slots[0][0]) * 1000).getFullYear() === year);
     return ledWalkThisYear ? sum + 1 : sum;
   }, 0);
 };
 
 const _walksPerYear = (year, walks) => {
-  return walks.reduce((sum,walk)=>{
-    const walkThisYear = new Date((walk.time.slots[0][0])*1000).getFullYear() === year;
+  return walks.reduce((sum, walk)=>{
+    const walkThisYear = new Date((walk.time.slots[0][0]) * 1000).getFullYear() === year;
     return walkThisYear ? sum + 1 : sum;
   }, 0);
 };
@@ -74,7 +74,7 @@ const _generateRegionSummary = (walks) => {
     totalWalkLeaders: _walkLeaders.length,
     totalWalks: walks.length,
     name: city.name,
-  }
+  };
 };
 
 const _regionSummary = _generateRegionSummary(walks);
@@ -84,6 +84,7 @@ const _retrieveWalks = () => {
   if (currentRoute === '/userWalks') return walks;
 };
 
+//Could you make Filter by Region an `or` filter instead of an `and` filter
 const _filterWalks = (filters = activeFilters, filterByDate = 'all') => {
   let allWalks = _retrieveWalks();
 
@@ -129,7 +130,7 @@ const _filterWalkLeaders = (filterByDate = '') => {
       }
       if (filterByDate === 'future') {
         return leader.walks.reduce((p, walk) => {
-          if(p) return p;
+          if (p) return p;
           return walk.time.slots[0][0] * 1000 >= currentDate;
         }, false);
       }
@@ -139,18 +140,23 @@ const _filterWalkLeaders = (filterByDate = '') => {
 };
 
 const _sortWalkLeaders = (sortSelected) => {
-  //TODO: Toggle off and on or reset
-  if (sortBy === sortSelected) return;
+  if (sortBy === sortSelected) {
+    sortBy = null;
+    activeLeaders = _walkLeaders.slice();
+  }
   else if (sortSelected === 'alpha') {
     activeLeaders.sort((pLeader, cLeader)=>{
       return pLeader.firstName > cLeader.firstName;
     });
+    sortBy = sortSelected;
   }
   else { //'count'
     activeLeaders.sort((pLeader, cLeader)=>{
       return pLeader.walks.length < cLeader.walks.length;
     });
+    sortBy = sortSelected;
   }
+
 };
 
 const _toggleWalkFilter = (filter, filterName) => {
@@ -172,6 +178,7 @@ const _removeWalkFilter = (filter, filterName) => {
   if (activeFilterIndex !== -1) activeFilters[filterName].splice(activeFilterIndex, 1);
 };
 
+//TODO: To be done server side, not client side: I think there is an issue with the `export spreadsheet` feature—the csv only includes walk titles
 const _generateCSV = () => {
   //TODO: Configuration (what to export) + Complete Functionality
   return encodeURI("data:text/csv;charset=utf-8,Title \n" + (filteredWalks.map(w => (`\"${w.title} \"`))).join('\n'));
@@ -237,7 +244,7 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
       currentRoute = pathname;
       filterByDate = 'all';
       sortBy = null;
-      activeLeaders = _walkLeaders;
+      activeLeaders = _walkLeaders.slice();
     }
 
     return activeLeaders;
@@ -252,7 +259,7 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
   },
 
   getLatestPost() {
-    return {post:blog[0]};
+    return {post: blog[0]};
   },
 
   getRegionSummary() {
