@@ -336,7 +336,7 @@
 
 	var _WalkCards2 = _interopRequireDefault(_WalkCards);
 
-	var _WalkList = __webpack_require__(5);
+	var _WalkList = __webpack_require__(6);
 
 	var _WalkList2 = _interopRequireDefault(_WalkList);
 
@@ -344,11 +344,11 @@
 
 	var _LocationMap2 = _interopRequireDefault(_LocationMap);
 
-	var _DateRange = __webpack_require__(6);
+	var _DateRange = __webpack_require__(7);
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
-	var _Tabs = __webpack_require__(7);
+	var _Tabs = __webpack_require__(8);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
@@ -605,7 +605,7 @@
 	  value: true
 	});
 
-	var _Themes = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Themes.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _Theme = __webpack_require__(5);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -733,8 +733,8 @@
 	      }).map(function (theme) {
 	        return React.createElement(
 	          'li',
-	          { className: 'tag', 'data-toggle': 'tooltip', 'data-theme': theme, title: (0, _Themes.getThemeName)(theme) },
-	          React.createElement('i', { className: 'fa ' + (0, _Themes.getThemeIcon)(theme) })
+	          { className: 'tag', 'data-toggle': 'tooltip', 'data-theme': theme, title: (0, _Theme.getThemeName)(theme) },
+	          React.createElement('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) })
 	        );
 	      });
 
@@ -830,6 +830,60 @@
 
 /***/ },
 /* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getThemeName = getThemeName;
+	exports.getThemeIcon = getThemeIcon;
+	var icons = exports.icons = {
+	  'civic-activist': { name: 'Activism', icon: 'bullhorn' },
+	  'civic-commerce': { name: 'Commerce', icon: 'shopping-cart' },
+	  'civic-gender': { name: 'Gender', icon: 'unlock-alt' },
+	  'civic-goodneighbour': { name: 'Community', icon: 'group' },
+	  'civic-health': { name: 'Health', icon: 'medkit' },
+	  'civic-international': { name: 'International Issues', icon: 'globe' },
+	  'civic-military': { name: 'Military', icon: 'fighter-jet' },
+	  'civic-nativeissues': { name: 'Native Issues', icon: 'sun-o' },
+	  'civic-religion': { name: 'Religion', icon: 'bell' },
+	  'civic-truecitizen': { name: 'Citizenry', icon: 'flag-o' },
+	  'culture-aesthete': { name: 'Design', icon: 'pencil' },
+	  'culture-artist': { name: 'Art', icon: 'picture-o' },
+	  'culture-bookworm': { name: 'Literature', icon: 'book' },
+	  'culture-foodie': { name: 'Food', icon: 'cutlery' },
+	  'culture-historybuff': { name: 'Heritage', icon: 'archive' },
+	  'culture-nightowl': { name: 'Night Life', icon: 'glass' },
+	  'culture-techie': { name: 'Technology', icon: 'gears' },
+	  'culture-writer': { name: 'Storytelling', icon: 'edit' },
+	  'nature-greenthumb': { name: 'Gardening', icon: 'leaf' },
+	  'nature-naturelover': { name: 'Nature', icon: 'bug' },
+	  'nature-petlover': { name: 'Animals', icon: 'heart' },
+	  'urban-architecturalenthusiast': { name: 'Architecture', icon: 'building' },
+	  'urban-film': { name: 'Film', icon: 'video-camera' },
+	  'urban-moversandshakers': { name: 'Transportation', icon: 'truck' },
+	  'urban-music': { name: 'Music', icon: 'music' },
+	  'urban-play': { name: 'Play', icon: 'puzzle-piece' },
+	  'urban-sports': { name: 'Sports', icon: 'trophy' },
+	  'urban-suburbanexplorer': { name: 'Suburbs', icon: 'home' },
+	  'urban-water': { name: 'Water', icon: 'tint' }
+	};
+
+	/**
+	 * Helpers, to deal with that 'theme-' prefix from the v1 json
+	 */
+	function getThemeName(theme) {
+	  return (icons[theme.slice(6)] || { name: '' }).name;
+	}
+
+	function getThemeIcon(theme) {
+	  return 'fa-' + (icons[theme.slice(6)] || { icon: '' }).icon;
+	}
+
+/***/ },
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -998,7 +1052,7 @@
 	})(React.Component);
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1100,7 +1154,7 @@
 	exports.default = DateRange;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	"use strict";

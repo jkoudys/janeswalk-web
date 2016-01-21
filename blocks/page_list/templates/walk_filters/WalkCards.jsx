@@ -1,7 +1,7 @@
 /**
  * The cards showing your walk
  */
-import {getThemeName, getThemeIcon} from './Themes.js';
+import {getThemeName, getThemeIcon} from 'janeswalk/utils/lookups/Theme.js';
 
 const t = s => s;
 
