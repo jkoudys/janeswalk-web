@@ -517,7 +517,8 @@
 	      var _this2 = this;
 
 	      var locationMapSection = undefined;
-	      var CitiesFilter = undefined;
+
+	      var displayFilters = this.state.displayFilters;
 
 	      var Filters = Object.keys(this.state.filters).map(function (key) {
 	        return React.createElement(Filter, _extends({ key: key }, _this2.state.filters[key], { setFilter: function setFilter(v) {
@@ -534,6 +535,26 @@
 	        );
 	      }
 
+	      var AllFilters = React.createElement(
+	        'section',
+	        null,
+	        React.createElement(
+	          'ul',
+	          { className: 'filters' },
+	          Filters,
+	          React.createElement(
+	            'li',
+	            null,
+	            React.createElement(
+	              'label',
+	              null,
+	              'Dates'
+	            ),
+	            React.createElement(_DateRange2.default, { value: this.state.dateRange, onChange: this.setDateRange.bind(this) })
+	          )
+	        )
+	      );
+
 	      return React.createElement(
 	        'section',
 	        { className: 'ccm-block-page-list-walk-filters' },
@@ -549,41 +570,19 @@
 	            ' Print List'
 	          ),
 	          React.createElement(
-	            'ul',
-	            { className: 'filters' },
-	            Filters,
-	            CitiesFilter,
-	            React.createElement(
-	              'li',
-	              null,
-	              React.createElement(
-	                'label',
-	                null,
-	                'Dates'
-	              ),
-	              React.createElement(_DateRange2.default, { value: this.state.dateRange, onChange: this.setDateRange.bind(this) })
-	            )
+	            'h4',
+	            { onClick: function onClick() {
+	                _this2.setState({ displayFilters: !displayFilters });
+	              } },
+	            'Filters'
 	          ),
-	          React.createElement(
-	            'div',
-	            null,
-	            React.createElement(_Tabs2.default, { blog: this.state.blog, location: this.state.location })
-	          ),
-	          React.createElement(
-	            'div',
-	            { className: 'tab-content' },
-	            React.createElement(
-	              'section',
-	              { className: 'tab-pane active', id: 'jw-cards' },
-	              React.createElement(_WalkCards2.default, { walks: this.state.filterMatches })
-	            ),
-	            React.createElement(
-	              'section',
-	              { className: 'tab-pane', id: 'jw-list' },
-	              React.createElement(_WalkList2.default, { walks: this.state.filterMatches })
-	            ),
-	            locationMapSection
-	          )
+	          displayFilters ? AllFilters : null
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'walks-area' },
+	          React.createElement(_WalkCards2.default, { walks: this.state.filterMatches }),
+	          locationMapSection
 	        )
 	      );
 	    }
@@ -665,7 +664,7 @@
 	      } else {
 	        return React.createElement(
 	          'div',
-	          null,
+	          { className: 'walkCards' },
 	          this.props.walks.map(function (walk) {
 	            return React.createElement(Card, { walk: walk });
 	          })
