@@ -1,5 +1,5 @@
 
-import WalksFilter from './WalksFilter.jsx';
+import WalkFilters from './WalkFilters.jsx';
 import WalksMap from './WalksMap.jsx';
 import DashboardStore from './DashboardStore';
 import DashboardActions from '../../../actions/DashboardActions';
@@ -53,17 +53,17 @@ export default class Walks extends React.Component {
     );
 
     //TODO: (Post-PR) Place buttons in WalksFilterOptions (should be a generic FilterOptions)
-    //TODO* Create generic button component
+    //TODO: (Post-PR) Create generic button component as part of a filter generic component (iterable buttons)
     return (<div className="walks">
       <button className={`walksListButton ${currentView === 'list' ? 'active' : null}`} onClick={()=>this.setState({currentView: 'list'})}>List</button>
       <button className={`walksMapButton ${currentView === 'map' ? 'active' : null}`} onClick={()=>this.setState({currentView: 'map'})}>Map</button>
       {
-        filterByDate ==='all' ?
-        <button className = {filterByDate ==='past' ? 'active' : null }onClick={() => DashboardActions.filterByDate('future')}>With Past Walks</button> :
+        filterByDate === 'all' ?
+        <button className = {filterByDate === 'past' ? 'active' : null }onClick={() => DashboardActions.filterByDate('future')}>With Past Walks</button> :
         <button className = {filterByDate === 'future' ? 'active' : null } onClick={()=>DashboardActions.filterByDate('all')}>Without Past Walks</button>
       }
       <button onClick={() => window.open(DashboardStore.generateCSV())}>Export Spreadsheet</button>
-      <WalksFilter
+      <WalkFilters
         {...this.state}
         {...this.props}
         filters={filters}

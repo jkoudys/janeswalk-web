@@ -9,7 +9,7 @@ const Filter = ({name, selected, filterName, toggleFilter, removeFilter, data, k
 
   if (Object.keys(activeFilters).includes(filterName)) {
     ActiveFilters = activeFilters[filterName].map(({filter, state, display}, i) =>
-      <button key={i} className={state ? "activeFilter" : "inActiveFilter"}>
+      <button key={i} className={state ? 'activeFilter' : 'inActiveFilter'}>
         <span onClick={e => toggleFilter(filter, filterName, e.target.value)}> {display} </span>
         <span className="buttonClose" onClick={e => removeFilter(filter, filterName, e.target.value)}> × </span>
       </button>
@@ -21,7 +21,7 @@ const Filter = ({name, selected, filterName, toggleFilter, removeFilter, data, k
       <label></label>
       <select value="Select" onChange={e => toggleFilter(e.target.value, filterName)}>
         <option value="">{name}</option>
-        {Object.keys(data).map((k,i) => <option key={i} value={k}>{data[k]}</option>)}
+        {Object.keys(data).map((k, i) => <option key={i} value={k}>{data[k]}</option>)}
       </select>
       <section>
       {ActiveFilters}

@@ -120,7 +120,8 @@ export default class WalkFilter extends React.Component {
 
   render() {
     let locationMapSection;
-    let CitiesFilter;
+
+    const {displayFilters} = this.state;
 
     const Filters = Object.keys(this.state.filters).map(
       key => <Filter key={key} {...this.state.filters[key]} setFilter={v => this.setFilter(key, v)} />
@@ -130,33 +131,29 @@ export default class WalkFilter extends React.Component {
     if (this.state.location && this.state.location.latlng.length === 2) {
       locationMapSection = <section className="tab-pane" id="jw-map">
         <LocationMap walks={this.state.filterMatches} location={this.state.location} />
-      </section>
+      </section>;
     }
+
+    const AllFilters = (<section>
+      <ul className="filters">
+        {Filters}
+        <li>
+          <label>Dates</label>
+          <DateRange value={this.state.dateRange} onChange={this.setDateRange.bind(this)}/>
+        </li>
+      </ul>
+    </section>);
 
     return (
       <section className="ccm-block-page-list-walk-filters">
         <div className="walk-filters">
           <a className="print-button" onClick={() => this.printList()}><i className="fa fa-print" /> Print List</a>
-          <ul className="filters">
-            {Filters}
-            {CitiesFilter}
-            <li>
-              <label>Dates</label>
-              <DateRange value={this.state.dateRange} onChange={this.setDateRange.bind(this)} />
-            </li>
-          </ul>
-          <div>
-            <Tabs blog={this.state.blog} location={this.state.location}/>
-          </div>
-          <div className="tab-content">
-            <section className="tab-pane active" id="jw-cards">
-              <WalkCards walks={this.state.filterMatches} />
-            </section>
-            <section className="tab-pane" id="jw-list">
-              <WalkList walks={this.state.filterMatches} />
-            </section>
-            {locationMapSection}
-          </div>
+          <h4 onClick={ () => { this.setState( {displayFilters: !displayFilters}); } }>Filters</h4>
+          { displayFilters ? AllFilters : null }
+        </div>
+        <div className="walks-area">
+          <WalkCards walks={this.state.filterMatches} />
+          {locationMapSection}
         </div>
       </section>
     );

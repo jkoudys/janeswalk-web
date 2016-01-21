@@ -7,15 +7,15 @@ import { dateFormatted } from './../itinerary/ItineraryUtils';
 
 const Walk = ({firstName, lastName, walks, email}) => {
 
-  const Walks = walks.map((w,i) => {
-    const fullYear = (new Date(w.time.slots[0][0]*1000)).getFullYear();
+  const Walks = walks.map((w, i) => {
+    const fullYear = (new Date(w.time.slots[0][0] * 1000)).getFullYear();
     return (<li key={i}>Walk Leader: {w.title} ({fullYear})</li>);
   });
 
   return (
     <li>
       <div className="walkLeader">
-        <h3>{`${firstName} ${lastName}`} <span className="walkLeaderEmail">{email}</span></h3>
+        <h3>{`${firstName} ${lastName}`} <span className="walkLeaderEmail"><a href={`mailto:${email}`}>{email}</a></span></h3>
         <ul>
           <h4>
             {Walks}
