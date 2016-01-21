@@ -60,16 +60,14 @@ class PageListTypeahead extends React.Component {
    * Called when typing in the input
    * @param ReactEvent ev
    */
-  handleInput(ev) {
-    var _this = this;
-    var countries = [];
-    var q = ev.target.value;
+  handleInput(q) {
+    const countries = [];
 
     // Loop through all countries and build a list of cities which match
     this.props.countries.forEach(function(country) {
-      var cities = [];
-      country.cities.forEach(function(city) {
-        if (!q || _this.strContains(city.name, q)) {
+      const cities = [];
+      country.cities.forEach(city => {
+        if (!q || strContains(city.name, q)) {
           cities.push(city);
         }
       });
@@ -87,21 +85,22 @@ class PageListTypeahead extends React.Component {
    * @param ReactEvent ev
    */
   handleSubmit(ev) {
-    var firstCountry = this.state.matched[0];
-    var firstCity;
+    let firstCountry = this.state.matched[0];
+    let firstCity;
 
     // If there's a matching city, that's the URL we go to
     if (firstCountry) {
       firstCity = firstCountry.cities[0];
       if (firstCity) {
-        ev.target.action = firstCity.url;
+        this.setState({q: firstCity.name}, () => ev.target.action = firstCity.url);
       }
     }
   }
 
   render() {
-    var _this = this;
-    var homeCity = <h3 />;
+    const {q, matched} = this.state;
+
+    let homeCity = <h3 />;
 
     if (this.props.user && this.props.user.city) {
       homeCity = <h3>See walks in <a href={this.props.user.city.url}>{this.props.user.city.name}</a>, or:</h3>
@@ -110,14 +109,14 @@ class PageListTypeahead extends React.Component {
     return (
       <div className="ccm-page-list-typeahead">
         {homeCity}
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(ev) => this.handleSubmit(ev)}>
           <fieldset className="search">
-            <input type="text" name="selected_option" className="typeahead" placeholder="Start typing a city" autoComplete="off" value={this.state.q} onChange={this.handleInput} />
+            <input type="text" name="selected_option" className="typeahead" placeholder="Start typing a city" autoComplete="off" value={this.state.q} onChange={(ev) => this.handleInput(ev.target.value)} />
             <button type="submit">Go</button>
             <ul>
-              {this.state.matched.map(country => <Country {...country} />)}
-              {this.state.matched.length === 0 ?
-                <li><a href="/city-organizer-onboarding">{'Add ' + _this.state.q + ' to Jane\'s Walk'}</a></li> :
+              {matched.map(country => <Country {...country} />)}
+              {matched.length === 0 ?
+                <li><a href="/city-organizer-onboarding">{'Add ' + q + ' to Jane\'s Walk'}</a></li> :
                 null
               }
             </ul>

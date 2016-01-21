@@ -131,13 +131,13 @@
 	  function PageListTypeahead(props) {
 	    _classCallCheck(this, PageListTypeahead);
 
-	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListTypeahead).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListTypeahead).call(this, props));
 
-	    _this2.state = {
+	    _this.state = {
 	      q: '',
 	      matched: props.countries
 	    };
-	    return _this2;
+	    return _this;
 	  }
 
 	  /**
@@ -147,16 +147,14 @@
 
 	  _createClass(PageListTypeahead, [{
 	    key: 'handleInput',
-	    value: function handleInput(ev) {
-	      var _this = this;
+	    value: function handleInput(q) {
 	      var countries = [];
-	      var q = ev.target.value;
 
 	      // Loop through all countries and build a list of cities which match
 	      this.props.countries.forEach(function (country) {
 	        var cities = [];
 	        country.cities.forEach(function (city) {
-	          if (!q || _this.strContains(city.name, q)) {
+	          if (!q || strContains(city.name, q)) {
 	            cities.push(city);
 	          }
 	        });
@@ -178,20 +176,27 @@
 	    key: 'handleSubmit',
 	    value: function handleSubmit(ev) {
 	      var firstCountry = this.state.matched[0];
-	      var firstCity;
+	      var firstCity = undefined;
 
 	      // If there's a matching city, that's the URL we go to
 	      if (firstCountry) {
 	        firstCity = firstCountry.cities[0];
 	        if (firstCity) {
-	          ev.target.action = firstCity.url;
+	          this.setState({ q: firstCity.name }, function () {
+	            return ev.target.action = firstCity.url;
+	          });
 	        }
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this = this;
+	      var _this2 = this;
+
+	      var _state = this.state;
+	      var q = _state.q;
+	      var matched = _state.matched;
+
 	      var homeCity = React.createElement('h3', null);
 
 	      if (this.props.user && this.props.user.city) {
@@ -214,11 +219,15 @@
 	        homeCity,
 	        React.createElement(
 	          'form',
-	          { onSubmit: this.handleSubmit },
+	          { onSubmit: function onSubmit(ev) {
+	              return _this2.handleSubmit(ev);
+	            } },
 	          React.createElement(
 	            'fieldset',
 	            { className: 'search' },
-	            React.createElement('input', { type: 'text', name: 'selected_option', className: 'typeahead', placeholder: 'Start typing a city', autoComplete: 'off', value: this.state.q, onChange: this.handleInput }),
+	            React.createElement('input', { type: 'text', name: 'selected_option', className: 'typeahead', placeholder: 'Start typing a city', autoComplete: 'off', value: this.state.q, onChange: function onChange(ev) {
+	                return _this2.handleInput(ev.target.value);
+	              } }),
 	            React.createElement(
 	              'button',
 	              { type: 'submit' },
@@ -227,16 +236,16 @@
 	            React.createElement(
 	              'ul',
 	              null,
-	              this.state.matched.map(function (country) {
+	              matched.map(function (country) {
 	                return React.createElement(Country, country);
 	              }),
-	              this.state.matched.length === 0 ? React.createElement(
+	              matched.length === 0 ? React.createElement(
 	                'li',
 	                null,
 	                React.createElement(
 	                  'a',
 	                  { href: '/city-organizer-onboarding' },
-	                  'Add ' + _this.state.q + ' to Jane\'s Walk'
+	                  'Add ' + q + ' to Jane\'s Walk'
 	                )
 	              ) : null
 	            )
