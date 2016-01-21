@@ -16,7 +16,6 @@ composer.lock
 .DS_Store
 *~
 .idea/*
-composer.phar
 janeswalk.sql.xz
 npm-debug.log
 .eslintrc

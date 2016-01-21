@@ -225,8 +225,8 @@ th {
     background: #fff !important;
   }
   .navbar,
-  body #navbar > header,
-  body #navbar > header.dropped {
+  body #navbar > div > header,
+  body #navbar > div > header.dropped {
     display: none;
   }
   .table td,
@@ -2606,7 +2606,7 @@ select[multiple].input-lg {
   }
 }
 .btn,
-body #navbar > header #donate,
+body #navbar > div > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
@@ -2771,7 +2771,7 @@ fieldset[disabled] .btn-default.active {
   background-color: #333333;
 }
 .btn-primary,
-body #navbar > header #donate,
+body #navbar > div > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after {
   color: #ffffff;
@@ -3298,14 +3298,14 @@ tbody.collapse.in {
 }
 @media (min-width: 768px) {
   .navbar-right .dropdown-menu,
-  body #navbar > header nav a + ul.nav .dropdown-menu,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu {
+  body #navbar > div > header nav a + ul.nav .dropdown-menu,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu {
     left: auto;
     right: 0;
   }
   .navbar-right .dropdown-menu-left,
-  body #navbar > header nav a + ul.nav .dropdown-menu-left,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu-left {
+  body #navbar > div > header nav a + ul.nav .dropdown-menu-left,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .dropdown-menu-left {
     left: 0;
     right: auto;
   }
@@ -4413,8 +4413,8 @@ body fieldset.search .form-control:last-child,
   border-top-left-radius: 0;
 }
 .navbar,
-body #navbar > header,
-body #navbar > header.dropped {
+body #navbar > div > header,
+body #navbar > div > header.dropped {
   position: relative;
   min-height: 60px;
   margin-bottom: 20px;
@@ -4422,14 +4422,14 @@ body #navbar > header.dropped {
 }
 @media (min-width: 768px) {
   .navbar,
-  body #navbar > header,
-  body #navbar > header.dropped {
+  body #navbar > div > header,
+  body #navbar > div > header.dropped {
     border-radius: 4px;
   }
 }
 @media (min-width: 768px) {
   .navbar-header,
-  body #navbar > header .logo {
+  body #navbar > div > header .logo {
     float: left;
   }
 }
@@ -4462,23 +4462,23 @@ body #navbar > header.dropped {
   .navbar-fixed-top .navbar-collapse,
   .navbar-static-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse,
-  body #navbar > header .navbar-collapse,
-  body #navbar > header.dropped .navbar-collapse {
+  body #navbar > div > header .navbar-collapse,
+  body #navbar > div > header.dropped .navbar-collapse {
     padding-left: 0;
     padding-right: 0;
   }
 }
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse,
-body #navbar > header .navbar-collapse,
-body #navbar > header.dropped .navbar-collapse {
+body #navbar > div > header .navbar-collapse,
+body #navbar > div > header.dropped .navbar-collapse {
   max-height: 340px;
 }
 @media (max-width: 480px) and (orientation: landscape) {
   .navbar-fixed-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse,
-  body #navbar > header .navbar-collapse,
-  body #navbar > header.dropped .navbar-collapse {
+  body #navbar > div > header .navbar-collapse,
+  body #navbar > div > header.dropped .navbar-collapse {
     max-height: 200px;
   }
 }
@@ -4486,8 +4486,8 @@ body #navbar > header.dropped .navbar-collapse {
 .container-fluid > .navbar-header,
 .container > .navbar-collapse,
 .container-fluid > .navbar-collapse,
-.container > body #navbar > header .logo,
-.container-fluid > body #navbar > header .logo,
+.container > body #navbar > div > header .logo,
+.container-fluid > body #navbar > div > header .logo,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
@@ -4510,8 +4510,8 @@ body #navbar > header.dropped .navbar-collapse {
   .container-fluid > .navbar-header,
   .container > .navbar-collapse,
   .container-fluid > .navbar-collapse,
-  .container > body #navbar > header .logo,
-  .container-fluid > body #navbar > header .logo,
+  .container > body #navbar > div > header .logo,
+  .container-fluid > body #navbar > div > header .logo,
   #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
   #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
   #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
@@ -4541,8 +4541,8 @@ body #navbar > header.dropped .navbar-collapse {
 }
 .navbar-fixed-top,
 .navbar-fixed-bottom,
-body #navbar > header,
-body #navbar > header.dropped {
+body #navbar > div > header,
+body #navbar > div > header.dropped {
   position: fixed;
   right: 0;
   left: 0;
@@ -4553,14 +4553,14 @@ body #navbar > header.dropped {
 @media (min-width: 768px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom,
-  body #navbar > header,
-  body #navbar > header.dropped {
+  body #navbar > div > header,
+  body #navbar > div > header.dropped {
     border-radius: 0;
   }
 }
 .navbar-fixed-top,
-body #navbar > header,
-body #navbar > header.dropped {
+body #navbar > div > header,
+body #navbar > div > header.dropped {
   top: 0;
   border-width: 0 0 1px;
 }
@@ -4570,7 +4570,7 @@ body #navbar > header.dropped {
   border-width: 1px 0 0;
 }
 .navbar-brand,
-body #navbar > header .logo span {
+body #navbar > div > header .logo span {
   float: left;
   padding: 20px 15px;
   font-size: 18px;
@@ -4579,19 +4579,19 @@ body #navbar > header .logo span {
 }
 .navbar-brand:hover,
 .navbar-brand:focus,
-body #navbar > header .logo span:hover,
-body #navbar > header .logo span:focus {
+body #navbar > div > header .logo span:hover,
+body #navbar > div > header .logo span:focus {
   text-decoration: none;
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,
   .navbar > .container-fluid .navbar-brand,
-  body #navbar > header > .container .navbar-brand,
-  body #navbar > header > .container-fluid .navbar-brand,
-  .navbar > .container body #navbar > header .logo span,
-  .navbar > .container-fluid body #navbar > header .logo span,
-  body #navbar > header.dropped > .container .navbar-brand,
-  body #navbar > header.dropped > .container-fluid .navbar-brand,
+  body #navbar > div > header > .container .navbar-brand,
+  body #navbar > div > header > .container-fluid .navbar-brand,
+  .navbar > .container body #navbar > div > header .logo span,
+  .navbar > .container-fluid body #navbar > div > header .logo span,
+  body #navbar > div > header.dropped > .container .navbar-brand,
+  body #navbar > div > header.dropped > .container-fluid .navbar-brand,
   .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .navbar-brand,
   .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .navbar-brand,
   .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
@@ -4632,27 +4632,27 @@ body #navbar > header .logo span:focus {
   }
 }
 .navbar-nav,
-body #navbar > header nav a + ul.nav,
-body #navbar > header nav a + ul.nav + ul.nav,
-body #navbar > header nav a + ul.social-login-providers.template-fontawesome,
-body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
+body #navbar > div > header nav a + ul.nav,
+body #navbar > div > header nav a + ul.nav + ul.nav,
+body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome,
+body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
   margin: 10px -15px;
 }
 .navbar-nav > li > a,
-body #navbar > header nav a + ul.nav > li > a,
-body #navbar > header nav a + ul.nav + ul.nav > li > a,
-body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+body #navbar > div > header nav a + ul.nav > li > a,
+body #navbar > div > header nav a + ul.nav + ul.nav > li > a,
+body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu,
-  body #navbar > header nav a + ul.nav .open .dropdown-menu,
-  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu {
+  body #navbar > div > header nav a + ul.nav .open .dropdown-menu,
+  body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu {
     position: static;
     float: none;
     width: auto;
@@ -4663,79 +4663,79 @@ body #navbar > header nav a + ul.social-login-providers.template-fontawesome + u
   }
   .navbar-nav .open .dropdown-menu > li > a,
   .navbar-nav .open .dropdown-menu .dropdown-header,
-  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.nav .open .dropdown-menu .dropdown-header,
-  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu .dropdown-header,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header {
+  body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > div > header nav a + ul.nav .open .dropdown-menu .dropdown-header,
+  body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu .dropdown-header,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .dropdown-header {
     padding: 5px 15px 5px 25px;
   }
   .navbar-nav .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
+  body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
     line-height: 20px;
   }
   .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-nav .open .dropdown-menu > li > a:focus,
-  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
-  body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
-  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
-  body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
+  body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
+  body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
+  body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
+  body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
     background-image: none;
   }
 }
 @media (min-width: 768px) {
   .navbar-nav,
-  body #navbar > header nav a + ul.nav,
-  body #navbar > header nav a + ul.nav + ul.nav,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
+  body #navbar > div > header nav a + ul.nav,
+  body #navbar > div > header nav a + ul.nav + ul.nav,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
     float: left;
     margin: 0;
   }
   .navbar-nav > li,
-  body #navbar > header nav a + ul.nav > li,
-  body #navbar > header nav a + ul.nav + ul.nav > li,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li {
+  body #navbar > div > header nav a + ul.nav > li,
+  body #navbar > div > header nav a + ul.nav + ul.nav > li,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li {
     float: left;
   }
   .navbar-nav > li > a,
-  body #navbar > header nav a + ul.nav > li > a,
-  body #navbar > header nav a + ul.nav + ul.nav > li > a,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+  body #navbar > div > header nav a + ul.nav > li > a,
+  body #navbar > div > header nav a + ul.nav + ul.nav > li > a,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
     padding-top: 20px;
     padding-bottom: 20px;
   }
   .navbar-nav.navbar-right:last-child,
-  .navbar-navbody #navbar > header nav a + ul.nav:last-child,
-  body #navbar > header nav a + ul.nav.navbar-right:last-child,
-  body #navbar > header nav a + ul.nav + ul.nav.navbar-right:last-child,
-  .navbar-navbody #navbar > header nav a + ul.social-login-providers.template-fontawesome:last-child,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome.navbar-right:last-child,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome.navbar-right:last-child {
+  .navbar-navbody #navbar > div > header nav a + ul.nav:last-child,
+  body #navbar > div > header nav a + ul.nav.navbar-right:last-child,
+  body #navbar > div > header nav a + ul.nav + ul.nav.navbar-right:last-child,
+  .navbar-navbody #navbar > div > header nav a + ul.social-login-providers.template-fontawesome:last-child,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome.navbar-right:last-child,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome.navbar-right:last-child {
     margin-right: -15px;
   }
 }
 @media (min-width: 768px) {
   .navbar-left,
-  body #navbar > header nav a + ul.nav + ul.nav,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
+  body #navbar > div > header nav a + ul.nav + ul.nav,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome {
     float: left !important;
   }
   .navbar-right,
-  body #navbar > header nav a + ul.nav,
-  body #navbar > header nav a + ul.social-login-providers.template-fontawesome {
+  body #navbar > div > header nav a + ul.nav,
+  body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome {
     float: right !important;
   }
 }
@@ -4840,30 +4840,30 @@ body #navbar > header nav a + ul.social-login-providers.template-fontawesome + u
     box-shadow: none;
   }
   .navbar-form.navbar-right:last-child,
-  .navbar-formbody #navbar > header nav a + ul.nav:last-child,
-  .navbar-formbody #navbar > header nav a + ul.social-login-providers.template-fontawesome:last-child {
+  .navbar-formbody #navbar > div > header nav a + ul.nav:last-child,
+  .navbar-formbody #navbar > div > header nav a + ul.social-login-providers.template-fontawesome:last-child {
     margin-right: -15px;
   }
 }
 .navbar-nav > li > .dropdown-menu,
-body #navbar > header nav a + ul.nav > li > .dropdown-menu,
-body #navbar > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
-body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
-body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
+body #navbar > div > header nav a + ul.nav > li > .dropdown-menu,
+body #navbar > div > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
+body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
+body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
   margin-top: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 .navbar-fixed-bottom .navbar-nav > li > .dropdown-menu,
-.navbar-fixed-bottom body #navbar > header nav a + ul.nav > li > .dropdown-menu,
-.navbar-fixed-bottom body #navbar > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
-.navbar-fixed-bottom body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
-.navbar-fixed-bottom body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
+.navbar-fixed-bottom body #navbar > div > header nav a + ul.nav > li > .dropdown-menu,
+.navbar-fixed-bottom body #navbar > div > header nav a + ul.nav + ul.nav > li > .dropdown-menu,
+.navbar-fixed-bottom body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > .dropdown-menu,
+.navbar-fixed-bottom body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > .dropdown-menu {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .navbar-btn,
-body #navbar > header #donate {
+body #navbar > div > header #donate {
   margin-top: 13px;
   margin-bottom: 13px;
 }
@@ -4886,274 +4886,274 @@ body #navbar > header #donate {
     margin-right: 15px;
   }
   .navbar-text.navbar-right:last-child,
-  .navbar-textbody #navbar > header nav a + ul.nav:last-child,
-  .navbar-textbody #navbar > header nav a + ul.social-login-providers.template-fontawesome:last-child {
+  .navbar-textbody #navbar > div > header nav a + ul.nav:last-child,
+  .navbar-textbody #navbar > div > header nav a + ul.social-login-providers.template-fontawesome:last-child {
     margin-right: 0;
   }
 }
 .navbar-default,
-body #navbar > header,
-body #navbar > header.dropped {
+body #navbar > div > header,
+body #navbar > div > header.dropped {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand,
-body #navbar > header .navbar-brand,
-.navbar-default body #navbar > header .logo span,
-body #navbar > header.dropped .navbar-brand {
+body #navbar > div > header .navbar-brand,
+.navbar-default body #navbar > div > header .logo span,
+body #navbar > div > header.dropped .navbar-brand {
   color: #777777;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus,
-body #navbar > header .navbar-brand:hover,
-body #navbar > header .navbar-brand:focus,
-.navbar-default body #navbar > header .logo span:hover,
-.navbar-default body #navbar > header .logo span:focus,
-body #navbar > header.dropped .navbar-brand:hover,
-body #navbar > header.dropped .navbar-brand:focus {
+body #navbar > div > header .navbar-brand:hover,
+body #navbar > div > header .navbar-brand:focus,
+.navbar-default body #navbar > div > header .logo span:hover,
+.navbar-default body #navbar > div > header .logo span:focus,
+body #navbar > div > header.dropped .navbar-brand:hover,
+body #navbar > div > header.dropped .navbar-brand:focus {
   color: #5e5e5e;
   background-color: transparent;
 }
 .navbar-default .navbar-text,
-body #navbar > header .navbar-text,
-body #navbar > header.dropped .navbar-text {
+body #navbar > div > header .navbar-text,
+body #navbar > div > header.dropped .navbar-text {
   color: #777777;
 }
 .navbar-default .navbar-nav > li > a,
-body #navbar > header .navbar-nav > li > a,
-.navbar-default body #navbar > header nav a + ul.nav > li > a,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > li > a,
-body #navbar > header.dropped .navbar-nav > li > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+body #navbar > div > header .navbar-nav > li > a,
+.navbar-default body #navbar > div > header nav a + ul.nav > li > a,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > li > a,
+body #navbar > div > header.dropped .navbar-nav > li > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
   color: #777777;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus,
-body #navbar > header .navbar-nav > li > a:hover,
-body #navbar > header .navbar-nav > li > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav > li > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav > li > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > li > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > li > a:focus,
-body #navbar > header.dropped .navbar-nav > li > a:hover,
-body #navbar > header.dropped .navbar-nav > li > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
+body #navbar > div > header .navbar-nav > li > a:hover,
+body #navbar > div > header .navbar-nav > li > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav > li > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav > li > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > li > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > li > a:focus,
+body #navbar > div > header.dropped .navbar-nav > li > a:hover,
+body #navbar > div > header.dropped .navbar-nav > li > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
   color: #333333;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus,
-body #navbar > header .navbar-nav > .active > a,
-body #navbar > header .navbar-nav > .active > a:hover,
-body #navbar > header .navbar-nav > .active > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav > .active > a,
-.navbar-default body #navbar > header nav a + ul.nav > .active > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav > .active > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .active > a,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .active > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .active > a:focus,
-body #navbar > header.dropped .navbar-nav > .active > a,
-body #navbar > header.dropped .navbar-nav > .active > a:hover,
-body #navbar > header.dropped .navbar-nav > .active > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
+body #navbar > div > header .navbar-nav > .active > a,
+body #navbar > div > header .navbar-nav > .active > a:hover,
+body #navbar > div > header .navbar-nav > .active > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav > .active > a,
+.navbar-default body #navbar > div > header nav a + ul.nav > .active > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav > .active > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .active > a,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .active > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .active > a:focus,
+body #navbar > div > header.dropped .navbar-nav > .active > a,
+body #navbar > div > header.dropped .navbar-nav > .active > a:hover,
+body #navbar > div > header.dropped .navbar-nav > .active > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
   color: #555555;
   background-color: #e7e7e7;
 }
 .navbar-default .navbar-nav > .disabled > a,
 .navbar-default .navbar-nav > .disabled > a:hover,
 .navbar-default .navbar-nav > .disabled > a:focus,
-body #navbar > header .navbar-nav > .disabled > a,
-body #navbar > header .navbar-nav > .disabled > a:hover,
-body #navbar > header .navbar-nav > .disabled > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav > .disabled > a,
-.navbar-default body #navbar > header nav a + ul.nav > .disabled > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav > .disabled > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .disabled > a,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:focus,
-body #navbar > header.dropped .navbar-nav > .disabled > a,
-body #navbar > header.dropped .navbar-nav > .disabled > a:hover,
-body #navbar > header.dropped .navbar-nav > .disabled > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
+body #navbar > div > header .navbar-nav > .disabled > a,
+body #navbar > div > header .navbar-nav > .disabled > a:hover,
+body #navbar > div > header .navbar-nav > .disabled > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav > .disabled > a,
+.navbar-default body #navbar > div > header nav a + ul.nav > .disabled > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav > .disabled > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a:focus,
+body #navbar > div > header.dropped .navbar-nav > .disabled > a,
+body #navbar > div > header.dropped .navbar-nav > .disabled > a:hover,
+body #navbar > div > header.dropped .navbar-nav > .disabled > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
   color: #cccccc;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle,
-body #navbar > header .navbar-toggle,
-body #navbar > header.dropped .navbar-toggle {
+body #navbar > div > header .navbar-toggle,
+body #navbar > div > header.dropped .navbar-toggle {
   border-color: #dddddd;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus,
-body #navbar > header .navbar-toggle:hover,
-body #navbar > header .navbar-toggle:focus,
-body #navbar > header.dropped .navbar-toggle:hover,
-body #navbar > header.dropped .navbar-toggle:focus {
+body #navbar > div > header .navbar-toggle:hover,
+body #navbar > div > header .navbar-toggle:focus,
+body #navbar > div > header.dropped .navbar-toggle:hover,
+body #navbar > div > header.dropped .navbar-toggle:focus {
   background-color: #dddddd;
 }
 .navbar-default .navbar-toggle .icon-bar,
-body #navbar > header .navbar-toggle .icon-bar,
-body #navbar > header.dropped .navbar-toggle .icon-bar {
+body #navbar > div > header .navbar-toggle .icon-bar,
+body #navbar > div > header.dropped .navbar-toggle .icon-bar {
   background-color: #888888;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form,
-body #navbar > header .navbar-collapse,
-body #navbar > header .navbar-form,
-body #navbar > header.dropped .navbar-collapse,
-body #navbar > header.dropped .navbar-form {
+body #navbar > div > header .navbar-collapse,
+body #navbar > div > header .navbar-form,
+body #navbar > div > header.dropped .navbar-collapse,
+body #navbar > div > header.dropped .navbar-form {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus,
-body #navbar > header .navbar-nav > .open > a,
-body #navbar > header .navbar-nav > .open > a:hover,
-body #navbar > header .navbar-nav > .open > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav > .open > a,
-.navbar-default body #navbar > header nav a + ul.nav > .open > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav > .open > a:focus,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .open > a,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .open > a:hover,
-.navbar-default body #navbar > header nav a + ul.nav + ul.nav > .open > a:focus,
-body #navbar > header.dropped .navbar-nav > .open > a,
-body #navbar > header.dropped .navbar-nav > .open > a:hover,
-body #navbar > header.dropped .navbar-nav > .open > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
+body #navbar > div > header .navbar-nav > .open > a,
+body #navbar > div > header .navbar-nav > .open > a:hover,
+body #navbar > div > header .navbar-nav > .open > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav > .open > a,
+.navbar-default body #navbar > div > header nav a + ul.nav > .open > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav > .open > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .open > a,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .open > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .open > a:focus,
+body #navbar > div > header.dropped .navbar-nav > .open > a,
+body #navbar > div > header.dropped .navbar-nav > .open > a:hover,
+body #navbar > div > header.dropped .navbar-nav > .open > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
   background-color: #e7e7e7;
   color: #555555;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a,
-  body #navbar > header .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
     color: #777777;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
-  body #navbar > header .navbar-nav .open .dropdown-menu > li > a:hover,
-  body #navbar > header .navbar-nav .open .dropdown-menu > li > a:focus,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > li > a:hover,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > li > a:focus,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > li > a:hover,
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > li > a:hover,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
     color: #333333;
     background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus,
-  body #navbar > header .navbar-nav .open .dropdown-menu > .active > a,
-  body #navbar > header .navbar-nav .open .dropdown-menu > .active > a:hover,
-  body #navbar > header .navbar-nav .open .dropdown-menu > .active > a:focus,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .active > a,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .active > a:hover,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .active > a:focus,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > .active > a,
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > .active > a:hover,
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .active > a,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .active > a:hover,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
     color: #555555;
     background-color: #e7e7e7;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  body #navbar > header .navbar-nav .open .dropdown-menu > .disabled > a,
-  body #navbar > header .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  body #navbar > header .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  body #navbar > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-default body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > .disabled > a,
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  body #navbar > div > header .navbar-nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
     color: #cccccc;
     background-color: transparent;
   }
 }
 .navbar-default .navbar-link,
-body #navbar > header .navbar-link,
-body #navbar > header.dropped .navbar-link {
+body #navbar > div > header .navbar-link,
+body #navbar > div > header.dropped .navbar-link {
   color: #777777;
 }
 .navbar-default .navbar-link:hover,
-body #navbar > header .navbar-link:hover,
-body #navbar > header.dropped .navbar-link:hover {
+body #navbar > div > header .navbar-link:hover,
+body #navbar > div > header.dropped .navbar-link:hover {
   color: #333333;
 }
 .navbar-default .btn-link,
-body #navbar > header .btn-link,
-body #navbar > header.dropped .btn-link {
+body #navbar > div > header .btn-link,
+body #navbar > div > header.dropped .btn-link {
   color: #777777;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus,
-body #navbar > header .btn-link:hover,
-body #navbar > header .btn-link:focus,
-body #navbar > header.dropped .btn-link:hover,
-body #navbar > header.dropped .btn-link:focus {
+body #navbar > div > header .btn-link:hover,
+body #navbar > div > header .btn-link:focus,
+body #navbar > div > header.dropped .btn-link:hover,
+body #navbar > div > header.dropped .btn-link:focus {
   color: #333333;
 }
 .navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
 .navbar-default .btn-link[disabled]:focus,
 fieldset[disabled] .navbar-default .btn-link:focus,
-body #navbar > header .btn-link[disabled]:hover,
-fieldset[disabled] body #navbar > header .btn-link:hover,
-body #navbar > header .btn-link[disabled]:focus,
-fieldset[disabled] body #navbar > header .btn-link:focus,
-body #navbar > header.dropped .btn-link[disabled]:hover,
-fieldset[disabled] body #navbar > header.dropped .btn-link:hover,
-body #navbar > header.dropped .btn-link[disabled]:focus,
-fieldset[disabled] body #navbar > header.dropped .btn-link:focus {
+body #navbar > div > header .btn-link[disabled]:hover,
+fieldset[disabled] body #navbar > div > header .btn-link:hover,
+body #navbar > div > header .btn-link[disabled]:focus,
+fieldset[disabled] body #navbar > div > header .btn-link:focus,
+body #navbar > div > header.dropped .btn-link[disabled]:hover,
+fieldset[disabled] body #navbar > div > header.dropped .btn-link:hover,
+body #navbar > div > header.dropped .btn-link[disabled]:focus,
+fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
   color: #cccccc;
 }
 .navbar-inverse {
@@ -5161,13 +5161,13 @@ fieldset[disabled] body #navbar > header.dropped .btn-link:focus {
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand,
-.navbar-inverse body #navbar > header .logo span {
+.navbar-inverse body #navbar > div > header .logo span {
   color: #777777;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus,
-.navbar-inverse body #navbar > header .logo span:hover,
-.navbar-inverse body #navbar > header .logo span:focus {
+.navbar-inverse body #navbar > div > header .logo span:hover,
+.navbar-inverse body #navbar > div > header .logo span:focus {
   color: #ffffff;
   background-color: transparent;
 }
@@ -5175,58 +5175,58 @@ fieldset[disabled] body #navbar > header.dropped .btn-link:focus {
   color: #777777;
 }
 .navbar-inverse .navbar-nav > li > a,
-.navbar-inverse body #navbar > header nav a + ul.nav > li > a,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > li > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
+.navbar-inverse body #navbar > div > header nav a + ul.nav > li > a,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > li > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
   color: #777777;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav > li > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav > li > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > li > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > li > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
+.navbar-inverse body #navbar > div > header nav a + ul.nav > li > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav > li > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > li > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > li > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
   color: #ffffff;
   background-color: transparent;
 }
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav > .active > a,
-.navbar-inverse body #navbar > header nav a + ul.nav > .active > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav > .active > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .active > a,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .active > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .active > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .active > a,
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .active > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .active > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .active > a,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .active > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .active > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
   color: #ffffff;
   background-color: #080808;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
 .navbar-inverse .navbar-nav > .disabled > a:hover,
 .navbar-inverse .navbar-nav > .disabled > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav > .disabled > a,
-.navbar-inverse body #navbar > header nav a + ul.nav > .disabled > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav > .disabled > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .disabled > a,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .disabled > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .disabled > a,
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .disabled > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .disabled > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
   color: #444444;
   background-color: transparent;
 }
@@ -5247,89 +5247,89 @@ fieldset[disabled] body #navbar > header.dropped .btn-link:focus {
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav > .open > a,
-.navbar-inverse body #navbar > header nav a + ul.nav > .open > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav > .open > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .open > a,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .open > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.nav + ul.nav > .open > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
-.navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .open > a,
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .open > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav > .open > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .open > a,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .open > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav > .open > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
+.navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
   background-color: #080808;
   color: #ffffff;
 }
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header {
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .dropdown-header {
     border-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu .divider,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu .divider,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider {
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu .divider,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu .divider,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu .divider {
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
     color: #777777;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
     color: #ffffff;
     background-color: transparent;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
-  .navbar-inverse body #navbar > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
+  .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
     color: #444444;
     background-color: transparent;
   }
@@ -7277,12 +7277,12 @@ button.close {
 #create-walk #block-select:after,
 #create-walk #route-menu:before,
 #create-walk #route-menu:after,
-body #navbar > header:before,
-body #navbar > header:after,
-body #navbar > header .logo:before,
-body #navbar > header .logo:after,
-body #navbar > header.dropped:before,
-body #navbar > header.dropped:after,
+body #navbar > div > header:before,
+body #navbar > div > header:after,
+body #navbar > div > header .logo:before,
+body #navbar > div > header .logo:after,
+body #navbar > div > header.dropped:before,
+body #navbar > div > header.dropped:after,
 #modals dialog > div > article footer:before,
 #modals dialog > div > article footer:after,
 .form-horizontal #modals dialog label:before,
@@ -7333,9 +7333,9 @@ body #navbar > header.dropped:after,
 #create-walk #walkleader:after,
 #create-walk #block-select:after,
 #create-walk #route-menu:after,
-body #navbar > header:after,
-body #navbar > header .logo:after,
-body #navbar > header.dropped:after,
+body #navbar > div > header:after,
+body #navbar > div > header .logo:after,
+body #navbar > div > header.dropped:after,
 #modals dialog > div > article footer:after,
 .form-horizontal #modals dialog label:after,
 .social-login-providers.template-fontawesome:after,
@@ -8667,8 +8667,8 @@ blockquote {
   margin-left: -150px;
 }
 body.logged_in header.navbar,
-body.logged_in headerbody #navbar > header,
-body.logged_in headerbody #navbar > header.dropped {
+body.logged_in headerbody #navbar > div > header,
+body.logged_in headerbody #navbar > div > header.dropped {
   z-index: 6;
 }
 body.logged_in #ccm-highlighter {
@@ -8747,7 +8747,7 @@ h5 {
   font-size: 14;
 }
 .hide-text,
-body #navbar > header .logo span,
+body #navbar > div > header .logo span,
 .profiles .flex-control-nav a {
   text-indent: 130%;
   white-space: nowrap;
@@ -8786,8 +8786,8 @@ body #navbar > header .logo span,
 }
 .btn,
 .btn-primary,
-body #navbar > header #donate,
-body #navbar > header #donate,
+body #navbar > div > header #donate,
+body #navbar > div > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
@@ -8963,11 +8963,11 @@ body.form {
   .navbar-inner div.container { display:none; }
 }
 */
-body #navbar > header {
+body #navbar > div > header {
   background: #fff;
   font-family: "Roboto Slab", serif;
 }
-body #navbar > header .logo span {
+body #navbar > div > header .logo span {
   background: url("../images/jwlogo.svg");
   display: inline-block;
   background-position: center center;
@@ -8977,40 +8977,40 @@ body #navbar > header .logo span {
   background-size: contain;
 }
 @media (min-width: 992px) {
-  body #navbar > header .logo {
+  body #navbar > div > header .logo {
     margin-right: 15px;
   }
 }
-body #navbar > header nav {
+body #navbar > div > header nav {
   height: 60px;
   overflow-y: hidden;
   margin: 0 auto;
   padding: 0 15px;
 }
-body #navbar > header nav:before,
-body #navbar > header nav:after {
+body #navbar > div > header nav:before,
+body #navbar > div > header nav:after {
   content: " ";
   display: table;
 }
-body #navbar > header nav:after {
+body #navbar > div > header nav:after {
   clear: both;
 }
-body #navbar > header nav:before,
-body #navbar > header nav:after {
+body #navbar > div > header nav:before,
+body #navbar > div > header nav:after {
   content: " ";
   display: table;
 }
-body #navbar > header nav:after {
+body #navbar > div > header nav:after {
   clear: both;
 }
-body #navbar > header nav ul.nav > li > a,
-body #navbar > header nav ul.social-login-providers.template-fontawesome > li > a {
+body #navbar > div > header nav ul.nav > li > a,
+body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li > a {
   padding-top: 0;
   padding-bottom: 0;
   line-height: 60px;
   color: #666666;
 }
-body #navbar > header .notification {
+body #navbar > div > header .notification {
   position: absolute;
   overflow: hidden;
   background-image: none;
@@ -9018,55 +9018,55 @@ body #navbar > header .notification {
   box-shadow: 0 2px 0 #7e29d7;
   background: #9854df;
 }
-body #navbar > header .notification .container,
-body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body #navbar > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+body #navbar > div > header .notification .container,
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
-body #navbar > header .notification .title-sub {
+body #navbar > div > header .notification .title-sub {
   font-size: 20px;
   margin: 0;
 }
-body #navbar > header .notification.expanded {
+body #navbar > div > header .notification.expanded {
   height: 50px;
 }
-body #navbar > header .search-open,
-body #navbar > header .search-close {
+body #navbar > div > header .search-open,
+body #navbar > div > header .search-close {
   padding: 0 15px !important;
 }
-body #navbar > header .search-open i,
-body #navbar > header .search-close i {
+body #navbar > div > header .search-open i,
+body #navbar > div > header .search-close i {
   line-height: 60px;
 }
-body #navbar > header .search-close {
+body #navbar > div > header .search-close {
   background: #f16725;
   display: none;
 }
-body #navbar > header .search-close:hover {
+body #navbar > div > header .search-close:hover {
   color: inherit;
 }
-body #navbar > header .search-close i {
+body #navbar > div > header .search-close i {
   color: #fff;
 }
-body #navbar > header.dropped .search-close {
+body #navbar > div > header.dropped .search-close {
   display: block;
 }
-body #navbar > header.dropped .search-close:hover i {
+body #navbar > div > header.dropped .search-close:hover i {
   color: #666666;
 }
-body #navbar > header.dropped .search-open {
+body #navbar > div > header.dropped .search-open {
   display: none;
 }
-body #navbar > header.dropped .navbar-outer {
+body #navbar > div > header.dropped .navbar-outer {
   max-height: 900px;
 }
-body #navbar > header #donate {
+body #navbar > div > header #donate {
   margin: 12px 0;
 }
 body .navbar-outer {
@@ -9665,7 +9665,7 @@ body .itineraryHeader .update:before {
   opacity: 1;
 }
 .btn,
-body #navbar > header #donate,
+body #navbar > div > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk:after,
 #create-walk #map-control-bar button,
@@ -11991,8 +11991,8 @@ body.city-page > #blog:after {
 }
 @media (max-width: 768px) {
   .walk-page header.navbar,
-  .walk-page headerbody #navbar > header,
-  .walk-page headerbody #navbar > header.dropped {
+  .walk-page headerbody #navbar > div > header,
+  .walk-page headerbody #navbar > div > header.dropped {
     margin: 0;
   }
 }

@@ -31,12 +31,20 @@ export default class Itinerary extends React.Component {
     ItineraryStore.removeChangeListener( this._onChange );
   }
 
+  componentDidMount() {
+    const $el = $(React.findDOMNode(this));
+    $el.modal();
+    $el.on('hidden.bs.modal', () => this.props.onClose());
+
+    this.setState({$el: $el});
+  }
+
   _onChange() {
     this.setState(getItinerary);
   }
 
   render() {
-    const {walks, dialogOpen, listId} = this.state;
+    const {walks, dialogOpen, listId, $el} = this.state;
 
     const ItineraryWalks = walks.map(({map, id, title, time}) =>
         <Walk
@@ -53,16 +61,19 @@ export default class Itinerary extends React.Component {
     );
 
     return (
-      <dialog open id="itinerary">
-        <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
-        <div className="itinerary">
-          <section>
-            <ItineraryHeader {...this.state} {...ItineraryActions}/>
-          </section>
-          <ul>
-            {ItineraryWalks}
-          </ul>
-        </div>
+      <dialog open>
+        <section id="itinerary">
+          <i className="close fa fa-times" onClick={() => $el.modal('hide')} />
+          <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
+          <div className="itinerary">
+            <section>
+              <ItineraryHeader {...this.state} {...ItineraryActions}/>
+            </section>
+            <ul>
+              {ItineraryWalks}
+            </ul>
+          </div>
+        </section>
       </dialog>
     );
   }

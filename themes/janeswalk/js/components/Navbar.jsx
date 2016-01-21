@@ -7,16 +7,31 @@ const t = s => s;
 const tc = (c, s) => s;
 
 /* Build menu options depending if currently logged in or not */
-const LoggedInOptions = ({user, profiling, toggleProfile}) => ([
+const LoggedInOptions = ({user, profiling, searching, toggleProfile, toggleSearch}) => ([
   <li>
-    <a onClick={toggleProfile}>{user.firstName || user.name} &nbsp;<i className="fa fa-caret-down" style={{transitionDuration: '0.2s', transform: 'rotate(' + (profiling ? -180 : 0) + 'deg)'}} /></a>
+    <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
+      <i className="fa fa-search" />
+    </a>
   </li>,
   <li>
-    <a href="/login/logout">{tc('Register on a website', 'Join')}</a>
+    <a onClick={toggleProfile} className={profiling ? 'selected' : ''}>
+      <i className="fa fa-calendar" />
+    </a>
+  </li>,
+  <li>
+    <a href="/profile">{user.firstName || user.name}</a>
+  </li>,
+  <li>
+    <a href="/login/logout">{t('Logout')}</a>
   </li>
 ]);
 
-const LoggedOutOptions = () => ([
+const LoggedOutOptions = ({searching, toggleSearch}) => ([
+  <li>
+    <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
+      <i className="fa fa-search" />
+    </a>
+  </li>,
   <li>
     <a href="/register">{tc('Register on a website', 'Join')}</a>
   </li>,
@@ -98,44 +113,55 @@ export default class Navbar extends React.Component {
       $('html, body').animate({
         scrollTop: 0
       }, 300);
+  }
 
-      // If there's a text-field in the drop, move caret to it
-      const textInput = document.querySelector('body > header input[type=text]');
-      if (textInput) {
-        textInput.focus();
-      }
-
-      this.setState({searching: true});
+  componentWillUpdate(_, {searching}) {
+    // See if we're opening the search
+    if (!this.state.searching && searching) {
+      this.openSearch();
+    }
   }
 
   render() {
     const {editMode} = this.props;
     const {user, searching, profiling} = this.state;
+    let userOptions;
+    const defaultOptions = {
+      searching: searching,
+      toggleSearch: () => this.setState({searching: !this.state.searching})
+    };
+
+    // Build the logged in vs logged out
+    if (user) {
+      userOptions = LoggedInOptions(Object.assign({
+        user: user,
+        profiling: profiling,
+        toggleProfile: () => this.setState({profiling: !this.state.profiling}),
+      }, defaultOptions));
+    } else {
+      userOptions = LoggedOutOptions(defaultOptions);
+    }
 
     return (
-      <header className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
-        <nav role="navigation">
-          <a href="/" className="logo">
-            <span />
-          </a>
-          <ul className="nav" ref="topnav">
-            <li>
-              <a className="search-open" onClick={() => this.openSearch()}>
-                <i className="fa fa-search" />
-              </a>
-              <a className="search-close" onClick={() => this.setState({searching: false})}>
-                <i className="fa fa-search" />
-              </a>
-            </li>
-            {user ? LoggedInOptions({user: user, profiling: profiling, toggleProfile: () => this.setState({profiling: !this.state.profiling})}) : LoggedOutOptions()}
-            <li>
-              <a href="/donate" id="donate">Donate</a>
-            </li>
-          </ul>
-        </nav>
-        <div className="navbar-outer" dangerouslySetInnerHTML={{__html: this.state.dropdown}} />
-        {profiling ? <Itinerary /> : null}
-      </header>
+      <div>
+        <header className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
+          <nav role="navigation">
+            <a href="/" className="logo">
+              <span />
+            </a>
+            <ul className="nav" ref="topnav">
+              {userOptions}
+              <li>
+                <a href="/donate" id="donate">Donate</a>
+              </li>
+            </ul>
+          </nav>
+          <div className="navbar-outer" dangerouslySetInnerHTML={{__html: this.state.dropdown}} />
+        </header>
+        <div id="modals">
+          {profiling ? <Itinerary onClose={() => this.setState({profiling: !this.state.profiling})} /> : null}
+        </div>
+      </div>
     );
   }
 }
