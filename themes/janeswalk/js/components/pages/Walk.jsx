@@ -1,101 +1,69 @@
-'use strict';
+import ItineraryStore from '../../stores/ItineraryStore.js';
 
-var PageView = require('../Page.jsx');
-var FacebookShareDialog = require('../FacebookShareDialog.jsx');
-var WalkMap = require('../WalkMap.jsx');
+import WalkHeader from './Walk/WalkHeader.jsx';
+import WalkDescription from './Walk/WalkDescription.jsx';
+import WalkRoute from './Walk/WalkRoute.jsx';
+import WalkAccessibility from './Walk/WalkAccessibility.jsx';
+import WalkPublicTransit from './Walk/WalkPublicTransit.jsx';
+import WalkParking from './Walk/WalkParking.jsx';
+import WalkStart from './Walk/WalkStart.jsx';
+import WalkTeam from './Walk/WalkTeam.jsx';
+import WalkMenu from './Walk/WalkMenu.jsx';
+import WalkMap from './Walk/WalkMap.jsx';
 
-/**
- * WalkPageView
- * 
- * @extends PageView
- * 
- * init
- * 
- * @public
- * @param  jQuery element
- * @return void
- */
-var WalkPageView = function(element) {
-  PageView.call(this, element);
+import {walk, filters} from './Walk/WalkStaticData';
 
-  var mapCanvas = document.getElementById('map-canvas');
+const walkId = walk.walk.id;
 
-  this._addFacebookDialogEvents();
-
-  // Check if there's a map to init first
-  if (mapCanvas) {
-    new WalkMap(JanesWalk.walk.map, mapCanvas);
-  }
-};
-WalkPageView.prototype = Object.create(PageView.prototype, {
-  /**
-   * _addFacebookDialogEvents
-   * 
-   * @protected
-   * @return    void
-   */
-  _addFacebookDialogEvents: {
-    value: function() {
-      var _this = this;
-      this._element.find('.facebookShareLink').click(function(event) {
-        event.preventDefault();
-        _this.trackEvent('Walk', 'share.attempted', 'facebook');
-        var shareObj = _this._getFacebookDialogObj();
-        (new FacebookShareDialog(shareObj)).show(
-          _this._facebookShareFailed,
-          _this._facebookShareSuccessful
-        );
-      });
-    }
-  },
-
-  /**
-   * _facebookShareFailed
-   * 
-   * @protected
-   * @return    void
-   */
-  _facebookShareFailed: {
-    value: function() {
-      this.trackEvent('Walk', 'share.failed', 'facebook');
-    }
-  },
-
-  /**
-   * _facebookShareSuccessful
-   * 
-   * @protected
-   * @return    void
-   */
-  _facebookShareSuccessful: {
-    value: function() {
-      this.trackEvent('Walk', 'share.successful', 'facebook');
-    }
-  },
-
-  /**
-   * _getFacebookDialogObj
-   * 
-   * @see       http://scotch.io/tutorials/how-to-share-webpages-with-facebook
-   * @see       http://www.local-pc-guy.com/web-dev/facebook-feed-dialog-vs-share-link-dialog
-   * @protected
-   * @return    Object
-   */
-  _getFacebookDialogObj: {
-    value: function() {
-      return {
-        link: JanesWalk.page.url,
-        picture: JanesWalk.page.pictureUrl,
-        name: JanesWalk.page.title,
-        description: JanesWalk.page.description,
-        actions: {
-          name: 'View Jane\'s Walks in ' + (JanesWalk.page.city.name),
-          link: JanesWalk.page.city.url
-        }
-      };
-    }
-  },
-
+const getWalk = (props) => ({
+  //TODO: Conditionals (? and ||) in getWalk are for stubbed data
+  walk: props.walk || walk.walk,
+  page: props.page || walk.page,
+  city: props.city || walk.city,
+  id: props.walk ? props.walk.id : walkId,
+  filters: props.filters || filters,
+  existsInItinerary : ItineraryStore.existsInList(0, props.walk ? props.walk.id : walkId),
+  existsInFavourites : ItineraryStore.existsInList(0, props.walk ? props.walk.id : walkId),
 });
 
-module.exports = WalkPageView;
+export default class WalkPage extends React.Component {
+  constructor(props, ...args) {
+    super(props, ...args);
+
+    this.state = getWalk(props);
+    this._onChange = this._onChange.bind(this);
+  }
+
+  componentWillMount() {
+    ItineraryStore.addChangeListener(this._onChange);
+  }
+
+  componentWillUnmount() {
+    ItineraryStore.removeChangeListener(this._onChange);
+  }
+
+  _onChange() {
+    this.setState(getWalk);
+  }
+
+  render() {
+    return (
+      <section className="walkPage">
+        <WalkHeader
+        {...this.state}
+        />
+        <WalkMenu {...this.state}/>
+        <WalkDescription {...this.state.walk}/>
+        <WalkMap {...this.state.walk}/>
+        <WalkRoute {...this.state.walk}/>
+        <WalkStart {...this.state.walk}/>
+        <WalkTeam {...this.state.walk}/>
+      </section>
+    );
+  }
+};
+
+WalkPage.propsType = {
+ page: React.PropTypes.object.isRequired,
+ walk: React.PropTypes.object.isRequired,
+};

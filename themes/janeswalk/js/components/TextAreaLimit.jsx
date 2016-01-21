@@ -1,5 +1,5 @@
 // Flux
-const t2 = require('../stores/I18nStore.js').getTranslatePlural();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 /**
  * Text areas with a 'remaining characters' limit

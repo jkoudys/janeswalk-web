@@ -1,7 +1,5 @@
 // Flux
-const i18n = require('../../stores/I18nStore.js');
-const t = i18n.getTranslate();
-const t2 = i18n.getTranslatePlural();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 // Update a field for a team member
 function linkMember(field, {value, onChange, index}) {

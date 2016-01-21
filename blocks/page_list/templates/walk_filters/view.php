@@ -14,6 +14,9 @@ if (count($accessibilities)) {
 if (count($initiatives)) {
     $filters['initiative'] = ['name' => t('Initiative'), 'data' => $initiatives];
 }
+if (count($cities) > 1) {
+    $filters['city'] = ['name' => t('Cities'), 'data' => $cities];
+}
 ?>
 <div id="janeswalk-walk-filters"></div>
 <script type="text/javascript">

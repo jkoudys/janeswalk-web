@@ -11,7 +11,7 @@
         var kvp = param.split('=');
         if (kvp[0] === 'access_token') {
             window.opener.loadAccessToken(kvp[1]);
-            window.close();
+//            window.close();
         }
     });
 })();

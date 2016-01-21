@@ -1,5 +1,5 @@
 // Flux
-var t = require('../../stores/I18nStore.js').getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 export default class WalkPublish extends React.Component {
   constructor(props) {
@@ -7,8 +7,6 @@ export default class WalkPublish extends React.Component {
     this.state = {
       eventbrite: !!(props.mirrors && props.mirrors.eventbrite)
     };
-
-    this.handlePublish = this.handlePublish.bind(this);
   }
 
   componentDidMount() {
@@ -53,7 +51,7 @@ export default class WalkPublish extends React.Component {
                 <a className="walkthrough close" data-dismiss="modal" onClick={this.props.close.bind(this)}> { t('Bring me back to edit') }</a>
               </div>
               <a>
-                <button className="btn btn-primary walkthrough" data-step="publish-confirmation" onClick={this.handlePublish}>{ t('Publish') }</button>
+                <button className="btn btn-primary walkthrough" data-step="publish-confirmation" onClick={() => this.handlePublish()}>{ t('Publish') }</button>
               </a>
             </footer>
           </article>

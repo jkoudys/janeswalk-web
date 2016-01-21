@@ -15,17 +15,15 @@ import WalkPublish from './caw/WalkPublish.jsx';
 import TextAreaLimit from './TextAreaLimit.jsx';
 
 // Flux
-const I18nStore = require('../stores/I18nStore.js');
-const t = I18nStore.getTranslate();
-const t2 = I18nStore.getTranslatePlural();
-const I18nActions = require('../actions/I18nActions.js');
+import I18nActions from 'janeswalk/actions/I18nActions';
+import I18nStore, {t, t2} from 'janeswalk/stores/I18nStore';
 
 // Helpers
-const Helper = require('../helpers/helpers.jsx');
+import Helper from '../helpers/helpers.jsx';
 
 export default class CreateWalk extends React.Component {
   constructor(props) {
-    super();
+    super(props);
     const data = props.data;
     // TODO: move this into its own model js
     // Keep these defaults to type, ie don't pre-seed data here, aside from
@@ -212,6 +210,8 @@ export default class CreateWalk extends React.Component {
       }
     };
 
+    const {user, valt, city} = this.props;
+
     return (
       <main id="create-walk">
         <section>
@@ -237,7 +237,7 @@ export default class CreateWalk extends React.Component {
                     <img id="convo-marker" src={CCM_THEME_PATH + '/img/jw-intro-graphic.svg'} alt="Jane's Walks are walking conversations." />
                   </div>
                   <div className="col-md-8">
-                    <h1>{ t('Hey there, %s!', this.props.user.firstName) }</h1>
+                    <h1>{ t('Hey there, %s!', user.firstName) }</h1>
                     <p>{ t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') }</p>
                   </div>
                 </div>
@@ -253,7 +253,7 @@ export default class CreateWalk extends React.Component {
                     </div>
                   </fieldset>
                 </form>
-                <ImageUpload valueLink={this.linkState('thumbnails')} valt={this.props.valt} />
+                <ImageUpload valueLink={this.linkState('thumbnails')} valt={valt} />
                 <form>
                   <hr />
                   <fieldset>
@@ -272,11 +272,11 @@ export default class CreateWalk extends React.Component {
                     </div>
                   </fieldset>
                   <ThemeSelect valueLink={this.linkState('checkboxes')} />
-                  {((this.props.city.wards || []).length > 0) ? <WardSelect wards={this.props.city.wards} valueLink={this.linkState('wards')} /> : null}
+                  {((city.wards || []).length > 0) ? <WardSelect wards={city.wards} valueLink={this.linkState('wards')} /> : null}
                   <hr />
                 </form>
               </div>
-              <MapBuilder ref="mapBuilder" valueLink={linkStateMap} city={this.props.city} />
+              <MapBuilder ref="mapBuilder" valueLink={linkStateMap} city={city} />
               <DateSelect valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section='accessibility'>
@@ -330,14 +330,14 @@ export default class CreateWalk extends React.Component {
             <div className="popover right" id="city-organizer" style={{display: 'block'}}>
               <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t('Contact City Organizer for help') }</h3>
               <div className="popover-content collapse in" id="popover-content">
-                {this.props.city.cityOrganizer.photo ? <div className='u-avatar' style={{backgroundImage: 'url(' + this.props.city.cityOrganizer.photo + ')'}} /> : null}
+                {city.cityOrganizer.photo ? <div className='u-avatar' style={{backgroundImage: 'url(' + city.cityOrganizer.photo + ')'}} /> : null}
                 <p>
-                  { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', this.props.city.cityOrganizer.firstName, this.props.city.name) } <strong><a href={'mailto:' + this.props.city.cityOrganizer.email}>{ t('email me') }!</a></strong></p>
+                  { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', city.cityOrganizer.firstName, city.name) } <strong><a href={'mailto:' + city.cityOrganizer.email}>{ t('email me') }!</a></strong></p>
               </div>
             </div>
           </aside>
         </section>
-        {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={this.props.city} mirrors={this.state.mirrors} /> : null}
+        {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={city} mirrors={this.state.mirrors} /> : null}
         {this.state.preview ? <WalkPreview url={this.state.url} close={this.setState.bind(this, {preview: false})} /> : null}
         <aside id="notifications">
           {this.state.notifications.map(note => (

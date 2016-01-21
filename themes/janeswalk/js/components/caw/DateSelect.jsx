@@ -5,7 +5,7 @@ const TimeSetTable = require('./date/TimeSetTable.jsx');
 const TimeOpenTable = require('./date/TimeOpenTable.jsx');
 
 // Flux
-const t = require('../../stores/I18nStore.js').getTranslate();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 // Default to a 1-hour walk time
 const ONE_HOUR = 60 * 60 * 1000;

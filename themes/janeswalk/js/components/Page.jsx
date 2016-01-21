@@ -9,7 +9,6 @@ import View from './View.jsx';
 export default class PageView extends View {
   constructor(element) {
     super(element);
-    this._addNavEvents();
     this._addOverlayCloseEvent();
   }
 
@@ -32,30 +31,6 @@ export default class PageView extends View {
       _this._element.find('.overlay').hide();
     }
     );
-  }
-
-  /**
-   * _addNavEvents
-   * 
-   * @protected
-   * @return    void
-   */
-  _addNavEvents() {
-    this._element.find('a.search-open').click(function() {
-      $('html, body').animate({
-        scrollTop: 0
-      }, 300);
-      $('body > header').addClass('dropped');
-
-      // If there's a text-field in the drop, move caret to it
-      var textInput = document.querySelector('body > header input[type=text]');
-      if (textInput) {
-        textInput.focus();
-      }
-    });
-    this._element.find('a.search-close').click(function() {
-      $('body > header').removeClass('dropped');
-    });
   }
 
   /**

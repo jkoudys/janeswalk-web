@@ -5,18 +5,19 @@
  */
 
 var gulp = require('gulp'),
-  gutil = require('gulp-util'),
-  through = require('through2'),
-  concat = require('gulp-concat'),
-  rename = require('gulp-rename'),
   autoprefixer = require('gulp-autoprefixer'),
-  less = require('gulp-less'),
-  uglify = require('gulp-uglify'),
-  source = require('vinyl-source-stream'),
-  buffer = require('vinyl-buffer'),
-  browserify = require('browserify'),
   babelify = require('babelify'),
-  gettextParser = require('gettext-parser');
+  browserify = require('browserify'),
+  buffer = require('vinyl-buffer'),
+  concat = require('gulp-concat'),
+  gettextParser = require('gettext-parser'),
+  gutil = require('gulp-util'),
+  less = require('gulp-less'),
+  rename = require('gulp-rename'),
+  source = require('vinyl-source-stream'),
+  through = require('through2'),
+  uglify = require('gulp-uglify'),
+  webpack = require('webpack');
 
 var paths = {
   js: './themes/janeswalk/js',
@@ -44,36 +45,92 @@ gulp.task('css', function() {
     .pipe(gulp.dest(paths.css));
 });
 
+gulp.task('watch.css', function() {
+  gulp.watch(paths.css + '**/*.less', ['css']);
+});
+
 gulp.task('js', function() {
   gulp.run('js.theme', 'js.blocks', 'js.global');
 });
 
 gulp.task('js.theme', function() {
-  return browserify({
-    entries: paths.jsx_app,
-    transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-    extensions: ['.jsx', '.js']
-  })
-    .bundle()
-    .pipe(source('janeswalk.js'))
-    .pipe(gulp.dest(paths.js))
-    .pipe(rename('janeswalk.min.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(gulp.dest(paths.js))
+  // TODO: transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
+  webpack({
+    entry: [paths.jsx_app],
+    output: {
+      path: paths.js,
+      filename: 'janeswalk.js'
+    },
+    module: {
+      loaders: [{
+        test: /\.less$/,
+        loader: 'style!css!less'
+      }, {
+        test: /\.jsx?$/,
+        exclude: /(bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      }],
+    },
+    watch: true
+  }, function(err, stats) {
+    if(err) throw new gutil.PluginError("webpack:build", err);
+    gutil.log("[webpack:build]", stats.toString({
+      colors: true
+    }));
+  });
 });
 
 gulp.task('js.blocks', function() {
+  /*
   // Run for each block view in array
-  return ['./blocks/search/templates/header/', './blocks/page_list/templates/typeahead/', './blocks/page_list/templates/walk_filters/'].map(function(template) {
+  return [
+    './blocks/search/templates/header/',
+    './blocks/page_list/templates/typeahead/',
+    './blocks/page_list/templates/walk_filters/'
+  ].map(function(template) {
     return browserify({
       entries: template + 'view.jsx',
       transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-      extensions: ['.jsx']
+      extensions: ['.jsx', '.es6']
     })
-      .bundle()
-      .pipe(source('view.js'))
-      .pipe(gulp.dest(template))
+    .bundle()
+    .pipe(source('view.js'))
+    .pipe(gulp.dest(template))
+  });
+*/
+  [
+    './blocks/search/templates/header/',
+    './blocks/page_list/templates/typeahead/',
+    './blocks/page_list/templates/walk_filters/'
+  ].map(function(entry) {
+    webpack({
+      entry: [entry + 'view.jsx'],
+      output: {
+        path: entry,
+        filename: 'view.js'
+      },
+      module: {
+        loaders: [{
+          test: /\.less$/,
+          loader: 'style!css!less'
+        }, {
+          test: /\.jsx?$/,
+          exclude: /(bower_components)/,
+          loader: 'babel',
+          query: {
+            presets: ['es2015', 'react'],
+          },
+        }],
+      },
+    }, function(err, stats) {
+      if(err) throw new gutil.PluginError("webpack:build", err);
+      gutil.log("[webpack:build]", stats.toString({
+        colors: true
+      }));
+    });
   });
 });
 
@@ -81,7 +138,7 @@ gulp.task('js.global', function() {
   return browserify({
     entries: './js/jwobject.jsx',
     transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-    extensions: ['.jsx']
+    extensions: ['.jsx', '.es6']
   })
   .bundle()
   .pipe(source('jwglobal.js'))

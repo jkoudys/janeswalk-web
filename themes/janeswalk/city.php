@@ -132,29 +132,30 @@ echo <<< EOT
         {$intro}
         {$area('City Header')}
         {$BackgroundPhoto}
+    </div>
+    <div class="city-organizer">
         {$CityOrganizerDetails}
     </div>
-</section>
-<section id="city-details">
-    <div class="description">
-        <div class="item">
-            <h2>{$t('Jane’s Walks')}</h2>
-            <h4>{$t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $cityName)}</h4>
-            {$longDescription}
-            {$area('City Description')}
-        </div>
-        <div class="menu-flags">
-            {$area('City Nav')}
-        </div>
-        {$area('Sponsors')}
+    <div class="menu-flags">
+        {$area('City Nav')}
     </div>
+</section>
+
+<section id="city-walks">
     <div class="walk-list">
-        <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Create a Walk')}</a>
+        <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Lead a Walk!')}</a>
         <h3>{$t('Walks in %s', $cityName)}</h3>
         {$area('All Walks List')}
     </div>
 </section>
-{$Blog}
+
+<section id="city-blog">
+    {$Blog}
+</section>
+
+<section id="city-sponsors">
+    {$area('Sponsors')}
+</section>
 EOT;
 
 $this->inc('elements/footer.php');

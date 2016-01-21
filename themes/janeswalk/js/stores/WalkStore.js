@@ -7,7 +7,7 @@
 
 import Store from './Store.js';
 import {Events, ActionTypes} from '../constants/JWConstants.js';
-import {register} from '../dispatcher/AppDispatcher.js';
+import {register} from 'janeswalk/dispatcher/AppDispatcher.js';
 import defaultWalk from '../constants/defaultWalk.json';
 
 // Store singletons

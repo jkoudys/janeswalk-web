@@ -28,7 +28,7 @@ export default class WalkCards extends React.Component {
         </div>
       );
     } else {
-      return <div>
+      return <div className="walkCards">
         {this.props.walks.map(walk => <Card walk={walk} />)}
       </div>;
     }
@@ -82,7 +82,7 @@ class Card extends React.Component {
     }
 
     /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-    if (walk.map.markers && walk.map.markers.length) {
+    if (walk.map && walk.map.markers && walk.map.markers.length) {
       Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
     }
 

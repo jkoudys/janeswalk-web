@@ -3,8 +3,7 @@ import {change} from '../../actions/WalkActions.js';
 import AccessibleSelect from './AccessibleSelect.jsx';
 import AccessibleStore from '../../stores/AccessibleStore.js';
 import I18nStore from '../../stores/I18nStore.js';
-const t = I18nStore.getTranslate();
-const t2 = I18nStore.getTranslatePlural();
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
 // Link value and change
 function link(context, property) {
