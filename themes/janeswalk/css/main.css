@@ -10365,7 +10365,7 @@ body.home .nav-tabs > li.active > a {
   background: #fff;
 }
 body.home #intro {
-  width: 50%;
+  width: 100%;
   background-position: center center;
 }
 body.home #intro:before,
@@ -13310,6 +13310,7 @@ body.city-page > #blog:after {
 .walkPage .walkTeam summary {
   font-size: 18px;
   font-weight: 300;
+  margin-top: 1em;
 }
 .custom-walk-page {
   padding-top: 160px;
