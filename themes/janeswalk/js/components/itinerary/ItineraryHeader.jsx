@@ -60,15 +60,9 @@ export default class ItineraryHeader extends React.Component {
     } else {
       return (
         <header className="itineraryHeader">
-
-          <div className="dropdown">
-            <button className="toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="lists">
-              <h1 className="walklistTitle">{title}<span className="dropdown-chevron"></span></h1>
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="lists">
-              {lists.map(list => <li key={list.id} onClick={ev => viewList(list.id, ev.target.value)}>{list.title}</li>)}
-            </ul>
-          </div>
+          <select onChange={ev => { viewList(ev.target.value) }} className="itinerary-lists">
+            {lists.map(list => <option key={list.id} selected={list.title === title}>{list.title}</option>)}
+          </select>
           <h5 className="shareUrl"><a href="">janeswalk.org/TuckerMCL/itinerary</a></h5>
           <h4 className="walklistDescription">
             <textarea required="required" placeholder="Tell people about it! Start typing here to give your list some commentary." onChange={ev => this.setState({newDescription:ev.target.value})}></textarea>

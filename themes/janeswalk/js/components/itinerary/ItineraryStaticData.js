@@ -26,14 +26,14 @@ const walks = [{"id":"2411","title":"ROMwalks - About the ROM","url":"http:\/\/j
   title: "My Itinerary",
   shareUrl: "janeswalk.org/Harold/itinerary",
   description: "Each year, I take some time to read about all of the walks happening in my city in order to curate a list for myself and my friends, family, and colleagues. And this year, I’m sharing the list with you! Here are my Top 10 choices for the 2015 walk weekend in Toronto. Hope to see you out there, and maybe even having a walking conversation with YOU!",
-  walks: walks.slice(0,-1),
+  walks: [],
   },
   {
   id: 2,
   title: 'Favourites',
   shareUrl: "janeswalk.org/Harold/favourites",
   description: "View my Jane's Walk Itinerary!",
-  walks: walks.slice(0,-2),
+  walks: [],
   },
   {
   id: 3,

@@ -33,7 +33,7 @@ export default class AddWalkToListDialog extends React.Component {
     });
 
     return(
-      <dialog id="addWalk" open={walkDialogOpen}>
+      <dialog id="addWalk" open>
         <ul>
           {allLists}
         </ul>

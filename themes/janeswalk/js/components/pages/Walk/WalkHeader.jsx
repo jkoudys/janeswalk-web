@@ -28,12 +28,12 @@ function headerBG(city, walk) {
 const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFavourites, favoriteListId, itineraryListId}) => {
   const favButton = () => {
     if (existsInFavourites) return <button className="removeFavourite" onClick={()=>remove(id,favoriteListId)}> </button>;
-    else return <button className="addFavourite" onClick={()=>add(id,favoriteListId)}> </button>;
+    else return <button className="addFavourite" onClick={()=>add(id,favoriteListId, walk)}> </button>;
   };
 
   const addButton = () => {
     if (existsInItinerary) return <button className="removeItinerary" onClick={()=>remove(id,itineraryListId)}></button>;
-    else return <button className="addItinerary" onClick={()=>add(id,itineraryListId)}></button>;
+    else return <button className="addItinerary" onClick={()=>add(id,itineraryListId, walk)}></button>;
   };
 
   const addToFavourites = favButton();
