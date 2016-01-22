@@ -38,6 +38,7 @@ const _addWalk = (id, listId, walk) => {
   if (!list) {
     console.log('List could not be found');
   } else {
+    _currentList = list;
     const walkFound = list.walks.find(walk => walk.id === id);
 
     if (!walkFound) {
