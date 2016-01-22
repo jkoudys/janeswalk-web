@@ -85,6 +85,7 @@ const _getWalks = (title) => {
 
     if (listFound) {
       _currentList = listFound;
+      debugger;
     } else {
       console.log('list not found, notify user');
     }
