@@ -5,12 +5,12 @@ import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 
 export default {
 
-  remove(id, list) {
-    dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, list});
+  remove(id, listId) {
+    dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, listId});
   },
 
-  add(id, list) {
-    dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, list});
+  add(id, listId, walk) {
+    dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId, walk});
   },
 
   updateTitle(title) {
@@ -21,8 +21,8 @@ export default {
     dispatch({type: ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description});
   },
 
-  viewList(id) {
-    dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, id});
+  viewList(title) {
+    dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, title});
   },
 
   createList(id, title) {
