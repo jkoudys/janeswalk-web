@@ -5,6 +5,7 @@ import {lists, walks} from '../components/itinerary/ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
+//TODO: for stubbed data, assumed first list is Itinerary, second list is fav
 let _itinerary = lists[0];
 let _favourites = lists[1];
 let _currentList = _itinerary;
@@ -25,12 +26,12 @@ const _removeWalk = (id, listId) => {
     if (walkFound) {
       list.walks.splice(list.walks.findIndex(walk => walk.id === id), 1);
     } else {
-      console.log('Walk does not exists');
+      console.log('Walk does not exists in list');
     }
   }
 };
 
-const _addWalk = (id, listId) => {
+const _addWalk = (id, listId, walk) => {
   const list = _allLists.find(list => list.id === listId);
 
   //TODO: May not be required after API calls
@@ -40,12 +41,7 @@ const _addWalk = (id, listId) => {
     const walkFound = list.walks.find(walk => walk.id === id);
 
     if (!walkFound) {
-      const walk = walks.find(walk => walk.id === id);
-      if (!walk) {
-        console.log('walk not found');
-      } else {
-        list.walks.unshift(walk);
-      }
+      list.walks.unshift(walk);
     } else {
       console.log('Walk already exists, notify the user');
     }
@@ -82,9 +78,9 @@ const _updateDescription = (description) => {
   _currentList.description = description;
 };
 
-const _getWalks = (id) => {
-  if (_currentList.id !== id) {
-    const listFound = _allLists.find(list => list.id === id);
+const _getWalks = (title) => {
+  if (_currentList.title !== title) {
+    const listFound = _allLists.find(list => list.title === title);
 
     if (listFound) {
       _currentList = listFound;
@@ -146,11 +142,11 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   dispatcherIndex: register(function(action) {
     switch (action.type) {
     case ActionTypes.ITINERARY_REMOVE_WALK:
-      _removeWalk(action.id, action.list);
+      _removeWalk(action.id, action.listId);
       break;
     case ActionTypes.ITINERARY_ADD_WALK:
        //TODO: Dialog to open on first add to Itinerary/Favourites
-      _addWalk(action.id, action.list);
+      _addWalk(action.id, action.listId, action.walk);
       break;
     case ActionTypes.ITINERARY_UPDATE_TITLE:
       _updateTitle(action.title);
@@ -159,7 +155,7 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       _updateDescription(action.description);
       break;
     case ActionTypes.ITINERARY_VIEW_LIST:
-      _getWalks(action.id);
+      _getWalks(action.title);
       break;
     case ActionTypes.ITINERARY_CREATE_LIST:
       let newList = _createList(action.title);
