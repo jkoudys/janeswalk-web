@@ -1,13 +1,13 @@
 import {dateFormatted} from '../../utils/ItineraryUtils';
 
-const Walk = ({title, start, meeting, remove, id, listId, walkSelected, addWalkDialog}) => {
+const Walk = ({title, start, meeting, url, remove, id, listId, walkSelected, addWalkDialog}) => {
   let removeButton = remove ? <button className="action removeWalk" onClick={(ev) => remove(id, listId, ev.target.value)}></button> : null;
   let addButton = addWalkDialog ? <button className="action addWalk" onClick={(ev) => { addWalkDialog(); walkSelected(id, ev.target.value);}}></button> : null;
 
   return(
     <li className="walklistItem">
       <div className="walk">
-        <h3>{title}</h3>
+        <h3><a href={url}>{title}</a></h3>
         <h4>{dateFormatted(start)}</h4>
         <h4>{meeting}</h4>
       </div>

@@ -46,9 +46,10 @@ export default class Itinerary extends React.Component {
   render() {
     const {walks, dialogOpen, listId, $el, walkDialogOpen} = this.state;
 
-    const ItineraryWalks = walks.map(({map, id, title, time}) =>
+    const ItineraryWalks = walks.map(({map, id, title, time, url}) =>
         <Walk
             title={title}
+            url = {url}
             meeting={map.markers[0].title}
             start={time.slots[0][0]}
             id={id}
