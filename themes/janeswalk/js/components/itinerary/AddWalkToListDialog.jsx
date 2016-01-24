@@ -36,6 +36,7 @@ export default class AddWalkToListDialog extends React.Component {
 
       return(
         <dialog id="addWalk">
+          <h5> Add {activeWalk.title} to...</h5>
           <ul>
             {allLists}
           </ul>

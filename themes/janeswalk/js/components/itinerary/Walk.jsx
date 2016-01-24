@@ -2,7 +2,7 @@ import {dateFormatted} from '../../utils/ItineraryUtils';
 
 const Walk = ({title, start, meeting, url, remove, id, listId, walkSelected, addWalkDialog}) => {
   let removeButton = remove ? <button className="action removeWalk" onClick={(ev) => remove(id, listId, ev.target.value)}></button> : null;
-  let addButton = addWalkDialog ? <button className="action addWalk" onClick={(ev) => { addWalkDialog(); walkSelected(id, ev.target.value);}}></button> : null;
+  let addButton = addWalkDialog ? <button className="action addWalk" onClick={(ev) => { walkSelected(id, ev.target.value);}}></button> : null;
 
   return(
     <li className="walklistItem">

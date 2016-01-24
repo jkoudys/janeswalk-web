@@ -162,10 +162,19 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       let newList = _createList(action.title);
       _addWalk(action.id, newList.id, action.walk);
       break;
-    case ActionTypes.ITINERARY_WALK_SELECTED:
-      _walkSelected = _currentList.walks.find(w => w.id === action.id);
+      case ActionTypes.ITINERARY_WALK_SELECTED:
+      // TODO: Refactor further based on functionality.
+      if (_walkSelected && _walkSelected.id === action.id) {
+        _walkDialogOpen = !_walkDialogOpen;
+        _walkSelected = null;
+      } else {
+        if(!_walkSelected) _walkDialogOpen = !_walkDialogOpen;
+        _walkSelected = _currentList.walks.find(w => w.id === action.id);
+      }
       break;
     case ActionTypes.ITINERARY_ADD_WALK_DIALOG:
+      // TODO: Refactor based on functionality.
+      _walkSelected = null;
       _walkDialogOpen = !_walkDialogOpen;
       break;
     }
