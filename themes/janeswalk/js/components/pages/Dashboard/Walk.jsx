@@ -12,7 +12,7 @@ const Walk = ({title, start, meeting, id, team, url}) => {
   return (
     <li key={id}>
       <div className={start*1000 > Date.now() ? 'walk' : 'walk pastWalk'}>
-        <h3>{title}</h3>
+        <h3><a href={url}>{title}</a></h3>
         <h4>{dateFormatted(start)}</h4>
         {team.length ? <h4>Led by {`${team[0]['name-first']} ${team[0]['name-last']}`} <a href={`mailto:${team[0]['email']}`}>{team[0]['email']}</a> </h4> : null}
         <h4>Meeting at {meeting}</h4>
