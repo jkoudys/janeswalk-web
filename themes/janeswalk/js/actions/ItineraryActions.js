@@ -9,8 +9,8 @@ export default {
     dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, listId});
   },
 
-  add(id, listId, walk) {
-    dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId, walk});
+  add(id, listId, walk, switchToList) {
+    dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId, walk, switchToList});
   },
 
   updateTitle(title) {
@@ -25,8 +25,8 @@ export default {
     dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, title});
   },
 
-  createList(id, title) {
-    dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, id, title});
+  createList(id, title, walk) {
+    dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, id, title, walk});
   },
 
   walkSelected(id) {

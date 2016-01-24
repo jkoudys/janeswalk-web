@@ -32,8 +32,8 @@ const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFav
   };
 
   const addButton = () => {
-    if (existsInItinerary) return <button className="removeItinerary" onClick={()=>remove(id,itineraryListId)}></button>;
-    else return <button className="addItinerary" onClick={()=>add(id,itineraryListId, walk)}></button>;
+    if (existsInItinerary) return <button className="removeItinerary" onClick={()=>remove(id,itineraryListId, true)}></button>;
+    else return <button className="addItinerary" onClick={()=>add(id,itineraryListId, walk, true)}></button>;
   };
 
   const addToFavourites = favButton();

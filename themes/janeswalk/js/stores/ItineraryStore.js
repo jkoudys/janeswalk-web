@@ -14,13 +14,13 @@ let _dialogOpen = false;
 let _walkSelected = null;
 let _walkDialogOpen = false;
 
-const _removeWalk = (id, listId) => {
+const _removeWalk = (id, listId, switchToList) => {
   const list = _allLists.find(list => list.id === listId);
 
   if (!list) {
     console.log('List could not be found');
   } else {
-    _currentList = list;
+    if(switchToList)_currentList = list;
     const walkFound = list.walks.find(walk => walk.id === id);
 
     if (walkFound) {
@@ -31,14 +31,14 @@ const _removeWalk = (id, listId) => {
   }
 };
 
-const _addWalk = (id, listId, walk) => {
+const _addWalk = (id, listId, walk, switchToList) => {
   const list = _allLists.find(list => list.id === listId);
 
   //TODO: May not be required after API calls
   if (!list) {
     console.log('List could not be found');
   } else {
-    _currentList = list;
+    if(switchToList)_currentList = list;
     const walkFound = list.walks.find(walk => walk.id === id);
 
     if (!walkFound) {
@@ -85,7 +85,6 @@ const _getWalks = (title) => {
 
     if (listFound) {
       _currentList = listFound;
-      debugger;
     } else {
       console.log('list not found, notify user');
     }
@@ -148,7 +147,7 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       break;
     case ActionTypes.ITINERARY_ADD_WALK:
        //TODO: Dialog to open on first add to Itinerary/Favourites
-      _addWalk(action.id, action.listId, action.walk);
+      _addWalk(action.id, action.listId, action.walk, action.switchToList);
       break;
     case ActionTypes.ITINERARY_UPDATE_TITLE:
       _updateTitle(action.title);
@@ -161,10 +160,10 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       break;
     case ActionTypes.ITINERARY_CREATE_LIST:
       let newList = _createList(action.title);
-      _addWalk(action.id, newList.id);
+      _addWalk(action.id, newList.id, action.walk);
       break;
     case ActionTypes.ITINERARY_WALK_SELECTED:
-      _walkSelected = action.id;
+      _walkSelected = _currentList.walks.find(w => w.id === action.id);
       break;
     case ActionTypes.ITINERARY_ADD_WALK_DIALOG:
       _walkDialogOpen = !_walkDialogOpen;
