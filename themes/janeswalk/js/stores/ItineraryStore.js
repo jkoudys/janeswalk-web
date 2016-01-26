@@ -14,6 +14,11 @@ let _dialogOpen = false;
 let _walkSelected = null;
 let _walkDialogOpen = false;
 
+//TODO: _removeWalk, _addWalk, should receive updated list
+//TODO: _createList, _updateTitle, _updateDescription, should receive updated list
+//TODO: Need to retrieve all lists either via JW Events, or async call on component mount
+//TODO: Currently no remove list, just adding lists
+
 const _removeWalk = (id, listId, switchToList) => {
   const list = _allLists.find(list => list.id === listId);
 
