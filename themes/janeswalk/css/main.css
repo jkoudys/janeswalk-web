@@ -8261,10 +8261,8 @@ div.field {
 div#ccm-edit-overlay {
   z-index: 1031;
 }
-html {
-  padding-top: 60px;
-}
 body {
+  padding-top: 60px;
   overflow-x: hidden;
   font-size: 15px;
   line-height: 20px;
@@ -10310,10 +10308,8 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   }
 }
 body.home {
-  background-attachment: fixed;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  padding-top: 0;
+  /* The sticky navbar */
 }
 body.home #intro,
 body.home .navbar_home .large,
@@ -10366,7 +10362,11 @@ body.home .nav-tabs > li.active > a {
 }
 body.home #intro {
   width: 100%;
+  height: 100vh;
+  background-attachment: fixed;
   background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 body.home #intro:before,
 body.home #intro:after {
@@ -10578,10 +10578,26 @@ body.home #blog:before {
 }
 body.home #calltoaction {
   max-width: 768px;
-  padding: 30px;
-  margin: 60px auto;
+  padding: 60px 0;
+  margin: 0 auto;
   background: #fff;
   position: relative;
+}
+body.home #calltoaction:before,
+body.home #calltoaction:after {
+  content: " ";
+  display: table;
+}
+body.home #calltoaction:after {
+  clear: both;
+}
+body.home #calltoaction:before,
+body.home #calltoaction:after {
+  content: " ";
+  display: table;
+}
+body.home #calltoaction:after {
+  clear: both;
 }
 body.home #calltoaction #city-choice-label,
 body.home #calltoaction #city-choice-select {
@@ -10599,10 +10615,55 @@ body.home #calltoaction #city-choice-select {
     position: static;
   }
 }
+body.home #calltoaction .btn,
+body.home #calltoaction body.city-page > #city-details .create-walk,
+body.home #calltoaction body.city-page > #city-details .create-walk:after,
+body.home #calltoaction #create-walk #map-control-bar button,
+body.home #calltoaction #create-walk #map-control-bar button.active,
+body.home #calltoaction #create-walk #map-control-bar .loadFeed,
+body.home #calltoaction #create-walk .filterInputs .filter input[type=submit],
+body.home #calltoaction #create-walk .filterInputs .filter input[type=button] {
+  background: #fff;
+  border: 2px solid #f16725;
+  border-radius: 10px;
+  color: #f16725;
+  box-shadow: none;
+  font-size: 22px;
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+}
+body.home #calltoaction .btn:hover,
+body.home #calltoaction body.city-page > #city-details .create-walk:hover,
+body.home #calltoaction body.city-page > #city-details .create-walk:after:hover,
+body.home #calltoaction #create-walk #map-control-bar button:hover,
+body.home #calltoaction #create-walk #map-control-bar button.active:hover,
+body.home #calltoaction #create-walk #map-control-bar .loadFeed:hover,
+body.home #calltoaction #create-walk .filterInputs .filter input[type=submit]:hover,
+body.home #calltoaction #create-walk .filterInputs .filter input[type=button]:hover {
+  color: #fff;
+  background: #f16725;
+  border-color: #fff;
+}
+body.home #calltoaction > div {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-left: 2px solid #efefef;
+}
+@media (min-width: 992px) {
+  body.home #calltoaction > div {
+    float: left;
+    width: 50%;
+  }
+}
 body.home #calltoaction > div > h3:first-child {
   color: #666666;
   font-weight: 700;
   margin: 0;
+}
+body.home #calltoaction > div:first-child {
+  border: none;
 }
 body.home #calltoaction p {
   color: #666666;
@@ -10633,17 +10694,24 @@ body.home .callouts {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  padding-bottom: 50px;
-  padding-top: 15px;
+  padding: 32vh 0;
   color: white;
-  background: #f16725;
-  background: -webkit-linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
-  background: linear-gradient(rgba(241, 103, 37, 0.7) 20%, rgba(241, 103, 37, 0.7) 20%, #f16725 80%);
+  text-align: center;
 }
 @media (max-width: 768px) {
   body.home .callouts {
     padding-bottom: 5px;
   }
+}
+body.home .callouts h1,
+body.home .callouts h2,
+body.home .callouts h3,
+body.home .callouts h4 {
+  text-shadow: 0px 0px 8px black;
+}
+body.home .callouts h1 {
+  margin: 0;
+  font-size: 13vh;
 }
 body.home .callouts blockquote {
   border-left: 0;
@@ -10681,6 +10749,25 @@ body.home .callouts blockquote div.cityCtaWrapper a#create-walk .filterInputs .f
 body.home .callouts a {
   color: inherit;
 }
+body.home .callouts #ccm-jw-page-list-typeahead {
+  margin: 5vh 15vw;
+}
+body.home .callouts #ccm-jw-page-list-typeahead fieldset.search {
+  float: none;
+  width: 100%;
+}
+body.home .callouts #ccm-jw-page-list-typeahead fieldset.search input[type=text] {
+  font-size: 3vh;
+  height: auto;
+}
+body.home .callouts #ccm-jw-page-list-typeahead fieldset.search button[type=submit] {
+  font-size: 3vh;
+  height: 100%;
+}
+body.home .callouts #ccm-jw-page-list-typeahead ul {
+  text-align: left;
+  width: 100%;
+}
 body.home main {
   position: relative;
   min-height: 1px;
@@ -10693,6 +10780,18 @@ body.home main {
     float: left;
     width: 100%;
   }
+}
+body.home #navbar {
+  position: relative;
+  top: -60px;
+}
+body.home #navbar.fixed {
+  position: fixed;
+  top: 0;
+}
+body.home #navbar header {
+  width: 100%;
+  position: inherit;
 }
 .navbar_home {
   font-size: 1em;

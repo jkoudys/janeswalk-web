@@ -18,6 +18,16 @@ const WalkMenu = ({walk, filters}) => {
     theme = filters.theme;
   }
   const walkLeader = team.find(member => member.role === 'walk-leader');
+  let leaderHead, nextDateHead, meetingPlaceHead;
+  if (walkLeader) {
+    leaderHead = <h6>Led By {walkLeader['name-first']} {walkLeader['name-last']} </h6>;
+  }
+  if (time.slots.length) {
+    nextDateHead = <h6>{dateFormatted(time.slots[0][0])}</h6>;
+  }
+  if (map.markers.length) {
+    meetingPlaceHead = <h6>Meeting at {map.markers[0].title}</h6>;
+  }
 
   //TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>
   const tags = Object.keys(checkboxes).filter(item => item.includes('theme'));
@@ -26,9 +36,9 @@ const WalkMenu = ({walk, filters}) => {
     <section className="walkMenu">
       <header className="walkHeader">
         <h5>{title}</h5>
-        <h6>Led By {walkLeader['name-first']} {walkLeader['name-last']} </h6>
-        <h6>{dateFormatted(time.slots[0][0])}</h6>
-        <h6>Meeting at {map.markers[0].title}</h6>
+        {leaderHead}
+        {nextDateHead}
+        {meetingPlaceHead}
         <WalkAccessibility {...walk} {...filters} />
         <WalkPublicTransit {...walk} />
         <WalkParking {...walk} />

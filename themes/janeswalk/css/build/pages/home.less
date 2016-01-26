@@ -1,11 +1,7 @@
 //HOMEPAGE
 
 body.home {
-    background-attachment: fixed;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
+    padding-top: 0;
     #intro,
     .navbar_home .large,
     .section2 ul.nav {
@@ -60,7 +56,12 @@ body.home {
     #intro {
         .clearfix();
         width: 100%;
+        height: 100vh;
         background-position: center center;
+        background-attachment: fixed;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
         .logo {
             background-image: url("../images/jwlogos-3.png");
@@ -206,9 +207,10 @@ body.home {
     }
 
     #calltoaction {
+        .clearfix();
         max-width: @screen-sm-min;
-        padding: @grid-gutter-width;
-        margin: @grid-gutter-width * 2 auto;
+        padding: 2 * @grid-gutter-width 0;
+        margin: 0 auto;
         background: #fff;
         position: relative;
 
@@ -224,10 +226,32 @@ body.home {
             position: static;
         }
 
-        > div > h3:first-child {
-            color: @color-darkgrey;
-            font-weight: 700;
-            margin: 0;
+        .btn {
+            background: #fff;
+            border: 2px solid @color-orange;
+            border-radius: 10px;
+            color: @color-orange;
+            box-shadow: none;
+            font-size: 22px;
+            transition-duration: 0.2s;
+            &:hover {
+                color: #fff;
+                background: @color-orange;
+                border-color: #fff;
+            }
+        }
+
+        > div {
+            .make-md-column(6);
+            > h3:first-child {
+                color: @color-darkgrey;
+                font-weight: 700;
+                margin: 0;
+            }
+            border-left: 2px solid @color-lightgrey;
+            &:first-child {
+                border: none;
+            }
         }
         p {
             color: @color-darkgrey;
@@ -255,13 +279,18 @@ body.home {
 
     .callouts {
         .make-xs-column(12);
-        padding-bottom: 50px;
-        padding-top: @grid-gutter-width/2;
+        padding: 32vh 0;
         color: white;
-        background: @color-orange;
-        background: linear-gradient(fade(@color-orange, 70%) 20%, fade(@color-orange, 70%) 20%, @color-orange 80%);
+        text-align: center;
         @media (max-width: @screen-sm-min) {
             padding-bottom: @grid-gutter-width/2 - 10px;
+        }
+        h1, h2, h3, h4 {
+            text-shadow: 0px 0px 8px black;
+        }
+        h1 {
+            margin: 0;
+            font-size: 13vh;
         }
         blockquote {
             border-left: 0;
@@ -294,11 +323,44 @@ body.home {
         a {
             color: inherit;
         }
+        #ccm-jw-page-list-typeahead {
+            margin: 5vh 15vw;
+            fieldset.search {
+                float: none;
+                width: 100%;
+                input[type=text] {
+                    font-size: 3vh;
+                    height: auto;
+                }
+                button[type=submit] {
+                    font-size: 3vh;
+                    height: 100%;
+                }
+            }
+            ul {
+                text-align: left;
+                width: 100%;
+            }
+        }
     }
 
     main {
         .make-md-column(12);
         padding: @grid-gutter-width/2 0;
+    }
+
+    /* The sticky navbar */
+    #navbar {
+        position: relative;
+        top: -60px;
+        &.fixed {
+            position: fixed;
+            top: 0;
+        }
+        header {
+            width: 100%;
+            position: inherit;
+        }
     }
 }
 
