@@ -7,7 +7,7 @@ export default class AddWalkToListDialog extends React.Component {
   }
 
   render() {
-    const {lists, remove, add, createList, activeWalk, walkDialogOpen, addWalkDialog} = this.props;
+    const {lists, remove, add, createList, activeWalk, walkDialogOpen, addWalkDialog, viewList} = this.props;
     const {newList} = this.state;
     //selectedWalk comes from where
 
@@ -35,7 +35,7 @@ export default class AddWalkToListDialog extends React.Component {
       });
 
       return(
-        <dialog id="addWalk">
+        <dialog id="addWalk" className="add-walk-to-list">
           <h5> Add {activeWalk.title} to...</h5>
           <ul>
             {allLists}
@@ -43,12 +43,32 @@ export default class AddWalkToListDialog extends React.Component {
 
           <input placeholder="create a new list..." value={newList} onChange={ev => {this.setState({newList:ev.target.value})}}></input>
 
-          <button onClick={ev => {createList(activeWalk.id, newList, activeWalk); this.setState({newList:null})}}>Create</button>
+          <button onClick={ev => {createList(newList, activeWalk.id, activeWalk); this.setState({newList:null})}}>Create</button>
           <button onClick={ev => addWalkDialog()}>Close</button>
         </dialog>
       )
     } else {
-      return null;
+
+      const allLists = lists.map(list => {
+
+        const {id, title, walks} = list;
+
+        return (
+          <li key={id} onClick={(ev) => viewList(title)}>
+            <span>{title}</span>
+          </li>
+        )
+      });
+
+      return(
+        <dialog id="addWalk" className="static-list">
+          <ul>
+            {allLists}
+          </ul>
+          <input placeholder="create a new list..." value={newList} onChange={ev => {this.setState({newList:ev.target.value})}}></input>
+          <button onClick={ev => {createList(newList); this.setState({newList:null})}}>Create</button>
+        </dialog>
+      )
     }
 
   }

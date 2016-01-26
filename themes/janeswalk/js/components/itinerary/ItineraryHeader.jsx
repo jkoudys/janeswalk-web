@@ -12,8 +12,6 @@ export default class ItineraryHeader extends React.Component {
     const {updateTitle, updateDescription, title, description} = this.props;
     const {editable, newTitle, newDescription} = this.state;
 
-    debugger;
-
     updateTitle(newTitle || title);
     updateDescription(newDescription || description);
 
@@ -61,11 +59,12 @@ export default class ItineraryHeader extends React.Component {
       )
     } else {
 
+      //<select className="itinerary-lists" onChange={ev => { viewList(ev.target.value) }}>
+      //  {lists.map(list => <option key={list.id} selected={list.title === title}>{list.title}</option>)}
+      //</select>
       return (
         <header className="itineraryHeader">
-          <select className="itinerary-lists" onChange={ev => { viewList(ev.target.value) }}>
-            {lists.map(list => <option key={list.id} selected={list.title === title}>{list.title}</option>)}
-          </select>
+          <h2>{title}</h2>
           <h5 className="shareUrl"><a href="">janeswalk.org/TuckerMCL/itinerary</a></h5>
           <h4 className="walklistDescription">
             <textarea required="required" value={newDescription || description} placeholder="Tell people about it! Start typing here to give your list some commentary." onChange={ev => this.setState({newDescription:ev.target.value})}></textarea>
