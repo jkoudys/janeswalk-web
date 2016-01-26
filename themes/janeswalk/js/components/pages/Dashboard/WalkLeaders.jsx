@@ -4,8 +4,8 @@ import DashboardActions from '../../../actions/DashboardActions';
 import WalkLeader from './WalkLeader.jsx';
 
 const getWalkLeaders = (props) => ({
-  filterByDate: props.filterByDate || DashboardStore.getDateFilter(), // 'past' 'future' 'all'
-  sortBy: props.sortBy || DashboardStore.getSortBy(), //'alpha', 'walks', ''
+  filterByDate: props.filterByDate || DashboardStore.getDateFilter(props.location), // 'past' 'future' 'all'
+  sortBy: props.sortBy || DashboardStore.getSortBy(props.location), //'alpha', 'walks', ''
   activeLeaders: props.activeLeaders || DashboardStore.getWalkLeadersAndVolunteers(props.location),
 });
 
@@ -31,17 +31,18 @@ export default class WalkLeaders extends React.Component {
   render() {
 
     const {activeLeaders, filterByDate, sortBy} = this.state;
+    const {location} = this.props;
     const {name} = DashboardStore.getCityData();
     const {filterLeadersByDate, sortLeaders} = DashboardActions;
 
     const WalkLeaders = activeLeaders.map((wL,i) => (<WalkLeader {...wL} key={i}/> ));
-    //TODO* Create generic button component
+    //TODO: (Post-PR) Create generic button component as part of a filter generic component (iterable buttons)
     return (<section className="dashboardWalkLeaders">
-      <button className={`buttonAllWalks ${filterByDate === 'all' ? 'active' : null}`} onClick={() => filterLeadersByDate('all')}>All Walks</button>
-      <button className={`buttonUpcomingWalks ${filterByDate === 'future' ? 'active' : null}`} onClick={() => filterLeadersByDate('future')}>Upcoming Walks Only</button>
-      <button className={`buttonPastWalks ${filterByDate === 'past' ? 'active' : null}`} onClick={() => filterLeadersByDate('past')}>Past Walks Only</button><br/>
-      <button className={`buttonSortAlphabetically ${sortBy === 'alpha' ? 'active' : null}`} onClick={() => sortLeaders('alpha')}>Sort Alphabetically by First Name</button>
-      <button className={`buttonSortByMostWalks ${sortBy === 'count' ? 'active' : null}`} onClick={() => sortLeaders('count')}>Sort by Most Walks</button>
+      <button className={`buttonAllWalks ${filterByDate === 'all' ? 'active' : null}`} onClick={() => filterLeadersByDate('all', location)}>All Walks</button>
+      <button className={`buttonUpcomingWalks ${filterByDate === 'future' ? 'active' : null}`} onClick={() => filterLeadersByDate('future', location)}>Upcoming Walks Only</button>
+      <button className={`buttonPastWalks ${filterByDate === 'past' ? 'active' : null}`} onClick={() => filterLeadersByDate('past', location)}>Past Walks Only</button><br/>
+      <button className={`buttonSortAlphabetically ${sortBy === 'alpha' ? 'active' : null}`} onClick={() => sortLeaders('alpha', location)}>Sort Alphabetically by First Name</button>
+      <button className={`buttonSortByMostWalks ${sortBy === 'count' ? 'active' : null}`} onClick={() => sortLeaders('count', location)}>Sort by Most Walks</button>
       {WalkLeaders}
     </section>);
   };
