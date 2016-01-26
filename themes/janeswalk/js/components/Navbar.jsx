@@ -58,6 +58,29 @@ function appendSiblings(html, refNode) {
   [].forEach.call(div.children, child => refNode.parentNode.appendChild(child));
 }
 
+/**
+ * Make the navbar sticky to the top
+ */
+function makeSticky(el) {
+  let running = false;
+  // Where the el is when unfixed
+  let unfixed = el.offsetTop;
+  const stick = () => {
+    if (running) return;
+    running = true;
+    requestAnimationFrame(() => {
+      running = false;
+      if (window.scrollY > unfixed) {
+        el.classList.add('fixed');
+      } else {
+        el.classList.remove('fixed');
+      }
+    });
+  };
+  window.addEventListener('scroll', stick);
+  window.addEventListener('resize', stick);
+}
+
 // The header menu
 export default class Navbar extends React.Component {
   constructor(...args) {
@@ -82,6 +105,7 @@ export default class Navbar extends React.Component {
 
   componentDidMount() {
     appendSiblings(this.state.options, this.refs.topnav);
+    makeSticky(React.findDOMNode(this));
   }
 
   /**

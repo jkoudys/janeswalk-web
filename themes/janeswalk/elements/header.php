@@ -35,7 +35,6 @@
     lang="<?= Localization::activeLocale() ?>"
     class="<?= join((array) $bodyData['classes'], ' ') ?>"
     data-pageViewName="<?= $bodyData['pageViewName'] ?>"
-    style="background-image:url(<?= $bodyData['bg'] ?>)"
 >
     <div id="fb-root"></div>
     <script type="text/javascript">
