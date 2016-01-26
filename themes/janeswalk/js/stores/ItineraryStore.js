@@ -55,6 +55,9 @@ const _addWalk = (id, listId, walk, switchToList) => {
 };
 
 const _createList = (title) => {
+
+  if(!title.length) return;
+
   const list = _allLists.find(list => list.title === title);
 
   if (!list) {
@@ -165,7 +168,7 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       break;
     case ActionTypes.ITINERARY_CREATE_LIST:
       let newList = _createList(action.title);
-      _addWalk(action.id, newList.id, action.walk);
+      if(action.walk && newList) _addWalk(action.id, newList.id, action.walk);
       break;
       case ActionTypes.ITINERARY_WALK_SELECTED:
       // TODO: Refactor further based on functionality.

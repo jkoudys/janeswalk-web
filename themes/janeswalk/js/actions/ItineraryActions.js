@@ -25,7 +25,7 @@ export default {
     dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, title});
   },
 
-  createList(id, title, walk) {
+  createList(title, id, walk) {
     dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, id, title, walk});
   },
 
