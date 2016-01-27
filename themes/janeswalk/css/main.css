@@ -10794,13 +10794,12 @@ body.home #navbar {
   position: relative;
   top: -60px;
 }
-body.home #navbar.fixed {
-  position: fixed;
-  top: 0;
-}
 body.home #navbar header {
   width: 100%;
   position: inherit;
+}
+body.home #navbar header.fixed {
+  position: fixed;
 }
 .navbar_home {
   font-size: 1em;

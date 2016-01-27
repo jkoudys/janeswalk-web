@@ -987,9 +987,9 @@
 	    requestAnimationFrame(function () {
 	      running = false;
 	      if (window.scrollY > unfixed) {
-	        el.style.position = 'fixed';
+	        el.classList.add('fixed');
 	      } else {
-	        el.style.position = 'inherit';
+	        el.classList.remove('fixed');
 	      }
 	    });
 	  };
