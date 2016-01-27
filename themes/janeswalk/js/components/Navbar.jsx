@@ -70,7 +70,8 @@ function makeSticky(reference, el) {
     running = true;
     requestAnimationFrame(() => {
       running = false;
-      if (window.scrollY > unfixed) {
+      // TODO: remove this 60 hardcoding of the header height
+      if (window.scrollY > unfixed - 60) {
         el.classList.add('fixed');
       } else {
         el.classList.remove('fixed');
