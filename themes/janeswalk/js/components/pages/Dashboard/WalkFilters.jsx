@@ -3,15 +3,15 @@ import DashboardActions from '../../../actions/DashboardActions';
 
 //TODO*: Refactoring Components, WalksFilter is not doing much
 
-const Filter = ({name, selected, filterName, toggleFilter, removeFilter, data, key, activeFilters}) => {
+const Filter = ({location, name, filterName, toggleFilter, removeFilter, data, activeFilters}) => {
 
   let ActiveFilters;
 
   if (Object.keys(activeFilters).includes(filterName)) {
     ActiveFilters = activeFilters[filterName].map(({filter, state, display}, i) =>
       <button key={i} className={state ? 'activeFilter' : 'inActiveFilter'}>
-        <span onClick={e => toggleFilter(filter, filterName, e.target.value)}> {display} </span>
-        <span className="buttonClose" onClick={e => removeFilter(filter, filterName, e.target.value)}> × </span>
+        <span onClick={e => toggleFilter(filter, filterName, location)}> {display} </span>
+        <span className="buttonClose" onClick={e => removeFilter(filter, filterName, location)}> × </span>
       </button>
     );
   }
@@ -19,7 +19,7 @@ const Filter = ({name, selected, filterName, toggleFilter, removeFilter, data, k
   return (
     <li>
       <label></label>
-      <select value="Select" onChange={e => toggleFilter(e.target.value, filterName)}>
+      <select value="Select" onChange={e => toggleFilter(e.target.value, filterName, location)}>
         <option value="">{name}</option>
         {Object.keys(data).map((k, i) => <option key={i} value={k}>{data[k]}</option>)}
       </select>
@@ -30,10 +30,18 @@ const Filter = ({name, selected, filterName, toggleFilter, removeFilter, data, k
   );
 };
 
-const WalkFilters = ({filters, activeFilters, removeFilter, toggleFilter}) => {
+const WalkFilters = ({filters, activeFilters, removeFilter, toggleFilter, location}) => {
 
   const Filters = Object.keys(filters).map(
-    key => <Filter key={key} filterName={key} {...filters[key]} toggleFilter={toggleFilter} removeFilter={removeFilter} activeFilters={activeFilters}/>
+    key => <Filter
+      key={key}
+      filterName={key}
+      {...filters[key]}
+      toggleFilter={toggleFilter}
+      removeFilter={removeFilter}
+      activeFilters={activeFilters}
+      location = {location}
+    />
   );
 
   return (

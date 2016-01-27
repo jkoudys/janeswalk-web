@@ -58,11 +58,13 @@
       font-size: 12px;
       padding: 2px 7px;
       margin: 0 2px;
-      opacity: 0;
+      //Had to change capacity to view button
+      opacity: 1;
       position: relative;
-      left: -5px;
+      //left: -5px;
       cursor: pointer;
-      transition: opacity 0.3s, left 0.3s;
+      //transition: opacity 0.3s, left 0.3s;
+      //transition: opacity 0.3s;
     }
   }
 }
@@ -290,4 +292,18 @@
       content: "";
     }
   }
+}
+
+.itinerary-lists {
+  height: inherit;
+  font-size: 25px;
+  width: inherit;
+  font-family: "Roboto Slab";
+  background-color: white;
+}
+
+dialog#addWalk {
+  opacity: 1;
+  display: block;
+  position: relative;
 }

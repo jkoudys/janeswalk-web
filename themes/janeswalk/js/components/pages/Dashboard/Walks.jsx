@@ -11,8 +11,9 @@ import Walk from './Walk.jsx';
 //Walks is required before activeFilters to reset activeFilters
 const getWalks = (props) => ({
   walks: props.walks || DashboardStore.getWalks(props.location),
-  activeFilters: props.activeFilters || DashboardStore.getActiveFilters().activeFilters,
-  filterByDate: props.filterByDate || DashboardStore.getDateFilter(),
+  activeFilters: props.activeFilters || DashboardStore.getActiveFilters(props.location),
+  filterByDate: props.filterByDate || DashboardStore.getDateFilter(props.location),
+  filters: props.filterByDate || DashboardStore.getFilters(),
 });
 
 export default class Walks extends React.Component {
@@ -36,9 +37,8 @@ export default class Walks extends React.Component {
   }
 
   render() {
-    const {currentView, walks} = this.state;
-    const filters = DashboardStore.getFilters();
-    const filterByDate = DashboardStore.getDateFilter();
+    const {currentView, walks, filterByDate, filters} = this.state;
+    const {location} = this.props;
 
     const Walks = walks.map(({map, id, title, time, team, url}) =>
       <Walk
@@ -59,8 +59,8 @@ export default class Walks extends React.Component {
       <button className={`walksMapButton ${currentView === 'map' ? 'active' : null}`} onClick={()=>this.setState({currentView: 'map'})}>Map</button>
       {
         filterByDate === 'all' ?
-        <button className = {filterByDate === 'past' ? 'active' : null }onClick={() => DashboardActions.filterByDate('future')}>With Past Walks</button> :
-        <button className = {filterByDate === 'future' ? 'active' : null } onClick={()=>DashboardActions.filterByDate('all')}>Without Past Walks</button>
+        <button className = {filterByDate === 'past' ? 'active' : null }onClick={() => DashboardActions.filterByDate('future', location)}>Without Past Walks</button> :
+        <button className = {filterByDate === 'future' ? 'active' : null } onClick={()=>DashboardActions.filterByDate('all', location)}>With Past Walks</button>
       }
       <button onClick={() => window.open(DashboardStore.generateCSV())}>Export Spreadsheet</button>
       <WalkFilters

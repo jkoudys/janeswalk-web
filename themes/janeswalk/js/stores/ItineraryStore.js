@@ -5,6 +5,7 @@ import {lists, walks} from '../components/itinerary/ItineraryStaticData';
 
 const CHANGE_EVENT = 'change';
 
+//TODO: for stubbed data, assumed first list is Itinerary, second list is fav
 let _itinerary = lists[0];
 let _favourites = lists[1];
 let _currentList = _itinerary;
@@ -13,39 +14,40 @@ let _dialogOpen = false;
 let _walkSelected = null;
 let _walkDialogOpen = false;
 
-const _removeWalk = (id, listId) => {
+//TODO: _removeWalk, _addWalk, should receive updated list
+//TODO: _createList, _updateTitle, _updateDescription, should receive updated list
+//TODO: Need to retrieve all lists either via JW Events, or async call on component mount
+//TODO: Currently no remove list, just adding lists
+
+const _removeWalk = (id, listId, switchToList) => {
   const list = _allLists.find(list => list.id === listId);
 
   if (!list) {
     console.log('List could not be found');
   } else {
-
+    if(switchToList)_currentList = list;
     const walkFound = list.walks.find(walk => walk.id === id);
 
     if (walkFound) {
       list.walks.splice(list.walks.findIndex(walk => walk.id === id), 1);
     } else {
-      console.log('Walk does not exists');
+      console.log('Walk does not exists in list');
     }
   }
 };
 
-const _addWalk = (id, listId) => {
+const _addWalk = (id, listId, walk, switchToList) => {
   const list = _allLists.find(list => list.id === listId);
 
   //TODO: May not be required after API calls
   if (!list) {
     console.log('List could not be found');
   } else {
+    if(switchToList)_currentList = list;
     const walkFound = list.walks.find(walk => walk.id === id);
 
     if (!walkFound) {
-      const walk = walks.find(walk => walk.id === id);
-      if (!walk) {
-        console.log('walk not found');
-      } else {
-        list.walks.unshift(walk);
-      }
+      list.walks.unshift(walk);
     } else {
       console.log('Walk already exists, notify the user');
     }
@@ -53,6 +55,9 @@ const _addWalk = (id, listId) => {
 };
 
 const _createList = (title) => {
+
+  if(!title.length) return;
+
   const list = _allLists.find(list => list.title === title);
 
   if (!list) {
@@ -82,9 +87,9 @@ const _updateDescription = (description) => {
   _currentList.description = description;
 };
 
-const _getWalks = (id) => {
-  if (_currentList.id !== id) {
-    const listFound = _allLists.find(list => list.id === id);
+const _getWalks = (title) => {
+  if (_currentList.title !== title) {
+    const listFound = _allLists.find(list => list.title === title);
 
     if (listFound) {
       _currentList = listFound;
@@ -146,11 +151,11 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   dispatcherIndex: register(function(action) {
     switch (action.type) {
     case ActionTypes.ITINERARY_REMOVE_WALK:
-      _removeWalk(action.id, action.list);
+      _removeWalk(action.id, action.listId);
       break;
     case ActionTypes.ITINERARY_ADD_WALK:
        //TODO: Dialog to open on first add to Itinerary/Favourites
-      _addWalk(action.id, action.list);
+      _addWalk(action.id, action.listId, action.walk, action.switchToList);
       break;
     case ActionTypes.ITINERARY_UPDATE_TITLE:
       _updateTitle(action.title);
@@ -159,16 +164,25 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       _updateDescription(action.description);
       break;
     case ActionTypes.ITINERARY_VIEW_LIST:
-      _getWalks(action.id);
+      _getWalks(action.title);
       break;
     case ActionTypes.ITINERARY_CREATE_LIST:
       let newList = _createList(action.title);
-      _addWalk(action.id, newList.id);
+      if(action.walk && newList) _addWalk(action.id, newList.id, action.walk);
       break;
-    case ActionTypes.ITINERARY_WALK_SELECTED:
-      _walkSelected = action.id;
+      case ActionTypes.ITINERARY_WALK_SELECTED:
+      // TODO: Refactor further based on functionality.
+      if (_walkSelected && _walkSelected.id === action.id) {
+        _walkDialogOpen = !_walkDialogOpen;
+        _walkSelected = null;
+      } else {
+        if(!_walkSelected) _walkDialogOpen = !_walkDialogOpen;
+        _walkSelected = _currentList.walks.find(w => w.id === action.id);
+      }
       break;
     case ActionTypes.ITINERARY_ADD_WALK_DIALOG:
+      // TODO: Refactor based on functionality.
+      _walkSelected = null;
       _walkDialogOpen = !_walkDialogOpen;
       break;
     }

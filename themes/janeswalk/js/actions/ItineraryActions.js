@@ -5,36 +5,36 @@ import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 
 export default {
 
-  remove(id, list) {
-    dispatch({type: ActionTypes.REMOVE_WALK, id, list});
+  remove(id, listId) {
+    dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, listId});
   },
 
-  add(id, list) {
-    dispatch({type: ActionTypes.ADD_WALK, id, list});
+  add(id, listId, walk, switchToList) {
+    dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId, walk, switchToList});
   },
 
   updateTitle(title) {
-    dispatch({type: ActionTypes.UPDATE_TITLE, title});
+    dispatch({type: ActionTypes.ITINERARY_UPDATE_TITLE, title});
   },
 
   updateDescription(description) {
-    dispatch({type: ActionTypes.UPDATE_DESCRIPTION, description});
+    dispatch({type: ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description});
   },
 
-  viewList(id) {
-    dispatch({type: ActionTypes.VIEW_LIST, id});
+  viewList(title) {
+    dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, title});
   },
 
-  createList(id, title) {
-    dispatch({type: ActionTypes.CREATE_LIST, id, title});
+  createList(title, id, walk) {
+    dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, id, title, walk});
   },
 
   walkSelected(id) {
-    dispatch({type: ActionTypes.WALK_SELECTED, id});
+    dispatch({type: ActionTypes.ITINERARY_WALK_SELECTED, id});
   },
 
   addWalkDialog() {
-    dispatch({type: ActionTypes.ADD_WALK_DIALOG});
+    dispatch({type: ActionTypes.ITINERARY_ADD_WALK_DIALOG});
   }
 
 }

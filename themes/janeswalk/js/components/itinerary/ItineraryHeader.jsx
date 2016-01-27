@@ -16,7 +16,7 @@ export default class ItineraryHeader extends React.Component {
     updateDescription(newDescription || description);
 
     this.setState({
-      editable:!editable,
+      //editable:!editable,
       newTitle: null,
       newDescription: null,
     })
@@ -58,21 +58,17 @@ export default class ItineraryHeader extends React.Component {
         </header>
       )
     } else {
+
+      //<select className="itinerary-lists" onChange={ev => { viewList(ev.target.value) }}>
+      //  {lists.map(list => <option key={list.id} selected={list.title === title}>{list.title}</option>)}
+      //</select>
       return (
         <header className="itineraryHeader">
-
-          <div className="dropdown">
-            <button className="toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="lists">
-              <h1 className="walklistTitle">{title}<span className="dropdown-chevron"></span></h1>
-            </button>
-            <ul className="dropdown-menu" aria-labelledby="lists">
-              {lists.map(list => <li key={list.id} onClick={ev => viewList(list.id, ev.target.value)}>{list.title}</li>)}
-            </ul>
-          </div>
+          <h2>{title}</h2>
           <h5 className="shareUrl"><a href="">janeswalk.org/TuckerMCL/itinerary</a></h5>
           <h4 className="walklistDescription">
-            <textarea required="required" placeholder="Tell people about it! Start typing here to give your list some commentary." onChange={ev => this.setState({newDescription:ev.target.value})}></textarea>
-            <span className="update">save</span>
+            <textarea required="required" value={newDescription || description} placeholder="Tell people about it! Start typing here to give your list some commentary." onChange={ev => this.setState({newDescription:ev.target.value})}></textarea>
+            <span className="update" onClick={ev => this.update()}>save</span>
           </h4>
         </header>
       )

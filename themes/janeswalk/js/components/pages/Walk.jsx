@@ -1,4 +1,5 @@
 import ItineraryStore from '../../stores/ItineraryStore.js';
+import ItineraryActions from '../../actions/ItineraryActions.js';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
@@ -22,8 +23,11 @@ const getWalk = (props) => ({
   city: props.city || walk.city,
   id: props.walk ? props.walk.id : walkId,
   filters: props.filters || filters,
-  existsInItinerary : ItineraryStore.existsInList(0, props.walk ? props.walk.id : walkId),
-  existsInFavourites : ItineraryStore.existsInList(0, props.walk ? props.walk.id : walkId),
+  existsInItinerary: ItineraryStore.existsInList(ItineraryStore.getItineraryList().id, props.walk ? props.walk.id : walkId),
+  existsInFavourites: ItineraryStore.existsInList(ItineraryStore.getFavouriteList().id, props.walk ? props.walk.id : walkId),
+  //TODO: for stubbed data, assumed first list is Itinerary, second list is fav, need to update store for .json data
+  itineraryListId: ItineraryStore.getItineraryList().id,
+  favoriteListId: ItineraryStore.getFavouriteList().id,
 });
 
 export default class WalkPage extends React.Component {
@@ -51,6 +55,7 @@ export default class WalkPage extends React.Component {
       <section className="walkPage">
         <WalkHeader
         {...this.state}
+        {...ItineraryActions}
         />
         <WalkMenu {...this.state}/>
         <WalkDescription {...this.state.walk}/>

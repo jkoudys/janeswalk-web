@@ -44,11 +44,12 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    const {walks, dialogOpen, listId, $el} = this.state;
+    const {walks, dialogOpen, listId, $el, walkDialogOpen} = this.state;
 
-    const ItineraryWalks = walks.map(({map, id, title, time}) =>
+    const ItineraryWalks = walks.map(({map, id, title, time, url}) =>
         <Walk
             title={title}
+            url = {url}
             meeting={map.markers[0].title}
             start={time.slots[0][0]}
             id={id}
@@ -63,7 +64,11 @@ export default class Itinerary extends React.Component {
     return (
       <dialog open>
         <section id="itinerary">
-          <i className="close fa fa-times" onClick={() => $el.modal('hide')} />
+          <i className="close fa fa-times" onClick={() => {
+            //reset Add Walk Dialog if open
+            if(walkDialogOpen) ItineraryActions.addWalkDialog();
+            $el.modal('hide');
+          }} />
           <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
           <div className="itinerary">
             <section>

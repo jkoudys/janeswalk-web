@@ -2,33 +2,12 @@ import { EventEmitter } from 'events';
 import {ActionsTypes} from '../../../constants/JWConstants';
 import {dashboard} from './DashboardStaticData';
 
+//TODO: If below is received via JW.emit, need to have a Action.RECEIVE_DATA event to store data in Store.js
 const {city, walks, resources, blog, impact} = dashboard;
 const {walks: cityWalks, filters} = city;
 
 let filteredWalks = [];
 let activeLeaders = [];
-
-let activeFilters = {};
-let filterByDate = 'all';
-let currentRoute = null;
-let sortBy = null;
-
-const menuItems = [ { display: `${city.name} Walks`, link: '/cityWalks', active: false, componentName: 'Walks'},
-  { display:'My Walks', link: '/userWalks', active: false, componentName: 'Walks'},
-  { display:'Walk Leaders and Volunteers', link: '/walkLeaders', active: false, componentName: 'WalkLeaders'},
-  { display:'My Blog Posts', link: '/posts', active: false, componentName: 'MyBlogPosts'},
-  //{ display:'Impact Report Builder', link: '/impact', active: false, componentName: 'ImpactReport'}, //TODO: Complete with Data
-  { display:'Resources', link: 'resources', active: false, componentName: 'DashboardResources'},
-];
-
-const CHANGE_EVENT = 'change';
-
-const _firstWalkYear = (year, walks) => {
-  return walks.reduce((firstYear,walk)=>{
-    const walkYear = new Date((walk.time.slots[0][0])*1000).getFullYear();
-    return walkYear < year ? walkYear : year;
-  }, year);
-};
 
 const generateWalkLeaders = (walks) => {
   let walkLeaders = [];
@@ -48,6 +27,28 @@ const generateWalkLeaders = (walks) => {
 };
 
 const _walkLeaders = generateWalkLeaders(walks);
+
+const menuItems = [ { display: `${city.name} Walks`, link: '/cityWalks', active: false, componentName: 'Walks', activeFilters: {}, filterByDate: 'all', filteredWalks: cityWalks},
+  { display:'My Walks', link: '/userWalks', active: false, componentName: 'Walks', activeFilters: {}, filterByDate: 'all', filteredWalks: walks},
+  { display:'Walk Leaders and Volunteers', link: '/walkLeaders', active: false, componentName: 'WalkLeaders', filterByDate: 'all', activeLeaders: _walkLeaders, sortBy: null},
+  { display:'My Blog Posts', link: '/posts', active: false, componentName: 'MyBlogPosts'},
+  //TODO: Complete with Data
+  //{ display:'Impact Report Builder', link: '/impact', active: false, componentName: 'ImpactReport'},
+  { display:'Resources', link: 'resources', active: false, componentName: 'DashboardResources'},
+];
+
+const CHANGE_EVENT = 'change';
+
+// location is the link, and item being the specific piece of data: activeFilters, filterByDate, filteredWalks
+const _getData = (location, item) => menuItems.find(i => i.link === location)[item];
+const _setData = (location, item, data) => { menuItems.find(i => i.link === location)[item] = data };
+
+const _firstWalkYear = (year, walks) => {
+  return walks.reduce((firstYear,walk)=>{
+    const walkYear = new Date((walk.time.slots[0][0])*1000).getFullYear();
+    return walkYear < year ? walkYear : year;
+  }, year);
+};
 
 const _walkLeadersPerYear = (year, walkLeaders) => {
   return walkLeaders.reduce((sum, walkLeader)=>{
@@ -69,7 +70,8 @@ const _generateRegionSummary = (walks) => {
     year,
     walkLeaders: _walkLeadersPerYear(year, _walkLeaders),
     walks: _walksPerYear(year, walks),
-    participants: 111, //TODO: This information is not available
+    //TODO: This information is not available
+    participants: 111,
     originalYear: _firstWalkYear(year, walks),
     totalWalkLeaders: _walkLeaders.length,
     totalWalks: walks.length,
@@ -79,14 +81,17 @@ const _generateRegionSummary = (walks) => {
 
 const _regionSummary = _generateRegionSummary(walks);
 
-const _retrieveWalks = () => {
-  if (currentRoute === '/cityWalks') return cityWalks;
-  if (currentRoute === '/userWalks') return walks;
+const _retrieveWalks = (location) => {
+  if (location === '/cityWalks') return cityWalks;
+  if (location === '/userWalks') return walks;
 };
 
-//Could you make Filter by Region an `or` filter instead of an `and` filter
-const _filterWalks = (filters = activeFilters, filterByDate = 'all') => {
-  let allWalks = _retrieveWalks();
+//TODO Could you make Filter by Region an `or` filter instead of an `and` filter
+const _filterWalks = ({location}) => {
+  let allWalks = _retrieveWalks(location);
+
+  const filters = _getData(location, 'activeFilters');
+  const filterByDate = _getData(location, 'filterByDate');
 
   //grab all filters whose state:true
   const filtersArray = Object.keys(filters).reduce((array, key) => array.concat(filters[key].filter(f => f.state)), []);
@@ -104,19 +109,25 @@ const _filterWalks = (filters = activeFilters, filterByDate = 'all') => {
       }, true);
     });
   }
-  if (!filterByDate.length || filterByDate === 'all') return;
-  else {
+
+  if (!filterByDate.length || filterByDate === 'all') {
+    //do nothing, move to _setData below
+  } else {
     filteredWalks = filteredWalks.filter(walk => {
       const currentDate = Date.now();
       if (filterByDate === 'past')  return walk.time.slots[0][0] * 1000 <= currentDate;
       else if (filterByDate === 'future') return walk.time.slots[0][0] * 1000 >= currentDate;
     });
   }
+
+  _setData(location, 'filteredWalks', filteredWalks);
 };
 
 //TODO: (Post-PR) Create a common filter and list Component
 
-const _filterWalkLeaders = (filterByDate = '') => {
+const _filterWalkLeaders = ({location}) => {
+
+  const filterByDate = _getData(location, 'filterByDate');
 
   if (!filterByDate.length || filterByDate === 'all') activeLeaders = _walkLeaders;
   else {
@@ -124,7 +135,7 @@ const _filterWalkLeaders = (filterByDate = '') => {
       const currentDate = Date.now();
       if (filterByDate === 'past') {
         return leader.walks.reduce((p, walk) => {
-          if(p) return p;
+          if (p) return p;
           return walk.time.slots[0][0] * 1000 <= currentDate;
         }, false);
       }
@@ -137,31 +148,43 @@ const _filterWalkLeaders = (filterByDate = '') => {
       return true; //filterByDate === 'all'
     });
   }
+
+  _setData(location, 'activeLeaders', activeLeaders);
 };
 
-const _sortWalkLeaders = (sortSelected) => {
+const _sortWalkLeaders = ({sortSelected, location}) => {
+
+  let sortBy = _getData(location, 'sortBy');
+  let activeLeaders = _getData(location, 'activeLeaders');
+
   if (sortBy === sortSelected) {
-    sortBy = null;
+    sortSelected = null;
     activeLeaders = _walkLeaders.slice();
   }
   else if (sortSelected === 'alpha') {
     activeLeaders.sort((pLeader, cLeader)=>{
       return pLeader.firstName > cLeader.firstName;
     });
-    sortBy = sortSelected;
   }
   else { //'count'
     activeLeaders.sort((pLeader, cLeader)=>{
       return pLeader.walks.length < cLeader.walks.length;
     });
-    sortBy = sortSelected;
   }
 
+  _setData(location, 'activeLeaders', activeLeaders);
+  _setData(location, 'sortBy', sortSelected);
 };
 
-const _toggleWalkFilter = (filter, filterName) => {
+const _toggleWalkFilter = ({filter, filterName, location}) => {
+  let activeFilters = _getData(location, 'activeFilters');
+  let activeFilterIndex = -1;
 
-  const activeFilterIndex = activeFilters[filterName].findIndex(f => f.filter === filter);
+  if (activeFilters[filterName]) {
+    activeFilterIndex = activeFilters[filterName].findIndex(f => f.filter === filter);
+  } else {
+    activeFilters[filterName] = [];
+  }
 
   if (activeFilterIndex === -1) {
     let display = filters[filterName].data[filter];
@@ -172,8 +195,13 @@ const _toggleWalkFilter = (filter, filterName) => {
   }
 };
 
-const _removeWalkFilter = (filter, filterName) => {
-  const activeFilterIndex = activeFilters[filterName].findIndex(f => f.filter === filter);
+const _removeWalkFilter = ({filter, filterName, location}) => {
+  let activeFilters = _getData(location, 'activeFilters');
+  let activeFilterIndex = -1;
+
+  if (activeFilters[filterName]) {
+    activeFilterIndex = activeFilters[filterName].findIndex(f => f.filter === filter);
+  }
 
   if (activeFilterIndex !== -1) activeFilters[filterName].splice(activeFilterIndex, 1);
 };
@@ -182,7 +210,7 @@ const _removeWalkFilter = (filter, filterName) => {
 const _generateCSV = () => {
   //TODO: Configuration (what to export) + Complete Functionality
   return encodeURI("data:text/csv;charset=utf-8,Title \n" + (filteredWalks.map(w => (`\"${w.title} \"`))).join('\n'));
-}
+};
 
 const DashboardStore = Object.assign(EventEmitter.prototype, {
   emitChange() {
@@ -205,49 +233,28 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
     return filters;
   },
 
-  getMyWalks() {
-    return walks;
+  getActiveFilters(location) {
+    return _getData(location, 'activeFilters');
   },
 
-  getActiveFilters() {
-    return {activeFilters};
+  getDateFilter(location) {
+    return _getData(location, 'filterByDate');
   },
 
-  getDateFilter() {
-    return filterByDate;
-  },
-
-  getSortBy() {
-    return sortBy;
+  getSortBy(location) {
+    return _getData(location, 'sortBy');
   },
 
   generateCSV() {
     return _generateCSV();
   },
 
-  getWalks(pathname) {
-
-    if (pathname !== currentRoute) {
-      currentRoute = pathname;
-      filteredWalks = _retrieveWalks();
-      Object.keys(filters).map(f => {
-        activeFilters[f] = [];
-      });
-      filterByDate = 'all';
-    }
-
-    return filteredWalks;
+  getWalks(location) {
+    return _getData(location, 'filteredWalks');
   },
 
-  getWalkLeadersAndVolunteers(pathname) {
-    if (pathname !== currentRoute) {
-      currentRoute = pathname;
-      filterByDate = 'all';
-      sortBy = null;
-      activeLeaders = _walkLeaders.slice();
-    }
-
-    return activeLeaders;
+  getWalkLeadersAndVolunteers(location) {
+    return _getData(location, 'activeLeaders');
   },
 
   getResources() {
@@ -272,31 +279,26 @@ const DashboardStore = Object.assign(EventEmitter.prototype, {
 
   dispatcherIndex: register(function(action) {
     switch (action.type) {
-      case ActionsTypes.FILTER_WALKS:
-        _filterWalks(action.filters);
-        break;
       case ActionsTypes.TOGGLE_WALK_FILTER:
-        _toggleWalkFilter(action.filter, action.filterName);
-        _filterWalks();
+        _toggleWalkFilter(action);
+        _filterWalks(action);
         break;
       case ActionsTypes.REMOVE_WALK_FILTER:
-        _removeWalkFilter(action.filter, action.filterName);
-        _filterWalks();
+        _removeWalkFilter(action);
+        _filterWalks(action);
         break;
       case ActionsTypes.FILTER_WALKS_BY_DATE:
-        _filterWalks(activeFilters,action.filter);
-        filterByDate = action.filter;
+        _setData(action.location, 'filterByDate', action.filter);
+        _filterWalks(action);
         break;
       case ActionsTypes.FILTER_LEADERS_BY_DATE:
-        _filterWalkLeaders(action.filter);
-        filterByDate = action.filter;
+        _setData(action.location, 'filterByDate', action.filter);
+        _filterWalkLeaders(action);
         break;
       case ActionsTypes.SORT_LEADERS:
-        _sortWalkLeaders(action.sortBy);
-        sortBy = action.sortBy;
+        _sortWalkLeaders(action);
         break;
       case ActionsTypes.TOGGLE_MENU:
-        //TODO: refactor into separate component
         let menuItem = menuItems.find(i => i.display === action.item);
         menuItem.active = !menuItem.active;
     }

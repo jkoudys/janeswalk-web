@@ -3,31 +3,27 @@ import {ActionTypes} from '../constants/JWConstants.js';
 
 export default {
 
-  filterWalks(filters) {
-    dispatch({type: ActionsTypes.FILTER_WALKS, filters});
+  removeFilter(filter, filterName, location) {
+    dispatch({type: ActionTypes.REMOVE_WALK_FILTER, filter, filterName, location});
   },
 
-  removeFilter(filter) {
-    dispatch({type: ActionsTypes.REMOVE_WALK_FILTER, filter});
+  toggleFilter(filter, filterName, location) {
+    dispatch({type: ActionTypes.TOGGLE_WALK_FILTER, filter, filterName, location});
   },
 
-  addFilter(filter) {
-    dispatch({type: ActionsTypes.ADD_WALK_FILTER, filter});
+  filterByDate(filter, location) {
+    dispatch({type: ActionTypes.FILTER_WALKS_BY_DATE, filter, location});
   },
 
-  filterByDate(filter) {
-    dispatch({type: ActionsTypes.FILTER_WALKS_BY_DATE, filter});
+  filterLeadersByDate(filter, location) {
+    dispatch({type: ActionTypes.FILTER_LEADERS_BY_DATE, filter, location});
   },
 
-  filterLeadersByDate(filter) {
-    dispatch({type: ActionsTypes.FILTER_LEADERS_BY_DATE, filter});
-  },
-
-  sortLeaders(sortBy) {
-    dispatch({type: Actions.SORT_LEADERS, sortBy});
+  sortLeaders(sortSelected, location) {
+    dispatch({type: ActionTypes.SORT_LEADERS, sortSelected, location});
   },
 
   toggleMenuItems(item) {
-    dispatch({type: Actions.TOGGLE_MENU, item});
+    dispatch({type: ActionTypes.TOGGLE_MENU, item});
   },
 }
