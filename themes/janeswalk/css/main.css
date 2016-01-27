@@ -9199,17 +9199,13 @@ body > footer nav {
 }
 body > footer nav ul {
   position: relative;
+  float: left;
+  width: 50%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
   list-style-type: none;
   padding: 0;
-}
-@media (min-width: 992px) {
-  body > footer nav ul {
-    float: left;
-    width: 50%;
-  }
 }
 body > footer a {
   color: inherit;
@@ -10898,12 +10894,6 @@ body.home #navbar header.fixed {
     padding: 0;
     margin-bottom: 1.85em;
     position: relative;
-  }
-}
-@media (max-width: 768px) {
-  footer {
-    padding: 0 !important;
-    margin: 0 !important;
   }
 }
 #profileWrapper {
