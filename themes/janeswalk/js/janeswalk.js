@@ -977,24 +977,26 @@
 	/**
 	 * Make the navbar sticky to the top
 	 */
-	function makeSticky(el) {
+	function makeSticky(reference, el) {
 	  var running = false;
 	  // Where the el is when unfixed
-	  var unfixed = el.offsetTop;
+	  var unfixed = reference.offsetTop;
 	  var stick = function stick() {
 	    if (running) return;
 	    running = true;
 	    requestAnimationFrame(function () {
 	      running = false;
 	      if (window.scrollY > unfixed) {
-	        el.classList.add('fixed');
+	        el.style.position = 'fixed';
 	      } else {
-	        el.classList.remove('fixed');
+	        el.style.position = 'inherit';
 	      }
 	    });
 	  };
 	  window.addEventListener('scroll', stick);
-	  window.addEventListener('resize', stick);
+	  window.addEventListener('resize', function () {
+	    unfixed = reference.offsetTop;stick();
+	  });
 	}
 
 	// The header menu
@@ -1039,7 +1041,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      appendSiblings(this.state.options, this.refs.topnav);
-	      makeSticky(React.findDOMNode(this));
+	      makeSticky(React.findDOMNode(this), this.refs.header);
 	    }
 
 	    /**
@@ -1128,7 +1130,7 @@
 	        null,
 	        React.createElement(
 	          'header',
-	          { className: [editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ') },
+	          { ref: 'header', className: [editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ') },
 	          React.createElement(
 	            'nav',
 	            { role: 'navigation' },
@@ -1284,14 +1286,17 @@
 	      var dialogOpen = _state.dialogOpen;
 	      var listId = _state.listId;
 	      var $el = _state.$el;
+	      var walkDialogOpen = _state.walkDialogOpen;
 
 	      var ItineraryWalks = walks.map(function (_ref) {
 	        var map = _ref.map;
 	        var id = _ref.id;
 	        var title = _ref.title;
 	        var time = _ref.time;
+	        var url = _ref.url;
 	        return React.createElement(_Walk2.default, {
 	          title: title,
+	          url: url,
 	          meeting: map.markers[0].title,
 	          start: time.slots[0][0],
 	          id: id,
@@ -1310,7 +1315,9 @@
 	          'section',
 	          { id: 'itinerary' },
 	          React.createElement('i', { className: 'close fa fa-times', onClick: function onClick() {
-	              return $el.modal('hide');
+	              //reset Add Walk Dialog if open
+	              if (walkDialogOpen) _ItineraryActions2.default.addWalkDialog();
+	              $el.modal('hide');
 	            } }),
 	          React.createElement(_AddWalkToListDialog2.default, _extends({}, this.state, _ItineraryActions2.default)),
 	          React.createElement(
@@ -1365,6 +1372,7 @@
 
 	var CHANGE_EVENT = 'change';
 
+	//TODO: for stubbed data, assumed first list is Itinerary, second list is fav
 	var _itinerary = _ItineraryStaticData.lists[0];
 	var _favourites = _ItineraryStaticData.lists[1];
 	var _currentList = _itinerary;
@@ -1373,7 +1381,12 @@
 	var _walkSelected = null;
 	var _walkDialogOpen = false;
 
-	var _removeWalk = function _removeWalk(id, listId) {
+	//TODO: _removeWalk, _addWalk, should receive updated list
+	//TODO: _createList, _updateTitle, _updateDescription, should receive updated list
+	//TODO: Need to retrieve all lists either via JW Events, or async call on component mount
+	//TODO: Currently no remove list, just adding lists
+
+	var _removeWalk = function _removeWalk(id, listId, switchToList) {
 	  var list = _allLists.find(function (list) {
 	    return list.id === listId;
 	  });
@@ -1381,7 +1394,7 @@
 	  if (!list) {
 	    console.log('List could not be found');
 	  } else {
-
+	    if (switchToList) _currentList = list;
 	    var walkFound = list.walks.find(function (walk) {
 	      return walk.id === id;
 	    });
@@ -1391,12 +1404,12 @@
 	        return walk.id === id;
 	      }), 1);
 	    } else {
-	      console.log('Walk does not exists');
+	      console.log('Walk does not exists in list');
 	    }
 	  }
 	};
 
-	var _addWalk = function _addWalk(id, listId) {
+	var _addWalk = function _addWalk(id, listId, walk, switchToList) {
 	  var list = _allLists.find(function (list) {
 	    return list.id === listId;
 	  });
@@ -1405,19 +1418,13 @@
 	  if (!list) {
 	    console.log('List could not be found');
 	  } else {
+	    if (switchToList) _currentList = list;
 	    var walkFound = list.walks.find(function (walk) {
 	      return walk.id === id;
 	    });
 
 	    if (!walkFound) {
-	      var walk = _ItineraryStaticData.walks.find(function (walk) {
-	        return walk.id === id;
-	      });
-	      if (!walk) {
-	        console.log('walk not found');
-	      } else {
-	        list.walks.unshift(walk);
-	      }
+	      list.walks.unshift(walk);
 	    } else {
 	      console.log('Walk already exists, notify the user');
 	    }
@@ -1425,6 +1432,9 @@
 	};
 
 	var _createList = function _createList(title) {
+
+	  if (!title.length) return;
+
 	  var list = _allLists.find(function (list) {
 	    return list.title === title;
 	  });
@@ -1456,10 +1466,10 @@
 	  _currentList.description = description;
 	};
 
-	var _getWalks = function _getWalks(id) {
-	  if (_currentList.id !== id) {
+	var _getWalks = function _getWalks(title) {
+	  if (_currentList.title !== title) {
 	    var listFound = _allLists.find(function (list) {
-	      return list.id === id;
+	      return list.title === title;
 	    });
 
 	    if (listFound) {
@@ -1516,11 +1526,11 @@
 	  dispatcherIndex: (0, _AppDispatcher.register)(function (action) {
 	    switch (action.type) {
 	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
-	        _removeWalk(action.id, action.list);
+	        _removeWalk(action.id, action.listId);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
 	        //TODO: Dialog to open on first add to Itinerary/Favourites
-	        _addWalk(action.id, action.list);
+	        _addWalk(action.id, action.listId, action.walk, action.switchToList);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
 	        _updateTitle(action.title);
@@ -1529,16 +1539,27 @@
 	        _updateDescription(action.description);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_VIEW_LIST:
-	        _getWalks(action.id);
+	        _getWalks(action.title);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_CREATE_LIST:
 	        var newList = _createList(action.title);
-	        _addWalk(action.id, newList.id);
+	        if (action.walk && newList) _addWalk(action.id, newList.id, action.walk);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_WALK_SELECTED:
-	        _walkSelected = action.id;
+	        // TODO: Refactor further based on functionality.
+	        if (_walkSelected && _walkSelected.id === action.id) {
+	          _walkDialogOpen = !_walkDialogOpen;
+	          _walkSelected = null;
+	        } else {
+	          if (!_walkSelected) _walkDialogOpen = !_walkDialogOpen;
+	          _walkSelected = _currentList.walks.find(function (w) {
+	            return w.id === action.id;
+	          });
+	        }
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK_DIALOG:
+	        // TODO: Refactor based on functionality.
+	        _walkSelected = null;
 	        _walkDialogOpen = !_walkDialogOpen;
 	        break;
 	    }
@@ -1848,13 +1869,13 @@
 	  title: "My Itinerary",
 	  shareUrl: "janeswalk.org/Harold/itinerary",
 	  description: "Each year, I take some time to read about all of the walks happening in my city in order to curate a list for myself and my friends, family, and colleagues. And this year, I’m sharing the list with you! Here are my Top 10 choices for the 2015 walk weekend in Toronto. Hope to see you out there, and maybe even having a walking conversation with YOU!",
-	  walks: walks.slice(0, -1)
+	  walks: []
 	}, {
 	  id: 2,
 	  title: 'Favourites',
 	  shareUrl: "janeswalk.org/Harold/favourites",
 	  description: "View my Jane's Walk Itinerary!",
-	  walks: walks.slice(0, -2)
+	  walks: []
 	}, {
 	  id: 3,
 	  title: 'Skateboard',
@@ -1889,29 +1910,29 @@
 	//TODO: API call before dispatch
 
 	exports.default = {
-	  remove: function remove(id, list) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.REMOVE_WALK, id: id, list: list });
+	  remove: function remove(id, listId) {
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, id: id, listId: listId });
 	  },
-	  add: function add(id, list) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ADD_WALK, id: id, list: list });
+	  add: function add(id, listId, walk, switchToList) {
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, id: id, listId: listId, walk: walk, switchToList: switchToList });
 	  },
 	  updateTitle: function updateTitle(title) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.UPDATE_TITLE, title: title });
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE, title: title });
 	  },
 	  updateDescription: function updateDescription(description) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.UPDATE_DESCRIPTION, description: description });
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description: description });
 	  },
-	  viewList: function viewList(id) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.VIEW_LIST, id: id });
+	  viewList: function viewList(title) {
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_VIEW_LIST, title: title });
 	  },
-	  createList: function createList(id, title) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.CREATE_LIST, id: id, title: title });
+	  createList: function createList(title, id, walk) {
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_CREATE_LIST, id: id, title: title, walk: walk });
 	  },
 	  walkSelected: function walkSelected(id) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.WALK_SELECTED, id: id });
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_WALK_SELECTED, id: id });
 	  },
 	  addWalkDialog: function addWalkDialog() {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ADD_WALK_DIALOG });
+	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK_DIALOG });
 	  }
 	};
 
@@ -1931,6 +1952,7 @@
 	  var title = _ref.title;
 	  var start = _ref.start;
 	  var meeting = _ref.meeting;
+	  var url = _ref.url;
 	  var remove = _ref.remove;
 	  var id = _ref.id;
 	  var listId = _ref.listId;
@@ -1941,7 +1963,7 @@
 	      return remove(id, listId, ev.target.value);
 	    } }) : null;
 	  var addButton = addWalkDialog ? React.createElement("button", { className: "action addWalk", onClick: function onClick(ev) {
-	      addWalkDialog();walkSelected(id, ev.target.value);
+	      walkSelected(id, ev.target.value);
 	    } }) : null;
 
 	  return React.createElement(
@@ -1953,7 +1975,11 @@
 	      React.createElement(
 	        "h3",
 	        null,
-	        title
+	        React.createElement(
+	          "a",
+	          { href: url },
+	          title
+	        )
 	      ),
 	      React.createElement(
 	        "h4",
@@ -2082,7 +2108,7 @@
 	      updateDescription(newDescription || description);
 
 	      this.setState({
-	        editable: !editable,
+	        //editable:!editable,
 	        newTitle: null,
 	        newDescription: null
 	      });
@@ -2156,35 +2182,17 @@
 	          )
 	        );
 	      } else {
+
+	        //<select className="itinerary-lists" onChange={ev => { viewList(ev.target.value) }}>
+	        //  {lists.map(list => <option key={list.id} selected={list.title === title}>{list.title}</option>)}
+	        //</select>
 	        return React.createElement(
 	          "header",
 	          { className: "itineraryHeader" },
 	          React.createElement(
-	            "div",
-	            { className: "dropdown" },
-	            React.createElement(
-	              "button",
-	              { className: "toggle", type: "button", "data-toggle": "dropdown", "aria-haspopup": "true", "aria-expanded": "false", id: "lists" },
-	              React.createElement(
-	                "h1",
-	                { className: "walklistTitle" },
-	                title,
-	                React.createElement("span", { className: "dropdown-chevron" })
-	              )
-	            ),
-	            React.createElement(
-	              "ul",
-	              { className: "dropdown-menu", "aria-labelledby": "lists" },
-	              lists.map(function (list) {
-	                return React.createElement(
-	                  "li",
-	                  { key: list.id, onClick: function onClick(ev) {
-	                      return viewList(list.id, ev.target.value);
-	                    } },
-	                  list.title
-	                );
-	              })
-	            )
+	            "h2",
+	            null,
+	            title
 	          ),
 	          React.createElement(
 	            "h5",
@@ -2198,12 +2206,14 @@
 	          React.createElement(
 	            "h4",
 	            { className: "walklistDescription" },
-	            React.createElement("textarea", { required: "required", placeholder: "Tell people about it! Start typing here to give your list some commentary.", onChange: function onChange(ev) {
+	            React.createElement("textarea", { required: "required", value: newDescription || description, placeholder: "Tell people about it! Start typing here to give your list some commentary.", onChange: function onChange(ev) {
 	                return _this2.setState({ newDescription: ev.target.value });
 	              } }),
 	            React.createElement(
 	              "span",
-	              { className: "update" },
+	              { className: "update", onClick: function onClick(ev) {
+	                  return _this2.update();
+	                } },
 	              "save"
 	            )
 	          )
@@ -2275,40 +2285,98 @@
 
 	      var _props = this.props;
 	      var lists = _props.lists;
+	      var remove = _props.remove;
 	      var add = _props.add;
 	      var createList = _props.createList;
 	      var activeWalk = _props.activeWalk;
 	      var walkDialogOpen = _props.walkDialogOpen;
 	      var addWalkDialog = _props.addWalkDialog;
+	      var viewList = _props.viewList;
 	      var newList = this.state.newList;
 	      //selectedWalk comes from where
 
-	      var allLists = lists.map(function (list) {
-	        var id = list.id;
-	        var title = list.title;
-	        var walks = list.walks;
+	      if (walkDialogOpen) {
 
-	        var walkFound = walks.find(function (walk) {
-	          return walk.id === activeWalk;
+	        var allLists = lists.map(function (list) {
+	          var id = list.id;
+	          var title = list.title;
+	          var walks = list.walks;
+
+	          var walkFound = walks.find(function (walk) {
+	            return walk.id === activeWalk.id;
+	          });
+
+	          if (walkFound) {
+	            return React.createElement(
+	              "li",
+	              { key: id, onClick: function onClick(ev) {
+	                  return remove(activeWalk.id, list.id);
+	                } },
+	              React.createElement(
+	                "span",
+	                { className: "fa fa-check" },
+	                title
+	              )
+	            );
+	          } else {
+	            return React.createElement(
+	              "li",
+	              { key: id, onClick: function onClick(ev) {
+	                  return add(activeWalk.id, list.id, activeWalk);
+	                } },
+	              React.createElement(
+	                "span",
+	                null,
+	                title
+	              )
+	            );
+	          }
 	        });
 
-	        if (walkFound) {
-	          return React.createElement(
-	            "li",
-	            { key: id, onClick: function onClick(ev) {
-	                return add(activeWalk, list.id, ev.target.value);
+	        return React.createElement(
+	          "dialog",
+	          { id: "addWalk", className: "add-walk-to-list" },
+	          React.createElement(
+	            "h5",
+	            null,
+	            " Add ",
+	            activeWalk.title,
+	            " to..."
+	          ),
+	          React.createElement(
+	            "ul",
+	            null,
+	            allLists
+	          ),
+	          React.createElement("input", { placeholder: "create a new list...", value: newList, onChange: function onChange(ev) {
+	              _this2.setState({ newList: ev.target.value });
+	            } }),
+	          React.createElement(
+	            "button",
+	            { onClick: function onClick(ev) {
+	                createList(newList, activeWalk.id, activeWalk);_this2.setState({ newList: null });
 	              } },
-	            React.createElement(
-	              "span",
-	              { className: "fa fa-check" },
-	              title
-	            )
-	          );
-	        } else {
+	            "Create"
+	          ),
+	          React.createElement(
+	            "button",
+	            { onClick: function onClick(ev) {
+	                return addWalkDialog();
+	              } },
+	            "Close"
+	          )
+	        );
+	      } else {
+
+	        var allLists = lists.map(function (list) {
+	          var id = list.id;
+	          var title = list.title;
+	          var walks = list.walks;
+
 	          return React.createElement(
 	            "li",
 	            { key: id, onClick: function onClick(ev) {
-	                return add(activeWalk, list.id, ev.target.value);
+	                return viewList(title);
 	              } },
 	            React.createElement(
 	              "span",
@@ -2316,35 +2384,28 @@
 	              title
 	            )
 	          );
-	        }
-	      });
+	        });
 
-	      return React.createElement(
-	        "dialog",
-	        { id: "addWalk", open: walkDialogOpen },
-	        React.createElement(
-	          "ul",
-	          null,
-	          allLists
-	        ),
-	        React.createElement("input", { placeholder: "create a new list...", value: newList, onChange: function onChange(ev) {
-	            _this2.setState({ newList: ev.target.value });
-	          } }),
-	        React.createElement(
-	          "button",
-	          { onClick: function onClick(ev) {
-	              createList(activeWalk, newList);_this2.setState({ newList: null });
-	            } },
-	          "Create"
-	        ),
-	        React.createElement(
-	          "button",
-	          { onClick: function onClick(ev) {
-	              return addWalkDialog();
-	            } },
-	          "Close"
-	        )
-	      );
+	        return React.createElement(
+	          "dialog",
+	          { id: "addWalk", className: "static-list" },
+	          React.createElement(
+	            "ul",
+	            null,
+	            allLists
+	          ),
+	          React.createElement("input", { placeholder: "create a new list...", value: newList, onChange: function onChange(ev) {
+	              _this2.setState({ newList: ev.target.value });
+	            } }),
+	          React.createElement(
+	            "button",
+	            { onClick: function onClick(ev) {
+	                createList(newList);_this2.setState({ newList: null });
+	              } },
+	            "Create"
+	          )
+	        );
+	      }
 	    }
 	  }]);
 
@@ -31861,6 +31922,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
@@ -31870,6 +31933,10 @@
 	var _ItineraryStore = __webpack_require__(14);
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _ItineraryActions = __webpack_require__(17);
+
+	var _ItineraryActions2 = _interopRequireDefault(_ItineraryActions);
 
 	var _WalkHeader = __webpack_require__(270);
 
@@ -31931,8 +31998,11 @@
 	    city: props.city || _WalkStaticData.walk.city,
 	    id: props.walk ? props.walk.id : walkId,
 	    filters: props.filters || _WalkStaticData.filters,
-	    existsInItinerary: _ItineraryStore2.default.existsInList(0, props.walk ? props.walk.id : walkId),
-	    existsInFavourites: _ItineraryStore2.default.existsInList(0, props.walk ? props.walk.id : walkId)
+	    existsInItinerary: _ItineraryStore2.default.existsInList(_ItineraryStore2.default.getItineraryList().id, props.walk ? props.walk.id : walkId),
+	    existsInFavourites: _ItineraryStore2.default.existsInList(_ItineraryStore2.default.getFavouriteList().id, props.walk ? props.walk.id : walkId),
+	    //TODO: for stubbed data, assumed first list is Itinerary, second list is fav, need to update store for .json data
+	    itineraryListId: _ItineraryStore2.default.getItineraryList().id,
+	    favoriteListId: _ItineraryStore2.default.getFavouriteList().id
 	  };
 	};
 
@@ -31976,7 +32046,7 @@
 	      return React.createElement(
 	        'section',
 	        { className: 'walkPage' },
-	        React.createElement(_WalkHeader2.default, this.state),
+	        React.createElement(_WalkHeader2.default, _extends({}, this.state, _ItineraryActions2.default)),
 	        React.createElement(_WalkMenu2.default, this.state),
 	        React.createElement(_WalkDescription2.default, this.state.walk),
 	        React.createElement(_WalkMap2.default, this.state.walk),
@@ -32055,24 +32125,32 @@
 	    if (existsInFavourites) return React.createElement(
 	      'button',
 	      { className: 'removeFavourite', onClick: function onClick() {
-	          return remove(id, favoriteListId);
+	          return remove(id, favoriteListId, true);
 	        } },
 	      ' '
 	    );else return React.createElement(
 	      'button',
 	      { className: 'addFavourite', onClick: function onClick() {
-	          return add(id, favoriteListId);
+	          return add(id, favoriteListId, walk);
 	        } },
 	      ' '
 	    );
 	  };
 
 	  var addButton = function addButton() {
-	    if (existsInItinerary) return React.createElement('button', { className: 'removeItinerary', onClick: function onClick() {
-	        return remove(id, itineraryListId);
-	      } });else return React.createElement('button', { className: 'addItinerary', onClick: function onClick() {
-	        return add(id, itineraryListId);
-	      } });
+	    if (existsInItinerary) return React.createElement(
+	      'button',
+	      { className: 'removeItinerary', onClick: function onClick() {
+	          return remove(id, itineraryListId, true);
+	        } },
+	      ' '
+	    );else return React.createElement(
+	      'button',
+	      { className: 'addItinerary', onClick: function onClick() {
+	          return add(id, itineraryListId, walk, true);
+	        } },
+	      ' '
+	    );
 	  };
 
 	  var addToFavourites = favButton();

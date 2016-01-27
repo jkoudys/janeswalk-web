@@ -9320,12 +9320,9 @@ body #itinerary #addWalk button {
   font-size: 12px;
   padding: 2px 7px;
   margin: 0 2px;
-  opacity: 0;
+  opacity: 1;
   position: relative;
-  left: -5px;
   cursor: pointer;
-  -webkit-transition: opacity 0.3s, left 0.3s;
-          transition: opacity 0.3s, left 0.3s;
 }
 body .itinerary {
   margin: 30px auto 5rem;
@@ -9601,6 +9598,18 @@ body .itineraryHeader .update:before {
   font-family: "Glyphicons Halflings";
   font-size: smaller;
   content: "";
+}
+body .itinerary-lists {
+  height: inherit;
+  font-size: 25px;
+  width: inherit;
+  font-family: "Roboto Slab";
+  background-color: white;
+}
+body dialog#addWalk {
+  opacity: 1;
+  display: block;
+  position: relative;
 }
 #modals dialog {
   border: none;
