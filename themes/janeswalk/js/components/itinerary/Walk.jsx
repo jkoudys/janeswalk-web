@@ -1,8 +1,8 @@
 import {dateFormatted} from '../../utils/ItineraryUtils';
+import {remove} from '../../actions/ItineraryActions';
 
-const Walk = ({title, start, meeting, url, remove, id, listId, walkSelected, addWalkDialog}) => {
-  let removeButton = remove ? <button className="action removeWalk" onClick={(ev) => remove(id, listId, ev.target.value)}></button> : null;
-  let addButton = addWalkDialog ? <button className="action addWalk" onClick={(ev) => { walkSelected(id, ev.target.value);}}></button> : null;
+const Walk = ({title, start, meeting, url, id, listId, walkSelected}) => {
+  let removeButton = remove ? <button className="action removeWalk" onClick={(ev) => remove(id, listId, ev.target.value)} /> : null;
 
   return(
     <li className="walklistItem">
@@ -13,7 +13,7 @@ const Walk = ({title, start, meeting, url, remove, id, listId, walkSelected, add
       </div>
 
       {removeButton}
-      {addButton}
+      <button className="action addWalk" onClick={(ev) => { walkSelected(id, ev.target.value);}} />
     </li>
   );
 }
@@ -23,15 +23,13 @@ Walk.propTypes = {
   time: React.PropTypes.number,
   meeting: React.PropTypes.string,
   id: React.PropTypes.number.isRequired,
-  remove: React.PropTypes.func.isRequired,
-  addWalkDialog: React.PropTypes.func.isRequired,
+  remove: React.PropTypes.func.isRequired
 };
 
 Walk.defaultProps = {
   title: 'Walk Title',
   time: Date.now(),
-  remove: null,
-  addWalkDialog: null,
+  remove: null
 };
 
 export default Walk;

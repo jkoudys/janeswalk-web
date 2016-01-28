@@ -1197,8 +1197,6 @@
 
 	var _ItineraryActions = __webpack_require__(17);
 
-	var _ItineraryActions2 = _interopRequireDefault(_ItineraryActions);
-
 	var _Walk = __webpack_require__(18);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
@@ -1210,6 +1208,10 @@
 	var _AddWalkToListDialog = __webpack_require__(21);
 
 	var _AddWalkToListDialog2 = _interopRequireDefault(_AddWalkToListDialog);
+
+	var _WalkListDialog = __webpack_require__(286);
+
+	var _WalkListDialog2 = _interopRequireDefault(_WalkListDialog);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1226,8 +1228,6 @@
 	    description: _ItineraryStore2.default.getActiveList().description,
 	    lists: _ItineraryStore2.default.getAllLists(),
 	    activeWalk: _ItineraryStore2.default.getWalkSelected(),
-	    walkDialogOpen: _ItineraryStore2.default.getWalkDialog(),
-	    dialogOpen: _ItineraryStore2.default.getDialog(),
 	    listId: _ItineraryStore2.default.getActiveList().id
 	  };
 	};
@@ -1284,10 +1284,10 @@
 	    value: function render() {
 	      var _state = this.state;
 	      var walks = _state.walks;
-	      var dialogOpen = _state.dialogOpen;
 	      var listId = _state.listId;
+	      var lists = _state.lists;
+	      var activeWalk = _state.activeWalk;
 	      var $el = _state.$el;
-	      var walkDialogOpen = _state.walkDialogOpen;
 
 	      var ItineraryWalks = walks.map(function (_ref) {
 	        var map = _ref.map;
@@ -1302,9 +1302,9 @@
 	          start: time.slots[0][0],
 	          id: id,
 	          key: id,
-	          remove: _ItineraryActions2.default.remove,
-	          walkSelected: _ItineraryActions2.default.walkSelected,
-	          addWalkDialog: _ItineraryActions2.default.addWalkDialog,
+	          remove: _ItineraryActions.remove,
+	          walkSelected: _ItineraryActions.walkSelected,
+	          addWalkDialog: addWalkDialog,
 	          listId: listId
 	        });
 	      });
@@ -1317,17 +1317,23 @@
 	          { id: 'itinerary' },
 	          React.createElement('i', { className: 'close fa fa-times', onClick: function onClick() {
 	              //reset Add Walk Dialog if open
-	              if (walkDialogOpen) _ItineraryActions2.default.addWalkDialog();
 	              $el.modal('hide');
 	            } }),
-	          React.createElement(_AddWalkToListDialog2.default, _extends({}, this.state, _ItineraryActions2.default)),
+	          activeWalk ? React.createElement(_AddWalkToListDialog2.default, { lists: lists, activeWalk: activeWalk }) : React.createElement(_WalkListDialog2.default, { lists: lists }),
 	          React.createElement(
 	            'div',
 	            { className: 'itinerary' },
 	            React.createElement(
 	              'section',
 	              null,
-	              React.createElement(_ItineraryHeader2.default, _extends({}, this.state, _ItineraryActions2.default))
+	              React.createElement(_ItineraryHeader2.default, _extends({
+	                onChangeDescription: function onChangeDescription(v) {
+	                  return (0, _ItineraryActions.updateDescription)(v);
+	                },
+	                onChangeTitle: function onChangeTitle(v) {
+	                  return (0, _ItineraryActions.updateTitle)(v);
+	                }
+	              }, this.state))
 	            ),
 	            React.createElement(
 	              'ul',
@@ -1903,6 +1909,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.remove = remove;
+	exports.add = add;
+	exports.updateTitle = updateTitle;
+	exports.updateDescription = updateDescription;
+	exports.viewList = viewList;
+	exports.createList = createList;
+	exports.walkSelected = walkSelected;
 
 	var _JWConstants = __webpack_require__(9);
 
@@ -1910,38 +1923,39 @@
 
 	//TODO: API call before dispatch
 
-	exports.default = {
-	  remove: function remove(id, listId) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, id: id, listId: listId });
-	  },
-	  add: function add(id, listId, walk, switchToList) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, id: id, listId: listId, walk: walk, switchToList: switchToList });
-	  },
-	  updateTitle: function updateTitle(title) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE, title: title });
-	  },
-	  updateDescription: function updateDescription(description) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description: description });
-	  },
-	  viewList: function viewList(title) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_VIEW_LIST, title: title });
-	  },
-	  createList: function createList(title, id, walk) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_CREATE_LIST, id: id, title: title, walk: walk });
-	  },
-	  walkSelected: function walkSelected(id) {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_WALK_SELECTED, id: id });
-	  },
-	  addWalkDialog: function addWalkDialog() {
-	    (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK_DIALOG });
-	  }
-	};
+	function remove(id, listId) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, id: id, listId: listId });
+	}
+
+	function add(id, listId, walk, switchToList) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, id: id, listId: listId, walk: walk, switchToList: switchToList });
+	}
+
+	function updateTitle(title) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE, title: title });
+	}
+
+	function updateDescription(description) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description: description });
+	}
+
+	function viewList(title) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_VIEW_LIST, title: title });
+	}
+
+	function createList(title, id, walk) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_CREATE_LIST, id: id, title: title, walk: walk });
+	}
+
+	function walkSelected(id) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_WALK_SELECTED, id: id });
+	}
 
 /***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -1949,52 +1963,51 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
+	var _ItineraryActions = __webpack_require__(17);
+
 	var Walk = function Walk(_ref) {
 	  var title = _ref.title;
 	  var start = _ref.start;
 	  var meeting = _ref.meeting;
 	  var url = _ref.url;
-	  var remove = _ref.remove;
 	  var id = _ref.id;
 	  var listId = _ref.listId;
 	  var walkSelected = _ref.walkSelected;
-	  var addWalkDialog = _ref.addWalkDialog;
 
-	  var removeButton = remove ? React.createElement("button", { className: "action removeWalk", onClick: function onClick(ev) {
-	      return remove(id, listId, ev.target.value);
-	    } }) : null;
-	  var addButton = addWalkDialog ? React.createElement("button", { className: "action addWalk", onClick: function onClick(ev) {
-	      walkSelected(id, ev.target.value);
+	  var removeButton = _ItineraryActions.remove ? React.createElement('button', { className: 'action removeWalk', onClick: function onClick(ev) {
+	      return (0, _ItineraryActions.remove)(id, listId, ev.target.value);
 	    } }) : null;
 
 	  return React.createElement(
-	    "li",
-	    { className: "walklistItem" },
+	    'li',
+	    { className: 'walklistItem' },
 	    React.createElement(
-	      "div",
-	      { className: "walk" },
+	      'div',
+	      { className: 'walk' },
 	      React.createElement(
-	        "h3",
+	        'h3',
 	        null,
 	        React.createElement(
-	          "a",
+	          'a',
 	          { href: url },
 	          title
 	        )
 	      ),
 	      React.createElement(
-	        "h4",
+	        'h4',
 	        null,
 	        (0, _ItineraryUtils.dateFormatted)(start)
 	      ),
 	      React.createElement(
-	        "h4",
+	        'h4',
 	        null,
 	        meeting
 	      )
 	    ),
 	    removeButton,
-	    addButton
+	    React.createElement('button', { className: 'action addWalk', onClick: function onClick(ev) {
+	        walkSelected(id, ev.target.value);
+	      } })
 	  );
 	};
 
@@ -2003,15 +2016,13 @@
 	  time: React.PropTypes.number,
 	  meeting: React.PropTypes.string,
 	  id: React.PropTypes.number.isRequired,
-	  remove: React.PropTypes.func.isRequired,
-	  addWalkDialog: React.PropTypes.func.isRequired
+	  remove: React.PropTypes.func.isRequired
 	};
 
 	Walk.defaultProps = {
 	  title: 'Walk Title',
 	  time: Date.now(),
-	  remove: null,
-	  addWalkDialog: null
+	  remove: null
 	};
 
 	exports.default = Walk;
@@ -2054,373 +2065,163 @@
 
 /***/ },
 /* 20 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _I18nStore = __webpack_require__(247);
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ItineraryHeader = (function (_React$Component) {
-	  _inherits(ItineraryHeader, _React$Component);
-
-	  function ItineraryHeader() {
-	    var _Object$getPrototypeO;
-
-	    _classCallCheck(this, ItineraryHeader);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ItineraryHeader)).call.apply(_Object$getPrototypeO, [this].concat(args)));
-
-	    _this.state = {
-	      editable: false,
-	      newDescription: null,
-	      newTitle: null
-	    };
-	    return _this;
-	  }
-
-	  _createClass(ItineraryHeader, [{
-	    key: "update",
-	    value: function update() {
-	      var _props = this.props;
-	      var updateTitle = _props.updateTitle;
-	      var updateDescription = _props.updateDescription;
-	      var title = _props.title;
-	      var description = _props.description;
-	      var _state = this.state;
-	      var editable = _state.editable;
-	      var newTitle = _state.newTitle;
-	      var newDescription = _state.newDescription;
-
-	      updateTitle(newTitle || title);
-	      updateDescription(newDescription || description);
-
-	      this.setState({
-	        //editable:!editable,
-	        newTitle: null,
-	        newDescription: null
-	      });
-	    }
-	  }, {
-	    key: "cancel",
-	    value: function cancel() {
-	      var editable = this.state.editable;
-
-	      this.setState({
-	        newTitle: null,
-	        newDescription: null,
-	        editable: !editable
-	      });
-	    }
-	  }, {
-	    key: "edit",
-	    value: function edit() {
-	      var editable = this.state.editable;
-
-	      this.setState({
-	        editable: !editable
-	      });
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _this2 = this;
-
-	      var _props2 = this.props;
-	      var title = _props2.title;
-	      var description = _props2.description;
-	      var lists = _props2.lists;
-	      var viewList = _props2.viewList;
-	      var _state2 = this.state;
-	      var editable = _state2.editable;
-	      var newTitle = _state2.newTitle;
-	      var newDescription = _state2.newDescription;
-
-	      if (editable) {
-	        return React.createElement(
-	          "header",
-	          { className: "itineraryHeader" },
-	          React.createElement(
-	            "h2",
-	            null,
-	            React.createElement("input", { value: newTitle || title, onChange: function onChange(ev) {
-	                return _this2.setState({ newTitle: ev.target.value });
-	              } })
-	          ),
-	          React.createElement(
-	            "h4",
-	            null,
-	            React.createElement("textarea", { value: newDescription || description, onChange: function onChange(ev) {
-	                return _this2.setState({ newDescription: ev.target.value });
-	              } })
-	          ),
-	          React.createElement(
-	            "span",
-	            { className: "update", onClick: function onClick(ev) {
-	                return _this2.update();
-	              } },
-	            "Update"
-	          ),
-	          React.createElement(
-	            "span",
-	            { className: "cancel", onClick: function onClick(ev) {
-	                return _this2.cancel();
-	              } },
-	            "Cancel"
-	          )
-	        );
-	      } else {
-
-	        //<select className="itinerary-lists" onChange={ev => { viewList(ev.target.value) }}>
-	        //  {lists.map(list => <option key={list.id} selected={list.title === title}>{list.title}</option>)}
-	        //</select>
-	        return React.createElement(
-	          "header",
-	          { className: "itineraryHeader" },
-	          React.createElement(
-	            "h2",
-	            null,
-	            title
-	          ),
-	          React.createElement(
-	            "h5",
-	            { className: "shareUrl" },
-	            React.createElement(
-	              "a",
-	              { href: "" },
-	              "janeswalk.org/TuckerMCL/itinerary"
-	            )
-	          ),
-	          React.createElement(
-	            "h4",
-	            { className: "walklistDescription" },
-	            React.createElement("textarea", { required: "required", value: newDescription || description, placeholder: "Tell people about it! Start typing here to give your list some commentary.", onChange: function onChange(ev) {
-	                return _this2.setState({ newDescription: ev.target.value });
-	              } }),
-	            React.createElement(
-	              "span",
-	              { className: "update", onClick: function onClick(ev) {
-	                  return _this2.update();
-	                } },
-	              "save"
-	            )
-	          )
-	        );
-	      }
-	    }
-	  }]);
-
-	  return ItineraryHeader;
-	})(React.Component);
-
-	exports.default = ItineraryHeader;
-	;
+	var ItineraryHeader = function ItineraryHeader(_ref) {
+	  var title = _ref.title;
+	  var description = _ref.description;
+	  var shareUrl = _ref.shareUrl;
+	  var onChangeTitle = _ref.onChangeTitle;
+	  var onChangeDescription = _ref.onChangeDescription;
+	  return React.createElement(
+	    "header",
+	    { className: "itineraryHeader" },
+	    React.createElement(
+	      "h2",
+	      null,
+	      React.createElement("input", {
+	        type: "text",
+	        required: "required",
+	        value: title,
+	        placeholder: (0, _I18nStore.t)('My Itinerary\'s Title'),
+	        onChange: function onChange(ev) {
+	          return onChangeTitle(ev.target.value);
+	        }
+	      })
+	    ),
+	    shareUrl ? React.createElement(
+	      "h5",
+	      { className: "shareUrl" },
+	      React.createElement(
+	        "a",
+	        { href: shareUrl },
+	        shareUrl
+	      )
+	    ) : null,
+	    React.createElement(
+	      "h4",
+	      { className: "walklistDescription" },
+	      React.createElement("textarea", {
+	        required: "required",
+	        value: description,
+	        placeholder: (0, _I18nStore.t)('Tell people about it! Start typing here to give your list some commentary.'),
+	        onChange: function onChange(ev) {
+	          return onChangeDescription(ev.target.value);
+	        }
+	      })
+	    )
+	  );
+	};
 
 	ItineraryHeader.propTypes = {
 	  title: React.PropTypes.string,
-	  description: React.PropTypes.string,
-	  updateTitle: React.PropTypes.func,
-	  updateDescription: React.PropTypes.func
+	  description: React.PropTypes.string
 	};
 
-	ItineraryHeader.defaultProps = {
-	  title: 'My Itinerary',
-	  description: 'Test'
-	};
+	exports.default = ItineraryHeader;
 
 /***/ },
 /* 21 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var _ItineraryActions = __webpack_require__(17);
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	var AddWalkToListDialog = function AddWalkToListDialog(_ref) {
+	  var lists = _ref.lists;
+	  var activeWalk = _ref.activeWalk;
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	  //selectedWalk comes from where
+	  var allLists = lists.map(function (_ref2) {
+	    var id = _ref2.id;
+	    var title = _ref2.title;
+	    var walks = _ref2.walks;
 
-	var AddWalkToListDialog = (function (_React$Component) {
-	  _inherits(AddWalkToListDialog, _React$Component);
+	    var walkFound = activeWalk && walks.find(function (walk) {
+	      return walk.id === activeWalk.id;
+	    });
 
-	  function AddWalkToListDialog() {
-	    var _Object$getPrototypeO;
-
-	    _classCallCheck(this, AddWalkToListDialog);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
+	    if (walkFound) {
+	      return React.createElement(
+	        "li",
+	        { key: id },
+	        React.createElement(
+	          "a",
+	          { onClick: function onClick(ev) {
+	              return (0, _ItineraryActions.remove)(activeWalk.id, id);
+	            }, className: "fa fa-check" },
+	          title
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        "li",
+	        { key: id },
+	        React.createElement(
+	          "a",
+	          { onClick: function onClick(ev) {
+	              return (0, _ItineraryActions.add)(activeWalk.id, id, activeWalk);
+	            } },
+	          title
+	        )
+	      );
 	    }
+	  });
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(AddWalkToListDialog)).call.apply(_Object$getPrototypeO, [this].concat(args)));
-
-	    _this.state = {
-	      newList: null
-	    };
-	    return _this;
-	  }
-
-	  _createClass(AddWalkToListDialog, [{
-	    key: "render",
-	    value: function render() {
-	      var _this2 = this;
-
-	      var _props = this.props;
-	      var lists = _props.lists;
-	      var remove = _props.remove;
-	      var add = _props.add;
-	      var createList = _props.createList;
-	      var activeWalk = _props.activeWalk;
-	      var walkDialogOpen = _props.walkDialogOpen;
-	      var addWalkDialog = _props.addWalkDialog;
-	      var viewList = _props.viewList;
-	      var newList = this.state.newList;
-	      //selectedWalk comes from where
-
-	      if (walkDialogOpen) {
-
-	        var allLists = lists.map(function (list) {
-	          var id = list.id;
-	          var title = list.title;
-	          var walks = list.walks;
-
-	          var walkFound = walks.find(function (walk) {
-	            return walk.id === activeWalk.id;
-	          });
-
-	          if (walkFound) {
-	            return React.createElement(
-	              "li",
-	              { key: id, onClick: function onClick(ev) {
-	                  return remove(activeWalk.id, list.id);
-	                } },
-	              React.createElement(
-	                "span",
-	                { className: "fa fa-check" },
-	                title
-	              )
-	            );
-	          } else {
-	            return React.createElement(
-	              "li",
-	              { key: id, onClick: function onClick(ev) {
-	                  return add(activeWalk.id, list.id, activeWalk);
-	                } },
-	              React.createElement(
-	                "span",
-	                null,
-	                title
-	              )
-	            );
-	          }
-	        });
-
-	        return React.createElement(
-	          "dialog",
-	          { id: "addWalk", className: "add-walk-to-list" },
-	          React.createElement(
-	            "h5",
-	            null,
-	            " Add ",
-	            activeWalk.title,
-	            " to..."
-	          ),
-	          React.createElement(
-	            "ul",
-	            null,
-	            allLists
-	          ),
-	          React.createElement("input", { placeholder: "create a new list...", value: newList, onChange: function onChange(ev) {
-	              _this2.setState({ newList: ev.target.value });
-	            } }),
-	          React.createElement(
-	            "button",
-	            { onClick: function onClick(ev) {
-	                createList(newList, activeWalk.id, activeWalk);_this2.setState({ newList: null });
-	              } },
-	            "Create"
-	          ),
-	          React.createElement(
-	            "button",
-	            { onClick: function onClick(ev) {
-	                return addWalkDialog();
-	              } },
-	            "Close"
-	          )
-	        );
-	      } else {
-
-	        var allLists = lists.map(function (list) {
-	          var id = list.id;
-	          var title = list.title;
-	          var walks = list.walks;
-
-	          return React.createElement(
-	            "li",
-	            { key: id, onClick: function onClick(ev) {
-	                return viewList(title);
-	              } },
-	            React.createElement(
-	              "span",
-	              null,
-	              title
-	            )
-	          );
-	        });
-
-	        return React.createElement(
-	          "dialog",
-	          { id: "addWalk", className: "static-list" },
-	          React.createElement(
-	            "ul",
-	            null,
-	            allLists
-	          ),
-	          React.createElement("input", { placeholder: "create a new list...", value: newList, onChange: function onChange(ev) {
-	              _this2.setState({ newList: ev.target.value });
-	            } }),
-	          React.createElement(
-	            "button",
-	            { onClick: function onClick(ev) {
-	                createList(newList);_this2.setState({ newList: null });
-	              } },
-	            "Create"
-	          )
-	        );
-	      }
-	    }
-	  }]);
-
-	  return AddWalkToListDialog;
-	})(React.Component);
-
-	exports.default = AddWalkToListDialog;
+	  return React.createElement(
+	    "dialog",
+	    { id: "addWalk", className: "add-walk-to-list" },
+	    React.createElement(
+	      "h5",
+	      null,
+	      " Add ",
+	      activeWalk.title,
+	      " to..."
+	    ),
+	    React.createElement(
+	      "ul",
+	      null,
+	      allLists
+	    ),
+	    React.createElement(
+	      "button",
+	      { onClick: function onClick(ev) {
+	          (0, _ItineraryActions.createList)(newList, activeWalk.id, activeWalk);undefined.setState({ newList: null });
+	        } },
+	      "Create"
+	    ),
+	    React.createElement(
+	      "button",
+	      { onClick: function onClick(ev) {
+	          return (0, _ItineraryActions.addWalkDialog)();
+	        } },
+	      "Close"
+	    )
+	  );
+	};
 
 	AddWalkToListDialog.propTypes = {
-	  lists: React.PropTypes.array,
-	  add: React.PropTypes.func,
-	  createList: React.PropTypes.func,
-	  walkSelected: React.PropTypes.number
+	  lists: React.PropTypes.array
 	};
+
+	AddWalkToListDialog.defaultProps = {
+	  activeWalk: { id: 0 }
+	};
+
+	exports.default = AddWalkToListDialog;
 
 /***/ },
 /* 22 */
@@ -32081,12 +31882,6 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
-	var _janeswalk = __webpack_require__(271);
-
-	var _janeswalk2 = _interopRequireDefault(_janeswalk);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	//TODO: Duplicate of Itinerary <Walk/>
 	//TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
 
@@ -32168,6 +31963,18 @@
 	    return member.role === 'walk-leader';
 	  });
 
+	  // Only show the add to itinerary if you can
+	  var addToItineraryButton = undefined;
+	  if (time.slots[0]) {
+	    addToItineraryButton = React.createElement(
+	      'h4',
+	      null,
+	      walkLeader ? 'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' - ' : null,
+	      (0, _ItineraryUtils.dateFormatted)(time.slots[0][0]),
+	      addToItinerary
+	    );
+	  }
+
 	  return React.createElement(
 	    'section',
 	    { className: 'walkHeader' },
@@ -32208,12 +32015,7 @@
 	      title,
 	      addToFavourites
 	    ),
-	    React.createElement(
-	      'h4',
-	      null,
-	      walkLeader ? 'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' - ' + (0, _ItineraryUtils.dateFormatted)(time.slots[0][0]) : null,
-	      addToItinerary
-	    ),
+	    addToItineraryButton,
 	    React.createElement(
 	      'h4',
 	      null,
@@ -32237,21 +32039,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 271 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	function Hello() {
-	  return "Hello World!";
-	}
-
-	exports.default = Hello;
-
-/***/ },
+/* 271 */,
 /* 272 */
 /***/ function(module, exports) {
 
@@ -33746,6 +33534,61 @@
 	  })();return Intl;
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 286 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var WalkListDialog = function WalkListDialog(_ref) {
+	  var lists = _ref.lists;
+	  var viewList = _ref.viewList;
+	  return React.createElement(
+	    "dialog",
+	    { id: "addWalk", className: "static-list" },
+	    React.createElement(
+	      "ul",
+	      null,
+	      lists.map(function (_ref2) {
+	        var id = _ref2.id;
+	        var title = _ref2.title;
+	        var walks = _ref2.walks;
+	        return React.createElement(
+	          "li",
+	          { key: id },
+	          React.createElement(
+	            "a",
+	            { onClick: function onClick() {
+	                return viewList(title);
+	              } },
+	            title
+	          )
+	        );
+	      })
+	    ),
+	    React.createElement("input", {
+	      placeholder: "create a new list...",
+	      value: newList,
+	      onChange: function onChange(ev) {
+	        undefined.setState({ newList: ev.target.value });
+	      }
+	    }),
+	    React.createElement(
+	      "button",
+	      { onClick: function onClick(ev) {
+	          createList(newList);undefined.setState({ newList: null });
+	        } },
+	      "Create"
+	    )
+	  );
+	};
+
+	exports.default = WalkListDialog;
 
 /***/ }
 /******/ ]);

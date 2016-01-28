@@ -1,89 +1,31 @@
-export default class ItineraryHeader extends React.Component {
-  constructor(...args) {
-    super(...args);
-    this.state = {
-      editable: false,
-      newDescription: null,
-      newTitle: null,
-    }
-  }
+import {t} from 'janeswalk/stores/I18nStore';
 
-  update() {
-    const {updateTitle, updateDescription, title, description} = this.props;
-    const {editable, newTitle, newDescription} = this.state;
-
-    updateTitle(newTitle || title);
-    updateDescription(newDescription || description);
-
-    this.setState({
-      //editable:!editable,
-      newTitle: null,
-      newDescription: null,
-    })
-  }
-
-  cancel() {
-    const {editable} = this.state;
-
-    this.setState({
-      newTitle: null,
-      newDescription: null,
-      editable: !editable,
-    });
-  }
-
-  edit() {
-    const {editable} = this.state;
-
-    this.setState({
-      editable: !editable,
-    });
-  }
-
-  render() {
-    const {title, description, lists, viewList} = this.props;
-    let {editable, newTitle, newDescription} = this.state;
-
-    if (editable){
-      return (
-        <header className="itineraryHeader">
-          <h2>
-            <input value={newTitle || title} onChange={ev => this.setState({newTitle:ev.target.value})}></input>
-          </h2>
-          <h4>
-            <textarea value={newDescription || description} onChange={ev => this.setState({newDescription:ev.target.value})}></textarea>
-          </h4>
-          <span className="update" onClick={ev => this.update()}>Update</span>
-          <span className="cancel" onClick={ev => this.cancel()}>Cancel</span>
-        </header>
-      )
-    } else {
-
-      //<select className="itinerary-lists" onChange={ev => { viewList(ev.target.value) }}>
-      //  {lists.map(list => <option key={list.id} selected={list.title === title}>{list.title}</option>)}
-      //</select>
-      return (
-        <header className="itineraryHeader">
-          <h2>{title}</h2>
-          <h5 className="shareUrl"><a href="">janeswalk.org/TuckerMCL/itinerary</a></h5>
-          <h4 className="walklistDescription">
-            <textarea required="required" value={newDescription || description} placeholder="Tell people about it! Start typing here to give your list some commentary." onChange={ev => this.setState({newDescription:ev.target.value})}></textarea>
-            <span className="update" onClick={ev => this.update()}>save</span>
-          </h4>
-        </header>
-      )
-    }
-  };
-};
+const ItineraryHeader = ({title, description, shareUrl, onChangeTitle, onChangeDescription}) => (
+  <header className="itineraryHeader">
+    <h2>
+      <input
+        type="text"
+        required="required"
+        value={title}
+        placeholder={t('My Itinerary\'s Title')}
+        onChange={ev => onChangeTitle(ev.target.value)}
+      />
+    </h2>
+    {shareUrl ? <h5 className="shareUrl"><a href={shareUrl}>{shareUrl}</a></h5> : null}
+    <h4 className="walklistDescription">
+      <textarea
+        required="required"
+        value={description}
+        placeholder={t('Tell people about it! Start typing here to give your list some commentary.')}
+        onChange={ev => onChangeDescription(ev.target.value)}
+      />
+    </h4>
+  </header>
+);
 
 ItineraryHeader.propTypes = {
   title: React.PropTypes.string,
-  description: React.PropTypes.string,
-  updateTitle: React.PropTypes.func,
-  updateDescription: React.PropTypes.func,
+  description: React.PropTypes.string
 };
 
-ItineraryHeader.defaultProps = {
-  title: 'My Itinerary',
-  description: 'Test',
-};
+export default ItineraryHeader;

@@ -3,38 +3,30 @@ import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 
 //TODO: API call before dispatch
 
-export default {
+export function remove(id, listId) {
+  dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, listId});
+}
 
-  remove(id, listId) {
-    dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, listId});
-  },
+export function add(id, listId, walk, switchToList) {
+  dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId, walk, switchToList});
+}
 
-  add(id, listId, walk, switchToList) {
-    dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId, walk, switchToList});
-  },
+export function updateTitle(title) {
+  dispatch({type: ActionTypes.ITINERARY_UPDATE_TITLE, title});
+}
 
-  updateTitle(title) {
-    dispatch({type: ActionTypes.ITINERARY_UPDATE_TITLE, title});
-  },
+export function updateDescription(description) {
+  dispatch({type: ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description});
+}
 
-  updateDescription(description) {
-    dispatch({type: ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description});
-  },
+export function viewList(title) {
+  dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, title});
+}
 
-  viewList(title) {
-    dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, title});
-  },
+export function createList(title, id, walk) {
+  dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, id, title, walk});
+}
 
-  createList(title, id, walk) {
-    dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, id, title, walk});
-  },
-
-  walkSelected(id) {
-    dispatch({type: ActionTypes.ITINERARY_WALK_SELECTED, id});
-  },
-
-  addWalkDialog() {
-    dispatch({type: ActionTypes.ITINERARY_ADD_WALK_DIALOG});
-  }
-
+export function walkSelected(id) {
+  dispatch({type: ActionTypes.ITINERARY_WALK_SELECTED, id});
 }
