@@ -132,26 +132,30 @@ echo <<< EOT
      {$intro}
      {$area('City Header')}
      {$BackgroundPhoto}
+ </div>
+ <section id="city-sidebar">
+  <div>
+     <img class="organizer" src="http://janeswalk.org/files/avatars/5784.jpg?1454005820"/>
      {$CityOrganizerDetails}
- </div>
+  </div>
+   <div class="menu-flags">
+     {$area('City Nav')}
+   </div>
+ </section>
 </section>
+
+
+
 <section id="city-details">
- <div class="description">
-     <div class="item">
-         <h2>{$t('Jane’s Walks')}</h2>
-         <h4>{$t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $cityName)}</h4>
-         {$longDescription}
-         {$area('City Description')}
-     </div>
-     <div class="menu-flags">
-         {$area('City Nav')}
-     </div>
-     {$area('Sponsors')}
- </div>
  <div class="walk-list">
+      <div class="item">
+          <h3>{$t('Walks in %s', $cityName)}</h3>
+      </div>
      <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Create a Walk')}</a>
-     <h3>{$t('Walks in %s', $cityName)}</h3>
      {$area('All Walks List')}
+ </div>
+ <div class="description">
+     {$area('Sponsors')}
  </div>
 </section>
 {$Blog}
