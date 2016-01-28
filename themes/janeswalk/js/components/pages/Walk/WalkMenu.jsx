@@ -8,7 +8,7 @@ import {getThemeName} from 'janeswalk/utils/lookups/Theme';
 //TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 //TODO: Make walkMenu sticky - will complete after Dashboard
 
-const menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'About the Walk Team'];
+const menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'Taking Public Transit', 'Parking Availability', 'About the Walk Team'];
 
 const WalkMenu = ({walk, filters}) => {
 
@@ -30,6 +30,8 @@ const WalkMenu = ({walk, filters}) => {
   }
 
   //TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>
+  //<WalkPublicTransit {...walk} />
+  //<WalkParking {...walk} />
   const tags = Object.keys(checkboxes).filter(item => item.includes('theme'));
 
   return (
@@ -40,8 +42,6 @@ const WalkMenu = ({walk, filters}) => {
         {nextDateHead}
         {meetingPlaceHead}
         <WalkAccessibility {...walk} {...filters} />
-        <WalkPublicTransit {...walk} />
-        <WalkParking {...walk} />
       </header>
       <section className="menu">
         <ul>

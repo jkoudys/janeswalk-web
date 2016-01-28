@@ -62,6 +62,8 @@ export default class WalkPage extends React.Component {
         <WalkMap {...this.state.walk}/>
         <WalkRoute {...this.state.walk}/>
         <WalkStart {...this.state.walk}/>
+        <WalkPublicTransit {...this.state.walk} />
+        <WalkParking {...this.state.walk} />
         <WalkTeam {...this.state.walk}/>
       </section>
     );
