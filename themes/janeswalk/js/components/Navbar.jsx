@@ -61,16 +61,17 @@ function appendSiblings(html, refNode) {
 /**
  * Make the navbar sticky to the top
  */
-function makeSticky(el) {
+function makeSticky(reference, el) {
   let running = false;
   // Where the el is when unfixed
-  let unfixed = el.offsetTop;
+  let unfixed = reference.offsetTop;
   const stick = () => {
     if (running) return;
     running = true;
     requestAnimationFrame(() => {
       running = false;
-      if (window.scrollY > unfixed) {
+      // TODO: remove this 60 hardcoding of the header height
+      if (window.scrollY > unfixed - 60) {
         el.classList.add('fixed');
       } else {
         el.classList.remove('fixed');
@@ -78,7 +79,7 @@ function makeSticky(el) {
     });
   };
   window.addEventListener('scroll', stick);
-  window.addEventListener('resize', stick);
+  window.addEventListener('resize', () => {unfixed = reference.offsetTop; stick()});
 }
 
 // The header menu
@@ -105,7 +106,7 @@ export default class Navbar extends React.Component {
 
   componentDidMount() {
     appendSiblings(this.state.options, this.refs.topnav);
-    makeSticky(React.findDOMNode(this));
+    makeSticky(React.findDOMNode(this), this.refs.header);
   }
 
   /**
@@ -168,7 +169,7 @@ export default class Navbar extends React.Component {
 
     return (
       <div>
-        <header className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
+        <header ref="header" className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
           <nav role="navigation">
             <a href="/" className="logo">
               <span />

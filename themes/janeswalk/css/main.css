@@ -9199,17 +9199,13 @@ body > footer nav {
 }
 body > footer nav ul {
   position: relative;
+  float: left;
+  width: 50%;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
   list-style-type: none;
   padding: 0;
-}
-@media (min-width: 992px) {
-  body > footer nav ul {
-    float: left;
-    width: 50%;
-  }
 }
 body > footer a {
   color: inherit;
@@ -9320,12 +9316,9 @@ body #itinerary #addWalk button {
   font-size: 12px;
   padding: 2px 7px;
   margin: 0 2px;
-  opacity: 0;
+  opacity: 1;
   position: relative;
-  left: -5px;
   cursor: pointer;
-  -webkit-transition: opacity 0.3s, left 0.3s;
-          transition: opacity 0.3s, left 0.3s;
 }
 body .itinerary {
   margin: 30px auto 5rem;
@@ -9601,6 +9594,18 @@ body .itineraryHeader .update:before {
   font-family: "Glyphicons Halflings";
   font-size: smaller;
   content: "";
+}
+body .itinerary-lists {
+  height: inherit;
+  font-size: 25px;
+  width: inherit;
+  font-family: "Roboto Slab";
+  background-color: white;
+}
+body dialog#addWalk {
+  opacity: 1;
+  display: block;
+  position: relative;
 }
 #modals dialog {
   border: none;
@@ -10785,13 +10790,12 @@ body.home #navbar {
   position: relative;
   top: -60px;
 }
-body.home #navbar.fixed {
-  position: fixed;
-  top: 0;
-}
 body.home #navbar header {
   width: 100%;
   position: inherit;
+}
+body.home #navbar header.fixed {
+  position: fixed;
 }
 .navbar_home {
   font-size: 1em;
@@ -10890,12 +10894,6 @@ body.home #navbar header {
     padding: 0;
     margin-bottom: 1.85em;
     position: relative;
-  }
-}
-@media (max-width: 768px) {
-  footer {
-    padding: 0 !important;
-    margin: 0 !important;
   }
 }
 #profileWrapper {
