@@ -95,7 +95,7 @@ class Card extends React.Component {
     }
 
     return (
-      <div className="walk">
+      <div className="walk-card">
       <a href={walk.url}>
         <div className="thumbnail">
           <div className={'walkimage ' + placeholder} style={{backgroundImage: 'url(' + Thumb + ')'}}>

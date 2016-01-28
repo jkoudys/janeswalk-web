@@ -132,12 +132,20 @@ echo <<< EOT
      {$intro}
      {$area('City Header')}
      {$BackgroundPhoto}
-     {$CityOrganizerDetails}
-     <div class="menu-flags">
-              {$area('City Nav')}
-      </div>
  </div>
+ <section id="city-sidebar">
+  <div>
+     <img class="organizer" src="http://janeswalk.org/files/avatars/5784.jpg?1454005820"/>
+     {$CityOrganizerDetails}
+  </div>
+   <div class="menu-flags">
+     {$area('City Nav')}
+   </div>
+ </section>
 </section>
+
+
+
 <section id="city-details">
  <div class="walk-list">
       <div class="item">
