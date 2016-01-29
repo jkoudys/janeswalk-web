@@ -1,12 +1,30 @@
+.walk-filters {
+  h4.filter-header {
+    margin-left: 15px;
+    color: @color-orange;
+    a {
+      color: @color-orange;
+    }
+  }
+  a.print-button {
+    margin-left: 15px;
+  }
+}
+
+
 .walk-card {
   @walk-card-offset: 15px;
   //.make-sm-column(6, 10px);
   //.make-md-column(4, 10px);//
   width: 100%;
   padding-top: @walk-card-offset;
+  padding-left: 25px;
+  padding-right: 25px;
   padding-bottom: 0px;
+
   vertical-align:bottom;
   transition-duration: 0.1s;
+  height: auto;
 
   h4 {
     color: @color-orange;
@@ -24,7 +42,6 @@
   }
 
   .thumbnail {
-    height: 580px;
     transition: none;
     position: relative;
     padding: 0;
