@@ -135,7 +135,6 @@ echo <<< EOT
  </div>
  <section id="city-sidebar">
   <div>
-     <img class="organizer" src="http://janeswalk.org/files/avatars/5784.jpg?1454005820"/>
      {$CityOrganizerDetails}
   </div>
    <div class="menu-flags">
