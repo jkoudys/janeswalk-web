@@ -1,27 +1,28 @@
 import {remove, add, createList, walkSelected, viewList, addWalkDialog, updateTitle, updateDescription} from '../../actions/ItineraryActions';
 import {t} from 'janeswalk/stores/I18nStore';
 
-const AddWalkToList = ({lists, activeWalk}) => {
+const AddWalkToList = ({lists, activeWalk, activeList}) => {
   //selectedWalk comes from where
-  const allLists = lists.map(({id, title, walks}) => {
-
-    const walkFound = activeWalk && walks.find(walk => walk.id === activeWalk.id);
+  const allLists = lists.filter(({id}) => id != activeList).map(({id, title, walks}) => {
+    const walkFound = walks.includes(activeWalk);
     let action;
+
     if (walkFound) {
       action = () => remove(activeWalk.id, id);
     } else {
       action = () => add(activeWalk.id, id, activeWalk);
     }
-      return (
-        <li key={id}>
-          <a onClick={action} className={walkFound ? 'selected' : ''}>{title}</a>
-        </li>
-      );
+
+    return (
+      <li key={id}>
+        <a onClick={action} className={walkFound ? 'selected' : ''}>{title}</a>
+      </li>
+    );
   });
 
   return (
     <div id="addWalk" className="add-walk-to-list">
-      <strong>{t('Available in')}: </strong>
+      <strong>{t('Also available in')}: </strong>
       <ul>
         {allLists}
       </ul>

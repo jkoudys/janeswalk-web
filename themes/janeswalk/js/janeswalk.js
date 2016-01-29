@@ -1993,6 +1993,16 @@
 	  }
 
 	  _createClass(Walk, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(_ref) {
+	      var listId = _ref.listId;
+
+	      // If the active list changes, close the dialog
+	      if (listId !== this.props.listId) {
+	        this.setState({ dialogOpen: false });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -2045,7 +2055,7 @@
 	            return _this2.setState({ dialogOpen: !dialogOpen });
 	          }
 	        }),
-	        dialogOpen ? React.createElement(_AddWalkToList2.default, { lists: lists, activeWalk: title }) : null
+	        dialogOpen ? React.createElement(_AddWalkToList2.default, { lists: lists, activeWalk: id, activeList: listId }) : null
 	      );
 	    }
 	  }]);
@@ -2122,17 +2132,20 @@
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
 	  var activeWalk = _ref.activeWalk;
+	  var activeList = _ref.activeList;
 
 	  //selectedWalk comes from where
-	  var allLists = lists.map(function (_ref2) {
+	  var allLists = lists.filter(function (_ref2) {
 	    var id = _ref2.id;
-	    var title = _ref2.title;
-	    var walks = _ref2.walks;
+	    return id != activeList;
+	  }).map(function (_ref3) {
+	    var id = _ref3.id;
+	    var title = _ref3.title;
+	    var walks = _ref3.walks;
 
-	    var walkFound = activeWalk && walks.find(function (walk) {
-	      return walk.id === activeWalk.id;
-	    });
+	    var walkFound = walks.includes(activeWalk);
 	    var action = undefined;
+
 	    if (walkFound) {
 	      action = function () {
 	        return (0, _ItineraryActions.remove)(activeWalk.id, id);
@@ -2142,6 +2155,7 @@
 	        return (0, _ItineraryActions.add)(activeWalk.id, id, activeWalk);
 	      };
 	    }
+
 	    return React.createElement(
 	      'li',
 	      { key: id },
@@ -2159,7 +2173,7 @@
 	    React.createElement(
 	      'strong',
 	      null,
-	      (0, _I18nStore.t)('Available in'),
+	      (0, _I18nStore.t)('Also available in'),
 	      ': '
 	    ),
 	    React.createElement(

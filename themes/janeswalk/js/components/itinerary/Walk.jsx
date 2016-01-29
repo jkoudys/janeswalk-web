@@ -11,6 +11,13 @@ class Walk extends React.Component {
     };
   }
 
+  componentWillReceiveProps({listId}) {
+    // If the active list changes, close the dialog
+    if (listId !== this.props.listId) {
+      this.setState({dialogOpen: false});
+    }
+  }
+
   render() {
     const {title, start, meeting, url, id, listId, lists} = this.props;
     const {dialogOpen} = this.state;
@@ -30,7 +37,7 @@ class Walk extends React.Component {
           className={'action addWalk ' + (dialogOpen ? 'selected' : '')}
           onClick={() => this.setState({dialogOpen: !dialogOpen})}
         />
-        {dialogOpen ? <AddWalkToList lists={lists} activeWalk={title} /> : null}
+        {dialogOpen ? <AddWalkToList lists={lists} activeWalk={id} activeList={listId} /> : null}
       </li>
     );
   }
