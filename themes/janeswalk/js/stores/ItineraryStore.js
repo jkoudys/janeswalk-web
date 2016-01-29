@@ -19,35 +19,33 @@ let _walkDialogOpen = false;
 //TODO: Need to retrieve all lists either via JW Events, or async call on component mount
 //TODO: Currently no remove list, just adding lists
 
-const _removeWalk = (id, listId, switchToList) => {
+const _removeWalk = (id, listId) => {
   const list = _allLists.find(list => list.id === listId);
 
   if (!list) {
     console.log('List could not be found');
   } else {
-    if (switchToList)_currentList = list;
-    const walkFound = list.walks.find(walk => walk === id);
+    const walkFound = list.walks.includes(id);
 
     if (walkFound) {
-      list.walks.splice(list.walks.findIndex(walk => walk === id), 1);
+      list.walks.splice(list.walks.indexOf(id), 1);
     } else {
       console.log('Walk does not exists in list');
     }
   }
 };
 
-const _addWalk = (id, listId, walk, switchToList) => {
+const _addWalk = (id, listId) => {
   const list = _allLists.find(list => list.id === listId);
 
   //TODO: May not be required after API calls
   if (!list) {
     console.log('List could not be found');
   } else {
-    if (switchToList)_currentList = list;
-    const walkFound = list.walks.find(walk => walk === id);
+    const walkFound = list.walks.includes(id);
 
     if (!walkFound) {
-      list.walks.unshift(walk);
+      list.walks.unshift(id);
     } else {
       console.log('Walk already exists, notify the user');
     }
@@ -159,7 +157,7 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
       break;
     case ActionTypes.ITINERARY_ADD_WALK:
        //TODO: Dialog to open on first add to Itinerary/Favourites
-      _addWalk(action.id, action.listId, action.walk, action.switchToList);
+      _addWalk(action.id, action.listId);
       break;
     case ActionTypes.ITINERARY_UPDATE_TITLE:
       _updateTitle(action.title);

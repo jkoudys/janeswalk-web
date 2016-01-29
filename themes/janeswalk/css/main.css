@@ -9271,6 +9271,19 @@ body #itinerary #itinerary-select ul {
   line-height: 1.5;
   margin-bottom: 3px;
 }
+body #itinerary #itinerary-select ul a {
+  -webkit-transition-duration: 0.2s;
+          transition-duration: 0.2s;
+  opacity: 0.8;
+}
+body #itinerary #itinerary-select ul a:hover {
+  color: #f16725;
+  opacity: 1;
+}
+body #itinerary #itinerary-select ul a.selected {
+  font-weight: 700;
+  opacity: 1;
+}
 body #itinerary #itinerary-select input {
   width: 104px;
   font-size: 12px;
@@ -9661,15 +9674,14 @@ body #addWalk ul {
 body #addWalk ul li {
   display: inline-block;
   margin-left: 12px;
-  margin-top: 5px;
+  margin-top: 8px;
   font-weight: 500;
   font-size: 16px;
-  padding: 3px 5px;
-  border: 1px solid #f16725;
-  border-radius: 5px;
 }
 body #addWalk ul li a {
-  padding: 5px;
+  border: 1px solid #f16725;
+  border-radius: 5px;
+  padding: 1px 5px;
   -webkit-transition-duration: 0.2s;
           transition-duration: 0.2s;
   opacity: 0.4;
@@ -9682,6 +9694,11 @@ body #addWalk ul li a:hover {
 }
 body #addWalk ul li a.selected {
   opacity: 1;
+  background: #f16725;
+  color: #fff;
+}
+body #addWalk ul li:first-child {
+  margin-left: 0;
 }
 #modals dialog {
   border: none;

@@ -24,6 +24,18 @@
       letter-spacing: 0.025rem;
       line-height: 1.5;
       margin-bottom: 3px;
+      a {
+        transition-duration: 0.2s;
+        opacity: 0.8;
+        &:hover {
+          color: @color-orange;
+          opacity: 1;
+        }
+        &.selected {
+          font-weight: 700;
+          opacity: 1;
+        }
+      }
     }
     input {
       width: 104px;
@@ -341,14 +353,13 @@
     li {
       display: inline-block;
       margin-left: 12px;
-      margin-top: 5px;
+      margin-top: 8px;
       font-weight: 500;
       font-size: 16px;
-      padding: 3px 5px;
-      border: 1px solid @color-orange;
-      border-radius: 5px;
       a {
-        padding: 5px;
+        border: 1px solid @color-orange;
+        border-radius: 5px;
+        padding: 1px 5px;
         transition-duration: 0.2s;
         opacity: 0.4;
         color: @color-orange;
@@ -359,7 +370,12 @@
         }
         &.selected {
           opacity: 1;
+          background: @color-orange;
+          color: #fff;
         }
+      }
+      &:first-child {
+        margin-left: 0;
       }
     }
   }

@@ -1318,7 +1318,7 @@
 	              //reset Add Walk Dialog if open
 	              $el.modal('hide');
 	            } }),
-	          React.createElement(_ItinerarySelect2.default, { lists: lists }),
+	          React.createElement(_ItinerarySelect2.default, { lists: lists, activeList: listId }),
 	          React.createElement(
 	            'div',
 	            { className: 'itinerary' },
@@ -1392,7 +1392,7 @@
 	//TODO: Need to retrieve all lists either via JW Events, or async call on component mount
 	//TODO: Currently no remove list, just adding lists
 
-	var _removeWalk = function _removeWalk(id, listId, switchToList) {
+	var _removeWalk = function _removeWalk(id, listId) {
 	  var list = _allLists.find(function (list) {
 	    return list.id === listId;
 	  });
@@ -1400,22 +1400,17 @@
 	  if (!list) {
 	    console.log('List could not be found');
 	  } else {
-	    if (switchToList) _currentList = list;
-	    var walkFound = list.walks.find(function (walk) {
-	      return walk === id;
-	    });
+	    var walkFound = list.walks.includes(id);
 
 	    if (walkFound) {
-	      list.walks.splice(list.walks.findIndex(function (walk) {
-	        return walk === id;
-	      }), 1);
+	      list.walks.splice(list.walks.indexOf(id), 1);
 	    } else {
 	      console.log('Walk does not exists in list');
 	    }
 	  }
 	};
 
-	var _addWalk = function _addWalk(id, listId, walk, switchToList) {
+	var _addWalk = function _addWalk(id, listId) {
 	  var list = _allLists.find(function (list) {
 	    return list.id === listId;
 	  });
@@ -1424,13 +1419,10 @@
 	  if (!list) {
 	    console.log('List could not be found');
 	  } else {
-	    if (switchToList) _currentList = list;
-	    var walkFound = list.walks.find(function (walk) {
-	      return walk === id;
-	    });
+	    var walkFound = list.walks.includes(id);
 
 	    if (!walkFound) {
-	      list.walks.unshift(walk);
+	      list.walks.unshift(id);
 	    } else {
 	      console.log('Walk already exists, notify the user');
 	    }
@@ -1539,7 +1531,7 @@
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
 	        //TODO: Dialog to open on first add to Itinerary/Favourites
-	        _addWalk(action.id, action.listId, action.walk, action.switchToList);
+	        _addWalk(action.id, action.listId);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
 	        _updateTitle(action.title);
@@ -1920,8 +1912,8 @@
 	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, id: id, listId: listId });
 	}
 
-	function add(id, listId, walk, switchToList) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, id: id, listId: listId, walk: walk, switchToList: switchToList });
+	function add(id, listId) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, id: id, listId: listId });
 	}
 
 	function updateTitle(title) {
@@ -1993,6 +1985,16 @@
 	  }
 
 	  _createClass(Walk, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(_ref) {
+	      var listId = _ref.listId;
+
+	      // If the active list changes, close the dialog
+	      if (listId !== this.props.listId) {
+	        this.setState({ dialogOpen: false });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -2045,7 +2047,7 @@
 	            return _this2.setState({ dialogOpen: !dialogOpen });
 	          }
 	        }),
-	        dialogOpen ? React.createElement(_AddWalkToList2.default, { lists: lists, activeWalk: title }) : null
+	        dialogOpen ? React.createElement(_AddWalkToList2.default, { lists: lists, activeWalk: id, activeList: listId }) : null
 	      );
 	    }
 	  }]);
@@ -2122,26 +2124,30 @@
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
 	  var activeWalk = _ref.activeWalk;
+	  var activeList = _ref.activeList;
 
 	  //selectedWalk comes from where
-	  var allLists = lists.map(function (_ref2) {
+	  var allLists = lists.filter(function (_ref2) {
 	    var id = _ref2.id;
-	    var title = _ref2.title;
-	    var walks = _ref2.walks;
+	    return id != activeList;
+	  }).map(function (_ref3) {
+	    var id = _ref3.id;
+	    var title = _ref3.title;
+	    var walks = _ref3.walks;
 
-	    var walkFound = activeWalk && walks.find(function (walk) {
-	      return walk.id === activeWalk.id;
-	    });
+	    var walkFound = walks.includes(activeWalk);
 	    var action = undefined;
+
 	    if (walkFound) {
 	      action = function () {
-	        return (0, _ItineraryActions.remove)(activeWalk.id, id);
+	        return (0, _ItineraryActions.remove)(activeWalk, id);
 	      };
 	    } else {
 	      action = function () {
-	        return (0, _ItineraryActions.add)(activeWalk.id, id, activeWalk);
+	        return (0, _ItineraryActions.add)(activeWalk, id);
 	      };
 	    }
+
 	    return React.createElement(
 	      'li',
 	      { key: id },
@@ -2156,12 +2162,6 @@
 	  return React.createElement(
 	    'div',
 	    { id: 'addWalk', className: 'add-walk-to-list' },
-	    React.createElement(
-	      'strong',
-	      null,
-	      (0, _I18nStore.t)('Available in'),
-	      ': '
-	    ),
 	    React.createElement(
 	      'ul',
 	      null,
@@ -2430,6 +2430,7 @@
 
 	var ItinerarySelect = function ItinerarySelect(_ref) {
 	  var lists = _ref.lists;
+	  var activeList = _ref.activeList;
 	  return React.createElement(
 	    'dialog',
 	    { id: 'itinerary-select', className: 'static-list' },
@@ -2445,7 +2446,7 @@
 	          { key: id },
 	          React.createElement(
 	            'a',
-	            { onClick: function onClick() {
+	            { className: activeList === id ? 'selected' : '', onClick: function onClick() {
 	                return (0, _ItineraryActions.viewList)(title);
 	              } },
 	            title,
@@ -2461,6 +2462,8 @@
 	      { onClick: function onClick(ev) {
 	          return (0, _ItineraryActions.createList)('');
 	        } },
+	      React.createElement('i', { className: 'fa fa-plus' }),
+	      ' ',
 	      (0, _I18nStore.t)('New List')
 	    )
 	  );
