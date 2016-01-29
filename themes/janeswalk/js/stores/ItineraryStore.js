@@ -25,11 +25,11 @@ const _removeWalk = (id, listId, switchToList) => {
   if (!list) {
     console.log('List could not be found');
   } else {
-    if(switchToList)_currentList = list;
-    const walkFound = list.walks.find(walk => walk.id === id);
+    if (switchToList)_currentList = list;
+    const walkFound = list.walks.find(walk => walk === id);
 
     if (walkFound) {
-      list.walks.splice(list.walks.findIndex(walk => walk.id === id), 1);
+      list.walks.splice(list.walks.findIndex(walk => walk === id), 1);
     } else {
       console.log('Walk does not exists in list');
     }
@@ -43,8 +43,8 @@ const _addWalk = (id, listId, walk, switchToList) => {
   if (!list) {
     console.log('List could not be found');
   } else {
-    if(switchToList)_currentList = list;
-    const walkFound = list.walks.find(walk => walk.id === id);
+    if (switchToList)_currentList = list;
+    const walkFound = list.walks.find(walk => walk === id);
 
     if (!walkFound) {
       list.walks.unshift(walk);
@@ -56,7 +56,7 @@ const _addWalk = (id, listId, walk, switchToList) => {
 
 const _createList = (title) => {
 
-  if(!title.length) return;
+  if (!title.length) return;
 
   const list = _allLists.find(list => list.title === title);
 
@@ -143,8 +143,12 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   existsInList(listId,id) {
     const list = _allLists.find(list => list.id === listId);
     if (list) {
-      return list.walks.find(walk => walk.id === id);
+      return list.walks.find(walk => walk === id);
     }
+  },
+
+  getWalks() {
+    return walks;
   },
 
   //TODO: use _updateWalks to receive walks from server via API call

@@ -1,6 +1,7 @@
 #itinerary {
   .make-md-column(8);
   .clearfix();
+  min-height: 100vh;
   position: absolute;
   right: 0;
   top: 0;
@@ -15,8 +16,9 @@
   ul {
     list-style: none;
     padding-left: 0;
+    clear: both;
   }
-  #addWalk {
+  #itinerary-select {
     ul {
       font-size: 12px;
       letter-spacing: 0.025rem;
@@ -67,6 +69,18 @@
       //transition: opacity 0.3s;
     }
   }
+  // When we use a form element as a header, inherit the header style
+  h1, h2, h3, h4, h5, h6 {
+    input[type="text"] {
+      font: inherit;
+      color: inherit;
+      height: auto;
+      width: 100%;
+    }
+  }
+  h2 {
+    margin-top: 0;
+  }
 }
 
 .itinerary {
@@ -98,7 +112,6 @@
     &~button {
       font-size: 2.2rem;
       opacity: 0.5;
-      line-height: 0.5;
       &:hover {
         opacity: 1;
       }
@@ -111,29 +124,43 @@
     position: relative;
     transform: translateY(100%);
     border: none;
+    border-radius: 100%;
     background-color: transparent;
     color: #959595;
     outline: none;
     text-align: right;
+    transition-duration: 0.2s;
+    padding: 0.8rem;
+    top: -4.4rem;
 
     &:hover {
       color: black;
+    }
+    &.selected {
+      background: @color-orange;
+      color: #fff;
+      opacity: 1;
     }
   }
 
   .removeWalk {
     .glyphicon;
     .glyphicon-remove;
+    top: -4.4rem;
   }
 
   .addWalk {
     .glyphicon;
     .glyphicon-new-window;
+    top: -4.4rem;
   }
 
 }
 
 .itineraryHeader {
+  .make-md-column(9, 0);
+  .clearfix();
+
   .update {
     .glyphicon;
     .glyphicon-ok;
@@ -199,7 +226,6 @@
     color: #666;
   }
   h4.walklistDescription {
-    width: 76%;
     line-height: 1.3;
     margin: 20px 0 10px;
     textarea {
@@ -302,8 +328,39 @@
   background-color: white;
 }
 
-dialog#addWalk {
+#addWalk, #itinerary-select {
   opacity: 1;
   display: block;
   position: relative;
+}
+
+#addWalk {
+  clear: both;
+  ul {
+    display: inline-block;
+    li {
+      display: inline-block;
+      margin-left: 12px;
+      margin-top: 5px;
+      font-weight: 500;
+      font-size: 16px;
+      padding: 3px 5px;
+      border: 1px solid @color-orange;
+      border-radius: 5px;
+      a {
+        padding: 5px;
+        transition-duration: 0.2s;
+        opacity: 0.4;
+        color: @color-orange;
+        &:hover {
+          text-decoration: none;
+          color: @color-orange;
+          opacity: 0.7;
+        }
+        &.selected {
+          opacity: 1;
+        }
+      }
+    }
+  }
 }

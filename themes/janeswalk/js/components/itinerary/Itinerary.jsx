@@ -1,9 +1,9 @@
 import ItineraryStore from '../../stores/ItineraryStore';
-import ItineraryActions from '../../actions/ItineraryActions';
+import {remove, walkSelected, updateTitle, updateDescription} from '../../actions/ItineraryActions';
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
-import AddWalkToListDialog from './AddWalkToListDialog.jsx';
+import ItinerarySelect from './ItinerarySelect.jsx';
 
 const getItinerary = () => ({
   walks: ItineraryStore.getActiveList().walks,
@@ -11,8 +11,6 @@ const getItinerary = () => ({
   description: ItineraryStore.getActiveList().description,
   lists: ItineraryStore.getAllLists(),
   activeWalk: ItineraryStore.getWalkSelected(),
-  walkDialogOpen: ItineraryStore.getWalkDialog(),
-  dialogOpen: ItineraryStore.getDialog(),
   listId: ItineraryStore.getActiveList().id,
 });
 
@@ -44,35 +42,40 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    const {walks, dialogOpen, listId, $el, walkDialogOpen} = this.state;
+    const {walks, listId, lists, activeWalk, $el} = this.state;
 
-    const ItineraryWalks = walks.map(({map, id, title, time, url}) =>
-        <Walk
+    // Lookup the walk data from the walk's ID
+    const ItineraryWalks = walks.map(walkId => {
+        const {map, id, title, time, url} = ItineraryStore.getWalks()[walkId];
+        return (
+          <Walk
             title={title}
-            url = {url}
-            meeting={map.markers[0].title}
-            start={time.slots[0][0]}
+            url={url}
+            meeting={map ? map.markers[0] ? map.markers[0].title : null : null}
+            start={time ? time.slots[0][0] : null}
             id={id}
             key={id}
-            remove={ItineraryActions.remove}
-            walkSelected={ItineraryActions.walkSelected}
-            addWalkDialog={ItineraryActions.addWalkDialog}
             listId={listId}
-        />
-    );
+            lists={lists}
+          />
+        );
+    });
 
     return (
       <dialog open>
         <section id="itinerary">
           <i className="close fa fa-times" onClick={() => {
             //reset Add Walk Dialog if open
-            if(walkDialogOpen) ItineraryActions.addWalkDialog();
             $el.modal('hide');
           }} />
-          <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
+          <ItinerarySelect lists={lists} />
           <div className="itinerary">
             <section>
-              <ItineraryHeader {...this.state} {...ItineraryActions}/>
+              <ItineraryHeader
+                onChangeDescription={v => updateDescription(v)}
+                onChangeTitle={v => updateTitle(v)}
+                {...this.state}
+              />
             </section>
             <ul>
               {ItineraryWalks}
