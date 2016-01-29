@@ -69,9 +69,10 @@
       color: #fff;
       border: none;
       border-radius: 3px;
-      font-size: 12px;
+      font-size: 11px;
       padding: 2px 7px;
-      margin: 0 2px;
+      margin: 5px 2px;
+      opacity: 0.8;
       //Had to change capacity to view button
       opacity: 1;
       position: relative;
@@ -79,6 +80,9 @@
       cursor: pointer;
       //transition: opacity 0.3s, left 0.3s;
       //transition: opacity 0.3s;
+      &:hover {
+        opacity :1;
+      }
     }
   }
   // When we use a form element as a header, inherit the header style
@@ -117,6 +121,7 @@
     h3 {
       margin-top: 0;
       line-height: 1.2;
+      margin-bottom: 10px;
     }
     h4 {
       margin: 0px auto 3px;
@@ -177,7 +182,11 @@
     .glyphicon;
     .glyphicon-ok;
   }
-
+  h2 {
+    input[type="text"] {
+      border: 1px solid #ededed;
+    }
+  }
   .cancel {
     .glyphicon;
     .glyphicon-remove;
@@ -239,7 +248,7 @@
   }
   h4.walklistDescription {
     line-height: 1.3;
-    margin: 20px 0 10px;
+    margin: 20px 0 30px;
     textarea {
       width: 100%;
       outline: none;
@@ -352,21 +361,21 @@
     display: inline-block;
     li {
       display: inline-block;
-      margin-left: 12px;
-      margin-top: 8px;
+      margin-left: 10px;
+      margin-top: 17px;
       font-weight: 500;
-      font-size: 16px;
+      font-size: 13px; 
       a {
         border: 1px solid @color-orange;
         border-radius: 5px;
-        padding: 1px 5px;
-        transition-duration: 0.2s;
-        opacity: 0.4;
+        padding: 3px 6px;
+        // transition-duration: 0.2s;
+        opacity: 0.8;
         color: @color-orange;
         &:hover {
           text-decoration: none;
           color: @color-orange;
-          opacity: 0.7;
+          opacity: 1;
         }
         &.selected {
           opacity: 1;
