@@ -1,21 +1,39 @@
 import {dateFormatted} from '../../utils/ItineraryUtils';
 import {remove} from '../../actions/ItineraryActions';
 
-const Walk = ({title, start, meeting, url, id, listId, walkSelected}) => {
-  let removeButton = remove ? <button className="action removeWalk" onClick={(ev) => remove(id, listId, ev.target.value)} /> : null;
+import AddWalkToList from './AddWalkToList.jsx';
 
-  return(
-    <li className="walklistItem">
-      <div className="walk">
-        <h3><a href={url}>{title}</a></h3>
-        <h4>{dateFormatted(start)}</h4>
-        <h4>{meeting}</h4>
-      </div>
+class Walk extends React.Component {
+  constructor(...args) {
+    super(...args);
+    this.state = {
+      dialogOpen: false
+    };
+  }
 
-      {removeButton}
-      <button className="action addWalk" onClick={(ev) => { walkSelected(id, ev.target.value);}} />
-    </li>
-  );
+  render() {
+    const {title, start, meeting, url, id, listId, lists} = this.props;
+    const {dialogOpen} = this.state;
+
+    return(
+      <li className="walklistItem">
+        <div className="walk">
+          <h3><a href={url}>{title}</a></h3>
+          <h4>{dateFormatted(start)}</h4>
+          <h4>{meeting}</h4>
+        </div>
+        <button
+          className="action removeWalk"
+          onClick={() => remove(id, listId)}
+        />
+        <button
+          className={'action addWalk ' + (dialogOpen ? 'selected' : '')}
+          onClick={() => this.setState({dialogOpen: !dialogOpen})}
+        />
+        {dialogOpen ? <AddWalkToList lists={lists} activeWalk={title} /> : null}
+      </li>
+    );
+  }
 }
 
 Walk.propTypes = {
@@ -28,7 +46,7 @@ Walk.propTypes = {
 
 Walk.defaultProps = {
   title: 'Walk Title',
-  time: Date.now(),
+  time: {slots: [Date.now(), Date.now()]},
   remove: null
 };
 

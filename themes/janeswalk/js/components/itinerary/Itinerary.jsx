@@ -3,8 +3,7 @@ import {remove, walkSelected, updateTitle, updateDescription} from '../../action
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
-import AddWalkToListDialog from './AddWalkToListDialog.jsx';
-import WalkListDialog from './WalkListDialog.jsx';
+import ItinerarySelect from './ItinerarySelect.jsx';
 
 const getItinerary = () => ({
   walks: ItineraryStore.getActiveList().walks,
@@ -45,20 +44,22 @@ export default class Itinerary extends React.Component {
   render() {
     const {walks, listId, lists, activeWalk, $el} = this.state;
 
-    const ItineraryWalks = walks.map(({map, id, title, time, url}) =>
-        <Walk
+    // Lookup the walk data from the walk's ID
+    const ItineraryWalks = walks.map(walkId => {
+        const {map, id, title, time, url} = ItineraryStore.getWalks()[walkId];
+        return (
+          <Walk
             title={title}
-            url = {url}
-            meeting={map.markers[0].title}
-            start={time.slots[0][0]}
+            url={url}
+            meeting={map ? map.markers[0] ? map.markers[0].title : null : null}
+            start={time ? time.slots[0][0] : null}
             id={id}
             key={id}
-            remove={remove}
-            walkSelected={walkSelected}
-            addWalkDialog={addWalkDialog}
             listId={listId}
-        />
-    );
+            lists={lists}
+          />
+        );
+    });
 
     return (
       <dialog open>
@@ -67,7 +68,7 @@ export default class Itinerary extends React.Component {
             //reset Add Walk Dialog if open
             $el.modal('hide');
           }} />
-          {activeWalk ? <AddWalkToListDialog lists={lists} activeWalk={activeWalk} /> : <WalkListDialog lists={lists} />}
+          <ItinerarySelect lists={lists} />
           <div className="itinerary">
             <section>
               <ItineraryHeader
