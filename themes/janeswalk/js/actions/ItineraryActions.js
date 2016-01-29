@@ -7,8 +7,8 @@ export function remove(id, listId) {
   dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, listId});
 }
 
-export function add(id, listId, walk, switchToList) {
-  dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId, walk, switchToList});
+export function add(id, listId) {
+  dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId});
 }
 
 export function updateTitle(title) {

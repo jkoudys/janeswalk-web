@@ -8,9 +8,9 @@ const AddWalkToList = ({lists, activeWalk, activeList}) => {
     let action;
 
     if (walkFound) {
-      action = () => remove(activeWalk.id, id);
+      action = () => remove(activeWalk, id);
     } else {
-      action = () => add(activeWalk.id, id, activeWalk);
+      action = () => add(activeWalk, id);
     }
 
     return (
@@ -22,7 +22,6 @@ const AddWalkToList = ({lists, activeWalk, activeList}) => {
 
   return (
     <div id="addWalk" className="add-walk-to-list">
-      <strong>{t('Also available in')}: </strong>
       <ul>
         {allLists}
       </ul>

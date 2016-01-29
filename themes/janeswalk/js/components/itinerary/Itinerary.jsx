@@ -68,7 +68,7 @@ export default class Itinerary extends React.Component {
             //reset Add Walk Dialog if open
             $el.modal('hide');
           }} />
-          <ItinerarySelect lists={lists} />
+          <ItinerarySelect lists={lists} activeList={listId} />
           <div className="itinerary">
             <section>
               <ItineraryHeader
