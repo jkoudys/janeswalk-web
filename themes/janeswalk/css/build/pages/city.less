@@ -5,14 +5,13 @@ body.city-page {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-
+    //background-image: url("http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg");
     h1, h2, h3, h4, h5 {
         margin: 10px 0;
     }
 
     // Top section with window introducing city and its organizer
     > #intro-city {
-        background: transparent;
         color: #fff;
         font-family: @font-slab;
         font-size: 1.25em;
@@ -22,18 +21,16 @@ body.city-page {
         height: auto;
         width: 100%;
         position: relative;
-        margin: 0 auto 0;
-  
+        margin: 300px auto 0;
+        background: linear-gradient(fade(@color-orange, 95%), fade(@color-orange, 95%), fade(@color-orange, 80%));
         border-bottom: 1px solid #ddd;
         // max-width: @screen-lg-min;
         .city-summary {
             padding: @grid-gutter-width;
-            background: @color-orange;
-            background: linear-gradient(fade(@color-orange, 70%), fade(@color-orange, 80%), fade(@color-orange, 90%));
             @media (min-width: @screen-md-min) {
                 width: 67%;
                 display: inline-block;
-                vertical-align: bottom;
+                vertical-align: top;
             }
         }
         #city-sidebar {
