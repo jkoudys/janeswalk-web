@@ -147,8 +147,8 @@ export default class WalkFilter extends React.Component {
     return (
       <section className="ccm-block-page-list-walk-filters">
         <div className="walk-filters">
-          <a className="print-button" onClick={() => this.printList()}><i className="fa fa-print" /> Print List</a>
-          <h4 onClick={ () => { this.setState( {displayFilters: !displayFilters}); } }>Filters</h4>
+          <a className="filter-header" onClick={ () => { this.setState( {displayFilters: !displayFilters}); } }><i className={displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right'}/>Filters</a>
+          <a className="print-button" onClick={() => this.printList()}><i className="fa fa-print" /> Print List</a> 
           { displayFilters ? AllFilters : null }
         </div>
         <div className="walks-area">

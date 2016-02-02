@@ -1,15 +1,41 @@
+.walk-filters {
+  h4.filter-header {
+    margin-left: 15px;
+    color: @color-orange;
+    a {
+      color: @color-orange;
+    }
+  }
+  a.print-button {
+    margin-left: 15px;
+  }
+}
+
+
 .walk-card {
   @walk-card-offset: 15px;
   //.make-sm-column(6, 10px);
   //.make-md-column(4, 10px);//
-  width: 100%;
-  padding-top: @walk-card-offset;
-  padding-bottom: 0px;
-  vertical-align:bottom;
+  width: 95%;
+  min-width: ;
+  margin: 3px 8px 10px 2px;
+  display: inline-block;
+  @media (min-width: @screen-md-min) {
+    width: 47%;
+  }
+  /*padding-top: @walk-card-offset;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-bottom: 0px;*/
+
+  vertical-align: top;
   transition-duration: 0.1s;
+  height: auto;
 
   h4 {
-    color: @color-orange;
+    font-size: 15px;
+    ///color: @color-orange;
+    margin-bottom: 9px;
   }
 
   h6 {
@@ -24,13 +50,12 @@
   }
 
   .thumbnail {
-    height: 580px;
     transition: none;
     position: relative;
     padding: 0;
 
     .walkimage {
-      @height-walkimage: 250px;
+      @height-walkimage: 100px;
       position: relative;
       margin: 0;
       background-size:cover;
@@ -59,12 +84,16 @@
     }
 
     .caption {
+      padding: 2px 11px;
       p {
-        min-height: 90px;
+        //min-height: 90px;
         overflow: hidden;
         display: block;
+        font-size: 14px;
       }
-
+      h4 {
+        margin: 11px 0 8px;
+      }
       h6 {
         font-weight: 700;
       }
@@ -78,10 +107,16 @@
       list-style-type:none;
       font-weight:700;
       color:#222;
-      padding:0;
+      padding:11px;
+      background-color: @color-lightgrey;
       font-family: @font-slab;
       font-size:12px;
-      margin: 1.5em 0 0.6em 0;
+      margin: 0;
+      li {
+        margin-top: 2px;
+        color: #555;
+        font-weight: 400;
+      }
     }
 
     .tags {
@@ -89,6 +124,7 @@
       bottom: -(@grid-gutter-width);
       width: 100%;
       text-align: center;
+      display: none;
       .tag {
         display: inline-block;
         padding: 8px;
@@ -111,16 +147,19 @@
 
   &:hover {
     // Slide the walk card up
-    padding-top: (@walk-card-offset - 10px);
-    padding-bottom: 10px;
+    margin-top: (@walk-card-offset - 20px);
+    margin-bottom: 17px;
     .thumbnail {
       background: @color-blue;
       box-shadow: inset 0 0 0 1px darken(@color-blue,10%), 0 3px 0 darken(@color-blue,10%);
       color: #FFF;
-
+      border: 0px;
       h4, h6, p, li {
         color: #FFF;
       }
+    }
+    .when {
+      background: none;
     }
   }
 
