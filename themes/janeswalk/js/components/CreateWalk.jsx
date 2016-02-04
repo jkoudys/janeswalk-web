@@ -13,6 +13,7 @@ import AccessibleSelect from './caw/AccessibleSelect.jsx';
 import TeamBuilder from './caw/TeamBuilder.jsx';
 import WalkPublish from './caw/WalkPublish.jsx';
 import TextAreaLimit from './TextAreaLimit.jsx';
+const defaultWalk = require('../constants/defaultWalk.json');
 
 // Flux
 import I18nActions from 'janeswalk/actions/I18nActions';
@@ -28,40 +29,7 @@ export default class CreateWalk extends React.Component {
     // TODO: move this into its own model js
     // Keep these defaults to type, ie don't pre-seed data here, aside from
     // data loaded by passing it in
-    const walk = {
-      name: '',
-      shortDescription: '',
-      longDescription: '',
-      accessibleInfo: '',
-      accessibleTransit: '',
-      accessibleParking: '',
-      accessibleFind: '',
-      map: {
-        markers: [],
-        route: []
-      },
-      team: [{
-        id: -1,
-        type: 'you',
-        "name-first": '',
-        "name-last": '',
-        role: 'walk-leader',
-        primary: 'on',
-        bio: '',
-        twitter: '',
-        facebook: '',
-        website: '',
-        email: '',
-        phone: ''
-      }],
-      time: {type: '', slots: []},
-      thumbnails: [],
-      wards: '',
-      checkboxes: {},
-      notifications: [],
-      mirrors: {},
-      url: props.url
-    };
+    const walk = Object.assign({}, defaultWalk, {url: props.url});
 
     // Convert old {0: marker, 1: marker} indexing to a proper array
     if (data) {

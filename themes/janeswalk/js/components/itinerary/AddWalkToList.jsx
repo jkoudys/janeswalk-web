@@ -1,24 +1,28 @@
-import {remove, add, createList, walkSelected, viewList, addWalkDialog, updateTitle, updateDescription} from '../../actions/ItineraryActions';
 import {t} from 'janeswalk/stores/I18nStore';
 
-const AddWalkToList = ({lists, activeWalk, activeList}) => {
+const AddWalkToList = ({lists, walk, list, onAdd, onRemove}) => {
   //selectedWalk comes from where
-  const allLists = lists.filter(({id}) => id != activeList).map(({id, title, walks}) => {
-    const walkFound = walks.includes(activeWalk);
-    let action;
+  const allLists = [];
 
-    if (walkFound) {
-      action = () => remove(activeWalk, id);
-    } else {
-      action = () => add(activeWalk, id);
+  for (let otherList of lists) {
+    if (list !== otherList) {
+      const {id, title, walks} = otherList;
+      const walkFound = walks.has(walk);
+      let action;
+
+      if (walkFound) {
+        action = () => onRemove(otherList);
+      } else {
+        action = () => onAdd(otherList);
+      }
+
+      allLists.push(
+        <li key={id}>
+          <a onClick={action} className={walkFound ? 'selected' : ''}>{title}</a>
+        </li>
+      );
     }
-
-    return (
-      <li key={id}>
-        <a onClick={action} className={walkFound ? 'selected' : ''}>{title}</a>
-      </li>
-    );
-  });
+  }
 
   return (
     <div id="addWalk" className="add-walk-to-list">
@@ -30,12 +34,7 @@ const AddWalkToList = ({lists, activeWalk, activeList}) => {
 };
 
 AddWalkToList.propTypes = {
-    lists: React.PropTypes.array
-};
-
-AddWalkToList.defaultProps = {
-  lists: [],
-  activeWalk: {id: 0}
+    lists: React.PropTypes.instanceOf(Set)
 };
 
 export default AddWalkToList;

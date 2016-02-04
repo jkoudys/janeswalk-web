@@ -1,21 +1,21 @@
 import {t} from 'janeswalk/stores/I18nStore';
 
-const ItineraryHeader = ({title, description, shareUrl, onChangeTitle, onChangeDescription}) => (
+const ItineraryHeader = ({list, onChangeTitle, onChangeDescription}) => (
   <header className="itineraryHeader">
     <h2>
       <input
         type="text"
         required="required"
-        value={title}
+        value={list.title}
         placeholder={t('My Itinerary\'s Title')}
         onChange={ev => onChangeTitle(ev.target.value)}
       />
     </h2>
-    {shareUrl ? <h5 className="shareUrl"><a href={shareUrl}>{shareUrl}</a></h5> : null}
+    {list.shareUrl ? <h5 className="shareUrl"><a href={list.shareUrl}>{list.shareUrl}</a></h5> : null}
     <h4 className="walklistDescription">
       <textarea
         required="required"
-        value={description}
+        value={list.description}
         placeholder={t('Tell people about it! Start typing here to give your list some commentary.')}
         onChange={ev => onChangeDescription(ev.target.value)}
       />

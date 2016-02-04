@@ -2,18 +2,16 @@ import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
 
 // Load the walk
-export function receive(walk, url) {
+export function receive(walk) {
   dispatch({
     type: ActionTypes.WALK_RECEIVE,
-    walk: walk,
-    url: url
+    walk: walk
   });
 }
 
-export function change(property, value) {
+export function receiveAll(walks) {
   dispatch({
-    type: ActionTypes.WALK_CHANGE,
-    property: property,
-    value: value
+    type: ActionTypes.WALK_RECEIVE_ALL,
+    walks: walks
   });
 }

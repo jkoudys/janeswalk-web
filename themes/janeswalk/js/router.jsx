@@ -7,6 +7,8 @@
 import * as I18nUtils from 'janeswalk/utils/I18nUtils.js';
 import * as AreaActions from './actions/AreaActions.js';
 import * as UserActions from './actions/UserActions.js';
+import * as WalkActions from './actions/WalkActions.js';
+import * as ItineraryActions from './actions/ItineraryActions.js';
 import Navbar from './components/Navbar.jsx';
 
 // Page Views
@@ -14,6 +16,10 @@ import Page from './components/Page.jsx';
 import City from './components/pages/City.jsx';
 import Home from './components/pages/Home.jsx';
 import Profile from './components/pages/Profile.jsx';
+
+// FIXME XXX: remove stubbed out static data
+import {walks, lists} from './components/itinerary/ItineraryStaticData';
+
 const PageViews = {
   PageView: Page,
   CityPageView: City,
@@ -137,9 +143,16 @@ function routePage() {
 document.addEventListener('DOMContentLoaded', function() {
   JanesWalk.event.on('area.receive', areas => AreaActions.receive(areas));
   JanesWalk.event.on('user.receive', user => UserActions.receive(user));
+  JanesWalk.event.on('walk.receive', walk => WalkActions.receive(walk));
+  JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
+  JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
 
   // Process all deferred events
   JanesWalk.event.activate();
+
+  // FIXME XXX: stubbed itineraries list
+  JanesWalk.event.emit('itineraries.receive', lists);
+  JanesWalk.event.emit('walks.receive', walks);
 
   // TODO: emit the city without needing to load JanesWalk with static data
   JanesWalk.event.emit('city.receive', JanesWalk.city);

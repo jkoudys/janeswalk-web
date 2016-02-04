@@ -18,6 +18,7 @@ class Controller extends \Controller
      * Adds array properties to the JSON we make available on the rendered page
      *
      * @param array $properties One or more, possibly multi-level properties
+     * @deprecated In favour of JanesWalk.event methods
      *
      * @return null
      */

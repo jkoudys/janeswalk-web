@@ -1,5 +1,4 @@
 import {dateFormatted} from '../../utils/ItineraryUtils';
-import {remove} from '../../actions/ItineraryActions';
 
 import AddWalkToList from './AddWalkToList.jsx';
 
@@ -11,16 +10,26 @@ class Walk extends React.Component {
     };
   }
 
-  componentWillReceiveProps({listId}) {
+  componentWillReceiveProps({list}) {
     // If the active list changes, close the dialog
-    if (listId !== this.props.listId) {
+    if (list !== this.props.list) {
       this.setState({dialogOpen: false});
     }
   }
 
   render() {
-    const {title, start, meeting, url, id, listId, lists} = this.props;
+    const {walk, list, lists, onAdd, onRemove} = this.props;
     const {dialogOpen} = this.state;
+    const {title, url, map, time} = walk;
+    let meeting, start;
+
+    if (map && map.markers[0]) {
+      meeting = map.markers[0].title;
+    }
+
+    if (time && time.slots) {
+      start = time.slots[0][0];
+    }
 
     return(
       <li className="walklistItem">
@@ -31,13 +40,13 @@ class Walk extends React.Component {
         </div>
         <button
           className="action removeWalk"
-          onClick={() => remove(id, listId)}
+          onClick={() => onRemove(list)}
         />
         <button
           className={'action addWalk ' + (dialogOpen ? 'selected' : '')}
           onClick={() => this.setState({dialogOpen: !dialogOpen})}
         />
-        {dialogOpen ? <AddWalkToList lists={lists} activeWalk={id} activeList={listId} /> : null}
+        {dialogOpen ? <AddWalkToList lists={lists} walk={walk} list={list} onAdd={onAdd} onRemove={onRemove} /> : null}
       </li>
     );
   }

@@ -5,38 +5,52 @@
  * description, and people involved with a walk.
  */
 
-import Store from './Store.js';
-import {Events, ActionTypes} from '../constants/JWConstants.js';
-import {register} from 'janeswalk/dispatcher/AppDispatcher.js';
-import defaultWalk from '../constants/defaultWalk.json';
+import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
+import {ActionTypes} from 'janeswalk/constants/JWConstants';
+import {walks} from '../components/itinerary/ItineraryStaticData';
+
+const defaultWalk = require('../constants/defaultWalk.json');
+
+const CHANGE_EVENT = 'change';
 
 // Store singletons
-// The Walk object, and its default params
-let _walk = defaultWalk;
-// @var string The service endpoint for this walk
-let _url = '';
+// The Walk objects, keyed by walk ID (ie collection ID)
+const _walks = new Map();
 
-function receiveWalk(walk, url) {
-  // Map the walk data
-  _walk = [
-    'id', 'title', 'initiatives', 'longDescription', 'shortDescription',
-    'thumbnails', 'mirrors', 'wards'
-  ].reduce((obj, cur) => { obj[cur] = walk.data[cur]; return obj; }, {});
-  _url = walk.url;
+// XXX FIXME TODO
+receiveWalks(walks);
+
+// Receive a single walk
+function receiveWalk(walk) {
+  _walks.set(+walk.id, walk);
 }
 
-const WalkStore = Object.assign({}, Store, {
-  getWalk() {
-    return _walk;
+// Receive an array of walks
+function receiveWalks(walks) {
+  walks.forEach(w => receiveWalk(w));
+}
+
+const WalkStore = Object.assign(EventEmitter.prototype, {
+  emitChange() {
+    this.emit(CHANGE_EVENT);
   },
 
-  getUrl() {
-    return _url
+  addChangeListener(callback) {
+    this.on(CHANGE_EVENT, callback);
   },
 
-  getApi() {
-    return {};
-  }
+  removeChangeListener(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getWalks() {
+    return _walks;
+  },
+
+  getWalk(id) {
+    return _walks.get(+id);
+  },
 
   // Register our dispatch token as a static method
   dispatchToken: register(function(payload) {
@@ -44,10 +58,13 @@ const WalkStore = Object.assign({}, Store, {
     switch(payload.type) {
       // Route actions
       case ActionTypes.WALK_RECEIVE:
-        receiveWalk(payload.walk, payload.url);
-      WalkStore.emitChange();
+        receiveWalk(payload.walk);
+      break;
+      case ActionTypes.WALK_RECEIVE_ALL:
+        receiveWalks(payload.walks);
       break;
     }
+    WalkStore.emitChange();
   })
 });
 

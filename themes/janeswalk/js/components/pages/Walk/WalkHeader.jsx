@@ -1,4 +1,5 @@
 import {dateFormatted} from '../../../utils/ItineraryUtils';
+import {add, remove} from '../../../actions/ItineraryActions';
 
 //TODO: Duplicate of Itinerary <Walk/>
 //TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
@@ -24,19 +25,20 @@ function headerBG(city, walk) {
   };
 }
 
-const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFavourites, favoriteListId, itineraryListId}) => {
-  const favButton = () => {
-    if (existsInFavourites) return <button className="removeFavourite" onClick={()=>remove(id,favoriteListId, true)}> </button>;
-    else return <button className="addFavourite" onClick={()=>add(id,favoriteListId, walk)}> </button>;
-  };
+const WalkHeader = ({city, walk, id, existsInItinerary, existsInFavourites, favoriteListId, itineraryListId}) => {
+  let favButton, addButton;
+  if (existsInFavourites) {
+    favButton = <button className="removeFavourite" onClick={() => remove(id, favoriteListId)} />;
+  } else {
+    favButton = <button className="addFavourite" onClick={()=>add(id, favoriteListId)} />;
+  }
 
-  const addButton = () => {
-    if (existsInItinerary) return <button className="removeItinerary" onClick={()=>remove(id,itineraryListId, true)}> </button>;
-    else return <button className="addItinerary" onClick={()=>add(id,itineraryListId, walk, true)}> </button>;
-  };
+  if (existsInItinerary) {
+    addButton = <button className="removeItinerary" onClick={() => remove(id, itineraryListId)} />;
+  } else {
+    addButton = <button className="addItinerary" onClick={() => add(id, itineraryListId)} />;
+  }
 
-  const addToFavourites = favButton();
-  const addToItinerary = addButton();
   const {title, map, time, team, thumbnails} = walk;
   const {url, name} = city;
   const walkLeader = team.find(member => member.role === 'walk-leader');
@@ -47,7 +49,7 @@ const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFav
     addToItineraryButton = (
       <h4>
         {walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}{dateFormatted(time.slots[0][0])}
-        {addToItinerary}
+        {addButton}
       </h4>
     );
   }
@@ -56,12 +58,12 @@ const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFav
     <section className="walkHeader">
       <section className="coverImage" style={headerBG(city, walk)}>
         <ul className="breadcrumb">
-          <li><a href="/"><i className="fa fa-home"></i></a></li>
+          <li><a href="/"><i className="fa fa-home" /></a></li>
           <li><a href={url}>{`${name} walks`}</a></li>
           <li className="active">{title}</li>
         </ul>
       </section>
-      <h1>{title}{addToFavourites}</h1>
+      <h1>{title} {favButton}</h1>
       {addToItineraryButton}
       <h4>Meeting at {map.markers[0].title}</h4>
     </section>

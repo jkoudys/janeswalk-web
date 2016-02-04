@@ -1,100 +1,60 @@
 import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
-import {lists, walks} from '../components/itinerary/ItineraryStaticData';
+
+import WalkStore from './WalkStore';
 
 const CHANGE_EVENT = 'change';
 
-//TODO: for stubbed data, assumed first list is Itinerary, second list is fav
-let _itinerary = lists[0];
-let _favourites = lists[1];
-let _currentList = _itinerary;
-let _allLists = lists.slice();
-let _dialogOpen = false;
-let _walkSelected = null;
-let _walkDialogOpen = false;
+// TODO: init empty and receive from event
+const _lists = new Set();
 
 //TODO: _removeWalk, _addWalk, should receive updated list
 //TODO: _createList, _updateTitle, _updateDescription, should receive updated list
 //TODO: Need to retrieve all lists either via JW Events, or async call on component mount
 //TODO: Currently no remove list, just adding lists
 
-const _removeWalk = (id, listId) => {
-  const list = _allLists.find(list => list.id === listId);
+const _removeWalk = (list, walk) => list.walks.delete(walk);
+const _addWalk = (list, walk) => list.walks.add(walk);
 
-  if (!list) {
-    console.log('List could not be found');
-  } else {
-    const walkFound = list.walks.includes(id);
+const _createList = (title = '', description = '') => {
+  const list = {
+    title: title,
+    walks: new Set(),
+    description: description,
+    shareUrl: ''
+  };
 
-    if (walkFound) {
-      list.walks.splice(list.walks.indexOf(id), 1);
-    } else {
-      console.log('Walk does not exists in list');
-    }
-  }
+  _lists.add(list);
+
+  // Returning list, since after _createList, _addWalk is called, so passing around the list
+  return list;
 };
 
-const _addWalk = (id, listId) => {
-  const list = _allLists.find(list => list.id === listId);
-
-  //TODO: May not be required after API calls
-  if (!list) {
-    console.log('List could not be found');
-  } else {
-    const walkFound = list.walks.includes(id);
-
-    if (!walkFound) {
-      list.walks.unshift(id);
-    } else {
-      console.log('Walk already exists, notify the user');
-    }
-  }
+/**
+ * Load all the basic itineraries
+ *
+ * @param itineraries array List of itineraries in serlizable-friendly state
+ */
+const _receiveAll = (itineraries) => {
+  // Itinerary has a list of walk IDs, so load the actual walks from there.
+  itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary, {
+    walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
+  })));
 };
 
-const _createList = (title) => {
-
-  if (!title.length) return;
-
-  const list = _allLists.find(list => list.title === title);
-
-  if (!list) {
-    _allLists.push({
-      id: _allLists.length + 1,
-      title,
-      shareUrl: 'janeswalk.org/Harold/' + title,
-      description: "View my Jane's Walk Itinerary!",
-      walks: [],
-    });
-  }
-
-  //Returning list, since after _createList, _addWalk is called, so passing around the list
-  return _allLists[_allLists.length - 1];
-};
 
 //walks received from API used to update _itinerary
-const _updateWalks = (walks) => {
-  _currentList.walks = walks.slice();
+const _updateWalks = (list, walks) => {
+  walks.forEach(walk => list.add(walk));
 };
 
-const _updateTitle = (title) => {
-  _currentList.title = title;
+const _updateTitle = (list, title) => {
+  list.title = title;
 };
 
-const _updateDescription = (description) => {
-  _currentList.description = description;
-};
-
-const _getWalks = (title) => {
-  if (_currentList.title !== title) {
-    const listFound = _allLists.find(list => list.title === title);
-
-    if (listFound) {
-      _currentList = listFound;
-    } else {
-      console.log('list not found, notify user');
-    }
-  }
+const _updateDescription = (list, description) => {
+  list.description = description;
 };
 
 const ItineraryStore = Object.assign(EventEmitter.prototype, {
@@ -110,82 +70,51 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
-  getAllLists() {
-    return _allLists;
-  },
-
-  getWalkSelected() {
-    return _walkSelected;
-  },
-
-  getActiveList() {
-    return _currentList;
-  },
-
-  getWalkDialog() {
-    return _walkDialogOpen;
-  },
-
-  getDialog() {
-    return _dialogOpen;
+  getLists() {
+    return _lists;
   },
 
   getItineraryList() {
-    return _itinerary;
+    // Top of the lists is the itinerary
+    for (let list of _lists.values()) {
+      return list;
+    }
   },
 
   getFavouriteList() {
     return _favourites;
   },
 
-  existsInList(listId,id) {
-    const list = _allLists.find(list => list.id === listId);
-    if (list) {
-      return list.walks.find(walk => walk === id);
-    }
+  getWalks(list) {
+    return list.walks;
   },
 
-  getWalks() {
-    return walks;
+  existsInList(list, walk) {
+    return list.has(walk);
   },
 
   //TODO: use _updateWalks to receive walks from server via API call
-  dispatcherIndex: register(function(action) {
-    switch (action.type) {
+  dispatcherIndex: register(function(payload) {
+    const {list, walk} = payload;
+    switch (payload.type) {
     case ActionTypes.ITINERARY_REMOVE_WALK:
-      _removeWalk(action.id, action.listId);
+      _removeWalk(list, walk);
       break;
     case ActionTypes.ITINERARY_ADD_WALK:
        //TODO: Dialog to open on first add to Itinerary/Favourites
-      _addWalk(action.id, action.listId);
+      _addWalk(list, walk);
       break;
     case ActionTypes.ITINERARY_UPDATE_TITLE:
-      _updateTitle(action.title);
+      _updateTitle(list, payload.title);
       break;
     case ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
-      _updateDescription(action.description);
-      break;
-    case ActionTypes.ITINERARY_VIEW_LIST:
-      _getWalks(action.title);
+      _updateDescription(list, payload.description);
       break;
     case ActionTypes.ITINERARY_CREATE_LIST:
-      let newList = _createList(action.title);
-      if(action.walk && newList) _addWalk(action.id, newList.id, action.walk);
+      _createList(payload.title, payload.description);
       break;
-      case ActionTypes.ITINERARY_WALK_SELECTED:
-      // TODO: Refactor further based on functionality.
-      if (_walkSelected && _walkSelected.id === action.id) {
-        _walkDialogOpen = !_walkDialogOpen;
-        _walkSelected = null;
-      } else {
-        if(!_walkSelected) _walkDialogOpen = !_walkDialogOpen;
-        _walkSelected = _currentList.walks.find(w => w.id === action.id);
-      }
-      break;
-    case ActionTypes.ITINERARY_ADD_WALK_DIALOG:
-      // TODO: Refactor based on functionality.
-      _walkSelected = null;
-      _walkDialogOpen = !_walkDialogOpen;
+    case ActionTypes.ITINERARY_RECEIVE_ALL:
+      _receiveAll(payload.itineraries);
       break;
     }
 

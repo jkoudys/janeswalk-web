@@ -3,7 +3,7 @@ import AreaStore from '../stores/AreaStore.js';
 import UserStore from '../stores/UserStore.js';
 
 // TODO: Replace translations placeholders
-const t = s => s;
+import {t} from 'janeswalk/stores/I18nStore';
 const tc = (c, s) => s;
 
 /* Build menu options depending if currently logged in or not */

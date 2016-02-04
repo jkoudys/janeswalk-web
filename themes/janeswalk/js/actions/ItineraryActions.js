@@ -3,30 +3,26 @@ import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 
 //TODO: API call before dispatch
 
-export function remove(id, listId) {
-  dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, id, listId});
+export function remove(list, walk) {
+  dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, list, walk});
 }
 
-export function add(id, listId) {
-  dispatch({type: ActionTypes.ITINERARY_ADD_WALK, id, listId});
+export function add(list, walk) {
+  dispatch({type: ActionTypes.ITINERARY_ADD_WALK, list, walk});
 }
 
-export function updateTitle(title) {
-  dispatch({type: ActionTypes.ITINERARY_UPDATE_TITLE, title});
+export function updateTitle(list, title) {
+  dispatch({type: ActionTypes.ITINERARY_UPDATE_TITLE, title, list});
 }
 
-export function updateDescription(description) {
-  dispatch({type: ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description});
+export function updateDescription(list, description) {
+  dispatch({type: ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description, list});
 }
 
-export function viewList(title) {
-  dispatch({type: ActionTypes.ITINERARY_VIEW_LIST, title});
+export function createList(title, description) {
+  dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, title, description});
 }
 
-export function createList(title, id, walk) {
-  dispatch({type: ActionTypes.ITINERARY_CREATE_LIST, id, title, walk});
-}
-
-export function walkSelected(id) {
-  dispatch({type: ActionTypes.ITINERARY_WALK_SELECTED, id});
+export function receiveAll(itineraries) {
+  dispatch({type: ActionTypes.ITINERARY_RECEIVE_ALL, itineraries});
 }

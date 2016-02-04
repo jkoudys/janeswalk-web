@@ -1,32 +1,32 @@
 import ItineraryStore from '../../stores/ItineraryStore';
-import {remove, walkSelected, updateTitle, updateDescription} from '../../actions/ItineraryActions';
+import WalkStore from '../../stores/WalkStore';
+import {add, remove, updateTitle, updateDescription, createList} from '../../actions/ItineraryActions';
+import {t} from 'janeswalk/stores/I18nStore';
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
 import ItinerarySelect from './ItinerarySelect.jsx';
 
-const getItinerary = () => ({
-  walks: ItineraryStore.getActiveList().walks,
-  title: ItineraryStore.getActiveList().title,
-  description: ItineraryStore.getActiveList().description,
-  lists: ItineraryStore.getAllLists(),
-  activeWalk: ItineraryStore.getWalkSelected(),
-  listId: ItineraryStore.getActiveList().id,
+const getItinerary = (list = ItineraryStore.getItineraryList()) => ({
+  activeList: list,
+  lists: ItineraryStore.getLists()
 });
 
 export default class Itinerary extends React.Component {
   constructor(props, ...args) {
     super(props, ...args);
-    this.state = props.itinerary || getItinerary();
+    this.state = Object.assign({}, getItinerary(), props.itinerary);
     this._onChange = this._onChange.bind(this);
   }
 
   componentWillMount() {
-    ItineraryStore.addChangeListener( this._onChange );
+    ItineraryStore.addChangeListener(this._onChange);
+    WalkStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    ItineraryStore.removeChangeListener( this._onChange );
+    ItineraryStore.removeChangeListener(this._onChange);
+    WalkStore.removeChangeListener(this._onChange);
   }
 
   componentDidMount() {
@@ -38,43 +38,43 @@ export default class Itinerary extends React.Component {
   }
 
   _onChange() {
-    this.setState(getItinerary);
+    this.setState(() => getItinerary(this.state.activeList));
   }
 
   render() {
-    const {walks, listId, lists, activeWalk, $el} = this.state;
+    const {activeList, lists, $el} = this.state;
 
     // Lookup the walk data from the walk's ID
-    const ItineraryWalks = walks.map(walkId => {
-        const {map, id, title, time, url} = ItineraryStore.getWalks()[walkId];
-        return (
-          <Walk
-            title={title}
-            url={url}
-            meeting={map ? map.markers[0] ? map.markers[0].title : null : null}
-            start={time ? time.slots[0][0] : null}
-            id={id}
-            key={id}
-            listId={listId}
-            lists={lists}
-          />
-        );
+    const ItineraryWalks = [];
+    activeList.walks.forEach(walk => {
+      ItineraryWalks.push(
+        <Walk
+          key={walk.id}
+          list={activeList}
+          lists={lists}
+          walk={walk}
+          onAdd={(list) => add(list, walk)}
+          onRemove={(list) => remove(list, walk)}
+        />
+      );
     });
 
     return (
       <dialog open>
         <section id="itinerary">
-          <i className="close fa fa-times" onClick={() => {
-            //reset Add Walk Dialog if open
-            $el.modal('hide');
-          }} />
-          <ItinerarySelect lists={lists} activeList={listId} />
+          <i className="close fa fa-times" onClick={() => $el.modal('hide')} />
+          <ItinerarySelect
+            lists={lists}
+            activeList={activeList}
+            onChoose={list => this.setState({activeList: list})}
+            onCreate={() => createList(t('New Itinerary'))}
+          />
           <div className="itinerary">
             <section>
               <ItineraryHeader
-                onChangeDescription={v => updateDescription(v)}
-                onChangeTitle={v => updateTitle(v)}
-                {...this.state}
+                onChangeDescription={v => updateDescription(activeList, v)}
+                onChangeTitle={v => updateTitle(activeList, v)}
+                list={activeList}
               />
             </section>
             <ul>
