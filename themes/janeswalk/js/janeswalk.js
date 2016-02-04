@@ -77,6 +77,10 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
+	var _Itinerary = __webpack_require__(289);
+
+	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
+
 	var _Page = __webpack_require__(30);
 
 	var _Page2 = _interopRequireDefault(_Page);
@@ -111,6 +115,13 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+	/**
+	 * Initialization code goes here. This is not to be a dumping ground for
+	 * miscellaneous functions, and especially not a place to stick new global
+	 * variables.
+	 */
+	// Translations for i18n L10n
+
 	var PageViews = {
 	  PageView: _Page2.default,
 	  CityPageView: _City2.default,
@@ -123,12 +134,6 @@
 	// FIXME XXX: remove stubbed out static data
 
 	// Page Views
-	/**
-	 * Initialization code goes here. This is not to be a dumping ground for
-	 * miscellaneous functions, and especially not a place to stick new global
-	 * variables.
-	 */
-	// Translations for i18n L10n
 
 	var ReactViews = {
 	  CreateWalkView: _CreateWalk2.default
@@ -238,11 +243,11 @@
 	    return ItineraryActions.receiveAll(itineraries);
 	  });
 
-	  // FIXME XXX: stubbed itineraries list
-	  JanesWalk.event.emit('itineraries.receive', _ItineraryStaticData.lists);
-	  JanesWalk.event.emit('walks.receive', _ItineraryStaticData.walks);
 	  // TODO: emit the city without needing to load JanesWalk with static data
 	  JanesWalk.event.emit('city.receive', JanesWalk.city);
+
+	  // TODO: this could use a better home
+	  ItineraryAPI.startPolling();
 
 	  // Routes initialized by events
 	  JanesWalk.event.on('walkpage.load', function (_ref) {
@@ -803,7 +808,7 @@
 	'USER_RECEIVE',
 
 	// Itineraries
-	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL',
+	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END',
 
 	// Dashboard
 	'FILTER_WALKS', 'TOGGLE_WALK_FILTER', 'REMOVE_WALK_FILTER', 'FILTER_WALKS_BY_DATE', 'FILTER_LEADERS_BY_DATE', 'SORT_LEADERS', 'TOGGLE_MENU'].reduce(function (p, k) {
@@ -921,6 +926,7 @@
 	exports.updateDescription = updateDescription;
 	exports.createList = createList;
 	exports.receiveAll = receiveAll;
+	exports.syncEnd = syncEnd;
 
 	var _JWConstants = __webpack_require__(9);
 
@@ -952,6 +958,10 @@
 	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL, itineraries: itineraries });
 	}
 
+	function syncEnd(start) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_SYNC_END, start: start });
+	}
+
 /***/ },
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
@@ -976,6 +986,10 @@
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
 	var _I18nStore = __webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -999,6 +1013,7 @@
 	  var searching = _ref.searching;
 	  var toggleProfile = _ref.toggleProfile;
 	  var toggleSearch = _ref.toggleSearch;
+	  var unseenUpdates = _ref.unseenUpdates;
 	  return [React.createElement(
 	    'li',
 	    null,
@@ -1009,7 +1024,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { className: unseenUpdates ? 'notify' : '' },
 	    React.createElement(
 	      'a',
 	      { onClick: toggleProfile, className: profiling ? 'selected' : '' },
@@ -1070,7 +1085,9 @@
 	  return {
 	    options: _AreaStore2.default.getArea('Left Header'),
 	    dropdown: _AreaStore2.default.getArea('Dropdown'),
-	    user: _UserStore2.default.getUser()
+	    user: _UserStore2.default.getUser(),
+	    itinerary: _ItineraryStore2.default.getLists(),
+	    totalWalks: _ItineraryStore2.default.totalWalks()
 	  };
 	}
 
@@ -1129,6 +1146,7 @@
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Navbar)).call.apply(_Object$getPrototypeO, [this].concat(args)));
 
 	    _this.state = getNavbar();
+	    _this.state.lastSize = _ItineraryStore2.default.totalWalks();
 	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
@@ -1148,7 +1166,7 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange() {
-	      this.setState(getNavbar());
+	      this.setState(getNavbar);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -1216,6 +1234,8 @@
 	      var user = _state.user;
 	      var searching = _state.searching;
 	      var profiling = _state.profiling;
+	      var itinerary = _state.itinerary;
+	      var totalWalks = _state.totalWalks;
 
 	      var userOptions = undefined;
 	      var defaultOptions = {
@@ -1230,8 +1250,9 @@
 	        userOptions = LoggedInOptions(Object.assign({
 	          user: user,
 	          profiling: profiling,
+	          unseenUpdates: this.state.lastSize !== totalWalks,
 	          toggleProfile: function toggleProfile() {
-	            return _this2.setState({ profiling: !_this2.state.profiling });
+	            return _this2.setState({ profiling: !_this2.state.profiling, lastSize: totalWalks });
 	          }
 	        }, defaultOptions));
 	      } else {
@@ -1324,6 +1345,12 @@
 	var _ItinerarySelect = __webpack_require__(27);
 
 	var _ItinerarySelect2 = _interopRequireDefault(_ItinerarySelect);
+
+	var _Itinerary = __webpack_require__(289);
+
+	var API = _interopRequireWildcard(_Itinerary);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1487,6 +1514,8 @@
 
 	'use strict';
 
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -1505,17 +1534,17 @@
 
 	var CHANGE_EVENT = 'change';
 
-	// TODO: init empty and receive from event
 	var _lists = new Set();
 
-	//TODO: _removeWalk, _addWalk, should receive updated list
-	//TODO: _createList, _updateTitle, _updateDescription, should receive updated list
-	//TODO: Need to retrieve all lists either via JW Events, or async call on component mount
+	// Has this store been synced, and is it syncing?
+	var _lastChange = Date.now();
+
 	//TODO: Currently no remove list, just adding lists
 
 	var _removeWalk = function _removeWalk(list, walk) {
 	  return list.walks.delete(walk);
 	};
+
 	var _addWalk = function _addWalk(list, walk) {
 	  return list.walks.add(walk);
 	};
@@ -1582,63 +1611,32 @@
 	    return _lists;
 	  },
 	  getItineraryList: function getItineraryList() {
-	    // Top of the lists is the itinerary
-	    var _iteratorNormalCompletion = true;
-	    var _didIteratorError = false;
-	    var _iteratorError = undefined;
+	    var _lists2 = _slicedToArray(_lists, 1);
 
-	    try {
-	      for (var _iterator = _lists.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var list = _step.value;
+	    var list = _lists2[0];
 
-	        return list;
-	      }
-	    } catch (err) {
-	      _didIteratorError = true;
-	      _iteratorError = err;
-	    } finally {
-	      try {
-	        if (!_iteratorNormalCompletion && _iterator.return) {
-	          _iterator.return();
-	        }
-	      } finally {
-	        if (_didIteratorError) {
-	          throw _iteratorError;
-	        }
-	      }
-	    }
+	    return list;
 	  },
 	  getFavouriteList: function getFavouriteList() {
-	    var i = 0;
-	    // Second list is the itinerary
-	    var _iteratorNormalCompletion2 = true;
-	    var _didIteratorError2 = false;
-	    var _iteratorError2 = undefined;
+	    var _lists3 = _slicedToArray(_lists, 2);
 
-	    try {
-	      for (var _iterator2 = _lists.values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	        var list = _step2.value;
+	    var itinerary = _lists3[0];
+	    var favourites = _lists3[1];
 
-	        if (i === 1) return list;
-	        i++;
-	      }
-	    } catch (err) {
-	      _didIteratorError2 = true;
-	      _iteratorError2 = err;
-	    } finally {
-	      try {
-	        if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	          _iterator2.return();
-	        }
-	      } finally {
-	        if (_didIteratorError2) {
-	          throw _iteratorError2;
-	        }
-	      }
-	    }
+	    return favourites;
 	  },
 	  getWalks: function getWalks(list) {
 	    return list.walks;
+	  },
+	  getLastChange: function getLastChange() {
+	    return _lastChange;
+	  },
+	  totalWalks: function totalWalks() {
+	    var count = 0;
+	    _lists.forEach(function (list) {
+	      return count += list.walks.size;
+	    });
+	    return count;
 	  },
 
 	  //TODO: use _updateWalks to receive walks from server via API call
@@ -1648,19 +1646,24 @@
 
 	    switch (payload.type) {
 	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
+	        _lastChange = Date.now();
 	        _removeWalk(list, walk);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
+	        _lastChange = Date.now();
 	        //TODO: Dialog to open on first add to Itinerary/Favourites
 	        _addWalk(list, walk);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
+	        _lastChange = Date.now();
 	        _updateTitle(list, payload.title);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
+	        _lastChange = Date.now();
 	        _updateDescription(list, payload.description);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_CREATE_LIST:
+	        _lastChange = Date.now();
 	        _createList(payload.title, payload.description);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL:
@@ -33761,6 +33764,121 @@
 	  })();return Intl;
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.post = post;
+	exports.get = get;
+	exports.startPolling = startPolling;
+
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _ItineraryActions = __webpack_require__(13);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); } /**
+	                                                                               * API methods for loading itineraries
+	                                                                               * (de)serializing to and from from the Jane's Walk C5
+	                                                                               */
+
+	// Service endpoints
+	var endpoint = '/profile/itineraries';
+
+	/**
+	 * Serialize as JSON
+	 * No need to serialize the whole walks list. Just need their IDs
+	 */
+	function getJson(_ref) {
+	  var _ref2 = _toArray(_ref);
+
+	  var lists = _ref2;
+
+	  return JSON.stringify(lists.map(function (list) {
+	    var _list$walks = _toArray(list.walks);
+
+	    var walks = _list$walks;
+
+	    return Object.assign({}, list, {
+	      walks: walks.map(function (w) {
+	        return +w.id;
+	      })
+	    });
+	  }));
+	}
+
+	function post(cb) {
+	  var url = arguments.length <= 1 || arguments[1] === undefined ? endpoint : arguments[1];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('POST', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      console.log(data);
+	      cb();
+	    } catch (e) {
+	      console.log('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send(getJson(_ItineraryStore2.default.getLists()));
+	}
+
+	function get() {
+	  var url = arguments.length <= 0 || arguments[0] === undefined ? endpoint : arguments[0];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('GET', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      (0, _ItineraryActions.receiveAll)(data);
+	    } catch (e) {
+	      cb('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send();
+	}
+
+	/**
+	 * Poll, and sync when updates stop
+	 */
+	function startPolling() {
+	  var period = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
+
+	  var lastSync = _ItineraryStore2.default.getLastChange();
+	  var syncing = false;
+
+	  setInterval(function () {
+	    var lastChange = _ItineraryStore2.default.getLastChange();
+	    // Poll, to see if we've waited a bit since the last thing you changed
+	    if (Date.now() - lastChange > period * 3) {
+	      if (lastChange > lastSync && !syncing) {
+	        syncing = true;
+	        post(function () {
+	          lastSync = Date.now();syncing = false;
+	        });
+	      }
+	    }
+	  }, period);
+	}
 
 /***/ }
 /******/ ]);

@@ -35,6 +35,9 @@
                     line-height: @navbar-height;
                     color: @color-darkgrey;
                 }
+                &.notify {
+                    animation: notifying 5s infinite alternate;
+                }
             }
         }
         a + ul.nav {
@@ -168,4 +171,16 @@ fieldset.search:extend(.input-group all) {
 div#ccm-toolbar {
     display: none;
     z-index: @zindex-modal;
+}
+
+@keyframes notifying {
+    0% {
+        background-color: fadeout(@color-blue, 90%);
+    }
+    50% {
+        background-color: fadeout(@color-blue, 70%);
+    }
+    100% {
+        background-color: fadeout(@color-blue, 92%);
+    }
 }

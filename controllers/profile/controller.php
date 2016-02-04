@@ -286,13 +286,38 @@ class ProfileController extends Concrete5_Controller_Profile
         $this->set('valt', Loader::helper('validation/token'));
     }
 
+    public function itineraries($userID = null)
+    {
+        $u = new User();
+        $ui = UserInfo::getByID($userID ?: $u->getUserID());
+
+        /**
+         * c5.7 uses symfony2 for routing
+         * TODO: wait for 5.7.
+         */
+        header('Content-Type: application/json');
+        switch ($_SERVER['REQUEST_METHOD']) {
+        case 'POST':
+            $payload = file_get_contents('php://input');
+            // Validate our user permissions
+            $ui->setAttribute('itineraries', $payload);
+            echo '{"saved": true}';
+            break;
+        case 'GET':
+            $itinerariesJson = $ui->getAttribute('itineraries');
+            echo $itinerariesJson ?: '[]';
+            break;
+        }
+        exit;
+    }
+
     /**
      * Export a CSV of the city's walks
      */
     public function exportCity($cityID = null)
     {
         $exporter = new CityExporter($cityID);
-        $exporter->getWalkCSV();
+        $exporter->renderWalkCSV();
     }
 
     /**
@@ -396,7 +421,7 @@ class CityExporter
         $this->city = Page::getByID($cityID);
     }
 
-    public function getWalkCSV()
+    public function renderWalkCSV()
     {
         $columns = ['Name','Status','Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
         // Check that you have edit permissions on city

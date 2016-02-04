@@ -89,10 +89,10 @@ export default class WalkFilter extends React.Component {
     };
 
     // Setup event listeners
-    JanesWalk.event.on('walks.receive', (walks, props) => {
-      this.setState({walks: walks, filters: props.filters}, this.handleFilters);
+    JanesWalk.event.on('walks.receive', (walks) => {
+      this.setState({walks: Object.assign({}, this.state.walks, walks)});
     });
-
+    JanesWalk.event.on('filters.receive', filters => this.setState({filters: filters}));
     JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
     JanesWalk.event.on('country.receive', country => this.setState({location: country}));

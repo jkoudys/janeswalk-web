@@ -70,10 +70,11 @@
 
 	var _walks = undefined;
 	var _location = undefined;
+	var _filters = {};
 
-	JanesWalk.event.on('walks.receive', function (walks, props) {
+	JanesWalk.event.on('walks.receive', function (walks) {
 	  _walks = walks;
-	  React.render(React.createElement(_WalkFilter2.default, { walks: walks, filters: props.filters, location: _location }), document.getElementById('janeswalk-walk-filters'));
+	  React.render(React.createElement(_WalkFilter2.default, { walks: walks, filters: _filters, location: _location }), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	JanesWalk.event.on('city.receive', function (city) {
@@ -81,6 +82,9 @@
 	});
 	JanesWalk.event.on('country.receive', function (country) {
 	  return _location = country;
+	});
+	JanesWalk.event.on('filters.receive', function (filters) {
+	  return _filters = filters;
 	});
 
 /***/ },
@@ -469,10 +473,12 @@
 	    };
 
 	    // Setup event listeners
-	    JanesWalk.event.on('walks.receive', function (walks, props) {
-	      _this.setState({ walks: walks, filters: props.filters }, _this.handleFilters);
+	    JanesWalk.event.on('walks.receive', function (walks) {
+	      _this.setState({ walks: Object.assign({}, _this.state.walks, walks) });
 	    });
-
+	    JanesWalk.event.on('filters.receive', function (filters) {
+	      return _this.setState({ filters: filters });
+	    });
 	    JanesWalk.event.on('city.receive', function (city) {
 	      return _this.setState({ location: city });
 	    });
