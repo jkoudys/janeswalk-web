@@ -19,7 +19,7 @@ function headerBG(city, walk) {
   }
 
   return {
-    background: bg,
+    backgroundImage: bg,
     backgroundSize: 'cover',
     backgroundPosition: '50%'
   };
