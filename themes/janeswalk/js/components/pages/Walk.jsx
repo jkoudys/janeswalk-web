@@ -12,23 +12,11 @@ import WalkTeam from './Walk/WalkTeam.jsx';
 import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
 
-import {walk, filters} from './Walk/WalkStaticData';
-
-const walkId = walk.walk.id;
-
-const getWalk = (props) => ({
-  //TODO: Conditionals (? and ||) in getWalk are for stubbed data
-  walk: props.walk || walk.walk,
-  page: props.page || walk.page,
-  city: props.city || walk.city,
-  id: props.walk ? props.walk.id : walkId,
-  filters: props.filters || filters,
-  existsInItinerary: ItineraryStore.existsInList(ItineraryStore.getItineraryList().id, props.walk ? props.walk.id : walkId),
-  existsInFavourites: ItineraryStore.existsInList(ItineraryStore.getFavouriteList().id, props.walk ? props.walk.id : walkId),
-  //TODO: for stubbed data, assumed first list is Itinerary, second list is fav, need to update store for .json data
-  itineraryListId: ItineraryStore.getItineraryList().id,
-  favoriteListId: ItineraryStore.getFavouriteList().id,
-});
+const getWalk = ({walk, page, city}) => {
+  const itinerary = ItineraryStore.getItineraryList();
+  const favourites = ItineraryStore.getFavouriteList();
+  return {walk, page, city, itinerary, favourites};
+};
 
 export default class WalkPage extends React.Component {
   constructor(props, ...args) {
@@ -51,9 +39,11 @@ export default class WalkPage extends React.Component {
   }
 
   render() {
+    const {walk, page, city, itinerary, favourites} = this.state;
+
     return (
       <section className="walkPage">
-        <WalkHeader {...this.state} />
+        <WalkHeader walk={walk} city={city} itinerary={itinerary} favourites={favourites} />
         <WalkMenu {...this.state} />
         <WalkDescription {...this.state.walk} />
         <WalkMap {...this.state.walk} />

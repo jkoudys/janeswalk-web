@@ -131,8 +131,7 @@
 	// Translations for i18n L10n
 
 	var ReactViews = {
-	  CreateWalkView: _CreateWalk2.default,
-	  WalkPageView: _Walk2.default
+	  CreateWalkView: _CreateWalk2.default
 	};
 	// load modals
 
@@ -215,7 +214,7 @@
 	      }
 	    } else {
 	      // FIXME: I'm not in-love with such a heavy jQuery reliance
-	      new PageViews[pageViewName]($(document.body));
+	      // new PageViews[pageViewName]($(document.body));
 	    }
 	  } catch (e) {
 	    console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
@@ -239,15 +238,26 @@
 	    return ItineraryActions.receiveAll(itineraries);
 	  });
 
-	  // Process all deferred events
-	  JanesWalk.event.activate();
-
 	  // FIXME XXX: stubbed itineraries list
 	  JanesWalk.event.emit('itineraries.receive', _ItineraryStaticData.lists);
 	  JanesWalk.event.emit('walks.receive', _ItineraryStaticData.walks);
-
 	  // TODO: emit the city without needing to load JanesWalk with static data
 	  JanesWalk.event.emit('city.receive', JanesWalk.city);
+
+	  // Routes initialized by events
+	  JanesWalk.event.on('walkpage.load', function (_ref) {
+	    var walk = _ref.walk;
+	    var city = _ref.city;
+
+	    WalkActions.receive(walk);
+	    setTimeout(function () {
+	      React.render(React.createElement(_Walk2.default, { city: city, page: JanesWalk.page, walk: walk }), document.getElementById('page'));
+	    }, 800);
+	  });
+
+	  // Process all deferred events
+	  JanesWalk.event.activate();
+
 	  routePage();
 	  initKeyEvents();
 	});
@@ -1599,13 +1609,36 @@
 	    }
 	  },
 	  getFavouriteList: function getFavouriteList() {
-	    return _favourites;
+	    var i = 0;
+	    // Second list is the itinerary
+	    var _iteratorNormalCompletion2 = true;
+	    var _didIteratorError2 = false;
+	    var _iteratorError2 = undefined;
+
+	    try {
+	      for (var _iterator2 = _lists.values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	        var list = _step2.value;
+
+	        if (i === 1) return list;
+	        i++;
+	      }
+	    } catch (err) {
+	      _didIteratorError2 = true;
+	      _iteratorError2 = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	          _iterator2.return();
+	        }
+	      } finally {
+	        if (_didIteratorError2) {
+	          throw _iteratorError2;
+	        }
+	      }
+	    }
 	  },
 	  getWalks: function getWalks(list) {
 	    return list.walks;
-	  },
-	  existsInList: function existsInList(list, walk) {
-	    return list.has(walk);
 	  },
 
 	  //TODO: use _updateWalks to receive walks from server via API call
@@ -32020,8 +32053,6 @@
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
-	var _WalkStaticData = __webpack_require__(286);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -32030,22 +32061,14 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var walkId = _WalkStaticData.walk.walk.id;
+	var getWalk = function getWalk(_ref) {
+	  var walk = _ref.walk;
+	  var page = _ref.page;
+	  var city = _ref.city;
 
-	var getWalk = function getWalk(props) {
-	  return {
-	    //TODO: Conditionals (? and ||) in getWalk are for stubbed data
-	    walk: props.walk || _WalkStaticData.walk.walk,
-	    page: props.page || _WalkStaticData.walk.page,
-	    city: props.city || _WalkStaticData.walk.city,
-	    id: props.walk ? props.walk.id : walkId,
-	    filters: props.filters || _WalkStaticData.filters,
-	    existsInItinerary: _ItineraryStore2.default.existsInList(_ItineraryStore2.default.getItineraryList().id, props.walk ? props.walk.id : walkId),
-	    existsInFavourites: _ItineraryStore2.default.existsInList(_ItineraryStore2.default.getFavouriteList().id, props.walk ? props.walk.id : walkId),
-	    //TODO: for stubbed data, assumed first list is Itinerary, second list is fav, need to update store for .json data
-	    itineraryListId: _ItineraryStore2.default.getItineraryList().id,
-	    favoriteListId: _ItineraryStore2.default.getFavouriteList().id
-	  };
+	  var itinerary = _ItineraryStore2.default.getItineraryList();
+	  var favourites = _ItineraryStore2.default.getFavouriteList();
+	  return { walk: walk, page: page, city: city, itinerary: itinerary, favourites: favourites };
 	};
 
 	var WalkPage = (function (_React$Component) {
@@ -32085,10 +32108,17 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _state = this.state;
+	      var walk = _state.walk;
+	      var page = _state.page;
+	      var city = _state.city;
+	      var itinerary = _state.itinerary;
+	      var favourites = _state.favourites;
+
 	      return React.createElement(
 	        'section',
 	        { className: 'walkPage' },
-	        React.createElement(_WalkHeader2.default, this.state),
+	        React.createElement(_WalkHeader2.default, { walk: walk, city: city, itinerary: itinerary, favourites: favourites }),
 	        React.createElement(_WalkMenu2.default, this.state),
 	        React.createElement(_WalkDescription2.default, this.state.walk),
 	        React.createElement(_WalkMap2.default, this.state.walk),
@@ -32153,32 +32183,33 @@
 	var WalkHeader = function WalkHeader(_ref) {
 	  var city = _ref.city;
 	  var walk = _ref.walk;
-	  var id = _ref.id;
-	  var existsInItinerary = _ref.existsInItinerary;
-	  var existsInFavourites = _ref.existsInFavourites;
-	  var favoriteListId = _ref.favoriteListId;
-	  var itineraryListId = _ref.itineraryListId;
+	  var favourites = _ref.favourites;
+	  var itinerary = _ref.itinerary;
 
 	  var favButton = undefined,
 	      addButton = undefined;
-	  if (existsInFavourites) {
-	    favButton = React.createElement('button', { className: 'removeFavourite', onClick: function onClick() {
-	        return (0, _ItineraryActions.remove)(id, favoriteListId);
-	      } });
-	  } else {
-	    favButton = React.createElement('button', { className: 'addFavourite', onClick: function onClick() {
-	        return (0, _ItineraryActions.add)(id, favoriteListId);
-	      } });
+	  if (favourites) {
+	    if (favourites.walks.has(walk)) {
+	      favButton = React.createElement('button', { className: 'removeFavourite', onClick: function onClick() {
+	          return (0, _ItineraryActions.remove)(favourites, walk);
+	        } });
+	    } else {
+	      favButton = React.createElement('button', { className: 'addFavourite', onClick: function onClick() {
+	          return (0, _ItineraryActions.add)(favourites, walk);
+	        } });
+	    }
 	  }
 
-	  if (existsInItinerary) {
-	    addButton = React.createElement('button', { className: 'removeItinerary', onClick: function onClick() {
-	        return (0, _ItineraryActions.remove)(id, itineraryListId);
-	      } });
-	  } else {
-	    addButton = React.createElement('button', { className: 'addItinerary', onClick: function onClick() {
-	        return (0, _ItineraryActions.add)(id, itineraryListId);
-	      } });
+	  if (itinerary) {
+	    if (itinerary.walks.has(walk)) {
+	      addButton = React.createElement('button', { className: 'removeItinerary', onClick: function onClick() {
+	          return (0, _ItineraryActions.remove)(itinerary, walk);
+	        } });
+	    } else {
+	      addButton = React.createElement('button', { className: 'addItinerary', onClick: function onClick() {
+	          return (0, _ItineraryActions.add)(itinerary, walk);
+	        } });
+	    }
 	  }
 
 	  var title = walk.title;
@@ -33010,41 +33041,7 @@
 	};
 
 /***/ },
-/* 286 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	//console.log('hello world');
-
-	var walk = { "page": { "url": "http:\/\/janeswalk.org\/canada\/toronto\/history-muslims-toronto-december-janes-walk\/",
-	    "title": "The History of Muslims in Toronto - A Special December Jane's Walk",
-	    "description": "Recent current events have highlighted many Torontonians are unaware of The History of Muslims and their original Houses of Worship in Canada's Largest City. \n\n\nThis Special Jane's Walk in December will visit four locations in The Junction and High Park neighbourhoods to reveal that history.\n\nWalk stop locations:\n\nThe Dundas Street Mosque - The City's First masjid\nThe little known history of The Albanian Muslim Society of Toronto - The pivotal role of its founder, Reggie Assim\nToronto's FIRST Halal Butcher Shop - Roncesvalles Village\nJami Mosque - Toronto's Second Islamic Centre and its national significance\n\nThrough this special Jane's Walk, Torontonians will gain an understanding and will come to appreciate the work of Third, Fourth, and Fifth Generation Muslim-Torontonians in building our city." },
-
-	  "locale": { "name": "en_US", "translation": null },
-
-	  "city": { "name": "Toronto, ON", "url": "http:\/\/janeswalk.org\/canada\/toronto\/", "background": null, "shortDescription": "Jane Jacobs called Toronto home, and so do we. Here, in our city of many distinct neighbourhoods and diverse cultures, we keep her legacy alive by walking together.\r\n\r\n<b>Introducing!\r\nJane's Walk Eyes on the Street Grants<\/b>\r\nWere you inspired to do something or collaborate with someone because of a Jane's Walk you led or attended?  This year, we're teaming up with Evergreen CityWorks to offer micro-grants to help you build on your ideas. Amounts offered: Two grants of $1,000 and two grants of $500 are available.\r\n<a href=\"http:\/\/janeswalk.org\/canada\/toronto\/grants\"><b>Get more info here.<\/b><\/a>\r\n\r\n<!--and making space for every person to observe, reflect, share, question and collectively re-imagine the places around us. Lead or join a Jane's Walk to contribute to a city-wide dialogue about what our city needs and where it is headed. \r\n\r\nAnyone can lead a walk \r\nThis year, the Jane's Walk festival is on <b>May 1st, 2nd & 3rd!<\/b> Scroll down to see upcoming walks and check out the <a href=\"http:\/\/janeswalk.org\/canada\/toronto\/toronto-blog\/\"><b>City Blog<\/b><\/a> to see some great curated lists for this year's festival.!-->\r\n<!--You can also list a walk on any other day.-->", "longDescription": "", "mirrors": [], "latlng": [43.653226, -79.3831843], "wards": [{ "id": "40", "value": "Ward 1 Etobicoke North" }, { "id": "41", "value": "Ward 2 Etobicoke North" }, { "id": "42", "value": "Ward 3 Etobicoke Centre" }, { "id": "43", "value": "Ward 4 Etobicoke Centre" }, { "id": "44", "value": "Ward 5 Etobicoke-Lakeshore" }, { "id": "45", "value": "Ward 6 Etobicoke-Lakeshore" }, { "id": "46", "value": "Ward 7 York West" }, { "id": "47", "value": "Ward 8 York West" }, { "id": "48", "value": "Ward 9 York Centre" }, { "id": "49", "value": "Ward 10 York Centre" }, { "id": "50", "value": "Ward 11 York South-Weston" }, { "id": "51", "value": "Ward 12 York South-Weston" }, { "id": "52", "value": "Ward 13 Parkdale-High Park" }, { "id": "53", "value": "Ward 14 Parkdale-High Park" }, { "id": "54", "value": "Ward 15 Eglinton-Lawrence" }, { "id": "55", "value": "Ward 16 Eglinton-Lawrence" }, { "id": "56", "value": "Ward 17 Davenport" }, { "id": "57", "value": "Ward 18 Davenport" }, { "id": "58", "value": "Ward 19 Trinity-Spadina" }, { "id": "59", "value": "Ward 20 Trinity-Spadina" }, { "id": "60", "value": "Ward 21 St. Pauls" }, { "id": "61", "value": "Ward 22 St. Pauls" }, { "id": "62", "value": "Ward 23 Willowdale" }, { "id": "63", "value": "Ward 24 Willowdale" }, { "id": "64", "value": "Ward 25 Don Valley West" }, { "id": "65", "value": "Ward 26 Don Valley West" }, { "id": "66", "value": "Ward 27 Toronto Centre-Rosedale" }, { "id": "67", "value": "Ward 28 Toronto Centre-Rosedale" }, { "id": "68", "value": "Ward 29 Toronto-Danforth" }, { "id": "69", "value": "Ward 30 Toronto-Danforth" }, { "id": "70", "value": "Ward 31 Beaches-East York" }, { "id": "71", "value": "Ward 32 Beaches-East York" }, { "id": "72", "value": "Ward 33 Don Valley East" }, { "id": "73", "value": "Ward 34 Don Valley East" }, { "id": "74", "value": "Ward 35 Scarborough Southwest" }, { "id": "75", "value": "Ward 36 Scarborough Southwest" }, { "id": "76", "value": "Ward 37 Scarborough Centre" }, { "id": "77", "value": "Ward 38 Scarborough Centre" }, { "id": "78", "value": "Ward 39 Scarborough-Agincourt" }, { "id": "79", "value": "Ward 40 Scarborough Agincourt" }, { "id": "80", "value": "Ward 41 Scarborough-Rouge River" }, { "id": "81", "value": "Ward 42 Scarborough-Rouge River" }, { "id": "82", "value": "Ward 43 Scarborough East" }, { "id": "83", "value": "Ward 44 Scarborough East" }], "sponsors": "",
-
-	    "cityOrganizer": { "id": 2627, "photo": "\/files\/avatars\/2627.jpg?1449847223", "firstName": "Kate", "lastName": "Watanabe", "email": "kate.watanabe@janeswalk.org", "facebook": "", "twitter": "", "website": "" } },
-
-	  "walk": { "id": "7623", "title": "The History of Muslims in Toronto - A Special December Jane's Walk", "url": "http:\/\/janeswalk.org\/canada\/toronto\/history-muslims-toronto-december-janes-walk\/", "shortDescription": "A Special December Jane's Walk will reveal The Forgotten History of Toronto's First Muslims & where they Prayed, Played, and Built Community", "longDescription": "Recent current events have highlighted many Torontonians are unaware of The History of Muslims and their original Houses of Worship in Canada's Largest City. \n<P>\n<P>\nThis Special Jane's Walk in December will visit four locations in The Junction and High Park neighbourhoods to reveal that history.\n<P>\nWalk stop locations:\n<P>\n<ul><li>The Dundas Street Mosque - The City's First masjid<\/li>\n<li>The little known history of The Albanian Muslim Society of Toronto - The pivotal role of its founder, Reggie Assim<\/li>\n<li>Toronto's FIRST Halal Butcher Shop - Roncesvalles Village<\/li>\n<li>Jami Mosque - Toronto's Second Islamic Centre and its national significance<\/li><\/ul>\n<P>\nThrough this special Jane's Walk, Torontonians will gain an understanding and will come to appreciate the work of Third, Fourth, and Fifth Generation Muslim-Torontonians in building our city.", "accessibleInfo": "Dress appropriate for the day, as it is December! \n<P>\nMuch of the walk will be on regular sidewalks. \n<P>\nIn The Junction at our second walk stop location, expect the sidewalk to be busy with Christmas Shoppers.", "accessibleTransit": "Runnymede TTC Subway Station - Main Entrance.", "accessibleParking": "Green P Parking near Runnymede Station.", "accessibleFind": "Walk Leader will be wearing a Green Jacket holding a Jane's Walk sign.",
-
-	    "map": { "markers": [{ "lat": 43.651567876422, "lng": -79.476332054014, "title": "Runnymede Station - Front Entrance", "description": "The Meeting and Starting Point for this Jane's Walk will be in front of Runnymede TTC Subway Station - Main Entrance.", "media": null, "style": "stop" }, { "lat": 43.659913083999, "lng": -79.480859622668, "title": "Albanian Muslim Society of Toronto", "description": "The Albanian Muslim Society of Toronto - Our Second Walk Stop, we will see a Historic Plaque built into the outside wall of the building, dedicated to the Founder of the original Muslim Society of Toronto.", "media": null, "style": "stop" }, { "lat": 43.665396555336, "lng": -79.471035584734, "title": "3047 Dundas Street East ", "description": "The Forgotten \"Dundas Street Mosque\", 3047 Dundas Street East in The Junction neighbourhood, was Toronto's First Islamic Centre.", "media": null, "style": "stop" }, { "lat": 43.653373279207, "lng": -79.451948984238, "title": "Site of Toronto's FIRST Halal Butcher Shop", "description": "The unique three- and half-way-intersection where Dundas Street West meets Roncesvalles, steps away from Jami Mosque, was home the first Muslim Halal Food Shops in the city.", "media": null, "style": "stop" }, { "lat": 43.653279092389, "lng": -79.454495295427, "title": "Jami Mosque - The Islamic Centre of Toronto", "description": "Toronto's second official House of Worship for Muslims. Still in operation today, it belongs as a Heritage for All Torontonians to appreciate and learn from.", "media": null, "style": "stop" }], "route": [] },
-
-	    "team": [{ "type": "you", "name-first": "HiMY", "name-last": "SYeD", "role": "walk-leader", "primary": "on", "bio": "A Walk Leader in Toronto since Jane's Walk inaugural year, HiMY has organized and lead at least 50 different walks since 2007 in three different cities.\n<P>\nSince 2011, during Ramadan, HiMY has been blogging about visits to different Masjids, Islamic Centres or public gatherings where Muslims break their daily fasts.\n<P>\nHis blog, <a href=\"http:\/\/30Masjids.ca\">30Masjids.ca<\/a>, has become a unique guidepost and archive of The Story of Muslims in Toronto and Southern Ontario.\n<P>\nHis Special December 20 2015 Jane's Walk will share the best of that researched archive from the past five years.", "twitter": "30Masjids", "facebook": "", "website": "http:\/\/30Masjids.ca", "email": "HiMY.org@gmail.com", "phone": "" }],
-
-	    "time": { "open": false, "type": null, "slots": [["1450609200", "1450618200"]] }, "wards": "Ward 13 Parkdale-High Park", "initiatives": [],
-
-	    "mirrors": { "eventbrite": null }, "thumbnails": [{ "id": "5049", "url": "\/files\/cache\/dd4a4c169a98f83771645a3480b4e541_f5049.jpg" }], "thumbnailId": "5049", "thumbnailUrl": "\/files\/cache\/dd4a4c169a98f83771645a3480b4e541_f5049.jpg",
-
-	    "checkboxes": { "theme-civic-goodneighbour": true, "theme-civic-international": true, "theme-civic-religion": true, "accessible-familyfriendly": true, "accessible-busy": true, "accessible-seniors": true } } };
-
-	exports.walk = walk;
-
-/***/ },
+/* 286 */,
 /* 287 */
 /***/ function(module, exports) {
 

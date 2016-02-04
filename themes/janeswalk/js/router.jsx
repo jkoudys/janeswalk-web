@@ -32,7 +32,6 @@ import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
 const ReactViews = {
   CreateWalkView: CreateWalk,
-  WalkPageView: Walk
 };
 // load modals
 import Login from './components/Login.jsx';
@@ -133,7 +132,7 @@ function routePage() {
       }
     } else {
       // FIXME: I'm not in-love with such a heavy jQuery reliance
-      new PageViews[pageViewName]($(document.body));
+      // new PageViews[pageViewName]($(document.body));
     }
   } catch(e) {
     console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
@@ -147,15 +146,26 @@ document.addEventListener('DOMContentLoaded', function() {
   JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
   JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
 
-  // Process all deferred events
-  JanesWalk.event.activate();
-
   // FIXME XXX: stubbed itineraries list
   JanesWalk.event.emit('itineraries.receive', lists);
   JanesWalk.event.emit('walks.receive', walks);
-
   // TODO: emit the city without needing to load JanesWalk with static data
   JanesWalk.event.emit('city.receive', JanesWalk.city);
+
+  // Routes initialized by events
+  JanesWalk.event.on('walkpage.load', ({walk, city}) => {
+    WalkActions.receive(walk);
+    setTimeout( () => {
+    React.render(
+      <Walk city={city} page={JanesWalk.page} walk={walk} />,
+      document.getElementById('page')
+    ); 
+    }, 800);
+  });
+
+  // Process all deferred events
+  JanesWalk.event.activate();
+
   routePage();
   initKeyEvents();
 });

@@ -82,15 +82,16 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   },
 
   getFavouriteList() {
-    return _favourites;
+    let i = 0;
+    // Second list is the itinerary
+    for (let list of _lists.values()) {
+      if (i === 1) return list;
+      i++;
+    }
   },
 
   getWalks(list) {
     return list.walks;
-  },
-
-  existsInList(list, walk) {
-    return list.has(walk);
   },
 
   //TODO: use _updateWalks to receive walks from server via API call

@@ -25,18 +25,22 @@ function headerBG(city, walk) {
   };
 }
 
-const WalkHeader = ({city, walk, id, existsInItinerary, existsInFavourites, favoriteListId, itineraryListId}) => {
+const WalkHeader = ({city, walk, favourites, itinerary}) => {
   let favButton, addButton;
-  if (existsInFavourites) {
-    favButton = <button className="removeFavourite" onClick={() => remove(id, favoriteListId)} />;
-  } else {
-    favButton = <button className="addFavourite" onClick={()=>add(id, favoriteListId)} />;
+  if (favourites) {
+    if (favourites.walks.has(walk)) {
+      favButton = <button className="removeFavourite" onClick={() => remove(favourites, walk)} />;
+    } else {
+      favButton = <button className="addFavourite" onClick={() => add(favourites, walk)} />;
+    }
   }
 
-  if (existsInItinerary) {
-    addButton = <button className="removeItinerary" onClick={() => remove(id, itineraryListId)} />;
-  } else {
-    addButton = <button className="addItinerary" onClick={() => add(id, itineraryListId)} />;
+  if (itinerary) {
+    if (itinerary.walks.has(walk)) {
+      addButton = <button className="removeItinerary" onClick={() => remove(itinerary, walk)} />;
+    } else {
+      addButton = <button className="addItinerary" onClick={() => add(itinerary, walk)} />;
+    }
   }
 
   const {title, map, time, team, thumbnails} = walk;
