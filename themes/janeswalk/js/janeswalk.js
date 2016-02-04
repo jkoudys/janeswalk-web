@@ -976,6 +976,10 @@
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
 	var _I18nStore = __webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -999,6 +1003,7 @@
 	  var searching = _ref.searching;
 	  var toggleProfile = _ref.toggleProfile;
 	  var toggleSearch = _ref.toggleSearch;
+	  var unseenUpdates = _ref.unseenUpdates;
 	  return [React.createElement(
 	    'li',
 	    null,
@@ -1009,7 +1014,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { className: unseenUpdates ? 'notify' : '' },
 	    React.createElement(
 	      'a',
 	      { onClick: toggleProfile, className: profiling ? 'selected' : '' },
@@ -1070,7 +1075,9 @@
 	  return {
 	    options: _AreaStore2.default.getArea('Left Header'),
 	    dropdown: _AreaStore2.default.getArea('Dropdown'),
-	    user: _UserStore2.default.getUser()
+	    user: _UserStore2.default.getUser(),
+	    itinerary: _ItineraryStore2.default.getLists(),
+	    totalWalks: _ItineraryStore2.default.totalWalks()
 	  };
 	}
 
@@ -1129,6 +1136,7 @@
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Navbar)).call.apply(_Object$getPrototypeO, [this].concat(args)));
 
 	    _this.state = getNavbar();
+	    _this.state.lastSize = _ItineraryStore2.default.totalWalks();
 	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
@@ -1148,7 +1156,7 @@
 	  }, {
 	    key: '_onChange',
 	    value: function _onChange() {
-	      this.setState(getNavbar());
+	      this.setState(getNavbar);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -1216,6 +1224,8 @@
 	      var user = _state.user;
 	      var searching = _state.searching;
 	      var profiling = _state.profiling;
+	      var itinerary = _state.itinerary;
+	      var totalWalks = _state.totalWalks;
 
 	      var userOptions = undefined;
 	      var defaultOptions = {
@@ -1230,8 +1240,9 @@
 	        userOptions = LoggedInOptions(Object.assign({
 	          user: user,
 	          profiling: profiling,
+	          unseenUpdates: this.state.lastSize !== totalWalks,
 	          toggleProfile: function toggleProfile() {
-	            return _this2.setState({ profiling: !_this2.state.profiling });
+	            return _this2.setState({ profiling: !_this2.state.profiling, lastSize: totalWalks });
 	          }
 	        }, defaultOptions));
 	      } else {
@@ -1639,6 +1650,13 @@
 	  },
 	  getWalks: function getWalks(list) {
 	    return list.walks;
+	  },
+	  totalWalks: function totalWalks() {
+	    var count = 0;
+	    _lists.forEach(function (list) {
+	      return count += list.walks.size;
+	    });
+	    return count;
 	  },
 
 	  //TODO: use _updateWalks to receive walks from server via API call

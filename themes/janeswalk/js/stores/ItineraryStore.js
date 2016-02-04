@@ -94,6 +94,12 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
     return list.walks;
   },
 
+  totalWalks() {
+    let count = 0;
+    _lists.forEach(list => count += list.walks.size);
+    return count;
+  },
+
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(payload) {
     const {list, walk} = payload;

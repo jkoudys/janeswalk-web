@@ -1,19 +1,20 @@
 import Itinerary from './itinerary/Itinerary.jsx';
 import AreaStore from '../stores/AreaStore.js';
 import UserStore from '../stores/UserStore.js';
+import ItineraryStore from '../stores/ItineraryStore.js';
 
 // TODO: Replace translations placeholders
 import {t} from 'janeswalk/stores/I18nStore';
 const tc = (c, s) => s;
 
 /* Build menu options depending if currently logged in or not */
-const LoggedInOptions = ({user, profiling, searching, toggleProfile, toggleSearch}) => ([
+const LoggedInOptions = ({user, profiling, searching, toggleProfile, toggleSearch, unseenUpdates}) => ([
   <li>
     <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
       <i className="fa fa-search" />
     </a>
   </li>,
-  <li>
+  <li className={unseenUpdates ? 'notify' : ''}>
     <a onClick={toggleProfile} className={profiling ? 'selected' : ''}>
       <i className="fa fa-calendar" />
     </a>
@@ -44,7 +45,9 @@ function getNavbar() {
   return {
     options: AreaStore.getArea('Left Header'),
     dropdown: AreaStore.getArea('Dropdown'),
-    user: UserStore.getUser()
+    user: UserStore.getUser(),
+    itinerary: ItineraryStore.getLists(),
+    totalWalks: ItineraryStore.totalWalks()
   };
 }
 
@@ -86,7 +89,8 @@ function makeSticky(reference, el) {
 export default class Navbar extends React.Component {
   constructor(...args) {
     super(...args);
-    this.state = getNavbar()
+    this.state = getNavbar();
+    this.state.lastSize = ItineraryStore.totalWalks();
     this._onChange = this._onChange.bind(this);
   }
 
@@ -101,7 +105,7 @@ export default class Navbar extends React.Component {
   }
 
   _onChange() {
-    this.setState(getNavbar());
+    this.setState(getNavbar);
   }
 
   componentDidMount() {
@@ -149,7 +153,7 @@ export default class Navbar extends React.Component {
 
   render() {
     const {editMode} = this.props;
-    const {user, searching, profiling} = this.state;
+    const {user, searching, profiling, itinerary, totalWalks} = this.state;
     let userOptions;
     const defaultOptions = {
       searching: searching,
@@ -161,7 +165,8 @@ export default class Navbar extends React.Component {
       userOptions = LoggedInOptions(Object.assign({
         user: user,
         profiling: profiling,
-        toggleProfile: () => this.setState({profiling: !this.state.profiling}),
+        unseenUpdates: this.state.lastSize !== totalWalks,
+        toggleProfile: () => this.setState({profiling: !this.state.profiling, lastSize: totalWalks}),
       }, defaultOptions));
     } else {
       userOptions = LoggedOutOptions(defaultOptions);
