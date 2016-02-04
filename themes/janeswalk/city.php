@@ -62,6 +62,8 @@ EOT;
         {$BlogPostButton}
     </h2>
     {$area('City Blog')}
+    <h4><a href="{$BlogLink}">{$t('See more stories <i class="fa fa-angle-double-right"></i>')}</a>
+    </h4>
 </section>
 <script>JanesWalk.event.emit('blog.receive', {"url": "{$BlogLink}"});</script>
 EOT;
@@ -124,12 +126,12 @@ $this->inc('elements/navbar.php');
 
 // Template
 echo <<< EOT
+<h1 class="cityName">
+     {$cityName}
+     {$Edit}
+ </h1>
 <section id="intro-city">
  <div class="city-summary">
-     <h1>
-         {$cityName}
-         {$Edit}
-     </h1>
      {$intro}
      {$area('City Header')}
      {$BackgroundPhoto}
