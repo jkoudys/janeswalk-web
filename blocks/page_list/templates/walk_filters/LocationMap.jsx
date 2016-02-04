@@ -150,7 +150,7 @@ export default class CityMap extends React.Component {
 
   render() {
     return (
-      <div className="cityMap" style={{width: '100%', height: '600px'}} />
+      <div className="cityMap" style={{width: '100%', height: '70vh'}} /> 
     );
   }
 }

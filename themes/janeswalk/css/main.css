@@ -11867,6 +11867,7 @@ body.city-page {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+  background-image: url("http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg");
 }
 body.city-page h1,
 body.city-page h2,
@@ -11874,6 +11875,16 @@ body.city-page h3,
 body.city-page h4,
 body.city-page h5 {
   margin: 10px 0;
+}
+body.city-page .cityName {
+  margin: 25vh 30px 32vh;
+  color: #fff;
+  font-weight: 600;
+  font-size: 60px;
+  text-shadow: 0px 0px 20px #000;
+}
+body.city-page .cityName a {
+  color: #fff;
 }
 body.city-page > #intro-city {
   color: #fff;
@@ -11885,13 +11896,22 @@ body.city-page > #intro-city {
   height: auto;
   width: 100%;
   position: relative;
-  margin: 300px auto 0;
-  background: -webkit-linear-gradient(rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.8));
-  background: linear-gradient(rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.8));
+  margin: 0 auto;
+  background: -webkit-linear-gradient(rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.9), rgba(241, 103, 37, 0.85), rgba(241, 103, 37, 0.5));
+  background: linear-gradient(rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.9), rgba(241, 103, 37, 0.85), rgba(241, 103, 37, 0.5));
   border-bottom: 1px solid #ddd;
 }
 body.city-page > #intro-city .city-summary {
-  padding: 30px;
+  padding: 36px 30px 66px 30px;
+}
+body.city-page > #intro-city .city-summary h1 {
+  font-size: 36px;
+  font-weight: 600;
+}
+body.city-page > #intro-city .city-summary p {
+  font-size: 24px;
+  line-height: 150%;
+  font-weight: 400;
 }
 @media (min-width: 992px) {
   body.city-page > #intro-city .city-summary {
@@ -11906,13 +11926,14 @@ body.city-page > #intro-city #city-sidebar {
   vertical-align: bottom;
   background-color: #fff;
   border-left: 1px solid #ddd;
-  margin-left: -5px;
 }
 @media (min-width: 992px) {
   body.city-page > #intro-city #city-sidebar {
-    width: 33%;
+    width: 30%;
     display: inline-block;
-    vertical-align: bottom;
+    vertical-align: top;
+    margin: 30px 0;
+    border-radius: 6px;
   }
 }
 body.city-page > #intro-city #city-sidebar .city-organizer {
@@ -11943,33 +11964,40 @@ body.city-page > #intro-city #city-sidebar .city-organizer img.organizer {
   display: inline-block;
   margin: 30px auto 0;
 }
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details {
   display: inline-block;
   vertical-align: top;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 22px;
   width: 100%;
 }
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar .btn,
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details h3 {
+  font-size: 24px;
+  margin-bottom: 0;
+  font-weight: 400;
+}
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details h4 {
+  margin-top: 5px;
+}
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar a i {
+  color: #fff;
+}
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar a:hover i {
+  color: #000;
+}
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn,
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar body.city-page > #city-details .create-walk,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details body.city-page > #city-details .create-walk,
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar body.city-page > #city-details .create-walk:after,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details body.city-page > #city-details .create-walk:after,
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar body.city-page > #city-details .create-walk:hover,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details body.city-page > #city-details .create-walk:hover,
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar #create-walk #map-control-bar button,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk #map-control-bar button,
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar #create-walk #map-control-bar button.active,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk #map-control-bar button.active,
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar #create-walk #map-control-bar .loadFeed,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk #map-control-bar .loadFeed,
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar #create-walk .filterInputs .filter input[type=submit],
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk .filterInputs .filter input[type=submit],
-body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar #create-walk .filterInputs .filter input[type=button],
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk .filterInputs .filter input[type=button] {
   background: #f16725;
+}
+body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
+  margin: 30px auto 0;
 }
 @media (max-width: 768px) {
   body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
@@ -11998,6 +12026,7 @@ body.city-page > #intro-city #city-sidebar .menu-flags p {
   padding: 0px;
   border-top: 1px solid #ddd;
   margin: 0;
+  color: #000;
 }
 body.city-page > #intro-city #city-sidebar .menu-flags p a {
   color: #000;
@@ -12008,6 +12037,9 @@ body.city-page > #intro-city #city-sidebar .menu-flags p a {
 }
 body.city-page > #intro-city #city-sidebar .menu-flags p a:hover {
   background: #ddd;
+}
+body.city-page > #intro-city #city-sidebar .menu-flags p a:last-child {
+  border-radius: 0 0 6px 6px;
 }
 @media (min-width: 992px) {
   body.city-page > #intro-city #city-sidebar .menu-flags {
@@ -12296,7 +12328,7 @@ body.city-page > #city-details .walk-list .walks-area .walkCards .walk-cards {
 body.city-page > #city-details .walk-list .walks-area .empty {
   width: 30%;
   float: left;
-  padding-left: 15px;
+  padding-left: 30px;
 }
 body.city-page > #city-details .walk-list #jw-map {
   width: 70%;
@@ -12389,8 +12421,8 @@ body.city-page > #city-details:before {
   z-index: -1;
 }
 body.city-page > #blog {
-  margin: -5px auto 60px auto;
-  padding: 0 30px;
+  margin: -5px auto 0 auto;
+  padding: 0 30px 60px;
   width: 100%;
   position: relative;
   min-height: 200px;
@@ -12399,19 +12431,13 @@ body.city-page > #blog {
 body.city-page > #blog .title {
   display: inline-block;
   margin: -0.7em 0 1em 0;
-  background: #f16725;
-  box-shadow: 0 2px 0 #d54e0e;
-  color: #fff;
-  font-size: 32px;
-  padding: 8px 5px;
+  color: #000;
+  font-size: 20px;
   font-weight: 400;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
 }
 body.city-page > #blog .title a {
   display: inline-block;
-  padding: 5px 15px;
-  color: #fff;
+  color: #000;
 }
 body.city-page > #blog .title a:hover {
   text-decoration: none;
@@ -12420,7 +12446,9 @@ body.city-page > #blog .title a.add {
   font-size: 20px;
 }
 body.city-page > #blog .title:hover {
-  background: #d54e0e;
+  opacity: 0.5;
+  position: relative;
+  top: -1px;
 }
 body.city-page > #blog .ccm-blog-index li {
   position: relative;
@@ -13603,7 +13631,6 @@ body.city-page > #blog:after {
 }
 .walkPage .addItinerary,
 .walkPage .removeItinerary {
-  position: relative;
   top: 1px;
   display: inline-block;
   font-family: 'Glyphicons Halflings';
@@ -13615,11 +13642,13 @@ body.city-page > #blog:after {
   border-radius: 6px;
   border: 1px solid #F16725;
   padding: 5px 7px;
-  font-size: 13px;
+  font-size: 12px;
   opacity: 0.7;
   font-weight: 600;
   line-height: 1.2;
   margin: -5px 10px -6px;
+  position: relative;
+  top: -1px;
 }
 .walkPage .addItinerary:before,
 .walkPage .removeItinerary:before {
@@ -13649,7 +13678,8 @@ body.city-page > #blog:after {
   list-style: none;
 }
 .walkPage .walkMenu {
-  width: 30%;
+  width: 220px;
+  margin-right: 12%;
   position: -webkit-sticky;
   position: sticky;
   /* Hack around the odd behaviour when padding-top is 1px vs 0px */
@@ -13657,6 +13687,16 @@ body.city-page > #blog:after {
   top: 60px;
   float: right;
   /* opacity: 0.5; */
+}
+@media (max-width: 992px) {
+  .walkPage .walkMenu {
+    margin-right: 4%;
+  }
+}
+@media (max-width: 768px) {
+  .walkPage .walkMenu {
+    display: none;
+  }
 }
 .walkPage .walkMenu ul {
   list-style: none;
@@ -13674,6 +13714,7 @@ body.city-page > #blog:after {
 }
 .walkPage .walkMenu h6 {
   margin: 5px 0;
+  line-height: 130%;
 }
 .walkPage .walkMenu .tags {
   opacity: 0.7;
@@ -13716,10 +13757,10 @@ body.city-page > #blog:after {
   margin-bottom: 60px;
 }
 .walkPage > .walkHeader .coverImage {
-  height: 350px;
-  background-image: url('http://www.tuckermclachlan.com/janeswalk/himy_walkphoto.jpg');
+  height: 55vh;
   background-size: cover;
   background-color: #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .walkPage > .walkHeader .breadcrumb {
   position: absolute;
@@ -13727,42 +13768,52 @@ body.city-page > #blog:after {
   border-bottom-right-radius: 6px;
   padding: 10px 15px;
   background: #fff;
+  max-width: 85%;
+  margin-top: -1px;
+  border: 1px solid #ddd;
+}
+@media (max-width: 768px) {
+  .walkPage > .walkHeader .breadcrumb {
+    display: none;
+  }
 }
 .walkPage > .walkHeader h1,
 .walkPage > .walkHeader h4 {
-  padding-left: 70px;
+  padding-left: 60px;
 }
 .walkPage > .walkHeader h1 {
   padding-top: 0px;
-  font-weight: 300;
+  font-weight: 400;
   width: 80%;
-  font-size: 38px;
+  font-size: 34px;
   margin-bottom: 16px;
 }
 .walkPage > .walkHeader h1 .addFavourite {
   position: relative;
-  top: -2px;
+  top: -1px;
   font-size: 22px;
   opacity: 0.5;
   color: #F16725;
-  margin-left: 7px;
+  margin-left: 0px;
 }
 .walkPage > .walkHeader h1 .addFavourite:hover {
   font-size: 30px;
-  top: 2px;
-  margin-left: 2px;
+  top: 3px;
+  opacity: 0.75;
+  margin-left: -5px;
 }
 .walkPage > .walkHeader h1 .removeFavourite {
   line-height: 0;
   font-size: 30px;
   position: relative;
-  top: 2px;
-  margin-left: 2px;
+  top: 3px;
+  margin-left: -5px;
   color: #F16725;
 }
 .walkPage > .walkHeader h4 {
   margin: 5px 0 0;
   font-size: 16px;
+  font-weight: 400;
 }
 .walkPage .walkDescription,
 .walkPage .walkRoute,
@@ -13771,8 +13822,19 @@ body.city-page > #blog:after {
 .walkPage .walkStart,
 .walkPage .walkTeam,
 .walkPage .walkParking {
-  padding: 25px 70px 0;
+  padding: 0 60px;
   width: 65%;
+}
+@media (max-width: 768px) {
+  .walkPage .walkDescription,
+  .walkPage .walkRoute,
+  .walkPage .walkAccessibility,
+  .walkPage .walkPublicTransit,
+  .walkPage .walkStart,
+  .walkPage .walkTeam,
+  .walkPage .walkParking {
+    width: 97%;
+  }
 }
 .walkPage .walkDescription h2,
 .walkPage .walkRoute h2,
@@ -13781,13 +13843,24 @@ body.city-page > #blog:after {
 .walkPage .walkStart h2,
 .walkPage .walkTeam h2,
 .walkPage .walkParking h2 {
-  font-size: 22px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.walkPage .walkDescription article,
+.walkPage .walkRoute article,
+.walkPage .walkAccessibility article,
+.walkPage .walkPublicTransit article,
+.walkPage .walkStart article,
+.walkPage .walkTeam article,
+.walkPage .walkParking article {
+  line-height: 150%;
 }
 .walkPage .walkDescription {
-  padding: 1px 70px 50px;
+  padding: 0px 60px 50px;
+  margin-top: -75px;
 }
-.walkPage .walkDescription h2 {
-  margin-top: 10px;
+.walkPage .walkDescription > h2 {
+  padding-top: 75px;
 }
 .walkPage .walkDescription article {
   font-size: 18px;
@@ -13796,6 +13869,29 @@ body.city-page > #blog:after {
 .walkPage .walkDescription article ul li {
   margin-bottom: 5px;
 }
+.walkPage .walkMap {
+  width: 60%;
+  height: 350px;
+}
+@media (max-width: 768px) {
+  .walkPage .walkMap {
+    width: 100%;
+  }
+}
+.walkPage .walkRoute,
+.walkPage .walkStart,
+.walkPage .walkPublicTransit,
+.walkPage .walkParking,
+.walkPage .walkTeam {
+  margin-top: -50px;
+}
+.walkPage .walkRoute > h2,
+.walkPage .walkStart > h2,
+.walkPage .walkPublicTransit > h2,
+.walkPage .walkParking > h2,
+.walkPage .walkTeam > h2 {
+  padding-top: 75px;
+}
 .walkPage .walkRoute ol {
   padding: 0 19px;
   font-size: 20px;
@@ -13803,7 +13899,7 @@ body.city-page > #blog:after {
 }
 .walkPage .walkRoute ol li h2 {
   font-weight: 300;
-  margin-bottom: 5px;
+  margin: 5px 0;
 }
 .walkPage .walkRoute ol li p {
   font-size: 18px;
@@ -13811,7 +13907,7 @@ body.city-page > #blog:after {
 }
 .walkPage .walkAccessibility ul {
   padding: 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
 }
 .walkPage .walkAccessibility ul li::before {
@@ -13826,7 +13922,7 @@ body.city-page > #blog:after {
 .walkPage .walkPublicTransit,
 .walkPage .walkStart,
 .walkPage .walkParking {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 300;
 }
 .walkPage .walkTeam {
@@ -13836,12 +13932,44 @@ body.city-page > #blog:after {
   font-weight: 300;
 }
 .walkPage .walkTeam h3 {
-  font-size: 19px;
+  display: inline-block;
+}
+.walkPage .walkTeam h3 span:first-child {
+  font-size: 34px;
+  display: block;
+  margin-right: 10px;
+}
+.walkPage .walkTeam h3 span:nth-child(2) {
+  display: none;
+}
+.walkPage .walkTeam h3 span:last-child {
+  display: block;
+  font-size: 18px;
+  margin-top: 4px;
+}
+.walkPage .walkTeam footer {
+  display: inline-block;
+  vertical-align: top;
+  margin: 4px 0 15px;
+}
+.walkPage .walkTeam footer .btn-toolbar {
+  margin-left: 0;
+}
+.walkPage .walkTeam footer .btn-toolbar .btn,
+.walkPage .walkTeam footer .btn-toolbar body.city-page > #city-details .create-walk,
+.walkPage .walkTeam footer .btn-toolbar body.city-page > #city-details .create-walk:after,
+.walkPage .walkTeam footer .btn-toolbar body.city-page > #city-details .create-walk:hover,
+.walkPage .walkTeam footer .btn-toolbar #create-walk #map-control-bar button,
+.walkPage .walkTeam footer .btn-toolbar #create-walk #map-control-bar button.active,
+.walkPage .walkTeam footer .btn-toolbar #create-walk #map-control-bar .loadFeed,
+.walkPage .walkTeam footer .btn-toolbar #create-walk .filterInputs .filter input[type=submit],
+.walkPage .walkTeam footer .btn-toolbar #create-walk .filterInputs .filter input[type=button] {
+  padding: 4px 8px;
 }
 .walkPage .walkTeam summary {
   font-size: 18px;
   font-weight: 300;
-  margin-top: 1em;
+  margin-top: 0em;
 }
 .custom-walk-page {
   padding-top: 160px;
