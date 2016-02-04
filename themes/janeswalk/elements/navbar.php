@@ -36,7 +36,7 @@ $Dropdown = ['Dropdown' => ob_get_clean()];
 <?php if ($ui) { ?>
   JanesWalk.event.emit('user.receive', <?= json_encode($userInfo) ?>);
   JanesWalk.event.emit('walks.receive', <?= json_encode(array_values($walks)) ?>);
-  JanesWalk.event.emit('itineraries.receive', <?= json_encode($itineraries) ?>);
+  JanesWalk.event.emit('itineraries.receive', <?= json_encode((array) $itineraries) ?>);
 <?php } ?>
   JanesWalk.event.emit('area.receive', <?= json_encode($LeftHeader) ?>);
   JanesWalk.event.emit('area.receive', <?= json_encode($Dropdown) ?>);
