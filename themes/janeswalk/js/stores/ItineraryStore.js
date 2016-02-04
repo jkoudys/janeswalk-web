@@ -6,15 +6,15 @@ import WalkStore from './WalkStore';
 
 const CHANGE_EVENT = 'change';
 
-// TODO: init empty and receive from event
 const _lists = new Set();
 
-//TODO: _removeWalk, _addWalk, should receive updated list
-//TODO: _createList, _updateTitle, _updateDescription, should receive updated list
-//TODO: Need to retrieve all lists either via JW Events, or async call on component mount
+// Has this store been synced, and is it syncing?
+let _lastChange = Date.now();
+
 //TODO: Currently no remove list, just adding lists
 
 const _removeWalk = (list, walk) => list.walks.delete(walk);
+
 const _addWalk = (list, walk) => list.walks.add(walk);
 
 const _createList = (title = '', description = '') => {
@@ -75,23 +75,21 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   },
 
   getItineraryList() {
-    // Top of the lists is the itinerary
-    for (let list of _lists.values()) {
-      return list;
-    }
+    let [list] = _lists;
+    return list;
   },
 
   getFavouriteList() {
-    let i = 0;
-    // Second list is the itinerary
-    for (let list of _lists.values()) {
-      if (i === 1) return list;
-      i++;
-    }
+    let [itinerary, favourites] = _lists;
+    return favourites;
   },
 
   getWalks(list) {
     return list.walks;
+  },
+
+  getLastChange() {
+    return _lastChange;
   },
 
   totalWalks() {
@@ -104,24 +102,29 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
   dispatcherIndex: register(function(payload) {
     const {list, walk} = payload;
     switch (payload.type) {
-    case ActionTypes.ITINERARY_REMOVE_WALK:
-      _removeWalk(list, walk);
+      case ActionTypes.ITINERARY_REMOVE_WALK:
+        _lastChange = Date.now();
+        _removeWalk(list, walk);
       break;
-    case ActionTypes.ITINERARY_ADD_WALK:
-       //TODO: Dialog to open on first add to Itinerary/Favourites
-      _addWalk(list, walk);
+      case ActionTypes.ITINERARY_ADD_WALK:
+        _lastChange = Date.now();
+        //TODO: Dialog to open on first add to Itinerary/Favourites
+        _addWalk(list, walk);
       break;
-    case ActionTypes.ITINERARY_UPDATE_TITLE:
-      _updateTitle(list, payload.title);
+      case ActionTypes.ITINERARY_UPDATE_TITLE:
+        _lastChange = Date.now();
+        _updateTitle(list, payload.title);
       break;
-    case ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
-      _updateDescription(list, payload.description);
+      case ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
+        _lastChange = Date.now();
+        _updateDescription(list, payload.description);
       break;
-    case ActionTypes.ITINERARY_CREATE_LIST:
-      _createList(payload.title, payload.description);
+      case ActionTypes.ITINERARY_CREATE_LIST:
+        _lastChange = Date.now();
+        _createList(payload.title, payload.description);
       break;
-    case ActionTypes.ITINERARY_RECEIVE_ALL:
-      _receiveAll(payload.itineraries);
+      case ActionTypes.ITINERARY_RECEIVE_ALL:
+        _receiveAll(payload.itineraries);
       break;
     }
 

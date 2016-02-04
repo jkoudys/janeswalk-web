@@ -11,6 +11,8 @@ import * as WalkActions from './actions/WalkActions.js';
 import * as ItineraryActions from './actions/ItineraryActions.js';
 import Navbar from './components/Navbar.jsx';
 
+import * as ItineraryAPI from './utils/api/Itinerary';
+
 // Page Views
 import Page from './components/Page.jsx';
 import City from './components/pages/City.jsx';
@@ -146,11 +148,11 @@ document.addEventListener('DOMContentLoaded', function() {
   JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
   JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
 
-  // FIXME XXX: stubbed itineraries list
-  JanesWalk.event.emit('itineraries.receive', lists);
-  JanesWalk.event.emit('walks.receive', walks);
   // TODO: emit the city without needing to load JanesWalk with static data
   JanesWalk.event.emit('city.receive', JanesWalk.city);
+
+  // TODO: this could use a better home
+  ItineraryAPI.startPolling();
 
   // Routes initialized by events
   JanesWalk.event.on('walkpage.load', ({walk, city}) => {

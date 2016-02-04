@@ -6,6 +6,7 @@ import {t} from 'janeswalk/stores/I18nStore';
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
 import ItinerarySelect from './ItinerarySelect.jsx';
+import * as API from '../../utils/api/Itinerary';
 
 const getItinerary = (list = ItineraryStore.getItineraryList()) => ({
   activeList: list,

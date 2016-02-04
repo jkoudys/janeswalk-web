@@ -26,3 +26,7 @@ export function createList(title, description) {
 export function receiveAll(itineraries) {
   dispatch({type: ActionTypes.ITINERARY_RECEIVE_ALL, itineraries});
 }
+
+export function syncEnd(start) {
+  dispatch({type: ActionTypes.ITINERARY_SYNC_END, start});
+}
