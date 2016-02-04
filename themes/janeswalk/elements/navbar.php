@@ -10,6 +10,22 @@ if ($u->getUserID()) {
         'firstName' => $ui->getAttribute('first_name')
     ];
     $itineraries = json_decode($ui->getAttribute('itineraries'), true);
+    if (!$itineraries) {
+        // If there's no itinerary, seed with defaults
+        $itineraries = [
+            [
+                'id' => 1,
+                'title' => 'My Itinerary',
+                'walks' => [],
+                'description' => ''
+            ], [
+                'id' => 2,
+                'title' => 'Favourites',
+                'walks' => [],
+                'description' => ''
+            ]
+        ];
+    }
     $walkIDs = [];
     $walks = [];
     foreach ((array) $itineraries as $itinerary) {
