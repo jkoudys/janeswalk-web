@@ -13,7 +13,7 @@ let _filters = {};
 JanesWalk.event.on('walks.receive', function(walks) {
   _walks = walks;
   React.render(
-    <WalkFilter walks={walks} filters={_filters} location={_location} />,
+    <WalkFilter walks={_walks} filters={_filters} location={_location} />,
     document.getElementById('janeswalk-walk-filters')
   );
 });

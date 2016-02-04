@@ -71,22 +71,27 @@ const Filter = ({name, selected, setFilter, data}) => (
   </li>
 );
 
+const getWalkFilterState = ({walks, filters, location}) => {
+
+  const thirdDate = thirdRecentDate(walks);
+  const dateRange = [today.getTime(), null];
+  if (thirdDate && thirdDate < today) {
+    dateRange[0] = thirdDate.getTime();
+  }
+
+  return {
+    walks: walks || [],
+    location: location,
+    filters: filters || {},
+    dateRange: dateRange,
+    filterMatches: filterWalks(walks, filters, dateRange)
+  }
+};
+
 export default class WalkFilter extends React.Component {
   constructor(props) {
-    const thirdDate = thirdRecentDate(props.walks);
-    const dateRange = [today.getTime(), null];
-    if (thirdDate && thirdDate < today) {
-      dateRange[0] = thirdDate.getTime();
-    }
-
     super(props);
-    this.state = {
-      walks: props.walks || [],
-      location: props.location,
-      filters: props.filters || {},
-      dateRange: dateRange,
-      filterMatches: filterWalks(props.walks, props.filters, dateRange)
-    };
+    this.state = getWalkFilterState(props);
 
     // Setup event listeners
     JanesWalk.event.on('walks.receive', (walks) => {
@@ -96,6 +101,10 @@ export default class WalkFilter extends React.Component {
     JanesWalk.event.on('city.receive', city => this.setState({location: city}));
     JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
     JanesWalk.event.on('country.receive', country => this.setState({location: country}));
+  }
+
+  componentWillReceiveProps(newProps) {
+    this.setState = getWalkFilterState(props);
   }
 
   setFilter(filter, val) {
