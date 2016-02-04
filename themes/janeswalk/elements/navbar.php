@@ -12,7 +12,7 @@ if ($u->getUserID()) {
     $itineraries = json_decode($ui->getAttribute('itineraries'), true);
     $walkIDs = [];
     $walks = [];
-    foreach ($itineraries as $itinerary) {
+    foreach ((array) $itineraries as $itinerary) {
         foreach ($itinerary['walks'] as $walkID) {
             $p = Page::getByID($walkID);
             if ($p && !$walks[$walkID]) {
