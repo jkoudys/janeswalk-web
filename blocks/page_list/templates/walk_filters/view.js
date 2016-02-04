@@ -564,23 +564,19 @@
 	          { className: 'walk-filters' },
 	          React.createElement(
 	            'a',
+	            { className: 'filter-header', onClick: function onClick() {
+	                _this2.setState({ displayFilters: !displayFilters });
+	              } },
+	            React.createElement('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }),
+	            'Filters'
+	          ),
+	          React.createElement(
+	            'a',
 	            { className: 'print-button', onClick: function onClick() {
 	                return _this2.printList();
 	              } },
 	            React.createElement('i', { className: 'fa fa-print' }),
 	            ' Print List'
-	          ),
-	          React.createElement(
-	            'h4',
-	            { className: 'filter-header', onClick: function onClick() {
-	                _this2.setState({ displayFilters: !displayFilters });
-	              } },
-	            React.createElement('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }),
-	            React.createElement(
-	              'a',
-	              null,
-	              'Filters'
-	            )
 	          ),
 	          displayFilters ? AllFilters : null
 	        ),
@@ -756,7 +752,7 @@
 
 	      if (leaders.length) {
 	        LedBy = React.createElement(
-	          'h6',
+	          'span',
 	          null,
 	          'Walk led by ' + leaders.map(function (v) {
 	            return v['name-first'] + ' ' + v['name-last'];
@@ -795,29 +791,31 @@
 	                (walk.title || '').slice(0, 45)
 	              ),
 	              React.createElement(
-	                'ul',
-	                { className: 'when' },
-	                this.state.startTimes.map(function (startTime) {
-	                  return React.createElement(
-	                    'li',
-	                    null,
-	                    React.createElement('i', { className: 'fa fa-calendar' }),
-	                    ' ',
-	                    startTime
-	                  );
-	                }),
-	                React.createElement(
-	                  'li',
-	                  null,
-	                  'Meet at ',
-	                  Meeting
-	                )
-	              ),
-	              LedBy,
-	              React.createElement(
 	                'p',
 	                null,
 	                (walk.shortDescription || '').slice(0, 140)
+	              )
+	            ),
+	            React.createElement(
+	              'ul',
+	              { className: 'when' },
+	              this.state.startTimes.map(function (startTime) {
+	                return React.createElement(
+	                  'li',
+	                  null,
+	                  startTime
+	                );
+	              }),
+	              React.createElement(
+	                'li',
+	                null,
+	                'Meet at ',
+	                Meeting
+	              ),
+	              React.createElement(
+	                'li',
+	                null,
+	                LedBy
 	              )
 	            ),
 	            React.createElement(

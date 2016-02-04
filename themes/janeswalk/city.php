@@ -148,9 +148,9 @@ echo <<< EOT
 <section id="city-details">
  <div class="walk-list">
       <div class="item">
-          <h3>{$t('Walks in %s', $cityName)}</h3>
+          <h3>{$t('Walks in %s', $cityName)}</h3> 
+          <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Lead a Walk!')}</a>
       </div>
-     <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Create a Walk')}</a>
      {$area('All Walks List')}
  </div>
  <div class="description">
