@@ -5,7 +5,10 @@
  * The user profile page, with that user's personal and city information.
  */
 use \JanesWalk\Models\PageTypes\Walk;
+use \JanesWalk\Models\PageTypes\City;
 
+Loader::model('page_list');
+Loader::model('page_types/City');
 Loader::model('page_types/Walk');
 class ProfileController extends Concrete5_Controller_Profile
 {
@@ -15,10 +18,109 @@ class ProfileController extends Concrete5_Controller_Profile
      * @param int $userID The user ID of who we're viewing
      * @return null
      */
+    public function view($userID = null)
+    {
+        parent::view($userID);
+
+        // Set helpers for view
+        $nh = Loader::helper('navigation');
+        $ah = Loader::helper('concrete/avatar');
+        $th = Loader::helper('text');
+        $ih = Loader::helper('image');
+
+        // The full Walk data we'll need to serialize
+        $walkData = [];
+
+        // Set the page view first
+        $this->set('bodyData', ['pageViewName' => 'ProfilePageView']);
+
+        // Load the profile's user
+        $u = new User($userID);
+        $ui = UserInfo::getByID($u->getUserID());
+
+        // Whether the logged in user has created any blog posts
+        $pl = new PageList;
+        $pl->filterByCollectionTypeHandle(['walk_blog_entry', 'city_blog_entry']);
+        $pl->filterByUserID($ui->getUserID());
+        $this->set('userBlogPosts', $pl->get());
+
+        // Load the home city
+        $cityPage = $ui->getAttribute('home_city');
+        $cityUsers = self::getUsersInCity($cityPage->getCollectionID());
+
+        $city = new City($cityPage);
+
+        // Build all the walks we need
+        foreach ($city->getWalks() as $w) {
+            $walkData[(int) $w->getPage()->cID] = $w;
+        }
+        $cityWalksArr = array_keys($walkData);
+
+        // Walks owned by user
+        $pl = new PageList;
+        $pl->filterByCollectionTypeHandle('walk');
+        $pl->filterByUserID($u->getUserID());
+        // Include the names of draft walks, not last published
+        $pl->displayUnapprovedPages();
+
+        $userWalksArr = [];
+        foreach ($pl->get() as $p) {
+            if (!array_key_exists($p->cID, $walkData)) {
+                $w = new Walk($p);
+                $walkData[(int) $p->cID] = $w;
+            }
+            $userWalksArr[] = (int) $p->cID;
+        }
+
+        $this->set('userWalksArr', $userWalksArr);
+
+        $this->set('u', $u);
+        $this->set('ui', $ui);
+        $this->set('city', $city);
+        $this->set('cityUsers', $cityUsers);
+        $this->set('cityWalksArr', $cityWalksArr);
+        $this->set('walkData', $walkData);
+
+        $this->set('nh', $nh);
+
+        // city : all users in city, all walks in a city
+        // users: users for city, CO. Each needs their walk ID list. User who you're looking at
+        // walks: all the walks owned by the profile user
+    }
+
+    private static function getUsersInCity($cID)
+    {
+        $cityUsers = [];
+
+        // Load the user list for this city
+        $ul = new UserList();
+        $ul->filterByHomeCity($cID);
+        foreach ($ul->get(0xFFFF) as $user) {
+            $cityUsers[] = [
+                'id' => $user->getUserID(),
+                'firstName' => $user->getAttribute('first_name'),
+                'lastName' => $user->getAttribute('last_name')
+            ];
+        }
+
+        // Sort the users by name
+        usort(
+            $cityUsers,
+            function ($a, $b) {
+                return strcmp(
+                    strtoupper($a['firstName']),
+                    strtoupper($b['firstName'])
+                );
+            }
+        );
+
+        return $cityUsers;
+    }
+
+    /*
     public function view($userID = 0)
     {
         // Load helpers
-        Loader::model('page_list');
         $nh = Loader::helper('navigation');
         $ah = Loader::helper('concrete/avatar');
         $th = Loader::helper('text');
@@ -29,9 +131,6 @@ class ProfileController extends Concrete5_Controller_Profile
         $this->set('bodyData', ['pageViewName' => 'ProfilePageView']);
         parent::view($userID);
 
-        // Load the current user
-        $u = new User;
-        $ui = UserInfo::getByID($u->getUserID());
         $profile = $this->get('profile');
 
         // Basic flags identifying the type of user
@@ -43,14 +142,14 @@ class ProfileController extends Concrete5_Controller_Profile
         /**
          * New dashboard variables
          *
-         */
+         *
         // Remaining variables/logic only needed for "self viewing"
         if ($userIsViewingSelf) {
 
             /**
              * Helper
              *
-             */
+             *
 
             $html = Loader::helper('html');
             $this->addHeaderItem($html->javascript('swfobject.js'));
@@ -58,7 +157,7 @@ class ProfileController extends Concrete5_Controller_Profile
             /**
              * User data
              *
-             */
+             *
 
             // Whether the logged in user has set their first and last name
             $this->set(
@@ -89,10 +188,10 @@ class ProfileController extends Concrete5_Controller_Profile
             $pl->filterByUserID($u->getUserID());
             $this->set('userBlogPosts', $pl->get());
 
-            /**
+            **
              * User city data
              *
-             */
+             
             if ($userHomeCity) {
                 // Set the city
                 $city = $ui->getAttribute('home_city');
@@ -284,7 +383,7 @@ class ProfileController extends Concrete5_Controller_Profile
         $this->set('userIsViewingSelf', $userIsViewingSelf);
         // Validation helper for form tokens
         $this->set('valt', Loader::helper('validation/token'));
-    }
+} */
 
     public function itineraries($userID = null)
     {

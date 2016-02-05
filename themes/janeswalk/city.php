@@ -104,9 +104,8 @@ EOT;
 
     $CityOrganizerDetails = <<< EOT
 <section class="city-organizer">
-    {$COAvatar}
     <div class="city-organizer-details">
-        <a href="/index.php/profile/5784"><div class="u-avatar" style="background-image:url(http://janeswalk.org/files/avatars/5784.jpg?1454612500)"></div></a>
+        {$COAvatar}
         <h3>
             <a href="{$city->profile_path}">{$city->cityOrganizer->getAttribute('first_name')} {$city->cityOrganizer->getAttribute('last_name')}</a>
             {$COEdit}

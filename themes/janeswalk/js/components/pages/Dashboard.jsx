@@ -1,13 +1,17 @@
-import React from 'react';
-import Dashboard from './Dashboard/Dashboard.jsx';
+import DashboardStore from '../../stores/DashboardStore';
 
-let _dashboard;
+import DashboardHeader from './Dashboard/DashboardHeader.jsx';
+import DashboardMenu from './Dashboard/DashboardMenu.jsx';
+import DashboardSummary from './Dashboard/DashboardSummary.jsx';
 
-JanesWalks.event.on('profile.receive', function(dashboard){
- _dashboard = dashboard;
-
- React.render(
-     <Dashboard dashboard={dashboard}/>,
-     document.getElementById('janeswalk-dashboard-page')
- );
-});
+export default class Dashboard extends React.Component {
+  render() {
+    return (
+      <section className="dashboard">
+        <DashboardHeader {...DashboardStore.getCityData()} {...DashboardStore.getLatestPost()}/>
+        <DashboardMenu style="dashboard-page" {...DashboardStore.getCityData()} {...DashboardStore.getMenuItems()}/>
+        <DashboardSummary {...DashboardStore.getRegionSummary()}/>
+      </section>
+    );
+  }
+}
