@@ -40,36 +40,34 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1);
 
 
 /***/ },
-
-/***/ 1:
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _I18nUtils = __webpack_require__(2);
 
-	var _AreaActions = __webpack_require__(311);
+	var _AreaActions = __webpack_require__(10);
 
 	var AreaActions = _interopRequireWildcard(_AreaActions);
 
-	var _UserActions = __webpack_require__(312);
+	var _UserActions = __webpack_require__(11);
 
 	var UserActions = _interopRequireWildcard(_UserActions);
 
-	var _WalkActions = __webpack_require__(313);
+	var _WalkActions = __webpack_require__(12);
 
 	var WalkActions = _interopRequireWildcard(_WalkActions);
 
-	var _ItineraryActions = __webpack_require__(308);
+	var _ItineraryActions = __webpack_require__(13);
 
 	var ItineraryActions = _interopRequireWildcard(_ItineraryActions);
 
@@ -77,19 +75,19 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Itinerary = __webpack_require__(310);
+	var _Itinerary = __webpack_require__(26);
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
-	var _CreateWalk = __webpack_require__(252);
+	var _CreateWalk = __webpack_require__(29);
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(274);
+	var _Walk = __webpack_require__(52);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Login = __webpack_require__(287);
+	var _Login = __webpack_require__(65);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -207,8 +205,7 @@
 	});
 
 /***/ },
-
-/***/ 2:
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -254,8 +251,7 @@
 	}
 
 /***/ },
-
-/***/ 3:
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -285,8 +281,7 @@
 	}
 
 /***/ },
-
-/***/ 4:
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -307,8 +302,7 @@
 	exports.dispatch = dispatch;
 
 /***/ },
-
-/***/ 5:
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -325,8 +319,7 @@
 	module.exports.Dispatcher = __webpack_require__(6);
 
 /***/ },
-
-/***/ 6:
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -567,8 +560,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
-
-/***/ 7:
+/* 7 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -670,8 +662,7 @@
 	};
 
 /***/ },
-
-/***/ 8:
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -727,8 +718,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
-
-/***/ 9:
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -765,8 +755,165 @@
 	exports.ActionTypes = ActionTypes;
 
 /***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 14:
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receive = receive;
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _JWConstants = __webpack_require__(9);
+
+	// Load all loop data
+	/**
+	 * i18n Translations
+	 *
+	 * Translate text content into our available translations using
+	 * the i18n standard.
+	 */
+
+	function receive(areas) {
+	  Object.keys(areas).forEach(function (name) {
+	    (0, _AppDispatcher.dispatch)({
+	      type: _JWConstants.ActionTypes.AREA_RECEIVE,
+	      name: name,
+	      content: areas[name]
+	    });
+	  });
+	}
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receive = receive;
+	exports.receiveAll = receiveAll;
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _JWConstants = __webpack_require__(9);
+
+	// Load all loop data
+	/**
+	 * i18n Translations
+	 *
+	 * Translate text content into our available translations using
+	 * the i18n standard.
+	 */
+
+	function receive(user, _ref) {
+	  var current = _ref.current;
+	  var profile = _ref.profile;
+
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.USER_RECEIVE,
+	    user: user,
+	    current: current,
+	    profile: profile
+	  });
+	}
+
+	function receiveAll(users) {
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.USER_RECEIVE_ALL,
+	    users: users
+	  });
+	}
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receive = receive;
+	exports.receiveAll = receiveAll;
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _JWConstants = __webpack_require__(9);
+
+	// Load the walk
+	function receive(walk) {
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.WALK_RECEIVE,
+	    walk: walk
+	  });
+	}
+
+	function receiveAll(walks) {
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.WALK_RECEIVE_ALL,
+	    walks: walks
+	  });
+	}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.remove = remove;
+	exports.add = add;
+	exports.updateTitle = updateTitle;
+	exports.updateDescription = updateDescription;
+	exports.createList = createList;
+	exports.receiveAll = receiveAll;
+	exports.syncEnd = syncEnd;
+
+	var _JWConstants = __webpack_require__(9);
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	//TODO: API call before dispatch
+
+	function remove(list, walk) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, list: list, walk: walk });
+	}
+
+	function add(list, walk) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, list: list, walk: walk });
+	}
+
+	function updateTitle(list, title) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE, title: title, list: list });
+	}
+
+	function updateDescription(list, description) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description: description, list: list });
+	}
+
+	function createList(title, description) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_CREATE_LIST, title: title, description: description });
+	}
+
+	function receiveAll(itineraries) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL, itineraries: itineraries });
+	}
+
+	function syncEnd(start) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_SYNC_END, start: start });
+	}
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -781,19 +928,19 @@
 
 	var _Itinerary2 = _interopRequireDefault(_Itinerary);
 
-	var _AreaStore = __webpack_require__(304);
+	var _AreaStore = __webpack_require__(27);
 
 	var _AreaStore2 = _interopRequireDefault(_AreaStore);
 
-	var _UserStore = __webpack_require__(305);
+	var _UserStore = __webpack_require__(28);
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
-	var _ItineraryStore = __webpack_require__(306);
+	var _ItineraryStore = __webpack_require__(16);
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1114,8 +1261,7 @@
 	};
 
 /***/ },
-
-/***/ 15:
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1126,31 +1272,31 @@
 	  value: true
 	});
 
-	var _ItineraryStore = __webpack_require__(306);
+	var _ItineraryStore = __webpack_require__(16);
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _WalkStore = __webpack_require__(307);
+	var _WalkStore = __webpack_require__(18);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
-	var _ItineraryActions = __webpack_require__(308);
+	var _ItineraryActions = __webpack_require__(13);
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
-	var _Walk = __webpack_require__(22);
+	var _Walk = __webpack_require__(21);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _ItineraryHeader = __webpack_require__(25);
+	var _ItineraryHeader = __webpack_require__(24);
 
 	var _ItineraryHeader2 = _interopRequireDefault(_ItineraryHeader);
 
-	var _ItinerarySelect = __webpack_require__(26);
+	var _ItinerarySelect = __webpack_require__(25);
 
 	var _ItinerarySelect2 = _interopRequireDefault(_ItinerarySelect);
 
-	var _Itinerary = __webpack_require__(310);
+	var _Itinerary = __webpack_require__(26);
 
 	var API = _interopRequireWildcard(_Itinerary);
 
@@ -1313,8 +1459,177 @@
 	};
 
 /***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 17:
+	'use strict';
+
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(17);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var _WalkStore = __webpack_require__(18);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CHANGE_EVENT = 'change';
+
+	var _lists = new Set();
+
+	// Has this store been synced, and is it syncing?
+	var _lastChange = Date.now();
+
+	//TODO: Currently no remove list, just adding lists
+
+	var _removeWalk = function _removeWalk(list, walk) {
+	  return list.walks.delete(walk);
+	};
+
+	var _addWalk = function _addWalk(list, walk) {
+	  return list.walks.add(walk);
+	};
+
+	var _createList = function _createList() {
+	  var title = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	  var description = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+
+	  var list = {
+	    title: title,
+	    walks: new Set(),
+	    description: description,
+	    shareUrl: ''
+	  };
+
+	  _lists.add(list);
+
+	  // Returning list, since after _createList, _addWalk is called, so passing around the list
+	  return list;
+	};
+
+	/**
+	 * Load all the basic itineraries
+	 *
+	 * @param itineraries array List of itineraries in serlizable-friendly state
+	 */
+	var _receiveAll = function _receiveAll(itineraries) {
+	  // Itinerary has a list of walk IDs, so load the actual walks from there.
+	  itineraries.forEach(function (itinerary) {
+	    return _lists.add(Object.assign({}, itinerary, {
+	      walks: new Set(itinerary.walks.map(function (w) {
+	        return _WalkStore2.default.getWalk(+w);
+	      }))
+	    }));
+	  });
+	};
+
+	//walks received from API used to update _itinerary
+	var _updateWalks = function _updateWalks(list, walks) {
+	  walks.forEach(function (walk) {
+	    return list.add(walk);
+	  });
+	};
+
+	var _updateTitle = function _updateTitle(list, title) {
+	  list.title = title;
+	};
+
+	var _updateDescription = function _updateDescription(list, description) {
+	  list.description = description;
+	};
+
+	var ItineraryStore = Object.assign(_events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getLists: function getLists() {
+	    return _lists;
+	  },
+	  getItineraryList: function getItineraryList() {
+	    var _lists2 = _slicedToArray(_lists, 1);
+
+	    var list = _lists2[0];
+
+	    return list;
+	  },
+	  getFavouriteList: function getFavouriteList() {
+	    var _lists3 = _slicedToArray(_lists, 2);
+
+	    var itinerary = _lists3[0];
+	    var favourites = _lists3[1];
+
+	    return favourites;
+	  },
+	  getWalks: function getWalks(list) {
+	    return list.walks;
+	  },
+	  getLastChange: function getLastChange() {
+	    return _lastChange;
+	  },
+	  totalWalks: function totalWalks() {
+	    var count = 0;
+	    _lists.forEach(function (list) {
+	      return count += list.walks.size;
+	    });
+	    return count;
+	  },
+
+	  //TODO: use _updateWalks to receive walks from server via API call
+	  dispatcherIndex: (0, _AppDispatcher.register)(function (payload) {
+	    var list = payload.list;
+	    var walk = payload.walk;
+
+	    switch (payload.type) {
+	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
+	        _lastChange = Date.now();
+	        _removeWalk(list, walk);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
+	        _lastChange = Date.now();
+	        //TODO: Dialog to open on first add to Itinerary/Favourites
+	        _addWalk(list, walk);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
+	        _lastChange = Date.now();
+	        _updateTitle(list, payload.title);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
+	        _lastChange = Date.now();
+	        _updateDescription(list, payload.description);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_CREATE_LIST:
+	        _lastChange = Date.now();
+	        _createList(payload.title, payload.description);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL:
+	        _receiveAll(payload.itineraries);
+	        break;
+	    }
+
+	    ItineraryStore.emitChange();
+	  })
+
+	});
+
+	exports.default = ItineraryStore;
+
+/***/ },
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1588,53 +1903,83 @@
 	}
 
 /***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 19:
-/***/ function(module, exports) {
+	'use strict';
 
-	module.exports = {
-		"name": "",
-		"shortDescription": "",
-		"longDescription": "",
-		"accessibleInfo": "",
-		"accessibleTransit": "",
-		"accessibleParking": "",
-		"accessibleFind": "",
-		"map": {
-			"markers": [],
-			"route": []
-		},
-		"team": [
-			{
-				"id": -1,
-				"type": "you",
-				"name-first": "",
-				"name-last": "",
-				"role": "walk-leader",
-				"primary": "on",
-				"bio": "",
-				"twitter": "",
-				"facebook": "",
-				"website": "",
-				"email": "",
-				"phone": ""
-			}
-		],
-		"time": {
-			"type": "",
-			"slots": []
-		},
-		"thumbnails": [],
-		"wards": "",
-		"checkboxes": {},
-		"notifications": [],
-		"mirrors": {},
-		"url": ""
-	};
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(17);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var CHANGE_EVENT = 'change';
+
+	// Store singletons
+	// The Walk objects, keyed by walk ID (ie collection ID)
+	/**
+	 * Walk store
+	 *
+	 * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	 * description, and people involved with a walk.
+	 */
+
+	var _walks = new Map();
+
+	// Receive a single walk
+	function receiveWalk(walk) {
+	  _walks.set(+walk.id, walk);
+	}
+
+	// Receive an array of walks
+	function receiveWalks(walks) {
+	  walks.forEach(function (w) {
+	    return receiveWalk(w);
+	  });
+	}
+
+	var WalkStore = Object.assign(_events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getWalks: function getWalks() {
+	    return _walks;
+	  },
+	  getWalk: function getWalk(id) {
+	    return _walks.get(+id);
+	  },
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
+	    // Go through the various actions
+	    switch (payload.type) {
+	      // Route actions
+	      case _JWConstants.ActionTypes.WALK_RECEIVE:
+	        receiveWalk(payload.walk);
+	        break;
+	      case _JWConstants.ActionTypes.WALK_RECEIVE_ALL:
+	        receiveWalks(payload.walks);
+	        break;
+	    }
+	    WalkStore.emitChange();
+	  })
+	});
+
+	exports.default = WalkStore;
 
 /***/ },
-
-/***/ 20:
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1650,7 +1995,7 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _translate = __webpack_require__(21);
+	var _translate = __webpack_require__(20);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
@@ -1709,8 +2054,7 @@
 	var t2 = exports.t2 = _i18n.translatePlural.bind(_i18n);
 
 /***/ },
-
-/***/ 21:
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1803,8 +2147,7 @@
 	module.exports = I18nTranslator;
 
 /***/ },
-
-/***/ 22:
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1815,9 +2158,9 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(309);
+	var _ItineraryUtils = __webpack_require__(22);
 
-	var _AddWalkToList = __webpack_require__(24);
+	var _AddWalkToList = __webpack_require__(23);
 
 	var _AddWalkToList2 = _interopRequireDefault(_AddWalkToList);
 
@@ -1950,8 +2293,59 @@
 	exports.default = Walk;
 
 /***/ },
+/* 22 */
+/***/ function(module, exports) {
 
-/***/ 24:
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.dateFormatted = dateFormatted;
+
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+	// Default formatter
+	var dtfDate = undefined;
+	// Date formatted
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat('en-US', {
+	    year: 'numeric',
+	    month: 'long',
+	    day: 'numeric',
+	    hour: 'numeric',
+	    minute: '2-digit',
+	    timeZone: 'UTC'
+	  });
+	}
+
+	// Cache the parsed dates
+	var _dateCache = {};
+
+	function formatDate(dateInMs) {
+	  if (dtfDate) {
+	    return dtfDate.format(dateInMs);
+	  } else {
+	    var date = new Date(dateInMs);
+	    var dateString = date.toUTCString();
+	    return dateString.slice(0, dateString.indexOf(' GMT'));
+	  }
+	}
+
+	function dateFormatted(dateInSeconds) {
+	  var fromCache = _dateCache[dateInSeconds];
+	  var fromFormat = undefined;
+	  if (fromCache) {
+	    return fromCache;
+	  } else {
+	    fromFormat = formatDate(dateInSeconds * 1000);
+	    _dateCache[dateInSeconds] = fromFormat;
+	    return fromFormat;
+	  }
+	}
+
+/***/ },
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1960,7 +2354,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
@@ -2046,8 +2440,7 @@
 	exports.default = AddWalkToList;
 
 /***/ },
-
-/***/ 25:
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2056,7 +2449,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	var ItineraryHeader = function ItineraryHeader(_ref) {
 	  var list = _ref.list;
@@ -2110,8 +2503,7 @@
 	exports.default = ItineraryHeader;
 
 /***/ },
-
-/***/ 26:
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2120,9 +2512,9 @@
 	  value: true
 	});
 
-	var _ItineraryActions = __webpack_require__(308);
+	var _ItineraryActions = __webpack_require__(13);
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	var ItinerarySelect = function ItinerarySelect(_ref) {
 	  var lists = _ref.lists;
@@ -2169,8 +2561,257 @@
 	exports.default = ItinerarySelect;
 
 /***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 252:
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.post = post;
+	exports.get = get;
+	exports.startPolling = startPolling;
+
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _ItineraryActions = __webpack_require__(13);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); } /**
+	                                                                               * API methods for loading itineraries
+	                                                                               * (de)serializing to and from from the Jane's Walk C5
+	                                                                               */
+
+	// Service endpoints
+	var endpoint = '/profile/itineraries';
+
+	/**
+	 * Serialize as JSON
+	 * No need to serialize the whole walks list. Just need their IDs
+	 */
+	function getJson(_ref) {
+	  var _ref2 = _toArray(_ref);
+
+	  var lists = _ref2;
+
+	  return JSON.stringify(lists.map(function (list) {
+	    var _list$walks = _toArray(list.walks);
+
+	    var walks = _list$walks;
+
+	    return Object.assign({}, list, {
+	      walks: walks.map(function (w) {
+	        return +w.id;
+	      })
+	    });
+	  }));
+	}
+
+	function post(cb) {
+	  var url = arguments.length <= 1 || arguments[1] === undefined ? endpoint : arguments[1];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('POST', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      console.log(data);
+	      cb();
+	    } catch (e) {
+	      console.log('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send(getJson(_ItineraryStore2.default.getLists()));
+	}
+
+	function get() {
+	  var url = arguments.length <= 0 || arguments[0] === undefined ? endpoint : arguments[0];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('GET', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      (0, _ItineraryActions.receiveAll)(data);
+	    } catch (e) {
+	      cb('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send();
+	}
+
+	/**
+	 * Poll, and sync when updates stop
+	 */
+	function startPolling() {
+	  var period = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
+
+	  var lastSync = _ItineraryStore2.default.getLastChange();
+	  var syncing = false;
+
+	  setInterval(function () {
+	    var lastChange = _ItineraryStore2.default.getLastChange();
+	    // Poll, to see if we've waited a bit since the last thing you changed
+	    if (Date.now() - lastChange > period * 3) {
+	      if (lastChange > lastSync && !syncing) {
+	        syncing = true;
+	        post(function () {
+	          lastSync = Date.now();syncing = false;
+	        });
+	      }
+	    }
+	  }, period);
+	}
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(17);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var CHANGE_EVENT = 'change';
+
+	var _areas = {};
+
+	var AreaStore = Object.assign(_events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getAreas: function getAreas() {
+	    return _areas;
+	  },
+	  getArea: function getArea(name) {
+	    return _areas[name];
+	  },
+
+	  dispatcherIndex: (0, _AppDispatcher.register)(function (action) {
+	    switch (action.type) {
+	      case _JWConstants.ActionTypes.AREA_RECEIVE:
+	        _areas[action.name] = action.content;
+	        break;
+	    }
+
+	    AreaStore.emitChange();
+	  })
+
+	});
+
+	exports.default = AreaStore;
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(17);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var CHANGE_EVENT = 'change';
+
+	// Store singletons
+	// The users, keyed on uID
+	/**
+	 * User store
+	 *
+	 * Users on Jane's Walk.
+	 */
+
+	var _users = new Map();
+
+	// Is this the actively logged in user
+	var _current = undefined;
+
+	// Receive a single walk
+	function receiveUser(user, _ref) {
+	  var current = _ref.current;
+
+	  _users.set(+user.id, user);
+
+	  if (current) {
+	    _current = user;
+	  }
+	}
+
+	// Receive an array of walks
+	function receiveUsers(users) {
+	  users.forEach(function (u) {
+	    return receiveUser(u);
+	  });
+	}
+
+	var UserStore = Object.assign(_events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getUsers: function getUsers() {
+	    return _users;
+	  },
+	  getCurrent: function getCurrent() {
+	    return _current;
+	  },
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
+	    // Go through the various actions
+	    switch (payload.type) {
+	      // Route actions
+	      case _JWConstants.ActionTypes.USER_RECEIVE:
+	        receiveUser(payload.user, { current: payload.current, profile: payload.profile });
+	        break;
+	      case _JWConstants.ActionTypes.USER_RECEIVE_ALL:
+	        receiveUsers(payload.users);
+	        break;
+	    }
+	    UserStore.emitChange();
+	  })
+	});
+
+	exports.default = UserStore;
+
+/***/ },
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2181,39 +2822,39 @@
 	  value: true
 	});
 
-	var _ImageUpload = __webpack_require__(253);
+	var _ImageUpload = __webpack_require__(30);
 
 	var _ImageUpload2 = _interopRequireDefault(_ImageUpload);
 
-	var _ThemeSelect = __webpack_require__(254);
+	var _ThemeSelect = __webpack_require__(31);
 
 	var _ThemeSelect2 = _interopRequireDefault(_ThemeSelect);
 
-	var _MapBuilder = __webpack_require__(256);
+	var _MapBuilder = __webpack_require__(33);
 
 	var _MapBuilder2 = _interopRequireDefault(_MapBuilder);
 
-	var _DateSelect = __webpack_require__(264);
+	var _DateSelect = __webpack_require__(41);
 
 	var _DateSelect2 = _interopRequireDefault(_DateSelect);
 
-	var _WardSelect = __webpack_require__(269);
+	var _WardSelect = __webpack_require__(46);
 
 	var _WardSelect2 = _interopRequireDefault(_WardSelect);
 
-	var _AccessibleSelect = __webpack_require__(270);
+	var _AccessibleSelect = __webpack_require__(47);
 
 	var _AccessibleSelect2 = _interopRequireDefault(_AccessibleSelect);
 
-	var _TeamBuilder = __webpack_require__(271);
+	var _TeamBuilder = __webpack_require__(48);
 
 	var _TeamBuilder2 = _interopRequireDefault(_TeamBuilder);
 
-	var _WalkPublish = __webpack_require__(272);
+	var _WalkPublish = __webpack_require__(49);
 
 	var _WalkPublish2 = _interopRequireDefault(_WalkPublish);
 
-	var _TextAreaLimit = __webpack_require__(273);
+	var _TextAreaLimit = __webpack_require__(50);
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
@@ -2221,11 +2862,11 @@
 
 	var _I18nActions2 = _interopRequireDefault(_I18nActions);
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
-	var _helpers = __webpack_require__(263);
+	var _helpers = __webpack_require__(40);
 
 	var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -2242,7 +2883,7 @@
 
 	// Load create-a-walk View components
 
-	var defaultWalk = __webpack_require__(19);
+	var defaultWalk = __webpack_require__(51);
 
 	// Flux
 
@@ -2862,8 +3503,7 @@
 	})(React.Component);
 
 /***/ },
-
-/***/ 253:
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2874,7 +3514,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2986,8 +3626,7 @@
 	exports.default = ImageUpload;
 
 /***/ },
-
-/***/ 254:
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2998,7 +3637,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3006,7 +3645,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(255);
+	var mixins = __webpack_require__(32);
 
 	// Flux
 
@@ -3197,8 +3836,7 @@
 	};
 
 /***/ },
-
-/***/ 255:
+/* 32 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3227,8 +3865,7 @@
 	};
 
 /***/ },
-
-/***/ 256:
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3239,31 +3876,31 @@
 	  value: true
 	});
 
-	var _WalkStopTable = __webpack_require__(257);
+	var _WalkStopTable = __webpack_require__(34);
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
 
-	var _WalkInfoWindow = __webpack_require__(258);
+	var _WalkInfoWindow = __webpack_require__(35);
 
 	var _WalkInfoWindow2 = _interopRequireDefault(_WalkInfoWindow);
 
-	var _InstagramConnect = __webpack_require__(259);
+	var _InstagramConnect = __webpack_require__(36);
 
 	var _InstagramConnect2 = _interopRequireDefault(_InstagramConnect);
 
-	var _SoundCloudConnect = __webpack_require__(260);
+	var _SoundCloudConnect = __webpack_require__(37);
 
 	var _SoundCloudConnect2 = _interopRequireDefault(_SoundCloudConnect);
 
-	var _TwitterConnect = __webpack_require__(261);
+	var _TwitterConnect = __webpack_require__(38);
 
 	var _TwitterConnect2 = _interopRequireDefault(_TwitterConnect);
 
-	var _ConnectFilters = __webpack_require__(262);
+	var _ConnectFilters = __webpack_require__(39);
 
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3273,7 +3910,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Helper = __webpack_require__(263);
+	var Helper = __webpack_require__(40);
 
 	// Flux
 
@@ -3803,8 +4440,7 @@
 	});
 
 /***/ },
-
-/***/ 257:
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -3815,7 +4451,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	var UpArrow = function UpArrow(props) {
 	  return React.createElement(
@@ -3953,8 +4589,7 @@
 	exports.default = WalkStopTable;
 
 /***/ },
-
-/***/ 258:
+/* 35 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4077,8 +4712,7 @@
 	exports.default = WalkInfoWindow;
 
 /***/ },
-
-/***/ 259:
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4216,8 +4850,7 @@
 	exports.default = InstagramConnect;
 
 /***/ },
-
-/***/ 260:
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4368,8 +5001,7 @@
 	exports.default = SoundCloudConnect;
 
 /***/ },
-
-/***/ 261:
+/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4504,8 +5136,7 @@
 	exports.default = TwitterConnect;
 
 /***/ },
-
-/***/ 262:
+/* 39 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4581,8 +5212,7 @@
 	};
 
 /***/ },
-
-/***/ 263:
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4621,8 +5251,7 @@
 	};
 
 /***/ },
-
-/***/ 264:
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4633,7 +5262,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4642,10 +5271,10 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// Components
-	var DatePicker = __webpack_require__(265);
-	var TimePicker = __webpack_require__(266);
-	var TimeSetTable = __webpack_require__(267);
-	var TimeOpenTable = __webpack_require__(268);
+	var DatePicker = __webpack_require__(42);
+	var TimePicker = __webpack_require__(43);
+	var TimeSetTable = __webpack_require__(44);
+	var TimeOpenTable = __webpack_require__(45);
 
 	// Flux
 
@@ -5038,8 +5667,7 @@
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-
-/***/ 265:
+/* 42 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5096,8 +5724,7 @@
 	exports.default = DatePicker;
 
 /***/ },
-
-/***/ 266:
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5108,7 +5735,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5255,8 +5882,7 @@
 	exports.default = TimePicker;
 
 /***/ },
-
-/***/ 267:
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5267,7 +5893,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5398,8 +6024,7 @@
 	exports.default = TimeSetTable;
 
 /***/ },
-
-/***/ 268:
+/* 45 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5444,8 +6069,7 @@
 	exports.default = TimeOpenTable;
 
 /***/ },
-
-/***/ 269:
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5456,7 +6080,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5464,7 +6088,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(255);
+	var mixins = __webpack_require__(32);
 
 	// Flux
 
@@ -5530,8 +6154,7 @@
 	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
-
-/***/ 270:
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5542,9 +6165,9 @@
 	  value: true
 	});
 
-	var _mixins = __webpack_require__(255);
+	var _mixins = __webpack_require__(32);
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5604,8 +6227,7 @@
 	Object.assign(AccessibleSelect.prototype, _mixins.linkedParentState);
 
 /***/ },
-
-/***/ 271:
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5616,7 +6238,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	// Update a field for a team member
 	function linkMember(field, _ref) {
@@ -6397,8 +7019,7 @@
 	};
 
 /***/ },
-
-/***/ 272:
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6409,7 +7030,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6542,8 +7163,7 @@
 	Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-
-/***/ 273:
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6552,7 +7172,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	/**
 	 * Text areas with a 'remaining characters' limit
@@ -6573,8 +7193,51 @@
 	exports.default = TextAreaLimit;
 
 /***/ },
+/* 51 */
+/***/ function(module, exports) {
 
-/***/ 274:
+	module.exports = {
+		"name": "",
+		"shortDescription": "",
+		"longDescription": "",
+		"accessibleInfo": "",
+		"accessibleTransit": "",
+		"accessibleParking": "",
+		"accessibleFind": "",
+		"map": {
+			"markers": [],
+			"route": []
+		},
+		"team": [
+			{
+				"id": -1,
+				"type": "you",
+				"name-first": "",
+				"name-last": "",
+				"role": "walk-leader",
+				"primary": "on",
+				"bio": "",
+				"twitter": "",
+				"facebook": "",
+				"website": "",
+				"email": "",
+				"phone": ""
+			}
+		],
+		"time": {
+			"type": "",
+			"slots": []
+		},
+		"thumbnails": [],
+		"wards": "",
+		"checkboxes": {},
+		"notifications": [],
+		"mirrors": {},
+		"url": ""
+	};
+
+/***/ },
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6585,51 +7248,51 @@
 	  value: true
 	});
 
-	var _ItineraryStore = __webpack_require__(306);
+	var _ItineraryStore = __webpack_require__(16);
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _ItineraryActions = __webpack_require__(308);
+	var _ItineraryActions = __webpack_require__(13);
 
 	var _ItineraryActions2 = _interopRequireDefault(_ItineraryActions);
 
-	var _WalkHeader = __webpack_require__(275);
+	var _WalkHeader = __webpack_require__(53);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(276);
+	var _WalkDescription = __webpack_require__(54);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(277);
+	var _WalkRoute = __webpack_require__(55);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(278);
+	var _WalkAccessibility = __webpack_require__(56);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(280);
+	var _WalkPublicTransit = __webpack_require__(58);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(281);
+	var _WalkParking = __webpack_require__(59);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(282);
+	var _WalkStart = __webpack_require__(60);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(283);
+	var _WalkTeam = __webpack_require__(61);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(284);
+	var _WalkMenu = __webpack_require__(62);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(286);
+	var _WalkMap = __webpack_require__(64);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -6723,8 +7386,7 @@
 	};
 
 /***/ },
-
-/***/ 275:
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6733,9 +7395,9 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(309);
+	var _ItineraryUtils = __webpack_require__(22);
 
-	var _ItineraryActions = __webpack_require__(308);
+	var _ItineraryActions = __webpack_require__(13);
 
 	//TODO: Duplicate of Itinerary <Walk/>
 	//TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
@@ -6806,15 +7468,19 @@
 	  });
 
 	  // Only show the add to itinerary if you can
-	  var addToItineraryButton = undefined;
+	  var addToItineraryButtons = undefined;
 	  if (time.slots[0]) {
-	    addToItineraryButton = React.createElement(
-	      'h4',
-	      null,
-	      walkLeader ? 'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' - ' : null,
-	      (0, _ItineraryUtils.dateFormatted)(time.slots[0][0]),
-	      addButton
-	    );
+	    addToItineraryButtons = time.slots.map(function (t) {
+	      return React.createElement(
+	        'h4',
+	        null,
+	        ' ',
+	        (0, _ItineraryUtils.dateFormatted)(t[0]),
+	        ' ',
+	        addButton,
+	        ' '
+	      );
+	    });
 	  }
 
 	  return React.createElement(
@@ -6858,13 +7524,18 @@
 	      ' ',
 	      favButton
 	    ),
-	    addToItineraryButton,
 	    React.createElement(
 	      'h4',
 	      null,
 	      'Meeting at ',
 	      map.markers[0].title
-	    )
+	    ),
+	    React.createElement(
+	      'h4',
+	      null,
+	      walkLeader ? 'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' - ' : null
+	    ),
+	    addToItineraryButtons
 	  );
 	};
 
@@ -6882,8 +7553,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-
-/***/ 276:
+/* 54 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6913,8 +7583,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-
-/***/ 277:
+/* 55 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6963,8 +7632,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-
-/***/ 278:
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6973,7 +7641,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(279);
+	var _Accessible = __webpack_require__(57);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -7011,8 +7679,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-
-/***/ 279:
+/* 57 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7043,8 +7710,7 @@
 	}
 
 /***/ },
-
-/***/ 280:
+/* 58 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7074,8 +7740,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-
-/***/ 281:
+/* 59 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7107,8 +7772,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-
-/***/ 282:
+/* 60 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7138,8 +7802,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-
-/***/ 283:
+/* 61 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7224,8 +7887,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-
-/***/ 284:
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7236,21 +7898,21 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(309);
+	var _ItineraryUtils = __webpack_require__(22);
 
-	var _WalkAccessibility = __webpack_require__(278);
+	var _WalkAccessibility = __webpack_require__(56);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(280);
+	var _WalkPublicTransit = __webpack_require__(58);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(281);
+	var _WalkParking = __webpack_require__(59);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(285);
+	var _Theme = __webpack_require__(63);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7369,8 +8031,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-
-/***/ 285:
+/* 63 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7424,8 +8085,7 @@
 	}
 
 /***/ },
-
-/***/ 286:
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7635,8 +8295,7 @@
 	};
 
 /***/ },
-
-/***/ 287:
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7647,7 +8306,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(20);
+	var _I18nStore = __webpack_require__(19);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7851,722 +8510,5 @@
 
 	exports.default = Login;
 
-/***/ },
-
-/***/ 304:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _events = __webpack_require__(17);
-
-	var _JWConstants = __webpack_require__(9);
-
-	var CHANGE_EVENT = 'change';
-
-	var _areas = {};
-
-	var AreaStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getAreas: function getAreas() {
-	    return _areas;
-	  },
-	  getArea: function getArea(name) {
-	    return _areas[name];
-	  },
-
-	  dispatcherIndex: (0, _AppDispatcher.register)(function (action) {
-	    switch (action.type) {
-	      case _JWConstants.ActionTypes.AREA_RECEIVE:
-	        _areas[action.name] = action.content;
-	        break;
-	    }
-
-	    AreaStore.emitChange();
-	  })
-
-	});
-
-	exports.default = AreaStore;
-
-/***/ },
-
-/***/ 305:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _events = __webpack_require__(17);
-
-	var _JWConstants = __webpack_require__(9);
-
-	var CHANGE_EVENT = 'change';
-
-	// Store singletons
-	// The users, keyed on uID
-	/**
-	 * User store
-	 *
-	 * Users on Jane's Walk.
-	 */
-
-	var _users = new Map();
-
-	// Is this the actively logged in user
-	var _current = undefined;
-
-	// Receive a single walk
-	function receiveUser(user, _ref) {
-	  var current = _ref.current;
-
-	  _users.set(+user.id, user);
-
-	  if (current) {
-	    _current = user;
-	  }
-	}
-
-	// Receive an array of walks
-	function receiveUsers(users) {
-	  users.forEach(function (u) {
-	    return receiveUser(u);
-	  });
-	}
-
-	var UserStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getUsers: function getUsers() {
-	    return _users;
-	  },
-	  getCurrent: function getCurrent() {
-	    return _current;
-	  },
-
-	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.USER_RECEIVE:
-	        receiveUser(payload.user, { current: payload.current, profile: payload.profile });
-	        break;
-	      case _JWConstants.ActionTypes.USER_RECEIVE_ALL:
-	        receiveUsers(payload.users);
-	        break;
-	    }
-	    UserStore.emitChange();
-	  })
-	});
-
-	exports.default = UserStore;
-
-/***/ },
-
-/***/ 306:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _events = __webpack_require__(17);
-
-	var _JWConstants = __webpack_require__(9);
-
-	var _WalkStore = __webpack_require__(307);
-
-	var _WalkStore2 = _interopRequireDefault(_WalkStore);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var CHANGE_EVENT = 'change';
-
-	var _lists = new Set();
-
-	// Has this store been synced, and is it syncing?
-	var _lastChange = Date.now();
-
-	//TODO: Currently no remove list, just adding lists
-
-	var _removeWalk = function _removeWalk(list, walk) {
-	  return list.walks.delete(walk);
-	};
-
-	var _addWalk = function _addWalk(list, walk) {
-	  return list.walks.add(walk);
-	};
-
-	var _createList = function _createList() {
-	  var title = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
-	  var description = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
-
-	  var list = {
-	    title: title,
-	    walks: new Set(),
-	    description: description,
-	    shareUrl: ''
-	  };
-
-	  _lists.add(list);
-
-	  // Returning list, since after _createList, _addWalk is called, so passing around the list
-	  return list;
-	};
-
-	/**
-	 * Load all the basic itineraries
-	 *
-	 * @param itineraries array List of itineraries in serlizable-friendly state
-	 */
-	var _receiveAll = function _receiveAll(itineraries) {
-	  // Itinerary has a list of walk IDs, so load the actual walks from there.
-	  itineraries.forEach(function (itinerary) {
-	    return _lists.add(Object.assign({}, itinerary, {
-	      walks: new Set(itinerary.walks.map(function (w) {
-	        return _WalkStore2.default.getWalk(+w);
-	      }))
-	    }));
-	  });
-	};
-
-	//walks received from API used to update _itinerary
-	var _updateWalks = function _updateWalks(list, walks) {
-	  walks.forEach(function (walk) {
-	    return list.add(walk);
-	  });
-	};
-
-	var _updateTitle = function _updateTitle(list, title) {
-	  list.title = title;
-	};
-
-	var _updateDescription = function _updateDescription(list, description) {
-	  list.description = description;
-	};
-
-	var ItineraryStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getLists: function getLists() {
-	    return _lists;
-	  },
-	  getItineraryList: function getItineraryList() {
-	    var _lists2 = _slicedToArray(_lists, 1);
-
-	    var list = _lists2[0];
-
-	    return list;
-	  },
-	  getFavouriteList: function getFavouriteList() {
-	    var _lists3 = _slicedToArray(_lists, 2);
-
-	    var itinerary = _lists3[0];
-	    var favourites = _lists3[1];
-
-	    return favourites;
-	  },
-	  getWalks: function getWalks(list) {
-	    return list.walks;
-	  },
-	  getLastChange: function getLastChange() {
-	    return _lastChange;
-	  },
-	  totalWalks: function totalWalks() {
-	    var count = 0;
-	    _lists.forEach(function (list) {
-	      return count += list.walks.size;
-	    });
-	    return count;
-	  },
-
-	  //TODO: use _updateWalks to receive walks from server via API call
-	  dispatcherIndex: (0, _AppDispatcher.register)(function (payload) {
-	    var list = payload.list;
-	    var walk = payload.walk;
-
-	    switch (payload.type) {
-	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
-	        _lastChange = Date.now();
-	        _removeWalk(list, walk);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
-	        _lastChange = Date.now();
-	        //TODO: Dialog to open on first add to Itinerary/Favourites
-	        _addWalk(list, walk);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
-	        _lastChange = Date.now();
-	        _updateTitle(list, payload.title);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
-	        _lastChange = Date.now();
-	        _updateDescription(list, payload.description);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_CREATE_LIST:
-	        _lastChange = Date.now();
-	        _createList(payload.title, payload.description);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL:
-	        _receiveAll(payload.itineraries);
-	        break;
-	    }
-
-	    ItineraryStore.emitChange();
-	  })
-
-	});
-
-	exports.default = ItineraryStore;
-
-/***/ },
-
-/***/ 307:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _events = __webpack_require__(17);
-
-	var _JWConstants = __webpack_require__(9);
-
-	var CHANGE_EVENT = 'change';
-
-	// Store singletons
-	// The Walk objects, keyed by walk ID (ie collection ID)
-	/**
-	 * Walk store
-	 *
-	 * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
-	 * description, and people involved with a walk.
-	 */
-
-	var _walks = new Map();
-
-	// Receive a single walk
-	function receiveWalk(walk) {
-	  _walks.set(+walk.id, walk);
-	}
-
-	// Receive an array of walks
-	function receiveWalks(walks) {
-	  walks.forEach(function (w) {
-	    return receiveWalk(w);
-	  });
-	}
-
-	var WalkStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getWalks: function getWalks() {
-	    return _walks;
-	  },
-	  getWalk: function getWalk(id) {
-	    return _walks.get(+id);
-	  },
-
-	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.WALK_RECEIVE:
-	        receiveWalk(payload.walk);
-	        break;
-	      case _JWConstants.ActionTypes.WALK_RECEIVE_ALL:
-	        receiveWalks(payload.walks);
-	        break;
-	    }
-	    WalkStore.emitChange();
-	  })
-	});
-
-	exports.default = WalkStore;
-
-/***/ },
-
-/***/ 308:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.remove = remove;
-	exports.add = add;
-	exports.updateTitle = updateTitle;
-	exports.updateDescription = updateDescription;
-	exports.createList = createList;
-	exports.receiveAll = receiveAll;
-	exports.syncEnd = syncEnd;
-
-	var _JWConstants = __webpack_require__(9);
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	//TODO: API call before dispatch
-
-	function remove(list, walk) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, list: list, walk: walk });
-	}
-
-	function add(list, walk) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, list: list, walk: walk });
-	}
-
-	function updateTitle(list, title) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE, title: title, list: list });
-	}
-
-	function updateDescription(list, description) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION, description: description, list: list });
-	}
-
-	function createList(title, description) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_CREATE_LIST, title: title, description: description });
-	}
-
-	function receiveAll(itineraries) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL, itineraries: itineraries });
-	}
-
-	function syncEnd(start) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_SYNC_END, start: start });
-	}
-
-/***/ },
-
-/***/ 309:
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.dateFormatted = dateFormatted;
-
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
-	// Default formatter
-	var dtfDate = undefined;
-	// Date formatted
-	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
-	  dtfDate = new Intl.DateTimeFormat('en-US', {
-	    year: 'numeric',
-	    month: 'long',
-	    day: 'numeric',
-	    hour: 'numeric',
-	    minute: '2-digit',
-	    timeZone: 'UTC'
-	  });
-	}
-
-	// Cache the parsed dates
-	var _dateCache = {};
-
-	function formatDate(dateInMs) {
-	  if (dtfDate) {
-	    return dtfDate.format(dateInMs);
-	  } else {
-	    var date = new Date(dateInMs);
-	    var dateString = date.toUTCString();
-	    return dateString.slice(0, dateString.indexOf(' GMT'));
-	  }
-	}
-
-	function dateFormatted(dateInSeconds) {
-	  var fromCache = _dateCache[dateInSeconds];
-	  var fromFormat = undefined;
-	  if (fromCache) {
-	    return fromCache;
-	  } else {
-	    fromFormat = formatDate(dateInSeconds * 1000);
-	    _dateCache[dateInSeconds] = fromFormat;
-	    return fromFormat;
-	  }
-	}
-
-/***/ },
-
-/***/ 310:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.post = post;
-	exports.get = get;
-	exports.startPolling = startPolling;
-
-	var _ItineraryStore = __webpack_require__(306);
-
-	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
-
-	var _ItineraryActions = __webpack_require__(308);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); } /**
-	                                                                               * API methods for loading itineraries
-	                                                                               * (de)serializing to and from from the Jane's Walk C5
-	                                                                               */
-
-	// Service endpoints
-	var endpoint = '/profile/itineraries';
-
-	/**
-	 * Serialize as JSON
-	 * No need to serialize the whole walks list. Just need their IDs
-	 */
-	function getJson(_ref) {
-	  var _ref2 = _toArray(_ref);
-
-	  var lists = _ref2;
-
-	  return JSON.stringify(lists.map(function (list) {
-	    var _list$walks = _toArray(list.walks);
-
-	    var walks = _list$walks;
-
-	    return Object.assign({}, list, {
-	      walks: walks.map(function (w) {
-	        return +w.id;
-	      })
-	    });
-	  }));
-	}
-
-	function post(cb) {
-	  var url = arguments.length <= 1 || arguments[1] === undefined ? endpoint : arguments[1];
-
-	  var xhr = new XMLHttpRequest();
-	  xhr.open('POST', url);
-	  xhr.onload = function () {
-	    var data = undefined;
-	    try {
-	      data = JSON.parse(this.responseText);
-	      console.log(data);
-	      cb();
-	    } catch (e) {
-	      console.log('Error parsing JSON returned on itinerary' + url);
-	    }
-	  };
-	  xhr.onerror = function () {
-	    console.log('Failed to update itinerary.');
-	  };
-	  xhr.send(getJson(_ItineraryStore2.default.getLists()));
-	}
-
-	function get() {
-	  var url = arguments.length <= 0 || arguments[0] === undefined ? endpoint : arguments[0];
-
-	  var xhr = new XMLHttpRequest();
-	  xhr.open('GET', url);
-	  xhr.onload = function () {
-	    var data = undefined;
-	    try {
-	      data = JSON.parse(this.responseText);
-	      (0, _ItineraryActions.receiveAll)(data);
-	    } catch (e) {
-	      cb('Error parsing JSON returned on itinerary' + url);
-	    }
-	  };
-	  xhr.onerror = function () {
-	    console.log('Failed to update itinerary.');
-	  };
-	  xhr.send();
-	}
-
-	/**
-	 * Poll, and sync when updates stop
-	 */
-	function startPolling() {
-	  var period = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
-
-	  var lastSync = _ItineraryStore2.default.getLastChange();
-	  var syncing = false;
-
-	  setInterval(function () {
-	    var lastChange = _ItineraryStore2.default.getLastChange();
-	    // Poll, to see if we've waited a bit since the last thing you changed
-	    if (Date.now() - lastChange > period * 3) {
-	      if (lastChange > lastSync && !syncing) {
-	        syncing = true;
-	        post(function () {
-	          lastSync = Date.now();syncing = false;
-	        });
-	      }
-	    }
-	  }, period);
-	}
-
-/***/ },
-
-/***/ 311:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.receive = receive;
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _JWConstants = __webpack_require__(9);
-
-	// Load all loop data
-	/**
-	 * i18n Translations
-	 *
-	 * Translate text content into our available translations using
-	 * the i18n standard.
-	 */
-
-	function receive(areas) {
-	  Object.keys(areas).forEach(function (name) {
-	    (0, _AppDispatcher.dispatch)({
-	      type: _JWConstants.ActionTypes.AREA_RECEIVE,
-	      name: name,
-	      content: areas[name]
-	    });
-	  });
-	}
-
-/***/ },
-
-/***/ 312:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.receive = receive;
-	exports.receiveAll = receiveAll;
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _JWConstants = __webpack_require__(9);
-
-	// Load all loop data
-	/**
-	 * i18n Translations
-	 *
-	 * Translate text content into our available translations using
-	 * the i18n standard.
-	 */
-
-	function receive(user, _ref) {
-	  var current = _ref.current;
-	  var profile = _ref.profile;
-
-	  (0, _AppDispatcher.dispatch)({
-	    type: _JWConstants.ActionTypes.USER_RECEIVE,
-	    user: user,
-	    current: current,
-	    profile: profile
-	  });
-	}
-
-	function receiveAll(users) {
-	  (0, _AppDispatcher.dispatch)({
-	    type: _JWConstants.ActionTypes.USER_RECEIVE_ALL,
-	    users: users
-	  });
-	}
-
-/***/ },
-
-/***/ 313:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.receive = receive;
-	exports.receiveAll = receiveAll;
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _JWConstants = __webpack_require__(9);
-
-	// Load the walk
-	function receive(walk) {
-	  (0, _AppDispatcher.dispatch)({
-	    type: _JWConstants.ActionTypes.WALK_RECEIVE,
-	    walk: walk
-	  });
-	}
-
-	function receiveAll(walks) {
-	  (0, _AppDispatcher.dispatch)({
-	    type: _JWConstants.ActionTypes.WALK_RECEIVE_ALL,
-	    walks: walks
-	  });
-	}
-
 /***/ }
-
-/******/ });
+/******/ ]);

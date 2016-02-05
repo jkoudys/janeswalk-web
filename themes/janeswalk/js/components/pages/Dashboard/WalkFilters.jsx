@@ -10,7 +10,7 @@ const Filter = ({location, name, filterName, toggleFilter, removeFilter, data, a
   if (Object.keys(activeFilters).includes(filterName)) {
     ActiveFilters = activeFilters[filterName].map(({filter, state, display}, i) =>
       <button key={i} className={state ? 'activeFilter' : 'inActiveFilter'}>
-        <span onClick={e => toggleFilter(filter, filterName, location)}> {display} </span>
+        <span className="buttonToggle" onClick={e => toggleFilter(filter, filterName, location)}> {display} </span>
         <span className="buttonClose" onClick={e => removeFilter(filter, filterName, location)}> × </span>
       </button>
     );
