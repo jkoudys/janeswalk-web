@@ -104,7 +104,7 @@ export default class WalkFilter extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState = getWalkFilterState(props);
+    this.setState = getWalkFilterState(newProps);
   }
 
   setFilter(filter, val) {

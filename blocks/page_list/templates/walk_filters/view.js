@@ -502,7 +502,7 @@
 	  _createClass(WalkFilter, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(newProps) {
-	      this.setState = getWalkFilterState(props);
+	      this.setState = getWalkFilterState(newProps);
 	    }
 	  }, {
 	    key: 'setFilter',
