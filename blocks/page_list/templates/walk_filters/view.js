@@ -74,7 +74,7 @@
 
 	JanesWalk.event.on('walks.receive', function (walks) {
 	  _walks = walks;
-	  React.render(React.createElement(_WalkFilter2.default, { walks: walks, filters: _filters, location: _location }), document.getElementById('janeswalk-walk-filters'));
+	  React.render(React.createElement(_WalkFilter2.default, { walks: _walks, filters: _filters, location: _location }), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	JanesWalk.event.on('city.receive', function (city) {
@@ -450,31 +450,39 @@
 	  );
 	};
 
+	var getWalkFilterState = function getWalkFilterState(_ref2) {
+	  var walks = _ref2.walks;
+	  var location = _ref2.location;
+	  var filters = _ref2.filters;
+
+	  var thirdDate = thirdRecentDate(walks);
+	  var dateRange = [today.getTime(), null];
+	  if (thirdDate && thirdDate < today) {
+	    dateRange[0] = thirdDate.getTime();
+	  }
+
+	  return {
+	    walks: walks || [],
+	    location: location,
+	    filters: filters || {},
+	    dateRange: dateRange,
+	    filterMatches: filterWalks(walks, filters, dateRange)
+	  };
+	};
+
 	var WalkFilter = function (_React$Component) {
 	  _inherits(WalkFilter, _React$Component);
 
 	  function WalkFilter(props) {
 	    _classCallCheck(this, WalkFilter);
 
-	    var thirdDate = thirdRecentDate(props.walks);
-	    var dateRange = [today.getTime(), null];
-	    if (thirdDate && thirdDate < today) {
-	      dateRange[0] = thirdDate.getTime();
-	    }
-
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WalkFilter).call(this, props));
 
-	    _this.state = {
-	      walks: props.walks || [],
-	      location: props.location,
-	      filters: props.filters || {},
-	      dateRange: dateRange,
-	      filterMatches: filterWalks(props.walks, props.filters, dateRange)
-	    };
+	    _this.state = getWalkFilterState(props);
 
 	    // Setup event listeners
 	    JanesWalk.event.on('walks.receive', function (walks) {
-	      _this.setState({ walks: Object.assign({}, _this.state.walks, walks) });
+	      _this.setState({ walks: _this.state.walks.concat(walks) });
 	    });
 	    JanesWalk.event.on('filters.receive', function (filters) {
 	      return _this.setState({ filters: filters });
@@ -492,6 +500,11 @@
 	  }
 
 	  _createClass(WalkFilter, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(newProps) {
+	      this.setState(getWalkFilterState(newProps));
+	    }
+	  }, {
 	    key: 'setFilter',
 	    value: function setFilter(filter, val) {
 	      var _state = this.state;
