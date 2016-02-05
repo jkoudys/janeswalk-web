@@ -17,7 +17,7 @@ import * as ItineraryAPI from './utils/api/Itinerary';
 import Page from './components/Page.jsx';
 import City from './components/pages/City.jsx';
 import Home from './components/pages/Home.jsx';
-import Dashboard from './components/pages/Dashboard.jsx';
+// import Dashboard from './components/pages/Dashboard.jsx';
 
 // FIXME XXX: remove stubbed out static data
 import {walks, lists} from './components/itinerary/ItineraryStaticData';
@@ -162,12 +162,12 @@ function addRenderListeners() {
   });
 
   // The profile page, e.g. /profile
-  JanesWalk.event.on('profilepage.load', props => {
+  /*  JanesWalk.event.on('profilepage.load', props => {
     React.render(
       <Dashboard {...props} />,
       document.getElementById('page')
     );
-  });
+    }); */
 }
 
 document.addEventListener('DOMContentLoaded', function() {
