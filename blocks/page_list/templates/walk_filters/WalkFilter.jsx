@@ -71,8 +71,7 @@ const Filter = ({name, selected, setFilter, data}) => (
   </li>
 );
 
-const getWalkFilterState = ({walks, filters, location}) => {
-
+const getWalkFilterState = ({walks, location, filters}) => {
   const thirdDate = thirdRecentDate(walks);
   const dateRange = [today.getTime(), null];
   if (thirdDate && thirdDate < today) {
@@ -95,7 +94,7 @@ export default class WalkFilter extends React.Component {
 
     // Setup event listeners
     JanesWalk.event.on('walks.receive', (walks) => {
-      this.setState({walks: Object.assign({}, this.state.walks, walks)});
+      this.setState({walks: this.state.walks.concat(walks)});
     });
     JanesWalk.event.on('filters.receive', filters => this.setState({filters: filters}));
     JanesWalk.event.on('city.receive', city => this.setState({location: city}));
@@ -104,7 +103,7 @@ export default class WalkFilter extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.setState = getWalkFilterState(newProps);
+    this.setState(getWalkFilterState(newProps));
   }
 
   setFilter(filter, val) {

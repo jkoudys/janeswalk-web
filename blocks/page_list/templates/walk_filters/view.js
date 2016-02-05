@@ -452,8 +452,8 @@
 
 	var getWalkFilterState = function getWalkFilterState(_ref2) {
 	  var walks = _ref2.walks;
-	  var filters = _ref2.filters;
 	  var location = _ref2.location;
+	  var filters = _ref2.filters;
 
 	  var thirdDate = thirdRecentDate(walks);
 	  var dateRange = [today.getTime(), null];
@@ -482,7 +482,7 @@
 
 	    // Setup event listeners
 	    JanesWalk.event.on('walks.receive', function (walks) {
-	      _this.setState({ walks: Object.assign({}, _this.state.walks, walks) });
+	      _this.setState({ walks: _this.state.walks.concat(walks) });
 	    });
 	    JanesWalk.event.on('filters.receive', function (filters) {
 	      return _this.setState({ filters: filters });
@@ -502,7 +502,7 @@
 	  _createClass(WalkFilter, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(newProps) {
-	      this.setState = getWalkFilterState(newProps);
+	      this.setState(getWalkFilterState(newProps));
 	    }
 	  }, {
 	    key: 'setFilter',
