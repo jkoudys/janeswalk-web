@@ -876,11 +876,13 @@
     border-radius: 6px;
     border: 1px solid #F16725;
     padding: 5px 7px;
-    font-size: 13px;
+    font-size: 12px;
     opacity: 0.7;
     font-weight: 600;
     line-height: 1.2;
     margin: -5px 10px -6px;
+    position: relative;
+    top: -1px;
     &::after {
       font-family: 'Roboto Slab';
       content: "I'm Going";
@@ -911,7 +913,14 @@
   }
 
   .walkMenu {
-    width: 30%;
+    width: 220px;
+    margin-right: 12%;
+    @media (max-width: @screen-md-min) {
+        margin-right: 4%;
+    }
+    @media (max-width: @screen-sm-min) {
+        display: none;
+    }
     position: sticky;
     /* Hack around the odd behaviour when padding-top is 1px vs 0px */
     padding-top: @grid-gutter-width + 16px;
@@ -931,6 +940,7 @@
     }
     h6 {
       margin: 5px 0;
+      line-height: 130%;
     }
     .tags {
       opacity: 0.7;
@@ -961,10 +971,10 @@
     padding-bottom: @grid-gutter-width * 2;
     margin-bottom: @grid-gutter-width * 2;
     .coverImage {
-      height: 350px;
-      background-image: url('http://www.tuckermclachlan.com/janeswalk/himy_walkphoto.jpg');
-      background-size: cover;
+        height: 55vh;
+        background-size: cover;
         background-color: #ddd;
+        border-bottom: 1px solid #ddd;
     }
     .breadcrumb {
       position: absolute;
@@ -972,54 +982,70 @@
       border-bottom-right-radius: 6px;
       padding: @grid-gutter-width / 3 @grid-gutter-width / 2;
       background: #fff;
+      max-width: 85%;
+      margin-top: -1px;
+      border: 1px solid #ddd;
+        @media (max-width: @screen-sm-min) {
+            display: none;
+        }
     }
     h1, h4 {
-      padding-left: 70px;
+      padding-left: @grid-gutter-width*2;
     }
     h1 {
       padding-top: 0px;
-      font-weight: 300;
+      font-weight: 400;
       width: 80%;
-      font-size: 38px;
+      font-size: 34px;
       margin-bottom: 16px;
       .addFavourite {
         position: relative;
-        top: -2px;
+        top: -1px;
         font-size: 22px;
         opacity: 0.5;
         color: #F16725;
-        margin-left: 7px;
+        margin-left: 0px;
           &:hover {
-          font-size: 30px;
-          top: 2px;
-          margin-left: 2px;
-        }
+              font-size: 30px;
+              top: 3px;
+              opacity: 0.75;
+              margin-left: -5px;
+            }
       }
       .removeFavourite {
         line-height: 0;
         font-size: 30px;
         position: relative;
-        top: 2px;
-        margin-left: 2px;
+        top: 3px;
+        margin-left: -5px;
         color: #F16725;
       }
     }
     h4 {
       margin: 5px 0 0;
       font-size: 16px;
+      font-weight: 400;
     }
   }
   .walkDescription, .walkRoute, .walkAccessibility, .walkPublicTransit, .walkStart, .walkTeam, .walkParking {
-    padding: 25px 70px 0;
+    padding: 0 @grid-gutter-width*2;
     width: 65%;
+    @media (max-width: @screen-sm-min) {
+        width: 97%;
+    }
     h2 {
-      font-size: 22px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+    article {
+        line-height: 150%;
     }
   }
   .walkDescription {
-    padding: 1px 70px 50px;
-      h2 {
-          margin-top: 10px;
+    padding: 0px @grid-gutter-width*2 50px;
+    margin-top: -75px;
+      > h2 {
+          padding-top: 75px;
       }
     article {
       font-size: 18px;
@@ -1031,6 +1057,19 @@
       }
     }
   }
+  .walkMap {
+     width: 60%;
+     height: 350px; 
+     @media (max-width: @screen-sm-min) {
+        width: 100%;
+     }
+  }
+  .walkRoute, .walkStart, .walkPublicTransit, .walkParking, .walkTeam {
+    margin-top: -50px;
+    > h2 {
+        padding-top: 75px;
+    }
+  }
   .walkRoute {
     ol {
       padding: 0 19px;
@@ -1039,7 +1078,7 @@
       li {
         h2 {
           font-weight: 300;
-          margin-bottom: 5px
+          margin: 5px 0;
         }
         p {
           font-size: 18px;
@@ -1051,7 +1090,7 @@
   .walkAccessibility {
     ul {
       padding: 0;
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 300;
       li {
         &::before {
@@ -1067,7 +1106,7 @@
     }
   }
   .walkPublicTransit, .walkStart, .walkParking {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 300;
   }
   .walkTeam {
@@ -1076,12 +1115,36 @@
       font-weight: 300;
     }
     h3 {
-      font-size: 19px;
+        display: inline-block;
+      span:first-child {
+        font-size: 34px;
+        display: block;
+        margin-right: 10px;
+      }
+      span:nth-child(2) {
+        display: none;
+      }
+      span:last-child {
+        display: block;
+        font-size: 18px;
+        margin-top: 4px;
+      }
+    }
+    footer {
+        display: inline-block;
+        vertical-align: top;
+        margin: 4px 0 15px;
+        .btn-toolbar {
+            margin-left: 0;
+            .btn {
+                padding: 4px 8px;
+            }
+        }
     }
     summary {
       font-size: 18px;
       font-weight: 300;
-      margin-top: 1em;
+      margin-top: 0em;
     }
   }
 }

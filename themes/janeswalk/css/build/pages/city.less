@@ -5,14 +5,23 @@ body.city-page {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    //background-image: url("http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg");
+    background-image: url("http://janeswalk.org/files/3213/8152/8704/IMG_6280.jpg");
     h1, h2, h3, h4, h5 {
         margin: 10px 0;
     }
-
+    .cityName {
+        margin: 25vh @grid-gutter-width 32vh;
+        color: #fff;
+        font-weight: 600;
+        font-size: 60px;
+        text-shadow: 0px 0px 20px #000;
+        a {
+            color: #fff;
+        }
+    }
     // Top section with window introducing city and its organizer
     > #intro-city {
-        color: #fff;
+        color: #fff; 
         font-family: @font-slab;
         font-size: 1.25em;
         font-weight: 100;
@@ -21,12 +30,24 @@ body.city-page {
         height: auto;
         width: 100%;
         position: relative;
-        margin: 300px auto 0;
-        background: linear-gradient(fade(@color-orange, 95%), fade(@color-orange, 95%), fade(@color-orange, 80%));
+        margin: 0 auto;
+        background: linear-gradient(fade(@color-orange, 95%), fade(@color-orange, 90%), fade(@color-orange, 85%), fade(@color-orange, 50%));
         border-bottom: 1px solid #ddd;
         // max-width: @screen-lg-min;
         .city-summary {
-            padding: @grid-gutter-width;
+            padding: @grid-gutter-width*1.2 @grid-gutter-width @grid-gutter-width*2.2 @grid-gutter-width;
+            h1 {
+                font-size: 36px;
+                font-weight: 600;
+                //letter-spacing: 2px;
+                //text-transform: uppercase;
+
+            }
+            p {
+                font-size: 24px;
+                line-height: 150%;
+                font-weight: 400;
+            }
             @media (min-width: @screen-md-min) {
                 width: 67%;
                 display: inline-block;
@@ -39,11 +60,12 @@ body.city-page {
             vertical-align: bottom;
             background-color: #fff;
             border-left: 1px solid #ddd;
-            margin-left: -5px;
             @media (min-width: @screen-md-min) {
-                width: 33%;
+                width: 30%;
                 display: inline-block;
-                vertical-align: bottom;
+                vertical-align: top;
+                margin: @grid-gutter-width 0;
+                border-radius: 6px;
             }
             .city-organizer {
                 width: 100%;
@@ -65,18 +87,37 @@ body.city-page {
                     margin: 30px auto 0;
                 }
 
-                .u-avatar, .city-organizer-details {
+                .city-organizer-details {
                     display: inline-block;
                     vertical-align: top;
                     text-align: center;
-                    margin-bottom: 30px; 
+                    margin-bottom: 22px; 
                     width: 100%;
+                    h3 {
+                        font-size: 24px;
+                        margin-bottom: 0;
+                        font-weight: 400;
+                    }
+                    h4 {
+                        margin-top: 5px;
+                    }
+                    .btn-toolbar {
+                        a {
+                            i {
+                                color: #fff;
+                            }
+                            &:hover i {
+                                color: #000;
+                            }
+                        }
+                    }
                     .btn {
                         background: @color-orange;
                     }
                 }
 
                 .u-avatar {
+                    margin: 30px auto 0;
                     @media (max-width: @screen-sm-min) {
                         width: 76px;
                         height: 76px;
@@ -94,6 +135,7 @@ body.city-page {
                     padding: 0px;
                     border-top: 1px solid #ddd;
                     margin: 0;
+                    color: #000;
                     a {
                         color: #000;
                         width: 100%;
@@ -102,6 +144,9 @@ body.city-page {
                         display: block;
                         &:hover {
                             background: #ddd;
+                        }
+                        &:last-child {
+                            border-radius: 0 0 6px 6px;
                         }
                     }
                 }
@@ -326,7 +371,7 @@ body.city-page {
                 .empty {
                     width: 30%;
                     float: left;
-                    padding-left: 15px;
+                    padding-left: @grid-gutter-width;
                 }
             }
 
@@ -436,8 +481,8 @@ body.city-page {
 
     // An optional blog at the bottom
     > #blog {
-        margin: -5px auto @grid-gutter-width * 2 auto;
-        padding: 0 @grid-gutter-width;
+        margin: -5px auto 0 auto;
+        padding: 0 @grid-gutter-width @grid-gutter-width*2;
         // max-width: @screen-lg-min;
         width: 100%;
         position: relative;
@@ -446,17 +491,17 @@ body.city-page {
         .title {
             display: inline-block;
             margin: -0.7em 0 1em 0;
-            background: @color-orange;
-            box-shadow: 0 2px 0 darken(@color-orange,10%);
-            color: #fff;
-            font-size: 32px;
-            padding: 8px 5px;
+            //background: @color-orange;
+            //box-shadow: 0 2px 0 darken(@color-orange,10%);
+            color: #000;
+            font-size: 20px;
+            //padding: 8px 5px;
             font-weight: 400;
-            transition-duration: 0.2s;
+            //transition-duration: 0.2s;
             a {
                 display: inline-block;
-                padding: 5px 15px;
-                color: #fff;
+                //padding: 5px 15px;
+                color: #000;
                 &:hover {
                     text-decoration: none;
                 }
@@ -465,7 +510,10 @@ body.city-page {
                 }
             }
             &:hover {
-                background: darken(@color-orange,10%);
+                //background: darken(@color-orange,10%);
+                opacity: 0.5;
+                position: relative;
+                top: -1px;
             }
         }
         .ccm-blog-index {

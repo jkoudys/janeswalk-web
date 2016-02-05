@@ -279,7 +279,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement('div', { className: 'cityMap', style: { width: '100%', height: '600px' } });
+	      return React.createElement('div', { className: 'cityMap', style: { width: '100%', height: '70vh' } });
 	    }
 	  }]);
 

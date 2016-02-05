@@ -1,5 +1,6 @@
 const WalkPublicTransit = ({accessibleTransit}) => (
   <section className="walkPublicTransit">
+    <a name="Taking Public Transit"></a>
     <h2>Taking Public Transit</h2>
     {accessibleTransit}
   </section>

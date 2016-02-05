@@ -62,6 +62,8 @@ EOT;
         {$BlogPostButton}
     </h2>
     {$area('City Blog')}
+    <h4><a href="{$BlogLink}">{$t('See more stories <i class="fa fa-angle-double-right"></i>')}</a>
+    </h4>
 </section>
 <script>JanesWalk.event.emit('blog.receive', {"url": "{$BlogLink}"});</script>
 EOT;
@@ -104,6 +106,7 @@ EOT;
 <section class="city-organizer">
     {$COAvatar}
     <div class="city-organizer-details">
+        <a href="/index.php/profile/5784"><div class="u-avatar" style="background-image:url(http://janeswalk.org/files/avatars/5784.jpg?1454612500)"></div></a>
         <h3>
             <a href="{$city->profile_path}">{$city->cityOrganizer->getAttribute('first_name')} {$city->cityOrganizer->getAttribute('last_name')}</a>
             {$COEdit}
@@ -123,12 +126,12 @@ $this->inc('elements/navbar.php');
 
 // Template
 echo <<< EOT
+<h1 class="cityName">
+     {$cityName}
+     {$Edit}
+ </h1>
 <section id="intro-city">
  <div class="city-summary">
-     <h1>
-         {$cityName}
-         {$Edit}
-     </h1>
      {$intro}
      {$area('City Header')}
      {$BackgroundPhoto}
