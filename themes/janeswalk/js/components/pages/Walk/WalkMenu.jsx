@@ -34,6 +34,8 @@ const WalkMenu = ({walk, filters}) => {
   //<WalkParking {...walk} />
   const tags = Object.keys(checkboxes).filter(item => item.includes('theme'));
 
+  //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
+
   return (
     <section className="walkMenu">
       <header className="walkHeader">
@@ -41,7 +43,7 @@ const WalkMenu = ({walk, filters}) => {
         {leaderHead}
         {nextDateHead}
         {meetingPlaceHead}
-        <WalkAccessibility {...walk} {...filters} />
+
       </header>
       <section className="menu">
         <ul>
