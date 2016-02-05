@@ -18,6 +18,7 @@ const ActionTypes = [
 
   // Users
   'USER_RECEIVE',
+  'USER_RECEIVE_ALL',
 
   // Itineraries
   'ITINERARY_RECEIVE',

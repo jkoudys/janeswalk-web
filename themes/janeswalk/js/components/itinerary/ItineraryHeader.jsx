@@ -11,7 +11,7 @@ const ItineraryHeader = ({list, onChangeTitle, onChangeDescription}) => (
         onChange={ev => onChangeTitle(ev.target.value)}
       />
     </h2>
-    {list.shareUrl ? <h5 className="shareUrl"><a href={list.shareUrl}>{list.shareUrl}</a></h5> : null}
+    {(list.shareUrl && false) ? <h5 className="shareUrl"><a href={list.shareUrl}>{list.shareUrl}</a></h5> : null}
     <h4 className="walklistDescription">
       <textarea
         required="required"

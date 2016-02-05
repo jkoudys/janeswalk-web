@@ -17,7 +17,7 @@ import * as ItineraryAPI from './utils/api/Itinerary';
 import Page from './components/Page.jsx';
 import City from './components/pages/City.jsx';
 import Home from './components/pages/Home.jsx';
-import Profile from './components/pages/Profile.jsx';
+import Dashboard from './components/pages/Dashboard.jsx';
 
 // FIXME XXX: remove stubbed out static data
 import {walks, lists} from './components/itinerary/ItineraryStaticData';
@@ -25,8 +25,7 @@ import {walks, lists} from './components/itinerary/ItineraryStaticData';
 const PageViews = {
   PageView: Page,
   CityPageView: City,
-  HomePageView: Home,
-  ProfilePageView: Profile,
+  HomePageView: Home
 };
 
 // React Views
@@ -141,12 +140,39 @@ function routePage() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// Listen for JW events to load flux stores with
+function addFluxListeners() {
   JanesWalk.event.on('area.receive', areas => AreaActions.receive(areas));
-  JanesWalk.event.on('user.receive', user => UserActions.receive(user));
+  JanesWalk.event.on('user.receive', (user, options) => UserActions.receive(user, options));
+  JanesWalk.event.on('users.receive', users => UserActions.receiveAll(users));
   JanesWalk.event.on('walk.receive', walk => WalkActions.receive(walk));
   JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
   JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
+}
+
+// Routes initialized by events
+function addRenderListeners() {
+  // A walk, e.g. /canada/toronto/curb-cuts-and-desire-lines
+  JanesWalk.event.on('walkpage.load', ({walk, city}) => {
+    WalkActions.receive(walk);
+    React.render(
+      <Walk city={city} page={JanesWalk.page} walk={walk} />,
+      document.getElementById('page')
+    ); 
+  });
+
+  // The profile page, e.g. /profile
+  JanesWalk.event.on('profilepage.load', props => {
+    React.render(
+      <Dashboard {...props} />,
+      document.getElementById('page')
+    );
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  addFluxListeners();
+  addRenderListeners();
 
   // TODO: emit the city without needing to load JanesWalk with static data
   JanesWalk.event.emit('city.receive', JanesWalk.city);
@@ -154,16 +180,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // TODO: this could use a better home
   ItineraryAPI.startPolling();
 
-  // Routes initialized by events
-  JanesWalk.event.on('walkpage.load', ({walk, city}) => {
-    WalkActions.receive(walk);
-    setTimeout( () => {
-    React.render(
-      <Walk city={city} page={JanesWalk.page} walk={walk} />,
-      document.getElementById('page')
-    ); 
-    }, 800);
-  });
 
   // Process all deferred events
   JanesWalk.event.activate();

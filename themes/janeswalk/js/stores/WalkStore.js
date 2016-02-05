@@ -8,7 +8,6 @@
 import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
-import {walks} from '../components/itinerary/ItineraryStaticData';
 
 const defaultWalk = require('../constants/defaultWalk.json');
 
@@ -17,9 +16,6 @@ const CHANGE_EVENT = 'change';
 // Store singletons
 // The Walk objects, keyed by walk ID (ie collection ID)
 const _walks = new Map();
-
-// XXX FIXME TODO
-receiveWalks(walks);
 
 // Receive a single walk
 function receiveWalk(walk) {
