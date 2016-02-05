@@ -9117,8 +9117,8 @@ body #navbar > div > header nav ul.social-login-providers.template-fontawesome >
 }
 body #navbar > div > header nav ul.nav > li.notify,
 body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify {
-  -webkit-animation: notifying 5s infinite alternate;
-          animation: notifying 5s infinite alternate;
+  -webkit-animation: notifying 0.75s infinite alternate;
+          animation: notifying 0.75s infinite alternate;
 }
 body #navbar > div > header .notification {
   position: absolute;
@@ -9254,24 +9254,18 @@ body div#ccm-toolbar {
 }
 @-webkit-keyframes notifying {
   0% {
-    background-color: rgba(107, 173, 253, 0.1);
-  }
-  50% {
-    background-color: rgba(107, 173, 253, 0.3);
+    background-color: rgba(241, 103, 37, 0.8);
   }
   100% {
-    background-color: rgba(107, 173, 253, 0.08);
+    background-color: #f16725;
   }
 }
 @keyframes notifying {
   0% {
-    background-color: rgba(107, 173, 253, 0.1);
-  }
-  50% {
-    background-color: rgba(107, 173, 253, 0.3);
+    background-color: rgba(241, 103, 37, 0.8);
   }
   100% {
-    background-color: rgba(107, 173, 253, 0.08);
+    background-color: #f16725;
   }
 }
 body > footer {
@@ -9463,10 +9457,10 @@ body #itinerary #itinerary-select button {
   border: none;
   border-radius: 3px;
   font-size: 11px;
-  padding: 2px 7px;
+  font-weight: 400;
+  padding: 1px 7px;
   margin: 5px 2px;
-  opacity: 0.8;
-  opacity: 1;
+  opacity: 0.7;
   position: relative;
   cursor: pointer;
 }
@@ -13683,7 +13677,7 @@ body.city-page > #blog:after {
   position: -webkit-sticky;
   position: sticky;
   /* Hack around the odd behaviour when padding-top is 1px vs 0px */
-  padding-top: 46px;
+  /* padding-top: @grid-gutter-width + 16px; */
   top: 60px;
   float: right;
   /* opacity: 0.5; */
@@ -13752,9 +13746,8 @@ body.city-page > #blog:after {
   font-size: 22px;
 }
 .walkPage > .walkHeader {
-  border-bottom: 1px solid lightgray;
-  padding-bottom: 60px;
-  margin-bottom: 60px;
+  /* border-bottom: 1px solid lightgray; */
+  margin-bottom: 50px;
 }
 .walkPage > .walkHeader .coverImage {
   height: 55vh;
@@ -13812,7 +13805,7 @@ body.city-page > #blog:after {
 }
 .walkPage > .walkHeader h4 {
   margin: 5px 0 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
 }
 .walkPage .walkDescription,
@@ -13872,6 +13865,8 @@ body.city-page > #blog:after {
 .walkPage .walkMap {
   width: 60%;
   height: 350px;
+  border-radius: 0 6px 6px 0;
+  border: 1px solid #ddd;
 }
 @media (max-width: 768px) {
   .walkPage .walkMap {

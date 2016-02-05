@@ -923,7 +923,7 @@
     }
     position: sticky;
     /* Hack around the odd behaviour when padding-top is 1px vs 0px */
-    padding-top: @grid-gutter-width + 16px;
+    /* padding-top: @grid-gutter-width + 16px; */
     top: @navbar-height;
     float: right;
     /* opacity: 0.5; */
@@ -967,9 +967,8 @@
   }
 
   > .walkHeader {
-    border-bottom: 1px solid lightgray;
-    padding-bottom: @grid-gutter-width * 2;
-    margin-bottom: @grid-gutter-width * 2;
+    /* border-bottom: 1px solid lightgray; */
+    margin-bottom: 50px;  
     .coverImage {
         height: 55vh;
         background-size: cover;
@@ -1023,7 +1022,7 @@
     }
     h4 {
       margin: 5px 0 0;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 400;
     }
   }
@@ -1060,6 +1059,8 @@
   .walkMap {
      width: 60%;
      height: 350px; 
+     border-radius: 0 6px 6px 0;
+     border: 1px solid #ddd;
      @media (max-width: @screen-sm-min) {
         width: 100%;
      }

@@ -33154,7 +33154,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement('div', { className: 'walkMap', style: { width: '60%', height: '350px' } });
+	      return React.createElement('div', { className: 'walkMap' });
 	    }
 	  }]);
 
