@@ -1,5 +1,3 @@
-import DashboardStore from './DashboardStore';
-
 const MyBlogPosts = () => {
   const posts = DashboardStore.getMyBlogPosts().map((p, i) => (
     <li key={i}>

@@ -1,4 +1,4 @@
-import {dateFormatted} from '../../../utils/ItineraryUtils';
+import {dateFormatted} from 'janeswalk/utils/ItineraryUtils';
 import WalkAccessibility from './WalkAccessibility.jsx';
 import WalkPublicTransit from './WalkPublicTransit.jsx';
 import WalkParking from './WalkParking.jsx';

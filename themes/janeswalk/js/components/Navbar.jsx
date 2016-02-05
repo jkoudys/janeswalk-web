@@ -1,7 +1,7 @@
 import Itinerary from './itinerary/Itinerary.jsx';
-import AreaStore from '../stores/AreaStore.js';
-import UserStore from '../stores/UserStore.js';
-import ItineraryStore from '../stores/ItineraryStore.js';
+import AreaStore from 'janeswalk/stores/AreaStore';
+import UserStore from 'janeswalk/stores/UserStore';
+import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 
 // TODO: Replace translations placeholders
 import {t} from 'janeswalk/stores/I18nStore';

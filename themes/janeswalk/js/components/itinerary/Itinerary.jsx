@@ -1,12 +1,12 @@
-import ItineraryStore from '../../stores/ItineraryStore';
-import WalkStore from '../../stores/WalkStore';
-import {add, remove, updateTitle, updateDescription, createList} from '../../actions/ItineraryActions';
+import ItineraryStore from 'janeswalk/stores/ItineraryStore';
+import WalkStore from 'janeswalk/stores/WalkStore';
+import {add, remove, updateTitle, updateDescription, createList} from 'janeswalk/actions/ItineraryActions';
 import {t} from 'janeswalk/stores/I18nStore';
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
 import ItinerarySelect from './ItinerarySelect.jsx';
-import * as API from '../../utils/api/Itinerary';
+import * as API from 'janeswalk/utils/api/Itinerary';
 
 const getItinerary = (list = ItineraryStore.getItineraryList()) => ({
   activeList: list,

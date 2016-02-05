@@ -9,8 +9,6 @@ import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
 
-const defaultWalk = require('../constants/defaultWalk.json');
-
 const CHANGE_EVENT = 'change';
 
 // Store singletons

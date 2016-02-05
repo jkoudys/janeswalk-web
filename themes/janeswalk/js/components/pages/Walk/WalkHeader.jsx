@@ -1,5 +1,5 @@
-import {dateFormatted} from '../../../utils/ItineraryUtils';
-import {add, remove} from '../../../actions/ItineraryActions';
+import {dateFormatted} from 'janeswalk/utils/ItineraryUtils';
+import {add, remove} from 'janeswalk/actions/ItineraryActions';
 
 //TODO: Duplicate of Itinerary <Walk/>
 //TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)

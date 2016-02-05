@@ -1,4 +1,3 @@
-
 //t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders));
 
 const DashboardSummary = ({year, walkLeaders, walks, participants, originalYear, totalWalkLeaders, totalWalks, name }) => {

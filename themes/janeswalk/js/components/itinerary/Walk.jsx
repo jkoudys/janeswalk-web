@@ -1,4 +1,4 @@
-import {dateFormatted} from '../../utils/ItineraryUtils';
+import {dateFormatted} from 'janeswalk/utils/ItineraryUtils';
 
 import AddWalkToList from './AddWalkToList.jsx';
 

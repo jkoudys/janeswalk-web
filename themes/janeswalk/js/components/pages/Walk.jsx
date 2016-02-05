@@ -1,5 +1,5 @@
-import ItineraryStore from '../../stores/ItineraryStore.js';
-import ItineraryActions from '../../actions/ItineraryActions.js';
+import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
+import ItineraryActions from 'janeswalk/actions/ItineraryActions.js';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
