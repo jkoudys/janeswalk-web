@@ -45,7 +45,7 @@ function getNavbar() {
   return {
     options: AreaStore.getArea('Left Header'),
     dropdown: AreaStore.getArea('Dropdown'),
-    user: UserStore.getUser(),
+    user: UserStore.getCurrent(),
     itinerary: ItineraryStore.getLists(),
     totalWalks: ItineraryStore.totalWalks()
   };

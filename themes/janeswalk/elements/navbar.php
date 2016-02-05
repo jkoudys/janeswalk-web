@@ -6,8 +6,10 @@ $u = new User();
 if ($u->getUserID()) {
     $ui = UserInfo::getByID($u->getUserID());
     $userInfo = [
+        'id' => $u->getUserID(),
         'name' => $u->getUserName(),
-        'firstName' => $ui->getAttribute('first_name')
+        'firstName' => $ui->getAttribute('first_name'),
+        'walks' => []
     ];
     $itineraries = json_decode($ui->getAttribute('itineraries'), true);
     if (!$itineraries) {
@@ -50,7 +52,7 @@ $Dropdown = ['Dropdown' => ob_get_clean()];
 ?>
 <script>
 <?php if ($ui) { ?>
-  JanesWalk.event.emit('user.receive', <?= json_encode($userInfo) ?>);
+  JanesWalk.event.emit('user.receive', <?= json_encode($userInfo) ?>, {current: true});
   JanesWalk.event.emit('walks.receive', <?= json_encode(array_values($walks)) ?>);
   JanesWalk.event.emit('itineraries.receive', <?= json_encode((array) $itineraries) ?>);
 <?php } ?>

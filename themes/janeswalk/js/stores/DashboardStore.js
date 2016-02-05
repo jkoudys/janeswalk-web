@@ -1,6 +1,5 @@
-import { EventEmitter } from 'events';
-import {ActionsTypes} from '../../../constants/JWConstants';
-import {dashboard} from './DashboardStaticData';
+import {EventEmitter} from 'events';
+import {ActionsTypes} from 'janeswalk/constants/JWConstants';
 
 //TODO: If below is received via JW.emit, need to have a Action.RECEIVE_DATA event to store data in Store.js
 const {city, walks, resources, blog, impact} = dashboard;

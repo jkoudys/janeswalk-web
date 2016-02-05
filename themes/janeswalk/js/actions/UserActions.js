@@ -9,9 +9,18 @@ import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
 
 // Load all loop data
-export function receive(user) {
+export function receive(user, {current, profile}) {
   dispatch({
     type: ActionTypes.USER_RECEIVE,
-    user: user
+    user,
+    current,
+    profile
+  });
+}
+
+export function receiveAll(users) {
+  dispatch({
+    type: ActionTypes.USER_RECEIVE_ALL,
+    users
   });
 }
