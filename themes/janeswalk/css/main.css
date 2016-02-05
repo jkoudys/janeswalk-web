@@ -13971,6 +13971,365 @@ body.city-page > #blog:after {
   font-weight: 300;
   margin-top: 0em;
 }
+button {
+  border: none;
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin: 0 8px 8px 0;
+  background: #fff;
+  cursor: pointer;
+}
+button:focus {
+  outline: 0;
+}
+button.active,
+button.activeFilter {
+  background: #f16725;
+  border-color: #f16725;
+  color: #fff;
+}
+button.active .buttonClose,
+button.activeFilter .buttonClose {
+  background: rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.8);
+}
+button.active .buttonClose:hover,
+button.activeFilter .buttonClose:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+button.inActiveFilter .buttonClose {
+  background: rgba(200, 200, 200, 0.2);
+  border-left: 1px solid rgba(50, 50, 50, 0.3);
+}
+button.inActiveFilter .buttonClose:hover {
+  background: rgba(200, 200, 200, 0.4);
+}
+button .buttonClose {
+  padding: 4px 12px 3px;
+  margin-left: -3px;
+  position: relative;
+  left: 9px;
+  font-size: 1.7rem;
+  line-height: 0;
+  top: 2px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.dashboard li {
+  list-style: none;
+}
+.dashboard a {
+  color: #f16725;
+}
+.dashboard > header {
+  padding: 10px 70px 50px 15px;
+  border-bottom: 1px solid #fff;
+  background: -webkit-linear-gradient(#6badfd, #ffffff);
+  background: linear-gradient(#6badfd, #ffffff);
+  background-size: cover;
+}
+.dashboard > header h3 {
+  font-weight: 600;
+}
+.dashboard > header h3,
+.dashboard > header h4 {
+  font-size: 13px;
+  margin: 5px 0;
+  opacity: 0.9;
+  color: #001d40;
+}
+.dashboard > header .dashboardLatestPost {
+  margin: 70px 50px 50px;
+}
+.dashboard > header .dashboardLatestPost h4 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.dashboard > header .dashboardLatestPost h1 {
+  font-weight: 300;
+  font-size: 32px;
+  margin: 0 0 15px;
+  width: 60%;
+}
+.dashboard > header .dashboardLatestPost a {
+  color: #001d40;
+  opacity: 0.8;
+}
+.dashboard > header .dashboardLatestPost a:hover {
+  opacity: 1;
+  position: relative;
+  top: -1px;
+}
+.dashboard > header .dashboardLatestPost a button {
+  border: none;
+  padding: 6px 10px;
+  background: transparent;
+  border: 1px solid #001d40;
+  border-radius: 6px;
+  margin-right: 5px;
+  font-size: 12px;
+}
+.dashboard .dashboardMenu a {
+  text-decoration: none;
+}
+.dashboard .dashboardMenu ul {
+  list-style: none;
+  padding: 0;
+}
+.dashboard .dashboardMenu ul > section > li {
+  font-size: 28px;
+  border-bottom: 1px solid #ddd;
+  background: #6badfd;
+  border-bottom: 1px solid #fff;
+  padding: 30px 60px;
+  color: #fff;
+  cursor: pointer;
+}
+.dashboard .dashboardMenu ul > section > li a {
+  display: block;
+  padding: 30px 70px;
+  color: #fff;
+}
+.dashboard .dashboardMenu ul > section > li:hover {
+  background: #0082e6;
+}
+.dashboard .dashboardRecap,
+.dashboard .dashboardResources,
+.dashboard .walks,
+.dashboard .dashboardWalkLeaders,
+.dashboard .dashboardMyBlogPosts {
+  padding: 30px 60px 60px;
+  border-bottom: 1px solid #ddd;
+}
+.dashboard .dashboardRecap h2 {
+  margin-top: 0;
+}
+.dashboard .dashboardRecap h4 {
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 130%;
+  width: 64%;
+}
+.dashboard .walks button.walksListButton {
+  margin-right: -1px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.dashboard .walks button.walksMapButton {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.dashboard .walks .walksFilter {
+  margin-top: 10px;
+}
+.dashboard .walks .walksFilter > li {
+  margin-top: 10px;
+}
+.dashboard .walks .walksFilter li {
+  list-style: none;
+}
+.dashboard .walks .walksFilter li label {
+  margin-right: 7px;
+}
+.dashboard .walks .walksFilter li label::before {
+  content: "Filter by ";
+}
+.dashboard .walks .walkMap {
+  margin-top: 15px;
+}
+.dashboard .walks li .walk {
+  padding: 40px 0;
+  border-bottom: 1px solid #ddd;
+}
+.dashboard .walks li .walk h3 {
+  font-size: 16px;
+  margin-top: 0;
+  font-weight: 600;
+  letter-spacing: 0.01rem;
+  width: 70%;
+}
+.dashboard .walks li .walk h4 {
+  font-size: 16px;
+  margin: 5px 0;
+  font-weight: 300;
+}
+.dashboard .walks li .walk button {
+  font-size: 12px;
+  color: #f16725;
+  margin-top: 8px;
+  letter-spacing: 0.01rem;
+  border: 1px solid #f16725;
+  opacity: 0.8;
+}
+.dashboard .walks li .walk button:hover {
+  opacity: 1;
+}
+.dashboard .dashboardWalkLeaders button {
+  padding: 6px 10px;
+  margin-bottom: 7px;
+}
+.dashboard .dashboardWalkLeaders button.buttonAllWalks,
+.dashboard .dashboardWalkLeaders button.buttonSortAlphabetically {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  margin-right: -1px;
+}
+.dashboard .dashboardWalkLeaders button.buttonUpcomingWalks {
+  border-radius: 0;
+  margin-right: 0;
+}
+.dashboard .dashboardWalkLeaders button.buttonPastWalks {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  margin-left: -1px;
+}
+.dashboard .dashboardWalkLeaders button.buttonSortByMostWalks {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+.dashboard .dashboardWalkLeaders .walkLeader {
+  padding: 35px 0;
+  border-bottom: 1px solid #ddd;
+}
+.dashboard .dashboardWalkLeaders .walkLeader h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+.dashboard .dashboardWalkLeaders .walkLeader h3 .walkLeaderEmail {
+  font-weight: 300;
+  margin-left: 4px;
+  color: #6badfd;
+}
+.dashboard .dashboardWalkLeaders .walkLeader ul {
+  padding-left: 0px;
+  margin-bottom: 0;
+}
+.dashboard .dashboardWalkLeaders .walkLeader ul h4 {
+  margin: 5px 0 0;
+}
+.dashboard .dashboardWalkLeaders .walkLeader ul li {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.3;
+  text-indent: -100px;
+  padding-left: 100px;
+  width: 70%;
+}
+.dashboard ul.dashboardMyBlogPosts {
+  padding: 30px 60px 60px;
+}
+.dashboard ul.dashboardMyBlogPosts a {
+  color: #001d40;
+}
+.dashboard ul.dashboardMyBlogPosts a h2 {
+  font-weight: 300;
+}
+.dashboard .dashboardResources {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.01rem;
+}
+.dashboard .dashboardResources section {
+  margin: 50px 0;
+}
+.dashboard .dashboardResources section.walkTips ul {
+  margin: 20px 0;
+}
+.dashboard .dashboardResources section.walkTips ul li {
+  display: inline-block;
+  margin-right: 20px;
+  width: 30%;
+}
+.dashboard .dashboardResources ul {
+  padding-left: 0;
+}
+.dashboard .dashboardResources ul li {
+  font-weight: 300;
+  background: #fff;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld {
+  display: block;
+  width: 30%;
+  position: relative;
+  display: inline-block;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-right: 15px;
+  vertical-align: top;
+  overflow: hidden;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld:hover {
+  position: relative;
+  top: -2px;
+  opacity: 1;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld .walkImage {
+  display: block;
+  height: 150px;
+  overflow: hidden;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld .walkImage img {
+  min-height: 100%;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld .flag {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: -17px 0 -19px;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld .flag img {
+  width: 60px;
+  border-radius: 4px;
+  padding: 2px;
+  background: #fff;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld img {
+  max-width: none;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld div a {
+  padding: 25px 15px 45px;
+  background: transparent;
+  display: block;
+  margin: 5px 0 -40px;
+  line-height: 1.3;
+  font-weight: 400;
+  position: relative;
+  z-index: 2;
+  text-decoration: none;
+}
+.dashboard .dashboardResources ul .funWalksFromAroundWorld div h4 {
+  font-weight: 300;
+  font-size: 16px;
+  margin-top: 0;
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+}
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.walks ul {
+  list-style: none;
+}
+.walks a {
+  text-decoration: none;
+}
 .custom-walk-page {
   padding-top: 160px;
 }
