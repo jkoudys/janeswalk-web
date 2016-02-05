@@ -12003,7 +12003,7 @@ body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
   body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
     width: 76px;
     height: 76px;
-    margin: 10px 0 0;
+    margin: 10px auto;
   }
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .btn,
