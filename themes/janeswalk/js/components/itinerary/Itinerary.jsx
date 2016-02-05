@@ -82,6 +82,7 @@ export default class Itinerary extends React.Component {
               {ItineraryWalks}
             </ul>
           </div>
+          <p className="knightFdn-itinerary">Powered by the Knight Foundation</p>
         </section>
       </dialog>
     );

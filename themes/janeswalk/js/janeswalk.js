@@ -1488,6 +1488,11 @@
 	              null,
 	              ItineraryWalks
 	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            { className: 'knightFdn-itinerary' },
+	            'Powered by the Knight Foundation'
 	          )
 	        )
 	      );
@@ -32443,7 +32448,11 @@
 	    React.createElement(
 	      "h2",
 	      null,
-	      "About This Walk"
+	      React.createElement(
+	        "span",
+	        { clasName: "topRule" },
+	        "About This Walk"
+	      )
 	    ),
 	    React.createElement("article", { dangerouslySetInnerHTML: { __html: longDescription } })
 	  );

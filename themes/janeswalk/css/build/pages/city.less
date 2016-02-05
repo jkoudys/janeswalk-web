@@ -18,6 +18,26 @@ body.city-page {
         a {
             color: #fff;
         }
+        .create-walk-city-header {
+            display: block;
+            border: 2px solid #fff;
+            border-radius: 4px;
+            margin-top: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            font-size: 22px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+            width: 160px;
+            margin-left: 2px;
+            text-align: center;
+            padding: 8px 0;
+            &:hover {
+                background: rgba(255,255,255,0.3);
+                text-decoration: none;
+                position: relative;
+                top: -2px;
+            }
+        }
     }
     // Top section with window introducing city and its organizer
     > #intro-city {
@@ -49,7 +69,7 @@ body.city-page {
                 font-weight: 400;
             }
             @media (min-width: @screen-md-min) {
-                width: 67%;
+                width: 70%;
                 display: inline-block;
                 vertical-align: top;
             }
@@ -64,8 +84,8 @@ body.city-page {
                 width: 30%;
                 display: inline-block;
                 vertical-align: top;
-                margin: @grid-gutter-width 0;
-                border-radius: 6px;
+                margin-left: -5px;
+                //border-radius: 6px; 
             }
             .city-organizer {
                 width: 100%;
@@ -91,8 +111,13 @@ body.city-page {
                     display: inline-block;
                     vertical-align: top;
                     text-align: center;
-                    margin-bottom: 22px; 
+                    padding-bottom: 22px; 
                     width: 100%;
+                    background: linear-gradient(#ededed, #fff);
+                    @media (max-width: @screen-sm-min) {
+                        padding-top: 22px;
+                        padding-bottom: 30px;
+                    }
                     h3 {
                         font-size: 24px;
                         margin-bottom: 0;
@@ -102,12 +127,56 @@ body.city-page {
                         margin-top: 5px;
                     }
                     .btn-toolbar {
+                        //padding-top: 3px;              
+                        p {
+                            text-align: center;
+                            border: 1px solid @color-orange;
+                            border-radius: 4px;
+                            color: @color-orange;
+                            padding: 2px 6px;
+                            margin-top: 3px;
+                            font-weight: 600;
+                            font-size: 16px;
+                            width: 86px;
+                            margin: 0 auto -37px;
+                            position: relative;
+                            top: 0;
+                            opacity: 1;
+                            transition: opacity 0.3s, top 0.3s;
+                            transition-delay: 0.15s;
+                        }
+                        @media (max-width: @screen-md-min) {  
+                            p {
+                                display: none;
+                            }
+                        }
                         a {
+                            @media (min-width: @screen-md-min) { 
+                                position: relative;
+                                top: 8px;
+                                opacity: 0;
+                                transition: opacity 0.3s, top 0.3s;
+                            }
+                            
                             i {
                                 color: #fff;
                             }
                             &:hover i {
                                 color: #000;
+                            }
+                        }
+                        &:hover {
+                            padding-top: 0;
+                            p {
+                                top: -10px;
+                                opacity: 0;
+                                transition-delay: 0s;
+                            }
+                            a {
+                                display: inline-block;
+                                opacity: 1;
+                                top: 0;
+                                transition-delay: 0.15s;
                             }
                         }
                     }
@@ -119,9 +188,9 @@ body.city-page {
                 .u-avatar {
                     margin: 30px auto 0;
                     @media (max-width: @screen-sm-min) {
-                        width: 76px;
-                        height: 76px;
-                        margin: 10px 0 0;
+                        width: 90px;
+                        height: 90px;
+                        margin: 0px auto 0;
                     }
                 }
 
@@ -146,7 +215,7 @@ body.city-page {
                             background: #ddd;
                         }
                         &:last-child {
-                            border-radius: 0 0 6px 6px;
+                            //border-radius: 0 0 6px 6px;
                         }
                     }
                 }
