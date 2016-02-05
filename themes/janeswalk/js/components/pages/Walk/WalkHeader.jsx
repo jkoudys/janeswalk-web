@@ -48,14 +48,9 @@ const WalkHeader = ({city, walk, favourites, itinerary}) => {
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
   // Only show the add to itinerary if you can
-  let addToItineraryButton;
+  let addToItineraryButtons;
   if (time.slots[0]) {
-    addToItineraryButton = (
-      <h4>
-        {walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}{dateFormatted(time.slots[0][0])}
-        {addButton}
-      </h4>
-    );
+    addToItineraryButtons = time.slots.map(t => <h4> {dateFormatted(t[0])} {addButton} </h4>);
   }
 
   return(
@@ -68,8 +63,9 @@ const WalkHeader = ({city, walk, favourites, itinerary}) => {
         </ul>
       </section>
       <h1>{title} {favButton}</h1>
-      {addToItineraryButton}
       <h4>Meeting at {map.markers[0].title}</h4>
+      <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
+      {addToItineraryButtons}
     </section>
   );
 };
