@@ -12150,42 +12150,19 @@ body.city-page > #city-details .description {
 @media (min-width: 992px) {
   body.city-page > #city-details .description {
     float: left;
-    width: 33.33333333%;
+    width: 100%;
   }
 }
-body.city-page > #city-details .description .menu-flags a {
+body.city-page > #city-details .description h3 {
   display: block;
-  position: relative;
-  margin: 15px 0 0 -30px;
-  padding: 20px 0;
-  height: 60px;
-  background-color: #f16725;
-  color: #fff;
-  text-align: center;
-  font-family: "Roboto Slab", serif;
-  font-size: 16px;
-  font-weight: 100;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  clear: both;
 }
-body.city-page > #city-details .description .menu-flags a:hover {
-  background-color: #df520e;
+body.city-page > #city-details .description p {
+  float: left;
+  line-height: 80px;
 }
-body.city-page > #city-details .description .menu-flags a:after {
-  content: " ";
-  position: absolute;
-  left: 0;
-  bottom: -15px;
-  width: 0px;
-  height: 0px;
-  border-style: solid;
-  border-width: 0 15px 15px 0;
-  border-color: transparent #d54e0e transparent transparent;
-}
-@media (max-width: 992px) {
-  body.city-page > #city-details .description {
-    display: none;
-  }
+body.city-page > #city-details .description p img {
+  margin: 20px;
 }
 body.city-page > #city-details .walk-list {
   opacity: 1;
