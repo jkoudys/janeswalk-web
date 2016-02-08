@@ -44,8 +44,8 @@ const WalkMenu = ({walk, filters}) => {
   //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
 
   //TODO: Improve functionality to be generic for displaying menuItems, and specific react components
-  if (walk.accessibleParking.length > 0) menuItems[4].exists = true;
   if (walk.accessibleTransit.length > 0) menuItems[3].exists = true;
+  if (walk.accessibleParking.length > 0) menuItems[4].exists = true;
 
   return (
     <section className="walkMenu">

@@ -8304,17 +8304,22 @@
 	});
 	var WalkPublicTransit = function WalkPublicTransit(_ref) {
 	  var accessibleTransit = _ref.accessibleTransit;
-	  return React.createElement(
-	    "section",
-	    { className: "walkPublicTransit" },
-	    React.createElement("a", { name: "Taking Public Transit" }),
-	    React.createElement(
-	      "h2",
-	      null,
-	      "Taking Public Transit"
-	    ),
-	    accessibleTransit
-	  );
+
+	  if (accessibleTransit.length > 0) {
+	    return React.createElement(
+	      "section",
+	      { className: "walkPublicTransit" },
+	      React.createElement("a", { name: "Taking Public Transit" }),
+	      React.createElement(
+	        "h2",
+	        null,
+	        "Taking Public Transit"
+	      ),
+	      accessibleTransit
+	    );
+	  } else {
+	    return React.createElement("section", null);
+	  }
 	};
 
 	WalkPublicTransit.propTypes = {
@@ -8335,18 +8340,23 @@
 	var WalkParking = function WalkParking(_ref) {
 	  var accessibleParking = _ref.accessibleParking;
 	  var style = _ref.style;
-	  return React.createElement(
-	    "section",
-	    { className: "walkParking " + style },
-	    style === 'walk-page' ? React.createElement("a", { name: "Parking Availability" }) : null,
-	    React.createElement("a", { name: "Parking Availability" }),
-	    React.createElement(
-	      "h2",
-	      null,
-	      "Parking Availability"
-	    ),
-	    accessibleParking
-	  );
+
+	  if (accessibleParking.length > 0) {
+	    return React.createElement(
+	      "section",
+	      { className: "walkParking " + style },
+	      style === 'walk-page' ? React.createElement("a", { name: "Parking Availability" }) : null,
+	      React.createElement("a", { name: "Parking Availability" }),
+	      React.createElement(
+	        "h2",
+	        null,
+	        "Parking Availability"
+	      ),
+	      accessibleParking
+	    );
+	  } else {
+	    return React.createElement("section", null);
+	  }
 	};
 
 	WalkParking.propTypes = {
@@ -8501,7 +8511,7 @@
 	//TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 	//TODO: Make walkMenu sticky - will complete after Dashboard
 
-	var menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'Taking Public Transit', 'Parking Availability', 'About the Walk Team'];
+	var menuItems = [{ display: 'About This Walk', exists: true }, { display: 'Walk Route', exists: true }, { display: 'How to find us', exists: true }, { display: 'Taking Public Transit', exists: false }, { display: 'Parking Availability', exists: false }, { display: 'About the Walk Team', exists: true }];
 
 	var WalkMenu = function WalkMenu(_ref) {
 	  var walk = _ref.walk;
@@ -8558,6 +8568,10 @@
 
 	  //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
 
+	  //TODO: Improve functionality to be generic for displaying menuItems, and specific react components
+	  if (walk.accessibleTransit.length > 0) menuItems[3].exists = true;
+	  if (walk.accessibleParking.length > 0) menuItems[4].exists = true;
+
 	  return React.createElement(
 	    'section',
 	    { className: 'walkMenu' },
@@ -8579,14 +8593,16 @@
 	      React.createElement(
 	        'ul',
 	        null,
-	        menuItems.map(function (item, i) {
+	        menuItems.filter(function (item) {
+	          return item.exists;
+	        }).map(function (item, i) {
 	          return React.createElement(
 	            'li',
 	            { key: i },
 	            React.createElement(
 	              'a',
-	              { href: '#' + item },
-	              item
+	              { href: '#' + item.display },
+	              item.display
 	            )
 	          );
 	        })
