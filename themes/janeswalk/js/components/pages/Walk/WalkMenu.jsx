@@ -8,7 +8,14 @@ import {getThemeName} from 'janeswalk/utils/lookups/Theme';
 //TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 //TODO: Make walkMenu sticky - will complete after Dashboard
 
-const menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'Taking Public Transit', 'Parking Availability', 'About the Walk Team'];
+const menuItems = [
+  { display: 'About This Walk', exists: true },
+  { display: 'Walk Route', exists: true },
+  { display: 'How to find us', exists: true },
+  { display: 'Taking Public Transit', exists: false },
+  { display: 'Parking Availability', exists: false },
+  { display: 'About the Walk Team', exists: true }
+];
 
 const WalkMenu = ({walk, filters}) => {
 
@@ -36,6 +43,9 @@ const WalkMenu = ({walk, filters}) => {
 
   //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
 
+  if (walk.accessibleParking.length > 0) menuItems[4].exists = true;
+  if (walk.accessibleTransit.length > 0) menuItems[3].exists = true;
+
   return (
     <section className="walkMenu">
       <header className="walkHeader">
@@ -47,7 +57,7 @@ const WalkMenu = ({walk, filters}) => {
       </header>
       <section className="menu">
         <ul>
-         {menuItems.map((item,i) => <li key={i}><a href={`#${item}`}>{item}</a></li>)}
+         {menuItems.filter(item => item.exists).map((item,i) => <li key={i}><a href={`#${item.display}`}>{item.display}</a></li>)}
         </ul>
       </section>
       <section className="tags">
