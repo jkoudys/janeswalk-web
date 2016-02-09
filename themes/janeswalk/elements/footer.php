@@ -1,8 +1,6 @@
 <footer role="contentinfo">
     <section class="blurb">
         <h2>Citizen-led walking tours towards community-based city building.</h2>
-        <p>Jane's Walk is a project of Tides Canada Initiatives Society, a registered charity.</p>
-        <p>Jane's Walk &copy; 2014. All rights reserved.</p>
     </section>
     <nav>
         <section class="sitemap">
@@ -13,6 +11,10 @@
             <a href="http://facebook.com/janeswalk" target="_blank"><i class="fa fa-facebook-square"></i></a>
         </section>
     </nav>
+    <section class="status-copyright">
+        <p>Jane's Walk is a project of Tides Canada Initiatives Society, a registered charity.</p>
+        <p>Jane's Walk &copy; 2014. All rights reserved.</p>
+    </section>
 </footer>
 <?php /* <img src="http://tuckermclachlan.com/janeswalk/footer.jpg" style="width: 100%"> */ ?>
     <div id="progress" style="z-index: -1;"></div>

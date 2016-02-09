@@ -9098,8 +9098,16 @@ body #navbar > div > header nav ul.social-login-providers.template-fontawesome >
 }
 body #navbar > div > header nav ul.nav > li.notify,
 body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify {
-  -webkit-animation: notifying 5s infinite alternate;
-          animation: notifying 5s infinite alternate;
+  -webkit-animation: notifying 0.75s infinite alternate;
+          animation: notifying 0.75s infinite alternate;
+}
+body #navbar > div > header nav ul.nav > li.notify > a,
+body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify > a {
+  color: #fff;
+}
+body #navbar > div > header nav ul.nav > li.notify > a:hover,
+body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify > a:hover {
+  background: brown;
 }
 body #navbar > div > header .notification {
   position: absolute;
@@ -9233,24 +9241,18 @@ body div#ccm-toolbar {
 }
 @-webkit-keyframes notifying {
   0% {
-    background-color: rgba(107, 173, 253, 0.1);
-  }
-  50% {
-    background-color: rgba(107, 173, 253, 0.3);
+    background-color: rgba(241, 103, 37, 0.5);
   }
   100% {
-    background-color: rgba(107, 173, 253, 0.08);
+    background-color: #f16725;
   }
 }
 @keyframes notifying {
   0% {
-    background-color: rgba(107, 173, 253, 0.1);
-  }
-  50% {
-    background-color: rgba(107, 173, 253, 0.3);
+    background-color: rgba(241, 103, 37, 0.5);
   }
   100% {
-    background-color: rgba(107, 173, 253, 0.08);
+    background-color: #f16725;
   }
 }
 body > footer {
@@ -9261,7 +9263,7 @@ body > footer {
   font-weight: 500;
   z-index: 1030;
   clear: both;
-  padding: 60px 30px;
+  padding: 60px 30px 30px;
 }
 body > footer:before,
 body > footer:after {
@@ -9298,6 +9300,17 @@ body > footer .blurb {
     width: 66.66666667%;
   }
 }
+body > footer .blurb h2 {
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 100px;
+  margin-top: 0;
+}
+@media (max-width: 992px) {
+  body > footer .blurb h2 {
+    margin-bottom: 30px;
+  }
+}
 body > footer nav {
   position: relative;
   min-height: 1px;
@@ -9311,22 +9324,35 @@ body > footer nav {
   }
 }
 body > footer nav ul {
-  position: relative;
+  width: 130px;
   float: left;
-  width: 50%;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
   list-style-type: none;
   padding: 0;
+  font-size: 14px;
+}
+body > footer .status-copyright {
+  clear: both;
+  padding-left: 15px;
+  padding-bottom: 10px;
+}
+body > footer .status-copyright p {
+  color: brown;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+@media (max-width: 992px) {
+  body > footer .status-copyright {
+    padding-top: 20px;
+  }
 }
 body > footer a {
   color: inherit;
+  opacity: 0.8;
 }
 body > footer a:hover {
   color: inherit;
   text-decoration: none;
-  font-weight: 900;
+  opacity: 1;
 }
 body > footer .social-icons {
   font-size: 18px;
@@ -9439,10 +9465,10 @@ body #itinerary #itinerary-select button {
   border: none;
   border-radius: 3px;
   font-size: 11px;
-  padding: 2px 7px;
+  font-weight: 400;
+  padding: 1px 7px;
   margin: 5px 2px;
-  opacity: 0.8;
-  opacity: 1;
+  opacity: 0.7;
   position: relative;
   cursor: pointer;
 }
@@ -9462,6 +9488,16 @@ body #itinerary h6 input[type="text"] {
 }
 body #itinerary h2 {
   margin-top: 0;
+}
+body #itinerary .knightFdn-itinerary {
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0.8;
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 100%;
 }
 body .itinerary {
   margin: 30px auto 5rem;
@@ -11851,6 +11887,26 @@ body.city-page .cityName {
 body.city-page .cityName a {
   color: #fff;
 }
+body.city-page .cityName .create-walk-city-header {
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  margin-top: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  font-size: 22px;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+  width: 160px;
+  margin-left: 2px;
+  text-align: center;
+  padding: 8px 0;
+}
+body.city-page .cityName .create-walk-city-header:hover {
+  background: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  position: relative;
+  top: -2px;
+}
 body.city-page > #intro-city {
   color: #fff;
   font-family: "Roboto Slab", serif;
@@ -11879,7 +11935,7 @@ body.city-page > #intro-city .city-summary p {
 }
 @media (min-width: 992px) {
   body.city-page > #intro-city .city-summary {
-    width: 67%;
+    width: 70%;
     display: inline-block;
     vertical-align: top;
   }
@@ -11896,8 +11952,7 @@ body.city-page > #intro-city #city-sidebar {
     width: 30%;
     display: inline-block;
     vertical-align: top;
-    margin: 30px 0;
-    border-radius: 6px;
+    margin-left: -5px;
   }
 }
 body.city-page > #intro-city #city-sidebar .city-organizer {
@@ -11932,8 +11987,16 @@ body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-detai
   display: inline-block;
   vertical-align: top;
   text-align: center;
-  margin-bottom: 22px;
+  padding-bottom: 22px;
   width: 100%;
+  background: -webkit-linear-gradient(#ededed, #ffffff);
+  background: linear-gradient(#ededed, #ffffff);
+}
+@media (max-width: 768px) {
+  body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details {
+    padding-top: 22px;
+    padding-bottom: 30px;
+  }
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details h3 {
   font-size: 24px;
@@ -11943,11 +12006,60 @@ body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-detai
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details h4 {
   margin-top: 5px;
 }
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar p {
+  text-align: center;
+  border: 1px solid #f16725;
+  border-radius: 4px;
+  color: #f16725;
+  padding: 2px 6px;
+  margin-top: 3px;
+  font-weight: 600;
+  font-size: 16px;
+  width: 86px;
+  margin: 0 auto -37px;
+  position: relative;
+  top: 0;
+  opacity: 1;
+  -webkit-transition: opacity 0.3s, top 0.3s;
+          transition: opacity 0.3s, top 0.3s;
+  -webkit-transition-delay: 0.15s;
+          transition-delay: 0.15s;
+}
+@media (max-width: 992px) {
+  body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar p {
+    display: none;
+  }
+}
+@media (min-width: 992px) {
+  body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar a {
+    position: relative;
+    top: 8px;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s, top 0.3s;
+            transition: opacity 0.3s, top 0.3s;
+  }
+}
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar a i {
   color: #fff;
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar a:hover i {
   color: #000;
+}
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar:hover {
+  padding-top: 0;
+}
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar:hover p {
+  top: -10px;
+  opacity: 0;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
+}
+body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar:hover a {
+  display: inline-block;
+  opacity: 1;
+  top: 0;
+  -webkit-transition-delay: 0.15s;
+          transition-delay: 0.15s;
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details body.city-page > #city-details .create-walk,
@@ -11965,9 +12077,9 @@ body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
 }
 @media (max-width: 768px) {
   body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
-    width: 76px;
-    height: 76px;
-    margin: 10px auto;
+    width: 90px;
+    height: 90px;
+    margin: 0px auto;
   }
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .btn,
@@ -12001,9 +12113,6 @@ body.city-page > #intro-city #city-sidebar .menu-flags p a {
 }
 body.city-page > #intro-city #city-sidebar .menu-flags p a:hover {
   background: #ddd;
-}
-body.city-page > #intro-city #city-sidebar .menu-flags p a:last-child {
-  border-radius: 0 0 6px 6px;
 }
 @media (min-width: 992px) {
   body.city-page > #intro-city #city-sidebar .menu-flags {
@@ -13620,8 +13729,8 @@ body.city-page > #blog:after {
   position: -webkit-sticky;
   position: sticky;
   /* Hack around the odd behaviour when padding-top is 1px vs 0px */
-  padding-top: 46px;
-  top: 60px;
+  /* padding-top: @grid-gutter-width + 16px; */
+  top: 80px;
   float: right;
   /* opacity: 0.5; */
 }
@@ -13664,6 +13773,7 @@ body.city-page > #blog:after {
 .walkPage .walkMenu .walkParking {
   padding: 0;
   font-size: 13px;
+  width: 100%;
 }
 .walkPage .walkMenu .walkAccessibility h2,
 .walkPage .walkMenu .walkPublicTransit h2,
@@ -13689,9 +13799,8 @@ body.city-page > #blog:after {
   font-size: 22px;
 }
 .walkPage > .walkHeader {
-  border-bottom: 1px solid lightgray;
-  padding-bottom: 60px;
-  margin-bottom: 60px;
+  /* border-bottom: 1px solid lightgray; */
+  margin-bottom: 50px;
 }
 .walkPage > .walkHeader .coverImage {
   height: 55vh;
@@ -13749,7 +13858,7 @@ body.city-page > #blog:after {
 }
 .walkPage > .walkHeader h4 {
   margin: 5px 0 0;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
 }
 .walkPage .walkDescription,
@@ -13799,6 +13908,10 @@ body.city-page > #blog:after {
 .walkPage .walkDescription > h2 {
   padding-top: 75px;
 }
+.walkPage .walkDescription > h2 .topRule {
+  padding-top: 20px;
+  border-top: 3px solid #ededed;
+}
 .walkPage .walkDescription article {
   font-size: 18px;
   font-weight: 300;
@@ -13809,6 +13922,8 @@ body.city-page > #blog:after {
 .walkPage .walkMap {
   width: 60%;
   height: 350px;
+  border-radius: 0 6px 6px 0;
+  border: 1px solid #ddd;
 }
 @media (max-width: 768px) {
   .walkPage .walkMap {

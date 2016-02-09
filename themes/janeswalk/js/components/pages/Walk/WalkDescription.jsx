@@ -1,7 +1,7 @@
 const WalkDescription = ({longDescription}) => (
   <section className="walkDescription">
     <a name="About This Walk"></a>
-    <h2>About This Walk</h2>
+    <h2><span clasName="topRule">About This Walk</span></h2> 
     <article dangerouslySetInnerHTML={{__html: longDescription}}></article>
   </section>
 );

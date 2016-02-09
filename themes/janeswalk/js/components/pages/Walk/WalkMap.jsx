@@ -160,7 +160,7 @@ export default class WalkMap extends React.Component {
 
 
   render() {
-   return (<div className="walkMap" style={{width: '60%', height: '350px'}}/>)
+   return (<div className="walkMap"/>)
   }
 }
 

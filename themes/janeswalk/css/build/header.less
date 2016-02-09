@@ -36,8 +36,14 @@
                     color: @color-darkgrey;
                 }
                 &.notify {
-                    animation: notifying 5s infinite alternate;
-                }
+                    animation: notifying 0.75s infinite alternate;
+                    > a {
+                        color: #fff;
+                        &:hover {
+                            background: brown; 
+                        }
+                    }
+                } 
             }
         }
         a + ul.nav {
@@ -175,12 +181,9 @@ div#ccm-toolbar {
 
 @keyframes notifying {
     0% {
-        background-color: fadeout(@color-blue, 90%);
-    }
-    50% {
-        background-color: fadeout(@color-blue, 70%);
+        background-color: fadeout(@color-orange, 50%);
     }
     100% {
-        background-color: fadeout(@color-blue, 92%);
+        background-color: fadeout(@color-orange, 0%);
     }
 }
