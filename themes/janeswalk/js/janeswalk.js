@@ -1053,32 +1053,6 @@
 	  });
 	}
 
-	/**
-	 * Make the navbar sticky to the top
-	 */
-	function makeSticky(reference, el) {
-	  var running = false;
-	  // Where the el is when unfixed
-	  var unfixed = reference.offsetTop;
-	  var stick = function stick() {
-	    if (running) return;
-	    running = true;
-	    requestAnimationFrame(function () {
-	      running = false;
-	      // TODO: remove this 60 hardcoding of the header height
-	      if (window.scrollY > unfixed - 60) {
-	        el.classList.add('fixed');
-	      } else {
-	        el.classList.remove('fixed');
-	      }
-	    });
-	  };
-	  window.addEventListener('scroll', stick);
-	  window.addEventListener('resize', function () {
-	    unfixed = reference.offsetTop;stick();
-	  });
-	}
-
 	// The header menu
 
 	var Navbar = (function (_React$Component) {
@@ -1439,6 +1413,11 @@
 	              null,
 	              ItineraryWalks
 	            )
+	          ),
+	          React.createElement(
+	            'p',
+	            { className: 'knightFdn-itinerary' },
+	            'Powered by the Knight Foundation'
 	          )
 	        )
 	      );
@@ -7570,7 +7549,11 @@
 	    React.createElement(
 	      "h2",
 	      null,
-	      "About This Walk"
+	      React.createElement(
+	        "span",
+	        { clasName: "topRule" },
+	        "About This Walk"
+	      )
 	    ),
 	    React.createElement("article", { dangerouslySetInnerHTML: { __html: longDescription } })
 	  );
@@ -8281,7 +8264,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement('div', { className: 'walkMap', style: { width: '60%', height: '350px' } });
+	      return React.createElement('div', { className: 'walkMap' });
 	    }
 	  }]);
 

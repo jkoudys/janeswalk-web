@@ -112,6 +112,7 @@ EOT;
         </h3>
         <h4>{$t('City Organizer')}</h4>
         <div class="btn-toolbar">
+            <p>contact</p>
             <a href="mailto:{$city->cityOrganizer->getUserEmail()}" class="btn"><i class="fa fa-envelope-o"></i></a>
             {$COContacts}
         </div>
@@ -128,6 +129,7 @@ echo <<< EOT
 <h1 class="cityName">
      {$cityName}
      {$Edit}
+      <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk-city-header">{$t('Lead a Walk')}</a>
  </h1>
 <section id="intro-city">
  <div class="city-summary">
