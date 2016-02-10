@@ -137,8 +137,38 @@ body.home {
                     color: inherit;
                 }
             }
-            .country a {
-                color: inherit;
+            ul {
+                padding: 0;
+                .country {
+                    padding: 0;
+                    a {
+                        color: inherit;
+                        display: block;
+                        width: 100%;
+                        padding-left: 5px;
+                        font-weight: 600;
+                        color: #333;
+                        padding-top: 10px;
+                        &:first-child {
+                            padding-top: 0;
+                        }
+                    }
+                    .cities {
+                        li {
+                            a {
+                                padding: 4px 25px;
+                                font-weight: 300;
+                                color: @color-orange;
+                                &:hover {
+                                    background: #ededed;
+                                    text-decoration: none;
+                                    color: #000;
+                                    font-weight: 600;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             a {
                 color: @color-orange;
@@ -286,7 +316,7 @@ body.home {
             padding-bottom: @grid-gutter-width/2 - 10px;
         }
         h1, h2, h3, h4 {
-            text-shadow: 0px 0px 8px black;
+            text-shadow: 0px 0px 10px rgba(0,0,0,0.5);
         }
         h1 {
             margin: 0;
@@ -327,15 +357,38 @@ body.home {
             margin: 5vh 15vw;
             fieldset.search {
                 float: none;
-                width: 100%;
+                width: 450px;
+                margin: 0 auto 5px;
+                border: 0px;
                 input[type=text] {
                     font-size: 3vh;
                     height: auto;
+                    border: 1px solid #777;
+                    font-size: 22px;
+                    font-weight: 300;
+                    color: #333;
                 }
                 button[type=submit] {
                     font-size: 3vh;
                     height: 100%;
+                    margin-right: 0;
+                    background: @color-orange;
+                    color: #fff;
+                    padding-left: 11px;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    border: 0px;
+                    height: 44px;
+                    margin-top: 1px;
+                    opacity: 0.9;
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
+            }
+            h3 {
+                margin-top: 8px;
             }
             ul {
                 text-align: left;
