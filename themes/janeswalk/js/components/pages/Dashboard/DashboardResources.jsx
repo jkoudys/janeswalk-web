@@ -1,6 +1,3 @@
-import React from 'react';
-import DashboardStore from './DashboardStore';
-
 //TODO* Country Flag (data is not stubbed, just 'Canada') and 'Toronto' as well
 
 const DashboardResources = () => {

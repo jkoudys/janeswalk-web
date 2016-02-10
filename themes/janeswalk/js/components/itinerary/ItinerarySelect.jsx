@@ -1,4 +1,4 @@
-import {createList} from '../../actions/ItineraryActions';
+import {createList} from 'janeswalk/actions/ItineraryActions';
 import {t} from 'janeswalk/stores/I18nStore';
 
 const ItinerarySelect = ({lists, activeList, onChoose, onCreate}) => {

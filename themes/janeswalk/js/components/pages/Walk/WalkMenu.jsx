@@ -1,4 +1,4 @@
-import {dateFormatted} from '../../../utils/ItineraryUtils';
+import {dateFormatted} from 'janeswalk/utils/ItineraryUtils';
 import WalkAccessibility from './WalkAccessibility.jsx';
 import WalkPublicTransit from './WalkPublicTransit.jsx';
 import WalkParking from './WalkParking.jsx';
@@ -8,7 +8,14 @@ import {getThemeName} from 'janeswalk/utils/lookups/Theme';
 //TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 //TODO: Make walkMenu sticky - will complete after Dashboard
 
-const menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'Taking Public Transit', 'Parking Availability', 'About the Walk Team'];
+const menuItems = [
+  { display: 'About This Walk', exists: true },
+  { display: 'Walk Route', exists: true },
+  { display: 'How to find us', exists: true },
+  { display: 'Taking Public Transit', exists: false },
+  { display: 'Parking Availability', exists: false },
+  { display: 'About the Walk Team', exists: true }
+];
 
 const WalkMenu = ({walk, filters}) => {
 
@@ -34,6 +41,12 @@ const WalkMenu = ({walk, filters}) => {
   //<WalkParking {...walk} />
   const tags = Object.keys(checkboxes).filter(item => item.includes('theme'));
 
+  //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
+
+  //TODO: Improve functionality to be generic for displaying menuItems, and specific react components
+  if (walk.accessibleTransit.length > 0) menuItems[3].exists = true;
+  if (walk.accessibleParking.length > 0) menuItems[4].exists = true;
+
   return (
     <section className="walkMenu">
       <header className="walkHeader">
@@ -41,11 +54,11 @@ const WalkMenu = ({walk, filters}) => {
         {leaderHead}
         {nextDateHead}
         {meetingPlaceHead}
-        <WalkAccessibility {...walk} {...filters} />
+
       </header>
       <section className="menu">
         <ul>
-         {menuItems.map((item,i) => <li key={i}><a href={`#${item}`}>{item}</a></li>)}
+         {menuItems.filter(item => item.exists).map((item,i) => <li key={i}><a href={`#${item.display}`}>{item.display}</a></li>)}
         </ul>
       </section>
       <section className="tags">

@@ -1,5 +1,3 @@
-import DashboardStore from '../../stores/DashboardStore';
-
 import DashboardHeader from './Dashboard/DashboardHeader.jsx';
 import DashboardMenu from './Dashboard/DashboardMenu.jsx';
 import DashboardSummary from './Dashboard/DashboardSummary.jsx';

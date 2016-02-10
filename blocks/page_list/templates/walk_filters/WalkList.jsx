@@ -1,11 +1,10 @@
 /**
  * The list of walks to order
  */
+import {t} from 'janeswalk/stores/I18nStore';
 
 let dtfDate;
 let dtfTime;
-
-const t = s => s;
 
 // Date formatter
 if (typeof(Intl) === 'object') {

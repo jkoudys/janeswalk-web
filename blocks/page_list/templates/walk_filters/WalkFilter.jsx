@@ -132,7 +132,7 @@ export default class WalkFilter extends React.Component {
     const {displayFilters} = this.state;
 
     const Filters = Object.keys(this.state.filters).map(
-      key => <Filter key={key} {...this.state.filters[key]} setFilter={v => this.setFilter(key, v)} />
+      key => <Filter key={key} setFilter={v => this.setFilter(key, v)} {...this.state.filters[key]} />
     );
 
     // See if this city has a location set

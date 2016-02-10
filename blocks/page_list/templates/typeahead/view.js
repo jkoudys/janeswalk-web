@@ -53,7 +53,7 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -127,7 +127,7 @@
 	  );
 	};
 
-	var PageListTypeahead = function (_React$Component) {
+	var PageListTypeahead = (function (_React$Component) {
 	  _inherits(PageListTypeahead, _React$Component);
 
 	  function PageListTypeahead(props) {
@@ -254,7 +254,7 @@
 	  }]);
 
 	  return PageListTypeahead;
-	}(React.Component);
+	})(React.Component);
 
 	// Alternate render of these same cities as a select, primarily for mobile
 
@@ -283,7 +283,7 @@
 	  );
 	};
 
-	var PageListSelect = function (_React$Component2) {
+	var PageListSelect = (function (_React$Component2) {
 	  _inherits(PageListSelect, _React$Component2);
 
 	  function PageListSelect(props) {
@@ -360,7 +360,7 @@
 	  }]);
 
 	  return PageListSelect;
-	}(React.Component);
+	})(React.Component);
 
 	// TODO: get browserify-shim working and `import React from 'react';`
 
@@ -454,7 +454,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
 	// Copyright Joyent, Inc. and other Node contributors.
 	//
@@ -879,7 +879,7 @@
 	 * `FlightPriceStore`.
 	 */
 
-	var Dispatcher = function () {
+	var Dispatcher = (function () {
 	  function Dispatcher() {
 	    _classCallCheck(this, Dispatcher);
 
@@ -996,7 +996,7 @@
 	  };
 
 	  return Dispatcher;
-	}();
+	})();
 
 	module.exports = Dispatcher;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
@@ -1118,7 +1118,7 @@
 	 * @providesModule invariant
 	 */
 
-	"use strict";
+	"use strict"
 
 	/**
 	 * Use invariant() to assert state which your program assumes to be true.
@@ -1131,6 +1131,7 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 
+	;
 	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
@@ -1183,7 +1184,7 @@
 	'AREA_RECEIVE',
 
 	// Users
-	'USER_RECEIVE',
+	'USER_RECEIVE', 'USER_RECEIVE_ALL',
 
 	// Itineraries
 	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END',
