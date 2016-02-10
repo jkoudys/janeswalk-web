@@ -9823,6 +9823,51 @@ body #addWalk ul li a.selected {
 body #addWalk ul li:first-child {
   margin-left: 0;
 }
+body .addItinerary,
+body .removeItinerary {
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: 6px;
+  border: 1px solid #F16725;
+  padding: 5px 7px;
+  font-size: 12px;
+  opacity: 0.7;
+  font-weight: 600;
+  line-height: 1.2;
+  margin: -5px 10px -6px;
+  position: relative;
+  top: -1px;
+}
+body .addItinerary:before,
+body .removeItinerary:before {
+  content: "\e109";
+}
+body .addItinerary::after,
+body .removeItinerary::after {
+  font-family: 'Roboto Slab';
+  content: "I'm Going";
+  margin-left: 5px;
+  position: relative;
+  top: -1px;
+}
+body .addItinerary {
+  background: none;
+  color: #F16725;
+}
+body .addItinerary:hover {
+  opacity: 1;
+}
+body .removeItinerary {
+  color: #fff;
+  background: #F16725;
+  opacity: 0.95;
+}
 #modals dialog {
   border: none;
   background-color: transparent;

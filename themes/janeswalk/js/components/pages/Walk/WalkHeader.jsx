@@ -1,4 +1,4 @@
-import {dateFormatted} from '../../../utils/ItineraryUtils';
+import {dateFormatted, startTimeIndex} from '../../../utils/ItineraryUtils';
 import {add, remove} from '../../../actions/ItineraryActions';
 
 //TODO: Duplicate of Itinerary <Walk/>
@@ -26,31 +26,53 @@ function headerBG(city, walk) {
 }
 
 const WalkHeader = ({city, walk, favourites, itinerary}) => {
-  let favButton, addButton;
-  if (favourites) {
-    if (favourites.walks.has(walk)) {
+  const {title, map, time, team, thumbnails} = walk;
+  const {url, name} = city;
+
+  //TODO: This is problematic since there are many different type of roles defined, not a finite list
+  const walkLeader = team.find(member => member.role === 'walk-leader');
+
+  //addButtons may be many or just one
+  let favButton, addButtons;
+  //debugger;
+  //if (favourites) {
+    if (favourites && favourites.walks.has(walk)) {
       favButton = <button className="removeFavourite" onClick={() => remove(favourites, walk)} />;
     } else {
       favButton = <button className="addFavourite" onClick={() => add(favourites, walk)} />;
     }
-  }
-
-  if (itinerary) {
-    if (itinerary.walks.has(walk)) {
-      addButton = <button className="removeItinerary" onClick={() => remove(itinerary, walk)} />;
-    } else {
-      addButton = <button className="addItinerary" onClick={() => add(itinerary, walk)} />;
-    }
-  }
-
-  const {title, map, time, team, thumbnails} = walk;
-  const {url, name} = city;
-  const walkLeader = team.find(member => member.role === 'walk-leader');
+  //}
 
   // Only show the add to itinerary if you can
-  let addToItineraryButtons;
-  if (time.slots[0]) {
-    addToItineraryButtons = time.slots.map(t => <h4> {dateFormatted(t[0])} {addButton} </h4>);
+
+  //TODO: Need to add the concept of time to WalkHeader
+
+  //TODO: If itinerary.walks.has(walk) and time specific!
+  if (itinerary) {
+    if (itinerary.walks.has(walk)) {
+      //retrieve start times for walk
+      let startTimes = itinerary.walks.get(walk);
+
+      addButtons = time.slots.map(t => {
+        if (startTimeIndex(startTimes, t) == -1) {
+          return (<h4>
+            {dateFormatted(t[0])}
+            <button className="addItinerary" onClick={() => add(itinerary, walk, t)}></button>
+          </h4>)
+        } else {
+          return (<h4>
+            {dateFormatted(t[0])}
+            <button className="removeItinerary" onClick={() => remove(itinerary, walk, t)}></button>
+          </h4>)
+        }
+      });
+    } else {
+      if (time && time.slots[0]) {
+        addButtons = time.slots.map(t => (<h4> {dateFormatted(t[0])}
+          <button className="addItinerary" onClick={() => add(itinerary, walk, t)} />
+        </h4>));
+      }
+    }
   }
 
   return(
@@ -65,7 +87,7 @@ const WalkHeader = ({city, walk, favourites, itinerary}) => {
       <h1>{title} {favButton}</h1>
       <h4>Meeting at {map.markers[0].title}</h4>
       <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
-      {addToItineraryButtons}
+      {addButtons}
     </section>
   );
 };
