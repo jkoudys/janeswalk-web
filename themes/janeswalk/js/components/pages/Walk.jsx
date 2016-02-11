@@ -1,5 +1,5 @@
 import ItineraryStore from '../../stores/ItineraryStore.js';
-import ItineraryActions from '../../actions/ItineraryActions.js';
+import {add, remove} from '../../actions/ItineraryActions';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
@@ -43,7 +43,14 @@ export default class WalkPage extends React.Component {
 
     return (
       <section className="walkPage">
-        <WalkHeader walk={walk} city={city} itinerary={itinerary} favourites={favourites} />
+        <WalkHeader
+          walk={walk}
+          city={city}
+          itinerary={itinerary}
+          favourites={favourites}
+          onAdd={(list, time) => add(list, walk, time)}
+          onRemove={(list, time) => remove(list, walk, time)}
+        />
         <WalkMenu {...this.state} />
         <WalkDescription {...this.state.walk} />
         <WalkMap {...this.state.walk} />
