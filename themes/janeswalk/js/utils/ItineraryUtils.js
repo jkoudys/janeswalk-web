@@ -37,4 +37,4 @@ export function dateFormatted(dateInSeconds) {
   }
 };
 
-export function startTimeIndex(startTimes, time) { return startTimes.findIndex(st => st[0] === time[0] && st[1] === time[1])};
+export function startTimeIndex(startTimes = [], time) { return startTimes.findIndex(st => st[0] === time[0] && st[1] === time[1])};
