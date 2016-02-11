@@ -1,4 +1,3 @@
-import {dateFormatted, startTimeIndex} from '../../../utils/ItineraryUtils';
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
 //TODO: Duplicate of Itinerary <Walk/>

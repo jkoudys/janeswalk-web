@@ -1,5 +1,4 @@
 import DashboardHeader from './DashboardHeader.jsx';
-import DashboardStore from './DashboardStore';
 import DashboardMenu from './DashboardMenu.jsx';
 
 //TODO: Pass in as properties, rather than loading directly from the store, if it makes sense.

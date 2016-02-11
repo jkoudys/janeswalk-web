@@ -4,44 +4,23 @@
  * variables.
  */
 // Translations for i18n L10n
-import * as I18nUtils from 'janeswalk/utils/I18nUtils.js';
-import * as AreaActions from './actions/AreaActions.js';
-import * as UserActions from './actions/UserActions.js';
-import * as WalkActions from './actions/WalkActions.js';
-import * as ItineraryActions from './actions/ItineraryActions.js';
+import {getTranslations} from 'janeswalk/utils/I18nUtils';
+import * as AreaActions from 'janeswalk/actions/AreaActions';
+import * as UserActions from 'janeswalk/actions/UserActions';
+import * as WalkActions from 'janeswalk/actions/WalkActions';
+import * as ItineraryActions from 'janeswalk/actions/ItineraryActions';
 import Navbar from './components/Navbar.jsx';
 
-import * as ItineraryAPI from './utils/api/Itinerary';
-
-// Page Views
-import Page from './components/Page.jsx';
-import City from './components/pages/City.jsx';
-import Home from './components/pages/Home.jsx';
-// import Dashboard from './components/pages/Dashboard.jsx';
-
-// FIXME XXX: remove stubbed out static data
-import {walks, lists} from './components/itinerary/ItineraryStaticData';
-
-const PageViews = {
-  PageView: Page,
-  CityPageView: City,
-  HomePageView: Home
-};
+import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
 import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
-const ReactViews = {
-  CreateWalkView: CreateWalk,
-};
+
+// import Dashboard from './components/pages/Dashboard.jsx';
+
 // load modals
 import Login from './components/Login.jsx';
-
-// Shims
-// Used for Intl.DateTimeFormat
-if (!window.Intl) {
-  window.Intl = require('intl/Intl.en');
-}
 
 /**
  * Let hitting 'm' make the menu pop up
@@ -76,68 +55,18 @@ function initKeyEvents() {
   }
 }
 
-/**
- * Route the JSX view, for either an old v1 page, or a React component
- */
-function routePage() {
-  const pageViewName =
-    document.body.getAttribute('data-pageViewName') ||
-    'PageView';
-  const ReactView = ReactViews[pageViewName];
-
+function renderGlobal() {
   // Render our header first
   const navbar = document.getElementById('navbar');
   if (navbar) {
     React.render(<Navbar />, navbar);
   }
 
-  try {
-    // Render modals we need on each page
-    const loginEl = <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />;
-
-    // FIXME: once site's all-react, move this out of the JanesWalk object. Don't follow this approach
-    // or we'll end up with massive spaghetti.
-    window.JanesWalk.react = {login: loginEl};
-
-    React.render(
-      loginEl,
-      document.getElementById('modals')
-    );
-
-    // Load our translations upfront
-    I18nUtils.getTranslations(JanesWalk.locale);
-
-    // Hybrid-routing. First check if there's a React view (which will render
-    // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
-    if (ReactView) {
-      switch (pageViewName) {
-        case 'CreateWalkView':
-          React.render(
-            <ReactView
-              data={JanesWalk.walk.data}
-              city={JanesWalk.city}
-              user={JanesWalk.user}
-              url={JanesWalk.walk.url}
-              valt={JanesWalk.form.valt}
-            />,
-            document.getElementById('createwalk')
-        );
-        break;
-        default:
-          // TODO: use JanesWalk.event to supply these data, not a global obj
-          React.render(
-            <ReactView {...JanesWalk} />,
-            document.getElementById('page')
-          );
-          break;
-      }
-    } else {
-      // FIXME: I'm not in-love with such a heavy jQuery reliance
-      // new PageViews[pageViewName]($(document.body));
-    }
-  } catch(e) {
-    console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
-  }
+  // Render modals we need on each page
+  React.render(
+    <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />,
+    document.getElementById('modals')
+  );
 }
 
 // Listen for JW events to load flux stores with
@@ -162,17 +91,23 @@ function addRenderListeners() {
   });
 
   // The profile page, e.g. /profile
-  /*  JanesWalk.event.on('profilepage.load', props => {
+  JanesWalk.event.on('profilepage.load', props => {
     React.render(
       <Dashboard {...props} />,
       document.getElementById('page')
     );
-    }); */
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Load our translations upfront
+  getTranslations(JanesWalk.locale);
+
+  renderGlobal();
   addFluxListeners();
   addRenderListeners();
+
+  initKeyEvents();
 
   // TODO: emit the city without needing to load JanesWalk with static data
   JanesWalk.event.emit('city.receive', JanesWalk.city);
@@ -180,10 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
   // TODO: this could use a better home
   ItineraryAPI.startPolling();
 
-
   // Process all deferred events
   JanesWalk.event.activate();
-
-  routePage();
-  initKeyEvents();
 });

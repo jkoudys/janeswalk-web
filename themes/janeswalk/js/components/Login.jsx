@@ -1,8 +1,4 @@
-// TODO: link to the i18n
-function t(str) {
-  const args = Array.from(arguments);
-  return args.shift().replace(/%(s|d)/g, () => args.shift());
-}
+import {t} from 'janeswalk/stores/I18nStore';
 
 const Message = ({success, msg, error}) => (
   <div className={'alert alert-' + (success ? 'info' : 'danger')}>

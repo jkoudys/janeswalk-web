@@ -1,4 +1,4 @@
-import {dateFormatted, startTimeIndex} from '../../utils/ItineraryUtils';
+import {dateFormatted, startTimeIndex} from 'janeswalk/utils/ItineraryUtils';
 
 const AddToItinerary = ({itinerary, time, walk, onAdd, onRemove}) => {
   let addButtons = [];

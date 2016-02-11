@@ -1,6 +1,3 @@
-import DashboardActions from '../../../actions/DashboardActions';
-import DashboardStore from '../../../stores/DashboardStore';
-
 //TODO: ImpactReport is not set-up
 import ImpactReport from './ImpactReport.jsx';
 

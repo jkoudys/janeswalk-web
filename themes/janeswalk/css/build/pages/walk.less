@@ -914,7 +914,6 @@
       list-style: none;
     }
   }
-
   .walkMenu {
     width: 220px;
     margin-right: 12%;
@@ -926,8 +925,8 @@
     }
     position: sticky;
     /* Hack around the odd behaviour when padding-top is 1px vs 0px */
-    padding-top: @grid-gutter-width + 16px;
-    top: @navbar-height;
+    /* padding-top: @grid-gutter-width + 16px; */
+    top: 80px;
     float: right;
     /* opacity: 0.5; */
     ul {
@@ -954,6 +953,7 @@
     .walkAccessibility, .walkPublicTransit, .walkParking {
       padding: 0;
       font-size: 13px;
+      width: 100%;
       h2 {
         margin: 10px 0 0;
       }
@@ -970,9 +970,8 @@
   }
 
   > .walkHeader {
-    border-bottom: 1px solid lightgray;
-    padding-bottom: @grid-gutter-width * 2;
-    margin-bottom: @grid-gutter-width * 2;
+    /* border-bottom: 1px solid lightgray; */
+    margin-bottom: 50px;  
     .coverImage {
         height: 55vh;
         background-size: cover;
@@ -1026,8 +1025,8 @@
       }
     }
     h4 {
-      margin: 10px 0 0;
-      font-size: 16px;
+      margin: 5px 0 0;
+      font-size: 18px;
       font-weight: 400;
     }
   }
@@ -1050,6 +1049,10 @@
     margin-top: -75px;
       > h2 {
           padding-top: 75px;
+          .topRule {
+            padding-top: 20px;
+            border-top: 3px solid #ededed;
+          }
       }
     article {
       font-size: 18px;
@@ -1064,6 +1067,8 @@
   .walkMap {
      width: 60%;
      height: 350px; 
+     border-radius: 0 6px 6px 0;
+     border: 1px solid #ddd;
      @media (max-width: @screen-sm-min) {
         width: 100%;
      }
