@@ -2,6 +2,7 @@ import Itinerary from './itinerary/Itinerary.jsx';
 import AreaStore from 'janeswalk/stores/AreaStore';
 import UserStore from 'janeswalk/stores/UserStore';
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
+import {makeSticky} from 'janeswalk/utils/dom';
 
 // TODO: Replace translations placeholders
 import {t} from 'janeswalk/stores/I18nStore';
@@ -9,34 +10,34 @@ const tc = (c, s) => s;
 
 /* Build menu options depending if currently logged in or not */
 const LoggedInOptions = ({user, profiling, searching, toggleProfile, toggleSearch, unseenUpdates}) => ([
-  <li>
+  <li key="in0">
     <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
       <i className="fa fa-search" />
     </a>
   </li>,
-  <li className={unseenUpdates ? 'notify' : ''}>
+  <li key="in1" className={unseenUpdates ? 'notify' : ''}>
     <a onClick={toggleProfile} className={profiling ? 'selected' : ''}>
       <i className="fa fa-calendar" />
     </a>
   </li>,
-  <li>
+  <li key="in2">
     <a href="/profile">{user.firstName || user.name}</a>
   </li>,
-  <li>
+  <li key="in3">
     <a href="/login/logout">{t('Logout')}</a>
   </li>
 ]);
 
 const LoggedOutOptions = ({searching, toggleSearch}) => ([
-  <li>
+  <li key="out0">
     <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
       <i className="fa fa-search" />
     </a>
   </li>,
-  <li>
+  <li key="out1">
     <a href="/register">{tc('Register on a website', 'Join')}</a>
   </li>,
-  <li>
+  <li key="out2">
     <a onClick={() => $('#login').modal()}>{t('Log in')}</a>
   </li>
 ]);
@@ -59,30 +60,6 @@ function appendSiblings(html, refNode) {
   div.innerHTML = html;
 
   [].forEach.call(div.children, child => refNode.parentNode.appendChild(child));
-}
-
-/**
- * Make the navbar sticky to the top
- */
-function makeSticky(reference, el) {
-  let running = false;
-  // Where the el is when unfixed
-  let unfixed = reference.offsetTop;
-  const stick = () => {
-    if (running) return;
-    running = true;
-    requestAnimationFrame(() => {
-      running = false;
-      // TODO: remove this 60 hardcoding of the header height
-      if (window.scrollY > unfixed - 60) {
-        el.classList.add('fixed');
-      } else {
-        el.classList.remove('fixed');
-      }
-    });
-  };
-  window.addEventListener('scroll', stick);
-  window.addEventListener('resize', () => {unfixed = reference.offsetTop; stick()});
 }
 
 // The header menu
@@ -116,9 +93,14 @@ export default class Navbar extends React.Component {
   /**
    * Need to check if the HTML has updated, so we don't rebuild the DOM
    */
-  componentWillUpdate(nextProps, {options, dropdown}) {
-    if (options !== this.state.options) {
+  componentWillUpdate(nextProps, {options, dropdown, searching}) {
+    if (options && options !== this.state.options) {
       appendSiblings(options, this.refs.topnav);
+    }
+
+    // See if we're opening the search
+    if (!this.state.searching && searching) {
+      this.openSearch();
     }
   }
 
@@ -142,13 +124,6 @@ export default class Navbar extends React.Component {
       $('html, body').animate({
         scrollTop: 0
       }, 300);
-  }
-
-  componentWillUpdate(_, {searching}) {
-    // See if we're opening the search
-    if (!this.state.searching && searching) {
-      this.openSearch();
-    }
   }
 
   render() {

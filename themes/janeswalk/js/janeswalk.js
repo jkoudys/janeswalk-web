@@ -940,6 +940,8 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
+	var _dom = __webpack_require__(28);
+
 	var _I18nStore = __webpack_require__(19);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -966,7 +968,7 @@
 	  var unseenUpdates = _ref.unseenUpdates;
 	  return [React.createElement(
 	    'li',
-	    null,
+	    { key: 'in0' },
 	    React.createElement(
 	      'a',
 	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
@@ -974,7 +976,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    { className: unseenUpdates ? 'notify' : '' },
+	    { key: 'in1', className: unseenUpdates ? 'notify' : '' },
 	    React.createElement(
 	      'a',
 	      { onClick: toggleProfile, className: profiling ? 'selected' : '' },
@@ -982,7 +984,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { key: 'in2' },
 	    React.createElement(
 	      'a',
 	      { href: '/profile' },
@@ -990,7 +992,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { key: 'in3' },
 	    React.createElement(
 	      'a',
 	      { href: '/login/logout' },
@@ -1004,7 +1006,7 @@
 	  var toggleSearch = _ref2.toggleSearch;
 	  return [React.createElement(
 	    'li',
-	    null,
+	    { key: 'out0' },
 	    React.createElement(
 	      'a',
 	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
@@ -1012,7 +1014,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { key: 'out1' },
 	    React.createElement(
 	      'a',
 	      { href: '/register' },
@@ -1020,7 +1022,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { key: 'out2' },
 	    React.createElement(
 	      'a',
 	      { onClick: function onClick() {
@@ -1050,32 +1052,6 @@
 
 	  [].forEach.call(div.children, function (child) {
 	    return refNode.parentNode.appendChild(child);
-	  });
-	}
-
-	/**
-	 * Make the navbar sticky to the top
-	 */
-	function makeSticky(reference, el) {
-	  var running = false;
-	  // Where the el is when unfixed
-	  var unfixed = reference.offsetTop;
-	  var stick = function stick() {
-	    if (running) return;
-	    running = true;
-	    requestAnimationFrame(function () {
-	      running = false;
-	      // TODO: remove this 60 hardcoding of the header height
-	      if (window.scrollY > unfixed - 60) {
-	        el.classList.add('fixed');
-	      } else {
-	        el.classList.remove('fixed');
-	      }
-	    });
-	  };
-	  window.addEventListener('scroll', stick);
-	  window.addEventListener('resize', function () {
-	    unfixed = reference.offsetTop;stick();
 	  });
 	}
 
@@ -1122,7 +1098,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      appendSiblings(this.state.options, this.refs.topnav);
-	      makeSticky(React.findDOMNode(this), this.refs.header);
+	      (0, _dom.makeSticky)(React.findDOMNode(this), this.refs.header);
 	    }
 
 	    /**
@@ -1134,9 +1110,15 @@
 	    value: function componentWillUpdate(nextProps, _ref3) {
 	      var options = _ref3.options;
 	      var dropdown = _ref3.dropdown;
+	      var searching = _ref3.searching;
 
-	      if (options !== this.state.options) {
+	      if (options && options !== this.state.options) {
 	        appendSiblings(options, this.refs.topnav);
+	      }
+
+	      // See if we're opening the search
+	      if (!this.state.searching && searching) {
+	        this.openSearch();
 	      }
 	    }
 
@@ -1163,16 +1145,6 @@
 	      $('html, body').animate({
 	        scrollTop: 0
 	      }, 300);
-	    }
-	  }, {
-	    key: 'componentWillUpdate',
-	    value: function componentWillUpdate(_, _ref4) {
-	      var searching = _ref4.searching;
-
-	      // See if we're opening the search
-	      if (!this.state.searching && searching) {
-	        this.openSearch();
-	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -2701,7 +2673,46 @@
 	exports.default = UserStore;
 
 /***/ },
-/* 28 */,
+/* 28 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.makeSticky = makeSticky;
+	/**
+	 * Utils for when we need direct DOM access, e.g. calculating actual size of components
+	 */
+
+	/**
+	 * Make the navbar sticky to the top
+	 */
+	function makeSticky(reference, el) {
+	  var running = false;
+	  // Where the el is when unfixed
+	  var unfixed = reference.offsetTop;
+	  var stick = function stick() {
+	    if (running) return;
+	    running = true;
+	    requestAnimationFrame(function () {
+	      running = false;
+	      // TODO: remove this 60 hardcoding of the header height
+	      if (window.scrollY > unfixed - 60) {
+	        el.classList.add('fixed');
+	      } else {
+	        el.classList.remove('fixed');
+	      }
+	    });
+	  };
+	  window.addEventListener('scroll', stick);
+	  window.addEventListener('resize', function () {
+	    unfixed = reference.offsetTop;stick();
+	  });
+	}
+
+/***/ },
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
