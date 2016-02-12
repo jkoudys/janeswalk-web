@@ -10,7 +10,8 @@ import * as API from 'janeswalk/utils/api/Itinerary';
 
 const getItinerary = (list = ItineraryStore.getItineraryList()) => ({
   activeList: list,
-  lists: ItineraryStore.getLists()
+  lists: ItineraryStore.getLists(),
+  itinerary: ItineraryStore.getItineraryList()
 });
 
 export default class Itinerary extends React.Component {
@@ -43,19 +44,22 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    const {activeList, lists, $el} = this.state;
+    const {activeList, lists, $el, itinerary} = this.state;
 
     // Lookup the walk data from the walk's ID
     const ItineraryWalks = [];
-    activeList.walks.forEach(walk => {
+    activeList.walks.forEach((startTimes, walk) => {
+      //TODO: why walk[0], wrong format? Could be how the walk is set ([walk,startTime of null]) for favourite
+      walk = walk[0] || walk;
       ItineraryWalks.push(
         <Walk
           key={walk.id}
           list={activeList}
           lists={lists}
           walk={walk}
-          onAdd={(list) => add(list, walk)}
-          onRemove={(list) => remove(list, walk)}
+          onAdd={(list, time) => add(list, walk, time)}
+          onRemove={(list, time) => remove(list, walk, time)}
+          itinerary={itinerary}
         />
       );
     });

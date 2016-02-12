@@ -1,6 +1,5 @@
-import {dateFormatted} from 'janeswalk/utils/ItineraryUtils';
-
 import AddWalkToList from './AddWalkToList.jsx';
+import AddToItinerary from './AddToItinerary.jsx';
 
 class Walk extends React.Component {
   constructor(...args) {
@@ -18,7 +17,7 @@ class Walk extends React.Component {
   }
 
   render() {
-    const {walk, list, lists, onAdd, onRemove} = this.props;
+    const {walk, list, lists, onAdd, onRemove, itinerary} = this.props;
     const {dialogOpen} = this.state;
     const {title, url, map, time} = walk;
     let meeting, start;
@@ -27,16 +26,12 @@ class Walk extends React.Component {
       meeting = map.markers[0].title;
     }
 
-    if (time && time.slots) {
-      start = time.slots[0][0];
-    }
-
     return(
       <li className="walklistItem">
         <div className="walk">
           <h3><a href={url}>{title}</a></h3>
-          <h4>{dateFormatted(start)}</h4>
           <h4>{meeting}</h4>
+          <AddToItinerary itinerary={itinerary} time={time} walk={walk} onAdd={onAdd} onRemove={onRemove}/>
         </div>
         <button
           className="action removeWalk"
@@ -46,6 +41,7 @@ class Walk extends React.Component {
           className={'action addWalk ' + (dialogOpen ? 'selected' : '')}
           onClick={() => this.setState({dialogOpen: !dialogOpen})}
         />
+
         {dialogOpen ? <AddWalkToList lists={lists} walk={walk} list={list} onAdd={onAdd} onRemove={onRemove} /> : null}
       </li>
     );

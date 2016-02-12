@@ -1,8 +1,6 @@
-import {dateFormatted} from 'janeswalk/utils/ItineraryUtils';
-import {add, remove} from 'janeswalk/actions/ItineraryActions';
+import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
 //TODO: Duplicate of Itinerary <Walk/>
-//TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
 
 /**
  * Build a style object for the header
@@ -25,32 +23,19 @@ function headerBG(city, walk) {
   };
 }
 
-const WalkHeader = ({city, walk, favourites, itinerary}) => {
-  let favButton, addButton;
-  if (favourites) {
-    if (favourites.walks.has(walk)) {
-      favButton = <button className="removeFavourite" onClick={() => remove(favourites, walk)} />;
-    } else {
-      favButton = <button className="addFavourite" onClick={() => add(favourites, walk)} />;
-    }
-  }
-
-  if (itinerary) {
-    if (itinerary.walks.has(walk)) {
-      addButton = <button className="removeItinerary" onClick={() => remove(itinerary, walk)} />;
-    } else {
-      addButton = <button className="addItinerary" onClick={() => add(itinerary, walk)} />;
-    }
-  }
-
+const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
   const {title, map, time, team, thumbnails} = walk;
   const {url, name} = city;
+
+  //TODO: This is problematic since there are many different type of roles defined, not a finite list
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
-  // Only show the add to itinerary if you can
-  let addToItineraryButtons;
-  if (time.slots[0]) {
-    addToItineraryButtons = time.slots.map(t => <h4> {dateFormatted(t[0])} {addButton} </h4>);
+  let favButton;
+
+  if (favourites && favourites.walks.has(walk)) {
+    favButton = <button className="removeFavourite" onClick={() => onRemove(favourites)} />;
+  } else {
+    favButton = <button className="addFavourite" onClick={() => onAdd(favourites)} />;
   }
 
   return(
@@ -65,7 +50,12 @@ const WalkHeader = ({city, walk, favourites, itinerary}) => {
       <h1>{title} {favButton}</h1>
       <h4>Meeting at {map.markers[0].title}</h4>
       <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
-      {addToItineraryButtons}
+      <AddToItinerary
+        itinerary={itinerary}
+        time={time}
+        walk={walk}
+        onAdd={onAdd}
+        onRemove={onRemove}/>
     </section>
   );
 };
