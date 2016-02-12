@@ -35,4 +35,6 @@ export function dateFormatted(dateInSeconds) {
     _dateCache[dateInSeconds] = fromFormat;
     return fromFormat;
   }
-}
+};
+
+export function startTimeIndex(startTimes = [], time) { return startTimes.findIndex(st => st[0] === time[0] && st[1] === time[1])};

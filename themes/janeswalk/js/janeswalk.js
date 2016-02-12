@@ -884,12 +884,12 @@
 
 	//TODO: API call before dispatch
 
-	function remove(list, walk) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, list: list, walk: walk });
+	function remove(list, walk, time) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, list: list, walk: walk, time: time });
 	}
 
-	function add(list, walk) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, list: list, walk: walk });
+	function add(list, walk, time) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, list: list, walk: walk, time: time });
 	}
 
 	function updateTitle(list, title) {
@@ -1286,7 +1286,8 @@
 	  var list = arguments.length <= 0 || arguments[0] === undefined ? _ItineraryStore2.default.getItineraryList() : arguments[0];
 	  return {
 	    activeList: list,
-	    lists: _ItineraryStore2.default.getLists()
+	    lists: _ItineraryStore2.default.getLists(),
+	    itinerary: _ItineraryStore2.default.getItineraryList()
 	  };
 	};
 
@@ -1352,22 +1353,26 @@
 	      var activeList = _state.activeList;
 	      var lists = _state.lists;
 	      var $el = _state.$el;
+	      var itinerary = _state.itinerary;
 
 	      // Lookup the walk data from the walk's ID
 
 	      var ItineraryWalks = [];
-	      activeList.walks.forEach(function (walk) {
+	      activeList.walks.forEach(function (startTimes, walk) {
+	        //TODO: why walk[0], wrong format? Could be how the walk is set ([walk,startTime of null]) for favourite
+	        walk = walk[0] || walk;
 	        ItineraryWalks.push(React.createElement(_Walk2.default, {
 	          key: walk.id,
 	          list: activeList,
 	          lists: lists,
 	          walk: walk,
-	          onAdd: function onAdd(list) {
-	            return (0, _ItineraryActions.add)(list, walk);
+	          onAdd: function onAdd(list, time) {
+	            return (0, _ItineraryActions.add)(list, walk, time);
 	          },
-	          onRemove: function onRemove(list) {
-	            return (0, _ItineraryActions.remove)(list, walk);
-	          }
+	          onRemove: function onRemove(list, time) {
+	            return (0, _ItineraryActions.remove)(list, walk, time);
+	          },
+	          itinerary: itinerary
 	        }));
 	      });
 
@@ -1453,6 +1458,8 @@
 
 	var _JWConstants = __webpack_require__(9);
 
+	var _ItineraryUtils = __webpack_require__(22);
+
 	var _WalkStore = __webpack_require__(18);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
@@ -1467,13 +1474,36 @@
 	var _lastChange = Date.now();
 
 	//TODO: Currently no remove list, just adding lists
+	//TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
 	var _removeWalk = function _removeWalk(list, walk) {
-	  return list.walks.delete(walk);
+	  var time = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+	  if (time) {
+	    var startTimes = list.walks.get(walk);
+	    var startIndex = (0, _ItineraryUtils.startTimeIndex)(startTimes, time);
+	    if (startIndex >= 0) {
+	      startTimes.splice(startIndex, 1);
+	      list.walks.set(walk, startTimes);
+	    }
+	  } else {
+	    list.walks.delete(walk);
+	  }
 	};
 
 	var _addWalk = function _addWalk(list, walk) {
-	  return list.walks.add(walk);
+	  var time = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+	  if (time) {
+	    var startTimes = list.walks.get(walk);
+	    var startIndex = (0, _ItineraryUtils.startTimeIndex)(startTimes, time);
+	    if (startIndex === -1) {
+	      startTimes.push(time);
+	      list.walks.set(walk, startTimes);
+	    }
+	  } else {
+	    list.walks.set(walk);
+	  }
 	};
 
 	var _createList = function _createList() {
@@ -1500,12 +1530,17 @@
 	 */
 	var _receiveAll = function _receiveAll(itineraries) {
 	  // Itinerary has a list of walk IDs, so load the actual walks from there.
-	  itineraries.forEach(function (itinerary) {
-	    return _lists.add(Object.assign({}, itinerary, {
-	      walks: new Set(itinerary.walks.map(function (w) {
-	        return _WalkStore2.default.getWalk(+w);
-	      }))
-	    }));
+	  //itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary, {
+	  //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
+	  //})));
+
+	  //TODO: Assume first list in itineraries is user itinerary
+	  itineraries.forEach(function (itinerary, index) {
+	    return _lists.add(Object.assign({}, itinerary,
+	    //The reason for the terinary operator is for stubbing data, and to ensure the first list (itinerary) has an array to start off, and the rest null
+	    { walks: new Map(itinerary.walks.map(function (w, i) {
+	        return [_WalkStore2.default.getWalk(+w), index === 0 ? itinerary.times[i] || [] : null];
+	      })) }));
 	  });
 	};
 
@@ -1570,16 +1605,17 @@
 	  dispatcherIndex: (0, _AppDispatcher.register)(function (payload) {
 	    var list = payload.list;
 	    var walk = payload.walk;
+	    var time = payload.time;
 
 	    switch (payload.type) {
 	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
 	        _lastChange = Date.now();
-	        _removeWalk(list, walk);
+	        _removeWalk(list, walk, time);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
 	        _lastChange = Date.now();
 	        //TODO: Dialog to open on first add to Itinerary/Favourites
-	        _addWalk(list, walk);
+	        _addWalk(list, walk, time);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
 	        _lastChange = Date.now();
@@ -2135,11 +2171,13 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(22);
-
 	var _AddWalkToList = __webpack_require__(23);
 
 	var _AddWalkToList2 = _interopRequireDefault(_AddWalkToList);
+
+	var _AddToItinerary = __webpack_require__(67);
+
+	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2190,6 +2228,7 @@
 	      var lists = _props.lists;
 	      var onAdd = _props.onAdd;
 	      var onRemove = _props.onRemove;
+	      var itinerary = _props.itinerary;
 	      var dialogOpen = this.state.dialogOpen;
 	      var title = walk.title;
 	      var url = walk.url;
@@ -2201,10 +2240,6 @@
 
 	      if (map && map.markers[0]) {
 	        meeting = map.markers[0].title;
-	      }
-
-	      if (time && time.slots) {
-	        start = time.slots[0][0];
 	      }
 
 	      return React.createElement(
@@ -2225,13 +2260,9 @@
 	          React.createElement(
 	            'h4',
 	            null,
-	            (0, _ItineraryUtils.dateFormatted)(start)
-	          ),
-	          React.createElement(
-	            'h4',
-	            null,
 	            meeting
-	          )
+	          ),
+	          React.createElement(_AddToItinerary2.default, { itinerary: itinerary, time: time, walk: walk, onAdd: onAdd, onRemove: onRemove })
 	        ),
 	        React.createElement('button', {
 	          className: 'action removeWalk',
@@ -2279,6 +2310,7 @@
 	  value: true
 	});
 	exports.dateFormatted = dateFormatted;
+	exports.startTimeIndex = startTimeIndex;
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -2319,7 +2351,15 @@
 	    _dateCache[dateInSeconds] = fromFormat;
 	    return fromFormat;
 	  }
-	}
+	};
+
+	function startTimeIndex() {
+	  var startTimes = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var time = arguments[1];
+	  return startTimes.findIndex(function (st) {
+	    return st[0] === time[0] && st[1] === time[1];
+	  });
+	};
 
 /***/ },
 /* 23 */
@@ -7271,8 +7311,6 @@
 
 	var _ItineraryActions = __webpack_require__(13);
 
-	var _ItineraryActions2 = _interopRequireDefault(_ItineraryActions);
-
 	var _WalkHeader = __webpack_require__(54);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
@@ -7378,7 +7416,18 @@
 	      return React.createElement(
 	        'section',
 	        { className: 'walkPage' },
-	        React.createElement(_WalkHeader2.default, { walk: walk, city: city, itinerary: itinerary, favourites: favourites }),
+	        React.createElement(_WalkHeader2.default, {
+	          walk: walk,
+	          city: city,
+	          itinerary: itinerary,
+	          favourites: favourites,
+	          onAdd: function onAdd(list, time) {
+	            return (0, _ItineraryActions.add)(list, walk, time);
+	          },
+	          onRemove: function onRemove(list, time) {
+	            return (0, _ItineraryActions.remove)(list, walk, time);
+	          }
+	        }),
 	        React.createElement(_WalkMenu2.default, this.state),
 	        React.createElement(_WalkDescription2.default, this.state.walk),
 	        React.createElement(_WalkMap2.default, this.state.walk),
@@ -7412,12 +7461,13 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(22);
+	var _AddToItinerary = __webpack_require__(67);
 
-	var _ItineraryActions = __webpack_require__(13);
+	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//TODO: Duplicate of Itinerary <Walk/>
-	//TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
 
 	/**
 	 * Build a style object for the header
@@ -7445,33 +7495,8 @@
 	  var walk = _ref.walk;
 	  var favourites = _ref.favourites;
 	  var itinerary = _ref.itinerary;
-
-	  var favButton = undefined,
-	      addButton = undefined;
-	  if (favourites) {
-	    if (favourites.walks.has(walk)) {
-	      favButton = React.createElement('button', { className: 'removeFavourite', onClick: function onClick() {
-	          return (0, _ItineraryActions.remove)(favourites, walk);
-	        } });
-	    } else {
-	      favButton = React.createElement('button', { className: 'addFavourite', onClick: function onClick() {
-	          return (0, _ItineraryActions.add)(favourites, walk);
-	        } });
-	    }
-	  }
-
-	  if (itinerary) {
-	    if (itinerary.walks.has(walk)) {
-	      addButton = React.createElement('button', { className: 'removeItinerary', onClick: function onClick() {
-	          return (0, _ItineraryActions.remove)(itinerary, walk);
-	        } });
-	    } else {
-	      addButton = React.createElement('button', { className: 'addItinerary', onClick: function onClick() {
-	          return (0, _ItineraryActions.add)(itinerary, walk);
-	        } });
-	    }
-	  }
-
+	  var onAdd = _ref.onAdd;
+	  var onRemove = _ref.onRemove;
 	  var title = walk.title;
 	  var map = walk.map;
 	  var time = walk.time;
@@ -7480,24 +7505,22 @@
 	  var url = city.url;
 	  var name = city.name;
 
+	  //TODO: This is problematic since there are many different type of roles defined, not a finite list
+
 	  var walkLeader = team.find(function (member) {
 	    return member.role === 'walk-leader';
 	  });
 
-	  // Only show the add to itinerary if you can
-	  var addToItineraryButtons = undefined;
-	  if (time.slots[0]) {
-	    addToItineraryButtons = time.slots.map(function (t) {
-	      return React.createElement(
-	        'h4',
-	        null,
-	        ' ',
-	        (0, _ItineraryUtils.dateFormatted)(t[0]),
-	        ' ',
-	        addButton,
-	        ' '
-	      );
-	    });
+	  var favButton = undefined;
+
+	  if (favourites && favourites.walks.has(walk)) {
+	    favButton = React.createElement('button', { className: 'removeFavourite', onClick: function onClick() {
+	        return onRemove(favourites);
+	      } });
+	  } else {
+	    favButton = React.createElement('button', { className: 'addFavourite', onClick: function onClick() {
+	        return onAdd(favourites);
+	      } });
 	  }
 
 	  return React.createElement(
@@ -7552,7 +7575,12 @@
 	      null,
 	      walkLeader ? 'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' - ' : null
 	    ),
-	    addToItineraryButtons
+	    React.createElement(_AddToItinerary2.default, {
+	      itinerary: itinerary,
+	      time: time,
+	      walk: walk,
+	      onAdd: onAdd,
+	      onRemove: onRemove })
 	  );
 	};
 
@@ -7741,17 +7769,22 @@
 	});
 	var WalkPublicTransit = function WalkPublicTransit(_ref) {
 	  var accessibleTransit = _ref.accessibleTransit;
-	  return React.createElement(
-	    "section",
-	    { className: "walkPublicTransit" },
-	    React.createElement("a", { name: "Taking Public Transit" }),
-	    React.createElement(
-	      "h2",
-	      null,
-	      "Taking Public Transit"
-	    ),
-	    accessibleTransit
-	  );
+
+	  if (accessibleTransit.length > 0) {
+	    return React.createElement(
+	      "section",
+	      { className: "walkPublicTransit" },
+	      React.createElement("a", { name: "Taking Public Transit" }),
+	      React.createElement(
+	        "h2",
+	        null,
+	        "Taking Public Transit"
+	      ),
+	      accessibleTransit
+	    );
+	  } else {
+	    return React.createElement("section", null);
+	  }
 	};
 
 	WalkPublicTransit.propTypes = {
@@ -7772,18 +7805,23 @@
 	var WalkParking = function WalkParking(_ref) {
 	  var accessibleParking = _ref.accessibleParking;
 	  var style = _ref.style;
-	  return React.createElement(
-	    "section",
-	    { className: "walkParking " + style },
-	    style === 'walk-page' ? React.createElement("a", { name: "Parking Availability" }) : null,
-	    React.createElement("a", { name: "Parking Availability" }),
-	    React.createElement(
-	      "h2",
-	      null,
-	      "Parking Availability"
-	    ),
-	    accessibleParking
-	  );
+
+	  if (accessibleParking.length > 0) {
+	    return React.createElement(
+	      "section",
+	      { className: "walkParking " + style },
+	      style === 'walk-page' ? React.createElement("a", { name: "Parking Availability" }) : null,
+	      React.createElement("a", { name: "Parking Availability" }),
+	      React.createElement(
+	        "h2",
+	        null,
+	        "Parking Availability"
+	      ),
+	      accessibleParking
+	    );
+	  } else {
+	    return React.createElement("section", null);
+	  }
 	};
 
 	WalkParking.propTypes = {
@@ -7913,8 +7951,6 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -7940,7 +7976,7 @@
 	//TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 	//TODO: Make walkMenu sticky - will complete after Dashboard
 
-	var menuItems = ['About This Walk', 'Walk Route', 'How to find us', 'Taking Public Transit', 'Parking Availability', 'About the Walk Team'];
+	var menuItems = [{ display: 'About This Walk', exists: true }, { display: 'Walk Route', exists: true }, { display: 'How to find us', exists: true }, { display: 'Taking Public Transit', exists: false }, { display: 'Parking Availability', exists: false }, { display: 'About the Walk Team', exists: true }];
 
 	var WalkMenu = function WalkMenu(_ref) {
 	  var walk = _ref.walk;
@@ -7995,6 +8031,12 @@
 	    return item.includes('theme');
 	  });
 
+	  //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
+
+	  //TODO: Improve functionality to be generic for displaying menuItems, and specific react components
+	  if (walk.accessibleTransit.length > 0) menuItems[3].exists = true;
+	  if (walk.accessibleParking.length > 0) menuItems[4].exists = true;
+
 	  return React.createElement(
 	    'section',
 	    { className: 'walkMenu' },
@@ -8008,8 +8050,7 @@
 	      ),
 	      leaderHead,
 	      nextDateHead,
-	      meetingPlaceHead,
-	      React.createElement(_WalkAccessibility2.default, _extends({}, walk, filters))
+	      meetingPlaceHead
 	    ),
 	    React.createElement(
 	      'section',
@@ -8017,14 +8058,16 @@
 	      React.createElement(
 	        'ul',
 	        null,
-	        menuItems.map(function (item, i) {
+	        menuItems.filter(function (item) {
+	          return item.exists;
+	        }).map(function (item, i) {
 	          return React.createElement(
 	            'li',
 	            { key: i },
 	            React.createElement(
 	              'a',
-	              { href: '#' + item },
-	              item
+	              { href: '#' + item.display },
+	              item.display
 	            )
 	          );
 	        })
@@ -8530,6 +8573,79 @@
 	})(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 67 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _ItineraryUtils = __webpack_require__(22);
+
+	var AddToItinerary = function AddToItinerary(_ref) {
+	  var itinerary = _ref.itinerary;
+	  var time = _ref.time;
+	  var walk = _ref.walk;
+	  var onAdd = _ref.onAdd;
+	  var onRemove = _ref.onRemove;
+
+	  var addButtons = [];
+
+	  if (itinerary && time && time.slots) {
+	    if (itinerary.walks.has(walk)) {
+	      (function () {
+	        //retrieve start times for walk
+	        var startTimes = itinerary.walks.get(walk);
+
+	        addButtons = time.slots.map(function (t) {
+	          if ((0, _ItineraryUtils.startTimeIndex)(startTimes, t) == -1) {
+	            return React.createElement(
+	              "h4",
+	              null,
+	              (0, _ItineraryUtils.dateFormatted)(t[0]),
+	              React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	                  return onAdd(itinerary, t);
+	                } })
+	            );
+	          } else {
+	            return React.createElement(
+	              "h4",
+	              null,
+	              (0, _ItineraryUtils.dateFormatted)(t[0]),
+	              React.createElement("button", { className: "removeItinerary", onClick: function onClick() {
+	                  return onRemove(itinerary, t);
+	                } })
+	            );
+	          }
+	        });
+	      })();
+	    } else {
+	      if (time && time.slots[0]) {
+	        addButtons = time.slots.map(function (t) {
+	          return React.createElement(
+	            "h4",
+	            null,
+	            (0, _ItineraryUtils.dateFormatted)(t[0]),
+	            React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	                return onAdd(itinerary, t);
+	              } })
+	          );
+	        });
+	      }
+	    }
+	  }
+	  return React.createElement(
+	    "section",
+	    null,
+	    addButtons
+	  );
+	};
+
+	exports.default = AddToItinerary;
 
 /***/ }
 /******/ ]);

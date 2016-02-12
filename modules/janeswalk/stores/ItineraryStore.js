@@ -1,6 +1,7 @@
 import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
+import {startTimeIndex} from '../utils/ItineraryUtils';
 
 import WalkStore from './WalkStore';
 
@@ -12,10 +13,33 @@ const _lists = new Set();
 let _lastChange = Date.now();
 
 //TODO: Currently no remove list, just adding lists
+//TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
-const _removeWalk = (list, walk) => list.walks.delete(walk);
+const _removeWalk = (list, walk, time = null) => {
+  if(time) {
+    let startTimes = list.walks.get(walk);
+    let startIndex = startTimeIndex(startTimes, time);
+    if ( startIndex >= 0) {
+      startTimes.splice(startIndex, 1);
+      list.walks.set(walk, startTimes);
+    }
+  } else {
+    list.walks.delete(walk);
+  }
+};
 
-const _addWalk = (list, walk) => list.walks.add(walk);
+const _addWalk = (list, walk, time = null) => {
+  if(time) {
+    let startTimes = list.walks.get(walk);
+    let startIndex = startTimeIndex(startTimes, time);
+    if (startIndex === -1) {
+      startTimes.push(time);
+      list.walks.set(walk, startTimes);
+    }
+  } else {
+    list.walks.set(walk);
+  }
+};
 
 const _createList = (title = '', description = '') => {
   const list = {
@@ -38,11 +62,16 @@ const _createList = (title = '', description = '') => {
  */
 const _receiveAll = (itineraries) => {
   // Itinerary has a list of walk IDs, so load the actual walks from there.
-  itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary, {
-    walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
-  })));
-};
+  //itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary, {
+  //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
+  //})));
 
+  //TODO: Assume first list in itineraries is user itinerary
+  itineraries.forEach((itinerary,index) => _lists.add(Object.assign({}, itinerary,
+    //The reason for the terinary operator is for stubbing data, and to ensure the first list (itinerary) has an array to start off, and the rest null
+    { walks : new Map(itinerary.walks.map((w, i) => [WalkStore.getWalk(+w), index === 0 ? itinerary.times[i] || [] : null]) )}
+  )));
+};
 
 //walks received from API used to update _itinerary
 const _updateWalks = (list, walks) => {
@@ -100,16 +129,16 @@ const ItineraryStore = Object.assign(EventEmitter.prototype, {
 
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(payload) {
-    const {list, walk} = payload;
+    const {list, walk, time} = payload;
     switch (payload.type) {
       case ActionTypes.ITINERARY_REMOVE_WALK:
         _lastChange = Date.now();
-        _removeWalk(list, walk);
+        _removeWalk(list, walk, time);
       break;
       case ActionTypes.ITINERARY_ADD_WALK:
         _lastChange = Date.now();
         //TODO: Dialog to open on first add to Itinerary/Favourites
-        _addWalk(list, walk);
+        _addWalk(list, walk, time);
       break;
       case ActionTypes.ITINERARY_UPDATE_TITLE:
         _lastChange = Date.now();
