@@ -75,19 +75,19 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Itinerary = __webpack_require__(26);
+	var _Itinerary = __webpack_require__(29);
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
-	var _CreateWalk = __webpack_require__(29);
+	var _CreateWalk = __webpack_require__(30);
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(52);
+	var _Walk = __webpack_require__(53);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Login = __webpack_require__(65);
+	var _Login = __webpack_require__(66);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -928,11 +928,11 @@
 
 	var _Itinerary2 = _interopRequireDefault(_Itinerary);
 
-	var _AreaStore = __webpack_require__(27);
+	var _AreaStore = __webpack_require__(26);
 
 	var _AreaStore2 = _interopRequireDefault(_AreaStore);
 
-	var _UserStore = __webpack_require__(28);
+	var _UserStore = __webpack_require__(27);
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
@@ -1050,6 +1050,32 @@
 
 	  [].forEach.call(div.children, function (child) {
 	    return refNode.parentNode.appendChild(child);
+	  });
+	}
+
+	/**
+	 * Make the navbar sticky to the top
+	 */
+	function makeSticky(reference, el) {
+	  var running = false;
+	  // Where the el is when unfixed
+	  var unfixed = reference.offsetTop;
+	  var stick = function stick() {
+	    if (running) return;
+	    running = true;
+	    requestAnimationFrame(function () {
+	      running = false;
+	      // TODO: remove this 60 hardcoding of the header height
+	      if (window.scrollY > unfixed - 60) {
+	        el.classList.add('fixed');
+	      } else {
+	        el.classList.remove('fixed');
+	      }
+	    });
+	  };
+	  window.addEventListener('scroll', stick);
+	  window.addEventListener('resize', function () {
+	    unfixed = reference.offsetTop;stick();
 	  });
 	}
 
@@ -1270,7 +1296,7 @@
 
 	var _ItinerarySelect2 = _interopRequireDefault(_ItinerarySelect);
 
-	var _Itinerary = __webpack_require__(26);
+	var _Itinerary = __webpack_require__(29);
 
 	var API = _interopRequireWildcard(_Itinerary);
 
@@ -2548,6 +2574,142 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(17);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var CHANGE_EVENT = 'change';
+
+	var _areas = {};
+
+	var AreaStore = Object.assign(_events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getAreas: function getAreas() {
+	    return _areas;
+	  },
+	  getArea: function getArea(name) {
+	    return _areas[name];
+	  },
+
+	  dispatcherIndex: (0, _AppDispatcher.register)(function (action) {
+	    switch (action.type) {
+	      case _JWConstants.ActionTypes.AREA_RECEIVE:
+	        _areas[action.name] = action.content;
+	        break;
+	    }
+
+	    AreaStore.emitChange();
+	  })
+
+	});
+
+	exports.default = AreaStore;
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(17);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var CHANGE_EVENT = 'change';
+
+	// Store singletons
+	// The users, keyed on uID
+	/**
+	 * User store
+	 *
+	 * Users on Jane's Walk.
+	 */
+
+	var _users = new Map();
+
+	// Is this the actively logged in user
+	var _current = undefined;
+
+	// Receive a single walk
+	function receiveUser(user, _ref) {
+	  var current = _ref.current;
+
+	  _users.set(+user.id, user);
+
+	  if (current) {
+	    _current = user;
+	  }
+	}
+
+	// Receive an array of walks
+	function receiveUsers(users) {
+	  users.forEach(function (u) {
+	    return receiveUser(u);
+	  });
+	}
+
+	var UserStore = Object.assign(_events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getUsers: function getUsers() {
+	    return _users;
+	  },
+	  getCurrent: function getCurrent() {
+	    return _current;
+	  },
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
+	    // Go through the various actions
+	    switch (payload.type) {
+	      // Route actions
+	      case _JWConstants.ActionTypes.USER_RECEIVE:
+	        receiveUser(payload.user, { current: payload.current, profile: payload.profile });
+	        break;
+	      case _JWConstants.ActionTypes.USER_RECEIVE_ALL:
+	        receiveUsers(payload.users);
+	        break;
+	    }
+	    UserStore.emitChange();
+	  })
+	});
+
+	exports.default = UserStore;
+
+/***/ },
+/* 28 */,
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	exports.post = post;
 	exports.get = get;
 	exports.startPolling = startPolling;
@@ -2655,142 +2817,7 @@
 	}
 
 /***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _events = __webpack_require__(17);
-
-	var _JWConstants = __webpack_require__(9);
-
-	var CHANGE_EVENT = 'change';
-
-	var _areas = {};
-
-	var AreaStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getAreas: function getAreas() {
-	    return _areas;
-	  },
-	  getArea: function getArea(name) {
-	    return _areas[name];
-	  },
-
-	  dispatcherIndex: (0, _AppDispatcher.register)(function (action) {
-	    switch (action.type) {
-	      case _JWConstants.ActionTypes.AREA_RECEIVE:
-	        _areas[action.name] = action.content;
-	        break;
-	    }
-
-	    AreaStore.emitChange();
-	  })
-
-	});
-
-	exports.default = AreaStore;
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _events = __webpack_require__(17);
-
-	var _JWConstants = __webpack_require__(9);
-
-	var CHANGE_EVENT = 'change';
-
-	// Store singletons
-	// The users, keyed on uID
-	/**
-	 * User store
-	 *
-	 * Users on Jane's Walk.
-	 */
-
-	var _users = new Map();
-
-	// Is this the actively logged in user
-	var _current = undefined;
-
-	// Receive a single walk
-	function receiveUser(user, _ref) {
-	  var current = _ref.current;
-
-	  _users.set(+user.id, user);
-
-	  if (current) {
-	    _current = user;
-	  }
-	}
-
-	// Receive an array of walks
-	function receiveUsers(users) {
-	  users.forEach(function (u) {
-	    return receiveUser(u);
-	  });
-	}
-
-	var UserStore = Object.assign(_events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getUsers: function getUsers() {
-	    return _users;
-	  },
-	  getCurrent: function getCurrent() {
-	    return _current;
-	  },
-
-	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.USER_RECEIVE:
-	        receiveUser(payload.user, { current: payload.current, profile: payload.profile });
-	        break;
-	      case _JWConstants.ActionTypes.USER_RECEIVE_ALL:
-	        receiveUsers(payload.users);
-	        break;
-	    }
-	    UserStore.emitChange();
-	  })
-	});
-
-	exports.default = UserStore;
-
-/***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2801,39 +2828,39 @@
 	  value: true
 	});
 
-	var _ImageUpload = __webpack_require__(30);
+	var _ImageUpload = __webpack_require__(31);
 
 	var _ImageUpload2 = _interopRequireDefault(_ImageUpload);
 
-	var _ThemeSelect = __webpack_require__(31);
+	var _ThemeSelect = __webpack_require__(32);
 
 	var _ThemeSelect2 = _interopRequireDefault(_ThemeSelect);
 
-	var _MapBuilder = __webpack_require__(33);
+	var _MapBuilder = __webpack_require__(34);
 
 	var _MapBuilder2 = _interopRequireDefault(_MapBuilder);
 
-	var _DateSelect = __webpack_require__(41);
+	var _DateSelect = __webpack_require__(42);
 
 	var _DateSelect2 = _interopRequireDefault(_DateSelect);
 
-	var _WardSelect = __webpack_require__(46);
+	var _WardSelect = __webpack_require__(47);
 
 	var _WardSelect2 = _interopRequireDefault(_WardSelect);
 
-	var _AccessibleSelect = __webpack_require__(47);
+	var _AccessibleSelect = __webpack_require__(48);
 
 	var _AccessibleSelect2 = _interopRequireDefault(_AccessibleSelect);
 
-	var _TeamBuilder = __webpack_require__(48);
+	var _TeamBuilder = __webpack_require__(49);
 
 	var _TeamBuilder2 = _interopRequireDefault(_TeamBuilder);
 
-	var _WalkPublish = __webpack_require__(49);
+	var _WalkPublish = __webpack_require__(50);
 
 	var _WalkPublish2 = _interopRequireDefault(_WalkPublish);
 
-	var _TextAreaLimit = __webpack_require__(50);
+	var _TextAreaLimit = __webpack_require__(51);
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
@@ -2845,7 +2872,7 @@
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
-	var _helpers = __webpack_require__(40);
+	var _helpers = __webpack_require__(41);
 
 	var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -2862,7 +2889,7 @@
 
 	// Load create-a-walk View components
 
-	var defaultWalk = __webpack_require__(51);
+	var defaultWalk = __webpack_require__(52);
 
 	// Flux
 
@@ -3482,7 +3509,7 @@
 	})(React.Component);
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3605,7 +3632,7 @@
 	exports.default = ImageUpload;
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3624,7 +3651,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(32);
+	var mixins = __webpack_require__(33);
 
 	// Flux
 
@@ -3815,7 +3842,7 @@
 	};
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3844,7 +3871,7 @@
 	};
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3855,27 +3882,27 @@
 	  value: true
 	});
 
-	var _WalkStopTable = __webpack_require__(34);
+	var _WalkStopTable = __webpack_require__(35);
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
 
-	var _WalkInfoWindow = __webpack_require__(35);
+	var _WalkInfoWindow = __webpack_require__(36);
 
 	var _WalkInfoWindow2 = _interopRequireDefault(_WalkInfoWindow);
 
-	var _InstagramConnect = __webpack_require__(36);
+	var _InstagramConnect = __webpack_require__(37);
 
 	var _InstagramConnect2 = _interopRequireDefault(_InstagramConnect);
 
-	var _SoundCloudConnect = __webpack_require__(37);
+	var _SoundCloudConnect = __webpack_require__(38);
 
 	var _SoundCloudConnect2 = _interopRequireDefault(_SoundCloudConnect);
 
-	var _TwitterConnect = __webpack_require__(38);
+	var _TwitterConnect = __webpack_require__(39);
 
 	var _TwitterConnect2 = _interopRequireDefault(_TwitterConnect);
 
-	var _ConnectFilters = __webpack_require__(39);
+	var _ConnectFilters = __webpack_require__(40);
 
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
@@ -3889,7 +3916,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Helper = __webpack_require__(40);
+	var Helper = __webpack_require__(41);
 
 	// Flux
 
@@ -4419,7 +4446,7 @@
 	});
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4568,7 +4595,7 @@
 	exports.default = WalkStopTable;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4691,7 +4718,7 @@
 	exports.default = WalkInfoWindow;
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4829,7 +4856,7 @@
 	exports.default = InstagramConnect;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4980,7 +5007,7 @@
 	exports.default = SoundCloudConnect;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5115,7 +5142,7 @@
 	exports.default = TwitterConnect;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5191,7 +5218,7 @@
 	};
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5230,7 +5257,7 @@
 	};
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5250,10 +5277,10 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// Components
-	var DatePicker = __webpack_require__(42);
-	var TimePicker = __webpack_require__(43);
-	var TimeSetTable = __webpack_require__(44);
-	var TimeOpenTable = __webpack_require__(45);
+	var DatePicker = __webpack_require__(43);
+	var TimePicker = __webpack_require__(44);
+	var TimeSetTable = __webpack_require__(45);
+	var TimeOpenTable = __webpack_require__(46);
 
 	// Flux
 
@@ -5646,7 +5673,7 @@
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5703,7 +5730,7 @@
 	exports.default = DatePicker;
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5861,7 +5888,7 @@
 	exports.default = TimePicker;
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6003,7 +6030,7 @@
 	exports.default = TimeSetTable;
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6048,7 +6075,7 @@
 	exports.default = TimeOpenTable;
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6067,7 +6094,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(32);
+	var mixins = __webpack_require__(33);
 
 	// Flux
 
@@ -6133,7 +6160,7 @@
 	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6144,7 +6171,7 @@
 	  value: true
 	});
 
-	var _mixins = __webpack_require__(32);
+	var _mixins = __webpack_require__(33);
 
 	var _I18nStore = __webpack_require__(19);
 
@@ -6206,7 +6233,7 @@
 	Object.assign(AccessibleSelect.prototype, _mixins.linkedParentState);
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6998,7 +7025,7 @@
 	};
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7142,7 +7169,7 @@
 	Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7172,7 +7199,7 @@
 	exports.default = TextAreaLimit;
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -7216,7 +7243,7 @@
 	};
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7235,43 +7262,43 @@
 
 	var _ItineraryActions2 = _interopRequireDefault(_ItineraryActions);
 
-	var _WalkHeader = __webpack_require__(53);
+	var _WalkHeader = __webpack_require__(54);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(54);
+	var _WalkDescription = __webpack_require__(55);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(55);
+	var _WalkRoute = __webpack_require__(56);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(56);
+	var _WalkAccessibility = __webpack_require__(57);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(58);
+	var _WalkPublicTransit = __webpack_require__(59);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(59);
+	var _WalkParking = __webpack_require__(60);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(60);
+	var _WalkStart = __webpack_require__(61);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(61);
+	var _WalkTeam = __webpack_require__(62);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(62);
+	var _WalkMenu = __webpack_require__(63);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(64);
+	var _WalkMap = __webpack_require__(65);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7365,7 +7392,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7532,7 +7559,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7566,7 +7593,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7615,7 +7642,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7624,7 +7651,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(57);
+	var _Accessible = __webpack_require__(58);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -7662,7 +7689,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7693,7 +7720,7 @@
 	}
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7723,7 +7750,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7755,7 +7782,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7785,7 +7812,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7870,7 +7897,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7883,19 +7910,19 @@
 
 	var _ItineraryUtils = __webpack_require__(22);
 
-	var _WalkAccessibility = __webpack_require__(56);
+	var _WalkAccessibility = __webpack_require__(57);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(58);
+	var _WalkPublicTransit = __webpack_require__(59);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(59);
+	var _WalkParking = __webpack_require__(60);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(63);
+	var _Theme = __webpack_require__(64);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8014,7 +8041,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8068,7 +8095,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8278,7 +8305,7 @@
 	};
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
