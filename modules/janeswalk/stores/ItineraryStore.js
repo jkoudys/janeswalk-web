@@ -66,11 +66,14 @@ const _receiveAll = (itineraries) => {
   //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
   //})));
 
-  //TODO: Assume first list in itineraries is user itinerary
-  itineraries.forEach((itinerary,index) => _lists.add(Object.assign({}, itinerary,
-    //The reason for the terinary operator is for stubbing data, and to ensure the first list (itinerary) has an array to start off, and the rest null
-    { walks : new Map(itinerary.walks.map((w, i) => [WalkStore.getWalk(+w), index === 0 ? itinerary.times[i] || [] : null]) )}
-  )));
+  // TODO: Assume first list in itineraries is user itinerary
+  itineraries.forEach((itinerary, index) => {
+    let times = itinerary.times || [];
+
+    _lists.add(Object.assign({}, itinerary, {
+      walks: new Map(itinerary.walks.map((wID, i) => [WalkStore.getWalk(+wID), times[i] || []]) )
+    }));
+  });
 };
 
 //walks received from API used to update _itinerary

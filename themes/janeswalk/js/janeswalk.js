@@ -1535,13 +1535,15 @@
 	  //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
 	  //})));
 
-	  //TODO: Assume first list in itineraries is user itinerary
+	  // TODO: Assume first list in itineraries is user itinerary
 	  itineraries.forEach(function (itinerary, index) {
-	    return _lists.add(Object.assign({}, itinerary,
-	    //The reason for the terinary operator is for stubbing data, and to ensure the first list (itinerary) has an array to start off, and the rest null
-	    { walks: new Map(itinerary.walks.map(function (w, i) {
-	        return [_WalkStore2.default.getWalk(+w), index === 0 ? itinerary.times[i] || [] : null];
-	      })) }));
+	    var times = itinerary.times || [];
+
+	    _lists.add(Object.assign({}, itinerary, {
+	      walks: new Map(itinerary.walks.map(function (wID, i) {
+	        return [_WalkStore2.default.getWalk(+wID), times[i] || []];
+	      }))
+	    }));
 	  });
 	};
 
@@ -2657,8 +2659,6 @@
 
 	'use strict';
 
-	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -2692,19 +2692,24 @@
 	  var lists = _ref2;
 
 	  return JSON.stringify(lists.map(function (list) {
-	    var _list$walks = _toArray(list.walks);
+	    var walks = [],
+	        times = [];
+	    var denormal = {};
 
-	    var walks = _list$walks;
-
-	    return Object.assign({}, list, {
-	      walks: walks.map(function (_ref3) {
-	        var _ref4 = _slicedToArray(_ref3, 2);
-
-	        var w = _ref4[0];
-	        var times = _ref4[1];
-	        return [+w.id, times];
-	      })
+	    // Denormalize for serializing
+	    list.walks.forEach(function (timeArr, walk) {
+	      walks.push(+walk.id);
+	      if (timeArr) {
+	        times.push(timeArr);
+	      }
 	    });
+
+	    if (times.length) {
+	      denormal.times = times;
+	    }
+	    denormal.walks = walks;
+
+	    return Object.assign({}, list, denormal);
 	  }));
 	}
 
