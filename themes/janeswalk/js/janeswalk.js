@@ -1562,7 +1562,7 @@
 	  list.description = description;
 	};
 
-	var ItineraryStore = Object.assign(_events.EventEmitter.prototype, {
+	var ItineraryStore = Object.assign({}, _events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },
@@ -2020,7 +2020,7 @@
 	  });
 	}
 
-	var WalkStore = Object.assign(_events.EventEmitter.prototype, {
+	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },
@@ -2797,7 +2797,7 @@
 
 	var _areas = {};
 
-	var AreaStore = Object.assign(_events.EventEmitter.prototype, {
+	var AreaStore = Object.assign({}, _events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },
@@ -2877,7 +2877,7 @@
 	  });
 	}
 
-	var UserStore = Object.assign(_events.EventEmitter.prototype, {
+	var UserStore = Object.assign({}, _events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },
@@ -8494,6 +8494,10 @@
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
 	var _WalkStore = __webpack_require__(19);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
@@ -9883,7 +9887,7 @@
 	  _city = city;
 	}
 
-	var CityStore = Object.assign(_events.EventEmitter.prototype, {
+	var CityStore = Object.assign({}, _events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },

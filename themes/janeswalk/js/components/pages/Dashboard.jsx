@@ -4,6 +4,7 @@ import DashboardSummary from './Dashboard/DashboardSummary.jsx';
 
 import UserStore from 'janeswalk/stores/UserStore';
 import CityStore from 'janeswalk/stores/CityStore';
+import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
 
 function getDashData() {

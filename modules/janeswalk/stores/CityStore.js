@@ -19,7 +19,7 @@ function receiveCity(city) {
   _city = city;
 }
 
-const CityStore = Object.assign(EventEmitter.prototype, {
+const CityStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },

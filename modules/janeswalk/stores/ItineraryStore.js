@@ -89,7 +89,7 @@ const _updateDescription = (list, description) => {
   list.description = description;
 };
 
-const ItineraryStore = Object.assign(EventEmitter.prototype, {
+const ItineraryStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },

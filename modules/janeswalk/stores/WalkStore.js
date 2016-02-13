@@ -25,7 +25,7 @@ function receiveWalks(walks) {
   walks.forEach(w => receiveWalk(w));
 }
 
-const WalkStore = Object.assign(EventEmitter.prototype, {
+const WalkStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },

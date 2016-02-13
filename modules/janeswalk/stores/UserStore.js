@@ -31,7 +31,7 @@ function receiveUsers(users) {
   users.forEach(u => receiveUser(u, {}));
 }
 
-const UserStore = Object.assign(EventEmitter.prototype, {
+const UserStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },
