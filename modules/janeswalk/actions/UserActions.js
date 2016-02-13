@@ -1,15 +1,14 @@
 /**
- * i18n Translations
+ * User Actions
  *
- * Translate text content into our available translations using
- * the i18n standard.
  */
 
 import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
 
 // Load all loop data
-export function receive(user, {current, profile}) {
+export function receive(user, opts = {}) {
+  let {current, profile} = opts;
   dispatch({
     type: ActionTypes.USER_RECEIVE,
     user,

@@ -1,6 +1,4 @@
-import DashboardStore from './DashboardStore';
-
-//TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
+// TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
 
 const InfoWindow = ({url, title, shortDescription}) => (
   <span>

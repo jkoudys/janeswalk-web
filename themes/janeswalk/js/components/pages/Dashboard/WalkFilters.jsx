@@ -1,7 +1,4 @@
-import DashboardStore from './DashboardStore';
-import DashboardActions from '../../../actions/DashboardActions';
-
-//TODO*: Refactoring Components, WalksFilter is not doing much
+// TODO*: Refactoring Components, WalksFilter is not doing much
 
 const Filter = ({location, name, filterName, toggleFilter, removeFilter, data, activeFilters}) => {
 

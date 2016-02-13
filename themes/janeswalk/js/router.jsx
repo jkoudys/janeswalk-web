@@ -17,7 +17,7 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
 
-// import Dashboard from './components/pages/Dashboard.jsx';
+import Dashboard from './components/pages/Dashboard.jsx';
 
 // load modals
 import Login from './components/Login.jsx';

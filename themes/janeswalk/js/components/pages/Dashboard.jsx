@@ -2,13 +2,65 @@ import DashboardHeader from './Dashboard/DashboardHeader.jsx';
 import DashboardMenu from './Dashboard/DashboardMenu.jsx';
 import DashboardSummary from './Dashboard/DashboardSummary.jsx';
 
+import UserStore from 'janeswalk/stores/UserStore';
+import WalkStore from 'janeswalk/stores/WalkStore';
+import CityStore from 'janeswalk/stores/CityStore';
+
+// XXX begin temp
+
+// XXX end temp
+
+function getDashData() {
+  return {
+    walks: WalkStore.getWalks(),
+    users: UserStore.getUsers(),
+    city: CityStore.getCity()
+  };
+}
+
 export default class Dashboard extends React.Component {
+  constructor(...props) {
+    super(...props);
+
+    this.setState(getDashData);
+    this._onChange = this._onChange.bind(this);
+  }
+
+  componentWillMount() {
+    UserStore.addChangeListener(this._onChange);
+    WalkStore.addChangeListener(this._onChange);
+    CityStore.addChangeListener(this._onChange);
+  }
+
+  componentWillUnmount() {
+    UserStore.removeChangeListener(this._onChange);
+    WalkStore.removeChangeListener(this._onChange);
+    CityStore.removeChangeListener(this._onChange);
+  }
+
+  _onChange() {
+    this.setState(getDashData);
+  }
+
   render() {
+    const {user} = this.props;
+    const {city, walks, users} = this.state;
+
     return (
       <section className="dashboard">
-        <DashboardHeader {...DashboardStore.getCityData()} {...DashboardStore.getLatestPost()}/>
-        <DashboardMenu style="dashboard-page" {...DashboardStore.getCityData()} {...DashboardStore.getMenuItems()}/>
-        <DashboardSummary {...DashboardStore.getRegionSummary()}/>
+        <DashboardHeader user={{firstName: 'Testy'}} />
+        <DashboardMenu
+          city={city}
+          walks={walks}
+          users={users}
+        />
+        <DashboardSummary
+          city={{name: 'Test City'}}
+          year={2016}
+          leaders={[1, 2]}
+          walks={[3, 4]}
+          participants={[5, 6]}
+        />
       </section>
     );
   }

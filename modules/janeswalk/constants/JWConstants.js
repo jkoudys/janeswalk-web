@@ -13,6 +13,9 @@ const ActionTypes = [
   'WALK_SAVE',
   'WALK_PUBLISH',
 
+  // City
+  'CITY_RECEIVE',
+
   // Areas
   'AREA_RECEIVE',
 
@@ -30,16 +33,6 @@ const ActionTypes = [
   'ITINERARY_RECEIVE_ALL',
   'ITINERARY_SYNC_START',
   'ITINERARY_SYNC_END',
-
-   // Dashboard
-  'FILTER_WALKS',
-  'TOGGLE_WALK_FILTER',
-  'REMOVE_WALK_FILTER',
-  'FILTER_WALKS_BY_DATE',
-  'FILTER_LEADERS_BY_DATE',
-  'SORT_LEADERS',
-  'TOGGLE_MENU',
-
 ].reduce((p, k) => {p[k] = k; return p}, {});
 
 export {ActionTypes};
