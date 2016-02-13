@@ -37,12 +37,43 @@ var paths = {
   react_views: './themes/janeswalk/js/components/'
 };
 
-gulp.task('uglify', function() {
-  return gulp.src(paths.js + '/janeswalk.js')
-  .pipe(buffer())
-  .pipe(uglify())
-  .pipe(rename('janeswalk.min.js'))
-  .pipe(gulp.dest(paths.js));
+gulp.task('prod', function() {
+  // TODO: transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
+  webpack({
+    entry: [paths.jsx_app],
+    output: {
+      path: paths.js,
+      filename: 'janeswalk.min.js'
+    },
+    module: {
+      loaders: [{
+        test: /\.jsx?$/,
+        exclude: /(bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      }, {
+        test: /\.json$/,
+        loader: 'json'
+      }],
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env": {
+          "NODE_ENV": JSON.stringify("production")
+        }
+      }),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin()
+    ],
+    watch: false
+  }, function(err, stats) {
+    if(err) throw new gutil.PluginError("webpack:build", err);
+    gutil.log("[webpack:build]", stats.toString({
+      colors: true
+    }));
+  });
 });
 
 gulp.task('css', function() {
