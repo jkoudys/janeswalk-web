@@ -8858,7 +8858,7 @@
 	      var id = _step$value[0];
 	      var walk = _step$value[1];
 
-	      var teamLeader = walk.team[0];
+	      var teamLeader = walk.team && walk.team[0];
 	      if (teamLeader) {
 	        var key = teamLeader.email || teamLeader.firstName + teamLeader.lastName;
 	        leaders[key] = (leaders[key] || 0) + 1;

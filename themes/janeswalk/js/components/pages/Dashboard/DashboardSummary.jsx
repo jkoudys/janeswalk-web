@@ -4,7 +4,7 @@ const DashboardSummary = ({city, walks}) => {
   let leaderCount = 0, walkCount = 0, year = 2015;
   const leaders = {};
   for (let [id, walk] of walks) {
-    let teamLeader = walk.team[0];
+    let teamLeader = walk.team && walk.team[0];
     if (teamLeader) {
       let key = (teamLeader.email || (teamLeader.firstName + teamLeader.lastName));
       leaders[key] = (leaders[key] || 0) + 1;
