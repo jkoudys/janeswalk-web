@@ -1,11 +1,25 @@
 import {t, t2} from 'janeswalk/stores/I18nStore';
 
-const DashboardSummary = ({city, year, leaders, walks, participants}) => {
+const DashboardSummary = ({city, walks}) => {
+  let leaderCount = 0, walkCount = 0, year = 2015;
+  const leaders = {};
+  for (let [id, walk] of walks) {
+    let teamLeader = walk.team[0];
+    if (teamLeader) {
+      let key = (teamLeader.email || (teamLeader.firstName + teamLeader.lastName));
+      leaders[key] = (leaders[key] || 0) + 1;
+    }
+    if (walk.time) {
+      walkCount += walk.time.slots.length;
+    }
+  }
+  leaderCount = Object.keys(leaders).length;
+
+
   return (
     <section className="dashboardRecap">
       <h2>Recap</h2>
-      <h4>In {city.name}, {t2('%d walk leader', '%d walk leaders', leaders.length) + ' ' + t2('led %d walk', 'led %d walks', walks.length) + ' '+ t('as a part of Jane\'s Walk %d,', year) + ' ' + t2('reaching more than %d participant', 'reaching more than %d participants', participants.length)}</h4>
-      <h4>{t('Since %s first participated in Jane\'s Walk in %s, ', city.name, year) + t2('walk leader', 'walk leaders', leaders.length) + ' ' + t2('have led %d Jane\'s Walk', 'have led %d Jane\'s Walks', walks.length)}.</h4>
+      <h4>In {city.name}, {t2('%d walk leader', '%d walk leaders', leaderCount) + ' ' + t2('led %d walk', 'led %d walks', walkCount) + ' '+ t('since its first Jane\'s Walk in %d,', year) + '.'}</h4>
     </section>
   );
 };

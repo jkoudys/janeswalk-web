@@ -53,9 +53,9 @@ export default class Dashboard extends React.Component {
           />
         <DashboardSummary
           city={city}
-          year={2016}
+          walks={walks}
+          year={2015}
           leaders={[1, 2]}
-          walks={[3, 4]}
           participants={[5, 6]}
         />
       </section>

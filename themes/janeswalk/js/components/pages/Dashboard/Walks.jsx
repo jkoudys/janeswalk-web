@@ -89,7 +89,7 @@ export default class Walks extends React.Component {
           Map
         </button>
         {DateToggle}
-        {city ? <a className="btn" href={'exportCity/' + city.id}>Export Spreadsheet</a> : null}
+        {city ? <a target="_blank" href={'/profile/exportCity/' + city.id}><button>Export Spreadsheet</button></a> : null}
         <WalkFilters
           allFilters={_filters}
           filters={filters}

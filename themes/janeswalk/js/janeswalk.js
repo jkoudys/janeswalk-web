@@ -191,6 +191,17 @@
 	  JanesWalk.event.on('profilepage.load', function (props) {
 	    React.render(React.createElement(_Dashboard2.default, props), document.getElementById('page'));
 	  });
+
+	  // Create a walk
+	  JanesWalk.event.on('caw.load', function (props) {
+	    React.render(React.createElement(_CreateWalk2.default, {
+	      data: JanesWalk.walk.data,
+	      city: JanesWalk.city,
+	      user: JanesWalk.user,
+	      url: JanesWalk.walk.url,
+	      valt: JanesWalk.form.valt
+	    }), document.getElementById('page'));
+	  });
 	}
 
 	document.addEventListener('DOMContentLoaded', function () {
@@ -8585,9 +8596,9 @@
 	        }),
 	        React.createElement(_DashboardSummary2.default, {
 	          city: city,
-	          year: 2016,
+	          walks: walks,
+	          year: 2015,
 	          leaders: [1, 2],
-	          walks: [3, 4],
 	          participants: [5, 6]
 	        })
 	      );
@@ -8792,6 +8803,8 @@
 
 	'use strict';
 
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -8800,10 +8813,48 @@
 
 	var DashboardSummary = function DashboardSummary(_ref) {
 	  var city = _ref.city;
-	  var year = _ref.year;
-	  var leaders = _ref.leaders;
 	  var walks = _ref.walks;
-	  var participants = _ref.participants;
+
+	  var leaderCount = 0,
+	      walkCount = 0,
+	      year = 2015;
+	  var leaders = {};
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var _step$value = _slicedToArray(_step.value, 2);
+
+	      var id = _step$value[0];
+	      var walk = _step$value[1];
+
+	      var teamLeader = walk.team[0];
+	      if (teamLeader) {
+	        var key = teamLeader.email || teamLeader.firstName + teamLeader.lastName;
+	        leaders[key] = (leaders[key] || 0) + 1;
+	      }
+	      if (walk.time) {
+	        walkCount += walk.time.slots.length;
+	      }
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+
+	  leaderCount = Object.keys(leaders).length;
 
 	  return React.createElement(
 	    'section',
@@ -8819,13 +8870,7 @@
 	      'In ',
 	      city.name,
 	      ', ',
-	      (0, _I18nStore.t2)('%d walk leader', '%d walk leaders', leaders.length) + ' ' + (0, _I18nStore.t2)('led %d walk', 'led %d walks', walks.length) + ' ' + (0, _I18nStore.t)('as a part of Jane\'s Walk %d,', year) + ' ' + (0, _I18nStore.t2)('reaching more than %d participant', 'reaching more than %d participants', participants.length)
-	    ),
-	    React.createElement(
-	      'h4',
-	      null,
-	      (0, _I18nStore.t)('Since %s first participated in Jane\'s Walk in %s, ', city.name, year) + (0, _I18nStore.t2)('walk leader', 'walk leaders', leaders.length) + ' ' + (0, _I18nStore.t2)('have led %d Jane\'s Walk', 'have led %d Jane\'s Walks', walks.length),
-	      '.'
+	      (0, _I18nStore.t2)('%d walk leader', '%d walk leaders', leaderCount) + ' ' + (0, _I18nStore.t2)('led %d walk', 'led %d walks', walkCount) + ' ' + (0, _I18nStore.t)('since its first Jane\'s Walk in %d,', year) + '.'
 	    )
 	  );
 	};
@@ -9231,8 +9276,12 @@
 	        DateToggle,
 	        city ? React.createElement(
 	          'a',
-	          { className: 'btn', href: 'exportCity/' + city.id },
-	          'Export Spreadsheet'
+	          { target: '_blank', href: '/profile/exportCity/' + city.id },
+	          React.createElement(
+	            'button',
+	            null,
+	            'Export Spreadsheet'
+	          )
 	        ) : null,
 	        React.createElement(_WalkFilters2.default, {
 	          allFilters: _filters,

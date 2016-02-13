@@ -37,6 +37,14 @@ var paths = {
   react_views: './themes/janeswalk/js/components/'
 };
 
+gulp.task('uglify', function() {
+  return gulp.src(paths.js + '/janeswalk.js')
+  .pipe(buffer())
+  .pipe(uglify())
+  .pipe(rename('janeswalk.min.js'))
+  .pipe(gulp.dest(paths.js));
+});
+
 gulp.task('css', function() {
   return gulp.src(paths.less)
     .pipe(less({compress: false}))

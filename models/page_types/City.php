@@ -171,6 +171,7 @@ class City extends \Model implements \JsonSerializable
 
         // Set basic city data
         $cityData = [
+            'id' => $this->page->getCollectionID(),
             'name' => $this->title,
             'url' => $this->url,
             'background' => $this->fullbg ? $this->fullbg->getURL() : null,

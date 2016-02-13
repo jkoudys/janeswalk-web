@@ -99,6 +99,20 @@ function addRenderListeners() {
       document.getElementById('page')
     );
   });
+
+  // Create a walk
+  JanesWalk.event.on('caw.load', props => {
+    React.render(
+      <CreateWalk
+        data={JanesWalk.walk.data}
+        city={JanesWalk.city}
+        user={JanesWalk.user}
+        url={JanesWalk.walk.url}
+        valt={JanesWalk.form.valt}
+      />,
+      document.getElementById('page')
+    );
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
