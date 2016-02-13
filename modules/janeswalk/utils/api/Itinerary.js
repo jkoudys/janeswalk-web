@@ -18,7 +18,7 @@ function getJson([...lists]) {
     const [...walks] = list.walks;
 
     return Object.assign({}, list, {
-      walks: walks.map(w => +w.id)
+      walks: walks.map(([w, times]) => [+w.id, times])
     });
   }));
 }

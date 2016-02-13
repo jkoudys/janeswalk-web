@@ -11,7 +11,7 @@ if ($u->getUserID()) {
         'firstName' => $ui->getAttribute('first_name'),
         'walks' => []
     ];
-    $itineraries = json_decode($ui->getAttribute('itineraries'), true);
+
     if (!$itineraries) {
         // If there's no itinerary, seed with defaults
         $itineraries = [
@@ -31,10 +31,12 @@ if ($u->getUserID()) {
     $walkIDs = [];
     $walks = [];
     foreach ((array) $itineraries as $itinerary) {
-        foreach ($itinerary['walks'] as $walkID) {
-            $p = Page::getByID($walkID);
-            if ($p && !$walks[$walkID]) {
-                $walks[$walkID] = new Walk($p);
+        foreach ($itinerary['walks'] as list($walkID, $times)) {
+            if ($walkID) {
+                $p = Page::getByID($walkID);
+                if ($p && !$walks[$walkID]) {
+                    $walks[$walkID] = new Walk($p);
+                }
             }
         }
     }

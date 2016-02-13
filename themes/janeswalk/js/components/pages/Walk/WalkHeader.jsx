@@ -23,12 +23,23 @@ function headerBG(city, walk) {
   };
 }
 
+// Read a map, return the meeting place or null
+function getMeetingPlace(map) {
+  if (map && map.markers && map.markers.length) {
+    return map.markers[0].title;
+  }
+}
+
+import WalkStore from 'janeswalk/stores/WalkStore';
+
 const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
   const {title, map, time, team, thumbnails} = walk;
   const {url, name} = city;
 
   //TODO: This is problematic since there are many different type of roles defined, not a finite list
   const walkLeader = team.find(member => member.role === 'walk-leader');
+
+  let meetingPlace = getMeetingPlace(map);
 
   let favButton;
 
@@ -48,7 +59,7 @@ const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
         </ul>
       </section>
       <h1>{title} {favButton}</h1>
-      <h4>Meeting at {map.markers[0].title}</h4>
+      {meetingPlace ? <h4>meetingPlace</h4> : null}
       <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
       <AddToItinerary
         itinerary={itinerary}

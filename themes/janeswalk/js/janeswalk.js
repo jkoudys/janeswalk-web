@@ -75,23 +75,23 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _Itinerary = __webpack_require__(29);
+	var _Itinerary = __webpack_require__(27);
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
-	var _CreateWalk = __webpack_require__(30);
+	var _CreateWalk = __webpack_require__(31);
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(53);
+	var _Walk = __webpack_require__(54);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Dashboard = __webpack_require__(68);
+	var _Dashboard = __webpack_require__(67);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(66);
+	var _Login = __webpack_require__(80);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -929,11 +929,11 @@
 
 	var _Itinerary2 = _interopRequireDefault(_Itinerary);
 
-	var _AreaStore = __webpack_require__(26);
+	var _AreaStore = __webpack_require__(28);
 
 	var _AreaStore2 = _interopRequireDefault(_AreaStore);
 
-	var _UserStore = __webpack_require__(27);
+	var _UserStore = __webpack_require__(29);
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
@@ -941,9 +941,9 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _dom = __webpack_require__(28);
+	var _dom = __webpack_require__(30);
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1249,27 +1249,27 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _WalkStore = __webpack_require__(18);
+	var _WalkStore = __webpack_require__(19);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
 	var _ItineraryActions = __webpack_require__(13);
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
-	var _Walk = __webpack_require__(21);
+	var _Walk = __webpack_require__(22);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _ItineraryHeader = __webpack_require__(24);
+	var _ItineraryHeader = __webpack_require__(25);
 
 	var _ItineraryHeader2 = _interopRequireDefault(_ItineraryHeader);
 
-	var _ItinerarySelect = __webpack_require__(25);
+	var _ItinerarySelect = __webpack_require__(26);
 
 	var _ItinerarySelect2 = _interopRequireDefault(_ItinerarySelect);
 
-	var _Itinerary = __webpack_require__(29);
+	var _Itinerary = __webpack_require__(27);
 
 	var API = _interopRequireWildcard(_Itinerary);
 
@@ -1459,9 +1459,9 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _ItineraryUtils = __webpack_require__(22);
+	var _ItineraryUtils = __webpack_require__(18);
 
-	var _WalkStore = __webpack_require__(18);
+	var _WalkStore = __webpack_require__(19);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -1918,6 +1918,67 @@
 
 /***/ },
 /* 18 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.dateFormatted = dateFormatted;
+	exports.startTimeIndex = startTimeIndex;
+
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+
+	// Default formatter
+	var dtfDate = undefined;
+	// Date formatted
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat('en-US', {
+	    year: 'numeric',
+	    month: 'long',
+	    day: 'numeric',
+	    hour: 'numeric',
+	    minute: '2-digit',
+	    timeZone: 'UTC'
+	  });
+	}
+
+	// Cache the parsed dates
+	var _dateCache = {};
+
+	function formatDate(dateInMs) {
+	  if (dtfDate) {
+	    return dtfDate.format(dateInMs);
+	  } else {
+	    var date = new Date(dateInMs);
+	    var dateString = date.toUTCString();
+	    return dateString.slice(0, dateString.indexOf(' GMT'));
+	  }
+	}
+
+	function dateFormatted(dateInSeconds) {
+	  var fromCache = _dateCache[dateInSeconds];
+	  var fromFormat = undefined;
+	  if (fromCache) {
+	    return fromCache;
+	  } else {
+	    fromFormat = formatDate(dateInSeconds * 1000);
+	    _dateCache[dateInSeconds] = fromFormat;
+	    return fromFormat;
+	  }
+	};
+
+	function startTimeIndex() {
+	  var startTimes = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+	  var time = arguments[1];
+	  return startTimes.findIndex(function (st) {
+	    return st[0] === time[0] && st[1] === time[1];
+	  });
+	};
+
+/***/ },
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1993,7 +2054,7 @@
 	exports.default = WalkStore;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2009,7 +2070,7 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _translate = __webpack_require__(20);
+	var _translate = __webpack_require__(21);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
@@ -2068,7 +2129,7 @@
 	var t2 = exports.t2 = _i18n.translatePlural.bind(_i18n);
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2161,7 +2222,7 @@
 	module.exports = I18nTranslator;
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2176,7 +2237,7 @@
 
 	var _AddWalkToList2 = _interopRequireDefault(_AddWalkToList);
 
-	var _AddToItinerary = __webpack_require__(67);
+	var _AddToItinerary = __webpack_require__(24);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
@@ -2302,67 +2363,6 @@
 	exports.default = Walk;
 
 /***/ },
-/* 22 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.dateFormatted = dateFormatted;
-	exports.startTimeIndex = startTimeIndex;
-
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
-
-	// Default formatter
-	var dtfDate = undefined;
-	// Date formatted
-	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
-	  dtfDate = new Intl.DateTimeFormat('en-US', {
-	    year: 'numeric',
-	    month: 'long',
-	    day: 'numeric',
-	    hour: 'numeric',
-	    minute: '2-digit',
-	    timeZone: 'UTC'
-	  });
-	}
-
-	// Cache the parsed dates
-	var _dateCache = {};
-
-	function formatDate(dateInMs) {
-	  if (dtfDate) {
-	    return dtfDate.format(dateInMs);
-	  } else {
-	    var date = new Date(dateInMs);
-	    var dateString = date.toUTCString();
-	    return dateString.slice(0, dateString.indexOf(' GMT'));
-	  }
-	}
-
-	function dateFormatted(dateInSeconds) {
-	  var fromCache = _dateCache[dateInSeconds];
-	  var fromFormat = undefined;
-	  if (fromCache) {
-	    return fromCache;
-	  } else {
-	    fromFormat = formatDate(dateInSeconds * 1000);
-	    _dateCache[dateInSeconds] = fromFormat;
-	    return fromFormat;
-	  }
-	};
-
-	function startTimeIndex() {
-	  var startTimes = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-	  var time = arguments[1];
-	  return startTimes.findIndex(function (st) {
-	    return st[0] === time[0] && st[1] === time[1];
-	  });
-	};
-
-/***/ },
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2372,7 +2372,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
@@ -2467,7 +2467,80 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _ItineraryUtils = __webpack_require__(18);
+
+	var AddToItinerary = function AddToItinerary(_ref) {
+	  var itinerary = _ref.itinerary;
+	  var time = _ref.time;
+	  var walk = _ref.walk;
+	  var onAdd = _ref.onAdd;
+	  var onRemove = _ref.onRemove;
+
+	  var addButtons = [];
+
+	  if (itinerary && time && time.slots) {
+	    if (itinerary.walks.has(walk)) {
+	      (function () {
+	        //retrieve start times for walk
+	        var startTimes = itinerary.walks.get(walk);
+
+	        addButtons = time.slots.map(function (t) {
+	          if ((0, _ItineraryUtils.startTimeIndex)(startTimes, t) == -1) {
+	            return React.createElement(
+	              "h4",
+	              null,
+	              (0, _ItineraryUtils.dateFormatted)(t[0]),
+	              React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	                  return onAdd(itinerary, t);
+	                } })
+	            );
+	          } else {
+	            return React.createElement(
+	              "h4",
+	              null,
+	              (0, _ItineraryUtils.dateFormatted)(t[0]),
+	              React.createElement("button", { className: "removeItinerary", onClick: function onClick() {
+	                  return onRemove(itinerary, t);
+	                } })
+	            );
+	          }
+	        });
+	      })();
+	    } else {
+	      if (time && time.slots[0]) {
+	        addButtons = time.slots.map(function (t) {
+	          return React.createElement(
+	            "h4",
+	            null,
+	            (0, _ItineraryUtils.dateFormatted)(t[0]),
+	            React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	                return onAdd(itinerary, t);
+	              } })
+	          );
+	        });
+	      }
+	    }
+	  }
+	  return React.createElement(
+	    "section",
+	    null,
+	    addButtons
+	  );
+	};
+
+	exports.default = AddToItinerary;
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _I18nStore = __webpack_require__(20);
 
 	var ItineraryHeader = function ItineraryHeader(_ref) {
 	  var list = _ref.list;
@@ -2521,7 +2594,7 @@
 	exports.default = ItineraryHeader;
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2532,7 +2605,7 @@
 
 	var _ItineraryActions = __webpack_require__(13);
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	var ItinerarySelect = function ItinerarySelect(_ref) {
 	  var lists = _ref.lists;
@@ -2579,7 +2652,128 @@
 	exports.default = ItinerarySelect;
 
 /***/ },
-/* 26 */
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.post = post;
+	exports.get = get;
+	exports.startPolling = startPolling;
+
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _ItineraryActions = __webpack_require__(13);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); } /**
+	                                                                               * API methods for loading itineraries
+	                                                                               * (de)serializing to and from from the Jane's Walk C5
+	                                                                               */
+
+	// Service endpoints
+	var endpoint = '/profile/itineraries';
+
+	/**
+	 * Serialize as JSON
+	 * No need to serialize the whole walks list. Just need their IDs
+	 */
+	function getJson(_ref) {
+	  var _ref2 = _toArray(_ref);
+
+	  var lists = _ref2;
+
+	  return JSON.stringify(lists.map(function (list) {
+	    var _list$walks = _toArray(list.walks);
+
+	    var walks = _list$walks;
+
+	    return Object.assign({}, list, {
+	      walks: walks.map(function (_ref3) {
+	        var _ref4 = _slicedToArray(_ref3, 2);
+
+	        var w = _ref4[0];
+	        var times = _ref4[1];
+	        return [+w.id, times];
+	      })
+	    });
+	  }));
+	}
+
+	function post(cb) {
+	  var url = arguments.length <= 1 || arguments[1] === undefined ? endpoint : arguments[1];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('POST', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      console.log(data);
+	      cb();
+	    } catch (e) {
+	      console.log('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send(getJson(_ItineraryStore2.default.getLists()));
+	}
+
+	function get() {
+	  var url = arguments.length <= 0 || arguments[0] === undefined ? endpoint : arguments[0];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('GET', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      (0, _ItineraryActions.receiveAll)(data);
+	    } catch (e) {
+	      cb('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send();
+	}
+
+	/**
+	 * Poll, and sync when updates stop
+	 */
+	function startPolling() {
+	  var period = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
+
+	  var lastSync = _ItineraryStore2.default.getLastChange();
+	  var syncing = false;
+
+	  setInterval(function () {
+	    var lastChange = _ItineraryStore2.default.getLastChange();
+	    // Poll, to see if we've waited a bit since the last thing you changed
+	    if (Date.now() - lastChange > period * 3) {
+	      if (lastChange > lastSync && !syncing) {
+	        syncing = true;
+	        post(function () {
+	          lastSync = Date.now();syncing = false;
+	        });
+	      }
+	    }
+	  }, period);
+	}
+
+/***/ },
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2630,7 +2824,7 @@
 	exports.default = AreaStore;
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2714,7 +2908,7 @@
 	exports.default = UserStore;
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2754,122 +2948,7 @@
 	}
 
 /***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.post = post;
-	exports.get = get;
-	exports.startPolling = startPolling;
-
-	var _ItineraryStore = __webpack_require__(16);
-
-	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
-
-	var _ItineraryActions = __webpack_require__(13);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); } /**
-	                                                                               * API methods for loading itineraries
-	                                                                               * (de)serializing to and from from the Jane's Walk C5
-	                                                                               */
-
-	// Service endpoints
-	var endpoint = '/profile/itineraries';
-
-	/**
-	 * Serialize as JSON
-	 * No need to serialize the whole walks list. Just need their IDs
-	 */
-	function getJson(_ref) {
-	  var _ref2 = _toArray(_ref);
-
-	  var lists = _ref2;
-
-	  return JSON.stringify(lists.map(function (list) {
-	    var _list$walks = _toArray(list.walks);
-
-	    var walks = _list$walks;
-
-	    return Object.assign({}, list, {
-	      walks: walks.map(function (w) {
-	        return +w.id;
-	      })
-	    });
-	  }));
-	}
-
-	function post(cb) {
-	  var url = arguments.length <= 1 || arguments[1] === undefined ? endpoint : arguments[1];
-
-	  var xhr = new XMLHttpRequest();
-	  xhr.open('POST', url);
-	  xhr.onload = function () {
-	    var data = undefined;
-	    try {
-	      data = JSON.parse(this.responseText);
-	      console.log(data);
-	      cb();
-	    } catch (e) {
-	      console.log('Error parsing JSON returned on itinerary' + url);
-	    }
-	  };
-	  xhr.onerror = function () {
-	    console.log('Failed to update itinerary.');
-	  };
-	  xhr.send(getJson(_ItineraryStore2.default.getLists()));
-	}
-
-	function get() {
-	  var url = arguments.length <= 0 || arguments[0] === undefined ? endpoint : arguments[0];
-
-	  var xhr = new XMLHttpRequest();
-	  xhr.open('GET', url);
-	  xhr.onload = function () {
-	    var data = undefined;
-	    try {
-	      data = JSON.parse(this.responseText);
-	      (0, _ItineraryActions.receiveAll)(data);
-	    } catch (e) {
-	      cb('Error parsing JSON returned on itinerary' + url);
-	    }
-	  };
-	  xhr.onerror = function () {
-	    console.log('Failed to update itinerary.');
-	  };
-	  xhr.send();
-	}
-
-	/**
-	 * Poll, and sync when updates stop
-	 */
-	function startPolling() {
-	  var period = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
-
-	  var lastSync = _ItineraryStore2.default.getLastChange();
-	  var syncing = false;
-
-	  setInterval(function () {
-	    var lastChange = _ItineraryStore2.default.getLastChange();
-	    // Poll, to see if we've waited a bit since the last thing you changed
-	    if (Date.now() - lastChange > period * 3) {
-	      if (lastChange > lastSync && !syncing) {
-	        syncing = true;
-	        post(function () {
-	          lastSync = Date.now();syncing = false;
-	        });
-	      }
-	    }
-	  }, period);
-	}
-
-/***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2880,39 +2959,39 @@
 	  value: true
 	});
 
-	var _ImageUpload = __webpack_require__(31);
+	var _ImageUpload = __webpack_require__(32);
 
 	var _ImageUpload2 = _interopRequireDefault(_ImageUpload);
 
-	var _ThemeSelect = __webpack_require__(32);
+	var _ThemeSelect = __webpack_require__(33);
 
 	var _ThemeSelect2 = _interopRequireDefault(_ThemeSelect);
 
-	var _MapBuilder = __webpack_require__(34);
+	var _MapBuilder = __webpack_require__(35);
 
 	var _MapBuilder2 = _interopRequireDefault(_MapBuilder);
 
-	var _DateSelect = __webpack_require__(42);
+	var _DateSelect = __webpack_require__(43);
 
 	var _DateSelect2 = _interopRequireDefault(_DateSelect);
 
-	var _WardSelect = __webpack_require__(47);
+	var _WardSelect = __webpack_require__(48);
 
 	var _WardSelect2 = _interopRequireDefault(_WardSelect);
 
-	var _AccessibleSelect = __webpack_require__(48);
+	var _AccessibleSelect = __webpack_require__(49);
 
 	var _AccessibleSelect2 = _interopRequireDefault(_AccessibleSelect);
 
-	var _TeamBuilder = __webpack_require__(49);
+	var _TeamBuilder = __webpack_require__(50);
 
 	var _TeamBuilder2 = _interopRequireDefault(_TeamBuilder);
 
-	var _WalkPublish = __webpack_require__(50);
+	var _WalkPublish = __webpack_require__(51);
 
 	var _WalkPublish2 = _interopRequireDefault(_WalkPublish);
 
-	var _TextAreaLimit = __webpack_require__(51);
+	var _TextAreaLimit = __webpack_require__(52);
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
@@ -2920,11 +2999,11 @@
 
 	var _I18nActions2 = _interopRequireDefault(_I18nActions);
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
-	var _helpers = __webpack_require__(41);
+	var _helpers = __webpack_require__(42);
 
 	var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -2941,7 +3020,7 @@
 
 	// Load create-a-walk View components
 
-	var defaultWalk = __webpack_require__(52);
+	var defaultWalk = __webpack_require__(53);
 
 	// Flux
 
@@ -3561,7 +3640,7 @@
 	})(React.Component);
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3572,7 +3651,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3684,7 +3763,7 @@
 	exports.default = ImageUpload;
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3695,7 +3774,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3703,7 +3782,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(33);
+	var mixins = __webpack_require__(34);
 
 	// Flux
 
@@ -3894,7 +3973,7 @@
 	};
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -3923,7 +4002,7 @@
 	};
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3934,31 +4013,31 @@
 	  value: true
 	});
 
-	var _WalkStopTable = __webpack_require__(35);
+	var _WalkStopTable = __webpack_require__(36);
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
 
-	var _WalkInfoWindow = __webpack_require__(36);
+	var _WalkInfoWindow = __webpack_require__(37);
 
 	var _WalkInfoWindow2 = _interopRequireDefault(_WalkInfoWindow);
 
-	var _InstagramConnect = __webpack_require__(37);
+	var _InstagramConnect = __webpack_require__(38);
 
 	var _InstagramConnect2 = _interopRequireDefault(_InstagramConnect);
 
-	var _SoundCloudConnect = __webpack_require__(38);
+	var _SoundCloudConnect = __webpack_require__(39);
 
 	var _SoundCloudConnect2 = _interopRequireDefault(_SoundCloudConnect);
 
-	var _TwitterConnect = __webpack_require__(39);
+	var _TwitterConnect = __webpack_require__(40);
 
 	var _TwitterConnect2 = _interopRequireDefault(_TwitterConnect);
 
-	var _ConnectFilters = __webpack_require__(40);
+	var _ConnectFilters = __webpack_require__(41);
 
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3968,7 +4047,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Helper = __webpack_require__(41);
+	var Helper = __webpack_require__(42);
 
 	// Flux
 
@@ -4498,7 +4577,7 @@
 	});
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4509,7 +4588,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	var UpArrow = function UpArrow(props) {
 	  return React.createElement(
@@ -4647,7 +4726,7 @@
 	exports.default = WalkStopTable;
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4770,7 +4849,7 @@
 	exports.default = WalkInfoWindow;
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4908,7 +4987,7 @@
 	exports.default = InstagramConnect;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5059,7 +5138,7 @@
 	exports.default = SoundCloudConnect;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5194,7 +5273,7 @@
 	exports.default = TwitterConnect;
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5270,7 +5349,7 @@
 	};
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5309,7 +5388,7 @@
 	};
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5320,7 +5399,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5329,10 +5408,10 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// Components
-	var DatePicker = __webpack_require__(43);
-	var TimePicker = __webpack_require__(44);
-	var TimeSetTable = __webpack_require__(45);
-	var TimeOpenTable = __webpack_require__(46);
+	var DatePicker = __webpack_require__(44);
+	var TimePicker = __webpack_require__(45);
+	var TimeSetTable = __webpack_require__(46);
+	var TimeOpenTable = __webpack_require__(47);
 
 	// Flux
 
@@ -5725,7 +5804,7 @@
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5782,7 +5861,7 @@
 	exports.default = DatePicker;
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5793,7 +5872,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5940,7 +6019,7 @@
 	exports.default = TimePicker;
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5951,7 +6030,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6082,7 +6161,7 @@
 	exports.default = TimeSetTable;
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6127,7 +6206,7 @@
 	exports.default = TimeOpenTable;
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6138,7 +6217,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6146,7 +6225,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(33);
+	var mixins = __webpack_require__(34);
 
 	// Flux
 
@@ -6212,7 +6291,7 @@
 	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6223,9 +6302,9 @@
 	  value: true
 	});
 
-	var _mixins = __webpack_require__(33);
+	var _mixins = __webpack_require__(34);
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6285,7 +6364,7 @@
 	Object.assign(AccessibleSelect.prototype, _mixins.linkedParentState);
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6296,7 +6375,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	// Update a field for a team member
 	function linkMember(field, _ref) {
@@ -7077,7 +7156,7 @@
 	};
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7088,7 +7167,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7221,7 +7300,7 @@
 	Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7230,7 +7309,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	/**
 	 * Text areas with a 'remaining characters' limit
@@ -7251,7 +7330,7 @@
 	exports.default = TextAreaLimit;
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -7295,7 +7374,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7312,43 +7391,43 @@
 
 	var _ItineraryActions = __webpack_require__(13);
 
-	var _WalkHeader = __webpack_require__(54);
+	var _WalkHeader = __webpack_require__(55);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(55);
+	var _WalkDescription = __webpack_require__(56);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(56);
+	var _WalkRoute = __webpack_require__(57);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(57);
+	var _WalkAccessibility = __webpack_require__(58);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(59);
+	var _WalkPublicTransit = __webpack_require__(60);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(60);
+	var _WalkParking = __webpack_require__(61);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(61);
+	var _WalkStart = __webpack_require__(62);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(62);
+	var _WalkTeam = __webpack_require__(63);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(63);
+	var _WalkMenu = __webpack_require__(64);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(65);
+	var _WalkMap = __webpack_require__(66);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7414,6 +7493,13 @@
 	      var itinerary = _state.itinerary;
 	      var favourites = _state.favourites;
 
+	      var hasMarkers = false,
+	          hasRoute = false;
+	      if (walk && walk['map']) {
+	        hasMarkers = walk['map']['markers'].length > 0;
+	        hasRoute = walk['map']['route'].length > 0;
+	      }
+
 	      return React.createElement(
 	        'section',
 	        { className: 'walkPage' },
@@ -7431,9 +7517,9 @@
 	        }),
 	        React.createElement(_WalkMenu2.default, this.state),
 	        React.createElement(_WalkDescription2.default, this.state.walk),
-	        React.createElement(_WalkMap2.default, this.state.walk),
-	        React.createElement(_WalkRoute2.default, this.state.walk),
-	        React.createElement(_WalkStart2.default, this.state.walk),
+	        hasMarkers || hasRoute ? React.createElement(_WalkMap2.default, { map: this.state.walk['map'] }) : null,
+	        hasMarkers ? React.createElement(_WalkRoute2.default, this.state.walk) : null,
+	        hasMarkers ? React.createElement(_WalkStart2.default, this.state.walk) : null,
 	        React.createElement(_WalkPublicTransit2.default, this.state.walk),
 	        React.createElement(_WalkParking2.default, this.state.walk),
 	        React.createElement(_WalkTeam2.default, this.state.walk)
@@ -7453,7 +7539,7 @@
 	};
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7462,9 +7548,13 @@
 	  value: true
 	});
 
-	var _AddToItinerary = __webpack_require__(67);
+	var _AddToItinerary = __webpack_require__(24);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
+
+	var _WalkStore = __webpack_require__(19);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7491,6 +7581,13 @@
 	  };
 	}
 
+	// Read a map, return the meeting place or null
+	function getMeetingPlace(map) {
+	  if (map && map.markers && map.markers.length) {
+	    return map.markers[0].title;
+	  }
+	}
+
 	var WalkHeader = function WalkHeader(_ref) {
 	  var city = _ref.city;
 	  var walk = _ref.walk;
@@ -7511,6 +7608,8 @@
 	  var walkLeader = team.find(function (member) {
 	    return member.role === 'walk-leader';
 	  });
+
+	  var meetingPlace = getMeetingPlace(map);
 
 	  var favButton = undefined;
 
@@ -7565,12 +7664,11 @@
 	      ' ',
 	      favButton
 	    ),
-	    React.createElement(
+	    meetingPlace ? React.createElement(
 	      'h4',
 	      null,
-	      'Meeting at ',
-	      map.markers[0].title
-	    ),
+	      'meetingPlace'
+	    ) : null,
 	    React.createElement(
 	      'h4',
 	      null,
@@ -7599,7 +7697,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7633,7 +7731,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7682,7 +7780,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7691,7 +7789,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(58);
+	var _Accessible = __webpack_require__(59);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -7729,7 +7827,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7760,7 +7858,7 @@
 	}
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7771,7 +7869,7 @@
 	var WalkPublicTransit = function WalkPublicTransit(_ref) {
 	  var accessibleTransit = _ref.accessibleTransit;
 
-	  if (accessibleTransit.length > 0) {
+	  if (accessibleTransit && accessibleTransit.length > 0) {
 	    return React.createElement(
 	      "section",
 	      { className: "walkPublicTransit" },
@@ -7795,7 +7893,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7807,7 +7905,7 @@
 	  var accessibleParking = _ref.accessibleParking;
 	  var style = _ref.style;
 
-	  if (accessibleParking.length > 0) {
+	  if (accessibleParking && accessibleParking.length > 0) {
 	    return React.createElement(
 	      "section",
 	      { className: "walkParking " + style },
@@ -7832,7 +7930,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7862,7 +7960,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7947,7 +8045,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7956,21 +8054,21 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(22);
+	var _ItineraryUtils = __webpack_require__(18);
 
-	var _WalkAccessibility = __webpack_require__(57);
+	var _WalkAccessibility = __webpack_require__(58);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(59);
+	var _WalkPublicTransit = __webpack_require__(60);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(60);
+	var _WalkParking = __webpack_require__(61);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(64);
+	var _Theme = __webpack_require__(65);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8035,8 +8133,8 @@
 	  //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
 
 	  //TODO: Improve functionality to be generic for displaying menuItems, and specific react components
-	  if (walk.accessibleTransit.length > 0) menuItems[3].exists = true;
-	  if (walk.accessibleParking.length > 0) menuItems[4].exists = true;
+	  if ((walk.accessibleTransit || []).length > 0) menuItems[3].exists = true;
+	  if ((walk.accessibleParking || []).length > 0) menuItems[4].exists = true;
 
 	  return React.createElement(
 	    'section',
@@ -8096,7 +8194,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8150,7 +8248,7 @@
 	}
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8360,298 +8458,9 @@
 	};
 
 /***/ },
-/* 66 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _I18nStore = __webpack_require__(19);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Message = function Message(_ref) {
-	  var success = _ref.success;
-	  var msg = _ref.msg;
-	  var error = _ref.error;
-	  return React.createElement(
-	    'div',
-	    { className: 'alert alert-' + (success ? 'info' : 'danger') },
-	    msg,
-	    error
-	  );
-	};
-
-	/**
-	 * The 'login' modal that comes up on standard login, not to be confused
-	 * with the login page.
-	 */
-
-	var Login = (function (_React$Component) {
-	  _inherits(Login, _React$Component);
-
-	  function Login() {
-	    _classCallCheck(this, Login);
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Login).call(this));
-
-	    _this.state = {
-	      email: '',
-	      password: '',
-	      maintainLogin: false,
-	      message: {}
-	    };
-	    _this.handleReset = _this.handleReset.bind(_this);
-	    _this.handleChangeEmail = _this.handleChangeEmail.bind(_this);
-	    _this.handleChangePassword = _this.handleChangePassword.bind(_this);
-	    _this.handleChangeMaintainLogin = _this.handleChangeMaintainLogin.bind(_this);
-	    _this.handleSubmit = _this.handleSubmit.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Login, [{
-	    key: 'handleReset',
-	    value: function handleReset(ev) {
-	      var _this2 = this;
-
-	      // Post a reset request to the c5 endpoint for resets
-	      $.ajax({
-	        type: 'POST',
-	        url: CCM_REL + '/login/forgot_password',
-	        data: {
-	          uEmail: this.state.email,
-	          uName: this.state.email,
-	          format: 'JSON'
-	        },
-	        dataType: 'json',
-	        success: function success(data) {
-	          return _this2.setState({ message: data });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'handleChangeEmail',
-	    value: function handleChangeEmail(ev) {
-	      this.setState({ email: ev.target.value });
-	    }
-	  }, {
-	    key: 'handleChangePassword',
-	    value: function handleChangePassword(ev) {
-	      this.setState({ password: ev.target.value });
-	    }
-	  }, {
-	    key: 'handleChangeMaintainLogin',
-	    value: function handleChangeMaintainLogin(ev) {
-	      this.setState({ maintainLogin: ev.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit(ev) {
-	      var _this3 = this;
-
-	      ev.preventDefault();
-	      // Post the login to the c5 endpoint for logins
-	      $.ajax({
-	        type: 'POST',
-	        url: CCM_REL + '/login/do_login',
-	        data: {
-	          uEmail: this.state.email,
-	          uName: this.state.email,
-	          uPassword: this.state.password,
-	          uMaintainLogin: this.state.maintainLogin,
-	          format: 'JSON'
-	        },
-	        dataType: 'json',
-	        success: function success(data) {
-	          _this3.setState({ message: data }, function () {
-	            if (data.success === 1) {
-	              if (_this3.props.redirectURL) {
-	                window.location.replace(_this3.props.redirectURL);
-	              } else {
-	                window.location.reload();
-	              }
-	            }
-	          });
-	        }
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var socialLogin = this.props.socialLogin;
-	      var _state = this.state;
-	      var email = _state.email;
-	      var password = _state.password;
-
-	      var message = undefined;
-	      if (Number.isInteger(this.state.message.success)) {
-	        message = React.createElement(Message, this.state.message);
-	      }
-
-	      return React.createElement(
-	        'dialog',
-	        { id: 'login' },
-	        React.createElement(
-	          'div',
-	          null,
-	          React.createElement(
-	            'article',
-	            null,
-	            React.createElement(
-	              'header',
-	              null,
-	              React.createElement(
-	                'h3',
-	                { className: 'form-lead' },
-	                (0, _I18nStore.t)('Sign in to %s', 'Jane\'s Walk')
-	              )
-	            ),
-	            React.createElement(
-	              'form',
-	              { rel: 'form', method: 'post', onSubmit: this.handleSubmit },
-	              React.createElement('section', { dangerouslySetInnerHTML: { __html: socialLogin } }),
-	              React.createElement(
-	                'section',
-	                null,
-	                React.createElement(
-	                  'h4',
-	                  null,
-	                  (0, _I18nStore.t)('or, log-in using your email & password')
-	                ),
-	                React.createElement(
-	                  'label',
-	                  { htmlFor: 'uEmail' },
-	                  (0, _I18nStore.t)('Email'),
-	                  React.createElement('input', { type: 'text', name: 'uEmail', id: 'uEmail', ref: 'uEmail', value: email, onChange: this.handleChangeEmail, className: 'ccm-input-text input-large' })
-	                ),
-	                React.createElement(
-	                  'label',
-	                  { htmlFor: 'uPassword' },
-	                  (0, _I18nStore.t)('Password'),
-	                  React.createElement('input', { type: 'password', name: 'uPassword', id: 'uPassword', value: password, onChange: this.handleChangePassword, className: 'ccm-input-text input-large' })
-	                ),
-	                React.createElement(
-	                  'label',
-	                  null,
-	                  React.createElement('input', { type: 'checkbox', name: 'uMaintainLogin', checked: this.maintainLogin, onChange: this.handleChangeMaintainLogin }),
-	                  ' ',
-	                  (0, _I18nStore.t)('Keep me signed in.')
-	                ),
-	                React.createElement(
-	                  'a',
-	                  { onClick: this.handleReset },
-	                  (0, _I18nStore.t)('Request a new password')
-	                )
-	              ),
-	              React.createElement(
-	                'footer',
-	                null,
-	                message,
-	                React.createElement(
-	                  'a',
-	                  { href: CCM_REL + '/register?uEmail=' + email },
-	                  (0, _I18nStore.t)('Register for a new account.')
-	                ),
-	                React.createElement('input', { type: 'submit', className: 'btn ccm-input-submit', id: 'submit', value: (0, _I18nStore.t)('Go!') })
-	              )
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Login;
-	})(React.Component);
-
-	exports.default = Login;
-
-/***/ },
 /* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _ItineraryUtils = __webpack_require__(22);
-
-	var AddToItinerary = function AddToItinerary(_ref) {
-	  var itinerary = _ref.itinerary;
-	  var time = _ref.time;
-	  var walk = _ref.walk;
-	  var onAdd = _ref.onAdd;
-	  var onRemove = _ref.onRemove;
-
-	  var addButtons = [];
-
-	  if (itinerary && time && time.slots) {
-	    if (itinerary.walks.has(walk)) {
-	      (function () {
-	        //retrieve start times for walk
-	        var startTimes = itinerary.walks.get(walk);
-
-	        addButtons = time.slots.map(function (t) {
-	          if ((0, _ItineraryUtils.startTimeIndex)(startTimes, t) == -1) {
-	            return React.createElement(
-	              "h4",
-	              null,
-	              (0, _ItineraryUtils.dateFormatted)(t[0]),
-	              React.createElement("button", { className: "addItinerary", onClick: function onClick() {
-	                  return onAdd(itinerary, t);
-	                } })
-	            );
-	          } else {
-	            return React.createElement(
-	              "h4",
-	              null,
-	              (0, _ItineraryUtils.dateFormatted)(t[0]),
-	              React.createElement("button", { className: "removeItinerary", onClick: function onClick() {
-	                  return onRemove(itinerary, t);
-	                } })
-	            );
-	          }
-	        });
-	      })();
-	    } else {
-	      if (time && time.slots[0]) {
-	        addButtons = time.slots.map(function (t) {
-	          return React.createElement(
-	            "h4",
-	            null,
-	            (0, _ItineraryUtils.dateFormatted)(t[0]),
-	            React.createElement("button", { className: "addItinerary", onClick: function onClick() {
-	                return onAdd(itinerary, t);
-	              } })
-	          );
-	        });
-	      }
-	    }
-	  }
-	  return React.createElement(
-	    "section",
-	    null,
-	    addButtons
-	  );
-	};
-
-	exports.default = AddToItinerary;
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -8660,29 +8469,29 @@
 	  value: true
 	});
 
-	var _DashboardHeader = __webpack_require__(69);
+	var _DashboardHeader = __webpack_require__(68);
 
 	var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
 
-	var _DashboardMenu = __webpack_require__(70);
+	var _DashboardMenu = __webpack_require__(69);
 
 	var _DashboardMenu2 = _interopRequireDefault(_DashboardMenu);
 
-	var _DashboardSummary = __webpack_require__(71);
+	var _DashboardSummary = __webpack_require__(70);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _UserStore = __webpack_require__(27);
+	var _UserStore = __webpack_require__(29);
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
-	var _WalkStore = __webpack_require__(18);
-
-	var _WalkStore2 = _interopRequireDefault(_WalkStore);
-
-	var _CityStore = __webpack_require__(80);
+	var _CityStore = __webpack_require__(79);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
+
+	var _WalkStore = __webpack_require__(19);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8691,10 +8500,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// XXX begin temp
-
-	// XXX end temp
 
 	function getDashData() {
 	  return {
@@ -8718,7 +8523,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Dashboard)).call.apply(_Object$getPrototypeO, [this].concat(props)));
 
-	    _this.setState(getDashData);
+	    _this.state = getDashData();
 	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
@@ -8755,11 +8560,6 @@
 	        'section',
 	        { className: 'dashboard' },
 	        React.createElement(_DashboardHeader2.default, { user: { firstName: 'Testy' } }),
-	        React.createElement(_DashboardMenu2.default, {
-	          city: city,
-	          walks: walks,
-	          users: users
-	        }),
 	        React.createElement(_DashboardSummary2.default, {
 	          city: { name: 'Test City' },
 	          year: 2016,
@@ -8777,7 +8577,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 69 */
+/* 68 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8834,7 +8634,7 @@
 	exports.default = DashboardHeader;
 
 /***/ },
-/* 70 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8847,23 +8647,23 @@
 	  value: true
 	});
 
-	var _DashboardSummary = __webpack_require__(71);
+	var _DashboardSummary = __webpack_require__(70);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _DashboardResources = __webpack_require__(72);
+	var _DashboardResources = __webpack_require__(71);
 
 	var _DashboardResources2 = _interopRequireDefault(_DashboardResources);
 
-	var _MyBlogPosts = __webpack_require__(73);
+	var _MyBlogPosts = __webpack_require__(72);
 
 	var _MyBlogPosts2 = _interopRequireDefault(_MyBlogPosts);
 
-	var _Walks = __webpack_require__(74);
+	var _Walks = __webpack_require__(73);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
 
-	var _WalkLeaders = __webpack_require__(78);
+	var _WalkLeaders = __webpack_require__(77);
 
 	var _WalkLeaders2 = _interopRequireDefault(_WalkLeaders);
 
@@ -8956,7 +8756,7 @@
 	;
 
 /***/ },
-/* 71 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8965,7 +8765,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	var DashboardSummary = function DashboardSummary(_ref) {
 	  var city = _ref.city;
@@ -9001,7 +8801,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 72 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9010,7 +8810,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(19);
+	var _I18nStore = __webpack_require__(20);
 
 	// TODO Resources should be loaded, not literal
 	// TODO* Country Flag (data is not stubbed, just 'Canada') and 'Toronto' as well
@@ -9169,7 +8969,7 @@
 	exports.default = DashboardResources;
 
 /***/ },
-/* 73 */
+/* 72 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9213,7 +9013,7 @@
 	exports.default = MyBlogPosts;
 
 /***/ },
-/* 74 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9224,15 +9024,15 @@
 	  value: true
 	});
 
-	var _WalkFilters = __webpack_require__(75);
+	var _WalkFilters = __webpack_require__(74);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
 
-	var _WalksMap = __webpack_require__(76);
+	var _WalksMap = __webpack_require__(75);
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
-	var _Walk = __webpack_require__(77);
+	var _Walk = __webpack_require__(76);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9370,7 +9170,7 @@
 	exports.default = Walks;
 
 /***/ },
-/* 75 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9493,7 +9293,7 @@
 	exports.default = WalkFilters;
 
 /***/ },
-/* 76 */
+/* 75 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9742,7 +9542,7 @@
 	};
 
 /***/ },
-/* 77 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9751,7 +9551,7 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(22);
+	var _ItineraryUtils = __webpack_require__(18);
 
 	//TODO: (Post PR) Common component from <Itinerary/> <Walk/>
 	//https://github.com/jkoudys/janeswalk-web/blob/react14/models/page_types/Walk.php
@@ -9853,7 +9653,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 78 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9866,7 +9666,7 @@
 	  value: true
 	});
 
-	var _WalkLeader = __webpack_require__(79);
+	var _WalkLeader = __webpack_require__(78);
 
 	var _WalkLeader2 = _interopRequireDefault(_WalkLeader);
 
@@ -9967,7 +9767,7 @@
 	exports.default = WalkLeaders;
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10046,7 +9846,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10106,6 +9906,222 @@
 	});
 
 	exports.default = CityStore;
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _I18nStore = __webpack_require__(20);
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Message = function Message(_ref) {
+	  var success = _ref.success;
+	  var msg = _ref.msg;
+	  var error = _ref.error;
+	  return React.createElement(
+	    'div',
+	    { className: 'alert alert-' + (success ? 'info' : 'danger') },
+	    msg,
+	    error
+	  );
+	};
+
+	/**
+	 * The 'login' modal that comes up on standard login, not to be confused
+	 * with the login page.
+	 */
+
+	var Login = (function (_React$Component) {
+	  _inherits(Login, _React$Component);
+
+	  function Login() {
+	    _classCallCheck(this, Login);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Login).call(this));
+
+	    _this.state = {
+	      email: '',
+	      password: '',
+	      maintainLogin: false,
+	      message: {}
+	    };
+	    _this.handleReset = _this.handleReset.bind(_this);
+	    _this.handleChangeEmail = _this.handleChangeEmail.bind(_this);
+	    _this.handleChangePassword = _this.handleChangePassword.bind(_this);
+	    _this.handleChangeMaintainLogin = _this.handleChangeMaintainLogin.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Login, [{
+	    key: 'handleReset',
+	    value: function handleReset(ev) {
+	      var _this2 = this;
+
+	      // Post a reset request to the c5 endpoint for resets
+	      $.ajax({
+	        type: 'POST',
+	        url: CCM_REL + '/login/forgot_password',
+	        data: {
+	          uEmail: this.state.email,
+	          uName: this.state.email,
+	          format: 'JSON'
+	        },
+	        dataType: 'json',
+	        success: function success(data) {
+	          return _this2.setState({ message: data });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'handleChangeEmail',
+	    value: function handleChangeEmail(ev) {
+	      this.setState({ email: ev.target.value });
+	    }
+	  }, {
+	    key: 'handleChangePassword',
+	    value: function handleChangePassword(ev) {
+	      this.setState({ password: ev.target.value });
+	    }
+	  }, {
+	    key: 'handleChangeMaintainLogin',
+	    value: function handleChangeMaintainLogin(ev) {
+	      this.setState({ maintainLogin: ev.target.value });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(ev) {
+	      var _this3 = this;
+
+	      ev.preventDefault();
+	      // Post the login to the c5 endpoint for logins
+	      $.ajax({
+	        type: 'POST',
+	        url: CCM_REL + '/login/do_login',
+	        data: {
+	          uEmail: this.state.email,
+	          uName: this.state.email,
+	          uPassword: this.state.password,
+	          uMaintainLogin: this.state.maintainLogin,
+	          format: 'JSON'
+	        },
+	        dataType: 'json',
+	        success: function success(data) {
+	          _this3.setState({ message: data }, function () {
+	            if (data.success === 1) {
+	              if (_this3.props.redirectURL) {
+	                window.location.replace(_this3.props.redirectURL);
+	              } else {
+	                window.location.reload();
+	              }
+	            }
+	          });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var socialLogin = this.props.socialLogin;
+	      var _state = this.state;
+	      var email = _state.email;
+	      var password = _state.password;
+
+	      var message = undefined;
+	      if (Number.isInteger(this.state.message.success)) {
+	        message = React.createElement(Message, this.state.message);
+	      }
+
+	      return React.createElement(
+	        'dialog',
+	        { id: 'login' },
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'article',
+	            null,
+	            React.createElement(
+	              'header',
+	              null,
+	              React.createElement(
+	                'h3',
+	                { className: 'form-lead' },
+	                (0, _I18nStore.t)('Sign in to %s', 'Jane\'s Walk')
+	              )
+	            ),
+	            React.createElement(
+	              'form',
+	              { rel: 'form', method: 'post', onSubmit: this.handleSubmit },
+	              React.createElement('section', { dangerouslySetInnerHTML: { __html: socialLogin } }),
+	              React.createElement(
+	                'section',
+	                null,
+	                React.createElement(
+	                  'h4',
+	                  null,
+	                  (0, _I18nStore.t)('or, log-in using your email & password')
+	                ),
+	                React.createElement(
+	                  'label',
+	                  { htmlFor: 'uEmail' },
+	                  (0, _I18nStore.t)('Email'),
+	                  React.createElement('input', { type: 'text', name: 'uEmail', id: 'uEmail', ref: 'uEmail', value: email, onChange: this.handleChangeEmail, className: 'ccm-input-text input-large' })
+	                ),
+	                React.createElement(
+	                  'label',
+	                  { htmlFor: 'uPassword' },
+	                  (0, _I18nStore.t)('Password'),
+	                  React.createElement('input', { type: 'password', name: 'uPassword', id: 'uPassword', value: password, onChange: this.handleChangePassword, className: 'ccm-input-text input-large' })
+	                ),
+	                React.createElement(
+	                  'label',
+	                  null,
+	                  React.createElement('input', { type: 'checkbox', name: 'uMaintainLogin', checked: this.maintainLogin, onChange: this.handleChangeMaintainLogin }),
+	                  ' ',
+	                  (0, _I18nStore.t)('Keep me signed in.')
+	                ),
+	                React.createElement(
+	                  'a',
+	                  { onClick: this.handleReset },
+	                  (0, _I18nStore.t)('Request a new password')
+	                )
+	              ),
+	              React.createElement(
+	                'footer',
+	                null,
+	                message,
+	                React.createElement(
+	                  'a',
+	                  { href: CCM_REL + '/register?uEmail=' + email },
+	                  (0, _I18nStore.t)('Register for a new account.')
+	                ),
+	                React.createElement('input', { type: 'submit', className: 'btn ccm-input-submit', id: 'submit', value: (0, _I18nStore.t)('Go!') })
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Login;
+	})(React.Component);
+
+	exports.default = Login;
 
 /***/ }
 /******/ ]);

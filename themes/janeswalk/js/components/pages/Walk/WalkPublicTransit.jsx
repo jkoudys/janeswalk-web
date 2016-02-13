@@ -1,12 +1,14 @@
 const WalkPublicTransit = ({accessibleTransit}) => {
-  if(accessibleTransit.length > 0) {
-    return (<section className="walkPublicTransit">
-      <a name="Taking Public Transit"></a>
-      <h2>Taking Public Transit</h2>
-      {accessibleTransit}
-    </section>);
+  if (accessibleTransit && accessibleTransit.length > 0) {
+    return (
+      <section className="walkPublicTransit">
+        <a name="Taking Public Transit"></a>
+        <h2>Taking Public Transit</h2>
+        {accessibleTransit}
+      </section>
+    );
   } else {
-    return <section/>;
+    return <section />;
   }
 };
 

@@ -3,12 +3,8 @@ import DashboardMenu from './Dashboard/DashboardMenu.jsx';
 import DashboardSummary from './Dashboard/DashboardSummary.jsx';
 
 import UserStore from 'janeswalk/stores/UserStore';
-import WalkStore from 'janeswalk/stores/WalkStore';
 import CityStore from 'janeswalk/stores/CityStore';
-
-// XXX begin temp
-
-// XXX end temp
+import WalkStore from 'janeswalk/stores/WalkStore';
 
 function getDashData() {
   return {
@@ -22,7 +18,7 @@ export default class Dashboard extends React.Component {
   constructor(...props) {
     super(...props);
 
-    this.setState(getDashData);
+    this.state = getDashData();
     this._onChange = this._onChange.bind(this);
   }
 
@@ -49,11 +45,11 @@ export default class Dashboard extends React.Component {
     return (
       <section className="dashboard">
         <DashboardHeader user={{firstName: 'Testy'}} />
-        <DashboardMenu
+        {/*<DashboardMenu
           city={city}
           walks={walks}
           users={users}
-        />
+          />*/}
         <DashboardSummary
           city={{name: 'Test City'}}
           year={2016}
