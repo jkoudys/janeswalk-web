@@ -45,14 +45,14 @@ export default class Dashboard extends React.Component {
 
     return (
       <section className="dashboard">
-        <DashboardHeader user={{firstName: 'Testy'}} />
-        {/*<DashboardMenu
-          city={city}
+        <DashboardHeader user={user} />
+        <DashboardMenu
           walks={walks}
           users={users}
-          />*/}
+          city={city}
+          />
         <DashboardSummary
-          city={{name: 'Test City'}}
+          city={city}
           year={2016}
           leaders={[1, 2]}
           walks={[3, 4]}

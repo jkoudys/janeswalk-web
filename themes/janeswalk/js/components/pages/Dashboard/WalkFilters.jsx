@@ -1,14 +1,13 @@
 // TODO*: Refactoring Components, WalksFilter is not doing much
 
-const Filter = ({location, name, filterName, toggleFilter, removeFilter, data, activeFilters}) => {
-
+const Filter = ({name, handle, toggleFilter, removeFilter, options, allFilters, filters}) => {
   let ActiveFilters;
 
-  if (Object.keys(activeFilters).includes(filterName)) {
-    ActiveFilters = activeFilters[filterName].map(({filter, state, display}, i) =>
-      <button key={i} className={state ? 'activeFilter' : 'inActiveFilter'}>
-        <span className="buttonToggle" onClick={e => toggleFilter(filter, filterName, location)}> {display} </span>
-        <span className="buttonClose" onClick={e => removeFilter(filter, filterName, location)}> × </span>
+  if (Object.keys(filters).includes(handle)) {
+    ActiveFilters = Object.keys(filters[handle]).map(fh =>
+      <button key={handle} className={filters[fh] ? 'activeFilter' : 'inActiveFilter'}>
+        <span className="buttonToggle" onClick={() => toggleFilter(fh)}> {name} </span>
+        <span className="buttonClose" onClick={() => removeFilter(fh)}> × </span>
       </button>
     );
   }
@@ -16,9 +15,9 @@ const Filter = ({location, name, filterName, toggleFilter, removeFilter, data, a
   return (
     <li>
       <label></label>
-      <select value="Select" onChange={e => toggleFilter(e.target.value, filterName, location)}>
+      <select value="Select" onChange={e => toggleFilter(e.target.value)}>
         <option value="">{name}</option>
-        {Object.keys(data).map((k, i) => <option key={i} value={k}>{data[k]}</option>)}
+        {Object.keys(options).map((handle, i) => <option key={i} value={handle}>{options[handle]}</option>)}
       </select>
       <section>
       {ActiveFilters}
@@ -27,17 +26,17 @@ const Filter = ({location, name, filterName, toggleFilter, removeFilter, data, a
   );
 };
 
-const WalkFilters = ({filters, activeFilters, removeFilter, toggleFilter, location}) => {
+const WalkFilters = ({filters, allFilters, removeFilter, toggleFilter}) => {
 
   const Filters = Object.keys(filters).map(
     key => <Filter
       key={key}
-      filterName={key}
-      {...filters[key]}
-      toggleFilter={toggleFilter}
-      removeFilter={removeFilter}
-      activeFilters={activeFilters}
-      location = {location}
+      handle={key}
+      options={filters[key].data}
+      filters={filters}
+      allFilters={allFilters}
+      toggleFilter={v => toggleFilter(key, v)}
+      removeFilter={v => removeFilter(key, v)}
     />
   );
 
@@ -46,19 +45,6 @@ const WalkFilters = ({filters, activeFilters, removeFilter, toggleFilter, locati
       {Filters}
     </div>
   );
-};
-
-WalkFilters.PropTypes = {
-  filters: React.PropTypes.array.isRequired,
-  activeFilters: React.PropTypes.array.isRequired,
-  removeFilter: React.PropTypes.func.isRequired,
-  toggleFilter: React.PropTypes.func.isRequired,
-};
-
-Filter.PropTypes = {
-  name: React.PropTypes.string.isRequired,
-  toggleFilter: React.PropTypes.func.isRequired,
-  data: React.PropTypes.object.isRequired,
 };
 
 export default WalkFilters;

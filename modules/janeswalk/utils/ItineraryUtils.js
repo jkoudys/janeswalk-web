@@ -28,12 +28,17 @@ function formatDate(dateInMs) {
 export function dateFormatted(dateInSeconds) {
   let fromCache = _dateCache[dateInSeconds];
   let fromFormat;
+  if (dateInSeconds) {
   if (fromCache) {
     return fromCache;
   } else {
     fromFormat = formatDate(dateInSeconds * 1000);
     _dateCache[dateInSeconds] = fromFormat;
     return fromFormat;
+  }
+  } else {
+    // Invalid date
+    return dateInSeconds;
   }
 };
 

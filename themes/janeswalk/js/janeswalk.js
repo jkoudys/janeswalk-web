@@ -67,6 +67,10 @@
 
 	var WalkActions = _interopRequireWildcard(_WalkActions);
 
+	var _CityActions = __webpack_require__(81);
+
+	var CityActions = _interopRequireWildcard(_CityActions);
+
 	var _ItineraryActions = __webpack_require__(13);
 
 	var ItineraryActions = _interopRequireWildcard(_ItineraryActions);
@@ -104,6 +108,12 @@
 	 */
 
 	// React Views
+	/**
+	 * Initialization code goes here. This is not to be a dumping ground for
+	 * miscellaneous functions, and especially not a place to stick new global
+	 * variables.
+	 */
+	// Translations for i18n L10n
 	function initKeyEvents() {
 	  // Init keyboard shortcuts
 	  var toolbar = document.getElementById('ccm-toolbar');
@@ -129,12 +139,6 @@
 	}
 
 	// load modals
-	/**
-	 * Initialization code goes here. This is not to be a dumping ground for
-	 * miscellaneous functions, and especially not a place to stick new global
-	 * variables.
-	 */
-	// Translations for i18n L10n
 
 	function renderGlobal() {
 	  // Render our header first
@@ -163,6 +167,9 @@
 	  });
 	  JanesWalk.event.on('walks.receive', function (walks) {
 	    return WalkActions.receiveAll(walks);
+	  });
+	  JanesWalk.event.on('city.receive', function (city) {
+	    return CityActions.receive(city);
 	  });
 	  JanesWalk.event.on('itineraries.receive', function (itineraries) {
 	    return ItineraryActions.receiveAll(itineraries);
@@ -195,9 +202,6 @@
 	  addRenderListeners();
 
 	  initKeyEvents();
-
-	  // TODO: emit the city without needing to load JanesWalk with static data
-	  JanesWalk.event.emit('city.receive', JanesWalk.city);
 
 	  // TODO: this could use a better home
 	  ItineraryAPI.startPolling();
@@ -1962,12 +1966,17 @@
 	function dateFormatted(dateInSeconds) {
 	  var fromCache = _dateCache[dateInSeconds];
 	  var fromFormat = undefined;
-	  if (fromCache) {
-	    return fromCache;
+	  if (dateInSeconds) {
+	    if (fromCache) {
+	      return fromCache;
+	    } else {
+	      fromFormat = formatDate(dateInSeconds * 1000);
+	      _dateCache[dateInSeconds] = fromFormat;
+	      return fromFormat;
+	    }
 	  } else {
-	    fromFormat = formatDate(dateInSeconds * 1000);
-	    _dateCache[dateInSeconds] = fromFormat;
-	    return fromFormat;
+	    // Invalid date
+	    return dateInSeconds;
 	  }
 	};
 
@@ -8568,9 +8577,14 @@
 	      return React.createElement(
 	        'section',
 	        { className: 'dashboard' },
-	        React.createElement(_DashboardHeader2.default, { user: { firstName: 'Testy' } }),
+	        React.createElement(_DashboardHeader2.default, { user: user }),
+	        React.createElement(_DashboardMenu2.default, {
+	          walks: walks,
+	          users: users,
+	          city: city
+	        }),
 	        React.createElement(_DashboardSummary2.default, {
-	          city: { name: 'Test City' },
+	          city: city,
 	          year: 2016,
 	          leaders: [1, 2],
 	          walks: [3, 4],
@@ -8604,7 +8618,7 @@
 	    React.createElement(
 	      "h3",
 	      null,
-	      user.toUpperCase(),
+	      user.firstName.toUpperCase(),
 	      " Organizer Dashboard"
 	    ),
 	    React.createElement(
@@ -8702,13 +8716,18 @@
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(DashboardMenu)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
 	    _this.state = {
-	      menuItems: [[_DashboardResources2.default, 'Dashboard Resources', true], [_MyBlogPosts2.default, 'My Blog Posts', false], [_Walks2.default, 'Walks', false], [_WalkLeaders2.default, 'Walk Leaders', false]]
+	      menuItems: [
+	      // [DashboardResources, 'Dashboard Resources', true],
+	      //        [MyBlogPosts, 'My Blog Posts', false],
+	      [_Walks2.default, 'Walks', false]]
 	    };
 	    return _this;
 	  }
 
 	  _createClass(DashboardMenu, [{
 	    key: 'toggleSection',
+
+	    //  [WalkLeaders, 'Walk Leaders', false]
 	    value: function toggleSection(idx) {
 	      var newItems = this.state.menuItems.slice();
 	      newItems[idx][2] = !newItems[idx][2];
@@ -8720,6 +8739,9 @@
 	      var _this2 = this;
 
 	      var menuItems = this.state.menuItems;
+	      var _props = this.props;
+	      var walks = _props.walks;
+	      var city = _props.city;
 
 	      var menu = menuItems.map(function (_ref, i) {
 	        var _ref2 = _slicedToArray(_ref, 3);
@@ -8742,7 +8764,7 @@
 	            ' ',
 	            name
 	          ),
-	          React.createElement(Component, null)
+	          React.createElement(Component, { walks: walks, city: city })
 	        );
 	      });
 
@@ -8794,9 +8816,10 @@
 	    React.createElement(
 	      'h4',
 	      null,
+	      'In ',
 	      city.name,
-	      ' ',
-	      (0, _I18nStore.t2)('%d walk leader', '%d walk leaders', leaders.length) + (0, _I18nStore.t2)('led %d walk', 'led %d walks', walks.length) + (0, _I18nStore.t)('as a part of Jane\'s Walk %d,', year) + ' ' + (0, _I18nStore.t2)('reaching more than %d participant', 'reaching more than %d participants', participants)
+	      ', ',
+	      (0, _I18nStore.t2)('%d walk leader', '%d walk leaders', leaders.length) + ' ' + (0, _I18nStore.t2)('led %d walk', 'led %d walks', walks.length) + ' ' + (0, _I18nStore.t)('as a part of Jane\'s Walk %d,', year) + ' ' + (0, _I18nStore.t2)('reaching more than %d participant', 'reaching more than %d participants', participants.length)
 	    ),
 	    React.createElement(
 	      'h4',
@@ -8805,6 +8828,10 @@
 	      '.'
 	    )
 	  );
+	};
+
+	DashboardSummary.defaultProps = {
+	  city: { name: 'your city' }
 	};
 
 	exports.default = DashboardSummary;
@@ -9056,6 +9083,24 @@
 	// TODO: (Post-PR) Walk common component found in <Itinerary/> and <WalkPage/>, Refactor to a single component or mixin
 
 	// TODO: Discuss: Not sure on the precedent of this naming: a dashboard (or rather, the profile page) can potentially be shown for other users. The dash store should show the walks for the profile's owner, not necessarily "my" walks.
+	function _removeFilter(filters, handle, option) {
+	  var newFilters = Object.assign({}, filters);
+	  newFilters[handle] = Object.assign({}, filters[handle]);
+	  delete newFilters[handle][option];
+
+	  return newFilters;
+	}
+
+	function _toggleFilter(filters, handle, option) {
+	  var newFilters = Object.assign({}, filters);
+	  newFilters[handle] = Object.assign({}, filters[handle]);
+	  newFilters[handle][option] = !newFilters[handle][option];
+
+	  return newFilters;
+	}
+
+	// TODO: load only the ones we need from the walk data
+	var _filters = { "theme": { "name": "Theme", "data": { "civic-activist": "Activism", "nature-petlover": "Animals", "urban-architecturalenthusiast": "Architecture", "culture-artist": "Art", "civic-truecitizen": "Citizenry", "civic-commerce": "Commerce", "civic-goodneighbour": "Community", "culture-aesthete": "Design", "urban-film": "Film", "culture-foodie": "Food", "nature-greenthumb": "Gardening", "civic-gender": "Gender", "civic-health": "Health", "culture-historybuff": "Heritage", "civic-international": "International Issues", "culture-bookworm": "Literature", "civic-military": "Military", "urban-music": "Music", "civic-nativeissues": "Native Issues", "nature-naturelover": "Nature", "culture-nightowl": "Night Life", "urban-play": "Play", "civic-religion": "Religion", "urban-sports": "Sports", "culture-writer": "Storytelling", "urban-suburbanexplorer": "Suburbs", "culture-techie": "Technology", "urban-moversandshakers": "Transportation", "urban-water": "Water" } }, "ward": { "name": "Region", "data": { "Ward 1 Etobicoke North": "Ward 1 Etobicoke North", "Ward 2 Etobicoke North": "Ward 2 Etobicoke North", "Ward 3 Etobicoke Centre": "Ward 3 Etobicoke Centre", "Ward 4 Etobicoke Centre": "Ward 4 Etobicoke Centre", "Ward 5 Etobicoke-Lakeshore": "Ward 5 Etobicoke-Lakeshore", "Ward 6 Etobicoke-Lakeshore": "Ward 6 Etobicoke-Lakeshore", "Ward 7 York West": "Ward 7 York West", "Ward 8 York West": "Ward 8 York West", "Ward 9 York Centre": "Ward 9 York Centre", "Ward 10 York Centre": "Ward 10 York Centre", "Ward 11 York South-Weston": "Ward 11 York South-Weston", "Ward 12 York South-Weston": "Ward 12 York South-Weston", "Ward 13 Parkdale-High Park": "Ward 13 Parkdale-High Park", "Ward 14 Parkdale-High Park": "Ward 14 Parkdale-High Park", "Ward 15 Eglinton-Lawrence": "Ward 15 Eglinton-Lawrence", "Ward 16 Eglinton-Lawrence": "Ward 16 Eglinton-Lawrence", "Ward 17 Davenport": "Ward 17 Davenport", "Ward 18 Davenport": "Ward 18 Davenport", "Ward 19 Trinity-Spadina": "Ward 19 Trinity-Spadina", "Ward 20 Trinity-Spadina": "Ward 20 Trinity-Spadina", "Ward 21 St. Pauls": "Ward 21 St. Pauls", "Ward 22 St. Pauls": "Ward 22 St. Pauls", "Ward 23 Willowdale": "Ward 23 Willowdale", "Ward 24 Willowdale": "Ward 24 Willowdale", "Ward 25 Don Valley West": "Ward 25 Don Valley West", "Ward 26 Don Valley West": "Ward 26 Don Valley West", "Ward 27 Toronto Centre-Rosedale": "Ward 27 Toronto Centre-Rosedale", "Ward 28 Toronto Centre-Rosedale": "Ward 28 Toronto Centre-Rosedale", "Ward 29 Toronto-Danforth": "Ward 29 Toronto-Danforth", "Ward 30 Toronto-Danforth": "Ward 30 Toronto-Danforth", "Ward 31 Beaches-East York": "Ward 31 Beaches-East York", "Ward 32 Beaches-East York": "Ward 32 Beaches-East York", "Ward 33 Don Valley East": "Ward 33 Don Valley East", "Ward 34 Don Valley East": "Ward 34 Don Valley East", "Ward 35 Scarborough Southwest": "Ward 35 Scarborough Southwest", "Ward 36 Scarborough Southwest": "Ward 36 Scarborough Southwest", "Ward 37 Scarborough Centre": "Ward 37 Scarborough Centre", "Ward 38 Scarborough Centre": "Ward 38 Scarborough Centre", "Ward 39 Scarborough-Agincourt": "Ward 39 Scarborough-Agincourt", "Ward 40 Scarborough Agincourt": "Ward 40 Scarborough Agincourt", "Ward 41 Scarborough-Rouge River": "Ward 41 Scarborough-Rouge River", "Ward 42 Scarborough-Rouge River": "Ward 42 Scarborough-Rouge River", "Ward 43 Scarborough East": "Ward 43 Scarborough East", "Ward 44 Scarborough East": "Ward 44 Scarborough East" } }, "accessibility": { "name": "Accessibility", "data": { "bicyclesonly": "Bicyiccles only", "bicycles": "Bicycles welcome", "busy": "Busy sidewalks", "dogs": "Dogs welcome", "familyfriendly": "Family friendly", "lowlight": "Low light or nighttime", "seniors": "Senior Friendly", "steephills": "Steep hills", "strollers": "Strollers welcome", "uneven": "Uneven terrain", "wheelchair": "Wheelchair accessible" } } };
 
 	var Walks = (function (_React$Component) {
 	  _inherits(Walks, _React$Component);
@@ -9071,9 +9116,10 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Walks)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
-	    _this.state = getWalks(props);
-	    _this.state.currentView = 'list';
-	    _this._onChange = _this._onChange.bind(_this);
+	    _this.state = {
+	      currentView: 'list',
+	      filters: {}
+	    };
 	    return _this;
 	  }
 
@@ -9084,34 +9130,55 @@
 
 	      var _state = this.state;
 	      var currentView = _state.currentView;
-	      var walks = _state.walks;
 	      var filterByDate = _state.filterByDate;
 	      var filters = _state.filters;
-	      var location = this.props.location;
+	      var _props = this.props;
+	      var walks = _props.walks;
+	      var city = _props.city;
 
 	      // How we're presenting the walks (map or list)
 
-	      var Walks = undefined;
+	      var Walks = [];
 	      if (currentView === 'list') {
-	        Walks = walks.map(function (_ref) {
-	          var map = _ref.map;
-	          var id = _ref.id;
-	          var title = _ref.title;
-	          var time = _ref.time;
-	          var team = _ref.team;
-	          var url = _ref.url;
-	          return React.createElement(_Walk2.default, {
-	            title: title,
-	            meeting: map.markers[0].title,
-	            start: time.slots[0][0],
-	            id: id,
-	            key: id,
-	            team: team,
-	            url: url
-	          });
-	        });
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	          for (var _iterator = walks.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var _step$value = _step.value;
+	            var map = _step$value.map;
+	            var id = _step$value.id;
+	            var title = _step$value.title;
+	            var time = _step$value.time;
+	            var team = _step$value.team;
+	            var url = _step$value.url;
+
+	            var props = { title: title, id: id, key: id, team: team, url: url };
+	            if (map && map.markers.length) {
+	              props.meeting = map.markers[0].title;
+	            }
+	            if (time && time.slots.length) {
+	              props.start = time.slots[0][0];
+	            }
+	            Walks.push(React.createElement(_Walk2.default, props));
+	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
+	        } finally {
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
+	          }
+	        }
 	      } else if (currentView === 'map') {
-	        Walks = React.createElement(_WalksMap2.default, { walks: walks });
+	        Walks = React.createElement(_WalksMap2.default, { walks: walks, city: city });
 	      }
 
 	      // The toggle for the past walks
@@ -9162,12 +9229,21 @@
 	          'Map'
 	        ),
 	        DateToggle,
-	        React.createElement(
+	        city ? React.createElement(
 	          'a',
 	          { className: 'btn', href: 'exportCity/' + city.id },
 	          'Export Spreadsheet'
-	        ),
-	        React.createElement(_WalkFilters2.default, null),
+	        ) : null,
+	        React.createElement(_WalkFilters2.default, {
+	          allFilters: _filters,
+	          filters: filters,
+	          removeFilter: function removeFilter(filter, option) {
+	            return _this2.setState({ filters: _removeFilter(filters, filter, option) });
+	          },
+	          toggleFilter: function toggleFilter(filter, option) {
+	            return _this2.setState({ filters: _toggleFilter(filters, filter, option) });
+	          }
+	        }),
 	        Walks
 	      );
 	    }
@@ -9184,45 +9260,40 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	// TODO*: Refactoring Components, WalksFilter is not doing much
 
 	var Filter = function Filter(_ref) {
-	  var location = _ref.location;
 	  var name = _ref.name;
-	  var filterName = _ref.filterName;
+	  var handle = _ref.handle;
 	  var toggleFilter = _ref.toggleFilter;
 	  var removeFilter = _ref.removeFilter;
-	  var data = _ref.data;
-	  var activeFilters = _ref.activeFilters;
+	  var options = _ref.options;
+	  var allFilters = _ref.allFilters;
+	  var filters = _ref.filters;
 
 	  var ActiveFilters = undefined;
 
-	  if (Object.keys(activeFilters).includes(filterName)) {
-	    ActiveFilters = activeFilters[filterName].map(function (_ref2, i) {
-	      var filter = _ref2.filter;
-	      var state = _ref2.state;
-	      var display = _ref2.display;
+	  if (Object.keys(filters).includes(handle)) {
+	    ActiveFilters = Object.keys(filters[handle]).map(function (fh) {
 	      return React.createElement(
 	        'button',
-	        { key: i, className: state ? 'activeFilter' : 'inActiveFilter' },
+	        { key: handle, className: filters[fh] ? 'activeFilter' : 'inActiveFilter' },
 	        React.createElement(
 	          'span',
-	          { className: 'buttonToggle', onClick: function onClick(e) {
-	              return toggleFilter(filter, filterName, location);
+	          { className: 'buttonToggle', onClick: function onClick() {
+	              return toggleFilter(fh);
 	            } },
 	          ' ',
-	          display,
+	          name,
 	          ' '
 	        ),
 	        React.createElement(
 	          'span',
-	          { className: 'buttonClose', onClick: function onClick(e) {
-	              return removeFilter(filter, filterName, location);
+	          { className: 'buttonClose', onClick: function onClick() {
+	              return removeFilter(fh);
 	            } },
 	          ' × '
 	        )
@@ -9237,18 +9308,18 @@
 	    React.createElement(
 	      'select',
 	      { value: 'Select', onChange: function onChange(e) {
-	          return toggleFilter(e.target.value, filterName, location);
+	          return toggleFilter(e.target.value);
 	        } },
 	      React.createElement(
 	        'option',
 	        { value: '' },
 	        name
 	      ),
-	      Object.keys(data).map(function (k, i) {
+	      Object.keys(options).map(function (handle, i) {
 	        return React.createElement(
 	          'option',
-	          { key: i, value: k },
-	          data[k]
+	          { key: i, value: handle },
+	          options[handle]
 	        );
 	      })
 	    ),
@@ -9260,23 +9331,26 @@
 	  );
 	};
 
-	var WalkFilters = function WalkFilters(_ref3) {
-	  var filters = _ref3.filters;
-	  var activeFilters = _ref3.activeFilters;
-	  var removeFilter = _ref3.removeFilter;
-	  var toggleFilter = _ref3.toggleFilter;
-	  var location = _ref3.location;
+	var WalkFilters = function WalkFilters(_ref2) {
+	  var filters = _ref2.filters;
+	  var allFilters = _ref2.allFilters;
+	  var _removeFilter = _ref2.removeFilter;
+	  var _toggleFilter = _ref2.toggleFilter;
 
 	  var Filters = Object.keys(filters).map(function (key) {
-	    return React.createElement(Filter, _extends({
+	    return React.createElement(Filter, {
 	      key: key,
-	      filterName: key
-	    }, filters[key], {
-	      toggleFilter: toggleFilter,
-	      removeFilter: removeFilter,
-	      activeFilters: activeFilters,
-	      location: location
-	    }));
+	      handle: key,
+	      options: filters[key].data,
+	      filters: filters,
+	      allFilters: allFilters,
+	      toggleFilter: function toggleFilter(v) {
+	        return _toggleFilter(key, v);
+	      },
+	      removeFilter: function removeFilter(v) {
+	        return _removeFilter(key, v);
+	      }
+	    });
 	  });
 
 	  return React.createElement(
@@ -9286,19 +9360,6 @@
 	  );
 	};
 
-	WalkFilters.PropTypes = {
-	  filters: React.PropTypes.array.isRequired,
-	  activeFilters: React.PropTypes.array.isRequired,
-	  removeFilter: React.PropTypes.func.isRequired,
-	  toggleFilter: React.PropTypes.func.isRequired
-	};
-
-	Filter.PropTypes = {
-	  name: React.PropTypes.string.isRequired,
-	  toggleFilter: React.PropTypes.func.isRequired,
-	  data: React.PropTypes.object.isRequired
-	};
-
 	exports.default = WalkFilters;
 
 /***/ },
@@ -9306,6 +9367,8 @@
 /***/ function(module, exports) {
 
 	'use strict';
+
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -9350,7 +9413,7 @@
 	  var infoWindow = new google.maps.InfoWindow({ maxWidth: 600 });
 	  var _infoNode = document.createElement('div');
 
-	  //remove any markers that are not part of active walks
+	  // Remove any markers that are not part of active walks
 	  markers = markers.filter(function (m) {
 	    var walkFound = walks.find(function (w) {
 	      return w.id === m.walkId;
@@ -9364,9 +9427,9 @@
 	    }
 	  });
 
-	  //add additional markers
+	  // Add additional markers
 	  walks.forEach(function (walk) {
-	    if (walk.map && walk.map.markers) {
+	    if (walk.map && walk.map.markers && walk.map.markers.length) {
 
 	      var m = walk.map.markers[0];
 
@@ -9419,7 +9482,6 @@
 
 	    _this.state = {
 	      googleMap: null,
-	      walks: props.walks,
 	      googleMapMarkers: []
 	    };
 	    return _this;
@@ -9441,15 +9503,17 @@
 	    value: function componentDidMount() {
 
 	      //TODO: (Post-PR) Create a <GoogleMap/> component to generalize use of google maps
+	      var _props = this.props;
+	      var city = _props.city;
+	      var walks = _props.walks;
 
-	      var _DashboardStore$getCi = DashboardStore.getCityData();
+	      var _city$latlng = _slicedToArray(city.latlng, 2);
 
-	      var latlng = _DashboardStore$getCi.latlng;
-	      var _state2 = this.state;
-	      var walks = _state2.walks;
-	      var googleMapMarkers = _state2.googleMapMarkers;
+	      var lat = _city$latlng[0];
+	      var lng = _city$latlng[1];
+	      var googleMapMarkers = this.state.googleMapMarkers;
 
-	      var locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
+	      var locationLatLng = new google.maps.LatLng(lat, lng);
 
 	      //TODO: Place configuration and constants in a single file
 
@@ -9595,7 +9659,7 @@
 	      React.createElement(
 	        'h4',
 	        null,
-	        (0, _ItineraryUtils.formatDate)(start)
+	        (0, _ItineraryUtils.dateFormatted)(start)
 	      ),
 	      team.length ? React.createElement(
 	        'h4',
@@ -9630,7 +9694,7 @@
 	        null,
 	        React.createElement(
 	          'a',
-	          { href: 'http://janeswalk.org/walk/form/?load=' + url.split('.org')[1] },
+	          { href: '/walk/form/?load=' + url.split('.org')[1] },
 	          'Edit'
 	        )
 	      ),
@@ -10131,6 +10195,34 @@
 	})(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receive = receive;
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _JWConstants = __webpack_require__(9);
+
+	// Load all loop data
+	/**
+	 * City Actions
+	 *
+	 */
+
+	function receive(city) {
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.CITY_RECEIVE,
+	    city: city
+	  });
+	}
 
 /***/ }
 /******/ ]);

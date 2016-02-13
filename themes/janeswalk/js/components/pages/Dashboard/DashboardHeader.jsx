@@ -2,7 +2,7 @@
 
 const DashboardHeader = ({user}) => (
   <header>
-    <h3>{user.toUpperCase()} Organizer Dashboard</h3>
+    <h3>{user.firstName.toUpperCase()} Organizer Dashboard</h3>
     <h4>Hi, {`${user.firstName}!`} </h4>
     <section className="dashboardLatestPost">
       <h4>New User Dashboard!</h4>

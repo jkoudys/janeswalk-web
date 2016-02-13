@@ -8,6 +8,7 @@ import {getTranslations} from 'janeswalk/utils/I18nUtils';
 import * as AreaActions from 'janeswalk/actions/AreaActions';
 import * as UserActions from 'janeswalk/actions/UserActions';
 import * as WalkActions from 'janeswalk/actions/WalkActions';
+import * as CityActions from 'janeswalk/actions/CityActions';
 import * as ItineraryActions from 'janeswalk/actions/ItineraryActions';
 import Navbar from './components/Navbar.jsx';
 
@@ -76,6 +77,7 @@ function addFluxListeners() {
   JanesWalk.event.on('users.receive', users => UserActions.receiveAll(users));
   JanesWalk.event.on('walk.receive', walk => WalkActions.receive(walk));
   JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
+  JanesWalk.event.on('city.receive', city => CityActions.receive(city));
   JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
 }
 
@@ -108,9 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
   addRenderListeners();
 
   initKeyEvents();
-
-  // TODO: emit the city without needing to load JanesWalk with static data
-  JanesWalk.event.emit('city.receive', JanesWalk.city);
 
   // TODO: this could use a better home
   ItineraryAPI.startPolling();
