@@ -9738,7 +9738,7 @@
 	        null,
 	        (0, _ItineraryUtils.dateFormatted)(start)
 	      ),
-	      team.length ? React.createElement(
+	      team && team.length ? React.createElement(
 	        'h4',
 	        null,
 	        'Led by ',
