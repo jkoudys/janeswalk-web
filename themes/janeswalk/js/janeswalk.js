@@ -79,6 +79,10 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
+	var _CityStore = __webpack_require__(80);
+
+	var _CityStore2 = _interopRequireDefault(_CityStore);
+
 	var _Itinerary = __webpack_require__(28);
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
@@ -108,12 +112,9 @@
 	 */
 
 	// React Views
-	/**
-	 * Initialization code goes here. This is not to be a dumping ground for
-	 * miscellaneous functions, and especially not a place to stick new global
-	 * variables.
-	 */
-	// Translations for i18n L10n
+
+	// Stores, for late-binding some page updates.
+	// Not fully React, but we can use Flux for making PHP-rendered page updates too!
 	function initKeyEvents() {
 	  // Init keyboard shortcuts
 	  var toolbar = document.getElementById('ccm-toolbar');
@@ -139,6 +140,12 @@
 	}
 
 	// load modals
+	/**
+	 * Initialization code goes here. This is not to be a dumping ground for
+	 * miscellaneous functions, and especially not a place to stick new global
+	 * variables.
+	 */
+	// Translations for i18n L10n
 
 	function renderGlobal() {
 	  // Render our header first
@@ -203,6 +210,18 @@
 	    }), document.getElementById('page'));
 	  });
 	}
+
+	_CityStore2.default.addChangeListener(function () {
+	  // Bind anything to render not using react
+	  switch (document.body.dataset.pageviewname) {
+	    case 'CityPageView':
+	      var city = _CityStore2.default.getCity();
+	      if (city && city.background && document.body.style.backgroundImage !== city.background) {
+	        document.body.style.backgroundImage = city.background;
+	      }
+	      break;
+	  }
+	});
 
 	document.addEventListener('DOMContentLoaded', function () {
 	  // Load our translations upfront

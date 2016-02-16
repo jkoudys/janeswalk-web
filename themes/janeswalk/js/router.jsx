@@ -12,6 +12,10 @@ import * as CityActions from 'janeswalk/actions/CityActions';
 import * as ItineraryActions from 'janeswalk/actions/ItineraryActions';
 import Navbar from './components/Navbar.jsx';
 
+// Stores, for late-binding some page updates.
+// Not fully React, but we can use Flux for making PHP-rendered page updates too!
+import CityStore from 'janeswalk/stores/CityStore';
+
 import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
@@ -114,6 +118,18 @@ function addRenderListeners() {
     );
   });
 }
+
+CityStore.addChangeListener(() => {
+  // Bind anything to render not using react
+  switch (document.body.dataset.pageviewname) {
+    case 'CityPageView':
+      let city = CityStore.getCity();
+      if (city && city.background && document.body.style.backgroundImage !== city.background) {
+        document.body.style.backgroundImage = city.background;
+      }
+    break;
+  }
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   // Load our translations upfront
