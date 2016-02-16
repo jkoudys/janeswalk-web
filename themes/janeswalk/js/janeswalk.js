@@ -217,7 +217,7 @@
 	    case 'CityPageView':
 	      var city = _CityStore2.default.getCity();
 	      if (city && city.background && document.body.style.backgroundImage !== city.background) {
-	        document.body.style.backgroundImage = city.background;
+	        document.body.style.backgroundImage = 'url(' + city.background + ')';
 	      }
 	      break;
 	  }

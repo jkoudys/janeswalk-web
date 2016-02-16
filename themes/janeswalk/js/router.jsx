@@ -125,7 +125,7 @@ CityStore.addChangeListener(() => {
     case 'CityPageView':
       let city = CityStore.getCity();
       if (city && city.background && document.body.style.backgroundImage !== city.background) {
-        document.body.style.backgroundImage = city.background;
+        document.body.style.backgroundImage = 'url(' + city.background + ')';
       }
     break;
   }
