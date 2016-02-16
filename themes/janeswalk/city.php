@@ -121,6 +121,9 @@ EOT;
 EOT;
 }
 
+// Template for JavaScript events
+$scripts = '<script>JanesWalk.event.emit("city.receive", ' . json_encode($city) . ')</script>';
+
 $this->inc('elements/header.php');
 $this->inc('elements/navbar.php');
 
@@ -146,9 +149,6 @@ echo <<< EOT
    </div>
  </section>
 </section>
-
-
-
 <section id="city-details">
  <div class="walk-list">
       <div class="item">
@@ -162,6 +162,7 @@ echo <<< EOT
  </div>
 </section>
 {$Blog}
+{$scripts}
 EOT;
 
 $this->inc('elements/footer.php');
