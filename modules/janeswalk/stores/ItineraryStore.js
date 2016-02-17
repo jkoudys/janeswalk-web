@@ -16,7 +16,7 @@ let _lastChange = Date.now();
 //TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
 const _removeWalk = (list, walk, time = null) => {
-  if(time) {
+  if (time) {
     let startTimes = list.walks.get(walk);
     let startIndex = startTimeIndex(startTimes, time);
     if ( startIndex >= 0) {

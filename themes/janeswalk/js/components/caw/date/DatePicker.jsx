@@ -12,7 +12,7 @@ export default class DatePicker extends React.Component {
       defaultDate,
       onSelect: dateText => {
         // Silly, but needed for inconsistent date formats across libs
-        let {month, day, year} = dateText.split('/');
+        let [month, day, year] = dateText.split('/');
         setDay(new Date(Date.UTC(year, month - 1, day)));
       }
     });

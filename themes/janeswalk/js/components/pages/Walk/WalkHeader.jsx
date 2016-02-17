@@ -59,7 +59,7 @@ const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
         </ul>
       </section>
       <h1>{title} {favButton}</h1>
-      {meetingPlace ? <h4>meetingPlace</h4> : null}
+      {meetingPlace ? <h4>{meetingPlace}</h4> : null}
       <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
       <AddToItinerary
         itinerary={itinerary}
