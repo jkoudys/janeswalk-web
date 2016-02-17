@@ -216,9 +216,11 @@
 	  switch (document.body.dataset.pageviewname) {
 	    case 'CityPageView':
 	      var city = _CityStore2.default.getCity();
-	      var bgUri = 'url(' + city.background + ')';
-	      if (city && city.background && document.body.style.backgroundImage !== bgUri) {
-	        document.body.style.backgroundImage = bgUri;
+	      if (city) {
+	        var bgUri = 'url(' + city.background + ')';
+	        if (city.background && document.body.style.backgroundImage !== bgUri) {
+	          document.body.style.backgroundImage = bgUri;
+	        }
 	      }
 	      break;
 	  }
@@ -6134,6 +6136,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Flux
 
+	var dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+	var dtfDuration = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
+
 	/**
 	 * The table with all the times that the walks are scheduled
 	 */
@@ -6167,9 +6172,6 @@
 	      var _this2 = this;
 
 	      var slots = this.props.valueLink.value.slots || [];
-
-	      var dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
-	      var dtfDuration = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
 
 	      return React.createElement(
 	        'table',

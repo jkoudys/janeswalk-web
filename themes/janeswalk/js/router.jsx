@@ -124,9 +124,11 @@ CityStore.addChangeListener(() => {
   switch (document.body.dataset.pageviewname) {
     case 'CityPageView':
       let city = CityStore.getCity();
-      let bgUri = 'url(' + city.background + ')';
-      if (city && city.background && document.body.style.backgroundImage !== bgUri) {
-        document.body.style.backgroundImage = bgUri;
+      if (city) {
+        let bgUri = 'url(' + city.background + ')';
+        if (city.background && document.body.style.backgroundImage !== bgUri) {
+          document.body.style.backgroundImage = bgUri;
+        }
       }
     break;
   }
