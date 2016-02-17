@@ -14699,7 +14699,26 @@ body.blog p a:hover {
   }
 }
 body[data-pageviewname=CreateWalkView] {
-  padding-top: 0;
+  margin-bottom: 60px;
+}
+body[data-pageviewname=CreateWalkView]:before,
+body[data-pageviewname=CreateWalkView]:after {
+  content: " ";
+  display: table;
+}
+body[data-pageviewname=CreateWalkView]:after {
+  clear: both;
+}
+body[data-pageviewname=CreateWalkView]:before,
+body[data-pageviewname=CreateWalkView]:after {
+  content: " ";
+  display: table;
+}
+body[data-pageviewname=CreateWalkView]:after {
+  clear: both;
+}
+body[data-pageviewname=CreateWalkView] > footer {
+  display: none;
 }
 #create-walk {
   /*  Resets */

@@ -5,14 +5,16 @@
 
 export default class DatePicker extends React.Component {
   componentDidMount() {
+    const {setDay, defaultDate} = this.props;
+
     // Setup sorting on the walk-stops list
     $(React.findDOMNode(this)).datepicker({
-      defaultDate: this.props.defaultDate,
-      onSelect: function(dateText) {
+      defaultDate,
+      onSelect: dateText => {
         // Silly, but needed for inconsistent date formats across libs
-        var dateMDY = dateText.split('/');
-        this.props.setDay(new Date(Date.UTC(dateMDY[2], dateMDY[0] - 1, dateMDY[1])));
-      }.bind(this)
+        let {month, day, year} = dateText.split('/');
+        setDay(new Date(Date.UTC(year, month - 1, day)));
+      }
     });
   }
 

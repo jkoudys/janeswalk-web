@@ -216,8 +216,9 @@
 	  switch (document.body.dataset.pageviewname) {
 	    case 'CityPageView':
 	      var city = _CityStore2.default.getCity();
-	      if (city && city.background && document.body.style.backgroundImage !== city.background) {
-	        document.body.style.backgroundImage = 'url(' + city.background + ')';
+	      var bgUri = 'url(' + city.background + ')';
+	      if (city && city.background && document.body.style.backgroundImage !== bgUri) {
+	        document.body.style.backgroundImage = bgUri;
 	      }
 	      break;
 	  }
@@ -5471,19 +5472,31 @@
 	  value: true
 	});
 
+	var _DatePicker = __webpack_require__(45);
+
+	var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+	var _TimePicker = __webpack_require__(46);
+
+	var _TimePicker2 = _interopRequireDefault(_TimePicker);
+
+	var _TimeSetTable = __webpack_require__(47);
+
+	var _TimeSetTable2 = _interopRequireDefault(_TimeSetTable);
+
+	var _TimeOpenTable = __webpack_require__(48);
+
+	var _TimeOpenTable2 = _interopRequireDefault(_TimeOpenTable);
+
 	var _I18nStore = __webpack_require__(21);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	// Components
-	var DatePicker = __webpack_require__(45);
-	var TimePicker = __webpack_require__(46);
-	var TimeSetTable = __webpack_require__(47);
-	var TimeOpenTable = __webpack_require__(48);
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Components
 
 	// Flux
 
@@ -5708,7 +5721,7 @@
 	              React.createElement(
 	                'div',
 	                { className: 'col-md-6' },
-	                React.createElement(DatePicker, { setDay: this.setDay, defaultDate: this.state.start })
+	                React.createElement(_DatePicker2.default, { setDay: this.setDay, defaultDate: this.state.start })
 	              ),
 	              React.createElement(
 	                'div',
@@ -5731,7 +5744,7 @@
 	                      this.state.start.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC' })
 	                    ),
 	                    React.createElement('hr', null),
-	                    React.createElement(TimePicker, { ref: 'timePicker', i18n: this.props.i18n, valueLinkDuration: this.linkState('duration'), valueLinkStart: this.linkTime() }),
+	                    React.createElement(_TimePicker2.default, { ref: 'timePicker', i18n: this.props.i18n, valueLinkDuration: this.linkState('duration'), valueLinkStart: this.linkTime() }),
 	                    React.createElement('hr', null),
 	                    React.createElement(
 	                      'button',
@@ -5743,7 +5756,7 @@
 	              )
 	            ),
 	            React.createElement('br', null),
-	            React.createElement(TimeSetTable, { i18n: this.props.i18n, valueLink: valueLink }),
+	            React.createElement(_TimeSetTable2.default, { i18n: this.props.i18n, valueLink: valueLink }),
 	            React.createElement('hr', null)
 	          ),
 	          React.createElement(
@@ -5859,7 +5872,7 @@
 	              )
 	            ),
 	            React.createElement('br', null),
-	            React.createElement(TimeOpenTable, null),
+	            React.createElement(_TimeOpenTable2.default, null),
 	            React.createElement('hr', null)
 	          )
 	        )
@@ -5910,14 +5923,25 @@
 	  _createClass(DatePicker, [{
 	    key: "componentDidMount",
 	    value: function componentDidMount() {
+	      var _props = this.props;
+	      var setDay = _props.setDay;
+	      var defaultDate = _props.defaultDate;
+
 	      // Setup sorting on the walk-stops list
+
 	      $(React.findDOMNode(this)).datepicker({
-	        defaultDate: this.props.defaultDate,
-	        onSelect: (function (dateText) {
+	        defaultDate: defaultDate,
+	        onSelect: function onSelect(dateText) {
 	          // Silly, but needed for inconsistent date formats across libs
-	          var dateMDY = dateText.split('/');
-	          this.props.setDay(new Date(Date.UTC(dateMDY[2], dateMDY[0] - 1, dateMDY[1])));
-	        }).bind(this)
+
+	          var _dateText$split = dateText.split('/');
+
+	          var month = _dateText$split.month;
+	          var day = _dateText$split.day;
+	          var year = _dateText$split.year;
+
+	          setDay(new Date(Date.UTC(year, month - 1, day)));
+	        }
 	      });
 	    }
 	  }, {
