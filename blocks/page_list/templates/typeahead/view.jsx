@@ -1,3 +1,5 @@
+import {t, t2} from 'janeswalk/stores/I18nStore';
+
 /**
  * Fold accent-characters into their accentless character
  * @param     String str
@@ -60,19 +62,12 @@ class PageListTypeahead extends React.Component {
    * Called when typing in the input
    * @param ReactEvent ev
    */
-  handleInput(ev) {
-    var _this = this;
-    var countries = [];
-    var q = ev.target.value;
+  handleInput(q) {
+    const countries = [];
 
     // Loop through all countries and build a list of cities which match
-    this.props.countries.forEach(function(country) {
-      var cities = [];
-      country.cities.forEach(function(city) {
-        if (!q || _this.strContains(city.name, q)) {
-          cities.push(city);
-        }
-      });
+    this.props.countries.forEach(country => {
+      const cities = country.cities.filter(city => !q || strContains(city.name, q));
       // Avoid including countries which have no matching cities
       if (cities.length) {
         countries.push(Object.assign({}, country, {cities: cities}));
@@ -87,42 +82,43 @@ class PageListTypeahead extends React.Component {
    * @param ReactEvent ev
    */
   handleSubmit(ev) {
-    var firstCountry = this.state.matched[0];
-    var firstCity;
+    let firstCountry = this.state.matched[0];
+    let firstCity;
 
     // If there's a matching city, that's the URL we go to
     if (firstCountry) {
       firstCity = firstCountry.cities[0];
       if (firstCity) {
-        ev.target.action = firstCity.url;
+        this.setState({q: firstCity.name}, () => ev.target.action = firstCity.url);
       }
     }
   }
 
   render() {
-    var _this = this;
-    var homeCity = <h3 />;
+    const {q, matched} = this.state;
+
+    let homeCity = <h3 />;
 
     if (this.props.user && this.props.user.city) {
-      homeCity = <h3>See walks in <a href={this.props.user.city.url}>{this.props.user.city.name}</a>, or:</h3>
+      homeCity = <h3>See walks in <a href={this.props.user.city.url}>{this.props.user.city.name}</a></h3>
     }
 
     return (
       <div className="ccm-page-list-typeahead">
-        {homeCity}
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={(ev) => this.handleSubmit(ev)}>
           <fieldset className="search">
-            <input type="text" name="selected_option" className="typeahead" placeholder="Start typing a city" autoComplete="off" value={this.state.q} onChange={this.handleInput} />
+            <input type="text" name="selected_option" className="typeahead" placeholder={t('Find citizen-led walks in your city')} autoComplete="off" value={this.state.q} onChange={ev => this.handleInput(ev.target.value)} />
             <button type="submit">Go</button>
             <ul>
-              {this.state.matched.map(country => <Country {...country} />)}
-              {this.state.matched.length === 0 ?
-                <li><a href="/city-organizer-onboarding">{'Add ' + _this.state.q + ' to Jane\'s Walk'}</a></li> :
+              {matched.map(country => <Country {...country} />)}
+              {matched.length === 0 ?
+                <li><a href="/city-organizer-onboarding">{'Add ' + q + ' to Jane\'s Walk'}</a></li> :
                 null
               }
             </ul>
           </fieldset>
         </form>
+        {homeCity}
       </div>
     );
   }
@@ -151,26 +147,26 @@ class PageListSelect extends React.Component {
   }
 
   handleChange(ev) {
-    this.setState({selected: ev.target.value}, function() {
-      React.findDOMNode(this.refs.form).submit();
-    });
+    this.setState({selected: ev.target.value}, () => React.findDOMNode(this.refs.form).submit())
   }
 
   render() {
+    const {user} = this.props;
+    const {selected, countries} = this.state;
     let homeCity = <h3 />;
 
-    if (this.props.user && this.props.user.city) {
-      homeCity = <h3>See walks in <a href={this.props.user.city.url}>{this.props.user.city.name}</a>, or:</h3>
+    if (user && user.city) {
+      homeCity = <h3>See walks in <a href={user.city.url}>{user.city.name}</a>, or:</h3>
     }
 
     return (
       <div className="ccm-page-list-typeahead">
         {homeCity}
-        <form ref="form" onSubmit={this.handleSubmit} action={this.state.selected}>
+        <form ref="form" onSubmit={this.handleSubmit} action={selected}>
           <fieldset className="search">
-            <select value={this.state.selected} onChange={this.handleChange}>
+            <select value={selected} onChange={this.handleChange}>
               <option value="" disabled selected>Choose your city</option>
-              {this.state.countries.map(this.renderCountry)}
+              {countries.map(this.renderCountry)}
             </select>
           </fieldset>
         </form>
@@ -179,7 +175,7 @@ class PageListSelect extends React.Component {
   }
 }
 
-// TODO: get browserify-shim working and `React = require('react');`
+// TODO: get browserify-shim working and `import React from 'react';`
 document.addEventListener('DOMContentLoaded', function() {
   // TODO: use ReactRouter for loading either, not c5 blocks directly
   if (isMobile) {

@@ -6,16 +6,19 @@
 import LocationMap from './LocationMap.jsx';
 import WalkFilter from './WalkFilter.jsx';
 
-let _walks;
-let _location;
+// Fluxxy
+import * as WalkActions from 'janeswalk/actions/WalkActions';
 
-JanesWalk.event.on('walks.receive', function(walks, props) {
-  _walks = walks;
+let _walks;
+let _filters = {};
+
+JanesWalk.event.on('walkfilters.load', function(location) {
   React.render(
-    <WalkFilter walks={walks} filters={props.filters} location={_location} />,
+    <WalkFilter filters={_filters} {...{location}} />,
     document.getElementById('janeswalk-walk-filters')
   );
 });
 
-JanesWalk.event.on('city.receive', city =>  _location = city);
-JanesWalk.event.on('country.receive', country => _location = country);
+// Listen for updates, add routing
+JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
+JanesWalk.event.on('filters.receive', filters => _filters = filters);

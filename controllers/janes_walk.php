@@ -6,7 +6,9 @@ use \Loader;
 use \User;
 use \UserInfo;
 use \Localization;
+use \JanesWalk\Models\PageTypes\Walk;
 
+Loader::model('page_types/Walk');
 class Controller extends \Controller
 {
     // @var array Builds client-side data eg for JS
@@ -18,6 +20,7 @@ class Controller extends \Controller
      * Adds array properties to the JSON we make available on the rendered page
      *
      * @param array $properties One or more, possibly multi-level properties
+     * @deprecated In favour of JanesWalk.event methods
      *
      * @return null
      */

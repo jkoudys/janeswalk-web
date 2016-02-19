@@ -254,30 +254,6 @@ class WalkPageTypeController extends Controller
         $meta->setAttribute('content', $c->getAttribute('shortdescription'));
         $this->addHeaderItem($doc->saveHTML());
 
-        // Breadcrumb trail to walk
-        $bc = $doc->appendChild($doc->createElement('ul'));
-        $bc->setAttribute('class', 'breadcrumb');
-        foreach ((array) $this->walk->crumbs as $crumb) {
-            if ($crumb->getCollectionTypeHandle() !== 'country' ) {
-                $li = $bc->appendChild($doc->createElement('li'));
-                $a = $li->appendChild($doc->createElement('a'));
-                $a->setAttribute('href', $nh->getLinkToCollection($crumb));
-                if ($crumb->getCollectionID() === '1') {
-                    $a->appendChild($doc->createElement('i'))->setAttribute('class','fa fa-home');
-                } else {
-                    $linkText = $crumb->getCollectionName();
-                    if ($crumb->getCollectionTypeHandle() === 'city') {
-                        $linkText .= ' walks';
-                    }
-                    $a->appendChild($doc->createTextNode(t($linkText)));
-                }
-            }
-        }
-        $li = $bc->appendChild($doc->createElement('li'));
-        $li->setAttribute('class', 'active');
-        $li->appendChild($doc->createTextNode($c->getCollectionName()));
-        $this->set('breadcrumb', $doc->saveHTML($bc));
-
         /* Helpers to use in the view */
         $this->set('im', $im);
         $this->set('th', Loader::helper('theme'));
@@ -289,15 +265,6 @@ class WalkPageTypeController extends Controller
         $this->bodyData['classes'][] = 'active-walk';
         $this->bodyData['pageViewName'] = 'WalkPageView';
         $this->set('bodyData', $this->bodyData);
-
-        // Setup the page data needed in the script block
-        $this->addToJanesWalk([
-            'page' => [
-                'description' => strip_tags($c->getAttribute('longdescription')),
-            ],
-            'city' => $this->walk->city,
-            'walk' => $this->walk
-        ]);
     }
 
     /**

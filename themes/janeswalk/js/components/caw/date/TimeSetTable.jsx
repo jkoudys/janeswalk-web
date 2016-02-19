@@ -1,6 +1,9 @@
 // Flux
 import {t, t2} from 'janeswalk/stores/I18nStore';
 
+const dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
+const dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
+
 /**
  * The table with all the times that the walks are scheduled
  */
@@ -19,9 +22,6 @@ export default class TimeSetTable extends React.Component {
 
   render() {
     const slots = this.props.valueLink.value.slots || [];
-
-    const dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
-    const dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
 
     return (
       <table className="table table-bordered table-hover" id="date-list-all">

@@ -1,26 +1,43 @@
 import Itinerary from './itinerary/Itinerary.jsx';
-import AreaStore from '../stores/AreaStore.js';
-import UserStore from '../stores/UserStore.js';
+import AreaStore from 'janeswalk/stores/AreaStore';
+import UserStore from 'janeswalk/stores/UserStore';
+import ItineraryStore from 'janeswalk/stores/ItineraryStore';
+import {makeSticky} from 'janeswalk/utils/dom';
 
 // TODO: Replace translations placeholders
-const t = s => s;
+import {t} from 'janeswalk/stores/I18nStore';
 const tc = (c, s) => s;
 
 /* Build menu options depending if currently logged in or not */
-const LoggedInOptions = ({user, profiling, toggleProfile}) => ([
-  <li>
-    <a onClick={toggleProfile}>{user.firstName || user.name} &nbsp;<i className="fa fa-caret-down" style={{transitionDuration: '0.2s', transform: 'rotate(' + (profiling ? -180 : 0) + 'deg)'}} /></a>
+const LoggedInOptions = ({user, profiling, searching, toggleProfile, toggleSearch, unseenUpdates}) => ([
+  <li key="in0">
+    <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
+      <i className="fa fa-search" />
+    </a>
   </li>,
-  <li>
-    <a href="/login/logout">{tc('Register on a website', 'Join')}</a>
+  <li key="in1" className={unseenUpdates ? 'notify' : ''}>
+    <a onClick={toggleProfile} className={profiling ? 'selected' : ''}>
+      <i className="fa fa-calendar" />
+    </a>
+  </li>,
+  <li key="in2">
+    <a href="/profile">{user.firstName || user.name}</a>
+  </li>,
+  <li key="in3">
+    <a href="/login/logout">{t('Logout')}</a>
   </li>
 ]);
 
-const LoggedOutOptions = () => ([
-  <li>
+const LoggedOutOptions = ({searching, toggleSearch}) => ([
+  <li key="out0">
+    <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
+      <i className="fa fa-search" />
+    </a>
+  </li>,
+  <li key="out1">
     <a href="/register">{tc('Register on a website', 'Join')}</a>
   </li>,
-  <li>
+  <li key="out2">
     <a onClick={() => $('#login').modal()}>{t('Log in')}</a>
   </li>
 ]);
@@ -29,7 +46,9 @@ function getNavbar() {
   return {
     options: AreaStore.getArea('Left Header'),
     dropdown: AreaStore.getArea('Dropdown'),
-    user: UserStore.getUser()
+    user: UserStore.getCurrent(),
+    itinerary: ItineraryStore.getLists(),
+    totalWalks: ItineraryStore.totalWalks()
   };
 }
 
@@ -47,7 +66,8 @@ function appendSiblings(html, refNode) {
 export default class Navbar extends React.Component {
   constructor(...args) {
     super(...args);
-    this.state = getNavbar()
+    this.state = getNavbar();
+    this.state.lastSize = ItineraryStore.totalWalks();
     this._onChange = this._onChange.bind(this);
   }
 
@@ -62,19 +82,25 @@ export default class Navbar extends React.Component {
   }
 
   _onChange() {
-    this.setState(getNavbar());
+    this.setState(getNavbar);
   }
 
   componentDidMount() {
     appendSiblings(this.state.options, this.refs.topnav);
+    makeSticky(React.findDOMNode(this), this.refs.header);
   }
 
   /**
    * Need to check if the HTML has updated, so we don't rebuild the DOM
    */
-  componentWillUpdate(nextProps, {options, dropdown}) {
-    if (options !== this.state.options) {
+  componentWillUpdate(nextProps, {options, dropdown, searching}) {
+    if (options && options !== this.state.options) {
       appendSiblings(options, this.refs.topnav);
+    }
+
+    // See if we're opening the search
+    if (!this.state.searching && searching) {
+      this.openSearch();
     }
   }
 
@@ -98,44 +124,49 @@ export default class Navbar extends React.Component {
       $('html, body').animate({
         scrollTop: 0
       }, 300);
-
-      // If there's a text-field in the drop, move caret to it
-      const textInput = document.querySelector('body > header input[type=text]');
-      if (textInput) {
-        textInput.focus();
-      }
-
-      this.setState({searching: true});
   }
 
   render() {
     const {editMode} = this.props;
-    const {user, searching, profiling} = this.state;
+    const {user, searching, profiling, itinerary, totalWalks} = this.state;
+    let userOptions;
+    const defaultOptions = {
+      searching: searching,
+      toggleSearch: () => this.setState({searching: !this.state.searching})
+    };
+
+    // Build the logged in vs logged out
+    if (user) {
+      userOptions = LoggedInOptions(Object.assign({
+        user: user,
+        profiling: profiling,
+        unseenUpdates: this.state.lastSize !== totalWalks,
+        toggleProfile: () => this.setState({profiling: !this.state.profiling, lastSize: totalWalks}),
+      }, defaultOptions));
+    } else {
+      userOptions = LoggedOutOptions(defaultOptions);
+    }
 
     return (
-      <header className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
-        <nav role="navigation">
-          <a href="/" className="logo">
-            <span />
-          </a>
-          <ul className="nav" ref="topnav">
-            <li>
-              <a className="search-open" onClick={() => this.openSearch()}>
-                <i className="fa fa-search" />
-              </a>
-              <a className="search-close" onClick={() => this.setState({searching: false})}>
-                <i className="fa fa-search" />
-              </a>
-            </li>
-            {user ? LoggedInOptions({user: user, profiling: profiling, toggleProfile: () => this.setState({profiling: !this.state.profiling})}) : LoggedOutOptions()}
-            <li>
-              <a href="/donate" id="donate">Donate</a>
-            </li>
-          </ul>
-        </nav>
-        <div className="navbar-outer" dangerouslySetInnerHTML={{__html: this.state.dropdown}} />
-        {profiling ? <Itinerary /> : null}
-      </header>
+      <div>
+        <header ref="header" className={[editMode ? 'edit' : '', searching ? 'dropped' : ''].join(' ')}>
+          <nav role="navigation">
+            <a href="/" className="logo">
+              <span />
+            </a>
+            <ul className="nav" ref="topnav">
+              {userOptions}
+              <li>
+                <a href="/donate" id="donate">Donate</a>
+              </li>
+            </ul>
+          </nav>
+          <div className="navbar-outer" dangerouslySetInnerHTML={{__html: this.state.dropdown}} />
+        </header>
+        <div id="modals">
+          {profiling ? <Itinerary onClose={() => this.setState({profiling: !this.state.profiling})} /> : null}
+        </div>
+      </div>
     );
   }
 }

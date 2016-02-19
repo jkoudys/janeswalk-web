@@ -9,14 +9,19 @@ const ActionTypes = [
 
   // Walks
   'WALK_RECEIVE',
+  'WALK_RECEIVE_ALL',
   'WALK_SAVE',
   'WALK_PUBLISH',
+
+  // City
+  'CITY_RECEIVE',
 
   // Areas
   'AREA_RECEIVE',
 
   // Users
   'USER_RECEIVE',
+  'USER_RECEIVE_ALL',
 
   // Itineraries
   'ITINERARY_RECEIVE',
@@ -24,11 +29,10 @@ const ActionTypes = [
   'ITINERARY_ADD_WALK',
   'ITINERARY_UPDATE_TITLE',
   'ITINERARY_UPDATE_DESCRIPTION',
-  'ITINERARY_VIEW_LIST',
   'ITINERARY_CREATE_LIST',
-  'ITINERARY_WALK_SELECTED',
-  'ITINERARY_ADD_WALK_DIALOG',
-
+  'ITINERARY_RECEIVE_ALL',
+  'ITINERARY_SYNC_START',
+  'ITINERARY_SYNC_END',
 ].reduce((p, k) => {p[k] = k; return p}, {});
 
 export {ActionTypes};

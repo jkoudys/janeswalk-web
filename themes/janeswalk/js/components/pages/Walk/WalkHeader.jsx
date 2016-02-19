@@ -1,8 +1,6 @@
-import {dateFormatted} from '../../../utils/ItineraryUtils';
-import Hello from 'janeswalk';
+import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
 //TODO: Duplicate of Itinerary <Walk/>
-//TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
 
 /**
  * Build a style object for the header
@@ -19,41 +17,56 @@ function headerBG(city, walk) {
   }
 
   return {
-    background: bg,
+    backgroundImage: bg,
     backgroundSize: 'cover',
     backgroundPosition: '50%'
   };
 }
 
-const WalkHeader = ({city, walk, id, remove, add, existsInItinerary, existsInFavourites, favoriteListId, itineraryListId}) => {
-  const favButton = () => {
-    if (existsInFavourites) return <button className="removeFavourite" onClick={()=>remove(id,favoriteListId)}> </button>;
-    else return <button className="addFavourite" onClick={()=>add(id,favoriteListId)}> </button>;
-  };
+// Read a map, return the meeting place or null
+function getMeetingPlace(map) {
+  if (map && map.markers && map.markers.length) {
+    return map.markers[0].title;
+  }
+}
 
-  const addButton = () => {
-    if (existsInItinerary) return <button className="removeItinerary" onClick={()=>remove(id,itineraryListId)}></button>;
-    else return <button className="addItinerary" onClick={()=>add(id,itineraryListId)}></button>;
-  };
+import WalkStore from 'janeswalk/stores/WalkStore';
 
-  const addToFavourites = favButton();
-  const addToItinerary = addButton();
+const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
   const {title, map, time, team, thumbnails} = walk;
   const {url, name} = city;
+
+  //TODO: This is problematic since there are many different type of roles defined, not a finite list
   const walkLeader = team.find(member => member.role === 'walk-leader');
+
+  let meetingPlace = getMeetingPlace(map);
+
+  let favButton;
+
+  if (favourites && favourites.walks.has(walk)) {
+    favButton = <button className="removeFavourite" onClick={() => onRemove(favourites)} />;
+  } else {
+    favButton = <button className="addFavourite" onClick={() => onAdd(favourites)} />;
+  }
 
   return(
     <section className="walkHeader">
-    <section className="coverImage" style={headerBG(city, walk)}>
-      <ul className="breadcrumb">
-        <li><a href="/"><i className="fa fa-home"></i></a></li>
-        <li><a href={url}>{`${name} walks`}</a></li>
-        <li className="active">{title}</li>
-      </ul>
-    </section>
-      <h1>{title}{addToFavourites}</h1>
-      <h4>Led By {walkLeader['name-first']} {walkLeader['name-last']} - {dateFormatted(time.slots[0][0])}{addToItinerary}</h4>
-      <h4>Meeting at {map.markers[0].title}</h4>
+      <section className="coverImage" style={headerBG(city, walk)}>
+        <ul className="breadcrumb">
+          <li><a href="/"><i className="fa fa-home" /></a></li>
+          <li><a href={url}>{`${name} walks`}</a></li>
+          <li className="active">{title}</li>
+        </ul>
+      </section>
+      <h1>{title} {favButton}</h1>
+      {meetingPlace ? <h4>{meetingPlace}</h4> : null}
+      <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
+      <AddToItinerary
+        itinerary={itinerary}
+        time={time}
+        walk={walk}
+        onAdd={onAdd}
+        onRemove={onRemove}/>
     </section>
   );
 };

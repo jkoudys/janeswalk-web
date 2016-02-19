@@ -1,5 +1,5 @@
 // The main menu bar at the top
-#navbar > header:extend(.navbar all, .navbar-fixed-top all, .navbar-default all) {
+#navbar > div > header:extend(.navbar all, .navbar-fixed-top all, .navbar-default all) {
     background:#fff;
     font-family: @font-slab;
 
@@ -24,6 +24,9 @@
         overflow-y: hidden;
         margin: 0 auto;
         padding: 0 @grid-gutter-width / 2;
+        position: absolute;
+        top: 0;
+        width: 100%;
         ul.nav {
             > li {
                 > a {
@@ -31,6 +34,16 @@
                     padding-bottom: 0;
                     line-height: @navbar-height;
                     color: @color-darkgrey;
+                }
+                &.notify {
+                    animation: notifying 0.5s infinite alternate;
+                    > a {
+                        color: #fff;
+                        &:hover {
+                            opacity: 0.8;
+                            background: @color-orange;
+                        }
+                    }
                 }
             }
         }
@@ -165,4 +178,16 @@ fieldset.search:extend(.input-group all) {
 div#ccm-toolbar {
     display: none;
     z-index: @zindex-modal;
+}
+
+@keyframes notifying {
+    0% {
+        background-color: fadeout(@color-orange, 0%);
+    }
+    100% {
+        background-color: fadeout(@color-orange, 30%);
+    }
+    100% {
+        background-color: fadeout(@color-orange, 0%);
+    }
 }

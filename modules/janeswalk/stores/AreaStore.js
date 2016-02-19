@@ -6,7 +6,7 @@ const CHANGE_EVENT = 'change';
 
 const _areas = {};
 
-const AreaStore = Object.assign(EventEmitter.prototype, {
+const AreaStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },

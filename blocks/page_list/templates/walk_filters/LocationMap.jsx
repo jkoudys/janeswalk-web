@@ -65,7 +65,7 @@ function addNewMarkersToMap(markers, walks, map) {
         position: latlng,
         title: walk.title,
         icon: icon,
-        map: map
+        map: map,
       });
 
       markers[walk.id] = marker;
@@ -127,8 +127,9 @@ export default class CityMap extends React.Component {
     // Setup map
     const map = new google.maps.Map(React.findDOMNode(this), {
       center: locationLatLng,
-      zoom: zoomlevel || 8,
-      backgroundColor: '#d7f0fa'
+      zoom: zoomlevel || 10,
+      backgroundColor: '#d7f0fa',
+      scrollwheel: false,
     });
 
     // Play nice with bootstrap tabs
@@ -149,7 +150,7 @@ export default class CityMap extends React.Component {
 
   render() {
     return (
-      <div className="cityMap" style={{width: '100%', height: '600px'}} />
+      <div className="cityMap" style={{width: '100%', height: '70vh'}} /> 
     );
   }
 }

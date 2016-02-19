@@ -62,6 +62,8 @@ EOT;
         {$BlogPostButton}
     </h2>
     {$area('City Blog')}
+    <h4><a href="{$BlogLink}">{$t('See more stories <i class="fa fa-angle-double-right"></i>')}</a>
+    </h4>
 </section>
 <script>JanesWalk.event.emit('blog.receive', {"url": "{$BlogLink}"});</script>
 EOT;
@@ -102,14 +104,15 @@ EOT;
 
     $CityOrganizerDetails = <<< EOT
 <section class="city-organizer">
-    {$COAvatar}
     <div class="city-organizer-details">
+        {$COAvatar}
         <h3>
             <a href="{$city->profile_path}">{$city->cityOrganizer->getAttribute('first_name')} {$city->cityOrganizer->getAttribute('last_name')}</a>
             {$COEdit}
         </h3>
         <h4>{$t('City Organizer')}</h4>
         <div class="btn-toolbar">
+            <p>contact</p>
             <a href="mailto:{$city->cityOrganizer->getUserEmail()}" class="btn"><i class="fa fa-envelope-o"></i></a>
             {$COContacts}
         </div>
@@ -118,43 +121,48 @@ EOT;
 EOT;
 }
 
+// Template for JavaScript events
+$scripts = '<script>JanesWalk.event.emit("city.receive", ' . json_encode($city) . ')</script>';
+
 $this->inc('elements/header.php');
 $this->inc('elements/navbar.php');
 
 // Template
 echo <<< EOT
+<h1 class="cityName">
+     {$cityName}
+     {$Edit}
+      <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk-city-header">{$t('Lead a Walk')}</a>
+ </h1>
 <section id="intro-city">
-    <div class="city-summary">
-        <h1>
-            {$cityName}
-            {$Edit}
-        </h1>
-        {$intro}
-        {$area('City Header')}
-        {$BackgroundPhoto}
-        {$CityOrganizerDetails}
-    </div>
+ <div class="city-summary">
+     {$intro}
+     {$area('City Header')}
+     {$BackgroundPhoto}
+ </div>
+ <section id="city-sidebar">
+  <div>
+     {$CityOrganizerDetails}
+  </div>
+   <div class="menu-flags">
+     {$area('City Nav')}
+   </div>
+ </section>
 </section>
 <section id="city-details">
-    <div class="description">
-        <div class="item">
-            <h2>{$t('Jane’s Walks')}</h2>
-            <h4>{$t('Get out and walk! Explore, learn and share through a Jane’s Walk in %s', $cityName)}</h4>
-            {$longDescription}
-            {$area('City Description')}
-        </div>
-        <div class="menu-flags">
-            {$area('City Nav')}
-        </div>
-        {$area('Sponsors')}
-    </div>
-    <div class="walk-list">
-        <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Create a Walk')}</a>
-        <h3>{$t('Walks in %s', $cityName)}</h3>
-        {$area('All Walks List')}
-    </div>
+ <div class="walk-list">
+      <div class="item">
+          <h3>{$t('Walks in %s', $cityName)}</h3> 
+          <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Lead a Walk!')}</a>
+      </div>
+     {$area('All Walks List')}
+ </div>
+ <div class="description">
+     {$area('Sponsors')}
+ </div>
 </section>
 {$Blog}
+{$scripts}
 EOT;
 
 $this->inc('elements/footer.php');

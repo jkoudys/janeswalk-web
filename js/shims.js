@@ -87,3 +87,6 @@ if (!Array.prototype.find) {
     return undefined;
   };
 }
+
+// ReactDOM
+window.ReactDOM = React;

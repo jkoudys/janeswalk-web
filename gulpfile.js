@@ -37,12 +37,55 @@ var paths = {
   react_views: './themes/janeswalk/js/components/'
 };
 
+gulp.task('prod', function() {
+  // TODO: transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
+  webpack({
+    entry: [paths.jsx_app],
+    output: {
+      path: paths.js,
+      filename: 'janeswalk.min.js'
+    },
+    module: {
+      loaders: [{
+        test: /\.jsx?$/,
+        exclude: /(bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      }, {
+        test: /\.json$/,
+        loader: 'json'
+      }],
+    },
+    plugins: [
+      new webpack.DefinePlugin({
+        "process.env": {
+          "NODE_ENV": JSON.stringify("production")
+        }
+      }),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin()
+    ],
+    watch: false
+  }, function(err, stats) {
+    if(err) throw new gutil.PluginError("webpack:build", err);
+    gutil.log("[webpack:build]", stats.toString({
+      colors: true
+    }));
+  });
+});
+
 gulp.task('css', function() {
   return gulp.src(paths.less)
     .pipe(less({compress: false}))
     .on('error', console.error.bind(console))
     .pipe(autoprefixer('last 3 versions'))
     .pipe(gulp.dest(paths.css));
+});
+
+gulp.task('watch.css', function() {
+  gulp.watch(paths.css + '**/*.less', ['css']);
 });
 
 gulp.task('js', function() {
@@ -68,6 +111,9 @@ gulp.task('js.theme', function() {
         query: {
           presets: ['es2015', 'react'],
         },
+      }, {
+        test: /\.json$/,
+        loader: 'json'
       }],
     },
     watch: true

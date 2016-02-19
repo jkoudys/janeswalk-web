@@ -1,0 +1,11 @@
+{
+  "name": "janeswalk",
+  "version": "0.0.0",
+  "description": "Jane's Walk client libs, including React and helper functions",
+  "main": "janeswalk.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joshua Koudys <josh@qaribou.com> (http://qaribou.com/)",
+  "license": "MIT"
+}

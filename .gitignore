@@ -16,10 +16,10 @@ composer.lock
 .DS_Store
 *~
 .idea/*
-composer.phar
 janeswalk.sql.xz
 npm-debug.log
-package.json
 .eslintrc
 notes.txt
 prev-notes.txt
+janeswalk.sql.xz
+composer.phar

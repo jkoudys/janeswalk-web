@@ -20,5 +20,7 @@ if (count($cities) > 1) {
 ?>
 <div id="janeswalk-walk-filters"></div>
 <script type="text/javascript">
-    JanesWalk.event.emit('walks.receive', <?= json_encode($cards) ?>, {filters: <?= json_encode($filters) ?>});
+    JanesWalk.event.emit('filters.receive', <?= json_encode($filters) ?>);
+    JanesWalk.event.emit('walks.receive', <?= json_encode($cards) ?>);
+    JanesWalk.event.emit('walkfilters.load', <?= json_encode($city) ?>);
 </script>

@@ -5,56 +5,226 @@ body.city-page {
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-
+    background-image: @color-blue;
     h1, h2, h3, h4, h5 {
         margin: 10px 0;
     }
-
+    .cityName {
+        margin: 25vh @grid-gutter-width 32vh;
+        color: #fff;
+        font-weight: 600;
+        font-size: 60px;
+        text-shadow: 0px 0px 20px #000;
+        a {
+            color: #fff;
+        }
+        .create-walk-city-header {
+            display: block;
+            border: 2px solid #fff;
+            border-radius: 4px;
+            margin-top: 12px;
+            font-weight: 600;
+            padding: 3px 10px;
+            font-size: 22px;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+            width: 160px;
+            margin-left: 2px;
+            text-align: center;
+            padding: 8px 0;
+            &:hover {
+                background: rgba(255,255,255,0.3);
+                text-decoration: none;
+                position: relative;
+                top: -2px;
+            }
+        }
+    }
     // Top section with window introducing city and its organizer
     > #intro-city {
-        background: transparent;
-        color: #fff;
+        color: #fff; 
         font-family: @font-slab;
         font-size: 1.25em;
         font-weight: 100;
         line-height: 1.5em;
         min-height: 247px;
+        height: auto;
         width: 100%;
         position: relative;
-        margin: @grid-gutter-width auto @grid-gutter-width * 3 auto;
-        max-width: @screen-lg-min;
+        margin: 0 auto;
+        background: linear-gradient(fade(@color-orange, 95%), fade(@color-orange, 90%), fade(@color-orange, 85%), fade(@color-orange, 50%));
+        border-bottom: 1px solid #ddd;
+        // max-width: @screen-lg-min;
         .city-summary {
-            padding: @grid-gutter-width;
-            background: @color-orange;
-            background: linear-gradient(fade(@color-orange, 70%), fade(@color-orange, 80%), fade(@color-orange, 90%));
+            padding: @grid-gutter-width*1.2 @grid-gutter-width @grid-gutter-width*2.2 @grid-gutter-width;
+            h1 {
+                font-size: 36px;
+                font-weight: 600;
+                //letter-spacing: 2px;
+                //text-transform: uppercase;
+
+            }
+            p {
+                font-size: 24px;
+                line-height: 150%;
+                font-weight: 400;
+            }
             @media (min-width: @screen-md-min) {
-                width: 67%;
-            }
-        }
-
-        .city-organizer {
-            &, a, a i, a:hover {
-                text-decoration: none;
-                color:#333;
-            }
-
-            h3, h4, h3 > a { color:#fff; }
-
-            .u-avatar, .city-organizer-details {
+                width: 70%;
                 display: inline-block;
                 vertical-align: top;
-                margin-left: 10px;
             }
+        }
+        #city-sidebar {
+            display: inline-block;
+            width: 100%;
+            vertical-align: bottom;
+            background-color: #fff;
+            border-left: 1px solid #ddd;
+            @media (min-width: @screen-md-min) {
+                width: 30%;
+                display: inline-block;
+                vertical-align: top;
+                margin-left: -5px;
+                //border-radius: 6px; 
+            }
+            .city-organizer {
+                width: 100%;
+                display: inline-block;
+                float: left;
+                @media (min-width: @screen-md-min) {
+                    width: 100%;
+                    vertical-align: bottom;
+                }
+                &, a, a i, a:hover {
+                    text-decoration: none;
+                    color:#333;
+                }
+                h3, h4, h3 > a { color:#000; }
 
-            .u-avatar {
-                @media (max-width: @screen-sm-min) {
-                    width: 76px;
-                    height: 76px;
-                    margin: 10px 0 0;
+                img.organizer {
+                    border-radius: 9999px;
+                    display: inline-block;
+                    margin: 30px auto 0;
+                }
+
+                .city-organizer-details {
+                    display: inline-block;
+                    vertical-align: top;
+                    text-align: center;
+                    padding-bottom: 22px; 
+                    width: 100%;
+                    background: linear-gradient(#ededed, #fff);
+                    @media (max-width: @screen-sm-min) {
+                        padding-top: 22px;
+                        padding-bottom: 30px;
+                    }
+                    h3 {
+                        font-size: 24px;
+                        margin-bottom: 0;
+                        font-weight: 400;
+                    }
+                    h4 {
+                        margin-top: 5px;
+                    }
+                    .btn-toolbar {
+                        //padding-top: 3px;              
+                        p {
+                            text-align: center;
+                            border: 1px solid @color-orange;
+                            border-radius: 4px;
+                            color: @color-orange;
+                            padding: 2px 6px;
+                            margin-top: 3px;
+                            font-weight: 600;
+                            font-size: 16px;
+                            width: 86px;
+                            margin: 0 auto -37px;
+                            position: relative;
+                            top: 0;
+                            opacity: 1;
+                            transition: opacity 0.3s, top 0.3s;
+                            transition-delay: 0.15s;
+                        }
+                        @media (max-width: @screen-md-min) {  
+                            p {
+                                display: none;
+                            }
+                        }
+                        a {
+                            @media (min-width: @screen-md-min) { 
+                                position: relative;
+                                top: 8px;
+                                opacity: 0;
+                                transition: opacity 0.3s, top 0.3s;
+                            }
+                            
+                            i {
+                                color: #fff;
+                            }
+                            &:hover i {
+                                color: #000;
+                            }
+                        }
+                        &:hover {
+                            padding-top: 0;
+                            p {
+                                top: -10px;
+                                opacity: 0;
+                                transition-delay: 0s;
+                            }
+                            a {
+                                display: inline-block;
+                                opacity: 1;
+                                top: 0;
+                                transition-delay: 0.15s;
+                            }
+                        }
+                    }
+                    .btn {
+                        background: @color-orange;
+                    }
+                }
+
+                .u-avatar {
+                    margin: 30px auto 0;
+                    @media (max-width: @screen-sm-min) {
+                        width: 90px;
+                        height: 90px;
+                        margin: 0px auto;
+                    }
+                }
+
+                .btn { background-color:#fff; }
+            }
+            .menu-flags {
+                display: inline-block;
+                vertical-align: bottom;
+                width: 100%;
+                p {
+                    padding: 0px;
+                    border-top: 1px solid #ddd;
+                    margin: 0;
+                    color: #000;
+                    a {
+                        color: #000;
+                        width: 100%;
+                        padding: 15px 15px 15px @grid-gutter-width;
+                        text-decoration: none;
+                        display: block;
+                        &:hover {
+                            background: #ddd;
+                        }
+                        &:last-child {
+                            //border-radius: 0 0 6px 6px;
+                        }
+                    }
+                }
+                @media (min-width: @screen-md-min) {
+                    width: 100%;
+                    vertical-align: bottom;
+                    border-left: 0px
                 }
             }
-
-            .btn { background-color:#fff; }
         }
         a {
             color:#fff;
@@ -66,13 +236,13 @@ body.city-page {
     // The meat of the page, with the walk lists and links
     > #city-details {
         .clearfix();
-        top: -(@grid-gutter-width * 2);
+        //top: -(@grid-gutter-width * 2);
         background: #fff;
-        padding: (@grid-gutter-width / 2) 0 (@grid-gutter-width * 2) 0;
+        padding: 30px 0 (@grid-gutter-width * 2) 0;
         margin: 0 auto;
         border-bottom: 2px solid fade(@color-darkgrey, 20%);
         position: relative;
-        max-width: @screen-lg-min;
+        // max-width: @screen-lg-min;
 
         hr {
             border-top: none;
@@ -81,9 +251,8 @@ body.city-page {
         }
 
         h3 {
-            line-height: 1em;
-            margin-bottom: 1em;
-            display:inline-block;
+            font-size: 20px;
+            display: inline-block;
         }
 
         .see-all {
@@ -96,19 +265,20 @@ body.city-page {
             }
         }
 
-        .walk {
-          &:extend(.walk-card all);
-        }
+
 
         .create-walk:extend(.btn all, .btn-primary all, .btn-large all) {
-            position: absolute;
-            top: 10px;
-            padding-right: @grid-gutter-width;
-            right: -(@grid-gutter-width / 2);
+            padding: 5px 10px;
+            right: (@grid-gutter-width / 2);
             border: none;
             box-shadow: none;
-            font-size: 18px;
-
+            font-size: 14px;
+            display: inline-block;
+            border-radius: 4px;
+            margin: -8px 0px 0px 12px;
+            opacity: 0.8;
+            transition: 0s;
+            
             @media (max-width: @screen-md-min) {
                 right: -20px;
                 display: none;
@@ -127,71 +297,87 @@ body.city-page {
                 border-width: 15px 15px 15px 0;
                 border-color: #d54e0e transparent transparent transparent;
                 box-shadow: none;
-                @media (max-width: @screen-md-min) {
+                @media (max-width: @screen-md-min) { 
                     display: none;
                 }
+            }
+
+            &:hover {
+                opacity: 1;
+                text-decoration: none;
+                padding: 5px 10px;
+                border-bottom: 0px;
+                border-radius: 4px;
+                box-shadow: none;
             }
         }
 
         .description {
-            .make-md-column(4);
-
-            .menu-flags {
-                a {
-                    display: block;
-                    position: relative;
-                    margin: (@grid-gutter-width / 2) 0 0 -(@grid-gutter-width);
-                    padding: 20px 0;
-                    height: @grid-gutter-width * 2;
-                    background-color: @color-orange;
-                    color: #fff;
-                    text-align: center;
-                    font-family: @font-slab;
-                    font-size: 16px;
-                    font-weight: 100;
-                    transition-duration: 0.2s;
-                    &:hover { background-color: #df520e; }
-                    &:after {
-                        content: " ";
-                        position: absolute;
-                        left: 0;
-                        bottom: -15px;
-                        width: 0px;
-                        height: 0px;
-                        border-style: solid;
-                        border-width: 0 15px 15px 0;
-                        border-color: transparent #d54e0e transparent transparent;
-                    }
-                }
+            .make-md-column(12);
+            // Sponsors section
+            h3 {
+              display: block;
+              clear: both;
             }
-            @media (max-width: @screen-md-min) {
-                display: none;
+            p {
+              float: left;
+              line-height: 80px;
+              img {
+                margin: 20px;
+              }
             }
         }
 
         .walk-list:extend(.fade all, .fade.in all) {
             .clearfix();
-            .make-md-column(8);
+            // .make-md-column(8);
             opacity: 1;
-
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            h3 {
+                font-size: 20px;
+                font-weight: 400;
+            }
+            .item {
+                margin-left: @grid-gutter-width;
+            }
+            .walk-filters {
+                margin-left: @grid-gutter-width;
+                margin-bottom: 2.2em;
+                a {
+                    display: inline-block;
+                    &:first-child {
+                        i {
+                            font-size: 12px;
+                            margin-right: 3px;
+                            &.fa-chevron-down {
+                                margin-left: -3px;
+                            }
+                        }
+                    }
+                }
+            }
             .filters {
                 .clearfix();
                 clear: both;
-                padding: 5px 0;
-                border: 1px solid @color-lightgrey;
-                border-radius: 0 0 6px 6px;
+                padding: 0 0 0 0;
+                /* border: 1px solid @color-lightgrey; */
+                border-radius: 0 0 0 0;
+                // border-left: 2px solid @color-orange;
                 list-style: none;
-
+                margin: 14px auto 0px 12px;
                 li {
-                    .make-md-column(6);
-                    margin: 10px 0;
-
+                    .make-md-column(3);
+                    margin: 0px 10px 15px 0px;
+                    padding: 0;
                     label {
                         display: block;
                         font-size: 16px;
-                        line-height: 24px;
+                        line-height: 13px;
+                        margin-bottom: 10px;
                         color: #B36038;
                         color: #333;
+                        font-weight: 400;
                     }
                     .daterange {
                       @width: 45%;
@@ -200,10 +386,58 @@ body.city-page {
                         width: @width;
                         display: inline-block;
                         &:last-child {
-                          margin-left: 100 - 2 * @width;
+                          margin-left: 10px;
                         }
                       }
                     }
+                }
+            }
+
+            .walks-area {
+                /*border-top: 1px solid #ddd;*/
+                .walkCards {
+                    width: 26%;
+                    float: left;
+                    max-height: 70vh;
+                    overflow-y: scroll;
+                    margin-left: @grid-gutter-width;
+                    .walk-cards {
+                        margin: 20px;
+                    }
+                    @media (min-width: @screen-md-min) {
+                        width: 47%;
+                        vertical-align: bottom;
+                        border-left: 0px;
+                    }
+                    @media (max-width: @screen-sm-min) {
+                        max-height: none;
+                        width: initial;
+                    }
+                }
+            }
+
+            .walks-area {
+                .empty {
+                    width: 30%;
+                    float: left;
+                    padding-left: @grid-gutter-width;
+                }
+            }
+
+            #jw-map {
+                width: 70%;
+                float: right;
+                max-height: 80vh;
+                .cityMap {
+                    border-radius: 6px 0 0 0;
+                    border: 1px solid #ddd;
+                    border-bottom: 0px;
+                }
+                @media (min-width: @screen-md-min) {
+                    width: 50%;
+                }
+                @media (max-width: @screen-sm-min) {
+                    display: none;
                 }
             }
 
@@ -265,7 +499,7 @@ body.city-page {
                 display: none;
             }
             @media (max-width: @screen-md-min) {
-                padding: 20px;
+                padding: 0px;
             }
 
             @media (max-width: @screen-sm-min) {
@@ -297,21 +531,26 @@ body.city-page {
     // An optional blog at the bottom
     > #blog {
         margin: -5px auto 0 auto;
-        padding: 0 @grid-gutter-width / 2;
-        max-width: @screen-lg-min;
+        padding: 0 @grid-gutter-width @grid-gutter-width*2;
+        // max-width: @screen-lg-min;
+        width: 100%;
         position: relative;
         min-height: 200px;
+        background: #fff;
         .title {
             display: inline-block;
             margin: -0.7em 0 1em 0;
-            background: @color-orange;
-            box-shadow: 0 2px 0 darken(@color-orange,10%);
-            color: #fff;
-            transition-duration: 0.2s;
+            //background: @color-orange;
+            //box-shadow: 0 2px 0 darken(@color-orange,10%);
+            color: #000;
+            font-size: 20px;
+            //padding: 8px 5px;
+            font-weight: 400;
+            //transition-duration: 0.2s;
             a {
                 display: inline-block;
-                padding: 5px 15px;
-                color: #fff;
+                //padding: 5px 15px;
+                color: #000;
                 &:hover {
                     text-decoration: none;
                 }
@@ -320,7 +559,10 @@ body.city-page {
                 }
             }
             &:hover {
-                background: darken(@color-orange,10%);
+                //background: darken(@color-orange,10%);
+                opacity: 0.5;
+                position: relative;
+                top: -1px;
             }
         }
         .ccm-blog-index {

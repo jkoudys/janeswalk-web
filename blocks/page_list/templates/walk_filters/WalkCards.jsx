@@ -1,7 +1,7 @@
 /**
  * The cards showing your walk
  */
-import {getThemeName, getThemeIcon} from './Themes.js';
+import {getThemeName, getThemeIcon} from 'janeswalk/utils/lookups/Theme.js';
 
 const t = s => s;
 
@@ -28,7 +28,7 @@ export default class WalkCards extends React.Component {
         </div>
       );
     } else {
-      return <div>
+      return <div className="walkCards">
         {this.props.walks.map(walk => <Card walk={walk} />)}
       </div>;
     }
@@ -87,7 +87,7 @@ class Card extends React.Component {
     }
 
     if (leaders.length) {
-      LedBy = <h6>{'Walk led by ' + leaders.map(v => v['name-first'] + ' ' + v['name-last']).join(', ')}</h6>;
+      LedBy = <span>{'Walk led by ' + leaders.map(v => v['name-first'] + ' ' + v['name-last']).join(', ')}</span>;
     }
 
     if (this.state.past) {
@@ -95,21 +95,21 @@ class Card extends React.Component {
     }
 
     return (
-      <div className="walk">
+      <div className="walk-card">
       <a href={walk.url}>
         <div className="thumbnail">
           <div className={'walkimage ' + placeholder} style={{backgroundImage: 'url(' + Thumb + ')'}}>
             {Status}
           </div>
-          <div className="caption">
+          <div className="caption">   
             <h4>{(walk.title || '').slice(0, 45)}</h4>
-            <ul className="when">
-              {this.state.startTimes.map(startTime => <li><i className="fa fa-calendar" /> {startTime}</li>)}
-              <li>Meet at {Meeting}</li>
-            </ul>
-            {LedBy}
-            <p>{(walk.shortDescription || '').slice(0, 140)}</p>
+            <p>{(walk.shortDescription || '').slice(0, 140)}</p>      
           </div>
+          <ul className="when">
+              {this.state.startTimes.map(startTime => <li>{startTime}</li>)}
+              <li>Meet at {Meeting}</li>
+              <li>{LedBy}</li>
+          </ul>
           <ul className="list-inline tags">
             {Tags}
           </ul>

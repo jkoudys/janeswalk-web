@@ -1,4 +1,5 @@
-import ItineraryStore from '../../stores/ItineraryStore.js';
+import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
+import {add, remove} from 'janeswalk/actions/ItineraryActions';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
@@ -11,20 +12,11 @@ import WalkTeam from './Walk/WalkTeam.jsx';
 import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
 
-import {walk, filters} from './Walk/WalkStaticData';
-
-const walkId = walk.walk.id;
-
-const getWalk = (props) => ({
-  //TODO: Conditionals (? and ||) in getWalk are for stubbed data
-  walk: props.walk || walk.walk,
-  page: props.page || walk.page,
-  city: props.city || walk.city,
-  id: props.walk ? props.walk.id : walkId,
-  filters: props.filters || filters,
-  existsInItinerary : ItineraryStore.existsInList(0, props.walk ? props.walk.id : walkId),
-  existsInFavourites : ItineraryStore.existsInList(0, props.walk ? props.walk.id : walkId),
-});
+const getWalk = ({walk, page, city}) => {
+  const itinerary = ItineraryStore.getItineraryList();
+  const favourites = ItineraryStore.getFavouriteList();
+  return {walk, page, city, itinerary, favourites};
+};
 
 export default class WalkPage extends React.Component {
   constructor(props, ...args) {
@@ -47,17 +39,31 @@ export default class WalkPage extends React.Component {
   }
 
   render() {
+    const {walk, page, city, itinerary, favourites} = this.state;
+    let hasMarkers = false, hasRoute = false;
+    if (walk && walk['map']) {
+      hasMarkers = (walk['map']['markers'].length > 0);
+      hasRoute = (walk['map']['route'].length > 0);
+    }
+
     return (
       <section className="walkPage">
         <WalkHeader
-        {...this.state}
+          walk={walk}
+          city={city}
+          itinerary={itinerary}
+          favourites={favourites}
+          onAdd={(list, time) => add(list, walk, time)}
+          onRemove={(list, time) => remove(list, walk, time)}
         />
-        <WalkMenu {...this.state}/>
-        <WalkDescription {...this.state.walk}/>
-        <WalkMap {...this.state.walk}/>
-        <WalkRoute {...this.state.walk}/>
-        <WalkStart {...this.state.walk}/>
-        <WalkTeam {...this.state.walk}/>
+        <WalkMenu {...this.state} />
+        <WalkDescription {...this.state.walk} />
+        {hasMarkers || hasRoute ? <WalkMap map={this.state.walk['map']} /> : null}
+        {hasMarkers ? <WalkRoute {...this.state.walk} /> : null}
+        {hasMarkers ? <WalkStart {...this.state.walk} /> : null}
+        <WalkPublicTransit {...this.state.walk} />
+        <WalkParking {...this.state.walk} />
+        <WalkTeam {...this.state.walk} />
       </section>
     );
   }

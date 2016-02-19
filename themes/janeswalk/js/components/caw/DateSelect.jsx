@@ -1,8 +1,8 @@
 // Components
-const DatePicker = require('./date/DatePicker.jsx');
-const TimePicker = require('./date/TimePicker.jsx');
-const TimeSetTable = require('./date/TimeSetTable.jsx');
-const TimeOpenTable = require('./date/TimeOpenTable.jsx');
+import DatePicker from './date/DatePicker.jsx';
+import TimePicker from './date/TimePicker.jsx';
+import TimeSetTable from './date/TimeSetTable.jsx';
+import TimeOpenTable from './date/TimeOpenTable.jsx';
 
 // Flux
 import {t, t2} from 'janeswalk/stores/I18nStore';

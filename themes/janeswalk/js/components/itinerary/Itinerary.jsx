@@ -1,68 +1,93 @@
-import ItineraryStore from '../../stores/ItineraryStore';
-import ItineraryActions from '../../actions/ItineraryActions';
+import ItineraryStore from 'janeswalk/stores/ItineraryStore';
+import WalkStore from 'janeswalk/stores/WalkStore';
+import {add, remove, updateTitle, updateDescription, createList} from 'janeswalk/actions/ItineraryActions';
+import {t} from 'janeswalk/stores/I18nStore';
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
-import AddWalkToListDialog from './AddWalkToListDialog.jsx';
+import ItinerarySelect from './ItinerarySelect.jsx';
+import * as API from 'janeswalk/utils/api/Itinerary';
 
-const getItinerary = () => ({
-  walks: ItineraryStore.getActiveList().walks,
-  title: ItineraryStore.getActiveList().title,
-  description: ItineraryStore.getActiveList().description,
-  lists: ItineraryStore.getAllLists(),
-  activeWalk: ItineraryStore.getWalkSelected(),
-  walkDialogOpen: ItineraryStore.getWalkDialog(),
-  dialogOpen: ItineraryStore.getDialog(),
-  listId: ItineraryStore.getActiveList().id,
+const getItinerary = (list = ItineraryStore.getItineraryList()) => ({
+  activeList: list,
+  lists: ItineraryStore.getLists(),
+  itinerary: ItineraryStore.getItineraryList()
 });
 
 export default class Itinerary extends React.Component {
   constructor(props, ...args) {
     super(props, ...args);
-    this.state = props.itinerary || getItinerary();
+    this.state = Object.assign({}, getItinerary(), props.itinerary);
     this._onChange = this._onChange.bind(this);
   }
 
   componentWillMount() {
-    ItineraryStore.addChangeListener( this._onChange );
+    ItineraryStore.addChangeListener(this._onChange);
+    WalkStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    ItineraryStore.removeChangeListener( this._onChange );
+    ItineraryStore.removeChangeListener(this._onChange);
+    WalkStore.removeChangeListener(this._onChange);
+  }
+
+  componentDidMount() {
+    const $el = $(React.findDOMNode(this));
+    $el.modal();
+    $el.on('hidden.bs.modal', () => this.props.onClose());
+
+    this.setState({$el: $el});
   }
 
   _onChange() {
-    this.setState(getItinerary);
+    this.setState(() => getItinerary(this.state.activeList));
   }
 
   render() {
-    const {walks, dialogOpen, listId} = this.state;
+    const {activeList, lists, $el, itinerary} = this.state;
 
-    const ItineraryWalks = walks.map(({map, id, title, time}) =>
+    // Lookup the walk data from the walk's ID
+    const ItineraryWalks = [];
+    activeList.walks.forEach((startTimes, walk) => {
+      //TODO: why walk[0], wrong format? Could be how the walk is set ([walk,startTime of null]) for favourite
+      walk = walk[0] || walk;
+      ItineraryWalks.push(
         <Walk
-            title={title}
-            meeting={map.markers[0].title}
-            start={time.slots[0][0]}
-            id={id}
-            key={id}
-            remove={ItineraryActions.remove}
-            walkSelected={ItineraryActions.walkSelected}
-            addWalkDialog={ItineraryActions.addWalkDialog}
-            listId={listId}
+          key={walk.id}
+          list={activeList}
+          lists={lists}
+          walk={walk}
+          onAdd={(list, time) => add(list, walk, time)}
+          onRemove={(list, time) => remove(list, walk, time)}
+          itinerary={itinerary}
         />
-    );
+      );
+    });
 
     return (
-      <dialog open id="itinerary">
-        <AddWalkToListDialog {...this.state} {...ItineraryActions}/>
-        <div className="itinerary">
-          <section>
-            <ItineraryHeader {...this.state} {...ItineraryActions}/>
-          </section>
-          <ul>
-            {ItineraryWalks}
-          </ul>
-        </div>
+      <dialog open>
+        <section id="itinerary">
+          <i className="close fa fa-times" onClick={() => $el.modal('hide')} />
+          <ItinerarySelect
+            lists={lists}
+            activeList={activeList}
+            onChoose={list => this.setState({activeList: list})}
+            onCreate={() => createList(t('New Itinerary'))}
+          />
+          <div className="itinerary">
+            <section>
+              <ItineraryHeader
+                onChangeDescription={v => updateDescription(activeList, v)}
+                onChangeTitle={v => updateTitle(activeList, v)}
+                list={activeList}
+              />
+            </section>
+            <ul>
+              {ItineraryWalks}
+            </ul>
+          </div>
+          <p className="knightFdn-itinerary">Powered by the Knight Foundation</p>
+        </section>
       </dialog>
     );
   }

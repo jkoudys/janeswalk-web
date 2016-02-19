@@ -4,38 +4,28 @@
  * variables.
  */
 // Translations for i18n L10n
-import * as I18nUtils from 'janeswalk/utils/I18nUtils.js';
-import * as AreaActions from './actions/AreaActions.js';
-import * as UserActions from './actions/UserActions.js';
+import {getTranslations} from 'janeswalk/utils/I18nUtils';
+import * as AreaActions from 'janeswalk/actions/AreaActions';
+import * as UserActions from 'janeswalk/actions/UserActions';
+import * as WalkActions from 'janeswalk/actions/WalkActions';
+import * as CityActions from 'janeswalk/actions/CityActions';
+import * as ItineraryActions from 'janeswalk/actions/ItineraryActions';
 import Navbar from './components/Navbar.jsx';
 
-// Page Views
-import Page from './components/Page.jsx';
-import City from './components/pages/City.jsx';
-import Home from './components/pages/Home.jsx';
-import Profile from './components/pages/Profile.jsx';
-const PageViews = {
-  PageView: Page,
-  CityPageView: City,
-  HomePageView: Home,
-  ProfilePageView: Profile,
-};
+// Stores, for late-binding some page updates.
+// Not fully React, but we can use Flux for making PHP-rendered page updates too!
+import CityStore from 'janeswalk/stores/CityStore';
+
+import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
 import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
-const ReactViews = {
-  CreateWalkView: CreateWalk,
-  WalkPageView: Walk
-};
+
+import Dashboard from './components/pages/Dashboard.jsx';
+
 // load modals
 import Login from './components/Login.jsx';
-
-// Shims
-// Used for Intl.DateTimeFormat
-if (!window.Intl) {
-  window.Intl = require('intl/Intl.en');
-}
 
 /**
  * Let hitting 'm' make the menu pop up
@@ -70,79 +60,93 @@ function initKeyEvents() {
   }
 }
 
-/**
- * Route the JSX view, for either an old v1 page, or a React component
- */
-function routePage() {
-  const pageViewName =
-    document.body.getAttribute('data-pageViewName') ||
-    'PageView';
-  const ReactView = ReactViews[pageViewName];
-
+function renderGlobal() {
   // Render our header first
   const navbar = document.getElementById('navbar');
   if (navbar) {
     React.render(<Navbar />, navbar);
   }
 
-  try {
-    // Render modals we need on each page
-    const loginEl = <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />;
-
-    // FIXME: once site's all-react, move this out of the JanesWalk object. Don't follow this approach
-    // or we'll end up with massive spaghetti.
-    window.JanesWalk.react = {login: loginEl};
-
-    React.render(
-      loginEl,
-      document.getElementById('modals')
-    );
-
-    // Load our translations upfront
-    I18nUtils.getTranslations(JanesWalk.locale);
-
-    // Hybrid-routing. First check if there's a React view (which will render
-    // nearly all the DOM), or a POJO view (which manipulates PHP-built HTML)
-    if (ReactView) {
-      switch (pageViewName) {
-        case 'CreateWalkView':
-          React.render(
-            <ReactView
-              data={JanesWalk.walk.data}
-              city={JanesWalk.city}
-              user={JanesWalk.user}
-              url={JanesWalk.walk.url}
-              valt={JanesWalk.form.valt}
-            />,
-            document.getElementById('createwalk')
-        );
-        break;
-        default:
-          // TODO: use JanesWalk.event to supply these data, not a global obj
-          React.render(
-            <ReactView {...JanesWalk} />,
-            document.getElementById('page')
-          );
-          break;
-      }
-    } else {
-      // FIXME: I'm not in-love with such a heavy jQuery reliance
-      new PageViews[pageViewName]($(document.body));
-    }
-  } catch(e) {
-    console.error('Error instantiating page view ' + pageViewName + ': ' + e.stack);
-  }
+  // Render modals we need on each page
+  React.render(
+    <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />,
+    document.getElementById('modals')
+  );
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+// Listen for JW events to load flux stores with
+function addFluxListeners() {
   JanesWalk.event.on('area.receive', areas => AreaActions.receive(areas));
-  JanesWalk.event.on('user.receive', user => UserActions.receive(user));
+  JanesWalk.event.on('user.receive', (user, options) => UserActions.receive(user, options));
+  JanesWalk.event.on('users.receive', users => UserActions.receiveAll(users));
+  JanesWalk.event.on('walk.receive', walk => WalkActions.receive(walk));
+  JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
+  JanesWalk.event.on('city.receive', city => CityActions.receive(city));
+  JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
+}
+
+// Routes initialized by events
+function addRenderListeners() {
+  // A walk, e.g. /canada/toronto/curb-cuts-and-desire-lines
+  JanesWalk.event.on('walkpage.load', ({walk, city}) => {
+    WalkActions.receive(walk);
+    React.render(
+      <Walk city={city} page={JanesWalk.page} walk={walk} />,
+      document.getElementById('page')
+    ); 
+  });
+
+  // The profile page, e.g. /profile
+  JanesWalk.event.on('profilepage.load', props => {
+    React.render(
+      <Dashboard {...props} />,
+      document.getElementById('page')
+    );
+  });
+
+  // Create a walk
+  JanesWalk.event.on('caw.load', props => {
+    React.render(
+      <CreateWalk
+        data={JanesWalk.walk.data}
+        city={JanesWalk.city}
+        user={JanesWalk.user}
+        url={JanesWalk.walk.url}
+        valt={JanesWalk.form.valt}
+      />,
+      document.getElementById('page')
+    );
+  });
+}
+
+CityStore.addChangeListener(() => {
+  // Bind anything to render not using react
+  switch (document.body.dataset.pageviewname) {
+    case 'CityPageView':
+      let city = CityStore.getCity();
+      if (city) {
+        let bgUri = 'url(' + city.background + ')';
+        if (city.background && document.body.style.backgroundImage !== bgUri) {
+          document.body.style.backgroundImage = bgUri;
+        }
+      }
+    break;
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Load our translations upfront
+  getTranslations(JanesWalk.locale);
+
+  renderGlobal();
+  addFluxListeners();
+  addRenderListeners();
+
+  initKeyEvents();
+
+  // TODO: this could use a better home
+  ItineraryAPI.startPolling();
 
   // Process all deferred events
   JanesWalk.event.activate();
-
-  // TODO: emit the city without needing to load JanesWalk with static data
-  JanesWalk.event.emit('city.receive', JanesWalk.city);
-  routePage();
-  initKeyEvents();
 });
