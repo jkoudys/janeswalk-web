@@ -79,7 +79,7 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _CityStore = __webpack_require__(80);
+	var _CityStore = __webpack_require__(32);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
@@ -87,15 +87,15 @@
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
-	var _CreateWalk = __webpack_require__(32);
+	var _CreateWalk = __webpack_require__(33);
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(55);
+	var _Walk = __webpack_require__(56);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Dashboard = __webpack_require__(68);
+	var _Dashboard = __webpack_require__(69);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
@@ -1999,6 +1999,7 @@
 
 	// Default formatter
 	var dtfDate = undefined;
+
 	// Date formatted
 	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
 	  dtfDate = new Intl.DateTimeFormat('en-US', {
@@ -2044,6 +2045,7 @@
 	function startTimeIndex() {
 	  var startTimes = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
 	  var time = arguments[1];
+
 	  return startTimes.findIndex(function (st) {
 	    return st[0] === time[0] && st[1] === time[1];
 	  });
@@ -3028,45 +3030,107 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(18);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var CHANGE_EVENT = 'change';
+
+	// Store singletons
+	/**
+	 * City store
+	 *
+	 * Single-city storage. May be refactored for multiple cities later, but
+	 * currently no requirement exists for this.
+	 */
+
+	var _city = undefined;
+
+	// Receive a single walk
+	function receiveCity(city) {
+	  _city = city;
+	}
+
+	var CityStore = Object.assign({}, _events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getCity: function getCity() {
+	    return _city;
+	  },
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
+	    // Go through the various actions
+	    switch (payload.type) {
+	      // Route actions
+	      case _JWConstants.ActionTypes.CITY_RECEIVE:
+	        receiveCity(payload.city);
+	        break;
+	    }
+	    CityStore.emitChange();
+	  })
+	});
+
+	exports.default = CityStore;
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _ImageUpload = __webpack_require__(33);
+	var _ImageUpload = __webpack_require__(34);
 
 	var _ImageUpload2 = _interopRequireDefault(_ImageUpload);
 
-	var _ThemeSelect = __webpack_require__(34);
+	var _ThemeSelect = __webpack_require__(35);
 
 	var _ThemeSelect2 = _interopRequireDefault(_ThemeSelect);
 
-	var _MapBuilder = __webpack_require__(36);
+	var _MapBuilder = __webpack_require__(37);
 
 	var _MapBuilder2 = _interopRequireDefault(_MapBuilder);
 
-	var _DateSelect = __webpack_require__(44);
+	var _DateSelect = __webpack_require__(45);
 
 	var _DateSelect2 = _interopRequireDefault(_DateSelect);
 
-	var _WardSelect = __webpack_require__(49);
+	var _WardSelect = __webpack_require__(50);
 
 	var _WardSelect2 = _interopRequireDefault(_WardSelect);
 
-	var _AccessibleSelect = __webpack_require__(50);
+	var _AccessibleSelect = __webpack_require__(51);
 
 	var _AccessibleSelect2 = _interopRequireDefault(_AccessibleSelect);
 
-	var _TeamBuilder = __webpack_require__(51);
+	var _TeamBuilder = __webpack_require__(52);
 
 	var _TeamBuilder2 = _interopRequireDefault(_TeamBuilder);
 
-	var _WalkPublish = __webpack_require__(52);
+	var _WalkPublish = __webpack_require__(53);
 
 	var _WalkPublish2 = _interopRequireDefault(_WalkPublish);
 
-	var _TextAreaLimit = __webpack_require__(53);
+	var _TextAreaLimit = __webpack_require__(54);
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
@@ -3078,7 +3142,7 @@
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
-	var _helpers = __webpack_require__(43);
+	var _helpers = __webpack_require__(44);
 
 	var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -3095,7 +3159,7 @@
 
 	// Load create-a-walk View components
 
-	var defaultWalk = __webpack_require__(54);
+	var defaultWalk = __webpack_require__(55);
 
 	// Flux
 
@@ -3715,7 +3779,7 @@
 	})(React.Component);
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3838,7 +3902,7 @@
 	exports.default = ImageUpload;
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3857,7 +3921,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(35);
+	var mixins = __webpack_require__(36);
 
 	// Flux
 
@@ -4048,7 +4112,7 @@
 	};
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4077,7 +4141,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4088,27 +4152,27 @@
 	  value: true
 	});
 
-	var _WalkStopTable = __webpack_require__(37);
+	var _WalkStopTable = __webpack_require__(38);
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
 
-	var _WalkInfoWindow = __webpack_require__(38);
+	var _WalkInfoWindow = __webpack_require__(39);
 
 	var _WalkInfoWindow2 = _interopRequireDefault(_WalkInfoWindow);
 
-	var _InstagramConnect = __webpack_require__(39);
+	var _InstagramConnect = __webpack_require__(40);
 
 	var _InstagramConnect2 = _interopRequireDefault(_InstagramConnect);
 
-	var _SoundCloudConnect = __webpack_require__(40);
+	var _SoundCloudConnect = __webpack_require__(41);
 
 	var _SoundCloudConnect2 = _interopRequireDefault(_SoundCloudConnect);
 
-	var _TwitterConnect = __webpack_require__(41);
+	var _TwitterConnect = __webpack_require__(42);
 
 	var _TwitterConnect2 = _interopRequireDefault(_TwitterConnect);
 
-	var _ConnectFilters = __webpack_require__(42);
+	var _ConnectFilters = __webpack_require__(43);
 
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
@@ -4122,7 +4186,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Helper = __webpack_require__(43);
+	var Helper = __webpack_require__(44);
 
 	// Flux
 
@@ -4652,7 +4716,7 @@
 	});
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4801,7 +4865,7 @@
 	exports.default = WalkStopTable;
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4924,7 +4988,7 @@
 	exports.default = WalkInfoWindow;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5062,7 +5126,7 @@
 	exports.default = InstagramConnect;
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5213,7 +5277,7 @@
 	exports.default = SoundCloudConnect;
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5348,7 +5412,7 @@
 	exports.default = TwitterConnect;
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5424,7 +5488,7 @@
 	};
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5463,7 +5527,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5474,19 +5538,19 @@
 	  value: true
 	});
 
-	var _DatePicker = __webpack_require__(45);
+	var _DatePicker = __webpack_require__(46);
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _TimePicker = __webpack_require__(46);
+	var _TimePicker = __webpack_require__(47);
 
 	var _TimePicker2 = _interopRequireDefault(_TimePicker);
 
-	var _TimeSetTable = __webpack_require__(47);
+	var _TimeSetTable = __webpack_require__(48);
 
 	var _TimeSetTable2 = _interopRequireDefault(_TimeSetTable);
 
-	var _TimeOpenTable = __webpack_require__(48);
+	var _TimeOpenTable = __webpack_require__(49);
 
 	var _TimeOpenTable2 = _interopRequireDefault(_TimeOpenTable);
 
@@ -5891,7 +5955,7 @@
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5963,7 +6027,7 @@
 	exports.default = DatePicker;
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6121,7 +6185,7 @@
 	exports.default = TimePicker;
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6138,10 +6202,17 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Flux
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
-	var dtfDuration = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
+	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; } // Flux
+
+	// TODO: shim
+	var dtfDate = undefined,
+	    dtfDuration = undefined;
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === "object") {
+	  dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+	  dtfDuration = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
+	}
 
 	/**
 	 * The table with all the times that the walks are scheduled
@@ -6263,7 +6334,7 @@
 	exports.default = TimeSetTable;
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6308,7 +6379,7 @@
 	exports.default = TimeOpenTable;
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6327,7 +6398,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(35);
+	var mixins = __webpack_require__(36);
 
 	// Flux
 
@@ -6393,7 +6464,7 @@
 	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6404,7 +6475,7 @@
 	  value: true
 	});
 
-	var _mixins = __webpack_require__(35);
+	var _mixins = __webpack_require__(36);
 
 	var _I18nStore = __webpack_require__(21);
 
@@ -6466,7 +6537,7 @@
 	Object.assign(AccessibleSelect.prototype, _mixins.linkedParentState);
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7258,7 +7329,7 @@
 	};
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7402,7 +7473,7 @@
 	Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7432,7 +7503,7 @@
 	exports.default = TextAreaLimit;
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -7476,7 +7547,7 @@
 	};
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7493,43 +7564,43 @@
 
 	var _ItineraryActions = __webpack_require__(14);
 
-	var _WalkHeader = __webpack_require__(56);
+	var _WalkHeader = __webpack_require__(57);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(57);
+	var _WalkDescription = __webpack_require__(58);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(58);
+	var _WalkRoute = __webpack_require__(59);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(59);
+	var _WalkAccessibility = __webpack_require__(60);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(61);
+	var _WalkPublicTransit = __webpack_require__(62);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(62);
+	var _WalkParking = __webpack_require__(63);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(63);
+	var _WalkStart = __webpack_require__(64);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(64);
+	var _WalkTeam = __webpack_require__(65);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(65);
+	var _WalkMenu = __webpack_require__(66);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(67);
+	var _WalkMap = __webpack_require__(68);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7641,7 +7712,7 @@
 	};
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7799,7 +7870,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7833,7 +7904,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7882,7 +7953,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7891,7 +7962,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(60);
+	var _Accessible = __webpack_require__(61);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -7929,7 +8000,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7960,7 +8031,7 @@
 	}
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7995,7 +8066,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8032,7 +8103,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8062,7 +8133,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8147,7 +8218,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8158,19 +8229,19 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
-	var _WalkAccessibility = __webpack_require__(59);
+	var _WalkAccessibility = __webpack_require__(60);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(61);
+	var _WalkPublicTransit = __webpack_require__(62);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(62);
+	var _WalkParking = __webpack_require__(63);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(66);
+	var _Theme = __webpack_require__(67);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8296,7 +8367,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8350,7 +8421,7 @@
 	}
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8560,7 +8631,7 @@
 	};
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8571,15 +8642,15 @@
 	  value: true
 	});
 
-	var _DashboardHeader = __webpack_require__(69);
+	var _DashboardHeader = __webpack_require__(70);
 
 	var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
 
-	var _DashboardMenu = __webpack_require__(70);
+	var _DashboardMenu = __webpack_require__(71);
 
 	var _DashboardMenu2 = _interopRequireDefault(_DashboardMenu);
 
-	var _DashboardSummary = __webpack_require__(71);
+	var _DashboardSummary = __webpack_require__(72);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
@@ -8587,7 +8658,7 @@
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
-	var _CityStore = __webpack_require__(80);
+	var _CityStore = __webpack_require__(32);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
@@ -8688,7 +8759,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8745,7 +8816,7 @@
 	exports.default = DashboardHeader;
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8758,23 +8829,23 @@
 	  value: true
 	});
 
-	var _DashboardSummary = __webpack_require__(71);
+	var _DashboardSummary = __webpack_require__(72);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _DashboardResources = __webpack_require__(72);
+	var _DashboardResources = __webpack_require__(73);
 
 	var _DashboardResources2 = _interopRequireDefault(_DashboardResources);
 
-	var _MyBlogPosts = __webpack_require__(73);
+	var _MyBlogPosts = __webpack_require__(74);
 
 	var _MyBlogPosts2 = _interopRequireDefault(_MyBlogPosts);
 
-	var _Walks = __webpack_require__(74);
+	var _Walks = __webpack_require__(75);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
 
-	var _WalkLeaders = __webpack_require__(78);
+	var _WalkLeaders = __webpack_require__(79);
 
 	var _WalkLeaders2 = _interopRequireDefault(_WalkLeaders);
 
@@ -8875,7 +8946,7 @@
 	;
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8959,7 +9030,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9127,7 +9198,7 @@
 	exports.default = DashboardResources;
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9171,7 +9242,7 @@
 	exports.default = MyBlogPosts;
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9182,15 +9253,15 @@
 	  value: true
 	});
 
-	var _WalkFilters = __webpack_require__(75);
+	var _WalkFilters = __webpack_require__(76);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
 
-	var _WalksMap = __webpack_require__(76);
+	var _WalksMap = __webpack_require__(77);
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
-	var _Walk = __webpack_require__(77);
+	var _Walk = __webpack_require__(78);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9381,7 +9452,7 @@
 	exports.default = Walks;
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9489,7 +9560,7 @@
 	exports.default = WalkFilters;
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9741,7 +9812,7 @@
 	};
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9852,7 +9923,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9865,7 +9936,7 @@
 	  value: true
 	});
 
-	var _WalkLeader = __webpack_require__(79);
+	var _WalkLeader = __webpack_require__(80);
 
 	var _WalkLeader2 = _interopRequireDefault(_WalkLeader);
 
@@ -9966,7 +10037,7 @@
 	exports.default = WalkLeaders;
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10043,68 +10114,6 @@
 	};
 
 	exports.default = Walk;
-
-/***/ },
-/* 80 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _AppDispatcher = __webpack_require__(4);
-
-	var _events = __webpack_require__(18);
-
-	var _JWConstants = __webpack_require__(9);
-
-	var CHANGE_EVENT = 'change';
-
-	// Store singletons
-	/**
-	 * City store
-	 *
-	 * Single-city storage. May be refactored for multiple cities later, but
-	 * currently no requirement exists for this.
-	 */
-
-	var _city = undefined;
-
-	// Receive a single walk
-	function receiveCity(city) {
-	  _city = city;
-	}
-
-	var CityStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getCity: function getCity() {
-	    return _city;
-	  },
-
-	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.CITY_RECEIVE:
-	        receiveCity(payload.city);
-	        break;
-	    }
-	    CityStore.emitChange();
-	  })
-	});
-
-	exports.default = CityStore;
 
 /***/ },
 /* 81 */

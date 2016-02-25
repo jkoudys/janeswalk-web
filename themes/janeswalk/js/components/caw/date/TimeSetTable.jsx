@@ -1,8 +1,12 @@
 // Flux
 import {t, t2} from 'janeswalk/stores/I18nStore';
 
-const dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
-const dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
+// TODO: shim
+let dtfDate, dtfDuration;
+if (typeof Intl === "object") {
+  dtfDate = new Intl.DateTimeFormat('en-US', {year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC'});
+  dtfDuration = new Intl.DateTimeFormat('en-US', {hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
+}
 
 /**
  * The table with all the times that the walks are scheduled
