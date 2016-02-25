@@ -3,12 +3,20 @@ import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
 
 //TODO: API call before dispatch
 
-export function remove(list, walk, time) {
-  dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, list, walk, time});
+export function remove(list, walk) {
+  dispatch({type: ActionTypes.ITINERARY_REMOVE_WALK, list, walk});
 }
 
-export function add(list, walk, time) {
-  dispatch({type: ActionTypes.ITINERARY_ADD_WALK, list, walk, time});
+export function add(list, walk) {
+  dispatch({type: ActionTypes.ITINERARY_ADD_WALK, list, walk});
+}
+
+export function schedule(walk, time) {
+  dispatch({type: ActionTypes.ITINERARY_SCHEDULE_WALK, walk, time});
+}
+
+export function unschedule(walk, time) {
+  dispatch({type: ActionTypes.ITINERARY_UNSCHEDULE_WALK, walk, time});
 }
 
 export function updateTitle(list, title) {

@@ -1,6 +1,6 @@
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
-import {add, remove, updateTitle, updateDescription, createList} from 'janeswalk/actions/ItineraryActions';
+import * as Actions from 'janeswalk/actions/ItineraryActions';
 import {t} from 'janeswalk/stores/I18nStore';
 
 import Walk from './Walk.jsx';
@@ -8,10 +8,10 @@ import ItineraryHeader from './ItineraryHeader.jsx';
 import ItinerarySelect from './ItinerarySelect.jsx';
 import * as API from 'janeswalk/utils/api/Itinerary';
 
-const getItinerary = (list = ItineraryStore.getItineraryList()) => ({
+const getItinerary = (list = [...ItineraryStore.getLists()][0]) => ({
   activeList: list,
   lists: ItineraryStore.getLists(),
-  itinerary: ItineraryStore.getItineraryList()
+  schedule: ItineraryStore.getSchedule()
 });
 
 export default class Itinerary extends React.Component {
@@ -44,7 +44,7 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    const {activeList, lists, $el, itinerary} = this.state;
+    const {activeList, lists, schedule, $el} = this.state;
 
     // Lookup the walk data from the walk's ID
     const ItineraryWalks = [];
@@ -55,11 +55,11 @@ export default class Itinerary extends React.Component {
         <Walk
           key={walk.id}
           list={activeList}
-          lists={lists}
-          walk={walk}
-          onAdd={(list, time) => add(list, walk, time)}
-          onRemove={(list, time) => remove(list, walk, time)}
-          itinerary={itinerary}
+          onAdd={list => Actions.add(list, walk)}
+          onRemove={list => Actions.remove(list, walk)}
+          onSchedule={time => Actions.schedule(walk, time)}
+          onUnschedule={time => Actions.unschedule(walk, time)}
+          {...{lists, walk, schedule}}
         />
       );
     });
@@ -69,16 +69,15 @@ export default class Itinerary extends React.Component {
         <section id="itinerary">
           <i className="close fa fa-times" onClick={() => $el.modal('hide')} />
           <ItinerarySelect
-            lists={lists}
-            activeList={activeList}
             onChoose={list => this.setState({activeList: list})}
-            onCreate={() => createList(t('New Itinerary'))}
+            onCreate={() => Actions.createList(t('New Itinerary'))}
+            {...{lists, activeList}}
           />
           <div className="itinerary">
             <section>
               <ItineraryHeader
-                onChangeDescription={v => updateDescription(activeList, v)}
-                onChangeTitle={v => updateTitle(activeList, v)}
+                onChangeDescription={v => Actions.updateDescription(activeList, v)}
+                onChangeTitle={v => Actions.updateTitle(activeList, v)}
                 list={activeList}
               />
             </section>
@@ -92,11 +91,3 @@ export default class Itinerary extends React.Component {
     );
   }
 }
-
-Itinerary.defaultProps = {
-  itinerary: null,
-};
-
-Itinerary.propTypes = {
-  itinerary: React.PropTypes.array.isRequired,
-};

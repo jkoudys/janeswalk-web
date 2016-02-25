@@ -32,7 +32,7 @@ function getMeetingPlace(map) {
 
 import WalkStore from 'janeswalk/stores/WalkStore';
 
-const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
+const WalkHeader = ({city, walk, isFavourite, schedule, onAdd, onRemove, onSchedule, onUnschedule}) => {
   const {title, map, time, team, thumbnails} = walk;
   const {url, name} = city;
 
@@ -43,10 +43,10 @@ const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
 
   let favButton;
 
-  if (favourites && favourites.walks.has(walk)) {
-    favButton = <button className="removeFavourite" onClick={() => onRemove(favourites)} />;
+  if (isFavourite) {
+    favButton = <button className="removeFavourite" onClick={onRemove} />;
   } else {
-    favButton = <button className="addFavourite" onClick={() => onAdd(favourites)} />;
+    favButton = <button className="addFavourite" onClick={onAdd} />;
   }
 
   return(
@@ -61,12 +61,7 @@ const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
       <h1>{title} {favButton}</h1>
       {meetingPlace ? <h4>{meetingPlace}</h4> : null}
       <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
-      <AddToItinerary
-        itinerary={itinerary}
-        time={time}
-        walk={walk}
-        onAdd={onAdd}
-        onRemove={onRemove}/>
+      <AddToItinerary {...{time, walk, schedule, onSchedule, onUnschedule}} />
     </section>
   );
 };

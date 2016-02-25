@@ -328,17 +328,19 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.dispatch = exports.register = undefined;
+	exports.waitFor = exports.dispatch = exports.register = undefined;
 
 	var _flux = __webpack_require__(5);
 
 	var AppDispatcher = new _flux.Dispatcher();
 	var register = AppDispatcher.register.bind(AppDispatcher);
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
+	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
 
 	exports.default = AppDispatcher;
 	exports.register = register;
 	exports.dispatch = dispatch;
+	exports.waitFor = waitFor;
 
 /***/ },
 /* 5 */
@@ -787,7 +789,7 @@
 	'USER_RECEIVE', 'USER_RECEIVE_ALL',
 
 	// Itineraries
-	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END'].reduce(function (p, k) {
+	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_SCHEDULE_WALK', 'ITINERARY_UNSCHEDULE_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END'].reduce(function (p, k) {
 	  p[k] = k;return p;
 	}, {});
 
@@ -938,6 +940,8 @@
 	});
 	exports.remove = remove;
 	exports.add = add;
+	exports.schedule = schedule;
+	exports.unschedule = unschedule;
 	exports.updateTitle = updateTitle;
 	exports.updateDescription = updateDescription;
 	exports.createList = createList;
@@ -950,12 +954,20 @@
 
 	//TODO: API call before dispatch
 
-	function remove(list, walk, time) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, list: list, walk: walk, time: time });
+	function remove(list, walk) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, list: list, walk: walk });
 	}
 
-	function add(list, walk, time) {
-	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, list: list, walk: walk, time: time });
+	function add(list, walk) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_ADD_WALK, list: list, walk: walk });
+	}
+
+	function schedule(walk, time) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_SCHEDULE_WALK, walk: walk, time: time });
+	}
+
+	function unschedule(walk, time) {
+	  (0, _AppDispatcher.dispatch)({ type: _JWConstants.ActionTypes.ITINERARY_UNSCHEDULE_WALK, walk: walk, time: time });
 	}
 
 	function updateTitle(list, title) {
@@ -1304,6 +1316,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
@@ -1319,6 +1333,8 @@
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
 	var _ItineraryActions = __webpack_require__(14);
+
+	var Actions = _interopRequireWildcard(_ItineraryActions);
 
 	var _I18nStore = __webpack_require__(21);
 
@@ -1348,12 +1364,14 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	var getItinerary = function getItinerary() {
-	  var list = arguments.length <= 0 || arguments[0] === undefined ? _ItineraryStore2.default.getItineraryList() : arguments[0];
+	  var list = arguments.length <= 0 || arguments[0] === undefined ? [].concat(_toConsumableArray(_ItineraryStore2.default.getLists()))[0] : arguments[0];
 	  return {
 	    activeList: list,
 	    lists: _ItineraryStore2.default.getLists(),
-	    itinerary: _ItineraryStore2.default.getItineraryList()
+	    schedule: _ItineraryStore2.default.getSchedule()
 	  };
 	};
 
@@ -1418,8 +1436,8 @@
 	      var _state = this.state;
 	      var activeList = _state.activeList;
 	      var lists = _state.lists;
+	      var schedule = _state.schedule;
 	      var $el = _state.$el;
-	      var itinerary = _state.itinerary;
 
 	      // Lookup the walk data from the walk's ID
 
@@ -1427,19 +1445,22 @@
 	      activeList.walks.forEach(function (startTimes, walk) {
 	        //TODO: why walk[0], wrong format? Could be how the walk is set ([walk,startTime of null]) for favourite
 	        walk = walk[0] || walk;
-	        ItineraryWalks.push(React.createElement(_Walk2.default, {
+	        ItineraryWalks.push(React.createElement(_Walk2.default, _extends({
 	          key: walk.id,
 	          list: activeList,
-	          lists: lists,
-	          walk: walk,
-	          onAdd: function onAdd(list, time) {
-	            return (0, _ItineraryActions.add)(list, walk, time);
+	          onAdd: function onAdd(list) {
+	            return Actions.add(list, walk);
 	          },
-	          onRemove: function onRemove(list, time) {
-	            return (0, _ItineraryActions.remove)(list, walk, time);
+	          onRemove: function onRemove(list) {
+	            return Actions.remove(list, walk);
 	          },
-	          itinerary: itinerary
-	        }));
+	          onSchedule: function onSchedule(time) {
+	            return Actions.schedule(walk, time);
+	          },
+	          onUnschedule: function onUnschedule(time) {
+	            return Actions.unschedule(walk, time);
+	          }
+	        }, { lists: lists, walk: walk, schedule: schedule })));
 	      });
 
 	      return React.createElement(
@@ -1451,16 +1472,14 @@
 	          React.createElement('i', { className: 'close fa fa-times', onClick: function onClick() {
 	              return $el.modal('hide');
 	            } }),
-	          React.createElement(_ItinerarySelect2.default, {
-	            lists: lists,
-	            activeList: activeList,
+	          React.createElement(_ItinerarySelect2.default, _extends({
 	            onChoose: function onChoose(list) {
 	              return _this4.setState({ activeList: list });
 	            },
 	            onCreate: function onCreate() {
-	              return (0, _ItineraryActions.createList)((0, _I18nStore.t)('New Itinerary'));
+	              return Actions.createList((0, _I18nStore.t)('New Itinerary'));
 	            }
-	          }),
+	          }, { lists: lists, activeList: activeList })),
 	          React.createElement(
 	            'div',
 	            { className: 'itinerary' },
@@ -1469,10 +1488,10 @@
 	              null,
 	              React.createElement(_ItineraryHeader2.default, {
 	                onChangeDescription: function onChangeDescription(v) {
-	                  return (0, _ItineraryActions.updateDescription)(activeList, v);
+	                  return Actions.updateDescription(activeList, v);
 	                },
 	                onChangeTitle: function onChangeTitle(v) {
-	                  return (0, _ItineraryActions.updateTitle)(activeList, v);
+	                  return Actions.updateTitle(activeList, v);
 	                },
 	                list: activeList
 	              })
@@ -1497,14 +1516,6 @@
 	})(React.Component);
 
 	exports.default = Itinerary;
-
-	Itinerary.defaultProps = {
-	  itinerary: null
-	};
-
-	Itinerary.propTypes = {
-	  itinerary: React.PropTypes.array.isRequired
-	};
 
 /***/ },
 /* 17 */
@@ -1534,7 +1545,11 @@
 
 	var CHANGE_EVENT = 'change';
 
+	// Set<Set> A set of walk sets
 	var _lists = new Set();
+
+	// Map<{walk}:[times]> A map of times set for each walk
+	var _schedule = new Map();
 
 	// Has this store been synced, and is it syncing?
 	var _lastChange = Date.now();
@@ -1543,33 +1558,23 @@
 	//TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
 	var _removeWalk = function _removeWalk(list, walk) {
-	  var time = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
-
-	  if (time) {
-	    var startTimes = list.walks.get(walk);
-	    var startIndex = (0, _ItineraryUtils.startTimeIndex)(startTimes, time);
-	    if (startIndex >= 0) {
-	      startTimes.splice(startIndex, 1);
-	      list.walks.set(walk, startTimes);
-	    }
-	  } else {
-	    list.walks.delete(walk);
-	  }
+	  return list.walks.delete(walk);
 	};
 
 	var _addWalk = function _addWalk(list, walk) {
-	  var time = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+	  return list.walks.add(walk);
+	};
 
-	  if (time) {
-	    var startTimes = list.walks.get(walk);
-	    var startIndex = (0, _ItineraryUtils.startTimeIndex)(startTimes, time);
-	    if (startIndex === -1) {
-	      startTimes.push(time);
-	      list.walks.set(walk, startTimes);
-	    }
-	  } else {
-	    list.walks.set(walk);
-	  }
+	var _scheduleWalk = function _scheduleWalk(walk, time) {
+	  var times = _schedule.get(walk) || new Set();
+	  times.add(+time);
+	  _schedule.set(walk, times);
+	};
+
+	var _unscheduleWalk = function _unscheduleWalk(walk, time) {
+	  var times = _schedule.get(walk) || new Set();
+	  times.delete(+time);
+	  _schedule.set(walk, times);
 	};
 
 	var _createList = function _createList() {
@@ -1592,23 +1597,26 @@
 	/**
 	 * Load all the basic itineraries
 	 *
-	 * @param itineraries array List of itineraries in serlizable-friendly state
+	 * @param itineraries array List of itineraries in serialization-friendly state
 	 */
-	var _receiveAll = function _receiveAll(itineraries) {
-	  // Itinerary has a list of walk IDs, so load the actual walks from there.
-	  //itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary, {
-	  //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
-	  //})));
+	var _receiveAll = function _receiveAll(_ref) {
+	  var lists = _ref.lists;
+	  var schedule = _ref.schedule;
 
-	  // TODO: Assume first list in itineraries is user itinerary
-	  itineraries.forEach(function (itinerary, index) {
-	    var times = itinerary.times || [];
-
+	  lists.forEach(function (itinerary, index) {
 	    _lists.add(Object.assign({}, itinerary, {
-	      walks: new Map(itinerary.walks.map(function (wID, i) {
-	        return [_WalkStore2.default.getWalk(+wID), times[i] || []];
+	      walks: new Set(itinerary.walks.map(function (wID) {
+	        return _WalkStore2.default.getWalk(+wID);
 	      }))
 	    }));
+	  });
+
+	  // Loop through the {123: [14224342342, 2343535345]} object of times arrays
+	  // Build a set, using the times as a number to key
+	  Object.keys(schedule).forEach(function (wID) {
+	    _schedule.set(_WalkStore2.default.getWalk(+wID), new Set(schedule[wID].map(function (t) {
+	      return +t;
+	    })));
 	  });
 	};
 
@@ -1627,6 +1635,41 @@
 	  list.description = description;
 	};
 
+	function _hasInList(walk) {
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = _lists[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var list = _step.value;
+
+	      if (list.walks.has(walk)) return true;
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+
+	  return false;
+	}
+
+	function _hasInSchedule(walk, time) {
+	  var times = _schedule.get(walk);
+	  if (times && times.has(+time)) return true;
+	  return false;
+	}
+
 	var ItineraryStore = Object.assign({}, _events.EventEmitter.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
@@ -1640,26 +1683,20 @@
 	  getLists: function getLists() {
 	    return _lists;
 	  },
-	  getItineraryList: function getItineraryList() {
-	    var _lists2 = _slicedToArray(_lists, 1);
-
-	    var list = _lists2[0];
-
-	    return list;
-	  },
-	  getFavouriteList: function getFavouriteList() {
-	    var _lists3 = _slicedToArray(_lists, 2);
-
-	    var itinerary = _lists3[0];
-	    var favourites = _lists3[1];
-
-	    return favourites;
+	  getSchedule: function getSchedule() {
+	    return _schedule;
 	  },
 	  getWalks: function getWalks(list) {
 	    return list.walks;
 	  },
 	  getLastChange: function getLastChange() {
 	    return _lastChange;
+	  },
+	  hasInList: function hasInList(walk) {
+	    return _hasInList(walk);
+	  },
+	  hasInSchedule: function hasInSchedule(walk, time) {
+	    return _hasInSchedule(walk, time);
 	  },
 	  totalWalks: function totalWalks() {
 	    var count = 0;
@@ -1671,6 +1708,7 @@
 
 	  //TODO: use _updateWalks to receive walks from server via API call
 	  dispatcherIndex: (0, _AppDispatcher.register)(function (payload) {
+	    // Any action without a list specified is assumed on the first 'favourites'
 	    var list = payload.list;
 	    var walk = payload.walk;
 	    var time = payload.time;
@@ -1678,12 +1716,26 @@
 	    switch (payload.type) {
 	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
 	        _lastChange = Date.now();
-	        _removeWalk(list, walk, time);
+	        _removeWalk(list, walk);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
 	        _lastChange = Date.now();
-	        //TODO: Dialog to open on first add to Itinerary/Favourites
-	        _addWalk(list, walk, time);
+	        _addWalk(list, walk);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_SCHEDULE_WALK:
+	        _lastChange = Date.now();
+	        if (!_hasInList(walk)) {
+	          var _lists2 = _slicedToArray(_lists, 1);
+
+	          var firstList = _lists2[0];
+
+	          _addWalk(list || firstList, walk);
+	        }
+	        _scheduleWalk(walk, time);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_UNSCHEDULE_WALK:
+	        _lastChange = Date.now();
+	        _unscheduleWalk(walk, time);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
 	        _lastChange = Date.now();
@@ -1698,6 +1750,7 @@
 	        _createList(payload.title, payload.description);
 	        break;
 	      case _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL:
+	        (0, _AppDispatcher.waitFor)([_WalkStore2.default.dispatchToken]);
 	        _receiveAll(payload.itineraries);
 	        break;
 	    }
@@ -1993,7 +2046,6 @@
 	  value: true
 	});
 	exports.dateFormatted = dateFormatted;
-	exports.startTimeIndex = startTimeIndex;
 
 	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
 
@@ -2040,15 +2092,6 @@
 	    // Invalid date
 	    return dateInSeconds;
 	  }
-	};
-
-	function startTimeIndex() {
-	  var startTimes = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
-	  var time = arguments[1];
-
-	  return startTimes.findIndex(function (st) {
-	    return st[0] === time[0] && st[1] === time[1];
-	  });
 	};
 
 /***/ },
@@ -2364,7 +2407,10 @@
 	      var lists = _props.lists;
 	      var onAdd = _props.onAdd;
 	      var onRemove = _props.onRemove;
-	      var itinerary = _props.itinerary;
+	      var onSchedule = _props.onSchedule;
+	      var onUnschedule = _props.onUnschedule;
+	      var schedule = _props.schedule;
+	      var isScheduled = _props.isScheduled;
 	      var dialogOpen = this.state.dialogOpen;
 	      var title = walk.title;
 	      var url = walk.url;
@@ -2398,7 +2444,7 @@
 	            null,
 	            meeting
 	          ),
-	          React.createElement(_AddToItinerary2.default, { itinerary: itinerary, time: time, walk: walk, onAdd: onAdd, onRemove: onRemove })
+	          React.createElement(_AddToItinerary2.default, { schedule: schedule, time: time, walk: walk, onSchedule: onSchedule, onUnschedule: onUnschedule, isScheduled: isScheduled })
 	        ),
 	        React.createElement('button', {
 	          className: 'action removeWalk',
@@ -2544,56 +2590,37 @@
 	var _ItineraryUtils = __webpack_require__(19);
 
 	var AddToItinerary = function AddToItinerary(_ref) {
-	  var itinerary = _ref.itinerary;
+	  var schedule = _ref.schedule;
 	  var time = _ref.time;
 	  var walk = _ref.walk;
-	  var onAdd = _ref.onAdd;
-	  var onRemove = _ref.onRemove;
+	  var onSchedule = _ref.onSchedule;
+	  var onUnschedule = _ref.onUnschedule;
 
 	  var addButtons = [];
+	  var timeSet = schedule.get(walk) || new Set();
 
-	  if (itinerary && time && time.slots) {
-	    if (itinerary.walks.has(walk)) {
-	      (function () {
-	        //retrieve start times for walk
-	        var startTimes = itinerary.walks.get(walk);
-
-	        addButtons = time.slots.map(function (t) {
-	          if ((0, _ItineraryUtils.startTimeIndex)(startTimes, t) == -1) {
-	            return React.createElement(
-	              "h4",
-	              null,
-	              (0, _ItineraryUtils.dateFormatted)(t[0]),
-	              React.createElement("button", { className: "addItinerary", onClick: function onClick() {
-	                  return onAdd(itinerary, t);
-	                } })
-	            );
-	          } else {
-	            return React.createElement(
-	              "h4",
-	              null,
-	              (0, _ItineraryUtils.dateFormatted)(t[0]),
-	              React.createElement("button", { className: "removeItinerary", onClick: function onClick() {
-	                  return onRemove(itinerary, t);
-	                } })
-	            );
-	          }
-	        });
-	      })();
-	    } else {
-	      if (time && time.slots[0]) {
-	        addButtons = time.slots.map(function (t) {
-	          return React.createElement(
-	            "h4",
-	            null,
-	            (0, _ItineraryUtils.dateFormatted)(t[0]),
-	            React.createElement("button", { className: "addItinerary", onClick: function onClick() {
-	                return onAdd(itinerary, t);
-	              } })
-	          );
-	        });
+	  if (time && time.slots) {
+	    addButtons = time.slots.map(function (t) {
+	      if (timeSet.has(+t[0])) {
+	        return React.createElement(
+	          "h4",
+	          null,
+	          (0, _ItineraryUtils.dateFormatted)(t[0]),
+	          React.createElement("button", { className: "removeItinerary", onClick: function onClick() {
+	              return onUnschedule(+t[0]);
+	            } })
+	        );
+	      } else {
+	        return React.createElement(
+	          "h4",
+	          null,
+	          (0, _ItineraryUtils.dateFormatted)(t[0]),
+	          React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	              return onSchedule(+t[0]);
+	            } })
+	        );
 	      }
-	    }
+	    });
 	  }
 	  return React.createElement(
 	    "section",
@@ -2731,6 +2758,8 @@
 
 	'use strict';
 
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -2746,6 +2775,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); } /**
 	                                                                               * API methods for loading itineraries
 	                                                                               * (de)serializing to and from from the Jane's Walk C5
@@ -2758,31 +2789,36 @@
 	 * Serialize as JSON
 	 * No need to serialize the whole walks list. Just need their IDs
 	 */
-	function getJson(_ref) {
-	  var _ref2 = _toArray(_ref);
+	function getJson(_ref, _ref2) {
+	  var _ref4 = _toArray(_ref);
 
-	  var lists = _ref2;
+	  var lists = _ref4;
 
-	  return JSON.stringify(lists.map(function (list) {
-	    var walks = [],
-	        times = [];
-	    var denormal = {};
+	  var _ref3 = _toArray(_ref2);
 
-	    // Denormalize for serializing
-	    list.walks.forEach(function (timeArr, walk) {
-	      walks.push(+walk.id);
-	      if (timeArr) {
-	        times.push(timeArr);
-	      }
-	    });
+	  var schedule = _ref3;
 
-	    if (times.length) {
-	      denormal.times = times;
-	    }
-	    denormal.walks = walks;
+	  return JSON.stringify({
+	    lists: lists.map(function (list) {
+	      var walks = [];
 
-	    return Object.assign({}, list, denormal);
-	  }));
+	      // Denormalize for serializing
+	      list.walks.forEach(function (walk) {
+	        return walks.push(+walk.id);
+	      });
+
+	      return Object.assign({}, list, { walks: walks });
+	    }),
+	    schedule: schedule.reduce(function (p, _ref5) {
+	      var _ref6 = _slicedToArray(_ref5, 2);
+
+	      var walk = _ref6[0];
+	      var times = _ref6[1];
+
+	      p[+walk.id] = [].concat(_toConsumableArray(times));
+	      return p;
+	    }, {})
+	  });
 	}
 
 	function post(cb) {
@@ -2803,7 +2839,7 @@
 	  xhr.onerror = function () {
 	    console.log('Failed to update itinerary.');
 	  };
-	  xhr.send(getJson(_ItineraryStore2.default.getLists()));
+	  xhr.send(getJson(_ItineraryStore2.default.getLists(), _ItineraryStore2.default.getSchedule()));
 	}
 
 	function get() {
@@ -7552,7 +7588,11 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -7563,6 +7603,8 @@
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
 	var _ItineraryActions = __webpack_require__(14);
+
+	var Action = _interopRequireWildcard(_ItineraryActions);
 
 	var _WalkHeader = __webpack_require__(57);
 
@@ -7604,6 +7646,8 @@
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7617,9 +7661,13 @@
 	  var page = _ref.page;
 	  var city = _ref.city;
 
-	  var itinerary = _ItineraryStore2.default.getItineraryList();
-	  var favourites = _ItineraryStore2.default.getFavouriteList();
-	  return { walk: walk, page: page, city: city, itinerary: itinerary, favourites: favourites };
+	  var _ItineraryStore$getLi = _ItineraryStore2.default.getLists();
+
+	  var _ItineraryStore$getLi2 = _slicedToArray(_ItineraryStore$getLi, 1);
+
+	  var firstList = _ItineraryStore$getLi2[0];
+
+	  return { walk: walk, page: page, city: city, list: firstList, isFavourite: _ItineraryStore2.default.hasInList(walk), schedule: _ItineraryStore2.default.getSchedule() };
 	};
 
 	var WalkPage = (function (_React$Component) {
@@ -7663,8 +7711,9 @@
 	      var walk = _state.walk;
 	      var page = _state.page;
 	      var city = _state.city;
-	      var itinerary = _state.itinerary;
-	      var favourites = _state.favourites;
+	      var list = _state.list;
+	      var isFavourite = _state.isFavourite;
+	      var schedule = _state.schedule;
 
 	      var hasMarkers = false,
 	          hasRoute = false;
@@ -7676,18 +7725,20 @@
 	      return React.createElement(
 	        'section',
 	        { className: 'walkPage' },
-	        React.createElement(_WalkHeader2.default, {
-	          walk: walk,
-	          city: city,
-	          itinerary: itinerary,
-	          favourites: favourites,
-	          onAdd: function onAdd(list, time) {
-	            return (0, _ItineraryActions.add)(list, walk, time);
+	        React.createElement(_WalkHeader2.default, _extends({ walk: walk, city: city, isFavourite: isFavourite, schedule: schedule }, {
+	          onSchedule: function onSchedule(t) {
+	            return Action.schedule(walk, t);
 	          },
-	          onRemove: function onRemove(list, time) {
-	            return (0, _ItineraryActions.remove)(list, walk, time);
+	          onUnschedule: function onUnschedule(t) {
+	            return Action.unschedule(walk, t);
+	          },
+	          onAdd: function onAdd() {
+	            return Action.add(list, walk);
+	          },
+	          onRemove: function onRemove() {
+	            return Action.remove(list, walk);
 	          }
-	        }),
+	        })),
 	        React.createElement(_WalkMenu2.default, this.state),
 	        React.createElement(_WalkDescription2.default, this.state.walk),
 	        hasMarkers || hasRoute ? React.createElement(_WalkMap2.default, { map: this.state.walk['map'] }) : null,
@@ -7764,10 +7815,12 @@
 	var WalkHeader = function WalkHeader(_ref) {
 	  var city = _ref.city;
 	  var walk = _ref.walk;
-	  var favourites = _ref.favourites;
-	  var itinerary = _ref.itinerary;
+	  var isFavourite = _ref.isFavourite;
+	  var schedule = _ref.schedule;
 	  var onAdd = _ref.onAdd;
 	  var onRemove = _ref.onRemove;
+	  var onSchedule = _ref.onSchedule;
+	  var onUnschedule = _ref.onUnschedule;
 	  var title = walk.title;
 	  var map = walk.map;
 	  var time = walk.time;
@@ -7786,14 +7839,10 @@
 
 	  var favButton = undefined;
 
-	  if (favourites && favourites.walks.has(walk)) {
-	    favButton = React.createElement('button', { className: 'removeFavourite', onClick: function onClick() {
-	        return onRemove(favourites);
-	      } });
+	  if (isFavourite) {
+	    favButton = React.createElement('button', { className: 'removeFavourite', onClick: onRemove });
 	  } else {
-	    favButton = React.createElement('button', { className: 'addFavourite', onClick: function onClick() {
-	        return onAdd(favourites);
-	      } });
+	    favButton = React.createElement('button', { className: 'addFavourite', onClick: onAdd });
 	  }
 
 	  return React.createElement(
@@ -7847,12 +7896,7 @@
 	      null,
 	      walkLeader ? 'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' - ' : null
 	    ),
-	    React.createElement(_AddToItinerary2.default, {
-	      itinerary: itinerary,
-	      time: time,
-	      walk: walk,
-	      onAdd: onAdd,
-	      onRemove: onRemove })
+	    React.createElement(_AddToItinerary2.default, { time: time, walk: walk, schedule: schedule, onSchedule: onSchedule, onUnschedule: onUnschedule })
 	  );
 	};
 

@@ -1,4 +1,4 @@
-import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
+import {dispatch, register, waitFor} from 'janeswalk/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 import {ActionTypes} from 'janeswalk/constants/JWConstants';
 import {startTimeIndex} from '../utils/ItineraryUtils';
@@ -7,7 +7,11 @@ import WalkStore from './WalkStore';
 
 const CHANGE_EVENT = 'change';
 
+// Set<Set> A set of walk sets
 const _lists = new Set();
+
+// Map<{walk}:[times]> A map of times set for each walk
+const _schedule = new Map();
 
 // Has this store been synced, and is it syncing?
 let _lastChange = Date.now();
@@ -15,30 +19,20 @@ let _lastChange = Date.now();
 //TODO: Currently no remove list, just adding lists
 //TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
-const _removeWalk = (list, walk, time = null) => {
-  if (time) {
-    let startTimes = list.walks.get(walk);
-    let startIndex = startTimeIndex(startTimes, time);
-    if ( startIndex >= 0) {
-      startTimes.splice(startIndex, 1);
-      list.walks.set(walk, startTimes);
-    }
-  } else {
-    list.walks.delete(walk);
-  }
+const _removeWalk = (list, walk) => list.walks.delete(walk);
+
+const _addWalk = (list, walk) => list.walks.add(walk);
+
+const _scheduleWalk = (walk, time) => {
+  let times = _schedule.get(walk) || new Set();
+  times.add(+time);
+  _schedule.set(walk, times);
 };
 
-const _addWalk = (list, walk, time = null) => {
-  if(time) {
-    let startTimes = list.walks.get(walk);
-    let startIndex = startTimeIndex(startTimes, time);
-    if (startIndex === -1) {
-      startTimes.push(time);
-      list.walks.set(walk, startTimes);
-    }
-  } else {
-    list.walks.set(walk);
-  }
+const _unscheduleWalk = (walk, time) => {
+  let times = _schedule.get(walk) || new Set();
+  times.delete(+time);
+  _schedule.set(walk, times);
 };
 
 const _createList = (title = '', description = '') => {
@@ -58,21 +52,19 @@ const _createList = (title = '', description = '') => {
 /**
  * Load all the basic itineraries
  *
- * @param itineraries array List of itineraries in serlizable-friendly state
+ * @param itineraries array List of itineraries in serialization-friendly state
  */
-const _receiveAll = (itineraries) => {
-  // Itinerary has a list of walk IDs, so load the actual walks from there.
-  //itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary, {
-  //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
-  //})));
-
-  // TODO: Assume first list in itineraries is user itinerary
-  itineraries.forEach((itinerary, index) => {
-    let times = itinerary.times || [];
-
+const _receiveAll = ({lists, schedule}) => {
+  lists.forEach((itinerary, index) => {
     _lists.add(Object.assign({}, itinerary, {
-      walks: new Map(itinerary.walks.map((wID, i) => [WalkStore.getWalk(+wID), times[i] || []]) )
+      walks: new Set(itinerary.walks.map(wID => WalkStore.getWalk(+wID)))
     }));
+  });
+
+  // Loop through the {123: [14224342342, 2343535345]} object of times arrays
+  // Build a set, using the times as a number to key
+  Object.keys(schedule).forEach(wID => {
+    _schedule.set(WalkStore.getWalk(+wID), new Set(schedule[wID].map(t => +t)));
   });
 };
 
@@ -88,6 +80,19 @@ const _updateTitle = (list, title) => {
 const _updateDescription = (list, description) => {
   list.description = description;
 };
+
+function _hasInList(walk) {
+  for (let list of _lists) {
+    if (list.walks.has(walk)) return true;
+  }
+  return false;
+}
+
+function _hasInSchedule(walk, time) {
+  const times = _schedule.get(walk);
+  if (times && times.has(+time)) return true;
+  return false;
+}
 
 const ItineraryStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
@@ -106,14 +111,8 @@ const ItineraryStore = Object.assign({}, EventEmitter.prototype, {
     return _lists;
   },
 
-  getItineraryList() {
-    let [list] = _lists;
-    return list;
-  },
-
-  getFavouriteList() {
-    let [itinerary, favourites] = _lists;
-    return favourites;
+  getSchedule() {
+    return _schedule;
   },
 
   getWalks(list) {
@@ -124,6 +123,14 @@ const ItineraryStore = Object.assign({}, EventEmitter.prototype, {
     return _lastChange;
   },
 
+  hasInList(walk) {
+    return _hasInList(walk);
+  },
+
+  hasInSchedule(walk, time) {
+    return _hasInSchedule(walk, time);
+  },
+
   totalWalks() {
     let count = 0;
     _lists.forEach(list => count += list.walks.size);
@@ -132,16 +139,29 @@ const ItineraryStore = Object.assign({}, EventEmitter.prototype, {
 
   //TODO: use _updateWalks to receive walks from server via API call
   dispatcherIndex: register(function(payload) {
+    // Any action without a list specified is assumed on the first 'favourites'
     const {list, walk, time} = payload;
+
     switch (payload.type) {
       case ActionTypes.ITINERARY_REMOVE_WALK:
         _lastChange = Date.now();
-        _removeWalk(list, walk, time);
+        _removeWalk(list, walk);
       break;
       case ActionTypes.ITINERARY_ADD_WALK:
         _lastChange = Date.now();
-        //TODO: Dialog to open on first add to Itinerary/Favourites
-        _addWalk(list, walk, time);
+        _addWalk(list, walk);
+      break;
+      case ActionTypes.ITINERARY_SCHEDULE_WALK:
+        _lastChange = Date.now();
+        if (!_hasInList(walk)) {
+          let [firstList] = _lists;
+          _addWalk(list || firstList, walk);
+        }
+        _scheduleWalk(walk, time);
+      break;
+      case ActionTypes.ITINERARY_UNSCHEDULE_WALK:
+        _lastChange = Date.now();
+        _unscheduleWalk(walk, time);
       break;
       case ActionTypes.ITINERARY_UPDATE_TITLE:
         _lastChange = Date.now();
@@ -156,6 +176,7 @@ const ItineraryStore = Object.assign({}, EventEmitter.prototype, {
         _createList(payload.title, payload.description);
       break;
       case ActionTypes.ITINERARY_RECEIVE_ALL:
+        waitFor([WalkStore.dispatchToken]);
         _receiveAll(payload.itineraries);
       break;
     }

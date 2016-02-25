@@ -17,7 +17,7 @@ class Walk extends React.Component {
   }
 
   render() {
-    const {walk, list, lists, onAdd, onRemove, itinerary} = this.props;
+    const {walk, list, lists, onAdd, onRemove, onSchedule, onUnschedule, schedule, isScheduled} = this.props;
     const {dialogOpen} = this.state;
     const {title, url, map, time} = walk;
     let meeting, start;
@@ -31,7 +31,7 @@ class Walk extends React.Component {
         <div className="walk">
           <h3><a href={url}>{title}</a></h3>
           <h4>{meeting}</h4>
-          <AddToItinerary itinerary={itinerary} time={time} walk={walk} onAdd={onAdd} onRemove={onRemove}/>
+          <AddToItinerary {...{schedule, time, walk, onSchedule, onUnschedule, isScheduled}}/>
         </div>
         <button
           className="action removeWalk"
@@ -42,7 +42,7 @@ class Walk extends React.Component {
           onClick={() => this.setState({dialogOpen: !dialogOpen})}
         />
 
-        {dialogOpen ? <AddWalkToList lists={lists} walk={walk} list={list} onAdd={onAdd} onRemove={onRemove} /> : null}
+        {dialogOpen ? <AddWalkToList {...{lists, walk, list, onAdd, onRemove}} /> : null}
       </li>
     );
   }

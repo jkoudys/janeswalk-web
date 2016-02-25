@@ -13,26 +13,21 @@ const endpoint = '/profile/itineraries';
  * Serialize as JSON
  * No need to serialize the whole walks list. Just need their IDs
  */
-function getJson([...lists]) {
-  return JSON.stringify(lists.map(list => {
-    const walks = [], times = [];
-    const denormal = {};
+function getJson([...lists], [...schedule]) {
+  return JSON.stringify({
+    lists: lists.map(list => {
+      const walks = [];
 
-    // Denormalize for serializing
-    list.walks.forEach((timeArr, walk) => {
-      walks.push(+walk.id);
-      if (timeArr) {
-        times.push(timeArr);
-      }
-    });
+      // Denormalize for serializing
+      list.walks.forEach(walk => walks.push(+walk.id));
 
-    if (times.length) {
-      denormal.times = times;
-    }
-    denormal.walks = walks;
-
-    return Object.assign({}, list, denormal);
-  }));
+      return Object.assign({}, list, {walks});
+    }),
+    schedule: schedule.reduce((p, [walk, times]) => {
+      p[+walk.id] = [...times];
+      return p;
+    }, {})
+  });
 }
 
 export function post(cb, url = endpoint) {
@@ -51,7 +46,7 @@ export function post(cb, url = endpoint) {
   xhr.onerror = function() {
     console.log('Failed to update itinerary.');
   };
-  xhr.send(getJson(ItineraryStore.getLists()));
+  xhr.send(getJson(ItineraryStore.getLists(), ItineraryStore.getSchedule()));
 }
 
 

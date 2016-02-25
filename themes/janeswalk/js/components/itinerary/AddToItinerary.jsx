@@ -1,38 +1,33 @@
 import {dateFormatted, startTimeIndex} from 'janeswalk/utils/ItineraryUtils';
 
-const AddToItinerary = ({itinerary, time, walk, onAdd, onRemove}) => {
+const AddToItinerary = ({schedule, time, walk, onSchedule, onUnschedule}) => {
   let addButtons = [];
+  let timeSet = schedule.get(walk) || new Set();
 
-  if (itinerary && time && time.slots) {
-    if (itinerary.walks.has(walk)) {
-      //retrieve start times for walk
-      let startTimes = itinerary.walks.get(walk);
-
-      addButtons = time.slots.map(t => {
-        if (startTimeIndex(startTimes, t) == -1) {
-          return (<h4>
+  if (time && time.slots) {
+    addButtons = time.slots.map(t => {
+      if (timeSet.has(+t[0])) {
+        return (
+          <h4>
             {dateFormatted(t[0])}
-            <button className="addItinerary" onClick={() => onAdd(itinerary, t)}/>
-          </h4>)
-        } else {
-          return (<h4>
+            <button className="removeItinerary" onClick={() => onUnschedule(+t[0])}/>
+          </h4>
+        );
+      } else {
+        return (
+          <h4>
             {dateFormatted(t[0])}
-            <button className="removeItinerary" onClick={() => onRemove(itinerary, t)}/>
-          </h4>)
-        }
-      });
-    } else {
-      if (time && time.slots[0]) {
-        addButtons = time.slots.map(t => (<h4>
-          {dateFormatted(t[0])}
-          <button className="addItinerary" onClick={() => onAdd(itinerary, t)} />
-        </h4>));
+            <button className="addItinerary" onClick={() => onSchedule(+t[0])}/>
+          </h4>
+        );
       }
-    }
+    });
   }
-  return (<section>
-    {addButtons}
-  </section>)
+  return (
+    <section>
+      {addButtons}
+    </section>
+  );
 };
 
 export default AddToItinerary;

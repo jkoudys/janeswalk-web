@@ -1,5 +1,5 @@
 import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
-import {add, remove} from 'janeswalk/actions/ItineraryActions';
+import * as Action from 'janeswalk/actions/ItineraryActions';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
@@ -13,9 +13,8 @@ import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
 
 const getWalk = ({walk, page, city}) => {
-  const itinerary = ItineraryStore.getItineraryList();
-  const favourites = ItineraryStore.getFavouriteList();
-  return {walk, page, city, itinerary, favourites};
+  let [firstList] = ItineraryStore.getLists();
+  return {walk, page, city, list: firstList, isFavourite: ItineraryStore.hasInList(walk), schedule: ItineraryStore.getSchedule()}
 };
 
 export default class WalkPage extends React.Component {
@@ -39,7 +38,7 @@ export default class WalkPage extends React.Component {
   }
 
   render() {
-    const {walk, page, city, itinerary, favourites} = this.state;
+    const {walk, page, city, list, isFavourite, schedule} = this.state;
     let hasMarkers = false, hasRoute = false;
     if (walk && walk['map']) {
       hasMarkers = (walk['map']['markers'].length > 0);
@@ -49,12 +48,11 @@ export default class WalkPage extends React.Component {
     return (
       <section className="walkPage">
         <WalkHeader
-          walk={walk}
-          city={city}
-          itinerary={itinerary}
-          favourites={favourites}
-          onAdd={(list, time) => add(list, walk, time)}
-          onRemove={(list, time) => remove(list, walk, time)}
+          {...{walk, city, isFavourite, schedule}}
+          onSchedule={t => Action.schedule(walk, t)}
+          onUnschedule={t => Action.unschedule(walk, t)}
+          onAdd={() => Action.add(list, walk)}
+          onRemove={() => Action.remove(list, walk)}
         />
         <WalkMenu {...this.state} />
         <WalkDescription {...this.state.walk} />

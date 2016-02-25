@@ -11,29 +11,41 @@ if ($u->getUserID()) {
         'firstName' => $ui->getAttribute('first_name'),
         'walks' => []
     ];
-    $itineraries = json_decode($ui->getAttribute('itineraries'), true);
-    if (!$itineraries) {
+    $itJson = $ui->getAttribute('itineraries');
+    $itineraries = json_decode($itJson, true);
+
+    // Make sure it's not the old array format
+    if (!$itineraries || $itJson[0] === '[') {
         // If there's no itinerary, seed with defaults
         $itineraries = [
-            [
-                'id' => 1,
-                'title' => 'My Itinerary',
-                'walks' => [],
-                'description' => ''
-            ], [
-                'id' => 2,
-                'title' => 'Favourites',
-                'walks' => [],
-                'description' => ''
-            ]
+            'lists' => [
+                [
+                    'id' => 1,
+                    'title' => 'Favourites',
+                    'walks' => [],
+                    'description' => ''
+                ]
+            ],
+            'schedule' => (object) []
         ];
     }
     $walkIDs = [];
     $walks = [];
-    foreach ((array) $itineraries as $itinerary) {
-        foreach ($itinerary['walks'] as $walkID) {
+    // Load walks we have either favourited or scheduled
+    foreach ((array) $itineraries['lists'] as $list) {
+        foreach ($list['walks'] as $walkID) {
+            if (!$walks[$walkID]) {
+                $p = Page::getByID($walkID);
+                if ($p) {
+                    $walks[$walkID] = new Walk($p);
+                }
+            }
+        }
+    }
+    foreach ((array) $itineraries['schedule'] as $walkID => $time) {
+        if (!$walks[$walkID]) {
             $p = Page::getByID($walkID);
-            if ($p && !$walks[$walkID]) {
+            if ($p) {
                 $walks[$walkID] = new Walk($p);
             }
         }
