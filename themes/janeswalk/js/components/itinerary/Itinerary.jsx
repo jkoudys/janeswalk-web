@@ -47,15 +47,18 @@ export default class Itinerary extends React.Component {
 
     // Lookup the walk data from the walk's ID
     const ItineraryWalks = [];
-    activeList.walks.forEach(walk => {
+    activeList.walks.forEach((startTimes, walk) => {
+      //TODO: why walk[0], wrong format? Could be how the walk is set ([walk,startTime of null]) for favourite
+      walk = walk[0] || walk;
       ItineraryWalks.push(
         <Walk
           key={walk.id}
           list={activeList}
           lists={lists}
           walk={walk}
-          onAdd={(list) => add(list, walk)}
-          onRemove={(list) => remove(list, walk)}
+          startTimes={startTimes ? startTimes : null}
+          onAdd={(list, time) => add(list, walk, time)}
+          onRemove={(list, time) => remove(list, walk, time)}
         />
       );
     });
