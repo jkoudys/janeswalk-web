@@ -144,10 +144,6 @@ export default class CreateWalk extends React.Component {
     }
   }
 
-  handleSave() {
-    this.saveWalk();
-  }
-
   handlePublish() {
     this.saveWalk({publish: true}, () => console.log('Walk published'));
   }
@@ -192,9 +188,9 @@ export default class CreateWalk extends React.Component {
               <li><a data-toggle="tab" className="team" href="#team"><i className="fa fa-users" />{ t('Build Your Team') }</a></li>
             </ul>
             <section id="button-group">
-              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
-              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={function() {this.setState({publish: true})}.bind(this)} ref="publish">{ t('Publish Walk') }</button>
-              <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.handleSave}>{ t('Save') }</button>
+              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={() => this.handlePreview()}>{ t('Preview Walk') }</button>
+              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={() => this.setState({publish: true})} ref="publish">{ t('Publish Walk') }</button>
+              <button className="btn btn-info save" title="Save" id="btn-save" onClick={() => this.handleSave()}>{ t('Save') }</button>
             </section>
           </nav>
           <div id="main-panel" role="main">
@@ -290,9 +286,9 @@ export default class CreateWalk extends React.Component {
                 <hr />
                 <br />
               </div>
-              <TeamBuilder onChange={(v) => this.setState({team: v})} team={this.state.team} />
+              <TeamBuilder onChange={v => this.setState({team: v})} team={this.state.team} />
             </div>
-            <button type="button" onClick={this.handleNext} className="btn">Next</button>
+            <button type="button" onClick={() => this.handleNext()} className="btn">Next</button>
           </div>
           <aside id="tips-panel" role="complementary">
             <div className="popover right" id="city-organizer" style={{display: 'block'}}>
@@ -320,7 +316,7 @@ export default class CreateWalk extends React.Component {
   }
 }
 // Mixins
-Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin),
+Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin);
 
 class WalkPreview extends React.Component {
   componentDidMount() {

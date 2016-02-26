@@ -3331,11 +3331,6 @@
 	      }
 	    }
 	  }, {
-	    key: 'handleSave',
-	    value: function handleSave() {
-	      this.saveWalk();
-	    }
-	  }, {
 	    key: 'handlePublish',
 	    value: function handlePublish() {
 	      this.saveWalk({ publish: true }, function () {
@@ -3455,19 +3450,23 @@
 	              { id: 'button-group' },
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info btn-preview', id: 'preview-walk', title: 'Preview what you have so far.', onClick: this.handlePreview },
+	                { className: 'btn btn-info btn-preview', id: 'preview-walk', title: 'Preview what you have so far.', onClick: function onClick() {
+	                    return _this4.handlePreview();
+	                  } },
 	                (0, _I18nStore.t)('Preview Walk')
 	              ),
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: (function () {
-	                    this.setState({ publish: true });
-	                  }).bind(this), ref: 'publish' },
+	                { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: function onClick() {
+	                    return _this4.setState({ publish: true });
+	                  }, ref: 'publish' },
 	                (0, _I18nStore.t)('Publish Walk')
 	              ),
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info save', title: 'Save', id: 'btn-save', onClick: this.handleSave },
+	                { className: 'btn btn-info save', title: 'Save', id: 'btn-save', onClick: function onClick() {
+	                    return _this4.handleSave();
+	                  } },
 	                (0, _I18nStore.t)('Save')
 	              )
 	            )
@@ -3684,7 +3683,9 @@
 	            ),
 	            React.createElement(
 	              'button',
-	              { type: 'button', onClick: this.handleNext, className: 'btn' },
+	              { type: 'button', onClick: function onClick() {
+	                  return _this4.handleNext();
+	                }, className: 'btn' },
 	              'Next'
 	            )
 	          ),
@@ -3752,7 +3753,9 @@
 	// Mixins
 
 	exports.default = CreateWalk;
-	Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin), (function (_React$Component2) {
+	Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin);
+
+	var WalkPreview = (function (_React$Component2) {
 	  _inherits(WalkPreview, _React$Component2);
 
 	  function WalkPreview() {
