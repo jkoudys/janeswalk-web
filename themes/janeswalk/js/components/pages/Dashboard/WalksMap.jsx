@@ -68,7 +68,7 @@ export default class WalksMap extends React.Component {
       googleMapMarkers: [],
     };
   }
-  //You cannot use this.setState() in componentWillUpdate
+  // You cannot use this.setState() in componentWillUpdate
   componentWillReceiveProps(updatedProps) {
     const {googleMap, googleMapMarkers} = this.state;
     const {walks} = updatedProps;

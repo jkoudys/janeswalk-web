@@ -35,12 +35,15 @@ export default class Walks extends React.Component {
 
   render() {
     const {currentView, filterByDate, filters} = this.state;
-    const {walks, city} = this.props;
+    const {walks, city, user, show} = this.props;
 
     // How we're presenting the walks (map or list)
-    let Walks = [];
+    let Walks;
     if (currentView === 'list') {
-      for (let {map, id, title, time, team, url} of walks.values()) {
+      // TODO: separate this out into some functions
+      let walkIDs = (show === 'city') ? city.walks : user.walks;
+      Walks = walkIDs.map(wID => {
+        let {map, id, title, time, team, url} = walks.get(wID);
         let props = {title, id, key: id, team, url}
         if (map && map.markers.length) {
           props.meeting = map.markers[0].title;
@@ -48,10 +51,10 @@ export default class Walks extends React.Component {
         if (time && time.slots.length) {
           props.start = time.slots[0][0];
         }
-        Walks.push(<Walk {...props} />);
-      }
+        return <Walk {...props} />;
+      });
     } else if (currentView === 'map') {
-      Walks = <WalksMap walks={walks} city={city} />
+      Walks = <WalksMap walks={user.walks.map(wID => walks.get(wID))} city={city} />
     }
 
     // The toggle for the past walks

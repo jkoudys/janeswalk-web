@@ -8781,11 +8781,7 @@
 	        'section',
 	        { className: 'dashboard' },
 	        React.createElement(_DashboardHeader2.default, { user: user }),
-	        React.createElement(_DashboardMenu2.default, {
-	          walks: walks,
-	          users: users,
-	          city: city
-	        }),
+	        React.createElement(_DashboardMenu2.default, { walks: walks, users: users, user: user, city: city }),
 	        React.createElement(_DashboardSummary2.default, {
 	          city: city,
 	          walks: walks,
@@ -8865,6 +8861,8 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -8914,7 +8912,7 @@
 	      args[_key - 1] = arguments[_key];
 	    }
 
-	    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?] tuples
+	    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(DashboardMenu)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
@@ -8922,7 +8920,7 @@
 	      menuItems: [
 	      // [DashboardResources, 'Dashboard Resources', true],
 	      //        [MyBlogPosts, 'My Blog Posts', false],
-	      [_Walks2.default, 'Walks', false]]
+	      [_Walks2.default, 'My Walks', false, { show: 'user' }], [_Walks2.default, 'Walks in My City', false, { show: 'city' }]]
 	    };
 	    return _this;
 	  }
@@ -8945,13 +8943,15 @@
 	      var _props = this.props;
 	      var walks = _props.walks;
 	      var city = _props.city;
+	      var user = _props.user;
 
 	      var menu = menuItems.map(function (_ref, i) {
-	        var _ref2 = _slicedToArray(_ref, 3);
+	        var _ref2 = _slicedToArray(_ref, 4);
 
 	        var Component = _ref2[0];
 	        var name = _ref2[1];
 	        var open = _ref2[2];
+	        var props = _ref2[3];
 	        return React.createElement(
 	          'section',
 	          null,
@@ -8967,7 +8967,7 @@
 	            ' ',
 	            name
 	          ),
-	          React.createElement(Component, { walks: walks, city: city })
+	          open ? React.createElement(Component, _extends({ user: user, walks: walks, city: city }, props)) : null
 	        );
 	      });
 
@@ -9372,50 +9372,38 @@
 	      var _props = this.props;
 	      var walks = _props.walks;
 	      var city = _props.city;
+	      var user = _props.user;
+	      var show = _props.show;
 
 	      // How we're presenting the walks (map or list)
 
-	      var Walks = [];
+	      var Walks = undefined;
 	      if (currentView === 'list') {
-	        var _iteratorNormalCompletion = true;
-	        var _didIteratorError = false;
-	        var _iteratorError = undefined;
+	        // TODO: separate this out into some functions
+	        var walkIDs = show === 'city' ? city.walks : user.walks;
+	        Walks = walkIDs.map(function (wID) {
+	          var _walks$get = walks.get(wID);
 
-	        try {
-	          for (var _iterator = walks.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	            var _step$value = _step.value;
-	            var map = _step$value.map;
-	            var id = _step$value.id;
-	            var title = _step$value.title;
-	            var time = _step$value.time;
-	            var team = _step$value.team;
-	            var url = _step$value.url;
+	          var map = _walks$get.map;
+	          var id = _walks$get.id;
+	          var title = _walks$get.title;
+	          var time = _walks$get.time;
+	          var team = _walks$get.team;
+	          var url = _walks$get.url;
 
-	            var props = { title: title, id: id, key: id, team: team, url: url };
-	            if (map && map.markers.length) {
-	              props.meeting = map.markers[0].title;
-	            }
-	            if (time && time.slots.length) {
-	              props.start = time.slots[0][0];
-	            }
-	            Walks.push(React.createElement(_Walk2.default, props));
+	          var props = { title: title, id: id, key: id, team: team, url: url };
+	          if (map && map.markers.length) {
+	            props.meeting = map.markers[0].title;
 	          }
-	        } catch (err) {
-	          _didIteratorError = true;
-	          _iteratorError = err;
-	        } finally {
-	          try {
-	            if (!_iteratorNormalCompletion && _iterator.return) {
-	              _iterator.return();
-	            }
-	          } finally {
-	            if (_didIteratorError) {
-	              throw _iteratorError;
-	            }
+	          if (time && time.slots.length) {
+	            props.start = time.slots[0][0];
 	          }
-	        }
+	          return React.createElement(_Walk2.default, props);
+	        });
 	      } else if (currentView === 'map') {
-	        Walks = React.createElement(_WalksMap2.default, { walks: walks, city: city });
+	        Walks = React.createElement(_WalksMap2.default, { walks: user.walks.map(function (wID) {
+	            return walks.get(wID);
+	          }), city: city });
 	      }
 
 	      // The toggle for the past walks
@@ -9727,7 +9715,7 @@
 	    };
 	    return _this;
 	  }
-	  //You cannot use this.setState() in componentWillUpdate
+	  // You cannot use this.setState() in componentWillUpdate
 
 	  _createClass(WalksMap, [{
 	    key: 'componentWillReceiveProps',
@@ -9894,7 +9882,7 @@
 	        React.createElement(
 	          'a',
 	          { href: url },
-	          title
+	          title || '{untitled}'
 	        )
 	      ),
 	      React.createElement(
@@ -9919,7 +9907,7 @@
 	        'h4',
 	        null,
 	        'Meeting at ',
-	        meeting
+	        meeting || '{no meeting place}'
 	      ),
 	      start * 1000 > Date.now() ? React.createElement(
 	        'button',

@@ -11,12 +11,13 @@ export default class DashboardMenu extends React.Component {
   constructor(props, ...args){
     super(props, ...args);
 
-    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?] tuples
+    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples
     this.state = {
       menuItems: [
         // [DashboardResources, 'Dashboard Resources', true],
         //        [MyBlogPosts, 'My Blog Posts', false],
-        [Walks, 'Walks', false],
+        [Walks, 'My Walks', false, {show: 'user'}],
+        [Walks, 'Walks in My City', false, {show: 'city'}],
         //  [WalkLeaders, 'Walk Leaders', false]
       ]
     };
@@ -30,9 +31,9 @@ export default class DashboardMenu extends React.Component {
 
   render() {
     const {menuItems} = this.state;
-    const {walks, city} = this.props;
+    const {walks, city, user} = this.props;
 
-    const menu = menuItems.map(([Component, name, open], i) => (
+    const menu = menuItems.map(([Component, name, open, props], i) => (
       <section>
         <li
           key={i}
@@ -40,7 +41,7 @@ export default class DashboardMenu extends React.Component {
           onClick={() => this.toggleSection(i)}>
           <i className="icon-caret-right" /> {name}
         </li>
-        <Component walks={walks} city={city} />
+        {open ? <Component {...{user, walks, city}} {...props} /> : null}
       </section>
     ));
 
