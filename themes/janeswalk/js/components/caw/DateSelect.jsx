@@ -26,10 +26,6 @@ export default class DateSelect extends React.Component {
       )
     );
 
-    // Bind class methods
-    this.setDay = this._setDay.bind(this);
-    this.addDate = this._addDate.bind(this);
-
     // Note: we're only keeping the 'date' on there to use Date's string
     // parsing. This method is concerned only with the Time
     // TODO: Support proper time localization - ultimately these times are just
@@ -37,7 +33,7 @@ export default class DateSelect extends React.Component {
     this.state = {start: start, duration: ONE_HOUR};
   }
 
-  _setDay(date) {
+  setDay = (date) => {
     const startDate = this.state.start;
 
     // Set the Day we're choosing
@@ -60,7 +56,7 @@ export default class DateSelect extends React.Component {
    * @param Date time The current time of day
    * @param Int duration Number of minutes the walk lasts
    */
-  setTime(time, duration) {
+  setTime = (time, duration) => {
     const startDate = this.state.start;
 
     startDate.setUTCHours(time.getUTCHours());
@@ -72,7 +68,7 @@ export default class DateSelect extends React.Component {
   /**
    * Build a valueLink object for updating the time
    */
-  linkTime() {
+  linkTime = () => {
     return {
       value: this.state.start.getTime(),
       requestChange: value => this.setState({start: new Date(Number(value))})
@@ -80,7 +76,7 @@ export default class DateSelect extends React.Component {
   }
 
   // Push the date we built here to the linked state
-  _addDate() {
+  addDate = () => {
     const valueLink = this.props.valueLink;
     const value = valueLink.value || {};
     const slots = (value.slots || []).slice();

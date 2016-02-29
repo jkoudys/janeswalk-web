@@ -1389,8 +1389,13 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Itinerary)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
+	    _this._onChange = function () {
+	      _this.setState(function () {
+	        return getItinerary(_this.state.activeList);
+	      });
+	    };
+
 	    _this.state = Object.assign({}, getItinerary(), props.itinerary);
-	    _this._onChange = _this._onChange.bind(_this);
 	    return _this;
 	  }
 
@@ -1420,18 +1425,9 @@
 	      this.setState({ $el: $el });
 	    }
 	  }, {
-	    key: '_onChange',
-	    value: function _onChange() {
-	      var _this3 = this;
-
-	      this.setState(function () {
-	        return getItinerary(_this3.state.activeList);
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
+	      var _this3 = this;
 
 	      var _state = this.state;
 	      var activeList = _state.activeList;
@@ -1474,7 +1470,7 @@
 	            } }),
 	          React.createElement(_ItinerarySelect2.default, _extends({
 	            onChoose: function onChoose(list) {
-	              return _this4.setState({ activeList: list });
+	              return _this3.setState({ activeList: list });
 	            },
 	            onCreate: function onCreate() {
 	              return Actions.createList((0, _I18nStore.t)('New Itinerary'));
@@ -3209,6 +3205,8 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CreateWalk).call(this, props));
 
+	    _initialiseProps.call(_this);
+
 	    var data = props.data;
 	    // TODO: move this into its own model js
 	    // Keep these defaults to type, ie don't pre-seed data here, aside from
@@ -3265,88 +3263,6 @@
 	  }
 
 	  _createClass(CreateWalk, [{
-	    key: 'saveWalk',
-	    value: function saveWalk(options, cb) {
-	      var _this2 = this;
-
-	      // TODO: separate the notifications logic
-	      /* Send in the updated walk to save, but keep working */
-	      var notifications = this.state.notifications.slice();
-	      var removeNotice = function removeNotice() {
-	        var notifications = _this2.state.notifications.slice();
-	        _this2.setState({ notifications: notifications.slice(1) });
-	      };
-
-	      var defaultOptions = {
-	        messageTimeout: 1200
-	      };
-	      options = Object.assign({}, defaultOptions, options);
-
-	      notifications.push({ type: 'info', name: 'Saving walk' });
-
-	      // Build a simplified map from the Google objects
-	      this.setState({
-	        map: this.refs.mapBuilder.getStateSimple(),
-	        notifications: notifications
-	      }, function () {
-	        $.ajax({
-	          url: _this2.state.url,
-	          type: options.publish ? 'PUT' : 'POST',
-	          data: { json: JSON.stringify(_this2.state) },
-	          dataType: 'json',
-	          success: (function (data) {
-	            var notifications = this.state.notifications.slice();
-	            notifications.push({ type: 'success', name: 'Walk saved' });
-	            this.setState({ notifications: notifications, url: data.url || this.state.url }, function () {
-	              if (cb && cb instanceof Function) {
-	                // The 'this' in each callback should be the <CreateWalk>
-	                cb.call(this);
-	              }
-	            });
-	            setTimeout(removeNotice, 1200);
-	          }).bind(_this2),
-	          error: (function (xhr, status, err) {
-	            var notifications = this.state.notifications.slice();
-	            notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
-	            this.setState({ notifications: notifications });
-	            setTimeout(removeNotice, 6000);
-	            console.error(this.url, status, err.toString());
-	          }).bind(_this2)
-	        });
-	      });
-	      setTimeout(removeNotice, 1200);
-	    }
-	  }, {
-	    key: 'handleNext',
-	    value: function handleNext() {
-	      // Bootstrap's managing the tabs, so trigger a jQuery click on the next
-	      var next = $('#progress-panel > .nav > li.active + li > a');
-	      window.scrollTo(0, 0);
-	      if (next.length) {
-	        this.saveWalk();
-	        next.trigger('click');
-	      } else {
-	        // If no 'next' tab, next step is to publish
-	        $(React.findDOMNode(this.refs.publish)).trigger('click');
-	      }
-	    }
-	  }, {
-	    key: 'handlePublish',
-	    value: function handlePublish() {
-	      this.saveWalk({ publish: true }, function () {
-	        return console.log('Walk published');
-	      });
-	    }
-	  }, {
-	    key: 'handlePreview',
-	    value: function handlePreview(e) {
-	      var _this3 = this;
-
-	      this.saveWalk({}, function () {
-	        return _this3.setState({ preview: true });
-	      });
-	    }
-	  }, {
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      _I18nStore2.default.addChangeListener(this._onChange.bind(this));
@@ -3367,13 +3283,13 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
+	      var _this2 = this;
 
 	      // Used to let the map pass a callback
 	      var linkStateMap = {
 	        value: this.state.map,
 	        requestChange: function requestChange(newVal, cb) {
-	          _this4.setState({ map: newVal }, cb);
+	          _this2.setState({ map: newVal }, cb);
 	        }
 	      };
 
@@ -3450,23 +3366,19 @@
 	              { id: 'button-group' },
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info btn-preview', id: 'preview-walk', title: 'Preview what you have so far.', onClick: function onClick() {
-	                    return _this4.handlePreview();
-	                  } },
+	                { className: 'btn btn-info btn-preview', id: 'preview-walk', title: 'Preview what you have so far.', onClick: this.handlePreview },
 	                (0, _I18nStore.t)('Preview Walk')
 	              ),
 	              React.createElement(
 	                'button',
 	                { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: function onClick() {
-	                    return _this4.setState({ publish: true });
+	                    return _this2.setState({ publish: true });
 	                  }, ref: 'publish' },
 	                (0, _I18nStore.t)('Publish Walk')
 	              ),
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info save', title: 'Save', id: 'btn-save', onClick: function onClick() {
-	                    return _this4.handleSave();
-	                  } },
+	                { className: 'btn btn-info save', title: 'Save', id: 'btn-save', onClick: this.saveWalk },
 	                (0, _I18nStore.t)('Save')
 	              )
 	            )
@@ -3678,14 +3590,12 @@
 	                React.createElement('br', null)
 	              ),
 	              React.createElement(_TeamBuilder2.default, { onChange: function onChange(v) {
-	                  return _this4.setState({ team: v });
+	                  return _this2.setState({ team: v });
 	                }, team: this.state.team })
 	            ),
 	            React.createElement(
 	              'button',
-	              { type: 'button', onClick: function onClick() {
-	                  return _this4.handleNext();
-	                }, className: 'btn' },
+	              { type: 'button', onClick: this.handleNext, className: 'btn' },
 	              'Next'
 	            )
 	          ),
@@ -3725,8 +3635,12 @@
 	            )
 	          )
 	        ),
-	        this.state.publish ? React.createElement(_WalkPublish2.default, { url: this.state.url, saveWalk: this.saveWalk.bind(this), close: this.setState.bind(this, { publish: false }), city: city, mirrors: this.state.mirrors }) : null,
-	        this.state.preview ? React.createElement(WalkPreview, { url: this.state.url, close: this.setState.bind(this, { preview: false }) }) : null,
+	        this.state.publish ? React.createElement(_WalkPublish2.default, { url: this.state.url, saveWalk: this.saveWalk, close: function close() {
+	            return _this2.setState({ publish: false });
+	          }, city: city, mirrors: this.state.mirrors }) : null,
+	        this.state.preview ? React.createElement(WalkPreview, { url: this.state.url, close: function close() {
+	            return _this2.setState({ preview: false });
+	          } }) : null,
 	        React.createElement(
 	          'aside',
 	          { id: 'notifications' },
@@ -3752,6 +3666,84 @@
 	})(React.Component);
 	// Mixins
 
+	var _initialiseProps = function _initialiseProps() {
+	  var _this3 = this;
+
+	  this.saveWalk = function (options, cb) {
+	    // TODO: separate the notifications logic
+	    /* Send in the updated walk to save, but keep working */
+	    var notifications = _this3.state.notifications.slice();
+	    var removeNotice = function removeNotice() {
+	      var notifications = _this3.state.notifications.slice();
+	      _this3.setState({ notifications: notifications.slice(1) });
+	    };
+
+	    var defaultOptions = {
+	      messageTimeout: 1200
+	    };
+	    options = Object.assign({}, defaultOptions, options);
+
+	    notifications.push({ type: 'info', name: 'Saving walk' });
+
+	    // Build a simplified map from the Google objects
+	    _this3.setState({
+	      map: _this3.refs.mapBuilder.getStateSimple(),
+	      notifications: notifications
+	    }, function () {
+	      $.ajax({
+	        url: _this3.state.url,
+	        type: options.publish ? 'PUT' : 'POST',
+	        data: { json: JSON.stringify(_this3.state) },
+	        dataType: 'json',
+	        success: function success(data) {
+	          var notifications = _this3.state.notifications.slice();
+	          notifications.push({ type: 'success', name: 'Walk saved' });
+	          _this3.setState({ notifications: notifications, url: data.url || _this3.state.url }, function () {
+	            if (cb && cb instanceof Function) {
+	              // The 'this' in each callback should be the <CreateWalk>
+	              cb.call(this);
+	            }
+	          });
+	          setTimeout(removeNotice, 1200);
+	        },
+	        error: function error(xhr, status, err) {
+	          var notifications = _this3.state.notifications.slice();
+	          notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
+	          _this3.setState({ notifications: notifications });
+	          setTimeout(removeNotice, 6000);
+	          console.error(_this3.url, status, err.toString());
+	        }
+	      });
+	    });
+	    setTimeout(removeNotice, 1200);
+	  };
+
+	  this.handleNext = function () {
+	    // Bootstrap's managing the tabs, so trigger a jQuery click on the next
+	    var next = $('#progress-panel > .nav > li.active + li > a');
+	    window.scrollTo(0, 0);
+	    if (next.length) {
+	      _this3.saveWalk();
+	      next.trigger('click');
+	    } else {
+	      // If no 'next' tab, next step is to publish
+	      $(React.findDOMNode(_this3.refs.publish)).trigger('click');
+	    }
+	  };
+
+	  this.handlePublish = function () {
+	    return _this3.saveWalk({ publish: true }, function () {
+	      return console.log('Walk published');
+	    });
+	  };
+
+	  this.handlePreview = function () {
+	    return _this3.saveWalk({}, function () {
+	      return _this3.setState({ preview: true });
+	    });
+	  };
+	};
+
 	exports.default = CreateWalk;
 	Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin);
 
@@ -3767,14 +3759,14 @@
 	  _createClass(WalkPreview, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this6 = this;
+	      var _this5 = this;
 
 	      var el = React.findDOMNode(this);
 	      // Bootstrap Modal
 	      $(el).modal();
 	      // Close the modal when modal closes
 	      $(el).bind('hidden.bs.modal', function () {
-	        return _this6.props.close();
+	        return _this5.props.close();
 	      });
 	    }
 	  }, {
@@ -3841,27 +3833,24 @@
 	  _inherits(ImageUpload, _React$Component);
 
 	  function ImageUpload() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this2, _ret;
+
 	    _classCallCheck(this, ImageUpload);
 
-	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(ImageUpload).call(this));
-
-	    _this2.handleUpload = _this2.handleUpload.bind(_this2);
-	    return _this2;
-	  }
-
-	  _createClass(ImageUpload, [{
-	    key: 'removeImage',
-	    value: function removeImage(i) {
-	      var thumbnails = this.props.valueLink.value;
-	      thumbnails.splice(i, 1);
-	      this.props.valueLink.requestChange(thumbnails);
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
 	    }
-	  }, {
-	    key: 'handleUpload',
-	    value: function handleUpload(e) {
+
+	    return _ret = (_temp = (_this2 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ImageUpload)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this2), _this2.removeImage = function (i) {
+	      var thumbnails = _this2.props.valueLink.value;
+	      thumbnails.splice(i, 1);
+	      _this2.props.valueLink.requestChange(thumbnails);
+	    }, _this2.handleUpload = function (e) {
 	      var fd = new FormData();
 	      var xhr = new XMLHttpRequest();
-	      var _this = this;
+	      var _this = _this2;
 
 	      if (e.currentTarget.files) {
 	        // TODO: Update to support uploading multiple files at once
@@ -3872,7 +3861,7 @@
 	        fd.append('Filedata', e.currentTarget.files[0]);
 
 	        // Form validation token, generated by concrete5
-	        fd.append('ccm_token', this.props.valt);
+	        fd.append('ccm_token', _this2.props.valt);
 
 	        xhr.open('POST', CCM_TOOLS_PATH + '/files/importers/quick');
 	        xhr.onload = function () {
@@ -3885,8 +3874,10 @@
 	        };
 	        xhr.send(fd);
 	      }
-	    }
-	  }, {
+	    }, _temp), _possibleConstructorReturn(_this2, _ret);
+	  }
+
+	  _createClass(ImageUpload, [{
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
@@ -3915,7 +3906,9 @@
 	              style: { backgroundImage: 'url(' + thumb.url + ')' } },
 	            React.createElement(
 	              'a',
-	              { className: 'remove', onClick: _this3.removeImage.bind(_this3, i) },
+	              { className: 'remove', onClick: function onClick() {
+	                  return _this3.removeImage(i);
+	                } },
 	              React.createElement('i', { className: 'fa fa-times-circle' })
 	            )
 	          );
@@ -4250,6 +4243,222 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MapBuilder).call(this));
 
+	    _this.refreshGMap = function () {
+	      var valueLink = _this.props.valueLink;
+	      var markers = new google.maps.MVCArray();
+	      var route = null;
+
+	      if (_this.state.route) {
+	        _this.state.route.setMap(null);
+	      }
+
+	      _this.state.markers.forEach(function (marker) {
+	        return marker.setMap(null);
+	      });
+
+	      // Draw the route
+	      if (valueLink.value) {
+	        var _iteratorNormalCompletion = true;
+	        var _didIteratorError = false;
+	        var _iteratorError = undefined;
+
+	        try {
+	          for (var _iterator = valueLink.value.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	            var marker = _step.value;
+
+	            var latlng = undefined;
+	            // Set to the markers latlng if available, otherwise place at center
+	            if (marker.lat && marker.lng) {
+	              latlng = new google.maps.LatLng(marker.lat, marker.lng);
+	            } else {
+	              latlng = _this.state.map.center;
+	            }
+
+	            markers.push(_this.buildMarker({
+	              latlng: latlng,
+	              title: marker.title,
+	              description: marker.description,
+	              media: marker.media
+	            }));
+	          }
+	        } catch (err) {
+	          _didIteratorError = true;
+	          _iteratorError = err;
+	        } finally {
+	          try {
+	            if (!_iteratorNormalCompletion && _iterator.return) {
+	              _iterator.return();
+	            }
+	          } finally {
+	            if (_didIteratorError) {
+	              throw _iteratorError;
+	            }
+	          }
+	        }
+
+	        route = _this.buildRoute(valueLink.value.route);
+	      } else {
+	        route = _this.buildRoute([]);
+	      }
+
+	      // Set marker/route adding
+	      google.maps.event.addListener(_this.state.map, 'click', function (ev) {
+	        _this.state.infowindow.setMap(null);
+	        if (_this.state.mode.addRoute) {
+	          route.setPath(route.getPath().push(ev.latLng));
+	          _this.setState({ route: route });
+	        }
+	      });
+
+	      _this.setState({ markers: markers, route: route });
+	    };
+
+	    _this.boundMapByWalk = function () {
+	      // Don't include the route - it can be too expensive to compute.
+	      var bounds = new google.maps.LatLngBounds();
+	      google.maps.event.trigger(_this.state.map, 'resize');
+	      if (_this.state.markers.getLength()) {
+	        for (var i = 0, len = _this.state.markers.getLength(); i < len; i++) {
+	          bounds.extend(_this.state.markers.getAt(i).getPosition());
+	        }
+
+	        _this.state.map.fitBounds(bounds);
+	      }
+	    };
+
+	    _this.buildRoute = function (routeArray) {
+	      var poly = new google.maps.Polyline({
+	        strokeColor: '#F16725',
+	        strokeOpacity: 0.8,
+	        strokeWeight: 3,
+	        editable: true,
+	        map: _this.state.map
+	      });
+
+	      // Remove vertices when right-clicked
+	      google.maps.event.addListener(poly, 'rightclick', function (ev) {
+	        // Check if we clicked a vertex
+	        if (ev.vertex !== undefined) {
+	          poly.setPath(poly.getPath().removeAt(ev.vertex));
+	        }
+	      });
+
+	      // Hide the infowindow if we click outside it
+	      google.maps.event.addListener(poly, 'mousedown', function (ev) {
+	        return _this.state.infowindow.setMap(null);
+	      });
+
+	      if (routeArray.length > 0) {
+	        poly.setPath(routeArray.map(function (point) {
+	          return new google.maps.LatLng(point.lat, point.lng);
+	        }));
+	      }
+
+	      return poly;
+	    };
+
+	    _this.deleteMarker = function (marker) {
+	      var markers = _this.state.markers;
+
+	      // Clear marker from map
+	      marker.setMap(null);
+
+	      // Remove reference in state
+	      markers.removeAt(markers.indexOf(marker));
+
+	      _this.setState({ markers: markers });
+	    };
+
+	    _this.moveBefore = function (from, to) {
+	      var markers = _this.state.markers;
+	      var fMarker = markers.getAt(from);
+	      markers.removeAt(from);
+	      markers.insertAt(to, fMarker);
+
+	      _this.setState({ markers: markers }, _this.syncState);
+	    };
+
+	    _this.toggleAddPoint = function () {
+	      var markers = _this.state.markers;
+	      var marker = _this.buildMarker();
+	      markers.push(marker);
+
+	      _this.setState({ markers: markers, mode: {} }, function () {
+	        _this.syncState();
+	        _this.showInfoWindow(marker);
+	      });
+
+	      _this.state.infowindow.setMap(null);
+	    };
+
+	    _this.toggleAddRoute = function () {
+	      _this.setState({
+	        mode: {
+	          addRoute: !_this.state.mode.addRoute
+	        }
+	      });
+	      (function () {
+	        return _this.state.infowindow.setMap(null);
+	      });
+	    };
+
+	    _this.clearRoute = function () {
+	      _this.state.infowindow.setMap(null);
+	      _this.state.route.setPath([]);
+	      _this.setState({ mode: {} });
+	    };
+
+	    _this.getStateSimple = function () {
+	      var markers = _this.state.markers.getArray().map(function (marker) {
+	        var titleObj = JSON.parse(marker.title);
+	        return {
+	          lat: marker.position.lat(),
+	          lng: marker.position.lng(),
+	          title: titleObj.title,
+	          description: titleObj.description,
+	          media: titleObj.media,
+	          style: 'stop'
+	        };
+	      });
+	      var route = [];
+
+	      if (_this.state.route) {
+	        route = _this.state.route.getPath().getArray().map(function (point) {
+	          return {
+	            lat: point.lat(),
+	            lng: point.lng()
+	          };
+	        });
+	      }
+
+	      return {
+	        markers: markers,
+	        route: route
+	      };
+	    };
+
+	    _this.syncState = function () {
+	      return _this.props.valueLink.requestChange(_this.getStateSimple());
+	    };
+
+	    _this.handleRemoveFilter = function (i) {
+	      var filters = _this.state.filters.slice();
+	      filters.splice(i, 1);
+	      _this.setState({ filters: filters });
+	    };
+
+	    _this.handleChangeFilter = function (i, val) {
+	      var filters = _this.state.filters.slice();
+	      filters[i].value = val;
+	      _this.setState({ filters: filters });
+	    };
+
+	    _this.handleAddFilter = function (filter) {
+	      var filters = _this.state.filters.slice();
+	      filters.push(filter);
+	      _this.setState({ filters: filters });
+	    };
+
 	    _this.state = {
 	      // The 'mode' we're in: 'addPoint', 'addRoute'
 	      mode: {},
@@ -4266,8 +4475,6 @@
 	  _createClass(MapBuilder, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this2 = this;
-
 	      var map = new google.maps.Map(React.findDOMNode(this.refs.gmap), {
 	        center: new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]),
 	        zoom: this.props.initialZoom,
@@ -4279,136 +4486,26 @@
 	      });
 
 	      // Map won't size properly on a hidden tab, so refresh on tab shown
-	      $('a[href="#route"]').on('shown.bs.tab', function (e) {
-	        return _this2.boundMapByWalk();
-	      });
+	      $('a[href="#route"]').on('shown.bs.tab', this.boundMapByWalk);
 
 	      this.setState({ map: map }, this.refreshGMap);
 	    }
 
 	    // Build a google map from our serialized map state
 
-	  }, {
-	    key: 'refreshGMap',
-	    value: function refreshGMap() {
-	      var _this3 = this;
-
-	      var valueLink = this.props.valueLink;
-	      var markers = new google.maps.MVCArray();
-	      var route = null;
-
-	      if (this.state.route) {
-	        this.state.route.setMap(null);
-	      }
-
-	      var _iteratorNormalCompletion = true;
-	      var _didIteratorError = false;
-	      var _iteratorError = undefined;
-
-	      try {
-	        for (var _iterator = this.state.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	          var marker = _step.value;
-	          marker.setMap(null);
-	        } // Draw the route
-	      } catch (err) {
-	        _didIteratorError = true;
-	        _iteratorError = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion && _iterator.return) {
-	            _iterator.return();
-	          }
-	        } finally {
-	          if (_didIteratorError) {
-	            throw _iteratorError;
-	          }
-	        }
-	      }
-
-	      if (valueLink.value) {
-	        var _iteratorNormalCompletion2 = true;
-	        var _didIteratorError2 = false;
-	        var _iteratorError2 = undefined;
-
-	        try {
-	          for (var _iterator2 = valueLink.value.markers[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	            var marker = _step2.value;
-
-	            var latlng = undefined;
-	            // Set to the markers latlng if available, otherwise place at center
-	            if (marker.lat && marker.lng) {
-	              latlng = new google.maps.LatLng(marker.lat, marker.lng);
-	            } else {
-	              latlng = this.state.map.center;
-	            }
-
-	            markers.push(this.buildMarker({
-	              latlng: latlng,
-	              title: marker.title,
-	              description: marker.description,
-	              media: marker.media
-	            }));
-	          }
-	        } catch (err) {
-	          _didIteratorError2 = true;
-	          _iteratorError2 = err;
-	        } finally {
-	          try {
-	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	              _iterator2.return();
-	            }
-	          } finally {
-	            if (_didIteratorError2) {
-	              throw _iteratorError2;
-	            }
-	          }
-	        }
-
-	        route = this.buildRoute(valueLink.value.route);
-	      } else {
-	        route = this.buildRoute([]);
-	      }
-
-	      // Set marker/route adding
-	      google.maps.event.addListener(this.state.map, 'click', function (ev) {
-	        _this3.state.infowindow.setMap(null);
-	        if (_this3.state.mode.addRoute) {
-	          route.setPath(route.getPath().push(ev.latLng));
-	          _this3.setState({ route: route });
-	        }
-	      });
-
-	      this.setState({ markers: markers, route: route });
-	    }
-
 	    /**
 	     * Make the map fit the markers in this walk
 	     */
 
 	  }, {
-	    key: 'boundMapByWalk',
-	    value: function boundMapByWalk() {
-	      // Don't include the route - it can be too expensive to compute.
-	      var bounds = new google.maps.LatLngBounds();
-	      google.maps.event.trigger(this.state.map, 'resize');
-	      if (this.state.markers.getLength()) {
-	        for (var i = 0, len = this.state.markers.getLength(); i < len; i++) {
-	          bounds.extend(this.state.markers.getAt(i).getPosition());
-	        }
-
-	        this.state.map.fitBounds(bounds);
-	      }
-	    }
+	    key: 'buildMarker',
 
 	    // Map related functions
 	    // Build gmaps Marker object from base data
 	    // @param google.maps.LatLng latlng The position to add
 	    // @param Object title {title, description}
-
-	  }, {
-	    key: 'buildMarker',
 	    value: function buildMarker(options) {
-	      var _this4 = this;
+	      var _this2 = this;
 
 	      var map = this.state.map;
 	      var gMarkerOptions = {
@@ -4446,7 +4543,7 @@
 	      marker = new google.maps.Marker(gMarkerOptions);
 
 	      google.maps.event.addListener(marker, 'click', function (ev) {
-	        return _this4.showInfoWindow(marker);
+	        return _this2.showInfoWindow(marker);
 	      });
 
 	      google.maps.event.addListener(marker, 'drag', function (ev) {});
@@ -4463,12 +4560,16 @@
 	  }, {
 	    key: 'showInfoWindow',
 	    value: function showInfoWindow(marker) {
+	      var _this3 = this;
+
 	      var infoDOM = document.createElement('div');
 
 	      React.render(React.createElement(_WalkInfoWindow2.default, {
 	        marker: marker,
-	        deleteMarker: this.deleteMarker.bind(this, marker),
-	        refresh: this.syncState.bind(this)
+	        deleteMarker: function deleteMarker() {
+	          return _this3.deleteMarker(marker);
+	        },
+	        refresh: this.syncState
 	      }), infoDOM);
 
 	      // Center the marker and display its info window
@@ -4476,58 +4577,10 @@
 	      this.state.infowindow.setContent(infoDOM);
 	      this.state.infowindow.open(this.state.map, marker);
 	    }
-	  }, {
-	    key: 'buildRoute',
-	    value: function buildRoute(routeArray) {
-	      var _this5 = this;
-
-	      var poly = new google.maps.Polyline({
-	        strokeColor: '#F16725',
-	        strokeOpacity: 0.8,
-	        strokeWeight: 3,
-	        editable: true,
-	        map: this.state.map
-	      });
-
-	      // Remove vertices when right-clicked
-	      google.maps.event.addListener(poly, 'rightclick', function (ev) {
-	        // Check if we clicked a vertex
-	        if (ev.vertex !== undefined) {
-	          poly.setPath(poly.getPath().removeAt(ev.vertex));
-	        }
-	      });
-
-	      // Hide the infowindow if we click outside it
-	      google.maps.event.addListener(poly, 'mousedown', function (ev) {
-	        return _this5.state.infowindow.setMap(null);
-	      });
-
-	      if (routeArray.length > 0) {
-	        poly.setPath(routeArray.map(function (point) {
-	          return new google.maps.LatLng(point.lat, point.lng);
-	        }));
-	      }
-
-	      return poly;
-	    }
 
 	    /**
 	     * @param google.maps.Marker marker
 	     */
-
-	  }, {
-	    key: 'deleteMarker',
-	    value: function deleteMarker(marker) {
-	      var markers = this.state.markers;
-
-	      // Clear marker from map
-	      marker.setMap(null);
-
-	      // Remove reference in state
-	      markers.removeAt(markers.indexOf(marker));
-
-	      this.setState({ markers: markers });
-	    }
 
 	    /**
 	     * Reorder the marker at index to a new position, pushing up those after
@@ -4535,127 +4588,18 @@
 	     * @param int to
 	     */
 
-	  }, {
-	    key: 'moveBefore',
-	    value: function moveBefore(from, to) {
-	      var markers = this.state.markers;
-	      var fMarker = markers.getAt(from);
-	      markers.removeAt(from);
-	      markers.insertAt(to, fMarker);
-
-	      this.setState({ markers: markers }, this.syncState);
-	    }
-
 	    // Button Actions
-
-	  }, {
-	    key: 'toggleAddPoint',
-	    value: function toggleAddPoint() {
-	      var _this6 = this;
-
-	      var markers = this.state.markers;
-	      var marker = this.buildMarker();
-	      markers.push(marker);
-
-	      this.setState({ markers: markers, mode: {} }, function () {
-	        _this6.syncState();
-	        _this6.showInfoWindow(marker);
-	      });
-
-	      this.state.infowindow.setMap(null);
-	    }
-	  }, {
-	    key: 'toggleAddRoute',
-	    value: function toggleAddRoute() {
-	      var _this7 = this;
-
-	      this.setState({
-	        mode: {
-	          addRoute: !this.state.mode.addRoute
-	        }
-	      });
-	      (function () {
-	        return _this7.state.infowindow.setMap(null);
-	      });
-	    }
-	  }, {
-	    key: 'clearRoute',
-	    value: function clearRoute() {
-	      this.state.infowindow.setMap(null);
-	      this.state.route.setPath([]);
-	      this.setState({ mode: {} });
-	    }
 
 	    // Build a version of state appropriate for persistence
 
-	  }, {
-	    key: 'getStateSimple',
-	    value: function getStateSimple() {
-	      var markers = this.state.markers.getArray().map(function (marker) {
-	        var titleObj = JSON.parse(marker.title);
-	        return {
-	          lat: marker.position.lat(),
-	          lng: marker.position.lng(),
-	          title: titleObj.title,
-	          description: titleObj.description,
-	          media: titleObj.media,
-	          style: 'stop'
-	        };
-	      });
-	      var route = [];
-
-	      if (this.state.route) {
-	        route = this.state.route.getPath().getArray().map(function (point) {
-	          return {
-	            lat: point.lat(),
-	            lng: point.lng()
-	          };
-	        });
-	      }
-
-	      return {
-	        markers: markers,
-	        route: route
-	      };
-	    }
-
 	    // Sync what's on the gmap to what's stored in our state
-
-	  }, {
-	    key: 'syncState',
-	    value: function syncState() {
-	      this.props.valueLink.requestChange(this.getStateSimple());
-	    }
 
 	    // Manage the filters for loading data from external APIs
 
-	  }, {
-	    key: 'handleRemoveFilter',
-	    value: function handleRemoveFilter(i) {
-	      var filters = this.state.filters.slice();
-	      filters.splice(i, 1);
-	      this.setState({ filters: filters });
-	    }
-
 	    // Update the _text_ of a filter
-
-	  }, {
-	    key: 'handleChangeFilter',
-	    value: function handleChangeFilter(i, val) {
-	      var filters = this.state.filters.slice();
-	      filters[i].value = val;
-	      this.setState({ filters: filters });
-	    }
 
 	    // Push a new filter to our box, usually done by the buttons
 
-	  }, {
-	    key: 'handleAddFilter',
-	    value: function handleAddFilter(filter) {
-	      var filters = this.state.filters.slice();
-	      filters.push(filter);
-	      this.setState({ filters: filters });
-	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -4664,9 +4608,9 @@
 	      // Standard properties the filter buttons need
 	      var filterProps = {
 	        valueLink: this.props.valueLink,
-	        refreshGMap: this.refreshGMap.bind(this),
-	        boundMapByWalk: this.boundMapByWalk.bind(this),
-	        addFilter: this.handleAddFilter.bind(this),
+	        refreshGMap: this.refreshGMap,
+	        boundMapByWalk: this.boundMapByWalk,
+	        addFilter: this.handleAddFilter,
 	        city: this.props.city
 	      };
 
@@ -4679,9 +4623,9 @@
 	          ref: 'walkStopTable',
 	          key: 1,
 	          markers: this.state.markers,
-	          deleteMarker: this.deleteMarker.bind(this),
-	          moveBefore: this.moveBefore.bind(this),
-	          showInfoWindow: this.showInfoWindow.bind(this)
+	          deleteMarker: this.deleteMarker,
+	          moveBefore: this.moveBefore,
+	          showInfoWindow: this.showInfoWindow
 	        })];
 	      }
 
@@ -4710,7 +4654,7 @@
 	            {
 	              ref: 'addPoint',
 	              className: this.state.mode.addPoint ? 'active' : '',
-	              onClick: this.toggleAddPoint.bind(this) },
+	              onClick: this.toggleAddPoint },
 	            React.createElement('i', { className: 'fa fa-map-marker' }),
 	            (0, _I18nStore.t)('Add Stop')
 	          ),
@@ -4719,13 +4663,13 @@
 	            {
 	              ref: 'addRoute',
 	              className: this.state.mode.addRoute ? 'active' : '',
-	              onClick: this.toggleAddRoute.bind(this) },
+	              onClick: this.toggleAddRoute },
 	            React.createElement('i', { className: 'fa fa-arrows' }),
 	            (0, _I18nStore.t)('Add Route')
 	          ),
 	          React.createElement(
 	            'button',
-	            { ref: 'clearroute', onClick: this.clearRoute.bind(this) },
+	            { ref: 'clearroute', onClick: this.clearRoute },
 	            React.createElement('i', { className: 'fa fa-eraser' }),
 	            (0, _I18nStore.t)('Clear Route')
 	          ),
@@ -4733,7 +4677,7 @@
 	          React.createElement(_InstagramConnect2.default, filterProps),
 	          React.createElement(_SoundCloudConnect2.default, filterProps)
 	        ),
-	        React.createElement(_ConnectFilters2.default, { filters: this.state.filters, changeFilter: this.handleChangeFilter.bind(this), remove: this.handleRemoveFilter.bind(this) }),
+	        React.createElement(_ConnectFilters2.default, { filters: this.state.filters, changeFilter: this.handleChangeFilter, remove: this.handleRemoveFilter }),
 	        React.createElement('div', { className: 'map-notifications' }),
 	        React.createElement('div', { id: 'map-canvas', ref: 'gmap' }),
 	        walkStops,
@@ -4935,11 +4879,15 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WalkInfoWindow).call(this));
 
-	    _this.state = { marker: props.marker };
+	    _this.handleTitleChange = function (ev) {
+	      _this.setMarkerContent({ title: ev.target.value });
+	    };
 
-	    // Bind methods
-	    _this.handleTitleChange = _this.handleTitleChange.bind(_this);
-	    _this.handleDescriptionChange = _this.handleDescriptionChange.bind(_this);
+	    _this.handleDescriptionChange = function (ev) {
+	      _this.setMarkerContent({ description: ev.target.value });
+	    };
+
+	    _this.state = { marker: props.marker };
 	    return _this;
 	  }
 
@@ -4960,19 +4908,8 @@
 
 	    // Simple method to set title property
 
-	  }, {
-	    key: 'handleTitleChange',
-	    value: function handleTitleChange(ev) {
-	      this.setMarkerContent({ title: ev.target.value });
-	    }
-
 	    // Simple method to set description property
 
-	  }, {
-	    key: 'handleDescriptionChange',
-	    value: function handleDescriptionChange(ev) {
-	      this.setMarkerContent({ description: ev.target.value });
-	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
@@ -5052,38 +4989,14 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InstagramConnect).call(this));
 
-	    _this.state = { accessToken: null };
-	    return _this;
-	  }
-
-	  _createClass(InstagramConnect, [{
-	    key: 'handleConnect',
-	    value: function handleConnect(cb) {
-	      var _this2 = this;
-
-	      var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
-	      var redirectURI = 'http://janeswalk.org/connected';
-
-	      // Race-condition prone, but safest way to pull this from a child window
-	      window.loadAccessToken = function (accessToken) {
-	        return _this2.setState({ accessToken: accessToken }, cb);
-	      };
-
-	      var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
-	      this.setState({ authWindow: authWindow });
-	    }
-	  }, {
-	    key: 'handleLoadFeed',
-	    value: function handleLoadFeed(query) {
-	      var _this3 = this;
-
+	    _this.handleLoadFeed = function (query) {
 	      $.ajax({
 	        type: 'GET',
 	        crossDomain: true,
 	        dataType: 'jsonp',
-	        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + this.state.accessToken,
+	        url: 'https://api.instagram.com/v1/users/self/media/recent?access_token=' + _this.state.accessToken,
 	        success: function success(data) {
-	          var markers = (_this3.props.valueLink.value || { markers: [] }).markers.slice();
+	          var markers = (_this.props.valueLink.value || { markers: [] }).markers.slice();
 	          var walkMap = data.data.filter(function (gram) {
 	            var tagMatch = true;
 	            if (query) {
@@ -5112,46 +5025,67 @@
 	            };
 	          });
 
-	          _this3.props.valueLink.requestChange({
+	          _this.props.valueLink.requestChange({
 	            markers: markers.concat(walkMap),
-	            route: _this3.props.valueLink.value.route
+	            route: _this.props.valueLink.value.route
 	          }, function () {
-	            _this3.props.refreshGMap();
-	            _this3.props.boundMapByWalk();
+	            _this.props.refreshGMap();
+	            _this.props.boundMapByWalk();
 	          });
 	        }
 	      });
+	    };
+
+	    _this.state = { accessToken: null };
+	    return _this;
+	  }
+
+	  _createClass(InstagramConnect, [{
+	    key: 'handleConnect',
+	    value: function handleConnect(cb) {
+	      var _this2 = this;
+
+	      var clientID = 'af1d04f3e16940f3801ee06461c9e4bb';
+	      var redirectURI = 'http://janeswalk.org/connected';
+
+	      // Race-condition prone, but safest way to pull this from a child window
+	      window.loadAccessToken = function (accessToken) {
+	        return _this2.setState({ accessToken: accessToken }, cb);
+	      };
+
+	      var authWindow = window.open('https://instagram.com/oauth/authorize/?client_id=' + clientID + '&redirect_uri=' + redirectURI + '&response_type=token');
+	      this.setState({ authWindow: authWindow });
 	    }
 	  }, {
 	    key: 'addFilter',
 	    value: function addFilter() {
-	      var _this4 = this;
+	      var _this3 = this;
 
 	      var filterProps = {
 	        type: 'text',
 	        icon: 'fa fa-instagram',
 	        placeholder: 'Type in the tag you used on the geocoded photos for your walk',
 	        value: '',
-	        cb: this.handleLoadFeed.bind(this)
+	        cb: this.handleLoadFeed
 	      };
 	      if (this.state.accessToken) {
 	        this.props.addFilter(filterProps);
 	      } else {
 	        // Connect, and add the box when done
 	        this.handleConnect(function () {
-	          return _this4.props.addFilter(filterProps);
+	          return _this3.props.addFilter(filterProps);
 	        });
 	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this5 = this;
+	      var _this4 = this;
 
 	      return React.createElement(
 	        'button',
 	        { onClick: function onClick() {
-	            return _this5.addFilter();
+	            return _this4.addFilter();
 	          } },
 	        React.createElement('i', { className: 'fa fa-instagram' }),
 	        'Instagram'
@@ -5618,12 +5552,10 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DateSelect).call(this));
 
+	    _initialiseProps.call(_this);
+
 	    var today = new Date();
 	    var start = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + 7, 11, 0));
-
-	    // Bind class methods
-	    _this.setDay = _this._setDay.bind(_this);
-	    _this.addDate = _this._addDate.bind(_this);
 
 	    // Note: we're only keeping the 'date' on there to use Date's string
 	    // parsing. This method is concerned only with the Time
@@ -5633,78 +5565,19 @@
 	    return _this;
 	  }
 
+	  /**
+	   * Set the time
+	   * @param Date time The current time of day
+	   * @param Int duration Number of minutes the walk lasts
+	   */
+
+	  /**
+	   * Build a valueLink object for updating the time
+	   */
+
+	  // Push the date we built here to the linked state
+
 	  _createClass(DateSelect, [{
-	    key: '_setDay',
-	    value: function _setDay(date) {
-	      var startDate = this.state.start;
-
-	      // Set the Day we're choosing
-	      startDate.setUTCFullYear(date.getUTCFullYear());
-	      startDate.setUTCMonth(date.getUTCMonth());
-	      startDate.setUTCDate(date.getUTCDate());
-
-	      // Refresh the timepicker
-	      this.refs.timePicker.setStartTimes(startDate);
-
-	      // Update our state
-	      // FIXME: This is an overly-complex pattern, but done to avoid frequent
-	      // date rebuilding, which is very slow. See if it can be done through
-	      // state updates instead.
-	      this.setState({ start: startDate });
-	    }
-
-	    /**
-	     * Set the time
-	     * @param Date time The current time of day
-	     * @param Int duration Number of minutes the walk lasts
-	     */
-
-	  }, {
-	    key: 'setTime',
-	    value: function setTime(time, duration) {
-	      var startDate = this.state.start;
-
-	      startDate.setUTCHours(time.getUTCHours());
-	      startDate.setUTCMinutes(time.getUTCMinutes());
-
-	      this.setState({ start: startDate });
-	    }
-
-	    /**
-	     * Build a valueLink object for updating the time
-	     */
-
-	  }, {
-	    key: 'linkTime',
-	    value: function linkTime() {
-	      var _this2 = this;
-
-	      return {
-	        value: this.state.start.getTime(),
-	        requestChange: function requestChange(value) {
-	          return _this2.setState({ start: new Date(Number(value)) });
-	        }
-	      };
-	    }
-
-	    // Push the date we built here to the linked state
-
-	  }, {
-	    key: '_addDate',
-	    value: function _addDate() {
-	      var valueLink = this.props.valueLink;
-	      var value = valueLink.value || {};
-	      var slots = (value.slots || []).slice();
-	      var start = this.state.start.getTime();
-	      var end = start + this.state.duration;
-
-	      // Store the timeslot state as seconds, not ms
-	      slots.push([start / 1000, end / 1000]);
-
-	      value.slots = slots;
-	      valueLink.requestChange(value);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var valueLink = this.props.valueLink;
@@ -5990,6 +5863,60 @@
 
 	// Load mixins
 
+	var _initialiseProps = function _initialiseProps() {
+	  var _this2 = this;
+
+	  this.setDay = function (date) {
+	    var startDate = _this2.state.start;
+
+	    // Set the Day we're choosing
+	    startDate.setUTCFullYear(date.getUTCFullYear());
+	    startDate.setUTCMonth(date.getUTCMonth());
+	    startDate.setUTCDate(date.getUTCDate());
+
+	    // Refresh the timepicker
+	    _this2.refs.timePicker.setStartTimes(startDate);
+
+	    // Update our state
+	    // FIXME: This is an overly-complex pattern, but done to avoid frequent
+	    // date rebuilding, which is very slow. See if it can be done through
+	    // state updates instead.
+	    _this2.setState({ start: startDate });
+	  };
+
+	  this.setTime = function (time, duration) {
+	    var startDate = _this2.state.start;
+
+	    startDate.setUTCHours(time.getUTCHours());
+	    startDate.setUTCMinutes(time.getUTCMinutes());
+
+	    _this2.setState({ start: startDate });
+	  };
+
+	  this.linkTime = function () {
+	    return {
+	      value: _this2.state.start.getTime(),
+	      requestChange: function requestChange(value) {
+	        return _this2.setState({ start: new Date(Number(value)) });
+	      }
+	    };
+	  };
+
+	  this.addDate = function () {
+	    var valueLink = _this2.props.valueLink;
+	    var value = valueLink.value || {};
+	    var slots = (value.slots || []).slice();
+	    var start = _this2.state.start.getTime();
+	    var end = start + _this2.state.duration;
+
+	    // Store the timeslot state as seconds, not ms
+	    slots.push([start / 1000, end / 1000]);
+
+	    value.slots = slots;
+	    valueLink.requestChange(value);
+	  };
+	};
+
 	exports.default = DateSelect;
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
@@ -6261,17 +6188,18 @@
 	  _inherits(TimeSetTable, _React$Component);
 
 	  function TimeSetTable() {
+	    var _Object$getPrototypeO;
+
+	    var _temp, _this, _ret;
+
 	    _classCallCheck(this, TimeSetTable);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TimeSetTable).apply(this, arguments));
-	  }
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 
-	  _createClass(TimeSetTable, [{
-	    key: 'removeSlot',
-
-	    // Remove a scheduled time
-	    value: function removeSlot(i) {
-	      var valueLink = this.props.valueLink;
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(TimeSetTable)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.removeSlot = function (i) {
+	      var valueLink = _this.props.valueLink;
 	      var value = valueLink.value;
 	      var slots = (value.slots || []).slice();
 
@@ -6279,8 +6207,11 @@
 	      value.slots = slots;
 
 	      valueLink.requestChange(value);
-	    }
-	  }, {
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	  }
+	  // Remove a scheduled time
+
+	  _createClass(TimeSetTable, [{
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -6354,7 +6285,9 @@
 	                null,
 	                React.createElement(
 	                  'a',
-	                  { onClick: _this2.removeSlot.bind(_this2, i) },
+	                  { onClick: function onClick() {
+	                      return _this2.removeSlot(i);
+	                    } },
 	                  React.createElement('i', { className: 'fa fa-times-circle-o' }),
 	                  ' ',
 	                  (0, _I18nStore.t)('Remove')
@@ -7395,6 +7328,13 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WalkPublish).call(this, props));
 
+	    _this.handlePublish = function () {
+	      // This function's meant for callbacks, so it grabs the URL from the caller's state
+	      _this.props.saveWalk({ publish: true }, function () {
+	        return window.location = _this.props.url;
+	      });
+	    };
+
 	    _this.state = {
 	      eventbrite: !!(props.mirrors && props.mirrors.eventbrite)
 	    };
@@ -7415,23 +7355,15 @@
 	      });
 	    }
 	  }, {
-	    key: 'handlePublish',
-	    value: function handlePublish() {
-	      var _this3 = this;
-
-	      // This function's meant for callbacks, so it grabs the URL from the caller's state
-	      this.props.saveWalk({ publish: true }, function () {
-	        return window.location = _this3.props.url;
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this4 = this;
-
 	      // Check city config for which walk mirroring services to expose
 	      var mirrorWalk = undefined;
-	      if (this.props.city.mirrors.indexOf('eventbrite') > -1) {
+	      var _props = this.props;
+	      var city = _props.city;
+	      var close = _props.close;
+
+	      if (city.mirrors.indexOf('eventbrite') > -1) {
 	        mirrorWalk = React.createElement(
 	          'label',
 	          { className: 'checkbox' },
@@ -7481,7 +7413,7 @@
 	                { className: 'pull-left' },
 	                React.createElement(
 	                  'a',
-	                  { className: 'walkthrough close', 'data-dismiss': 'modal', onClick: this.props.close.bind(this) },
+	                  { className: 'walkthrough close', 'data-dismiss': 'modal', onClick: close },
 	                  ' ',
 	                  (0, _I18nStore.t)('Bring me back to edit')
 	                )
@@ -7491,9 +7423,7 @@
 	                null,
 	                React.createElement(
 	                  'button',
-	                  { className: 'btn btn-primary walkthrough', 'data-step': 'publish-confirmation', onClick: function onClick() {
-	                      return _this4.handlePublish();
-	                    } },
+	                  { className: 'btn btn-primary walkthrough', 'data-step': 'publish-confirmation', onClick: this.handlePublish },
 	                  (0, _I18nStore.t)('Publish')
 	                )
 	              )
@@ -10195,78 +10125,54 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Login).call(this));
 
-	    _this.state = {
-	      email: '',
-	      password: '',
-	      maintainLogin: false,
-	      message: {}
-	    };
-	    _this.handleReset = _this.handleReset.bind(_this);
-	    _this.handleChangeEmail = _this.handleChangeEmail.bind(_this);
-	    _this.handleChangePassword = _this.handleChangePassword.bind(_this);
-	    _this.handleChangeMaintainLogin = _this.handleChangeMaintainLogin.bind(_this);
-	    _this.handleSubmit = _this.handleSubmit.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Login, [{
-	    key: 'handleReset',
-	    value: function handleReset(ev) {
-	      var _this2 = this;
-
+	    _this.handleReset = function (ev) {
 	      // Post a reset request to the c5 endpoint for resets
 	      $.ajax({
 	        type: 'POST',
 	        url: CCM_REL + '/login/forgot_password',
 	        data: {
-	          uEmail: this.state.email,
-	          uName: this.state.email,
+	          uEmail: _this.state.email,
+	          uName: _this.state.email,
 	          format: 'JSON'
 	        },
 	        dataType: 'json',
 	        success: function success(data) {
-	          return _this2.setState({ message: data });
+	          return _this.setState({ message: data });
 	        }
 	      });
-	    }
-	  }, {
-	    key: 'handleChangeEmail',
-	    value: function handleChangeEmail(ev) {
-	      this.setState({ email: ev.target.value });
-	    }
-	  }, {
-	    key: 'handleChangePassword',
-	    value: function handleChangePassword(ev) {
-	      this.setState({ password: ev.target.value });
-	    }
-	  }, {
-	    key: 'handleChangeMaintainLogin',
-	    value: function handleChangeMaintainLogin(ev) {
-	      this.setState({ maintainLogin: ev.target.value });
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit(ev) {
-	      var _this3 = this;
+	    };
 
+	    _this.handleChangeEmail = function (ev) {
+	      _this.setState({ email: ev.target.value });
+	    };
+
+	    _this.handleChangePassword = function (ev) {
+	      _this.setState({ password: ev.target.value });
+	    };
+
+	    _this.handleChangeMaintainLogin = function (ev) {
+	      _this.setState({ maintainLogin: ev.target.value });
+	    };
+
+	    _this.handleSubmit = function (ev) {
 	      ev.preventDefault();
 	      // Post the login to the c5 endpoint for logins
 	      $.ajax({
 	        type: 'POST',
 	        url: CCM_REL + '/login/do_login',
 	        data: {
-	          uEmail: this.state.email,
-	          uName: this.state.email,
-	          uPassword: this.state.password,
-	          uMaintainLogin: this.state.maintainLogin,
+	          uEmail: _this.state.email,
+	          uName: _this.state.email,
+	          uPassword: _this.state.password,
+	          uMaintainLogin: _this.state.maintainLogin,
 	          format: 'JSON'
 	        },
 	        dataType: 'json',
 	        success: function success(data) {
-	          _this3.setState({ message: data }, function () {
+	          _this.setState({ message: data }, function () {
 	            if (data.success === 1) {
-	              if (_this3.props.redirectURL) {
-	                window.location.replace(_this3.props.redirectURL);
+	              if (_this.props.redirectURL) {
+	                window.location.replace(_this.props.redirectURL);
 	              } else {
 	                window.location.reload();
 	              }
@@ -10274,8 +10180,18 @@
 	          });
 	        }
 	      });
-	    }
-	  }, {
+	    };
+
+	    _this.state = {
+	      email: '',
+	      password: '',
+	      maintainLogin: false,
+	      message: {}
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Login, [{
 	    key: 'render',
 	    value: function render() {
 	      var socialLogin = this.props.socialLogin;

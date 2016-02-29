@@ -15,7 +15,7 @@ export default class InstagramConnect extends React.Component {
     this.setState({authWindow: authWindow});
   }
 
-  handleLoadFeed(query) {
+  handleLoadFeed = (query) => {
     $.ajax({
       type: 'GET',
       crossDomain: true,
@@ -70,7 +70,7 @@ export default class InstagramConnect extends React.Component {
       icon: 'fa fa-instagram',
       placeholder: 'Type in the tag you used on the geocoded photos for your walk',
       value: '',
-      cb: this.handleLoadFeed.bind(this)
+      cb: this.handleLoadFeed
     }
     if (this.state.accessToken) {
       this.props.addFilter(filterProps);

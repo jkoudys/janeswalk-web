@@ -79,7 +79,7 @@ export default class CreateWalk extends React.Component {
     this.state = walk;
   }
 
-  saveWalk(options, cb) {
+  saveWalk = (options, cb) => {
     // TODO: separate the notifications logic
     /* Send in the updated walk to save, but keep working */
     const notifications = this.state.notifications.slice();
@@ -105,8 +105,8 @@ export default class CreateWalk extends React.Component {
         type: options.publish ? 'PUT' : 'POST',
         data: {json: JSON.stringify(this.state)},
         dataType: 'json',
-        success: function(data) {
-          var notifications = this.state.notifications.slice();
+        success: (data) => {
+          let notifications = this.state.notifications.slice();
           notifications.push({type: 'success', name: 'Walk saved'});
           this.setState(
             {notifications: notifications, url: (data.url || this.state.url)},
@@ -118,20 +118,20 @@ export default class CreateWalk extends React.Component {
             }
           );
           setTimeout(removeNotice, 1200);
-        }.bind(this),
-        error: function(xhr, status, err) {
-          var notifications = this.state.notifications.slice();
+        },
+        error: (xhr, status, err) => {
+          let notifications = this.state.notifications.slice();
           notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
           this.setState({notifications: notifications});
           setTimeout(removeNotice, 6000);
           console.error(this.url, status, err.toString());
-        }.bind(this)
+        }
       });
     });
     setTimeout(removeNotice, 1200);
   }
 
-  handleNext() {
+  handleNext = () => {
     // Bootstrap's managing the tabs, so trigger a jQuery click on the next
     const next = $('#progress-panel > .nav > li.active + li > a');
     window.scrollTo(0, 0);
@@ -144,13 +144,9 @@ export default class CreateWalk extends React.Component {
     }
   }
 
-  handlePublish() {
-    this.saveWalk({publish: true}, () => console.log('Walk published'));
-  }
+  handlePublish = () => this.saveWalk({publish: true}, () => console.log('Walk published'))
 
-  handlePreview(e) {
-    this.saveWalk({}, () => this.setState({preview: true}));
-  }
+  handlePreview = () => this.saveWalk({}, () => this.setState({preview: true}))
 
   componentWillMount() {
     I18nStore.addChangeListener(this._onChange.bind(this));
@@ -188,9 +184,9 @@ export default class CreateWalk extends React.Component {
               <li><a data-toggle="tab" className="team" href="#team"><i className="fa fa-users" />{ t('Build Your Team') }</a></li>
             </ul>
             <section id="button-group">
-              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={() => this.handlePreview()}>{ t('Preview Walk') }</button>
+              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
               <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={() => this.setState({publish: true})} ref="publish">{ t('Publish Walk') }</button>
-              <button className="btn btn-info save" title="Save" id="btn-save" onClick={() => this.handleSave()}>{ t('Save') }</button>
+              <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.saveWalk}>{ t('Save') }</button>
             </section>
           </nav>
           <div id="main-panel" role="main">
@@ -288,7 +284,7 @@ export default class CreateWalk extends React.Component {
               </div>
               <TeamBuilder onChange={v => this.setState({team: v})} team={this.state.team} />
             </div>
-            <button type="button" onClick={() => this.handleNext()} className="btn">Next</button>
+            <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>
           <aside id="tips-panel" role="complementary">
             <div className="popover right" id="city-organizer" style={{display: 'block'}}>
@@ -301,8 +297,8 @@ export default class CreateWalk extends React.Component {
             </div>
           </aside>
         </section>
-        {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk.bind(this)} close={this.setState.bind(this, {publish: false})} city={city} mirrors={this.state.mirrors} /> : null}
-        {this.state.preview ? <WalkPreview url={this.state.url} close={this.setState.bind(this, {preview: false})} /> : null}
+        {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk} close={() => this.setState({publish: false})} city={city} mirrors={this.state.mirrors} /> : null}
+        {this.state.preview ? <WalkPreview url={this.state.url} close={() => this.setState({preview: false})} /> : null}
         <aside id="notifications">
           {this.state.notifications.map(note => (
             <div key={note.message} className={'alert alert-' + note.type}>

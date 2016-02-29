@@ -19,14 +19,9 @@ export default class Login extends React.Component {
       maintainLogin: false,
       message: {}
     };
-    this.handleReset = this.handleReset.bind(this);
-    this.handleChangeEmail = this.handleChangeEmail.bind(this);
-    this.handleChangePassword = this.handleChangePassword.bind(this);
-    this.handleChangeMaintainLogin = this.handleChangeMaintainLogin.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleReset(ev) {
+  handleReset = (ev) => {
     // Post a reset request to the c5 endpoint for resets
     $.ajax({
       type: 'POST',
@@ -41,19 +36,19 @@ export default class Login extends React.Component {
     });
   }
 
-  handleChangeEmail(ev) {
+  handleChangeEmail = (ev) => {
     this.setState({email: ev.target.value});
   }
 
-  handleChangePassword(ev) {
+  handleChangePassword = (ev) => {
     this.setState({password: ev.target.value});
   }
 
-  handleChangeMaintainLogin(ev) {
+  handleChangeMaintainLogin = (ev) => {
     this.setState({maintainLogin: ev.target.value});
   }
 
-  handleSubmit(ev) {
+  handleSubmit = (ev) => {
     ev.preventDefault();
     // Post the login to the c5 endpoint for logins
     $.ajax({

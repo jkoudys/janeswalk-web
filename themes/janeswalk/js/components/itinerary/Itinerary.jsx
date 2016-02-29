@@ -18,7 +18,6 @@ export default class Itinerary extends React.Component {
   constructor(props, ...args) {
     super(props, ...args);
     this.state = Object.assign({}, getItinerary(), props.itinerary);
-    this._onChange = this._onChange.bind(this);
   }
 
   componentWillMount() {
@@ -39,7 +38,7 @@ export default class Itinerary extends React.Component {
     this.setState({$el: $el});
   }
 
-  _onChange() {
+  _onChange = () => {
     this.setState(() => getItinerary(this.state.activeList));
   }
 

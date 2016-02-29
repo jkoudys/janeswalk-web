@@ -49,13 +49,13 @@ export default class MapBuilder extends React.Component {
     });
 
     // Map won't size properly on a hidden tab, so refresh on tab shown
-    $('a[href="#route"]').on('shown.bs.tab', e => this.boundMapByWalk());
+    $('a[href="#route"]').on('shown.bs.tab', this.boundMapByWalk);
 
     this.setState({map: map}, this.refreshGMap);
   }
 
   // Build a google map from our serialized map state
-  refreshGMap() {
+  refreshGMap = () => {
     const valueLink = this.props.valueLink;
     const markers = new google.maps.MVCArray;
     let route = null;
@@ -64,7 +64,7 @@ export default class MapBuilder extends React.Component {
       this.state.route.setMap(null);
     }
 
-    for (let marker of this.state.markers) marker.setMap(null);
+    this.state.markers.forEach(marker => marker.setMap(null));
 
     // Draw the route
     if (valueLink.value) {
@@ -107,7 +107,7 @@ export default class MapBuilder extends React.Component {
   /**
    * Make the map fit the markers in this walk
    */
-  boundMapByWalk() {
+  boundMapByWalk = () => {
     // Don't include the route - it can be too expensive to compute.
     const bounds = new google.maps.LatLngBounds;
     google.maps.event.trigger(this.state.map, 'resize');
@@ -179,8 +179,8 @@ export default class MapBuilder extends React.Component {
     React.render(
       <WalkInfoWindow
         marker={marker}
-        deleteMarker={this.deleteMarker.bind(this, marker)}
-        refresh={this.syncState.bind(this)}
+        deleteMarker={() => this.deleteMarker(marker)}
+        refresh={this.syncState}
       />,
       infoDOM
     );
@@ -191,7 +191,7 @@ export default class MapBuilder extends React.Component {
     this.state.infowindow.open(this.state.map, marker);
   }
 
-  buildRoute(routeArray) {
+  buildRoute = (routeArray) => {
     const poly = new google.maps.Polyline({
       strokeColor: '#F16725',
       strokeOpacity: 0.8,
@@ -221,7 +221,7 @@ export default class MapBuilder extends React.Component {
   /**
    * @param google.maps.Marker marker
    */
-  deleteMarker(marker) {
+  deleteMarker = (marker) => {
     const markers = this.state.markers;
 
     // Clear marker from map
@@ -238,7 +238,7 @@ export default class MapBuilder extends React.Component {
    * @param int from
    * @param int to
    */
-  moveBefore(from, to) {
+  moveBefore = (from, to) => {
     const markers = this.state.markers;
     const fMarker = markers.getAt(from);
     markers.removeAt(from);
@@ -248,7 +248,7 @@ export default class MapBuilder extends React.Component {
   }
 
   // Button Actions
-  toggleAddPoint() {
+  toggleAddPoint = () => {
     const markers = this.state.markers;
     const marker = this.buildMarker();
     markers.push(marker);
@@ -261,7 +261,7 @@ export default class MapBuilder extends React.Component {
     this.state.infowindow.setMap(null);
   }
 
-  toggleAddRoute() {
+  toggleAddRoute = () => {
     this.setState({
       mode: {
         addRoute: !this.state.mode.addRoute
@@ -270,14 +270,14 @@ export default class MapBuilder extends React.Component {
     () => this.state.infowindow.setMap(null);
   }
 
-  clearRoute() {
+  clearRoute = () => {
     this.state.infowindow.setMap(null);
     this.state.route.setPath([]);
     this.setState({mode: {}});
   }
 
   // Build a version of state appropriate for persistence
-  getStateSimple() {
+  getStateSimple = () => {
     const markers = this.state.markers.getArray().map(marker => {
       const titleObj = JSON.parse(marker.title);
       return {
@@ -305,26 +305,24 @@ export default class MapBuilder extends React.Component {
   }
 
   // Sync what's on the gmap to what's stored in our state
-  syncState() {
-    this.props.valueLink.requestChange(this.getStateSimple());
-  }
+  syncState = () => this.props.valueLink.requestChange(this.getStateSimple())
 
   // Manage the filters for loading data from external APIs
-  handleRemoveFilter(i) {
+  handleRemoveFilter = (i) => {
     const filters = this.state.filters.slice();
     filters.splice(i, 1);
     this.setState({filters: filters});
   }
 
   // Update the _text_ of a filter
-  handleChangeFilter(i, val) {
+  handleChangeFilter = (i, val) => {
     const filters = this.state.filters.slice();
     filters[i].value = val;
     this.setState({filters: filters});
   }
 
   // Push a new filter to our box, usually done by the buttons
-  handleAddFilter(filter) {
+  handleAddFilter = (filter) => {
     const filters = this.state.filters.slice();
     filters.push(filter);
     this.setState({filters: filters});
@@ -336,9 +334,9 @@ export default class MapBuilder extends React.Component {
     // Standard properties the filter buttons need
     const filterProps = {
       valueLink: this.props.valueLink,
-      refreshGMap: this.refreshGMap.bind(this),
-      boundMapByWalk: this.boundMapByWalk.bind(this),
-      addFilter: this.handleAddFilter.bind(this),
+      refreshGMap: this.refreshGMap,
+      boundMapByWalk: this.boundMapByWalk,
+      addFilter: this.handleAddFilter,
       city: this.props.city
     };
 
@@ -349,9 +347,9 @@ export default class MapBuilder extends React.Component {
           ref="walkStopTable"
           key={1}
           markers={this.state.markers}
-          deleteMarker={this.deleteMarker.bind(this)}
-          moveBefore={this.moveBefore.bind(this)}
-          showInfoWindow={this.showInfoWindow.bind(this)}
+          deleteMarker={this.deleteMarker}
+          moveBefore={this.moveBefore}
+          showInfoWindow={this.showInfoWindow}
         />
       ];
     }
@@ -368,23 +366,23 @@ export default class MapBuilder extends React.Component {
           <button
             ref="addPoint"
             className={(this.state.mode.addPoint) ? 'active' : ''}
-            onClick={this.toggleAddPoint.bind(this)}>
+            onClick={this.toggleAddPoint}>
             <i className="fa fa-map-marker" />{ t('Add Stop') }
           </button>
           <button
             ref="addRoute"
             className={(this.state.mode.addRoute) ? 'active' : ''}
-            onClick={this.toggleAddRoute.bind(this)}>
+            onClick={this.toggleAddRoute}>
             <i className="fa fa-arrows" />{ t('Add Route') }
           </button>
-          <button ref="clearroute" onClick={this.clearRoute.bind(this)}>
+          <button ref="clearroute" onClick={this.clearRoute}>
             <i className="fa fa-eraser" />{ t('Clear Route') }
           </button>
           <TwitterConnect {...filterProps} />
           <InstagramConnect {...filterProps} />
           <SoundCloudConnect {...filterProps} />
         </div>
-        <ConnectFilters filters={this.state.filters} changeFilter={this.handleChangeFilter.bind(this)} remove={this.handleRemoveFilter.bind(this)} />
+        <ConnectFilters filters={this.state.filters} changeFilter={this.handleChangeFilter} remove={this.handleRemoveFilter} />
         <div className="map-notifications" />
         <div id="map-canvas" ref="gmap" />
         {walkStops}

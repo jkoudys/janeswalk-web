@@ -6,7 +6,6 @@
 
 var gulp = require('gulp'),
   autoprefixer = require('gulp-autoprefixer'),
-  babelify = require('babelify'),
   browserify = require('browserify'),
   buffer = require('vinyl-buffer'),
   concat = require('gulp-concat'),
@@ -51,7 +50,7 @@ gulp.task('prod', function() {
         exclude: /(bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['es2015', 'react', 'stage-1'],
         },
       }, {
         test: /\.json$/,
@@ -109,7 +108,7 @@ gulp.task('js.theme', function() {
         exclude: /(bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['es2015', 'react', 'stage-1'],
         },
       }, {
         test: /\.json$/,

@@ -17,7 +17,7 @@ export default class WalkPublish extends React.Component {
     $(React.findDOMNode(this)).bind('hidden.bs.modal', () => this.props.close());
   }
 
-  handlePublish() {
+  handlePublish = () => {
     // This function's meant for callbacks, so it grabs the URL from the caller's state
     this.props.saveWalk({publish: true}, () => window.location = this.props.url);
   }
@@ -25,7 +25,8 @@ export default class WalkPublish extends React.Component {
   render() {
     // Check city config for which walk mirroring services to expose
     let mirrorWalk;
-    if (this.props.city.mirrors.indexOf('eventbrite') > -1) {
+    let {city, close} = this.props;
+    if (city.mirrors.indexOf('eventbrite') > -1) {
       mirrorWalk = (
         <label className="checkbox">
           <input type="checkbox" checkedLink={this.linkState('eventbrite')} />
@@ -48,10 +49,10 @@ export default class WalkPublish extends React.Component {
             </div>
             <footer>
               <div className="pull-left">
-                <a className="walkthrough close" data-dismiss="modal" onClick={this.props.close.bind(this)}> { t('Bring me back to edit') }</a>
+                <a className="walkthrough close" data-dismiss="modal" onClick={close}> { t('Bring me back to edit') }</a>
               </div>
               <a>
-                <button className="btn btn-primary walkthrough" data-step="publish-confirmation" onClick={() => this.handlePublish()}>{ t('Publish') }</button>
+                <button className="btn btn-primary walkthrough" data-step="publish-confirmation" onClick={this.handlePublish}>{ t('Publish') }</button>
               </a>
             </footer>
           </article>

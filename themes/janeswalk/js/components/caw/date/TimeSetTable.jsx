@@ -13,7 +13,7 @@ if (typeof Intl === "object") {
  */
 export default class TimeSetTable extends React.Component {
   // Remove a scheduled time
-  removeSlot(i) {
+  removeSlot = (i) => {
     const valueLink = this.props.valueLink;
     const value = valueLink.value;
     const slots = (value.slots || []).slice();
@@ -57,7 +57,7 @@ export default class TimeSetTable extends React.Component {
                 <td>{dtfDate.format(start)}</td>
                 <td>{dtfDuration.format(start)}</td>
                 <td>{durationFmt.join(', ')}</td>
-                <td><a onClick={this.removeSlot.bind(this, i)}><i className="fa fa-times-circle-o" />&nbsp;{t('Remove')}</a></td>
+                <td><a onClick={() => this.removeSlot(i)}><i className="fa fa-times-circle-o" />&nbsp;{t('Remove')}</a></td>
               </tr>
             );
           })}

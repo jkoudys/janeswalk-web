@@ -7,10 +7,6 @@ export default class WalkInfoWindow extends React.Component {
     super();
     // Weird, but needed since it's rendering to a DOM node
     this.state = {marker: props.marker};
-
-    // Bind methods
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
   }
 
   /**
@@ -26,12 +22,12 @@ export default class WalkInfoWindow extends React.Component {
   }
 
   // Simple method to set title property
-  handleTitleChange(ev) {
+  handleTitleChange = (ev) => {
     this.setMarkerContent({title: ev.target.value});
   }
 
   // Simple method to set description property
-  handleDescriptionChange(ev) {
+  handleDescriptionChange = (ev) => {
     this.setMarkerContent({description: ev.target.value});
   }
 

@@ -2,19 +2,13 @@
 import {t, t2} from 'janeswalk/stores/I18nStore';
 
 export default class ImageUpload extends React.Component {
-  constructor() {
-    super();
-
-    this.handleUpload = this.handleUpload.bind(this);
-  }
-
-  removeImage(i) {
+  removeImage = (i) => {
     const thumbnails = this.props.valueLink.value;
     thumbnails.splice(i, 1);
     this.props.valueLink.requestChange(thumbnails);
   }
 
-  handleUpload(e) {
+  handleUpload = (e) => {
     const fd = new FormData();
     const xhr = new XMLHttpRequest();
     const _this = this;
@@ -60,7 +54,7 @@ export default class ImageUpload extends React.Component {
               key={filename}
               className="thumbnail"
               style={{backgroundImage: 'url(' + thumb.url + ')'}}>
-              <a className="remove" onClick={this.removeImage.bind(this, i)}><i className="fa fa-times-circle" /></a>
+              <a className="remove" onClick={() => this.removeImage(i)}><i className="fa fa-times-circle" /></a>
             </div>
             );
         })}
