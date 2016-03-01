@@ -53,6 +53,13 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * A set of walk filters, to filter on properties. Also includes
+	                                                                                                                                                                                                                                                                   * the tabs, like 'list' and 'map/
+	                                                                                                                                                                                                                                                                   */
+
+	// Fluxxy
+
 	var _LocationMap = __webpack_require__(2);
 
 	var _LocationMap2 = _interopRequireDefault(_LocationMap);
@@ -61,30 +68,34 @@
 
 	var _WalkFilter2 = _interopRequireDefault(_WalkFilter);
 
+	var _WalkActions = __webpack_require__(20);
+
+	var WalkActions = _interopRequireWildcard(_WalkActions);
+
+	var _CityActions = __webpack_require__(21);
+
+	var CityActions = _interopRequireWildcard(_CityActions);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/**
-	 * A set of walk filters, to filter on properties. Also includes
-	 * the tabs, like 'list' and 'map/
-	 */
-
 	var _walks = undefined;
-	var _location = undefined;
 	var _filters = {};
 
-	JanesWalk.event.on('walks.receive', function (walks) {
-	  _walks = walks;
-	  React.render(React.createElement(_WalkFilter2.default, { walks: _walks, filters: _filters, location: _location }), document.getElementById('janeswalk-walk-filters'));
+	JanesWalk.event.on('walkfilters.load', function (location) {
+	  React.render(React.createElement(_WalkFilter2.default, _extends({ filters: _filters }, { location: location })), document.getElementById('janeswalk-walk-filters'));
 	});
 
-	JanesWalk.event.on('city.receive', function (city) {
-	  return _location = city;
-	});
-	JanesWalk.event.on('country.receive', function (country) {
-	  return _location = country;
-	});
+	// Listen for updates, add routing
 	JanesWalk.event.on('filters.receive', function (filters) {
 	  return _filters = filters;
+	});
+	JanesWalk.event.on('city.receive', function (city) {
+	  return CityActions.receive(city);
+	});
+	JanesWalk.event.on('walks.receive', function (walks) {
+	  return WalkActions.receiveAll(walks);
 	});
 
 /***/ },
@@ -246,9 +257,9 @@
 	  _createClass(CityMap, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _props$location = this.props.location;
-	      var zoomlevel = _props$location.zoomlevel;
-	      var latlng = _props$location.latlng;
+	      var _props = this.props;
+	      var zoomlevel = _props.zoomlevel;
+	      var latlng = _props.latlng;
 
 	      var locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
 
@@ -357,21 +368,32 @@
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
+	var _WalkStore = __webpack_require__(18);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	var _CityStore = __webpack_require__(19);
+
+	var _CityStore2 = _interopRequireDefault(_CityStore);
+
+	var _I18nStore = __webpack_require__(7);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Filters, lists, maps, the whole shebang
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
+	                                                                                                                                                                                                     * Filters, lists, maps, the whole shebang
+	                                                                                                                                                                                                     */
+
+	// Flux
 
 	// TODO: replace placeholder translate with real one.
 	// Not doing this now because we'd need to build multiple translators for blocks vs site
-	var t = function t(s) {
-	  return s;
-	};
 	var today = new Date();
 	today.setUTCHours(0);
 	today.setUTCMinutes(0);
@@ -379,7 +401,12 @@
 	/**
 	 * Apply filters and date range to walks
 	 */
-	function filterWalks(walks, filters, dr) {
+	function filterWalks(_ref) {
+	  var walks = _ref.walks;
+	  var filters = _ref.filters;
+	  var dateRange = _ref.dateRange;
+	  var city = _ref.city;
+
 	  return walks.filter(function (walk) {
 	    var time = undefined;
 	    if (walk.time.slots.length) {
@@ -390,7 +417,7 @@
 	    // Note that this would be a lot cleaner using functions, but it's
 	    // built with a big set of basic boolean operators to speed it up
 	    // along this likely bottleneck
-	    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || filters.city && filters.city.selected && walk.cityID != filters.city.selected || dr[0] && dr[0] > time || dr[1] && dr[1] < time) {
+	    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && walk.cityID != filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time) {
 	      return false;
 	    }
 	    return true;
@@ -414,13 +441,21 @@
 	  return null;
 	}
 
+	function thirdRecentDateRange(walks) {
+	  var thirdDate = thirdRecentDate(walks);
+	  if (thirdDate && thirdDate < today) {
+	    return [thirdDate.getTime(), null];
+	  }
+	  return [today, null];
+	}
+
 	//"cityID":258,
 
-	var Filter = function Filter(_ref) {
-	  var name = _ref.name;
-	  var selected = _ref.selected;
-	  var setFilter = _ref.setFilter;
-	  var data = _ref.data;
+	var Filter = function Filter(_ref2) {
+	  var name = _ref2.name;
+	  var selected = _ref2.selected;
+	  var setFilter = _ref2.setFilter;
+	  var data = _ref2.data;
 	  return React.createElement(
 	    'li',
 	    null,
@@ -450,23 +485,22 @@
 	  );
 	};
 
-	var getWalkFilterState = function getWalkFilterState(_ref2) {
-	  var walks = _ref2.walks;
-	  var location = _ref2.location;
-	  var filters = _ref2.filters;
+	var getWalkFilterState = function getWalkFilterState(_ref3) {
+	  var _ref3$filters = _ref3.filters;
+	  var filters = _ref3$filters === undefined ? {} : _ref3$filters;
+	  var dateRange = _ref3.dateRange;
+	  var _ref3$city = _ref3.city;
+	  var city = _ref3$city === undefined ? _CityStore2.default.getCity() : _ref3$city;
 
-	  var thirdDate = thirdRecentDate(walks);
-	  var dateRange = [today.getTime(), null];
-	  if (thirdDate && thirdDate < today) {
-	    dateRange[0] = thirdDate.getTime();
-	  }
+	  var walks = [].concat(_toConsumableArray(_WalkStore2.default.getWalks().values()));
+	  dateRange = dateRange || thirdRecentDateRange(walks);
 
 	  return {
-	    walks: walks || [],
-	    location: location,
-	    filters: filters || {},
+	    walks: walks,
+	    filters: filters,
+	    city: city,
 	    dateRange: dateRange,
-	    filterMatches: filterWalks(walks, filters, dateRange)
+	    filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city })
 	  };
 	};
 
@@ -478,31 +512,29 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WalkFilter).call(this, props));
 
-	    _this.state = getWalkFilterState(props);
+	    _this._onChange = function () {
+	      var _this$state = _this.state;
+	      var filters = _this$state.filters;
+	      var dateRange = _this$state.dateRange;
 
-	    // Setup event listeners
-	    JanesWalk.event.on('walks.receive', function (walks) {
-	      _this.setState({ walks: _this.state.walks.concat(walks) });
-	    });
-	    JanesWalk.event.on('filters.receive', function (filters) {
-	      return _this.setState({ filters: filters });
-	    });
-	    JanesWalk.event.on('city.receive', function (city) {
-	      return _this.setState({ location: city });
-	    });
-	    JanesWalk.event.on('blog.receive', function (blog) {
-	      return _this.setState({ blog: blog });
-	    });
-	    JanesWalk.event.on('country.receive', function (country) {
-	      return _this.setState({ location: country });
-	    });
+	      _this.setState(getWalkFilterState(_this.state));
+	    };
+
+	    _this.state = getWalkFilterState(props);
 	    return _this;
 	  }
 
 	  _createClass(WalkFilter, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(newProps) {
-	      this.setState(getWalkFilterState(newProps));
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      _WalkStore2.default.addChangeListener(this._onChange);
+	      _CityStore2.default.addChangeListener(this._onChange);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _WalkStore2.default.removeChangeListener(this._onChange);
+	      _CityStore2.default.removeChangeListener(this._onChange);
 	    }
 	  }, {
 	    key: 'setFilter',
@@ -511,9 +543,10 @@
 	      var filters = _state.filters;
 	      var walks = _state.walks;
 	      var dateRange = _state.dateRange;
+	      var city = _state.city;
 
 	      filters[filter].selected = val;
-	      this.setState({ filters: filters, filterMatches: filterWalks(walks, filters, dateRange) });
+	      this.setState({ filters: filters, filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city }) });
 	    }
 	  }, {
 	    key: 'setDateRange',
@@ -538,7 +571,9 @@
 
 	      var locationMapSection = undefined;
 
-	      var displayFilters = this.state.displayFilters;
+	      var _state2 = this.state;
+	      var displayFilters = _state2.displayFilters;
+	      var city = _state2.city;
 
 	      var Filters = Object.keys(this.state.filters).map(function (key) {
 	        return React.createElement(Filter, _extends({ key: key, setFilter: function setFilter(v) {
@@ -547,11 +582,11 @@
 	      });
 
 	      // See if this city has a location set
-	      if (this.state.location && this.state.location.latlng.length === 2) {
+	      if (city && city.latlng.length === 2) {
 	        locationMapSection = React.createElement(
 	          'section',
 	          { className: 'tab-pane', id: 'jw-map' },
-	          React.createElement(_LocationMap2.default, { walks: this.state.filterMatches, location: this.state.location })
+	          React.createElement(_LocationMap2.default, { walks: this.state.filterMatches, latlng: city.latlng })
 	        );
 	      }
 
@@ -1428,17 +1463,19 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.dispatch = exports.register = undefined;
+	exports.waitFor = exports.dispatch = exports.register = undefined;
 
 	var _flux = __webpack_require__(10);
 
 	var AppDispatcher = new _flux.Dispatcher();
 	var register = AppDispatcher.register.bind(AppDispatcher);
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
+	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
 
 	exports.default = AppDispatcher;
 	exports.register = register;
 	exports.dispatch = dispatch;
+	exports.waitFor = waitFor;
 
 /***/ },
 /* 10 */
@@ -1877,6 +1914,9 @@
 	// Walks
 	'WALK_RECEIVE', 'WALK_RECEIVE_ALL', 'WALK_SAVE', 'WALK_PUBLISH',
 
+	// City
+	'CITY_RECEIVE',
+
 	// Areas
 	'AREA_RECEIVE',
 
@@ -1884,10 +1924,7 @@
 	'USER_RECEIVE', 'USER_RECEIVE_ALL',
 
 	// Itineraries
-	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END',
-
-	// Dashboard
-	'FILTER_WALKS', 'TOGGLE_WALK_FILTER', 'REMOVE_WALK_FILTER', 'FILTER_WALKS_BY_DATE', 'FILTER_LEADERS_BY_DATE', 'SORT_LEADERS', 'TOGGLE_MENU'].reduce(function (p, k) {
+	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_SCHEDULE_WALK', 'ITINERARY_UNSCHEDULE_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END'].reduce(function (p, k) {
 	  p[k] = k;return p;
 	}, {});
 
@@ -2154,6 +2191,206 @@
 	    tabBlog
 	  );
 	};
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(9);
+
+	var _events = __webpack_require__(8);
+
+	var _JWConstants = __webpack_require__(14);
+
+	var CHANGE_EVENT = 'change';
+
+	// Store singletons
+	// The Walk objects, keyed by walk ID (ie collection ID)
+	/**
+	 * Walk store
+	 *
+	 * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	 * description, and people involved with a walk.
+	 */
+
+	var _walks = new Map();
+
+	// Receive a single walk
+	function receiveWalk(walk) {
+	  _walks.set(+walk.id, walk);
+	}
+
+	// Receive an array of walks
+	function receiveWalks(walks) {
+	  walks.forEach(function (w) {
+	    return receiveWalk(w);
+	  });
+	}
+
+	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getWalks: function getWalks() {
+	    return _walks;
+	  },
+	  getWalk: function getWalk(id) {
+	    return _walks.get(+id);
+	  },
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
+	    // Go through the various actions
+	    switch (payload.type) {
+	      // Route actions
+	      case _JWConstants.ActionTypes.WALK_RECEIVE:
+	        receiveWalk(payload.walk);
+	        break;
+	      case _JWConstants.ActionTypes.WALK_RECEIVE_ALL:
+	        receiveWalks(payload.walks);
+	        break;
+	    }
+	    WalkStore.emitChange();
+	  })
+	});
+
+	exports.default = WalkStore;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(9);
+
+	var _events = __webpack_require__(8);
+
+	var _JWConstants = __webpack_require__(14);
+
+	var CHANGE_EVENT = 'change';
+
+	// Store singletons
+	/**
+	 * City store
+	 *
+	 * Single-city storage. May be refactored for multiple cities later, but
+	 * currently no requirement exists for this.
+	 */
+
+	var _city = undefined;
+
+	// Receive a single walk
+	function receiveCity(city) {
+	  _city = city;
+	}
+
+	var CityStore = Object.assign({}, _events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getCity: function getCity() {
+	    return _city;
+	  },
+	  getLocation: function getLocation() {
+	    return _city && _city.latlng;
+	  },
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
+	    // Go through the various actions
+	    switch (payload.type) {
+	      // Route actions
+	      case _JWConstants.ActionTypes.CITY_RECEIVE:
+	        receiveCity(payload.city);
+	        break;
+	    }
+	    CityStore.emitChange();
+	  })
+	});
+
+	exports.default = CityStore;
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receive = receive;
+	exports.receiveAll = receiveAll;
+
+	var _AppDispatcher = __webpack_require__(9);
+
+	var _JWConstants = __webpack_require__(14);
+
+	// Load the walk
+	function receive(walk) {
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.WALK_RECEIVE,
+	    walk: walk
+	  });
+	}
+
+	function receiveAll(walks) {
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.WALK_RECEIVE_ALL,
+	    walks: walks
+	  });
+	}
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.receive = receive;
+
+	var _AppDispatcher = __webpack_require__(9);
+
+	var _JWConstants = __webpack_require__(14);
+
+	// Load all loop data
+	/**
+	 * City Actions
+	 *
+	 */
+
+	function receive(city) {
+	  (0, _AppDispatcher.dispatch)({
+	    type: _JWConstants.ActionTypes.CITY_RECEIVE,
+	    city: city
+	  });
+	}
 
 /***/ }
 /******/ ]);

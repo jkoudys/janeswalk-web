@@ -731,17 +731,19 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.dispatch = exports.register = undefined;
+	exports.waitFor = exports.dispatch = exports.register = undefined;
 
 	var _flux = __webpack_require__(5);
 
 	var AppDispatcher = new _flux.Dispatcher();
 	var register = AppDispatcher.register.bind(AppDispatcher);
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
+	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
 
 	exports.default = AppDispatcher;
 	exports.register = register;
 	exports.dispatch = dispatch;
+	exports.waitFor = waitFor;
 
 /***/ },
 /* 5 */
@@ -1180,6 +1182,9 @@
 	// Walks
 	'WALK_RECEIVE', 'WALK_RECEIVE_ALL', 'WALK_SAVE', 'WALK_PUBLISH',
 
+	// City
+	'CITY_RECEIVE',
+
 	// Areas
 	'AREA_RECEIVE',
 
@@ -1187,10 +1192,7 @@
 	'USER_RECEIVE', 'USER_RECEIVE_ALL',
 
 	// Itineraries
-	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END',
-
-	// Dashboard
-	'FILTER_WALKS', 'TOGGLE_WALK_FILTER', 'REMOVE_WALK_FILTER', 'FILTER_WALKS_BY_DATE', 'FILTER_LEADERS_BY_DATE', 'SORT_LEADERS', 'TOGGLE_MENU'].reduce(function (p, k) {
+	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_SCHEDULE_WALK', 'ITINERARY_UNSCHEDULE_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END'].reduce(function (p, k) {
 	  p[k] = k;return p;
 	}, {});
 

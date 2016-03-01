@@ -121,7 +121,7 @@ export default class CityMap extends React.Component {
   }
 
   componentDidMount() {
-    const {zoomlevel, latlng} = this.props.location;
+    const {zoomlevel, latlng} = this.props;
     const locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
 
     // Setup map

@@ -143,7 +143,7 @@ gulp.task('js.blocks', function() {
   });
 */
   [
-    './blocks/search/templates/header/',
+//    './blocks/search/templates/header/',
     './blocks/page_list/templates/typeahead/',
     './blocks/page_list/templates/walk_filters/'
   ].map(function(entry) {
@@ -162,7 +162,7 @@ gulp.task('js.blocks', function() {
           exclude: /(bower_components)/,
           loader: 'babel',
           query: {
-            presets: ['es2015', 'react'],
+            presets: ['es2015', 'react', 'stage-1'],
           },
         }],
       },

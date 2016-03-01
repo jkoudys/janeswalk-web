@@ -36,6 +36,10 @@ const CityStore = Object.assign({}, EventEmitter.prototype, {
     return _city;
   },
 
+  getLocation() {
+    return _city && _city.latlng;
+  },
+
   // Register our dispatch token as a static method
   dispatchToken: register(function(payload) {
     // Go through the various actions

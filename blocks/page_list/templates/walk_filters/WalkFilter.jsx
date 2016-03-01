@@ -9,6 +9,7 @@ import Tabs from './Tabs.jsx';
 
 // Flux
 import WalkStore from 'janeswalk/stores/WalkStore';
+import CityStore from 'janeswalk/stores/CityStore';
 import {t} from 'janeswalk/stores/I18nStore';
 
 // TODO: replace placeholder translate with real one.
@@ -20,7 +21,7 @@ today.setUTCMinutes(0);
 /**
  * Apply filters and date range to walks
  */
-function filterWalks(walks, filters, dr) {
+function filterWalks({walks, filters, dateRange, city}) {
   return walks.filter(walk => {
     let time;
     if (walk.time.slots.length) {
@@ -35,8 +36,9 @@ function filterWalks(walks, filters, dr) {
         (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
         (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes['accessible-' + filters.accessibility.selected])) ||
         (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
+        (city && +walk.cityID !== +city.id) ||
         (filters.city && filters.city.selected && walk.cityID != filters.city.selected) ||
-        (dr[0] && dr[0] > time) || (dr[1] && dr[1] < time)
+        (dateRange[0] && dateRange[0] > time) || (dateRange[1] && dateRange[1] < time)
        )
      {
        return false;
@@ -62,6 +64,14 @@ function thirdRecentDate(walks) {
   return null;
 }
 
+function thirdRecentDateRange(walks) {
+  const thirdDate = thirdRecentDate(walks);
+  if (thirdDate && thirdDate < today) {
+    return [thirdDate.getTime(), null];
+  }
+  return [today, null];
+}
+
 //"cityID":258,
 
 const Filter = ({name, selected, setFilter, data}) => (
@@ -74,36 +84,45 @@ const Filter = ({name, selected, setFilter, data}) => (
   </li>
 );
 
-const getWalkFilterState = ({walks, location, filters}) => {
-  const thirdDate = thirdRecentDate(walks);
-  const dateRange = [today.getTime(), null];
-  if (thirdDate && thirdDate < today) {
-    dateRange[0] = thirdDate.getTime();
-  }
+const getWalkFilterState = ({filters: filters = {}, dateRange, city: city = CityStore.getCity()}) => {
+  const walks = [...WalkStore.getWalks().values()];
+  dateRange = dateRange || thirdRecentDateRange(walks);
 
   return {
-    walks: walks || [],
-    location: location,
-    filters: filters || {},
-    dateRange: dateRange,
-    filterMatches: filterWalks(walks, filters, dateRange)
-  }
+    walks,
+    filters,
+    city,
+    dateRange,
+    filterMatches: filterWalks({walks, filters, dateRange, city})
+  };
 };
 
 export default class WalkFilter extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = getWalkFilterState(props);
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState(getWalkFilterState(newProps));
+  _onChange = () => {
+    const {filters, dateRange} = this.state;
+    this.setState(getWalkFilterState(this.state));
+  };
+
+  componentWillMount() {
+    WalkStore.addChangeListener(this._onChange);
+    CityStore.addChangeListener(this._onChange);
+  }
+
+  componentWillUnmount() {
+    WalkStore.removeChangeListener(this._onChange);
+    CityStore.removeChangeListener(this._onChange);
   }
 
   setFilter(filter, val) {
-    const {filters, walks, dateRange} = this.state;
+    const {filters, walks, dateRange, city} = this.state;
     filters[filter].selected = val;
-    this.setState({filters: filters, filterMatches: filterWalks(walks, filters, dateRange)});
+    this.setState({filters: filters, filterMatches: filterWalks({walks, filters, dateRange, city})});
   }
 
   setDateRange(from, to) {
@@ -123,16 +142,16 @@ export default class WalkFilter extends React.Component {
   render() {
     let locationMapSection;
 
-    const {displayFilters} = this.state;
+    const {displayFilters, city} = this.state;
 
     const Filters = Object.keys(this.state.filters).map(
       key => <Filter key={key} setFilter={v => this.setFilter(key, v)} {...this.state.filters[key]} />
     );
 
     // See if this city has a location set
-    if (this.state.location && this.state.location.latlng.length === 2) {
+    if (city && city.latlng.length === 2) {
       locationMapSection = <section className="tab-pane" id="jw-map">
-        <LocationMap walks={this.state.filterMatches} location={this.state.location} />
+        <LocationMap walks={this.state.filterMatches} latlng={city.latlng} />
       </section>;
     }
 
