@@ -99,7 +99,7 @@ export default class CreateWalk extends React.Component {
           next.trigger('click');
         } else {
           // If no 'next' tab, next step is to publish
-          $(React.findDOMNode(this.refs.publish)).trigger('click');
+          this.refs.publish.trigger('click');
         }
       },
 

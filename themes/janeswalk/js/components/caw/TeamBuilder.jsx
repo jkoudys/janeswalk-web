@@ -13,10 +13,10 @@ function linkMember(field, {value, onChange, index}) {
  * TODO: move to flux stores
  */
 const memberTypes = {
-  'leader': {"name-first":'', "name-last":'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''},
-  'organizer': {"name-first":'', "name-last":'', institution: '', website: ''},
-  'community': {"name-first":'', "name-last":'', bio: '', twitter: '', facebook: '', website: ''},
-  'volunteer': {"name-first":'', "name-last":'', role: '', website: ''}
+  leader:    {type: 'leader', 'name-first':'', 'name-last':'', bio: '', primary: '', twitter: '', facebook: '', website: '', email: '', phone: ''},
+  organizer: {type: 'organizer', 'name-first':'', 'name-last':'', institution: '', website: ''},
+  community: {type: 'community', 'name-first':'', 'name-last':'', bio: '', twitter: '', facebook: '', website: ''},
+  volunteer: {type: 'volunteer', 'name-first':'', 'name-last':'', role: '', website: ''}
 };
 
 /**
@@ -35,7 +35,7 @@ function teamMemberList({values, onChange}) {
       key: i,
       index: i,
       value: user,
-      onChange: () => onChange,
+      onChange,
       onDelete: () => deleteMember(i, onChange)
     };
 

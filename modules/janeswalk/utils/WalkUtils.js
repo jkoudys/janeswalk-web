@@ -54,25 +54,20 @@ export function buildWalkObject({data, user, url}) {
   // Keep these defaults to type, ie don't pre-seed data here, aside from
   // data loaded by passing it in
   const defaultWalk = require('../constants/defaultWalk.json');
-  const walk = {...defaultWalk, url, ...migrateToV1(data)};
-
-  // Init the leader as creator, if none set
-  walk.team = walk.team || []
-  if (walk.team.length === 0) {
-    walk.team = [{
-      type: 'you',
-      "name-first": user.firstName,
-      "name-last": user.lastName,
-      role: 'walk-leader',
-      primary: 'on',
-      bio: user.bio,
-      twitter: user.twitter,
-      facebook: user.facebook,
-      website: user.website,
-      email: user.email,
-      phone: '' 
-    }];
-  }
+  const defaultTeam = [{
+    type: 'you',
+    "name-first": user.firstName,
+    "name-last": user.lastName,
+    role: 'walk-leader',
+    primary: 'on',
+    bio: user.bio,
+    twitter: user.twitter,
+    facebook: user.facebook,
+    website: user.website,
+    email: user.email,
+    phone: '' 
+  }];
+  const walk = {...defaultWalk, team: defaultTeam, url, ...migrateToV1(data)};
 
   return walk;
 }
