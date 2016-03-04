@@ -3102,6 +3102,9 @@
 	  getCity: function getCity() {
 	    return _city;
 	  },
+	  getLocation: function getLocation() {
+	    return _city && _city.latlng;
+	  },
 
 	  // Register our dispatch token as a static method
 	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
@@ -3123,6 +3126,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -3166,6 +3171,8 @@
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
+	var _WalkUtils = __webpack_require__(82);
+
 	var _I18nActions = __webpack_require__(3);
 
 	var _I18nActions2 = _interopRequireDefault(_I18nActions);
@@ -3191,8 +3198,6 @@
 
 	// Load create-a-walk View components
 
-	var defaultWalk = __webpack_require__(55);
-
 	// Flux
 
 	// Helpers
@@ -3205,80 +3210,110 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CreateWalk).call(this, props));
 
-	    _initialiseProps.call(_this);
-
 	    var data = props.data;
-	    // TODO: move this into its own model js
-	    // Keep these defaults to type, ie don't pre-seed data here, aside from
-	    // data loaded by passing it in
-	    var walk = Object.assign({}, defaultWalk, { url: props.url });
+	    var user = props.user;
+	    var url = props.url;
 
-	    // Convert old {0: marker, 1: marker} indexing to a proper array
-	    if (data) {
-	      // Convert markers
-	      if (data.map && !Array.isArray(data.map.markers)) {
-	        data.map.markers = _helpers2.default.objectToArray(data.map.markers);
-	      }
-	      // Convert routes
-	      if (data.map && !Array.isArray(data.map.route)) {
-	        data.map.route = _helpers2.default.objectToArray(data.map.route);
-	      }
-	      // Convert time slots
-	      if (data.time && !Array.isArray(data.time.slots)) {
-	        data.time.slots = _helpers2.default.objectToArray(data.time.slots);
-	      }
-	      // Turn all 'false' values into empty strings
-	      for (var i in data) {
-	        if (data[i] === false) {
-	          data[i] = '';
-	        } else if (data[i] === null) {
-	          // Clear out 'nulls' so we instead take their state from defaults
-	          delete data[i];
+	    // Instance props
+
+	    Object.assign(_this, {
+	      state: _extends({ notifications: [] }, (0, _WalkUtils.buildWalkObject)({ data: data, user: user, url: url })),
+
+	      // Simple trigger to re-render the components
+	      _onChange: function _onChange() {
+	        _this.setState({});
+	      },
+
+	      // Persist our walk server-side
+	      saveWalk: function saveWalk(options, cb) {
+	        // TODO: separate the notifications logic
+	        /* Send in the updated walk to save, but keep working */
+	        var notifications = _this.state.notifications.slice();
+	        var removeNotice = function removeNotice() {
+	          var notifications = _this.state.notifications.slice();
+	          _this.setState({ notifications: notifications.slice(1) });
+	        };
+
+	        var defaultOptions = {
+	          messageTimeout: 1200
+	        };
+	        options = Object.assign({}, defaultOptions, options);
+
+	        notifications.push({ type: 'info', name: 'Saving walk' });
+
+	        // Build a simplified map from the Google objects
+	        _this.setState({
+	          map: _this.refs.mapBuilder.getStateSimple(),
+	          notifications: notifications
+	        }, function () {
+	          $.ajax({
+	            url: _this.state.url,
+	            type: options.publish ? 'PUT' : 'POST',
+	            data: { json: JSON.stringify(_this.state) },
+	            dataType: 'json',
+	            success: function success(data) {
+	              var notifications = _this.state.notifications.slice();
+	              notifications.push({ type: 'success', name: 'Walk saved' });
+	              _this.setState({ notifications: notifications, url: data.url || _this.state.url }, function () {
+	                if (cb && cb instanceof Function) {
+	                  // The 'this' in each callback should be the <CreateWalk>
+	                  cb.call(this);
+	                }
+	              });
+	              setTimeout(removeNotice, 1200);
+	            },
+	            error: function error(xhr, status, err) {
+	              var notifications = _this.state.notifications.slice();
+	              notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
+	              _this.setState({ notifications: notifications });
+	              setTimeout(removeNotice, 6000);
+	              console.error(_this.url, status, err.toString());
+	            }
+	          });
+	        });
+	        setTimeout(removeNotice, 1200);
+	      },
+
+	      // Click the 'next' button
+	      handleNext: function handleNext() {
+	        // Bootstrap's managing the tabs, so trigger a jQuery click on the next
+	        var next = $('#progress-panel > .nav > li.active + li > a');
+	        window.scrollTo(0, 0);
+	        if (next.length) {
+	          _this.saveWalk();
+	          next.trigger('click');
+	        } else {
+	          // If no 'next' tab, next step is to publish
+	          $(React.findDOMNode(_this.refs.publish)).trigger('click');
 	        }
-	      }
+	      },
 
-	      // Init the leader as creator, if none set
-	      data.team = data.team || [];
-	      if (data.team.length === 0) {
-	        var user = props.user;
-	        data.team = [{
-	          type: 'you',
-	          "name-first": user.firstName,
-	          "name-last": user.lastName,
-	          role: 'walk-leader',
-	          primary: 'on',
-	          bio: user.bio,
-	          twitter: user.twitter,
-	          facebook: user.facebook,
-	          website: user.website,
-	          email: user.email,
-	          phone: ''
-	        }];
-	      }
-	      Object.assign(walk, data);
-	    }
+	      // Publish the walk
+	      handlePublish: function handlePublish() {
+	        return _this.saveWalk({ publish: true }, function () {
+	          return console.log('Walk published');
+	        });
+	      },
 
-	    _this.state = walk;
+	      // Preview the walk
+	      handlePreview: function handlePreview() {
+	        return _this.saveWalk({}, function () {
+	          return _this.setState({ preview: true });
+	        });
+	      }
+	    });
 	    return _this;
 	  }
 
 	  _createClass(CreateWalk, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      _I18nStore2.default.addChangeListener(this._onChange.bind(this));
+	      _I18nStore2.default.addChangeListener(this._onChange);
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
-	      _I18nStore2.default.removeChangeListener(this._onChange.bind(this));
-	    }
-
-	    // Simple trigger to re-render the components
-
-	  }, {
-	    key: '_onChange',
-	    value: function _onChange() {
-	      this.setState({});
+	      _I18nStore2.default.removeChangeListener(this._onChange);
 	    }
 	  }, {
 	    key: 'render',
@@ -3297,6 +3332,7 @@
 	      var user = _props.user;
 	      var valt = _props.valt;
 	      var city = _props.city;
+	      var team = this.state.team;
 
 	      return React.createElement(
 	        'main',
@@ -3589,9 +3625,9 @@
 	                React.createElement('hr', null),
 	                React.createElement('br', null)
 	              ),
-	              React.createElement(_TeamBuilder2.default, { onChange: function onChange(v) {
-	                  return _this2.setState({ team: v });
-	                }, team: this.state.team })
+	              React.createElement(_TeamBuilder2.default, { onChange: function onChange(team) {
+	                  return _this2.setState({ team: team });
+	                }, team: team })
 	            ),
 	            React.createElement(
 	              'button',
@@ -3666,84 +3702,6 @@
 	})(React.Component);
 	// Mixins
 
-	var _initialiseProps = function _initialiseProps() {
-	  var _this3 = this;
-
-	  this.saveWalk = function (options, cb) {
-	    // TODO: separate the notifications logic
-	    /* Send in the updated walk to save, but keep working */
-	    var notifications = _this3.state.notifications.slice();
-	    var removeNotice = function removeNotice() {
-	      var notifications = _this3.state.notifications.slice();
-	      _this3.setState({ notifications: notifications.slice(1) });
-	    };
-
-	    var defaultOptions = {
-	      messageTimeout: 1200
-	    };
-	    options = Object.assign({}, defaultOptions, options);
-
-	    notifications.push({ type: 'info', name: 'Saving walk' });
-
-	    // Build a simplified map from the Google objects
-	    _this3.setState({
-	      map: _this3.refs.mapBuilder.getStateSimple(),
-	      notifications: notifications
-	    }, function () {
-	      $.ajax({
-	        url: _this3.state.url,
-	        type: options.publish ? 'PUT' : 'POST',
-	        data: { json: JSON.stringify(_this3.state) },
-	        dataType: 'json',
-	        success: function success(data) {
-	          var notifications = _this3.state.notifications.slice();
-	          notifications.push({ type: 'success', name: 'Walk saved' });
-	          _this3.setState({ notifications: notifications, url: data.url || _this3.state.url }, function () {
-	            if (cb && cb instanceof Function) {
-	              // The 'this' in each callback should be the <CreateWalk>
-	              cb.call(this);
-	            }
-	          });
-	          setTimeout(removeNotice, 1200);
-	        },
-	        error: function error(xhr, status, err) {
-	          var notifications = _this3.state.notifications.slice();
-	          notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
-	          _this3.setState({ notifications: notifications });
-	          setTimeout(removeNotice, 6000);
-	          console.error(_this3.url, status, err.toString());
-	        }
-	      });
-	    });
-	    setTimeout(removeNotice, 1200);
-	  };
-
-	  this.handleNext = function () {
-	    // Bootstrap's managing the tabs, so trigger a jQuery click on the next
-	    var next = $('#progress-panel > .nav > li.active + li > a');
-	    window.scrollTo(0, 0);
-	    if (next.length) {
-	      _this3.saveWalk();
-	      next.trigger('click');
-	    } else {
-	      // If no 'next' tab, next step is to publish
-	      $(React.findDOMNode(_this3.refs.publish)).trigger('click');
-	    }
-	  };
-
-	  this.handlePublish = function () {
-	    return _this3.saveWalk({ publish: true }, function () {
-	      return console.log('Walk published');
-	    });
-	  };
-
-	  this.handlePreview = function () {
-	    return _this3.saveWalk({}, function () {
-	      return _this3.setState({ preview: true });
-	    });
-	  };
-	};
-
 	exports.default = CreateWalk;
 	Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin);
 
@@ -3759,14 +3717,14 @@
 	  _createClass(WalkPreview, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _this5 = this;
+	      var _this4 = this;
 
 	      var el = React.findDOMNode(this);
 	      // Bootstrap Modal
 	      $(el).modal();
 	      // Close the modal when modal closes
 	      $(el).bind('hidden.bs.modal', function () {
-	        return _this5.props.close();
+	        return _this4.props.close();
 	      });
 	    }
 	  }, {
@@ -7472,50 +7430,7 @@
 	exports.default = TextAreaLimit;
 
 /***/ },
-/* 55 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"name": "",
-		"shortDescription": "",
-		"longDescription": "",
-		"accessibleInfo": "",
-		"accessibleTransit": "",
-		"accessibleParking": "",
-		"accessibleFind": "",
-		"map": {
-			"markers": [],
-			"route": []
-		},
-		"team": [
-			{
-				"id": -1,
-				"type": "you",
-				"name-first": "",
-				"name-last": "",
-				"role": "walk-leader",
-				"primary": "on",
-				"bio": "",
-				"twitter": "",
-				"facebook": "",
-				"website": "",
-				"email": "",
-				"phone": ""
-			}
-		],
-		"time": {
-			"type": "",
-			"slots": []
-		},
-		"thumbnails": [],
-		"wards": "",
-		"checkboxes": {},
-		"notifications": [],
-		"mirrors": {},
-		"url": ""
-	};
-
-/***/ },
+/* 55 */,
 /* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -10281,6 +10196,241 @@
 	})(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * Walk Utils
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Mapping functions to grab remote or global-defined Walks
+	                                                                                                                                                                                                                                                                   */
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.buildWalkObject = buildWalkObject;
+	exports.save = save;
+	exports.publish = publish;
+	exports.load = load;
+
+	var _WalkActions = __webpack_require__(12);
+
+	var _WalkActions2 = _interopRequireDefault(_WalkActions);
+
+	var _WalkStore = __webpack_require__(20);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Build a walk object based on input data.
+	 * Needed for API updates that modify the datastructure, or for loading default
+	 * vals when unspecified.
+	 * @param object data
+	 * @return object
+	 */
+	// TODO: move this into its own model js
+
+	/**
+	 * Migrate any walks saved in beta format to the v1 API
+	 * @param object walk
+	 * @return object
+	 */
+	function migrateToV1(walk) {
+	  var migratedWalk = Object.assign({}, walk);
+
+	  // Convert old {0: marker, 1: marker} indexing to a proper array
+	  // Convert markers
+	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.markers)) {
+	    migratedWalk.map.markers = Helper.objectToArray(migratedWalk.map.markers);
+	  }
+	  // Convert routes
+	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.route)) {
+	    migratedWalk.map.route = Helper.objectToArray(migratedWalk.map.route);
+	  }
+	  // Convert time slots
+	  if (migratedWalk.time && !Array.isArray(migratedWalk.time.slots)) {
+	    migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
+	  }
+	  // Turn all 'false' values into empty strings
+	  for (var i in migratedWalk) {
+	    if (migratedWalk[i] === false) {
+	      migratedWalk[i] = '';
+	    } else if (migratedWalk[i] === null) {
+	      // Clear out 'nulls' so we instead take their state from defaults
+	      delete migratedWalk[i];
+	    }
+	  }
+
+	  return migratedWalk;
+	}
+
+	function buildWalkObject(_ref) {
+	  var data = _ref.data;
+	  var user = _ref.user;
+	  var url = _ref.url;
+
+	  // Keep these defaults to type, ie don't pre-seed data here, aside from
+	  // data loaded by passing it in
+	  var defaultWalk = __webpack_require__(83);
+	  var walk = _extends({}, defaultWalk, { url: url }, migrateToV1(data));
+
+	  // Init the leader as creator, if none set
+	  walk.team = walk.team || [];
+	  if (walk.team.length === 0) {
+	    walk.team = [{
+	      type: 'you',
+	      "name-first": user.firstName,
+	      "name-last": user.lastName,
+	      role: 'walk-leader',
+	      primary: 'on',
+	      bio: user.bio,
+	      twitter: user.twitter,
+	      facebook: user.facebook,
+	      website: user.website,
+	      email: user.email,
+	      phone: ''
+	    }];
+	  }
+
+	  return walk;
+	}
+
+	// GET a walk from a remote request
+	function getWalk(url, cb) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('GET', url.replace(/(\/+|)$/, '/json'));
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      cb(null, migrateToV1(data));
+	    } catch (e) {
+	      cb('Error parsing JSON returned on walk' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    cb('Failed to load walk ' + url);
+	  };
+	  xhr.send();
+	}
+
+	// Load a walk from the JanesWalk global
+	function getWalkGlobal(cb) {
+	  // CB for consistency, but should always return right away
+	  cb(undefined, JanesWalk.walk, JanesWalk.walk.url);
+	}
+
+	// Generic function for sending a walk to the server
+	function walkSend(url, walk, method, cb) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	  xhr.open(method, url);
+	  xhr.onload = function () {
+	    var response;
+	    try {
+	      response = JSON.parse(this.responseText);
+	      cb(null, response, url);
+	    } catch (e) {
+	      cb('Error parsing JSON on walk post' + url);
+	    }
+	  };
+	  xhr.send(JSON.stringify(walk));
+	}
+
+	function save(cb) {
+	  NotifyActions.info('Saving walk', 'save');
+	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'POST', function (err, message) {
+	    if (err) {
+	      NotifyActions.error('Failed to save walk');
+	      console.log(err);
+	    } else {
+	      NotifyActions.info('Walk saved');
+	      cb();
+	      console.log(message);
+	    }
+	  });
+	}
+
+	function publish(cb) {
+	  NotifyActions.info('Publishing walk', 'save');
+	  // PUT a walk
+	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'PUT', function (err, message) {
+	    if (err) {
+	      NotifyActions.error('Failed to publish walk');
+	      console.log(err);
+	    } else {
+	      NotifyActions.info('Walk published');
+	      cb();
+	      console.log(message);
+	    }
+	  });
+	};
+
+	function load(url) {
+	  var receiver = function receiver(err, walk, url) {
+	    if (err) {
+	      NotifyActions.error('Failed to load walk');
+	    } else {
+	      _WalkActions2.default.receive(walk);
+	    }
+	  };
+
+	  if (url) {
+	    getWalk(url, receiver);
+	  } else {
+	    getWalkGlobal(receiver);
+	  }
+	}
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"name": "",
+		"shortDescription": "",
+		"longDescription": "",
+		"accessibleInfo": "",
+		"accessibleTransit": "",
+		"accessibleParking": "",
+		"accessibleFind": "",
+		"map": {
+			"markers": [],
+			"route": []
+		},
+		"team": [
+			{
+				"id": -1,
+				"type": "you",
+				"name-first": "",
+				"name-last": "",
+				"role": "walk-leader",
+				"primary": "on",
+				"bio": "",
+				"twitter": "",
+				"facebook": "",
+				"website": "",
+				"email": "",
+				"phone": ""
+			}
+		],
+		"time": {
+			"type": "",
+			"slots": []
+		},
+		"thumbnails": [],
+		"wards": "",
+		"checkboxes": {},
+		"notifications": [],
+		"mirrors": {},
+		"url": ""
+	};
 
 /***/ }
 /******/ ]);

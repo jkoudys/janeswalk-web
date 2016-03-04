@@ -13,7 +13,7 @@ import AccessibleSelect from './caw/AccessibleSelect.jsx';
 import TeamBuilder from './caw/TeamBuilder.jsx';
 import WalkPublish from './caw/WalkPublish.jsx';
 import TextAreaLimit from './TextAreaLimit.jsx';
-const defaultWalk = require('../constants/defaultWalk.json');
+import {buildWalkObject} from 'janeswalk/utils/WalkUtils';
 
 // Flux
 import I18nActions from 'janeswalk/actions/I18nActions';
@@ -25,140 +25,98 @@ import Helper from '../helpers/helpers.jsx';
 export default class CreateWalk extends React.Component {
   constructor(props) {
     super(props);
-    const data = props.data;
-    // TODO: move this into its own model js
-    // Keep these defaults to type, ie don't pre-seed data here, aside from
-    // data loaded by passing it in
-    const walk = Object.assign({}, defaultWalk, {url: props.url});
+    const {data, user, url} = props;
 
-    // Convert old {0: marker, 1: marker} indexing to a proper array
-    if (data) {
-      // Convert markers
-      if (data.map && !Array.isArray(data.map.markers)) {
-        data.map.markers = Helper.objectToArray(data.map.markers);
-      }
-      // Convert routes
-      if (data.map && !Array.isArray(data.map.route)) {
-        data.map.route = Helper.objectToArray(data.map.route);
-      }
-      // Convert time slots
-      if (data.time && !Array.isArray(data.time.slots)) {
-        data.time.slots = Helper.objectToArray(data.time.slots);
-      }
-      // Turn all 'false' values into empty strings
-      for (let i in data) {
-        if (data[i] === false) {
-          data[i] = '';
-        } else if (data[i] === null) {
-          // Clear out 'nulls' so we instead take their state from defaults
-          delete data[i];
-        }
-      }
+    // Instance props
+    Object.assign(this, {
+      state: {notifications: [], ...buildWalkObject({data, user, url})},
 
-      // Init the leader as creator, if none set
-      data.team = data.team || []
-      if (data.team.length === 0) {
-        var user = props.user;
-        data.team = [{
-          type: 'you',
-          "name-first": user.firstName,
-          "name-last": user.lastName,
-          role: 'walk-leader',
-          primary: 'on',
-          bio: user.bio,
-          twitter: user.twitter,
-          facebook: user.facebook,
-          website: user.website,
-          email: user.email,
-          phone: '' 
-        }];
-      }
-      Object.assign(walk, data);
-    }
+      // Simple trigger to re-render the components
+      _onChange: () => {
+        this.setState({});
+      },
 
-    this.state = walk;
-  }
-
-  saveWalk = (options, cb) => {
-    // TODO: separate the notifications logic
-    /* Send in the updated walk to save, but keep working */
-    const notifications = this.state.notifications.slice();
-    const removeNotice = () => {
-      var notifications = this.state.notifications.slice();
-      this.setState({notifications: notifications.slice(1)});
-    };
-
-    const defaultOptions = {
-      messageTimeout: 1200
-    };
-    options = Object.assign({}, defaultOptions, options);
-
-    notifications.push({type: 'info', name: 'Saving walk'});
-
-    // Build a simplified map from the Google objects
-    this.setState({
-      map: this.refs.mapBuilder.getStateSimple(),
-      notifications: notifications
-    }, () => {
-      $.ajax({
-        url: this.state.url,
-        type: options.publish ? 'PUT' : 'POST',
-        data: {json: JSON.stringify(this.state)},
-        dataType: 'json',
-        success: (data) => {
+      // Persist our walk server-side
+      saveWalk: (options, cb) => {
+        // TODO: separate the notifications logic
+        /* Send in the updated walk to save, but keep working */
+        const notifications = this.state.notifications.slice();
+        const removeNotice = () => {
           let notifications = this.state.notifications.slice();
-          notifications.push({type: 'success', name: 'Walk saved'});
-          this.setState(
-            {notifications: notifications, url: (data.url || this.state.url)},
-            function() {
-              if (cb && cb instanceof Function) {
-                // The 'this' in each callback should be the <CreateWalk>
-                cb.call(this);
-              }
+          this.setState({notifications: notifications.slice(1)});
+        };
+
+        const defaultOptions = {
+          messageTimeout: 1200
+        };
+        options = Object.assign({}, defaultOptions, options);
+
+        notifications.push({type: 'info', name: 'Saving walk'});
+
+        // Build a simplified map from the Google objects
+        this.setState({
+          map: this.refs.mapBuilder.getStateSimple(),
+          notifications: notifications
+        }, () => {
+          $.ajax({
+            url: this.state.url,
+            type: options.publish ? 'PUT' : 'POST',
+            data: {json: JSON.stringify(this.state)},
+            dataType: 'json',
+            success: (data) => {
+              let notifications = this.state.notifications.slice();
+              notifications.push({type: 'success', name: 'Walk saved'});
+              this.setState(
+                {notifications: notifications, url: (data.url || this.state.url)},
+                function() {
+                  if (cb && cb instanceof Function) {
+                    // The 'this' in each callback should be the <CreateWalk>
+                    cb.call(this);
+                  }
+                }
+              );
+              setTimeout(removeNotice, 1200);
+            },
+            error: (xhr, status, err) => {
+              let notifications = this.state.notifications.slice();
+              notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
+              this.setState({notifications: notifications});
+              setTimeout(removeNotice, 6000);
+              console.error(this.url, status, err.toString());
             }
-          );
-          setTimeout(removeNotice, 1200);
-        },
-        error: (xhr, status, err) => {
-          let notifications = this.state.notifications.slice();
-          notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
-          this.setState({notifications: notifications});
-          setTimeout(removeNotice, 6000);
-          console.error(this.url, status, err.toString());
+          });
+        });
+        setTimeout(removeNotice, 1200);
+      },
+
+      // Click the 'next' button
+      handleNext: () => {
+        // Bootstrap's managing the tabs, so trigger a jQuery click on the next
+        const next = $('#progress-panel > .nav > li.active + li > a');
+        window.scrollTo(0, 0);
+        if (next.length) {
+          this.saveWalk();
+          next.trigger('click');
+        } else {
+          // If no 'next' tab, next step is to publish
+          $(React.findDOMNode(this.refs.publish)).trigger('click');
         }
-      });
+      },
+
+      // Publish the walk
+      handlePublish: () => this.saveWalk({publish: true}, () => console.log('Walk published')),
+
+      // Preview the walk
+      handlePreview: () => this.saveWalk({}, () => this.setState({preview: true}))
     });
-    setTimeout(removeNotice, 1200);
   }
-
-  handleNext = () => {
-    // Bootstrap's managing the tabs, so trigger a jQuery click on the next
-    const next = $('#progress-panel > .nav > li.active + li > a');
-    window.scrollTo(0, 0);
-    if (next.length) {
-      this.saveWalk();
-      next.trigger('click');
-    } else {
-      // If no 'next' tab, next step is to publish
-      $(React.findDOMNode(this.refs.publish)).trigger('click');
-    }
-  }
-
-  handlePublish = () => this.saveWalk({publish: true}, () => console.log('Walk published'))
-
-  handlePreview = () => this.saveWalk({}, () => this.setState({preview: true}))
 
   componentWillMount() {
-    I18nStore.addChangeListener(this._onChange.bind(this));
+    I18nStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    I18nStore.removeChangeListener(this._onChange.bind(this));
-  }
-
-  // Simple trigger to re-render the components
-  _onChange() {
-    this.setState({});
+    I18nStore.removeChangeListener(this._onChange);
   }
 
   render() {
@@ -171,6 +129,7 @@ export default class CreateWalk extends React.Component {
     };
 
     const {user, valt, city} = this.props;
+    const {team} = this.state;
 
     return (
       <main id="create-walk">
@@ -282,7 +241,7 @@ export default class CreateWalk extends React.Component {
                 <hr />
                 <br />
               </div>
-              <TeamBuilder onChange={v => this.setState({team: v})} team={this.state.team} />
+              <TeamBuilder onChange={team => this.setState({team})} team={team} />
             </div>
             <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>
