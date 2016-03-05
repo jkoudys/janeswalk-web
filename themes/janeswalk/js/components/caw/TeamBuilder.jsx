@@ -2,10 +2,10 @@
 import {t, t2} from 'janeswalk/stores/I18nStore';
 
 // Update a field for a team member
-function linkMember(field, {value, onChange, index}) {
+function linkMember(field, {value, onChange}) {
   return {
     value: value[field],
-    onChange: e => onChange(field, e.target.value, index)
+    onChange: e => onChange(field, e.target.value)
   };
 }
 
@@ -33,10 +33,16 @@ function teamMemberList({values, onChange}) {
     // TODO: make linking function
     let thisUser = {
       key: i,
-      index: i,
+      id: 'teammember' + i,
       value: user,
-      onChange,
-      onDelete: () => deleteMember(i, onChange)
+      onChange: (prop, value) => {
+        // Assign the prop we're updating to this team member
+        const team = values.slice();
+        const member = Object.assign({}, user, {[prop]: value});
+        team[i] = member;
+        onChange(team);
+      },
+      onDelete: () => deleteMember(values, i, onChange)
     };
 
     if (user.type === 'you') {
@@ -74,44 +80,59 @@ function deleteMember(team, i, onChange) {
 }
 
   // Set the member at that specific index
-export default ({team, onChange}) => (
-  <div className="tab-pane" id="team">
-    <div className="page-header" data-section="team">
-      <h1>{ t('Build Your Team') }</h1>
-    </div>
-    {teamMemberList({values: team, onChange: onChange})}
-    <div id="add-member">
-      <h2>{ t('Who else is involved with this walk?') }</h2>
-      <h3 className="lead">{ t('Click to add team members to your walk') } ({ t('Optional') })</h3>
-      <div className="team-set">
-        <div className="team-row">
-          <section className="new-member" id="new-walkleader" title="Add New Walk Leader" onClick={() => addMember(team, memberTypes.leader, onChange)}>
-            <div className="icon"></div>
-            <h4 className="title text-center">{ t('Walk Leader') }</h4>
-            <p>{ t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') }</p>
-          </section>
-          <section className="new-member" id="new-walkorganizer" title="Add New Walk Organizer" onClick={() => addMember(team, memberTypes.organizer, onChange)}>
-            <div className="icon"></div>
-            <h4 className="title text-center">{ t('Walk Organizer') }</h4>
-            <p>{ t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') }</p>
-          </section>
+export default class TeamBuilder extends React.Component {
+  componentDidUpdate(prevProps) {
+    // If we've added a new member, scroll it into view
+    if (prevProps.team.length < this.props.team.length) {
+      // Scroll body to this element
+      // FIXME use refs, but array-building the team seems to exclude refs and they come up null, eg. `refs = {member1: null}`
+      document.getElementById('teammember' + (this.props.team.length - 1)).scrollIntoView();
+    }
+  }
+
+  render() {
+    const {team, onChange} = this.props;
+
+    return (
+      <div className="tab-pane" id="team">
+        <div className="page-header" data-section="team">
+          <h1>{ t('Build Your Team') }</h1>
         </div>
-        <div className="team-row">
-          <section className="new-member" id="new-communityvoice" title="Add A Community Voice" onClick={() => addMember(team, memberTypes.community, onChange)}>
-            <div className="icon"></div>
-            <h4 className="title text-center">{ t('Community Voice') }</h4>
-            <p>{ t('A community member with stories and/or personal experiences to share.') }</p>
-          </section>
-          <section className="new-member" id="new-othermember" title="Add another helper to your walk" onClick={() => addMember(team, memberTypes.volunteer, onChange)}>
-            <div className="icon"></div>
-            <h4 className="title text-center">{ t('Volunteers') }</h4>
-            <p>{ t('Other people who are helping to make your walk happen.') }</p>
-          </section>
+        {teamMemberList({values: team, onChange})}
+        <div id="add-member">
+          <h2>{ t('Who else is involved with this walk?') }</h2>
+          <h3 className="lead">{ t('Click to add team members to your walk') } ({ t('Optional') })</h3>
+          <div className="team-set">
+            <div className="team-row">
+              <section className="new-member" id="new-walkleader" title="Add New Walk Leader" onClick={() => addMember(team, memberTypes.leader, onChange)}>
+                <div className="icon"></div>
+                <h4 className="title text-center">{ t('Walk Leader') }</h4>
+                <p>{ t('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.') }</p>
+              </section>
+              <section className="new-member" id="new-walkorganizer" title="Add New Walk Organizer" onClick={() => addMember(team, memberTypes.organizer, onChange)}>
+                <div className="icon"></div>
+                <h4 className="title text-center">{ t('Walk Organizer') }</h4>
+                <p>{ t('A person responsible for outreach to new and returning Walk Leaders and Community Voices.') }</p>
+              </section>
+            </div>
+            <div className="team-row">
+              <section className="new-member" id="new-communityvoice" title="Add A Community Voice" onClick={() => addMember(team, memberTypes.community, onChange)}>
+                <div className="icon"></div>
+                <h4 className="title text-center">{ t('Community Voice') }</h4>
+                <p>{ t('A community member with stories and/or personal experiences to share.') }</p>
+              </section>
+              <section className="new-member" id="new-othermember" title="Add another helper to your walk" onClick={() => addMember(team, memberTypes.volunteer, onChange)}>
+                <div className="icon"></div>
+                <h4 className="title text-center">{ t('Volunteers') }</h4>
+                <p>{ t('Other people who are helping to make your walk happen.') }</p>
+              </section>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-);
+    );
+  }
+}
 
 const TeamOwner = props => (
   <fieldset className="team-member walk-owner">

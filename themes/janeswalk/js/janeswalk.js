@@ -6472,7 +6472,9 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // Flux
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -6480,16 +6482,23 @@
 
 	var _I18nStore = __webpack_require__(21);
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } // Flux
+
 	// Update a field for a team member
 	function linkMember(field, _ref) {
 	  var value = _ref.value;
 	  var _onChange = _ref.onChange;
-	  var index = _ref.index;
 
 	  return {
 	    value: value[field],
 	    onChange: function onChange(e) {
-	      return _onChange(field, e.target.value, index);
+	      return _onChange(field, e.target.value);
 	    }
 	  };
 	}
@@ -6510,7 +6519,7 @@
 	 */
 	function teamMemberList(_ref2) {
 	  var values = _ref2.values;
-	  var onChange = _ref2.onChange;
+	  var _onChange2 = _ref2.onChange;
 
 	  return values.map(function (user, i) {
 	    var teamMember = undefined;
@@ -6521,11 +6530,17 @@
 	    // TODO: make linking function
 	    var thisUser = {
 	      key: i,
-	      index: i,
+	      id: 'teammember' + i,
 	      value: user,
-	      onChange: onChange,
+	      onChange: function onChange(prop, value) {
+	        // Assign the prop we're updating to this team member
+	        var team = values.slice();
+	        var member = Object.assign({}, user, _defineProperty({}, prop, value));
+	        team[i] = member;
+	        _onChange2(team);
+	      },
 	      onDelete: function onDelete() {
-	        return deleteMember(i, onChange);
+	        return deleteMember(values, i, _onChange2);
 	      }
 	    };
 
@@ -6565,121 +6580,150 @@
 
 	// Set the member at that specific index
 
-	exports.default = function (_ref3) {
-	  var team = _ref3.team;
-	  var onChange = _ref3.onChange;
-	  return React.createElement(
-	    'div',
-	    { className: 'tab-pane', id: 'team' },
-	    React.createElement(
-	      'div',
-	      { className: 'page-header', 'data-section': 'team' },
-	      React.createElement(
-	        'h1',
-	        null,
-	        (0, _I18nStore.t)('Build Your Team')
-	      )
-	    ),
-	    teamMemberList({ values: team, onChange: onChange }),
-	    React.createElement(
-	      'div',
-	      { id: 'add-member' },
-	      React.createElement(
-	        'h2',
-	        null,
-	        (0, _I18nStore.t)('Who else is involved with this walk?')
-	      ),
-	      React.createElement(
-	        'h3',
-	        { className: 'lead' },
-	        (0, _I18nStore.t)('Click to add team members to your walk'),
-	        ' (',
-	        (0, _I18nStore.t)('Optional'),
-	        ')'
-	      ),
-	      React.createElement(
+	var TeamBuilder = (function (_React$Component) {
+	  _inherits(TeamBuilder, _React$Component);
+
+	  function TeamBuilder() {
+	    _classCallCheck(this, TeamBuilder);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TeamBuilder).apply(this, arguments));
+	  }
+
+	  _createClass(TeamBuilder, [{
+	    key: 'componentDidUpdate',
+	    value: function componentDidUpdate(prevProps) {
+	      // If we've added a new member, scroll it into view
+	      if (prevProps.team.length < this.props.team.length) {
+	        // Scroll body to this element
+	        // FIXME use refs, but array-building the team seems to exclude refs and they come up null, eg. `refs = {member1: null}`
+	        document.getElementById('teammember' + (this.props.team.length - 1)).scrollIntoView();
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var team = _props.team;
+	      var onChange = _props.onChange;
+
+	      return React.createElement(
 	        'div',
-	        { className: 'team-set' },
+	        { className: 'tab-pane', id: 'team' },
 	        React.createElement(
 	          'div',
-	          { className: 'team-row' },
+	          { className: 'page-header', 'data-section': 'team' },
 	          React.createElement(
-	            'section',
-	            { className: 'new-member', id: 'new-walkleader', title: 'Add New Walk Leader', onClick: function onClick() {
-	                return addMember(team, memberTypes.leader, onChange);
-	              } },
-	            React.createElement('div', { className: 'icon' }),
-	            React.createElement(
-	              'h4',
-	              { className: 'title text-center' },
-	              (0, _I18nStore.t)('Walk Leader')
-	            ),
-	            React.createElement(
-	              'p',
-	              null,
-	              (0, _I18nStore.t)('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.')
-	            )
-	          ),
-	          React.createElement(
-	            'section',
-	            { className: 'new-member', id: 'new-walkorganizer', title: 'Add New Walk Organizer', onClick: function onClick() {
-	                return addMember(team, memberTypes.organizer, onChange);
-	              } },
-	            React.createElement('div', { className: 'icon' }),
-	            React.createElement(
-	              'h4',
-	              { className: 'title text-center' },
-	              (0, _I18nStore.t)('Walk Organizer')
-	            ),
-	            React.createElement(
-	              'p',
-	              null,
-	              (0, _I18nStore.t)('A person responsible for outreach to new and returning Walk Leaders and Community Voices.')
-	            )
+	            'h1',
+	            null,
+	            (0, _I18nStore.t)('Build Your Team')
 	          )
 	        ),
+	        teamMemberList({ values: team, onChange: onChange }),
 	        React.createElement(
 	          'div',
-	          { className: 'team-row' },
+	          { id: 'add-member' },
 	          React.createElement(
-	            'section',
-	            { className: 'new-member', id: 'new-communityvoice', title: 'Add A Community Voice', onClick: function onClick() {
-	                return addMember(team, memberTypes.community, onChange);
-	              } },
-	            React.createElement('div', { className: 'icon' }),
-	            React.createElement(
-	              'h4',
-	              { className: 'title text-center' },
-	              (0, _I18nStore.t)('Community Voice')
-	            ),
-	            React.createElement(
-	              'p',
-	              null,
-	              (0, _I18nStore.t)('A community member with stories and/or personal experiences to share.')
-	            )
+	            'h2',
+	            null,
+	            (0, _I18nStore.t)('Who else is involved with this walk?')
 	          ),
 	          React.createElement(
-	            'section',
-	            { className: 'new-member', id: 'new-othermember', title: 'Add another helper to your walk', onClick: function onClick() {
-	                return addMember(team, memberTypes.volunteer, onChange);
-	              } },
-	            React.createElement('div', { className: 'icon' }),
+	            'h3',
+	            { className: 'lead' },
+	            (0, _I18nStore.t)('Click to add team members to your walk'),
+	            ' (',
+	            (0, _I18nStore.t)('Optional'),
+	            ')'
+	          ),
+	          React.createElement(
+	            'div',
+	            { className: 'team-set' },
 	            React.createElement(
-	              'h4',
-	              { className: 'title text-center' },
-	              (0, _I18nStore.t)('Volunteers')
+	              'div',
+	              { className: 'team-row' },
+	              React.createElement(
+	                'section',
+	                { className: 'new-member', id: 'new-walkleader', title: 'Add New Walk Leader', onClick: function onClick() {
+	                    return addMember(team, memberTypes.leader, onChange);
+	                  } },
+	                React.createElement('div', { className: 'icon' }),
+	                React.createElement(
+	                  'h4',
+	                  { className: 'title text-center' },
+	                  (0, _I18nStore.t)('Walk Leader')
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  (0, _I18nStore.t)('A person presenting information, telling stories, and fostering discussion during the Jane\'s Walk.')
+	                )
+	              ),
+	              React.createElement(
+	                'section',
+	                { className: 'new-member', id: 'new-walkorganizer', title: 'Add New Walk Organizer', onClick: function onClick() {
+	                    return addMember(team, memberTypes.organizer, onChange);
+	                  } },
+	                React.createElement('div', { className: 'icon' }),
+	                React.createElement(
+	                  'h4',
+	                  { className: 'title text-center' },
+	                  (0, _I18nStore.t)('Walk Organizer')
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  (0, _I18nStore.t)('A person responsible for outreach to new and returning Walk Leaders and Community Voices.')
+	                )
+	              )
 	            ),
 	            React.createElement(
-	              'p',
-	              null,
-	              (0, _I18nStore.t)('Other people who are helping to make your walk happen.')
+	              'div',
+	              { className: 'team-row' },
+	              React.createElement(
+	                'section',
+	                { className: 'new-member', id: 'new-communityvoice', title: 'Add A Community Voice', onClick: function onClick() {
+	                    return addMember(team, memberTypes.community, onChange);
+	                  } },
+	                React.createElement('div', { className: 'icon' }),
+	                React.createElement(
+	                  'h4',
+	                  { className: 'title text-center' },
+	                  (0, _I18nStore.t)('Community Voice')
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  (0, _I18nStore.t)('A community member with stories and/or personal experiences to share.')
+	                )
+	              ),
+	              React.createElement(
+	                'section',
+	                { className: 'new-member', id: 'new-othermember', title: 'Add another helper to your walk', onClick: function onClick() {
+	                    return addMember(team, memberTypes.volunteer, onChange);
+	                  } },
+	                React.createElement('div', { className: 'icon' }),
+	                React.createElement(
+	                  'h4',
+	                  { className: 'title text-center' },
+	                  (0, _I18nStore.t)('Volunteers')
+	                ),
+	                React.createElement(
+	                  'p',
+	                  null,
+	                  (0, _I18nStore.t)('Other people who are helping to make your walk happen.')
+	                )
+	              )
 	            )
 	          )
 	        )
-	      )
-	    )
-	  );
-	};
+	      );
+	    }
+	  }]);
+
+	  return TeamBuilder;
+	})(React.Component);
+
+	exports.default = TeamBuilder;
 
 	var TeamOwner = function TeamOwner(props) {
 	  return React.createElement(
