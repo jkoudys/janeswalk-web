@@ -13,7 +13,7 @@ import AccessibleSelect from './caw/AccessibleSelect.jsx';
 import TeamBuilder from './caw/TeamBuilder.jsx';
 import WalkPublish from './caw/WalkPublish.jsx';
 import TextAreaLimit from './TextAreaLimit.jsx';
-import {buildWalkObject} from 'janeswalk/utils/WalkUtils';
+import {buildWalkObject} from 'janeswalk/utils/api/Walk';
 
 // Flux
 import I18nActions from 'janeswalk/actions/I18nActions';
@@ -32,9 +32,7 @@ export default class CreateWalk extends React.Component {
       state: {notifications: [], ...buildWalkObject({data, user, url})},
 
       // Simple trigger to re-render the components
-      _onChange: () => {
-        this.setState({});
-      },
+      _onChange: () => this.setState({}),
 
       // Persist our walk server-side
       saveWalk: (options, cb) => {

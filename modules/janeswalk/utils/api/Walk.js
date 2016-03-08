@@ -4,8 +4,8 @@
  * Mapping functions to grab remote or global-defined Walks
  */
 
-import WalkActions from '../actions/WalkActions.js';
-import WalkStore from '../stores/WalkStore.js';
+import WalkActions from 'janeswalk/actions/WalkActions.js';
+import WalkStore from 'janeswalk/stores/WalkStore.js';
 
 /**
  * Build a walk object based on input data.
@@ -53,7 +53,7 @@ function migrateToV1(walk) {
 export function buildWalkObject({data, user, url}) {
   // Keep these defaults to type, ie don't pre-seed data here, aside from
   // data loaded by passing it in
-  const defaultWalk = require('../constants/defaultWalk.json');
+  const defaultWalk = require('janeswalk/constants/defaultWalk.json');
   const defaultTeam = [{
     type: 'you',
     "name-first": user.firstName,

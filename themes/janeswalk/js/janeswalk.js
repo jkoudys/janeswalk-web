@@ -79,11 +79,11 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _CityStore = __webpack_require__(32);
+	var _CityStore = __webpack_require__(33);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
-	var _Itinerary = __webpack_require__(28);
+	var _Itinerary = __webpack_require__(29);
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
@@ -91,15 +91,15 @@
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(58);
+	var _Walk = __webpack_require__(56);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Dashboard = __webpack_require__(71);
+	var _Dashboard = __webpack_require__(69);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(83);
+	var _Login = __webpack_require__(81);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -1016,11 +1016,11 @@
 
 	var _Itinerary2 = _interopRequireDefault(_Itinerary);
 
-	var _AreaStore = __webpack_require__(29);
+	var _AreaStore = __webpack_require__(30);
 
 	var _AreaStore2 = _interopRequireDefault(_AreaStore);
 
-	var _UserStore = __webpack_require__(30);
+	var _UserStore = __webpack_require__(31);
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
@@ -1028,9 +1028,9 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _dom = __webpack_require__(31);
+	var _dom = __webpack_require__(32);
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1338,7 +1338,7 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _WalkStore = __webpack_require__(20);
+	var _WalkStore = __webpack_require__(21);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -1346,21 +1346,21 @@
 
 	var Actions = _interopRequireWildcard(_ItineraryActions);
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
-	var _Walk = __webpack_require__(23);
+	var _Walk = __webpack_require__(24);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _ItineraryHeader = __webpack_require__(26);
+	var _ItineraryHeader = __webpack_require__(27);
 
 	var _ItineraryHeader2 = _interopRequireDefault(_ItineraryHeader);
 
-	var _ItinerarySelect = __webpack_require__(27);
+	var _ItinerarySelect = __webpack_require__(28);
 
 	var _ItinerarySelect2 = _interopRequireDefault(_ItinerarySelect);
 
-	var _Itinerary = __webpack_require__(28);
+	var _Itinerary = __webpack_require__(29);
 
 	var API = _interopRequireWildcard(_Itinerary);
 
@@ -1545,9 +1545,9 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
-	var _Stores = __webpack_require__(33);
+	var _Stores = __webpack_require__(20);
 
-	var _WalkStore = __webpack_require__(20);
+	var _WalkStore = __webpack_require__(21);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -1622,6 +1622,35 @@
 	  });
 	};
 
+	function hasInList(walk) {
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = _lists[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var list = _step.value;
+
+	      if (list.walks.has(walk)) return true;
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+
+	  return false;
+	}
+
 	var ItineraryStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getLists: function getLists() {
 	    return _lists;
@@ -1636,34 +1665,8 @@
 	    return _lastChange;
 	  },
 
-	  hasInList: function hasInList(walk) {
-	    var _iteratorNormalCompletion = true;
-	    var _didIteratorError = false;
-	    var _iteratorError = undefined;
+	  hasInList: hasInList,
 
-	    try {
-	      for (var _iterator = _lists[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	        var list = _step.value;
-
-	        if (list.walks.has(walk)) return true;
-	      }
-	    } catch (err) {
-	      _didIteratorError = true;
-	      _iteratorError = err;
-	    } finally {
-	      try {
-	        if (!_iteratorNormalCompletion && _iterator.return) {
-	          _iterator.return();
-	        }
-	      } finally {
-	        if (_didIteratorError) {
-	          throw _iteratorError;
-	        }
-	      }
-	    }
-
-	    return false;
-	  },
 	  hasInSchedule: function hasInSchedule(walk, time) {
 	    var times = _schedule.get(walk);
 	    if (times && times.has(+time)) return true;
@@ -1702,16 +1705,17 @@
 	    var description = _ref7.description;
 	    return _createList(title, description);
 	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_SCHEDULE_WALK, function (_ref8) {
-	    var list = _ref8.list;
+	    var _ref8$list = _ref8.list;
+	    _ref8$list = _ref8$list === undefined ? _lists : _ref8$list;
+
+	    var _ref8$list2 = _slicedToArray(_ref8$list, 1);
+
+	    var list = _ref8$list2[0];
 	    var walk = _ref8.walk;
 	    var time = _ref8.time;
 
-	    if (!_hasInList(walk)) {
-	      var _lists2 = _slicedToArray(_lists, 1);
-
-	      var firstList = _lists2[0];
-
-	      _addWalk(list || firstList, walk);
+	    if (!hasInList(walk)) {
+	      list.walks.add(walk);
 	    }
 	    _scheduleWalk(walk, time);
 	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL, function (_ref9) {
@@ -2061,6 +2065,29 @@
 
 /***/ },
 /* 20 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var CHANGE_EVENT = 'change';
+
+	var changeMethods = exports.changeMethods = {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  }
+	};
+
+/***/ },
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2077,7 +2104,7 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(33);
+	var _Stores = __webpack_require__(20);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * Walk store
@@ -2125,7 +2152,7 @@
 	exports.default = WalkStore;
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2141,7 +2168,7 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _translate = __webpack_require__(22);
+	var _translate = __webpack_require__(23);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
@@ -2200,7 +2227,7 @@
 	var t2 = exports.t2 = _i18n.translatePlural.bind(_i18n);
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2293,7 +2320,7 @@
 	module.exports = I18nTranslator;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2304,11 +2331,11 @@
 	  value: true
 	});
 
-	var _AddWalkToList = __webpack_require__(24);
+	var _AddWalkToList = __webpack_require__(25);
 
 	var _AddWalkToList2 = _interopRequireDefault(_AddWalkToList);
 
-	var _AddToItinerary = __webpack_require__(25);
+	var _AddToItinerary = __webpack_require__(26);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
@@ -2437,7 +2464,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2446,7 +2473,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
@@ -2532,7 +2559,7 @@
 	exports.default = AddWalkToList;
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2586,7 +2613,7 @@
 	exports.default = AddToItinerary;
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2595,7 +2622,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	var ItineraryHeader = function ItineraryHeader(_ref) {
 	  var list = _ref.list;
@@ -2649,7 +2676,7 @@
 	exports.default = ItineraryHeader;
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2660,7 +2687,7 @@
 
 	var _ItineraryActions = __webpack_require__(14);
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	var ItinerarySelect = function ItinerarySelect(_ref) {
 	  var lists = _ref.lists;
@@ -2707,7 +2734,7 @@
 	exports.default = ItinerarySelect;
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2840,7 +2867,7 @@
 	}
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2855,7 +2882,7 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(33);
+	var _Stores = __webpack_require__(20);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2881,7 +2908,7 @@
 	exports.default = AreaStore;
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2898,7 +2925,7 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(33);
+	var _Stores = __webpack_require__(20);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * User store
@@ -2945,7 +2972,7 @@
 	exports.default = UserStore;
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2985,7 +3012,7 @@
 	}
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3000,7 +3027,7 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(33);
+	var _Stores = __webpack_require__(20);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * City store
@@ -3028,29 +3055,6 @@
 	  })
 	});
 	exports.default = CityStore;
-
-/***/ },
-/* 33 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var CHANGE_EVENT = 'change';
-
-	var changeMethods = exports.changeMethods = {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  }
-	};
 
 /***/ },
 /* 34 */
@@ -3102,13 +3106,13 @@
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
-	var _WalkUtils = __webpack_require__(56);
+	var _Walk = __webpack_require__(82);
 
 	var _I18nActions = __webpack_require__(3);
 
 	var _I18nActions2 = _interopRequireDefault(_I18nActions);
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
@@ -3148,11 +3152,11 @@
 	    // Instance props
 
 	    Object.assign(_this, {
-	      state: _extends({ notifications: [] }, (0, _WalkUtils.buildWalkObject)({ data: data, user: user, url: url })),
+	      state: _extends({ notifications: [] }, (0, _Walk.buildWalkObject)({ data: data, user: user, url: url })),
 
 	      // Simple trigger to re-render the components
 	      _onChange: function _onChange() {
-	        _this.setState({});
+	        return _this.setState({});
 	      },
 
 	      // Persist our walk server-side
@@ -3710,7 +3714,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3834,7 +3838,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4097,7 +4101,7 @@
 
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4599,7 +4603,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	var UpArrow = function UpArrow(props) {
 	  return React.createElement(
@@ -5416,7 +5420,7 @@
 
 	var _TimeOpenTable2 = _interopRequireDefault(_TimeOpenTable);
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5893,7 +5897,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6051,7 +6055,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6251,7 +6255,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6338,7 +6342,7 @@
 
 	var _mixins = __webpack_require__(37);
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6411,7 +6415,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7243,7 +7247,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7382,7 +7386,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	/**
 	 * Text areas with a 'remaining characters' limit
@@ -7408,236 +7412,6 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-	                                                                                                                                                                                                                                                                   * Walk Utils
-	                                                                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                                                                   * Mapping functions to grab remote or global-defined Walks
-	                                                                                                                                                                                                                                                                   */
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.buildWalkObject = buildWalkObject;
-	exports.save = save;
-	exports.publish = publish;
-	exports.load = load;
-
-	var _WalkActions = __webpack_require__(12);
-
-	var _WalkActions2 = _interopRequireDefault(_WalkActions);
-
-	var _WalkStore = __webpack_require__(20);
-
-	var _WalkStore2 = _interopRequireDefault(_WalkStore);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/**
-	 * Build a walk object based on input data.
-	 * Needed for API updates that modify the datastructure, or for loading default
-	 * vals when unspecified.
-	 * @param object data
-	 * @return object
-	 */
-	// TODO: move this into its own model js
-
-	/**
-	 * Migrate any walks saved in beta format to the v1 API
-	 * @param object walk
-	 * @return object
-	 */
-	function migrateToV1(walk) {
-	  var migratedWalk = Object.assign({}, walk);
-
-	  // Convert old {0: marker, 1: marker} indexing to a proper array
-	  // Convert markers
-	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.markers)) {
-	    migratedWalk.map.markers = Helper.objectToArray(migratedWalk.map.markers);
-	  }
-	  // Convert routes
-	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.route)) {
-	    migratedWalk.map.route = Helper.objectToArray(migratedWalk.map.route);
-	  }
-	  // Convert time slots
-	  if (migratedWalk.time && !Array.isArray(migratedWalk.time.slots)) {
-	    migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
-	  }
-	  // Turn all 'false' values into empty strings
-	  for (var i in migratedWalk) {
-	    if (migratedWalk[i] === false) {
-	      migratedWalk[i] = '';
-	    } else if (migratedWalk[i] === null) {
-	      // Clear out 'nulls' so we instead take their state from defaults
-	      delete migratedWalk[i];
-	    }
-	  }
-
-	  return migratedWalk;
-	}
-
-	function buildWalkObject(_ref) {
-	  var data = _ref.data;
-	  var user = _ref.user;
-	  var url = _ref.url;
-
-	  // Keep these defaults to type, ie don't pre-seed data here, aside from
-	  // data loaded by passing it in
-	  var defaultWalk = __webpack_require__(57);
-	  var defaultTeam = [{
-	    type: 'you',
-	    "name-first": user.firstName,
-	    "name-last": user.lastName,
-	    role: 'walk-leader',
-	    primary: 'on',
-	    bio: user.bio,
-	    twitter: user.twitter,
-	    facebook: user.facebook,
-	    website: user.website,
-	    email: user.email,
-	    phone: ''
-	  }];
-	  var walk = _extends({}, defaultWalk, { team: defaultTeam, url: url }, migrateToV1(data));
-
-	  return walk;
-	}
-
-	// GET a walk from a remote request
-	function getWalk(url, cb) {
-	  var xhr = new XMLHttpRequest();
-	  xhr.open('GET', url.replace(/(\/+|)$/, '/json'));
-	  xhr.onload = function () {
-	    var data = undefined;
-	    try {
-	      data = JSON.parse(this.responseText);
-	      cb(null, migrateToV1(data));
-	    } catch (e) {
-	      cb('Error parsing JSON returned on walk' + url);
-	    }
-	  };
-	  xhr.onerror = function () {
-	    cb('Failed to load walk ' + url);
-	  };
-	  xhr.send();
-	}
-
-	// Load a walk from the JanesWalk global
-	function getWalkGlobal(cb) {
-	  // CB for consistency, but should always return right away
-	  cb(undefined, JanesWalk.walk, JanesWalk.walk.url);
-	}
-
-	// Generic function for sending a walk to the server
-	function walkSend(url, walk, method, cb) {
-	  var xhr = new XMLHttpRequest();
-	  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	  xhr.open(method, url);
-	  xhr.onload = function () {
-	    var response;
-	    try {
-	      response = JSON.parse(this.responseText);
-	      cb(null, response, url);
-	    } catch (e) {
-	      cb('Error parsing JSON on walk post' + url);
-	    }
-	  };
-	  xhr.send(JSON.stringify(walk));
-	}
-
-	function save(cb) {
-	  NotifyActions.info('Saving walk', 'save');
-	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'POST', function (err, message) {
-	    if (err) {
-	      NotifyActions.error('Failed to save walk');
-	      console.log(err);
-	    } else {
-	      NotifyActions.info('Walk saved');
-	      cb();
-	      console.log(message);
-	    }
-	  });
-	}
-
-	function publish(cb) {
-	  NotifyActions.info('Publishing walk', 'save');
-	  // PUT a walk
-	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'PUT', function (err, message) {
-	    if (err) {
-	      NotifyActions.error('Failed to publish walk');
-	      console.log(err);
-	    } else {
-	      NotifyActions.info('Walk published');
-	      cb();
-	      console.log(message);
-	    }
-	  });
-	};
-
-	function load(url) {
-	  var receiver = function receiver(err, walk, url) {
-	    if (err) {
-	      NotifyActions.error('Failed to load walk');
-	    } else {
-	      _WalkActions2.default.receive(walk);
-	    }
-	  };
-
-	  if (url) {
-	    getWalk(url, receiver);
-	  } else {
-	    getWalkGlobal(receiver);
-	  }
-	}
-
-/***/ },
-/* 57 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"name": "",
-		"shortDescription": "",
-		"longDescription": "",
-		"accessibleInfo": "",
-		"accessibleTransit": "",
-		"accessibleParking": "",
-		"accessibleFind": "",
-		"map": {
-			"markers": [],
-			"route": []
-		},
-		"team": [
-			{
-				"id": -1,
-				"type": "you",
-				"name-first": "",
-				"name-last": "",
-				"role": "walk-leader",
-				"primary": "on",
-				"bio": "",
-				"twitter": "",
-				"facebook": "",
-				"website": "",
-				"email": "",
-				"phone": ""
-			}
-		],
-		"time": {
-			"type": "",
-			"slots": []
-		},
-		"thumbnails": [],
-		"wards": "",
-		"checkboxes": {},
-		"notifications": [],
-		"mirrors": {},
-		"url": ""
-	};
-
-/***/ },
-/* 58 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -7656,43 +7430,43 @@
 
 	var Action = _interopRequireWildcard(_ItineraryActions);
 
-	var _WalkHeader = __webpack_require__(59);
+	var _WalkHeader = __webpack_require__(57);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(60);
+	var _WalkDescription = __webpack_require__(58);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(61);
+	var _WalkRoute = __webpack_require__(59);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(62);
+	var _WalkAccessibility = __webpack_require__(60);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(64);
+	var _WalkPublicTransit = __webpack_require__(62);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(65);
+	var _WalkParking = __webpack_require__(63);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(66);
+	var _WalkStart = __webpack_require__(64);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(67);
+	var _WalkTeam = __webpack_require__(65);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(68);
+	var _WalkMenu = __webpack_require__(66);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(70);
+	var _WalkMap = __webpack_require__(68);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7813,7 +7587,7 @@
 	};
 
 /***/ },
-/* 59 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7822,11 +7596,11 @@
 	  value: true
 	});
 
-	var _AddToItinerary = __webpack_require__(25);
+	var _AddToItinerary = __webpack_require__(26);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
-	var _WalkStore = __webpack_require__(20);
+	var _WalkStore = __webpack_require__(21);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -7964,7 +7738,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 60 */
+/* 58 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7998,7 +7772,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-/* 61 */
+/* 59 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8047,7 +7821,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-/* 62 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8056,7 +7830,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(63);
+	var _Accessible = __webpack_require__(61);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -8094,7 +7868,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-/* 63 */
+/* 61 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8125,7 +7899,7 @@
 	}
 
 /***/ },
-/* 64 */
+/* 62 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8160,7 +7934,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 65 */
+/* 63 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8197,7 +7971,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 66 */
+/* 64 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8227,7 +8001,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 67 */
+/* 65 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8312,7 +8086,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 68 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8323,19 +8097,19 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
-	var _WalkAccessibility = __webpack_require__(62);
+	var _WalkAccessibility = __webpack_require__(60);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(64);
+	var _WalkPublicTransit = __webpack_require__(62);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(65);
+	var _WalkParking = __webpack_require__(63);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(69);
+	var _Theme = __webpack_require__(67);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8461,7 +8235,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 69 */
+/* 67 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8515,7 +8289,7 @@
 	}
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8725,7 +8499,7 @@
 	};
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8736,23 +8510,23 @@
 	  value: true
 	});
 
-	var _DashboardHeader = __webpack_require__(72);
+	var _DashboardHeader = __webpack_require__(70);
 
 	var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
 
-	var _DashboardMenu = __webpack_require__(73);
+	var _DashboardMenu = __webpack_require__(71);
 
 	var _DashboardMenu2 = _interopRequireDefault(_DashboardMenu);
 
-	var _DashboardSummary = __webpack_require__(74);
+	var _DashboardSummary = __webpack_require__(72);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _UserStore = __webpack_require__(30);
+	var _UserStore = __webpack_require__(31);
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
-	var _CityStore = __webpack_require__(32);
+	var _CityStore = __webpack_require__(33);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
@@ -8760,7 +8534,7 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _WalkStore = __webpack_require__(20);
+	var _WalkStore = __webpack_require__(21);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -8849,7 +8623,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 72 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8906,7 +8680,7 @@
 	exports.default = DashboardHeader;
 
 /***/ },
-/* 73 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8921,23 +8695,23 @@
 	  value: true
 	});
 
-	var _DashboardSummary = __webpack_require__(74);
+	var _DashboardSummary = __webpack_require__(72);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _DashboardResources = __webpack_require__(75);
+	var _DashboardResources = __webpack_require__(73);
 
 	var _DashboardResources2 = _interopRequireDefault(_DashboardResources);
 
-	var _MyBlogPosts = __webpack_require__(76);
+	var _MyBlogPosts = __webpack_require__(74);
 
 	var _MyBlogPosts2 = _interopRequireDefault(_MyBlogPosts);
 
-	var _Walks = __webpack_require__(77);
+	var _Walks = __webpack_require__(75);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
 
-	var _WalkLeaders = __webpack_require__(81);
+	var _WalkLeaders = __webpack_require__(79);
 
 	var _WalkLeaders2 = _interopRequireDefault(_WalkLeaders);
 
@@ -9040,7 +8814,7 @@
 	;
 
 /***/ },
-/* 74 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9051,7 +8825,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	var DashboardSummary = function DashboardSummary(_ref) {
 	  var city = _ref.city;
@@ -9124,7 +8898,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 75 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9133,7 +8907,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	// TODO Resources should be loaded, not literal
 	// TODO* Country Flag (data is not stubbed, just 'Canada') and 'Toronto' as well
@@ -9292,7 +9066,7 @@
 	exports.default = DashboardResources;
 
 /***/ },
-/* 76 */
+/* 74 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9336,7 +9110,7 @@
 	exports.default = MyBlogPosts;
 
 /***/ },
-/* 77 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9347,15 +9121,15 @@
 	  value: true
 	});
 
-	var _WalkFilters = __webpack_require__(78);
+	var _WalkFilters = __webpack_require__(76);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
 
-	var _WalksMap = __webpack_require__(79);
+	var _WalksMap = __webpack_require__(77);
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
-	var _Walk = __webpack_require__(80);
+	var _Walk = __webpack_require__(78);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9534,7 +9308,7 @@
 	exports.default = Walks;
 
 /***/ },
-/* 78 */
+/* 76 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9642,7 +9416,7 @@
 	exports.default = WalkFilters;
 
 /***/ },
-/* 79 */
+/* 77 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9894,7 +9668,7 @@
 	};
 
 /***/ },
-/* 80 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10005,7 +9779,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 81 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10018,7 +9792,7 @@
 	  value: true
 	});
 
-	var _WalkLeader = __webpack_require__(82);
+	var _WalkLeader = __webpack_require__(80);
 
 	var _WalkLeader2 = _interopRequireDefault(_WalkLeader);
 
@@ -10119,7 +9893,7 @@
 	exports.default = WalkLeaders;
 
 /***/ },
-/* 82 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10198,7 +9972,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 83 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10209,7 +9983,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(21);
+	var _I18nStore = __webpack_require__(22);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10398,6 +10172,236 @@
 	})(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * Walk Utils
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Mapping functions to grab remote or global-defined Walks
+	                                                                                                                                                                                                                                                                   */
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.buildWalkObject = buildWalkObject;
+	exports.save = save;
+	exports.publish = publish;
+	exports.load = load;
+
+	var _WalkActions = __webpack_require__(12);
+
+	var _WalkActions2 = _interopRequireDefault(_WalkActions);
+
+	var _WalkStore = __webpack_require__(21);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Build a walk object based on input data.
+	 * Needed for API updates that modify the datastructure, or for loading default
+	 * vals when unspecified.
+	 * @param object data
+	 * @return object
+	 */
+	// TODO: move this into its own model js
+
+	/**
+	 * Migrate any walks saved in beta format to the v1 API
+	 * @param object walk
+	 * @return object
+	 */
+	function migrateToV1(walk) {
+	  var migratedWalk = Object.assign({}, walk);
+
+	  // Convert old {0: marker, 1: marker} indexing to a proper array
+	  // Convert markers
+	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.markers)) {
+	    migratedWalk.map.markers = Helper.objectToArray(migratedWalk.map.markers);
+	  }
+	  // Convert routes
+	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.route)) {
+	    migratedWalk.map.route = Helper.objectToArray(migratedWalk.map.route);
+	  }
+	  // Convert time slots
+	  if (migratedWalk.time && !Array.isArray(migratedWalk.time.slots)) {
+	    migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
+	  }
+	  // Turn all 'false' values into empty strings
+	  for (var i in migratedWalk) {
+	    if (migratedWalk[i] === false) {
+	      migratedWalk[i] = '';
+	    } else if (migratedWalk[i] === null) {
+	      // Clear out 'nulls' so we instead take their state from defaults
+	      delete migratedWalk[i];
+	    }
+	  }
+
+	  return migratedWalk;
+	}
+
+	function buildWalkObject(_ref) {
+	  var data = _ref.data;
+	  var user = _ref.user;
+	  var url = _ref.url;
+
+	  // Keep these defaults to type, ie don't pre-seed data here, aside from
+	  // data loaded by passing it in
+	  var defaultWalk = __webpack_require__(83);
+	  var defaultTeam = [{
+	    type: 'you',
+	    "name-first": user.firstName,
+	    "name-last": user.lastName,
+	    role: 'walk-leader',
+	    primary: 'on',
+	    bio: user.bio,
+	    twitter: user.twitter,
+	    facebook: user.facebook,
+	    website: user.website,
+	    email: user.email,
+	    phone: ''
+	  }];
+	  var walk = _extends({}, defaultWalk, { team: defaultTeam, url: url }, migrateToV1(data));
+
+	  return walk;
+	}
+
+	// GET a walk from a remote request
+	function getWalk(url, cb) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('GET', url.replace(/(\/+|)$/, '/json'));
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      cb(null, migrateToV1(data));
+	    } catch (e) {
+	      cb('Error parsing JSON returned on walk' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    cb('Failed to load walk ' + url);
+	  };
+	  xhr.send();
+	}
+
+	// Load a walk from the JanesWalk global
+	function getWalkGlobal(cb) {
+	  // CB for consistency, but should always return right away
+	  cb(undefined, JanesWalk.walk, JanesWalk.walk.url);
+	}
+
+	// Generic function for sending a walk to the server
+	function walkSend(url, walk, method, cb) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	  xhr.open(method, url);
+	  xhr.onload = function () {
+	    var response;
+	    try {
+	      response = JSON.parse(this.responseText);
+	      cb(null, response, url);
+	    } catch (e) {
+	      cb('Error parsing JSON on walk post' + url);
+	    }
+	  };
+	  xhr.send(JSON.stringify(walk));
+	}
+
+	function save(cb) {
+	  NotifyActions.info('Saving walk', 'save');
+	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'POST', function (err, message) {
+	    if (err) {
+	      NotifyActions.error('Failed to save walk');
+	      console.log(err);
+	    } else {
+	      NotifyActions.info('Walk saved');
+	      cb();
+	      console.log(message);
+	    }
+	  });
+	}
+
+	function publish(cb) {
+	  NotifyActions.info('Publishing walk', 'save');
+	  // PUT a walk
+	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'PUT', function (err, message) {
+	    if (err) {
+	      NotifyActions.error('Failed to publish walk');
+	      console.log(err);
+	    } else {
+	      NotifyActions.info('Walk published');
+	      cb();
+	      console.log(message);
+	    }
+	  });
+	};
+
+	function load(url) {
+	  var receiver = function receiver(err, walk, url) {
+	    if (err) {
+	      NotifyActions.error('Failed to load walk');
+	    } else {
+	      _WalkActions2.default.receive(walk);
+	    }
+	  };
+
+	  if (url) {
+	    getWalk(url, receiver);
+	  } else {
+	    getWalkGlobal(receiver);
+	  }
+	}
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"name": "",
+		"shortDescription": "",
+		"longDescription": "",
+		"accessibleInfo": "",
+		"accessibleTransit": "",
+		"accessibleParking": "",
+		"accessibleFind": "",
+		"map": {
+			"markers": [],
+			"route": []
+		},
+		"team": [
+			{
+				"id": -1,
+				"type": "you",
+				"name-first": "",
+				"name-last": "",
+				"role": "walk-leader",
+				"primary": "on",
+				"bio": "",
+				"twitter": "",
+				"facebook": "",
+				"website": "",
+				"email": "",
+				"phone": ""
+			}
+		],
+		"time": {
+			"type": "",
+			"slots": []
+		},
+		"thumbnails": [],
+		"wards": "",
+		"checkboxes": {},
+		"notifications": [],
+		"mirrors": {},
+		"url": ""
+	};
 
 /***/ }
 /******/ ]);

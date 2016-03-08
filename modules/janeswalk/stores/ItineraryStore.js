@@ -63,18 +63,20 @@ const _receiveAll = ({lists, schedule}) => {
   });
 };
 
+function hasInList(walk) {
+  for (let list of _lists) {
+    if (list.walks.has(walk)) return true;
+  }
+  return false;
+}
+
 const ItineraryStore = Object.assign({}, EventEmitter.prototype, changeMethods, {
   getLists: () => _lists,
   getSchedule: () => _schedule,
   getWalks: (list) => list.walks,
   getLastChange: () => _lastChange,
 
-  hasInList(walk) {
-    for (let list of _lists) {
-      if (list.walks.has(walk)) return true;
-    }
-    return false;
-  },
+  hasInList,
 
   hasInSchedule(walk, time) {
     const times = _schedule.get(walk);
@@ -95,10 +97,9 @@ const ItineraryStore = Object.assign({}, EventEmitter.prototype, changeMethods, 
     [AT.ITINERARY_UPDATE_TITLE]: ({list, title}) => list.title = title,
     [AT.ITINERARY_UPDATE_DESCRIPTION]: ({list, description}) => list.description = description,
     [AT.ITINERARY_CREATE_LIST]: ({title, description}) => _createList(title, description),
-    [AT.ITINERARY_SCHEDULE_WALK]: ({list, walk, time}) => {
-      if (!_hasInList(walk)) {
-        let [firstList] = _lists;
-        _addWalk(list || firstList, walk);
+    [AT.ITINERARY_SCHEDULE_WALK]: ({list: [list] = _lists, walk, time}) => {
+      if (!hasInList(walk)) {
+        list.walks.add(walk);
       }
       _scheduleWalk(walk, time);
     },
