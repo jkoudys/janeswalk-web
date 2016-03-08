@@ -5,9 +5,11 @@
  */
 
 // Requires
-import {ActionTypes} from '../constants/JWConstants.js';
-import {register} from 'janeswalk/dispatcher/AppDispatcher';
-import 'Store' from './Store.js';
+import {register2} from 'janeswalk/dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
+import {ActionTypes as AT} from 'janeswalk/constants/JWConstants';
+import {changeMethods} from 'janeswalk/utils/Stores';
+
 
 // The notifications
 const _log = [];
@@ -20,32 +22,23 @@ function receiveLogEntry(message, component, level) {
   });
 }
 
-const NotifyStore = Object.assign({}, Store, {
-  getLog() {
-    return _log;
-  },
+const NotifyStore = Object.assign({}, EventEmitter.prototype, changeMethods {
+  getLog: () => _log,
+  getLogFrom: (from) => _log.filter(entry => entry.time >= from),
 
   // Register our dispatch token as a static method
-  dispatchToken: register(function(payload) {
-    // Go through the various actions
-    switch(payload.type) {
-      // Route actions
-      case ActionTypes.LOG_INFO:
-        receiveLogEntry(payload.message, payload.component || 'caw', 'info');
-      NotifyStore.emitChange();
-      break;
-      case ActionTypes.LOG_WARN:
-        receiveLogEntry(payload.message, payload.component || 'caw', 'warn');
-      NotifyStore.emitChange();
-      break;
-      case ActionTypes.LOG_ERROR:
-        receiveLogEntry(payload.message, payload.component || 'caw', 'error');
-      NotifyStore.emitChange();
-      break;
-      default:
-        // do nothing
-    }
-  });
+  dispatchToken: register2({
+    [AT.LOG_INFO]: ({message, component}) => {
+      receiveLogEntry(payload.message, payload.component || 'caw', 'info');
+    },
+    [AT.LOG_WARN]: ({message, component}) => {
+      receiveLogEntry(message, component || 'caw', 'warn');
+    },
+    [AT.LOG_ERROR]: ({message, component}) => {
+      receiveLogEntry(message, component || 'caw', 'error');
+    },
+    [AT.LOG_EMPTY]: () => _log.splice(0),
+  }, () => NotifyStore.emitChange())
 });
 
 export default NotifyStore;
