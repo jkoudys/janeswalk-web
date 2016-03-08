@@ -5,11 +5,10 @@
  * description, and people involved with a walk.
  */
 
-import {dispatch, register} from 'janeswalk/dispatcher/AppDispatcher';
+import {dispatch, register2} from 'janeswalk/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
-import {ActionTypes} from 'janeswalk/constants/JWConstants';
-
-const CHANGE_EVENT = 'change';
+import {ActionTypes as AT} from 'janeswalk/constants/JWConstants';
+import {changeMethods} from 'janeswalk/utils/Stores';
 
 // Store singletons
 // The Walk objects, keyed by walk ID (ie collection ID)
@@ -25,41 +24,15 @@ function receiveWalks(walks) {
   walks.forEach(w => receiveWalk(w));
 }
 
-const WalkStore = Object.assign({}, EventEmitter.prototype, {
-  emitChange() {
-    this.emit(CHANGE_EVENT);
-  },
-
-  addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-
-  removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-
-  getWalks() {
-    return _walks;
-  },
-
-  getWalk(id) {
-    return _walks.get(+id);
-  },
+const WalkStore = Object.assign({}, EventEmitter.prototype, changeMethods, {
+  getWalks: () => _walks,
+  getWalk: (id) => _walks.get(+id),
 
   // Register our dispatch token as a static method
-  dispatchToken: register(function(payload) {
-    // Go through the various actions
-    switch(payload.type) {
-      // Route actions
-      case ActionTypes.WALK_RECEIVE:
-        receiveWalk(payload.walk);
-      break;
-      case ActionTypes.WALK_RECEIVE_ALL:
-        receiveWalks(payload.walks);
-      break;
-    }
-    WalkStore.emitChange();
-  })
+  dispatchToken: register2({
+    [AT.WALK_RECEIVE]: ({walk}) => receiveWalk(walk),
+    [AT.WALK_RECEIVE_ALL]: ({walks}) => receiveWalks(walks)
+  }, () => WalkStore.emitChange())
 });
 
 export default WalkStore;

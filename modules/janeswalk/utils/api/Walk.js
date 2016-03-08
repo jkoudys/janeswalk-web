@@ -38,7 +38,7 @@ function migrateToV1(walk) {
     migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
   }
   // Turn all 'false' values into empty strings
-  for (var i in migratedWalk) {
+  for (let i in migratedWalk) {
     if (migratedWalk[i] === false) {
       migratedWalk[i] = '';
     } else if (migratedWalk[i] === null) {

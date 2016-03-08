@@ -87,19 +87,19 @@
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
-	var _CreateWalk = __webpack_require__(33);
+	var _CreateWalk = __webpack_require__(34);
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(57);
+	var _Walk = __webpack_require__(58);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Dashboard = __webpack_require__(70);
+	var _Dashboard = __webpack_require__(71);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(82);
+	var _Login = __webpack_require__(83);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -328,17 +328,27 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.waitFor = exports.dispatch = exports.register = undefined;
+	exports.waitFor = exports.dispatch = exports.register2 = exports.register = undefined;
 
 	var _flux = __webpack_require__(5);
 
 	var AppDispatcher = new _flux.Dispatcher();
-	var register = AppDispatcher.register.bind(AppDispatcher);
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
+	var register = AppDispatcher.register.bind(AppDispatcher);
 	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
+
+	function register2(receivers, onComplete) {
+	  return AppDispatcher.register(function (payload) {
+	    if (payload.type in receivers) {
+	      receivers[payload.type](payload);
+	      if (onComplete) onComplete(payload);
+	    }
+	  });
+	}
 
 	exports.default = AppDispatcher;
 	exports.register = register;
+	exports.register2 = register2;
 	exports.dispatch = dispatch;
 	exports.waitFor = waitFor;
 
@@ -1519,6 +1529,8 @@
 
 	'use strict';
 
+	var _register;
+
 	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
 
 	Object.defineProperty(exports, "__esModule", {
@@ -1533,13 +1545,15 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
+	var _Stores = __webpack_require__(33);
+
 	var _WalkStore = __webpack_require__(20);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var CHANGE_EVENT = 'change';
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	// Set<Set> A set of walk sets
 	var _lists = new Set();
@@ -1552,14 +1566,6 @@
 
 	//TODO: Currently no remove list, just adding lists
 	//TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
-
-	var _removeWalk = function _removeWalk(list, walk) {
-	  return list.walks.delete(walk);
-	};
-
-	var _addWalk = function _addWalk(list, walk) {
-	  return list.walks.add(walk);
-	};
 
 	var _scheduleWalk = function _scheduleWalk(walk, time) {
 	  var times = _schedule.get(walk) || new Set();
@@ -1579,8 +1585,8 @@
 
 	  var list = {
 	    title: title,
-	    walks: new Set(),
 	    description: description,
+	    walks: new Set(),
 	    shareUrl: ''
 	  };
 
@@ -1616,66 +1622,7 @@
 	  });
 	};
 
-	//walks received from API used to update _itinerary
-	var _updateWalks = function _updateWalks(list, walks) {
-	  walks.forEach(function (walk) {
-	    return list.add(walk);
-	  });
-	};
-
-	var _updateTitle = function _updateTitle(list, title) {
-	  list.title = title;
-	};
-
-	var _updateDescription = function _updateDescription(list, description) {
-	  list.description = description;
-	};
-
-	function _hasInList(walk) {
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
-
-	  try {
-	    for (var _iterator = _lists[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var list = _step.value;
-
-	      if (list.walks.has(walk)) return true;
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
-
-	  return false;
-	}
-
-	function _hasInSchedule(walk, time) {
-	  var times = _schedule.get(walk);
-	  if (times && times.has(+time)) return true;
-	  return false;
-	}
-
-	var ItineraryStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
+	var ItineraryStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getLists: function getLists() {
 	    return _lists;
 	  },
@@ -1688,11 +1635,39 @@
 	  getLastChange: function getLastChange() {
 	    return _lastChange;
 	  },
+
 	  hasInList: function hasInList(walk) {
-	    return _hasInList(walk);
+	    var _iteratorNormalCompletion = true;
+	    var _didIteratorError = false;
+	    var _iteratorError = undefined;
+
+	    try {
+	      for (var _iterator = _lists[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	        var list = _step.value;
+
+	        if (list.walks.has(walk)) return true;
+	      }
+	    } catch (err) {
+	      _didIteratorError = true;
+	      _iteratorError = err;
+	    } finally {
+	      try {
+	        if (!_iteratorNormalCompletion && _iterator.return) {
+	          _iterator.return();
+	        }
+	      } finally {
+	        if (_didIteratorError) {
+	          throw _iteratorError;
+	        }
+	      }
+	    }
+
+	    return false;
 	  },
 	  hasInSchedule: function hasInSchedule(walk, time) {
-	    return _hasInSchedule(walk, time);
+	    var times = _schedule.get(walk);
+	    if (times && times.has(+time)) return true;
+	    return false;
 	  },
 	  totalWalks: function totalWalks() {
 	    var count = 0;
@@ -1702,58 +1677,52 @@
 	    return count;
 	  },
 
-	  //TODO: use _updateWalks to receive walks from server via API call
-	  dispatcherIndex: (0, _AppDispatcher.register)(function (payload) {
-	    // Any action without a list specified is assumed on the first 'favourites'
-	    var list = payload.list;
-	    var walk = payload.walk;
-	    var time = payload.time;
+	  dispatcherIndex: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_ADD_WALK, function (_ref2) {
+	    var list = _ref2.list;
+	    var walk = _ref2.walk;
+	    return list.walks.add(walk);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK, function (_ref3) {
+	    var list = _ref3.list;
+	    var walk = _ref3.walk;
+	    return list.walks.delete(walk);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_UNSCHEDULE_WALK, function (_ref4) {
+	    var walk = _ref4.walk;
+	    var time = _ref4.time;
+	    return _unscheduleWalk(walk, time);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE, function (_ref5) {
+	    var list = _ref5.list;
+	    var title = _ref5.title;
+	    return list.title = title;
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION, function (_ref6) {
+	    var list = _ref6.list;
+	    var description = _ref6.description;
+	    return list.description = description;
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_CREATE_LIST, function (_ref7) {
+	    var title = _ref7.title;
+	    var description = _ref7.description;
+	    return _createList(title, description);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_SCHEDULE_WALK, function (_ref8) {
+	    var list = _ref8.list;
+	    var walk = _ref8.walk;
+	    var time = _ref8.time;
 
-	    switch (payload.type) {
-	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
-	        _lastChange = Date.now();
-	        _removeWalk(list, walk);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
-	        _lastChange = Date.now();
-	        _addWalk(list, walk);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_SCHEDULE_WALK:
-	        _lastChange = Date.now();
-	        if (!_hasInList(walk)) {
-	          var _lists2 = _slicedToArray(_lists, 1);
+	    if (!_hasInList(walk)) {
+	      var _lists2 = _slicedToArray(_lists, 1);
 
-	          var firstList = _lists2[0];
+	      var firstList = _lists2[0];
 
-	          _addWalk(list || firstList, walk);
-	        }
-	        _scheduleWalk(walk, time);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_UNSCHEDULE_WALK:
-	        _lastChange = Date.now();
-	        _unscheduleWalk(walk, time);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
-	        _lastChange = Date.now();
-	        _updateTitle(list, payload.title);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
-	        _lastChange = Date.now();
-	        _updateDescription(list, payload.description);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_CREATE_LIST:
-	        _lastChange = Date.now();
-	        _createList(payload.title, payload.description);
-	        break;
-	      case _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL:
-	        (0, _AppDispatcher.waitFor)([_WalkStore2.default.dispatchToken]);
-	        _receiveAll(payload.itineraries);
-	        break;
+	      _addWalk(list || firstList, walk);
 	    }
+	    _scheduleWalk(walk, time);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL, function (_ref9) {
+	    var itineraries = _ref9.itineraries;
 
+	    (0, _AppDispatcher.waitFor)([_WalkStore2.default.dispatchToken]);
+	    _receiveAll(itineraries);
+	  }), _register), function () {
+	    _lastChange = Date.now();
 	    ItineraryStore.emitChange();
 	  })
-
 	});
 
 	exports.default = ItineraryStore;
@@ -2096,6 +2065,8 @@
 
 	'use strict';
 
+	var _register;
+
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -2106,17 +2077,17 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var CHANGE_EVENT = 'change';
+	var _Stores = __webpack_require__(33);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * Walk store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	                                                                                                                                                                                                                   * description, and people involved with a walk.
+	                                                                                                                                                                                                                   */
 
 	// Store singletons
 	// The Walk objects, keyed by walk ID (ie collection ID)
-	/**
-	 * Walk store
-	 *
-	 * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
-	 * description, and people involved with a walk.
-	 */
-
 	var _walks = new Map();
 
 	// Receive a single walk
@@ -2131,16 +2102,7 @@
 	  });
 	}
 
-	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
+	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getWalks: function getWalks() {
 	    return _walks;
 	  },
@@ -2149,18 +2111,14 @@
 	  },
 
 	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.WALK_RECEIVE:
-	        receiveWalk(payload.walk);
-	        break;
-	      case _JWConstants.ActionTypes.WALK_RECEIVE_ALL:
-	        receiveWalks(payload.walks);
-	        break;
-	    }
-	    WalkStore.emitChange();
+	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
+	    var walk = _ref.walk;
+	    return receiveWalk(walk);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE_ALL, function (_ref2) {
+	    var walks = _ref2.walks;
+	    return receiveWalks(walks);
+	  }), _register), function () {
+	    return WalkStore.emitChange();
 	  })
 	});
 
@@ -2897,20 +2855,13 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var CHANGE_EVENT = 'change';
+	var _Stores = __webpack_require__(33);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var _areas = {};
 
-	var AreaStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
+	var AreaStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getAreas: function getAreas() {
 	    return _areas;
 	  },
@@ -2918,16 +2869,13 @@
 	    return _areas[name];
 	  },
 
-	  dispatcherIndex: (0, _AppDispatcher.register)(function (action) {
-	    switch (action.type) {
-	      case _JWConstants.ActionTypes.AREA_RECEIVE:
-	        _areas[action.name] = action.content;
-	        break;
-	    }
-
-	    AreaStore.emitChange();
+	  dispatcherIndex: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.AREA_RECEIVE, function (_ref) {
+	    var name = _ref.name;
+	    var content = _ref.content;
+	    return _areas[name] = content;
+	  }), function () {
+	    return AreaStore.emitChange();
 	  })
-
 	});
 
 	exports.default = AreaStore;
@@ -2937,6 +2885,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+
+	var _register;
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -2948,49 +2898,22 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var CHANGE_EVENT = 'change';
+	var _Stores = __webpack_require__(33);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * User store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * Users on Jane's Walk.
+	                                                                                                                                                                                                                   */
 
 	// Store singletons
 	// The users, keyed on uID
-	/**
-	 * User store
-	 *
-	 * Users on Jane's Walk.
-	 */
-
 	var _users = new Map();
 
 	// Is this the actively logged in user
 	var _current = undefined;
 
-	// Receive a single walk
-	function receiveUser(user, _ref) {
-	  var current = _ref.current;
-
-	  _users.set(+user.id, user);
-
-	  if (current) {
-	    _current = user;
-	  }
-	}
-
-	// Receive an array of walks
-	function receiveUsers(users) {
-	  users.forEach(function (u) {
-	    return receiveUser(u, {});
-	  });
-	}
-
-	var UserStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
+	var UserStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getUsers: function getUsers() {
 	    return _users;
 	  },
@@ -2999,18 +2922,23 @@
 	  },
 
 	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.USER_RECEIVE:
-	        receiveUser(payload.user, { current: payload.current, profile: payload.profile });
-	        break;
-	      case _JWConstants.ActionTypes.USER_RECEIVE_ALL:
-	        receiveUsers(payload.users);
-	        break;
+	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.USER_RECEIVE, function (_ref) {
+	    var user = _ref.user;
+	    var current = _ref.current;
+	    var profile = _ref.profile;
+
+	    _users.set(+user.id, user);
+
+	    if (current) {
+	      _current = user;
 	    }
-	    UserStore.emitChange();
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.USER_RECEIVE_ALL, function (_ref2) {
+	    var users = _ref2.users;
+	    return users.forEach(function (u) {
+	      return receiveUser(u, {});
+	    });
+	  }), _register), function () {
+	    return UserStore.emitChange();
 	  })
 	});
 
@@ -3072,24 +3000,47 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var CHANGE_EVENT = 'change';
+	var _Stores = __webpack_require__(33);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * City store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
+	                                                                                                                                                                                                                   * currently no requirement exists for this.
+	                                                                                                                                                                                                                   */
 
 	// Store singletons
-	/**
-	 * City store
-	 *
-	 * Single-city storage. May be refactored for multiple cities later, but
-	 * currently no requirement exists for this.
-	 */
-
 	var _city = undefined;
 
-	// Receive a single walk
-	function receiveCity(city) {
-	  _city = city;
-	}
+	var CityStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	  getCity: function getCity() {
+	    return _city;
+	  },
+	  getLocation: function getLocation() {
+	    return _city && _city.latlng;
+	  },
 
-	var CityStore = Object.assign({}, _events.EventEmitter.prototype, {
+	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
+	    var city = _ref.city;
+	    return _city = city;
+	  }), function () {
+	    return CityStore.emitChange();
+	  })
+	});
+	exports.default = CityStore;
+
+/***/ },
+/* 33 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var CHANGE_EVENT = 'change';
+
+	var changeMethods = exports.changeMethods = {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },
@@ -3098,31 +3049,11 @@
 	  },
 	  removeChangeListener: function removeChangeListener(callback) {
 	    this.removeListener(CHANGE_EVENT, callback);
-	  },
-	  getCity: function getCity() {
-	    return _city;
-	  },
-	  getLocation: function getLocation() {
-	    return _city && _city.latlng;
-	  },
-
-	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.CITY_RECEIVE:
-	        receiveCity(payload.city);
-	        break;
-	    }
-	    CityStore.emitChange();
-	  })
-	});
-
-	exports.default = CityStore;
+	  }
+	};
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3135,43 +3066,43 @@
 	  value: true
 	});
 
-	var _ImageUpload = __webpack_require__(34);
+	var _ImageUpload = __webpack_require__(35);
 
 	var _ImageUpload2 = _interopRequireDefault(_ImageUpload);
 
-	var _ThemeSelect = __webpack_require__(35);
+	var _ThemeSelect = __webpack_require__(36);
 
 	var _ThemeSelect2 = _interopRequireDefault(_ThemeSelect);
 
-	var _MapBuilder = __webpack_require__(37);
+	var _MapBuilder = __webpack_require__(38);
 
 	var _MapBuilder2 = _interopRequireDefault(_MapBuilder);
 
-	var _DateSelect = __webpack_require__(45);
+	var _DateSelect = __webpack_require__(46);
 
 	var _DateSelect2 = _interopRequireDefault(_DateSelect);
 
-	var _WardSelect = __webpack_require__(50);
+	var _WardSelect = __webpack_require__(51);
 
 	var _WardSelect2 = _interopRequireDefault(_WardSelect);
 
-	var _AccessibleSelect = __webpack_require__(51);
+	var _AccessibleSelect = __webpack_require__(52);
 
 	var _AccessibleSelect2 = _interopRequireDefault(_AccessibleSelect);
 
-	var _TeamBuilder = __webpack_require__(52);
+	var _TeamBuilder = __webpack_require__(53);
 
 	var _TeamBuilder2 = _interopRequireDefault(_TeamBuilder);
 
-	var _WalkPublish = __webpack_require__(53);
+	var _WalkPublish = __webpack_require__(54);
 
 	var _WalkPublish2 = _interopRequireDefault(_WalkPublish);
 
-	var _TextAreaLimit = __webpack_require__(54);
+	var _TextAreaLimit = __webpack_require__(55);
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
-	var _WalkUtils = __webpack_require__(55);
+	var _WalkUtils = __webpack_require__(56);
 
 	var _I18nActions = __webpack_require__(3);
 
@@ -3181,7 +3112,7 @@
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
-	var _helpers = __webpack_require__(44);
+	var _helpers = __webpack_require__(45);
 
 	var _helpers2 = _interopRequireDefault(_helpers);
 
@@ -3768,7 +3699,7 @@
 	})(React.Component);
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3892,7 +3823,7 @@
 	exports.default = ImageUpload;
 
 /***/ },
-/* 35 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3911,7 +3842,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(36);
+	var mixins = __webpack_require__(37);
 
 	// Flux
 
@@ -4102,7 +4033,7 @@
 	};
 
 /***/ },
-/* 36 */
+/* 37 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4131,7 +4062,7 @@
 	};
 
 /***/ },
-/* 37 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4142,27 +4073,27 @@
 	  value: true
 	});
 
-	var _WalkStopTable = __webpack_require__(38);
+	var _WalkStopTable = __webpack_require__(39);
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
 
-	var _WalkInfoWindow = __webpack_require__(39);
+	var _WalkInfoWindow = __webpack_require__(40);
 
 	var _WalkInfoWindow2 = _interopRequireDefault(_WalkInfoWindow);
 
-	var _InstagramConnect = __webpack_require__(40);
+	var _InstagramConnect = __webpack_require__(41);
 
 	var _InstagramConnect2 = _interopRequireDefault(_InstagramConnect);
 
-	var _SoundCloudConnect = __webpack_require__(41);
+	var _SoundCloudConnect = __webpack_require__(42);
 
 	var _SoundCloudConnect2 = _interopRequireDefault(_SoundCloudConnect);
 
-	var _TwitterConnect = __webpack_require__(42);
+	var _TwitterConnect = __webpack_require__(43);
 
 	var _TwitterConnect2 = _interopRequireDefault(_TwitterConnect);
 
-	var _ConnectFilters = __webpack_require__(43);
+	var _ConnectFilters = __webpack_require__(44);
 
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
@@ -4176,7 +4107,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Helper = __webpack_require__(44);
+	var Helper = __webpack_require__(45);
 
 	// Flux
 
@@ -4657,7 +4588,7 @@
 	});
 
 /***/ },
-/* 38 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4806,7 +4737,7 @@
 	exports.default = WalkStopTable;
 
 /***/ },
-/* 39 */
+/* 40 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4922,7 +4853,7 @@
 	exports.default = WalkInfoWindow;
 
 /***/ },
-/* 40 */
+/* 41 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5057,7 +4988,7 @@
 	exports.default = InstagramConnect;
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5208,7 +5139,7 @@
 	exports.default = SoundCloudConnect;
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5343,7 +5274,7 @@
 	exports.default = TwitterConnect;
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5419,7 +5350,7 @@
 	};
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5458,7 +5389,7 @@
 	};
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5469,19 +5400,19 @@
 	  value: true
 	});
 
-	var _DatePicker = __webpack_require__(46);
+	var _DatePicker = __webpack_require__(47);
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _TimePicker = __webpack_require__(47);
+	var _TimePicker = __webpack_require__(48);
 
 	var _TimePicker2 = _interopRequireDefault(_TimePicker);
 
-	var _TimeSetTable = __webpack_require__(48);
+	var _TimeSetTable = __webpack_require__(49);
 
 	var _TimeSetTable2 = _interopRequireDefault(_TimeSetTable);
 
-	var _TimeOpenTable = __webpack_require__(49);
+	var _TimeOpenTable = __webpack_require__(50);
 
 	var _TimeOpenTable2 = _interopRequireDefault(_TimeOpenTable);
 
@@ -5879,7 +5810,7 @@
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5951,7 +5882,7 @@
 	exports.default = DatePicker;
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6109,7 +6040,7 @@
 	exports.default = TimePicker;
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6264,7 +6195,7 @@
 	exports.default = TimeSetTable;
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6309,7 +6240,7 @@
 	exports.default = TimeOpenTable;
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6328,7 +6259,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(36);
+	var mixins = __webpack_require__(37);
 
 	// Flux
 
@@ -6394,7 +6325,7 @@
 	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6405,7 +6336,7 @@
 	  value: true
 	});
 
-	var _mixins = __webpack_require__(36);
+	var _mixins = __webpack_require__(37);
 
 	var _I18nStore = __webpack_require__(21);
 
@@ -6467,7 +6398,7 @@
 	Object.assign(AccessibleSelect.prototype, _mixins.linkedParentState);
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7301,7 +7232,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7442,7 +7373,7 @@
 	Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7472,7 +7403,7 @@
 	exports.default = TextAreaLimit;
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7551,7 +7482,7 @@
 
 	  // Keep these defaults to type, ie don't pre-seed data here, aside from
 	  // data loaded by passing it in
-	  var defaultWalk = __webpack_require__(56);
+	  var defaultWalk = __webpack_require__(57);
 	  var defaultTeam = [{
 	    type: 'you',
 	    "name-first": user.firstName,
@@ -7658,7 +7589,7 @@
 	}
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -7702,7 +7633,7 @@
 	};
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7725,43 +7656,43 @@
 
 	var Action = _interopRequireWildcard(_ItineraryActions);
 
-	var _WalkHeader = __webpack_require__(58);
+	var _WalkHeader = __webpack_require__(59);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(59);
+	var _WalkDescription = __webpack_require__(60);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(60);
+	var _WalkRoute = __webpack_require__(61);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(61);
+	var _WalkAccessibility = __webpack_require__(62);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(63);
+	var _WalkPublicTransit = __webpack_require__(64);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(64);
+	var _WalkParking = __webpack_require__(65);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(65);
+	var _WalkStart = __webpack_require__(66);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(66);
+	var _WalkTeam = __webpack_require__(67);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(67);
+	var _WalkMenu = __webpack_require__(68);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(69);
+	var _WalkMap = __webpack_require__(70);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7882,7 +7813,7 @@
 	};
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8033,7 +7964,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8067,7 +7998,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8116,7 +8047,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8125,7 +8056,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(62);
+	var _Accessible = __webpack_require__(63);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -8163,7 +8094,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8194,7 +8125,7 @@
 	}
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8229,7 +8160,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8266,7 +8197,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8296,7 +8227,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8381,7 +8312,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8392,19 +8323,19 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
-	var _WalkAccessibility = __webpack_require__(61);
+	var _WalkAccessibility = __webpack_require__(62);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(63);
+	var _WalkPublicTransit = __webpack_require__(64);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(64);
+	var _WalkParking = __webpack_require__(65);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(68);
+	var _Theme = __webpack_require__(69);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8530,7 +8461,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8584,7 +8515,7 @@
 	}
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8794,7 +8725,7 @@
 	};
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8805,15 +8736,15 @@
 	  value: true
 	});
 
-	var _DashboardHeader = __webpack_require__(71);
+	var _DashboardHeader = __webpack_require__(72);
 
 	var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
 
-	var _DashboardMenu = __webpack_require__(72);
+	var _DashboardMenu = __webpack_require__(73);
 
 	var _DashboardMenu2 = _interopRequireDefault(_DashboardMenu);
 
-	var _DashboardSummary = __webpack_require__(73);
+	var _DashboardSummary = __webpack_require__(74);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
@@ -8918,7 +8849,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8975,7 +8906,7 @@
 	exports.default = DashboardHeader;
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8990,23 +8921,23 @@
 	  value: true
 	});
 
-	var _DashboardSummary = __webpack_require__(73);
+	var _DashboardSummary = __webpack_require__(74);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _DashboardResources = __webpack_require__(74);
+	var _DashboardResources = __webpack_require__(75);
 
 	var _DashboardResources2 = _interopRequireDefault(_DashboardResources);
 
-	var _MyBlogPosts = __webpack_require__(75);
+	var _MyBlogPosts = __webpack_require__(76);
 
 	var _MyBlogPosts2 = _interopRequireDefault(_MyBlogPosts);
 
-	var _Walks = __webpack_require__(76);
+	var _Walks = __webpack_require__(77);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
 
-	var _WalkLeaders = __webpack_require__(80);
+	var _WalkLeaders = __webpack_require__(81);
 
 	var _WalkLeaders2 = _interopRequireDefault(_WalkLeaders);
 
@@ -9109,7 +9040,7 @@
 	;
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9193,7 +9124,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9361,7 +9292,7 @@
 	exports.default = DashboardResources;
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9405,7 +9336,7 @@
 	exports.default = MyBlogPosts;
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9416,15 +9347,15 @@
 	  value: true
 	});
 
-	var _WalkFilters = __webpack_require__(77);
+	var _WalkFilters = __webpack_require__(78);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
 
-	var _WalksMap = __webpack_require__(78);
+	var _WalksMap = __webpack_require__(79);
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
-	var _Walk = __webpack_require__(79);
+	var _Walk = __webpack_require__(80);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9603,7 +9534,7 @@
 	exports.default = Walks;
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9711,7 +9642,7 @@
 	exports.default = WalkFilters;
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9963,7 +9894,7 @@
 	};
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10074,7 +10005,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10087,7 +10018,7 @@
 	  value: true
 	});
 
-	var _WalkLeader = __webpack_require__(81);
+	var _WalkLeader = __webpack_require__(82);
 
 	var _WalkLeader2 = _interopRequireDefault(_WalkLeader);
 
@@ -10188,7 +10119,7 @@
 	exports.default = WalkLeaders;
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10267,7 +10198,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
