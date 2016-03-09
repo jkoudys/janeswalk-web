@@ -22,14 +22,14 @@ function receiveLogEntry(message, component, level) {
   });
 }
 
-const NotifyStore = Object.assign({}, EventEmitter.prototype, changeMethods {
+const NotifyStore = Object.assign({}, EventEmitter.prototype, changeMethods, {
   getLog: () => _log,
   getLogFrom: (from) => _log.filter(entry => entry.time >= from),
 
   // Register our dispatch token as a static method
   dispatchToken: register2({
-    [AT.LOG_INFO]: ({message, component}) => {
-      receiveLogEntry(payload.message, payload.component || 'caw', 'info');
+    [AT.LOG_INFO]: ({message, component = 'caw'}) => {
+      receiveLogEntry(message, component, 'info');
     },
     [AT.LOG_WARN]: ({message, component}) => {
       receiveLogEntry(message, component || 'caw', 'warn');

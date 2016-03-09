@@ -18,6 +18,7 @@ import {buildWalkObject} from 'janeswalk/utils/api/Walk';
 // Flux
 import I18nActions from 'janeswalk/actions/I18nActions';
 import I18nStore, {t, t2} from 'janeswalk/stores/I18nStore';
+import NotifyStory from 'janeswalk/stores/NotifyStore';
 
 // Helpers
 import Helper from '../helpers/helpers.jsx';
@@ -111,10 +112,12 @@ export default class CreateWalk extends React.Component {
 
   componentWillMount() {
     I18nStore.addChangeListener(this._onChange);
+    NotifyStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
     I18nStore.removeChangeListener(this._onChange);
+    NotifyStore.removeChangeListener(this._onChange);
   }
 
   render() {

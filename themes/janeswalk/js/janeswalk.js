@@ -91,15 +91,15 @@
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(56);
+	var _Walk = __webpack_require__(59);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Dashboard = __webpack_require__(69);
+	var _Dashboard = __webpack_require__(72);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(81);
+	var _Login = __webpack_require__(84);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -2168,63 +2168,47 @@
 
 	var _JWConstants = __webpack_require__(9);
 
+	var _Stores = __webpack_require__(20);
+
 	var _translate = __webpack_require__(23);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// Simple 'something has changed' event
-	/**
-	 * i18n Store
-	 *
-	 * Store for i18n language translations
-	 */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * i18n Store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * Store for i18n language translations
+	                                                                                                                                                                                                                   */
 
 	// Basic flux setup
-	var CHANGE_EVENT = 'change';
-
-	// Local vars
 
 	// The library for managing translations
+
+	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-
-	  /**
-	   * @param {function} callback
-	   */
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
+	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
 	  getTranslatePlural: function getTranslatePlural() {
 	    return _i18n.translatePlural.bind(_i18n);
-	  }
-	});
+	  },
 
-	// Register our dispatch token as a static method
-	I18nStore.dispatchToken = (0, _AppDispatcher.register)(function (payload) {
-	  // Go through the various actions
-	  switch (payload.type) {
-	    // POI actions
-	    case _JWConstants.ActionTypes.I18N_RECEIVE:
-	      _i18n.constructor(payload.translations);
-	      I18nStore.emitChange();
-	      break;
-	    default:
-	    // do nothing
-	  }
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.I18N_RECEIVE, function (_ref) {
+	    var translations = _ref.translations;
+	    return _i18n.constructor(translations);
+	  }), function () {
+	    return I18nStore.emitChange();
+	  })
 	});
 
 	exports.default = I18nStore;
-	var t = exports.t = _i18n.translate.bind(_i18n);
-	var t2 = exports.t2 = _i18n.translatePlural.bind(_i18n);
+	var t = exports.t = I18nStore.getTranslate();
+	var t2 = exports.t2 = I18nStore.getTranslatePlural();
 
 /***/ },
 /* 23 */
@@ -2940,6 +2924,18 @@
 	// Is this the actively logged in user
 	var _current = undefined;
 
+	function receiveUser(_ref) {
+	  var user = _ref.user;
+	  var current = _ref.current;
+	  var profile = _ref.profile;
+
+	  _users.set(+user.id, user);
+
+	  if (current) {
+	    _current = user;
+	  }
+	}
+
 	var UserStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getUsers: function getUsers() {
 	    return _users;
@@ -2949,20 +2945,10 @@
 	  },
 
 	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.USER_RECEIVE, function (_ref) {
-	    var user = _ref.user;
-	    var current = _ref.current;
-	    var profile = _ref.profile;
-
-	    _users.set(+user.id, user);
-
-	    if (current) {
-	      _current = user;
-	    }
-	  }), _defineProperty(_register, _JWConstants.ActionTypes.USER_RECEIVE_ALL, function (_ref2) {
+	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.USER_RECEIVE, receiveUser), _defineProperty(_register, _JWConstants.ActionTypes.USER_RECEIVE_ALL, function (_ref2) {
 	    var users = _ref2.users;
-	    return users.forEach(function (u) {
-	      return receiveUser(u, {});
+	    return users.forEach(function (user) {
+	      return receiveUser({ user: user });
 	    });
 	  }), _register), function () {
 	    return UserStore.emitChange();
@@ -3106,7 +3092,7 @@
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
-	var _Walk = __webpack_require__(82);
+	var _Walk = __webpack_require__(56);
 
 	var _I18nActions = __webpack_require__(3);
 
@@ -3115,6 +3101,10 @@
 	var _I18nStore = __webpack_require__(22);
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
+
+	var _NotifyStore = __webpack_require__(58);
+
+	var _NotifyStore2 = _interopRequireDefault(_NotifyStore);
 
 	var _helpers = __webpack_require__(45);
 
@@ -3244,11 +3234,13 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      _I18nStore2.default.addChangeListener(this._onChange);
+	      NotifyStore.addChangeListener(this._onChange);
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      _I18nStore2.default.removeChangeListener(this._onChange);
+	      NotifyStore.removeChangeListener(this._onChange);
 	    }
 	  }, {
 	    key: 'render',
@@ -7412,6 +7404,311 @@
 
 	'use strict';
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * Walk Utils
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Mapping functions to grab remote or global-defined Walks
+	                                                                                                                                                                                                                                                                   */
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.buildWalkObject = buildWalkObject;
+	exports.save = save;
+	exports.publish = publish;
+	exports.load = load;
+
+	var _WalkActions = __webpack_require__(12);
+
+	var _WalkActions2 = _interopRequireDefault(_WalkActions);
+
+	var _WalkStore = __webpack_require__(21);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * Build a walk object based on input data.
+	 * Needed for API updates that modify the datastructure, or for loading default
+	 * vals when unspecified.
+	 * @param object data
+	 * @return object
+	 */
+	// TODO: move this into its own model js
+
+	/**
+	 * Migrate any walks saved in beta format to the v1 API
+	 * @param object walk
+	 * @return object
+	 */
+	function migrateToV1(walk) {
+	  var migratedWalk = Object.assign({}, walk);
+
+	  // Convert old {0: marker, 1: marker} indexing to a proper array
+	  // Convert markers
+	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.markers)) {
+	    migratedWalk.map.markers = Helper.objectToArray(migratedWalk.map.markers);
+	  }
+	  // Convert routes
+	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.route)) {
+	    migratedWalk.map.route = Helper.objectToArray(migratedWalk.map.route);
+	  }
+	  // Convert time slots
+	  if (migratedWalk.time && !Array.isArray(migratedWalk.time.slots)) {
+	    migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
+	  }
+	  // Turn all 'false' values into empty strings
+	  for (var i in migratedWalk) {
+	    if (migratedWalk[i] === false) {
+	      migratedWalk[i] = '';
+	    } else if (migratedWalk[i] === null) {
+	      // Clear out 'nulls' so we instead take their state from defaults
+	      delete migratedWalk[i];
+	    }
+	  }
+
+	  return migratedWalk;
+	}
+
+	function buildWalkObject(_ref) {
+	  var data = _ref.data;
+	  var user = _ref.user;
+	  var url = _ref.url;
+
+	  // Keep these defaults to type, ie don't pre-seed data here, aside from
+	  // data loaded by passing it in
+	  var defaultWalk = __webpack_require__(57);
+	  var defaultTeam = [{
+	    type: 'you',
+	    "name-first": user.firstName,
+	    "name-last": user.lastName,
+	    role: 'walk-leader',
+	    primary: 'on',
+	    bio: user.bio,
+	    twitter: user.twitter,
+	    facebook: user.facebook,
+	    website: user.website,
+	    email: user.email,
+	    phone: ''
+	  }];
+	  var walk = _extends({}, defaultWalk, { team: defaultTeam, url: url }, migrateToV1(data));
+
+	  return walk;
+	}
+
+	// GET a walk from a remote request
+	function getWalk(url, cb) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('GET', url.replace(/(\/+|)$/, '/json'));
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      cb(null, migrateToV1(data));
+	    } catch (e) {
+	      cb('Error parsing JSON returned on walk' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    cb('Failed to load walk ' + url);
+	  };
+	  xhr.send();
+	}
+
+	// Load a walk from the JanesWalk global
+	function getWalkGlobal(cb) {
+	  // CB for consistency, but should always return right away
+	  cb(undefined, JanesWalk.walk, JanesWalk.walk.url);
+	}
+
+	// Generic function for sending a walk to the server
+	function walkSend(url, walk, method, cb) {
+	  var xhr = new XMLHttpRequest();
+	  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+	  xhr.open(method, url);
+	  xhr.onload = function () {
+	    var response;
+	    try {
+	      response = JSON.parse(this.responseText);
+	      cb(null, response, url);
+	    } catch (e) {
+	      cb('Error parsing JSON on walk post' + url);
+	    }
+	  };
+	  xhr.send(JSON.stringify(walk));
+	}
+
+	function save(cb) {
+	  NotifyActions.info('Saving walk', 'save');
+	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'POST', function (err, message) {
+	    if (err) {
+	      NotifyActions.error('Failed to save walk');
+	      console.log(err);
+	    } else {
+	      NotifyActions.info('Walk saved');
+	      cb();
+	      console.log(message);
+	    }
+	  });
+	}
+
+	function publish(cb) {
+	  NotifyActions.info('Publishing walk', 'save');
+	  // PUT a walk
+	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'PUT', function (err, message) {
+	    if (err) {
+	      NotifyActions.error('Failed to publish walk');
+	      console.log(err);
+	    } else {
+	      NotifyActions.info('Walk published');
+	      cb();
+	      console.log(message);
+	    }
+	  });
+	};
+
+	function load(url) {
+	  var receiver = function receiver(err, walk, url) {
+	    if (err) {
+	      NotifyActions.error('Failed to load walk');
+	    } else {
+	      _WalkActions2.default.receive(walk);
+	    }
+	  };
+
+	  if (url) {
+	    getWalk(url, receiver);
+	  } else {
+	    getWalkGlobal(receiver);
+	  }
+	}
+
+/***/ },
+/* 57 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"name": "",
+		"shortDescription": "",
+		"longDescription": "",
+		"accessibleInfo": "",
+		"accessibleTransit": "",
+		"accessibleParking": "",
+		"accessibleFind": "",
+		"map": {
+			"markers": [],
+			"route": []
+		},
+		"team": [
+			{
+				"id": -1,
+				"type": "you",
+				"name-first": "",
+				"name-last": "",
+				"role": "walk-leader",
+				"primary": "on",
+				"bio": "",
+				"twitter": "",
+				"facebook": "",
+				"website": "",
+				"email": "",
+				"phone": ""
+			}
+		],
+		"time": {
+			"type": "",
+			"slots": []
+		},
+		"thumbnails": [],
+		"wards": "",
+		"checkboxes": {},
+		"notifications": [],
+		"mirrors": {},
+		"url": ""
+	};
+
+/***/ },
+/* 58 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _register;
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(18);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var _Stores = __webpack_require__(20);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * Notify Store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * The notifications. Essentially a log to emit events.
+	                                                                                                                                                                                                                   */
+
+	// Requires
+
+	// The notifications
+	var _log = [];
+
+	function receiveLogEntry(message, component, level) {
+	  _log.push({
+	    time: Date.now(),
+	    message: message,
+	    level: level
+	  });
+	}
+
+	var NotifyStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	  getLog: function getLog() {
+	    return _log;
+	  },
+	  getLogFrom: function getLogFrom(from) {
+	    return _log.filter(function (entry) {
+	      return entry.time >= from;
+	    });
+	  },
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.LOG_INFO, function (_ref) {
+	    var message = _ref.message;
+	    var _ref$component = _ref.component;
+	    var component = _ref$component === undefined ? 'caw' : _ref$component;
+
+	    receiveLogEntry(message, component, 'info');
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.LOG_WARN, function (_ref2) {
+	    var message = _ref2.message;
+	    var component = _ref2.component;
+
+	    receiveLogEntry(message, component || 'caw', 'warn');
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.LOG_ERROR, function (_ref3) {
+	    var message = _ref3.message;
+	    var component = _ref3.component;
+
+	    receiveLogEntry(message, component || 'caw', 'error');
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.LOG_EMPTY, function () {
+	    return _log.splice(0);
+	  }), _register), function () {
+	    return NotifyStore.emitChange();
+	  })
+	});
+
+	exports.default = NotifyStore;
+
+/***/ },
+/* 59 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -7430,43 +7727,43 @@
 
 	var Action = _interopRequireWildcard(_ItineraryActions);
 
-	var _WalkHeader = __webpack_require__(57);
+	var _WalkHeader = __webpack_require__(60);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(58);
+	var _WalkDescription = __webpack_require__(61);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(59);
+	var _WalkRoute = __webpack_require__(62);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(60);
+	var _WalkAccessibility = __webpack_require__(63);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(62);
+	var _WalkPublicTransit = __webpack_require__(65);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(63);
+	var _WalkParking = __webpack_require__(66);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(64);
+	var _WalkStart = __webpack_require__(67);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(65);
+	var _WalkTeam = __webpack_require__(68);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(66);
+	var _WalkMenu = __webpack_require__(69);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(68);
+	var _WalkMap = __webpack_require__(71);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7587,7 +7884,7 @@
 	};
 
 /***/ },
-/* 57 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7738,7 +8035,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 58 */
+/* 61 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7772,7 +8069,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-/* 59 */
+/* 62 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7821,7 +8118,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-/* 60 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7830,7 +8127,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(61);
+	var _Accessible = __webpack_require__(64);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -7868,7 +8165,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-/* 61 */
+/* 64 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -7899,7 +8196,7 @@
 	}
 
 /***/ },
-/* 62 */
+/* 65 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7934,7 +8231,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 63 */
+/* 66 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7971,7 +8268,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 64 */
+/* 67 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8001,7 +8298,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 65 */
+/* 68 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8086,7 +8383,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 66 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8097,19 +8394,19 @@
 
 	var _ItineraryUtils = __webpack_require__(19);
 
-	var _WalkAccessibility = __webpack_require__(60);
+	var _WalkAccessibility = __webpack_require__(63);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(62);
+	var _WalkPublicTransit = __webpack_require__(65);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(63);
+	var _WalkParking = __webpack_require__(66);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(67);
+	var _Theme = __webpack_require__(70);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8235,7 +8532,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 67 */
+/* 70 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8289,7 +8586,7 @@
 	}
 
 /***/ },
-/* 68 */
+/* 71 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8499,7 +8796,7 @@
 	};
 
 /***/ },
-/* 69 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8510,15 +8807,15 @@
 	  value: true
 	});
 
-	var _DashboardHeader = __webpack_require__(70);
+	var _DashboardHeader = __webpack_require__(73);
 
 	var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
 
-	var _DashboardMenu = __webpack_require__(71);
+	var _DashboardMenu = __webpack_require__(74);
 
 	var _DashboardMenu2 = _interopRequireDefault(_DashboardMenu);
 
-	var _DashboardSummary = __webpack_require__(72);
+	var _DashboardSummary = __webpack_require__(75);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
@@ -8623,7 +8920,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 70 */
+/* 73 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8680,7 +8977,7 @@
 	exports.default = DashboardHeader;
 
 /***/ },
-/* 71 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8695,23 +8992,23 @@
 	  value: true
 	});
 
-	var _DashboardSummary = __webpack_require__(72);
+	var _DashboardSummary = __webpack_require__(75);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _DashboardResources = __webpack_require__(73);
+	var _DashboardResources = __webpack_require__(76);
 
 	var _DashboardResources2 = _interopRequireDefault(_DashboardResources);
 
-	var _MyBlogPosts = __webpack_require__(74);
+	var _MyBlogPosts = __webpack_require__(77);
 
 	var _MyBlogPosts2 = _interopRequireDefault(_MyBlogPosts);
 
-	var _Walks = __webpack_require__(75);
+	var _Walks = __webpack_require__(78);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
 
-	var _WalkLeaders = __webpack_require__(79);
+	var _WalkLeaders = __webpack_require__(82);
 
 	var _WalkLeaders2 = _interopRequireDefault(_WalkLeaders);
 
@@ -8814,7 +9111,7 @@
 	;
 
 /***/ },
-/* 72 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8898,7 +9195,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 73 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9066,7 +9363,7 @@
 	exports.default = DashboardResources;
 
 /***/ },
-/* 74 */
+/* 77 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9110,7 +9407,7 @@
 	exports.default = MyBlogPosts;
 
 /***/ },
-/* 75 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9121,15 +9418,15 @@
 	  value: true
 	});
 
-	var _WalkFilters = __webpack_require__(76);
+	var _WalkFilters = __webpack_require__(79);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
 
-	var _WalksMap = __webpack_require__(77);
+	var _WalksMap = __webpack_require__(80);
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
-	var _Walk = __webpack_require__(78);
+	var _Walk = __webpack_require__(81);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9308,7 +9605,7 @@
 	exports.default = Walks;
 
 /***/ },
-/* 76 */
+/* 79 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9416,7 +9713,7 @@
 	exports.default = WalkFilters;
 
 /***/ },
-/* 77 */
+/* 80 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9668,7 +9965,7 @@
 	};
 
 /***/ },
-/* 78 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9779,7 +10076,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 79 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9792,7 +10089,7 @@
 	  value: true
 	});
 
-	var _WalkLeader = __webpack_require__(80);
+	var _WalkLeader = __webpack_require__(83);
 
 	var _WalkLeader2 = _interopRequireDefault(_WalkLeader);
 
@@ -9893,7 +10190,7 @@
 	exports.default = WalkLeaders;
 
 /***/ },
-/* 80 */
+/* 83 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9972,7 +10269,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 81 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10172,236 +10469,6 @@
 	})(React.Component);
 
 	exports.default = Login;
-
-/***/ },
-/* 82 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-	                                                                                                                                                                                                                                                                   * Walk Utils
-	                                                                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                                                                   * Mapping functions to grab remote or global-defined Walks
-	                                                                                                                                                                                                                                                                   */
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.buildWalkObject = buildWalkObject;
-	exports.save = save;
-	exports.publish = publish;
-	exports.load = load;
-
-	var _WalkActions = __webpack_require__(12);
-
-	var _WalkActions2 = _interopRequireDefault(_WalkActions);
-
-	var _WalkStore = __webpack_require__(21);
-
-	var _WalkStore2 = _interopRequireDefault(_WalkStore);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/**
-	 * Build a walk object based on input data.
-	 * Needed for API updates that modify the datastructure, or for loading default
-	 * vals when unspecified.
-	 * @param object data
-	 * @return object
-	 */
-	// TODO: move this into its own model js
-
-	/**
-	 * Migrate any walks saved in beta format to the v1 API
-	 * @param object walk
-	 * @return object
-	 */
-	function migrateToV1(walk) {
-	  var migratedWalk = Object.assign({}, walk);
-
-	  // Convert old {0: marker, 1: marker} indexing to a proper array
-	  // Convert markers
-	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.markers)) {
-	    migratedWalk.map.markers = Helper.objectToArray(migratedWalk.map.markers);
-	  }
-	  // Convert routes
-	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.route)) {
-	    migratedWalk.map.route = Helper.objectToArray(migratedWalk.map.route);
-	  }
-	  // Convert time slots
-	  if (migratedWalk.time && !Array.isArray(migratedWalk.time.slots)) {
-	    migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
-	  }
-	  // Turn all 'false' values into empty strings
-	  for (var i in migratedWalk) {
-	    if (migratedWalk[i] === false) {
-	      migratedWalk[i] = '';
-	    } else if (migratedWalk[i] === null) {
-	      // Clear out 'nulls' so we instead take their state from defaults
-	      delete migratedWalk[i];
-	    }
-	  }
-
-	  return migratedWalk;
-	}
-
-	function buildWalkObject(_ref) {
-	  var data = _ref.data;
-	  var user = _ref.user;
-	  var url = _ref.url;
-
-	  // Keep these defaults to type, ie don't pre-seed data here, aside from
-	  // data loaded by passing it in
-	  var defaultWalk = __webpack_require__(83);
-	  var defaultTeam = [{
-	    type: 'you',
-	    "name-first": user.firstName,
-	    "name-last": user.lastName,
-	    role: 'walk-leader',
-	    primary: 'on',
-	    bio: user.bio,
-	    twitter: user.twitter,
-	    facebook: user.facebook,
-	    website: user.website,
-	    email: user.email,
-	    phone: ''
-	  }];
-	  var walk = _extends({}, defaultWalk, { team: defaultTeam, url: url }, migrateToV1(data));
-
-	  return walk;
-	}
-
-	// GET a walk from a remote request
-	function getWalk(url, cb) {
-	  var xhr = new XMLHttpRequest();
-	  xhr.open('GET', url.replace(/(\/+|)$/, '/json'));
-	  xhr.onload = function () {
-	    var data = undefined;
-	    try {
-	      data = JSON.parse(this.responseText);
-	      cb(null, migrateToV1(data));
-	    } catch (e) {
-	      cb('Error parsing JSON returned on walk' + url);
-	    }
-	  };
-	  xhr.onerror = function () {
-	    cb('Failed to load walk ' + url);
-	  };
-	  xhr.send();
-	}
-
-	// Load a walk from the JanesWalk global
-	function getWalkGlobal(cb) {
-	  // CB for consistency, but should always return right away
-	  cb(undefined, JanesWalk.walk, JanesWalk.walk.url);
-	}
-
-	// Generic function for sending a walk to the server
-	function walkSend(url, walk, method, cb) {
-	  var xhr = new XMLHttpRequest();
-	  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	  xhr.open(method, url);
-	  xhr.onload = function () {
-	    var response;
-	    try {
-	      response = JSON.parse(this.responseText);
-	      cb(null, response, url);
-	    } catch (e) {
-	      cb('Error parsing JSON on walk post' + url);
-	    }
-	  };
-	  xhr.send(JSON.stringify(walk));
-	}
-
-	function save(cb) {
-	  NotifyActions.info('Saving walk', 'save');
-	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'POST', function (err, message) {
-	    if (err) {
-	      NotifyActions.error('Failed to save walk');
-	      console.log(err);
-	    } else {
-	      NotifyActions.info('Walk saved');
-	      cb();
-	      console.log(message);
-	    }
-	  });
-	}
-
-	function publish(cb) {
-	  NotifyActions.info('Publishing walk', 'save');
-	  // PUT a walk
-	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'PUT', function (err, message) {
-	    if (err) {
-	      NotifyActions.error('Failed to publish walk');
-	      console.log(err);
-	    } else {
-	      NotifyActions.info('Walk published');
-	      cb();
-	      console.log(message);
-	    }
-	  });
-	};
-
-	function load(url) {
-	  var receiver = function receiver(err, walk, url) {
-	    if (err) {
-	      NotifyActions.error('Failed to load walk');
-	    } else {
-	      _WalkActions2.default.receive(walk);
-	    }
-	  };
-
-	  if (url) {
-	    getWalk(url, receiver);
-	  } else {
-	    getWalkGlobal(receiver);
-	  }
-	}
-
-/***/ },
-/* 83 */
-/***/ function(module, exports) {
-
-	module.exports = {
-		"name": "",
-		"shortDescription": "",
-		"longDescription": "",
-		"accessibleInfo": "",
-		"accessibleTransit": "",
-		"accessibleParking": "",
-		"accessibleFind": "",
-		"map": {
-			"markers": [],
-			"route": []
-		},
-		"team": [
-			{
-				"id": -1,
-				"type": "you",
-				"name-first": "",
-				"name-last": "",
-				"role": "walk-leader",
-				"primary": "on",
-				"bio": "",
-				"twitter": "",
-				"facebook": "",
-				"website": "",
-				"email": "",
-				"phone": ""
-			}
-		],
-		"time": {
-			"type": "",
-			"slots": []
-		},
-		"thumbnails": [],
-		"wards": "",
-		"checkboxes": {},
-		"notifications": [],
-		"mirrors": {},
-		"url": ""
-	};
 
 /***/ }
 /******/ ]);
