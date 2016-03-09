@@ -18,7 +18,7 @@ import {buildWalkObject} from 'janeswalk/utils/api/Walk';
 // Flux
 import I18nActions from 'janeswalk/actions/I18nActions';
 import I18nStore, {t, t2} from 'janeswalk/stores/I18nStore';
-import NotifyStory from 'janeswalk/stores/NotifyStore';
+import NotifyStore from 'janeswalk/stores/NotifyStore';
 
 // Helpers
 import Helper from '../helpers/helpers.jsx';
