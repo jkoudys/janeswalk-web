@@ -135,63 +135,60 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListTypeahead).call(this, props));
 
-	    _this.state = {
-	      q: '',
-	      matched: props.countries
-	    };
+	    Object.assign(_this, {
+	      state: {
+	        q: '',
+	        matched: props.countries
+	      },
+
+	      /**
+	       * Called when typing in the input
+	       * @param ReactEvent ev
+	       */
+	      handleInput: function handleInput(_ref3) {
+	        var q = _ref3.target.value;
+
+	        var countries = [];
+
+	        // Loop through all countries and build a list of cities which match
+	        _this.props.countries.forEach(function (country) {
+	          var cities = country.cities.filter(function (city) {
+	            return !q || strContains(city.name, q);
+	          });
+	          // Avoid including countries which have no matching cities
+	          if (cities.length) {
+	            countries.push(Object.assign({}, country, { cities: cities }));
+	          }
+	        });
+
+	        _this.setState({ q: q, matched: countries });
+	      },
+
+	      /**
+	       * Form action links the top selected city
+	       * @param ReactEvent ev
+	       */
+	      handleSubmit: function handleSubmit(ev) {
+	        var firstCountry = _this.state.matched[0];
+	        var firstCity = undefined;
+
+	        // If there's a matching city, that's the URL we go to
+	        if (firstCountry) {
+	          firstCity = firstCountry.cities[0];
+	          if (firstCity) {
+	            _this.setState({ q: firstCity.name }, function () {
+	              return ev.target.action = firstCity.url;
+	            });
+	          }
+	        }
+	      }
+	    });
 	    return _this;
 	  }
 
-	  /**
-	   * Called when typing in the input
-	   * @param ReactEvent ev
-	   */
-
 	  _createClass(PageListTypeahead, [{
-	    key: 'handleInput',
-	    value: function handleInput(q) {
-	      var countries = [];
-
-	      // Loop through all countries and build a list of cities which match
-	      this.props.countries.forEach(function (country) {
-	        var cities = country.cities.filter(function (city) {
-	          return !q || strContains(city.name, q);
-	        });
-	        // Avoid including countries which have no matching cities
-	        if (cities.length) {
-	          countries.push(Object.assign({}, country, { cities: cities }));
-	        }
-	      });
-
-	      this.setState({ q: q, matched: countries });
-	    }
-
-	    /**
-	     * Form action links the top selected city
-	     * @param ReactEvent ev
-	     */
-
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit(ev) {
-	      var firstCountry = this.state.matched[0];
-	      var firstCity = undefined;
-
-	      // If there's a matching city, that's the URL we go to
-	      if (firstCountry) {
-	        firstCity = firstCountry.cities[0];
-	        if (firstCity) {
-	          this.setState({ q: firstCity.name }, function () {
-	            return ev.target.action = firstCity.url;
-	          });
-	        }
-	      }
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      var _state = this.state;
 	      var q = _state.q;
 	      var matched = _state.matched;
@@ -216,15 +213,11 @@
 	        { className: 'ccm-page-list-typeahead' },
 	        React.createElement(
 	          'form',
-	          { onSubmit: function onSubmit(ev) {
-	              return _this2.handleSubmit(ev);
-	            } },
+	          { onSubmit: this.handleSubmit },
 	          React.createElement(
 	            'fieldset',
 	            { className: 'search' },
-	            React.createElement('input', { type: 'text', name: 'selected_option', className: 'typeahead', placeholder: (0, _I18nStore.t)('Find citizen-led walks in your city'), autoComplete: 'off', value: this.state.q, onChange: function onChange(ev) {
-	                return _this2.handleInput(ev.target.value);
-	              } }),
+	            React.createElement('input', { type: 'text', name: 'selected_option', className: 'typeahead', placeholder: (0, _I18nStore.t)('Find citizen-led walks in your city'), autoComplete: 'off', value: this.state.q, onChange: this.handleInput }),
 	            React.createElement(
 	              'button',
 	              { type: 'submit' },
@@ -258,10 +251,10 @@
 
 	// Alternate render of these same cities as a select, primarily for mobile
 
-	var CityOption = function CityOption(_ref3) {
-	  var id = _ref3.id;
-	  var name = _ref3.name;
-	  var url = _ref3.url;
+	var CityOption = function CityOption(_ref4) {
+	  var id = _ref4.id;
+	  var name = _ref4.name;
+	  var url = _ref4.url;
 	  return React.createElement(
 	    'option',
 	    { value: url, key: 'city' + id },
@@ -269,11 +262,11 @@
 	  );
 	};
 
-	var CountryOption = function CountryOption(_ref4) {
-	  var id = _ref4.id;
-	  var name = _ref4.name;
-	  var url = _ref4.url;
-	  var cities = _ref4.cities;
+	var CountryOption = function CountryOption(_ref5) {
+	  var id = _ref5.id;
+	  var name = _ref5.name;
+	  var url = _ref5.url;
+	  var cities = _ref5.cities;
 	  return React.createElement(
 	    'optgroup',
 	    { key: 'country' + id, className: 'country', label: name },
@@ -289,27 +282,29 @@
 	  function PageListSelect(props) {
 	    _classCallCheck(this, PageListSelect);
 
-	    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListSelect).call(this, props));
+	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListSelect).call(this, props));
 
-	    _this3.state = {
-	      selected: null,
-	      countries: props.countries.sort(function (a, b) {
-	        return a.name.localeCompare(b.name);
-	      })
-	    };
-	    return _this3;
+	    Object.assign(_this2, {
+	      state: {
+	        selected: null,
+	        countries: props.countries.sort(function (a, b) {
+	          return a.name.localeCompare(b.name);
+	        })
+	      },
+	      handleChange: function handleChange(_ref6) {
+	        var _this3 = this;
+
+	        var value = _ref6.target.value;
+
+	        this.setState({ selected: value }, function () {
+	          return React.findDOMNode(_this3.refs.form).submit();
+	        });
+	      }
+	    });
+	    return _this2;
 	  }
 
 	  _createClass(PageListSelect, [{
-	    key: 'handleChange',
-	    value: function handleChange(ev) {
-	      var _this4 = this;
-
-	      this.setState({ selected: ev.target.value }, function () {
-	        return React.findDOMNode(_this4.refs.form).submit();
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var user = this.props.user;
@@ -366,7 +361,7 @@
 
 	document.addEventListener('DOMContentLoaded', function () {
 	  // TODO: use ReactRouter for loading either, not c5 blocks directly
-	  if (isMobile) {
+	  if (isMobile && false) {
 	    React.render(React.createElement(PageListSelect, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
 	  } else {
 	    React.render(React.createElement(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
@@ -390,63 +385,47 @@
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _translate = __webpack_require__(10);
+	var _Stores = __webpack_require__(10);
+
+	var _translate = __webpack_require__(11);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// Simple 'something has changed' event
-	/**
-	 * i18n Store
-	 *
-	 * Store for i18n language translations
-	 */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * i18n Store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * Store for i18n language translations
+	                                                                                                                                                                                                                   */
 
 	// Basic flux setup
-	var CHANGE_EVENT = 'change';
-
-	// Local vars
 
 	// The library for managing translations
+
+	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-
-	  /**
-	   * @param {function} callback
-	   */
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
+	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
 	  getTranslatePlural: function getTranslatePlural() {
 	    return _i18n.translatePlural.bind(_i18n);
-	  }
-	});
+	  },
 
-	// Register our dispatch token as a static method
-	I18nStore.dispatchToken = (0, _AppDispatcher.register)(function (payload) {
-	  // Go through the various actions
-	  switch (payload.type) {
-	    // POI actions
-	    case _JWConstants.ActionTypes.I18N_RECEIVE:
-	      _i18n.constructor(payload.translations);
-	      I18nStore.emitChange();
-	      break;
-	    default:
-	    // do nothing
-	  }
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.I18N_RECEIVE, function (_ref) {
+	    var translations = _ref.translations;
+	    return _i18n.constructor(translations);
+	  }), function () {
+	    return I18nStore.emitChange();
+	  })
 	});
 
 	exports.default = I18nStore;
-	var t = exports.t = _i18n.translate.bind(_i18n);
-	var t2 = exports.t2 = _i18n.translatePlural.bind(_i18n);
+	var t = exports.t = I18nStore.getTranslate();
+	var t2 = exports.t2 = I18nStore.getTranslatePlural();
 
 /***/ },
 /* 3 */
@@ -731,17 +710,27 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.waitFor = exports.dispatch = exports.register = undefined;
+	exports.waitFor = exports.dispatch = exports.register2 = exports.register = undefined;
 
 	var _flux = __webpack_require__(5);
 
 	var AppDispatcher = new _flux.Dispatcher();
-	var register = AppDispatcher.register.bind(AppDispatcher);
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
+	var register = AppDispatcher.register.bind(AppDispatcher);
 	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
+
+	function register2(receivers, onComplete) {
+	  return AppDispatcher.register(function (payload) {
+	    if (payload.type in receivers) {
+	      receivers[payload.type](payload);
+	      if (onComplete) onComplete(payload);
+	    }
+	  });
+	}
 
 	exports.default = AppDispatcher;
 	exports.register = register;
+	exports.register2 = register2;
 	exports.dispatch = dispatch;
 	exports.waitFor = waitFor;
 
@@ -1200,6 +1189,29 @@
 
 /***/ },
 /* 10 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var CHANGE_EVENT = 'change';
+
+	var changeMethods = exports.changeMethods = {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  }
+	};
+
+/***/ },
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';

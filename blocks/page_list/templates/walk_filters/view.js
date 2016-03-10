@@ -68,11 +68,11 @@
 
 	var _WalkFilter2 = _interopRequireDefault(_WalkFilter);
 
-	var _WalkActions = __webpack_require__(20);
+	var _WalkActions = __webpack_require__(21);
 
 	var WalkActions = _interopRequireWildcard(_WalkActions);
 
-	var _CityActions = __webpack_require__(21);
+	var _CityActions = __webpack_require__(22);
 
 	var CityActions = _interopRequireWildcard(_CityActions);
 
@@ -360,19 +360,19 @@
 
 	var _LocationMap2 = _interopRequireDefault(_LocationMap);
 
-	var _DateRange = __webpack_require__(16);
+	var _DateRange = __webpack_require__(17);
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
-	var _Tabs = __webpack_require__(17);
+	var _Tabs = __webpack_require__(18);
 
 	var _Tabs2 = _interopRequireDefault(_Tabs);
 
-	var _WalkStore = __webpack_require__(18);
+	var _WalkStore = __webpack_require__(19);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
-	var _CityStore = __webpack_require__(19);
+	var _CityStore = __webpack_require__(20);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
@@ -1122,63 +1122,47 @@
 
 	var _JWConstants = __webpack_require__(14);
 
-	var _translate = __webpack_require__(15);
+	var _Stores = __webpack_require__(15);
+
+	var _translate = __webpack_require__(16);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	// Simple 'something has changed' event
-	/**
-	 * i18n Store
-	 *
-	 * Store for i18n language translations
-	 */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * i18n Store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * Store for i18n language translations
+	                                                                                                                                                                                                                   */
 
 	// Basic flux setup
-	var CHANGE_EVENT = 'change';
-
-	// Local vars
 
 	// The library for managing translations
+
+	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-
-	  /**
-	   * @param {function} callback
-	   */
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
+	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
 	  getTranslatePlural: function getTranslatePlural() {
 	    return _i18n.translatePlural.bind(_i18n);
-	  }
-	});
+	  },
 
-	// Register our dispatch token as a static method
-	I18nStore.dispatchToken = (0, _AppDispatcher.register)(function (payload) {
-	  // Go through the various actions
-	  switch (payload.type) {
-	    // POI actions
-	    case _JWConstants.ActionTypes.I18N_RECEIVE:
-	      _i18n.constructor(payload.translations);
-	      I18nStore.emitChange();
-	      break;
-	    default:
-	    // do nothing
-	  }
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.I18N_RECEIVE, function (_ref) {
+	    var translations = _ref.translations;
+	    return _i18n.constructor(translations);
+	  }), function () {
+	    return I18nStore.emitChange();
+	  })
 	});
 
 	exports.default = I18nStore;
-	var t = exports.t = _i18n.translate.bind(_i18n);
-	var t2 = exports.t2 = _i18n.translatePlural.bind(_i18n);
+	var t = exports.t = I18nStore.getTranslate();
+	var t2 = exports.t2 = I18nStore.getTranslatePlural();
 
 /***/ },
 /* 8 */
@@ -1463,17 +1447,27 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.waitFor = exports.dispatch = exports.register = undefined;
+	exports.waitFor = exports.dispatch = exports.register2 = exports.register = undefined;
 
 	var _flux = __webpack_require__(10);
 
 	var AppDispatcher = new _flux.Dispatcher();
-	var register = AppDispatcher.register.bind(AppDispatcher);
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
+	var register = AppDispatcher.register.bind(AppDispatcher);
 	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
+
+	function register2(receivers, onComplete) {
+	  return AppDispatcher.register(function (payload) {
+	    if (payload.type in receivers) {
+	      receivers[payload.type](payload);
+	      if (onComplete) onComplete(payload);
+	    }
+	  });
+	}
 
 	exports.default = AppDispatcher;
 	exports.register = register;
+	exports.register2 = register2;
 	exports.dispatch = dispatch;
 	exports.waitFor = waitFor;
 
@@ -1936,6 +1930,29 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var CHANGE_EVENT = 'change';
+
+	var changeMethods = exports.changeMethods = {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  }
+	};
+
+/***/ },
+/* 16 */
+/***/ function(module, exports) {
+
+	'use strict';
+
 	/**
 	 * i18n translation class
 	 *
@@ -2024,7 +2041,7 @@
 	module.exports = I18nTranslator;
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2126,7 +2143,7 @@
 	exports.default = DateRange;
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -2193,10 +2210,12 @@
 	};
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+
+	var _register;
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -2208,17 +2227,17 @@
 
 	var _JWConstants = __webpack_require__(14);
 
-	var CHANGE_EVENT = 'change';
+	var _Stores = __webpack_require__(15);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * Walk store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	                                                                                                                                                                                                                   * description, and people involved with a walk.
+	                                                                                                                                                                                                                   */
 
 	// Store singletons
 	// The Walk objects, keyed by walk ID (ie collection ID)
-	/**
-	 * Walk store
-	 *
-	 * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
-	 * description, and people involved with a walk.
-	 */
-
 	var _walks = new Map();
 
 	// Receive a single walk
@@ -2233,16 +2252,7 @@
 	  });
 	}
 
-	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
+	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getWalks: function getWalks() {
 	    return _walks;
 	  },
@@ -2251,25 +2261,21 @@
 	  },
 
 	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.WALK_RECEIVE:
-	        receiveWalk(payload.walk);
-	        break;
-	      case _JWConstants.ActionTypes.WALK_RECEIVE_ALL:
-	        receiveWalks(payload.walks);
-	        break;
-	    }
-	    WalkStore.emitChange();
+	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
+	    var walk = _ref.walk;
+	    return receiveWalk(walk);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE_ALL, function (_ref2) {
+	    var walks = _ref2.walks;
+	    return receiveWalks(walks);
+	  }), _register), function () {
+	    return WalkStore.emitChange();
 	  })
 	});
 
 	exports.default = WalkStore;
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2284,33 +2290,19 @@
 
 	var _JWConstants = __webpack_require__(14);
 
-	var CHANGE_EVENT = 'change';
+	var _Stores = __webpack_require__(15);
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
+	                                                                                                                                                                                                                   * City store
+	                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
+	                                                                                                                                                                                                                   * currently no requirement exists for this.
+	                                                                                                                                                                                                                   */
 
 	// Store singletons
-	/**
-	 * City store
-	 *
-	 * Single-city storage. May be refactored for multiple cities later, but
-	 * currently no requirement exists for this.
-	 */
-
 	var _city = undefined;
 
-	// Receive a single walk
-	function receiveCity(city) {
-	  _city = city;
-	}
-
-	var CityStore = Object.assign({}, _events.EventEmitter.prototype, {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  },
+	var CityStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
 	  getCity: function getCity() {
 	    return _city;
 	  },
@@ -2318,23 +2310,17 @@
 	    return _city && _city.latlng;
 	  },
 
-	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)(function (payload) {
-	    // Go through the various actions
-	    switch (payload.type) {
-	      // Route actions
-	      case _JWConstants.ActionTypes.CITY_RECEIVE:
-	        receiveCity(payload.city);
-	        break;
-	    }
-	    CityStore.emitChange();
+	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
+	    var city = _ref.city;
+	    return _city = city;
+	  }), function () {
+	    return CityStore.emitChange();
 	  })
 	});
-
 	exports.default = CityStore;
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2365,7 +2351,7 @@
 	}
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
