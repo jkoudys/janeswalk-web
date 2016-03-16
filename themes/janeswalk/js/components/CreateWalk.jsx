@@ -1,7 +1,8 @@
-// Create a Walk
-//
-// Form for creating new walks. Includes a map builder, team builder, scheduler
-//
+/**
+ * Create a Walk
+ * Form for creating new walks. Includes a map builder, team builder, scheduler
+ */
+/* global React $ CCM_THEME_PATH */
 
 // Load create-a-walk View components
 import ImageUpload from './caw/ImageUpload.jsx';
@@ -13,24 +14,24 @@ import AccessibleSelect from './caw/AccessibleSelect.jsx';
 import TeamBuilder from './caw/TeamBuilder.jsx';
 import WalkPublish from './caw/WalkPublish.jsx';
 import TextAreaLimit from './TextAreaLimit.jsx';
-import {buildWalkObject} from 'janeswalk/utils/api/Walk';
+import WalkPreview from './caw/WalkPreview.jsx';
+import { buildWalkObject } from 'janeswalk/utils/api/Walk';
 
 // Flux
-import I18nActions from 'janeswalk/actions/I18nActions';
-import I18nStore, {t, t2} from 'janeswalk/stores/I18nStore';
+import I18nStore, { t } from 'janeswalk/stores/I18nStore';
 import NotifyStore from 'janeswalk/stores/NotifyStore';
-
-// Helpers
-import Helper from '../helpers/helpers.jsx';
 
 export default class CreateWalk extends React.Component {
   constructor(props) {
     super(props);
-    const {data, user, url} = props;
+    const { data, user, url } = props;
 
     // Instance props
     Object.assign(this, {
-      state: {notifications: [], ...buildWalkObject({data, user, url})},
+      state: {
+        notifications: [],
+        ...buildWalkObject({ data, user, url }),
+      },
 
       // Simple trigger to re-render the components
       _onChange: () => this.setState({}),
@@ -41,21 +42,21 @@ export default class CreateWalk extends React.Component {
         /* Send in the updated walk to save, but keep working */
         const notifications = this.state.notifications.slice();
         const removeNotice = () => {
-          let notifications = this.state.notifications.slice();
-          this.setState({notifications: notifications.slice(1)});
+          this.setState({ notifications: this.state.notifications.slice(1) });
         };
 
         const defaultOptions = {
-          messageTimeout: 1200
+          messageTimeout: 1200,
         };
+
         options = Object.assign({}, defaultOptions, options);
 
-        notifications.push({type: 'info', name: 'Saving walk'});
+        notifications.push({ type: 'info', name: 'Saving walk' });
 
         // Build a simplified map from the Google objects
         this.setState({
           map: this.refs.mapBuilder.getStateSimple(),
-          notifications: notifications
+          notifications: notifications,
         }, () => {
           $.ajax({
             url: this.state.url,
@@ -82,7 +83,7 @@ export default class CreateWalk extends React.Component {
               this.setState({notifications: notifications});
               setTimeout(removeNotice, 6000);
               console.error(this.url, status, err.toString());
-            }
+            },
           });
         });
         setTimeout(removeNotice, 1200);
@@ -103,10 +104,10 @@ export default class CreateWalk extends React.Component {
       },
 
       // Publish the walk
-      handlePublish: () => this.saveWalk({publish: true}, () => console.log('Walk published')),
+      handlePublish: () => this.saveWalk({ publish: true }, () => console.log('Walk published')),
 
       // Preview the walk
-      handlePreview: () => this.saveWalk({}, () => this.setState({preview: true}))
+      handlePreview: () => this.saveWalk({}, () => this.setState({ preview: true })),
     });
   }
 
@@ -125,12 +126,12 @@ export default class CreateWalk extends React.Component {
     const linkStateMap = {
       value: this.state.map,
       requestChange: (newVal, cb) => {
-        this.setState({map: newVal}, cb);
+        this.setState({ map: newVal }, cb);
       }
     };
 
-    const {user, valt, city} = this.props;
-    const {team} = this.state;
+    const { user, valt, city } = this.props;
+    const { team } = this.state;
 
     return (
       <main id="create-walk">
@@ -273,31 +274,3 @@ export default class CreateWalk extends React.Component {
 }
 // Mixins
 Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin);
-
-class WalkPreview extends React.Component {
-  componentDidMount() {
-    const el = React.findDOMNode(this);
-    // Bootstrap Modal
-    $(el).modal();
-    // Close the modal when modal closes
-    $(el).bind('hidden.bs.modal', () => this.props.close());
-  }
-
-  render() {
-    return (
-      <dialog id="preview-modal">
-        <div>
-          <article>
-            <header>
-              <button type="button" className="close" aria-hidden="true" data-dismiss="modal">&times;</button>
-              <h3>{ t('Preview of your Walk') }</h3>
-            </header>
-            <div className="modal-body">
-              <iframe src={this.props.url} frameBorder="0" />
-            </div>
-          </article>
-        </div>
-      </dialog>
-    );
-  }
-}

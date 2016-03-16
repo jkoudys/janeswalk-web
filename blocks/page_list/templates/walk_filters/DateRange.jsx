@@ -2,10 +2,10 @@
  * Date Range
  * a jQueryUI based React component for picking a to/from date range
  */
+/* global React $ */
 
 const df = 'yy-mm-dd';
 const offset = (new Date()).getTimezoneOffset();
-const oneDay = 24 * 60 * 60 * 1000;
 
 export default class DateRange extends React.Component {
   constructor(props) {
@@ -15,10 +15,10 @@ export default class DateRange extends React.Component {
         from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
         to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : '',
         fromInt: props.value[0] ? props.value[0] + offset : '',
-        toInt: props.value[1] ? props.value[1] + offset : ''
+        toInt: props.value[1] ? props.value[1] + offset : '',
       };
     } else {
-      this.state = {from: '', to: ''};
+      this.state = { from: '', to: '' };
     }
   }
 
@@ -37,9 +37,9 @@ export default class DateRange extends React.Component {
       onSelect: selectedDate => {
         fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
         $to.datepicker('option', 'minDate', selectedDate);
-        this.setState({from: selectedDate});
+        this.setState({ from: selectedDate });
         this.props.onChange(fromTime, toTime);
-      }
+      },
     });
 
     $to.datepicker({
@@ -49,10 +49,10 @@ export default class DateRange extends React.Component {
       dateFormat: df,
       onSelect: selectedDate => {
         toTime = $.datepicker.parseDate(df, selectedDate) - offset;
-        $from.datepicker('option', 'maxDate', selectedDate)
-        this.setState({to: selectedDate});
+        $from.datepicker('option', 'maxDate', selectedDate);
+        this.setState({ to: selectedDate });
         this.props.onChange(fromTime, toTime);
-      }
+      },
     });
   }
 

@@ -1,6 +1,8 @@
 /**
  * The map of upcoming walks for a whole city
  */
+/* global React google $ */
+import InfoWindow from './InfoWindow.jsx';
 
 // Helper to see if a member is a walk leader
 function isWalkLeader(member) {
@@ -10,7 +12,14 @@ function isWalkLeader(member) {
 }
 
 // Date formatter
-const dtfDate = new Intl.DateTimeFormat(undefined, {year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC'});
+const dtfDate = new Intl.DateTimeFormat(undefined, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+  hour: 'numeric',
+  minute: '2-digit',
+  timeZone: 'UTC',
+});
 const _infoNode = document.createElement('div');
 
 /**
@@ -26,7 +35,7 @@ function addNewMarkersToMap(markers, walks, map) {
   // TODO: see how to move these consts out of the function, since
   // they need to be here so google can load first
   // Basic info window
-  const infoWindow = new google.maps.InfoWindow({maxWidth: 300});
+  const infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
 
   // Simple map marker icon
   const icon = {
@@ -35,24 +44,21 @@ function addNewMarkersToMap(markers, walks, map) {
     strokeWeight: 1,
     strokeColor: '#f16725',
     fillOpacity: 0.7,
-    fillColor: '#f16725'
+    fillColor: '#f16725',
   };
 
   // Clean out the markers before we put them back in
-  for (let k in markers) {
-    markers[k].setMap(null);
-  }
+  Object.keys(markers).forEach(k => markers[k].setMap(null));
 
   // Grab starting point of each walk
-  walks.forEach(walk => {
-    let latlng;
-    let marker;
-
+  for (const walk of walks) {
     if (markers[walk.id]) {
       // We already have this marker built, so simply add it to the map
       markers[walk.id].setMap(map);
     } else {
       // We must build a marker
+      let marker;
+      let latlng;
       // Walk location is meeting place coords
       if (walk.map && Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
         latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
@@ -64,30 +70,31 @@ function addNewMarkersToMap(markers, walks, map) {
       marker = new google.maps.Marker({
         position: latlng,
         title: walk.title,
-        icon: icon,
-        map: map,
+        icon,
+        map,
       });
 
       markers[walk.id] = marker;
 
-      google.maps.event.addListener(marker, 'click', function() {
+      google.maps.event.addListener(marker, 'click', () => {
         let leaders;
         let date;
 
         // Build the team list of walk leaders
         if (Array.isArray(walk.team)) {
-          leaders = walk.team.filter(function(member) {
-            return isWalkLeader(member);
-          }).map(function(member) {
-            return member['name-first'] + ' ' + member['name-last'];
-          });
+          leaders = walk.team.filter(member => isWalkLeader(member))
+          .map(member => `${member['name-first']} ${member['name-last']}`);
         }
 
         // Best-effort grab of the time
         try {
           // Show all dates joined together
-          date = <h6><i className="fa fa-calendar" /> {walk.time.slots.map(slot => dtfDate.format(slot[0] * 1000)).join(', ')}</h6>;
-        } catch(e) {
+          date = (
+            <h6>
+              <i className="fa fa-calendar" /> {walk.time.slots.map(slot => dtfDate.format(slot[0] * 1000)).join(', ')}
+            </h6>
+          );
+        } catch (e) {
           // Just log this, but don't die
           console.error('Failed to parse walk time.');
         }
@@ -96,7 +103,8 @@ function addNewMarkersToMap(markers, walks, map) {
         React.render(
           <InfoWindow
             key={walk.id}
-            {...Object.assign({}, walk, {date: date, leaders: leaders})}
+            {...walk}
+            {...{ date, leaders }}
           />,
           _infoNode
         );
@@ -108,20 +116,22 @@ function addNewMarkersToMap(markers, walks, map) {
         infoWindow.open(map, marker);
       });
     }
-  });
+  }
 
   return markers;
 }
 
-export default class CityMap extends React.Component {
+export default class LocationMap extends React.Component {
   constructor(...args) {
     super(...args);
 
-    this.state = {map: null, markers: {}};
+    Object.assign(this, {
+      state: { map: null, markers: {} },
+    });
   }
 
   componentDidMount() {
-    const {zoomlevel, latlng} = this.props;
+    const { zoomlevel, latlng } = this.props;
     const locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
 
     // Setup map
@@ -133,33 +143,24 @@ export default class CityMap extends React.Component {
     });
 
     // Play nice with bootstrap tabs
-    $('a[href="#jw-map"]').on('shown.bs.tab', function(e) {
+    $('a[href="#jw-map"]').on('shown.bs.tab', () => {
       google.maps.event.trigger(map, 'resize');
       map.setCenter(locationLatLng);
     });
 
     // Add our markers to the empty map
     const newMarkers = addNewMarkersToMap({}, this.props.walks, map);
-    this.setState({map: map, markers: newMarkers});
+    this.setState({ map, markers: newMarkers });
   }
 
   componentWillReceiveProps(props) {
     const newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
-    this.setState({markers: newMarkers});
+    this.setState({ markers: newMarkers });
   }
 
   render() {
     return (
-      <div className="cityMap" style={{width: '100%', height: '70vh'}} /> 
+      <div className="cityMap" style={{ width: '100%', height: '70vh' }} />
     );
   }
 }
-
-const InfoWindow = ({title, url, date, shortDescription, leaders}) => (
-  <span>
-    <h4 style={{marginBottom: '0.1em'}}>{title}</h4>
-    {date}
-    <h6>Led by: {leaders.join(', ')}</h6>
-    <p>{shortDescription} <a href={url} target="_blank">Read More</a></p>
-  </span>
-);
