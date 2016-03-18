@@ -11,6 +11,7 @@ const gutil = require('gulp-util');
 const less = require('gulp-less');
 const through = require('through2');
 const webpack = require('webpack');
+const builds = require('./webpack/builds.js');
 
 const paths = {
   js: './themes/janeswalk/js',
@@ -31,37 +32,7 @@ const paths = {
 };
 
 gulp.task('prod', () => {
-  // TODO: transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-  webpack({
-    entry: [paths.jsx_app],
-    output: {
-      path: paths.js,
-      filename: 'janeswalk.min.js',
-    },
-    module: {
-      loaders: [{
-        test: /\.jsx?$/,
-        exclude: /(bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react'],
-        },
-      }, {
-        test: /\.json$/,
-        loader: 'json',
-      }],
-    },
-    plugins: [
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: JSON.stringify('production'),
-        },
-      }),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
-    ],
-    watch: false,
-  }, (err, stats) => {
+  webpack(builds.production, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack:build', err);
     gutil.log('[webpack:build]', stats.toString({
       colors: true,
@@ -86,31 +57,7 @@ gulp.task('js', () => {
 });
 
 gulp.task('js.theme', () => {
-  // TODO: transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-  webpack({
-    entry: [paths.jsx_app],
-    output: {
-      path: paths.js,
-      filename: 'janeswalk.js',
-    },
-    module: {
-      loaders: [{
-        test: /\.less$/,
-        loader: 'style!css!less',
-      }, {
-        test: /\.jsx?$/,
-        exclude: /(bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react'],
-        },
-      }, {
-        test: /\.json$/,
-        loader: 'json',
-      }],
-    },
-    watch: true,
-  }, (err, stats) => {
+  webpack(builds.dev, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack:build', err);
     gutil.log('[webpack:build]', stats.toString({
       colors: true,
