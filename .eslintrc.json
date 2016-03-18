@@ -1,0 +1,25 @@
+{
+  "extends": [
+    "eslint-config-airbnb"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "ecmaFeatures": {
+    "jsx": true
+  },
+  "rules": {
+    "max-len": [2, 120],
+    "react/react-in-jsx-scope": "off",
+    "react/no-deprecated": "off",
+    "react/prop-types": "off",
+    "no-console": "off",
+    "no-shadow": [2, { "builtinGlobals": true, "hoist": "functions", "allow": ["style", "name", "stop", "location"] }]
+  },
+  "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "babel"
+  ]
+}

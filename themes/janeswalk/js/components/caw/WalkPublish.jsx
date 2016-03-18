@@ -1,12 +1,21 @@
+/* global React $ */
+
 // Flux
-import {t, t2} from 'janeswalk/stores/I18nStore';
+import { t } from 'janeswalk/stores/I18nStore';
 
 export default class WalkPublish extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      eventbrite: !!(props.mirrors && props.mirrors.eventbrite)
-    };
+
+    Object.assign(this, {
+      state: {
+        eventbrite: !!(props.mirrors && props.mirrors.eventbrite),
+      },
+      handlePublish: () => {
+        // This function's meant for callbacks, so it grabs the URL from the caller's state
+        this.props.saveWalk({ publish: true }, () => { window.location = this.props.url; });
+      },
+    });
   }
 
   componentDidMount() {
@@ -17,15 +26,10 @@ export default class WalkPublish extends React.Component {
     $(React.findDOMNode(this)).bind('hidden.bs.modal', () => this.props.close());
   }
 
-  handlePublish = () => {
-    // This function's meant for callbacks, so it grabs the URL from the caller's state
-    this.props.saveWalk({publish: true}, () => window.location = this.props.url);
-  }
-
   render() {
+    const { city, close: closeModal } = this.props;
     // Check city config for which walk mirroring services to expose
     let mirrorWalk;
-    let {city, close} = this.props;
     if (city.mirrors.indexOf('eventbrite') > -1) {
       mirrorWalk = (
         <label className="checkbox">
@@ -49,7 +53,7 @@ export default class WalkPublish extends React.Component {
             </div>
             <footer>
               <div className="pull-left">
-                <a className="walkthrough close" data-dismiss="modal" onClick={close}> { t('Bring me back to edit') }</a>
+                <a className="walkthrough close" data-dismiss="modal" onClick={closeModal}> { t('Bring me back to edit') }</a>
               </div>
               <a>
                 <button className="btn btn-primary walkthrough" data-step="publish-confirmation" onClick={this.handlePublish}>{ t('Publish') }</button>

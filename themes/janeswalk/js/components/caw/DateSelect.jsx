@@ -1,3 +1,5 @@
+/* global React CCM_THEME_PATH */
+
 // Components
 import DatePicker from './date/DatePicker.jsx';
 import TimePicker from './date/TimePicker.jsx';
@@ -5,7 +7,7 @@ import TimeSetTable from './date/TimeSetTable.jsx';
 import TimeOpenTable from './date/TimeOpenTable.jsx';
 
 // Flux
-import {t, t2} from 'janeswalk/stores/I18nStore';
+import { t } from 'janeswalk/stores/I18nStore';
 
 // Default to a 1-hour walk time
 const ONE_HOUR = 60 * 60 * 1000;
@@ -16,88 +18,81 @@ export default class DateSelect extends React.Component {
     super();
 
     const today = new Date();
-    const start = new Date(
-      Date.UTC(
-        today.getUTCFullYear(),
-        today.getUTCMonth(),
-        today.getUTCDate() + 7,
-        11,
-        0
-      )
-    );
 
     // Note: we're only keeping the 'date' on there to use Date's string
     // parsing. This method is concerned only with the Time
     // TODO: Support proper time localization - ultimately these times are just
     // strings, so we're using GMT, but that's bad practice.
-    this.state = {start: start, duration: ONE_HOUR};
-  }
+    Object.assign(this, {
+      state: { start: new Date(Date.UTC(
+        today.getUTCFullYear(),
+        today.getUTCMonth(),
+        today.getUTCDate() + 7,
+        11,
+        0
+      )), duration: ONE_HOUR },
 
-  setDay = (date) => {
-    const startDate = this.state.start;
+      setDay: (date) => {
+        const { start } = this.state;
 
-    // Set the Day we're choosing
-    startDate.setUTCFullYear(date.getUTCFullYear());
-    startDate.setUTCMonth(date.getUTCMonth());
-    startDate.setUTCDate(date.getUTCDate());
+        // Set the Day we're choosing
+        start.setUTCFullYear(date.getUTCFullYear());
+        start.setUTCMonth(date.getUTCMonth());
+        start.setUTCDate(date.getUTCDate());
 
-    // Refresh the timepicker
-    this.refs.timePicker.setStartTimes(startDate);
+        // Refresh the timepicker
+        this.refs.timePicker.setStartTimes(start);
 
-    // Update our state
-    // FIXME: This is an overly-complex pattern, but done to avoid frequent
-    // date rebuilding, which is very slow. See if it can be done through
-    // state updates instead.
-    this.setState({start: startDate});
-  }
+        // Update our state
+        this.setState({ start });
+      },
 
-  /**
-   * Set the time
-   * @param Date time The current time of day
-   * @param Int duration Number of minutes the walk lasts
-   */
-  setTime = (time, duration) => {
-    const startDate = this.state.start;
+      /**
+       * Set the time
+       * @param Date time The current time of day
+       */
+      setTime: (time) => {
+        const { start } = this.state;
 
-    startDate.setUTCHours(time.getUTCHours());
-    startDate.setUTCMinutes(time.getUTCMinutes());
+        start.setUTCHours(time.getUTCHours());
+        start.setUTCMinutes(time.getUTCMinutes());
 
-    this.setState({start: startDate});
-  }
+        this.setState({ start });
+      },
 
-  /**
-   * Build a valueLink object for updating the time
-   */
-  linkTime = () => {
-    return {
-      value: this.state.start.getTime(),
-      requestChange: value => this.setState({start: new Date(Number(value))})
-    };
-  }
+      /**
+       * Build a valueLink object for updating the time
+       */
+      linkTime: () => ({
+        value: this.state.start.getTime(),
+        requestChange: value => this.setState({ start: new Date(Number(value)) }),
+      }),
 
-  // Push the date we built here to the linked state
-  addDate = () => {
-    const valueLink = this.props.valueLink;
-    const value = valueLink.value || {};
-    const slots = (value.slots || []).slice();
-    const start = this.state.start.getTime();
-    const end = start + this.state.duration;
+      // Push the date we built here to the linked state
+      addDate: () => {
+        const valueLink = this.props.valueLink;
+        const value = valueLink.value || {};
+        const slots = (value.slots || []).slice();
+        const start = this.state.start.getTime();
+        const end = start + this.state.duration;
 
-    // Store the timeslot state as seconds, not ms
-    slots.push([start / 1000, end / 1000]);
+        // Store the timeslot state as seconds, not ms
+        slots.push([start / 1000, end / 1000]);
 
-    value.slots = slots;
-    valueLink.requestChange(value);
+        value.slots = slots;
+        valueLink.requestChange(value);
+      },
+    });
   }
 
   render() {
-    const valueLink = this.props.valueLink;
+    const { valueLink } = this.props;
 
     return (
       <div className="tab-pane" id="time-and-date">
         <div className="tab-content" id="walkduration">
           <div className="tab-pane hide" id="time-and-date-select">
-            <div className="page-header" data-section='time-and-date'>
+            <div className="page-header" data-section="time-and-date">
               <h1>{ t('Set the Time and Date') }</h1>
             </div>
             <legend >{ t('Pick one of the following:') }</legend>
@@ -106,7 +101,7 @@ export default class DateSelect extends React.Component {
                 <li>
                   <a href="#time-and-date-all" data-toggle="tab">
                     <div className="thumbnail">
-                      <img src={CCM_THEME_PATH + '/img/time-and-date-full.png'} />
+                      <img src={`${CCM_THEME_PATH}/img/time-and-date-full.png`} />
                       <div className="caption">
                         <div className="text-center">
                           <h4>{ t('By Request') }</h4>
@@ -119,7 +114,7 @@ export default class DateSelect extends React.Component {
                 <li>
                   <a href="#time-and-date-set" data-toggle="tab">
                     <div className="thumbnail">
-                      <img src={CCM_THEME_PATH + '/img/time-and-date-some.png'} />
+                      <img src={`${CCM_THEME_PATH}/img/time-and-date-some.png`} />
                       <div className="caption">
                         <div className="text-center">
                           <h4>{ t('Pick Your Date') }</h4>
@@ -133,7 +128,7 @@ export default class DateSelect extends React.Component {
             </div>
           </div>
           <div className="tab-pane active" id="time-and-date-set">
-            <div className="page-header" data-section='time-and-date'>
+            <div className="page-header" data-section="time-and-date">
               <h1>{ t('Time and Date') }</h1>
               <p className="lead">{ t('Select the date and time your walk is happening.') }</p>
             </div>
@@ -144,13 +139,18 @@ export default class DateSelect extends React.Component {
               </div>
               <div className="col-md-6">
                 <div className="thumbnail">
-                  <div className="caption"> 
+                  <div className="caption">
                     <h4 className="date-indicate-set">
                       <small>{ t('Date selected') }:</small>
-                      {this.state.start.toLocaleDateString(undefined, {weekday: 'long', month: 'long', day: 'numeric', timeZone: 'UTC'})}
+                      {this.state.start.toLocaleDateString(undefined, {
+                        weekday: 'long',
+                        month: 'long',
+                        day: 'numeric',
+                        timeZone: 'UTC',
+                      })}
                     </h4>
                     <hr />
-                    <TimePicker ref="timePicker" i18n={this.props.i18n} valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
+                    <TimePicker ref="timePicker" valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
                     <hr />
                     <button className="btn btn-primary" id="save-date-set" onClick={this.addDate}>{ t('Add Date') }</button>
                   </div>
@@ -158,16 +158,16 @@ export default class DateSelect extends React.Component {
               </div>
             </div>
             <br />
-            <TimeSetTable i18n={this.props.i18n} valueLink={valueLink} />
+            <TimeSetTable valueLink={valueLink} />
             <hr />
           </div>
           <div className="tab-pane hide" id="time-and-date-all">
-            <div className="page-header" data-section='time-and-date'>
+            <div className="page-header" data-section="time-and-date">
               <h1>{ t('Time and Date') }</h1>
               <p className="lead">{ t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') }</p>
             </div>
             <label className="checkbox">
-              <input type="checkbox" name="open" />{ t('Leave my availability open. Allow people to contact you to set up a walk.')} 
+              <input type="checkbox" name="open" />{ t('Leave my availability open. Allow people to contact you to set up a walk.')}
             </label>
             <br />
             <div className="row">

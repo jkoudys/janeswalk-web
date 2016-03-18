@@ -28,10 +28,7 @@ export default class CreateWalk extends React.Component {
 
     // Instance props
     Object.assign(this, {
-      state: {
-        notifications: [],
-        ...buildWalkObject({ data, user, url }),
-      },
+      state: Object.assign({}, { notifications: [] }, buildWalkObject({ data, user, url })),
 
       // Simple trigger to re-render the components
       _onChange: () => this.setState({}),

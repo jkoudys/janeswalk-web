@@ -1,7 +1,9 @@
-import {t} from 'janeswalk/stores/I18nStore';
+/* global React $ CCM_REL */
 
-const Message = ({success, msg, error}) => (
-  <div className={'alert alert-' + (success ? 'info' : 'danger')}>
+import { t } from 'janeswalk/stores/I18nStore';
+
+const Message = ({ success, msg, error }) => (
+  <div className={`alert alert-${success ? 'info' : 'danger'}`}>
     {msg}{error}
   </div>
 );
@@ -13,76 +15,78 @@ const Message = ({success, msg, error}) => (
 export default class Login extends React.Component {
   constructor() {
     super();
-    this.state = {
-      email: '',
-      password: '',
-      maintainLogin: false,
-      message: {}
-    };
-  }
 
-  handleReset = (ev) => {
-    // Post a reset request to the c5 endpoint for resets
-    $.ajax({
-      type: 'POST',
-      url: CCM_REL + '/login/forgot_password',
-      data: {
-        uEmail: this.state.email,
-        uName: this.state.email,
-        format: 'JSON'
+    Object.assign(this, {
+      state: {
+        email: '',
+        password: '',
+        maintainLogin: false,
+        message: {},
       },
-      dataType: 'json',
-      success: data => this.setState({message: data})
-    });
-  }
-
-  handleChangeEmail = (ev) => {
-    this.setState({email: ev.target.value});
-  }
-
-  handleChangePassword = (ev) => {
-    this.setState({password: ev.target.value});
-  }
-
-  handleChangeMaintainLogin = (ev) => {
-    this.setState({maintainLogin: ev.target.value});
-  }
-
-  handleSubmit = (ev) => {
-    ev.preventDefault();
-    // Post the login to the c5 endpoint for logins
-    $.ajax({
-      type: 'POST',
-      url: CCM_REL + '/login/do_login',
-      data: {
-        uEmail: this.state.email,
-        uName: this.state.email,
-        uPassword: this.state.password,
-        uMaintainLogin: this.state.maintainLogin,
-        format: 'JSON'
-      },
-      dataType: 'json',
-      success: data => {
-        this.setState({message: data}, () => {
-          if (data.success === 1) {
-            if (this.props.redirectURL) {
-              window.location.replace(this.props.redirectURL);
-            } else {
-              window.location.reload();
-            }
-          }
+      handleReset: () => {
+        // Post a reset request to the c5 endpoint for resets
+        $.ajax({
+          type: 'POST',
+          url: `${CCM_REL}/login/forgot_password`,
+          data: {
+            uEmail: this.state.email,
+            uName: this.state.email,
+            format: 'JSON',
+          },
+          dataType: 'json',
+          success: data => this.setState({ message: data }),
         });
-      }
+      },
+
+      handleChangeEmail: (ev) => {
+        this.setState({ email: ev.target.value });
+      },
+
+      handleChangePassword: (ev) => {
+        this.setState({ password: ev.target.value });
+      },
+
+      handleChangeMaintainLogin: (ev) => {
+        this.setState({ maintainLogin: ev.target.value });
+      },
+
+      handleSubmit: (ev) => {
+        ev.preventDefault();
+        // Post the login to the c5 endpoint for logins
+        $.ajax({
+          type: 'POST',
+          url: `${CCM_REL}/login/do_login`,
+          data: {
+            uEmail: this.state.email,
+            uName: this.state.email,
+            uPassword: this.state.password,
+            uMaintainLogin: this.state.maintainLogin,
+            format: 'JSON',
+          },
+          dataType: 'json',
+          success: data => {
+            this.setState({ message: data }, () => {
+              if (data.success === 1) {
+                if (this.props.redirectURL) {
+                  window.location.replace(this.props.redirectURL);
+                } else {
+                  window.location.reload();
+                }
+              }
+            });
+          },
+        });
+      },
     });
   }
 
   render() {
-    const {socialLogin} = this.props;
-    const {email, password} = this.state;
+    const { socialLogin } = this.props;
+    const { email, password } = this.state;
 
     let message;
     if (Number.isInteger(this.state.message.success)) {
-      message = <Message {...this.state.message} />
+      message = <Message {...this.state.message} />;
     }
 
     return (
@@ -93,7 +97,7 @@ export default class Login extends React.Component {
               <h3 className="form-lead">{t('Sign in to %s', 'Jane\'s Walk')}</h3>
             </header>
             <form rel="form" method="post" onSubmit={this.handleSubmit}>
-              <section dangerouslySetInnerHTML={{__html: socialLogin}} />
+              <section dangerouslySetInnerHTML={{ __html: socialLogin }} />
               <section>
                 <h4>{t('or, log-in using your email & password')}</h4>
                 <label htmlFor="uEmail">
@@ -110,7 +114,7 @@ export default class Login extends React.Component {
               </section>
               <footer>
                 {message}
-                <a href={CCM_REL + '/register?uEmail=' + email}>{t('Register for a new account.')}</a>
+                <a href={`${CCM_REL}/register?uEmail=${email}`}>{t('Register for a new account.')}</a>
                 <input type="submit" className="btn ccm-input-submit" id="submit" value={t('Go!')} />
               </footer>
             </form>
