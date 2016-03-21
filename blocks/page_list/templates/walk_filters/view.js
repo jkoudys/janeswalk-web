@@ -158,12 +158,11 @@
 	/**
 	 * Apply filters and date range to walks
 	 */
-	function filterWalks(_ref) {
+	var filterWalks = function filterWalks(_ref) {
 	  var walks = _ref.walks;
 	  var filters = _ref.filters;
 	  var dateRange = _ref.dateRange;
 	  var city = _ref.city;
-
 	  return walks.filter(function (walk) {
 	    var time = void 0;
 	    if (walk.time.slots.length) {
@@ -179,7 +178,7 @@
 	    }
 	    return true;
 	  });
-	}
+	};
 
 	/**
 	 * Grab the day the 3rd most recent walk appears on
@@ -255,7 +254,7 @@
 	    filters: filters,
 	    city: city,
 	    dateRange: usefulRange,
-	    filterMatches: filterWalks({ walks: walks, filters: filters, usefulRange: usefulRange, city: city })
+	    filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: usefulRange, city: city })
 	  };
 	};
 
@@ -295,9 +294,14 @@
 	        _this.setState({ filters: filters, filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city }) });
 	      },
 	      setDateRange: function setDateRange(from, to) {
+	        var _this$state2 = _this.state;
+	        var walks = _this$state2.walks;
+	        var filters = _this$state2.filters;
+	        var city = _this$state2.city;
+
 	        _this.setState({
 	          dateRange: [from, to],
-	          filterMatches: filterWalks(_this.state.walks, _this.state.filters, [from, to])
+	          filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: [from, to], city: city })
 	        });
 	      }
 	    });
@@ -603,7 +607,7 @@
 	            { className: 'thumbnail' },
 	            React.createElement(
 	              'div',
-	              { className: 'walkimage' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
+	              { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
 	              Status
 	            ),
 	            React.createElement(

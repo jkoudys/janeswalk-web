@@ -106,6 +106,7 @@ gulp.task('js.blocks', () => {
         },
       }],
     },
+    watch: true,
   }, (err, stats) => {
     if (err) throw new gutil.PluginError('webpack:build', err);
     gutil.log('[webpack:build]', stats.toString({

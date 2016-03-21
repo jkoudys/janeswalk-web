@@ -19,30 +19,28 @@ today.setUTCMinutes(0);
 /**
  * Apply filters and date range to walks
  */
-function filterWalks({ walks, filters, dateRange, city }) {
-  return walks.filter(walk => {
-    let time;
-    if (walk.time.slots.length) {
-      time = walk.time.slots[0][0] * 1000;
-    }
-    // TODO: cleanup and perf test
-    // Filter by checking that the filter doesn't match the walk
-    // Note that this would be a lot cleaner using functions, but it's
-    // built with a big set of basic boolean operators to speed it up
-    // along this likely bottleneck
-    if ((filters.theme && filters.theme.selected && !(walk.checkboxes[`theme-${filters.theme.selected}`])) ||
-        (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
-        (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes[`accessible-${filters.accessibility.selected}`])) ||
-        (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
-        (city && +walk.cityID !== +city.id) ||
-        (filters.city && filters.city.selected && walk.cityID != filters.city.selected) ||
-        (dateRange[0] && dateRange[0] > time) || (dateRange[1] && dateRange[1] < time)
-       ) {
-      return false;
-    }
-    return true;
-  });
-}
+const filterWalks = ({ walks, filters, dateRange, city }) => walks.filter(walk => {
+  let time;
+  if (walk.time.slots.length) {
+    time = walk.time.slots[0][0] * 1000;
+  }
+  // TODO: cleanup and perf test
+  // Filter by checking that the filter doesn't match the walk
+  // Note that this would be a lot cleaner using functions, but it's
+  // built with a big set of basic boolean operators to speed it up
+  // along this likely bottleneck
+  if ((filters.theme && filters.theme.selected && !(walk.checkboxes[`theme-${filters.theme.selected}`])) ||
+      (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
+      (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes[`accessible-${filters.accessibility.selected}`])) ||
+      (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
+      (city && +walk.cityID !== +city.id) ||
+      (filters.city && filters.city.selected && walk.cityID != filters.city.selected) ||
+      (dateRange[0] && dateRange[0] > time) || (dateRange[1] && dateRange[1] < time)
+   ) {
+    return false;
+  }
+  return true;
+});
 
 /**
  * Grab the day the 3rd most recent walk appears on
@@ -88,7 +86,7 @@ const getWalkFilterState = ({ filters: filters = {}, dateRange, city: city = Cit
     filters,
     city,
     dateRange: usefulRange,
-    filterMatches: filterWalks({ walks, filters, usefulRange, city }),
+    filterMatches: filterWalks({ walks, filters, dateRange: usefulRange, city }),
   };
 };
 
@@ -119,9 +117,10 @@ export default class WalkFilter extends React.Component {
         this.setState({ filters, filterMatches: filterWalks({ walks, filters, dateRange, city }) });
       },
       setDateRange: (from, to) => {
+        const { walks, filters, city } = this.state;
         this.setState({
           dateRange: [from, to],
-          filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to]),
+          filterMatches: filterWalks({ walks, filters, dateRange: [from, to], city }),
         });
       },
     });

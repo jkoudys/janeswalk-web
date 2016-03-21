@@ -87,7 +87,7 @@ export default class Card extends React.Component {
       <div className="walk-card">
         <a href={url}>
           <div className="thumbnail">
-            <div className={`walkimage${placeholder}`} style={{ backgroundImage: `url(${Thumb})` }}>
+            <div className={`walkimage ${placeholder}`} style={{ backgroundImage: `url(${Thumb})` }}>
               {Status}
             </div>
             <div className="caption">
