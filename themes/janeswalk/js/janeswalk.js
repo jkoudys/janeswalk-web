@@ -79,27 +79,27 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _CityStore = __webpack_require__(32);
+	var _CityStore = __webpack_require__(34);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
-	var _Itinerary = __webpack_require__(33);
+	var _Itinerary = __webpack_require__(35);
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
-	var _CreateWalk = __webpack_require__(34);
+	var _CreateWalk = __webpack_require__(36);
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
-	var _Walk = __webpack_require__(59);
+	var _Walk = __webpack_require__(62);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Dashboard = __webpack_require__(72);
+	var _Dashboard = __webpack_require__(75);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(84);
+	var _Login = __webpack_require__(87);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -1012,6 +1012,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _Itinerary = __webpack_require__(16);
@@ -1032,7 +1034,13 @@
 
 	var _dom = __webpack_require__(31);
 
-	var _I18nStore = __webpack_require__(22);
+	var _LoggedInOptions = __webpack_require__(32);
+
+	var _LoggedInOptions2 = _interopRequireDefault(_LoggedInOptions);
+
+	var _LoggedOutOptions = __webpack_require__(33);
+
+	var _LoggedOutOptions2 = _interopRequireDefault(_LoggedOutOptions);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1040,89 +1048,8 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React $ CCM_EDIT_MODE */
 
-	// TODO: Replace translations placeholders
-
-
-	var tc = function tc(c, s) {
-	  return s;
-	};
-
-	/* Build menu options depending if currently logged in or not */
-	var LoggedInOptions = function LoggedInOptions(_ref) {
-	  var user = _ref.user;
-	  var profiling = _ref.profiling;
-	  var searching = _ref.searching;
-	  var toggleProfile = _ref.toggleProfile;
-	  var toggleSearch = _ref.toggleSearch;
-	  var unseenUpdates = _ref.unseenUpdates;
-	  return [React.createElement(
-	    'li',
-	    { key: 'in0' },
-	    React.createElement(
-	      'a',
-	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
-	      React.createElement('i', { className: 'fa fa-search' })
-	    )
-	  ), React.createElement(
-	    'li',
-	    { key: 'in1', className: unseenUpdates ? 'notify' : '' },
-	    React.createElement(
-	      'a',
-	      { onClick: toggleProfile, className: profiling ? 'selected' : '' },
-	      React.createElement('i', { className: 'fa fa-calendar' })
-	    )
-	  ), React.createElement(
-	    'li',
-	    { key: 'in2' },
-	    React.createElement(
-	      'a',
-	      { href: '/profile' },
-	      user.firstName || user.name
-	    )
-	  ), React.createElement(
-	    'li',
-	    { key: 'in3' },
-	    React.createElement(
-	      'a',
-	      { href: '/login/logout' },
-	      (0, _I18nStore.t)('Logout')
-	    )
-	  )];
-	};
-
-	var LoggedOutOptions = function LoggedOutOptions(_ref2) {
-	  var searching = _ref2.searching;
-	  var toggleSearch = _ref2.toggleSearch;
-	  return [React.createElement(
-	    'li',
-	    { key: 'out0' },
-	    React.createElement(
-	      'a',
-	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
-	      React.createElement('i', { className: 'fa fa-search' })
-	    )
-	  ), React.createElement(
-	    'li',
-	    { key: 'out1' },
-	    React.createElement(
-	      'a',
-	      { href: '/register' },
-	      tc('Register on a website', 'Join')
-	    )
-	  ), React.createElement(
-	    'li',
-	    { key: 'out2' },
-	    React.createElement(
-	      'a',
-	      { onClick: function onClick() {
-	          return $('#login').modal();
-	        } },
-	      (0, _I18nStore.t)('Log in')
-	    )
-	  )];
-	};
 
 	function getNavbar() {
 	  return {
@@ -1162,9 +1089,14 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Navbar)).call.apply(_Object$getPrototypeO, [this].concat(args)));
 
-	    _this.state = getNavbar();
-	    _this.state.lastSize = _ItineraryStore2.default.totalWalks();
-	    _this._onChange = _this._onChange.bind(_this);
+	    Object.assign(_this, {
+	      state: _extends({
+	        lastSize: _ItineraryStore2.default.totalWalks()
+	      }, getNavbar()),
+	      _onChange: function _onChange() {
+	        return _this.setState(getNavbar);
+	      }
+	    });
 	    return _this;
 	  }
 
@@ -1173,17 +1105,6 @@
 	    value: function componentWillMount() {
 	      _AreaStore2.default.addChangeListener(this._onChange);
 	      _UserStore2.default.addChangeListener(this._onChange);
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      _AreaStore2.default.removeChangeListener(this._onChage);
-	      _UserStore2.default.removeChangeListener(this._onChage);
-	    }
-	  }, {
-	    key: '_onChange',
-	    value: function _onChange() {
-	      this.setState(getNavbar);
 	    }
 	  }, {
 	    key: 'componentDidMount',
@@ -1198,10 +1119,9 @@
 
 	  }, {
 	    key: 'componentWillUpdate',
-	    value: function componentWillUpdate(nextProps, _ref3) {
-	      var options = _ref3.options;
-	      var dropdown = _ref3.dropdown;
-	      var searching = _ref3.searching;
+	    value: function componentWillUpdate(nextProps, _ref) {
+	      var options = _ref.options;
+	      var searching = _ref.searching;
 
 	      if (options && options !== this.state.options) {
 	        appendSiblings(options, this.refs.topnav);
@@ -1212,23 +1132,11 @@
 	        this.openSearch();
 	      }
 	    }
-
-	    /**
-	     * _addNavEvents
-	     *
-	     * @protected
-	     * @return    void
-	     */
-
 	  }, {
-	    key: '_addNavEvents',
-	    value: function _addNavEvents() {
-	      this._element.find('a.search-open').click(function () {
-	        $('body > header').addClass('dropped');
-	      });
-	      this._element.find('a.search-close').click(function () {
-	        $('body > header').removeClass('dropped');
-	      });
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      _AreaStore2.default.removeChangeListener(this._onChage);
+	      _UserStore2.default.removeChangeListener(this._onChage);
 	    }
 	  }, {
 	    key: 'openSearch',
@@ -1247,7 +1155,6 @@
 	      var user = _state.user;
 	      var searching = _state.searching;
 	      var profiling = _state.profiling;
-	      var itinerary = _state.itinerary;
 	      var totalWalks = _state.totalWalks;
 
 	      var userOptions = void 0;
@@ -1260,16 +1167,16 @@
 
 	      // Build the logged in vs logged out
 	      if (user) {
-	        userOptions = LoggedInOptions(Object.assign({
-	          user: user,
-	          profiling: profiling,
+	        userOptions = (0, _LoggedInOptions2.default)(_extends({}, defaultOptions, {
 	          unseenUpdates: this.state.lastSize !== totalWalks,
 	          toggleProfile: function toggleProfile() {
 	            return _this2.setState({ profiling: !_this2.state.profiling, lastSize: totalWalks });
-	          }
-	        }, defaultOptions));
+	          },
+	          user: user,
+	          profiling: profiling
+	        }));
 	      } else {
-	        userOptions = LoggedOutOptions(defaultOptions);
+	        userOptions = (0, _LoggedOutOptions2.default)(defaultOptions);
 	      }
 
 	      return React.createElement(
@@ -1342,7 +1249,7 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _WalkStore = __webpack_require__(21);
+	var _WalkStore = __webpack_require__(20);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -1350,9 +1257,9 @@
 
 	var Actions = _interopRequireWildcard(_ItineraryActions);
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
-	var _Walk = __webpack_require__(24);
+	var _Walk = __webpack_require__(23);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -1543,15 +1450,13 @@
 
 	var _AppDispatcher = __webpack_require__(4);
 
-	var _events = __webpack_require__(18);
-
 	var _JWConstants = __webpack_require__(9);
 
-	var _ItineraryUtils = __webpack_require__(19);
+	var _Store = __webpack_require__(18);
 
-	var _Stores = __webpack_require__(20);
+	var _Store2 = _interopRequireDefault(_Store);
 
-	var _WalkStore = __webpack_require__(21);
+	var _WalkStore = __webpack_require__(20);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -1568,8 +1473,8 @@
 	// Has this store been synced, and is it syncing?
 	var _lastChange = Date.now();
 
-	//TODO: Currently no remove list, just adding lists
-	//TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
+	// TODO: Currently no remove list, just adding lists
+	// TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
 	var _scheduleWalk = function _scheduleWalk(walk, time) {
 	  var times = _schedule.get(walk) || new Set();
@@ -1609,7 +1514,7 @@
 	  var lists = _ref.lists;
 	  var schedule = _ref.schedule;
 
-	  lists.forEach(function (itinerary, index) {
+	  lists.forEach(function (itinerary) {
 	    _lists.add(Object.assign({}, itinerary, {
 	      walks: new Set(itinerary.walks.map(function (wID) {
 	        return _WalkStore2.default.getWalk(+wID);
@@ -1655,7 +1560,7 @@
 	  return false;
 	}
 
-	var ItineraryStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var ItineraryStore = Object.assign({}, _Store2.default, {
 	  getLists: function getLists() {
 	    return _lists;
 	  },
@@ -1668,7 +1573,6 @@
 	  getLastChange: function getLastChange() {
 	    return _lastChange;
 	  },
-
 	  hasInList: hasInList,
 
 	  hasInSchedule: function hasInSchedule(walk, time) {
@@ -1679,7 +1583,7 @@
 	  totalWalks: function totalWalks() {
 	    var count = 0;
 	    _lists.forEach(function (list) {
-	      return count += list.walks.size;
+	      count += list.walks.size;
 	    });
 	    return count;
 	  },
@@ -1700,11 +1604,11 @@
 	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE, function (_ref5) {
 	    var list = _ref5.list;
 	    var title = _ref5.title;
-	    return list.title = title;
+	    list.title = title;
 	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION, function (_ref6) {
 	    var list = _ref6.list;
 	    var description = _ref6.description;
-	    return list.description = description;
+	    list.description = description;
 	  }), _defineProperty(_register, _JWConstants.ActionTypes.ITINERARY_CREATE_LIST, function (_ref7) {
 	    var title = _ref7.title;
 	    var description = _ref7.description;
@@ -1738,6 +1642,48 @@
 
 /***/ },
 /* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(19);
+
+	var _events2 = _interopRequireDefault(_events);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CHANGE_EVENT = 'change'; /**
+	                              * The generic 'store', which more complex stores are composed from
+	                              */
+
+	// Requires
+
+
+	var Store = Object.assign({}, _events2.default.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+
+
+	  /**
+	   * @param {function} callback
+	   */
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  }
+	});
+
+	exports.default = Store;
+
+/***/ },
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2011,88 +1957,7 @@
 	}
 
 /***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	exports.dateFormatted = dateFormatted;
-	// Default formatter
-	var dtfDate = void 0;
-
-	// Date formatted
-	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
-	  dtfDate = new Intl.DateTimeFormat('en-US', {
-	    year: 'numeric',
-	    month: 'long',
-	    day: 'numeric',
-	    hour: 'numeric',
-	    minute: '2-digit',
-	    timeZone: 'UTC'
-	  });
-	}
-
-	// Cache the parsed dates
-	var _dateCache = {};
-
-	function formatDate(dateInMs) {
-	  if (dtfDate) {
-	    return dtfDate.format(dateInMs);
-	  } else {
-	    var date = new Date(dateInMs);
-	    var dateString = date.toUTCString();
-	    return dateString.slice(0, dateString.indexOf(' GMT'));
-	  }
-	}
-
-	function dateFormatted(dateInSeconds) {
-	  var fromCache = _dateCache[dateInSeconds];
-	  var fromFormat = void 0;
-	  if (dateInSeconds) {
-	    if (fromCache) {
-	      return fromCache;
-	    } else {
-	      fromFormat = formatDate(dateInSeconds * 1000);
-	      _dateCache[dateInSeconds] = fromFormat;
-	      return fromFormat;
-	    }
-	  } else {
-	    // Invalid date
-	    return dateInSeconds;
-	  }
-	};
-
-/***/ },
 /* 20 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var CHANGE_EVENT = 'change';
-
-	var changeMethods = exports.changeMethods = {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  }
-	};
-
-/***/ },
-/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2105,11 +1970,13 @@
 
 	var _AppDispatcher = __webpack_require__(4);
 
-	var _events = __webpack_require__(18);
-
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(20);
+	var _Store = __webpack_require__(18);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * Walk store
@@ -2129,12 +1996,33 @@
 
 	// Receive an array of walks
 	function receiveWalks(walks) {
-	  walks.forEach(function (w) {
-	    return receiveWalk(w);
-	  });
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var walk = _step.value;
+
+	      receiveWalk(walk);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
 	}
 
-	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var WalkStore = Object.assign({}, _Store2.default, {
 	  getWalks: function getWalks() {
 	    return _walks;
 	  },
@@ -2157,7 +2045,7 @@
 	exports.default = WalkStore;
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2165,17 +2053,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.t2 = exports.t = undefined;
+	exports.tc = exports.t2 = exports.t = undefined;
 
-	var _events = __webpack_require__(18);
+	var _Store = __webpack_require__(18);
+
+	var _Store2 = _interopRequireDefault(_Store);
 
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(20);
-
-	var _translate = __webpack_require__(23);
+	var _translate = __webpack_require__(22);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
@@ -2196,7 +2084,7 @@
 	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var I18nStore = Object.assign({}, _Store2.default, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
@@ -2217,8 +2105,13 @@
 	var t = exports.t = I18nStore.getTranslate();
 	var t2 = exports.t2 = I18nStore.getTranslatePlural();
 
+	// FIXME make this real
+	var tc = exports.tc = function tc(c, s) {
+	  return s;
+	};
+
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2311,7 +2204,7 @@
 	module.exports = I18nTranslator;
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2322,11 +2215,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _AddWalkToList = __webpack_require__(25);
+	var _AddWalkToList = __webpack_require__(24);
 
 	var _AddWalkToList2 = _interopRequireDefault(_AddWalkToList);
 
-	var _AddToItinerary = __webpack_require__(26);
+	var _AddToItinerary = __webpack_require__(25);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
@@ -2455,7 +2348,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2464,7 +2357,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
@@ -2550,7 +2443,7 @@
 	exports.default = AddWalkToList;
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -2559,7 +2452,7 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(19);
+	var _ItineraryUtils = __webpack_require__(26);
 
 	var AddToItinerary = function AddToItinerary(_ref) {
 	  var schedule = _ref.schedule;
@@ -2604,6 +2497,64 @@
 	exports.default = AddToItinerary;
 
 /***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	exports.dateFormatted = dateFormatted;
+	// Default formatter
+	var dtfDate = void 0;
+
+	// Date formatted
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat('en-US', {
+	    year: 'numeric',
+	    month: 'long',
+	    day: 'numeric',
+	    hour: 'numeric',
+	    minute: '2-digit',
+	    timeZone: 'UTC'
+	  });
+	}
+
+	// Cache the parsed dates
+	var _dateCache = {};
+
+	function formatDate(dateInMs) {
+	  if (dtfDate) {
+	    return dtfDate.format(dateInMs);
+	  } else {
+	    var date = new Date(dateInMs);
+	    var dateString = date.toUTCString();
+	    return dateString.slice(0, dateString.indexOf(' GMT'));
+	  }
+	}
+
+	function dateFormatted(dateInSeconds) {
+	  var fromCache = _dateCache[dateInSeconds];
+	  var fromFormat = void 0;
+	  if (dateInSeconds) {
+	    if (fromCache) {
+	      return fromCache;
+	    } else {
+	      fromFormat = formatDate(dateInSeconds * 1000);
+	      _dateCache[dateInSeconds] = fromFormat;
+	      return fromFormat;
+	    }
+	  } else {
+	    // Invalid date
+	    return dateInSeconds;
+	  }
+	};
+
+/***/ },
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -2613,7 +2564,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	var ItineraryHeader = function ItineraryHeader(_ref) {
 	  var list = _ref.list;
@@ -2678,7 +2629,7 @@
 
 	var _ItineraryActions = __webpack_require__(14);
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	var ItinerarySelect = function ItinerarySelect(_ref) {
 	  var lists = _ref.lists;
@@ -2736,17 +2687,19 @@
 
 	var _AppDispatcher = __webpack_require__(4);
 
-	var _events = __webpack_require__(18);
-
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(20);
+	var _Store = __webpack_require__(18);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	var _areas = {};
 
-	var AreaStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var AreaStore = Object.assign({}, _Store2.default, {
 	  getAreas: function getAreas() {
 	    return _areas;
 	  },
@@ -2757,7 +2710,7 @@
 	  dispatcherIndex: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.AREA_RECEIVE, function (_ref) {
 	    var name = _ref.name;
 	    var content = _ref.content;
-	    return _areas[name] = content;
+	    _areas[name] = content;
 	  }), function () {
 	    return AreaStore.emitChange();
 	  })
@@ -2779,11 +2732,13 @@
 
 	var _AppDispatcher = __webpack_require__(4);
 
-	var _events = __webpack_require__(18);
-
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(20);
+	var _Store = __webpack_require__(18);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * User store
@@ -2801,7 +2756,6 @@
 	function receiveUser(_ref) {
 	  var user = _ref.user;
 	  var current = _ref.current;
-	  var profile = _ref.profile;
 
 	  _users.set(+user.id, user);
 
@@ -2810,7 +2764,7 @@
 	  }
 	}
 
-	var UserStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var UserStore = Object.assign({}, _Store2.default, {
 	  getUsers: function getUsers() {
 	    return _users;
 	  },
@@ -2881,13 +2835,119 @@
 	  value: true
 	});
 
-	var _AppDispatcher = __webpack_require__(4);
+	var _I18nStore = __webpack_require__(21);
 
-	var _events = __webpack_require__(18);
+	/* Build menu options depending if currently logged in or not */
+
+	exports.default = function (_ref) {
+	  var user = _ref.user;
+	  var profiling = _ref.profiling;
+	  var searching = _ref.searching;
+	  var toggleProfile = _ref.toggleProfile;
+	  var toggleSearch = _ref.toggleSearch;
+	  var unseenUpdates = _ref.unseenUpdates;
+	  return [React.createElement(
+	    'li',
+	    null,
+	    React.createElement(
+	      'a',
+	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
+	      React.createElement('i', { className: 'fa fa-search' })
+	    )
+	  ), React.createElement(
+	    'li',
+	    { className: unseenUpdates ? 'notify' : '' },
+	    React.createElement(
+	      'a',
+	      { onClick: toggleProfile, className: profiling ? 'selected' : '' },
+	      React.createElement('i', { className: 'fa fa-calendar' })
+	    )
+	  ), React.createElement(
+	    'li',
+	    null,
+	    React.createElement(
+	      'a',
+	      { href: '/profile' },
+	      user.firstName || user.name
+	    )
+	  ), React.createElement(
+	    'li',
+	    null,
+	    React.createElement(
+	      'a',
+	      { href: '/login/logout' },
+	      (0, _I18nStore.t)('Logout')
+	    )
+	  )];
+	}; /**
+	    * Array-builder of menu options. note: not a component, since there isn't a root element,
+	    * but an array of components.
+	    */
+	/* global React */
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _I18nStore = __webpack_require__(21);
+
+	exports.default = function (_ref) {
+	  var searching = _ref.searching;
+	  var toggleSearch = _ref.toggleSearch;
+	  return [React.createElement(
+	    'li',
+	    null,
+	    React.createElement(
+	      'a',
+	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
+	      React.createElement('i', { className: 'fa fa-search' })
+	    )
+	  ), React.createElement(
+	    'li',
+	    null,
+	    React.createElement(
+	      'a',
+	      { href: '/register' },
+	      (0, _I18nStore.tc)('Register on a website', 'Join')
+	    )
+	  ), React.createElement(
+	    'li',
+	    null,
+	    React.createElement(
+	      'a',
+	      { onClick: function onClick() {
+	          return $('#login').modal();
+	        } },
+	      (0, _I18nStore.t)('Log in')
+	    )
+	  )];
+	}; /* global React $ */
+
+/***/ },
+/* 34 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(20);
+	var _Store = __webpack_require__(18);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * City store
@@ -2899,7 +2959,7 @@
 	// Store singletons
 	var _city = void 0;
 
-	var CityStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var CityStore = Object.assign({}, _Store2.default, {
 	  getCity: function getCity() {
 	    return _city;
 	  },
@@ -2909,7 +2969,7 @@
 
 	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
 	    var city = _ref.city;
-	    return _city = city;
+	    _city = city;
 	  }), function () {
 	    return CityStore.emitChange();
 	  })
@@ -2917,7 +2977,7 @@
 	exports.default = CityStore;
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3051,7 +3111,7 @@
 	}
 
 /***/ },
-/* 34 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3062,53 +3122,53 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _ImageUpload = __webpack_require__(35);
+	var _ImageUpload = __webpack_require__(37);
 
 	var _ImageUpload2 = _interopRequireDefault(_ImageUpload);
 
-	var _ThemeSelect = __webpack_require__(36);
+	var _ThemeSelect = __webpack_require__(38);
 
 	var _ThemeSelect2 = _interopRequireDefault(_ThemeSelect);
 
-	var _MapBuilder = __webpack_require__(38);
+	var _MapBuilder = __webpack_require__(40);
 
 	var _MapBuilder2 = _interopRequireDefault(_MapBuilder);
 
-	var _DateSelect = __webpack_require__(45);
+	var _DateSelect = __webpack_require__(47);
 
 	var _DateSelect2 = _interopRequireDefault(_DateSelect);
 
-	var _WardSelect = __webpack_require__(50);
+	var _WardSelect = __webpack_require__(53);
 
 	var _WardSelect2 = _interopRequireDefault(_WardSelect);
 
-	var _AccessibleSelect = __webpack_require__(51);
+	var _AccessibleSelect = __webpack_require__(54);
 
 	var _AccessibleSelect2 = _interopRequireDefault(_AccessibleSelect);
 
-	var _TeamBuilder = __webpack_require__(52);
+	var _TeamBuilder = __webpack_require__(55);
 
 	var _TeamBuilder2 = _interopRequireDefault(_TeamBuilder);
 
-	var _WalkPublish = __webpack_require__(53);
+	var _WalkPublish = __webpack_require__(56);
 
 	var _WalkPublish2 = _interopRequireDefault(_WalkPublish);
 
-	var _TextAreaLimit = __webpack_require__(54);
+	var _TextAreaLimit = __webpack_require__(57);
 
 	var _TextAreaLimit2 = _interopRequireDefault(_TextAreaLimit);
 
-	var _WalkPreview = __webpack_require__(55);
+	var _WalkPreview = __webpack_require__(58);
 
 	var _WalkPreview2 = _interopRequireDefault(_WalkPreview);
 
-	var _Walk = __webpack_require__(56);
+	var _Walk = __webpack_require__(59);
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
-	var _NotifyStore = __webpack_require__(58);
+	var _NotifyStore = __webpack_require__(61);
 
 	var _NotifyStore2 = _interopRequireDefault(_NotifyStore);
 
@@ -3638,7 +3698,7 @@
 	Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 35 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3649,7 +3709,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3768,7 +3828,7 @@
 	exports.default = ImageUpload;
 
 /***/ },
-/* 36 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3779,7 +3839,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3787,7 +3847,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(37);
+	var mixins = __webpack_require__(39);
 
 	// Flux
 
@@ -3978,7 +4038,7 @@
 	};
 
 /***/ },
-/* 37 */
+/* 39 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4007,7 +4067,7 @@
 	};
 
 /***/ },
-/* 38 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4018,31 +4078,31 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _WalkStopTable = __webpack_require__(39);
+	var _WalkStopTable = __webpack_require__(41);
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
 
-	var _WalkInfoWindow = __webpack_require__(40);
+	var _WalkInfoWindow = __webpack_require__(42);
 
 	var _WalkInfoWindow2 = _interopRequireDefault(_WalkInfoWindow);
 
-	var _InstagramConnect = __webpack_require__(41);
+	var _InstagramConnect = __webpack_require__(43);
 
 	var _InstagramConnect2 = _interopRequireDefault(_InstagramConnect);
 
-	var _SoundCloudConnect = __webpack_require__(42);
+	var _SoundCloudConnect = __webpack_require__(44);
 
 	var _SoundCloudConnect2 = _interopRequireDefault(_SoundCloudConnect);
 
-	var _TwitterConnect = __webpack_require__(43);
+	var _TwitterConnect = __webpack_require__(45);
 
 	var _TwitterConnect2 = _interopRequireDefault(_TwitterConnect);
 
-	var _ConnectFilters = __webpack_require__(44);
+	var _ConnectFilters = __webpack_require__(46);
 
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4527,7 +4587,7 @@
 	});
 
 /***/ },
-/* 39 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4539,7 +4599,7 @@
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // Flux
 
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	var UpArrow = function UpArrow(props) {
 	  return React.createElement(
@@ -4677,7 +4737,7 @@
 	exports.default = WalkStopTable;
 
 /***/ },
-/* 40 */
+/* 42 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4798,7 +4858,7 @@
 	exports.default = WalkInfoWindow;
 
 /***/ },
-/* 41 */
+/* 43 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -4936,7 +4996,7 @@
 	exports.default = InstagramConnect;
 
 /***/ },
-/* 42 */
+/* 44 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5087,7 +5147,7 @@
 	exports.default = SoundCloudConnect;
 
 /***/ },
-/* 43 */
+/* 45 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5222,7 +5282,7 @@
 	exports.default = TwitterConnect;
 
 /***/ },
-/* 44 */
+/* 46 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5298,7 +5358,7 @@
 	};
 
 /***/ },
-/* 45 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5309,23 +5369,23 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _DatePicker = __webpack_require__(46);
+	var _DatePicker = __webpack_require__(48);
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _TimePicker = __webpack_require__(47);
+	var _TimePicker = __webpack_require__(49);
 
 	var _TimePicker2 = _interopRequireDefault(_TimePicker);
 
-	var _TimeSetTable = __webpack_require__(48);
+	var _TimeSetTable = __webpack_require__(50);
 
 	var _TimeSetTable2 = _interopRequireDefault(_TimeSetTable);
 
-	var _TimeOpenTable = __webpack_require__(49);
+	var _TimeOpenTable = __webpack_require__(52);
 
 	var _TimeOpenTable2 = _interopRequireDefault(_TimeOpenTable);
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5343,8 +5403,6 @@
 
 	// Default to a 1-hour walk time
 	var ONE_HOUR = 60 * 60 * 1000;
-
-	// TODO: Make 'intiatives' build as separate selectors
 
 	var DateSelect = function (_React$Component) {
 	  _inherits(DateSelect, _React$Component);
@@ -5720,7 +5778,7 @@
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 46 */
+/* 48 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5792,7 +5850,7 @@
 	exports.default = DatePicker;
 
 /***/ },
-/* 47 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5803,7 +5861,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5853,17 +5911,12 @@
 	    return _this;
 	  }
 
+	  /**
+	   * Date management is slow, so it's faster to check if we need to build new dates
+	   */
+
+
 	  _createClass(TimePicker, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.setStartTimes(new Date(this.props.valueLinkStart.value));
-	    }
-
-	    /**
-	     * Date management is slow, so it's faster to check if we need to build new dates
-	     */
-
-	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(_ref) {
 	      var value = _ref.valueLinkStart;
@@ -5962,7 +6015,7 @@
 	exports.default = TimePicker;
 
 /***/ },
-/* 48 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5971,9 +6024,9 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
-	var _TimeSetRow = __webpack_require__(85);
+	var _TimeSetRow = __webpack_require__(51);
 
 	var _TimeSetRow2 = _interopRequireDefault(_TimeSetRow);
 
@@ -6026,7 +6079,96 @@
 	};
 
 /***/ },
-/* 49 */
+/* 51 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
+
+
+	var _I18nStore = __webpack_require__(21);
+
+	// TODO: shim
+	var dtfDate = void 0;
+	var dtfDuration = void 0;
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+	  dtfDuration = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
+	}
+
+	// Remove a slot of the time set table
+	function removeSlot(i, _ref) {
+	  var value = _ref.value;
+	  var _ref$value$slots = _ref.value.slots;
+	  var slots = _ref$value$slots === undefined ? [] : _ref$value$slots;
+	  var requestChange = _ref.requestChange;
+
+	  requestChange(Object.assign({}, value, { slots: slots.slice().splice(i, 1) }));
+	}
+
+	exports.default = function (_ref2) {
+	  var slot = _ref2.slot;
+	  var index = _ref2.index;
+	  var valueLink = _ref2.valueLink;
+
+	  var handleClick = function handleClick() {
+	    return removeSlot(index, valueLink);
+	  };
+
+	  var start = new Date(slot[0] * 1000);
+	  var duration = new Date((slot[1] - slot[0]) * 1000);
+
+	  var hours = duration.getUTCHours();
+	  var minutes = duration.getUTCMinutes();
+	  var durationFmt = [];
+
+	  if (hours) {
+	    durationFmt.push((0, _I18nStore.t2)('%d Hour', '%d Hours', hours));
+	  }
+
+	  if (minutes) {
+	    durationFmt.push((0, _I18nStore.t2)('%d Minute', '%d Minutes', minutes));
+	  }
+
+	  return React.createElement(
+	    'tr',
+	    null,
+	    React.createElement(
+	      'td',
+	      null,
+	      dtfDate.format(start)
+	    ),
+	    React.createElement(
+	      'td',
+	      null,
+	      dtfDuration.format(start)
+	    ),
+	    React.createElement(
+	      'td',
+	      null,
+	      durationFmt.join(', ')
+	    ),
+	    React.createElement(
+	      'td',
+	      null,
+	      React.createElement(
+	        'a',
+	        { onClick: handleClick },
+	        React.createElement('i', { className: 'fa fa-times-circle-o' }),
+	        ' ',
+	        (0, _I18nStore.t)('Remove')
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 52 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6071,7 +6213,7 @@
 	exports.default = TimeOpenTable;
 
 /***/ },
-/* 50 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6082,7 +6224,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6090,7 +6232,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var mixins = __webpack_require__(37);
+	var mixins = __webpack_require__(39);
 
 	// Flux
 
@@ -6156,7 +6298,7 @@
 	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
-/* 51 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6167,9 +6309,9 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _mixins = __webpack_require__(37);
+	var _mixins = __webpack_require__(39);
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6231,7 +6373,7 @@
 	Object.assign(AccessibleSelect.prototype, _mixins.linkedParentState);
 
 /***/ },
-/* 52 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6244,7 +6386,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7068,7 +7210,7 @@
 	};
 
 /***/ },
-/* 53 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7079,7 +7221,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7213,7 +7355,7 @@
 	Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
-/* 54 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7222,7 +7364,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	/**
 	 * Text areas with a 'remaining characters' limit
@@ -7244,7 +7386,7 @@
 	exports.default = TextAreaLimit;
 
 /***/ },
-/* 55 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7255,7 +7397,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7329,7 +7471,7 @@
 	exports.default = WalkPreview;
 
 /***/ },
-/* 56 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7353,7 +7495,7 @@
 
 	var _WalkActions2 = _interopRequireDefault(_WalkActions);
 
-	var _WalkStore = __webpack_require__(21);
+	var _WalkStore = __webpack_require__(20);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -7409,7 +7551,7 @@
 
 	  // Keep these defaults to type, ie don't pre-seed data here, aside from
 	  // data loaded by passing it in
-	  var defaultWalk = __webpack_require__(57);
+	  var defaultWalk = __webpack_require__(60);
 	  var defaultTeam = [{
 	    type: 'you',
 	    "name-first": user.firstName,
@@ -7516,7 +7658,7 @@
 	}
 
 /***/ },
-/* 57 */
+/* 60 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -7560,7 +7702,7 @@
 	};
 
 /***/ },
-/* 58 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7573,11 +7715,13 @@
 
 	var _AppDispatcher = __webpack_require__(4);
 
-	var _events = __webpack_require__(18);
-
 	var _JWConstants = __webpack_require__(9);
 
-	var _Stores = __webpack_require__(20);
+	var _Store = __webpack_require__(18);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * Notify Store
@@ -7599,7 +7743,7 @@
 	  });
 	}
 
-	var NotifyStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var NotifyStore = Object.assign({}, _Store2.default, {
 	  getLog: function getLog() {
 	    return _log;
 	  },
@@ -7636,7 +7780,7 @@
 	exports.default = NotifyStore;
 
 /***/ },
-/* 59 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7659,43 +7803,43 @@
 
 	var Action = _interopRequireWildcard(_ItineraryActions);
 
-	var _WalkHeader = __webpack_require__(60);
+	var _WalkHeader = __webpack_require__(63);
 
 	var _WalkHeader2 = _interopRequireDefault(_WalkHeader);
 
-	var _WalkDescription = __webpack_require__(61);
+	var _WalkDescription = __webpack_require__(64);
 
 	var _WalkDescription2 = _interopRequireDefault(_WalkDescription);
 
-	var _WalkRoute = __webpack_require__(62);
+	var _WalkRoute = __webpack_require__(65);
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(63);
+	var _WalkAccessibility = __webpack_require__(66);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(65);
+	var _WalkPublicTransit = __webpack_require__(68);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(66);
+	var _WalkParking = __webpack_require__(69);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(67);
+	var _WalkStart = __webpack_require__(70);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(68);
+	var _WalkTeam = __webpack_require__(71);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(69);
+	var _WalkMenu = __webpack_require__(72);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(71);
+	var _WalkMap = __webpack_require__(74);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7816,7 +7960,7 @@
 	};
 
 /***/ },
-/* 60 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7825,11 +7969,11 @@
 	  value: true
 	});
 
-	var _AddToItinerary = __webpack_require__(26);
+	var _AddToItinerary = __webpack_require__(25);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
-	var _WalkStore = __webpack_require__(21);
+	var _WalkStore = __webpack_require__(20);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -7967,7 +8111,7 @@
 	exports.default = WalkHeader;
 
 /***/ },
-/* 61 */
+/* 64 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8001,7 +8145,7 @@
 	exports.default = WalkDescription;
 
 /***/ },
-/* 62 */
+/* 65 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8050,7 +8194,7 @@
 	exports.default = WalkRoute;
 
 /***/ },
-/* 63 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8059,7 +8203,7 @@
 	  value: true
 	});
 
-	var _Accessible = __webpack_require__(64);
+	var _Accessible = __webpack_require__(67);
 
 	var WalkAccessibility = function WalkAccessibility(_ref) {
 	  var checkboxes = _ref.checkboxes;
@@ -8098,7 +8242,7 @@
 	exports.default = WalkAccessibility;
 
 /***/ },
-/* 64 */
+/* 67 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8129,7 +8273,7 @@
 	}
 
 /***/ },
-/* 65 */
+/* 68 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8164,7 +8308,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 66 */
+/* 69 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8201,7 +8345,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 67 */
+/* 70 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8231,7 +8375,7 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 68 */
+/* 71 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8316,7 +8460,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 69 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8325,21 +8469,21 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(19);
+	var _ItineraryUtils = __webpack_require__(26);
 
-	var _WalkAccessibility = __webpack_require__(63);
+	var _WalkAccessibility = __webpack_require__(66);
 
 	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
 
-	var _WalkPublicTransit = __webpack_require__(65);
+	var _WalkPublicTransit = __webpack_require__(68);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(66);
+	var _WalkParking = __webpack_require__(69);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _Theme = __webpack_require__(70);
+	var _Theme = __webpack_require__(73);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8465,7 +8609,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 70 */
+/* 73 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8519,7 +8663,7 @@
 	}
 
 /***/ },
-/* 71 */
+/* 74 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8730,7 +8874,7 @@
 	};
 
 /***/ },
-/* 72 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8741,15 +8885,15 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _DashboardHeader = __webpack_require__(73);
+	var _DashboardHeader = __webpack_require__(76);
 
 	var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
 
-	var _DashboardMenu = __webpack_require__(74);
+	var _DashboardMenu = __webpack_require__(77);
 
 	var _DashboardMenu2 = _interopRequireDefault(_DashboardMenu);
 
-	var _DashboardSummary = __webpack_require__(75);
+	var _DashboardSummary = __webpack_require__(78);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
@@ -8757,7 +8901,7 @@
 
 	var _UserStore2 = _interopRequireDefault(_UserStore);
 
-	var _CityStore = __webpack_require__(32);
+	var _CityStore = __webpack_require__(34);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
@@ -8765,7 +8909,7 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
-	var _WalkStore = __webpack_require__(21);
+	var _WalkStore = __webpack_require__(20);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
@@ -8855,7 +8999,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 73 */
+/* 76 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8912,7 +9056,7 @@
 	exports.default = DashboardHeader;
 
 /***/ },
-/* 74 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8927,23 +9071,23 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _DashboardSummary = __webpack_require__(75);
+	var _DashboardSummary = __webpack_require__(78);
 
 	var _DashboardSummary2 = _interopRequireDefault(_DashboardSummary);
 
-	var _DashboardResources = __webpack_require__(76);
+	var _DashboardResources = __webpack_require__(79);
 
 	var _DashboardResources2 = _interopRequireDefault(_DashboardResources);
 
-	var _MyBlogPosts = __webpack_require__(77);
+	var _MyBlogPosts = __webpack_require__(80);
 
 	var _MyBlogPosts2 = _interopRequireDefault(_MyBlogPosts);
 
-	var _Walks = __webpack_require__(78);
+	var _Walks = __webpack_require__(81);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
 
-	var _WalkLeaders = __webpack_require__(82);
+	var _WalkLeaders = __webpack_require__(85);
 
 	var _WalkLeaders2 = _interopRequireDefault(_WalkLeaders);
 
@@ -9047,7 +9191,7 @@
 	;
 
 /***/ },
-/* 75 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9058,7 +9202,7 @@
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	var DashboardSummary = function DashboardSummary(_ref) {
 	  var city = _ref.city;
@@ -9131,7 +9275,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 76 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9140,7 +9284,7 @@
 	  value: true
 	});
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	// TODO Resources should be loaded, not literal
 	// TODO* Country Flag (data is not stubbed, just 'Canada') and 'Toronto' as well
@@ -9299,7 +9443,7 @@
 	exports.default = DashboardResources;
 
 /***/ },
-/* 77 */
+/* 80 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -9343,7 +9487,7 @@
 	exports.default = MyBlogPosts;
 
 /***/ },
-/* 78 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9354,15 +9498,15 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _WalkFilters = __webpack_require__(79);
+	var _WalkFilters = __webpack_require__(82);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
 
-	var _WalksMap = __webpack_require__(80);
+	var _WalksMap = __webpack_require__(83);
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
-	var _Walk = __webpack_require__(81);
+	var _Walk = __webpack_require__(84);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9542,7 +9686,7 @@
 	exports.default = Walks;
 
 /***/ },
-/* 79 */
+/* 82 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9651,7 +9795,7 @@
 	exports.default = WalkFilters;
 
 /***/ },
-/* 80 */
+/* 83 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9907,7 +10051,7 @@
 	};
 
 /***/ },
-/* 81 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9916,7 +10060,7 @@
 	  value: true
 	});
 
-	var _ItineraryUtils = __webpack_require__(19);
+	var _ItineraryUtils = __webpack_require__(26);
 
 	//TODO: (Post PR) Common component from <Itinerary/> <Walk/>
 	//https://github.com/jkoudys/janeswalk-web/blob/react14/models/page_types/Walk.php
@@ -10018,7 +10162,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 82 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10031,7 +10175,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _WalkLeader = __webpack_require__(83);
+	var _WalkLeader = __webpack_require__(86);
 
 	var _WalkLeader2 = _interopRequireDefault(_WalkLeader);
 
@@ -10133,7 +10277,7 @@
 	exports.default = WalkLeaders;
 
 /***/ },
-/* 83 */
+/* 86 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10213,7 +10357,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 84 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10224,7 +10368,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _I18nStore = __webpack_require__(22);
+	var _I18nStore = __webpack_require__(21);
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10415,95 +10559,6 @@
 	}(React.Component);
 
 	exports.default = Login;
-
-/***/ },
-/* 85 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
-
-
-	var _I18nStore = __webpack_require__(22);
-
-	// TODO: shim
-	var dtfDate = void 0;
-	var dtfDuration = void 0;
-	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
-	  dtfDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
-	  dtfDuration = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
-	}
-
-	// Remove a slot of the time set table
-	function removeSlot(i, _ref) {
-	  var value = _ref.value;
-	  var _ref$value$slots = _ref.value.slots;
-	  var slots = _ref$value$slots === undefined ? [] : _ref$value$slots;
-	  var requestChange = _ref.requestChange;
-
-	  requestChange(Object.assign({}, value, { slots: slots.slice().splice(i, 1) }));
-	}
-
-	exports.default = function (_ref2) {
-	  var slot = _ref2.slot;
-	  var index = _ref2.index;
-	  var valueLink = _ref2.valueLink;
-
-	  var handleClick = function handleClick() {
-	    return removeSlot(index, valueLink);
-	  };
-
-	  var start = new Date(slot[0] * 1000);
-	  var duration = new Date((slot[1] - slot[0]) * 1000);
-
-	  var hours = duration.getUTCHours();
-	  var minutes = duration.getUTCMinutes();
-	  var durationFmt = [];
-
-	  if (hours) {
-	    durationFmt.push((0, _I18nStore.t2)('%d Hour', '%d Hours', hours));
-	  }
-
-	  if (minutes) {
-	    durationFmt.push((0, _I18nStore.t2)('%d Minute', '%d Minutes', minutes));
-	  }
-
-	  return React.createElement(
-	    'tr',
-	    null,
-	    React.createElement(
-	      'td',
-	      null,
-	      dtfDate.format(start)
-	    ),
-	    React.createElement(
-	      'td',
-	      null,
-	      dtfDuration.format(start)
-	    ),
-	    React.createElement(
-	      'td',
-	      null,
-	      durationFmt.join(', ')
-	    ),
-	    React.createElement(
-	      'td',
-	      null,
-	      React.createElement(
-	        'a',
-	        { onClick: handleClick },
-	        React.createElement('i', { className: 'fa fa-times-circle-o' }),
-	        ' ',
-	        (0, _I18nStore.t)('Remove')
-	      )
-	    )
-	  );
-	};
 
 /***/ }
 /******/ ]);

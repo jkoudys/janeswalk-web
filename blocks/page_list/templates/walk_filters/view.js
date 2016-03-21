@@ -57,22 +57,20 @@
 	                                                                                                                                                                                                                                                                   * A set of walk filters, to filter on properties. Also includes
 	                                                                                                                                                                                                                                                                   * the tabs, like 'list' and 'map/
 	                                                                                                                                                                                                                                                                   */
+	/* global React JanesWalk */
 
 	// Fluxxy
 
-	var _LocationMap = __webpack_require__(2);
 
-	var _LocationMap2 = _interopRequireDefault(_LocationMap);
-
-	var _WalkFilter = __webpack_require__(3);
+	var _WalkFilter = __webpack_require__(2);
 
 	var _WalkFilter2 = _interopRequireDefault(_WalkFilter);
 
-	var _WalkActions = __webpack_require__(21);
+	var _WalkActions = __webpack_require__(23);
 
 	var WalkActions = _interopRequireWildcard(_WalkActions);
 
-	var _CityActions = __webpack_require__(22);
+	var _CityActions = __webpack_require__(24);
 
 	var CityActions = _interopRequireWildcard(_CityActions);
 
@@ -80,16 +78,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var _walks = undefined;
 	var _filters = {};
 
 	JanesWalk.event.on('walkfilters.load', function (location) {
-	  React.render(React.createElement(_WalkFilter2.default, _extends({ filters: _filters }, { location: location })), document.getElementById('janeswalk-walk-filters'));
+	  return React.render(React.createElement(_WalkFilter2.default, _extends({ filters: _filters }, { location: location })), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	// Listen for updates, add routing
 	JanesWalk.event.on('filters.receive', function (filters) {
-	  return _filters = filters;
+	  _filters = filters;
 	});
 	JanesWalk.event.on('city.receive', function (city) {
 	  return CityActions.receive(city);
@@ -100,283 +97,41 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/**
-	 * The map of upcoming walks for a whole city
-	 */
-
-	// Helper to see if a member is a walk leader
-	function isWalkLeader(member) {
-	  // Check if their role contains leader, or their type does
-	  return member.role && member.role.indexOf('leader') > -1 || member.type && member.type.indexOf('leader') > -1;
-	}
-
-	// Date formatter
-	var dtfDate = new Intl.DateTimeFormat(undefined, { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'UTC' });
-	var _infoNode = document.createElement('div');
-
-	/**
-	 * Loop through the first set of markers, and see which in the update need to be
-	 * displayed.
-	 *
-	 * @param object markers The currently rendered markers
-	 * @param array walks The walks we want to render markers for
-	 * @param google.maps.Map map The google map to render to
-	 * @return object updated set of markers
-	 */
-	function addNewMarkersToMap(markers, walks, map) {
-	  // TODO: see how to move these consts out of the function, since
-	  // they need to be here so google can load first
-	  // Basic info window
-	  var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
-
-	  // Simple map marker icon
-	  var icon = {
-	    path: google.maps.SymbolPath.CIRCLE,
-	    scale: 7,
-	    strokeWeight: 1,
-	    strokeColor: '#f16725',
-	    fillOpacity: 0.7,
-	    fillColor: '#f16725'
-	  };
-
-	  // Clean out the markers before we put them back in
-	  for (var k in markers) {
-	    markers[k].setMap(null);
-	  }
-
-	  // Grab starting point of each walk
-	  walks.forEach(function (walk) {
-	    var latlng = undefined;
-	    var marker = undefined;
-
-	    if (markers[walk.id]) {
-	      // We already have this marker built, so simply add it to the map
-	      markers[walk.id].setMap(map);
-	    } else {
-	      // We must build a marker
-	      // Walk location is meeting place coords
-	      if (walk.map && Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
-	        latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
-	      } else if (walk.map && Array.isArray(walk.map.route) && walk.map.route.length > 0) {
-	        latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
-	      }
-
-	      // Add the marker
-	      marker = new google.maps.Marker({
-	        position: latlng,
-	        title: walk.title,
-	        icon: icon,
-	        map: map
-	      });
-
-	      markers[walk.id] = marker;
-
-	      google.maps.event.addListener(marker, 'click', function () {
-	        var leaders = undefined;
-	        var date = undefined;
-
-	        // Build the team list of walk leaders
-	        if (Array.isArray(walk.team)) {
-	          leaders = walk.team.filter(function (member) {
-	            return isWalkLeader(member);
-	          }).map(function (member) {
-	            return member['name-first'] + ' ' + member['name-last'];
-	          });
-	        }
-
-	        // Best-effort grab of the time
-	        try {
-	          // Show all dates joined together
-	          date = React.createElement(
-	            'h6',
-	            null,
-	            React.createElement('i', { className: 'fa fa-calendar' }),
-	            ' ',
-	            walk.time.slots.map(function (slot) {
-	              return dtfDate.format(slot[0] * 1000);
-	            }).join(', ')
-	          );
-	        } catch (e) {
-	          // Just log this, but don't die
-	          console.error('Failed to parse walk time.');
-	        }
-
-	        // Setup infowindow
-	        React.render(React.createElement(InfoWindow, _extends({
-	          key: walk.id
-	        }, Object.assign({}, walk, { date: date, leaders: leaders }))), _infoNode);
-
-	        // Center the marker and display its info window
-	        infoWindow.setMap(map);
-	        map.panTo(marker.getPosition());
-	        infoWindow.setContent(_infoNode);
-	        infoWindow.open(map, marker);
-	      });
-	    }
-	  });
-
-	  return markers;
-	}
-
-	var CityMap = (function (_React$Component) {
-	  _inherits(CityMap, _React$Component);
-
-	  function CityMap() {
-	    var _Object$getPrototypeO;
-
-	    _classCallCheck(this, CityMap);
-
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
-
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(CityMap)).call.apply(_Object$getPrototypeO, [this].concat(args)));
-
-	    _this.state = { map: null, markers: {} };
-	    return _this;
-	  }
-
-	  _createClass(CityMap, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _props = this.props;
-	      var zoomlevel = _props.zoomlevel;
-	      var latlng = _props.latlng;
-
-	      var locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
-
-	      // Setup map
-	      var map = new google.maps.Map(React.findDOMNode(this), {
-	        center: locationLatLng,
-	        zoom: zoomlevel || 10,
-	        backgroundColor: '#d7f0fa',
-	        scrollwheel: false
-	      });
-
-	      // Play nice with bootstrap tabs
-	      $('a[href="#jw-map"]').on('shown.bs.tab', function (e) {
-	        google.maps.event.trigger(map, 'resize');
-	        map.setCenter(locationLatLng);
-	      });
-
-	      // Add our markers to the empty map
-	      var newMarkers = addNewMarkersToMap({}, this.props.walks, map);
-	      this.setState({ map: map, markers: newMarkers });
-	    }
-	  }, {
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(props) {
-	      var newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
-	      this.setState({ markers: newMarkers });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return React.createElement('div', { className: 'cityMap', style: { width: '100%', height: '70vh' } });
-	    }
-	  }]);
-
-	  return CityMap;
-	})(React.Component);
-
-	exports.default = CityMap;
-
-	var InfoWindow = function InfoWindow(_ref) {
-	  var title = _ref.title;
-	  var url = _ref.url;
-	  var date = _ref.date;
-	  var shortDescription = _ref.shortDescription;
-	  var leaders = _ref.leaders;
-	  return React.createElement(
-	    'span',
-	    null,
-	    React.createElement(
-	      'h4',
-	      { style: { marginBottom: '0.1em' } },
-	      title
-	    ),
-	    date,
-	    React.createElement(
-	      'h6',
-	      null,
-	      'Led by: ',
-	      leaders.join(', ')
-	    ),
-	    React.createElement(
-	      'p',
-	      null,
-	      shortDescription,
-	      ' ',
-	      React.createElement(
-	        'a',
-	        { href: url, target: '_blank' },
-	        'Read More'
-	      )
-	    )
-	  );
-	};
-
-/***/ },
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _WalkCards = __webpack_require__(4);
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _WalkCards = __webpack_require__(3);
 
 	var _WalkCards2 = _interopRequireDefault(_WalkCards);
 
-	var _WalkList = __webpack_require__(6);
+	var _WalkList = __webpack_require__(16);
 
 	var _WalkList2 = _interopRequireDefault(_WalkList);
 
-	var _LocationMap = __webpack_require__(2);
+	var _LocationMap = __webpack_require__(18);
 
 	var _LocationMap2 = _interopRequireDefault(_LocationMap);
 
-	var _DateRange = __webpack_require__(17);
+	var _DateRange = __webpack_require__(20);
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
-	var _Tabs = __webpack_require__(18);
-
-	var _Tabs2 = _interopRequireDefault(_Tabs);
-
-	var _WalkStore = __webpack_require__(19);
+	var _WalkStore = __webpack_require__(21);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
-	var _CityStore = __webpack_require__(20);
+	var _CityStore = __webpack_require__(22);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
-
-	var _I18nStore = __webpack_require__(7);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -386,11 +141,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
-	                                                                                                                                                                                                     * Filters, lists, maps, the whole shebang
-	                                                                                                                                                                                                     */
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React */
+	/**
+	 * Filters, lists, maps, the whole shebang
+	 */
 
 	// Flux
+
 
 	// TODO: replace placeholder translate with real one.
 	// Not doing this now because we'd need to build multiple translators for blocks vs site
@@ -408,7 +165,7 @@
 	  var city = _ref.city;
 
 	  return walks.filter(function (walk) {
-	    var time = undefined;
+	    var time = void 0;
 	    if (walk.time.slots.length) {
 	      time = walk.time.slots[0][0] * 1000;
 	    }
@@ -448,8 +205,6 @@
 	  }
 	  return [today, null];
 	}
-
-	//"cityID":258,
 
 	var Filter = function Filter(_ref2) {
 	  var name = _ref2.name;
@@ -493,18 +248,18 @@
 	  var city = _ref3$city === undefined ? _CityStore2.default.getCity() : _ref3$city;
 
 	  var walks = [].concat(_toConsumableArray(_WalkStore2.default.getWalks().values()));
-	  dateRange = dateRange || thirdRecentDateRange(walks);
+	  var usefulRange = dateRange || thirdRecentDateRange(walks);
 
 	  return {
 	    walks: walks,
 	    filters: filters,
 	    city: city,
-	    dateRange: dateRange,
-	    filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city })
+	    dateRange: usefulRange,
+	    filterMatches: filterWalks({ walks: walks, filters: filters, usefulRange: usefulRange, city: city })
 	  };
 	};
 
-	var WalkFilter = (function (_React$Component) {
+	var WalkFilter = function (_React$Component) {
 	  _inherits(WalkFilter, _React$Component);
 
 	  function WalkFilter(props) {
@@ -512,15 +267,40 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WalkFilter).call(this, props));
 
-	    _this._onChange = function () {
-	      var _this$state = _this.state;
-	      var filters = _this$state.filters;
-	      var dateRange = _this$state.dateRange;
+	    Object.assign(_this, {
+	      state: getWalkFilterState(props),
+	      _onChange: function _onChange() {
+	        _this.setState(getWalkFilterState(_this.state));
+	      },
+	      handleToggleFilters: function handleToggleFilters() {
+	        _this.setState({ displayFilters: !_this.state.displayFilters });
+	      },
+	      printList: function printList() {
+	        var win = window.open();
+	        var el = win.document.createElement('div');
+	        React.render(React.createElement(_WalkList2.default, { walks: _this.state.filterMatches }), el);
+	        window.focus();
+	        win.document.body.appendChild(el);
+	        win.print();
+	        win.close();
+	      },
+	      setFilter: function setFilter(filter, val) {
+	        var _this$state = _this.state;
+	        var filters = _this$state.filters;
+	        var walks = _this$state.walks;
+	        var dateRange = _this$state.dateRange;
+	        var city = _this$state.city;
 
-	      _this.setState(getWalkFilterState(_this.state));
-	    };
-
-	    _this.state = getWalkFilterState(props);
+	        filters[filter].selected = val;
+	        _this.setState({ filters: filters, filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city }) });
+	      },
+	      setDateRange: function setDateRange(from, to) {
+	        _this.setState({
+	          dateRange: [from, to],
+	          filterMatches: filterWalks(_this.state.walks, _this.state.filters, [from, to])
+	        });
+	      }
+	    });
 	    return _this;
 	  }
 
@@ -537,48 +317,24 @@
 	      _CityStore2.default.removeChangeListener(this._onChange);
 	    }
 	  }, {
-	    key: 'setFilter',
-	    value: function setFilter(filter, val) {
-	      var _state = this.state;
-	      var filters = _state.filters;
-	      var walks = _state.walks;
-	      var dateRange = _state.dateRange;
-	      var city = _state.city;
-
-	      filters[filter].selected = val;
-	      this.setState({ filters: filters, filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city }) });
-	    }
-	  }, {
-	    key: 'setDateRange',
-	    value: function setDateRange(from, to) {
-	      this.setState({ dateRange: [from, to], filterMatches: filterWalks(this.state.walks, this.state.filters, [from, to]) });
-	    }
-	  }, {
-	    key: 'printList',
-	    value: function printList() {
-	      var win = window.open();
-	      var el = win.document.createElement('div');
-	      React.render(React.createElement(_WalkList2.default, { walks: this.state.filterMatches }), el);
-	      window.focus();
-	      win.document.body.appendChild(el);
-	      win.print();
-	      win.close();
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
-	      var locationMapSection = undefined;
+	      var locationMapSection = void 0;
 
-	      var _state2 = this.state;
-	      var displayFilters = _state2.displayFilters;
-	      var city = _state2.city;
+	      var _state = this.state;
+	      var displayFilters = _state.displayFilters;
+	      var city = _state.city;
+	      var filterMatches = _state.filterMatches;
+	      var dateRange = _state.dateRange;
+	      var filters = _state.filters;
 
-	      var Filters = Object.keys(this.state.filters).map(function (key) {
+
+	      var Filters = Object.keys(filters).map(function (key) {
 	        return React.createElement(Filter, _extends({ key: key, setFilter: function setFilter(v) {
 	            return _this2.setFilter(key, v);
-	          } }, _this2.state.filters[key]));
+	          } }, filters[key]));
 	      });
 
 	      // See if this city has a location set
@@ -586,7 +342,7 @@
 	        locationMapSection = React.createElement(
 	          'section',
 	          { className: 'tab-pane', id: 'jw-map' },
-	          React.createElement(_LocationMap2.default, { walks: this.state.filterMatches, latlng: city.latlng })
+	          React.createElement(_LocationMap2.default, { walks: filterMatches, latlng: city.latlng })
 	        );
 	      }
 
@@ -605,7 +361,7 @@
 	              null,
 	              'Dates'
 	            ),
-	            React.createElement(_DateRange2.default, { value: this.state.dateRange, onChange: this.setDateRange.bind(this) })
+	            React.createElement(_DateRange2.default, { value: dateRange, onChange: this.setDateRange })
 	          )
 	        )
 	      );
@@ -618,17 +374,13 @@
 	          { className: 'walk-filters' },
 	          React.createElement(
 	            'a',
-	            { className: 'filter-header', onClick: function onClick() {
-	                _this2.setState({ displayFilters: !displayFilters });
-	              } },
+	            { className: 'filter-header', onClick: this.handleToggleFilters },
 	            React.createElement('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }),
 	            'Filters'
 	          ),
 	          React.createElement(
 	            'a',
-	            { className: 'print-button', onClick: function onClick() {
-	                return _this2.printList();
-	              } },
+	            { className: 'print-button', onClick: this.printList },
 	            React.createElement('i', { className: 'fa fa-print' }),
 	            ' Print List'
 	          ),
@@ -637,7 +389,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'walks-area' },
-	          React.createElement(_WalkCards2.default, { walks: this.state.filterMatches }),
+	          React.createElement(_WalkCards2.default, { walks: filterMatches }),
 	          locationMapSection
 	        )
 	      );
@@ -645,9 +397,62 @@
 	  }]);
 
 	  return WalkFilter;
-	})(React.Component);
+	}(React.Component);
 
 	exports.default = WalkFilter;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _Card = __webpack_require__(4);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _I18nStore = __webpack_require__(6);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * The cards showing your walk
+	 */
+
+
+	var WalkCards = function WalkCards(_ref) {
+	  var walks = _ref.walks;
+
+	  if (walks.length === 0) {
+	    return React.createElement(
+	      'div',
+	      { className: 'empty' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        (0, _I18nStore.t)('Keep looking.')
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        (0, _I18nStore.t)('We couldn\'t find any matching walks.')
+	      )
+	    );
+	  }
+	  return React.createElement(
+	    'div',
+	    { className: 'walkCards' },
+	    walks.map(function (walk, i) {
+	      return React.createElement(_Card2.default, { key: 'walk' + i, walk: walk });
+	    })
+	  );
+	};
+
+	exports.default = WalkCards;
 
 /***/ },
 /* 4 */
@@ -655,11 +460,14 @@
 
 	'use strict';
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
+
 
 	var _Theme = __webpack_require__(5);
 
@@ -669,15 +477,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; } /**
-	                                                                                                                              * The cards showing your walk
-	                                                                                                                              */
-
-	var t = function t(s) {
-	  return s;
-	};
-
-	var dtfDate = undefined;
+	var dtfDate = void 0;
 	// Date formatter
 	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
 	  dtfDate = new Intl.DateTimeFormat('en-US', {
@@ -690,71 +490,32 @@
 	  });
 	}
 
-	var WalkCards = (function (_React$Component) {
-	  _inherits(WalkCards, _React$Component);
+	var getFullName = function getFullName(v) {
+	  return (v['name-first'] + ' ' + v['name-last']).trim();
+	};
 
-	  function WalkCards() {
-	    _classCallCheck(this, WalkCards);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(WalkCards).apply(this, arguments));
-	  }
-
-	  _createClass(WalkCards, [{
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.walks.length === 0) {
-	        return React.createElement(
-	          'div',
-	          { className: 'empty' },
-	          React.createElement(
-	            'h4',
-	            null,
-	            t('Keep looking.')
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            t('We couldn\'t find any matching walks.')
-	          )
-	        );
-	      } else {
-	        return React.createElement(
-	          'div',
-	          { className: 'walkCards' },
-	          this.props.walks.map(function (walk) {
-	            return React.createElement(Card, { walk: walk });
-	          })
-	        );
-	      }
-	    }
-	  }]);
-
-	  return WalkCards;
-	})(React.Component);
-
-	exports.default = WalkCards;
-
-	var Card = (function (_React$Component2) {
-	  _inherits(Card, _React$Component2);
+	var Card = function (_React$Component) {
+	  _inherits(Card, _React$Component);
 
 	  function Card(props) {
 	    _classCallCheck(this, Card);
 
-	    var formatter = undefined;
-	    var past = undefined;
+	    var formatter = void 0;
+	    var past = void 0;
 	    var yesterday = new Date();
 	    yesterday.setDate(yesterday.getDate() - 1);
 
+
 	    // Format the start date upfront, since that's expensive
 
-	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
 
 	    if (dtfDate) {
-	      formatter = function (slot) {
+	      formatter = function formatter(slot) {
 	        return dtfDate.format(slot[0] * 1000);
 	      };
 	    } else {
-	      formatter = function (slot) {
+	      formatter = function formatter(slot) {
 	        var date = new Date(slot[0] * 1000);
 	        var dateString = date.toUTCString();
 	        return dateString.slice(0, dateString.indexOf(' GMT'));
@@ -765,27 +526,38 @@
 	      past = props.walk.time.slots[0][0] * 1000 < yesterday.getTime();
 	    }
 
-	    _this2.state = {
-	      startTimes: props.walk.time.slots.map(formatter),
-	      past: past
-	    };
-	    return _this2;
+	    Object.assign(_this, {
+	      state: { startTimes: props.walk.time.slots.map(formatter), past: past }
+	    });
+	    return _this;
 	  }
 
 	  _createClass(Card, [{
 	    key: 'render',
 	    value: function render() {
-	      var Meeting = undefined;
-	      var LedBy = undefined;
-	      var Thumb = undefined;
-	      var Status = undefined;
-	      var walk = this.props.walk;
-	      var placeholder = 'placeholder' + walk.id % 3;
-	      var leaders = walk.team.filter(function (member) {
+	      var Meeting = void 0;
+	      var LedBy = void 0;
+	      var Thumb = void 0;
+	      var Status = void 0;
+	      var _props$walk = this.props.walk;
+	      var id = _props$walk.id;
+	      var title = _props$walk.title;
+	      var url = _props$walk.url;
+	      var thumbnails = _props$walk.thumbnails;
+	      var map = _props$walk.map;
+	      var shortDescription = _props$walk.shortDescription;
+	      var checkboxes = _props$walk.checkboxes;
+	      var team = _props$walk.team;
+	      var _state = this.state;
+	      var past = _state.past;
+	      var startTimes = _state.startTimes;
+
+	      var placeholder = 'placeholder' + id % 3;
+	      var leaders = team.filter(function (member) {
 	        return member.role === 'walk-leader' || member.type === 'leader';
 	      });
-	      var Tags = Object.keys(walk.checkboxes).filter(function (check) {
-	        return check.indexOf('theme-') === 0 && walk.checkboxes[check];
+	      var Tags = Object.keys(checkboxes).filter(function (check) {
+	        return check.indexOf('theme-') === 0 && checkboxes[check];
 	      }).map(function (theme) {
 	        return React.createElement(
 	          'li',
@@ -795,26 +567,24 @@
 	      });
 
 	      // Build the optional elements
-	      if (walk.thumbnails.length) {
-	        Thumb = walk.thumbnails[0].url;
+	      if (thumbnails.length) {
+	        Thumb = thumbnails[0].url;
 	      }
 
 	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-	      if (walk.map && walk.map.markers && walk.map.markers.length) {
-	        Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
+	      if (map && map.markers && map.markers.length) {
+	        Meeting = map.markers[0].title || map.markers[0].description;
 	      }
 
 	      if (leaders.length) {
 	        LedBy = React.createElement(
 	          'span',
 	          null,
-	          'Walk led by ' + leaders.map(function (v) {
-	            return v['name-first'] + ' ' + v['name-last'];
-	          }).join(', ')
+	          'Walk led by ' + leaders.map(getFullName).join(', ')
 	        );
 	      }
 
-	      if (this.state.past) {
+	      if (past) {
 	        Status = React.createElement(
 	          'div',
 	          { className: 'statusMessage' },
@@ -827,13 +597,13 @@
 	        { className: 'walk-card' },
 	        React.createElement(
 	          'a',
-	          { href: walk.url },
+	          { href: url },
 	          React.createElement(
 	            'div',
 	            { className: 'thumbnail' },
 	            React.createElement(
 	              'div',
-	              { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
+	              { className: 'walkimage' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
 	              Status
 	            ),
 	            React.createElement(
@@ -842,35 +612,35 @@
 	              React.createElement(
 	                'h4',
 	                null,
-	                (walk.title || '').slice(0, 45)
+	                (title || '').slice(0, 45)
 	              ),
 	              React.createElement(
 	                'p',
 	                null,
-	                (walk.shortDescription || '').slice(0, 140)
+	                (shortDescription || '').slice(0, 140)
 	              )
 	            ),
 	            React.createElement(
 	              'ul',
 	              { className: 'when' },
-	              this.state.startTimes.map(function (startTime) {
+	              startTimes.map(function (startTime) {
 	                return React.createElement(
 	                  'li',
 	                  null,
 	                  startTime
 	                );
 	              }),
-	              React.createElement(
+	              Meeting ? React.createElement(
 	                'li',
 	                null,
 	                'Meet at ',
 	                Meeting
-	              ),
-	              React.createElement(
+	              ) : null,
+	              LedBy ? React.createElement(
 	                'li',
 	                null,
 	                LedBy
-	              )
+	              ) : null
 	            ),
 	            React.createElement(
 	              'ul',
@@ -884,7 +654,9 @@
 	  }]);
 
 	  return Card;
-	})(React.Component);
+	}(React.Component);
+
+	exports.default = Card;
 
 /***/ },
 /* 5 */
@@ -946,185 +718,20 @@
 
 	'use strict';
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.tc = exports.t2 = exports.t = undefined;
 
-	var _I18nStore = __webpack_require__(7);
+	var _Store = __webpack_require__(7);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; } /**
-	                                                                                                                              * The list of walks to order
-	                                                                                                                              */
-
-	var dtfDate = undefined;
-	var dtfTime = undefined;
-
-	// Date formatter
-	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
-	  dtfDate = new Intl.DateTimeFormat('en-US', {
-	    year: 'numeric',
-	    month: 'long',
-	    day: 'numeric'
-	  });
-	  dtfTime = new Intl.DateTimeFormat('en-US', {
-	    hour: 'numeric',
-	    minute: '2-digit',
-	    timeZone: 'UTC'
-	  });
-	} else {
-	  // Quick and dirty shim for those poor souls on Safari
-	  dtfDate = {};
-	  dtfTime = {};
-	  dtfDate.format = function (time) {
-	    return $.datepicker.formatDate('M d, yy', new Date(time));
-	  };
-	  dtfTime.format = function (time) {
-	    var d = new Date(time);
-	    return d.getHours() + ':' + d.getMinutes();
-	  };
-	}
-
-	/**
-	 * The walk list
-	 */
-
-	exports.default = function (_ref) {
-	  var walks = _ref.walks;
-	  return React.createElement(
-	    'table',
-	    { className: 'walklist table' },
-	    React.createElement(
-	      'thead',
-	      null,
-	      React.createElement(
-	        'tr',
-	        null,
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.t)('Date')
-	        ),
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.t)('Time')
-	        ),
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.t)('Title')
-	        ),
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.t)('Meeting Place')
-	        )
-	      )
-	    ),
-	    React.createElement(
-	      'tbody',
-	      null,
-	      walks.map(function (walk) {
-	        return React.createElement(ListItem, { walk: walk });
-	      })
-	    )
-	  );
-	};
-
-	var ListItem = (function (_React$Component) {
-	  _inherits(ListItem, _React$Component);
-
-	  function ListItem(props) {
-	    _classCallCheck(this, ListItem);
-
-	    var formatter = undefined;
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ListItem).call(this, props));
-
-	    if (props.walk.time.slots.length) {
-	      var time = props.walk.time.slots[0][0] * 1000;
-
-	      _this.state = {
-	        startDate: dtfDate.format(time),
-	        startTime: dtfTime.format(time)
-	      };
-	    }
-	    return _this;
-	  }
-
-	  _createClass(ListItem, [{
-	    key: 'render',
-	    value: function render() {
-	      var Meeting = undefined;
-	      var walk = this.props.walk;
-
-	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-	      if (walk.map && walk.map.markers && walk.map.markers.length) {
-	        Meeting = walk.map.markers[0].title || walk.map.markers[0].description;
-	      }
-
-	      return React.createElement(
-	        'tr',
-	        null,
-	        React.createElement(
-	          'td',
-	          null,
-	          this.state.startDate
-	        ),
-	        React.createElement(
-	          'td',
-	          null,
-	          this.state.startTime
-	        ),
-	        React.createElement(
-	          'td',
-	          null,
-	          React.createElement(
-	            'a',
-	            { href: this.props.walk.url, target: '_blank' },
-	            this.props.walk.title
-	          )
-	        ),
-	        React.createElement(
-	          'td',
-	          null,
-	          Meeting
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ListItem;
-	})(React.Component);
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.t2 = exports.t = undefined;
-
-	var _events = __webpack_require__(8);
+	var _Store2 = _interopRequireDefault(_Store);
 
 	var _AppDispatcher = __webpack_require__(9);
 
 	var _JWConstants = __webpack_require__(14);
 
-	var _Stores = __webpack_require__(15);
-
-	var _translate = __webpack_require__(16);
+	var _translate = __webpack_require__(15);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
@@ -1138,12 +745,14 @@
 
 	// Basic flux setup
 
+
 	// The library for managing translations
+
 
 	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var I18nStore = Object.assign({}, _Store2.default, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
@@ -1164,13 +773,60 @@
 	var t = exports.t = I18nStore.getTranslate();
 	var t2 = exports.t2 = I18nStore.getTranslatePlural();
 
+	// FIXME make this real
+	var tc = exports.tc = function tc(c, s) {
+	  return s;
+	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(8);
+
+	var _events2 = _interopRequireDefault(_events);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CHANGE_EVENT = 'change'; /**
+	                              * The generic 'store', which more complex stores are composed from
+	                              */
+
+	// Requires
+
+
+	var Store = Object.assign({}, _events2.default.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+
+
+	  /**
+	   * @param {function} callback
+	   */
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  }
+	});
+
+	exports.default = Store;
+
 /***/ },
 /* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	// Copyright Joyent, Inc. and other Node contributors.
 	//
@@ -1607,7 +1263,7 @@
 	 * `FlightPriceStore`.
 	 */
 
-	var Dispatcher = (function () {
+	var Dispatcher = function () {
 	  function Dispatcher() {
 	    _classCallCheck(this, Dispatcher);
 
@@ -1724,7 +1380,7 @@
 	  };
 
 	  return Dispatcher;
-	})();
+	}();
 
 	module.exports = Dispatcher;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
@@ -1846,7 +1502,7 @@
 	 * @providesModule invariant
 	 */
 
-	"use strict"
+	"use strict";
 
 	/**
 	 * Use invariant() to assert state which your program assumes to be true.
@@ -1859,7 +1515,6 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 
-	;
 	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
@@ -1926,29 +1581,6 @@
 
 /***/ },
 /* 15 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var CHANGE_EVENT = 'change';
-
-	var changeMethods = exports.changeMethods = {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  }
-	};
-
-/***/ },
-/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2041,16 +1673,468 @@
 	module.exports = I18nTranslator;
 
 /***/ },
-/* 17 */
-/***/ function(module, exports) {
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _ListItem = __webpack_require__(17);
+
+	var _ListItem2 = _interopRequireDefault(_ListItem);
+
+	var _I18nStore = __webpack_require__(6);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	/**
+	 * The walk list
+	 */
+	/**
+	 * The list of walks to order
+	 */
+	/* global $ */
+
+	exports.default = function (_ref) {
+	  var walks = _ref.walks;
+	  return React.createElement(
+	    'table',
+	    { className: 'walklist table' },
+	    React.createElement(
+	      'thead',
+	      null,
+	      React.createElement(
+	        'tr',
+	        null,
+	        React.createElement(
+	          'th',
+	          null,
+	          (0, _I18nStore.t)('Date')
+	        ),
+	        React.createElement(
+	          'th',
+	          null,
+	          (0, _I18nStore.t)('Time')
+	        ),
+	        React.createElement(
+	          'th',
+	          null,
+	          (0, _I18nStore.t)('Title')
+	        ),
+	        React.createElement(
+	          'th',
+	          null,
+	          (0, _I18nStore.t)('Meeting Place')
+	        )
+	      )
+	    ),
+	    React.createElement(
+	      'tbody',
+	      null,
+	      walks.map(function (walk) {
+	        return React.createElement(_ListItem2.default, { walk: walk });
+	      })
+	    )
+	  );
+	};
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/* global React */
+
+	var ListItem = function (_React$Component) {
+	  _inherits(ListItem, _React$Component);
+
+	  function ListItem(props) {
+	    _classCallCheck(this, ListItem);
+
+	    var formatter = void 0;
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ListItem).call(this, props));
+
+	    if (props.walk.time.slots.length) {
+	      var time = props.walk.time.slots[0][0] * 1000;
+
+	      _this.state = {
+	        startDate: dtfDate.format(time),
+	        startTime: dtfTime.format(time)
+	      };
+	    }
+	    return _this;
+	  }
+
+	  _createClass(ListItem, [{
+	    key: "render",
+	    value: function render() {
+	      var Meeting = void 0;
+	      var _props$walk = this.props.walk;
+	      var map = _props$walk.map;
+	      var url = _props$walk.url;
+	      var title = _props$walk.title;
+	      var _state = this.state;
+	      var startDate = _state.startDate;
+	      var startTime = _state.startTime;
+
+	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
+
+	      if (map && map.markers && map.markers.length) {
+	        Meeting = map.markers[0].title || map.markers[0].description;
+	      }
+
+	      return React.createElement(
+	        "tr",
+	        null,
+	        React.createElement(
+	          "td",
+	          null,
+	          startDate
+	        ),
+	        React.createElement(
+	          "td",
+	          null,
+	          startTime
+	        ),
+	        React.createElement(
+	          "td",
+	          null,
+	          React.createElement(
+	            "a",
+	            { href: url, target: "_blank" },
+	            title
+	          )
+	        ),
+	        React.createElement(
+	          "td",
+	          null,
+	          Meeting
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ListItem;
+	}(React.Component);
+
+	exports.default = ListItem;
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * The map of upcoming walks for a whole city
+	                                                                                                                                                                                                                                                                   */
+	/* global React google $ */
+
+
+	var _InfoWindow = __webpack_require__(19);
+
+	var _InfoWindow2 = _interopRequireDefault(_InfoWindow);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Helper to see if a member is a walk leader
+	function isWalkLeader(member) {
+	  // Check if their role contains leader, or their type does
+	  return member.role && member.role.indexOf('leader') > -1 || member.type && member.type.indexOf('leader') > -1;
+	}
+
+	// Date formatter
+	var dtfDate = new Intl.DateTimeFormat(undefined, {
+	  year: 'numeric',
+	  month: 'long',
+	  day: 'numeric',
+	  hour: 'numeric',
+	  minute: '2-digit',
+	  timeZone: 'UTC'
+	});
+	var _infoNode = document.createElement('div');
+
+	/**
+	 * Loop through the first set of markers, and see which in the update need to be
+	 * displayed.
+	 *
+	 * @param object markers The currently rendered markers
+	 * @param array walks The walks we want to render markers for
+	 * @param google.maps.Map map The google map to render to
+	 * @return object updated set of markers
+	 */
+	function addNewMarkersToMap(markers, walks, map) {
+	  // TODO: see how to move these consts out of the function, since
+	  // they need to be here so google can load first
+	  // Basic info window
+	  var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
+
+	  // Simple map marker icon
+	  var icon = {
+	    path: google.maps.SymbolPath.CIRCLE,
+	    scale: 7,
+	    strokeWeight: 1,
+	    strokeColor: '#f16725',
+	    fillOpacity: 0.7,
+	    fillColor: '#f16725'
+	  };
+
+	  // Clean out the markers before we put them back in
+	  Object.keys(markers).forEach(function (k) {
+	    return markers[k].setMap(null);
+	  });
+
+	  // Grab starting point of each walk
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    var _loop = function _loop() {
+	      var walk = _step.value;
+
+	      if (markers[walk.id]) {
+	        // We already have this marker built, so simply add it to the map
+	        markers[walk.id].setMap(map);
+	      } else {
+	        (function () {
+	          // We must build a marker
+	          var marker = void 0;
+	          var latlng = void 0;
+	          // Walk location is meeting place coords
+	          if (walk.map && Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
+	            latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
+	          } else if (walk.map && Array.isArray(walk.map.route) && walk.map.route.length > 0) {
+	            latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
+	          }
+
+	          // Add the marker
+	          marker = new google.maps.Marker({
+	            position: latlng,
+	            title: walk.title,
+	            icon: icon,
+	            map: map
+	          });
+
+	          markers[walk.id] = marker;
+
+	          google.maps.event.addListener(marker, 'click', function () {
+	            var leaders = void 0;
+	            var date = void 0;
+
+	            // Build the team list of walk leaders
+	            if (Array.isArray(walk.team)) {
+	              leaders = walk.team.filter(function (member) {
+	                return isWalkLeader(member);
+	              }).map(function (member) {
+	                return member['name-first'] + ' ' + member['name-last'];
+	              });
+	            }
+
+	            // Best-effort grab of the time
+	            try {
+	              // Show all dates joined together
+	              date = React.createElement(
+	                'h6',
+	                null,
+	                React.createElement('i', { className: 'fa fa-calendar' }),
+	                ' ',
+	                walk.time.slots.map(function (slot) {
+	                  return dtfDate.format(slot[0] * 1000);
+	                }).join(', ')
+	              );
+	            } catch (e) {
+	              // Just log this, but don't die
+	              console.error('Failed to parse walk time.');
+	            }
+
+	            // Setup infowindow
+	            React.render(React.createElement(_InfoWindow2.default, _extends({
+	              key: walk.id
+	            }, walk, { date: date, leaders: leaders })), _infoNode);
+
+	            // Center the marker and display its info window
+	            infoWindow.setMap(map);
+	            map.panTo(marker.getPosition());
+	            infoWindow.setContent(_infoNode);
+	            infoWindow.open(map, marker);
+	          });
+	        })();
+	      }
+	    };
+
+	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      _loop();
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+
+	  return markers;
+	}
+
+	var LocationMap = function (_React$Component) {
+	  _inherits(LocationMap, _React$Component);
+
+	  function LocationMap() {
+	    var _Object$getPrototypeO;
+
+	    _classCallCheck(this, LocationMap);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(LocationMap)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+
+	    Object.assign(_this, {
+	      state: { map: null, markers: {} }
+	    });
+	    return _this;
+	  }
+
+	  _createClass(LocationMap, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _props = this.props;
+	      var zoomlevel = _props.zoomlevel;
+	      var latlng = _props.latlng;
+
+	      var locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
+
+	      // Setup map
+	      var map = new google.maps.Map(React.findDOMNode(this), {
+	        center: locationLatLng,
+	        zoom: zoomlevel || 10,
+	        backgroundColor: '#d7f0fa',
+	        scrollwheel: false
+	      });
+
+	      // Play nice with bootstrap tabs
+	      $('a[href="#jw-map"]').on('shown.bs.tab', function () {
+	        google.maps.event.trigger(map, 'resize');
+	        map.setCenter(locationLatLng);
+	      });
+
+	      // Add our markers to the empty map
+	      var newMarkers = addNewMarkersToMap({}, this.props.walks, map);
+	      this.setState({ map: map, markers: newMarkers });
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(props) {
+	      var newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
+	      this.setState({ markers: newMarkers });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement('div', { className: 'cityMap', style: { width: '100%', height: '70vh' } });
+	    }
+	  }]);
+
+	  return LocationMap;
+	}(React.Component);
+
+	exports.default = LocationMap;
+
+/***/ },
+/* 19 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function (_ref) {
+	  var title = _ref.title;
+	  var url = _ref.url;
+	  var date = _ref.date;
+	  var shortDescription = _ref.shortDescription;
+	  var _ref$leaders = _ref.leaders;
+	  var leaders = _ref$leaders === undefined ? [] : _ref$leaders;
+	  return React.createElement(
+	    'span',
+	    null,
+	    React.createElement(
+	      'h4',
+	      { style: { marginBottom: '0.1em' } },
+	      title
+	    ),
+	    date,
+	    leaders.length ? React.createElement(
+	      'h6',
+	      null,
+	      'Led by: ',
+	      leaders.join(', ')
+	    ) : null,
+	    React.createElement(
+	      'p',
+	      null,
+	      shortDescription,
+	      ' ',
+	      React.createElement(
+	        'a',
+	        { href: url, target: '_blank' },
+	        'Read More'
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 20 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -2062,12 +2146,12 @@
 	 * Date Range
 	 * a jQueryUI based React component for picking a to/from date range
 	 */
+	/* global React $ */
 
 	var df = 'yy-mm-dd';
 	var offset = new Date().getTimezoneOffset();
-	var oneDay = 24 * 60 * 60 * 1000;
 
-	var DateRange = (function (_React$Component) {
+	var DateRange = function (_React$Component) {
 	  _inherits(DateRange, _React$Component);
 
 	  function DateRange(props) {
@@ -2138,96 +2222,31 @@
 	  }]);
 
 	  return DateRange;
-	})(React.Component);
+	}(React.Component);
 
 	exports.default = DateRange;
 
 /***/ },
-/* 18 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function (_ref) {
-	  var blog = _ref.blog;
-	  var location = _ref.location;
-
-	  var tabBlog = undefined;
-	  var tabMap = undefined;
-
-	  if (blog) {
-	    tabBlog = React.createElement(
-	      "li",
-	      { key: "tb" },
-	      React.createElement(
-	        "a",
-	        { href: blog.url, target: "_blank" },
-	        "Blog"
-	      )
-	    );
-	  }
-
-	  if (location && location.latlng.length === 2) {
-	    tabMap = React.createElement(
-	      "li",
-	      { key: "maptab" },
-	      React.createElement(
-	        "a",
-	        { href: "#jw-map", "data-toggle": "tab" },
-	        "Map"
-	      )
-	    );
-	  }
-
-	  return React.createElement(
-	    "ul",
-	    { className: "nav nav-tabs" },
-	    React.createElement(
-	      "li",
-	      null,
-	      React.createElement(
-	        "a",
-	        { href: "#jw-cards", className: "active", "data-toggle": "tab" },
-	        "All Walks"
-	      )
-	    ),
-	    React.createElement(
-	      "li",
-	      null,
-	      React.createElement(
-	        "a",
-	        { href: "#jw-list", "data-toggle": "tab" },
-	        "List"
-	      )
-	    ),
-	    tabMap,
-	    tabBlog
-	  );
-	};
-
-/***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var _register;
-
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
-	var _AppDispatcher = __webpack_require__(9);
+	var _register;
 
-	var _events = __webpack_require__(8);
+	var _AppDispatcher = __webpack_require__(9);
 
 	var _JWConstants = __webpack_require__(14);
 
-	var _Stores = __webpack_require__(15);
+	var _Store = __webpack_require__(7);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * Walk store
@@ -2247,12 +2266,33 @@
 
 	// Receive an array of walks
 	function receiveWalks(walks) {
-	  walks.forEach(function (w) {
-	    return receiveWalk(w);
-	  });
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var walk = _step.value;
+
+	      receiveWalk(walk);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
 	}
 
-	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var WalkStore = Object.assign({}, _Store2.default, {
 	  getWalks: function getWalks() {
 	    return _walks;
 	  },
@@ -2275,7 +2315,7 @@
 	exports.default = WalkStore;
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2286,11 +2326,13 @@
 
 	var _AppDispatcher = __webpack_require__(9);
 
-	var _events = __webpack_require__(8);
-
 	var _JWConstants = __webpack_require__(14);
 
-	var _Stores = __webpack_require__(15);
+	var _Store = __webpack_require__(7);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
 	                                                                                                                                                                                                                   * City store
@@ -2300,9 +2342,9 @@
 	                                                                                                                                                                                                                   */
 
 	// Store singletons
-	var _city = undefined;
+	var _city = void 0;
 
-	var CityStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var CityStore = Object.assign({}, _Store2.default, {
 	  getCity: function getCity() {
 	    return _city;
 	  },
@@ -2312,7 +2354,7 @@
 
 	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
 	    var city = _ref.city;
-	    return _city = city;
+	    _city = city;
 	  }), function () {
 	    return CityStore.emitChange();
 	  })
@@ -2320,7 +2362,7 @@
 	exports.default = CityStore;
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2351,7 +2393,7 @@
 	}
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

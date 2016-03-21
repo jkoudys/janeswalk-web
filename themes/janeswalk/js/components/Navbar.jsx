@@ -1,46 +1,12 @@
+/* global React $ CCM_EDIT_MODE */
 import Itinerary from './itinerary/Itinerary.jsx';
 import AreaStore from 'janeswalk/stores/AreaStore';
 import UserStore from 'janeswalk/stores/UserStore';
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
-import {makeSticky} from 'janeswalk/utils/dom';
+import { makeSticky } from 'janeswalk/utils/dom';
 
-// TODO: Replace translations placeholders
-import {t} from 'janeswalk/stores/I18nStore';
-const tc = (c, s) => s;
-
-/* Build menu options depending if currently logged in or not */
-const LoggedInOptions = ({user, profiling, searching, toggleProfile, toggleSearch, unseenUpdates}) => ([
-  <li key="in0">
-    <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
-      <i className="fa fa-search" />
-    </a>
-  </li>,
-  <li key="in1" className={unseenUpdates ? 'notify' : ''}>
-    <a onClick={toggleProfile} className={profiling ? 'selected' : ''}>
-      <i className="fa fa-calendar" />
-    </a>
-  </li>,
-  <li key="in2">
-    <a href="/profile">{user.firstName || user.name}</a>
-  </li>,
-  <li key="in3">
-    <a href="/login/logout">{t('Logout')}</a>
-  </li>
-]);
-
-const LoggedOutOptions = ({searching, toggleSearch}) => ([
-  <li key="out0">
-    <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
-      <i className="fa fa-search" />
-    </a>
-  </li>,
-  <li key="out1">
-    <a href="/register">{tc('Register on a website', 'Join')}</a>
-  </li>,
-  <li key="out2">
-    <a onClick={() => $('#login').modal()}>{t('Log in')}</a>
-  </li>
-]);
+import loggedInOptions from './Navbar/LoggedInOptions.jsx';
+import loggedOutOptions from './Navbar/LoggedOutOptions.jsx';
 
 function getNavbar() {
   return {
@@ -48,7 +14,7 @@ function getNavbar() {
     dropdown: AreaStore.getArea('Dropdown'),
     user: UserStore.getCurrent(),
     itinerary: ItineraryStore.getLists(),
-    totalWalks: ItineraryStore.totalWalks()
+    totalWalks: ItineraryStore.totalWalks(),
   };
 }
 
@@ -66,23 +32,19 @@ function appendSiblings(html, refNode) {
 export default class Navbar extends React.Component {
   constructor(...args) {
     super(...args);
-    this.state = getNavbar();
-    this.state.lastSize = ItineraryStore.totalWalks();
-    this._onChange = this._onChange.bind(this);
+
+    Object.assign(this, {
+      state: {
+        lastSize: ItineraryStore.totalWalks(),
+        ...getNavbar(),
+      },
+      _onChange: () => this.setState(getNavbar),
+    });
   }
 
   componentWillMount() {
     AreaStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
-  }
-
-  componentWillUnmount() {
-    AreaStore.removeChangeListener(this._onChage);
-    UserStore.removeChangeListener(this._onChage);
-  }
-
-  _onChange() {
-    this.setState(getNavbar);
   }
 
   componentDidMount() {
@@ -93,7 +55,7 @@ export default class Navbar extends React.Component {
   /**
    * Need to check if the HTML has updated, so we don't rebuild the DOM
    */
-  componentWillUpdate(nextProps, {options, dropdown, searching}) {
+  componentWillUpdate(nextProps, { options, searching }) {
     if (options && options !== this.state.options) {
       appendSiblings(options, this.refs.topnav);
     }
@@ -104,47 +66,37 @@ export default class Navbar extends React.Component {
     }
   }
 
-  /**
-   * _addNavEvents
-   *
-   * @protected
-   * @return    void
-   */
-  _addNavEvents() {
-    this._element.find('a.search-open').click(function() {
-      $('body > header').addClass('dropped');
-
-    });
-    this._element.find('a.search-close').click(function() {
-      $('body > header').removeClass('dropped');
-    });
+  componentWillUnmount() {
+    AreaStore.removeChangeListener(this._onChage);
+    UserStore.removeChangeListener(this._onChage);
   }
 
   openSearch() {
-      $('html, body').animate({
-        scrollTop: 0
-      }, 300);
+    $('html, body').animate({
+      scrollTop: 0
+    }, 300);
   }
 
   render() {
-    const {editMode} = this.props;
-    const {user, searching, profiling, itinerary, totalWalks} = this.state;
+    const { editMode } = this.props;
+    const { user, searching, profiling, totalWalks } = this.state;
     let userOptions;
     const defaultOptions = {
-      searching: searching,
-      toggleSearch: () => this.setState({searching: !this.state.searching})
+      searching,
+      toggleSearch: () => this.setState({ searching: !this.state.searching }),
     };
 
     // Build the logged in vs logged out
     if (user) {
-      userOptions = LoggedInOptions(Object.assign({
-        user: user,
-        profiling: profiling,
+      userOptions = loggedInOptions({
+        ...defaultOptions,
         unseenUpdates: this.state.lastSize !== totalWalks,
-        toggleProfile: () => this.setState({profiling: !this.state.profiling, lastSize: totalWalks}),
-      }, defaultOptions));
+        toggleProfile: () => this.setState({ profiling: !this.state.profiling, lastSize: totalWalks }),
+        user,
+        profiling,
+      });
     } else {
-      userOptions = LoggedOutOptions(defaultOptions);
+      userOptions = loggedOutOptions(defaultOptions);
     }
 
     return (
@@ -161,10 +113,10 @@ export default class Navbar extends React.Component {
               </li>
             </ul>
           </nav>
-          <div className="navbar-outer" dangerouslySetInnerHTML={{__html: this.state.dropdown}} />
+          <div className="navbar-outer" dangerouslySetInnerHTML={{ __html: this.state.dropdown }} />
         </header>
         <div id="modals">
-          {profiling ? <Itinerary onClose={() => this.setState({profiling: !this.state.profiling})} /> : null}
+          {profiling ? <Itinerary onClose={() => this.setState({ profiling: !this.state.profiling })} /> : null}
         </div>
       </div>
     );
@@ -172,5 +124,5 @@ export default class Navbar extends React.Component {
 }
 
 Navbar.defaultProps = {
-  editMode: CCM_EDIT_MODE
-}
+  editMode: CCM_EDIT_MODE,
+};

@@ -53,7 +53,7 @@
 
 	'use strict';
 
-	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -127,7 +127,7 @@
 	  );
 	};
 
-	var PageListTypeahead = (function (_React$Component) {
+	var PageListTypeahead = function (_React$Component) {
 	  _inherits(PageListTypeahead, _React$Component);
 
 	  function PageListTypeahead(props) {
@@ -170,7 +170,7 @@
 	       */
 	      handleSubmit: function handleSubmit(ev) {
 	        var firstCountry = _this.state.matched[0];
-	        var firstCity = undefined;
+	        var firstCity = void 0;
 
 	        // If there's a matching city, that's the URL we go to
 	        if (firstCountry) {
@@ -192,6 +192,7 @@
 	      var _state = this.state;
 	      var q = _state.q;
 	      var matched = _state.matched;
+
 
 	      var homeCity = React.createElement('h3', null);
 
@@ -247,9 +248,10 @@
 	  }]);
 
 	  return PageListTypeahead;
-	})(React.Component);
+	}(React.Component);
 
 	// Alternate render of these same cities as a select, primarily for mobile
+
 
 	var CityOption = function CityOption(_ref4) {
 	  var id = _ref4.id;
@@ -276,7 +278,7 @@
 	  );
 	};
 
-	var PageListSelect = (function (_React$Component2) {
+	var PageListSelect = function (_React$Component2) {
 	  _inherits(PageListSelect, _React$Component2);
 
 	  function PageListSelect(props) {
@@ -355,9 +357,10 @@
 	  }]);
 
 	  return PageListSelect;
-	})(React.Component);
+	}(React.Component);
 
 	// TODO: get browserify-shim working and `import React from 'react';`
+
 
 	document.addEventListener('DOMContentLoaded', function () {
 	  // TODO: use ReactRouter for loading either, not c5 blocks directly
@@ -377,15 +380,15 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.t2 = exports.t = undefined;
+	exports.tc = exports.t2 = exports.t = undefined;
 
-	var _events = __webpack_require__(3);
+	var _Store = __webpack_require__(3);
 
-	var _AppDispatcher = __webpack_require__(4);
+	var _Store2 = _interopRequireDefault(_Store);
 
-	var _JWConstants = __webpack_require__(9);
+	var _AppDispatcher = __webpack_require__(5);
 
-	var _Stores = __webpack_require__(10);
+	var _JWConstants = __webpack_require__(10);
 
 	var _translate = __webpack_require__(11);
 
@@ -401,12 +404,14 @@
 
 	// Basic flux setup
 
+
 	// The library for managing translations
+
 
 	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _events.EventEmitter.prototype, _Stores.changeMethods, {
+	var I18nStore = Object.assign({}, _Store2.default, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
@@ -427,13 +432,60 @@
 	var t = exports.t = I18nStore.getTranslate();
 	var t2 = exports.t2 = I18nStore.getTranslatePlural();
 
+	// FIXME make this real
+	var tc = exports.tc = function tc(c, s) {
+	  return s;
+	};
+
 /***/ },
 /* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _events = __webpack_require__(4);
+
+	var _events2 = _interopRequireDefault(_events);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CHANGE_EVENT = 'change'; /**
+	                              * The generic 'store', which more complex stores are composed from
+	                              */
+
+	// Requires
+
+
+	var Store = Object.assign({}, _events2.default.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+
+
+	  /**
+	   * @param {function} callback
+	   */
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  }
+	});
+
+	exports.default = Store;
+
+/***/ },
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
 
-	function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj; }
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 	// Copyright Joyent, Inc. and other Node contributors.
 	//
@@ -702,7 +754,7 @@
 	}
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -712,7 +764,7 @@
 	});
 	exports.waitFor = exports.dispatch = exports.register2 = exports.register = undefined;
 
-	var _flux = __webpack_require__(5);
+	var _flux = __webpack_require__(6);
 
 	var AppDispatcher = new _flux.Dispatcher();
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
@@ -735,7 +787,7 @@
 	exports.waitFor = waitFor;
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -749,10 +801,10 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(6);
+	module.exports.Dispatcher = __webpack_require__(7);
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -778,7 +830,7 @@
 	  }
 	}
 
-	var invariant = __webpack_require__(8);
+	var invariant = __webpack_require__(9);
 
 	var _prefix = 'ID_';
 
@@ -870,7 +922,7 @@
 	 * `FlightPriceStore`.
 	 */
 
-	var Dispatcher = (function () {
+	var Dispatcher = function () {
 	  function Dispatcher() {
 	    _classCallCheck(this, Dispatcher);
 
@@ -987,13 +1039,13 @@
 	  };
 
 	  return Dispatcher;
-	})();
+	}();
 
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1095,7 +1147,7 @@
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1109,7 +1161,7 @@
 	 * @providesModule invariant
 	 */
 
-	"use strict"
+	"use strict";
 
 	/**
 	 * Use invariant() to assert state which your program assumes to be true.
@@ -1122,7 +1174,6 @@
 	 * will remain to ensure logic does not differ in production.
 	 */
 
-	;
 	var invariant = function invariant(condition, format, a, b, c, d, e, f) {
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (format === undefined) {
@@ -1148,10 +1199,10 @@
 	};
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1186,29 +1237,6 @@
 	}, {});
 
 	exports.ActionTypes = ActionTypes;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var CHANGE_EVENT = 'change';
-
-	var changeMethods = exports.changeMethods = {
-	  emitChange: function emitChange() {
-	    this.emit(CHANGE_EVENT);
-	  },
-	  addChangeListener: function addChangeListener(callback) {
-	    this.on(CHANGE_EVENT, callback);
-	  },
-	  removeChangeListener: function removeChangeListener(callback) {
-	    this.removeListener(CHANGE_EVENT, callback);
-	  }
-	};
 
 /***/ },
 /* 11 */

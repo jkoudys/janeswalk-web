@@ -34,10 +34,6 @@ export default class TimePicker extends React.Component {
     this.state = { startTimes: buildStartTimes(new Date(props.valueLinkStart.value)) };
   }
 
-  componentWillMount() {
-    this.setStartTimes(new Date(this.props.valueLinkStart.value));
-  }
-
   /**
    * Date management is slow, so it's faster to check if we need to build new dates
    */

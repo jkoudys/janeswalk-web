@@ -4,15 +4,15 @@
  * The accessibility settings, e.g. uneven terrain.
  */
 
-import {ActionTypes} from '../constants/JWConstants.js';
-import {register} from 'janeswalk/dispatcher/AppDispatcher';
-import 'Store' from './Store.js';
+import { ActionTypes as AT } from '../constants/JWConstants';
+import { register2 } from 'janeswalk/dispatcher/AppDispatcher';
+import Store from './Store';
 
 const _desc = {
   find: '',
   info: '',
   parking: '',
-  transit: ''
+  transit: '',
 };
 
 const _flags = {};
@@ -24,7 +24,7 @@ const apiMap = {
   find: 'accessibleFind',
   info: 'accessibleInfo',
   parking: 'accessibleParking',
-  transit: 'accessibleTransit'
+  transit: 'accessibleTransit',
 };
 
 /**
@@ -34,10 +34,10 @@ const apiMap = {
  */
 function receiveWalk(walk) {
   // Load the accessibility flags
-  let flags = Object.keys(walk.checkboxes).filter(flag => flag.indexOf('accessible-') === 0);
+  const flags = Object.keys(walk.checkboxes).filter(flag => flag.indexOf('accessible-') === 0);
   // For v1, flags just named after the accessible-
   // TODO: build a configurable flags setting, so this can be modified in the CMS
-  flags.forEach(flag => _flags[flag.slice(11)] = walk.checkboxes[flag]);
+  flags.forEach(flag => { _flags[flag.slice(11)] = walk.checkboxes[flag]; });
 
   // Load the descriptions
   Object.keys(apiMap).forEach(k => {
@@ -47,46 +47,27 @@ function receiveWalk(walk) {
   });
 }
 
-/**
- * Add a new member to the end of the team
- * @param object member
- */
-function receiveMember(member) {
-  _team.push(member);
-}
-
 const AccessibleStore = Object.assign({}, Store, {
-  getDescription() {
-    return _desc;
-  },
-
-  getFlags() {
-    return _flags;
-  },
+  getDescription: () => _desc,
+  getFlags: () => _flags,
 
   getApi() {
-    let ret = Object.keys(apiMap).reduce((o, k) => {
-      o[apiMap[k]] = _desc[key];
+    const ret = Object.keys(apiMap).reduce((o, k) => {
+      o[apiMap[k]] = _desc[k];
       return o;
     }, {});
     ret.checkboxes = Object.keys(_flags).reduce((o, k) => {
-      o['accessible-' + k] = _flags[k];
+      o[`accessible-${k}`] = _flags[k];
+      return o;
     }, {});
 
     return ret;
   },
 
   // Register our dispatch token as a static method
-  AccessibleStore.dispatchToken: register(payload => {
-    // Go through the various actions
-    switch(payload.type) {
-      // Receive a full walk
-      case ActionTypes.WALK_RECEIVE:
-        receiveWalk(payload.data);
-      AccessibleStore.emitChange();
-      break;
-    }
-  })
+  dispatchToken: register2({
+    [AT.WALK_RECEIVE]: ({ data }) => receiveWalk(data),
+  }, () => AccessibleStore.emitChange()),
 });
 
 export default AccessibleStore;

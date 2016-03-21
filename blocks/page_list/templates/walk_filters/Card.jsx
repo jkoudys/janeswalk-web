@@ -14,6 +14,8 @@ if (typeof(Intl) === 'object') {
   });
 }
 
+const getFullName = v => `${v['name-first']} ${v['name-last']}`.trim();
+
 export default class Card extends React.Component {
   constructor(props) {
     let formatter;
@@ -72,7 +74,7 @@ export default class Card extends React.Component {
     if (leaders.length) {
       LedBy = (
         <span>
-          {`Walk led by ${leaders.map(v => `${v['name-first']} ${v['name-last']}`).join(', ')}`}
+          {`Walk led by ${leaders.map(getFullName).join(', ')}`}
         </span>
       );
     }

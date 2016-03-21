@@ -12,7 +12,6 @@ import { t } from 'janeswalk/stores/I18nStore';
 // Default to a 1-hour walk time
 const ONE_HOUR = 60 * 60 * 1000;
 
-// TODO: Make 'intiatives' build as separate selectors
 export default class DateSelect extends React.Component {
   constructor() {
     super();

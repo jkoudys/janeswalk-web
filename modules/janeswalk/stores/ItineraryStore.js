@@ -1,8 +1,6 @@
-import {dispatch, register2, waitFor} from 'janeswalk/dispatcher/AppDispatcher';
-import {EventEmitter} from 'events';
-import {ActionTypes as AT} from 'janeswalk/constants/JWConstants';
-import {startTimeIndex} from '../utils/ItineraryUtils';
-import {changeMethods} from 'janeswalk/utils/Stores';
+import { register2, waitFor } from 'janeswalk/dispatcher/AppDispatcher';
+import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
+import Store from './Store';
 
 import WalkStore from './WalkStore';
 
@@ -15,17 +13,17 @@ const _schedule = new Map();
 // Has this store been synced, and is it syncing?
 let _lastChange = Date.now();
 
-//TODO: Currently no remove list, just adding lists
-//TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
+// TODO: Currently no remove list, just adding lists
+// TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
 const _scheduleWalk = (walk, time) => {
-  let times = _schedule.get(walk) || new Set();
+  const times = _schedule.get(walk) || new Set();
   times.add(+time);
   _schedule.set(walk, times);
 };
 
 const _unscheduleWalk = (walk, time) => {
-  let times = _schedule.get(walk) || new Set();
+  const times = _schedule.get(walk) || new Set();
   times.delete(+time);
   _schedule.set(walk, times);
 };
@@ -35,7 +33,7 @@ const _createList = (title = '', description = '') => {
     title,
     description,
     walks: new Set(),
-    shareUrl: ''
+    shareUrl: '',
   };
 
   _lists.add(list);
@@ -49,10 +47,10 @@ const _createList = (title = '', description = '') => {
  *
  * @param itineraries array List of itineraries in serialization-friendly state
  */
-const _receiveAll = ({lists, schedule}) => {
-  lists.forEach((itinerary, index) => {
+const _receiveAll = ({ lists, schedule }) => {
+  lists.forEach((itinerary) => {
     _lists.add(Object.assign({}, itinerary, {
-      walks: new Set(itinerary.walks.map(wID => WalkStore.getWalk(+wID)))
+      walks: new Set(itinerary.walks.map(wID => WalkStore.getWalk(+wID))),
     }));
   });
 
@@ -64,18 +62,17 @@ const _receiveAll = ({lists, schedule}) => {
 };
 
 function hasInList(walk) {
-  for (let list of _lists) {
+  for (const list of _lists) {
     if (list.walks.has(walk)) return true;
   }
   return false;
 }
 
-const ItineraryStore = Object.assign({}, EventEmitter.prototype, changeMethods, {
+const ItineraryStore = Object.assign({}, Store, {
   getLists: () => _lists,
   getSchedule: () => _schedule,
   getWalks: (list) => list.walks,
   getLastChange: () => _lastChange,
-
   hasInList,
 
   hasInSchedule(walk, time) {
@@ -86,32 +83,32 @@ const ItineraryStore = Object.assign({}, EventEmitter.prototype, changeMethods, 
 
   totalWalks() {
     let count = 0;
-    _lists.forEach(list => count += list.walks.size);
+    _lists.forEach(list => { count += list.walks.size; });
     return count;
   },
 
   dispatcherIndex: register2({
-    [AT.ITINERARY_ADD_WALK]: ({list, walk}) => list.walks.add(walk),
-    [AT.ITINERARY_REMOVE_WALK]: ({list, walk}) => list.walks.delete(walk),
-    [AT.ITINERARY_UNSCHEDULE_WALK]: ({walk, time}) => _unscheduleWalk(walk, time),
-    [AT.ITINERARY_UPDATE_TITLE]: ({list, title}) => list.title = title,
-    [AT.ITINERARY_UPDATE_DESCRIPTION]: ({list, description}) => list.description = description,
-    [AT.ITINERARY_CREATE_LIST]: ({title, description}) => _createList(title, description),
-    [AT.ITINERARY_SCHEDULE_WALK]: ({list: [list] = _lists, walk, time}) => {
+    [AT.ITINERARY_ADD_WALK]: ({ list, walk }) => list.walks.add(walk),
+    [AT.ITINERARY_REMOVE_WALK]: ({ list, walk }) => list.walks.delete(walk),
+    [AT.ITINERARY_UNSCHEDULE_WALK]: ({ walk, time }) => _unscheduleWalk(walk, time),
+    [AT.ITINERARY_UPDATE_TITLE]: ({ list, title }) => { list.title = title; },
+    [AT.ITINERARY_UPDATE_DESCRIPTION]: ({ list, description }) => { list.description = description; },
+    [AT.ITINERARY_CREATE_LIST]: ({ title, description }) => _createList(title, description),
+    [AT.ITINERARY_SCHEDULE_WALK]: ({ list: [list] = _lists, walk, time }) => {
       if (!hasInList(walk)) {
         list.walks.add(walk);
       }
       _scheduleWalk(walk, time);
     },
 
-    [AT.ITINERARY_RECEIVE_ALL]: ({itineraries}) => {
+    [AT.ITINERARY_RECEIVE_ALL]: ({ itineraries }) => {
       waitFor([WalkStore.dispatchToken]);
       _receiveAll(itineraries);
-    }}, () => {
-      _lastChange = Date.now();
-      ItineraryStore.emitChange();
-    }
-  )
+    },
+  }, () => {
+    _lastChange = Date.now();
+    ItineraryStore.emitChange();
+  }),
 });
 
 export default ItineraryStore;
