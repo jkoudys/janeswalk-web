@@ -3194,9 +3194,6 @@
 	// Flux
 
 
-	// TODO: storeify this
-	var _notifications = [];
-
 	var CreateWalk = function (_React$Component) {
 	  _inherits(CreateWalk, _React$Component);
 
@@ -3222,8 +3219,9 @@
 	      // Persist our walk server-side
 	      saveWalk: function saveWalk(options, cb) {
 	        /* Send in the updated walk to save, but keep working */
+	        var notifications = _this.state.notifications;
 	        var removeNotice = function removeNotice() {
-	          return _notifications.splice(0, 1);
+	          _this.setState({ notifications: _this.state.notifications.slice(1) });
 	        };
 
 	        var defaultOptions = {
@@ -3232,11 +3230,12 @@
 
 	        options = Object.assign({}, defaultOptions, options);
 
-	        _notifications.push({ type: 'info', name: 'Saving walk' });
+	        notifications.push({ type: 'info', name: 'Saving walk' });
 
 	        // Build a simplified map from the Google objects
 	        _this.setState({
-	          map: _this.refs.mapBuilder.getStateSimple()
+	          map: _this.refs.mapBuilder.getStateSimple(),
+	          notifications: notifications
 	        }, function () {
 	          $.ajax({
 	            url: _this.state.url,
@@ -3244,8 +3243,8 @@
 	            data: { json: JSON.stringify(_this.state) },
 	            dataType: 'json',
 	            success: function success(data) {
-	              _notifications.push({ type: 'success', name: 'Walk saved' });
-	              _this.setState({ url: data.url || _this.state.url }, function checkCallback() {
+	              notifications.push({ type: 'success', name: 'Walk saved' });
+	              _this.setState({ notifications: notifications, url: data.url || _this.state.url }, function checkCallback() {
 	                if (cb && cb instanceof Function) {
 	                  // The 'this' in each callback should be the <CreateWalk>
 	                  cb.call(this);
@@ -3254,7 +3253,8 @@
 	              setTimeout(removeNotice, 1200);
 	            },
 	            error: function error(xhr, status, err) {
-	              _notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
+	              notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
+	              _this.setState({ notifications: notifications });
 	              setTimeout(removeNotice, 6000);
 	              console.error(_this.url, status, err.toString());
 	            }
@@ -3628,7 +3628,7 @@
 	        React.createElement(
 	          'aside',
 	          { id: 'notifications' },
-	          _notifications.map(function (note) {
+	          this.state.notifications.map(function (note) {
 	            return React.createElement(
 	              'div',
 	              { key: note.message, className: 'alert alert-' + note.type },
@@ -10014,92 +10014,120 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _ItineraryUtils = __webpack_require__(26);
 
-	//TODO: (Post PR) Common component from <Itinerary/> <Walk/>
-	//https://github.com/jkoudys/janeswalk-web/blob/react14/models/page_types/Walk.php
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	var Walk = function Walk(_ref) {
-	  var title = _ref.title;
-	  var start = _ref.start;
-	  var meeting = _ref.meeting;
-	  var id = _ref.id;
-	  var team = _ref.team;
-	  var url = _ref.url;
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	  //TODO: no consistent definition of "walk-leader", how to grab the 'Led by' data, grabbing first team member.
-	  //TODO: Promote | Edit | Unpublish
-	  //TODO*: mailto: for email
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
 
-	  return React.createElement(
-	    'li',
-	    { key: id },
-	    React.createElement(
-	      'div',
-	      { className: start * 1000 > Date.now() ? 'walk' : 'walk pastWalk' },
-	      React.createElement(
-	        'h3',
-	        null,
+	// TODO: (Post PR) Common component from <Itinerary/> <Walk/>
+	// https://github.com/jkoudys/janeswalk-web/blob/react14/models/page_types/Walk.php
+
+	var Walk = function (_React$Component) {
+	  _inherits(Walk, _React$Component);
+
+	  function Walk(props) {
+	    _classCallCheck(this, Walk);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Walk).call(this, props));
+
+	    Object.assign(_this, {
+	      handleUnpublish: function handleUnpublish() {
+	        var path = _this.props.url.split('.org')[1];
+
+	        fetch(path, { method: 'delete' }).then(function (res) {
+	          return res.json();
+	        }).then(function (json) {
+	          return console.log(json);
+	        }).catch(function (error) {
+	          return console.log('Error unpublishing walk: ' + error.message);
+	        });
+	      }
+	    });
+	    return _this;
+	  }
+
+	  _createClass(Walk, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props;
+	      var title = _props.title;
+	      var start = _props.start;
+	      var meeting = _props.meeting;
+	      var id = _props.id;
+	      var team = _props.team;
+	      var url = _props.url;
+
+
+	      return React.createElement(
+	        'li',
+	        { key: id },
 	        React.createElement(
-	          'a',
-	          { href: url },
-	          title || '{untitled}'
+	          'div',
+	          { className: start * 1000 > Date.now() ? 'walk' : 'walk pastWalk' },
+	          React.createElement(
+	            'h3',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: url },
+	              title || '{untitled}'
+	            )
+	          ),
+	          React.createElement(
+	            'h4',
+	            null,
+	            (0, _ItineraryUtils.dateFormatted)(start)
+	          ),
+	          team && team.length ? React.createElement(
+	            'h4',
+	            null,
+	            'Led by ',
+	            team[0]['name-first'] + ' ' + team[0]['name-last'],
+	            ' ',
+	            React.createElement(
+	              'a',
+	              { href: 'mailto:' + team[0].email },
+	              team[0].email
+	            ),
+	            ' '
+	          ) : null,
+	          React.createElement(
+	            'h4',
+	            null,
+	            'Meeting at ',
+	            meeting || '{no meeting place}'
+	          ),
+	          start * 1000 > Date.now() ? React.createElement(
+	            'button',
+	            null,
+	            React.createElement(
+	              'a',
+	              { href: '' },
+	              'Promote'
+	            )
+	          ) : null,
+	          React.createElement(
+	            'a',
+	            { className: 'option', href: '/walk/form/?load=' + url.split('.org')[1] },
+	            'Edit'
+	          ),
+	          React.createElement(
+	            'a',
+	            { onClick: this.handleUnpublish, className: 'option' },
+	            'Unpublish'
+	          )
 	        )
-	      ),
-	      React.createElement(
-	        'h4',
-	        null,
-	        (0, _ItineraryUtils.dateFormatted)(start)
-	      ),
-	      team && team.length ? React.createElement(
-	        'h4',
-	        null,
-	        'Led by ',
-	        team[0]['name-first'] + ' ' + team[0]['name-last'],
-	        ' ',
-	        React.createElement(
-	          'a',
-	          { href: 'mailto:' + team[0]['email'] },
-	          team[0]['email']
-	        ),
-	        ' '
-	      ) : null,
-	      React.createElement(
-	        'h4',
-	        null,
-	        'Meeting at ',
-	        meeting || '{no meeting place}'
-	      ),
-	      start * 1000 > Date.now() ? React.createElement(
-	        'button',
-	        null,
-	        React.createElement(
-	          'a',
-	          { href: '' },
-	          'Promote'
-	        )
-	      ) : null,
-	      React.createElement(
-	        'button',
-	        null,
-	        React.createElement(
-	          'a',
-	          { href: '/walk/form/?load=' + url.split('.org')[1] },
-	          'Edit'
-	        )
-	      ),
-	      React.createElement(
-	        'button',
-	        null,
-	        React.createElement(
-	          'a',
-	          { href: '' },
-	          'Unpublish'
-	        )
-	      )
-	    )
-	  );
-	};
+	      );
+	    }
+	  }]);
+
+	  return Walk;
+	}(React.Component);
 
 	Walk.propTypes = {
 	  title: React.PropTypes.string,

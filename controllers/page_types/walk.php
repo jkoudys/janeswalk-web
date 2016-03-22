@@ -167,7 +167,7 @@ class WalkPageTypeController extends Controller
     public function destroy()
     {
         header('Content-Type: application/json');
-        $this->c->setAttribute('exclude_page_list',true);
+        $this->c->setAttribute('exclude_page_list', true);
 
         // TODO: Update the MirrorWalk to unpublish
         echo json_encode([

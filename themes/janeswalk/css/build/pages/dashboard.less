@@ -185,7 +185,8 @@ button {
           margin: 5px 0;
           font-weight: 300;
         }
-        button {
+        a.option {
+          &:extend(button);
           font-size: 12px;
           color: @color-orange;
           margin-top: 8px;
@@ -196,7 +197,7 @@ button {
             opacity: 1;
           }
         }
-      }    
+      }
     }
   }
   .dashboardWalkLeaders {

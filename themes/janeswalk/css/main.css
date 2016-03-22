@@ -104,22 +104,26 @@ button,
 input,
 optgroup,
 select,
-textarea {
+textarea,
+.dashboard .walks li .walk a.option {
   color: inherit;
   font: inherit;
   margin: 0;
 }
-button {
+button,
+.dashboard .walks li .walk a.option {
   overflow: visible;
 }
 button,
-select {
+select,
+.dashboard .walks li .walk a.option {
   text-transform: none;
 }
 button,
 html input[type="button"],
 input[type="reset"],
-input[type="submit"] {
+input[type="submit"],
+.dashboard .walks li .walk a.option {
   -webkit-appearance: button;
   cursor: pointer;
 }
@@ -225,8 +229,7 @@ th {
     background: #fff !important;
   }
   .navbar,
-  body #navbar > div > header,
-  body #navbar > div > header.dropped {
+  body #navbar > div > header {
     display: none;
   }
   .table td,
@@ -245,14 +248,8 @@ th {
   .dropup > .btn > .caret,
   body.city-page > #city-details .create-walk > .caret,
   .dropup > body.city-page > #city-details .create-walk > .caret,
-  body.city-page > #city-details .create-walk:after > .caret,
-  .dropup > body.city-page > #city-details .create-walk:after > .caret,
-  body.city-page > #city-details .create-walk:hover > .caret,
-  .dropup > body.city-page > #city-details .create-walk:hover > .caret,
   #create-walk #map-control-bar button > .caret,
   .dropup > #create-walk #map-control-bar button > .caret,
-  #create-walk #map-control-bar button.active > .caret,
-  .dropup > #create-walk #map-control-bar button.active > .caret,
   #create-walk #map-control-bar .loadFeed > .caret,
   .dropup > #create-walk #map-control-bar .loadFeed > .caret,
   #create-walk .filterInputs .filter input[type=submit] > .caret,
@@ -297,12 +294,13 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 input,
 button,
 select,
-textarea {
+textarea,
+.dashboard .walks li .walk a.option {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -349,10 +347,9 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.42857143;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
   display: inline-block;
   width: 100% \9;
@@ -400,17 +397,12 @@ h6,
 .h5,
 .h6,
 .walk-card .thumbnail .walkimage .statusMessage,
-.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
 .walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
-.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-.walk-card #create-walk .team-member .walkimage .statusMessage,
-.walk-card #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage {
   font-family: inherit;
   font-weight: 500;
   line-height: 1.1;
@@ -474,17 +466,12 @@ h5,
 h6,
 .h6,
 .walk-card .thumbnail .walkimage .statusMessage,
-.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
 .walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
-.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-.walk-card #create-walk .team-member .walkimage .statusMessage,
-.walk-card #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -517,17 +504,12 @@ h3,
 h4,
 .h4,
 .walk-card .thumbnail .walkimage .statusMessage,
-.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
 .walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
-.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-.walk-card #create-walk .team-member .walkimage .statusMessage,
-.walk-card #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage {
   font-size: 18px;
 }
 h5,
@@ -792,8 +774,8 @@ code {
 kbd {
   padding: 2px 4px;
   font-size: 90%;
-  color: #ffffff;
-  background-color: #333333;
+  color: #fff;
+  background-color: #333;
   border-radius: 3px;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
@@ -812,7 +794,7 @@ pre {
   word-wrap: break-word;
   color: #333333;
   background-color: #f5f5f5;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 pre code {
@@ -828,13 +810,7 @@ pre code {
   overflow-y: scroll;
 }
 .container,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;
@@ -842,37 +818,19 @@ pre code {
 }
 @media (min-width: 768px) {
   .container,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
     width: 750px;
   }
 }
 @media (min-width: 992px) {
   .container,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
     width: 970px;
   }
 }
 @media (min-width: 1200px) {
   .container,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
     width: 1170px;
   }
 }
@@ -1570,7 +1528,7 @@ th {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 .table > thead > tr > th,
 #modals dialog table > thead > tr > th,
@@ -1578,7 +1536,7 @@ th {
 #profileWrapper table > thead > tr > th,
 #create-walk table.routeStops > thead > tr > th {
   vertical-align: bottom;
-  border-bottom: 2px solid #dddddd;
+  border-bottom: 2px solid #ddd;
 }
 .table > caption + thead > tr:first-child > th,
 .table > colgroup + thead > tr:first-child > th,
@@ -1617,14 +1575,14 @@ th {
 #create-walk dialog table > tbody + tbody,
 #profileWrapper table > tbody + tbody,
 #create-walk table.routeStops > tbody + tbody {
-  border-top: 2px solid #dddddd;
+  border-top: 2px solid #ddd;
 }
 .table .table,
 #modals dialog table #modals dialog table,
 #create-walk dialog table #create-walk dialog table,
 #profileWrapper table #profileWrapper table,
 #create-walk table.routeStops #create-walk table.routeStops {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .table-condensed > thead > tr > th,
 .table-condensed > tbody > tr > th,
@@ -1636,7 +1594,7 @@ th {
 }
 .table-bordered,
 #create-walk table.routeStops {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th,
@@ -1650,7 +1608,7 @@ th {
 #create-walk table.routeStops > thead > tr > td,
 #create-walk table.routeStops > tbody > tr > td,
 #create-walk table.routeStops > tfoot > tr > td {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td,
@@ -2029,7 +1987,7 @@ table th[class*="col-"] {
     overflow-y: hidden;
     overflow-x: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
-    border: 1px solid #dddddd;
+    border: 1px solid #ddd;
     -webkit-overflow-scrolling: touch;
   }
   .table-responsive > .table,
@@ -2188,12 +2146,11 @@ textarea,
   font-size: 14px;
   line-height: 1.42857143;
   color: #555555;
-  background-color: #ffffff;
+  background-color: #fff;
   background-image: none;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
   transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 .form-control:focus,
@@ -2735,10 +2692,7 @@ select[multiple].input-lg {
 .btn,
 body #navbar > div > header #donate,
 body.city-page > #city-details .create-walk,
-body.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:hover,
 #create-walk #map-control-bar button,
-#create-walk #map-control-bar button.active,
 #create-walk #map-control-bar .loadFeed,
 #create-walk .filterInputs .filter input[type=submit],
 #create-walk .filterInputs .filter input[type=button] {
@@ -2766,18 +2720,9 @@ body.city-page > #city-details .create-walk:hover,
 body.city-page > #city-details .create-walk:focus,
 body.city-page > #city-details .create-walk:active:focus,
 body.city-page > #city-details .create-walk.active:focus,
-body.city-page > #city-details .create-walk:after:focus,
-body.city-page > #city-details .create-walk:after:active:focus,
-body.city-page > #city-details .create-walk:after.active:focus,
-body.city-page > #city-details .create-walk:hover:focus,
-body.city-page > #city-details .create-walk:hover:active:focus,
-body.city-page > #city-details .create-walk:hover.active:focus,
 #create-walk #map-control-bar button:focus,
 #create-walk #map-control-bar button:active:focus,
 #create-walk #map-control-bar button.active:focus,
-#create-walk #map-control-bar button.active:focus,
-#create-walk #map-control-bar button.active:active:focus,
-#create-walk #map-control-bar button.active.active:focus,
 #create-walk #map-control-bar .loadFeed:focus,
 #create-walk #map-control-bar .loadFeed:active:focus,
 #create-walk #map-control-bar .loadFeed.active:focus,
@@ -2795,35 +2740,23 @@ body.city-page > #city-details .create-walk:hover.active:focus,
 .btn:focus,
 body.city-page > #city-details .create-walk:hover,
 body.city-page > #city-details .create-walk:focus,
-body.city-page > #city-details .create-walk:after:hover,
-body.city-page > #city-details .create-walk:after:focus,
-body.city-page > #city-details .create-walk:hover:hover,
-body.city-page > #city-details .create-walk:hover:focus,
 #create-walk #map-control-bar button:hover,
 #create-walk #map-control-bar button:focus,
-#create-walk #map-control-bar button.active:hover,
-#create-walk #map-control-bar button.active:focus,
 #create-walk #map-control-bar .loadFeed:hover,
 #create-walk #map-control-bar .loadFeed:focus,
 #create-walk .filterInputs .filter input[type=submit]:hover,
 #create-walk .filterInputs .filter input[type=submit]:focus,
 #create-walk .filterInputs .filter input[type=button]:hover,
 #create-walk .filterInputs .filter input[type=button]:focus {
-  color: #333333;
+  color: #333;
   text-decoration: none;
 }
 .btn:active,
 .btn.active,
 body.city-page > #city-details .create-walk:active,
 body.city-page > #city-details .create-walk.active,
-body.city-page > #city-details .create-walk:after:active,
-body.city-page > #city-details .create-walk:after.active,
-body.city-page > #city-details .create-walk:hover:active,
-body.city-page > #city-details .create-walk:hover.active,
 #create-walk #map-control-bar button:active,
 #create-walk #map-control-bar button.active,
-#create-walk #map-control-bar button.active:active,
-#create-walk #map-control-bar button.active.active,
 #create-walk #map-control-bar .loadFeed:active,
 #create-walk #map-control-bar .loadFeed.active,
 #create-walk .filterInputs .filter input[type=submit]:active,
@@ -2840,18 +2773,9 @@ fieldset[disabled] .btn,
 body.city-page > #city-details .create-walk.disabled,
 body.city-page > #city-details .create-walk[disabled],
 fieldset[disabled] body.city-page > #city-details .create-walk,
-body.city-page > #city-details .create-walk:after.disabled,
-body.city-page > #city-details .create-walk:after[disabled],
-fieldset[disabled] body.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:hover.disabled,
-body.city-page > #city-details .create-walk:hover[disabled],
-fieldset[disabled] body.city-page > #city-details .create-walk:hover,
 #create-walk #map-control-bar button.disabled,
 #create-walk #map-control-bar button[disabled],
 fieldset[disabled] #create-walk #map-control-bar button,
-#create-walk #map-control-bar button.active.disabled,
-#create-walk #map-control-bar button.active[disabled],
-fieldset[disabled] #create-walk #map-control-bar button.active,
 #create-walk #map-control-bar .loadFeed.disabled,
 #create-walk #map-control-bar .loadFeed[disabled],
 fieldset[disabled] #create-walk #map-control-bar .loadFeed,
@@ -2868,16 +2792,16 @@ fieldset[disabled] #create-walk .filterInputs .filter input[type=button] {
   box-shadow: none;
 }
 .btn-default {
-  color: #333333;
-  background-color: #ffffff;
-  border-color: #cccccc;
+  color: #333;
+  background-color: #fff;
+  border-color: #ccc;
 }
 .btn-default:hover,
 .btn-default:focus,
 .btn-default:active,
 .btn-default.active,
 .open > .dropdown-toggle.btn-default {
-  color: #333333;
+  color: #333;
   background-color: #e6e6e6;
   border-color: #adadad;
 }
@@ -2901,19 +2825,17 @@ fieldset[disabled] .btn-default:active,
 .btn-default.disabled.active,
 .btn-default[disabled].active,
 fieldset[disabled] .btn-default.active {
-  background-color: #ffffff;
-  border-color: #cccccc;
+  background-color: #fff;
+  border-color: #ccc;
 }
 .btn-default .badge {
-  color: #ffffff;
-  background-color: #333333;
+  color: #fff;
+  background-color: #333;
 }
 .btn-primary,
 body #navbar > div > header #donate,
-body.city-page > #city-details .create-walk,
-body.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:hover {
-  color: #ffffff;
+body.city-page > #city-details .create-walk {
+  color: #fff;
   background-color: #428bca;
   border-color: #357ebd;
 }
@@ -2926,18 +2848,8 @@ body.city-page > #city-details .create-walk:hover,
 body.city-page > #city-details .create-walk:focus,
 body.city-page > #city-details .create-walk:active,
 body.city-page > #city-details .create-walk.active,
-.open > .dropdown-togglebody.city-page > #city-details .create-walk,
-body.city-page > #city-details .create-walk:after:hover,
-body.city-page > #city-details .create-walk:after:focus,
-body.city-page > #city-details .create-walk:after:active,
-body.city-page > #city-details .create-walk:after.active,
-.open > .dropdown-togglebody.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:hover:hover,
-body.city-page > #city-details .create-walk:hover:focus,
-body.city-page > #city-details .create-walk:hover:active,
-body.city-page > #city-details .create-walk:hover.active,
-.open > .dropdown-togglebody.city-page > #city-details .create-walk:hover {
-  color: #ffffff;
+.open > .dropdown-togglebody.city-page > #city-details .create-walk {
+  color: #fff;
   background-color: #3071a9;
   border-color: #285e8e;
 }
@@ -2946,13 +2858,7 @@ body.city-page > #city-details .create-walk:hover.active,
 .open > .dropdown-toggle.btn-primary,
 body.city-page > #city-details .create-walk:active,
 body.city-page > #city-details .create-walk.active,
-.open > .dropdown-togglebody.city-page > #city-details .create-walk,
-body.city-page > #city-details .create-walk:after:active,
-body.city-page > #city-details .create-walk:after.active,
-.open > .dropdown-togglebody.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:hover:active,
-body.city-page > #city-details .create-walk:hover.active,
-.open > .dropdown-togglebody.city-page > #city-details .create-walk:hover {
+.open > .dropdown-togglebody.city-page > #city-details .create-walk {
   background-image: none;
 }
 .btn-primary.disabled,
@@ -2984,49 +2890,17 @@ body.city-page > #city-details .create-walk[disabled]:active,
 fieldset[disabled] body.city-page > #city-details .create-walk:active,
 body.city-page > #city-details .create-walk.disabled.active,
 body.city-page > #city-details .create-walk[disabled].active,
-fieldset[disabled] body.city-page > #city-details .create-walk.active,
-body.city-page > #city-details .create-walk:after.disabled,
-body.city-page > #city-details .create-walk:after[disabled],
-fieldset[disabled] body.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:after.disabled:hover,
-body.city-page > #city-details .create-walk:after[disabled]:hover,
-fieldset[disabled] body.city-page > #city-details .create-walk:after:hover,
-body.city-page > #city-details .create-walk:after.disabled:focus,
-body.city-page > #city-details .create-walk:after[disabled]:focus,
-fieldset[disabled] body.city-page > #city-details .create-walk:after:focus,
-body.city-page > #city-details .create-walk:after.disabled:active,
-body.city-page > #city-details .create-walk:after[disabled]:active,
-fieldset[disabled] body.city-page > #city-details .create-walk:after:active,
-body.city-page > #city-details .create-walk:after.disabled.active,
-body.city-page > #city-details .create-walk:after[disabled].active,
-fieldset[disabled] body.city-page > #city-details .create-walk:after.active,
-body.city-page > #city-details .create-walk:hover.disabled,
-body.city-page > #city-details .create-walk:hover[disabled],
-fieldset[disabled] body.city-page > #city-details .create-walk:hover,
-body.city-page > #city-details .create-walk:hover.disabled:hover,
-body.city-page > #city-details .create-walk:hover[disabled]:hover,
-fieldset[disabled] body.city-page > #city-details .create-walk:hover:hover,
-body.city-page > #city-details .create-walk:hover.disabled:focus,
-body.city-page > #city-details .create-walk:hover[disabled]:focus,
-fieldset[disabled] body.city-page > #city-details .create-walk:hover:focus,
-body.city-page > #city-details .create-walk:hover.disabled:active,
-body.city-page > #city-details .create-walk:hover[disabled]:active,
-fieldset[disabled] body.city-page > #city-details .create-walk:hover:active,
-body.city-page > #city-details .create-walk:hover.disabled.active,
-body.city-page > #city-details .create-walk:hover[disabled].active,
-fieldset[disabled] body.city-page > #city-details .create-walk:hover.active {
+fieldset[disabled] body.city-page > #city-details .create-walk.active {
   background-color: #428bca;
   border-color: #357ebd;
 }
 .btn-primary .badge,
-body.city-page > #city-details .create-walk .badge,
-body.city-page > #city-details .create-walk:after .badge,
-body.city-page > #city-details .create-walk:hover .badge {
+body.city-page > #city-details .create-walk .badge {
   color: #428bca;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .btn-success {
-  color: #ffffff;
+  color: #fff;
   background-color: #5cb85c;
   border-color: #4cae4c;
 }
@@ -3035,7 +2909,7 @@ body.city-page > #city-details .create-walk:hover .badge {
 .btn-success:active,
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {
-  color: #ffffff;
+  color: #fff;
   background-color: #449d44;
   border-color: #398439;
 }
@@ -3064,10 +2938,10 @@ fieldset[disabled] .btn-success.active {
 }
 .btn-success .badge {
   color: #5cb85c;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .btn-info {
-  color: #ffffff;
+  color: #fff;
   background-color: #5bc0de;
   border-color: #46b8da;
 }
@@ -3076,7 +2950,7 @@ fieldset[disabled] .btn-success.active {
 .btn-info:active,
 .btn-info.active,
 .open > .dropdown-toggle.btn-info {
-  color: #ffffff;
+  color: #fff;
   background-color: #31b0d5;
   border-color: #269abc;
 }
@@ -3105,10 +2979,10 @@ fieldset[disabled] .btn-info.active {
 }
 .btn-info .badge {
   color: #5bc0de;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .btn-warning {
-  color: #ffffff;
+  color: #fff;
   background-color: #f0ad4e;
   border-color: #eea236;
 }
@@ -3117,7 +2991,7 @@ fieldset[disabled] .btn-info.active {
 .btn-warning:active,
 .btn-warning.active,
 .open > .dropdown-toggle.btn-warning {
-  color: #ffffff;
+  color: #fff;
   background-color: #ec971f;
   border-color: #d58512;
 }
@@ -3146,10 +3020,10 @@ fieldset[disabled] .btn-warning.active {
 }
 .btn-warning .badge {
   color: #f0ad4e;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .btn-danger {
-  color: #ffffff;
+  color: #fff;
   background-color: #d9534f;
   border-color: #d43f3a;
 }
@@ -3158,7 +3032,7 @@ fieldset[disabled] .btn-warning.active {
 .btn-danger:active,
 .btn-danger.active,
 .open > .dropdown-toggle.btn-danger {
-  color: #ffffff;
+  color: #fff;
   background-color: #c9302c;
   border-color: #ac2925;
 }
@@ -3187,7 +3061,7 @@ fieldset[disabled] .btn-danger.active {
 }
 .btn-danger .badge {
   color: #d9534f;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .btn-link {
   color: #428bca;
@@ -3224,12 +3098,8 @@ fieldset[disabled] .btn-link:focus {
 .btn-lg,
 .btn-group-lg > .btn,
 #create-walk #map-control-bar button,
-#create-walk #map-control-bar button.active,
 .btn-group-lg > body.city-page > #city-details .create-walk,
-.btn-group-lg > body.city-page > #city-details .create-walk:after,
-.btn-group-lg > body.city-page > #city-details .create-walk:hover,
 .btn-group-lg > #create-walk #map-control-bar button,
-.btn-group-lg > #create-walk #map-control-bar button.active,
 .btn-group-lg > #create-walk #map-control-bar .loadFeed,
 .btn-group-lg > #create-walk .filterInputs .filter input[type=submit],
 .btn-group-lg > #create-walk .filterInputs .filter input[type=button] {
@@ -3241,10 +3111,7 @@ fieldset[disabled] .btn-link:focus {
 .btn-sm,
 .btn-group-sm > .btn,
 .btn-group-sm > body.city-page > #city-details .create-walk,
-.btn-group-sm > body.city-page > #city-details .create-walk:after,
-.btn-group-sm > body.city-page > #city-details .create-walk:hover,
 .btn-group-sm > #create-walk #map-control-bar button,
-.btn-group-sm > #create-walk #map-control-bar button.active,
 .btn-group-sm > #create-walk #map-control-bar .loadFeed,
 .btn-group-sm > #create-walk .filterInputs .filter input[type=submit],
 .btn-group-sm > #create-walk .filterInputs .filter input[type=button] {
@@ -3256,10 +3123,7 @@ fieldset[disabled] .btn-link:focus {
 .btn-xs,
 .btn-group-xs > .btn,
 .btn-group-xs > body.city-page > #city-details .create-walk,
-.btn-group-xs > body.city-page > #city-details .create-walk:after,
-.btn-group-xs > body.city-page > #city-details .create-walk:hover,
 .btn-group-xs > #create-walk #map-control-bar button,
-.btn-group-xs > #create-walk #map-control-bar button.active,
 .btn-group-xs > #create-walk #map-control-bar .loadFeed,
 .btn-group-xs > #create-walk .filterInputs .filter input[type=submit],
 .btn-group-xs > #create-walk .filterInputs .filter input[type=button] {
@@ -3284,15 +3148,8 @@ input[type="button"].btn-block {
 #modals dialog,
 #create-walk dialog,
 body.city-page > #city-details .walk-list,
-body.city-page > #city-details .walk-list:before,
-body.city-page > #city-details .walk-list:after,
-body.city-page > #city-details .walk-list:after,
-body.city-page > #city-details .walk-list:before,
-body.city-page > #city-details .walk-list:after,
-body.city-page > #city-details .walk-list:after,
 body.city-page > #city-details .walk-list.showall {
   opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
   transition: opacity 0.15s linear;
 }
 .fade.in,
@@ -3300,22 +3157,8 @@ body.city-page > #city-details .walk-list.showall {
 #create-walk dialog.in,
 #modals dialog.in,
 #create-walk dialog.in,
-#modals dialog.in ~ *,
-#create-walk dialog.in ~ *,
 body.city-page > #city-details .walk-list.in,
 body.city-page > #city-details .walk-list,
-body.city-page > #city-details .walk-list:before.in,
-body.city-page > #city-details .walk-list:before,
-body.city-page > #city-details .walk-list:after.in,
-body.city-page > #city-details .walk-list:after,
-body.city-page > #city-details .walk-list:after.in,
-body.city-page > #city-details .walk-list:after,
-body.city-page > #city-details .walk-list:before.in,
-body.city-page > #city-details .walk-list:before,
-body.city-page > #city-details .walk-list:after.in,
-body.city-page > #city-details .walk-list:after,
-body.city-page > #city-details .walk-list:after.in,
-body.city-page > #city-details .walk-list:after,
 body.city-page > #city-details .walk-list.showall.in {
   opacity: 1;
 }
@@ -3335,7 +3178,6 @@ tbody.collapse.in {
   position: relative;
   height: 0;
   overflow: hidden;
-  -webkit-transition: height 0.35s ease;
   transition: height 0.35s ease;
 }
 .caret {
@@ -3367,8 +3209,8 @@ tbody.collapse.in {
   list-style: none;
   font-size: 14px;
   text-align: left;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
+  background-color: #fff;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -3402,7 +3244,7 @@ tbody.collapse.in {
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   outline: 0;
   background-color: #428bca;
@@ -3490,14 +3332,8 @@ tbody.collapse.in {
 .btn-group-vertical > .btn,
 .btn-group > body.city-page > #city-details .create-walk,
 .btn-group-vertical > body.city-page > #city-details .create-walk,
-.btn-group > body.city-page > #city-details .create-walk:after,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after,
-.btn-group > body.city-page > #city-details .create-walk:hover,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover,
 .btn-group > #create-walk #map-control-bar button,
 .btn-group-vertical > #create-walk #map-control-bar button,
-.btn-group > #create-walk #map-control-bar button.active,
-.btn-group-vertical > #create-walk #map-control-bar button.active,
 .btn-group > #create-walk #map-control-bar .loadFeed,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed,
 .btn-group > #create-walk .filterInputs .filter input[type=submit],
@@ -3523,22 +3359,6 @@ tbody.collapse.in {
 .btn-group-vertical > body.city-page > #city-details .create-walk:active,
 .btn-group > body.city-page > #city-details .create-walk.active,
 .btn-group-vertical > body.city-page > #city-details .create-walk.active,
-.btn-group > body.city-page > #city-details .create-walk:after:hover,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after:hover,
-.btn-group > body.city-page > #city-details .create-walk:after:focus,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after:focus,
-.btn-group > body.city-page > #city-details .create-walk:after:active,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after:active,
-.btn-group > body.city-page > #city-details .create-walk:after.active,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after.active,
-.btn-group > body.city-page > #city-details .create-walk:hover:hover,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover:hover,
-.btn-group > body.city-page > #city-details .create-walk:hover:focus,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover:focus,
-.btn-group > body.city-page > #city-details .create-walk:hover:active,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover:active,
-.btn-group > body.city-page > #city-details .create-walk:hover.active,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover.active,
 .btn-group > #create-walk #map-control-bar button:hover,
 .btn-group-vertical > #create-walk #map-control-bar button:hover,
 .btn-group > #create-walk #map-control-bar button:focus,
@@ -3547,14 +3367,6 @@ tbody.collapse.in {
 .btn-group-vertical > #create-walk #map-control-bar button:active,
 .btn-group > #create-walk #map-control-bar button.active,
 .btn-group-vertical > #create-walk #map-control-bar button.active,
-.btn-group > #create-walk #map-control-bar button.active:hover,
-.btn-group-vertical > #create-walk #map-control-bar button.active:hover,
-.btn-group > #create-walk #map-control-bar button.active:focus,
-.btn-group-vertical > #create-walk #map-control-bar button.active:focus,
-.btn-group > #create-walk #map-control-bar button.active:active,
-.btn-group-vertical > #create-walk #map-control-bar button.active:active,
-.btn-group > #create-walk #map-control-bar button.active.active,
-.btn-group-vertical > #create-walk #map-control-bar button.active.active,
 .btn-group > #create-walk #map-control-bar .loadFeed:hover,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed:hover,
 .btn-group > #create-walk #map-control-bar .loadFeed:focus,
@@ -3585,14 +3397,8 @@ tbody.collapse.in {
 .btn-group-vertical > .btn:focus,
 .btn-group > body.city-page > #city-details .create-walk:focus,
 .btn-group-vertical > body.city-page > #city-details .create-walk:focus,
-.btn-group > body.city-page > #city-details .create-walk:after:focus,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after:focus,
-.btn-group > body.city-page > #city-details .create-walk:hover:focus,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover:focus,
 .btn-group > #create-walk #map-control-bar button:focus,
 .btn-group-vertical > #create-walk #map-control-bar button:focus,
-.btn-group > #create-walk #map-control-bar button.active:focus,
-.btn-group-vertical > #create-walk #map-control-bar button.active:focus,
 .btn-group > #create-walk #map-control-bar .loadFeed:focus,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed:focus,
 .btn-group > #create-walk .filterInputs .filter input[type=submit]:focus,
@@ -3608,18 +3414,9 @@ tbody.collapse.in {
 .btn-group body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
 .btn-group body.city-page > #city-details .create-walk + .btn-group,
 .btn-group .btn-group + body.city-page > #city-details .create-walk,
-.btn-group body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
-.btn-group body.city-page > #city-details .create-walk:after + .btn-group,
-.btn-group .btn-group + body.city-page > #city-details .create-walk:after,
-.btn-group body.city-page > #city-details .create-walk:hover + body.city-page > #city-details .create-walk:hover,
-.btn-group body.city-page > #city-details .create-walk:hover + .btn-group,
-.btn-group .btn-group + body.city-page > #city-details .create-walk:hover,
 .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .btn-group #create-walk #map-control-bar button + .btn-group,
 .btn-group .btn-group + #create-walk #map-control-bar button,
-.btn-group #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
-.btn-group #create-walk #map-control-bar button.active + .btn-group,
-.btn-group .btn-group + #create-walk #map-control-bar button.active,
 .btn-group #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
 .btn-group #create-walk #map-control-bar .loadFeed + .btn-group,
 .btn-group .btn-group + #create-walk #map-control-bar .loadFeed,
@@ -3644,10 +3441,7 @@ tbody.collapse.in {
 .btn-toolbar > .input-group,
 .btn-toolbar > body fieldset.search,
 .btn-toolbar > body.city-page > #city-details .create-walk,
-.btn-toolbar > body.city-page > #city-details .create-walk:after,
-.btn-toolbar > body.city-page > #city-details .create-walk:hover,
 .btn-toolbar > #create-walk #map-control-bar button,
-.btn-toolbar > #create-walk #map-control-bar button.active,
 .btn-toolbar > #create-walk #map-control-bar .loadFeed,
 .btn-toolbar > #create-walk .filterInputs .filter input[type=submit],
 .btn-toolbar > #create-walk .filterInputs .filter input[type=button] {
@@ -3655,10 +3449,7 @@ tbody.collapse.in {
 }
 .btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > body.city-page > #city-details .create-walk:not(:first-child):not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page > #city-details .create-walk:after:not(:first-child):not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page > #city-details .create-walk:hover:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:not(:first-child):not(:last-child):not(.dropdown-toggle),
-.btn-group > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar .loadFeed:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk .filterInputs .filter input[type=submit]:not(:first-child):not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk .filterInputs .filter input[type=button]:not(:first-child):not(:last-child):not(.dropdown-toggle) {
@@ -3666,10 +3457,7 @@ tbody.collapse.in {
 }
 .btn-group > .btn:first-child,
 .btn-group > body.city-page > #city-details .create-walk:first-child,
-.btn-group > body.city-page > #city-details .create-walk:after:first-child,
-.btn-group > body.city-page > #city-details .create-walk:hover:first-child,
 .btn-group > #create-walk #map-control-bar button:first-child,
-.btn-group > #create-walk #map-control-bar button.active:first-child,
 .btn-group > #create-walk #map-control-bar .loadFeed:first-child,
 .btn-group > #create-walk .filterInputs .filter input[type=submit]:first-child,
 .btn-group > #create-walk .filterInputs .filter input[type=button]:first-child {
@@ -3677,10 +3465,7 @@ tbody.collapse.in {
 }
 .btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > body.city-page > #city-details .create-walk:first-child:not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page > #city-details .create-walk:after:first-child:not(:last-child):not(.dropdown-toggle),
-.btn-group > body.city-page > #city-details .create-walk:hover:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar button:first-child:not(:last-child):not(.dropdown-toggle),
-.btn-group > #create-walk #map-control-bar button.active:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk #map-control-bar .loadFeed:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk .filterInputs .filter input[type=submit]:first-child:not(:last-child):not(.dropdown-toggle),
 .btn-group > #create-walk .filterInputs .filter input[type=button]:first-child:not(:last-child):not(.dropdown-toggle) {
@@ -3690,10 +3475,7 @@ tbody.collapse.in {
 .btn-group > .btn:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child),
 .btn-group > body.city-page > #city-details .create-walk:last-child:not(:first-child),
-.btn-group > body.city-page > #city-details .create-walk:after:last-child:not(:first-child),
-.btn-group > body.city-page > #city-details .create-walk:hover:last-child:not(:first-child),
 .btn-group > #create-walk #map-control-bar button:last-child:not(:first-child),
-.btn-group > #create-walk #map-control-bar button.active:last-child:not(:first-child),
 .btn-group > #create-walk #map-control-bar .loadFeed:last-child:not(:first-child),
 .btn-group > #create-walk .filterInputs .filter input[type=submit]:last-child:not(:first-child),
 .btn-group > #create-walk .filterInputs .filter input[type=button]:last-child:not(:first-child) {
@@ -3705,10 +3487,7 @@ tbody.collapse.in {
 }
 .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk,
-.btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:after,
-.btn-group > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:hover,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
-.btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar .loadFeed,
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=submit],
 .btn-group > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=button] {
@@ -3717,10 +3496,7 @@ tbody.collapse.in {
 .btn-group > .btn-group:first-child > .btn:last-child,
 .btn-group > .btn-group:first-child > .dropdown-toggle,
 .btn-group > .btn-group:first-child > body.city-page > #city-details .create-walk:last-child,
-.btn-group > .btn-group:first-child > body.city-page > #city-details .create-walk:after:last-child,
-.btn-group > .btn-group:first-child > body.city-page > #city-details .create-walk:hover:last-child,
 .btn-group > .btn-group:first-child > #create-walk #map-control-bar button:last-child,
-.btn-group > .btn-group:first-child > #create-walk #map-control-bar button.active:last-child,
 .btn-group > .btn-group:first-child > #create-walk #map-control-bar .loadFeed:last-child,
 .btn-group > .btn-group:first-child > #create-walk .filterInputs .filter input[type=submit]:last-child,
 .btn-group > .btn-group:first-child > #create-walk .filterInputs .filter input[type=button]:last-child {
@@ -3729,10 +3505,7 @@ tbody.collapse.in {
 }
 .btn-group > .btn-group:last-child > .btn:first-child,
 .btn-group > .btn-group:last-child > body.city-page > #city-details .create-walk:first-child,
-.btn-group > .btn-group:last-child > body.city-page > #city-details .create-walk:after:first-child,
-.btn-group > .btn-group:last-child > body.city-page > #city-details .create-walk:hover:first-child,
 .btn-group > .btn-group:last-child > #create-walk #map-control-bar button:first-child,
-.btn-group > .btn-group:last-child > #create-walk #map-control-bar button.active:first-child,
 .btn-group > .btn-group:last-child > #create-walk #map-control-bar .loadFeed:first-child,
 .btn-group > .btn-group:last-child > #create-walk .filterInputs .filter input[type=submit]:first-child,
 .btn-group > .btn-group:last-child > #create-walk .filterInputs .filter input[type=button]:first-child {
@@ -3745,10 +3518,7 @@ tbody.collapse.in {
 }
 .btn-group > .btn + .dropdown-toggle,
 .btn-group > body.city-page > #city-details .create-walk + .dropdown-toggle,
-.btn-group > body.city-page > #city-details .create-walk:after + .dropdown-toggle,
-.btn-group > body.city-page > #city-details .create-walk:hover + .dropdown-toggle,
 .btn-group > #create-walk #map-control-bar button + .dropdown-toggle,
-.btn-group > #create-walk #map-control-bar button.active + .dropdown-toggle,
 .btn-group > #create-walk #map-control-bar .loadFeed + .dropdown-toggle,
 .btn-group > #create-walk .filterInputs .filter input[type=submit] + .dropdown-toggle,
 .btn-group > #create-walk .filterInputs .filter input[type=button] + .dropdown-toggle {
@@ -3767,10 +3537,7 @@ tbody.collapse.in {
 }
 .btn .caret,
 body.city-page > #city-details .create-walk .caret,
-body.city-page > #city-details .create-walk:after .caret,
-body.city-page > #city-details .create-walk:hover .caret,
 #create-walk #map-control-bar button .caret,
-#create-walk #map-control-bar button.active .caret,
 #create-walk #map-control-bar .loadFeed .caret,
 #create-walk .filterInputs .filter input[type=submit] .caret,
 #create-walk .filterInputs .filter input[type=button] .caret {
@@ -3788,14 +3555,8 @@ body.city-page > #city-details .create-walk:hover .caret,
 .btn-group-vertical > .btn-group > .btn,
 .btn-group-vertical > body.city-page > #city-details .create-walk,
 .btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after,
-.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk:after,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover,
-.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk:hover,
 .btn-group-vertical > #create-walk #map-control-bar button,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button,
-.btn-group-vertical > #create-walk #map-control-bar button.active,
-.btn-group-vertical > .btn-group > #create-walk #map-control-bar button.active,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar .loadFeed,
 .btn-group-vertical > #create-walk .filterInputs .filter input[type=submit],
@@ -3809,10 +3570,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 }
 .btn-group-vertical > .btn-group > .btn,
 .btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk,
-.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk:after,
-.btn-group-vertical > .btn-group > body.city-page > #city-details .create-walk:hover,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar button,
-.btn-group-vertical > .btn-group > #create-walk #map-control-bar button.active,
 .btn-group-vertical > .btn-group > #create-walk #map-control-bar .loadFeed,
 .btn-group-vertical > .btn-group > #create-walk .filterInputs .filter input[type=submit],
 .btn-group-vertical > .btn-group > #create-walk .filterInputs .filter input[type=button] {
@@ -3825,18 +3583,9 @@ body.city-page > #city-details .create-walk:hover .caret,
 .btn-group-vertical > body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
 .btn-group-vertical > body.city-page > #city-details .create-walk + .btn-group,
 .btn-group-vertical > .btn-group + body.city-page > #city-details .create-walk,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
-.btn-group-vertical > body.city-page > #city-details .create-walk:after + .btn-group,
-.btn-group-vertical > .btn-group + body.city-page > #city-details .create-walk:after,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover + body.city-page > #city-details .create-walk:hover,
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover + .btn-group,
-.btn-group-vertical > .btn-group + body.city-page > #city-details .create-walk:hover,
 .btn-group-vertical > #create-walk #map-control-bar button + #create-walk #map-control-bar button,
 .btn-group-vertical > #create-walk #map-control-bar button + .btn-group,
 .btn-group-vertical > .btn-group + #create-walk #map-control-bar button,
-.btn-group-vertical > #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
-.btn-group-vertical > #create-walk #map-control-bar button.active + .btn-group,
-.btn-group-vertical > .btn-group + #create-walk #map-control-bar button.active,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed + .btn-group,
 .btn-group-vertical > .btn-group + #create-walk #map-control-bar .loadFeed,
@@ -3851,10 +3600,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 }
 .btn-group-vertical > .btn:not(:first-child):not(:last-child),
 .btn-group-vertical > body.city-page > #city-details .create-walk:not(:first-child):not(:last-child),
-.btn-group-vertical > body.city-page > #city-details .create-walk:after:not(:first-child):not(:last-child),
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button:not(:first-child):not(:last-child),
-.btn-group-vertical > #create-walk #map-control-bar button.active:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:not(:first-child):not(:last-child),
 .btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:not(:first-child):not(:last-child) {
@@ -3862,10 +3608,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 }
 .btn-group-vertical > .btn:first-child:not(:last-child),
 .btn-group-vertical > body.city-page > #city-details .create-walk:first-child:not(:last-child),
-.btn-group-vertical > body.city-page > #city-details .create-walk:after:first-child:not(:last-child),
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover:first-child:not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar button:first-child:not(:last-child),
-.btn-group-vertical > #create-walk #map-control-bar button.active:first-child:not(:last-child),
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed:first-child:not(:last-child),
 .btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:first-child:not(:last-child),
 .btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:first-child:not(:last-child) {
@@ -3875,10 +3618,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 }
 .btn-group-vertical > .btn:last-child:not(:first-child),
 .btn-group-vertical > body.city-page > #city-details .create-walk:last-child:not(:first-child),
-.btn-group-vertical > body.city-page > #city-details .create-walk:after:last-child:not(:first-child),
-.btn-group-vertical > body.city-page > #city-details .create-walk:hover:last-child:not(:first-child),
 .btn-group-vertical > #create-walk #map-control-bar button:last-child:not(:first-child),
-.btn-group-vertical > #create-walk #map-control-bar button.active:last-child:not(:first-child),
 .btn-group-vertical > #create-walk #map-control-bar .loadFeed:last-child:not(:first-child),
 .btn-group-vertical > #create-walk .filterInputs .filter input[type=submit]:last-child:not(:first-child),
 .btn-group-vertical > #create-walk .filterInputs .filter input[type=button]:last-child:not(:first-child) {
@@ -3888,10 +3628,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 }
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk,
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:after,
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > body.city-page > #city-details .create-walk:hover,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button,
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar button.active,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk #map-control-bar .loadFeed,
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=submit],
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > #create-walk .filterInputs .filter input[type=button] {
@@ -3900,10 +3637,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page > #city-details .create-walk:last-child,
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page > #city-details .create-walk:after:last-child,
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > body.city-page > #city-details .create-walk:hover:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button:last-child,
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar button.active:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk #map-control-bar .loadFeed:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk .filterInputs .filter input[type=submit]:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > #create-walk .filterInputs .filter input[type=button]:last-child {
@@ -3912,10 +3646,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 }
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page > #city-details .create-walk:first-child,
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page > #city-details .create-walk:after:first-child,
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > body.city-page > #city-details .create-walk:hover:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button:first-child,
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar button.active:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk #map-control-bar .loadFeed:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk .filterInputs .filter input[type=submit]:first-child,
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > #create-walk .filterInputs .filter input[type=button]:first-child {
@@ -3931,10 +3662,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 .btn-group-justified > .btn,
 .btn-group-justified > .btn-group,
 .btn-group-justified > body.city-page > #city-details .create-walk,
-.btn-group-justified > body.city-page > #city-details .create-walk:after,
-.btn-group-justified > body.city-page > #city-details .create-walk:hover,
 .btn-group-justified > #create-walk #map-control-bar button,
-.btn-group-justified > #create-walk #map-control-bar button.active,
 .btn-group-justified > #create-walk #map-control-bar .loadFeed,
 .btn-group-justified > #create-walk .filterInputs .filter input[type=submit],
 .btn-group-justified > #create-walk .filterInputs .filter input[type=button] {
@@ -3944,10 +3672,7 @@ body.city-page > #city-details .create-walk:hover .caret,
 }
 .btn-group-justified > .btn-group .btn,
 .btn-group-justified > .btn-group body.city-page > #city-details .create-walk,
-.btn-group-justified > .btn-group body.city-page > #city-details .create-walk:after,
-.btn-group-justified > .btn-group body.city-page > #city-details .create-walk:hover,
 .btn-group-justified > .btn-group #create-walk #map-control-bar button,
-.btn-group-justified > .btn-group #create-walk #map-control-bar button.active,
 .btn-group-justified > .btn-group #create-walk #map-control-bar .loadFeed,
 .btn-group-justified > .btn-group #create-walk .filterInputs .filter input[type=submit],
 .btn-group-justified > .btn-group #create-walk .filterInputs .filter input[type=button] {
@@ -3960,14 +3685,8 @@ body.city-page > #city-details .create-walk:hover .caret,
 [data-toggle="buttons"] > .btn > input[type="checkbox"],
 [data-toggle="buttons"] > body.city-page > #city-details .create-walk > input[type="radio"],
 [data-toggle="buttons"] > body.city-page > #city-details .create-walk > input[type="checkbox"],
-[data-toggle="buttons"] > body.city-page > #city-details .create-walk:after > input[type="radio"],
-[data-toggle="buttons"] > body.city-page > #city-details .create-walk:after > input[type="checkbox"],
-[data-toggle="buttons"] > body.city-page > #city-details .create-walk:hover > input[type="radio"],
-[data-toggle="buttons"] > body.city-page > #city-details .create-walk:hover > input[type="checkbox"],
 [data-toggle="buttons"] > #create-walk #map-control-bar button > input[type="radio"],
 [data-toggle="buttons"] > #create-walk #map-control-bar button > input[type="checkbox"],
-[data-toggle="buttons"] > #create-walk #map-control-bar button.active > input[type="radio"],
-[data-toggle="buttons"] > #create-walk #map-control-bar button.active > input[type="checkbox"],
 [data-toggle="buttons"] > #create-walk #map-control-bar .loadFeed > input[type="radio"],
 [data-toggle="buttons"] > #create-walk #map-control-bar .loadFeed > input[type="checkbox"],
 [data-toggle="buttons"] > #create-walk .filterInputs .filter input[type=submit] > input[type="radio"],
@@ -4021,10 +3740,7 @@ body fieldset.search .form-control,
 .input-group-lg > #modals dialog input[type=password],
 .input-group-lg > #create-walk dialog input[type=password],
 .input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
-.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
-.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:hover,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
-.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
 .input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 .input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
 .input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
@@ -4047,10 +3763,7 @@ select.input-group-lg > #create-walk dialog input[type=text],
 select.input-group-lg > #modals dialog input[type=password],
 select.input-group-lg > #create-walk dialog input[type=password],
 select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
-select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
-select.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:hover,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
-select.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
 select.input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 select.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
 select.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
@@ -4083,14 +3796,8 @@ textarea.input-group-lg > #create-walk dialog input[type=password],
 select[multiple].input-group-lg > #create-walk dialog input[type=password],
 textarea.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
 select[multiple].input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk,
-textarea.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
-select[multiple].input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:after,
-textarea.input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:hover,
-select[multiple].input-group-lg > .input-group-btn > body.city-page > #city-details .create-walk:hover,
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
 select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button,
-textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
-select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar button.active,
 textarea.input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 select[multiple].input-group-lg > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 textarea.input-group-lg > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
@@ -4112,10 +3819,7 @@ select[multiple].input-group-lg > .input-group-btn > #create-walk .filterInputs 
 .input-group-sm > #modals dialog input[type=password],
 .input-group-sm > #create-walk dialog input[type=password],
 .input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
-.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
-.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:hover,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
-.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
 .input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 .input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
 .input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
@@ -4138,10 +3842,7 @@ select.input-group-sm > #create-walk dialog input[type=text],
 select.input-group-sm > #modals dialog input[type=password],
 select.input-group-sm > #create-walk dialog input[type=password],
 select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
-select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
-select.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:hover,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
-select.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
 select.input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 select.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
 select.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
@@ -4174,14 +3875,8 @@ textarea.input-group-sm > #create-walk dialog input[type=password],
 select[multiple].input-group-sm > #create-walk dialog input[type=password],
 textarea.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
 select[multiple].input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk,
-textarea.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
-select[multiple].input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:after,
-textarea.input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:hover,
-select[multiple].input-group-sm > .input-group-btn > body.city-page > #city-details .create-walk:hover,
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
 select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button,
-textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
-select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar button.active,
 textarea.input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 select[multiple].input-group-sm > .input-group-btn > #create-walk #map-control-bar .loadFeed,
 textarea.input-group-sm > .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
@@ -4234,7 +3929,7 @@ body fieldset.search .form-control:not(:first-child):not(:last-child),
   color: #555555;
   text-align: center;
   background-color: #eeeeee;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border-radius: 4px;
 }
 .input-group-addon.input-sm {
@@ -4272,22 +3967,10 @@ body fieldset.search .form-control:first-child,
 .input-group-btn:first-child > .btn-group > body.city-page > #city-details .create-walk,
 .input-group-btn:last-child > body.city-page > #city-details .create-walk:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > body.city-page > #city-details .create-walk,
-.input-group-btn:first-child > body.city-page > #city-details .create-walk:after,
-.input-group-btn:first-child > .btn-group > body.city-page > #city-details .create-walk:after,
-.input-group-btn:last-child > body.city-page > #city-details .create-walk:after:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > body.city-page > #city-details .create-walk:after,
-.input-group-btn:first-child > body.city-page > #city-details .create-walk:hover,
-.input-group-btn:first-child > .btn-group > body.city-page > #city-details .create-walk:hover,
-.input-group-btn:last-child > body.city-page > #city-details .create-walk:hover:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > body.city-page > #city-details .create-walk:hover,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
 .input-group-btn:first-child > .btn-group > #create-walk #map-control-bar button,
 .input-group-btn:last-child > #create-walk #map-control-bar button:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk #map-control-bar button,
-.input-group-btn:first-child > #create-walk #map-control-bar button.active,
-.input-group-btn:first-child > .btn-group > #create-walk #map-control-bar button.active,
-.input-group-btn:last-child > #create-walk #map-control-bar button.active:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > #create-walk #map-control-bar button.active,
 .input-group-btn:first-child > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:first-child > .btn-group > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:last-child > #create-walk #map-control-bar .loadFeed:not(:last-child):not(.dropdown-toggle),
@@ -4327,22 +4010,10 @@ body fieldset.search .form-control:last-child,
 .input-group-btn:last-child > .btn-group > body.city-page > #city-details .create-walk,
 .input-group-btn:first-child > body.city-page > #city-details .create-walk:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > body.city-page > #city-details .create-walk,
-.input-group-btn:last-child > body.city-page > #city-details .create-walk:after,
-.input-group-btn:last-child > .btn-group > body.city-page > #city-details .create-walk:after,
-.input-group-btn:first-child > body.city-page > #city-details .create-walk:after:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > body.city-page > #city-details .create-walk:after,
-.input-group-btn:last-child > body.city-page > #city-details .create-walk:hover,
-.input-group-btn:last-child > .btn-group > body.city-page > #city-details .create-walk:hover,
-.input-group-btn:first-child > body.city-page > #city-details .create-walk:hover:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > body.city-page > #city-details .create-walk:hover,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
 .input-group-btn:last-child > .btn-group > #create-walk #map-control-bar button,
 .input-group-btn:first-child > #create-walk #map-control-bar button:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk #map-control-bar button,
-.input-group-btn:last-child > #create-walk #map-control-bar button.active,
-.input-group-btn:last-child > .btn-group > #create-walk #map-control-bar button.active,
-.input-group-btn:first-child > #create-walk #map-control-bar button.active:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > #create-walk #map-control-bar button.active,
 .input-group-btn:last-child > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:last-child > .btn-group > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:first-child > #create-walk #map-control-bar .loadFeed:not(:first-child),
@@ -4368,10 +4039,7 @@ body fieldset.search .form-control:last-child,
 }
 .input-group-btn > .btn,
 .input-group-btn > body.city-page > #city-details .create-walk,
-.input-group-btn > body.city-page > #city-details .create-walk:after,
-.input-group-btn > body.city-page > #city-details .create-walk:hover,
 .input-group-btn > #create-walk #map-control-bar button,
-.input-group-btn > #create-walk #map-control-bar button.active,
 .input-group-btn > #create-walk #map-control-bar .loadFeed,
 .input-group-btn > #create-walk .filterInputs .filter input[type=submit],
 .input-group-btn > #create-walk .filterInputs .filter input[type=button] {
@@ -4379,10 +4047,7 @@ body fieldset.search .form-control:last-child,
 }
 .input-group-btn > .btn + .btn,
 .input-group-btn > body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
-.input-group-btn > body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
-.input-group-btn > body.city-page > #city-details .create-walk:hover + body.city-page > #city-details .create-walk:hover,
 .input-group-btn > #create-walk #map-control-bar button + #create-walk #map-control-bar button,
-.input-group-btn > #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
 .input-group-btn > #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
 .input-group-btn > #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
 .input-group-btn > #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button] {
@@ -4394,18 +4059,9 @@ body fieldset.search .form-control:last-child,
 .input-group-btn > body.city-page > #city-details .create-walk:hover,
 .input-group-btn > body.city-page > #city-details .create-walk:focus,
 .input-group-btn > body.city-page > #city-details .create-walk:active,
-.input-group-btn > body.city-page > #city-details .create-walk:after:hover,
-.input-group-btn > body.city-page > #city-details .create-walk:after:focus,
-.input-group-btn > body.city-page > #city-details .create-walk:after:active,
-.input-group-btn > body.city-page > #city-details .create-walk:hover:hover,
-.input-group-btn > body.city-page > #city-details .create-walk:hover:focus,
-.input-group-btn > body.city-page > #city-details .create-walk:hover:active,
 .input-group-btn > #create-walk #map-control-bar button:hover,
 .input-group-btn > #create-walk #map-control-bar button:focus,
 .input-group-btn > #create-walk #map-control-bar button:active,
-.input-group-btn > #create-walk #map-control-bar button.active:hover,
-.input-group-btn > #create-walk #map-control-bar button.active:focus,
-.input-group-btn > #create-walk #map-control-bar button.active:active,
 .input-group-btn > #create-walk #map-control-bar .loadFeed:hover,
 .input-group-btn > #create-walk #map-control-bar .loadFeed:focus,
 .input-group-btn > #create-walk #map-control-bar .loadFeed:active,
@@ -4420,10 +4076,7 @@ body fieldset.search .form-control:last-child,
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .btn-group,
 .input-group-btn:first-child > body.city-page > #city-details .create-walk,
-.input-group-btn:first-child > body.city-page > #city-details .create-walk:after,
-.input-group-btn:first-child > body.city-page > #city-details .create-walk:hover,
 .input-group-btn:first-child > #create-walk #map-control-bar button,
-.input-group-btn:first-child > #create-walk #map-control-bar button.active,
 .input-group-btn:first-child > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:first-child > #create-walk .filterInputs .filter input[type=submit],
 .input-group-btn:first-child > #create-walk .filterInputs .filter input[type=button] {
@@ -4432,10 +4085,7 @@ body fieldset.search .form-control:last-child,
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .btn-group,
 .input-group-btn:last-child > body.city-page > #city-details .create-walk,
-.input-group-btn:last-child > body.city-page > #city-details .create-walk:after,
-.input-group-btn:last-child > body.city-page > #city-details .create-walk:hover,
 .input-group-btn:last-child > #create-walk #map-control-bar button,
-.input-group-btn:last-child > #create-walk #map-control-bar button.active,
 .input-group-btn:last-child > #create-walk #map-control-bar .loadFeed,
 .input-group-btn:last-child > #create-walk .filterInputs .filter input[type=submit],
 .input-group-btn:last-child > #create-walk .filterInputs .filter input[type=button] {
@@ -4499,7 +4149,7 @@ body fieldset.search .form-control:last-child,
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 .nav-tabs > li {
   float: left;
@@ -4512,14 +4162,14 @@ body fieldset.search .form-control:last-child,
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+  border-color: #eeeeee #eeeeee #ddd;
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4564,12 +4214,12 @@ body fieldset.search .form-control:last-child,
 .nav-tabs.social-login-providers.template-fontawesome > .active > a,
 .nav-tabs.social-login-providers.template-fontawesome > .active > a:hover,
 .nav-tabs.social-login-providers.template-fontawesome > .active > a:focus {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 @media (min-width: 768px) {
   .nav-tabs.nav-justified > li > a,
   .nav-tabs.social-login-providers.template-fontawesome > li > a {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
   }
   .nav-tabs.nav-justified > .active > a,
@@ -4578,7 +4228,7 @@ body fieldset.search .form-control:last-child,
   .nav-tabs.social-login-providers.template-fontawesome > .active > a,
   .nav-tabs.social-login-providers.template-fontawesome > .active > a:hover,
   .nav-tabs.social-login-providers.template-fontawesome > .active > a:focus {
-    border-bottom-color: #ffffff;
+    border-bottom-color: #fff;
   }
 }
 .nav-pills > li,
@@ -4599,7 +4249,7 @@ body fieldset.search .form-control:last-child,
 .social-login-providers.template-fontawesome > li.active > a,
 .social-login-providers.template-fontawesome > li.active > a:hover,
 .social-login-providers.template-fontawesome > li.active > a:focus {
-  color: #ffffff;
+  color: #fff;
   background-color: #428bca;
 }
 .nav-stacked > li {
@@ -4648,17 +4298,17 @@ body fieldset.search .form-control:last-child,
 .nav-tabs-justified > .active > a,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs-justified > .active > a:focus {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
 }
 @media (min-width: 768px) {
   .nav-tabs-justified > li > a {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
   }
   .nav-tabs-justified > .active > a,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus {
-    border-bottom-color: #ffffff;
+    border-bottom-color: #fff;
   }
 }
 .tab-content > .tab-pane {
@@ -4673,8 +4323,7 @@ body fieldset.search .form-control:last-child,
   border-top-left-radius: 0;
 }
 .navbar,
-body #navbar > div > header,
-body #navbar > div > header.dropped {
+body #navbar > div > header {
   position: relative;
   min-height: 60px;
   margin-bottom: 20px;
@@ -4682,8 +4331,7 @@ body #navbar > div > header.dropped {
 }
 @media (min-width: 768px) {
   .navbar,
-  body #navbar > div > header,
-  body #navbar > div > header.dropped {
+  body #navbar > div > header {
     border-radius: 4px;
   }
 }
@@ -4722,23 +4370,20 @@ body #navbar > div > header.dropped {
   .navbar-fixed-top .navbar-collapse,
   .navbar-static-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse,
-  body #navbar > div > header .navbar-collapse,
-  body #navbar > div > header.dropped .navbar-collapse {
+  body #navbar > div > header .navbar-collapse {
     padding-left: 0;
     padding-right: 0;
   }
 }
 .navbar-fixed-top .navbar-collapse,
 .navbar-fixed-bottom .navbar-collapse,
-body #navbar > div > header .navbar-collapse,
-body #navbar > div > header.dropped .navbar-collapse {
+body #navbar > div > header .navbar-collapse {
   max-height: 340px;
 }
 @media (max-width: 480px) and (orientation: landscape) {
   .navbar-fixed-top .navbar-collapse,
   .navbar-fixed-bottom .navbar-collapse,
-  body #navbar > div > header .navbar-collapse,
-  body #navbar > div > header.dropped .navbar-collapse {
+  body #navbar > div > header .navbar-collapse {
     max-height: 200px;
   }
 }
@@ -4749,19 +4394,7 @@ body #navbar > div > header.dropped .navbar-collapse {
 .container > body #navbar > div > header .logo,
 .container-fluid > body #navbar > div > header .logo,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse {
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse {
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -4773,19 +4406,7 @@ body #navbar > div > header.dropped .navbar-collapse {
   .container > body #navbar > div > header .logo,
   .container-fluid > body #navbar > div > header .logo,
   #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before > .navbar-collapse,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-header,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after > .navbar-collapse {
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul > .navbar-collapse {
     margin-right: 0;
     margin-left: 0;
   }
@@ -4801,8 +4422,7 @@ body #navbar > div > header.dropped .navbar-collapse {
 }
 .navbar-fixed-top,
 .navbar-fixed-bottom,
-body #navbar > div > header,
-body #navbar > div > header.dropped {
+body #navbar > div > header {
   position: fixed;
   right: 0;
   left: 0;
@@ -4813,14 +4433,12 @@ body #navbar > div > header.dropped {
 @media (min-width: 768px) {
   .navbar-fixed-top,
   .navbar-fixed-bottom,
-  body #navbar > div > header,
-  body #navbar > div > header.dropped {
+  body #navbar > div > header {
     border-radius: 0;
   }
 }
 .navbar-fixed-top,
-body #navbar > div > header,
-body #navbar > div > header.dropped {
+body #navbar > div > header {
   top: 0;
   border-width: 0 0 1px;
 }
@@ -4850,15 +4468,7 @@ body #navbar > div > header .logo span:focus {
   body #navbar > div > header > .container-fluid .navbar-brand,
   .navbar > .container body #navbar > div > header .logo span,
   .navbar > .container-fluid body #navbar > div > header .logo span,
-  body #navbar > div > header.dropped > .container .navbar-brand,
-  body #navbar > div > header.dropped > .container-fluid .navbar-brand,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .navbar-brand,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .navbar-brand,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .navbar-brand,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand,
-  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .navbar-brand {
+  .navbar > #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .navbar-brand {
     margin-left: -15px;
   }
 }
@@ -5160,41 +4770,35 @@ body #navbar > div > header #donate {
   }
 }
 .navbar-default,
-body #navbar > div > header,
-body #navbar > div > header.dropped {
+body #navbar > div > header {
   background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand,
 body #navbar > div > header .navbar-brand,
-.navbar-default body #navbar > div > header .logo span,
-body #navbar > div > header.dropped .navbar-brand {
-  color: #777777;
+.navbar-default body #navbar > div > header .logo span {
+  color: #777;
 }
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus,
 body #navbar > div > header .navbar-brand:hover,
 body #navbar > div > header .navbar-brand:focus,
 .navbar-default body #navbar > div > header .logo span:hover,
-.navbar-default body #navbar > div > header .logo span:focus,
-body #navbar > div > header.dropped .navbar-brand:hover,
-body #navbar > div > header.dropped .navbar-brand:focus {
+.navbar-default body #navbar > div > header .logo span:focus {
   color: #5e5e5e;
   background-color: transparent;
 }
 .navbar-default .navbar-text,
-body #navbar > div > header .navbar-text,
-body #navbar > div > header.dropped .navbar-text {
-  color: #777777;
+body #navbar > div > header .navbar-text {
+  color: #777;
 }
 .navbar-default .navbar-nav > li > a,
 body #navbar > div > header .navbar-nav > li > a,
 .navbar-default body #navbar > div > header nav a + ul.nav > li > a,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > li > a,
-body #navbar > div > header.dropped .navbar-nav > li > a,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a {
-  color: #777777;
+  color: #777;
 }
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus,
@@ -5204,13 +4808,11 @@ body #navbar > div > header .navbar-nav > li > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.nav > li > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > li > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > li > a:focus,
-body #navbar > div > header.dropped .navbar-nav > li > a:hover,
-body #navbar > div > header.dropped .navbar-nav > li > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
-  color: #333333;
+  color: #333;
   background-color: transparent;
 }
 .navbar-default .navbar-nav > .active > a,
@@ -5225,16 +4827,13 @@ body #navbar > div > header .navbar-nav > .active > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .active > a,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .active > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .active > a:focus,
-body #navbar > div > header.dropped .navbar-nav > .active > a,
-body #navbar > div > header.dropped .navbar-nav > .active > a:hover,
-body #navbar > div > header.dropped .navbar-nav > .active > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .active > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
-  color: #555555;
+  color: #555;
   background-color: #e7e7e7;
 }
 .navbar-default .navbar-nav > .disabled > a,
@@ -5249,42 +4848,33 @@ body #navbar > div > header .navbar-nav > .disabled > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .disabled > a:focus,
-body #navbar > div > header.dropped .navbar-nav > .disabled > a,
-body #navbar > div > header.dropped .navbar-nav > .disabled > a:hover,
-body #navbar > div > header.dropped .navbar-nav > .disabled > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .disabled > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
-  color: #cccccc;
+  color: #ccc;
   background-color: transparent;
 }
 .navbar-default .navbar-toggle,
-body #navbar > div > header .navbar-toggle,
-body #navbar > div > header.dropped .navbar-toggle {
-  border-color: #dddddd;
+body #navbar > div > header .navbar-toggle {
+  border-color: #ddd;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus,
 body #navbar > div > header .navbar-toggle:hover,
-body #navbar > div > header .navbar-toggle:focus,
-body #navbar > div > header.dropped .navbar-toggle:hover,
-body #navbar > div > header.dropped .navbar-toggle:focus {
-  background-color: #dddddd;
+body #navbar > div > header .navbar-toggle:focus {
+  background-color: #ddd;
 }
 .navbar-default .navbar-toggle .icon-bar,
-body #navbar > div > header .navbar-toggle .icon-bar,
-body #navbar > div > header.dropped .navbar-toggle .icon-bar {
-  background-color: #888888;
+body #navbar > div > header .navbar-toggle .icon-bar {
+  background-color: #888;
 }
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form,
 body #navbar > div > header .navbar-collapse,
-body #navbar > div > header .navbar-form,
-body #navbar > div > header.dropped .navbar-collapse,
-body #navbar > div > header.dropped .navbar-form {
+body #navbar > div > header .navbar-form {
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-nav > .open > a,
@@ -5299,9 +4889,6 @@ body #navbar > div > header .navbar-nav > .open > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .open > a,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .open > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav > .open > a:focus,
-body #navbar > div > header.dropped .navbar-nav > .open > a,
-body #navbar > div > header.dropped .navbar-nav > .open > a:hover,
-body #navbar > div > header.dropped .navbar-nav > .open > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > .open > a:focus,
@@ -5309,17 +4896,16 @@ body #navbar > div > header.dropped .navbar-nav > .open > a:focus,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
 .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
   background-color: #e7e7e7;
-  color: #555555;
+  color: #555;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a,
   body #navbar > div > header .navbar-nav .open .dropdown-menu > li > a,
   .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > li > a,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a {
-    color: #777777;
+    color: #777;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
@@ -5329,13 +4915,11 @@ body #navbar > div > header.dropped .navbar-nav > .open > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.nav .open .dropdown-menu > li > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > li > a:focus,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > li > a:hover,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > li > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
-    color: #333333;
+    color: #333;
     background-color: transparent;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
@@ -5350,16 +4934,13 @@ body #navbar > div > header.dropped .navbar-nav > .open > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .active > a:focus,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .active > a,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .active > a:hover,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .active > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
-    color: #555555;
+    color: #555;
     background-color: #e7e7e7;
   }
   .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a,
@@ -5374,41 +4955,33 @@ body #navbar > div > header.dropped .navbar-nav > .open > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.nav + ul.nav .open .dropdown-menu > .disabled > a:focus,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-  body #navbar > div > header.dropped .navbar-nav .open .dropdown-menu > .disabled > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
   .navbar-default body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
-    color: #cccccc;
+    color: #ccc;
     background-color: transparent;
   }
 }
 .navbar-default .navbar-link,
-body #navbar > div > header .navbar-link,
-body #navbar > div > header.dropped .navbar-link {
-  color: #777777;
+body #navbar > div > header .navbar-link {
+  color: #777;
 }
 .navbar-default .navbar-link:hover,
-body #navbar > div > header .navbar-link:hover,
-body #navbar > div > header.dropped .navbar-link:hover {
-  color: #333333;
+body #navbar > div > header .navbar-link:hover {
+  color: #333;
 }
 .navbar-default .btn-link,
-body #navbar > div > header .btn-link,
-body #navbar > div > header.dropped .btn-link {
-  color: #777777;
+body #navbar > div > header .btn-link {
+  color: #777;
 }
 .navbar-default .btn-link:hover,
 .navbar-default .btn-link:focus,
 body #navbar > div > header .btn-link:hover,
-body #navbar > div > header .btn-link:focus,
-body #navbar > div > header.dropped .btn-link:hover,
-body #navbar > div > header.dropped .btn-link:focus {
-  color: #333333;
+body #navbar > div > header .btn-link:focus {
+  color: #333;
 }
 .navbar-default .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-default .btn-link:hover,
@@ -5417,15 +4990,11 @@ fieldset[disabled] .navbar-default .btn-link:focus,
 body #navbar > div > header .btn-link[disabled]:hover,
 fieldset[disabled] body #navbar > div > header .btn-link:hover,
 body #navbar > div > header .btn-link[disabled]:focus,
-fieldset[disabled] body #navbar > div > header .btn-link:focus,
-body #navbar > div > header.dropped .btn-link[disabled]:hover,
-fieldset[disabled] body #navbar > div > header.dropped .btn-link:hover,
-body #navbar > div > header.dropped .btn-link[disabled]:focus,
-fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
-  color: #cccccc;
+fieldset[disabled] body #navbar > div > header .btn-link:focus {
+  color: #ccc;
 }
 .navbar-inverse {
-  background-color: #222222;
+  background-color: #222;
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand,
@@ -5436,7 +5005,7 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
 .navbar-inverse .navbar-brand:focus,
 .navbar-inverse body #navbar > div > header .logo span:hover,
 .navbar-inverse body #navbar > div > header .logo span:focus {
-  color: #ffffff;
+  color: #fff;
   background-color: transparent;
 }
 .navbar-inverse .navbar-text {
@@ -5459,7 +5028,7 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome > li > a:focus,
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:hover,
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > li > a:focus {
-  color: #ffffff;
+  color: #fff;
   background-color: transparent;
 }
 .navbar-inverse .navbar-nav > .active > a,
@@ -5477,7 +5046,7 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a,
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:hover,
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .active > a:focus {
-  color: #ffffff;
+  color: #fff;
   background-color: #080808;
 }
 .navbar-inverse .navbar-nav > .disabled > a,
@@ -5495,18 +5064,18 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a,
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:hover,
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .disabled > a:focus {
-  color: #444444;
+  color: #444;
   background-color: transparent;
 }
 .navbar-inverse .navbar-toggle {
-  border-color: #333333;
+  border-color: #333;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #333333;
+  background-color: #333;
 }
 .navbar-inverse .navbar-toggle .icon-bar {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
@@ -5528,7 +5097,7 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:hover,
 .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome > .open > a:focus {
   background-color: #080808;
-  color: #ffffff;
+  color: #fff;
 }
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header,
@@ -5562,7 +5131,7 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus,
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:hover,
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > li > a:focus {
-    color: #ffffff;
+    color: #fff;
     background-color: transparent;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
@@ -5580,7 +5149,7 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a,
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:hover,
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .active > a:focus {
-    color: #ffffff;
+    color: #fff;
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
@@ -5598,7 +5167,7 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a,
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:hover,
   .navbar-inverse body #navbar > div > header nav a + ul.social-login-providers.template-fontawesome + ul.social-login-providers.template-fontawesome .open .dropdown-menu > .disabled > a:focus {
-    color: #444444;
+    color: #444;
     background-color: transparent;
   }
 }
@@ -5606,20 +5175,20 @@ fieldset[disabled] body #navbar > div > header.dropped .btn-link:focus {
   color: #777777;
 }
 .navbar-inverse .navbar-link:hover {
-  color: #ffffff;
+  color: #fff;
 }
 .navbar-inverse .btn-link {
   color: #777777;
 }
 .navbar-inverse .btn-link:hover,
 .navbar-inverse .btn-link:focus {
-  color: #ffffff;
+  color: #fff;
 }
 .navbar-inverse .btn-link[disabled]:hover,
 fieldset[disabled] .navbar-inverse .btn-link:hover,
 .navbar-inverse .btn-link[disabled]:focus,
 fieldset[disabled] .navbar-inverse .btn-link:focus {
-  color: #444444;
+  color: #444;
 }
 .breadcrumb {
   padding: 8px 0;
@@ -5634,7 +5203,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .breadcrumb > li + li:before {
   content: ">\00a0";
   padding: 0 5px;
-  color: #cccccc;
+  color: #ccc;
 }
 .breadcrumb > .active {
   color: #777777;
@@ -5656,8 +5225,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   line-height: 1.42857143;
   text-decoration: none;
   color: #428bca;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
   margin-left: -1px;
 }
 .pagination > li:first-child > a,
@@ -5677,7 +5246,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:focus {
   color: #2a6496;
   background-color: #eeeeee;
-  border-color: #dddddd;
+  border-color: #ddd;
 }
 .pagination > .active > a,
 .pagination > .active > span,
@@ -5686,7 +5255,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
   z-index: 2;
-  color: #ffffff;
+  color: #fff;
   background-color: #428bca;
   border-color: #428bca;
   cursor: default;
@@ -5698,8 +5267,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
   color: #777777;
-  background-color: #ffffff;
-  border-color: #dddddd;
+  background-color: #fff;
+  border-color: #ddd;
   cursor: not-allowed;
 }
 .pagination-lg > li > a,
@@ -5745,8 +5314,8 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pager li > span {
   display: inline-block;
   padding: 5px 14px;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 15px;
 }
 .pager li > a:hover,
@@ -5767,7 +5336,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pager .disabled > a:focus,
 .pager .disabled > span {
   color: #777777;
-  background-color: #ffffff;
+  background-color: #fff;
   cursor: not-allowed;
 }
 .label {
@@ -5776,7 +5345,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   font-size: 75%;
   font-weight: bold;
   line-height: 1;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   white-space: nowrap;
   vertical-align: baseline;
@@ -5784,7 +5353,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 }
 a.label:hover,
 a.label:focus {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   cursor: pointer;
 }
@@ -5793,10 +5362,7 @@ a.label:focus {
 }
 .btn .label,
 body.city-page > #city-details .create-walk .label,
-body.city-page > #city-details .create-walk:after .label,
-body.city-page > #city-details .create-walk:hover .label,
 #create-walk #map-control-bar button .label,
-#create-walk #map-control-bar button.active .label,
 #create-walk #map-control-bar .loadFeed .label,
 #create-walk .filterInputs .filter input[type=submit] .label,
 #create-walk .filterInputs .filter input[type=button] .label {
@@ -5851,7 +5417,7 @@ body.city-page > #city-details .create-walk:hover .label,
   padding: 3px 7px;
   font-size: 12px;
   font-weight: bold;
-  color: #ffffff;
+  color: #fff;
   line-height: 1;
   vertical-align: baseline;
   white-space: nowrap;
@@ -5864,10 +5430,7 @@ body.city-page > #city-details .create-walk:hover .label,
 }
 .btn .badge,
 body.city-page > #city-details .create-walk .badge,
-body.city-page > #city-details .create-walk:after .badge,
-body.city-page > #city-details .create-walk:hover .badge,
 #create-walk #map-control-bar button .badge,
-#create-walk #map-control-bar button.active .badge,
 #create-walk #map-control-bar .loadFeed .badge,
 #create-walk .filterInputs .filter input[type=submit] .badge,
 #create-walk .filterInputs .filter input[type=button] .badge {
@@ -5880,7 +5443,7 @@ body.city-page > #city-details .create-walk:hover .badge,
 }
 a.badge:hover,
 a.badge:focus {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   cursor: pointer;
 }
@@ -5888,7 +5451,7 @@ a.list-group-item.active > .badge,
 .nav-pills > .active > a > .badge,
 .social-login-providers.template-fontawesome > .active > a > .badge {
   color: #428bca;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .nav-pills > li > a > .badge,
 .social-login-providers.template-fontawesome > li > a > .badge {
@@ -5913,23 +5476,11 @@ a.list-group-item.active > .badge,
   border-top-color: #d5d5d5;
 }
 .container .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron {
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul .jumbotron {
   border-radius: 6px;
 }
 .jumbotron .container,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+.jumbotron #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
   max-width: 100%;
 }
 @media screen and (min-width: 768px) {
@@ -5938,13 +5489,7 @@ a.list-group-item.active > .badge,
     padding-bottom: 48px;
   }
   .container .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron,
-  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after .jumbotron {
+  #profileWrapper div.content div#resourcesBlock div.resourceBlock ul .jumbotron {
     padding-left: 60px;
     padding-right: 60px;
   }
@@ -5961,10 +5506,9 @@ a.list-group-item.active > .badge,
   padding: 4px;
   margin-bottom: 20px;
   line-height: 1.42857143;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
 .thumbnail > img,
@@ -6112,16 +5656,14 @@ a#create-walk .team-member.active {
   height: 100%;
   font-size: 12px;
   line-height: 20px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   background-color: #428bca;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
-  -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
 .progress-striped .progress-bar,
 .progress-bar-striped {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 40px 40px;
 }
@@ -6145,28 +5687,24 @@ a#create-walk .team-member.active {
   background-color: #5cb85c;
 }
 .progress-striped .progress-bar-success {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-info {
   background-color: #5bc0de;
 }
 .progress-striped .progress-bar-info {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-warning {
   background-color: #f0ad4e;
 }
 .progress-striped .progress-bar-warning {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .progress-bar-danger {
   background-color: #d9534f;
 }
 .progress-striped .progress-bar-danger {
-  background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
 .media,
@@ -6206,8 +5744,8 @@ a#create-walk .team-member.active {
   display: block;
   padding: 10px 15px;
   margin-bottom: -1px;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
 }
 .list-group-item:first-child {
   border-top-right-radius: 4px;
@@ -6225,15 +5763,15 @@ a#create-walk .team-member.active {
   margin-right: 5px;
 }
 a.list-group-item {
-  color: #555555;
+  color: #555;
 }
 a.list-group-item .list-group-item-heading {
-  color: #333333;
+  color: #333;
 }
 a.list-group-item:hover,
 a.list-group-item:focus {
   text-decoration: none;
-  color: #555555;
+  color: #555;
   background-color: #f5f5f5;
 }
 .list-group-item.disabled,
@@ -6256,7 +5794,7 @@ a.list-group-item:focus {
 .list-group-item.active:hover,
 .list-group-item.active:focus {
   z-index: 2;
-  color: #ffffff;
+  color: #fff;
   background-color: #428bca;
   border-color: #428bca;
 }
@@ -6374,7 +5912,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel {
   margin-bottom: 20px;
-  background-color: #ffffff;
+  background-color: #fff;
   border: 1px solid transparent;
   border-radius: 4px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
@@ -6403,7 +5941,7 @@ a.list-group-item-danger.active:focus {
 .panel-footer {
   padding: 10px 15px;
   background-color: #f5f5f5;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
@@ -6647,7 +6185,7 @@ a.list-group-item-danger.active:focus {
 .panel > .panel-body + #create-walk dialog table,
 .panel > .panel-body + #profileWrapper table,
 .panel > .panel-body + #create-walk table.routeStops {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 .panel > .table > tbody:first-child > tr:first-child th,
 .panel > .table > tbody:first-child > tr:first-child td,
@@ -6773,37 +6311,37 @@ a.list-group-item-danger.active:focus {
   border-bottom: 0;
 }
 .panel-group .panel-heading + .panel-collapse > .panel-body {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 .panel-group .panel-footer {
   border-top: 0;
 }
 .panel-group .panel-footer + .panel-collapse .panel-body {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 .panel-default {
-  border-color: #dddddd;
+  border-color: #ddd;
 }
 .panel-default > .panel-heading {
   color: #333333;
   background-color: #f5f5f5;
-  border-color: #dddddd;
+  border-color: #ddd;
 }
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #dddddd;
+  border-top-color: #ddd;
 }
 .panel-default > .panel-heading .badge {
   color: #f5f5f5;
   background-color: #333333;
 }
 .panel-default > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #dddddd;
+  border-bottom-color: #ddd;
 }
 .panel-primary {
   border-color: #428bca;
 }
 .panel-primary > .panel-heading {
-  color: #ffffff;
+  color: #fff;
   background-color: #428bca;
   border-color: #428bca;
 }
@@ -6812,7 +6350,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-primary > .panel-heading .badge {
   color: #428bca;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .panel-primary > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #428bca;
@@ -6940,14 +6478,14 @@ a.list-group-item-danger.active:focus {
   font-size: 21px;
   font-weight: bold;
   line-height: 1;
-  color: #000000;
-  text-shadow: 0 1px 0 #ffffff;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
   opacity: 0.2;
   filter: alpha(opacity=20);
 }
 .close:hover,
 .close:focus {
-  color: #000000;
+  color: #000;
   text-decoration: none;
   cursor: pointer;
   opacity: 0.5;
@@ -6985,17 +6523,12 @@ button.close {
 .modal.fade #modals dialog > div,
 .modal.fade #create-walk dialog > div,
 .modalbody.city-page > #city-details .walk-list .modal-dialog,
-.modalbody.city-page > #city-details .walk-list:before .modal-dialog,
-.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
-.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
-.modalbody.city-page > #city-details .walk-list:before .modal-dialog,
-.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
-.modalbody.city-page > #city-details .walk-list:after .modal-dialog,
 .modalbody.city-page > #city-details .walk-list.showall .modal-dialog {
   -webkit-transform: translate3d(0, -25%, 0);
   transform: translate3d(0, -25%, 0);
-  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 .modal.in .modal-dialog,
 #modals dialog.in .modal-dialog,
@@ -7022,8 +6555,8 @@ button.close {
 #modals dialog > div > article,
 #create-walk dialog > div > article {
   position: relative;
-  background-color: #ffffff;
-  border: 1px solid #999999;
+  background-color: #fff;
+  border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
@@ -7037,18 +6570,12 @@ button.close {
   bottom: 0;
   left: 0;
   z-index: 1040;
-  background-color: #000000;
+  background-color: #000;
 }
 .modal-backdrop.fade,
 .modal-backdrop#modals dialog,
 .modal-backdrop#create-walk dialog,
 .modal-backdropbody.city-page > #city-details .walk-list,
-.modal-backdropbody.city-page > #city-details .walk-list:before,
-.modal-backdropbody.city-page > #city-details .walk-list:after,
-.modal-backdropbody.city-page > #city-details .walk-list:after,
-.modal-backdropbody.city-page > #city-details .walk-list:before,
-.modal-backdropbody.city-page > #city-details .walk-list:after,
-.modal-backdropbody.city-page > #city-details .walk-list:after,
 .modal-backdropbody.city-page > #city-details .walk-list.showall {
   opacity: 0;
   filter: alpha(opacity=0);
@@ -7075,9 +6602,7 @@ button.close {
 }
 .modal-body,
 #modals dialog > div > article section,
-#create-walk dialog > div > article section,
-#modals dialog > div > article section + section,
-#create-walk dialog > div > article section + section {
+#create-walk dialog > div > article section {
   position: relative;
   padding: 15px;
 }
@@ -7092,10 +6617,7 @@ button.close {
 #modals dialog > div > article footer .btn + .btn,
 #create-walk dialog > div > article footer .btn + .btn,
 .modal-footer body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
-.modal-footer body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
-.modal-footer body.city-page > #city-details .create-walk:hover + body.city-page > #city-details .create-walk:hover,
 .modal-footer #create-walk #map-control-bar button + #create-walk #map-control-bar button,
-.modal-footer #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
 .modal-footer #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
 .modal-footer #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
 .modal-footer #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button] {
@@ -7106,10 +6628,7 @@ button.close {
 #modals dialog > div > article footer .btn-group .btn + .btn,
 #create-walk dialog > div > article footer .btn-group .btn + .btn,
 .modal-footer .btn-group body.city-page > #city-details .create-walk + body.city-page > #city-details .create-walk,
-.modal-footer .btn-group body.city-page > #city-details .create-walk:after + body.city-page > #city-details .create-walk:after,
-.modal-footer .btn-group body.city-page > #city-details .create-walk:hover + body.city-page > #city-details .create-walk:hover,
 .modal-footer .btn-group #create-walk #map-control-bar button + #create-walk #map-control-bar button,
-.modal-footer .btn-group #create-walk #map-control-bar button.active + #create-walk #map-control-bar button.active,
 .modal-footer .btn-group #create-walk #map-control-bar .loadFeed + #create-walk #map-control-bar .loadFeed,
 .modal-footer .btn-group #create-walk .filterInputs .filter input[type=submit] + #create-walk .filterInputs .filter input[type=submit],
 .modal-footer .btn-group #create-walk .filterInputs .filter input[type=button] + #create-walk .filterInputs .filter input[type=button] {
@@ -7181,10 +6700,10 @@ button.close {
 .tooltip-inner {
   max-width: 200px;
   padding: 3px 8px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   text-decoration: none;
-  background-color: #000000;
+  background-color: #000;
   border-radius: 4px;
 }
 .tooltip-arrow {
@@ -7199,52 +6718,52 @@ button.close {
   left: 50%;
   margin-left: -5px;
   border-width: 5px 5px 0;
-  border-top-color: #000000;
+  border-top-color: #000;
 }
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
   left: 5px;
   border-width: 5px 5px 0;
-  border-top-color: #000000;
+  border-top-color: #000;
 }
 .tooltip.top-right .tooltip-arrow {
   bottom: 0;
   right: 5px;
   border-width: 5px 5px 0;
-  border-top-color: #000000;
+  border-top-color: #000;
 }
 .tooltip.right .tooltip-arrow {
   top: 50%;
   left: 0;
   margin-top: -5px;
   border-width: 5px 5px 5px 0;
-  border-right-color: #000000;
+  border-right-color: #000;
 }
 .tooltip.left .tooltip-arrow {
   top: 50%;
   right: 0;
   margin-top: -5px;
   border-width: 5px 0 5px 5px;
-  border-left-color: #000000;
+  border-left-color: #000;
 }
 .tooltip.bottom .tooltip-arrow {
   top: 0;
   left: 50%;
   margin-left: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #000;
 }
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   left: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #000;
 }
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   right: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #000;
 }
 .popover {
   position: absolute;
@@ -7255,9 +6774,9 @@ button.close {
   max-width: 276px;
   padding: 1px;
   text-align: left;
-  background-color: #ffffff;
+  background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid #cccccc;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -7317,7 +6836,7 @@ button.close {
   bottom: 1px;
   margin-left: -10px;
   border-bottom-width: 0;
-  border-top-color: #ffffff;
+  border-top-color: #fff;
 }
 .popover.right > .arrow {
   top: 50%;
@@ -7332,7 +6851,7 @@ button.close {
   left: 1px;
   bottom: -10px;
   border-left-width: 0;
-  border-right-color: #ffffff;
+  border-right-color: #fff;
 }
 .popover.bottom > .arrow {
   left: 50%;
@@ -7347,7 +6866,7 @@ button.close {
   top: 1px;
   margin-left: -10px;
   border-top-width: 0;
-  border-bottom-color: #ffffff;
+  border-bottom-color: #fff;
 }
 .popover.left > .arrow {
   top: 50%;
@@ -7361,7 +6880,7 @@ button.close {
   content: " ";
   right: 1px;
   border-right-width: 0;
-  border-left-color: #ffffff;
+  border-left-color: #fff;
   bottom: -10px;
 }
 .carousel {
@@ -7375,7 +6894,6 @@ button.close {
 .carousel-inner > .item {
   display: none;
   position: relative;
-  -webkit-transition: 0.6s ease-in-out left;
   transition: 0.6s ease-in-out left;
 }
 .carousel-inner > .item > img,
@@ -7421,12 +6939,11 @@ button.close {
   opacity: 0.5;
   filter: alpha(opacity=50);
   font-size: 20px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 .carousel-control.left {
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
@@ -7434,7 +6951,6 @@ button.close {
 .carousel-control.right {
   left: auto;
   right: 0;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
@@ -7442,7 +6958,7 @@ button.close {
 .carousel-control:hover,
 .carousel-control:focus {
   outline: 0;
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   opacity: 0.9;
   filter: alpha(opacity=90);
@@ -7496,7 +7012,7 @@ button.close {
   height: 10px;
   margin: 1px;
   text-indent: -999px;
-  border: 1px solid #ffffff;
+  border: 1px solid #fff;
   border-radius: 10px;
   cursor: pointer;
   background-color: #000 \9;
@@ -7506,7 +7022,7 @@ button.close {
   margin: 0;
   width: 12px;
   height: 12px;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .carousel-caption {
   position: absolute;
@@ -7516,16 +7032,13 @@ button.close {
   z-index: 10;
   padding-top: 20px;
   padding-bottom: 20px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 .carousel-caption .btn,
 .carousel-caption body.city-page > #city-details .create-walk,
-.carousel-caption body.city-page > #city-details .create-walk:after,
-.carousel-caption body.city-page > #city-details .create-walk:hover,
 .carousel-caption #create-walk #map-control-bar button,
-.carousel-caption #create-walk #map-control-bar button.active,
 .carousel-caption #create-walk #map-control-bar .loadFeed,
 .carousel-caption #create-walk .filterInputs .filter input[type=submit],
 .carousel-caption #create-walk .filterInputs .filter input[type=button] {
@@ -7616,8 +7129,6 @@ body #navbar > div > header:before,
 body #navbar > div > header:after,
 body #navbar > div > header .logo:before,
 body #navbar > div > header .logo:after,
-body #navbar > div > header.dropped:before,
-body #navbar > div > header.dropped:after,
 #modals dialog > div > article footer:before,
 #modals dialog > div > article footer:after,
 #create-walk dialog > div > article footer:before,
@@ -7629,19 +7140,7 @@ body #navbar > div > header.dropped:after,
 .social-login-providers.template-fontawesome:before,
 .social-login-providers.template-fontawesome:after,
 #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:before,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after {
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   content: " ";
   display: table;
 }
@@ -7674,19 +7173,12 @@ body #navbar > div > header.dropped:after,
 #create-walk #route-menu:after,
 body #navbar > div > header:after,
 body #navbar > div > header .logo:after,
-body #navbar > div > header.dropped:after,
 #modals dialog > div > article footer:after,
 #create-walk dialog > div > article footer:after,
 .form-horizontal #modals dialog label:after,
 .form-horizontal #create-walk dialog label:after,
 .social-login-providers.template-fontawesome:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after,
-#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after:after {
+#profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
   clear: both;
 }
 .center-block {
@@ -8557,8 +8049,7 @@ body #navbar > div > header.dropped:after,
 .fade-enter {
   opacity: 0.01;
   max-height: 0;
-  -webkit-transition: opacity 0.2s ease-in;
-          transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
 }
 .fade-enter.fade-enter-active {
   opacity: 1;
@@ -8567,8 +8058,7 @@ body #navbar > div > header.dropped:after,
 .fade-leave {
   opacity: 1;
   max-height: none;
-  -webkit-transition: opacity 0.2s ease-in;
-          transition: opacity 0.2s ease-in;
+  transition: opacity 0.2s ease-in;
 }
 .fade-leave.fade-leave-active {
   max-height: 0;
@@ -8705,13 +8195,13 @@ html#tool {
   margin: 0;
 }
 .placeholder0 {
-  background-color: #f16725;
+  background-color: #F16725;
 }
 .placeholder1 {
-  background-color: #6badfd;
+  background-color: #6BADFD;
 }
 .placeholder2 {
-  background-color: #666666;
+  background-color: #666;
 }
 a {
   cursor: pointer;
@@ -8779,7 +8269,6 @@ a {
   background-color: transparent;
   background: #000;
   background: rgba(0, 0, 0, 0.8);
-  background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.45) 1%, rgba(0, 0, 0, 0.8) 100%);
   background: radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.45) 1%, rgba(0, 0, 0, 0.8) 100%);
   filter: alpha(opacity=80);
 }
@@ -8834,10 +8323,7 @@ a {
 }
 .overlay.o-donate .o-content div.btnWrapper a.btn,
 .overlay.o-donate .o-content div.btnWrapper abody.city-page > #city-details .create-walk,
-.overlay.o-donate .o-content div.btnWrapper abody.city-page > #city-details .create-walk:after,
-.overlay.o-donate .o-content div.btnWrapper abody.city-page > #city-details .create-walk:hover,
 .overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button,
-.overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar button.active,
 .overlay.o-donate .o-content div.btnWrapper a#create-walk #map-control-bar .loadFeed,
 .overlay.o-donate .o-content div.btnWrapper a#create-walk .filterInputs .filter input[type=submit],
 .overlay.o-donate .o-content div.btnWrapper a#create-walk .filterInputs .filter input[type=button] {
@@ -8853,6 +8339,8 @@ a {
   height: 560px;
   padding: 0;
   margin: 30px 0 0;
+}
+@media (max-width: 768px) {
 }
 .overlay.o-donate .o-content div.secondary {
   padding: 10px 20px;
@@ -8876,7 +8364,6 @@ a {
   background-color: transparent;
   background: #000;
   background: rgba(0, 0, 0, 0.8);
-  background: -webkit-radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.45) 1%, rgba(0, 0, 0, 0.8) 100%);
   background: radial-gradient(50% 50%, ellipse closest-corner, rgba(0, 0, 0, 0.45) 1%, rgba(0, 0, 0, 0.8) 100%);
   filter: alpha(opacity=80);
 }
@@ -9001,15 +8488,14 @@ blockquote {
   font-weight: 100;
   font-size: 25px;
   line-height: 30px;
-  color: #f16725;
+  color: #F16725;
   width: 35%;
   float: left;
   padding: 1.5em;
   margin-left: -150px;
 }
 body.logged_in header.navbar,
-body.logged_in headerbody #navbar > div > header,
-body.logged_in headerbody #navbar > div > header.dropped {
+body.logged_in headerbody #navbar > div > header {
   z-index: 6;
 }
 body.logged_in #ccm-highlighter {
@@ -9035,17 +8521,12 @@ h4,
 h5,
 h6,
 .walk-card .thumbnail .walkimage .statusMessage,
-.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
 .walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
-.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-.walk-card #create-walk .team-member .walkimage .statusMessage,
-.walk-card #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage {
   font-family: "Roboto Slab", serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -9065,17 +8546,12 @@ h3 {
 }
 h4,
 .walk-card .thumbnail .walkimage .statusMessage,
-.walk-card .thumbnail .walkimage .statusMessage:before,
 #profileWrapper div.headline,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
 .walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
-.ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
-.walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
-.walk-card #create-walk .team-member .walkimage .statusMessage,
-.walk-card #create-walk .team-member .walkimage .statusMessage:before {
+.walk-card #create-walk .team-member .walkimage .statusMessage {
   font-weight: 700;
   font-size: 17px;
 }
@@ -9127,22 +8603,17 @@ body #navbar > div > header #donate,
 body #navbar > div > header #donate,
 body.city-page > #city-details .create-walk,
 body.city-page > #city-details .create-walk,
-body.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:hover,
-body.city-page > #city-details .create-walk:hover,
 #create-walk #map-control-bar button,
-#create-walk #map-control-bar button.active,
 #create-walk #map-control-bar .loadFeed,
 #create-walk .filterInputs .filter input[type=submit],
 #create-walk .filterInputs .filter input[type=button] {
   font-family: "Roboto Slab", serif;
   background-image: none;
-  background-color: #f16725;
+  background-color: #F16725;
   border-radius: 0;
 }
 a {
-  color: #f16725;
+  color: #F16725;
 }
 #progress {
   position: fixed;
@@ -9153,10 +8624,7 @@ a {
 }
 .form-actions .btn,
 .form-actions body.city-page > #city-details .create-walk,
-.form-actions body.city-page > #city-details .create-walk:after,
-.form-actions body.city-page > #city-details .create-walk:hover,
 .form-actions #create-walk #map-control-bar button,
-.form-actions #create-walk #map-control-bar button.active,
 .form-actions #create-walk #map-control-bar .loadFeed,
 .form-actions #create-walk .filterInputs .filter input[type=submit],
 .form-actions #create-walk .filterInputs .filter input[type=button] {
@@ -9174,7 +8642,7 @@ a {
   background-color: #df520e;
 }
 .infoBox {
-  box-shadow: inset 0 -3px 0 #0e2b3e, 3px 0 2px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 -3px 0 #0E2B3E, 3px 0 2px rgba(0, 0, 0, 0.2);
   color: #555;
 }
 .infoBox:after {
@@ -9198,7 +8666,7 @@ a {
   margin-top: 5px;
 }
 .notification {
-  background-image: url('images/festival-bg.png') bottom right no-repeat #35b0d7;
+  background-image: url('images/festival-bg.png') bottom right no-repeat #35B0D7;
   color: #fff;
   box-shadow: 0 -2px 0 rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -9206,8 +8674,7 @@ a {
   bottom: 0;
   z-index: 100;
   height: 0;
-  -webkit-transition: height 0.7s ease-in-out;
-          transition: height 0.7s ease-in-out;
+  transition: height 0.7s ease-in-out;
 }
 .notification .close {
   position: absolute;
@@ -9228,13 +8695,7 @@ a {
   font-weight: 400;
 }
 .notification .container,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+.notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -9243,8 +8704,7 @@ a {
   background: #9854df;
   overflow: hidden;
   top: 0;
-  -webkit-transition: height 0.7s ease-in-out;
-          transition: height 0.7s ease-in-out;
+  transition: height 0.7s ease-in-out;
 }
 .notification.walk-beta.expanded {
   height: 64px;
@@ -9272,7 +8732,7 @@ a {
   height: 140px;
 }
 .blog {
-  color: #666666;
+  color: #666;
 }
 .error404 {
   padding-top: 0;
@@ -9351,7 +8811,7 @@ body #navbar > div > header nav ul.social-login-providers.template-fontawesome >
   padding-top: 0;
   padding-bottom: 0;
   line-height: 60px;
-  color: #666666;
+  color: #666;
 }
 body #navbar > div > header nav ul.nav > li.notify,
 body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify {
@@ -9365,7 +8825,7 @@ body #navbar > div > header nav ul.social-login-providers.template-fontawesome >
 body #navbar > div > header nav ul.nav > li.notify > a:hover,
 body #navbar > div > header nav ul.social-login-providers.template-fontawesome > li.notify > a:hover {
   opacity: 0.8;
-  background: #f16725;
+  background: #F16725;
 }
 body #navbar > div > header .notification {
   position: absolute;
@@ -9376,13 +8836,7 @@ body #navbar > div > header .notification {
   background: #9854df;
 }
 body #navbar > div > header .notification .container,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+body #navbar > div > header .notification #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
   margin-top: 0.3em;
   margin-bottom: 0.5em;
 }
@@ -9402,7 +8856,7 @@ body #navbar > div > header .search-close i {
   line-height: 60px;
 }
 body #navbar > div > header .search-close {
-  background: #f16725;
+  background: #F16725;
   display: none;
 }
 body #navbar > div > header .search-close:hover {
@@ -9415,7 +8869,7 @@ body #navbar > div > header.dropped .search-close {
   display: block;
 }
 body #navbar > div > header.dropped .search-close:hover i {
-  color: #666666;
+  color: #666;
 }
 body #navbar > div > header.dropped .search-open {
   display: none;
@@ -9427,11 +8881,10 @@ body #navbar > div > header #donate {
   margin: 12px 0;
 }
 body .navbar-outer {
-  background-color: #666666;
+  background-color: #666;
   max-height: 0;
   overflow: hidden;
-  -webkit-transition-duration: 0.6s;
-          transition-duration: 0.6s;
+  transition-duration: 0.6s;
 }
 body .navbar-outer form {
   max-width: 1200px;
@@ -9461,8 +8914,7 @@ body .navbar-outer form div#searchResults p {
 body .navbar-outer form div#searchResults .searchResult {
   margin: 0;
   padding: 8px 8px 0 8px;
-  -webkit-transition-duration: 0.3s;
-          transition-duration: 0.3s;
+  transition-duration: 0.3s;
 }
 body .navbar-outer form div#searchResults .searchResult:hover {
   background: #333;
@@ -9493,7 +8945,7 @@ body fieldset.search button {
   right: 0;
   border: 1px solid #ccc;
   border-radius: 0 4px 4px 0;
-  color: #333333;
+  color: #333;
 }
 body div#ccm-toolbar {
   display: none;
@@ -9523,7 +8975,7 @@ body div#ccm-toolbar {
 }
 body > footer {
   width: 100%;
-  background: #f16725;
+  background: #F16725;
   color: #fff;
   font-family: "Roboto Slab", serif;
   font-weight: 500;
@@ -9687,12 +9139,11 @@ body #itinerary #itinerary-select ul {
   margin-bottom: 3px;
 }
 body #itinerary #itinerary-select ul a {
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
   opacity: 0.8;
 }
 body #itinerary #itinerary-select ul a:hover {
-  color: #f16725;
+  color: #F16725;
   opacity: 1;
 }
 body #itinerary #itinerary-select ul a.selected {
@@ -9706,8 +9157,7 @@ body #itinerary #itinerary-select input {
   border-bottom: 1px solid #ccc;
   margin-right: 3px;
   opacity: 0.75;
-  -webkit-transition: border-bottom 0.3s;
-          transition: border-bottom 0.3s;
+  transition: border-bottom 0.3s;
 }
 body #itinerary #itinerary-select input:hover {
   opacity: 1;
@@ -9724,12 +9174,11 @@ body #itinerary #itinerary-select input:focus + button {
   cursor: pointer;
 }
 body #itinerary #itinerary-select input:focus + button:hover {
-  -webkit-transition: opacity 0s;
-          transition: opacity 0s;
+  transition: opacity 0s;
   opacity: 1;
 }
 body #itinerary #itinerary-select button {
-  background: #f16725;
+  background: #F16725;
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -9831,8 +9280,7 @@ body .itinerary .action {
   color: #959595;
   outline: none;
   text-align: right;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
   padding: 0.8rem;
   top: -4.4rem;
 }
@@ -9840,7 +9288,7 @@ body .itinerary .action:hover {
   color: black;
 }
 body .itinerary .action.selected {
-  background: #f16725;
+  background: #F16725;
   color: #fff;
   opacity: 1;
 }
@@ -9955,8 +9403,7 @@ body .itineraryHeader .dropdown .toggle h1.walklistTitle .dropdown-chevron {
   position: relative;
   top: 1px;
   opacity: 0.3;
-  -webkit-transition: opacity 0.3s;
-          transition: opacity 0.3s;
+  transition: opacity 0.3s;
 }
 body .itineraryHeader .dropdown .toggle h1.walklistTitle .dropdown-chevron:before {
   content: "\e114";
@@ -10025,7 +9472,7 @@ body .itineraryHeader h4.walklistDescription textarea:focus:valid {
   width: 100%;
   height: 110px;
   border: 1px solid #F16725;
-  border-bottom: 3px solid #f16725;
+  border-bottom: 3px solid #F16725;
   font-weight: 300;
   letter-spacing: 0.1rem;
   resize: none;
@@ -10035,7 +9482,7 @@ body .itineraryHeader h4.walklistDescription textarea:focus:hover,
 body .itineraryHeader h4.walklistDescription textarea:focus:valid:hover {
   opacity: 1;
   border: 1px solid #F16725;
-  border-bottom: 3px solid #f16725;
+  border-bottom: 3px solid #F16725;
   cursor: text;
   background-color: #fff;
 }
@@ -10071,14 +9518,13 @@ body .itineraryHeader .update {
   margin: 7px 0 35px;
   padding: 6px 10px;
   border-radius: 6px;
-  background-color: #f16725;
+  background-color: #F16725;
   color: #fff;
   font-weight: 600;
   opacity: 0;
   position: relative;
   top: 0;
-  -webkit-transition: opacity 0.3s, top 0.3s;
-          transition: opacity 0.3s, top 0.3s;
+  transition: opacity 0.3s, top 0.3s;
 }
 body .itineraryHeader .update:before {
   font-family: "Glyphicons Halflings";
@@ -10112,20 +9558,20 @@ body #addWalk ul li {
   font-size: 13px;
 }
 body #addWalk ul li a {
-  border: 1px solid #f16725;
+  border: 1px solid #F16725;
   border-radius: 5px;
   padding: 3px 6px;
   opacity: 0.8;
-  color: #f16725;
+  color: #F16725;
 }
 body #addWalk ul li a:hover {
   text-decoration: none;
-  color: #f16725;
+  color: #F16725;
   opacity: 1;
 }
 body #addWalk ul li a.selected {
   opacity: 1;
-  background: #f16725;
+  background: #F16725;
   color: #fff;
 }
 body #addWalk ul li:first-child {
@@ -10262,26 +9708,19 @@ body .removeItinerary {
 .btn,
 body #navbar > div > header #donate,
 body.city-page > #city-details .create-walk,
-body.city-page > #city-details .create-walk:after,
-body.city-page > #city-details .create-walk:hover,
 #create-walk #map-control-bar button,
-#create-walk #map-control-bar button.active,
 #create-walk #map-control-bar .loadFeed,
 #create-walk .filterInputs .filter input[type=submit],
 #create-walk .filterInputs .filter input[type=button] {
-  background-color: #f16725;
+  background-color: #F16725;
   color: #fff;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
   border: 0;
   box-shadow: 0 2px 0 0 #752b08;
 }
 .btn:hover,
 body.city-page > #city-details .create-walk:hover,
-body.city-page > #city-details .create-walk:after:hover,
-body.city-page > #city-details .create-walk:hover:hover,
 #create-walk #map-control-bar button:hover,
-#create-walk #map-control-bar button.active:hover,
 #create-walk #map-control-bar .loadFeed:hover,
 #create-walk .filterInputs .filter input[type=submit]:hover,
 #create-walk .filterInputs .filter input[type=button]:hover {
@@ -10291,19 +9730,18 @@ body.city-page > #city-details .create-walk:hover:hover,
 input.plaintext {
   border: none;
   background: transparent;
-  color: #f16725;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  color: #F16725;
+  transition-duration: 0.2s;
 }
 input.plaintext:hover {
   opacity: 0.8;
 }
 .walk-filters h4.filter-header {
   margin-left: 15px;
-  color: #f16725;
+  color: #F16725;
 }
 .walk-filters h4.filter-header a {
-  color: #f16725;
+  color: #F16725;
 }
 .walk-filters a.print-button {
   margin-left: 15px;
@@ -10319,8 +9757,7 @@ input.plaintext:hover {
   padding-right: 25px;
   padding-bottom: 0px;*/
   vertical-align: top;
-  -webkit-transition-duration: 0.1s;
-          transition-duration: 0.1s;
+  transition-duration: 0.1s;
   height: auto;
 }
 @media (min-width: 992px) {
@@ -10351,8 +9788,7 @@ input.plaintext:hover {
 .ccm-block-page-list-walk-filters .walk .thumbnail,
 .walk-card .ccm-page-list-city-cards li figure,
 .walk-card #create-walk .team-member {
-  -webkit-transition: none;
-          transition: none;
+  transition: none;
   position: relative;
   padding: 0;
 }
@@ -10511,7 +9947,7 @@ input.plaintext:hover {
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail,
 .walk-card:hover .ccm-page-list-city-cards li figure,
 .walk-card:hover #create-walk .team-member {
-  background: #6badfd;
+  background: #6BADFD;
   box-shadow: inset 0 0 0 1px #3991fc, 0 3px 0 #3991fc;
   color: #FFF;
   border: 0px;
@@ -10673,7 +10109,7 @@ div.ccm-page-list-typeahead fieldset.search > ul {
 }
 div.ccm-page-list-typeahead fieldset.search > ul li.country {
   padding-left: 5px;
-  color: #666666;
+  color: #666;
 }
 div.ccm-page-list-typeahead fieldset.search > ul li.country a {
   color: inherit;
@@ -10878,8 +10314,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
 }
 .ccm-page-list-city-cards li figure figcaption p:after {
   content: " ";
-  background: -webkit-linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.2));
-  background: linear-gradient(0deg, #ffffff, rgba(255, 255, 255, 0.2));
+  background: linear-gradient(0deg, #fff, rgba(255, 255, 255, 0.2));
   display: block;
   position: absolute;
   width: 100%;
@@ -10904,8 +10339,7 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   font-size: 90px;
 }
 .social-login-providers.template-fontawesome li a {
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 .social-login-providers.template-fontawesome li a:hover {
   color: #a53d0b;
@@ -10946,8 +10380,7 @@ body.home .backgroundImageBanner {
   bottom: 0;
   z-index: -1;
   opacity: 1;
-  -webkit-transition: opacity 2s ease-in-out;
-          transition: opacity 2s ease-in-out;
+  transition: opacity 2s ease-in-out;
 }
 @media (max-width: 768px) {
   body.home .backgroundImageBanner {
@@ -11082,7 +10515,7 @@ body.home #intro .ccm-page-list-typeahead .country a {
   color: inherit;
 }
 body.home #intro .ccm-page-list-typeahead a {
-  color: #f16725;
+  color: #F16725;
 }
 @media (max-width: 768px) {
   body.home #intro {
@@ -11152,7 +10585,7 @@ body.home #blog section.twitter {
   }
 }
 body.home #blog section > h3 {
-  color: #666666;
+  color: #666;
   font-weight: 700;
   margin-bottom: 15px;
 }
@@ -11162,7 +10595,7 @@ body.home #blog section > h3 {
   }
 }
 body.home #blog section > h3 a {
-  color: #666666;
+  color: #666;
   font-size: 0.6em;
 }
 @media (max-width: 768px) {
@@ -11226,33 +10659,26 @@ body.home #calltoaction #city-choice-select {
 }
 body.home #calltoaction .btn,
 body.home #calltoaction body.city-page > #city-details .create-walk,
-body.home #calltoaction body.city-page > #city-details .create-walk:after,
-body.home #calltoaction body.city-page > #city-details .create-walk:hover,
 body.home #calltoaction #create-walk #map-control-bar button,
-body.home #calltoaction #create-walk #map-control-bar button.active,
 body.home #calltoaction #create-walk #map-control-bar .loadFeed,
 body.home #calltoaction #create-walk .filterInputs .filter input[type=submit],
 body.home #calltoaction #create-walk .filterInputs .filter input[type=button] {
   background: #fff;
-  border: 2px solid #f16725;
+  border: 2px solid #F16725;
   border-radius: 10px;
-  color: #f16725;
+  color: #F16725;
   box-shadow: none;
   font-size: 22px;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 body.home #calltoaction .btn:hover,
 body.home #calltoaction body.city-page > #city-details .create-walk:hover,
-body.home #calltoaction body.city-page > #city-details .create-walk:after:hover,
-body.home #calltoaction body.city-page > #city-details .create-walk:hover:hover,
 body.home #calltoaction #create-walk #map-control-bar button:hover,
-body.home #calltoaction #create-walk #map-control-bar button.active:hover,
 body.home #calltoaction #create-walk #map-control-bar .loadFeed:hover,
 body.home #calltoaction #create-walk .filterInputs .filter input[type=submit]:hover,
 body.home #calltoaction #create-walk .filterInputs .filter input[type=button]:hover {
   color: #fff;
-  background: #f16725;
+  background: #F16725;
   border-color: #fff;
 }
 body.home #calltoaction > div {
@@ -11269,7 +10695,7 @@ body.home #calltoaction > div {
   }
 }
 body.home #calltoaction > div > h3:first-child {
-  color: #666666;
+  color: #666;
   font-weight: 700;
   margin: 0;
 }
@@ -11277,7 +10703,7 @@ body.home #calltoaction > div:first-child {
   border: none;
 }
 body.home #calltoaction p {
-  color: #666666;
+  color: #666;
   line-height: 1.6;
   font-size: 1.3em;
 }
@@ -11349,10 +10775,7 @@ body.home .callouts blockquote div.cityCtaWrapper {
 }
 body.home .callouts blockquote div.cityCtaWrapper a.btn,
 body.home .callouts blockquote div.cityCtaWrapper abody.city-page > #city-details .create-walk,
-body.home .callouts blockquote div.cityCtaWrapper abody.city-page > #city-details .create-walk:after,
-body.home .callouts blockquote div.cityCtaWrapper abody.city-page > #city-details .create-walk:hover,
 body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button,
-body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar button.active,
 body.home .callouts blockquote div.cityCtaWrapper a#create-walk #map-control-bar .loadFeed,
 body.home .callouts blockquote div.cityCtaWrapper a#create-walk .filterInputs .filter input[type=submit],
 body.home .callouts blockquote div.cityCtaWrapper a#create-walk .filterInputs .filter input[type=button] {
@@ -11454,7 +10877,7 @@ body.home #navbar > div > header.fixed {
 }
 .caption h5,
 .ccm-page-list.ccm-blog-index li figure figcaption h5 {
-  color: #f16725;
+  color: #F16725;
 }
 @media (max-width: 768px) {
   .caption h5 a,
@@ -11928,10 +11351,7 @@ body.home #navbar > div > header.fixed {
 }
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a.btn,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page > #city-details .create-walk,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page > #city-details .create-walk:after,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > abody.city-page > #city-details .create-walk:hover,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button,
-#profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar button.active,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk #map-control-bar .loadFeed,
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk .filterInputs .filter input[type=submit],
 #profileWrapper div.content div#cityBlock div.main div.editables div.column div.val > a#create-walk .filterInputs .filter input[type=button] {
@@ -12131,7 +11551,7 @@ body.home #navbar > div > header.fixed {
   border-radius: 0 0 4px 4px;
 }
 #profileWrapper div.content div#resourcesBlock div.cos ul li div.meta .tag {
-  background-color: #6badfd;
+  background-color: #6BADFD;
   border: 2px solid #fff;
   border-radius: 100%;
   width: 50px;
@@ -12203,7 +11623,7 @@ body.home #navbar > div > header.fixed {
   content: "» ";
   padding-right: 10px;
   font-weight: 700;
-  color: #f16725;
+  color: #F16725;
 }
 #ccm-profile-sidebar .ccm-profile-header {
   text-overflow: ellipsis;
@@ -12216,7 +11636,7 @@ body.city-page {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: #6badfd;
+  background-image: #6BADFD;
 }
 body.city-page h1,
 body.city-page h2,
@@ -12266,7 +11686,6 @@ body.city-page > #intro-city {
   width: 100%;
   position: relative;
   margin: 0 auto;
-  background: -webkit-linear-gradient(rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.9), rgba(241, 103, 37, 0.85), rgba(241, 103, 37, 0.5));
   background: linear-gradient(rgba(241, 103, 37, 0.95), rgba(241, 103, 37, 0.9), rgba(241, 103, 37, 0.85), rgba(241, 103, 37, 0.5));
   border-bottom: 1px solid #ddd;
 }
@@ -12338,8 +11757,7 @@ body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-detai
   text-align: center;
   padding-bottom: 22px;
   width: 100%;
-  background: -webkit-linear-gradient(#ededed, #ffffff);
-  background: linear-gradient(#ededed, #ffffff);
+  background: linear-gradient(#ededed, #fff);
 }
 @media (max-width: 768px) {
   body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details {
@@ -12357,9 +11775,9 @@ body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-detai
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar p {
   text-align: center;
-  border: 1px solid #f16725;
+  border: 1px solid #F16725;
   border-radius: 4px;
-  color: #f16725;
+  color: #F16725;
   padding: 2px 6px;
   margin-top: 3px;
   font-weight: 600;
@@ -12369,10 +11787,8 @@ body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-detai
   position: relative;
   top: 0;
   opacity: 1;
-  -webkit-transition: opacity 0.3s, top 0.3s;
-          transition: opacity 0.3s, top 0.3s;
-  -webkit-transition-delay: 0.15s;
-          transition-delay: 0.15s;
+  transition: opacity 0.3s, top 0.3s;
+  transition-delay: 0.15s;
 }
 @media (max-width: 992px) {
   body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar p {
@@ -12384,8 +11800,7 @@ body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-detai
     position: relative;
     top: 8px;
     opacity: 0;
-    -webkit-transition: opacity 0.3s, top 0.3s;
-            transition: opacity 0.3s, top 0.3s;
+    transition: opacity 0.3s, top 0.3s;
   }
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar a i {
@@ -12400,26 +11815,21 @@ body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-detai
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar:hover p {
   top: -10px;
   opacity: 0;
-  -webkit-transition-delay: 0s;
-          transition-delay: 0s;
+  transition-delay: 0s;
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn-toolbar:hover a {
   display: inline-block;
   opacity: 1;
   top: 0;
-  -webkit-transition-delay: 0.15s;
-          transition-delay: 0.15s;
+  transition-delay: 0.15s;
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details .btn,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details body.city-page > #city-details .create-walk,
-body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details body.city-page > #city-details .create-walk:after,
-body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details body.city-page > #city-details .create-walk:hover,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk #map-control-bar button,
-body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk #map-control-bar button.active,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk #map-control-bar .loadFeed,
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk .filterInputs .filter input[type=submit],
 body.city-page > #intro-city #city-sidebar .city-organizer .city-organizer-details #create-walk .filterInputs .filter input[type=button] {
-  background: #f16725;
+  background: #F16725;
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
   margin: 30px auto 0;
@@ -12433,10 +11843,7 @@ body.city-page > #intro-city #city-sidebar .city-organizer .u-avatar {
 }
 body.city-page > #intro-city #city-sidebar .city-organizer .btn,
 body.city-page > #intro-city #city-sidebar .city-organizer body.city-page > #city-details .create-walk,
-body.city-page > #intro-city #city-sidebar .city-organizer body.city-page > #city-details .create-walk:after,
-body.city-page > #intro-city #city-sidebar .city-organizer body.city-page > #city-details .create-walk:hover,
 body.city-page > #intro-city #city-sidebar .city-organizer #create-walk #map-control-bar button,
-body.city-page > #intro-city #city-sidebar .city-organizer #create-walk #map-control-bar button.active,
 body.city-page > #intro-city #city-sidebar .city-organizer #create-walk #map-control-bar .loadFeed,
 body.city-page > #intro-city #city-sidebar .city-organizer #create-walk .filterInputs .filter input[type=submit],
 body.city-page > #intro-city #city-sidebar .city-organizer #create-walk .filterInputs .filter input[type=button] {
@@ -12527,8 +11934,7 @@ body.city-page > #city-details .create-walk {
   border-radius: 4px;
   margin: -8px 0px 0px 12px;
   opacity: 0.8;
-  -webkit-transition: 0s;
-          transition: 0s;
+  transition: 0s;
 }
 @media (max-width: 992px) {
   body.city-page > #city-details .create-walk {
@@ -12918,7 +12324,7 @@ body.city-page > #blog:after {
 }
 /* The date select popups */
 #ui-datepicker-div .ui-datepicker-header {
-  background: #f16725;
+  background: #F16725;
 }
 #ui-datepicker-div .ui-datepicker-title select {
   width: 40%;
@@ -12940,8 +12346,7 @@ body.city-page > #blog:after {
 }
 @media (max-width: 768px) {
   .walk-page header.navbar,
-  .walk-page headerbody #navbar > div > header,
-  .walk-page headerbody #navbar > div > header.dropped {
+  .walk-page headerbody #navbar > div > header {
     margin: 0;
   }
 }
@@ -12952,13 +12357,7 @@ body.city-page > #blog:after {
 }
 @media (max-width: 768px) {
   .walk-page .container-outter .container,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:before,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after,
-  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul:after {
+  .walk-page .container-outter #profileWrapper div.content div#resourcesBlock div.resourceBlock ul {
     padding: 10px;
   }
 }
@@ -13183,9 +12582,8 @@ body.city-page > #blog:after {
 .walk-page .ccm-page-list.ccm-blog-index li figure.focus,
 .walk-page .ccm-page-list-city-cards li figure.focus,
 .walk-page #create-walk .team-member.focus {
-  -webkit-transition: box-shadow 1s ease-in-out;
-          transition: box-shadow 1s ease-in-out;
-  box-shadow: inset 0 0 0 1px #eeeeee, 0 0 10px rgba(241, 103, 37, 0.7);
+  transition: box-shadow 1s ease-in-out;
+  box-shadow: inset 0 0 0 1px #eee, 0 0 10px rgba(241, 103, 37, 0.7);
 }
 .walk-page .thumbnail.focus h3,
 .walk-page .ccm-page-list.ccm-blog-index li figure.focus h3,
@@ -13242,8 +12640,7 @@ body.city-page > #blog:after {
 .walk-page .social-login-providers.template-fontawesome li {
   margin-right: 20px;
   color: #555;
-  -webkit-transition: margin 150ms ease-in-out;
-          transition: margin 150ms ease-in-out;
+  transition: margin 150ms ease-in-out;
 }
 @media (max-width: 480px) {
   .walk-page .nav-pills li,
@@ -13294,13 +12691,13 @@ body.city-page > #blog:after {
 }
 .walk-page .nav-pills a i.icon-accessible,
 .walk-page .social-login-providers.template-fontawesome a i.icon-accessible {
-  background: url('/images/accessibility-wheelchair.svg') no-repeat center center #555555;
+  background: url('/images/accessibility-wheelchair.svg') no-repeat center center #555;
   background-size: 60%;
   box-shadow: 0 2px 0 0 #3b3b3b;
 }
 .walk-page .nav-pills a i.icon-kids,
 .walk-page .social-login-providers.template-fontawesome a i.icon-kids {
-  background: url('/images/kids-friendly.svg') no-repeat center center #555555;
+  background: url('/images/kids-friendly.svg') no-repeat center center #555;
   background-size: 60%;
   box-shadow: 0 2px 0 0 #3b3b3b;
 }
@@ -13380,7 +12777,7 @@ body.city-page > #blog:after {
   z-index: 1;
   color: #fff;
   padding: 20px 10px 20px 20px;
-  background: #6badfd;
+  background: #6BADFD;
   margin: 20px;
   box-shadow: inset 0 -3px 0 #3991fc;
 }
@@ -13415,8 +12812,7 @@ body.city-page > #blog:after {
   position: relative;
   padding: 8px 20px 8px 5px;
   box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.1);
-  -webkit-transition: background 150ms ease-in-out;
-          transition: background 150ms ease-in-out;
+  transition: background 150ms ease-in-out;
 }
 .walk-stops li > :first-child {
   display: inline;
@@ -13754,10 +13150,7 @@ body.city-page > #blog:after {
 }
 .walk-stops-list a.btn,
 .walk-stops-list abody.city-page > #city-details .create-walk,
-.walk-stops-list abody.city-page > #city-details .create-walk:after,
-.walk-stops-list abody.city-page > #city-details .create-walk:hover,
 .walk-stops-list a#create-walk #map-control-bar button,
-.walk-stops-list a#create-walk #map-control-bar button.active,
 .walk-stops-list a#create-walk #map-control-bar .loadFeed,
 .walk-stops-list a#create-walk .filterInputs .filter input[type=submit],
 .walk-stops-list a#create-walk .filterInputs .filter input[type=button] {
@@ -13811,7 +13204,7 @@ body.city-page > #blog:after {
   font-size: 14px;
 }
 .profiles .profile-inner .bottom-bar:hover {
-  color: #f16725;
+  color: #F16725;
   text-decoration: none;
   background: #cdd5dc;
 }
@@ -13845,10 +13238,7 @@ body.city-page > #blog:after {
 }
 .profiles .profile-inner .btn-toolbar .btn,
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:hover,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed,
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit],
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button] {
@@ -13864,10 +13254,7 @@ body.city-page > #blog:after {
 }
 .profiles .profile-inner .btn-toolbar .btn i,
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk i,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after i,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:hover i,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button i,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active i,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed i,
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit] i,
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button] i {
@@ -13875,22 +13262,16 @@ body.city-page > #blog:after {
 }
 .profiles .profile-inner .btn-toolbar .btn:hover,
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:hover,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after:hover,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:hover:hover,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:hover,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:hover,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed:hover,
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit]:hover,
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button]:hover {
-  color: #f16725;
+  color: #F16725;
   background: #cdd5dc;
 }
 .profiles .profile-inner .btn-toolbar .btn:after,
 .profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:after:after,
-.profiles .profile-inner .btn-toolbar body.city-page > #city-details .create-walk:hover:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button:after,
-.profiles .profile-inner .btn-toolbar #create-walk #map-control-bar button.active:after,
 .profiles .profile-inner .btn-toolbar #create-walk #map-control-bar .loadFeed:after,
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=submit]:after,
 .profiles .profile-inner .btn-toolbar #create-walk .filterInputs .filter input[type=button]:after {
@@ -13952,7 +13333,7 @@ body.city-page > #blog:after {
   font-size: 14px;
 }
 .profiles #reg-group .highlight {
-  color: #f16725;
+  color: #F16725;
 }
 #register-modal {
   width: 70%;
@@ -14366,10 +13747,7 @@ body.city-page > #blog:after {
 }
 .walkPage .walkTeam footer .btn-toolbar .btn,
 .walkPage .walkTeam footer .btn-toolbar body.city-page > #city-details .create-walk,
-.walkPage .walkTeam footer .btn-toolbar body.city-page > #city-details .create-walk:after,
-.walkPage .walkTeam footer .btn-toolbar body.city-page > #city-details .create-walk:hover,
 .walkPage .walkTeam footer .btn-toolbar #create-walk #map-control-bar button,
-.walkPage .walkTeam footer .btn-toolbar #create-walk #map-control-bar button.active,
 .walkPage .walkTeam footer .btn-toolbar #create-walk #map-control-bar .loadFeed,
 .walkPage .walkTeam footer .btn-toolbar #create-walk .filterInputs .filter input[type=submit],
 .walkPage .walkTeam footer .btn-toolbar #create-walk .filterInputs .filter input[type=button] {
@@ -14380,7 +13758,8 @@ body.city-page > #blog:after {
   font-weight: 300;
   margin-top: 0em;
 }
-button {
+button,
+.dashboard .walks li .walk a.option {
   border: none;
   padding: 4px 8px;
   border: 1px solid #ddd;
@@ -14394,8 +13773,8 @@ button:focus {
 }
 button.active,
 button.activeFilter {
-  background: #f16725;
-  border-color: #f16725;
+  background: #F16725;
+  border-color: #F16725;
   color: #fff;
 }
 button.active .buttonClose,
@@ -14429,13 +13808,12 @@ button .buttonClose {
   list-style: none;
 }
 .dashboard a {
-  color: #f16725;
+  color: #F16725;
 }
 .dashboard > header {
   padding: 10px 70px 50px 15px;
   border-bottom: 1px solid #fff;
-  background: -webkit-linear-gradient(#6badfd, #ffffff);
-  background: linear-gradient(#6badfd, #ffffff);
+  background: linear-gradient(#6BADFD, #fff);
   background-size: cover;
 }
 .dashboard > header h3 {
@@ -14489,7 +13867,7 @@ button .buttonClose {
 .dashboard .dashboardMenu ul > section > li {
   font-size: 28px;
   border-bottom: 1px solid #ddd;
-  background: #6badfd;
+  background: #6BADFD;
   border-bottom: 1px solid #fff;
   padding: 30px 60px;
   color: #fff;
@@ -14563,15 +13941,15 @@ button .buttonClose {
   margin: 5px 0;
   font-weight: 300;
 }
-.dashboard .walks li .walk button {
+.dashboard .walks li .walk a.option {
   font-size: 12px;
-  color: #f16725;
+  color: #F16725;
   margin-top: 8px;
   letter-spacing: 0.01rem;
-  border: 1px solid #f16725;
+  border: 1px solid #F16725;
   opacity: 0.8;
 }
-.dashboard .walks li .walk button:hover {
+.dashboard .walks li .walk a.option:hover {
   opacity: 1;
 }
 .dashboard .dashboardWalkLeaders button {
@@ -14609,7 +13987,7 @@ button .buttonClose {
 .dashboard .dashboardWalkLeaders .walkLeader h3 .walkLeaderEmail {
   font-weight: 300;
   margin-left: 4px;
-  color: #6badfd;
+  color: #6BADFD;
 }
 .dashboard .dashboardWalkLeaders .walkLeader ul {
   padding-left: 0px;
@@ -14796,7 +14174,7 @@ body.blog #central > header {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
-  background: #f16725;
+  background: #F16725;
   position: relative;
   background-size: cover;
   background-position: 50%;
@@ -14839,14 +14217,14 @@ body.blog #central > header h1 {
   margin-bottom: 5px;
   font-size: 68px;
   line-height: 74px;
-  text-shadow: -1px 1px #444444;
+  text-shadow: -1px 1px #444;
 }
 body.blog #central > header p.description {
   font-style: italic;
   font-size: 26px;
   line-height: 1.4;
   margin-bottom: 25px;
-  text-shadow: -1px 1px #444444;
+  text-shadow: -1px 1px #444;
 }
 body.blog #central > header em {
   color: #fff;
@@ -14936,9 +14314,8 @@ body.blog p {
 }
 body.blog p a {
   color: inherit;
-  border-bottom: 1px solid #f16725;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  border-bottom: 1px solid #F16725;
+  transition-duration: 0.2s;
 }
 body.blog p a:hover {
   opacity: 0.8;
@@ -15085,7 +14462,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   vertical-align: top;
   margin-left: 15px;
   padding: 12px 15px;
-  border: 1px solid #f16725;
+  border: 1px solid #F16725;
 }
 #create-walk #map-control-bar .loadFeed i {
   margin-right: 6px;
@@ -15141,12 +14518,12 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk .upload-image {
   min-height: 250px;
-  color: #666666;
+  color: #666;
   background: #efefef;
   border: 3px dashed #999;
 }
 #create-walk .upload-image > label {
-  color: #666666;
+  color: #666;
   display: block;
   margin: 15px;
 }
@@ -15166,7 +14543,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure a i,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure a i,
 #create-walk .upload-image > #create-walk .team-member a i {
-  color: #f16725;
+  color: #F16725;
 }
 #create-walk .upload-image > .thumbnail input[type=file],
 #create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure input[type=file],
@@ -15302,10 +14679,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk .input-prepend .add-on:first-child,
 #create-walk .input-prepend .btn:first-child,
 #create-walk .input-prepend body.city-page > #city-details .create-walk:first-child,
-#create-walk .input-prepend body.city-page > #city-details .create-walk:after:first-child,
-#create-walk .input-prepend body.city-page > #city-details .create-walk:hover:first-child,
 #create-walk .input-prepend #create-walk #map-control-bar button:first-child,
-#create-walk .input-prepend #create-walk #map-control-bar button.active:first-child,
 #create-walk .input-prepend #create-walk #map-control-bar .loadFeed:first-child,
 #create-walk .input-prepend #create-walk .filterInputs .filter input[type=submit]:first-child,
 #create-walk .input-prepend #create-walk .filterInputs .filter input[type=button]:first-child {
@@ -15328,8 +14702,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk .nav > li > a,
 #create-walk .social-login-providers.template-fontawesome > li > a {
-  -webkit-transition: background 0.2s ease-in-out;
-          transition: background 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out;
   margin: 0;
   color: #999;
 }
@@ -15373,7 +14746,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk .dropdown-menu > .active > a,
 #create-walk .dropdown-menu > .active > a:hover,
 #create-walk .dropdown-menu > .active > a:focus {
-  background: #f16725;
+  background: #F16725;
 }
 #create-walk .table-bordered,
 #create-walk #create-walk table.routeStops {
@@ -15397,7 +14770,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   }
 }
 #create-walk .new-member:hover {
-  color: #f16725;
+  color: #F16725;
   box-shadow: inset 0 0 0 2px rgba(241, 103, 37, 0.5);
 }
 #create-walk #new-walkleader.new-member {
@@ -15528,8 +14901,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   background-size: cover;
 }
 #create-walk .team-member .tt-dropdown-menu li {
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
 }
 #create-walk .team-member .tt-dropdown-menu li:hover {
   background: #efefef;
@@ -15599,8 +14971,8 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk #block-select .ccm-page-list-city-cards li figure:hover,
 #create-walk #block-select #create-walk .team-member:hover {
   opacity: 1;
-  border: 1px solid #f16725;
-  box-shadow: 0 2px 0 0 #f16725;
+  border: 1px solid #F16725;
+  box-shadow: 0 2px 0 0 #F16725;
 }
 #create-walk #progress-panel {
   position: relative;
@@ -15813,8 +15185,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk #tips-panel #city-organizer .popover-title {
   background: #FF5C00;
   color: #fff;
-  -webkit-transition: background 0.3s ease-out, color 0.3s ease-out;
-          transition: background 0.3s ease-out, color 0.3s ease-out;
+  transition: background 0.3s ease-out, color 0.3s ease-out;
 }
 #create-walk #popover-content {
   padding: 0;
@@ -15838,10 +15209,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk #map-control-bar .btn,
 #create-walk #map-control-bar .addroute-wrapper,
 #create-walk #map-control-bar body.city-page > #city-details .create-walk,
-#create-walk #map-control-bar body.city-page > #city-details .create-walk:after,
-#create-walk #map-control-bar body.city-page > #city-details .create-walk:hover,
 #create-walk #map-control-bar #create-walk #map-control-bar button,
-#create-walk #map-control-bar #create-walk #map-control-bar button.active,
 #create-walk #map-control-bar #create-walk #map-control-bar .loadFeed,
 #create-walk #map-control-bar #create-walk .filterInputs .filter input[type=submit],
 #create-walk #map-control-bar #create-walk .filterInputs .filter input[type=button] {
@@ -15850,10 +15218,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk #map-control-bar .btn i,
 #create-walk #map-control-bar .addroute-wrapper i,
 #create-walk #map-control-bar body.city-page > #city-details .create-walk i,
-#create-walk #map-control-bar body.city-page > #city-details .create-walk:after i,
-#create-walk #map-control-bar body.city-page > #city-details .create-walk:hover i,
 #create-walk #map-control-bar #create-walk #map-control-bar button i,
-#create-walk #map-control-bar #create-walk #map-control-bar button.active i,
 #create-walk #map-control-bar #create-walk #map-control-bar .loadFeed i,
 #create-walk #map-control-bar #create-walk .filterInputs .filter input[type=submit] i,
 #create-walk #map-control-bar #create-walk .filterInputs .filter input[type=button] i {
@@ -15864,10 +15229,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk #map-control-bar .addroute-wrapper .btn,
 #create-walk #map-control-bar .addroute-wrapper body.city-page > #city-details .create-walk,
-#create-walk #map-control-bar .addroute-wrapper body.city-page > #city-details .create-walk:after,
-#create-walk #map-control-bar .addroute-wrapper body.city-page > #city-details .create-walk:hover,
 #create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button,
-#create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar button.active,
 #create-walk #map-control-bar .addroute-wrapper #create-walk #map-control-bar .loadFeed,
 #create-walk #map-control-bar .addroute-wrapper #create-walk .filterInputs .filter input[type=submit],
 #create-walk #map-control-bar .addroute-wrapper #create-walk .filterInputs .filter input[type=button] {
@@ -15915,10 +15277,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk #map-canvas .btn,
 #create-walk #map-canvas body.city-page > #city-details .create-walk,
-#create-walk #map-canvas body.city-page > #city-details .create-walk:after,
-#create-walk #map-canvas body.city-page > #city-details .create-walk:hover,
 #create-walk #map-canvas #create-walk #map-control-bar button,
-#create-walk #map-canvas #create-walk #map-control-bar button.active,
 #create-walk #map-canvas #create-walk #map-control-bar .loadFeed,
 #create-walk #map-canvas #create-walk .filterInputs .filter input[type=submit],
 #create-walk #map-canvas #create-walk .filterInputs .filter input[type=button] {
@@ -15969,11 +15328,10 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk #route-help-panel {
   background: #FFFFFF;
-  border: 1px solid #f16725;
+  border: 1px solid #F16725;
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.05);
   margin-bottom: 1em;
-  -webkit-transition: border 0.3s ease-in-out;
-          transition: border 0.3s ease-in-out;
+  transition: border 0.3s ease-in-out;
 }
 #create-walk #route-help-panel .accordion-toggle {
   padding: 12px 10px;
@@ -15990,7 +15348,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   position: absolute;
   top: 12px;
   right: 10px;
-  color: #f16725;
+  color: #F16725;
   line-height: 1.7em;
   font-size: 21px;
   line-height: 25px;
@@ -16002,7 +15360,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   margin: 0;
 }
 #create-walk #route-help-panel:hover {
-  border: 1px solid #f16725;
+  border: 1px solid #F16725;
 }
 #create-walk #route-help-panel ul {
   list-style: none;
@@ -16047,9 +15405,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk .modal-body,
 #create-walk #modals dialog > div > article section,
-#create-walk #create-walk dialog > div > article section,
-#create-walk #modals dialog > div > article section + section,
-#create-walk #create-walk dialog > div > article section + section {
+#create-walk #create-walk dialog > div > article section {
   overflow-y: inherit;
 }
 #create-walk .progress-spinner {
@@ -16112,9 +15468,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk #preview-modal > div > article > .modal-body,
 #create-walk #preview-modal > div > article > #modals dialog > div > article section,
-#create-walk #preview-modal > div > article > #create-walk dialog > div > article section,
-#create-walk #preview-modal > div > article > #modals dialog > div > article section + section,
-#create-walk #preview-modal > div > article > #create-walk dialog > div > article section + section {
+#create-walk #preview-modal > div > article > #create-walk dialog > div > article section {
   height: 100%;
 }
 #create-walk #preview-modal header {
@@ -16124,9 +15478,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk #preview-modal .modal-body,
 #create-walk #preview-modal #modals dialog > div > article section,
-#create-walk #preview-modal #create-walk dialog > div > article section,
-#create-walk #preview-modal #modals dialog > div > article section + section,
-#create-walk #preview-modal #create-walk dialog > div > article section + section {
+#create-walk #preview-modal #create-walk dialog > div > article section {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -16140,13 +15492,8 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk #publish-confirmation .modal-body .btn,
 #create-walk #publish-confirmation #modals dialog > div > article section .btn,
 #create-walk #publish-confirmation #create-walk dialog > div > article section .btn,
-#create-walk #publish-confirmation #modals dialog > div > article section + section .btn,
-#create-walk #publish-confirmation #create-walk dialog > div > article section + section .btn,
 #create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk,
-#create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk:after,
-#create-walk #publish-confirmation .modal-body body.city-page > #city-details .create-walk:hover,
 #create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button,
-#create-walk #publish-confirmation .modal-body #create-walk #map-control-bar button.active,
 #create-walk #publish-confirmation .modal-body #create-walk #map-control-bar .loadFeed,
 #create-walk #publish-confirmation .modal-body #create-walk .filterInputs .filter input[type=submit],
 #create-walk #publish-confirmation .modal-body #create-walk .filterInputs .filter input[type=button] {
@@ -16155,9 +15502,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk #publish-confirmation .modal-body input[type='text'],
 #create-walk #publish-confirmation #modals dialog > div > article section input[type='text'],
-#create-walk #publish-confirmation #create-walk dialog > div > article section input[type='text'],
-#create-walk #publish-confirmation #modals dialog > div > article section + section input[type='text'],
-#create-walk #publish-confirmation #create-walk dialog > div > article section + section input[type='text'] {
+#create-walk #publish-confirmation #create-walk dialog > div > article section input[type='text'] {
   width: 90%;
   font-size: 16px;
   padding: 12px;
@@ -16165,9 +15510,7 @@ body[data-pageviewname=CreateWalkView] > footer {
 }
 #create-walk #publish-confirmation .modal-body hr,
 #create-walk #publish-confirmation #modals dialog > div > article section hr,
-#create-walk #publish-confirmation #create-walk dialog > div > article section hr,
-#create-walk #publish-confirmation #modals dialog > div > article section + section hr,
-#create-walk #publish-confirmation #create-walk dialog > div > article section + section hr {
+#create-walk #publish-confirmation #create-walk dialog > div > article section hr {
   margin-top: 0;
 }
 #create-walk #time-and-date .ui-datepicker {
@@ -16183,17 +15526,16 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk #time-and-date .ui-datepicker td {
   width: 14.28571429%;
   text-align: center;
-  color: #666666;
+  color: #666;
 }
 #create-walk #time-and-date .ui-datepicker td > a {
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
   text-align: inherit;
-  color: #f16725;
+  color: #F16725;
 }
 #create-walk #time-and-date .ui-datepicker td > a.ui-state-active {
   color: #fff;
-  background-color: #f16725 !important;
+  background-color: #F16725 !important;
   border: none;
   box-shadow: none;
   text-shadow: none;
@@ -16226,8 +15568,7 @@ body[data-pageviewname=CreateWalkView] > footer {
   top: 60px;
   z-index: 1030;
   padding: 0 15px;
-  -webkit-transition-duration: 0.2s;
-          transition-duration: 0.2s;
+  transition-duration: 0.2s;
   height: 0;
   overflow: visible;
   width: 100%;
@@ -16247,10 +15588,7 @@ body:lang(he) #intro-city,
 body:lang(he) .btn,
 body:lang(he) a,
 body:lang(he) body.city-page > #city-details .create-walk,
-body:lang(he) body.city-page > #city-details .create-walk:after,
-body:lang(he) body.city-page > #city-details .create-walk:hover,
 body:lang(he) #create-walk #map-control-bar button,
-body:lang(he) #create-walk #map-control-bar button.active,
 body:lang(he) #create-walk #map-control-bar .loadFeed,
 body:lang(he) #create-walk .filterInputs .filter input[type=submit],
 body:lang(he) #create-walk .filterInputs .filter input[type=button] {
