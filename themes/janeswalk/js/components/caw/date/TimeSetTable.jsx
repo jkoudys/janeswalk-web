@@ -5,7 +5,7 @@ import TimeSetRow from './TimeSetRow.jsx';
 /**
  * The table with all the times that the walks are scheduled
  */
-export default ({ valueLink: { value: slots = [] }, valueLink }) => (
+export default ({ valueLink: { value: { slots = [] } }, valueLink }) => (
   <table className="table table-bordered table-hover" id="date-list-all">
     <thead>
       <tr>

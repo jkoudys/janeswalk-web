@@ -15,6 +15,7 @@ import TeamBuilder from './caw/TeamBuilder.jsx';
 import WalkPublish from './caw/WalkPublish.jsx';
 import TextAreaLimit from './TextAreaLimit.jsx';
 import WalkPreview from './caw/WalkPreview.jsx';
+import TabNav from './caw/TabNav.jsx';
 import { buildWalkObject } from 'janeswalk/utils/api/Walk';
 
 // Flux
@@ -35,9 +36,8 @@ export default class CreateWalk extends React.Component {
 
       // Persist our walk server-side
       saveWalk: (options, cb) => {
-        // TODO: separate the notifications logic
         /* Send in the updated walk to save, but keep working */
-        const notifications = this.state.notifications.slice();
+        const notifications = this.state.notifications;
         const removeNotice = () => {
           this.setState({ notifications: this.state.notifications.slice(1) });
         };
@@ -53,19 +53,18 @@ export default class CreateWalk extends React.Component {
         // Build a simplified map from the Google objects
         this.setState({
           map: this.refs.mapBuilder.getStateSimple(),
-          notifications: notifications,
+          notifications,
         }, () => {
           $.ajax({
             url: this.state.url,
             type: options.publish ? 'PUT' : 'POST',
-            data: {json: JSON.stringify(this.state)},
+            data: { json: JSON.stringify(this.state) },
             dataType: 'json',
             success: (data) => {
-              let notifications = this.state.notifications.slice();
-              notifications.push({type: 'success', name: 'Walk saved'});
+              notifications.push({ type: 'success', name: 'Walk saved' });
               this.setState(
-                {notifications: notifications, url: (data.url || this.state.url)},
-                function() {
+                { notifications, url: (data.url || this.state.url) },
+                function checkCallback() {
                   if (cb && cb instanceof Function) {
                     // The 'this' in each callback should be the <CreateWalk>
                     cb.call(this);
@@ -75,9 +74,8 @@ export default class CreateWalk extends React.Component {
               setTimeout(removeNotice, 1200);
             },
             error: (xhr, status, err) => {
-              let notifications = this.state.notifications.slice();
-              notifications.push({type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance'});
-              this.setState({notifications: notifications});
+              notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
+              this.setState({ notifications });
               setTimeout(removeNotice, 6000);
               console.error(this.url, status, err.toString());
             },
@@ -124,7 +122,7 @@ export default class CreateWalk extends React.Component {
       value: this.state.map,
       requestChange: (newVal, cb) => {
         this.setState({ map: newVal }, cb);
-      }
+      },
     };
 
     const { user, valt, city } = this.props;
@@ -134,16 +132,10 @@ export default class CreateWalk extends React.Component {
       <main id="create-walk">
         <section>
           <nav id="progress-panel">
-            <ul className="nav nav-tabs">
-              <li className="active"><a data-toggle="tab" className="description" href="#description"><i className="fa fa-list-ol" />{ t('Describe Your Walk') }</a></li>
-              <li><a data-toggle="tab" className="route" href="#route"><i className="fa fa-map-marker" />{ t('Share Your Route') }</a></li>
-              <li><a data-toggle="tab" className="time-and-date" href="#time-and-date"><i className="fa fa-calendar" />{ t('Set the Time & Date') }</a></li>
-              <li><a data-toggle="tab" className="accessibility" href="#accessibility"><i className="fa fa-flag" />{ t('Make it Accessible') }</a></li>
-              <li><a data-toggle="tab" className="team" href="#team"><i className="fa fa-users" />{ t('Build Your Team') }</a></li>
-            </ul>
+            <TabNav />
             <section id="button-group">
               <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
-              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={() => this.setState({publish: true})} ref="publish">{ t('Publish Walk') }</button>
+              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={() => this.setState({ publish: true })} ref="publish">{ t('Publish Walk') }</button>
               <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.saveWalk}>{ t('Save') }</button>
             </section>
           </nav>
@@ -152,14 +144,14 @@ export default class CreateWalk extends React.Component {
               <div className="tab-pane active" id="description">
                 <div className="walk-submit lead clearfix">
                   <div className="col-md-4">
-                    <img id="convo-marker" src={CCM_THEME_PATH + '/img/jw-intro-graphic.svg'} alt="Jane's Walks are walking conversations." />
+                    <img id="convo-marker" src={`${CCM_THEME_PATH}/img/jw-intro-graphic.svg`} alt="Jane's Walks are walking conversations." />
                   </div>
                   <div className="col-md-8">
                     <h1>{ t('Hey there, %s!', user.firstName) }</h1>
                     <p>{ t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') }</p>
                   </div>
                 </div>
-                <div className="page-header" data-section='description'>
+                <div className="page-header" data-section="description">
                   <h1>{ t('Describe Your Walk') }</h1>
                 </div>
                 <form>
@@ -184,7 +176,7 @@ export default class CreateWalk extends React.Component {
                     <div className="item required">
                       <label htmlFor="longdescription" id="longwalkdescription">{ t('Walk Description') }</label>
                       <div className="alert alert-info">
-                        {t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')} 
+                        {t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')}
                       </div>
                       <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longDescription')} />
                     </div>
@@ -197,7 +189,7 @@ export default class CreateWalk extends React.Component {
               <MapBuilder ref="mapBuilder" valueLink={linkStateMap} city={city} />
               <DateSelect valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
-                <div className="page-header" data-section='accessibility'>
+                <div className="page-header" data-section="accessibility">
                   <h1>{ t('Make it Accessible') }</h1>
                 </div>
                 <div className="item">
@@ -215,7 +207,7 @@ export default class CreateWalk extends React.Component {
                   <fieldset>
                     <legend id="transit">{ t('How can someone get to the meeting spot by public transit?') } ({ t('Optional') })</legend>
                     <div className="alert alert-info">
-                      { t('Nearest subway stop, closest bus or streetcar lines, etc.')} 
+                      { t('Nearest subway stop, closest bus or streetcar lines, etc.')}
                     </div>
                     <textarea rows="3" name="accessible-transit" valueLink={this.linkState('accessibleTransit')} />
                   </fieldset>
@@ -232,15 +224,15 @@ export default class CreateWalk extends React.Component {
                   <fieldset>
                     <legend className="required-legend" >{ t('How will people find you?') }</legend>
                     <div className="alert alert-info">
-                      { t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')} 
+                      { t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')}
                     </div>
-                    <textarea rows="3" name="accessible-find"  valueLink={this.linkState('accessibleFind')} />
+                    <textarea rows="3" name="accessible-find" valueLink={this.linkState('accessibleFind')} />
                   </fieldset>
                 </div>
                 <hr />
                 <br />
               </div>
-              <TeamBuilder onChange={team => this.setState({team})} team={team} />
+              <TeamBuilder onChange={team => this.setState({ team })} team={team} />
             </div>
             <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>
@@ -248,18 +240,31 @@ export default class CreateWalk extends React.Component {
             <div className="popover right" id="city-organizer" style={{display: 'block'}}>
               <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t('Contact City Organizer for help') }</h3>
               <div className="popover-content collapse in" id="popover-content">
-                {city.cityOrganizer.photo ? <div className='u-avatar' style={{backgroundImage: 'url(' + city.cityOrganizer.photo + ')'}} /> : null}
+                {city.cityOrganizer.photo ? <div className="u-avatar" style={{ backgroundImage: `url(${city.cityOrganizer.photo})` }} /> : null}
                 <p>
-                  { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', city.cityOrganizer.firstName, city.name) } <strong><a href={'mailto:' + city.cityOrganizer.email}>{ t('email me') }!</a></strong></p>
+                  { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', city.cityOrganizer.firstName, city.name) } <strong><a href={`mailto:${city.cityOrganizer.email}`}>{ t('email me') }!</a></strong></p>
               </div>
             </div>
           </aside>
         </section>
-        {this.state.publish ? <WalkPublish url={this.state.url} saveWalk={this.saveWalk} close={() => this.setState({publish: false})} city={city} mirrors={this.state.mirrors} /> : null}
-        {this.state.preview ? <WalkPreview url={this.state.url} close={() => this.setState({preview: false})} /> : null}
+        {this.state.publish ?
+          <WalkPublish
+            url={this.state.url}
+            saveWalk={this.saveWalk}
+            close={() => this.setState({ publish: false })}
+            city={city}
+            mirrors={this.state.mirrors}
+          /> : null
+        }
+        {this.state.preview ?
+          <WalkPreview
+            url={this.state.url}
+            close={() => this.setState({ preview: false })}
+          /> : null
+        }
         <aside id="notifications">
           {this.state.notifications.map(note => (
-            <div key={note.message} className={'alert alert-' + note.type}>
+            <div key={note.message} className={`alert alert-${note.type}`}>
               <strong>{note.name || ''}:&nbsp;</strong>
               {note.message || ''}
             </div>

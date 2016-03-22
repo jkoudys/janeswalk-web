@@ -39,9 +39,6 @@ export default class DateSelect extends React.Component {
         start.setUTCMonth(date.getUTCMonth());
         start.setUTCDate(date.getUTCDate());
 
-        // Refresh the timepicker
-        this.refs.timePicker.setStartTimes(start);
-
         // Update our state
         this.setState({ start });
       },

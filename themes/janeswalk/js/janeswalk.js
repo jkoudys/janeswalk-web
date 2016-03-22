@@ -3162,6 +3162,10 @@
 
 	var _WalkPreview2 = _interopRequireDefault(_WalkPreview);
 
+	var _TabNav = __webpack_require__(88);
+
+	var _TabNav2 = _interopRequireDefault(_TabNav);
+
 	var _Walk = __webpack_require__(59);
 
 	var _I18nStore = __webpack_require__(21);
@@ -3190,6 +3194,9 @@
 	// Flux
 
 
+	// TODO: storeify this
+	var _notifications = [];
+
 	var CreateWalk = function (_React$Component) {
 	  _inherits(CreateWalk, _React$Component);
 
@@ -3214,11 +3221,9 @@
 
 	      // Persist our walk server-side
 	      saveWalk: function saveWalk(options, cb) {
-	        // TODO: separate the notifications logic
 	        /* Send in the updated walk to save, but keep working */
-	        var notifications = _this.state.notifications.slice();
 	        var removeNotice = function removeNotice() {
-	          _this.setState({ notifications: _this.state.notifications.slice(1) });
+	          return _notifications.splice(0, 1);
 	        };
 
 	        var defaultOptions = {
@@ -3227,12 +3232,11 @@
 
 	        options = Object.assign({}, defaultOptions, options);
 
-	        notifications.push({ type: 'info', name: 'Saving walk' });
+	        _notifications.push({ type: 'info', name: 'Saving walk' });
 
 	        // Build a simplified map from the Google objects
 	        _this.setState({
-	          map: _this.refs.mapBuilder.getStateSimple(),
-	          notifications: notifications
+	          map: _this.refs.mapBuilder.getStateSimple()
 	        }, function () {
 	          $.ajax({
 	            url: _this.state.url,
@@ -3240,9 +3244,8 @@
 	            data: { json: JSON.stringify(_this.state) },
 	            dataType: 'json',
 	            success: function success(data) {
-	              var notifications = _this.state.notifications.slice();
-	              notifications.push({ type: 'success', name: 'Walk saved' });
-	              _this.setState({ notifications: notifications, url: data.url || _this.state.url }, function () {
+	              _notifications.push({ type: 'success', name: 'Walk saved' });
+	              _this.setState({ url: data.url || _this.state.url }, function checkCallback() {
 	                if (cb && cb instanceof Function) {
 	                  // The 'this' in each callback should be the <CreateWalk>
 	                  cb.call(this);
@@ -3251,9 +3254,7 @@
 	              setTimeout(removeNotice, 1200);
 	            },
 	            error: function error(xhr, status, err) {
-	              var notifications = _this.state.notifications.slice();
-	              notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
-	              _this.setState({ notifications: notifications });
+	              _notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
 	              setTimeout(removeNotice, 6000);
 	              console.error(_this.url, status, err.toString());
 	            }
@@ -3334,60 +3335,7 @@
 	          React.createElement(
 	            'nav',
 	            { id: 'progress-panel' },
-	            React.createElement(
-	              'ul',
-	              { className: 'nav nav-tabs' },
-	              React.createElement(
-	                'li',
-	                { className: 'active' },
-	                React.createElement(
-	                  'a',
-	                  { 'data-toggle': 'tab', className: 'description', href: '#description' },
-	                  React.createElement('i', { className: 'fa fa-list-ol' }),
-	                  (0, _I18nStore.t)('Describe Your Walk')
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { 'data-toggle': 'tab', className: 'route', href: '#route' },
-	                  React.createElement('i', { className: 'fa fa-map-marker' }),
-	                  (0, _I18nStore.t)('Share Your Route')
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { 'data-toggle': 'tab', className: 'time-and-date', href: '#time-and-date' },
-	                  React.createElement('i', { className: 'fa fa-calendar' }),
-	                  (0, _I18nStore.t)('Set the Time & Date')
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { 'data-toggle': 'tab', className: 'accessibility', href: '#accessibility' },
-	                  React.createElement('i', { className: 'fa fa-flag' }),
-	                  (0, _I18nStore.t)('Make it Accessible')
-	                )
-	              ),
-	              React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { 'data-toggle': 'tab', className: 'team', href: '#team' },
-	                  React.createElement('i', { className: 'fa fa-users' }),
-	                  (0, _I18nStore.t)('Build Your Team')
-	                )
-	              )
-	            ),
+	            React.createElement(_TabNav2.default, null),
 	            React.createElement(
 	              'section',
 	              { id: 'button-group' },
@@ -3662,16 +3610,25 @@
 	            )
 	          )
 	        ),
-	        this.state.publish ? React.createElement(_WalkPublish2.default, { url: this.state.url, saveWalk: this.saveWalk, close: function close() {
+	        this.state.publish ? React.createElement(_WalkPublish2.default, {
+	          url: this.state.url,
+	          saveWalk: this.saveWalk,
+	          close: function close() {
 	            return _this2.setState({ publish: false });
-	          }, city: city, mirrors: this.state.mirrors }) : null,
-	        this.state.preview ? React.createElement(_WalkPreview2.default, { url: this.state.url, close: function close() {
+	          },
+	          city: city,
+	          mirrors: this.state.mirrors
+	        }) : null,
+	        this.state.preview ? React.createElement(_WalkPreview2.default, {
+	          url: this.state.url,
+	          close: function close() {
 	            return _this2.setState({ preview: false });
-	          } }) : null,
+	          }
+	        }) : null,
 	        React.createElement(
 	          'aside',
 	          { id: 'notifications' },
-	          this.state.notifications.map(function (note) {
+	          _notifications.map(function (note) {
 	            return React.createElement(
 	              'div',
 	              { key: note.message, className: 'alert alert-' + note.type },
@@ -5430,9 +5387,6 @@
 	        start.setUTCMonth(date.getUTCMonth());
 	        start.setUTCDate(date.getUTCDate());
 
-	        // Refresh the timepicker
-	        _this.refs.timePicker.setStartTimes(start);
-
 	        // Update our state
 	        _this.setState({ start: start });
 	      },
@@ -5919,7 +5873,7 @@
 	  _createClass(TimePicker, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(_ref) {
-	      var value = _ref.valueLinkStart;
+	      var value = _ref.valueLinkStart.value;
 	      var oldValue = this.props.valueLinkStart.value;
 
 	      if (oldValue !== value) {
@@ -6038,8 +5992,8 @@
 	/* global React */
 
 	exports.default = function (_ref) {
-	  var _ref$valueLink$value = _ref.valueLink.value;
-	  var slots = _ref$valueLink$value === undefined ? [] : _ref$valueLink$value;
+	  var _ref$valueLink$value$ = _ref.valueLink.value.slots;
+	  var slots = _ref$valueLink$value$ === undefined ? [] : _ref$valueLink$value$;
 	  var valueLink = _ref.valueLink;
 	  return React.createElement(
 	    'table',
@@ -10559,6 +10513,75 @@
 	}(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _I18nStore = __webpack_require__(21);
+
+	exports.default = function () {
+	  return React.createElement(
+	    "ul",
+	    { className: "nav nav-tabs" },
+	    React.createElement(
+	      "li",
+	      { className: "active" },
+	      React.createElement(
+	        "a",
+	        { "data-toggle": "tab", className: "description", href: "#description" },
+	        React.createElement("i", { className: "fa fa-list-ol" }),
+	        (0, _I18nStore.t)('Describe Your Walk')
+	      )
+	    ),
+	    React.createElement(
+	      "li",
+	      null,
+	      React.createElement(
+	        "a",
+	        { "data-toggle": "tab", className: "route", href: "#route" },
+	        React.createElement("i", { className: "fa fa-map-marker" }),
+	        (0, _I18nStore.t)('Share Your Route')
+	      )
+	    ),
+	    React.createElement(
+	      "li",
+	      null,
+	      React.createElement(
+	        "a",
+	        { "data-toggle": "tab", className: "time-and-date", href: "#time-and-date" },
+	        React.createElement("i", { className: "fa fa-calendar" }),
+	        (0, _I18nStore.t)('Set the Time & Date')
+	      )
+	    ),
+	    React.createElement(
+	      "li",
+	      null,
+	      React.createElement(
+	        "a",
+	        { "data-toggle": "tab", className: "accessibility", href: "#accessibility" },
+	        React.createElement("i", { className: "fa fa-flag" }),
+	        (0, _I18nStore.t)('Make it Accessible')
+	      )
+	    ),
+	    React.createElement(
+	      "li",
+	      null,
+	      React.createElement(
+	        "a",
+	        { "data-toggle": "tab", className: "team", href: "#team" },
+	        React.createElement("i", { className: "fa fa-users" }),
+	        (0, _I18nStore.t)('Build Your Team')
+	      )
+	    )
+	  );
+	}; /* global React */
 
 /***/ }
 /******/ ]);
