@@ -21,6 +21,7 @@ $profileOwner = [
     'id' => $u->getUserID(),
     'firstName' => $ui->getAttribute('first_name'),
     'lastName' => $ui->getAttribute('last_name'),
+    'groups' => array_values($u->getUserGroups()),
     'walks' => $userWalksArr
 ];
 ?>
