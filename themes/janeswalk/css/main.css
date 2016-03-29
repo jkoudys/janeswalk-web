@@ -12207,6 +12207,7 @@ body.city-page > .sponsors {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  background: #fff;
 }
 @media (min-width: 992px) {
   body.city-page > .sponsors {
