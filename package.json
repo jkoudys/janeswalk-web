@@ -33,6 +33,7 @@
   "devDependencies": {
     "eslint-config-airbnb": "^6.1.0",
     "eslint-plugin-react": "^4.2.1",
-    "gulp-util": "^3.0.7"
+    "gulp-util": "^3.0.7",
+    "babel-preset-stage-2": "*"
   }
 }
