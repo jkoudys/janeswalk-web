@@ -312,22 +312,6 @@ body.city-page {
             }
         }
 
-        .description {
-            .make-md-column(12);
-            // Sponsors section
-            h3 {
-              display: block;
-              clear: both;
-            }
-            p {
-              float: left;
-              line-height: 80px;
-              img {
-                margin: 20px;
-              }
-            }
-        }
-
         .walk-list:extend(.fade all, .fade.in all) {
             .clearfix();
             // .make-md-column(8);
@@ -527,6 +511,16 @@ body.city-page {
             z-index: -1;
         }
     }
+
+    > .sponsors {
+        .make-md-column(12);
+        // Sponsors section
+        h3 {
+            display: block;
+            clear: both;
+        }
+    }
+
 
     // An optional blog at the bottom
     > #blog {

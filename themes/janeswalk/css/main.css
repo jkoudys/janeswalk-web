@@ -11969,29 +11969,6 @@ body.city-page > #city-details .create-walk:hover {
   border-radius: 4px;
   box-shadow: none;
 }
-body.city-page > #city-details .description {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-@media (min-width: 992px) {
-  body.city-page > #city-details .description {
-    float: left;
-    width: 100%;
-  }
-}
-body.city-page > #city-details .description h3 {
-  display: block;
-  clear: both;
-}
-body.city-page > #city-details .description p {
-  float: left;
-  line-height: 80px;
-}
-body.city-page > #city-details .description p img {
-  margin: 20px;
-}
 body.city-page > #city-details .walk-list {
   opacity: 1;
   width: 100%;
@@ -12224,6 +12201,22 @@ body.city-page > #city-details:before {
   width: 400%;
   height: 100%;
   z-index: -1;
+}
+body.city-page > .sponsors {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  body.city-page > .sponsors {
+    float: left;
+    width: 100%;
+  }
+}
+body.city-page > .sponsors h3 {
+  display: block;
+  clear: both;
 }
 body.city-page > #blog {
   margin: -5px auto 0 auto;
