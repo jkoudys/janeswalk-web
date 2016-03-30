@@ -4,7 +4,7 @@
  */
 
 import ItineraryStore from '../../stores/ItineraryStore';
-import {receiveAll, syncEnd} from '../../actions/ItineraryActions';
+import { receiveAll } from '../../actions/ItineraryActions';
 
 // Service endpoints
 const endpoint = '/profile/itineraries';
@@ -21,51 +21,28 @@ function getJson([...lists], [...schedule]) {
       // Denormalize for serializing
       list.walks.forEach(walk => walks.push(+walk.id));
 
-      return Object.assign({}, list, {walks});
+      return Object.assign({}, list, { walks });
     }),
     schedule: schedule.reduce((p, [walk, times]) => {
       p[+walk.id] = [...times];
       return p;
-    }, {})
+    }, {}),
   });
 }
 
 export function post(cb, url = endpoint) {
-  let xhr = new XMLHttpRequest();
-  xhr.open('POST', url);
-  xhr.onload = function() {
-    let data;
-    try {
-      data = JSON.parse(this.responseText);
-      console.log(data);
-      cb();
-    } catch (e) {
-      console.log('Error parsing JSON returned on itinerary' + url);
-    }
-  };
-  xhr.onerror = function() {
-    console.log('Failed to update itinerary.');
-  };
-  xhr.send(getJson(ItineraryStore.getLists(), ItineraryStore.getSchedule()));
+  fetch(url, { method: 'POST', body: getJson(ItineraryStore.getLists(), ItineraryStore.getSchedule()) })
+  .then(res => res.json())
+  .then(json => console.log(json))
+  .catch(error => console.error(`Failed to update itinerary: ${error.message}`));
 }
 
 
 export function get(url = endpoint) {
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', url);
-  xhr.onload = function() {
-    let data;
-    try {
-      data = JSON.parse(this.responseText);
-      receiveAll(data);
-    } catch (e) {
-      cb('Error parsing JSON returned on itinerary' + url);
-    }
-  };
-  xhr.onerror = function() {
-    console.log('Failed to update itinerary.');
-  };
-  xhr.send();
+  fetch(url)
+  .then(res => res.json())
+  .then(json => receiveAll(json))
+  .catch(error => console.error(`Failed to update itinerary: ${error.message}`));
 }
 
 /**
@@ -76,7 +53,7 @@ export function startPolling(period = 100) {
   let syncing = false;
 
   setInterval(() => {
-    let lastChange = ItineraryStore.getLastChange();
+    const lastChange = ItineraryStore.getLastChange();
     // Poll, to see if we've waited a bit since the last thing you changed
     if (Date.now() - lastChange > period * 3) {
       if (lastChange > lastSync && !syncing) {
