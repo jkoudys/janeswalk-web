@@ -13,7 +13,7 @@ export default ({ user, profiling, searching, toggleProfile, toggleSearch, unsee
     </a>
   </li>,
   <li className={unseenUpdates ? 'notify' : ''}>
-    <a onClick={toggleProfile} className={profiling ? 'selected' : ''}>
+    <a href="#" onClick={toggleProfile} className={profiling ? 'selected' : ''}>
       <i className="fa fa-calendar" />
     </a>
   </li>,
