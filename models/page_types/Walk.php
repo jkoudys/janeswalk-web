@@ -341,10 +341,10 @@ class Walk extends \Model implements \JsonSerializable
         $walkData['thumbnails'] = [];
         if ($this->thumbnail) {
             $walkData['thumbnailId'] = $this->thumbnail->getFileID();
-            $walkData['thumbnailUrl'] = $im->getThumbnail($this->thumbnail, 340, 720)->src;
+            $walkData['thumbnailUrl'] = $im->getThumbnail($this->thumbnail, 1024, 1024)->src;
             $walkData['thumbnails'][] = [
                 'id' => $this->thumbnail->getFileID(),
-                'url' => $im->getThumbnail($this->thumbnail, 340, 720)->src
+                'url' => $im->getThumbnail($this->thumbnail, 1024, 1024)->src
             ];
         }
 
