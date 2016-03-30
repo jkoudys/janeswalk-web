@@ -11,7 +11,9 @@ if (typeof Intl === 'object') {
 
 // Remove a slot of the time set table
 function removeSlot(i, { value, value: { slots = [] }, requestChange }) {
-  requestChange(Object.assign({}, value, { slots: slots.slice().splice(i, 1) }));
+  const removedSlots = slots.slice();
+  removedSlots.splice(i, 1);
+  requestChange(Object.assign({}, value, { slots: removedSlots }));
 }
 
 export default ({ slot, index, valueLink }) => {
