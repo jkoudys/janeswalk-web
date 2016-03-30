@@ -1,8 +1,9 @@
 /* global React */
 
-import DashboardHeader from './Dashboard/DashboardHeader.jsx';
-import DashboardMenu from './Dashboard/DashboardMenu.jsx';
-import DashboardSummary from './Dashboard/DashboardSummary.jsx';
+import Header from './Dashboard/Header.jsx';
+import Menu from './Dashboard/Menu.jsx';
+import Summary from './Dashboard/Summary.jsx';
+// import Resources from './Dashboard/Resources.jsx';
 
 import UserStore from 'janeswalk/stores/UserStore';
 import CityStore from 'janeswalk/stores/CityStore';
@@ -67,9 +68,9 @@ export default class Dashboard extends React.Component {
 
     return (
       <section className="dashboard">
-        <DashboardHeader user={user} announcements={announcements} />
-        <DashboardMenu {...{ walks, users, user, city }} />
-        <DashboardSummary
+        <Header user={user} announcements={announcements} />
+        <Menu {...{ walks, users, user, city }} />
+        <Summary
           city={city}
           walks={walks}
           year={2015}
