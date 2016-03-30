@@ -115,6 +115,36 @@ gulp.task('js.blocks', () => {
   }));
 });
 
+gulp.task('js.global', () => {
+  webpack({
+    entry: ['./js/jwobject.jsx'],
+    output: {
+      path: './js',
+      filename: 'jwglobal.js',
+    },
+    module: {
+      loaders: [{
+        test: /\.jsx?$/,
+        exclude: /(bower_components)/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'react'],
+        },
+      }],
+    },
+    plugins: [
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin(),
+    ],
+    watch: true,
+  }, (err, stats) => {
+    if (err) throw new gutil.PluginError('webpack:build', err);
+    gutil.log('[webpack:build]', stats.toString({
+      colors: true,
+    }));
+  });
+});
+
 /**
  * TODO
 gulp.task('js.global', function() {
