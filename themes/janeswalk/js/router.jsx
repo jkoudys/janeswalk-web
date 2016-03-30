@@ -1,10 +1,12 @@
+/* global React JanesWalk */
+
 /**
  * Initialization code goes here. This is not to be a dumping ground for
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
 // Translations for i18n L10n
-import {getTranslations} from 'janeswalk/utils/I18nUtils';
+import { getTranslations } from 'janeswalk/utils/I18nUtils';
 import * as AreaActions from 'janeswalk/actions/AreaActions';
 import * as UserActions from 'janeswalk/actions/UserActions';
 import * as WalkActions from 'janeswalk/actions/WalkActions';
@@ -32,20 +34,20 @@ import Login from './components/Login.jsx';
  */
 function initKeyEvents() {
   // Init keyboard shortcuts
-  let toolbar = document.getElementById('ccm-toolbar');
+  const toolbar = document.getElementById('ccm-toolbar');
   if (toolbar) {
     window.addEventListener('keyup', ev => {
       /* Don't capture inputs going into a form */
-      if(ev.target.tagName !== "INPUT") {
+      if (ev.target.tagName !== 'INPUT') {
         ev.preventDefault();
-        switch(
+        switch (
           String(
             ev.key ||
             (ev.keyCode && String.fromCharCode(ev.keyCode)) ||
             ev.char)
             .toUpperCase()
-        ){
-          case "M":
+        ) {
+          case 'M':
             if (toolbar.style.display === 'block' || !toolbar.style.display) {
               toolbar.style.display = 'none';
             } else {
@@ -145,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initKeyEvents();
 
   // TODO: this could use a better home
-  ItineraryAPI.startPolling();
+  setTimeout(() => ItineraryAPI.startPolling(), 1000);
 
   // Process all deferred events
   JanesWalk.event.activate();
