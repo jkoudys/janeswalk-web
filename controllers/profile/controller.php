@@ -485,7 +485,7 @@ class CityExporter
             return (string) $walk;
         case 'Status':
             return $walk->published ? 'live' : 'draft';
-        case 'Date':
+        case 'Walk Date':
             if ($walk->time['slots']) {
                 return date('Y-m-d', $walk->time['slots'][0][0]);
             } else return '';
@@ -524,7 +524,7 @@ class CityExporter
 
     public function renderWalkCSV()
     {
-        $columns = ['Name','Status','Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
+        $columns = ['Name','Status','Walk Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
         // Check that you have edit permissions on city
         if ((new Permissions($this->city))->canWrite()) {
             // Set header so it d/l's as a CSV file
