@@ -506,6 +506,8 @@ class CityExporter
         case 'Walk Owner email':
             $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
             return $owner->getUserEmail();
+        case 'Published Date':
+            return $walk->publishDate;
         case 'URL':
             $nh = Loader::helper('navigation');
             return $nh->getCollectionURL($walk->getPage());
@@ -522,7 +524,7 @@ class CityExporter
 
     public function renderWalkCSV()
     {
-        $columns = ['Name','Status','Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
+        $columns = ['Name','Status','Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
         // Check that you have edit permissions on city
         if ((new Permissions($this->city))->canWrite()) {
             // Set header so it d/l's as a CSV file

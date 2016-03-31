@@ -210,6 +210,16 @@ class Walk extends \Model implements \JsonSerializable
             }
             break;
 
+        case 'publishDate':
+            foreach ((new \VersionList($this->page))->getVersionListArray() as $cv) {
+                if ($cv->getAttribute('exclude_page_list', $this->page)) {
+                    return $lastPublished ?: '';
+                } else {
+                    $lastPublished = $cv->getVersionDateCreated();
+                }
+            }
+            return $lastPublished;
+
         case 'initiatives':
             // Initiatives
             $this->initiatives = [];
