@@ -99,7 +99,7 @@
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(242);
+	var _Login = __webpack_require__(241);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -29604,8 +29604,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 241 */,
-/* 242 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
