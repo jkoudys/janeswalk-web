@@ -345,7 +345,8 @@ class Walk extends \Model implements \JsonSerializable
             'cityID' => (int) $this->page->getCollectionParentID(),
             'mirrors' => [
                 'eventbrite' => $this->page->getAttribute('eventbrite') ?: null
-            ]
+            ],
+            'published' => $this->published,
         ];
         // Load the thumbnail array
         $walkData['thumbnails'] = [];

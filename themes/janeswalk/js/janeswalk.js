@@ -28813,6 +28813,10 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Without Past Walks'], ['Without Past Walks']),
+	    _templateObject2 = _taggedTemplateLiteral(['With Past Walks'], ['With Past Walks']),
+	    _templateObject3 = _taggedTemplateLiteral(['Export Spreadsheet'], ['Export Spreadsheet']);
+
 	var _WalkFilters = __webpack_require__(237);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
@@ -28828,6 +28832,8 @@
 	var _Walk2 = _interopRequireDefault(_Walk);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28902,27 +28908,40 @@
 
 	      var WalkList = void 0;
 	      if (currentView === 'list') {
-	        // TODO: separate this out into some functions
-	        var walkIDs = show === 'city' ? city.walks : user.walks;
-	        WalkList = walkIDs.map(function (wID) {
-	          var _walks$get = walks.get(wID);
+	        (function () {
+	          var now = Date.now();
+	          // TODO: separate this out into some functions
+	          var walkIDs = show === 'city' ? city.walks : user.walks;
+	          WalkList = walkIDs.filter(function (wID) {
+	            var _walks$get = walks.get(wID);
 
-	          var map = _walks$get.map;
-	          var id = _walks$get.id;
-	          var title = _walks$get.title;
-	          var time = _walks$get.time;
-	          var team = _walks$get.team;
-	          var url = _walks$get.url;
+	            var time = _walks$get.time;
+	            // Always show unset times, or if we're not filtering
 
-	          var props = { title: title, id: id, key: id, team: team, url: url };
-	          if (map && map.markers.length) {
-	            props.meeting = map.markers[0].title;
-	          }
-	          if (time && time.slots.length) {
-	            props.start = time.slots[0][0];
-	          }
-	          return React.createElement(_Walk2.default, props);
-	        });
+	            if (!(filterPast && time && time.slots.length) || time && time.slots[0][0] * 1000 > now) return true;
+	            return false;
+	          }).map(function (wID) {
+	            var _walks$get2 = walks.get(wID);
+
+	            var map = _walks$get2.map;
+	            var id = _walks$get2.id;
+	            var title = _walks$get2.title;
+	            var time = _walks$get2.time;
+	            var team = _walks$get2.team;
+	            var url = _walks$get2.url;
+	            var published = _walks$get2.published;
+
+	            var meeting = void 0;
+	            var start = void 0;
+	            if (map && map.markers.length) {
+	              meeting = map.markers[0].title;
+	            }
+	            if (time && time.slots.length) {
+	              start = time.slots[0][0];
+	            }
+	            return React.createElement(_Walk2.default, { title: title, id: id, key: id, team: team, url: url, published: published, meeting: meeting, start: start });
+	          });
+	        })();
 	      } else if (currentView === 'map') {
 	        WalkList = React.createElement(_WalksMap2.default, { walks: user.walks.map(function (wID) {
 	            return walks.get(wID);
@@ -28936,7 +28955,7 @@
 	          className: filterPast ? 'active' : null,
 	          onClick: this.handleToggleFilterPast
 	        },
-	        filterPast ? (0, _I18nStore.t)('Without Past Walks') : (0, _I18nStore.t)('With Past Walks')
+	        filterPast ? (0, _I18nStore.translateTag)(_templateObject) : (0, _I18nStore.translateTag)(_templateObject2)
 	      );
 
 	      // TODO: (Post-PR) Place buttons in WalksFilterOptions (should be a generic FilterOptions)
@@ -28970,7 +28989,7 @@
 	          React.createElement(
 	            'button',
 	            null,
-	            'Export Spreadsheet'
+	            (0, _I18nStore.translateTag)(_templateObject3)
 	          )
 	        ) : null,
 	        React.createElement(_WalkFilters2.default, {
@@ -29370,7 +29389,13 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Meeting at ', ''], ['Meeting at ', '']);
+
 	var _ItineraryUtils = __webpack_require__(26);
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29409,12 +29434,15 @@
 	    key: 'render',
 	    value: function render() {
 	      var _props = this.props;
-	      var title = _props.title;
+	      var _props$title = _props.title;
+	      var title = _props$title === undefined ? 'Walk Title' : _props$title;
 	      var start = _props.start;
-	      var meeting = _props.meeting;
+	      var _props$meeting = _props.meeting;
+	      var meeting = _props$meeting === undefined ? '{no meeting place}' : _props$meeting;
 	      var id = _props.id;
 	      var team = _props.team;
 	      var url = _props.url;
+	      var published = _props.published;
 
 
 	      return React.createElement(
@@ -29426,6 +29454,7 @@
 	          React.createElement(
 	            'h3',
 	            null,
+	            published ? null : 'DRAFT ',
 	            React.createElement(
 	              'a',
 	              { href: url },
@@ -29447,14 +29476,12 @@
 	              'a',
 	              { href: 'mailto:' + team[0].email },
 	              team[0].email
-	            ),
-	            ' '
+	            )
 	          ) : null,
 	          React.createElement(
 	            'h4',
 	            null,
-	            'Meeting at ',
-	            meeting || '{no meeting place}'
+	            (0, _I18nStore.translateTag)(_templateObject, meeting)
 	          ),
 	          start * 1000 > Date.now() ? React.createElement(
 	            'button',
@@ -29470,11 +29497,11 @@
 	            { className: 'option', href: '/walk/form/?load=' + url.split('.org')[1] },
 	            'Edit'
 	          ),
-	          React.createElement(
+	          published ? React.createElement(
 	            'a',
 	            { onClick: this.handleUnpublish, className: 'option' },
 	            'Unpublish'
-	          )
+	          ) : null
 	        )
 	      );
 	    }
@@ -29485,14 +29512,9 @@
 
 	Walk.propTypes = {
 	  title: React.PropTypes.string,
-	  time: React.PropTypes.number,
+	  start: React.PropTypes.number,
 	  meeting: React.PropTypes.string,
 	  id: React.PropTypes.string.isRequired
-	};
-
-	Walk.defaultProps = {
-	  title: 'Walk Title',
-	  time: Date.now()
 	};
 
 	exports.default = Walk;

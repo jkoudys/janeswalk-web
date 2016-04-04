@@ -2,7 +2,7 @@
 
 import WalkFilters from './WalkFilters.jsx';
 import WalksMap from './WalksMap.jsx';
-import { t } from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 // TODO: (Post-PR) Walk common component found in <Itinerary/> and <WalkPage/>, Refactor to a single component or mixin
 import Walk from './Walk.jsx';
@@ -46,18 +46,27 @@ export default class Walks extends React.Component {
     // How we're presenting the walks (map or list)
     let WalkList;
     if (currentView === 'list') {
+      const now = Date.now();
       // TODO: separate this out into some functions
       const walkIDs = (show === 'city') ? city.walks : user.walks;
-      WalkList = walkIDs.map(wID => {
-        const { map, id, title, time, team, url } = walks.get(wID);
-        const props = { title, id, key: id, team, url };
+      WalkList = walkIDs
+      .filter(wID => {
+        const { time } = walks.get(wID);
+        // Always show unset times, or if we're not filtering
+        if (!(filterPast && time && time.slots.length) || (time && time.slots[0][0] * 1000 > now)) return true;
+        return false;
+      })
+      .map(wID => {
+        const { map, id, title, time, team, url, published } = walks.get(wID);
+        let meeting;
+        let start;
         if (map && map.markers.length) {
-          props.meeting = map.markers[0].title;
+          meeting = map.markers[0].title;
         }
         if (time && time.slots.length) {
-          props.start = time.slots[0][0];
+          start = time.slots[0][0];
         }
-        return <Walk {...props} />;
+        return <Walk {...{ title, id, key: id, team, url, published, meeting, start }} />;
       });
     } else if (currentView === 'map') {
       WalkList = <WalksMap walks={user.walks.map(wID => walks.get(wID))} city={city} />;
@@ -69,7 +78,7 @@ export default class Walks extends React.Component {
           className={filterPast ? 'active' : null}
           onClick={this.handleToggleFilterPast}
         >
-        {filterPast ? t('Without Past Walks') : t('With Past Walks')}
+        {filterPast ? t`Without Past Walks` : t`With Past Walks`}
       </button>
     );
 
@@ -91,7 +100,7 @@ export default class Walks extends React.Component {
         {DateToggle}
         {city ? (
           <a target="_blank" href={`/profile/exportCity/${city.id}`}>
-            <button>Export Spreadsheet</button>
+            <button>{t`Export Spreadsheet`}</button>
           </a>
         ) : null}
         <WalkFilters
