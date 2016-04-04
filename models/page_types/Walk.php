@@ -369,7 +369,8 @@ class Walk extends \Model implements \JsonSerializable
 
         $walkData['checkboxes'] = (object) $checkboxes;
 
-        return $walkData;
+        // Clean out the null values
+        return array_filter($walkData);
     }
 
     /*

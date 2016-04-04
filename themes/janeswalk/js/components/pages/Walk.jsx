@@ -1,10 +1,11 @@
+/* global React */
+
 import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
 import * as Action from 'janeswalk/actions/ItineraryActions';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
 import WalkRoute from './Walk/WalkRoute.jsx';
-import WalkAccessibility from './Walk/WalkAccessibility.jsx';
 import WalkPublicTransit from './Walk/WalkPublicTransit.jsx';
 import WalkParking from './Walk/WalkParking.jsx';
 import WalkStart from './Walk/WalkStart.jsx';
@@ -12,9 +13,16 @@ import WalkTeam from './Walk/WalkTeam.jsx';
 import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
 
-const getWalk = ({walk, page, city}) => {
-  let [firstList] = ItineraryStore.getLists();
-  return {walk, page, city, list: firstList, isFavourite: ItineraryStore.hasInList(walk), schedule: ItineraryStore.getSchedule()}
+const getWalk = ({ walk, page, city }) => {
+  const [firstList] = ItineraryStore.getLists();
+  return {
+    walk,
+    page,
+    city,
+    list: firstList,
+    isFavourite: ItineraryStore.hasInList(walk),
+    schedule: ItineraryStore.getSchedule(),
+  };
 };
 
 export default class WalkPage extends React.Component {
@@ -38,17 +46,14 @@ export default class WalkPage extends React.Component {
   }
 
   render() {
-    const {walk, page, city, list, isFavourite, schedule} = this.state;
-    let hasMarkers = false, hasRoute = false;
-    if (walk && walk['map']) {
-      hasMarkers = (walk['map']['markers'].length > 0);
-      hasRoute = (walk['map']['route'].length > 0);
-    }
+    const { walk, walk: { map = { markers: [], route: [] } }, city, list, isFavourite, schedule } = this.state;
+    const hasMarkers = map.markers.length > 0;
+    const hasRoute = map.route.length > 0;
 
     return (
       <section className="walkPage">
         <WalkHeader
-          {...{walk, city, isFavourite, schedule}}
+          {...{ walk, city, isFavourite, schedule }}
           onSchedule={t => Action.schedule(walk, t)}
           onUnschedule={t => Action.unschedule(walk, t)}
           onAdd={() => Action.add(list, walk)}
@@ -56,18 +61,20 @@ export default class WalkPage extends React.Component {
         />
         <WalkMenu {...this.state} />
         <WalkDescription {...this.state.walk} />
-        {hasMarkers || hasRoute ? <WalkMap map={this.state.walk['map']} /> : null}
-        {hasMarkers ? <WalkRoute {...this.state.walk} /> : null}
-        {hasMarkers ? <WalkStart {...this.state.walk} /> : null}
+        {hasMarkers || hasRoute ? <WalkMap map={map} /> : null}
+        {hasMarkers ? [
+          <WalkRoute {...this.state.walk} />,
+          <WalkStart {...this.state.walk} />,
+        ] : null}
         <WalkPublicTransit {...this.state.walk} />
         <WalkParking {...this.state.walk} />
         <WalkTeam {...this.state.walk} />
       </section>
     );
   }
-};
+}
 
 WalkPage.propsType = {
- page: React.PropTypes.object.isRequired,
- walk: React.PropTypes.object.isRequired,
+  page: React.PropTypes.object.isRequired,
+  walk: React.PropTypes.object.isRequired,
 };

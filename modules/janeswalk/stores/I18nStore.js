@@ -17,6 +17,7 @@ const _i18n = new I18nTranslator();
 
 const I18nStore = Object.assign({}, Store, {
   getTranslate: () => _i18n.translate.bind(_i18n),
+  getTranslateTag: () => _i18n.translateTag.bind(_i18n),
   getTranslatePlural: () => _i18n.translatePlural.bind(_i18n),
 
   // Register our dispatch token as a static method
@@ -28,6 +29,7 @@ const I18nStore = Object.assign({}, Store, {
 export default I18nStore;
 export const t = I18nStore.getTranslate();
 export const t2 = I18nStore.getTranslatePlural();
+export const translateTag = I18nStore.getTranslateTag();
 
 // FIXME make this real
 export const tc = (c, s) => s;

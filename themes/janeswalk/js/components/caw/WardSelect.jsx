@@ -1,7 +1,9 @@
-var mixins = require('../../helpers/mixins.jsx');
+/* global React */
+
+import mixins from '../../helpers/mixins.jsx';
 
 // Flux
-import {t, t2} from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 export default class WardSelect extends React.Component {
   render() {
@@ -9,9 +11,9 @@ export default class WardSelect extends React.Component {
     if (wards && this.props.valueLink) {
       return (
         <fieldset id="wards">
-          <legend>{ t('Sub-locality') }</legend>
+          <legend>{ t`Sub-locality` }</legend>
           <div className="item">
-            <div className="alert alert-info">{ t('Choose a specific neighbourhood or area where your walk will take place.') }</div>
+            <div className="alert alert-info">{ t`Choose a specific neighbourhood or area where your walk will take place.` }</div>
             <select id="ward" name="ward" valueLink={this.props.valueLink}>
               <option value="">Choose a region</option>
               {wards.map((e, i) => <option key={i} value={e.value}>{e.value}</option>)}
@@ -19,9 +21,8 @@ export default class WardSelect extends React.Component {
           </div>
         </fieldset>
       );
-    } else {
-      return <fieldset id="wards" />;
     }
+    return <fieldset id="wards" />;
   }
 }
 Object.assign(WardSelect.prototype, mixins.linkedParentState);

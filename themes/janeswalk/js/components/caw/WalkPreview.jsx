@@ -1,5 +1,5 @@
 /* global React $ */
-import { t } from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 export default class WalkPreview extends React.Component {
   componentDidMount() {
@@ -17,7 +17,7 @@ export default class WalkPreview extends React.Component {
           <article>
             <header>
               <button type="button" className="close" aria-hidden="true" data-dismiss="modal">&times;</button>
-              <h3>{ t('Preview of your Walk') }</h3>
+              <h3>{ t`Preview of your Walk` }</h3>
             </header>
             <div className="modal-body">
               <iframe src={this.props.url} frameBorder="0" />

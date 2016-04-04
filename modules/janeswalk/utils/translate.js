@@ -5,11 +5,8 @@
  */
 
 // sprintf tokenizer
-function sprintf(str) {
-  var args = Array.prototype.slice.call(arguments);
-  return args.shift().replace(/%(s|d)/g, function(){
-    return args.shift();
-  });
+function sprintf(str, ...args) {
+  return str.replace(/%(s|d)/g, () => args.shift());
 }
 
 function I18nTranslator(translations) {
@@ -19,24 +16,24 @@ function I18nTranslator(translations) {
 }
 
 // Prototype methods
-Object.defineProperties(I18nTranslator.prototype, {
+Object.assign(I18nTranslator.prototype, {
   // The big translations map
-  translations: {
-    value: {},
-    writable: true,
-    enumerable: true
-  },
+  translations: {},
 
   /**
    * Basic translation.
    * sprintf syntax used to replace %d and %s tokens with arguments
    */
-  translate: {
-    value: function(str) {
-      var translated = Array.prototype.slice.call(arguments);
-      translated[0] = (this.translations[str] || [str])[0];
-      return sprintf.apply(this, translated);
-    }
+  translate(str, ...args) {
+    return sprintf((this.translations[str] || str), ...args);
+  },
+
+  /*
+   * Tagged template literal
+   * Turn a tagged template into a sprintf format
+   */
+  translateTag(strings, ...values) {
+    return this.translate(strings.join('%s'), ...values);
   },
 
   /**
@@ -51,16 +48,12 @@ Object.defineProperties(I18nTranslator.prototype, {
    * @return string
    * @example t2('%d ox', '%d oxen', numberOfOxen)
    */
-  translatePlural: {
-    value: function(singular, plural, count) {
-      // TODO Use the plural rules for the language, not just English
-      var isPlural = (count !== 1) ? 1 : 0;
+  translatePlural(singular, plural, count) {
+    // TODO Use the plural rules for the language, not just English
+    const isPlural = (count !== 1) ? 1 : 0;
 
-      var translateTo = (this.translations[singular + '_' + plural] ||
-                       [singular, plural])[isPlural];
-
-      return sprintf(translateTo, count);
-    }
+    const translateTo = (this.translations[`${singular}_${plural}`] || [singular, plural])[isPlural];
+    return sprintf(translateTo, count);
   },
 
   /**
@@ -73,15 +66,10 @@ Object.defineProperties(I18nTranslator.prototype, {
   * @return string
   * @example tc('make or manufacture', 'produce'); tc('food', 'produce');
   */
-  translateContext: {
-    value: function(context, str) {
-      // Grab the values to apply to the string
-      var args = Array.prototype.slice.call(arguments, 2);
-      // i18n lib makes context keys simply an underscore between them
-      var key = context + '_' + str;
-      sprintf.apply(this, [context, args]);
-    }
-  }
+  translateContext(context, str, ...args) {
+    // i18n lib makes context keys simply an underscore between them
+    sprintf(`${context}_${str}`, ...args);
+  },
 });
 
 module.exports = I18nTranslator;

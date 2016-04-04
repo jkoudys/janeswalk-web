@@ -19,7 +19,7 @@ import TabNav from './caw/TabNav.jsx';
 import { buildWalkObject } from 'janeswalk/utils/api/Walk';
 
 // Flux
-import I18nStore, { t } from 'janeswalk/stores/I18nStore';
+import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
 import NotifyStore from 'janeswalk/stores/NotifyStore';
 
 export default class CreateWalk extends React.Component {
@@ -134,9 +134,9 @@ export default class CreateWalk extends React.Component {
           <nav id="progress-panel">
             <TabNav />
             <section id="button-group">
-              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t('Preview Walk') }</button>
-              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={() => this.setState({ publish: true })} ref="publish">{ t('Publish Walk') }</button>
-              <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.saveWalk}>{ t('Save') }</button>
+              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t`Preview Walk` }</button>
+              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={() => this.setState({ publish: true })} ref="publish">{ t`Publish Walk` }</button>
+              <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.saveWalk}>{ t`Save` }</button>
             </section>
           </nav>
           <div id="main-panel" role="main">
@@ -147,18 +147,18 @@ export default class CreateWalk extends React.Component {
                     <img id="convo-marker" src={`${CCM_THEME_PATH}/img/jw-intro-graphic.svg`} alt="Jane's Walks are walking conversations." />
                   </div>
                   <div className="col-md-8">
-                    <h1>{ t('Hey there, %s!', user.firstName) }</h1>
-                    <p>{ t('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.') }</p>
+                    <h1>{ `Hey there, ${user.firstName}!` }</h1>
+                    <p>{ t`Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once.` }</p>
                   </div>
                 </div>
                 <div className="page-header" data-section="description">
-                  <h1>{ t('Describe Your Walk') }</h1>
+                  <h1>{ t`Describe Your Walk` }</h1>
                 </div>
                 <form>
                   <fieldset>
                     <div className="item required">
-                      <label htmlFor="title">{ t('Walk Title') }</label>
-                      <div className="alert alert-info">{ t('Something short and memorable.') }</div>
+                      <label htmlFor="title">{ t`Walk Title` }</label>
+                      <div className="alert alert-info">{ t`Something short and memorable.` }</div>
                       <input type="text" valueLink={this.linkState('title')} />
                     </div>
                   </fieldset>
@@ -168,15 +168,15 @@ export default class CreateWalk extends React.Component {
                   <hr />
                   <fieldset>
                     <div className="item required">
-                      <label htmlFor="shortdescription">{ t('Your Walk in a Nutshell') }</label>
-                      <div className="alert alert-info">{ t('Build intrigue! This is what people see when browsing our walk listings.') }</div>
+                      <label htmlFor="shortdescription">{ t`Your Walk in a Nutshell` }</label>
+                      <div className="alert alert-info">{ t`Build intrigue! This is what people see when browsing our walk listings.` }</div>
                       <TextAreaLimit id="shortdescription" name="shortdescription" rows="6" maxLength="140" valueLink={this.linkState('shortDescription')} required />
                     </div>
                     <hr />
                     <div className="item required">
-                      <label htmlFor="longdescription" id="longwalkdescription">{ t('Walk Description') }</label>
+                      <label htmlFor="longdescription" id="longwalkdescription">{ t`Walk Description` }</label>
                       <div className="alert alert-info">
-                        {t('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')}
+                        {t`Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.`}
                       </div>
                       <textarea id="longdescription" name="longdescription" rows="14" valueLink={this.linkState('longDescription')} />
                     </div>
@@ -190,7 +190,7 @@ export default class CreateWalk extends React.Component {
               <DateSelect valueLink={this.linkState('time')} />
               <div className="tab-pane" id="accessibility">
                 <div className="page-header" data-section="accessibility">
-                  <h1>{ t('Make it Accessible') }</h1>
+                  <h1>{ t`Make it Accessible` }</h1>
                 </div>
                 <div className="item">
                   <AccessibleSelect valueLink={this.linkState('checkboxes')} />
@@ -198,16 +198,16 @@ export default class CreateWalk extends React.Component {
 
                 <div className="item">
                   <fieldset>
-                    <legend>{ t('What else do people need to know about the accessibility of this walk?') } ({ t('Optional') })</legend>
+                    <legend>{ t`What else do people need to know about the accessibility of this walk?` } ({ t`Optional` })</legend>
                     <TextAreaLimit name="accessible-info" rows="3" maxLength="500" valueLink={this.linkState('accessibleInfo')} />
                   </fieldset>
                 </div>
 
                 <div className="item">
                   <fieldset>
-                    <legend id="transit">{ t('How can someone get to the meeting spot by public transit?') } ({ t('Optional') })</legend>
+                    <legend id="transit">{ t`How can someone get to the meeting spot by public transit?` } ({ t`Optional` })</legend>
                     <div className="alert alert-info">
-                      { t('Nearest subway stop, closest bus or streetcar lines, etc.')}
+                      { t`Nearest subway stop, closest bus or streetcar lines, etc.`}
                     </div>
                     <textarea rows="3" name="accessible-transit" valueLink={this.linkState('accessibleTransit')} />
                   </fieldset>
@@ -215,16 +215,16 @@ export default class CreateWalk extends React.Component {
 
                 <div className="item">
                   <fieldset>
-                    <legend>{ t('Where are the nearest places to park?') } ({ t('Optional') })</legend>
+                    <legend>{ t`Where are the nearest places to park?` } ({ t`Optional` })</legend>
                     <textarea rows="3" name="accessible-parking" valueLink={this.linkState('accessibleParking')} />
                   </fieldset>
                 </div>
 
                 <div className="item">
                   <fieldset>
-                    <legend className="required-legend" >{ t('How will people find you?') }</legend>
+                    <legend className="required-legend" >{ t`How will people find you?` }</legend>
                     <div className="alert alert-info">
-                      { t('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')}
+                      { t`Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.`}
                     </div>
                     <textarea rows="3" name="accessible-find" valueLink={this.linkState('accessibleFind')} />
                   </fieldset>
@@ -237,12 +237,12 @@ export default class CreateWalk extends React.Component {
             <button type="button" onClick={this.handleNext} className="btn">Next</button>
           </div>
           <aside id="tips-panel" role="complementary">
-            <div className="popover right" id="city-organizer" style={{display: 'block'}}>
-              <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t('Contact City Organizer for help') }</h3>
+            <div className="popover right" id="city-organizer" style={{ display: 'block' }}>
+              <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t`Contact City Organizer for help` }</h3>
               <div className="popover-content collapse in" id="popover-content">
                 {city.cityOrganizer.photo ? <div className="u-avatar" style={{ backgroundImage: `url(${city.cityOrganizer.photo})` }} /> : null}
                 <p>
-                  { t('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', city.cityOrganizer.firstName, city.name) } <strong><a href={`mailto:${city.cityOrganizer.email}`}>{ t('email me') }!</a></strong></p>
+                  { t`Hi! I\'m ${city.cityOrganizer.firstName}, the City Organizer for Jane's Walk ${city.name}. I'm here to help, so if you have any questions, please'` } <strong><a href={`mailto:${city.cityOrganizer.email}`}>{ t`email me` }!</a></strong></p>
               </div>
             </div>
           </aside>

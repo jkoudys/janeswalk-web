@@ -8,7 +8,7 @@ import TwitterConnect from './map/TwitterConnect.jsx';
 import ConnectFilters from './map/ConnectFilters.jsx';
 
 // Flux
-import { t } from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 // Map parameters
 const stopMarker = {
@@ -343,7 +343,7 @@ export default class MapBuilder extends React.Component {
 
     if (this.state.markers && this.state.markers.length) {
       walkStops = [
-        <h3 key={'stops'}>{t('Walk Stops')}</h3>,
+        <h3 key={'stops'}>{t`Walk Stops`}</h3>,
         <WalkStopTable
           ref="walkStopTable"
           key={1}
@@ -358,10 +358,10 @@ export default class MapBuilder extends React.Component {
     return (
       <div className="tab-pane" id="route" ref="route">
         <div className="page-header" data-section="route">
-          <h1>{ t('Share Your Route') }</h1>
+          <h1>{ t`Share Your Route` }</h1>
         </div>
         <div className="alert alert-info">
-          {t('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.')}
+          {t`Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.`}
         </div>
         <div id="map-control-bar">
           <button
@@ -369,17 +369,17 @@ export default class MapBuilder extends React.Component {
             className={(this.state.mode.addPoint) ? 'active' : ''}
             onClick={this.toggleAddPoint}
           >
-            <i className="fa fa-map-marker" />{ t('Add Stop') }
+            <i className="fa fa-map-marker" />{ t`Add Stop` }
           </button>
           <button
             ref="addRoute"
             className={(this.state.mode.addRoute) ? 'active' : ''}
             onClick={this.toggleAddRoute}
           >
-            <i className="fa fa-arrows" />{ t('Add Route') }
+            <i className="fa fa-arrows" />{ t`Add Route` }
           </button>
           <button ref="clearroute" onClick={this.clearRoute}>
-            <i className="fa fa-eraser" />{ t('Clear Route') }
+            <i className="fa fa-eraser" />{ t`Clear Route` }
           </button>
           <TwitterConnect {...filterProps} />
           <InstagramConnect {...filterProps} />

@@ -725,7 +725,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.tc = exports.t2 = exports.t = undefined;
+	exports.tc = exports.translateTag = exports.t2 = exports.t = undefined;
 
 	var _Store = __webpack_require__(7);
 
@@ -760,6 +760,9 @@
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
+	  getTranslateTag: function getTranslateTag() {
+	    return _i18n.translateTag.bind(_i18n);
+	  },
 	  getTranslatePlural: function getTranslatePlural() {
 	    return _i18n.translatePlural.bind(_i18n);
 	  },
@@ -776,6 +779,7 @@
 	exports.default = I18nStore;
 	var t = exports.t = I18nStore.getTranslate();
 	var t2 = exports.t2 = I18nStore.getTranslatePlural();
+	var translateTag = exports.translateTag = I18nStore.getTranslateTag();
 
 	// FIXME make this real
 	var tc = exports.tc = function tc(c, s) {
@@ -1597,8 +1601,11 @@
 
 	// sprintf tokenizer
 	function sprintf(str) {
-	  var args = Array.prototype.slice.call(arguments);
-	  return args.shift().replace(/%(s|d)/g, function () {
+	  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    args[_key - 1] = arguments[_key];
+	  }
+
+	  return str.replace(/%(s|d)/g, function () {
 	    return args.shift();
 	  });
 	}
@@ -1610,25 +1617,35 @@
 	}
 
 	// Prototype methods
-	Object.defineProperties(I18nTranslator.prototype, {
+	Object.assign(I18nTranslator.prototype, {
 	  // The big translations map
-	  translations: {
-	    value: {},
-	    writable: true,
-	    enumerable: true
-	  },
+	  translations: {},
 
 	  /**
 	   * Basic translation.
 	   * sprintf syntax used to replace %d and %s tokens with arguments
 	   */
-	  translate: {
-	    value: function value(str) {
-	      var translated = Array.prototype.slice.call(arguments);
-	      translated[0] = (this.translations[str] || [str])[0];
-	      return sprintf.apply(this, translated);
+	  translate: function translate(str) {
+	    for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	      args[_key2 - 1] = arguments[_key2];
 	    }
+
+	    return sprintf.apply(undefined, [this.translations[str] || str].concat(args));
 	  },
+
+
+	  /*
+	   * Tagged template literal
+	   * Turn a tagged template into a sprintf format
+	   */
+	  translateTag: function translateTag(strings) {
+	    for (var _len3 = arguments.length, values = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+	      values[_key3 - 1] = arguments[_key3];
+	    }
+
+	    return this.translate.apply(this, [strings.join('%s')].concat(values));
+	  },
+
 
 	  /**
 	   * Plural translations
@@ -1642,16 +1659,14 @@
 	   * @return string
 	   * @example t2('%d ox', '%d oxen', numberOfOxen)
 	   */
-	  translatePlural: {
-	    value: function value(singular, plural, count) {
-	      // TODO Use the plural rules for the language, not just English
-	      var isPlural = count !== 1 ? 1 : 0;
+	  translatePlural: function translatePlural(singular, plural, count) {
+	    // TODO Use the plural rules for the language, not just English
+	    var isPlural = count !== 1 ? 1 : 0;
 
-	      var translateTo = (this.translations[singular + '_' + plural] || [singular, plural])[isPlural];
-
-	      return sprintf(translateTo, count);
-	    }
+	    var translateTo = (this.translations[singular + '_' + plural] || [singular, plural])[isPlural];
+	    return sprintf(translateTo, count);
 	  },
+
 
 	  /**
 	  * Translate with context
@@ -1663,14 +1678,13 @@
 	  * @return string
 	  * @example tc('make or manufacture', 'produce'); tc('food', 'produce');
 	  */
-	  translateContext: {
-	    value: function value(context, str) {
-	      // Grab the values to apply to the string
-	      var args = Array.prototype.slice.call(arguments, 2);
-	      // i18n lib makes context keys simply an underscore between them
-	      var key = context + '_' + str;
-	      sprintf.apply(this, [context, args]);
+	  translateContext: function translateContext(context, str) {
+	    for (var _len4 = arguments.length, args = Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
+	      args[_key4 - 2] = arguments[_key4];
 	    }
+
+	    // i18n lib makes context keys simply an underscore between them
+	    sprintf.apply(undefined, [context + '_' + str].concat(args));
 	  }
 	});
 

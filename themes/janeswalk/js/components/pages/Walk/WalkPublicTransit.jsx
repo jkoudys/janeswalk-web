@@ -1,15 +1,16 @@
-const WalkPublicTransit = ({accessibleTransit}) => {
-  if (accessibleTransit && accessibleTransit.length > 0) {
+/* global React */
+
+const WalkPublicTransit = ({ accessibleTransit = [] }) => {
+  if (accessibleTransit.length) {
     return (
       <section className="walkPublicTransit">
-        <a name="Taking Public Transit"></a>
+        <a name="Taking Public Transit" />
         <h2>Taking Public Transit</h2>
         {accessibleTransit}
       </section>
     );
-  } else {
-    return <section />;
   }
+  return <section />;
 };
 
 WalkPublicTransit.propTypes = {

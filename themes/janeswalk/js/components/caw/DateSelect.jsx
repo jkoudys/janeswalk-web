@@ -7,7 +7,7 @@ import TimeSetTable from './date/TimeSetTable.jsx';
 import TimeOpenTable from './date/TimeOpenTable.jsx';
 
 // Flux
-import { t } from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 // Default to a 1-hour walk time
 const ONE_HOUR = 60 * 60 * 1000;
@@ -89,9 +89,9 @@ export default class DateSelect extends React.Component {
         <div className="tab-content" id="walkduration">
           <div className="tab-pane hide" id="time-and-date-select">
             <div className="page-header" data-section="time-and-date">
-              <h1>{ t('Set the Time and Date') }</h1>
+              <h1>{ t`Set the Time and Date` }</h1>
             </div>
-            <legend >{ t('Pick one of the following:') }</legend>
+            <legend >{ t`Pick one of the following:` }</legend>
             <div className="row">
               <ul className="thumbnails" id="block-select">
                 <li>
@@ -100,9 +100,9 @@ export default class DateSelect extends React.Component {
                       <img src={`${CCM_THEME_PATH}/img/time-and-date-full.png`} />
                       <div className="caption">
                         <div className="text-center">
-                          <h4>{ t('By Request') }</h4>
+                          <h4>{ t`By Request` }</h4>
                         </div>
-                        <p>{ t('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.') }</p>
+                        <p>{ t`Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.` }</p>
                       </div>
                     </div>
                   </a>
@@ -113,9 +113,9 @@ export default class DateSelect extends React.Component {
                       <img src={`${CCM_THEME_PATH}/img/time-and-date-some.png`} />
                       <div className="caption">
                         <div className="text-center">
-                          <h4>{ t('Pick Your Date') }</h4>
+                          <h4>{ t`Pick Your Date` }</h4>
                         </div>
-                        <p>{ t('Set specific dates and times that this walk is happening.') }</p>
+                        <p>{ t`Set specific dates and times that this walk is happening.` }</p>
                       </div>
                     </div>
                   </a>
@@ -125,8 +125,8 @@ export default class DateSelect extends React.Component {
           </div>
           <div className="tab-pane active" id="time-and-date-set">
             <div className="page-header" data-section="time-and-date">
-              <h1>{ t('Time and Date') }</h1>
-              <p className="lead">{ t('Select the date and time your walk is happening.') }</p>
+              <h1>{ t`Time and Date` }</h1>
+              <p className="lead">{ t`Select the date and time your walk is happening.` }</p>
             </div>
 
             <div className="row">
@@ -137,7 +137,7 @@ export default class DateSelect extends React.Component {
                 <div className="thumbnail">
                   <div className="caption">
                     <h4 className="date-indicate-set">
-                      <small>{ t('Date selected') }:</small>
+                      <small>{ t`Date selected` }:</small>
                       {this.state.start.toLocaleDateString(undefined, {
                         weekday: 'long',
                         month: 'long',
@@ -148,7 +148,7 @@ export default class DateSelect extends React.Component {
                     <hr />
                     <TimePicker ref="timePicker" valueLinkDuration={this.linkState('duration')} valueLinkStart={this.linkTime()} />
                     <hr />
-                    <button className="btn btn-primary" id="save-date-set" onClick={this.addDate}>{ t('Add Date') }</button>
+                    <button className="btn btn-primary" id="save-date-set" onClick={this.addDate}>{ t`Add Date` }</button>
                   </div>
                 </div>
               </div>
@@ -159,11 +159,11 @@ export default class DateSelect extends React.Component {
           </div>
           <div className="tab-pane hide" id="time-and-date-all">
             <div className="page-header" data-section="time-and-date">
-              <h1>{ t('Time and Date') }</h1>
-              <p className="lead">{ t('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.') }</p>
+              <h1>{ t`Time and Date` }</h1>
+              <p className="lead">{ t`Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.` }</p>
             </div>
             <label className="checkbox">
-              <input type="checkbox" name="open" />{ t('Leave my availability open. Allow people to contact you to set up a walk.')}
+              <input type="checkbox" name="open" />{ t`Leave my availability open. Allow people to contact you to set up a walk.`}
             </label>
             <br />
             <div className="row">
@@ -174,11 +174,11 @@ export default class DateSelect extends React.Component {
                 <div className="thumbnail">
                   <div className="caption">
                     <div className="date-select-group">
-                      <small>{ t('Date selected') }:</small>
+                      <small>{ t`Date selected` }:</small>
                       <h4 className="date-indicate-all" />
                       <hr />
                     </div>
-                    <label htmlFor="walk-duration">{ t('Approximate Duration of Walk') }:</label>
+                    <label htmlFor="walk-duration">{ t`Approximate Duration of Walk` }:</label>
                     <select name="duration" id="walk-duration" defaultValue="1 Hour, 30 Minutes">
                       <option value="30 Minutes">30 Minutes</option>
                       <option value="1 Hour">1 Hour</option>
@@ -190,7 +190,7 @@ export default class DateSelect extends React.Component {
                     </select>
                     <div className="date-select-group">
                       <hr />
-                      <button className="btn btn-primary" id="save-date-all" onClick={this.addDate}>{ t('Add Date') }</button>
+                      <button className="btn btn-primary" id="save-date-all" onClick={this.addDate}>{ t`Add Date` }</button>
                     </div>
                   </div>
                 </div>

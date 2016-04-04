@@ -1,5 +1,6 @@
-const WalkParking = ({accessibleParking, style}) => {
-  if (accessibleParking && accessibleParking.length > 0) {
+/* global React */
+const WalkParking = ({ accessibleParking = [], style }) => {
+  if (accessibleParking.length) {
     return (
       <section className={`walkParking ${style}`}>
         {style === 'walk-page' ? <a name="Parking Availability"></a> : null}
@@ -8,13 +9,12 @@ const WalkParking = ({accessibleParking, style}) => {
         {accessibleParking}
       </section>
     );
-  } else {
-    return <section/>;
   }
+  return <section />;
 };
 
 WalkParking.propTypes = {
- accessibleParking: React.PropTypes.string.isRequired,
+  accessibleParking: React.PropTypes.string.isRequired,
 };
 
 export default WalkParking;

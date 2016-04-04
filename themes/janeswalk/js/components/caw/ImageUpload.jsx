@@ -1,7 +1,7 @@
 /* global React CCM_TOOLS_PATH */
 
 // Flux
-import { t } from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 export default class ImageUpload extends React.Component {
   constructor(props) {
@@ -53,7 +53,7 @@ export default class ImageUpload extends React.Component {
     // remove limit here
     return (
       <form className="upload-image">
-        <label htmlFor="walkphotos" id="photo-tip">{ t('Upload a photo that best represents your walk.') }</label>
+        <label htmlFor="walkphotos" id="photo-tip">{ t`Upload a photo that best represents your walk.` }</label>
         {thumbnails.map((thumb, i) => {
           // Grab just the name, so local files being uploaded have the same key as the hosted URL
           const filename = `${thumb.url || ''}i`.replace(/^.*[\\\/]/, '');
@@ -75,7 +75,7 @@ export default class ImageUpload extends React.Component {
         <div className="thumbnail fileupload">
           <input className="ccm-al-upload-single-file" type="file" onChange={this.handleUpload} />
           <i className="fa fa-camera-retro fa-5x" />
-          <span className="fileupload-new">{ t('Click to upload an image') }</span>
+          <span className="fileupload-new">{ t`Click to upload an image` }</span>
         </div> : undefined}
       </form>
     );

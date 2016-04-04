@@ -1,12 +1,12 @@
-import {t} from 'janeswalk/stores/I18nStore';
+/* global React */
 
-const AddWalkToList = ({lists, walk, list, onAdd, onRemove}) => {
-  //selectedWalk comes from where
+const AddWalkToList = ({ lists, walk, list, onAdd, onRemove }) => {
+  // selectedWalk comes from where
   const allLists = [];
 
-  for (let otherList of lists) {
+  for (const otherList of lists) {
     if (list !== otherList) {
-      const {id, title, walks} = otherList;
+      const { id, title, walks } = otherList;
       const walkFound = walks.has(walk);
       let action;
 
@@ -30,11 +30,11 @@ const AddWalkToList = ({lists, walk, list, onAdd, onRemove}) => {
         {allLists}
       </ul>
     </div>
-  )
+  );
 };
 
 AddWalkToList.propTypes = {
-    lists: React.PropTypes.instanceOf(Set)
+  lists: React.PropTypes.instanceOf(Set),
 };
 
 export default AddWalkToList;

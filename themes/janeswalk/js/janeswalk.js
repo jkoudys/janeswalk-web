@@ -99,7 +99,7 @@
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(241);
+	var _Login = __webpack_require__(243);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -1249,6 +1249,9 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['New Itinerary'], ['New Itinerary']),
+	    _templateObject2 = _taggedTemplateLiteral(['Powered by the Knight Foundation'], ['Powered by the Knight Foundation']);
+
 	var _ItineraryStore = __webpack_require__(17);
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
@@ -1278,6 +1281,8 @@
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1361,7 +1366,7 @@
 	  }, {
 	    key: 'handleCreateItinerary',
 	    value: function handleCreateItinerary() {
-	      Actions.createList((0, _I18nStore.t)('New Itinerary'));
+	      Actions.createList((0, _I18nStore.translateTag)(_templateObject));
 	    }
 	  }, {
 	    key: 'render',
@@ -1426,7 +1431,7 @@
 	          React.createElement(
 	            'p',
 	            { className: 'knightFdn-itinerary' },
-	            'Powered by the Knight Foundation'
+	            (0, _I18nStore.translateTag)(_templateObject2)
 	          )
 	        )
 	      );
@@ -2057,7 +2062,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.tc = exports.t2 = exports.t = undefined;
+	exports.tc = exports.translateTag = exports.t2 = exports.t = undefined;
 
 	var _Store = __webpack_require__(18);
 
@@ -2092,6 +2097,9 @@
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
+	  getTranslateTag: function getTranslateTag() {
+	    return _i18n.translateTag.bind(_i18n);
+	  },
 	  getTranslatePlural: function getTranslatePlural() {
 	    return _i18n.translatePlural.bind(_i18n);
 	  },
@@ -2108,6 +2116,7 @@
 	exports.default = I18nStore;
 	var t = exports.t = I18nStore.getTranslate();
 	var t2 = exports.t2 = I18nStore.getTranslatePlural();
+	var translateTag = exports.translateTag = I18nStore.getTranslateTag();
 
 	// FIXME make this real
 	var tc = exports.tc = function tc(c, s) {
@@ -2128,8 +2137,11 @@
 
 	// sprintf tokenizer
 	function sprintf(str) {
-	  var args = Array.prototype.slice.call(arguments);
-	  return args.shift().replace(/%(s|d)/g, function () {
+	  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    args[_key - 1] = arguments[_key];
+	  }
+
+	  return str.replace(/%(s|d)/g, function () {
 	    return args.shift();
 	  });
 	}
@@ -2141,25 +2153,35 @@
 	}
 
 	// Prototype methods
-	Object.defineProperties(I18nTranslator.prototype, {
+	Object.assign(I18nTranslator.prototype, {
 	  // The big translations map
-	  translations: {
-	    value: {},
-	    writable: true,
-	    enumerable: true
-	  },
+	  translations: {},
 
 	  /**
 	   * Basic translation.
 	   * sprintf syntax used to replace %d and %s tokens with arguments
 	   */
-	  translate: {
-	    value: function value(str) {
-	      var translated = Array.prototype.slice.call(arguments);
-	      translated[0] = (this.translations[str] || [str])[0];
-	      return sprintf.apply(this, translated);
+	  translate: function translate(str) {
+	    for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+	      args[_key2 - 1] = arguments[_key2];
 	    }
+
+	    return sprintf.apply(undefined, [this.translations[str] || str].concat(args));
 	  },
+
+
+	  /*
+	   * Tagged template literal
+	   * Turn a tagged template into a sprintf format
+	   */
+	  translateTag: function translateTag(strings) {
+	    for (var _len3 = arguments.length, values = Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+	      values[_key3 - 1] = arguments[_key3];
+	    }
+
+	    return this.translate.apply(this, [strings.join('%s')].concat(values));
+	  },
+
 
 	  /**
 	   * Plural translations
@@ -2173,16 +2195,14 @@
 	   * @return string
 	   * @example t2('%d ox', '%d oxen', numberOfOxen)
 	   */
-	  translatePlural: {
-	    value: function value(singular, plural, count) {
-	      // TODO Use the plural rules for the language, not just English
-	      var isPlural = count !== 1 ? 1 : 0;
+	  translatePlural: function translatePlural(singular, plural, count) {
+	    // TODO Use the plural rules for the language, not just English
+	    var isPlural = count !== 1 ? 1 : 0;
 
-	      var translateTo = (this.translations[singular + '_' + plural] || [singular, plural])[isPlural];
-
-	      return sprintf(translateTo, count);
-	    }
+	    var translateTo = (this.translations[singular + '_' + plural] || [singular, plural])[isPlural];
+	    return sprintf(translateTo, count);
 	  },
+
 
 	  /**
 	  * Translate with context
@@ -2194,14 +2214,13 @@
 	  * @return string
 	  * @example tc('make or manufacture', 'produce'); tc('food', 'produce');
 	  */
-	  translateContext: {
-	    value: function value(context, str) {
-	      // Grab the values to apply to the string
-	      var args = Array.prototype.slice.call(arguments, 2);
-	      // i18n lib makes context keys simply an underscore between them
-	      var key = context + '_' + str;
-	      sprintf.apply(this, [context, args]);
+	  translateContext: function translateContext(context, str) {
+	    for (var _len4 = arguments.length, args = Array(_len4 > 2 ? _len4 - 2 : 0), _key4 = 2; _key4 < _len4; _key4++) {
+	      args[_key4 - 2] = arguments[_key4];
 	    }
+
+	    // i18n lib makes context keys simply an underscore between them
+	    sprintf.apply(undefined, [context + '_' + str].concat(args));
 	  }
 	});
 
@@ -2353,15 +2372,14 @@
 
 /***/ },
 /* 24 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _I18nStore = __webpack_require__(21);
+	/* global React */
 
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
@@ -2370,7 +2388,7 @@
 	  var onAdd = _ref.onAdd;
 	  var onRemove = _ref.onRemove;
 
-	  //selectedWalk comes from where
+	  // selectedWalk comes from where
 	  var allLists = [];
 
 	  var _iteratorNormalCompletion = true;
@@ -3109,6 +3127,29 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Preview Walk'], ['Preview Walk']),
+	    _templateObject2 = _taggedTemplateLiteral(['Publish Walk'], ['Publish Walk']),
+	    _templateObject3 = _taggedTemplateLiteral(['Save'], ['Save']),
+	    _templateObject4 = _taggedTemplateLiteral(['Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.'], ['Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.']),
+	    _templateObject5 = _taggedTemplateLiteral(['Describe Your Walk'], ['Describe Your Walk']),
+	    _templateObject6 = _taggedTemplateLiteral(['Walk Title'], ['Walk Title']),
+	    _templateObject7 = _taggedTemplateLiteral(['Something short and memorable.'], ['Something short and memorable.']),
+	    _templateObject8 = _taggedTemplateLiteral(['Your Walk in a Nutshell'], ['Your Walk in a Nutshell']),
+	    _templateObject9 = _taggedTemplateLiteral(['Build intrigue! This is what people see when browsing our walk listings.'], ['Build intrigue! This is what people see when browsing our walk listings.']),
+	    _templateObject10 = _taggedTemplateLiteral(['Walk Description'], ['Walk Description']),
+	    _templateObject11 = _taggedTemplateLiteral(['Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.'], ['Help jump start the conversation on your walk by giving readers an idea of the discussions you\\\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.']),
+	    _templateObject12 = _taggedTemplateLiteral(['Make it Accessible'], ['Make it Accessible']),
+	    _templateObject13 = _taggedTemplateLiteral(['What else do people need to know about the accessibility of this walk?'], ['What else do people need to know about the accessibility of this walk?']),
+	    _templateObject14 = _taggedTemplateLiteral(['Optional'], ['Optional']),
+	    _templateObject15 = _taggedTemplateLiteral(['How can someone get to the meeting spot by public transit?'], ['How can someone get to the meeting spot by public transit?']),
+	    _templateObject16 = _taggedTemplateLiteral(['Nearest subway stop, closest bus or streetcar lines, etc.'], ['Nearest subway stop, closest bus or streetcar lines, etc.']),
+	    _templateObject17 = _taggedTemplateLiteral(['Where are the nearest places to park?'], ['Where are the nearest places to park?']),
+	    _templateObject18 = _taggedTemplateLiteral(['How will people find you?'], ['How will people find you?']),
+	    _templateObject19 = _taggedTemplateLiteral(['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.'], ['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.']),
+	    _templateObject20 = _taggedTemplateLiteral(['Contact City Organizer for help'], ['Contact City Organizer for help']),
+	    _templateObject21 = _taggedTemplateLiteral(['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\''], ['Hi! I\\\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\'']),
+	    _templateObject22 = _taggedTemplateLiteral(['email me'], ['email me']);
+
 	var _ImageUpload = __webpack_require__(37);
 
 	var _ImageUpload2 = _interopRequireDefault(_ImageUpload);
@@ -3164,6 +3205,8 @@
 	var _NotifyStore2 = _interopRequireDefault(_NotifyStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3329,19 +3372,19 @@
 	              React.createElement(
 	                'button',
 	                { className: 'btn btn-info btn-preview', id: 'preview-walk', title: 'Preview what you have so far.', onClick: this.handlePreview },
-	                (0, _I18nStore.t)('Preview Walk')
+	                (0, _I18nStore.translateTag)(_templateObject)
 	              ),
 	              React.createElement(
 	                'button',
 	                { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: function onClick() {
 	                    return _this2.setState({ publish: true });
 	                  }, ref: 'publish' },
-	                (0, _I18nStore.t)('Publish Walk')
+	                (0, _I18nStore.translateTag)(_templateObject2)
 	              ),
 	              React.createElement(
 	                'button',
 	                { className: 'btn btn-info save', title: 'Save', id: 'btn-save', onClick: this.saveWalk },
-	                (0, _I18nStore.t)('Save')
+	                (0, _I18nStore.translateTag)(_templateObject3)
 	              )
 	            )
 	          ),
@@ -3368,12 +3411,12 @@
 	                    React.createElement(
 	                      'h1',
 	                      null,
-	                      (0, _I18nStore.t)('Hey there, %s!', user.firstName)
+	                      'Hey there, ' + user.firstName + '!'
 	                    ),
 	                    React.createElement(
 	                      'p',
 	                      null,
-	                      (0, _I18nStore.t)('Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.')
+	                      (0, _I18nStore.translateTag)(_templateObject4)
 	                    )
 	                  )
 	                ),
@@ -3383,7 +3426,7 @@
 	                  React.createElement(
 	                    'h1',
 	                    null,
-	                    (0, _I18nStore.t)('Describe Your Walk')
+	                    (0, _I18nStore.translateTag)(_templateObject5)
 	                  )
 	                ),
 	                React.createElement(
@@ -3398,12 +3441,12 @@
 	                      React.createElement(
 	                        'label',
 	                        { htmlFor: 'title' },
-	                        (0, _I18nStore.t)('Walk Title')
+	                        (0, _I18nStore.translateTag)(_templateObject6)
 	                      ),
 	                      React.createElement(
 	                        'div',
 	                        { className: 'alert alert-info' },
-	                        (0, _I18nStore.t)('Something short and memorable.')
+	                        (0, _I18nStore.translateTag)(_templateObject7)
 	                      ),
 	                      React.createElement('input', { type: 'text', valueLink: this.linkState('title') })
 	                    )
@@ -3423,12 +3466,12 @@
 	                      React.createElement(
 	                        'label',
 	                        { htmlFor: 'shortdescription' },
-	                        (0, _I18nStore.t)('Your Walk in a Nutshell')
+	                        (0, _I18nStore.translateTag)(_templateObject8)
 	                      ),
 	                      React.createElement(
 	                        'div',
 	                        { className: 'alert alert-info' },
-	                        (0, _I18nStore.t)('Build intrigue! This is what people see when browsing our walk listings.')
+	                        (0, _I18nStore.translateTag)(_templateObject9)
 	                      ),
 	                      React.createElement(_TextAreaLimit2.default, { id: 'shortdescription', name: 'shortdescription', rows: '6', maxLength: '140', valueLink: this.linkState('shortDescription'), required: true })
 	                    ),
@@ -3439,12 +3482,12 @@
 	                      React.createElement(
 	                        'label',
 	                        { htmlFor: 'longdescription', id: 'longwalkdescription' },
-	                        (0, _I18nStore.t)('Walk Description')
+	                        (0, _I18nStore.translateTag)(_templateObject10)
 	                      ),
 	                      React.createElement(
 	                        'div',
 	                        { className: 'alert alert-info' },
-	                        (0, _I18nStore.t)('Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.')
+	                        (0, _I18nStore.translateTag)(_templateObject11)
 	                      ),
 	                      React.createElement('textarea', { id: 'longdescription', name: 'longdescription', rows: '14', valueLink: this.linkState('longDescription') })
 	                    )
@@ -3465,7 +3508,7 @@
 	                  React.createElement(
 	                    'h1',
 	                    null,
-	                    (0, _I18nStore.t)('Make it Accessible')
+	                    (0, _I18nStore.translateTag)(_templateObject12)
 	                  )
 	                ),
 	                React.createElement(
@@ -3482,9 +3525,9 @@
 	                    React.createElement(
 	                      'legend',
 	                      null,
-	                      (0, _I18nStore.t)('What else do people need to know about the accessibility of this walk?'),
+	                      (0, _I18nStore.translateTag)(_templateObject13),
 	                      ' (',
-	                      (0, _I18nStore.t)('Optional'),
+	                      (0, _I18nStore.translateTag)(_templateObject14),
 	                      ')'
 	                    ),
 	                    React.createElement(_TextAreaLimit2.default, { name: 'accessible-info', rows: '3', maxLength: '500', valueLink: this.linkState('accessibleInfo') })
@@ -3499,15 +3542,15 @@
 	                    React.createElement(
 	                      'legend',
 	                      { id: 'transit' },
-	                      (0, _I18nStore.t)('How can someone get to the meeting spot by public transit?'),
+	                      (0, _I18nStore.translateTag)(_templateObject15),
 	                      ' (',
-	                      (0, _I18nStore.t)('Optional'),
+	                      (0, _I18nStore.translateTag)(_templateObject14),
 	                      ')'
 	                    ),
 	                    React.createElement(
 	                      'div',
 	                      { className: 'alert alert-info' },
-	                      (0, _I18nStore.t)('Nearest subway stop, closest bus or streetcar lines, etc.')
+	                      (0, _I18nStore.translateTag)(_templateObject16)
 	                    ),
 	                    React.createElement('textarea', { rows: '3', name: 'accessible-transit', valueLink: this.linkState('accessibleTransit') })
 	                  )
@@ -3521,9 +3564,9 @@
 	                    React.createElement(
 	                      'legend',
 	                      null,
-	                      (0, _I18nStore.t)('Where are the nearest places to park?'),
+	                      (0, _I18nStore.translateTag)(_templateObject17),
 	                      ' (',
-	                      (0, _I18nStore.t)('Optional'),
+	                      (0, _I18nStore.translateTag)(_templateObject14),
 	                      ')'
 	                    ),
 	                    React.createElement('textarea', { rows: '3', name: 'accessible-parking', valueLink: this.linkState('accessibleParking') })
@@ -3538,12 +3581,12 @@
 	                    React.createElement(
 	                      'legend',
 	                      { className: 'required-legend' },
-	                      (0, _I18nStore.t)('How will people find you?')
+	                      (0, _I18nStore.translateTag)(_templateObject18)
 	                    ),
 	                    React.createElement(
 	                      'div',
 	                      { className: 'alert alert-info' },
-	                      (0, _I18nStore.t)('Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.')
+	                      (0, _I18nStore.translateTag)(_templateObject19)
 	                    ),
 	                    React.createElement('textarea', { rows: '3', name: 'accessible-find', valueLink: this.linkState('accessibleFind') })
 	                  )
@@ -3571,7 +3614,7 @@
 	                'h3',
 	                { className: 'popover-title', 'data-toggle': 'collapse', 'data-target': '#popover-content' },
 	                React.createElement('i', { className: 'fa fa-envelope' }),
-	                (0, _I18nStore.t)('Contact City Organizer for help')
+	                (0, _I18nStore.translateTag)(_templateObject20)
 	              ),
 	              React.createElement(
 	                'div',
@@ -3580,7 +3623,7 @@
 	                React.createElement(
 	                  'p',
 	                  null,
-	                  (0, _I18nStore.t)('Hi! I\'m %s, the City Organizer for Jane\'s Walk %s. I\'m here to help, so if you have any questions, please', city.cityOrganizer.firstName, city.name),
+	                  (0, _I18nStore.translateTag)(_templateObject21, city.cityOrganizer.firstName, city.name),
 	                  ' ',
 	                  React.createElement(
 	                    'strong',
@@ -3588,7 +3631,7 @@
 	                    React.createElement(
 	                      'a',
 	                      { href: 'mailto:' + city.cityOrganizer.email },
-	                      (0, _I18nStore.t)('email me'),
+	                      (0, _I18nStore.translateTag)(_templateObject22),
 	                      '!'
 	                    )
 	                  )
@@ -3653,7 +3696,12 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk.'], ['Upload a photo that best represents your walk.']),
+	    _templateObject2 = _taggedTemplateLiteral(['Click to upload an image'], ['Click to upload an image']);
+
 	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -3728,7 +3776,7 @@
 	        React.createElement(
 	          'label',
 	          { htmlFor: 'walkphotos', id: 'photo-tip' },
-	          (0, _I18nStore.t)('Upload a photo that best represents your walk.')
+	          (0, _I18nStore.translateTag)(_templateObject)
 	        ),
 	        thumbnails.map(function (thumb, i) {
 	          // Grab just the name, so local files being uploaded have the same key as the hosted URL
@@ -3759,7 +3807,7 @@
 	          React.createElement(
 	            'span',
 	            { className: 'fileupload-new' },
-	            (0, _I18nStore.t)('Click to upload an image')
+	            (0, _I18nStore.translateTag)(_templateObject2)
 	          )
 	        ) : undefined
 	      );
@@ -3783,17 +3831,27 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Themes'], ['Themes']),
+	    _templateObject2 = _taggedTemplateLiteral(['Pick between ', ' and ', ' boxes.'], ['Pick between ', ' and ', ' boxes.']);
+
+	var _mixins = __webpack_require__(39);
+
+	var _mixins2 = _interopRequireDefault(_mixins);
+
 	var _I18nStore = __webpack_require__(21);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var mixins = __webpack_require__(39);
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
 
 	// Flux
+
 
 	var ThemeSelect = function (_React$Component) {
 	  _inherits(ThemeSelect, _React$Component);
@@ -3801,21 +3859,20 @@
 	  function ThemeSelect() {
 	    _classCallCheck(this, ThemeSelect);
 
-	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(ThemeSelect).call(this));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ThemeSelect).call(this));
 
-	    _this2.state = {
+	    _this.state = {
 	      maxChecked: 3,
 	      totalChecked: 0
 	    };
-	    return _this2;
+	    return _this;
 	  }
 
 	  _createClass(ThemeSelect, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this2 = this;
 
-	      var _this = this;
 	      var checkboxes = this.props.valueLink.value;
 	      var totalChecked = 0;
 
@@ -3832,12 +3889,12 @@
 	        React.createElement(
 	          'legend',
 	          { className: 'required-legend' },
-	          (0, _I18nStore.t)('Themes')
+	          (0, _I18nStore.translateTag)(_templateObject)
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'alert alert-info' },
-	          (0, _I18nStore.t)('Pick between %d and %d boxes.', 1, this.state.maxChecked)
+	          (0, _I18nStore.translateTag)(_templateObject2, 1, this.state.maxChecked)
 	        ),
 	        this.props.themeCategories.map(function (category) {
 	          return React.createElement(
@@ -3846,16 +3903,16 @@
 	            React.createElement(
 	              'legend',
 	              null,
-	              (0, _I18nStore.t)(category.name)
+	              category.name
 	            ),
 	            category.themes.map(function (theme) {
 	              // Don't let a checkbox be checked if it pushes over limit
-	              var disabled = totalChecked >= _this.state.maxChecked && !checkboxes[theme.id];
+	              var disabled = totalChecked >= _this2.state.maxChecked && !checkboxes[theme.id];
 	              return React.createElement(
 	                'label',
 	                { key: theme.id, className: 'checkbox' },
-	                React.createElement('input', { type: 'checkbox', disabled: disabled, checkedLink: _this3.linkParentState(theme.id) }),
-	                (0, _I18nStore.t)(theme.name)
+	                React.createElement('input', { type: 'checkbox', disabled: disabled, checkedLink: _this2.linkParentState(theme.id) }),
+	                theme.name
 	              );
 	            })
 	          );
@@ -3870,116 +3927,8 @@
 
 	exports.default = ThemeSelect;
 
-	Object.assign(ThemeSelect.prototype, mixins.linkedParentState);
-	ThemeSelect.defaultProps = {
-	  // Using array for themes to enforce order
-	  themeCategories: [{
-	    name: 'Community',
-	    themes: [{
-	      id: 'theme-civic-activist',
-	      name: 'Activism'
-	    }, {
-	      id: 'theme-civic-truecitizen',
-	      name: 'Citizenry'
-	    }, {
-	      id: 'theme-civic-goodneighbour',
-	      name: 'Community'
-	    }, {
-	      id: 'theme-culture-writer',
-	      name: 'Storytelling'
-	    }]
-	  }, {
-	    name: 'City-building',
-	    themes: [{
-	      id: 'theme-urban-architecturalenthusiast',
-	      name: 'Architecture'
-	    }, {
-	      id: 'theme-culture-aesthete',
-	      name: 'Design'
-	    }, {
-	      id: 'theme-urban-suburbanexplorer',
-	      name: 'Suburbs'
-	    }, {
-	      id: 'theme-urban-moversandshakers',
-	      name: 'Transportation'
-	    }]
-	  }, {
-	    name: 'Society',
-	    themes: [{
-	      id: 'theme-civic-gender',
-	      name: 'Gender'
-	    }, {
-	      id: 'theme-civic-health',
-	      name: 'Health'
-	    }, {
-	      id: 'theme-culture-historybuff',
-	      name: 'Heritage'
-	    }, {
-	      id: 'theme-civic-nativeissues',
-	      name: 'Native Issues'
-	    }, {
-	      id: 'theme-civic-religion',
-	      name: 'Religion'
-	    }]
-	  }, {
-	    name: 'Expression',
-	    themes: [{
-	      id: 'theme-culture-artist',
-	      name: 'Art'
-	    }, {
-	      id: 'theme-urban-film',
-	      name: 'Film'
-	    }, {
-	      id: 'theme-culture-bookworm',
-	      name: 'Literature'
-	    }, {
-	      id: 'theme-urban-music',
-	      name: 'Music'
-	    }, {
-	      id: 'theme-urban-play',
-	      name: 'Play'
-	    }]
-	  }, {
-	    name: 'The Natural World',
-	    themes: [{
-	      id: 'theme-nature-petlover',
-	      name: 'Animals'
-	    }, {
-	      id: 'theme-nature-greenthumb',
-	      name: 'Gardening'
-	    }, {
-	      id: 'theme-nature-naturelover',
-	      name: 'Nature'
-	    }, {
-	      id: 'theme-urban-water',
-	      name: 'Water'
-	    }]
-	  }, {
-	    name: 'Modernity',
-	    themes: [{
-	      id: 'theme-civic-international',
-	      name: 'International Issues'
-	    }, {
-	      id: 'theme-civic-military',
-	      name: 'Military'
-	    }, {
-	      id: 'theme-civic-commerce',
-	      name: 'Commerce'
-	    }, {
-	      id: 'theme-culture-nightowl',
-	      name: 'Night Life'
-	    }, {
-	      id: 'theme-culture-techie',
-	      name: 'Technology'
-	    }, {
-	      id: 'theme-urban-sports',
-	      name: 'Sports'
-	    }, {
-	      id: 'theme-culture-foodie',
-	      name: 'Food'
-	    }]
-	  }]
-	};
+	Object.assign(ThemeSelect.prototype, _mixins2.default.linkedParentState);
+	ThemeSelect.defaultProps = __webpack_require__(244);
 
 /***/ },
 /* 39 */
@@ -4022,6 +3971,13 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Walk Stops'], ['Walk Stops']),
+	    _templateObject2 = _taggedTemplateLiteral(['Share Your Route'], ['Share Your Route']),
+	    _templateObject3 = _taggedTemplateLiteral(['Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.'], ['Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.']),
+	    _templateObject4 = _taggedTemplateLiteral(['Add Stop'], ['Add Stop']),
+	    _templateObject5 = _taggedTemplateLiteral(['Add Route'], ['Add Route']),
+	    _templateObject6 = _taggedTemplateLiteral(['Clear Route'], ['Clear Route']);
+
 	var _WalkStopTable = __webpack_require__(41);
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
@@ -4049,6 +4005,8 @@
 	var _I18nStore = __webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4447,7 +4405,7 @@
 	        walkStops = [React.createElement(
 	          'h3',
 	          { key: 'stops' },
-	          (0, _I18nStore.t)('Walk Stops')
+	          (0, _I18nStore.translateTag)(_templateObject)
 	        ), React.createElement(_WalkStopTable2.default, {
 	          ref: 'walkStopTable',
 	          key: 1,
@@ -4467,13 +4425,13 @@
 	          React.createElement(
 	            'h1',
 	            null,
-	            (0, _I18nStore.t)('Share Your Route')
+	            (0, _I18nStore.translateTag)(_templateObject2)
 	          )
 	        ),
 	        React.createElement(
 	          'div',
 	          { className: 'alert alert-info' },
-	          (0, _I18nStore.t)('Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.')
+	          (0, _I18nStore.translateTag)(_templateObject3)
 	        ),
 	        React.createElement(
 	          'div',
@@ -4486,7 +4444,7 @@
 	              onClick: this.toggleAddPoint
 	            },
 	            React.createElement('i', { className: 'fa fa-map-marker' }),
-	            (0, _I18nStore.t)('Add Stop')
+	            (0, _I18nStore.translateTag)(_templateObject4)
 	          ),
 	          React.createElement(
 	            'button',
@@ -4496,13 +4454,13 @@
 	              onClick: this.toggleAddRoute
 	            },
 	            React.createElement('i', { className: 'fa fa-arrows' }),
-	            (0, _I18nStore.t)('Add Route')
+	            (0, _I18nStore.translateTag)(_templateObject5)
 	          ),
 	          React.createElement(
 	            'button',
 	            { ref: 'clearroute', onClick: this.clearRoute },
 	            React.createElement('i', { className: 'fa fa-eraser' }),
-	            (0, _I18nStore.t)('Clear Route')
+	            (0, _I18nStore.translateTag)(_templateObject6)
 	          ),
 	          React.createElement(_TwitterConnect2.default, filterProps),
 	          React.createElement(_InstagramConnect2.default, filterProps),
@@ -5313,6 +5271,20 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Set the Time and Date'], ['Set the Time and Date']),
+	    _templateObject2 = _taggedTemplateLiteral(['Pick one of the following:'], ['Pick one of the following:']),
+	    _templateObject3 = _taggedTemplateLiteral(['By Request'], ['By Request']),
+	    _templateObject4 = _taggedTemplateLiteral(['Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.'], ['Highlight times that you\\\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.']),
+	    _templateObject5 = _taggedTemplateLiteral(['Pick Your Date'], ['Pick Your Date']),
+	    _templateObject6 = _taggedTemplateLiteral(['Set specific dates and times that this walk is happening.'], ['Set specific dates and times that this walk is happening.']),
+	    _templateObject7 = _taggedTemplateLiteral(['Time and Date'], ['Time and Date']),
+	    _templateObject8 = _taggedTemplateLiteral(['Select the date and time your walk is happening.'], ['Select the date and time your walk is happening.']),
+	    _templateObject9 = _taggedTemplateLiteral(['Date selected'], ['Date selected']),
+	    _templateObject10 = _taggedTemplateLiteral(['Add Date'], ['Add Date']),
+	    _templateObject11 = _taggedTemplateLiteral(['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.'], ['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.']),
+	    _templateObject12 = _taggedTemplateLiteral(['Leave my availability open. Allow people to contact you to set up a walk.'], ['Leave my availability open. Allow people to contact you to set up a walk.']),
+	    _templateObject13 = _taggedTemplateLiteral(['Approximate Duration of Walk'], ['Approximate Duration of Walk']);
+
 	var _DatePicker = __webpack_require__(48);
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
@@ -5332,6 +5304,8 @@
 	var _I18nStore = __webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -5443,13 +5417,13 @@
 	              React.createElement(
 	                'h1',
 	                null,
-	                (0, _I18nStore.t)('Set the Time and Date')
+	                (0, _I18nStore.translateTag)(_templateObject)
 	              )
 	            ),
 	            React.createElement(
 	              'legend',
 	              null,
-	              (0, _I18nStore.t)('Pick one of the following:')
+	              (0, _I18nStore.translateTag)(_templateObject2)
 	            ),
 	            React.createElement(
 	              'div',
@@ -5476,13 +5450,13 @@
 	                          React.createElement(
 	                            'h4',
 	                            null,
-	                            (0, _I18nStore.t)('By Request')
+	                            (0, _I18nStore.translateTag)(_templateObject3)
 	                          )
 	                        ),
 	                        React.createElement(
 	                          'p',
 	                          null,
-	                          (0, _I18nStore.t)('Highlight times that you\'re available to lead the walk, or leave your availability open. People will be asked to contact you to set up a walk.')
+	                          (0, _I18nStore.translateTag)(_templateObject4)
 	                        )
 	                      )
 	                    )
@@ -5507,13 +5481,13 @@
 	                          React.createElement(
 	                            'h4',
 	                            null,
-	                            (0, _I18nStore.t)('Pick Your Date')
+	                            (0, _I18nStore.translateTag)(_templateObject5)
 	                          )
 	                        ),
 	                        React.createElement(
 	                          'p',
 	                          null,
-	                          (0, _I18nStore.t)('Set specific dates and times that this walk is happening.')
+	                          (0, _I18nStore.translateTag)(_templateObject6)
 	                        )
 	                      )
 	                    )
@@ -5531,12 +5505,12 @@
 	              React.createElement(
 	                'h1',
 	                null,
-	                (0, _I18nStore.t)('Time and Date')
+	                (0, _I18nStore.translateTag)(_templateObject7)
 	              ),
 	              React.createElement(
 	                'p',
 	                { className: 'lead' },
-	                (0, _I18nStore.t)('Select the date and time your walk is happening.')
+	                (0, _I18nStore.translateTag)(_templateObject8)
 	              )
 	            ),
 	            React.createElement(
@@ -5562,7 +5536,7 @@
 	                      React.createElement(
 	                        'small',
 	                        null,
-	                        (0, _I18nStore.t)('Date selected'),
+	                        (0, _I18nStore.translateTag)(_templateObject9),
 	                        ':'
 	                      ),
 	                      this.state.start.toLocaleDateString(undefined, {
@@ -5578,7 +5552,7 @@
 	                    React.createElement(
 	                      'button',
 	                      { className: 'btn btn-primary', id: 'save-date-set', onClick: this.addDate },
-	                      (0, _I18nStore.t)('Add Date')
+	                      (0, _I18nStore.translateTag)(_templateObject10)
 	                    )
 	                  )
 	                )
@@ -5597,19 +5571,19 @@
 	              React.createElement(
 	                'h1',
 	                null,
-	                (0, _I18nStore.t)('Time and Date')
+	                (0, _I18nStore.translateTag)(_templateObject7)
 	              ),
 	              React.createElement(
 	                'p',
 	                { className: 'lead' },
-	                (0, _I18nStore.t)('Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.')
+	                (0, _I18nStore.translateTag)(_templateObject11)
 	              )
 	            ),
 	            React.createElement(
 	              'label',
 	              { className: 'checkbox' },
 	              React.createElement('input', { type: 'checkbox', name: 'open' }),
-	              (0, _I18nStore.t)('Leave my availability open. Allow people to contact you to set up a walk.')
+	              (0, _I18nStore.translateTag)(_templateObject12)
 	            ),
 	            React.createElement('br', null),
 	            React.createElement(
@@ -5635,7 +5609,7 @@
 	                      React.createElement(
 	                        'small',
 	                        null,
-	                        (0, _I18nStore.t)('Date selected'),
+	                        (0, _I18nStore.translateTag)(_templateObject9),
 	                        ':'
 	                      ),
 	                      React.createElement('h4', { className: 'date-indicate-all' }),
@@ -5644,7 +5618,7 @@
 	                    React.createElement(
 	                      'label',
 	                      { htmlFor: 'walk-duration' },
-	                      (0, _I18nStore.t)('Approximate Duration of Walk'),
+	                      (0, _I18nStore.translateTag)(_templateObject13),
 	                      ':'
 	                    ),
 	                    React.createElement(
@@ -5693,7 +5667,7 @@
 	                      React.createElement(
 	                        'button',
 	                        { className: 'btn btn-primary', id: 'save-date-all', onClick: this.addDate },
-	                        (0, _I18nStore.t)('Add Date')
+	                        (0, _I18nStore.translateTag)(_templateObject10)
 	                      )
 	                    )
 	                  )
@@ -6167,17 +6141,27 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Sub-locality'], ['Sub-locality']),
+	    _templateObject2 = _taggedTemplateLiteral(['Choose a specific neighbourhood or area where your walk will take place.'], ['Choose a specific neighbourhood or area where your walk will take place.']);
+
+	var _mixins = __webpack_require__(39);
+
+	var _mixins2 = _interopRequireDefault(_mixins);
+
 	var _I18nStore = __webpack_require__(21);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var mixins = __webpack_require__(39);
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
 
 	// Flux
+
 
 	var WardSelect = function (_React$Component) {
 	  _inherits(WardSelect, _React$Component);
@@ -6199,7 +6183,7 @@
 	          React.createElement(
 	            'legend',
 	            null,
-	            (0, _I18nStore.t)('Sub-locality')
+	            (0, _I18nStore.translateTag)(_templateObject)
 	          ),
 	          React.createElement(
 	            'div',
@@ -6207,7 +6191,7 @@
 	            React.createElement(
 	              'div',
 	              { className: 'alert alert-info' },
-	              (0, _I18nStore.t)('Choose a specific neighbourhood or area where your walk will take place.')
+	              (0, _I18nStore.translateTag)(_templateObject2)
 	            ),
 	            React.createElement(
 	              'select',
@@ -6227,9 +6211,8 @@
 	            )
 	          )
 	        );
-	      } else {
-	        return React.createElement('fieldset', { id: 'wards' });
 	      }
+	      return React.createElement('fieldset', { id: 'wards' });
 	    }
 	  }]);
 
@@ -6238,7 +6221,7 @@
 
 	exports.default = WardSelect;
 
-	Object.assign(WardSelect.prototype, mixins.linkedParentState);
+	Object.assign(WardSelect.prototype, _mixins2.default.linkedParentState);
 
 /***/ },
 /* 54 */
@@ -6252,6 +6235,18 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Family friendly'], ['Family friendly']),
+	    _templateObject2 = _taggedTemplateLiteral(['Wheelchair accessible'], ['Wheelchair accessible']),
+	    _templateObject3 = _taggedTemplateLiteral(['Dogs welcome'], ['Dogs welcome']),
+	    _templateObject4 = _taggedTemplateLiteral(['Strollers welcome'], ['Strollers welcome']),
+	    _templateObject5 = _taggedTemplateLiteral(['Bicycles welcome'], ['Bicycles welcome']),
+	    _templateObject6 = _taggedTemplateLiteral(['Steep hills'], ['Steep hills']),
+	    _templateObject7 = _taggedTemplateLiteral(['Wear sensible shoes (uneven terrain)'], ['Wear sensible shoes (uneven terrain)']),
+	    _templateObject8 = _taggedTemplateLiteral(['Busy sidewalks'], ['Busy sidewalks']),
+	    _templateObject9 = _taggedTemplateLiteral(['Bicycles only'], ['Bicycles only']),
+	    _templateObject10 = _taggedTemplateLiteral(['Low light or nighttime'], ['Low light or nighttime']),
+	    _templateObject11 = _taggedTemplateLiteral(['Senior Friendly'], ['Senior Friendly']);
+
 	var _mixins = __webpack_require__(39);
 
 	var _I18nStore = __webpack_require__(21);
@@ -6260,14 +6255,17 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Menu to select accessibility requirements
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
+	                                                                                                                                                   * Menu to select accessibility requirements
+	                                                                                                                                                   */
+	/* global React */
 
 	// Flux
 
 
-	var options = [{ id: 'accessible-familyfriendly', name: (0, _I18nStore.t)('Family friendly') }, { id: 'accessible-wheelchair', name: (0, _I18nStore.t)('Wheelchair accessible') }, { id: 'accessible-dogs', name: (0, _I18nStore.t)('Dogs welcome') }, { id: 'accessible-strollers', name: (0, _I18nStore.t)('Strollers welcome') }, { id: 'accessible-bicycles', name: (0, _I18nStore.t)('Bicycles welcome') }, { id: 'accessible-steephills', name: (0, _I18nStore.t)('Steep hills') }, { id: 'accessible-uneven', name: (0, _I18nStore.t)('Wear sensible shoes (uneven terrain)') }, { id: 'accessible-busy', name: (0, _I18nStore.t)('Busy sidewalks') }, { id: 'accessible-bicyclesonly', name: (0, _I18nStore.t)('Bicycles only') }, { id: 'accessible-lowlight', name: (0, _I18nStore.t)('Low light or nighttime') }, { id: 'accessible-seniors', name: (0, _I18nStore.t)('Senior Friendly') }];
+	var options = [{ id: 'accessible-familyfriendly', name: (0, _I18nStore.translateTag)(_templateObject) }, { id: 'accessible-wheelchair', name: (0, _I18nStore.translateTag)(_templateObject2) }, { id: 'accessible-dogs', name: (0, _I18nStore.translateTag)(_templateObject3) }, { id: 'accessible-strollers', name: (0, _I18nStore.translateTag)(_templateObject4) }, { id: 'accessible-bicycles', name: (0, _I18nStore.translateTag)(_templateObject5) }, { id: 'accessible-steephills', name: (0, _I18nStore.translateTag)(_templateObject6) }, { id: 'accessible-uneven', name: (0, _I18nStore.translateTag)(_templateObject7) }, { id: 'accessible-busy', name: (0, _I18nStore.translateTag)(_templateObject8) }, { id: 'accessible-bicyclesonly', name: (0, _I18nStore.translateTag)(_templateObject9) }, { id: 'accessible-lowlight', name: (0, _I18nStore.translateTag)(_templateObject10) }, { id: 'accessible-seniors', name: (0, _I18nStore.translateTag)(_templateObject11) }];
 
 	var AccessibleSelect = function (_React$Component) {
 	  _inherits(AccessibleSelect, _React$Component);
@@ -6289,7 +6287,7 @@
 	        React.createElement(
 	          'legend',
 	          { className: 'required-legend' },
-	          (0, _I18nStore.t)('How accessible is this walk?')
+	          (0, _I18nStore.translateTag)('How accessible is this walk?')
 	        ),
 	        React.createElement(
 	          'fieldset',
@@ -7164,7 +7162,15 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Publish walk to EventBrite'], ['Publish walk to EventBrite']),
+	    _templateObject2 = _taggedTemplateLiteral(['Okay, You\'re Ready to Publish'], ['Okay, You\'re Ready to Publish']),
+	    _templateObject3 = _taggedTemplateLiteral(['Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.'], ['Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.']),
+	    _templateObject4 = _taggedTemplateLiteral(['Bring me back to edit'], ['Bring me back to edit']),
+	    _templateObject5 = _taggedTemplateLiteral(['Publish'], ['Publish']);
+
 	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7224,7 +7230,7 @@
 	          'label',
 	          { className: 'checkbox' },
 	          React.createElement('input', { type: 'checkbox', checkedLink: this.linkState('eventbrite') }),
-	          (0, _I18nStore.t)('Publish walk to EventBrite')
+	          (0, _I18nStore.translateTag)(_templateObject)
 	        );
 	      }
 
@@ -7248,7 +7254,7 @@
 	              React.createElement(
 	                'h3',
 	                null,
-	                (0, _I18nStore.t)('Okay, You\'re Ready to Publish')
+	                (0, _I18nStore.translateTag)(_templateObject2)
 	              )
 	            ),
 	            React.createElement(
@@ -7257,7 +7263,7 @@
 	              React.createElement(
 	                'p',
 	                null,
-	                (0, _I18nStore.t)('Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.')
+	                (0, _I18nStore.translateTag)(_templateObject3)
 	              ),
 	              mirrorWalk
 	            ),
@@ -7271,7 +7277,7 @@
 	                  'a',
 	                  { className: 'walkthrough close', 'data-dismiss': 'modal', onClick: closeModal },
 	                  ' ',
-	                  (0, _I18nStore.t)('Bring me back to edit')
+	                  (0, _I18nStore.translateTag)(_templateObject4)
 	                )
 	              ),
 	              React.createElement(
@@ -7280,7 +7286,7 @@
 	                React.createElement(
 	                  'button',
 	                  { className: 'btn btn-primary walkthrough', 'data-step': 'publish-confirmation', onClick: this.handlePublish },
-	                  (0, _I18nStore.t)('Publish')
+	                  (0, _I18nStore.translateTag)(_templateObject5)
 	                )
 	              )
 	            )
@@ -7340,7 +7346,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Preview of your Walk'], ['Preview of your Walk']);
+
 	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7394,7 +7404,7 @@
 	              React.createElement(
 	                'h3',
 	                null,
-	                (0, _I18nStore.t)('Preview of your Walk')
+	                (0, _I18nStore.translateTag)(_templateObject)
 	              )
 	            ),
 	            React.createElement(
@@ -7423,7 +7433,16 @@
 	  value: true
 	});
 
+	var _templateObject = _taggedTemplateLiteral(["Describe Your Walk"], ["Describe Your Walk"]),
+	    _templateObject2 = _taggedTemplateLiteral(["Share Your Route"], ["Share Your Route"]),
+	    _templateObject3 = _taggedTemplateLiteral(["Set the Time & Date"], ["Set the Time & Date"]),
+	    _templateObject4 = _taggedTemplateLiteral(["Make it Accessible"], ["Make it Accessible"]),
+	    _templateObject5 = _taggedTemplateLiteral(["Build Your Team"], ["Build Your Team"]);
+
 	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
 
 	exports.default = function () {
 	  return React.createElement(
@@ -7436,7 +7455,7 @@
 	        "a",
 	        { "data-toggle": "tab", className: "description", href: "#description" },
 	        React.createElement("i", { className: "fa fa-list-ol" }),
-	        (0, _I18nStore.t)('Describe Your Walk')
+	        (0, _I18nStore.translateTag)(_templateObject)
 	      )
 	    ),
 	    React.createElement(
@@ -7446,7 +7465,7 @@
 	        "a",
 	        { "data-toggle": "tab", className: "route", href: "#route" },
 	        React.createElement("i", { className: "fa fa-map-marker" }),
-	        (0, _I18nStore.t)('Share Your Route')
+	        (0, _I18nStore.translateTag)(_templateObject2)
 	      )
 	    ),
 	    React.createElement(
@@ -7456,7 +7475,7 @@
 	        "a",
 	        { "data-toggle": "tab", className: "time-and-date", href: "#time-and-date" },
 	        React.createElement("i", { className: "fa fa-calendar" }),
-	        (0, _I18nStore.t)('Set the Time & Date')
+	        (0, _I18nStore.translateTag)(_templateObject3)
 	      )
 	    ),
 	    React.createElement(
@@ -7466,7 +7485,7 @@
 	        "a",
 	        { "data-toggle": "tab", className: "accessibility", href: "#accessibility" },
 	        React.createElement("i", { className: "fa fa-flag" }),
-	        (0, _I18nStore.t)('Make it Accessible')
+	        (0, _I18nStore.translateTag)(_templateObject4)
 	      )
 	    ),
 	    React.createElement(
@@ -7476,11 +7495,11 @@
 	        "a",
 	        { "data-toggle": "tab", className: "team", href: "#team" },
 	        React.createElement("i", { className: "fa fa-users" }),
-	        (0, _I18nStore.t)('Build Your Team')
+	        (0, _I18nStore.translateTag)(_templateObject5)
 	      )
 	    )
 	  );
-	}; /* global React */
+	};
 
 /***/ },
 /* 60 */
@@ -7805,7 +7824,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }(); /* global React */
 
 	var _ItineraryStore = __webpack_require__(17);
 
@@ -7827,31 +7846,27 @@
 
 	var _WalkRoute2 = _interopRequireDefault(_WalkRoute);
 
-	var _WalkAccessibility = __webpack_require__(67);
-
-	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
-
-	var _WalkPublicTransit = __webpack_require__(69);
+	var _WalkPublicTransit = __webpack_require__(67);
 
 	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
 
-	var _WalkParking = __webpack_require__(70);
+	var _WalkParking = __webpack_require__(68);
 
 	var _WalkParking2 = _interopRequireDefault(_WalkParking);
 
-	var _WalkStart = __webpack_require__(71);
+	var _WalkStart = __webpack_require__(69);
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(72);
+	var _WalkTeam = __webpack_require__(70);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(73);
+	var _WalkMenu = __webpack_require__(72);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(75);
+	var _WalkMap = __webpack_require__(74);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -7876,7 +7891,14 @@
 
 	  var firstList = _ItineraryStore$getLi2[0];
 
-	  return { walk: walk, page: page, city: city, list: firstList, isFavourite: _ItineraryStore2.default.hasInList(walk), schedule: _ItineraryStore2.default.getSchedule() };
+	  return {
+	    walk: walk,
+	    page: page,
+	    city: city,
+	    list: firstList,
+	    isFavourite: _ItineraryStore2.default.hasInList(walk),
+	    schedule: _ItineraryStore2.default.getSchedule()
+	  };
 	};
 
 	var WalkPage = function (_React$Component) {
@@ -7918,18 +7940,15 @@
 	    value: function render() {
 	      var _state = this.state;
 	      var walk = _state.walk;
-	      var page = _state.page;
+	      var _state$walk$map = _state.walk.map;
+	      var map = _state$walk$map === undefined ? { markers: [], route: [] } : _state$walk$map;
 	      var city = _state.city;
 	      var list = _state.list;
 	      var isFavourite = _state.isFavourite;
 	      var schedule = _state.schedule;
 
-	      var hasMarkers = false,
-	          hasRoute = false;
-	      if (walk && walk['map']) {
-	        hasMarkers = walk['map']['markers'].length > 0;
-	        hasRoute = walk['map']['route'].length > 0;
-	      }
+	      var hasMarkers = map.markers.length > 0;
+	      var hasRoute = map.route.length > 0;
 
 	      return React.createElement(
 	        'section',
@@ -7950,9 +7969,8 @@
 	        })),
 	        React.createElement(_WalkMenu2.default, this.state),
 	        React.createElement(_WalkDescription2.default, this.state.walk),
-	        hasMarkers || hasRoute ? React.createElement(_WalkMap2.default, { map: this.state.walk['map'] }) : null,
-	        hasMarkers ? React.createElement(_WalkRoute2.default, this.state.walk) : null,
-	        hasMarkers ? React.createElement(_WalkStart2.default, this.state.walk) : null,
+	        hasMarkers || hasRoute ? React.createElement(_WalkMap2.default, { map: map }) : null,
+	        hasMarkers ? [React.createElement(_WalkRoute2.default, this.state.walk), React.createElement(_WalkStart2.default, this.state.walk)] : null,
 	        React.createElement(_WalkPublicTransit2.default, this.state.walk),
 	        React.createElement(_WalkParking2.default, this.state.walk),
 	        React.createElement(_WalkTeam2.default, this.state.walk)
@@ -7964,7 +7982,7 @@
 	}(React.Component);
 
 	exports.default = WalkPage;
-	;
+
 
 	WalkPage.propsType = {
 	  page: React.PropTypes.object.isRequired,
@@ -7985,21 +8003,21 @@
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
-	var _WalkStore = __webpack_require__(20);
-
-	var _WalkStore2 = _interopRequireDefault(_WalkStore);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	//TODO: Duplicate of Itinerary <Walk/>
+	// TODO: Duplicate of Itinerary <Walk />
 
 	/**
 	 * Build a style object for the header
 	 * @return object A style object for React
 	 */
-	function headerBG(city, walk) {
+	function headerBG(_ref, _ref2) {
+	  var background = _ref.background;
+	  var _ref2$thumbnails = _ref2.thumbnails;
+	  var thumbnails = _ref2$thumbnails === undefined ? [] : _ref2$thumbnails;
+
 	  // Load the BG
-	  var thumb = walk.thumbnails[0] && walk.thumbnails[0].url || city.background;
+	  var thumb = thumbnails[0] && thumbnails[0].url || background;
 	  var bg = void 0;
 	  if (thumb) {
 	    bg = 'url(' + thumb + ')';
@@ -8015,39 +8033,38 @@
 	}
 
 	// Read a map, return the meeting place or null
+	/* global React */
+
 	function getMeetingPlace(map) {
 	  if (map && map.markers && map.markers.length) {
 	    return map.markers[0].title;
 	  }
+	  return '';
 	}
 
-	var WalkHeader = function WalkHeader(_ref) {
-	  var city = _ref.city;
-	  var walk = _ref.walk;
-	  var isFavourite = _ref.isFavourite;
-	  var schedule = _ref.schedule;
-	  var onAdd = _ref.onAdd;
-	  var onRemove = _ref.onRemove;
-	  var onSchedule = _ref.onSchedule;
-	  var onUnschedule = _ref.onUnschedule;
-	  var title = walk.title;
-	  var map = walk.map;
-	  var time = walk.time;
-	  var team = walk.team;
-	  var thumbnails = walk.thumbnails;
-	  var url = city.url;
-	  var name = city.name;
+	var WalkHeader = function WalkHeader(_ref3) {
+	  var city = _ref3.city;
+	  var walk = _ref3.walk;
+	  var _ref3$walk = _ref3.walk;
+	  var title = _ref3$walk.title;
+	  var map = _ref3$walk.map;
+	  var time = _ref3$walk.time;
+	  var _ref3$walk$team = _ref3$walk.team;
+	  var team = _ref3$walk$team === undefined ? [] : _ref3$walk$team;
+	  var isFavourite = _ref3.isFavourite;
+	  var schedule = _ref3.schedule;
+	  var onAdd = _ref3.onAdd;
+	  var onRemove = _ref3.onRemove;
+	  var onSchedule = _ref3.onSchedule;
+	  var onUnschedule = _ref3.onUnschedule;
 
-	  //TODO: This is problematic since there are many different type of roles defined, not a finite list
-
+	  // TODO: This is problematic since there are many different type of roles defined, not a finite list
 	  var walkLeader = team.find(function (member) {
 	    return member.role === 'walk-leader';
 	  });
-
 	  var meetingPlace = getMeetingPlace(map);
 
 	  var favButton = void 0;
-
 	  if (isFavourite) {
 	    favButton = React.createElement('button', { className: 'removeFavourite', onClick: onRemove });
 	  } else {
@@ -8077,8 +8094,8 @@
 	          null,
 	          React.createElement(
 	            'a',
-	            { href: url },
-	            name + ' walks'
+	            { href: city.url },
+	            city.name + ' walks'
 	          )
 	        ),
 	        React.createElement(
@@ -8100,24 +8117,23 @@
 	      null,
 	      meetingPlace
 	    ) : null,
-	    React.createElement(
+	    walkLeader ? React.createElement(
 	      'h4',
 	      null,
-	      walkLeader ? 'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' - ' : null
-	    ),
+	      'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' -'
+	    ) : null,
 	    React.createElement(_AddToItinerary2.default, { time: time, walk: walk, schedule: schedule, onSchedule: onSchedule, onUnschedule: onUnschedule })
 	  );
 	};
 
 	WalkHeader.propTypes = {
 	  walk: React.PropTypes.object.isRequired,
-	  remove: React.PropTypes.func.isRequired,
-	  add: React.PropTypes.func.isRequired
-	};
-
-	WalkHeader.defaultProps = {
-	  remove: null,
-	  add: null
+	  city: React.PropTypes.object.isRequired,
+	  isFavourite: React.PropTypes.bool,
+	  onRemove: React.PropTypes.func.isRequired,
+	  onAdd: React.PropTypes.func.isRequired,
+	  onSchedule: React.PropTypes.func.isRequired,
+	  onUnschedule: React.PropTypes.func.isRequired
 	};
 
 	exports.default = WalkHeader;
@@ -8131,8 +8147,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global React */
+
 	var WalkDescription = function WalkDescription(_ref) {
-	  var longDescription = _ref.longDescription;
+	  var _ref$longDescription = _ref.longDescription;
+	  var longDescription = _ref$longDescription === undefined ? '' : _ref$longDescription;
 	  return React.createElement(
 	    "section",
 	    { className: "walkDescription" },
@@ -8165,6 +8184,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global React */
 	var WalkRoute = function WalkRoute(_ref) {
 	  var map = _ref.map;
 	  return React.createElement(
@@ -8179,19 +8199,21 @@
 	    React.createElement(
 	      "ol",
 	      null,
-	      map.markers.map(function (marker, i) {
+	      map.markers.map(function (_ref2, i) {
+	        var title = _ref2.title;
+	        var description = _ref2.description;
 	        return React.createElement(
 	          "li",
 	          { key: i },
 	          React.createElement(
 	            "h2",
 	            null,
-	            marker.title
+	            title
 	          ),
 	          React.createElement(
 	            "p",
 	            null,
-	            marker.description
+	            description
 	          )
 	        );
 	      })
@@ -8207,85 +8229,6 @@
 
 /***/ },
 /* 67 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _Accessible = __webpack_require__(68);
-
-	var WalkAccessibility = function WalkAccessibility(_ref) {
-	  var checkboxes = _ref.checkboxes;
-
-
-	  var accessibilityKeys = Object.keys(checkboxes).filter(function (item) {
-	    return item.includes("accessible-");
-	  });
-
-	  return React.createElement(
-	    "section",
-	    { className: "walkAccessibility" },
-	    React.createElement(
-	      "h2",
-	      null,
-	      "Accessibility"
-	    ),
-	    React.createElement(
-	      "ul",
-	      null,
-	      accessibilityKeys.map(function (k, i) {
-	        return React.createElement(
-	          "li",
-	          { key: i },
-	          (0, _Accessible.getAccessibleName)(k)
-	        );
-	      })
-	    )
-	  );
-	};
-
-	WalkAccessibility.propTypes = {
-	  checkboxes: React.PropTypes.array.isRequired
-	};
-
-	exports.default = WalkAccessibility;
-
-/***/ },
-/* 68 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getAccessibleName = getAccessibleName;
-	var icons = exports.icons = {
-	  'familyfriendly': { name: 'Family friendly', icon: '' },
-	  'wheelchair': { name: 'Wheelchair accessible', icon: '' },
-	  'dogs': { name: 'Dogs welcome', icon: '' },
-	  'strollers': { name: 'Strollers welcome', icon: '' },
-	  'bicycles': { name: 'Bicycles welcome', icon: '' },
-	  'steephills': { name: 'Steep hills', icon: '' },
-	  'uneven': { name: 'Uneven terrain', icon: '' },
-	  'busy': { name: 'Busy sidewalks', icon: '' },
-	  'bicyclesonly': { name: 'Bicycles only', icon: '' },
-	  'lowlight': { name: 'Low light or nighttime', icon: '' },
-	  'seniors': { name: 'Senior Friendly', icon: '' }
-	};
-
-	/**
-	 * Helpers, to deal with that 'accessible-' prefix from the v1 json
-	 */
-	function getAccessibleName(theme) {
-	  return (icons[theme.slice(11)] || { name: '' }).name;
-	}
-
-/***/ },
-/* 69 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8293,10 +8236,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global React */
+
 	var WalkPublicTransit = function WalkPublicTransit(_ref) {
-	  var accessibleTransit = _ref.accessibleTransit;
+	  var _ref$accessibleTransi = _ref.accessibleTransit;
+	  var accessibleTransit = _ref$accessibleTransi === undefined ? [] : _ref$accessibleTransi;
 
-	  if (accessibleTransit && accessibleTransit.length > 0) {
+	  if (accessibleTransit.length) {
 	    return React.createElement(
 	      "section",
 	      { className: "walkPublicTransit" },
@@ -8308,9 +8254,8 @@
 	      ),
 	      accessibleTransit
 	    );
-	  } else {
-	    return React.createElement("section", null);
 	  }
+	  return React.createElement("section", null);
 	};
 
 	WalkPublicTransit.propTypes = {
@@ -8320,7 +8265,7 @@
 	exports.default = WalkPublicTransit;
 
 /***/ },
-/* 70 */
+/* 68 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8328,11 +8273,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global React */
 	var WalkParking = function WalkParking(_ref) {
-	  var accessibleParking = _ref.accessibleParking;
+	  var _ref$accessibleParkin = _ref.accessibleParking;
+	  var accessibleParking = _ref$accessibleParkin === undefined ? [] : _ref$accessibleParkin;
 	  var style = _ref.style;
 
-	  if (accessibleParking && accessibleParking.length > 0) {
+	  if (accessibleParking.length) {
 	    return React.createElement(
 	      "section",
 	      { className: "walkParking " + style },
@@ -8345,9 +8292,8 @@
 	      ),
 	      accessibleParking
 	    );
-	  } else {
-	    return React.createElement("section", null);
 	  }
+	  return React.createElement("section", null);
 	};
 
 	WalkParking.propTypes = {
@@ -8357,7 +8303,7 @@
 	exports.default = WalkParking;
 
 /***/ },
-/* 71 */
+/* 69 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8365,6 +8311,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global React */
+
 	var WalkStart = function WalkStart(_ref) {
 	  var accessibleFind = _ref.accessibleFind;
 	  return React.createElement(
@@ -8387,15 +8335,17 @@
 	exports.default = WalkStart;
 
 /***/ },
-/* 72 */
-/***/ function(module, exports) {
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var connections = [{ name: 'twitter', href: 'http://twitter.com/', style: 'fa fa-twitter' }, { name: 'facebook', href: 'http://facebook.com/', style: 'fa fa-facebook' }, { name: 'email', href: 'mailto:', style: 'fa fa-envelope-o' }, { name: 'website', href: '', style: 'fa fa-globe' }, { name: 'phone', href: '', style: 'fa fa-phone' }];
+	/* global React */
+
+	var connections = __webpack_require__(71);
 
 	function ConnectionLinks(_ref) {
 	  var member = _ref.member;
@@ -8405,60 +8355,64 @@
 	  });
 
 	  return React.createElement(
-	    'div',
-	    { className: 'btn-toolbar' },
-	    availConnects.map(function (c, i) {
+	    "div",
+	    { className: "btn-toolbar" },
+	    availConnects.map(function (_ref2, i) {
+	      var href = _ref2.href;
+	      var name = _ref2.name;
+	      var style = _ref2.style;
 	      return React.createElement(
-	        'a',
-	        { key: i, className: 'btn', href: c.href + member[c.name], target: '_blank' },
-	        React.createElement('i', { className: c.style })
+	        "a",
+	        { key: i, className: "btn", href: "" + href + member[name], target: "_blank" },
+	        React.createElement("i", { className: style })
 	      );
 	    })
 	  );
 	}
 
-	var WalkTeam = function WalkTeam(_ref2) {
-	  var team = _ref2.team;
+	var WalkTeam = function WalkTeam(_ref3) {
+	  var _ref3$team = _ref3.team;
+	  var team = _ref3$team === undefined ? [] : _ref3$team;
 
-	  var teamMembers = team.map(function (member, i) {
+	  var teamMembers = team.map(function (m, i) {
 	    return React.createElement(
-	      'article',
+	      "article",
 	      { key: i },
 	      React.createElement(
-	        'header',
+	        "header",
 	        null,
 	        React.createElement(
-	          'h3',
+	          "h3",
 	          null,
-	          (member['name-first'] + ' ' + member['name-last']).trim(),
-	          ', ',
+	          (m['name-first'] + " " + m['name-last']).trim(),
+	          ", ",
 	          React.createElement(
-	            'span',
-	            { className: 'walkTeamMemberRole' },
-	            member['role']
+	            "span",
+	            { className: "walkTeamMemberRole" },
+	            m.role
 	          )
 	        ),
 	        React.createElement(
-	          'footer',
+	          "footer",
 	          null,
-	          React.createElement(ConnectionLinks, { member: member })
+	          React.createElement(ConnectionLinks, { member: m })
 	        )
 	      ),
-	      React.createElement('summary', { dangerouslySetInnerHTML: { __html: member['bio'] } })
+	      React.createElement("summary", { dangerouslySetInnerHTML: { __html: m.bio } })
 	    );
 	  });
 
 	  return React.createElement(
-	    'section',
-	    { className: 'walkTeam' },
-	    React.createElement('a', { name: 'About the Walk Team' }),
+	    "section",
+	    { className: "walkTeam" },
+	    React.createElement("a", { name: "About the Walk Team" }),
 	    React.createElement(
-	      'h2',
+	      "h2",
 	      null,
-	      'About the Walk Team'
+	      "About the Walk Team"
 	    ),
 	    React.createElement(
-	      'section',
+	      "section",
 	      null,
 	      teamMembers
 	    )
@@ -8472,7 +8426,39 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 73 */
+/* 71 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"name": "twitter",
+			"href": "http://twitter.com/",
+			"style": "fa fa-twitter"
+		},
+		{
+			"name": "facebook",
+			"href": "http://facebook.com/",
+			"style": "fa fa-facebook"
+		},
+		{
+			"name": "email",
+			"href": "mailto:",
+			"style": "fa fa-envelope-o"
+		},
+		{
+			"name": "website",
+			"href": "",
+			"style": "fa fa-globe"
+		},
+		{
+			"name": "phone",
+			"href": "",
+			"style": "fa fa-phone"
+		}
+	];
+
+/***/ },
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8483,46 +8469,32 @@
 
 	var _ItineraryUtils = __webpack_require__(26);
 
-	var _WalkAccessibility = __webpack_require__(67);
+	var _Theme = __webpack_require__(73);
 
-	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
+	// TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
+	// TODO: Make walkMenu sticky - will complete after Dashboard
 
-	var _WalkPublicTransit = __webpack_require__(69);
-
-	var _WalkPublicTransit2 = _interopRequireDefault(_WalkPublicTransit);
-
-	var _WalkParking = __webpack_require__(70);
-
-	var _WalkParking2 = _interopRequireDefault(_WalkParking);
-
-	var _Theme = __webpack_require__(74);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	//TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
-	//TODO: Make walkMenu sticky - will complete after Dashboard
-
+	/* global React */
 	var menuItems = [{ display: 'About This Walk', exists: true }, { display: 'Walk Route', exists: true }, { display: 'How to find us', exists: true }, { display: 'Taking Public Transit', exists: false }, { display: 'Parking Availability', exists: false }, { display: 'About the Walk Team', exists: true }];
 
 	var WalkMenu = function WalkMenu(_ref) {
-	  var walk = _ref.walk;
-	  var filters = _ref.filters;
-	  var checkboxes = walk.checkboxes;
-	  var title = walk.title;
-	  var map = walk.map;
-	  var time = walk.time;
-	  var team = walk.team;
+	  var _ref$walk = _ref.walk;
+	  var checkboxes = _ref$walk.checkboxes;
+	  var title = _ref$walk.title;
+	  var map = _ref$walk.map;
+	  var time = _ref$walk.time;
+	  var team = _ref$walk.team;
+	  var accessibleTransit = _ref$walk.accessibleTransit;
+	  var accessibleParking = _ref$walk.accessibleParking;
 
-	  var theme = { data: {} };
-	  if (filters) {
-	    theme = filters.theme;
-	  }
 	  var walkLeader = team.find(function (member) {
 	    return member.role === 'walk-leader';
 	  });
-	  var leaderHead = void 0,
-	      nextDateHead = void 0,
-	      meetingPlaceHead = void 0;
+
+	  var leaderHead = void 0;
+	  var nextDateHead = void 0;
+	  var meetingPlaceHead = void 0;
+
 	  if (walkLeader) {
 	    leaderHead = React.createElement(
 	      'h6',
@@ -8550,18 +8522,18 @@
 	    );
 	  }
 
-	  //TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>
-	  //<WalkPublicTransit {...walk} />
-	  //<WalkParking {...walk} />
+	  // TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>
+	  // <WalkPublicTransit {...walk} />
+	  // <WalkParking {...walk} />
 	  var tags = Object.keys(checkboxes).filter(function (item) {
 	    return item.includes('theme');
 	  });
 
-	  //TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
+	  // TODO: <WalkAccessibility {...walk} {...filters} /> temporarily removed (below {meetingPlaceHead})
 
-	  //TODO: Improve functionality to be generic for displaying menuItems, and specific react components
-	  if ((walk.accessibleTransit || []).length > 0) menuItems[3].exists = true;
-	  if ((walk.accessibleParking || []).length > 0) menuItems[4].exists = true;
+	  // TODO: Improve functionality to be generic for displaying menuItems, and specific react components
+	  if ((accessibleTransit || []).length > 0) menuItems[3].exists = true;
+	  if ((accessibleParking || []).length > 0) menuItems[4].exists = true;
 
 	  return React.createElement(
 	    'section',
@@ -8621,7 +8593,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 74 */
+/* 73 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -8675,8 +8647,8 @@
 	}
 
 /***/ },
-/* 75 */
-/***/ function(module, exports) {
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -8692,7 +8664,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	//TODO: WalkMap.jsx already exists, review and re-use
+	/* global React google CCM_THEME_PATH */
+
+	// TODO: WalkMap.jsx already exists, review and re-use
 	/**
 	 * The walk stop marker theme
 	 * TODO: generalize for import
@@ -8749,12 +8723,11 @@
 	  _createClass(WalkMap, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-
-	      //TODO: Create a <GoogleMap/> component to generalize use of google maps
 	      var map = this.props.map;
 
 	      var locationLatLng = new google.maps.LatLng(map.markers[0].lat, map.markers[0].lng);
 	      var markers = [];
+	      var mapStyles = __webpack_require__(75);
 
 	      var mapOptions = {
 	        center: locationLatLng,
@@ -8763,88 +8736,15 @@
 	      };
 
 	      var googleMap = new google.maps.Map(React.findDOMNode(this), mapOptions);
-	      googleMap.mapTypes.set('map_style', new google.maps.StyledMapType([{
-	        featureType: "poi.park",
-	        elementType: "geometry.fill",
-	        stylers: [{
-	          visibility: "on"
-	        }, {
-	          saturation: 37
-	        }]
-	      }, {
-	        featureType: 'landscape',
-	        stylers: [{
-	          visibility: 'on'
-	        }, {
-	          color: '#eaeaea'
-	        }]
-	      }, {
-	        featureType: 'poi',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }, {
-	        featureType: 'poi.park',
-	        stylers: [{
-	          visibility: 'on'
-	        }, {
-	          color: '#cadfaa'
-	        }]
-	      }, {
-	        featureType: 'poi.school',
-	        elementType: 'labels',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }, {
-	        featureType: 'poi.school',
-	        elementType: 'geometry',
-	        stylers: [{
-	          visibility: 'on'
-	        }, {
-	          color: '#dadada'
-	        }]
-	      }, {
-	        featureType: 'transit',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }, {
-	        featureType: 'water',
-	        stylers: [{
-	          visibility: 'simplified'
-	        }, {
-	          color: '#90c2ff'
-	        }]
-	      }, {
-	        featureType: 'road',
-	        elementType: 'geometry',
-	        stylers: [{
-	          visibility: 'simplified'
-	        }, {
-	          color: '#ffffff'
-	        }]
-	      }, {
-	        featureType: 'road',
-	        elementType: 'labels.icon',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }]));
+	      googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(mapStyles));
 	      googleMap.setMapTypeId('map_style');
 
-	      var routePath = new google.maps.Polyline({
-	        strokeColor: '#F16725',
-	        strokeOpacity: 0.8,
-	        strokeWeight: 3,
-	        path: map.route,
-	        map: googleMap
-	      });
+	      map.markers.forEach(function (_ref, i) {
+	        var lat = _ref.lat;
+	        var lng = _ref.lng;
 
-	      map.markers.forEach(function (m, i) {
-	        var locationLatLng = new google.maps.LatLng(m.lat, m.lng);
 	        var marker = new google.maps.Marker({
-	          position: locationLatLng,
+	          position: new google.maps.LatLng(lat, lng),
 	          style: 'stop',
 	          icon: stopMarker,
 	          map: googleMap,
@@ -8886,6 +8786,116 @@
 	};
 
 /***/ },
+/* 75 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"featureType": "poi.park",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"saturation": 37
+				}
+			]
+		},
+		{
+			"featureType": "landscape",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#eaeaea"
+				}
+			]
+		},
+		{
+			"featureType": "poi",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "poi.park",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#cadfaa"
+				}
+			]
+		},
+		{
+			"featureType": "poi.school",
+			"elementType": "labels",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "poi.school",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#dadada"
+				}
+			]
+		},
+		{
+			"featureType": "transit",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"stylers": [
+				{
+					"visibility": "simplified"
+				},
+				{
+					"color": "#90c2ff"
+				}
+			]
+		},
+		{
+			"featureType": "road",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"visibility": "simplified"
+				},
+				{
+					"color": "#ffffff"
+				}
+			]
+		},
+		{
+			"featureType": "road",
+			"elementType": "labels.icon",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		}
+	];
+
+/***/ },
 /* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -8905,7 +8915,7 @@
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Summary = __webpack_require__(240);
+	var _Summary = __webpack_require__(241);
 
 	var _Summary2 = _interopRequireDefault(_Summary);
 
@@ -8936,27 +8946,7 @@
 	    walks: _WalkStore2.default.getWalks(),
 	    users: _UserStore2.default.getUsers(),
 	    city: _CityStore2.default.getCity(),
-	    announcements: [{
-	      group: 'City Organizers',
-	      time: 1458763490599,
-	      title: 'The Walk 21 conference submissions deadline has been extended to Tuesday, March 15.',
-	      text: 'Walk 21 is an international organization that supports and promotes walking. Their annual conference is in Hong Kong this year, on October 3-7. http://www.walk21.com/'
-	    }, {
-	      group: 'City Organizers',
-	      time: 1458332436642,
-	      title: 'The 2016 poster and postcard templates are here!',
-	      text: 'To help you get the word out about your city\'s festival, we\'ve created an all-new set of downloadable templates for posters, postcards, and other promotional materials. Lots of styles and file formats to choose from! http://janeswalk.org/information/resources/posters-and-logos/'
-	    }, {
-	      group: 'City Organizers',
-	      time: 1457900438108,
-	      title: 'Would you like to be matched with a small group of Jane\'s Walk City Organizers in other cities, and chat with them online every couple of weeks? ',
-	      text: 'We\'re piloting Jane\'s Walk Coffee Talk, a peer-learning program for COs who\'d like to support and encourage each others\' work -- and meet people doing interesting things in other cities! If you\'d like to learn more, or sign up, email us at nadia.halim@janeswalk.org'
-	    }, {
-	      group: 'Walk Leaders',
-	      time: 1455048397000,
-	      title: 'New User Dashboard!',
-	      text: 'Jane\'s Walk Leaders and City Organizers now have a whole new dashboard. We\'re making it easier and simpler to organize your city, and your walks. Look here for more updates soon'
-	    }]
+	    announcements: __webpack_require__(242)
 	  };
 	}
 
@@ -28836,6 +28826,8 @@
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
+	var _I18nStore = __webpack_require__(21);
+
 	var _Walk = __webpack_require__(239);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
@@ -28846,12 +28838,11 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
 
 	// TODO: (Post-PR) Walk common component found in <Itinerary/> and <WalkPage/>, Refactor to a single component or mixin
 
 
-	// TODO: Discuss: Not sure on the precedent of this naming: a dashboard (or rather, the profile page) can potentially be shown for other users. The dash store should show the walks for the profile's owner, not necessarily "my" walks.
 	function _removeFilter(filters, handle, option) {
 	  var newFilters = Object.assign({}, filters);
 	  newFilters[handle] = Object.assign({}, filters[handle]);
@@ -28869,7 +28860,7 @@
 	}
 
 	// TODO: load only the ones we need from the walk data
-	var _filters = { "theme": { "name": "Theme", "data": { "civic-activist": "Activism", "nature-petlover": "Animals", "urban-architecturalenthusiast": "Architecture", "culture-artist": "Art", "civic-truecitizen": "Citizenry", "civic-commerce": "Commerce", "civic-goodneighbour": "Community", "culture-aesthete": "Design", "urban-film": "Film", "culture-foodie": "Food", "nature-greenthumb": "Gardening", "civic-gender": "Gender", "civic-health": "Health", "culture-historybuff": "Heritage", "civic-international": "International Issues", "culture-bookworm": "Literature", "civic-military": "Military", "urban-music": "Music", "civic-nativeissues": "Native Issues", "nature-naturelover": "Nature", "culture-nightowl": "Night Life", "urban-play": "Play", "civic-religion": "Religion", "urban-sports": "Sports", "culture-writer": "Storytelling", "urban-suburbanexplorer": "Suburbs", "culture-techie": "Technology", "urban-moversandshakers": "Transportation", "urban-water": "Water" } }, "ward": { "name": "Region", "data": { "Ward 1 Etobicoke North": "Ward 1 Etobicoke North", "Ward 2 Etobicoke North": "Ward 2 Etobicoke North", "Ward 3 Etobicoke Centre": "Ward 3 Etobicoke Centre", "Ward 4 Etobicoke Centre": "Ward 4 Etobicoke Centre", "Ward 5 Etobicoke-Lakeshore": "Ward 5 Etobicoke-Lakeshore", "Ward 6 Etobicoke-Lakeshore": "Ward 6 Etobicoke-Lakeshore", "Ward 7 York West": "Ward 7 York West", "Ward 8 York West": "Ward 8 York West", "Ward 9 York Centre": "Ward 9 York Centre", "Ward 10 York Centre": "Ward 10 York Centre", "Ward 11 York South-Weston": "Ward 11 York South-Weston", "Ward 12 York South-Weston": "Ward 12 York South-Weston", "Ward 13 Parkdale-High Park": "Ward 13 Parkdale-High Park", "Ward 14 Parkdale-High Park": "Ward 14 Parkdale-High Park", "Ward 15 Eglinton-Lawrence": "Ward 15 Eglinton-Lawrence", "Ward 16 Eglinton-Lawrence": "Ward 16 Eglinton-Lawrence", "Ward 17 Davenport": "Ward 17 Davenport", "Ward 18 Davenport": "Ward 18 Davenport", "Ward 19 Trinity-Spadina": "Ward 19 Trinity-Spadina", "Ward 20 Trinity-Spadina": "Ward 20 Trinity-Spadina", "Ward 21 St. Pauls": "Ward 21 St. Pauls", "Ward 22 St. Pauls": "Ward 22 St. Pauls", "Ward 23 Willowdale": "Ward 23 Willowdale", "Ward 24 Willowdale": "Ward 24 Willowdale", "Ward 25 Don Valley West": "Ward 25 Don Valley West", "Ward 26 Don Valley West": "Ward 26 Don Valley West", "Ward 27 Toronto Centre-Rosedale": "Ward 27 Toronto Centre-Rosedale", "Ward 28 Toronto Centre-Rosedale": "Ward 28 Toronto Centre-Rosedale", "Ward 29 Toronto-Danforth": "Ward 29 Toronto-Danforth", "Ward 30 Toronto-Danforth": "Ward 30 Toronto-Danforth", "Ward 31 Beaches-East York": "Ward 31 Beaches-East York", "Ward 32 Beaches-East York": "Ward 32 Beaches-East York", "Ward 33 Don Valley East": "Ward 33 Don Valley East", "Ward 34 Don Valley East": "Ward 34 Don Valley East", "Ward 35 Scarborough Southwest": "Ward 35 Scarborough Southwest", "Ward 36 Scarborough Southwest": "Ward 36 Scarborough Southwest", "Ward 37 Scarborough Centre": "Ward 37 Scarborough Centre", "Ward 38 Scarborough Centre": "Ward 38 Scarborough Centre", "Ward 39 Scarborough-Agincourt": "Ward 39 Scarborough-Agincourt", "Ward 40 Scarborough Agincourt": "Ward 40 Scarborough Agincourt", "Ward 41 Scarborough-Rouge River": "Ward 41 Scarborough-Rouge River", "Ward 42 Scarborough-Rouge River": "Ward 42 Scarborough-Rouge River", "Ward 43 Scarborough East": "Ward 43 Scarborough East", "Ward 44 Scarborough East": "Ward 44 Scarborough East" } }, "accessibility": { "name": "Accessibility", "data": { "bicyclesonly": "Bicyiccles only", "bicycles": "Bicycles welcome", "busy": "Busy sidewalks", "dogs": "Dogs welcome", "familyfriendly": "Family friendly", "lowlight": "Low light or nighttime", "seniors": "Senior Friendly", "steephills": "Steep hills", "strollers": "Strollers welcome", "uneven": "Uneven terrain", "wheelchair": "Wheelchair accessible" } } };
+	var _filters = __webpack_require__(240);
 
 	var Walks = function (_React$Component) {
 	  _inherits(Walks, _React$Component);
@@ -28885,10 +28876,15 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Walks)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
-	    _this.state = {
-	      currentView: 'list',
-	      filters: {}
-	    };
+	    Object.assign(_this, {
+	      state: {
+	        currentView: 'list',
+	        filters: {}
+	      },
+	      handleToggleFilterPast: function handleToggleFilterPast() {
+	        return _this.setState({ filterPast: !_this.state.filterPast });
+	      }
+	    });
 	    return _this;
 	  }
 
@@ -28899,7 +28895,7 @@
 
 	      var _state = this.state;
 	      var currentView = _state.currentView;
-	      var filterByDate = _state.filterByDate;
+	      var filterPast = _state.filterPast;
 	      var filters = _state.filters;
 	      var _props = this.props;
 	      var walks = _props.walks;
@@ -28909,11 +28905,11 @@
 
 	      // How we're presenting the walks (map or list)
 
-	      var Walks = void 0;
+	      var WalkList = void 0;
 	      if (currentView === 'list') {
 	        // TODO: separate this out into some functions
 	        var walkIDs = show === 'city' ? city.walks : user.walks;
-	        Walks = walkIDs.map(function (wID) {
+	        WalkList = walkIDs.map(function (wID) {
 	          var _walks$get = walks.get(wID);
 
 	          var map = _walks$get.map;
@@ -28933,37 +28929,22 @@
 	          return React.createElement(_Walk2.default, props);
 	        });
 	      } else if (currentView === 'map') {
-	        Walks = React.createElement(_WalksMap2.default, { walks: user.walks.map(function (wID) {
+	        WalkList = React.createElement(_WalksMap2.default, { walks: user.walks.map(function (wID) {
 	            return walks.get(wID);
 	          }), city: city });
 	      }
 
 	      // The toggle for the past walks
-	      var DateToggle = void 0;
-	      if (filterByDate === 'future') {
-	        DateToggle = React.createElement(
-	          'button',
-	          {
-	            className: filterByDate === 'future' ? 'active' : null,
-	            onClick: function onClick() {
-	              return _this2.setState({ filterByDate: 'future' });
-	            } },
-	          'With Past Walks'
-	        );
-	      } else {
-	        DateToggle = React.createElement(
-	          'button',
-	          {
-	            className: filterByDate === 'past' ? 'active' : null,
-	            onClick: function onClick() {
-	              return _this2.setState({ filterByDate: 'past' });
-	            } },
-	          'Without Past Walks'
-	        );
-	      }
+	      var DateToggle = React.createElement(
+	        'button',
+	        {
+	          className: filterPast ? 'active' : null,
+	          onClick: this.handleToggleFilterPast
+	        },
+	        filterPast ? (0, _I18nStore.t)('Without Past Walks') : (0, _I18nStore.t)('With Past Walks')
+	      );
 
-	      //TODO: (Post-PR) Place buttons in WalksFilterOptions (should be a generic FilterOptions)
-	      //TODO: (Post-PR) Create generic button component as part of a filter generic component (iterable buttons)
+	      // TODO: (Post-PR) Place buttons in WalksFilterOptions (should be a generic FilterOptions)
 	      return React.createElement(
 	        'div',
 	        { className: 'walks' },
@@ -28973,7 +28954,8 @@
 	            className: 'walksListButton ' + (currentView === 'list' ? 'active' : null),
 	            onClick: function onClick() {
 	              return _this2.setState({ currentView: 'list' });
-	            } },
+	            }
+	          },
 	          'List'
 	        ),
 	        React.createElement(
@@ -28982,7 +28964,8 @@
 	            className: 'walksMapButton ' + (currentView === 'map' ? 'active' : null),
 	            onClick: function onClick() {
 	              return _this2.setState({ currentView: 'map' });
-	            } },
+	            }
+	          },
 	          'Map'
 	        ),
 	        DateToggle,
@@ -29005,7 +28988,7 @@
 	            return _this2.setState({ filters: _toggleFilter(filters, filter, option) });
 	          }
 	        }),
-	        Walks
+	        WalkList
 	      );
 	    }
 	  }]);
@@ -29521,6 +29504,112 @@
 
 /***/ },
 /* 240 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"theme": {
+			"name": "Theme",
+			"data": {
+				"civic-activist": "Activism",
+				"nature-petlover": "Animals",
+				"urban-architecturalenthusiast": "Architecture",
+				"culture-artist": "Art",
+				"civic-truecitizen": "Citizenry",
+				"civic-commerce": "Commerce",
+				"civic-goodneighbour": "Community",
+				"culture-aesthete": "Design",
+				"urban-film": "Film",
+				"culture-foodie": "Food",
+				"nature-greenthumb": "Gardening",
+				"civic-gender": "Gender",
+				"civic-health": "Health",
+				"culture-historybuff": "Heritage",
+				"civic-international": "International Issues",
+				"culture-bookworm": "Literature",
+				"civic-military": "Military",
+				"urban-music": "Music",
+				"civic-nativeissues": "Native Issues",
+				"nature-naturelover": "Nature",
+				"culture-nightowl": "Night Life",
+				"urban-play": "Play",
+				"civic-religion": "Religion",
+				"urban-sports": "Sports",
+				"culture-writer": "Storytelling",
+				"urban-suburbanexplorer": "Suburbs",
+				"culture-techie": "Technology",
+				"urban-moversandshakers": "Transportation",
+				"urban-water": "Water"
+			}
+		},
+		"ward": {
+			"name": "Region",
+			"data": {
+				"Ward 1 Etobicoke North": "Ward 1 Etobicoke North",
+				"Ward 2 Etobicoke North": "Ward 2 Etobicoke North",
+				"Ward 3 Etobicoke Centre": "Ward 3 Etobicoke Centre",
+				"Ward 4 Etobicoke Centre": "Ward 4 Etobicoke Centre",
+				"Ward 5 Etobicoke-Lakeshore": "Ward 5 Etobicoke-Lakeshore",
+				"Ward 6 Etobicoke-Lakeshore": "Ward 6 Etobicoke-Lakeshore",
+				"Ward 7 York West": "Ward 7 York West",
+				"Ward 8 York West": "Ward 8 York West",
+				"Ward 9 York Centre": "Ward 9 York Centre",
+				"Ward 10 York Centre": "Ward 10 York Centre",
+				"Ward 11 York South-Weston": "Ward 11 York South-Weston",
+				"Ward 12 York South-Weston": "Ward 12 York South-Weston",
+				"Ward 13 Parkdale-High Park": "Ward 13 Parkdale-High Park",
+				"Ward 14 Parkdale-High Park": "Ward 14 Parkdale-High Park",
+				"Ward 15 Eglinton-Lawrence": "Ward 15 Eglinton-Lawrence",
+				"Ward 16 Eglinton-Lawrence": "Ward 16 Eglinton-Lawrence",
+				"Ward 17 Davenport": "Ward 17 Davenport",
+				"Ward 18 Davenport": "Ward 18 Davenport",
+				"Ward 19 Trinity-Spadina": "Ward 19 Trinity-Spadina",
+				"Ward 20 Trinity-Spadina": "Ward 20 Trinity-Spadina",
+				"Ward 21 St. Pauls": "Ward 21 St. Pauls",
+				"Ward 22 St. Pauls": "Ward 22 St. Pauls",
+				"Ward 23 Willowdale": "Ward 23 Willowdale",
+				"Ward 24 Willowdale": "Ward 24 Willowdale",
+				"Ward 25 Don Valley West": "Ward 25 Don Valley West",
+				"Ward 26 Don Valley West": "Ward 26 Don Valley West",
+				"Ward 27 Toronto Centre-Rosedale": "Ward 27 Toronto Centre-Rosedale",
+				"Ward 28 Toronto Centre-Rosedale": "Ward 28 Toronto Centre-Rosedale",
+				"Ward 29 Toronto-Danforth": "Ward 29 Toronto-Danforth",
+				"Ward 30 Toronto-Danforth": "Ward 30 Toronto-Danforth",
+				"Ward 31 Beaches-East York": "Ward 31 Beaches-East York",
+				"Ward 32 Beaches-East York": "Ward 32 Beaches-East York",
+				"Ward 33 Don Valley East": "Ward 33 Don Valley East",
+				"Ward 34 Don Valley East": "Ward 34 Don Valley East",
+				"Ward 35 Scarborough Southwest": "Ward 35 Scarborough Southwest",
+				"Ward 36 Scarborough Southwest": "Ward 36 Scarborough Southwest",
+				"Ward 37 Scarborough Centre": "Ward 37 Scarborough Centre",
+				"Ward 38 Scarborough Centre": "Ward 38 Scarborough Centre",
+				"Ward 39 Scarborough-Agincourt": "Ward 39 Scarborough-Agincourt",
+				"Ward 40 Scarborough Agincourt": "Ward 40 Scarborough Agincourt",
+				"Ward 41 Scarborough-Rouge River": "Ward 41 Scarborough-Rouge River",
+				"Ward 42 Scarborough-Rouge River": "Ward 42 Scarborough-Rouge River",
+				"Ward 43 Scarborough East": "Ward 43 Scarborough East",
+				"Ward 44 Scarborough East": "Ward 44 Scarborough East"
+			}
+		},
+		"accessibility": {
+			"name": "Accessibility",
+			"data": {
+				"bicyclesonly": "Bicyiccles only",
+				"bicycles": "Bicycles welcome",
+				"busy": "Busy sidewalks",
+				"dogs": "Dogs welcome",
+				"familyfriendly": "Family friendly",
+				"lowlight": "Low light or nighttime",
+				"seniors": "Senior Friendly",
+				"steephills": "Steep hills",
+				"strollers": "Strollers welcome",
+				"uneven": "Uneven terrain",
+				"wheelchair": "Wheelchair accessible"
+			}
+		}
+	};
+
+/***/ },
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29604,7 +29693,39 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 241 */
+/* 242 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"name": "twitter",
+			"href": "http://twitter.com/",
+			"style": "fa fa-twitter"
+		},
+		{
+			"name": "facebook",
+			"href": "http://facebook.com/",
+			"style": "fa fa-facebook"
+		},
+		{
+			"name": "email",
+			"href": "mailto:",
+			"style": "fa fa-envelope-o"
+		},
+		{
+			"name": "website",
+			"href": "",
+			"style": "fa fa-globe"
+		},
+		{
+			"name": "phone",
+			"href": "",
+			"style": "fa fa-phone"
+		}
+	];
+
+/***/ },
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29806,6 +29927,161 @@
 	}(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"themeCategories": [
+			{
+				"name": "Community",
+				"themes": [
+					{
+						"id": "theme-civic-activist",
+						"name": "Activism"
+					},
+					{
+						"id": "theme-civic-truecitizen",
+						"name": "Citizenry"
+					},
+					{
+						"id": "theme-civic-goodneighbour",
+						"name": "Community"
+					},
+					{
+						"id": "theme-culture-writer",
+						"name": "Storytelling"
+					}
+				]
+			},
+			{
+				"name": "City-building",
+				"themes": [
+					{
+						"id": "theme-urban-architecturalenthusiast",
+						"name": "Architecture"
+					},
+					{
+						"id": "theme-culture-aesthete",
+						"name": "Design"
+					},
+					{
+						"id": "theme-urban-suburbanexplorer",
+						"name": "Suburbs"
+					},
+					{
+						"id": "theme-urban-moversandshakers",
+						"name": "Transportation"
+					}
+				]
+			},
+			{
+				"name": "Society",
+				"themes": [
+					{
+						"id": "theme-civic-gender",
+						"name": "Gender"
+					},
+					{
+						"id": "theme-civic-health",
+						"name": "Health"
+					},
+					{
+						"id": "theme-culture-historybuff",
+						"name": "Heritage"
+					},
+					{
+						"id": "theme-civic-nativeissues",
+						"name": "Native Issues"
+					},
+					{
+						"id": "theme-civic-religion",
+						"name": "Religion"
+					}
+				]
+			},
+			{
+				"name": "Expression",
+				"themes": [
+					{
+						"id": "theme-culture-artist",
+						"name": "Art"
+					},
+					{
+						"id": "theme-urban-film",
+						"name": "Film"
+					},
+					{
+						"id": "theme-culture-bookworm",
+						"name": "Literature"
+					},
+					{
+						"id": "theme-urban-music",
+						"name": "Music"
+					},
+					{
+						"id": "theme-urban-play",
+						"name": "Play"
+					}
+				]
+			},
+			{
+				"name": "The Natural World",
+				"themes": [
+					{
+						"id": "theme-nature-petlover",
+						"name": "Animals"
+					},
+					{
+						"id": "theme-nature-greenthumb",
+						"name": "Gardening"
+					},
+					{
+						"id": "theme-nature-naturelover",
+						"name": "Nature"
+					},
+					{
+						"id": "theme-urban-water",
+						"name": "Water"
+					}
+				]
+			},
+			{
+				"name": "Modernity",
+				"themes": [
+					{
+						"id": "theme-civic-international",
+						"name": "International Issues"
+					},
+					{
+						"id": "theme-civic-military",
+						"name": "Military"
+					},
+					{
+						"id": "theme-civic-commerce",
+						"name": "Commerce"
+					},
+					{
+						"id": "theme-culture-nightowl",
+						"name": "Night Life"
+					},
+					{
+						"id": "theme-culture-techie",
+						"name": "Technology"
+					},
+					{
+						"id": "theme-urban-sports",
+						"name": "Sports"
+					},
+					{
+						"id": "theme-culture-foodie",
+						"name": "Food"
+					}
+				]
+			}
+		]
+	};
 
 /***/ }
 /******/ ]);

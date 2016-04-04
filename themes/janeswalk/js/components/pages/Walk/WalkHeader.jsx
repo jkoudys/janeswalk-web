@@ -1,17 +1,19 @@
+/* global React */
+
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
-//TODO: Duplicate of Itinerary <Walk/>
+// TODO: Duplicate of Itinerary <Walk />
 
 /**
  * Build a style object for the header
  * @return object A style object for React
  */
-function headerBG(city, walk) {
+function headerBG({ background }, { thumbnails = [] }) {
   // Load the BG
-  const thumb = (walk.thumbnails[0] && walk.thumbnails[0].url) || city.background;
+  const thumb = (thumbnails[0] && thumbnails[0].url) || background;
   let bg;
   if (thumb) {
-    bg = 'url(' + thumb + ')';
+    bg = `url(${thumb})`;
   } else {
     bg = '#eaeaea';
   }
@@ -19,7 +21,7 @@ function headerBG(city, walk) {
   return {
     backgroundImage: bg,
     backgroundSize: 'cover',
-    backgroundPosition: '50%'
+    backgroundPosition: '50%',
   };
 }
 
@@ -28,53 +30,71 @@ function getMeetingPlace(map) {
   if (map && map.markers && map.markers.length) {
     return map.markers[0].title;
   }
+  return '';
 }
 
-import WalkStore from 'janeswalk/stores/WalkStore';
-
-const WalkHeader = ({city, walk, isFavourite, schedule, onAdd, onRemove, onSchedule, onUnschedule}) => {
-  const {title, map, time, team, thumbnails} = walk;
-  const {url, name} = city;
-
-  //TODO: This is problematic since there are many different type of roles defined, not a finite list
+const WalkHeader = ({
+  city,
+  walk,
+  walk: {
+    title,
+    map,
+    time,
+    team = [],
+  },
+  isFavourite,
+  schedule,
+  onAdd,
+  onRemove,
+  onSchedule,
+  onUnschedule,
+}) => {
+  // TODO: This is problematic since there are many different type of roles defined, not a finite list
   const walkLeader = team.find(member => member.role === 'walk-leader');
-
-  let meetingPlace = getMeetingPlace(map);
+  const meetingPlace = getMeetingPlace(map);
 
   let favButton;
-
   if (isFavourite) {
     favButton = <button className="removeFavourite" onClick={onRemove} />;
   } else {
     favButton = <button className="addFavourite" onClick={onAdd} />;
   }
 
-  return(
+  return (
     <section className="walkHeader">
       <section className="coverImage" style={headerBG(city, walk)}>
         <ul className="breadcrumb">
-          <li><a href="/"><i className="fa fa-home" /></a></li>
-          <li><a href={url}>{`${name} walks`}</a></li>
-          <li className="active">{title}</li>
+          <li>
+            <a href="/">
+              <i className="fa fa-home" />
+            </a>
+          </li>
+          <li>
+            <a href={city.url}>
+              {`${city.name} walks`}
+            </a>
+          </li>
+          <li className="active">
+            {title}
+          </li>
         </ul>
       </section>
       <h1>{title} {favButton}</h1>
       {meetingPlace ? <h4>{meetingPlace}</h4> : null}
-      <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
-      <AddToItinerary {...{time, walk, schedule, onSchedule, onUnschedule}} />
+      {walkLeader ? <h4>{`Led By ${walkLeader['name-first']} ${walkLeader['name-last']} -`}</h4> : null}
+      <AddToItinerary {...{ time, walk, schedule, onSchedule, onUnschedule }} />
     </section>
   );
 };
 
 WalkHeader.propTypes = {
   walk: React.PropTypes.object.isRequired,
-  remove: React.PropTypes.func.isRequired,
-  add: React.PropTypes.func.isRequired,
-};
-
-WalkHeader.defaultProps = {
-  remove: null,
-  add: null,
+  city: React.PropTypes.object.isRequired,
+  isFavourite: React.PropTypes.bool,
+  onRemove: React.PropTypes.func.isRequired,
+  onAdd: React.PropTypes.func.isRequired,
+  onSchedule: React.PropTypes.func.isRequired,
+  onUnschedule: React.PropTypes.func.isRequired,
 };
 
 export default WalkHeader;

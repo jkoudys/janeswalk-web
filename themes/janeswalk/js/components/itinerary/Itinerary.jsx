@@ -3,7 +3,7 @@
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
 import * as Actions from 'janeswalk/actions/ItineraryActions';
-import { t } from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 import Walk from './Walk.jsx';
 import ItineraryHeader from './ItineraryHeader.jsx';
@@ -47,7 +47,7 @@ export default class Itinerary extends React.Component {
   }
 
   handleCreateItinerary() {
-    Actions.createList(t('New Itinerary'));
+    Actions.createList(t`New Itinerary`);
   }
 
   render() {
@@ -91,7 +91,7 @@ export default class Itinerary extends React.Component {
               {ItineraryWalks}
             </ul>
           </div>
-          <p className="knightFdn-itinerary">Powered by the Knight Foundation</p>
+          <p className="knightFdn-itinerary">{t`Powered by the Knight Foundation`}</p>
         </section>
       </dialog>
     );

@@ -1,35 +1,37 @@
-const connections = [
-  {name:'twitter', href:'http://twitter.com/', style:'fa fa-twitter'},
-  {name:'facebook',href:'http://facebook.com/', style:'fa fa-facebook'},
-  {name:'email',href:'mailto:', style:'fa fa-envelope-o'},
-  {name:'website',href:'', style:'fa fa-globe'},
-  {name:'phone',href:'', style:'fa fa-phone'},
-];
+/* global React */
 
-function ConnectionLinks({member}) {
+const connections = require('../../../json/ConnectionTypes.json');
+
+function ConnectionLinks({ member }) {
   const availConnects = connections.filter(c => member[c.name]);
 
   return (
     <div className="btn-toolbar">
-      {availConnects.map((c,i) => <a key={i} className="btn" href={c.href + member[c.name]} target="_blank"><i className={c.style} /></a>)}
+      {availConnects.map(({ href, name, style }, i) => (
+        <a key={i} className="btn" href={`${href}${member[name]}`} target="_blank">
+          <i className={style} />
+        </a>
+      ))}
     </div>
   );
 }
 
-const WalkTeam = ({team}) => {
-  let teamMembers = team.map((member, i)=> (
+const WalkTeam = ({ team = [] }) => {
+  const teamMembers = team.map((m, i) => (
     <article key={i}>
       <header>
-        <h3>{(`${member['name-first']} ${member['name-last']}`).trim()}, <span className="walkTeamMemberRole">{member['role']}</span></h3>
+        <h3>
+          {(`${m['name-first']} ${m['name-last']}`).trim()}, <span className="walkTeamMemberRole">{m.role}</span>
+        </h3>
         <footer>
-          <ConnectionLinks member={member} />
+          <ConnectionLinks member={m} />
         </footer>
       </header>
-      <summary dangerouslySetInnerHTML={{__html: member['bio']}}></summary>
+      <summary dangerouslySetInnerHTML={{ __html: m.bio }} />
     </article>)
   );
 
-  return(
+  return (
     <section className="walkTeam">
       <a name="About the Walk Team"></a>
       <h2>About the Walk Team</h2>

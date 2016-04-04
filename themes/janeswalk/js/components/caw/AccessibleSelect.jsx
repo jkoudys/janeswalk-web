@@ -1,24 +1,25 @@
 /**
  * Menu to select accessibility requirements
  */
+/* global React */
 
-import {linkedParentState} from '../../helpers/mixins.jsx';
+import { linkedParentState } from '../../helpers/mixins.jsx';
 
 // Flux
-import {t, t2} from 'janeswalk/stores/I18nStore';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const options = [
-  {id: 'accessible-familyfriendly', name: t('Family friendly')},
-  {id: 'accessible-wheelchair', name: t('Wheelchair accessible')},
-  {id: 'accessible-dogs', name: t('Dogs welcome')},
-  {id: 'accessible-strollers', name: t('Strollers welcome')},
-  {id: 'accessible-bicycles', name: t('Bicycles welcome')},
-  {id: 'accessible-steephills', name: t('Steep hills')},
-  {id: 'accessible-uneven', name: t('Wear sensible shoes (uneven terrain)')},
-  {id: 'accessible-busy', name: t('Busy sidewalks')},
-  {id: 'accessible-bicyclesonly', name: t('Bicycles only')},
-  {id: 'accessible-lowlight', name: t('Low light or nighttime')},
-  {id: 'accessible-seniors', name: t('Senior Friendly')}
+  { id: 'accessible-familyfriendly', name: t`Family friendly` },
+  { id: 'accessible-wheelchair', name: t`Wheelchair accessible` },
+  { id: 'accessible-dogs', name: t`Dogs welcome` },
+  { id: 'accessible-strollers', name: t`Strollers welcome` },
+  { id: 'accessible-bicycles', name: t`Bicycles welcome` },
+  { id: 'accessible-steephills', name: t`Steep hills` },
+  { id: 'accessible-uneven', name: t`Wear sensible shoes (uneven terrain)` },
+  { id: 'accessible-busy', name: t`Busy sidewalks` },
+  { id: 'accessible-bicyclesonly', name: t`Bicycles only` },
+  { id: 'accessible-lowlight', name: t`Low light or nighttime` },
+  { id: 'accessible-seniors', name: t`Senior Friendly` },
 ];
 
 export default class AccessibleSelect extends React.Component {

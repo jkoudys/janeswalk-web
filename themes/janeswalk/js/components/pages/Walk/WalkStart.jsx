@@ -1,6 +1,8 @@
-const WalkStart = ({accessibleFind}) => (
+/* global React */
+
+const WalkStart = ({ accessibleFind }) => (
   <section className="walkStart">
-    <a name="How to find us"></a>
+    <a name="How to find us" />
     <h2>How to Find Us</h2>
     {accessibleFind}
   </section>
