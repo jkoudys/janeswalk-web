@@ -26,7 +26,7 @@ export default class AccessibleSelect extends React.Component {
   render() {
     return (
       <fieldset id="accessibilities">
-        <legend className="required-legend">{ t('How accessible is this walk?') }</legend>
+        <legend className="required-legend">{ t`How accessible is this walk?` }</legend>
         <fieldset>
           {options.map(option => (
             <label className="checkbox">

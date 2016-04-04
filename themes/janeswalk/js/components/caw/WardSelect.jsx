@@ -1,6 +1,6 @@
 /* global React */
 
-import mixins from '../../helpers/mixins.jsx';
+const mixins = require('../../helpers/mixins.jsx');
 
 // Flux
 import { translateTag as t } from 'janeswalk/stores/I18nStore';

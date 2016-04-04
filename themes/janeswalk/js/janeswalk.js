@@ -3834,13 +3834,7 @@
 	var _templateObject = _taggedTemplateLiteral(['Themes'], ['Themes']),
 	    _templateObject2 = _taggedTemplateLiteral(['Pick between ', ' and ', ' boxes.'], ['Pick between ', ' and ', ' boxes.']);
 
-	var _mixins = __webpack_require__(39);
-
-	var _mixins2 = _interopRequireDefault(_mixins);
-
 	var _I18nStore = __webpack_require__(21);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -3848,10 +3842,13 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/* global React */
+
+	var mixins = __webpack_require__(39);
 
 	// Flux
-
 
 	var ThemeSelect = function (_React$Component) {
 	  _inherits(ThemeSelect, _React$Component);
@@ -3927,7 +3924,7 @@
 
 	exports.default = ThemeSelect;
 
-	Object.assign(ThemeSelect.prototype, _mixins2.default.linkedParentState);
+	Object.assign(ThemeSelect.prototype, mixins.linkedParentState);
 	ThemeSelect.defaultProps = __webpack_require__(244);
 
 /***/ },
@@ -6144,13 +6141,7 @@
 	var _templateObject = _taggedTemplateLiteral(['Sub-locality'], ['Sub-locality']),
 	    _templateObject2 = _taggedTemplateLiteral(['Choose a specific neighbourhood or area where your walk will take place.'], ['Choose a specific neighbourhood or area where your walk will take place.']);
 
-	var _mixins = __webpack_require__(39);
-
-	var _mixins2 = _interopRequireDefault(_mixins);
-
 	var _I18nStore = __webpack_require__(21);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -6158,10 +6149,13 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	/* global React */
+
+	var mixins = __webpack_require__(39);
 
 	// Flux
-
 
 	var WardSelect = function (_React$Component) {
 	  _inherits(WardSelect, _React$Component);
@@ -6221,7 +6215,7 @@
 
 	exports.default = WardSelect;
 
-	Object.assign(WardSelect.prototype, _mixins2.default.linkedParentState);
+	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
 /* 54 */
@@ -6245,7 +6239,8 @@
 	    _templateObject8 = _taggedTemplateLiteral(['Busy sidewalks'], ['Busy sidewalks']),
 	    _templateObject9 = _taggedTemplateLiteral(['Bicycles only'], ['Bicycles only']),
 	    _templateObject10 = _taggedTemplateLiteral(['Low light or nighttime'], ['Low light or nighttime']),
-	    _templateObject11 = _taggedTemplateLiteral(['Senior Friendly'], ['Senior Friendly']);
+	    _templateObject11 = _taggedTemplateLiteral(['Senior Friendly'], ['Senior Friendly']),
+	    _templateObject12 = _taggedTemplateLiteral(['How accessible is this walk?'], ['How accessible is this walk?']);
 
 	var _mixins = __webpack_require__(39);
 
@@ -6287,7 +6282,7 @@
 	        React.createElement(
 	          'legend',
 	          { className: 'required-legend' },
-	          (0, _I18nStore.translateTag)('How accessible is this walk?')
+	          (0, _I18nStore.translateTag)(_templateObject12)
 	        ),
 	        React.createElement(
 	          'fieldset',
