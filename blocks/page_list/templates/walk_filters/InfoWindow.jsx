@@ -1,3 +1,5 @@
+/* global React */
+
 export default ({ title, url, date, shortDescription, leaders = [] }) => (
   <span>
     <h4 style={{ marginBottom: '0.1em' }}>

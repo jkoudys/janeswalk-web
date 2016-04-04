@@ -415,6 +415,9 @@
 	  value: true
 	});
 
+	var _templateObject = _taggedTemplateLiteral(['Keep looking.'], ['Keep looking.']),
+	    _templateObject2 = _taggedTemplateLiteral(['We couldn\'t find any matching walks.'], ['We couldn\\\'t find any matching walks.']);
+
 	var _Card = __webpack_require__(4);
 
 	var _Card2 = _interopRequireDefault(_Card);
@@ -423,9 +426,9 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	/**
-	 * The cards showing your walk
-	 */
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
+	                                                                                                                                                   * The cards showing your walk
+	                                                                                                                                                   */
 
 
 	var WalkCards = function WalkCards(_ref) {
@@ -438,12 +441,12 @@
 	      React.createElement(
 	        'h4',
 	        null,
-	        (0, _I18nStore.t)('Keep looking.')
+	        (0, _I18nStore.translateTag)(_templateObject)
 	      ),
 	      React.createElement(
 	        'p',
 	        null,
-	        (0, _I18nStore.t)('We couldn\'t find any matching walks.')
+	        (0, _I18nStore.translateTag)(_templateObject2)
 	      )
 	    );
 	  }
@@ -473,7 +476,14 @@
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
 
 
+	var _templateObject = _taggedTemplateLiteral(['Walk led by ', ''], ['Walk led by ', '']),
+	    _templateObject2 = _taggedTemplateLiteral(['Meet at ', ''], ['Meet at ', '']);
+
 	var _Theme = __webpack_require__(5);
+
+	var _I18nStore = __webpack_require__(6);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -547,7 +557,8 @@
 	      var id = _props$walk.id;
 	      var title = _props$walk.title;
 	      var url = _props$walk.url;
-	      var thumbnails = _props$walk.thumbnails;
+	      var _props$walk$thumbnail = _props$walk.thumbnails;
+	      var thumbnails = _props$walk$thumbnail === undefined ? [] : _props$walk$thumbnail;
 	      var map = _props$walk.map;
 	      var shortDescription = _props$walk.shortDescription;
 	      var checkboxes = _props$walk.checkboxes;
@@ -584,7 +595,7 @@
 	        LedBy = React.createElement(
 	          'span',
 	          null,
-	          'Walk led by ' + leaders.map(getFullName).join(', ')
+	          (0, _I18nStore.translateTag)(_templateObject, leaders.map(getFullName).join(', '))
 	        );
 	      }
 
@@ -637,8 +648,7 @@
 	              Meeting ? React.createElement(
 	                'li',
 	                null,
-	                'Meet at ',
-	                Meeting
+	                (0, _I18nStore.translateTag)(_templateObject2, Meeting)
 	              ) : null,
 	              LedBy ? React.createElement(
 	                'li',
@@ -1700,6 +1710,11 @@
 	  value: true
 	});
 
+	var _templateObject = _taggedTemplateLiteral(['Date'], ['Date']),
+	    _templateObject2 = _taggedTemplateLiteral(['Time'], ['Time']),
+	    _templateObject3 = _taggedTemplateLiteral(['Title'], ['Title']),
+	    _templateObject4 = _taggedTemplateLiteral(['Meeting Place'], ['Meeting Place']);
+
 	var _ListItem = __webpack_require__(17);
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
@@ -1708,13 +1723,15 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
+	                                                                                                                                                   * The list of walks to order
+	                                                                                                                                                   */
+	/* global $ */
+
+
 	/**
 	 * The walk list
 	 */
-	/**
-	 * The list of walks to order
-	 */
-	/* global $ */
 
 	exports.default = function (_ref) {
 	  var walks = _ref.walks;
@@ -1730,22 +1747,22 @@
 	        React.createElement(
 	          'th',
 	          null,
-	          (0, _I18nStore.t)('Date')
+	          (0, _I18nStore.translateTag)(_templateObject)
 	        ),
 	        React.createElement(
 	          'th',
 	          null,
-	          (0, _I18nStore.t)('Time')
+	          (0, _I18nStore.translateTag)(_templateObject2)
 	        ),
 	        React.createElement(
 	          'th',
 	          null,
-	          (0, _I18nStore.t)('Title')
+	          (0, _I18nStore.translateTag)(_templateObject3)
 	        ),
 	        React.createElement(
 	          'th',
 	          null,
-	          (0, _I18nStore.t)('Meeting Place')
+	          (0, _I18nStore.translateTag)(_templateObject4)
 	        )
 	      )
 	    ),
@@ -2105,6 +2122,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global React */
 
 	exports.default = function (_ref) {
 	  var title = _ref.title;

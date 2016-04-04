@@ -2476,6 +2476,8 @@
 
 	var _ItineraryUtils = __webpack_require__(26);
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React */
+
 	var AddToItinerary = function AddToItinerary(_ref) {
 	  var schedule = _ref.schedule;
 	  var time = _ref.time;
@@ -2487,7 +2489,7 @@
 	  var timeSet = schedule.get(walk) || new Set();
 
 	  if (time && time.slots) {
-	    addButtons = time.slots.map(function (t) {
+	    addButtons.push.apply(addButtons, _toConsumableArray(time.slots.map(function (t) {
 	      if (timeSet.has(+t[0])) {
 	        return React.createElement(
 	          "h4",
@@ -2497,17 +2499,16 @@
 	              return onUnschedule(+t[0]);
 	            } })
 	        );
-	      } else {
-	        return React.createElement(
-	          "h4",
-	          null,
-	          (0, _ItineraryUtils.dateFormatted)(t[0]),
-	          React.createElement("button", { className: "addItinerary", onClick: function onClick() {
-	              return onSchedule(+t[0]);
-	            } })
-	        );
 	      }
-	    });
+	      return React.createElement(
+	        "h4",
+	        null,
+	        (0, _ItineraryUtils.dateFormatted)(t[0]),
+	        React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	            return onSchedule(+t[0]);
+	          } })
+	      );
+	    })));
 	  }
 	  return React.createElement(
 	    "section",

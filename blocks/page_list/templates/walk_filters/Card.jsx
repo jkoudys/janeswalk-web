@@ -1,5 +1,6 @@
 /* global React */
 import { getThemeName, getThemeIcon } from 'janeswalk/utils/lookups/Theme.js';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 let dtfDate;
 // Date formatter
@@ -49,7 +50,7 @@ export default class Card extends React.Component {
     let LedBy;
     let Thumb;
     let Status;
-    const { walk: { id, title, url, thumbnails, map, shortDescription, checkboxes, team } } = this.props;
+    const { walk: { id, title, url, thumbnails = [], map, shortDescription, checkboxes, team } } = this.props;
     const { past, startTimes } = this.state;
     const placeholder = `placeholder${id % 3}`;
     const leaders = team.filter(member => (member.role === 'walk-leader' || member.type === 'leader'));
@@ -74,7 +75,7 @@ export default class Card extends React.Component {
     if (leaders.length) {
       LedBy = (
         <span>
-          {`Walk led by ${leaders.map(getFullName).join(', ')}`}
+          {t`Walk led by ${leaders.map(getFullName).join(', ')}`}
         </span>
       );
     }
@@ -96,7 +97,7 @@ export default class Card extends React.Component {
             </div>
             <ul className="when">
               {startTimes.map(startTime => <li>{startTime}</li>)}
-              {Meeting ? <li>Meet at {Meeting}</li> : null}
+              {Meeting ? <li>{t`Meet at ${Meeting}`}</li> : null}
               {LedBy ? <li>{LedBy}</li> : null}
             </ul>
             <ul className="list-inline tags">
