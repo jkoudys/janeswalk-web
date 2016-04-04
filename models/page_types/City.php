@@ -230,12 +230,12 @@ class City extends \Model implements \JsonSerializable
      *
      * @return array
      */
-    public function getWalks()
+    public function getWalks($showAll = false)
     {
-        $pl = new PageList;
+        $pl = new PageList();
         $pl->filterByCollectionTypeHandle('walk');
         $pl->filterByPath($this->page->getCollectionPath());
-        $pl->filterByAttribute('exclude_page_list', false);
+        if (!$showAll) $pl->filterByAttribute('exclude_page_list', false);
         $pagecount = 500;
 
         return array_map(

@@ -51,7 +51,7 @@ class ProfileController extends Concrete5_Controller_Profile
         $city = new City($cityPage);
 
         // Build all the walks we need
-        foreach ($city->getWalks() as $w) {
+        foreach ($city->getWalks(true) as $w) {
             $walkData[(int) $w->getPage()->cID] = $w;
         }
         $cityWalksArr = array_keys($walkData);
