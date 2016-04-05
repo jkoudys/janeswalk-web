@@ -7667,8 +7667,10 @@
 	                                                                                                                                                                                                                                                                   *
 	                                                                                                                                                                                                                                                                   * Mapping functions to grab remote or global-defined Walks
 	                                                                                                                                                                                                                                                                   */
+	/* global JanesWalk */
 
 	exports.buildWalkObject = buildWalkObject;
+	exports.walkSend = walkSend;
 	exports.save = save;
 	exports.publish = publish;
 	exports.load = load;
@@ -7690,7 +7692,11 @@
 	 * @param object data
 	 * @return object
 	 */
-	// TODO: move this into its own model js
+
+	// Convert array-ish objects (e.g. {"0": "foo", "1": "bar"}, but _no_ length) to arrays
+	var objectToArray = function objectToArray(obj) {
+	  return Array.from(_extends({ length: Object.keys(obj).length }, obj));
+	};
 
 	/**
 	 * Migrate any walks saved in beta format to the v1 API
@@ -7701,18 +7707,22 @@
 	  var migratedWalk = Object.assign({}, walk);
 
 	  // Convert old {0: marker, 1: marker} indexing to a proper array
-	  // Convert markers
-	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.markers)) {
-	    migratedWalk.map.markers = Helper.objectToArray(migratedWalk.map.markers);
+	  if (migratedWalk.map) {
+	    // Convert markers
+	    if (!Array.isArray(migratedWalk.map.markers)) {
+	      migratedWalk.map.markers = objectToArray(migratedWalk.map.markers);
+	    }
+	    // Convert routes
+	    if (!Array.isArray(migratedWalk.map.route)) {
+	      migratedWalk.map.route = objectToArray(migratedWalk.map.route);
+	    }
 	  }
-	  // Convert routes
-	  if (migratedWalk.map && !Array.isArray(migratedWalk.map.route)) {
-	    migratedWalk.map.route = Helper.objectToArray(migratedWalk.map.route);
-	  }
+
 	  // Convert time slots
 	  if (migratedWalk.time && !Array.isArray(migratedWalk.time.slots)) {
-	    migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
+	    migratedWalk.time.slots = objectToArray(migratedWalk.time.slots);
 	  }
+
 	  // Turn all 'false' values into empty strings
 	  for (var i in migratedWalk) {
 	    if (migratedWalk[i] === false) {
@@ -7736,8 +7746,8 @@
 	  var defaultWalk = __webpack_require__(62);
 	  var defaultTeam = [{
 	    type: 'you',
-	    "name-first": user.firstName,
-	    "name-last": user.lastName,
+	    'name-first': user.firstName,
+	    'name-last': user.lastName,
 	    role: 'walk-leader',
 	    primary: 'on',
 	    bio: user.bio,
@@ -7754,21 +7764,13 @@
 
 	// GET a walk from a remote request
 	function getWalk(url, cb) {
-	  var xhr = new XMLHttpRequest();
-	  xhr.open('GET', url.replace(/(\/+|)$/, '/json'));
-	  xhr.onload = function () {
-	    var data = void 0;
-	    try {
-	      data = JSON.parse(this.responseText);
-	      cb(null, migrateToV1(data));
-	    } catch (e) {
-	      cb('Error parsing JSON returned on walk' + url);
-	    }
-	  };
-	  xhr.onerror = function () {
-	    cb('Failed to load walk ' + url);
-	  };
-	  xhr.send();
+	  fetch(url.replace(/(\/+|)$/, '/json')).then(function (res) {
+	    return res.json;
+	  }).then(function (data) {
+	    return cb(null, migrateToV1(data));
+	  }).catch(function (e) {
+	    return cb('Failed to load walk ' + url + ': ' + e.message);
+	  });
 	}
 
 	// Load a walk from the JanesWalk global
@@ -7778,30 +7780,30 @@
 	}
 
 	// Generic function for sending a walk to the server
-	function walkSend(url, walk, method, cb) {
-	  var xhr = new XMLHttpRequest();
-	  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-	  xhr.open(method, url);
-	  xhr.onload = function () {
-	    var response;
-	    try {
-	      response = JSON.parse(this.responseText);
-	      cb(null, response, url);
-	    } catch (e) {
-	      cb('Error parsing JSON on walk post' + url);
-	    }
-	  };
-	  xhr.send(JSON.stringify(walk));
+	function walkSend(_ref2, cb) {
+	  var url = _ref2.url;
+	  var walk = _ref2.walk;
+	  var _ref2$method = _ref2.method;
+	  var method = _ref2$method === undefined ? 'POST' : _ref2$method;
+
+	  fetch(url, {
+	    method: method,
+	    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+	    body: JSON.stringify(walk)
+	  }).then(function (res) {
+	    return res.json();
+	  }).then(function (data) {
+	    return cb(null, data, url);
+	  }).catch(function (e) {
+	    return cb('Error parsing JSON on walk post ' + url + ': ' + e.message);
+	  });
 	}
 
 	function save(cb) {
-	  NotifyActions.info('Saving walk', 'save');
 	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'POST', function (err, message) {
 	    if (err) {
-	      NotifyActions.error('Failed to save walk');
 	      console.log(err);
 	    } else {
-	      NotifyActions.info('Walk saved');
 	      cb();
 	      console.log(message);
 	    }
@@ -7809,24 +7811,21 @@
 	}
 
 	function publish(cb) {
-	  NotifyActions.info('Publishing walk', 'save');
 	  // PUT a walk
 	  walkSend(_WalkStore2.default.getUrl(), _WalkStore2.default.getApi(), 'PUT', function (err, message) {
 	    if (err) {
-	      NotifyActions.error('Failed to publish walk');
 	      console.log(err);
 	    } else {
-	      NotifyActions.info('Walk published');
 	      cb();
 	      console.log(message);
 	    }
 	  });
-	};
+	}
 
 	function load(url) {
-	  var receiver = function receiver(err, walk, url) {
+	  var receiver = function receiver(err, walk) {
 	    if (err) {
-	      NotifyActions.error('Failed to load walk');
+	      console.log(err);
 	    } else {
 	      _WalkActions2.default.receive(walk);
 	    }
@@ -8066,8 +8065,24 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(WalkPage)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
-	    _this.state = getWalk(props);
-	    _this._onChange = _this._onChange.bind(_this);
+	    Object.assign(_this, {
+	      state: getWalk(props),
+	      _onChange: function _onChange() {
+	        _this.setState(getWalk);
+	      },
+	      handleSchedule: function handleSchedule(time) {
+	        return Action.schedule(_this.state.walk, time);
+	      },
+	      handleUnschedule: function handleUnschedule(time) {
+	        return Action.unschedule(_this.state.walk, time);
+	      },
+	      handleAdd: function handleAdd() {
+	        return Action.add(_this.state.list, _this.state.walk);
+	      },
+	      handleRemove: function handleRemove() {
+	        return Action.remove(_this.state.list, _this.state.walk);
+	      }
+	    });
 	    return _this;
 	  }
 
@@ -8082,11 +8097,6 @@
 	      _ItineraryStore2.default.removeChangeListener(this._onChange);
 	    }
 	  }, {
-	    key: '_onChange',
-	    value: function _onChange() {
-	      this.setState(getWalk);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state;
@@ -8094,7 +8104,6 @@
 	      var _state$walk$map = _state.walk.map;
 	      var map = _state$walk$map === undefined ? { markers: [], route: [] } : _state$walk$map;
 	      var city = _state.city;
-	      var list = _state.list;
 	      var isFavourite = _state.isFavourite;
 	      var schedule = _state.schedule;
 
@@ -8105,18 +8114,10 @@
 	        'section',
 	        { className: 'walkPage' },
 	        React.createElement(_WalkHeader2.default, _extends({ walk: walk, city: city, isFavourite: isFavourite, schedule: schedule }, {
-	          onSchedule: function onSchedule(t) {
-	            return Action.schedule(walk, t);
-	          },
-	          onUnschedule: function onUnschedule(t) {
-	            return Action.unschedule(walk, t);
-	          },
-	          onAdd: function onAdd() {
-	            return Action.add(list, walk);
-	          },
-	          onRemove: function onRemove() {
-	            return Action.remove(list, walk);
-	          }
+	          onSchedule: this.handleSchedule,
+	          onUnschedule: this.handleUnschedule,
+	          onAdd: this.handleAdd,
+	          onRemove: this.handleRemove
 	        })),
 	        React.createElement(_WalkMenu2.default, this.state),
 	        React.createElement(_WalkDescription2.default, this.state.walk),
@@ -8489,7 +8490,7 @@
 /* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -8497,6 +8498,7 @@
 	/* global React */
 
 	var connections = __webpack_require__(72);
+	var teamTypes = __webpack_require__(245);
 
 	function ConnectionLinks(_ref) {
 	  var member = _ref.member;
@@ -8506,16 +8508,16 @@
 	  });
 
 	  return React.createElement(
-	    "div",
-	    { className: "btn-toolbar" },
+	    'div',
+	    { className: 'btn-toolbar' },
 	    availConnects.map(function (_ref2, i) {
 	      var href = _ref2.href;
 	      var name = _ref2.name;
 	      var style = _ref2.style;
 	      return React.createElement(
-	        "a",
-	        { key: i, className: "btn", href: "" + href + member[name], target: "_blank" },
-	        React.createElement("i", { className: style })
+	        'a',
+	        { key: i, className: 'btn', href: '' + href + member[name], target: '_blank' },
+	        React.createElement('i', { className: style })
 	      );
 	    })
 	  );
@@ -8527,43 +8529,43 @@
 
 	  var teamMembers = team.map(function (m, i) {
 	    return React.createElement(
-	      "article",
+	      'article',
 	      { key: i },
 	      React.createElement(
-	        "header",
+	        'header',
 	        null,
 	        React.createElement(
-	          "h3",
+	          'h3',
 	          null,
-	          (m['name-first'] + " " + m['name-last']).trim(),
-	          ", ",
+	          (m['name-first'] + ' ' + m['name-last']).trim(),
+	          ', ',
 	          React.createElement(
-	            "span",
-	            { className: "walkTeamMemberRole" },
-	            m.role
+	            'span',
+	            { className: 'walkTeamMemberRole' },
+	            teamTypes.roles[m.role] || m.role
 	          )
 	        ),
 	        React.createElement(
-	          "footer",
+	          'footer',
 	          null,
 	          React.createElement(ConnectionLinks, { member: m })
 	        )
 	      ),
-	      React.createElement("summary", { dangerouslySetInnerHTML: { __html: m.bio } })
+	      React.createElement('summary', { dangerouslySetInnerHTML: { __html: m.bio } })
 	    );
 	  });
 
 	  return React.createElement(
-	    "section",
-	    { className: "walkTeam" },
-	    React.createElement("a", { name: "About the Walk Team" }),
+	    'section',
+	    { className: 'walkTeam' },
+	    React.createElement('a', { name: 'About the Walk Team' }),
 	    React.createElement(
-	      "h2",
+	      'h2',
 	      null,
-	      "About the Walk Team"
+	      'About the Walk Team'
 	    ),
 	    React.createElement(
-	      "section",
+	      'section',
 	      null,
 	      teamMembers
 	    )
@@ -8600,11 +8602,6 @@
 			"name": "website",
 			"href": "",
 			"style": "fa fa-globe"
-		},
-		{
-			"name": "phone",
-			"href": "",
-			"style": "fa fa-phone"
 		}
 	];
 
@@ -29091,12 +29088,8 @@
 
 	            var meeting = void 0;
 	            var start = void 0;
-	            if (map && map.markers.length) {
-	              meeting = map.markers[0].title;
-	            }
-	            if (time && time.slots.length) {
-	              start = time.slots[0][0];
-	            }
+	            if (map && map.markers.length) meeting = map.markers[0].title;
+	            if (time && time.slots.length) start = time.slots[0][0];
 	            return React.createElement(_Walk2.default, { title: title, id: id, key: id, team: team, url: url, published: published, meeting: meeting, start: start });
 	          });
 	        })();
@@ -29179,6 +29172,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	/* global React */
 	// TODO*: Refactoring Components, WalksFilter is not doing much
 
 	var Filter = function Filter(_ref) {
@@ -29187,7 +29181,6 @@
 	  var toggleFilter = _ref.toggleFilter;
 	  var removeFilter = _ref.removeFilter;
 	  var options = _ref.options;
-	  var allFilters = _ref.allFilters;
 	  var filters = _ref.filters;
 
 	  var ActiveFilters = void 0;
@@ -29231,11 +29224,11 @@
 	        { value: '' },
 	        name
 	      ),
-	      Object.keys(options).map(function (handle, i) {
+	      Object.keys(options).map(function (h, i) {
 	        return React.createElement(
 	          'option',
-	          { key: i, value: handle },
-	          options[handle]
+	          { key: i, value: h },
+	          options[h]
 	        );
 	      })
 	    ),
@@ -29252,7 +29245,6 @@
 	  var allFilters = _ref2.allFilters;
 	  var _removeFilter = _ref2.removeFilter;
 	  var _toggleFilter = _ref2.toggleFilter;
-
 
 	  var Filters = Object.keys(filters).map(function (key) {
 	    return React.createElement(Filter, {
@@ -30102,6 +30094,16 @@
 	}(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 245 */
+/***/ function(module, exports) {
+
+	module.exports = {
+		"roles": {
+			"walk-leader": "Walk Leader"
+		}
+	};
 
 /***/ }
 /******/ ]);
