@@ -3,6 +3,7 @@
  *
  * Mapping functions to grab remote or global-defined Walks
  */
+/* global JanesWalk */
 
 import WalkActions from 'janeswalk/actions/WalkActions.js';
 import WalkStore from 'janeswalk/stores/WalkStore.js';
@@ -14,7 +15,9 @@ import WalkStore from 'janeswalk/stores/WalkStore.js';
  * @param object data
  * @return object
  */
-// TODO: move this into its own model js
+
+// Convert array-ish objects (e.g. {"0": "foo", "1": "bar"}, but _no_ length) to arrays
+const objectToArray = obj => Array.from({ length: Object.keys(obj).length, ...obj });
 
 /**
  * Migrate any walks saved in beta format to the v1 API
@@ -25,20 +28,24 @@ function migrateToV1(walk) {
   const migratedWalk = Object.assign({}, walk);
 
   // Convert old {0: marker, 1: marker} indexing to a proper array
-  // Convert markers
-  if (migratedWalk.map && !Array.isArray(migratedWalk.map.markers)) {
-    migratedWalk.map.markers = Helper.objectToArray(migratedWalk.map.markers);
+  if (migratedWalk.map) {
+    // Convert markers
+    if (!Array.isArray(migratedWalk.map.markers)) {
+      migratedWalk.map.markers = objectToArray(migratedWalk.map.markers);
+    }
+    // Convert routes
+    if (!Array.isArray(migratedWalk.map.route)) {
+      migratedWalk.map.route = objectToArray(migratedWalk.map.route);
+    }
   }
-  // Convert routes
-  if (migratedWalk.map && !Array.isArray(migratedWalk.map.route)) {
-    migratedWalk.map.route = Helper.objectToArray(migratedWalk.map.route);
-  }
+
   // Convert time slots
   if (migratedWalk.time && !Array.isArray(migratedWalk.time.slots)) {
-    migratedWalk.time.slots = Helper.objectToArray(migratedWalk.time.slots);
+    migratedWalk.time.slots = objectToArray(migratedWalk.time.slots);
   }
+
   // Turn all 'false' values into empty strings
-  for (let i in migratedWalk) {
+  for (const i in migratedWalk) {
     if (migratedWalk[i] === false) {
       migratedWalk[i] = '';
     } else if (migratedWalk[i] === null) {
@@ -50,14 +57,14 @@ function migrateToV1(walk) {
   return migratedWalk;
 }
 
-export function buildWalkObject({data, user, url}) {
+export function buildWalkObject({ data, user, url }) {
   // Keep these defaults to type, ie don't pre-seed data here, aside from
   // data loaded by passing it in
   const defaultWalk = require('janeswalk/constants/defaultWalk.json');
   const defaultTeam = [{
     type: 'you',
-    "name-first": user.firstName,
-    "name-last": user.lastName,
+    'name-first': user.firstName,
+    'name-last': user.lastName,
     role: 'walk-leader',
     primary: 'on',
     bio: user.bio,
@@ -65,31 +72,19 @@ export function buildWalkObject({data, user, url}) {
     facebook: user.facebook,
     website: user.website,
     email: user.email,
-    phone: '' 
+    phone: '',
   }];
-  const walk = {...defaultWalk, team: defaultTeam, url, ...migrateToV1(data)};
+  const walk = { ...defaultWalk, team: defaultTeam, url, ...migrateToV1(data) };
 
   return walk;
 }
 
-
 // GET a walk from a remote request
 function getWalk(url, cb) {
-  let xhr = new XMLHttpRequest();
-  xhr.open('GET', url.replace(/(\/+|)$/, '/json'));
-  xhr.onload = function() {
-    let data;
-    try {
-      data = JSON.parse(this.responseText);
-      cb(null, migrateToV1(data));
-    } catch (e) {
-      cb('Error parsing JSON returned on walk' + url);
-    }
-  };
-  xhr.onerror = function() {
-    cb('Failed to load walk ' + url);
-  };
-  xhr.send();
+  fetch(url.replace(/(\/+|)$/, '/json'))
+  .then(res => res.json)
+  .then(data => cb(null, migrateToV1(data)))
+  .catch(e => cb(`Failed to load walk ${url}: ${e.message}`));
 }
 
 // Load a walk from the JanesWalk global
@@ -99,30 +94,22 @@ function getWalkGlobal(cb) {
 }
 
 // Generic function for sending a walk to the server
-function walkSend(url, walk, method, cb) {
-  var xhr = new XMLHttpRequest();
-  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xhr.open(method, url)
-  xhr.onload = function() {
-    var response;
-    try {
-      response = JSON.parse(this.responseText);
-      cb(null, response, url);
-    } catch (e) {
-      cb('Error parsing JSON on walk post' + url);
-    }
-  };
-  xhr.send(JSON.stringify(walk));
+export function walkSend({ url, walk, method = 'POST' }, cb) {
+  fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+    body: JSON.stringify(walk),
+  })
+  .then(res => res.json())
+  .then(data => cb(null, data, url))
+  .catch(e => cb(`Error parsing JSON on walk post ${url}: ${e.message}`));
 }
 
 export function save(cb) {
-  NotifyActions.info('Saving walk', 'save');
-  walkSend(WalkStore.getUrl(), WalkStore.getApi(), 'POST', function(err, message) {
+  walkSend(WalkStore.getUrl(), WalkStore.getApi(), 'POST', (err, message) => {
     if (err) {
-      NotifyActions.error('Failed to save walk');
       console.log(err);
     } else {
-      NotifyActions.info('Walk saved');
       cb();
       console.log(message);
     }
@@ -130,24 +117,21 @@ export function save(cb) {
 }
 
 export function publish(cb) {
-  NotifyActions.info('Publishing walk', 'save');
   // PUT a walk
-  walkSend(WalkStore.getUrl(), WalkStore.getApi(), 'PUT', function(err, message) {
+  walkSend(WalkStore.getUrl(), WalkStore.getApi(), 'PUT', (err, message) => {
     if (err) {
-      NotifyActions.error('Failed to publish walk');
       console.log(err);
     } else {
-      NotifyActions.info('Walk published');
       cb();
       console.log(message);
     }
   });
-};
+}
 
 export function load(url) {
-  var receiver = function(err, walk, url) {
+  const receiver = (err, walk) => {
     if (err) {
-      NotifyActions.error('Failed to load walk');
+      console.log(err);
     } else {
       WalkActions.receive(walk);
     }
