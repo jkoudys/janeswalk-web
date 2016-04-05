@@ -18,10 +18,5 @@
     "name": "website",
     "href": "",
     "style": "fa fa-globe"
-  },
-  {
-    "name": "phone",
-    "href": "",
-    "style": "fa fa-phone"
   }
 ]
