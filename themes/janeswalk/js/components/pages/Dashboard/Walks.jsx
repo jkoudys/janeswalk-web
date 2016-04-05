@@ -61,12 +61,8 @@ export default class Walks extends React.Component {
         const { map, id, title, time, team, url, published } = walks.get(wID);
         let meeting;
         let start;
-        if (map && map.markers.length) {
-          meeting = map.markers[0].title;
-        }
-        if (time && time.slots.length) {
-          start = time.slots[0][0];
-        }
+        if (map && map.markers.length) meeting = map.markers[0].title;
+        if (time && time.slots.length) start = time.slots[0][0];
         return <Walk {...{ title, id, key: id, team, url, published, meeting, start }} />;
       });
     } else if (currentView === 'map') {
@@ -75,10 +71,10 @@ export default class Walks extends React.Component {
 
     // The toggle for the past walks
     const DateToggle = (
-        <button
-          className={filterPast ? 'active' : null}
-          onClick={this.handleToggleFilterPast}
-        >
+      <button
+        className={filterPast ? 'active' : null}
+        onClick={this.handleToggleFilterPast}
+      >
         {filterPast ? t`Without Past Walks` : t`With Past Walks`}
       </button>
     );

@@ -29,8 +29,16 @@ export default class WalkPage extends React.Component {
   constructor(props, ...args) {
     super(props, ...args);
 
-    this.state = getWalk(props);
-    this._onChange = this._onChange.bind(this);
+    Object.assign(this, {
+      state: getWalk(props),
+      _onChange: () => {
+        this.setState(getWalk);
+      },
+      handleSchedule: time => Action.schedule(this.state.walk, time),
+      handleUnschedule: time => Action.unschedule(this.state.walk, time),
+      handleAdd: () => Action.add(this.state.list, this.state.walk),
+      handleRemove: () => Action.remove(this.state.list, this.state.walk),
+    });
   }
 
   componentWillMount() {
@@ -41,12 +49,16 @@ export default class WalkPage extends React.Component {
     ItineraryStore.removeChangeListener(this._onChange);
   }
 
-  _onChange() {
-    this.setState(getWalk);
-  }
-
   render() {
-    const { walk, walk: { map = { markers: [], route: [] } }, city, list, isFavourite, schedule } = this.state;
+    const {
+      walk,
+      walk: {
+        map = { markers: [], route: [] },
+      },
+      city,
+      isFavourite,
+      schedule,
+    } = this.state;
     const hasMarkers = map.markers.length > 0;
     const hasRoute = map.route.length > 0;
 
@@ -54,10 +66,10 @@ export default class WalkPage extends React.Component {
       <section className="walkPage">
         <WalkHeader
           {...{ walk, city, isFavourite, schedule }}
-          onSchedule={t => Action.schedule(walk, t)}
-          onUnschedule={t => Action.unschedule(walk, t)}
-          onAdd={() => Action.add(list, walk)}
-          onRemove={() => Action.remove(list, walk)}
+          onSchedule={this.handleSchedule}
+          onUnschedule={this.handleUnschedule}
+          onAdd={this.handleAdd}
+          onRemove={this.handleRemove}
         />
         <WalkMenu {...this.state} />
         <WalkDescription {...this.state.walk} />

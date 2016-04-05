@@ -1,6 +1,7 @@
 /* global React */
 
 const connections = require('../../../json/ConnectionTypes.json');
+const teamTypes = require('../../../json/TeamMembers.json');
 
 function ConnectionLinks({ member }) {
   const availConnects = connections.filter(c => member[c.name]);
@@ -21,7 +22,7 @@ const WalkTeam = ({ team = [] }) => {
     <article key={i}>
       <header>
         <h3>
-          {(`${m['name-first']} ${m['name-last']}`).trim()}, <span className="walkTeamMemberRole">{m.role}</span>
+          {(`${m['name-first']} ${m['name-last']}`).trim()}, <span className="walkTeamMemberRole">{teamTypes.roles[m.role] || m.role}</span>
         </h3>
         <footer>
           <ConnectionLinks member={m} />

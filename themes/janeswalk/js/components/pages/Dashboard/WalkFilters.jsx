@@ -1,6 +1,7 @@
+/* global React */
 // TODO*: Refactoring Components, WalksFilter is not doing much
 
-const Filter = ({name, handle, toggleFilter, removeFilter, options, allFilters, filters}) => {
+const Filter = ({ name, handle, toggleFilter, removeFilter, options, filters }) => {
   let ActiveFilters;
 
   if (Object.keys(filters).includes(handle)) {
@@ -17,7 +18,7 @@ const Filter = ({name, handle, toggleFilter, removeFilter, options, allFilters, 
       <label></label>
       <select value="Select" onChange={e => toggleFilter(e.target.value)}>
         <option value="">{name}</option>
-        {Object.keys(options).map((handle, i) => <option key={i} value={handle}>{options[handle]}</option>)}
+        {Object.keys(options).map((h, i) => <option key={i} value={h}>{options[h]}</option>)}
       </select>
       <section>
       {ActiveFilters}
@@ -26,8 +27,7 @@ const Filter = ({name, handle, toggleFilter, removeFilter, options, allFilters, 
   );
 };
 
-const WalkFilters = ({filters, allFilters, removeFilter, toggleFilter}) => {
-
+const WalkFilters = ({ filters, allFilters, removeFilter, toggleFilter }) => {
   const Filters = Object.keys(filters).map(
     key => <Filter
       key={key}
