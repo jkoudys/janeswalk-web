@@ -13,6 +13,7 @@ function getDashData() {
   return {
     walks: WalkStore.getWalks(),
     users: UserStore.getUsers(),
+    currentUser: UserStore.getCurrent(),
     city: CityStore.getCity(),
     announcements: require('../../json/MessageStubs.json'),
   };
@@ -44,12 +45,12 @@ export default class Dashboard extends React.Component {
 
   render() {
     const { user } = this.props;
-    const { city, walks, users, announcements } = this.state;
+    const { city, walks, users, announcements, currentUser } = this.state;
 
     return (
       <section className="dashboard">
         <Header user={user} announcements={announcements} />
-        <Menu {...{ walks, users, user, city }} />
+        <Menu {...{ walks, users, user, city, currentUser }} />
         <Summary
           city={city}
           walks={walks}

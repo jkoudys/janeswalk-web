@@ -3,22 +3,36 @@
 // TODO: ImpactReport is not set-up
 // import ImpactReport from './ImpactReport.jsx';
 
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
+
 import Walks from './Walks.jsx';
+import ProfileDisplay from './ProfileDisplay.jsx';
+import ProfileEdit from './ProfileEdit.jsx';
 
 export default class Menu extends React.Component {
   constructor(props, ...args) {
     super(props, ...args);
 
     // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples
-    this.state = {
-      menuItems: [
-        // [DashboardResources, 'Dashboard Resources', true],
-        //        [MyBlogPosts, 'My Blog Posts', false],
-        [Walks, 'My Walks', false, { show: 'user' }],
-        [Walks, 'Walks in My City', false, { show: 'city' }],
-        //  [WalkLeaders, 'Walk Leaders', false]
-      ],
-    };
+    Object.assign(this, {
+      state: {
+        menuItems: [
+          //          [props.user.id === props.currentUser.id ? ProfileEdit : ProfileDisplay, t`Profile`, false],
+          [Walks, t`My Walks`, false, { show: 'user' }],
+          [Walks, t`Walks in My City`, false, { show: 'city' }],
+        ],
+      },
+    });
+  }
+
+  componentWillReceiveProps({ user, currentUser }) {
+    if (user.id === currentUser.id) {
+      const { menuItems } = this.state;
+
+      // TODO: assuming index 0 is the profile is bad.
+      //      menuItems[0][0] = ProfileEdit;
+      this.setState({ menuItems });
+    }
   }
 
   toggleSection(idx) {

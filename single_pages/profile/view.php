@@ -22,8 +22,16 @@ $profileOwner = [
     'firstName' => $ui->getAttribute('first_name'),
     'lastName' => $ui->getAttribute('last_name'),
     'groups' => array_values($u->getUserGroups()),
-    'walks' => $userWalksArr
+    'walks' => $userWalksArr,
 ];
+
+$announceStack = 'Announcements COs only';
+if (in_array('City Organizers', $u->getUserGroups())) {
+    ob_start();
+    $stack = Stack::getByName($announceStack);
+    $stack->display();
+    $COAnnouncements = ob_get_clean();
+}
 ?>
 <script type="text/javascript">
 (function() {
@@ -33,9 +41,9 @@ $profileOwner = [
     JanesWalk.event.emit('users.receive', <?= json_encode($cityUsers) ?>);
     JanesWalk.event.emit('user.receive', _user);
     JanesWalk.event.emit('blogs.receive', <?= json_encode($userBlogPostsArr) ?>);
-    JanesWalk.event.emit('city.receive', Object.assign(<?= json_encode($city) ?>, {walks: <?= json_encode($cityWalksArr) ?>}));
-
-    JanesWalk.event.emit('profilepage.load', {user: _user});
+    JanesWalk.event.emit('city.receive', Object.assign(<?= json_encode($city) ?>, { walks: <?= json_encode($cityWalksArr) ?>}));
+    JanesWalk.event.emit('area.receive', { '<?= $announceStack ?>': <?= json_encode($COAnnouncements) ?> });
+    JanesWalk.event.emit('profilepage.load', { user: _user });
 })();
 </script>
 <div id="page" class="profile"></div>
