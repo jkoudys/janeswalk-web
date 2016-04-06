@@ -17,7 +17,14 @@ class BlogEntryPageTypeController extends Controller
         }
         $this->set('isLoggedIn', $dh->canRead());
         $this->set('canEdit', is_object(ComposerPage::getByID($c->getCollectionID())));
-        $this->set('authorName', ($first_name = $uiAuthor->getAttribute('first_name')) ? ("$first_name {$uiAuthor->getAttribute('last_name')}") : $uiAuthor->getUserObject()->getUserName());
+        if ($uiAuthor) {
+            $this->set(
+                'authorName',
+                ($first_name = $uiAuthor->getAttribute('first_name')) ?
+                ("$first_name {$uiAuthor->getAttribute('last_name')}") :
+                $uiAuthor->getUserObject()->getUserName()
+            );
+        }
         $this->set('publishDate', $c->getCollectionDatePublic(DATE_APP_GENERIC_MDY_FULL));
         $this->set('otherBlogsOwned', $this->getOtherBlogsOwned());
         $this->set('pageType', 'blog');
