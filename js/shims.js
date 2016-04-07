@@ -97,4 +97,4 @@ if (!Array.prototype.find) {
 // ReactDOM
 window.ReactDOM = React;
 
-if (!window.fetch) window.fetch = require('whatwg-fetch');
+if (!window.fetch) require('whatwg-fetch');
