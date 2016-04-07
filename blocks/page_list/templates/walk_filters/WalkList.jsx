@@ -19,7 +19,7 @@ export default ({ walks }) => (
       </tr>
     </thead>
     <tbody>
-      {walks.map(walk => <ListItem walk={walk} />)}
+      {walks.map((walk, i) => <ListItem key={`walk${i}`} walk={walk} />)}
     </tbody>
   </table>
 );

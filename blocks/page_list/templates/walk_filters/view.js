@@ -1769,8 +1769,8 @@
 	    React.createElement(
 	      'tbody',
 	      null,
-	      walks.map(function (walk) {
-	        return React.createElement(_ListItem2.default, { walk: walk });
+	      walks.map(function (walk, i) {
+	        return React.createElement(_ListItem2.default, { key: 'walk' + i, walk: walk });
 	      })
 	    )
 	  );
@@ -1780,96 +1780,79 @@
 /* 17 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
+	exports.default = ListItem;
 	/* global React */
 
-	var ListItem = function (_React$Component) {
-	  _inherits(ListItem, _React$Component);
+	// Date formatter
+	var dtfDate = new Intl.DateTimeFormat(undefined, {
+	  year: 'numeric',
+	  month: 'long',
+	  day: 'numeric',
+	  timeZone: 'UTC'
+	});
 
-	  function ListItem(props) {
-	    _classCallCheck(this, ListItem);
+	var dtfTime = new Intl.DateTimeFormat(undefined, {
+	  hour: 'numeric',
+	  minute: '2-digit',
+	  timeZone: 'UTC'
+	});
 
-	    var formatter = void 0;
+	function ListItem(_ref) {
+	  var _ref$walk = _ref.walk;
+	  var map = _ref$walk.map;
+	  var url = _ref$walk.url;
+	  var title = _ref$walk.title;
+	  var time = _ref$walk.time;
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ListItem).call(this, props));
+	  var Meeting = void 0;
+	  var startDate = void 0;
+	  var startTime = void 0;
 
-	    if (props.walk.time.slots.length) {
-	      var time = props.walk.time.slots[0][0] * 1000;
-
-	      _this.state = {
-	        startDate: dtfDate.format(time),
-	        startTime: dtfTime.format(time)
-	      };
-	    }
-	    return _this;
+	  if (time.slots.length) {
+	    var start = time.slots[0][0] * 1000;
+	    startDate = dtfDate.format(start);
+	    startTime = dtfTime.format(start);
 	  }
 
-	  _createClass(ListItem, [{
-	    key: "render",
-	    value: function render() {
-	      var Meeting = void 0;
-	      var _props$walk = this.props.walk;
-	      var map = _props$walk.map;
-	      var url = _props$walk.url;
-	      var title = _props$walk.title;
-	      var _state = this.state;
-	      var startDate = _state.startDate;
-	      var startTime = _state.startTime;
+	  /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
+	  if (map && map.markers && map.markers.length) {
+	    Meeting = map.markers[0].title || map.markers[0].description;
+	  }
 
-	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-
-	      if (map && map.markers && map.markers.length) {
-	        Meeting = map.markers[0].title || map.markers[0].description;
-	      }
-
-	      return React.createElement(
-	        "tr",
-	        null,
-	        React.createElement(
-	          "td",
-	          null,
-	          startDate
-	        ),
-	        React.createElement(
-	          "td",
-	          null,
-	          startTime
-	        ),
-	        React.createElement(
-	          "td",
-	          null,
-	          React.createElement(
-	            "a",
-	            { href: url, target: "_blank" },
-	            title
-	          )
-	        ),
-	        React.createElement(
-	          "td",
-	          null,
-	          Meeting
-	        )
-	      );
-	    }
-	  }]);
-
-	  return ListItem;
-	}(React.Component);
-
-	exports.default = ListItem;
+	  return React.createElement(
+	    'tr',
+	    null,
+	    React.createElement(
+	      'td',
+	      null,
+	      startDate
+	    ),
+	    React.createElement(
+	      'td',
+	      null,
+	      startTime
+	    ),
+	    React.createElement(
+	      'td',
+	      null,
+	      React.createElement(
+	        'a',
+	        { href: url, target: '_blank' },
+	        title
+	      )
+	    ),
+	    React.createElement(
+	      'td',
+	      null,
+	      Meeting
+	    )
+	  );
+	}
 
 /***/ },
 /* 18 */
@@ -1916,6 +1899,7 @@
 	  minute: '2-digit',
 	  timeZone: 'UTC'
 	});
+
 	var _infoNode = document.createElement('div');
 
 	/**

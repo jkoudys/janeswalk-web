@@ -20,6 +20,7 @@ const dtfDate = new Intl.DateTimeFormat(undefined, {
   minute: '2-digit',
   timeZone: 'UTC',
 });
+
 const _infoNode = document.createElement('div');
 
 /**

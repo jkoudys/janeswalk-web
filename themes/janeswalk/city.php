@@ -62,7 +62,10 @@ EOT;
         {$BlogPostButton}
     </h2>
     {$area('City Blog')}
-    <h4><a href="{$BlogLink}">{$t('See more stories <i class="fa fa-angle-double-right"></i>')}</a>
+    <h4>
+        <a href="{$BlogLink}">
+            {$t('See more stories')} <i class="fa fa-angle-double-right"></i>
+        </a>
     </h4>
 </section>
 <script>JanesWalk.event.emit('blog.receive', {"url": "{$BlogLink}"});</script>
