@@ -1,4 +1,4 @@
-import React from 'react';
+/* global React */
 
 export default ({ children }) => {
   const formatted = children.split(/ /).map(word => {
