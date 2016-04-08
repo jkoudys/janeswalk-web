@@ -15,7 +15,7 @@ const WalkCards = ({ walks }) => {
   }
   return (
     <div className="walkCards">
-      {walks.map((walk, i) => <Card key={`walk${i}`} walk={walk} />)}
+      {walks.map(walk => <Card key={`walk${walk.id}`} walk={walk} />)}
     </div>
   );
 };

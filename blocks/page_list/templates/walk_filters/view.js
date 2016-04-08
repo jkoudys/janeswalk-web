@@ -125,6 +125,10 @@
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
+	var _Filter = __webpack_require__(25);
+
+	var _Filter2 = _interopRequireDefault(_Filter);
+
 	var _WalkStore = __webpack_require__(21);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
@@ -145,6 +149,7 @@
 	/**
 	 * Filters, lists, maps, the whole shebang
 	 */
+
 
 	// Flux
 
@@ -205,46 +210,12 @@
 	  return [today, null];
 	}
 
-	var Filter = function Filter(_ref2) {
-	  var name = _ref2.name;
-	  var selected = _ref2.selected;
-	  var setFilter = _ref2.setFilter;
-	  var data = _ref2.data;
-	  return React.createElement(
-	    'li',
-	    null,
-	    React.createElement(
-	      'label',
-	      null,
-	      name
-	    ),
-	    React.createElement(
-	      'select',
-	      { value: selected, onChange: function onChange(e) {
-	          return setFilter(e.target.value);
-	        } },
-	      React.createElement(
-	        'option',
-	        { value: '' },
-	        'All'
-	      ),
-	      Object.keys(data).map(function (k) {
-	        return React.createElement(
-	          'option',
-	          { value: k },
-	          data[k]
-	        );
-	      })
-	    )
-	  );
-	};
-
-	var getWalkFilterState = function getWalkFilterState(_ref3) {
-	  var _ref3$filters = _ref3.filters;
-	  var filters = _ref3$filters === undefined ? {} : _ref3$filters;
-	  var dateRange = _ref3.dateRange;
-	  var _ref3$city = _ref3.city;
-	  var city = _ref3$city === undefined ? _CityStore2.default.getCity() : _ref3$city;
+	var getWalkFilterState = function getWalkFilterState(_ref2) {
+	  var _ref2$filters = _ref2.filters;
+	  var filters = _ref2$filters === undefined ? {} : _ref2$filters;
+	  var dateRange = _ref2.dateRange;
+	  var _ref2$city = _ref2.city;
+	  var city = _ref2$city === undefined ? _CityStore2.default.getCity() : _ref2$city;
 
 	  var walks = [].concat(_toConsumableArray(_WalkStore2.default.getWalks().values()));
 	  var usefulRange = dateRange || thirdRecentDateRange(walks);
@@ -268,12 +239,18 @@
 
 	    Object.assign(_this, {
 	      state: getWalkFilterState(props),
+
+	      // Stores are updated
 	      _onChange: function _onChange() {
 	        _this.setState(getWalkFilterState(_this.state));
 	      },
+
+	      // Toggle whether or not the filters were showing
 	      handleToggleFilters: function handleToggleFilters() {
 	        _this.setState({ displayFilters: !_this.state.displayFilters });
 	      },
+
+	      // Send the list of walks to the printer
 	      printList: function printList() {
 	        var win = window.open();
 	        var el = win.document.createElement('div');
@@ -283,6 +260,8 @@
 	        win.print();
 	        win.close();
 	      },
+
+	      // Set a filter value
 	      setFilter: function setFilter(filter, val) {
 	        var _this$state = _this.state;
 	        var filters = _this$state.filters;
@@ -293,6 +272,8 @@
 	        filters[filter].selected = val;
 	        _this.setState({ filters: filters, filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city }) });
 	      },
+
+	      // Set our date range filter
 	      setDateRange: function setDateRange(from, to) {
 	        var _this$state2 = _this.state;
 	        var walks = _this$state2.walks;
@@ -336,7 +317,7 @@
 
 
 	      var Filters = Object.keys(filters).map(function (key) {
-	        return React.createElement(Filter, _extends({ key: key, setFilter: function setFilter(v) {
+	        return React.createElement(_Filter2.default, _extends({ key: key, setFilter: function setFilter(v) {
 	            return _this2.setFilter(key, v);
 	          } }, filters[key]));
 	      });
@@ -380,7 +361,7 @@
 	            'a',
 	            { className: 'filter-header', onClick: this.handleToggleFilters },
 	            React.createElement('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }),
-	            'Filters'
+	            ' Filters'
 	          ),
 	          React.createElement(
 	            'a',
@@ -453,8 +434,8 @@
 	  return React.createElement(
 	    'div',
 	    { className: 'walkCards' },
-	    walks.map(function (walk, i) {
-	      return React.createElement(_Card2.default, { key: 'walk' + i, walk: walk });
+	    walks.map(function (walk) {
+	      return React.createElement(_Card2.default, { key: 'walk' + walk.id, walk: walk });
 	    })
 	  );
 	};
@@ -1726,7 +1707,7 @@
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
 	                                                                                                                                                   * The list of walks to order
 	                                                                                                                                                   */
-	/* global $ */
+	/* global React */
 
 
 	/**
@@ -2439,6 +2420,53 @@
 	    city: city
 	  });
 	}
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/* global React */
+
+	var Filter = function Filter(_ref) {
+	  var name = _ref.name;
+	  var selected = _ref.selected;
+	  var setFilter = _ref.setFilter;
+	  var data = _ref.data;
+	  return React.createElement(
+	    "li",
+	    null,
+	    React.createElement(
+	      "label",
+	      null,
+	      name
+	    ),
+	    React.createElement(
+	      "select",
+	      { value: selected, onChange: function onChange(e) {
+	          return setFilter(e.target.value);
+	        } },
+	      React.createElement(
+	        "option",
+	        { value: "" },
+	        "All"
+	      ),
+	      Object.keys(data).map(function (k) {
+	        return React.createElement(
+	          "option",
+	          { value: k },
+	          data[k]
+	        );
+	      })
+	    )
+	  );
+	};
+
+	exports.default = Filter;
 
 /***/ }
 /******/ ]);

@@ -1,7 +1,7 @@
 /**
  * The list of walks to order
  */
-/* global $ */
+/* global React */
 import ListItem from './ListItem.jsx';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 

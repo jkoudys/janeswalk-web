@@ -6,6 +6,8 @@ import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
 import LocationMap from './LocationMap.jsx';
 import DateRange from './DateRange.jsx';
+import Filter from './Filter.jsx';
+
 // Flux
 import WalkStore from 'janeswalk/stores/WalkStore';
 import CityStore from 'janeswalk/stores/CityStore';
@@ -67,16 +69,6 @@ function thirdRecentDateRange(walks) {
   return [today, null];
 }
 
-const Filter = ({ name, selected, setFilter, data }) => (
-  <li>
-    <label>{name}</label>
-    <select value={selected} onChange={e => setFilter(e.target.value)}>
-      <option value="">All</option>
-      {Object.keys(data).map(k => <option value={k}>{data[k]}</option>)}
-    </select>
-  </li>
-);
-
 const getWalkFilterState = ({ filters: filters = {}, dateRange, city: city = CityStore.getCity() }) => {
   const walks = [...WalkStore.getWalks().values()];
   const usefulRange = dateRange || thirdRecentDateRange(walks);
@@ -96,12 +88,18 @@ export default class WalkFilter extends React.Component {
 
     Object.assign(this, {
       state: getWalkFilterState(props),
+
+      // Stores are updated
       _onChange: () => {
         this.setState(getWalkFilterState(this.state));
       },
+
+      // Toggle whether or not the filters were showing
       handleToggleFilters: () => {
         this.setState({ displayFilters: !this.state.displayFilters });
       },
+
+      // Send the list of walks to the printer
       printList: () => {
         const win = window.open();
         const el = win.document.createElement('div');
@@ -111,11 +109,15 @@ export default class WalkFilter extends React.Component {
         win.print();
         win.close();
       },
+
+      // Set a filter value
       setFilter: (filter, val) => {
         const { filters, walks, dateRange, city } = this.state;
         filters[filter].selected = val;
         this.setState({ filters, filterMatches: filterWalks({ walks, filters, dateRange, city }) });
       },
+
+      // Set our date range filter
       setDateRange: (from, to) => {
         const { walks, filters, city } = this.state;
         this.setState({
@@ -170,7 +172,7 @@ export default class WalkFilter extends React.Component {
       <section className="ccm-block-page-list-walk-filters">
         <div className="walk-filters">
           <a className="filter-header" onClick={this.handleToggleFilters}>
-            <i className={displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right'} />Filters
+            <i className={displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right'} /> Filters
           </a>
           <a className="print-button" onClick={this.printList}>
             <i className="fa fa-print" /> Print List
