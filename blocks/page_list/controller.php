@@ -186,12 +186,11 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
      */
     public function loadCards()
     {
-        $cards = [];
-        foreach ((array) $this->get('pages') as $page) {
-            $walk = new Walk($page);
-            $cards[] = $walk;
-        }
-
-        return $cards;
+        return array_map(
+            function($page) {
+                return new Walk($page);
+            },
+            (array) $this->get('pages')
+        );
     }
 }

@@ -2506,13 +2506,15 @@
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
 	var _ItineraryUtils = __webpack_require__(26);
+
+	var _I18nStore = __webpack_require__(21);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React */
 
@@ -2528,28 +2530,34 @@
 
 	  if (time && time.slots) {
 	    addButtons.push.apply(addButtons, _toConsumableArray(time.slots.map(function (t) {
+	      var date = (0, _ItineraryUtils.dateFormatted)(t[0]);
+	      var duration = (0, _I18nStore.t2)('%s Hour', '%s Hours', (t[1] - t[0]) / 3600);
 	      if (timeSet.has(+t[0])) {
 	        return React.createElement(
-	          "h4",
+	          'h4',
 	          null,
-	          (0, _ItineraryUtils.dateFormatted)(t[0]),
-	          React.createElement("button", { className: "removeItinerary", onClick: function onClick() {
+	          date,
+	          ', ',
+	          duration,
+	          React.createElement('button', { className: 'removeItinerary', onClick: function onClick() {
 	              return onUnschedule(+t[0]);
 	            } })
 	        );
 	      }
 	      return React.createElement(
-	        "h4",
+	        'h4',
 	        null,
-	        (0, _ItineraryUtils.dateFormatted)(t[0]),
-	        React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	        date,
+	        ', ',
+	        duration,
+	        React.createElement('button', { className: 'addItinerary', onClick: function onClick() {
 	            return onSchedule(+t[0]);
 	          } })
 	      );
 	    })));
 	  }
 	  return React.createElement(
-	    "section",
+	    'section',
 	    null,
 	    addButtons
 	  );
