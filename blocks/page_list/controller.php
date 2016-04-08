@@ -118,27 +118,16 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             $cards = $this->loadCards();
             $cities = [];
 
-            // Build a separate walk card for each date
-            $walksByDate = [];
+            // See what cities we have to show
             foreach ($cards as $walk) {
                 if (!isset($cities[$walk->getPage()->getCollectionParentID()])) {
                     $parent = Page::getByID($walk->getPage()->getCollectionParentID());
                     $cities[$parent->getCollectionID()] = $parent->getCollectionName();
                 }
-                foreach ((array) $walk->time['slots'] as $slot) {
-                    $dateWalk = clone $walk;
-                    $dateWalk->time['slots'] = [$slot];
-                    $walksByDate[] = $dateWalk;
-                }
             }
-            usort($walksByDate, function($a, $b) {
-                $ta = $a->time['slots'][0][0];
-                $tb = $b->time['slots'][0][0];
-                return $ta < $tb ? -1 : 1;
-            });
             asort($cities);
 
-            $this->set('cards', $walksByDate);
+            $this->set('cards', $cards);
 
             // Set up walk filters
             // Wards

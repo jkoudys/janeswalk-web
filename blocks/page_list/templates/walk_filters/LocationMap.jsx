@@ -12,14 +12,17 @@ function isWalkLeader(member) {
 }
 
 // Date formatter
-const dtfDate = new Intl.DateTimeFormat(undefined, {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-  hour: 'numeric',
-  minute: '2-digit',
-  timeZone: 'UTC',
-});
+let dtfDate;
+if (typeof(Intl) === 'object') {
+  dtfDate = new Intl.DateTimeFormat(undefined, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    timeZone: 'UTC',
+  });
+}
 
 const _infoNode = document.createElement('div');
 
