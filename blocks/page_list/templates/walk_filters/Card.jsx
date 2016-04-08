@@ -20,7 +20,6 @@ const getFullName = v => `${v['name-first']} ${v['name-last']}`.trim();
 export default class Card extends React.Component {
   constructor(props) {
     let formatter;
-    let past;
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
     super(props);
@@ -36,12 +35,11 @@ export default class Card extends React.Component {
       };
     }
 
-    if (props.walk.time.slots.length) {
-      past = (props.walk.time.slots[0][0] * 1000) < yesterday.getTime();
-    }
-
     Object.assign(this, {
-      state: { startTimes: props.walk.time.slots.map(formatter), past },
+      state: {
+        startTime: formatter(props.slot),
+        past: (props.slot[0] * 1000) < yesterday.getTime(),
+      },
     });
   }
 
@@ -51,7 +49,7 @@ export default class Card extends React.Component {
     let Thumb;
     let Status;
     const { walk: { id, title, url, thumbnails = [], map, shortDescription, checkboxes, team } } = this.props;
-    const { past, startTimes } = this.state;
+    const { past, startTime } = this.state;
     const placeholder = `placeholder${id % 3}`;
     const leaders = team.filter(member => (member.role === 'walk-leader' || member.type === 'leader'));
     const Tags = Object.keys(checkboxes)
@@ -96,7 +94,7 @@ export default class Card extends React.Component {
               <p>{(shortDescription || '').slice(0, 140)}</p>
             </div>
             <ul className="when">
-              {startTimes.map(startTime => <li>{startTime}</li>)}
+              <li>{startTime}</li>
               {Meeting ? <li>{t`Meet at ${Meeting}`}</li> : null}
               {LedBy ? <li>{LedBy}</li> : null}
             </ul>

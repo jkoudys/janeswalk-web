@@ -8,7 +8,7 @@ import { translateTag as t } from 'janeswalk/stores/I18nStore';
 /**
  * The walk list
  */
-export default ({ walks }) => (
+export default ({ outings }) => (
   <table className="walklist table">
     <thead>
       <tr>
@@ -19,7 +19,7 @@ export default ({ walks }) => (
       </tr>
     </thead>
     <tbody>
-      {walks.map((walk, i) => <ListItem key={`walk${i}`} walk={walk} />)}
+      {outings.map(({ walk, slot }) => <ListItem key={`walk${walk.id}${slot[0]}`} walk={walk} slot={slot} />)}
     </tbody>
   </table>
 );

@@ -21,11 +21,10 @@ today.setUTCMinutes(0);
 /**
  * Apply filters and date range to walks
  */
-const filterWalks = ({ walks, filters, dateRange, city }) => walks.filter(walk => {
-  let time;
-  if (walk.time.slots.length) {
-    time = walk.time.slots[0][0] * 1000;
-  }
+const filterWalks = ({ outings, filters, dateRange, city }) => outings.filter(({ walk, slot }) => {
+  // Convert PHP second-epoch to JS milliseconds epoch
+  const time = slot[0] * 1000;
+
   // TODO: cleanup and perf test
   // Filter by checking that the filter doesn't match the walk
   // Note that this would be a lot cleaner using functions, but it's
@@ -47,12 +46,12 @@ const filterWalks = ({ walks, filters, dateRange, city }) => walks.filter(walk =
 /**
  * Grab the day the 3rd most recent walk appears on
  */
-function thirdRecentDate(walks) {
-  if (walks.length) {
-    const lastThree = walks.slice(-3);
+function thirdRecentDate(outings) {
+  if (outings.length) {
+    const lastThree = outings.slice(-3);
     // Find the day the walk starts
-    if (lastThree[0].time.slots.length) {
-      const lastDate = new Date(lastThree[0].time.slots[0][0] * 1000);
+    if (lastThree[0].slot) {
+      const lastDate = new Date(lastThree[0].slot[0] * 1000);
       lastDate.setUTCHours(0);
       lastDate.setUTCMinutes(0);
       return lastDate;
@@ -61,8 +60,8 @@ function thirdRecentDate(walks) {
   return null;
 }
 
-function thirdRecentDateRange(walks) {
-  const thirdDate = thirdRecentDate(walks);
+function thirdRecentDateRange(outings) {
+  const thirdDate = thirdRecentDate(outings);
   if (thirdDate && thirdDate < today) {
     return [thirdDate.getTime(), null];
   }
@@ -70,15 +69,15 @@ function thirdRecentDateRange(walks) {
 }
 
 const getWalkFilterState = ({ filters: filters = {}, dateRange, city: city = CityStore.getCity() }) => {
-  const walks = [...WalkStore.getWalks().values()];
-  const usefulRange = dateRange || thirdRecentDateRange(walks);
+  const outings = WalkStore.getWalkOutings();
+  const usefulRange = dateRange || thirdRecentDateRange(outings);
 
   return {
-    walks,
+    outings,
     filters,
     city,
     dateRange: usefulRange,
-    filterMatches: filterWalks({ walks, filters, dateRange: usefulRange, city }),
+    filterMatches: filterWalks({ outings, filters, dateRange: usefulRange, city }),
   };
 };
 
@@ -103,7 +102,7 @@ export default class WalkFilter extends React.Component {
       printList: () => {
         const win = window.open();
         const el = win.document.createElement('div');
-        React.render(<WalkList walks={this.state.filterMatches} />, el);
+        React.render(<WalkList outings={this.state.filterMatches} />, el);
         window.focus();
         win.document.body.appendChild(el);
         win.print();
@@ -112,17 +111,17 @@ export default class WalkFilter extends React.Component {
 
       // Set a filter value
       setFilter: (filter, val) => {
-        const { filters, walks, dateRange, city } = this.state;
+        const { filters, outings, dateRange, city } = this.state;
         filters[filter].selected = val;
-        this.setState({ filters, filterMatches: filterWalks({ walks, filters, dateRange, city }) });
+        this.setState({ filters, filterMatches: filterWalks({ outings, filters, dateRange, city }) });
       },
 
       // Set our date range filter
       setDateRange: (from, to) => {
-        const { walks, filters, city } = this.state;
+        const { outings, filters, city } = this.state;
         this.setState({
           dateRange: [from, to],
-          filterMatches: filterWalks({ walks, filters, dateRange: [from, to], city }),
+          filterMatches: filterWalks({ outings, filters, dateRange: [from, to], city }),
         });
       },
     });
@@ -151,7 +150,7 @@ export default class WalkFilter extends React.Component {
     if (city && city.latlng.length === 2) {
       locationMapSection = (
         <section className="tab-pane" id="jw-map">
-          <LocationMap walks={filterMatches} latlng={city.latlng} />
+          <LocationMap outings={filterMatches} latlng={city.latlng} />
         </section>
       );
     }
@@ -180,7 +179,7 @@ export default class WalkFilter extends React.Component {
           {displayFilters ? AllFilters : null}
         </div>
         <div className="walks-area">
-          <WalkCards walks={filterMatches} />
+          <WalkCards outings={filterMatches} />
           {locationMapSection}
         </div>
       </section>

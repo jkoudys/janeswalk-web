@@ -28,11 +28,11 @@ const _infoNode = document.createElement('div');
  * displayed.
  *
  * @param object markers The currently rendered markers
- * @param array walks The walks we want to render markers for
+ * @param array outings The walk outings we want to render markers for
  * @param google.maps.Map map The google map to render to
  * @return object updated set of markers
  */
-function addNewMarkersToMap(markers, walks, map) {
+function addNewMarkersToMap(markers, outings, map) {
   // TODO: see how to move these consts out of the function, since
   // they need to be here so google can load first
   // Basic info window
@@ -52,7 +52,7 @@ function addNewMarkersToMap(markers, walks, map) {
   Object.keys(markers).forEach(k => markers[k].setMap(null));
 
   // Grab starting point of each walk
-  for (const walk of walks) {
+  for (const { walk, slot } of outings) {
     if (markers[walk.id]) {
       // We already have this marker built, so simply add it to the map
       markers[walk.id].setMap(map);
@@ -92,7 +92,7 @@ function addNewMarkersToMap(markers, walks, map) {
           // Show all dates joined together
           date = (
             <h6>
-              <i className="fa fa-calendar" /> {walk.time.slots.map(slot => dtfDate.format(slot[0] * 1000)).join(', ')}
+              <i className="fa fa-calendar" /> {dtfDate.format(slot[0] * 1000)}
             </h6>
           );
         } catch (e) {
@@ -150,12 +150,12 @@ export default class LocationMap extends React.Component {
     });
 
     // Add our markers to the empty map
-    const newMarkers = addNewMarkersToMap({}, this.props.walks, map);
+    const newMarkers = addNewMarkersToMap({}, this.props.outings, map);
     this.setState({ map, markers: newMarkers });
   }
 
   componentWillReceiveProps(props) {
-    const newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
+    const newMarkers = addNewMarkersToMap(this.state.markers, props.outings, this.state.map);
     this.setState({ markers: newMarkers });
   }
 

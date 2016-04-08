@@ -4,8 +4,8 @@
 import Card from './Card.jsx';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
-const WalkCards = ({ walks }) => {
-  if (walks.length === 0) {
+const WalkCards = ({ outings }) => {
+  if (outings.length === 0) {
     return (
       <div className="empty">
         <h4>{t`Keep looking.`}</h4>
@@ -15,7 +15,7 @@ const WalkCards = ({ walks }) => {
   }
   return (
     <div className="walkCards">
-      {walks.map(walk => <Card key={`walk${walk.id}`} walk={walk} />)}
+      {outings.map(({ walk, slot }) => <Card key={`walk${walk.id}${slot[0]}`} walk={walk} slot={slot} />)}
     </div>
   );
 };
