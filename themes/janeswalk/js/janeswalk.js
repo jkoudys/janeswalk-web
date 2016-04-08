@@ -3697,7 +3697,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page.'], ['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page.']),
+	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you are having trouble uploading, reduce size of the photo.'], ['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you are having trouble uploading, reduce size of the photo.']),
 	    _templateObject2 = _taggedTemplateLiteral(['Click to upload an image'], ['Click to upload an image']);
 
 	var _I18nStore = __webpack_require__(21);
