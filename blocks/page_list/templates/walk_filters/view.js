@@ -125,6 +125,10 @@
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
+	var _Filter = __webpack_require__(25);
+
+	var _Filter2 = _interopRequireDefault(_Filter);
+
 	var _WalkStore = __webpack_require__(21);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
@@ -139,12 +143,11 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
 	/**
 	 * Filters, lists, maps, the whole shebang
 	 */
+
 
 	// Flux
 
@@ -159,15 +162,17 @@
 	 * Apply filters and date range to walks
 	 */
 	var filterWalks = function filterWalks(_ref) {
-	  var walks = _ref.walks;
+	  var outings = _ref.outings;
 	  var filters = _ref.filters;
 	  var dateRange = _ref.dateRange;
 	  var city = _ref.city;
-	  return walks.filter(function (walk) {
-	    var time = void 0;
-	    if (walk.time.slots.length) {
-	      time = walk.time.slots[0][0] * 1000;
-	    }
+	  return outings.filter(function (_ref2) {
+	    var walk = _ref2.walk;
+	    var slot = _ref2.slot;
+
+	    // Convert PHP second-epoch to JS milliseconds epoch
+	    var time = slot[0] * 1000;
+
 	    // TODO: cleanup and perf test
 	    // Filter by checking that the filter doesn't match the walk
 	    // Note that this would be a lot cleaner using functions, but it's
@@ -183,12 +188,12 @@
 	/**
 	 * Grab the day the 3rd most recent walk appears on
 	 */
-	function thirdRecentDate(walks) {
-	  if (walks.length) {
-	    var lastThree = walks.slice(-3);
+	function thirdRecentDate(outings) {
+	  if (outings.length) {
+	    var lastThree = outings.slice(-3);
 	    // Find the day the walk starts
-	    if (lastThree[0].time.slots.length) {
-	      var lastDate = new Date(lastThree[0].time.slots[0][0] * 1000);
+	    if (lastThree[0].slot) {
+	      var lastDate = new Date(lastThree[0].slot[0] * 1000);
 	      lastDate.setUTCHours(0);
 	      lastDate.setUTCMinutes(0);
 	      return lastDate;
@@ -197,47 +202,13 @@
 	  return null;
 	}
 
-	function thirdRecentDateRange(walks) {
-	  var thirdDate = thirdRecentDate(walks);
+	function thirdRecentDateRange(outings) {
+	  var thirdDate = thirdRecentDate(outings);
 	  if (thirdDate && thirdDate < today) {
 	    return [thirdDate.getTime(), null];
 	  }
 	  return [today, null];
 	}
-
-	var Filter = function Filter(_ref2) {
-	  var name = _ref2.name;
-	  var selected = _ref2.selected;
-	  var setFilter = _ref2.setFilter;
-	  var data = _ref2.data;
-	  return React.createElement(
-	    'li',
-	    null,
-	    React.createElement(
-	      'label',
-	      null,
-	      name
-	    ),
-	    React.createElement(
-	      'select',
-	      { value: selected, onChange: function onChange(e) {
-	          return setFilter(e.target.value);
-	        } },
-	      React.createElement(
-	        'option',
-	        { value: '' },
-	        'All'
-	      ),
-	      Object.keys(data).map(function (k) {
-	        return React.createElement(
-	          'option',
-	          { value: k },
-	          data[k]
-	        );
-	      })
-	    )
-	  );
-	};
 
 	var getWalkFilterState = function getWalkFilterState(_ref3) {
 	  var _ref3$filters = _ref3.filters;
@@ -246,15 +217,15 @@
 	  var _ref3$city = _ref3.city;
 	  var city = _ref3$city === undefined ? _CityStore2.default.getCity() : _ref3$city;
 
-	  var walks = [].concat(_toConsumableArray(_WalkStore2.default.getWalks().values()));
-	  var usefulRange = dateRange || thirdRecentDateRange(walks);
+	  var outings = _WalkStore2.default.getWalkOutings();
+	  var usefulRange = dateRange || thirdRecentDateRange(outings);
 
 	  return {
-	    walks: walks,
+	    outings: outings,
 	    filters: filters,
 	    city: city,
 	    dateRange: usefulRange,
-	    filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: usefulRange, city: city })
+	    filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: usefulRange, city: city })
 	  };
 	};
 
@@ -268,40 +239,50 @@
 
 	    Object.assign(_this, {
 	      state: getWalkFilterState(props),
+
+	      // Stores are updated
 	      _onChange: function _onChange() {
 	        _this.setState(getWalkFilterState(_this.state));
 	      },
+
+	      // Toggle whether or not the filters were showing
 	      handleToggleFilters: function handleToggleFilters() {
 	        _this.setState({ displayFilters: !_this.state.displayFilters });
 	      },
+
+	      // Send the list of walks to the printer
 	      printList: function printList() {
 	        var win = window.open();
 	        var el = win.document.createElement('div');
-	        React.render(React.createElement(_WalkList2.default, { walks: _this.state.filterMatches }), el);
+	        React.render(React.createElement(_WalkList2.default, { outings: _this.state.filterMatches }), el);
 	        window.focus();
 	        win.document.body.appendChild(el);
 	        win.print();
 	        win.close();
 	      },
+
+	      // Set a filter value
 	      setFilter: function setFilter(filter, val) {
 	        var _this$state = _this.state;
 	        var filters = _this$state.filters;
-	        var walks = _this$state.walks;
+	        var outings = _this$state.outings;
 	        var dateRange = _this$state.dateRange;
 	        var city = _this$state.city;
 
 	        filters[filter].selected = val;
-	        _this.setState({ filters: filters, filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: dateRange, city: city }) });
+	        _this.setState({ filters: filters, filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: dateRange, city: city }) });
 	      },
+
+	      // Set our date range filter
 	      setDateRange: function setDateRange(from, to) {
 	        var _this$state2 = _this.state;
-	        var walks = _this$state2.walks;
+	        var outings = _this$state2.outings;
 	        var filters = _this$state2.filters;
 	        var city = _this$state2.city;
 
 	        _this.setState({
 	          dateRange: [from, to],
-	          filterMatches: filterWalks({ walks: walks, filters: filters, dateRange: [from, to], city: city })
+	          filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: [from, to], city: city })
 	        });
 	      }
 	    });
@@ -336,7 +317,7 @@
 
 
 	      var Filters = Object.keys(filters).map(function (key) {
-	        return React.createElement(Filter, _extends({ key: key, setFilter: function setFilter(v) {
+	        return React.createElement(_Filter2.default, _extends({ key: key, setFilter: function setFilter(v) {
 	            return _this2.setFilter(key, v);
 	          } }, filters[key]));
 	      });
@@ -346,7 +327,7 @@
 	        locationMapSection = React.createElement(
 	          'section',
 	          { className: 'tab-pane', id: 'jw-map' },
-	          React.createElement(_LocationMap2.default, { walks: filterMatches, latlng: city.latlng })
+	          React.createElement(_LocationMap2.default, { outings: filterMatches, latlng: city.latlng })
 	        );
 	      }
 
@@ -380,7 +361,7 @@
 	            'a',
 	            { className: 'filter-header', onClick: this.handleToggleFilters },
 	            React.createElement('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }),
-	            'Filters'
+	            ' Filters'
 	          ),
 	          React.createElement(
 	            'a',
@@ -393,7 +374,7 @@
 	        React.createElement(
 	          'div',
 	          { className: 'walks-area' },
-	          React.createElement(_WalkCards2.default, { walks: filterMatches }),
+	          React.createElement(_WalkCards2.default, { outings: filterMatches }),
 	          locationMapSection
 	        )
 	      );
@@ -432,9 +413,9 @@
 
 
 	var WalkCards = function WalkCards(_ref) {
-	  var walks = _ref.walks;
+	  var outings = _ref.outings;
 
-	  if (walks.length === 0) {
+	  if (outings.length === 0) {
 	    return React.createElement(
 	      'div',
 	      { className: 'empty' },
@@ -453,8 +434,10 @@
 	  return React.createElement(
 	    'div',
 	    { className: 'walkCards' },
-	    walks.map(function (walk, i) {
-	      return React.createElement(_Card2.default, { key: 'walk' + i, walk: walk });
+	    outings.map(function (_ref2) {
+	      var walk = _ref2.walk;
+	      var slot = _ref2.slot;
+	      return React.createElement(_Card2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
 	    })
 	  );
 	};
@@ -515,7 +498,6 @@
 	    _classCallCheck(this, Card);
 
 	    var formatter = void 0;
-	    var past = void 0;
 	    var yesterday = new Date();
 	    yesterday.setDate(yesterday.getDate() - 1);
 
@@ -536,12 +518,11 @@
 	      };
 	    }
 
-	    if (props.walk.time.slots.length) {
-	      past = props.walk.time.slots[0][0] * 1000 < yesterday.getTime();
-	    }
-
 	    Object.assign(_this, {
-	      state: { startTimes: props.walk.time.slots.map(formatter), past: past }
+	      state: {
+	        startTime: formatter(props.slot),
+	        past: props.slot[0] * 1000 < yesterday.getTime()
+	      }
 	    });
 	    return _this;
 	  }
@@ -565,7 +546,7 @@
 	      var team = _props$walk.team;
 	      var _state = this.state;
 	      var past = _state.past;
-	      var startTimes = _state.startTimes;
+	      var startTime = _state.startTime;
 
 	      var placeholder = 'placeholder' + id % 3;
 	      var leaders = team.filter(function (member) {
@@ -638,13 +619,11 @@
 	            React.createElement(
 	              'ul',
 	              { className: 'when' },
-	              startTimes.map(function (startTime) {
-	                return React.createElement(
-	                  'li',
-	                  null,
-	                  startTime
-	                );
-	              }),
+	              React.createElement(
+	                'li',
+	                null,
+	                startTime
+	              ),
 	              Meeting ? React.createElement(
 	                'li',
 	                null,
@@ -1726,7 +1705,7 @@
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
 	                                                                                                                                                   * The list of walks to order
 	                                                                                                                                                   */
-	/* global $ */
+	/* global React */
 
 
 	/**
@@ -1734,7 +1713,7 @@
 	 */
 
 	exports.default = function (_ref) {
-	  var walks = _ref.walks;
+	  var outings = _ref.outings;
 	  return React.createElement(
 	    'table',
 	    { className: 'walklist table' },
@@ -1769,8 +1748,10 @@
 	    React.createElement(
 	      'tbody',
 	      null,
-	      walks.map(function (walk, i) {
-	        return React.createElement(_ListItem2.default, { key: 'walk' + i, walk: walk });
+	      outings.map(function (_ref2) {
+	        var walk = _ref2.walk;
+	        var slot = _ref2.slot;
+	        return React.createElement(_ListItem2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
 	      })
 	    )
 	  );
@@ -1785,36 +1766,44 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
 	exports.default = ListItem;
 	/* global React */
 
 	// Date formatter
-	var dtfDate = new Intl.DateTimeFormat(undefined, {
-	  year: 'numeric',
-	  month: 'long',
-	  day: 'numeric',
-	  timeZone: 'UTC'
-	});
+	var dtfDate = void 0;
+	var dtfTime = void 0;
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat(undefined, {
+	    year: 'numeric',
+	    month: 'long',
+	    day: 'numeric',
+	    timeZone: 'UTC'
+	  });
 
-	var dtfTime = new Intl.DateTimeFormat(undefined, {
-	  hour: 'numeric',
-	  minute: '2-digit',
-	  timeZone: 'UTC'
-	});
+	  dtfTime = new Intl.DateTimeFormat(undefined, {
+	    hour: 'numeric',
+	    minute: '2-digit',
+	    timeZone: 'UTC'
+	  });
+	}
 
 	function ListItem(_ref) {
 	  var _ref$walk = _ref.walk;
 	  var map = _ref$walk.map;
 	  var url = _ref$walk.url;
 	  var title = _ref$walk.title;
-	  var time = _ref$walk.time;
+	  var slot = _ref.slot;
 
 	  var Meeting = void 0;
 	  var startDate = void 0;
 	  var startTime = void 0;
 
-	  if (time.slots.length) {
-	    var start = time.slots[0][0] * 1000;
+	  var start = slot[0] * 1000;
+	  // TODO: safari?
+	  if (dtfDate) {
 	    startDate = dtfDate.format(start);
 	    startTime = dtfTime.format(start);
 	  }
@@ -1866,9 +1855,11 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-	                                                                                                                                                                                                                                                                   * The map of upcoming walks for a whole city
-	                                                                                                                                                                                                                                                                   */
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                   * The map of upcoming walks for a whole city
+	                                                                                                                                                                                                                                                   */
 	/* global React google $ */
 
 
@@ -1891,14 +1882,17 @@
 	}
 
 	// Date formatter
-	var dtfDate = new Intl.DateTimeFormat(undefined, {
-	  year: 'numeric',
-	  month: 'long',
-	  day: 'numeric',
-	  hour: 'numeric',
-	  minute: '2-digit',
-	  timeZone: 'UTC'
-	});
+	var dtfDate = void 0;
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat(undefined, {
+	    year: 'numeric',
+	    month: 'long',
+	    day: 'numeric',
+	    hour: 'numeric',
+	    minute: '2-digit',
+	    timeZone: 'UTC'
+	  });
+	}
 
 	var _infoNode = document.createElement('div');
 
@@ -1907,11 +1901,11 @@
 	 * displayed.
 	 *
 	 * @param object markers The currently rendered markers
-	 * @param array walks The walks we want to render markers for
+	 * @param array outings The walk outings we want to render markers for
 	 * @param google.maps.Map map The google map to render to
 	 * @return object updated set of markers
 	 */
-	function addNewMarkersToMap(markers, walks, map) {
+	function addNewMarkersToMap(markers, outings, map) {
 	  // TODO: see how to move these consts out of the function, since
 	  // they need to be here so google can load first
 	  // Basic info window
@@ -1939,7 +1933,9 @@
 
 	  try {
 	    var _loop = function _loop() {
-	      var walk = _step.value;
+	      var _step$value = _step.value;
+	      var walk = _step$value.walk;
+	      var slot = _step$value.slot;
 
 	      if (markers[walk.id]) {
 	        // We already have this marker built, so simply add it to the map
@@ -1987,9 +1983,7 @@
 	                null,
 	                React.createElement('i', { className: 'fa fa-calendar' }),
 	                ' ',
-	                walk.time.slots.map(function (slot) {
-	                  return dtfDate.format(slot[0] * 1000);
-	                }).join(', ')
+	                dtfDate.format(slot[0] * 1000)
 	              );
 	            } catch (e) {
 	              // Just log this, but don't die
@@ -2011,7 +2005,7 @@
 	      }
 	    };
 
-	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	    for (var _iterator = outings[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	      _loop();
 	    }
 	  } catch (err) {
@@ -2076,13 +2070,13 @@
 	      });
 
 	      // Add our markers to the empty map
-	      var newMarkers = addNewMarkersToMap({}, this.props.walks, map);
+	      var newMarkers = addNewMarkersToMap({}, this.props.outings, map);
 	      this.setState({ map: map, markers: newMarkers });
 	    }
 	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(props) {
-	      var newMarkers = addNewMarkersToMap(this.state.markers, props.walks, this.state.map);
+	      var newMarkers = addNewMarkersToMap(this.state.markers, props.outings, this.state.map);
 	      this.setState({ markers: newMarkers });
 	    }
 	  }, {
@@ -2268,12 +2262,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * Walk store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
-	                                                                                                                                                                                                                   * description, and people involved with a walk.
-	                                                                                                                                                                                                                   */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
+	                                                                                                                                                                                                     * Walk store
+	                                                                                                                                                                                                     *
+	                                                                                                                                                                                                     * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	                                                                                                                                                                                                     * description, and people involved with a walk.
+	                                                                                                                                                                                                     */
 
 	// Store singletons
 	// The Walk objects, keyed by walk ID (ie collection ID)
@@ -2312,6 +2308,41 @@
 	  }
 	}
 
+	// Get the "outings", or scheduled dates, for our walks
+	function getWalkOutings() {
+	  return [].concat(_toConsumableArray(_walks.values())).reduce(function (arr, walk) {
+	    if (walk.time && walk.time.slots) {
+	      var _iteratorNormalCompletion2 = true;
+	      var _didIteratorError2 = false;
+	      var _iteratorError2 = undefined;
+
+	      try {
+	        for (var _iterator2 = walk.time.slots[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	          var slot = _step2.value;
+
+	          arr.push({ walk: walk, slot: slot });
+	        }
+	      } catch (err) {
+	        _didIteratorError2 = true;
+	        _iteratorError2 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	            _iterator2.return();
+	          }
+	        } finally {
+	          if (_didIteratorError2) {
+	            throw _iteratorError2;
+	          }
+	        }
+	      }
+	    }
+	    return arr;
+	  }, []).sort(function (a, b) {
+	    return a.slot[0] - b.slot[0];
+	  });
+	}
+
 	var WalkStore = Object.assign({}, _Store2.default, {
 	  getWalks: function getWalks() {
 	    return _walks;
@@ -2319,6 +2350,7 @@
 	  getWalk: function getWalk(id) {
 	    return _walks.get(+id);
 	  },
+	  getWalkOutings: getWalkOutings,
 
 	  // Register our dispatch token as a static method
 	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
@@ -2439,6 +2471,53 @@
 	    city: city
 	  });
 	}
+
+/***/ },
+/* 25 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/* global React */
+
+	var Filter = function Filter(_ref) {
+	  var name = _ref.name;
+	  var selected = _ref.selected;
+	  var setFilter = _ref.setFilter;
+	  var data = _ref.data;
+	  return React.createElement(
+	    "li",
+	    null,
+	    React.createElement(
+	      "label",
+	      null,
+	      name
+	    ),
+	    React.createElement(
+	      "select",
+	      { value: selected, onChange: function onChange(e) {
+	          return setFilter(e.target.value);
+	        } },
+	      React.createElement(
+	        "option",
+	        { value: "" },
+	        "All"
+	      ),
+	      Object.keys(data).map(function (k) {
+	        return React.createElement(
+	          "option",
+	          { value: k },
+	          data[k]
+	        );
+	      })
+	    )
+	  );
+	};
+
+	exports.default = Filter;
 
 /***/ }
 /******/ ]);

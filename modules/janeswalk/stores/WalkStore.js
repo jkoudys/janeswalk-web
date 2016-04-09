@@ -25,9 +25,23 @@ function receiveWalks(walks) {
   }
 }
 
+// Get the "outings", or scheduled dates, for our walks
+function getWalkOutings() {
+  return [..._walks.values()].reduce((arr, walk) => {
+    if (walk.time && walk.time.slots) {
+      for (const slot of walk.time.slots) {
+        arr.push({ walk, slot });
+      }
+    }
+    return arr;
+  }, [])
+  .sort((a, b) => a.slot[0] - b.slot[0]);
+}
+
 const WalkStore = Object.assign({}, Store, {
   getWalks: () => _walks,
   getWalk: (id) => _walks.get(+id),
+  getWalkOutings,
 
   // Register our dispatch token as a static method
   dispatchToken: register2({

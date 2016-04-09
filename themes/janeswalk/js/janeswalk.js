@@ -1987,12 +1987,14 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * Walk store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
-	                                                                                                                                                                                                                   * description, and people involved with a walk.
-	                                                                                                                                                                                                                   */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
+	                                                                                                                                                                                                     * Walk store
+	                                                                                                                                                                                                     *
+	                                                                                                                                                                                                     * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	                                                                                                                                                                                                     * description, and people involved with a walk.
+	                                                                                                                                                                                                     */
 
 	// Store singletons
 	// The Walk objects, keyed by walk ID (ie collection ID)
@@ -2031,6 +2033,41 @@
 	  }
 	}
 
+	// Get the "outings", or scheduled dates, for our walks
+	function getWalkOutings() {
+	  return [].concat(_toConsumableArray(_walks.values())).reduce(function (arr, walk) {
+	    if (walk.time && walk.time.slots) {
+	      var _iteratorNormalCompletion2 = true;
+	      var _didIteratorError2 = false;
+	      var _iteratorError2 = undefined;
+
+	      try {
+	        for (var _iterator2 = walk.time.slots[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	          var slot = _step2.value;
+
+	          arr.push({ walk: walk, slot: slot });
+	        }
+	      } catch (err) {
+	        _didIteratorError2 = true;
+	        _iteratorError2 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	            _iterator2.return();
+	          }
+	        } finally {
+	          if (_didIteratorError2) {
+	            throw _iteratorError2;
+	          }
+	        }
+	      }
+	    }
+	    return arr;
+	  }, []).sort(function (a, b) {
+	    return a.slot[0] - b.slot[0];
+	  });
+	}
+
 	var WalkStore = Object.assign({}, _Store2.default, {
 	  getWalks: function getWalks() {
 	    return _walks;
@@ -2038,6 +2075,7 @@
 	  getWalk: function getWalk(id) {
 	    return _walks.get(+id);
 	  },
+	  getWalkOutings: getWalkOutings,
 
 	  // Register our dispatch token as a static method
 	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
@@ -2468,13 +2506,15 @@
 /* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
 	var _ItineraryUtils = __webpack_require__(26);
+
+	var _I18nStore = __webpack_require__(21);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React */
 
@@ -2490,28 +2530,34 @@
 
 	  if (time && time.slots) {
 	    addButtons.push.apply(addButtons, _toConsumableArray(time.slots.map(function (t) {
+	      var date = (0, _ItineraryUtils.dateFormatted)(t[0]);
+	      var duration = (0, _I18nStore.t2)('%s Hour', '%s Hours', (t[1] - t[0]) / 3600);
 	      if (timeSet.has(+t[0])) {
 	        return React.createElement(
-	          "h4",
+	          'h4',
 	          null,
-	          (0, _ItineraryUtils.dateFormatted)(t[0]),
-	          React.createElement("button", { className: "removeItinerary", onClick: function onClick() {
+	          date,
+	          ', ',
+	          duration,
+	          React.createElement('button', { className: 'removeItinerary', onClick: function onClick() {
 	              return onUnschedule(+t[0]);
 	            } })
 	        );
 	      }
 	      return React.createElement(
-	        "h4",
+	        'h4',
 	        null,
-	        (0, _ItineraryUtils.dateFormatted)(t[0]),
-	        React.createElement("button", { className: "addItinerary", onClick: function onClick() {
+	        date,
+	        ', ',
+	        duration,
+	        React.createElement('button', { className: 'addItinerary', onClick: function onClick() {
 	            return onSchedule(+t[0]);
 	          } })
 	      );
 	    })));
 	  }
 	  return React.createElement(
-	    "section",
+	    'section',
 	    null,
 	    addButtons
 	  );
