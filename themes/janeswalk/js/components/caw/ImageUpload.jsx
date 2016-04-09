@@ -53,7 +53,7 @@ export default class ImageUpload extends React.Component {
     // remove limit here
     return (
       <form className="upload-image">
-        <label htmlFor="walkphotos" id="photo-tip">{ t`Upload a photo that best represents your walk. Use the 'Preview Walk' button on the left to see how it will look on your walk page. If you are having trouble uploading, reduce size of the photo.` }</label>
+        <label htmlFor="walkphotos" id="photo-tip">{ t`Upload a photo that best represents your walk. Use the 'Preview Walk' button on the left to see how it will look on your walk page. If you have trouble uploading, reduce the size of your photo before trying again.` }</label>
         {thumbnails.map((thumb, i) => {
           // Grab just the name, so local files being uploaded have the same key as the hosted URL
           const filename = `${thumb.url || ''}i`.replace(/^.*[\\\/]/, '');

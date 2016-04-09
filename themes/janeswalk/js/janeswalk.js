@@ -3743,7 +3743,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you are having trouble uploading, reduce size of the photo.'], ['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you are having trouble uploading, reduce size of the photo.']),
+	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you have trouble uploading, reduce the size of your photo before trying again.'], ['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you have trouble uploading, reduce the size of your photo before trying again.']),
 	    _templateObject2 = _taggedTemplateLiteral(['Click to upload an image'], ['Click to upload an image']);
 
 	var _I18nStore = __webpack_require__(21);
@@ -5478,7 +5478,7 @@
 	    _templateObject6 = _taggedTemplateLiteral(['Set specific dates and times that this walk is happening.'], ['Set specific dates and times that this walk is happening.']),
 	    _templateObject7 = _taggedTemplateLiteral(['Time and Date'], ['Time and Date']),
 	    _templateObject8 = _taggedTemplateLiteral(['Select the date and time your walk is happening.'], ['Select the date and time your walk is happening.']),
-	    _templateObject9 = _taggedTemplateLiteral(['Remember to select \'Add Date\' after you make your selection.'], ['Remember to select \'Add Date\' after you make your selection.']),
+	    _templateObject9 = _taggedTemplateLiteral(['Remember to click \'Add Date\' after you make your selection.'], ['Remember to click \'Add Date\' after you make your selection.']),
 	    _templateObject10 = _taggedTemplateLiteral(['Date selected'], ['Date selected']),
 	    _templateObject11 = _taggedTemplateLiteral(['Add Date'], ['Add Date']),
 	    _templateObject12 = _taggedTemplateLiteral(['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.'], ['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.']),
