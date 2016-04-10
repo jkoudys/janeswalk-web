@@ -199,6 +199,12 @@ class WalkPageTypeController extends Controller
      */
     protected function setJson($json, $publish = false)
     {
+        // Check for permissions first
+        $cp = new Permissions($this->c);
+        if (!$cp->canEditPageContents()) {
+            die(t('Access Denied.'));
+        }
+
         $currentCollectionVersion = $this->walk->getPage()->getVersionObject();
         $newCollectionVersion = $currentCollectionVersion->createNew('Updated via walk form');
         $this->walk->getPage()->loadVersionObject($newCollectionVersion->getVersionID());
