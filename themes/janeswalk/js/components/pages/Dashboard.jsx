@@ -44,13 +44,13 @@ export default class Dashboard extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, edit } = this.props;
     const { city, walks, users, announcements, currentUser } = this.state;
 
     return (
       <section className="dashboard">
         <Header user={user} announcements={announcements} />
-        <Menu {...{ walks, users, user, city, currentUser }} />
+        <Menu {...{ walks, users, user, city, currentUser, edit }} />
         <Summary
           city={city}
           walks={walks}

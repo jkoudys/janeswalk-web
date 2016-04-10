@@ -211,4 +211,5 @@ gulp.task('watch', () => {
 
 gulp.task('default', () => {
   // place code for your default task here
+  gulp.run('js.theme', 'watch.css', 'js.blocks', 'js.global');
 });

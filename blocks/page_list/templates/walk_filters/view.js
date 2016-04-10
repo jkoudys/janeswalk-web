@@ -66,11 +66,11 @@
 
 	var _WalkFilter2 = _interopRequireDefault(_WalkFilter);
 
-	var _WalkActions = __webpack_require__(23);
+	var _WalkActions = __webpack_require__(24);
 
 	var WalkActions = _interopRequireWildcard(_WalkActions);
 
-	var _CityActions = __webpack_require__(24);
+	var _CityActions = __webpack_require__(25);
 
 	var CityActions = _interopRequireWildcard(_CityActions);
 
@@ -125,15 +125,15 @@
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
-	var _Filter = __webpack_require__(25);
+	var _Filter = __webpack_require__(21);
 
 	var _Filter2 = _interopRequireDefault(_Filter);
 
-	var _WalkStore = __webpack_require__(21);
+	var _WalkStore = __webpack_require__(22);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
-	var _CityStore = __webpack_require__(22);
+	var _CityStore = __webpack_require__(23);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
@@ -2242,6 +2242,53 @@
 
 /***/ },
 /* 21 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	/* global React */
+
+	var Filter = function Filter(_ref) {
+	  var name = _ref.name;
+	  var selected = _ref.selected;
+	  var setFilter = _ref.setFilter;
+	  var data = _ref.data;
+	  return React.createElement(
+	    "li",
+	    null,
+	    React.createElement(
+	      "label",
+	      null,
+	      name
+	    ),
+	    React.createElement(
+	      "select",
+	      { value: selected, onChange: function onChange(e) {
+	          return setFilter(e.target.value);
+	        } },
+	      React.createElement(
+	        "option",
+	        { value: "" },
+	        "All"
+	      ),
+	      Object.keys(data).map(function (k) {
+	        return React.createElement(
+	          "option",
+	          { value: k },
+	          data[k]
+	        );
+	      })
+	    )
+	  );
+	};
+
+	exports.default = Filter;
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2367,7 +2414,7 @@
 	exports.default = WalkStore;
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2414,7 +2461,7 @@
 	exports.default = CityStore;
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2445,7 +2492,7 @@
 	}
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2471,53 +2518,6 @@
 	    city: city
 	  });
 	}
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	/* global React */
-
-	var Filter = function Filter(_ref) {
-	  var name = _ref.name;
-	  var selected = _ref.selected;
-	  var setFilter = _ref.setFilter;
-	  var data = _ref.data;
-	  return React.createElement(
-	    "li",
-	    null,
-	    React.createElement(
-	      "label",
-	      null,
-	      name
-	    ),
-	    React.createElement(
-	      "select",
-	      { value: selected, onChange: function onChange(e) {
-	          return setFilter(e.target.value);
-	        } },
-	      React.createElement(
-	        "option",
-	        { value: "" },
-	        "All"
-	      ),
-	      Object.keys(data).map(function (k) {
-	        return React.createElement(
-	          "option",
-	          { value: k },
-	          data[k]
-	        );
-	      })
-	    )
-	  );
-	};
-
-	exports.default = Filter;
 
 /***/ }
 /******/ ]);

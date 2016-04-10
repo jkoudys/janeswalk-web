@@ -9196,7 +9196,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var user = this.props.user;
+	      var _props = this.props;
+	      var user = _props.user;
+	      var edit = _props.edit;
 	      var _state = this.state;
 	      var city = _state.city;
 	      var walks = _state.walks;
@@ -9209,7 +9211,7 @@
 	        'section',
 	        { className: 'dashboard' },
 	        React.createElement(_Header2.default, { user: user, announcements: announcements }),
-	        React.createElement(_Menu2.default, { walks: walks, users: users, user: user, city: city, currentUser: currentUser }),
+	        React.createElement(_Menu2.default, { walks: walks, users: users, user: user, city: city, currentUser: currentUser, edit: edit }),
 	        React.createElement(_Summary2.default, {
 	          city: city,
 	          walks: walks,
@@ -9414,21 +9416,14 @@
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['My Walks'], ['My Walks']),
-	    _templateObject2 = _taggedTemplateLiteral(['Walks in My City'], ['Walks in My City']);
+	    _templateObject2 = _taggedTemplateLiteral(['Walks in My City'], ['Walks in My City']),
+	    _templateObject3 = _taggedTemplateLiteral(['Edit Profile'], ['Edit Profile']);
 
 	var _I18nStore = __webpack_require__(21);
 
 	var _Walks = __webpack_require__(82);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
-
-	var _ProfileDisplay = __webpack_require__(87);
-
-	var _ProfileDisplay2 = _interopRequireDefault(_ProfileDisplay);
-
-	var _ProfileEdit = __webpack_require__(88);
-
-	var _ProfileEdit2 = _interopRequireDefault(_ProfileEdit);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9455,15 +9450,18 @@
 	      args[_key - 1] = arguments[_key];
 	    }
 
-	    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples
-
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Menu)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
+	    var menuItems = [[_Walks2.default, (0, _I18nStore.translateTag)(_templateObject), false, { show: 'user' }], [_Walks2.default, (0, _I18nStore.translateTag)(_templateObject2), false, { show: 'city' }]];
+
+	    if (props.user.id === props.currentUser.id) {
+	      menuItems.unshift(['div', (0, _I18nStore.translateTag)(_templateObject3), false, { url: 'edit' }]);
+	    }
+
+	    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples
 	    Object.assign(_this, {
 	      state: {
-	        menuItems: [
-	        //          [props.user.id === props.currentUser.id ? ProfileEdit : ProfileDisplay, t`Profile`, false],
-	        [_Walks2.default, (0, _I18nStore.translateTag)(_templateObject), false, { show: 'user' }], [_Walks2.default, (0, _I18nStore.translateTag)(_templateObject2), false, { show: 'city' }]]
+	        menuItems: menuItems
 	      }
 	    });
 	    return _this;
@@ -9478,8 +9476,6 @@
 	      if (user.id === currentUser.id) {
 	        var menuItems = this.state.menuItems;
 
-	        // TODO: assuming index 0 is the profile is bad.
-	        //      menuItems[0][0] = ProfileEdit;
 
 	        this.setState({ menuItems: menuItems });
 	      }
@@ -9488,8 +9484,21 @@
 	    key: 'toggleSection',
 	    value: function toggleSection(idx) {
 	      var newItems = this.state.menuItems.slice();
-	      newItems[idx][2] = !newItems[idx][2];
-	      this.setState({ menuItems: newItems });
+
+	      var _newItems$idx = _slicedToArray(newItems[idx], 4);
+
+	      var component = _newItems$idx[0];
+	      var title = _newItems$idx[1];
+	      var isOpen = _newItems$idx[2];
+	      var props = _newItems$idx[3];
+
+
+	      if (component === 'div') {
+	        window.open(props.url);
+	      } else {
+	        newItems[idx][2] = !newItems[idx][2];
+	        this.setState({ menuItems: newItems });
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -9501,6 +9510,7 @@
 	      var walks = _props.walks;
 	      var city = _props.city;
 	      var user = _props.user;
+	      var edit = _props.edit;
 
 
 	      var menu = menuItems.map(function (_ref2, i) {
@@ -9526,7 +9536,7 @@
 	            ' ',
 	            name
 	          ),
-	          open ? React.createElement(Component, _extends({ user: user, walks: walks, city: city }, props)) : null
+	          open ? React.createElement(Component, _extends({ user: user, walks: walks, city: city, edit: edit }, props)) : null
 	        );
 	      });
 
@@ -10369,34 +10379,8 @@
 	};
 
 /***/ },
-/* 87 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function () {
-	  return React.createElement("div", { className: "profileDisplay" });
-	};
-
-/***/ },
-/* 88 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	exports.default = function () {
-	  return React.createElement("div", { className: "profileEdit" });
-	};
-
-/***/ },
+/* 87 */,
+/* 88 */,
 /* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
