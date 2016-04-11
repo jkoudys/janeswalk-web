@@ -17,7 +17,7 @@ export default class Menu extends React.Component {
     ];
 
     if (props.user.id === props.currentUser.id) {
-      menuItems.unshift(['div', t`Edit Profile`, false, { url: 'edit' }]);
+      menuItems.unshift(['div', t`Edit Profile`, false, { url: '/profile/edit' }]);
     }
 
     // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples

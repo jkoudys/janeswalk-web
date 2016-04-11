@@ -9455,7 +9455,7 @@
 	    var menuItems = [[_Walks2.default, (0, _I18nStore.translateTag)(_templateObject), false, { show: 'user' }], [_Walks2.default, (0, _I18nStore.translateTag)(_templateObject2), false, { show: 'city' }]];
 
 	    if (props.user.id === props.currentUser.id) {
-	      menuItems.unshift(['div', (0, _I18nStore.translateTag)(_templateObject3), false, { url: 'edit' }]);
+	      menuItems.unshift(['div', (0, _I18nStore.translateTag)(_templateObject3), false, { url: '/profile/edit' }]);
 	    }
 
 	    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples
