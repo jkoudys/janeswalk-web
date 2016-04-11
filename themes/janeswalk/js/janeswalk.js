@@ -99,7 +99,7 @@
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(91);
+	var _Login = __webpack_require__(89);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -8562,7 +8562,7 @@
 	      var style = _ref2.style;
 	      return React.createElement(
 	        'a',
-	        { key: i, className: 'btn', href: '' + href + member[name], target: '_blank' },
+	        { key: i, className: 'btn', href: '' + (href.match(/\/\//) ? '' : '//') + href + member[name], target: '_blank' },
 	        React.createElement('i', { className: style })
 	      );
 	    })
@@ -9119,7 +9119,7 @@
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Summary = __webpack_require__(89);
+	var _Summary = __webpack_require__(87);
 
 	var _Summary2 = _interopRequireDefault(_Summary);
 
@@ -9151,7 +9151,7 @@
 	    users: _UserStore2.default.getUsers(),
 	    currentUser: _UserStore2.default.getCurrent(),
 	    city: _CityStore2.default.getCity(),
-	    announcements: __webpack_require__(90)
+	    announcements: __webpack_require__(88)
 	  };
 	}
 
@@ -10379,9 +10379,7 @@
 	};
 
 /***/ },
-/* 87 */,
-/* 88 */,
-/* 89 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10465,7 +10463,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 90 */
+/* 88 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -10497,7 +10495,7 @@
 	];
 
 /***/ },
-/* 91 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
