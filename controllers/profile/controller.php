@@ -51,8 +51,8 @@ class ProfileController extends Concrete5_Controller_Profile
         $city = new City($cityPage);
 
         // Build all the walks we need
-        var_dump($city->getWalks(true));
-        foreach ($city->getWalks(true) as $w) {
+        $isCO = in_array('City Organizers', $u->getUserGroups());
+        foreach ($city->getWalks($isCO) as $w) {
             $walkData[(int) $w->getPage()->cID] = $w;
         }
         $cityWalksArr = array_keys($walkData);
@@ -75,14 +75,14 @@ class ProfileController extends Concrete5_Controller_Profile
 
         $this->set('userWalksArr', $userWalksArr);
 
+        $this->set('nh', $nh);
         $this->set('u', $u);
         $this->set('ui', $ui);
         $this->set('city', $city);
         $this->set('cityUsers', $cityUsers);
         $this->set('cityWalksArr', $cityWalksArr);
         $this->set('walkData', $walkData);
-
-        $this->set('nh', $nh);
+        $this->set('isCO', $isCO);
 
         // city : all users in city, all walks in a city
         // users: users for city, CO. Each needs their walk ID list. User who you're looking at

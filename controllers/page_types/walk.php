@@ -216,8 +216,10 @@ class WalkPageTypeController extends Controller
         if ($publish) {
             $c = $this->getCollectionObject();
             $c->setAttribute('exclude_page_list', false);
-            $newCollectionVersion->approve();
         }
+
+        // We'll "approve" all new versions, because a walk's either live or not
+        $newCollectionVersion->approve();
 
         return (int) $newCollectionVersion->getVersionID();
     }

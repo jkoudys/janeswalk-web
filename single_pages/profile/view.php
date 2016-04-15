@@ -26,7 +26,7 @@ $profileOwner = [
 ];
 
 $announceStack = 'Announcements COs only';
-if (in_array('City Organizers', $u->getUserGroups())) {
+if ($isCO) {
     ob_start();
     $stack = Stack::getByName($announceStack);
     $stack->display();
