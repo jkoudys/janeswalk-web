@@ -90,7 +90,7 @@ export default class Card extends React.Component {
               {Status}
             </div>
             <div className="caption">
-              <h4>{(title || '').slice(0, 45)}</h4>
+              <h4>{(title || '')}</h4>
               <p>{(shortDescription || '').slice(0, 140)}</p>
             </div>
             <ul className="when">

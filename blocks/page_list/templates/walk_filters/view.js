@@ -608,7 +608,7 @@
 	              React.createElement(
 	                'h4',
 	                null,
-	                (title || '').slice(0, 45)
+	                title || ''
 	              ),
 	              React.createElement(
 	                'p',
