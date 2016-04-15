@@ -14,7 +14,17 @@ const menuItems = [
   { display: 'About the Walk Team', exists: true },
 ];
 
-const WalkMenu = ({ walk: { checkboxes, title, map, time, team, accessibleTransit, accessibleParking } }) => {
+const WalkMenu = ({
+  walk: {
+    checkboxes = [],
+    title = '',
+    map = { markers: [], route: [] },
+    time = { slots: [] },
+    team = [],
+    accessibleTransit = [],
+    accessibleParking = [],
+  },
+}) => {
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
   let leaderHead;

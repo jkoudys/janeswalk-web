@@ -8685,13 +8685,20 @@
 
 	var WalkMenu = function WalkMenu(_ref) {
 	  var _ref$walk = _ref.walk;
-	  var checkboxes = _ref$walk.checkboxes;
-	  var title = _ref$walk.title;
-	  var map = _ref$walk.map;
-	  var time = _ref$walk.time;
-	  var team = _ref$walk.team;
-	  var accessibleTransit = _ref$walk.accessibleTransit;
-	  var accessibleParking = _ref$walk.accessibleParking;
+	  var _ref$walk$checkboxes = _ref$walk.checkboxes;
+	  var checkboxes = _ref$walk$checkboxes === undefined ? [] : _ref$walk$checkboxes;
+	  var _ref$walk$title = _ref$walk.title;
+	  var title = _ref$walk$title === undefined ? '' : _ref$walk$title;
+	  var _ref$walk$map = _ref$walk.map;
+	  var map = _ref$walk$map === undefined ? { markers: [], route: [] } : _ref$walk$map;
+	  var _ref$walk$time = _ref$walk.time;
+	  var time = _ref$walk$time === undefined ? { slots: [] } : _ref$walk$time;
+	  var _ref$walk$team = _ref$walk.team;
+	  var team = _ref$walk$team === undefined ? [] : _ref$walk$team;
+	  var _ref$walk$accessibleT = _ref$walk.accessibleTransit;
+	  var accessibleTransit = _ref$walk$accessibleT === undefined ? [] : _ref$walk$accessibleT;
+	  var _ref$walk$accessibleP = _ref$walk.accessibleParking;
+	  var accessibleParking = _ref$walk$accessibleP === undefined ? [] : _ref$walk$accessibleP;
 
 	  var walkLeader = team.find(function (member) {
 	    return member.role === 'walk-leader';
@@ -10278,7 +10285,7 @@
 	            { className: 'option', href: '/walk/form/?load=' + url.split('.org')[1] },
 	            'Edit'
 	          ) : null,
-	          published ? React.createElement(
+	          published && canEdit ? React.createElement(
 	            'a',
 	            { onClick: this.handleUnpublish, className: 'option' },
 	            'Unpublish'
