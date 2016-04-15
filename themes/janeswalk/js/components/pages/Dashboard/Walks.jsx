@@ -57,12 +57,17 @@ export default class Walks extends React.Component {
         if (!(filterPast && time && time.slots.length) || (time && time.slots[0][0] * 1000 > now)) return true;
         return false;
       })
-      .map(wID => {
-        const { map, id, title, time, team, url, published } = walks.get(wID);
-        let meeting;
+      .map(id => {
+        const {
+          title,
+          team,
+          url,
+          published,
+          map: { markers: [{ title: meeting } = {}] = [] } = {},
+          time: { slots } = {},
+        } = walks.get(id);
         let start;
-        if (map && map.markers.length) meeting = map.markers[0].title;
-        if (time && time.slots.length) start = time.slots[0][0];
+        if (slots && slots.length) start = slots[0][0];
         return <Walk {...{ title, id, key: id, team, url, published, meeting, start }} />;
       });
     } else if (currentView === 'map') {

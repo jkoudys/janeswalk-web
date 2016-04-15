@@ -13680,6 +13680,7 @@ body.city-page > #blog:after {
   padding: 0 19px;
   font-size: 20px;
   font-weight: 300;
+  list-style-type: upper-alpha;
 }
 .walkPage .walkRoute ol li h2 {
   font-weight: 300;

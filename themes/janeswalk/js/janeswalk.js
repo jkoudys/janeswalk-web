@@ -8402,7 +8402,7 @@
 	        var description = _ref2.description;
 	        return React.createElement(
 	          "li",
-	          { key: i },
+	          { key: "routeentry" + i },
 	          React.createElement(
 	            "h2",
 	            null,
@@ -8953,7 +8953,7 @@
 	          icon: stopMarker,
 	          map: googleMap,
 	          label: {
-	            text: (i + 1).toString(),
+	            text: String.fromCharCode(i + 65),
 	            fontWeight: '700',
 	            fontSize: '16px',
 	            color: '#ffffff'
@@ -9567,6 +9567,8 @@
 	  value: true
 	});
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Without Past Walks'], ['Without Past Walks']),
@@ -9678,21 +9680,29 @@
 	            // Always show unset times, or if we're not filtering
 	            if (!(filterPast && time && time.slots.length) || time && time.slots[0][0] * 1000 > now) return true;
 	            return false;
-	          }).map(function (wID) {
-	            var _walks$get2 = walks.get(wID);
+	          }).map(function (id) {
+	            var _walks$get2 = walks.get(id);
 
-	            var map = _walks$get2.map;
-	            var id = _walks$get2.id;
 	            var title = _walks$get2.title;
-	            var time = _walks$get2.time;
 	            var team = _walks$get2.team;
 	            var url = _walks$get2.url;
 	            var published = _walks$get2.published;
+	            var _walks$get2$map = _walks$get2.map;
+	            _walks$get2$map = _walks$get2$map === undefined ? {} : _walks$get2$map;
+	            var _walks$get2$map$marke = _walks$get2$map.markers;
+	            _walks$get2$map$marke = _walks$get2$map$marke === undefined ? [] : _walks$get2$map$marke;
 
-	            var meeting = void 0;
+	            var _walks$get2$map$marke2 = _slicedToArray(_walks$get2$map$marke, 1);
+
+	            var _walks$get2$map$marke3 = _walks$get2$map$marke2[0];
+	            _walks$get2$map$marke3 = _walks$get2$map$marke3 === undefined ? {} : _walks$get2$map$marke3;
+	            var meeting = _walks$get2$map$marke3.title;
+	            var _walks$get2$time = _walks$get2.time;
+	            _walks$get2$time = _walks$get2$time === undefined ? {} : _walks$get2$time;
+	            var slots = _walks$get2$time.slots;
+
 	            var start = void 0;
-	            if (map && map.markers.length) meeting = map.markers[0].title;
-	            if (time && time.slots.length) start = time.slots[0][0];
+	            if (slots && slots.length) start = slots[0][0];
 	            return React.createElement(_Walk2.default, { title: title, id: id, key: id, team: team, url: url, published: published, meeting: meeting, start: start });
 	          });
 	        })();

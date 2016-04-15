@@ -5,7 +5,7 @@ const WalkRoute = ({ map }) => (
     <h2>Walk Route</h2>
     <ol>
       {map.markers.map(({ title, description }, i) => (
-        <li key={i}>
+        <li key={`routeentry${i}`}>
           <h2>{title}</h2>
           <p>{description}</p>
         </li>

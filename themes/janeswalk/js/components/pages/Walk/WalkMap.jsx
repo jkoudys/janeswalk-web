@@ -63,7 +63,7 @@ export default class WalkMap extends React.Component {
         icon: stopMarker,
         map: googleMap,
         label: {
-          text: (i + 1).toString(),
+          text: String.fromCharCode(i + 65),
           fontWeight: '700',
           fontSize: '16px',
           color: '#ffffff',
