@@ -41,13 +41,25 @@ export default class Walks extends React.Component {
 
   render() {
     const { currentView, filterPast, filters } = this.state;
-    const { walks, city, user, show } = this.props;
+    const { walks, city, user, show, currentUser } = this.props;
 
     // How we're presenting the walks (map or list)
     let WalkList;
+
     if (currentView === 'list') {
       const now = Date.now();
-      const walkIDs = (show === 'city') ? city.walks : user.walks;
+      let walkIDs = [];
+      let canEdit = false;
+      if (show === 'city') {
+        walkIDs = city.walks;
+        // If this is a CO, who can edit
+        canEdit = currentUser.groups.includes('City Organizers');
+      } else {
+        walkIDs = user.walks;
+        // Walk owner
+        canEdit = user.id === currentUser.id;
+      }
+
       WalkList = walkIDs
       .filter(wID => {
         const { time, title } = walks.get(wID);
@@ -68,7 +80,7 @@ export default class Walks extends React.Component {
         } = walks.get(id);
         let start;
         if (slots && slots.length) start = slots[0][0];
-        return <Walk {...{ title, id, key: id, team, url, published, meeting, start }} />;
+        return <Walk {...{ title, id, key: id, team, url, published, meeting, start, canEdit }} />;
       });
     } else if (currentView === 'map') {
       WalkList = <WalksMap walks={user.walks.map(wID => walks.get(wID))} city={city} />;

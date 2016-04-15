@@ -16,10 +16,12 @@ const _users = new Map();
 let _current;
 
 function receiveUser({ user, current }) {
-  _users.set(+user.id, user);
+  // Merge users, so we can add more data to the same one.
+  const newUser = Object.assign(_users.get(+user.id) || {}, user);
+  _users.set(+user.id, newUser);
 
   if (current) {
-    _current = user;
+    _current = newUser;
   }
 }
 

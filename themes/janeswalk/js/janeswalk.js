@@ -2826,10 +2826,12 @@
 	  var user = _ref.user;
 	  var current = _ref.current;
 
-	  _users.set(+user.id, user);
+	  // Merge users, so we can add more data to the same one.
+	  var newUser = Object.assign(_users.get(+user.id) || {}, user);
+	  _users.set(+user.id, newUser);
 
 	  if (current) {
-	    _current = user;
+	    _current = newUser;
 	  }
 	}
 
@@ -9511,6 +9513,7 @@
 	      var city = _props.city;
 	      var user = _props.user;
 	      var edit = _props.edit;
+	      var currentUser = _props.currentUser;
 
 
 	      var menu = menuItems.map(function (_ref2, i) {
@@ -9536,7 +9539,7 @@
 	            ' ',
 	            name
 	          ),
-	          open ? React.createElement(Component, _extends({ user: user, walks: walks, city: city, edit: edit }, props)) : null
+	          open ? React.createElement(Component, _extends({ user: user, walks: walks, city: city, edit: edit, currentUser: currentUser }, props)) : null
 	        );
 	      });
 
@@ -9661,14 +9664,27 @@
 	      var city = _props.city;
 	      var user = _props.user;
 	      var show = _props.show;
+	      var currentUser = _props.currentUser;
 
 	      // How we're presenting the walks (map or list)
 
 	      var WalkList = void 0;
+
 	      if (currentView === 'list') {
 	        (function () {
 	          var now = Date.now();
-	          var walkIDs = show === 'city' ? city.walks : user.walks;
+	          var walkIDs = [];
+	          var canEdit = false;
+	          if (show === 'city') {
+	            walkIDs = city.walks;
+	            // If this is a CO, who can edit
+	            canEdit = currentUser.groups.includes('City Organizers');
+	          } else {
+	            walkIDs = user.walks;
+	            // Walk owner
+	            canEdit = user.id === currentUser.id;
+	          }
+
 	          WalkList = walkIDs.filter(function (wID) {
 	            var _walks$get = walks.get(wID);
 
@@ -9703,7 +9719,7 @@
 
 	            var start = void 0;
 	            if (slots && slots.length) start = slots[0][0];
-	            return React.createElement(_Walk2.default, { title: title, id: id, key: id, team: team, url: url, published: published, meeting: meeting, start: start });
+	            return React.createElement(_Walk2.default, { title: title, id: id, key: id, team: team, url: url, published: published, meeting: meeting, start: start, canEdit: canEdit });
 	          });
 	        })();
 	      } else if (currentView === 'map') {
@@ -10206,6 +10222,8 @@
 	      var team = _props.team;
 	      var url = _props.url;
 	      var published = _props.published;
+	      var _props$canEdit = _props.canEdit;
+	      var canEdit = _props$canEdit === undefined ? false : _props$canEdit;
 
 
 	      return React.createElement(
@@ -10255,11 +10273,11 @@
 	              'Promote'
 	            )
 	          ) : null,
-	          React.createElement(
+	          canEdit ? React.createElement(
 	            'a',
 	            { className: 'option', href: '/walk/form/?load=' + url.split('.org')[1] },
 	            'Edit'
-	          ),
+	          ) : null,
 	          published ? React.createElement(
 	            'a',
 	            { onClick: this.handleUnpublish, className: 'option' },

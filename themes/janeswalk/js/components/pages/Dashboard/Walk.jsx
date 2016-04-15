@@ -30,6 +30,7 @@ class Walk extends React.Component {
       team,
       url,
       published,
+      canEdit = false,
     } = this.props;
 
     return (
@@ -46,9 +47,9 @@ class Walk extends React.Component {
             </h4>
           ) : null}
           <h4>{t`Meeting at ${meeting}`}</h4>
-          { start * 1000 > Date.now() ? <button><a href="">Promote</a></button> : null}
-          <a className="option" href={`/walk/form/?load=${url.split('.org')[1]}`}>Edit</a>
-          {published ? <a onClick={this.handleUnpublish} className="option">Unpublish</a> : null}
+          {start * 1000 > Date.now() ? <button><a href="">Promote</a></button> : null}
+          {canEdit ? <a className="option" href={`/walk/form/?load=${url.split('.org')[1]}`}>Edit</a> : null}
+          {(published && canEdit) ? <a onClick={this.handleUnpublish} className="option">Unpublish</a> : null}
         </div>
       </li>
     );

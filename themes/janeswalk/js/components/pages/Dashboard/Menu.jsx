@@ -50,7 +50,7 @@ export default class Menu extends React.Component {
 
   render() {
     const { menuItems } = this.state;
-    const { walks, city, user, edit } = this.props;
+    const { walks, city, user, edit, currentUser } = this.props;
 
     const menu = menuItems.map(([Component, name, open, props], i) => (
       <section>
@@ -61,7 +61,7 @@ export default class Menu extends React.Component {
         >
           <i className="icon-caret-right" /> {name}
         </li>
-        {open ? <Component {...{ user, walks, city, edit, ...props }} /> : null}
+        {open ? <Component {...{ user, walks, city, edit, currentUser, ...props }} /> : null}
       </section>
     ));
 
