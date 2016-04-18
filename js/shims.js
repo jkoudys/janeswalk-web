@@ -1,6 +1,9 @@
 /* jshint ignore:start */
 // Shims, polyfills, etc.
 
+// Basic babel bundle, including Symbol
+require('babel-polyfill');
+
 if (!window.Intl) {
   require('intl');
   require('intl/locale-data/jsonp/en.js');
