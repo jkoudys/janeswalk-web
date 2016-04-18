@@ -8,6 +8,9 @@ try {
   console.error('Error shimming babel polyfill');
 }
 
+// Symbol support, in case the babel shim fails
+require('es6-symbol/implement');
+
 if (!window.Intl) {
   require('intl');
   require('intl/locale-data/jsonp/en.js');
