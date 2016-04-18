@@ -2,7 +2,11 @@
 // Shims, polyfills, etc.
 
 // Basic babel bundle, including Symbol
-require('babel-polyfill');
+try {
+  require('babel-polyfill');
+} catch (ex) {
+  console.error('Error shimming babel polyfill');
+}
 
 if (!window.Intl) {
   require('intl');
