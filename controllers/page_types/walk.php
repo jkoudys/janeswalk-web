@@ -266,6 +266,10 @@ class WalkPageTypeController extends Controller
         $meta->setAttribute('content', $c->getAttribute('shortdescription'));
         $this->addHeaderItem($doc->saveHTML());
 
+        // Check edit permissions
+        $cp = new Permissions($this->walk->getPage());
+        $this->set('canEdit', $cp->canEditPageContents());
+
         /* Helpers to use in the view */
         $this->set('im', $im);
         $this->set('th', Loader::helper('theme'));

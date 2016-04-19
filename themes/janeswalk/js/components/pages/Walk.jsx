@@ -51,21 +51,22 @@ export default class WalkPage extends React.Component {
 
   render() {
     const {
+      city,
       walk,
       walk: {
         map = { markers: [], route: [] },
       },
-      city,
       isFavourite,
       schedule,
     } = this.state;
     const hasMarkers = map.markers.length > 0;
     const hasRoute = map.route.length > 0;
+    const { canEdit = false } = this.props;
 
     return (
       <section className="walkPage">
         <WalkHeader
-          {...{ walk, city, isFavourite, schedule }}
+          {...{ walk, canEdit, city, isFavourite, schedule }}
           onSchedule={this.handleSchedule}
           onUnschedule={this.handleUnschedule}
           onAdd={this.handleAdd}

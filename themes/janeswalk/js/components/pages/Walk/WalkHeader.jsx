@@ -1,5 +1,6 @@
 /* global React */
 
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
 // TODO: Duplicate of Itinerary <Walk />
@@ -34,9 +35,11 @@ function getMeetingPlace(map) {
 }
 
 const WalkHeader = ({
+  canEdit = false,
   city,
   walk,
   walk: {
+    id,
     title,
     map,
     time,
@@ -80,8 +83,15 @@ const WalkHeader = ({
         </ul>
       </section>
       <h1>{title} {favButton}</h1>
+      {canEdit ? (
+        <h4>
+          <a href={`/walk/form/${id}`}>
+            <i className="fa fa-pencil-square-o" /> {t`Edit Walk`}
+          </a>
+        </h4>
+      ) : null}
       {meetingPlace ? <h4>{meetingPlace}</h4> : null}
-      {walkLeader ? <h4>{`Led By ${walkLeader['name-first']} ${walkLeader['name-last']} -`}</h4> : null}
+      {walkLeader ? <h4>{t`Led By ${walkLeader['name-first']} ${walkLeader['name-last']}`} -</h4> : null}
       <AddToItinerary {...{ time, walk, schedule, onSchedule, onUnschedule }} />
     </section>
   );

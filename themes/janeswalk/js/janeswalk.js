@@ -194,9 +194,10 @@
 	  JanesWalk.event.on('walkpage.load', function (_ref) {
 	    var walk = _ref.walk;
 	    var city = _ref.city;
+	    var canEdit = _ref.canEdit;
 
 	    WalkActions.receive(walk);
-	    React.render(React.createElement(_Walk2.default, { city: city, page: JanesWalk.page, walk: walk }), document.getElementById('page'));
+	    React.render(React.createElement(_Walk2.default, { city: city, page: JanesWalk.page, walk: walk, canEdit: canEdit }), document.getElementById('page'));
 	  });
 
 	  // The profile page, e.g. /profile
@@ -8171,20 +8172,23 @@
 	    key: 'render',
 	    value: function render() {
 	      var _state = this.state;
+	      var city = _state.city;
 	      var walk = _state.walk;
 	      var _state$walk$map = _state.walk.map;
 	      var map = _state$walk$map === undefined ? { markers: [], route: [] } : _state$walk$map;
-	      var city = _state.city;
 	      var isFavourite = _state.isFavourite;
 	      var schedule = _state.schedule;
 
 	      var hasMarkers = map.markers.length > 0;
 	      var hasRoute = map.route.length > 0;
+	      var _props$canEdit = this.props.canEdit;
+	      var canEdit = _props$canEdit === undefined ? false : _props$canEdit;
+
 
 	      return React.createElement(
 	        'section',
 	        { className: 'walkPage' },
-	        React.createElement(_WalkHeader2.default, _extends({ walk: walk, city: city, isFavourite: isFavourite, schedule: schedule }, {
+	        React.createElement(_WalkHeader2.default, _extends({ walk: walk, canEdit: canEdit, city: city, isFavourite: isFavourite, schedule: schedule }, {
 	          onSchedule: this.handleSchedule,
 	          onUnschedule: this.handleUnschedule,
 	          onAdd: this.handleAdd,
@@ -8222,11 +8226,18 @@
 	  value: true
 	});
 
+	var _templateObject = _taggedTemplateLiteral(['Edit Walk'], ['Edit Walk']),
+	    _templateObject2 = _taggedTemplateLiteral(['Led By ', ' ', ''], ['Led By ', ' ', '']);
+
+	var _I18nStore = __webpack_require__(21);
+
 	var _AddToItinerary = __webpack_require__(25);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
 
 	// TODO: Duplicate of Itinerary <Walk />
 
@@ -8256,8 +8267,6 @@
 	}
 
 	// Read a map, return the meeting place or null
-	/* global React */
-
 	function getMeetingPlace(map) {
 	  if (map && map.markers && map.markers.length) {
 	    return map.markers[0].title;
@@ -8266,9 +8275,12 @@
 	}
 
 	var WalkHeader = function WalkHeader(_ref3) {
+	  var _ref3$canEdit = _ref3.canEdit;
+	  var canEdit = _ref3$canEdit === undefined ? false : _ref3$canEdit;
 	  var city = _ref3.city;
 	  var walk = _ref3.walk;
 	  var _ref3$walk = _ref3.walk;
+	  var id = _ref3$walk.id;
 	  var title = _ref3$walk.title;
 	  var map = _ref3$walk.map;
 	  var time = _ref3$walk.time;
@@ -8335,6 +8347,17 @@
 	      ' ',
 	      favButton
 	    ),
+	    canEdit ? React.createElement(
+	      'h4',
+	      null,
+	      React.createElement(
+	        'a',
+	        { href: '/walk/form/' + id },
+	        React.createElement('i', { className: 'fa fa-pencil-square-o' }),
+	        ' ',
+	        (0, _I18nStore.translateTag)(_templateObject)
+	      )
+	    ) : null,
 	    meetingPlace ? React.createElement(
 	      'h4',
 	      null,
@@ -8343,7 +8366,8 @@
 	    walkLeader ? React.createElement(
 	      'h4',
 	      null,
-	      'Led By ' + walkLeader['name-first'] + ' ' + walkLeader['name-last'] + ' -'
+	      (0, _I18nStore.translateTag)(_templateObject2, walkLeader['name-first'], walkLeader['name-last']),
+	      ' -'
 	    ) : null,
 	    React.createElement(_AddToItinerary2.default, { time: time, walk: walk, schedule: schedule, onSchedule: onSchedule, onUnschedule: onUnschedule })
 	  );

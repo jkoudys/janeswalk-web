@@ -90,10 +90,10 @@ function addFluxListeners() {
 // Routes initialized by events
 function addRenderListeners() {
   // A walk, e.g. /canada/toronto/curb-cuts-and-desire-lines
-  JanesWalk.event.on('walkpage.load', ({walk, city}) => {
+  JanesWalk.event.on('walkpage.load', ({ walk, city, canEdit }) => {
     WalkActions.receive(walk);
     React.render(
-      <Walk city={city} page={JanesWalk.page} walk={walk} />,
+      <Walk city={city} page={JanesWalk.page} walk={walk} canEdit={canEdit} />,
       document.getElementById('page')
     ); 
   });
