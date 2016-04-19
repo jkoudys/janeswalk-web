@@ -23,7 +23,7 @@ class WalkFormController extends Controller
     protected function getUnstartedWalk(User $u, Page $city)
     {
         // Find all walks for this user, in this city, with no name
-        $pl = new PageList;
+        $pl = new PageList();
         $pl->filterByCollectionTypeHandle('walk');
         $pl->filterByUserID($u->getUserID());
         $pl->filterByParentID($city->getCollectionID());
@@ -43,29 +43,14 @@ class WalkFormController extends Controller
         return $walk;
     }
 
-    public function view()
-    {
-        parent::view();
-        $u = new User();
-        $ui = UserInfo::getByID($u->getUserID());
+    protected function loadViewData(Page $c) {
         $nh = Loader::helper('navigation');
         $av = Loader::helper('concrete/avatar');
         $valt = Loader::helper('validation/token');
         $imgHelper = Loader::helper('image');
-
-        /* If no page is passed to edit, create a new page.
-         */
-        $load = $_REQUEST['load'];
-        if (empty($load)) {
-            // Find the parent page this should go under
-            $cityPage = ($parentCID = $_REQUEST['parentCID']) ?
-                Page::getByID($parentCID) :
-                ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto'));
-            $c = $this->getUnstartedWalk($u, $cityPage);
-        } else {
-            $c = Page::getByPath($load);
-            $cityPage = Page::getByID($c->getCollectionParentID());
-        }
+        $cityPage = Page::getByID($c->getCollectionParentID());
+        $u = new User();
+        $ui = UserInfo::getByID($u->getUserID());
 
         $walk_ward = trim((String) $c->getAttribute('walk_wards'));
         $city_wards = $cityPage->getAttribute('city_wards');
@@ -149,5 +134,32 @@ class WalkFormController extends Controller
         $this->addHeaderItem($html->css('jquery.ui.css'));
         // Set libs we'll need on the page
         $this->addFooterItem(Loader::helper('html')->javascript('jquery.ui.js'));
+    }
+
+    public function view($cID = null)
+    {
+        parent::view();
+
+        // If no page is passed to edit, create a new page.
+        $load = $_REQUEST['load'];
+        if ($cID) {
+            $this->loadViewData(Page::getByID($cID));
+        } elseif (!empty($load)) {
+            $this->loadViewData(Page::getByPath($load));
+        } else {
+            $nh = Loader::helper('navigation');
+            $u = new User();
+            $ui = UserInfo::getByID($u->getUserID());
+
+            // Find the parent page this should go under
+            $cityPage = ($parentCID = $_REQUEST['parentCID']) ?
+                Page::getByID($parentCID) :
+                ($ui->getAttribute('home_city') ?: Page::getByPath('/canada/toronto'));
+            $walk = $this->getUnstartedWalk($u, $cityPage);
+
+            // Redirect to this new walk in the form
+            header('Location: ' . $nh->getCollectionURL($this->c) . $walk->getCollectionID());
+            exit();
+        }
     }
 }

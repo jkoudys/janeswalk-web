@@ -55,30 +55,46 @@ export default class CreateWalk extends React.Component {
           map: this.refs.mapBuilder.getStateSimple(),
           notifications,
         }, () => {
-          $.ajax({
-            url: this.state.url,
-            type: options.publish ? 'PUT' : 'POST',
-            data: { json: JSON.stringify(this.state) },
-            dataType: 'json',
-            success: (data) => {
-              notifications.push({ type: 'success', name: 'Walk saved' });
-              this.setState(
-                { notifications, url: (data.url || this.state.url) },
-                function checkCallback() {
-                  if (cb && cb instanceof Function) {
-                    // The 'this' in each callback should be the <CreateWalk>
-                    cb.call(this);
-                  }
+          // The state itself is our walk JSON
+          const body = new FormData();
+          body.append('json', JSON.stringify(this.state));
+
+          // Fetch walk to persist it. PUT is publish, POST is save
+          fetch(`/index.php?cID=${this.state.id}`, {
+            method: options.publish ? 'PUT' : 'POST',
+            credentials: 'include',
+            body,
+          })
+          .then(res => res.json())
+          .then(json => {
+            if (json.error) {
+              throw Error(json.error);
+            } else {
+              return json;
+            }
+          })
+          .then(({ url: walkUrl }) => {
+            notifications.push({ type: 'success', name: 'Walk saved' });
+            this.setState(
+              { notifications, url: (walkUrl || this.state.url) },
+              function checkCallback() {
+                if (cb && cb instanceof Function) {
+                  // The 'this' in each callback should be the <CreateWalk>
+                  cb.call(this);
                 }
-              );
-              setTimeout(removeNotice, 1200);
-            },
-            error: (xhr, status, err) => {
-              notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
-              this.setState({ notifications });
-              setTimeout(removeNotice, 6000);
-              console.error(this.url, status, err.toString());
-            },
+              }
+            );
+            setTimeout(removeNotice, 1200);
+          })
+          .catch(({ message }) => {
+            notifications.push({
+              type: 'danger',
+              name: 'Walk failed to save',
+              message: `Keep this window open and contact Jane's Walk for assistance. Details: ${message}`,
+            });
+            this.setState({ notifications });
+            setTimeout(removeNotice, 6000);
+            console.error(this.state.url, message);
           });
         });
         setTimeout(removeNotice, 1200);
@@ -94,7 +110,7 @@ export default class CreateWalk extends React.Component {
           next.trigger('click');
         } else {
           // If no 'next' tab, next step is to publish
-          this.refs.publish.trigger('click');
+          $(this.refs.publish).trigger('click');
         }
       },
 

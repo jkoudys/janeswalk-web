@@ -3316,27 +3316,45 @@
 	          map: _this.refs.mapBuilder.getStateSimple(),
 	          notifications: notifications
 	        }, function () {
-	          $.ajax({
-	            url: _this.state.url,
-	            type: options.publish ? 'PUT' : 'POST',
-	            data: { json: JSON.stringify(_this.state) },
-	            dataType: 'json',
-	            success: function success(data) {
-	              notifications.push({ type: 'success', name: 'Walk saved' });
-	              _this.setState({ notifications: notifications, url: data.url || _this.state.url }, function checkCallback() {
-	                if (cb && cb instanceof Function) {
-	                  // The 'this' in each callback should be the <CreateWalk>
-	                  cb.call(this);
-	                }
-	              });
-	              setTimeout(removeNotice, 1200);
-	            },
-	            error: function error(xhr, status, err) {
-	              notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
-	              _this.setState({ notifications: notifications });
-	              setTimeout(removeNotice, 6000);
-	              console.error(_this.url, status, err.toString());
+	          // The state itself is our walk JSON
+	          var body = new FormData();
+	          body.append('json', JSON.stringify(_this.state));
+
+	          // Fetch walk to persist it. PUT is publish, POST is save
+	          fetch('/index.php?cID=' + _this.state.id, {
+	            method: options.publish ? 'PUT' : 'POST',
+	            credentials: 'include',
+	            body: body
+	          }).then(function (res) {
+	            return res.json();
+	          }).then(function (json) {
+	            if (json.error) {
+	              throw Error(json.error);
+	            } else {
+	              return json;
 	            }
+	          }).then(function (_ref) {
+	            var walkUrl = _ref.url;
+
+	            notifications.push({ type: 'success', name: 'Walk saved' });
+	            _this.setState({ notifications: notifications, url: walkUrl || _this.state.url }, function checkCallback() {
+	              if (cb && cb instanceof Function) {
+	                // The 'this' in each callback should be the <CreateWalk>
+	                cb.call(this);
+	              }
+	            });
+	            setTimeout(removeNotice, 1200);
+	          }).catch(function (_ref2) {
+	            var message = _ref2.message;
+
+	            notifications.push({
+	              type: 'danger',
+	              name: 'Walk failed to save',
+	              message: 'Keep this window open and contact Jane\'s Walk for assistance. Details: ' + message
+	            });
+	            _this.setState({ notifications: notifications });
+	            setTimeout(removeNotice, 6000);
+	            console.error(_this.state.url, message);
 	          });
 	        });
 	        setTimeout(removeNotice, 1200);
@@ -3352,7 +3370,7 @@
 	          next.trigger('click');
 	        } else {
 	          // If no 'next' tab, next step is to publish
-	          _this.refs.publish.trigger('click');
+	          $(_this.refs.publish).trigger('click');
 	        }
 	      },
 
@@ -10282,7 +10300,7 @@
 	          ) : null,
 	          canEdit ? React.createElement(
 	            'a',
-	            { className: 'option', href: '/walk/form/?load=' + url.split('.org')[1] },
+	            { className: 'option', href: '/walk/form/' + id },
 	            'Edit'
 	          ) : null,
 	          published && canEdit ? React.createElement(

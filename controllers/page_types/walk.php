@@ -200,9 +200,13 @@ class WalkPageTypeController extends Controller
     protected function setJson($json, $publish = false)
     {
         // Check for permissions first
-        $cp = new Permissions($this->c);
+        $cp = new Permissions($this->walk->getPage());
         if (!$cp->canEditPageContents()) {
-            die(t('Access Denied.'));
+            echo json_encode([
+                'error' => 'You do not have permission to edit this walk.',
+                'cID' => $this->c->getCollectionID(),
+            ]);
+            die;
         }
 
         $currentCollectionVersion = $this->walk->getPage()->getVersionObject();

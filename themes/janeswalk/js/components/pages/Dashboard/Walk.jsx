@@ -48,7 +48,7 @@ class Walk extends React.Component {
           ) : null}
           <h4>{t`Meeting at ${meeting}`}</h4>
           {start * 1000 > Date.now() ? <button><a href="">Promote</a></button> : null}
-          {canEdit ? <a className="option" href={`/walk/form/?load=${url.split('.org')[1]}`}>Edit</a> : null}
+          {canEdit ? <a className="option" href={`/walk/form/${id}`}>Edit</a> : null}
           {(published && canEdit) ? <a onClick={this.handleUnpublish} className="option">Unpublish</a> : null}
         </div>
       </li>
