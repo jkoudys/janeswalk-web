@@ -3273,6 +3273,17 @@
 	// Flux
 
 
+	// TODO: move into store
+	var _notifications = [];
+
+	function addNotice(notice) {
+	  _notifications.push(notice);
+	}
+
+	function removeNotice() {
+	  _notifications.shift();
+	}
+
 	var CreateWalk = function (_React$Component) {
 	  _inherits(CreateWalk, _React$Component);
 
@@ -3288,7 +3299,7 @@
 	    // Instance props
 
 	    Object.assign(_this, {
-	      state: Object.assign({}, { notifications: [] }, (0, _Walk.buildWalkObject)({ data: data, user: user, url: url })),
+	      state: Object.assign({}, (0, _Walk.buildWalkObject)({ data: data, user: user, url: url })),
 
 	      // Simple trigger to re-render the components
 	      _onChange: function _onChange() {
@@ -3298,10 +3309,6 @@
 	      // Persist our walk server-side
 	      saveWalk: function saveWalk(options, cb) {
 	        /* Send in the updated walk to save, but keep working */
-	        var notifications = _this.state.notifications;
-	        var removeNotice = function removeNotice() {
-	          _this.setState({ notifications: _this.state.notifications.slice(1) });
-	        };
 
 	        var defaultOptions = {
 	          messageTimeout: 1200
@@ -3309,12 +3316,11 @@
 
 	        options = Object.assign({}, defaultOptions, options);
 
-	        notifications.push({ type: 'info', name: 'Saving walk' });
+	        addNotice({ type: 'info', name: 'Saving walk' });
 
 	        // Build a simplified map from the Google objects
 	        _this.setState({
-	          map: _this.refs.mapBuilder.getStateSimple(),
-	          notifications: notifications
+	          map: _this.refs.mapBuilder.getStateSimple()
 	        }, function () {
 	          // The state itself is our walk JSON
 	          var body = new FormData();
@@ -3336,8 +3342,8 @@
 	          }).then(function (_ref) {
 	            var walkUrl = _ref.url;
 
-	            notifications.push({ type: 'success', name: 'Walk saved' });
-	            _this.setState({ notifications: notifications, url: walkUrl || _this.state.url }, function checkCallback() {
+	            addNotice({ type: 'success', name: 'Walk saved' });
+	            _this.setState({ url: walkUrl || _this.state.url }, function checkCallback() {
 	              if (cb && cb instanceof Function) {
 	                // The 'this' in each callback should be the <CreateWalk>
 	                cb.call(this);
@@ -3347,12 +3353,11 @@
 	          }).catch(function (_ref2) {
 	            var message = _ref2.message;
 
-	            notifications.push({
+	            addNotice({
 	              type: 'danger',
 	              name: 'Walk failed to save',
 	              message: 'Keep this window open and contact Jane\'s Walk for assistance. Details: ' + message
 	            });
-	            _this.setState({ notifications: notifications });
 	            setTimeout(removeNotice, 6000);
 	            console.error(_this.state.url, message);
 	          });
@@ -3725,7 +3730,7 @@
 	        React.createElement(
 	          'aside',
 	          { id: 'notifications' },
-	          this.state.notifications.map(function (note) {
+	          _notifications.map(function (note) {
 	            return React.createElement(
 	              'div',
 	              { key: note.message, className: 'alert alert-' + note.type },

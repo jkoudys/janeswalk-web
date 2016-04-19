@@ -22,6 +22,17 @@ import { buildWalkObject } from 'janeswalk/utils/api/Walk';
 import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
 import NotifyStore from 'janeswalk/stores/NotifyStore';
 
+// TODO: move into store
+const _notifications = [];
+
+function addNotice(notice) {
+  _notifications.push(notice);
+}
+
+function removeNotice() {
+  _notifications.shift();
+}
+
 export default class CreateWalk extends React.Component {
   constructor(props) {
     super(props);
@@ -29,7 +40,7 @@ export default class CreateWalk extends React.Component {
 
     // Instance props
     Object.assign(this, {
-      state: Object.assign({}, { notifications: [] }, buildWalkObject({ data, user, url })),
+      state: Object.assign({}, buildWalkObject({ data, user, url })),
 
       // Simple trigger to re-render the components
       _onChange: () => this.setState({}),
@@ -37,10 +48,6 @@ export default class CreateWalk extends React.Component {
       // Persist our walk server-side
       saveWalk: (options, cb) => {
         /* Send in the updated walk to save, but keep working */
-        const notifications = this.state.notifications;
-        const removeNotice = () => {
-          this.setState({ notifications: this.state.notifications.slice(1) });
-        };
 
         const defaultOptions = {
           messageTimeout: 1200,
@@ -48,12 +55,11 @@ export default class CreateWalk extends React.Component {
 
         options = Object.assign({}, defaultOptions, options);
 
-        notifications.push({ type: 'info', name: 'Saving walk' });
+        addNotice({ type: 'info', name: 'Saving walk' });
 
         // Build a simplified map from the Google objects
         this.setState({
           map: this.refs.mapBuilder.getStateSimple(),
-          notifications,
         }, () => {
           // The state itself is our walk JSON
           const body = new FormData();
@@ -74,9 +80,9 @@ export default class CreateWalk extends React.Component {
             }
           })
           .then(({ url: walkUrl }) => {
-            notifications.push({ type: 'success', name: 'Walk saved' });
+            addNotice({ type: 'success', name: 'Walk saved' });
             this.setState(
-              { notifications, url: (walkUrl || this.state.url) },
+              { url: (walkUrl || this.state.url) },
               function checkCallback() {
                 if (cb && cb instanceof Function) {
                   // The 'this' in each callback should be the <CreateWalk>
@@ -87,12 +93,11 @@ export default class CreateWalk extends React.Component {
             setTimeout(removeNotice, 1200);
           })
           .catch(({ message }) => {
-            notifications.push({
+            addNotice({
               type: 'danger',
               name: 'Walk failed to save',
               message: `Keep this window open and contact Jane's Walk for assistance. Details: ${message}`,
             });
-            this.setState({ notifications });
             setTimeout(removeNotice, 6000);
             console.error(this.state.url, message);
           });
@@ -279,7 +284,7 @@ export default class CreateWalk extends React.Component {
           /> : null
         }
         <aside id="notifications">
-          {this.state.notifications.map(note => (
+          {_notifications.map(note => (
             <div key={note.message} className={`alert alert-${note.type}`}>
               <strong>{note.name || ''}:&nbsp;</strong>
               {note.message || ''}
