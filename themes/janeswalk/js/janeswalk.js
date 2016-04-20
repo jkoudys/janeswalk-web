@@ -3208,7 +3208,7 @@
 	    _templateObject19 = _taggedTemplateLiteral(['How will people find you?'], ['How will people find you?']),
 	    _templateObject20 = _taggedTemplateLiteral(['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.'], ['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.']),
 	    _templateObject21 = _taggedTemplateLiteral(['Contact City Organizer for help'], ['Contact City Organizer for help']),
-	    _templateObject22 = _taggedTemplateLiteral(['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\''], ['Hi! I\\\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\'']),
+	    _templateObject22 = _taggedTemplateLiteral(['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please'], ['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please']),
 	    _templateObject23 = _taggedTemplateLiteral(['email me'], ['email me']);
 
 	var _ImageUpload = __webpack_require__(37);

@@ -263,7 +263,7 @@ export default class CreateWalk extends React.Component {
               <div className="popover-content collapse in" id="popover-content">
                 {city.cityOrganizer.photo ? <div className="u-avatar" style={{ backgroundImage: `url(${city.cityOrganizer.photo})` }} /> : null}
                 <p>
-                  { t`Hi! I\'m ${city.cityOrganizer.firstName}, the City Organizer for Jane's Walk ${city.name}. I'm here to help, so if you have any questions, please'` } <strong><a href={`mailto:${city.cityOrganizer.email}`}>{ t`email me` }!</a></strong></p>
+                  { t`Hi! I'm ${city.cityOrganizer.firstName}, the City Organizer for Jane's Walk ${city.name}. I'm here to help, so if you have any questions, please` } <strong><a href={`mailto:${city.cityOrganizer.email}`}>{ t`email me` }!</a></strong></p>
               </div>
             </div>
           </aside>
