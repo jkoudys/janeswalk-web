@@ -168,7 +168,7 @@ export default class CreateWalk extends React.Component {
                     <img id="convo-marker" src={`${CCM_THEME_PATH}/img/jw-intro-graphic.svg`} alt="Jane's Walks are walking conversations." />
                   </div>
                   <div className="col-md-8">
-                    <h1>{ `Hey there, ${user.firstName}!` }</h1>
+                    <h1>{ t`Hey there, ${user.firstName}!` }</h1>
                     <p>{ t`Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there's no need to finish everything at once.` }</p>
                   </div>
                 </div>

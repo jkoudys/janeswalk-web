@@ -71,7 +71,7 @@ function renderGlobal() {
 
   // Render modals we need on each page
   React.render(
-    <Login socialLogin={(JanesWalk.stacks || {"Social Logins": ""})['Social Logins']} />,
+    <Login socialLogin={(JanesWalk.stacks || { 'Social Logins': '' })['Social Logins']} />,
     document.getElementById('modals')
   );
 }
@@ -95,7 +95,7 @@ function addRenderListeners() {
     React.render(
       <Walk city={city} page={JanesWalk.page} walk={walk} canEdit={canEdit} />,
       document.getElementById('page')
-    ); 
+    );
   });
 
   // The profile page, e.g. /profile
@@ -107,7 +107,7 @@ function addRenderListeners() {
   });
 
   // Create a walk
-  JanesWalk.event.on('caw.load', props => {
+  JanesWalk.event.on('caw.load', () => {
     React.render(
       <CreateWalk
         data={JanesWalk.walk.data}
@@ -125,18 +125,20 @@ CityStore.addChangeListener(() => {
   // Bind anything to render not using react
   switch (document.body.dataset.pageviewname) {
     case 'CityPageView':
-      let city = CityStore.getCity();
-      if (city) {
-        let bgUri = 'url(' + city.background + ')';
-        if (city.background && document.body.style.backgroundImage !== bgUri) {
-          document.body.style.backgroundImage = bgUri;
+      {
+        const city = CityStore.getCity();
+        if (city) {
+          const bgUri = `url(${city.background})`;
+          if (city.background && document.body.style.backgroundImage !== bgUri) {
+            document.body.style.backgroundImage = bgUri;
+          }
         }
       }
-    break;
+      break;
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
   // Load our translations upfront
   getTranslations(JanesWalk.locale);
 

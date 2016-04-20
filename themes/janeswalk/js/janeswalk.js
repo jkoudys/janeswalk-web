@@ -160,7 +160,7 @@
 	  }
 
 	  // Render modals we need on each page
-	  React.render(React.createElement(_Login2.default, { socialLogin: (JanesWalk.stacks || { "Social Logins": "" })['Social Logins'] }), document.getElementById('modals'));
+	  React.render(React.createElement(_Login2.default, { socialLogin: (JanesWalk.stacks || { 'Social Logins': '' })['Social Logins'] }), document.getElementById('modals'));
 	}
 
 	// Listen for JW events to load flux stores with
@@ -206,7 +206,7 @@
 	  });
 
 	  // Create a walk
-	  JanesWalk.event.on('caw.load', function (props) {
+	  JanesWalk.event.on('caw.load', function () {
 	    React.render(React.createElement(_CreateWalk2.default, {
 	      data: JanesWalk.walk.data,
 	      city: JanesWalk.city,
@@ -221,11 +221,13 @@
 	  // Bind anything to render not using react
 	  switch (document.body.dataset.pageviewname) {
 	    case 'CityPageView':
-	      var city = _CityStore2.default.getCity();
-	      if (city) {
-	        var bgUri = 'url(' + city.background + ')';
-	        if (city.background && document.body.style.backgroundImage !== bgUri) {
-	          document.body.style.backgroundImage = bgUri;
+	      {
+	        var city = _CityStore2.default.getCity();
+	        if (city) {
+	          var bgUri = 'url(' + city.background + ')';
+	          if (city.background && document.body.style.backgroundImage !== bgUri) {
+	            document.body.style.backgroundImage = bgUri;
+	          }
 	        }
 	      }
 	      break;
@@ -264,9 +266,9 @@
 
 	var _I18nActions = __webpack_require__(3);
 
-	var _I18nActions2 = _interopRequireDefault(_I18nActions);
+	var I18nActions = _interopRequireWildcard(_I18nActions);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	/**
 	 * Load translations file from JanesWalk
@@ -277,22 +279,22 @@
 	  // Check that we have a translations file set
 	  if (locale && locale.translation) {
 	    // Grab from session if we have it
-	    var translation = window.sessionStorage.getItem('i18n_' + locale.name);
+	    var translation = sessionStorage.getItem('i18n_' + locale.name);
 	    if (translation) {
-	      _I18nActions2.default.receive(JSON.parse(translation).translations['']);
+	      I18nActions.receive(JSON.parse(translation).translations['']);
 	    } else {
-	      var xhr = new XMLHttpRequest();
-	      xhr.open('get', locale.translation, true);
-	      xhr.onload = function () {
-	        var data = JSON.parse(this.responseText);
-
+	      fetch(locale.translation).then(function (res) {
+	        return res.json();
+	      }).then(function (data) {
 	        // Store with the session
-	        window.sessionStorage.setItem('i18n_' + locale.name, this.responseText);
+	        sessionStorage.setItem('i18n_' + locale.name, JSON.stringify(data));
 
 	        // Trigger i18n change on complete
-	        _I18nActions2.default.receive(data.translations['']);
-	      };
-	      xhr.send();
+	        I18nActions.receive(data.translations['']);
+	      }).catch(function (_ref) {
+	        var message = _ref.message;
+	        return console.error('Failed to fetch translations: ' + message);
+	      });
 	    }
 	  }
 	}
@@ -2168,6 +2170,8 @@
 
 	'use strict';
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	/**
 	 * i18n translation class
 	 *
@@ -2201,11 +2205,17 @@
 	   * sprintf syntax used to replace %d and %s tokens with arguments
 	   */
 	  translate: function translate(str) {
+	    var _ref = this.translations[str] || [];
+
+	    var _ref2 = _slicedToArray(_ref, 1);
+
+	    var translation = _ref2[0];
+
 	    for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
 	      args[_key2 - 1] = arguments[_key2];
 	    }
 
-	    return sprintf.apply(undefined, [this.translations[str] || str].concat(args));
+	    return sprintf.apply(undefined, [translation || str].concat(args));
 	  },
 
 
@@ -3180,25 +3190,26 @@
 	var _templateObject = _taggedTemplateLiteral(['Preview Walk'], ['Preview Walk']),
 	    _templateObject2 = _taggedTemplateLiteral(['Publish Walk'], ['Publish Walk']),
 	    _templateObject3 = _taggedTemplateLiteral(['Save'], ['Save']),
-	    _templateObject4 = _taggedTemplateLiteral(['Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.'], ['Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.']),
-	    _templateObject5 = _taggedTemplateLiteral(['Describe Your Walk'], ['Describe Your Walk']),
-	    _templateObject6 = _taggedTemplateLiteral(['Walk Title'], ['Walk Title']),
-	    _templateObject7 = _taggedTemplateLiteral(['Something short and memorable.'], ['Something short and memorable.']),
-	    _templateObject8 = _taggedTemplateLiteral(['Your Walk in a Nutshell'], ['Your Walk in a Nutshell']),
-	    _templateObject9 = _taggedTemplateLiteral(['Build intrigue! This is what people see when browsing our walk listings.'], ['Build intrigue! This is what people see when browsing our walk listings.']),
-	    _templateObject10 = _taggedTemplateLiteral(['Walk Description'], ['Walk Description']),
-	    _templateObject11 = _taggedTemplateLiteral(['Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.'], ['Help jump start the conversation on your walk by giving readers an idea of the discussions you\\\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.']),
-	    _templateObject12 = _taggedTemplateLiteral(['Make it Accessible'], ['Make it Accessible']),
-	    _templateObject13 = _taggedTemplateLiteral(['What else do people need to know about the accessibility of this walk?'], ['What else do people need to know about the accessibility of this walk?']),
-	    _templateObject14 = _taggedTemplateLiteral(['Optional'], ['Optional']),
-	    _templateObject15 = _taggedTemplateLiteral(['How can someone get to the meeting spot by public transit?'], ['How can someone get to the meeting spot by public transit?']),
-	    _templateObject16 = _taggedTemplateLiteral(['Nearest subway stop, closest bus or streetcar lines, etc.'], ['Nearest subway stop, closest bus or streetcar lines, etc.']),
-	    _templateObject17 = _taggedTemplateLiteral(['Where are the nearest places to park?'], ['Where are the nearest places to park?']),
-	    _templateObject18 = _taggedTemplateLiteral(['How will people find you?'], ['How will people find you?']),
-	    _templateObject19 = _taggedTemplateLiteral(['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.'], ['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.']),
-	    _templateObject20 = _taggedTemplateLiteral(['Contact City Organizer for help'], ['Contact City Organizer for help']),
-	    _templateObject21 = _taggedTemplateLiteral(['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\''], ['Hi! I\\\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\'']),
-	    _templateObject22 = _taggedTemplateLiteral(['email me'], ['email me']);
+	    _templateObject4 = _taggedTemplateLiteral(['Hey there, ', '!'], ['Hey there, ', '!']),
+	    _templateObject5 = _taggedTemplateLiteral(['Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.'], ['Jane’s Walks are walking conversations about neighbourhoods. You can return to this form at any time, so there\'s no need to finish everything at once.']),
+	    _templateObject6 = _taggedTemplateLiteral(['Describe Your Walk'], ['Describe Your Walk']),
+	    _templateObject7 = _taggedTemplateLiteral(['Walk Title'], ['Walk Title']),
+	    _templateObject8 = _taggedTemplateLiteral(['Something short and memorable.'], ['Something short and memorable.']),
+	    _templateObject9 = _taggedTemplateLiteral(['Your Walk in a Nutshell'], ['Your Walk in a Nutshell']),
+	    _templateObject10 = _taggedTemplateLiteral(['Build intrigue! This is what people see when browsing our walk listings.'], ['Build intrigue! This is what people see when browsing our walk listings.']),
+	    _templateObject11 = _taggedTemplateLiteral(['Walk Description'], ['Walk Description']),
+	    _templateObject12 = _taggedTemplateLiteral(['Help jump start the conversation on your walk by giving readers an idea of the discussions you\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.'], ['Help jump start the conversation on your walk by giving readers an idea of the discussions you\\\'ll be having on the walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the walk. To keep this engaging, we recommend keeping your description to 200 words.']),
+	    _templateObject13 = _taggedTemplateLiteral(['Make it Accessible'], ['Make it Accessible']),
+	    _templateObject14 = _taggedTemplateLiteral(['What else do people need to know about the accessibility of this walk?'], ['What else do people need to know about the accessibility of this walk?']),
+	    _templateObject15 = _taggedTemplateLiteral(['Optional'], ['Optional']),
+	    _templateObject16 = _taggedTemplateLiteral(['How can someone get to the meeting spot by public transit?'], ['How can someone get to the meeting spot by public transit?']),
+	    _templateObject17 = _taggedTemplateLiteral(['Nearest subway stop, closest bus or streetcar lines, etc.'], ['Nearest subway stop, closest bus or streetcar lines, etc.']),
+	    _templateObject18 = _taggedTemplateLiteral(['Where are the nearest places to park?'], ['Where are the nearest places to park?']),
+	    _templateObject19 = _taggedTemplateLiteral(['How will people find you?'], ['How will people find you?']),
+	    _templateObject20 = _taggedTemplateLiteral(['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.'], ['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.']),
+	    _templateObject21 = _taggedTemplateLiteral(['Contact City Organizer for help'], ['Contact City Organizer for help']),
+	    _templateObject22 = _taggedTemplateLiteral(['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\''], ['Hi! I\\\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please\'']),
+	    _templateObject23 = _taggedTemplateLiteral(['email me'], ['email me']);
 
 	var _ImageUpload = __webpack_require__(37);
 
@@ -3484,12 +3495,12 @@
 	                    React.createElement(
 	                      'h1',
 	                      null,
-	                      'Hey there, ' + user.firstName + '!'
+	                      (0, _I18nStore.translateTag)(_templateObject4, user.firstName)
 	                    ),
 	                    React.createElement(
 	                      'p',
 	                      null,
-	                      (0, _I18nStore.translateTag)(_templateObject4)
+	                      (0, _I18nStore.translateTag)(_templateObject5)
 	                    )
 	                  )
 	                ),
@@ -3499,7 +3510,7 @@
 	                  React.createElement(
 	                    'h1',
 	                    null,
-	                    (0, _I18nStore.translateTag)(_templateObject5)
+	                    (0, _I18nStore.translateTag)(_templateObject6)
 	                  )
 	                ),
 	                React.createElement(
@@ -3514,12 +3525,12 @@
 	                      React.createElement(
 	                        'label',
 	                        { htmlFor: 'title' },
-	                        (0, _I18nStore.translateTag)(_templateObject6)
+	                        (0, _I18nStore.translateTag)(_templateObject7)
 	                      ),
 	                      React.createElement(
 	                        'div',
 	                        { className: 'alert alert-info' },
-	                        (0, _I18nStore.translateTag)(_templateObject7)
+	                        (0, _I18nStore.translateTag)(_templateObject8)
 	                      ),
 	                      React.createElement('input', { type: 'text', valueLink: this.linkState('title') })
 	                    )
@@ -3539,12 +3550,12 @@
 	                      React.createElement(
 	                        'label',
 	                        { htmlFor: 'shortdescription' },
-	                        (0, _I18nStore.translateTag)(_templateObject8)
+	                        (0, _I18nStore.translateTag)(_templateObject9)
 	                      ),
 	                      React.createElement(
 	                        'div',
 	                        { className: 'alert alert-info' },
-	                        (0, _I18nStore.translateTag)(_templateObject9)
+	                        (0, _I18nStore.translateTag)(_templateObject10)
 	                      ),
 	                      React.createElement(_TextAreaLimit2.default, { id: 'shortdescription', name: 'shortdescription', rows: '6', maxLength: '140', valueLink: this.linkState('shortDescription'), required: true })
 	                    ),
@@ -3555,12 +3566,12 @@
 	                      React.createElement(
 	                        'label',
 	                        { htmlFor: 'longdescription', id: 'longwalkdescription' },
-	                        (0, _I18nStore.translateTag)(_templateObject10)
+	                        (0, _I18nStore.translateTag)(_templateObject11)
 	                      ),
 	                      React.createElement(
 	                        'div',
 	                        { className: 'alert alert-info' },
-	                        (0, _I18nStore.translateTag)(_templateObject11)
+	                        (0, _I18nStore.translateTag)(_templateObject12)
 	                      ),
 	                      React.createElement('textarea', { id: 'longdescription', name: 'longdescription', rows: '14', valueLink: this.linkState('longDescription') })
 	                    )
@@ -3581,7 +3592,7 @@
 	                  React.createElement(
 	                    'h1',
 	                    null,
-	                    (0, _I18nStore.translateTag)(_templateObject12)
+	                    (0, _I18nStore.translateTag)(_templateObject13)
 	                  )
 	                ),
 	                React.createElement(
@@ -3598,9 +3609,9 @@
 	                    React.createElement(
 	                      'legend',
 	                      null,
-	                      (0, _I18nStore.translateTag)(_templateObject13),
-	                      ' (',
 	                      (0, _I18nStore.translateTag)(_templateObject14),
+	                      ' (',
+	                      (0, _I18nStore.translateTag)(_templateObject15),
 	                      ')'
 	                    ),
 	                    React.createElement(_TextAreaLimit2.default, { name: 'accessible-info', rows: '3', maxLength: '500', valueLink: this.linkState('accessibleInfo') })
@@ -3615,15 +3626,15 @@
 	                    React.createElement(
 	                      'legend',
 	                      { id: 'transit' },
-	                      (0, _I18nStore.translateTag)(_templateObject15),
+	                      (0, _I18nStore.translateTag)(_templateObject16),
 	                      ' (',
-	                      (0, _I18nStore.translateTag)(_templateObject14),
+	                      (0, _I18nStore.translateTag)(_templateObject15),
 	                      ')'
 	                    ),
 	                    React.createElement(
 	                      'div',
 	                      { className: 'alert alert-info' },
-	                      (0, _I18nStore.translateTag)(_templateObject16)
+	                      (0, _I18nStore.translateTag)(_templateObject17)
 	                    ),
 	                    React.createElement('textarea', { rows: '3', name: 'accessible-transit', valueLink: this.linkState('accessibleTransit') })
 	                  )
@@ -3637,9 +3648,9 @@
 	                    React.createElement(
 	                      'legend',
 	                      null,
-	                      (0, _I18nStore.translateTag)(_templateObject17),
+	                      (0, _I18nStore.translateTag)(_templateObject18),
 	                      ' (',
-	                      (0, _I18nStore.translateTag)(_templateObject14),
+	                      (0, _I18nStore.translateTag)(_templateObject15),
 	                      ')'
 	                    ),
 	                    React.createElement('textarea', { rows: '3', name: 'accessible-parking', valueLink: this.linkState('accessibleParking') })
@@ -3654,12 +3665,12 @@
 	                    React.createElement(
 	                      'legend',
 	                      { className: 'required-legend' },
-	                      (0, _I18nStore.translateTag)(_templateObject18)
+	                      (0, _I18nStore.translateTag)(_templateObject19)
 	                    ),
 	                    React.createElement(
 	                      'div',
 	                      { className: 'alert alert-info' },
-	                      (0, _I18nStore.translateTag)(_templateObject19)
+	                      (0, _I18nStore.translateTag)(_templateObject20)
 	                    ),
 	                    React.createElement('textarea', { rows: '3', name: 'accessible-find', valueLink: this.linkState('accessibleFind') })
 	                  )
@@ -3687,7 +3698,7 @@
 	                'h3',
 	                { className: 'popover-title', 'data-toggle': 'collapse', 'data-target': '#popover-content' },
 	                React.createElement('i', { className: 'fa fa-envelope' }),
-	                (0, _I18nStore.translateTag)(_templateObject20)
+	                (0, _I18nStore.translateTag)(_templateObject21)
 	              ),
 	              React.createElement(
 	                'div',
@@ -3696,7 +3707,7 @@
 	                React.createElement(
 	                  'p',
 	                  null,
-	                  (0, _I18nStore.translateTag)(_templateObject21, city.cityOrganizer.firstName, city.name),
+	                  (0, _I18nStore.translateTag)(_templateObject22, city.cityOrganizer.firstName, city.name),
 	                  ' ',
 	                  React.createElement(
 	                    'strong',
@@ -3704,7 +3715,7 @@
 	                    React.createElement(
 	                      'a',
 	                      { href: 'mailto:' + city.cityOrganizer.email },
-	                      (0, _I18nStore.translateTag)(_templateObject22),
+	                      (0, _I18nStore.translateTag)(_templateObject23),
 	                      '!'
 	                    )
 	                  )
@@ -8052,6 +8063,10 @@
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
 
+	var _I18nStore = __webpack_require__(21);
+
+	var _I18nStore2 = _interopRequireDefault(_I18nStore);
+
 	var _ItineraryActions = __webpack_require__(14);
 
 	var Action = _interopRequireWildcard(_ItineraryActions);
@@ -8162,11 +8177,13 @@
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
 	      _ItineraryStore2.default.addChangeListener(this._onChange);
+	      _I18nStore2.default.addChangeListener(this._onChange);
 	    }
 	  }, {
 	    key: 'componentWillUnmount',
 	    value: function componentWillUnmount() {
 	      _ItineraryStore2.default.removeChangeListener(this._onChange);
+	      _I18nStore2.default.removeChangeListener(this._onChange);
 	    }
 	  }, {
 	    key: 'render',
@@ -8226,7 +8243,7 @@
 	  value: true
 	});
 
-	var _templateObject = _taggedTemplateLiteral(['Edit Walk'], ['Edit Walk']),
+	var _templateObject = _taggedTemplateLiteral(['Edit'], ['Edit']),
 	    _templateObject2 = _taggedTemplateLiteral(['Led By ', ' ', ''], ['Led By ', ' ', '']);
 
 	var _I18nStore = __webpack_require__(21);
@@ -8387,32 +8404,38 @@
 
 /***/ },
 /* 66 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/* global React */
+
+	var _templateObject = _taggedTemplateLiteral(['About This Walk'], ['About This Walk']);
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
 
 	var WalkDescription = function WalkDescription(_ref) {
 	  var _ref$longDescription = _ref.longDescription;
 	  var longDescription = _ref$longDescription === undefined ? '' : _ref$longDescription;
 	  return React.createElement(
-	    "section",
-	    { className: "walkDescription" },
-	    React.createElement("a", { name: "About This Walk" }),
+	    'section',
+	    { className: 'walkDescription' },
+	    React.createElement('a', { name: 'About This Walk' }),
 	    React.createElement(
-	      "h2",
+	      'h2',
 	      null,
 	      React.createElement(
-	        "span",
-	        { clasName: "topRule" },
-	        "About This Walk"
+	        'span',
+	        { clasName: 'topRule' },
+	        (0, _I18nStore.translateTag)(_templateObject)
 	      )
 	    ),
-	    React.createElement("article", { dangerouslySetInnerHTML: { __html: longDescription } })
+	    React.createElement('article', { dangerouslySetInnerHTML: { __html: longDescription } })
 	  );
 	};
 
@@ -8424,14 +8447,21 @@
 
 /***/ },
 /* 67 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/* global React */
+
+	var _templateObject = _taggedTemplateLiteral(["Walk Route"], ["Walk Route"]);
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
+
 	var WalkRoute = function WalkRoute(_ref) {
 	  var map = _ref.map;
 	  return React.createElement(
@@ -8441,7 +8471,7 @@
 	    React.createElement(
 	      "h2",
 	      null,
-	      "Walk Route"
+	      (0, _I18nStore.translateTag)(_templateObject)
 	    ),
 	    React.createElement(
 	      "ol",
@@ -8476,14 +8506,20 @@
 
 /***/ },
 /* 68 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/* global React */
+
+	var _templateObject = _taggedTemplateLiteral(["Taking Public Transit"], ["Taking Public Transit"]);
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
 
 	var WalkPublicTransit = function WalkPublicTransit(_ref) {
 	  var _ref$accessibleTransi = _ref.accessibleTransit;
@@ -8497,7 +8533,7 @@
 	      React.createElement(
 	        "h2",
 	        null,
-	        "Taking Public Transit"
+	        (0, _I18nStore.translateTag)(_templateObject)
 	      ),
 	      accessibleTransit
 	    );
@@ -8513,14 +8549,21 @@
 
 /***/ },
 /* 69 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/* global React */
+
+	var _templateObject = _taggedTemplateLiteral(['Parking Availability'], ['Parking Availability']);
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
+
 	var WalkParking = function WalkParking(_ref) {
 	  var _ref$accessibleParkin = _ref.accessibleParking;
 	  var accessibleParking = _ref$accessibleParkin === undefined ? [] : _ref$accessibleParkin;
@@ -8528,19 +8571,19 @@
 
 	  if (accessibleParking.length) {
 	    return React.createElement(
-	      "section",
-	      { className: "walkParking " + style },
-	      style === 'walk-page' ? React.createElement("a", { name: "Parking Availability" }) : null,
-	      React.createElement("a", { name: "Parking Availability" }),
+	      'section',
+	      { className: 'walkParking ' + style },
+	      style === 'walk-page' ? React.createElement('a', { name: 'Parking Availability' }) : null,
+	      React.createElement('a', { name: 'Parking Availability' }),
 	      React.createElement(
-	        "h2",
+	        'h2',
 	        null,
-	        "Parking Availability"
+	        (0, _I18nStore.translateTag)(_templateObject)
 	      ),
 	      accessibleParking
 	    );
 	  }
-	  return React.createElement("section", null);
+	  return React.createElement('section', null);
 	};
 
 	WalkParking.propTypes = {
@@ -8551,14 +8594,20 @@
 
 /***/ },
 /* 70 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/* global React */
+
+	var _templateObject = _taggedTemplateLiteral(["How to Find Us"], ["How to Find Us"]);
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
 
 	var WalkStart = function WalkStart(_ref) {
 	  var accessibleFind = _ref.accessibleFind;
@@ -8569,7 +8618,7 @@
 	    React.createElement(
 	      "h2",
 	      null,
-	      "How to Find Us"
+	      (0, _I18nStore.translateTag)(_templateObject)
 	    ),
 	    accessibleFind
 	  );
@@ -8590,7 +8639,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	/* global React */
+
+	var _templateObject = _taggedTemplateLiteral(['About the Walk Team'], ['About the Walk Team']);
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
 
 	var connections = __webpack_require__(72);
 	var teamTypes = __webpack_require__(73);
@@ -8657,7 +8712,7 @@
 	    React.createElement(
 	      'h2',
 	      null,
-	      'About the Walk Team'
+	      (0, _I18nStore.translateTag)(_templateObject)
 	    ),
 	    React.createElement(
 	      'section',
@@ -8720,15 +8775,28 @@
 	  value: true
 	});
 
+	var _templateObject = _taggedTemplateLiteral(['About This Walk'], ['About This Walk']),
+	    _templateObject2 = _taggedTemplateLiteral(['Walk Route'], ['Walk Route']),
+	    _templateObject3 = _taggedTemplateLiteral(['How to find us'], ['How to find us']),
+	    _templateObject4 = _taggedTemplateLiteral(['Taking Public Transit'], ['Taking Public Transit']),
+	    _templateObject5 = _taggedTemplateLiteral(['Parking Availability'], ['Parking Availability']),
+	    _templateObject6 = _taggedTemplateLiteral(['About the Walk Team'], ['About the Walk Team']),
+	    _templateObject7 = _taggedTemplateLiteral(['Led By ', ''], ['Led By ', '']),
+	    _templateObject8 = _taggedTemplateLiteral(['Meeting at ', ''], ['Meeting at ', '']);
+
 	var _ItineraryUtils = __webpack_require__(26);
 
 	var _Theme = __webpack_require__(75);
 
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
+
 	// TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 	// TODO: Make walkMenu sticky - will complete after Dashboard
 
-	/* global React */
-	var menuItems = [{ display: 'About This Walk', exists: true }, { display: 'Walk Route', exists: true }, { display: 'How to find us', exists: true }, { display: 'Taking Public Transit', exists: false }, { display: 'Parking Availability', exists: false }, { display: 'About the Walk Team', exists: true }];
+	var menuItems = [{ display: (0, _I18nStore.translateTag)(_templateObject), exists: true }, { display: (0, _I18nStore.translateTag)(_templateObject2), exists: true }, { display: (0, _I18nStore.translateTag)(_templateObject3), exists: true }, { display: (0, _I18nStore.translateTag)(_templateObject4), exists: false }, { display: (0, _I18nStore.translateTag)(_templateObject5), exists: false }, { display: (0, _I18nStore.translateTag)(_templateObject6), exists: true }];
 
 	var WalkMenu = function WalkMenu(_ref) {
 	  var _ref$walk = _ref.walk;
@@ -8759,10 +8827,7 @@
 	    leaderHead = React.createElement(
 	      'h6',
 	      null,
-	      'Led By ',
-	      walkLeader['name-first'],
-	      ' ',
-	      walkLeader['name-last'],
+	      (0, _I18nStore.translateTag)(_templateObject7, [walkLeader['name-first'], walkLeader['name-last']].join(' ')),
 	      ' '
 	    );
 	  }
@@ -8777,8 +8842,7 @@
 	    meetingPlaceHead = React.createElement(
 	      'h6',
 	      null,
-	      'Meeting at ',
-	      map.markers[0].title
+	      (0, _I18nStore.translateTag)(_templateObject8, map.markers[0].title)
 	    );
 	  }
 

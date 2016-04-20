@@ -86,7 +86,7 @@ const WalkHeader = ({
       {canEdit ? (
         <h4>
           <a href={`/walk/form/${id}`}>
-            <i className="fa fa-pencil-square-o" /> {t`Edit Walk`}
+            <i className="fa fa-pencil-square-o" /> {t`Edit`}
           </a>
         </h4>
       ) : null}

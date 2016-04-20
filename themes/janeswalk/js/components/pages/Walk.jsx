@@ -1,6 +1,7 @@
 /* global React */
 
 import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
+import I18nStore from 'janeswalk/stores/I18nStore.js';
 import * as Action from 'janeswalk/actions/ItineraryActions';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
@@ -43,10 +44,12 @@ export default class WalkPage extends React.Component {
 
   componentWillMount() {
     ItineraryStore.addChangeListener(this._onChange);
+    I18nStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
     ItineraryStore.removeChangeListener(this._onChange);
+    I18nStore.removeChangeListener(this._onChange);
   }
 
   render() {

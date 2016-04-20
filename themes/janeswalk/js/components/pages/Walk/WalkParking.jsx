@@ -1,11 +1,13 @@
 /* global React */
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
+
 const WalkParking = ({ accessibleParking = [], style }) => {
   if (accessibleParking.length) {
     return (
       <section className={`walkParking ${style}`}>
-        {style === 'walk-page' ? <a name="Parking Availability"></a> : null}
+        {style === 'walk-page' ? <a name="Parking Availability" /> : null}
         <a name="Parking Availability"></a>
-        <h2>Parking Availability</h2>
+        <h2>{t`Parking Availability`}</h2>
         {accessibleParking}
       </section>
     );

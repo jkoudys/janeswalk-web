@@ -1,4 +1,5 @@
 /* global React */
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const connections = require('../../../json/ConnectionTypes.json');
 const teamTypes = require('../../../json/TeamMembers.json');
@@ -35,7 +36,7 @@ const WalkTeam = ({ team = [] }) => {
   return (
     <section className="walkTeam">
       <a name="About the Walk Team"></a>
-      <h2>About the Walk Team</h2>
+      <h2>{t`About the Walk Team`}</h2>
       <section>
        {teamMembers}
       </section>

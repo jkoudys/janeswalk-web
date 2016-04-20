@@ -1,17 +1,18 @@
 /* global React */
 import { dateFormatted } from 'janeswalk/utils/ItineraryUtils';
 import { getThemeName } from 'janeswalk/utils/lookups/Theme';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 // TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 // TODO: Make walkMenu sticky - will complete after Dashboard
 
 const menuItems = [
-  { display: 'About This Walk', exists: true },
-  { display: 'Walk Route', exists: true },
-  { display: 'How to find us', exists: true },
-  { display: 'Taking Public Transit', exists: false },
-  { display: 'Parking Availability', exists: false },
-  { display: 'About the Walk Team', exists: true },
+  { display: t`About This Walk`, exists: true },
+  { display: t`Walk Route`, exists: true },
+  { display: t`How to find us`, exists: true },
+  { display: t`Taking Public Transit`, exists: false },
+  { display: t`Parking Availability`, exists: false },
+  { display: t`About the Walk Team`, exists: true },
 ];
 
 const WalkMenu = ({
@@ -32,13 +33,13 @@ const WalkMenu = ({
   let meetingPlaceHead;
 
   if (walkLeader) {
-    leaderHead = <h6>Led By {walkLeader['name-first']} {walkLeader['name-last']} </h6>;
+    leaderHead = <h6>{t`Led By ${[walkLeader['name-first'], walkLeader['name-last']].join(' ')}`} </h6>;
   }
   if (time.slots.length) {
     nextDateHead = <h6>{dateFormatted(time.slots[0][0])}</h6>;
   }
   if (map.markers.length) {
-    meetingPlaceHead = <h6>Meeting at {map.markers[0].title}</h6>;
+    meetingPlaceHead = <h6>{t`Meeting at ${map.markers[0].title}`}</h6>;
   }
 
   // TODO Convert below to a Utility to use in multiple places like <Dashboard/> <CityWalksFilter/>

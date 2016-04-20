@@ -25,7 +25,8 @@ Object.assign(I18nTranslator.prototype, {
    * sprintf syntax used to replace %d and %s tokens with arguments
    */
   translate(str, ...args) {
-    return sprintf((this.translations[str] || str), ...args);
+    const [translation] = this.translations[str] || [];
+    return sprintf((translation || str), ...args);
   },
 
   /*
