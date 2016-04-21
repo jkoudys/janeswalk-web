@@ -1,25 +1,19 @@
-//TODO: Missing data to add to blog post (Post-PR)
+// TODO: link to blog/message system
 
-const DashboardHeader = ({cityOrganizer, blogUrl, name, post}) => {
-  return (
-    <header>
-      <h3>{name.toUpperCase()} Organizer Dashboard</h3>
-      <h4>Hi, {`${cityOrganizer.firstName}!`} </h4>
-      <section className="dashboardLatestPost">
-        <h4>Latest Blog Post</h4>
-        <h1><a href={post.url}>{post.name}</a></h1>
-        <a href={`mailto:${cityOrganizer.email}?subject=${encodeURI(`I would like to submit a story to the ${name} blog`)}`}><button>Share My Story</button></a>
-        <a href={`http://janeswalk.org/canada/${name}/${name}-blog/`}><button>See All Posts</button></a>
-      </section>
-    </header>
-  );
-};
+const DashboardHeader = ({user}) => (
+  <header>
+    <h3>{user.firstName.toUpperCase()} Organizer Dashboard</h3>
+    <h4>Hi, {`${user.firstName}!`} </h4>
+    <section className="dashboardLatestPost">
+      <h4>New User Dashboard!</h4>
+      <h5>Feb 9th, 2016</h5>
+      <p>Jane's Walk Leaders and City Organizers now have a whole new dashboard. We're making it easier and simpler to organize your city, and your walks. Look here for more updates soon.</p>
+    </section>
+  </header>
+);
 
 DashboardHeader.PropTypes = {
-  cityOrganizer: React.PropTypes.object.isRequired,
-  blogUrl: React.PropTypes.string.isRequired,
-  name: React.PropTypes.string.isRequired,
-  post: React.PropTypes.object.isRequired,
+  user: React.PropTypes.object.isRequired
 };
 
 export default DashboardHeader;

@@ -26,17 +26,15 @@ $profileOwner = [
 ?>
 <script type="text/javascript">
 (function() {
-    var _city = <?= json_encode($city) ?>;
     var _user = <?= json_encode($profileOwner) ?>;
-    _city.walks = <?= json_encode($cityWalksArr) ?>;
 
     JanesWalk.event.emit('walks.receive', <?= json_encode(array_values($walkData)) ?>);
     JanesWalk.event.emit('users.receive', <?= json_encode($cityUsers) ?>);
     JanesWalk.event.emit('user.receive', _user);
     JanesWalk.event.emit('blogs.receive', <?= json_encode($userBlogPostsArr) ?>);
-    JanesWalk.event.emit('city.receive', _city);
+    JanesWalk.event.emit('city.receive', Object.assign(<?= json_encode($city) ?>, {walks: <?= json_encode($cityWalksArr) ?>}));
 
-    JanesWalk.event.emit('profilepage.load', {city: _city, user: _user});
+    JanesWalk.event.emit('profilepage.load', {user: _user});
 })();
 </script>
 <div id="page" class="profile"></div>

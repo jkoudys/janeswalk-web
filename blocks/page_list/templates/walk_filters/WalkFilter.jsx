@@ -7,9 +7,12 @@ import LocationMap from './LocationMap.jsx';
 import DateRange from './DateRange.jsx';
 import Tabs from './Tabs.jsx';
 
+// Flux
+import WalkStore from 'janeswalk/stores/WalkStore';
+import {t} from 'janeswalk/stores/I18nStore';
+
 // TODO: replace placeholder translate with real one.
 // Not doing this now because we'd need to build multiple translators for blocks vs site
-const t = s => s;
 const today = new Date();
 today.setUTCHours(0);
 today.setUTCMinutes(0);
@@ -91,15 +94,6 @@ export default class WalkFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = getWalkFilterState(props);
-
-    // Setup event listeners
-    JanesWalk.event.on('walks.receive', (walks) => {
-      this.setState({walks: this.state.walks.concat(walks)});
-    });
-    JanesWalk.event.on('filters.receive', filters => this.setState({filters: filters}));
-    JanesWalk.event.on('city.receive', city => this.setState({location: city}));
-    JanesWalk.event.on('blog.receive', blog => this.setState({blog: blog}));
-    JanesWalk.event.on('country.receive', country => this.setState({location: country}));
   }
 
   componentWillReceiveProps(newProps) {

@@ -1,6 +1,4 @@
-import DashboardStore from './DashboardStore';
-
-//TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
+// TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
 
 const InfoWindow = ({url, title, shortDescription}) => (
   <span>
@@ -14,7 +12,7 @@ const manageMarkers = (map, markers, walks) => {
   const infoWindow = new google.maps.InfoWindow({maxWidth: 600});
   const _infoNode = document.createElement('div');
 
-  //remove any markers that are not part of active walks
+  // Remove any markers that are not part of active walks
   markers = markers.filter(m => {
     const walkFound = walks.find(w => (w.id === m.walkId));
 
@@ -27,9 +25,9 @@ const manageMarkers = (map, markers, walks) => {
     }
   });
 
-  //add additional markers
+  // Add additional markers
   walks.forEach(walk => {
-    if (walk.map && walk.map.markers) {
+    if (walk.map && walk.map.markers && walk.map.markers.length) {
 
       let m = walk.map.markers[0];
 
@@ -67,7 +65,6 @@ export default class WalksMap extends React.Component {
     super(props, ...args);
     this.state = {
       googleMap: null,
-      walks: props.walks,
       googleMapMarkers: [],
     };
   }
@@ -82,10 +79,11 @@ export default class WalksMap extends React.Component {
   componentDidMount() {
 
     //TODO: (Post-PR) Create a <GoogleMap/> component to generalize use of google maps
-    const {latlng} = DashboardStore.getCityData();
-    let {walks, googleMapMarkers} = this.state;
+    const {city, walks} = this.props;
+    const [lat, lng] = city.latlng;
+    let {googleMapMarkers} = this.state;
 
-    const locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
+    const locationLatLng = new google.maps.LatLng(lat, lng);
 
     //TODO: Place configuration and constants in a single file
 

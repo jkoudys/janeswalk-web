@@ -1,8 +1,6 @@
-import {dateFormatted, startTimeIndex} from 'janeswalk/utils/ItineraryUtils';
-import {add, remove} from 'janeswalk/actions/ItineraryActions';
+import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
-//TODO: Duplicate of Itinerary <Walk/>
-//TODO: Issue with Favourite being removed on first attempt (works fine for Itinerary)
+// TODO: Duplicate of Itinerary <Walk/>
 
 /**
  * Build a style object for the header
@@ -25,54 +23,30 @@ function headerBG(city, walk) {
   };
 }
 
-const WalkHeader = ({city, walk, favourites, itinerary}) => {
+// Read a map, return the meeting place or null
+function getMeetingPlace(map) {
+  if (map && map.markers && map.markers.length) {
+    return map.markers[0].title;
+  }
+}
+
+import WalkStore from 'janeswalk/stores/WalkStore';
+
+const WalkHeader = ({city, walk, favourites, itinerary, onAdd, onRemove}) => {
   const {title, map, time, team, thumbnails} = walk;
   const {url, name} = city;
 
   //TODO: This is problematic since there are many different type of roles defined, not a finite list
   const walkLeader = team.find(member => member.role === 'walk-leader');
 
-  //addButtons may be many or just one
-  let favButton, addButtons;
-  //debugger;
-  //if (favourites) {
-    if (favourites && favourites.walks.has(walk)) {
-      favButton = <button className="removeFavourite" onClick={() => remove(favourites, walk)} />;
-    } else {
-      favButton = <button className="addFavourite" onClick={() => add(favourites, walk)} />;
-    }
-  //}
+  let meetingPlace = getMeetingPlace(map);
 
-  // Only show the add to itinerary if you can
+  let favButton;
 
-  //TODO: Need to add the concept of time to WalkHeader
-
-  //TODO: If itinerary.walks.has(walk) and time specific!
-  if (itinerary) {
-    if (itinerary.walks.has(walk)) {
-      //retrieve start times for walk
-      let startTimes = itinerary.walks.get(walk);
-
-      addButtons = time.slots.map(t => {
-        if (startTimeIndex(startTimes, t) == -1) {
-          return (<h4>
-            {dateFormatted(t[0])}
-            <button className="addItinerary" onClick={() => add(itinerary, walk, t)}></button>
-          </h4>)
-        } else {
-          return (<h4>
-            {dateFormatted(t[0])}
-            <button className="removeItinerary" onClick={() => remove(itinerary, walk, t)}></button>
-          </h4>)
-        }
-      });
-    } else {
-      if (time && time.slots[0]) {
-        addButtons = time.slots.map(t => (<h4> {dateFormatted(t[0])}
-          <button className="addItinerary" onClick={() => add(itinerary, walk, t)} />
-        </h4>));
-      }
-    }
+  if (favourites && favourites.walks.has(walk)) {
+    favButton = <button className="removeFavourite" onClick={() => onRemove(favourites)} />;
+  } else {
+    favButton = <button className="addFavourite" onClick={() => onAdd(favourites)} />;
   }
 
   return(
@@ -85,9 +59,14 @@ const WalkHeader = ({city, walk, favourites, itinerary}) => {
         </ul>
       </section>
       <h1>{title} {favButton}</h1>
-      <h4>Meeting at {map.markers[0].title}</h4>
+      {meetingPlace ? <h4>{meetingPlace}</h4> : null}
       <h4>{walkLeader ? `Led By ${walkLeader['name-first']} ${walkLeader['name-last']} - ` : null}</h4>
-      {addButtons}
+      <AddToItinerary
+        itinerary={itinerary}
+        time={time}
+        walk={walk}
+        onAdd={onAdd}
+        onRemove={onRemove}/>
     </section>
   );
 };

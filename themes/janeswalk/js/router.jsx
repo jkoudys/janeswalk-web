@@ -8,8 +8,13 @@ import {getTranslations} from 'janeswalk/utils/I18nUtils';
 import * as AreaActions from 'janeswalk/actions/AreaActions';
 import * as UserActions from 'janeswalk/actions/UserActions';
 import * as WalkActions from 'janeswalk/actions/WalkActions';
+import * as CityActions from 'janeswalk/actions/CityActions';
 import * as ItineraryActions from 'janeswalk/actions/ItineraryActions';
 import Navbar from './components/Navbar.jsx';
+
+// Stores, for late-binding some page updates.
+// Not fully React, but we can use Flux for making PHP-rendered page updates too!
+import CityStore from 'janeswalk/stores/CityStore';
 
 import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
@@ -17,7 +22,7 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
 
-// import Dashboard from './components/pages/Dashboard.jsx';
+import Dashboard from './components/pages/Dashboard.jsx';
 
 // load modals
 import Login from './components/Login.jsx';
@@ -76,6 +81,7 @@ function addFluxListeners() {
   JanesWalk.event.on('users.receive', users => UserActions.receiveAll(users));
   JanesWalk.event.on('walk.receive', walk => WalkActions.receive(walk));
   JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
+  JanesWalk.event.on('city.receive', city => CityActions.receive(city));
   JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
 }
 
@@ -97,7 +103,36 @@ function addRenderListeners() {
       document.getElementById('page')
     );
   });
+
+  // Create a walk
+  JanesWalk.event.on('caw.load', props => {
+    React.render(
+      <CreateWalk
+        data={JanesWalk.walk.data}
+        city={JanesWalk.city}
+        user={JanesWalk.user}
+        url={JanesWalk.walk.url}
+        valt={JanesWalk.form.valt}
+      />,
+      document.getElementById('page')
+    );
+  });
 }
+
+CityStore.addChangeListener(() => {
+  // Bind anything to render not using react
+  switch (document.body.dataset.pageviewname) {
+    case 'CityPageView':
+      let city = CityStore.getCity();
+      if (city) {
+        let bgUri = 'url(' + city.background + ')';
+        if (city.background && document.body.style.backgroundImage !== bgUri) {
+          document.body.style.backgroundImage = bgUri;
+        }
+      }
+    break;
+  }
+});
 
 document.addEventListener('DOMContentLoaded', function() {
   // Load our translations upfront
@@ -108,9 +143,6 @@ document.addEventListener('DOMContentLoaded', function() {
   addRenderListeners();
 
   initKeyEvents();
-
-  // TODO: emit the city without needing to load JanesWalk with static data
-  JanesWalk.event.emit('city.receive', JanesWalk.city);
 
   // TODO: this could use a better home
   ItineraryAPI.startPolling();

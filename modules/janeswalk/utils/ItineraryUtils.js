@@ -1,5 +1,6 @@
 // Default formatter
 let dtfDate;
+
 // Date formatted
 if (typeof(Intl) === 'object') {
   dtfDate = new Intl.DateTimeFormat('en-US', {
@@ -28,6 +29,7 @@ function formatDate(dateInMs) {
 export function dateFormatted(dateInSeconds) {
   let fromCache = _dateCache[dateInSeconds];
   let fromFormat;
+  if (dateInSeconds) {
   if (fromCache) {
     return fromCache;
   } else {
@@ -35,6 +37,12 @@ export function dateFormatted(dateInSeconds) {
     _dateCache[dateInSeconds] = fromFormat;
     return fromFormat;
   }
+  } else {
+    // Invalid date
+    return dateInSeconds;
+  }
 };
 
-export function startTimeIndex(startTimes, time) { return startTimes.findIndex(st => st[0] === time[0] && st[1] === time[1])};
+export function startTimeIndex(startTimes = [], time) {
+  return startTimes.findIndex(st => st[0] === time[0] && st[1] === time[1])
+};

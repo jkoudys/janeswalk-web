@@ -3,7 +3,11 @@
 
 // Correct header alignment, as this page is full-sized
 body[data-pageviewname=CreateWalkView] {
-    padding-top: 0;
+  .clearfix();
+  margin-bottom: @navbar-height;
+  > footer {
+    display: none;
+  }
 }
 
 #create-walk {

@@ -10,7 +10,8 @@ import * as API from 'janeswalk/utils/api/Itinerary';
 
 const getItinerary = (list = ItineraryStore.getItineraryList()) => ({
   activeList: list,
-  lists: ItineraryStore.getLists()
+  lists: ItineraryStore.getLists(),
+  itinerary: ItineraryStore.getItineraryList()
 });
 
 export default class Itinerary extends React.Component {
@@ -43,7 +44,7 @@ export default class Itinerary extends React.Component {
   }
 
   render() {
-    const {activeList, lists, $el} = this.state;
+    const {activeList, lists, $el, itinerary} = this.state;
 
     // Lookup the walk data from the walk's ID
     const ItineraryWalks = [];
@@ -56,9 +57,9 @@ export default class Itinerary extends React.Component {
           list={activeList}
           lists={lists}
           walk={walk}
-          startTimes={startTimes ? startTimes : null}
           onAdd={(list, time) => add(list, walk, time)}
           onRemove={(list, time) => remove(list, walk, time)}
+          itinerary={itinerary}
         />
       );
     });

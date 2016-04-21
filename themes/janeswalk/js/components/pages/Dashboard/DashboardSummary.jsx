@@ -1,22 +1,31 @@
-//t2('Walk Leader: ', 'Walk Leaders: ', count($w->walkLeaders));
+import {t, t2} from 'janeswalk/stores/I18nStore';
 
-const DashboardSummary = ({year, walkLeaders, walks, participants, originalYear, totalWalkLeaders, totalWalks, name }) => {
+const DashboardSummary = ({city, walks}) => {
+  let leaderCount = 0, walkCount = 0, year = 2015;
+  const leaders = {};
+  for (let [id, walk] of walks) {
+    let teamLeader = walk.team && walk.team[0];
+    if (teamLeader) {
+      let key = (teamLeader.email || (teamLeader.firstName + teamLeader.lastName));
+      leaders[key] = (leaders[key] || 0) + 1;
+    }
+    if (walk.time) {
+      walkCount += walk.time.slots.length;
+    }
+  }
+  leaderCount = Object.keys(leaders).length;
+
+
   return (
     <section className="dashboardRecap">
       <h2>Recap</h2>
-      <h4>{`${t2(`${name}  ${walkLeaders} walk leader`, `${name} ${walkLeaders} walk leaders`, walkLeaders)} led ${t2('walk', 'walks', walks)} as a part of Jane's Walk ${year}, reaching more than ${t2('participant', 'participants', participants)}` }.</h4>
-
-      <h4>{`Since ${name} first participated in Jane's Walk in ${originalYear}, ${t2('walk leader', 'walk leaders', totalWalkLeaders)} have led ${t2(`${totalWalks} Jane's Walk`, `${totalWalks} Jane's Walks`, totalWalks)}`}.</h4>
+      <h4>In {city.name}, {t2('%d walk leader', '%d walk leaders', leaderCount) + ' ' + t2('led %d walk', 'led %d walks', walkCount) + ' '+ t('since its first Jane\'s Walk in %d,', year) + '.'}</h4>
     </section>
   );
 };
 
-DashboardSummary.PropTypes = {
-  name: React.PropTypes.string.isRequired,
-  walkLeaders: React.PropTypes.array.isRequired,
-  walks: React.PropTypes.array.isRequired,
-  users: React.PropTypes.array.isRequired,
-  impact: React.PropTypes.array.isRequired,
+DashboardSummary.defaultProps = {
+  city: {name: 'your city'}
 };
 
 export default DashboardSummary;

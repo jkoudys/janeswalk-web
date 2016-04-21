@@ -1,5 +1,5 @@
 import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
-import ItineraryActions from 'janeswalk/actions/ItineraryActions.js';
+import {add, remove} from 'janeswalk/actions/ItineraryActions';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
@@ -40,15 +40,27 @@ export default class WalkPage extends React.Component {
 
   render() {
     const {walk, page, city, itinerary, favourites} = this.state;
+    let hasMarkers = false, hasRoute = false;
+    if (walk && walk['map']) {
+      hasMarkers = (walk['map']['markers'].length > 0);
+      hasRoute = (walk['map']['route'].length > 0);
+    }
 
     return (
       <section className="walkPage">
-        <WalkHeader walk={walk} city={city} itinerary={itinerary} favourites={favourites} />
+        <WalkHeader
+          walk={walk}
+          city={city}
+          itinerary={itinerary}
+          favourites={favourites}
+          onAdd={(list, time) => add(list, walk, time)}
+          onRemove={(list, time) => remove(list, walk, time)}
+        />
         <WalkMenu {...this.state} />
         <WalkDescription {...this.state.walk} />
-        <WalkMap {...this.state.walk} />
-        <WalkRoute {...this.state.walk} />
-        <WalkStart {...this.state.walk} />
+        {hasMarkers || hasRoute ? <WalkMap map={this.state.walk['map']} /> : null}
+        {hasMarkers ? <WalkRoute {...this.state.walk} /> : null}
+        {hasMarkers ? <WalkStart {...this.state.walk} /> : null}
         <WalkPublicTransit {...this.state.walk} />
         <WalkParking {...this.state.walk} />
         <WalkTeam {...this.state.walk} />

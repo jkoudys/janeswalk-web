@@ -15,11 +15,23 @@ const endpoint = '/profile/itineraries';
  */
 function getJson([...lists]) {
   return JSON.stringify(lists.map(list => {
-    const [...walks] = list.walks;
+    const walks = [], times = [];
+    const denormal = {};
 
-    return Object.assign({}, list, {
-      walks: walks.map(w => +w.id)
+    // Denormalize for serializing
+    list.walks.forEach((timeArr, walk) => {
+      walks.push(+walk.id);
+      if (timeArr) {
+        times.push(timeArr);
+      }
     });
+
+    if (times.length) {
+      denormal.times = times;
+    }
+    denormal.walks = walks;
+
+    return Object.assign({}, list, denormal);
   }));
 }
 

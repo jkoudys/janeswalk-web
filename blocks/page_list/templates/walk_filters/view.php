@@ -22,4 +22,5 @@ if (count($cities) > 1) {
 <script type="text/javascript">
     JanesWalk.event.emit('filters.receive', <?= json_encode($filters) ?>);
     JanesWalk.event.emit('walks.receive', <?= json_encode($cards) ?>);
+    JanesWalk.event.emit('walkfilters.load', <?= json_encode($city) ?>);
 </script>

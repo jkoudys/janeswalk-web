@@ -28,10 +28,10 @@ function receiveUser(user, {current}) {
 
 // Receive an array of walks
 function receiveUsers(users) {
-  users.forEach(u => receiveUser(u));
+  users.forEach(u => receiveUser(u, {}));
 }
 
-const UserStore = Object.assign(EventEmitter.prototype, {
+const UserStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },

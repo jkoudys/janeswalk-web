@@ -13,33 +13,33 @@ const _lists = new Set();
 let _lastChange = Date.now();
 
 //TODO: Currently no remove list, just adding lists
-
 //TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
-//TODO: Also how to handle adding to Itinerary within the Itinerary since you don't have dates listed
-//TODO: You need to set a [] if there are no startTimes, to keep its place within the Index, how do you know which list selected is the Itinerary list? Based on that you either set time = null or time = [] right?
+
 const _removeWalk = (list, walk, time = null) => {
-  if(time) {
+  if (time) {
     let startTimes = list.walks.get(walk);
-    if (startTimeIndex(startTimes, time) >= 0) {
-      startTimes.splice(startTimeIndex, 1);
+    let startIndex = startTimeIndex(startTimes, time);
+    if ( startIndex >= 0) {
+      startTimes.splice(startIndex, 1);
       list.walks.set(walk, startTimes);
     }
   } else {
     list.walks.delete(walk);
   }
-}
+};
 
 const _addWalk = (list, walk, time = null) => {
   if(time) {
-    let startTimes = list.walks.get(walk) || [];
-    if (startTimeIndex(startTimes, time) === -1) {
+    let startTimes = list.walks.get(walk);
+    let startIndex = startTimeIndex(startTimes, time);
+    if (startIndex === -1) {
       startTimes.push(time);
       list.walks.set(walk, startTimes);
     }
   } else {
     list.walks.set(walk);
   }
-}
+};
 
 const _createList = (title = '', description = '') => {
   const list = {
@@ -66,11 +66,15 @@ const _receiveAll = (itineraries) => {
   //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
   //})));
 
-  itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary,
-    { walks : new Map(itinerary.walks.map((w, i) => [WalkStore.getWalk(+w), itinerary.times ? itinerary.times[i] : []]) )}
-  )));
-};
+  // TODO: Assume first list in itineraries is user itinerary
+  itineraries.forEach((itinerary, index) => {
+    let times = itinerary.times || [];
 
+    _lists.add(Object.assign({}, itinerary, {
+      walks: new Map(itinerary.walks.map((wID, i) => [WalkStore.getWalk(+wID), times[i] || []]) )
+    }));
+  });
+};
 
 //walks received from API used to update _itinerary
 const _updateWalks = (list, walks) => {
@@ -85,7 +89,7 @@ const _updateDescription = (list, description) => {
   list.description = description;
 };
 
-const ItineraryStore = Object.assign(EventEmitter.prototype, {
+const ItineraryStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },

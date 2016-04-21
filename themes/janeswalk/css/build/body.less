@@ -1,53 +1,54 @@
 body {
-    padding-top: @navbar-height; // Push body content down for header
-    overflow-x: hidden;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight:300;
-    color:#222;
-    font-family: @font-slab;
-    text-rendering: optimizeLegibility;
+	padding-top: @navbar-height; // Push body content down for header
+	overflow-x: hidden;
+	font-size: 15px;
+	line-height: 20px;
+	font-weight:300;
+	color:#222;
+	font-family: @font-slab;
+	text-rendering: optimizeLegibility;
 
-    // Generic layouts - profile page, blogs, etc.
-    &.full {
-        #body {
-            .make-md-column(12);
-            @media(min-width: @screen-md-min) {
-                max-width: @screen-lg-min;
-                margin: 0 auto;
-                margin-top: 1em;
-                float: none;
-            }
-            .ccm-blog-index {
-                li {
-                    .make-md-column(3);
-                }
-            }
-        }
-    }
-    &.site-page {
-        .ccm-profile-body-item {
-            div {
-                line-height: 1.7;
-                label {
-                    min-width: 145px;
-                    display: inline-block;
-                }
-            }
-        }
-    }
-    > #body-bg {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        min-height: 100vh;
-        width: 100vw;
-        transform: translateZ(-1px) scale(2);
-        background: 50% 50% / cover;
-        z-index: -1;
-    }
+	// Generic layouts - profile page, blogs, etc.
+	&.full {
+		#body {
+			.make-md-column(12);
+			min-height: 60vh;
+			@media(min-width: @screen-md-min) {
+				max-width: @screen-lg-min;
+				margin: 0 auto;
+				margin-top: 1em;
+				float: none;
+			}
+			.ccm-blog-index {
+				li {
+					.make-md-column(3);
+				}
+			}
+		}
+	}
+	&.site-page {
+		.ccm-profile-body-item {
+			div {
+				line-height: 1.7;
+				label {
+					min-width: 145px;
+					display: inline-block;
+				}
+			}
+		}
+	}
+	> #body-bg {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		min-height: 100vh;
+		width: 100vw;
+		transform: translateZ(-1px) scale(2);
+		background: 50% 50% / cover;
+		z-index: -1;
+	}
 }
 
 #central { margin-bottom:30px; }
