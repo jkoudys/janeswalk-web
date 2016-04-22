@@ -4508,6 +4508,29 @@
 	        var filters = _this.state.filters.slice();
 	        filters.push(filter);
 	        _this.setState({ filters: filters });
+	      },
+
+	      /**
+	       * Show the info box for editing this marker
+	       *
+	       * @param google.maps.Marker marker
+	       */
+	      showInfoWindow: function showInfoWindow(marker) {
+	        var infoDOM = document.createElement('div');
+	        var handleDelete = function handleDelete() {
+	          return _this.deleteMarker(marker);
+	        };
+
+	        ReactDOM.render(React.createElement(_WalkInfoWindow2.default, {
+	          marker: marker,
+	          deleteMarker: handleDelete,
+	          refresh: _this.syncState
+	        }), infoDOM);
+
+	        // Center the marker and display its info window
+	        _this.state.map.panTo(marker.getPosition());
+	        _this.state.infowindow.setContent(infoDOM);
+	        _this.state.infowindow.open(_this.state.map, marker);
 	      }
 	    });
 	    return _this;
@@ -4585,34 +4608,6 @@
 	      google.maps.event.addListener(marker, 'drag', function () {});
 
 	      return marker;
-	    }
-
-	    /**
-	     * Show the info box for editing this marker
-	     *
-	     * @param google.maps.Marker marker
-	     */
-
-	  }, {
-	    key: 'showInfoWindow',
-	    value: function showInfoWindow(marker) {
-	      var _this3 = this;
-
-	      var infoDOM = document.createElement('div');
-	      var handleDelete = function handleDelete() {
-	        return _this3.deleteMarker(marker);
-	      };
-
-	      ReactDOM.render(React.createElement(_WalkInfoWindow2.default, {
-	        marker: marker,
-	        deleteMarker: handleDelete,
-	        refresh: this.syncState
-	      }), infoDOM);
-
-	      // Center the marker and display its info window
-	      this.state.map.panTo(marker.getPosition());
-	      this.state.infowindow.setContent(infoDOM);
-	      this.state.infowindow.open(this.state.map, marker);
 	    }
 	  }, {
 	    key: 'render',

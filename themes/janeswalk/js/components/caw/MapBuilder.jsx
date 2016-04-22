@@ -238,6 +238,30 @@ export default class MapBuilder extends React.Component {
         filters.push(filter);
         this.setState({ filters });
       },
+
+      /**
+       * Show the info box for editing this marker
+       *
+       * @param google.maps.Marker marker
+       */
+      showInfoWindow: (marker) => {
+        const infoDOM = document.createElement('div');
+        const handleDelete = () => this.deleteMarker(marker);
+
+        ReactDOM.render(
+          <WalkInfoWindow
+            marker={marker}
+            deleteMarker={handleDelete}
+            refresh={this.syncState}
+          />,
+          infoDOM
+        );
+
+        // Center the marker and display its info window
+        this.state.map.panTo(marker.getPosition());
+        this.state.infowindow.setContent(infoDOM);
+        this.state.infowindow.open(this.state.map, marker);
+      },
     });
   }
 
@@ -303,30 +327,6 @@ export default class MapBuilder extends React.Component {
     google.maps.event.addListener(marker, 'drag', () => {});
 
     return marker;
-  }
-
-  /**
-   * Show the info box for editing this marker
-   *
-   * @param google.maps.Marker marker
-   */
-  showInfoWindow(marker) {
-    const infoDOM = document.createElement('div');
-    const handleDelete = () => this.deleteMarker(marker);
-
-    ReactDOM.render(
-      <WalkInfoWindow
-        marker={marker}
-        deleteMarker={handleDelete}
-        refresh={this.syncState}
-      />,
-      infoDOM
-    );
-
-    // Center the marker and display its info window
-    this.state.map.panTo(marker.getPosition());
-    this.state.infowindow.setContent(infoDOM);
-    this.state.infowindow.open(this.state.map, marker);
   }
 
   render() {
