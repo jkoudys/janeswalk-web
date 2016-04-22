@@ -1,22 +1,26 @@
 [
   {
     "name": "twitter",
-    "href": "http://twitter.com/",
+    "prefix": "http://twitter.com/",
+    "match": "^https?://(www.)?twitter.com",
     "style": "fa fa-twitter"
   },
   {
     "name": "facebook",
-    "href": "http://facebook.com/",
+    "prefix": "http://facebook.com/",
+    "match": "^https?://(www.)?facebook.com",
     "style": "fa fa-facebook"
   },
   {
     "name": "email",
-    "href": "mailto:",
+    "prefix": "mailto:",
+    "match": "mailto:",
     "style": "fa fa-envelope-o"
   },
   {
     "name": "website",
-    "href": "",
+    "prefix": "//",
+    "match": "^https?://",
     "style": "fa fa-globe"
   }
 ]

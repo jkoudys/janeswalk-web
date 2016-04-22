@@ -24,10 +24,11 @@ export default class Login extends React.Component {
         message: {},
       },
       handleReset: () => {
+        const body = new FormData();
+        body.append('json', JSON.stringify(this.state));
         // Post a reset request to the c5 endpoint for resets
-        $.ajax({
-          type: 'POST',
-          url: `${CCM_REL}/login/forgot_password`,
+        fetch(`${CCM_REL}/login/forgot_password`, {
+          method: 'POST',
           data: {
             uEmail: this.state.email,
             uName: this.state.email,

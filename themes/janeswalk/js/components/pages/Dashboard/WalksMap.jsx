@@ -1,52 +1,56 @@
+/* global React ReactDOM google */
 // TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
+const dashMapStyle = require('../../../json/dashMapStyle.json');
 
-const InfoWindow = ({url, title, shortDescription}) => (
+const InfoWindow = ({ url, title, shortDescription }) => (
   <span>
-    <h4><a href={url}>{title}</a></h4>
+    <h4>
+      <a href={url}>{title}</a>
+    </h4>
     <p>{shortDescription}</p>
   </span>
 );
 
 const manageMarkers = (map, markers, walks) => {
-
-  const infoWindow = new google.maps.InfoWindow({maxWidth: 600});
+  const infoWindow = new google.maps.InfoWindow({ maxWidth: 600 });
   const _infoNode = document.createElement('div');
 
   // Remove any markers that are not part of active walks
   markers = markers.filter(m => {
     const walkFound = walks.find(w => (w.id === m.walkId));
+    if (walkFound) return walkFound;
 
-    if (walkFound) {
-      return walkFound;
-    }
-    else {
-      m.setMap(null);
-      return false;
-    }
+    m.setMap(null);
+    return false;
   });
 
   // Add additional markers
-  walks.forEach(walk => {
-    if (walk.map && walk.map.markers && walk.map.markers.length) {
-
-      let m = walk.map.markers[0];
-
-      let locationLatLng = new google.maps.LatLng(m.lat,m.lng);
-
-      const walkFound = markers.find(m => (m.walkId === walk.id));
+  walks.forEach(({
+    id,
+    title,
+    shortDescription,
+    url,
+    map: {
+      markers: [
+        { lat, lng },
+      ] = [],
+    } = {},
+  }) => {
+    if (lat && lng) {
+      const walkFound = markers.find(({ walkId }) => (walkId === id));
 
       if (!walkFound) {
-        let marker = new google.maps.Marker({
-          position: locationLatLng,
+        const marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lng),
           style: 'stop',
-          map: map,
-          walkId: walk.id,
+          map,
+          walkId: id,
         });
 
         markers.push(marker);
 
-        google.maps.event.addListener(marker, 'click', ()=>{
-          React.render(<InfoWindow {...walk}/>, _infoNode);
+        google.maps.event.addListener(marker, 'click', () => {
+          ReactDOM.render(<InfoWindow {...{ title, shortDescription, url }} />, _infoNode);
 
           infoWindow.setMap(map);
           map.panTo(marker.getPosition());
@@ -68,27 +72,14 @@ export default class WalksMap extends React.Component {
       googleMapMarkers: [],
     };
   }
-  // You cannot use this.setState() in componentWillUpdate
-  componentWillReceiveProps(updatedProps) {
-    const {googleMap, googleMapMarkers} = this.state;
-    const {walks} = updatedProps;
-
-    this.setState({googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks), walks});
-  }
 
   componentDidMount() {
-
-    //TODO: (Post-PR) Create a <GoogleMap/> component to generalize use of google maps
-    const {city, walks} = this.props;
+    const { city, walks } = this.props;
+    const { googleMapMarkers } = this.state;
     const [lat, lng] = city.latlng;
-    let {googleMapMarkers} = this.state;
-
-    const locationLatLng = new google.maps.LatLng(lat, lng);
-
-    //TODO: Place configuration and constants in a single file
 
     const mapOptions = {
-      center: locationLatLng,
+      center: new google.maps.LatLng(lat, lng),
       zoom: 12,
       scrollwheel: false,
       backgroundColor: '#d7f0fa',
@@ -96,81 +87,25 @@ export default class WalksMap extends React.Component {
 
     const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
 
-    googleMap.mapTypes.set('map_style', new google.maps.StyledMapType([{
-      featureType: "poi.park",
-      elementType: "geometry.fill",
-      stylers: [{
-        visibility: "on"
-      }, {
-        saturation: 37
-      }]
-    }, {
-      featureType: 'landscape',
-      stylers: [{
-        visibility: 'on'
-      }, {
-        color: '#eaeaea'
-      }]
-    }, {
-      featureType: 'poi',
-      stylers: [{
-        visibility: 'off'
-      }]
-    }, {
-      featureType: 'poi.park',
-      stylers: [{
-        visibility: 'on'
-      }, {
-        color: '#cadfaa'
-      }]
-    }, {
-      featureType: 'poi.school',
-      elementType: 'labels',
-      stylers: [{
-        visibility: 'off'
-      }]
-    }, {
-      featureType: 'poi.school',
-      elementType: 'geometry',
-      stylers: [{
-        visibility: 'on'
-      }, {
-        color: '#dadada'
-      }]
-    }, {
-      featureType: 'transit',
-      stylers: [{
-        visibility: 'off'
-      }]
-    }, {
-      featureType: 'water',
-      stylers: [{
-        visibility: 'simplified'
-      }, {
-        color: '#90c2ff'
-      }]
-    }, {
-      featureType: 'road',
-      elementType: 'geometry',
-      stylers: [{
-        visibility: 'simplified'
-      }, {
-        color: '#ffffff'
-      }]
-    }, {
-      featureType: 'road',
-      elementType: 'labels.icon',
-      stylers: [{
-        visibility: 'off'
-      }]
-    }]));
+    googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(dashMapStyle));
     googleMap.setMapTypeId('map_style');
 
-    this.setState({googleMap, googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks)});
+    this.setState({
+      googleMap,
+      googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks),
+    });
+  }
+
+  // You cannot use this.setState() in componentWillUpdate
+  componentWillReceiveProps(updatedProps) {
+    const { googleMap, googleMapMarkers } = this.state;
+    const { walks } = updatedProps;
+
+    this.setState({ googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks), walks });
   }
 
   render() {
-    return (<div className="walkMap" style={{width: '100%', height: '600px'}}/>);
+    return <div className="walkMap" style={{ width: '100%', height: '600px' }} />;
   }
 }
 

@@ -9,8 +9,8 @@ function ConnectionLinks({ member }) {
 
   return (
     <div className="btn-toolbar">
-      {availConnects.map(({ href, name, style }, i) => (
-        <a key={i} className="btn" href={`${href.match(/\/\//) ? '' : '//'}${href}${member[name]}`} target="_blank">
+      {availConnects.map(({ prefix, match, name, style }, i) => (
+        <a key={`connect${name}${i}`} className="btn" href={`${member[name].match(match) ? '' : prefix}${member[name]}`} target="_blank">
           <i className={style} />
         </a>
       ))}

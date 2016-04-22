@@ -1,4 +1,4 @@
-/* global React $ */
+/* global React ReactDOM $ */
 
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
@@ -34,7 +34,7 @@ export default class Itinerary extends React.Component {
   }
 
   componentDidMount() {
-    const $el = $(React.findDOMNode(this));
+    const $el = $(ReactDOM.findDOMNode(this));
     $el.modal();
     $el.on('hidden.bs.modal', () => this.props.onClose());
 

@@ -7,7 +7,7 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head prefix="og: http://ogp.me/ns#">
     <meta charset="utf-8">
-    <meta name="description" content="">
+    <meta name="description" content="<?= $description ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="google-site-verification" content="jrG7QMwIluWHDRaFad1G36OBcuF7TUgz_fqz2-onqKc" />
     <meta property="og:image" content="http://janeswalk.org/themes/janeswalk/img/jwlogo.png" />
@@ -24,8 +24,9 @@
     <link href='//fonts.googleapis.com/css?family=Alef:400,700&subset=hebrew' rel='stylesheet' type='text/css'>
 <?php } ?>
     <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/main.css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.14.2/react-with-addons<?= CONCRETE5_ENV === 'dev' ? '' : '.min' ?>.js"></script>
     <script src="<?= BASE_URL ?>/js/jwglobal.js"></script>
+    <script src="//fb.me/react-with-addons-15.0.1<?= CONCRETE5_ENV === 'dev' ? '' : '.min' ?>.js"></script>
+    <script src="//fb.me/react-dom-15.0.1<?= CONCRETE5_ENV === 'dev' ? '' : '.min' ?>.js"></script>
 <?php
     Loader::element('header_required');
 ?>

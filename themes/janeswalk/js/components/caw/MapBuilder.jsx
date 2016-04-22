@@ -1,4 +1,4 @@
-/* global React google $ CCM_THEME_PATH */
+/* global React ReactDOM google $ CCM_THEME_PATH */
 
 import WalkStopTable from './map/WalkStopTable.jsx';
 import WalkInfoWindow from './map/WalkInfoWindow.jsx';
@@ -242,7 +242,7 @@ export default class MapBuilder extends React.Component {
   }
 
   componentDidMount() {
-    const map = new google.maps.Map(React.findDOMNode(this.refs.gmap), {
+    const map = new google.maps.Map(ReactDOM.findDOMNode(this.refs.gmap), {
       center: new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]),
       zoom: this.props.initialZoom,
       scrollwheel: false,
@@ -263,7 +263,7 @@ export default class MapBuilder extends React.Component {
   // @param google.maps.LatLng latlng The position to add
   // @param Object title {title, description}
   buildMarker(userOptions) {
-    const map = this.state.map;
+    const { map } = this.state;
     const gMarkerOptions = {
       animation: google.maps.Animation.DROP,
       draggable: true,

@@ -1,4 +1,4 @@
-/* global React JanesWalk */
+/* global React ReactDOM JanesWalk */
 
 /**
  * Initialization code goes here. This is not to be a dumping ground for
@@ -62,19 +62,25 @@ function initKeyEvents() {
   }
 }
 
+// Render the sitewide elements
 function renderGlobal() {
   // Render our header first
   const navbar = document.getElementById('navbar');
   if (navbar) {
-    React.render(<Navbar />, navbar);
+    ReactDOM.render(<Navbar />, navbar);
   }
 
   // Render modals we need on each page
-  React.render(
+  ReactDOM.render(
     <Login socialLogin={(JanesWalk.stacks || { 'Social Logins': '' })['Social Logins']} />,
     document.getElementById('modals')
   );
 }
+
+// Dispatch our own event so we only need one callback on google maps loading
+window.googleMapsLoaded = () => {
+  JanesWalk.event.emit('google.loaded');
+};
 
 // Listen for JW events to load flux stores with
 function addFluxListeners() {
@@ -92,7 +98,7 @@ function addRenderListeners() {
   // A walk, e.g. /canada/toronto/curb-cuts-and-desire-lines
   JanesWalk.event.on('walkpage.load', ({ walk, city, canEdit }) => {
     WalkActions.receive(walk);
-    React.render(
+    ReactDOM.render(
       <Walk city={city} page={JanesWalk.page} walk={walk} canEdit={canEdit} />,
       document.getElementById('page')
     );
@@ -100,7 +106,7 @@ function addRenderListeners() {
 
   // The profile page, e.g. /profile
   JanesWalk.event.on('profilepage.load', props => {
-    React.render(
+    ReactDOM.render(
       <Dashboard {...props} />,
       document.getElementById('page')
     );
@@ -108,7 +114,7 @@ function addRenderListeners() {
 
   // Create a walk
   JanesWalk.event.on('caw.load', () => {
-    React.render(
+    ReactDOM.render(
       <CreateWalk
         data={JanesWalk.walk.data}
         city={JanesWalk.city}

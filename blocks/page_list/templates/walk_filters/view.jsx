@@ -2,7 +2,7 @@
  * A set of walk filters, to filter on properties. Also includes
  * the tabs, like 'list' and 'map/
  */
-/* global React JanesWalk */
+/* global React ReactDOM JanesWalk */
 
 import WalkFilter from './WalkFilter.jsx';
 
@@ -12,7 +12,7 @@ import * as CityActions from 'janeswalk/actions/CityActions';
 
 let _filters = {};
 
-JanesWalk.event.on('walkfilters.load', (location) => React.render(
+JanesWalk.event.on('walkfilters.load', (location) => ReactDOM.render(
   <WalkFilter filters={_filters} {...{ location }} />,
   document.getElementById('janeswalk-walk-filters')
 ));

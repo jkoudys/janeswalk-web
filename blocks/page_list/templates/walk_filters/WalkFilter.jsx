@@ -1,4 +1,4 @@
-/* global React */
+/* global React ReactDOM */
 /**
  * Filters, lists, maps, the whole shebang
  */
@@ -102,7 +102,7 @@ export default class WalkFilter extends React.Component {
       printList: () => {
         const win = window.open();
         const el = win.document.createElement('div');
-        React.render(<WalkList outings={this.state.filterMatches} />, el);
+        ReactDOM.render(<WalkList outings={this.state.filterMatches} />, el);
         window.focus();
         win.document.body.appendChild(el);
         win.print();

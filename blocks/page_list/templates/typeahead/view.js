@@ -55,9 +55,15 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /* global React ReactDOM JanesWalk */
+
+
+	var _templateObject = _taggedTemplateLiteral(['Find citizen-led walks in your city'], ['Find citizen-led walks in your city']),
+	    _templateObject2 = _taggedTemplateLiteral(['Add ', ' to Jane\'s Walk'], ['Add ', ' to Jane\'s Walk']);
 
 	var _I18nStore = __webpack_require__(2);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -73,6 +79,7 @@
 	function convertAccents(str) {
 	  return str.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g, function (str, a, c, e, i, n, o, s, u, y, ae) {
 	    if (a) return 'a';else if (c) return 'c';else if (e) return 'e';else if (i) return 'i';else if (n) return 'n';else if (o) return 'o';else if (s) return 's';else if (u) return 'u';else if (y) return 'y';else if (ae) return 'ae';
+	    return undefined;
 	  });
 	}
 
@@ -84,10 +91,6 @@
 	var strContains = function strContains(a, b) {
 	  return convertAccents(a.toLowerCase()).indexOf(convertAccents(b.toLowerCase())) > -1;
 	};
-
-	// Mobile should stick to standard form elements, so it can style its widget
-	// TODO: ReactRouter this
-	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 	var City = function City(_ref) {
 	  var id = _ref.id;
@@ -170,16 +173,17 @@
 	       */
 	      handleSubmit: function handleSubmit(ev) {
 	        var firstCountry = _this.state.matched[0];
-	        var firstCity = void 0;
 
 	        // If there's a matching city, that's the URL we go to
 	        if (firstCountry) {
-	          firstCity = firstCountry.cities[0];
-	          if (firstCity) {
-	            _this.setState({ q: firstCity.name }, function () {
-	              return ev.target.action = firstCity.url;
-	            });
-	          }
+	          (function () {
+	            var firstCity = firstCountry.cities[0];
+	            if (firstCity) {
+	              _this.setState({ q: firstCity.name }, function () {
+	                ev.target.action = firstCity.url;
+	              });
+	            }
+	          })();
 	        }
 	      }
 	    });
@@ -192,19 +196,20 @@
 	      var _state = this.state;
 	      var q = _state.q;
 	      var matched = _state.matched;
+	      var user = this.props.user;
 
 
 	      var homeCity = React.createElement('h3', null);
 
-	      if (this.props.user && this.props.user.city) {
+	      if (user && user.city) {
 	        homeCity = React.createElement(
 	          'h3',
 	          null,
 	          'See walks in ',
 	          React.createElement(
 	            'a',
-	            { href: this.props.user.city.url },
-	            this.props.user.city.name
+	            { href: user.city.url },
+	            user.city.name
 	          )
 	        );
 	      }
@@ -218,7 +223,7 @@
 	          React.createElement(
 	            'fieldset',
 	            { className: 'search' },
-	            React.createElement('input', { type: 'text', name: 'selected_option', className: 'typeahead', placeholder: (0, _I18nStore.t)('Find citizen-led walks in your city'), autoComplete: 'off', value: this.state.q, onChange: this.handleInput }),
+	            React.createElement('input', { type: 'text', name: 'selected_option', className: 'typeahead', placeholder: (0, _I18nStore.translateTag)(_templateObject), autoComplete: 'off', value: this.state.q, onChange: this.handleInput }),
 	            React.createElement(
 	              'button',
 	              { type: 'submit' },
@@ -236,7 +241,7 @@
 	                React.createElement(
 	                  'a',
 	                  { href: '/city-organizer-onboarding' },
-	                  'Add ' + q + ' to Jane\'s Walk'
+	                  (0, _I18nStore.translateTag)(_templateObject2, q)
 	                )
 	              ) : null
 	            )
@@ -250,125 +255,11 @@
 	  return PageListTypeahead;
 	}(React.Component);
 
-	// Alternate render of these same cities as a select, primarily for mobile
-
-
-	var CityOption = function CityOption(_ref4) {
-	  var id = _ref4.id;
-	  var name = _ref4.name;
-	  var url = _ref4.url;
-	  return React.createElement(
-	    'option',
-	    { value: url, key: 'city' + id },
-	    name
-	  );
-	};
-
-	var CountryOption = function CountryOption(_ref5) {
-	  var id = _ref5.id;
-	  var name = _ref5.name;
-	  var url = _ref5.url;
-	  var cities = _ref5.cities;
-	  return React.createElement(
-	    'optgroup',
-	    { key: 'country' + id, className: 'country', label: name },
-	    cities.map(function (city) {
-	      return React.createElement(CityOption, city);
-	    })
-	  );
-	};
-
-	var PageListSelect = function (_React$Component2) {
-	  _inherits(PageListSelect, _React$Component2);
-
-	  function PageListSelect(props) {
-	    _classCallCheck(this, PageListSelect);
-
-	    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListSelect).call(this, props));
-
-	    Object.assign(_this2, {
-	      state: {
-	        selected: null,
-	        countries: props.countries.sort(function (a, b) {
-	          return a.name.localeCompare(b.name);
-	        })
-	      },
-	      handleChange: function handleChange(_ref6) {
-	        var _this3 = this;
-
-	        var value = _ref6.target.value;
-
-	        this.setState({ selected: value }, function () {
-	          return React.findDOMNode(_this3.refs.form).submit();
-	        });
-	      }
-	    });
-	    return _this2;
-	  }
-
-	  _createClass(PageListSelect, [{
-	    key: 'render',
-	    value: function render() {
-	      var user = this.props.user;
-	      var _state2 = this.state;
-	      var selected = _state2.selected;
-	      var countries = _state2.countries;
-
-	      var homeCity = React.createElement('h3', null);
-
-	      if (user && user.city) {
-	        homeCity = React.createElement(
-	          'h3',
-	          null,
-	          'See walks in ',
-	          React.createElement(
-	            'a',
-	            { href: user.city.url },
-	            user.city.name
-	          ),
-	          ', or:'
-	        );
-	      }
-
-	      return React.createElement(
-	        'div',
-	        { className: 'ccm-page-list-typeahead' },
-	        homeCity,
-	        React.createElement(
-	          'form',
-	          { ref: 'form', onSubmit: this.handleSubmit, action: selected },
-	          React.createElement(
-	            'fieldset',
-	            { className: 'search' },
-	            React.createElement(
-	              'select',
-	              { value: selected, onChange: this.handleChange },
-	              React.createElement(
-	                'option',
-	                { value: '', disabled: true, selected: true },
-	                'Choose your city'
-	              ),
-	              countries.map(this.renderCountry)
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return PageListSelect;
-	}(React.Component);
-
 	// TODO: get browserify-shim working and `import React from 'react';`
 
 
 	document.addEventListener('DOMContentLoaded', function () {
-	  // TODO: use ReactRouter for loading either, not c5 blocks directly
-	  if (isMobile && false) {
-	    React.render(React.createElement(PageListSelect, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
-	  } else {
-	    React.render(React.createElement(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
-	  }
+	  ReactDOM.render(React.createElement(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
 	});
 
 /***/ },

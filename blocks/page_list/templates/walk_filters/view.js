@@ -57,7 +57,7 @@
 	                                                                                                                                                                                                                                                                   * A set of walk filters, to filter on properties. Also includes
 	                                                                                                                                                                                                                                                                   * the tabs, like 'list' and 'map/
 	                                                                                                                                                                                                                                                                   */
-	/* global React JanesWalk */
+	/* global React ReactDOM JanesWalk */
 
 	// Fluxxy
 
@@ -81,7 +81,7 @@
 	var _filters = {};
 
 	JanesWalk.event.on('walkfilters.load', function (location) {
-	  return React.render(React.createElement(_WalkFilter2.default, _extends({ filters: _filters }, { location: location })), document.getElementById('janeswalk-walk-filters'));
+	  return ReactDOM.render(React.createElement(_WalkFilter2.default, _extends({ filters: _filters }, { location: location })), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	// Listen for updates, add routing
@@ -143,7 +143,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM */
 	/**
 	 * Filters, lists, maps, the whole shebang
 	 */
@@ -254,7 +254,7 @@
 	      printList: function printList() {
 	        var win = window.open();
 	        var el = win.document.createElement('div');
-	        React.render(React.createElement(_WalkList2.default, { outings: _this.state.filterMatches }), el);
+	        ReactDOM.render(React.createElement(_WalkList2.default, { outings: _this.state.filterMatches }), el);
 	        window.focus();
 	        win.document.body.appendChild(el);
 	        win.print();
@@ -1863,12 +1863,12 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /**
-	                                                                                                                                                                                                                                                   * The map of upcoming walks for a whole city
-	                                                                                                                                                                                                                                                   */
-	/* global React google $ */
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * The map of upcoming walks for a whole city
+	                                                                                                                                                                                                                                                                   */
+	/* global React ReactDOM google $ JanesWalk */
 
 
 	var _InfoWindow = __webpack_require__(19);
@@ -1884,43 +1884,32 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	// Helper to see if a member is a walk leader
-	function isWalkLeader(member) {
-	  // Check if their role contains leader, or their type does
-	  return member.role && member.role.indexOf('leader') > -1 || member.type && member.type.indexOf('leader') > -1;
-	}
+	// Check if their role contains leader, or their type does
+	var isWalkLeader = function isWalkLeader(_ref) {
+	  var role = _ref.role;
+	  var type = _ref.type;
+	  return role && role.includes('leader') || type && type.includes('leader');
+	};
 
 	// Date formatter
-	var dtfDate = void 0;
-	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
-	  dtfDate = new Intl.DateTimeFormat(undefined, {
-	    year: 'numeric',
-	    month: 'long',
-	    day: 'numeric',
-	    hour: 'numeric',
-	    minute: '2-digit',
-	    timeZone: 'UTC'
-	  });
-	}
+	var dtfDate = new Intl.DateTimeFormat(undefined, {
+	  year: 'numeric',
+	  month: 'long',
+	  day: 'numeric',
+	  hour: 'numeric',
+	  minute: '2-digit',
+	  timeZone: 'UTC'
+	});
 
 	var _infoNode = document.createElement('div');
 
-	/**
-	 * Loop through the first set of markers, and see which in the update need to be
-	 * displayed.
-	 *
-	 * @param object markers The currently rendered markers
-	 * @param array outings The walk outings we want to render markers for
-	 * @param google.maps.Map map The google map to render to
-	 * @return object updated set of markers
-	 */
-	function addNewMarkersToMap(markers, outings, map) {
-	  // TODO: see how to move these consts out of the function, since
-	  // they need to be here so google can load first
-	  // Basic info window
-	  var infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
+	var _infoWindow = void 0;
+	var _icon = void 0;
 
+	// Google maps loads async, so load these on our event
+	JanesWalk.event.on('google.loaded', function () {
 	  // Simple map marker icon
-	  var icon = {
+	  _icon = {
 	    path: google.maps.SymbolPath.CIRCLE,
 	    scale: 7,
 	    strokeWeight: 1,
@@ -1929,93 +1918,97 @@
 	    fillColor: '#f16725'
 	  };
 
-	  // Clean out the markers before we put them back in
-	  Object.keys(markers).forEach(function (k) {
-	    return markers[k].setMap(null);
+	  // Basic info window
+	  _infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
+	});
+
+	/**
+	 * Create a new google marker and add to map
+	 * @param lat float Latitude
+	 * @param lng float Longitude
+	 * @param team Array The walk team
+	 * @param title String The walk title
+	 * @param google.maps.Map gmap The google map
+	 */
+	function buildNewMarker(_ref2) {
+	  var lat = _ref2.lat;
+	  var lng = _ref2.lng;
+	  var _ref2$team = _ref2.team;
+	  var team = _ref2$team === undefined ? [] : _ref2$team;
+	  var startTime = _ref2.startTime;
+	  var title = _ref2.title;
+	  var gmap = _ref2.gmap;
+	  var url = _ref2.url;
+	  var shortDescription = _ref2.shortDescription;
+
+	  // Add the marker
+	  var marker = new google.maps.Marker({
+	    position: new google.maps.LatLng(lat, lng),
+	    title: title,
+	    icon: _icon,
+	    map: gmap
 	  });
 
-	  // Grab starting point of each walk
+	  google.maps.event.addListener(marker, 'click', function () {
+	    var date = void 0;
+
+	    // Build the team list of walk leaders
+	    var leaders = team.filter(function (member) {
+	      return isWalkLeader(member);
+	    }).map(function (member) {
+	      return member['name-first'] + ' ' + member['name-last'];
+	    });
+
+	    // Best-effort grab of the time
+	    try {
+	      // Show all dates joined together
+	      date = React.createElement(
+	        'h6',
+	        null,
+	        React.createElement('i', { className: 'fa fa-calendar' }),
+	        ' ',
+	        dtfDate.format(startTime * 1000)
+	      );
+	    } catch (e) {
+	      // Just log this, but don't die
+	      console.error('Failed to parse walk time.');
+	    }
+
+	    // Setup infowindow
+	    ReactDOM.render(React.createElement(_InfoWindow2.default, _extends({
+	      key: title + ':' + startTime
+	    }, { title: title, date: date, leaders: leaders, url: url, shortDescription: shortDescription })), _infoNode);
+
+	    // Center the marker and display its info window
+	    _infoWindow.setMap(gmap);
+	    gmap.panTo(marker.getPosition());
+	    _infoWindow.setContent(_infoNode);
+	    _infoWindow.open(gmap, marker);
+	  });
+
+	  return marker;
+	}
+
+	/**
+	 * Loop through the first set of markers, and see which in the update need to be
+	 * displayed.
+	 *
+	 * @param Map markers The currently rendered markers
+	 * @param array outings The walk outings we want to render markers for
+	 * @param google.maps.Map gmap The google map to render to
+	 * @return object updated set of markers
+	 */
+	function addNewMarkersToMap(markers, outings, gmap) {
+	  // Clean out the markers before we put them back in
 	  var _iteratorNormalCompletion = true;
 	  var _didIteratorError = false;
 	  var _iteratorError = undefined;
 
 	  try {
-	    var _loop = function _loop() {
-	      var _step$value = _step.value;
-	      var walk = _step$value.walk;
-	      var slot = _step$value.slot;
-
-	      if (markers[walk.id]) {
-	        // We already have this marker built, so simply add it to the map
-	        markers[walk.id].setMap(map);
-	      } else {
-	        (function () {
-	          // We must build a marker
-	          var marker = void 0;
-	          var latlng = void 0;
-	          // Walk location is meeting place coords
-	          if (walk.map && Array.isArray(walk.map.markers) && walk.map.markers.length > 0) {
-	            latlng = new google.maps.LatLng(walk.map.markers[0].lat, walk.map.markers[0].lng);
-	          } else if (walk.map && Array.isArray(walk.map.route) && walk.map.route.length > 0) {
-	            latlng = new google.maps.LatLng(walk.map.route[0].lat, walk.map.route[0].lng);
-	          }
-
-	          // Add the marker
-	          marker = new google.maps.Marker({
-	            position: latlng,
-	            title: walk.title,
-	            icon: icon,
-	            map: map
-	          });
-
-	          markers[walk.id] = marker;
-
-	          google.maps.event.addListener(marker, 'click', function () {
-	            var leaders = void 0;
-	            var date = void 0;
-
-	            // Build the team list of walk leaders
-	            if (Array.isArray(walk.team)) {
-	              leaders = walk.team.filter(function (member) {
-	                return isWalkLeader(member);
-	              }).map(function (member) {
-	                return member['name-first'] + ' ' + member['name-last'];
-	              });
-	            }
-
-	            // Best-effort grab of the time
-	            try {
-	              // Show all dates joined together
-	              date = React.createElement(
-	                'h6',
-	                null,
-	                React.createElement('i', { className: 'fa fa-calendar' }),
-	                ' ',
-	                dtfDate.format(slot[0] * 1000)
-	              );
-	            } catch (e) {
-	              // Just log this, but don't die
-	              console.error('Failed to parse walk time.');
-	            }
-
-	            // Setup infowindow
-	            React.render(React.createElement(_InfoWindow2.default, _extends({
-	              key: walk.id
-	            }, walk, { date: date, leaders: leaders })), _infoNode);
-
-	            // Center the marker and display its info window
-	            infoWindow.setMap(map);
-	            map.panTo(marker.getPosition());
-	            infoWindow.setContent(_infoNode);
-	            infoWindow.open(map, marker);
-	          });
-	        })();
-	      }
-	    };
-
-	    for (var _iterator = outings[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      _loop();
-	    }
+	    for (var _iterator = markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var marker = _step.value;
+	      marker.setMap(null);
+	    } // Grab starting point of each walk
 	  } catch (err) {
 	    _didIteratorError = true;
 	    _iteratorError = err;
@@ -2027,6 +2020,67 @@
 	    } finally {
 	      if (_didIteratorError) {
 	        throw _iteratorError;
+	      }
+	    }
+	  }
+
+	  var _iteratorNormalCompletion2 = true;
+	  var _didIteratorError2 = false;
+	  var _iteratorError2 = undefined;
+
+	  try {
+	    for (var _iterator2 = outings[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	      var _step2$value = _step2.value;
+	      var _step2$value$walk = _step2$value.walk;
+	      var id = _step2$value$walk.id;
+	      var _step2$value$walk$map = _step2$value$walk.map;
+	      _step2$value$walk$map = _step2$value$walk$map === undefined ? {} : _step2$value$walk$map;
+	      var _step2$value$walk$map2 = _step2$value$walk$map.markers;
+	      var stops = _step2$value$walk$map2 === undefined ? [] : _step2$value$walk$map2;
+	      var _step2$value$walk$map3 = _step2$value$walk$map.route;
+	      var route = _step2$value$walk$map3 === undefined ? [] : _step2$value$walk$map3;
+	      var _step2$value$walk$tea = _step2$value$walk.team;
+	      var team = _step2$value$walk$tea === undefined ? [] : _step2$value$walk$tea;
+	      var _step2$value$walk$tit = _step2$value$walk.title;
+	      var title = _step2$value$walk$tit === undefined ? '' : _step2$value$walk$tit;
+	      var _step2$value$walk$url = _step2$value$walk.url;
+	      var url = _step2$value$walk$url === undefined ? '' : _step2$value$walk$url;
+	      var _step2$value$walk$sho = _step2$value$walk.shortDescription;
+	      var shortDescription = _step2$value$walk$sho === undefined ? '' : _step2$value$walk$sho;
+	      var slot = _step2$value.slot;
+
+	      if (markers.has(id)) {
+	        // We already have this marker built, so simply add it to the map
+	        markers.get(id).setMap(gmap);
+	      } else {
+	        // Grab either the first stop or route point
+
+	        var _stops$concat = stops.concat(route);
+
+	        var _stops$concat2 = _slicedToArray(_stops$concat, 1);
+
+	        var _stops$concat2$ = _stops$concat2[0];
+	        _stops$concat2$ = _stops$concat2$ === undefined ? {} : _stops$concat2$;
+	        var lat = _stops$concat2$.lat;
+	        var lng = _stops$concat2$.lng;
+
+	        if (lat && lng) {
+	          // We must build a marker
+	          markers.set(id, buildNewMarker({ lat: lat, lng: lng, team: team, title: title, gmap: gmap, startTime: slot[0], url: url, shortDescription: shortDescription }));
+	        }
+	      }
+	    }
+	  } catch (err) {
+	    _didIteratorError2 = true;
+	    _iteratorError2 = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	        _iterator2.return();
+	      }
+	    } finally {
+	      if (_didIteratorError2) {
+	        throw _iteratorError2;
 	      }
 	    }
 	  }
@@ -2059,26 +2113,24 @@
 	    value: function componentDidMount() {
 	      var _props = this.props;
 	      var zoomlevel = _props.zoomlevel;
-	      var latlng = _props.latlng;
 
-	      var locationLatLng = new google.maps.LatLng(latlng[0], latlng[1]);
+	      var _props$latlng = _slicedToArray(_props.latlng, 2);
+
+	      var lat = _props$latlng[0];
+	      var lng = _props$latlng[1];
+
+	      var locationLatLng = new google.maps.LatLng(lat, lng);
 
 	      // Setup map
-	      var map = new google.maps.Map(React.findDOMNode(this), {
+	      var map = new google.maps.Map(ReactDOM.findDOMNode(this), {
 	        center: locationLatLng,
 	        zoom: zoomlevel || 10,
 	        backgroundColor: '#d7f0fa',
 	        scrollwheel: false
 	      });
 
-	      // Play nice with bootstrap tabs
-	      $('a[href="#jw-map"]').on('shown.bs.tab', function () {
-	        google.maps.event.trigger(map, 'resize');
-	        map.setCenter(locationLatLng);
-	      });
-
 	      // Add our markers to the empty map
-	      var newMarkers = addNewMarkersToMap({}, this.props.outings, map);
+	      var newMarkers = addNewMarkersToMap(new Map(), this.props.outings, map);
 	      this.setState({ map: map, markers: newMarkers });
 	    }
 	  }, {

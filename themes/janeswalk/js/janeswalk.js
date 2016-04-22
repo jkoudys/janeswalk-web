@@ -99,7 +99,7 @@
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(89);
+	var _Login = __webpack_require__(90);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -141,8 +141,11 @@
 	  }
 	}
 
+	// Render the sitewide elements
+
+
 	// load modals
-	/* global React JanesWalk */
+	/* global React ReactDOM JanesWalk */
 
 	/**
 	 * Initialization code goes here. This is not to be a dumping ground for
@@ -150,18 +153,21 @@
 	 * variables.
 	 */
 	// Translations for i18n L10n
-
-
 	function renderGlobal() {
 	  // Render our header first
 	  var navbar = document.getElementById('navbar');
 	  if (navbar) {
-	    React.render(React.createElement(_Navbar2.default, null), navbar);
+	    ReactDOM.render(React.createElement(_Navbar2.default, null), navbar);
 	  }
 
 	  // Render modals we need on each page
-	  React.render(React.createElement(_Login2.default, { socialLogin: (JanesWalk.stacks || { 'Social Logins': '' })['Social Logins'] }), document.getElementById('modals'));
+	  ReactDOM.render(React.createElement(_Login2.default, { socialLogin: (JanesWalk.stacks || { 'Social Logins': '' })['Social Logins'] }), document.getElementById('modals'));
 	}
+
+	// Dispatch our own event so we only need one callback on google maps loading
+	window.googleMapsLoaded = function () {
+	  JanesWalk.event.emit('google.loaded');
+	};
 
 	// Listen for JW events to load flux stores with
 	function addFluxListeners() {
@@ -197,17 +203,17 @@
 	    var canEdit = _ref.canEdit;
 
 	    WalkActions.receive(walk);
-	    React.render(React.createElement(_Walk2.default, { city: city, page: JanesWalk.page, walk: walk, canEdit: canEdit }), document.getElementById('page'));
+	    ReactDOM.render(React.createElement(_Walk2.default, { city: city, page: JanesWalk.page, walk: walk, canEdit: canEdit }), document.getElementById('page'));
 	  });
 
 	  // The profile page, e.g. /profile
 	  JanesWalk.event.on('profilepage.load', function (props) {
-	    React.render(React.createElement(_Dashboard2.default, props), document.getElementById('page'));
+	    ReactDOM.render(React.createElement(_Dashboard2.default, props), document.getElementById('page'));
 	  });
 
 	  // Create a walk
 	  JanesWalk.event.on('caw.load', function () {
-	    React.render(React.createElement(_CreateWalk2.default, {
+	    ReactDOM.render(React.createElement(_CreateWalk2.default, {
 	      data: JanesWalk.walk.data,
 	      city: JanesWalk.city,
 	      user: JanesWalk.user,
@@ -1055,7 +1061,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React $ CCM_EDIT_MODE */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM $ CCM_EDIT_MODE */
 
 
 	function getNavbar() {
@@ -1117,7 +1123,7 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      appendSiblings(this.state.options, this.refs.topnav);
-	      (0, _dom.makeSticky)(React.findDOMNode(this), this.refs.header);
+	      (0, _dom.makeSticky)(ReactDOM.findDOMNode(this), this.refs.header);
 	    }
 
 	    /**
@@ -1293,7 +1299,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React $ */
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React ReactDOM $ */
 
 	var getItinerary = function getItinerary() {
 	  var list = arguments.length <= 0 || arguments[0] === undefined ? [].concat(_toConsumableArray(_ItineraryStore2.default.getLists()))[0] : arguments[0];
@@ -1352,7 +1358,7 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      var $el = $(React.findDOMNode(this));
+	      var $el = $(ReactDOM.findDOMNode(this));
 	      $el.modal();
 	      $el.on('hidden.bs.modal', function () {
 	        return _this2.props.onClose();
@@ -4248,7 +4254,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React google $ CCM_THEME_PATH */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM google $ CCM_THEME_PATH */
 
 	// Flux
 
@@ -4526,7 +4532,7 @@
 	  _createClass(MapBuilder, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var map = new google.maps.Map(React.findDOMNode(this.refs.gmap), {
+	      var map = new google.maps.Map(ReactDOM.findDOMNode(this.refs.gmap), {
 	        center: new google.maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]),
 	        zoom: this.props.initialZoom,
 	        scrollwheel: false,
@@ -4553,6 +4559,7 @@
 	      var _this2 = this;
 
 	      var map = this.state.map;
+
 	      var gMarkerOptions = {
 	        animation: google.maps.Animation.DROP,
 	        draggable: true,
@@ -5952,6 +5959,7 @@
 	 * Basic wrapper around jQuery.datepicker(), so it can be loaded
 	 * as a React class
 	 */
+	/* global React ReactDOM $ */
 
 	var DatePicker = function (_React$Component) {
 	  _inherits(DatePicker, _React$Component);
@@ -5971,7 +5979,7 @@
 
 	      // Setup sorting on the walk-stops list
 
-	      $(React.findDOMNode(this)).datepicker({
+	      $(ReactDOM.findDOMNode(this)).datepicker({
 	        defaultDate: defaultDate,
 	        onSelect: function onSelect(dateText) {
 	          // Silly, but needed for inconsistent date formats across libs
@@ -8661,12 +8669,13 @@
 	    'div',
 	    { className: 'btn-toolbar' },
 	    availConnects.map(function (_ref2, i) {
-	      var href = _ref2.href;
+	      var prefix = _ref2.prefix;
+	      var match = _ref2.match;
 	      var name = _ref2.name;
 	      var style = _ref2.style;
 	      return React.createElement(
 	        'a',
-	        { key: i, className: 'btn', href: '' + (href.match(/\/\//) ? '' : '//') + href + member[name], target: '_blank' },
+	        { key: 'connect' + name + i, className: 'btn', href: '' + (member[name].match(match) ? '' : prefix) + member[name], target: '_blank' },
 	        React.createElement('i', { className: style })
 	      );
 	    })
@@ -8735,22 +8744,26 @@
 	module.exports = [
 		{
 			"name": "twitter",
-			"href": "http://twitter.com/",
+			"prefix": "http://twitter.com/",
+			"match": "^https?://(www.)?twitter.com",
 			"style": "fa fa-twitter"
 		},
 		{
 			"name": "facebook",
-			"href": "http://facebook.com/",
+			"prefix": "http://facebook.com/",
+			"match": "^https?://(www.)?facebook.com",
 			"style": "fa fa-facebook"
 		},
 		{
 			"name": "email",
-			"href": "mailto:",
+			"prefix": "mailto:",
+			"match": "mailto:",
 			"style": "fa fa-envelope-o"
 		},
 		{
 			"name": "website",
-			"href": "",
+			"prefix": "//",
+			"match": "^https?://",
 			"style": "fa fa-globe"
 		}
 	];
@@ -9239,7 +9252,7 @@
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Summary = __webpack_require__(87);
+	var _Summary = __webpack_require__(88);
 
 	var _Summary2 = _interopRequireDefault(_Summary);
 
@@ -9271,7 +9284,7 @@
 	    users: _UserStore2.default.getUsers(),
 	    currentUser: _UserStore2.default.getCurrent(),
 	    city: _CityStore2.default.getCity(),
-	    announcements: __webpack_require__(88)
+	    announcements: __webpack_require__(89)
 	  };
 	}
 
@@ -9706,7 +9719,7 @@
 
 	var _I18nStore = __webpack_require__(21);
 
-	var _Walk = __webpack_require__(85);
+	var _Walk = __webpack_require__(86);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9740,7 +9753,7 @@
 	}
 
 	// TODO: load only the ones we need from the walk data
-	var _filters = __webpack_require__(86);
+	var _filters = __webpack_require__(87);
 
 	var Walks = function (_React$Component) {
 	  _inherits(Walks, _React$Component);
@@ -10020,7 +10033,7 @@
 
 /***/ },
 /* 84 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -10028,9 +10041,9 @@
 	  value: true
 	});
 
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -10038,7 +10051,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	/* global React ReactDOM google */
 	// TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
+	var dashMapStyle = __webpack_require__(91);
 
 	var InfoWindow = function InfoWindow(_ref) {
 	  var url = _ref.url;
@@ -10065,7 +10080,6 @@
 	};
 
 	var manageMarkers = function manageMarkers(map, markers, walks) {
-
 	  var infoWindow = new google.maps.InfoWindow({ maxWidth: 600 });
 	  var _infoNode = document.createElement('div');
 
@@ -10074,40 +10088,48 @@
 	    var walkFound = walks.find(function (w) {
 	      return w.id === m.walkId;
 	    });
+	    if (walkFound) return walkFound;
 
-	    if (walkFound) {
-	      return walkFound;
-	    } else {
-	      m.setMap(null);
-	      return false;
-	    }
+	    m.setMap(null);
+	    return false;
 	  });
 
 	  // Add additional markers
-	  walks.forEach(function (walk) {
-	    if (walk.map && walk.map.markers && walk.map.markers.length) {
+	  walks.forEach(function (_ref2) {
+	    var id = _ref2.id;
+	    var title = _ref2.title;
+	    var shortDescription = _ref2.shortDescription;
+	    var url = _ref2.url;
+	    var _ref2$map = _ref2.map;
+	    _ref2$map = _ref2$map === undefined ? {} : _ref2$map;
+	    var _ref2$map$markers = _ref2$map.markers;
+	    _ref2$map$markers = _ref2$map$markers === undefined ? [] : _ref2$map$markers;
 
-	      var m = walk.map.markers[0];
+	    var _ref2$map$markers2 = _slicedToArray(_ref2$map$markers, 1);
 
-	      var locationLatLng = new google.maps.LatLng(m.lat, m.lng);
+	    var _ref2$map$markers2$ = _ref2$map$markers2[0];
+	    var lat = _ref2$map$markers2$.lat;
+	    var lng = _ref2$map$markers2$.lng;
 
-	      var walkFound = markers.find(function (m) {
-	        return m.walkId === walk.id;
+	    if (lat && lng) {
+	      var walkFound = markers.find(function (_ref3) {
+	        var walkId = _ref3.walkId;
+	        return walkId === id;
 	      });
 
 	      if (!walkFound) {
 	        (function () {
 	          var marker = new google.maps.Marker({
-	            position: locationLatLng,
+	            position: new google.maps.LatLng(lat, lng),
 	            style: 'stop',
 	            map: map,
-	            walkId: walk.id
+	            walkId: id
 	          });
 
 	          markers.push(marker);
 
 	          google.maps.event.addListener(marker, 'click', function () {
-	            React.render(React.createElement(InfoWindow, walk), _infoNode);
+	            ReactDOM.render(React.createElement(InfoWindow, { title: title, shortDescription: shortDescription, url: url }), _infoNode);
 
 	            infoWindow.setMap(map);
 	            map.panTo(marker.getPosition());
@@ -10142,10 +10164,42 @@
 	    };
 	    return _this;
 	  }
-	  // You cannot use this.setState() in componentWillUpdate
-
 
 	  _createClass(WalksMap, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _props = this.props;
+	      var city = _props.city;
+	      var walks = _props.walks;
+	      var googleMapMarkers = this.state.googleMapMarkers;
+
+	      var _city$latlng = _slicedToArray(city.latlng, 2);
+
+	      var lat = _city$latlng[0];
+	      var lng = _city$latlng[1];
+
+
+	      var mapOptions = {
+	        center: new google.maps.LatLng(lat, lng),
+	        zoom: 12,
+	        scrollwheel: false,
+	        backgroundColor: '#d7f0fa'
+	      };
+
+	      var googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
+
+	      googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(dashMapStyle));
+	      googleMap.setMapTypeId('map_style');
+
+	      this.setState({
+	        googleMap: googleMap,
+	        googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks)
+	      });
+	    }
+
+	    // You cannot use this.setState() in componentWillUpdate
+
+	  }, {
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(updatedProps) {
 	      var _state = this.state;
@@ -10155,107 +10209,6 @@
 
 
 	      this.setState({ googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks), walks: walks });
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-
-	      //TODO: (Post-PR) Create a <GoogleMap/> component to generalize use of google maps
-	      var _props = this.props;
-	      var city = _props.city;
-	      var walks = _props.walks;
-
-	      var _city$latlng = _slicedToArray(city.latlng, 2);
-
-	      var lat = _city$latlng[0];
-	      var lng = _city$latlng[1];
-	      var googleMapMarkers = this.state.googleMapMarkers;
-
-
-	      var locationLatLng = new google.maps.LatLng(lat, lng);
-
-	      //TODO: Place configuration and constants in a single file
-
-	      var mapOptions = {
-	        center: locationLatLng,
-	        zoom: 12,
-	        scrollwheel: false,
-	        backgroundColor: '#d7f0fa'
-	      };
-
-	      var googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
-
-	      googleMap.mapTypes.set('map_style', new google.maps.StyledMapType([{
-	        featureType: "poi.park",
-	        elementType: "geometry.fill",
-	        stylers: [{
-	          visibility: "on"
-	        }, {
-	          saturation: 37
-	        }]
-	      }, {
-	        featureType: 'landscape',
-	        stylers: [{
-	          visibility: 'on'
-	        }, {
-	          color: '#eaeaea'
-	        }]
-	      }, {
-	        featureType: 'poi',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }, {
-	        featureType: 'poi.park',
-	        stylers: [{
-	          visibility: 'on'
-	        }, {
-	          color: '#cadfaa'
-	        }]
-	      }, {
-	        featureType: 'poi.school',
-	        elementType: 'labels',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }, {
-	        featureType: 'poi.school',
-	        elementType: 'geometry',
-	        stylers: [{
-	          visibility: 'on'
-	        }, {
-	          color: '#dadada'
-	        }]
-	      }, {
-	        featureType: 'transit',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }, {
-	        featureType: 'water',
-	        stylers: [{
-	          visibility: 'simplified'
-	        }, {
-	          color: '#90c2ff'
-	        }]
-	      }, {
-	        featureType: 'road',
-	        elementType: 'geometry',
-	        stylers: [{
-	          visibility: 'simplified'
-	        }, {
-	          color: '#ffffff'
-	        }]
-	      }, {
-	        featureType: 'road',
-	        elementType: 'labels.icon',
-	        stylers: [{
-	          visibility: 'off'
-	        }]
-	      }]));
-	      googleMap.setMapTypeId('map_style');
-
-	      this.setState({ googleMap: googleMap, googleMapMarkers: manageMarkers(googleMap, googleMapMarkers, walks) });
 	    }
 	  }, {
 	    key: 'render',
@@ -10275,7 +10228,8 @@
 	};
 
 /***/ },
-/* 85 */
+/* 85 */,
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10419,7 +10373,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10525,7 +10479,7 @@
 	};
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10609,7 +10563,7 @@
 	exports.default = DashboardSummary;
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -10641,7 +10595,7 @@
 	];
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10693,10 +10647,11 @@
 	        message: {}
 	      },
 	      handleReset: function handleReset() {
+	        var body = new FormData();
+	        body.append('json', JSON.stringify(_this.state));
 	        // Post a reset request to the c5 endpoint for resets
-	        $.ajax({
-	          type: 'POST',
-	          url: CCM_REL + '/login/forgot_password',
+	        fetch(CCM_REL + '/login/forgot_password', {
+	          method: 'POST',
 	          data: {
 	            uEmail: _this.state.email,
 	            uName: _this.state.email,
@@ -10843,6 +10798,116 @@
 	}(React.Component);
 
 	exports.default = Login;
+
+/***/ },
+/* 91 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"featureType": "poi.park",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"saturation": 37
+				}
+			]
+		},
+		{
+			"featureType": "landscape",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#eaeaea"
+				}
+			]
+		},
+		{
+			"featureType": "poi",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "poi.park",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#cadfaa"
+				}
+			]
+		},
+		{
+			"featureType": "poi.school",
+			"elementType": "labels",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "poi.school",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#dadada"
+				}
+			]
+		},
+		{
+			"featureType": "transit",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"stylers": [
+				{
+					"visibility": "simplified"
+				},
+				{
+					"color": "#90c2ff"
+				}
+			]
+		},
+		{
+			"featureType": "road",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"visibility": "simplified"
+				},
+				{
+					"color": "#ffffff"
+				}
+			]
+		},
+		{
+			"featureType": "road",
+			"elementType": "labels.icon",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		}
+	];
 
 /***/ }
 /******/ ]);

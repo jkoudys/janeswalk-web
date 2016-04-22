@@ -117,14 +117,14 @@ gulp.task('js.blocks', () => {
 
 gulp.task('js.global', () => {
   webpack({
-    entry: ['./js/jwobject.jsx'],
+    entry: ['babel-polyfill', './js/jwobject.jsx'],
     output: {
       path: './js',
       filename: 'jwglobal.js',
     },
     module: {
       loaders: [{
-        test: /\.jsx?$/,
+        test: /\.jsx$/,
         exclude: /(bower_components)/,
         loader: 'babel',
         query: {
@@ -133,8 +133,8 @@ gulp.task('js.global', () => {
       }],
     },
     plugins: [
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
+//      new webpack.optimize.DedupePlugin(),
+//      new webpack.optimize.UglifyJsPlugin(),
     ],
     watch: true,
   }, (err, stats) => {

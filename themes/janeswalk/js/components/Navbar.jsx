@@ -1,4 +1,4 @@
-/* global React $ CCM_EDIT_MODE */
+/* global React ReactDOM $ CCM_EDIT_MODE */
 import Itinerary from './itinerary/Itinerary.jsx';
 import AreaStore from 'janeswalk/stores/AreaStore';
 import UserStore from 'janeswalk/stores/UserStore';
@@ -49,7 +49,7 @@ export default class Navbar extends React.Component {
 
   componentDidMount() {
     appendSiblings(this.state.options, this.refs.topnav);
-    makeSticky(React.findDOMNode(this), this.refs.header);
+    makeSticky(ReactDOM.findDOMNode(this), this.refs.header);
   }
 
   /**
@@ -73,7 +73,7 @@ export default class Navbar extends React.Component {
 
   openSearch() {
     $('html, body').animate({
-      scrollTop: 0
+      scrollTop: 0,
     }, 300);
   }
 
