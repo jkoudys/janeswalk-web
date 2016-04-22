@@ -2006,7 +2006,7 @@
 	  var _iteratorError = undefined;
 
 	  try {
-	    for (var _iterator = markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	    for (var _iterator = markers.values()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	      var marker = _step.value;
 	      marker.setMap(null);
 	    } // Grab starting point of each walk

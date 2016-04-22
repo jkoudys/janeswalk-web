@@ -167,12 +167,23 @@ class WalkPageTypeController extends Controller
     public function destroy()
     {
         header('Content-Type: application/json');
-        $this->c->setAttribute('exclude_page_list', true);
 
-        // TODO: Update the MirrorWalk to unpublish
-        echo json_encode([
-            'cID' => $this->walk->getPage()->getCollectionID(),
-        ]);
+        $cp = new Permissions($this->walk->getPage());
+        if (!$cp->canEditPageContents()) {
+            $this->c->setAttribute('exclude_page_list', true);
+
+            // TODO: Update the MirrorWalk to unpublish
+            echo json_encode([
+                'id' => $this->walk->getPage()->getCollectionID(),
+                'message' => 'Walk set to draft.',
+                'error' => false,
+            ]);
+        } else {
+            echo json_encode([
+                'error' => true,
+                'message' => 'Insufficient permissions.',
+            ]);
+        }
         exit;
     }
 

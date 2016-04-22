@@ -107,7 +107,7 @@ function buildNewMarker({ lat, lng, team = [], startTime, title, gmap, url, shor
  */
 function addNewMarkersToMap(markers, outings, gmap) {
   // Clean out the markers before we put them back in
-  for (const marker of markers) marker.setMap(null);
+  for (const marker of markers.values()) marker.setMap(null);
 
   // Grab starting point of each walk
   for (const {
