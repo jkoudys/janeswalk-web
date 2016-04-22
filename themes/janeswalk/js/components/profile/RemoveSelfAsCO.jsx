@@ -1,3 +1,5 @@
+/* global React ReactDOM */
+
 const RemovePrompt = ({close, removeCO}) => (
   <section>
     <p>We're sad to lose you, but we understand that not everyone can stay a City Organizer forever. If you have to go, then we thank you for all the help you've donated to the Jane's Walk project.</p>
@@ -19,11 +21,11 @@ const RemovedScreen = ({close}) => (
 
 class RemoveSelf extends React.Component {
   componentDidMount() {
-    $(React.findDOMNode(this)).modal();
+    $(ReactDOM.findDOMNode(this)).modal();
   }
 
   componentWillUnmount() {
-    $(React.findDOMNode(this)).modal('hide');
+    $(ReactDOM.findDOMNode(this)).modal('hide');
   }
 
   render() {

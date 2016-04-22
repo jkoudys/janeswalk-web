@@ -1,5 +1,6 @@
-import {LineChart, PieChart} from 'react-d3';
-import {BarChart} from 'react-d3/barchart';
+/* global React ReactDOM */
+import { LineChart, PieChart } from 'react-d3';
+import { BarChart } from 'react-d3/barchart';
 import HBarChart from './HBarChart.jsx';
 
 const YEARS = {
@@ -9,8 +10,8 @@ const YEARS = {
 };
 
 const pieData = [
-  {label: 'Returning', value: 65.0},
-  {label: 'New', value: 25.0}
+  { label: 'Returning', value: 65.0 },
+  { label: 'New', value: 25.0 },
 ];
 
 // <BarChart data={buildWardWalkData(wardWalkCount)} width={400} height={400} />
@@ -111,7 +112,7 @@ export default class ImpactReport extends React.Component {
     const styles = document.querySelectorAll('style[rel=stylesheet]');
     window.focus();
     [].forEach.call(styles, s => win.appendChild(s.cloneNode()));
-    win.document.body.appendChild(React.findDOMNode(this).cloneNode(true));
+    win.document.body.appendChild(ReactDOM.findDOMNode(this).cloneNode(true));
     win.print();
     win.close();
   }

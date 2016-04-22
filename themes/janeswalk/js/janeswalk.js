@@ -7408,7 +7408,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React $ */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM $ */
 
 	// Flux
 
@@ -7441,10 +7441,10 @@
 	      var _this2 = this;
 
 	      // Bootstrap Modal
-	      $(React.findDOMNode(this)).modal();
+	      $(ReactDOM.findDOMNode(this)).modal();
 
 	      // Close the modal when modal closes
-	      $(React.findDOMNode(this)).bind('hidden.bs.modal', function () {
+	      $(ReactDOM.findDOMNode(this)).bind('hidden.bs.modal', function () {
 	        return _this2.props.close();
 	      });
 	    }
@@ -7588,7 +7588,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React $ */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM $ */
 
 
 	var WalkPreview = function (_React$Component) {
@@ -7605,7 +7605,7 @@
 	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      var el = React.findDOMNode(this);
+	      var el = ReactDOM.findDOMNode(this);
 	      // Bootstrap Modal
 	      $(el).modal();
 	      // Close the modal when modal closes

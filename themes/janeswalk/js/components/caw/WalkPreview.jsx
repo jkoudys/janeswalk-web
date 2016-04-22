@@ -1,9 +1,9 @@
-/* global React $ */
+/* global React ReactDOM $ */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 export default class WalkPreview extends React.Component {
   componentDidMount() {
-    const el = React.findDOMNode(this);
+    const el = ReactDOM.findDOMNode(this);
     // Bootstrap Modal
     $(el).modal();
     // Close the modal when modal closes

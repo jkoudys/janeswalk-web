@@ -1,4 +1,4 @@
-/* global React $ */
+/* global React ReactDOM $ */
 
 // Flux
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
@@ -20,10 +20,10 @@ export default class WalkPublish extends React.Component {
 
   componentDidMount() {
     // Bootstrap Modal
-    $(React.findDOMNode(this)).modal();
+    $(ReactDOM.findDOMNode(this)).modal();
 
     // Close the modal when modal closes
-    $(React.findDOMNode(this)).bind('hidden.bs.modal', () => this.props.close());
+    $(ReactDOM.findDOMNode(this)).bind('hidden.bs.modal', () => this.props.close());
   }
 
   render() {
