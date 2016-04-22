@@ -1,4 +1,4 @@
-/* global React google CCM_THEME_PATH */
+/* global React ReactDOM google CCM_THEME_PATH */
 
 // TODO: WalkMap.jsx already exists, review and re-use
 /**
@@ -52,7 +52,7 @@ export default class WalkMap extends React.Component {
       backgroundColor: '#d7f0fa',
     };
 
-    const googleMap = new google.maps.Map(React.findDOMNode(this), mapOptions);
+    const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
     googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(mapStyles));
     googleMap.setMapTypeId('map_style');
 

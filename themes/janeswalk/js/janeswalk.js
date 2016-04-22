@@ -4516,6 +4516,10 @@
 	       * @param google.maps.Marker marker
 	       */
 	      showInfoWindow: function showInfoWindow(marker) {
+	        var _this$state2 = _this.state;
+	        var map = _this$state2.map;
+	        var infowindow = _this$state2.infowindow;
+
 	        var infoDOM = document.createElement('div');
 	        var handleDelete = function handleDelete() {
 	          return _this.deleteMarker(marker);
@@ -4528,9 +4532,9 @@
 	        }), infoDOM);
 
 	        // Center the marker and display its info window
-	        _this.state.map.panTo(marker.getPosition());
-	        _this.state.infowindow.setContent(infoDOM);
-	        _this.state.infowindow.open(_this.state.map, marker);
+	        map.panTo(marker.getPosition());
+	        infowindow.setContent(infoDOM);
+	        infowindow.open(map, marker);
 	      }
 	    });
 	    return _this;
@@ -8986,7 +8990,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	/* global React google CCM_THEME_PATH */
+	/* global React ReactDOM google CCM_THEME_PATH */
 
 	// TODO: WalkMap.jsx already exists, review and re-use
 	/**
@@ -9057,7 +9061,7 @@
 	        backgroundColor: '#d7f0fa'
 	      };
 
-	      var googleMap = new google.maps.Map(React.findDOMNode(this), mapOptions);
+	      var googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
 	      googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(mapStyles));
 	      googleMap.setMapTypeId('map_style');
 

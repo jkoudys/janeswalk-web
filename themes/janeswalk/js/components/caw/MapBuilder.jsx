@@ -245,6 +245,7 @@ export default class MapBuilder extends React.Component {
        * @param google.maps.Marker marker
        */
       showInfoWindow: (marker) => {
+        const { map, infowindow } = this.state;
         const infoDOM = document.createElement('div');
         const handleDelete = () => this.deleteMarker(marker);
 
@@ -258,9 +259,9 @@ export default class MapBuilder extends React.Component {
         );
 
         // Center the marker and display its info window
-        this.state.map.panTo(marker.getPosition());
-        this.state.infowindow.setContent(infoDOM);
-        this.state.infowindow.open(this.state.map, marker);
+        map.panTo(marker.getPosition());
+        infowindow.setContent(infoDOM);
+        infowindow.open(map, marker);
       },
     });
   }
