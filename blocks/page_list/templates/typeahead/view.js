@@ -173,6 +173,7 @@
 	       */
 	      handleSubmit: function handleSubmit(ev) {
 	        var firstCountry = _this.state.matched[0];
+	        ev.persist();
 
 	        // If there's a matching city, that's the URL we go to
 	        if (firstCountry) {
@@ -233,7 +234,7 @@
 	              'ul',
 	              null,
 	              matched.map(function (country) {
-	                return React.createElement(Country, country);
+	                return React.createElement(Country, _extends({ key: country.id }, country));
 	              }),
 	              matched.length === 0 ? React.createElement(
 	                'li',

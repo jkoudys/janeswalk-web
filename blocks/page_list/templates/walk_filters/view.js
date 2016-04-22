@@ -1905,9 +1905,7 @@
 
 	var _infoWindow = void 0;
 	var _icon = void 0;
-
-	// Google maps loads async, so load these on our event
-	JanesWalk.event.on('google.loaded', function () {
+	function loadGoogle() {
 	  // Simple map marker icon
 	  _icon = {
 	    path: google.maps.SymbolPath.CIRCLE,
@@ -1920,7 +1918,10 @@
 
 	  // Basic info window
 	  _infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
-	});
+	}
+
+	// Google maps loads async, so load these on our event
+	JanesWalk.event.on('google.loaded', loadGoogle);
 
 	/**
 	 * Create a new google marker and add to map
@@ -2119,6 +2120,7 @@
 	      var lat = _props$latlng[0];
 	      var lng = _props$latlng[1];
 
+	      loadGoogle();
 	      var locationLatLng = new google.maps.LatLng(lat, lng);
 
 	      // Setup map

@@ -22,9 +22,7 @@ const _infoNode = document.createElement('div');
 
 let _infoWindow;
 let _icon;
-
-// Google maps loads async, so load these on our event
-JanesWalk.event.on('google.loaded', () => {
+function loadGoogle() {
   // Simple map marker icon
   _icon = {
     path: google.maps.SymbolPath.CIRCLE,
@@ -37,7 +35,10 @@ JanesWalk.event.on('google.loaded', () => {
 
   // Basic info window
   _infoWindow = new google.maps.InfoWindow({ maxWidth: 300 });
-});
+}
+
+// Google maps loads async, so load these on our event
+JanesWalk.event.on('google.loaded', loadGoogle);
 
 /**
  * Create a new google marker and add to map
@@ -150,6 +151,7 @@ export default class LocationMap extends React.Component {
 
   componentDidMount() {
     const { zoomlevel, latlng: [lat, lng] } = this.props;
+    loadGoogle();
     const locationLatLng = new google.maps.LatLng(lat, lng);
 
     // Setup map

@@ -2936,15 +2936,7 @@
 	  var unseenUpdates = _ref.unseenUpdates;
 	  return [React.createElement(
 	    'li',
-	    null,
-	    React.createElement(
-	      'a',
-	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
-	      React.createElement('i', { className: 'fa fa-search' })
-	    )
-	  ), React.createElement(
-	    'li',
-	    { className: unseenUpdates ? 'notify' : '' },
+	    { key: 'nav2', className: unseenUpdates ? 'notify' : '' },
 	    React.createElement(
 	      'a',
 	      { href: '#', onClick: toggleProfile, className: profiling ? 'selected' : '' },
@@ -2952,7 +2944,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { key: 'nav3' },
 	    React.createElement(
 	      'a',
 	      { href: '/profile' },
@@ -2960,7 +2952,7 @@
 	    )
 	  ), React.createElement(
 	    'li',
-	    null,
+	    { key: 'nav4' },
 	    React.createElement(
 	      'a',
 	      { href: '/login/logout' },
@@ -2977,7 +2969,7 @@
 /* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -2989,26 +2981,18 @@
 	  var searching = _ref.searching;
 	  var toggleSearch = _ref.toggleSearch;
 	  return [React.createElement(
-	    'li',
-	    null,
+	    "li",
+	    { key: "nav2" },
 	    React.createElement(
-	      'a',
-	      { onClick: toggleSearch, className: searching ? 'selected' : '' },
-	      React.createElement('i', { className: 'fa fa-search' })
-	    )
-	  ), React.createElement(
-	    'li',
-	    null,
-	    React.createElement(
-	      'a',
-	      { href: '/register' },
+	      "a",
+	      { href: "/register" },
 	      (0, _I18nStore.tc)('Register on a website', 'Join')
 	    )
 	  ), React.createElement(
-	    'li',
-	    null,
+	    "li",
+	    { key: "nav3" },
 	    React.createElement(
-	      'a',
+	      "a",
 	      { onClick: function onClick() {
 	          return $('#login').modal();
 	        } },
@@ -10059,7 +10043,7 @@
 
 	/* global React ReactDOM google */
 	// TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
-	var dashMapStyle = __webpack_require__(91);
+	var dashMapStyle = __webpack_require__(85);
 
 	var InfoWindow = function InfoWindow(_ref) {
 	  var url = _ref.url;
@@ -10234,7 +10218,116 @@
 	};
 
 /***/ },
-/* 85 */,
+/* 85 */
+/***/ function(module, exports) {
+
+	module.exports = [
+		{
+			"featureType": "poi.park",
+			"elementType": "geometry.fill",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"saturation": 37
+				}
+			]
+		},
+		{
+			"featureType": "landscape",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#eaeaea"
+				}
+			]
+		},
+		{
+			"featureType": "poi",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "poi.park",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#cadfaa"
+				}
+			]
+		},
+		{
+			"featureType": "poi.school",
+			"elementType": "labels",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "poi.school",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"visibility": "on"
+				},
+				{
+					"color": "#dadada"
+				}
+			]
+		},
+		{
+			"featureType": "transit",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		},
+		{
+			"featureType": "water",
+			"stylers": [
+				{
+					"visibility": "simplified"
+				},
+				{
+					"color": "#90c2ff"
+				}
+			]
+		},
+		{
+			"featureType": "road",
+			"elementType": "geometry",
+			"stylers": [
+				{
+					"visibility": "simplified"
+				},
+				{
+					"color": "#ffffff"
+				}
+			]
+		},
+		{
+			"featureType": "road",
+			"elementType": "labels.icon",
+			"stylers": [
+				{
+					"visibility": "off"
+				}
+			]
+		}
+	];
+
+/***/ },
 /* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -10804,116 +10897,6 @@
 	}(React.Component);
 
 	exports.default = Login;
-
-/***/ },
-/* 91 */
-/***/ function(module, exports) {
-
-	module.exports = [
-		{
-			"featureType": "poi.park",
-			"elementType": "geometry.fill",
-			"stylers": [
-				{
-					"visibility": "on"
-				},
-				{
-					"saturation": 37
-				}
-			]
-		},
-		{
-			"featureType": "landscape",
-			"stylers": [
-				{
-					"visibility": "on"
-				},
-				{
-					"color": "#eaeaea"
-				}
-			]
-		},
-		{
-			"featureType": "poi",
-			"stylers": [
-				{
-					"visibility": "off"
-				}
-			]
-		},
-		{
-			"featureType": "poi.park",
-			"stylers": [
-				{
-					"visibility": "on"
-				},
-				{
-					"color": "#cadfaa"
-				}
-			]
-		},
-		{
-			"featureType": "poi.school",
-			"elementType": "labels",
-			"stylers": [
-				{
-					"visibility": "off"
-				}
-			]
-		},
-		{
-			"featureType": "poi.school",
-			"elementType": "geometry",
-			"stylers": [
-				{
-					"visibility": "on"
-				},
-				{
-					"color": "#dadada"
-				}
-			]
-		},
-		{
-			"featureType": "transit",
-			"stylers": [
-				{
-					"visibility": "off"
-				}
-			]
-		},
-		{
-			"featureType": "water",
-			"stylers": [
-				{
-					"visibility": "simplified"
-				},
-				{
-					"color": "#90c2ff"
-				}
-			]
-		},
-		{
-			"featureType": "road",
-			"elementType": "geometry",
-			"stylers": [
-				{
-					"visibility": "simplified"
-				},
-				{
-					"color": "#ffffff"
-				}
-			]
-		},
-		{
-			"featureType": "road",
-			"elementType": "labels.icon",
-			"stylers": [
-				{
-					"visibility": "off"
-				}
-			]
-		}
-	];
 
 /***/ }
 /******/ ]);

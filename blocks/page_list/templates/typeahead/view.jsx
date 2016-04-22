@@ -81,6 +81,7 @@ class PageListTypeahead extends React.Component {
        */
       handleSubmit: (ev) => {
         const firstCountry = this.state.matched[0];
+        ev.persist();
 
         // If there's a matching city, that's the URL we go to
         if (firstCountry) {
@@ -110,7 +111,7 @@ class PageListTypeahead extends React.Component {
             <input type="text" name="selected_option" className="typeahead" placeholder={t`Find citizen-led walks in your city`} autoComplete="off" value={this.state.q} onChange={this.handleInput} />
             <button type="submit">Go</button>
             <ul>
-              {matched.map(country => <Country {...country} />)}
+              {matched.map(country => <Country key={country.id} {...country} />)}
               {matched.length === 0 ?
                 <li><a href="/city-organizer-onboarding">{t`Add ${q} to Jane's Walk`}</a></li> :
                 null

@@ -7,20 +7,15 @@ import { t } from 'janeswalk/stores/I18nStore';
 
 /* Build menu options depending if currently logged in or not */
 export default ({ user, profiling, searching, toggleProfile, toggleSearch, unseenUpdates }) => [
-  <li>
-    <a onClick={toggleSearch} className={searching ? 'selected' : ''}>
-      <i className="fa fa-search" />
-    </a>
-  </li>,
-  <li className={unseenUpdates ? 'notify' : ''}>
+  <li key="nav2" className={unseenUpdates ? 'notify' : ''}>
     <a href="#" onClick={toggleProfile} className={profiling ? 'selected' : ''}>
       <i className="fa fa-calendar" />
     </a>
   </li>,
-  <li>
+  <li key="nav3">
     <a href="/profile">{user.firstName || user.name}</a>
   </li>,
-  <li>
+  <li key="nav4">
     <a href="/login/logout">{t('Logout')}</a>
   </li>,
 ];
