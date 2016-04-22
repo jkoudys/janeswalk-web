@@ -314,7 +314,7 @@ export default class MapBuilder extends React.Component {
     const infoDOM = document.createElement('div');
     const handleDelete = () => this.deleteMarker(marker);
 
-    React.render(
+    ReactDOM.render(
       <WalkInfoWindow
         marker={marker}
         deleteMarker={handleDelete}

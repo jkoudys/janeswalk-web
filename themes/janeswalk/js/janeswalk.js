@@ -4603,7 +4603,7 @@
 	        return _this3.deleteMarker(marker);
 	      };
 
-	      React.render(React.createElement(_WalkInfoWindow2.default, {
+	      ReactDOM.render(React.createElement(_WalkInfoWindow2.default, {
 	        marker: marker,
 	        deleteMarker: handleDelete,
 	        refresh: this.syncState
