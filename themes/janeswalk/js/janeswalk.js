@@ -3198,7 +3198,7 @@
 	    _templateObject19 = _taggedTemplateLiteral(['How will people find you?'], ['How will people find you?']),
 	    _templateObject20 = _taggedTemplateLiteral(['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.'], ['Perhaps you will be holding a sign, wearing a special t-shirt or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.']),
 	    _templateObject21 = _taggedTemplateLiteral(['Contact City Organizer for help'], ['Contact City Organizer for help']),
-	    _templateObject22 = _taggedTemplateLiteral(['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please'], ['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please']),
+	    _templateObject22 = _taggedTemplateLiteral(['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please '], ['Hi! I\'m ', ', the City Organizer for Jane\'s Walk ', '. I\'m here to help, so if you have any questions, please ']),
 	    _templateObject23 = _taggedTemplateLiteral(['email me'], ['email me']);
 
 	var _ImageUpload = __webpack_require__(37);
@@ -3445,19 +3445,35 @@
 	              { id: 'button-group' },
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info btn-preview', id: 'preview-walk', title: 'Preview what you have so far.', onClick: this.handlePreview },
+	                {
+	                  className: 'btn btn-info btn-preview',
+	                  id: 'preview-walk',
+	                  title: 'Preview what you have so far.',
+	                  onClick: this.handlePreview
+	                },
 	                (0, _I18nStore.translateTag)(_templateObject)
 	              ),
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: function onClick() {
+	                {
+	                  className: 'btn btn-info btn-submit',
+	                  id: 'btn-submit',
+	                  title: 'Publishing will make your visible to all.',
+	                  onClick: function onClick() {
 	                    return _this2.setState({ publish: true });
-	                  }, ref: 'publish' },
+	                  },
+	                  ref: 'publish'
+	                },
 	                (0, _I18nStore.translateTag)(_templateObject2)
 	              ),
 	              React.createElement(
 	                'button',
-	                { className: 'btn btn-info save', title: 'Save', id: 'btn-save', onClick: this.saveWalk },
+	                {
+	                  className: 'btn btn-info save',
+	                  title: 'Save',
+	                  id: 'btn-save',
+	                  onClick: this.saveWalk
+	                },
 	                (0, _I18nStore.translateTag)(_templateObject3)
 	              )
 	            )
@@ -3688,6 +3704,7 @@
 	                'h3',
 	                { className: 'popover-title', 'data-toggle': 'collapse', 'data-target': '#popover-content' },
 	                React.createElement('i', { className: 'fa fa-envelope' }),
+	                ' ',
 	                (0, _I18nStore.translateTag)(_templateObject21)
 	              ),
 	              React.createElement(
@@ -3698,7 +3715,6 @@
 	                  'p',
 	                  null,
 	                  (0, _I18nStore.translateTag)(_templateObject22, city.cityOrganizer.firstName, city.name),
-	                  ' ',
 	                  React.createElement(
 	                    'strong',
 	                    null,
@@ -3724,7 +3740,7 @@
 	          mirrors: this.state.mirrors
 	        }) : null,
 	        this.state.preview ? React.createElement(_WalkPreview2.default, {
-	          url: this.state.url,
+	          url: '/index.php?cID=' + this.state.id,
 	          close: function close() {
 	            return _this2.setState({ preview: false });
 	          }

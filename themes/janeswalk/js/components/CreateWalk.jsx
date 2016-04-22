@@ -155,9 +155,31 @@ export default class CreateWalk extends React.Component {
           <nav id="progress-panel">
             <TabNav />
             <section id="button-group">
-              <button className="btn btn-info btn-preview" id="preview-walk" title="Preview what you have so far." onClick={this.handlePreview}>{ t`Preview Walk` }</button>
-              <button className="btn btn-info btn-submit" id="btn-submit" title="Publishing will make your visible to all." onClick={() => this.setState({ publish: true })} ref="publish">{ t`Publish Walk` }</button>
-              <button className="btn btn-info save" title="Save" id="btn-save" onClick={this.saveWalk}>{ t`Save` }</button>
+              <button
+                className="btn btn-info btn-preview"
+                id="preview-walk"
+                title="Preview what you have so far."
+                onClick={this.handlePreview}
+              >
+                { t`Preview Walk` }
+              </button>
+              <button
+                className="btn btn-info btn-submit"
+                id="btn-submit"
+                title="Publishing will make your visible to all."
+                onClick={() => this.setState({ publish: true })}
+                ref="publish"
+              >
+                { t`Publish Walk` }
+              </button>
+              <button
+                className="btn btn-info save"
+                title="Save"
+                id="btn-save"
+                onClick={this.saveWalk}
+              >
+                { t`Save` }
+              </button>
             </section>
           </nav>
           <div id="main-panel" role="main">
@@ -259,11 +281,17 @@ export default class CreateWalk extends React.Component {
           </div>
           <aside id="tips-panel" role="complementary">
             <div className="popover right" id="city-organizer" style={{ display: 'block' }}>
-              <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content"><i className="fa fa-envelope" />{ t`Contact City Organizer for help` }</h3>
+              <h3 className="popover-title" data-toggle="collapse" data-target="#popover-content">
+                <i className="fa fa-envelope" /> {t`Contact City Organizer for help`}
+              </h3>
               <div className="popover-content collapse in" id="popover-content">
                 {city.cityOrganizer.photo ? <div className="u-avatar" style={{ backgroundImage: `url(${city.cityOrganizer.photo})` }} /> : null}
                 <p>
-                  { t`Hi! I'm ${city.cityOrganizer.firstName}, the City Organizer for Jane's Walk ${city.name}. I'm here to help, so if you have any questions, please` } <strong><a href={`mailto:${city.cityOrganizer.email}`}>{ t`email me` }!</a></strong></p>
+                  { t`Hi! I'm ${city.cityOrganizer.firstName}, the City Organizer for Jane's Walk ${city.name}. I'm here to help, so if you have any questions, please ` }
+                  <strong>
+                    <a href={`mailto:${city.cityOrganizer.email}`}>{ t`email me` }!</a>
+                  </strong>
+                </p>
               </div>
             </div>
           </aside>
@@ -279,7 +307,7 @@ export default class CreateWalk extends React.Component {
         }
         {this.state.preview ?
           <WalkPreview
-            url={this.state.url}
+            url={`/index.php?cID=${this.state.id}`}
             close={() => this.setState({ preview: false })}
           /> : null
         }
