@@ -129,6 +129,7 @@ export default class DateSelect extends React.Component {
               <p className="lead">{ t`Select the date and time your walk is happening.` }</p>
             </div>
 
+            <div className="alert alert-info">{ t`Remember to click 'Add Date' after you make your selection.` }</div>
             <div className="row">
               <div className="col-md-6">
                 <DatePicker setDay={this.setDay} defaultDate={this.state.start} />

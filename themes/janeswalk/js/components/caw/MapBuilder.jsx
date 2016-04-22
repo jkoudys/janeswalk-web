@@ -361,7 +361,7 @@ export default class MapBuilder extends React.Component {
           <h1>{ t`Share Your Route` }</h1>
         </div>
         <div className="alert alert-info">
-          {t`Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.`}
+          {t`Make sure to use 'Add Stop' at least once to indicate the meeting place. This is how people will find you on the day of your walk.`}
         </div>
         <div id="map-control-bar">
           <button
