@@ -3780,7 +3780,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk.'], ['Upload a photo that best represents your walk.']),
+	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you have trouble uploading, reduce the size of your photo before trying again.'], ['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you have trouble uploading, reduce the size of your photo before trying again.']),
 	    _templateObject2 = _taggedTemplateLiteral(['Click to upload an image'], ['Click to upload an image']);
 
 	var _I18nStore = __webpack_require__(21);
@@ -4209,7 +4209,7 @@
 
 	var _templateObject = _taggedTemplateLiteral(['Walk Stops'], ['Walk Stops']),
 	    _templateObject2 = _taggedTemplateLiteral(['Share Your Route'], ['Share Your Route']),
-	    _templateObject3 = _taggedTemplateLiteral(['Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.'], ['Make sure to add a description to your meeting place, and the last stop. This is how people will find you on the day of your walk.']),
+	    _templateObject3 = _taggedTemplateLiteral(['Make sure to use \'Add Stop\' at least once to indicate the meeting place. This is how people will find you on the day of your walk.'], ['Make sure to use \'Add Stop\' at least once to indicate the meeting place. This is how people will find you on the day of your walk.']),
 	    _templateObject4 = _taggedTemplateLiteral(['Add Stop'], ['Add Stop']),
 	    _templateObject5 = _taggedTemplateLiteral(['Add Route'], ['Add Route']),
 	    _templateObject6 = _taggedTemplateLiteral(['Clear Route'], ['Clear Route']);
@@ -5515,11 +5515,12 @@
 	    _templateObject6 = _taggedTemplateLiteral(['Set specific dates and times that this walk is happening.'], ['Set specific dates and times that this walk is happening.']),
 	    _templateObject7 = _taggedTemplateLiteral(['Time and Date'], ['Time and Date']),
 	    _templateObject8 = _taggedTemplateLiteral(['Select the date and time your walk is happening.'], ['Select the date and time your walk is happening.']),
-	    _templateObject9 = _taggedTemplateLiteral(['Date selected'], ['Date selected']),
-	    _templateObject10 = _taggedTemplateLiteral(['Add Date'], ['Add Date']),
-	    _templateObject11 = _taggedTemplateLiteral(['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.'], ['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.']),
-	    _templateObject12 = _taggedTemplateLiteral(['Leave my availability open. Allow people to contact you to set up a walk.'], ['Leave my availability open. Allow people to contact you to set up a walk.']),
-	    _templateObject13 = _taggedTemplateLiteral(['Approximate Duration of Walk'], ['Approximate Duration of Walk']);
+	    _templateObject9 = _taggedTemplateLiteral(['Remember to click \'Add Date\' after you make your selection.'], ['Remember to click \'Add Date\' after you make your selection.']),
+	    _templateObject10 = _taggedTemplateLiteral(['Date selected'], ['Date selected']),
+	    _templateObject11 = _taggedTemplateLiteral(['Add Date'], ['Add Date']),
+	    _templateObject12 = _taggedTemplateLiteral(['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.'], ['Your availability will be visible to people on your walk page and they’ll be able to send you a walk request.']),
+	    _templateObject13 = _taggedTemplateLiteral(['Leave my availability open. Allow people to contact you to set up a walk.'], ['Leave my availability open. Allow people to contact you to set up a walk.']),
+	    _templateObject14 = _taggedTemplateLiteral(['Approximate Duration of Walk'], ['Approximate Duration of Walk']);
 
 	var _DatePicker = __webpack_require__(49);
 
@@ -5751,6 +5752,11 @@
 	            ),
 	            React.createElement(
 	              'div',
+	              { className: 'alert alert-info' },
+	              (0, _I18nStore.translateTag)(_templateObject9)
+	            ),
+	            React.createElement(
+	              'div',
 	              { className: 'row' },
 	              React.createElement(
 	                'div',
@@ -5772,7 +5778,7 @@
 	                      React.createElement(
 	                        'small',
 	                        null,
-	                        (0, _I18nStore.translateTag)(_templateObject9),
+	                        (0, _I18nStore.translateTag)(_templateObject10),
 	                        ':'
 	                      ),
 	                      this.state.start.toLocaleDateString(undefined, {
@@ -5788,7 +5794,7 @@
 	                    React.createElement(
 	                      'button',
 	                      { className: 'btn btn-primary', id: 'save-date-set', onClick: this.addDate },
-	                      (0, _I18nStore.translateTag)(_templateObject10)
+	                      (0, _I18nStore.translateTag)(_templateObject11)
 	                    )
 	                  )
 	                )
@@ -5812,14 +5818,14 @@
 	              React.createElement(
 	                'p',
 	                { className: 'lead' },
-	                (0, _I18nStore.translateTag)(_templateObject11)
+	                (0, _I18nStore.translateTag)(_templateObject12)
 	              )
 	            ),
 	            React.createElement(
 	              'label',
 	              { className: 'checkbox' },
 	              React.createElement('input', { type: 'checkbox', name: 'open' }),
-	              (0, _I18nStore.translateTag)(_templateObject12)
+	              (0, _I18nStore.translateTag)(_templateObject13)
 	            ),
 	            React.createElement('br', null),
 	            React.createElement(
@@ -5845,7 +5851,7 @@
 	                      React.createElement(
 	                        'small',
 	                        null,
-	                        (0, _I18nStore.translateTag)(_templateObject9),
+	                        (0, _I18nStore.translateTag)(_templateObject10),
 	                        ':'
 	                      ),
 	                      React.createElement('h4', { className: 'date-indicate-all' }),
@@ -5854,7 +5860,7 @@
 	                    React.createElement(
 	                      'label',
 	                      { htmlFor: 'walk-duration' },
-	                      (0, _I18nStore.translateTag)(_templateObject13),
+	                      (0, _I18nStore.translateTag)(_templateObject14),
 	                      ':'
 	                    ),
 	                    React.createElement(
@@ -5903,7 +5909,7 @@
 	                      React.createElement(
 	                        'button',
 	                        { className: 'btn btn-primary', id: 'save-date-all', onClick: this.addDate },
-	                        (0, _I18nStore.translateTag)(_templateObject10)
+	                        (0, _I18nStore.translateTag)(_templateObject11)
 	                      )
 	                    )
 	                  )
