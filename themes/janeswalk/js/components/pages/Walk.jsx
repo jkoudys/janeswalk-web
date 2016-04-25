@@ -1,7 +1,8 @@
-/* global React */
+/* global React $ */
 
 import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
 import I18nStore from 'janeswalk/stores/I18nStore.js';
+import UserStore from 'janeswalk/stores/UserStore';
 import * as Action from 'janeswalk/actions/ItineraryActions';
 
 import WalkHeader from './Walk/WalkHeader.jsx';
@@ -35,9 +36,21 @@ export default class WalkPage extends React.Component {
       _onChange: () => {
         this.setState(getWalk);
       },
-      handleSchedule: time => Action.schedule(this.state.walk, time),
+      handleSchedule: time => {
+        if (UserStore.getCurrent()) {
+          Action.schedule(this.state.walk, time);
+        } else {
+          $('#login').modal();
+        }
+      },
       handleUnschedule: time => Action.unschedule(this.state.walk, time),
-      handleAdd: () => Action.add(this.state.list, this.state.walk),
+      handleAdd: () => {
+        if (UserStore.getCurrent()) {
+          Action.add(this.state.list, this.state.walk);
+        } else {
+          $('#login').modal();
+        }
+      },
       handleRemove: () => Action.remove(this.state.list, this.state.walk),
     });
   }
