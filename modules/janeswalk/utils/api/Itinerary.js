@@ -31,7 +31,11 @@ function getJson([...lists], [...schedule]) {
 }
 
 export function post(cb, url = endpoint) {
-  fetch(url, { method: 'POST', body: getJson(ItineraryStore.getLists(), ItineraryStore.getSchedule()) })
+  fetch(url, {
+    method: 'POST',
+    body: getJson(ItineraryStore.getLists(), ItineraryStore.getSchedule()),
+    credentials: 'include',
+  })
   .then(res => res.json())
   .then(json => console.log(json))
   .catch(error => console.error(`Failed to update itinerary: ${error.message}`));
@@ -39,7 +43,10 @@ export function post(cb, url = endpoint) {
 
 
 export function get(url = endpoint) {
-  fetch(url)
+  fetch(url, {
+    method: 'GET',
+    credentials: 'include',
+  })
   .then(res => res.json())
   .then(json => receiveAll(json))
   .catch(error => console.error(`Failed to update itinerary: ${error.message}`));

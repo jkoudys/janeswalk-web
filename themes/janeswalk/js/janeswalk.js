@@ -3121,7 +3121,11 @@
 	function post(cb) {
 	  var url = arguments.length <= 1 || arguments[1] === undefined ? endpoint : arguments[1];
 
-	  fetch(url, { method: 'POST', body: getJson(_ItineraryStore2.default.getLists(), _ItineraryStore2.default.getSchedule()) }).then(function (res) {
+	  fetch(url, {
+	    method: 'POST',
+	    body: getJson(_ItineraryStore2.default.getLists(), _ItineraryStore2.default.getSchedule()),
+	    credentials: 'include'
+	  }).then(function (res) {
 	    return res.json();
 	  }).then(function (json) {
 	    return console.log(json);
@@ -3133,7 +3137,10 @@
 	function get() {
 	  var url = arguments.length <= 0 || arguments[0] === undefined ? endpoint : arguments[0];
 
-	  fetch(url).then(function (res) {
+	  fetch(url, {
+	    method: 'GET',
+	    credentials: 'include'
+	  }).then(function (res) {
 	    return res.json();
 	  }).then(function (json) {
 	    return (0, _ItineraryActions.receiveAll)(json);
