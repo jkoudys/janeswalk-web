@@ -10781,19 +10781,21 @@
 	      },
 	      handleReset: function handleReset() {
 	        var body = new FormData();
-	        body.append('json', JSON.stringify(_this.state));
+	        body.append('uEmail', _this.state.email);
+	        body.append('uName', _this.state.email);
+	        body.append('format', 'JSON');
+
 	        // Post a reset request to the c5 endpoint for resets
 	        fetch(CCM_REL + '/login/forgot_password', {
 	          method: 'POST',
-	          data: {
-	            uEmail: _this.state.email,
-	            uName: _this.state.email,
-	            format: 'JSON'
-	          },
-	          dataType: 'json',
-	          success: function success(data) {
-	            return _this.setState({ message: data });
-	          }
+	          credentials: 'include',
+	          body: body
+	        }).then(function (res) {
+	          return res.json();
+	        }).then(function (json) {
+	          return _this.setState({ message: json });
+	        }).catch(function (ex) {
+	          return console.error('Error resetting password: ' + ex.message);
 	        });
 	      },
 
@@ -10811,29 +10813,32 @@
 
 	      handleSubmit: function handleSubmit(ev) {
 	        ev.preventDefault();
+	        var body = new FormData();
+	        body.append('uEmail', _this.state.email);
+	        body.append('uName', _this.state.email);
+	        body.append('uPassword', _this.state.password);
+	        body.append('uMaintainLogin', _this.state.maintainLogin);
+	        body.append('format', 'JSON');
+
 	        // Post the login to the c5 endpoint for logins
-	        $.ajax({
-	          type: 'POST',
-	          url: CCM_REL + '/login/do_login',
-	          data: {
-	            uEmail: _this.state.email,
-	            uName: _this.state.email,
-	            uPassword: _this.state.password,
-	            uMaintainLogin: _this.state.maintainLogin,
-	            format: 'JSON'
-	          },
-	          dataType: 'json',
-	          success: function success(data) {
-	            _this.setState({ message: data }, function () {
-	              if (data.success === 1) {
-	                if (_this.props.redirectURL) {
-	                  window.location.replace(_this.props.redirectURL);
-	                } else {
-	                  window.location.reload();
-	                }
+	        fetch(CCM_REL + '/login/do_login', {
+	          method: 'POST',
+	          credentials: 'include',
+	          body: body
+	        }).then(function (res) {
+	          return res.json();
+	        }).then(function (data) {
+	          _this.setState({ message: data }, function () {
+	            if (data.success === 1) {
+	              if (_this.props.redirectURL) {
+	                window.location.replace(_this.props.redirectURL);
+	              } else {
+	                window.location.reload();
 	              }
-	            });
-	          }
+	            }
+	          });
+	        }).catch(function (ex) {
+	          return console.error('Error logging in: ' + ex.message);
 	        });
 	      }
 	    });

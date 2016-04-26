@@ -25,18 +25,19 @@ export default class Login extends React.Component {
       },
       handleReset: () => {
         const body = new FormData();
-        body.append('json', JSON.stringify(this.state));
+        body.append('uEmail', this.state.email);
+        body.append('uName', this.state.email);
+        body.append('format', 'JSON');
+
         // Post a reset request to the c5 endpoint for resets
         fetch(`${CCM_REL}/login/forgot_password`, {
           method: 'POST',
-          data: {
-            uEmail: this.state.email,
-            uName: this.state.email,
-            format: 'JSON',
-          },
-          dataType: 'json',
-          success: data => this.setState({ message: data }),
-        });
+          credentials: 'include',
+          body,
+        })
+        .then(res => res.json())
+        .then(json => this.setState({ message: json }))
+        .catch(ex => console.error(`Error resetting password: ${ex.message}`));
       },
 
       handleChangeEmail: (ev) => {
@@ -53,19 +54,21 @@ export default class Login extends React.Component {
 
       handleSubmit: (ev) => {
         ev.preventDefault();
+        const body = new FormData();
+        body.append('uEmail', this.state.email);
+        body.append('uName', this.state.email);
+        body.append('uPassword', this.state.password);
+        body.append('uMaintainLogin', this.state.maintainLogin);
+        body.append('format', 'JSON');
+
         // Post the login to the c5 endpoint for logins
-        $.ajax({
-          type: 'POST',
-          url: `${CCM_REL}/login/do_login`,
-          data: {
-            uEmail: this.state.email,
-            uName: this.state.email,
-            uPassword: this.state.password,
-            uMaintainLogin: this.state.maintainLogin,
-            format: 'JSON',
-          },
-          dataType: 'json',
-          success: data => {
+        fetch(`${CCM_REL}/login/do_login`, {
+          method: 'POST',
+          credentials: 'include',
+          body,
+        })
+        .then(res => res.json())
+        .then(data => {
             this.setState({ message: data }, () => {
               if (data.success === 1) {
                 if (this.props.redirectURL) {
@@ -75,8 +78,8 @@ export default class Login extends React.Component {
                 }
               }
             });
-          },
-        });
+        })
+        .catch(ex => console.error(`Error logging in: ${ex.message}`));
       },
     });
   }
