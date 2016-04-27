@@ -1,6 +1,6 @@
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
-//TODO: Duplicate of Itinerary <Walk/>
+// TODO: Duplicate of Itinerary <Walk/>
 
 /**
  * Build a style object for the header

@@ -10435,7 +10435,7 @@ div.ccm-page-list-typeahead fieldset.search > ul li.country ul.cities li {
   font-weight: 300;
 }
 div.ccm-page-list-typeahead fieldset.search > ul li.country ul.cities li a {
-  color: #f16725 !important;
+  color: #f16725;
 }
 div.ccm-page-list-typeahead fieldset.search li.aux {
   padding-left: 5px;
@@ -10821,8 +10821,34 @@ body.home #intro .ccm-page-list-typeahead h3 a {
   text-decoration: underline;
   color: inherit;
 }
-body.home #intro .ccm-page-list-typeahead .country a {
+body.home #intro .ccm-page-list-typeahead ul {
+  padding: 0;
+}
+body.home #intro .ccm-page-list-typeahead ul .country {
+  padding: 0;
+}
+body.home #intro .ccm-page-list-typeahead ul .country a {
   color: inherit;
+  display: block;
+  width: 100%;
+  padding-left: 5px;
+  font-weight: 600;
+  color: #333;
+  padding-top: 10px;
+}
+body.home #intro .ccm-page-list-typeahead ul .country a:first-child {
+  padding-top: 0;
+}
+body.home #intro .ccm-page-list-typeahead ul .country .cities li a {
+  padding: 4px 25px;
+  font-weight: 300;
+  color: #f16725;
+}
+body.home #intro .ccm-page-list-typeahead ul .country .cities li a:hover {
+  background: #ededed;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
 }
 body.home #intro .ccm-page-list-typeahead a {
   color: #f16725;
@@ -11061,7 +11087,7 @@ body.home .callouts h1,
 body.home .callouts h2,
 body.home .callouts h3,
 body.home .callouts h4 {
-  text-shadow: 0px 0px 8px black;
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 body.home .callouts h1 {
   margin: 0;
@@ -11109,15 +11135,38 @@ body.home .callouts #ccm-jw-page-list-typeahead {
 }
 body.home .callouts #ccm-jw-page-list-typeahead fieldset.search {
   float: none;
-  width: 100%;
+  width: 450px;
+  margin: 0 auto 5px;
+  border: 0px;
 }
 body.home .callouts #ccm-jw-page-list-typeahead fieldset.search input[type=text] {
   font-size: 3vh;
   height: auto;
+  border: 1px solid #777;
+  font-size: 22px;
+  font-weight: 300;
+  color: #333;
 }
 body.home .callouts #ccm-jw-page-list-typeahead fieldset.search button[type=submit] {
   font-size: 3vh;
   height: 100%;
+  margin-right: 0;
+  background: #f16725;
+  color: #fff;
+  padding-left: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 0px;
+  height: 44px;
+  margin-top: 1px;
+  opacity: 0.9;
+}
+body.home .callouts #ccm-jw-page-list-typeahead fieldset.search button[type=submit]:hover {
+  opacity: 1;
+}
+body.home .callouts #ccm-jw-page-list-typeahead h3 {
+  margin-top: 8px;
 }
 body.home .callouts #ccm-jw-page-list-typeahead ul {
   text-align: left;
@@ -12632,9 +12681,15 @@ body.city-page > #blog:after {
 @media print {
   body.city-page html {
     margin-top: 0;
+    font-family: "Roboto Slab", serif;
+  }
+  body.city-page html p,
+  body.city-page html a {
+    font-family: "Roboto Slab", serif;
   }
   body.city-page .city-page {
     padding-top: 0 !important;
+    font-family: "Roboto Slab", serif !important;
   }
   body.city-page .city-page footer,
   body.city-page .city-page div#ccm-page-controls-wrapper,
@@ -15993,4 +16048,5 @@ body:lang(he) #create-walk .filterInputs .filter input[type=button] {
   .print-button {
     display: none;
   }
+  font-family: "Roboto Slab", serif !important;
 }
