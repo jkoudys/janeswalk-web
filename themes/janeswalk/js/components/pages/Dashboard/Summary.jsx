@@ -1,9 +1,14 @@
-import {t, t2} from 'janeswalk/stores/I18nStore';
+/* global React */
 
-const DashboardSummary = ({city, walks}) => {
-  let leaderCount = 0, walkCount = 0, year = 2015;
+import { t, t2 } from 'janeswalk/stores/I18nStore';
+
+export default function DashboardSummary({ city = { name: 'your city' }, walks }) {
+  let leaderCount = 0;
+  let walkCount = 0;
+  let year = 2015;
   const leaders = {};
-  for (let [id, walk] of walks) {
+
+  for (const [, walk] of walks) {
     let teamLeader = walk.team && walk.team[0];
     if (teamLeader) {
       let key = (teamLeader.email || (teamLeader.firstName + teamLeader.lastName));
@@ -15,7 +20,6 @@ const DashboardSummary = ({city, walks}) => {
   }
   leaderCount = Object.keys(leaders).length;
 
-
   return (
     <section className="dashboardRecap">
       <h2>Recap</h2>
@@ -23,9 +27,3 @@ const DashboardSummary = ({city, walks}) => {
     </section>
   );
 };
-
-DashboardSummary.defaultProps = {
-  city: {name: 'your city'}
-};
-
-export default DashboardSummary;
