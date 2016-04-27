@@ -8,6 +8,14 @@ Loader::controller('/janes_walk');
 Loader::model('page_types/Walk');
 Loader::library('MirrorWalk/MirrorWalk');
 
+function addMetaTags($tags = [], &$doc) {
+    foreach ($tags as $k => $v) {
+        $meta = $doc->appendChild($doc->createElement('meta'));
+        $meta->setAttribute('property', $k);
+        $meta->setAttribute('content', $v);
+    }
+}
+
 class WalkPageTypeController extends Controller
 {
     /**
@@ -258,23 +266,27 @@ class WalkPageTypeController extends Controller
         $c = $this->getCollectionObject();
 
         // Put the preview image for Facebook/Twitter to pick up
-        $doc = new DOMDocument;
+        $doc = new DOMDocument();
         $thumb = $c->getAttribute('thumbnail');
         if ($thumb) {
-            $meta = $doc->appendChild($doc->createElement('meta'));
-            $meta->setAttribute('property', 'og:image');
-            $meta->setAttribute('content', BASE_URL . $im->getThumbnail($thumb, 340, 720)->src);
+            addMetaTags(
+                [
+                    'og:image' => (BASE_URL . $im->getThumbnail($thumb, 340, 720)->src)
+                ],
+                $doc
+            );
             $this->set('thumb', $thumb);
         }
-        $meta = $doc->appendChild($doc->createElement('meta'));
-        $meta->setAttribute('property', 'og:url');
-        $meta->setAttribute('content', $nh->getCollectionURL($c));
-        $meta = $doc->appendChild($doc->createElement('meta'));
-        $meta->setAttribute('property', 'og:title');
-        $meta->setAttribute('content', $c->getCollectionName());
-        $meta = $doc->appendChild($doc->createElement('meta'));
-        $meta->setAttribute('property', 'og:description');
-        $meta->setAttribute('content', $c->getAttribute('shortdescription'));
+        addMetaTags(
+            [
+                'og:url' => $nh->getCollectionURL($c),
+                'og:title' => $c->getCollectionName(),
+                'og:description' => $c->getAttribute('shortdescription'),
+                'description' => $c->getAttribute('shortdescription'),
+            ],
+            $doc
+        );
+
         $this->addHeaderItem($doc->saveHTML());
 
         // Check edit permissions
