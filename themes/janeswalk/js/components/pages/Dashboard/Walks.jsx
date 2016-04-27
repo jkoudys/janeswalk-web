@@ -63,7 +63,7 @@ export default class Walks extends React.Component {
       WalkList = walkIDs
       .filter(wID => {
         const { time, title } = walks.get(wID);
-        // Don't show past walks
+        // Don't show empty-titled walks
         if (!(title && title.trim())) return false;
         // Always show unset times, or if we're not filtering
         if (!(filterPast && time && time.slots.length) || (time && time.slots[0][0] * 1000 > now)) return true;

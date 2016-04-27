@@ -78,6 +78,16 @@ export default class WalkMap extends React.Component {
       markers.push(marker);
     });
 
+    // Draw the line
+    const poly = new google.maps.Polyline({
+      strokeColor: '#F16725',
+      strokeOpacity: 0.8,
+      strokeWeight: 3,
+      editable: false,
+      map: googleMap,
+    });
+    poly.setPath(map.route.map(({ lat, lng }) => new google.maps.LatLng(lat, lng)));
+
     boundMapByMarkers(googleMap, markers);
 
     this.setState({ googleMap });
