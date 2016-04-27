@@ -34,7 +34,7 @@ function buildPageMap(Walk $walk) {
     $date = date('F d, Y', $time);
 
     $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
-    var_dump($walk->thumbnail);
+
     return <<< EOT
 <!--
 <PageMap>
