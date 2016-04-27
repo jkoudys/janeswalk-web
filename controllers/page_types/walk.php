@@ -16,6 +16,42 @@ function addMetaTags($tags = [], &$doc) {
     }
 }
 
+function buildPageMap(Walk $walk) {
+    $im = Loader::helper('image');
+
+    $leaders = join( array_map(
+        function($leader) {
+            return trim("{$leader['name-first']} {$leader['name-last']}");
+        },
+        $walk->team
+    ), ', ');
+
+    if (count($walk->time['slots'])) {
+        $time = $walk->time['slots'][0][0];
+    } else {
+        $time = time();
+    }
+    $date = date('F d, Y', $time);
+
+    $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
+    var_dump($walk->thumbnail);
+    return <<< EOT
+<!--
+<PageMap>
+    <DataObject type="document">
+        <Attribute name="title">{$walk}</Attribute>
+        <Attribute name="author">{$leaders}</Attribute>
+        <Attribute name="description">{$walk->shortDescription}{$walk->longDescription}</Attribute>
+        <Attribute name="date">{$date}</Attribute>
+    </DataObject>
+    <DataObject type="thumbnail">
+        <Attribute name="src" value="{$thumbnail}" />
+    </DataObject>
+</PageMap>
+-->
+EOT;
+}
+
 class WalkPageTypeController extends Controller
 {
     /**
@@ -288,6 +324,7 @@ class WalkPageTypeController extends Controller
         );
 
         $this->addHeaderItem($doc->saveHTML());
+        $this->addHeaderItem(buildPageMap($this->walk));
 
         // Check edit permissions
         $cp = new Permissions($this->walk->getPage());
