@@ -7,7 +7,6 @@
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head prefix="og: http://ogp.me/ns#">
     <meta charset="utf-8">
-    <meta name="description" content="<?= $description ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="google-site-verification" content="jrG7QMwIluWHDRaFad1G36OBcuF7TUgz_fqz2-onqKc" />
     <meta property="og:image" content="http://janeswalk.org/themes/janeswalk/img/jwlogo.png" />
