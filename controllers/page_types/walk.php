@@ -41,7 +41,7 @@ function buildPageMap(Walk $walk) {
     <DataObject type="document">
         <Attribute name="title">{$walk}</Attribute>
         <Attribute name="author">{$leaders}</Attribute>
-        <Attribute name="description">{$walk->shortDescription}{$walk->longDescription}</Attribute>
+        <Attribute name="description">{$walk->shortDescription} {$walk->longDescription}</Attribute>
         <Attribute name="date">{$date}</Attribute>
     </DataObject>
     <DataObject type="thumbnail">
