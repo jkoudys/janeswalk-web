@@ -23,7 +23,7 @@ function buildPageMap(Walk $walk) {
         function($leader) {
             return trim("{$leader['name-first']} {$leader['name-last']}");
         },
-        $walk->team
+        (array) $walk->team
     ), ', ');
 
     if (count($walk->time['slots'])) {
@@ -110,7 +110,7 @@ class WalkPageTypeController extends Controller
      * view(). If 'format' is set, render in requested format.
      * TODO: Replace with symfony routes in 5.7; this should be view logic, not controller
      */
-    public function show()
+    protected function show()
     {
         if ($_GET['format'] === 'json') {
             // Render JSON
@@ -131,7 +131,7 @@ class WalkPageTypeController extends Controller
      *
      * @param string $json String-encoded JSON of walk
      */
-    public function create($json)
+    protected function create($json)
     {
         $nh = Loader::helper('navigation');
         header('Content-Type: application/json');
@@ -175,7 +175,7 @@ class WalkPageTypeController extends Controller
      *
      * @param string $json String-encoded JSON of walk
      */
-    public function update($json)
+    protected function update($json)
     {
         header('Content-Type: application/json');
         try {
@@ -208,7 +208,7 @@ class WalkPageTypeController extends Controller
      * destroy
      * Simply unpublishes the walk
      */
-    public function destroy()
+    protected function destroy()
     {
         header('Content-Type: application/json');
 
