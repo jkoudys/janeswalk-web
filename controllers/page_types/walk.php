@@ -213,7 +213,7 @@ class WalkPageTypeController extends Controller
         header('Content-Type: application/json');
 
         $cp = new Permissions($this->walk->getPage());
-        if (!$cp->canEditPageContents()) {
+        if ($cp->canEditPageContents()) {
             $this->c->setAttribute('exclude_page_list', true);
 
             // TODO: Update the MirrorWalk to unpublish
