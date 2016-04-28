@@ -590,12 +590,15 @@ body.city-page {
     @media print {
         html {
             margin-top: 0;
+            font-family: @font-slab;
+            p, a {
+                font-family: @font-slab;
+            }
         }
 
         .city-page {
-
             padding-top: 0 !important;
-
+            font-family: @font-slab !important;
             footer,
             div#ccm-page-controls-wrapper,
             header {

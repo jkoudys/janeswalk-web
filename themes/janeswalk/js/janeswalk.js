@@ -75,7 +75,11 @@
 
 	var ItineraryActions = _interopRequireWildcard(_ItineraryActions);
 
+<<<<<<< HEAD
+	var _Itinerary = __webpack_require__(26);
+=======
 	var _Navbar = __webpack_require__(15);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
@@ -83,7 +87,14 @@
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
+<<<<<<< HEAD
 	var _Itinerary = __webpack_require__(35);
+=======
+<<<<<<< HEAD
+	var _Walk = __webpack_require__(52);
+=======
+	var _Itinerary = __webpack_require__(28);
+>>>>>>> react14
 
 	var ItineraryAPI = _interopRequireWildcard(_Itinerary);
 
@@ -91,7 +102,12 @@
 
 	var _CreateWalk2 = _interopRequireDefault(_CreateWalk);
 
+<<<<<<< HEAD
 	var _Walk = __webpack_require__(64);
+=======
+	var _Walk = __webpack_require__(56);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -110,6 +126,14 @@
 	/**
 	 * Let hitting 'm' make the menu pop up
 	 */
+<<<<<<< HEAD
+	/**
+	 * Initialization code goes here. This is not to be a dumping ground for
+	 * miscellaneous functions, and especially not a place to stick new global
+	 * variables.
+	 */
+	// Translations for i18n L10n
+=======
 
 
 	// React Views
@@ -117,6 +141,7 @@
 
 	// Stores, for late-binding some page updates.
 	// Not fully React, but we can use Flux for making PHP-rendered page updates too!
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 	function initKeyEvents() {
 	  // Init keyboard shortcuts
 	  var toolbar = document.getElementById('ccm-toolbar');
@@ -1021,6 +1046,11 @@
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -1033,6 +1063,21 @@
 
 	var _Itinerary2 = _interopRequireDefault(_Itinerary);
 
+<<<<<<< HEAD
+	var _AreaStore = __webpack_require__(27);
+
+	var _AreaStore2 = _interopRequireDefault(_AreaStore);
+
+	var _UserStore = __webpack_require__(28);
+
+	var _UserStore2 = _interopRequireDefault(_UserStore);
+
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _I18nStore = __webpack_require__(20);
+=======
 	var _AreaStore = __webpack_require__(29);
 
 	var _AreaStore2 = _interopRequireDefault(_AreaStore);
@@ -1047,7 +1092,12 @@
 
 	var _dom = __webpack_require__(31);
 
+<<<<<<< HEAD
 	var _LoggedInOptions = __webpack_require__(32);
+=======
+	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var _LoggedInOptions2 = _interopRequireDefault(_LoggedInOptions);
 
@@ -1083,6 +1133,32 @@
 
 	  [].forEach.call(div.children, function (child) {
 	    return refNode.parentNode.appendChild(child);
+	  });
+	}
+
+	/**
+	 * Make the navbar sticky to the top
+	 */
+	function makeSticky(reference, el) {
+	  var running = false;
+	  // Where the el is when unfixed
+	  var unfixed = reference.offsetTop;
+	  var stick = function stick() {
+	    if (running) return;
+	    running = true;
+	    requestAnimationFrame(function () {
+	      running = false;
+	      // TODO: remove this 60 hardcoding of the header height
+	      if (window.scrollY > unfixed - 60) {
+	        el.classList.add('fixed');
+	      } else {
+	        el.classList.remove('fixed');
+	      }
+	    });
+	  };
+	  window.addEventListener('scroll', stick);
+	  window.addEventListener('resize', function () {
+	    unfixed = reference.offsetTop;stick();
 	  });
 	}
 
@@ -1250,10 +1326,16 @@
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -1261,6 +1343,31 @@
 	var _templateObject = _taggedTemplateLiteral(['New Itinerary'], ['New Itinerary']),
 	    _templateObject2 = _taggedTemplateLiteral(['Powered by the Knight Foundation'], ['Powered by the Knight Foundation']);
 
+=======
+<<<<<<< HEAD
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _WalkStore = __webpack_require__(19);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	var _ItineraryActions = __webpack_require__(13);
+
+	var _I18nStore = __webpack_require__(20);
+
+	var _Walk = __webpack_require__(22);
+
+	var _Walk2 = _interopRequireDefault(_Walk);
+
+	var _ItineraryHeader = __webpack_require__(24);
+
+	var _ItineraryHeader2 = _interopRequireDefault(_ItineraryHeader);
+
+	var _ItinerarySelect = __webpack_require__(25);
+=======
+>>>>>>> react14
 	var _ItineraryStore = __webpack_require__(17);
 
 	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
@@ -1270,11 +1377,15 @@
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
 	var _ItineraryActions = __webpack_require__(14);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var Actions = _interopRequireWildcard(_ItineraryActions);
 
 	var _I18nStore = __webpack_require__(21);
 
+<<<<<<< HEAD
+	var _Itinerary = __webpack_require__(26);
+=======
 	var _Walk = __webpack_require__(23);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
@@ -1287,6 +1398,14 @@
 
 	var _ItinerarySelect2 = _interopRequireDefault(_ItinerarySelect);
 
+<<<<<<< HEAD
+=======
+	var _Itinerary = __webpack_require__(28);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+
+	var API = _interopRequireWildcard(_Itinerary);
+
+>>>>>>> react14
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1458,6 +1577,15 @@
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+=======
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -1470,9 +1598,190 @@
 
 	var _JWConstants = __webpack_require__(9);
 
+<<<<<<< HEAD
 	var _Store = __webpack_require__(18);
 
 	var _Store2 = _interopRequireDefault(_Store);
+=======
+<<<<<<< HEAD
+	var _ItineraryUtils = __webpack_require__(18);
+
+	var _WalkStore = __webpack_require__(19);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var CHANGE_EVENT = 'change';
+
+	var _lists = new Set();
+
+	// Has this store been synced, and is it syncing?
+	var _lastChange = Date.now();
+
+	//TODO: Currently no remove list, just adding lists
+
+	//TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
+	//TODO: Also how to handle adding to Itinerary within the Itinerary since you don't have dates listed
+	//TODO: You need to set a [] if there are no startTimes, to keep its place within the Index, how do you know which list selected is the Itinerary list? Based on that you either set time = null or time = [] right?
+	var _removeWalk = function _removeWalk(list, walk) {
+	  var time = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+	  if (time) {
+	    var startTimes = list.walks.get(walk);
+	    if ((0, _ItineraryUtils.startTimeIndex)(startTimes, time) >= 0) {
+	      startTimes.splice(_ItineraryUtils.startTimeIndex, 1);
+	      list.walks.set(walk, startTimes);
+	    }
+	  } else {
+	    list.walks.delete(walk);
+	  }
+	};
+
+	var _addWalk = function _addWalk(list, walk) {
+	  var time = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+
+	  if (time) {
+	    var startTimes = list.walks.get(walk) || [];
+	    if ((0, _ItineraryUtils.startTimeIndex)(startTimes, time) === -1) {
+	      startTimes.push(time);
+	      list.walks.set(walk, startTimes);
+	    }
+	  } else {
+	    list.walks.set(walk);
+	  }
+	};
+
+	var _createList = function _createList() {
+	  var title = arguments.length <= 0 || arguments[0] === undefined ? '' : arguments[0];
+	  var description = arguments.length <= 1 || arguments[1] === undefined ? '' : arguments[1];
+
+	  var list = {
+	    title: title,
+	    walks: new Set(),
+	    description: description,
+	    shareUrl: ''
+	  };
+
+	  _lists.add(list);
+
+	  // Returning list, since after _createList, _addWalk is called, so passing around the list
+	  return list;
+	};
+
+	/**
+	 * Load all the basic itineraries
+	 *
+	 * @param itineraries array List of itineraries in serlizable-friendly state
+	 */
+	var _receiveAll = function _receiveAll(itineraries) {
+	  // Itinerary has a list of walk IDs, so load the actual walks from there.
+	  //itineraries.forEach(itinerary => _lists.add(Object.assign({}, itinerary, {
+	  //  walks: new Set(itinerary.walks.map(w => WalkStore.getWalk(+w)))
+	  //})));
+
+	  itineraries.forEach(function (itinerary) {
+	    return _lists.add(Object.assign({}, itinerary, { walks: new Map(itinerary.walks.map(function (w, i) {
+	        return [_WalkStore2.default.getWalk(+w), itinerary.times ? itinerary.times[i] : []];
+	      })) }));
+	  });
+	};
+
+	//walks received from API used to update _itinerary
+	var _updateWalks = function _updateWalks(list, walks) {
+	  walks.forEach(function (walk) {
+	    return list.add(walk);
+	  });
+	};
+
+	var _updateTitle = function _updateTitle(list, title) {
+	  list.title = title;
+	};
+
+	var _updateDescription = function _updateDescription(list, description) {
+	  list.description = description;
+	};
+
+	var ItineraryStore = Object.assign(_events.EventEmitter.prototype, {
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+	  getLists: function getLists() {
+	    return _lists;
+	  },
+	  getItineraryList: function getItineraryList() {
+	    var _lists2 = _slicedToArray(_lists, 1);
+
+	    var list = _lists2[0];
+
+	    return list;
+	  },
+	  getFavouriteList: function getFavouriteList() {
+	    var _lists3 = _slicedToArray(_lists, 2);
+
+	    var itinerary = _lists3[0];
+	    var favourites = _lists3[1];
+
+	    return favourites;
+	  },
+	  getWalks: function getWalks(list) {
+	    return list.walks;
+	  },
+	  getLastChange: function getLastChange() {
+	    return _lastChange;
+	  },
+	  totalWalks: function totalWalks() {
+	    var count = 0;
+	    _lists.forEach(function (list) {
+	      return count += list.walks.size;
+	    });
+	    return count;
+	  },
+
+	  //TODO: use _updateWalks to receive walks from server via API call
+	  dispatcherIndex: (0, _AppDispatcher.register)(function (payload) {
+	    var list = payload.list;
+	    var walk = payload.walk;
+	    var time = payload.time;
+
+	    switch (payload.type) {
+	      case _JWConstants.ActionTypes.ITINERARY_REMOVE_WALK:
+	        _lastChange = Date.now();
+	        _removeWalk(list, walk, time);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_ADD_WALK:
+	        _lastChange = Date.now();
+	        //TODO: Dialog to open on first add to Itinerary/Favourites
+	        _addWalk(list, walk, time);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_TITLE:
+	        _lastChange = Date.now();
+	        _updateTitle(list, payload.title);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_UPDATE_DESCRIPTION:
+	        _lastChange = Date.now();
+	        _updateDescription(list, payload.description);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_CREATE_LIST:
+	        _lastChange = Date.now();
+	        _createList(payload.title, payload.description);
+	        break;
+	      case _JWConstants.ActionTypes.ITINERARY_RECEIVE_ALL:
+	        _receiveAll(payload.itineraries);
+	        break;
+	    }
+
+	    ItineraryStore.emitChange();
+	  })
+=======
+	var _ItineraryUtils = __webpack_require__(19);
+>>>>>>> react14
 
 	var _WalkStore = __webpack_require__(20);
 
@@ -1480,25 +1789,54 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+<<<<<<< HEAD
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+=======
+	var CHANGE_EVENT = 'change';
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	// Set<Set> A set of walk sets
 	var _lists = new Set();
 
+<<<<<<< HEAD
 	// Map<{walk}:[times]> A map of times set for each walk
 	var _schedule = new Map();
 
+=======
+<<<<<<< HEAD
+	exports.default = ItineraryStore;
+=======
+>>>>>>> react14
 	// Has this store been synced, and is it syncing?
 	var _lastChange = Date.now();
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	// TODO: Currently no remove list, just adding lists
 	// TODO: How to handle cancelled walks and removing from itinerary when no sign-ups
 
+<<<<<<< HEAD
 	var _scheduleWalk = function _scheduleWalk(walk, time) {
 	  var times = _schedule.get(walk) || new Set();
 	  times.add(+time);
 	  _schedule.set(walk, times);
+=======
+<<<<<<< HEAD
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+=======
+	  if (time) {
+	    var startTimes = list.walks.get(walk);
+	    var startIndex = (0, _ItineraryUtils.startTimeIndex)(startTimes, time);
+	    if (startIndex >= 0) {
+	      startTimes.splice(startIndex, 1);
+	      list.walks.set(walk, startTimes);
+	    }
+	  } else {
+	    list.walks.delete(walk);
+	  }
+>>>>>>> react14
 	};
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var _unscheduleWalk = function _unscheduleWalk(walk, time) {
 	  var times = _schedule.get(walk) || new Set();
@@ -1975,8 +2313,17 @@
 	}
 
 /***/ },
+<<<<<<< HEAD
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
+=======
+<<<<<<< HEAD
+/* 18 */
+/***/ function(module, exports) {
+=======
+/* 19 */
+/***/ function(module, exports) {
+>>>>>>> react14
 
 	'use strict';
 
@@ -1986,15 +2333,96 @@
 
 	var _register;
 
+<<<<<<< HEAD
 	var _AppDispatcher = __webpack_require__(4);
+=======
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var _JWConstants = __webpack_require__(9);
 
+<<<<<<< HEAD
 	var _Store = __webpack_require__(18);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+=======
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.dateFormatted = dateFormatted;
+	exports.startTimeIndex = startTimeIndex;
+	// Default formatter
+	var dtfDate = undefined;
+	// Date formatted
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat('en-US', {
+	    year: 'numeric',
+	    month: 'long',
+	    day: 'numeric',
+	    hour: 'numeric',
+	    minute: '2-digit',
+	    timeZone: 'UTC'
+	  });
+	}
+
+<<<<<<< HEAD
+	// Cache the parsed dates
+	var _dateCache = {};
+=======
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(18);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+
+	function formatDate(dateInMs) {
+	  if (dtfDate) {
+	    return dtfDate.format(dateInMs);
+	  } else {
+	    var date = new Date(dateInMs);
+	    var dateString = date.toUTCString();
+	    return dateString.slice(0, dateString.indexOf(' GMT'));
+	  }
+	}
+
+	function dateFormatted(dateInSeconds) {
+	  var fromCache = _dateCache[dateInSeconds];
+	  var fromFormat = undefined;
+	  if (fromCache) {
+	    return fromCache;
+	  } else {
+	    fromFormat = formatDate(dateInSeconds * 1000);
+	    _dateCache[dateInSeconds] = fromFormat;
+	    return fromFormat;
+	  }
+	};
+
+	function startTimeIndex(startTimes, time) {
+	  return startTimes.findIndex(function (st) {
+	    return st[0] === time[0] && st[1] === time[1];
+	  });
+	};
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _AppDispatcher = __webpack_require__(4);
+
+	var _events = __webpack_require__(17);
+>>>>>>> react14
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -2077,7 +2505,24 @@
 	  });
 	}
 
+<<<<<<< HEAD
 	var WalkStore = Object.assign({}, _Store2.default, {
+=======
+<<<<<<< HEAD
+	var WalkStore = Object.assign(_events.EventEmitter.prototype, {
+=======
+	var WalkStore = Object.assign({}, _events.EventEmitter.prototype, {
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+>>>>>>> react14
 	  getWalks: function getWalks() {
 	    return _walks;
 	  },
@@ -2101,7 +2546,11 @@
 	exports.default = WalkStore;
 
 /***/ },
+<<<<<<< HEAD
+/* 20 */
+=======
 /* 21 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2113,13 +2562,25 @@
 
 	var _Store = __webpack_require__(18);
 
+<<<<<<< HEAD
 	var _Store2 = _interopRequireDefault(_Store);
+=======
+<<<<<<< HEAD
+	var _events = __webpack_require__(17);
+=======
+	var _events = __webpack_require__(18);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
 
+<<<<<<< HEAD
+	var _translate = __webpack_require__(21);
+=======
 	var _translate = __webpack_require__(22);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var _translate2 = _interopRequireDefault(_translate);
 
@@ -2171,7 +2632,11 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
+/* 21 */
+=======
 /* 22 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2282,17 +2747,40 @@
 	module.exports = I18nTranslator;
 
 /***/ },
+<<<<<<< HEAD
+/* 22 */
+=======
 /* 23 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+=======
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+=======
+<<<<<<< HEAD
+	var _ItineraryUtils = __webpack_require__(18);
+
+	var _AddWalkToList = __webpack_require__(23);
+
+	var _AddWalkToList2 = _interopRequireDefault(_AddWalkToList);
+=======
+>>>>>>> react14
 	var _AddWalkToList = __webpack_require__(24);
 
 	var _AddWalkToList2 = _interopRequireDefault(_AddWalkToList);
@@ -2300,6 +2788,7 @@
 	var _AddToItinerary = __webpack_require__(25);
 
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2309,6 +2798,10 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
+	var Walk = function (_React$Component) {
+=======
+<<<<<<< HEAD
 	var Walk = function (_React$Component) {
 	  _inherits(Walk, _React$Component);
 
@@ -2334,6 +2827,34 @@
 	    value: function componentWillReceiveProps(_ref) {
 	      var list = _ref.list;
 
+=======
+	var Walk = (function (_React$Component) {
+>>>>>>> react14
+	  _inherits(Walk, _React$Component);
+
+	  function Walk() {
+	    var _Object$getPrototypeO;
+
+	    _classCallCheck(this, Walk);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Walk)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+
+	    _this.state = {
+	      dialogOpen: false
+	    };
+	    return _this;
+	  }
+
+	  _createClass(Walk, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(_ref) {
+	      var list = _ref.list;
+
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 	      // If the active list changes, close the dialog
 	      if (list !== this.props.list) {
 	        this.setState({ dialogOpen: false });
@@ -2350,21 +2871,79 @@
 	      var lists = _props.lists;
 	      var onAdd = _props.onAdd;
 	      var onRemove = _props.onRemove;
+<<<<<<< HEAD
 	      var onSchedule = _props.onSchedule;
 	      var onUnschedule = _props.onUnschedule;
 	      var schedule = _props.schedule;
 	      var isScheduled = _props.isScheduled;
+=======
+<<<<<<< HEAD
+	      var startTimes = _props.startTimes;
+=======
+	      var itinerary = _props.itinerary;
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 	      var dialogOpen = this.state.dialogOpen;
 	      var title = walk.title;
 	      var url = walk.url;
 	      var map = walk.map;
 	      var time = walk.time;
 
+<<<<<<< HEAD
 	      var meeting = void 0,
 	          start = void 0;
+=======
+<<<<<<< HEAD
+	      var startTimesDisplay = [];
+=======
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+	      var meeting = undefined,
+	          start = undefined;
+>>>>>>> react14
 
 	      if (map && map.markers[0]) {
 	        meeting = map.markers[0].title;
+<<<<<<< HEAD
+	      }
+
+	      if (time && time.slots) {
+	        //TODO: Check for the start and end time to match, you cannot use a set
+	        //start = time.slots[0][0];
+	        //TODO: Do we want to display time slots for non-itinerary lists?
+	        //if (startTimes) {
+	        //  time.slots.forEach(t => {
+	        //    if (startTimes && startTimes.find(st => st[0] === t[0] && st[1] === t[1])) {
+	        //      startTimesDisplay.push(<h4 className="active" onClick={() => onRemove(list, t)}>{dateFormatted(t[0])}</h4>)
+	        //    } else {
+	        //      startTimesDisplay.push(<h4 onClick={() => onAdd(list, t)}>{dateFormatted(t[0])}</h4>)
+	        //    }
+	        //  })
+	        if (startTimes) {
+	          startTimesDisplay = time.slots.map(function (t) {
+	            //let startTimeIndex = startTimes.findIndex(st => st[0] === t[0] && st[1] === t[1]);
+	            if ((0, _ItineraryUtils.startTimeIndex)(startTimes, t) == -1) {
+	              return React.createElement(
+	                'h4',
+	                null,
+	                (0, _ItineraryUtils.dateFormatted)(t[0]),
+	                React.createElement('button', { className: 'addItinerary', onClick: function onClick() {
+	                    return onAdd(list, t);
+	                  } })
+	              );
+	            } else {
+	              return React.createElement(
+	                'h4',
+	                null,
+	                (0, _ItineraryUtils.dateFormatted)(t[0]),
+	                React.createElement('button', { className: 'removeItinerary', onClick: function onClick() {
+	                    return onRemove(list, t);
+	                  } })
+	              );
+	            }
+	          });
+	        }
+=======
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 	      }
 
 	      return React.createElement(
@@ -2387,7 +2966,15 @@
 	            null,
 	            meeting
 	          ),
+<<<<<<< HEAD
 	          React.createElement(_AddToItinerary2.default, { schedule: schedule, time: time, walk: walk, onSchedule: onSchedule, onUnschedule: onUnschedule, isScheduled: isScheduled })
+=======
+<<<<<<< HEAD
+	          startTimesDisplay
+=======
+	          React.createElement(_AddToItinerary2.default, { itinerary: itinerary, time: time, walk: walk, onAdd: onAdd, onRemove: onRemove })
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 	        ),
 	        React.createElement('button', {
 	          className: 'action removeWalk',
@@ -2426,15 +3013,32 @@
 	exports.default = Walk;
 
 /***/ },
+<<<<<<< HEAD
+/* 23 */
+=======
 /* 24 */
+<<<<<<< HEAD
 /***/ function(module, exports) {
+=======
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+/***/ function(module, exports, __webpack_require__) {
+>>>>>>> react14
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+<<<<<<< HEAD
 	/* global React */
+=======
+
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var AddWalkToList = function AddWalkToList(_ref) {
 	  var lists = _ref.lists;
@@ -2501,6 +3105,28 @@
 	      }
 	    }
 	  }
+<<<<<<< HEAD
+
+	  return React.createElement(
+	    'div',
+	    { id: 'addWalk', className: 'add-walk-to-list' },
+	    React.createElement(
+	      'ul',
+	      null,
+	      allLists
+	    )
+	  );
+	};
+
+	AddWalkToList.propTypes = {
+	  lists: React.PropTypes.instanceOf(Set)
+	};
+
+	exports.default = AddWalkToList;
+
+/***/ },
+/* 24 */
+=======
 
 	  return React.createElement(
 	    'div',
@@ -2521,6 +3147,7 @@
 
 /***/ },
 /* 25 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2529,11 +3156,19 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _ItineraryUtils = __webpack_require__(26);
 
 	var _I18nStore = __webpack_require__(21);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /* global React */
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+	var _ItineraryUtils = __webpack_require__(19);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var AddToItinerary = function AddToItinerary(_ref) {
 	  var schedule = _ref.schedule;
@@ -2713,6 +3348,36 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
+	var _ItineraryActions = __webpack_require__(13);
+
+	var _I18nStore = __webpack_require__(20);
+
+	var ItinerarySelect = function ItinerarySelect(_ref) {
+	  var lists = _ref.lists;
+	  var activeList = _ref.activeList;
+	  var onChoose = _ref.onChoose;
+	  var onCreate = _ref.onCreate;
+
+	  var listItems = [];
+	  lists.forEach(function (list) {
+	    return listItems.push(React.createElement(
+	      'li',
+	      { key: list.id },
+	      React.createElement(
+	        'a',
+	        { className: activeList === list ? 'selected' : '', onClick: function onClick() {
+	            return onChoose(list);
+	          } },
+	        list.title,
+	        ' (',
+	        list.walks.size,
+	        ')'
+	      )
+	    ));
+	  });
+
+=======
 	var _ItineraryActions = __webpack_require__(14);
 
 	var _I18nStore = __webpack_require__(21);
@@ -2741,6 +3406,7 @@
 	    ));
 	  });
 
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 	  return React.createElement(
 	    'dialog',
 	    { id: 'itinerary-select', className: 'static-list' },
@@ -2762,7 +3428,162 @@
 	exports.default = ItinerarySelect;
 
 /***/ },
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+/* 26 */
+=======
+/* 28 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.post = post;
+	exports.get = get;
+	exports.startPolling = startPolling;
+
+<<<<<<< HEAD
+	var _ItineraryStore = __webpack_require__(16);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _ItineraryActions = __webpack_require__(13);
+=======
+	var _ItineraryStore = __webpack_require__(17);
+
+	var _ItineraryStore2 = _interopRequireDefault(_ItineraryStore);
+
+	var _ItineraryActions = __webpack_require__(14);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toArray(arr) { return Array.isArray(arr) ? arr : Array.from(arr); } /**
+	                                                                               * API methods for loading itineraries
+	                                                                               * (de)serializing to and from from the Jane's Walk C5
+	                                                                               */
+
+	// Service endpoints
+	var endpoint = '/profile/itineraries';
+
+	/**
+	 * Serialize as JSON
+	 * No need to serialize the whole walks list. Just need their IDs
+	 */
+	function getJson(_ref) {
+	  var _ref2 = _toArray(_ref);
+
+	  var lists = _ref2;
+
+	  return JSON.stringify(lists.map(function (list) {
+<<<<<<< HEAD
+	    var _list$walks = _toArray(list.walks);
+
+	    var walks = _list$walks;
+
+	    return Object.assign({}, list, {
+	      walks: walks.map(function (w) {
+	        return +w.id;
+	      })
+	    });
+=======
+	    var walks = [],
+	        times = [];
+	    var denormal = {};
+
+	    // Denormalize for serializing
+	    list.walks.forEach(function (timeArr, walk) {
+	      walks.push(+walk.id);
+	      if (timeArr) {
+	        times.push(timeArr);
+	      }
+	    });
+
+	    if (times.length) {
+	      denormal.times = times;
+	    }
+	    denormal.walks = walks;
+
+	    return Object.assign({}, list, denormal);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+	  }));
+	}
+
+	function post(cb) {
+	  var url = arguments.length <= 1 || arguments[1] === undefined ? endpoint : arguments[1];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('POST', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      console.log(data);
+	      cb();
+	    } catch (e) {
+	      console.log('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send(getJson(_ItineraryStore2.default.getLists()));
+	}
+
+	function get() {
+	  var url = arguments.length <= 0 || arguments[0] === undefined ? endpoint : arguments[0];
+
+	  var xhr = new XMLHttpRequest();
+	  xhr.open('GET', url);
+	  xhr.onload = function () {
+	    var data = undefined;
+	    try {
+	      data = JSON.parse(this.responseText);
+	      (0, _ItineraryActions.receiveAll)(data);
+	    } catch (e) {
+	      cb('Error parsing JSON returned on itinerary' + url);
+	    }
+	  };
+	  xhr.onerror = function () {
+	    console.log('Failed to update itinerary.');
+	  };
+	  xhr.send();
+	}
+
+	/**
+	 * Poll, and sync when updates stop
+	 */
+	function startPolling() {
+	  var period = arguments.length <= 0 || arguments[0] === undefined ? 100 : arguments[0];
+
+	  var lastSync = _ItineraryStore2.default.getLastChange();
+	  var syncing = false;
+
+	  setInterval(function () {
+	    var lastChange = _ItineraryStore2.default.getLastChange();
+	    // Poll, to see if we've waited a bit since the last thing you changed
+	    if (Date.now() - lastChange > period * 3) {
+	      if (lastChange > lastSync && !syncing) {
+	        syncing = true;
+	        post(function () {
+	          lastSync = Date.now();syncing = false;
+	        });
+	      }
+	    }
+	  }, period);
+	}
+
+/***/ },
+<<<<<<< HEAD
+/* 27 */
+=======
+>>>>>>> react14
 /* 29 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2805,7 +3626,11 @@
 	exports.default = AreaStore;
 
 /***/ },
+<<<<<<< HEAD
+/* 28 */
+=======
 /* 30 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2816,7 +3641,19 @@
 
 	var _register;
 
+<<<<<<< HEAD
 	var _AppDispatcher = __webpack_require__(4);
+=======
+<<<<<<< HEAD
+	var _events = __webpack_require__(17);
+
+	var _JWConstants = __webpack_require__(9);
+
+	var CHANGE_EVENT = 'change';
+
+=======
+	var _events = __webpack_require__(18);
+>>>>>>> react14
 
 	var _JWConstants = __webpack_require__(9);
 
@@ -2832,9 +3669,11 @@
 	                                                                                                                                                                                                                   * Users on Jane's Walk.
 	                                                                                                                                                                                                                   */
 
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 	// Store singletons
 	// The users, keyed on uID
 	var _users = new Map();
+<<<<<<< HEAD
 
 	// Is this the actively logged in user
 	var _current = void 0;
@@ -2843,16 +3682,58 @@
 	  var user = _ref.user;
 	  var current = _ref.current;
 
+<<<<<<< HEAD
 	  // Merge users, so we can add more data to the same one.
 	  var newUser = Object.assign(_users.get(+user.id) || {}, user);
 	  _users.set(+user.id, newUser);
+=======
+=======
+
+	// Is this the actively logged in user
+	var _current = undefined;
+
+	// Receive a single walk
+	function receiveUser(user, _ref) {
+	  var current = _ref.current;
+
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+	  _users.set(+user.id, user);
+>>>>>>> react14
 
 	  if (current) {
 	    _current = newUser;
 	  }
 	}
 
+<<<<<<< HEAD
 	var UserStore = Object.assign({}, _Store2.default, {
+=======
+	// Receive an array of walks
+	function receiveUsers(users) {
+	  users.forEach(function (u) {
+<<<<<<< HEAD
+	    return receiveUser(u);
+	  });
+	}
+
+	var UserStore = Object.assign(_events.EventEmitter.prototype, {
+=======
+	    return receiveUser(u, {});
+	  });
+	}
+
+	var UserStore = Object.assign({}, _events.EventEmitter.prototype, {
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+	  emitChange: function emitChange() {
+	    this.emit(CHANGE_EVENT);
+	  },
+	  addChangeListener: function addChangeListener(callback) {
+	    this.on(CHANGE_EVENT, callback);
+	  },
+	  removeChangeListener: function removeChangeListener(callback) {
+	    this.removeListener(CHANGE_EVENT, callback);
+	  },
+>>>>>>> react14
 	  getUsers: function getUsers() {
 	    return _users;
 	  },
@@ -2870,6 +3751,8 @@
 	    return UserStore.emitChange();
 	  })
 	});
+<<<<<<< HEAD
+=======
 
 	exports.default = UserStore;
 
@@ -3010,6 +3893,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var _AppDispatcher = __webpack_require__(4);
 
@@ -3054,6 +3938,7 @@
 
 	'use strict';
 
+<<<<<<< HEAD
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -3177,6 +4062,9 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+>>>>>>> react14
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -3254,7 +4142,11 @@
 
 	var _Walk = __webpack_require__(61);
 
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var _I18nStore2 = _interopRequireDefault(_I18nStore);
 
@@ -3282,6 +4174,7 @@
 	// Flux
 
 
+<<<<<<< HEAD
 	// TODO: move into store
 	var _notifications = [];
 
@@ -3293,6 +4186,8 @@
 	  _notifications.shift();
 	}
 
+=======
+>>>>>>> react14
 	var CreateWalk = function (_React$Component) {
 	  _inherits(CreateWalk, _React$Component);
 
@@ -3351,14 +4246,36 @@
 	          }).then(function (_ref) {
 	            var walkUrl = _ref.url;
 
+<<<<<<< HEAD
 	            addNotice({ type: 'success', name: 'Walk saved' });
 	            _this.setState({ url: walkUrl || _this.state.url }, function checkCallback() {
+=======
+	      // Build a simplified map from the Google objects
+	      this.setState({
+	        map: this.refs.mapBuilder.getStateSimple(),
+	        notifications: notifications
+	      }, function () {
+	        $.ajax({
+	          url: _this2.state.url,
+	          type: options.publish ? 'PUT' : 'POST',
+	          data: { json: JSON.stringify(_this2.state) },
+	          dataType: 'json',
+<<<<<<< HEAD
+	          success: function (data) {
+=======
+	          success: (function (data) {
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+	            var notifications = this.state.notifications.slice();
+	            notifications.push({ type: 'success', name: 'Walk saved' });
+	            this.setState({ notifications: notifications, url: data.url || this.state.url }, function () {
+>>>>>>> react14
 	              if (cb && cb instanceof Function) {
 	                // The 'this' in each callback should be the <CreateWalk>
 	                cb.call(this);
 	              }
 	            });
 	            setTimeout(removeNotice, 1200);
+<<<<<<< HEAD
 	          }).catch(function (_ref2) {
 	            var message = _ref2.message;
 
@@ -3399,6 +4316,25 @@
 	      handlePreview: function handlePreview() {
 	        return _this.saveWalk({}, function () {
 	          return _this.setState({ preview: true });
+=======
+<<<<<<< HEAD
+	          }.bind(_this2),
+	          error: function (xhr, status, err) {
+=======
+	          }).bind(_this2),
+	          error: (function (xhr, status, err) {
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+	            var notifications = this.state.notifications.slice();
+	            notifications.push({ type: 'danger', name: 'Walk failed to save', message: 'Keep this window open and contact Jane\'s Walk for assistance' });
+	            this.setState({ notifications: notifications });
+	            setTimeout(removeNotice, 6000);
+	            console.error(this.url, status, err.toString());
+<<<<<<< HEAD
+	          }.bind(_this2)
+=======
+	          }).bind(_this2)
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 	        });
 	      }
 	    });
@@ -3462,6 +4398,7 @@
 	              ),
 	              React.createElement(
 	                'button',
+<<<<<<< HEAD
 	                {
 	                  className: 'btn btn-info btn-submit',
 	                  id: 'btn-submit',
@@ -3472,6 +4409,12 @@
 	                  ref: 'publish'
 	                },
 	                (0, _I18nStore.translateTag)(_templateObject2)
+=======
+	                { className: 'btn btn-info btn-submit', id: 'btn-submit', title: 'Publishing will make your visible to all.', onClick: function () {
+	                    this.setState({ publish: true });
+	                  }.bind(this), ref: 'publish' },
+	                (0, _I18nStore.t)('Publish Walk')
+>>>>>>> react14
 	              ),
 	              React.createElement(
 	                'button',
@@ -3779,24 +4722,107 @@
 
 
 	exports.default = CreateWalk;
+<<<<<<< HEAD
 	Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
 /* 37 */
+=======
+	Object.assign(CreateWalk.prototype, React.addons.LinkedStateMixin), function (_React$Component2) {
+	  _inherits(WalkPreview, _React$Component2);
+
+	  function WalkPreview() {
+	    _classCallCheck(this, WalkPreview);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(WalkPreview).apply(this, arguments));
+	  }
+
+	  _createClass(WalkPreview, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this6 = this;
+
+	      var el = React.findDOMNode(this);
+	      // Bootstrap Modal
+	      $(el).modal();
+	      // Close the modal when modal closes
+	      $(el).bind('hidden.bs.modal', function () {
+	        return _this6.props.close();
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return React.createElement(
+	        'dialog',
+	        { id: 'preview-modal' },
+	        React.createElement(
+	          'div',
+	          null,
+	          React.createElement(
+	            'article',
+	            null,
+	            React.createElement(
+	              'header',
+	              null,
+	              React.createElement(
+	                'button',
+	                { type: 'button', className: 'close', 'aria-hidden': 'true', 'data-dismiss': 'modal' },
+	                '×'
+	              ),
+	              React.createElement(
+	                'h3',
+	                null,
+	                (0, _I18nStore.t)('Preview of your Walk')
+	              )
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'modal-body' },
+	              React.createElement('iframe', { src: this.props.url, frameBorder: '0' })
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return WalkPreview;
+	}(React.Component);
+
+/***/ },
+<<<<<<< HEAD
+/* 30 */
+=======
+/* 34 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you have trouble uploading, reduce the size of your photo before trying again.'], ['Upload a photo that best represents your walk. Use the \'Preview Walk\' button on the left to see how it will look on your walk page. If you have trouble uploading, reduce the size of your photo before trying again.']),
 	    _templateObject2 = _taggedTemplateLiteral(['Click to upload an image'], ['Click to upload an image']);
 
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+>>>>>>> react14
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -3806,9 +4832,12 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React CCM_TOOLS_PATH */
 
+<<<<<<< HEAD
 	// Flux
 
 
+=======
+>>>>>>> react14
 	var ImageUpload = function (_React$Component) {
 	  _inherits(ImageUpload, _React$Component);
 
@@ -3917,21 +4946,41 @@
 	exports.default = ImageUpload;
 
 /***/ },
+<<<<<<< HEAD
 /* 38 */
+=======
+<<<<<<< HEAD
+/* 31 */
+=======
+/* 35 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Themes'], ['Themes']),
 	    _templateObject2 = _taggedTemplateLiteral(['Pick between ', ' and ', ' boxes.'], ['Pick between ', ' and ', ' boxes.']);
 
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+>>>>>>> react14
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -3941,9 +4990,17 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 	/* global React */
 
 	var mixins = __webpack_require__(39);
+=======
+<<<<<<< HEAD
+	var mixins = __webpack_require__(32);
+=======
+	var mixins = __webpack_require__(36);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	// Flux
 
@@ -4025,7 +5082,15 @@
 	ThemeSelect.defaultProps = __webpack_require__(40);
 
 /***/ },
+<<<<<<< HEAD
 /* 39 */
+=======
+<<<<<<< HEAD
+/* 32 */
+=======
+/* 36 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4054,6 +5119,7 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 40 */
 /***/ function(module, exports) {
 
@@ -4210,14 +5276,27 @@
 
 /***/ },
 /* 41 */
+=======
+<<<<<<< HEAD
+/* 33 */
+=======
+/* 37 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Walk Stops'], ['Walk Stops']),
@@ -4228,6 +5307,36 @@
 	    _templateObject6 = _taggedTemplateLiteral(['Clear Route'], ['Clear Route']);
 
 	var _WalkStopTable = __webpack_require__(42);
+=======
+<<<<<<< HEAD
+	var _WalkStopTable = __webpack_require__(34);
+
+	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
+
+	var _WalkInfoWindow = __webpack_require__(35);
+
+	var _WalkInfoWindow2 = _interopRequireDefault(_WalkInfoWindow);
+
+	var _InstagramConnect = __webpack_require__(36);
+
+	var _InstagramConnect2 = _interopRequireDefault(_InstagramConnect);
+
+	var _SoundCloudConnect = __webpack_require__(37);
+
+	var _SoundCloudConnect2 = _interopRequireDefault(_SoundCloudConnect);
+
+	var _TwitterConnect = __webpack_require__(38);
+
+	var _TwitterConnect2 = _interopRequireDefault(_TwitterConnect);
+
+	var _ConnectFilters = __webpack_require__(39);
+
+	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
+
+	var _I18nStore = __webpack_require__(20);
+=======
+	var _WalkStopTable = __webpack_require__(38);
+>>>>>>> react14
 
 	var _WalkStopTable2 = _interopRequireDefault(_WalkStopTable);
 
@@ -4252,6 +5361,7 @@
 	var _ConnectFilters2 = _interopRequireDefault(_ConnectFilters);
 
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4261,7 +5371,17 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+<<<<<<< HEAD
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM google $ CCM_THEME_PATH */
+=======
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+<<<<<<< HEAD
+	var Helper = __webpack_require__(40);
+=======
+	var Helper = __webpack_require__(44);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	// Flux
 
@@ -4738,7 +5858,15 @@
 	});
 
 /***/ },
+<<<<<<< HEAD
 /* 42 */
+=======
+<<<<<<< HEAD
+/* 34 */
+=======
+/* 38 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -4747,10 +5875,17 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; // Flux
 
 
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+>>>>>>> react14
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var UpArrow = function UpArrow(props) {
 	  return React.createElement(
@@ -4888,11 +6023,24 @@
 	exports.default = WalkStopTable;
 
 /***/ },
+<<<<<<< HEAD
 /* 43 */
+=======
+<<<<<<< HEAD
+/* 35 */
+=======
+/* 39 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -5009,11 +6157,24 @@
 	exports.default = WalkInfoWindow;
 
 /***/ },
+<<<<<<< HEAD
 /* 44 */
+=======
+<<<<<<< HEAD
+/* 36 */
+=======
+/* 40 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -5026,8 +6187,11 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 	/* global React $ */
 
+=======
+>>>>>>> react14
 	var InstagramConnect = function (_React$Component) {
 	  _inherits(InstagramConnect, _React$Component);
 
@@ -5147,11 +6311,24 @@
 	exports.default = InstagramConnect;
 
 /***/ },
+<<<<<<< HEAD
 /* 45 */
+=======
+<<<<<<< HEAD
+/* 37 */
+=======
+/* 41 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -5298,11 +6475,24 @@
 	exports.default = SoundCloudConnect;
 
 /***/ },
+<<<<<<< HEAD
 /* 46 */
+=======
+<<<<<<< HEAD
+/* 38 */
+=======
+/* 42 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -5433,7 +6623,15 @@
 	exports.default = TwitterConnect;
 
 /***/ },
+<<<<<<< HEAD
 /* 47 */
+=======
+<<<<<<< HEAD
+/* 39 */
+=======
+/* 43 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5509,15 +6707,72 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 48 */
+=======
+<<<<<<< HEAD
+/* 40 */
+=======
+/* 44 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+/***/ function(module, exports) {
+
+	'use strict';
+
+	/*
+	 * Helpers for building React pages with
+	 *
+	 * Try to only put things in here after exhausting all possible other options,
+	 * and review this file periodically to see what can be removed as new features
+	 * are added to React.
+	 */
+
+	// Render a JSX fragment into a <span> wrapper. Helpful when an API takes a Node
+	// as the input, e.g. Google Maps
+	exports.renderAsNode = function (reactElement) {
+	  var returnEl = document.createElement('span');
+	  React.render(returnEl, reactElement);
+	  return returnEl;
+	};
+
+	// Not a generalized Object => Array, rather a convertor to change
+	// {0: 'a', 1: 'b', 2: 'c'} into ['a','b','c']. Use only to convert
+	// obsolete encodings of walks into proper arrays
+	exports.objectToArray = function (obj) {
+	  var destination = [];
+
+	  // Assign numeric index in object as array index
+	  for (var i in obj) {
+	    destination[i] = obj[i];
+	  }
+
+	  // Needed to remove any empty elements, e.g. if input obj counts from 1 not 0
+	  return destination.filter(function (n) {
+	    return n !== undefined;
+	  });
+	};
+
+/***/ },
+<<<<<<< HEAD
+/* 41 */
+=======
+/* 45 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Set the Time and Date'], ['Set the Time and Date']),
@@ -5536,6 +6791,12 @@
 	    _templateObject14 = _taggedTemplateLiteral(['Approximate Duration of Walk'], ['Approximate Duration of Walk']);
 
 	var _DatePicker = __webpack_require__(49);
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+	var _DatePicker = __webpack_require__(46);
+>>>>>>> react14
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
@@ -5554,6 +6815,7 @@
 	var _I18nStore = __webpack_require__(21);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -5561,10 +6823,24 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
+<<<<<<< HEAD
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React CCM_THEME_PATH */
 
 	// Components
 
+=======
+<<<<<<< HEAD
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Components
+	var DatePicker = __webpack_require__(42);
+	var TimePicker = __webpack_require__(43);
+	var TimeSetTable = __webpack_require__(44);
+	var TimeOpenTable = __webpack_require__(45);
+=======
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Components
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	// Flux
 
@@ -5572,6 +6848,11 @@
 	// Default to a 1-hour walk time
 	var ONE_HOUR = 60 * 60 * 1000;
 
+<<<<<<< HEAD
+=======
+	// TODO: Make 'intiatives' build as separate selectors
+
+>>>>>>> react14
 	var DateSelect = function (_React$Component) {
 	  _inherits(DateSelect, _React$Component);
 
@@ -5948,11 +7229,30 @@
 	Object.assign(DateSelect.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
+<<<<<<< HEAD
 /* 49 */
+=======
+<<<<<<< HEAD
+/* 42 */
+=======
+/* 46 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	"use strict";
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+=======
+	var _slicedToArray = (function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; })();
+
+	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -5991,7 +7291,19 @@
 
 	      // Setup sorting on the walk-stops list
 
+<<<<<<< HEAD
 	      $(ReactDOM.findDOMNode(this)).datepicker({
+=======
+	      $(React.findDOMNode(this)).datepicker({
+<<<<<<< HEAD
+	        defaultDate: this.props.defaultDate,
+	        onSelect: function (dateText) {
+	          // Silly, but needed for inconsistent date formats across libs
+	          var dateMDY = dateText.split('/');
+	          this.props.setDay(new Date(Date.UTC(dateMDY[2], dateMDY[0] - 1, dateMDY[1])));
+	        }.bind(this)
+=======
+>>>>>>> react14
 	        defaultDate: defaultDate,
 	        onSelect: function onSelect(dateText) {
 	          // Silly, but needed for inconsistent date formats across libs
@@ -6006,6 +7318,7 @@
 
 	          setDay(new Date(Date.UTC(year, month - 1, day)));
 	        }
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 	      });
 	    }
 	  }, {
@@ -6021,18 +7334,38 @@
 	exports.default = DatePicker;
 
 /***/ },
+<<<<<<< HEAD
 /* 50 */
+=======
+<<<<<<< HEAD
+/* 43 */
+=======
+/* 47 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+>>>>>>> react14
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6186,16 +7519,33 @@
 	exports.default = TimePicker;
 
 /***/ },
+<<<<<<< HEAD
 /* 51 */
+=======
+<<<<<<< HEAD
+/* 44 */
+=======
+/* 48 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	var _TimeSetRow = __webpack_require__(52);
 
@@ -6208,6 +7558,7 @@
 	 */
 	/* global React */
 
+<<<<<<< HEAD
 	exports.default = function (_ref) {
 	  var _ref$valueLink$value$ = _ref.valueLink.value.slots;
 	  var slots = _ref$valueLink$value$ === undefined ? [] : _ref$valueLink$value$;
@@ -6248,6 +7599,10 @@
 	    )
 	  );
 	};
+=======
+	var TimeSetTable = function (_React$Component) {
+	  _inherits(TimeSetTable, _React$Component);
+>>>>>>> react14
 
 /***/ },
 /* 52 */
@@ -6300,6 +7655,7 @@
 	  var minutes = duration.getUTCMinutes();
 	  var durationFmt = [];
 
+<<<<<<< HEAD
 	  if (hours) {
 	    durationFmt.push((0, _I18nStore.t2)('%d Hour', '%d Hours', hours));
 	  }
@@ -6307,6 +7663,10 @@
 	  if (minutes) {
 	    durationFmt.push((0, _I18nStore.t2)('%d Minute', '%d Minutes', minutes));
 	  }
+=======
+	  return TimeSetTable;
+	}(React.Component);
+>>>>>>> react14
 
 	  return React.createElement(
 	    'tr',
@@ -6341,11 +7701,24 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 53 */
+=======
+<<<<<<< HEAD
+/* 45 */
+=======
+/* 49 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports) {
 
 	"use strict";
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -6386,21 +7759,41 @@
 	exports.default = TimeOpenTable;
 
 /***/ },
+<<<<<<< HEAD
 /* 54 */
+=======
+<<<<<<< HEAD
+/* 46 */
+=======
+/* 50 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Sub-locality'], ['Sub-locality']),
 	    _templateObject2 = _taggedTemplateLiteral(['Choose a specific neighbourhood or area where your walk will take place.'], ['Choose a specific neighbourhood or area where your walk will take place.']);
 
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+>>>>>>> react14
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -6410,9 +7803,17 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+<<<<<<< HEAD
 	/* global React */
 
 	var mixins = __webpack_require__(39);
+=======
+<<<<<<< HEAD
+	var mixins = __webpack_require__(32);
+=======
+	var mixins = __webpack_require__(36);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	// Flux
 
@@ -6477,15 +7878,29 @@
 	Object.assign(WardSelect.prototype, mixins.linkedParentState);
 
 /***/ },
+<<<<<<< HEAD
 /* 55 */
+=======
+<<<<<<< HEAD
+/* 47 */
+=======
+/* 51 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Family friendly'], ['Family friendly']),
@@ -6502,8 +7917,17 @@
 	    _templateObject12 = _taggedTemplateLiteral(['How accessible is this walk?'], ['How accessible is this walk?']);
 
 	var _mixins = __webpack_require__(39);
+=======
+<<<<<<< HEAD
+	var _mixins = __webpack_require__(32);
+
+	var _I18nStore = __webpack_require__(20);
+=======
+	var _mixins = __webpack_require__(36);
+>>>>>>> react14
 
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -6519,8 +7943,11 @@
 	// Flux
 
 
+<<<<<<< HEAD
 	var options = [{ id: 'accessible-familyfriendly', name: (0, _I18nStore.translateTag)(_templateObject) }, { id: 'accessible-wheelchair', name: (0, _I18nStore.translateTag)(_templateObject2) }, { id: 'accessible-dogs', name: (0, _I18nStore.translateTag)(_templateObject3) }, { id: 'accessible-strollers', name: (0, _I18nStore.translateTag)(_templateObject4) }, { id: 'accessible-bicycles', name: (0, _I18nStore.translateTag)(_templateObject5) }, { id: 'accessible-steephills', name: (0, _I18nStore.translateTag)(_templateObject6) }, { id: 'accessible-uneven', name: (0, _I18nStore.translateTag)(_templateObject7) }, { id: 'accessible-busy', name: (0, _I18nStore.translateTag)(_templateObject8) }, { id: 'accessible-bicyclesonly', name: (0, _I18nStore.translateTag)(_templateObject9) }, { id: 'accessible-lowlight', name: (0, _I18nStore.translateTag)(_templateObject10) }, { id: 'accessible-seniors', name: (0, _I18nStore.translateTag)(_templateObject11) }];
 
+=======
+>>>>>>> react14
 	var AccessibleSelect = function (_React$Component) {
 	  _inherits(AccessibleSelect, _React$Component);
 
@@ -6568,7 +7995,15 @@
 	Object.assign(AccessibleSelect.prototype, _mixins.linkedParentState);
 
 /***/ },
+<<<<<<< HEAD
 /* 56 */
+=======
+<<<<<<< HEAD
+/* 48 */
+=======
+/* 52 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6577,11 +8012,18 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+>>>>>>> react14
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -7405,15 +8847,29 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 57 */
+=======
+<<<<<<< HEAD
+/* 49 */
+=======
+/* 53 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['Publish walk to EventBrite'], ['Publish walk to EventBrite']),
@@ -7422,7 +8878,13 @@
 	    _templateObject4 = _taggedTemplateLiteral(['Bring me back to edit'], ['Bring me back to edit']),
 	    _templateObject5 = _taggedTemplateLiteral(['Publish'], ['Publish']);
 
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+>>>>>>> react14
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -7558,7 +9020,15 @@
 	Object.assign(WalkPublish.prototype, React.addons.LinkedStateMixin);
 
 /***/ },
+<<<<<<< HEAD
 /* 58 */
+=======
+<<<<<<< HEAD
+/* 50 */
+=======
+/* 54 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7567,7 +9037,11 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
 	var _I18nStore = __webpack_require__(21);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	/**
 	 * Text areas with a 'remaining characters' limit
@@ -7585,26 +9059,67 @@
 	  );
 	}; // Flux
 
+<<<<<<< HEAD
+=======
+	exports.default = TextAreaLimit;
+
+/***/ },
+<<<<<<< HEAD
+/* 51 */
+=======
+/* 55 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+/***/ function(module, exports) {
+>>>>>>> react14
 
 	exports.default = TextAreaLimit;
 
 /***/ },
+<<<<<<< HEAD
 /* 59 */
+=======
+<<<<<<< HEAD
+/* 52 */
+=======
+/* 56 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+=======
+<<<<<<< HEAD
+	var _ItineraryStore = __webpack_require__(16);
+=======
+	var _ItineraryStore = __webpack_require__(17);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var _templateObject = _taggedTemplateLiteral(['Preview of your Walk'], ['Preview of your Walk']);
 
 	var _I18nStore = __webpack_require__(21);
 
+<<<<<<< HEAD
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+=======
+<<<<<<< HEAD
+	var _WalkHeader = __webpack_require__(53);
+=======
+	var _WalkHeader = __webpack_require__(57);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -8266,7 +9781,15 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 65 */
+=======
+<<<<<<< HEAD
+/* 53 */
+=======
+/* 57 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8275,14 +9798,26 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _templateObject = _taggedTemplateLiteral(['Edit'], ['Edit']),
 	    _templateObject2 = _taggedTemplateLiteral(['Led By ', ' ', ''], ['Led By ', ' ', '']);
+=======
+<<<<<<< HEAD
+	var _ItineraryUtils = __webpack_require__(18);
+=======
+	var _AddToItinerary = __webpack_require__(25);
+>>>>>>> react14
 
 	var _I18nStore = __webpack_require__(21);
 
 	var _AddToItinerary = __webpack_require__(25);
 
+<<<<<<< HEAD
 	var _AddToItinerary2 = _interopRequireDefault(_AddToItinerary);
+=======
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -8435,8 +9970,17 @@
 	exports.default = WalkHeader;
 
 /***/ },
+<<<<<<< HEAD
 /* 66 */
 /***/ function(module, exports, __webpack_require__) {
+=======
+<<<<<<< HEAD
+/* 54 */
+=======
+/* 58 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+/***/ function(module, exports) {
+>>>>>>> react14
 
 	'use strict';
 
@@ -8812,6 +10356,7 @@
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _templateObject = _taggedTemplateLiteral(['About This Walk'], ['About This Walk']),
 	    _templateObject2 = _taggedTemplateLiteral(['Walk Route'], ['Walk Route']),
 	    _templateObject3 = _taggedTemplateLiteral(['How to find us'], ['How to find us']),
@@ -8820,6 +10365,13 @@
 	    _templateObject6 = _taggedTemplateLiteral(['About the Walk Team'], ['About the Walk Team']),
 	    _templateObject7 = _taggedTemplateLiteral(['Led By ', ''], ['Led By ', '']),
 	    _templateObject8 = _taggedTemplateLiteral(['Meeting at ', ''], ['Meeting at ', '']);
+=======
+<<<<<<< HEAD
+	var _ItineraryUtils = __webpack_require__(18);
+=======
+	var _ItineraryUtils = __webpack_require__(19);
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 
 	var _ItineraryUtils = __webpack_require__(26);
 
@@ -9013,6 +10565,11 @@
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
@@ -9161,6 +10718,7 @@
 	};
 
 /***/ },
+<<<<<<< HEAD
 /* 77 */
 /***/ function(module, exports) {
 
@@ -9272,15 +10830,34 @@
 
 /***/ },
 /* 78 */
+=======
+<<<<<<< HEAD
+/* 65 */
+=======
+/* 69 */
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
+>>>>>>> react14
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+<<<<<<< HEAD
+=======
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+>>>>>>> react14
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 
+<<<<<<< HEAD
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+=======
+<<<<<<< HEAD
+	var _I18nStore = __webpack_require__(20);
+=======
+	var _DashboardHeader = __webpack_require__(70);
+>>>>>>> react14
 
 	var _Header = __webpack_require__(79);
 
@@ -9307,6 +10884,7 @@
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -9329,8 +10907,13 @@
 	var Dashboard = function (_React$Component) {
 	  _inherits(Dashboard, _React$Component);
 
+<<<<<<< HEAD
+	var Login = function (_React$Component) {
+	  _inherits(Login, _React$Component);
+=======
 	  function Dashboard() {
 	    var _Object$getPrototypeO;
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 
 	    _classCallCheck(this, Dashboard);
 
@@ -9394,6 +10977,11 @@
 	    }
 	  }]);
 
+<<<<<<< HEAD
+	  return Login;
+	}(React.Component);
+
+=======
 	  return Dashboard;
 	}(React.Component);
 
@@ -10946,6 +12534,7 @@
 	  return Login;
 	}(React.Component);
 
+>>>>>>> d776e2261fed0fbb1b3f8d6c59eb5646122948ea
 	exports.default = Login;
 
 /***/ }

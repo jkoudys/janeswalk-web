@@ -3,8 +3,6 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
-// TODO: Duplicate of Itinerary <Walk />
-
 /**
  * Build a style object for the header
  * @return object A style object for React
