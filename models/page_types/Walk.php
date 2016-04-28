@@ -197,8 +197,12 @@ class Walk extends \Model implements \JsonSerializable
 
         case 'city':
             // @return City of walk's city
-            $this->city = new City(Page::getByID($this->page->getCollectionParentID()));
-            return $this->city;
+            try {
+                $this->city = new City(Page::getByID($this->page->getCollectionParentID()));
+                return $this->city;
+            } catch (Exception $e) {
+                return null;
+            }
             break;
 
         case 'meetingPlace':
