@@ -10532,7 +10532,7 @@ body.home #intro .ccm-page-list-typeahead ul .country a:first-child {
 body.home #intro .ccm-page-list-typeahead ul .country .cities li a {
   padding: 4px 25px;
   font-weight: 300;
-  color: #f16725;
+  color: #F16725;
 }
 body.home #intro .ccm-page-list-typeahead ul .country .cities li a:hover {
   background: #ededed;
@@ -10760,6 +10760,7 @@ body.home .callouts {
   padding: 32vh 0;
   color: white;
   text-align: center;
+  /* This is the section that should be new */
 }
 @media (max-width: 768px) {
   body.home .callouts {
@@ -10831,7 +10832,7 @@ body.home .callouts #ccm-jw-page-list-typeahead fieldset.search button[type=subm
   font-size: 3vh;
   height: 100%;
   margin-right: 0;
-  background: #f16725;
+  background: #F16725;
   color: #fff;
   padding-left: 11px;
   font-weight: 600;
@@ -13790,7 +13791,7 @@ body.city-page > #blog:after {
 .walkPage .walkTeam footer {
   display: inline-block;
   vertical-align: top;
-  margin: 4px 0 15px;
+  margin: 0 15px;
 }
 .walkPage .walkTeam footer .btn-toolbar {
   margin-left: 0;
@@ -13807,6 +13808,7 @@ body.city-page > #blog:after {
   font-size: 18px;
   font-weight: 300;
   margin-top: 0em;
+  margin-bottom: 2em;
 }
 button,
 .dashboard .walks li .walk a.option {

@@ -32,6 +32,11 @@ function getMeetingPlace(map) {
   return '';
 }
 
+function getLeaders(team) {
+  const leaders = team.filter(member => (member.role === 'walk-leader' || member.type === 'leader'));
+  return leaders.map(leader => `${leader['name-first']} ${leader['name-last']}`.trim()).join(', ');
+}
+
 const WalkHeader = ({
   canEdit = false,
   city,
@@ -50,8 +55,6 @@ const WalkHeader = ({
   onSchedule,
   onUnschedule,
 }) => {
-  // TODO: This is problematic since there are many different type of roles defined, not a finite list
-  const walkLeader = team.find(member => member.role === 'walk-leader');
   const meetingPlace = getMeetingPlace(map);
 
   let favButton;
@@ -89,7 +92,7 @@ const WalkHeader = ({
         </h4>
       ) : null}
       {meetingPlace ? <h4>{meetingPlace}</h4> : null}
-      {walkLeader ? <h4>{t`Led By ${walkLeader['name-first']} ${walkLeader['name-last']}`} -</h4> : null}
+      {team.length ? <h4>{t`Led By ${getLeaders(team)}`}</h4> : null}
       <AddToItinerary {...{ time, walk, schedule, onSchedule, onUnschedule }} />
     </section>
   );
