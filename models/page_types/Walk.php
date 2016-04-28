@@ -266,10 +266,6 @@ class Walk extends \Model implements \JsonSerializable
         $db->StartTrans();
         $ok = true;
         try {
-            if (empty($postArray['title'])) {
-                throw new RuntimeException('Walk title cannot be empty.');
-            }
-
             $this->page->update(['cName' => $postArray['title']]);
             $this->page->setAttribute('shortdescription', $postArray['shortDescription']);
             $this->page->setAttribute('longdescription', $postArray['longDescription']);

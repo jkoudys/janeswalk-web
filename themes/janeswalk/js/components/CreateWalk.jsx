@@ -61,15 +61,11 @@ export default class CreateWalk extends React.Component {
         this.setState({
           map: this.refs.mapBuilder.getStateSimple(),
         }, () => {
-          // The state itself is our walk JSON
-          const body = new FormData();
-          body.append('json', JSON.stringify(this.state));
-
           // Fetch walk to persist it. PUT is publish, POST is save
           fetch(`/index.php?cID=${this.state.id}`, {
             method: options.publish ? 'PUT' : 'POST',
             credentials: 'include',
-            body,
+            body: JSON.stringify(this.state),
           })
           .then(res => res.json())
           .then(json => {
@@ -95,8 +91,8 @@ export default class CreateWalk extends React.Component {
           .catch(({ message }) => {
             addNotice({
               type: 'danger',
-              name: 'Walk failed to save',
-              message: `Keep this window open and contact Jane's Walk for assistance. Details: ${message}`,
+              name: 'Walk did not save.',
+              message: `Keep this window open and contact tech@janeswalk.net. Details: ${message}`,
             });
             setTimeout(removeNotice, 6000);
             console.error(this.state.url, message);
@@ -187,7 +183,7 @@ export default class CreateWalk extends React.Component {
               <div className="tab-pane active" id="description">
                 <div className="walk-submit lead clearfix">
                   <div className="col-md-4">
-                    <img id="convo-marker" src={`${CCM_THEME_PATH}/img/jw-intro-graphic.svg`} alt="Jane's Walks are walking conversations." />
+                    <img id="convo-marker" src={`${CCM_THEME_PATH}/img/jw-intro-graphic.svg`} alt={t`Jane's Walks are walking conversations.`} />
                   </div>
                   <div className="col-md-8">
                     <h1>{ t`Hey there, ${user.firstName}!` }</h1>
