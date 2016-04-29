@@ -27,6 +27,9 @@
     <?php (new Area('Call to Action'))->display($c) ?>
     <?php (new Area('Main'))->display($c) ?>
 </section>
+<section id="sponsors">
+    <?php (new Area('Sponsors'))->display($c) ?>
+</section>
 <?php if (!$isMobile) { ?>
 <section id="map">
     <?php (new Area('Map'))->display($c) ?>
