@@ -10884,14 +10884,14 @@ body.home #sponsors {
 body.home #sponsors ul {
   list-style-type: none;
   padding: 0;
-  margin: 0 0 10px 0;
+  margin: 0;
 }
 body.home #sponsors ul li {
   height: 176px;
   line-height: 95px;
   width: 23%;
   padding: 15px;
-  margin-right: 15px;
+  margin: 0 15px 15px 0;
   display: inline-block;
   text-align: center;
   border-radius: 6px;
@@ -10906,6 +10906,15 @@ body.home #sponsors ul li img {
     width: 100%;
     margin: 0 0 10px 0;
   }
+}
+body.home #sponsors ul li.civicChampion {
+  width: 31%;
+}
+body.home #sponsors ul li.cityBuilder {
+  width: 23%;
+}
+body.home #sponsors ul li.neighbourhoodBuilder {
+  width: 18%;
 }
 .navbar_home {
   font-size: 1em;

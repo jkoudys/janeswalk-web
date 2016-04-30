@@ -422,13 +422,13 @@ body.home {
         ul {
             list-style-type: none;
             padding: 0;
-            margin: 0 0 10px 0;
+            margin: 0;
             li {
                 height: 176px;
                 line-height: 95px;
                 width: 23%;
                 padding: 15px;
-                margin-right: 15px;
+                margin: 0 @grid-gutter-width / 2 @grid-gutter-width / 2 0;
                 display: inline-block;
                 text-align: center;
                 border-radius: 6px;
@@ -440,6 +440,15 @@ body.home {
                 @media (max-width: @screen-sm-min) {
                     width: 100%;
                     margin: 0 0 10px 0;
+                }
+                &.civicChampion {
+                    width: 31%;
+                }
+                &.cityBuilder {
+                    width: 23%;
+                }
+                &.neighbourhoodBuilder {
+                    width: 18%;
                 }
             }
         }
