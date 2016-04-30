@@ -418,6 +418,16 @@ body.home {
 
     #sponsors {
         margin: 0 auto 2em auto;
+        ul {
+            .clearfix();
+            .make-row();
+            list-style-type: none;
+            li {
+                .make-md-column(4);
+                border-radius: 4px;
+                background: @color-orange;
+            }
+        }
     }
 }
 
