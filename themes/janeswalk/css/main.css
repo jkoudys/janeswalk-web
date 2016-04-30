@@ -7103,8 +7103,6 @@ button.close {
 .modal-footer:after,
 .ccm-page-list.ccm-blog-index:before,
 .ccm-page-list.ccm-blog-index:after,
-body.home #sponsors ul:before,
-body.home #sponsors ul:after,
 #profileWrapper div.content div#resourcesBlock div.ideas ul:before,
 #profileWrapper div.content div#resourcesBlock div.ideas ul:after,
 #profileWrapper div.content div#resourcesBlock div.cos ul:before,
@@ -7162,7 +7160,6 @@ body #navbar > div > header .logo:after,
 .panel-body:after,
 .modal-footer:after,
 .ccm-page-list.ccm-blog-index:after,
-body.home #sponsors ul:after,
 #profileWrapper div.content div#resourcesBlock div.ideas ul:after,
 #profileWrapper div.content div#resourcesBlock div.cos ul:after,
 .walk-page .walk-header:after,
@@ -10884,42 +10881,18 @@ body.home #sponsors {
   margin: 0 auto 2em auto;
 }
 body.home #sponsors ul {
-  margin-left: -15px;
-  margin-right: -15px;
   list-style-type: none;
 }
-body.home #sponsors ul:before,
-body.home #sponsors ul:after {
-  content: " ";
-  display: table;
-}
-body.home #sponsors ul:after {
-  clear: both;
-}
-body.home #sponsors ul:before,
-body.home #sponsors ul:after {
-  content: " ";
-  display: table;
-}
-body.home #sponsors ul:after {
-  clear: both;
-}
 body.home #sponsors ul li {
-  position: relative;
-  min-height: 1px;
-  padding-left: 15px;
-  padding-right: 15px;
   height: 180px;
   line-height: 180px;
+  width: 20%;
+  padding: 15px;
+  margin-right: 15px;
+  display: inline-block;
   text-align: center;
   border-radius: 4px;
   background: #F16725;
-}
-@media (min-width: 992px) {
-  body.home #sponsors ul li {
-    float: left;
-    width: 25%;
-  }
 }
 .navbar_home {
   font-size: 1em;
