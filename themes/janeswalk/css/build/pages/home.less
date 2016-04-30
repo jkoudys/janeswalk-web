@@ -437,6 +437,10 @@ body.home {
                 img {
                     max-width: 100%;
                 }
+                @media (max-width: @screen-sm-min) {
+                    width: 100%;
+                    margin: 0 0 10px 0;
+                }
             }
         }
     }
@@ -456,10 +460,6 @@ body.home {
 #sponsors {
     clear: both;
     max-width: @screen-lg-min;
-
-    @media (max-width: @screen-sm-min) {
-        display: none;
-    }
 }
 
 .nav-tabs.types {

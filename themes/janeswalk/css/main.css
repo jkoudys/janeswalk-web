@@ -10901,6 +10901,12 @@ body.home #sponsors ul li {
 body.home #sponsors ul li img {
   max-width: 100%;
 }
+@media (max-width: 768px) {
+  body.home #sponsors ul li {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+}
 .navbar_home {
   font-size: 1em;
   text-align: center;
@@ -10914,11 +10920,6 @@ body.home #sponsors ul li img {
 #sponsors {
   clear: both;
   max-width: 1200px;
-}
-@media (max-width: 768px) {
-  #sponsors {
-    display: none;
-  }
 }
 .nav-tabs.types {
   border-bottom: none;
