@@ -10907,13 +10907,13 @@ body.home #sponsors ul li img {
     margin: 0 0 10px 0;
   }
 }
-body.home #sponsors ul li.civicChampion {
+body.home #sponsors ul.civicChampion li {
   width: 31%;
 }
-body.home #sponsors ul li.cityBuilder {
+body.home #sponsors ul.cityBuilder li {
   width: 23%;
 }
-body.home #sponsors ul li.neighbourhoodBuilder {
+body.home #sponsors ul.neighbourhoodBuilder li {
   width: 18%;
 }
 .navbar_home {
