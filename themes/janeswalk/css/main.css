@@ -10909,13 +10909,16 @@ body.home #sponsors ul li {
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
+  height: 180px;
+  line-height: 180px;
+  text-align: center;
   border-radius: 4px;
   background: #F16725;
 }
 @media (min-width: 992px) {
   body.home #sponsors ul li {
     float: left;
-    width: 33.33333333%;
+    width: 25%;
   }
 }
 .navbar_home {
