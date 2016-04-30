@@ -10879,6 +10879,7 @@ body.home #navbar > div > header.fixed {
 }
 body.home #sponsors {
   margin: 0 auto 2em auto;
+  padding: 15px;
 }
 body.home #sponsors ul {
   list-style-type: none;
