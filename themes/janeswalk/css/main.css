@@ -10910,11 +10910,29 @@ body.home #sponsors ul li img {
 body.home #sponsors ul.civicChampion li {
   width: 31%;
 }
+@media (max-width: 768px) {
+  body.home #sponsors ul.civicChampion li {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+}
 body.home #sponsors ul.cityBuilder li {
   width: 23%;
 }
+@media (max-width: 768px) {
+  body.home #sponsors ul.cityBuilder li {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+}
 body.home #sponsors ul.neighbourhoodBuilder li {
   width: 18%;
+}
+@media (max-width: 768px) {
+  body.home #sponsors ul.neighbourhoodBuilder li {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
 }
 .navbar_home {
   font-size: 1em;
