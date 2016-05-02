@@ -96,8 +96,7 @@ export default class WalkPublish extends React.Component {
               {warnings.length ? [
                 <h4>{t`Here are a few things to double-check.`}</h4>,
                 <ul className="warnings">{warnings}</ul>,
-              ] : null}
-              <p>{ t`Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes.` }</p>
+              ] : <p>{ t`Just one more thing! Once you hit publish your walk will be live on Jane's Walk right away. You can return at any time to make changes.` }</p>}
               {mirrorWalk}
             </div>
             <footer>

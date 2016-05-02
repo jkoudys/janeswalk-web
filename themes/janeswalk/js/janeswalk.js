@@ -7597,8 +7597,7 @@
 	                'ul',
 	                { className: 'warnings' },
 	                warnings
-	              )] : null,
-	              React.createElement(
+	              )] : React.createElement(
 	                'p',
 	                null,
 	                (0, _I18nStore.translateTag)(_templateObject11)

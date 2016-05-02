@@ -109,6 +109,10 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _templateObject = _taggedTemplateLiteral(['Search in Walks below'], ['Search in Walks below']);
+
+	var _I18nStore = __webpack_require__(6);
+
 	var _WalkCards = __webpack_require__(3);
 
 	var _WalkCards2 = _interopRequireDefault(_WalkCards);
@@ -139,6 +143,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -146,14 +152,13 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM */
 	/**
 	 * Filters, lists, maps, the whole shebang
+	 * TODO: this could seriously use some fluxing.
 	 */
 
 
 	// Flux
 
 
-	// TODO: replace placeholder translate with real one.
-	// Not doing this now because we'd need to build multiple translators for blocks vs site
 	var today = new Date();
 	today.setUTCHours(0);
 	today.setUTCMinutes(0);
@@ -166,6 +171,8 @@
 	  var filters = _ref.filters;
 	  var dateRange = _ref.dateRange;
 	  var city = _ref.city;
+	  var _ref$typeahead = _ref.typeahead;
+	  var typeahead = _ref$typeahead === undefined ? '' : _ref$typeahead;
 	  return outings.filter(function (_ref2) {
 	    var walk = _ref2.walk;
 	    var slot = _ref2.slot;
@@ -178,7 +185,9 @@
 	    // Note that this would be a lot cleaner using functions, but it's
 	    // built with a big set of basic boolean operators to speed it up
 	    // along this likely bottleneck
-	    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && walk.cityID != filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time) {
+	    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && walk.cityID != filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time || typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.map(function (m) {
+	      return m['name-first'] + ' ' + m['name-last'];
+	    }).join('')).match(new RegExp(typeahead, 'i'))) {
 	      return false;
 	    }
 	    return true;
@@ -213,6 +222,7 @@
 	var getWalkFilterState = function getWalkFilterState(_ref3) {
 	  var _ref3$filters = _ref3.filters;
 	  var filters = _ref3$filters === undefined ? {} : _ref3$filters;
+	  var typeahead = _ref3.typeahead;
 	  var dateRange = _ref3.dateRange;
 	  var _ref3$city = _ref3.city;
 	  var city = _ref3$city === undefined ? _CityStore2.default.getCity() : _ref3$city;
@@ -225,7 +235,7 @@
 	    filters: filters,
 	    city: city,
 	    dateRange: usefulRange,
-	    filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: usefulRange, city: city })
+	    filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: usefulRange, city: city, typeahead: typeahead })
 	  };
 	};
 
@@ -267,10 +277,12 @@
 	        var filters = _this$state.filters;
 	        var outings = _this$state.outings;
 	        var dateRange = _this$state.dateRange;
+	        var typeahead = _this$state.typeahead;
 	        var city = _this$state.city;
 
-	        filters[filter].selected = val;
-	        _this.setState({ filters: filters, filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: dateRange, city: city }) });
+	        if (!filters[filter]) filters[filter] = {};
+	        Object.assign(filters[filter], { selected: val });
+	        _this.setState({ filters: filters, filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: dateRange, city: city, typeahead: typeahead }) });
 	      },
 
 	      // Set our date range filter
@@ -279,11 +291,24 @@
 	        var outings = _this$state2.outings;
 	        var filters = _this$state2.filters;
 	        var city = _this$state2.city;
+	        var typeahead = _this$state2.typeahead;
 
 	        _this.setState({
 	          dateRange: [from, to],
-	          filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: [from, to], city: city })
+	          filterMatches: filterWalks({ outings: outings, filters: filters, dateRange: [from, to], city: city, typeahead: typeahead })
 	        });
+	      },
+
+	      // Typeahead search in the walks
+	      handleTypeahead: function handleTypeahead(_ref4) {
+	        var typeahead = _ref4.target.value;
+	        var _this$state3 = _this.state;
+	        var filters = _this$state3.filters;
+	        var outings = _this$state3.outings;
+	        var dateRange = _this$state3.dateRange;
+	        var city = _this$state3.city;
+
+	        _this.setState({ typeahead: typeahead, filterMatches: filterWalks({ filters: filters, outings: outings, dateRange: dateRange, city: city, typeahead: typeahead }) });
 	      }
 	    });
 	    return _this;
@@ -314,6 +339,7 @@
 	      var filterMatches = _state.filterMatches;
 	      var dateRange = _state.dateRange;
 	      var filters = _state.filters;
+	      var typeahead = _state.typeahead;
 
 
 	      var Filters = Object.keys(filters).map(function (key) {
@@ -370,6 +396,11 @@
 	            ' Print List'
 	          ),
 	          displayFilters ? AllFilters : null
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'walk-typeahead' },
+	          React.createElement('input', { type: 'text', onChange: this.handleTypeahead, value: typeahead, placeholder: (0, _I18nStore.translateTag)(_templateObject) })
 	        ),
 	        React.createElement(
 	          'div',

@@ -1,7 +1,10 @@
 /* global React ReactDOM */
 /**
  * Filters, lists, maps, the whole shebang
+ * TODO: this could seriously use some fluxing.
  */
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
+
 import WalkCards from './WalkCards.jsx';
 import WalkList from './WalkList.jsx';
 import LocationMap from './LocationMap.jsx';
@@ -12,8 +15,6 @@ import Filter from './Filter.jsx';
 import WalkStore from 'janeswalk/stores/WalkStore';
 import CityStore from 'janeswalk/stores/CityStore';
 
-// TODO: replace placeholder translate with real one.
-// Not doing this now because we'd need to build multiple translators for blocks vs site
 const today = new Date();
 today.setUTCHours(0);
 today.setUTCMinutes(0);
@@ -21,7 +22,7 @@ today.setUTCMinutes(0);
 /**
  * Apply filters and date range to walks
  */
-const filterWalks = ({ outings, filters, dateRange, city }) => outings.filter(({ walk, slot }) => {
+const filterWalks = ({ outings, filters, dateRange, city, typeahead = '' }) => outings.filter(({ walk, slot }) => {
   // Convert PHP second-epoch to JS milliseconds epoch
   const time = slot[0] * 1000;
 
@@ -36,7 +37,8 @@ const filterWalks = ({ outings, filters, dateRange, city }) => outings.filter(({
       (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
       (city && +walk.cityID !== +city.id) ||
       (filters.city && filters.city.selected && walk.cityID != filters.city.selected) ||
-      (dateRange[0] && dateRange[0] > time) || (dateRange[1] && dateRange[1] < time)
+      (dateRange[0] && dateRange[0] > time) || (dateRange[1] && dateRange[1] < time) ||
+      (typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.map(m => `${m['name-first']} ${m['name-last']}`).join('')).match(new RegExp(typeahead, 'i')))
    ) {
     return false;
   }
@@ -68,7 +70,7 @@ function thirdRecentDateRange(outings) {
   return [today, null];
 }
 
-const getWalkFilterState = ({ filters: filters = {}, dateRange, city: city = CityStore.getCity() }) => {
+const getWalkFilterState = ({ filters: filters = {}, typeahead, dateRange, city: city = CityStore.getCity() }) => {
   const outings = WalkStore.getWalkOutings();
   const usefulRange = dateRange || thirdRecentDateRange(outings);
 
@@ -77,7 +79,7 @@ const getWalkFilterState = ({ filters: filters = {}, dateRange, city: city = Cit
     filters,
     city,
     dateRange: usefulRange,
-    filterMatches: filterWalks({ outings, filters, dateRange: usefulRange, city }),
+    filterMatches: filterWalks({ outings, filters, dateRange: usefulRange, city, typeahead }),
   };
 };
 
@@ -111,18 +113,25 @@ export default class WalkFilter extends React.Component {
 
       // Set a filter value
       setFilter: (filter, val) => {
-        const { filters, outings, dateRange, city } = this.state;
-        filters[filter].selected = val;
-        this.setState({ filters, filterMatches: filterWalks({ outings, filters, dateRange, city }) });
+        const { filters, outings, dateRange, typeahead, city } = this.state;
+        if (!filters[filter]) filters[filter] = {};
+        Object.assign(filters[filter], { selected: val });
+        this.setState({ filters, filterMatches: filterWalks({ outings, filters, dateRange, city, typeahead }) });
       },
 
       // Set our date range filter
       setDateRange: (from, to) => {
-        const { outings, filters, city } = this.state;
+        const { outings, filters, city, typeahead } = this.state;
         this.setState({
           dateRange: [from, to],
-          filterMatches: filterWalks({ outings, filters, dateRange: [from, to], city }),
+          filterMatches: filterWalks({ outings, filters, dateRange: [from, to], city, typeahead }),
         });
+      },
+
+      // Typeahead search in the walks
+      handleTypeahead: ({ target: { value: typeahead } }) => {
+        const { filters, outings, dateRange, city } = this.state;
+        this.setState({ typeahead, filterMatches: filterWalks({ filters, outings, dateRange, city, typeahead }) });
       },
     });
   }
@@ -140,7 +149,7 @@ export default class WalkFilter extends React.Component {
   render() {
     let locationMapSection;
 
-    const { displayFilters, city, filterMatches, dateRange, filters } = this.state;
+    const { displayFilters, city, filterMatches, dateRange, filters, typeahead } = this.state;
 
     const Filters = Object.keys(filters).map(
       key => <Filter key={key} setFilter={v => this.setFilter(key, v)} {...filters[key]} />
@@ -177,6 +186,9 @@ export default class WalkFilter extends React.Component {
             <i className="fa fa-print" /> Print List
           </a>
           {displayFilters ? AllFilters : null}
+        </div>
+        <div className="walk-typeahead">
+          <input type="text" onChange={this.handleTypeahead} value={typeahead} placeholder={t`Search in Walks below`} />
         </div>
         <div className="walks-area">
           <WalkCards outings={filterMatches} />
