@@ -297,6 +297,7 @@ export default class CreateWalk extends React.Component {
             url={this.state.url}
             saveWalk={this.saveWalk}
             close={() => this.setState({ publish: false })}
+            walk={this.state}
             city={city}
             mirrors={this.state.mirrors}
           /> : null

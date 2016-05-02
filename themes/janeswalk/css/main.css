@@ -15616,6 +15616,9 @@ body[data-pageviewname=CreateWalkView] > footer {
 #create-walk #publish-confirmation #create-walk dialog > div > article section hr {
   margin-top: 0;
 }
+#create-walk #publish-warning small {
+  color: #6BADFD;
+}
 #create-walk #time-and-date .ui-datepicker {
   width: auto;
   box-shadow: none;

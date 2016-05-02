@@ -3740,6 +3740,7 @@
 	          close: function close() {
 	            return _this2.setState({ publish: false });
 	          },
+	          walk: this.state,
 	          city: city,
 	          mirrors: this.state.mirrors
 	        }) : null,
@@ -7413,24 +7414,78 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['Publish walk to EventBrite'], ['Publish walk to EventBrite']),
-	    _templateObject2 = _taggedTemplateLiteral(['Okay, You\'re Ready to Publish'], ['Okay, You\'re Ready to Publish']),
-	    _templateObject3 = _taggedTemplateLiteral(['Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.'], ['Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.']),
-	    _templateObject4 = _taggedTemplateLiteral(['Bring me back to edit'], ['Bring me back to edit']),
-	    _templateObject5 = _taggedTemplateLiteral(['Publish'], ['Publish']);
+	var _templateObject = _taggedTemplateLiteral(['Your Walk Title is empty.'], ['Your Walk Title is empty.']),
+	    _templateObject2 = _taggedTemplateLiteral(['You don\'t have a photo for your Walk.'], ['You don\'t have a photo for your Walk.']),
+	    _templateObject3 = _taggedTemplateLiteral(['You didn\'t set at least one time & date.'], ['You didn\'t set at least one time & date.']),
+	    _templateObject4 = _taggedTemplateLiteral(['Remember to click \'Add Date\' after you make your selection.'], ['Remember to click \'Add Date\' after you make your selection.']),
+	    _templateObject5 = _taggedTemplateLiteral(['You didn\'t set a first stop on the Walk map.'], ['You didn\'t set a first stop on the Walk map.']),
+	    _templateObject6 = _taggedTemplateLiteral(['You didn\'t give your meeting place a title.'], ['You didn\'t give your meeting place a title.']),
+	    _templateObject7 = _taggedTemplateLiteral(['Fix it'], ['Fix it']),
+	    _templateObject8 = _taggedTemplateLiteral(['Publish walk to EventBrite'], ['Publish walk to EventBrite']),
+	    _templateObject9 = _taggedTemplateLiteral(['Okay, You\'re Ready to Publish'], ['Okay, You\'re Ready to Publish']),
+	    _templateObject10 = _taggedTemplateLiteral(['Here are a few things to double-check.'], ['Here are a few things to double-check.']),
+	    _templateObject11 = _taggedTemplateLiteral(['Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.'], ['Just one more thing! Once you hit publish your walk will be live on Jane\'s Walk right away. You can return at any time to make changes.']),
+	    _templateObject12 = _taggedTemplateLiteral(['Bring me back to edit'], ['Bring me back to edit']),
+	    _templateObject13 = _taggedTemplateLiteral(['Publish'], ['Publish']);
 
 	var _I18nStore = __webpack_require__(21);
-
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React ReactDOM $ */
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React ReactDOM $ */
 
 	// Flux
 
+
+	function getWarnings(_ref) {
+	  var _ref$walk = _ref.walk;
+	  var title = _ref$walk.title;
+	  var _ref$walk$time$slots = _ref$walk.time.slots;
+	  var slots = _ref$walk$time$slots === undefined ? [] : _ref$walk$time$slots;
+	  var _ref$walk$map = _ref$walk.map;
+	  _ref$walk$map = _ref$walk$map === undefined ? {} : _ref$walk$map;
+	  var _ref$walk$map$markers = _ref$walk$map.markers;
+	  var markers = _ref$walk$map$markers === undefined ? [] : _ref$walk$map$markers;
+	  var _ref$walk$thumbnails = _ref$walk.thumbnails;
+	  var thumbnails = _ref$walk$thumbnails === undefined ? [] : _ref$walk$thumbnails;
+
+	  var warnings = [];
+
+	  if (!title) {
+	    warnings.push({
+	      message: (0, _I18nStore.translateTag)(_templateObject)
+	    });
+	  }
+
+	  if (!thumbnails.length) {
+	    warnings.push({
+	      message: (0, _I18nStore.translateTag)(_templateObject2)
+	    });
+	  }
+
+	  if (!slots.length) {
+	    warnings.push({
+	      message: (0, _I18nStore.translateTag)(_templateObject3),
+	      notes: [(0, _I18nStore.translateTag)(_templateObject4)]
+	    });
+	  }
+
+	  if (!markers.length) {
+	    warnings.push({
+	      message: (0, _I18nStore.translateTag)(_templateObject5)
+	    });
+	  } else if (!markers[0].title) {
+	    warnings.push({
+	      message: (0, _I18nStore.translateTag)(_templateObject6)
+	    });
+	  }
+
+	  return warnings;
+	}
 
 	var WalkPublish = function (_React$Component) {
 	  _inherits(WalkPublish, _React$Component);
@@ -7472,16 +7527,39 @@
 	    value: function render() {
 	      var _props = this.props;
 	      var city = _props.city;
+	      var walk = _props.walk;
 	      var closeModal = _props.close;
 	      // Check city config for which walk mirroring services to expose
 
 	      var mirrorWalk = void 0;
+	      var warnings = getWarnings({ walk: walk }).map(function (_ref2) {
+	        var message = _ref2.message;
+	        var anchor = _ref2.anchor;
+	        var notes = _ref2.notes;
+	        return React.createElement(
+	          'li',
+	          null,
+	          message,
+	          notes ? React.createElement(
+	            'small',
+	            null,
+	            React.createElement('br', null),
+	            notes
+	          ) : null,
+	          anchor ? React.createElement(
+	            'a',
+	            { href: '#' + anchor, 'data-dismiss': 'modal', onClick: closeModal },
+	            (0, _I18nStore.translateTag)(_templateObject7)
+	          ) : null
+	        );
+	      });
+
 	      if (city.mirrors.indexOf('eventbrite') > -1) {
 	        mirrorWalk = React.createElement(
 	          'label',
 	          { className: 'checkbox' },
 	          React.createElement('input', { type: 'checkbox', checkedLink: this.linkState('eventbrite') }),
-	          (0, _I18nStore.translateTag)(_templateObject)
+	          (0, _I18nStore.translateTag)(_templateObject8)
 	        );
 	      }
 
@@ -7505,16 +7583,25 @@
 	              React.createElement(
 	                'h3',
 	                null,
-	                (0, _I18nStore.translateTag)(_templateObject2)
+	                (0, _I18nStore.translateTag)(_templateObject9)
 	              )
 	            ),
 	            React.createElement(
 	              'div',
 	              { className: 'modal-body' },
+	              warnings.length ? [React.createElement(
+	                'h4',
+	                null,
+	                (0, _I18nStore.translateTag)(_templateObject10)
+	              ), React.createElement(
+	                'ul',
+	                { className: 'warnings' },
+	                warnings
+	              )] : null,
 	              React.createElement(
 	                'p',
 	                null,
-	                (0, _I18nStore.translateTag)(_templateObject3)
+	                (0, _I18nStore.translateTag)(_templateObject11)
 	              ),
 	              mirrorWalk
 	            ),
@@ -7528,7 +7615,7 @@
 	                  'a',
 	                  { className: 'walkthrough close', 'data-dismiss': 'modal', onClick: closeModal },
 	                  ' ',
-	                  (0, _I18nStore.translateTag)(_templateObject4)
+	                  (0, _I18nStore.translateTag)(_templateObject12)
 	                )
 	              ),
 	              React.createElement(
@@ -7537,7 +7624,7 @@
 	                React.createElement(
 	                  'button',
 	                  { className: 'btn btn-primary walkthrough', 'data-step': 'publish-confirmation', onClick: this.handlePublish },
-	                  (0, _I18nStore.translateTag)(_templateObject5)
+	                  (0, _I18nStore.translateTag)(_templateObject13)
 	                )
 	              )
 	            )
@@ -8273,7 +8360,7 @@
 	});
 
 	var _templateObject = _taggedTemplateLiteral(['Edit'], ['Edit']),
-	    _templateObject2 = _taggedTemplateLiteral(['Led By ', ' ', ''], ['Led By ', ' ', '']);
+	    _templateObject2 = _taggedTemplateLiteral(['Led By ', ''], ['Led By ', '']);
 
 	var _I18nStore = __webpack_require__(21);
 
@@ -8318,6 +8405,15 @@
 	  return '';
 	}
 
+	function getLeaders(team) {
+	  var leaders = team.filter(function (member) {
+	    return member.role === 'walk-leader' || member.type === 'leader';
+	  });
+	  return leaders.map(function (leader) {
+	    return (leader['name-first'] + ' ' + leader['name-last']).trim();
+	  }).join(', ');
+	}
+
 	var WalkHeader = function WalkHeader(_ref3) {
 	  var _ref3$canEdit = _ref3.canEdit;
 	  var canEdit = _ref3$canEdit === undefined ? false : _ref3$canEdit;
@@ -8337,10 +8433,6 @@
 	  var onSchedule = _ref3.onSchedule;
 	  var onUnschedule = _ref3.onUnschedule;
 
-	  // TODO: This is problematic since there are many different type of roles defined, not a finite list
-	  var walkLeader = team.find(function (member) {
-	    return member.role === 'walk-leader';
-	  });
 	  var meetingPlace = getMeetingPlace(map);
 
 	  var favButton = void 0;
@@ -8407,11 +8499,10 @@
 	      null,
 	      meetingPlace
 	    ) : null,
-	    walkLeader ? React.createElement(
+	    team.length ? React.createElement(
 	      'h4',
 	      null,
-	      (0, _I18nStore.translateTag)(_templateObject2, walkLeader['name-first'], walkLeader['name-last']),
-	      ' -'
+	      (0, _I18nStore.translateTag)(_templateObject2, getLeaders(team))
 	    ) : null,
 	    React.createElement(_AddToItinerary2.default, { time: time, walk: walk, schedule: schedule, onSchedule: onSchedule, onUnschedule: onUnschedule })
 	  );
@@ -8716,7 +8807,6 @@
 	          'h3',
 	          null,
 	          (m['name-first'] + ' ' + m['name-last']).trim(),
-	          ', ',
 	          React.createElement(
 	            'span',
 	            { className: 'walkTeamMemberRole' },
