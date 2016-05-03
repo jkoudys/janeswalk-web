@@ -12,6 +12,7 @@ export default class Menu extends React.Component {
     super(props, ...args);
 
     const menuItems = [
+      ['div', t`Lead a Walk`, false, { url: '/walk/form' }],
       [Walks, t`My Walks`, false, { show: 'user' }],
       [Walks, t`Walks in My City`, false, { show: 'city' }],
     ];
