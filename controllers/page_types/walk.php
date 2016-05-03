@@ -18,7 +18,6 @@ function addMetaTags($tags = [], &$doc) {
 
 function buildPageMap(Walk $walk) {
     $im = Loader::helper('image');
-
     $leaders = join( array_map(
         function($leader) {
             return trim("{$leader['name-first']} {$leader['name-last']}");
@@ -49,6 +48,19 @@ function buildPageMap(Walk $walk) {
     </DataObject>
 </PageMap>
 -->
+EOT;
+}
+
+function buildTwitterSummary(Walk $walk) {
+    $im = Loader::helper('image');
+    $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
+
+    return <<< EOT
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@janeswalk" />
+<meta name="twitter:title" content="{$walk}" />
+<meta name="twitter:description" content="{$walk->shortDescription}" />
+<meta name="twitter:image" content="{$thumbnail}" />
 EOT;
 }
 
