@@ -337,6 +337,7 @@ class WalkPageTypeController extends Controller
 
         $this->addHeaderItem($doc->saveHTML());
         $this->addHeaderItem(buildPageMap($this->walk));
+        $this->addHeaderItem(buildTwitterSummary($this->walk));
 
         // Check edit permissions
         $cp = new Permissions($this->walk->getPage());
