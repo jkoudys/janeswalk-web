@@ -8779,13 +8779,12 @@
 	    _templateObject6 = _taggedTemplateLiteral(['Lowlight conditions'], ['Lowlight conditions']),
 	    _templateObject7 = _taggedTemplateLiteral(['Dogs welcome'], ['Dogs welcome']),
 	    _templateObject8 = _taggedTemplateLiteral(['Bicycles welcome'], ['Bicycles welcome']),
-	    _templateObject9 = _taggedTemplateLiteral(['Mature content; may be unsuitable for kids'], ['Mature content; may be unsuitable for kids']),
-	    _templateObject10 = _taggedTemplateLiteral(['Leisurely pace'], ['Leisurely pace']),
-	    _templateObject11 = _taggedTemplateLiteral(['Seated areas available along route'], ['Seated areas available along route']),
-	    _templateObject12 = _taggedTemplateLiteral(['Accessibility'], ['Accessibility']),
-	    _templateObject13 = _taggedTemplateLiteral(['Please Note'], ['Please Note']),
-	    _templateObject14 = _taggedTemplateLiteral(['Route May Contain'], ['Route May Contain']),
-	    _templateObject15 = _taggedTemplateLiteral(['Other Notes'], ['Other Notes']);
+	    _templateObject9 = _taggedTemplateLiteral(['Leisurely pace'], ['Leisurely pace']),
+	    _templateObject10 = _taggedTemplateLiteral(['Seated areas available along route'], ['Seated areas available along route']),
+	    _templateObject11 = _taggedTemplateLiteral(['Accessibility'], ['Accessibility']),
+	    _templateObject12 = _taggedTemplateLiteral(['Please Note'], ['Please Note']),
+	    _templateObject13 = _taggedTemplateLiteral(['Route May Contain'], ['Route May Contain']),
+	    _templateObject14 = _taggedTemplateLiteral(['Other Notes'], ['Other Notes']);
 
 	exports.default = WalkAccessibility;
 
@@ -8814,11 +8813,12 @@
 	  return v === 'dogs';
 	}], [(0, _I18nStore.translateTag)(_templateObject8), function (v) {
 	  return v === 'bicycles';
-	}], [(0, _I18nStore.translateTag)(_templateObject9), function (v) {
-	  return v !== 'familyfriendly';
-	}], [(0, _I18nStore.translateTag)(_templateObject10), function (v) {
+	}],
+	// Americans read this as a euphemism.
+	// [t`Mature content; may be unsuitable for kids`, v => v !== 'familyfriendly'],
+	[(0, _I18nStore.translateTag)(_templateObject9), function (v) {
 	  return v === 'seniors';
-	}], [(0, _I18nStore.translateTag)(_templateObject11), function (v) {
+	}], [(0, _I18nStore.translateTag)(_templateObject10), function (v) {
 	  return v === 'seniors';
 	}]]);
 
@@ -8878,12 +8878,12 @@
 	    React.createElement(
 	      'h2',
 	      null,
-	      (0, _I18nStore.translateTag)(_templateObject12)
+	      (0, _I18nStore.translateTag)(_templateObject11)
 	    ),
 	    notes.length ? [React.createElement(
 	      'h3',
 	      null,
-	      (0, _I18nStore.translateTag)(_templateObject13)
+	      (0, _I18nStore.translateTag)(_templateObject12)
 	    ), React.createElement(
 	      'ul',
 	      null,
@@ -8892,7 +8892,7 @@
 	    may.length ? [React.createElement(
 	      'h3',
 	      null,
-	      (0, _I18nStore.translateTag)(_templateObject14)
+	      (0, _I18nStore.translateTag)(_templateObject13)
 	    ), React.createElement(
 	      'ul',
 	      null,
@@ -8901,7 +8901,7 @@
 	    other.length ? [React.createElement(
 	      'h3',
 	      null,
-	      (0, _I18nStore.translateTag)(_templateObject15)
+	      (0, _I18nStore.translateTag)(_templateObject14)
 	    ), React.createElement(
 	      'ul',
 	      null,

@@ -16,7 +16,8 @@ const mayContain = new Map([
 const otherNotes = new Map([
   [t`Dogs welcome`, v => v === 'dogs'],
   [t`Bicycles welcome`, v => v === 'bicycles'],
-  [t`Mature content; may be unsuitable for kids`, v => v !== 'familyfriendly'],
+// Americans read this as a euphemism.
+// [t`Mature content; may be unsuitable for kids`, v => v !== 'familyfriendly'],
   [t`Leisurely pace`, v => v === 'seniors'],
   [t`Seated areas available along route`, v => v === 'seniors'],
 ]);
