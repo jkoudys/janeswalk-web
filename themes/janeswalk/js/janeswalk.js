@@ -8794,7 +8794,7 @@
 
 
 	var pleaseNote = new Map([[(0, _I18nStore.translateTag)(_templateObject), function (v) {
-	  return v === 'bicycles';
+	  return v === 'bicyclesonly';
 	}]]);
 
 	var mayContain = new Map([[(0, _I18nStore.translateTag)(_templateObject2), function (v) {
@@ -8881,7 +8881,7 @@
 	      (0, _I18nStore.translateTag)(_templateObject11)
 	    ),
 	    notes.length ? [React.createElement(
-	      'h3',
+	      'h5',
 	      null,
 	      (0, _I18nStore.translateTag)(_templateObject12)
 	    ), React.createElement(
@@ -8890,7 +8890,7 @@
 	      notes.map(lis)
 	    )] : null,
 	    may.length ? [React.createElement(
-	      'h3',
+	      'h5',
 	      null,
 	      (0, _I18nStore.translateTag)(_templateObject13)
 	    ), React.createElement(
@@ -8899,7 +8899,7 @@
 	      may.map(lis)
 	    )] : null,
 	    other.length ? [React.createElement(
-	      'h3',
+	      'h5',
 	      null,
 	      (0, _I18nStore.translateTag)(_templateObject14)
 	    ), React.createElement(

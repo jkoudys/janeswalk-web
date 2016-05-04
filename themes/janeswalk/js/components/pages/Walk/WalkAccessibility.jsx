@@ -2,7 +2,7 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const pleaseNote = new Map([
-  [t`This is a bicycle tour, you must bring a bicycle`, v => v === 'bicycles'],
+  [t`This is a bicycle tour, you must bring a bicycle`, v => v === 'bicyclesonly'],
 ]);
 
 const mayContain = new Map([
@@ -43,15 +43,15 @@ export default function WalkAccessibility({ flags = [] }) {
     <section className="walkAccessibility">
       <h2>{t`Accessibility`}</h2>
       {notes.length ? [
-        <h3>{t`Please Note`}</h3>,
+        <h5>{t`Please Note`}</h5>,
         <ul>{notes.map(lis)}</ul>,
       ] : null}
       {may.length ? [
-        <h3>{t`Route May Contain`}</h3>,
+        <h5>{t`Route May Contain`}</h5>,
         <ul>{may.map(lis)}</ul>,
       ] : null}
       {other.length ? [
-        <h3>{t`Other Notes`}</h3>,
+        <h5>{t`Other Notes`}</h5>,
         <ul>{other.map(lis)}</ul>,
       ] : null}
     </section>
