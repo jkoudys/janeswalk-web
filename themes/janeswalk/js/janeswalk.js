@@ -95,11 +95,11 @@
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
-	var _Dashboard = __webpack_require__(78);
+	var _Dashboard = __webpack_require__(79);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
-	var _Login = __webpack_require__(90);
+	var _Login = __webpack_require__(91);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
@@ -8202,15 +8202,19 @@
 
 	var _WalkStart2 = _interopRequireDefault(_WalkStart);
 
-	var _WalkTeam = __webpack_require__(71);
+	var _WalkAccessibility = __webpack_require__(71);
+
+	var _WalkAccessibility2 = _interopRequireDefault(_WalkAccessibility);
+
+	var _WalkTeam = __webpack_require__(72);
 
 	var _WalkTeam2 = _interopRequireDefault(_WalkTeam);
 
-	var _WalkMenu = __webpack_require__(74);
+	var _WalkMenu = __webpack_require__(75);
 
 	var _WalkMenu2 = _interopRequireDefault(_WalkMenu);
 
-	var _WalkMap = __webpack_require__(76);
+	var _WalkMap = __webpack_require__(77);
 
 	var _WalkMap2 = _interopRequireDefault(_WalkMap);
 
@@ -8306,8 +8310,10 @@
 	      var _state = this.state;
 	      var city = _state.city;
 	      var walk = _state.walk;
-	      var _state$walk$map = _state.walk.map;
+	      var _state$walk = _state.walk;
+	      var _state$walk$map = _state$walk.map;
 	      var map = _state$walk$map === undefined ? { markers: [], route: [] } : _state$walk$map;
+	      var checkboxes = _state$walk.checkboxes;
 	      var isFavourite = _state.isFavourite;
 	      var schedule = _state.schedule;
 
@@ -8316,6 +8322,11 @@
 	      var _props$canEdit = this.props.canEdit;
 	      var canEdit = _props$canEdit === undefined ? false : _props$canEdit;
 
+	      var accessibleFlags = Object.keys(checkboxes).filter(function (k) {
+	        return k.includes('accessible-');
+	      }).map(function (k) {
+	        return k.slice(11);
+	      });
 
 	      return React.createElement(
 	        'section',
@@ -8330,6 +8341,7 @@
 	        React.createElement(_WalkDescription2.default, this.state.walk),
 	        hasMarkers || hasRoute ? React.createElement(_WalkMap2.default, { map: map }) : null,
 	        hasMarkers ? [React.createElement(_WalkRoute2.default, this.state.walk), React.createElement(_WalkStart2.default, this.state.walk)] : null,
+	        React.createElement(_WalkAccessibility2.default, { flags: accessibleFlags }),
 	        React.createElement(_WalkPublicTransit2.default, this.state.walk),
 	        React.createElement(_WalkParking2.default, this.state.walk),
 	        React.createElement(_WalkTeam2.default, this.state.walk)
@@ -8757,6 +8769,157 @@
 	  value: true
 	});
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _templateObject = _taggedTemplateLiteral(['This is a bicycle tour, you must bring a bicycle'], ['This is a bicycle tour, you must bring a bicycle']),
+	    _templateObject2 = _taggedTemplateLiteral(['Curbs and steps'], ['Curbs and steps']),
+	    _templateObject3 = _taggedTemplateLiteral(['Steep hills'], ['Steep hills']),
+	    _templateObject4 = _taggedTemplateLiteral(['Uneven terrain'], ['Uneven terrain']),
+	    _templateObject5 = _taggedTemplateLiteral(['Busy sidewalks'], ['Busy sidewalks']),
+	    _templateObject6 = _taggedTemplateLiteral(['Lowlight conditions'], ['Lowlight conditions']),
+	    _templateObject7 = _taggedTemplateLiteral(['Dogs welcome'], ['Dogs welcome']),
+	    _templateObject8 = _taggedTemplateLiteral(['Bicycles welcome'], ['Bicycles welcome']),
+	    _templateObject9 = _taggedTemplateLiteral(['Mature content; may be unsuitable for kids'], ['Mature content; may be unsuitable for kids']),
+	    _templateObject10 = _taggedTemplateLiteral(['Leisurely pace'], ['Leisurely pace']),
+	    _templateObject11 = _taggedTemplateLiteral(['Seated areas available along route'], ['Seated areas available along route']),
+	    _templateObject12 = _taggedTemplateLiteral(['Accessibility'], ['Accessibility']),
+	    _templateObject13 = _taggedTemplateLiteral(['Please Note'], ['Please Note']),
+	    _templateObject14 = _taggedTemplateLiteral(['Route May Contain'], ['Route May Contain']),
+	    _templateObject15 = _taggedTemplateLiteral(['Other Notes'], ['Other Notes']);
+
+	exports.default = WalkAccessibility;
+
+	var _I18nStore = __webpack_require__(21);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
+
+
+	var pleaseNote = new Map([[(0, _I18nStore.translateTag)(_templateObject), function (v) {
+	  return v === 'bicycles';
+	}]]);
+
+	var mayContain = new Map([[(0, _I18nStore.translateTag)(_templateObject2), function (v) {
+	  return !v.match(/(wheelchair)|(strollers)/);
+	}], [(0, _I18nStore.translateTag)(_templateObject3), function (v) {
+	  return v === 'steephills';
+	}], [(0, _I18nStore.translateTag)(_templateObject4), function (v) {
+	  return v === 'uneven';
+	}], [(0, _I18nStore.translateTag)(_templateObject5), function (v) {
+	  return v === 'busy';
+	}], [(0, _I18nStore.translateTag)(_templateObject6), function (v) {
+	  return v === 'lowlight';
+	}]]);
+
+	var otherNotes = new Map([[(0, _I18nStore.translateTag)(_templateObject7), function (v) {
+	  return v === 'dogs';
+	}], [(0, _I18nStore.translateTag)(_templateObject8), function (v) {
+	  return v === 'bicycles';
+	}], [(0, _I18nStore.translateTag)(_templateObject9), function (v) {
+	  return v !== 'familyfriendly';
+	}], [(0, _I18nStore.translateTag)(_templateObject10), function (v) {
+	  return v === 'seniors';
+	}], [(0, _I18nStore.translateTag)(_templateObject11), function (v) {
+	  return v === 'seniors';
+	}]]);
+
+	function getNotes(checkboxes, tuples) {
+	  var res = [];
+
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = tuples[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var _step$value = _slicedToArray(_step.value, 2);
+
+	      var msg = _step$value[0];
+	      var fn = _step$value[1];
+
+	      if (checkboxes.find(fn)) res.push(msg);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+
+	  return res;
+	}
+
+	var lis = function lis(v) {
+	  return React.createElement(
+	    'li',
+	    null,
+	    v
+	  );
+	};
+
+	function WalkAccessibility(_ref) {
+	  var _ref$flags = _ref.flags;
+	  var flags = _ref$flags === undefined ? [] : _ref$flags;
+
+	  var notes = getNotes(flags, pleaseNote);
+	  var may = getNotes(flags, mayContain);
+	  var other = getNotes(flags, otherNotes);
+
+	  return React.createElement(
+	    'section',
+	    { className: 'walkAccessibility' },
+	    React.createElement(
+	      'h2',
+	      null,
+	      (0, _I18nStore.translateTag)(_templateObject12)
+	    ),
+	    notes.length ? [React.createElement(
+	      'h3',
+	      null,
+	      (0, _I18nStore.translateTag)(_templateObject13)
+	    ), React.createElement(
+	      'ul',
+	      null,
+	      notes.map(lis)
+	    )] : null,
+	    may.length ? [React.createElement(
+	      'h3',
+	      null,
+	      (0, _I18nStore.translateTag)(_templateObject14)
+	    ), React.createElement(
+	      'ul',
+	      null,
+	      may.map(lis)
+	    )] : null,
+	    other.length ? [React.createElement(
+	      'h3',
+	      null,
+	      (0, _I18nStore.translateTag)(_templateObject15)
+	    ), React.createElement(
+	      'ul',
+	      null,
+	      other.map(lis)
+	    )] : null
+	  );
+	}
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _templateObject = _taggedTemplateLiteral(['About the Walk Team'], ['About the Walk Team']);
 
 	var _I18nStore = __webpack_require__(21);
@@ -8764,8 +8927,8 @@
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
 
 
-	var connections = __webpack_require__(72);
-	var teamTypes = __webpack_require__(73);
+	var connections = __webpack_require__(73);
+	var teamTypes = __webpack_require__(74);
 
 	function ConnectionLinks(_ref) {
 	  var member = _ref.member;
@@ -8846,7 +9009,7 @@
 	exports.default = WalkTeam;
 
 /***/ },
-/* 72 */
+/* 73 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -8877,7 +9040,7 @@
 	];
 
 /***/ },
-/* 73 */
+/* 74 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -8887,7 +9050,7 @@
 	};
 
 /***/ },
-/* 74 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8907,7 +9070,7 @@
 
 	var _ItineraryUtils = __webpack_require__(26);
 
-	var _Theme = __webpack_require__(75);
+	var _Theme = __webpack_require__(76);
 
 	var _I18nStore = __webpack_require__(21);
 
@@ -9038,7 +9201,7 @@
 	exports.default = WalkMenu;
 
 /***/ },
-/* 75 */
+/* 76 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9092,7 +9255,7 @@
 	}
 
 /***/ },
-/* 76 */
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9100,6 +9263,8 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -9168,11 +9333,17 @@
 	  _createClass(WalkMap, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var map = this.props.map;
+	      var _props$map = this.props.map;
 
-	      var locationLatLng = new google.maps.LatLng(map.markers[0].lat, map.markers[0].lng);
-	      var markers = [];
-	      var mapStyles = __webpack_require__(77);
+	      var _props$map$markers = _slicedToArray(_props$map.markers, 1);
+
+	      var meetingPlace = _props$map$markers[0];
+	      var markers = _props$map.markers;
+	      var route = _props$map.route;
+
+	      var locationLatLng = new google.maps.LatLng(meetingPlace.lat, meetingPlace.lng);
+	      var gmarkers = [];
+	      var mapStyles = __webpack_require__(78);
 
 	      var mapOptions = {
 	        center: locationLatLng,
@@ -9181,10 +9352,8 @@
 	      };
 
 	      var googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
-	      googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(mapStyles));
-	      googleMap.setMapTypeId('map_style');
 
-	      map.markers.forEach(function (_ref, i) {
+	      markers.forEach(function (_ref, i) {
 	        var lat = _ref.lat;
 	        var lng = _ref.lng;
 
@@ -9206,7 +9375,7 @@
 	          // TODO: scroll to list of stops
 	        });
 
-	        markers.push(marker);
+	        gmarkers.push(marker);
 	      });
 
 	      // Draw the line
@@ -9217,13 +9386,13 @@
 	        editable: false,
 	        map: googleMap
 	      });
-	      poly.setPath(map.route.map(function (_ref2) {
+	      poly.setPath(route.map(function (_ref2) {
 	        var lat = _ref2.lat;
 	        var lng = _ref2.lng;
 	        return new google.maps.LatLng(lat, lng);
 	      }));
 
-	      boundMapByMarkers(googleMap, markers);
+	      boundMapByMarkers(googleMap, gmarkers);
 
 	      this.setState({ googleMap: googleMap });
 	    }
@@ -9245,7 +9414,7 @@
 	};
 
 /***/ },
-/* 77 */
+/* 78 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -9355,7 +9524,7 @@
 	];
 
 /***/ },
-/* 78 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9366,15 +9535,15 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _Header = __webpack_require__(79);
+	var _Header = __webpack_require__(80);
 
 	var _Header2 = _interopRequireDefault(_Header);
 
-	var _Menu = __webpack_require__(81);
+	var _Menu = __webpack_require__(82);
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Summary = __webpack_require__(88);
+	var _Summary = __webpack_require__(89);
 
 	var _Summary2 = _interopRequireDefault(_Summary);
 
@@ -9406,7 +9575,7 @@
 	    users: _UserStore2.default.getUsers(),
 	    currentUser: _UserStore2.default.getCurrent(),
 	    city: _CityStore2.default.getCity(),
-	    announcements: __webpack_require__(89)
+	    announcements: __webpack_require__(90)
 	  };
 	}
 
@@ -9484,7 +9653,7 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 79 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9495,7 +9664,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _WithLinks = __webpack_require__(80);
+	var _WithLinks = __webpack_require__(81);
 
 	var _WithLinks2 = _interopRequireDefault(_WithLinks);
 
@@ -9613,7 +9782,7 @@
 	exports.default = DashboardHeader;
 
 /***/ },
-/* 80 */
+/* 81 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -9655,7 +9824,7 @@
 	};
 
 /***/ },
-/* 81 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9670,13 +9839,14 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _templateObject = _taggedTemplateLiteral(['My Walks'], ['My Walks']),
-	    _templateObject2 = _taggedTemplateLiteral(['Walks in My City'], ['Walks in My City']),
-	    _templateObject3 = _taggedTemplateLiteral(['Edit Profile'], ['Edit Profile']);
+	var _templateObject = _taggedTemplateLiteral(['Lead a Walk'], ['Lead a Walk']),
+	    _templateObject2 = _taggedTemplateLiteral(['My Walks'], ['My Walks']),
+	    _templateObject3 = _taggedTemplateLiteral(['Walks in My City'], ['Walks in My City']),
+	    _templateObject4 = _taggedTemplateLiteral(['Edit Profile'], ['Edit Profile']);
 
 	var _I18nStore = __webpack_require__(21);
 
-	var _Walks = __webpack_require__(82);
+	var _Walks = __webpack_require__(83);
 
 	var _Walks2 = _interopRequireDefault(_Walks);
 
@@ -9707,10 +9877,10 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Menu)).call.apply(_Object$getPrototypeO, [this, props].concat(args)));
 
-	    var menuItems = [[_Walks2.default, (0, _I18nStore.translateTag)(_templateObject), false, { show: 'user' }], [_Walks2.default, (0, _I18nStore.translateTag)(_templateObject2), false, { show: 'city' }]];
+	    var menuItems = [['div', (0, _I18nStore.translateTag)(_templateObject), false, { url: '/walk/form' }], [_Walks2.default, (0, _I18nStore.translateTag)(_templateObject2), false, { show: 'user' }], [_Walks2.default, (0, _I18nStore.translateTag)(_templateObject3), false, { show: 'city' }]];
 
 	    if (props.user.id === props.currentUser.id) {
-	      menuItems.unshift(['div', (0, _I18nStore.translateTag)(_templateObject3), false, { url: '/profile/edit' }]);
+	      menuItems.unshift(['div', (0, _I18nStore.translateTag)(_templateObject4), false, { url: '/profile/edit' }]);
 	    }
 
 	    // Since the menu is toggleable/arrangeable, manage as array of [component, name, open?, props] tuples
@@ -9814,7 +9984,7 @@
 	exports.default = Menu;
 
 /***/ },
-/* 82 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9831,17 +10001,17 @@
 	    _templateObject2 = _taggedTemplateLiteral(['With Past Walks'], ['With Past Walks']),
 	    _templateObject3 = _taggedTemplateLiteral(['Export Spreadsheet'], ['Export Spreadsheet']);
 
-	var _WalkFilters = __webpack_require__(83);
+	var _WalkFilters = __webpack_require__(84);
 
 	var _WalkFilters2 = _interopRequireDefault(_WalkFilters);
 
-	var _WalksMap = __webpack_require__(84);
+	var _WalksMap = __webpack_require__(85);
 
 	var _WalksMap2 = _interopRequireDefault(_WalksMap);
 
 	var _I18nStore = __webpack_require__(21);
 
-	var _Walk = __webpack_require__(86);
+	var _Walk = __webpack_require__(87);
 
 	var _Walk2 = _interopRequireDefault(_Walk);
 
@@ -9875,7 +10045,7 @@
 	}
 
 	// TODO: load only the ones we need from the walk data
-	var _filters = __webpack_require__(87);
+	var _filters = __webpack_require__(88);
 
 	var Walks = function (_React$Component) {
 	  _inherits(Walks, _React$Component);
@@ -10046,7 +10216,7 @@
 	exports.default = Walks;
 
 /***/ },
-/* 83 */
+/* 84 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -10154,7 +10324,7 @@
 	exports.default = WalkFilters;
 
 /***/ },
-/* 84 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10175,7 +10345,7 @@
 
 	/* global React ReactDOM google */
 	// TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
-	var dashMapStyle = __webpack_require__(85);
+	var dashMapStyle = __webpack_require__(86);
 
 	var InfoWindow = function InfoWindow(_ref) {
 	  var url = _ref.url;
@@ -10350,7 +10520,7 @@
 	};
 
 /***/ },
-/* 85 */
+/* 86 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -10460,7 +10630,7 @@
 	];
 
 /***/ },
-/* 86 */
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10604,7 +10774,7 @@
 	exports.default = Walk;
 
 /***/ },
-/* 87 */
+/* 88 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -10710,7 +10880,7 @@
 	};
 
 /***/ },
-/* 88 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10791,7 +10961,7 @@
 	};
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports) {
 
 	module.exports = [
@@ -10823,7 +10993,7 @@
 	];
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

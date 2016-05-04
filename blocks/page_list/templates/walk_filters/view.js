@@ -111,9 +111,9 @@
 
 	var _templateObject = _taggedTemplateLiteral(['Search in Walks below'], ['Search in Walks below']);
 
-	var _I18nStore = __webpack_require__(6);
+	var _I18nStore = __webpack_require__(3);
 
-	var _WalkCards = __webpack_require__(3);
+	var _WalkCards = __webpack_require__(13);
 
 	var _WalkCards2 = _interopRequireDefault(_WalkCards);
 
@@ -426,336 +426,17 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-
-	var _templateObject = _taggedTemplateLiteral(['Keep looking.'], ['Keep looking.']),
-	    _templateObject2 = _taggedTemplateLiteral(['We couldn\'t find any matching walks.'], ['We couldn\\\'t find any matching walks.']);
-
-	var _Card = __webpack_require__(4);
-
-	var _Card2 = _interopRequireDefault(_Card);
-
-	var _I18nStore = __webpack_require__(6);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
-	                                                                                                                                                   * The cards showing your walk
-	                                                                                                                                                   */
-
-
-	var WalkCards = function WalkCards(_ref) {
-	  var outings = _ref.outings;
-
-	  if (outings.length === 0) {
-	    return React.createElement(
-	      'div',
-	      { className: 'empty' },
-	      React.createElement(
-	        'h4',
-	        null,
-	        (0, _I18nStore.translateTag)(_templateObject)
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        (0, _I18nStore.translateTag)(_templateObject2)
-	      )
-	    );
-	  }
-	  return React.createElement(
-	    'div',
-	    { className: 'walkCards' },
-	    outings.map(function (_ref2) {
-	      var walk = _ref2.walk;
-	      var slot = _ref2.slot;
-	      return React.createElement(_Card2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
-	    })
-	  );
-	};
-
-	exports.default = WalkCards;
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
-
-
-	var _templateObject = _taggedTemplateLiteral(['Walk led by ', ''], ['Walk led by ', '']),
-	    _templateObject2 = _taggedTemplateLiteral(['Meet at ', ''], ['Meet at ', '']);
-
-	var _Theme = __webpack_require__(5);
-
-	var _I18nStore = __webpack_require__(6);
-
-	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var dtfDate = void 0;
-	// Date formatter
-	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
-	  dtfDate = new Intl.DateTimeFormat('en-US', {
-	    year: 'numeric',
-	    month: 'long',
-	    day: 'numeric',
-	    hour: 'numeric',
-	    minute: '2-digit',
-	    timeZone: 'UTC'
-	  });
-	}
-
-	var getFullName = function getFullName(v) {
-	  return (v['name-first'] + ' ' + v['name-last']).trim();
-	};
-
-	var Card = function (_React$Component) {
-	  _inherits(Card, _React$Component);
-
-	  function Card(props) {
-	    _classCallCheck(this, Card);
-
-	    var formatter = void 0;
-	    var yesterday = new Date();
-	    yesterday.setDate(yesterday.getDate() - 1);
-
-
-	    // Format the start date upfront, since that's expensive
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
-
-	    if (dtfDate) {
-	      formatter = function formatter(slot) {
-	        return dtfDate.format(slot[0] * 1000);
-	      };
-	    } else {
-	      formatter = function formatter(slot) {
-	        var date = new Date(slot[0] * 1000);
-	        var dateString = date.toUTCString();
-	        return dateString.slice(0, dateString.indexOf(' GMT'));
-	      };
-	    }
-
-	    Object.assign(_this, {
-	      state: {
-	        startTime: formatter(props.slot),
-	        past: props.slot[0] * 1000 < yesterday.getTime()
-	      }
-	    });
-	    return _this;
-	  }
-
-	  _createClass(Card, [{
-	    key: 'render',
-	    value: function render() {
-	      var Meeting = void 0;
-	      var LedBy = void 0;
-	      var Thumb = void 0;
-	      var Status = void 0;
-	      var _props$walk = this.props.walk;
-	      var id = _props$walk.id;
-	      var title = _props$walk.title;
-	      var url = _props$walk.url;
-	      var _props$walk$thumbnail = _props$walk.thumbnails;
-	      var thumbnails = _props$walk$thumbnail === undefined ? [] : _props$walk$thumbnail;
-	      var map = _props$walk.map;
-	      var shortDescription = _props$walk.shortDescription;
-	      var checkboxes = _props$walk.checkboxes;
-	      var team = _props$walk.team;
-	      var _state = this.state;
-	      var past = _state.past;
-	      var startTime = _state.startTime;
-
-	      var placeholder = 'placeholder' + id % 3;
-	      var leaders = team.filter(function (member) {
-	        return member.role === 'walk-leader' || member.type === 'leader';
-	      });
-	      var Tags = Object.keys(checkboxes).filter(function (check) {
-	        return check.indexOf('theme-') === 0 && checkboxes[check];
-	      }).map(function (theme) {
-	        return React.createElement(
-	          'li',
-	          { className: 'tag', 'data-toggle': 'tooltip', 'data-theme': theme, title: (0, _Theme.getThemeName)(theme) },
-	          React.createElement('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) })
-	        );
-	      });
-
-	      // Build the optional elements
-	      if (thumbnails.length) {
-	        Thumb = thumbnails[0].url;
-	      }
-
-	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-	      if (map && map.markers && map.markers.length) {
-	        Meeting = map.markers[0].title || map.markers[0].description;
-	      }
-
-	      if (leaders.length) {
-	        LedBy = React.createElement(
-	          'span',
-	          null,
-	          (0, _I18nStore.translateTag)(_templateObject, leaders.map(getFullName).join(', '))
-	        );
-	      }
-
-	      if (past) {
-	        Status = React.createElement(
-	          'div',
-	          { className: 'statusMessage' },
-	          'Ended'
-	        );
-	      }
-
-	      return React.createElement(
-	        'div',
-	        { className: 'walk-card' },
-	        React.createElement(
-	          'a',
-	          { href: url },
-	          React.createElement(
-	            'div',
-	            { className: 'thumbnail' },
-	            React.createElement(
-	              'div',
-	              { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
-	              Status
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'caption' },
-	              React.createElement(
-	                'h4',
-	                null,
-	                title || ''
-	              ),
-	              React.createElement(
-	                'p',
-	                null,
-	                (shortDescription || '').slice(0, 140)
-	              )
-	            ),
-	            React.createElement(
-	              'ul',
-	              { className: 'when' },
-	              React.createElement(
-	                'li',
-	                null,
-	                startTime
-	              ),
-	              Meeting ? React.createElement(
-	                'li',
-	                null,
-	                (0, _I18nStore.translateTag)(_templateObject2, Meeting)
-	              ) : null,
-	              LedBy ? React.createElement(
-	                'li',
-	                null,
-	                LedBy
-	              ) : null
-	            ),
-	            React.createElement(
-	              'ul',
-	              { className: 'list-inline tags' },
-	              Tags
-	            )
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Card;
-	}(React.Component);
-
-	exports.default = Card;
-
-/***/ },
-/* 5 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getThemeName = getThemeName;
-	exports.getThemeIcon = getThemeIcon;
-	var icons = exports.icons = {
-	  'civic-activist': { name: 'Activism', icon: 'bullhorn' },
-	  'civic-commerce': { name: 'Commerce', icon: 'shopping-cart' },
-	  'civic-gender': { name: 'Gender', icon: 'unlock-alt' },
-	  'civic-goodneighbour': { name: 'Community', icon: 'group' },
-	  'civic-health': { name: 'Health', icon: 'medkit' },
-	  'civic-international': { name: 'International Issues', icon: 'globe' },
-	  'civic-military': { name: 'Military', icon: 'fighter-jet' },
-	  'civic-nativeissues': { name: 'Native Issues', icon: 'sun-o' },
-	  'civic-religion': { name: 'Religion', icon: 'bell' },
-	  'civic-truecitizen': { name: 'Citizenry', icon: 'flag-o' },
-	  'culture-aesthete': { name: 'Design', icon: 'pencil' },
-	  'culture-artist': { name: 'Art', icon: 'picture-o' },
-	  'culture-bookworm': { name: 'Literature', icon: 'book' },
-	  'culture-foodie': { name: 'Food', icon: 'cutlery' },
-	  'culture-historybuff': { name: 'Heritage', icon: 'archive' },
-	  'culture-nightowl': { name: 'Night Life', icon: 'glass' },
-	  'culture-techie': { name: 'Technology', icon: 'gears' },
-	  'culture-writer': { name: 'Storytelling', icon: 'edit' },
-	  'nature-greenthumb': { name: 'Gardening', icon: 'leaf' },
-	  'nature-naturelover': { name: 'Nature', icon: 'bug' },
-	  'nature-petlover': { name: 'Animals', icon: 'heart' },
-	  'urban-architecturalenthusiast': { name: 'Architecture', icon: 'building' },
-	  'urban-film': { name: 'Film', icon: 'video-camera' },
-	  'urban-moversandshakers': { name: 'Transportation', icon: 'truck' },
-	  'urban-music': { name: 'Music', icon: 'music' },
-	  'urban-play': { name: 'Play', icon: 'puzzle-piece' },
-	  'urban-sports': { name: 'Sports', icon: 'trophy' },
-	  'urban-suburbanexplorer': { name: 'Suburbs', icon: 'home' },
-	  'urban-water': { name: 'Water', icon: 'tint' }
-	};
-
-	/**
-	 * Helpers, to deal with that 'theme-' prefix from the v1 json
-	 */
-	function getThemeName(theme) {
-	  return (icons[theme.slice(6)] || { name: '' }).name;
-	}
-
-	function getThemeIcon(theme) {
-	  return 'fa-' + (icons[theme.slice(6)] || { icon: '' }).icon;
-	}
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.tc = exports.translateTag = exports.t2 = exports.t = undefined;
 
-	var _Store = __webpack_require__(7);
+	var _Store = __webpack_require__(4);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
-	var _AppDispatcher = __webpack_require__(9);
+	var _AppDispatcher = __webpack_require__(6);
 
-	var _JWConstants = __webpack_require__(14);
+	var _JWConstants = __webpack_require__(11);
 
-	var _translate = __webpack_require__(15);
+	var _translate = __webpack_require__(12);
 
 	var _translate2 = _interopRequireDefault(_translate);
 
@@ -807,7 +488,7 @@
 	};
 
 /***/ },
-/* 7 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -816,7 +497,7 @@
 	  value: true
 	});
 
-	var _events = __webpack_require__(8);
+	var _events = __webpack_require__(5);
 
 	var _events2 = _interopRequireDefault(_events);
 
@@ -849,7 +530,7 @@
 	exports.default = Store;
 
 /***/ },
-/* 8 */
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1123,7 +804,7 @@
 	}
 
 /***/ },
-/* 9 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1133,7 +814,7 @@
 	});
 	exports.waitFor = exports.dispatch = exports.register2 = exports.register = undefined;
 
-	var _flux = __webpack_require__(10);
+	var _flux = __webpack_require__(7);
 
 	var AppDispatcher = new _flux.Dispatcher();
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
@@ -1156,7 +837,7 @@
 	exports.waitFor = waitFor;
 
 /***/ },
-/* 10 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1170,10 +851,10 @@
 	 * of patent rights can be found in the PATENTS file in the same directory.
 	 */
 
-	module.exports.Dispatcher = __webpack_require__(11);
+	module.exports.Dispatcher = __webpack_require__(8);
 
 /***/ },
-/* 11 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1199,7 +880,7 @@
 	  }
 	}
 
-	var invariant = __webpack_require__(13);
+	var invariant = __webpack_require__(10);
 
 	var _prefix = 'ID_';
 
@@ -1411,10 +1092,10 @@
 	}();
 
 	module.exports = Dispatcher;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 12 */
+/* 9 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1516,7 +1197,7 @@
 	};
 
 /***/ },
-/* 13 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -1568,10 +1249,10 @@
 	};
 
 	module.exports = invariant;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
 
 /***/ },
-/* 14 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1608,7 +1289,7 @@
 	exports.ActionTypes = ActionTypes;
 
 /***/ },
-/* 15 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1719,6 +1400,325 @@
 	module.exports = I18nTranslator;
 
 /***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _templateObject = _taggedTemplateLiteral(['Keep looking.'], ['Keep looking.']),
+	    _templateObject2 = _taggedTemplateLiteral(['We couldn\'t find any matching walks.'], ['We couldn\\\'t find any matching walks.']);
+
+	var _Card = __webpack_require__(14);
+
+	var _Card2 = _interopRequireDefault(_Card);
+
+	var _I18nStore = __webpack_require__(3);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
+	                                                                                                                                                   * The cards showing your walk
+	                                                                                                                                                   */
+
+
+	var WalkCards = function WalkCards(_ref) {
+	  var outings = _ref.outings;
+
+	  if (outings.length === 0) {
+	    return React.createElement(
+	      'div',
+	      { className: 'empty' },
+	      React.createElement(
+	        'h4',
+	        null,
+	        (0, _I18nStore.translateTag)(_templateObject)
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        (0, _I18nStore.translateTag)(_templateObject2)
+	      )
+	    );
+	  }
+	  return React.createElement(
+	    'div',
+	    { className: 'walkCards' },
+	    outings.map(function (_ref2) {
+	      var walk = _ref2.walk;
+	      var slot = _ref2.slot;
+	      return React.createElement(_Card2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
+	    })
+	  );
+	};
+
+	exports.default = WalkCards;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
+
+
+	var _templateObject = _taggedTemplateLiteral(['Walk led by ', ''], ['Walk led by ', '']),
+	    _templateObject2 = _taggedTemplateLiteral(['Meet at ', ''], ['Meet at ', '']);
+
+	var _Theme = __webpack_require__(15);
+
+	var _I18nStore = __webpack_require__(3);
+
+	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var dtfDate = void 0;
+	// Date formatter
+	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
+	  dtfDate = new Intl.DateTimeFormat('en-US', {
+	    year: 'numeric',
+	    month: 'long',
+	    day: 'numeric',
+	    hour: 'numeric',
+	    minute: '2-digit',
+	    timeZone: 'UTC'
+	  });
+	}
+
+	var getFullName = function getFullName(v) {
+	  return (v['name-first'] + ' ' + v['name-last']).trim();
+	};
+
+	var Card = function (_React$Component) {
+	  _inherits(Card, _React$Component);
+
+	  function Card(props) {
+	    _classCallCheck(this, Card);
+
+	    var formatter = void 0;
+	    var yesterday = new Date();
+	    yesterday.setDate(yesterday.getDate() - 1);
+
+
+	    // Format the start date upfront, since that's expensive
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
+
+	    if (dtfDate) {
+	      formatter = function formatter(slot) {
+	        return dtfDate.format(slot[0] * 1000);
+	      };
+	    } else {
+	      formatter = function formatter(slot) {
+	        var date = new Date(slot[0] * 1000);
+	        var dateString = date.toUTCString();
+	        return dateString.slice(0, dateString.indexOf(' GMT'));
+	      };
+	    }
+
+	    Object.assign(_this, {
+	      state: {
+	        startTime: formatter(props.slot),
+	        past: props.slot[0] * 1000 < yesterday.getTime()
+	      }
+	    });
+	    return _this;
+	  }
+
+	  _createClass(Card, [{
+	    key: 'render',
+	    value: function render() {
+	      var Meeting = void 0;
+	      var LedBy = void 0;
+	      var Thumb = void 0;
+	      var Status = void 0;
+	      var _props$walk = this.props.walk;
+	      var id = _props$walk.id;
+	      var title = _props$walk.title;
+	      var url = _props$walk.url;
+	      var _props$walk$thumbnail = _props$walk.thumbnails;
+	      var thumbnails = _props$walk$thumbnail === undefined ? [] : _props$walk$thumbnail;
+	      var map = _props$walk.map;
+	      var shortDescription = _props$walk.shortDescription;
+	      var checkboxes = _props$walk.checkboxes;
+	      var team = _props$walk.team;
+	      var _state = this.state;
+	      var past = _state.past;
+	      var startTime = _state.startTime;
+
+	      var placeholder = 'placeholder' + id % 3;
+	      var leaders = team.filter(function (member) {
+	        return member.role === 'walk-leader' || member.type === 'leader';
+	      });
+	      var Tags = Object.keys(checkboxes).filter(function (check) {
+	        return check.indexOf('theme-') === 0 && checkboxes[check];
+	      }).map(function (theme) {
+	        return React.createElement(
+	          'li',
+	          { className: 'tag', 'data-toggle': 'tooltip', 'data-theme': theme, title: (0, _Theme.getThemeName)(theme) },
+	          React.createElement('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) })
+	        );
+	      });
+
+	      // Build the optional elements
+	      if (thumbnails.length) {
+	        Thumb = thumbnails[0].url;
+	      }
+
+	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
+	      if (map && map.markers && map.markers.length) {
+	        Meeting = map.markers[0].title || map.markers[0].description;
+	      }
+
+	      if (leaders.length) {
+	        LedBy = React.createElement(
+	          'span',
+	          null,
+	          (0, _I18nStore.translateTag)(_templateObject, leaders.map(getFullName).join(', '))
+	        );
+	      }
+
+	      if (past) {
+	        Status = React.createElement(
+	          'div',
+	          { className: 'statusMessage' },
+	          'Ended'
+	        );
+	      }
+
+	      return React.createElement(
+	        'div',
+	        { className: 'walk-card' },
+	        React.createElement(
+	          'a',
+	          { href: url },
+	          React.createElement(
+	            'div',
+	            { className: 'thumbnail' },
+	            React.createElement(
+	              'div',
+	              { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
+	              Status
+	            ),
+	            React.createElement(
+	              'div',
+	              { className: 'caption' },
+	              React.createElement(
+	                'h4',
+	                null,
+	                title || ''
+	              ),
+	              React.createElement(
+	                'p',
+	                null,
+	                (shortDescription || '').slice(0, 140)
+	              )
+	            ),
+	            React.createElement(
+	              'ul',
+	              { className: 'when' },
+	              React.createElement(
+	                'li',
+	                null,
+	                startTime
+	              ),
+	              Meeting ? React.createElement(
+	                'li',
+	                null,
+	                (0, _I18nStore.translateTag)(_templateObject2, Meeting)
+	              ) : null,
+	              LedBy ? React.createElement(
+	                'li',
+	                null,
+	                LedBy
+	              ) : null
+	            ),
+	            React.createElement(
+	              'ul',
+	              { className: 'list-inline tags' },
+	              Tags
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Card;
+	}(React.Component);
+
+	exports.default = Card;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getThemeName = getThemeName;
+	exports.getThemeIcon = getThemeIcon;
+	var icons = exports.icons = {
+	  'civic-activist': { name: 'Activism', icon: 'bullhorn' },
+	  'civic-commerce': { name: 'Commerce', icon: 'shopping-cart' },
+	  'civic-gender': { name: 'Gender', icon: 'unlock-alt' },
+	  'civic-goodneighbour': { name: 'Community', icon: 'group' },
+	  'civic-health': { name: 'Health', icon: 'medkit' },
+	  'civic-international': { name: 'International Issues', icon: 'globe' },
+	  'civic-military': { name: 'Military', icon: 'fighter-jet' },
+	  'civic-nativeissues': { name: 'Native Issues', icon: 'sun-o' },
+	  'civic-religion': { name: 'Religion', icon: 'bell' },
+	  'civic-truecitizen': { name: 'Citizenry', icon: 'flag-o' },
+	  'culture-aesthete': { name: 'Design', icon: 'pencil' },
+	  'culture-artist': { name: 'Art', icon: 'picture-o' },
+	  'culture-bookworm': { name: 'Literature', icon: 'book' },
+	  'culture-foodie': { name: 'Food', icon: 'cutlery' },
+	  'culture-historybuff': { name: 'Heritage', icon: 'archive' },
+	  'culture-nightowl': { name: 'Night Life', icon: 'glass' },
+	  'culture-techie': { name: 'Technology', icon: 'gears' },
+	  'culture-writer': { name: 'Storytelling', icon: 'edit' },
+	  'nature-greenthumb': { name: 'Gardening', icon: 'leaf' },
+	  'nature-naturelover': { name: 'Nature', icon: 'bug' },
+	  'nature-petlover': { name: 'Animals', icon: 'heart' },
+	  'urban-architecturalenthusiast': { name: 'Architecture', icon: 'building' },
+	  'urban-film': { name: 'Film', icon: 'video-camera' },
+	  'urban-moversandshakers': { name: 'Transportation', icon: 'truck' },
+	  'urban-music': { name: 'Music', icon: 'music' },
+	  'urban-play': { name: 'Play', icon: 'puzzle-piece' },
+	  'urban-sports': { name: 'Sports', icon: 'trophy' },
+	  'urban-suburbanexplorer': { name: 'Suburbs', icon: 'home' },
+	  'urban-water': { name: 'Water', icon: 'tint' }
+	};
+
+	/**
+	 * Helpers, to deal with that 'theme-' prefix from the v1 json
+	 */
+	function getThemeName(theme) {
+	  return (icons[theme.slice(6)] || { name: '' }).name;
+	}
+
+	function getThemeIcon(theme) {
+	  return 'fa-' + (icons[theme.slice(6)] || { icon: '' }).icon;
+	}
+
+/***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -1737,7 +1737,7 @@
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
 
-	var _I18nStore = __webpack_require__(6);
+	var _I18nStore = __webpack_require__(3);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2392,11 +2392,11 @@
 
 	var _register;
 
-	var _AppDispatcher = __webpack_require__(9);
+	var _AppDispatcher = __webpack_require__(6);
 
-	var _JWConstants = __webpack_require__(14);
+	var _JWConstants = __webpack_require__(11);
 
-	var _Store = __webpack_require__(7);
+	var _Store = __webpack_require__(4);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -2516,11 +2516,11 @@
 	  value: true
 	});
 
-	var _AppDispatcher = __webpack_require__(9);
+	var _AppDispatcher = __webpack_require__(6);
 
-	var _JWConstants = __webpack_require__(14);
+	var _JWConstants = __webpack_require__(11);
 
-	var _Store = __webpack_require__(7);
+	var _Store = __webpack_require__(4);
 
 	var _Store2 = _interopRequireDefault(_Store);
 
@@ -2565,9 +2565,9 @@
 	exports.receive = receive;
 	exports.receiveAll = receiveAll;
 
-	var _AppDispatcher = __webpack_require__(9);
+	var _AppDispatcher = __webpack_require__(6);
 
-	var _JWConstants = __webpack_require__(14);
+	var _JWConstants = __webpack_require__(11);
 
 	// Load the walk
 	function receive(walk) {
@@ -2595,9 +2595,9 @@
 	});
 	exports.receive = receive;
 
-	var _AppDispatcher = __webpack_require__(9);
+	var _AppDispatcher = __webpack_require__(6);
 
-	var _JWConstants = __webpack_require__(14);
+	var _JWConstants = __webpack_require__(11);
 
 	// Load all loop data
 	/**

@@ -11,6 +11,7 @@ import WalkRoute from './Walk/WalkRoute.jsx';
 import WalkPublicTransit from './Walk/WalkPublicTransit.jsx';
 import WalkParking from './Walk/WalkParking.jsx';
 import WalkStart from './Walk/WalkStart.jsx';
+import WalkAccessibility from './Walk/WalkAccessibility.jsx';
 import WalkTeam from './Walk/WalkTeam.jsx';
 import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
@@ -71,6 +72,7 @@ export default class WalkPage extends React.Component {
       walk,
       walk: {
         map = { markers: [], route: [] },
+        checkboxes,
       },
       isFavourite,
       schedule,
@@ -78,6 +80,7 @@ export default class WalkPage extends React.Component {
     const hasMarkers = map.markers.length > 0;
     const hasRoute = map.route.length > 0;
     const { canEdit = false } = this.props;
+    const accessibleFlags = Object.keys(checkboxes).filter(k => k.includes('accessible-')).map(k => k.slice(11));
 
     return (
       <section className="walkPage">
@@ -95,6 +98,7 @@ export default class WalkPage extends React.Component {
           <WalkRoute {...this.state.walk} />,
           <WalkStart {...this.state.walk} />,
         ] : null}
+        <WalkAccessibility flags={accessibleFlags} />
         <WalkPublicTransit {...this.state.walk} />
         <WalkParking {...this.state.walk} />
         <WalkTeam {...this.state.walk} />

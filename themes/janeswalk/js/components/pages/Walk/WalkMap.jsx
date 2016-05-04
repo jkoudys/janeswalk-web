@@ -41,9 +41,9 @@ export default class WalkMap extends React.Component {
   }
 
   componentDidMount() {
-    const { map } = this.props;
-    const locationLatLng = new google.maps.LatLng(map.markers[0].lat, map.markers[0].lng);
-    const markers = [];
+    const { map: { markers: [meetingPlace], markers, route } } = this.props;
+    const locationLatLng = new google.maps.LatLng(meetingPlace.lat, meetingPlace.lng);
+    const gmarkers = [];
     const mapStyles = require('../../../json/MapStyles.json');
 
     const mapOptions = {
@@ -53,10 +53,8 @@ export default class WalkMap extends React.Component {
     };
 
     const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
-    googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(mapStyles));
-    googleMap.setMapTypeId('map_style');
 
-    map.markers.forEach(({ lat, lng }, i) => {
+    markers.forEach(({ lat, lng }, i) => {
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         style: 'stop',
@@ -75,7 +73,7 @@ export default class WalkMap extends React.Component {
         // TODO: scroll to list of stops
       });
 
-      markers.push(marker);
+      gmarkers.push(marker);
     });
 
     // Draw the line
@@ -86,9 +84,9 @@ export default class WalkMap extends React.Component {
       editable: false,
       map: googleMap,
     });
-    poly.setPath(map.route.map(({ lat, lng }) => new google.maps.LatLng(lat, lng)));
+    poly.setPath(route.map(({ lat, lng }) => new google.maps.LatLng(lat, lng)));
 
-    boundMapByMarkers(googleMap, markers);
+    boundMapByMarkers(googleMap, gmarkers);
 
     this.setState({ googleMap });
   }
