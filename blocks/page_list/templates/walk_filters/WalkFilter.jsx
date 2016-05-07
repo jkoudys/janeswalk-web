@@ -17,6 +17,7 @@ import CityStore from 'janeswalk/stores/CityStore';
 
 // Actually a little before today
 const today = new Date();
+today.setUTCDate(today.getDate());
 today.setUTCHours(0, 0, 0);
 
 /**

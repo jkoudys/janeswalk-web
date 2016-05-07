@@ -161,6 +161,7 @@
 
 	// Actually a little before today
 	var today = new Date();
+	today.setUTCDate(today.getDate());
 	today.setUTCHours(0, 0, 0);
 
 	/**
