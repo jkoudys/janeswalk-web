@@ -5,17 +5,19 @@
 /* global React $ */
 
 const df = 'yy-mm-dd';
-const offset = (new Date()).getTimezoneOffset();
+const offset = (new Date()).getTimezoneOffset() * 60000;
+const DAY = 24 * 60 * 60 * 1000 - 10;
 
 export default class DateRange extends React.Component {
   constructor(props) {
     super(props);
     if (Array.isArray(props.value) && props.value.length === 2) {
+      const [from, to] = props.value;
       this.state = {
-        from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
-        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : '',
-        fromInt: props.value[0] ? props.value[0] + offset : '',
-        toInt: props.value[1] ? props.value[1] + offset : '',
+        from: from ? $.datepicker.formatDate(df, new Date(from + offset)) : '',
+        to: to ? $.datepicker.formatDate(df, new Date(to + offset)) : '',
+        fromInt: from || '',
+        toInt: to || '',
       };
     } else {
       this.state = { from: '', to: '' };
@@ -48,7 +50,7 @@ export default class DateRange extends React.Component {
       changeYear: true,
       dateFormat: df,
       onSelect: selectedDate => {
-        toTime = $.datepicker.parseDate(df, selectedDate) - offset;
+        toTime = $.datepicker.parseDate(df, selectedDate) - offset + DAY;
         $from.datepicker('option', 'maxDate', selectedDate);
         this.setState({ to: selectedDate });
         this.props.onChange(fromTime, toTime);

@@ -161,7 +161,6 @@
 
 	// Actually a little before today
 	var today = new Date();
-	today.setUTCDate(today.getDate());
 	today.setUTCHours(0, 0, 0);
 
 	/**
@@ -2242,6 +2241,8 @@
 	  value: true
 	});
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2257,7 +2258,8 @@
 	/* global React $ */
 
 	var df = 'yy-mm-dd';
-	var offset = new Date().getTimezoneOffset();
+	var offset = new Date().getTimezoneOffset() * 60000;
+	var DAY = 24 * 60 * 60 * 1000 - 10;
 
 	var DateRange = function (_React$Component) {
 	  _inherits(DateRange, _React$Component);
@@ -2268,11 +2270,16 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DateRange).call(this, props));
 
 	    if (Array.isArray(props.value) && props.value.length === 2) {
+	      var _props$value = _slicedToArray(props.value, 2);
+
+	      var from = _props$value[0];
+	      var to = _props$value[1];
+
 	      _this.state = {
-	        from: props.value[0] ? $.datepicker.formatDate(df, new Date(props.value[0] + offset)) : '',
-	        to: props.value[1] ? $.datepicker.formatDate(df, new Date(props.value[1] + offset)) : '',
-	        fromInt: props.value[0] ? props.value[0] + offset : '',
-	        toInt: props.value[1] ? props.value[1] + offset : ''
+	        from: from ? $.datepicker.formatDate(df, new Date(from + offset)) : '',
+	        to: to ? $.datepicker.formatDate(df, new Date(to + offset)) : '',
+	        fromInt: from || '',
+	        toInt: to || ''
 	      };
 	    } else {
 	      _this.state = { from: '', to: '' };
@@ -2310,7 +2317,7 @@
 	        changeYear: true,
 	        dateFormat: df,
 	        onSelect: function onSelect(selectedDate) {
-	          toTime = $.datepicker.parseDate(df, selectedDate) - offset;
+	          toTime = $.datepicker.parseDate(df, selectedDate) - offset + DAY;
 	          $from.datepicker('option', 'maxDate', selectedDate);
 	          _this2.setState({ to: selectedDate });
 	          _this2.props.onChange(fromTime, toTime);
