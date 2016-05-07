@@ -15,9 +15,10 @@ import Filter from './Filter.jsx';
 import WalkStore from 'janeswalk/stores/WalkStore';
 import CityStore from 'janeswalk/stores/CityStore';
 
+// Actually a little before today
 const today = new Date();
-today.setUTCHours(0);
-today.setUTCMinutes(0);
+today.setUTCDate(today.getDate());
+today.setUTCHours(0, 0, 0);
 
 /**
  * Apply filters and date range to walks

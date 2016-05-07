@@ -159,9 +159,10 @@
 	// Flux
 
 
+	// Actually a little before today
 	var today = new Date();
-	today.setUTCHours(0);
-	today.setUTCMinutes(0);
+	today.setUTCDate(today.getDate());
+	today.setUTCHours(0, 0, 0);
 
 	/**
 	 * Apply filters and date range to walks
