@@ -1313,7 +1313,7 @@
 	};
 
 	var formatICSDateTime = function formatICSDateTime(d) {
-	  return '' + d.getUTCFullYear() + ('0' + (d.getUTCMonth() + 1)).slice(-2) + d.getUTCDate() + 'T' + d.getUTCHours() + d.getUTCMinutes();
+	  return '' + d.getUTCFullYear() + ('0' + (d.getUTCMonth() + 1)).slice(-2) + d.getUTCDate() + 'T' + d.getUTCHours() + d.getUTCMinutes() + '00';
 	};
 
 	var Itinerary = function (_React$Component) {

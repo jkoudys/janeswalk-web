@@ -15,7 +15,7 @@ const getItinerary = (list = [...ItineraryStore.getLists()][0]) => ({
   schedule: ItineraryStore.getSchedule(),
 });
 
-const formatICSDateTime = d => `${d.getUTCFullYear()}${('0' + (d.getUTCMonth() + 1)).slice(-2)}${d.getUTCDate()}T${d.getUTCHours()}${d.getUTCMinutes()}`;
+const formatICSDateTime = d => `${d.getUTCFullYear()}${('0' + (d.getUTCMonth() + 1)).slice(-2)}${d.getUTCDate()}T${d.getUTCHours()}${d.getUTCMinutes()}00`;
 
 
 export default class Itinerary extends React.Component {
