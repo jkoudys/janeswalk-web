@@ -1375,7 +1375,7 @@
 
 	          return [].concat(_toConsumableArray(timeSet)).map(function (time) {
 	            var d = new Date(time);
-	            return 'BEGIN:VEVENT\nSUMMARY:' + title + '\nLOCATION:' + location + '\nUID:' + email + '\nDESCRIPTION:' + shortDescription + '\nDTSTART:' + formatICSDateTime(d) + '\nEND:VEVENT';
+	            return 'BEGIN:VEVENT\nSUMMARY:' + title + '\nLOCATION:' + location + '\nUID:' + email + '\nDESCRIPTION:' + shortDescription + '\nDTSTART:' + formatICSDateTime(d) + '\nDTSTAMP:' + formatICSDateTime(d) + '\nEND:VEVENT';
 	          }).join('\n');
 	        });
 	        var link = document.createElement('a');

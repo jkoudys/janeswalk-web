@@ -47,6 +47,7 @@ LOCATION:${location}
 UID:${email}
 DESCRIPTION:${shortDescription}
 DTSTART:${formatICSDateTime(d)}
+DTSTAMP:${formatICSDateTime(d)}
 END:VEVENT`
             );
           }).join('\n');
