@@ -15,6 +15,9 @@ const getItinerary = (list = [...ItineraryStore.getLists()][0]) => ({
   schedule: ItineraryStore.getSchedule(),
 });
 
+const formatICSDateTime = d => `${d.getUTCFullYear()}${('0' + (d.getUTCMonth() + 1)).slice(-2)}${d.getUTCDate()}T${d.getUTCHours()}${d.getUTCMinutes()}`;
+
+
 export default class Itinerary extends React.Component {
   constructor(props, ...args) {
     super(props, ...args);
@@ -25,6 +28,44 @@ export default class Itinerary extends React.Component {
       handleChooseItinerary: list => this.setState({ activeList: list }),
       handleChangeTitle: v => Actions.updateTitle(this.state.activeList, v),
       handleChangeDescription: v => Actions.updateDescription(this.state.activeList, v),
+      handleICS: () => {
+        const { activeList, schedule } = this.state;
+        const events = [...activeList.walks].map((walk) => {
+          const timeSet = schedule.get(walk) || new Set();
+          const {
+            title,
+            shortDescription,
+            team: [{ email }] = [{}],
+            map: { markers: [{ title: location }] = [{}] } = {},
+          } = walk;
+          return [...timeSet].map(time => {
+            const d = new Date(time);
+            return (
+`BEGIN:VEVENT
+SUMMARY:${title}
+LOCATION:${location}
+UID:${email}
+DESCRIPTION:${shortDescription}
+DTSTART:${formatICSDateTime(d)}
+END:VEVENT`
+            );
+          }).join('\n');
+        });
+        const link = document.createElement('a');
+
+//        const timeSet = schedule.get(walk) || new Set();
+        const ics =
+`BEGIN:VCALENDAR
+PRODID:-//JanesWalk//JanesWalk.org//EN
+VERSION:1.0
+METHOD:PUBLISH
+${events.join('\n')}
+END:VCALENDAR`;
+
+        link.href = `data:application/ics,${encodeURI(ics)}`;
+        link.download = 'JanesWalk.ics';
+        link.click();
+      },
     });
   }
 
@@ -54,14 +95,13 @@ export default class Itinerary extends React.Component {
     const { activeList, lists, schedule } = this.state;
 
     // Lookup the walk data from the walk's ID
-    const ItineraryWalks = [];
-    activeList.walks.forEach((startTimes, walk) => {
+    const ItineraryWalks = [...activeList.walks].map((walk) => {
       const onAdd = list => Actions.add(list, walk);
       const onRemove = list => Actions.remove(list, walk);
       const onSchedule = time => Actions.schedule(walk, time);
       const onUnschedule = time => Actions.unschedule(walk, time);
 
-      ItineraryWalks.push(
+      return (
         <Walk
           key={walk.id}
           list={activeList}
@@ -88,6 +128,7 @@ export default class Itinerary extends React.Component {
               />
             </section>
             <ul>
+              <a onClick={this.handleICS}><i className="fa fa-calendar" /> Add to Calendar</a>
               {ItineraryWalks}
             </ul>
           </div>

@@ -1256,6 +1256,8 @@
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _templateObject = _taggedTemplateLiteral(['New Itinerary'], ['New Itinerary']),
@@ -1310,6 +1312,10 @@
 	  };
 	};
 
+	var formatICSDateTime = function formatICSDateTime(d) {
+	  return '' + d.getUTCFullYear() + ('0' + (d.getUTCMonth() + 1)).slice(-2) + d.getUTCDate() + 'T' + d.getUTCHours() + d.getUTCMinutes();
+	};
+
 	var Itinerary = function (_React$Component) {
 	  _inherits(Itinerary, _React$Component);
 
@@ -1342,6 +1348,44 @@
 	      },
 	      handleChangeDescription: function handleChangeDescription(v) {
 	        return Actions.updateDescription(_this.state.activeList, v);
+	      },
+	      handleICS: function handleICS() {
+	        var _this$state = _this.state;
+	        var activeList = _this$state.activeList;
+	        var schedule = _this$state.schedule;
+
+	        var events = [].concat(_toConsumableArray(activeList.walks)).map(function (walk) {
+	          var timeSet = schedule.get(walk) || new Set();
+	          var title = walk.title;
+	          var shortDescription = walk.shortDescription;
+	          var _walk$team = walk.team;
+	          _walk$team = _walk$team === undefined ? [{}] : _walk$team;
+
+	          var _walk$team2 = _slicedToArray(_walk$team, 1);
+
+	          var email = _walk$team2[0].email;
+	          var _walk$map = walk.map;
+	          _walk$map = _walk$map === undefined ? {} : _walk$map;
+	          var _walk$map$markers = _walk$map.markers;
+	          _walk$map$markers = _walk$map$markers === undefined ? [{}] : _walk$map$markers;
+
+	          var _walk$map$markers2 = _slicedToArray(_walk$map$markers, 1);
+
+	          var location = _walk$map$markers2[0].title;
+
+	          return [].concat(_toConsumableArray(timeSet)).map(function (time) {
+	            var d = new Date(time);
+	            return 'BEGIN:VEVENT\nSUMMARY:' + title + '\nLOCATION:' + location + '\nUID:' + email + '\nDESCRIPTION:' + shortDescription + '\nDTSTART:' + formatICSDateTime(d) + '\nEND:VEVENT';
+	          }).join('\n');
+	        });
+	        var link = document.createElement('a');
+
+	        //        const timeSet = schedule.get(walk) || new Set();
+	        var ics = 'BEGIN:VCALENDAR\nPRODID:-//JanesWalk//JanesWalk.org//EN\nVERSION:1.0\nMETHOD:PUBLISH\n' + events.join('\n') + '\nEND:VCALENDAR';
+
+	        link.href = 'data:application/ics,' + encodeURI(ics);
+	        link.download = 'JanesWalk.ics';
+	        link.click();
 	      }
 	    });
 	    return _this;
@@ -1387,8 +1431,7 @@
 
 	      // Lookup the walk data from the walk's ID
 
-	      var ItineraryWalks = [];
-	      activeList.walks.forEach(function (startTimes, walk) {
+	      var ItineraryWalks = [].concat(_toConsumableArray(activeList.walks)).map(function (walk) {
 	        var onAdd = function onAdd(list) {
 	          return Actions.add(list, walk);
 	        };
@@ -1402,10 +1445,10 @@
 	          return Actions.unschedule(walk, time);
 	        };
 
-	        ItineraryWalks.push(React.createElement(_Walk2.default, _extends({
+	        return React.createElement(_Walk2.default, _extends({
 	          key: walk.id,
 	          list: activeList
-	        }, { lists: lists, walk: walk, schedule: schedule, onAdd: onAdd, onRemove: onRemove, onSchedule: onSchedule, onUnschedule: onUnschedule })));
+	        }, { lists: lists, walk: walk, schedule: schedule, onAdd: onAdd, onRemove: onRemove, onSchedule: onSchedule, onUnschedule: onUnschedule }));
 	      });
 
 	      return React.createElement(
@@ -1434,6 +1477,12 @@
 	            React.createElement(
 	              'ul',
 	              null,
+	              React.createElement(
+	                'a',
+	                { onClick: this.handleICS },
+	                React.createElement('i', { className: 'fa fa-calendar' }),
+	                ' Add to Calendar'
+	              ),
 	              ItineraryWalks
 	            )
 	          ),
@@ -2291,6 +2340,8 @@
 	  value: true
 	});
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _AddWalkToList = __webpack_require__(24);
@@ -2307,7 +2358,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* global React */
 
 	var Walk = function (_React$Component) {
 	  _inherits(Walk, _React$Component);
@@ -2323,9 +2374,14 @@
 
 	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(Walk)).call.apply(_Object$getPrototypeO, [this].concat(args)));
 
-	    _this.state = {
-	      dialogOpen: false
-	    };
+	    Object.assign(_this, {
+	      state: {
+	        dialogOpen: false
+	      },
+	      handleToggleDialog: function handleToggleDialog() {
+	        return _this.setState({ dialogOpen: !_this.state.dialogOpen });
+	      }
+	    });
 	    return _this;
 	  }
 
@@ -2342,8 +2398,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
 	      var _props = this.props;
 	      var walk = _props.walk;
 	      var list = _props.list;
@@ -2357,15 +2411,16 @@
 	      var dialogOpen = this.state.dialogOpen;
 	      var title = walk.title;
 	      var url = walk.url;
-	      var map = walk.map;
 	      var time = walk.time;
+	      var _walk$map = walk.map;
+	      _walk$map = _walk$map === undefined ? {} : _walk$map;
+	      var _walk$map$markers = _walk$map.markers;
+	      _walk$map$markers = _walk$map$markers === undefined ? [{}] : _walk$map$markers;
 
-	      var meeting = void 0,
-	          start = void 0;
+	      var _walk$map$markers2 = _slicedToArray(_walk$map$markers, 1);
 
-	      if (map && map.markers[0]) {
-	        meeting = map.markers[0].title;
-	      }
+	      var meeting = _walk$map$markers2[0].title;
+
 
 	      return React.createElement(
 	        'li',
@@ -2397,9 +2452,7 @@
 	        }),
 	        React.createElement('button', {
 	          className: 'action addWalk ' + (dialogOpen ? 'selected' : ''),
-	          onClick: function onClick() {
-	            return _this2.setState({ dialogOpen: !dialogOpen });
-	          }
+	          onClick: this.handleToggleDialog
 	        }),
 	        dialogOpen ? React.createElement(_AddWalkToList2.default, { lists: lists, walk: walk, list: list, onAdd: onAdd, onRemove: onRemove }) : null
 	      );
