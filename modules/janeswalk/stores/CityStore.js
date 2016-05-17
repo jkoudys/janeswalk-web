@@ -12,12 +12,13 @@ import Store from './Store';
 // Store singletons
 let _city;
 
-const CityStore = Object.assign({}, Store, {
+const CityStore = {
+  ...Store,
   getCity: () => _city,
   getLocation: () => _city && _city.latlng,
 
   dispatchToken: register2({
     [AT.CITY_RECEIVE]: ({ city }) => { _city = city; },
   }, () => CityStore.emitChange()),
-});
+};
 export default CityStore;

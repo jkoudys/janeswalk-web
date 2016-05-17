@@ -15,7 +15,8 @@ import I18nTranslator from '../utils/translate.js';
 // Local vars
 const _i18n = new I18nTranslator();
 
-const I18nStore = Object.assign({}, Store, {
+const I18nStore = {
+  ...Store,
   getTranslate: () => _i18n.translate.bind(_i18n),
   getTranslateTag: () => _i18n.translateTag.bind(_i18n),
   getTranslatePlural: () => _i18n.translatePlural.bind(_i18n),
@@ -24,7 +25,7 @@ const I18nStore = Object.assign({}, Store, {
   dispatchToken: register2({
     [AT.I18N_RECEIVE]: ({ translations }) => _i18n.constructor(translations),
   }, () => I18nStore.emitChange()),
-});
+};
 
 export default I18nStore;
 export const t = I18nStore.getTranslate();

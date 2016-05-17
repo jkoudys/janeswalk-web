@@ -20,7 +20,8 @@ function receiveLogEntry(message, component, level) {
   });
 }
 
-const NotifyStore = Object.assign({}, Store, {
+const NotifyStore = {
+  ...Store,
   getLog: () => _log,
   getLogFrom: (from) => _log.filter(entry => entry.time >= from),
 
@@ -37,6 +38,6 @@ const NotifyStore = Object.assign({}, Store, {
     },
     [AT.LOG_EMPTY]: () => _log.splice(0),
   }, () => NotifyStore.emitChange()),
-});
+};
 
 export default NotifyStore;

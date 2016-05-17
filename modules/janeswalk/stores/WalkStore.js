@@ -38,7 +38,8 @@ function getWalkOutings() {
   .sort((a, b) => a.slot[0] - b.slot[0]);
 }
 
-const WalkStore = Object.assign({}, Store, {
+const WalkStore = {
+  ...Store,
   getWalks: () => _walks,
   getWalk: (id) => _walks.get(+id),
   getWalkOutings,
@@ -48,6 +49,6 @@ const WalkStore = Object.assign({}, Store, {
     [AT.WALK_RECEIVE]: ({ walk }) => receiveWalk(walk),
     [AT.WALK_RECEIVE_ALL]: ({ walks }) => receiveWalks(walks),
   }, () => WalkStore.emitChange()),
-});
+};
 
 export default WalkStore;

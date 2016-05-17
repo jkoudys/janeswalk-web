@@ -25,7 +25,8 @@ function receiveUser({ user, current }) {
   }
 }
 
-const UserStore = Object.assign({}, Store, {
+const UserStore = {
+  ...Store,
   getUsers: () => _users,
   getCurrent: () => _current,
 
@@ -34,6 +35,6 @@ const UserStore = Object.assign({}, Store, {
     [AT.USER_RECEIVE]: receiveUser,
     [AT.USER_RECEIVE_ALL]: ({ users }) => users.forEach(user => receiveUser({ user })),
   }, () => UserStore.emitChange()),
-});
+};
 
 export default UserStore;

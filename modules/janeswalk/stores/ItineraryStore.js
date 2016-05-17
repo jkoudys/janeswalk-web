@@ -68,7 +68,8 @@ function hasInList(walk) {
   return false;
 }
 
-const ItineraryStore = Object.assign({}, Store, {
+const ItineraryStore = {
+  ...Store,
   getLists: () => _lists,
   getSchedule: () => _schedule,
   getWalks: (list) => list.walks,
@@ -109,6 +110,6 @@ const ItineraryStore = Object.assign({}, Store, {
     _lastChange = Date.now();
     ItineraryStore.emitChange();
   }),
-});
+};
 
 export default ItineraryStore;

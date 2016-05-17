@@ -47,7 +47,8 @@ function receiveWalk(walk) {
   });
 }
 
-const AccessibleStore = Object.assign({}, Store, {
+const AccessibleStore = {
+  ...Store,
   getDescription: () => _desc,
   getFlags: () => _flags,
 
@@ -68,6 +69,6 @@ const AccessibleStore = Object.assign({}, Store, {
   dispatchToken: register2({
     [AT.WALK_RECEIVE]: ({ data }) => receiveWalk(data),
   }, () => AccessibleStore.emitChange()),
-});
+};
 
 export default AccessibleStore;
