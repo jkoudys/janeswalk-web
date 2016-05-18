@@ -430,7 +430,7 @@ class Walk extends \Model implements \JsonSerializable
                             'type' => 'Feature',
                             'geometry' => [
                                 'type' => 'Point',
-                                'coordinates' => [$marker['lat'], $marker['lng']]
+                                'coordinates' => [$marker['lng'], $marker['lat']]
                             ],
                             'properties' => [
                                 'title' => $marker['title'],
@@ -447,7 +447,7 @@ class Walk extends \Model implements \JsonSerializable
                             'type' => 'LineString',
                             'coordinates' => array_map(
                                 function($point) {
-                                    return [$point['lat'], $point['lng']];
+                                    return [$point['lng'], $point['lat']];
                                 },
                                 $this->map['route'] ?: $this->map['markers']
                             ),
