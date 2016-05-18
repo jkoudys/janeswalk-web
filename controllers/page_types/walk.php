@@ -117,6 +117,17 @@ class WalkPageTypeController extends Controller
     }
 
     /**
+     * Render as geoJSON
+     * TODO: replace the arbitrary map format with geojson
+     */
+    public function geojson()
+    {
+        header('Content-Type: application/vnd.geo+json');
+        echo $this->getGeoJson();
+        exit;
+    }
+
+    /**
      * show
      * Render view contents. Fall-through behaviour renders theme as HTML via
      * view(). If 'format' is set, render in requested format.
@@ -304,6 +315,11 @@ class WalkPageTypeController extends Controller
     protected function getKml()
     {
         return $this->walk->kmlSerialize();
+    }
+
+    protected function getGeoJson()
+    {
+        return json_encode($this->walk->geoJsonSerialize());
     }
 
     public function view()

@@ -415,6 +415,50 @@ class Walk extends \Model implements \JsonSerializable
     }
 
     /**
+     * Serialize the v2 json's ad-hoc format into standard geoJson
+     *
+     * @return array
+     */
+    public function geoJsonSerialize()
+    {
+        return [
+            'type' => 'FeatureCollection',
+            'features' => array_merge(
+                array_map(
+                    function($marker) {
+                        return [
+                            'type' => 'Feature',
+                            'geometry' => [
+                                'type' => 'Point',
+                                'coordinates' => [$marker['lat'], $marker['lng']]
+                            ],
+                            'properties' => [
+                                'title' => $marker['title'],
+                                'description' => $marker['description']
+                            ]
+                        ];
+                    },
+                    $this->map['markers']
+                ),
+                [
+                    [
+                        'type' => 'Feature',
+                        'geometry' => [
+                            'type' => 'LineString',
+                            'coordinates' => array_map(
+                                function($point) {
+                                    return [$point['lat'], $point['lng']];
+                                },
+                                $this->map['route'] ?: $this->map['markers']
+                            ),
+                        ]
+                    ]
+                ]
+            ),
+        ];
+    }
+
+    /**
      * Returns a page object for this walk. Keeping $page protected as we may want some logic around this later
      *
      * @return Page
