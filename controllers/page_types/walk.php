@@ -123,6 +123,7 @@ class WalkPageTypeController extends Controller
     public function geojson()
     {
         header('Content-Type: application/vnd.geo+json');
+        header('Content-Disposition: attachment; filename="' . $this->walk . '.geojson"');
         echo $this->getGeoJson();
         exit;
     }
