@@ -1,7 +1,6 @@
 /**
  * Setup the JanesWalk namespace
  */
-require('./shims.js');
 import EventEmitter from 'events';
 
 /**

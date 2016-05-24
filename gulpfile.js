@@ -18,7 +18,6 @@ const paths = {
   js_lib: [
     './themes/janeswalk/js/app.js',
     './themes/janeswalk/js/extend.js',
-    './themes/janeswalk/js/shims.js',
     './themes/janeswalk/js/tiny-pubsub.js',
   ],
   jsx_app: './themes/janeswalk/js/router.jsx',
@@ -117,7 +116,7 @@ gulp.task('js.blocks', () => {
 
 gulp.task('js.global', () => {
   webpack({
-    entry: ['babel-polyfill', './js/jwobject.jsx'],
+    entry: ['babel-polyfill', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/jwobject.jsx'],
     output: {
       path: './js',
       filename: 'jwglobal.js',
