@@ -35,6 +35,6 @@ const ActionTypes = [
   'ITINERARY_RECEIVE_ALL',
   'ITINERARY_SYNC_START',
   'ITINERARY_SYNC_END',
-].reduce((p, k) => {p[k] = k; return p}, {});
+].reduce((p, k) => {p[k] = Symbol(k); return p}, {});
 
 export {ActionTypes};
