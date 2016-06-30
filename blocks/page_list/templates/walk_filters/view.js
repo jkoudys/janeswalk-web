@@ -429,6 +429,18 @@
 	});
 	exports.tc = exports.translateTag = exports.t2 = exports.t = undefined;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * i18n Store
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Store for i18n language translations
+	                                                                                                                                                                                                                                                                   */
+
+	// Basic flux setup
+
+
+	// The library for managing translations
+
+
 	var _Store = __webpack_require__(4);
 
 	var _Store2 = _interopRequireDefault(_Store);
@@ -443,22 +455,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * i18n Store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * Store for i18n language translations
-	                                                                                                                                                                                                                   */
-
-	// Basic flux setup
-
-
-	// The library for managing translations
-
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _Store2.default, {
+	var I18nStore = _extends({}, _Store2.default, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
@@ -822,14 +824,14 @@
 	var register = AppDispatcher.register.bind(AppDispatcher);
 	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
 
-	function register2(receivers, onComplete) {
+	var register2 = function register2(receivers, onComplete) {
 	  return AppDispatcher.register(function (payload) {
-	    if (payload.type in receivers) {
+	    if (receivers.hasOwnProperty(payload.type)) {
 	      receivers[payload.type](payload);
 	      if (onComplete) onComplete(payload);
 	    }
 	  });
-	}
+	};
 
 	exports.default = AppDispatcher;
 	exports.register = register;
@@ -1284,7 +1286,7 @@
 
 	// Itineraries
 	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_SCHEDULE_WALK', 'ITINERARY_UNSCHEDULE_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END'].reduce(function (p, k) {
-	  p[k] = k;return p;
+	  p[k] = Symbol(k);return p;
 	}, {});
 
 	exports.ActionTypes = ActionTypes;
@@ -2401,6 +2403,8 @@
 
 	var _register;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _AppDispatcher = __webpack_require__(6);
 
 	var _JWConstants = __webpack_require__(11);
@@ -2492,7 +2496,7 @@
 	  });
 	}
 
-	var WalkStore = Object.assign({}, _Store2.default, {
+	var WalkStore = _extends({}, _Store2.default, {
 	  getWalks: function getWalks() {
 	    return _walks;
 	  },
@@ -2525,6 +2529,13 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * City store
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
+	                                                                                                                                                                                                                                                                   * currently no requirement exists for this.
+	                                                                                                                                                                                                                                                                   */
+
 	var _AppDispatcher = __webpack_require__(6);
 
 	var _JWConstants = __webpack_require__(11);
@@ -2535,17 +2546,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * City store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
-	                                                                                                                                                                                                                   * currently no requirement exists for this.
-	                                                                                                                                                                                                                   */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	// Store singletons
 	var _city = void 0;
 
-	var CityStore = Object.assign({}, _Store2.default, {
+	var CityStore = _extends({}, _Store2.default, {
 	  getCity: function getCity() {
 	    return _city;
 	  },

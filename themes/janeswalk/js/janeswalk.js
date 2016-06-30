@@ -240,7 +240,12 @@
 	  }
 	});
 
-	document.addEventListener('DOMContentLoaded', function () {
+	new Promise(function (res) {
+	  if (document.readyState === 'interactive') res(document);
+	  document.addEventListener('DOMContentLoaded', function () {
+	    return res(document);
+	  });
+	}).then(function () {
 	  // Load our translations upfront
 	  (0, _I18nUtils.getTranslations)(JanesWalk.locale);
 
@@ -353,14 +358,14 @@
 	var register = AppDispatcher.register.bind(AppDispatcher);
 	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
 
-	function register2(receivers, onComplete) {
+	var register2 = function register2(receivers, onComplete) {
 	  return AppDispatcher.register(function (payload) {
-	    if (payload.type in receivers) {
+	    if (receivers.hasOwnProperty(payload.type)) {
 	      receivers[payload.type](payload);
 	      if (onComplete) onComplete(payload);
 	    }
 	  });
-	}
+	};
 
 	exports.default = AppDispatcher;
 	exports.register = register;
@@ -815,7 +820,7 @@
 
 	// Itineraries
 	'ITINERARY_RECEIVE', 'ITINERARY_REMOVE_WALK', 'ITINERARY_ADD_WALK', 'ITINERARY_SCHEDULE_WALK', 'ITINERARY_UNSCHEDULE_WALK', 'ITINERARY_UPDATE_TITLE', 'ITINERARY_UPDATE_DESCRIPTION', 'ITINERARY_CREATE_LIST', 'ITINERARY_RECEIVE_ALL', 'ITINERARY_SYNC_START', 'ITINERARY_SYNC_END'].reduce(function (p, k) {
-	  p[k] = k;return p;
+	  p[k] = Symbol(k);return p;
 	}, {});
 
 	exports.ActionTypes = ActionTypes;
@@ -1515,6 +1520,8 @@
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
@@ -1627,7 +1634,7 @@
 	  return false;
 	}
 
-	var ItineraryStore = Object.assign({}, _Store2.default, {
+	var ItineraryStore = _extends({}, _Store2.default, {
 	  getLists: function getLists() {
 	    return _lists;
 	  },
@@ -2035,6 +2042,8 @@
 
 	var _register;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
@@ -2126,7 +2135,7 @@
 	  });
 	}
 
-	var WalkStore = Object.assign({}, _Store2.default, {
+	var WalkStore = _extends({}, _Store2.default, {
 	  getWalks: function getWalks() {
 	    return _walks;
 	  },
@@ -2160,6 +2169,18 @@
 	});
 	exports.tc = exports.translateTag = exports.t2 = exports.t = undefined;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * i18n Store
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Store for i18n language translations
+	                                                                                                                                                                                                                                                                   */
+
+	// Basic flux setup
+
+
+	// The library for managing translations
+
+
 	var _Store = __webpack_require__(18);
 
 	var _Store2 = _interopRequireDefault(_Store);
@@ -2174,22 +2195,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * i18n Store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * Store for i18n language translations
-	                                                                                                                                                                                                                   */
-
-	// Basic flux setup
-
-
-	// The library for managing translations
-
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	// Local vars
 	var _i18n = new _translate2.default();
 
-	var I18nStore = Object.assign({}, _Store2.default, {
+	var I18nStore = _extends({}, _Store2.default, {
 	  getTranslate: function getTranslate() {
 	    return _i18n.translate.bind(_i18n);
 	  },
@@ -2824,6 +2835,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
@@ -2838,7 +2851,7 @@
 
 	var _areas = {};
 
-	var AreaStore = Object.assign({}, _Store2.default, {
+	var AreaStore = _extends({}, _Store2.default, {
 	  getAreas: function getAreas() {
 	    return _areas;
 	  },
@@ -2869,6 +2882,12 @@
 
 	var _register;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * User store
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Users on Jane's Walk.
+	                                                                                                                                                                                                                                                                   */
+
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
@@ -2879,11 +2898,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * User store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * Users on Jane's Walk.
-	                                                                                                                                                                                                                   */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	// Store singletons
 	// The users, keyed on uID
@@ -2905,7 +2920,7 @@
 	  }
 	}
 
-	var UserStore = Object.assign({}, _Store2.default, {
+	var UserStore = _extends({}, _Store2.default, {
 	  getUsers: function getUsers() {
 	    return _users;
 	  },
@@ -3064,6 +3079,13 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * City store
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
+	                                                                                                                                                                                                                                                                   * currently no requirement exists for this.
+	                                                                                                                                                                                                                                                                   */
+
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
@@ -3074,17 +3096,12 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * City store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
-	                                                                                                                                                                                                                   * currently no requirement exists for this.
-	                                                                                                                                                                                                                   */
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	// Store singletons
 	var _city = void 0;
 
-	var CityStore = Object.assign({}, _Store2.default, {
+	var CityStore = _extends({}, _Store2.default, {
 	  getCity: function getCity() {
 	    return _city;
 	  },
@@ -8133,6 +8150,15 @@
 
 	var _register;
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * Notify Store
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * The notifications. Essentially a log to emit events.
+	                                                                                                                                                                                                                                                                   */
+
+	// Requires
+
+
 	var _AppDispatcher = __webpack_require__(4);
 
 	var _JWConstants = __webpack_require__(9);
@@ -8143,14 +8169,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /**
-	                                                                                                                                                                                                                   * Notify Store
-	                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                   * The notifications. Essentially a log to emit events.
-	                                                                                                                                                                                                                   */
-
-	// Requires
-
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	// The notifications
 	var _log = [];
@@ -8163,7 +8182,7 @@
 	  });
 	}
 
-	var NotifyStore = Object.assign({}, _Store2.default, {
+	var NotifyStore = _extends({}, _Store2.default, {
 	  getLog: function getLog() {
 	    return _log;
 	  },

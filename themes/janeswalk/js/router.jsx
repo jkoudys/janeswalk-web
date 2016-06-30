@@ -144,7 +144,10 @@ CityStore.addChangeListener(() => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+(new Promise(res => {
+  if (document.readyState === 'interactive') res(document);
+  document.addEventListener('DOMContentLoaded', () => res(document));
+})).then(() => {
   // Load our translations upfront
   getTranslations(JanesWalk.locale);
 
