@@ -5,6 +5,8 @@
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
+const { createElement: ce } = React;
+
 // Translations for i18n L10n
 import { getTranslations } from 'janeswalk/utils/I18nUtils';
 import * as AreaActions from 'janeswalk/actions/AreaActions';
@@ -64,23 +66,19 @@ function initKeyEvents() {
 
 // Render the sitewide elements
 function renderGlobal() {
+  const { stacks: { 'Social Logins': socialLogin = '' } = {} } = JanesWalk;
   // Render our header first
   const navbar = document.getElementById('navbar');
   if (navbar) {
-    ReactDOM.render(<Navbar />, navbar);
+    ReactDOM.render(ce(Navbar), navbar);
   }
 
   // Render modals we need on each page
   ReactDOM.render(
-    <Login socialLogin={(JanesWalk.stacks || { 'Social Logins': '' })['Social Logins']} />,
+    ce(Login, { socialLogin }),
     document.getElementById('modals')
   );
 }
-
-// Dispatch our own event so we only need one callback on google maps loading
-window.googleMapsLoaded = () => {
-  JanesWalk.event.emit('google.loaded');
-};
 
 // Listen for JW events to load flux stores with
 function addFluxListeners() {
@@ -99,7 +97,7 @@ function addRenderListeners() {
   JanesWalk.event.on('walkpage.load', ({ walk, city, canEdit }) => {
     WalkActions.receive(walk);
     ReactDOM.render(
-      <Walk city={city} page={JanesWalk.page} walk={walk} canEdit={canEdit} />,
+      ce(Walk, { city, page: JanesWalk.page, walk, canEdit }),
       document.getElementById('page')
     );
   });
@@ -107,46 +105,39 @@ function addRenderListeners() {
   // The profile page, e.g. /profile
   JanesWalk.event.on('profilepage.load', props => {
     ReactDOM.render(
-      <Dashboard {...props} />,
+      ce(Dashboard, props),
       document.getElementById('page')
     );
   });
 
   // Create a walk
   JanesWalk.event.on('caw.load', () => {
+    const { walk: { data, url }, form: { valt }, city, user } = JanesWalk;
     ReactDOM.render(
-      <CreateWalk
-        data={JanesWalk.walk.data}
-        city={JanesWalk.city}
-        user={JanesWalk.user}
-        url={JanesWalk.walk.url}
-        valt={JanesWalk.form.valt}
-      />,
+       ce(CreateWalk, { data, url, valt, city, user }),
       document.getElementById('page')
     );
   });
 }
 
 CityStore.addChangeListener(() => {
+  const { pageviewname } = document.body.dataset;
+
   // Bind anything to render not using react
-  switch (document.body.dataset.pageviewname) {
-    case 'CityPageView':
-      {
-        const city = CityStore.getCity();
-        if (city) {
-          const bgUri = `url(${city.background})`;
-          if (city.background && document.body.style.backgroundImage !== bgUri) {
-            document.body.style.backgroundImage = bgUri;
-          }
-        }
+  if (pageviewname === 'CityPageView') {
+    const city = CityStore.getCity();
+    if (city) {
+      const bgUri = `url(${city.background})`;
+      if (city.background && document.body.style.backgroundImage !== bgUri) {
+        document.body.style.backgroundImage = bgUri;
       }
-      break;
+    }
   }
 });
 
 (new Promise(res => {
   if (document.readyState === 'interactive') res(document);
-  document.addEventListener('DOMContentLoaded', () => res(document));
+  else document.addEventListener('DOMContentLoaded', () => res(document));
 })).then(() => {
   // Load our translations upfront
   getTranslations(JanesWalk.locale);

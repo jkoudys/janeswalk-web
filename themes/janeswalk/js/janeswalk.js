@@ -107,16 +107,31 @@
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
+	/* global React ReactDOM JanesWalk */
+
 	/**
-	 * Let hitting 'm' make the menu pop up
+	 * Initialization code goes here. This is not to be a dumping ground for
+	 * miscellaneous functions, and especially not a place to stick new global
+	 * variables.
 	 */
+	var _React = React;
+	var ce = _React.createElement;
+
+	// Translations for i18n L10n
+
+
+	// Stores, for late-binding some page updates.
+	// Not fully React, but we can use Flux for making PHP-rendered page updates too!
 
 
 	// React Views
 
 
-	// Stores, for late-binding some page updates.
-	// Not fully React, but we can use Flux for making PHP-rendered page updates too!
+	// load modals
+
+	/**
+	 * Let hitting 'm' make the menu pop up
+	 */
 	function initKeyEvents() {
 	  // Init keyboard shortcuts
 	  var toolbar = document.getElementById('ccm-toolbar');
@@ -142,32 +157,22 @@
 	}
 
 	// Render the sitewide elements
-
-
-	// load modals
-	/* global React ReactDOM JanesWalk */
-
-	/**
-	 * Initialization code goes here. This is not to be a dumping ground for
-	 * miscellaneous functions, and especially not a place to stick new global
-	 * variables.
-	 */
-	// Translations for i18n L10n
 	function renderGlobal() {
+	  var _JanesWalk = JanesWalk;
+	  var _JanesWalk$stacks = _JanesWalk.stacks;
+	  _JanesWalk$stacks = _JanesWalk$stacks === undefined ? {} : _JanesWalk$stacks;
+	  var _JanesWalk$stacks$Soc = _JanesWalk$stacks['Social Logins'];
+	  var socialLogin = _JanesWalk$stacks$Soc === undefined ? '' : _JanesWalk$stacks$Soc;
 	  // Render our header first
+
 	  var navbar = document.getElementById('navbar');
 	  if (navbar) {
-	    ReactDOM.render(React.createElement(_Navbar2.default, null), navbar);
+	    ReactDOM.render(ce(_Navbar2.default), navbar);
 	  }
 
 	  // Render modals we need on each page
-	  ReactDOM.render(React.createElement(_Login2.default, { socialLogin: (JanesWalk.stacks || { 'Social Logins': '' })['Social Logins'] }), document.getElementById('modals'));
+	  ReactDOM.render(ce(_Login2.default, { socialLogin: socialLogin }), document.getElementById('modals'));
 	}
-
-	// Dispatch our own event so we only need one callback on google maps loading
-	window.googleMapsLoaded = function () {
-	  JanesWalk.event.emit('google.loaded');
-	};
 
 	// Listen for JW events to load flux stores with
 	function addFluxListeners() {
@@ -203,46 +208,46 @@
 	    var canEdit = _ref.canEdit;
 
 	    WalkActions.receive(walk);
-	    ReactDOM.render(React.createElement(_Walk2.default, { city: city, page: JanesWalk.page, walk: walk, canEdit: canEdit }), document.getElementById('page'));
+	    ReactDOM.render(ce(_Walk2.default, { city: city, page: JanesWalk.page, walk: walk, canEdit: canEdit }), document.getElementById('page'));
 	  });
 
 	  // The profile page, e.g. /profile
 	  JanesWalk.event.on('profilepage.load', function (props) {
-	    ReactDOM.render(React.createElement(_Dashboard2.default, props), document.getElementById('page'));
+	    ReactDOM.render(ce(_Dashboard2.default, props), document.getElementById('page'));
 	  });
 
 	  // Create a walk
 	  JanesWalk.event.on('caw.load', function () {
-	    ReactDOM.render(React.createElement(_CreateWalk2.default, {
-	      data: JanesWalk.walk.data,
-	      city: JanesWalk.city,
-	      user: JanesWalk.user,
-	      url: JanesWalk.walk.url,
-	      valt: JanesWalk.form.valt
-	    }), document.getElementById('page'));
+	    var _JanesWalk2 = JanesWalk;
+	    var _JanesWalk2$walk = _JanesWalk2.walk;
+	    var data = _JanesWalk2$walk.data;
+	    var url = _JanesWalk2$walk.url;
+	    var valt = _JanesWalk2.form.valt;
+	    var city = _JanesWalk2.city;
+	    var user = _JanesWalk2.user;
+
+	    ReactDOM.render(ce(_CreateWalk2.default, { data: data, url: url, valt: valt, city: city, user: user }), document.getElementById('page'));
 	  });
 	}
 
 	_CityStore2.default.addChangeListener(function () {
+	  var pageviewname = document.body.dataset.pageviewname;
+
 	  // Bind anything to render not using react
-	  switch (document.body.dataset.pageviewname) {
-	    case 'CityPageView':
-	      {
-	        var city = _CityStore2.default.getCity();
-	        if (city) {
-	          var bgUri = 'url(' + city.background + ')';
-	          if (city.background && document.body.style.backgroundImage !== bgUri) {
-	            document.body.style.backgroundImage = bgUri;
-	          }
-	        }
+
+	  if (pageviewname === 'CityPageView') {
+	    var city = _CityStore2.default.getCity();
+	    if (city) {
+	      var bgUri = 'url(' + city.background + ')';
+	      if (city.background && document.body.style.backgroundImage !== bgUri) {
+	        document.body.style.backgroundImage = bgUri;
 	      }
-	      break;
+	    }
 	  }
 	});
 
 	new Promise(function (res) {
-	  if (document.readyState === 'interactive') res(document);
-	  document.addEventListener('DOMContentLoaded', function () {
+	  if (document.readyState === 'interactive') res(document);else document.addEventListener('DOMContentLoaded', function () {
 	    return res(document);
 	  });
 	}).then(function () {

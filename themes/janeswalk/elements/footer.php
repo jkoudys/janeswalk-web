@@ -29,8 +29,6 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
-    <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyAvsH_wiFHJCuMPPuVifJ7QgaRCStKTdZM&sensor=false&callback=googleMapsLoaded"></script>
-    <script src="//google-maps-utility-library-v3.googlecode.com/svn/trunk/infobox/src/infobox.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="<?= $this->getThemePath() . (CONCRETE5_ENV === 'dev' ? '/js/janeswalk.js' : '/js/janeswalk.min.js') ?>"></script>
 
