@@ -71,7 +71,7 @@ gulp.task('js.blocks', () => {
     './blocks/page_list/templates/typeahead/',
     './blocks/page_list/templates/walk_filters/',
   ].map(entry => webpack({
-    entry: [`${entry}view.jsx`],
+    entry: [`${entry}block.js`],
     output: {
       path: entry,
       filename: 'view.js',
