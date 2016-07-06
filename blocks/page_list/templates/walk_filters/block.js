@@ -4,16 +4,18 @@
  */
 /* global React ReactDOM JanesWalk */
 
-import WalkFilter from './WalkFilter.jsx';
+import WalkFilter from './WalkFilter';
 
 // Fluxxy
 import * as WalkActions from 'janeswalk/actions/WalkActions';
 import * as CityActions from 'janeswalk/actions/CityActions';
 
+const { createElement: ce } = React;
+
 let _filters = {};
 
 JanesWalk.event.on('walkfilters.load', (location) => ReactDOM.render(
-  <WalkFilter filters={_filters} {...{ location }} />,
+  ce(WalkFilter, { filters: _filters, location }),
   document.getElementById('janeswalk-walk-filters')
 ));
 

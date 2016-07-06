@@ -25,8 +25,7 @@ function socialLoginIcon($providerID)
 }
 
 $u = new User;
-if (!$u->isLoggedIn()) {
-?>
+if (!$u->isLoggedIn()) { ?>
 <ul class="social-login-providers template-fontawesome">
     <?php foreach ($active_providers as $provider) { ?>
         <li>

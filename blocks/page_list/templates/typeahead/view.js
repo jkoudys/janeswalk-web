@@ -71,11 +71,15 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _React = React;
+	var ce = _React.createElement;
+
 	/**
 	 * Fold accent-characters into their accentless character
 	 * @param     String str
 	 * @return    String
 	 */
+
 	function convertAccents(str) {
 	  return str.replace(/([àáâãäå])|([ç])|([èéêë])|([ìíîï])|([ñ])|([òóôõöø])|([ß])|([ùúûü])|([ÿ])|([æ])/g, function (str, a, c, e, i, n, o, s, u, y, ae) {
 	    if (a) return 'a';else if (c) return 'c';else if (e) return 'e';else if (i) return 'i';else if (n) return 'n';else if (o) return 'o';else if (s) return 's';else if (u) return 'u';else if (y) return 'y';else if (ae) return 'ae';
@@ -96,15 +100,7 @@
 	  var id = _ref.id;
 	  var name = _ref.name;
 	  var url = _ref.url;
-	  return React.createElement(
-	    'li',
-	    { key: 'city' + id },
-	    React.createElement(
-	      'a',
-	      { href: url },
-	      name
-	    )
-	  );
+	  return ce('li', { key: 'city' + id }, ce('a', { href: url }, name));
 	};
 
 	var Country = function Country(_ref2) {
@@ -112,22 +108,9 @@
 	  var name = _ref2.name;
 	  var url = _ref2.url;
 	  var cities = _ref2.cities;
-	  return React.createElement(
-	    'li',
-	    { key: 'country' + id, className: 'country' },
-	    React.createElement(
-	      'a',
-	      { href: url },
-	      name
-	    ),
-	    React.createElement(
-	      'ul',
-	      { className: 'cities' },
-	      cities.map(function (city) {
-	        return React.createElement(City, _extends({ key: 'city' + city.id }, city));
-	      })
-	    )
-	  );
+	  return ce('li', { key: 'country' + id, className: 'country' }, ce('a', { href: url }, name), ce('ul', { className: 'cities' }, cities.map(function (city) {
+	    return ce(City, _extends({ key: 'city' + city.id }, city));
+	  })));
 	};
 
 	var PageListTypeahead = function (_React$Component) {
@@ -200,56 +183,23 @@
 	      var user = this.props.user;
 
 
-	      var homeCity = React.createElement('h3', null);
+	      var homeCity = ce('h3');
 
 	      if (user && user.city) {
-	        homeCity = React.createElement(
-	          'h3',
-	          null,
-	          'See walks in ',
-	          React.createElement(
-	            'a',
-	            { href: user.city.url },
-	            user.city.name
-	          )
-	        );
+	        homeCity = ce('h3', null, 'See walks in ', ce('a', { href: user.city.url }, user.city.name));
 	      }
 
-	      return React.createElement(
-	        'div',
-	        { className: 'ccm-page-list-typeahead' },
-	        React.createElement(
-	          'form',
-	          { onSubmit: this.handleSubmit },
-	          React.createElement(
-	            'fieldset',
-	            { className: 'search' },
-	            React.createElement('input', { type: 'text', name: 'selected_option', className: 'typeahead', placeholder: (0, _I18nStore.translateTag)(_templateObject), autoComplete: 'off', value: this.state.q, onChange: this.handleInput }),
-	            React.createElement(
-	              'button',
-	              { type: 'submit' },
-	              'Go'
-	            ),
-	            React.createElement(
-	              'ul',
-	              null,
-	              matched.map(function (country) {
-	                return React.createElement(Country, _extends({ key: country.id }, country));
-	              }),
-	              matched.length === 0 ? React.createElement(
-	                'li',
-	                null,
-	                React.createElement(
-	                  'a',
-	                  { href: '/city-organizer-onboarding' },
-	                  (0, _I18nStore.translateTag)(_templateObject2, q)
-	                )
-	              ) : null
-	            )
-	          )
-	        ),
-	        homeCity
-	      );
+	      return ce('div', { className: 'ccm-page-list-typeahead' }, ce('form', { onSubmit: this.handleSubmit }, ce('fieldset', { className: 'search' }, ce('input', {
+	        type: 'text',
+	        name: 'selected_option',
+	        className: 'typeahead',
+	        placeholder: (0, _I18nStore.translateTag)(_templateObject),
+	        autoComplete: 'off',
+	        value: this.state.q,
+	        onChange: this.handleInput
+	      }), ce('button', { type: 'submit' }, 'Go'), ce('ul', null, matched.map(function (country) {
+	        return ce(Country, _extends({ key: country.id }, country));
+	      }), matched.length === 0 ? ce('li', null, ce('a', { href: '/city-organizer-onboarding' }, (0, _I18nStore.translateTag)(_templateObject2, q))) : null))), homeCity);
 	    }
 	  }]);
 
@@ -260,7 +210,7 @@
 
 
 	document.addEventListener('DOMContentLoaded', function () {
-	  ReactDOM.render(React.createElement(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
+	  ReactDOM.render(ce(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
 	});
 
 /***/ },

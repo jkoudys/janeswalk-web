@@ -19,19 +19,16 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $row = $r->fetchRow();
             }
         } else {
-            $row['num'] = $this->num;
-            $row['cParentID'] = $this->cParentID;
-            $row['cThis'] = $this->cThis;
-            $row['orderBy'] = $this->orderBy;
-            $row['ctID'] = $this->ctID;
-            $row['rss'] = $this->rss;
-            $row['displayAliases'] = $this->displayAliases;
+            $row = array_intersect_key(
+                $this,
+                array_flip(['num', 'cParentID', 'cThis', 'orderBy', 'ctID', 'rss', 'displayAliases'])
+            );
         }
 
-        $pl = new PageList;
+        $pl = new PageList();
         $pl->setNameSpace('b' . $this->bID);
 
-        $cArray = array();
+        $cArray = [];
 
         switch ($row['orderBy']) {
         case 'display_asc':
@@ -87,7 +84,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             $pl->filter(false, '(ak_exclude_page_list = 0 or ak_exclude_page_list is null)');
         }
 
-        if ( intval($row['cParentID']) != 0) {
+        if (intval($row['cParentID']) != 0) {
             $cParentID = ($row['cThis']) ? $this->cID : $row['cParentID'];
             if ($this->includeAllDescendents) {
                 $pl->filterByPath(Page::getByID($cParentID)->getCollectionPath());
@@ -131,7 +128,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
 
             // Set up walk filters
             // Wards
-            $wards = array();
+            $wards = [];
             $wardObjects = $c->getAttribute('city_wards');
             if ($wardObjects !== false) {
                 foreach ($wardObjects->getOptions() as $ward) {

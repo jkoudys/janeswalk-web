@@ -5,15 +5,17 @@
  */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
-import WalkCards from './WalkCards.jsx';
-import WalkList from './WalkList.jsx';
-import LocationMap from './LocationMap.jsx';
-import DateRange from './DateRange.jsx';
-import Filter from './Filter.jsx';
+import WalkCards from './WalkCards';
+import WalkList from './WalkList';
+import LocationMap from './LocationMap';
+import DateRange from './DateRange';
+import Filter from './Filter';
 
 // Flux
 import WalkStore from 'janeswalk/stores/WalkStore';
 import CityStore from 'janeswalk/stores/CityStore';
+
+const { Component, createElement: ce } = React;
 
 // Actually a little before today
 const today = new Date();
@@ -37,7 +39,7 @@ const filterWalks = ({ outings, filters, dateRange, city, typeahead = '' }) => o
       (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes[`accessible-${filters.accessibility.selected}`])) ||
       (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
       (city && +walk.cityID !== +city.id) ||
-      (filters.city && filters.city.selected && walk.cityID != filters.city.selected) ||
+      (filters.city && filters.city.selected && +walk.cityID !== +filters.city.selected) ||
       (dateRange[0] && dateRange[0] > time) || (dateRange[1] && dateRange[1] < time) ||
       (typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.map(m => `${m['name-first']} ${m['name-last']}`).join('')).match(new RegExp(typeahead, 'i')))
    ) {
@@ -84,7 +86,7 @@ const getWalkFilterState = ({ filters: filters = {}, typeahead, dateRange, city:
   };
 };
 
-export default class WalkFilter extends React.Component {
+export default class WalkFilter extends Component {
   constructor(props) {
     super(props);
 
@@ -153,49 +155,54 @@ export default class WalkFilter extends React.Component {
     const { displayFilters, city, filterMatches, dateRange, filters, typeahead } = this.state;
 
     const Filters = Object.keys(filters).map(
-      key => <Filter key={key} setFilter={v => this.setFilter(key, v)} {...filters[key]} />
+      key => ce(Filter, { key, setFilter: v => this.setFilter(key, v), ...filters[key] })
     );
 
     // See if this city has a location set
     if (city && city.latlng.length === 2) {
       locationMapSection = (
-        <section className="tab-pane" id="jw-map">
-          <LocationMap outings={filterMatches} latlng={city.latlng} />
-        </section>
+        ce('section', { className: 'tab-pane', id: 'jw-map' },
+          ce(LocationMap, { outings: filterMatches, latlng: city.latlng }),
+        )
       );
     }
 
     const AllFilters = (
-      <section>
-        <ul className="filters">
-          {Filters}
-          <li>
-            <label>Dates</label>
-            <DateRange value={dateRange} onChange={this.setDateRange} />
-          </li>
-        </ul>
-      </section>
+      ce('section', null,
+        ce('ul', { className: 'filters' },
+          Filters,
+          ce('li', null,
+            ce('label', null, 'Dates'),
+            ce(DateRange, { value: dateRange, onChange: this.setDateRange }),
+          )
+        )
+      )
     );
 
     return (
-      <section className="ccm-block-page-list-walk-filters">
-        <div className="walk-filters">
-          <a className="filter-header" onClick={this.handleToggleFilters}>
-            <i className={displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right'} /> Filters
-          </a>
-          <a className="print-button" onClick={this.printList}>
-            <i className="fa fa-print" /> Print List
-          </a>
-          {displayFilters ? AllFilters : null}
-        </div>
-        <div className="walk-typeahead">
-          <input type="text" onChange={this.handleTypeahead} value={typeahead} placeholder={t`Search in Walks below`} />
-        </div>
-        <div className="walks-area">
-          <WalkCards outings={filterMatches} />
-          {locationMapSection}
-        </div>
-      </section>
+      ce('section', { className: 'ccm-block-page-list-walk-filters' },
+        ce('div', { className: 'walk-filters' },
+          ce('a', { className: 'filter-header', onClick: this.handleToggleFilters },
+            ce('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }, 'Filters'),
+          ),
+          ce('a', { className: 'print-button', onClick: this.printList },
+            ce('i', { className: 'fa fa-print' }, 'Print List'),
+          ),
+          displayFilters ? AllFilters : null,
+        ),
+        ce('div', { className: 'walk-typeahead' },
+          ce('input', {
+            type: 'text',
+            value: typeahead,
+            placeholder: t`Search in Walks below`,
+            onChange: this.handleTypeahead,
+          }),
+        ),
+        ce('div', { className: 'walks-area' },
+          ce(WalkCards, { outings: filterMatches }),
+          locationMapSection,
+        )
+      )
     );
   }
 }

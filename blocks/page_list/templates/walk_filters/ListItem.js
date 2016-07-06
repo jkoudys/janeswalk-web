@@ -1,4 +1,5 @@
 /* global React */
+const { createElement: ce } = React;
 
 // Date formatter
 let dtfDate;
@@ -37,21 +38,13 @@ export default function ListItem({ walk: { map, url, title }, slot }) {
   }
 
   return (
-    <tr>
-      <td>
-        {startDate}
-      </td>
-      <td>
-        {startTime}
-      </td>
-      <td>
-        <a href={url} target="_blank" >
-          {title}
-        </a>
-      </td>
-      <td>
-        {Meeting}
-      </td>
-    </tr>
+    ce('tr', null,
+      ce('td', null, startDate),
+      ce('td', null, startTime),
+      ce('td', null,
+        ce('a', { href: url, target: '_blank' }, title),
+      ),
+      ce('td', null, Meeting),
+    )
   );
 }

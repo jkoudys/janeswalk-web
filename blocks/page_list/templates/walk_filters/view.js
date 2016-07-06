@@ -53,15 +53,6 @@
 
 	'use strict';
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-	                                                                                                                                                                                                                                                                   * A set of walk filters, to filter on properties. Also includes
-	                                                                                                                                                                                                                                                                   * the tabs, like 'list' and 'map/
-	                                                                                                                                                                                                                                                                   */
-	/* global React ReactDOM JanesWalk */
-
-	// Fluxxy
-
-
 	var _WalkFilter = __webpack_require__(2);
 
 	var _WalkFilter2 = _interopRequireDefault(_WalkFilter);
@@ -78,10 +69,20 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	// Fluxxy
+	var _React = React; /**
+	                     * A set of walk filters, to filter on properties. Also includes
+	                     * the tabs, like 'list' and 'map/
+	                     */
+	/* global React ReactDOM JanesWalk */
+
+	var ce = _React.createElement;
+
+
 	var _filters = {};
 
 	JanesWalk.event.on('walkfilters.load', function (location) {
-	  return ReactDOM.render(React.createElement(_WalkFilter2.default, _extends({ filters: _filters }, { location: location })), document.getElementById('janeswalk-walk-filters'));
+	  return ReactDOM.render(ce(_WalkFilter2.default, { filters: _filters, location: location }), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	// Listen for updates, add routing
@@ -159,7 +160,12 @@
 	// Flux
 
 
+	var _React = React;
+	var Component = _React.Component;
+	var ce = _React.createElement;
+
 	// Actually a little before today
+
 	var today = new Date();
 	today.setUTCDate(today.getDate());
 	today.setUTCHours(0, 0, 0);
@@ -186,7 +192,7 @@
 	    // Note that this would be a lot cleaner using functions, but it's
 	    // built with a big set of basic boolean operators to speed it up
 	    // along this likely bottleneck
-	    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && walk.cityID != filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time || typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.map(function (m) {
+	    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && +walk.cityID !== +filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time || typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.map(function (m) {
 	      return m['name-first'] + ' ' + m['name-last'];
 	    }).join('')).match(new RegExp(typeahead, 'i'))) {
 	      return false;
@@ -240,8 +246,8 @@
 	  };
 	};
 
-	var WalkFilter = function (_React$Component) {
-	  _inherits(WalkFilter, _React$Component);
+	var WalkFilter = function (_Component) {
+	  _inherits(WalkFilter, _Component);
 
 	  function WalkFilter(props) {
 	    _classCallCheck(this, WalkFilter);
@@ -344,77 +350,29 @@
 
 
 	      var Filters = Object.keys(filters).map(function (key) {
-	        return React.createElement(_Filter2.default, _extends({ key: key, setFilter: function setFilter(v) {
+	        return ce(_Filter2.default, _extends({ key: key, setFilter: function setFilter(v) {
 	            return _this2.setFilter(key, v);
 	          } }, filters[key]));
 	      });
 
 	      // See if this city has a location set
 	      if (city && city.latlng.length === 2) {
-	        locationMapSection = React.createElement(
-	          'section',
-	          { className: 'tab-pane', id: 'jw-map' },
-	          React.createElement(_LocationMap2.default, { outings: filterMatches, latlng: city.latlng })
-	        );
+	        locationMapSection = ce('section', { className: 'tab-pane', id: 'jw-map' }, ce(_LocationMap2.default, { outings: filterMatches, latlng: city.latlng }));
 	      }
 
-	      var AllFilters = React.createElement(
-	        'section',
-	        null,
-	        React.createElement(
-	          'ul',
-	          { className: 'filters' },
-	          Filters,
-	          React.createElement(
-	            'li',
-	            null,
-	            React.createElement(
-	              'label',
-	              null,
-	              'Dates'
-	            ),
-	            React.createElement(_DateRange2.default, { value: dateRange, onChange: this.setDateRange })
-	          )
-	        )
-	      );
+	      var AllFilters = ce('section', null, ce('ul', { className: 'filters' }, Filters, ce('li', null, ce('label', null, 'Dates'), ce(_DateRange2.default, { value: dateRange, onChange: this.setDateRange }))));
 
-	      return React.createElement(
-	        'section',
-	        { className: 'ccm-block-page-list-walk-filters' },
-	        React.createElement(
-	          'div',
-	          { className: 'walk-filters' },
-	          React.createElement(
-	            'a',
-	            { className: 'filter-header', onClick: this.handleToggleFilters },
-	            React.createElement('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }),
-	            ' Filters'
-	          ),
-	          React.createElement(
-	            'a',
-	            { className: 'print-button', onClick: this.printList },
-	            React.createElement('i', { className: 'fa fa-print' }),
-	            ' Print List'
-	          ),
-	          displayFilters ? AllFilters : null
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'walk-typeahead' },
-	          React.createElement('input', { type: 'text', onChange: this.handleTypeahead, value: typeahead, placeholder: (0, _I18nStore.translateTag)(_templateObject) })
-	        ),
-	        React.createElement(
-	          'div',
-	          { className: 'walks-area' },
-	          React.createElement(_WalkCards2.default, { outings: filterMatches }),
-	          locationMapSection
-	        )
-	      );
+	      return ce('section', { className: 'ccm-block-page-list-walk-filters' }, ce('div', { className: 'walk-filters' }, ce('a', { className: 'filter-header', onClick: this.handleToggleFilters }, ce('i', { className: displayFilters ? 'fa fa-chevron-down' : 'fa fa-chevron-right' }, 'Filters')), ce('a', { className: 'print-button', onClick: this.printList }, ce('i', { className: 'fa fa-print' }, 'Print List')), displayFilters ? AllFilters : null), ce('div', { className: 'walk-typeahead' }, ce('input', {
+	        type: 'text',
+	        value: typeahead,
+	        placeholder: (0, _I18nStore.translateTag)(_templateObject),
+	        onChange: this.handleTypeahead
+	      })), ce('div', { className: 'walks-area' }, ce(_WalkCards2.default, { outings: filterMatches }), locationMapSection));
 	    }
 	  }]);
 
 	  return WalkFilter;
-	}(React.Component);
+	}(Component);
 
 	exports.default = WalkFilter;
 
@@ -1426,36 +1384,23 @@
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /**
 	                                                                                                                                                   * The cards showing your walk
 	                                                                                                                                                   */
+	/* global React */
+
+	var _React = React;
+	var ce = _React.createElement;
 
 
 	var WalkCards = function WalkCards(_ref) {
 	  var outings = _ref.outings;
 
 	  if (outings.length === 0) {
-	    return React.createElement(
-	      'div',
-	      { className: 'empty' },
-	      React.createElement(
-	        'h4',
-	        null,
-	        (0, _I18nStore.translateTag)(_templateObject)
-	      ),
-	      React.createElement(
-	        'p',
-	        null,
-	        (0, _I18nStore.translateTag)(_templateObject2)
-	      )
-	    );
+	    return ce('div', { className: 'empty' }, ce('h4', null, (0, _I18nStore.translateTag)(_templateObject)), ce('p', null, (0, _I18nStore.translateTag)(_templateObject2)));
 	  }
-	  return React.createElement(
-	    'div',
-	    { className: 'walkCards' },
-	    outings.map(function (_ref2) {
-	      var walk = _ref2.walk;
-	      var slot = _ref2.slot;
-	      return React.createElement(_Card2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
-	    })
-	  );
+	  return ce('div', { className: 'walkCards' }, outings.map(function (_ref2) {
+	    var walk = _ref2.walk;
+	    var slot = _ref2.slot;
+	    return ce(_Card2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
+	  }));
 	};
 
 	exports.default = WalkCards;
@@ -1490,6 +1435,11 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _React = React;
+	var ce = _React.createElement;
+	var Component = _React.Component;
+
+
 	var dtfDate = void 0;
 	// Date formatter
 	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
@@ -1507,8 +1457,8 @@
 	  return (v['name-first'] + ' ' + v['name-last']).trim();
 	};
 
-	var Card = function (_React$Component) {
-	  _inherits(Card, _React$Component);
+	var Card = function (_Component) {
+	  _inherits(Card, _Component);
 
 	  function Card(props) {
 	    _classCallCheck(this, Card);
@@ -1571,11 +1521,7 @@
 	      var Tags = Object.keys(checkboxes).filter(function (check) {
 	        return check.indexOf('theme-') === 0 && checkboxes[check];
 	      }).map(function (theme) {
-	        return React.createElement(
-	          'li',
-	          { className: 'tag', 'data-toggle': 'tooltip', 'data-theme': theme, title: (0, _Theme.getThemeName)(theme) },
-	          React.createElement('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) })
-	        );
+	        return ce('li', { className: 'tag', title: (0, _Theme.getThemeName)(theme) }, ce('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) }));
 	      });
 
 	      // Build the optional elements
@@ -1589,81 +1535,19 @@
 	      }
 
 	      if (leaders.length) {
-	        LedBy = React.createElement(
-	          'span',
-	          null,
-	          (0, _I18nStore.translateTag)(_templateObject, leaders.map(getFullName).join(', '))
-	        );
+	        LedBy = ce('span', null, (0, _I18nStore.translateTag)(_templateObject, leaders.map(getFullName).join(', ')));
 	      }
 
 	      if (past) {
-	        Status = React.createElement(
-	          'div',
-	          { className: 'statusMessage' },
-	          'Ended'
-	        );
+	        Status = ce('div', { className: 'statusMessage' }, 'Ended');
 	      }
 
-	      return React.createElement(
-	        'div',
-	        { className: 'walk-card' },
-	        React.createElement(
-	          'a',
-	          { href: url },
-	          React.createElement(
-	            'div',
-	            { className: 'thumbnail' },
-	            React.createElement(
-	              'div',
-	              { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } },
-	              Status
-	            ),
-	            React.createElement(
-	              'div',
-	              { className: 'caption' },
-	              React.createElement(
-	                'h4',
-	                null,
-	                title || ''
-	              ),
-	              React.createElement(
-	                'p',
-	                null,
-	                (shortDescription || '').slice(0, 140)
-	              )
-	            ),
-	            React.createElement(
-	              'ul',
-	              { className: 'when' },
-	              React.createElement(
-	                'li',
-	                null,
-	                startTime
-	              ),
-	              Meeting ? React.createElement(
-	                'li',
-	                null,
-	                (0, _I18nStore.translateTag)(_templateObject2, Meeting)
-	              ) : null,
-	              LedBy ? React.createElement(
-	                'li',
-	                null,
-	                LedBy
-	              ) : null
-	            ),
-	            React.createElement(
-	              'ul',
-	              { className: 'list-inline tags' },
-	              Tags
-	            )
-	          )
-	        )
-	      );
+	      return ce('div', { className: 'walk-card' }, ce('a', { href: url }, ce('div', { className: 'thumbnail' }, ce('div', { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } }, Status), ce('div', { className: 'caption' }, ce('h4', null, title || ''), ce('p', null, (shortDescription || '').slice(0, 140))), ce('ul', { className: 'when' }, ce('li', null, startTime), Meeting ? ce('li', null, (0, _I18nStore.translateTag)(_templateObject2, Meeting)) : null, LedBy ? ce('li', null, LedBy) : null), ce('ul', { className: 'list-inline tags' }, Tags))));
 	    }
 	  }]);
 
 	  return Card;
-	}(React.Component);
+	}(Component);
 
 	exports.default = Card;
 
@@ -1750,53 +1634,20 @@
 	/* global React */
 
 
+	var _React = React;
+	var ce = _React.createElement;
+
 	/**
 	 * The walk list
 	 */
 
 	exports.default = function (_ref) {
 	  var outings = _ref.outings;
-	  return React.createElement(
-	    'table',
-	    { className: 'walklist table' },
-	    React.createElement(
-	      'thead',
-	      null,
-	      React.createElement(
-	        'tr',
-	        null,
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.translateTag)(_templateObject)
-	        ),
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.translateTag)(_templateObject2)
-	        ),
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.translateTag)(_templateObject3)
-	        ),
-	        React.createElement(
-	          'th',
-	          null,
-	          (0, _I18nStore.translateTag)(_templateObject4)
-	        )
-	      )
-	    ),
-	    React.createElement(
-	      'tbody',
-	      null,
-	      outings.map(function (_ref2) {
-	        var walk = _ref2.walk;
-	        var slot = _ref2.slot;
-	        return React.createElement(_ListItem2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
-	      })
-	    )
-	  );
+	  return ce('table', { className: 'walklist table' }, ce('thead', null, ce('tr', null, ce('th', null, (0, _I18nStore.translateTag)(_templateObject)), ce('th', null, (0, _I18nStore.translateTag)(_templateObject2)), ce('th', null, (0, _I18nStore.translateTag)(_templateObject3)), ce('th', null, (0, _I18nStore.translateTag)(_templateObject4)))), ce('tbody', null, outings.map(function (_ref2) {
+	    var walk = _ref2.walk;
+	    var slot = _ref2.slot;
+	    return ce(_ListItem2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
+	  })));
 	};
 
 /***/ },
@@ -1813,8 +1664,11 @@
 
 	exports.default = ListItem;
 	/* global React */
+	var _React = React;
+	var ce = _React.createElement;
 
 	// Date formatter
+
 	var dtfDate = void 0;
 	var dtfTime = void 0;
 	if ((typeof Intl === 'undefined' ? 'undefined' : _typeof(Intl)) === 'object') {
@@ -1855,34 +1709,7 @@
 	    Meeting = map.markers[0].title || map.markers[0].description;
 	  }
 
-	  return React.createElement(
-	    'tr',
-	    null,
-	    React.createElement(
-	      'td',
-	      null,
-	      startDate
-	    ),
-	    React.createElement(
-	      'td',
-	      null,
-	      startTime
-	    ),
-	    React.createElement(
-	      'td',
-	      null,
-	      React.createElement(
-	        'a',
-	        { href: url, target: '_blank' },
-	        title
-	      )
-	    ),
-	    React.createElement(
-	      'td',
-	      null,
-	      Meeting
-	    )
-	  );
+	  return ce('tr', null, ce('td', null, startDate), ce('td', null, startTime), ce('td', null, ce('a', { href: url, target: '_blank' }, title)), ce('td', null, Meeting));
 	}
 
 /***/ },
@@ -1897,11 +1724,9 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-	                                                                                                                                                                                                                                                                   * The map of upcoming walks for a whole city
-	                                                                                                                                                                                                                                                                   */
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * The map of upcoming walks for a whole city
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */
 	/* global React ReactDOM google $ JanesWalk */
 
 
@@ -1917,8 +1742,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var _React = React;
+	var Component = _React.Component;
+	var ce = _React.createElement;
+
 	// Helper to see if a member is a walk leader
 	// Check if their role contains leader, or their type does
+
 	var isWalkLeader = function isWalkLeader(_ref) {
 	  var role = _ref.role;
 	  var type = _ref.type;
@@ -1997,22 +1827,14 @@
 	    // Best-effort grab of the time
 	    try {
 	      // Show all dates joined together
-	      date = React.createElement(
-	        'h6',
-	        null,
-	        React.createElement('i', { className: 'fa fa-calendar' }),
-	        ' ',
-	        dtfDate.format(startTime * 1000)
-	      );
+	      date = ce('h6', null, ce('i', { className: 'fa fa-calendar' }), ' ' + dtfDate.format(startTime * 1000));
 	    } catch (e) {
 	      // Just log this, but don't die
 	      console.error('Failed to parse walk time.');
 	    }
 
 	    // Setup infowindow
-	    ReactDOM.render(React.createElement(_InfoWindow2.default, _extends({
-	      key: title + ':' + startTime
-	    }, { title: title, date: date, leaders: leaders, url: url, shortDescription: shortDescription })), _infoNode);
+	    ReactDOM.render(ce(_InfoWindow2.default, { key: title + ':' + startTime, title: title, date: date, leaders: leaders, url: url, shortDescription: shortDescription }), _infoNode);
 
 	    // Center the marker and display its info window
 	    _infoWindow.setMap(gmap);
@@ -2123,8 +1945,8 @@
 	  return markers;
 	}
 
-	var LocationMap = function (_React$Component) {
-	  _inherits(LocationMap, _React$Component);
+	var LocationMap = function (_Component) {
+	  _inherits(LocationMap, _Component);
 
 	  function LocationMap() {
 	    var _Object$getPrototypeO;
@@ -2178,12 +2000,12 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement('div', { className: 'cityMap', style: { width: '100%', height: '70vh' } });
+	      return ce('div', { className: 'cityMap', style: { width: '100%', height: '70vh' } });
 	    }
 	  }]);
 
 	  return LocationMap;
-	}(React.Component);
+	}(Component);
 
 	exports.default = LocationMap;
 
@@ -2197,6 +2019,8 @@
 	  value: true
 	});
 	/* global React */
+	var _React = React;
+	var ce = _React.createElement;
 
 	exports.default = function (_ref) {
 	  var title = _ref.title;
@@ -2205,33 +2029,7 @@
 	  var shortDescription = _ref.shortDescription;
 	  var _ref$leaders = _ref.leaders;
 	  var leaders = _ref$leaders === undefined ? [] : _ref$leaders;
-	  return React.createElement(
-	    'span',
-	    null,
-	    React.createElement(
-	      'h4',
-	      { style: { marginBottom: '0.1em' } },
-	      title
-	    ),
-	    date,
-	    leaders.length ? React.createElement(
-	      'h6',
-	      null,
-	      'Led by: ',
-	      leaders.join(', ')
-	    ) : null,
-	    React.createElement(
-	      'p',
-	      null,
-	      shortDescription,
-	      ' ',
-	      React.createElement(
-	        'a',
-	        { href: url, target: '_blank' },
-	        'Read More'
-	      )
-	    )
-	  );
+	  return ce('span', null, ce('h4', { style: { marginBottom: '0.1em' } }, title), date, leaders.length ? ce('h6', null, 'Led by: ' + leaders.join(', ')) : null, ce('p', null, shortDescription + ' ', ce('a', { href: url, target: '_blank' }, 'Read More')));
 	};
 
 /***/ },
@@ -2259,13 +2057,17 @@
 	 * a jQueryUI based React component for picking a to/from date range
 	 */
 	/* global React $ */
+	var _React = React;
+	var ce = _React.createElement;
+	var Component = _React.Component;
+
 
 	var df = 'yy-mm-dd';
 	var offset = new Date().getTimezoneOffset() * 60000;
 	var DAY = 24 * 60 * 60 * 1000 - 10;
 
-	var DateRange = function (_React$Component) {
-	  _inherits(DateRange, _React$Component);
+	var DateRange = function (_Component) {
+	  _inherits(DateRange, _Component);
 
 	  function DateRange(props) {
 	    _classCallCheck(this, DateRange);
@@ -2330,17 +2132,12 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return React.createElement(
-	        'fieldset',
-	        { className: 'daterange' },
-	        React.createElement('input', { type: 'text', ref: 'from', placeholder: 'From', defaultValue: this.state.from }),
-	        React.createElement('input', { type: 'text', ref: 'to', placeholder: 'To', defaultValue: this.state.to })
-	      );
+	      return ce('fieldset', { className: 'daterange' }, ce('input', { type: 'text', ref: 'from', placeholder: 'From', defaultValue: this.state.from }), ce('input', { type: 'text', ref: 'to', placeholder: 'To', defaultValue: this.state.to }));
 	    }
 	  }]);
 
 	  return DateRange;
-	}(React.Component);
+	}(Component);
 
 	exports.default = DateRange;
 
@@ -2348,45 +2145,26 @@
 /* 21 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	/* global React */
+	var _React = React;
+	var ce = _React.createElement;
+
 
 	var Filter = function Filter(_ref) {
 	  var name = _ref.name;
 	  var selected = _ref.selected;
 	  var setFilter = _ref.setFilter;
 	  var data = _ref.data;
-	  return React.createElement(
-	    "li",
-	    null,
-	    React.createElement(
-	      "label",
-	      null,
-	      name
-	    ),
-	    React.createElement(
-	      "select",
-	      { value: selected, onChange: function onChange(e) {
-	          return setFilter(e.target.value);
-	        } },
-	      React.createElement(
-	        "option",
-	        { value: "" },
-	        "All"
-	      ),
-	      Object.keys(data).map(function (k) {
-	        return React.createElement(
-	          "option",
-	          { value: k },
-	          data[k]
-	        );
-	      })
-	    )
-	  );
+	  return ce('li', null, ce('label', null, name), ce('select', { value: selected, onChange: function onChange(e) {
+	      return setFilter(e.target.value);
+	    } }, ce('option', { value: '' }, 'All'), Object.keys(data).map(function (k) {
+	    return ce('option', { value: k }, data[k]);
+	  })));
 	};
 
 	exports.default = Filter;

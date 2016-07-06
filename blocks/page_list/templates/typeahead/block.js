@@ -1,6 +1,8 @@
 /* global React ReactDOM JanesWalk */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
+const { createElement: ce } = React;
+
 /**
  * Fold accent-characters into their accentless character
  * @param     String str
@@ -33,18 +35,18 @@ function convertAccents(str) {
 const strContains = (a, b) => convertAccents(a.toLowerCase()).indexOf(convertAccents(b.toLowerCase())) > -1;
 
 const City = ({ id, name, url }) => (
-  <li key={`city${id}`}>
-    <a href={url}>{name}</a>
-  </li>
+  ce('li', { key: `city${id}` },
+    ce('a', { href: url }, name),
+  )
 );
 
 const Country = ({ id, name, url, cities }) => (
-  <li key={`country${id}`} className="country">
-    <a href={url}>{name}</a>
-    <ul className="cities">
-      {cities.map(city => <City key={`city${city.id}`} {...city} />)}
-    </ul>
-  </li>
+  ce('li', { key: `country${id}`, className: 'country' },
+    ce('a', { href: url }, name),
+    ce('ul', { className: 'cities' },
+      cities.map(city => ce(City, { key: `city${city.id}`, ...city })),
+    ),
+  )
 );
 
 class PageListTypeahead extends React.Component {
@@ -98,29 +100,38 @@ class PageListTypeahead extends React.Component {
     const { q, matched } = this.state;
     const { user } = this.props;
 
-    let homeCity = <h3 />;
+    let homeCity = ce('h3');
 
     if (user && user.city) {
-      homeCity = <h3>See walks in <a href={user.city.url}>{user.city.name}</a></h3>;
+      homeCity = ce('h3', null, 'See walks in ', ce('a', { href: user.city.url }, user.city.name));
     }
 
     return (
-      <div className="ccm-page-list-typeahead">
-        <form onSubmit={this.handleSubmit}>
-          <fieldset className="search">
-            <input type="text" name="selected_option" className="typeahead" placeholder={t`Find citizen-led walks in your city`} autoComplete="off" value={this.state.q} onChange={this.handleInput} />
-            <button type="submit">Go</button>
-            <ul>
-              {matched.map(country => <Country key={country.id} {...country} />)}
-              {matched.length === 0 ?
-                <li><a href="/city-organizer-onboarding">{t`Add ${q} to Jane's Walk`}</a></li> :
+      ce('div', { className: 'ccm-page-list-typeahead' },
+        ce('form', { onSubmit: this.handleSubmit },
+          ce('fieldset', { className: 'search' },
+            ce('input', {
+              type: 'text',
+              name: 'selected_option',
+              className: 'typeahead',
+              placeholder: t`Find citizen-led walks in your city`,
+              autoComplete: 'off',
+              value: this.state.q,
+              onChange: this.handleInput,
+            }),
+            ce('button', { type: 'submit' }, 'Go'),
+            ce('ul', null,
+              matched.map(country => ce(Country, { key: country.id, ...country })),
+              matched.length === 0 ?
+                ce('li', null,
+                  ce('a', { href: '/city-organizer-onboarding' }, t`Add ${q} to Jane's Walk`),
+                ) :
                 null
-              }
-            </ul>
-          </fieldset>
-        </form>
-        {homeCity}
-      </div>
+            ),
+          )
+        ),
+        homeCity,
+      )
     );
   }
 }
@@ -128,7 +139,7 @@ class PageListTypeahead extends React.Component {
 // TODO: get browserify-shim working and `import React from 'react';`
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <PageListTypeahead countries={JanesWalk.countries} user={JanesWalk.user} />,
+    ce(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }),
     document.getElementById('ccm-jw-page-list-typeahead')
   );
 });

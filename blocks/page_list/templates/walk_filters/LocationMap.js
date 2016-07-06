@@ -2,7 +2,9 @@
  * The map of upcoming walks for a whole city
  */
 /* global React ReactDOM google $ JanesWalk */
-import InfoWindow from './InfoWindow.jsx';
+import InfoWindow from './InfoWindow';
+
+const { Component, createElement: ce } = React;
 
 // Helper to see if a member is a walk leader
 // Check if their role contains leader, or their type does
@@ -68,9 +70,10 @@ function buildNewMarker({ lat, lng, team = [], startTime, title, gmap, url, shor
     try {
       // Show all dates joined together
       date = (
-        <h6>
-          <i className="fa fa-calendar" /> {dtfDate.format(startTime * 1000)}
-        </h6>
+        ce('h6', null,
+          ce('i', { className: 'fa fa-calendar' }),
+          ` ${dtfDate.format(startTime * 1000)}`,
+        )
       );
     } catch (e) {
       // Just log this, but don't die
@@ -79,10 +82,7 @@ function buildNewMarker({ lat, lng, team = [], startTime, title, gmap, url, shor
 
     // Setup infowindow
     ReactDOM.render(
-      <InfoWindow
-        key={`${title}:${startTime}`}
-        {...{ title, date, leaders, url, shortDescription }}
-      />,
+      ce(InfoWindow, { key: `${title}:${startTime}`, title, date, leaders, url, shortDescription }),
       _infoNode
     );
 
@@ -140,7 +140,7 @@ function addNewMarkersToMap(markers, outings, gmap) {
   return markers;
 }
 
-export default class LocationMap extends React.Component {
+export default class LocationMap extends Component {
   constructor(...args) {
     super(...args);
 
@@ -174,7 +174,7 @@ export default class LocationMap extends React.Component {
 
   render() {
     return (
-      <div className="cityMap" style={{ width: '100%', height: '70vh' }} />
+      ce('div', { className: 'cityMap', style: { width: '100%', height: '70vh' } })
     );
   }
 }

@@ -3,12 +3,13 @@
  * a jQueryUI based React component for picking a to/from date range
  */
 /* global React $ */
+const { createElement: ce, Component } = React;
 
 const df = 'yy-mm-dd';
 const offset = (new Date()).getTimezoneOffset() * 60000;
 const DAY = 24 * 60 * 60 * 1000 - 10;
 
-export default class DateRange extends React.Component {
+export default class DateRange extends Component {
   constructor(props) {
     super(props);
     if (Array.isArray(props.value) && props.value.length === 2) {
@@ -60,10 +61,10 @@ export default class DateRange extends React.Component {
 
   render() {
     return (
-      <fieldset className="daterange">
-        <input type="text" ref="from" placeholder="From" defaultValue={this.state.from} />
-        <input type="text" ref="to" placeholder="To" defaultValue={this.state.to} />
-      </fieldset>
+      ce('fieldset', { className: 'daterange' },
+        ce('input', { type: 'text', ref: 'from', placeholder: 'From', defaultValue: this.state.from }),
+        ce('input', { type: 'text', ref: 'to', placeholder: 'To', defaultValue: this.state.to }),
+      )
     );
   }
 }

@@ -2,6 +2,8 @@
 import { getThemeName, getThemeIcon } from 'janeswalk/utils/lookups/Theme.js';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
+const { createElement: ce, Component } = React;
+
 let dtfDate;
 // Date formatter
 if (typeof(Intl) === 'object') {
@@ -17,7 +19,7 @@ if (typeof(Intl) === 'object') {
 
 const getFullName = v => `${v['name-first']} ${v['name-last']}`.trim();
 
-export default class Card extends React.Component {
+export default class Card extends Component {
   constructor(props) {
     let formatter;
     const yesterday = new Date();
@@ -55,9 +57,9 @@ export default class Card extends React.Component {
     const Tags = Object.keys(checkboxes)
     .filter(check => (check.indexOf('theme-') === 0 && checkboxes[check]))
     .map(theme => (
-      <li className="tag" data-toggle="tooltip" data-theme={theme} title={getThemeName(theme)}>
-        <i className={`fa ${getThemeIcon(theme)}`} />
-      </li>
+      ce('li', { className: 'tag', title: getThemeName(theme) },
+        ce('i', { className: `fa ${getThemeIcon(theme)}` }),
+      )
     ));
 
     // Build the optional elements
@@ -71,39 +73,31 @@ export default class Card extends React.Component {
     }
 
     if (leaders.length) {
-      LedBy = (
-        <span>
-          {t`Walk led by ${leaders.map(getFullName).join(', ')}`}
-        </span>
-      );
+      LedBy = ce('span', null, t`Walk led by ${leaders.map(getFullName).join(', ')}`);
     }
 
     if (past) {
-      Status = <div className="statusMessage">Ended</div>;
+      Status = ce('div', { className: 'statusMessage' }, 'Ended');
     }
 
     return (
-      <div className="walk-card">
-        <a href={url}>
-          <div className="thumbnail">
-            <div className={`walkimage ${placeholder}`} style={{ backgroundImage: `url(${Thumb})` }}>
-              {Status}
-            </div>
-            <div className="caption">
-              <h4>{(title || '')}</h4>
-              <p>{(shortDescription || '').slice(0, 140)}</p>
-            </div>
-            <ul className="when">
-              <li>{startTime}</li>
-              {Meeting ? <li>{t`Meet at ${Meeting}`}</li> : null}
-              {LedBy ? <li>{LedBy}</li> : null}
-            </ul>
-            <ul className="list-inline tags">
-              {Tags}
-            </ul>
-          </div>
-        </a>
-      </div>
+      ce('div', { className: 'walk-card' },
+        ce('a', { href: url },
+          ce('div', { className: 'thumbnail' },
+            ce('div', { className: `walkimage ${placeholder}`, style: { backgroundImage: `url(${Thumb})` } }, Status),
+            ce('div', { className: 'caption' },
+              ce('h4', null, title || ''),
+              ce('p', null, (shortDescription || '').slice(0, 140)),
+            ),
+            ce('ul', { className: 'when' },
+              ce('li', null, startTime),
+              Meeting ? ce('li', null, t`Meet at ${Meeting}`) : null,
+              LedBy ? ce('li', null, LedBy) : null,
+            ),
+            ce('ul', { className: 'list-inline tags' }, Tags),
+          ),
+        ),
+      )
     );
   }
 }
