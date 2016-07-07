@@ -3,25 +3,15 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
+const { createElement: ce } = React;
+
 /**
  * Build a style object for the header
  * @return object A style object for React
  */
 function headerBG({ background }, { thumbnails = [] }) {
   // Load the BG
-  const thumb = (thumbnails[0] && thumbnails[0].url) || background;
-  let bg;
-  if (thumb) {
-    bg = `url(${thumb})`;
-  } else {
-    bg = '#eaeaea';
-  }
-
-  return {
-    backgroundImage: bg,
-    backgroundSize: 'cover',
-    backgroundPosition: '50%',
-  };
+  return (thumbnails[0] && thumbnails[0].url) || background;
 }
 
 // Read a map, return the meeting place or null
@@ -56,45 +46,40 @@ const WalkHeader = ({
   onUnschedule,
 }) => {
   const meetingPlace = getMeetingPlace(map);
+  const removeProps = { className: 'removeFavourite', onClick: onRemove };
+  const addProps = { className: 'addFavourite', onClick: onAdd };
 
-  let favButton;
-  if (isFavourite) {
-    favButton = <button className="removeFavourite" onClick={onRemove} />;
-  } else {
-    favButton = <button className="addFavourite" onClick={onAdd} />;
-  }
+  const favButton = ce('button', isFavourite ? removeProps : addProps);
+  const headImage = (src => (src ? ce('img', { src }) : null))(headerBG(city, walk));
 
   return (
-    <section className="walkHeader">
-      <section className="coverImage" style={headerBG(city, walk)}>
-        <ul className="breadcrumb">
-          <li>
-            <a href="/">
-              <i className="fa fa-home" />
-            </a>
-          </li>
-          <li>
-            <a href={city.url}>
-              {`${city.name} walks`}
-            </a>
-          </li>
-          <li className="active">
-            {title}
-          </li>
-        </ul>
-      </section>
-      <h1>{title} {favButton}</h1>
-      {canEdit ? (
-        <h4>
-          <a href={`/walk/form/${id}`}>
-            <i className="fa fa-pencil-square-o" /> {t`Edit`}
-          </a>
-        </h4>
-      ) : null}
-      {meetingPlace ? <h4>{meetingPlace}</h4> : null}
-      {team.length ? <h4>{t`Led By ${getLeaders(team)}`}</h4> : null}
-      <AddToItinerary {...{ time, walk, schedule, onSchedule, onUnschedule }} />
-    </section>
+    ce('section', { className: 'walkHeader' },
+      ce('figure', { className: 'coverImage', style: { backgroundColor: '#eaeaea' } },
+        headImage,
+        ce('ul', { className: 'breadcrumb' },
+          ce('li', null,
+            ce('a', { href: '/' },
+              ce('i', { className: 'fa fa-home' }),
+            ),
+          ),
+          ce('li', null,
+            ce('a', { href: city.url }, `${city.name} walks`),
+          ),
+          ce('li', { className: 'active' }, title),
+        ),
+      ),
+      ce('h1', null, title, ' ', favButton),
+      canEdit ? (
+        ce('h4', null,
+          ce('a', { href: `/walk/form/${id}` },
+            ce('i', { className: 'fa fa-pencil-square-o' }), ' ', t`Edit`
+          )
+        )
+      ) : null,
+      meetingPlace ? ce('h4', null, meetingPlace) : null,
+      team.length ? ce('h4', null, t`Led By ${getLeaders(team)}`) : null,
+      ce(AddToItinerary, { time, walk, schedule, onSchedule, onUnschedule }),
+    )
   );
 };
 

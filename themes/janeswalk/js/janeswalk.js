@@ -8462,29 +8462,21 @@
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); } /* global React */
 
+	var _React = React;
+	var ce = _React.createElement;
+
 	/**
 	 * Build a style object for the header
 	 * @return object A style object for React
 	 */
+
 	function headerBG(_ref, _ref2) {
 	  var background = _ref.background;
 	  var _ref2$thumbnails = _ref2.thumbnails;
 	  var thumbnails = _ref2$thumbnails === undefined ? [] : _ref2$thumbnails;
 
 	  // Load the BG
-	  var thumb = thumbnails[0] && thumbnails[0].url || background;
-	  var bg = void 0;
-	  if (thumb) {
-	    bg = 'url(' + thumb + ')';
-	  } else {
-	    bg = '#eaeaea';
-	  }
-
-	  return {
-	    backgroundImage: bg,
-	    backgroundSize: 'cover',
-	    backgroundPosition: '50%'
-	  };
+	  return thumbnails[0] && thumbnails[0].url || background;
 	}
 
 	// Read a map, return the meeting place or null
@@ -8524,78 +8516,15 @@
 	  var onUnschedule = _ref3.onUnschedule;
 
 	  var meetingPlace = getMeetingPlace(map);
+	  var removeProps = { className: 'removeFavourite', onClick: onRemove };
+	  var addProps = { className: 'addFavourite', onClick: onAdd };
 
-	  var favButton = void 0;
-	  if (isFavourite) {
-	    favButton = React.createElement('button', { className: 'removeFavourite', onClick: onRemove });
-	  } else {
-	    favButton = React.createElement('button', { className: 'addFavourite', onClick: onAdd });
-	  }
+	  var favButton = ce('button', isFavourite ? removeProps : addProps);
+	  var headImage = function (src) {
+	    return src ? ce('img', { src: src }) : null;
+	  }(headerBG(city, walk));
 
-	  return React.createElement(
-	    'section',
-	    { className: 'walkHeader' },
-	    React.createElement(
-	      'section',
-	      { className: 'coverImage', style: headerBG(city, walk) },
-	      React.createElement(
-	        'ul',
-	        { className: 'breadcrumb' },
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { href: '/' },
-	            React.createElement('i', { className: 'fa fa-home' })
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          null,
-	          React.createElement(
-	            'a',
-	            { href: city.url },
-	            city.name + ' walks'
-	          )
-	        ),
-	        React.createElement(
-	          'li',
-	          { className: 'active' },
-	          title
-	        )
-	      )
-	    ),
-	    React.createElement(
-	      'h1',
-	      null,
-	      title,
-	      ' ',
-	      favButton
-	    ),
-	    canEdit ? React.createElement(
-	      'h4',
-	      null,
-	      React.createElement(
-	        'a',
-	        { href: '/walk/form/' + id },
-	        React.createElement('i', { className: 'fa fa-pencil-square-o' }),
-	        ' ',
-	        (0, _I18nStore.translateTag)(_templateObject)
-	      )
-	    ) : null,
-	    meetingPlace ? React.createElement(
-	      'h4',
-	      null,
-	      meetingPlace
-	    ) : null,
-	    team.length ? React.createElement(
-	      'h4',
-	      null,
-	      (0, _I18nStore.translateTag)(_templateObject2, getLeaders(team))
-	    ) : null,
-	    React.createElement(_AddToItinerary2.default, { time: time, walk: walk, schedule: schedule, onSchedule: onSchedule, onUnschedule: onUnschedule })
-	  );
+	  return ce('section', { className: 'walkHeader' }, ce('figure', { className: 'coverImage', style: { backgroundColor: '#eaeaea' } }, headImage, ce('ul', { className: 'breadcrumb' }, ce('li', null, ce('a', { href: '/' }, ce('i', { className: 'fa fa-home' }))), ce('li', null, ce('a', { href: city.url }, city.name + ' walks')), ce('li', { className: 'active' }, title))), ce('h1', null, title, ' ', favButton), canEdit ? ce('h4', null, ce('a', { href: '/walk/form/' + id }, ce('i', { className: 'fa fa-pencil-square-o' }), ' ', (0, _I18nStore.translateTag)(_templateObject))) : null, meetingPlace ? ce('h4', null, meetingPlace) : null, team.length ? ce('h4', null, (0, _I18nStore.translateTag)(_templateObject2, getLeaders(team))) : null, ce(_AddToItinerary2.default, { time: time, walk: walk, schedule: schedule, onSchedule: onSchedule, onUnschedule: onUnschedule }));
 	};
 
 	WalkHeader.propTypes = {
