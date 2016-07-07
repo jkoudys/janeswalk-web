@@ -213,7 +213,13 @@ th {
     page-break-inside: avoid;
   }
   img {
-    max-width: 100% !important;
+    max-width: 100%;
+  }
+  .gm-style img {
+    max-width: auto;
+  }
+  .gm-style a:after {
+    content: "";
   }
   p,
   h2,
