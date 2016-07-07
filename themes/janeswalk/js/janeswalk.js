@@ -116,6 +116,9 @@
 	 */
 	var _React = React;
 	var ce = _React.createElement;
+	var _JanesWalk = JanesWalk;
+	var startups = _JanesWalk.startups;
+	var event = _JanesWalk.event;
 
 	// Translations for i18n L10n
 
@@ -158,11 +161,11 @@
 
 	// Render the sitewide elements
 	function renderGlobal() {
-	  var _JanesWalk = JanesWalk;
-	  var _JanesWalk$stacks = _JanesWalk.stacks;
-	  _JanesWalk$stacks = _JanesWalk$stacks === undefined ? {} : _JanesWalk$stacks;
-	  var _JanesWalk$stacks$Soc = _JanesWalk$stacks['Social Logins'];
-	  var socialLogin = _JanesWalk$stacks$Soc === undefined ? '' : _JanesWalk$stacks$Soc;
+	  var _JanesWalk2 = JanesWalk;
+	  var _JanesWalk2$stacks = _JanesWalk2.stacks;
+	  _JanesWalk2$stacks = _JanesWalk2$stacks === undefined ? {} : _JanesWalk2$stacks;
+	  var _JanesWalk2$stacks$So = _JanesWalk2$stacks['Social Logins'];
+	  var socialLogin = _JanesWalk2$stacks$So === undefined ? '' : _JanesWalk2$stacks$So;
 	  // Render our header first
 
 	  var navbar = document.getElementById('navbar');
@@ -176,25 +179,25 @@
 
 	// Listen for JW events to load flux stores with
 	function addFluxListeners() {
-	  JanesWalk.event.on('area.receive', function (areas) {
+	  event.on('area.receive', function (areas) {
 	    return AreaActions.receive(areas);
 	  });
-	  JanesWalk.event.on('user.receive', function (user, options) {
+	  event.on('user.receive', function (user, options) {
 	    return UserActions.receive(user, options);
 	  });
-	  JanesWalk.event.on('users.receive', function (users) {
+	  event.on('users.receive', function (users) {
 	    return UserActions.receiveAll(users);
 	  });
-	  JanesWalk.event.on('walk.receive', function (walk) {
+	  event.on('walk.receive', function (walk) {
 	    return WalkActions.receive(walk);
 	  });
-	  JanesWalk.event.on('walks.receive', function (walks) {
+	  event.on('walks.receive', function (walks) {
 	    return WalkActions.receiveAll(walks);
 	  });
-	  JanesWalk.event.on('city.receive', function (city) {
+	  event.on('city.receive', function (city) {
 	    return CityActions.receive(city);
 	  });
-	  JanesWalk.event.on('itineraries.receive', function (itineraries) {
+	  event.on('itineraries.receive', function (itineraries) {
 	    return ItineraryActions.receiveAll(itineraries);
 	  });
 	}
@@ -202,7 +205,7 @@
 	// Routes initialized by events
 	function addRenderListeners() {
 	  // A walk, e.g. /canada/toronto/curb-cuts-and-desire-lines
-	  JanesWalk.event.on('walkpage.load', function (_ref) {
+	  event.on('walkpage.load', function (_ref) {
 	    var walk = _ref.walk;
 	    var city = _ref.city;
 	    var canEdit = _ref.canEdit;
@@ -212,19 +215,19 @@
 	  });
 
 	  // The profile page, e.g. /profile
-	  JanesWalk.event.on('profilepage.load', function (props) {
+	  event.on('profilepage.load', function (props) {
 	    ReactDOM.render(ce(_Dashboard2.default, props), document.getElementById('page'));
 	  });
 
 	  // Create a walk
-	  JanesWalk.event.on('caw.load', function () {
-	    var _JanesWalk2 = JanesWalk;
-	    var _JanesWalk2$walk = _JanesWalk2.walk;
-	    var data = _JanesWalk2$walk.data;
-	    var url = _JanesWalk2$walk.url;
-	    var valt = _JanesWalk2.form.valt;
-	    var city = _JanesWalk2.city;
-	    var user = _JanesWalk2.user;
+	  event.on('caw.load', function () {
+	    var _JanesWalk3 = JanesWalk;
+	    var _JanesWalk3$walk = _JanesWalk3.walk;
+	    var data = _JanesWalk3$walk.data;
+	    var url = _JanesWalk3$walk.url;
+	    var valt = _JanesWalk3.form.valt;
+	    var city = _JanesWalk3.city;
+	    var user = _JanesWalk3.user;
 
 	    ReactDOM.render(ce(_CreateWalk2.default, { data: data, url: url, valt: valt, city: city, user: user }), document.getElementById('page'));
 	  });
@@ -246,11 +249,7 @@
 	  }
 	});
 
-	new Promise(function (res) {
-	  if (document.readyState === 'interactive') res(document);else document.addEventListener('DOMContentLoaded', function () {
-	    return res(document);
-	  });
-	}).then(function () {
+	Promise.all(Object.values(startups)).then(function () {
 	  // Load our translations upfront
 	  (0, _I18nUtils.getTranslations)(JanesWalk.locale);
 
@@ -266,7 +265,7 @@
 	  }, 1000);
 
 	  // Process all deferred events
-	  JanesWalk.event.activate();
+	  event.activate();
 	});
 
 /***/ },
@@ -4341,13 +4340,7 @@
 
 	// Map parameters
 	var stopMarker = {
-	  url: CCM_THEME_PATH + '/images/marker.png',
-	  // This marker is 20 pixels wide by 32 pixels tall.
-	  size: new google.maps.Size(30, 46),
-	  // The origin for this image is 0,0.
-	  origin: new google.maps.Point(0, 0),
-	  // The anchor for this image is the base of the flagpole at 0,32.
-	  anchor: new google.maps.Point(11, 44)
+	  url: CCM_THEME_PATH + '/images/marker.png'
 	};
 
 	var MapBuilder = function (_React$Component) {
@@ -4356,10 +4349,20 @@
 	  function MapBuilder(props) {
 	    _classCallCheck(this, MapBuilder);
 
-	    // State for this component should only track the map editor
+	    // Needed here, since gmaps is async
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MapBuilder).call(this, props));
 
+	    Object.assign(stopMarker, {
+	      // This marker is 20 pixels wide by 32 pixels tall.
+	      size: new google.maps.Size(30, 46),
+	      // The origin for this image is 0,0.
+	      origin: new google.maps.Point(0, 0),
+	      // The anchor for this image is the base of the flagpole at 0,32.
+	      anchor: new google.maps.Point(11, 44)
+	    });
+
+	    // State for this component should only track the map editor
 	    Object.assign(_this, {
 	      state: {
 	        // The 'mode' we're in: 'addPoint', 'addRoute'
@@ -4674,7 +4677,6 @@
 	        map: map,
 	        icon: stopMarker
 	      };
-	      var marker = void 0;
 
 	      // Assign default options
 	      var options = Object.assign({}, {
@@ -4699,7 +4701,7 @@
 	        media: options.media
 	      });
 
-	      marker = new google.maps.Marker(gMarkerOptions);
+	      var marker = new google.maps.Marker(gMarkerOptions);
 
 	      google.maps.event.addListener(marker, 'click', function () {
 	        return _this2.showInfoWindow(marker);
@@ -9351,7 +9353,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	/* global React ReactDOM google CCM_THEME_PATH */
+	/* global JanesWalk React ReactDOM google CCM_THEME_PATH */
 
 	// TODO: WalkMap.jsx already exists, review and re-use
 	/**
@@ -9359,15 +9361,20 @@
 	 * TODO: generalize for import
 	 */
 	var stopMarker = {
-	  url: CCM_THEME_PATH + '/images/marker.png',
-	  // This marker is 20 pixels wide by 32 pixels tall.
-	  size: new google.maps.Size(30, 46),
-	  // The origin for this image is 0,0.
-	  origin: new google.maps.Point(0, 0),
-	  labelOrigin: new google.maps.Point(11, 17),
-	  // The anchor for this image is the base of the flagpole at 0,32.
-	  anchor: new google.maps.Point(11, 44)
+	  url: CCM_THEME_PATH + '/images/marker.png'
 	};
+
+	JanesWalk.startups.googleMaps.then(function () {
+	  return Object.assign(stopMarker, {
+	    // This marker is 20 pixels wide by 32 pixels tall.
+	    size: new google.maps.Size(30, 46),
+	    // The origin for this image is 0,0.
+	    origin: new google.maps.Point(0, 0),
+	    labelOrigin: new google.maps.Point(11, 17),
+	    // The anchor for this image is the base of the flagpole at 0,32.
+	    anchor: new google.maps.Point(11, 44)
+	  });
+	});
 
 	function boundMapByMarkers(map, markers) {
 	  // Don't include the route - it can be too expensive to compute.

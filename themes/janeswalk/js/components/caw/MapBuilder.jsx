@@ -13,17 +13,21 @@ import { translateTag as t } from 'janeswalk/stores/I18nStore';
 // Map parameters
 const stopMarker = {
   url: `${CCM_THEME_PATH}/images/marker.png`,
-  // This marker is 20 pixels wide by 32 pixels tall.
-  size: new google.maps.Size(30, 46),
-  // The origin for this image is 0,0.
-  origin: new google.maps.Point(0, 0),
-  // The anchor for this image is the base of the flagpole at 0,32.
-  anchor: new google.maps.Point(11, 44),
 };
 
 export default class MapBuilder extends React.Component {
   constructor(props) {
     super(props);
+
+    // Needed here, since gmaps is async
+    Object.assign(stopMarker, {
+      // This marker is 20 pixels wide by 32 pixels tall.
+      size: new google.maps.Size(30, 46),
+      // The origin for this image is 0,0.
+      origin: new google.maps.Point(0, 0),
+      // The anchor for this image is the base of the flagpole at 0,32.
+      anchor: new google.maps.Point(11, 44),
+    });
 
     // State for this component should only track the map editor
     Object.assign(this, {
@@ -296,7 +300,6 @@ export default class MapBuilder extends React.Component {
       map,
       icon: stopMarker,
     };
-    let marker;
 
     // Assign default options
     const options = Object.assign({}, {
@@ -321,7 +324,7 @@ export default class MapBuilder extends React.Component {
       media: options.media,
     });
 
-    marker = new google.maps.Marker(gMarkerOptions);
+    const marker = new google.maps.Marker(gMarkerOptions);
 
     google.maps.event.addListener(marker, 'click', () => this.showInfoWindow(marker));
 

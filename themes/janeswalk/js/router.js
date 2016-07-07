@@ -6,6 +6,7 @@
  * variables.
  */
 const { createElement: ce } = React;
+const { startups, event } = JanesWalk;
 
 // Translations for i18n L10n
 import { getTranslations } from 'janeswalk/utils/I18nUtils';
@@ -82,19 +83,19 @@ function renderGlobal() {
 
 // Listen for JW events to load flux stores with
 function addFluxListeners() {
-  JanesWalk.event.on('area.receive', areas => AreaActions.receive(areas));
-  JanesWalk.event.on('user.receive', (user, options) => UserActions.receive(user, options));
-  JanesWalk.event.on('users.receive', users => UserActions.receiveAll(users));
-  JanesWalk.event.on('walk.receive', walk => WalkActions.receive(walk));
-  JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
-  JanesWalk.event.on('city.receive', city => CityActions.receive(city));
-  JanesWalk.event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
+  event.on('area.receive', areas => AreaActions.receive(areas));
+  event.on('user.receive', (user, options) => UserActions.receive(user, options));
+  event.on('users.receive', users => UserActions.receiveAll(users));
+  event.on('walk.receive', walk => WalkActions.receive(walk));
+  event.on('walks.receive', walks => WalkActions.receiveAll(walks));
+  event.on('city.receive', city => CityActions.receive(city));
+  event.on('itineraries.receive', itineraries => ItineraryActions.receiveAll(itineraries));
 }
 
 // Routes initialized by events
 function addRenderListeners() {
   // A walk, e.g. /canada/toronto/curb-cuts-and-desire-lines
-  JanesWalk.event.on('walkpage.load', ({ walk, city, canEdit }) => {
+  event.on('walkpage.load', ({ walk, city, canEdit }) => {
     WalkActions.receive(walk);
     ReactDOM.render(
       ce(Walk, { city, page: JanesWalk.page, walk, canEdit }),
@@ -103,7 +104,7 @@ function addRenderListeners() {
   });
 
   // The profile page, e.g. /profile
-  JanesWalk.event.on('profilepage.load', props => {
+  event.on('profilepage.load', props => {
     ReactDOM.render(
       ce(Dashboard, props),
       document.getElementById('page')
@@ -111,7 +112,7 @@ function addRenderListeners() {
   });
 
   // Create a walk
-  JanesWalk.event.on('caw.load', () => {
+  event.on('caw.load', () => {
     const { walk: { data, url }, form: { valt }, city, user } = JanesWalk;
     ReactDOM.render(
        ce(CreateWalk, { data, url, valt, city, user }),
@@ -135,10 +136,7 @@ CityStore.addChangeListener(() => {
   }
 });
 
-(new Promise(res => {
-  if (document.readyState === 'interactive') res(document);
-  else document.addEventListener('DOMContentLoaded', () => res(document));
-})).then(() => {
+Promise.all(Object.values(startups)).then(() => {
   // Load our translations upfront
   getTranslations(JanesWalk.locale);
 
@@ -152,5 +150,5 @@ CityStore.addChangeListener(() => {
   setTimeout(() => ItineraryAPI.startPolling(), 1000);
 
   // Process all deferred events
-  JanesWalk.event.activate();
+  event.activate();
 });

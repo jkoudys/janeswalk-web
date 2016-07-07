@@ -2,6 +2,7 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const { createElement: ce } = React;
+const { startups } = JanesWalk;
 
 /**
  * Fold accent-characters into their accentless character
@@ -137,7 +138,7 @@ class PageListTypeahead extends React.Component {
 }
 
 // TODO: get browserify-shim working and `import React from 'react';`
-document.addEventListener('DOMContentLoaded', () => {
+startups.dom.then(() => {
   ReactDOM.render(
     ce(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }),
     document.getElementById('ccm-jw-page-list-typeahead')

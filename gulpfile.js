@@ -100,18 +100,18 @@ gulp.task('js.blocks', () => {
 
 gulp.task('js.global', () => {
   webpack({
-    entry: ['babel-polyfill', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/jwobject.jsx'],
+    entry: ['babel-polyfill', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/jwobject.js'],
     output: {
       path: './js',
       filename: 'jwglobal.js',
     },
     module: {
       loaders: [{
-        test: /\.jsx$/,
+        test: /\.js$/,
         exclude: /(bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react'],
+          presets: ['es2015'],
         },
       }],
     },

@@ -2,6 +2,7 @@
  * Setup the JanesWalk namespace
  */
 import EventEmitter from 'events';
+import * as startups from './startup';
 
 /**
  * A deferred event emitter, so events can be queued up
@@ -46,4 +47,7 @@ class DeferredEventEmitter extends EventEmitter {
   }
 }
 
-window.JanesWalk = Object.assign({}, window.JanesWalk, {event: new DeferredEventEmitter()});
+window.JanesWalk = Object.assign({}, window.JanesWalk, {
+  event: new DeferredEventEmitter(),
+  startups,
+});

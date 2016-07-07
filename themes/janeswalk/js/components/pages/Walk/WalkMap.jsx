@@ -1,4 +1,4 @@
-/* global React ReactDOM google CCM_THEME_PATH */
+/* global JanesWalk React ReactDOM google CCM_THEME_PATH */
 
 // TODO: WalkMap.jsx already exists, review and re-use
 /**
@@ -7,6 +7,9 @@
  */
 const stopMarker = {
   url: `${CCM_THEME_PATH}/images/marker.png`,
+};
+
+JanesWalk.startups.googleMaps.then(() => Object.assign(stopMarker, {
   // This marker is 20 pixels wide by 32 pixels tall.
   size: new google.maps.Size(30, 46),
   // The origin for this image is 0,0.
@@ -14,7 +17,7 @@ const stopMarker = {
   labelOrigin: new google.maps.Point(11, 17),
   // The anchor for this image is the base of the flagpole at 0,32.
   anchor: new google.maps.Point(11, 44),
-};
+}));
 
 function boundMapByMarkers(map, markers) {
   // Don't include the route - it can be too expensive to compute.

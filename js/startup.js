@@ -5,4 +5,6 @@
  */
 
 import googleMaps from './startups/googleMaps';
+import dom from './startups/dom';
 
+export { googleMaps, dom };

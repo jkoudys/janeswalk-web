@@ -73,6 +73,8 @@
 
 	var _React = React;
 	var ce = _React.createElement;
+	var _JanesWalk = JanesWalk;
+	var startups = _JanesWalk.startups;
 
 	/**
 	 * Fold accent-characters into their accentless character
@@ -209,7 +211,7 @@
 	// TODO: get browserify-shim working and `import React from 'react';`
 
 
-	document.addEventListener('DOMContentLoaded', function () {
+	startups.dom.then(function () {
 	  ReactDOM.render(ce(PageListTypeahead, { countries: JanesWalk.countries, user: JanesWalk.user }), document.getElementById('ccm-jw-page-list-typeahead'));
 	});
 
