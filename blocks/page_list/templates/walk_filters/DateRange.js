@@ -5,24 +5,23 @@
 /* global React $ */
 const { createElement: ce, Component } = React;
 
-const df = 'yy-mm-dd';
+const dateFormat = 'yy-mm-dd';
 const offset = (new Date()).getTimezoneOffset() * 60000;
 const DAY = 24 * 60 * 60 * 1000 - 10;
 
 export default class DateRange extends Component {
   constructor(props) {
     super(props);
-    if (Array.isArray(props.value) && props.value.length === 2) {
-      const [from, to] = props.value;
-      this.state = {
-        from: from ? $.datepicker.formatDate(df, new Date(from + offset)) : '',
-        to: to ? $.datepicker.formatDate(df, new Date(to + offset)) : '',
-        fromInt: from || '',
-        toInt: to || '',
-      };
-    } else {
-      this.state = { from: '', to: '' };
-    }
+    const {
+      value: [from, to] = ['', ''],
+    } = props;
+
+    this.state = {
+      from: from ? $.datepicker.formatDate(dateFormat, new Date(from + offset)) : '',
+      to: to ? $.datepicker.formatDate(dateFormat, new Date(to + offset)) : '',
+      fromInt: from || '',
+      toInt: to || '',
+    };
   }
 
   componentDidMount() {
@@ -36,9 +35,9 @@ export default class DateRange extends Component {
       defaultDate: '+1w',
       changeMonth: true,
       changeYear: true,
-      dateFormat: df,
+      dateFormat,
       onSelect: selectedDate => {
-        fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
+        fromTime = $.datepicker.parseDate(dateFormat, selectedDate) - offset;
         $to.datepicker('option', 'minDate', selectedDate);
         this.setState({ from: selectedDate });
         this.props.onChange(fromTime, toTime);
@@ -49,9 +48,9 @@ export default class DateRange extends Component {
       defaultDate: '+5w',
       changeMonth: true,
       changeYear: true,
-      dateFormat: df,
+      dateFormat,
       onSelect: selectedDate => {
-        toTime = $.datepicker.parseDate(df, selectedDate) - offset + DAY;
+        toTime = $.datepicker.parseDate(dateFormat, selectedDate) - offset + DAY;
         $from.datepicker('option', 'maxDate', selectedDate);
         this.setState({ to: selectedDate });
         this.props.onChange(fromTime, toTime);

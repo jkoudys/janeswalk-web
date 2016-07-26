@@ -77,22 +77,24 @@
 	/* global React ReactDOM JanesWalk */
 
 	var ce = _React.createElement;
+	var _JanesWalk = JanesWalk;
+	var event = _JanesWalk.event;
 
 
 	var _filters = {};
 
-	JanesWalk.event.on('walkfilters.load', function (location) {
+	event.on('walkfilters.load', function (location) {
 	  return ReactDOM.render(ce(_WalkFilter2.default, { filters: _filters, location: location }), document.getElementById('janeswalk-walk-filters'));
 	});
 
 	// Listen for updates, add routing
-	JanesWalk.event.on('filters.receive', function (filters) {
+	event.on('filters.receive', function (filters) {
 	  _filters = filters;
 	});
-	JanesWalk.event.on('city.receive', function (city) {
+	event.on('city.receive', function (city) {
 	  return CityActions.receive(city);
 	});
-	JanesWalk.event.on('walks.receive', function (walks) {
+	event.on('walks.receive', function (walks) {
 	  return WalkActions.receiveAll(walks);
 	});
 
@@ -2062,7 +2064,7 @@
 	var Component = _React.Component;
 
 
-	var df = 'yy-mm-dd';
+	var dateFormat = 'yy-mm-dd';
 	var offset = new Date().getTimezoneOffset() * 60000;
 	var DAY = 24 * 60 * 60 * 1000 - 10;
 
@@ -2074,21 +2076,21 @@
 
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DateRange).call(this, props));
 
-	    if (Array.isArray(props.value) && props.value.length === 2) {
-	      var _props$value = _slicedToArray(props.value, 2);
+	    var _props$value = props.value;
+	    _props$value = _props$value === undefined ? ['', ''] : _props$value;
 
-	      var from = _props$value[0];
-	      var to = _props$value[1];
+	    var _props$value2 = _slicedToArray(_props$value, 2);
 
-	      _this.state = {
-	        from: from ? $.datepicker.formatDate(df, new Date(from + offset)) : '',
-	        to: to ? $.datepicker.formatDate(df, new Date(to + offset)) : '',
-	        fromInt: from || '',
-	        toInt: to || ''
-	      };
-	    } else {
-	      _this.state = { from: '', to: '' };
-	    }
+	    var from = _props$value2[0];
+	    var to = _props$value2[1];
+
+
+	    _this.state = {
+	      from: from ? $.datepicker.formatDate(dateFormat, new Date(from + offset)) : '',
+	      to: to ? $.datepicker.formatDate(dateFormat, new Date(to + offset)) : '',
+	      fromInt: from || '',
+	      toInt: to || ''
+	    };
 	    return _this;
 	  }
 
@@ -2107,9 +2109,9 @@
 	        defaultDate: '+1w',
 	        changeMonth: true,
 	        changeYear: true,
-	        dateFormat: df,
+	        dateFormat: dateFormat,
 	        onSelect: function onSelect(selectedDate) {
-	          fromTime = $.datepicker.parseDate(df, selectedDate) - offset;
+	          fromTime = $.datepicker.parseDate(dateFormat, selectedDate) - offset;
 	          $to.datepicker('option', 'minDate', selectedDate);
 	          _this2.setState({ from: selectedDate });
 	          _this2.props.onChange(fromTime, toTime);
@@ -2120,9 +2122,9 @@
 	        defaultDate: '+5w',
 	        changeMonth: true,
 	        changeYear: true,
-	        dateFormat: df,
+	        dateFormat: dateFormat,
 	        onSelect: function onSelect(selectedDate) {
-	          toTime = $.datepicker.parseDate(df, selectedDate) - offset + DAY;
+	          toTime = $.datepicker.parseDate(dateFormat, selectedDate) - offset + DAY;
 	          $from.datepicker('option', 'maxDate', selectedDate);
 	          _this2.setState({ to: selectedDate });
 	          _this2.props.onChange(fromTime, toTime);

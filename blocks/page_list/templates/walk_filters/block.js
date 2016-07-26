@@ -11,15 +11,16 @@ import * as WalkActions from 'janeswalk/actions/WalkActions';
 import * as CityActions from 'janeswalk/actions/CityActions';
 
 const { createElement: ce } = React;
+const { event } = JanesWalk;
 
 let _filters = {};
 
-JanesWalk.event.on('walkfilters.load', (location) => ReactDOM.render(
+event.on('walkfilters.load', (location) => ReactDOM.render(
   ce(WalkFilter, { filters: _filters, location }),
   document.getElementById('janeswalk-walk-filters')
 ));
 
 // Listen for updates, add routing
-JanesWalk.event.on('filters.receive', filters => { _filters = filters; });
-JanesWalk.event.on('city.receive', city => CityActions.receive(city));
-JanesWalk.event.on('walks.receive', walks => WalkActions.receiveAll(walks));
+event.on('filters.receive', filters => { _filters = filters; });
+event.on('city.receive', city => CityActions.receive(city));
+event.on('walks.receive', walks => WalkActions.receiveAll(walks));

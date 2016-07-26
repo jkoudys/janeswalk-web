@@ -124,8 +124,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             }
             asort($cities);
 
-            $this->set('cards', $cards);
-
             // Set up walk filters
             // Wards
             $wards = [];
@@ -165,6 +163,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             }
 
             /* Set variables needed for rendering show all walks */
+            $this->set('cards', $cards);
             $this->set('wardName', $wardName);
             $this->set('initiatives', $initiatives);
             $this->set('accessibilities', $accessibilities);
