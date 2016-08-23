@@ -25,7 +25,7 @@ function appendSiblings(html, refNode) {
   const div = document.createElement('div');
   div.innerHTML = html;
 
-  [].forEach.call(div.children, child => refNode.parentNode.appendChild(child));
+  for (const child of div.children) refNode.parentNode.appendChild(child);
 }
 
 // The header menu
