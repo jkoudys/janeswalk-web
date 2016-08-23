@@ -35,6 +35,7 @@ gulp.task('watch.css', () => {
   gulp.watch(`${paths.css}**/*.less`, ['css']);
 });
 
+/**/
 gulp.task('js', () => {
   gulp.run('js.theme', 'js.blocks', 'js.global');
 });
@@ -47,27 +48,8 @@ gulp.task('js.theme', () => {
     }));
   });
 });
-
 gulp.task('js.blocks', () => {
-  /*
-  // Run for each block view in array
-  return [
-    './blocks/search/templates/header/',
-    './blocks/page_list/templates/typeahead/',
-    './blocks/page_list/templates/walk_filters/'
-  ].map(function(template) {
-    return browserify({
-      entries: template + 'view.jsx',
-      transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-      extensions: ['.jsx', '.es6']
-    })
-    .bundle()
-    .pipe(source('view.js'))
-    .pipe(gulp.dest(template))
-  });
-*/
   [
-//    './blocks/search/templates/header/',
     './blocks/page_list/templates/typeahead/',
     './blocks/page_list/templates/walk_filters/',
   ].map(entry => webpack({
@@ -108,7 +90,7 @@ gulp.task('js.global', () => {
     module: {
       loaders: [{
         test: /\.js$/,
-        exclude: /(bower_components)/,
+        exclude: /(bower_components|node_modules)/,
         loader: 'babel',
         query: {
           presets: ['es2015'],
@@ -116,8 +98,9 @@ gulp.task('js.global', () => {
       }],
     },
     plugins: [
-//      new webpack.optimize.DedupePlugin(),
-//      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.ProvidePlugin({ require: 'requirejs/require' }),
     ],
     watch: true,
   }, (err, stats) => {
@@ -128,21 +111,6 @@ gulp.task('js.global', () => {
   });
 });
 
-/**
- * TODO
-gulp.task('js.global', function() {
-  return browserify({
-    entries: './js/jwobject.jsx',
-    transform: [babelify.configure({optional: ['optimisation.react.inlineElements']})],
-    extensions: ['.jsx', '.es6']
-  })
-  .bundle()
-  .pipe(source('jwglobal.js'))
-  .pipe(buffer())
-  .pipe(uglify())
-  .pipe(gulp.dest('./js/'));
-});
-*/
 
 // Build JSON from the mo files
 gulp.task('i18n.json', () => {
