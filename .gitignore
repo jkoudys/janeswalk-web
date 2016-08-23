@@ -4,6 +4,8 @@ config/site.php
 .htaccess
 themes/janeswalk/css/pages/.sass-cache/
 themes/janeswalk/css/pages/.sass-cache*
+themes/janeswalk/js/janeswalk.min.js
+themes/janeswalk/js/janeswalk.js
 files/
 .sass-cache
 *.swp
