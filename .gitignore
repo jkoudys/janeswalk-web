@@ -4,8 +4,6 @@ config/site.php
 .htaccess
 themes/janeswalk/css/pages/.sass-cache/
 themes/janeswalk/css/pages/.sass-cache*
-themes/janeswalk/js/janeswalk.min.js
-themes/janeswalk/js/janeswalk.js
 files/
 .sass-cache
 *.swp
@@ -25,3 +23,6 @@ notes.txt
 prev-notes.txt
 janeswalk.sql.xz
 composer.phar
+themes/janeswalk/js/janeswalk.min.js
+themes/janeswalk/js/janeswalk.js
+js/jwglobal.js
