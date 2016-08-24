@@ -1,9 +1,6 @@
 <?php
 namespace JanesWalk\Models\PageTypes;
 
-// FIXME: replace with spl autoloader on PSR standard after c5.7 upgrade
-require_once(DIR_BASE . '/models/page_types/Walk.php');
-
 // Default lib classes
 use \Exception;
 // c5 classes
@@ -99,35 +96,35 @@ class City extends \Model implements \JsonSerializable
     {
         /* One big switch for all the get names */
         switch ($name) {
-        case 'blog':
-            $blog = new PageList();
-            $blog->filterByCollectionTypeHandle('city_blog');
-            $blog->filterByParentID($this->page->getCollectionID());
-            $this->blog = $blog->get(1)[0];
-            return $this->blog;
+            case 'blog':
+                $blog = new PageList();
+                $blog->filterByCollectionTypeHandle('city_blog');
+                $blog->filterByParentID($this->page->getCollectionID());
+                $this->blog = $blog->get(1)[0];
+                return $this->blog;
             break;
-        case 'facebook_url':
-            return $this->facebook ? 'http://facebook.com/' . end(preg_split('/\//', $this->facebook)) : null;
+            case 'facebook_url':
+                return $this->facebook ? 'http://facebook.com/' . end(preg_split('/\//', $this->facebook)) : null;
             break;
-        case 'twitter_url':
-            return $this->twitter ? 'http://twitter.com/' . end(preg_split('/[@\/]/', $this->twitter)) : null;
+            case 'twitter_url':
+                return $this->twitter ? 'http://twitter.com/' . end(preg_split('/[@\/]/', $this->twitter)) : null;
             break;
-        case 'website_url':
-            return $this->website ? 
+            case 'website_url':
+                return $this->website ?
                 (0 === strpos($this->website, 'http')) ?
                     $this->website : ('http://' . $this->website) :
                 null;
             break;
-        case 'url':
-            return Loader::helper('navigation')->getCollectionURL($this->page);
+            case 'url':
+                return Loader::helper('navigation')->getCollectionURL($this->page);
             break;
-        case 'totalWalks':
-            $walks = new PageList();
-            $walks->filterByParentID($page->getCollectionID());
-            $walks->filterByAttribute('exclude_page_list', false);
-            $walks->filterByCollectionTypeHandle('walk');
-            $this->totalWalks = $walks->getTotal;
-            return $this->totalWalks;
+            case 'totalWalks':
+                $walks = new PageList();
+                $walks->filterByParentID($page->getCollectionID());
+                $walks->filterByAttribute('exclude_page_list', false);
+                $walks->filterByCollectionTypeHandle('walk');
+                $this->totalWalks = $walks->getTotal;
+                return $this->totalWalks;
             break;
         }
     }
@@ -179,19 +176,19 @@ class City extends \Model implements \JsonSerializable
             'longDescription' => $this->longDescription,
             /* We'll assume Sponsors area's first block is the one with the description */
             'mirrors' =>  array_map(
-                function($mirror) {
+                function ($mirror) {
                     return (string) $mirror;
                 },
                 $mirrorOptions
             ),
             'latlng' => array_map(
-                function($coord) {
+                function ($coord) {
                     return (float) $coord;
                 },
                 split(',', $this->page->getAttribute('latlng'))
             ),
             'wards' => array_map(
-                function($ward) {
+                function ($ward) {
                     return ['id' => $ward->ID, 'value' => $ward->value];
                 },
                 $wards
@@ -235,10 +232,12 @@ class City extends \Model implements \JsonSerializable
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle('walk');
         $pl->filterByPath($this->page->getCollectionPath());
-        if (!$showAll) $pl->filterByAttribute('exclude_page_list', false);
+        if (!$showAll) {
+            $pl->filterByAttribute('exclude_page_list', false);
+        }
 
         return array_map(
-            function($page) {
+            function ($page) {
                 return new Walk($page);
             },
             $pl->get()
@@ -254,5 +253,4 @@ class City extends \Model implements \JsonSerializable
     {
         return $this->page;
     }
-
 }

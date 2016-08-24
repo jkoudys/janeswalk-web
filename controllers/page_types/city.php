@@ -1,9 +1,7 @@
 <?php
-use \JanesWalk\Controllers\Controller;
+use \JanesWalk\Controllers\JanesWalk as Controller;
 use \JanesWalk\Models\PageTypes\City;
 
-Loader::model('page_types/City');
-Loader::controller('/janes_walk');
 class CityPageTypeController extends Controller
 {
     protected $city;
@@ -17,23 +15,23 @@ class CityPageTypeController extends Controller
 
         // TODO: This is a pseudo-router. On 5.7 upgrade, replace with symfony
         switch ($method) {
-        case 'POST':
-            // Publish
-        case 'PUT':
-            // Save
-            break;
-        case 'GET':
-            // Retrieve the page's json
-            if ($_GET['format'] === 'json') {
-                echo $this->getJson();
-                exit;
-            }
-            break;
-        case 'DELETE':
-            // 'unpublish' the event (true deletes done through dashboard controller, not city)
-            $c = Page::getCurrentPage();
-            $c->setAttribute('exclude_page_list',true);
-            break;
+            case 'POST':
+                // Publish
+            case 'PUT':
+                // Save
+                break;
+            case 'GET':
+                // Retrieve the page's json
+                if ($_GET['format'] === 'json') {
+                    echo $this->getJson();
+                    exit;
+                }
+                break;
+            case 'DELETE':
+                // 'unpublish' the event (true deletes done through dashboard controller, not city)
+                $c = Page::getCurrentPage();
+                $c->setAttribute('exclude_page_list', true);
+                break;
         }
     }
 
@@ -72,7 +70,9 @@ class CityPageTypeController extends Controller
     {
         parent::view();
         $bg = $this->city->fullbg;
-        if ($bg) $this->bodyData['bg'] = $bg->getURL();
+        if ($bg) {
+            $this->bodyData['bg'] = $bg->getURL();
+        }
         $this->bodyData['classes'][] = 'city-page';
         $this->bodyData['pageViewName'] = 'CityPageView';
         $this->set('bodyData', $this->bodyData);

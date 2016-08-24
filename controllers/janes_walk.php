@@ -8,8 +8,7 @@ use \UserInfo;
 use \Localization;
 use \JanesWalk\Models\PageTypes\Walk;
 
-Loader::model('page_types/Walk');
-class Controller extends \Controller
+class JanesWalk extends \Controller
 {
     // @var array Builds client-side data eg for JS
     protected $pageData = [];

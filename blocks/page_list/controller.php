@@ -2,9 +2,6 @@
 use \Qaribou\Collection\ImmArray;
 use \JanesWalk\Models\PageTypes\Walk;
 
-Loader::helper('theme');
-Loader::model('page_types/Walk');
-
 class PageListBlockController extends Concrete5_Controller_Block_PageList
 {
     public function getPageList()
@@ -31,27 +28,27 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         $cArray = [];
 
         switch ($row['orderBy']) {
-        case 'display_asc':
-            $pl->sortByDisplayOrder();
-            break;
-        case 'display_desc':
-            $pl->sortByDisplayOrderDescending();
-            break;
-        case 'chrono_asc':
-            $pl->sortByPublicDate();
-            break;
-        case 'alpha_asc':
-            $pl->sortByName();
-            break;
-        case 'alpha_desc':
-            $pl->sortByNameDescending();
-            break;
-        case 'random':
-            $pl->sortBy('RAND()');
-            break;
-        default:
-            $pl->sortByPublicDateDescending();
-            break;
+            case 'display_asc':
+                $pl->sortByDisplayOrder();
+                break;
+            case 'display_desc':
+                $pl->sortByDisplayOrderDescending();
+                break;
+            case 'chrono_asc':
+                $pl->sortByPublicDate();
+                break;
+            case 'alpha_asc':
+                $pl->sortByName();
+                break;
+            case 'alpha_desc':
+                $pl->sortByNameDescending();
+                break;
+            case 'random':
+                $pl->sortBy('RAND()');
+                break;
+            default:
+                $pl->sortByPublicDateDescending();
+                break;
         }
 
         $num = (int) $row['num'];
@@ -106,71 +103,71 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         $this->set('show', $_REQUEST['show']);
         /* Set the page lists which are walk related, as they have json we need */
         switch ($this->block->getBlockFilename()) {
-        case 'walkcards':
-            $this->set('cards', $this->loadCards());
-            break;
-        case 'walk_filters':
-            Loader::helper('theme');
-            $nh = Loader::helper('navigation');
-            $cards = $this->loadCards();
-            $cities = [];
+            case 'walkcards':
+                $this->set('cards', $this->loadCards());
+                break;
+            case 'walk_filters':
+                Loader::helper('theme');
+                $nh = Loader::helper('navigation');
+                $cards = $this->loadCards();
+                $cities = [];
 
-            // See what cities we have to show
-            foreach ($cards as $walk) {
-                if (!isset($cities[$walk->getPage()->getCollectionParentID()])) {
-                    $parent = Page::getByID($walk->getPage()->getCollectionParentID());
-                    $cities[$parent->getCollectionID()] = $parent->getCollectionName();
-                }
-            }
-            asort($cities);
-
-            // Set up walk filters
-            // Wards
-            $wards = [];
-            $wardObjects = $c->getAttribute('city_wards');
-            if ($wardObjects !== false) {
-                foreach ($wardObjects->getOptions() as $ward) {
-                    $val = $ward->value;
-                    $wards[] = $val;
-                }
-            }
-            natcasesort($wards);
-
-            // Themes
-            $themes = ThemeHelper::getAll('themes');
-            asort($themes);
-
-            // Accessibility
-            $accessibilities = ThemeHelper::getAll('accessibilities');
-            asort($accessibilities);
-
-            // Initiatives
-            $initiatives = [];
-            if (strpos($c->getCollectionPath(), 'burlington') !== false) {
-                $initAttr = $c->getAttribute('walk_initiatives');
-                if ($initAttr) {
-                    foreach ($c->getAttribute('walk_initiatives') as $initiative) {
-                        $initiatives[$initiative->ID] = $initiative->value;
+                // See what cities we have to show
+                foreach ($cards as $walk) {
+                    if (!isset($cities[$walk->getPage()->getCollectionParentID()])) {
+                        $parent = Page::getByID($walk->getPage()->getCollectionParentID());
+                        $cities[$parent->getCollectionID()] = $parent->getCollectionName();
                     }
-                    unset($initiative);
                 }
-            }
+                asort($cities);
 
-            // Ward semantics
-            $wardName = 'Region';
-            if ($c->getCollectionName() === 'Toronto') {
-                $wardName = 'Ward';
-            }
+                // Set up walk filters
+                // Wards
+                $wards = [];
+                $wardObjects = $c->getAttribute('city_wards');
+                if ($wardObjects !== false) {
+                    foreach ($wardObjects->getOptions() as $ward) {
+                        $val = $ward->value;
+                        $wards[] = $val;
+                    }
+                }
+                natcasesort($wards);
 
-            /* Set variables needed for rendering show all walks */
-            $this->set('cards', $cards);
-            $this->set('wardName', $wardName);
-            $this->set('initiatives', $initiatives);
-            $this->set('accessibilities', $accessibilities);
-            $this->set('themes', $themes);
-            $this->set('wards', $wards);
-            $this->set('cities', $cities);
-            break;
+                // Themes
+                $themes = ThemeHelper::getAll('themes');
+                asort($themes);
+
+                // Accessibility
+                $accessibilities = ThemeHelper::getAll('accessibilities');
+                asort($accessibilities);
+
+                // Initiatives
+                $initiatives = [];
+                if (strpos($c->getCollectionPath(), 'burlington') !== false) {
+                    $initAttr = $c->getAttribute('walk_initiatives');
+                    if ($initAttr) {
+                        foreach ($c->getAttribute('walk_initiatives') as $initiative) {
+                            $initiatives[$initiative->ID] = $initiative->value;
+                        }
+                        unset($initiative);
+                    }
+                }
+
+                // Ward semantics
+                $wardName = 'Region';
+                if ($c->getCollectionName() === 'Toronto') {
+                    $wardName = 'Ward';
+                }
+
+                /* Set variables needed for rendering show all walks */
+                $this->set('cards', $cards);
+                $this->set('wardName', $wardName);
+                $this->set('initiatives', $initiatives);
+                $this->set('accessibilities', $accessibilities);
+                $this->set('themes', $themes);
+                $this->set('wards', $wards);
+                $this->set('cities', $cities);
+                break;
         }
     }
 
@@ -183,7 +180,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
     public function loadCards()
     {
         return array_map(
-            function($page) {
+            function ($page) {
                 return new Walk($page);
             },
             (array) $this->get('pages')

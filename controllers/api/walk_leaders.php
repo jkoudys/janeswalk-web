@@ -1,5 +1,4 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
 class ApiWalkLeadersController extends Controller
 {
     public function on_start()
@@ -8,20 +7,20 @@ class ApiWalkLeadersController extends Controller
         $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
 
         switch ($method) {
-        case 'POST':
-            exit;
+            case 'POST':
+                exit;
             break;
-        case 'PUT':
-            parse_str(file_get_contents("php://input"),$put_vars);
-            exit;
+            case 'PUT':
+                parse_str(file_get_contents("php://input"), $put_vars);
+                exit;
             break;
-        case 'GET':
-            header('Content-Type: application/json');
-            echo $this->getLeaders($_REQUEST['q'], $_REQUEST['cityId'], $_REQUEST['limit']);
-            exit;
+            case 'GET':
+                header('Content-Type: application/json');
+                echo $this->getLeaders($_REQUEST['q'], $_REQUEST['cityId'], $_REQUEST['limit']);
+                exit;
             break;
-        case 'DELETE':
-            exit;
+            case 'DELETE':
+                exit;
             break;
         }
     }
@@ -33,8 +32,8 @@ class ApiWalkLeadersController extends Controller
         $ul->filterByKeywords($searchString);
         $ul->filterByGroup('Walk Leaders');
         $ul->filterByIsActive(1);
-        $ul->filterByFirstName(null,'!=');
-        $ul->filterByFirstName('','!=');
+        $ul->filterByFirstName(null, '!=');
+        $ul->filterByFirstName('', '!=');
         $ul->filter('uLastLogin', 0, '!=');
         $ul->sortBy('uLastLogin');
         $userSet = [];
@@ -61,10 +60,12 @@ class ApiWalkLeadersController extends Controller
     {
         return $_SERVER['REQUEST_METHOD'] == 'PUT';
     }
+
     public function isGet()
     {
         return $_SERVER['REQUEST_METHOD'] == 'GET';
     }
+
     public function isDelete()
     {
         return $_SERVER['REQUEST_METHOD'] == 'DELETE';

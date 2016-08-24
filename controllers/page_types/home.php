@@ -1,7 +1,6 @@
 <?php
-use \JanesWalk\Controllers\Controller;
+use \JanesWalk\Controllers\JanesWalk as Controller;
 
-Loader::controller('/janes_walk');
 class HomePageTypeController extends Controller
 {
     public function view()

@@ -15,11 +15,11 @@
             <div class="secondary">
                 <p>
                     <?= t( /* Canadian cities only */
-                    'Jane\'s Walk is a charitable project that relies on ' .
-                    'donations from people like you to operate. Our small but ' .
-                    'dedicated team ensures even the smallest contributions go a ' .
-                    'long way to helping neighbours connect to build strong ' .
-                    'communities. Donate today.'
+                        'Jane\'s Walk is a charitable project that relies on ' .
+                        'donations from people like you to operate. Our small but ' .
+                        'dedicated team ensures even the smallest contributions go a ' .
+                        'long way to helping neighbours connect to build strong ' .
+                        'communities. Donate today.'
                     ) ?>
                 </p>
                 <p><?= t(/* Canadian cities only */ 'Message and data rates may apply. Only available in Canada.') ?></p>

@@ -18,28 +18,28 @@ use \File;
  *
  * Model containing attribute accessors and logic for Jane's Walk walks
  */
-Loader::model('page_types/City');
 class Walk extends \Model implements \JsonSerializable
 {
     /**
      * @type Page $page C5 Page Collection of the Walk
      * @type string $title The title of this walk
      */
-    protected $page, $title;
+    protected $page;
+    protected $title;
 
     /* Basic attributes of a walk */
-    public $shortdescription,
-           $longdescription,
-           $accessibleInfo,
-           $accessibleTransit,
-           $accessibleParking,
-           $accessibleFind,
-           $map,
-           $team,
-           $time,
-           $thumbnail,
-           $wards,
-           $themes;
+    public $shortdescription;
+    public $longdescription;
+    public $accessibleInfo;
+    public $accessibleTransit;
+    public $accessibleParking;
+    public $accessibleFind;
+    public $map;
+    public $team;
+    public $time;
+    public $thumbnail;
+    public $wards;
+    public $themes;
 
     // Map the object properties to their DB handle
     private $handleMap = [
@@ -77,12 +77,14 @@ class Walk extends \Model implements \JsonSerializable
         $stmt = 'akHandle=\'' . implode('\' or akHandle=\'', $this->handleMap) . '\'';
 
         // Consolodated query; runs way faster than a dozen getAttributes
-        foreach (
-            $db->getAll(
-                'select value, ak.akHandle from atDefault atd INNER JOIN CollectionAttributeValues cav ON (atd.avID = cav.avID) INNER JOIN AttributeKeys ak ON (ak.akID = cav.akID AND (' . $stmt . ')) WHERE cav.cID = ? AND cav.cvID = ?',
-                [$page->getCollectionID(), $page->getVersionID()]
-            ) as $av
-        ) {
+        // FIXME: prepare this stmt.
+        foreach ($db->getAll(
+            'select value, ak.akHandle from atDefault atd ' .
+            'INNER JOIN CollectionAttributeValues cav ON (atd.avID = cav.avID) ' .
+            'INNER JOIN AttributeKeys ak ON (ak.akID = cav.akID AND (' . $stmt . ')) ' .
+            'WHERE cav.cID = ? AND cav.cvID = ?',
+            [$page->getCollectionID(), $page->getVersionID()]
+        ) as $av) {
             // Find which return value we're setting
             $key = array_search($av['akHandle'], $this->handleMap);
             if ($key) {
@@ -130,111 +132,113 @@ class Walk extends \Model implements \JsonSerializable
     {
         /* One big switch for all the get names */
         switch ($name) {
-        case 'crumbs':
-            // @return Array of Page objects, from highest level parent to walk page
-            $this->crumbs = Loader::helper('navigation')->getTrailToCollection($this->page);
-            krsort($this->crumbs);
+            case 'crumbs':
+                // @return Array of Page objects, from highest level parent to walk page
+                $this->crumbs = Loader::helper('navigation')->getTrailToCollection($this->page);
+                krsort($this->crumbs);
 
-            return $this->crumbs;
+                return $this->crumbs;
             break;
 
-        case 'teamPictures':
-            // @return Array<Array> of members
-            $theme = \PageTheme::getByHandle('janeswalk');
-            $this->teamPictures = array_map(
-                function ($mem) use ($theme) {
+            case 'teamPictures':
+                // @return Array<Array> of members
+                $theme = \PageTheme::getByHandle('janeswalk');
+                $this->teamPictures = array_map(
+                    function ($mem) use ($theme) {
                     // TODO: deprecate this special-casing around the member 'you'
-                    if ($mem['type'] === 'you') {
-                        if ($mem['role'] === 'walk-organizer' || $mem['role'] === 'Walk Organizer') {
-                            $mem['type'] = 'organizer';
-                        } else {
-                            $mem['type'] = 'leader';
+                        if ($mem['type'] === 'you') {
+                            if ($mem['role'] === 'walk-organizer' || $mem['role'] === 'Walk Organizer') {
+                                $mem['type'] = 'organizer';
+                            } else {
+                                $mem['type'] = 'leader';
+                            }
                         }
-                    }
-                    switch ($mem['type']) {
-                    case 'leader':
-                        $mem['image'] = $theme->getThemeURL() . '/img/walk-leader.png';
-                        $mem['title'] = 'Walk Leader';
-                        break;
-                    case 'organizer':
-                        $mem['image'] = $theme->getThemeURL() . '/img/walk-organizer.png';
-                        $mem['title'] = 'Walk Organizer';
-                        break;
-                    case 'community':
-                        $mem['image'] = $theme->getThemeURL() . '/img/community-voice.png';
-                        $mem['title'] = 'Community Voice';
-                        break;
-                    case 'volunteer':
-                        $mem['image'] = $theme->getThemeURL() . '/img/volunteers.png';
-                        $mem['title'] = 'Volunteer';
-                        break;
-                    default:
-                        break;
-                    }
-                    if ($mem['user_id'] > 0) {
-                        if ($avatar = Loader::helper('concrete/avatar')->getImagePath(\UserInfo::getByID($mem['user_id']))) {
-                            $mem['avatar'] = $avatar;
+                        switch ($mem['type']) {
+                            case 'leader':
+                                $mem['image'] = $theme->getThemeURL() . '/img/walk-leader.png';
+                                $mem['title'] = 'Walk Leader';
+                                break;
+                            case 'organizer':
+                                $mem['image'] = $theme->getThemeURL() . '/img/walk-organizer.png';
+                                $mem['title'] = 'Walk Organizer';
+                                break;
+                            case 'community':
+                                $mem['image'] = $theme->getThemeURL() . '/img/community-voice.png';
+                                $mem['title'] = 'Community Voice';
+                                break;
+                            case 'volunteer':
+                                $mem['image'] = $theme->getThemeURL() . '/img/volunteers.png';
+                                $mem['title'] = 'Volunteer';
+                                break;
+                            default:
+                                break;
                         }
+                        if ($mem['user_id'] > 0) {
+                            if ($avatar = Loader::helper('concrete/avatar')->getImagePath(
+                                \UserInfo::getByID($mem['user_id'])
+                            )) {
+                                $mem['avatar'] = $avatar;
+                            }
+                        }
+
+                        return $mem;
+                    },
+                    (array) $this->team
+                );
+
+                return $this->teamPictures;
+            break;
+
+            case 'walkLeaders':
+                // @return Array of team members who are walk leaders
+                return array_filter(
+                    (array) $this->team,
+                    function ($mem) {
+                        return (strpos($mem['role'], 'leader') !== false) || ($mem['type'] === 'leader');
                     }
-
-                    return $mem;
-                },
-                (array) $this->team
-            );
-
-            return $this->teamPictures;
+                );
             break;
 
-        case 'walkLeaders':
-            // @return Array of team members who are walk leaders
-            return array_filter(
-                (array) $this->team,
-                function ($mem) {
-                    return (strpos($mem['role'], 'leader') !== false) || ($mem['type'] === 'leader');
+            case 'city':
+                // @return City of walk's city
+                try {
+                    $this->city = new City(Page::getByID($this->page->getCollectionParentID()));
+                    return $this->city;
+                } catch (Exception $e) {
+                    return null;
                 }
-            );
-            break;
+                break;
 
-        case 'city':
-            // @return City of walk's city
-            try {
-                $this->city = new City(Page::getByID($this->page->getCollectionParentID()));
-                return $this->city;
-            } catch (Exception $e) {
-                return null;
-            }
-            break;
+            case 'meetingPlace':
+                // @return Array<title, description> for first stop on walking route
+                foreach ((array) $this->map['markers'] as $marker) {
+                    $this->meetingPlace = ['title' => $marker['title'], 'description' => $marker['description']];
 
-        case 'meetingPlace':
-            // @return Array<title, description> for first stop on walking route
-            foreach ((array) $this->map['markers'] as $marker) {
-                $this->meetingPlace = ['title' => $marker['title'], 'description' => $marker['description']];
-
-                return $this->meetingPlace;
-            }
-            break;
-
-        case 'publishDate':
-            foreach ((new \VersionList($this->page))->getVersionListArray() as $cv) {
-                if ($cv->getAttribute('exclude_page_list', $this->page)) {
-                    return $lastPublished ?: '';
-                } else {
-                    $lastPublished = $cv->getVersionDateCreated();
+                    return $this->meetingPlace;
                 }
-            }
-            return $lastPublished;
+                break;
 
-        case 'initiatives':
-            // Initiatives
-            $this->initiatives = [];
-            $initiativeObjects = $this->page->getAttribute('walk_initiatives');
-            if ($initiativeObjects !== false) {
-                foreach ($initiativeObjects->getOptions() as $initiative) {
-                    $this->initiatives[] = ['id' => $initiative->ID, 'name' => $initiative->value];
+            case 'publishDate':
+                foreach ((new \VersionList($this->page))->getVersionListArray() as $cv) {
+                    if ($cv->getAttribute('exclude_page_list', $this->page)) {
+                        return $lastPublished ?: '';
+                    } else {
+                        $lastPublished = $cv->getVersionDateCreated();
+                    }
                 }
-            }
+                return $lastPublished;
 
-            return $this->initiatives;
+            case 'initiatives':
+                // Initiatives
+                $this->initiatives = [];
+                $initiativeObjects = $this->page->getAttribute('walk_initiatives');
+                if ($initiativeObjects !== false) {
+                    foreach ($initiativeObjects->getOptions() as $initiative) {
+                        $this->initiatives[] = ['id' => $initiative->ID, 'name' => $initiative->value];
+                    }
+                }
+
+                return $this->initiatives;
             break;
         }
     }
@@ -362,7 +366,7 @@ class Walk extends \Model implements \JsonSerializable
         // Callback, in case we define more checkbox groups
         // Map their key names here to ones the service-consumers understand
         $checkboxes = [];
-        $mapKeyNames = function($v, $k, $akHandle) use (&$checkboxes) {
+        $mapKeyNames = function ($v, $k, $akHandle) use (&$checkboxes) {
             $checkboxes["{$akHandle}-{$k}"] = $v;
         };
         array_walk($this->themes, $mapKeyNames, 'theme');
@@ -404,7 +408,8 @@ class Walk extends \Model implements \JsonSerializable
             // Creates a coordinates element and gives it the value of the lng and lat columns from the results.
             $coorStr .= PHP_EOL . $route['lng'] . ', ' . $route['lat'] . ', 0';
         }
-        if ($coorStr) { $map->appendChild($doc->createElement('route', $coorStr)); 
+        if ($coorStr) {
+            $map->appendChild($doc->createElement('route', $coorStr));
         }
 
         $xsltp = new XSLTProcessor;
@@ -425,7 +430,7 @@ class Walk extends \Model implements \JsonSerializable
             'type' => 'FeatureCollection',
             'features' => array_merge(
                 array_map(
-                    function($marker) {
+                    function ($marker) {
                         return [
                             'type' => 'Feature',
                             'geometry' => [
@@ -446,7 +451,7 @@ class Walk extends \Model implements \JsonSerializable
                         'geometry' => [
                             'type' => 'LineString',
                             'coordinates' => array_map(
-                                function($point) {
+                                function ($point) {
                                     return [$point['lng'], $point['lat']];
                                 },
                                 $this->map['route'] ?: $this->map['markers']

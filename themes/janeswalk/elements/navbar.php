@@ -1,6 +1,5 @@
 <?php
 use \JanesWalk\Models\PageTypes\Walk;
-Loader::model('page_types/Walk');
 
 $u = new User();
 if ($u->getUserID()) {

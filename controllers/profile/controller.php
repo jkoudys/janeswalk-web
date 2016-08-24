@@ -7,9 +7,6 @@
 use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Models\PageTypes\City;
 
-Loader::model('page_list');
-Loader::model('page_types/City');
-Loader::model('page_types/Walk');
 class ProfileController extends Concrete5_Controller_Profile
 {
     /**
@@ -20,6 +17,7 @@ class ProfileController extends Concrete5_Controller_Profile
      */
     public function view($userID = null)
     {
+        Loader::model('page_list');
         parent::view($userID);
 
         // Set helpers for view
@@ -132,16 +130,16 @@ class ProfileController extends Concrete5_Controller_Profile
          */
         header('Content-Type: application/json');
         switch ($_SERVER['REQUEST_METHOD']) {
-        case 'POST':
-            $payload = file_get_contents('php://input');
-            // Validate our user permissions
-            $ui->setAttribute('itineraries', $payload);
-            echo '{"saved": true}';
-            break;
-        case 'GET':
-            $itinerariesJson = $ui->getAttribute('itineraries');
-            echo $itinerariesJson ?: '[]';
-            break;
+            case 'POST':
+                $payload = file_get_contents('php://input');
+                // Validate our user permissions
+                $ui->setAttribute('itineraries', $payload);
+                echo '{"saved": true}';
+                break;
+            case 'GET':
+                $itinerariesJson = $ui->getAttribute('itineraries');
+                echo $itinerariesJson ?: '[]';
+                break;
         }
         exit;
     }
@@ -186,7 +184,6 @@ class ProfileController extends Concrete5_Controller_Profile
                 } else {
                     throw new RuntimeException('Attempt to modify owner of page not owned by user');
                 }
-
             } else {
                 throw new RuntimeException('Invalid city ID');
             }
@@ -205,7 +202,6 @@ class ProfileController extends Concrete5_Controller_Profile
      */
     public function walkList(array $options = ['scheduled', 'categorized'])
     {
-
     }
 }
 
@@ -216,39 +212,42 @@ class CityExporter
 
     protected static function getColumn($col, $walk)
     {
-        switch($col) {
-        case 'Name':
-            return (string) $walk;
-        case 'Status':
-            return $walk->published ? 'live' : 'draft';
-        case 'Walk Date':
-            if ($walk->time['slots']) {
-                return date('Y-m-d', $walk->time['slots'][0][0]);
-            } else return '';
-        case 'Start':
-            if ($walk->time['slots']) {
-                return date('H:i', $walk->time['slots'][0][0]);
-            } else return '';
-        case 'End':
-            if ($walk->time['slots']) {
-                return date('H:i', $walk->time['slots'][0][1]);
-            } else return '';
-        case 'Meeting Place':
-            return $walk->meetingPlace['title'];
-        case 'Walk Owner Name':
-            $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
-            $name = trim($owner->getAttribute('first_name') . ' ' . $owner->getAttribute('last_name')) ?: $owner->getUserName();
-            return $name;
-        case 'Walk Owner email':
-            $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
-            return $owner->getUserEmail();
-        case 'Published Date':
-            return $walk->publishDate;
-        case 'URL':
-            $nh = Loader::helper('navigation');
-            return $nh->getCollectionURL($walk->getPage());
-        default:
-            return '';
+        switch ($col) {
+            case 'Name':
+                return (string) $walk;
+            case 'Status':
+                return $walk->published ? 'live' : 'draft';
+            case 'Walk Date':
+                if ($walk->time['slots']) {
+                    return date('Y-m-d', $walk->time['slots'][0][0]);
+                }
+                return '';
+            case 'Start':
+                if ($walk->time['slots']) {
+                    return date('H:i', $walk->time['slots'][0][0]);
+                }
+                return '';
+            case 'End':
+                if ($walk->time['slots']) {
+                    return date('H:i', $walk->time['slots'][0][1]);
+                }
+                return '';
+            case 'Meeting Place':
+                return $walk->meetingPlace['title'];
+            case 'Walk Owner Name':
+                $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
+                $name = trim($owner->getAttribute('first_name') . ' ' . $owner->getAttribute('last_name')) ?: $owner->getUserName();
+                return $name;
+            case 'Walk Owner email':
+                $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
+                return $owner->getUserEmail();
+            case 'Published Date':
+                return $walk->publishDate;
+            case 'URL':
+                $nh = Loader::helper('navigation');
+                return $nh->getCollectionURL($walk->getPage());
+            default:
+                return '';
         }
     }
 
@@ -289,7 +288,7 @@ class CityExporter
                     $outings[] = $walk;
                 }
             }
-            usort($outings, function($a, $b) {
+            usort($outings, function ($a, $b) {
                 $ta = $a->time['slots'][0][0];
                 $tb = $b->time['slots'][0][0];
                 return $ta - $tb;

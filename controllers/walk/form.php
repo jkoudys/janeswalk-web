@@ -1,18 +1,12 @@
 <?php
-// FIXME: Don't know why the Loader::model won't find this, but this
-// stuff will all change with improved PSR-standard autoloading in
-// c5.7.
-require_once(DIR_BASE . '/models/page_types/Walk.php');
-
 use \User;
 use \Page;
 use \PageList;
 
 use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Models\PageTypes\City;
-use \JanesWalk\Controllers\Controller;
+use \JanesWalk\Controllers\JanesWalk as Controller;
 
-Loader::controller('/janes_walk');
 class WalkFormController extends Controller
 {
     /**
@@ -43,7 +37,8 @@ class WalkFormController extends Controller
         return $walk;
     }
 
-    protected function loadViewData(Page $c) {
+    protected function loadViewData(Page $c)
+    {
         $nh = Loader::helper('navigation');
         $av = Loader::helper('concrete/avatar');
         $valt = Loader::helper('validation/token');

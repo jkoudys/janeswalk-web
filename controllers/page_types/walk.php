@@ -1,68 +1,7 @@
 <?php
 use \JanesWalk\Models\PageTypes\Walk;
-use \JanesWalk\Controllers\Controller;
 use \JanesWalk\Libraries\MirrorWalk\MirrorWalk;
-
-Loader::library('Eventbrite');
-Loader::controller('/janes_walk');
-Loader::model('page_types/Walk');
-Loader::library('MirrorWalk/MirrorWalk');
-
-function addMetaTags($tags = [], &$doc) {
-    foreach ($tags as $k => $v) {
-        $meta = $doc->appendChild($doc->createElement('meta'));
-        $meta->setAttribute('property', $k);
-        $meta->setAttribute('content', $v);
-    }
-}
-
-function buildPageMap(Walk $walk) {
-    $im = Loader::helper('image');
-    $leaders = join( array_map(
-        function($leader) {
-            return trim("{$leader['name-first']} {$leader['name-last']}");
-        },
-        (array) $walk->team
-    ), ', ');
-
-    if (count($walk->time['slots'])) {
-        $time = $walk->time['slots'][0][0];
-    } else {
-        $time = time();
-    }
-    $date = date('F d, Y', $time);
-
-    $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
-
-    return <<< EOT
-<!--
-<PageMap>
-    <DataObject type="document">
-        <Attribute name="title">{$walk}</Attribute>
-        <Attribute name="author">{$leaders}</Attribute>
-        <Attribute name="description">{$walk->shortDescription} {$walk->longDescription}</Attribute>
-        <Attribute name="date">{$date}</Attribute>
-    </DataObject>
-    <DataObject type="thumbnail">
-        <Attribute name="src" value="{$thumbnail}" />
-    </DataObject>
-</PageMap>
--->
-EOT;
-}
-
-function buildTwitterSummary(Walk $walk) {
-    $im = Loader::helper('image');
-    $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
-
-    return <<< EOT
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@janeswalk" />
-<meta name="twitter:title" content="{$walk}" />
-<meta name="twitter:description" content="{$walk->shortDescription}" />
-<meta name="twitter:image" content="{$thumbnail}" />
-EOT;
-}
+use \JanesWalk\Controllers\JanesWalk as Controller;
 
 class WalkPageTypeController extends Controller
 {
@@ -80,20 +19,79 @@ class WalkPageTypeController extends Controller
          * TODO: wait for 5.7.
          */
         switch ($_SERVER['REQUEST_METHOD']) {
-        case 'POST':
-            // Directly stream our JSON in.
-            $this->update(file_get_contents('php://input'));
-            break;
-        case 'PUT':
-            $this->create(file_get_contents('php://input'));
-            break;
-        case 'GET':
-            $this->show();
-            break;
-        case 'DELETE':
-            $this->destroy();
-            break;
+            case 'POST':
+                // Directly stream our JSON in.
+                $this->update(file_get_contents('php://input'));
+                break;
+            case 'PUT':
+                $this->create(file_get_contents('php://input'));
+                break;
+            case 'GET':
+                $this->show();
+                break;
+            case 'DELETE':
+                $this->destroy();
+                break;
         }
+    }
+
+    protected static function addMetaTags($tags = [], &$doc)
+    {
+        foreach ($tags as $k => $v) {
+            $meta = $doc->appendChild($doc->createElement('meta'));
+            $meta->setAttribute('property', $k);
+            $meta->setAttribute('content', $v);
+        }
+    }
+
+    protected static function buildPageMap(Walk $walk)
+    {
+          $im = Loader::helper('image');
+          $leaders = join(array_map(
+              function ($leader) {
+                  return trim("{$leader['name-first']} {$leader['name-last']}");
+              },
+              (array) $walk->team
+          ), ', ');
+
+          if (count($walk->time['slots'])) {
+               $time = $walk->time['slots'][0][0];
+            } else {
+                 $time = time();
+            }
+            $date = date('F d, Y', $time);
+
+            $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
+
+            return <<< EOT
+<!--
+<PageMap>
+    <DataObject type="document">
+        <Attribute name="title">{$walk}</Attribute>
+        <Attribute name="author">{$leaders}</Attribute>
+        <Attribute name="description">{$walk->shortDescription} {$walk->longDescription}</Attribute>
+        <Attribute name="date">{$date}</Attribute>
+    </DataObject>
+    <DataObject type="thumbnail">
+        <Attribute name="src" value="{$thumbnail}" />
+    </DataObject>
+</PageMap>
+-->
+EOT;
+    }
+
+    protected static function buildTwitterSummary(Walk $walk)
+    {
+          $im = Loader::helper('image');
+          $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
+
+          return <<< EOT
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@janeswalk" />
+<meta name="twitter:title" content="{$walk}" />
+<meta name="twitter:description" content="{$walk->shortDescription}" />
+<meta name="twitter:image" content="{$thumbnail}" />
+EOT;
     }
 
     /**
@@ -334,7 +332,7 @@ class WalkPageTypeController extends Controller
         $doc = new DOMDocument();
         $thumb = $c->getAttribute('thumbnail');
         if ($thumb) {
-            addMetaTags(
+            self::addMetaTags(
                 [
                     'og:image' => (BASE_URL . $im->getThumbnail($thumb, 340, 720)->src)
                 ],
@@ -342,7 +340,7 @@ class WalkPageTypeController extends Controller
             );
             $this->set('thumb', $thumb);
         }
-        addMetaTags(
+        self::addMetaTags(
             [
                 'og:url' => $nh->getCollectionURL($c),
                 'og:title' => $c->getCollectionName(),
@@ -353,8 +351,8 @@ class WalkPageTypeController extends Controller
         );
 
         $this->addHeaderItem($doc->saveHTML());
-        $this->addHeaderItem(buildPageMap($this->walk));
-        $this->addHeaderItem(buildTwitterSummary($this->walk));
+        $this->addHeaderItem(self::buildPageMap($this->walk));
+        $this->addHeaderItem(self::buildTwitterSummary($this->walk));
 
         // Check edit permissions
         $cp = new Permissions($this->walk->getPage());
