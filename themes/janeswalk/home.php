@@ -2,8 +2,7 @@
   defined('C5_EXECUTE') or die(_('Access Denied.'));
   $dh = Loader::helper('concrete/dashboard');
   $headImage = $c->getAttribute('full_bg');
-
-  $this->inc('elements/header.php');
+  include 'elements/header.php';
 ?>
 <div class="overlay o-connect">
     <div class="o-background">
@@ -34,5 +33,6 @@
 <section id="map">
     <?php (new Area('Map'))->display($c) ?>
 </section>
-<?php } ?>
-<?php $this->inc('elements/footer.php')  ?>
+<?php
+}
+include 'elements/footer.php';

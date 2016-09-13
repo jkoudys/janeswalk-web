@@ -1,12 +1,13 @@
 <?php
-use \Qaribou\Collection\ImmArray;
-use \JanesWalk\Models\PageTypes\Walk;
+use Concrete\Core\Legacy\PageList;
+use Concrete\Core\Legacy\ThemeHelper;
+use Qaribou\Collection\ImmArray;
+use JanesWalk\Models\PageTypes\Walk;
 
 class PageListBlockController extends Concrete5_Controller_Block_PageList
 {
     public function getPageList()
     {
-        Loader::model('page_list');
         $db = Loader::db();
         $bID = $this->bID;
         if ($this->bID) {
@@ -107,7 +108,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $this->set('cards', $this->loadCards());
                 break;
             case 'walk_filters':
-                Loader::helper('theme');
                 $nh = Loader::helper('navigation');
                 $cards = $this->loadCards();
                 $cities = [];
@@ -175,15 +175,12 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
      * loadCards
      * Loop through and load all the cards
      *
-     * @return Array<Page> card data for each card
+     * @return ImmArray<Page> card data for each card
      */
     public function loadCards()
     {
-        return array_map(
-            function ($page) {
-                return new Walk($page);
-            },
-            (array) $this->get('pages')
-        );
+        return ImmArray::fromArray((array) $this->get('pages'))->map(function (Page $page) {
+            return new Walk($page);
+        });
     }
 }
