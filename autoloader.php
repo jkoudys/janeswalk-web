@@ -1,5 +1,8 @@
 <?php
 namespace {
+    // Include composer classes
+    require_once __DIR__ . '/vendor/autoload.php';
+
     // Our autoloader for JanesWalk classes
     // Format: JanesWalk\{TopLevel}\{SubDir}\{SubDir}\{ClassName}
     // Requires: /top_level/sub_dir/sub_dir/ClassName.php
@@ -32,7 +35,7 @@ namespace Concrete\Core\Legacy {
                 // Extend into the new namespace
                 class PageList extends \PageList {};
             } elseif ('ThemeHelper' === $short) {
-                Loader::helper('theme');
+                \Loader::helper('theme');
                 class ThemeHelper extends \ThemeHelper {};
             }
         }

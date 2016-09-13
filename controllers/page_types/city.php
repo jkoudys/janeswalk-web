@@ -9,7 +9,7 @@ class CityPageTypeController extends Controller
     public function on_start()
     {
         $method = $_SERVER['REQUEST_METHOD'];
-        $request = split("/", substr(@$_SERVER['PATH_INFO'], 1));
+        $request = explode('/', substr(@$_SERVER['PATH_INFO'], 1));
 
         $this->city = new City($this->c);
 

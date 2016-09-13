@@ -127,8 +127,8 @@ EOT;
 // Template for JavaScript events
 $scripts = '<script>JanesWalk.event.emit("city.receive", ' . json_encode($city) . ')</script>';
 
-$this->inc('elements/header.php');
-$this->inc('elements/navbar.php');
+include __DIR__ . '/elements/header.php';
+include __DIR__ . '/elements/navbar.php';
 
 // Template
 echo <<< EOT
@@ -136,7 +136,7 @@ echo <<< EOT
      {$cityName}
      {$Edit}
       <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk-city-header">{$t('Lead a Walk')}</a>
- </h1>
+</h1>
 <section id="intro-city">
  <div class="city-summary">
      {$intro}
@@ -156,7 +156,7 @@ echo <<< EOT
  <div class="walk-list">
       <div class="item">
           <h3>{$t('Walks in %s', $cityName)}</h3> 
-          <a href="{$this->url('/walk/form')}?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Lead a Walk!')}</a>
+          <a href="/walk/form?parentCID={$c->getCollectionID()}" class="create-walk"><i class="fa fa-star"></i> {$t('Lead a Walk!')}</a>
       </div>
      {$area('All Walks List')}
  </div>
@@ -168,4 +168,4 @@ echo <<< EOT
 {$scripts}
 EOT;
 
-$this->inc('elements/footer.php');
+include __DIR__ . '/elements/footer.php';

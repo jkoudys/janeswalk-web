@@ -5,7 +5,6 @@
  */
 
 const gulp = require('gulp');
-const autoprefixer = require('gulp-autoprefixer');
 const gettextParser = require('gettext-parser');
 const gutil = require('gulp-util');
 const less = require('gulp-less');
@@ -27,7 +26,6 @@ gulp.task('css', () => (
   gulp.src(paths.less)
     .pipe(less({ compress: false }))
     .on('error', console.error.bind(console))
-    .pipe(autoprefixer('last 3 versions'))
     .pipe(gulp.dest(paths.css))
 ));
 

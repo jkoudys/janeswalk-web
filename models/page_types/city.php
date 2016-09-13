@@ -185,7 +185,7 @@ class City extends \Model implements \JsonSerializable
                 function ($coord) {
                     return (float) $coord;
                 },
-                split(',', $this->page->getAttribute('latlng'))
+                explode(',', $this->page->getAttribute('latlng'))
             ),
             'wards' => array_map(
                 function ($ward) {
