@@ -1,9 +1,9 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
+use Concrete\Core\Legacy\ImageHelper;
 use JanesWalk\Models\PageTypes\City;
 
 // Load helpers
-$im = Loader::helper('image');
+$im = new ImageHelper();
 ?>
 <ul class="ccm-page-list-city-cards">
 <?php

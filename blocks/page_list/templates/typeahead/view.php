@@ -1,7 +1,4 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
-$th = Loader::helper('text');
-
 /**
  * The original pagelist has some funny mixing of echo w/ inline HTML, as well
  * as mixing logic to put out end-tags. This has been very error-prone, so let's

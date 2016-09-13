@@ -1,10 +1,13 @@
 <?php
-defined('C5_EXECUTE') or die("Access Denied.");
-$rssUrl = $showRss ? $controller->getRssUrl($b) : '';
+use Concrete\Core\Legacy\TextHelper;
+use Concrete\Core\Legacy\ImageHelper;
+use Concrete\Core\Legacy\DateHelper;
+
 $th = Loader::helper('text');
 $ih = Loader::helper('image');
 $dh = Loader::helper('date');
 
+$rssUrl = $showRss ? $controller->getRssUrl($b) : '';
 ?>
 <ul class="ccm-page-list ccm-blog-index">XXXXXXXXXXXXXXXXXXXX
     <?php

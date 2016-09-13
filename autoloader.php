@@ -46,6 +46,9 @@ namespace Concrete\Core\Legacy {
             } elseif ('AvatarHelper' === $short) {
                 \Loader::helper('concrete/avatar');
                 class AvatarHelper extends \AvatarHelper {};
+            } elseif ('DateHelper' === $short) {
+                \Loader::helper('date');
+                class DateHelper extends \DateHelper {};
             } elseif ('ImageHelper' === $short) {
                 \Loader::helper('image');
                 class ImageHelper extends \ImageHelper {};
