@@ -1,4 +1,8 @@
 <?php
+use Concrete\Core\Legacy\IndexedPageList;
+use Concrete\Core\Legacy\CollectionAttributeKey;
+use Concrete\Core\Legacy\TextHelper;
+
 class SearchBlockController extends Concrete5_Controller_Block_Search
 {
     public function highlightedMarkup($fulltext, $highlight)
@@ -22,12 +26,10 @@ class SearchBlockController extends Concrete5_Controller_Block_Search
     {
         $q = $_REQUEST['query'];
         $_q = $q;
-        Loader::library('database_indexed_search');
         $ipl = new IndexedPageList();
         $aksearch = false;
         $ipl->ignoreAliases();
         if (is_array($_REQUEST['akID'])) {
-            Loader::model('attribute/categories/collection');
             foreach ($_REQUEST['akID'] as $akID => $req) {
                 $fak = CollectionAttributeKey::getByID($akID);
                 if (is_object($fak)) {
@@ -90,7 +92,7 @@ class SearchBlockController extends Concrete5_Controller_Block_Search
 
     public function action_resultsJson()
     {
-        $tt = Loader::helper('text');
+        $tt = new TextHelper();
         $this->do_search();
         $query = $this->get('query');
         $results = $this->get('results');

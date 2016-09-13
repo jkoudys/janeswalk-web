@@ -19,6 +19,15 @@ namespace {
             )) . '.php';
         }
     });
+
+    // TODO: Move to appropriate location
+    // Suppress errors due to using legacy concrete5
+    set_error_handler(function ($errno, $errstr) {
+        return (
+            strpos($errstr, 'Declaration of') === 0 ||
+            strpos($errstr, 'usort() expects parameter 2 to be a valid callback, non-static method UserAttributeKey::sortListByDisplayOrder() should not be called statically') === 0
+        );
+    }, E_WARNING);
 }
 
 // Autoloader for concrete5 classes.
@@ -34,9 +43,33 @@ namespace Concrete\Core\Legacy {
                 \Loader::model('page_list');
                 // Extend into the new namespace
                 class PageList extends \PageList {};
+            } elseif ('AvatarHelper' === $short) {
+                \Loader::helper('concrete/avatar');
+                class AvatarHelper extends \AvatarHelper {};
+            } elseif ('ImageHelper' === $short) {
+                \Loader::helper('image');
+                class ImageHelper extends \ImageHelper {};
+            } elseif ('NavigationHelper' === $short) {
+                \Loader::helper('navigation');
+                class NavigationHelper extends \NavigationHelper {};
+            } elseif ('FormPageSelectorHelper' === $short) {
+                \Loader::helper('form/page_selector');
+                class FormPageSelectorHelper extends \FormPageSelectorHelper {};
             } elseif ('ThemeHelper' === $short) {
                 \Loader::helper('theme');
                 class ThemeHelper extends \ThemeHelper {};
+            } elseif ('TextHelper' === $short) {
+                \Loader::helper('text');
+                class TextHelper extends \TextHelper {};
+            } elseif ('IndexedPageList' === $short) {
+                \Loader::library('database_indexed_search');
+                class IndexedPageList extends \IndexedPageList {};
+            } elseif ('CollectionAttributeKey' === $short) {
+                \Loader::model('attribute/categories/collection');
+                class CollectionAttributeKey extends \CollectionAttributeKey {};
+            } elseif ('UserList' === $short) {
+                \Loader::model('user_list');
+                class UserList extends \UserList {};
             }
         }
     });

@@ -1,6 +1,9 @@
 <?php
 use Concrete\Core\Legacy\PageList;
+use Concrete\Core\Legacy\ImageHelper;
+use Concrete\Core\Legacy\NavigationHelper;
 use Concrete\Core\Legacy\ThemeHelper;
+use Concrete\Core\Legacy\CollectionAttributeKey;
 use Qaribou\Collection\ImmArray;
 use JanesWalk\Models\PageTypes\Walk;
 
@@ -61,7 +64,6 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             $this->cID = $c->getCollectionID();
         }
 
-        Loader::model('attribute/categories/collection');
         if ((int) $this->displayFeaturedOnly === 1) {
             $cak = CollectionAttributeKey::getByHandle('is_featured');
             if (is_object($cak)) {
@@ -98,7 +100,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
     {
         $c = Page::getCurrentPage();
         parent::view();
-        $this->set('im', Loader::helper('image'));
+        $this->set('im', new ImageHelper());
         $this->set('u', new User());
         $this->set('rssUrl', $showRss ? $controller->getRssUrl($b) : '');
         $this->set('show', $_REQUEST['show']);
@@ -108,7 +110,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $this->set('cards', $this->loadCards());
                 break;
             case 'walk_filters':
-                $nh = Loader::helper('navigation');
+                $nh = new NavigationHelper();
                 $cards = $this->loadCards();
                 $cities = [];
 

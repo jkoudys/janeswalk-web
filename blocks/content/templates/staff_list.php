@@ -1,9 +1,10 @@
 <?php
+use Concrete\Core\Legacy\UserList;
+use Concrete\Core\Legacy\AvatarHelper;
 use Qaribou\Templating\Virty;
 use Qaribou\Collection\ImmArray;
 
-Loader::model('user_list');
-$av = Loader::helper('concrete/avatar');
+$av = new AvatarHelper();
 
 // Load a list of filters; simply load json from block name
 $filters = json_decode(
