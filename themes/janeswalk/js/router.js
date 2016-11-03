@@ -5,9 +5,6 @@
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
-const { createElement: ce } = React;
-const { startups, event } = JanesWalk;
-
 // Translations for i18n L10n
 import { getTranslations } from 'janeswalk/utils/I18nUtils';
 import * as AreaActions from 'janeswalk/actions/AreaActions';
@@ -15,7 +12,6 @@ import * as UserActions from 'janeswalk/actions/UserActions';
 import * as WalkActions from 'janeswalk/actions/WalkActions';
 import * as CityActions from 'janeswalk/actions/CityActions';
 import * as ItineraryActions from 'janeswalk/actions/ItineraryActions';
-import Navbar from './components/Navbar.jsx';
 
 // Stores, for late-binding some page updates.
 // Not fully React, but we can use Flux for making PHP-rendered page updates too!
@@ -24,6 +20,7 @@ import CityStore from 'janeswalk/stores/CityStore';
 import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
+import Navbar from './components/Navbar.jsx';
 import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
 
@@ -31,6 +28,14 @@ import Dashboard from './components/pages/Dashboard.jsx';
 
 // load modals
 import Login from './components/Login.jsx';
+
+// Load into local scope from globals.
+// TODO: globals needed for c5 integration, but move to modules where we can.
+const { createElement: ce } = window.React;
+const { startups, event } = window.JanesWalk;
+
+// Use the main sitewide theme. TODO: componetize this as we go, and drop LESS for css (via cssnext)
+require('../css/main.less');
 
 /**
  * Let hitting 'm' make the menu pop up

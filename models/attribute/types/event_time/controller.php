@@ -1,4 +1,6 @@
 <?php
+use Concrete\Core\Legacy\{HtmlHelper, FormHelper, FormDateTimeHelper};
+
 class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
 {
     /**
@@ -123,12 +125,12 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
     public function form()
     {
         $this->load();
-        $html = Loader::helper('html');
+        $html = new HtmlHelper();
         $this->addHeaderItem($html->css('jquery.ui.css'));
         $this->addHeaderItem($html->javascript('jquery.ui.js'));
 
-        $this->set('dt', Loader::helper('form/date_time'));
-        $this->set('fh', Loader::helper('form'));
+        $this->set('dt', new FormDateTimeHelper());
+        $this->set('fh', new FormHelper());
         $this->set('data', $this->getValue());
         $this->set('akID', $this->attributeKey->getAttributeKeyID());
     }
@@ -136,11 +138,11 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
     public function saveForm($data)
     {
         $this->load();
-        $dt = Loader::helper('form/date_time');
+        $dt = new FormDateTimeHelper();
         $values = [
             'open' => (bool) $data['open'],
             'type' => $data['type'],
-            'times' => $data['times']
+            'times' => $data['times'],
         ];
         $this->saveValue((array) $values);
     }

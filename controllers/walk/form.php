@@ -1,11 +1,9 @@
 <?php
-use \User;
-use \Page;
-use \PageList;
+use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, ImageHelper, HtmlHelper, ValidationTokenHelper};
 
-use \JanesWalk\Models\PageTypes\Walk;
-use \JanesWalk\Models\PageTypes\City;
-use \JanesWalk\Controllers\JanesWalk as Controller;
+use JanesWalk\Models\PageTypes\Walk;
+use JanesWalk\Models\PageTypes\City;
+use JanesWalk\Controllers\JanesWalk as Controller;
 
 class WalkFormController extends Controller
 {
@@ -39,10 +37,10 @@ class WalkFormController extends Controller
 
     protected function loadViewData(Page $c)
     {
-        $nh = Loader::helper('navigation');
-        $av = Loader::helper('concrete/avatar');
-        $valt = Loader::helper('validation/token');
-        $imgHelper = Loader::helper('image');
+        $nh = new NavigationHelper();
+        $av = new AvatarHelper();
+        $valt = new ValidationTokenHelper();
+        $imgHelper = new ImageHelper();
         $cityPage = Page::getByID($c->getCollectionParentID());
         $u = new User();
         $ui = UserInfo::getByID($u->getUserID());
@@ -123,12 +121,12 @@ class WalkFormController extends Controller
         $this->set('bodyData', $this->bodyData);
 
         // Load JS we need in the form
-        $html = Loader::helper('html');
+        $html = new HtmlHelper();
 
         // Set default stylesheets for libs
         $this->addHeaderItem($html->css('jquery.ui.css'));
         // Set libs we'll need on the page
-        $this->addFooterItem(Loader::helper('html')->javascript('jquery.ui.js'));
+        $this->addFooterItem($html->javascript('jquery.ui.js'));
     }
 
     public function view($cID = null)
@@ -142,7 +140,7 @@ class WalkFormController extends Controller
         } elseif (!empty($load)) {
             $this->loadViewData(Page::getByPath($load));
         } else {
-            $nh = Loader::helper('navigation');
+            $nh = new NavigationHelper();
             $u = new User();
             $ui = UserInfo::getByID($u->getUserID());
 

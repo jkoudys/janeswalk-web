@@ -1,24 +1,34 @@
 const webpack = require('webpack');
 const paths = require('./paths');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const base = {
   entry: [paths.jsx_app],
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      exclude: /(bower_components)/,
+      exclude: /(bower_components|node_modules)/,
       loader: 'babel',
       query: {
         presets: ['es2015', 'react', 'stage-2'],
       },
     }, {
+      test: /\.css$/,
+      loader: ExtractTextPlugin.extract('css'),
+    }, {
+      test: /\.less$/,
+      loader: ExtractTextPlugin.extract('less-loader'),
+    }, {
       test: /\.json$/,
       loader: 'json',
     }],
   },
+  plugins: [
+    new ExtractTextPlugin('themes/janeswalk/css/janeswalk.css', { allChunks: true }),
+  ],
 };
 
-const production = Object.assign({}, base, {
+const prod = Object.assign({}, base, {
   output: {
     path: paths.js,
     filename: 'janeswalk.min.js',
@@ -32,7 +42,6 @@ const production = Object.assign({}, base, {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
   ],
-  watch: false,
 });
 
 const dev = Object.assign({}, base, {
@@ -40,7 +49,6 @@ const dev = Object.assign({}, base, {
     path: paths.js,
     filename: 'janeswalk.js',
   },
-  watch: true,
 });
 
-module.exports = { production, dev };
+module.exports = { prod, dev };

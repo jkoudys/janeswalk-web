@@ -4,8 +4,9 @@
  *
  * The user profile page, with that user's personal and city information.
  */
-use \JanesWalk\Models\PageTypes\Walk;
-use \JanesWalk\Models\PageTypes\City;
+use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, TextHelper, ImageHelper};
+use JanesWalk\Models\PageTypes\Walk;
+use JanesWalk\Models\PageTypes\City;
 
 class ProfileController extends Concrete5_Controller_Profile
 {
@@ -17,14 +18,13 @@ class ProfileController extends Concrete5_Controller_Profile
      */
     public function view($userID = null)
     {
-        Loader::model('page_list');
         parent::view($userID);
 
         // Set helpers for view
-        $nh = Loader::helper('navigation');
-        $ah = Loader::helper('concrete/avatar');
-        $th = Loader::helper('text');
-        $ih = Loader::helper('image');
+        $nh = new NavigationHelper();
+        $ah = new AvatarHelper();
+        $th = new TextHelper();
+        $ih = new ImageHelper();
 
         // The full Walk data we'll need to serialize
         $walkData = [];
@@ -37,7 +37,7 @@ class ProfileController extends Concrete5_Controller_Profile
         $ui = UserInfo::getByID($u->getUserID());
 
         // Whether the logged in user has created any blog posts
-        $pl = new PageList;
+        $pl = new PageList();
         $pl->filterByCollectionTypeHandle(['walk_blog_entry', 'city_blog_entry']);
         $pl->filterByUserID($ui->getUserID());
         $this->set('userBlogPosts', $pl->get());
@@ -244,7 +244,7 @@ class CityExporter
             case 'Published Date':
                 return $walk->publishDate;
             case 'URL':
-                $nh = Loader::helper('navigation');
+                $nh = new NavigationHelper();
                 return $nh->getCollectionURL($walk->getPage());
             default:
                 return '';

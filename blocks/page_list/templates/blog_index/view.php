@@ -9,7 +9,7 @@ $dh = Loader::helper('date');
 
 $rssUrl = $showRss ? $controller->getRssUrl($b) : '';
 ?>
-<ul class="ccm-page-list ccm-blog-index">XXXXXXXXXXXXXXXXXXXX
+<ul class="ccm-page-list ccm-blog-index">
     <?php
     foreach ($pages as $page) :
         $title = $th->entities($page->getCollectionName());

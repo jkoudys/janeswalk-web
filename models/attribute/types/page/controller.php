@@ -1,4 +1,6 @@
 <?php
+use Concrete\Core\Legacy\NavigationHelper;
+
 class PageAttributeTypeController extends AttributeTypeController
 {
     protected $searchIndexFieldDefinition = 'I DEFAULT 0 NULL';
@@ -6,7 +8,7 @@ class PageAttributeTypeController extends AttributeTypeController
     public function getValue()
     {
         $db = Loader::db();
-        $value = $db->GetOne("select cID from atPage where avID = ?", array($this->getAttributeValueID()));
+        $value = $db->GetOne('select cID from atPage where avID = ?', [$this->getAttributeValueID()]);
         if ($value > 0) {
             $p = Page::getByID($value);
 
@@ -16,7 +18,7 @@ class PageAttributeTypeController extends AttributeTypeController
 
     public function getDisplayValue()
     {
-        $nh = Loader::helper('navigation');
+        $nh = new NavigationHelper();
         $p = $this->getValue();
         if (is_object($p)) {
             return "<a href='{$nh->getCollectionURL($p)}'>{$p->getCollectionName()}</a>";
@@ -73,7 +75,7 @@ class PageAttributeTypeController extends AttributeTypeController
         $pages = $pl->get();
         uasort(
             $pages,
-            function ($a,$b) {
+            function ($a, $b) {
                 $ap = $a->getCollectionParentID();
                 $bp = $b->getCollectionParentID();
 
@@ -83,7 +85,8 @@ class PageAttributeTypeController extends AttributeTypeController
         foreach ($pages as $page) {
             $parent = Page::getByID($page->getCollectionParentID())->getCollectionName();
             if ($lastParent != $parent) {
-                if ($lastParent !== '') { $selectString .= '</optgroup>'; 
+                if ($lastParent !== '') {
+                    $selectString .= '</optgroup>';
                 }
                 $selectString .= "<optgroup label='$parent'>";
                 $lastParent = $parent;
@@ -132,5 +135,4 @@ class PageAttributeTypeController extends AttributeTypeController
         $db = Loader::db();
         $db->Execute('delete from atPage where avID = ?', array($this->getAttributeValueID()));
     }
-
 }

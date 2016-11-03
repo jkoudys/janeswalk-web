@@ -2,11 +2,11 @@
 namespace JanesWalk\Controllers;
 
 // TODO: Move to PSR standards for filename after c5.7 upgrade
-use \Loader;
 use \User;
 use \UserInfo;
 use \Localization;
-use \JanesWalk\Models\PageTypes\Walk;
+use JanesWalk\Models\PageTypes\Walk;
+use Concrete\Core\Legacy\NavigationHelper;
 
 class JanesWalk extends \Controller
 {
@@ -35,7 +35,7 @@ class JanesWalk extends \Controller
      */
     public function view()
     {
-        $nh = Loader::helper('navigation');
+        $nh = new NavigationHelper();
         $u = new User();
         $c = $this->getCollectionObject();
         $this->bodyData = [

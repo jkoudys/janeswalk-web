@@ -13,6 +13,9 @@ use \Loader;
 use \Page;
 use \File;
 
+// concrete5
+use Concrete\Core\Legacy\{NavigationHelper, ImageHelper, FileHelper, AvatarHelper};
+
 /**
  * Walk
  *
@@ -134,7 +137,7 @@ class Walk extends \Model implements \JsonSerializable
         switch ($name) {
             case 'crumbs':
                 // @return Array of Page objects, from highest level parent to walk page
-                $this->crumbs = Loader::helper('navigation')->getTrailToCollection($this->page);
+                $this->crumbs = (new NavigationHelper())->getTrailToCollection($this->page);
                 krsort($this->crumbs);
 
                 return $this->crumbs;
@@ -174,7 +177,7 @@ class Walk extends \Model implements \JsonSerializable
                                 break;
                         }
                         if ($mem['user_id'] > 0) {
-                            if ($avatar = Loader::helper('concrete/avatar')->getImagePath(
+                            if ($avatar = (new AvatarHelper())->getImagePath(
                                 \UserInfo::getByID($mem['user_id'])
                             )) {
                                 $mem['avatar'] = $avatar;
@@ -270,7 +273,8 @@ class Walk extends \Model implements \JsonSerializable
     public function setJson($json)
     {
         $postArray = json_decode($json, true);
-        $db = Loader::db(); // TODO on 5.7, no more adodb, so rewrite transactions here
+        // TODO on 5.7, no more adodb, so rewrite transactions here
+        $db = Loader::db();
         $db->StartTrans();
         $ok = true;
         try {
@@ -309,7 +313,7 @@ class Walk extends \Model implements \JsonSerializable
         } catch (Exception $e) {
             $db->FailTrans(); // Set transaction to rollback
             (new \Log('error', false))->write(
-                __CLASS__ . '::' . __FUNCTION__ .
+                __METHOD__ .
                 ' failed on page ' . $this->page->title . ': ' . $e
             );
             $ok = false;
@@ -329,8 +333,8 @@ class Walk extends \Model implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        $im = Loader::helper('image');
-        $nh = Loader::helper('navigation');
+        $im = new ImageHelper();
+        $nh = new NavigationHelper();
         $walkData = [
             'id' => $this->page->getCollectionID(),
             'title' => $this->title,
@@ -387,9 +391,9 @@ class Walk extends \Model implements \JsonSerializable
      */
     public function kmlSerialize()
     {
-        $fh = Loader::helper('file');
+        $fh = new FileHelper();
         // Creates the Document.
-        $doc = new DOMDocument;
+        $doc = new DOMDocument();
 
         $map = $doc->appendChild($doc->createElement('map'));
         $map->appendChild($doc->createElement('name', (string) $this));
