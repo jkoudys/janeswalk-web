@@ -21,13 +21,15 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
 import Navbar from './components/Navbar.jsx';
-import CreateWalk from './components/CreateWalk.jsx';
+import WalkBuilder from './components/lead/WalkBuilder';
 import Walk from './components/pages/Walk.jsx';
 
 import Dashboard from './components/pages/Dashboard.jsx';
 
 // load modals
 import Login from './components/Login.jsx';
+
+import initKeyEvents from './helpers/keyevents';
 
 // Load into local scope from globals.
 // TODO: globals needed for c5 integration, but move to modules where we can.
@@ -36,39 +38,6 @@ const { startups, event } = window.JanesWalk;
 
 // Use the main sitewide theme. TODO: componetize this as we go, and drop LESS for css (via cssnext)
 require('../css/main.less');
-
-/**
- * Let hitting 'm' make the menu pop up
- */
-function initKeyEvents() {
-  // Init keyboard shortcuts
-  const toolbar = document.getElementById('ccm-toolbar');
-  if (toolbar) {
-    window.addEventListener('keyup', ev => {
-      /* Don't capture inputs going into a form */
-      if (ev.target.tagName !== 'INPUT') {
-        ev.preventDefault();
-        switch (
-          String(
-            ev.key ||
-            (ev.keyCode && String.fromCharCode(ev.keyCode)) ||
-            ev.char)
-            .toUpperCase()
-        ) {
-          case 'M':
-            if (toolbar.style.display === 'block' || !toolbar.style.display) {
-              toolbar.style.display = 'none';
-            } else {
-              toolbar.style.display = 'block';
-            }
-            break;
-          default:
-            break;
-        }
-      }
-    });
-  }
-}
 
 // Render the sitewide elements
 function renderGlobal() {
@@ -118,10 +87,10 @@ function addRenderListeners() {
 
   // Create a walk
   event.on('caw.load', () => {
-    const { walk: { data, url }, form: { valt }, city, user } = JanesWalk;
+    const { walk: { data: walk, url }, form: { valt }, city, user } = JanesWalk;
     ReactDOM.render(
-       ce(CreateWalk, { data, url, valt, city, user }),
-      document.getElementById('page')
+      ce(WalkBuilder, { walk, url, valt, city, user }),
+      document.getElementById('page'),
     );
   });
 }

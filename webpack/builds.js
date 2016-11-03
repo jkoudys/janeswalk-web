@@ -14,10 +14,10 @@ const base = {
       },
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('css'),
+      loader: ExtractTextPlugin.extract('style', 'css?-url'),
     }, {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract('less-loader'),
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!less-loader'),
     }, {
       test: /\.json$/,
       loader: 'json',
