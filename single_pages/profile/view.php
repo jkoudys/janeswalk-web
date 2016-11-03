@@ -1,8 +1,8 @@
 <?php
 require_once(DIR_BASE . '/models/page_types/City.php');
 require_once(DIR_BASE . '/models/page_types/Walk.php');
-use \JanesWalk\Models\PageTypes\City;
-use \JanesWalk\Models\PageTypes\Walk;
+use JanesWalk\Models\PageTypes\City;
+use JanesWalk\Models\PageTypes\Walk;
 
 // User's blog posts
 $userBlogPostsArr = array_map(
