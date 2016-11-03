@@ -24,7 +24,7 @@ const base = {
     }],
   },
   plugins: [
-    new ExtractTextPlugin('themes/janeswalk/css/janeswalk.css', { allChunks: true }),
+    new ExtractTextPlugin('../css/janeswalk.css', { allChunks: true }),
   ],
 };
 

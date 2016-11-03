@@ -12,7 +12,7 @@
     <?php if (Localization::activeLocale() === 'he') { ?>
         <link href='//fonts.googleapis.com/css?family=Alef:400,700&subset=hebrew' rel='stylesheet' type='text/css'>
     <?php } ?>
-    <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/main.css">
+    <link rel="stylesheet" href="<?= $this->getThemePath() ?>/css/janeswalk.css">
     <script src="<?= BASE_URL ?>/js/jwglobal.js"></script>
     <script src="//fb.me/react-with-addons-15.0.1<?= CONCRETE5_ENV === 'dev' ? '' : '.min' ?>.js"></script>
     <script src="//fb.me/react-dom-15.0.1<?= CONCRETE5_ENV === 'dev' ? '' : '.min' ?>.js"></script>
