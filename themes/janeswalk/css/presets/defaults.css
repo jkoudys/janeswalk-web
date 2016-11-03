@@ -1,0 +1,43 @@
+/**
+ * Application Stylesheet
+*/
+:root {
+  --color-orange: #F16725;
+  --color-blue: #6BADFD;
+  --color-darkgrey: #666;
+  --color-charcoal: #333;
+  --color-lightgrey: #efefef;
+  --color-blogblues: #92CDF5;
+  --color-midnight: #001d40;
+
+  /* Fonts -- actual imports in fonts.less/header. This is for convenience variables */
+  --font-slab: "Roboto Slab", serif;
+  --font-hebrew: "Alef";
+
+  /* Navbar */
+  --navbar-height: 60px;
+}
+
+/* Transition classes */
+/* Follow the ReactJS conventions http://facebook.github.io/react/docs/animation.html */
+.fade-enter {
+  opacity: 0.01;
+  max-height: 0;
+  transition: opacity 0.2s ease-in;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  max-height: none;
+}
+
+.fade-leave {
+  opacity: 1;
+  max-height: none;
+  transition: opacity 0.2s ease-in;
+}
+
+.fade-leave.fade-leave-active {
+  max-height: 0;
+  opacity: 0.01;
+}
