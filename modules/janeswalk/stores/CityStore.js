@@ -5,7 +5,7 @@
  * currently no requirement exists for this.
  */
 
-import { register2 } from 'janeswalk/dispatcher/AppDispatcher';
+import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 import Store from './Store';
 
@@ -17,7 +17,7 @@ const CityStore = {
   getCity: () => _city,
   getLocation: () => _city && _city.latlng,
 
-  dispatchToken: register2({
+  dispatchToken: register({
     [AT.CITY_RECEIVE]: ({ city }) => { _city = city; },
   }, () => CityStore.emitChange()),
 };

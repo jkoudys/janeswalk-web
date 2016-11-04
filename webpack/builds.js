@@ -17,7 +17,7 @@ const base = {
       loader: ExtractTextPlugin.extract('style', 'css?-url'),
     }, {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!less-loader'),
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!less-loader?-relativeUrls'),
     }, {
       test: /\.json$/,
       loader: 'json',

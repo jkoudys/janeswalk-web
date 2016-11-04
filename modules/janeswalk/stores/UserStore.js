@@ -4,7 +4,7 @@
  * Users on Jane's Walk.
  */
 
-import { register2 } from 'janeswalk/dispatcher/AppDispatcher';
+import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 import Store from './Store';
 
@@ -31,7 +31,7 @@ const UserStore = {
   getCurrent: () => _current,
 
   // Register our dispatch token as a static method
-  dispatchToken: register2({
+  dispatchToken: register({
     [AT.USER_RECEIVE]: receiveUser,
     [AT.USER_RECEIVE_ALL]: ({ users }) => users.forEach(user => receiveUser({ user })),
   }, () => UserStore.emitChange()),

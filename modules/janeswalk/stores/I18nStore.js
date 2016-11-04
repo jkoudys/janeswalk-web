@@ -6,7 +6,7 @@
 
 // Basic flux setup
 import Store from './Store';
-import { register2 } from 'janeswalk/dispatcher/AppDispatcher';
+import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 
 // The library for managing translations
@@ -22,7 +22,7 @@ const I18nStore = {
   getTranslatePlural: () => _i18n.translatePlural.bind(_i18n),
 
   // Register our dispatch token as a static method
-  dispatchToken: register2({
+  dispatchToken: register({
     [AT.I18N_RECEIVE]: ({ translations }) => _i18n.constructor(translations),
   }, () => I18nStore.emitChange()),
 };
