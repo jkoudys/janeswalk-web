@@ -3,6 +3,9 @@ import { dateFormatted } from 'janeswalk/utils/ItineraryUtils';
 import { getThemeName } from 'janeswalk/utils/lookups/Theme';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
+const { createElement: ce, PropTypes } = React;
+const { assign } = Object;
+
 // TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 // TODO: Make walkMenu sticky - will complete after Dashboard
 
@@ -54,33 +57,29 @@ const WalkMenu = ({
   if ((accessibleParking || []).length > 0) menuItems[4].exists = true;
 
   return (
-    <section className="walkMenu">
-      <header className="walkHeader">
-        <h5>{title}</h5>
-        {leaderHead}
-        {nextDateHead}
-        {meetingPlaceHead}
-      </header>
-      <section className="menu">
-        <ul>
-          {menuItems.filter(item => item.exists).map((item, i) => (
-            <li key={i}>
-              <a href={`#${item.display}`}>
-                {item.display}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section className="tags">
-        {tags.map((tag, i) => <span className="tag" key={i}>#{getThemeName(tag)}</span>)}
-      </section>
-    </section>
+    ce('section', { className: 'walkMenu', ref: domRoot => assign(this, { domRoot }) },
+      ce('header', { className: 'walkHeader' },
+        ce('h5', {}, title),
+        leaderHead,
+        nextDateHead,
+        meetingPlaceHead,
+      ),
+      ce('section', { className: 'menu' },
+        ce('ul', {}, menuItems.filter(item => item.exists).map((item, i) => (
+          ce('li', { key: i },
+            ce('a', { href: `#${item.display}` }, item.display)
+          )
+        )))
+      ),
+      ce('section', { className: 'tags' }, tags.map((tag, i) => (
+        ce('span', { className: 'tag', key: i }, `#${getThemeName(tag)}`)
+      )))
+    )
   );
 };
 
 WalkMenu.propTypes = {
-  walk: React.PropTypes.object.isRequired,
+  walk: PropTypes.object.isRequired,
 };
 
 export default WalkMenu;

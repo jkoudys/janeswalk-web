@@ -432,7 +432,7 @@
 	  },
 
 	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.I18N_RECEIVE, function (_ref) {
+	  dispatchToken: (0, _AppDispatcher.register)(_defineProperty({}, _JWConstants.ActionTypes.I18N_RECEIVE, function (_ref) {
 	    var translations = _ref.translations;
 	    return _i18n.constructor(translations);
 	  }), function () {
@@ -460,20 +460,22 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * The generic 'store', which more complex stores are composed from
+	                                                                                                                                                                                                                                                                   */
+
+	// Requires
+
+
 	var _events = __webpack_require__(5);
 
 	var _events2 = _interopRequireDefault(_events);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var CHANGE_EVENT = 'change'; /**
-	                              * The generic 'store', which more complex stores are composed from
-	                              */
+	var CHANGE_EVENT = 'change';
 
-	// Requires
-
-
-	var Store = Object.assign({}, _events2.default.prototype, {
+	var Store = _extends({}, _events2.default.prototype, {
 	  emitChange: function emitChange() {
 	    this.emit(CHANGE_EVENT);
 	  },
@@ -779,16 +781,15 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.waitFor = exports.dispatch = exports.register2 = exports.register = undefined;
+	exports.waitFor = exports.dispatch = exports.register = undefined;
 
 	var _flux = __webpack_require__(7);
 
 	var AppDispatcher = new _flux.Dispatcher();
 	var dispatch = AppDispatcher.dispatch.bind(AppDispatcher);
-	var register = AppDispatcher.register.bind(AppDispatcher);
 	var waitFor = AppDispatcher.waitFor.bind(AppDispatcher);
 
-	var register2 = function register2(receivers, onComplete) {
+	var register = function register(receivers, onComplete) {
 	  return AppDispatcher.register(function (payload) {
 	    if (receivers.hasOwnProperty(payload.type)) {
 	      receivers[payload.type](payload);
@@ -799,7 +800,6 @@
 
 	exports.default = AppDispatcher;
 	exports.register = register;
-	exports.register2 = register2;
 	exports.dispatch = dispatch;
 	exports.waitFor = waitFor;
 
@@ -1337,7 +1337,12 @@
 	  p[k] = Symbol(k);return p;
 	}, {});
 
+	var keys = {
+	  google: 'AIzaSyA4iGa8LuLYBdttynMXjO9Vy6JaqaiPuVw'
+	};
+
 	exports.ActionTypes = ActionTypes;
+	exports.keys = keys;
 
 /***/ },
 /* 12 */
@@ -2371,7 +2376,7 @@
 	  getWalkOutings: getWalkOutings,
 
 	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register2)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
+	  dispatchToken: (0, _AppDispatcher.register)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
 	    var walk = _ref.walk;
 	    return receiveWalk(walk);
 	  }), _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE_ALL, function (_ref2) {
@@ -2424,7 +2429,7 @@
 	    return _city && _city.latlng;
 	  },
 
-	  dispatchToken: (0, _AppDispatcher.register2)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
+	  dispatchToken: (0, _AppDispatcher.register)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
 	    var city = _ref.city;
 	    _city = city;
 	  }), function () {

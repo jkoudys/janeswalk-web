@@ -45,6 +45,8 @@
   "dependencies": {
     "extract-text-webpack-plugin": "^1.0.1",
     "janeswalk": "*",
+    "postcss-loader": "^0.13.0",
+    "precss": "^1.4.0",
     "webpack": "^1.13.2"
   }
 }

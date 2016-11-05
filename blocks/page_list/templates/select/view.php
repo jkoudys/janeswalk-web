@@ -32,9 +32,9 @@ uasort($countryList, function($a, $b) {
 // migration to ReactJS
 echo (
     '<select class="pageListSelect">' .
-        join(array_map(function($country) { return 
+        join(array_map(function ($country) { return 
             '<optgroup label="' . $country['name'] . '">' .
-                join(array_map(function($city) { return
+                join(array_map(function ($city) { return
                      '<option value="' . $city['url'] . '">' . $city['name'] .'</option>';
                 }, $country['cities'])) .
             '</optgroup>';

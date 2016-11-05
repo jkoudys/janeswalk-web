@@ -2,6 +2,7 @@
  * Start up our google maps
  */
 /* global google */
+const { keys: { google: apikey } } = require('janeswalk/constants/JWConstants');
 
 function* iterateGMapCollection() {
   for (let i = 0, len = this.getLength(); i < len; i++) {
@@ -13,7 +14,7 @@ export default new Promise((resolve) => {
   const mapCallback = '_googleMapsIsFinished';
   const script = Object.assign(document.createElement('script'), {
     type: 'text/javascript',
-    src: `//maps.googleapis.com/maps/api/js?sensor=false&callback=${mapCallback}`,
+    src: `//maps.googleapis.com/maps/api/js?sensor=false&callback=${mapCallback}&key=${apikey}`,
   });
   document.head.appendChild(script);
 

@@ -16,6 +16,8 @@ import WalkTeam from './Walk/WalkTeam.jsx';
 import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
 
+const { createElement: ce, Component } = React;
+
 const getWalk = ({ walk, page, city }) => {
   const [firstList] = ItineraryStore.getLists();
   return {
@@ -28,7 +30,7 @@ const getWalk = ({ walk, page, city }) => {
   };
 };
 
-export default class WalkPage extends React.Component {
+export default class WalkPage extends Component {
   constructor(props, ...args) {
     super(props, ...args);
 
@@ -77,32 +79,37 @@ export default class WalkPage extends React.Component {
       isFavourite,
       schedule,
     } = this.state;
+    const { canEdit = false } = this.props;
     const hasMarkers = map.markers.length > 0;
     const hasRoute = map.route.length > 0;
-    const { canEdit = false } = this.props;
     const accessibleFlags = Object.keys(checkboxes).filter(k => k.includes('accessible-')).map(k => k.slice(11));
 
+    // FIXME: don't do all this direct this.state passing.
     return (
-      <section className="walkPage">
-        <WalkHeader
-          {...{ walk, canEdit, city, isFavourite, schedule }}
-          onSchedule={this.handleSchedule}
-          onUnschedule={this.handleUnschedule}
-          onAdd={this.handleAdd}
-          onRemove={this.handleRemove}
-        />
-        <WalkMenu {...this.state} />
-        <WalkDescription {...this.state.walk} />
-        {hasMarkers || hasRoute ? <WalkMap map={map} /> : null}
-        {hasMarkers ? [
-          <WalkRoute {...this.state.walk} />,
-          <WalkStart {...this.state.walk} />,
-        ] : null}
-        <WalkAccessibility flags={accessibleFlags} />
-        <WalkPublicTransit {...this.state.walk} />
-        <WalkParking {...this.state.walk} />
-        <WalkTeam {...this.state.walk} />
-      </section>
+      ce('section', { className: 'walkPage' },
+        ce(WalkHeader, {
+          walk,
+          canEdit,
+          city,
+          isFavourite,
+          schedule,
+          onSchedule: this.handleSchedule,
+          onUnschedule: this.handleUnschedule,
+          onAdd: this.handleAdd,
+          onRemove: this.handleRemove,
+        }),
+        ce(WalkMenu, this.state),
+        ce(WalkDescription, walk),
+        hasMarkers || hasRoute ? ce(WalkMap, { map }) : null,
+        hasMarkers ? [
+          ce(WalkRoute, walk),
+          ce(WalkStart, walk),
+        ] : null,
+        ce(WalkAccessibility, { flags: accessibleFlags }),
+        ce(WalkPublicTransit, walk),
+        ce(WalkParking, walk),
+        ce(WalkTeam, walk)
+      )
     );
   }
 }
