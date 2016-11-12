@@ -23,7 +23,7 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 import Navbar from './components/Navbar.jsx';
 import WalkBuilder from './components/lead/WalkBuilder';
 import Walk from './components/pages/Walk.jsx';
-
+import CreateWalk from './components/CreateWalk.jsx';
 import Dashboard from './components/pages/Dashboard.jsx';
 
 // load modals
@@ -89,7 +89,7 @@ function addRenderListeners() {
   event.on('caw.load', () => {
     const { walk: { data: walk, url }, form: { valt }, city, user } = JanesWalk;
     ReactDOM.render(
-      ce(WalkBuilder, { walk, url, valt, city, user }),
+      ce(CreateWalk, { walk, url, valt, city, user }),
       document.getElementById('page'),
     );
   });
