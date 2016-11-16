@@ -65,7 +65,6 @@ export default class WalkBuilder extends Component {
     return ce('main', {},
       ce(Welcome, { cityOrganizer }),
       ce(Navigator, { menuOptions },
-        ce(SaveTheDate, { ref: node => this.addToMenu({ title: t`Save the Date`, node }) }),
         ce(WalkDetails, { ref: node => this.addToMenu({ title: t`Walk Details`, node }) }),
         ce(Theme, { ref: node => this.addToMenu({ title: t`Theme`, node }) }),
         ce(RouteBuilder, { ref: node => this.addToMenu({ title: t`Route`, node }) }),
