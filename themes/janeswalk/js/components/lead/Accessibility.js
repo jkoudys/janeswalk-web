@@ -1,11 +1,11 @@
 /**
- * Team
+ * Accessibility
  *
  * The folks who make it happen. The team putting this Walk on.
  */
 
 const { createElement: ce } = React;
 
-const Team = ({ order }) => ce('section', {}, `${order}. `, 'Go team!');
+const Accessibility = () => ce('section', {}, 'Accessibility');
 
-export default Team;
+export default Accessibility;

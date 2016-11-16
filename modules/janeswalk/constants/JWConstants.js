@@ -13,6 +13,9 @@ const ActionTypes = [
   'WALK_SAVE',
   'WALK_PUBLISH',
 
+  // Walk Builder
+  'WB_RECEIVE_WALK',
+
   // City
   'CITY_RECEIVE',
 

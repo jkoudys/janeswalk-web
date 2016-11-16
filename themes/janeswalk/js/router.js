@@ -12,6 +12,7 @@ import * as UserActions from 'janeswalk/actions/UserActions';
 import * as WalkActions from 'janeswalk/actions/WalkActions';
 import * as CityActions from 'janeswalk/actions/CityActions';
 import * as ItineraryActions from 'janeswalk/actions/ItineraryActions';
+import { receiveWalk as receiveWalkForBuilder } from 'janeswalk/actions/WalkBuilderActions';
 
 // Stores, for late-binding some page updates.
 // Not fully React, but we can use Flux for making PHP-rendered page updates too!
@@ -23,7 +24,6 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 import Navbar from './components/Navbar.jsx';
 import WalkBuilder from './components/lead/WalkBuilder';
 import Walk from './components/pages/Walk.jsx';
-import CreateWalk from './components/CreateWalk.jsx';
 import Dashboard from './components/pages/Dashboard.jsx';
 
 // load modals
@@ -88,8 +88,11 @@ function addRenderListeners() {
   // Create a walk
   event.on('caw.load', () => {
     const { walk: { data: walk, url }, form: { valt }, city, user } = JanesWalk;
+
+    receiveWalkForBuilder(walk);
+
     ReactDOM.render(
-      ce(CreateWalk, { walk, url, valt, city, user }),
+      ce(WalkBuilder, { valt, city, user, url }),
       document.getElementById('page'),
     );
   });

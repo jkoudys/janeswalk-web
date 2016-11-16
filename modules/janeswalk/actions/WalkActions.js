@@ -1,17 +1,11 @@
-import {dispatch} from 'janeswalk/dispatcher/AppDispatcher';
-import {ActionTypes} from 'janeswalk/constants/JWConstants';
+import { dispatch } from 'janeswalk/dispatcher/AppDispatcher';
+import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 
 // Load the walk
 export function receive(walk) {
-  dispatch({
-    type: ActionTypes.WALK_RECEIVE,
-    walk: walk
-  });
+  dispatch({ type: AT.WALK_RECEIVE, walk });
 }
 
 export function receiveAll(walks) {
-  dispatch({
-    type: ActionTypes.WALK_RECEIVE_ALL,
-    walks: walks
-  });
+  dispatch({ type: AT.WALK_RECEIVE_ALL, walks });
 }

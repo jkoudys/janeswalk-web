@@ -123,7 +123,7 @@
 	  function PageListTypeahead(props) {
 	    _classCallCheck(this, PageListTypeahead);
 
-	    var _this = _possibleConstructorReturn(this, (PageListTypeahead.__proto__ || Object.getPrototypeOf(PageListTypeahead)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListTypeahead).call(this, props));
 
 	    Object.assign(_this, {
 	      state: {
@@ -403,11 +403,11 @@
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
 	      } else {
-	        // At least give some kind of context to the user
-	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-	        err.context = er;
-	        throw err;
-	      }
+	          // At least give some kind of context to the user
+	          var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	          err.context = er;
+	          throw err;
+	        }
 	    }
 	  }
 
@@ -1166,6 +1166,9 @@
 
 	// Walks
 	'WALK_RECEIVE', 'WALK_RECEIVE_ALL', 'WALK_SAVE', 'WALK_PUBLISH',
+
+	// Walk Builder
+	'WB_RECEIVE_WALK',
 
 	// City
 	'CITY_RECEIVE',
