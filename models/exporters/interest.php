@@ -72,7 +72,7 @@ class Interest
 
     public function renderCSV()
     {
-        $columns = ['Name','Status','Walk Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL', 'Attendees'];
+        $columns = ['Name', 'Walk Date', 'Start', 'End', 'Attendees'];
         // Check that you have edit permissions on city
         if ((new Permissions($this->city))->canWrite()) {
             // Set header so it d/l's as a CSV file
@@ -83,35 +83,12 @@ class Interest
             $walks = new PageList();
             $walks->filterByParentID($this->cityID);
             $walks->filterByCollectionTypeHandle('walk');
-            $walks->displayUnapprovedPages();
-            // Get from the JSON : select ad.value->"$.lists[*].walks[*]" from UserAttributeValues uav JOIN atDefault ad ON uav.avID = ad.avID and uav.akID = 62 and JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", '[6762]');
 
-            // An 'outing' is one scheduled walk date
-            $outings = [];
             foreach ($walks->get() as $page) {
                 $walk = new Walk($page);
-
-                // If no time set, put it in as-is
-                if (count($walk->time['slots'])) {
-                    foreach ((array) $walk->time['slots'] as $slot) {
-                        $dateWalk = clone $walk;
-                        $dateWalk->time['slots'] = [$slot];
-                        $outings[] = $dateWalk;
-                    }
-                } else {
-                    $outings[] = $walk;
-                }
-            }
-            usort($outings, function ($a, $b) {
-                $ta = $a->time['slots'][0][0];
-                $tb = $b->time['slots'][0][0];
-                return $ta - $tb;
-            });
-
-            foreach ($outings as $outing) {
                 echo PHP_EOL;
                 foreach ($columns as $column) {
-                    echo '"', addslashes(str_replace(["\n", "\r"], '', self::getColumn($column, $outing))), '",';
+                    echo '"', addslashes(str_replace(["\n", "\r"], '', self::getColumn($column, $walk))), '",';
                 }
             }
             exit;

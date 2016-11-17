@@ -251,9 +251,9 @@ class Walk extends \Model implements \JsonSerializable
                     $db = \Loader::db();
                     $this->attendees = array_map(
                         function ($row) {
-                            return var_export($row);
+                            return $row['uEmail'];
                         },
-                        $db->GetAll('SELECT u.uName FROM UserAttributeValues uav JOIN atDefault ad ON uav.avID = ad.avID and uav.akID = 62 AND JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", "[' . $this->page->getCollectionID() . ']") JOIN Users u ON u.uID = uav.uID;')
+                        $db->GetAll('SELECT u.uEmail FROM UserAttributeValues uav JOIN atDefault ad ON uav.avID = ad.avID and uav.akID = 62 AND JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", "[' . $this->page->getCollectionID() . ']") JOIN Users u ON u.uID = uav.uID;')
                     );
                 }
                 return $this->attendees;
