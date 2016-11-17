@@ -1,4 +1,4 @@
-import { register2, waitFor } from 'janeswalk/dispatcher/AppDispatcher';
+import { register, waitFor } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 import Store from './Store';
 
@@ -88,7 +88,7 @@ const ItineraryStore = {
     return count;
   },
 
-  dispatcherIndex: register2({
+  dispatcherIndex: register({
     [AT.ITINERARY_ADD_WALK]: ({ list, walk }) => list.walks.add(walk),
     [AT.ITINERARY_REMOVE_WALK]: ({ list, walk }) => list.walks.delete(walk),
     [AT.ITINERARY_UNSCHEDULE_WALK]: ({ walk, time }) => _unscheduleWalk(walk, time),

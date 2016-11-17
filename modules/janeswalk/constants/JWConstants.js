@@ -13,6 +13,9 @@ const ActionTypes = [
   'WALK_SAVE',
   'WALK_PUBLISH',
 
+  // Walk Builder
+  'WB_RECEIVE_WALK',
+
   // City
   'CITY_RECEIVE',
 
@@ -35,6 +38,10 @@ const ActionTypes = [
   'ITINERARY_RECEIVE_ALL',
   'ITINERARY_SYNC_START',
   'ITINERARY_SYNC_END',
-].reduce((p, k) => {p[k] = Symbol(k); return p}, {});
+].reduce((p, k) => { p[k] = Symbol(k); return p; }, {});
 
-export {ActionTypes};
+const keys = {
+  google: 'AIzaSyA4iGa8LuLYBdttynMXjO9Vy6JaqaiPuVw',
+};
+
+export { ActionTypes, keys };

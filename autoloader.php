@@ -47,7 +47,7 @@ namespace Concrete\Core\Legacy {
                 class PageList extends \PageList {};
             } elseif ('AvatarHelper' === $short) {
                 Loader::helper('concrete/avatar');
-                class AvatarHelper extends \AvatarHelper {};
+                class AvatarHelper extends \ConcreteAvatarHelper {};
             } elseif ('DateHelper' === $short) {
                 Loader::helper('date');
                 class DateHelper extends \DateHelper {};

@@ -3,13 +3,16 @@
 // TODO: WalkMap.jsx already exists, review and re-use
 /**
  * The walk stop marker theme
- * TODO: generalize for import
  */
+const { createElement: ce, Component } = React;
+const { startups } = JanesWalk;
+const { assign } = Object;
+
 const stopMarker = {
   url: `${CCM_THEME_PATH}/images/marker.png`,
 };
 
-JanesWalk.startups.googleMaps.then(() => Object.assign(stopMarker, {
+startups.googleMaps.then(() => Object.assign(stopMarker, {
   // This marker is 20 pixels wide by 32 pixels tall.
   size: new google.maps.Size(30, 46),
   // The origin for this image is 0,0.
@@ -21,7 +24,7 @@ JanesWalk.startups.googleMaps.then(() => Object.assign(stopMarker, {
 
 function boundMapByMarkers(map, markers) {
   // Don't include the route - it can be too expensive to compute.
-  const bounds = new google.maps.LatLngBounds;
+  const bounds = new google.maps.LatLngBounds();
   google.maps.event.trigger(map, 'resize');
   markers.forEach(marker => bounds.extend(marker.getPosition()));
 
@@ -37,7 +40,7 @@ function boundMapByMarkers(map, markers) {
   });
 }
 
-export default class WalkMap extends React.Component {
+export default class WalkMap extends Component {
   constructor(props, ...args) {
     super(props, ...args);
     this.state = { googleMap: null };
@@ -47,7 +50,6 @@ export default class WalkMap extends React.Component {
     const { map: { markers: [meetingPlace], markers, route } } = this.props;
     const locationLatLng = new google.maps.LatLng(meetingPlace.lat, meetingPlace.lng);
     const gmarkers = [];
-    const mapStyles = require('../../../json/MapStyles.json');
 
     const mapOptions = {
       center: locationLatLng,
@@ -55,7 +57,7 @@ export default class WalkMap extends React.Component {
       backgroundColor: '#d7f0fa',
     };
 
-    const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
+    const googleMap = new google.maps.Map(this.domRoot, mapOptions);
 
     markers.forEach(({ lat, lng }, i) => {
       const marker = new google.maps.Marker({
@@ -96,7 +98,7 @@ export default class WalkMap extends React.Component {
 
 
   render() {
-    return <div className="walkMap" />;
+    return ce('div', { className: 'walkMap', ref: domRoot => assign(this, { domRoot }) });
   }
 }
 

@@ -36,11 +36,11 @@ function removeNotice() {
 export default class CreateWalk extends React.Component {
   constructor(props) {
     super(props);
-    const { data, user, url } = props;
+    const { walk, user, url } = props;
 
     // Instance props
     Object.assign(this, {
-      state: Object.assign({}, buildWalkObject({ data, user, url })),
+      state: Object.assign({}, buildWalkObject({ walk, user, url })),
 
       // Simple trigger to re-render the components
       _onChange: () => this.setState({}),

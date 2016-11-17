@@ -4,8 +4,8 @@
  * The accessibility settings, e.g. uneven terrain.
  */
 
+import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from '../constants/JWConstants';
-import { register2 } from 'janeswalk/dispatcher/AppDispatcher';
 import Store from './Store';
 
 const _desc = {
@@ -66,7 +66,7 @@ const AccessibleStore = {
   },
 
   // Register our dispatch token as a static method
-  dispatchToken: register2({
+  dispatchToken: register({
     [AT.WALK_RECEIVE]: ({ data }) => receiveWalk(data),
   }, () => AccessibleStore.emitChange()),
 };

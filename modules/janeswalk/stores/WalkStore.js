@@ -5,7 +5,7 @@
  * description, and people involved with a walk.
  */
 
-import { register2 } from 'janeswalk/dispatcher/AppDispatcher';
+import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 import Store from './Store';
 
@@ -45,7 +45,7 @@ const WalkStore = {
   getWalkOutings,
 
   // Register our dispatch token as a static method
-  dispatchToken: register2({
+  dispatchToken: register({
     [AT.WALK_RECEIVE]: ({ walk }) => receiveWalk(walk),
     [AT.WALK_RECEIVE_ALL]: ({ walks }) => receiveWalks(walks),
   }, () => WalkStore.emitChange()),

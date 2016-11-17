@@ -7,7 +7,9 @@ import EventEmitter from 'events';
 
 const CHANGE_EVENT = 'change';
 
-const Store = Object.assign({}, EventEmitter.prototype, {
+const Store = {
+  ...EventEmitter.prototype,
+
   emitChange() {
     this.emit(CHANGE_EVENT);
   },
@@ -21,7 +23,7 @@ const Store = Object.assign({}, EventEmitter.prototype, {
 
   removeChangeListener(callback) {
     this.removeListener(CHANGE_EVENT, callback);
-  }
-});
+  },
+};
 
 export default Store;

@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const precss = require('precss');
 const paths = require('./paths');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -14,7 +15,7 @@ const base = {
       },
     }, {
       test: /\.css$/,
-      loader: ExtractTextPlugin.extract('css'),
+      loader: ExtractTextPlugin.extract('style', 'css?-url'),
     }, {
       test: /\.less$/,
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!postcss-loader!less-loader?-relativeUrls'),
@@ -23,8 +24,11 @@ const base = {
       loader: 'json',
     }],
   },
+
+  postcss: () => [precss],
+
   plugins: [
-    new ExtractTextPlugin('themes/janeswalk/css/janeswalk.css', { allChunks: true }),
+    new ExtractTextPlugin('../css/janeswalk.css', { allChunks: true }),
   ],
 };
 

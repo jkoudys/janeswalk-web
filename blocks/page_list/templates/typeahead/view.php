@@ -27,5 +27,5 @@ foreach ($pages as $city) {
 // Add as JSON for client data
 // TODO: use generalized addToJanesWalk
 ?>
-<script type="text/javascript">window.JanesWalk = window.JanesWalk || {}; window.JanesWalk.countries = <?= json_encode(array_values($countryList)) ?>;</script>
+<script type="text/javascript">JanesWalk.event.emit('countries.receive', <?= json_encode(array_values($countryList)) ?>);</script>
 <div id="ccm-jw-page-list-typeahead"></div>

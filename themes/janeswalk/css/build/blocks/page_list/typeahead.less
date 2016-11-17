@@ -7,8 +7,8 @@ div.ccm-page-list-tags {
 }
 
 div.ccm-page-list-typeahead {
-    @buttonOffset: 4px;
-    @defaultWidth: 280px;
+    --button-offset: 4px;
+    --default-width: 280px;
     position: relative;
     font-family: @font-slab;
 
@@ -28,7 +28,7 @@ div.ccm-page-list-typeahead {
             background: #fff;
             padding: 5px;
             z-index: 2;
-            width: @defaultWidth + 15px - @buttonOffset;
+            width: var(--default-width);
             max-height: 14em;
             overflow-y: scroll;
 

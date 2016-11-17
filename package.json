@@ -5,6 +5,9 @@
     "type": "git",
     "url": "git@github.com:jkoudys/janeswalk-web.git"
   },
+  "scripts": {
+    "start": "webpack --watch & gulp js.blocks & gulp js.global"
+  },
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-core": "^6.7.7",
@@ -45,6 +48,8 @@
   "dependencies": {
     "extract-text-webpack-plugin": "^1.0.1",
     "janeswalk": "*",
+    "postcss-loader": "^0.13.0",
+    "precss": "^1.4.0",
     "webpack": "^1.13.2"
   }
 }

@@ -5,7 +5,7 @@
  */
 
 // Requires
-import { register2 } from 'janeswalk/dispatcher/AppDispatcher';
+import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 import Store from './Store';
 
@@ -26,7 +26,7 @@ const NotifyStore = {
   getLogFrom: (from) => _log.filter(entry => entry.time >= from),
 
   // Register our dispatch token as a static method
-  dispatchToken: register2({
+  dispatchToken: register({
     [AT.LOG_INFO]: ({ message, component = 'caw' }) => {
       receiveLogEntry(message, component, 'info');
     },

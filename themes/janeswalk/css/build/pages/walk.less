@@ -967,10 +967,14 @@
         font-size: 22px;
       }
     }
+    &.stuck {
+      /* ugh. Here for dealing with a broken shim only */
+      width: 220px !important;
+      right: 3px;
+    }
   }
 
   > .walkHeader {
-    /* border-bottom: 1px solid lightgray; */
     margin-bottom: 50px;
     .coverImage {
         height: 55vh;

@@ -46,24 +46,22 @@ class WalkPageTypeController extends Controller
 
     protected static function buildPageMap(Walk $walk)
     {
-          $im = Loader::helper('image');
-          $leaders = join(array_map(
-              function ($leader) {
-                  return trim("{$leader['name-first']} {$leader['name-last']}");
-              },
-              (array) $walk->team
-          ), ', ');
+        $im = Loader::helper('image');
+        $leaders = join(array_map(function ($leader) {
+            return trim("{$leader['name-first']} {$leader['name-last']}");
+        }, (array) $walk->team), ', ');
 
-          if (count($walk->time['slots'])) {
-               $time = $walk->time['slots'][0][0];
-            } else {
-                 $time = time();
-            }
-            $date = date('F d, Y', $time);
+        if (count($walk->time['slots'])) {
+            $time = $walk->time['slots'][0][0];
+        } else {
+            $time = time();
+        }
 
-            $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
+        $date = date('F d, Y', $time);
 
-            return <<< EOT
+        $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
+
+        return <<< EOT
 <!--
 <PageMap>
     <DataObject type="document">
