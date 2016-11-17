@@ -113,7 +113,7 @@ class City
             }
             exit;
         } else {
-            throw new RuntimeException('Attempted to export city walks without sufficient permissions.');
+            throw new \RuntimeException('Attempted to export city walks without sufficient permissions.');
         }
     }
 }
