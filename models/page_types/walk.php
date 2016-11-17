@@ -14,7 +14,10 @@ use \Page;
 use \File;
 
 // concrete5
-use Concrete\Core\Legacy\{NavigationHelper, ImageHelper, FileHelper, AvatarHelper};
+use Concrete\Core\Legacy\NavigationHelper;
+use Concrete\Core\Legacy\ImageHelper;
+use Concrete\Core\Legacy\FileHelper;
+use Concrete\Core\Legacy\AvatarHelper;
 
 /**
  * Walk
