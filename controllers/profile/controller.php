@@ -8,7 +8,7 @@ use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, TextHelper, ImageHelpe
 use JanesWalk\Models\PageTypes\Walk;
 use JanesWalk\Models\PageTypes\City;
 use JanesWalk\Models\Exporters\City as CityExporter;
-use JanesWalk\Models\Exporters\Interest as InterestExport;
+use JanesWalk\Models\Exporters\Interest as InterestExporter;
 
 class ProfileController extends Concrete5_Controller_Profile
 {

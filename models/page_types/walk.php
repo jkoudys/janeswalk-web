@@ -14,10 +14,7 @@ use \Page;
 use \File;
 
 // concrete5
-use Concrete\Core\Legacy\{NavigationHelper};
-use ImageHelper;
-use FileHelper;
-use AvatarHelper;
+use Concrete\Core\Legacy\{NavigationHelper, ImageHelper, FileHelper, AvatarHelper};
 
 /**
  * Walk
@@ -40,7 +37,7 @@ class Walk extends \Model implements \JsonSerializable
     public $accessibleTransit;
     public $accessibleParking;
     public $accessibleFind;
-    public $features;
+    public $map;
     public $team;
     public $time;
     public $thumbnail;
@@ -55,8 +52,7 @@ class Walk extends \Model implements \JsonSerializable
         'accessibleTransit' => 'accessible_transit',
         'accessibleParking' => 'accessible_parking',
         'accessibleFind' => 'accessible_find',
-        // gmap for historic reasons - this is a geojson array of features now
-        'features' => 'gmap',
+        'map' => 'gmap',
         'team' => 'team',
         'wards' => 'walk_wards',
         'themes' => 'theme',
@@ -114,35 +110,7 @@ class Walk extends \Model implements \JsonSerializable
         };
 
         // Decode the JSON fields
-        $this->features = (array) json_decode($this->features, true);
-        // Map the old-style ad-hoc format to a geojson features array
-        if (array_key_exists('markers', $this->features)) {
-            $features = array_map(function ($marker) {
-                return [
-                    'type' => 'Feature',
-                    'geometry' => [
-                        'type' => 'Point',
-                        'coordinates' => [$marker['lng'], $marker['lat']],
-                    ],
-                    'properties' => [
-                        'title' => $marker['title'],
-                        'description' => $marker['description'],
-                    ],
-                ];
-            }, $this->features['markers']);
-            $features[] = [
-                'type' => 'Feature',
-                'geometry' => [
-                    'type' => 'LineString',
-                    'coordinates' => array_map(function ($point) {
-                        return [$point['lng'], $point['lat']];
-                    }, $this->features['route']),
-                ],
-                'properties' => ['title' => 'Walk route'],
-            ];
-            $this->features = $features;
-        }
-
+        $this->map = json_decode($this->map, true);
         $this->team = json_decode($this->team, true);
 
         // Decode \n delimited arrays
@@ -263,12 +231,6 @@ class Walk extends \Model implements \JsonSerializable
                 }
                 return $lastPublished;
 
-            case 'attendees':
-                $dil = new \DatabaseItemList();
-                $dil->setQuery('SELECT u.uName FROM UserAttributesValues uav JOIN atDefault ad ON uav.avID AND uav.akID = 62 AND JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", "[' . $this->page->getCollectionID() . ']");');
-                return $this->attendees = $dil->results;
-                // Get from the JSON : select ad.value->"$.lists[*].walks[*]" from UserAttributeValues uav JOIN atDefault ad ON uav.avID = ad.avID and uav.akID = 62 and JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", '[6762]');
-
             case 'initiatives':
                 // Initiatives
                 $this->initiatives = [];
@@ -280,7 +242,12 @@ class Walk extends \Model implements \JsonSerializable
                 }
 
                 return $this->initiatives;
-            break;
+
+            case 'attendees':
+                $dil = new \DatabaseItemList();
+                $dil->setQuery('SELECT u.uName FROM UserAttributesValues uav JOIN atDefault ad ON uav.avID AND uav.akID = 62 AND JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", "[' . $this->page->getCollectionID() . ']");');
+                return $this->attendees = $dil->results;
+                // Get from the JSON : select ad.value->"$.lists[*].walks[*]" from UserAttributeValues uav JOIN atDefault ad ON uav.avID = ad.avID and uav.akID = 62 and JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", '[6762]');
         }
     }
 
@@ -326,13 +293,13 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->setAttribute('walk_wards', $postArray['wards']);
             $this->page->setAttribute('scheduled', (array) $postArray['time']);
 
-            $this->page->setAttribute('gmap', json_encode($postArray['features']));
+            $this->page->setAttribute('gmap', json_encode($postArray['map']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
 
-            if (count($postArray['images']) && File::getByID($postArray['images'][0]['id'])) {
+            if (count($postArray['thumbnails']) && File::getByID($postArray['thumbnails'][0]['id'])) {
                 $this->page->setAttribute(
                     'thumbnail',
-                    File::getByID($postArray['images'][0]['id'])
+                    File::getByID($postArray['thumbnails'][0]['id'])
                 );
             }
 
@@ -365,7 +332,7 @@ class Walk extends \Model implements \JsonSerializable
     /*
      * jsonSerialize
      *
-     * Run automatically by json_encode(). Build some geojson to play nice with opendata.
+     * Run automatically by json_encode()
      *
      * @return Array
      */
@@ -374,7 +341,6 @@ class Walk extends \Model implements \JsonSerializable
         $im = new ImageHelper();
         $nh = new NavigationHelper();
         $walkData = [
-            'type' => 'FeatureCollection',
             'id' => $this->page->getCollectionID(),
             'title' => $this->title,
             'url' => $nh->getCollectionURL($this->page),
@@ -384,23 +350,23 @@ class Walk extends \Model implements \JsonSerializable
             'accessibleTransit' => $this->accessibleTransit,
             'accessibleParking' => $this->accessibleParking,
             'accessibleFind' => $this->accessibleFind,
-            'features' => $this->features,
+            'map' => $this->map,
             'team' => $this->team,
             'time' => $this->time,
             'wards' => $this->wards,
             'initiatives' => $this->initiatives,
             'cityID' => (int) $this->page->getCollectionParentID(),
-            'themes' => $this->themes,
-            'accessibles' => $this->accessible,
             'mirrors' => [
                 'eventbrite' => $this->page->getAttribute('eventbrite') ?: null
             ],
             'published' => $this->published,
         ];
         // Load the thumbnail array
-        $walkData['images'] = [];
+        $walkData['thumbnails'] = [];
         if ($this->thumbnail) {
-            $walkData['images'][] = [
+            $walkData['thumbnailId'] = $this->thumbnail->getFileID();
+            $walkData['thumbnailUrl'] = $im->getThumbnail($this->thumbnail, 1024, 1024)->src;
+            $walkData['thumbnails'][] = [
                 'id' => $this->thumbnail->getFileID(),
                 'url' => $im->getThumbnail($this->thumbnail, 1024, 1024)->src
             ];
@@ -460,6 +426,50 @@ class Walk extends \Model implements \JsonSerializable
 
         // Apply stylesheet and return
         return $xsltp->transformToDoc($doc);
+    }
+
+    /**
+     * Serialize the v2 json's ad-hoc format into standard geoJson
+     *
+     * @return array
+     */
+    public function geoJsonSerialize()
+    {
+        return [
+            'type' => 'FeatureCollection',
+            'features' => array_merge(
+                array_map(
+                    function ($marker) {
+                        return [
+                            'type' => 'Feature',
+                            'geometry' => [
+                                'type' => 'Point',
+                                'coordinates' => [$marker['lng'], $marker['lat']]
+                            ],
+                            'properties' => [
+                                'title' => $marker['title'],
+                                'description' => $marker['description']
+                            ]
+                        ];
+                    },
+                    $this->map['markers']
+                ),
+                [
+                    [
+                        'type' => 'Feature',
+                        'geometry' => [
+                            'type' => 'LineString',
+                            'coordinates' => array_map(
+                                function ($point) {
+                                    return [$point['lng'], $point['lat']];
+                                },
+                                $this->map['route'] ?: $this->map['markers']
+                            ),
+                        ]
+                    ]
+                ]
+            ),
+        ];
     }
 
     /**

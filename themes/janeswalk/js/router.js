@@ -22,7 +22,7 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
 import Navbar from './components/Navbar.jsx';
-import WalkBuilder from './components/lead/WalkBuilder';
+import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
 import Dashboard from './components/pages/Dashboard.jsx';
 
@@ -87,13 +87,10 @@ function addRenderListeners() {
 
   // Create a walk
   event.on('caw.load', () => {
-    const { walk: { data: walk, url }, form: { valt }, city, user } = JanesWalk;
-
-    receiveWalkForBuilder(walk);
-
+    const { walk: { data, url }, form: { valt }, city, user } = JanesWalk;
     ReactDOM.render(
-      ce(WalkBuilder, { valt, city, user, url }),
-      document.getElementById('page'),
+       ce(CreateWalk, { data, url, valt, city, user }),
+      document.getElementById('page')
     );
   });
 }

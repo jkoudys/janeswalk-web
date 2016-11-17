@@ -1,30 +1,5 @@
 /* Import bootstrap 3 mixins and variables so we can use them */
 /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
-/**
- * Application Stylesheet
-*/
-:root {/* Fonts -- actual imports in fonts.less/header. This is for convenience variables *//* Navbar */
-}
-/* Transition classes */
-/* Follow the ReactJS conventions http://facebook.github.io/react/docs/animation.html */
-.fade-enter {
-  opacity: 0.01;
-  max-height: 0;
-  transition: opacity 0.2s ease-in;
-}
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  max-height: none;
-}
-.fade-leave {
-  opacity: 1;
-  max-height: none;
-  transition: opacity 0.2s ease-in;
-}
-.fade-leave.fade-leave-active {
-  max-height: 0;
-  opacity: 0.01;
-}
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
@@ -5356,6 +5331,7 @@ button.close {
   max-height: 0;
   opacity: 0.01;
 }
+/* @import "presets/defaults.css"; */
 /* Import our theme mixins */
 /* Import our theme form style */
 textarea {
