@@ -254,7 +254,7 @@
 	  function WalkFilter(props) {
 	    _classCallCheck(this, WalkFilter);
 
-	    var _this = _possibleConstructorReturn(this, (WalkFilter.__proto__ || Object.getPrototypeOf(WalkFilter)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WalkFilter).call(this, props));
 
 	    Object.assign(_this, {
 	      state: getWalkFilterState(props),
@@ -557,11 +557,11 @@
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
 	      } else {
-	        // At least give some kind of context to the user
-	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-	        err.context = er;
-	        throw err;
-	      }
+	          // At least give some kind of context to the user
+	          var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	          err.context = er;
+	          throw err;
+	        }
 	    }
 	  }
 
@@ -1557,8 +1557,10 @@
 	    var yesterday = new Date();
 	    yesterday.setDate(yesterday.getDate() - 1);
 
+
 	    // Format the start date upfront, since that's expensive
-	    var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
 
 	    if (dtfDate) {
 	      formatter = function formatter(slot) {
@@ -1999,6 +2001,7 @@
 	        markers.get(id).setMap(gmap);
 	      } else {
 	        // Grab either the first stop or route point
+
 	        var _stops$concat = stops.concat(route);
 
 	        var _stops$concat2 = _slicedToArray(_stops$concat, 1);
@@ -2036,7 +2039,7 @@
 	  _inherits(LocationMap, _Component);
 
 	  function LocationMap() {
-	    var _ref3;
+	    var _Object$getPrototypeO;
 
 	    _classCallCheck(this, LocationMap);
 
@@ -2044,7 +2047,7 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_ref3 = LocationMap.__proto__ || Object.getPrototypeOf(LocationMap)).call.apply(_ref3, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(LocationMap)).call.apply(_Object$getPrototypeO, [this].concat(args)));
 
 	    Object.assign(_this, {
 	      state: { map: null, markers: {} }
@@ -2159,7 +2162,7 @@
 	  function DateRange(props) {
 	    _classCallCheck(this, DateRange);
 
-	    var _this = _possibleConstructorReturn(this, (DateRange.__proto__ || Object.getPrototypeOf(DateRange)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DateRange).call(this, props));
 
 	    var _props$value = props.value;
 	    _props$value = _props$value === undefined ? ['', ''] : _props$value;

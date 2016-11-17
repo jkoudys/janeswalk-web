@@ -8,6 +8,7 @@ use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, TextHelper, ImageHelpe
 use JanesWalk\Models\PageTypes\Walk;
 use JanesWalk\Models\PageTypes\City;
 use JanesWalk\Models\Exporters\City as CityExporter;
+use JanesWalk\Models\Exporters\Interest as InterestExport;
 
 class ProfileController extends Concrete5_Controller_Profile
 {
@@ -150,8 +151,17 @@ class ProfileController extends Concrete5_Controller_Profile
      */
     public function exportCity($cityID = null)
     {
-        $exporter = new CityExporter($cityID);
+        $exporter = new CityExporter(Page::getByID($cityID));
         $exporter->renderWalkCSV();
+    }
+
+    /**
+     * Export a CSV of the city's "I'm going!" people
+     */
+    public function exportInterest($cityID = null)
+    {
+        $exporter = new InterestExporter(Page::getByID($cityID));
+        $exporter->renderCSV();
     }
 
     /**

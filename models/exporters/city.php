@@ -9,6 +9,8 @@ namespace JanesWalk\Models\Exporters;
 use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, TextHelper, ImageHelper};
 use Page;
 use Permissions;
+use PageList;
+use UserInfo;
 use JanesWalk\Models\PageTypes\Walk;
 
 class City
@@ -57,10 +59,10 @@ class City
         }
     }
 
-    public function __construct($cityID)
+    public function __construct(Page $city)
     {
-        $this->cityID = $cityID;
-        $this->city = Page::getByID($cityID);
+        $this->cityID = $city->getCollectionID();
+        $this->city = $city;
     }
 
     public function renderWalkCSV()
