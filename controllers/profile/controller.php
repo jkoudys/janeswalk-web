@@ -4,7 +4,10 @@
  *
  * The user profile page, with that user's personal and city information.
  */
-use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, TextHelper, ImageHelper};
+use Concrete\Core\Legacy\NavigationHelper;
+use Concrete\Core\Legacy\AvatarHelper;
+use Concrete\Core\Legacy\TextHelper;
+use Concrete\Core\Legacy\ImageHelper;
 use JanesWalk\Models\PageTypes\Walk;
 use JanesWalk\Models\PageTypes\City;
 use JanesWalk\Models\Exporters\City as CityExporter;
