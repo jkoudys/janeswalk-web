@@ -6,7 +6,10 @@
  */
 namespace JanesWalk\Models\Exporters;
 
-use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, TextHelper, ImageHelper};
+use Concrete\Core\Legacy\NavigationHelper;
+use Concrete\Core\Legacy\AvatarHelper;
+use Concrete\Core\Legacy\TextHelper;
+use Concrete\Core\Legacy\ImageHelper;
 use Page;
 use Permissions;
 use PageList;
