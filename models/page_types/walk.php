@@ -231,6 +231,12 @@ class Walk extends \Model implements \JsonSerializable
                 }
                 return $lastPublished;
 
+            case 'attendees':
+                $dil = new \DatabaseItemList();
+                $dil->setQuery('SELECT u.uName FROM UserAttributesValues uav JOIN atDefault ad ON uav.avID AND uav.akID = 62 AND JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", "[' . $this->page->getCollectionID() . ']");');
+                return $this->attendees = $dil->results;
+                // Get from the JSON : select ad.value->"$.lists[*].walks[*]" from UserAttributeValues uav JOIN atDefault ad ON uav.avID = ad.avID and uav.akID = 62 and JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", '[6762]');
+
             case 'initiatives':
                 // Initiatives
                 $this->initiatives = [];
