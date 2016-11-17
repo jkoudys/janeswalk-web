@@ -49,16 +49,16 @@ class ProfileController extends Concrete5_Controller_Profile
 
         // Load the home city
         $cityPage = $ui->getAttribute('home_city');
-        $cityUsers = self::getUsersInCity($cityPage->getCollectionID());
-
-        $city = new City($cityPage);
-
-        // Build all the walks we need
-        $isCO = in_array('City Organizers', $u->getUserGroups());
-        foreach ($city->getWalks($isCO) as $w) {
-            $walkData[(int) $w->getPage()->cID] = $w;
+        if ($cityPage) {
+            $cityUsers = self::getUsersInCity($cityPage->getCollectionID());
+            $city = new City($cityPage);
+            // Build all the walks we need
+            $isCO = in_array('City Organizers', $u->getUserGroups());
+            foreach ($city->getWalks($isCO) as $w) {
+                $walkData[(int) $w->getPage()->cID] = $w;
+            }
+            $cityWalksArr = array_keys($walkData);
         }
-        $cityWalksArr = array_keys($walkData);
 
         // Walks owned by user
         $pl = new PageList;
