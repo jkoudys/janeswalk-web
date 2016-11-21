@@ -9849,7 +9849,7 @@ input.plaintext:hover {
 .BlogIndex__articles,
 .BlogIndex__break {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 .BlogIndex__article--main {
   padding: 15px;
@@ -9863,7 +9863,7 @@ input.plaintext:hover {
   border-top: 15px solid #F16725;
   border-bottom: 2px solid #efefef;
   background-color: #f7f7f7;
-  margin-top: 15px;
+  margin-top: 30px;
   padding: 15px 30px;
 }
 .BlogIndex__smallcard:first-child {
@@ -9883,7 +9883,18 @@ input.plaintext:hover {
 }
 .BlogIndex__article--med {
   flex: 1 0 0;
-  border-top: 15px solid #6BADFD;
+}
+.BlogIndex__bigcard .BlogIndex__banner {
+  width: calc(100% + 30px);
+  margin: -15px;
+  height: 200px;
+}
+.BlogIndex__bigcard__text {
+  padding: 5% 10%;
+}
+.BlogIndex__mediumcard__head .BlogIndex__banner {
+  height: 100px;
+  width: 100%;
 }
 .BlogIndex__mediumcard__text {
   display: flex;
@@ -9902,6 +9913,10 @@ input.plaintext:hover {
   border: 1px solid #efefef;
   border-top: 15px solid #6BADFD;
   box-shadow: -7.5px 7.5px 0px #efefef;
+}
+.BlogIndex__banner {
+  background-color: #6BADFD;
+  object-fit: cover;
 }
 div.ccm-page-list-rss-icon {
   margin-top: 10px;

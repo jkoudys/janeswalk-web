@@ -41,10 +41,10 @@ function bigCard($page) {
 
     $banner = is_object($mainImage) ? <<<EOT
 <a
-    class="blogimage"
     href="{$url}"
-    style="background-image:url({$ih->getThumbnail($mainImage->getPath(), 500, 500, false)->src})"
-></a>
+>
+    <img class="BlogIndex__banner" src="{$ih->getThumbnail($mainImage->getPath(), 500, 500, false)->src}">
+</a>
 EOT
     : '';
 
@@ -86,16 +86,18 @@ function mediumCard($page) {
 
     $banner = is_object($mainImage) ? <<<EOT
 <a
-    class="blogimage"
     href="{$url}"
-    style="background-image:url({$ih->getThumbnail($mainImage->getPath(), 500, 500, false)->src})"
-></a>
+>
+    <img class="BlogIndex__banner" src="{$ih->getThumbnail($mainImage->getPath(), 500, 500, false)->src}">
+</a>
 EOT
     : '';
 
     return <<<EOT
 <div class="BlogIndex__mediumcard">
-    {$banner}
+    <div class="BlogIndex__mediumcard__head">
+        {$banner}
+    </div>
     <div class="BlogIndex__mediumcard__text">
         <div>
             <h3><a href="{$url}">{$title}</a></h3>
