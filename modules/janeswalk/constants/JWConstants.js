@@ -15,6 +15,9 @@ const ActionTypes = [
 
   // Walk Builder
   'WB_RECEIVE_WALK',
+  'WB_SET_TITLE',
+  'WB_SET_LONG_DESCRIPTION',
+  'WB_SET_SHORT_DESCRIPTION',
 
   // City
   'CITY_RECEIVE',

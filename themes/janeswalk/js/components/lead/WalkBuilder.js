@@ -8,6 +8,8 @@
 import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
 import WalkBuilderStore from 'janeswalk/stores/WalkBuilderStore';
 
+import * as WBA from 'janeswalk/actions/WalkBuilderActions';
+
 import Welcome from './Welcome';
 import Navigator from './Navigator';
 import SaveTheDate from './SaveTheDate';
@@ -24,7 +26,7 @@ const { createElement: ce, Component } = React;
 const { create, assign } = Object;
 
 const buildState = () => ({
-  ...WalkBuilderStore.getAsSchema(),
+  ...WalkBuilderStore.getWalk(),
   empty: WalkBuilderStore.getEmptyRequiredFields()
 });
 
@@ -36,11 +38,15 @@ export default class WalkBuilder extends Component {
       onChange: () => this.setState(buildState),
       menuOptions: [],
       addToMenu: ({ node, title }) => this.menuOptions.push({ node, title }),
+      handleChangeTitle: ({ target: { value } }) => WBA.setTitle(value),
+      handleChangeLongDescription: ({ target: { value } }) => WBA.setLongDescription(value),
+      handleChangeShortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
     });
   }
 
   componentWillMount() {
     I18nStore.addChangeListener(this.onChange);
+    WalkBuilderStore.addChangeListener(this.onChange);
   }
 
   componentDidMount() {
@@ -49,12 +55,14 @@ export default class WalkBuilder extends Component {
 
   componentWillUnmount() {
     I18nStore.removeChangeListener(this.onChange);
+    WalkBuilderStore.removeChangeListener(this.onChange);
   }
 
   render() {
     const {
       menuOptions,
       empty,
+      title,
     } = this.state;
     const {
       city: { cityOrganizer },
@@ -63,7 +71,7 @@ export default class WalkBuilder extends Component {
     const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
 
     return ce('main', {},
-      ce(Welcome, { cityOrganizer }),
+      ce(Welcome, { cityOrganizer, title, handleChangeTitle }),
       ce(Navigator, { menuOptions },
         ce(WalkDetails, { ref: node => this.addToMenu({ title: t`Walk Details`, node }) }),
         ce(Theme, { ref: node => this.addToMenu({ title: t`Theme`, node }) }),

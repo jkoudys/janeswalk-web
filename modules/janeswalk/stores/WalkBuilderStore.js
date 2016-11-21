@@ -35,6 +35,17 @@ const accessibles = new Set();
 const WalkBuilderStore = {
   ...Store,
 
+  getAccessibles: () => accessibles,
+  getImages: () => images,
+  getLongDescripton: () => longDescription,
+  getOpen: () => open,
+  getPoints: () => points,
+  getPublished: () => published,
+  getRoute: () => route,
+  getShortDescripton: () => shortDescription,
+  getSlots: () => slots,
+  getTeam: () => team,
+  getThemes: () => themes,
   getTitle: () => title,
 
   // Validate the Walk and return any fields a Walk needs.
@@ -49,23 +60,37 @@ const WalkBuilderStore = {
   },
 
   // Build our walk in the API schema, usually to serialize as JSON
-  getAsSchema() {
-    return {
-      type: 'FeatureCollection',
-      features: [...points, { type: 'Feature', geometry: { type: 'LineString', coordinates: route } }],
-      title,
-      shortDescription,
-      longDescription,
-      team,
-      published,
-      images,
-      time: { open, slots },
-      themes: [...themes],
-      accessibles: [...accessibles],
-    };
-  },
+  getAsSchema: () => ({
+    type: 'FeatureCollection',
+    features: [...points, { type: 'Feature', geometry: { type: 'LineString', coordinates: route } }],
+    title,
+    shortDescription,
+    longDescription,
+    team,
+    published,
+    images,
+    time: { open, slots: [...slots] },
+    themes: [...themes],
+    accessibles: [...accessibles],
+  }),
+
+  getWalk: () => ({
+    title,
+    shortDescription,
+    longDescription,
+    team,
+    published,
+    images,
+    open,
+    slots,
+    themes,
+    accessibles,
+  }),
 
   dispatchToken: register({
+    [AT.WB_SET_TITLE]: ({ value }) => { title = value; },
+    [AT.WB_SET_SHORT_DESCRIPTION]: ({ value }) => { shortDescription = value; },
+    [AT.WB_SET_LONG_DESCRIPTION]: ({ value }) => { longDescription = value; },
     [AT.WB_RECEIVE_WALK]: ({ walk, walk: {
       time = { slots: [] },
       team: newTeam = [],

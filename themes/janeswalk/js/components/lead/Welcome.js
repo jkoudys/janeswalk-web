@@ -12,11 +12,11 @@ const { createElement: ce } = React;
 
 const techEmail = 'tech@janeswalk.org';
 
-const Welcome = ({ cityOrganizer: { firstName, lastName, email }, date, handleChangeDate }) => (
+const Welcome = ({ cityOrganizer: { firstName, lastName, email }, title, handleChangeTitle, date, handleChangeDate }) => (
   ce('section', {},
     ce('h1', {}, t`Save the Date!`),
     ce('div', {},
-      ce('input', { type: 'text', placeholder: t`The name of my walk` }),
+      ce('input', { type: 'text', placeholder: t`The name of my walk`, value: title, onChange: handleChangeTitle }),
       ce(DatePicker, { date, handleChangeDate })
     ),
     ce('p', {},
