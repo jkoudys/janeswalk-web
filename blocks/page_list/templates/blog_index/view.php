@@ -31,18 +31,13 @@ function bigCard($page) {
         $page->getCollectionDescription());
 
     $summary = '';
-    $sxml = new SimpleXMLElement('<html/>');
     $blocks = $page->getBlocks('Main');
     if ($blocks) {
-        $article = $blocks[0]->getInstance();
-        $article->export($sxml);
-        $summary = (string) $sxml;
+        $summary .= implode(' ', array_slice(explode(' ', strip_tags($blocks[0]->getInstance()->getContent()), 80), 0, -1));
     }
 
     $banner = is_object($mainImage) ? <<<EOT
-<a
-    href="{$url}"
->
+<a href="{$url}">
     <img class="BlogIndex__banner" src="{$ih->getThumbnail($mainImage->getPath(), 500, 500, false)->src}">
 </a>
 EOT
@@ -59,8 +54,10 @@ EOT
         <h5>{$date}</h5>
         <h3><a href="{$url}" target="{$target}">{$title}</a></h3>
         <p>
-            {$summary}
-            {$description}&nbsp;<a href="{$url}" target="{$target}">[...]</a>
+            {$description}
+        </p>
+        <p>
+            {$summary}<a href="{$url}" target="{$target}">[...]</a>
         </p>
     </div>
 </div>
