@@ -1,4 +1,4 @@
-/* global React ReactDOM $ CCM_EDIT_MODE */
+/* global $ CCM_EDIT_MODE */
 import Itinerary from './itinerary/Itinerary.jsx';
 import AreaStore from 'janeswalk/stores/AreaStore';
 import UserStore from 'janeswalk/stores/UserStore';
@@ -7,6 +7,9 @@ import { makeSticky } from 'janeswalk/utils/dom';
 
 import loggedInOptions from './Navbar/LoggedInOptions.jsx';
 import loggedOutOptions from './Navbar/LoggedOutOptions.jsx';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 function getNavbar() {
   return {

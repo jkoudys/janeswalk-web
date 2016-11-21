@@ -8,7 +8,7 @@ import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import FieldSet from './FieldSet';
 import TextArea from './TextArea';
 
-const { createElement: ce } = React;
+import { createElement as ce } from 'react';
 
 const Accessibility = ({ order }) => (
   ce('section', {},

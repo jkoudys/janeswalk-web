@@ -3,8 +3,6 @@
  *
  * The main walk builder itself. The component for building a walk!
  */
-/* global React */
-
 import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
 import WalkBuilderStore from 'janeswalk/stores/WalkBuilderStore';
 
@@ -22,7 +20,7 @@ import Team from './Team';
 import Finished from './Finished';
 import DontForget from './DontForget';
 
-const { createElement: ce, Component } = React;
+import { createElement as ce, Component } from 'react';
 const { create, assign } = Object;
 
 const buildState = () => ({
@@ -67,13 +65,20 @@ export default class WalkBuilder extends Component {
     const {
       city: { cityOrganizer },
     } = this.props;
+    const {
+      handleChangeTitle,
+    } = this;
 
     const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
 
     return ce('main', {},
       ce(Welcome, { cityOrganizer, title, handleChangeTitle }),
       ce(Navigator, { menuOptions },
-        ce(WalkDetails, { ref: node => this.addToMenu({ title: t`Walk Details`, node }) }),
+        ce(WalkDetails, {
+          ref: node => this.addToMenu({ title: t`Walk Details`, node }),
+          title,
+          handleChangeTitle,
+        }),
         ce(Theme, { ref: node => this.addToMenu({ title: t`Theme`, node }) }),
         ce(RouteBuilder, { ref: node => this.addToMenu({ title: t`Route`, node }) }),
         ce(AddDates, { ref: node => this.addToMenu({ title: t`Add Dates`, node }) }),

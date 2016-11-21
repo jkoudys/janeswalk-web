@@ -1,10 +1,10 @@
-/* global JanesWalk React ReactDOM google CCM_THEME_PATH */
+/* global JanesWalk google CCM_THEME_PATH */
 
 // TODO: WalkMap.jsx already exists, review and re-use
 /**
  * The walk stop marker theme
  */
-const { createElement: ce, Component } = React;
+import { createElement as ce, Component, PropTypes } from 'react';
 const { startups } = JanesWalk;
 const { assign } = Object;
 
@@ -103,5 +103,5 @@ export default class WalkMap extends Component {
 }
 
 WalkMap.PropTypes = {
-  map: React.PropTypes.object.isRequired,
+  map: PropTypes.object.isRequired,
 };

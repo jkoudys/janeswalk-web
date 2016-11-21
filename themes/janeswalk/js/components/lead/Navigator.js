@@ -5,7 +5,7 @@
 /* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
-const { createElement: ce, cloneElement: cln, Component } = React;
+import { createElement as ce, cloneElement as cln, Component } from 'react';
 
 export default class Navigator extends Component {
   constructor(props) {

@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const WalkDescription = ({ longDescription = '' }) => (

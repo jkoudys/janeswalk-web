@@ -8,7 +8,7 @@ import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import DatePicker from './DatePicker';
 import FieldSet from './FieldSet';
 
-const { createElement: ce } = React;
+import { createElement as ce } from 'react';
 
 const halfHour = 30 * 60 * 1000;
 

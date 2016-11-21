@@ -5,10 +5,13 @@
  */
 /* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
-const { createElement: ce } = React;
+import { createElement as ce } from 'react';
 
-const TextArea = ({ maxlength, value = '' }) => (
-  ce('textarea', { maxlength, value })
+const TextArea = ({ maxLength, value = '' }) => (
+  ce('div', {},
+    ce('textarea', { maxLength, value }),
+    ce('span', {}, maxLength - value.length)
+  )
 );
 
 export default TextArea;

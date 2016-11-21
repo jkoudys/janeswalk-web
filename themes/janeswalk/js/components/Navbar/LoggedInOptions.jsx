@@ -2,7 +2,6 @@
  * Array-builder of menu options. note: not a component, since there isn't a root element,
  * but an array of components.
  */
-/* global React */
 import { t } from 'janeswalk/stores/I18nStore';
 
 /* Build menu options depending if currently logged in or not */

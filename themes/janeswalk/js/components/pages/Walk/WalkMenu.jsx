@@ -1,9 +1,8 @@
-/* global React */
 import { dateFormatted } from 'janeswalk/utils/ItineraryUtils';
 import { getThemeName } from 'janeswalk/utils/lookups/Theme';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
-const { createElement: ce, PropTypes } = React;
+import { createElement as ce, PropTypes } from 'react';
 const { assign } = Object;
 
 // TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory

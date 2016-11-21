@@ -1,5 +1,3 @@
-/* global React */
-
 import Header from './Dashboard/Header.jsx';
 import Menu from './Dashboard/Menu.jsx';
 import Summary from './Dashboard/Summary.jsx';
@@ -8,6 +6,8 @@ import Summary from './Dashboard/Summary.jsx';
 import UserStore from 'janeswalk/stores/UserStore';
 import CityStore from 'janeswalk/stores/CityStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
+
+import React from 'react';
 
 function getDashData() {
   return {

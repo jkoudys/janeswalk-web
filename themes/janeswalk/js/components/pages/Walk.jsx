@@ -1,4 +1,4 @@
-/* global React $ */
+/* global $ */
 
 import ItineraryStore from 'janeswalk/stores/ItineraryStore.js';
 import I18nStore from 'janeswalk/stores/I18nStore.js';
@@ -16,7 +16,7 @@ import WalkTeam from './Walk/WalkTeam.jsx';
 import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
 
-const { createElement: ce, Component } = React;
+import { PropTypes, createElement as ce, Component } from 'react';
 
 const getWalk = ({ walk, page, city }) => {
   const [firstList] = ItineraryStore.getLists();
@@ -115,6 +115,6 @@ export default class WalkPage extends Component {
 }
 
 WalkPage.propsType = {
-  page: React.PropTypes.object.isRequired,
-  walk: React.PropTypes.object.isRequired,
+  page: PropTypes.object.isRequired,
+  walk: PropTypes.object.isRequired,
 };

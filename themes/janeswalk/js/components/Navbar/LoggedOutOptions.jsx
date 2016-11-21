@@ -1,5 +1,6 @@
-/* global React $ */
+/* global $ */
 import { t, tc } from 'janeswalk/stores/I18nStore';
+import React from 'react';
 
 export default ({ searching, toggleSearch }) => [
   <li key="nav2">

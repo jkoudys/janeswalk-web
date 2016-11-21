@@ -1,5 +1,5 @@
-/* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import React from 'react';
 
 const pleaseNote = new Map([
   [t`This is a bicycle tour, you must bring a bicycle`, v => v === 'bicyclesonly'],

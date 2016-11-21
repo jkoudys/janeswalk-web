@@ -7,14 +7,13 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import ImageUploader from './ImageUploader';
 import FieldSet from './FieldSet';
+import { createElement as ce } from 'react';
 
-const { createElement: ce } = React;
-
-const WalkDetails = ({ order, title, shortDescription, longDescription }) => (
+const WalkDetails = ({ order, title, shortDescription, longDescription, handleChangeTitle }) => (
   ce('section', {},
     ce('h1', {}, `${order}. `, t`Describe Your Walk`),
     ce(FieldSet, {},
-      ce('input', { type: 'text', placeholder: t`Walk Title` }),
+      ce('input', { type: 'text', placeholder: t`Walk Title`, value: title, onChange: handleChangeTitle }),
       t`Something short and memorable`
     ),
     ce(FieldSet, {},

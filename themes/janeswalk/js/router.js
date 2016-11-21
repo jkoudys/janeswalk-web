@@ -22,7 +22,7 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
 import Navbar from './components/Navbar.jsx';
-import CreateWalk from './components/CreateWalk.jsx';
+import WalkBuilder from './components/lead/WalkBuilder';
 import Walk from './components/pages/Walk.jsx';
 import Dashboard from './components/pages/Dashboard.jsx';
 
@@ -31,9 +31,9 @@ import Login from './components/Login.jsx';
 
 import initKeyEvents from './helpers/keyevents';
 
-// Load into local scope from globals.
-// TODO: globals needed for c5 integration, but move to modules where we can.
-const { createElement: ce } = window.React;
+import { createElement as ce } from 'react';
+import ReactDOM from 'react-dom';
+
 const { startups, event } = window.JanesWalk;
 
 // Use the main sitewide theme. TODO: componetize this as we go, and drop LESS for css (via cssnext)
@@ -87,9 +87,12 @@ function addRenderListeners() {
 
   // Create a walk
   event.on('caw.load', () => {
-    const { walk: { data, url }, form: { valt }, city, user } = JanesWalk;
+    const { walk, walk: { data, url }, form: { valt }, city, user } = JanesWalk;
+
+    receiveWalkForBuilder(walk);
+
     ReactDOM.render(
-       ce(CreateWalk, { data, url, valt, city, user }),
+       ce(WalkBuilder, { data, url, valt, city, user }),
       document.getElementById('page')
     );
   });

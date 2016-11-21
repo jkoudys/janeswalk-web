@@ -5,6 +5,4 @@
  * Meant to take up space and get attention.
  */
 
-const { Component, createElement: ce } = React;
-
-
+import { Component, createElement as ce } from 'react';

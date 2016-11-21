@@ -1,6 +1,7 @@
-/* global React $ CCM_REL */
+/* global $ CCM_REL */
 
 import { t } from 'janeswalk/stores/I18nStore';
+import React from 'react';
 
 const Message = ({ success, msg, error }) => (
   <div className={`alert alert-${success ? 'info' : 'danger'}`}>
