@@ -341,8 +341,6 @@ img {
 .thumbnail a > img,
 .carousel-inner > .item > img,
 .carousel-inner > .item > a > img,
-.ccm-page-list.ccm-blog-index li figure > img,
-.ccm-page-list.ccm-blog-index li figure a > img,
 .ccm-page-list-city-cards li figure > img,
 .ccm-page-list-city-cards li figure a > img,
 #create-walk .team-member > img,
@@ -411,7 +409,6 @@ h6,
 .h6,
 .walk-card .thumbnail .walkimage .statusMessage,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -479,7 +476,6 @@ h6,
 .h6,
 .walk-card .thumbnail .walkimage .statusMessage,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -516,7 +512,6 @@ h4,
 .h4,
 .walk-card .thumbnail .walkimage .statusMessage,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -5438,7 +5433,6 @@ a.list-group-item.active > .badge,
   }
 }
 .thumbnail,
-.ccm-page-list.ccm-blog-index li figure,
 .ccm-page-list-city-cards li figure,
 #create-walk .team-member {
   display: block;
@@ -5454,8 +5448,6 @@ a.list-group-item.active > .badge,
 }
 .thumbnail > img,
 .thumbnail a > img,
-.ccm-page-list.ccm-blog-index li figure > img,
-.ccm-page-list.ccm-blog-index li figure a > img,
 .ccm-page-list-city-cards li figure > img,
 .ccm-page-list-city-cards li figure a > img,
 #create-walk .team-member > img,
@@ -5466,9 +5458,6 @@ a.list-group-item.active > .badge,
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active,
-a.ccm-page-list.ccm-blog-index li figure:hover,
-a.ccm-page-list.ccm-blog-index li figure:focus,
-a.ccm-page-list.ccm-blog-index li figure.active,
 a.ccm-page-list-city-cards li figure:hover,
 a.ccm-page-list-city-cards li figure:focus,
 a.ccm-page-list-city-cards li figure.active,
@@ -5478,8 +5467,6 @@ a#create-walk .team-member.active {
   border-color: #428bca;
 }
 .thumbnail .caption,
-.ccm-page-list.ccm-blog-index li figure .caption,
-.thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
 .ccm-page-list-city-cards li figure .caption,
 #create-walk .team-member .caption {
   padding: 9px;
@@ -7020,8 +7007,6 @@ button.close {
 .panel-body:after,
 .modal-footer:before,
 .modal-footer:after,
-.ccm-page-list.ccm-blog-index:before,
-.ccm-page-list.ccm-blog-index:after,
 .walk-page .walk-header:before,
 .walk-page .walk-header:after,
 .walk-body:before,
@@ -7072,7 +7057,6 @@ body #navbar > div > header .logo:after,
 .pager:after,
 .panel-body:after,
 .modal-footer:after,
-.ccm-page-list.ccm-blog-index:after,
 .walk-page .walk-header:after,
 .walk-body:after,
 .walk-body .walk-team .walk-leaders:after,
@@ -8437,7 +8421,6 @@ h5,
 h6,
 .walk-card .thumbnail .walkimage .statusMessage,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -8461,7 +8444,6 @@ h3 {
 h4,
 .walk-card .thumbnail .walkimage .statusMessage,
 #create-walk #time-and-date .ui-datepicker > .ui-datepicker-title,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -9681,7 +9663,6 @@ input.plaintext:hover {
   text-decoration: none;
 }
 .walk-card .thumbnail,
-.walk-card .ccm-page-list.ccm-blog-index li figure,
 .ccm-block-page-list-walk-filters .walk .thumbnail,
 .walk-card .ccm-page-list-city-cards li figure,
 .walk-card #create-walk .team-member {
@@ -9690,7 +9671,6 @@ input.plaintext:hover {
   padding: 0;
 }
 .walk-card .thumbnail .walkimage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage,
 .walk-card #create-walk .team-member .walkimage {
@@ -9702,7 +9682,6 @@ input.plaintext:hover {
   min-height: 100px;
 }
 .walk-card .thumbnail .walkimage .statusMessage,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage,
 .walk-card #create-walk .team-member .walkimage .statusMessage {
@@ -9718,7 +9697,6 @@ input.plaintext:hover {
   text-align: center;
 }
 .walk-card .thumbnail .walkimage .statusMessage:before,
-.walk-card .ccm-page-list.ccm-blog-index li figure .walkimage .statusMessage:before,
 .ccm-block-page-list-walk-filters .walk .thumbnail .walkimage .statusMessage:before,
 .walk-card .ccm-page-list-city-cards li figure .walkimage .statusMessage:before,
 .walk-card #create-walk .team-member .walkimage .statusMessage:before {
@@ -9727,16 +9705,12 @@ input.plaintext:hover {
   padding-right: 0.5em;
 }
 .walk-card .thumbnail .caption,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption,
 .walk-card .ccm-page-list-city-cards li figure .caption,
 .walk-card #create-walk .team-member .caption {
   padding: 2px 11px;
 }
 .walk-card .thumbnail .caption p,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption p,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption p,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption p,
 .walk-card .ccm-page-list-city-cards li figure .caption p,
 .walk-card #create-walk .team-member .caption p {
@@ -9745,16 +9719,12 @@ input.plaintext:hover {
   font-size: 14px;
 }
 .walk-card .thumbnail .caption h4,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption h4,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h4,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption h4,
 .walk-card .ccm-page-list-city-cards li figure .caption h4,
 .walk-card #create-walk .team-member .caption h4 {
   margin: 11px 0 8px;
 }
 .walk-card .thumbnail .caption h6,
-.walk-card .ccm-page-list.ccm-blog-index li figure .caption h6,
-.walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption h6,
 .ccm-block-page-list-walk-filters .walk .thumbnail .caption h6,
 .walk-card .ccm-page-list-city-cards li figure .caption h6,
 .walk-card #create-walk .team-member .caption h6 {
@@ -9762,8 +9732,6 @@ input.plaintext:hover {
 }
 @media (max-width: 768px) {
   .walk-card .thumbnail .caption,
-  .walk-card .ccm-page-list.ccm-blog-index li figure .caption,
-  .walk-card .thumbnail .ccm-page-list.ccm-blog-index li figure figcaption,
   .ccm-block-page-list-walk-filters .walk .thumbnail .caption,
   .walk-card .ccm-page-list-city-cards li figure .caption,
   .walk-card #create-walk .team-member .caption {
@@ -9771,7 +9739,6 @@ input.plaintext:hover {
   }
 }
 .walk-card .thumbnail .when,
-.walk-card .ccm-page-list.ccm-blog-index li figure .when,
 .ccm-block-page-list-walk-filters .walk .thumbnail .when,
 .walk-card .ccm-page-list-city-cards li figure .when,
 .walk-card #create-walk .team-member .when {
@@ -9785,7 +9752,6 @@ input.plaintext:hover {
   margin: 0;
 }
 .walk-card .thumbnail .when li,
-.walk-card .ccm-page-list.ccm-blog-index li figure .when li,
 .ccm-block-page-list-walk-filters .walk .thumbnail .when li,
 .walk-card .ccm-page-list-city-cards li figure .when li,
 .walk-card #create-walk .team-member .when li {
@@ -9794,7 +9760,6 @@ input.plaintext:hover {
   font-weight: 400;
 }
 .walk-card .thumbnail .tags,
-.walk-card .ccm-page-list.ccm-blog-index li figure .tags,
 .ccm-block-page-list-walk-filters .walk .thumbnail .tags,
 .walk-card .ccm-page-list-city-cards li figure .tags,
 .walk-card #create-walk .team-member .tags {
@@ -9805,7 +9770,6 @@ input.plaintext:hover {
   display: none;
 }
 .walk-card .thumbnail .tags .tag,
-.walk-card .ccm-page-list.ccm-blog-index li figure .tags .tag,
 .ccm-block-page-list-walk-filters .walk .thumbnail .tags .tag,
 .walk-card .ccm-page-list-city-cards li figure .tags .tag,
 .walk-card #create-walk .team-member .tags .tag {
@@ -9816,7 +9780,6 @@ input.plaintext:hover {
   border-radius: 100%;
 }
 .walk-card .thumbnail .tags .fa,
-.walk-card .ccm-page-list.ccm-blog-index li figure .tags .fa,
 .ccm-block-page-list-walk-filters .walk .thumbnail .tags .fa,
 .walk-card .ccm-page-list-city-cards li figure .tags .fa,
 .walk-card #create-walk .team-member .tags .fa {
@@ -9827,7 +9790,6 @@ input.plaintext:hover {
 }
 @media (max-width: 992px) {
   .walk-card .thumbnail,
-  .walk-card .ccm-page-list.ccm-blog-index li figure,
   .ccm-block-page-list-walk-filters .walk .thumbnail,
   .walk-card .ccm-page-list-city-cards li figure,
   .walk-card #create-walk .team-member {
@@ -9840,7 +9802,6 @@ input.plaintext:hover {
   margin-bottom: 17px;
 }
 .walk-card:hover .thumbnail,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail,
 .walk-card:hover .ccm-page-list-city-cards li figure,
 .walk-card:hover #create-walk .team-member {
@@ -9853,10 +9814,6 @@ input.plaintext:hover {
 .walk-card:hover .thumbnail h6,
 .walk-card:hover .thumbnail p,
 .walk-card:hover .thumbnail li,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure h4,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure h6,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure p,
-.walk-card:hover .ccm-page-list.ccm-blog-index li figure li,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail h4,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail h6,
 .ccm-block-page-list-walk-filters .walk:hover .thumbnail p,
@@ -9880,102 +9837,71 @@ input.plaintext:hover {
   margin-top: 0;
 }
 .walk-card:active .thumbnail,
-.walk-card:active .ccm-page-list.ccm-blog-index li figure,
 .ccm-block-page-list-walk-filters .walk:active .thumbnail,
 .walk-card:active .ccm-page-list-city-cards li figure,
 .walk-card:active #create-walk .team-member {
   background: #3991fc;
 }
 /* Block imports */
-.ccm-page-list.ccm-blog-index {
-  margin-left: -15px;
-  margin-right: -15px;
-  list-style-type: none;
-  padding: 0;
+.BlogIndex h5 {
+  margin: 0;
 }
-.ccm-page-list.ccm-blog-index:before,
-.ccm-page-list.ccm-blog-index:after {
-  content: " ";
-  display: table;
+.BlogIndex__articles,
+.BlogIndex__break {
+  display: flex;
+  margin-bottom: 30px;
 }
-.ccm-page-list.ccm-blog-index:after {
-  clear: both;
+.BlogIndex__article--main {
+  padding: 15px;
+  margin-right: 15px;
+  flex: 2 0 0;
 }
-.ccm-page-list.ccm-blog-index:before,
-.ccm-page-list.ccm-blog-index:after {
-  content: " ";
-  display: table;
+.BlogIndex__article--sub {
+  flex: 1 0 0;
 }
-.ccm-page-list.ccm-blog-index:after {
-  clear: both;
+.BlogIndex__smallcard {
+  border-top: 15px solid #F16725;
+  border-bottom: 2px solid #efefef;
+  background-color: #f7f7f7;
+  margin-top: 15px;
+  padding: 15px 30px;
 }
-@media (min-width: 768px) and (max-width: 991px) {
-  .ccm-page-list.ccm-blog-index li {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .ccm-page-list.ccm-blog-index li:nth-child(2n + 1) {
-    clear: both;
-  }
+.BlogIndex__smallcard:first-child {
+  margin-top: 0;
 }
-@media (min-width: 768px) and (max-width: 991px) and (min-width: 768px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 50%;
-  }
+.BlogIndex__break > blockquote {
+  float: none;
+  text-transform: none;
+  margin: 0;
+  flex: 1 0 0;
 }
-@media (min-width: 992px) and (max-width: 1199px) {
-  .ccm-page-list.ccm-blog-index li {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .ccm-page-list.ccm-blog-index li:nth-child(3n + 1) {
-    clear: both;
-  }
-}
-@media (min-width: 992px) and (max-width: 1199px) and (min-width: 992px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-@media (min-width: 1200px) {
-  .ccm-page-list.ccm-blog-index li {
-    position: relative;
-    min-height: 1px;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-  .ccm-page-list.ccm-blog-index li:nth-child(3n + 1) {
-    clear: both;
-  }
-}
-@media (min-width: 1200px) and (min-width: 1200px) {
-  .ccm-page-list.ccm-blog-index li {
-    float: left;
-    width: 33.33333333%;
-  }
-}
-.ccm-page-list.ccm-blog-index li:before {
-  content: '' !important;
-  padding: 0 !important;
-}
-.ccm-page-list.ccm-blog-index li figure {
-  padding: 0;
-}
-.ccm-page-list.ccm-blog-index li figure .blogimage {
-  background-size: cover;
-  background-position: 50%;
-  width: 100%;
-  min-height: 240px;
+.BlogIndex__break > blockquote cite {
   display: block;
 }
-.ccm-page-list.ccm-blog-index li figure figcaption {
-  padding: 10px;
+.BlogIndex__break > blockquote cite:before {
+  content: "-- ";
+}
+.BlogIndex__article--med {
+  flex: 1 0 0;
+  border-top: 15px solid #6BADFD;
+}
+.BlogIndex__mediumcard__text {
+  display: flex;
+  align-items: center;
+}
+.BlogIndex__mediumcard__text > div {
+  flex: 1 0 0;
+  justify-content: center;
+  padding: 15px;
+}
+.BlogIndex__mediumcard__text h3 {
+  margin-top: 0;
+}
+.BlogIndex__mediumcard,
+.BlogIndex__article--main {
+  border: 1px solid #efefef;
+  border-top: 15px solid #6BADFD;
+  box-shadow: -7.5px 7.5px 0px #efefef;
 }
 div.ccm-page-list-rss-icon {
   margin-top: 10px;
@@ -10193,7 +10119,6 @@ div.ccm-page-list-typeahead fieldset.search ul:hover {
   margin-bottom: 60px;
 }
 .ccm-page-list-city-cards li figure a.thumbnail,
-.ccm-page-list-city-cards li figure a.ccm-page-list.ccm-blog-index li figure,
 .ccm-page-list-city-cards li figure a.ccm-page-list-city-cards li figure,
 .ccm-page-list-city-cards li figure a#create-walk .team-member {
   margin-bottom: 0;
@@ -10881,30 +10806,25 @@ body.home #sponsors ul.neighbourhoodBuilder li {
   margin: 0 auto;
   width: 75%;
 }
-.caption h5,
-.ccm-page-list.ccm-blog-index li figure figcaption h5 {
+.caption h5 {
   color: #F16725;
 }
 @media (max-width: 768px) {
-  .caption h5 a,
-  .ccm-page-list.ccm-blog-index li figure figcaption h5 a {
+  .caption h5 a {
     font-size: 16px;
     display: block;
   }
 }
 @media (max-width: 768px) {
-  .caption h6,
-  .ccm-page-list.ccm-blog-index li figure figcaption h6 {
+  .caption h6 {
     margin: 5px 0 0;
   }
 }
-.caption p,
-.ccm-page-list.ccm-blog-index li figure figcaption p {
+.caption p {
   color: #555;
 }
 @media (max-width: 768px) {
-  .caption p,
-  .ccm-page-list.ccm-blog-index li figure figcaption p {
+  .caption p {
     display: none;
   }
 }
@@ -11774,33 +11694,27 @@ body.city-page > #blog:after {
 .walk-page i {
   color: inherit;
 }
-.walk-page .caption,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption {
+.walk-page .caption {
   margin-bottom: 1em;
 }
-.walk-page .caption h3,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption h3 {
+.walk-page .caption h3 {
   margin: 1em 0 0 0;
   line-height: 1em;
 }
-.walk-page .caption h3:first-child,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption h3:first-child {
+.walk-page .caption h3:first-child {
   margin-top: 0;
   margin-bottom: 0.5em;
 }
-.walk-page .caption h3 .icon-calendar,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption h3 .icon-calendar {
+.walk-page .caption h3 .icon-calendar {
   font-size: 22px;
   width: 27px;
   color: #999;
 }
-.walk-page .caption p,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption p {
+.walk-page .caption p {
   margin-top: 10px;
   margin-left: 25px;
 }
-.walk-page .caption p.select-day,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption p.select-day {
+.walk-page .caption p.select-day {
   margin: 0 auto;
   display: block;
   width: 60%;
@@ -11814,23 +11728,19 @@ body.city-page > #blog:after {
   font-size: 1.5em;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
 }
-.walk-page .caption i,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption i {
+.walk-page .caption i {
   width: 20px;
   display: inline-block;
 }
-.walk-page .caption ul,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption ul {
+.walk-page .caption ul {
   margin-top: 10px;
   list-style: none;
 }
-.walk-page .caption ul li,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption ul li {
+.walk-page .caption ul li {
   position: relative;
   margin-bottom: 0.5em;
 }
-.walk-page .caption ul li:after,
-.walk-page .ccm-page-list.ccm-blog-index li figure figcaption ul li:after {
+.walk-page .caption ul li:after {
   content: "\F046";
   font-family: "FontAwesome";
   font-style: normal;
@@ -11844,8 +11754,6 @@ body.city-page > #blog:after {
 }
 .walk-page .thumbnail.accessibility,
 .walk-page .thumbnail.donation,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility,
-.walk-page .ccm-page-list.ccm-blog-index li figure.donation,
 .walk-page .ccm-page-list-city-cards li figure.accessibility,
 .walk-page .ccm-page-list-city-cards li figure.donation,
 .walk-page #create-walk .team-member.accessibility,
@@ -11853,38 +11761,32 @@ body.city-page > #blog:after {
   margin: 1em 0;
 }
 .walk-page .thumbnail.accessibility h4,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4,
 .walk-page .ccm-page-list-city-cards li figure.accessibility h4,
 .walk-page #create-walk .team-member.accessibility h4 {
   margin-top: 1.5em;
 }
 .walk-page .thumbnail.accessibility h4:first-child,
-.walk-page .ccm-page-list.ccm-blog-index li figure.accessibility h4:first-child,
 .walk-page .ccm-page-list-city-cards li figure.accessibility h4:first-child,
 .walk-page #create-walk .team-member.accessibility h4:first-child {
   margin-top: 0;
 }
 .walk-page .thumbnail hr,
-.walk-page .ccm-page-list.ccm-blog-index li figure hr,
 .walk-page .ccm-page-list-city-cards li figure hr,
 .walk-page #create-walk .team-member hr {
   margin: 10px 0;
 }
 .walk-page .thumbnail .alert,
-.walk-page .ccm-page-list.ccm-blog-index li figure .alert,
 .walk-page .ccm-page-list-city-cards li figure .alert,
 .walk-page #create-walk .team-member .alert {
   margin: 0;
 }
 .walk-page .thumbnail.focus,
-.walk-page .ccm-page-list.ccm-blog-index li figure.focus,
 .walk-page .ccm-page-list-city-cards li figure.focus,
 .walk-page #create-walk .team-member.focus {
   transition: box-shadow 1s ease-in-out;
   box-shadow: inset 0 0 0 1px #eee, 0 0 10px rgba(241, 103, 37, 0.7);
 }
 .walk-page .thumbnail.focus h3,
-.walk-page .ccm-page-list.ccm-blog-index li figure.focus h3,
 .walk-page .ccm-page-list-city-cards li figure.focus h3,
 .walk-page #create-walk .team-member.focus h3 {
   color: #222;
@@ -12006,8 +11908,7 @@ body.city-page > #blog:after {
   margin-top: 2em;
   margin-bottom: -11px;
 }
-.walk-page aside .caption,
-.walk-page aside .ccm-page-list.ccm-blog-index li figure figcaption {
+.walk-page aside .caption {
   margin-bottom: 0;
 }
 .walk-page aside .alert {
@@ -12377,8 +12278,7 @@ body.city-page > #blog:after {
 .walk-body .walk-team .walk-leaders li > section p {
   margin: 10px 0;
 }
-.walk-body .walk-team .walk-supporters .caption,
-.walk-body .walk-team .walk-supporters .ccm-page-list.ccm-blog-index li figure figcaption {
+.walk-body .walk-team .walk-supporters .caption {
   margin-bottom: 1em;
 }
 .walk-body .walk-team .walk-supporters .individual {
@@ -13836,7 +13736,6 @@ body[data-pageviewname=CreateWalkView] > footer {
   margin: 15px;
 }
 #create-walk .upload-image > .thumbnail,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure,
 #create-walk .upload-image > #create-walk .team-member {
   display: inline-block;
@@ -13848,13 +13747,11 @@ body[data-pageviewname=CreateWalkView] > footer {
   background-size: cover;
 }
 #create-walk .upload-image > .thumbnail a i,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure a i,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure a i,
 #create-walk .upload-image > #create-walk .team-member a i {
   color: #F16725;
 }
 #create-walk .upload-image > .thumbnail input[type=file],
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure input[type=file],
 #create-walk .upload-image > .ccm-page-list-city-cards li figure input[type=file],
 #create-walk .upload-image > #create-walk .team-member input[type=file] {
   position: absolute;
@@ -13864,13 +13761,11 @@ body[data-pageviewname=CreateWalkView] > footer {
   cursor: pointer;
 }
 #create-walk .upload-image > .thumbnail.fileupload,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure.fileupload,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload,
 #create-walk .upload-image > #create-walk .team-member.fileupload {
   text-align: center;
 }
 #create-walk .upload-image > .thumbnail.fileupload i.fa,
-#create-walk .upload-image > .ccm-page-list.ccm-blog-index li figure.fileupload i.fa,
 #create-walk .upload-image > .ccm-page-list-city-cards li figure.fileupload i.fa,
 #create-walk .upload-image > #create-walk .team-member.fileupload i.fa {
   display: block;
@@ -14018,7 +13913,6 @@ body[data-pageviewname=CreateWalkView] > footer {
   background: rgba(0, 0, 0, 0.05);
 }
 #create-walk .thumbnail,
-#create-walk .ccm-page-list.ccm-blog-index li figure,
 #create-walk .ccm-page-list-city-cards li figure,
 #create-walk #create-walk .team-member {
   border-radius: 0;
@@ -14210,7 +14104,6 @@ body[data-pageviewname=CreateWalkView] > footer {
   background: #efefef;
 }
 #create-walk .thumbnail footer,
-#create-walk .ccm-page-list.ccm-blog-index li figure footer,
 #create-walk .ccm-page-list-city-cards li figure footer,
 #create-walk #create-walk .team-member footer {
   border-top: 1px solid #eee;
@@ -14255,7 +14148,6 @@ body[data-pageviewname=CreateWalkView] > footer {
   text-decoration: none;
 }
 #create-walk #block-select .thumbnail,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure,
 #create-walk #block-select .ccm-page-list-city-cards li figure,
 #create-walk #block-select #create-walk .team-member {
   opacity: 0.65;
@@ -14264,13 +14156,11 @@ body[data-pageviewname=CreateWalkView] > footer {
   box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.2);
 }
 #create-walk #block-select .thumbnail img,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure img,
 #create-walk #block-select .ccm-page-list-city-cards li figure img,
 #create-walk #block-select #create-walk .team-member img {
   width: 70%;
 }
 #create-walk #block-select .thumbnail:hover,
-#create-walk #block-select .ccm-page-list.ccm-blog-index li figure:hover,
 #create-walk #block-select .ccm-page-list-city-cards li figure:hover,
 #create-walk #block-select #create-walk .team-member:hover {
   opacity: 1;
