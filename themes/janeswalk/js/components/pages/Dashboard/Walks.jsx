@@ -77,10 +77,11 @@ export default class Walks extends React.Component {
           published,
           map: { markers: [{ title: meeting } = {}] = [] } = {},
           time: { slots } = {},
+          attendees,
         } = walks.get(id);
         let start;
         if (slots && slots.length) start = slots[0][0];
-        return <Walk {...{ title, id, key: id, team, url, published, meeting, start, canEdit }} />;
+        return <Walk {...{ title, id, key: id, team, url, published, meeting, start, canEdit, attendees }} />;
       });
     } else if (currentView === 'map') {
       WalkList = <WalksMap walks={user.walks.map(wID => walks.get(wID))} city={city} />;

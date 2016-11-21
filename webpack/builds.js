@@ -18,7 +18,7 @@ const base = {
       loader: ExtractTextPlugin.extract('style', 'css?-url'),
     }, {
       test: /\.less$/,
-      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!postcss-loader!less-loader?-relativeUrls'),
+      loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-url!less-loader?-relativeUrls'),
     }, {
       test: /\.json$/,
       loader: 'json',
@@ -38,6 +38,7 @@ const prod = Object.assign({}, base, {
     filename: 'janeswalk.min.js',
   },
   plugins: [
+    ...base.plugins,
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),

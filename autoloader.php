@@ -6,7 +6,7 @@ namespace {
     // Our autoloader for JanesWalk classes
     // Format: JanesWalk\{TopLevel}\{SubDir}\{SubDir}\{ClassName}
     // Requires: /top_level/sub_dir/sub_dir/ClassName.php
-    spl_autoload_register(function (string $class) {
+    spl_autoload_register(function ($class) {
         $target = '';
         $path = explode('\\', $class);
         $nameSpace = array_shift($path);
@@ -36,7 +36,7 @@ namespace {
 namespace Concrete\Core\Legacy {
     use \Loader;
 
-    \spl_autoload_register(function (string $class) {
+    \spl_autoload_register(function ($class) {
         // c5.7 namespaces 5.6 classes as 'legacy', so we'll do that ahead of time
         if ('Concrete\\Core\\Legacy\\' === substr($class, 0, 21)) {
             $short = substr($class, 21);

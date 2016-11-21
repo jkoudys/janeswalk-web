@@ -4,9 +4,14 @@
  *
  * The user profile page, with that user's personal and city information.
  */
-use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, TextHelper, ImageHelper};
+use Concrete\Core\Legacy\NavigationHelper;
+use Concrete\Core\Legacy\AvatarHelper;
+use Concrete\Core\Legacy\TextHelper;
+use Concrete\Core\Legacy\ImageHelper;
 use JanesWalk\Models\PageTypes\Walk;
 use JanesWalk\Models\PageTypes\City;
+use JanesWalk\Models\Exporters\City as CityExporter;
+use JanesWalk\Models\Exporters\Interest as InterestExporter;
 
 class ProfileController extends Concrete5_Controller_Profile
 {
@@ -44,16 +49,16 @@ class ProfileController extends Concrete5_Controller_Profile
 
         // Load the home city
         $cityPage = $ui->getAttribute('home_city');
-        $cityUsers = self::getUsersInCity($cityPage->getCollectionID());
-
-        $city = new City($cityPage);
-
-        // Build all the walks we need
-        $isCO = in_array('City Organizers', $u->getUserGroups());
-        foreach ($city->getWalks($isCO) as $w) {
-            $walkData[(int) $w->getPage()->cID] = $w;
+        if ($cityPage) {
+            $cityUsers = self::getUsersInCity($cityPage->getCollectionID());
+            $city = new City($cityPage);
+            // Build all the walks we need
+            $isCO = in_array('City Organizers', $u->getUserGroups());
+            foreach ($city->getWalks($isCO) as $w) {
+                $walkData[(int) $w->getPage()->cID] = $w;
+            }
+            $cityWalksArr = array_keys($walkData);
         }
-        $cityWalksArr = array_keys($walkData);
 
         // Walks owned by user
         $pl = new PageList;
@@ -149,8 +154,17 @@ class ProfileController extends Concrete5_Controller_Profile
      */
     public function exportCity($cityID = null)
     {
-        $exporter = new CityExporter($cityID);
+        $exporter = new CityExporter(Page::getByID($cityID));
         $exporter->renderWalkCSV();
+    }
+
+    /**
+     * Export a CSV of the city's "I'm going!" people
+     */
+    public function exportInterest($cityID = null)
+    {
+        $exporter = new InterestExporter(Page::getByID($cityID));
+        $exporter->renderCSV();
     }
 
     /**
@@ -202,107 +216,5 @@ class ProfileController extends Concrete5_Controller_Profile
      */
     public function walkList(array $options = ['scheduled', 'categorized'])
     {
-    }
-}
-
-class CityExporter
-{
-    protected $city;
-    protected $cityID;
-
-    protected static function getColumn($col, $walk)
-    {
-        switch ($col) {
-            case 'Name':
-                return (string) $walk;
-            case 'Status':
-                return $walk->published ? 'live' : 'draft';
-            case 'Walk Date':
-                if ($walk->time['slots']) {
-                    return date('Y-m-d', $walk->time['slots'][0][0]);
-                }
-                return '';
-            case 'Start':
-                if ($walk->time['slots']) {
-                    return date('H:i', $walk->time['slots'][0][0]);
-                }
-                return '';
-            case 'End':
-                if ($walk->time['slots']) {
-                    return date('H:i', $walk->time['slots'][0][1]);
-                }
-                return '';
-            case 'Meeting Place':
-                return $walk->meetingPlace['title'];
-            case 'Walk Owner Name':
-                $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
-                $name = trim($owner->getAttribute('first_name') . ' ' . $owner->getAttribute('last_name')) ?: $owner->getUserName();
-                return $name;
-            case 'Walk Owner email':
-                $owner = UserInfo::getByID($walk->getPage()->getCollectionUserID());
-                return $owner->getUserEmail();
-            case 'Published Date':
-                return $walk->publishDate;
-            case 'URL':
-                $nh = new NavigationHelper();
-                return $nh->getCollectionURL($walk->getPage());
-            default:
-                return '';
-        }
-    }
-
-    public function __construct($cityID)
-    {
-        $this->cityID = $cityID;
-        $this->city = Page::getByID($cityID);
-    }
-
-    public function renderWalkCSV()
-    {
-        $columns = ['Name','Status','Walk Date', 'Published Date', 'Start', 'End','Meeting Place','Walk Owner Name','Walk Owner email','URL'];
-        // Check that you have edit permissions on city
-        if ((new Permissions($this->city))->canWrite()) {
-            // Set header so it d/l's as a CSV file
-            header('Content-Type: text/csv');
-            header('Content-Disposition: attachment;filename=' . preg_replace("/[^A-Za-z0-9 ]/", '', $this->city->getCollectionName()) . ' Walks.csv');
-            echo join(',', $columns);
-            // Load basic data for all the walks
-            $walks = new PageList();
-            $walks->filterByParentID($this->cityID);
-            $walks->filterByCollectionTypeHandle('walk');
-            $walks->displayUnapprovedPages();
-
-            // An 'outing' is one scheduled walk date
-            $outings = [];
-            foreach ($walks->get() as $page) {
-                $walk = new Walk($page);
-
-                // If no time set, put it in as-is
-                if (count($walk->time['slots'])) {
-                    foreach ((array) $walk->time['slots'] as $slot) {
-                        $dateWalk = clone $walk;
-                        $dateWalk->time['slots'] = [$slot];
-                        $outings[] = $dateWalk;
-                    }
-                } else {
-                    $outings[] = $walk;
-                }
-            }
-            usort($outings, function ($a, $b) {
-                $ta = $a->time['slots'][0][0];
-                $tb = $b->time['slots'][0][0];
-                return $ta - $tb;
-            });
-
-            foreach ($outings as $outing) {
-                echo PHP_EOL;
-                foreach ($columns as $column) {
-                    echo '"', addslashes(str_replace(["\n", "\r"], '', self::getColumn($column, $outing))), '",';
-                }
-            }
-            exit;
-        } else {
-            throw new RuntimeException('Attempted to export city walks without sufficient permissions.');
-        }
     }
 }

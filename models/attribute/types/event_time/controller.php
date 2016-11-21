@@ -1,5 +1,7 @@
 <?php
-use Concrete\Core\Legacy\{HtmlHelper, FormHelper, FormDateTimeHelper};
+use Concrete\Core\Legacy\HtmlHelper;
+use Concrete\Core\Legacy\FormHelper;
+use Concrete\Core\Legacy\FormDateTimeHelper;
 
 class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
 {
