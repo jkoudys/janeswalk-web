@@ -1,29 +1,83 @@
-.ccm-page-list.ccm-blog-index {
-    .make-row();
-    .clearfix();
-    list-style-type: none;
-    padding: 0;
-    li {
-        .make-columns-per-row(6, 'sm');
-        .make-columns-per-row(4, 'md');
-        .make-columns-per-row(4, 'lg');
-
-        &:before {
-            content: '' !important;
-            padding: 0 !important;
-        }
-        figure:extend(.thumbnail all) {
-            padding: 0;
-            .blogimage {
-                background-size: cover;
-                background-position: 50%;
-                width: 100%;
-                min-height: 240px;
-                display: block;
-            }
-            figcaption:extend(.caption all) {
-                padding: 10px;
+.BlogIndex {
+    h5 {
+        margin: 0;
+    }
+}
+.BlogIndex__articles, .BlogIndex__break {
+    display: flex;
+    margin-bottom: @grid-gutter-width * 2;
+}
+.BlogIndex__article--main {
+    padding: @grid-gutter-width / 2;
+    margin-right: @grid-gutter-width / 2;
+    flex: 2 0 0;
+}
+.BlogIndex__article--sub {
+    flex: 1 0 0;
+}
+.BlogIndex__smallcard {
+    border-top: @grid-gutter-width / 2 solid @color-orange;
+    border-bottom: 2px solid @color-lightgrey;
+    background-color: #f7f7f7;
+    margin-top: @grid-gutter-width;
+    padding: @grid-gutter-width / 2 @grid-gutter-width;
+    &:first-child {
+        margin-top: 0;
+    }
+}
+.BlogIndex__article--main, .BlogIndex__article--sub {
+}
+.BlogIndex__break {
+    > blockquote {
+        float: none;
+        text-transform: none;
+        margin: 0;
+        flex: 1 0 0;
+        cite {
+            display: block;
+            &:before {
+                content: "-- ";
             }
         }
     }
+}
+.BlogIndex__article--med {
+    flex: 1 0 0;
+}
+.BlogIndex__bigcard {
+    .BlogIndex__banner {
+        width: ~"calc(100% + 30px)";
+        margin: -(@grid-gutter-width / 2);
+        height: 200px;
+    }
+}
+.BlogIndex__bigcard__text {
+    padding: 5% 10%;
+}
+.BlogIndex__mediumcard__head {
+    .BlogIndex__banner {
+        height: 100px;
+        width: 100%;
+    }
+}
+.BlogIndex__mediumcard__text {
+    display: flex;
+    align-items: center;
+    > div {
+        flex: 1 0 0;
+        justify-content: center;
+        padding: @grid-gutter-width / 2;
+    }
+    h3 {
+        margin-top: 0;
+    }
+}
+.BlogIndex__mediumcard, .BlogIndex__article--main {
+    border: 1px solid @color-lightgrey;
+    border-top: @grid-gutter-width / 2 solid @color-blue;
+    box-shadow: -(@grid-gutter-width / 4) @grid-gutter-width / 4 0px @color-lightgrey;
+}
+.BlogIndex__banner {
+    background-color: @color-blue;
+    object-fit: cover;
 }

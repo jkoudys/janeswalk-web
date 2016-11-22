@@ -80,7 +80,7 @@ namespace Concrete\Core\Legacy {
                 class TextHelper extends \TextHelper {};
             } elseif ('UserHelper' === $short) {
                 Loader::helper('concrete/user');
-                class UserHelper extends \UserHelper {};
+                class UserHelper extends \ConcreteUserHelper {};
             } elseif ('ValidationTokenHelper' === $short) {
                 Loader::helper('validation/token');
                 class ValidationTokenHelper extends \ValidationTokenHelper {};
