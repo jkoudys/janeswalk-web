@@ -148,16 +148,18 @@ class Walk extends \Model implements \JsonSerializable
                     ],
                 ];
             }, $map['markers']);
-            $features[] = [
-                'type' => 'Feature',
-                'geometry' => [
-                    'type' => 'LineString',
-                    'coordinates' => array_map(function ($point) {
-                        return [$point['lng'], $point['lat']];
-                    }, (array) $map['route']),
-                ],
-                'properties' => ['title' => 'Walk route'],
-            ];
+            if (count($map['route'])) {
+                $features[] = [
+                    'type' => 'Feature',
+                    'geometry' => [
+                        'type' => 'LineString',
+                        'coordinates' => array_map(function ($point) {
+                            return [$point['lng'], $point['lat']];
+                        }, $map['route']),
+                    ],
+                    'properties' => ['title' => 'Walk route'],
+                ];
+            }
             return $features;
         }
 
