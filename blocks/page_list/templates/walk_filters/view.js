@@ -1840,6 +1840,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 	var _React = React;
 	var Component = _React.Component;
 	var ce = _React.createElement;
@@ -1988,12 +1990,8 @@
 	      var _step2$value = _step2.value;
 	      var _step2$value$walk = _step2$value.walk;
 	      var id = _step2$value$walk.id;
-	      var _step2$value$walk$map = _step2$value$walk.map;
-	      _step2$value$walk$map = _step2$value$walk$map === undefined ? {} : _step2$value$walk$map;
-	      var _step2$value$walk$map2 = _step2$value$walk$map.markers;
-	      var stops = _step2$value$walk$map2 === undefined ? [] : _step2$value$walk$map2;
-	      var _step2$value$walk$map3 = _step2$value$walk$map.route;
-	      var route = _step2$value$walk$map3 === undefined ? [] : _step2$value$walk$map3;
+	      var _step2$value$walk$fea = _step2$value$walk.features;
+	      var features = _step2$value$walk$fea === undefined ? [] : _step2$value$walk$fea;
 	      var _step2$value$walk$tea = _step2$value$walk.team;
 	      var team = _step2$value$walk$tea === undefined ? [] : _step2$value$walk$tea;
 	      var _step2$value$walk$tit = _step2$value$walk.title;
@@ -2008,16 +2006,32 @@
 	        // We already have this marker built, so simply add it to the map
 	        markers.get(id).setMap(gmap);
 	      } else {
+	        var points = features.filter(function (f) {
+	          return f.type === 'Feature' && f.geometry.type === 'Point';
+	        });
+
+	        var _features$find = features.find(function (f) {
+	          return f.type === 'Feature' && f.geometry.type === 'LineString';
+	        });
+
+	        var _features$find$geomet = _features$find.geometry;
+	        _features$find$geomet = _features$find$geomet === undefined ? {} : _features$find$geomet;
+	        var _features$find$geomet2 = _features$find$geomet.coordinates;
+	        var route = _features$find$geomet2 === undefined ? [] : _features$find$geomet2;
+
 	        // Grab either the first stop or route point
 
-	        var _stops$concat = stops.concat(route);
+	        var _ref3 = [].concat(_toConsumableArray(points.map(function (m) {
+	          return m.geometry.coordinates;
+	        })), _toConsumableArray(route));
 
-	        var _stops$concat2 = _slicedToArray(_stops$concat, 1);
+	        var _ref3$ = _ref3[0];
+	        _ref3$ = _ref3$ === undefined ? [] : _ref3$;
 
-	        var _stops$concat2$ = _stops$concat2[0];
-	        _stops$concat2$ = _stops$concat2$ === undefined ? {} : _stops$concat2$;
-	        var lat = _stops$concat2$.lat;
-	        var lng = _stops$concat2$.lng;
+	        var _ref3$2 = _slicedToArray(_ref3$, 2);
+
+	        var lng = _ref3$2[0];
+	        var lat = _ref3$2[1];
 
 	        if (lat && lng) {
 	          // We must build a marker

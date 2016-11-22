@@ -1,12 +1,12 @@
 import React from 'react';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
-const WalkRoute = ({ map }) => (
+const WalkRoute = ({ markers }) => (
   <section className="walkRoute">
     <a name="Walk Route"></a>
     <h2>{t`Walk Route`}</h2>
     <ol>
-      {map.markers.map(({ title, description }, i) => (
+      {markers.map(({ properties: { title, description } }, i) => (
         <li key={`routeentry${i}`}>
           <h2>{title}</h2>
           <p>{description}</p>
@@ -15,9 +15,5 @@ const WalkRoute = ({ map }) => (
     </ol>
   </section>
 );
-
-WalkRoute.propTypes = {
-  map: React.PropTypes.object.isRequired,
-};
 
 export default WalkRoute;

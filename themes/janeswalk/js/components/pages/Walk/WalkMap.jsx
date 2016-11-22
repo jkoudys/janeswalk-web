@@ -4,7 +4,7 @@
 /**
  * The walk stop marker theme
  */
-import { createElement as ce, Component, PropTypes } from 'react';
+import { createElement as ce, Component } from 'react';
 const { startups } = JanesWalk;
 const { assign } = Object;
 
@@ -43,12 +43,19 @@ function boundMapByMarkers(map, markers) {
 export default class WalkMap extends Component {
   constructor(props, ...args) {
     super(props, ...args);
-    this.state = { googleMap: null };
+
+    assign(this, {
+      state: { googleMap: null },
+      saveMapRef: domRoot => assign(this, { domRoot }),
+    });
   }
 
   componentDidMount() {
-    const { map: { markers: [meetingPlace], markers, route } } = this.props;
-    const locationLatLng = new google.maps.LatLng(meetingPlace.lat, meetingPlace.lng);
+    const { features } = this.props;
+    const markers = features.filter(f => f.type === 'Feature' && f.geometry.type === 'Point');
+    const route = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString');
+    const [{ geometry: { coordinates: meetingPlace } }] = markers;
+    const locationLatLng = new google.maps.LatLng(meetingPlace[0], meetingPlace[1]);
     const gmarkers = [];
 
     const mapOptions = {
@@ -59,7 +66,7 @@ export default class WalkMap extends Component {
 
     const googleMap = new google.maps.Map(this.domRoot, mapOptions);
 
-    markers.forEach(({ lat, lng }, i) => {
+    gmarkers.push(...markers.map(({ geometry: { coordinates: [lng, lat] } }, i) => {
       const marker = new google.maps.Marker({
         position: new google.maps.LatLng(lat, lng),
         style: 'stop',
@@ -78,8 +85,8 @@ export default class WalkMap extends Component {
         // TODO: scroll to list of stops
       });
 
-      gmarkers.push(marker);
-    });
+      return marker;
+    }));
 
     // Draw the line
     const poly = new google.maps.Polyline({
@@ -89,7 +96,7 @@ export default class WalkMap extends Component {
       editable: false,
       map: googleMap,
     });
-    poly.setPath(route.map(({ lat, lng }) => new google.maps.LatLng(lat, lng)));
+    poly.setPath(route.geometry.coordinates.map(([lng, lat]) => new google.maps.LatLng(lat, lng)));
 
     boundMapByMarkers(googleMap, gmarkers);
 
@@ -98,10 +105,6 @@ export default class WalkMap extends Component {
 
 
   render() {
-    return ce('div', { className: 'walkMap', ref: domRoot => assign(this, { domRoot }) });
+    return ce('div', { className: 'walkMap', ref: this.saveMapRef });
   }
 }
-
-WalkMap.PropTypes = {
-  map: PropTypes.object.isRequired,
-};

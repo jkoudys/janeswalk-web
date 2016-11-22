@@ -3,7 +3,6 @@ import { getThemeName } from 'janeswalk/utils/lookups/Theme';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 import { createElement as ce, PropTypes } from 'react';
-const { assign } = Object;
 
 // TODO: Duplicate of Itinerary <Walk/> and WalkPage <WalkHeader/>, refactor/combine components into factory
 // TODO: Make walkMenu sticky - will complete after Dashboard
@@ -56,7 +55,7 @@ const WalkMenu = ({
   if ((accessibleParking || []).length > 0) menuItems[4].exists = true;
 
   return (
-    ce('section', { className: 'walkMenu', ref: domRoot => assign(this, { domRoot }) },
+    ce('section', { className: 'walkMenu' },
       ce('header', { className: 'walkHeader' },
         ce('h5', {}, title),
         leaderHead,

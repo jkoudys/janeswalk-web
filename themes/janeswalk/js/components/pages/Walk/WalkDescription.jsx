@@ -5,7 +5,7 @@ const WalkDescription = ({ longDescription = '' }) => (
   <section className="walkDescription">
     <a name="About This Walk" />
     <h2>
-      <span clasName="topRule">
+      <span className="topRule">
         {t`About This Walk`}
       </span>
     </h2>

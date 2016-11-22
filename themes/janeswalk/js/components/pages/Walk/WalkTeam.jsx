@@ -45,8 +45,4 @@ const WalkTeam = ({ team = [] }) => {
   );
 };
 
-WalkTeam.propTypes = {
-  member: React.PropTypes.array.isRequired,
-};
-
 export default WalkTeam;

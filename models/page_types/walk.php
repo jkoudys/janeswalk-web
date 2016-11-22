@@ -40,7 +40,7 @@ class Walk extends \Model implements \JsonSerializable
     public $accessibleTransit;
     public $accessibleParking;
     public $accessibleFind;
-    public $map;
+    public $features;
     public $team;
     public $time;
     public $thumbnail;
@@ -55,7 +55,7 @@ class Walk extends \Model implements \JsonSerializable
         'accessibleTransit' => 'accessible_transit',
         'accessibleParking' => 'accessible_parking',
         'accessibleFind' => 'accessible_find',
-        'map' => 'gmap',
+        'features' => 'gmap',
         'team' => 'team',
         'wards' => 'walk_wards',
         'themes' => 'theme',
@@ -113,8 +113,8 @@ class Walk extends \Model implements \JsonSerializable
         };
 
         // Decode the JSON fields
-        $this->map = json_decode($this->map, true);
         $this->team = json_decode($this->team, true);
+        $this->features = static::formatAsFeatures((array) json_decode($this->features, true));
 
         // Decode \n delimited arrays
         $this->themes = $loadChecks('theme');
@@ -125,6 +125,43 @@ class Walk extends \Model implements \JsonSerializable
         $this->thumbnail = $page->getAttribute('thumbnail');
 
         $this->published = !($page->getAttribute('exclude_page_list') === '1');
+    }
+
+    /**
+     * Validate and format as geojson features
+     * @return array
+     */
+    protected function formatAsFeatures(array $map)
+    {
+        // Map the old-style ad-hoc format to a geojson features array
+        if (array_key_exists('markers', $map)) {
+            $features = array_map(function ($marker) {
+                return [
+                    'type' => 'Feature',
+                    'geometry' => [
+                        'type' => 'Point',
+                        'coordinates' => [$marker['lng'], $marker['lat']],
+                    ],
+                    'properties' => [
+                        'title' => $marker['title'],
+                        'description' => $marker['description'],
+                    ],
+                ];
+            }, $map['markers']);
+            $features[] = [
+                'type' => 'Feature',
+                'geometry' => [
+                    'type' => 'LineString',
+                    'coordinates' => array_map(function ($point) {
+                        return [$point['lng'], $point['lat']];
+                    }, (array) $map['route']),
+                ],
+                'properties' => ['title' => 'Walk route'],
+            ];
+            return $features;
+        }
+
+        return $map;
     }
 
     /**
@@ -351,6 +388,7 @@ class Walk extends \Model implements \JsonSerializable
         $im = new ImageHelper();
         $nh = new NavigationHelper();
         $walkData = [
+            'type' => 'FeatureCollection',
             'id' => $this->page->getCollectionID(),
             'title' => $this->title,
             'url' => $nh->getCollectionURL($this->page),
@@ -360,7 +398,7 @@ class Walk extends \Model implements \JsonSerializable
             'accessibleTransit' => $this->accessibleTransit,
             'accessibleParking' => $this->accessibleParking,
             'accessibleFind' => $this->accessibleFind,
-            'map' => $this->map,
+            'features' => $this->features,
             'team' => $this->team,
             'time' => $this->time,
             'wards' => $this->wards,

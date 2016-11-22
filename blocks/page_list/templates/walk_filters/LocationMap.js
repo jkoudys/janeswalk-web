@@ -113,10 +113,7 @@ function addNewMarkersToMap(markers, outings, gmap) {
   for (const {
     walk: {
       id,
-      map: {
-        markers: stops = [],
-        route = [],
-      } = {},
+      features = [],
       team = [],
       title = '',
       url = '',
@@ -128,8 +125,11 @@ function addNewMarkersToMap(markers, outings, gmap) {
       // We already have this marker built, so simply add it to the map
       markers.get(id).setMap(gmap);
     } else {
+      const points = features.filter(f => f.type === 'Feature' && f.geometry.type === 'Point');
+      const { geometry: { coordinates: route = [] } = {} } = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString');
+
       // Grab either the first stop or route point
-      const [{ lat, lng } = {}] = stops.concat(route);
+      const [[lng, lat] = []] = [...points.map(m => m.geometry.coordinates), ...route];
       if (lat && lng) {
         // We must build a marker
         markers.set(id, buildNewMarker({ lat, lng, team, title, gmap, startTime: slot[0], url, shortDescription }));

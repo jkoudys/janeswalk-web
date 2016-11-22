@@ -2,16 +2,13 @@
 use Concrete\Core\Legacy\CollectionAttributeKey;
 use Concrete\Core\Legacy\FormPageSelectorHelper;
 
-defined('C5_EXECUTE') or die("Access Denied.");
 $c = Page::getCurrentPage();
 ?>
 <div class="ccm-ui"><!-- Open C5 UI Wrapper -->
-
     <ul id="ccm-pagelist-tabs" class="unstyled ccm-dialog-tabs">
         <li class="ccm-nav-active"><a id="ccm-pagelist-tab-add" href="javascript:void(0);"><?= ($bID>0)? t('Edit') : t('Add') ?></a></li>
         <li class=""><a id="ccm-pagelist-tab-preview"  href="javascript:void(0);"><?= t('Preview')?></a></li>
     </ul>
-
     <input type="hidden" name="pageListToolsDir" value="<?= $uh->getBlockTypeToolsURL($bt)?>/" />
     <div id="ccm-pagelistPane-add" class="ccm-pagelistPane">
         <div class="ccm-block-field-group">
@@ -107,9 +104,9 @@ $c = Page::getCurrentPage();
 
                 <?php  $form = new FormPageSelectorHelper();
                 if ($isOtherPage) {
-                print $form->selectPage('cParentIDValue', $cParentID);
+                    echo $form->selectPage('cParentIDValue', $cParentID);
                 } else {
-                print $form->selectPage('cParentIDValue');
+                    echo $form->selectPage('cParentIDValue');
                 }
                 ?>
 
@@ -126,9 +123,7 @@ $c = Page::getCurrentPage();
             <h2><?= t('Sort Pages')?></h2>
             <?= t('Pages should appear')?>
             <select name="orderBy">
-                <option value="display_asc" <?php  if ($orderBy == 'display_asc') {
-                ?> selected <?php
-                } ?>><?= t('in their sitemap order')?></option>
+                <option value="display_asc" <?= ($orderBy === 'display_asc') ? 'selected ' : '' ?>><?= t('in their sitemap order')?></option>
                 <option value="chrono_desc" <?php  if ($orderBy == 'chrono_desc') {
                 ?> selected <?php
                 } ?>><?= t('with the most recent first')?></option>

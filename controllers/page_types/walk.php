@@ -97,7 +97,8 @@ EOT;
      */
     public function json()
     {
-        header('Content-Type: application/json');
+        header('Content-Type: application/vnd.geo+json');
+        header('Content-Disposition: attachment; filename="' . $this->walk . '.geojson"');
         echo $this->getJson();
         exit;
     }
@@ -109,18 +110,6 @@ EOT;
     {
         header('Content-Type: application/vnd.google-earth.kml+xml');
         $this->getKml()->save('php://output');
-        exit;
-    }
-
-    /**
-     * Render as geoJSON
-     * TODO: replace the arbitrary map format with geojson
-     */
-    public function geojson()
-    {
-        header('Content-Type: application/vnd.geo+json');
-        header('Content-Disposition: attachment; filename="' . $this->walk . '.geojson"');
-        echo $this->getGeoJson();
         exit;
     }
 

@@ -1,5 +1,5 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
-import React from 'react';
+import { createElement as ce } from 'react';
 
 const pleaseNote = new Map([
   [t`This is a bicycle tour, you must bring a bicycle`, v => v === 'bicyclesonly'],
@@ -32,7 +32,7 @@ function getNotes(checkboxes, tuples) {
   return res;
 }
 
-const lis = v => <li>{v}</li>;
+const lis = v => ce('li', { key: `accessItem${v}` }, v);
 
 export default function WalkAccessibility({ flags = [] }) {
   const notes = getNotes(flags, pleaseNote);
@@ -40,20 +40,20 @@ export default function WalkAccessibility({ flags = [] }) {
   const other = getNotes(flags, otherNotes);
 
   return (
-    <section className="walkAccessibility">
-      <h2>{t`Accessibility`}</h2>
-      {notes.length ? [
-        <h5>{t`Please Note`}</h5>,
-        <ul>{notes.map(lis)}</ul>,
-      ] : null}
-      {may.length ? [
-        <h5>{t`Route May Contain`}</h5>,
-        <ul>{may.map(lis)}</ul>,
-      ] : null}
-      {other.length ? [
-        <h5>{t`Other Notes`}</h5>,
-        <ul>{other.map(lis)}</ul>,
-      ] : null}
-    </section>
+    ce('section', { className: 'walkAccessibility' },
+      ce('h2', {}, t`Accessibility`),
+      notes.length ? [
+        ce('h5', { key: 'pleaseNote' }, t`Please Note`),
+        ce('ul', { key: 'pleaseNoteList' }, notes.map(lis)),
+      ] : null,
+      may.length ? [
+        ce('h5', { key: 'mayContain' }, t`Route May Contain`),
+        ce('ul', { key: 'mayContainList' }, may.map(lis)),
+      ] : null,
+      other.length ? [
+        ce('h5', { key: 'otherNotes' }, t`Other Notes`),
+        ce('ul', { key: 'otherNotesList' }, other.map(lis)),
+      ] : null,
+    )
   );
 }
