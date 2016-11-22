@@ -1,5 +1,4 @@
-/* global React */
-
+import React from 'react';
 import { dateFormatted } from 'janeswalk/utils/ItineraryUtils';
 import { t2 } from 'janeswalk/stores/I18nStore';
 

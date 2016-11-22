@@ -1,5 +1,6 @@
 import {createList} from 'janeswalk/actions/ItineraryActions';
 import {t} from 'janeswalk/stores/I18nStore';
+import React from 'react';
 
 const ItinerarySelect = ({lists, activeList, onChoose, onCreate}) => {
   const listItems = [];
