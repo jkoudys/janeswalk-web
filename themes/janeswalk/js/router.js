@@ -1,4 +1,4 @@
-/* global React ReactDOM JanesWalk */
+/* global JanesWalk */
 
 /**
  * Initialization code goes here. This is not to be a dumping ground for
@@ -23,6 +23,7 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 // React Views
 import Navbar from './components/Navbar.jsx';
 import WalkBuilder from './components/lead/WalkBuilder';
+import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
 import Dashboard from './components/pages/Dashboard.jsx';
 
@@ -92,8 +93,8 @@ function addRenderListeners() {
     receiveWalkForBuilder(walk);
 
     ReactDOM.render(
-       ce(WalkBuilder, { data, url, valt, city, user }),
-      document.getElementById('page')
+       ce(CreateWalk, { walk, data, url, valt, city, user }),
+       document.getElementById('page')
     );
   });
 }
