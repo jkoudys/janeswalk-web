@@ -1,10 +1,7 @@
 <?php
 use Concrete\Core\Legacy\UserList;
 use Concrete\Core\Legacy\AvatarHelper;
-use Qaribou\Templating\Virty;
-use Qaribou\Collection\ImmArray;
-
-$av = new AvatarHelper();
+$av = new AvatarHelper;
 
 // Load a list of filters; simply load json from block name
 $filters = json_decode(
@@ -18,7 +15,7 @@ $filters = json_decode(
  * @param array $filters Assoc array of the filters to apply
  * @return array
  */
-$getMembers = function ($filters) use ($av) {
+$getMembers = function($filters) use ($av) {
     // Filter to show only the staff members, or customize
     // by 'custom template' and choose a block name
     $ul = new UserList();
@@ -48,35 +45,40 @@ $getMembers = function ($filters) use ($av) {
      * Build doc with all the 'member's in it, and load the values we'll
      * need to display.
      */
-    return ImmArray::fromArray($ul->get(100))->map(function ($member) use ($av) {
-        return [
-            'id' => $member->getUserID(),
-            'img' => $av->getImagePath($member),
-            'name' => trim($member->getAttribute('first_name') . ' ' . $member->getAttribute('last_name')),
-            'title' => $member->getAttribute('job_title') ?: 'Jane\'s Walk',
-            'email' => $member->getUserEmail(),
-            'description' => $member->getAttribute('bio'),
-        ];
-    });
+    return array_map(
+        function($member) use ($av) {
+            return [
+                'id' => $member->getUserID(),
+                'img' => $av->getImagePath($member),
+                'name' => trim($member->getAttribute('first_name') . ' ' . $member->getAttribute('last_name')),
+                'title' => $member->getAttribute('job_title') ?: "Jane's Walk",
+                'email' => $member->getUserEmail(),
+                'description' => $member->getAttribute('bio')
+            ];
+        },
+        $ul->get(100)
+    );
 };
-
-echo $controller->getContent(),
-$virty->$doc->saveHTML($virty->createElement(
-    ['ul', ['class' => 'ccm-staff-list'],
-        $getMembers($filters)->map(function (array $member) {
-            return (
-                ['li', null, [
-                    ['div', [
-                        'class' => 'u-avatar placeholder' . (ord($member['id']) % 3),
-                        'style' => 'background-image:url(' . $member['img'] . ')',
-                    ]],
-                    ['div', ['class' => 'ccm-staff-list-details'], [
-                        ['h3', null, $member['name'] . ', ' . $member['title']],
-                        ['a', ['href' => 'mailto:' . $member['email']], $member['email']],
-                        ['p', ['class' => 'ccm-staff-list-bio'], $member['description']],
-                    ]],
-                ]]
-            );
-        }),
-    ]
-));
+?>
+<?= $controller->getContent() ?>
+<ul class="ccm-staff-list">
+<?php foreach ($getMembers($filters) as $member) { ?>
+    <li>
+        <div
+            class="u-avatar <?= 'placeholder' . (ord($member['id']) % 3) ?>"
+            <?= $member['img'] ? (' style="background-image:url(' . $member['img'] . ')"') : '' ?>>
+        </div>
+        <div class="ccm-staff-list-details">
+            <h3>
+                <?= $member['name'] . ', ' . $member['title'] ?>
+            </h3>
+            <a href="mailto:<?= $member['email'] ?>">
+                <?= $member['email'] ?>
+            </a>
+            <p class="ccm-staff-list-bio">
+                <?= $member['description'] ?>
+            </p>
+        </div>
+    </li>
+<?php } ?>
+</ul>
