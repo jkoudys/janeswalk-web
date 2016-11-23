@@ -14,7 +14,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         $db = Loader::db();
         $bID = $this->bID;
         if ($this->bID) {
-            $q = 'select num, cParentID, cThis, orderBy, ctID, displayAliases, rss from btPageList where bID = \'' . $bID . '\'';
+            $q = 'select num, cParentID, cThis, orderBy, ctID, displayAliases, rss, filterUser, filterUserBlackList from btPageList where bID = \'' . $bID . '\'';
             $r = $db->query($q);
             if ($r) {
                 $row = $r->fetchRow();
@@ -22,38 +22,15 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         } else {
             $row = array_intersect_key(
                 $this,
-                array_flip(['num', 'cParentID', 'cThis', 'orderBy', 'ctID', 'rss', 'displayAliases'])
+                array_flip(['num', 'cParentID', 'cThis', 'orderBy', 'ctID', 'rss', 'displayAliases', 'filterUser', 'filterUserBlackList'])
             );
         }
 
         $pl = new PageList();
         $pl->setNameSpace('b' . $this->bID);
 
-        $cArray = [];
-
-        switch ($row['orderBy']) {
-            case 'display_asc':
-                $pl->sortByDisplayOrder();
-                break;
-            case 'display_desc':
-                $pl->sortByDisplayOrderDescending();
-                break;
-            case 'chrono_asc':
-                $pl->sortByPublicDate();
-                break;
-            case 'alpha_asc':
-                $pl->sortByName();
-                break;
-            case 'alpha_desc':
-                $pl->sortByNameDescending();
-                break;
-            case 'random':
-                $pl->sortBy('RAND()');
-                break;
-            default:
-                $pl->sortByPublicDateDescending();
-                break;
-        }
+        $pl = $this->applyOrder($pl, $row['orderBy']);
+        $pl = $this->applyFilterUser($pl, explode(',', $row['filterUser']), (bool) $row['filterUserBlackList']);
 
         $num = (int) $row['num'];
 
@@ -90,6 +67,49 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
                 $pl->filterByPath(Page::getByID($cParentID)->getCollectionPath());
             } else {
                 $pl->filterByParentID($cParentID);
+            }
+        }
+
+        return $pl;
+    }
+
+    protected function applyOrder(PageList $pl, $orderBy)
+    {
+        switch ($row['orderBy']) {
+        case 'display_asc':
+            $pl->sortByDisplayOrder();
+            break;
+        case 'display_desc':
+            $pl->sortByDisplayOrderDescending();
+            break;
+        case 'chrono_asc':
+            $pl->sortByPublicDate();
+            break;
+        case 'alpha_asc':
+            $pl->sortByName();
+            break;
+        case 'alpha_desc':
+            $pl->sortByNameDescending();
+            break;
+        case 'random':
+            $pl->sortBy('RAND()');
+            break;
+        default:
+            $pl->sortByPublicDateDescending();
+            break;
+        }
+
+        return $pl;
+    }
+
+    protected function applyFilterUser(PageList $pl, array $users, $blacklist = false)
+    {
+        $compare = $blacklist ? '!=' : '=';
+
+        foreach ($users as $user) {
+            $ui = UserInfo::getByEmail($user);
+            if ($ui) {
+                $pl->filter('p1.uID', $ui->getUserID(), $compare);
             }
         }
 
@@ -185,4 +205,13 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
             return new Walk($page);
         });
     }
+
+    public function save(array $args)
+    {
+        // Add the 'filter by user' to the saved args
+        $args['filterUser'] = (string) $args['filterUser'];
+        $args['filterUserBlackList'] = $args['filterUserBlackList'] ? 1 : 0;
+        parent::save($args);
+    }
+
 }

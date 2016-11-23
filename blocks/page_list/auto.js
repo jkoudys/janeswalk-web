@@ -127,7 +127,5 @@
 
   $(() => {
     pageList.init();
-    // Bind submit button
-    $('.dialog-buttons .btn.primary').on('click', () => $('#ccm-block-form').submit());
   });
 }.call(this, window, window.jQuery));

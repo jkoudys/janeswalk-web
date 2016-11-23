@@ -41,7 +41,7 @@ $c = Page::getCurrentPage();
             <label class="checkbox">
                 <input <?php  if (!is_object($cadf)) {
                 ?> disabled <?php
-                } ?> type="checkbox" name="displayFeaturedOnly" value="1" <?php  if ($displayFeaturedOnly == 1) {
+                } ?> type="checkbox" name="displayFeaturedOnly" value="1" <?php  if ($displayFeaturedOnly) {
                 ?> checked <?php
                 } ?> style="vertical-align: middle" />
                 <?= t('Featured pages only.')?>
@@ -50,7 +50,7 @@ $c = Page::getCurrentPage();
                 <?php  } ?>
             </label>
             <label class="checkbox">
-                <input type="checkbox" name="displayAliases" value="1" <?php  if ($displayAliases == 1) {
+                <input type="checkbox" name="displayAliases" value="1" <?php  if ($displayAliases) {
                 ?> checked <?php
                 } ?> />
                 <?= t('Display page aliases.')?>
@@ -59,15 +59,14 @@ $c = Page::getCurrentPage();
         <div class="ccm-block-field-group">
             <h2><?= t('Filter by Owner') ?></h2>
             <label class="checkbox">
-                <input type="checkbox" name="filterUserBlacklist" <?= $filterUserBlacklist ? 'checked' : '' ?>> <?= t('Blacklist') ?>
+                <input type="checkbox" name="filterUserBlackList" <?= $filterUserBlackList ? 'checked' : '' ?>> <?= t('Blacklist') ?>
             </label>
             <input type="text" name="filterUser" value="<?= $filterUser ?>" placeholder="User emails, comma separated">
-        </div>
         </div>
         <div class="ccm-block-field-group">
             <h2><?= t('Pagination')?></h2>
             <label class="checkbox">
-                <input type="checkbox" name="paginate" value="1" <?php  if ($paginate == 1) {
+                <input type="checkbox" name="paginate" value="1" <?php  if ($paginate) {
                 ?> checked <?php
                 } ?> />
                 <?= t('Display pagination interface if more items are available than are displayed.')?>
