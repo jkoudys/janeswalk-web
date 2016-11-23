@@ -99,6 +99,7 @@ EOT;
     {
         header('Content-Type: application/vnd.geo+json');
         header('Content-Disposition: attachment; filename="' . $this->walk . '.geojson"');
+        header("Access-Control-Allow-Origin: *");
         echo $this->getJson();
         exit;
     }
