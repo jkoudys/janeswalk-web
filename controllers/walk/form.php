@@ -1,5 +1,9 @@
 <?php
-use Concrete\Core\Legacy\{NavigationHelper, AvatarHelper, ImageHelper, HtmlHelper, ValidationTokenHelper};
+use Concrete\Core\Legacy\NavigationHelper;
+use Concrete\Core\Legacy\AvatarHelper;
+use Concrete\Core\Legacy\ImageHelper;
+use Concrete\Core\Legacy\HtmlHelper;
+use Concrete\Core\Legacy\ValidationTokenHelper;
 
 use JanesWalk\Models\PageTypes\Walk;
 use JanesWalk\Models\PageTypes\City;
