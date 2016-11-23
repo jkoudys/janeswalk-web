@@ -126,7 +126,7 @@ function addNewMarkersToMap(markers, outings, gmap) {
       markers.get(id).setMap(gmap);
     } else {
       const points = features.filter(f => f.type === 'Feature' && f.geometry.type === 'Point');
-      const { geometry: { coordinates: route = [] } = {} } = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString');
+      const { geometry: { coordinates: route = [] } = {} } = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString') || {};
 
       // Grab either the first stop or route point
       const [[lng, lat] = []] = [...points.map(m => m.geometry.coordinates), ...route];
