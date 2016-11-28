@@ -13,6 +13,8 @@ import { createElement as ce } from 'react';
 const halfHour = 30 * 60 * 1000;
 
 const AddDates = ({
+  id,
+  name,
   order,
   title = 'Your walk',
   slots = [],
@@ -28,8 +30,8 @@ const AddDates = ({
   ];
 
   return (
-    ce('section', {},
-      ce('h1', {}, `${order}. `, t`Set the Date`),
+    ce('section', { id },
+      ce('h1', {}, name),
       ce(FieldSet, {},
         ce('p', {}, t`${title} will happen on`),
         slots.map(slot => ce(DatePicker, { slot }))
@@ -37,7 +39,7 @@ const AddDates = ({
       ce(FieldSet, {},
         ce('legend', {}, t`How long is your walk, approximately?`),
         ce('select', { name: 'duration' },
-          durations.map(([value, text]) => ce('option', { value }, text))
+          durations.map(([value, text]) => ce('option', { key: value, value }, text))
         )
       )
     )

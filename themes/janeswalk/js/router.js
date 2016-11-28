@@ -23,7 +23,6 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 // React Views
 import Navbar from './components/Navbar.jsx';
 import WalkBuilder from './components/lead/WalkBuilder';
-import CreateWalk from './components/CreateWalk.jsx';
 import Walk from './components/pages/Walk.jsx';
 import Dashboard from './components/pages/Dashboard.jsx';
 
@@ -35,9 +34,13 @@ import initKeyEvents from './helpers/keyevents';
 import { createElement as ce } from 'react';
 import ReactDOM from 'react-dom';
 
+import { LocaleProvider } from 'antd';
+import locale from 'antd/lib/locale-provider/en_US';
+
 const { startups, event } = window.JanesWalk;
 
 // Use the main sitewide theme. TODO: componetize this as we go, and drop LESS for css (via cssnext)
+require('antd/dist/antd.css');
 require('../css/main.less');
 
 // Render the sitewide elements
@@ -73,7 +76,7 @@ function addRenderListeners() {
   event.on('walkpage.load', ({ walk, city, canEdit }) => {
     WalkActions.receive(walk);
     ReactDOM.render(
-      ce(Walk, { city, page: JanesWalk.page, walk, canEdit }),
+      ce(LocaleProvider, { locale }, ce(Walk, { city, page: JanesWalk.page, walk, canEdit })),
       document.getElementById('page')
     );
   });
@@ -93,7 +96,7 @@ function addRenderListeners() {
     receiveWalkForBuilder(walk);
 
     ReactDOM.render(
-       ce(CreateWalk, { walk, data, url, valt, city, user }),
+       ce(LocaleProvider, { locale }, ce(WalkBuilder, { walk, data, url, valt, city, user })),
        document.getElementById('page')
     );
   });

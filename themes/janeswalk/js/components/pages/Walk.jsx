@@ -18,6 +18,8 @@ import WalkTeam from './Walk/WalkTeam.jsx';
 import WalkMenu from './Walk/WalkMenu.jsx';
 import WalkMap from './Walk/WalkMap.jsx';
 
+import Layout from '../../constants/Layout';
+
 import { PropTypes, createElement as ce, Component } from 'react';
 
 const getWalk = ({ walk, page, city }) => {
@@ -101,7 +103,7 @@ export default class WalkPage extends Component {
           onAdd: this.handleAdd,
           onRemove: this.handleRemove,
         }),
-        ce(Affix, { offsetTop: 80 }, ce(WalkMenu, this.state)),
+        ce(Affix, { offsetTop: Layout.Nav.height + Layout.Nav.pad }, ce(WalkMenu, this.state)),
         ce(WalkDescription, walk),
         hasMarkers ? ce(WalkMap, { features }) : null,
         hasMarkers ? [

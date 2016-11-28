@@ -5,19 +5,19 @@
  */
 
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
-import DatePicker from './DatePicker';
+import { Input, DatePicker } from 'antd';
 
 import { createElement as ce } from 'react';
 
 const techEmail = 'tech@janeswalk.org';
 
-const Welcome = ({ cityOrganizer: { firstName, lastName, email }, title, handleChangeTitle, date, handleChangeDate }) => (
+const Welcome = ({ name, cityOrganizer: { firstName, lastName, email }, title, handleChangeTitle, date, handleChangeDate }) => (
   ce('section', {},
-    ce('h1', {}, t`Save the Date!`),
+    ce('h1', {}, name),
     ce('p', {}, t`Start by picking a name and meeting time for your Walk.`),
     ce('div', {},
-      ce('input', { type: 'text', placeholder: t`The name of my walk`, value: title, onChange: handleChangeTitle }),
-      ce(DatePicker, { date, handleChangeDate })
+      ce(Input, { placeholder: t`The name of my walk`, value: title, onChange: handleChangeTitle }),
+      ce(DatePicker, { format: 'LL', date, handleChangeDate })
     ),
     ce('p', {},
       t`Feel free to email organizer ${`${firstName} ${lastName}`.trim()} if you have any questions! `,

@@ -7,9 +7,9 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
 
-const Theme = ({ order }) => (
-  ce('section', {},
-    ce('h1', {}, `${order}. `, t`Themes`),
+const Theme = ({ id, name, order }) => (
+  ce('section', { id },
+    ce('h1', {}, name),
     ce('h2', {}, t`Choose up to ${3}`)
   )
 );

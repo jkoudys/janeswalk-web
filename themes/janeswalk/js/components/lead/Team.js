@@ -7,6 +7,8 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
 
-const Team = ({ order }) => ce('section', {}, `${order}. `, 'Go team!');
+const Team = ({ id, name }) => ce('section', { id },
+  ce('h1', {}, name)
+);
 
 export default Team;
