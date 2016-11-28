@@ -1,21 +1,8 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
-$this->inc('elements/header.php');
-$this->inc('elements/navbar.php');
-?>
-<dialog id="survey-panel" class="in">
-    <div>
-        <article>
-            <header>
-                <?php (new Area('Header'))->display($c) ?>
-            </header>
-            <section>
-                <?php (new Area('Body'))->display($c) ?>
-            </section>
-            <footer>
-<?php
+$v = View::getInstance();
+
 if (isset($error) && $error != '') {
-    echo '<div class="alert alert-danger">';
+    $errors = '<div class="alert alert-danger">';
     if ($error instanceof Exception) {
         $_error[] = $error->getMessage();
     } elseif ($error instanceof ValidationErrorHelper) {
@@ -29,10 +16,25 @@ if (isset($error) && $error != '') {
         echo $e . '<br />';
     }
     echo '</div>';
+    $errors = '<div class="alert alert-danger">' . implode('<br />', $_error) . '</div>';
 }
+
+$v->inc('elements/header.php');
+$v->inc('elements/navbar.php');
 ?>
+<dialog id="survey-panel" class="in">
+    <div>
+        <article>
+            <header>
+                <?php (new Area('Header'))->display($c) ?>
+            </header>
+            <section>
+                <?php (new Area('Body'))->display($c) ?>
+            </section>
+            <footer>
+                <?= $errors ?>
             </footer>
         </article>
     </div>
 </dialog>
-<?php $this->inc('elements/footer.php') ?>
+<?php $v->inc('elements/footer.php') ?>

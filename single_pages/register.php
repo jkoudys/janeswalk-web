@@ -1,4 +1,6 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php
+$v = View::getInstance();
+?>
 <div id="ccm-profile-wrapper">
   <div class="row">
     <div class="col-md-10">
@@ -37,20 +39,20 @@
 ?>
         <p><strong><?php echo $successMsg ?></strong><br/><br/>
         <p>Welcome to our global community! We're so glad you joined the constellation of incredible citizen urbanists that make their cities better every day, by walking and prompting open discussion with their neighbours. Let's get started.</p>
-        <a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
+        <a href="<?= $v->url('/') ?>"><?= t('Take me back to the home page!') ?></a></p>
         <?php
         break;
         case "validate":
         ?>
         <p><?=$successMsg[0]?></p>
         <p><?=$successMsg[1]?></p>
-        <p><a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
+        <p><a href="<?php echo $v->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
         <?php
         break;
         case "pending":
         ?>
         <p><?php echo $successMsg ?></p>
-        <p><a href="<?php echo $this->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
+        <p><a href="<?php echo $v->url('/')?>"><?php echo t('Take me back to the home page!')?></a></p>
         <?php
         break;
         } ?>

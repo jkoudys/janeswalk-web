@@ -1,10 +1,9 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
-$bodyData = [];
-$bodyData['classes'][] = 'blog';
-$this->controller->set('bodyData', $bodyData);
-$this->inc('elements/header.php');
-$this->inc('elements/navbar.php');
+$v = View::getInstance();
+
+$v->controller->set('bodyData', [
+    'classes' => ['blog'],
+]);
 
 // Check if they own any other blogs that we can reblog to
 if (count($otherBlogsOwned) > 0) {
@@ -16,9 +15,31 @@ if (count($otherBlogsOwned) > 0) {
 </div>
 EOT;
 }
+
+if ($canEdit) {
+    $editButton = <<< EOT
+<div>
+    <a
+        href="{$v->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID())}"
+        style="margin-bottom:1em;display:block"
+    >
+        <i class="fa fa-pencil-square"></i> edit
+    </a>
+</div>
+EOT;
+}
+
+if ($headImage) {
+    $styleAttr = 'style="background-image:url(' . $headImage->src . ')"';
+}
+
+// Render the page
+$v->inc('elements/header.php');
+$v->inc('elements/navbar.php');
+
 ?>
 <div id="central">
-    <header <?php if ($headImage) echo 'style="background-image:url(' . $headImage->src . ')"' ?>>
+    <header <?= $styleAttr ?>>
         <?php (new Area('Blog Post Header'))->display($c) ?>
         <h1><?= $c->getCollectionName() ?></h1>
         <p class="description"><?= $c->getCollectionDescription() ?></p>
@@ -26,17 +47,11 @@ EOT;
     </header>
     <div id="body">
         <article>
-<?php
-if ($canEdit) { ?>
-    <div>
-        <a href='<?= $this->url('/dashboard/composer/write/-/edit/' . $c->getCollectionID()) ?>' style='margin-bottom:1em;display:block'><i class='fa fa-pencil-square'></i> edit</a>
-    </div>
-<?php
-}
-echo $blogTransfer;
-(new Area('Main'))->display($c);
-?>
+            <?= $editButton ?>
+            <?= $blogTransfer ?>
+            <?php (new Area('Main'))->display($c); ?>
         </article>
     </div>
 </div>
-<?php $this->inc('elements/footer.php');
+<?php
+$v->inc('elements/footer.php');

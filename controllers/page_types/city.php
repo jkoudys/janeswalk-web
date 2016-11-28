@@ -35,7 +35,7 @@ class CityPageTypeController extends Controller
         }
     }
 
-    protected function getJson()
+    protected function getJson(): string
     {
         // Encode the model, or return if it's cached already.
         $cached = Cache::get('page_' . $this->c->getCollectionTypeHandle(), $this->c->getCollectionId());
@@ -88,7 +88,7 @@ class CityPageTypeController extends Controller
         $this->addToJanesWalk(['city' => $this->city]);
 
         // Are there blog entries for this city?
-        $blog = new PageList;
+        $blog = new PageList();
         $blog->filterByCollectionTypeHandle('city_blog');
         $blog->filterByParentID($this->c->getCollectionID());
         $this->set('blog', $blog->get(1)[0]);

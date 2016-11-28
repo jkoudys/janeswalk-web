@@ -46,6 +46,8 @@
     "whatwg-fetch": "^0.11.0"
   },
   "dependencies": {
+    "antd": "*",
+    "babel-plugin-import": "^1.1.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "janeswalk": "*",
     "moment": "^2.16.0",

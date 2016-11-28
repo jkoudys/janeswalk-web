@@ -16,7 +16,7 @@ class WalkFormController extends Controller
      * @param $u The user for whom you're finding their walk
      * @return Collection
      */
-    protected function getUnstartedWalk(User $u, Page $city)
+    protected function getUnstartedWalk(User $u, Page $city): Page
     {
         // Find all walks for this user, in this city, with no name
         $pl = new PageList();
@@ -133,7 +133,7 @@ class WalkFormController extends Controller
         $this->addFooterItem($html->javascript('jquery.ui.js'));
     }
 
-    public function view($cID = null)
+    public function view(int $cID = null)
     {
         parent::view();
 

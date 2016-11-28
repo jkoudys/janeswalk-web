@@ -9,7 +9,7 @@ use JanesWalk\Models\PageTypes\Walk;
 
 class PageListBlockController extends Concrete5_Controller_Block_PageList
 {
-    public function getPageList()
+    public function getPageList(): PageList
     {
         $db = Loader::db();
         $bID = $this->bID;
@@ -73,9 +73,9 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         return $pl;
     }
 
-    protected function applyOrder(PageList $pl, $orderBy)
+    protected function applyOrder(PageList $pl, string $orderBy): PageList
     {
-        switch ($row['orderBy']) {
+        switch ($orderBy) {
         case 'display_asc':
             $pl->sortByDisplayOrder();
             break;
@@ -102,7 +102,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
         return $pl;
     }
 
-    protected function applyFilterUser(PageList $pl, array $users, $blacklist = false)
+    protected function applyFilterUser(PageList $pl, array $users, bool $blacklist = false): PageList
     {
         $compare = $blacklist ? '!=' : '=';
 
@@ -199,7 +199,7 @@ class PageListBlockController extends Concrete5_Controller_Block_PageList
      *
      * @return ImmArray<Page> card data for each card
      */
-    public function loadCards()
+    public function loadCards(): ImmArray
     {
         return ImmArray::fromArray((array) $this->get('pages'))->map(function (Page $page) {
             return new Walk($page);

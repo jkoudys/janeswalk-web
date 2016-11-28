@@ -24,7 +24,7 @@ if (!$dh->inDashboard()) {
     }
     $view->addHeaderItem($html->css('jquery.ui.css'));
     $view->addFooterItem('<div id="ccm-page-controls-wrapper"><div id="ccm-toolbar"></div></div>');
-    
+
     $view->addFooterItem('<script type="text/javascript" src="' . REL_DIR_FILES_TOOLS_REQUIRED . '/i18n_js"></script>');
     $view->addHeaderItem($html->javascript('jquery.js'));
     $view->addFooterItem($html->javascript('jquery.ui.js'));

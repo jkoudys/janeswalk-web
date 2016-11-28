@@ -1,4 +1,6 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied.");
+<?php
+$v = View::getInstance();
+
 Loader::library('authentication/open_id');
 $form = Loader::helper('form'); ?>
 <script type="text/javascript">
@@ -15,7 +17,7 @@ $form = Loader::helper('form'); ?>
             <?php  if ($changePasswordForm) { ?>
             <p><?= t('Enter your new password below.') ?></p>
             <div class="ccm-form modal-body">
-                <form method="post" action="<?php echo $this->url('/login', 'change_password', $uHash)?>">
+                <form method="post" action="<?= $v->url('/login', 'change_password', $uHash)?>">
                     <div class="control-group">
                         <label for="uPassword" class="control-label"><?php echo t('New Password')?></label>
                         <div class="controls">
@@ -40,7 +42,7 @@ $form = Loader::helper('form'); ?>
                 <p>
                     <?= t('The email address <b>%s</b> has been verified and you are now a fully validated member of this website.', $uEmail) ?>
                 </p>
-                <div class="alert-actions"><a class="btn small" href="<?php echo $this->url('/')?>"><?php echo t('Continue to Site')?></a></div>
+                <div class="alert-actions"><a class="btn small" href="<?= $v->url('/')?>"><?php echo t('Continue to Site')?></a></div>
             </div>
 
             <?php  
@@ -49,7 +51,7 @@ $form = Loader::helper('form'); ?>
                 <?php  switch ($_SESSION['uOpenIDError']) {
                 case OpenIDAuth::E_REGISTRATION_EMAIL_INCOMPLETE: ?>
 
-                <form method="post" action="<?php echo $this->url('/login', 'complete_openid_email')?>">
+                <form method="post" action="<?= $v->url('/login', 'complete_openid_email')?>">
                     <p><?php echo t('To complete the signup process, you must provide a valid email address.')?></p>
                     <label for="uEmail"><?php echo t('Email Address')?></label><br/>
                     <?php echo $form->text('uEmail')?>
@@ -74,7 +76,7 @@ $form = Loader::helper('form'); ?>
                 </div>
                 <div class="modal-body">
                     <p><?= t('Welcome back! We\'ve updated the website, as you can see. We need just a few more things from you to get started.') ?></p>
-                    <form method="post" action="<?= $this->url('/login', 'do_login') ?>">
+                    <form method="post" action="<?= $v->url('/login', 'do_login') ?>">
 <?php
                         $attribs = UserAttributeKey::getRegistrationList();
                         $af = Loader::helper('form/attribute');
@@ -105,7 +107,7 @@ $form = Loader::helper('form'); ?>
             <div class="modal-header">
                 <h3 class="form-lead"><?= t('Sign into %s', SITE) ?></h3>
             </div>
-            <form method="post" action="<?php echo $this->url('/login', 'do_login')?>">
+            <form method="post" action="<?= $v->url('/login', 'do_login')?>">
                 <div class="modal-body">
                     <?php  if (isset($intro_msg)) { ?>
                     <div class="alert-message block-message success"><p><?= $intro_msg ?></p></div>
@@ -134,12 +136,12 @@ $form = Loader::helper('form'); ?>
                     <input type="hidden" name="uEmail" id="uEmail" />
                     <input type="hidden" name="redirectURL" value="/information" />
                     <input type="hidden" name="format" value="json" />
-                    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/login', 'forgot_password') ?>')" value="Request a new password"></input>
+                    <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $v->url('/login', 'forgot_password') ?>')" value="Request a new password"></input>
                 </div>
                 <div class="modal-footer">
                     <div class="pull-left">
                         <?php  if (ENABLE_REGISTRATION == 1) { ?>
-                        <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $this->url('/register') ?>')" value="Register for a new account."></input>
+                        <input class="plaintext" type="submit" onmousedown="$('#uEmail').val($('#uName').val());$(this).parents('form').first().attr('action', '<?= $v->url('/register') ?>')" value="Register for a new account."></input>
                         <?php  
 } ?>
                     </div>

@@ -1,21 +1,23 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php
+$v = View::getInstance();
+?>
 <div id="ccm-profile-wrapper">
     <?php  Loader::element('profile/sidebar', array('profile'=> $ui)); ?>
     <div id="ccm-profile-body">
     	<?php echo $error->output(); ?>
-    	<?php  switch ($this->controller->getTask()) {
+    	<?php  switch ($v->controller->getTask()) {
             case 'view_message': ?>
 
-    		<div><a href="<?php echo $this->url('/profile/messages', 'view_mailbox', $box)?>">&lt;&lt; <?php echo t('Back to Mailbox')?></a></div><br/>
+    		<div><a href="<?php echo $v->url('/profile/messages', 'view_mailbox', $box)?>">&lt;&lt; <?php echo t('Back to Mailbox')?></a></div><br/>
 
     		<h1><?php echo t('Message Details')?></h1>
-    		<form method="post" action="<?php echo $this->action('reply', $box, $msg->getMessageID())?>">
+    		<form method="post" action="<?php echo $v->action('reply', $box, $msg->getMessageID())?>">
     		<div class="ccm-profile-detail">
 				<div class="ccm-profile-section">
 					<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
-						<td valign="top" class="ccm-profile-message-from"><a href="<?php echo $this->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
-						<a href="<?php echo $this->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $msg->getMessageRelevantUserName()?></a>
+						<td valign="top" class="ccm-profile-message-from"><a href="<?php echo $v->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
+						<a href="<?php echo $v->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $msg->getMessageRelevantUserName()?></a>
 
 						</td>
 						<td valign="top">
@@ -49,7 +51,7 @@
                 break;
             case 'view_mailbox': ?>
 
-    		<div><a href="<?php echo $this->url('/profile/messages')?>">&lt;&lt; <?php echo t('Back to Mailbox List')?></a></div><br/>
+    		<div><a href="<?php echo $v->url('/profile/messages')?>">&lt;&lt; <?php echo t('Back to Mailbox List')?></a></div><br/>
 
 			<table class="ccm-profile-messages-list" border="0" cellspacing="0" cellpadding="0">
 			<tr>
@@ -65,10 +67,10 @@
 
 					<tr>
 						<td class="ccm-profile-message-from">
-						<a href="<?php echo $this->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
-						<a href="<?php echo $this->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $msg->getMessageRelevantUserName()?></a>
+						<a href="<?php echo $v->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $av->outputUserAvatar($msg->getMessageRelevantUserObject())?></a>
+						<a href="<?php echo $v->url('/profile', 'view', $msg->getMessageRelevantUserID())?>"><?php echo $msg->getMessageRelevantUserName()?></a>
 						</td>
-						<td class="ccm-profile-messages-item-name"><a href="<?php echo $this->url('/profile/messages', 'view_message', $mailbox, $msg->getMessageID())?>"><?php echo $msg->getFormattedMessageSubject()?></a></td>
+						<td class="ccm-profile-messages-item-name"><a href="<?php echo $v->url('/profile/messages', 'view_message', $mailbox, $msg->getMessageID())?>"><?php echo $msg->getFormattedMessageSubject()?></a></td>
 						<td style="white-space: nowrap"><?php echo $msg->getMessageDateAdded('user', t('F d, Y \a\t g:i A'))?></td>
 						<td><?php echo $msg->getMessageStatus()?></td>
 					</tr>
@@ -88,14 +90,14 @@
             case 'reply_complete': ?>
 
     		<h2><?php echo t('Reply Sent.')?></h2>
-    		<a href="<?php echo $this->url('/profile/messages', 'view_message', $box, $msgID)?>"><?php echo t('Return to Message.')?></a>
+    		<a href="<?php echo $v->url('/profile/messages', 'view_message', $box, $msgID)?>"><?php echo t('Return to Message.')?></a>
 
     		<?php
                 break;
             case 'send_complete': ?>
 
     		<h2><?php echo t('Message Sent.')?></h2>
-    		<a href="<?php echo $this->url('/profile', 'view', $recipient->getUserID())?>"><?php echo t('Return to Profile.')?></a>
+    		<a href="<?php echo $v->url('/profile', 'view', $recipient->getUserID())?>"><?php echo t('Return to Profile.')?></a>
 
     		<?php
                 break;
@@ -110,10 +112,10 @@
             case 'write': ?>
 
 			<div id="ccm-profile-message-compose">
-				<form method="post" action="<?php echo $this->action('send')?>">
+				<form method="post" action="<?php echo $v->action('send')?>">
 
 				<?php echo $form->hidden("uID", $recipient->getUserID())?>
-				<?php  if ($this->controller->getTask() == 'reply') { ?>
+				<?php  if ($v->controller->getTask() == 'reply') { ?>
 					<?php echo $form->hidden("msgID", $msgID)?>
 					<?php echo $form->hidden("box", $box)?>
 				<?php
@@ -165,7 +167,7 @@
     				<th><?php echo t('Latest Message')?></th>
     			</tr>
     			<tr>
-    				<td class="ccm-profile-messages-item-name"><a href="<?php echo $this->action('view_mailbox', 'inbox')?>"><?php echo t('Inbox')?></a></td>
+    				<td class="ccm-profile-messages-item-name"><a href="<?php echo $v->action('view_mailbox', 'inbox')?>"><?php echo t('Inbox')?></a></td>
     				<td><?php echo $inbox->getTotalMessages()?></td>
     				<td class="ccm-profile-mailbox-last-message"><?php
                     $msg = $inbox->getLastMessageObject();
@@ -175,7 +177,7 @@
                     ?></td>
     			</tr>
     			<tr>
-    				<td class="ccm-profile-messages-item-name"><a href="<?php echo $this->action('view_mailbox', 'sent')?>"><?php echo t('Sent Messages')?></a></td>
+    				<td class="ccm-profile-messages-item-name"><a href="<?php echo $v->action('view_mailbox', 'sent')?>"><?php echo t('Sent Messages')?></a></td>
     				<td><?php echo $sent->getTotalMessages()?></td>
     				<td class="ccm-profile-mailbox-last-message"><?php
                      $msg = $sent->getLastMessageObject();

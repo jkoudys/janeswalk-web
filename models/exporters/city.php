@@ -21,7 +21,7 @@ class City
     protected $city;
     protected $cityID;
 
-    protected static function getColumn($col, $walk)
+    protected static function getColumn(string $col, Walk $walk): string
     {
         switch ($col) {
             case 'Name':

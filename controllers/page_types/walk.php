@@ -35,7 +35,7 @@ class WalkPageTypeController extends Controller
         }
     }
 
-    protected static function addMetaTags($tags = [], &$doc)
+    protected static function addMetaTags(array $tags = [], DOMDocument &$doc)
     {
         foreach ($tags as $k => $v) {
             $meta = $doc->appendChild($doc->createElement('meta'));
@@ -44,7 +44,7 @@ class WalkPageTypeController extends Controller
         }
     }
 
-    protected static function buildPageMap(Walk $walk)
+    protected static function buildPageMap(Walk $walk): string
     {
         $im = Loader::helper('image');
         $leaders = join(array_map(function ($leader) {
@@ -78,7 +78,7 @@ class WalkPageTypeController extends Controller
 EOT;
     }
 
-    protected static function buildTwitterSummary(Walk $walk)
+    protected static function buildTwitterSummary(Walk $walk): string
     {
           $im = Loader::helper('image');
           $thumbnail = $im->getThumbnail($walk->thumbnail, 1024, 1024)->src;
@@ -141,7 +141,7 @@ EOT;
      *
      * @param string $json String-encoded JSON of walk
      */
-    protected function create($json)
+    protected function create(string $json)
     {
         $nh = Loader::helper('navigation');
         header('Content-Type: application/json');
@@ -185,7 +185,7 @@ EOT;
      *
      * @param string $json String-encoded JSON of walk
      */
-    protected function update($json)
+    protected function update(string $json)
     {
         header('Content-Type: application/json');
         try {
@@ -249,7 +249,7 @@ EOT;
      *
      * @return string of walk's json
      */
-    protected function getJson()
+    protected function getJson(): string
     {
         return json_encode($this->walk);
     }
@@ -262,7 +262,7 @@ EOT;
      * @param $public bool
      * @return int cvID of new collection version
      */
-    protected function setJson($json, $publish = false)
+    protected function setJson(string $json, bool $publish = false): int
     {
         // Check for permissions first
         $cp = new Permissions($this->walk->getPage());
@@ -299,14 +299,9 @@ EOT;
      *
      * @return DOMDocument of KML map for walk
      */
-    protected function getKml()
+    protected function getKml(): DOMDocument
     {
         return $this->walk->kmlSerialize();
-    }
-
-    protected function getGeoJson()
-    {
-        return json_encode($this->walk->geoJsonSerialize());
     }
 
     public function view()
@@ -365,7 +360,7 @@ EOT;
      * TODO: on 5.7, we have good routing with symfony. Get rid of these c5
      * convention endpoints, e.g. 'transfer', and use all restful routes as above
      */
-    public function transfer($uid)
+    public function transfer(string $uid)
     {
         $c = $this->getCollectionObject();
         $p = new Permissions($c);

@@ -1,7 +1,7 @@
 <?php
 use Concrete\Core\Legacy\UserList;
 use Concrete\Core\Legacy\AvatarHelper;
-$av = new AvatarHelper;
+$av = new AvatarHelper();
 
 // Load a list of filters; simply load json from block name
 $filters = json_decode(

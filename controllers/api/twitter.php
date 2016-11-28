@@ -36,7 +36,7 @@ class ApiTwitterController extends Controller
      * @param string $coords The lat + lng to centre the search on
      * @return array The points from the search, with their coordinates and text
      */
-    protected function getSearch($query, $coords = null)
+    protected function getSearch($query, $coords = null): array
     {
         $points = [];
 
@@ -74,7 +74,7 @@ class ApiTwitterController extends Controller
      *
      * @return string The base64 encoded access token to twitter
      */
-    protected function getToken()
+    protected function getToken(): string
     {
         $ch = curl_init();
         curl_setopt_array(

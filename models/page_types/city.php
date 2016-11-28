@@ -92,7 +92,7 @@ class City extends \Model implements \JsonSerializable
         $this->profile_path = DIR_REL . '/' . DISPATCHER_FILENAME . '/profile/' . $page_owner->getUserId();
     }
 
-    public function __get($name)
+    public function __get(string $name)
     {
         /* One big switch for all the get names */
         switch ($name) {
@@ -136,7 +136,7 @@ class City extends \Model implements \JsonSerializable
      *
      * @return String
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->title;
     }
@@ -148,7 +148,7 @@ class City extends \Model implements \JsonSerializable
      *
      * @return Array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         Loader::model('page_list');
         $im = Loader::helper('image');
@@ -227,7 +227,7 @@ class City extends \Model implements \JsonSerializable
      *
      * @return array
      */
-    public function getWalks($showAll = false)
+    public function getWalks(bool $showAll = false): array
     {
         $pl = new PageList();
         $pl->filterByCollectionTypeHandle('walk');
@@ -249,7 +249,7 @@ class City extends \Model implements \JsonSerializable
      * Returns a page object for this city. Keeping $page protected as we may want some logic around this later
      * @return Page
      */
-    public function getPage()
+    public function getPage(): Page
     {
         return $this->page;
     }

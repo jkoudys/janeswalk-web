@@ -10,19 +10,19 @@ class DeleteAbandonedWalks extends Job
 {
   public $jNotUninstallable = 0;
 
-  public function getJobName()
+  public function getJobName(): string
   {
     return t('Delete Abandoned Walks');
   }
 
-  public function getJobDescription()
+  public function getJobDescription(): string
   {
     return t('Checks every walk, and moves all walks with a blank title to the trash.');
   }
 
-  public function run()
+  public function run(): string
   {
-    $pl = new PageList;
+    $pl = new PageList();
     $pl->filterByCollectionTypeHandle('walk');
     $pl->filterByName('', true);
     $pages = $pl->get();
