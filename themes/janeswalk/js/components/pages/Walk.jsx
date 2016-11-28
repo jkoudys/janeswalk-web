@@ -5,6 +5,8 @@ import I18nStore from 'janeswalk/stores/I18nStore.js';
 import UserStore from 'janeswalk/stores/UserStore';
 import * as Action from 'janeswalk/actions/ItineraryActions';
 
+import { Affix } from 'antd';
+
 import WalkHeader from './Walk/WalkHeader.jsx';
 import WalkDescription from './Walk/WalkDescription.jsx';
 import WalkRoute from './Walk/WalkRoute.jsx';
@@ -99,7 +101,7 @@ export default class WalkPage extends Component {
           onAdd: this.handleAdd,
           onRemove: this.handleRemove,
         }),
-        ce(WalkMenu, this.state),
+        ce(Affix, { offsetTop: 80 }, ce(WalkMenu, this.state)),
         ce(WalkDescription, walk),
         hasMarkers ? ce(WalkMap, { features }) : null,
         hasMarkers ? [
