@@ -13,6 +13,7 @@ import Store from './Store';
 let title = '';
 let shortDescription = '';
 let longDescription = '';
+let ward;
 // Has this walk been published?
 let published = false;
 // Open booking? Available to book at any request
@@ -47,6 +48,7 @@ const WalkBuilderStore = {
   getTeam: () => team,
   getThemes: () => themes,
   getTitle: () => title,
+  getWard: () => ward,
 
   // Validate the Walk and return any fields a Walk needs.
   getEmptyRequiredFields() {
@@ -69,6 +71,7 @@ const WalkBuilderStore = {
     team,
     published,
     images,
+    ward,
     time: { open, slots: [...slots] },
     themes: [...themes],
     accessibles: [...accessibles],
@@ -85,12 +88,14 @@ const WalkBuilderStore = {
     slots,
     themes,
     accessibles,
+    ward,
   }),
 
   dispatchToken: register({
     [AT.WB_SET_TITLE]: ({ value }) => { title = value; },
     [AT.WB_SET_SHORT_DESCRIPTION]: ({ value }) => { shortDescription = value; },
     [AT.WB_SET_LONG_DESCRIPTION]: ({ value }) => { longDescription = value; },
+    [AT.WB_SET_WARD]: ({ value }) => { ward = value; },
     [AT.WB_RECEIVE_WALK]: ({ walk, walk: {
       time = { slots: [] },
       team: newTeam = [],

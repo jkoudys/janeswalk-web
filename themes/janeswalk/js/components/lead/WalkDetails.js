@@ -5,10 +5,9 @@
  */
 /* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
-import ImageUploader from './ImageUploader';
 import TextArea from './TextArea';
 import { createElement as ce } from 'react';
-import { Form, Input } from 'antd';
+import { Form, Input, Upload, Icon } from 'antd';
 
 const WalkDetails = ({
   id,
@@ -36,7 +35,18 @@ const WalkDetails = ({
     ce(Form.Item, {
       label: t`Header Image` + ` (${t`Optional`})`,
     },
-      ce(ImageUploader)
+      ce(Upload.Dragger, {
+        name: 'walkImage',
+        multiple: false,
+        accept: 'image/*',
+        fileList: [],
+        onChange: ({ file }) => console.log(`${file.name}: ${file.status}`),
+        style: { padding: '15px' },
+        className: 'WalkDetails__Upload',
+      },
+        ce('p', { className: 'ant-upload-drag-icon' }, ce(Icon, { type: 'inbox' })),
+        ce('p', { className: 'ant-upload-text' }, t`Click or Drag an Image to Upload.`)
+      ),
     ),
     ce(Form.Item, {
       label: t`Your walk in a nutshell`,
