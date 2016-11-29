@@ -10,6 +10,37 @@ body[data-pageviewname=CreateWalkView] {
   }
 }
 
+.WalkBuilder {
+  section {
+    .ant-tag {
+      width: 100%;
+      overflow: auto;
+      height: initial;
+      padding: 5px;
+      text-align: center;
+      i.fa {
+        display: block;
+        text-align: center;
+        font-size: 24px;
+      }
+    }
+  }
+  .Lead__Welcome {
+    text-align: center;
+    h1 {
+      margin: 5px 0 0.2em 0;
+      font-size: 60px;
+      @media (max-width: @screen-xs-max) {
+        font-size: 38px;
+      }
+    }
+  }
+  .Lead__Welcome--Foot {
+    opacity: 0.9;
+    font-size: 12px;
+  }
+}
+
 #create-walk {
     // Font resets
     h1 {

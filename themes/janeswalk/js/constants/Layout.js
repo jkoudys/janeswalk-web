@@ -5,6 +5,8 @@
  * TODO: see about merging these variables with, or loading them from, the CSS
  */
 
+const imgDir = '/themes/janeswalk/images';
+
 const Grid = [{
   lg: 12,
   md: 16,
@@ -20,6 +22,20 @@ const Grid = [{
 // Add the sides to get our full width
 const Full = Object.keys(Grid[0]).reduce((a, e) => ({ ...a, [e]: Grid[0][e] + Grid[1][e] }), {});
 
+export const Welcome = {
+  Main: {
+    type: 'flex',
+    justify: 'space-around',
+    align: 'middle',
+    style: {
+      minHeight: '75vh',
+      backgroundImage: `url(${imgDir}/cityscape.svg)`,
+      backgroundPosition: 'center bottom',
+      backgroundRepeat: 'no-repeat',
+    },
+  },
+  Content: { lg: 12, md: 16, xs: 19 },
+};
 
 export default {
   Grid,

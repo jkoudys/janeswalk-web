@@ -81,7 +81,7 @@ export default class WalkBuilder extends Component {
 
     const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
 
-    return ce('main', {},
+    return ce('main', { className: 'WalkBuilder' },
       ce(Row, { type: 'flex', justify: 'center' },
         ce(Col, Layout.Full,
           ce(Welcome, { name: t`Save the Date!`, cityOrganizer, title, firstTime, handleChangeTitle, handleChangeDate })
@@ -102,11 +102,7 @@ export default class WalkBuilder extends Component {
         ce(AddDates, { name: t`Set the Date` }),
         ce(Accessibility, { name: t`Accessibility` }),
         ce(Team, { name: t`Create Your Team` }),
-      ),
-      ce(Row, { type: 'flex', justify: 'center' },
-        ce(Col, Layout.Full,
-          lastWord
-        )
+        lastWord,
       )
     );
   }
