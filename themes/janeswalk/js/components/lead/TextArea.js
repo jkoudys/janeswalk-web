@@ -10,9 +10,9 @@ import { createElement as ce } from 'react';
 import { Input } from 'antd';
 
 const TextArea = ({ maxLength, value = '', ...props }) => (
-  ce('div', {},
+  ce('div', { className: 'TextArea' },
     ce(Input, { type: 'textarea', maxLength, value, ...props }),
-    ce('span', {}, maxLength - value.length)
+    ce('span', { className: 'TextArea__count' }, maxLength - value.length)
   )
 );
 

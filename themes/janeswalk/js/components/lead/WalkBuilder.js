@@ -23,7 +23,7 @@ import DontForget from './DontForget';
 import Layout from '../../constants/Layout';
 
 import { createElement as ce, Component } from 'react';
-import { Row, Col } from 'antd';
+import { Form, Row, Col } from 'antd';
 const { create, assign } = Object;
 
 const buildState = () => ({
@@ -81,7 +81,7 @@ export default class WalkBuilder extends Component {
 
     const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
 
-    return ce('main', { className: 'WalkBuilder' },
+    return ce(Form, { className: 'WalkBuilder' },
       ce(Row, { type: 'flex', justify: 'center' },
         ce(Col, Layout.Full,
           ce(Welcome, { name: t`Save the Date!`, cityOrganizer, title, firstTime, handleChangeTitle, handleChangeDate })

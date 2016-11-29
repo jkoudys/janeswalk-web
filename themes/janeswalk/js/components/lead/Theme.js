@@ -13,12 +13,14 @@ import { Row, Col, Form, Tag } from 'antd';
 const Theme = ({ id, name, order }) => (
   ce('section', { id },
     ce('h1', {}, name),
-    ce('h2', {}, t`Choose up to ${3}`),
     ce(Row, {},
-      ce(Form.Item, {}, Object.entries(themeIcons).map(([key, { name, icon }]) => ce(Col, {
+      ce(Form.Item, {
+        label: t`Choose up to ${3}`,
+      }, Object.entries(themeIcons).map(([key, { name, icon }]) => ce(Col, {
+        key: `theme${key}`,
         xs: 8,
-        md: 6,
-        lg: 4,
+        sm: 6,
+        md: 4,
       }, ce(Tag.CheckableTag, { key },
           ce('i', { className: `fa fa-${icon}` }),
           trans(name)

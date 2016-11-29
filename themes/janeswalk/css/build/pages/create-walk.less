@@ -39,6 +39,18 @@ body[data-pageviewname=CreateWalkView] {
     opacity: 0.9;
     font-size: 12px;
   }
+  .TextArea {
+    display: block;
+    position: relative;
+  }
+  .TextArea__count {
+    position: absolute;
+    right: 3px;
+    bottom: -6px;
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: @zindex-navbar;
+  }
 }
 
 #create-walk {
