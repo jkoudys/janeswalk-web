@@ -22,10 +22,15 @@ export default class RouteMap extends Component {
     setTimeout(() => {
       const gmap = new google.maps.Map(mapDiv, {
         center: { lat: -34.397, lng: 150.644 },
-        zoom: 10,
+        zoom: 12,
         center: new google.maps.LatLng(city.latlng[0], city.latlng[1]),
         scrollwheel: false,
         rotateControl: true,
+        scaleControl: true,
+        backgroundColor: '#d7f0fa',
+        mapTypeControl: false,
+        zoomControl: true,
+        mapTypeId: google.maps.MapTypeId.TERRAIN,
         mapTypeControlOptions: {
           mapTypeIds: [google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.SATELLITE],
         },
