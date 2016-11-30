@@ -5,6 +5,7 @@
  */
 /* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import TextArea from './TextArea';
 import { createElement as ce } from 'react';
 import { Form, Input, Upload, Icon } from 'antd';
@@ -29,6 +30,7 @@ const WalkDetails = ({
         value: title,
         onChange: changeTitle,
         addonBefore: ce('span', {}, 'T'),
+        onKeyPress: kbJump,
       }),
       t`Something short and memorable`
     ),
@@ -56,6 +58,7 @@ const WalkDetails = ({
         rows: 2,
         value: shortDescription,
         onChange: changeShortDescription,
+        onKeyPress: kbJump,
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
       }),
       ce('p', {}, t`Build intrigue! This is what people see when browsing our Walk listings.`)
@@ -68,6 +71,7 @@ const WalkDetails = ({
           rows: 6,
           value: longDescription,
           onChange: changeLongDescription,
+          onKeyPress: kbJump,
           addonBefore: ce('i', { className: 'fa fa-align-left' }),
         })
       ),

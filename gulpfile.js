@@ -80,7 +80,7 @@ gulp.task('js.blocks', () => {
 
 gulp.task('js.global', () => {
   webpack({
-    entry: ['babel-polyfill', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/sticky.js', './js/shims.js', './js/jwobject.js'],
+    entry: ['babel-polyfill', 'element-closest', 'whatwg-fetch', 'intl', 'intl/locale-data/jsonp/en.js', './js/sticky.js', './js/shims.js', './js/jwobject.js'],
     output: {
       path: './js',
       filename: 'jwglobal.js',

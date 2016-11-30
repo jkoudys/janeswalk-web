@@ -71,6 +71,7 @@ export default class WalkBuilder extends Component {
     } = this.state;
     const {
       city: { cityOrganizer },
+      city,
     } = this.props;
     const {
       changeTitle,
@@ -98,7 +99,7 @@ export default class WalkBuilder extends Component {
           changeShortDescription,
         }),
         ce(Theme, { name: t`Themes` }),
-        ce(RouteBuilder, { name: t`Share Your Route` }),
+        ce(RouteBuilder, { name: t`Share Your Route`, city }),
         ce(AddDates, { name: t`Set the Date` }),
         ce(Accessibility, { name: t`Accessibility` }),
         ce(Team, { name: t`Create Your Team` }),

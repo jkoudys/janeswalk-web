@@ -3,14 +3,19 @@
  *
  * Make a map!
  */
-/* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
+import { Form } from 'antd';
+import SocialShare from './SocialShare';
+import RouteMap from './RouteMap';
 
-const RouteBuilder = ({ id, name }) => (
+const RouteBuilder = ({ id, name, city }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
-    ce('h2', {}, t`[Route Builder]`)
+    ce(Form.Item, {},
+      ce(SocialShare),
+    ),
+    ce(RouteMap, { city }),
   )
 );
 

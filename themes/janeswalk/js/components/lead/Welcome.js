@@ -13,7 +13,7 @@ import { Welcome as Layout } from '../../constants/Layout';
 
 const techEmail = 'tech@janeswalk.org';
 
-const Welcome = ({ name, cityOrganizer: { firstName, lastName, email }, title, handleChangeTitle, date, handleChangeDate }) => (
+const Welcome = ({ name, cityOrganizer: { firstName, lastName, email }, title, changeTitle, date, changeDate }) => (
   ce('section', { className: 'Lead__Welcome' },
     ce(Row, Layout.Main,
       ce(Col),
@@ -21,8 +21,8 @@ const Welcome = ({ name, cityOrganizer: { firstName, lastName, email }, title, h
         ce('h1', {}, name),
         ce('p', {}, t`Start by picking a name and meeting time for your Walk.`),
         ce('div', {},
-          ce(Input, { placeholder: t`The name of my walk`, value: title, onChange: handleChangeTitle }),
-          ce(DatePicker, { format: 'LL', date, handleChangeDate, style: { marginTop: '12px' } })
+          ce(Input, { placeholder: t`The name of my walk`, value: title, onChange: changeTitle }),
+          ce(DatePicker, { format: 'LL', date, onChange: changeDate, style: { marginTop: '12px' } })
         ),
       ),
       ce(Col),
