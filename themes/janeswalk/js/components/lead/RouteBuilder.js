@@ -10,7 +10,7 @@ import { createElement as ce } from 'react';
 const RouteBuilder = ({ id, name }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
-    ce('h2', {}, t`Choose up to ${3}`)
+    ce('h2', {}, t`[Route Builder]`)
   )
 );
 
