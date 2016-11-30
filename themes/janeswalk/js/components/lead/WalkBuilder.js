@@ -37,11 +37,11 @@ export default class WalkBuilder extends Component {
     assign(this, {
       state: { menuOptions: [], ...buildState() },
       onChange: () => this.setState(buildState),
-      menuOptions: [],
-      addToMenu: ({ node, title }) => this.menuOptions.push({ node, title }),
-      handleChangeTitle: ({ target: { value } }) => WBA.setTitle(value),
-      handleChangeLongDescription: ({ target: { value } }) => WBA.setLongDescription(value),
-      handleChangeShortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
+      handlers: {
+        changeTitle: ({ target: { value } }) => WBA.setTitle(value),
+        changeLongDescription: ({ target: { value } }) => WBA.setLongDescription(value),
+        changeShortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
+      },
     });
   }
 
@@ -73,18 +73,18 @@ export default class WalkBuilder extends Component {
       city: { cityOrganizer },
     } = this.props;
     const {
-      handleChangeTitle,
-      handleChangeLongDescription,
-      handleChangeShortDescription,
-      handleChangeDate,
-    } = this;
+      changeTitle,
+      changeLongDescription,
+      changeShortDescription,
+      changeDate,
+    } = this.handlers;
 
     const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
 
     return ce(Form, { className: 'WalkBuilder' },
       ce(Row, { type: 'flex', justify: 'center' },
         ce(Col, Layout.Full,
-          ce(Welcome, { name: t`Save the Date!`, cityOrganizer, title, firstTime, handleChangeTitle, handleChangeDate })
+          ce(Welcome, { name: t`Save the Date!`, cityOrganizer, title, firstTime, changeTitle, changeDate })
         )
       ),
       ce(Navigator, { menuOptions },
@@ -93,9 +93,9 @@ export default class WalkBuilder extends Component {
           title,
           longDescription,
           shortDescription,
-          handleChangeTitle,
-          handleChangeLongDescription,
-          handleChangeShortDescription,
+          changeTitle,
+          changeLongDescription,
+          changeShortDescription,
         }),
         ce(Theme, { name: t`Themes` }),
         ce(RouteBuilder, { name: t`Share Your Route` }),

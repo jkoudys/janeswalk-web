@@ -16,9 +16,9 @@ const WalkDetails = ({
   title,
   shortDescription,
   longDescription,
-  handleChangeTitle,
-  handleChangeShortDescription,
-  handleChangeLongDescription,
+  changeTitle,
+  changeShortDescription,
+  changeLongDescription,
 }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
@@ -27,7 +27,7 @@ const WalkDetails = ({
         type: 'text',
         placeholder: t`Walk Title`,
         value: title,
-        onChange: handleChangeTitle,
+        onChange: changeTitle,
         addonBefore: ce('span', {}, 'T'),
       }),
       t`Something short and memorable`
@@ -55,7 +55,7 @@ const WalkDetails = ({
         maxLength: 140,
         rows: 2,
         value: shortDescription,
-        onChange: handleChangeShortDescription,
+        onChange: changeShortDescription,
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
       }),
       ce('p', {}, t`Build intrigue! This is what people see when browsing our Walk listings.`)
@@ -67,7 +67,7 @@ const WalkDetails = ({
           maxLength: 300,
           rows: 6,
           value: longDescription,
-          onChange: handleChangeLongDescription,
+          onChange: changeLongDescription,
           addonBefore: ce('i', { className: 'fa fa-align-left' }),
         })
       ),
