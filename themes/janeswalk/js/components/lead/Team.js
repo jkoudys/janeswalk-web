@@ -7,7 +7,7 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
 
-const Team = ({ id, name }) => ce('section', { id },
+const Team = ({ id, name }) => ce('section', { id, className: 'Lead__Option' },
   ce('h1', {}, name)
 );
 

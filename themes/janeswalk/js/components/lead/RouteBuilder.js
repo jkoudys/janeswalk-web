@@ -8,7 +8,7 @@ import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
 
 const RouteBuilder = ({ id, name }) => (
-  ce('section', { id },
+  ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
     ce('h2', {}, t`Choose up to ${3}`)
   )

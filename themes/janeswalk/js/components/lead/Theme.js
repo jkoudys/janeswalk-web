@@ -11,7 +11,7 @@ import { createElement as ce } from 'react';
 import { Row, Col, Form, Tag } from 'antd';
 
 const Theme = ({ id, name, order }) => (
-  ce('section', { id },
+  ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
     ce(Row, {},
       ce(Form.Item, {

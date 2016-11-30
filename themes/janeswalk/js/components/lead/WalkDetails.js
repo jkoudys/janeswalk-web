@@ -20,7 +20,7 @@ const WalkDetails = ({
   handleChangeShortDescription,
   handleChangeLongDescription,
 }) => (
-  ce('section', { id },
+  ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
     ce(Form.Item, {},
       ce(Input, {
