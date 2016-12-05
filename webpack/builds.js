@@ -37,8 +37,7 @@ const prod = Object.assign({}, base, {
     path: paths.js,
     filename: 'janeswalk.min.js',
   },
-  plugins: [
-    ...base.plugins,
+  plugins: base.plugins.concat([
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
@@ -46,7 +45,7 @@ const prod = Object.assign({}, base, {
     }),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin(),
-  ],
+  ]),
 });
 
 const dev = Object.assign({}, base, {

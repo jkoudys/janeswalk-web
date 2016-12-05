@@ -5,6 +5,9 @@
  * miscellaneous functions, and especially not a place to stick new global
  * variables.
  */
+import { createElement as ce } from 'react';
+import ReactDOM from 'react-dom';
+
 // Translations for i18n L10n
 import { getTranslations } from 'janeswalk/utils/I18nUtils';
 import * as AreaActions from 'janeswalk/actions/AreaActions';
@@ -22,18 +25,14 @@ import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
 
 // React Views
 import Navbar from './components/Navbar.jsx';
-import WalkBuilder from './components/lead/WalkBuilder';
-import CreateWalk from './components/CreateWalk.jsx';
-import Walk from './components/pages/Walk.jsx';
+import WalkBuilder from './components/WalkBuilder';
+import Walk from './components/pages/Walk';
 import Dashboard from './components/pages/Dashboard.jsx';
 
 // load modals
 import Login from './components/Login.jsx';
 
 import initKeyEvents from './helpers/keyevents';
-
-import { createElement as ce } from 'react';
-import ReactDOM from 'react-dom';
 
 const { startups, event } = window.JanesWalk;
 
@@ -88,12 +87,12 @@ function addRenderListeners() {
 
   // Create a walk
   event.on('caw.load', () => {
-    const { walk, walk: { data, url }, form: { valt }, city, user } = JanesWalk;
+    const { walk, walk: { url }, form: { valt }, city, user } = JanesWalk;
 
     receiveWalkForBuilder(walk);
 
     ReactDOM.render(
-       ce(CreateWalk, { walk, data, url, valt, city, user }),
+       ce(WalkBuilder, { url, valt, city, user }),
        document.getElementById('page')
     );
   });

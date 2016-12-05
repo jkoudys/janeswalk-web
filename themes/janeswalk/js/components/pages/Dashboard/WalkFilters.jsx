@@ -1,4 +1,4 @@
-/* global React */
+import React, { createElement as ce } from 'react';
 // TODO*: Refactoring Components, WalksFilter is not doing much
 
 const Filter = ({ name, handle, toggleFilter, removeFilter, options, filters }) => {
@@ -27,24 +27,18 @@ const Filter = ({ name, handle, toggleFilter, removeFilter, options, filters }) 
   );
 };
 
-const WalkFilters = ({ filters, allFilters, removeFilter, toggleFilter }) => {
-  const Filters = Object.keys(filters).map(
-    key => <Filter
-      key={key}
-      handle={key}
-      options={filters[key].data}
-      filters={filters}
-      allFilters={allFilters}
-      toggleFilter={v => toggleFilter(key, v)}
-      removeFilter={v => removeFilter(key, v)}
-    />
-  );
-
-  return (
-    <div className="walksFilter">
-      {Filters}
-    </div>
-  );
-};
+const WalkFilters = ({ filters, allFilters, removeFilter, toggleFilter }) => (
+  ce('div', { className: 'walksFilter' }, Object.entries(filters).map(([key, filter]) => (
+   ce(Filter, {
+     key,
+     handle: key,
+     options: filter.data,
+     filters,
+     allFilters,
+     toggleFilter: v => toggleFilter(key, v),
+     removeFilter: v => removeFilter(key, v),
+   })
+  )))
+);
 
 export default WalkFilters;
