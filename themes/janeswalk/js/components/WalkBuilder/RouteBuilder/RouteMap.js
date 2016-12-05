@@ -8,10 +8,6 @@
 import { createElement as ce, Component } from 'react';
 
 export default class RouteMap extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     // Render the gmap
     // Calling this 'mapDiv' to align with google maps api reference
@@ -21,7 +17,6 @@ export default class RouteMap extends Component {
     // The div renders after this step, so we need to defer the gmaps render
     setTimeout(() => {
       const gmap = new google.maps.Map(mapDiv, {
-        center: { lat: -34.397, lng: 150.644 },
         zoom: 12,
         center: new google.maps.LatLng(city.latlng[0], city.latlng[1]),
         scrollwheel: false,
@@ -50,7 +45,7 @@ export default class RouteMap extends Component {
           width: '100%',
           height: `${window.innerHeight * 0.6}px`,
         },
-      }),
+      })
     );
   }
 }

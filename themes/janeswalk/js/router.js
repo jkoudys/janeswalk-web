@@ -96,7 +96,7 @@ function addRenderListeners() {
     receiveWalkForBuilder(walk);
 
     ReactDOM.render(
-       ce(LocaleProvider, { locale }, ce(WalkBuilder, { walk, data, url, valt, city, user })),
+       ce(LocaleProvider, { locale }, ce(WalkBuilder, { url, valt, city, user })),
        document.getElementById('page')
     );
   });
