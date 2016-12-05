@@ -7,10 +7,12 @@
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
 
-const TextArea = ({ maxLength, value = '' }) => (
-  ce('div', {},
-    ce('textarea', { maxLength, value }),
-    ce('span', {}, maxLength - value.length)
+import { Input } from 'antd';
+
+const TextArea = ({ maxLength, value = '', ...props }) => (
+  ce('div', { className: 'TextArea' },
+    ce(Input, { type: 'textarea', maxLength, value, ...props }),
+    ce('span', { className: 'TextArea__count' }, maxLength - value.length)
   )
 );
 

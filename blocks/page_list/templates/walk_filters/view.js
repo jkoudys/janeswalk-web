@@ -2010,28 +2010,28 @@
 	          return f.type === 'Feature' && f.geometry.type === 'Point';
 	        });
 
-	        var _features$find = features.find(function (f) {
+	        var _ref3 = features.find(function (f) {
 	          return f.type === 'Feature' && f.geometry.type === 'LineString';
-	        });
+	        }) || {};
 
-	        var _features$find$geomet = _features$find.geometry;
-	        _features$find$geomet = _features$find$geomet === undefined ? {} : _features$find$geomet;
-	        var _features$find$geomet2 = _features$find$geomet.coordinates;
-	        var route = _features$find$geomet2 === undefined ? [] : _features$find$geomet2;
+	        var _ref3$geometry = _ref3.geometry;
+	        _ref3$geometry = _ref3$geometry === undefined ? {} : _ref3$geometry;
+	        var _ref3$geometry$coordi = _ref3$geometry.coordinates;
+	        var route = _ref3$geometry$coordi === undefined ? [] : _ref3$geometry$coordi;
 
 	        // Grab either the first stop or route point
 
-	        var _ref3 = [].concat(_toConsumableArray(points.map(function (m) {
+	        var _ref4 = [].concat(_toConsumableArray(points.map(function (m) {
 	          return m.geometry.coordinates;
 	        })), _toConsumableArray(route));
 
-	        var _ref3$ = _ref3[0];
-	        _ref3$ = _ref3$ === undefined ? [] : _ref3$;
+	        var _ref4$ = _ref4[0];
+	        _ref4$ = _ref4$ === undefined ? [] : _ref4$;
 
-	        var _ref3$2 = _slicedToArray(_ref3$, 2);
+	        var _ref4$2 = _slicedToArray(_ref4$, 2);
 
-	        var lng = _ref3$2[0];
-	        var lat = _ref3$2[1];
+	        var lng = _ref4$2[0];
+	        var lat = _ref4$2[1];
 
 	        if (lat && lng) {
 	          // We must build a marker

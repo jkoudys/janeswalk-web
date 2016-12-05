@@ -2,28 +2,27 @@
 /**
 *
 * Responsible for geocoding the cities to lookup their lat/lng
-*/
+ */
 
-defined('C5_EXECUTE') or die("Access Denied.");
 class GeocodeCities extends Job {
-  public $jNotUninstallable=0;
+  public $jNotUninstallable = 0;
 
-  public function getJobName() {
+  public function getJobName(): string {
     return t("Geocode City Locations");
   }
 
-  public function getJobDescription() {
+  public function getJobDescription(): string {
     return t("Runs through all cities and uses a geocoding API to set the latlng attribute of each, based on {City Name}, {Country}");
   }
 
-  public function run() {
+  public function run(): string {
     $js = Loader::helper('json');
     $pl = new PageList();
     $pl->filterByCollectionTypeHandle('city');
     $pages = $pl->get();
     $updated = 0;
     $not = 0;
-    echo "Loading city coordinates.. \n";
+
     foreach($pages as $page) {
       if(!(trim($page->getAttribute('latlng'))) || trim($page->getAttribute('latlng')) === ',' ) {
         $parent = Page::getByID($page->getCollectionParentID());

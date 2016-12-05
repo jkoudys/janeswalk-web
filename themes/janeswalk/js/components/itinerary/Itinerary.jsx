@@ -1,4 +1,4 @@
-/* global React ReactDOM $ */
+/* global jQuery */
 
 import ItineraryStore from 'janeswalk/stores/ItineraryStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
@@ -15,6 +15,8 @@ const getItinerary = (list = [...ItineraryStore.getLists()][0]) => ({
   schedule: ItineraryStore.getSchedule(),
 });
 
+import React from 'react';
+
 const formatICSDateTime = d => `${d.getUTCFullYear()}${('0' + (d.getUTCMonth() + 1)).slice(-2)}${d.getUTCDate()}T${d.getUTCHours()}${d.getUTCMinutes()}00`;
 
 
@@ -24,7 +26,8 @@ export default class Itinerary extends React.Component {
     Object.assign(this, {
       state: Object.assign({}, getItinerary(), props.itinerary),
       _onChange: () => this.setState(() => getItinerary(this.state.activeList)),
-      handleHide: () => this.state.$el.modal('hide'),
+      _loadRef: node => Object.assign(this, { $el: jQuery(node) }),
+      handleHide: () => this.$el.modal('hide'),
       handleChooseItinerary: list => this.setState({ activeList: list }),
       handleChangeTitle: v => Actions.updateTitle(this.state.activeList, v),
       handleChangeDescription: v => Actions.updateDescription(this.state.activeList, v),
@@ -76,11 +79,8 @@ END:VCALENDAR`;
   }
 
   componentDidMount() {
-    const $el = $(ReactDOM.findDOMNode(this));
-    $el.modal();
-    $el.on('hidden.bs.modal', () => this.props.onClose());
-
-    this.setState({ $el });
+    this.$el.modal();
+    this.$el.on('hidden.bs.modal', () => this.props.onClose());
   }
 
   componentWillUnmount() {
@@ -112,7 +112,7 @@ END:VCALENDAR`;
     });
 
     return (
-      <dialog open>
+      <dialog ref={this._loadRef} open>
         <section id="itinerary">
           <i className="close fa fa-times" onClick={this.handleHide} />
           <ItinerarySelect

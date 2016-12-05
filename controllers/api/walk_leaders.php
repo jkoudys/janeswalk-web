@@ -58,16 +58,16 @@ class ApiWalkLeadersController extends Controller
 
     public function isPut()
     {
-        return $_SERVER['REQUEST_METHOD'] == 'PUT';
+        return $_SERVER['REQUEST_METHOD'] === 'PUT';
     }
 
     public function isGet()
     {
-        return $_SERVER['REQUEST_METHOD'] == 'GET';
+        return $_SERVER['REQUEST_METHOD'] === 'GET';
     }
 
     public function isDelete()
     {
-        return $_SERVER['REQUEST_METHOD'] == 'DELETE';
+        return $_SERVER['REQUEST_METHOD'] === 'DELETE';
     }
 }

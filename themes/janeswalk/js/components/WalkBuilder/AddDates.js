@@ -6,13 +6,16 @@
 /* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import DatePicker from './DatePicker';
-import FieldSet from './FieldSet';
 
 import { createElement as ce } from 'react';
+
+import { Form } from 'antd';
 
 const halfHour = 30 * 60 * 1000;
 
 const AddDates = ({
+  id,
+  name,
   order,
   title = 'Your walk',
   slots = [],
@@ -28,16 +31,18 @@ const AddDates = ({
   ];
 
   return (
-    ce('section', {},
-      ce('h1', {}, `${order}. `, t`Set the Date`),
-      ce(FieldSet, {},
-        ce('p', {}, t`${title} will happen on`),
+    ce('section', { id, className: 'Lead__Option' },
+      ce('h1', {}, name),
+      ce(Form.Item, {
+        label: t`${title} will happen on`,
+      },
         slots.map(slot => ce(DatePicker, { slot }))
-        ),
-      ce(FieldSet, {},
-        ce('legend', {}, t`How long is your walk, approximately?`),
+      ),
+      ce(Form.Item, {
+        label: t`How long is your walk, approximately?`,
+      },
         ce('select', { name: 'duration' },
-          durations.map(([value, text]) => ce('option', { value }, text))
+          durations.map(([value, text]) => ce('option', { key: value, value }, text))
         )
       )
     )

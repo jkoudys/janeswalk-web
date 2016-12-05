@@ -1,4 +1,5 @@
 import {t} from 'janeswalk/stores/I18nStore';
+import React from 'react';
 
 const ItineraryHeader = ({list, onChangeTitle, onChangeDescription}) => (
   <header className="itineraryHeader">

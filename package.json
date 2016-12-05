@@ -46,8 +46,13 @@
     "whatwg-fetch": "^0.11.0"
   },
   "dependencies": {
+    "antd": "*",
+    "babel-plugin-import": "^1.1.0",
+    "closest": "0.0.1",
+    "element-closest": "^2.0.2",
     "extract-text-webpack-plugin": "^1.0.1",
     "janeswalk": "*",
+    "jump.js": "^1.0.1",
     "moment": "^2.16.0",
     "postcss-loader": "^0.13.0",
     "precss": "^1.4.0",

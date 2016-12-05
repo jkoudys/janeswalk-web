@@ -131,7 +131,7 @@ class Walk extends \Model implements \JsonSerializable
      * Validate and format as geojson features
      * @return array
      */
-    protected function formatAsFeatures(array $map)
+    protected function formatAsFeatures(array $map): array
     {
         // Map the old-style ad-hoc format to a geojson features array
         if (array_key_exists('markers', $map)) {
@@ -148,16 +148,18 @@ class Walk extends \Model implements \JsonSerializable
                     ],
                 ];
             }, $map['markers']);
-            $features[] = [
-                'type' => 'Feature',
-                'geometry' => [
-                    'type' => 'LineString',
-                    'coordinates' => array_map(function ($point) {
-                        return [$point['lng'], $point['lat']];
-                    }, (array) $map['route']),
-                ],
-                'properties' => ['title' => 'Walk route'],
-            ];
+            if (count($map['route'])) {
+                $features[] = [
+                    'type' => 'Feature',
+                    'geometry' => [
+                        'type' => 'LineString',
+                        'coordinates' => array_map(function ($point) {
+                            return [$point['lng'], $point['lat']];
+                        }, $map['route']),
+                    ],
+                    'properties' => ['title' => 'Walk route'],
+                ];
+            }
             return $features;
         }
 
@@ -171,7 +173,7 @@ class Walk extends \Model implements \JsonSerializable
      * Apart from caching, there must be no side effects.
      *
      */
-    public function __get($name)
+    public function __get(string $name)
     {
         /* One big switch for all the get names */
         switch ($name) {
@@ -305,7 +307,7 @@ class Walk extends \Model implements \JsonSerializable
      *
      * @return String
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->title;
     }
@@ -322,7 +324,7 @@ class Walk extends \Model implements \JsonSerializable
      * TODO: this should update its properties first, then implement a save()
      * method to persist the changes (eg pattern of Models in Rails)
      */
-    public function setJson($json)
+    public function setJson(string $json): bool
     {
         $postArray = json_decode($json, true);
         // TODO on 5.7, no more adodb, so rewrite transactions here
@@ -383,7 +385,7 @@ class Walk extends \Model implements \JsonSerializable
      *
      * @return Array
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $im = new ImageHelper();
         $nh = new NavigationHelper();
@@ -442,7 +444,7 @@ class Walk extends \Model implements \JsonSerializable
      *
      * @return DOMDocument
      */
-    public function kmlSerialize()
+    public function kmlSerialize(): DOMDocument
     {
         $fh = new FileHelper();
         // Creates the Document.
@@ -477,55 +479,11 @@ class Walk extends \Model implements \JsonSerializable
     }
 
     /**
-     * Serialize the v2 json's ad-hoc format into standard geoJson
-     *
-     * @return array
-     */
-    public function geoJsonSerialize()
-    {
-        return [
-            'type' => 'FeatureCollection',
-            'features' => array_merge(
-                array_map(
-                    function ($marker) {
-                        return [
-                            'type' => 'Feature',
-                            'geometry' => [
-                                'type' => 'Point',
-                                'coordinates' => [$marker['lng'], $marker['lat']]
-                            ],
-                            'properties' => [
-                                'title' => $marker['title'],
-                                'description' => $marker['description']
-                            ]
-                        ];
-                    },
-                    $this->map['markers']
-                ),
-                [
-                    [
-                        'type' => 'Feature',
-                        'geometry' => [
-                            'type' => 'LineString',
-                            'coordinates' => array_map(
-                                function ($point) {
-                                    return [$point['lng'], $point['lat']];
-                                },
-                                $this->map['route'] ?: $this->map['markers']
-                            ),
-                        ]
-                    ]
-                ]
-            ),
-        ];
-    }
-
-    /**
      * Returns a page object for this walk. Keeping $page protected as we may want some logic around this later
      *
      * @return Page
      */
-    public function getPage()
+    public function getPage(): Page
     {
         return $this->page;
     }
@@ -535,7 +493,7 @@ class Walk extends \Model implements \JsonSerializable
      *
      * @return string Time zone abbreviation
      */
-    public function getTimezone()
+    public function getTimezone(): string
     {
         // TODO: Grab the timezone by checking the 'timezone' attribute recursively
         return 'EST';

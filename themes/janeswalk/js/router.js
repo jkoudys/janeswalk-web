@@ -34,9 +34,13 @@ import Login from './components/Login.jsx';
 
 import initKeyEvents from './helpers/keyevents';
 
+import { LocaleProvider } from 'antd';
+import locale from 'antd/lib/locale-provider/en_US';
+
 const { startups, event } = window.JanesWalk;
 
 // Use the main sitewide theme. TODO: componetize this as we go, and drop LESS for css (via cssnext)
+require('antd/dist/antd.css');
 require('../css/main.less');
 
 // Render the sitewide elements
@@ -72,7 +76,7 @@ function addRenderListeners() {
   event.on('walkpage.load', ({ walk, city, canEdit }) => {
     WalkActions.receive(walk);
     ReactDOM.render(
-      ce(Walk, { city, page: JanesWalk.page, walk, canEdit }),
+      ce(LocaleProvider, { locale }, ce(Walk, { city, page: JanesWalk.page, walk, canEdit })),
       document.getElementById('page')
     );
   });
@@ -92,7 +96,7 @@ function addRenderListeners() {
     receiveWalkForBuilder(walk);
 
     ReactDOM.render(
-       ce(WalkBuilder, { url, valt, city, user }),
+       ce(LocaleProvider, { locale }, ce(WalkBuilder, { walk, data, url, valt, city, user })),
        document.getElementById('page')
     );
   });

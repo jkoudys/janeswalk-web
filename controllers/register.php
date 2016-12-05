@@ -17,11 +17,7 @@ class RegisterController extends Concrete5_Controller_Register
         $u = new User();
         $this->set('u', $u);
 
-        if (USER_REGISTRATION_WITH_EMAIL_ADDRESS) {
-            $this->set('displayUserName', false);
-        } else {
-            $this->set('displayUserName', true);
-        }
+        $this->set('displayUserName', (bool) USER_REGISTRATION_WITH_EMAIL_ADDRESS);
     }
 
     /**
@@ -238,7 +234,7 @@ class RegisterController extends Concrete5_Controller_Register
         }
     }
 
-    public function getRegisterSuccessValidateMsgs()
+    public function getRegisterSuccessValidateMsgs(): array
     {
         return [
             t('Awesome! Welcome to Jane\'s Walk. We\'re looking forward to seeing what kind of conversation you plan to stir up with your walk.'),

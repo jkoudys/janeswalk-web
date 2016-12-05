@@ -6,6 +6,7 @@ import I18nStore from 'janeswalk/stores/I18nStore.js';
 import UserStore from 'janeswalk/stores/UserStore';
 import * as Action from 'janeswalk/actions/ItineraryActions';
 
+import { Affix } from 'antd';
 import Header from './Header';
 import Description from './Description';
 import Route from './Route';
@@ -16,6 +17,8 @@ import Accessibility from './Accessibility';
 import Team from './Team';
 import Menu from './Menu';
 import WalkMap from './Map';
+
+import Layout from '../../../constants/Layout';
 
 const getWalk = ({ walk, page, city }) => {
   const [firstList] = ItineraryStore.getLists();
@@ -98,7 +101,7 @@ export default class WalkPage extends Component {
           onAdd: this.handleAdd,
           onRemove: this.handleRemove,
         }),
-        ce(Menu, this.state),
+        ce(Affix, { offsetTop: Layout.Nav.height - Layout.Nav.pad }, ce(Menu, this.state)),
         ce(Description, walk),
         hasMarkers ? ce(WalkMap, { features }) : null,
         hasMarkers ? [

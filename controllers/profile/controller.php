@@ -21,7 +21,7 @@ class ProfileController extends Concrete5_Controller_Profile
      * @param int $userID The user ID of who we're viewing
      * @return null
      */
-    public function view($userID = null)
+    public function view(int $userID = null)
     {
         parent::view($userID);
 
@@ -92,7 +92,7 @@ class ProfileController extends Concrete5_Controller_Profile
         // walks: all the walks owned by the profile user
     }
 
-    private static function getUsersInCity($cID)
+    private static function getUsersInCity(int $cID): array
     {
         $cityUsers = [];
 
@@ -124,7 +124,7 @@ class ProfileController extends Concrete5_Controller_Profile
     /**
      * Itineraries service endpoint
      */
-    public function itineraries($userID = null)
+    public function itineraries(int $userID = null)
     {
         $u = new User();
         $ui = UserInfo::getByID($userID ?: $u->getUserID());
@@ -152,7 +152,7 @@ class ProfileController extends Concrete5_Controller_Profile
     /**
      * Export a CSV of the city's walks
      */
-    public function exportCity($cityID = null)
+    public function exportCity(int $cityID = null)
     {
         $exporter = new CityExporter(Page::getByID($cityID));
         $exporter->renderWalkCSV();
@@ -161,7 +161,7 @@ class ProfileController extends Concrete5_Controller_Profile
     /**
      * Export a CSV of the city's "I'm going!" people
      */
-    public function exportInterest($cityID = null)
+    public function exportInterest(int $cityID = null)
     {
         $exporter = new InterestExporter(Page::getByID($cityID));
         $exporter->renderCSV();
@@ -172,7 +172,7 @@ class ProfileController extends Concrete5_Controller_Profile
      *
      * @param int $cID The city page we're changing the owner for
      */
-    public function removeSelfAsCO($cID = null)
+    public function removeSelfAsCO(int $cID = null)
     {
         // The active user
         $u = new User();

@@ -20,12 +20,15 @@ import Team from './Team';
 import Finished from './Finished';
 import DontForget from './DontForget';
 
+import Layout from '../../constants/Layout';
+
 import { createElement as ce, Component } from 'react';
+import { Form, Row, Col } from 'antd';
 const { create, assign } = Object;
 
 const buildState = () => ({
   ...WalkBuilderStore.getWalk(),
-  empty: WalkBuilderStore.getEmptyRequiredFields()
+  empty: WalkBuilderStore.getEmptyRequiredFields(),
 });
 
 export default class WalkBuilder extends Component {
@@ -34,11 +37,11 @@ export default class WalkBuilder extends Component {
     assign(this, {
       state: { menuOptions: [], ...buildState() },
       onChange: () => this.setState(buildState),
-      menuOptions: [],
-      addToMenu: ({ node, title }) => this.menuOptions.push({ node, title }),
-      handleChangeTitle: ({ target: { value } }) => WBA.setTitle(value),
-      handleChangeLongDescription: ({ target: { value } }) => WBA.setLongDescription(value),
-      handleChangeShortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
+      handlers: {
+        changeTitle: ({ target: { value } }) => WBA.setTitle(value),
+        changeLongDescription: ({ target: { value } }) => WBA.setLongDescription(value),
+        changeShortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
+      },
     });
   }
 
@@ -61,31 +64,47 @@ export default class WalkBuilder extends Component {
       menuOptions,
       empty,
       title,
+      shortDescription,
+      longDescription,
+      slots,
+      slots: [firstTime],
     } = this.state;
     const {
       city: { cityOrganizer },
+      city,
     } = this.props;
     const {
-      handleChangeTitle,
-    } = this;
+      changeTitle,
+      changeLongDescription,
+      changeShortDescription,
+      changeDate,
+    } = this.handlers;
 
     const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
 
-    return ce('main', {},
-      ce(Welcome, { cityOrganizer, title, handleChangeTitle }),
+    return ce(Form, { className: 'WalkBuilder' },
+      ce(Row, { type: 'flex', justify: 'center' },
+        ce(Col, Layout.Full,
+          ce(Welcome, { name: t`Save the Date!`, cityOrganizer, title, firstTime, changeTitle, changeDate })
+        )
+      ),
       ce(Navigator, { menuOptions },
         ce(WalkDetails, {
-          ref: node => this.addToMenu({ title: t`Walk Details`, node }),
+          name: t`Describe Your Walk`,
           title,
-          handleChangeTitle,
+          longDescription,
+          shortDescription,
+          changeTitle,
+          changeLongDescription,
+          changeShortDescription,
         }),
-        ce(Theme, { ref: node => this.addToMenu({ title: t`Theme`, node }) }),
-        ce(RouteBuilder, { ref: node => this.addToMenu({ title: t`Route`, node }) }),
-        ce(AddDates, { ref: node => this.addToMenu({ title: t`Add Dates`, node }) }),
-        ce(Accessibility, { ref: node => this.addToMenu({ title: t`Accessibility`, node }) }),
-        ce(Team, { ref: node => this.addToMenu({ title: t`Team`, node }) }),
-      ),
-      lastWord
+        ce(Theme, { name: t`Themes` }),
+        ce(RouteBuilder, { name: t`Share Your Route`, city }),
+        ce(AddDates, { name: t`Set the Date` }),
+        ce(Accessibility, { name: t`Accessibility` }),
+        ce(Team, { name: t`Create Your Team` }),
+        lastWord,
+      )
     );
   }
 }

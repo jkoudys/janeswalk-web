@@ -1,4 +1,4 @@
-/* global React */
+import React from 'react';
 
 const AddWalkToList = ({ lists, walk, list, onAdd, onRemove }) => {
   // selectedWalk comes from where

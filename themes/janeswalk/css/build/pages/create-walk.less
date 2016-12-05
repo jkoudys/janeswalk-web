@@ -10,6 +10,61 @@ body[data-pageviewname=CreateWalkView] {
   }
 }
 
+.WalkBuilder {
+  label {
+    display: block;
+  }
+  section {
+    .Lead__Option {
+      padding-top: @navbar-height + 10px;
+      > h1 {
+        margin-top: 0;
+      }
+    }
+    .ant-tag {
+      width: 100%;
+      overflow: auto;
+      height: initial;
+      padding: 5px;
+      text-align: center;
+      i.fa {
+        display: block;
+        text-align: center;
+        font-size: 24px;
+      }
+    }
+  }
+  .Lead__Welcome {
+    text-align: center;
+    h1 {
+      margin: 5px 0 0.2em 0;
+      font-size: 60px;
+      @media (max-width: @screen-xs-max) {
+        font-size: 38px;
+      }
+    }
+  }
+  .Lead__Welcome--Foot {
+    opacity: 0.9;
+    font-size: 12px;
+  }
+  .TextArea {
+    display: block;
+    position: relative;
+  }
+  .TextArea__count {
+    position: absolute;
+    right: 3px;
+    bottom: -6px;
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: @zindex-navbar;
+  }
+  .WalkDetails__Upload {
+    p { margin: 0; }
+  }
+}
+
 #create-walk {
     // Font resets
     h1 {

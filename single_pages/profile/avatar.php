@@ -1,4 +1,6 @@
-<?php  defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php
+$v = View::getInstance();
+?>
 <div id="ccm-profile-wrapper">
     <?php  Loader::element('profile/sidebar', array('profile'=> $ui)); ?>
     <div id="ccm-profile-body">
@@ -14,7 +16,7 @@
             </div>
             <?php  if ($ui->hasAvatar()) { ?>
 				<br/><br/>
-                <a href="<?php  echo $this->action('delete')?>"><?php  echo t('Remove your user avatar &gt;')?></a>
+                <a href="<?= $v->action('delete') ?>"><?= t('Remove your user avatar &gt;') ?></a>
 
             <?php  } ?>
 
@@ -22,8 +24,8 @@
 
             <script type="text/javascript">
            	ThumbnailBuilder_onSaveCompleted = function () {
-				alert("<?php  echo t('User Profile picture saved.')?>");
-				window.location.href="<?php  echo $this->url('/profile/avatar')?>";
+				alert("<?= t('User Profile picture saved.') ?>");
+				window.location.href="<?= $v->url('/profile/avatar') ?>";
 			};
 
            	/* <?php  /* flashvars - options for the avatar/thumb picker
@@ -49,12 +51,12 @@
                     quality:  "high"
                 };
 				var flashvars = {
-                    width: '<?php  echo AVATAR_WIDTH?>',
-                    height: '<?php  echo AVATAR_HEIGHT?>',
-                    image: '<?php  echo $av->getImagePath($ui)?>',
-                    save: "<?php  echo $this->url($c->getCollectionPath(), 'save_thumb')?>"
+                    width: '<?= AVATAR_WIDTH ?>',
+                    height: '<?= AVATAR_HEIGHT ?>',
+                    image: '<?= $av->getImagePath($ui) ?>',
+                    save: "<?= $v->url($c->getCollectionPath(), 'save_thumb') ?>"
                 };
-				swfobject.embedSWF ("<?php  echo ASSETS_URL_FLASH?>/thumbnail_editor_3.swf", "profile-avatar", "500", "400", "10,0,0,0", "includes/expressInstall.swf", flashvars, params);
+				swfobject.embedSWF ("<?= ASSETS_URL_FLASH ?>/thumbnail_editor_3.swf", "profile-avatar", "500", "400", "10,0,0,0", "includes/expressInstall.swf", flashvars, params);
 
            });
             </script>

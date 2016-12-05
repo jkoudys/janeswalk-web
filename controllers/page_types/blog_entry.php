@@ -34,7 +34,7 @@ class BlogEntryPageTypeController extends Controller
      *
      * @return array<Page>|null Set of other blogs the current user owns
      */
-    protected function getOtherBlogsOwned()
+    protected function getOtherBlogsOwned(): array
     {
         // Current user
         $u = new User();
@@ -52,7 +52,7 @@ class BlogEntryPageTypeController extends Controller
     /**
      * Re-blog, ie alias a blog entry under another blog
      */
-    public function reblog($targetCID = null)
+    public function reblog(int $targetCID = null)
     {
         if ($targetCID) {
             $blog = Page::getByID($targetCID);

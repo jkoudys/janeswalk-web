@@ -9,7 +9,7 @@
 
 class ThemeHelper
 {
-    private static $attributeIconMap = array(
+    private static $attributeIconMap = [
         'nature-naturelover' => 'bug',
         'nature-greenthumb' => 'leaf',
         'nature-petlover' => 'heart',
@@ -40,9 +40,9 @@ class ThemeHelper
         'civic-health' => 'medkit',
         'civic-nativeissues' => 'sun-o',
         'civic-gender' => 'unlock-alt'
-    );
+    ];
 
-    private static $attributeNameMap = array(
+    private static $attributeNameMap = [
         'nature-naturelover' => 'Nature',
         'nature-greenthumb' => 'Gardening',
         'nature-petlover' => 'Animals',
@@ -61,7 +61,7 @@ class ThemeHelper
         'civic-truecitizen' => 'Citizenry',
         'civic-goodneighbour' => 'Community',
 
-        // 
+        //
         'urban-sports' => 'Sports',
         'urban-play' => 'Play',
         'urban-film' => 'Film',
@@ -85,11 +85,11 @@ class ThemeHelper
         'uneven' => 'Uneven terrain',
         'busy' => 'Busy sidewalks',
         'bicyclesonly' => 'Bicycles only',
-        'lowlight' => 'Low light or nighttime',// Does this work?
+        'lowlight' => 'Low light or nighttime',
         'seniors' => 'Senior Friendly'
-    );
+    ];
 
-    public static function getAll($type = 'all')
+    public static function getAll(string $type = 'all'): array
     {
         if ($type === 'all') {
             return self::$attributeNameMap;
@@ -121,7 +121,7 @@ class ThemeHelper
      * @param string $type Which type of tag to return (e.g. theme, accessible)
      * @return array
      */ 
-    public static function getSelectOptions($type = 'all')
+    public static function getSelectOptions(string $type = 'all'): array
     {
         $options = array(); 
         $satc = new SelectAttributeTypeController(AttributeType::getByHandle('select'));
@@ -146,12 +146,12 @@ class ThemeHelper
         return $options;
     }
 
-    public static function getName($handle)
+    public static function getName(string $handle): string
     {
-        return self::$attributeNameMap[(string)$handle] ?: (string)$handle;
+        return self::$attributeNameMap[(string) $handle] ?: (string) $handle;
     }
 
-    public static function getIcon($handle)
+    public static function getIcon(string $handle): string
     {
         return '<i class="fa fa-' . self::getIconName($handle) . '"></i>';
     }
@@ -164,7 +164,7 @@ class ThemeHelper
      * @return DOMNode
      *
      */
-    public static function getIconElement($handle, DOMDocument $doc = null)
+    public static function getIconElement(string $handle, DOMDocument $doc = null): DOMNode
     {
         if ($doc) {
             $i = $doc->createElement('i');
@@ -180,8 +180,8 @@ class ThemeHelper
      *
      * @param string $handle The short, hyphen-separated lowercase handle
      */
-    public static function getIconName($handle)
+    public static function getIconName(string $handle): string
     {
-        return self::$attributeIconMap[(string)$handle];
+        return self::$attributeIconMap[(string) $handle];
     }
 }

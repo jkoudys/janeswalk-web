@@ -1,9 +1,10 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
-
 $bodyData = [];
 $bodyData['classes'][] = 'full';
-$this->controller->set('bodyData', $bodyData);
+$this->controller->set('bodyData', [
+    'classes' => ['full'],
+]);
+
 $this->inc('elements/header.php');
 $this->inc('elements/navbar.php'); ?>
   <div id="central" class="no-sidebar">

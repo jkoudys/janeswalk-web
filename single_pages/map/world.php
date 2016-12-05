@@ -1,5 +1,3 @@
-<?php  defined('C5_EXECUTE') || die('Access Denied.');
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -25,7 +23,7 @@ if (empty($cities)) {
         $pageOwner = UserInfo::getByID($pageOwnerID);
         $cityName = t($page->getCollectionName());
         $countryName = t($parent->getCollectionName());
-        
+
         $latlng = array_map(
             function ($e) {
                 return (float) trim($e);
@@ -37,7 +35,7 @@ if (empty($cities)) {
             '<a href="' . $nh->getCollectionURL($page) . '" target="_blank">' .
                 $cityName . ' Walks' .
             '</a>';
-        
+
         // If the owner is set
         if ($pageOwnerID > 1) {
             $coName = [

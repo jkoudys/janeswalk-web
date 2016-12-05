@@ -53,7 +53,7 @@ export default class WalkMap extends Component {
   componentDidMount() {
     const { features } = this.props;
     const markers = features.filter(f => f.type === 'Feature' && f.geometry.type === 'Point');
-    const route = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString');
+    const route = features.find(f => f.type === 'Feature' && f.geometry.type === 'LineString') || { geometry: { coordinates: [] } };
     const [{ geometry: { coordinates: meetingPlace } }] = markers;
     const locationLatLng = new google.maps.LatLng(meetingPlace[0], meetingPlace[1]);
     const gmarkers = [];

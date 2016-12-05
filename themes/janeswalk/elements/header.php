@@ -7,7 +7,7 @@
     <meta property="og:image" content="http://janeswalk.org/themes/janeswalk/img/jwlogo.png" />
 
     <link rel="stylesheet" type="text/css" href="/concrete/css/jquery.ui.css" />
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Roboto+Slab:400,300,700|Roboto:400,400italic,300,300italic,500,500italic,700italic,700" rel="stylesheet" type="text/css">
     <?php if (Localization::activeLocale() === 'he') { ?>
         <link href='//fonts.googleapis.com/css?family=Alef:400,700&subset=hebrew' rel='stylesheet' type='text/css'>
