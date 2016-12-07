@@ -1,23 +1,20 @@
-import Header from './Dashboard/Header.jsx';
-import Menu from './Dashboard/Menu.jsx';
-import Summary from './Dashboard/Summary.jsx';
-// import Resources from './Dashboard/Resources.jsx';
+import React, { createElement as ce } from 'react';
 
 import UserStore from 'janeswalk/stores/UserStore';
 import CityStore from 'janeswalk/stores/CityStore';
 import WalkStore from 'janeswalk/stores/WalkStore';
 
-import React from 'react';
+import Header from './Header.jsx';
+import Menu from './Menu.jsx';
+import Summary from './Summary.jsx';
 
-function getDashData() {
-  return {
-    walks: WalkStore.getWalks(),
-    users: UserStore.getUsers(),
-    currentUser: UserStore.getCurrent(),
-    city: CityStore.getCity(),
-    announcements: require('../../json/MessageStubs.json'),
-  };
-}
+const getDashData = () => ({
+  walks: WalkStore.getWalks(),
+  users: UserStore.getUsers(),
+  currentUser: UserStore.getCurrent(),
+  city: CityStore.getCity(),
+  announcements: require('../../../json/MessageStubs.json'),
+});
 
 export default class Dashboard extends React.Component {
   constructor(...props) {
@@ -48,17 +45,17 @@ export default class Dashboard extends React.Component {
     const { city, walks, users, announcements, currentUser } = this.state;
 
     return (
-      <section className="dashboard">
-        <Header user={user} announcements={announcements} />
-        <Menu {...{ walks, users, user, city, currentUser, edit }} />
-        <Summary
-          city={city}
-          walks={walks}
-          year={2015}
-          leaders={[1, 2]}
-          participants={[5, 6]}
-        />
-      </section>
+      ce('section', { className: 'dashboard' },
+        ce(Header, { user, announcements }),
+        ce(Menu, { walks, users, user, city, currentUser, edit }),
+        ce(Summary, {
+          city,
+          walks,
+          year: 2015,
+          leaders: [1, 2],
+          participants: [5, 6],
+        })
+      )
     );
   }
 }

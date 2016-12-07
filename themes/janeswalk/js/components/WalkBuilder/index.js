@@ -37,10 +37,20 @@ export default class WalkBuilder extends Component {
     assign(this, {
       state: { menuOptions: [], ...buildState() },
       onChange: () => this.setState(buildState),
-      handlers: {
-        changeTitle: ({ target: { value } }) => WBA.setTitle(value),
-        changeLongDescription: ({ target: { value } }) => WBA.setLongDescription(value),
-        changeShortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
+      // { value, onChange } for each form field
+      fields: {
+        title: () => ({
+          value: this.state.title,
+          onChange: ({ target: { value } }) => WBA.setTitle(value),
+        }),
+        longDescription: () => ({
+          value: this.state.longDescription,
+          onChange: ({ target: { value } }) => WBA.setLongDescription(value),
+        }),
+        shortDescription: () => ({
+          value: this.state.shortDescription,
+          onChange: ({ target: { value } }) => WBA.setShortDescription(value),
+        }),
       },
     });
   }
@@ -74,35 +84,27 @@ export default class WalkBuilder extends Component {
       city,
     } = this.props;
     const {
-      changeTitle,
-      changeLongDescription,
-      changeShortDescription,
-      changeDate,
-    } = this.handlers;
+     fields 
+    } = this;
 
     const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
 
     return ce(Form, { className: 'WalkBuilder' },
       ce(Row, { type: 'flex', justify: 'center' },
         ce(Col, Layout.Full,
-          ce(Welcome, { name: t`Save the Date!`, cityOrganizer, title, firstTime, changeTitle, changeDate })
+          ce(Welcome, { name: t`Save the Date!`, cityOrganizer, fields })
         )
       ),
       ce(Navigator, { menuOptions },
         ce(WalkDetails, {
           name: t`Describe Your Walk`,
-          title,
-          longDescription,
-          shortDescription,
-          changeTitle,
-          changeLongDescription,
-          changeShortDescription,
+          fields,
         }),
-        ce(Theme, { name: t`Themes` }),
-        ce(RouteBuilder, { name: t`Share Your Route`, city }),
-        ce(AddDates, { name: t`Set the Date` }),
-        ce(Accessibility, { name: t`Accessibility` }),
-        ce(Team, { name: t`Create Your Team` }),
+        ce(Theme, { name: t`Themes`, fields }),
+        ce(RouteBuilder, { name: t`Share Your Route`, city, fields }),
+        ce(AddDates, { name: t`Set the Date`, fields }),
+        ce(Accessibility, { name: t`Accessibility`, fields }),
+        ce(Team, { name: t`Create Your Team`, fields }),
         lastWord,
       )
     );

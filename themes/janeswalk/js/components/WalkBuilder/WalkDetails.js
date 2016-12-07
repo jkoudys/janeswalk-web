@@ -14,12 +14,7 @@ const WalkDetails = ({
   id,
   name,
   order,
-  title,
-  shortDescription,
-  longDescription,
-  changeTitle,
-  changeShortDescription,
-  changeLongDescription,
+  fields: { title, shortDescription, longDescription },
 }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
@@ -27,10 +22,9 @@ const WalkDetails = ({
       ce(Input, {
         type: 'text',
         placeholder: t`Walk Title`,
-        value: title,
-        onChange: changeTitle,
         addonBefore: ce('span', {}, 'T'),
         onKeyPress: kbJump,
+        ...title(),
       }),
       t`Something short and memorable`
     ),
@@ -56,10 +50,9 @@ const WalkDetails = ({
       ce(TextArea, {
         maxLength: 140,
         rows: 2,
-        value: shortDescription,
-        onChange: changeShortDescription,
         onKeyPress: kbJump,
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
+        ...shortDescription(),
       }),
       ce('p', {}, t`Build intrigue! This is what people see when browsing our Walk listings.`)
     ),
@@ -69,10 +62,9 @@ const WalkDetails = ({
         ce(TextArea, {
           maxLength: 300,
           rows: 6,
-          value: longDescription,
-          onChange: changeLongDescription,
           onKeyPress: kbJump,
           addonBefore: ce('i', { className: 'fa fa-align-left' }),
+          ...longDescription(),
         })
       ),
       ce('p', {}, t`Help jump start the conversation on your Walk, by giving readers an idea of the discussions you'll be having on the Walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the Walk.`)
