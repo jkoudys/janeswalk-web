@@ -1,5 +1,4 @@
 <?php
-defined('C5_EXECUTE') || die('Access Denied.');
 Loader::library("file/importer");
 
 $cf = Loader::helper('file');
@@ -7,7 +6,7 @@ $valt = Loader::helper('validation/token');
 $im = Loader::helper('image');
 $fp = FilePermissions::getGlobal();
 if (!$fp->canAddFiles()) {
-	die(t('Unable to add files.'));
+    die(t('Unable to add files.'));
 }
 
 $u = new User();
@@ -31,7 +30,7 @@ if (isset($_REQUEST['fID'])) {
             }
             if (!($resp instanceof FileVersion)) {
                 $errorCode = $resp;
-            } else if (!is_object($fr)) {
+            } elseif (!is_object($fr)) {
                 // we check $fr because we don't want to set it if we are replacing an existing file
                 $respf = $resp->getFile();
                 $respf->setOriginalPage($_POST['ocID']);
@@ -39,7 +38,7 @@ if (isset($_REQUEST['fID'])) {
         } else {
             $errorCode = $_FILES['Filedata']['error'];
         }
-    } else if (isset($_FILES['Filedata'])) {
+    } elseif (isset($_FILES['Filedata'])) {
         // first, we check for validate upload token. If the posting of a file fails because of
         // post_max_size then this may not even be set, leading to misleading errors
         $error = $valt->getErrorMessage();

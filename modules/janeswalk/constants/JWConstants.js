@@ -18,6 +18,8 @@ const ActionTypes = [
   'WB_SET_TITLE',
   'WB_SET_LONG_DESCRIPTION',
   'WB_SET_SHORT_DESCRIPTION',
+  'WB_SET_TIME',
+  'WB_SET_IMAGE',
 
   // City
   'CITY_RECEIVE',

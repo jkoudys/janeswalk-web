@@ -345,10 +345,10 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->setAttribute('gmap', json_encode($postArray['map']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
 
-            if (count($postArray['thumbnails']) && File::getByID($postArray['thumbnails'][0]['id'])) {
+            if (count($postArray['images']) && File::getByID($postArray['images'][0]['id'])) {
                 $this->page->setAttribute(
                     'thumbnail',
-                    File::getByID($postArray['thumbnails'][0]['id'])
+                    File::getByID($postArray['images'][0]['id'])
                 );
             }
 
@@ -412,11 +412,11 @@ class Walk extends \Model implements \JsonSerializable
             'published' => $this->published,
         ];
         // Load the thumbnail array
-        $walkData['thumbnails'] = [];
+        $walkData['images'] = [];
         if ($this->thumbnail) {
             $walkData['thumbnailId'] = $this->thumbnail->getFileID();
             $walkData['thumbnailUrl'] = $im->getThumbnail($this->thumbnail, 1024, 1024)->src;
-            $walkData['thumbnails'][] = [
+            $walkData['images'][] = [
                 'id' => $this->thumbnail->getFileID(),
                 'url' => $im->getThumbnail($this->thumbnail, 1024, 1024)->src
             ];

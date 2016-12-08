@@ -23,3 +23,11 @@ export function setLongDescription(value) {
 export function setShortDescription(value) {
   dispatch({ type: AT.WB_SET_SHORT_DESCRIPTION, value });
 }
+
+export function setTime(value, time) {
+  dispatch({ type: AT.WB_SET_TIME, value, time });
+}
+
+export function setImage(value) {
+  dispatch({ type: AT.WB_SET_IMAGE, value });
+}

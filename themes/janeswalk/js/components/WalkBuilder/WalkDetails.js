@@ -3,7 +3,7 @@
  *
  * The folks who make it happen. The team putting this Walk on.
  */
-/* global React */
+/* global React CCM_TOOLS_PATH */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import TextArea from './TextArea';
@@ -14,7 +14,12 @@ const WalkDetails = ({
   id,
   name,
   order,
-  fields: { title, shortDescription, longDescription },
+  title,
+  shortDescription,
+  longDescription,
+  images: fileList,
+  handlers,
+  valt,
 }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
@@ -24,7 +29,8 @@ const WalkDetails = ({
         placeholder: t`Walk Title`,
         addonBefore: ce('span', {}, 'T'),
         onKeyPress: kbJump,
-        ...title(),
+        value: title,
+        onChange: handlers.title,
       }),
       t`Something short and memorable`
     ),
@@ -32,17 +38,22 @@ const WalkDetails = ({
       label: t`Header Image` + ` (${t`Optional`})`,
     },
       ce(Upload.Dragger, {
-        name: 'walkImage',
-        multiple: false,
+        name: 'Filedata',
+        action: `${CCM_TOOLS_PATH}/files/importers/quick`,
+        data: {
+          ccm_token: valt,
+        },
         accept: 'image/*',
-        fileList: [],
-        onChange: ({ file }) => console.log(`${file.name}: ${file.status}`),
+        listType: 'picture',
+        fileList,
+        onChange: handlers.images,
         style: { padding: '15px' },
         className: 'WalkDetails__Upload',
       },
         ce('p', { className: 'ant-upload-drag-icon' }, ce(Icon, { type: 'inbox' })),
-        ce('p', { className: 'ant-upload-text' }, t`Click or Drag an Image to Upload.`)
+        ce('p', { className: 'ant-upload-text' }, fileList.length ? t`Drag or click here to replace your Walk's image.` : t`Drag your Walk's preview image here, or click to upload.`),
       ),
+      t`We recommend wider images over tall ones. They'll look better at the top of your Walk page.`
     ),
     ce(Form.Item, {
       label: t`Your walk in a nutshell`,
@@ -52,7 +63,8 @@ const WalkDetails = ({
         rows: 2,
         onKeyPress: kbJump,
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
-        ...shortDescription(),
+        value: shortDescription,
+        onChange: handlers.shortDescription,
       }),
       ce('p', {}, t`Build intrigue! This is what people see when browsing our Walk listings.`)
     ),
@@ -64,7 +76,8 @@ const WalkDetails = ({
           rows: 6,
           onKeyPress: kbJump,
           addonBefore: ce('i', { className: 'fa fa-align-left' }),
-          ...longDescription(),
+          value: longDescription,
+          onChange: handlers.longDescription,
         })
       ),
       ce('p', {}, t`Help jump start the conversation on your Walk, by giving readers an idea of the discussions you'll be having on the Walk together. We suggest including a couple of questions to get people thinking about how they can contribute to the dialog on the Walk.`)

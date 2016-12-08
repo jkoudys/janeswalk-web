@@ -22,7 +22,7 @@ export default ({ children }) => (
           return cln(child, { key: id, id, name: `${i + 1}. ${child.props.name}` });
         })
       ),
-      ce(Col, { ...Layout.Grid[1], justify: 'right', style: { paddingTop: '70px' } },
+      ce(Col, { ...Layout.Grid[1], style: { paddingTop: '70px' } },
         ce(Anchor, { offsetTop: Layout.Nav.height + Layout.Nav.pad },
           children.map(({ props: { name: title } }, i) => {
             const href = `#menuOptions${i}`;
