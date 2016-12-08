@@ -49,6 +49,14 @@ export function removeTheme(value) {
   dispatch({ type: AT.WB_REMOVE_THEME, value });
 }
 
+export function setAccessible(value) {
+  dispatch({ type: AT.WB_SET_ACCESSIBLE, value });
+}
+
+export function removeAccessible(value) {
+  dispatch({ type: AT.WB_REMOVE_ACCESSIBLE, value });
+}
+
 export function setDuration(value) {
   dispatch({ type: AT.WB_SET_DURATION, value });
 }

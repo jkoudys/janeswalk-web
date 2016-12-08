@@ -127,6 +127,8 @@ const WalkBuilderStore = {
     },
     [AT.WB_SET_THEME]: ({ value }) => themes.add(value),
     [AT.WB_REMOVE_THEME]: ({ value }) => themes.delete(value),
+    [AT.WB_SET_ACCESSIBLE]: ({ value }) => accessibles.add(value),
+    [AT.WB_REMOVE_ACCESSIBLE]: ({ value }) => accessibles.delete(value),
     [AT.WB_RECEIVE_WALK]: ({ walk, walk: {
       time = { slots: [] },
       team: newTeam = [],

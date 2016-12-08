@@ -49,7 +49,7 @@ const AddDates = ({
           )
         )),
         ce('p', {},
-          ce(DatePicker, { placeholder: t`Add a new date`, ...dateOptions, onChange: handlers.times() })
+          ce(DatePicker, { placeholder: t`Add a new date`, ...dateOptions, onChange: handlers.times(), value: null })
         )
       ),
       ce(Form.Item, {

@@ -16,8 +16,8 @@ const Accessibility = ({ name, id }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
     ce(Form.Item, {
-        label: t`What can you tell people about the accessibility of this Walk?`,
-      },
+      label: t`What can you tell people about the accessibility of this Walk?`,
+    },
       ce(Row, {},
         Object.entries(AccessibleIcons).map(([key, { name, icon }]) => ce(Col, {
           key: `theme${key}`,
