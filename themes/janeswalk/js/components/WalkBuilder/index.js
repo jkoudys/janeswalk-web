@@ -42,7 +42,8 @@ export default class WalkBuilder extends Component {
         title: ({ target: { value } }) => WBA.setTitle(value),
         longDescription: ({ target: { value } }) => WBA.setLongDescription(value),
         shortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
-        times: (idx, oldTime) => time => WBA.setTime(time, oldTime),
+        times: (oldTime) => time => WBA.setTime(time, oldTime),
+        duration: ({ target: { value } }) => WBA.setDuration(value),
         // Use function-props pattern for alternate actions. Default assumes onChange
         images: assign(({ file }) => WBA.setImage(file), {
           remove: () => WBA.removeImage(),
@@ -77,6 +78,7 @@ export default class WalkBuilder extends Component {
       times,
       images,
       themes,
+      duration,
     } = this.state;
     const {
       city: { cityOrganizer },
@@ -107,7 +109,7 @@ export default class WalkBuilder extends Component {
         }),
         ce(Theme, { name: t`Themes`, themes, handlers }),
         ce(RouteBuilder, { name: t`Share Your Route`, city }),
-        ce(AddDates, { name: t`Set the Date`, times, handlers }),
+        ce(AddDates, { name: t`Set the Date`, times, duration, handlers }),
         ce(Accessibility, { name: t`Accessibility` }),
         ce(Team, { name: t`Create Your Team` }),
         lastWord,

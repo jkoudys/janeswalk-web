@@ -4,25 +4,32 @@
  * A date builder.
  */
 /* global React */
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
-import DatePicker from './DatePicker';
-
 import { createElement as ce } from 'react';
-
-import { Form } from 'antd';
+import { Form, DatePicker } from 'antd';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const halfHour = 30 * 60 * 1000;
+// Minutes we're allowed to pick
+const minutesOff = Array.from({ length: 60 })
+.map((e, i) => i + 1)
+.filter(e => ![0, 30].includes(e));
+const disabledMinutes = () => minutesOff;
+const dateOptions = {
+  format: 'LL, HH:mm',
+  showTime: {
+    disabledMinutes,
+    format: 'HH:mm',
+    hideDisabledOptions: true,
+  },
+};
 
 const AddDates = ({
   id,
   name,
-  order,
   title = 'Your walk',
-  slots = [],
-  length = 60 * 60 * 1000,
-  handleRemoveSlot,
-  handleAddSlot,
-  handleUpdateSlot,
+  times = [],
+  duration = 60 * 60 * 1000,
+  handlers,
 }) => {
   // Config the available durations we can choose
   const durations = [
@@ -36,12 +43,19 @@ const AddDates = ({
       ce(Form.Item, {
         label: t`${title} will happen on`,
       },
-        slots.map(slot => ce(DatePicker, { slot }))
+        times.map((value, i) => (
+          ce('p', {},
+            ce(DatePicker, { key: `date${i}`, ...dateOptions, value, onChange: handlers.times(value) })
+          )
+        )),
+        ce('p', {},
+          ce(DatePicker, { placeholder: t`Add a new date`, ...dateOptions, onChange: handlers.times() })
+        )
       ),
       ce(Form.Item, {
         label: t`How long is your walk, approximately?`,
       },
-        ce('select', { name: 'duration' },
+        ce('select', { name: 'duration', value: duration, onChange: handlers.duration },
           durations.map(([value, text]) => ce('option', { key: value, value }, text))
         )
       )
@@ -49,4 +63,5 @@ const AddDates = ({
   );
 };
 
+export { dateOptions };
 export default AddDates;

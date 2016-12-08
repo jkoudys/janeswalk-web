@@ -100,6 +100,7 @@ const WalkBuilderStore = {
     [AT.WB_SET_SHORT_DESCRIPTION]: ({ value }) => { shortDescription = value; },
     [AT.WB_SET_LONG_DESCRIPTION]: ({ value }) => { longDescription = value; },
     [AT.WB_SET_WARD]: ({ value }) => { ward = value; },
+    [AT.WB_SET_DURATION]: ({ value }) => { duration = value; },
     // TODO: allow multiple images in a Walk
     [AT.WB_SET_IMAGE]: ({ value }) => {
       const saved = { ...value };
@@ -117,7 +118,12 @@ const WalkBuilderStore = {
         times.push(value);
         return;
       }
-      times[idx] = value;
+      if (value) {
+        times[idx] = value;
+        return;
+      }
+      // If it's an empty time, remove from array
+      times.splice(idx, 1);
     },
     [AT.WB_SET_THEME]: ({ value }) => themes.add(value),
     [AT.WB_REMOVE_THEME]: ({ value }) => themes.delete(value),

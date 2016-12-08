@@ -48,3 +48,7 @@ export function setTheme(value) {
 export function removeTheme(value) {
   dispatch({ type: AT.WB_REMOVE_THEME, value });
 }
+
+export function setDuration(value) {
+  dispatch({ type: AT.WB_SET_DURATION, value });
+}
