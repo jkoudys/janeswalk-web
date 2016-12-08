@@ -20,6 +20,9 @@ const ActionTypes = [
   'WB_SET_SHORT_DESCRIPTION',
   'WB_SET_TIME',
   'WB_SET_IMAGE',
+  'WB_REMOVE_IMAGE',
+  'WB_SET_THEME',
+  'WB_REMOVE_THEME',
 
   // City
   'CITY_RECEIVE',

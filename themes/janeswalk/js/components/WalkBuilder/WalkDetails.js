@@ -47,6 +47,7 @@ const WalkDetails = ({
         listType: 'picture',
         fileList,
         onChange: handlers.images,
+        onRemove: handlers.images.remove,
         style: { padding: '15px' },
         className: 'WalkDetails__Upload',
       },

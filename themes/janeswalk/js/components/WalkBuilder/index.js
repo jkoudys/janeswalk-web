@@ -24,7 +24,7 @@ import Layout from '../../constants/Layout';
 
 import { createElement as ce, Component } from 'react';
 import { Form, Row, Col } from 'antd';
-const { create, assign } = Object;
+const { assign } = Object;
 
 const buildState = () => ({
   ...WalkBuilderStore.getWalk(),
@@ -43,7 +43,11 @@ export default class WalkBuilder extends Component {
         longDescription: ({ target: { value } }) => WBA.setLongDescription(value),
         shortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
         times: (idx, oldTime) => time => WBA.setTime(time, oldTime),
-        images: ({ file }) => WBA.setImage(file),
+        // Use function-props pattern for alternate actions. Default assumes onChange
+        images: assign(({ file }) => WBA.setImage(file), {
+          remove: () => WBA.removeImage(),
+        }),
+        themes: theme => assign(() => WBA.setTheme(theme), { remove: () => WBA.removeTheme(theme) }),
       },
     });
   }
@@ -70,7 +74,9 @@ export default class WalkBuilder extends Component {
       shortDescription,
       longDescription,
       times: [time],
+      times,
       images,
+      themes,
     } = this.state;
     const {
       city: { cityOrganizer },
@@ -99,9 +105,9 @@ export default class WalkBuilder extends Component {
           images,
           valt,
         }),
-        ce(Theme, { name: t`Themes` }),
+        ce(Theme, { name: t`Themes`, themes, handlers }),
         ce(RouteBuilder, { name: t`Share Your Route`, city }),
-        ce(AddDates, { name: t`Set the Date` }),
+        ce(AddDates, { name: t`Set the Date`, times, handlers }),
         ce(Accessibility, { name: t`Accessibility` }),
         ce(Team, { name: t`Create Your Team` }),
         lastWord,

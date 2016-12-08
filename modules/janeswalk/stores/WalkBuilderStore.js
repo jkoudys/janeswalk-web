@@ -109,15 +109,18 @@ const WalkBuilderStore = {
       }
       images[0] = saved;
     },
+    [AT.WB_REMOVE_IMAGE]: () => { images.length = 0; },
     [AT.WB_SET_TIME]: ({ value, time = moment() }) => {
       // See if we're editing or adding a new time
-      let idx = times.indexOf(time);
+      const idx = times.indexOf(time);
       if (idx === -1) {
-        times.push(time);
+        times.push(value);
         return;
       }
       times[idx] = value;
     },
+    [AT.WB_SET_THEME]: ({ value }) => themes.add(value),
+    [AT.WB_REMOVE_THEME]: ({ value }) => themes.delete(value),
     [AT.WB_RECEIVE_WALK]: ({ walk, walk: {
       time = { slots: [] },
       team: newTeam = [],

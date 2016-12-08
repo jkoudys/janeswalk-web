@@ -3,7 +3,7 @@
  *
  * Actions for building a new/editing an old Walk.
  */
-
+import moment from 'moment';
 import { dispatch } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 
@@ -25,9 +25,26 @@ export function setShortDescription(value) {
 }
 
 export function setTime(value, time) {
+  if (moment.isMoment(value)) {
+    // Round to nearest 30 minutes before creating action
+    value.minute(value.minute() + 30 - (value.minute() % 30));
+    value.second(0);
+  }
   dispatch({ type: AT.WB_SET_TIME, value, time });
 }
 
 export function setImage(value) {
   dispatch({ type: AT.WB_SET_IMAGE, value });
+}
+
+export function removeImage() {
+  dispatch({ type: AT.WB_REMOVE_IMAGE });
+}
+
+export function setTheme(value) {
+  dispatch({ type: AT.WB_SET_THEME, value });
+}
+
+export function removeTheme(value) {
+  dispatch({ type: AT.WB_REMOVE_THEME, value });
 }

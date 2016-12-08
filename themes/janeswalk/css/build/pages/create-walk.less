@@ -62,6 +62,25 @@ body[data-pageviewname=CreateWalkView] {
   }
   .WalkDetails__Upload {
     p { margin: 0; }
+    .ant-upload-list-item-done {
+      height: 120px;
+      .ant-upload-list-item-thumbnail {
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        padding: 8px;
+        img {
+          object-fit: cover;
+          height: 100%;
+          width: 100%;
+        }
+      }
+      .ant-upload-list-item-name {
+        display: none;
+      }
+    }
+
   }
 }
 
