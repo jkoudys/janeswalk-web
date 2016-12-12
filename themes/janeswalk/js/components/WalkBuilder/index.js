@@ -3,6 +3,9 @@
  *
  * The main walk builder itself. The component for building a walk!
  */
+import { createElement as ce, Component } from 'react';
+import { Form, Row, Col } from 'antd';
+
 import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
 import WalkBuilderStore from 'janeswalk/stores/WalkBuilderStore';
 
@@ -22,8 +25,6 @@ import DontForget from './DontForget';
 
 import Layout from '../../constants/Layout';
 
-import { createElement as ce, Component } from 'react';
-import { Form, Row, Col } from 'antd';
 const { assign } = Object;
 
 const buildState = () => ({
@@ -48,7 +49,12 @@ export default class WalkBuilder extends Component {
         images: assign(({ file }) => WBA.setImage(file), {
           remove: () => WBA.removeImage(),
         }),
-        themes: theme => assign(() => WBA.setTheme(theme), { remove: () => WBA.removeTheme(theme) }),
+        themes: theme => assign(() => WBA.setTheme(theme), {
+          remove: () => WBA.removeTheme(theme),
+        }),
+        accessibles: accessible => assign(() => WBA.setAccessible(accessible), {
+          remove: () => WBA.removeAccessible(accessible),
+        }),
       },
     });
   }
@@ -78,6 +84,7 @@ export default class WalkBuilder extends Component {
       times,
       images,
       themes,
+      accessibles,
       duration,
     } = this.state;
     const {
@@ -110,7 +117,7 @@ export default class WalkBuilder extends Component {
         ce(Theme, { name: t`Themes`, themes, handlers }),
         ce(RouteBuilder, { name: t`Share Your Route`, city }),
         ce(AddDates, { name: t`Set the Date`, times, duration, handlers }),
-        ce(Accessibility, { name: t`Accessibility` }),
+        ce(Accessibility, { name: t`Accessibility`, accessibles, handlers }),
         ce(Team, { name: t`Create Your Team` }),
         lastWord,
       )
