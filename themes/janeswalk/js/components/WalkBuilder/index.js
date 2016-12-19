@@ -7,13 +7,12 @@ import { createElement as ce, Component } from 'react';
 import { Form, Row, Col } from 'antd';
 
 import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
-import WalkBuilderStore from 'janeswalk/stores/WalkBuilderStore';
+import WalkBuilderStore, { memberDefaults } from 'janeswalk/stores/WalkBuilderStore';
 
 import * as WBA from 'janeswalk/actions/WalkBuilderActions';
 
 import Welcome from './Welcome';
 import Navigator from './Navigator';
-import SaveTheDate from './SaveTheDate';
 import WalkDetails from './WalkDetails';
 import Theme from './Theme';
 import RouteBuilder from './RouteBuilder';
@@ -55,6 +54,13 @@ export default class WalkBuilder extends Component {
         accessibles: accessible => assign(() => WBA.setAccessible(accessible), {
           remove: () => WBA.removeAccessible(accessible),
         }),
+        teamMember: member => assign(prop => ({ target: { value } }) => WBA.updateMember(member, { [prop]: value }), {
+          remove: () => WBA.removeMember(member),
+        }),
+        teamAddLeader: () => WBA.addMember(memberDefaults.leader),
+        teamAddVolunteer: () => WBA.addMember(memberDefaults.volunteer),
+        teamAddOrganizer: () => WBA.addMember(memberDefaults.organizer),
+        teamAddVoice: () => WBA.addMember(memberDefaults.voice),
       },
     });
   }
@@ -75,17 +81,18 @@ export default class WalkBuilder extends Component {
 
   render() {
     const {
-      menuOptions,
-      empty,
-      title,
-      shortDescription,
-      longDescription,
-      times: [time],
-      times,
-      images,
-      themes,
       accessibles,
       duration,
+      empty,
+      images,
+      longDescription,
+      menuOptions,
+      shortDescription,
+      team,
+      themes,
+      times,
+      times: [time],
+      title,
     } = this.state;
     const {
       city: { cityOrganizer },
@@ -118,7 +125,7 @@ export default class WalkBuilder extends Component {
         ce(RouteBuilder, { name: t`Share Your Route`, city }),
         ce(AddDates, { name: t`Set the Date`, times, duration, handlers }),
         ce(Accessibility, { name: t`Accessibility`, accessibles, handlers }),
-        ce(Team, { name: t`Create Your Team` }),
+        ce(Team, { name: t`Create Your Team`, team, handlers }),
         lastWord,
       )
     );

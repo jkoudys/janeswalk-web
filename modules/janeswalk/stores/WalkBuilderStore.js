@@ -36,6 +36,23 @@ const times = [];
 const themes = new Set();
 const accessibles = new Set();
 
+export const memberDefaults = {
+  leader: {
+    type: 'leader',
+    // TODO: load and save this as first-name last-name
+    name: '',
+    bio: '',
+    twitter: '',
+    facebook: '',
+    website: '',
+    email: '',
+    phone: '',
+  },
+  organizer: { type: 'organizer', name: '', email: '', institution: '', website: '' },
+  voice: { type: 'voice', name: '', bio: '', twitter: '', facebook: '', website: '' },
+  volunteer: { type: 'volunteer', name: '', role: '', website: '' },
+};
+
 const WalkBuilderStore = {
   ...Store,
 
@@ -151,6 +168,11 @@ const WalkBuilderStore = {
       }
       if (receivedRoute) receivedRoute.geometry.coordinates.forEach(c => route.add(c));
     },
+    [AT.WB_TEAM_UPDATE]: ({ member, props }) => {
+      team[team.indexOf(member)] = { ...member, ...props };
+    },
+    [AT.WB_TEAM_ADD]: ({ props }) => team.push({ ...props }),
+    [AT.WB_TEAM_REMOVE]: ({ member }) => team.splice(team.indexOf(member), 1),
   }, () => WalkBuilderStore.emitChange()),
 };
 

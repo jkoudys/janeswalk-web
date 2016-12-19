@@ -60,3 +60,15 @@ export function removeAccessible(value) {
 export function setDuration(value) {
   dispatch({ type: AT.WB_SET_DURATION, value });
 }
+
+export function updateMember(member, props) {
+  dispatch({ type: AT.WB_TEAM_UPDATE, member, props });
+}
+
+export function removeMember(member) {
+  dispatch({ type: AT.WB_TEAM_REMOVE, member });
+}
+
+export function addMember(props) {
+  dispatch({ type: AT.WB_TEAM_ADD, props });
+}

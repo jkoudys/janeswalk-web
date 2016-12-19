@@ -1,7 +1,7 @@
 export const icons = {
   'civic-activist': { name: 'Activism', icon: 'bullhorn' },
   'civic-commerce': { name: 'Commerce', icon: 'shopping-cart' },
-  'civic-gender': { name: 'Gender', icon: 'unlock-alt' },
+  'civic-gender': { name: 'Gender', icon: 'transgender-alt' },
   'civic-goodneighbour': { name: 'Community', icon: 'group' },
   'civic-health': { name: 'Health', icon: 'medkit' },
   'civic-international': { name: 'International Issues', icon: 'globe' },

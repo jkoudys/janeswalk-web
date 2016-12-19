@@ -49,16 +49,17 @@ const _createList = (title = '', description = '') => {
  */
 const _receiveAll = ({ lists, schedule }) => {
   lists.forEach((itinerary) => {
-    _lists.add(Object.assign({}, itinerary, {
+    _lists.add({
+      ...itinerary,
       walks: new Set(itinerary.walks.map(wID => WalkStore.getWalk(+wID))),
-    }));
+    });
   });
 
   // Loop through the {123: [14224342342, 2343535345]} object of times arrays
   // Build a set, using the times as a number to key
-  Object.keys(schedule).forEach(wID => {
-    _schedule.set(WalkStore.getWalk(+wID), new Set(schedule[wID].map(t => +t)));
-  });
+  for (const [wID, times] of Object.entries(schedule)) {
+    _schedule.set(WalkStore.getWalk(+wID), new Set(times.map(t => +t)));
+  }
 };
 
 function hasInList(walk) {
@@ -83,9 +84,7 @@ const ItineraryStore = {
   },
 
   totalWalks() {
-    let count = 0;
-    _lists.forEach(list => { count += list.walks.size; });
-    return count;
+    return [..._lists].reduce((a, { walks }) => (a + walks.size), 0);
   },
 
   dispatcherIndex: register({

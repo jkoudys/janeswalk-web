@@ -26,6 +26,9 @@ const ActionTypes = [
   'WB_SET_THEME',
   'WB_SET_TIME',
   'WB_SET_TITLE',
+  'WB_TEAM_ADD',
+  'WB_TEAM_REMOVE',
+  'WB_TEAM_UPDATE',
 
   // City
   'CITY_RECEIVE',
