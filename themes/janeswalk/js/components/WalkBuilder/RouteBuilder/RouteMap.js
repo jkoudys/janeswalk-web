@@ -5,7 +5,7 @@
  */
 /* global CCM_THEME_PATH */
 
-import { createElement as ce, Component } from 'react';
+import { createElement as ce, PureComponent } from 'react';
 import GoogleMap from 'google-map-react';
 
 const StopMarker = () => ce('img', { src: `${CCM_THEME_PATH}/images/marker.png` });
@@ -32,26 +32,25 @@ const mapStyle = [{
   }],
 }];
 
-export default class RouteMap extends Component {
+export default class RouteMap extends PureComponent {
   constructor(props) {
     super(props);
 
     Object.assign(this, {
       createMapOptions: (maps) => ({
-        zoom: 12,
-        center: new maps.LatLng(this.props.city.latlng[0], this.props.city.latlng[1]),
-        scrollwheel: false,
-        rotateControl: true,
-        scaleControl: true,
         backgroundColor: '#d7f0fa',
         mapTypeControl: false,
-        zoomControl: true,
         mapTypeId: maps.MapTypeId.TERRAIN,
+        rotateControl: true,
+        scaleControl: true,
+        scrollwheel: false,
+        zoomControl: true,
         mapTypeControlOptions: {
           mapTypeIds: [maps.MapTypeId.ROADMAP, maps.MapTypeId.SATELLITE],
         },
       }),
       afterMapLoaded: ({ map, maps }) => {
+        map.setOptions({ scrollwheel: false });
         map.mapTypes.set('map_style', new maps.StyledMapType(mapStyle));
         map.setMapTypeId('map_style');
       },
@@ -67,6 +66,8 @@ export default class RouteMap extends Component {
         onGoogleApiLoaded: afterMapLoaded,
         defaultZoom: 12,
         defaultCenter: this.props.city.latlng,
+        onChange: (...args) => console.log(args),
+        onClick: (...args) => console.log(args),
         style: {
           width: '100%',
           height: `${window.innerHeight * 0.6}px`,
