@@ -14,7 +14,7 @@ const colStyle = {
 };
 
 const Leader = ({ member: { name, bio, email, twitter, facebook, website, phone }, handler }) => ce(Card, {
-  title: ce('strong', {}, t`Walk Leader`),
+  title: ce('strong', {}, ce('i', { className: 'fa fa-bullhorn' }), ' ', t`Walk Leader`),
   extra: ce(Icon, { type: 'minus-circle-o', onClick: handler.remove }),
 },
   ce(Form.Item, { label: t`Name` },

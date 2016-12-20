@@ -14,7 +14,7 @@ const colStyle = {
 };
 
 const Voice = ({ member: { name, bio, twitter, facebook, website }, handler }) => ce(Card, {
-  title: ce('strong', {}, t`Community Voice`),
+  title: ce('strong', {}, ce('i', { className: 'fa fa-comment-o' }), ' ', t`Community Voice`),
   extra: ce(Icon, { type: 'minus-circle-o', onClick: handler.remove }),
 },
   ce(Form.Item, { label: t`Name` },
