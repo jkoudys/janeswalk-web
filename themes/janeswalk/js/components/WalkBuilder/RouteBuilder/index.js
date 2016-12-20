@@ -35,14 +35,20 @@ export default class RouteBuilder extends Component {
         ),
         ce('div', { style: { position: 'relative' } },
           ce(Radio.Group, { value: mapMode, style: radioStyle, onChange: this.handleModeChange },
-            ce(Tooltip, { title: t`Move the map` },
-              ce(Radio.Button, { value: 'move' }, ce('i', { className: 'fa fa-hand-paper-o' }))
+            ce(Radio.Button, { value: 'move' },
+              ce(Tooltip, { title: t`Move the map` },
+                ce('i', { className: 'fa fa-hand-paper-o' })
+              )
             ),
-            ce(Tooltip, { title: t`Add a stop` },
-              ce(Radio.Button, { value: 'pin' }, ce('i', { className: 'fa fa-map-marker' }))
+            ce(Radio.Button, { value: 'pin' },
+              ce(Tooltip, { title: t`Add a stop` },
+                ce('i', { className: 'fa fa-map-marker' })
+              )
             ),
-            ce(Tooltip, { title: t`Draw your route` },
-              ce(Radio.Button, { value: 'route' }, ce('i', { className: 'fa fa-code-fork' }))
+            ce(Radio.Button, { value: 'route' },
+              ce(Tooltip, { title: t`Draw your route` },
+                ce('i', { className: 'fa fa-code-fork' })
+              )
             )
           ),
           ce(RouteMap, { city, mapMode })
