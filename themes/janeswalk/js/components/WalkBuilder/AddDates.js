@@ -34,7 +34,7 @@ const AddDates = ({
   // Config the available durations we can choose
   const durations = [
     [2 * halfHour, t`1 Hour`],
-    ...Array.from({ length: 5 }).map((_, i) => [(i + 3) * halfHour, t`${0.5 * i + 1} Hours`]),
+    ...Array.from({ length: 5 }).map((_, i) => [(i + 3) * halfHour, t`${0.5 * i + 1.5} Hours`]),
   ];
 
   return (
@@ -44,8 +44,8 @@ const AddDates = ({
         label: t`${title} will happen on`,
       },
         times.map((value, i) => (
-          ce('p', {},
-            ce(DatePicker, { key: `date${i}`, ...dateOptions, value, onChange: handlers.times(value) })
+          ce('p', { key: `date${i}` },
+            ce(DatePicker, { ...dateOptions, value, onChange: handlers.times(value) })
           )
         )),
         ce('p', {},

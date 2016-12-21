@@ -32,6 +32,8 @@ let accessibleInfo = '';
 let accessibleTransit = '';
 let accessibleFind = '';
 let ward;
+// Collection ID, for saving
+let cID;
 // Default walk is 1h long
 let duration = 60 * 60 * 1000;
 // Has this walk been published?
@@ -105,15 +107,24 @@ const WalkBuilderStore = {
     shortDescription,
     longDescription,
     team,
-    published,
     images,
     ward,
-    time: { open, slots: times.map(time => [time, time + duration]) },
+    // Times are all stored in utc server-side.
+    // TODO: make local times work, so we can sort by which walks are currently happening, up next
+    time: {
+      open,
+      slots: times.map(time => [
+        time.valueOf() + time.utcOffset(),
+        time.valueOf() + time.utcOffset() + duration,
+      ]),
+    },
     themes: [...themes],
-    accessibles: [...accessibles],
+    // Watch out for the dropped 's' here; for historic reasons
+    accessible: [...accessibles],
     accessibleInfo,
     accessibleTransit,
     accessibleFind,
+    id: cID,
   }),
 
   getWalk: () => ({
@@ -180,6 +191,7 @@ const WalkBuilderStore = {
       title: t = '',
       shortDescription: sd = '',
       longDescription: ld = '',
+      id: walkId,
     } }) => {
       const receivedRoute = features.find(f => f.geometry.type === 'LineString');
       published = walk.published;
@@ -187,11 +199,32 @@ const WalkBuilderStore = {
       shortDescription = sd;
       longDescription = ld;
       open = time.open;
-      team.push(...newTeam);
+      cID = +walkId;
+      team.push(...newTeam.map((member) => {
+        const newMember = { ...member };
+        // TODO: move this out of the store to a migrator function
+        // Check for v2 member definitions
+        if ('name-first' in newMember) {
+          newMember.name = `${newMember['name-first']} ${newMember['name-last']}`.trim();
+          delete newMember['name-first'];
+          delete newMember['name-last'];
+        }
+        // Get rid of all that 'you' nonsense
+        if (newMember.type === 'you') {
+          if (newMember.role === 'walk-organizer') {
+            newMember.type = 'organizer';
+          } else if (newMember.role === 'walk-leader') {
+            newMember.type = 'leader';
+          }
+          delete newMember.role;
+        }
+
+        return newMember;
+      }));
       points = List(features.filter(f => f.geometry.type === 'Point').map((p) => ({ ...p })));
       if (time.slots.length > 0) {
         duration = time.slots[0][1] - time.slots[0][0];
-        times.push(...time.slots.map(s => s[0]));
+        times.push(...time.slots.map(s => moment(s[0] - moment().utcOffset)));
       }
       if (receivedRoute) receivedRoute.geometry.coordinates.forEach(c => route.add(c));
     },

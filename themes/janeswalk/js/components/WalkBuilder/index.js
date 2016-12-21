@@ -8,6 +8,7 @@ import { Form, Row, Col } from 'antd';
 
 import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
 import WalkBuilderStore, { memberDefaults } from 'janeswalk/stores/WalkBuilderStore';
+import { save, publish } from 'janeswalk/utils/api/Walk';
 
 import * as WBA from 'janeswalk/actions/WalkBuilderActions';
 
@@ -85,6 +86,14 @@ export default class WalkBuilder extends Component {
       decrement: () => WBA.setPointIndex(point, { change: -1 }),
       remove: () => WBA.removePoint(point),
     }),
+    saveWalk: async () => {
+      const status = await save(WalkBuilderStore.getAsSchema());
+      console.log(status);
+    },
+    publishWalk: async () => {
+      await publish(WalkBuilderStore.getAsSchema());
+      window.location = `/index.php?cID=${this.state.id}`;
+    },
   };
 
   render() {

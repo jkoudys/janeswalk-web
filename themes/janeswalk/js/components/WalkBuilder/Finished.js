@@ -3,7 +3,6 @@
  *
  * The "You're all done!" page
  */
-/* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
 import { Row, Col } from 'antd';

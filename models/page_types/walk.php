@@ -337,32 +337,21 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->setAttribute('longdescription', $postArray['longDescription']);
             $this->page->setAttribute('accessible_info', $postArray['accessibleInfo']);
             $this->page->setAttribute('accessible_transit', $postArray['accessibleTransit']);
-            $this->page->setAttribute('accessible_parking', $postArray['accessibleParking']);
             $this->page->setAttribute('accessible_find', $postArray['accessibleFind']);
             $this->page->setAttribute('walk_wards', $postArray['wards']);
             $this->page->setAttribute('scheduled', (array) $postArray['time']);
 
-            $this->page->setAttribute('gmap', json_encode($postArray['map']));
+            $this->page->setAttribute('gmap', json_encode($postArray['features']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
+
+            $this->page->setAttribute('themes', (array) $postArray['themes']);
+            $this->page->setAttribute('accessible', (array) $postArray['accessible']);
 
             if (count($postArray['images']) && File::getByID($postArray['images'][0]['id'])) {
                 $this->page->setAttribute(
                     'thumbnail',
                     File::getByID($postArray['images'][0]['id'])
                 );
-            }
-
-            /* Go through checkboxes */
-            $checkboxes = array('theme' => [], 'accessible' => []);
-            foreach ($postArray['checkboxes'] as $key => $checked) {
-                $selectAttribute = strtok($key, '-');
-                $selectValue = strtok('');
-                if ($checked) {
-                    $checkboxes[$selectAttribute][] = $selectValue;
-                }
-            }
-            foreach (['theme', 'accessible'] as $akHandle) {
-                $this->page->setAttribute($akHandle, $checkboxes[$akHandle]);
             }
         } catch (Exception $e) {
             $db->FailTrans(); // Set transaction to rollback
@@ -406,6 +395,8 @@ class Walk extends \Model implements \JsonSerializable
             'wards' => $this->wards,
             'initiatives' => $this->initiatives,
             'cityID' => (int) $this->page->getCollectionParentID(),
+            'themes' => (array) $this->themes,
+            'accessibles' => (array) $this->accessibles,
             'mirrors' => [
                 'eventbrite' => $this->page->getAttribute('eventbrite') ?: null
             ],
@@ -421,17 +412,6 @@ class Walk extends \Model implements \JsonSerializable
                 'url' => $im->getThumbnail($this->thumbnail, 1024, 1024)->src
             ];
         }
-
-        // Callback, in case we define more checkbox groups
-        // Map their key names here to ones the service-consumers understand
-        $checkboxes = [];
-        $mapKeyNames = function ($v, $k, $akHandle) use (&$checkboxes) {
-            $checkboxes["{$akHandle}-{$k}"] = $v;
-        };
-        array_walk($this->themes, $mapKeyNames, 'theme');
-        array_walk($this->accessible, $mapKeyNames, 'accessible');
-
-        $walkData['checkboxes'] = (object) $checkboxes;
 
         // Clean out the null values
         return array_filter($walkData);

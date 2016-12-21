@@ -91,7 +91,7 @@ function addRenderListeners() {
 
   // Create a walk
   event.on('caw.load', () => {
-    const { walk, walk: { url }, form: { valt }, city, user } = JanesWalk;
+    const { walk: { data: walk, data: { url } }, form: { valt }, city, user } = JanesWalk;
 
     receiveWalkForBuilder(walk);
 
