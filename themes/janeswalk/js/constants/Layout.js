@@ -5,7 +5,7 @@
  * TODO: see about merging these variables with, or loading them from, the CSS
  */
 
-const imgDir = '/themes/janeswalk/images';
+export const imgDir = '/themes/janeswalk/images';
 
 const Grid = [{
   lg: 12,
@@ -35,6 +35,18 @@ export const Welcome = {
     },
   },
   Content: { lg: 12, md: 16, xs: 19 },
+};
+
+export const Forget = {
+  Main: {
+    type: 'flex',
+    justify: 'space-around',
+    align: 'middle',
+    style: {
+      minHeight: '90vh',
+    },
+  },
+  Content: { lg: 20, md: 24 },
 };
 
 export default {
