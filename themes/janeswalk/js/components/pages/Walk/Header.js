@@ -24,7 +24,7 @@ function getMeetingPlace(map) {
 
 function getLeaders(team) {
   const leaders = team.filter(member => (member.role === 'walk-leader' || member.type === 'leader'));
-  return leaders.map(leader => `${leader['name-first']} ${leader['name-last']}`.trim()).join(', ');
+  return leaders.map(leader => `${leader.name}`.trim()).join(', ');
 }
 
 const WalkHeader = ({

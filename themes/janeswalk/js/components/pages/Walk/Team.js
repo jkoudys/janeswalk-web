@@ -23,7 +23,7 @@ const WalkTeam = ({ team = [] }) => {
     <article key={i}>
       <header>
         <h3>
-          {(`${m['name-first']} ${m['name-last']}`).trim()}
+          {(`${m.name}`).trim()}
           <span className="walkTeamMemberRole">{teamTypes.roles[m.role] || m.role}</span>
         </h3>
         <footer>
@@ -36,7 +36,7 @@ const WalkTeam = ({ team = [] }) => {
 
   return (
     <section className="walkTeam">
-      <a name="About the Walk Team"></a>
+      <a name="About the Walk Team" />
       <h2>{t`About the Walk Team`}</h2>
       <section>
        {teamMembers}
