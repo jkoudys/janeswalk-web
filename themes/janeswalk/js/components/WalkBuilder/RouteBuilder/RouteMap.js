@@ -8,7 +8,12 @@
 import { createElement as ce, PureComponent } from 'react';
 import GoogleMap from 'google-map-react';
 
-const StopMarker = () => ce('img', { src: `${CCM_THEME_PATH}/images/marker.png` });
+const StopMarker = ({ origin }) => (
+  ce('div', {},
+    ce('img', { src: `${CCM_THEME_PATH}/images/marker.png` }),
+    origin
+  )
+);
 
 const mapStyle = [{
   featureType: 'transit',
@@ -32,49 +37,47 @@ const mapStyle = [{
   }],
 }];
 
-export default class RouteMap extends PureComponent {
-  constructor(props) {
-    super(props);
+const createMapOptions = (maps) => ({
+  backgroundColor: '#d7f0fa',
+  mapTypeControl: false,
+  mapTypeId: maps.MapTypeId.TERRAIN,
+  rotateControl: true,
+  scaleControl: true,
+  scrollwheel: false,
+  zoomControl: true,
+  mapTypeControlOptions: {
+    mapTypeIds: [maps.MapTypeId.ROADMAP, maps.MapTypeId.SATELLITE],
+  },
+});
 
-    Object.assign(this, {
-      createMapOptions: (maps) => ({
-        backgroundColor: '#d7f0fa',
-        mapTypeControl: false,
-        mapTypeId: maps.MapTypeId.TERRAIN,
-        rotateControl: true,
-        scaleControl: true,
-        scrollwheel: false,
-        zoomControl: true,
-        mapTypeControlOptions: {
-          mapTypeIds: [maps.MapTypeId.ROADMAP, maps.MapTypeId.SATELLITE],
-        },
-      }),
-      afterMapLoaded: ({ map, maps }) => {
-        map.setOptions({ scrollwheel: false });
-        map.mapTypes.set('map_style', new maps.StyledMapType(mapStyle));
-        map.setMapTypeId('map_style');
-      },
-    });
-  }
+export default class RouteMap extends PureComponent {
+  afterMapLoaded = ({ map, maps }) => {
+    map.setOptions({ scrollwheel: false });
+    map.mapTypes.set('map_style', new maps.StyledMapType(mapStyle));
+    map.setMapTypeId('map_style');
+    this.googleMap = map;
+  };
 
   render() {
-    const { createMapOption, afterMapLoaded } = this;
+    const { afterMapLoaded } = this;
+    const { city, points, route, onClick } = this.props;
 
     return (
       ce(GoogleMap, {
-        options: createMapOption,
+        options: createMapOptions,
         onGoogleApiLoaded: afterMapLoaded,
         defaultZoom: 12,
-        defaultCenter: this.props.city.latlng,
-        onChange: (...args) => console.log(args),
-        onClick: (...args) => console.log(args),
+        defaultCenter: city.latlng,
+        onClick,
         style: {
           width: '100%',
           height: `${window.innerHeight * 0.6}px`,
           position: 'relative',
         },
       },
-        ce(StopMarker, { lat: this.props.city.latlng[0], lng: this.props.city.latlng[1] })
+        points.map(({ geometry: { coordinates: [lng, lat] } }, i) => (
+          ce(StopMarker, { lat, lng, key: `marker${i}` })
+        ))
       )
     );
   }

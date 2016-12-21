@@ -24,8 +24,12 @@ export default class RouteBuilder extends Component {
   };
 
   render() {
-    const { id, name, city } = this.props;
+    const { id, name, city, points, route, handlers } = this.props;
     const { mapMode } = this.state;
+    // Click on the map result
+    let onClick;
+    if (mapMode === 'pin') onClick = handlers.pointAdd;
+    else if (mapMode === 'route') onClick = handlers.routeAdd;
 
     return (
       ce('section', { id, className: 'Lead__Option' },
@@ -51,7 +55,7 @@ export default class RouteBuilder extends Component {
               )
             )
           ),
-          ce(RouteMap, { city, mapMode })
+          ce(RouteMap, { city, mapMode, points, route, onClick })
         ),
         ce('p', {},
           t`Start building your Walk route by choosing `,

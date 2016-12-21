@@ -72,3 +72,19 @@ export function removeMember(member) {
 export function addMember(props) {
   dispatch({ type: AT.WB_TEAM_ADD, props });
 }
+
+export function updatePoint(point, { properties, coordinates }) {
+  dispatch({ type: AT.WB_POINT_UPDATE, point, properties, coordinates });
+}
+
+export function removePoint(point) {
+  dispatch({ type: AT.WB_POINT_REMOVE, point });
+}
+
+export function addPoint(coordinates) {
+  dispatch({ type: AT.WB_POINT_ADD, coordinates });
+}
+
+export function setPointIndex(point, { change }) {
+  dispatch({ type: AT.WB_POINT_INDEX, change });
+}

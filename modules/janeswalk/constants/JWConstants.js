@@ -29,6 +29,10 @@ const ActionTypes = [
   'WB_TEAM_ADD',
   'WB_TEAM_REMOVE',
   'WB_TEAM_UPDATE',
+  'WB_POINT_ADD',
+  'WB_POINT_REMOVE',
+  'WB_POINT_UPDATE',
+  'WB_POINT_INDEX',
 
   // City
   'CITY_RECEIVE',

@@ -6,10 +6,24 @@
  * doing "save the date", etc.
  */
 
+import { List } from 'immutable';
 import moment from 'moment';
 import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
 import Store from './Store';
+
+const defaultPoint = {
+  type: 'Feature',
+  geometry: {
+    type: 'Point',
+    coordinates: [-79.412173615033, 43.66431003337],
+  },
+  properties: {
+    title: '',
+    description: '',
+    media: [],
+  },
+};
 
 let title = '';
 let shortDescription = '';
@@ -22,11 +36,10 @@ let published = false;
 // Open booking? Available to book at any request
 let open = false;
 // geojson-standard Points array
-// { type: 'Feature', geometry: { type: 'Point', coordinates: [lat, lng] }, properties: { title, description, media } }
-// We use sets for the route builder, so we can easily remove markers
-const points = new Set();
+// { type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: { title, description, media } }
+let points;
 // array of tuples for route points
-const route = new Set();
+let route;
 // Members of the Walk team
 const team = [];
 // Walk images
@@ -98,17 +111,19 @@ const WalkBuilderStore = {
   }),
 
   getWalk: () => ({
-    title,
-    shortDescription,
-    longDescription,
-    team,
-    published,
-    images,
-    open,
-    times,
-    duration,
-    themes,
     accessibles,
+    duration,
+    images,
+    longDescription,
+    open,
+    points,
+    published,
+    route,
+    shortDescription,
+    team,
+    themes,
+    times,
+    title,
     ward,
   }),
 
@@ -161,7 +176,7 @@ const WalkBuilderStore = {
       longDescription = ld;
       open = time.open;
       team.push(...newTeam);
-      features.filter(f => f.geometry.type === 'Point').forEach(p => points.add(p));
+      points = List(features.filter(f => f.geometry.type === 'Point').map((p) => ({ ...p })));
       if (time.slots.length > 0) {
         duration = time.slots[0][1] - time.slots[0][0];
         times.push(...time.slots.map(s => s[0]));
@@ -173,6 +188,31 @@ const WalkBuilderStore = {
     },
     [AT.WB_TEAM_ADD]: ({ props }) => team.push({ ...props }),
     [AT.WB_TEAM_REMOVE]: ({ member }) => team.splice(team.indexOf(member), 1),
+    [AT.WB_POINT_ADD]: ({ coordinates }) => {
+      points = points.push({
+        ...defaultPoint,
+        geometry: {
+          ...defaultPoint.geometry,
+          coordinates,
+        },
+      });
+    },
+    [AT.WB_POINT_REMOVE]: ({ point }) => { points = points.splice(points.indexOf(point), 1); },
+    [AT.WB_POINT_UPDATE]: ({ point, coordinates, properties }) => {
+      const i = points.indexOf(point);
+      const newPoint = { ...point };
+      if (coordinates) newPoint.geometry.coordinates = coordinates;
+      if (properties) Object.assign(newPoint.properties, properties);
+      points[i] = newPoint;
+    },
+    [AT.WB_POINT_INDEX]: ({ point, change }) => {
+      const i = points.indexOf(point);
+      // Don't let it move the point off the end of the array
+      if (i + change < 0 || i + change > points.size) return;
+      // Yank it out and put it back in
+      points = points.delete(i);
+      points = points.insert(i + change, point);
+    },
   }, () => WalkBuilderStore.emitChange()),
 };
 

@@ -32,38 +32,7 @@ const buildState = () => ({
 });
 
 export default class WalkBuilder extends Component {
-  constructor(props) {
-    super(props);
-    assign(this, {
-      state: { menuOptions: [], ...buildState() },
-      onChange: () => this.setState(buildState),
-      // { value, onChange } for each form field
-      handlers: {
-        title: ({ target: { value } }) => WBA.setTitle(value),
-        longDescription: ({ target: { value } }) => WBA.setLongDescription(value),
-        shortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
-        times: (oldTime) => time => WBA.setTime(time, oldTime),
-        duration: ({ target: { value } }) => WBA.setDuration(value),
-        // Use function-props pattern for alternate actions. Default assumes onChange
-        images: assign(({ file }) => WBA.setImage(file), {
-          remove: () => WBA.removeImage(),
-        }),
-        themes: theme => assign(() => WBA.setTheme(theme), {
-          remove: () => WBA.removeTheme(theme),
-        }),
-        accessibles: accessible => assign(() => WBA.setAccessible(accessible), {
-          remove: () => WBA.removeAccessible(accessible),
-        }),
-        teamMember: member => assign(prop => ({ target: { value } }) => WBA.updateMember(member, { [prop]: value }), {
-          remove: () => WBA.removeMember(member),
-        }),
-        teamAddLeader: () => WBA.addMember(memberDefaults.leader),
-        teamAddVolunteer: () => WBA.addMember(memberDefaults.volunteer),
-        teamAddOrganizer: () => WBA.addMember(memberDefaults.organizer),
-        teamAddVoice: () => WBA.addMember(memberDefaults.voice),
-      },
-    });
-  }
+  state = { menuOptions: [], ...buildState() };
 
   componentWillMount() {
     I18nStore.addChangeListener(this.onChange);
@@ -79,6 +48,42 @@ export default class WalkBuilder extends Component {
     WalkBuilderStore.removeChangeListener(this.onChange);
   }
 
+  onChange = () => this.setState(buildState);
+
+  // { value, onChange } for each form field
+  handlers = {
+    title: ({ target: { value } }) => WBA.setTitle(value),
+    longDescription: ({ target: { value } }) => WBA.setLongDescription(value),
+    shortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
+    times: (oldTime) => time => WBA.setTime(time, oldTime),
+    duration: ({ target: { value } }) => WBA.setDuration(value),
+    // Use function-props pattern for alternate actions. Default assumes onChange
+    images: assign(({ file }) => WBA.setImage(file), {
+      remove: () => WBA.removeImage(),
+    }),
+    themes: theme => assign(() => WBA.setTheme(theme), {
+      remove: () => WBA.removeTheme(theme),
+    }),
+    accessibles: accessible => assign(() => WBA.setAccessible(accessible), {
+      remove: () => WBA.removeAccessible(accessible),
+    }),
+    teamMember: member => assign(prop => ({ target: { value } }) => WBA.updateMember(member, { [prop]: value }), {
+      remove: () => WBA.removeMember(member),
+    }),
+    teamAddLeader: () => WBA.addMember(memberDefaults.leader),
+    teamAddVolunteer: () => WBA.addMember(memberDefaults.volunteer),
+    teamAddOrganizer: () => WBA.addMember(memberDefaults.organizer),
+    teamAddVoice: () => WBA.addMember(memberDefaults.voice),
+    pointAdd: ({ lat, lng }) => WBA.addPoint([lng, lat]),
+    point: point => assign(({ lat, lng }) => WBA.updatePoint(point, { coordinates: [lng, lat] }), {
+      // Update the properties of a point, e.g. title
+      update: prop => ({ target: { value } }) => WBA.updatePoint(point, { properties: { [prop]: value } }),
+      increment: () => WBA.setPointIndex(point, { change: 1 }),
+      decrement: () => WBA.setPointIndex(point, { change: -1 }),
+      remove: () => WBA.removePoint(point),
+    }),
+  };
+
   render() {
     const {
       accessibles,
@@ -87,6 +92,8 @@ export default class WalkBuilder extends Component {
       images,
       longDescription,
       menuOptions,
+      points,
+      route,
       shortDescription,
       team,
       themes,
@@ -122,7 +129,7 @@ export default class WalkBuilder extends Component {
           valt,
         }),
         ce(Theme, { name: t`Themes`, themes, handlers }),
-        ce(RouteBuilder, { name: t`Share Your Route`, city }),
+        ce(RouteBuilder, { name: t`Share Your Route`, city, points, route, handlers }),
         ce(AddDates, { name: t`Set the Date`, times, duration, handlers }),
         ce(Accessibility, { name: t`Accessibility`, accessibles, handlers }),
         ce(Team, { name: t`Create Your Team`, team, handlers }),
