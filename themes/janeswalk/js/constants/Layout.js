@@ -37,7 +37,7 @@ export const Welcome = {
   Content: { lg: 12, md: 16, xs: 19 },
 };
 
-export const Forget = {
+export const Finished = {
   Main: {
     type: 'flex',
     justify: 'space-around',

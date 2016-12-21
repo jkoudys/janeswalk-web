@@ -6,8 +6,8 @@
 /* global React */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
-import { Icon, Row, Col } from 'antd';
-import { Forget as Layout, imgDir } from '../../constants/Layout';
+import { Row, Col } from 'antd';
+import { Finished as Layout, imgDir } from '../../constants/Layout';
 
 const DontForget = ({ empty = [] }) => (
   ce('section', { id: 'finish', className: 'Lead__Finished Lead__Forget' },
