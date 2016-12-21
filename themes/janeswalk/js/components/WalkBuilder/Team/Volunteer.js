@@ -5,6 +5,7 @@
  */
 import { createElement as ce } from 'react';
 import { Form, Card, Icon, Input, Button } from 'antd';
+import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const Volunteer = ({ member: { name, role, website }, handler }) => ce(Card, {
@@ -13,15 +14,16 @@ const Volunteer = ({ member: { name, role, website }, handler }) => ce(Card, {
     ce(Icon, { type: 'minus-circle-o' })
   ) },
   ce(Form.Item, { label: t`Name` },
-    ce(Input, { onChange: handler('name'), value: name })
+    ce(Input, { onKeyPress: kbJump, onChange: handler('name'), value: name })
   ),
   ce(Form.Item, { label: t`Role` },
-    ce(Input, { onChange: handler('role'), value: role })
+    ce(Input, { onKeyPress: kbJump, onChange: handler('role'), value: role })
   ),
   ce(Form.Item, { label: t`Website` },
     ce(Input, {
       addonBefore: 'http://',
       placeholder: t`website url`,
+      onKeyPress: kbJump,
       onChange: handler('website'),
       value: website,
     })

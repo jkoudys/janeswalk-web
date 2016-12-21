@@ -5,6 +5,7 @@
  */
 import { createElement as ce } from 'react';
 import { Form, Card, Icon, Input, Col } from 'antd';
+import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const colStyle = {
@@ -17,10 +18,10 @@ const Organizer = ({ member: { name, institution, email, website }, handler }) =
   extra: ce(Icon, { type: 'minus-circle-o', onClick: handler.remove }),
 },
   ce(Form.Item, { label: t`Name` },
-    ce(Input, { onChange: handler('name'), value: name })
+    ce(Input, { onKeyPress: kbJump, onChange: handler('name'), value: name })
   ),
   ce(Form.Item, { label: t`Institution` },
-    ce(Input, { onChange: handler('institution'), value: institution })
+    ce(Input, { onKeyPress: kbJump, onChange: handler('institution'), value: institution })
   ),
   ce(Form.Item, { label: t`Contact` },
     ce(Input.Group, {},
@@ -28,6 +29,7 @@ const Organizer = ({ member: { name, institution, email, website }, handler }) =
         ce(Input, {
           addonBefore: ce('i', { className: 'fa fa-envelope' }),
           placeholder: t`email address`,
+          onKeyPress: kbJump,
           onChange: handler('email'),
           value: email,
         }),
@@ -36,6 +38,7 @@ const Organizer = ({ member: { name, institution, email, website }, handler }) =
         ce(Input, {
           addonBefore: 'http://',
           placeholder: t`website url`,
+          onKeyPress: kbJump,
           onChange: handler('website'),
           value: website,
         }),

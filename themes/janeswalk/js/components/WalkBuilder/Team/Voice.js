@@ -5,6 +5,7 @@
  */
 import { createElement as ce } from 'react';
 import { Form, Card, Icon, Input, Col } from 'antd';
+import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import TextArea from '../TextArea';
 
@@ -18,10 +19,10 @@ const Voice = ({ member: { name, bio, twitter, facebook, website }, handler }) =
   extra: ce(Icon, { type: 'minus-circle-o', onClick: handler.remove }),
 },
   ce(Form.Item, { label: t`Name` },
-    ce(Input, { onChange: handler('name'), value: name })
+    ce(Input, { onKeyPress: kbJump, onChange: handler('name'), value: name })
   ),
   ce(Form.Item, { label: t`Bio` },
-    ce(TextArea, { onChange: handler('bio'), value: bio, rows: 4, maxLength: 140 })
+    ce(TextArea, { onKeyPress: kbJump, onChange: handler('bio'), value: bio, rows: 4, maxLength: 140 })
   ),
   ce(Form.Item, { label: t`Contact` },
     ce(Input.Group, {},
@@ -29,6 +30,7 @@ const Voice = ({ member: { name, bio, twitter, facebook, website }, handler }) =
         ce(Input, {
           addonBefore: 'http://',
           placeholder: t`website url`,
+          onKeyPress: kbJump,
           onChange: handler('website'),
           value: website,
         }),
@@ -37,6 +39,7 @@ const Voice = ({ member: { name, bio, twitter, facebook, website }, handler }) =
         ce(Input, {
           addonBefore: ce('i', { className: 'fa fa-twitter' }),
           placeholder: t`twitter`,
+          onKeyPress: kbJump,
           onChange: handler('twitter'),
           value: twitter,
         }),
@@ -45,6 +48,7 @@ const Voice = ({ member: { name, bio, twitter, facebook, website }, handler }) =
         ce(Input, {
           addonBefore: ce('i', { className: 'fa fa-facebook' }),
           placeholder: t`facebook`,
+          onKeyPress: kbJump,
           onChange: handler('facebook'),
           value: facebook,
         }),
