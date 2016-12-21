@@ -76,14 +76,14 @@ export default class WalkPage extends Component {
       walk,
       walk: {
         features = [],
-        checkboxes,
+        themes,
+        accessible,
       },
       isFavourite,
       schedule,
     } = this.state;
     const { canEdit = false } = this.props;
     const hasMarkers = features.length > 0;
-    const accessibleFlags = Object.keys(checkboxes).filter(k => k.includes('accessible-')).map(k => k.slice(11));
 
     const markers = features.filter(f => f.type === 'Feature' && f.geometry.type === 'Point');
 
@@ -108,7 +108,7 @@ export default class WalkPage extends Component {
           ce(Route, { key: 'walkRoute', markers }),
           ce(Start, { key: 'walkStart', ...walk }),
         ] : null,
-        ce(Accessibility, { flags: accessibleFlags }),
+        ce(Accessibility, { flags: accessible }),
         ce(PublicTransit, walk),
         ce(Parking, walk),
         ce(Team, walk)

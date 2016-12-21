@@ -44,7 +44,7 @@ let open = false;
 // { type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: { title, description, media } }
 let points;
 // array of tuples for route points
-let route;
+let route = List();
 // Members of the Walk team
 const team = [];
 // Walk images
@@ -112,10 +112,10 @@ const WalkBuilderStore = {
     // Times are all stored in utc server-side.
     // TODO: make local times work, so we can sort by which walks are currently happening, up next
     time: {
-      open,
+      open: 1,
       slots: times.map(time => [
-        time.valueOf() + time.utcOffset(),
-        time.valueOf() + time.utcOffset() + duration,
+        time.valueOf() / 1000 + time.utcOffset() * 60,
+        (time.valueOf() + duration) / 1000 + time.utcOffset() * 60,
       ]),
     },
     themes: [...themes],
@@ -145,6 +145,7 @@ const WalkBuilderStore = {
     times,
     title,
     ward,
+    cID,
   }),
 
   dispatchToken: register({
@@ -223,10 +224,13 @@ const WalkBuilderStore = {
       }));
       points = List(features.filter(f => f.geometry.type === 'Point').map((p) => ({ ...p })));
       if (time.slots.length > 0) {
-        duration = time.slots[0][1] - time.slots[0][0];
-        times.push(...time.slots.map(s => moment(s[0] - moment().utcOffset)));
+        // Times come in in seconds, not milliseconds
+        // TODO: migrate this server-side to favour the JavaScript, not PHP, conventions
+        duration = (time.slots[0][1] - time.slots[0][0]) * 1000;
+        times.push(...time.slots.map(([start]) => moment((+start - moment().utcOffset() * 60) * 1000)));
       }
-      if (receivedRoute) receivedRoute.geometry.coordinates.forEach(c => route.add(c));
+      const { geometry: { coordinates = [] } = {} } = receivedRoute;
+      route = route.push(...coordinates);
     },
     [AT.WB_TEAM_UPDATE]: ({ member, props }) => {
       team[team.indexOf(member)] = { ...member, ...props };

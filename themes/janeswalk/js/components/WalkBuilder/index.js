@@ -87,12 +87,17 @@ export default class WalkBuilder extends Component {
       remove: () => WBA.removePoint(point),
     }),
     saveWalk: async () => {
+      this.setState({ saving: true });
       const status = await save(WalkBuilderStore.getAsSchema());
+      this.setState({ saving: false });
       console.log(status);
     },
     publishWalk: async () => {
+      this.setState({ publishing: true });
       await publish(WalkBuilderStore.getAsSchema());
-      window.location = `/index.php?cID=${this.state.id}`;
+      this.setState({ publishing: false });
+      console.log(status);
+      window.location = `/index.php?cID=${this.state.cID}`;
     },
   };
 
@@ -115,6 +120,8 @@ export default class WalkBuilder extends Component {
       times,
       times: [time],
       title,
+      publishing,
+      saving,
     } = this.state;
     const {
       city: { cityOrganizer },
@@ -125,7 +132,7 @@ export default class WalkBuilder extends Component {
      handlers,
     } = this;
 
-    const lastWord = empty.length ? ce(DontForget, { empty }) : ce(Finished);
+    const lastWord = empty.length ? ce(DontForget, { saving, empty, handlers }) : ce(Finished, { publishing, handlers });
 
     return ce(Form, { className: 'WalkBuilder' },
       ce(Row, { type: 'flex', justify: 'center' },

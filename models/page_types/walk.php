@@ -338,14 +338,14 @@ class Walk extends \Model implements \JsonSerializable
             $this->page->setAttribute('accessible_info', $postArray['accessibleInfo']);
             $this->page->setAttribute('accessible_transit', $postArray['accessibleTransit']);
             $this->page->setAttribute('accessible_find', $postArray['accessibleFind']);
-            $this->page->setAttribute('walk_wards', $postArray['wards']);
+            if ($postArray['wards']) {
+                $this->page->setAttribute('walk_wards', $postArray['wards']);
+            }
             $this->page->setAttribute('scheduled', (array) $postArray['time']);
-
+            $this->page->setAttribute('theme', (array) $postArray['themes']);
+            $this->page->setAttribute('accessible', (array) $postArray['accessible']);
             $this->page->setAttribute('gmap', json_encode($postArray['features']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
-
-            $this->page->setAttribute('themes', (array) $postArray['themes']);
-            $this->page->setAttribute('accessible', (array) $postArray['accessible']);
 
             if (count($postArray['images']) && File::getByID($postArray['images'][0]['id'])) {
                 $this->page->setAttribute(
