@@ -55,6 +55,9 @@ export default class WalkBuilder extends Component {
     title: ({ target: { value } }) => WBA.setTitle(value),
     longDescription: ({ target: { value } }) => WBA.setLongDescription(value),
     shortDescription: ({ target: { value } }) => WBA.setShortDescription(value),
+    accessibleInfo: ({ target: { value } }) => WBA.setAccessibleInfo(value),
+    accessibleTransit: ({ target: { value } }) => WBA.setAccessibleTransit(value),
+    accessibleFind: ({ target: { value } }) => WBA.setAccessibleFind(value),
     times: (oldTime) => time => WBA.setTime(time, oldTime),
     duration: ({ target: { value } }) => WBA.setDuration(value),
     // Use function-props pattern for alternate actions. Default assumes onChange
@@ -86,6 +89,9 @@ export default class WalkBuilder extends Component {
 
   render() {
     const {
+      accessibleInfo,
+      accessibleFind,
+      accessibleTransit,
       accessibles,
       duration,
       empty,
@@ -129,9 +135,16 @@ export default class WalkBuilder extends Component {
           valt,
         }),
         ce(Theme, { name: t`Themes`, themes, handlers }),
-        ce(RouteBuilder, { name: t`Share Your Route`, city, points, route, handlers }),
+        ce(RouteBuilder, { name: t`Share Your Route (under construction)`, city, points, route, handlers }),
         ce(AddDates, { name: t`Set the Date`, times, duration, handlers }),
-        ce(Accessibility, { name: t`Accessibility`, accessibles, handlers }),
+        ce(Accessibility, {
+          name: t`Accessibility`,
+          accessibles,
+          accessibleInfo,
+          accessibleFind,
+          accessibleTransit,
+          handlers,
+        }),
         ce(Team, { name: t`Create Your Team`, team, handlers }),
         lastWord,
       )

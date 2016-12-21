@@ -24,6 +24,18 @@ export function setShortDescription(value) {
   dispatch({ type: AT.WB_SET_SHORT_DESCRIPTION, value });
 }
 
+export function setAccessibleInfo(value) {
+  dispatch({ type: AT.WB_SET_ACCESSIBLE_INFO, value });
+}
+
+export function setAccessibleTransit(value) {
+  dispatch({ type: AT.WB_SET_ACCESSIBLE_TRANSIT, value });
+}
+
+export function setAccessibleFind(value) {
+  dispatch({ type: AT.WB_SET_ACCESSIBLE_FIND, value });
+}
+
 export function setTime(value, time) {
   if (moment.isMoment(value)) {
     // Round to nearest 30 minutes before creating action

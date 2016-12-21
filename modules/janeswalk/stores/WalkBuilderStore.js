@@ -28,6 +28,9 @@ const defaultPoint = {
 let title = '';
 let shortDescription = '';
 let longDescription = '';
+let accessibleInfo = '';
+let accessibleTransit = '';
+let accessibleFind = '';
 let ward;
 // Default walk is 1h long
 let duration = 60 * 60 * 1000;
@@ -108,9 +111,15 @@ const WalkBuilderStore = {
     time: { open, slots: times.map(time => [time, time + duration]) },
     themes: [...themes],
     accessibles: [...accessibles],
+    accessibleInfo,
+    accessibleTransit,
+    accessibleFind,
   }),
 
   getWalk: () => ({
+    accessibleInfo,
+    accessibleTransit,
+    accessibleFind,
     accessibles,
     duration,
     images,
@@ -161,6 +170,9 @@ const WalkBuilderStore = {
     [AT.WB_REMOVE_THEME]: ({ value }) => themes.delete(value),
     [AT.WB_SET_ACCESSIBLE]: ({ value }) => accessibles.add(value),
     [AT.WB_REMOVE_ACCESSIBLE]: ({ value }) => accessibles.delete(value),
+    [AT.WB_SET_ACCESSIBLE_INFO]: ({ value }) => { accessibleInfo = value; },
+    [AT.WB_SET_ACCESSIBLE_TRANSIT]: ({ value }) => { accessibleTransit = value; },
+    [AT.WB_SET_ACCESSIBLE_FIND]: ({ value }) => { accessibleFind = value; },
     [AT.WB_RECEIVE_WALK]: ({ walk, walk: {
       time = { slots: [] },
       team: newTeam = [],

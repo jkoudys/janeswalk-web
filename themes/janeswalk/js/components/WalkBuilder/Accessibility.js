@@ -3,16 +3,13 @@
  *
  * The folks who make it happen. The team putting this Walk on.
  */
-/* global React */
-import { t as trans, translateTag as t } from 'janeswalk/stores/I18nStore';
-import TextArea from './TextArea';
-
-import { icons as AccessibleIcons } from 'janeswalk/utils/lookups/Accessible';
-
 import { createElement as ce } from 'react';
 import { Form, Row, Col, Tag } from 'antd';
-
-const Accessibility = ({ name, id, accessibles, handlers }) => (
+import { t as trans, translateTag as t } from 'janeswalk/stores/I18nStore';
+import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
+import { icons as AccessibleIcons } from 'janeswalk/utils/lookups/Accessible';
+import TextArea from './TextArea';
+const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransit, accessibleFind, handlers }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
     ce(Form.Item, {
@@ -42,11 +39,30 @@ const Accessibility = ({ name, id, accessibles, handlers }) => (
       ce('p', {}, t`Remember to come back and update this section after you've practiced going on your Walk. We encourage trying to eliminate barriers where you can, especially around mobility.`)
     ),
     ce(Form.Item, {
+      label: t`Extra info`,
+    },
+      ce(TextArea, {
+        addonBefore: ce('i', { className: 'fa fa-align-left' }),
+        maxLength: 150,
+        value: accessibleInfo,
+        onKeyPress: kbJump,
+        onChange: handlers.accessibleInfo,
+      }),
+      accessibles.size > 0 ? ce('p', {},
+        t`Why did you describe this walk as having: `,
+        [...accessibles].map((key) => trans(AccessibleIcons[key].name.toLowerCase())).join(', '),
+        '?'
+      ) : null
+    ),
+    ce(Form.Item, {
       label: t`How will people find you?`,
     },
       ce(TextArea, {
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
         maxLength: 150,
+        value: accessibleFind,
+        onKeyPress: kbJump,
+        onChange: handlers.accessibleFind,
       }),
       ce('p', {}, t`Perhaps you will be holding a sign, wearing a special t-shirt, or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.`)
     ),
@@ -56,6 +72,9 @@ const Accessibility = ({ name, id, accessibles, handlers }) => (
       ce(TextArea, {
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
         maxLength: 150,
+        value: accessibleTransit,
+        onKeyPress: kbJump,
+        onChange: handlers.accessibleTransit,
       }),
       ce('p', {}, t`Perhaps you will be holding a sign, wearing a special t-shirt, or holding up an object that relates to the theme of your walk. Whatever it is, let people know how to identify you.`)
     )
