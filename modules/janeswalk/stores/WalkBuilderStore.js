@@ -6,7 +6,7 @@
  * doing "save the date", etc.
  */
 
-import { List } from 'immutable';
+import { List as iList, Set as iSet } from 'immutable';
 import moment from 'moment';
 import { register } from 'janeswalk/dispatcher/AppDispatcher';
 import { ActionTypes as AT } from 'janeswalk/constants/JWConstants';
@@ -44,15 +44,15 @@ let open = false;
 // { type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: { title, description, media } }
 let points;
 // array of tuples for route points
-let route = List();
+let route = iList();
 // Members of the Walk team
-const team = [];
+let team = iList();
 // Walk images
-const images = [];
+let images = iList();
 // Times when a walk begins
-const times = [];
-const themes = new Set();
-const accessibles = new Set();
+let times = iList();
+let themes = iSet();
+let accessibles = iSet();
 
 export const memberDefaults = {
   leader: {
@@ -94,7 +94,7 @@ const WalkBuilderStore = {
     if (!title.trim()) empty.push('Title is empty');
     if (!shortDescription.trim()) empty.push('Short description is empty');
     if (!longDescription.trim()) empty.push('Long description is empty');
-    if (times.length === 0) empty.push('No walk date is set');
+    if (times.size === 0) empty.push('No walk date is set');
 
     return empty;
   },
@@ -114,8 +114,8 @@ const WalkBuilderStore = {
     time: {
       open: 1,
       slots: times.map(time => [
-        time.valueOf() / 1000 + time.utcOffset() * 60,
-        (time.valueOf() + duration) / 1000 + time.utcOffset() * 60,
+        (time.valueOf() / 1000) + (time.utcOffset() * 60),
+        ((time.valueOf() + duration) / 1000) + (time.utcOffset() * 60),
       ]),
     },
     themes: [...themes],
@@ -161,27 +161,27 @@ const WalkBuilderStore = {
         const { id, url, thumb: { src: thumbUrl } } = value.response;
         Object.assign(saved, { id, url, thumbUrl });
       }
-      images[0] = saved;
+      images = images.set(0, saved);
     },
-    [AT.WB_REMOVE_IMAGE]: () => { images.length = 0; },
+    [AT.WB_REMOVE_IMAGE]: () => { images.size = 0; },
     [AT.WB_SET_TIME]: ({ value, time = moment() }) => {
       // See if we're editing or adding a new time
       const idx = times.indexOf(time);
       if (idx === -1) {
-        times.push(value);
+        times = times.push(value);
         return;
       }
       if (value) {
-        times[idx] = value;
+        times = times.set(idx, value);
         return;
       }
       // If it's an empty time, remove from array
       times.splice(idx, 1);
     },
-    [AT.WB_SET_THEME]: ({ value }) => themes.add(value),
-    [AT.WB_REMOVE_THEME]: ({ value }) => themes.delete(value),
-    [AT.WB_SET_ACCESSIBLE]: ({ value }) => accessibles.add(value),
-    [AT.WB_REMOVE_ACCESSIBLE]: ({ value }) => accessibles.delete(value),
+    [AT.WB_SET_THEME]: ({ value }) => { themes = themes.add(value); },
+    [AT.WB_REMOVE_THEME]: ({ value }) => { themes = themes.delete(value); },
+    [AT.WB_SET_ACCESSIBLE]: ({ value }) => { accessibles = accessibles.add(value); },
+    [AT.WB_REMOVE_ACCESSIBLE]: ({ value }) => { accessibles = accessibles.delete(value); },
     [AT.WB_SET_ACCESSIBLE_INFO]: ({ value }) => { accessibleInfo = value; },
     [AT.WB_SET_ACCESSIBLE_TRANSIT]: ({ value }) => { accessibleTransit = value; },
     [AT.WB_SET_ACCESSIBLE_FIND]: ({ value }) => { accessibleFind = value; },
@@ -201,7 +201,7 @@ const WalkBuilderStore = {
       longDescription = ld;
       open = time.open;
       cID = +walkId;
-      team.push(...newTeam.map((member) => {
+      team = team.push(...newTeam.map((member) => {
         const newMember = { ...member };
         // TODO: move this out of the store to a migrator function
         // Check for v2 member definitions
@@ -222,21 +222,23 @@ const WalkBuilderStore = {
 
         return newMember;
       }));
-      points = List(features.filter(f => f.geometry.type === 'Point').map((p) => ({ ...p })));
+      points = iList(features.filter(f => f.geometry.type === 'Point').map((p) => ({ ...p })));
       if (time.slots.length > 0) {
         // Times come in in seconds, not milliseconds
         // TODO: migrate this server-side to favour the JavaScript, not PHP, conventions
         duration = (time.slots[0][1] - time.slots[0][0]) * 1000;
-        times.push(...time.slots.map(([start]) => moment((+start - moment().utcOffset() * 60) * 1000)));
+        times.push(...time.slots.map(([start]) => moment((+start - moment().utcOffset()) * 60000)));
       }
-      const { geometry: { coordinates = [] } = {} } = receivedRoute;
-      route = route.push(...coordinates);
+      if (receivedRoute) {
+        const { geometry: { coordinates = [] } = {} } = receivedRoute;
+        route = route.push(...coordinates);
+      }
     },
     [AT.WB_TEAM_UPDATE]: ({ member, props }) => {
-      team[team.indexOf(member)] = { ...member, ...props };
+      team = team.set(team.indexOf(member), { ...member, ...props });
     },
-    [AT.WB_TEAM_ADD]: ({ props }) => team.push({ ...props }),
-    [AT.WB_TEAM_REMOVE]: ({ member }) => team.splice(team.indexOf(member), 1),
+    [AT.WB_TEAM_ADD]: ({ props }) => { team = team.push({ ...props }); },
+    [AT.WB_TEAM_REMOVE]: ({ member }) => { team = team.splice(team.indexOf(member), 1); },
     [AT.WB_POINT_ADD]: ({ coordinates }) => {
       points = points.push({
         ...defaultPoint,
@@ -252,7 +254,7 @@ const WalkBuilderStore = {
       const newPoint = { ...point };
       if (coordinates) newPoint.geometry.coordinates = coordinates;
       if (properties) Object.assign(newPoint.properties, properties);
-      points[i] = newPoint;
+      points = points.set(i, newPoint);
     },
     [AT.WB_POINT_INDEX]: ({ point, change }) => {
       const i = points.indexOf(point);

@@ -46,6 +46,7 @@ class Walk extends \Model implements \JsonSerializable
     public $thumbnail;
     public $wards;
     public $themes;
+    public $accessible;
 
     // Map the object properties to their DB handle
     private $handleMap = [
@@ -58,8 +59,6 @@ class Walk extends \Model implements \JsonSerializable
         'features' => 'gmap',
         'team' => 'team',
         'wards' => 'walk_wards',
-        'themes' => 'theme',
-        'accessible' => 'accessible'
     ];
 
     /*
@@ -98,40 +97,51 @@ class Walk extends \Model implements \JsonSerializable
             }
         }
 
-        // Themes and Accessibility are sets of checkboxes
-        $loadChecks = function ($akHandle) use ($page) {
-            $checkboxes = [];
-            foreach ((array) $page->getAttribute($akHandle) as $av) {
-                foreach ((array) $av as $selectAttribute) {
-                    if ($selectAttribute) {
-                        $checkboxes[(string) $selectAttribute] = true;
-                    }
-                }
-            }
-
-            return $checkboxes;
-        };
-
         // Decode the JSON fields
-        $this->team = json_decode($this->team, true);
+        $this->team = array_map([self, 'mapMigratedTeam'], (array) json_decode($this->team, true));
         $this->features = static::formatAsFeatures((array) json_decode($this->features, true));
-
-        // Decode \n delimited arrays
-        $this->themes = $loadChecks('theme');
-        $this->accessible = $loadChecks('accessible');
 
         // Load more complex attributes
         $this->time = $page->getAttribute('scheduled');
         $this->thumbnail = $page->getAttribute('thumbnail');
 
+        // Checkboxes need to be mapped from an array
+        $checkMap = function ($check) { return (string) $check; };
+        $this->themes = array_map($checkMap, iterator_to_array($page->getAttribute('theme')));
+        $this->accessible = array_map($checkMap, iterator_to_array($page->getAttribute('accessible')));
+
         $this->published = !($page->getAttribute('exclude_page_list') === '1');
+    }
+
+    /**
+     * Migrate the old name-first name-last and 'you' team members to the new format.
+     * To be passed into a mapping function
+     */
+    protected static function mapMigratedTeam(array $member): array
+    {
+        // Collapse names
+        if (isset($member['name-first'])) {
+            $member['name'] = trim($member['name-first'] . ' ' . $member['name-last']);
+            unset($member['name-first'], $member['name-last']);
+        }
+
+        // Replace 'you' with the actual role
+        if (isset($member['type']) && $member['type'] === 'you') {
+            if (strpos($member['role'], 'rganizer') === false) {
+                $member['type'] = 'organizer';
+            } else {
+                $member['type'] = 'leader';
+            }
+            unset($member['role']);
+        }
+        return $member;
     }
 
     /**
      * Validate and format as geojson features
      * @return array
      */
-    protected function formatAsFeatures(array $map): array
+    protected static function formatAsFeatures(array $map): array
     {
         // Map the old-style ad-hoc format to a geojson features array
         if (array_key_exists('markers', $map)) {
@@ -190,42 +200,10 @@ class Walk extends \Model implements \JsonSerializable
                 $theme = \PageTheme::getByHandle('janeswalk');
                 $this->teamPictures = array_map(
                     function ($mem) use ($theme) {
-                    // TODO: deprecate this special-casing around the member 'you'
-                        if ($mem['type'] === 'you') {
-                            if ($mem['role'] === 'walk-organizer' || $mem['role'] === 'Walk Organizer') {
-                                $mem['type'] = 'organizer';
-                            } else {
-                                $mem['type'] = 'leader';
-                            }
+                        $ui = \UserInfo::getByEmail($mem['email']);
+                        if ($ui) {
+                           $mem['avatar'] = (new AvatarHelper())->getImagePath($ui);
                         }
-                        switch ($mem['type']) {
-                            case 'leader':
-                                $mem['image'] = $theme->getThemeURL() . '/img/walk-leader.png';
-                                $mem['title'] = 'Walk Leader';
-                                break;
-                            case 'organizer':
-                                $mem['image'] = $theme->getThemeURL() . '/img/walk-organizer.png';
-                                $mem['title'] = 'Walk Organizer';
-                                break;
-                            case 'community':
-                                $mem['image'] = $theme->getThemeURL() . '/img/community-voice.png';
-                                $mem['title'] = 'Community Voice';
-                                break;
-                            case 'volunteer':
-                                $mem['image'] = $theme->getThemeURL() . '/img/volunteers.png';
-                                $mem['title'] = 'Volunteer';
-                                break;
-                            default:
-                                break;
-                        }
-                        if ($mem['user_id'] > 0) {
-                            if ($avatar = (new AvatarHelper())->getImagePath(
-                                \UserInfo::getByID($mem['user_id'])
-                            )) {
-                                $mem['avatar'] = $avatar;
-                            }
-                        }
-
                         return $mem;
                     },
                     (array) $this->team
@@ -242,7 +220,6 @@ class Walk extends \Model implements \JsonSerializable
                         return (strpos($mem['role'], 'leader') !== false) || ($mem['type'] === 'leader');
                     }
                 );
-            break;
 
             case 'city':
                 // @return City of walk's city
@@ -252,16 +229,6 @@ class Walk extends \Model implements \JsonSerializable
                 } catch (Exception $e) {
                     return null;
                 }
-                break;
-
-            case 'meetingPlace':
-                // @return Array<title, description> for first stop on walking route
-                foreach ((array) $this->map['markers'] as $marker) {
-                    $this->meetingPlace = ['title' => $marker['title'], 'description' => $marker['description']];
-
-                    return $this->meetingPlace;
-                }
-                break;
 
             case 'publishDate':
                 foreach ((new \VersionList($this->page))->getVersionListArray() as $cv) {
@@ -296,7 +263,6 @@ class Walk extends \Model implements \JsonSerializable
                     );
                 }
                 return $this->attendees;
-                // Get from the JSON : select ad.value->"$.lists[*].walks[*]" from UserAttributeValues uav JOIN atDefault ad ON uav.avID = ad.avID and uav.akID = 62 and JSON_CONTAINS(ad.value->"$.lists[*].walks[*]", '[6762]');
         }
     }
 
@@ -378,6 +344,7 @@ class Walk extends \Model implements \JsonSerializable
     {
         $im = new ImageHelper();
         $nh = new NavigationHelper();
+
         $walkData = [
             'type' => 'FeatureCollection',
             'id' => $this->page->getCollectionID(),

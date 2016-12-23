@@ -5,13 +5,6 @@ export const icons = {
   uneven: { name: 'Uneven terrain', icon: 'street-view' },
   busy: { name: 'Busy sidewalks', icon: 'users' },
   lowlight: { name: 'Low light or nighttime', icon: 'low-vision' },
-  academic: { name: 'Academic content', icon: 'graduation-cap' },
-  breaks: { name: 'Has rest stops', icon: 'coffee' },
+  academic: { name: 'Fun for kids', icon: 'child' },
+  breaks: { name: 'Has rest breaks', icon: 'clock-o' },
 };
-
-/**
- * Helpers, to deal with that 'accessible-' prefix from the v1 json
- */
-export function getAccessibleName(theme) {
-  return (icons[theme.slice(11)] || { name: '' }).name;
-}

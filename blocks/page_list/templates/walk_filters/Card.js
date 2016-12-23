@@ -6,7 +6,7 @@ const { createElement: ce, Component } = React;
 
 let dtfDate;
 // Date formatter
-if (typeof(Intl) === 'object') {
+if (typeof Intl === 'object') {
   dtfDate = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'long',
@@ -46,25 +46,34 @@ export default class Card extends Component {
   }
 
   render() {
-    let Meeting;
-    let LedBy;
-    let Thumb;
-    let Status;
-    const { walk: { id, title, url, thumbnails = [], map, shortDescription, checkboxes, team } } = this.props;
+    const {
+      walk: {
+        id = -1,
+        title = '',
+        url = '',
+        thumbnails: [thumbUrl] = [],
+        features = {},
+        shortDescription = '',
+        themes = [],
+        team = [],
+      },
+    } = this.props;
     const { past, startTime } = this.state;
     const placeholder = `placeholder${id % 3}`;
     const leaders = team.filter(member => (member.role === 'walk-leader' || member.type === 'leader'));
-    const Tags = Object.keys(checkboxes)
-    .filter(check => (check.indexOf('theme-') === 0 && checkboxes[check]))
-    .map(theme => (
+    const thumbStyle = {};
+    const Tags = themes.map(theme => (
       ce('li', { className: 'tag', title: getThemeName(theme) },
         ce('i', { className: `fa ${getThemeIcon(theme)}` }),
       )
     ));
+    let Meeting;
+    let LedBy;
+    let Status;
 
     // Build the optional elements
-    if (thumbnails.length) {
-      Thumb = thumbnails[0].url;
+    if (thumbUrl) {
+      thumbStyle.backgroundImage = `url(${thumbnails[0].url})`;
     }
 
     /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
@@ -84,7 +93,7 @@ export default class Card extends Component {
       ce('div', { className: 'walk-card' },
         ce('a', { href: url },
           ce('div', { className: 'thumbnail' },
-            ce('div', { className: `walkimage ${placeholder}`, style: { backgroundImage: `url(${Thumb})` } }, Status),
+            ce('div', { className: `walkimage ${placeholder}`, style: { ...thumbStyle } }, Status),
             ce('div', { className: 'caption' },
               ce('h4', null, title || ''),
               ce('p', null, (shortDescription || '').slice(0, 140)),

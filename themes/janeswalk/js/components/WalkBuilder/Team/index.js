@@ -45,16 +45,12 @@ const Team = ({ id, name, team, handlers }) => ce('section', { id, className: 'L
       ce('p', {}, t`A person presenting information, telling stories, and fostering discussion during the Jane's Walk.`)
     ),
     ce(Button, { ...buttonStyle, onClick: handlers.teamAddOrganizer },
-      ce('h5', {}, ce('i', { className: 'fa fa-handshake-o' }), '  ', t`Walk Organizer`),
+      ce('h5', {}, ce('i', { className: 'fa fa-handshake-o' }), '  ', t`Organizer`),
       ce('p', {}, t`A person responsible for outreach to new and returning Walk Leaders and Community Voices.`)
-    ),
-    ce(Button, { ...buttonStyle, onClick: handlers.teamAddVoice },
-      ce('h5', {}, ce('i', { className: 'fa fa-comment-o' }), '  ', t`Community Voice`),
-      ce('p', {}, t`A community member with stories and/or personal experiences to share.`)
     ),
     ce(Button, { ...buttonStyle, onClick: handlers.teamAddVolunteer },
       ce('h5', {}, ce(Icon, { type: 'pushpin-o' }), '  ', t`Volunteers`),
-      ce('p', {}, t`Other people who are helping to make your Walk happen.`)
+      ce('p', {}, t`People who are helping out on your Walk. They could be there to help take photos, set up and coordinate the Walk, or share stories and/or personal experiences.`)
     )
   )
 );

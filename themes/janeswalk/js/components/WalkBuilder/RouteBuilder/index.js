@@ -17,7 +17,7 @@ const radioStyle = {
 };
 
 export default class RouteBuilder extends Component {
-  state = { mapMode: 'move' };
+  state = { mapMode: 'pin' };
 
   handleModeChange = ({ target: { value } }) => {
     this.setState({ mapMode: value });

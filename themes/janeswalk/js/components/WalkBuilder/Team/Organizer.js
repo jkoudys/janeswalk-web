@@ -14,7 +14,7 @@ const colStyle = {
 };
 
 const Organizer = ({ member: { name, institution, email, website }, handler }) => ce(Card, {
-  title: ce('strong', {}, ce('i', { className: 'fa fa-handshake-o' }), ' ', t`Walk Organizer`),
+  title: ce('strong', {}, ce('i', { className: 'fa fa-handshake-o' }), ' ', t`Organizer`),
   extra: ce(Icon, { type: 'minus-circle-o', onClick: handler.remove }),
 },
   ce(Form.Item, { label: t`Name` },

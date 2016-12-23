@@ -123,7 +123,7 @@
 	  function PageListTypeahead(props) {
 	    _classCallCheck(this, PageListTypeahead);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PageListTypeahead).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (PageListTypeahead.__proto__ || Object.getPrototypeOf(PageListTypeahead)).call(this, props));
 
 	    Object.assign(_this, {
 	      state: {
@@ -403,11 +403,11 @@
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
 	      } else {
-	          // At least give some kind of context to the user
-	          var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-	          err.context = er;
-	          throw err;
-	        }
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
+	      }
 	    }
 	  }
 
@@ -1168,7 +1168,7 @@
 	'WALK_RECEIVE', 'WALK_RECEIVE_ALL', 'WALK_SAVE', 'WALK_PUBLISH',
 
 	// Walk Builder
-	'WB_RECEIVE_WALK', 'WB_SET_TITLE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION',
+	'WB_RECEIVE_WALK', 'WB_REMOVE_ACCESSIBLE', 'WB_REMOVE_IMAGE', 'WB_REMOVE_THEME', 'WB_SET_ACCESSIBLE', 'WB_SET_DURATION', 'WB_SET_IMAGE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION', 'WB_SET_THEME', 'WB_SET_TIME', 'WB_SET_TITLE', 'WB_SET_ACCESSIBLE_INFO', 'WB_SET_ACCESSIBLE_TRANSIT', 'WB_SET_ACCESSIBLE_FIND', 'WB_TEAM_ADD', 'WB_TEAM_REMOVE', 'WB_TEAM_UPDATE', 'WB_POINT_ADD', 'WB_POINT_REMOVE', 'WB_POINT_UPDATE', 'WB_POINT_INDEX',
 
 	// City
 	'CITY_RECEIVE',

@@ -254,7 +254,7 @@
 	  function WalkFilter(props) {
 	    _classCallCheck(this, WalkFilter);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(WalkFilter).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (WalkFilter.__proto__ || Object.getPrototypeOf(WalkFilter)).call(this, props));
 
 	    Object.assign(_this, {
 	      state: getWalkFilterState(props),
@@ -559,11 +559,11 @@
 	      if (er instanceof Error) {
 	        throw er; // Unhandled 'error' event
 	      } else {
-	          // At least give some kind of context to the user
-	          var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
-	          err.context = er;
-	          throw err;
-	        }
+	        // At least give some kind of context to the user
+	        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+	        err.context = er;
+	        throw err;
+	      }
 	    }
 	  }
 
@@ -1324,7 +1324,7 @@
 	'WALK_RECEIVE', 'WALK_RECEIVE_ALL', 'WALK_SAVE', 'WALK_PUBLISH',
 
 	// Walk Builder
-	'WB_RECEIVE_WALK', 'WB_SET_TITLE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION',
+	'WB_RECEIVE_WALK', 'WB_REMOVE_ACCESSIBLE', 'WB_REMOVE_IMAGE', 'WB_REMOVE_THEME', 'WB_SET_ACCESSIBLE', 'WB_SET_DURATION', 'WB_SET_IMAGE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION', 'WB_SET_THEME', 'WB_SET_TIME', 'WB_SET_TITLE', 'WB_SET_ACCESSIBLE_INFO', 'WB_SET_ACCESSIBLE_TRANSIT', 'WB_SET_ACCESSIBLE_FIND', 'WB_TEAM_ADD', 'WB_TEAM_REMOVE', 'WB_TEAM_UPDATE', 'WB_POINT_ADD', 'WB_POINT_REMOVE', 'WB_POINT_UPDATE', 'WB_POINT_INDEX',
 
 	// City
 	'CITY_RECEIVE',
@@ -1513,6 +1513,10 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
@@ -1565,10 +1569,8 @@
 	    var yesterday = new Date();
 	    yesterday.setDate(yesterday.getDate() - 1);
 
-
 	    // Format the start date upfront, since that's expensive
-
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Card).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
 
 	    if (dtfDate) {
 	      formatter = function formatter(slot) {
@@ -1594,20 +1596,27 @@
 	  _createClass(Card, [{
 	    key: 'render',
 	    value: function render() {
-	      var Meeting = void 0;
-	      var LedBy = void 0;
-	      var Thumb = void 0;
-	      var Status = void 0;
 	      var _props$walk = this.props.walk;
-	      var id = _props$walk.id;
-	      var title = _props$walk.title;
-	      var url = _props$walk.url;
+	      var _props$walk$id = _props$walk.id;
+	      var id = _props$walk$id === undefined ? -1 : _props$walk$id;
+	      var _props$walk$title = _props$walk.title;
+	      var title = _props$walk$title === undefined ? '' : _props$walk$title;
+	      var _props$walk$url = _props$walk.url;
+	      var url = _props$walk$url === undefined ? '' : _props$walk$url;
 	      var _props$walk$thumbnail = _props$walk.thumbnails;
-	      var thumbnails = _props$walk$thumbnail === undefined ? [] : _props$walk$thumbnail;
-	      var map = _props$walk.map;
-	      var shortDescription = _props$walk.shortDescription;
-	      var checkboxes = _props$walk.checkboxes;
-	      var team = _props$walk.team;
+	      _props$walk$thumbnail = _props$walk$thumbnail === undefined ? [] : _props$walk$thumbnail;
+
+	      var _props$walk$thumbnail2 = _slicedToArray(_props$walk$thumbnail, 1);
+
+	      var thumbUrl = _props$walk$thumbnail2[0];
+	      var _props$walk$features = _props$walk.features;
+	      var features = _props$walk$features === undefined ? {} : _props$walk$features;
+	      var _props$walk$shortDesc = _props$walk.shortDescription;
+	      var shortDescription = _props$walk$shortDesc === undefined ? '' : _props$walk$shortDesc;
+	      var _props$walk$themes = _props$walk.themes;
+	      var themes = _props$walk$themes === undefined ? [] : _props$walk$themes;
+	      var _props$walk$team = _props$walk.team;
+	      var team = _props$walk$team === undefined ? [] : _props$walk$team;
 	      var _state = this.state;
 	      var past = _state.past;
 	      var startTime = _state.startTime;
@@ -1616,15 +1625,17 @@
 	      var leaders = team.filter(function (member) {
 	        return member.role === 'walk-leader' || member.type === 'leader';
 	      });
-	      var Tags = Object.keys(checkboxes).filter(function (check) {
-	        return check.indexOf('theme-') === 0 && checkboxes[check];
-	      }).map(function (theme) {
+	      var thumbStyle = {};
+	      var Tags = themes.map(function (theme) {
 	        return ce('li', { className: 'tag', title: (0, _Theme.getThemeName)(theme) }, ce('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) }));
 	      });
+	      var Meeting = void 0;
+	      var LedBy = void 0;
+	      var Status = void 0;
 
 	      // Build the optional elements
-	      if (thumbnails.length) {
-	        Thumb = thumbnails[0].url;
+	      if (thumbUrl) {
+	        thumbStyle.backgroundImage = 'url(' + thumbnails[0].url + ')';
 	      }
 
 	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
@@ -1640,7 +1651,7 @@
 	        Status = ce('div', { className: 'statusMessage' }, 'Ended');
 	      }
 
-	      return ce('div', { className: 'walk-card' }, ce('a', { href: url }, ce('div', { className: 'thumbnail' }, ce('div', { className: 'walkimage ' + placeholder, style: { backgroundImage: 'url(' + Thumb + ')' } }, Status), ce('div', { className: 'caption' }, ce('h4', null, title || ''), ce('p', null, (shortDescription || '').slice(0, 140))), ce('ul', { className: 'when' }, ce('li', null, startTime), Meeting ? ce('li', null, (0, _I18nStore.translateTag)(_templateObject2, Meeting)) : null, LedBy ? ce('li', null, LedBy) : null), ce('ul', { className: 'list-inline tags' }, Tags))));
+	      return ce('div', { className: 'walk-card' }, ce('a', { href: url }, ce('div', { className: 'thumbnail' }, ce('div', { className: 'walkimage ' + placeholder, style: _extends({}, thumbStyle) }, Status), ce('div', { className: 'caption' }, ce('h4', null, title || ''), ce('p', null, (shortDescription || '').slice(0, 140))), ce('ul', { className: 'when' }, ce('li', null, startTime), Meeting ? ce('li', null, (0, _I18nStore.translateTag)(_templateObject2, Meeting)) : null, LedBy ? ce('li', null, LedBy) : null), ce('ul', { className: 'list-inline tags' }, Tags))));
 	    }
 	  }]);
 
@@ -1663,7 +1674,7 @@
 	var icons = exports.icons = {
 	  'civic-activist': { name: 'Activism', icon: 'bullhorn' },
 	  'civic-commerce': { name: 'Commerce', icon: 'shopping-cart' },
-	  'civic-gender': { name: 'Gender', icon: 'unlock-alt' },
+	  'civic-gender': { name: 'Gender', icon: 'transgender-alt' },
 	  'civic-goodneighbour': { name: 'Community', icon: 'group' },
 	  'civic-health': { name: 'Health', icon: 'medkit' },
 	  'civic-international': { name: 'International Issues', icon: 'globe' },
@@ -2061,7 +2072,7 @@
 	  _inherits(LocationMap, _Component);
 
 	  function LocationMap() {
-	    var _Object$getPrototypeO;
+	    var _ref5;
 
 	    _classCallCheck(this, LocationMap);
 
@@ -2069,7 +2080,7 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(LocationMap)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref5 = LocationMap.__proto__ || Object.getPrototypeOf(LocationMap)).call.apply(_ref5, [this].concat(args)));
 
 	    Object.assign(_this, {
 	      state: { map: null, markers: {} }
@@ -2184,7 +2195,7 @@
 	  function DateRange(props) {
 	    _classCallCheck(this, DateRange);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(DateRange).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (DateRange.__proto__ || Object.getPrototypeOf(DateRange)).call(this, props));
 
 	    var _props$value = props.value;
 	    _props$value = _props$value === undefined ? ['', ''] : _props$value;
