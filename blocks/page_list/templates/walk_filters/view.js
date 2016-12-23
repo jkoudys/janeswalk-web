@@ -1555,10 +1555,6 @@
 	  });
 	}
 
-	var getFullName = function getFullName(v) {
-	  return (v['name-first'] + ' ' + v['name-last']).trim();
-	};
-
 	var Card = function (_Component) {
 	  _inherits(Card, _Component);
 
@@ -1609,8 +1605,10 @@
 	      var _props$walk$thumbnail2 = _slicedToArray(_props$walk$thumbnail, 1);
 
 	      var thumbUrl = _props$walk$thumbnail2[0];
-	      var _props$walk$features = _props$walk.features;
-	      var features = _props$walk$features === undefined ? {} : _props$walk$features;
+
+	      var _props$walk$features = _slicedToArray(_props$walk.features, 1);
+
+	      var meetingPlace = _props$walk$features[0];
 	      var _props$walk$shortDesc = _props$walk.shortDescription;
 	      var shortDescription = _props$walk$shortDesc === undefined ? '' : _props$walk$shortDesc;
 	      var _props$walk$themes = _props$walk.themes;
@@ -1639,12 +1637,14 @@
 	      }
 
 	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-	      if (map && map.markers && map.markers.length) {
-	        Meeting = map.markers[0].title || map.markers[0].description;
+	      if (meetingPlace && meetingPlace.type === 'Feature') {
+	        Meeting = meetingPlace.properties.title || meetingPlace.properties.description;
 	      }
 
 	      if (leaders.length) {
-	        LedBy = ce('span', null, (0, _I18nStore.translateTag)(_templateObject, leaders.map(getFullName).join(', ')));
+	        LedBy = ce('span', null, (0, _I18nStore.translateTag)(_templateObject, leaders.map(function (l) {
+	          return l.name;
+	        }).join(', ')));
 	      }
 
 	      if (past) {

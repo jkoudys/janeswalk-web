@@ -17,8 +17,6 @@ if (typeof Intl === 'object') {
   });
 }
 
-const getFullName = v => `${v['name-first']} ${v['name-last']}`.trim();
-
 export default class Card extends Component {
   constructor(props) {
     let formatter;
@@ -52,7 +50,7 @@ export default class Card extends Component {
         title = '',
         url = '',
         thumbnails: [thumbUrl] = [],
-        features = {},
+        features: [meetingPlace],
         shortDescription = '',
         themes = [],
         team = [],
@@ -77,12 +75,12 @@ export default class Card extends Component {
     }
 
     /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-    if (map && map.markers && map.markers.length) {
-      Meeting = map.markers[0].title || map.markers[0].description;
+    if (meetingPlace && meetingPlace.type === 'Feature') {
+      Meeting = meetingPlace.properties.title || meetingPlace.properties.description;
     }
 
     if (leaders.length) {
-      LedBy = ce('span', null, t`Walk led by ${leaders.map(getFullName).join(', ')}`);
+      LedBy = ce('span', null, t`Walk led by ${leaders.map(l => l.name).join(', ')}`);
     }
 
     if (past) {
