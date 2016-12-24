@@ -1,52 +1,35 @@
-/* global React $ */
+import { createElement as ce } from 'react';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import WithLinks from 'janeswalk/components/WithLinks.jsx';
 
-import AreaStore from 'janeswalk/stores/AreaStore';
-
-const getState = () => ({
-  announcements: AreaStore.getArea('Announcements COs only'),
+// The datetime format for this component
+// FIXME: get the locale from the page
+const dtf = new Intl.DateTimeFormat('en-US', {
+  weekday: 'long',
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
 });
 
-class DashboardHeader extends React.Component {
-  constructor(props) {
-    super(props);
-
-    Object.assign(this, {
-      state: getState(),
-      _onChange: () => this.setState(getState()),
-    });
-  }
-
-  componentWillMount() {
-    AreaStore.addChangeListener(this._onChange);
-  }
-
-  componentWillUnmount() {
-    AreaStore.removeChangeListener(this._onChange);
-  }
-
-  render() {
-    const { user: { firstName, groups }, announcements } = this.props;
-
-    return (
-      <header>
-        <h3>{firstName.toUpperCase()} {groups.includes('City Organizers') ? 'Organizer' : 'Walk Leader'} Dashboard</h3>
-        <h4>Hi, {`${firstName}!`} </h4>
-        <section className="dashboardLatestPost">
-          {announcements.filter(({ group }) => groups.includes(group)).slice(0, 3).map(({ title, time, text }) => [
-            <h4>{title}</h4>,
-            <h5>{$.datepicker.formatDate('M d, yy', new Date(time))}</h5>,
-            <WithLinks>{text}</WithLinks>,
-          ])}
-          {this.state.announcements ? <span dangerouslySetInnerHTML={{ __html: this.state.announcements }} /> : null}
-        </section>
-      </header>
-    );
-  }
-}
-
-DashboardHeader.PropTypes = {
-  user: React.PropTypes.object.isRequired,
-};
+const DashboardHeader = ({ user: { firstName, groups }, announcements }) => (
+  ce('header', {},
+    ce('h3', {},
+      firstName.toUpperCase(),
+      ' ',
+      groups.includes('City Organizers') ? 'Organizer' : 'Walk Leader', ' Dashboard'
+    ),
+    ce('h4', {}, t`Hi, ${firstName}!`),
+    ce('section', { className: 'dashboardLatestPost' },
+      announcements.filter(({ group }) => groups.includes(group)).slice(0, 3).map(({ title, time, text }) => (
+        ce('span', { key: `announce${title}` },
+          ce('h4', {}, title),
+          ce('h5', {}, dtf.format(new Date(time))),
+          ce(WithLinks, {}, text),
+        )
+      )),
+      announcements ? ce('span', { dangerouslySetInnerHTML: { __html: announcements } }) : null,
+    )
+  )
+);
 
 export default DashboardHeader;
