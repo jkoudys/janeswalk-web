@@ -1,5 +1,6 @@
 <?php
 use Concrete\Core\Legacy\NavigationHelper;
+use Qaribou\Collection\CallbackHeap;
 
 class PageAttributeTypeController extends AttributeTypeController
 {
@@ -63,42 +64,57 @@ class PageAttributeTypeController extends AttributeTypeController
 
     public function form()
     {
-        Loader::model('page_list');
-        $pl = new PageList();
         $lastParent = '';
         $selected = $_REQUEST['akID'][$this->getAttributeKey()->getAttributeKeyID()]['value'];
         if (!$selected && $this->getAttributeValueID() > 0) {
             $selected = $this->getValue()->cID;
         }
-        $selectString = "<select id='{$this->field('value')}' name='{$this->field('value')}' ><option value=''>--</option>";
-        $pl->filterByCollectionTypeHandle('city');
-        $pages = $pl->get();
-        uasort(
-            $pages,
-            function ($a, $b) {
-                $ap = $a->getCollectionParentID();
-                $bp = $b->getCollectionParentID();
 
-                return ($ap === $bp) ? 0 : strcmp(Page::getByID($ap)->getCollectionName(), Page::getByID($bp)->getCollectionName());
-            }
+        // Get all the cities
+        $pl = new PageList();
+        $pl->filterByCollectionTypeHandle('city');
+        $pl->sortByName();
+
+        // Organize them by ID
+        $countriesByID = array_reduce(
+            (array) $pl->get(),
+            function ($a, $e) {
+                $countryID = $e->getCollectionParentID();
+                $a[$countryID] = array_merge($a[$countryID] ?? [], [$e]);
+                return $a;
+            },
+            []
         );
-        foreach ($pages as $page) {
-            $parent = Page::getByID($page->getCollectionParentID())->getCollectionName();
-            if ($lastParent != $parent) {
-                if ($lastParent !== '') {
-                    $selectString .= '</optgroup>';
-                }
-                $selectString .= "<optgroup label='$parent'>";
-                $lastParent = $parent;
+
+        // Build an array sorted by their city name
+        $countriesByName = array_combine(
+            array_map(
+                function ($cID): string {
+                    return Page::getByID($cID)->getCollectionName();
+                },
+                array_keys($countriesByID)
+            ),
+            array_values($countriesByID)
+        );
+        ksort($countriesByName);
+
+        // Render the form element
+        echo '<select id="' . $this->field('value') . '" name="' . $this->field('value') . '">' .
+            '<option value="">--</option>';
+        foreach ($countriesByName as $countryName => $cities) {
+            echo '<optgroup label="' . $countryName . '">';
+            foreach ($cities as $city) {
+                $selectedAttr = ($selected === $city->getCollectionID()) ? 'selected="selected"' : '';
+                echo '<option ' .
+                    'value="' . $city->getCollectionID() . '" ' .
+                    (($selected === $city->getCollectionID()) ? 'selected' : '') .
+                    '>' .
+                    $city->getCollectionName() .
+                    '</option>';
             }
-            $selectedAttributeVal = '';
-            if ($selected === $page->cID) {
-                $selectedAttributeVal = ' selected="selected"';
-            }
-            $selectString .= "<option value=\"{$page->getCollectionID()}\"" . ($selectedAttributeVal) . ">{$page->getCollectionName()}</option>";
+            echo '</optgroup>';
         }
-        $selectString .= '</select>';
-        echo $selectString;
+        echo '</select>';
     }
 
     // run when we call setAttribute(), instead of saving through the UI
