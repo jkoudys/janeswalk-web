@@ -1,8 +1,8 @@
-/* global React */
-
+import { createElement as ce, Component } from 'react';
+import { Tag, Button } from 'antd';
+import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import WalkFilters from './WalkFilters.jsx';
 import WalksMap from './WalksMap.jsx';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 // TODO: (Post-PR) Walk common component found in <Itinerary/> and <WalkPage/>, Refactor to a single component or mixin
 import Walk from './Walk.jsx';
@@ -24,20 +24,15 @@ function toggleFilter(filters, handle, option) {
 }
 
 // TODO: load only the ones we need from the walk data
-const _filters = require('../../../json/FilterStubs.json');
+const allFilters = require('../../../json/FilterStubs.json');
 
-export default class Walks extends React.Component {
-  constructor(props, ...args) {
-    super(props, ...args);
+export default class Walks extends Component {
+  state = {
+    currentView: 'list',
+    filters: {},
+  };
 
-    Object.assign(this, {
-      state: {
-        currentView: 'list',
-        filters: {},
-      },
-      handleToggleFilterPast: () => this.setState({ filterPast: !this.state.filterPast }),
-    });
-  }
+  handleToggleFilterPast = () => this.setState({ filterPast: !this.state.filterPast });
 
   render() {
     const { currentView, filterPast, filters } = this.state;
@@ -89,43 +84,36 @@ export default class Walks extends React.Component {
 
     // The toggle for the past walks
     const DateToggle = (
-      <button
-        className={filterPast ? 'active' : null}
-        onClick={this.handleToggleFilterPast}
-      >
-        {filterPast ? t`Without Past Walks` : t`With Past Walks`}
-      </button>
+      ce(Tag.CheckableTag, { checked: filterPast, onClick: this.handleToggleFilterPast },
+        filterPast ? t`Without Past Walks` : t`With Past Walks`
+      )
     );
 
-    // TODO: (Post-PR) Place buttons in WalksFilterOptions (should be a generic FilterOptions)
+    // TODO: Place buttons in WalksFilterOptions (should be a generic FilterOptions)
     return (
-      <div className="walks">
-        <button
-          className={`walksListButton ${currentView === 'list' ? 'active' : null}`}
-          onClick={() => this.setState({ currentView: 'list' })}
-        >
-          List
-        </button>
-        <button
-          className={`walksMapButton ${currentView === 'map' ? 'active' : null}`}
-          onClick={() => this.setState({ currentView: 'map' })}
-        >
-          Map
-        </button>
-        {DateToggle}
-        {city ? (
-          <a target="_blank" href={`/profile/exportCity/${city.id}`}>
-            <button>{t`Export Spreadsheet`}</button>
-          </a>
-        ) : null}
-        <WalkFilters
-          allFilters={_filters}
-          filters={filters}
-          removeFilter={(filter, option) => this.setState({ filters: removeFilter(filters, filter, option) })}
-          toggleFilter={(filter, option) => this.setState({ filters: toggleFilter(filters, filter, option) })}
-        />
-        {WalkList}
-      </div>
+      ce('div', { className: 'walks' },
+        ce(Tag.CheckableTag, {
+          className: 'walksListButton',
+          checked: currentView === 'list',
+          onChange: () => this.setState({ currentView: 'list' }),
+        }, t`List`),
+        ce(Tag.CheckableTag, {
+          className: 'walksMapButton',
+          checked: currentView === 'map',
+          onChange: () => this.setState({ currentView: 'map' }),
+        }, t`Map`),
+        DateToggle,
+        city ? ce('a', { target: '_blank', href: `/profile/exportCity/${city.id}` },
+          ce(Button, {}, t`Export Spreadsheet`)
+        ) : null,
+        ce(WalkFilters, {
+          allFilters,
+          filters,
+          removeFilter: (filter, option) => this.setState({ filters: removeFilter(filters, filter, option) }),
+          toggleFilter: (filter, option) => this.setState({ filters: toggleFilter(filters, filter, option) }),
+        }),
+        WalkList
+      )
     );
   }
 }

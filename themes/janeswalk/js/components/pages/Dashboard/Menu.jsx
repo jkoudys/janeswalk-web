@@ -1,13 +1,11 @@
-/* global React */
-
 // TODO: ImpactReport is not set-up
 // import ImpactReport from './ImpactReport.jsx';
-
+import { createElement as ce, PureComponent } from 'react';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 import Walks from './Walks.jsx';
 
-export default class Menu extends React.Component {
+export default class Menu extends PureComponent {
   constructor(props, ...args) {
     super(props, ...args);
 
@@ -54,22 +52,21 @@ export default class Menu extends React.Component {
     const { walks, city, user, edit, currentUser } = this.props;
 
     const menu = menuItems.map(([Component, name, open, props], i) => (
-      <section>
-        <li
-          key={i}
-          className={open ? 'activeMenuItem' : null}
-          onClick={() => this.toggleSection(i)}
-        >
-          <i className="icon-caret-right" /> {name}
-        </li>
-        {open ? <Component {...{ user, walks, city, edit, currentUser, ...props }} /> : null}
-      </section>
+      ce('section', { key: `menuSection${i}` },
+        ce('li', {
+          className: open ? 'activeMenuItem' : '',
+          onClick: () => this.toggleSection(i),
+        },
+          ce('i', { className: 'icon-caret-right' }), ` ${name}`
+        ),
+        open ? ce(Component, { user, walks, city, edit, currentUser, ...props }) : null
+      )
     ));
 
     return (
-      <section className="dashboardMenu">
-        <ul>{menu}</ul>
-      </section>
+      ce('section', { className: 'dashboardMenu' },
+        ce('ul', {}, menu)
+      )
     );
   }
 }

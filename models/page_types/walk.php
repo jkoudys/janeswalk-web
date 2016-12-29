@@ -106,9 +106,18 @@ class Walk extends \Model implements \JsonSerializable
         $this->thumbnail = $page->getAttribute('thumbnail');
 
         // Checkboxes need to be mapped from an array
-        $checkMap = function ($check) { return (string) $check; };
-        $this->themes = array_map($checkMap, iterator_to_array($page->getAttribute('theme')));
-        $this->accessible = array_map($checkMap, iterator_to_array($page->getAttribute('accessible')));
+        $checkMap = function (string $attribute) use ($page) {
+            $attrList = $page->getAttribute($attribute);
+            if ($attrList) {
+                return array_map(
+                    function ($check) { return (string) $check; },
+                    iterator_to_array($attrList)
+                );
+            }
+            return null;
+        };
+        $this->themes = $checkMap('theme');
+        $this->accessible = $checkMap('accessible');
 
         $this->published = !($page->getAttribute('exclude_page_list') === '1');
     }

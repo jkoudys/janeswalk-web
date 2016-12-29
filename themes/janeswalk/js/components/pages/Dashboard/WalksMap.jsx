@@ -1,14 +1,17 @@
-/* global React ReactDOM google */
+/* global google */
+import { render } from 'react-dom';
+import { createElement as ce, Component } from 'react';
+
 // TODO: (Post-PR) WalkMap.jsx already exists, review and re-use, you have a few usages of the google map that can be combined
 const dashMapStyle = require('../../../json/dashMapStyle.json');
 
 const InfoWindow = ({ url, title, shortDescription }) => (
-  <span>
-    <h4>
-      <a href={url}>{title}</a>
-    </h4>
-    <p>{shortDescription}</p>
-  </span>
+  ce('span', {},
+    ce('h4', {},
+      ce('a', { href: url }, title)
+    ),
+    ce('p', {}, shortDescription)
+  )
 );
 
 const manageMarkers = (map, markers, walks) => {
@@ -17,9 +20,7 @@ const manageMarkers = (map, markers, walks) => {
 
   // Remove any markers that are not part of active walks
   markers = markers.filter(m => {
-    const walkFound = walks.find(w => (w.id === m.walkId));
-    if (walkFound) return walkFound;
-
+    if (walks.find(w => (w.id === m.walkId))) return true;
     m.setMap(null);
     return false;
   });
@@ -30,11 +31,7 @@ const manageMarkers = (map, markers, walks) => {
     title,
     shortDescription,
     url,
-    map: {
-      markers: [
-        { lat, lng },
-      ] = [],
-    } = {},
+    features: [{ geometry: [lng, lat] } = {}] = [],
   }) => {
     if (lat && lng) {
       const walkFound = markers.find(({ walkId }) => (walkId === id));
@@ -50,7 +47,7 @@ const manageMarkers = (map, markers, walks) => {
         markers.push(marker);
 
         google.maps.event.addListener(marker, 'click', () => {
-          ReactDOM.render(<InfoWindow {...{ title, shortDescription, url }} />, _infoNode);
+          render(ce(InfoWindow, { title, shortDescription, url }), _infoNode);
 
           infoWindow.setMap(map);
           map.panTo(marker.getPosition());
@@ -64,28 +61,25 @@ const manageMarkers = (map, markers, walks) => {
   return markers;
 };
 
-export default class WalksMap extends React.Component {
-  constructor(props, ...args) {
-    super(props, ...args);
-    this.state = {
-      googleMap: null,
-      googleMapMarkers: [],
-    };
-  }
+export default class WalksMap extends Component {
+  state = {
+    googleMap: null,
+    googleMapMarkers: [],
+  };
+
+  setMapRef = (ref) => { this.mapDiv = ref; };
 
   componentDidMount() {
     const { city, walks } = this.props;
     const { googleMapMarkers } = this.state;
     const [lat, lng] = city.latlng;
 
-    const mapOptions = {
+    const googleMap = new google.maps.Map(this.mapDiv, {
       center: new google.maps.LatLng(lat, lng),
       zoom: 12,
       scrollwheel: false,
       backgroundColor: '#d7f0fa',
-    };
-
-    const googleMap = new google.maps.Map(ReactDOM.findDOMNode(this), mapOptions);
+    });
 
     googleMap.mapTypes.set('map_style', new google.maps.StyledMapType(dashMapStyle));
     googleMap.setMapTypeId('map_style');
@@ -105,10 +99,6 @@ export default class WalksMap extends React.Component {
   }
 
   render() {
-    return <div className="walkMap" style={{ width: '100%', height: '600px' }} />;
+    return ce('div', { ref: this.setMapRef, className: 'walkMap', style: { width: '100%', height: '600px' } });
   }
 }
-
-WalksMap.PropTypes = {
-  walks: React.PropTypes.array.isRequired,
-};
