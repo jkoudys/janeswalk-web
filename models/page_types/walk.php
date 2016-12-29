@@ -226,7 +226,7 @@ class Walk extends \Model implements \JsonSerializable
                 return array_filter(
                     (array) $this->team,
                     function ($mem) {
-                        return (strpos($mem['role'], 'leader') !== false) || ($mem['type'] === 'leader');
+                        return $mem['type'] === 'leader';
                     }
                 );
 
@@ -306,6 +306,11 @@ class Walk extends \Model implements \JsonSerializable
         $db = Loader::db();
         $db->StartTrans();
         $ok = true;
+
+        $formatChecks = function (array $arr): array {
+            return array_combine($arr, array_fill(0, count($arr), true));
+        };
+
         try {
             $this->page->update(['cName' => $postArray['title']]);
             $this->page->setAttribute('shortdescription', $postArray['shortDescription']);
@@ -317,8 +322,8 @@ class Walk extends \Model implements \JsonSerializable
                 $this->page->setAttribute('walk_wards', $postArray['wards']);
             }
             $this->page->setAttribute('scheduled', (array) $postArray['time']);
-            $this->page->setAttribute('theme', (array) $postArray['themes']);
-            $this->page->setAttribute('accessible', (array) $postArray['accessible']);
+            $this->page->setAttribute('theme', $formatChecks((array) $postArray['themes']));
+            $this->page->setAttribute('accessible', $formatChecks((array) $postArray['accessible']));
             $this->page->setAttribute('gmap', json_encode($postArray['features']));
             $this->page->setAttribute('team', json_encode($postArray['team']));
 
