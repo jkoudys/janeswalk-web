@@ -116,6 +116,14 @@
 
 	var _I18nStore = __webpack_require__(3);
 
+	var _WalkStore = __webpack_require__(22);
+
+	var _WalkStore2 = _interopRequireDefault(_WalkStore);
+
+	var _CityStore = __webpack_require__(23);
+
+	var _CityStore2 = _interopRequireDefault(_CityStore);
+
 	var _WalkCards = __webpack_require__(13);
 
 	var _WalkCards2 = _interopRequireDefault(_WalkCards);
@@ -135,14 +143,6 @@
 	var _Filter = __webpack_require__(21);
 
 	var _Filter2 = _interopRequireDefault(_Filter);
-
-	var _WalkStore = __webpack_require__(22);
-
-	var _WalkStore2 = _interopRequireDefault(_WalkStore);
-
-	var _CityStore = __webpack_require__(23);
-
-	var _CityStore2 = _interopRequireDefault(_CityStore);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -194,9 +194,10 @@
 	    // Note that this would be a lot cleaner using functions, but it's
 	    // built with a big set of basic boolean operators to speed it up
 	    // along this likely bottleneck
-	    if (filters.theme && filters.theme.selected && !walk.checkboxes['theme-' + filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.checkboxes['accessible-' + filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && +walk.cityID !== +filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time || typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.map(function (m) {
-	      return m['name-first'] + ' ' + m['name-last'];
-	    }).join('')).match(new RegExp(typeahead, 'i'))) {
+	    if (filters.theme && filters.theme.selected && !walk.themes[filters.theme.selected] || filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected || filters.accessibility && filters.accessibility.selected && !walk.accessibles[filters.accessibility.selected] || filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1 || city && +walk.cityID !== +city.id || filters.city && filters.city.selected && +walk.cityID !== +filters.city.selected || dateRange[0] && dateRange[0] > time || dateRange[1] && dateRange[1] < time || typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.reduce(function (a, _ref3) {
+	      var name = _ref3.name;
+	      return a + name;
+	    }, '')).match(new RegExp(typeahead, 'i'))) {
 	      return false;
 	    }
 	    return true;
@@ -228,13 +229,13 @@
 	  return [today, null];
 	}
 
-	var getWalkFilterState = function getWalkFilterState(_ref3) {
-	  var _ref3$filters = _ref3.filters;
-	  var filters = _ref3$filters === undefined ? {} : _ref3$filters;
-	  var typeahead = _ref3.typeahead;
-	  var dateRange = _ref3.dateRange;
-	  var _ref3$city = _ref3.city;
-	  var city = _ref3$city === undefined ? _CityStore2.default.getCity() : _ref3$city;
+	var getWalkFilterState = function getWalkFilterState(_ref4) {
+	  var _ref4$filters = _ref4.filters;
+	  var filters = _ref4$filters === undefined ? {} : _ref4$filters;
+	  var typeahead = _ref4.typeahead;
+	  var dateRange = _ref4.dateRange;
+	  var _ref4$city = _ref4.city;
+	  var city = _ref4$city === undefined ? _CityStore2.default.getCity() : _ref4$city;
 
 	  var outings = _WalkStore2.default.getWalkOutings();
 	  var usefulRange = dateRange || thirdRecentDateRange(outings);
@@ -273,7 +274,7 @@
 	      printList: function printList() {
 	        var win = window.open();
 	        var el = win.document.createElement('div');
-	        ReactDOM.render(React.createElement(_WalkList2.default, { outings: _this.state.filterMatches }), el);
+	        ReactDOM.render(ce(_WalkList2.default, { outings: _this.state.filterMatches }), el);
 	        window.focus();
 	        win.document.body.appendChild(el);
 	        win.print();
@@ -309,8 +310,8 @@
 	      },
 
 	      // Typeahead search in the walks
-	      handleTypeahead: function handleTypeahead(_ref4) {
-	        var typeahead = _ref4.target.value;
+	      handleTypeahead: function handleTypeahead(_ref5) {
+	        var typeahead = _ref5.target.value;
 	        var _this$state3 = _this.state;
 	        var filters = _this$state3.filters;
 	        var outings = _this$state3.outings;

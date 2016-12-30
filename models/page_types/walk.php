@@ -137,9 +137,9 @@ class Walk extends \Model implements \JsonSerializable
         // Replace 'you' with the actual role
         if (isset($member['type']) && $member['type'] === 'you') {
             if (strpos($member['role'], 'rganizer') === false) {
-                $member['type'] = 'organizer';
-            } else {
                 $member['type'] = 'leader';
+            } else {
+                $member['type'] = 'organizer';
             }
             unset($member['role']);
         }
@@ -306,10 +306,6 @@ class Walk extends \Model implements \JsonSerializable
         $db = Loader::db();
         $db->StartTrans();
         $ok = true;
-
-        $formatChecks = function (array $arr): array {
-            return array_combine($arr, array_fill(0, count($arr), true));
-        };
 
         try {
             $this->page->update(['cName' => $postArray['title']]);

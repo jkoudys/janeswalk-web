@@ -5,15 +5,15 @@
  */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
+// Flux
+import WalkStore from 'janeswalk/stores/WalkStore';
+import CityStore from 'janeswalk/stores/CityStore';
+
 import WalkCards from './WalkCards';
 import WalkList from './WalkList';
 import LocationMap from './LocationMap';
 import DateRange from './DateRange';
 import Filter from './Filter';
-
-// Flux
-import WalkStore from 'janeswalk/stores/WalkStore';
-import CityStore from 'janeswalk/stores/CityStore';
 
 const { Component, createElement: ce } = React;
 
@@ -34,14 +34,14 @@ const filterWalks = ({ outings, filters, dateRange, city, typeahead = '' }) => o
   // Note that this would be a lot cleaner using functions, but it's
   // built with a big set of basic boolean operators to speed it up
   // along this likely bottleneck
-  if ((filters.theme && filters.theme.selected && !(walk.checkboxes[`theme-${filters.theme.selected}`])) ||
+  if ((filters.theme && filters.theme.selected && !walk.themes[filters.theme.selected]) ||
       (filters.ward && filters.ward.selected && walk.wards !== filters.ward.selected) ||
-      (filters.accessibility && filters.accessibility.selected && !(walk.checkboxes[`accessible-${filters.accessibility.selected}`])) ||
+      (filters.accessibility && filters.accessibility.selected && !walk.accessibles[filters.accessibility.selected]) ||
       (filters.initiative && filters.initiative.selected && walk.initiatives.indexOf(filters.initiative.selected) === -1) ||
       (city && +walk.cityID !== +city.id) ||
       (filters.city && filters.city.selected && +walk.cityID !== +filters.city.selected) ||
       (dateRange[0] && dateRange[0] > time) || (dateRange[1] && dateRange[1] < time) ||
-      (typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.map(m => `${m['name-first']} ${m['name-last']}`).join('')).match(new RegExp(typeahead, 'i')))
+      (typeahead.length > 3 && !(walk.title + walk.longDescription + walk.shortDescription + walk.team.reduce((a, { name }) => (a + name), '')).match(new RegExp(typeahead, 'i')))
    ) {
     return false;
   }
@@ -107,7 +107,7 @@ export default class WalkFilter extends Component {
       printList: () => {
         const win = window.open();
         const el = win.document.createElement('div');
-        ReactDOM.render(<WalkList outings={this.state.filterMatches} />, el);
+        ReactDOM.render(ce(WalkList, { outings: this.state.filterMatches }), el);
         window.focus();
         win.document.body.appendChild(el);
         win.print();

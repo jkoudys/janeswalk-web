@@ -104,7 +104,6 @@ class PageAttributeTypeController extends AttributeTypeController
         foreach ($countriesByName as $countryName => $cities) {
             echo '<optgroup label="' . $countryName . '">';
             foreach ($cities as $city) {
-                $selectedAttr = ($selected === $city->getCollectionID()) ? 'selected="selected"' : '';
                 echo '<option ' .
                     'value="' . $city->getCollectionID() . '" ' .
                     (($selected === $city->getCollectionID()) ? 'selected' : '') .
