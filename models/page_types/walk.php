@@ -12,6 +12,7 @@ use \stdClass;
 use \Loader;
 use \Page;
 use \File;
+use \UserInfo;
 
 // concrete5
 use Concrete\Core\Legacy\NavigationHelper;
@@ -98,7 +99,12 @@ class Walk extends \Model implements \JsonSerializable
         }
 
         // Decode the JSON fields
-        $this->team = array_map([self, 'mapMigratedTeam'], (array) json_decode($this->team, true));
+        if ($this->team) {
+            $this->team = array_map([self, 'mapMigratedTeam'], (array) json_decode($this->team, true));
+        } else {
+            $this->team = $this->getDefaultTeam();
+        }
+
         $this->features = static::formatAsFeatures((array) json_decode($this->features, true));
 
         // Load more complex attributes
@@ -120,6 +126,32 @@ class Walk extends \Model implements \JsonSerializable
         $this->accessible = $checkMap('accessible');
 
         $this->published = !($page->getAttribute('exclude_page_list') === '1');
+    }
+
+    /**
+     * Get the default team members for this Walk. Typically used for new Walks.
+     */
+    protected function getDefaultTeam(): array
+    {
+        // Default team is Walk owner, and city organizer
+        $owner = UserInfo::getByID($this->page->getCollectionUserID());
+        $co = UserInfo::getByID(Page::getByID($this->page->getCollectionParentID())->getCollectionUserID());
+
+        $getTeamSchema = function ($ui) {
+            return [
+                'name' => trim($ui->getAttribute('first_name') . ' ' . $ui->getAttribute('last_name')),
+                'email' => $ui->getUserEmail(),
+                'facebook' => $ui->getAttribute('facebook'),
+                'twitter' => $ui->getAttribute('twitter'),
+                'website' => $ui->getAttribute('website'),
+                'bio' => $ui->getAttribute('bio'),
+            ];
+        };
+
+        return [
+            array_merge($getTeamSchema($owner), ['type' => 'leader']),
+            array_merge($getTeamSchema($co), ['type' => 'organizer']),
+        ];
     }
 
     /**
