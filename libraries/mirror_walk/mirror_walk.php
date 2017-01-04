@@ -2,6 +2,8 @@
 /**
  * Mirror walks from JW to an external event service
  *
+ * TODO: switch this to use guzzle promises instead of direct curl
+ *
  * PHP Version 5.4
  *
  * @category  Events
@@ -15,8 +17,6 @@ namespace JanesWalk\Libraries\MirrorWalk;
 
 use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Libraries\MirrorWalk\Eventbrite;
-
-require_once 'Eventbrite.php';
 
 class MirrorWalk
 {

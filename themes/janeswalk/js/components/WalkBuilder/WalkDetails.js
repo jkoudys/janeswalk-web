@@ -67,7 +67,8 @@ const WalkDetails = ({
         value: shortDescription,
         onChange: handlers.shortDescription,
       }),
-      ce('p', {}, t`Build intrigue! This is what people see when browsing our Walk listings.`)
+      ce('p', {}, t`Build intrigue! This is what people see when browsing our Walk listings.`),
+      ce('p', {}, t`Hit enter to go to next field, or shift+enter to add a line break.`)
     ),
     ce(Form.Item, {},
       ce('label', {},

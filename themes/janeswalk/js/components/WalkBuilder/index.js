@@ -152,7 +152,7 @@ export default class WalkBuilder extends Component {
         }),
         ce(Theme, { name: t`Themes`, themes, handlers }),
         ce(RouteBuilder, { name: t`Share Your Route (under construction)`, city, points, route, handlers }),
-        ce(AddDates, { name: t`Set the Date`, times, duration, handlers }),
+        ce(AddDates, { name: t`Add Additional Dates`, times, duration, handlers }),
         ce(Accessibility, {
           name: t`Accessibility`,
           accessibles,

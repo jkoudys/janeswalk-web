@@ -3,6 +3,9 @@ use \JanesWalk\Models\PageTypes\Walk;
 use \JanesWalk\Libraries\MirrorWalk\MirrorWalk;
 use \JanesWalk\Controllers\JanesWalk as Controller;
 
+use Concrete\Core\Legacy\NavigationHelper;
+use Concrete\Core\Legacy\ImageHelper;
+
 class WalkPageTypeController extends Controller
 {
     /**
@@ -143,7 +146,7 @@ EOT;
      */
     protected function create(string $json)
     {
-        $nh = Loader::helper('navigation');
+        $nh = new NavigationHelper();
         header('Content-Type: application/json');
         try {
             // Send requests to all walk-mirroring services
@@ -154,7 +157,7 @@ EOT;
 
             // Save the walk
             $cID = $this->walk->getPage()->getCollectionID();
-            $cvID = $this->setJson($json, true);
+            $cvID = $this->setJson(json_decode($json, true), true);
 
             echo json_encode([
                 'cID' => $cID,
@@ -189,18 +192,19 @@ EOT;
     {
         header('Content-Type: application/json');
         try {
-            $cvID = $this->setJson($json);
+            $cvID = $this->setJson(json_decode($json, true));
 
             // Set the eventbrite
-            $mw = new MirrorWalk($this->walk);
-            $mw->mirrorStart();
+            // FIXME: switch MirrorWalk to guzzle and call with that
+            // $mw = new MirrorWalk($this->walk);
+            // $mw->mirrorStart();
 
             echo json_encode([
                 'cID' => $this->walk->getPage()->getCollectionID(),
                 'cvID' => $cvID
             ]);
 
-            $mw->mirrorEnd();
+            // $mw->mirrorEnd();
         } catch (Exception $e) {
             Log::addEntry('Walk error on walk ' . __FUNCTION__ . ': ', $e->getMessage());
             echo json_encode([
@@ -258,11 +262,11 @@ EOT;
      * setJson
      * Creates a new walk page version based on a json string
      *
-     * @param $json String
+     * @param $payload array
      * @param $public bool
      * @return int cvID of new collection version
      */
-    protected function setJson(string $json, bool $publish = false): int
+    protected function setJson(array $payload, bool $publish = false): int
     {
         // Check for permissions first
         $cp = new Permissions($this->walk->getPage());
@@ -279,7 +283,7 @@ EOT;
         $this->walk->getPage()->loadVersionObject($newCollectionVersion->getVersionID());
 
         /* Set the model by the json envelope */
-        $this->walk->setJson($json);
+        $this->walk->setJson($payload);
 
         /* We use 'exclude_page_list' to 'unpublish' walks */
         if ($publish) {
@@ -307,8 +311,8 @@ EOT;
     public function view()
     {
         parent::view();
-        $nh = Loader::helper('navigation');
-        $im = Loader::helper('image');
+        $nh = new NavigationHelper();
+        $im = new ImageHelper();
         $c = $this->getCollectionObject();
 
         // Put the preview image for Facebook/Twitter to pick up

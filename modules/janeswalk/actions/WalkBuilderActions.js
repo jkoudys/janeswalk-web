@@ -37,10 +37,12 @@ export function setAccessibleFind(value) {
 }
 
 export function setTime(value, time) {
+  const thirty = 15 * 60 * 1000;
+
   if (moment.isMoment(value)) {
     // Round to nearest 30 minutes before creating action
     value.minute(value.minute() + 30 - (value.minute() % 30));
-    value.second(0);
+    value = moment(Math.floor((+value) / thirty) * thirty);
   }
   dispatch({ type: AT.WB_SET_TIME, value, time });
 }

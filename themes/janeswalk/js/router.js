@@ -22,6 +22,7 @@ import { receiveWalk as receiveWalkForBuilder } from 'janeswalk/actions/WalkBuil
 import CityStore from 'janeswalk/stores/CityStore';
 
 import * as ItineraryAPI from 'janeswalk/utils/api/Itinerary';
+import * as WalkBuilderAPI from 'janeswalk/utils/api/WalkBuilder';
 
 // React Views
 import Navbar from './components/Navbar.jsx';
@@ -94,6 +95,9 @@ function addRenderListeners() {
     const { walk: { data: walk, data: { url } }, form: { valt }, city, user } = JanesWalk;
 
     receiveWalkForBuilder(walk);
+
+    // Start polling to auto-save
+    WalkBuilderAPI.startPolling();
 
     ReactDOM.render(
        ce(LocaleProvider, { locale }, ce(WalkBuilder, { url, valt, city, user })),

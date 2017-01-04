@@ -41,7 +41,7 @@ const AddDates = ({
     ce('section', { id, className: 'Lead__Option' },
       ce('h1', {}, name),
       ce(Form.Item, {
-        label: t`${title} will happen on`,
+        label: t`${title} will happen on the following dates`,
       },
         times.map((value, i) => (
           ce('p', { key: `date${i}` },
@@ -49,7 +49,7 @@ const AddDates = ({
           )
         )),
         ce('p', {},
-          ce(DatePicker, { placeholder: t`Add a new date`, ...dateOptions, onChange: handlers.times(), value: null })
+          ce(DatePicker, { placeholder: t`Add another date`, ...dateOptions, onChange: handlers.times(), value: null })
         )
       ),
       ce(Form.Item, {

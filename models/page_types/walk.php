@@ -47,7 +47,7 @@ class Walk extends \Model implements \JsonSerializable
     public $thumbnail;
     public $wards;
     public $themes;
-    public $accessible;
+    public $accessibles;
 
     // Map the object properties to their DB handle
     private $handleMap = [
@@ -123,7 +123,7 @@ class Walk extends \Model implements \JsonSerializable
             return null;
         };
         $this->themes = $checkMap('theme');
-        $this->accessible = $checkMap('accessible');
+        $this->accessibles = $checkMap('accessible');
 
         $this->published = !($page->getAttribute('exclude_page_list') === '1');
     }
@@ -320,46 +320,63 @@ class Walk extends \Model implements \JsonSerializable
     }
 
     /*
-     * setJson
+     * setFromFeatures
      *
-     * Updates the collection object so attributes match JSON envelope
-     * Used for create a walk form, services that update walks, etc.
+     * Updates the collection object so attributes match a geojson-
+     * schema array.
      *
-     * @param  String  $json : json of walk details
+     * @param  array   $attr : geojson schema of Walk
      * @return boolean Success message for save
      *
      * TODO: this should update its properties first, then implement a save()
      * method to persist the changes (eg pattern of Models in Rails)
      */
-    public function setJson(string $json): bool
+    public function setJson(array $attr): bool
     {
-        $postArray = json_decode($json, true);
         // TODO on 5.7, no more adodb, so rewrite transactions here
         $db = Loader::db();
         $db->StartTrans();
         $ok = true;
 
         try {
-            $this->page->update(['cName' => $postArray['title']]);
-            $this->page->setAttribute('shortdescription', $postArray['shortDescription']);
-            $this->page->setAttribute('longdescription', $postArray['longDescription']);
-            $this->page->setAttribute('accessible_info', $postArray['accessibleInfo']);
-            $this->page->setAttribute('accessible_transit', $postArray['accessibleTransit']);
-            $this->page->setAttribute('accessible_find', $postArray['accessibleFind']);
-            if ($postArray['wards']) {
-                $this->page->setAttribute('walk_wards', $postArray['wards']);
-            }
-            $this->page->setAttribute('scheduled', (array) $postArray['time']);
-            $this->page->setAttribute('theme', $formatChecks((array) $postArray['themes']));
-            $this->page->setAttribute('accessible', $formatChecks((array) $postArray['accessible']));
-            $this->page->setAttribute('gmap', json_encode($postArray['features']));
-            $this->page->setAttribute('team', json_encode($postArray['team']));
-
-            if (count($postArray['images']) && File::getByID($postArray['images'][0]['id'])) {
-                $this->page->setAttribute(
-                    'thumbnail',
-                    File::getByID($postArray['images'][0]['id'])
-                );
+            foreach ($attr as $k => $v) {
+                switch($k) {
+                case 'title':
+                    // Title is special in c5 - page title, not attribute
+                    $this->page->update(['cName' => $v]);
+                    break;
+                case 'shortDescription':
+                case 'longDescription':
+                case 'accessibleInfo':
+                case 'accessibleTransit':
+                case 'accessibleFind':
+                case 'wards':
+                    // Basic attributes
+                    $this->page->setAttribute($this->handleMap[$k], $v);
+                    break;
+                case 'features':
+                    $this->page->setAttribute('gmap', json_encode($v));
+                    break;
+                case 'team':
+                    $this->page->setAttribute('team', json_encode($v));
+                    break;
+                case 'themes':
+                case 'accessibles':
+                    // The c5 props don't include the 's'
+                    // FIXME: rename these to have an s on next migration
+                    $this->page->setAttribute(rtrim($k, 's'), $v);
+                    break;
+                case 'time':
+                    //                    var_dump($v);exit;
+                    $this->page->setAttribute('scheduled', $v);
+                    break;
+                case 'images':
+                    $imgFile = File::getByID($postArray['images'][0]['id']);
+                    if ($imgFile) {
+                        $this->page->setAttribute('thumbnail', $imgFile);
+                    }
+                    break;
+                }
             }
         } catch (Exception $e) {
             $db->FailTrans(); // Set transaction to rollback
@@ -386,7 +403,6 @@ class Walk extends \Model implements \JsonSerializable
     {
         $im = new ImageHelper();
         $nh = new NavigationHelper();
-
         $walkData = [
             'type' => 'FeatureCollection',
             'id' => $this->page->getCollectionID(),

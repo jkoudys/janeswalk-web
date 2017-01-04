@@ -71,6 +71,72 @@ export const memberDefaults = {
   volunteer: { type: 'volunteer', name: '', role: '', website: '' },
 };
 
+function getFeatures() {
+  return [...points, {
+    type: 'Feature',
+    geometry: {
+      type: 'LineString',
+      coordinates: route,
+    },
+  }];
+}
+
+// Get as the full schema - slots with start and end times, if it's open or not, etc.
+function getTimeSchema() {
+  return {
+    open: false,
+    type: '',
+    slots: times.map(time => [
+      (time.valueOf() / 1000) + (time.utcOffset() * 60),
+      ((time.valueOf() + duration) / 1000) + (time.utcOffset() * 60),
+    ]),
+  };
+}
+
+// Take an array of props we want to build a schema from, and return
+// only those. Used mainly so we don't have to re-save the entire Walk
+// on every single update.
+const getSchema = (props = [
+  'accessible',
+  'accessibleFind',
+  'accessibleInfo',
+  'accessibleTransit',
+  'features',
+  'points',
+  'route',
+  'images',
+  'longDescription',
+  'shortDescription',
+  'team',
+  'themes',
+  'times',
+  'title',
+  'ward',
+]) => props.reduce((a, e) => {
+  switch (e) {
+    case 'accessibles': return { ...a, accessibles: [...accessibles] };
+    case 'accessibleFind': return { ...a, accessibleFind };
+    case 'accessibleInfo': return { ...a, accessibleInfo };
+    case 'accessibleTransit': return { ...a, accessibleTransit };
+    case 'features':
+    case 'points':
+    case 'route':
+      return { ...a, features: getFeatures() };
+    case 'images': return { ...a, images };
+    case 'longDescription': return { ...a, longDescription };
+    case 'shortDescription': return { ...a, shortDescription };
+    case 'team': return { ...a, team };
+    case 'themes': return { ...a, themes: [...themes] };
+    case 'times': return { ...a, time: getTimeSchema() };
+    case 'title': return { ...a, [e]: title };
+    case 'ward': return { ...a, ward };
+    default: return a;
+  }
+}, {
+  type: 'FeatureCollection',
+  id: cID,
+});
+
 const WalkBuilderStore = {
   ...Store,
 
@@ -87,6 +153,9 @@ const WalkBuilderStore = {
   getThemes: () => themes,
   getTitle: () => title,
   getWard: () => ward,
+  getFeatures,
+  getTimeSchema,
+  getSchema,
 
   // Validate the Walk and return any fields a Walk needs.
   getEmptyRequiredFields() {
@@ -98,34 +167,6 @@ const WalkBuilderStore = {
 
     return empty;
   },
-
-  // Build our walk in the API schema, usually to serialize as JSON
-  getAsSchema: () => ({
-    type: 'FeatureCollection',
-    features: [...points, { type: 'Feature', geometry: { type: 'LineString', coordinates: route } }],
-    title,
-    shortDescription,
-    longDescription,
-    team,
-    images,
-    ward,
-    // Times are all stored in utc server-side.
-    // TODO: make local times work, so we can sort by which walks are currently happening, up next
-    time: {
-      open: 1,
-      slots: times.map(time => [
-        (time.valueOf() / 1000) + (time.utcOffset() * 60),
-        ((time.valueOf() + duration) / 1000) + (time.utcOffset() * 60),
-      ]),
-    },
-    themes: [...themes],
-    // Watch out for the dropped 's' here; for historic reasons
-    accessible: [...accessibles],
-    accessibleInfo,
-    accessibleTransit,
-    accessibleFind,
-    id: cID,
-  }),
 
   getWalk: () => ({
     accessibleInfo,
@@ -176,7 +217,7 @@ const WalkBuilderStore = {
         return;
       }
       // If it's an empty time, remove from array
-      times.splice(idx, 1);
+      times = times.delete(idx);
     },
     [AT.WB_SET_THEME]: ({ value }) => { themes = themes.add(value); },
     [AT.WB_REMOVE_THEME]: ({ value }) => { themes = themes.delete(value); },
@@ -193,6 +234,11 @@ const WalkBuilderStore = {
       shortDescription: sd = '',
       longDescription: ld = '',
       id: walkId,
+      accessibleInfo: newAI,
+      accessibleTransit: newAT,
+      accessibleFind: newAF,
+      themes: newThemes,
+      accessibles: newAccessibles,
     } }) => {
       const receivedRoute = features.find(f => f.geometry.type === 'LineString');
       published = walk.published;
@@ -201,33 +247,19 @@ const WalkBuilderStore = {
       longDescription = ld;
       open = time.open;
       cID = +walkId;
-      team = team.push(...newTeam.map((member) => {
-        const newMember = { ...member };
-        // TODO: move this out of the store to a migrator function
-        // Check for v2 member definitions
-        if ('name-first' in newMember) {
-          newMember.name = `${newMember['name-first']} ${newMember['name-last']}`.trim();
-          delete newMember['name-first'];
-          delete newMember['name-last'];
-        }
-        // Get rid of all that 'you' nonsense
-        if (newMember.type === 'you') {
-          if (newMember.role === 'walk-organizer') {
-            newMember.type = 'organizer';
-          } else if (newMember.role === 'walk-leader') {
-            newMember.type = 'leader';
-          }
-          delete newMember.role;
-        }
-
-        return newMember;
-      }));
+      team = iList(newTeam);
+      accessibleInfo = newAI;
+      accessibleTransit = newAT;
+      accessibleFind = newAF;
+      // Watch out for this odd historic naming - dropping the s
+      accessibles = iSet(newAccessibles);
+      themes = iSet(newThemes);
       points = iList(features.filter(f => f.geometry.type === 'Point').map((p) => ({ ...p })));
       if (time.slots.length > 0) {
         // Times come in in seconds, not milliseconds
         // TODO: migrate this server-side to favour the JavaScript, not PHP, conventions
         duration = (time.slots[0][1] - time.slots[0][0]) * 1000;
-        times.push(...time.slots.map(([start]) => moment((+start - moment().utcOffset()) * 60000)));
+        times = iList(time.slots.map(([start]) => moment((+start - moment().utcOffset()) * 60000)));
       }
       if (receivedRoute) {
         const { geometry: { coordinates = [] } = {} } = receivedRoute;
@@ -238,7 +270,7 @@ const WalkBuilderStore = {
       team = team.set(team.indexOf(member), { ...member, ...props });
     },
     [AT.WB_TEAM_ADD]: ({ props }) => { team = team.push({ ...props }); },
-    [AT.WB_TEAM_REMOVE]: ({ member }) => { team = team.splice(team.indexOf(member), 1); },
+    [AT.WB_TEAM_REMOVE]: ({ member }) => { team = team.delete(team.indexOf(member)); },
     [AT.WB_POINT_ADD]: ({ coordinates }) => {
       points = points.push({
         ...defaultPoint,
@@ -248,7 +280,7 @@ const WalkBuilderStore = {
         },
       });
     },
-    [AT.WB_POINT_REMOVE]: ({ point }) => { points = points.splice(points.indexOf(point), 1); },
+    [AT.WB_POINT_REMOVE]: ({ point }) => { points = points.delete(points.indexOf(point)); },
     [AT.WB_POINT_UPDATE]: ({ point, coordinates, properties }) => {
       const i = points.indexOf(point);
       const newPoint = { ...point };
