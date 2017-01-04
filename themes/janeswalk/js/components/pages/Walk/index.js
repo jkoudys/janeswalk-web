@@ -77,7 +77,7 @@ export default class WalkPage extends Component {
       walk: {
         features = [],
         themes,
-        accessible,
+        accessibles,
       },
       isFavourite,
       schedule,
@@ -108,7 +108,7 @@ export default class WalkPage extends Component {
           ce(Route, { key: 'walkRoute', markers }),
           ce(Start, { key: 'walkStart', ...walk }),
         ] : null,
-        ce(Accessibility, { flags: accessible }),
+        ce(Accessibility, { flags: accessibles }),
         ce(PublicTransit, walk),
         ce(Parking, walk),
         ce(Team, walk)

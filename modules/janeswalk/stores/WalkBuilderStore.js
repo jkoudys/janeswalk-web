@@ -122,7 +122,16 @@ const getSchema = (props = [
     case 'points':
     case 'route':
       return { ...a, features: getFeatures() };
-    case 'images': return { ...a, images };
+    case 'images': {
+      // Get the IDs from the image
+      const imgIDs = images
+      .map(({ response: { id } = {} }) => ({ id }))
+      .filter(({ id }) => !!id);
+      if (imgIDs.length) {
+        return { ...a, images: imgIDs };
+      }
+      return a;
+    }
     case 'longDescription': return { ...a, longDescription };
     case 'shortDescription': return { ...a, shortDescription };
     case 'team': return { ...a, team };
@@ -259,7 +268,7 @@ const WalkBuilderStore = {
         // Times come in in seconds, not milliseconds
         // TODO: migrate this server-side to favour the JavaScript, not PHP, conventions
         duration = (time.slots[0][1] - time.slots[0][0]) * 1000;
-        times = iList(time.slots.map(([start]) => moment((+start - moment().utcOffset()) * 60000)));
+        times = iList(time.slots.map(([start]) => moment.utc(+start * 1000)));
       }
       if (receivedRoute) {
         const { geometry: { coordinates = [] } = {} } = receivedRoute;

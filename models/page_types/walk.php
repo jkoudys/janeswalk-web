@@ -371,7 +371,7 @@ class Walk extends \Model implements \JsonSerializable
                     $this->page->setAttribute('scheduled', $v);
                     break;
                 case 'images':
-                    $imgFile = File::getByID($postArray['images'][0]['id']);
+                    $imgFile = File::getByID($v[0]['id']);
                     if ($imgFile) {
                         $this->page->setAttribute('thumbnail', $imgFile);
                     }
