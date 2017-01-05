@@ -9,7 +9,7 @@ import { Icon, Button, Row, Col } from 'antd';
 import { Finished as Layout, imgDir } from '../../constants/Layout';
 
 const Finished = ({ publishing = false, handlers: { publishWalk } }) => (
-  ce('section', { id: 'finished', className: 'Lead__Finished' },
+  ce('section', { id: 'finish', className: 'Lead__Finished' },
     ce(Row, Layout.Main,
       ce(Col, Layout.Content,
         ce('img', { src: `${imgDir}/clipboard.svg`, style: { width: '26%', align: 'center' } }),

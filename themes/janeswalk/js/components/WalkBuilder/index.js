@@ -86,15 +86,9 @@ export default class WalkBuilder extends Component {
       decrement: () => WBA.setPointIndex(point, { change: -1 }),
       remove: () => WBA.removePoint(point),
     }),
-    saveWalk: async () => {
-      this.setState({ saving: true });
-      const status = await save(WalkBuilderStore.getAsSchema());
-      this.setState({ saving: false });
-      console.log(status);
-    },
     publishWalk: async () => {
       this.setState({ publishing: true });
-      await publish(WalkBuilderStore.getAsSchema());
+      await publish(WalkBuilderStore.getSchema());
       this.setState({ publishing: false });
       console.log(status);
       window.location = `/index.php?cID=${this.state.cID}`;
