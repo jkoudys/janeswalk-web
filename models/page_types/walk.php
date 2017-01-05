@@ -367,7 +367,6 @@ class Walk extends \Model implements \JsonSerializable
                     $this->page->setAttribute(rtrim($k, 's'), $v);
                     break;
                 case 'time':
-                    //                    var_dump($v);exit;
                     $this->page->setAttribute('scheduled', $v);
                     break;
                 case 'images':

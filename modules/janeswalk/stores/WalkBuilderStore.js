@@ -214,7 +214,7 @@ const WalkBuilderStore = {
       images = images.set(0, saved);
     },
     [AT.WB_REMOVE_IMAGE]: () => { images.size = 0; },
-    [AT.WB_SET_TIME]: ({ value, time = moment() }) => {
+    [AT.WB_SET_TIME]: ({ value, time = moment.utc() }) => {
       // See if we're editing or adding a new time
       const idx = times.indexOf(time);
       if (idx === -1) {

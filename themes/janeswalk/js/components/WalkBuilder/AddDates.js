@@ -3,10 +3,10 @@
  *
  * A date builder.
  */
-/* global React */
 import { createElement as ce } from 'react';
 import { Form, DatePicker } from 'antd';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import moment from 'moment';
 
 const halfHour = 30 * 60 * 1000;
 // Minutes we're allowed to pick
@@ -21,6 +21,7 @@ const dateOptions = {
     format: 'HH:mm',
     hideDisabledOptions: true,
   },
+  defaultValue: moment.utc(),
 };
 
 const AddDates = ({

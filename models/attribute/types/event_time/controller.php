@@ -46,7 +46,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
             'atSchedule',
             [
                 'avID' => $this->getAttributeValueID(),
-                'open' => (bool) $data['open'],
+                'open' => (int) $data['open'],
                 'type' => $data['type']
             ],
             'avID',
