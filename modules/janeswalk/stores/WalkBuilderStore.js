@@ -127,10 +127,7 @@ const getSchema = (props = [
       const imgIDs = images
       .map(({ response: { id } = {} }) => ({ id }))
       .filter(({ id }) => !!id);
-      if (imgIDs.length) {
-        return { ...a, images: imgIDs };
-      }
-      return a;
+      return { ...a, images: imgIDs };
     }
     case 'longDescription': return { ...a, longDescription };
     case 'shortDescription': return { ...a, shortDescription };
@@ -213,7 +210,7 @@ const WalkBuilderStore = {
       }
       images = images.set(0, saved);
     },
-    [AT.WB_REMOVE_IMAGE]: () => { images.size = 0; },
+    [AT.WB_REMOVE_IMAGE]: () => { images = iList(); },
     [AT.WB_SET_TIME]: ({ value, time = moment.utc() }) => {
       // See if we're editing or adding a new time
       const idx = times.indexOf(time);
@@ -235,6 +232,8 @@ const WalkBuilderStore = {
     [AT.WB_SET_ACCESSIBLE_INFO]: ({ value }) => { accessibleInfo = value; },
     [AT.WB_SET_ACCESSIBLE_TRANSIT]: ({ value }) => { accessibleTransit = value; },
     [AT.WB_SET_ACCESSIBLE_FIND]: ({ value }) => { accessibleFind = value; },
+
+    // Load a Walk API response into the store
     [AT.WB_RECEIVE_WALK]: ({ walk, walk: {
       time = { slots: [] },
       team: newTeam = [],
@@ -248,6 +247,7 @@ const WalkBuilderStore = {
       accessibleFind: newAF,
       themes: newThemes,
       accessibles: newAccessibles,
+      images: newImages = [],
     } }) => {
       const receivedRoute = features.find(f => f.geometry.type === 'LineString');
       published = walk.published;
@@ -264,6 +264,9 @@ const WalkBuilderStore = {
       accessibles = iSet(newAccessibles);
       themes = iSet(newThemes);
       points = iList(features.filter(f => f.geometry.type === 'Point').map((p) => ({ ...p })));
+      images = iList(newImages.map((img, i) => ({ ...img, uid: -1 - i })));
+
+      // Convert 'time slots' [[begin, end]] tuples to start times and durations
       if (time.slots.length > 0) {
         // Times come in in seconds, not milliseconds
         // TODO: migrate this server-side to favour the JavaScript, not PHP, conventions
@@ -275,6 +278,7 @@ const WalkBuilderStore = {
         route = route.push(...coordinates);
       }
     },
+
     [AT.WB_TEAM_UPDATE]: ({ member, props }) => {
       team = team.set(team.indexOf(member), { ...member, ...props });
     },

@@ -5,38 +5,28 @@ import AddToItinerary from '../../itinerary/AddToItinerary.jsx';
 
 const { createElement: ce } = React;
 
-/**
- * Build a style object for the header
- * @return object A style object for React
- */
-function headerBG({ background }, { thumbnails = [] }) {
-  // Load the BG
-  return (thumbnails[0] && thumbnails[0].url) || background;
-}
-
-// Read a map, return the meeting place or null
-function getMeetingPlace(map) {
-  if (map && map.markers && map.markers.length) {
-    return map.markers[0].title;
-  }
-  return '';
-}
-
 function getLeaders(team) {
-  const leaders = team.filter(member => (member.role === 'walk-leader' || member.type === 'leader'));
-  return leaders.map(leader => `${leader.name}`.trim()).join(', ');
+  return team
+  .filter(({ type }) => type === 'leader')
+  .map(({ name }) => name)
+  .join(', ');
 }
 
 const WalkHeader = ({
   canEdit = false,
-  city,
+  city: {
+    url: cityUrl,
+    background: cityImg,
+    name: cityName,
+  },
   walk,
   walk: {
     id,
     title,
-    map,
+    features: [{ title: meetingPlace }] = [],
     time,
     team = [],
+    images: [{ url: headerImg }] = [],
   },
   isFavourite,
   schedule,
@@ -45,12 +35,11 @@ const WalkHeader = ({
   onSchedule,
   onUnschedule,
 }) => {
-  const meetingPlace = getMeetingPlace(map);
   const removeProps = { className: 'removeFavourite', onClick: onRemove };
   const addProps = { className: 'addFavourite', onClick: onAdd };
 
   const favButton = ce('button', isFavourite ? removeProps : addProps);
-  const headImage = (src => (src ? ce('img', { src }) : null))(headerBG(city, walk));
+  const headImage = ce('img', { src: headerImg || cityImg });
 
   return (
     ce('section', { className: 'walkHeader' },
@@ -63,7 +52,7 @@ const WalkHeader = ({
             ),
           ),
           ce('li', null,
-            ce('a', { href: city.url }, `${city.name} walks`),
+            ce('a', { href: cityUrl }, `${cityName} walks`),
           ),
           ce('li', { className: 'active' }, title),
         ),

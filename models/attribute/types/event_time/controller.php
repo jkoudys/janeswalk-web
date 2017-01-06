@@ -10,7 +10,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
      *
      * @return array Tuples of the start and end times
      */
-    public function getValue()
+    public function getValue(): array
     {
         $db = Loader::db();
 
@@ -39,7 +39,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
      * @param Array $data The array data, as formatted by CAW
      * ['slots' => [], 'times' => []]
      */
-    public function saveValue($data)
+    public function saveValue(array $data)
     {
         $db = Loader::db();
         $db->Replace(
@@ -94,7 +94,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
     }
 
     /* $scheduledTimes = array of 'start' and 'duration' */
-    protected function setScheduledEventTimes($scheduledTimes)
+    protected function setScheduledEventTimes(array $scheduledTimes)
     {
         $db = Loader::db();
         $db->BeginTrans();
@@ -137,7 +137,7 @@ class EventTimeAttributeTypeController extends DateTimeAttributeTypeController
         $this->set('akID', $this->attributeKey->getAttributeKeyID());
     }
 
-    public function saveForm($data)
+    public function saveForm(array $data)
     {
         $this->load();
         $dt = new FormDateTimeHelper();

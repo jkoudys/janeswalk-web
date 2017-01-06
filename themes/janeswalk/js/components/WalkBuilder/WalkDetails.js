@@ -17,7 +17,7 @@ const WalkDetails = ({
   title,
   shortDescription,
   longDescription,
-  images: fileList,
+  images,
   handlers,
   valt,
 }) => (
@@ -45,14 +45,16 @@ const WalkDetails = ({
         },
         accept: 'image/*',
         listType: 'picture',
-        fileList: [...fileList],
+        fileList: [...images],
         onChange: handlers.images,
         onRemove: handlers.images.remove,
         style: { padding: '15px' },
         className: 'WalkDetails__Upload',
       },
         ce('p', { className: 'ant-upload-drag-icon' }, ce(Icon, { type: 'inbox' })),
-        ce('p', { className: 'ant-upload-text' }, fileList.size ? t`Drag or click here to replace your Walk's image.` : t`Drag your Walk's preview image here, or click to upload.`),
+        ce('p', { className: 'ant-upload-text' }, images.size ?
+           t`Drag or click here to replace your Walk's image.` :
+           t`Drag your Walk's preview image here, or click to upload.`),
       ),
       t`We recommend wider images over tall ones. They'll look better at the top of your Walk page.`
     ),
