@@ -8,12 +8,7 @@
 import { createElement as ce, PureComponent } from 'react';
 import GoogleMap from 'google-map-react';
 
-const StopMarker = ({ origin }) => (
-  ce('div', {},
-    ce('img', { src: `${CCM_THEME_PATH}/images/marker.png` }),
-    origin
-  )
-);
+import StopMarker from './StopMarker';
 
 const mapStyle = [{
   featureType: 'transit',
@@ -71,12 +66,12 @@ export default class RouteMap extends PureComponent {
         onClick,
         style: {
           width: '100%',
-          height: `${window.innerHeight * 0.6}px`,
+          height: window.innerHeight * 0.6,
           position: 'relative',
         },
       },
-        points.map(({ geometry: { coordinates: [lng, lat] } }, i) => (
-          ce(StopMarker, { lat, lng, key: `marker${i}` })
+        points.map(({ geometry: { coordinates: [lng, lat] } }, idx) => (
+          ce(StopMarker, { lat, lng, key: `marker${idx}`, idx })
         ))
       )
     );

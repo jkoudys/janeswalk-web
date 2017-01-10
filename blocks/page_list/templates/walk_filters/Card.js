@@ -2,7 +2,7 @@
 import { getThemeName, getThemeIcon } from 'janeswalk/utils/lookups/Theme.js';
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
-const { createElement: ce, Component } = React;
+const { createElement: ce } = React;
 
 let dtfDate;
 // Date formatter
@@ -17,94 +17,83 @@ if (typeof Intl === 'object') {
   });
 }
 
-export default class Card extends Component {
-  constructor(props) {
-    let formatter;
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
-    super(props);
+const yesterday = new Date();
+yesterday.setDate(yesterday.getDate() - 1);
 
-    // Format the start date upfront, since that's expensive
-    if (dtfDate) {
-      formatter = slot => dtfDate.format(slot[0] * 1000);
-    } else {
-      formatter = slot => {
-        const date = new Date(slot[0] * 1000);
-        const dateString = date.toUTCString();
-        return dateString.slice(0, dateString.indexOf(' GMT'));
-      };
-    }
-
-    Object.assign(this, {
-      state: {
-        startTime: formatter(props.slot),
-        past: (props.slot[0] * 1000) < yesterday.getTime(),
-      },
-    });
+const times = {};
+const formatter = (startTime) => {
+  if (dtfDate) {
+    times[startTime] = dtfDate.format(startTime * 1000);
+  } else {
+    times[startTime] = (new Date(startTime * 1000))
+    .toUTCString()
+    .slice(0, -4);
   }
 
-  render() {
-    const {
-      walk: {
-        id = -1,
-        title = '',
-        url = '',
-        thumbnails: [thumbUrl] = [],
-        features: [meetingPlace],
-        shortDescription = '',
-        themes = [],
-        team = [],
-      },
-    } = this.props;
-    const { past, startTime } = this.state;
-    const placeholder = `placeholder${id % 3}`;
-    const leaders = team.filter(member => (member.role === 'walk-leader' || member.type === 'leader'));
-    const thumbStyle = {};
-    const Tags = themes.map(theme => (
-      ce('li', { className: 'tag', title: getThemeName(theme) },
-        ce('i', { className: `fa ${getThemeIcon(theme)}` }),
+  return times[startTime];
+};
+
+const Card = ({
+  walk: {
+    id = -1,
+    title = '',
+    url = '',
+    thumbnails: [{ url: thumbUrl } = {}] = [],
+    features: [{
+      properties: {
+        title: meetingTitle,
+        description: meetingDescription,
+      } = {},
+    } = {}] = [],
+    shortDescription = '',
+    themes = [],
+    team = [],
+    time: {
+      slots: [[startTime] = []] = [],
+    } = {},
+  },
+}) => {
+  const past = startTime * 1000 < yesterday.getTime();
+  const placeholder = `placeholder${id % 3}`;
+  const thumbStyle = {};
+  const meeting = meetingTitle || meetingDescription;
+  const ledBy = team
+  .filter(({ type }) => type === 'leader')
+  .map(({ name }) => name)
+  .join(', ');
+
+  const Tags = themes.map(theme => (
+    ce('li', { className: 'tag', key: `tag${theme}`, title: getThemeName(theme) },
+       ce('i', { className: `fa ${getThemeIcon(theme)}` }),
       )
-    ));
-    let Meeting;
-    let LedBy;
-    let Status;
+  ));
 
-    // Build the optional elements
-    if (thumbUrl) {
-      thumbStyle.backgroundImage = `url(${thumbnails[0].url})`;
-    }
+  // Build the optional elements
+  if (thumbUrl) {
+    thumbStyle.backgroundImage = `url(${thumbUrl})`;
+  }
 
-    /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-    if (meetingPlace && meetingPlace.type === 'Feature') {
-      Meeting = meetingPlace.properties.title || meetingPlace.properties.description;
-    }
-
-    if (leaders.length) {
-      LedBy = ce('span', null, t`Walk led by ${leaders.map(l => l.name).join(', ')}`);
-    }
-
-    if (past) {
-      Status = ce('div', { className: 'statusMessage' }, 'Ended');
-    }
-
-    return (
-      ce('div', { className: 'walk-card' },
-        ce('a', { href: url },
-          ce('div', { className: 'thumbnail' },
-            ce('div', { className: `walkimage ${placeholder}`, style: { ...thumbStyle } }, Status),
-            ce('div', { className: 'caption' },
-              ce('h4', null, title || ''),
-              ce('p', null, (shortDescription || '').slice(0, 140)),
-            ),
-            ce('ul', { className: 'when' },
-              ce('li', null, startTime),
-              Meeting ? ce('li', null, t`Meet at ${Meeting}`) : null,
-              LedBy ? ce('li', null, LedBy) : null,
-            ),
-            ce('ul', { className: 'list-inline tags' }, Tags),
+  return (
+    ce('div', { className: 'walk-card' },
+      ce('a', { href: url },
+        ce('div', { className: 'thumbnail' },
+          ce('div', { className: `walkimage ${placeholder}`, style: thumbStyle },
+            past ? ce('div', { className: 'statusMessage' }, t`Ended`) : null,
           ),
+          ce('div', { className: 'caption' },
+            ce('h4', null, title || ''),
+            ce('p', null, (shortDescription || '').slice(0, 140)),
+          ),
+          ce('ul', { className: 'when' },
+            ce('li', null, formatter(startTime)),
+            meeting ? ce('li', null, t`Meet at ${meeting}`) : null,
+            ledBy ? ce('li', null, ce('span', null, t`Walk led by ${ledBy}`)) : null,
+          ),
+          ce('ul', { className: 'list-inline tags' }, Tags),
         ),
-      )
-    );
-  }
-}
+      ),
+    )
+  );
+};
+
+export default Card;

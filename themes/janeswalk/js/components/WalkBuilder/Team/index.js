@@ -39,7 +39,7 @@ const Team = ({ id, name, team, handlers }) => ce('section', { id, className: 'L
     member,
     handler: handlers.teamMember(member),
   })),
-  ce(Form.Item, {},
+  ce(Form.Item, { label: t`Add members to your team` },
     ce(Button, { ...buttonStyle, onClick: handlers.teamAddLeader },
       ce('h5', {}, ce('i', { className: 'fa fa-bullhorn' }), '  ', t`Walk Leader`),
       ce('p', {}, t`A person presenting information, telling stories, and fostering discussion during the Jane's Walk.`)

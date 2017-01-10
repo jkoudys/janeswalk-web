@@ -5,15 +5,21 @@
  */
 import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce, Component } from 'react';
-import { Form, Radio, Tooltip } from 'antd';
+import { Form, Button, Radio, Tooltip } from 'antd';
 import SocialShare from './SocialShare';
 import RouteMap from './RouteMap';
 
 const radioStyle = {
   position: 'absolute',
-  top: '10px',
-  left: '10px',
+  top: 10,
+  left: 10,
   zIndex: 1010,
+};
+
+const undoStyle = {
+  ...radioStyle,
+  left: undefined,
+  right: radioStyle.left,
 };
 
 export default class RouteBuilder extends Component {
@@ -24,7 +30,7 @@ export default class RouteBuilder extends Component {
   };
 
   render() {
-    const { id, name, city, points, route, handlers } = this.props;
+    const { id, name, city, points, canUndo = false, route, handlers } = this.props;
     const { mapMode } = this.state;
     // Click on the map result
     let onClick;
@@ -54,6 +60,11 @@ export default class RouteBuilder extends Component {
                 ce('i', { className: 'fa fa-code-fork' })
               )
             )
+          ),
+          ce(Button, { style: undoStyle, disabled: !canUndo, onClick: handlers.pointUndo },
+            ce(Tooltip, { title: t`Undo` },
+              ce('i', { className: 'fa fa-undo' }),
+            ),
           ),
           ce(RouteMap, { city, mapMode, points, route, onClick })
         ),

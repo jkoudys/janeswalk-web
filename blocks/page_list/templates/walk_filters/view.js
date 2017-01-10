@@ -116,31 +116,31 @@
 
 	var _I18nStore = __webpack_require__(3);
 
-	var _WalkStore = __webpack_require__(22);
+	var _WalkStore = __webpack_require__(13);
 
 	var _WalkStore2 = _interopRequireDefault(_WalkStore);
 
-	var _CityStore = __webpack_require__(23);
+	var _CityStore = __webpack_require__(14);
 
 	var _CityStore2 = _interopRequireDefault(_CityStore);
 
-	var _WalkCards = __webpack_require__(13);
+	var _WalkCards = __webpack_require__(15);
 
 	var _WalkCards2 = _interopRequireDefault(_WalkCards);
 
-	var _WalkList = __webpack_require__(16);
+	var _WalkList = __webpack_require__(18);
 
 	var _WalkList2 = _interopRequireDefault(_WalkList);
 
-	var _LocationMap = __webpack_require__(18);
+	var _LocationMap = __webpack_require__(20);
 
 	var _LocationMap2 = _interopRequireDefault(_LocationMap);
 
-	var _DateRange = __webpack_require__(20);
+	var _DateRange = __webpack_require__(22);
 
 	var _DateRange2 = _interopRequireDefault(_DateRange);
 
-	var _Filter = __webpack_require__(21);
+	var _Filter = __webpack_require__(23);
 
 	var _Filter2 = _interopRequireDefault(_Filter);
 
@@ -1325,7 +1325,7 @@
 	'WALK_RECEIVE', 'WALK_RECEIVE_ALL', 'WALK_SAVE', 'WALK_PUBLISH',
 
 	// Walk Builder
-	'WB_RECEIVE_WALK', 'WB_REMOVE_ACCESSIBLE', 'WB_REMOVE_IMAGE', 'WB_REMOVE_THEME', 'WB_SET_ACCESSIBLE', 'WB_SET_DURATION', 'WB_SET_IMAGE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION', 'WB_SET_THEME', 'WB_SET_TIME', 'WB_SET_TITLE', 'WB_SET_ACCESSIBLE_INFO', 'WB_SET_ACCESSIBLE_TRANSIT', 'WB_SET_ACCESSIBLE_FIND', 'WB_TEAM_ADD', 'WB_TEAM_REMOVE', 'WB_TEAM_UPDATE', 'WB_POINT_ADD', 'WB_POINT_REMOVE', 'WB_POINT_UPDATE', 'WB_POINT_INDEX',
+	'WB_RECEIVE_WALK', 'WB_REMOVE_ACCESSIBLE', 'WB_REMOVE_IMAGE', 'WB_REMOVE_THEME', 'WB_SET_ACCESSIBLE', 'WB_SET_DURATION', 'WB_SET_IMAGE', 'WB_SET_LONG_DESCRIPTION', 'WB_SET_SHORT_DESCRIPTION', 'WB_SET_THEME', 'WB_SET_TIME', 'WB_SET_TITLE', 'WB_SET_ACCESSIBLE_INFO', 'WB_SET_ACCESSIBLE_TRANSIT', 'WB_SET_ACCESSIBLE_FIND', 'WB_TEAM_ADD', 'WB_TEAM_REMOVE', 'WB_TEAM_UPDATE', 'WB_POINT_ADD', 'WB_POINT_REMOVE', 'WB_POINT_UPDATE', 'WB_POINT_INDEX', 'WB_POINT_UNDO',
 
 	// City
 	'CITY_RECEIVE',
@@ -1469,10 +1469,187 @@
 	  value: true
 	});
 
+	var _register;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _AppDispatcher = __webpack_require__(6);
+
+	var _JWConstants = __webpack_require__(11);
+
+	var _Store = __webpack_require__(4);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
+	                                                                                                                                                                                                     * Walk store
+	                                                                                                                                                                                                     *
+	                                                                                                                                                                                                     * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
+	                                                                                                                                                                                                     * description, and people involved with a walk.
+	                                                                                                                                                                                                     */
+
+	// Store singletons
+	// The Walk objects, keyed by walk ID (ie collection ID)
+	var _walks = new Map();
+
+	// Receive a single walk
+	function receiveWalk(walk) {
+	  _walks.set(+walk.id, walk);
+	}
+
+	// Receive an array of walks
+	function receiveWalks(walks) {
+	  var _iteratorNormalCompletion = true;
+	  var _didIteratorError = false;
+	  var _iteratorError = undefined;
+
+	  try {
+	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	      var walk = _step.value;
+
+	      receiveWalk(walk);
+	    }
+	  } catch (err) {
+	    _didIteratorError = true;
+	    _iteratorError = err;
+	  } finally {
+	    try {
+	      if (!_iteratorNormalCompletion && _iterator.return) {
+	        _iterator.return();
+	      }
+	    } finally {
+	      if (_didIteratorError) {
+	        throw _iteratorError;
+	      }
+	    }
+	  }
+	}
+
+	// Get the "outings", or scheduled dates, for our walks
+	function getWalkOutings() {
+	  return [].concat(_toConsumableArray(_walks.values())).reduce(function (arr, walk) {
+	    if (walk.time && walk.time.slots) {
+	      var _iteratorNormalCompletion2 = true;
+	      var _didIteratorError2 = false;
+	      var _iteratorError2 = undefined;
+
+	      try {
+	        for (var _iterator2 = walk.time.slots[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	          var slot = _step2.value;
+
+	          arr.push({ walk: walk, slot: slot });
+	        }
+	      } catch (err) {
+	        _didIteratorError2 = true;
+	        _iteratorError2 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	            _iterator2.return();
+	          }
+	        } finally {
+	          if (_didIteratorError2) {
+	            throw _iteratorError2;
+	          }
+	        }
+	      }
+	    }
+	    return arr;
+	  }, []).sort(function (a, b) {
+	    return a.slot[0] - b.slot[0];
+	  });
+	}
+
+	var WalkStore = _extends({}, _Store2.default, {
+	  getWalks: function getWalks() {
+	    return _walks;
+	  },
+	  getWalk: function getWalk(id) {
+	    return _walks.get(+id);
+	  },
+	  getWalkOutings: getWalkOutings,
+
+	  // Register our dispatch token as a static method
+	  dispatchToken: (0, _AppDispatcher.register)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
+	    var walk = _ref.walk;
+	    return receiveWalk(walk);
+	  }), _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE_ALL, function (_ref2) {
+	    var walks = _ref2.walks;
+	    return receiveWalks(walks);
+	  }), _register), function () {
+	    return WalkStore.emitChange();
+	  })
+	});
+
+	exports.default = WalkStore;
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
+	                                                                                                                                                                                                                                                                   * City store
+	                                                                                                                                                                                                                                                                   *
+	                                                                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
+	                                                                                                                                                                                                                                                                   * currently no requirement exists for this.
+	                                                                                                                                                                                                                                                                   */
+
+	var _AppDispatcher = __webpack_require__(6);
+
+	var _JWConstants = __webpack_require__(11);
+
+	var _Store = __webpack_require__(4);
+
+	var _Store2 = _interopRequireDefault(_Store);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	// Store singletons
+	var _city = void 0;
+
+	var CityStore = _extends({}, _Store2.default, {
+	  getCity: function getCity() {
+	    return _city;
+	  },
+	  getLocation: function getLocation() {
+	    return _city && _city.latlng;
+	  },
+
+	  dispatchToken: (0, _AppDispatcher.register)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
+	    var city = _ref.city;
+	    _city = city;
+	  }), function () {
+	    return CityStore.emitChange();
+	  })
+	});
+	exports.default = CityStore;
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _templateObject = _taggedTemplateLiteral(['Keep looking.'], ['Keep looking.']),
 	    _templateObject2 = _taggedTemplateLiteral(['We couldn\'t find any matching walks.'], ['We couldn\\\'t find any matching walks.']);
 
-	var _Card = __webpack_require__(14);
+	var _Card = __webpack_require__(16);
 
 	var _Card2 = _interopRequireDefault(_Card);
 
@@ -1505,7 +1682,7 @@
 	exports.default = WalkCards;
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1514,33 +1691,23 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
 
 
-	var _templateObject = _taggedTemplateLiteral(['Walk led by ', ''], ['Walk led by ', '']),
-	    _templateObject2 = _taggedTemplateLiteral(['Meet at ', ''], ['Meet at ', '']);
+	var _templateObject = _taggedTemplateLiteral(['Ended'], ['Ended']),
+	    _templateObject2 = _taggedTemplateLiteral(['Meet at ', ''], ['Meet at ', '']),
+	    _templateObject3 = _taggedTemplateLiteral(['Walk led by ', ''], ['Walk led by ', '']);
 
-	var _Theme = __webpack_require__(15);
+	var _Theme = __webpack_require__(17);
 
 	var _I18nStore = __webpack_require__(3);
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 	var _React = React;
 	var ce = _React.createElement;
-	var Component = _React.Component;
 
 
 	var dtfDate = void 0;
@@ -1556,113 +1723,95 @@
 	  });
 	}
 
-	var Card = function (_Component) {
-	  _inherits(Card, _Component);
+	var yesterday = new Date();
+	yesterday.setDate(yesterday.getDate() - 1);
 
-	  function Card(props) {
-	    _classCallCheck(this, Card);
-
-	    var formatter = void 0;
-	    var yesterday = new Date();
-	    yesterday.setDate(yesterday.getDate() - 1);
-
-	    // Format the start date upfront, since that's expensive
-	    var _this = _possibleConstructorReturn(this, (Card.__proto__ || Object.getPrototypeOf(Card)).call(this, props));
-
-	    if (dtfDate) {
-	      formatter = function formatter(slot) {
-	        return dtfDate.format(slot[0] * 1000);
-	      };
-	    } else {
-	      formatter = function formatter(slot) {
-	        var date = new Date(slot[0] * 1000);
-	        var dateString = date.toUTCString();
-	        return dateString.slice(0, dateString.indexOf(' GMT'));
-	      };
-	    }
-
-	    Object.assign(_this, {
-	      state: {
-	        startTime: formatter(props.slot),
-	        past: props.slot[0] * 1000 < yesterday.getTime()
-	      }
-	    });
-	    return _this;
+	var times = {};
+	var formatter = function formatter(startTime) {
+	  if (dtfDate) {
+	    times[startTime] = dtfDate.format(startTime * 1000);
+	  } else {
+	    times[startTime] = new Date(startTime * 1000).toUTCString().slice(0, -4);
 	  }
 
-	  _createClass(Card, [{
-	    key: 'render',
-	    value: function render() {
-	      var _props$walk = this.props.walk;
-	      var _props$walk$id = _props$walk.id;
-	      var id = _props$walk$id === undefined ? -1 : _props$walk$id;
-	      var _props$walk$title = _props$walk.title;
-	      var title = _props$walk$title === undefined ? '' : _props$walk$title;
-	      var _props$walk$url = _props$walk.url;
-	      var url = _props$walk$url === undefined ? '' : _props$walk$url;
-	      var _props$walk$thumbnail = _props$walk.thumbnails;
-	      _props$walk$thumbnail = _props$walk$thumbnail === undefined ? [] : _props$walk$thumbnail;
+	  return times[startTime];
+	};
 
-	      var _props$walk$thumbnail2 = _slicedToArray(_props$walk$thumbnail, 1);
+	var Card = function Card(_ref) {
+	  var _ref$walk = _ref.walk;
+	  var _ref$walk$id = _ref$walk.id;
+	  var id = _ref$walk$id === undefined ? -1 : _ref$walk$id;
+	  var _ref$walk$title = _ref$walk.title;
+	  var title = _ref$walk$title === undefined ? '' : _ref$walk$title;
+	  var _ref$walk$url = _ref$walk.url;
+	  var url = _ref$walk$url === undefined ? '' : _ref$walk$url;
+	  var _ref$walk$thumbnails = _ref$walk.thumbnails;
+	  _ref$walk$thumbnails = _ref$walk$thumbnails === undefined ? [] : _ref$walk$thumbnails;
 
-	      var thumbUrl = _props$walk$thumbnail2[0];
+	  var _ref$walk$thumbnails2 = _slicedToArray(_ref$walk$thumbnails, 1);
 
-	      var _props$walk$features = _slicedToArray(_props$walk.features, 1);
+	  var _ref$walk$thumbnails3 = _ref$walk$thumbnails2[0];
+	  _ref$walk$thumbnails3 = _ref$walk$thumbnails3 === undefined ? {} : _ref$walk$thumbnails3;
+	  var thumbUrl = _ref$walk$thumbnails3.url;
+	  var _ref$walk$features = _ref$walk.features;
+	  _ref$walk$features = _ref$walk$features === undefined ? [] : _ref$walk$features;
 
-	      var meetingPlace = _props$walk$features[0];
-	      var _props$walk$shortDesc = _props$walk.shortDescription;
-	      var shortDescription = _props$walk$shortDesc === undefined ? '' : _props$walk$shortDesc;
-	      var _props$walk$themes = _props$walk.themes;
-	      var themes = _props$walk$themes === undefined ? [] : _props$walk$themes;
-	      var _props$walk$team = _props$walk.team;
-	      var team = _props$walk$team === undefined ? [] : _props$walk$team;
-	      var _state = this.state;
-	      var past = _state.past;
-	      var startTime = _state.startTime;
+	  var _ref$walk$features2 = _slicedToArray(_ref$walk$features, 1);
 
-	      var placeholder = 'placeholder' + id % 3;
-	      var leaders = team.filter(function (member) {
-	        return member.role === 'walk-leader' || member.type === 'leader';
-	      });
-	      var thumbStyle = {};
-	      var Tags = themes.map(function (theme) {
-	        return ce('li', { className: 'tag', title: (0, _Theme.getThemeName)(theme) }, ce('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) }));
-	      });
-	      var Meeting = void 0;
-	      var LedBy = void 0;
-	      var Status = void 0;
+	  var _ref$walk$features2$ = _ref$walk$features2[0];
+	  _ref$walk$features2$ = _ref$walk$features2$ === undefined ? {} : _ref$walk$features2$;
+	  var _ref$walk$features2$$ = _ref$walk$features2$.properties;
+	  _ref$walk$features2$$ = _ref$walk$features2$$ === undefined ? {} : _ref$walk$features2$$;
+	  var meetingTitle = _ref$walk$features2$$.title;
+	  var meetingDescription = _ref$walk$features2$$.description;
+	  var _ref$walk$shortDescri = _ref$walk.shortDescription;
+	  var shortDescription = _ref$walk$shortDescri === undefined ? '' : _ref$walk$shortDescri;
+	  var _ref$walk$themes = _ref$walk.themes;
+	  var themes = _ref$walk$themes === undefined ? [] : _ref$walk$themes;
+	  var _ref$walk$team = _ref$walk.team;
+	  var team = _ref$walk$team === undefined ? [] : _ref$walk$team;
+	  var _ref$walk$time = _ref$walk.time;
+	  _ref$walk$time = _ref$walk$time === undefined ? {} : _ref$walk$time;
+	  var _ref$walk$time$slots = _ref$walk$time.slots;
+	  _ref$walk$time$slots = _ref$walk$time$slots === undefined ? [] : _ref$walk$time$slots;
 
-	      // Build the optional elements
-	      if (thumbUrl) {
-	        thumbStyle.backgroundImage = 'url(' + thumbnails[0].url + ')';
-	      }
+	  var _ref$walk$time$slots2 = _slicedToArray(_ref$walk$time$slots, 1);
 
-	      /* We show the meeting place title if set, but if not show the description. Some leave the title empty. */
-	      if (meetingPlace && meetingPlace.type === 'Feature') {
-	        Meeting = meetingPlace.properties.title || meetingPlace.properties.description;
-	      }
+	  var _ref$walk$time$slots3 = _ref$walk$time$slots2[0];
+	  _ref$walk$time$slots3 = _ref$walk$time$slots3 === undefined ? [] : _ref$walk$time$slots3;
 
-	      if (leaders.length) {
-	        LedBy = ce('span', null, (0, _I18nStore.translateTag)(_templateObject, leaders.map(function (l) {
-	          return l.name;
-	        }).join(', ')));
-	      }
+	  var _ref$walk$time$slots4 = _slicedToArray(_ref$walk$time$slots3, 1);
 
-	      if (past) {
-	        Status = ce('div', { className: 'statusMessage' }, 'Ended');
-	      }
+	  var startTime = _ref$walk$time$slots4[0];
 
-	      return ce('div', { className: 'walk-card' }, ce('a', { href: url }, ce('div', { className: 'thumbnail' }, ce('div', { className: 'walkimage ' + placeholder, style: _extends({}, thumbStyle) }, Status), ce('div', { className: 'caption' }, ce('h4', null, title || ''), ce('p', null, (shortDescription || '').slice(0, 140))), ce('ul', { className: 'when' }, ce('li', null, startTime), Meeting ? ce('li', null, (0, _I18nStore.translateTag)(_templateObject2, Meeting)) : null, LedBy ? ce('li', null, LedBy) : null), ce('ul', { className: 'list-inline tags' }, Tags))));
-	    }
-	  }]);
+	  var past = startTime * 1000 < yesterday.getTime();
+	  var placeholder = 'placeholder' + id % 3;
+	  var thumbStyle = {};
+	  var meeting = meetingTitle || meetingDescription;
+	  var ledBy = team.filter(function (_ref2) {
+	    var type = _ref2.type;
+	    return type === 'leader';
+	  }).map(function (_ref3) {
+	    var name = _ref3.name;
+	    return name;
+	  }).join(', ');
 
-	  return Card;
-	}(Component);
+	  var Tags = themes.map(function (theme) {
+	    return ce('li', { className: 'tag', key: 'tag' + theme, title: (0, _Theme.getThemeName)(theme) }, ce('i', { className: 'fa ' + (0, _Theme.getThemeIcon)(theme) }));
+	  });
+
+	  // Build the optional elements
+	  if (thumbUrl) {
+	    thumbStyle.backgroundImage = 'url(' + thumbUrl + ')';
+	  }
+
+	  return ce('div', { className: 'walk-card' }, ce('a', { href: url }, ce('div', { className: 'thumbnail' }, ce('div', { className: 'walkimage ' + placeholder, style: thumbStyle }, past ? ce('div', { className: 'statusMessage' }, (0, _I18nStore.translateTag)(_templateObject)) : null), ce('div', { className: 'caption' }, ce('h4', null, title || ''), ce('p', null, (shortDescription || '').slice(0, 140))), ce('ul', { className: 'when' }, ce('li', null, formatter(startTime)), meeting ? ce('li', null, (0, _I18nStore.translateTag)(_templateObject2, meeting)) : null, ledBy ? ce('li', null, ce('span', null, (0, _I18nStore.translateTag)(_templateObject3, ledBy))) : null), ce('ul', { className: 'list-inline tags' }, Tags))));
+	};
 
 	exports.default = Card;
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1716,7 +1865,7 @@
 	}
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1730,7 +1879,7 @@
 	    _templateObject3 = _taggedTemplateLiteral(['Title'], ['Title']),
 	    _templateObject4 = _taggedTemplateLiteral(['Meeting Place'], ['Meeting Place']);
 
-	var _ListItem = __webpack_require__(17);
+	var _ListItem = __webpack_require__(19);
 
 	var _ListItem2 = _interopRequireDefault(_ListItem);
 
@@ -1761,7 +1910,7 @@
 	};
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1823,7 +1972,7 @@
 	}
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1840,7 +1989,7 @@
 	/* global React ReactDOM google $ JanesWalk */
 
 
-	var _InfoWindow = __webpack_require__(19);
+	var _InfoWindow = __webpack_require__(21);
 
 	var _InfoWindow2 = _interopRequireDefault(_InfoWindow);
 
@@ -2134,7 +2283,7 @@
 	exports.default = LocationMap;
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2157,7 +2306,7 @@
 	};
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2266,7 +2415,7 @@
 	exports.default = DateRange;
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2292,183 +2441,6 @@
 	};
 
 	exports.default = Filter;
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _register;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _AppDispatcher = __webpack_require__(6);
-
-	var _JWConstants = __webpack_require__(11);
-
-	var _Store = __webpack_require__(4);
-
-	var _Store2 = _interopRequireDefault(_Store);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } /**
-	                                                                                                                                                                                                     * Walk store
-	                                                                                                                                                                                                     *
-	                                                                                                                                                                                                     * A 'walk' is at the core of Jane's Walk - it tracks the schedule, route,
-	                                                                                                                                                                                                     * description, and people involved with a walk.
-	                                                                                                                                                                                                     */
-
-	// Store singletons
-	// The Walk objects, keyed by walk ID (ie collection ID)
-	var _walks = new Map();
-
-	// Receive a single walk
-	function receiveWalk(walk) {
-	  _walks.set(+walk.id, walk);
-	}
-
-	// Receive an array of walks
-	function receiveWalks(walks) {
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
-
-	  try {
-	    for (var _iterator = walks[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var walk = _step.value;
-
-	      receiveWalk(walk);
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
-	}
-
-	// Get the "outings", or scheduled dates, for our walks
-	function getWalkOutings() {
-	  return [].concat(_toConsumableArray(_walks.values())).reduce(function (arr, walk) {
-	    if (walk.time && walk.time.slots) {
-	      var _iteratorNormalCompletion2 = true;
-	      var _didIteratorError2 = false;
-	      var _iteratorError2 = undefined;
-
-	      try {
-	        for (var _iterator2 = walk.time.slots[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	          var slot = _step2.value;
-
-	          arr.push({ walk: walk, slot: slot });
-	        }
-	      } catch (err) {
-	        _didIteratorError2 = true;
-	        _iteratorError2 = err;
-	      } finally {
-	        try {
-	          if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	            _iterator2.return();
-	          }
-	        } finally {
-	          if (_didIteratorError2) {
-	            throw _iteratorError2;
-	          }
-	        }
-	      }
-	    }
-	    return arr;
-	  }, []).sort(function (a, b) {
-	    return a.slot[0] - b.slot[0];
-	  });
-	}
-
-	var WalkStore = _extends({}, _Store2.default, {
-	  getWalks: function getWalks() {
-	    return _walks;
-	  },
-	  getWalk: function getWalk(id) {
-	    return _walks.get(+id);
-	  },
-	  getWalkOutings: getWalkOutings,
-
-	  // Register our dispatch token as a static method
-	  dispatchToken: (0, _AppDispatcher.register)((_register = {}, _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE, function (_ref) {
-	    var walk = _ref.walk;
-	    return receiveWalk(walk);
-	  }), _defineProperty(_register, _JWConstants.ActionTypes.WALK_RECEIVE_ALL, function (_ref2) {
-	    var walks = _ref2.walks;
-	    return receiveWalks(walks);
-	  }), _register), function () {
-	    return WalkStore.emitChange();
-	  })
-	});
-
-	exports.default = WalkStore;
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; /**
-	                                                                                                                                                                                                                                                                   * City store
-	                                                                                                                                                                                                                                                                   *
-	                                                                                                                                                                                                                                                                   * Single-city storage. May be refactored for multiple cities later, but
-	                                                                                                                                                                                                                                                                   * currently no requirement exists for this.
-	                                                                                                                                                                                                                                                                   */
-
-	var _AppDispatcher = __webpack_require__(6);
-
-	var _JWConstants = __webpack_require__(11);
-
-	var _Store = __webpack_require__(4);
-
-	var _Store2 = _interopRequireDefault(_Store);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-	// Store singletons
-	var _city = void 0;
-
-	var CityStore = _extends({}, _Store2.default, {
-	  getCity: function getCity() {
-	    return _city;
-	  },
-	  getLocation: function getLocation() {
-	    return _city && _city.latlng;
-	  },
-
-	  dispatchToken: (0, _AppDispatcher.register)(_defineProperty({}, _JWConstants.ActionTypes.CITY_RECEIVE, function (_ref) {
-	    var city = _ref.city;
-	    _city = city;
-	  }), function () {
-	    return CityStore.emitChange();
-	  })
-	});
-	exports.default = CityStore;
 
 /***/ },
 /* 24 */

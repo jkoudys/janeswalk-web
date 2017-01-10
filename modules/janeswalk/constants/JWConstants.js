@@ -36,6 +36,7 @@ const ActionTypes = [
   'WB_POINT_REMOVE',
   'WB_POINT_UPDATE',
   'WB_POINT_INDEX',
+  'WB_POINT_UNDO',
 
   // City
   'CITY_RECEIVE',

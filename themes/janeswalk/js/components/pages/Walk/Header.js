@@ -23,10 +23,10 @@ const WalkHeader = ({
   walk: {
     id,
     title,
-    features: [{ title: meetingPlace }] = [],
+    features: [{ props: { title: meetingPlace } = {} } = {}] = [],
     time,
     team = [],
-    images: [{ url: headerImg }] = [],
+    images: [{ url: headerImg } = {}] = [],
   },
   isFavourite,
   schedule,

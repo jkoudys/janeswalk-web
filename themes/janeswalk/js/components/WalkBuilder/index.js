@@ -29,6 +29,7 @@ const { assign } = Object;
 
 const buildState = () => ({
   ...WalkBuilderStore.getWalk(),
+  canUndo: !!WalkBuilderStore.getPointsHistory().length,
   empty: WalkBuilderStore.getEmptyRequiredFields(),
 });
 
@@ -79,6 +80,7 @@ export default class WalkBuilder extends Component {
     teamAddOrganizer: () => WBA.addMember(memberDefaults.organizer),
     teamAddVoice: () => WBA.addMember(memberDefaults.voice),
     pointAdd: ({ lat, lng }) => WBA.addPoint([lng, lat]),
+    pointUndo: () => WBA.undoPoint(),
     point: point => assign(({ lat, lng }) => WBA.updatePoint(point, { coordinates: [lng, lat] }), {
       // Update the properties of a point, e.g. title
       update: prop => ({ target: { value } }) => WBA.updatePoint(point, { properties: { [prop]: value } }),
@@ -101,6 +103,7 @@ export default class WalkBuilder extends Component {
       accessibleFind,
       accessibleTransit,
       accessibles,
+      canUndo,
       duration,
       empty,
       images,
@@ -115,7 +118,6 @@ export default class WalkBuilder extends Component {
       times: [time],
       title,
       publishing,
-      saving,
     } = this.state;
     const {
       city: { cityOrganizer },
@@ -126,7 +128,7 @@ export default class WalkBuilder extends Component {
      handlers,
     } = this;
 
-    const lastWord = empty.length ? ce(DontForget, { saving, empty, handlers }) : ce(Finished, { publishing, handlers });
+    const lastWord = empty.length ? ce(DontForget, { empty, handlers }) : ce(Finished, { publishing, handlers });
 
     return ce(Form, { className: 'WalkBuilder' },
       ce(Row, { type: 'flex', justify: 'center' },
@@ -145,7 +147,14 @@ export default class WalkBuilder extends Component {
           valt,
         }),
         ce(Theme, { name: t`Themes`, themes, handlers }),
-        ce(RouteBuilder, { name: t`Share Your Route (under construction)`, city, points, route, handlers }),
+        ce(RouteBuilder, {
+          name: t`Share Your Route (under construction)`,
+          city,
+          points,
+          canUndo,
+          route,
+          handlers,
+        }),
         ce(AddDates, { name: t`Add Additional Dates`, times, duration, handlers }),
         ce(Accessibility, {
           name: t`Accessibility`,
@@ -157,7 +166,7 @@ export default class WalkBuilder extends Component {
         }),
         ce(Team, { name: t`Create Your Team`, team, handlers }),
         lastWord,
-      )
+      ),
     );
   }
 }

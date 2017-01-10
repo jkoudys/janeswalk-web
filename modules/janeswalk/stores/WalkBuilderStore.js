@@ -43,6 +43,8 @@ let open = false;
 // geojson-standard Points array
 // { type: 'Feature', geometry: { type: 'Point', coordinates: [lng, lat] }, properties: { title, description, media } }
 let points;
+// Keep a history of points when removed/added, so we can undo
+const pointsHistory = [];
 // array of tuples for route points
 let route = iList();
 // Members of the Walk team
@@ -151,6 +153,7 @@ const WalkBuilderStore = {
   getLongDescripton: () => longDescription,
   getOpen: () => open,
   getPoints: () => points,
+  getPointsHistory: () => pointsHistory,
   getPublished: () => published,
   getRoute: () => route,
   getShortDescripton: () => shortDescription,
@@ -285,6 +288,7 @@ const WalkBuilderStore = {
     [AT.WB_TEAM_ADD]: ({ props }) => { team = team.push({ ...props }); },
     [AT.WB_TEAM_REMOVE]: ({ member }) => { team = team.delete(team.indexOf(member)); },
     [AT.WB_POINT_ADD]: ({ coordinates }) => {
+      pointsHistory.push(points);
       points = points.push({
         ...defaultPoint,
         geometry: {
@@ -293,22 +297,28 @@ const WalkBuilderStore = {
         },
       });
     },
-    [AT.WB_POINT_REMOVE]: ({ point }) => { points = points.delete(points.indexOf(point)); },
+    [AT.WB_POINT_REMOVE]: ({ point }) => {
+      pointsHistory.push(points);
+      points = points.delete(points.indexOf(point));
+    },
     [AT.WB_POINT_UPDATE]: ({ point, coordinates, properties }) => {
       const i = points.indexOf(point);
       const newPoint = { ...point };
-      if (coordinates) newPoint.geometry.coordinates = coordinates;
+      pointsHistory.push(points);
+      if (coordinates) Object.assign(newPoint.geometry, { coordinates });
       if (properties) Object.assign(newPoint.properties, properties);
       points = points.set(i, newPoint);
     },
     [AT.WB_POINT_INDEX]: ({ point, change }) => {
       const i = points.indexOf(point);
+      pointsHistory.push(points);
       // Don't let it move the point off the end of the array
       if (i + change < 0 || i + change > points.size) return;
       // Yank it out and put it back in
       points = points.delete(i);
       points = points.insert(i + change, point);
     },
+    [AT.WB_POINT_UNDO]: () => { if (pointsHistory.length) points = pointsHistory.pop(); },
   }, () => WalkBuilderStore.emitChange()),
 };
 
