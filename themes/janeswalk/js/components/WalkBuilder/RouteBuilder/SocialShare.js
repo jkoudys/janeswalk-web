@@ -6,7 +6,7 @@
 
 import { createElement as ce } from 'react';
 import { Button, Form, Tooltip } from 'antd';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 
 export default () => ce(Form.Item, { style: { marginBottom: '0.5em' } },
   ce(Tooltip, { title: t`Coming soon!` },

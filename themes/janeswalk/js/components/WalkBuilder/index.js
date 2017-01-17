@@ -6,7 +6,7 @@
 import { createElement as ce, Component } from 'react';
 import { Form, Row, Col } from 'antd';
 
-import I18nStore, { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 import WalkBuilderStore, { memberDefaults } from 'janeswalk/stores/WalkBuilderStore';
 import { save, publish } from 'janeswalk/utils/api/Walk';
 
@@ -37,7 +37,6 @@ export default class WalkBuilder extends Component {
   state = { menuOptions: [], ...buildState() };
 
   componentWillMount() {
-    I18nStore.addChangeListener(this.onChange);
     WalkBuilderStore.addChangeListener(this.onChange);
   }
 
@@ -46,7 +45,6 @@ export default class WalkBuilder extends Component {
   }
 
   componentWillUnmount() {
-    I18nStore.removeChangeListener(this.onChange);
     WalkBuilderStore.removeChangeListener(this.onChange);
   }
 

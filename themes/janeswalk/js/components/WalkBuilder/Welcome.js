@@ -5,7 +5,7 @@
  */
 import { createElement as ce } from 'react';
 import jump from 'jump.js';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 import { Input, DatePicker, Icon, Button, Row, Col } from 'antd';
 
 import { Welcome as Layout } from '../../constants/Layout';

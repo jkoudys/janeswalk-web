@@ -33,6 +33,8 @@ const formatter = (startTime) => {
   return times[startTime];
 };
 
+// TODO: way too complex a loading for a stateless component. Switch to individual
+// props and do all this complex destructuring in the caller.
 const Card = ({
   walk: {
     id = -1,

@@ -3,11 +3,12 @@
  *
  * Make a map!
  */
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce, Component } from 'react';
+import t from 'es2015-i18n-tag';
 import { Form, Button, Radio, Tooltip } from 'antd';
 import SocialShare from './SocialShare';
 import RouteMap from './RouteMap';
+import WalkStops from './WalkStops';
 
 const radioStyle = {
   position: 'absolute',
@@ -72,7 +73,8 @@ export default class RouteBuilder extends Component {
           t`Start building your Walk route by choosing `,
           ce('i', { className: 'fa fa-map-marker' }),
           t` to create a stop. Make sure your walk has a clear description for the meeting place.`
-        )
+        ),
+        ce(WalkStops, { points, handlers })
       )
     );
   }

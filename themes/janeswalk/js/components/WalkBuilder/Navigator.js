@@ -2,10 +2,9 @@
  * Navigator
  * The main view of lead a walk content. For -full-screening and making a sticky menu of the current position
  */
-/* global React */
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
-
 import { createElement as ce, cloneElement as cln } from 'react';
+import t from 'es2015-i18n-tag';
+
 import { Anchor, Row, Col } from 'antd';
 import Layout from '../../constants/Layout';
 

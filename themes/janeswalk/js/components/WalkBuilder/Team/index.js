@@ -3,9 +3,8 @@
  *
  * The folks who make it happen. The team putting this Walk on.
  */
-/* global React */
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 import { Form, Button, Icon } from 'antd';
 
 import Leader from './Leader';

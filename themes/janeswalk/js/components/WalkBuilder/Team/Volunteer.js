@@ -5,8 +5,8 @@
  */
 import { createElement as ce } from 'react';
 import { Form, Card, Icon, Input, Button } from 'antd';
+import t from 'es2015-i18n-tag';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const Volunteer = ({ member: { name, role, website }, handler }) => ce(Card, {
   title: ce('strong', {}, ce(Icon, { type: 'pushpin-o' }), ' ', t`Walk Volunteer`),

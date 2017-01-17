@@ -5,8 +5,8 @@
  */
 import { createElement as ce } from 'react';
 import { Form, Card, Icon, Input, Col } from 'antd';
+import t from 'es2015-i18n-tag';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
 
 const colStyle = {
   md: { span: 12 },

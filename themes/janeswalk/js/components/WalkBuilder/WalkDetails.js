@@ -3,11 +3,11 @@
  *
  * The folks who make it happen. The team putting this Walk on.
  */
-/* global React CCM_TOOLS_PATH */
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
+/* global CCM_TOOLS_PATH */
+import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import TextArea from './TextArea';
-import { createElement as ce } from 'react';
 import { Form, Input, Upload, Icon } from 'antd';
 
 const WalkDetails = ({

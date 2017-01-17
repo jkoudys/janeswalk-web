@@ -5,7 +5,7 @@
  */
 import { createElement as ce } from 'react';
 import { Form, Row, Col, Tag } from 'antd';
-import { t as trans, translateTag as t } from 'janeswalk/stores/I18nStore';
+import t from 'es2015-i18n-tag';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import { icons as AccessibleIcons } from 'janeswalk/utils/lookups/Accessible';
 import TextArea from './TextArea';
@@ -32,7 +32,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
               onChange: checked ? handler.remove : handler,
             },
             ce('i', { className: `fa fa-${icon}` }),
-            trans(name)
+            t(name)
           ));
         }),
       ),
@@ -50,7 +50,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
       }),
       accessibles.size > 0 ? ce('p', {},
         t`Why did you describe this walk as having: `,
-        [...accessibles].map((key) => trans(AccessibleIcons[key].name.toLowerCase())).join(', '),
+        [...accessibles].map((key) => t(AccessibleIcons[key].name.toLowerCase())).join(', '),
         '?'
       ) : null
     ),

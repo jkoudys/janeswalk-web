@@ -3,8 +3,8 @@
  *
  * The "You're all done!" page
  */
-import { translateTag as t } from 'janeswalk/stores/I18nStore';
 import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 import { Icon, Button, Row, Col } from 'antd';
 import { Finished as Layout, imgDir } from '../../constants/Layout';
 

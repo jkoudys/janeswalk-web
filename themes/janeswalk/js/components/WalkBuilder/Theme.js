@@ -3,11 +3,10 @@
  *
  * The themes the Walk will have
  */
-/* global React */
-import { t as trans, translateTag as t } from 'janeswalk/stores/I18nStore';
+import { createElement as ce } from 'react';
+import t from 'es2015-i18n-tag';
 import { icons as themeIcons } from 'janeswalk/utils/lookups/Theme';
 
-import { createElement as ce } from 'react';
 import { Row, Col, Form, Tag } from 'antd';
 
 const Theme = ({ id, name, themes, handlers }) => {
@@ -43,7 +42,7 @@ const Theme = ({ id, name, themes, handlers }) => {
                 onChange,
                 style,
               },
-                ce('i', { className: `fa fa-${icon}` }), trans(name)
+                ce('i', { className: `fa fa-${icon}` }), t(name)
               )
             )
           );
