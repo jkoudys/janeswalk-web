@@ -1,5 +1,3 @@
-concrete/
-concrete
 config/site.php
 .htaccess
 themes/janeswalk/css/pages/.sass-cache/
@@ -9,7 +7,6 @@ files/
 *.swp
 *.swo
 .rvmrc
-concrete/*
 node_modules
 vendor
 composer.lock
