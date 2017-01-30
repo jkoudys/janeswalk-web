@@ -48,33 +48,33 @@ export default class RouteBuilder extends Component {
           ce(Radio.Group, { value: mapMode, style: radioStyle, onChange: this.handleModeChange },
             ce(Radio.Button, { value: 'move' },
               ce(Tooltip, { title: t`Move the map` },
-                ce('i', { className: 'fa fa-hand-paper-o' })
-              )
+                ce('i', { className: 'fa fa-hand-paper-o' }),
+              ),
             ),
             ce(Radio.Button, { value: 'pin' },
               ce(Tooltip, { title: t`Add a stop` },
-                ce('i', { className: 'fa fa-map-marker' })
-              )
+                ce('i', { className: 'fa fa-map-marker' }),
+              ),
             ),
             ce(Radio.Button, { value: 'route' },
               ce(Tooltip, { title: t`Draw your route` },
-                ce('i', { className: 'fa fa-code-fork' })
-              )
-            )
+                ce('i', { className: 'fa fa-code-fork' }),
+              ),
+            ),
           ),
           ce(Button, { style: undoStyle, disabled: !canUndo, onClick: handlers.pointUndo },
             ce(Tooltip, { title: t`Undo` },
               ce('i', { className: 'fa fa-undo' }),
             ),
           ),
-          ce(RouteMap, { city, mapMode, points, route, onClick })
+          ce(RouteMap, { city, mapMode, points, route, onClick }),
         ),
         ce('p', {},
           t`Start building your Walk route by choosing `,
           ce('i', { className: 'fa fa-map-marker' }),
-          t` to create a stop. Make sure your walk has a clear description for the meeting place.`
+          t` to create a stop. Make sure your walk has a clear description for the meeting place.`,
         ),
-        ce(WalkStops, { points, handlers })
+        ce(WalkStops, { points, handlers }),
       )
     );
   }

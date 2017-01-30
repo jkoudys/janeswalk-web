@@ -9,6 +9,7 @@ import t from 'es2015-i18n-tag';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import { icons as AccessibleIcons } from 'janeswalk/utils/lookups/Accessible';
 import TextArea from './TextArea';
+
 const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransit, accessibleFind, handlers }) => (
   ce('section', { id, className: 'Lead__Option' },
     ce('h1', {}, name),
@@ -32,7 +33,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
               onChange: checked ? handler.remove : handler,
             },
             ce('i', { className: `fa fa-${icon}` }),
-            t(name)
+            t([name])
           ));
         }),
       ),
@@ -50,7 +51,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
       }),
       accessibles.size > 0 ? ce('p', {},
         t`Why did you describe this walk as having: `,
-        [...accessibles].map((key) => t(AccessibleIcons[key].name.toLowerCase())).join(', '),
+        accessibles.map((key) => t(AccessibleIcons[key].name.toLowerCase())).join(', '),
         '?'
       ) : null
     ),
@@ -59,7 +60,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
     },
       ce(TextArea, {
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
-        maxLength: 150,
+        maxLength: 300,
         value: accessibleFind,
         onKeyPress: kbJump,
         onChange: handlers.accessibleFind,
@@ -71,7 +72,7 @@ const Accessibility = ({ name, id, accessibles, accessibleInfo, accessibleTransi
     },
       ce(TextArea, {
         addonBefore: ce('i', { className: 'fa fa-align-left' }),
-        maxLength: 150,
+        maxLength: 300,
         value: accessibleTransit,
         onKeyPress: kbJump,
         onChange: handlers.accessibleTransit,

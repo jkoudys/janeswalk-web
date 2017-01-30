@@ -42,7 +42,7 @@ const Theme = ({ id, name, themes, handlers }) => {
                 onChange,
                 style,
               },
-                ce('i', { className: `fa fa-${icon}` }), t(name)
+                ce('i', { className: `fa fa-${icon}` }), t([name])
               )
             )
           );

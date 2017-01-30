@@ -6,14 +6,13 @@
 /* global CCM_TOOLS_PATH */
 import { createElement as ce } from 'react';
 import t from 'es2015-i18n-tag';
+import { Form, Input, Upload, Icon } from 'antd';
 import { keyboard as kbJump } from 'janeswalk/utils/jumpers';
 import TextArea from './TextArea';
-import { Form, Input, Upload, Icon } from 'antd';
 
 const WalkDetails = ({
   id,
   name,
-  order,
   title,
   shortDescription,
   longDescription,
@@ -76,7 +75,6 @@ const WalkDetails = ({
       ce('label', {},
         t`Walk Description`,
         ce(TextArea, {
-          maxLength: 300,
           rows: 6,
           onKeyPress: kbJump,
           addonBefore: ce('i', { className: 'fa fa-align-left' }),
