@@ -30,6 +30,6 @@
     </script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="<?= $this->getThemePath() . (CONCRETE5_ENV === 'dev' ? '/js/janeswalk.js' : '/js/janeswalk.min.js') ?>"></script>
-    <?php include DIR_BASE . '/concrete/elements/footer_required.php'; ?>
+    <?php include DIR_BASE . '/concrete5/web/concrete/elements/footer_required.php'; ?>
   </body>
 </html>
