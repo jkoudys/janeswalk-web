@@ -74,7 +74,8 @@ const WalkDetails = ({
     ce(Form.Item, {},
       ce('label', {},
         t`Walk Description`,
-        ce(TextArea, {
+        ce(Input, {
+          type: 'textarea',
           rows: 6,
           onKeyPress: kbJump,
           addonBefore: ce('i', { className: 'fa fa-align-left' }),

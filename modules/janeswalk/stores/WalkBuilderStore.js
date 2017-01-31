@@ -136,7 +136,7 @@ const getSchema = (props = [
     case 'team': return { ...a, team };
     case 'themes': return { ...a, themes: [...themes] };
     case 'times': return { ...a, time: getTimeSchema() };
-    case 'title': return { ...a, [e]: title };
+    case 'title': return { ...a, title };
     case 'ward': return { ...a, ward };
     default: return a;
   }
