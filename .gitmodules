@@ -1,3 +1,6 @@
 [submodule "concrete5"]
 	path = concrete5
 	url = git@github.com:jkoudys/concrete5-legacy.git
+[submodule "concrete5-bad"]
+	path = web/concrete
+	url = git@github.com:jkoudys/concrete5-legacy.git
