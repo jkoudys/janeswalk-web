@@ -70,15 +70,15 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// Fluxxy
-	var _React = React; /**
-	                     * A set of walk filters, to filter on properties. Also includes
-	                     * the tabs, like 'list' and 'map/
-	                     */
+	var _React = React,
+	    ce = _React.createElement; /**
+	                                * A set of walk filters, to filter on properties. Also includes
+	                                * the tabs, like 'list' and 'map/
+	                                */
 	/* global React ReactDOM JanesWalk */
 
-	var ce = _React.createElement;
-	var _JanesWalk = JanesWalk;
-	var event = _JanesWalk.event;
+	var _JanesWalk = JanesWalk,
+	    event = _JanesWalk.event;
 
 
 	var _filters = {};
@@ -162,9 +162,9 @@
 	// Flux
 
 
-	var _React = React;
-	var Component = _React.Component;
-	var ce = _React.createElement;
+	var _React = React,
+	    Component = _React.Component,
+	    ce = _React.createElement;
 
 	// Actually a little before today
 
@@ -176,15 +176,15 @@
 	 * Apply filters and date range to walks
 	 */
 	var filterWalks = function filterWalks(_ref) {
-	  var outings = _ref.outings;
-	  var filters = _ref.filters;
-	  var dateRange = _ref.dateRange;
-	  var city = _ref.city;
-	  var _ref$typeahead = _ref.typeahead;
-	  var typeahead = _ref$typeahead === undefined ? '' : _ref$typeahead;
+	  var outings = _ref.outings,
+	      filters = _ref.filters,
+	      dateRange = _ref.dateRange,
+	      city = _ref.city,
+	      _ref$typeahead = _ref.typeahead,
+	      typeahead = _ref$typeahead === undefined ? '' : _ref$typeahead;
 	  return outings.filter(function (_ref2) {
-	    var walk = _ref2.walk;
-	    var slot = _ref2.slot;
+	    var walk = _ref2.walk,
+	        slot = _ref2.slot;
 
 	    // Convert PHP second-epoch to JS milliseconds epoch
 	    var time = slot[0] * 1000;
@@ -230,12 +230,12 @@
 	}
 
 	var getWalkFilterState = function getWalkFilterState(_ref4) {
-	  var _ref4$filters = _ref4.filters;
-	  var filters = _ref4$filters === undefined ? {} : _ref4$filters;
-	  var typeahead = _ref4.typeahead;
-	  var dateRange = _ref4.dateRange;
-	  var _ref4$city = _ref4.city;
-	  var city = _ref4$city === undefined ? _CityStore2.default.getCity() : _ref4$city;
+	  var _ref4$filters = _ref4.filters,
+	      filters = _ref4$filters === undefined ? {} : _ref4$filters,
+	      typeahead = _ref4.typeahead,
+	      dateRange = _ref4.dateRange,
+	      _ref4$city = _ref4.city,
+	      city = _ref4$city === undefined ? _CityStore2.default.getCity() : _ref4$city;
 
 	  var outings = _WalkStore2.default.getWalkOutings();
 	  var usefulRange = dateRange || thirdRecentDateRange(outings);
@@ -283,12 +283,12 @@
 
 	      // Set a filter value
 	      setFilter: function setFilter(filter, val) {
-	        var _this$state = _this.state;
-	        var filters = _this$state.filters;
-	        var outings = _this$state.outings;
-	        var dateRange = _this$state.dateRange;
-	        var typeahead = _this$state.typeahead;
-	        var city = _this$state.city;
+	        var _this$state = _this.state,
+	            filters = _this$state.filters,
+	            outings = _this$state.outings,
+	            dateRange = _this$state.dateRange,
+	            typeahead = _this$state.typeahead,
+	            city = _this$state.city;
 
 	        if (!filters[filter]) filters[filter] = {};
 	        Object.assign(filters[filter], { selected: val });
@@ -297,11 +297,11 @@
 
 	      // Set our date range filter
 	      setDateRange: function setDateRange(from, to) {
-	        var _this$state2 = _this.state;
-	        var outings = _this$state2.outings;
-	        var filters = _this$state2.filters;
-	        var city = _this$state2.city;
-	        var typeahead = _this$state2.typeahead;
+	        var _this$state2 = _this.state,
+	            outings = _this$state2.outings,
+	            filters = _this$state2.filters,
+	            city = _this$state2.city,
+	            typeahead = _this$state2.typeahead;
 
 	        _this.setState({
 	          dateRange: [from, to],
@@ -312,11 +312,11 @@
 	      // Typeahead search in the walks
 	      handleTypeahead: function handleTypeahead(_ref5) {
 	        var typeahead = _ref5.target.value;
-	        var _this$state3 = _this.state;
-	        var filters = _this$state3.filters;
-	        var outings = _this$state3.outings;
-	        var dateRange = _this$state3.dateRange;
-	        var city = _this$state3.city;
+	        var _this$state3 = _this.state,
+	            filters = _this$state3.filters,
+	            outings = _this$state3.outings,
+	            dateRange = _this$state3.dateRange,
+	            city = _this$state3.city;
 
 	        _this.setState({ typeahead: typeahead, filterMatches: filterWalks({ filters: filters, outings: outings, dateRange: dateRange, city: city, typeahead: typeahead }) });
 	      }
@@ -343,13 +343,13 @@
 
 	      var locationMapSection = void 0;
 
-	      var _state = this.state;
-	      var displayFilters = _state.displayFilters;
-	      var city = _state.city;
-	      var filterMatches = _state.filterMatches;
-	      var dateRange = _state.dateRange;
-	      var filters = _state.filters;
-	      var typeahead = _state.typeahead;
+	      var _state = this.state,
+	          displayFilters = _state.displayFilters,
+	          city = _state.city,
+	          filterMatches = _state.filterMatches,
+	          dateRange = _state.dateRange,
+	          filters = _state.filters,
+	          typeahead = _state.typeahead;
 
 
 	      var Filters = Object.keys(filters).map(function (key) {
@@ -501,7 +501,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	// Copyright Joyent, Inc. and other Node contributors.
 	//
@@ -1389,11 +1389,9 @@
 	   * sprintf syntax used to replace %d and %s tokens with arguments
 	   */
 	  translate: function translate(str) {
-	    var _ref = this.translations[str] || [];
-
-	    var _ref2 = _slicedToArray(_ref, 1);
-
-	    var translation = _ref2[0];
+	    var _ref = this.translations[str] || [],
+	        _ref2 = _slicedToArray(_ref, 1),
+	        translation = _ref2[0];
 
 	    for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
 	      args[_key2 - 1] = arguments[_key2];
@@ -1662,8 +1660,8 @@
 	                                                                                                                                                   */
 	/* global React */
 
-	var _React = React;
-	var ce = _React.createElement;
+	var _React = React,
+	    ce = _React.createElement;
 
 
 	var WalkCards = function WalkCards(_ref) {
@@ -1673,8 +1671,8 @@
 	    return ce('div', { className: 'empty' }, ce('h4', null, (0, _I18nStore.translateTag)(_templateObject)), ce('p', null, (0, _I18nStore.translateTag)(_templateObject2)));
 	  }
 	  return ce('div', { className: 'walkCards' }, outings.map(function (_ref2) {
-	    var walk = _ref2.walk;
-	    var slot = _ref2.slot;
+	    var walk = _ref2.walk,
+	        slot = _ref2.slot;
 	    return ce(_Card2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
 	  }));
 	};
@@ -1693,7 +1691,7 @@
 
 	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; }; /* global React */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /* global React */
 
 
 	var _templateObject = _taggedTemplateLiteral(['Ended'], ['Ended']),
@@ -1706,8 +1704,8 @@
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-	var _React = React;
-	var ce = _React.createElement;
+	var _React = React,
+	    ce = _React.createElement;
 
 
 	var dtfDate = void 0;
@@ -1737,52 +1735,53 @@
 	  return times[startTime];
 	};
 
+	// TODO: way too complex a loading for a stateless component. Switch to individual
+	// props and do all this complex destructuring in the caller.
 	var Card = function Card(_ref) {
-	  var _ref$walk = _ref.walk;
-	  var _ref$walk$id = _ref$walk.id;
-	  var id = _ref$walk$id === undefined ? -1 : _ref$walk$id;
-	  var _ref$walk$title = _ref$walk.title;
-	  var title = _ref$walk$title === undefined ? '' : _ref$walk$title;
-	  var _ref$walk$url = _ref$walk.url;
-	  var url = _ref$walk$url === undefined ? '' : _ref$walk$url;
-	  var _ref$walk$thumbnails = _ref$walk.thumbnails;
+	  var _ref$walk = _ref.walk,
+	      _ref$walk$id = _ref$walk.id,
+	      id = _ref$walk$id === undefined ? -1 : _ref$walk$id,
+	      _ref$walk$title = _ref$walk.title,
+	      title = _ref$walk$title === undefined ? '' : _ref$walk$title,
+	      _ref$walk$url = _ref$walk.url,
+	      url = _ref$walk$url === undefined ? '' : _ref$walk$url,
+	      _ref$walk$thumbnails = _ref$walk.thumbnails;
 	  _ref$walk$thumbnails = _ref$walk$thumbnails === undefined ? [] : _ref$walk$thumbnails;
 
-	  var _ref$walk$thumbnails2 = _slicedToArray(_ref$walk$thumbnails, 1);
+	  var _ref$walk$thumbnails2 = _slicedToArray(_ref$walk$thumbnails, 1),
+	      _ref$walk$thumbnails3 = _ref$walk$thumbnails2[0];
 
-	  var _ref$walk$thumbnails3 = _ref$walk$thumbnails2[0];
 	  _ref$walk$thumbnails3 = _ref$walk$thumbnails3 === undefined ? {} : _ref$walk$thumbnails3;
-	  var thumbUrl = _ref$walk$thumbnails3.url;
-	  var _ref$walk$features = _ref$walk.features;
+	  var thumbUrl = _ref$walk$thumbnails3.url,
+	      _ref$walk$features = _ref$walk.features;
 	  _ref$walk$features = _ref$walk$features === undefined ? [] : _ref$walk$features;
 
-	  var _ref$walk$features2 = _slicedToArray(_ref$walk$features, 1);
+	  var _ref$walk$features2 = _slicedToArray(_ref$walk$features, 1),
+	      _ref$walk$features2$ = _ref$walk$features2[0];
 
-	  var _ref$walk$features2$ = _ref$walk$features2[0];
 	  _ref$walk$features2$ = _ref$walk$features2$ === undefined ? {} : _ref$walk$features2$;
 	  var _ref$walk$features2$$ = _ref$walk$features2$.properties;
 	  _ref$walk$features2$$ = _ref$walk$features2$$ === undefined ? {} : _ref$walk$features2$$;
-	  var meetingTitle = _ref$walk$features2$$.title;
-	  var meetingDescription = _ref$walk$features2$$.description;
-	  var _ref$walk$shortDescri = _ref$walk.shortDescription;
-	  var shortDescription = _ref$walk$shortDescri === undefined ? '' : _ref$walk$shortDescri;
-	  var _ref$walk$themes = _ref$walk.themes;
-	  var themes = _ref$walk$themes === undefined ? [] : _ref$walk$themes;
-	  var _ref$walk$team = _ref$walk.team;
-	  var team = _ref$walk$team === undefined ? [] : _ref$walk$team;
-	  var _ref$walk$time = _ref$walk.time;
+	  var meetingTitle = _ref$walk$features2$$.title,
+	      meetingDescription = _ref$walk$features2$$.description,
+	      _ref$walk$shortDescri = _ref$walk.shortDescription,
+	      shortDescription = _ref$walk$shortDescri === undefined ? '' : _ref$walk$shortDescri,
+	      _ref$walk$themes = _ref$walk.themes,
+	      themes = _ref$walk$themes === undefined ? [] : _ref$walk$themes,
+	      _ref$walk$team = _ref$walk.team,
+	      team = _ref$walk$team === undefined ? [] : _ref$walk$team,
+	      _ref$walk$time = _ref$walk.time;
 	  _ref$walk$time = _ref$walk$time === undefined ? {} : _ref$walk$time;
 	  var _ref$walk$time$slots = _ref$walk$time.slots;
 	  _ref$walk$time$slots = _ref$walk$time$slots === undefined ? [] : _ref$walk$time$slots;
 
-	  var _ref$walk$time$slots2 = _slicedToArray(_ref$walk$time$slots, 1);
+	  var _ref$walk$time$slots2 = _slicedToArray(_ref$walk$time$slots, 1),
+	      _ref$walk$time$slots3 = _ref$walk$time$slots2[0];
 
-	  var _ref$walk$time$slots3 = _ref$walk$time$slots2[0];
 	  _ref$walk$time$slots3 = _ref$walk$time$slots3 === undefined ? [] : _ref$walk$time$slots3;
 
-	  var _ref$walk$time$slots4 = _slicedToArray(_ref$walk$time$slots3, 1);
-
-	  var startTime = _ref$walk$time$slots4[0];
+	  var _ref$walk$time$slots4 = _slicedToArray(_ref$walk$time$slots3, 1),
+	      startTime = _ref$walk$time$slots4[0];
 
 	  var past = startTime * 1000 < yesterday.getTime();
 	  var placeholder = 'placeholder' + id % 3;
@@ -1893,8 +1892,8 @@
 	/* global React */
 
 
-	var _React = React;
-	var ce = _React.createElement;
+	var _React = React,
+	    ce = _React.createElement;
 
 	/**
 	 * The walk list
@@ -1903,8 +1902,8 @@
 	exports.default = function (_ref) {
 	  var outings = _ref.outings;
 	  return ce('table', { className: 'walklist table' }, ce('thead', null, ce('tr', null, ce('th', null, (0, _I18nStore.translateTag)(_templateObject)), ce('th', null, (0, _I18nStore.translateTag)(_templateObject2)), ce('th', null, (0, _I18nStore.translateTag)(_templateObject3)), ce('th', null, (0, _I18nStore.translateTag)(_templateObject4)))), ce('tbody', null, outings.map(function (_ref2) {
-	    var walk = _ref2.walk;
-	    var slot = _ref2.slot;
+	    var walk = _ref2.walk,
+	        slot = _ref2.slot;
 	    return ce(_ListItem2.default, { key: 'walk' + walk.id + slot[0], walk: walk, slot: slot });
 	  })));
 	};
@@ -1919,12 +1918,12 @@
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	exports.default = ListItem;
 	/* global React */
-	var _React = React;
-	var ce = _React.createElement;
+	var _React = React,
+	    ce = _React.createElement;
 
 	// Date formatter
 
@@ -1946,11 +1945,11 @@
 	}
 
 	function ListItem(_ref) {
-	  var _ref$walk = _ref.walk;
-	  var map = _ref$walk.map;
-	  var url = _ref$walk.url;
-	  var title = _ref$walk.title;
-	  var slot = _ref.slot;
+	  var _ref$walk = _ref.walk,
+	      map = _ref$walk.map,
+	      url = _ref$walk.url,
+	      title = _ref$walk.title,
+	      slot = _ref.slot;
 
 	  var Meeting = void 0;
 	  var startDate = void 0;
@@ -2003,16 +2002,16 @@
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-	var _React = React;
-	var Component = _React.Component;
-	var ce = _React.createElement;
+	var _React = React,
+	    Component = _React.Component,
+	    ce = _React.createElement;
 
 	// Helper to see if a member is a walk leader
 	// Check if their role contains leader, or their type does
 
 	var isWalkLeader = function isWalkLeader(_ref) {
-	  var role = _ref.role;
-	  var type = _ref.type;
+	  var role = _ref.role,
+	      type = _ref.type;
 	  return role && role.includes('leader') || type && type.includes('leader');
 	};
 
@@ -2057,15 +2056,15 @@
 	 * @param google.maps.Map gmap The google map
 	 */
 	function buildNewMarker(_ref2) {
-	  var lat = _ref2.lat;
-	  var lng = _ref2.lng;
-	  var _ref2$team = _ref2.team;
-	  var team = _ref2$team === undefined ? [] : _ref2$team;
-	  var startTime = _ref2.startTime;
-	  var title = _ref2.title;
-	  var gmap = _ref2.gmap;
-	  var url = _ref2.url;
-	  var shortDescription = _ref2.shortDescription;
+	  var lat = _ref2.lat,
+	      lng = _ref2.lng,
+	      _ref2$team = _ref2.team,
+	      team = _ref2$team === undefined ? [] : _ref2$team,
+	      startTime = _ref2.startTime,
+	      title = _ref2.title,
+	      gmap = _ref2.gmap,
+	      url = _ref2.url,
+	      shortDescription = _ref2.shortDescription;
 
 	  // Add the marker
 	  var marker = new google.maps.Marker({
@@ -2148,20 +2147,20 @@
 
 	  try {
 	    for (var _iterator2 = outings[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	      var _step2$value = _step2.value;
-	      var _step2$value$walk = _step2$value.walk;
-	      var id = _step2$value$walk.id;
-	      var _step2$value$walk$fea = _step2$value$walk.features;
-	      var features = _step2$value$walk$fea === undefined ? [] : _step2$value$walk$fea;
-	      var _step2$value$walk$tea = _step2$value$walk.team;
-	      var team = _step2$value$walk$tea === undefined ? [] : _step2$value$walk$tea;
-	      var _step2$value$walk$tit = _step2$value$walk.title;
-	      var title = _step2$value$walk$tit === undefined ? '' : _step2$value$walk$tit;
-	      var _step2$value$walk$url = _step2$value$walk.url;
-	      var url = _step2$value$walk$url === undefined ? '' : _step2$value$walk$url;
-	      var _step2$value$walk$sho = _step2$value$walk.shortDescription;
-	      var shortDescription = _step2$value$walk$sho === undefined ? '' : _step2$value$walk$sho;
-	      var slot = _step2$value.slot;
+	      var _ref4 = _step2.value;
+	      var _ref4$walk = _ref4.walk,
+	          id = _ref4$walk.id,
+	          _ref4$walk$features = _ref4$walk.features,
+	          features = _ref4$walk$features === undefined ? [] : _ref4$walk$features,
+	          _ref4$walk$team = _ref4$walk.team,
+	          team = _ref4$walk$team === undefined ? [] : _ref4$walk$team,
+	          _ref4$walk$title = _ref4$walk.title,
+	          title = _ref4$walk$title === undefined ? '' : _ref4$walk$title,
+	          _ref4$walk$url = _ref4$walk.url,
+	          url = _ref4$walk$url === undefined ? '' : _ref4$walk$url,
+	          _ref4$walk$shortDescr = _ref4$walk.shortDescription,
+	          shortDescription = _ref4$walk$shortDescr === undefined ? '' : _ref4$walk$shortDescr,
+	          slot = _ref4.slot;
 
 	      if (markers.has(id)) {
 	        // We already have this marker built, so simply add it to the map
@@ -2171,28 +2170,27 @@
 	          return f.type === 'Feature' && f.geometry.type === 'Point';
 	        });
 
-	        var _ref3 = features.find(function (f) {
+	        var _ref5 = features.find(function (f) {
 	          return f.type === 'Feature' && f.geometry.type === 'LineString';
-	        }) || {};
+	        }) || {},
+	            _ref5$geometry = _ref5.geometry;
 
-	        var _ref3$geometry = _ref3.geometry;
-	        _ref3$geometry = _ref3$geometry === undefined ? {} : _ref3$geometry;
-	        var _ref3$geometry$coordi = _ref3$geometry.coordinates;
-	        var route = _ref3$geometry$coordi === undefined ? [] : _ref3$geometry$coordi;
+	        _ref5$geometry = _ref5$geometry === undefined ? {} : _ref5$geometry;
+	        var _ref5$geometry$coordi = _ref5$geometry.coordinates,
+	            route = _ref5$geometry$coordi === undefined ? [] : _ref5$geometry$coordi;
 
 	        // Grab either the first stop or route point
 
-	        var _ref4 = [].concat(_toConsumableArray(points.map(function (m) {
+	        var _ref6 = [].concat(_toConsumableArray(points.map(function (m) {
 	          return m.geometry.coordinates;
-	        })), _toConsumableArray(route));
+	        })), _toConsumableArray(route)),
+	            _ref6$ = _ref6[0];
 
-	        var _ref4$ = _ref4[0];
-	        _ref4$ = _ref4$ === undefined ? [] : _ref4$;
+	        _ref6$ = _ref6$ === undefined ? [] : _ref6$;
 
-	        var _ref4$2 = _slicedToArray(_ref4$, 2);
-
-	        var lng = _ref4$2[0];
-	        var lat = _ref4$2[1];
+	        var _ref6$2 = _slicedToArray(_ref6$, 2),
+	            lng = _ref6$2[0],
+	            lat = _ref6$2[1];
 
 	        if (lat && lng) {
 	          // We must build a marker
@@ -2222,7 +2220,7 @@
 	  _inherits(LocationMap, _Component);
 
 	  function LocationMap() {
-	    var _ref5;
+	    var _ref7;
 
 	    _classCallCheck(this, LocationMap);
 
@@ -2230,7 +2228,7 @@
 	      args[_key] = arguments[_key];
 	    }
 
-	    var _this = _possibleConstructorReturn(this, (_ref5 = LocationMap.__proto__ || Object.getPrototypeOf(LocationMap)).call.apply(_ref5, [this].concat(args)));
+	    var _this = _possibleConstructorReturn(this, (_ref7 = LocationMap.__proto__ || Object.getPrototypeOf(LocationMap)).call.apply(_ref7, [this].concat(args)));
 
 	    Object.assign(_this, {
 	      state: { map: null, markers: {} }
@@ -2241,13 +2239,11 @@
 	  _createClass(LocationMap, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      var _props = this.props;
-	      var zoomlevel = _props.zoomlevel;
-
-	      var _props$latlng = _slicedToArray(_props.latlng, 2);
-
-	      var lat = _props$latlng[0];
-	      var lng = _props$latlng[1];
+	      var _props = this.props,
+	          zoomlevel = _props.zoomlevel,
+	          _props$latlng = _slicedToArray(_props.latlng, 2),
+	          lat = _props$latlng[0],
+	          lng = _props$latlng[1];
 
 	      loadGoogle();
 	      var locationLatLng = new google.maps.LatLng(lat, lng);
@@ -2292,16 +2288,16 @@
 	  value: true
 	});
 	/* global React */
-	var _React = React;
-	var ce = _React.createElement;
+	var _React = React,
+	    ce = _React.createElement;
 
 	exports.default = function (_ref) {
-	  var title = _ref.title;
-	  var url = _ref.url;
-	  var date = _ref.date;
-	  var shortDescription = _ref.shortDescription;
-	  var _ref$leaders = _ref.leaders;
-	  var leaders = _ref$leaders === undefined ? [] : _ref$leaders;
+	  var title = _ref.title,
+	      url = _ref.url,
+	      date = _ref.date,
+	      shortDescription = _ref.shortDescription,
+	      _ref$leaders = _ref.leaders,
+	      leaders = _ref$leaders === undefined ? [] : _ref$leaders;
 	  return ce('span', null, ce('h4', { style: { marginBottom: '0.1em' } }, title), date, leaders.length ? ce('h6', null, 'Led by: ' + leaders.join(', ')) : null, ce('p', null, shortDescription + ' ', ce('a', { href: url, target: '_blank' }, 'Read More')));
 	};
 
@@ -2330,9 +2326,9 @@
 	 * a jQueryUI based React component for picking a to/from date range
 	 */
 	/* global React $ */
-	var _React = React;
-	var ce = _React.createElement;
-	var Component = _React.Component;
+	var _React = React,
+	    ce = _React.createElement,
+	    Component = _React.Component;
 
 
 	var dateFormat = 'yy-mm-dd';
@@ -2350,11 +2346,9 @@
 	    var _props$value = props.value;
 	    _props$value = _props$value === undefined ? ['', ''] : _props$value;
 
-	    var _props$value2 = _slicedToArray(_props$value, 2);
-
-	    var from = _props$value2[0];
-	    var to = _props$value2[1];
-
+	    var _props$value2 = _slicedToArray(_props$value, 2),
+	        from = _props$value2[0],
+	        to = _props$value2[1];
 
 	    _this.state = {
 	      from: from ? $.datepicker.formatDate(dateFormat, new Date(from + offset)) : '',
@@ -2424,15 +2418,15 @@
 	  value: true
 	});
 	/* global React */
-	var _React = React;
-	var ce = _React.createElement;
+	var _React = React,
+	    ce = _React.createElement;
 
 
 	var Filter = function Filter(_ref) {
-	  var name = _ref.name;
-	  var selected = _ref.selected;
-	  var setFilter = _ref.setFilter;
-	  var data = _ref.data;
+	  var name = _ref.name,
+	      selected = _ref.selected,
+	      setFilter = _ref.setFilter,
+	      data = _ref.data;
 	  return ce('li', null, ce('label', null, name), ce('select', { value: selected, onChange: function onChange(e) {
 	      return setFilter(e.target.value);
 	    } }, ce('option', { value: '' }, 'All'), Object.keys(data).map(function (k) {

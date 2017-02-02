@@ -71,12 +71,12 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var _React = React;
-	var ce = _React.createElement;
-	var Component = _React.Component;
-	var _JanesWalk = JanesWalk;
-	var startups = _JanesWalk.startups;
-	var event = _JanesWalk.event;
+	var _React = React,
+	    ce = _React.createElement,
+	    Component = _React.Component;
+	var _JanesWalk = JanesWalk,
+	    startups = _JanesWalk.startups,
+	    event = _JanesWalk.event;
 
 	/**
 	 * Fold accent-characters into their accentless character
@@ -101,17 +101,17 @@
 	};
 
 	var City = function City(_ref) {
-	  var id = _ref.id;
-	  var name = _ref.name;
-	  var url = _ref.url;
+	  var id = _ref.id,
+	      name = _ref.name,
+	      url = _ref.url;
 	  return ce('li', { key: 'city' + id }, ce('a', { href: url }, name));
 	};
 
 	var Country = function Country(_ref2) {
-	  var id = _ref2.id;
-	  var name = _ref2.name;
-	  var url = _ref2.url;
-	  var cities = _ref2.cities;
+	  var id = _ref2.id,
+	      name = _ref2.name,
+	      url = _ref2.url,
+	      cities = _ref2.cities;
 	  return ce('li', { key: 'country' + id, className: 'country' }, ce('a', { href: url }, name), ce('ul', { className: 'cities' }, cities.map(function (city) {
 	    return ce(City, _extends({ key: 'city' + city.id }, city));
 	  })));
@@ -181,9 +181,9 @@
 	  _createClass(PageListTypeahead, [{
 	    key: 'render',
 	    value: function render() {
-	      var _state = this.state;
-	      var q = _state.q;
-	      var matched = _state.matched;
+	      var _state = this.state,
+	          q = _state.q,
+	          matched = _state.matched;
 	      var user = this.props.user;
 
 
@@ -214,8 +214,8 @@
 
 
 	startups.dom.then(function () {
-	  var _JanesWalk2 = JanesWalk;
-	  var user = _JanesWalk2.user;
+	  var _JanesWalk2 = JanesWalk,
+	      user = _JanesWalk2.user;
 
 	  event.on('countries.receive', function (countries) {
 	    return ReactDOM.render(ce(PageListTypeahead, { countries: countries, user: user }), document.getElementById('ccm-jw-page-list-typeahead'));
@@ -344,7 +344,7 @@
 
 	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 	// Copyright Joyent, Inc. and other Node contributors.
 	//
@@ -1232,11 +1232,9 @@
 	   * sprintf syntax used to replace %d and %s tokens with arguments
 	   */
 	  translate: function translate(str) {
-	    var _ref = this.translations[str] || [];
-
-	    var _ref2 = _slicedToArray(_ref, 1);
-
-	    var translation = _ref2[0];
+	    var _ref = this.translations[str] || [],
+	        _ref2 = _slicedToArray(_ref, 1),
+	        translation = _ref2[0];
 
 	    for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
 	      args[_key2 - 1] = arguments[_key2];
